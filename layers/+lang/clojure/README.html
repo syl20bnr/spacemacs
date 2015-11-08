@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-02 Mon 22:22 -->
+<!-- 2015-11-08 Sun 18:49 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Clojure contribution layer for Spacemacs</title>
@@ -94,15 +94,14 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-          <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+                 href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -237,7 +236,7 @@ To use this contribution add it to your <code>~/.spacemacs</code>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>clojure<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>clojure<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -258,7 +257,7 @@ To enable this feature, add the following snippet to the
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq clojure-enable-fancify-symbols t<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq clojure-enable-fancify-symbols t<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -267,8 +266,8 @@ Or set this variable when loading the configuration layer:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
-'<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>clojure <span style="color: #ff9eb8;">:variables</span> clojure-enable-fancify-symbols t<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers
+'<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>clojure <span class="org-builtin">:variables</span> clojure-enable-fancify-symbols t<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -287,14 +286,14 @@ Or set this variable when loading the configuration layer:
 
 <div class="org-src-container">
 
-<pre class="src src-clojure"><span style="color: #AE81FF;">(</span>require '<span style="color: #66D9EF;">boot.repl</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-clojure"><span class="org-rainbow-delimiters-depth-1">(</span>require '<span class="org-type">boot.repl</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="color: #AE81FF;">(</span>swap! <span style="color: #66D9EF;">boot.repl</span><span style="color: #F8F8F2; background-color: #272822;">/</span><span style="color: #FD971F;">*default-dependencies*</span> conj
-       '<span style="color: #66D9EF;">[</span>refactor-nrepl <span style="color: #E6DB74; font-style: italic;">"1.2.0-SNAPSHOT"</span><span style="color: #66D9EF;">]</span>
-       '<span style="color: #66D9EF;">[</span><span style="color: #66D9EF;">cider</span><span style="color: #F8F8F2; background-color: #272822;">/</span>cider-nrepl <span style="color: #E6DB74; font-style: italic;">"0.10.0-SNAPSHOT"</span><span style="color: #66D9EF;">]</span><span style="color: #AE81FF;">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>swap! <span class="org-type">boot.repl</span><span class="org-default">/</span><span class="org-variable-name">*default-dependencies*</span> conj
+       '<span class="org-rainbow-delimiters-depth-2">[</span>refactor-nrepl <span class="org-string">"1.2.0-SNAPSHOT"</span><span class="org-rainbow-delimiters-depth-2">]</span>
+       '<span class="org-rainbow-delimiters-depth-2">[</span><span class="org-type">cider</span><span class="org-default">/</span>cider-nrepl <span class="org-string">"0.10.0-SNAPSHOT"</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="color: #AE81FF;">(</span>swap! <span style="color: #66D9EF;">boot.repl</span><span style="color: #F8F8F2; background-color: #272822;">/</span><span style="color: #FD971F;">*default-middleware*</span> conj
-       '<span style="color: #66D9EF;">refactor-nrepl.middleware</span><span style="color: #F8F8F2; background-color: #272822;">/</span>wrap-refactor<span style="color: #AE81FF;">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>swap! <span class="org-type">boot.repl</span><span class="org-default">/</span><span class="org-variable-name">*default-middleware*</span> conj
+       '<span class="org-type">refactor-nrepl.middleware</span><span class="org-default">/</span>wrap-refactor<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -314,10 +313,10 @@ Or set this variable when loading the configuration layer:
 
 <div class="org-src-container">
 
-<pre class="src src-clojure"><span style="color: #AE81FF;">{</span><span style="color: #AE81FF;">:user</span> <span style="color: #66D9EF;">{</span><span style="color: #AE81FF;">:plugins</span> <span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">[</span><span style="color: #66D9EF;">cider</span><span style="color: #F8F8F2; background-color: #272822;">/</span>cider-nrepl <span style="color: #E6DB74; font-style: italic;">"0.10.0-SNAPSHOT"</span><span style="color: #E6DB74;">]</span>
-                  <span style="color: #E6DB74;">[</span>refactor-nrepl <span style="color: #E6DB74; font-style: italic;">"1.2.0-SNAPSHOT"</span><span style="color: #E6DB74;">]</span><span style="color: #A6E22E;">]</span>
-        <span style="color: #AE81FF;">:dependencies</span> <span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">[</span>alembic <span style="color: #E6DB74; font-style: italic;">"0.3.2"</span><span style="color: #E6DB74;">]</span>
-                       <span style="color: #E6DB74;">[</span><span style="color: #66D9EF;">org.clojure</span><span style="color: #F8F8F2; background-color: #272822;">/</span>tools.nrepl <span style="color: #E6DB74; font-style: italic;">"0.2.10"</span><span style="color: #E6DB74;">]</span><span style="color: #A6E22E;">]</span><span style="color: #66D9EF;">}</span><span style="color: #AE81FF;">}</span>
+<pre class="src src-clojure"><span class="org-rainbow-delimiters-depth-1">{</span><span class="org-clojure-keyword">:user</span> <span class="org-rainbow-delimiters-depth-2">{</span><span class="org-clojure-keyword">:plugins</span> <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-rainbow-delimiters-depth-4">[</span><span class="org-type">cider</span><span class="org-default">/</span>cider-nrepl <span class="org-string">"0.10.0-SNAPSHOT"</span><span class="org-rainbow-delimiters-depth-4">]</span>
+                  <span class="org-rainbow-delimiters-depth-4">[</span>refactor-nrepl <span class="org-string">"1.2.0-SNAPSHOT"</span><span class="org-rainbow-delimiters-depth-4">]</span><span class="org-rainbow-delimiters-depth-3">]</span>
+        <span class="org-clojure-keyword">:dependencies</span> <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-rainbow-delimiters-depth-4">[</span>alembic <span class="org-string">"0.3.2"</span><span class="org-rainbow-delimiters-depth-4">]</span>
+                       <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-type">org.clojure</span><span class="org-default">/</span>tools.nrepl <span class="org-string">"0.2.10"</span><span class="org-rainbow-delimiters-depth-4">]</span><span class="org-rainbow-delimiters-depth-3">]</span><span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">}</span>
 </pre>
 </div>
 
@@ -1217,7 +1216,7 @@ In general, <code>q</code> should always quit the popped up buffer.
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-02 Mon 22:22</p>
+<p class="date">Created: 2015-11-08 Sun 18:49</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

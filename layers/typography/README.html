@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-08 Sun 18:48 -->
+<!-- 2015-11-08 Sun 18:47 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
-<title>Dash contribution layer for Spacemacs</title>
+<title>typography contribution layer for Spacemacs</title>
 <meta  name="generator" content="Org-mode" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
@@ -151,71 +151,42 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">Dash contribution layer for Spacemacs</h1>
+<h1 class="title">typography contribution layer for Spacemacs</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#orgheadline1">1. Description</a></li>
-<li><a href="#orgheadline5">2. Install</a>
+<li><a href="#orgheadline2">2. Install</a></li>
+<li><a href="#orgheadline5">3. Key bindings</a>
 <ul>
-<li><a href="#orgheadline2">2.1. Dash (OS X)</a></li>
-<li><a href="#orgheadline3">2.2. Zeal (Linux &amp; Windows)</a></li>
-<li><a href="#orgheadline4">2.3. Check Documentation for x-at-point</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline7">3. Key bindings</a>
-<ul>
-<li><a href="#orgheadline6">3.1. helm-dash</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline10">4. <span class="todo nilTODO">TODO</span> s</a>
-<ul>
-<li><a href="#orgheadline8">4.1. <span class="done nilDONE">DONE</span> Check zeal</a></li>
-<li><a href="#orgheadline9">4.2. <span class="todo nilTODO">TODO</span> Make helm-dash use zeal or dash docsets by default.</a></li>
+<li><a href="#orgheadline3">3.1. Typo Mode</a></li>
+<li><a href="#orgheadline4">3.2. Tildify Mode</a></li>
 </ul>
 </li>
 </ul>
 </div>
-</div>
-
-<div class="figure">
-<p><img src="img/dash.png" alt="dash.png" />
-</p>
-</div>
-
-
-<div class="figure">
-<p><img src="img/zeal.png" alt="zeal.png" />
-</p>
 </div>
 
 <div id="outline-container-orgheadline1" class="outline-2">
 <h2 id="orgheadline1"><span class="section-number-2">1</span> Description</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-<del><b>This layer works only on OS X for the moment</b></del>
+This layer provides support for typographic text editing in Spacemacs.  It
+provides modes to automatically insert and cycle among typographic characters:
 </p>
-<dl class="org-dl">
-<dt><a href="http://kapeli.com/dash">dash</a></dt><dd>Is a great tool for quick access to various sets of documentation,
-only available in OS X.</dd>
 
-<dt><a href="https://github.com/stanaka/dash-at-point">dash-at-point</a></dt><dd>Is the package used to integrate <code>dash</code> in Emacs. It will try
-to intelligently guess specific docsets to use based off of
-your current mode.</dd>
-
-<dt><a href="http://zealdocs.org/">zeal</a></dt><dd>Zeal is an offline documentation browser inspired by Dash,
-available for Linux and Windows.</dd>
-
-<dt><a href="https://github.com/jinzhu/zeal-at-point">zeal-at-point</a></dt><dd>Run zeal-at-point to search the word at point (or string in
-region), then Zeal is launched and search the word. Use
-prefix argument C-u to edit the search string first.</dd>
-</dl>
+<ul class="org-ul">
+<li><a href="https://github.com/jorgenschaefer/typoel">Typo Mode</a> automatically inserts and cycles among typographic Unicode
+characters on some keys.</li>
+<li>Tildify Mode automatically inserts non-breaking spaces where required. (Only
+available on Emacs 25).</li>
+</ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5"><span class="section-number-2">2</span> Install</h2>
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> Install</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 To use this contribution add it to your <code>~/.spacemacs</code>
@@ -223,52 +194,31 @@ To use this contribution add it to your <code>~/.spacemacs</code>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>dash<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>typography<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
-</div>
 
-<div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2"><span class="section-number-3">2.1</span> Dash (OS X)</h3>
-<div class="outline-text-3" id="text-2-1">
 <p>
-You have to install <a href="http://kapeli.com/dash">dash</a> on your machine.
+Typographic editing however is disabled by default.  To enable it by default set
+<code>typography-enable-typographic-editing</code> to <code>t</code>:
 </p>
 
-<p>
-It is recommended to set the <code>HUD mode</code> in your Dash application preferences
-when using this layer. 
-</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers
+              '<span class="org-rainbow-delimiters-depth-2">(</span>typography <span class="org-builtin">:variables</span> typography-enable-typographic-editing t<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
 </div>
-</div>
-
-
-<div id="outline-container-orgheadline3" class="outline-3">
-<h3 id="orgheadline3"><span class="section-number-3">2.2</span> Zeal (Linux &amp; Windows)</h3>
-<div class="outline-text-3" id="text-2-2">
-<p>
-You have to install <a href="http://zealdocs.org/">zeal</a> on your machine.
-</p>
 
 <p>
-Then install the docsets you use more frequently
+This setting enables automatic insertion of non-breaking spaces where required
+and automatic insertion and cycling among of typographic quotes and dashes.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-3">
-<h3 id="orgheadline4"><span class="section-number-3">2.3</span> Check Documentation for x-at-point</h3>
-<div class="outline-text-3" id="text-2-3">
-<p>
-See the documentation <a href="https://github.com/stanaka/dash-at-point#Usage">dash-at-point-usage</a> , or <a href="https://github.com/jinzhu/zeal-at-point">zeal-at-point</a> for more
-information on customizing specific docsets for modes.
-</p>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="orgheadline7"><span class="section-number-2">3</span> Key bindings</h2>
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">3</span> Key bindings</h2>
 <div class="outline-text-2" id="text-3">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -280,70 +230,120 @@ information on customizing specific docsets for modes.
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Key Bindings</th>
 <th scope="col" class="org-left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="org-left"><code>SPC d d</code></td>
-<td class="org-left">Lookup thing at point in Dash or Zeal</td>
+<td class="org-left"><code>SPC t T y</code></td>
+<td class="org-left">Toggle Typo Mode (automatic insertion of typographic characters)</td>
 </tr>
 
 <tr>
-<td class="org-left"><code>SPC d D</code></td>
-<td class="org-left">Lookup thing at point in Dash or Zeal within a specified Docset</td>
+<td class="org-left"><code>SPC t T d</code></td>
+<td class="org-left">Toggle Tildify Mode (automatic insertion of non-breaking spaces)</td>
 </tr>
 
 <tr>
-<td class="org-left"><code>SPC d h</code></td>
-<td class="org-left">Lookup thing at point in helm-dash</td>
+<td class="org-left"><code>SPC x T t</code></td>
+<td class="org-left">Insert non-breaking spaces in the current region</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+The following keybindings are available in insert state.
+</p>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">3.1</span> Typo Mode</h3>
+<div class="outline-text-3" id="text-3-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Bindings</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">~"~</td>
+<td class="org-left">Cycle among quotation marks</td>
 </tr>
 
 <tr>
-<td class="org-left"><code>SPC d H</code></td>
-<td class="org-left">Lookup thing at point in helm-dash within a specified Docset</td>
+<td class="org-left"><code>`</code></td>
+<td class="org-left">Cycle among left single quotation marks</td>
+</tr>
+
+<tr>
+<td class="org-left">~'~</td>
+<td class="org-left">Cycle among right single quotation marks</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>-</code></td>
+<td class="org-left">Cycle among dashes</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>.</code></td>
+<td class="org-left">Cycle among ellipsis</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;</code></td>
+<td class="org-left">Cycle among left angle brackets</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&gt;</code></td>
+<td class="org-left">Cycle among right angle brackets</td>
 </tr>
 </tbody>
 </table>
 </div>
-
-<div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6"><span class="section-number-3">3.1</span> helm-dash</h3>
-<div class="outline-text-3" id="text-3-1">
-<p>
-<code>dash-at-point</code> is linked to the GUI app and is only available for OSX. On
-linux, you can use <code>zeal-at-point</code> which is linked to the GUI app too, but it's
-open source.
-</p>
-
-<p>
-Or you can use <a href="https://github.com/areina/helm-dash">helm-dash</a> instead, it requires no app. You can use
-<code>dash/helm-dash-docset-newpath</code> to set the location path of your docsets.
-</p>
-</div>
-</div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-2">
-<h2 id="orgheadline10"><span class="section-number-2">4</span> <span class="todo TODO">TODO</span> s</h2>
-<div class="outline-text-2" id="text-4">
-</div><div id="outline-container-orgheadline8" class="outline-3">
-<h3 id="orgheadline8"><span class="section-number-3">4.1</span> <span class="done DONE">DONE</span> Check zeal</h3>
-<div class="outline-text-3" id="text-4-1">
-<p>
-<a href="http://zealdocs.org/">zeal</a> is an open source alternative to dash with Emacs integration available.
-</p>
-</div>
-</div>
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">3.2</span> Tildify Mode</h3>
+<div class="outline-text-3" id="text-3-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
-<div id="outline-container-orgheadline9" class="outline-3">
-<h3 id="orgheadline9"><span class="section-number-3">4.2</span> <span class="todo TODO">TODO</span> Make helm-dash use zeal or dash docsets by default.</h3>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key bindings</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC</code></td>
+<td class="org-left">Insert non-breaking space when required</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-08 Sun 18:48</p>
+<p class="date">Created: 2015-11-08 Sun 18:47</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

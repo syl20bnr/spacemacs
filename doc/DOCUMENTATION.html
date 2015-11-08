@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-02 Mon 22:21 -->
+<!-- 2015-11-08 Sun 18:47 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Spacemacs documentation</title>
@@ -94,15 +94,14 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-          <link rel="stylesheet" type="text/css"
-                href="css/readtheorg.css"/>
+                 href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -323,7 +322,7 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline97">12.5.1.1. Smooth scrolling</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline100">12.5.2. Vim motions with ace-jump mode</a>
+<li><a href="#orgheadline100">12.5.2. Vim motions with avy</a>
 <ul>
 <li><a href="#orgheadline99">12.5.2.1. ace-link mode</a></li>
 </ul>
@@ -839,7 +838,7 @@ Example:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq &lt;layer&gt;-packages '<span style="color: #66D9EF;">(</span>package1 package2 ...<span style="color: #66D9EF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq &lt;layer&gt;-packages '<span class="org-rainbow-delimiters-depth-2">(</span>package1 package2 ...<span class="org-rainbow-delimiters-depth-2">)</span>
 </pre>
 </div>
 
@@ -860,7 +859,7 @@ format in or <code>packages.el</code>:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">&lt;layer&gt;/init-xxx</span> <span style="color: #66D9EF;">()</span> ...body <span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">&lt;layer&gt;/init-xxx</span> <span class="org-rainbow-delimiters-depth-2">()</span> ...body <span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -890,7 +889,7 @@ Example:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq &lt;layer&gt;-excluded-packages '<span style="color: #66D9EF;">(</span>package1 package2 ...<span style="color: #66D9EF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq &lt;layer&gt;-excluded-packages '<span class="org-rainbow-delimiters-depth-2">(</span>package1 package2 ...<span class="org-rainbow-delimiters-depth-2">)</span>
 </pre>
 </div>
 </div>
@@ -923,7 +922,7 @@ Example to install <code>llvm-mode</code> and <code>dts-mode</code>:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq dotspacemacs-additional-packages '<span style="color: #66D9EF;">(</span>llvm-mode dts-mode<span style="color: #66D9EF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq dotspacemacs-additional-packages '<span class="org-rainbow-delimiters-depth-2">(</span>llvm-mode dts-mode<span class="org-rainbow-delimiters-depth-2">)</span>
 </pre>
 </div>
 </div>
@@ -984,7 +983,7 @@ To install it, just add <code>themes-megapack</code> to your <code>~/.spacemacs<
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>themes-megapack<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>themes-megapack<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -1158,7 +1157,7 @@ For instance to add the configuration layer of <a href="#orgheadline37">RMS</a>:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>rms<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>rms<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -1177,7 +1176,7 @@ done by setting the list <code>dotspacemacs-configuration-layer-path</code> in y
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layer-path '<span style="color: #66D9EF;">(</span><span style="color: #E6DB74; font-style: italic;">"~/.myconfig/"</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layer-path '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"~/.myconfig/"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -1194,12 +1193,12 @@ can be set directly in the <code>dotspacemacs-configuration-layers</code> like t
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">dotspacemacs/layers</span> <span style="color: #66D9EF;">()</span>
-  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">List of configuration layers to load.</span>
-  <span style="color: #66D9EF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #A6E22E;">(</span>auto-completion
-                                                    <span style="color: #E6DB74;">(</span>git <span style="color: #ff9eb8;">:variables</span>
-                                                         git-magit-status-fullscreen t<span style="color: #E6DB74;">)</span>
-                                                    smex<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">dotspacemacs/layers</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">List of configuration layers to load.</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-3">(</span>auto-completion
+                                                    <span class="org-rainbow-delimiters-depth-4">(</span>git <span class="org-builtin">:variables</span>
+                                                         git-magit-status-fullscreen t<span class="org-rainbow-delimiters-depth-4">)</span>
+                                                    smex<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -1221,7 +1220,7 @@ For instance to disable the <code>rainbow-delimiters</code> package:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-excluded-packages '<span style="color: #66D9EF;">(</span>rainbow-delimiters<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-excluded-packages '<span class="org-rainbow-delimiters-depth-2">(</span>rainbow-delimiters<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -1263,7 +1262,7 @@ map is the global-map. Setting a key binding the global-map uses the function
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>global-set-key <span style="color: #66D9EF;">(</span>kbd <span style="color: #E6DB74; font-style: italic;">"C-]"</span><span style="color: #66D9EF;">)</span> 'forward-char<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>global-set-key <span class="org-rainbow-delimiters-depth-2">(</span>kbd <span class="org-string">"C-]"</span><span class="org-rainbow-delimiters-depth-2">)</span> 'forward-char<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -1277,7 +1276,7 @@ Evil-mode has its own functions for defining keys).
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>define-key evil-insert-state-map <span style="color: #66D9EF;">(</span>kbd <span style="color: #E6DB74; font-style: italic;">"C-]"</span><span style="color: #66D9EF;">)</span> 'forward-char<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>define-key evil-insert-state-map <span class="org-rainbow-delimiters-depth-2">(</span>kbd <span class="org-string">"C-]"</span><span class="org-rainbow-delimiters-depth-2">)</span> 'forward-char<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -1290,8 +1289,8 @@ as follows.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>evil-leader/set-key <span style="color: #E6DB74; font-style: italic;">"C-]"</span> 'forward-char<span style="color: #AE81FF;">)</span>
-<span style="color: #AE81FF;">(</span>evil-leader/set-key-for-mode 'emacs-lisp-mode <span style="color: #E6DB74; font-style: italic;">"C-]"</span> 'forward-char<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>evil-leader/set-key <span class="org-string">"C-]"</span> 'forward-char<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>evil-leader/set-key-for-mode 'emacs-lisp-mode <span class="org-string">"C-]"</span> 'forward-char<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -1311,8 +1310,8 @@ like <code>SPC ac</code> for <code>calc-dispatch</code>. Nesting bindings is eas
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>spacemacs/declare-prefix <span style="color: #E6DB74; font-style: italic;">"]"</span> <span style="color: #E6DB74; font-style: italic;">"bracket-prefix"</span><span style="color: #AE81FF;">)</span>
-<span style="color: #AE81FF;">(</span>evil-leader/set-key <span style="color: #E6DB74; font-style: italic;">"]]"</span> 'double-bracket-command<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>spacemacs/declare-prefix <span class="org-string">"]"</span> <span class="org-string">"bracket-prefix"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>evil-leader/set-key <span class="org-string">"]]"</span> 'double-bracket-command<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -1646,8 +1645,8 @@ your <code>~/.spacemacs</code>):
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>evil-define-key 'visual evil-surround-mode-map <span style="color: #E6DB74; font-style: italic;">"s"</span> 'evil-substitute<span style="color: #AE81FF;">)</span>
-<span style="color: #AE81FF;">(</span>evil-define-key 'visual evil-surround-mode-map <span style="color: #E6DB74; font-style: italic;">"S"</span> 'evil-surround-region<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>evil-define-key 'visual evil-surround-mode-map <span class="org-string">"s"</span> 'evil-substitute<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>evil-define-key 'visual evil-surround-mode-map <span class="org-string">"S"</span> 'evil-surround-region<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -1789,7 +1788,7 @@ variable <code>dotspacemacs-themes</code>. For instance, to specify <code>solari
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-themes '<span style="color: #66D9EF;">(</span>solarized-light leuven zenburn<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-themes '<span class="org-rainbow-delimiters-depth-2">(</span>solarized-light leuven zenburn<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -1861,11 +1860,11 @@ By default its value is:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-default-font '<span style="color: #66D9EF;">(</span><span style="color: #E6DB74; font-style: italic;">"Source Code Pro"</span>
-                                          <span style="color: #ff9eb8;">:size</span> <span style="color: #AE81FF;">13</span>
-                                          <span style="color: #ff9eb8;">:weight</span> normal
-                                          <span style="color: #ff9eb8;">:width</span> normal
-                                          <span style="color: #ff9eb8;">:powerline-scale</span> <span style="color: #AE81FF;">1.1</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-default-font '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"Source Code Pro"</span>
+                                          <span class="org-builtin">:size</span> <span class="org-highlight-numbers-number">13</span>
+                                          <span class="org-builtin">:weight</span> normal
+                                          <span class="org-builtin">:width</span> normal
+                                          <span class="org-builtin">:powerline-scale</span> <span class="org-highlight-numbers-number">1.1</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -2064,13 +2063,23 @@ and <code>T</code>):
 <div class="outline-text-5" id="text-11-1-3-1">
 <p>
 Line numbers can be toggled on in all <code>prog-mode</code> and <code>text-mode</code> buffers by
-setting the <code>dotspacemacs-global-line-numbers</code> variable in your <code>~/.spacemacs</code>
-to something different than <code>nil</code>:
+setting the <code>dotspacemacs-line-numbers</code> variable in your <code>~/.spacemacs</code>
+to something different than <code>nil</code>.
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-global-line-numbers t<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-line-numbers t<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+If it is set to <code>relative</code>, line numbers are show in a relative way:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-line-numbers 'relative<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -2341,10 +2350,10 @@ following snippet to your configuration file:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">dotspacemacs/user-config</span> <span style="color: #66D9EF;">()</span>
-  <span style="color: #75715E; font-style: italic;">"This is were you can ultimately override default Spacemacs configuration.</span>
-<span style="color: #75715E; font-style: italic;">This function is called at the very end of Spacemacs initialization."</span>
-  <span style="color: #66D9EF;">(</span>setq powerline-default-separator 'arrow<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">dotspacemacs/user-config</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-doc">"This is were you can ultimately override default Spacemacs configuration.</span>
+<span class="org-doc">This function is called at the very end of Spacemacs initialization."</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>setq powerline-default-separator 'arrow<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -2682,7 +2691,7 @@ together without graphical separators between.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>segment-a segment-b segment-c<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>segment-a segment-b segment-c<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -2691,7 +2700,7 @@ Properties can be applied to segments as well, e.g.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>segment <span style="color: #ff9eb8;">:property</span> value <span style="color: #ff9eb8;">:other-property</span> other-value<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>segment <span class="org-builtin">:property</span> value <span class="org-builtin">:other-property</span> other-value<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 <p>
@@ -2699,9 +2708,9 @@ or for a list,
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #66D9EF;">(</span>segment-a segment-b<span style="color: #66D9EF;">)</span>
- <span style="color: #ff9eb8;">:property</span> value
- <span style="color: #ff9eb8;">:other-property</span> other-value<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>segment-a segment-b<span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-builtin">:property</span> value
+ <span class="org-builtin">:other-property</span> other-value<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -2726,9 +2735,9 @@ Properties can also be specified there. For example,
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>spacemacs|define-mode-line-segment name
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>spacemacs|define-mode-line-segment name
   value-of-segment
-  <span style="color: #ff9eb8;">:face</span> state-face<span style="color: #AE81FF;">)</span>
+  <span class="org-builtin">:face</span> state-face<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -2804,8 +2813,8 @@ Example to set it to <code>jj</code>:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">dotspacemacs/user-config</span> <span style="color: #66D9EF;">()</span>
-  <span style="color: #66D9EF;">(</span>setq-default evil-escape-key-sequence <span style="color: #E6DB74; font-style: italic;">"jj"</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">dotspacemacs/user-config</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>setq-default evil-escape-key-sequence <span class="org-string">"jj"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -3210,6 +3219,11 @@ thusly:
 </tr>
 
 <tr>
+<td class="org-left"><code>SPC h d F</code></td>
+<td class="org-left">describe a face</td>
+</tr>
+
+<tr>
 <td class="org-left"><code>SPC h d k</code></td>
 <td class="org-left">describe a key</td>
 </tr>
@@ -3581,7 +3595,7 @@ On Windows, you may want to disable it. To disable the smooth scrolling set the
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-smooth-scrolling t<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-smooth-scrolling t<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -3589,16 +3603,16 @@ On Windows, you may want to disable it. To disable the smooth scrolling set the
 </div>
 
 <div id="outline-container-orgheadline100" class="outline-4">
-<h4 id="orgheadline100"><span class="section-number-4">12.5.2</span> Vim motions with ace-jump mode</h4>
+<h4 id="orgheadline100"><span class="section-number-4">12.5.2</span> Vim motions with avy</h4>
 <div class="outline-text-4" id="text-12-5-2">
 <p>
-Spacemacs uses the <code>evil</code> integration of <a href="https://github.com/winterTTr/ace-jump-mode">ace-jump mode</a> which enables the
-invocation of <code>ace-jump-mode</code> during motions.
+Spacemacs uses the <code>evil</code> integration of <a href="https://github.com/abo-abo/avy">avy</a> which enables the
+invocation of <code>avy</code> during motions.
 </p>
 
 <p>
 It is useful for deleting visually a set of lines, try the following sequence in
-a buffer containing some text: <code>d SPC l</code>
+a buffer containing some text: <code>d SPC y</code>
 </p>
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
@@ -3618,12 +3632,12 @@ a buffer containing some text: <code>d SPC l</code>
 <tbody>
 <tr>
 <td class="org-left"><code>SPC SPC</code></td>
-<td class="org-left">initiate ace jump word mode</td>
+<td class="org-left">initiate avy jump word</td>
 </tr>
 
 <tr>
-<td class="org-left"><code>SPC l</code></td>
-<td class="org-left">initiate ace jump line mode</td>
+<td class="org-left"><code>SPC y</code></td>
+<td class="org-left">initiate avy jump line</td>
 </tr>
 
 <tr>
@@ -3642,7 +3656,7 @@ a buffer containing some text: <code>d SPC l</code>
 <h5 id="orgheadline99"><span class="section-number-5">12.5.2.1</span> ace-link mode</h5>
 <div class="outline-text-5" id="text-12-5-2-1">
 <p>
-Similar to <code>ace-jump-mode</code>, <a href="https://github.com/abo-abo/ace-link">ace-link</a> allows one to jump to any link in
+Similar to <code>avy</code>, <a href="https://github.com/abo-abo/ace-link">ace-link</a> allows one to jump to any link in
 <code>help-mode</code> and <code>info-mode</code> with two key strokes.
 </p>
 
@@ -6310,6 +6324,21 @@ Text related commands (start with <code>x</code>):
 </tr>
 
 <tr>
+<td class="org-left"><code>SPC x i l l</code></td>
+<td class="org-left">insert lorem-ipsum list</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC x i l p</code></td>
+<td class="org-left">insert lorem-ipsum paragraph</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC x i l s</code></td>
+<td class="org-left">insert lorem-ipsum sentence</td>
+</tr>
+
+<tr>
 <td class="org-left"><code>SPC x J</code></td>
 <td class="org-left">move down a line of text (enter micro-state)</td>
 </tr>
@@ -6410,7 +6439,7 @@ It is possible to enable it easily for <i>all programming modes</i> with the var
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-smartparens-strict-mode t<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-smartparens-strict-mode t<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -6717,9 +6746,9 @@ Example (<code>|</code> is the point):
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">while</span> <span style="color: #66D9EF;">(</span>not done<span style="color: #66D9EF;">)</span>
-  <span style="color: #66D9EF;">(</span>messa|ge <span style="color: #E6DB74; font-style: italic;">"All work and no play makes Jack a dull boy."</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
-  <span style="color: #AE81FF;">(</span>1+ <span style="color: #AE81FF;">41</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">while</span> <span class="org-rainbow-delimiters-depth-2">(</span>not done<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>messa|ge <span class="org-string">"All work and no play makes Jack a dull boy."</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  <span class="org-rainbow-delimiters-depth-1">(</span>1+ <span class="org-highlight-numbers-number">41</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -7224,7 +7253,7 @@ Comments are handled by <a href="https://github.com/redguardtoo/evil-nerd-commen
 </table>
 
 <p>
-<b>Tips:</b> To comment efficiently a block of line use the combo <code>SPC ; SPC l</code>
+<b>Tips:</b> To comment efficiently a block of line use the combo <code>SPC ; SPC y</code>
 </p>
 </div>
 </div>
@@ -8013,7 +8042,7 @@ setup the key on tabulation:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-major-mode-leader-key <span style="color: #E6DB74; font-style: italic;">"&lt;tab&gt;"</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-major-mode-leader-key <span class="org-string">"&lt;tab&gt;"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -8133,7 +8162,7 @@ variable <code>dotspacemacs-persistent-server</code> to <code>t</code> in your <
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-persistent-server t<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-persistent-server t<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -8589,7 +8618,7 @@ developers to elisp hackers!
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-02 Mon 22:21</p>
+<p class="date">Created: 2015-11-08 Sun 18:47</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

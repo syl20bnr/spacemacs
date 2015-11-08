@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-02 Mon 22:22 -->
+<!-- 2015-11-08 Sun 18:49 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>React contribution layer for Spacemacs</title>
@@ -94,15 +94,14 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-          <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+                 href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -220,7 +219,7 @@ To use this contribution add it to your <code>~/.spacemacs</code>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>react<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>react<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -262,29 +261,29 @@ Be sure to have the <code>e4x</code> option set to <code>true</code> on your <co
 </p>
 <div class="org-src-container">
 
-<pre class="src src-json"><span style="color: #AE81FF;">{</span>
-  <span style="color: #F92672; font-weight: bold;">"indent_size"</span>: <span style="color: #AE81FF;">2</span>,
-  <span style="color: #F92672; font-weight: bold;">"indent_char"</span>: <span style="color: #E6DB74; font-style: italic;">" "</span>,
-  <span style="color: #F92672; font-weight: bold;">"eol"</span>: <span style="color: #E6DB74; font-style: italic;">"\n"</span>,
-  <span style="color: #F92672; font-weight: bold;">"indent_level"</span>: <span style="color: #AE81FF;">0</span>,
-  <span style="color: #F92672; font-weight: bold;">"indent_with_tabs"</span>: <span style="color: #AE81FF;">false</span>,
-  <span style="color: #F92672; font-weight: bold;">"preserve_newlines"</span>: <span style="color: #AE81FF;">true</span>,
-  <span style="color: #F92672; font-weight: bold;">"max_preserve_newlines"</span>: <span style="color: #AE81FF;">2</span>,
-  <span style="color: #F92672; font-weight: bold;">"jslint_happy"</span>: <span style="color: #AE81FF;">false</span>,
-  <span style="color: #F92672; font-weight: bold;">"space_after_anon_function"</span>: <span style="color: #AE81FF;">false</span>,
-  <span style="color: #F92672; font-weight: bold;">"brace_style"</span>: <span style="color: #E6DB74; font-style: italic;">"collapse"</span>,
-  <span style="color: #F92672; font-weight: bold;">"keep_array_indentation"</span>: <span style="color: #AE81FF;">false</span>,
-  <span style="color: #F92672; font-weight: bold;">"keep_function_indentation"</span>: <span style="color: #AE81FF;">false</span>,
-  <span style="color: #F92672; font-weight: bold;">"space_before_conditional"</span>: <span style="color: #AE81FF;">true</span>,
-  <span style="color: #F92672; font-weight: bold;">"break_chained_methods"</span>: <span style="color: #AE81FF;">true</span>,
-  <span style="color: #F92672; font-weight: bold;">"eval_code"</span>: <span style="color: #AE81FF;">false</span>,
-  <span style="color: #F92672; font-weight: bold;">"unescape_strings"</span>: <span style="color: #AE81FF;">false</span>,
-  <span style="color: #F92672; font-weight: bold;">"wrap_line_length"</span>: <span style="color: #AE81FF;">80</span>,
-  <span style="color: #F92672; font-weight: bold;">"wrap_attributes"</span>: <span style="color: #E6DB74; font-style: italic;">"auto"</span>,
-  <span style="color: #F92672; font-weight: bold;">"wrap_attributes_indent_size"</span>: <span style="color: #AE81FF;">2</span>,
-  <span style="color: #F92672; font-weight: bold;">"e4x"</span>: <span style="color: #AE81FF;">true</span>,
-  <span style="color: #F92672; font-weight: bold;">"end_with_newline"</span>: <span style="color: #AE81FF;">true</span>
-<span style="color: #AE81FF;">}</span>
+<pre class="src src-json"><span class="org-rainbow-delimiters-depth-1">{</span>
+  <span class="org-keyword">"indent_size"</span>: <span class="org-highlight-numbers-number">2</span>,
+  <span class="org-keyword">"indent_char"</span>: <span class="org-string">" "</span>,
+  <span class="org-keyword">"eol"</span>: <span class="org-string">"\n"</span>,
+  <span class="org-keyword">"indent_level"</span>: <span class="org-highlight-numbers-number">0</span>,
+  <span class="org-keyword">"indent_with_tabs"</span>: <span class="org-constant">false</span>,
+  <span class="org-keyword">"preserve_newlines"</span>: <span class="org-constant">true</span>,
+  <span class="org-keyword">"max_preserve_newlines"</span>: <span class="org-highlight-numbers-number">2</span>,
+  <span class="org-keyword">"jslint_happy"</span>: <span class="org-constant">false</span>,
+  <span class="org-keyword">"space_after_anon_function"</span>: <span class="org-constant">false</span>,
+  <span class="org-keyword">"brace_style"</span>: <span class="org-string">"collapse"</span>,
+  <span class="org-keyword">"keep_array_indentation"</span>: <span class="org-constant">false</span>,
+  <span class="org-keyword">"keep_function_indentation"</span>: <span class="org-constant">false</span>,
+  <span class="org-keyword">"space_before_conditional"</span>: <span class="org-constant">true</span>,
+  <span class="org-keyword">"break_chained_methods"</span>: <span class="org-constant">true</span>,
+  <span class="org-keyword">"eval_code"</span>: <span class="org-constant">false</span>,
+  <span class="org-keyword">"unescape_strings"</span>: <span class="org-constant">false</span>,
+  <span class="org-keyword">"wrap_line_length"</span>: <span class="org-highlight-numbers-number">80</span>,
+  <span class="org-keyword">"wrap_attributes"</span>: <span class="org-string">"auto"</span>,
+  <span class="org-keyword">"wrap_attributes_indent_size"</span>: <span class="org-highlight-numbers-number">2</span>,
+  <span class="org-keyword">"e4x"</span>: <span class="org-constant">true</span>,
+  <span class="org-keyword">"end_with_newline"</span>: <span class="org-constant">true</span>
+<span class="org-rainbow-delimiters-depth-1">}</span>
 </pre>
 </div>
 </div>
@@ -303,15 +302,15 @@ For example to have a consistent 2 spaces indenting both on <code>js</code> and 
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default
- <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">js2-mode</span>
- js2-basic-offset <span style="color: #AE81FF;">2</span>
- <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">web-mode</span>
- css-indent-offset <span style="color: #AE81FF;">2</span>
- web-mode-markup-indent-offset <span style="color: #AE81FF;">2</span>
- web-mode-css-indent-offset <span style="color: #AE81FF;">2</span>
- web-mode-code-indent-offset <span style="color: #AE81FF;">2</span>
- web-mode-attr-indent-offset <span style="color: #AE81FF;">2</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default
+ <span class="org-comment-delimiter">;; </span><span class="org-comment">js2-mode</span>
+ js2-basic-offset <span class="org-highlight-numbers-number">2</span>
+ <span class="org-comment-delimiter">;; </span><span class="org-comment">web-mode</span>
+ css-indent-offset <span class="org-highlight-numbers-number">2</span>
+ web-mode-markup-indent-offset <span class="org-highlight-numbers-number">2</span>
+ web-mode-css-indent-offset <span class="org-highlight-numbers-number">2</span>
+ web-mode-code-indent-offset <span class="org-highlight-numbers-number">2</span>
+ web-mode-attr-indent-offset <span class="org-highlight-numbers-number">2</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -320,10 +319,10 @@ And if you want to have 2 space indent also for element's attributes, concatenat
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">with-eval-after-load</span> 'web-mode
-  <span style="color: #66D9EF;">(</span>add-to-list 'web-mode-indentation-params '<span style="color: #A6E22E;">(</span><span style="color: #E6DB74; font-style: italic;">"lineup-args"</span> . nil<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
-  <span style="color: #66D9EF;">(</span>add-to-list 'web-mode-indentation-params '<span style="color: #A6E22E;">(</span><span style="color: #E6DB74; font-style: italic;">"lineup-concats"</span> . nil<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
-  <span style="color: #66D9EF;">(</span>add-to-list 'web-mode-indentation-params '<span style="color: #A6E22E;">(</span><span style="color: #E6DB74; font-style: italic;">"lineup-calls"</span> . nil<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">with-eval-after-load</span> 'web-mode
+  <span class="org-rainbow-delimiters-depth-2">(</span>add-to-list 'web-mode-indentation-params '<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"lineup-args"</span> . nil<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>add-to-list 'web-mode-indentation-params '<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"lineup-concats"</span> . nil<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>add-to-list 'web-mode-indentation-params '<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"lineup-calls"</span> . nil<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -742,7 +741,7 @@ You can check more <a href="https://github.com/mooz/js-doc/">here</a>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-02 Mon 22:22</p>
+<p class="date">Created: 2015-11-08 Sun 18:49</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-02 Mon 22:21 -->
+<!-- 2015-11-08 Sun 18:48 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title></title>
@@ -94,9 +94,7 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-          <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+                 href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
           <script type="text/javascript"
@@ -176,7 +174,7 @@ Provides commands, which use the external <code>yapf</code> tool to tidy up the 
 <div class="org-src-container">
 
 <pre class="src src-bash">$ pip install git+https://github.com/google/yapf.git
-$ wget https://raw.githubusercontent.com/paetzke/py-yapf.el/master/py-yapf.el <span style="color: #E6DB74; font-weight: bold;">\</span>
+$ wget https://raw.githubusercontent.com/paetzke/py-yapf.el/master/py-yapf.el <span class="org-sh-escaped-newline">\</span>
        -O /your/path/py-yapf.el
 </pre>
 </div>
@@ -198,9 +196,9 @@ Add the save hook to your <code>~/.emacs</code>
 
 <div class="org-src-container">
 
-<pre class="src src-lisp"><span style="color: #AE81FF;">(</span>add-to-list 'load-path <span style="color: #E6DB74; font-style: italic;">"/your/path/"</span><span style="color: #AE81FF;">)</span>
-<span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">require</span> '<span style="color: #AE81FF;">py-yapf</span><span style="color: #AE81FF;">)</span>
-<span style="color: #AE81FF;">(</span>add-hook 'python-mode-hook 'py-yapf-enable-on-save<span style="color: #AE81FF;">)</span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>add-to-list 'load-path <span class="org-string">"/your/path/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> '<span class="org-constant">py-yapf</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'python-mode-hook 'py-yapf-enable-on-save<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -211,7 +209,7 @@ Now every time you save your Python file <code>yapf</code> will be executed on t
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-02 Mon 22:21</p>
+<p class="date">Created: 2015-11-08 Sun 18:48</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

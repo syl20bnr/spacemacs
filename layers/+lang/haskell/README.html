@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-02 Mon 22:22 -->
+<!-- 2015-11-08 Sun 18:49 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Haskell contribution layer for Spacemacs</title>
@@ -94,15 +94,14 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-          <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+                 href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -181,21 +180,26 @@ for the JavaScript code in this tag.
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline20">3. Key bindings</a>
+<li><a href="#orgheadline22">3. Key bindings</a>
 <ul>
 <li><a href="#orgheadline15">3.1. Documentation</a></li>
 <li><a href="#orgheadline16">3.2. Debug</a></li>
 <li><a href="#orgheadline17">3.3. REPL</a></li>
 <li><a href="#orgheadline18">3.4. Cabal commands</a></li>
 <li><a href="#orgheadline19">3.5. Cabal files</a></li>
+<li><a href="#orgheadline21">3.6. Ghc-mod</a>
+<ul>
+<li><a href="#orgheadline20">3.6.1. insert template</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline25">4. FAQ</a>
+</ul>
+</li>
+<li><a href="#orgheadline27">4. FAQ</a>
 <ul>
-<li><a href="#orgheadline21">4.1. REPL doesn't work</a></li>
-<li><a href="#orgheadline22">4.2. REPL is stuck</a></li>
-<li><a href="#orgheadline23">4.3. I am using <code>stack</code> and <code>ghc-mod</code>, but <code>ghc-mod</code> doesn't work</a></li>
-<li><a href="#orgheadline24">4.4. Indentation doesn't reset when pressing return after empty line</a></li>
+<li><a href="#orgheadline23">4.1. REPL doesn't work</a></li>
+<li><a href="#orgheadline24">4.2. REPL is stuck</a></li>
+<li><a href="#orgheadline25">4.3. I am using <code>stack</code> and <code>ghc-mod</code>, but <code>ghc-mod</code> doesn't work</a></li>
+<li><a href="#orgheadline26">4.4. Indentation doesn't reset when pressing return after empty line</a></li>
 </ul>
 </li>
 </ul>
@@ -242,7 +246,7 @@ To use this contribution add it to your <code>~/.spacemacs</code>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>haskell<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>haskell<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -311,8 +315,8 @@ do it explicitly in your <code>.spacemacs</code> file.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
-  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>haskell <span style="color: #ff9eb8;">:variables</span> haskell-enable-ghc-mod-support nil<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers
+  '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>haskell <span class="org-builtin">:variables</span> haskell-enable-ghc-mod-support nil<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -336,29 +340,29 @@ from sources.
 
 <div class="org-src-container">
 
-<pre class="src src-sh"><span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">clone cabal-helper</span>
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">clone cabal-helper</span>
 $ git clone https://github.com/DanielG/cabal-helper.git
-<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">cd into cloned repository</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">cd into cloned repository</span>
 $ cd cabal-helper
-<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">init stack, so cabal-helper can be installed using stack</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">init stack, so cabal-helper can be installed using stack</span>
 $ stack init
-<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">now install it</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">now install it</span>
 $ stack install
-<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">go back where you was</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">go back where you was</span>
 $ cd ..
-<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">and remove cabal-helper repository since you don't need it</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">and remove cabal-helper repository since you don't need it</span>
 $ rm -rf cabal-helper
-<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">now clone ghc-mod</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">now clone ghc-mod</span>
 $ git clone https://github.com/kazu-yamamoto/ghc-mod.git
-<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">and cd into it</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">and cd into it</span>
 $ cd ghc-mod
-<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">again, let's init stack</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">again, let's init stack</span>
 $ stack init
-<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">now install it</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">now install it</span>
 $ stack install
-<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">go back</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">go back</span>
 $ cd ...
-<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">and remove ghc-mod since you don't need it</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">and remove ghc-mod since you don't need it</span>
 $ rm -rf ghc-mod
 </pre>
 </div>
@@ -390,8 +394,8 @@ in <code>~/.ghci</code>), next set the layer variable:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
-  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>haskell <span style="color: #ff9eb8;">:variables</span> haskell-enable-ghci-ng-support t<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers
+  '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>haskell <span class="org-builtin">:variables</span> haskell-enable-ghci-ng-support t<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -442,11 +446,11 @@ is to avoid mixing them. But, if you want mix them anyway, you'll need to set
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
-  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>haskell <span style="color: #ff9eb8;">:variables</span> haskell-process-type 'ghci<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
-<span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">or</span>
-<span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
-  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>haskell <span style="color: #ff9eb8;">:variables</span> haskell-process-type cabal-repl<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers
+  '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>haskell <span class="org-builtin">:variables</span> haskell-process-type 'ghci<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">or</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers
+  '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>haskell <span class="org-builtin">:variables</span> haskell-process-type cabal-repl<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -465,8 +469,8 @@ need to add following line in your <code>dotspacemacs/user-config</code>:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>evil-leader/set-key-for-mode 'haskell-mode
-        <span style="color: #E6DB74; font-style: italic;">"mht"</span>  'ghc-show-type<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>evil-leader/set-key-for-mode 'haskell-mode
+        <span class="org-string">"mht"</span>  'ghc-show-type<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -496,8 +500,8 @@ To enable <code>shm</code> set the layer variable:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
-  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>haskell <span style="color: #ff9eb8;">:variables</span> haskell-enable-shm-support t<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers
+  '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>haskell <span class="org-builtin">:variables</span> haskell-enable-shm-support t<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -586,8 +590,8 @@ See examples <a href="https://github.com/chrisdone/hindent#example">here</a>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
-  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>haskell <span style="color: #ff9eb8;">:variables</span> haskell-enable-hindent-style <span style="color: #E6DB74; font-style: italic;">"johan-tibell"</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers
+  '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>haskell <span class="org-builtin">:variables</span> haskell-enable-hindent-style <span class="org-string">"johan-tibell"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -595,8 +599,8 @@ See examples <a href="https://github.com/chrisdone/hindent#example">here</a>
 </div>
 </div>
 
-<div id="outline-container-orgheadline20" class="outline-2">
-<h2 id="orgheadline20"><span class="section-number-2">3</span> Key bindings</h2>
+<div id="outline-container-orgheadline22" class="outline-2">
+<h2 id="orgheadline22"><span class="section-number-2">3</span> Key bindings</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 All Haskell specific bindings are prefixed with the major-mode leader
@@ -954,13 +958,109 @@ This commands are available in a cabal file.
 </table>
 </div>
 </div>
+
+<div id="outline-container-orgheadline21" class="outline-3">
+<h3 id="orgheadline21"><span class="section-number-3">3.6</span> Ghc-mod</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+These commands are only available when ghc-mod is enabled.
+</p>
+
+<p>
+For more info, see
+<a href="http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html">http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html</a>
+</p>
+
+<p>
+ghc-mod commands are prefixed by <code>SPC m m</code>:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m m t</code></td>
+<td class="org-left">insert template</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m m u</code></td>
+<td class="org-left">insert template with holes</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m m a</code></td>
+<td class="org-left">select one of possible cases (<code>ghc-auto</code>)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m m f</code></td>
+<td class="org-left">replace a hole (<code>ghc-refine</code>)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m m e</code></td>
+<td class="org-left">expand template haskell</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m m n</code></td>
+<td class="org-left">go to next type hole</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m m p</code></td>
+<td class="org-left">go to previous type hole</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m m &gt;</code></td>
+<td class="org-left">make indent deeper</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m m &lt;</code></td>
+<td class="org-left">make indent shallower</td>
+</tr>
+</tbody>
+</table>
 </div>
 
-<div id="outline-container-orgheadline25" class="outline-2">
-<h2 id="orgheadline25"><span class="section-number-2">4</span> FAQ</h2>
+<div id="outline-container-orgheadline20" class="outline-4">
+<h4 id="orgheadline20"><span class="section-number-4">3.6.1</span> insert template</h4>
+<div class="outline-text-4" id="text-3-6-1">
+<p>
+<code>SPC m m t</code> inserts a template. What this means is that
+In the beginning of a buffer, "module Foo where" is
+inserted. On the function without signature, inferred
+type is inserted. On a symbol "foo" without definition,
+"foo = undefined" is inserted or a proper module is imported.
+<code>SPC m m u</code> inserts a hole in this case. On a variable,
+the case is split. When checking with hlint, original code
+is replaced with hlint's suggestion if possible.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline27" class="outline-2">
+<h2 id="orgheadline27"><span class="section-number-2">4</span> FAQ</h2>
 <div class="outline-text-2" id="text-4">
-</div><div id="outline-container-orgheadline21" class="outline-3">
-<h3 id="orgheadline21"><span class="section-number-3">4.1</span> REPL doesn't work</h3>
+</div><div id="outline-container-orgheadline23" class="outline-3">
+<h3 id="orgheadline23"><span class="section-number-3">4.1</span> REPL doesn't work</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Usually <code>haskell-mode</code> is great at figuring out which interactive process to
@@ -970,8 +1070,8 @@ bring up. But if you are experiencing problems with it you can help
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
-  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>haskell <span style="color: #ff9eb8;">:variables</span> haskell-process-type 'stack-ghci<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers
+  '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>haskell <span class="org-builtin">:variables</span> haskell-process-type 'stack-ghci<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -989,8 +1089,8 @@ Available options are:
 </div>
 </div>
 
-<div id="outline-container-orgheadline22" class="outline-3">
-<h3 id="orgheadline22"><span class="section-number-3">4.2</span> REPL is stuck</h3>
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24"><span class="section-number-3">4.2</span> REPL is stuck</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Make sure that when you are typing anything in REPL there is a space between
@@ -1002,10 +1102,10 @@ just add following snippet to your <code>dotspacemacs/user-config</code> functio
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">when</span> <span style="color: #66D9EF;">(</span>configuration-layer/layer-usedp 'haskell<span style="color: #66D9EF;">)</span>
-  <span style="color: #66D9EF;">(</span>add-hook 'haskell-interactive-mode-hook
-            <span style="color: #A6E22E;">(</span><span style="color: #F92672; font-weight: bold;">lambda</span> <span style="color: #E6DB74;">()</span>
-              <span style="color: #E6DB74;">(</span>setq-local evil-move-cursor-back nil<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-2">(</span>configuration-layer/layer-usedp 'haskell<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>add-hook 'haskell-interactive-mode-hook
+            <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-4">()</span>
+              <span class="org-rainbow-delimiters-depth-4">(</span>setq-local evil-move-cursor-back nil<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -1022,17 +1122,17 @@ could place following snippet in your <code>dotspacemacs/user-config</code> func
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">when</span> <span style="color: #66D9EF;">(</span>configuration-layer/layer-usedp 'haskell<span style="color: #66D9EF;">)</span>
-    <span style="color: #66D9EF;">(</span><span style="color: #F92672; font-weight: bold;">defadvice</span> <span style="color: #A6E22E;">haskell-interactive-switch</span> <span style="color: #A6E22E;">(</span>after spacemacs/haskell-interactive-switch-advice activate<span style="color: #A6E22E;">)</span>
-      <span style="color: #A6E22E;">(</span><span style="color: #F92672; font-weight: bold;">when</span> <span style="color: #E6DB74;">(</span>eq dotspacemacs-editing-style 'vim<span style="color: #E6DB74;">)</span>
-        <span style="color: #E6DB74;">(</span>call-interactively 'evil-insert<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-2">(</span>configuration-layer/layer-usedp 'haskell<span class="org-rainbow-delimiters-depth-2">)</span>
+    <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">defadvice</span> <span class="org-function-name">haskell-interactive-switch</span> <span class="org-rainbow-delimiters-depth-3">(</span>after spacemacs/haskell-interactive-switch-advice activate<span class="org-rainbow-delimiters-depth-3">)</span>
+      <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-4">(</span>eq dotspacemacs-editing-style 'vim<span class="org-rainbow-delimiters-depth-4">)</span>
+        <span class="org-rainbow-delimiters-depth-4">(</span>call-interactively 'evil-insert<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline23" class="outline-3">
-<h3 id="orgheadline23"><span class="section-number-3">4.3</span> I am using <code>stack</code> and <code>ghc-mod</code>, but <code>ghc-mod</code> doesn't work</h3>
+<div id="outline-container-orgheadline25" class="outline-3">
+<h3 id="orgheadline25"><span class="section-number-3">4.3</span> I am using <code>stack</code> and <code>ghc-mod</code>, but <code>ghc-mod</code> doesn't work</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 Make sure that <code>dist</code> directory doesn't exist in your project root. So if it
@@ -1041,8 +1141,8 @@ exists, just remove it and try again.
 </div>
 </div>
 
-<div id="outline-container-orgheadline24" class="outline-3">
-<h3 id="orgheadline24"><span class="section-number-3">4.4</span> Indentation doesn't reset when pressing return after empty line</h3>
+<div id="outline-container-orgheadline26" class="outline-3">
+<h3 id="orgheadline26"><span class="section-number-3">4.4</span> Indentation doesn't reset when pressing return after empty line</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 This is intended behavior in <code>haskell-indentation-mode</code>. If you want to reset indentation when pressing return after empty line, add following snippet into your <code>dotspacemacs/user-config</code> function.
@@ -1050,15 +1150,15 @@ This is intended behavior in <code>haskell-indentation-mode</code>. If you want 
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">haskell-indentation-advice</span> <span style="color: #66D9EF;">()</span>
-  <span style="color: #66D9EF;">(</span><span style="color: #F92672; font-weight: bold;">when</span> <span style="color: #A6E22E;">(</span>and <span style="color: #E6DB74;">(</span>&lt; <span style="color: #AE81FF;">1</span> <span style="color: #FD971F;">(</span>line-number-at-pos<span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span>
-             <span style="color: #E6DB74;">(</span><span style="color: #F92672; font-weight: bold;">save-excursion</span>
-               <span style="color: #FD971F;">(</span>forward-line <span style="color: #AE81FF;">-1</span><span style="color: #FD971F;">)</span>
-               <span style="color: #FD971F;">(</span>string= <span style="color: #E6DB74; font-style: italic;">""</span> <span style="color: #F92672;">(</span>s-trim <span style="color: #AE81FF;">(</span>buffer-substring <span style="color: #66D9EF;">(</span>line-beginning-position<span style="color: #66D9EF;">)</span> <span style="color: #66D9EF;">(</span>line-end-position<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span><span style="color: #F92672;">)</span><span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
-    <span style="color: #A6E22E;">(</span>delete-region <span style="color: #E6DB74;">(</span>line-beginning-position<span style="color: #E6DB74;">)</span> <span style="color: #E6DB74;">(</span>point<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">haskell-indentation-advice</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-3">(</span>and <span class="org-rainbow-delimiters-depth-4">(</span>&lt; <span class="org-highlight-numbers-number">1</span> <span class="org-rainbow-delimiters-depth-5">(</span>line-number-at-pos<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+             <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">save-excursion</span>
+               <span class="org-rainbow-delimiters-depth-5">(</span>forward-line <span class="org-highlight-numbers-number">-1</span><span class="org-rainbow-delimiters-depth-5">)</span>
+               <span class="org-rainbow-delimiters-depth-5">(</span>string= <span class="org-string">""</span> <span class="org-rainbow-delimiters-depth-6">(</span>s-trim <span class="org-rainbow-delimiters-depth-7">(</span>buffer-substring <span class="org-rainbow-delimiters-depth-8">(</span>line-beginning-position<span class="org-rainbow-delimiters-depth-8">)</span> <span class="org-rainbow-delimiters-depth-8">(</span>line-end-position<span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>delete-region <span class="org-rainbow-delimiters-depth-4">(</span>line-beginning-position<span class="org-rainbow-delimiters-depth-4">)</span> <span class="org-rainbow-delimiters-depth-4">(</span>point<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="color: #AE81FF;">(</span>advice-add 'haskell-indentation-newline-and-indent
-            <span style="color: #ff9eb8;">:after</span> 'haskell-indentation-advice<span style="color: #AE81FF;">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>advice-add 'haskell-indentation-newline-and-indent
+            <span class="org-builtin">:after</span> 'haskell-indentation-advice<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -1066,7 +1166,7 @@ This is intended behavior in <code>haskell-indentation-mode</code>. If you want 
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-02 Mon 22:22</p>
+<p class="date">Created: 2015-11-08 Sun 18:49</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

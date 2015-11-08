@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-02 Mon 22:20 -->
+<!-- 2015-11-08 Sun 18:46 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Configuration layers</title>
@@ -94,15 +94,14 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-          <link rel="stylesheet" type="text/css"
-                href="css/readtheorg.css"/>
+                 href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -289,7 +288,7 @@ The simplest way to load a file is to call <code>load-file</code>.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>load-file <span style="color: #E6DB74; font-style: italic;">"~/elisp/foo.el"</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>load-file <span class="org-string">"~/elisp/foo.el"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -313,9 +312,9 @@ the following contents in a file called <code>my-feature.el</code>.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Your code goes here ...</span>
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Your code goes here ...</span>
 
-<span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">provide</span> '<span style="color: #AE81FF;">my-feature</span><span style="color: #AE81FF;">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">provide</span> '<span class="org-constant">my-feature</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -325,7 +324,7 @@ To have Emacs load this file, call <code>require</code>, as such:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">require</span> '<span style="color: #AE81FF;">my-feature</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> '<span class="org-constant">my-feature</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -365,7 +364,7 @@ simply push to this list, e.g.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>push <span style="color: #E6DB74; font-style: italic;">"/some/path/"</span> load-path<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>push <span class="org-string">"/some/path/"</span> load-path<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -399,7 +398,7 @@ To register a function as auto-loadable, we call <code>autoload</code>:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>autoload 'some-function <span style="color: #E6DB74; font-style: italic;">"some-file"</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>autoload 'some-function <span class="org-string">"some-file"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -426,10 +425,10 @@ generated from "magic" comments in the source code of Helm. They look like this:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #75715E;">;;;</span><span style="color: #75715E; font-style: italic;">###</span><span style="color: #FD971F; font-weight: bold; font-style: italic;">autoload</span>
-<span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">my-function</span> <span style="color: #66D9EF;">()</span>
-  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Source code...</span>
-  <span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;;;</span><span class="org-comment">###</span><span class="org-comment"><span class="org-warning">autoload</span></span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my-function</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Source code...</span>
+  <span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -453,8 +452,8 @@ your file is actually evaluated, probably not what was intended:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #75715E;">;;;</span><span style="color: #75715E; font-style: italic;">###</span><span style="color: #FD971F; font-weight: bold; font-style: italic;">autoload</span>
-<span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">require</span> '<span style="color: #AE81FF;">helm</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;;;</span><span class="org-comment">###</span><span class="org-comment"><span class="org-warning">autoload</span></span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> '<span class="org-constant">helm</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -486,9 +485,9 @@ Emacs offers <code>with-eval-after-load</code> for this purpose. It can be used 
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">with-eval-after-load</span> 'helm
-     <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Code</span>
-     <span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">with-eval-after-load</span> 'helm
+     <span class="org-comment-delimiter">;; </span><span class="org-comment">Code</span>
+     <span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -526,7 +525,7 @@ The aspiring layer author is recommended to have a look at the <code>use-package
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">use-package</span> <span style="color: #AE81FF;">helm</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">use-package</span> <span class="org-constant">helm</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -536,8 +535,8 @@ This simply loads Helm. It is essentially equivalent to <code>(require 'helm)</c
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">use-package</span> <span style="color: #AE81FF;">helm</span>
-  <span style="color: #ff9eb8;">:defer</span> t<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">use-package</span> <span class="org-constant">helm</span>
+  <span class="org-builtin">:defer</span> t<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -548,13 +547,13 @@ commands provided by the Helm source code. It is, in fact, a no-op.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">use-package</span> <span style="color: #AE81FF;">helm</span>
-  <span style="color: #ff9eb8;">:defer</span> t
-  <span style="color: #ff9eb8;">:init</span>
-  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Code to execute before Helm is loaded</span>
-  <span style="color: #ff9eb8;">:config</span>
-  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Code to execute after Helm is loaded</span>
-  <span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">use-package</span> <span class="org-constant">helm</span>
+  <span class="org-builtin">:defer</span> t
+  <span class="org-builtin">:init</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Code to execute before Helm is loaded</span>
+  <span class="org-builtin">:config</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Code to execute after Helm is loaded</span>
+  <span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -568,8 +567,8 @@ block in an <code>with-eval-after-load</code>.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">use-package</span> <span style="color: #AE81FF;">helm</span>
-  <span style="color: #ff9eb8;">:commands</span> <span style="color: #66D9EF;">(</span>helm-find-files helm-M-x<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">use-package</span> <span class="org-constant">helm</span>
+  <span class="org-builtin">:commands</span> <span class="org-rainbow-delimiters-depth-2">(</span>helm-find-files helm-M-x<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -580,8 +579,8 @@ package author has been slacking.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">use-package</span> <span style="color: #AE81FF;">ruby-mode</span>
-  <span style="color: #ff9eb8;">:mode</span> <span style="color: #E6DB74; font-style: italic;">"\\.rb\\'"</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">use-package</span> <span class="org-constant">ruby-mode</span>
+  <span class="org-builtin">:mode</span> <span class="org-string">"\\.rb\\'"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -635,23 +634,23 @@ specifications are as follows.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq mylayer-packages
-      '<span style="color: #66D9EF;">(</span>
-        <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Get the package from MELPA, ELPA, etc.</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq mylayer-packages
+      '<span class="org-rainbow-delimiters-depth-2">(</span>
+        <span class="org-comment-delimiter">;; </span><span class="org-comment">Get the package from MELPA, ELPA, etc.</span>
         some-package
-        <span style="color: #A6E22E;">(</span>some-package <span style="color: #ff9eb8;">:location</span> elpa<span style="color: #A6E22E;">)</span>
+        <span class="org-rainbow-delimiters-depth-3">(</span>some-package <span class="org-builtin">:location</span> elpa<span class="org-rainbow-delimiters-depth-3">)</span>
 
-        <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">A local package</span>
-        <span style="color: #A6E22E;">(</span>some-package <span style="color: #ff9eb8;">:location</span> local<span style="color: #A6E22E;">)</span>
+        <span class="org-comment-delimiter">;; </span><span class="org-comment">A local package</span>
+        <span class="org-rainbow-delimiters-depth-3">(</span>some-package <span class="org-builtin">:location</span> local<span class="org-rainbow-delimiters-depth-3">)</span>
 
-        <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">A package recipe</span>
-        <span style="color: #A6E22E;">(</span>some-package <span style="color: #ff9eb8;">:location</span> <span style="color: #E6DB74;">(</span>recipe
-                                 <span style="color: #ff9eb8;">:fetcher</span> github
-                                 <span style="color: #ff9eb8;">:repo</span> <span style="color: #E6DB74; font-style: italic;">"some/repo"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
+        <span class="org-comment-delimiter">;; </span><span class="org-comment">A package recipe</span>
+        <span class="org-rainbow-delimiters-depth-3">(</span>some-package <span class="org-builtin">:location</span> <span class="org-rainbow-delimiters-depth-4">(</span>recipe
+                                 <span class="org-builtin">:fetcher</span> github
+                                 <span class="org-builtin">:repo</span> <span class="org-string">"some/repo"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
 
-        <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">An excluded package</span>
-        <span style="color: #A6E22E;">(</span>some-package <span style="color: #ff9eb8;">:excluded</span> t<span style="color: #A6E22E;">)</span>
-        <span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+        <span class="org-comment-delimiter">;; </span><span class="org-comment">An excluded package</span>
+        <span class="org-rainbow-delimiters-depth-3">(</span>some-package <span class="org-builtin">:excluded</span> t<span class="org-rainbow-delimiters-depth-3">)</span>
+        <span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -906,16 +905,16 @@ or <code>post-init</code> functions to "inject" code into the <code>use-package<
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>spacemacs|use-package-add-hook helm
-  <span style="color: #ff9eb8;">:pre-init</span>
-  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Code</span>
-  <span style="color: #ff9eb8;">:post-init</span>
-  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Code</span>
-  <span style="color: #ff9eb8;">:pre-config</span>
-  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Code</span>
-  <span style="color: #ff9eb8;">:post-config</span>
-  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Code</span>
-  <span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>spacemacs|use-package-add-hook helm
+  <span class="org-builtin">:pre-init</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Code</span>
+  <span class="org-builtin">:post-init</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Code</span>
+  <span class="org-builtin">:pre-config</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Code</span>
+  <span class="org-builtin">:post-config</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Code</span>
+  <span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -1030,7 +1029,7 @@ In your layer's <code>config.el</code>, call <code>spacemacs|defvar-company-back
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>spacemacs|defvar-company-backends yoyo-mode<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>spacemacs|defvar-company-backends yoyo-mode<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -1042,21 +1041,21 @@ if the <code>auto-completion</code> layer is enabled.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq yoyo-packages '<span style="color: #66D9EF;">(</span>
-                      <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">...</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq yoyo-packages '<span class="org-rainbow-delimiters-depth-2">(</span>
+                      <span class="org-comment-delimiter">;; </span><span class="org-comment">...</span>
                       some-weird-package
-                      <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">...</span>
-                      <span style="color: #66D9EF;">)</span>
+                      <span class="org-comment-delimiter">;; </span><span class="org-comment">...</span>
+                      <span class="org-rainbow-delimiters-depth-2">)</span>
 
-<span style="color: #66D9EF;">(</span><span style="color: #F92672; font-weight: bold;">when</span> <span style="color: #A6E22E;">(</span>configuration-layer/layer-usedp 'auto-completion<span style="color: #A6E22E;">)</span>
-  <span style="color: #A6E22E;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">yoyo/init-some-weird-package</span> <span style="color: #E6DB74;">()</span>
-    <span style="color: #E6DB74;">(</span><span style="color: #F92672; font-weight: bold;">use-package</span> <span style="color: #AE81FF;">some-weird-package</span>
-      <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Only if company is installed</span>
-      <span style="color: #ff9eb8;">:if</span> <span style="color: #FD971F;">(</span>configuration-layer/package-usedp 'company<span style="color: #FD971F;">)</span>
-      <span style="color: #ff9eb8;">:defer</span> t
-      <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">This has to be in init because it's a package entry point</span>
-      <span style="color: #ff9eb8;">:init</span>
-      <span style="color: #FD971F;">(</span>push 'some-weird-backend company-backends-yoyo-mode<span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
+<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-3">(</span>configuration-layer/layer-usedp 'auto-completion<span class="org-rainbow-delimiters-depth-3">)</span>
+  <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">defun</span> <span class="org-function-name">yoyo/init-some-weird-package</span> <span class="org-rainbow-delimiters-depth-4">()</span>
+    <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">use-package</span> <span class="org-constant">some-weird-package</span>
+      <span class="org-comment-delimiter">;; </span><span class="org-comment">Only if company is installed</span>
+      <span class="org-builtin">:if</span> <span class="org-rainbow-delimiters-depth-5">(</span>configuration-layer/package-usedp 'company<span class="org-rainbow-delimiters-depth-5">)</span>
+      <span class="org-builtin">:defer</span> t
+      <span class="org-comment-delimiter">;; </span><span class="org-comment">This has to be in init because it's a package entry point</span>
+      <span class="org-builtin">:init</span>
+      <span class="org-rainbow-delimiters-depth-5">(</span>push 'some-weird-backend company-backends-yoyo-mode<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
 </pre>
 </div>
 
@@ -1067,23 +1066,23 @@ again only if the <code>auto-completion</code> layer is enabled.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq yoyo-packages '<span style="color: #66D9EF;">(</span>
-                      <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">...</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq yoyo-packages '<span class="org-rainbow-delimiters-depth-2">(</span>
+                      <span class="org-comment-delimiter">;; </span><span class="org-comment">...</span>
                       yoyo-mode
-                      <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">...</span>
-                      <span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+                      <span class="org-comment-delimiter">;; </span><span class="org-comment">...</span>
+                      <span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">yoyo/init-yoyo-mode</span> <span style="color: #66D9EF;">()</span>
-  <span style="color: #66D9EF;">(</span><span style="color: #F92672; font-weight: bold;">use-package</span> <span style="color: #AE81FF;">yoyo-mode</span>
-    <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Some configuration goes here, however nothing relating to company</span>
-    <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">since this function may be called even if company is not installed!</span>
-    <span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">yoyo/init-yoyo-mode</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">use-package</span> <span class="org-constant">yoyo-mode</span>
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">Some configuration goes here, however nothing relating to company</span>
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">since this function may be called even if company is not installed!</span>
+    <span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">when</span> <span style="color: #66D9EF;">(</span>configuration-layer/package-usedp 'company<span style="color: #66D9EF;">)</span>
-  <span style="color: #66D9EF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">yoyo/post-init-yoyo-mode</span> <span style="color: #A6E22E;">()</span>
-    <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">This makes no reference to `</span><span style="color: #AE81FF; font-style: italic;">some-weird-package</span><span style="color: #75715E; font-style: italic;">', which may have</span>
-    <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">been excluded by the user</span>
-    <span style="color: #A6E22E;">(</span>spacemacs|add-company-hook yoyo-mode<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-2">(</span>configuration-layer/package-usedp 'company<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">defun</span> <span class="org-function-name">yoyo/post-init-yoyo-mode</span> <span class="org-rainbow-delimiters-depth-3">()</span>
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">This makes no reference to `</span><span class="org-comment"><span class="org-constant">some-weird-package</span></span><span class="org-comment">', which may have</span>
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">been excluded by the user</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>spacemacs|add-company-hook yoyo-mode<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -1091,7 +1090,7 @@ again only if the <code>auto-completion</code> layer is enabled.
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-02 Mon 22:20</p>
+<p class="date">Created: 2015-11-08 Sun 18:46</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

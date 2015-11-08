@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-02 Mon 22:21 -->
+<!-- 2015-11-08 Sun 18:47 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Chrome contribution layer for Spacemacs</title>
@@ -94,15 +94,14 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-          <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+                 href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -208,7 +207,7 @@ To use this contribution add it to your <code>~/.spacemacs</code>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>chrome<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>chrome<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -241,11 +240,11 @@ function based on <code>edit-server-url</code>, or fall back to
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">dotspacemacs/user-config</span> <span style="color: #66D9EF;">()</span>
-<span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Open github text areas as org buffers</span>
-<span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">currently they are opened as markdown</span>
-  <span style="color: #66D9EF;">(</span>setq edit-server-url-major-mode-alist
-      '<span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">(</span><span style="color: #E6DB74; font-style: italic;">"github\\.com"</span> . org-mode<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">dotspacemacs/user-config</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Open github text areas as org buffers</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">currently they are opened as markdown</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>setq edit-server-url-major-mode-alist
+      '<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"github\\.com"</span> . org-mode<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -255,8 +254,8 @@ To change frame defaults (width, height, etc. use <code>edit-server-new-frame-al
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>add-to-list 'edit-server-new-frame-alist '<span style="color: #66D9EF;">(</span>width  . <span style="color: #AE81FF;">140</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
-<span style="color: #AE81FF;">(</span>add-to-list 'edit-server-new-frame-alist '<span style="color: #66D9EF;">(</span>height . <span style="color: #AE81FF;">60</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>add-to-list 'edit-server-new-frame-alist '<span class="org-rainbow-delimiters-depth-2">(</span>width  . <span class="org-highlight-numbers-number">140</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>add-to-list 'edit-server-new-frame-alist '<span class="org-rainbow-delimiters-depth-2">(</span>height . <span class="org-highlight-numbers-number">60</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -268,14 +267,14 @@ The following example works on OS X:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>add-hook 'edit-server-done-hook <span style="color: #66D9EF;">(</span><span style="color: #F92672; font-weight: bold;">lambda</span> <span style="color: #A6E22E;">()</span> <span style="color: #A6E22E;">(</span>shell-command <span style="color: #E6DB74; font-style: italic;">"open -a \"Google Chrome\""</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'edit-server-done-hook <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span> <span class="org-rainbow-delimiters-depth-3">(</span>shell-command <span class="org-string">"open -a \"Google Chrome\""</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-02 Mon 22:21</p>
+<p class="date">Created: 2015-11-08 Sun 18:47</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

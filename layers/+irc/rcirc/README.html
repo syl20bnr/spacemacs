@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-02 Mon 22:22 -->
+<!-- 2015-11-08 Sun 18:49 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>RCIRC contribution layer for Spacemacs</title>
@@ -94,15 +94,14 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-          <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+                 href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -220,7 +219,7 @@ To use this contribution add it to your <code>~/.spacemacs</code>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>rcirc<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>rcirc<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -260,12 +259,12 @@ is convenient but not recommended.
 <ol class="org-ol"><li><a id="orgheadline4"></a>Example:<br  /><div class="outline-text-5" id="text-3-2-1-1">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq rcirc-server-alist
-  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74; font-style: italic;">"irc.freenode.net"</span>
-      <span style="color: #ff9eb8;">:user</span> <span style="color: #E6DB74; font-style: italic;">"spacemacs_user"</span>
-      <span style="color: #ff9eb8;">:port</span> <span style="color: #E6DB74; font-style: italic;">"1337"</span>
-      <span style="color: #ff9eb8;">:password</span> <span style="color: #E6DB74; font-style: italic;">"le_passwd"</span>
-      <span style="color: #ff9eb8;">:channels</span> <span style="color: #E6DB74;">(</span><span style="color: #E6DB74; font-style: italic;">"#emacs"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq rcirc-server-alist
+  '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"irc.freenode.net"</span>
+      <span class="org-builtin">:user</span> <span class="org-string">"spacemacs_user"</span>
+      <span class="org-builtin">:port</span> <span class="org-string">"1337"</span>
+      <span class="org-builtin">:password</span> <span class="org-string">"le_passwd"</span>
+      <span class="org-builtin">:channels</span> <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"#emacs"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div></li></ol>
@@ -291,12 +290,12 @@ recommended.
 <ol class="org-ol"><li><a id="orgheadline6"></a>Example:<br  /><div class="outline-text-5" id="text-3-2-2-1">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq rcirc-server-alist
-  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74; font-style: italic;">"irc.freenode.net"</span>
-      <span style="color: #ff9eb8;">:user</span> <span style="color: #E6DB74; font-style: italic;">"spacemacs_user"</span>
-      <span style="color: #ff9eb8;">:port</span> <span style="color: #E6DB74; font-style: italic;">"1337"</span>
-      <span style="color: #ff9eb8;">:password</span> <span style="color: #E6DB74; font-style: italic;">"le_passwd"</span>
-      <span style="color: #ff9eb8;">:channels</span> <span style="color: #E6DB74;">(</span><span style="color: #E6DB74; font-style: italic;">"#emacs"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq rcirc-server-alist
+  '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"irc.freenode.net"</span>
+      <span class="org-builtin">:user</span> <span class="org-string">"spacemacs_user"</span>
+      <span class="org-builtin">:port</span> <span class="org-string">"1337"</span>
+      <span class="org-builtin">:password</span> <span class="org-string">"le_passwd"</span>
+      <span class="org-builtin">:channels</span> <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"#emacs"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div></li></ol>
@@ -318,8 +317,8 @@ setting <code>rcirc-enable-authinfo-support</code> to <code>t</code> in your dot
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>
-  <span style="color: #A6E22E;">(</span>rcirc <span style="color: #ff9eb8;">:variables</span> rcirc-enable-authinfo-support t<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>
+  <span class="org-rainbow-delimiters-depth-3">(</span>rcirc <span class="org-builtin">:variables</span> rcirc-enable-authinfo-support t<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div></li>
 
@@ -338,11 +337,11 @@ At last you need to provide your servers configuration in the
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq rcirc-server-alist
-'<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74; font-style: italic;">"irc.freenode.net"</span>
-    <span style="color: #ff9eb8;">:user</span> <span style="color: #E6DB74; font-style: italic;">"spacemacs_user"</span>
-    <span style="color: #ff9eb8;">:port</span> <span style="color: #E6DB74; font-style: italic;">"1337"</span>
-    <span style="color: #ff9eb8;">:channels</span> <span style="color: #E6DB74;">(</span><span style="color: #E6DB74; font-style: italic;">"#emacs"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq rcirc-server-alist
+'<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"irc.freenode.net"</span>
+    <span class="org-builtin">:user</span> <span class="org-string">"spacemacs_user"</span>
+    <span class="org-builtin">:port</span> <span class="org-string">"1337"</span>
+    <span class="org-builtin">:channels</span> <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"#emacs"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div></li>
 </ol>
@@ -386,8 +385,8 @@ your dotfile:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>
-  <span style="color: #A6E22E;">(</span>rcirc <span style="color: #ff9eb8;">:variables</span> rcirc-enable-znc-support t<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>
+  <span class="org-rainbow-delimiters-depth-3">(</span>rcirc <span class="org-builtin">:variables</span> rcirc-enable-znc-support t<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div></li>
 
@@ -413,18 +412,18 @@ will be replaced by the credentials stored in your <code>~/.authinfo.gpg</code>.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq rcirc-server-alist
- <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">This will replace :auth with the correct thing, see the doc for that function</span>
- '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74; font-style: italic;">"freenode"</span>
-     <span style="color: #ff9eb8;">:host</span> <span style="color: #E6DB74; font-style: italic;">"freenode.spacemacsserver.me"</span>
-     <span style="color: #ff9eb8;">:port</span> <span style="color: #E6DB74; font-style: italic;">"1337"</span>
-     <span style="color: #ff9eb8;">:auth</span> <span style="color: #E6DB74; font-style: italic;">"spacemacs_user/freenode"</span>
-     <span style="color: #ff9eb8;">:channels</span> <span style="color: #E6DB74;">(</span><span style="color: #E6DB74; font-style: italic;">"#emacs"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
- <span style="color: #A6E22E;">(</span><span style="color: #E6DB74; font-style: italic;">"geekshed"</span>
-     <span style="color: #ff9eb8;">:host</span> <span style="color: #E6DB74; font-style: italic;">"geekshed.spacemacsserver.me"</span>
-     <span style="color: #ff9eb8;">:port</span> <span style="color: #E6DB74; font-style: italic;">"1337"</span>
-     <span style="color: #ff9eb8;">:auth</span> <span style="color: #E6DB74; font-style: italic;">"spacemacs_user/geekshed"</span>
-     <span style="color: #ff9eb8;">:channels</span> <span style="color: #E6DB74;">(</span><span style="color: #E6DB74; font-style: italic;">"#jupiterbroadcasting"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq rcirc-server-alist
+ <span class="org-comment-delimiter">;; </span><span class="org-comment">This will replace :auth with the correct thing, see the doc for that function</span>
+ '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"freenode"</span>
+     <span class="org-builtin">:host</span> <span class="org-string">"freenode.spacemacsserver.me"</span>
+     <span class="org-builtin">:port</span> <span class="org-string">"1337"</span>
+     <span class="org-builtin">:auth</span> <span class="org-string">"spacemacs_user/freenode"</span>
+     <span class="org-builtin">:channels</span> <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"#emacs"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+ <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"geekshed"</span>
+     <span class="org-builtin">:host</span> <span class="org-string">"geekshed.spacemacsserver.me"</span>
+     <span class="org-builtin">:port</span> <span class="org-string">"1337"</span>
+     <span class="org-builtin">:auth</span> <span class="org-string">"spacemacs_user/geekshed"</span>
+     <span class="org-builtin">:channels</span> <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"#jupiterbroadcasting"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div></li>
 </ol>
@@ -457,7 +456,7 @@ will be replaced by the credentials stored in your <code>~/.authinfo.gpg</code>.
 </tr>
 
 <tr>
-<td class="org-left"><code>SPC L o i</code></td>
+<td class="org-left"><code>SPC l o i</code></td>
 <td class="org-left">Open rcirc in a custom perspective "@RICRC" (need perspectives layer enabled)</td>
 </tr>
 </tbody>
@@ -506,7 +505,7 @@ The rcirc documentation can be found <a href="http://www.gnu.org/software/emacs/
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-02 Mon 22:22</p>
+<p class="date">Created: 2015-11-08 Sun 18:49</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-02 Mon 22:21 -->
+<!-- 2015-11-08 Sun 18:48 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Python contribution layer for Spacemacs</title>
@@ -94,15 +94,14 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-          <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+                 href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -233,7 +232,7 @@ To use this contribution add it to your <code>~/.spacemacs</code>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>python<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>python<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -254,8 +253,8 @@ The root of the project is detected with a <code>.git</code> directory or a <cod
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
-  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>python <span style="color: #ff9eb8;">:variables</span> python-test-runner 'pytest<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers
+  '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>python <span class="org-builtin">:variables</span> python-test-runner 'pytest<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -280,7 +279,7 @@ To fix this, install the <code>anaconda-mode</code> <a href="https://github.com/
 
 <div class="org-src-container">
 
-<pre class="src src-sh">pip install  <span style="color: #FD971F;">jedi</span>==<span style="color: #AE81FF;">0.8.1</span> json-rpc==<span style="color: #AE81FF;">1.8.1</span> <span style="color: #FD971F;">service_factory</span>==<span style="color: #AE81FF;">0.1.2</span>
+<pre class="src src-sh">pip install  <span class="org-variable-name">jedi</span>==<span class="org-highlight-numbers-number">0.8.1</span> json-rpc==<span class="org-highlight-numbers-number">1.8.1</span> <span class="org-variable-name">service_factory</span>==<span class="org-highlight-numbers-number">0.1.2</span>
 </pre>
 </div>
 
@@ -306,8 +305,8 @@ To enable automatic buffer formatting on save with  <a href="https://github.com/
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>
-  <span style="color: #A6E22E;">(</span>python <span style="color: #ff9eb8;">:variables</span> python-enable-yapf-format-on-save t<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>
+  <span class="org-rainbow-delimiters-depth-3">(</span>python <span class="org-builtin">:variables</span> python-enable-yapf-format-on-save t<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -669,7 +668,7 @@ If you want to customize the fill column value, use something like this inside t
 
 <div class="org-src-container">
 
-<pre class="src src-elisp"><span style="color: #AE81FF;">(</span>setq python-fill-column <span style="color: #AE81FF;">99</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-elisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq python-fill-column <span class="org-highlight-numbers-number">99</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -677,7 +676,7 @@ If you want to customize the fill column value, use something like this inside t
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-02 Mon 22:21</p>
+<p class="date">Created: 2015-11-08 Sun 18:48</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

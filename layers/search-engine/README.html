@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-02 Mon 22:21 -->
+<!-- 2015-11-08 Sun 18:47 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Search Engine contribution layer for Spacemacs</title>
@@ -94,15 +94,14 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-          <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+                 href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -213,7 +212,7 @@ To use this contribution add it to your <code>~/.spacemacs</code>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>search-engine<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>search-engine<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -261,9 +260,9 @@ your <code>dotspacemacs/user-config</code>:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq browse-url-browser-function 'browse-url-generic
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq browse-url-browser-function 'browse-url-generic
       engine/browser-function 'browse-url-generic
-      browse-url-generic-program <span style="color: #E6DB74; font-style: italic;">"google-chrome"</span><span style="color: #AE81FF;">)</span>
+      browse-url-generic-program <span class="org-string">"google-chrome"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -274,10 +273,10 @@ Also if you want more search engines, just push them (do this in
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>push '<span style="color: #66D9EF;">(</span>custom1
-         <span style="color: #ff9eb8;">:name</span> <span style="color: #E6DB74; font-style: italic;">"Custom Search Engine 1"</span>
-         <span style="color: #ff9eb8;">:url</span> <span style="color: #E6DB74; font-style: italic;">"http://www.domain.com/s/stuff_sutff_remember_to_replace_search_candidate_with_%s"</span><span style="color: #66D9EF;">)</span>
-        search-engine-alist<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>push '<span class="org-rainbow-delimiters-depth-2">(</span>custom1
+         <span class="org-builtin">:name</span> <span class="org-string">"Custom Search Engine 1"</span>
+         <span class="org-builtin">:url</span> <span class="org-string">"http://www.domain.com/s/stuff_sutff_remember_to_replace_search_candidate_with_%s"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+        search-engine-alist<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -291,7 +290,7 @@ any key binding you want.
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-02 Mon 22:21</p>
+<p class="date">Created: 2015-11-08 Sun 18:47</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

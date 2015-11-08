@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-02 Mon 22:22 -->
+<!-- 2015-11-08 Sun 18:49 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>C/C++ contribution layer for Spacemacs</title>
@@ -94,15 +94,14 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-          <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+                 href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -218,7 +217,7 @@ To use this contribution add it to your <code>~/.spacemacs</code>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>c-c++<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>c-c++<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -238,9 +237,9 @@ by setting the variable <code>c-c++-default-mode-for-headers</code> to <code>c++
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
-  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>c-c++ <span style="color: #ff9eb8;">:variables</span>
-           c-c++-default-mode-for-headers 'c++-mode<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers
+  '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>c-c++ <span class="org-builtin">:variables</span>
+           c-c++-default-mode-for-headers 'c++-mode<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -262,8 +261,8 @@ to <code>t</code> in the dotfile:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
-  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>c-c++ <span style="color: #ff9eb8;">:variables</span> c-c++-enable-clang-support t<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers
+  '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>c-c++ <span class="org-builtin">:variables</span> c-c++-enable-clang-support t<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -287,12 +286,12 @@ particular mode or all modes in your <code>dotspacemacs/user-config</code> (with
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Bind clang-format-region to C-M-tab in all modes:</span>
-<span style="color: #AE81FF;">(</span>global-set-key <span style="color: #66D9EF;">[</span>C-M-tab<span style="color: #66D9EF;">]</span> 'clang-format-region<span style="color: #AE81FF;">)</span>
-<span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Bind clang-format-buffer to tab on the c++-mode only:</span>
-<span style="color: #AE81FF;">(</span>add-hook 'c++-mode-hook 'clang-format-bindings<span style="color: #AE81FF;">)</span>
-  <span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">clang-format-bindings</span> <span style="color: #66D9EF;">()</span>
-    <span style="color: #66D9EF;">(</span>define-key c++-mode-map <span style="color: #A6E22E;">[</span>tab<span style="color: #A6E22E;">]</span> 'clang-format-buffer<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Bind clang-format-region to C-M-tab in all modes:</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>global-set-key <span class="org-rainbow-delimiters-depth-2">[</span>C-M-tab<span class="org-rainbow-delimiters-depth-2">]</span> 'clang-format-region<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Bind clang-format-buffer to tab on the c++-mode only:</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'c++-mode-hook 'clang-format-bindings<span class="org-rainbow-delimiters-depth-1">)</span>
+  <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">clang-format-bindings</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+    <span class="org-rainbow-delimiters-depth-2">(</span>define-key c++-mode-map <span class="org-rainbow-delimiters-depth-3">[</span>tab<span class="org-rainbow-delimiters-depth-3">]</span> 'clang-format-buffer<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -365,7 +364,7 @@ doesn't complain about missing header files.
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-02 Mon 22:22</p>
+<p class="date">Created: 2015-11-08 Sun 18:49</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

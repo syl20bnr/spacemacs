@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-02 Mon 22:21 -->
+<!-- 2015-11-08 Sun 18:47 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Spell Checking configuration layer for Spacemacs</title>
@@ -94,9 +94,7 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-          <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+                 href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
           <script type="text/javascript"
@@ -192,7 +190,7 @@ To use this configuration layer add it to your <code>~/.spacemacs</code>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>spell-checking<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>spell-checking<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -224,8 +222,8 @@ toggled off with <code>SPC t S</code>. You can default this to off by setting th
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
-  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>spell-checking <span style="color: #ff9eb8;">:variables</span> spell-checking-enable-by-default nil<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers
+  '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>spell-checking <span class="org-builtin">:variables</span> spell-checking-enable-by-default nil<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -243,10 +241,109 @@ the variable <code>spell-checking-enable-auto-dictionary</code> to something oth
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
-  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>spell-checking <span style="color: #ff9eb8;">:variables</span> spell-checking-enable-auto-dictionary t<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers
+  '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>spell-checking <span class="org-builtin">:variables</span> spell-checking-enable-auto-dictionary t<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
+
+<p>
+Some people encountered bugs with <code>auto-dictionary-mode</code>, especially in <b>daemon
+mode</b> where new <code>emacsclient</code> open directly freezed. If so, no other workaround
+have been found yet than disabling <code>auto-dictionary-mode</code> completely.
+</p>
+
+<p>
+Not all languages are supported by <code>auto-dictionary-list</code>. The supported
+languages are listed in the <code>adict-language-list</code> variable, that can be checked
+with <code>spacemacs/describe-variable</code>. For convenience, here is the list of
+currently supported language:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Language</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">catalan</td>
+</tr>
+
+<tr>
+<td class="org-left">classical greek</td>
+</tr>
+
+<tr>
+<td class="org-left">danish</td>
+</tr>
+
+<tr>
+<td class="org-left">english</td>
+</tr>
+
+<tr>
+<td class="org-left">esperanto</td>
+</tr>
+
+<tr>
+<td class="org-left">french</td>
+</tr>
+
+<tr>
+<td class="org-left">german</td>
+</tr>
+
+<tr>
+<td class="org-left">hindi</td>
+</tr>
+
+<tr>
+<td class="org-left">hungarian</td>
+</tr>
+
+<tr>
+<td class="org-left">modern greek</td>
+</tr>
+
+<tr>
+<td class="org-left">norwegian bokmål</td>
+</tr>
+
+<tr>
+<td class="org-left">norwegian nynorsk</td>
+</tr>
+
+<tr>
+<td class="org-left">portuguese</td>
+</tr>
+
+<tr>
+<td class="org-left">romanian</td>
+</tr>
+
+<tr>
+<td class="org-left">slovak</td>
+</tr>
+
+<tr>
+<td class="org-left">slovene</td>
+</tr>
+
+<tr>
+<td class="org-left">spanish</td>
+</tr>
+
+<tr>
+<td class="org-left">swedish</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -269,6 +366,11 @@ the variable <code>spell-checking-enable-auto-dictionary</code> to something oth
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="org-left"><code>SPC S b</code></td>
+<td class="org-left">flyspell whole buffer</td>
+</tr>
+
 <tr>
 <td class="org-left"><code>SPC S c</code></td>
 <td class="org-left">flyspell correct</td>
@@ -294,7 +396,7 @@ the variable <code>spell-checking-enable-auto-dictionary</code> to something oth
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-02 Mon 22:21</p>
+<p class="date">Created: 2015-11-08 Sun 18:47</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

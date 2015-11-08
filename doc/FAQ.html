@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-02 Mon 22:20 -->
+<!-- 2015-11-08 Sun 18:47 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Frequently Asked Questions</title>
@@ -94,15 +94,14 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css"
-                href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-          <link rel="stylesheet" type="text/css"
-                href="css/readtheorg.css"/>
+                 href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -296,16 +295,16 @@ check out the <code>packages.el</code> file in the respective folders in the
 <div class="outline-text-3" id="text-1-9">
 <p>
 It is possible to change an <code>evil-leader</code> prefix by binding its keymap to
-another sequence. For instance, if you want to switch <code>SPC l</code>
-(<code>evil-avy-goto-line</code>) with <code>SPC L</code> (<code>perspectives</code> layer) to make the later
+another sequence. For instance, if you want to switch <code>SPC y</code>
+(<code>evil-avy-goto-line</code>) with <code>SPC l</code> (<code>perspectives</code> layer) to make the later
 easier to reach, you can use:
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>evil-leader/set-key
-  <span style="color: #E6DB74; font-style: italic;">"l"</span> <span style="color: #66D9EF;">(</span>lookup-key evil-leader--default-map <span style="color: #E6DB74; font-style: italic;">"L"</span><span style="color: #66D9EF;">)</span>
-  <span style="color: #E6DB74; font-style: italic;">"L"</span> 'evil-avy-goto-line<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>evil-leader/set-key
+  <span class="org-string">"y"</span> <span class="org-rainbow-delimiters-depth-2">(</span>lookup-key evil-leader--default-map <span class="org-string">"l"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-string">"l"</span> 'evil-avy-goto-line<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -354,7 +353,7 @@ name to it:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-excluded-packages '<span style="color: #66D9EF;">(</span>package1 package2 ...<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-excluded-packages '<span class="org-rainbow-delimiters-depth-2">(</span>package1 package2 ...<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -371,7 +370,7 @@ remove <code>flycheck</code> support in python buffers, look for the function
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>remove-hook 'python-mode-hook 'flycheck-mode<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>remove-hook 'python-mode-hook 'flycheck-mode<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -395,7 +394,7 @@ of your dotfile. The following snippet disables company for
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>spacemacs|disable-company python-mode<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>spacemacs|disable-company python-mode<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -417,11 +416,11 @@ Examples:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Only mark helm buffers as useless</span>
-<span style="color: #AE81FF;">(</span>setq spacemacs-useless-buffers-regexp '<span style="color: #66D9EF;">(</span><span style="color: #E6DB74; font-style: italic;">"\\*helm\.\+\\*"</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Only mark helm buffers as useless</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setq spacemacs-useless-buffers-regexp '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"\\*helm\.\+\\*"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Marking the *Messages* buffer as useful</span>
-<span style="color: #AE81FF;">(</span>push <span style="color: #E6DB74; font-style: italic;">"\\*Messages\\*"</span> spacemacs-useful-buffers-regexp<span style="color: #AE81FF;">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Marking the *Messages* buffer as useful</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>push <span class="org-string">"\\*Messages\\*"</span> spacemacs-useful-buffers-regexp<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -436,12 +435,12 @@ Add the following snippet to your <code>dostpacemacs/config</code> function:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Make evil-mode up/down operate in screen lines instead of logical lines</span>
-<span style="color: #AE81FF;">(</span>define-key evil-motion-state-map <span style="color: #E6DB74; font-style: italic;">"j"</span> 'evil-next-visual-line<span style="color: #AE81FF;">)</span>
-<span style="color: #AE81FF;">(</span>define-key evil-motion-state-map <span style="color: #E6DB74; font-style: italic;">"k"</span> 'evil-previous-visual-line<span style="color: #AE81FF;">)</span>
-<span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Also in visual mode</span>
-<span style="color: #AE81FF;">(</span>define-key evil-visual-state-map <span style="color: #E6DB74; font-style: italic;">"j"</span> 'evil-next-visual-line<span style="color: #AE81FF;">)</span>
-<span style="color: #AE81FF;">(</span>define-key evil-visual-state-map <span style="color: #E6DB74; font-style: italic;">"k"</span> 'evil-previous-visual-line<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Make evil-mode up/down operate in screen lines instead of logical lines</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>define-key evil-motion-state-map <span class="org-string">"j"</span> 'evil-next-visual-line<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>define-key evil-motion-state-map <span class="org-string">"k"</span> 'evil-previous-visual-line<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Also in visual mode</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>define-key evil-visual-state-map <span class="org-string">"j"</span> 'evil-next-visual-line<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>define-key evil-visual-state-map <span class="org-string">"k"</span> 'evil-previous-visual-line<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -456,7 +455,7 @@ You can ensure a mode opens in emacs state by using <code>evil-set-initial-state
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>evil-set-initial-state 'magit-status-mode 'emacs<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>evil-set-initial-state 'magit-status-mode 'emacs<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -467,7 +466,7 @@ which has a number of different major modes, you can catch them all with
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>push '<span style="color: #66D9EF;">(</span><span style="color: #E6DB74; font-style: italic;">"*magit"</span> . emacs<span style="color: #66D9EF;">)</span> evil-buffer-regexps<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>push '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"*magit"</span> . emacs<span class="org-rainbow-delimiters-depth-2">)</span> evil-buffer-regexps<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -479,9 +478,9 @@ binding in the mode's map, e.g. for <code>magit-status-mode</code>,
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">with-eval-after-load</span> 'magit
-  <span style="color: #66D9EF;">(</span>define-key magit-status-mode-map
-    <span style="color: #A6E22E;">(</span>kbd dotspacemacs-leader-key<span style="color: #A6E22E;">)</span> evil-leader--default-map<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">with-eval-after-load</span> 'magit
+  <span class="org-rainbow-delimiters-depth-2">(</span>define-key magit-status-mode-map
+    <span class="org-rainbow-delimiters-depth-3">(</span>kbd dotspacemacs-leader-key<span class="org-rainbow-delimiters-depth-3">)</span> evil-leader--default-map<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -497,8 +496,8 @@ mode:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">with-eval-after-load</span> 'python
-  <span style="color: #66D9EF;">(</span>modify-syntax-entry ?_ <span style="color: #E6DB74; font-style: italic;">"w"</span> python-mode-syntax-table<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">with-eval-after-load</span> 'python
+  <span class="org-rainbow-delimiters-depth-2">(</span>modify-syntax-entry ?_ <span class="org-string">"w"</span> python-mode-syntax-table<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -522,7 +521,7 @@ the <code>export</code> part is very important.
 
 <div class="org-src-container">
 
-<pre class="src src-sh"><span style="color: #ff9eb8;">export</span> <span style="color: #FD971F;">PATH</span>=~/.local/bin:$<span style="color: #FD971F;">PATH</span>
+<pre class="src src-sh"><span class="org-builtin">export</span> <span class="org-variable-name">PATH</span>=~/.local/bin:$<span class="org-variable-name">PATH</span>
 </pre>
 </div>
 
@@ -534,7 +533,7 @@ part is very important.
 
 <div class="org-src-container">
 
-<pre class="src src-fish"><span style="color: #F92672; font-weight: bold;">set</span> <span style="color: #E6DB74; font-weight: bold;">-x</span> <span style="color: #FD971F;">PATH</span> ~/.local/bin <span style="color: #E6DB74; font-style: italic;">$</span><span style="color: #FD971F;">PATH</span>
+<pre class="src src-fish"><span class="org-keyword">set</span> <span class="org-negation-char">-x</span> <span class="org-variable-name">PATH</span> ~/.local/bin <span class="org-string">$</span><span class="org-variable-name">PATH</span>
 </pre>
 </div>
 
@@ -551,7 +550,7 @@ in your environment. To do so call following command in your terminal.
 
 <div class="org-src-container">
 
-<pre class="src src-sh">$ env | grep <span style="color: #E6DB74; font-style: italic;">"PATH"</span>
+<pre class="src src-sh">$ env | grep <span class="org-string">"PATH"</span>
 </pre>
 </div>
 
@@ -574,7 +573,7 @@ In that case you have the option of updating the value of <code>exec-path</code>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>add-to-list 'exec-path <span style="color: #E6DB74; font-style: italic;">"~/.local/bin/"</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>add-to-list 'exec-path <span class="org-string">"~/.local/bin/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -614,7 +613,7 @@ Check if your Emacs has HTTPS capabilities by doing <code>M-:</code> and then:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>gnutls-available-p<span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>gnutls-available-p<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -642,7 +641,7 @@ install section in the <a href="../README.md">README</a> for more details.
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-02 Mon 22:20</p>
+<p class="date">Created: 2015-11-08 Sun 18:47</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
