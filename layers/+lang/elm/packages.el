@@ -79,7 +79,7 @@
         "mht" 'elm-oracle-type-at-point
 
         ;; repl
-        "msi" 'load-elm-repl
+        "msi" 'elm-repl-load
         "msf" 'push-decl-elm-repl
         "msF" 'spacemacs/push-decl-elm-repl-focus
         "msr" 'push-elm-repl
