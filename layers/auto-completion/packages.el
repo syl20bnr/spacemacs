@@ -213,6 +213,10 @@
       (define-key yas-minor-mode-map
         (kbd "M-s-/") 'yas-next-field)
 
+      ;; on multiple keys, fall back to completing read
+      ;; typically this means helm
+      (setq yas-prompt-functions '(yas-completing-prompt))
+
       ;; add key into candidate list
       (setq helm-yas-display-key-on-candidate t)
       (setq spacemacs--auto-completion-dir
