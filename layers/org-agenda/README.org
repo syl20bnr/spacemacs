@@ -1,0 +1,39 @@
+#+TITLE: Org-agenda contribution layer for Spacemacs
+
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Todo][Todo]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+ - [[Key bindings][Key bindings]]
+
+* Description
+
+This layer enables appending an [[http://orgmode.org/][org mode]] agenda or todo list on to the
+spacemacs startup screen.
+
+Org-agenda keybindings are grafted on to spacemacs-mode by binding them to "a".
+The `*spacemacs*` buffer remains in spacemacs-mode and the buffer is not in
+org-agenda-mode, so some (most) of the org-agenda functionality will be
+missing/buggy/dangerous.  None of this replaces the usual org-agenda functionality
+provided in the org layer.
+
+** Todo
+- [ ] enable appending on startup
+- [ ] undefine broken org-agenda keybindings
+- [ ] enable tags view and custom agenda
+
+* Install
+** Layer
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(org-agenda))
+#+END_SRC
+
+* Key bindings
+
+| Key Binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC a o A~ | append the agenda list to '*spacemacs*' |
+| ~SPC a o T~ | append the todo list to '*spacemacs*'|
