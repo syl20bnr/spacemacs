@@ -65,7 +65,9 @@
       (spacemacs|define-micro-state workspaces
         :doc (spacemacs//workspaces-ms-documentation)
         :use-minibuffer t
-        :evil-leader "W"
+        ;; This binding is effectively overridden by init-persp-mode, which runs
+        ;; after this function. This should be transparent to the user.
+        :evil-leader "lw"
         :bindings
         ("0" eyebrowse-switch-to-window-config-0)
         ("1" eyebrowse-switch-to-window-config-1)
@@ -86,4 +88,4 @@
         ("N" eyebrowse-prev-window-config)
         ("p" eyebrowse-prev-window-config)
         ("r" spacemacs/workspaces-ms-rename :exit t)
-        ("s" eyebrowse-switch-to-window-config :exit t)))))
+        ("w" eyebrowse-switch-to-window-config :exit t)))))
