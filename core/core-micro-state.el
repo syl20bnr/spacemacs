@@ -94,7 +94,9 @@ used."
          (doc (spacemacs/mplist-get props :doc))
          (persistent (plist-get props :persistent))
          (disable-leader (plist-get props :disable-evil-leader))
-         (msg-func (if (plist-get props :use-minibuffer) 'message 'corelv-message))
+         (msg-func (if (plist-get props :use-minibuffer)
+                       'message
+                     'corelv-message))
          (exec-binding (plist-get props :execute-binding-on-enter))
          (on-enter (spacemacs/mplist-get props :on-enter))
          (on-exit (spacemacs/mplist-get props :on-exit))
@@ -109,8 +111,9 @@ used."
               ,@on-enter
               (let ((doc ,@doc))
                 (when doc
+                  (setq max-mini-window-height (1+ (how-many-str "\n" doc)))
                   (apply ',msg-func (list (spacemacs//micro-state-propertize-doc
-                                      (format "%S: %s" ',name doc))))))
+                                           (format "%S: %s" ',name doc))))))
               ,(when exec-binding
                  (spacemacs//micro-state-auto-execute bindings))
               (,(if (version< emacs-version "24.4")
@@ -153,17 +156,19 @@ used."
          (binding-pre (spacemacs/mplist-get binding :pre))
          (binding-post (spacemacs/mplist-get binding :post))
          (wrapper-name (intern (format "spacemacs//%S-%S-%s" name wrapped key)))
-         (doc-body `((let ((bdoc ,@binding-doc)
-                           (defdoc ,@default-doc))
-                       (if bdoc
-                           (apply ',msg-func
-                                  (list (spacemacs//micro-state-propertize-doc
-                                    (format "%S: %s" ',name bdoc))))
-                         (when (and defdoc
-                                    ',wrapped (not (plist-get ',binding :exit)))
-                           (apply ',msg-func
-                                  (list (spacemacs//micro-state-propertize-doc
-                                    (format "%S: %s" ',name defdoc)))))))))
+         (doc-body
+          `((let ((bdoc ,@binding-doc)
+                  (defdoc ,@default-doc))
+              (if bdoc
+                  (apply ',msg-func
+                         (list (spacemacs//micro-state-propertize-doc
+                                (format "%S: %s" ',name bdoc))))
+                (when (and defdoc
+                           ',wrapped (not (plist-get ',binding :exit)))
+                  (setq max-mini-window-height (1+ (how-many-str "\n" defdoc)))
+                  (apply ',msg-func
+                         (list (spacemacs//micro-state-propertize-doc
+                                (format "%S: %s" ',name defdoc)))))))))
          (wrapper-func
           (if (and (boundp wrapped)
                    (eval `(keymapp ,wrapped)))
@@ -181,6 +186,7 @@ used."
                    (setq throwp nil))
                  ,@binding-post
                  (when throwp (throw 'exit nil)))
+               (setq max-mini-window-height (1+ (how-many-str "\n" ,@doc-body)))
                ,@doc-body))))
     (append (list (car binding) (eval wrapper-func)) binding)))
 
