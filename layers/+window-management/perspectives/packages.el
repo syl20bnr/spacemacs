@@ -9,276 +9,204 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(setq perspectives-packages
-      '(
-        persp-mode
-        helm
-        helm-projectile))
+(setq perspectives-packages '(persp-mode spaceline))
 
 (defun perspectives/init-persp-mode ()
   (use-package persp-mode
-    :no-require t
+    :commands spacemacs/layouts-micro-state
     :diminish persp-mode
     :init
-    (setq persp-nil-name spacemacs-persp-nil-name
-          persp-save-dir spacemacs-persp-save-dir)
-    :config
-    (push #'(lambda (b) (with-current-buffer b
-                     (cond ((eq major-mode 'erc-mode) t)
-                           ((eq major-mode 'rcirc-mode) t)
-                           ((eq major-mode 'exwm-mode) t)
-                           (t nil)))) persp-filter-save-buffers-functions)
-    ;; By default, persp mode wont affect either helm or ido
-    (defadvice persp-mode
-        (after suppress-buffer-isolation activate)
-      (remove-hook 'ido-make-buffer-list-hook #'persp-restrict-ido-buffers))
+    (progn
+      (setq persp-nil-name "Default"
+            persp-auto-resume-time -1
+            persp-reset-windows-on-nil-window-conf nil
+            persp-set-last-persp-for-new-frames nil
+            persp-save-dir spacemacs-layouts-save-dir)
 
-    ;; quick swtiching between perspectives
-    (defvar persp-toggle-perspective persp-nil-name
-      "Previously selected perspective. Used with `persp-jump-to-last-persp'.")
+      (defvar spacemacs--layouts-ms-doc-toggle 0
+        "Display a short doc when nil, full doc otherwise.")
 
-    (defun persp-jump-to-last-persp ()
-      (interactive)
-      (persp-switch persp-toggle-perspective))
+      (defvar spacemacs--last-selected-layout persp-nil-name
+        "Previously selected layout.")
 
-    (defadvice persp-activate
-        (before save-toggle-persp activate)
-      (setq persp-toggle-perspective persp-last-persp-name))
+      (defvar spacemacs--custom-layout-alist nil
+        "List of custom layouts with their bound keys.
+ Do not modify directly, use provided `spacemacs|define-custom-layout'")
 
-    (defun persp-autosave ()
-      "Perspectives mode autosave.
-Autosaves perspectives layouts every `persp-autosave-interal' seconds.
-Cancels autosave on exiting perspectives mode."
-      (if (and persp-mode persp-mode-autosave)
-          (progn
-            (message "Perspectives mode autosaving enabled.")
-            (setq persp-autosave-timer
-                  (run-with-timer
-                   persp-autosave-interval
-                   persp-autosave-interval
-                   (lambda ()
-                     (message "Saving perspectives to file.")
-                     (persp-save-state-to-file)))))
-        (when persp-autosave-timer
-          (cancel-timer persp-autosave-timer)
-          (setq persp-autosave-timer nil))))
+      (defvar spacemacs--layouts-autosave-timer nil
+        "Timer for layouts auto-save.")
 
-    (add-hook 'persp-mode-hook #'persp-autosave)
+      (when dotspacemacs-display-default-layout
+        ;; load `persp-mode' if default perspective must be
+        ;; displayed
+        (unless (bound-and-true-p persp-mode)
+          ;; we need this check because calling persp-mode again seems to
+          ;; reset the list of perspectives...
+          (persp-mode)))
 
-    ;; activate persp mode
-    (persp-mode 1)
+      (defun spacemacs/jump-to-last-layout ()
+        "Open the previously selected layout."
+        (interactive)
+        (persp-switch spacemacs--last-selected-layout))
 
-    (when spacemacs-persp-show-home-at-startup
-      (defadvice dotspacemacs/user-config (after show-spacemacs-home activate)
-        "Show Spacemacs Home Buffer after perspectives load."
-        (persp-switch persp-nil-name)
-        (switch-to-buffer "*spacemacs*")
-        (delete-other-windows)))
+      ;; Perspectives micro-state -------------------------------------------
 
-    (defun spacemacs/persp-curr-name ()
-      (interactive)
-      (safe-persp-name (get-frame-persp)))
+      (defun spacemacs//layouts-ms-toggle-doc ()
+        "Toggle the full documenation for the layouts micro-state."
+        (interactive)
+        (setq spacemacs--layouts-ms-doc-toggle
+              (logxor spacemacs--layouts-ms-doc-toggle 1)))
 
-    (defface persp-selected-face
-      '((t (:inherit font-lock-keyword-face)))
-      "The face used to highlight the current perspective on the modeline.")
+      (defun spacemacs//layout-format-name (name pos)
+        "Format the layout name given by NAME for display in  mode-line."
+        (let* ((string-name (format "%s" name))
+               (current (equal name (spacemacs//current-layout-name)))
+               (caption (concat (number-to-string (if (eq 9 pos) 0 (1+ pos)))
+                                ":" string-name)))
+          (if current
+              (concat (when current "[") caption (when current "]"))
+            caption)))
 
-    (defun persp-format-name (name)
-      "Format the perspective name given by NAME for display in `persp-modestring'."
-      (let ((string-name (format "%s" name)))
-        (if (equal name (spacemacs/persp-curr-name))
-            (propertize string-name 'face 'persp-selected-face)
-          string-name)))
+      (defvar spacemacs--layouts-ms-documentation
+        "
+  [?]                  toggle this help
+  [0,9]                go to nth layout
+  [tab]                last layout
+  [a]                  add a buffer from another layout
+  [A]                  add all buffers from another layout
+  [b]                  select buffer in current layout
+  [c]                  close layout (buffers are not closed)
+  [C]                  close other layout(s) (buffers are not closed)
+  [l]                  jump to a layout
+  [L]                  load saved layouts
+  [n] [C-n] or [C-l]   next layout
+  [N] [C-p] or [C-h]   previous layout
+  [o]                  custom layouts
+  [p]                  open project and create associated layout
+  [r]                  remove current buffer from layout
+  [R]                  rename or create layout
+  [s]                  save layouts
+  [t]                  show a buffer without adding it to current layout
+  [x]                  kill layout and its buffers
+  [X]                  kill other layout(s) and their buffers")
 
-    (defun spacemacs/persp-switch-by-pos (pos)
-      "Switch to perspective of position (1-index)."
-      (let ((persp-to-switch
-             (nth (1- pos) (persp-names-current-frame-fast-ordered))))
-        (if persp-to-switch
-            (persp-switch persp-to-switch)
-          (when (y-or-n-p (format
-                           (concat "Perspective in position %s doesn't exist.\n"
-                                   "Do you want to create one? ") pos))
-            (persp-switch nil)))))
+      (defun spacemacs//layouts-ms-doc ()
+        "Return the docstring for the layouts micro-state."
+        (let* ((persp-list (or (persp-names-current-frame-fast-ordered)
+                               (list persp-nil-name)))
+               (formatted-persp-list
+                (concat
+                 (mapconcat
+                  (lambda (persp)
+                    (spacemacs//layout-format-name
+                     persp (position persp persp-list))) persp-list " | "))))
+          (concat formatted-persp-list
+                  (when (equal 1 spacemacs--layouts-ms-doc-toggle)
+                    spacemacs--layouts-ms-documentation))))
 
-    (defun spacemacs/persp-ms-switch-by-pos (pos)
-      "Switch to perspective by position POS (1-index) and return to micro-state"
-      (spacemacs/persp-switch-by-pos pos)
-      (spacemacs/perspectives-micro-state))
+      (spacemacs|define-micro-state layouts
+        :on-enter (unless (bound-and-true-p persp-mode) (persp-mode))
+        :doc (spacemacs//layouts-ms-doc)
+        :use-minibuffer t
+        :evil-leader "l"
+        :bindings
+        ;; need to exit in case number doesn't exist
+        ("?" spacemacs//layouts-ms-toggle-doc)
+        ("1" spacemacs/persp-switch-to-1 :exit t)
+        ("2" spacemacs/persp-switch-to-2 :exit t)
+        ("3" spacemacs/persp-switch-to-3 :exit t)
+        ("4" spacemacs/persp-switch-to-4 :exit t)
+        ("5" spacemacs/persp-switch-to-5 :exit t)
+        ("6" spacemacs/persp-switch-to-6 :exit t)
+        ("7" spacemacs/persp-switch-to-7 :exit t)
+        ("8" spacemacs/persp-switch-to-8 :exit t)
+        ("9" spacemacs/persp-switch-to-9 :exit t)
+        ("0" spacemacs/persp-switch-to-0 :exit t)
+        ("<tab>" spacemacs/jump-to-last-layout)
+        ("<return>" nil :exit t)
+        ("C-h" persp-prev)
+        ("C-l" persp-next)
+        ("C-n" persp-next)
+        ("C-p" persp-prev)
+        ("a" persp-add-buffer :exit t)
+        ("A" persp-import-buffers :exit t)
+        ("b" spacemacs/persp-helm-mini :exit t)
+        ("c" spacemacs/layouts-ms-close)
+        ("C" spacemacs/layouts-ms-close-other :exit t)
+        ("l" spacemacs/helm-perspectives :exit t)
+        ("L" persp-load-state-from-file :exit t)
+        ("n" persp-next)
+        ("N" persp-prev)
+        ("o" spacemacs/select-custom-layout :exit t)
+        ("p" spacemacs/helm-persp-switch-project :exit t)
+        ("r" persp-remove-buffer :exit t)
+        ("R" spacemacs/layouts-ms-rename :exit t)
+        ("s" persp-save-state-to-file :exit t)
+        ("t" persp-temporarily-display-buffer :exit t)
+        ("x" spacemacs/layouts-ms-kill)
+        ("X" spacemacs/layouts-ms-kill-other :exit t))
 
-    (defun spacemacs/persp-switch-to-1 ()
-      (interactive)
-      (spacemacs/persp-ms-switch-by-pos 1))
-    (defun spacemacs/persp-switch-to-2 ()
-      (interactive)
-      (spacemacs/persp-ms-switch-by-pos 2))
-    (defun spacemacs/persp-switch-to-3 ()
-      (interactive)
-      (spacemacs/persp-ms-switch-by-pos 3))
-    (defun spacemacs/persp-switch-to-4 ()
-      (interactive)
-      (spacemacs/persp-ms-switch-by-pos 4))
-    (defun spacemacs/persp-switch-to-5 ()
-      (interactive)
-      (spacemacs/persp-ms-switch-by-pos 5))
-    (defun spacemacs/persp-switch-to-6 ()
-      (interactive)
-      (spacemacs/persp-ms-switch-by-pos 6))
-    (defun spacemacs/persp-switch-to-7 ()
-      (interactive)
-      (spacemacs/persp-ms-switch-by-pos 7))
-    (defun spacemacs/persp-switch-to-8 ()
-      (interactive)
-      (spacemacs/persp-ms-switch-by-pos 8))
-    (defun spacemacs/persp-switch-to-9 ()
-      (interactive)
-      (spacemacs/persp-ms-switch-by-pos 9))
+      (defun spacemacs/layout-switch-by-pos (pos)
+        "Switch to perspective of position POS."
+        (let ((persp-to-switch
+               (nth pos (persp-names-current-frame-fast-ordered))))
+          (if persp-to-switch
+              (persp-switch persp-to-switch)
+            (when (y-or-n-p
+                   (concat "Perspective in this position doesn't exist.\n"
+                           "Do you want to create one? "))
+              (persp-switch nil)))))
 
-    (defvar spacemacs--perspectives-ms-doc-toggle 1
-      "Display a short doc when nil, full doc otherwise.")
+      ;; Define all `spacemacs/persp-switch-to-X' functions
+      (dolist (i (number-sequence 9 0 -1))
+        (eval `(defun ,(intern (format "spacemacs/persp-switch-to-%s" i)) nil
+                   ,(format "Switch to layout %s." i)
+                 (interactive)
+                 (spacemacs/layout-switch-by-pos ,(if (eq 0 i) 9 (1- i)))
+                 (spacemacs/layouts-micro-state))))
 
-    (defun spacemacs//perspectives-ms-doc ()
-      "Return the docstring for the perspectives micro-state."
-      (let* ((persp-list           (persp-names-current-frame-fast-ordered))
-             (formatted-persp-list (mapconcat
-                                    (lambda (persp)
-                                      (persp-format-name persp))
-                                    (or persp-list (list persp-nil-name)) " | ")))
-        (concat formatted-persp-list
-                (when (and perspectives-display-help
-                           (equal 0 spacemacs--perspectives-ms-doc-toggle))
-                  (concat
-                   "\n"
-                   "[n|p] [next|previous] perspective, "
-                   "[tab] jump to last perspective \n"
-                   "[s|r] [switch to or create|rename] perspective\n"
-                   "[P] Projectile switch to perspective, [o] open custom perspective\n"
-                   "[c|C] kill [current|other] perspective, "
-                   "[t|K] switch [to|remove] buffer from [other|current] perspective\n"
-                   "[a|i] import [one|all] buffer(s) from other perspective\n"
-                   "[w|l] [save|load] configuration [to|from] file")))))
+      (defun spacemacs/layouts-ms-rename ()
+        "Rename a layout and get back to the perspectives micro-state."
+        (interactive)
+        (call-interactively 'persp-rename)
+        (spacemacs/layouts-micro-state))
 
-    (defun spacemacs//perspectives-ms-toggle-doc ()
-      (interactive)
-      (setq spacemacs--perspectives-ms-doc-toggle
-            (logxor spacemacs--perspectives-ms-doc-toggle 1)))
+      (defun spacemacs/layouts-ms-close ()
+        "Kill current perspective"
+        (interactive)
+        (persp-kill-without-buffers (spacemacs//current-layout-name)))
 
-    (spacemacs|define-micro-state perspectives
-      :doc (spacemacs//perspectives-ms-doc)
-      :use-minibuffer t
-      :evil-leader "l"
-      :bindings
-      ;; need to exit in case number doesn't exist
-      ("?" spacemacs//perspectives-ms-toggle-doc)
-      ("1" spacemacs/persp-switch-to-1 :exit t)
-      ("2" spacemacs/persp-switch-to-2 :exit t)
-      ("3" spacemacs/persp-switch-to-3 :exit t)
-      ("4" spacemacs/persp-switch-to-4 :exit t)
-      ("5" spacemacs/persp-switch-to-5 :exit t)
-      ("6" spacemacs/persp-switch-to-6 :exit t)
-      ("7" spacemacs/persp-switch-to-7 :exit t)
-      ("8" spacemacs/persp-switch-to-8 :exit t)
-      ("9" spacemacs/persp-switch-to-9 :exit t)
-      ("<tab>" persp-jump-to-last-persp)
-      ("n" persp-next)
-      ("N" persp-prev)
-      ("p" persp-prev)
-      ("P" spacemacs/helm-persp-switch-project :exit t)
-      ("l" spacemacs/helm-perspectives :exit t)
-      ("s" spacemacs/helm-persp-switch :exit t)
-      ("b" spacemacs/persp-helm-mini :exit t)
-      ("r" spacemacs/persp-ms-rename :exit t)
-      ("x" spacemacs/persp-ms-kill)
-      ("X" spacemacs/persp-ms-kill-other :exit t)
-      ("c" spacemacs/persp-ms-close)
-      ("C" spacemacs/persp-ms-close-other :exit t)
-      ("a" persp-add-buffer :exit t)
-      ("t" persp-temporarily-display-buffer :exit t)
-      ("i" persp-import-buffers :exit t)
-      ("K" persp-remove-buffer :exit t)
-      ("w" persp-save-state-to-file :exit t)
-      ("L" persp-load-state-from-file :exit t)
-      ("o" spacemacs/select-custom-persps :exit t))
+      (defun spacemacs/layouts-ms-close-other ()
+        (interactive)
+        (call-interactively 'spacemacs/helm-persp-close)
+        (spacemacs/layouts-micro-state))
 
-    (defun spacemacs/persp-ms-rename ()
-      "Rename a perspective and get back to the perspectives micro-state."
-      (interactive)
-      (call-interactively #'persp-rename)
-      (spacemacs/perspectives-micro-state))
+      (defun spacemacs/layouts-ms-kill ()
+        "Kill current perspective"
+        (interactive)
+        (persp-kill (spacemacs//current-layout-name)))
 
-    (defun spacemacs/persp-ms-close ()
-      "Kill current perspective"
-      (interactive)
-      (persp-kill-without-buffers (spacemacs/persp-curr-name)))
+      (defun spacemacs/layouts-ms-kill-other ()
+        (interactive)
+        (call-interactively 'spacemacs/helm-persp-kill)
+        (spacemacs/layouts-micro-state))
 
-    (defun spacemacs/persp-ms-close-other ()
-      (interactive)
-      (call-interactively 'spacemacs/helm-persp-close)
-      (spacemacs/perspectives-micro-state))
+      (defun spacemacs/layouts-ms-last ()
+        "Switch to the last active perspective"
+        (interactive)
+        (persp-switch persp-last-persp-name))
 
-    (defun spacemacs/persp-ms-kill ()
-      "Kill current perspective"
-      (interactive)
-      (persp-kill (spacemacs/persp-curr-name)))
+      ;; Custom perspectives micro-state -------------------------------------
 
-    (defun spacemacs/persp-ms-kill-other ()
-      (interactive)
-      (call-interactively 'spacemacs/helm-persp-kill)
-      (spacemacs/perspectives-micro-state))
+      (defun spacemacs//custom-layout-func-name (name)
+        "Return the name of the custom-perspective function for NAME."
+        (intern (concat "spacemacs/custom-perspective-" name)))
 
-    ;; (defun spacemacs/persp-ms-last ()
-    ;;   "Switch to the last active perspective"
-    ;;   (interactive)
-    ;;   (persp-switch persp-last-persp-name))
-
-;;; Custom Perspectives Micro State
-
-    (defvar spacemacs-custom-persp-alist '()
-      "List of custom perspectives with their bindkeys.
-Do not modify directly, use provided `spacemacs|define-custom-persp'")
-
-    (defun spacemacs/select-custom-persps ()
-      "Update the custom-persps microstate and then activate it."
-      (interactive)
-      (eval (macroexpand '(spacemacs|update-custom-persps)))
-      (call-interactively #'spacemacs/custom-persps-micro-state))
-
-    (defun spacemacs//custom-persps-ms-documentation ()
-      "Return the docstring for the custom perspectives micro-state."
-      (if spacemacs-custom-persp-alist
-          (concat (mapconcat (lambda (custom-persp)
-                               (format "[%s] %s" (car custom-persp) (cdr custom-persp)))
-                             spacemacs-custom-persp-alist
-                             " ")
-                  "\n[q] quit to perspectives-micro-state")
-        (warn (format "`spacemacs-custom-persp-alist' variable is empty" ))))
-
-    (defmacro spacemacs|update-custom-persps ()
-      "Ensure the custom-persps micro-state is updated.
-Takes each element in the list `spacemacs-custom-persp-alist'
-format so they are supported by the
-`spacemacs/custom-persps-micro-state' macro."
-      (let ((bindings '(("q" spacemacs/perspectives-micro-state :exit t))))
-        (dolist (custom-persp spacemacs-custom-persp-alist bindings)
-          (let* ((binding (car custom-persp))
-                 (name (cdr custom-persp))
-                 (func-name (spacemacs//custom-persps-func-name name)))
-            (push (list binding func-name) bindings)))
-        `(spacemacs|define-micro-state custom-persps
-           :doc (spacemacs//custom-persps-ms-documentation)
-           :use-minibuffer t
-           :bindings
-           ,@bindings)))
-
-    (defun spacemacs//custom-persps-func-name (name)
-      "Return the name of the custom-perspective function."
-      (intern (concat "spacemacs/custom-perspective-" name)))
-
-    (defmacro spacemacs|define-custom-persp (name &rest props)
-      "Define a custom-perspective called NAME.
+      (defmacro spacemacs|define-custom-layout (name &rest props)
+        "Define a custom-perspective called NAME.
 
 FUNC is a FUNCTION defined using NAME and the result of
-`spacemacs//custom-persps-func-name', it takes care of
+`spacemacs//custom-layout-func-name', it takes care of
 creating the perspective NAME and executing the expressions given
 in the :body property to this macro.
 
@@ -292,149 +220,90 @@ Available PROPS:
 `:body EXPRESSIONS'
   One or several EXPRESSIONS that are going to be evaluated after
   we change into the perspective NAME."
-      (declare (indent 1))
-      (let* ((func             (spacemacs//custom-persps-func-name name))
-             (binding          (car (spacemacs/mplist-get props :binding)))
-             (body             (spacemacs/mplist-get props :body))
-             (already-defined? (cdr
-                                (assoc binding spacemacs-custom-persp-alist))))
-        `(progn
-           (defun ,func ()
-             ,(format "Open custom perspective %s" name)
-             (interactive)
-             (let ((initialize (not (gethash ,name *persp-hash*))))
-               (persp-switch ,name)
-               (when initialize ,@body)))
-           ;; Check for Clashes
-           (if ,already-defined?
-               (unless (equal ,already-defined? ,name)
-                 (warn "Replacing existing binding \"%s\" for %s with %s"
-                       ,binding ,already-defined? ,name )
-                 (push '(,binding . ,name) spacemacs-custom-persp-alist))
-             (push '(,binding . ,name) spacemacs-custom-persp-alist)))))
+        (declare (indent 1))
+        (let* ((func (spacemacs//custom-layout-func-name name))
+               (binding (car (spacemacs/mplist-get props :binding)))
+               (body (spacemacs/mplist-get props :body))
+               (already-defined? (cdr (assoc binding
+                                             spacemacs--custom-layout-alist))))
+          `(progn
+             (defun ,func ()
+               ,(format "Open custom perspective %s" name)
+               (interactive)
+               (let ((initialize (not (gethash ,name *persp-hash*))))
+                 (persp-switch ,name)
+                 (when initialize
+                   (delete-other-windows)
+                   ,@body)))
+             ;; Check for Clashes
+             (if ,already-defined?
+                 (unless (equal ,already-defined? ,name)
+                   (warn "Replacing existing binding \"%s\" for %s with %s"
+                         ,binding ,already-defined? ,name )
+                   (push '(,binding . ,name) spacemacs--custom-layout-alist))
+               (push '(,binding . ,name) spacemacs--custom-layout-alist)))))
 
-    (spacemacs|define-custom-persp "@Spacemacs"
-      :binding "e"
-      :body
-      (spacemacs/find-dotfile))
-
-    (when (configuration-layer/layer-usedp 'org)
-      (spacemacs|define-custom-persp "@Org"
-        :binding "o"
+      (spacemacs|define-custom-layout "@Spacemacs"
+        :binding "e"
         :body
-        (find-file (first org-agenda-files))))
+        (spacemacs/find-dotfile))
 
-    (when (configuration-layer/layer-usedp 'erc)
-      (spacemacs|define-custom-persp "@ERC"
-        :binding "E"
-        :body
-        (call-interactively 'erc)))
+      (defun spacemacs/select-custom-layout ()
+        "Update the custom-perspectives microstate and then activate it."
+        (interactive)
+        (spacemacs//update-custom-layouts)
+        (spacemacs/custom-layouts-micro-state))
 
-    (when (configuration-layer/layer-usedp 'rcirc)
-      (spacemacs|define-custom-persp "@RCIRC"
-        :binding "i"
-        :body
-        (call-interactively 'spacemacs/rcirc)))))
+      (defun spacemacs//custom-layouts-ms-documentation ()
+        "Return the docstring for the custom perspectives micro-state."
+        (if spacemacs--custom-layout-alist
+            (concat (mapconcat (lambda (custom-persp)
+                                 (format "[%s] %s"
+                                         (car custom-persp) (cdr custom-persp)))
+                               spacemacs--custom-layout-alist " ")
+                    "\n[q] quit to perspectives-micro-state")
+          (warn (format "`spacemacs--custom-layout-alist' variable is empty" ))))
 
+      (defun spacemacs//update-custom-layouts ()
+        "Ensure the custom-perspectives micro-state is updated.
+Takes each element in the list `spacemacs--custom-layout-alist'
+format so they are supported by the
+`spacemacs/custom-layouts-micro-state' macro."
+        (let ((bindings '(("q" spacemacs/layouts-micro-state :exit t))))
+          (dolist (custom-persp spacemacs--custom-layout-alist bindings)
+            (let* ((binding (car custom-persp))
+                   (name (cdr custom-persp))
+                   (func-name (spacemacs//custom-layout-func-name name)))
+              (push (list binding func-name) bindings)))
+          (eval `(spacemacs|define-micro-state custom-layouts
+                   :doc (spacemacs//custom-layouts-ms-documentation)
+                   :use-minibuffer t
+                   :bindings
+                   ,@bindings))))
+      )
+    :config
+    (progn
+      (defadvice persp-activate (before spacemacs//save-toggle-layout activate)
+        (setq spacemacs--last-selected-layout persp-last-persp-name))
+      (add-hook 'persp-mode-hook 'spacemacs//layout-autosave)
+      ;; By default, persp mode wont affect either helm or ido
+      (remove-hook 'ido-make-buffer-list-hook 'persp-restrict-ido-buffers)
+      )))
 
-(defun perspectives/post-init-helm ()
-  (defun spacemacs/persp-helm-mini ()
-    "As `helm-mini' but restricts visible buffers by perspective."
-    (interactive)
-    (with-persp-buffer-list ()
-                            (helm-mini)))
-  (defun spacemacs/helm-perspectives-source ()
-    (helm-build-in-buffer-source
-        (concat "Current Perspective: " (spacemacs/persp-curr-name))
-      :data (persp-names)
-      :fuzzy-match t
-      :action
-      '(("Switch to perspective" . persp-switch)
-        ("Close perspective(s)" . (lambda (candidate)
-                                    (mapcar
-                                     'persp-kill-without-buffers
-                                     (helm-marked-candidates))))
-        ("Kill perspective(s)" . (lambda (candidate)
-                                   (mapcar 'persp-kill
-                                           (helm-marked-candidates)))))))
-  (defun spacemacs/helm-perspectives ()
-    "Control Panel for perspectives. Has many actions.
-If match is found
-f1: (default) Select perspective
-f2: Close Perspective(s) <- mark with C-SPC to close more than one-window
-f3: Kill Perspective(s)
-
-If match is not found
-<enter> Creates perspective
-
-Closing doesn't kill buffers inside the perspective while killing
-perspectives does."
-    (interactive)
-    (helm
-     :buffer "*Helm Perspectives*"
-     :sources `(,(spacemacs/helm-perspectives-source)
-                ,(helm-build-dummy-source "Create new perspective"
-                   :requires-pattern t
-                   :action #'persp-switch))))
-  (defun spacemacs/helm-persp-switch ()
-    "Selects or creates perspective."
-    (interactive)
-    (helm
-     :buffer "*Helm Switch Perspectives*"
-     :sources `(,(helm-build-in-buffer-source
-                     (concat "Current Perspective: " (spacemacs/persp-curr-name))
-                   :data (persp-names)
-                   :fuzzy-match t
-                   :action #'persp-switch)
-                ,(helm-build-dummy-source "Create new perspective"
-                   :requires-pattern t
-                   :action #'persp-switch))))
-  ;; ability to use helm find files but also adds to current perspective
-  (defun spacemacs/helm-persp-close ()
-    "Kills perspectives without killing the buffers"
-    (interactive)
-    (helm
-     :buffer "*Helm Kill Perspectives (without killing buffers)*"
-     :sources (helm-build-in-buffer-source
-                  (concat "Current Perspective: " (spacemacs/persp-curr-name))
-                :data (persp-names)
-                :fuzzy-match t
-                :action
-                '(("Close perspective(s)" . (lambda (candidate)
-                                              (mapcar
-                                               'persp-kill-without-buffers
-                                               (helm-marked-candidates))))))))
-  (defun spacemacs/helm-persp-kill ()
-    "Kills perspectives with all their buffers"
-    (interactive)
-    (helm
-     :buffer "*Helm Kill Perspectives with all their buffers*"
-     :sources (helm-build-in-buffer-source
-                  (s-concat "Current Perspective: "
-                            (spacemacs/persp-curr-name))
-                :data (persp-names)
-                :fuzzy-match t
-                :action
-                '(("Kill perspective(s)" . (lambda (candidate)
-                                             (mapcar 'persp-kill
-                                                     (helm-marked-candidates)))))))))
-
-(defun perspectives/post-init-helm-projectile ()
-  (defun spacemacs/helm-persp-switch-project (arg)
-    (interactive "P")
-    (helm
-     :sources (helm-build-in-buffer-source "*Helm Switch Project Perspective*"
-                :data (lambda ()
-                        (if (projectile-project-p)
-                            (cons (abbreviate-file-name (projectile-project-root))
-                                  (projectile-relevant-known-projects))
-                          projectile-known-projects))
-                :fuzzy-match helm-projectile-fuzzy-match
-                :mode-line helm-read-file-name-mode-line-string
-                :action '(("Switch to Project Perspective" .
-                           (lambda (project)
-                             (persp-switch project)
-                             (let ((projectile-completion-system 'helm))
-                               (projectile-switch-project-by-name project)))
-                           )))
-     :buffer "*Projectile Perspectives*")))
+(defun perspectives/post-init-spaceline ()
+  ;; redefine the persp-name format to allow optional
+  ;; default perspective display
+  ;; also display the perspective name only in active window
+  (spaceline-define-segment persp-name
+    "The current perspective name."
+    (let ((name (safe-persp-name (get-frame-persp))))
+      (if (file-directory-p name)
+          (file-name-nondirectory (directory-file-name name))
+        (propertize name 'face 'bold)))
+    :when (and active (bound-and-true-p persp-mode)
+               ;; There are multiple implementations of
+               ;; persp-mode with different APIs
+               (fboundp 'safe-persp-name) (fboundp 'get-frame-persp)
+               (or (not (equal persp-nil-name
+                               (safe-persp-name (get-frame-persp))))
+                   dotspacemacs-display-default-layout))))

@@ -28,6 +28,7 @@
     org-pomodoro
     org-present
     org-repo-todo
+    persp-mode
     toc-org
     ))
 
@@ -322,6 +323,12 @@ Will work on both org-mode and any mode that accepts plain html."
         "CT"  'ort/capture-checkitem)
       (evil-leader/set-key-for-mode 'org-mode
         "mgt" 'ort/goto-todos))))
+
+(defun org/post-init-persp-mode ()
+  (spacemacs|define-custom-layout "@Org"
+    :binding "o"
+    :body
+    (find-file (first org-agenda-files))))
 
 (defun org/init-toc-org ()
   (use-package toc-org
