@@ -1,4 +1,4 @@
-;;; packages.el --- Perspectives Layer packages File for Spacemacs
+;;; packages.el --- Spacemacs Layouts Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -9,9 +9,9 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(setq perspectives-packages '(persp-mode spaceline))
+(setq spacemacs-layouts-packages '(persp-mode spaceline))
 
-(defun perspectives/init-persp-mode ()
+(defun spacemacs-layouts/init-persp-mode ()
   (use-package persp-mode
     :commands spacemacs/layouts-micro-state
     :diminish persp-mode
@@ -21,7 +21,7 @@
             persp-auto-resume-time -1
             persp-reset-windows-on-nil-window-conf nil
             persp-set-last-persp-for-new-frames nil
-            persp-save-dir spacemacs-layouts-save-dir)
+            persp-save-dir spacemacs-layouts-directory)
 
       (defvar spacemacs--layouts-ms-doc-toggle 0
         "Display a short doc when nil, full doc otherwise.")
@@ -287,10 +287,9 @@ format so they are supported by the
         (setq spacemacs--last-selected-layout persp-last-persp-name))
       (add-hook 'persp-mode-hook 'spacemacs//layout-autosave)
       ;; By default, persp mode wont affect either helm or ido
-      (remove-hook 'ido-make-buffer-list-hook 'persp-restrict-ido-buffers)
-      )))
+      (remove-hook 'ido-make-buffer-list-hook 'persp-restrict-ido-buffers))))
 
-(defun perspectives/post-init-spaceline ()
+(defun spacemacs-layouts/post-init-spaceline ()
   ;; redefine the persp-name format to allow optional
   ;; default perspective display
   ;; also display the perspective name only in active window

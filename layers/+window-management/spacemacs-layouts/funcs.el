@@ -1,4 +1,4 @@
-;;; funcs.el --- Perspectives Layer functions File
+;;; funcs.el --- Spacemacs Layouts Layer functions File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
