@@ -174,3 +174,10 @@ FRAME defaults to the current frame."
      'eyebrowse-current-slot (eyebrowse--get 'current-slot frame) persp)
     (set-persp-parameter
      'eyebrowse-last-slot (eyebrowse--get 'last-slot frame) persp)))
+
+(defun spacemacs/layout-workspaces-micro-state ()
+  "Launches the workspaces micro state, if defined."
+  (interactive)
+  (if (fboundp 'spacemacs/workspaces-micro-state)
+      (call-interactively 'spacemacs/workspaces-micro-state)
+    (message "You need the eyebrowse layer to use this feature.")))
