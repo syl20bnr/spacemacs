@@ -24,7 +24,7 @@ Layouts are window configurations that have buffer isolation between each other.
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(perspectives))
+  (setq-default dotspacemacs-configuration-layers '(spacemacs-layouts))
 #+END_SRC
 
 * Features 
