@@ -25,6 +25,7 @@
         erc-social-graph
         erc-view-log
         erc-yt
+        persp-mode
         ))
 
 (when (spacemacs/system-is-mac)
@@ -175,3 +176,14 @@
     :init (with-eval-after-load 'erc (add-to-list 'erc-modules 'image))))
 
 (defun erc/init-erc-terminal-notifier ())
+
+(defun erc/post-init-persp-mode ()
+  (spacemacs|define-custom-layout "@ERC"
+    :binding "E"
+    :body
+    (call-interactively 'erc))
+  ;; do not save erc buffers
+  (spacemacs|use-package-add-hook persp-mode
+    :post-config
+    (push (lambda (b) (with-current-buffer b (eq major-mode 'erc-mode)))
+          persp-filter-save-buffers-functions)))

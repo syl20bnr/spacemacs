@@ -4,6 +4,7 @@
     company-emoji
     emoji-cheat-sheet-plus
     flyspell
+    persp-mode
     rcirc
     rcirc-color
     rcirc-notify
@@ -22,6 +23,17 @@
 
 (defun rcirc/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'rcirc-mode))
+
+(defun rcirc/post-init-persp-mode ()
+  (spacemacs|define-custom-layout "@RCIRC"
+    :binding "i"
+    :body
+    (call-interactively 'spacemacs/rcirc))
+  ;; do not save rcirc buffers
+  (spacemacs|use-package-add-hook persp-mode
+    :post-config
+    (push (lambda (b) (with-current-buffer b (eq major-mode 'rcirc-mode)))
+          persp-filter-save-buffers-functions)))
 
 (defun rcirc/init-rcirc ()
   (use-package rcirc

@@ -80,7 +80,7 @@ The default bindings are the following:
 | ~SPC l o o~ | Org custom perspective                                   |
 
 You can of course add more custom perspectives by using the
-~spacemacs|define-custom-perspective~ macro explained further below.
+~spacemacs|define-custom-layout~ macro explained further below.
 
 ** Per project custom perpsective
 
