@@ -89,6 +89,7 @@ in =user-init=, and any variable that Spacemacs explicitly sets but you wish to
 *override* must be set in =user-config=.
 
 Anything that isn't just setting a variable should 99% be in =user-config=.
+
 ** Why do some of my =org=-related settings cause problems?
 Since version 0.104, spacemacs uses the `org` version from the org ELPA
 repository instead of the one shipped with emacs. Then, any `org` related code
@@ -108,10 +109,8 @@ configuration:
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 #+END_SRC
 
-See the below issues for further details:
+See [[https://github.com/syl20bnr/spacemacs/issues/3422#issuecomment-148919047][issue #3422]] and [[https://github.com/emacs-helm/helm/issues/1000#issuecomment-119487649][helm issue #1000]] for details.
 
-- https://github.com/syl20bnr/spacemacs/issues/3422#issuecomment-148919047
-- https://github.com/emacs-helm/helm/issues/1000#issuecomment-119487649
 * How do I...
 ** Disable a package completely?
 To completely disable a package and effectively uninstalling it even if
