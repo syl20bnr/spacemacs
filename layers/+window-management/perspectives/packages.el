@@ -74,7 +74,7 @@
   [tab]                last layout
   [a]                  add a buffer from another layout
   [A]                  add all buffers from another layout
-  [b]                  select buffer in current layout
+  [b]                  select a buffer of the current layout
   [c]                  close layout (buffers are not closed)
   [C]                  close other layout(s) (buffers are not closed)
   [l]                  jump to a layout

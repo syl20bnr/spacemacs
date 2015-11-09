@@ -1,4 +1,4 @@
-#+TITLE: Perspectives contribution layer for Spacemacs
+#+TITLE: Spacemacs Layouts configuration layer for Spacemacs
 
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[Description][Description]]
@@ -6,26 +6,18 @@
    - [[Layer][Layer]]
  - [[Features ][Features ]]
    - [[Micro-states][Micro-states]]
-     - [[Perspective Management Micro State][Perspective Management Micro State]]
-     - [[Custom Perspectives Micro State][Custom Perspectives Micro State]]
-   - [[Per project custom perpsective][Per project custom perpsective]]
-   - [[Save/Load perspectives into a file][Save/Load perspectives into a file]]
-   - [[Custom Perspective Macro][Custom Perspective Macro]]
-   - [[Predefined custom perspectives][Predefined custom perspectives]]
-     - [[Org-agenda custom perspective][Org-agenda custom perspective]]
-     - [[RCIRC/ERC custom perspective][RCIRC/ERC custom perspective]]
- - [[Configuration][Configuration]]
-   - [[Removing additional help][Removing additional help]]
-   - [[Showing Spacemacs Home Buffer at Startup][Showing Spacemacs Home Buffer at Startup]]
+     - [[Layouts Micro State][Layouts Micro State]]
+     - [[Custom Layouts Micro State][Custom Layouts Micro State]]
+ - [[Usage][Usage]]
+   - [[Save/Load layouts into a file][Save/Load layouts into a file]]
+   - [[Custom Layout Macro][Custom Layout Macro]]
+   - [[Predefined custom layouts][Predefined custom layouts]]
+     - [[Org-agenda custom layout][Org-agenda custom layout]]
+     - [[RCIRC/ERC custom layout][RCIRC/ERC custom layout]]
 
 * Description
-This contribution layer adds Perspectives to Spacemacs. Perspectives are window
-configurations that have buffer isolation between each other (under the keybinding ~SPC l b~).
-At the beginning there is a ~@Home~ perspective which will contain all buffers by default.
-Basically, staying in this perspective will feel as if you didn't have the perspectives layer enabled.
-After creating the first perspective via the method you choose (~SPC l s~ or ~SPC l o custom-poersp~
-or ~SPC l P~ for projectile perspectives). If you kill the ~@Home~ perspective ~SPC l k~,
-you will also kill every buffer.
+This contribution layer adds layouts support to Spacemacs thanks to =persp-mode=.
+Layouts are window configurations that have buffer isolation between each other.
 
 * Install
 ** Layer
@@ -38,133 +30,109 @@ To use this contribution add it to your =~/.spacemacs=
 * Features 
 
 ** Micro-states
-*** Perspective Management Micro State
+*** TODO Layouts Micro State
+The layouts micro-state is initiated with ~SPC l~.
 
-Prefix command for perspective management commands is ~SPC l~ (for Layout).
+| Key Binding | Description                                                              |
+|-------------+--------------------------------------------------------------------------|
+| ~?~         | toggle the documentation                                                 |
+| ~[1..9, 0]~ | switch to nth layout                                                     |
+| ~<tab>~     | switch to the latest layout                                              |
+| ~a~         | add a buffer to the current layout                                       |
+| ~A~         | add all the buffers from another layout in the current one               |
+| ~b~         | select a buffer in the current layout                                    |
+| ~c~         | close the current layout and keep its buffers                            |
+| ~C~         | close the other layouts and keep their buffers                           |
+| ~C-h~       | previous layout in list                                                  |
+| ~l~         | select a layout with helm                                                |
+| ~L~         | load layouts from file                                                   |
+| ~C-l~       | next layout in list                                                      |
+| ~n~         | next layout in list                                                      |
+| ~N~         | previous layout in list                                                  |
+| ~C-n~       | next layout in list                                                      |
+| ~o~         | open a custom layout                                                     |
+| ~p~         | open a buffer from a projectile project and add it to the current layout |
+| ~C-p~       | previous layout in list                                                  |
+| ~r~         | remove current buffer from layout                                        |
+| ~R~         | rename layout                                                            |
+| ~s~         | save layouts                                                             |
+| ~t~         | display a buffer without adding it to the current layout                 |
+| ~x~         | kill current layout with its buffers                                     |
+| ~X~         | kill other layouts with their buffers                                    |
 
-| Key Binding            | Description                                     |
-|------------------------+-------------------------------------------------|
-| ~SPC l ?~              | Toggle Documentation of micro-state             |
-| ~SPC l l~              | List perspectives                               |
-| ~SPC l b~              | List buffers in current perspective             |
-| ~SPC l f~              | List buffers in current perspective             |
-| ~SPC l K~              | Remove buffer from perspective                  |
-| ~SPC l i~              | import all buffers from other perspective       |
-| ~SPC l t~              | display buffer without adding it to perspective |
-| ~SPC l a~              | add buffer to current perspective               |
-| ~SPC l x~              | kill current perspective with its buffers       |
-| ~SPC l X~              | kill other perspective with its buffers         |
-| ~SPC l c~              | close current perspective and keep buffers      |
-| ~SPC l c~              | close current perspective and keep buffers      |
-| ~SPC l C~              | close other perspective and keep buffers        |
-| ~SPC l i~              | Import buffers from other perspective           |
-| ~SPC l o~              | open a custom perspective                       |
-| ~SPC l n~              | switch to next perspective                      |
-| ~SPC l N~ or ~SPC W p~ | switch to previous perspective                  |
-| ~SPC l <tab>~          | switch to latest perspective                    |
-| ~SPC l [1..n..9]~      | switch to nth perspective                       |
-| ~SPC l r~              | rename perspective                              |
-| ~SPC l w~              | Save perspectives to file                       |
-| ~SPC l L~              | Load perspectives from file                     |
-| ~SPC l s~              | switch perspective                              |
+*** Custom Layouts Micro State
+The layouts micro-state is initiated with ~SPC l o~.
 
-*** Custom Perspectives Micro State
-
-The default bindings are the following:
-
+Example of default custom layouts that are configured in the corresponding
+layers:
 | Key Binding | Description                                              |
 |-------------+----------------------------------------------------------|
-| ~SPC l o e~ | Emacs custom perspective                                 |
-| ~SPC l o E~ | ERC custom perspective (needs the erc layer enabled)     |
-| ~SPC l o i~ | RCIRC custom perspective (needs the rcirc layer enabled) |
-| ~SPC l o o~ | Org custom perspective                                   |
+| ~e~         | Emacs custom perspective                                 |
+| ~E~         | ERC custom perspective (needs the erc layer enabled)     |
+| ~i~         | RCIRC custom perspective (needs the rcirc layer enabled) |
+| ~o~         | Org custom perspective                                   |
 
-You can of course add more custom perspectives by using the
+**Note:** You can add more custom perspectives by using the
 ~spacemacs|define-custom-layout~ macro explained further below.
 
-** Per project custom perpsective
+* Usage
+At the beginning there is only one layout called =Default=  which contains
+all the buffers.
 
-Projectile will work normally in any perspectives by adding buffers to the current
-perspective, but if you want to create a perspective specific to some project you
-can use the ~SPC l P~.
+If you keep working within this layout then Emacs behaves as if layouts
+don't exist so you are never forced to use them even if they are available.
 
-** Save/Load perspectives into a file
+They are two types of layouts:
+- regular layouts which you can create dynamically or which can be bound to
+  a projectile project (press ~SPC l~ to access them)
+- custom layouts which are defined with the macro
+  =spacemacs|define-custome-layout= and always active (press ~SPC l o~ to
+  access them).
 
-With ~SPC l w~ and ~SPC l L~ you can save and load perspectives to a file this
-is done without configuration, support is great for emacs 24.4, but depends on
-=workgroups.el= for Emacs <= 24.3.
+** Save/Load layouts into a file
+With ~SPC l s~ and ~SPC l L~ you can save and load perspectives to a file. This
+is available without configuration, support is great for emacs 24.4, but
+depends on =workgroups.el= for Emacs <= 24.3.
 
-** Custom Perspective Macro
-If you want to add a new custom-persp (for example if you want to have
+** Custom Layout Macro
+If you want to add a new custom layouts (for example if you want to have
 IRC on its own perspective or maybe calendar or gnus) you have to use
-the macro =spacemacs|define-custom-persp= as follows:
+the macro =spacemacs|define-custom-layout= as follows:
 
 #+BEGIN_SRC emacs-lisp
-  (spacemacs|define-custom-persp "<name-to-be-shown-in-the-modeline>"
+  (spacemacs|define-custom-layout "<name-to-be-shown-in-the-modeline>"
     :binding "<bind-key>"
     :body
     (...)
-    (stuff to be done in the persp activating)
-    (a major mode like twittering-mode or whatever)
+    ;; (stuff to be done in the persp activating)
+    ;; (a major mode like twittering-mode or whatever)
     (...))
 #+END_SRC
 
-You can check out the layer's packages.el to see some examples of the
-custom-perspectives. if you define something like this you may be able
-to define a perspective with a layout.
+Other example:
 
 #+BEGIN_SRC emacs-lisp
-  (spacemacs|define-custom-persp "c++"
+  (spacemacs|define-custom-layout "c++"
     :binding "+"
     :body
     (find-file "~/path/to/first/file.cpp")
     (split-window-right)
     (find-file "~/path/to/second/file.cpp")
-    (... do more stuff but be careful not to destroy the universe ...))
+    ;; (... do more stuff but be careful not to destroy the universe ...)
+  )
 #+END_SRC
 
-Then you can access this persp with =SPC l o +=, where =+= is the binding.
+Then you can access this persp with ~SPC l o +~, where ~+~ is the binding.
 
-
-** Predefined custom perspectives
-
-*** Org-agenda custom perspective
-Here we define a custom perspective that adds items to your org-agenda. If you
+** Predefined custom layouts
+*** Org-agenda custom layout
+Here we define a custom layout that adds items to your org-agenda. If you
 do not know what that is check the [[https://www.gnu.org/software/emacs/manual/html_node/org/Agenda-commands.html][docs]].
 
 The cool part is that you can have many org files with todos in the agenda and
 with one simple command you can gather all the todos from all the agenda files
 you have and show them in a single buffer. (in evil the command starts with ~;a~)
 
-*** RCIRC/ERC custom perspective
-
-Now you can also open IRC in a new perspective to keep all the chat buffers in
-one perspective isolated from your work buffers.
-
-You will have to use the perspective layer as well as the rcirc/erc layer:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(rcirc
-                                                    erc
-                                                    ;; you only need one of those layers
-                                                    perspectives))
-#+END_SRC
-
-* Configuration
-** Removing additional help
-
-Once you know the key bindings to navigate between the workspaces you
-may want to disable the exhaustive help in the workspace micro-state.
-Set the variable =perspective-display-help= to =nil=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-    '((perspectives :variables perspective-display-help nil)))
-#+END_SRC
-** Showing Spacemacs Home Buffer at Startup
-
-If you changed stuff in your ~@Home~ perspectives, the state won't be reloaded 
-each time you restart Emacs, each time the Home buffer will be shown. If you don't want
- to see the home buffer at startup change the value of ~spacemacs-persp-show-home-at-startup~.
-
-
+*** RCIRC/ERC custom layout
+Now you can also open IRC in a new layout to keep all the chat buffers in
+one layout isolated from your work buffers.
