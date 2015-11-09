@@ -37,6 +37,13 @@ Characters enclosed in `[]' will have this face applied to them."
                         :bold t)))
 (spacemacs/defface-micro-state-faces)
 
+(defun spacemacs//micro-state-set-minibuffer-height (str)
+  "Set the max mini windows size given a string STR."
+  (let ((line-count (1+ (how-many-str "\n" str))))
+    (when (and (> line-count max-mini-window-height)
+               (> line-count 10))
+      (setq max-mini-window-height line-count))))
+
 (defmacro spacemacs|define-micro-state (name &rest props)
   "Define a micro-state called NAME.
 
@@ -111,7 +118,7 @@ used."
               ,@on-enter
               (let ((doc ,@doc))
                 (when doc
-                  (setq max-mini-window-height (1+ (how-many-str "\n" doc)))
+                  (spacemacs//micro-state-set-minibuffer-height doc)
                   (apply ',msg-func (list (spacemacs//micro-state-propertize-doc
                                            (format "%S: %s" ',name doc))))))
               ,(when exec-binding
@@ -165,7 +172,7 @@ used."
                                 (format "%S: %s" ',name bdoc))))
                 (when (and defdoc
                            ',wrapped (not (plist-get ',binding :exit)))
-                  (setq max-mini-window-height (1+ (how-many-str "\n" defdoc)))
+                  (spacemacs//micro-state-set-minibuffer-height defdoc)
                   (apply ',msg-func
                          (list (spacemacs//micro-state-propertize-doc
                                 (format "%S: %s" ',name defdoc)))))))))
@@ -186,8 +193,9 @@ used."
                    (setq throwp nil))
                  ,@binding-post
                  (when throwp (throw 'exit nil)))
-               (setq max-mini-window-height (1+ (how-many-str "\n" ,@doc-body)))
-               ,@doc-body))))
+               (when ,@doc-body
+                 (spacemacs//micro-state-set-minibuffer-height ,@doc-body)
+                 ,@doc-body)))))
     (append (list (car binding) (eval wrapper-func)) binding)))
 
 (defun spacemacs//micro-state-fill-map-sexps (wrappers)
