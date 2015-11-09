@@ -257,11 +257,10 @@ Available PROPS:
       (defun spacemacs//custom-layouts-ms-documentation ()
         "Return the docstring for the custom perspectives micro-state."
         (if spacemacs--custom-layout-alist
-            (concat (mapconcat (lambda (custom-persp)
-                                 (format "[%s] %s"
-                                         (car custom-persp) (cdr custom-persp)))
-                               spacemacs--custom-layout-alist " ")
-                    "\n[q] quit to perspectives-micro-state")
+            (mapconcat (lambda (custom-persp)
+                         (format "[%s] %s"
+                                 (car custom-persp) (cdr custom-persp)))
+                       spacemacs--custom-layout-alist " ")
           (warn (format "`spacemacs--custom-layout-alist' variable is empty" ))))
 
       (defun spacemacs//update-custom-layouts ()
@@ -269,7 +268,7 @@ Available PROPS:
 Takes each element in the list `spacemacs--custom-layout-alist'
 format so they are supported by the
 `spacemacs/custom-layouts-micro-state' macro."
-        (let ((bindings '(("q" spacemacs/layouts-micro-state :exit t))))
+        (let (bindings)
           (dolist (custom-persp spacemacs--custom-layout-alist bindings)
             (let* ((binding (car custom-persp))
                    (name (cdr custom-persp))
