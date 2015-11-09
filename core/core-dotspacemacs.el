@@ -120,8 +120,8 @@ with `:' and Emacs commands are executed with `<leader> :'.")
 (defvaralias 'dotspacemacs-remap-Y-to-y$ 'evil-want-Y-yank-to-eol
   "If non nil `Y' is remapped to `y$'.")
 
-(defvar dotspacemacs-display-default-layout nil
-  "If non nil then the `Default' layout name is displayed in the mode-line.")
+(defvar dotspacemacs-default-layout-name nil
+  "If non nil then name of the default layout as a string to be displayed in the mode-line.")
 
 (defvar dotspacemacs-use-ido nil
   "If non nil then `ido' replaces `helm' for some commands. For now only
