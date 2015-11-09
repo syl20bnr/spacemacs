@@ -313,11 +313,14 @@ $ git pull --rebase
 
 ** Update packages
 To update the Emacs packages used by Spacemacs press RET (enter) or click on the
-link =[Update Packages]= in the startup page under the banner then restart Emacs.
+link =[Update Packages]= in the startup page under the banner then restart
+Emacs. If you prefer, you can use the command
+=configuration-layer/update-packages= instead of the button.
 
-If anything goes wrong you should be able to rollback the update by pressing ~RET~
-or clicking on the =[Rollback Package Update]= link next to the =[Update Packages]=
-link and choose a rollback slot (sorted by date).
+If anything goes wrong you should be able to rollback the update by pressing
+~RET~ or clicking on the =[Rollback Package Update]= link next to the =[Update
+Packages]= link and choose a rollback slot (sorted by date). This button uses
+the command =configuration-layer/rollback=.
 
 * Configuration layers
 *Note*: This is a very simple overview of how layers work. A more extensive
