@@ -12,5 +12,4 @@
 
 ;; Prerequisites
 
-(configuration-layer/declare-layer 'spacemacs-base)
-
+(configuration-layer/declare-layers '(spacemacs-base spacemacs-layouts))
