@@ -8,6 +8,7 @@ h1,h2,h3,h4,h5,h6,legend{
 }
 
 h1{
+    color: #4e3163;
     font-size:175%;
 }
 
@@ -61,7 +62,7 @@ body{
 }
 
 #content{
-    background:#fbf8ef;
+    background:#fff;
     height:100%;
     margin-left:300px;
     /* margin:auto; */
@@ -282,7 +283,7 @@ dl dd{
 }
 
 code{
-    background:#fff;
+    background:#fbf8ef;
     border:solid 1px #e1e4e5;
     /* color:#000;  for clickable code */
     font-family:Consolas,"Andale Mono WT","Andale Mono","Lucida Console","Lucida Sans Typewriter","DejaVu Sans Mono","Bitstream Vera Sans Mono","Liberation Mono","Nimbus Mono L",Monaco,"Courier New",Courier,monospace;
@@ -335,7 +336,7 @@ pre.src{
 }
 
 .example{
-    background:#f3f6f6;
+    background:#fbf8ef;
     border:1px solid #e1e4e5;
     color:#404040;
     font-size: 12px;
@@ -366,7 +367,7 @@ table td,table th{
 
 table thead th{
     font-weight:bold;
-    border-top:3px solid #e1e4e5;
+    border-top:3px solid #e3dedd;
     border-bottom:1px solid #e1e4e5;
 }
 
@@ -377,7 +378,7 @@ table caption{
 }
 
 table tr:nth-child(2n-1) td{
-    background-color:#f3f6f6;
+    background-color:#fbf8ef;
 }
 
 table tr:nth-child(2n) td{
