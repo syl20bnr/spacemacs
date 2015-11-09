@@ -14,7 +14,7 @@
    - [[#js2-mode][js2-mode]]
    - [[#folding-js2-mode][Folding (js2-mode)]]
    - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
-   - [[#formatting-web-beautify][Formatting (web-beautify)]]
+   - [[#formatting-web-beautify--jsfmt][Formatting (web-beautify | jsfmt)]]
      - [[#documentation-js-doc][Documentation (js-doc)]]
    - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
    - [[#json][JSON]]
@@ -47,6 +47,19 @@ documentation features:
 To use the formatting features, install =js-beautify=:
 #+BEGIN_SRC sh
   $ npm install -g js-beautify
+#+END_SRC
+
+To use the =jsfmt= formatting on file save by default, install =jsfmt= package
+#+BEGIN_SRC sh
+npm install -g jsfmt
+#+END_SRC
+
+And update *dotspacemacs-configuration-layers* variable from your =~/.spacemacs=
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (javascript
+      :variables
+      javascript-enable-jsfmt t)))
 #+END_SRC
 
 To activate error checking using flycheck, install one of the [[http://www.flycheck.org/en/latest/languages.html#javascript][available linters]]
@@ -158,11 +171,12 @@ Bindings should match the plain emacs assignments.
 | ~SPC m x m j~ | move line down, while keeping commas correctly placed                                                          |
 | ~SPC m x m k~ | move line up, while keeping commas correctly placed                                                            |
 
-** Formatting (web-beautify)
+** Formatting (web-beautify | jsfmt)
 
 | Key Binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC m =~   | beautify code in js2-mode, json-mode, web-mode, and css-mode |
+| ~SPC m t f~ | toggle jsfmt formatting mode on file save                    |
 
 *** Documentation (js-doc)
 

@@ -27,6 +27,7 @@
     web-beautify
     skewer-mode
     livid-mode
+    jsfmt
     ))
 
 (defun javascript/init-coffee-mode ()
@@ -282,3 +283,24 @@
             :mode livid-mode
             :documentation "Live evaluation of JS buffer change."
             :evil-leader-for-mode (js2-mode . "sa"))))
+
+(defun javascript/init-jsfmt ()
+  (use-package jsfmt
+    :defer t
+    :init
+    (progn
+      (when (bound-and-true-p javascript-enable-jsfmt)
+        (add-hook 'before-save-hook 'jsfmt-before-save))
+      (spacemacs|add-toggle jsfmt-mode
+        :status javascript-enable-jsfmt
+        :on
+        (progn
+          (setq javascript-enable-jsfmt t)
+          (add-hook 'before-save-hook 'jsfmt-before-save))
+        :off
+        (progn
+          (setq javascript-enable-jsfmt nil)
+          (remove-hook 'before-save-hook 'jsfmt-before-save))
+        :documentation
+        "Enable jsfmt on file save"
+        :evil-leader-for-mode (js2-mode . "tf")))))
