@@ -627,10 +627,9 @@ Removes the automatic guessing of the initial value based on thing at point. "
         "Describe face."
         (interactive)
         (require 'helm-elisp)
-        (let ((default (face-at-point)))
-          (helm :sources (helm-def-source--emacs-faces (if default
-                                                           (symbol-name default)
-                                                         "default"))
+        (let ((default (or (face-at-point) (thing-at-point 'symbol))))
+          (helm :sources (helm-def-source--emacs-faces
+                          (format "%s" (or default "default")))
                 :buffer "*helm faces*")))
 
       ;; use helm by default for M-x
