@@ -83,6 +83,7 @@ For full Chicken support, the following commands should be run:
 | Key Binding | Description                              |
 |-------------+------------------------------------------|
 | ~SPC m s i~ | Start or switch to the REPL              |
+| ~SPC m s s~ | Select Scheme implementation             |
 | ~SPC m s b~ | Send buffer to the REPL                  |
 | ~SPC m s B~ | Send buffer to the REPL and focus it     |
 | ~SPC m s f~ | Send definition to the REPL              |
