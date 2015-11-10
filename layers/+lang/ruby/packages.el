@@ -18,6 +18,7 @@
         flycheck
         robe
         ruby-test-mode
+        rspec-mode
         ruby-tools
         rubocop
         ))
@@ -25,6 +26,10 @@
 (if ruby-enable-enh-ruby-mode
     (add-to-list 'ruby-packages 'enh-ruby-mode)
   (add-to-list 'ruby-packages 'ruby-mode))
+
+(if ruby-use-ruby-test
+    (add-to-list 'ruby-packages 'ruby-test-mode)
+  (add-to-list 'ruby-packages 'rspec-mode))
 
 (when ruby-version-manager
   (add-to-list 'ruby-packages ruby-version-manager))
@@ -42,9 +47,12 @@
   (use-package rvm
     :defer t
     :init (rvm-use-default)
-    :config (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+    :config
+    (progn
+      (setq rspec-use-rvm t)
+      (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
               (add-hook hook
-                        (lambda () (rvm-activate-corresponding-ruby))))))
+                        (lambda () (rvm-activate-corresponding-ruby)))))))
 
 (defun ruby/init-ruby-mode ()
   (use-package ruby-mode
@@ -145,21 +153,23 @@
           "sR" 'ruby-send-region-and-go
           "ss" 'ruby-switch-to-inf)))))
 
-(defun ruby/init-ruby-test-mode ()
-  "Define keybindings for ruby test mode"
-  (use-package ruby-test-mode
+(defun ruby/init-rspec-mode ()
+  "Define keybindings for rspec mode"
+  (use-package rspec-mode
     :defer t
     :init (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
-            (add-hook hook 'ruby-test-mode))
+            (add-hook hook 'rspec-mode))
     :config
     (progn
-      (spacemacs|hide-lighter ruby-test-mode)
+      (spacemacs|hide-lighter rspec-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
         (spacemacs/declare-prefix-for-mode mode "mt" "ruby/test")
         (spacemacs/set-leader-keys-for-major-mode mode
-          "tb" 'ruby-test-run)
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "tt" 'ruby-test-run-at-point)))))
+          "ta" 'rspec-verify-all
+          "tc" 'rspec-verify-matching
+          "tf" 'rspec-run-last-failed
+          "tr" 'rspec-rerun
+          "tt" 'rspec-verify-single)))))
 
 (defun ruby/init-rubocop ()
   (use-package rubocop
@@ -177,6 +187,20 @@
           "rrF" 'rubocop-autocorrect-current-file
           "rrp" 'rubocop-check-project
           "rrP" 'rubocop-autocorrect-project)))))
+
+(defun ruby/init-ruby-test-mode ()
+  "Define keybindings for ruby test mode"
+  (use-package ruby-test-mode)
+    :defer t
+    :init (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+            (add-hook hook 'ruby-test-mode))
+    :config
+    (progn
+      (spacemacs|hide-lighter ruby-test-mode)
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/declare-prefix-for-mode mode "mt" "ruby/test")
+        (evil-leader/set-key-for-mode mode "mtb" 'ruby-test-run)
+        (evil-leader/set-key-for-mode mode "mtt" 'ruby-test-run-at-point))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun ruby/post-init-company ()
