@@ -31,7 +31,7 @@
         evil-args
         evil-exchange
         evil-iedit-state
-        (evil-indent-textobject :location (recipe :fetcher github :repo "TheBB/evil-indent-textobject"))
+        evil-indent-plus
         evil-jumper
         evil-lisp-state
         ;; for testing purpose, contribute by reporting bugs and sending PRs
@@ -573,8 +573,10 @@
     (define-key evil-iedit-state-map
       (kbd evil-leader/leader) evil-leader--default-map)))
 
-(defun spacemacs/init-evil-indent-textobject ()
-  (use-package evil-indent-textobject))
+(defun spacemacs/init-evil-indent-plus ()
+  (use-package evil-indent-plus
+    :init
+    (evil-indent-plus-default-bindings)))
 
 (defun spacemacs/init-evil-jumper ()
   (use-package evil-jumper
