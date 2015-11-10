@@ -8,9 +8,11 @@
  - [[Install][Install]]
    - [[Prerequisites][Prerequisites]]
    - [[Ruby version management][Ruby version management]]
+   - [[Testing frameworks][Testing frameworks]]
  - [[Key bindings][Key bindings]]
    - [[Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
-   - [[ruby-test-mode][ruby-test-mode]]
+   - [[RSpec-mode][RSpec-mode]]
+   - [[Ruby-test-mode][Ruby-test-mode]]
    - [[RuboCop][RuboCop]]
 
 * Description
@@ -68,6 +70,17 @@ To enable it, set the =ruby-version-manager= var in your =~/.spacemacs=:
 
 Possible values are =rbenv= and =rvm=.
 
+** Testing frameworks
+This layer supports both RSpec and ruby-test.
+By default RSpec is used, this is a change in the old behaviour.
+To switch to using ruby-test set =ruby-use-ruby-test= to t:
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs/user-init ()
+    (setq-default ruby-use-ruby-test t)
+  )
+#+END_SRC
+
 * Key bindings
 ** Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)
 
@@ -88,9 +101,16 @@ Possible values are =rbenv= and =rvm=.
 | ~SPC m x :~ | Change string to symbol                              |
 | ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks                    |
 
-** ruby-test-mode
-ruby-test-mode comes bundled with spacemacs, but this contribution adds
-a couple of useful keybindings:
+** RSpec-mode
+
+| Key binding | Description          |
+|-------------+----------------------|
+| ~SPC m t a~ | run all specs        |
+| ~SPC m t f~ | run last failed spec |
+| ~SPC m t r~ | re-run last spec     |
+| ~SPC m t t~ | run spec at pointer  |
+
+** Ruby-test-mode
 
 | Key binding | Description         |
 |-------------+---------------------|
