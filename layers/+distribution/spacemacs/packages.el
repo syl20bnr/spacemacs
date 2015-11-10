@@ -1451,7 +1451,7 @@ It will toggle the overlay under point or create an overlay of one character."
     :commands (open-junk-file)
     :init
     (evil-leader/set-key "fJ" 'open-junk-file)
-    (setq open-junk-file-directory (concat spacemacs-cache-directory "junk/"))))
+    (setq open-junk-file-directory (concat spacemacs-cache-directory "junk/%Y/%m/%d-%H%M%S."))))
 
 (defun spacemacs/init-info+ ()
   (use-package info+
