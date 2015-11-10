@@ -9,7 +9,7 @@
    - [[#ruby-version-management][Ruby version management]]
  - [[#key-bindings][Key bindings]]
    - [[#ruby-enh-ruby-mode-robe-inf-ruby-ruby-tools][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
-   - [[#ruby-test-mode][ruby-test-mode]]
+   - [[#rspec-mode][rspec-mode]]
 
 * Description
 
@@ -79,12 +79,14 @@ Possible values are =rbenv= and =rvm=.
 | ~SPC m x :~ | Change string to symbol                     |
 | ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks           |
 
-** ruby-test-mode
+** rspec-mode
 
-ruby-test-mode comes bundled with spacemacs, but this contribution adds
+rspec-mode comes bundled with spacemacs, but this contribution adds
 a couple of useful keybindings:
 
-| Key binding | Description         |
-|-------------+---------------------|
-| ~SPC m t b~ | run test file       |
-| ~SPC m t t~ | run test at pointer |
+| Key binding | Description          |
+|-------------+----------------------|
+| ~SPC m t a~ | run all specs        |
+| ~SPC m t t~ | run spec at pointer  |
+| ~SPC m t r~ | re-run last spec     |
+| ~SPC m t f~ | run last failed spec |
