@@ -15,7 +15,6 @@
 ;;; Code:
 
 (require 'cl-lib)
-(require 'dash)
 (require 'eieio)
 (require 'package)
 (require 'warnings)
@@ -830,23 +829,21 @@ path."
                    pkg-name layer err))))))
           (oref pkg :post-layers))))
 
-(defun configuration-layer//cleanup-rollback-directory ()
-  "Cleanup the rollback directory."
-  (let ((dirattrs (--filter
-                   (not (eq t it))
-                   (directory-files-and-attributes
-                    configuration-layer-rollback-directory
-                    nil "\\`\\(\\.\\{0,2\\}[^.\n].*\\)\\'" t))))
-    (when (> (length dirattrs) spacemacs-number-of-rollback-slots)
-      (let ((dirs (-slice (--sort
-                           (time-less-p (nth 6 it)
-                                        (nth 6 other))
-                           dirattrs)
-                          0 (- (length dirattrs) spacemacs-number-of-rollback-slots))))
-        (dolist (dirname dirs)
-          (delete-directory (concat configuration-layer-rollback-directory "/"
-                                    (car dirname))
-                            t t))))))
+(defun bb/cleanup-rollback-directory ()
+  "Clean up the rollback directory."
+  (let* ((dirattrs (delq nil
+                         (mapcar (lambda (d)
+                                   (unless (eq t d) d))
+                                 (directory-files-and-attributes
+                                  configuration-layer-rollback-directory
+                                  nil "\\`\\(\\.\\{0,2\\}[^.\n].*\\)\\'" t))))
+         (dirs (sort dirattrs
+                     (lambda (d e)
+                       (time-less-p (nth 6 d) (nth 6 e))))))
+    (dotimes (c (- (length dirs) spacemacs-number-of-rollback-slots))
+      (delete-directory (concat configuration-layer-rollback-directory
+                                "/" (car (pop dirs)))
+                        t t))))
 
 (defun configuration-layer/update-packages (&optional always-update)
   "Update packages.
