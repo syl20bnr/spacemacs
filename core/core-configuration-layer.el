@@ -24,9 +24,9 @@
 (require 'core-spacemacs-buffer)
 
 (unless package--initialized
-  (setq package-archives '(("melpa" . "http://melpa.org/packages/")
+  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                            ("org" . "http://orgmode.org/elpa/")
-                           ("gnu" . "http://elpa.gnu.org/packages/")))
+                           ("gnu" . "https://elpa.gnu.org/packages/")))
   ;; optimization, no need to activate all the packages so early
   (setq package-enable-at-startup nil)
   (package-initialize 'noactivate)
