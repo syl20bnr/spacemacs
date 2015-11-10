@@ -457,7 +457,7 @@ Ensure that helm is required before calling FUNC."
 
 (defun spacemacs//window-manipulation-gratio-doc ()
   "Help string for golden ratio"
-  (format "(golden-ration %s) toggle with [g]"
+  (format "(golden-ratio %s) toggle with [g]"
           (if (symbol-value golden-ratio-mode) "enabled" "disabled")))
 
 (spacemacs|define-micro-state window-manipulation
