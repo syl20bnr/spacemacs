@@ -5412,6 +5412,13 @@ figure {
   padding-top: 15px;
 }
 
+.nav-item-toggable {
+    background-color: white;
+    opacity: 0.9;
+    text-align: right;
+    border-bottom: 1px solid #494662;
+}
+
 @media screen and (max-width: 768px) {
 
   .logo-footer {
