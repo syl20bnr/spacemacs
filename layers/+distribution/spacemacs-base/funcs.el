@@ -384,7 +384,6 @@ argument takes the kindows rotate backwards."
 (defun spacemacs/layout-triple-columns ()
   " Set the layout to triple columns. "
   (interactive)
-  (golden-ratio-mode 0)
   (delete-other-windows)
   (dotimes (i 2) (split-window-right))
   (balance-windows))
@@ -392,7 +391,6 @@ argument takes the kindows rotate backwards."
 (defun spacemacs/layout-double-columns ()
   " Set the layout to double columns. "
   (interactive)
-  (golden-ratio-mode 1)
   (delete-other-windows)
   (split-window-right))
 
