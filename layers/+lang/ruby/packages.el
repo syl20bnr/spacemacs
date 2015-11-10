@@ -18,7 +18,7 @@
     evil-matchit
     flycheck
     robe
-    ruby-test-mode
+    rspec-mode
     ruby-tools))
 
 (when ruby-version-manager
@@ -37,8 +37,11 @@
   (use-package rvm
     :defer t
     :init (rvm-use-default)
-    :config (add-hook 'enh-ruby-mode-hook
-                      (lambda () (rvm-activate-corresponding-ruby)))))
+    :config
+    (progn
+      (setq rspec-use-rvm t)
+      (add-hook 'enh-ruby-mode-hook
+                (lambda () (rvm-activate-corresponding-ruby))))))
 
 (defun ruby/init-enh-ruby-mode ()
   "Initialize Ruby Mode"
@@ -49,7 +52,8 @@
     :config
     (progn
       (setq enh-ruby-deep-indent-paren nil
-            enh-ruby-hanging-paren-deep-indent-level 2)
+            enh-ruby-hanging-paren-deep-indent-level 2
+            evil-shift-width 2)
       (sp-with-modes '(ruby-mode enh-ruby-mode)
         (sp-local-pair "{" "}"
                        :pre-handlers '(sp-ruby-pre-handler)
@@ -110,16 +114,16 @@
       (evil-leader/set-key-for-mode 'enh-ruby-mode "msR" 'ruby-send-region-and-go)
       (evil-leader/set-key-for-mode 'enh-ruby-mode "mss" 'ruby-switch-to-inf))))
 
-(defun ruby/init-ruby-test-mode ()
-  "Define keybindings for ruby test mode"
-  (use-package ruby-test-mode
+(defun ruby/init-rspec-mode ()
+  "Define keybindings for rspec mode"
+  (use-package rspec-mode
     :defer t
-    :init (add-hook 'enh-ruby-mode-hook 'ruby-test-mode)
+    :init (add-hook 'enh-ruby-mode-hook 'rspec-mode)
     :config
     (progn
-      (spacemacs|hide-lighter ruby-test-mode)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mtb" 'ruby-test-run)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mtt" 'ruby-test-run-at-point))))
+      (spacemacs|hide-lighter rspec-mode)
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "mtb" 'rspec-verify-all)
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "mtt" 'rspec-verify-single))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun ruby/post-init-company ()
