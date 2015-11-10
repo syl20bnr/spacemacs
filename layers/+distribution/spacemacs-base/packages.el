@@ -35,6 +35,7 @@
         (hybrid-mode :location local :step pre)
         (ido :location built-in)
         ido-vertical-mode
+        (package-menu :location built-in)
         page-break-lines
         popup
         popwin
@@ -984,6 +985,10 @@ ARG non nil means that the editing style is `vim'."
                                              "ido.last")
         ;; enable fuzzy matching
         ido-enable-flex-matching t))
+
+(defun spacemacs-base/init-package-menu ()
+  (spacemacs|evilify-map package-menu-mode-map
+    :mode package-menu-mode))
 
 (defun spacemacs-base/init-ido-vertical-mode ()
   (use-package ido-vertical-mode
