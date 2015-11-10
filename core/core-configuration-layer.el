@@ -829,7 +829,7 @@ path."
                    pkg-name layer err))))))
           (oref pkg :post-layers))))
 
-(defun bb/cleanup-rollback-directory ()
+(defun configuration-layer//cleanup-rollback-directory ()
   "Clean up the rollback directory."
   (let* ((dirattrs (delq nil
                          (mapcar (lambda (d)
