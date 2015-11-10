@@ -14,4 +14,7 @@
 (defvar org-enable-github-support nil
   "If non-nil Github related packages are configured.")
 
+(defvar org-enable-ioslide nil
+  "If non-nil will install the org-ioslide extension."
+  )
 (spacemacs|defvar-company-backends org-mode)
