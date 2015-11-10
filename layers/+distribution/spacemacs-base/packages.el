@@ -692,7 +692,10 @@ Removes the automatic guessing of the initial value based on thing at point. "
           ;; etc... because of existing popwin buffers in the alist
           (setq display-buffer-alist nil)
           (popwin-mode -1)
-          (define-key evil-motion-state-map [down-mouse-1] nil)))
+          ;; workaround for a helm-evil incompatibility
+          ;; see https://github.com/syl20bnr/spacemacs/issues/3700
+          (when helm-prevent-escaping-from-minibuffer
+            (define-key evil-motion-state-map [down-mouse-1] nil))))
 
       (defun spacemacs//display-helm-window (buffer)
         (let ((display-buffer-alist (list spacemacs-helm-display-help-buffer-regexp
@@ -708,7 +711,10 @@ Removes the automatic guessing of the initial value based on thing at point. "
       (setq helm-display-function 'spacemacs//display-helm-window)
 
       (defun spacemacs//restore-previous-display-config ()
-        (define-key evil-motion-state-map [down-mouse-1] 'evil-mouse-drag-region)
+        ;; workaround for a helm-evil incompatibility
+        ;; see https://github.com/syl20bnr/spacemacs/issues/3700
+        (when helm-prevent-escaping-from-minibuffer
+          (define-key evil-motion-state-map [down-mouse-1] 'evil-mouse-drag-region))
         (popwin-mode 1)
         ;; we must enable popwin-mode first then restore `display-buffer-alist'
         ;; Otherwise, popwin keeps adding up its own buffers to `display-buffer-alist'
