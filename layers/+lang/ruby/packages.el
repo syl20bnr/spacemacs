@@ -17,7 +17,7 @@
         evil-matchit
         flycheck
         robe
-        ruby-test-mode
+        rspec-mode
         ruby-tools))
 
 (if ruby-enable-enh-ruby-mode
@@ -40,9 +40,12 @@
   (use-package rvm
     :defer t
     :init (rvm-use-default)
-    :config (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+    :config
+    (progn
+      (setq rspec-use-rvm t)
+      (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
               (add-hook hook
-                        (lambda () (rvm-activate-corresponding-ruby))))))
+                        (lambda () (rvm-activate-corresponding-ruby)))))))
 
 (defun ruby/init-ruby-mode ()
   (use-package ruby-mode
@@ -143,19 +146,22 @@
           "msR" 'ruby-send-region-and-go
           "mss" 'ruby-switch-to-inf)))))
 
-(defun ruby/init-ruby-test-mode ()
-  "Define keybindings for ruby test mode"
-  (use-package ruby-test-mode
+(defun ruby/init-rspec-mode ()
+  "Define keybindings for rspec mode"
+  (use-package rspec-mode
     :defer t
     :init (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
-            (add-hook hook 'ruby-test-mode))
+            (add-hook hook 'rspec-mode))
     :config
     (progn
-      (spacemacs|hide-lighter ruby-test-mode)
+      (spacemacs|hide-lighter rspec-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
         (spacemacs/declare-prefix-for-mode mode "mt" "ruby/test")
-        (evil-leader/set-key-for-mode mode "mtb" 'ruby-test-run)
-        (evil-leader/set-key-for-mode mode "mtt" 'ruby-test-run-at-point)))))
+        (evil-leader/set-key-for-mode mode "mta" 'rspec-verify-all)
+        (evil-leader/set-key-for-mode mode "mtc" 'rspec-verify-matching)
+        (evil-leader/set-key-for-mode mode "mtr" 'rspec-rerun)
+        (evil-leader/set-key-for-mode mode "mtf" 'rspec-run-last-failed)
+        (evil-leader/set-key-for-mode mode "mtt" 'rspec-verify-single)))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun ruby/post-init-company ()
