@@ -84,7 +84,9 @@ Possible values are =rbenv= and =rvm=.
 rspec-mode comes bundled with spacemacs, but this contribution adds
 a couple of useful keybindings:
 
-| Key binding | Description         |
-|-------------+---------------------|
-| ~SPC m t b~ | run test suite      |
-| ~SPC m t t~ | run test at pointer |
+| Key binding | Description          |
+|-------------+----------------------|
+| ~SPC m t a~ | run all specs        |
+| ~SPC m t t~ | run spec at pointer  |
+| ~SPC m t r~ | re-run last spec     |
+| ~SPC m t f~ | run last failed spec |

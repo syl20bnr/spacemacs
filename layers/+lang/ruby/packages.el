@@ -122,7 +122,10 @@
     :config
     (progn
       (spacemacs|hide-lighter rspec-mode)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mtb" 'rspec-verify-all)
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "mta" 'rspec-verify-all)
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "mtc" 'rspec-verify-matching)
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "mtr" 'rspec-rerun)
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "mtf" 'rspec-run-last-failed)
       (evil-leader/set-key-for-mode 'enh-ruby-mode "mtt" 'rspec-verify-single))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
