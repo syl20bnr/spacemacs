@@ -17,12 +17,15 @@
         evil-matchit
         flycheck
         robe
-        rspec-mode
         ruby-tools))
 
 (if ruby-enable-enh-ruby-mode
     (add-to-list 'ruby-packages 'enh-ruby-mode)
   (add-to-list 'ruby-packages 'ruby-mode))
+
+(if ruby-use-ruby-test
+    (add-to-list 'ruby-packages 'ruby-test-mode)
+  (add-to-list 'ruby-packages 'rspec-mode))
 
 (when ruby-version-manager
   (add-to-list 'ruby-packages ruby-version-manager))
@@ -156,12 +159,26 @@
     (progn
       (spacemacs|hide-lighter rspec-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
-        (spacemacs/declare-prefix-for-mode mode "mt" "ruby/test")
+        (spacemacs/declare-prefix-for-mode mode "mt" "ruby/rspec")
         (evil-leader/set-key-for-mode mode "mta" 'rspec-verify-all)
         (evil-leader/set-key-for-mode mode "mtc" 'rspec-verify-matching)
         (evil-leader/set-key-for-mode mode "mtr" 'rspec-rerun)
         (evil-leader/set-key-for-mode mode "mtf" 'rspec-run-last-failed)
         (evil-leader/set-key-for-mode mode "mtt" 'rspec-verify-single)))))
+
+(defun ruby/init-ruby-test-mode ()
+  "Define keybindings for ruby test mode"
+  (use-package ruby-test-mode)
+    :defer t
+    :init (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+            (add-hook hook 'ruby-test-mode))
+    :config
+    (progn
+      (spacemacs|hide-lighter ruby-test-mode)
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/declare-prefix-for-mode mode "mt" "ruby/test")
+        (evil-leader/set-key-for-mode mode "mtb" 'ruby-test-run)
+        (evil-leader/set-key-for-mode mode "mtt" 'ruby-test-run-at-point))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun ruby/post-init-company ()
