@@ -13,16 +13,17 @@
 
 (defun spacemacs-layouts/init-persp-mode ()
   (use-package persp-mode
-    :commands spacemacs/layouts-micro-state
     :diminish persp-mode
     :init
     (progn
-      (setq persp-nil-name "Default"
-            persp-auto-resume-time -1
+      (setq persp-auto-resume-time (if dotspacemacs-auto-resume-layouts 1 -1)
             persp-nil-name dotspacemacs-default-layout-name
             persp-reset-windows-on-nil-window-conf nil
             persp-set-last-persp-for-new-frames nil
             persp-save-dir spacemacs-layouts-directory)
+
+      ;; always activate persp-mode
+      (persp-mode)
 
       (defvar spacemacs--layouts-ms-doc-toggle 0
         "Display a short doc when nil, full doc otherwise.")
@@ -97,7 +98,6 @@
                     spacemacs--layouts-ms-documentation))))
 
       (spacemacs|define-micro-state layouts
-        :on-enter (unless (bound-and-true-p persp-mode) (persp-mode))
         :doc (spacemacs//layouts-ms-doc)
         :use-minibuffer t
         :evil-leader "l"
