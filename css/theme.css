@@ -5412,45 +5412,50 @@ figure {
   padding-top: 15px;
 }
 
-.nav-item-toggable {
-    background-color: white;
-    opacity: 0.9;
-    text-align: right;
-    border-bottom: 1px solid #494662;
-}
 
 @media screen and (max-width: 768px) {
 
-  .logo-footer {
-    margin-top: 2em;
-  }
+    .nav-item-toggable {
+        background-color: white;
+        opacity: 0.7;
+        text-align: right;
+        border-bottom: 1px solid #494662;
+    }
 
-  pre {
-    font-size: 55%;
-    width: 100%;
-  }
+    .nav-item-toggable:hover {
+        opacity: 0.85;
+    }
 
-  #logo-large {
-    width: 50%;
-  }
+    .logo-footer {
+        margin-top: 2em;
+    }
 
-  .logo-font {
-    font-size: 120%;
-    margin-top: 1em;
-  }
+    pre {
+        font-size: 55%;
+        width: 100%;
+    }
 
-  h4 {
-    font-size: 80%;
-    margin-bottom: 1em;
-  }
+    #logo-large {
+        width: 50%;
+    }
 
-  br {
-    display: none;
-  }
+    .logo-font {
+        font-size: 120%;
+        margin-top: 1em;
+    }
 
-  .btn {
-    font-size: 40%;
-  }
+    h4 {
+        font-size: 80%;
+        margin-bottom: 1em;
+    }
+
+    br {
+        display: none;
+    }
+
+    .btn {
+        font-size: 40%;
+    }
 }
 
 /*# sourceMappingURL=theme.css.map */
