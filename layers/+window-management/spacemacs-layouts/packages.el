@@ -81,10 +81,9 @@
   [C]                  close other layout(s) (buffers are not closed)
   [l]                  jump to a layout
   [L]                  load saved layouts
-  [n] [C-n] or [C-l]   next layout
-  [N] [C-p] or [C-h]   previous layout
+  [n] or [C-l]         next layout
+  [N] or [p] or [C-h]  previous layout
   [o]                  custom layouts
-  [p]                  open project and create associated layout
   [r]                  remove current buffer from layout
   [R]                  rename or create layout
   [s]                  save layouts
@@ -128,8 +127,6 @@
         ("<return>" nil :exit t)
         ("C-h" persp-prev)
         ("C-l" persp-next)
-        ("C-n" persp-next)
-        ("C-p" persp-prev)
         ("a" persp-add-buffer :exit t)
         ("A" persp-import-buffers :exit t)
         ("b" spacemacs/persp-helm-mini :exit t)
@@ -140,7 +137,7 @@
         ("n" persp-next)
         ("N" persp-prev)
         ("o" spacemacs/select-custom-layout :exit t)
-        ("p" spacemacs/helm-persp-switch-project :exit t)
+        ("p" persp-prev)
         ("r" persp-remove-buffer :exit t)
         ("R" spacemacs/layouts-ms-rename :exit t)
         ("s" persp-save-state-to-file :exit t)
