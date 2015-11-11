@@ -7,6 +7,7 @@
  - [[Features ][Features ]]
    - [[Micro-states][Micro-states]]
      - [[Layouts Micro State][Layouts Micro State]]
+     - [[Project Layouts][Project Layouts]]
      - [[Custom Layouts Micro State][Custom Layouts Micro State]]
  - [[Usage][Usage]]
    - [[Save/Load layouts into a file][Save/Load layouts into a file]]
@@ -57,6 +58,9 @@ The layouts micro-state is initiated with ~SPC l~.
 | ~t~         | display a buffer without adding it to the current layout   |
 | ~x~         | kill current layout with its buffers                       |
 | ~X~         | kill other layouts with their buffers                      |
+
+*** Project Layouts
+To create a layout for a specific project use ~SPC p l~.
 
 *** Custom Layouts Micro State
 The layouts micro-state is initiated with ~SPC l o~.
