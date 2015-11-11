@@ -33,32 +33,30 @@ To use this contribution add it to your =~/.spacemacs=
 *** TODO Layouts Micro State
 The layouts micro-state is initiated with ~SPC l~.
 
-| Key Binding | Description                                                              |
-|-------------+--------------------------------------------------------------------------|
-| ~?~         | toggle the documentation                                                 |
-| ~[1..9, 0]~ | switch to nth layout                                                     |
-| ~<tab>~     | switch to the latest layout                                              |
-| ~a~         | add a buffer to the current layout                                       |
-| ~A~         | add all the buffers from another layout in the current one               |
-| ~b~         | select a buffer in the current layout                                    |
-| ~c~         | close the current layout and keep its buffers                            |
-| ~C~         | close the other layouts and keep their buffers                           |
-| ~C-h~       | previous layout in list                                                  |
-| ~l~         | select a layout with helm                                                |
-| ~L~         | load layouts from file                                                   |
-| ~C-l~       | next layout in list                                                      |
-| ~n~         | next layout in list                                                      |
-| ~N~         | previous layout in list                                                  |
-| ~C-n~       | next layout in list                                                      |
-| ~o~         | open a custom layout                                                     |
-| ~p~         | open a buffer from a projectile project and add it to the current layout |
-| ~C-p~       | previous layout in list                                                  |
-| ~r~         | remove current buffer from layout                                        |
-| ~R~         | rename layout                                                            |
-| ~s~         | save layouts                                                             |
-| ~t~         | display a buffer without adding it to the current layout                 |
-| ~x~         | kill current layout with its buffers                                     |
-| ~X~         | kill other layouts with their buffers                                    |
+| Key Binding | Description                                                |
+|-------------+------------------------------------------------------------|
+| ~?~         | toggle the documentation                                   |
+| ~[1..9, 0]~ | switch to nth layout                                       |
+| ~<tab>~     | switch to the latest layout                                |
+| ~a~         | add a buffer to the current layout                         |
+| ~A~         | add all the buffers from another layout in the current one |
+| ~b~         | select a buffer in the current layout                      |
+| ~c~         | close the current layout and keep its buffers              |
+| ~C~         | close the other layouts and keep their buffers             |
+| ~C-h~       | previous layout in list                                    |
+| ~l~         | select a layout with helm                                  |
+| ~L~         | load layouts from file                                     |
+| ~C-l~       | next layout in list                                        |
+| ~n~         | next layout in list                                        |
+| ~N~         | previous layout in list                                    |
+| ~o~         | open a custom layout                                       |
+| ~p~         | previous layout in list                                    |
+| ~r~         | remove current buffer from layout                          |
+| ~R~         | rename layout                                              |
+| ~s~         | save layouts                                               |
+| ~t~         | display a buffer without adding it to the current layout   |
+| ~x~         | kill current layout with its buffers                       |
+| ~X~         | kill other layouts with their buffers                      |
 
 *** Custom Layouts Micro State
 The layouts micro-state is initiated with ~SPC l o~.

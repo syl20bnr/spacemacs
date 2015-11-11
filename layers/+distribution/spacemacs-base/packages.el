@@ -1257,7 +1257,10 @@ ARG non nil means that the editing style is `vim'."
         "po" 'projectile-multi-occur
         "pR" 'projectile-replace
         "pT" 'projectile-find-test-file
-        "py" 'projectile-find-tag))
+        "py" 'projectile-find-tag)
+      (when (configuration-layer/package-usedp 'persp-mode)
+        (evil-leader/set-key
+          "pl" 'spacemacs/helm-persp-switch-project)))
     :config
     (progn
       (projectile-global-mode)
