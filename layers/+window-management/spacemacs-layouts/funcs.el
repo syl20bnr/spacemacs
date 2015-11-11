@@ -54,7 +54,11 @@ perspectives does."
    :sources `(,(spacemacs//helm-perspectives-source)
               ,(helm-build-dummy-source "Create new perspective"
                  :requires-pattern t
-                 :action #'persp-switch))))
+                 :action
+                 '(("Create new perspective" .
+                    (lambda (name)
+                      (let ((persp-reset-windows-on-nil-window-conf t))
+                        (persp-switch name)))))))))
 
 ;; ability to use helm find files but also adds to current perspective
 (defun spacemacs/helm-persp-close ()
@@ -104,9 +108,10 @@ perspectives does."
      :mode-line helm-read-file-name-mode-line-string
      :action '(("Switch to Project Perspective" .
                 (lambda (project)
-                  (persp-switch project)
-                  (let ((projectile-completion-system 'helm))
-                    (projectile-switch-project-by-name project))))))
+                  (let ((persp-reset-windows-on-nil-window-conf t))
+                    (persp-switch project)
+                    (let ((projectile-completion-system 'helm))
+                      (projectile-switch-project-by-name project)))))))
    :buffer "*Projectile Layouts*"))
 
 ;; Autosave ----------------------------------------------------------------
