@@ -421,7 +421,7 @@ body {
   font-family: "Raleway", sans-serif;
   font-size: 1rem;
   line-height: 2;
-  color: #424753;
+  color: #eee;
   background-color: #fff; }
 
 h1, h2, h3, h4, h5, h6 {
@@ -3542,7 +3542,7 @@ button.list-group-item-state {
   text-transform: capitalize; }
 
 .text-muted {
-  color: #818a91; }
+  color: #bebce5; }
 
 .text-primary {
   color: #6c59b4; }
@@ -4262,13 +4262,7 @@ a.bg-danger:hover {
   background-color: #fff; }
 
 .section-features {
-    background: url("../img/reverse_background.png");
-    background-size: 100%;
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-color: #e3eafd;
-    padding-top: 8rem;
-    padding-top: 12em;
+    background-color: #484460;
 }
 
 .section-intro,
@@ -4749,7 +4743,7 @@ h3 {
   font-size: 2.125rem;
   line-height: 2.5;
   text-align: center;
-  border: 5px solid #424753;
+  border: 5px solid #6F6BA7;
   border-radius: 50%; }
 
 .card-block .icon-heart {
@@ -5129,11 +5123,12 @@ figure {
   background-color: #6c59b4; }
 
 .section-footer {
-  padding-top: 4.4rem;
-  padding-bottom: 3rem; }
-  @media (min-width: 48em) {
-    .section-footer {
-      padding-bottom: 4.4rem; } }
+  background: url("../img/reverse_background.png");
+  background-size: 100%;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-color: #484460;
+  }
   .section-footer small {
     font-size: .8125rem;
     line-height: 1.538; }
@@ -5398,11 +5393,20 @@ figure {
     color: white;
 }
 
-.section-footer {
-  background-color: #484460;
-  padding: 5px;
+.section-features {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
+.section-footer {
+  background-color: #0b1a2f;
+  padding-top: 4rem;
+  padding-bottom: 1rem;
+}
+
+.section-footer .container {
+    padding-top: 4rem;
+}
 .logo-footer {
   height: 50px;
   width: auto;
