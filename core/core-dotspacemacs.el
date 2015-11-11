@@ -126,6 +126,9 @@ with `:' and Emacs commands are executed with `<leader> :'.")
 (defvar dotspacemacs-display-default-layout nil
   "If non nil the default layout name is displayed in the mode-line.")
 
+(defvar dotspacemacs-auto-resume-layouts nil
+  "If non nil then the last auto saved layouts are resume automatically upon
+start.")
 
 (defvar dotspacemacs-max-rollback-slots 5
   "Maximum number of rollback slots to keep in the cache.")
