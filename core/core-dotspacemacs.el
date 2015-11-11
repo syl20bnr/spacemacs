@@ -120,9 +120,12 @@ with `:' and Emacs commands are executed with `<leader> :'.")
 (defvaralias 'dotspacemacs-remap-Y-to-y$ 'evil-want-Y-yank-to-eol
   "If non nil `Y' is remapped to `y$'.")
 
-(defvar dotspacemacs-default-layout-name nil
-  "If non nil then name of the default layout as a string to be displayed in
-the mode-line.")
+(defvar dotspacemacs-default-layout-name "Default"
+  " Name of the default layout.")
+
+(defvar dotspacemacs-display-default-layout nil
+  "If non nil the default layout name is displayed in the mode-line.")
+
 
 (defvar dotspacemacs-max-rollback-slots 5
   "Maximum number of rollback slots to keep in the cache.")

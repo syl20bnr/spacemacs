@@ -19,6 +19,7 @@
     (progn
       (setq persp-nil-name "Default"
             persp-auto-resume-time -1
+            persp-nil-name dotspacemacs-default-layout-name
             persp-reset-windows-on-nil-window-conf nil
             persp-set-last-persp-for-new-frames nil
             persp-save-dir spacemacs-layouts-directory)
@@ -35,16 +36,6 @@
 
       (defvar spacemacs--layouts-autosave-timer nil
         "Timer for layouts auto-save.")
-
-      (when dotspacemacs-default-layout-name
-        ;; load `persp-mode' if default perspective must be
-        ;; displayed
-        (unless (bound-and-true-p persp-mode)
-          ;; we need this check because calling persp-mode again seems to
-          ;; reset the list of perspectives...
-          (when (stringp dotspacemacs-default-layout-name)
-            (setq persp-nil-name dotspacemacs-default-layout-name))
-          (persp-mode)))
 
       (defun spacemacs/jump-to-last-layout ()
         "Open the previously selected layout."
@@ -303,4 +294,4 @@ format so they are supported by the
                (fboundp 'safe-persp-name) (fboundp 'get-frame-persp)
                (or (not (equal persp-nil-name
                                (safe-persp-name (get-frame-persp))))
-                   dotspacemacs-default-layout-name))))
+                   dotspacemacs-display-default-layout))))
