@@ -124,6 +124,9 @@ with `:' and Emacs commands are executed with `<leader> :'.")
   "If non nil then name of the default layout as a string to be displayed in
 the mode-line.")
 
+(defvar dotspacemacs-max-rollback-slots 5
+  "Maximum number of rollback slots to keep in the cache.")
+
 (defvar dotspacemacs-use-ido nil
   "If non nil then `ido' replaces `helm' for some commands. For now only
 `find-files' (SPC f f) is replaced.")

@@ -67,9 +67,6 @@
 (defconst configuration-layer-rollback-info "rollback-info"
   "Spacemacs rollback information file.")
 
-(defvar spacemacs-number-of-rollback-slots 5
-  "Number of spacemacs rollback slots.")
-
 (defclass cfgl-layer ()
   ((name :initarg :name
          :type symbol
@@ -840,7 +837,7 @@ path."
          (dirs (sort dirattrs
                      (lambda (d e)
                        (time-less-p (nth 6 d) (nth 6 e))))))
-    (dotimes (c (- (length dirs) spacemacs-number-of-rollback-slots))
+    (dotimes (c (- (length dirs) dotspacemacs-max-rollback-slots))
       (delete-directory (concat configuration-layer-rollback-directory
                                 "/" (car (pop dirs)))
                         t t))))
