@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="css/animate.min.css">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.5.8/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.5.8/slick-theme.css"/>
     <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-touch-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="favicons/apple-touch-icon-72x72.png">
@@ -90,7 +92,15 @@
         <p class="wp wp-2">Spacemacs is a new way to experience Emacs -- a sophisticated and polished set-up focused on</p>
         <h3 class="wp wp-1">ergonomics, mnemonics and consistency.</h3>
         <br />
-        <img src="img/mock.png" alt="iPad mock" class="img-responsive wp wp-3" id="screenshot">
+        <div class="row">
+          <div class="screenshots wp wp-3">
+            <div><img src="img/screenshots/ss1.png"/></div>
+            <div><img src="img/screenshots/ss2.png"/></div>
+            <div><img src="img/screenshots/ss3.png"/></div>
+            <div><img src="img/screenshots/ss4.png"/></div>
+            <div><img src="img/screenshots/ss5.png"/></div>
+          </div>
+        </div>
       </div>
     </section>
     <section class="section-features text-center">
@@ -163,6 +173,7 @@
     <script src="js/theme.min.js"></script>
     <script type="text/javascript" src="js/scrollReveal.min.js"></script>
     <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.1/clipboard.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.5.8/slick.min.js"></script>
     <script type="text/javascript">
       window.sr = new scrollReveal();
     </script>
@@ -178,6 +189,19 @@
         $("#code").fadeToggle("slow");
         $("#copy-btn").fadeToggle("slow");
       })
+    </script>
+    <script type="text/javascript">
+     $(document).ready(function(){
+         $('.screenshots').slick({
+             arrows: true,
+             autoplay: true,
+             autoplaySpeed: 5000,
+             dots: true,
+             infinite: true,
+             pauseOnHover: true,
+             speed: 500,
+         });
+     });
     </script>
   </body>
 </html>
