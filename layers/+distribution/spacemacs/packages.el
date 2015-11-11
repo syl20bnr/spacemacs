@@ -1728,28 +1728,27 @@ It will toggle the overlay under point or create an overlay of one character."
                '(:add (spacemacs/smartparens-pair-newline-and-indent "RET"))))))
 
 (defun spacemacs/init-smooth-scrolling ()
-  (if dotspacemacs-smooth-scrolling
-      (use-package smooth-scrolling
-        :init
-        (setq smooth-scroll-margin 5
-              scroll-conservatively 101
-              scroll-preserve-screen-position t
-              auto-window-vscroll nil)
-        :config
-        (setq scroll-margin 5)
-        (defun spacemacs//unset-scroll-margin ()
-          "Set scroll-margin to zero."
-          (setq-local scroll-margin 0))
-        (spacemacs/add-to-hooks
-         'spacemacs//unset-scroll-margin
-         '(
-           messages-buffer-mode-hook
-           comint-mode-hook
-           term-mode-hook
-           erc-mode-hook
-           )))
+  (defun spacemacs//unset-scroll-margin ()
+    "Set scroll-margin to zero."
+    (setq-local scroll-margin 0))
 
-    ;; deactivate the defadvice's
+  (use-package smooth-scrolling
+    :if dotspacemacs-smooth-scrolling
+    :init (setq smooth-scroll-margin 5
+                scroll-conservatively 101
+                scroll-preserve-screen-position t
+                auto-window-vscroll nil)
+    :config
+    (progn
+      (setq scroll-margin 5)
+      ;; add hooks here only for emacs built-in packages
+      (spacemacs/add-to-hooks 'spacemacs//unset-scroll-margin
+                              '(messages-buffer-mode-hook
+                                comint-mode-hook
+                                term-mode-hook))))
+
+  (unless dotspacemacs-smooth-scrolling
+    ;; deactivate smooth-scrolling advices
     (ad-disable-advice 'previous-line 'after 'smooth-scroll-down)
     (ad-activate 'previous-line)
     (ad-disable-advice 'next-line 'after 'smooth-scroll-up)
