@@ -60,7 +60,7 @@ To get =gls= install coreutils homebrew:
 
 | Key Binding | Description       |
 |-------------+-------------------|
-| ~⌘ +~       | Scale up text     |
+| ~⌘ =~       | Scale up text     |
 | ~⌘ -~       | Scale down text   |
 | ~⌘ q~       | Quit              |
 | ~⌘ v~       | Paste             |
