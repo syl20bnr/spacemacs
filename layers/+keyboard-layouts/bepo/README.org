@@ -25,16 +25,16 @@
  - [[Sources][Sources]]
 
 * Description
-This layer change the key bindings in spacemacs to be compatible with the [[http://bepo.fr/][bepo]]
+This layer changes the key bindings in spacemacs to be compatible with the [[http://bepo.fr/][bepo]]
 keyboard layout. =bepo= is a keyboard layout optimized for the French language.
 This package first switch traditional ~hjkl~ movement keys with ~ctsr~, and then
-try to correct the bugs induced by these changes in other modes/packages.
+try to correct the bugs introduced by these changes in other modes/packages.
 
 [[file:img/keymap.png]]
 
 * Mapping
 The mapping correction is the one proposed for vim on the bepo's official [[http://bepo.fr/wiki/Vim#Principe][wiki]].
-This layer tries to do the following changes when the following characters are
+This layer tries to do the following changes when the following letters are
 used for *doing a movement*:
 
 - Map the movements keys under the right hand's fingers:
@@ -43,13 +43,13 @@ used for *doing a movement*:
   - ~s → k~
   - ~r → l~
 
-- Map lost functionnalites back to some keys:
+- Map lost functionalities back to some keys:
   - ~h → r~
   - ~j → t~
   - ~k → s~
   - ~l → c~
 
-The equivalent remapping is also valid for uppercase characters when they are
+The equivalent remapping is also valid for uppercase letters when they are
 used te represent a movement, or to keep the mnemonic between the
 lower/upper-case consistent.
 
@@ -57,7 +57,7 @@ Some bepo keys are not used in traditional mapping, mainly because they are not
 present on the =en-us= keyboard layout. They can be used as an alias for other
 shortcuts:
   
-- Map unused ~é~ key as an alias of ~w~, more usefull in vim mode:
+- Map unused ~é~ key as an alias of ~w~, more useful in vim mode:
   - ~é → w~
   - ~É → W~
 
@@ -79,15 +79,14 @@ defaults are changed:
 - Add ~«~ and ~»~ as operators for =evil-surround=, surrounding text with the
   specified symbols.
 
-There will be some cases when the keys remapping will not follow these
-conventions, mainly because there is better alternatives, or because some moves
-don't make sense.
+In some cases the key remapping will not follow these conventions, mainly because
+there are better alternatives, or because some moves don't make sense.
 
 #+begin_verse
 Example: In =magit= status, the ~c~ is used for =commit= by default, but if we
 want to follow the conventions, it should be remapped to "move left". As it is
-not usefull to move left on =magit=, because operations are done on lines, the
-~c~ is not be remapped.
+not useful to move left on =magit=, because operations are done on lines, the
+~c~ is not remapped.
 #+end_verse
 
 Note: One difference exists with the wiki version: the ~w~ is *not* remapped to
@@ -116,7 +115,7 @@ To use this contribution add it to your =~/.spacemacs=
 #+end_src
 
 * Key bindings
-Thanks to `wich-keys`, you shouldn't probably have to go through this list, the
+Thanks to `which-keys`, you shouldn't probably have to go through this list, the
 keys being shown after a small delay following a keypress.
 
 ** company
@@ -137,10 +136,10 @@ keys being shown after a small delay following a keypress.
 | ~s~         | Move the cursor up         | ~k~                |
 | ~r~         | Move the cursor right      | ~l~                |
 |-------------+----------------------------+--------------------|
-| ~C~         | Top of the windows         | ~L~                |
+| ~C~         | Top of the window          | ~L~                |
 | ~T~         | Join lines                 | ~J~                |
 | ~S~         | Smart doc lookup           | ~K~                |
-| ~R~         | Bottom of the windows      | ~H~                |
+| ~R~         | Bottom of the window       | ~H~                |
 |-------------+----------------------------+--------------------|
 | ~h~         | Replace                    | ~r~                |
 | ~j~         | Until                      | ~t~                |
@@ -170,7 +169,7 @@ keys being shown after a small delay following a keypress.
 |-------------+-------------------------------+--------------------|
 | Key Binding | Description                   | Replace/equivalent |
 |-------------+-------------------------------+--------------------|
-| ~k~         | Evil-surround functionnalites | ~s~                |
+| ~k~         | Evil-surround functionalities | ~s~                |
 |-------------+-------------------------------+--------------------|
 
 ** evil-window
