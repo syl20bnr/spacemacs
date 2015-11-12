@@ -22,6 +22,14 @@
         "mcc" 'geiser-compile-current-buffer
         "mcp" 'geiser-add-to-load-path
 
+        "meb" 'geiser-eval-buffer
+        "mee" 'geiser-eval-last-sexp
+        "mer" 'geiser-eval-region
+        "mef" 'geiser-eval-definition
+        "mel" 'lisp-state-eval-sexp-end-of-line
+
+        "m,"  'lisp-state-toggle-lisp-state
+
         "mgg" 'geiser-edit-symbol-at-point
         "mgb" 'geiser-pop-symbol-stack
         "mgm" 'geiser-edit-module
