@@ -19,8 +19,16 @@
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'scheme-mode
+        ","  'lisp-state-toggle-lisp-state
+
         "cc" 'geiser-compile-current-buffer
         "cp" 'geiser-add-to-load-path
+
+        "eb" 'geiser-eval-buffer
+        "ee" 'geiser-eval-last-sexp
+        "er" 'geiser-eval-region
+        "ef" 'geiser-eval-definition
+        "el" 'lisp-state-eval-sexp-end-of-line
 
         "gg" 'geiser-edit-symbol-at-point
         "gb" 'geiser-pop-symbol-stack
