@@ -85,7 +85,7 @@ organised in configuration layers following a set of
 # Documentation
 
 A comprehensive documentation is available for each layer by pressing
-<kbd>SPC f e h</kbd>. 
+<kbd>SPC f e h</kbd>.
 
 To go to the general documentation [click here][DOCUMENTATION.org].
 
@@ -273,7 +273,28 @@ bugs, helping the community on the [Gitter Chat][] or sending pull requests.
 If you want to show your support financially you can buy a drink to the
 maintainer by clicking on the [Paypal badge](#top).
 
-Thank you !
+If you used spacemacs in a project and you want to show that fact, you can use
+the spacemacs badge ![https://github.com/syl20bnr/spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/develop/assets/spacemacs-badge.svg).
+
+- For Markdown:
+
+   ```
+   [![Built with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/develop/assets/spacemacs-badge.svg)](http://github.com/syl20bnr/spacemacs)
+   ```
+
+- For HTML:
+
+   ```
+   <a href="https://github.com/syl20bnr/spacemacs"><img src="https://cdn.rawgit.com/syl20bnr/spacemacs/develop/assets/spacemacs-badge.svg" /></a>
+   ```
+
+- For Org-mode:
+
+   ```
+   [[https://github.com/syl20bnr/spacemacs][file:https://cdn.rawgit.com/syl20bnr/spacemacs/develop/assets/spacemacs-badge.svg]]
+   ```
+
+Thank you!
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
 [CONTRIBUTE.org]: doc/CONTRIBUTE.org
