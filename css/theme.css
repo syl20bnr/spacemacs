@@ -4737,16 +4737,16 @@ h3 {
 
 .card-block > span {
   display: block;
-  width: 90px;
-  height: 90px;
+  width: 3em;
+  height: 3em;
   margin: 0 auto 20px;
   font-size: 2.125rem;
-  line-height: 2.5;
+  line-height: 2.8em;
   text-align: center;
   border: 3px solid #6F6BA7;
   border-radius: 50%; }
 
-.card-block .icon-heart {
+    .card-block .icon-heart {
   font-size: 1.85rem;
   line-height: 2.75; }
 
