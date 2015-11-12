@@ -905,3 +905,8 @@ is nonempty."
         while (string-match regexp str start)
         do (setq start (match-end 0))
         finally return count))
+
+(defun spacemacs/close-compilation-window ()
+  "Close the window containing the '*compilation*' buffer."
+  (interactive)
+  (delete-windows-on "*compilation*"))
