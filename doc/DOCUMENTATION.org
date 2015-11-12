@@ -3,8 +3,8 @@
 * Spacemacs documentation                                   :TOC_4_org:noexport:
  - [[Core Pillars][Core Pillars]]
    - [[Mnemonic][Mnemonic]]
-   - [[Discoverability][Discoverability]]
-   - [[Consistency][Consistency]]
+   - [[Discoverable][Discoverable]]
+   - [[Consistent][Consistent]]
    - [[Crowd-Configured][Crowd-Configured]]
  - [[Goals][Goals]]
  - [[Screenshots][Screenshots]]
@@ -193,7 +193,7 @@ Spacemacs organizes key bindings by mnemonic namespaces as much as possible.
 If you are looking for commands to operate on your buffer, they are right under
 ~SPC b~, if you want to operate on your project, then it is ~SPC p~, etc...
 
-** Discoverability
+** Discoverable
 Spacemacs comes with a dedicated major mode =spacemacs-mode=. Its goal is to
 give useful feedbacks and easily perform maintenance tasks.
 
@@ -203,7 +203,7 @@ more.
 [[https://github.com/justbur/emacs-which-key][which-key]] is enabled by default, it will display all the available key bindings
 in a dedicated popup buffer.
 
-** Consistency
+** Consistent
 Similar functionalities should have the same key binding no matter which major
 is currently active. For instance if you are looking for the definition of a
 function, the binding is ~SPC m g g~, =m= for =major mode= and =g g= for =go to
