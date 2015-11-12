@@ -251,17 +251,14 @@
 (defun helm-spacemacs//package-action-goto-init-func (candidate)
   "Open the file `packages.el' and go to the init function."
   (save-match-data
-    (string-match "^(\\(.+\\))\s\\(.+\\):\s\\(.+\\)$" candidate)
-    (let* ((layer (match-string 1 candidate))
-           (type (match-string 2 candidate))
-           (package (match-string 3 candidate))
+    (string-match "^\\(.+\\)\s(\\(.+\\) layer)$" candidate)
+    ;; (string-match "^(\\(.+\\))\s\\(.+\\):\s\\(.+\\)$" candidate)
+    (let* ((package (match-string 1 candidate))
+           (layer (match-string 2 candidate))
            (path (file-name-as-directory
                   (concat (ht-get configuration-layer-paths (intern layer))
                           layer)))
-           (filename (cond ((string-equal "package" type)
-                            (concat path "packages.el"))
-                           ;; TODO remove extensions in 0.105.0
-                           (t (concat path "extensions.el")))))
+           (filename (concat path "packages.el")))
       (find-file filename)
       (goto-char (point-min))
       (re-search-forward (format "init-%s" package))
