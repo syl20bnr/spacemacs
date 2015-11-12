@@ -1298,7 +1298,11 @@ ARG non nil means that the editing style is `vim'."
   (use-package restart-emacs
     :defer t
     :init
-    (evil-leader/set-key "qr" 'restart-emacs)))
+    (evil-leader/set-key "qr" 'spacemacs/restart-emacs)
+    (defun spacemacs/restart-emacs ()
+      (interactive)
+      (setq spacemacs-really-kill-emacs t)
+      (restart-emacs))))
 
 (defun spacemacs-base/init-savehist ()
   (use-package savehist
