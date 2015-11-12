@@ -101,7 +101,8 @@ If the error list is visible, hide it.  Otherwise, show it."
     :init
     (setq flycheck-display-errors-function 'flycheck-pos-tip-error-messages)
     :config
-    (flycheck-pos-tip-mode)))
+    (when (fboundp 'flycheck-pos-tip-mode)
+      (flycheck-pos-tip-mode))))
 
 (defun syntax-checking/post-init-popwin ()
   (push '("^\\*Flycheck.+\\*$" :regexp t :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config))
