@@ -33,5 +33,7 @@
 
       (add-to-list 'mu4e-view-actions
                    '("View in browser" . mu4e-action-view-in-browser) t)
-      (add-hook 'mu4e-compose-pre-hook 'mu4e/set-account)
-      (add-hook 'message-sent-hook 'mu4e/mail-account-reset))))
+
+      (when mu4e-account-alist
+        (add-hook 'mu4e-compose-pre-hook 'mu4e/set-account)
+        (add-hook 'message-sent-hook 'mu4e/mail-account-reset)))))
