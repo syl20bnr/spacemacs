@@ -811,12 +811,7 @@ ARG non nil means that the editing style is `vim'."
         (setq spacemacs--helm-navigation-ms-face-cookie-minibuffer
               (face-remap-add-relative
                'minibuffer-prompt
-               'spacemacs-helm-navigation-ms-face))
-        ;; bind actions on numbers starting from 1 which executes action 0
-        (dotimes (n 10)
-          (define-key helm-map (number-to-string n)
-            `(lambda () (interactive) (helm-select-nth-action
-                                       ,(% (+ n 9) 10))))))
+               'spacemacs-helm-navigation-ms-face)))
 
       (defun spacemacs//helm-navigation-ms-set-face ()
         "Set the face for helm header in helm navigation micro-state"
@@ -828,9 +823,6 @@ ARG non nil means that the editing style is `vim'."
 
       (defun spacemacs//helm-navigation-ms-on-exit ()
         "Action to perform when exiting helm micro-state."
-        ;; restore helm key map
-        (dotimes (n 10) (define-key helm-map (number-to-string n) nil))
-        ;; restore faces
         (with-helm-window
           (face-remap-remove-relative
            spacemacs--helm-navigation-ms-face-cookie-header))
@@ -850,6 +842,15 @@ ARG non nil means that the editing style is `vim'."
   [v]          persistent action
   [q]          quit")
 
+      ;; Define functions to pick actions
+      (dotimes (n 10)
+        (let ((func (intern (format "spacemacs/helm-action-%d" n)))
+              (doc (format "Select helm action #%d" n)))
+          (eval `(defun ,func ()
+                   ,doc
+                   (intern)
+                   (helm-select-nth-action ,(1- n))))))
+
       (spacemacs|define-micro-state helm-navigation
         :persistent t
         :disable-evil-leader t
@@ -857,6 +858,16 @@ ARG non nil means that the editing style is `vim'."
         :on-enter (spacemacs//helm-navigation-ms-on-enter)
         :on-exit  (spacemacs//helm-navigation-ms-on-exit)
         :bindings
+        ("1" spacemacs/helm-action-1 :exit t)
+        ("2" spacemacs/helm-action-2 :exit t)
+        ("3" spacemacs/helm-action-3 :exit t)
+        ("4" spacemacs/helm-action-4 :exit t)
+        ("5" spacemacs/helm-action-5 :exit t)
+        ("6" spacemacs/helm-action-6 :exit t)
+        ("7" spacemacs/helm-action-7 :exit t)
+        ("8" spacemacs/helm-action-8 :exit t)
+        ("9" spacemacs/helm-action-9 :exit t)
+        ("0" spacemacs/helm-action-10 :exit t)
         ("<tab>" helm-select-action :exit t)
         ("C-i" helm-select-action :exit t)
         ("<RET>" helm-maybe-exit-minibuffer :exit t)
