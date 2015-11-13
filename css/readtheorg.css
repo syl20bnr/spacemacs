@@ -64,7 +64,7 @@ body{
 #content{
     background:#fff;
     height:100%;
-    margin-left:300px;
+    margin-left:25%;
     /* margin:auto; */
     max-width:800px;
     min-height:100%;
@@ -726,7 +726,7 @@ hr{
     position:fixed;
     top:0;
     left:0;
-    width:300px;
+    width:25%;
     overflow-x:hidden;
     overflow-y:scroll;
     height:100%;
@@ -736,6 +736,12 @@ hr{
     scrollbar-arrow-color: #b3b3b3;
     scrollbar-shadow-color: #1F1D1D;
     scrollbar-track-color : #343131;
+}
+
+@media screen and (max-width: 768px) {
+    #table-of-contents {
+        display: none;
+    }
 }
 
 #table-of-contents h2{
@@ -828,7 +834,7 @@ footer p{
     position:fixed;
     bottom:0;
     left:0;
-    width:300px;
+    width:25%;
     color:#fcfcfc;
     background:#1f1d1d;
     border-top:solid 10px #343131;
@@ -836,6 +842,13 @@ footer p{
     font-size: 90%;
     z-index:400;
     padding:12px;
+
+}
+
+@media screen and (max-width: 768px) {
+    #copyright, #postamble {
+        display: none;
+    }
 }
 
 #postamble .author {
@@ -846,7 +859,7 @@ footer p{
 #postamble .date {
     font-size: 90%;
     margin-bottom: 0px;
-    color: #27AE60;
+    color: #666;
 }
 
 #postamble .creator,#postamble .validation {
