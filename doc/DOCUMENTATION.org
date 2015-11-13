@@ -2495,6 +2495,9 @@ To search in a project see [[Searching in a project][project searching]].
     | ~SPC s k p~ | run =ack=                                             |
     | ~SPC s p p~ | run =pt=                                              |
 
+*Note for Windows Users*: To enable fast indexing the GNU ~find~ or
+Cygwin ~find~ must be in your ~PATH~.
+
 ** Registers
 Access commands to the various registers start with =r=:
 
