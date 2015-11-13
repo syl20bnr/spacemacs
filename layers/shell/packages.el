@@ -129,7 +129,13 @@ is achieved by adding the relevant text properties."
 
       ;; automatically truncate buffer after output
       (when (boundp 'eshell-output-filter-functions)
-        (push 'eshell-truncate-buffer eshell-output-filter-functions)))))
+        (push 'eshell-truncate-buffer eshell-output-filter-functions))
+
+      ;; These don't work well in normal state
+      ;; due to evil/emacs cursor incompatibility
+      (evil-define-key 'insert eshell-mode-map
+        (kbd "C-k") 'eshell-previous-matching-input-from-input
+        (kbd "C-j") 'eshell-next-matching-input-from-input))))
 
 (defun shell/init-esh-help ()
   (use-package esh-help
@@ -283,7 +289,14 @@ is achieved by adding the relevant text properties."
   ;; work in term
   (evil-define-key 'normal term-raw-map "p" 'term-paste)
   (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
-  (evil-define-key 'insert term-raw-map (kbd "<tab>") 'term-send-tab))
+  (evil-define-key 'insert term-raw-map (kbd "<tab>") 'term-send-tab)
+
+  (evil-define-key 'insert term-raw-map
+    (kbd "C-k") 'term-send-up
+    (kbd "C-j") 'term-send-down)
+  (evil-define-key 'normal term-raw-map
+    (kbd "C-k") 'term-send-up
+    (kbd "C-j") 'term-send-down))
 
 (defun shell/pre-init-magit ()
   (spacemacs|use-package-add-hook magit
