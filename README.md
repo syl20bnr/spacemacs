@@ -174,6 +174,10 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    mv .emacs .emacs.bak
    ```
 
+   Don't forget to backup and *remove* `~/.emacs` file otherwise Spacemacs
+   **WILL NOT** load since that file prevents Emacs from loading the proper
+   initialization file.
+
 2. Clone the repository:
 
    ```sh
