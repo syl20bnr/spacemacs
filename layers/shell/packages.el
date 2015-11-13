@@ -95,7 +95,7 @@ is achieved by adding the relevant text properties."
       (defun spacemacs//init-eshell ()
         "Stuff to do when enabling eshell."
         (setq pcomplete-cycle-completions nil)
-        (if linum-mode (linum-mode -1))
+        (if (bound-and-true-p linum-mode) (linum-mode -1))
         (unless shell-enable-smart-eshell
           ;; we don't want auto-jump to prompt when smart eshell is enabled.
           ;; Idea: maybe we could make auto-jump smarter and jump only if the
