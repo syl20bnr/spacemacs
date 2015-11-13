@@ -1,14 +1,14 @@
-* %LAYERNAME% contribution layer for Spacemacs
+#+TITLE: %LAYERNAME% contribution layer for Spacemacs
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
 #+CAPTION: logo
 
 [[img/%LAYERNAME%.png]]
 
 * Table of Contents                                        :TOC_4_org:noexport:
- - [[#layername-contribution-layer-for-spacemacs][%LAYERNAME% contribution layer for Spacemacs]]
-     - [[#description][Description]]
-     - [[#install][Install]]
-     - [[#key-bindings][Key bindings]]
+ - [[Decsription][Description]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
 
 * Description
 This layer does wonderful things:
