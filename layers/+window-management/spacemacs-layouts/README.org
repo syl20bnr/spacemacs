@@ -58,6 +58,9 @@ The layouts micro-state is initiated with ~SPC l~.
 | ~x~         | kill current layout with its buffers                       |
 | ~X~         | kill other layouts with their buffers                      |
 
+*** Project Layouts
+Create a layout for a specific project use ~SPC p l~.
+
 *** Custom Layouts Micro State
 The layouts micro-state is initiated with ~SPC l o~.
 
