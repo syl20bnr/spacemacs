@@ -20,6 +20,9 @@
 (defun syntax-checking/init-flycheck ()
   (use-package flycheck
     :defer t
+    :commands (flycheck-select-checker
+               flycheck-set-checker-executable
+               flycheck-verify-setup)
     :init
     (progn
       (setq flycheck-standard-error-navigation nil)
