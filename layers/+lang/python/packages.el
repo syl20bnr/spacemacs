@@ -127,7 +127,6 @@
               ;; auto-indent on colon doesn't work well with if statement
               electric-indent-chars (delq ?: electric-indent-chars))
         (annotate-pdb)
-        (spacemacs/highlight-TODO-words)
         ;; make C-j work the same way as RET
         (local-set-key (kbd "C-j") 'newline-and-indent))
 
