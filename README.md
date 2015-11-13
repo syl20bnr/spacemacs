@@ -144,6 +144,13 @@ recommended to install the most stable build.
 Be sure to declare a environment variable named `HOME` pointing to your user
 directory `C:\Users\<username>`. Then you can clone Spacemacs in this directory.
 
+You can use the following git command to clone it into the .emacs.d folder, if you already have one make sure to delete it.
+then run.
+```
+git clone --recursive http://github.com/syl20bnr/spacemacs ~/.emacs.d
+```
+
+
 Sometimes you'll get the following error when you first start Emacs:
 
 ```
