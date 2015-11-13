@@ -99,10 +99,13 @@ If the error list is visible, hide it.  Otherwise, show it."
     :if syntax-checking-enable-tooltips
     :defer t
     :init
-    (setq flycheck-display-errors-function 'flycheck-pos-tip-error-messages)
-    :config
-    (when (fboundp 'flycheck-pos-tip-mode)
-      (flycheck-pos-tip-mode))))
+    (flycheck-pos-tip-mode)))
 
 (defun syntax-checking/post-init-popwin ()
-  (push '("^\\*Flycheck.+\\*$" :regexp t :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config))
+  (push '("^\\*Flycheck.+\\*$"
+          :regexp t
+          :dedicated t
+          :position bottom
+          :stick t
+          :noselect t)
+        popwin:special-display-config))
