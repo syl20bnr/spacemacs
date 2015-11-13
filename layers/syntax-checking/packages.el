@@ -20,9 +20,6 @@
 (defun syntax-checking/init-flycheck ()
   (use-package flycheck
     :defer t
-    :commands (flycheck-select-checker
-               flycheck-set-checker-executable
-               flycheck-verify-setup)
     :init
     (progn
       (setq flycheck-standard-error-navigation nil)
@@ -31,16 +28,7 @@
         :on (flycheck-mode)
         :off (flycheck-mode -1)
         :documentation "Enable error and syntax checking."
-        :evil-leader "ts")
-
-      ;; key bindings
-      (evil-leader/set-key
-        "ec" 'flycheck-clear
-        "eh" 'flycheck-describe-checker
-        "el" 'spacemacs/toggle-flycheck-error-list
-        "es" 'flycheck-select-checker
-        "eS" 'flycheck-set-checker-executable
-        "ev" 'flycheck-verify-setup))
+        :evil-leader "ts"))
     :config
     (progn
       (spacemacs|diminish flycheck-mode " ⓢ" " s")
@@ -95,7 +83,16 @@ If the error list is visible, hide it.  Otherwise, show it."
         :bindings
         "RET" 'flycheck-error-list-goto-error
         "j" 'flycheck-error-list-next-error
-        "k" 'flycheck-error-list-previous-error))))
+        "k" 'flycheck-error-list-previous-error)
+
+      ;; key bindings
+      (evil-leader/set-key
+        "ec" 'flycheck-clear
+        "eh" 'flycheck-describe-checker
+        "el" 'spacemacs/toggle-flycheck-error-list
+        "es" 'flycheck-select-checker
+        "eS" 'flycheck-set-checker-executable
+        "ev" 'flycheck-verify-setup))))
 
 (defun syntax-checking/init-flycheck-pos-tip ()
   (use-package flycheck-pos-tip
