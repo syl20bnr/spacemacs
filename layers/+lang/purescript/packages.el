@@ -13,8 +13,10 @@
 
 (setq purescript-packages
   '(
+    company
     purescript-mode
     psci
+    psc-ide
     ))
 
 (defun purescript/init-purescript-mode ()
@@ -40,3 +42,20 @@
         "si" 'psci
         "sm" 'psci/load-module!
         "sp" 'psci/load-project-modules!))))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun purescript/post-init-company ()
+    (spacemacs|add-company-hook purescript-mode))
+
+  (defun purescript/init-psc-ide ()
+    (use-package psc-ide
+      :if (configuration-layer/package-usedp 'company)
+      :defer t
+      :init
+      (progn
+        (push 'psc-ide company-backends-purescript-mode)
+        (add-hook 'purescript-mode-hook 'psc-ide-mode)
+        (spacemacs/set-leader-keys-for-major-mode 'purescript-mode
+          "ss" 'psc-ide-server-start
+          "ht" 'psc-ide-show-type
+          "sl" 'psc-ide-load-module)))))
