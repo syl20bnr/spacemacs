@@ -99,7 +99,8 @@ If the error list is visible, hide it.  Otherwise, show it."
     :if syntax-checking-enable-tooltips
     :defer t
     :init
-    (flycheck-pos-tip-mode)))
+    (with-eval-after-load 'flycheck
+      (flycheck-pos-tip-mode))))
 
 (defun syntax-checking/post-init-popwin ()
   (push '("^\\*Flycheck.+\\*$"
