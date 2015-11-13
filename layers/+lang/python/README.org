@@ -171,7 +171,8 @@ Test commands start with ~m t~:
 | ~SPC m h d~ | look for documentation using =helm-pydoc=                                    |
 | ~SPC m h h~ | quick documentation using anaconda                                           |
 | ~SPC m h H~ | open documentation in =firefox= using [[https://github.com/tsgates/pylookup][pylookup]]                               |
-| ~SPC m v~   | activate a virtual environment with [[https://github.com/yyuu/pyenv][pyenv]]                                    |
+| ~SPC m v s~ | activate a virtual environment with [[https://github.com/yyuu/pyenv][pyenv]]                                    |
+| ~SPC m v u~ | deactivate a virtual environment with [[https://github.com/yyuu/pyenv][pyenv]]                                 |
 | ~SPC m V~   | activate a virtual environment with  [[https://github.com/jorgenschaefer/pyvenv][pyvenv]]                                  |
 * Configuration
 ** Fill column
