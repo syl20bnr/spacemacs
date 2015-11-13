@@ -146,7 +146,6 @@
       ;; don't display eldoc on modeline
       (spacemacs|hide-lighter eldoc-mode))))
 
-
 (defun spacemacs-base/init-evil ()
   (use-package evil
     :init
@@ -382,7 +381,15 @@ Example: (evil-map visual \"<\" \"<gv\")"
           ;; free variable reference. The line above fixes this
           (if smartparens-strict-mode
               (call-interactively 'sp-backward-delete-char)
-            ad-do-it))))))
+            ad-do-it)))
+
+      ;; Define history commands for comint
+      (evil-define-key 'insert comint-mode-map
+        (kbd "C-k") 'comint-next-input
+        (kbd "C-j") 'comint-previous-input)
+      (evil-define-key 'normal comint-mode-map
+        (kbd "C-k") 'comint-next-input
+        (kbd "C-j") 'comint-previous-input))))
 
 (defun spacemacs-base/init-evil-escape ()
   (use-package evil-escape
