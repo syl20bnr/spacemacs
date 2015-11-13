@@ -35,13 +35,11 @@
     :post-config
     (progn
       (flycheck-add-mode 'javascript-eslint 'react-mode)
-      (setq-default
-       ;; disable jshint since we prefer eslint checking
-       flycheck-disabled-checkers (append flycheck-disabled-checkers
-                                          '(javascript-jshint))
-       ;; disable json-jsonlist checking for json files
-       flycheck-disabled-checkers (append flycheck-disabled-checkers
-                                          '(json-jsonlist))))))
+
+      (defun react/disable-jshint ()
+        (push 'javascript-jshint flycheck-disabled-checkers))
+
+      (add-hook 'react-mode-hook #'react/disable-jshint))))
 
 (defun react/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'react-mode))
