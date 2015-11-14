@@ -77,10 +77,16 @@
         "mv" 'TeX-view))))
 
 (when (string= latex-build-command "LatexMk")
-(defun latex/init-auctex-latexmk ()
-  (use-package auctex-latexmk
-    :defer t
-    :init (add-hook 'LaTeX-mode-hook 'auctex-latexmk-setup))))
+  (defun latex/init-auctex-latexmk ()
+    (use-package auctex-latexmk
+      :defer t
+      :init
+      (progn
+        (eval-after-load "tex-mode"
+          '(progn
+             (auctex-latexmk-setup)
+             (setq auctex-latexmk-inherit-TeX-PDF-mode t)))
+        (add-hook 'LaTeX-mode-hook (lambda() (setq TeX-command-default "LatexMk")))))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun latex/post-init-company ()
