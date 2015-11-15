@@ -355,7 +355,7 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
                  "What distribution of spacemacs would you like to start with? "
                  '(("The standard distribution, recommended. (spacemacs)"
                     spacemacs)
-                   ("A mininalist distribution that you can build on. (spacemacs-base)"
+                   ("A minimalist distribution that you can build on. (spacemacs-base)"
                     spacemacs-base)))))))))
     (with-current-buffer (find-file-noselect
                        (concat dotspacemacs-template-directory
