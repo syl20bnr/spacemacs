@@ -27,7 +27,7 @@
     (message "Errors! Check with C-`")))
 
 (defun latex//autofill ()
-  "Check whether the pointer is ucrrently inside on the
+  "Check whether the pointer is currently inside one of the
 environments described in `latex-nofill-env' and if so, inhibits
 the automatic filling of the current paragraph."
   (let ((do-auto-fill t)
@@ -41,7 +41,7 @@ the automatic filling of the current paragraph."
       (do-auto-fill))))
 
 (defun latex/auto-fill-mode ()
-  "Toggle uato-fill-mode using the custom auto-fill function."
+  "Toggle auto-fill-mode using the custom auto-fill function."
   (interactive)
   (auto-fill-mode)
   (setq auto-fill-function 'latex//autofill))
