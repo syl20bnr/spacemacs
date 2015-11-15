@@ -1,4 +1,4 @@
-;;; packages.el --- C/C++ Layer packages File for Spacemacs
+;;; config.el --- C/C++ Layer config File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
