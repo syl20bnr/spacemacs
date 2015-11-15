@@ -115,13 +115,21 @@
       (spacemacs/declare-prefix "gd" "diff")
       (spacemacs/set-leader-keys
         "gb" 'spacemacs/git-blame-micro-state
-        "gc" 'magit-commit
+        "gc" 'magit-commit-popup
         "gC" 'magit-checkout
-        "gdh" 'spacemacs/magit-diff-head
+        "gd" 'magit-diff-popup
+        "gD" 'spacemacs/magit-diff-head
+        "ge" 'magit-ediff-compare
+        "gE" 'magit-ediff-show-working-tree
+        "gf" 'magit-fetch-popup
+        "gF" 'magit-pull-popup
         "gi" 'magit-init
-        "gl" 'magit-log-all
+        "gl" 'magit-log-popup
         "gL" 'magit-log-buffer-file
-        "gs" 'magit-status)
+        "gP" 'magit-push-popup
+        "gs" 'magit-status
+        "gw" 'magit-stage-file
+        "gu" 'magit-unstage-file)
 
       (spacemacs|define-micro-state git-blame
         :doc (concat "Press [b] again to blame further in the history, "
