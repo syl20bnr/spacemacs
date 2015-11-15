@@ -268,7 +268,7 @@ next level by using Emacs. There is a [[./VIMUSERS.org][guide]] for these users 
 documentation.
 
 It is also a good fit for people wanting to *lower the [[http://en.wikipedia.org/wiki/Repetitive_strain_injury][risk of RSI]]* induced by
-the default Emacs key bindings (this is an assumption, there is no official
+the default Emacs key bindings (this is an assumption, there are no official
 studies to prove this).
 
 Emacs users wanting to learn *a different way to edit files* or wanting to learn
