@@ -1412,6 +1412,9 @@ ARG non nil means that the editing style is `vim'."
         :documentation
         "Display a buffer with available key bindings."
         :evil-leader "tK")
+
+      (evil-leader/set-key "hh" 'which-key-show-top-level)
+
       (let ((new-descriptions
              ;; being higher in this list means the replacement is applied later
              '(
