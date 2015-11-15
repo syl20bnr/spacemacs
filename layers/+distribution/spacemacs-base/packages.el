@@ -1240,8 +1240,8 @@ ARG non nil means that the editing style is `vim'."
       ;; note for Windows: GNU find or Cygwin find must be in path to enable
       ;; fast indexing
       (when (and (spacemacs/system-is-mswindows) (executable-find "find"))
-          (setq  projectile-indexing-method 'alien)
-                 projectile-generic-command "find . -type f")
+          (setq  projectile-indexing-method 'alien
+                 projectile-generic-command "find . -type f"))
       (setq projectile-sort-order 'recentf
             projectile-cache-file (concat spacemacs-cache-directory
                                           "projectile.cache")
