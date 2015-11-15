@@ -33,8 +33,8 @@
         :on (typo-mode)
         :off (typo-mode -1)
         :documentation "Enable typographic substitutions"
-        :evil-leader "tTy")
-      (spacemacs|diminish typo-mode " 𝔗" " ty"))
+        :evil-leader "tY")
+      (spacemacs|diminish typo-mode " Ⓨ" " ty"))
     :config (setq-default typo-language "English")))
 
 (defun typography/init-tildify ()
@@ -46,7 +46,7 @@
         (add-hook 'text-mode-hook 'tildify-mode))
 
       (evil-leader/set-key
-        "xTt" 'tildify-region)
+        "x~" 'tildify-region)
 
       ;; Use the symbolic non-breaking space for LaTeX
       (defun typography/tildify-latex-space ()
@@ -59,5 +59,5 @@
         :on (tildify-mode)
         :off (tildify-mode -1)
         :documentation "Enable electric non-breaking space"
-        :evil-leader "tTd")
-      (spacemacs|diminish tildify-mode " 𝔇" " td"))))
+        :evil-leader "t~")
+      (spacemacs|diminish tildify-mode " ~" " ~"))))
