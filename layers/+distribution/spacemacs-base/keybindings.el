@@ -98,6 +98,7 @@ Ensure that helm is required before calling FUNC."
          (require 'helm)
          (call-interactively ',func))
        (evil-leader/set-key ,keys ',func-name))))
+(evil-leader/set-key "hh" 'which-key-show-top-level)
 (spacemacs||set-helm-key "hdb" describe-bindings)
 (spacemacs||set-helm-key "hdc" describe-char)
 (spacemacs||set-helm-key "hdf" describe-function)
