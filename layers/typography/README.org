@@ -39,9 +39,9 @@ and automatic insertion and cycling among of typographic quotes and dashes.
 
 | Key Bindings | Description                                                      |
 |--------------+------------------------------------------------------------------|
-| ~SPC t T y~  | Toggle Typo Mode (automatic insertion of typographic characters) |
-| ~SPC t T d~  | Toggle Tildify Mode (automatic insertion of non-breaking spaces) |
-| ~SPC x T t~  | Insert non-breaking spaces in the current region                 |
+| ~SPC t Y~    | Toggle Typo Mode (automatic insertion of typographic characters) |
+| ~SPC t ~~    | Toggle Tildify Mode (automatic insertion of non-breaking spaces) |
+| ~SPC x ~~    | Insert non-breaking spaces in the current region                 |
 
 The following keybindings are available in insert state.
 
