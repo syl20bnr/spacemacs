@@ -36,6 +36,6 @@
 
       (defun spacemacs//setup-shell ()
         (when (and buffer-file-name
-                   (string-match "\\.zsh\\'" buffer-file-name))
+                   (string-match-p "\\.zsh\\'" buffer-file-name))
           (sh-set-shell "zsh")))
       (add-hook 'sh-mode-hook 'spacemacs//setup-shell))))
