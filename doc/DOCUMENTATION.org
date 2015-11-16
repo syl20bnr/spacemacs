@@ -735,6 +735,10 @@ very handy Vim key binding to scroll up.
 Spacemacs binds ~C-u~ to =scroll-up= and change the universal argument binding
 to ~SPC u~.
 
+*Note*: ~SPC u~ is not working before =helm-M-x= (~SPC :~). Instead, call
+=helm-M-x= first, select the command you want to run, and press ~C-u~ before
+pressing ~RETURN~. For instance: ~SPC : org-reload C-u RET~
+
 ** Micro-states
 Spacemacs defines a wide variety of =micro-states= (temporary overlay maps)
 where it makes sense. This prevents one from doing repetitive and tedious
@@ -845,6 +849,10 @@ You can see samples of all included themes in this [[http://themegallery.robdor.
   - Due to the inner working of themes in Emacs, switching theme during the same
     session may have some weird side effects. Although these side effects should
     be pretty rare.
+  - In the terminal version of Emacs, color themes will not render correctly as
+    colors are rendered by the terminal and not by emacs. You will probably have
+    to change your terminal color palette. More explanations can be found on
+    [[https://github.com/sellout/emacs-color-theme-solarized#important-note-for-terminal-users][emacs-color-theme-solarized webpage]].
 
 *Hint*: If you are an =Org= user, [[https://github.com/fniessen/emacs-leuven-theme][leuven-theme]] is amazing ;-)
 
