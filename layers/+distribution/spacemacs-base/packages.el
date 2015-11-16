@@ -954,7 +954,8 @@ ARG non nil means that the editing style is `vim'."
     :init
     (progn
       (evil-leader/set-key "feh" 'helm-spacemacs)
-      (evil-leader/set-key "fef" 'helm-spacemacs-faq))))
+      (evil-leader/set-key "fef" 'helm-spacemacs-faq)
+      (evil-leader/set-key "h SPC" 'helm-spacemacs))))
 
 (defun spacemacs-base/init-hs-minor-mode ()
   ;; required for evil folding
