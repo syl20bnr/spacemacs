@@ -76,6 +76,10 @@
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose nil)
 
+;; Make dired "guess" target directory for some operations, like copy to
+;; directory visited in other split buffer.
+(setq dired-dwim-target t)
+
 ;; Regexp for useful and useless buffers for smarter buffer switching
 (defvar spacemacs-useless-buffers-regexp '("*\.\+")
   "Regexp used to determine if a buffer is not useful.")
