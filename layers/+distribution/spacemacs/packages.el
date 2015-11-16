@@ -1262,8 +1262,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :defer t
     :init
     (evil-leader/set-key
-      "hk" 'helm-make
-      "cc" 'helm-make-projectile)))
+      "cc" 'helm-make-projectile
+      "cm" 'helm-make)))
 
 (defun spacemacs/init-helm-mode-manager ()
   (use-package helm-mode-manager

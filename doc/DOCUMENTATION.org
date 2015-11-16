@@ -1294,8 +1294,8 @@ Other help key bindings:
 
 | Key Binding | Description                                   |
 |-------------+-----------------------------------------------|
-| ~SPC h h~   | show top-level bindings with =which-key=      |
 | ~SPC h i~   | search in info pages with the symbol at point |
+| ~SPC h k~   | show top-level bindings with =which-key=      |
 | ~SPC h L~   | go to library a implementation                |
 | ~SPC h m~   | search available man pages                    |
 
@@ -2523,6 +2523,7 @@ Spacemacs binds a few commands to support compiling a project.
    |-------------+--------------------------------|
    | ~SPC c c~   | use =helm-make= via projectile |
    | ~SPC c C~   | compile                        |
+   | ~SPC c m~   | =helm-make=                    |
    | ~SPC c r~   | recompile                      |
    | ~SPC c q~   | close compilation window       |
 
