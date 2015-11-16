@@ -24,6 +24,7 @@
    - [[Include underscores in word motions?][Include underscores in word motions?]]
    - [[Setup =$PATH=?][Setup =$PATH=?]]
    - [[Change or define an alias for an =evil-leader= prefix?][Change or define an alias for an =evil-leader= prefix?]]
+   - [[Restore the sentence delimiter to two spaces?][Restore the sentence delimiter to two spaces?]]
  - [[Windows][Windows]]
    - [[Why do the fonts look crappy on Windows?][Why do the fonts look crappy on Windows?]]
    - [[Why is there no Spacemacs logo in the startup buffer?][Why is there no Spacemacs logo in the startup buffer?]]
@@ -265,6 +266,14 @@ unmapped key on your keyboard-layout for instance) for accessing ~SPC w~
   (let ((map (lookup-key evil-leader--default-map key2)))
     (evil-leader/set-key key1 map)))
 (my-evil-leader/alias-of "é" "w")
+#+end_src
+
+** Restore the sentence delimiter to two spaces?
+To restore the sentence delimiter to two spaces, add the following code to the
+=dotspacemacs/user-init= function of your =.spacemacs=:
+
+#+begin_src emacs-lisp
+(setq sentence-end-double-space t)
 #+end_src
 
 * Windows
