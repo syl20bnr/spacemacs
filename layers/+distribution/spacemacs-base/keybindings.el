@@ -547,12 +547,13 @@ otherwise it is scaled down."
   (spacemacs/scale-up-or-down-font-size 0))
 
 (spacemacs|define-micro-state scale-font
-  :doc "[+] scale up [-] scale down [=] reset font [q]uit"
+  :doc "[+/=] scale up [-] scale down [0] reset font [q]uit"
   :evil-leader "zx"
   :bindings
   ("+" spacemacs/scale-up-font)
+  ("=" spacemacs/scale-up-font)
   ("-" spacemacs/scale-down-font)
-  ("=" spacemacs/reset-font-size)
+  ("0" spacemacs/reset-font-size)
   ("q" nil :exit t))
 
 ;; end of Text Manipulation Micro State

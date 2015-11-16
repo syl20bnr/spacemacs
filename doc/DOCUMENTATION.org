@@ -2125,11 +2125,13 @@ The font size of the current buffer can be adjusted with the commands:
 | Key Binding   | Description                                                                |
 |---------------+----------------------------------------------------------------------------|
 | ~SPC z x +~   | scale up the font and initiate the font scaling micro-state                |
+| ~SPC z x =~   | scale up the font and initiate the font scaling micro-state                |
 | ~SPC z x -~   | scale down the font and initiate the font scaling micro-state              |
-| ~SPC z x =~   | reset the font size (no scaling) and initiate the font scaling micro-state |
+| ~SPC z x 0~   | reset the font size (no scaling) and initiate the font scaling micro-state |
 | ~+~           | increase the font size                                                     |
+| ~=~           | increase the font size                                                     |
 | ~-~           | decrease the font size                                                     |
-| ~=~           | reset the font size                                                        |
+| ~0~           | reset the font size                                                        |
 | Any other key | leave the font scaling micro-state                                         |
 
 Note that /only/ the text of the current buffer is scaled, the other buffers,
@@ -2139,15 +2141,17 @@ a frame use the =zoom frame= bindings (see next section).
 **** Frame
 You can zoom in and out the whole content of the frame with the commands:
 
-| Key Binding   | Description                      |
-|---------------+----------------------------------|
-| ~SPC z f +~   | zoom in the frame content        |
-| ~SPC z f -~   | zoom out the frame content       |
-| ~SPC z f =~   | reset the frame content size     |
-| ~+~           | zoom in                          |
-| ~-~           | zoom out                         |
-| ~=~           | reset zoom                       |
-| Any other key | leave the zoom frame micro-state |
+| Key Binding   | Description                                                             |
+|---------------+-------------------------------------------------------------------------|
+| ~SPC z f +~   | zoom in the frame content and initiate the frame scaling micro-state    |
+| ~SPC z f =~   | zoom in the frame content and initiate the frame scaling micro-state    |
+| ~SPC z f -~   | zoom out the frame content and initiate the frame scaling micro-state   |
+| ~SPC z f 0~   | reset the frame content size and initiate the frame scaling micro-state |
+| ~+~           | zoom in                                                                 |
+| ~=~           | zoom in                                                                 |
+| ~-~           | zoom out                                                                |
+| ~0~           | reset zoom                                                              |
+| Any other key | leave the zoom frame micro-state                                        |
 
 *** Increase/Decrease numbers
 Spacemacs uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or increase numbers.
