@@ -1932,6 +1932,7 @@ called =pt=.
 |-----------------+--------------------------------------------------------------------------|
 | ~SPC h l~       | resume the last =helm= buffer                                            |
 | ~F3~            | in a =helm= buffer, convert a =helm= search buffer into a regular buffer |
+| ~SPC s `~       | go back to the previous place reached with =helm-ag=                     |
 | ~SPC s L~       | focus the last converted search buffer                                   |
 | Prefix argument | will ask for file extensions                                             |
 
