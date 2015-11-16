@@ -56,7 +56,7 @@ layers in. For example a layer for a language would go in the
 It is recommended to join a =README.org= file with your layer:
   - ideally this file should document the packages of your layer as well as the
     key bindings associated with them
-  - a template is provided in =~/.emacs.d/core/templates/layer-README.template=,
+  - a template is provided in =~/.emacs.d/core/templates/README.org.template=,
     use it as much as possible
   - another good practice is to start from the =README.org= of an existing layer
   - if a logo exists for the layer you can add it at the top of the =README.org=

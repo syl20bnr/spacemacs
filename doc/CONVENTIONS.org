@@ -328,7 +328,7 @@ as an help command.
 
 * Writing documentation
 Spacemacs provides an example layer =README.org= file in
-=~/.emacs.d/core/templates/layer-README.template=.
+=~/.emacs.d/core/templates/README.org.template=.
 
 ** Spacing in documentation
 Spacemacs tries to keep the documentation consistent between all layers by

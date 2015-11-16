@@ -215,8 +215,9 @@ layer directory."
                        "this layer already exists.") name))
      (t
       (make-directory layer-dir t)
-      (configuration-layer//copy-template name "extensions" layer-dir)
-      (configuration-layer//copy-template name "packages" layer-dir)
+      (configuration-layer//copy-template name "extensions.el" layer-dir)
+      (configuration-layer//copy-template name "packages.el" layer-dir)
+      (configuration-layer//copy-template name "README.org" layer-dir)
       (message "Configuration layer \"%s\" successfully created." name)))))
 
 (defun configuration-layer/make-layer (layer)
@@ -408,9 +409,9 @@ If LAYER_DIR is nil, the private directory is used."
   (let ((src (concat configuration-layer-template-directory
                      (format "%s.template" template)))
         (dest (if layer-dir
-                  (concat layer-dir "/" (format "%s.el" template))
+                  (concat layer-dir "/" (format "%s" template))
                 (concat (configuration-layer//get-private-layer-dir name)
-                        (format "%s.el" template)))))
+                        (format "%s" template)))))
     (copy-file src dest)
     (find-file dest)
     (save-excursion
