@@ -1957,13 +1957,15 @@ It will toggle the overlay under point or create an overlay of one character."
     :init
     (progn
       (spacemacs|define-micro-state zoom-frm
-        :doc "[+] zoom frame in [-] zoom frame out [=] reset zoom"
+        :doc "[+/=] zoom frame in [-] zoom frame out [0] reset zoom [q]uit"
         :evil-leader "zf"
         :use-minibuffer t
         :bindings
         ("+" spacemacs/zoom-frm-in :post (spacemacs//zoom-frm-powerline-reset))
+        ("=" spacemacs/zoom-frm-in :post (spacemacs//zoom-frm-powerline-reset))
         ("-" spacemacs/zoom-frm-out :post (spacemacs//zoom-frm-powerline-reset))
-        ("=" spacemacs/zoom-frm-unzoom :post (spacemacs//zoom-frm-powerline-reset)))
+        ("0" spacemacs/zoom-frm-unzoom :post (spacemacs//zoom-frm-powerline-reset))
+        ("q" nil :exit t))
 
       (defun spacemacs//zoom-frm-powerline-reset ()
         (when (fboundp 'powerline-reset)
