@@ -1217,6 +1217,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (kbd "q") 'quit-window)
 
       (spacemacs/set-leader-keys
+        ;; helm-ag marks
+        "s`"  'helm-ag-pop-stack
         ;; opened buffers scope
         "sb"  'spacemacs/helm-buffers-smart-do-search
         "sB"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
