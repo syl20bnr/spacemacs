@@ -1277,27 +1277,28 @@ bindings.
 information about functions, variables, modes etc. These commands are bound
 thusly:
 
-| Key Binding | Description                                               |
-|-------------+-----------------------------------------------------------|
-| ~SPC h d b~ | describe bindings in a =helm= buffer                      |
-| ~SPC h d c~ | describe current character under point                    |
-| ~SPC h d f~ | describe a function                                       |
-| ~SPC h d F~ | describe a face                                           |
-| ~SPC h d k~ | describe a key                                            |
-| ~SPC h d m~ | describe current modes                                    |
-| ~SPC h d p~ | describe a package                                        |
-| ~SPC h d s~ | copy system information that you can paste in gitter chat |
-| ~SPC h d t~ | describe a theme                                          |
-| ~SPC h d v~ | describe a variable                                       |
+| Key Binding | Description                                                        |
+|-------------+--------------------------------------------------------------------|
+| ~SPC h d b~ | describe bindings in a =helm= buffer                               |
+| ~SPC h d c~ | describe current character under point                             |
+| ~SPC h d f~ | describe a function                                                |
+| ~SPC h d F~ | describe a face                                                    |
+| ~SPC h d k~ | describe a key                                                     |
+| ~SPC h d m~ | describe current modes                                             |
+| ~SPC h d p~ | describe a package                                                 |
+| ~SPC h d s~ | copy system information that you can paste in gitter chat          |
+| ~SPC h d t~ | describe a theme                                                   |
+| ~SPC h d v~ | describe a variable                                                |
 
 Other help key bindings:
 
-| Key Binding | Description                                   |
-|-------------+-----------------------------------------------|
-| ~SPC h i~   | search in info pages with the symbol at point |
-| ~SPC h k~   | show top-level bindings with =which-key=      |
-| ~SPC h L~   | go to library a implementation                |
-| ~SPC h m~   | search available man pages                    |
+| Key Binding | Description                                                        |
+|-------------+--------------------------------------------------------------------|
+| ~SPC h SPC~ | discover Spacemacs documentation, layers and packages using =helm= |
+| ~SPC h i~   | search in info pages with the symbol at point                      |
+| ~SPC h k~   | show top-level bindings with =which-key=                           |
+| ~SPC h L~   | go to library a implementation                                     |
+| ~SPC h m~   | search available man pages                                         |
 
 *** Available layers
 All layers can be easily discovered via =helm-spacemacs= accessible with ~SPC f
@@ -1619,6 +1620,8 @@ navigate between =Emacs= and Spacemacs specific files.
 | ~SPC f e i~ | open the all mighty =init.el=                                      |
 | ~SPC f e R~ | resync the dotfile with spacemacs                                  |
 | ~SPC f e v~ | display and copy the spacemacs version                             |
+
+Additionally, ~SPC h SPC~ is a alias for ~SPC f e h~.
 
 **** Browsing files with Helm
 In =vim= and  =hybrid= styles, Spacemacs remap the navigation in Helm find-files
