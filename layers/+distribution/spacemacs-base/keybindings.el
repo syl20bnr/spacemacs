@@ -245,7 +245,7 @@ Ensure that helm is required before calling FUNC."
   :documentation "Maximize the current frame."
   :evil-leader "TM")
 (spacemacs|add-toggle mode-line
-  :status (equal hidden-mode-line-mode nil)
+  :status (not hidden-mode-line-mode)
   :on (hidden-mode-line-mode -1)
   :off (hidden-mode-line-mode)
   :documentation "Toggle the visibility of modeline."
