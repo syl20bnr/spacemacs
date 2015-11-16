@@ -14,6 +14,8 @@
    - [[Should I place my settings in =user-init= or =user-config=?][Should I place my settings in =user-init= or =user-config=?]]
    - [[Why do some of my =org=-related settings cause problems?][Why do some of my =org=-related settings cause problems?]]
    - [[Why is Spacemacs hanging on startup?][Why is Spacemacs hanging on startup?]]
+   - [[Why does =helm-M-x= (~SPC :~) not accept the prefix argument?][Why does =helm-M-x= (~SPC :~) not accept the prefix argument?]]
+   - [[Why does my color theme not render correctly in terminal mode?][Why does my color theme not render correctly in terminal mode?]]
  - [[How do I...][How do I...]]
    - [[Install a package not provided by a layer?][Install a package not provided by a layer?]]
    - [[Disable a package completely?][Disable a package completely?]]
@@ -26,10 +28,12 @@
    - [[Setup =$PATH=?][Setup =$PATH=?]]
    - [[Change or define an alias for an =evil-leader= prefix?][Change or define an alias for an =evil-leader= prefix?]]
    - [[Restore the sentence delimiter to two spaces?][Restore the sentence delimiter to two spaces?]]
+   - [[Prevent the visual selection overriding my system clipboard?][Prevent the visual selection overriding my system clipboard?]]
  - [[Windows][Windows]]
    - [[Why do the fonts look crappy on Windows?][Why do the fonts look crappy on Windows?]]
    - [[Why is there no Spacemacs logo in the startup buffer?][Why is there no Spacemacs logo in the startup buffer?]]
    - [[Why are all packages unavailable?][Why are all packages unavailable?]]
+   - [[The powerline isn't shown correctly when Spacemacs is used within =PuTTY=.][The powerline isn't shown correctly when Spacemacs is used within =PuTTY=.]]
  - [[OS X][OS X]]
    - [[Why are the powerline colors not correct on OS X?][Why are the powerline colors not correct on OS X?]]
 
@@ -102,11 +106,29 @@ configuration:
 
 See [[https://github.com/syl20bnr/spacemacs/issues/3422#issuecomment-148919047][issue #3422]] and [[https://github.com/emacs-helm/helm/issues/1000#issuecomment-119487649][helm issue #1000]] for details.
 
+** Why does =helm-M-x= (~SPC :~) not accept the prefix argument?
+If you try to run =helm-M-x= with the prefix argument (i.e. ~SPC u SPC :~) it
+will fail with this message:
+
+#+begin_verse
+Error: Specifying a prefix arg before calling helm-M-x
+#+end_verse
+
+Instead, call =helm-M-x= first, select the command you want to run, and press
+~C-u~ before pressing ~RETURN~. For instance: ~SPC : org-reload C-u RET~
+
+** Why does my color theme not render correctly in terminal mode?
+In the terminal version of Emacs, color themes will not render correctly as
+colors are rendered by the terminal and not by emacs. You will probably have to
+change your terminal color palette. More explanations can be found on
+[[https://github.com/sellout/emacs-color-theme-solarized#important-note-for-terminal-users][emacs-color-theme-solarized webpage]].
+
 * How do I...
 ** Install a package not provided by a layer?
 Spacemacs provides a variable in the =dotspacemacs/layers= function in
 =.spacemacs= called =dotspacemacs-additional-packages=. Just add a package name
-to the list and it will be installed when you restart.
+to the list and it will be installed when you reload your configuration with
+~SPC f e R~, or at the next Spacemacs launch.
 
 ** Disable a package completely?
 To completely disable a package and effectively uninstalling it even if
@@ -282,6 +304,18 @@ To restore the sentence delimiter to two spaces, add the following code to the
 (setq sentence-end-double-space t)
 #+end_src
 
+** Prevent the visual selection overriding my system clipboard?
+On some operating systems, there is only one clipboard for both *copied* and
+*selected* texts. This has the consequence that visual *selection* – which
+should normally be saved to the /PRIMARY/ clipboard – overrides the /SYSTEM/
+clipboard, where normally goes the *copied* text. This can be corrected by
+adding the following code to the =dotspacemacs/user-config= of your
+=.spacemacs=:
+
+#+begin_src emacs-lisp
+(fset 'evil-visual-update-x-selection 'ignore)
+#+end_src
+
 * Windows
 ** Why do the fonts look crappy on Windows?
 You can install [[https://code.google.com/p/mactype/][MacType]] on Windows to get very nice looking fonts. It is
@@ -301,6 +335,9 @@ Check if your Emacs has HTTPS capabilities by doing =M-:= and then:
 
 If this returns =nil=, you need to install the GnuTLS DDL file in the same
 directory as Emacs. See [[https://www.gnu.org/software/emacs/manual/html_mono/emacs-gnutls.html#Help-For-Users][here]] for instructions.
+
+** The powerline isn't shown correctly when Spacemacs is used within =PuTTY=.
+You can follow [[http://mschulte.nl/posts/using-powerline-in-PuTTY.html][this explanation]] explaining how to correct this.
 
 * OS X
 ** Why are the powerline colors not correct on OS X?
