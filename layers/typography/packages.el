@@ -34,7 +34,7 @@
         :off (typo-mode -1)
         :documentation "Enable typographic substitutions"
         :evil-leader "tY")
-      (spacemacs|diminish typo-mode " Ⓨ" " ty"))
+      (spacemacs|diminish typo-mode " Ⓨ" " Y"))
     :config (setq-default typo-language "English")))
 
 (defun typography/init-tildify ()
