@@ -25,6 +25,7 @@
     :init
     (progn
       (add-hook 'elixir-mode-hook 'alchemist-mode)
+      (add-hook 'elixir-mode-hook 'elixir//set-default-indentation)
       (setq alchemist-project-compile-when-needed t)
       (push 'alchemist-company company-backends-elixir-mode)
       (push 'alchemist-company company-backends-alchemist-iex-mode))
@@ -111,6 +112,10 @@
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
     :defer t))
+
+(defun elixir//set-default-indentation ()
+  (setq evil-shift-width elixir-smie-indent-basic)
+  )
 
 (defun elixir/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
