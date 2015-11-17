@@ -97,6 +97,7 @@ Ensure that helm is required before calling FUNC."
 (spacemacs/set-leader-keys "hds" 'spacemacs/describe-system-info)
 (spacemacs||set-helm-key "hdt" describe-theme)
 (spacemacs||set-helm-key "hdv" describe-variable)
+(spacemacs||set-helm-key "hn"  view-emacs-news)
 (spacemacs||set-helm-key "hL"  helm-locate-library)
 ;; search functions -----------------------------------------------------------
 (spacemacs||set-helm-key "sww" helm-wikipedia-suggest)
