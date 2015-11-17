@@ -722,6 +722,24 @@ hr{
 /*     overflow:scroll; */
 /* } */
 
+#toggle-sidebar {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    #toggle-sidebar {
+        display: block;
+        background-color: #E0D6E9;
+        text-align: center;
+        padding: 0.6em;
+        margin-bottom: 0.6em;
+    }
+    #toggle-sidebar h2 {
+        margin: 0;
+        padding: 0;
+    }
+}
+
 #table-of-contents{
     position:fixed;
     top:0;
@@ -738,11 +756,10 @@ hr{
     scrollbar-track-color : #343131;
 }
 
-@media screen and (max-width: 768px) {
-    #table-of-contents {
-        display: none;
-    }
+#table-of-contents h2 a {
+    display: none;
 }
+
 
 #table-of-contents h2{
     z-index:200;
@@ -753,6 +770,21 @@ hr{
     color:#fcfcfc;
     font-size: 100%;
     margin-bottom:0.809em}
+
+@media screen and (max-width: 768px) {
+    #table-of-contents {
+        display: none;
+    }
+
+    #table-of-contents h2 a {
+        display: block;
+    }
+
+    #table-of-contents:target {
+        display: block;
+    }
+
+}
 
 ul.nav li ul li {
     display: none;
