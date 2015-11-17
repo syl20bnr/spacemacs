@@ -19,8 +19,9 @@
     evil-surround
     gnuplot
     htmlize
-    ;; org is installed by `org-plus-contrib'
+    ;; org and org-agenda are installed by `org-plus-contrib'
     (org :location built-in)
+    (org-agenda :location built-in)
     (org-plus-contrib :step pre)
     org-bullets
     ;; org-mime is installed by `org-plus-contrib'
@@ -259,7 +260,44 @@ Will work on both org-mode and any mode that accepts plain html."
       (define-key org-src-mode-map (kbd (concat dotspacemacs-major-mode-emacs-leader-key " '")) 'org-edit-src-exit)
 
       (spacemacs/set-leader-keys
-        "Cc" 'org-capture))))
+        "Cc" 'org-capture)
+
+      ;; Evilify the calendar tool on C-c .
+      (unless (eq 'emacs dotspacemacs-editing-style)
+        (define-key org-read-date-minibuffer-local-map (kbd "M-h")
+          (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-day 1))))
+        (define-key org-read-date-minibuffer-local-map (kbd "M-l")
+          (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-day 1))))
+        (define-key org-read-date-minibuffer-local-map (kbd "M-k")
+          (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-week 1))))
+        (define-key org-read-date-minibuffer-local-map (kbd "M-j")
+          (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-week 1))))
+        (define-key org-read-date-minibuffer-local-map (kbd "M-H")
+          (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-month 1))))
+        (define-key org-read-date-minibuffer-local-map (kbd "M-L")
+          (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-month 1))))
+        (define-key org-read-date-minibuffer-local-map (kbd "M-K")
+          (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-year 1))))
+        (define-key org-read-date-minibuffer-local-map (kbd "M-J")
+          (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-year 1))))))))
+
+(defun org/init-org-agenda ()
+  (use-package org-agenda
+    :defer t
+    :init
+    (setq org-agenda-restore-windows-after-quit t)
+    :config
+    (evilified-state-evilify-map org-agenda-mode-map
+      :mode org-agenda-mode
+      :bindings
+      "j" 'org-agenda-next-line
+      "k" 'org-agenda-previous-line
+      (kbd "M-j") 'org-agenda-next-item
+      (kbd "M-k") 'org-agenda-previous-item
+      (kbd "M-h") 'org-agenda-earlier
+      (kbd "M-l") 'org-agenda-later
+      (kbd "gd") 'org-agenda-toggle-time-grid
+      (kbd "gr") 'org-agenda-redo)))
 
 (defun org/init-org-bullets ()
   (use-package org-bullets

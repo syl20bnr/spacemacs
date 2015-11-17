@@ -21,6 +21,7 @@
      - [[Links][Links]]
      - [[Emphasis][Emphasis]]
      - [[Tagging][Tagging]]
+   - [[Org agenda][Org agenda]]
    - [[Pomodoro][Pomodoro]]
    - [[Presentation][Presentation]]
    - [[Org-repo-todo][Org-repo-todo]]
@@ -240,6 +241,19 @@ You can tweak the bullets displayed in the org buffer in the function
 | Key Binding | Description  |
 |-------------+--------------|
 | ~SPC m :~   | org-set-tags |
+
+** Org agenda
+The evilified org agenda supports, among others, the following bindings:
+
+| Key Binding | Description   |
+|-------------+---------------|
+| ~M-j~       | next item     |
+| ~M-k~       | previous item |
+| ~M-h~       | earlier view  |
+| ~M-l~       | later view    |
+| ~gr~        | refresh       |
+| ~gd~        | toggle grid   |
+| ~C-v~       | change view   |
 
 ** Pomodoro
 
