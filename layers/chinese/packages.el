@@ -13,12 +13,11 @@
 ;; List of all packages to install and/or initialize. Built-in packages
 ;; which require an initialization must be listed explicitly in the list.
 (setq chinese-packages
-    '(
-      find-by-pinyin-dired
-      ace-pinyin
-      pangu-spacing
-      org
-      ))
+      '(
+        find-by-pinyin-dired
+        ace-pinyin
+        pangu-spacing
+        org))
 
 (if chinese-enable-youdao-dict
   (push 'youdao-dictionary chinese-packages))
@@ -26,6 +25,14 @@
 (if (eq chinese-default-input-method 'wubi)
     (push 'chinese-wbim chinese-packages)
   (push 'chinese-pyim chinese-packages))
+
+(if chinese-enable-fcitx
+    (push 'fcitx chinese-packages))
+
+(defun chinese/init-fcitx ()
+  (use-package fcitx
+    :init
+    (fcitx-evil-turn-on)))
 
 (defun chinese/init-chinese-wbim ()
   "Initialize chinese-wubi"
