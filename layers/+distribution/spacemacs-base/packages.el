@@ -241,6 +241,12 @@
 
       (spacemacs/set-leader-keys "re" 'evil-show-registers)
 
+      ;; After major mode has changed, reset evil-shift-width
+      (add-hook 'after-change-major-mode-hook 'spacemacs//set-evil-shift-width 'append)
+
+      ;; It's better that the default value is too small than too big
+      (setq-default evil-shift-width 2)
+
       (defmacro evil-map (state key seq)
         "Map for a given STATE a KEY to a sequence SEQ of keys.
 
