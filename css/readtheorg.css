@@ -774,6 +774,7 @@ hr{
 @media screen and (max-width: 768px) {
     #table-of-contents {
         display: none;
+        width: 60%;
     }
 
     #table-of-contents h2 a {
