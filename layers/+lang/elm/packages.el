@@ -56,16 +56,16 @@
         (let* ((fname (format "%s.js" (downcase (file-name-base (buffer-file-name))))))
           (elm-compile--file (elm--buffer-local-file-name) fname)))
 
-      (defun spacemacs/push-decl-elm-repl-focus ()
+      (defun spacemacs/elm-repl-push-decl-focus ()
         "Send current function to the REPL and focus it in insert state."
         (interactive)
-        (push-decl-elm-repl)
+        (elm-repl-push-decl)
         (run-elm-interactive)
         (evil-insert-state))
 
-      (defun spacemacs/push-elm-repl-focus ()
+      (defun spacemacs/elm-repl-push-focus ()
         "Send current region to the REPL and focus it in insert state."
-        (push-elm-repl)
+        (elm-repl-push)
         (run-elm-interactive)
         (evil-insert-state))
 
@@ -80,10 +80,10 @@
 
         ;; repl
         "msi" 'elm-repl-load
-        "msf" 'push-decl-elm-repl
-        "msF" 'spacemacs/push-decl-elm-repl-focus
-        "msr" 'push-elm-repl
-        "msR" 'spacemacs/push-elm-repl-focus
+        "msf" 'elm-repl-push-decl
+        "msF" 'spacemacs/elm-repl-push-decl-focus
+        "msr" 'elm-repl-push
+        "msR" 'spacemacs/elm-repl-push-focus
 
         ;; reactor
         "mRn" 'elm-preview-buffer
