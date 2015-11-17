@@ -10,6 +10,7 @@
    - [[Configuration][Configuration]]
      - [[Configure the Default Input Method(配置默认中文输入法)][Configure the Default Input Method(配置默认中文输入法)]]
      - [[Configure the =Chinese-pyim= Input Method(配置中文拼音输入法)][Configure the =Chinese-pyim= Input Method(配置中文拼音输入法)]]
+     - [[Enable fcitx][Enable fcitx]]
      - [[Enable YouDao(有道) Dictionary(激活有道字典)][Enable YouDao(有道) Dictionary(激活有道字典)]]
      - [[Set monospaced font size(设置等宽字体）][Set monospaced font size(设置等宽字体）]]
      - [[Enable/Disable ace-pinyin in =avy-goto-char=][Enable/Disable ace-pinyin in =avy-goto-char=]]
@@ -21,6 +22,7 @@
 This Layer adds Chinese related packages:
 - [[https://github.com/tumashu/chinese-pyim][chinese-pyim]] : The best Chinese Pinyin(拼音) input method.
 - [[https://github.com/andyque/chinese-wbim][chinese-wbim]]: The best Chinese Wubi(五笔) input method.
+- [[https://github.com/cute-jumper/fcitx.el][cute-jumper/fcitx.el]]: This package provides a set of functions to make fcitx work better in Emacs.
 - [[https://github.com/xuchunyang/youdao-dictionary.el][youdao-dictionary]]: The Youdao(有道) Dictionary interface for Emacs.
 - [[https://github.com/redguardtoo/find-by-pinyin-dired][find-by-pinyin-dired]]: Find file by first Pinyin characters of Chinese Hanzi.
 - [[https://github.com/cute-jumper/ace-pinyin][ace-pinyin]]: Jump to Chinese character by pinyin with `ace-jump-mode'.
@@ -50,6 +52,18 @@ file. You could call =pyim-dicts-manager= to open up the settings buffer and
 press =i e= to install the default lexicon. The lexicon is about 20M, so you
 should be patient when downloading starts. After the lexicon file is downloaded,
 just press =s= to save and =R= to restart configuration.
+*** Enable fcitx
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '((chinese :variables
+                                                             chinese-enable-fcitx t)))
+#+END_SRC
+If you don’t need to type Chinese in minibuffer, you could temporarily disable fcitx in minibuffer
+with the following configuration.
+
+#+BEGIN_SRC emacs-lisp
+  (fcitx-aggressive-setup)
+#+END_SRC
+
 
 *** Enable YouDao(有道) Dictionary(激活有道字典)
 The YouDao Dictionary is disabled by default, if you want enable it.

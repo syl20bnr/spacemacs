@@ -21,6 +21,9 @@
 (defvar chinese-enable-avy-pinyin t
   "Enable ace-pinyin in avy-goto-char")
 
+(defvar chinese-enable-fcitx nil
+  "Enable fcitx to help writing Chinese in Evil mode.")
+
 ;; Set the monospaced font size when mixed Chinese and English words
 (defun spacemacs//set-monospaced-font (english chinese english-size chinese-size)
   (set-face-attribute 'default nil :font
