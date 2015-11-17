@@ -109,6 +109,7 @@
         "pk" 'eclim-project-close
         "po" 'eclim-project-open
         "pp" 'eclim-project-mode
+        "pr" 'eclim-java-run-run
         "pu" 'eclim-project-update
         ;; refactor
         "rc" 'eclim-java-constructor
@@ -155,8 +156,7 @@
         (kbd "p") 'eclim-project-update
         (kbd "g") 'eclim-project-mode-refresh
         (kbd "R") 'eclim-project-rename
-        (kbd "q") 'eclim-quit-window)
-      )))
+        (kbd "q") 'eclim-quit-window))))
 
 (defun java/post-init-eldoc ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-eldoc))
