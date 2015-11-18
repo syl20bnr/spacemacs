@@ -101,6 +101,11 @@
         (kbd "<C-return>") 'ein:worksheet-execute-cell
         (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next)
 
+      ;; keybindings mirror ipython web interface behavior
+      (evil-define-key 'hybrid ein:notebook-multilang-mode-map
+        (kbd "<C-return>") 'ein:worksheet-execute-cell
+        (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next)
+
       (evil-define-key 'normal ein:notebook-multilang-mode-map
         ;; keybindings mirror ipython web interface behavior
         (kbd "<C-return>") 'ein:worksheet-execute-cell
