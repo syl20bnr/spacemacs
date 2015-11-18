@@ -152,7 +152,7 @@ used."
                   ;; force SPC to quit the micro-state to avoid a edge case
                   ;; with evil-leader
                   (list `(,dotspacemacs-leader-key
-                          ,(unless disable-leader 'evil-leader--default-map)
+                          ,(unless disable-leader 'spacemacs-default-map)
                           :exit t)))))
 
 (defun spacemacs//micro-state-create-wrapper (name default-doc msg-func binding)

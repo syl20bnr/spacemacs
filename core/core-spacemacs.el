@@ -23,7 +23,6 @@
 (require 'core-toggle)
 (require 'core-micro-state)
 (require 'core-use-package-ext)
-(require 'core-keybindings)
 
 (defgroup spacemacs nil
   "Spacemacs customizations."
@@ -130,6 +129,7 @@ initialization."
   (spacemacs/load-or-install-protected-package 's t)
   ;; bind-key is required by use-package
   (spacemacs/load-or-install-protected-package 'bind-key t)
+  (spacemacs/load-or-install-protected-package 'bind-map t)
   (spacemacs/load-or-install-protected-package 'use-package t)
   (setq use-package-verbose init-file-debug)
   ;; package-build is required by quelpa
@@ -145,11 +145,11 @@ initialization."
   (setq use-package-inject-hooks t)
   ;; which-key
   (spacemacs/load-or-install-protected-package 'which-key t)
-  ;; evil and evil-leader must be installed at the beginning of the
+  ;; evil must be installed at the beginning of the
   ;; boot sequence.
   ;; Use C-u as scroll-up (must be set before actually loading evil)
   (spacemacs/load-or-install-protected-package 'evil t)
-  (spacemacs/load-or-install-protected-package 'evil-leader t)
+  (require 'core-keybindings)
   ;; check for new version
   (if dotspacemacs-mode-line-unicode-symbols
       (setq-default spacemacs-version-check-lighter "[⇪]"))
