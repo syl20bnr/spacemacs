@@ -566,7 +566,7 @@ current window."
   "Highlight keywords in comments."
   (interactive)
   (font-lock-add-keywords
-   nil '(("\\<\\(\\(FIX\\(ME\\)?\\|TODO\\|OPTIMIZE\\|HACK\\|REFACTOR\\):?\\)"
+   nil '(("\\<\\(\\(FIX\\(ME\\)?\\|TODO\\|OPTIMIZE\\|HACK\\|REFACTOR\\)\\>:?\\)"
           1 font-lock-warning-face t))))
 
 (defun current-line ()
