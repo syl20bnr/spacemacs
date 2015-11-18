@@ -44,7 +44,7 @@
       (add-hook 'python-mode-hook 'anaconda-mode))
     :config
     (progn
-      (evil-leader/set-key-for-mode 'python-mode
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "mhh" 'anaconda-mode-show-doc
         "mgg" 'anaconda-mode-find-definitions
         "mga" 'anaconda-mode-find-assignments
@@ -58,10 +58,10 @@
     :defer t
     :init
     (progn
-      (evil-leader/set-key-for-mode 'cython-mode
-        "mhh" 'anaconda-mode-view-doc
-        "mgg" 'anaconda-mode-goto
-        "mgu" 'anaconda-mode-usages))))
+      (spacemacs/set-leader-keys-for-major-mode 'cython-mode
+        "hh" 'anaconda-mode-view-doc
+        "gg" 'anaconda-mode-goto
+        "gu" 'anaconda-mode-usages))))
 
 (defun python/post-init-eldoc ()
   (add-hook 'python-mode-hook 'eldoc-mode))
@@ -83,16 +83,16 @@
   (use-package pyenv-mode
     :defer t
     :init (progn
-            (evil-leader/set-key-for-mode 'python-mode
-              "mvs" 'pyenv-mode-set
-              "mvu" 'pyenv-mode-unset))))
+            (spacemacs/set-leader-keys-for-major-mode 'python-mode
+              "vs" 'pyenv-mode-set
+              "vu" 'pyenv-mode-unset))))
 
 (defun python/init-pyvenv ()
   (use-package pyvenv
     :defer t
     :init
-    (evil-leader/set-key-for-mode 'python-mode
-      "mV" 'pyvenv-workon)))
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode
+      "V" 'pyvenv-workon)))
 
 (defun python/init-pytest ()
   (use-package pytest
@@ -104,15 +104,15 @@
                pytest-pdb-all
                pytest-module
                pytest-pdb-module)
-    :init (evil-leader/set-key-for-mode 'python-mode
-            "mtA" 'pytest-pdb-all
-            "mta" 'pytest-all
-            "mtB" 'pytest-pdb-module
-            "mtb" 'pytest-module
-            "mtT" 'pytest-pdb-one
-            "mtt" 'pytest-one
-            "mtM" 'pytest-pdb-module
-            "mtm" 'pytest-module)
+    :init (spacemacs/set-leader-keys-for-major-mode 'python-mode
+            "tA" 'pytest-pdb-all
+            "ta" 'pytest-all
+            "tB" 'pytest-pdb-module
+            "tb" 'pytest-module
+            "tT" 'pytest-pdb-one
+            "tt" 'pytest-one
+            "tM" 'pytest-pdb-module
+            "tm" 'pytest-module)
     :config (add-to-list 'pytest-project-root-files "setup.cfg")))
 
 (defun python/init-python ()
@@ -218,18 +218,18 @@
       (spacemacs/declare-prefix-for-mode 'python-mode "ms" "send to REPL")
       (spacemacs/declare-prefix-for-mode 'python-mode "mr" "refactor")
       (spacemacs/declare-prefix-for-mode 'python-mode "mv" "venv")
-      (evil-leader/set-key-for-mode 'python-mode
-        "mcc" 'spacemacs/python-execute-file
-        "mcC" 'spacemacs/python-execute-file-focus
-        "mdb" 'python-toggle-breakpoint
-        "mri" 'python-remove-unused-imports
-        "msB" 'python-shell-send-buffer-switch
-        "msb" 'python-shell-send-buffer
-        "msF" 'python-shell-send-defun-switch
-        "msf" 'python-shell-send-defun
-        "msi" 'python-start-or-switch-repl
-        "msR" 'python-shell-send-region-switch
-        "msr" 'python-shell-send-region)
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "cc" 'spacemacs/python-execute-file
+        "cC" 'spacemacs/python-execute-file-focus
+        "db" 'python-toggle-breakpoint
+        "ri" 'python-remove-unused-imports
+        "sB" 'python-shell-send-buffer-switch
+        "sb" 'python-shell-send-buffer
+        "sF" 'python-shell-send-defun-switch
+        "sf" 'python-shell-send-defun
+        "si" 'python-start-or-switch-repl
+        "sR" 'python-shell-send-region-switch
+        "sr" 'python-shell-send-region)
 
       ;; Emacs users won't need these key bindings
       ;; TODO: make these key bindings dynamic given the current style
@@ -279,7 +279,7 @@
   (use-package helm-pydoc
     :defer t
     :init
-    (evil-leader/set-key-for-mode 'python-mode "mhd" 'helm-pydoc)))
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode "hd" 'helm-pydoc)))
 
 (defun python/post-init-smartparens ()
   (defadvice python-indent-dedent-line-backspace
@@ -323,7 +323,7 @@ fix this issue."
 (defun python/pre-init-xcscope ()
   (spacemacs|use-package-add-hook xcscope
     :post-init
-    (evil-leader/set-key-for-mode 'python-mode "mgi" 'cscope/run-pycscope)))
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode "gi" 'cscope/run-pycscope)))
 
 (defun python/pre-init-helm-cscope ()
   (spacemacs|use-package-add-hook xcscope

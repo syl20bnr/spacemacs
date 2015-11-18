@@ -32,7 +32,7 @@
       (unless (display-graphic-p)
         (setq diff-hl-side 'left)
         (diff-hl-margin-mode))
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "gdg" 'diff-hl-diff-goto-hunk
         "gdN" 'diff-hl-previous-hunk
         "gdn" 'diff-hl-next-hunk

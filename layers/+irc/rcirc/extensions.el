@@ -7,4 +7,4 @@
   (use-package helm-rcirc
     :commands helm-rcirc-auto-join-channels
     :init
-    (evil-leader/set-key "irc" 'helm-rcirc-auto-join-channels)))
+    (spacemacs/set-leader-keys "irc" 'helm-rcirc-auto-join-channels)))

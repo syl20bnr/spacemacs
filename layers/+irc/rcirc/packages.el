@@ -62,7 +62,7 @@
                  rcirc-server-alist))
           (spacemacs//znc-rcirc-connect)))
 
-      (evil-leader/set-key "air" 'spacemacs/rcirc)
+      (spacemacs/set-leader-keys "air" 'spacemacs/rcirc)
       (defun spacemacs/rcirc (arg)
         "Launch rcirc."
         (interactive "P")

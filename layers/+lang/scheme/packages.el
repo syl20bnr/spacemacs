@@ -18,36 +18,36 @@
     :commands run-geiser
     :config
     (progn
-      (evil-leader/set-key-for-mode 'scheme-mode
-        "mcc" 'geiser-compile-current-buffer
-        "mcp" 'geiser-add-to-load-path
+      (spacemacs/set-leader-keys-for-major-mode 'scheme-mode
+        "cc" 'geiser-compile-current-buffer
+        "cp" 'geiser-add-to-load-path
 
-        "mgg" 'geiser-edit-symbol-at-point
-        "mgb" 'geiser-pop-symbol-stack
-        "mgm" 'geiser-edit-module
-        "mgn" 'next-error
-        "mgN" 'previous-error
+        "gg" 'geiser-edit-symbol-at-point
+        "gb" 'geiser-pop-symbol-stack
+        "gm" 'geiser-edit-module
+        "gn" 'next-error
+        "gN" 'previous-error
 
-        "mhh" 'geiser-doc-symbol-at-point
-        "mhd" 'geiser-doc-look-up-manual
-        "mhm" 'geiser-doc-module
-        "mh<" 'geiser-xref-callers
-        "mh>" 'geiser-xref-callees
+        "hh" 'geiser-doc-symbol-at-point
+        "hd" 'geiser-doc-look-up-manual
+        "hm" 'geiser-doc-module
+        "h<" 'geiser-xref-callers
+        "h>" 'geiser-xref-callees
 
-        "mil" 'geiser-insert-lambda
+        "il" 'geiser-insert-lambda
 
-        "mme" 'geiser-expand-last-sexp
-        "mmf" 'geiser-expand-definition
-        "mmx" 'geiser-expand-region
+        "me" 'geiser-expand-last-sexp
+        "mf" 'geiser-expand-definition
+        "mx" 'geiser-expand-region
 
-        "msi" 'geiser-mode-switch-to-repl
-        "msb" 'geiser-eval-buffer
-        "msB" 'geiser-eval-buffer-and-go
-        "msf" 'geiser-eval-definition
-        "msF" 'geiser-eval-definition-and-go
-        "mse" 'geiser-eval-last-sexp
-        "msr" 'geiser-eval-region
-        "msR" 'geiser-eval-region-and-go))))
+        "si" 'geiser-mode-switch-to-repl
+        "sb" 'geiser-eval-buffer
+        "sB" 'geiser-eval-buffer-and-go
+        "sf" 'geiser-eval-definition
+        "sF" 'geiser-eval-definition-and-go
+        "se" 'geiser-eval-last-sexp
+        "sr" 'geiser-eval-region
+        "sR" 'geiser-eval-region-and-go))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
 

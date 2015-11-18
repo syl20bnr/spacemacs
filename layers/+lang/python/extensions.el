@@ -36,17 +36,17 @@
                nosetests-suite
                nosetests-pdb-suite)
     :init
-    (evil-leader/set-key-for-mode 'python-mode
-      "mtA" 'nosetests-pdb-all
-      "mta" 'nosetests-all
-      "mtB" 'nosetests-pdb-module
-      "mtb" 'nosetests-module
-      "mtT" 'nosetests-pdb-one
-      "mtt" 'nosetests-one
-      "mtM" 'nosetests-pdb-module
-      "mtm" 'nosetests-module
-      "mtS" 'nosetests-pdb-suite
-      "mts" 'nosetests-suite)
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode
+      "tA" 'nosetests-pdb-all
+      "ta" 'nosetests-all
+      "tB" 'nosetests-pdb-module
+      "tb" 'nosetests-module
+      "tT" 'nosetests-pdb-one
+      "tt" 'nosetests-one
+      "tM" 'nosetests-pdb-module
+      "tm" 'nosetests-module
+      "tS" 'nosetests-pdb-suite
+      "ts" 'nosetests-suite)
     :config
     (progn
       (add-to-list 'nose-project-root-files "setup.cfg")
@@ -58,8 +58,8 @@
     :init
     (progn
       (evilified-state-evilify pylookup-mode pylookup-mode-map)
-      (evil-leader/set-key-for-mode 'python-mode
-        "mhH"  'pylookup-lookup))
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "mhH" 'pylookup-lookup))
     :config
     (progn
       (let ((dir (configuration-layer/get-layer-local-dir 'python)))
@@ -70,7 +70,7 @@
 (defun python/init-py-yapf ()
   (use-package py-yapf
     :init
-    (evil-leader/set-key-for-mode 'python-mode "m=" 'py-yapf-buffer)
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode "=" 'py-yapf-buffer)
     :config
     (if python-enable-yapf-format-on-save
         (add-hook 'python-mode-hook 'py-yapf-enable-on-save))))

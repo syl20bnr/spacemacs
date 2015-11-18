@@ -69,30 +69,30 @@
         (run-elm-interactive)
         (evil-insert-state))
 
-      (evil-leader/set-key-for-mode 'elm-mode
+      (spacemacs/set-leader-keys-for-major-mode 'elm-mode
         ;; make
-        "mcb" 'elm-compile-buffer
-        "mcB" 'spacemacs/elm-compile-buffer-output
-        "mcm" 'elm-compile-main
+        "cb" 'elm-compile-buffer
+        "cB" 'spacemacs/elm-compile-buffer-output
+        "cm" 'elm-compile-main
 
         ;; oracle
-        "mht" 'elm-oracle-type-at-point
+        "ht" 'elm-oracle-type-at-point
 
         ;; repl
-        "msi" 'elm-repl-load
-        "msf" 'push-decl-elm-repl
-        "msF" 'spacemacs/push-decl-elm-repl-focus
-        "msr" 'push-elm-repl
-        "msR" 'spacemacs/push-elm-repl-focus
+        "si" 'elm-repl-load
+        "sf" 'push-decl-elm-repl
+        "sF" 'spacemacs/push-decl-elm-repl-focus
+        "sr" 'push-elm-repl
+        "sR" 'spacemacs/push-elm-repl-focus
 
         ;; reactor
-        "mRn" 'elm-preview-buffer
-        "mRm" 'elm-preview-main
+        "Rn" 'elm-preview-buffer
+        "Rm" 'elm-preview-main
 
         ;; package
-        "mpi" 'elm-import
-        "mpc" 'elm-package-catalog
-        "mpd" 'elm-documentation-lookup)
+        "pi" 'elm-import
+        "pc" 'elm-package-catalog
+        "pd" 'elm-documentation-lookup)
 
       (evilified-state-evilify elm-package-mode elm-package-mode-map
         "g" 'elm-package-refresh

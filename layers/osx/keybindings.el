@@ -1,5 +1,5 @@
 (when (spacemacs/system-is-mac)
-  (evil-leader/set-key "bf" 'reveal-in-osx-finder)
+  (spacemacs/set-leader-keys "bf" 'reveal-in-osx-finder)
 
   ;; this is only applicable to GUI mode
   (when (display-graphic-p)

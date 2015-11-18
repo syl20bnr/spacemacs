@@ -30,7 +30,7 @@
         "f" 'gist-fetch-current
         "K" 'gist-kill-current
         "o" 'gist-browse-current-url)
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "ggb" 'gist-buffer
         "ggB" 'gist-buffer-private
         "ggl" 'gist-list
@@ -52,21 +52,21 @@
 ;;         (egist-mode)
 ;;         (helm-for-gist))
 
-;;       (evil-leader/set-key "ggh" 'spacemacs/helm-gist-list))
+;;       (spacemacs/set-leader-keys "ggh" 'spacemacs/helm-gist-list))
 ;;     ))
 
 (defun github/init-github-browse-file ()
   (use-package github-browse-file
     :defer t
     :init
-    (evil-leader/set-key
+    (spacemacs/set-leader-keys
       "gho" 'github-browse-file)))
 
 (defun github/init-github-clone ()
   (use-package github-clone
     :defer t
     :init
-    (evil-leader/set-key
+    (spacemacs/set-leader-keys
       "gh C-c" 'github-clone)))
 
 (defun github/init-git-link ()
@@ -87,7 +87,7 @@
         (let (git-link-open-in-browser)
           (call-interactively 'git-link-commit)))
 
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "ghl" 'git-link
         "ghL" 'spacemacs/git-link-copy-url-only
         "ghc" 'git-link-commit

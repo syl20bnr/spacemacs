@@ -49,8 +49,8 @@
     (add-hook 'org-mode-hook 'evil-org-mode)
     :config
     (progn
-      (evil-leader/set-key-for-mode 'org-mode
-        "mC" 'evil-org-recompute-clocks)
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "C" 'evil-org-recompute-clocks)
       (evil-define-key 'normal evil-org-mode-map
         "O" 'evil-open-above)
       (spacemacs|diminish evil-org-mode " ⓔ" " e"))))
@@ -66,8 +66,8 @@
 (defun org/init-gnuplot ()
   (use-package gnuplot
     :defer t
-    :init (evil-leader/set-key-for-mode 'org-mode
-            "mtp" 'org-plot/gnuplot)))
+    :init (spacemacs/set-leader-keys-for-major-mode 'org-mode
+            "tp" 'org-plot/gnuplot)))
 
 ;; dummy init function to force installation of `org-plus-contrib'
 (defun org/init-org-plus-contrib ())
@@ -109,95 +109,95 @@ Will work on both org-mode and any mode that accepts plain html."
                (format tag (help-key-description key nil)))
             (insert (format tag ""))
             (forward-char -8))))
-      (evil-leader/set-key-for-mode 'org-mode
-        "m'" 'org-edit-special
-        "mc" 'org-capture
-        "md" 'org-deadline
-        "me" 'org-export-dispatch
-        "mf" 'org-set-effort
-        "mP" 'org-set-property
-        "m:" 'org-set-tags
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "'" 'org-edit-special
+        "c" 'org-capture
+        "d" 'org-deadline
+        "e" 'org-export-dispatch
+        "f" 'org-set-effort
+        "P" 'org-set-property
+        ":" 'org-set-tags
 
-        "ma" 'org-agenda
-        "mb" 'org-tree-to-indirect-buffer
-        "mA" 'org-archive-subtree
-        "ml" 'org-open-at-point
-        "mT" 'org-show-todo-tree
+        "a" 'org-agenda
+        "b" 'org-tree-to-indirect-buffer
+        "A" 'org-archive-subtree
+        "l" 'org-open-at-point
+        "T" 'org-show-todo-tree
 
-        "m." 'org-time-stamp
+        "." 'org-time-stamp
 
         ;; headings
-        "mhi" 'org-insert-heading-after-current
-        "mhI" 'org-insert-heading
+        "hi" 'org-insert-heading-after-current
+        "hI" 'org-insert-heading
 
         ;; More cycling options (timestamps, headlines, items, properties)
-        "mL" 'org-shiftright
-        "mH" 'org-shiftleft
-        "mJ" 'org-shiftdown
-        "mK" 'org-shiftup
+        "L" 'org-shiftright
+        "H" 'org-shiftleft
+        "J" 'org-shiftdown
+        "K" 'org-shiftup
 
         ;; Change between TODO sets
-        "m C-S-l" 'org-shiftcontrolright
-        "m C-S-h" 'org-shiftcontrolleft
-        "m C-S-j" 'org-shiftcontroldown
-        "m C-S-k" 'org-shiftcontrolup
+        "C-S-l" 'org-shiftcontrolright
+        "C-S-h" 'org-shiftcontrolleft
+        "C-S-j" 'org-shiftcontroldown
+        "C-S-k" 'org-shiftcontrolup
 
         ;; Subtree editing
-        "mSl" 'org-demote-subtree
-        "mSh" 'org-promote-subtree
-        "mSj" 'org-move-subtree-down
-        "mSk" 'org-move-subtree-up
+        "Sl" 'org-demote-subtree
+        "Sh" 'org-promote-subtree
+        "Sj" 'org-move-subtree-down
+        "Sk" 'org-move-subtree-up
 
         ;; tables
-        "mta" 'org-table-align
-        "mtb" 'org-table-blank-field
-        "mtc" 'org-table-convert
-        "mtdc" 'org-table-delete-column
-        "mtdr" 'org-table-kill-row
-        "mte" 'org-table-eval-formula
-        "mtE" 'org-table-export
-        "mth" 'org-table-previous-field
-        "mtH" 'org-table-move-column-left
-        "mtic" 'org-table-insert-column
-        "mtih" 'org-table-insert-hline
-        "mtiH" 'org-table-hline-and-move
-        "mtir" 'org-table-insert-row
-        "mtI" 'org-table-import
-        "mtj" 'org-table-next-row
-        "mtJ" 'org-table-move-row-down
-        "mtK" 'org-table-move-row-up
-        "mtl" 'org-table-next-field
-        "mtL" 'org-table-move-column-right
-        "mtn" 'org-table-create
-        "mtN" 'org-table-create-with-table.el
-        "mtr" 'org-table-recalculate
-        "mts" 'org-table-sort-lines
-        "mttf" 'org-table-toggle-formula-debugger
-        "mtto" 'org-table-toggle-coordinate-overlays
-        "mtw" 'org-table-wrap-region
+        "ta" 'org-table-align
+        "tb" 'org-table-blank-field
+        "tc" 'org-table-convert
+        "tdc" 'org-table-delete-column
+        "tdr" 'org-table-kill-row
+        "te" 'org-table-eval-formula
+        "tE" 'org-table-export
+        "th" 'org-table-previous-field
+        "tH" 'org-table-move-column-left
+        "tic" 'org-table-insert-column
+        "tih" 'org-table-insert-hline
+        "tiH" 'org-table-hline-and-move
+        "tir" 'org-table-insert-row
+        "tI" 'org-table-import
+        "tj" 'org-table-next-row
+        "tJ" 'org-table-move-row-down
+        "tK" 'org-table-move-row-up
+        "tl" 'org-table-next-field
+        "tL" 'org-table-move-column-right
+        "tn" 'org-table-create
+        "tN" 'org-table-create-with-table.el
+        "tr" 'org-table-recalculate
+        "ts" 'org-table-sort-lines
+        "ttf" 'org-table-toggle-formula-debugger
+        "tto" 'org-table-toggle-coordinate-overlays
+        "tw" 'org-table-wrap-region
 
         ;; Multi-purpose keys
         (if dotspacemacs-major-mode-leader-key
             (concat "m" dotspacemacs-major-mode-leader-key)
-          "m,") 'org-ctrl-c-ctrl-c
-        "m*" 'org-ctrl-c-star
-        "m RET" 'org-ctrl-c-ret
-        "m-" 'org-ctrl-c-minus
-        "m^" 'org-sort
-        "m/" 'org-sparse-tree
+          ",") 'org-ctrl-c-ctrl-c
+        "*" 'org-ctrl-c-star
+        "RET" 'org-ctrl-c-ret
+        "-" 'org-ctrl-c-minus
+        "^" 'org-sort
+        "/" 'org-sparse-tree
 
-        "mI" 'org-clock-in
-        "mn" 'org-narrow-to-subtree
-        "mN" 'widen
-        "mO" 'org-clock-out
-        "mq" 'org-clock-cancel
-        "mR" 'org-refile
-        "ms" 'org-schedule
+        "I" 'org-clock-in
+        "n" 'org-narrow-to-subtree
+        "N" 'widen
+        "O" 'org-clock-out
+        "q" 'org-clock-cancel
+        "R" 'org-refile
+        "s" 'org-schedule
 
         ;; insertion of common elements
-        "mil" 'org-insert-link
-        "mif" 'org-footnote-new
-        "mik" 'spacemacs/insert-keybinding-org
+        "il" 'org-insert-link
+        "if" 'org-footnote-new
+        "ik" 'spacemacs/insert-keybinding-org
 
         ;; images and other link types have no commands in org mode-line
         ;; could be inserted using yasnippet?
@@ -217,12 +217,12 @@ Will work on both org-mode and any mode that accepts plain html."
         (define-key org-agenda-mode-map
           (kbd "RET") 'org-agenda-show-and-scroll-up)
         (define-key org-agenda-mode-map
-          (kbd "SPC") evil-leader--default-map))
+          (kbd "SPC") spacemacs-default-map))
 
       ;; Add global evil-leader mappings. Used to access org-agenda
       ;; functionalities – and a few others commands – from any other mode.
       (spacemacs/declare-prefix "ao" "org")
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         ;; org-agenda
         "ao#" 'org-agenda-list-stuck-projects
         "ao/" 'org-occur-in-agenda-files
@@ -260,7 +260,7 @@ Will work on both org-mode and any mode that accepts plain html."
       ;; the Emacs user unable to exit src block editing.
       (define-key org-src-mode-map (kbd (concat dotspacemacs-major-mode-emacs-leader-key " '")) 'org-edit-src-exit)
 
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "Cc" 'org-capture))))
 
 (defun org/init-org-bullets ()
@@ -274,10 +274,10 @@ Will work on both org-mode and any mode that accepts plain html."
     :commands (org-mime-htmlize org-mime-org-buffer-htmlize)
     :init
     (progn
-      (evil-leader/set-key-for-mode 'message-mode
-        "mM" 'org-mime-htmlize)
-      (evil-leader/set-key-for-mode 'org-mode
-        "mm" 'org-mime-org-buffer-htmlize))))
+      (spacemacs/set-leader-keys-for-major-mode 'message-mode
+        "M" 'org-mime-htmlize)
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "m" 'org-mime-org-buffer-htmlize))))
 
 (defun org/init-org-pomodoro ()
   (use-package org-pomodoro
@@ -286,8 +286,8 @@ Will work on both org-mode and any mode that accepts plain html."
     (progn
       (when (spacemacs/system-is-mac)
         (setq org-pomodoro-audio-player "/usr/bin/afplay"))
-      (evil-leader/set-key-for-mode 'org-mode
-        "mp" 'org-pomodoro))))
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "p" 'org-pomodoro))))
 
 (defun org/init-org-present ()
   (use-package org-present
@@ -320,11 +320,11 @@ Will work on both org-mode and any mode that accepts plain html."
     :defer t
     :init
     (progn
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "Ct"  'ort/capture-todo
         "CT"  'ort/capture-checkitem)
-      (evil-leader/set-key-for-mode 'org-mode
-        "mgt" 'ort/goto-todos))))
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "gt" 'ort/goto-todos))))
 
 (defun org/post-init-persp-mode ()
   (spacemacs|define-custom-layout "@Org"

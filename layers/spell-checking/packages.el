@@ -58,7 +58,7 @@
         :documentation "Enable automatic spell checking."
         :evil-leader "tS")
 
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "Sb" 'flyspell-buffer
         "Sd" 'spell-checking/change-dictionary
         "Sn" 'flyspell-goto-next-error))
@@ -68,4 +68,4 @@
 (defun spell-checking/init-helm-flyspell ()
   (use-package helm-flyspell
     :commands helm-flyspell-correct
-    :init (evil-leader/set-key "Sc" 'helm-flyspell-correct)))
+    :init (spacemacs/set-leader-keys "Sc" 'helm-flyspell-correct)))
