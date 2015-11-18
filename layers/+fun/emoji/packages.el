@@ -39,4 +39,11 @@
 (defun emoji/init-company-emoji ()
   (use-package company-emoji
     :defer t
-    :init (setq company-emoji-insert-unicode nil)))
+    :init
+    (progn
+      (setq company-emoji-insert-unicode nil)
+      ;; For when Emacs is started in GUI mode:
+      (spacemacs//set-emoji-font nil)
+      ;; Hook for when a frame is created with emacsclient
+      (spacemacs|do-after-display-system-init
+       (spacemacs//set-emoji-font-for-current-frame)))))
