@@ -13,6 +13,7 @@
 (defconst emacs-start-time (current-time))
 
 (require 'subr-x nil 'noerror)
+(require 'core-dotspacemacs)
 (require 'core-emacs-backports)
 (require 'core-release-management)
 (require 'core-auto-completion)
@@ -74,14 +75,14 @@ initialization."
   ;; explicitly set the prefered coding systems to avoid annoying prompt
   ;; from emacs (especially on Microsoft Windows)
   (prefer-coding-system 'utf-8)
-  ;; dotfile init
-  (dotspacemacs/load-file)
-  ;; TODO remove evil-want-C-u-scroll and document it, we should not
-  ;; shadow the universal argument
+  ;; TODO move evil-want-C-u-scroll when evil is removed from the bootstrapped
+  ;; packages.
   (setq-default evil-want-C-u-scroll t)
+  (dotspacemacs/load-file)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
   (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
   ;; spacemacs init
+  (require 'core-configuration-layer)
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
   (setq initial-buffer-choice (lambda () (get-buffer spacemacs-buffer-name)))
   (spacemacs-buffer/set-mode-line "")

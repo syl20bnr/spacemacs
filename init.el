@@ -22,10 +22,8 @@
 
 (when (spacemacs/emacs-version-ok)
   (load-file (concat user-emacs-directory "core/core-load-paths.el"))
-  (when init-file-debug
-    (require 'core-debug))
+  (when init-file-debug (require 'core-debug))
   (require 'core-spacemacs)
-  (require 'core-configuration-layer)
   (spacemacs/init)
   (spacemacs/maybe-install-dotfile)
   (configuration-layer/sync)
