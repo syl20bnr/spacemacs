@@ -54,6 +54,11 @@ exists. Otherwise, fallback to ~/.spacemacs")
 `+distribution'. For now available distributions are `spacemacs-base'
 or `spacemacs'.")
 
+(defvar dotspacemacs-elpa-https t
+  "If non nil ELPA repositories are contacted via HTTPS whenever it's
+possible. Set it to nil if you have no way to use HTTPS in your
+environment, otherwise it is strongly recommended to let it set to t.")
+
 (defvar dotspacemacs-configuration-layer-path '()
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')")

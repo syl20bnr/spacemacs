@@ -24,9 +24,22 @@
 (require 'core-spacemacs-buffer)
 
 (unless package--initialized
-  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                           ("org" . "http://orgmode.org/elpa/")
-                           ("gnu" . "https://elpa.gnu.org/packages/")))
+  (let ((archives '((melpa . "melpa.org/packages/")
+                    ("org" . "orgmode.org/elpa/")
+                    ("gnu" . "elpa.gnu.org/packages/"))))
+    (setq package-archives
+          (mapcar (lambda (x)
+                    (cons (car x) (concat
+                                   (if (and dotspacemacs-elpa-https
+                                            ;; for now org ELPA repository does
+                                            ;; not support HTTPS
+                                            ;; TODO when org ELPA repo support
+                                            ;; HTTPS remove the check
+                                            ;; `(not (equal "org" (car x)))'
+                                            (not (equal "org" (car x))))
+                                       "https://"
+                                     "http://") (cdr x))))
+                  archives)))
   ;; optimization, no need to activate all the packages so early
   (setq package-enable-at-startup nil)
   (package-initialize 'noactivate)
