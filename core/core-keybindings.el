@@ -9,8 +9,18 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
+
+(require 'core-funcs)
+(unless (require 'which-key nil t)
+  (spacemacs/load-or-install-protected-package 'which-key t))
+(unless (require 'bind-map nil t)
+  (spacemacs/load-or-install-protected-package 'bind-map t))
+
 (defvar spacemacs/prefix-titles nil
   "alist for mapping command prefixes to long names.")
+
+(defvar spacemacs-default-map (make-sparse-keymap)
+  "Base keymap for all spacemacs leader key commands.")
 
 (defun spacemacs/declare-prefix (prefix name &optional long-name)
   "Declare a prefix PREFIX. PREFIX is a string describing a key
@@ -28,9 +38,9 @@ LONG-NAME if given is stored in `spacemacs/prefix-titles'."
         (which-key-declare-prefixes
           full-prefix-emacs (cons name long-name)
           full-prefix (cons name long-name))
-      (unless (lookup-key evil-leader--default-map prefix)
+      (unless (lookup-key spacemacs-default-map prefix)
         (define-prefix-command (intern command))
-        (evil-leader/set-key prefix (intern command))
+        (spacemacs/set-keys prefix (intern command))
         (push (cons full-prefix-lst long-name) spacemacs/prefix-titles)
         (push (cons full-prefix-emacs-lst long-name) spacemacs/prefix-titles)))))
 
@@ -56,40 +66,74 @@ used as the prefix command."
             (when (and is-major-mode-prefix dotspacemacs-major-mode-emacs-leader-key)
               (which-key-declare-prefixes-for-mode mode major-mode-prefix-emacs prefix-name)))
         (define-prefix-command command)
-        (evil-leader/set-key-for-mode mode prefix command)))))
+        (spacemacs/set-keys-for-mode mode prefix command)))))
 
-(define-minor-mode spacemacs-additional-leader-mode ()
-  "This mode follows the design of `evil-leader-mode' and
-complements it by added additional leader keys."
-  :init-value nil
-  :keymap nil
-  (let* ((mode-map (cdr (assoc major-mode evil-leader--mode-maps)))
-         (root-map (when spacemacs-additional-leader-mode
-                     (or mode-map evil-leader--default-map)))
-         (major-mode-map (when (and spacemacs-additional-leader-mode
-                                    mode-map)
-                           (lookup-key mode-map (kbd "m"))))
-         (state-maps '(evil-normal-state-local-map
-                       evil-motion-state-local-map
-                       evil-visual-state-local-map))
-         (emacs-state-maps '(evil-emacs-state-local-map
-                             evil-insert-state-local-map
-                             evil-normal-state-local-map
-                             evil-motion-state-local-map
-                             evil-visual-state-local-map
-                             evil-hybrid-state-local-map)))
-    (dolist (state-map state-maps)
-      (when state-map
-        (setq state-map (eval state-map))
-        (when dotspacemacs-major-mode-leader-key
-          (define-key state-map
-            (kbd dotspacemacs-major-mode-leader-key) major-mode-map))))
-    (dolist (state-map emacs-state-maps)
-      (when state-map
-        (setq state-map (eval state-map))
-        (when dotspacemacs-major-mode-emacs-leader-key
-          (define-key state-map
-            (kbd dotspacemacs-major-mode-emacs-leader-key) major-mode-map))
-        (define-key state-map (kbd dotspacemacs-emacs-leader-key) root-map)))))
+(defun spacemacs/set-leader-keys (key def &rest bindings)
+  "Add KEY and DEF as key bindings under
+`dotspacemacs-leader-key' and `dotspacemacs-emacs-leader-key'.
+KEY should be a string suitable for passing to `kbd', and it
+should not include the leaders. DEF is most likely a quoted
+command. See `define-key' for more information about the possible
+choices for DEF. This function simply uses `define-key' to add
+the bindings.
+
+For convenience, this function will accept additional KEY DEF
+pairs. For example,
+
+\(spacemacs/set-leader-keys
+   \"a\" 'command1
+   \"C-c\" 'command2
+   \"bb\" 'command3\)"
+  (while key
+    (define-key spacemacs-default-map (kbd key) def)
+    (setq key (pop bindings) def (pop bindings))))
+
+(defalias 'evil-leader/set-key 'spacemacs/set-leader-keys)
+
+(defun spacemacs//init-leader-mode-map (mode map &optional minor)
+  "Check for MAP-prefix. If it doesn't exist yet, use `bind-map'
+to create it and bind it to `dotspacemacs-major-mode-leader-key'
+and `dotspacemacs-major-mode-emacs-leader-key'. If MODE is a
+minor-mode, the third argument should be non nil."
+  (let ((prefix (intern (format "%s-prefix" map))))
+    (or (boundp prefix)
+        (progn
+          (eval
+           `(bind-map ,map
+              :prefix-cmd ,prefix
+              ,(if minor :minor-modes :major-modes) (,mode)
+              :keys (,dotspacemacs-major-mode-emacs-leader-key
+                     ,(concat dotspacemacs-emacs-leader-key " m"))
+              :evil-keys (,dotspacemacs-major-mode-leader-key
+                          ,(concat dotspacemacs-leader-key " m"))))
+          (boundp prefix)))))
+
+(defun spacemacs/set-leader-keys-for-major-mode (mode key def &rest bindings)
+  "Add KEY and DEF as key bindings under
+`dotspacemacs-major-mode-leader-key' and
+`dotspacemacs-major-mode-emacs-leader-key' for the major-mode
+MODE. MODE should be a quoted symbol corresponding to a valid
+major mode. The rest of the arguments are treated exactly like
+they are in `spacemacs/set-leader-keys'."
+  (let* ((map (intern (format "spacemacs-%s-map" mode))))
+    (when (spacemacs//init-leader-mode-map mode map)
+      (while key
+        (define-key (symbol-value map) (kbd key) def)
+        (setq key (pop bindings) def (pop bindings))))))
+
+(defalias 'evil-leader/set-key-for-mode 'spacemacs/set-leader-keys-for-major-mode)
+
+(defun spacemacs/set-leader-keys-for-minor-mode (mode key def &rest bindings)
+  "Add KEY and DEF as key bindings under
+`dotspacemacs-major-mode-leader-key' and
+`dotspacemacs-major-mode-emacs-leader-key' for the minor-mode
+MODE. MODE should be a quoted symbol corresponding to a valid
+minor mode. The rest of the arguments are treated exactly like
+they are in `spacemacs/set-leader-keys'."
+  (let* ((map (intern (format "spacemacs-%s-map" mode))))
+    (when (spacemacs//init-leader-mode-map mode map t)
+      (while key
+        (define-key (symbol-value map) (kbd key) def)
+        (setq key (pop bindings) def (pop bindings))))))
 
 (provide 'core-keybindings)

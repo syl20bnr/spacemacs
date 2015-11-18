@@ -448,9 +448,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
 
 (defun spacemacs-base/init-evil-evilified-state ()
   (use-package evil-evilified-state)
-  (with-eval-after-load 'evil-leader
-    (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
-      evil-leader--default-map)))
+  (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
+    spacemacs-default-map))
 
 (defun spacemacs-base/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
