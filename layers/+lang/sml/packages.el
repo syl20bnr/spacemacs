@@ -41,16 +41,16 @@
         (sml-send-function t)
         (evil-insert-state))
 
-      (evil-leader/set-key-for-mode 'sml-mode
+      (spacemacs/set-leader-keys-for-major-mode 'sml-mode
         ;; REPL
-        "msb" 'sml-prog-proc-send-buffer
-        "msB" 'spacemacs/sml-prog-proc-send-buffer-and-focus
-        "msf" 'sml-send-function
-        "msF" 'spacemacs/sml-send-function-and-focus
-        "msi" 'run-sml
-        "msr" 'sml-prog-proc-send-region
-        "msR" 'spacemacs/sml-prog-proc-send-region-and-focus
-        "mss" 'run-sml)
+        "sb" 'sml-prog-proc-send-buffer
+        "sB" 'spacemacs/sml-prog-proc-send-buffer-and-focus
+        "sf" 'sml-send-function
+        "sF" 'spacemacs/sml-send-function-and-focus
+        "si" 'run-sml
+        "sr" 'sml-prog-proc-send-region
+        "sR" 'spacemacs/sml-prog-proc-send-region-and-focus
+        "ss" 'run-sml)
       (define-key sml-mode-map (kbd "M-<SPC>") 'sml-electric-space)
       (define-key sml-mode-map (kbd "|") 'sml-electric-pipe))))
 

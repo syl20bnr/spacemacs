@@ -22,17 +22,17 @@
     :defer t
     :init
     (progn
-      (evil-leader/set-key-for-mode 'puppet-mode
-        "m{" 'beginning-of-defun
-        "m}" 'end-of-defun
-        "m$" 'puppet-interpolate
-        "ma" 'puppet-align-block
-        "m'" 'puppet-toggle-string-quotes
-        "m;" 'puppet-clear-string
-        "mj" 'imenu
-        "mc" 'puppet-apply
-        "mv" 'puppet-validate
-        "ml" 'puppet-lint
+      (spacemacs/set-leader-keys-for-major-mode 'puppet-mode
+        "{" 'beginning-of-defun
+        "}" 'end-of-defun
+        "$" 'puppet-interpolate
+        "a" 'puppet-align-block
+        "'" 'puppet-toggle-string-quotes
+        ";" 'puppet-clear-string
+        "j" 'imenu
+        "c" 'puppet-apply
+        "v" 'puppet-validate
+        "l" 'puppet-lint
       ))))
 
 (defun puppet/post-init-company ()

@@ -19,38 +19,38 @@
   (use-package pony-mode
     :defer t
     :init (progn
-            (evil-leader/set-key-for-mode 'python-mode
+            (spacemacs/set-leader-keys-for-major-mode 'python-mode
               ; d*j*ango f*a*bric
-              "mjaf" 'pony-fabric
-              "mjad" 'pony-fabric-deploy
+              "jaf" 'pony-fabric
+              "jad" 'pony-fabric-deploy
               ; d*j*ango *f*iles
-              "mjfs" 'pony-goto-settings
-              "mjfc" 'pony-setting
-              "mjft" 'pony-goto-template
-              "mjfr" 'pony-resolve
+              "jfs" 'pony-goto-settings
+              "jfc" 'pony-setting
+              "jft" 'pony-goto-template
+              "jfr" 'pony-resolve
               ; d*j*ango *i*nteractive
-              "mjid" 'pony-db-shell
-              "mjis" 'pony-shell
+              "jid" 'pony-db-shell
+              "jis" 'pony-shell
               ; d*j*ango *m*anage
               ; not including one-off management commands like "flush" and
               ; "startapp" even though they're implemented in pony-mode,
               ; because this is much handier
-              "mjm" 'pony-manage
+              "jm" 'pony-manage
               ; d*j*ango *r*unserver
-              "mjrd" 'pony-stopserver
-              "mjro" 'pony-browser
-              "mjrr" 'pony-restart-server
-              "mjru" 'pony-runserver
-              "mjrt" 'pony-temp-server
+              "jrd" 'pony-stopserver
+              "jro" 'pony-browser
+              "jrr" 'pony-restart-server
+              "jru" 'pony-runserver
+              "jrt" 'pony-temp-server
               ; d*j*ango *s*outh/*s*yncdb
-              "mjsc" 'pony-south-convert
-              "mjsh" 'pony-south-schemamigration
-              "mjsi" 'pony-south-initial
-              "mjsm" 'pony-south-migrate
-              "mjss" 'pony-syncdb
+              "jsc" 'pony-south-convert
+              "jsh" 'pony-south-schemamigration
+              "jsi" 'pony-south-initial
+              "jsm" 'pony-south-migrate
+              "jss" 'pony-syncdb
               ; d*j*ango *t*est
-              "mjtd" 'pony-test-down
-              "mjte" 'pony-test-goto-err
-              "mjto" 'pony-test-open
-              "mjtt" 'pony-test
-              "mjtu" 'pony-test-up))))
+              "jtd" 'pony-test-down
+              "jte" 'pony-test-goto-err
+              "jto" 'pony-test-open
+              "jtt" 'pony-test
+              "jtu" 'pony-test-up))))

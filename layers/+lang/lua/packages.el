@@ -17,11 +17,11 @@
     (progn
       (setq lua-indent-level 2
             lua-indent-string-contents t)
-      (evil-leader/set-key-for-mode 'lua-mode "md" 'lua-search-documentation)
-      (evil-leader/set-key-for-mode 'lua-mode "msb" 'lua-send-buffer)
-      (evil-leader/set-key-for-mode 'lua-mode "msf" 'lua-send-defun)
-      (evil-leader/set-key-for-mode 'lua-mode "msl" 'lua-send-current-line)
-      (evil-leader/set-key-for-mode 'lua-mode "msr" 'lua-send-region))))
+      (spacemacs/set-leader-keys-for-major-mode 'lua-mode "d" 'lua-search-documentation)
+      (spacemacs/set-leader-keys-for-major-mode 'lua-mode "sb" 'lua-send-buffer)
+      (spacemacs/set-leader-keys-for-major-mode 'lua-mode "sf" 'lua-send-defun)
+      (spacemacs/set-leader-keys-for-major-mode 'lua-mode "sl" 'lua-send-current-line)
+      (spacemacs/set-leader-keys-for-major-mode 'lua-mode "sr" 'lua-send-region))))
 
 (defun lua/post-init-company ()
   (add-hook 'lua-mode-hook 'company-mode))

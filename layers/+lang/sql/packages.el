@@ -80,36 +80,36 @@
           (sql-send-region start end)
           (evil-insert-state)))
 
-      (evil-leader/set-key-for-mode 'sql-mode
+      (spacemacs/set-leader-keys-for-major-mode 'sql-mode
         ;; sqli buffer
-        "mbb" 'sql-show-sqli-buffer
-        "mbs" 'sql-set-sqli-buffer
+        "bb" 'sql-show-sqli-buffer
+        "bs" 'sql-set-sqli-buffer
 
         ;; dialects
-        "mhk" 'spacemacs/sql-highlight
+        "hk" 'spacemacs/sql-highlight
 
         ;; interactivity
-        "msb" 'sql-send-buffer
-        "msB" 'spacemacs/sql-send-buffer-and-focus
-        "msi" 'spacemacs/sql-start
+        "sb" 'sql-send-buffer
+        "sB" 'spacemacs/sql-send-buffer-and-focus
+        "si" 'spacemacs/sql-start
         ;; paragraph gets "f" here because they can be assimilated to functions.
         ;; If you separate your commands in a SQL file, this key will send the
         ;; command under the point, which is what you probably want.
-        "msf" 'sql-send-paragraph
-        "msF" 'spacemacs/sql-send-paragraph-and-focus
-        "msq" 'sql-send-string
-        "msQ" 'spacemacs/sql-send-string-and-focus
-        "msr" 'sql-send-region
-        "msR" 'spacemacs/sql-send-region-and-focus
+        "sf" 'sql-send-paragraph
+        "sF" 'spacemacs/sql-send-paragraph-and-focus
+        "sq" 'sql-send-string
+        "sQ" 'spacemacs/sql-send-string-and-focus
+        "sr" 'sql-send-region
+        "sR" 'spacemacs/sql-send-region-and-focus
 
         ;; listing
-        "mla" 'sql-list-all
-        "mlt" 'sql-list-table)
+        "la" 'sql-list-all
+        "lt" 'sql-list-table)
 
-      (evil-leader/set-key-for-mode 'sql-interactive-mode
+      (spacemacs/set-leader-keys-for-major-mode 'sql-interactive-mode
         ;; sqli buffer
-        "mbr" 'sql-rename-buffer
-        "mbS" 'sql-save-connection)
+        "br" 'sql-rename-buffer
+        "bS" 'sql-save-connection)
 
       (add-hook 'sql-interactive-mode-hook
                 (lambda () (toggle-truncate-lines t))))))

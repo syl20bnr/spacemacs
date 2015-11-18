@@ -20,7 +20,7 @@
     :defer t
     :config
     (progn
-      (evil-leader/set-key-for-mode 'dockerfile-mode
-         "mcb" 'dockerfile-build-buffer
+      (spacemacs/set-leader-keys-for-major-mode 'dockerfile-mode
+         "cb" 'dockerfile-build-buffer
        )))
  )

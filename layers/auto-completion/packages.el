@@ -152,7 +152,7 @@
         (spacemacs/load-yasnippet)
         (require 'helm-c-yasnippet)
         (call-interactively 'helm-yas-complete))
-      (evil-leader/set-key "is" 'spacemacs/helm-yas)
+      (spacemacs/set-leader-keys "is" 'spacemacs/helm-yas)
       (setq helm-c-yas-space-match-any-greedy t))))
 
 (defun auto-completion/init-helm-company ()
@@ -291,7 +291,7 @@
         (call-interactively 'aya-expand)
         (evil-insert-state))
       (spacemacs/declare-prefix "iS" "auto-yasnippet")
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "iSc" 'aya-create
         "iSe" 'spacemacs/auto-yasnippet-expand
         "iSw" 'aya-persist-snippet))))

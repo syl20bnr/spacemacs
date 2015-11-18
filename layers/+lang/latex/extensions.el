@@ -18,17 +18,17 @@
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
   (setq reftex-plug-into-AUCTeX '(nil nil t t t))
 
-  (evil-leader/set-key-for-mode 'latex-mode
-    "mrc"    'reftex-citation
-    "mrg"    'reftex-grep-document
-    "mri"    'reftex-index-selection-or-word
-    "mrI"    'reftex-display-index
-    "mr C-i" 'reftex-index
-    "mrl"    'reftex-label
-    "mrp"    'reftex-index-phrase-selection-or-word
-    "mrP"    'reftex-index-visit-phrases-buffer
-    "mrr"    'reftex-reference
-    "mrs"    'reftex-search-document
-    "mrt"    'reftex-toc
-    "mrT"    'reftex-toc-recenter
-    "mrv"    'reftex-view-crossref))
+  (spacemacs/set-leader-keys-for-major-mode 'latex-mode
+    "rc"    'reftex-citation
+    "rg"    'reftex-grep-document
+    "ri"    'reftex-index-selection-or-word
+    "rI"    'reftex-display-index
+    "r C-i" 'reftex-index
+    "rl"    'reftex-label
+    "rp"    'reftex-index-phrase-selection-or-word
+    "rP"    'reftex-index-visit-phrases-buffer
+    "rr"    'reftex-reference
+    "rs"    'reftex-search-document
+    "rt"    'reftex-toc
+    "rT"    'reftex-toc-recenter
+    "rv"    'reftex-view-crossref))

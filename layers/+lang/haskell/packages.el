@@ -47,16 +47,16 @@
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'haskell-mode "mm" "haskell/ghc-mod")
-      (evil-leader/set-key-for-mode 'haskell-mode
-          "mmt" 'ghc-insert-template-or-signature
-          "mmu" 'ghc-initial-code-from-signature
-          "mma" 'ghc-auto
-          "mmf" 'ghc-refine
-          "mme" 'ghc-expand-th
-          "mmn" 'ghc-goto-next-hole
-          "mmp" 'ghc-goto-prev-hole
-          "mm>"  'ghc-make-indent-deeper
-          "mm<"  'ghc-make-indent-shallower)
+      (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
+          "mt" 'ghc-insert-template-or-signature
+          "mu" 'ghc-initial-code-from-signature
+          "ma" 'ghc-auto
+          "mf" 'ghc-refine
+          "me" 'ghc-expand-th
+          "mn" 'ghc-goto-next-hole
+          "mp" 'ghc-goto-prev-hole
+          "m>"  'ghc-make-indent-deeper
+          "m<"  'ghc-make-indent-shallower)
       (when (configuration-layer/package-usedp 'flycheck)
         ;; remove overlays from ghc-check.el if flycheck is enabled
         (set-face-attribute 'ghc-face-error nil :underline nil)
@@ -126,66 +126,66 @@
             (haskell-mode-show-type-at 1)
           (haskell-process-do-type 1)))
 
-      (evil-leader/set-key-for-mode 'haskell-mode
-        "mgg"  'haskell-mode-jump-to-def-or-tag
-        "mgi"  'haskell-navigate-imports
-        "mf"   'haskell-mode-stylish-buffer
+      (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
+        "gg"  'haskell-mode-jump-to-def-or-tag
+        "gi"  'haskell-navigate-imports
+        "f"   'haskell-mode-stylish-buffer
 
-        "msb"  'haskell-process-load-or-reload
-        "msc"  'haskell-interactive-mode-clear
-        "mss"  'spacemacs/haskell-interactive-bring
-        "msS"  'haskell-interactive-switch
+        "sb"  'haskell-process-load-or-reload
+        "sc"  'haskell-interactive-mode-clear
+        "ss"  'spacemacs/haskell-interactive-bring
+        "sS"  'haskell-interactive-switch
 
-        "mca"  'haskell-process-cabal
-        "mcb"  'haskell-process-cabal-build
-        "mcc"  'haskell-compile
-        "mcv"  'haskell-cabal-visit-file
+        "ca"  'haskell-process-cabal
+        "cb"  'haskell-process-cabal-build
+        "cc"  'haskell-compile
+        "cv"  'haskell-cabal-visit-file
 
-        "mhd"  'inferior-haskell-find-haddock
-        "mhh"  'hoogle
-        "mhH"  'hoogle-lookup-from-local
+        "hd"  'inferior-haskell-find-haddock
+        "hh"  'hoogle
+        "hH"  'hoogle-lookup-from-local
         "mhi"  (lookup-key haskell-mode-map (kbd "C-c C-i"))
         "mht"  (lookup-key haskell-mode-map (kbd "C-c C-t"))
-        "mhT"  'spacemacs/haskell-process-do-type-on-prev-line
-        "mhy"  'hayoo
+        "hT"  'spacemacs/haskell-process-do-type-on-prev-line
+        "hy"  'hayoo
 
-        "mdd"  'haskell-debug
-        "mdb"  'haskell-debug/break-on-function
-        "mdn"  'haskell-debug/next
-        "mdN"  'haskell-debug/previous
-        "mdB"  'haskell-debug/delete
-        "mdc"  'haskell-debug/continue
-        "mda"  'haskell-debug/abandon
-        "mdr"  'haskell-debug/refresh)
+        "dd"  'haskell-debug
+        "db"  'haskell-debug/break-on-function
+        "dn"  'haskell-debug/next
+        "dN"  'haskell-debug/previous
+        "dB"  'haskell-debug/delete
+        "dc"  'haskell-debug/continue
+        "da"  'haskell-debug/abandon
+        "dr"  'haskell-debug/refresh)
 
       ;; configure C-c C-l so it doesn't throw any errors
       (bind-key "C-c C-l" 'haskell-process-load-or-reload haskell-mode-map)
 
       ;; Switch back to editor from REPL
-      (evil-leader/set-key-for-mode 'haskell-interactive-mode
-        "msS"  'haskell-interactive-switch-back)
+      (spacemacs/set-leader-keys-for-major-mode 'haskell-interactive-mode
+        "sS"  'haskell-interactive-switch-back)
 
       ;; Compile
-      (evil-leader/set-key-for-mode 'haskell-cabal
-        "mC"  'haskell-compile)
+      (spacemacs/set-leader-keys-for-major-mode 'haskell-cabal
+        "C"  'haskell-compile)
 
       ;; Cabal-file bindings
-      (evil-leader/set-key-for-mode 'haskell-cabal-mode
-        ;; "m="   'haskell-cabal-subsection-arrange-lines ;; Does a bad job, 'gg=G' works better
-        "md"   'haskell-cabal-add-dependency
-        "mb"   'haskell-cabal-goto-benchmark-section
-        "me"   'haskell-cabal-goto-executable-section
-        "mt"   'haskell-cabal-goto-test-suite-section
-        "mm"   'haskell-cabal-goto-exposed-modules
-        "ml"   'haskell-cabal-goto-library-section
-        "mn"   'haskell-cabal-next-subsection
-        "mp"   'haskell-cabal-previous-subsection
-        "msc"  'haskell-interactive-mode-clear
-        "mss"  'spacemacs/haskell-interactive-bring
-        "msS"  'haskell-interactive-switch
-        "mN"   'haskell-cabal-next-section
-        "mP"   'haskell-cabal-previous-section
-        "mf"   'haskell-cabal-find-or-create-source-file)
+      (spacemacs/set-leader-keys-for-major-mode 'haskell-cabal-mode
+        ;; "="   'haskell-cabal-subsection-arrange-lines ;; Does a bad job, 'gg=G' works better
+        "d"   'haskell-cabal-add-dependency
+        "b"   'haskell-cabal-goto-benchmark-section
+        "e"   'haskell-cabal-goto-executable-section
+        "t"   'haskell-cabal-goto-test-suite-section
+        "m"   'haskell-cabal-goto-exposed-modules
+        "l"   'haskell-cabal-goto-library-section
+        "n"   'haskell-cabal-next-subsection
+        "p"   'haskell-cabal-previous-subsection
+        "sc"  'haskell-interactive-mode-clear
+        "ss"  'spacemacs/haskell-interactive-bring
+        "sS"  'haskell-interactive-switch
+        "N"   'haskell-cabal-next-section
+        "P"   'haskell-cabal-previous-section
+        "f"   'haskell-cabal-find-or-create-source-file)
 
       ;; Make "RET" behaviour in REPL saner
       (evil-define-key 'insert haskell-interactive-mode-map
@@ -201,12 +201,12 @@
         ;; if haskell-process-type == GHCi
         (setq haskell-process-path-ghci "ghci-ng")
 
-        (evil-leader/set-key-for-mode 'haskell-mode
+        (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
           ;; function suggested in
           ;; https://github.com/chrisdone/ghci-ng#using-with-haskell-mode
-          "mu"   'haskell-mode-find-uses
-          "mht"  'haskell-mode-show-type-at
-          "mgg"  'haskell-mode-goto-loc))
+          "u"   'haskell-mode-find-uses
+          "ht"  'haskell-mode-show-type-at
+          "gg"  'haskell-mode-goto-loc))
 
       ;; Useful to have these keybindings for .cabal files, too.
       (with-eval-after-load 'haskell-cabal-mode-map
@@ -254,8 +254,8 @@
     :config
     (progn
       (setq hindent-style haskell-enable-hindent-style)
-      (evil-leader/set-key-for-mode 'haskell-mode
-        "mF" 'hindent/reformat-decl))))
+      (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
+        "F" 'hindent/reformat-decl))))
 
 (defun haskell/init-shm ()
   (use-package shm

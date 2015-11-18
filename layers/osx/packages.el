@@ -43,7 +43,7 @@
     :init
     (progn
       (add-to-list 'auto-mode-alist '("\\.plist$" . nxml-mode))
-      (evil-leader/set-key "al" 'launchctl))
+      (spacemacs/set-leader-keys "al" 'launchctl))
     :config
     (progn
       (when (configuration-layer/package-usedp 'evilified-state)

@@ -18,9 +18,9 @@
     (progn
       (global-fasd-mode 1)
       (spacemacs/declare-prefix "fa" "fasd-find")
-      (evil-leader/set-key "fad" 'fasd-find-directory-only)
-      (evil-leader/set-key "faf" 'fasd-find-file-only)
-      (evil-leader/set-key "fas" 'fasd-find-file)
+      (spacemacs/set-leader-keys "fad" 'fasd-find-directory-only)
+      (spacemacs/set-leader-keys "faf" 'fasd-find-file-only)
+      (spacemacs/set-leader-keys "fas" 'fasd-find-file)
 
       ;; we will fall back to using the default completing-read function, which is helm once helm is loaded.
       (setq fasd-completing-read-function 'nil)

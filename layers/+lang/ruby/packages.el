@@ -49,9 +49,9 @@
     :defer t
     :config
     (progn
-      (evil-leader/set-key-for-mode 'ruby-mode
-        "m'" 'ruby-toggle-string-quotes
-        "m{" 'ruby-toggle-block)
+      (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
+        "'" 'ruby-toggle-string-quotes
+        "{" 'ruby-toggle-block)
       (sp-with-modes 'ruby-mode
         (sp-local-pair "{" "}"
                        :pre-handlers '(sp-ruby-pre-handler)
@@ -93,10 +93,10 @@
       (spacemacs|hide-lighter ruby-tools-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
         (spacemacs/declare-prefix-for-mode mode "mx" "ruby/text")
-        (evil-leader/set-key-for-mode mode
-          "mx\'" 'ruby-tools-to-single-quote-string
-          "mx\"" 'ruby-tools-to-double-quote-string
-          "mx:" 'ruby-tools-to-symbol)))))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "x\'" 'ruby-tools-to-single-quote-string
+          "x\"" 'ruby-tools-to-double-quote-string
+          "x:" 'ruby-tools-to-symbol)))))
 
 (defun ruby/init-bundler ()
   (use-package bundler
@@ -104,12 +104,12 @@
     :init
     (dolist (mode '(ruby-mode enh-ruby-mode))
       (spacemacs/declare-prefix-for-mode mode "mb" "ruby/bundle")
-      (evil-leader/set-key-for-mode mode
-        "mbc" 'bundle-check
-        "mbi" 'bundle-install
-        "mbs" 'bundle-console
-        "mbu" 'bundle-update
-        "mbx" 'bundle-exec))))
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "bc" 'bundle-check
+        "bi" 'bundle-install
+        "bs" 'bundle-console
+        "bu" 'bundle-update
+        "bx" 'bundle-exec))))
 
 (defun ruby/init-robe ()
   "Initialize Robe mode"
@@ -130,18 +130,18 @@
         (spacemacs/declare-prefix-for-mode mode "mg" "ruby/goto")
         (spacemacs/declare-prefix-for-mode mode "mh" "ruby/docs")
         (spacemacs/declare-prefix-for-mode mode "ms" "ruby/repl")
-        (evil-leader/set-key-for-mode mode
+        (spacemacs/set-leader-keys-for-major-mode mode
           ;; robe mode specific
-          "mgg" 'robe-jump
-          "mhd" 'robe-doc
-          "mrsr" 'robe-rails-refresh
+          "gg" 'robe-jump
+          "hd" 'robe-doc
+          "rsr" 'robe-rails-refresh
           ;; inf-enh-ruby-mode
-          "msf" 'ruby-send-definition
-          "msF" 'ruby-send-definition-and-go
-          "msi" 'robe-start
-          "msr" 'ruby-send-region
-          "msR" 'ruby-send-region-and-go
-          "mss" 'ruby-switch-to-inf)))))
+          "sf" 'ruby-send-definition
+          "sF" 'ruby-send-definition-and-go
+          "si" 'robe-start
+          "sr" 'ruby-send-region
+          "sR" 'ruby-send-region-and-go
+          "ss" 'ruby-switch-to-inf)))))
 
 (defun ruby/init-ruby-test-mode ()
   "Define keybindings for ruby test mode"
@@ -154,8 +154,8 @@
       (spacemacs|hide-lighter ruby-test-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
         (spacemacs/declare-prefix-for-mode mode "mt" "ruby/test")
-        (evil-leader/set-key-for-mode mode "mtb" 'ruby-test-run)
-        (evil-leader/set-key-for-mode mode "mtt" 'ruby-test-run-at-point)))))
+        (spacemacs/set-leader-keys-for-major-mode mode "tb" 'ruby-test-run)
+        (spacemacs/set-leader-keys-for-major-mode mode "tt" 'ruby-test-run-at-point)))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun ruby/post-init-company ()
