@@ -23,6 +23,11 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =emoji= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+Linux user could install [[https://zhm.github.io/symbola/][Symbola]] font to get company-emoji support with =apt-get=
+
+#+BEGIN_SRC shell
+  apt-get install ttf-ancient-fonts
+#+END_SRC
 * Key bindings
 
 | Key Binding | Description                             |
