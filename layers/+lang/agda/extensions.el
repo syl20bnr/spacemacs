@@ -48,31 +48,31 @@
         ("b" agda2-previous-goal)
         ("q" nil :exit t))
 
-      (evil-leader/set-key-for-mode 'agda2-mode
-        "m?" 'agda2-show-goals
-        "m." 'agda2-goal-and-context-and-inferred
-        "m," 'agda2-goal-and-context
-        "m=" 'agda2-show-constraints
-        "m <SPC>" 'agda2-give
-        "ma" 'agda2-auto
-        "mc" 'agda2-make-case
-        "md" 'agda2-infer-type-maybe-toplevel
-        "me" 'agda2-show-context
-        "mgg" 'agda2-goto-definition-keyboard
-        "mgG" 'agda2-go-back
-        "mh" 'agda2-helper-function-type
-        "ml" 'agda2-load
-        "mn" 'agda2-compute-normalised-maybe-toplevel
-        "mp" 'agda2-module-contents-maybe-toplevel
-        "mr" 'agda2-refine
-        "ms" 'agda2-solveAll
-        "mt" 'agda2-goal-type
-        "mw" 'agda2-why-in-scope-maybe-toplevel
-        "mxc" 'agda2-compile
-        "mxd" 'agda2-remove-annotations
-        "mxh" 'agda2-display-implicit-arguments
-        "mxq" 'agda2-quit
-        "mxr" 'agda2-restart)
+      (spacemacs/set-leader-keys-for-major-mode 'agda2-mode
+        "?" 'agda2-show-goals
+        "." 'agda2-goal-and-context-and-inferred
+        "," 'agda2-goal-and-context
+        "=" 'agda2-show-constraints
+        " <SPC>" 'agda2-give
+        "a" 'agda2-auto
+        "c" 'agda2-make-case
+        "d" 'agda2-infer-type-maybe-toplevel
+        "e" 'agda2-show-context
+        "gg" 'agda2-goto-definition-keyboard
+        "gG" 'agda2-go-back
+        "h" 'agda2-helper-function-type
+        "l" 'agda2-load
+        "n" 'agda2-compute-normalised-maybe-toplevel
+        "p" 'agda2-module-contents-maybe-toplevel
+        "r" 'agda2-refine
+        "s" 'agda2-solveAll
+        "t" 'agda2-goal-type
+        "w" 'agda2-why-in-scope-maybe-toplevel
+        "xc" 'agda2-compile
+        "xd" 'agda2-remove-annotations
+        "xh" 'agda2-display-implicit-arguments
+        "xq" 'agda2-quit
+        "xr" 'agda2-restart)
 
       (with-eval-after-load 'golden-ratio
         (add-to-list 'golden-ratio-exclude-buffer-names

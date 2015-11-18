@@ -30,7 +30,7 @@
       (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings))
     :init
     (progn
-      (evil-leader/set-key "P/" 'spacemacs/run-pandoc))))
+      (spacemacs/set-leader-keys "P/" 'spacemacs/run-pandoc))))
 
 (defun pandoc/init-ox-pandoc ()
   (use-package ox-pandoc

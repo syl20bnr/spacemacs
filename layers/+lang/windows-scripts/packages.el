@@ -25,10 +25,10 @@
         (spacemacs|define-text-object "$" "dollarparen" "$(" ")")
         )
       (add-hook 'powershell-mode-hook 'powershell/define-text-objects)
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "asp" 'powershell)
-      (evil-leader/set-key-for-mode 'powershell-mode
-        "mrr" 'powershell-regexp-to-regex)
+      (spacemacs/set-leader-keys-for-major-mode 'powershell-mode
+        "rr" 'powershell-regexp-to-regex)
 
     ;; TODO
     ;; - split out powershell

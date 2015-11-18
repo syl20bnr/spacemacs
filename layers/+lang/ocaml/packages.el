@@ -52,29 +52,29 @@
       (set-default 'merlin-use-auto-complete-mode nil)
       (setq merlin-completion-with-doc t)
       (push 'merlin-company-backend company-backends-merlin-mode)
-      (evil-leader/set-key-for-mode 'tuareg-mode
-        "mcp" 'merlin-project-check
-        "mcr" 'merlin-refresh
-        "mcv" 'merlin-goto-project-file
-        "meC" 'merlin-error-check
-        "men" 'merlin-error-next
-        "meN" 'merlin-error-prev
-        "mgb" 'merlin-pop-stack
-        "mgg" #'(lambda ()
+      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+        "cp" 'merlin-project-check
+        "cr" 'merlin-refresh
+        "cv" 'merlin-goto-project-file
+        "eC" 'merlin-error-check
+        "en" 'merlin-error-next
+        "eN" 'merlin-error-prev
+        "gb" 'merlin-pop-stack
+        "gg" #'(lambda ()
                 (interactive)
                 (let ((merlin-locate-in-new-window 'never))
                   (merlin-locate)))
-        "mgG" #'(lambda ()
+        "gG" #'(lambda ()
                 (interactive)
                 (let ((merlin-locate-in-new-window 'always))
                   (merlin-locate)))
-        "mgl" 'merlin-locate-ident
-        "mgi" 'merlin-switch-to-ml
-        "mgI" 'merlin-switch-to-mli
-        "mhh" 'merlin-document
-        "mht" 'merlin-type-enclosing
-        "mhT" 'merlin-type-expr
-        "mrd" 'merlin-destruct
+        "gl" 'merlin-locate-ident
+        "gi" 'merlin-switch-to-ml
+        "gI" 'merlin-switch-to-mli
+        "hh" 'merlin-document
+        "ht" 'merlin-type-enclosing
+        "hT" 'merlin-type-expr
+        "rd" 'merlin-destruct
         ))))
 
 (defun ocaml/init-ocp-indent ()
@@ -89,9 +89,9 @@
     :init
     (progn
       (spacemacs//init-ocaml-opam)
-      (evil-leader/set-key-for-mode 'tuareg-mode
-        "mga" 'tuareg-find-alternate-file
-        "mcc" 'compile)
+      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+        "ga" 'tuareg-find-alternate-file
+        "cc" 'compile)
       ;; Make OCaml-generated files invisible to filename completion
       (dolist (ext '(".cmo" ".cmx" ".cma" ".cmxa" ".cmi" ".cmxs" ".cmt" ".annot"))
         (add-to-list 'completion-ignored-extensions ext)))
@@ -142,13 +142,13 @@
         (utop)
         (evil-insert-state))
 
-      (evil-leader/set-key-for-mode 'tuareg-mode
-        "msb" 'utop-eval-buffer
-        "msB" 'spacemacs/utop-eval-buffer-and-go
-        "msi" 'utop
-        "msp" 'utop-eval-phrase
-        "msP" 'spacemacs/utop-eval-phrase-and-go
-        "msr" 'utop-eval-region
-        "msR" 'spacemacs/utop-eval-region-and-go))
+      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+        "sb" 'utop-eval-buffer
+        "sB" 'spacemacs/utop-eval-buffer-and-go
+        "si" 'utop
+        "sp" 'utop-eval-phrase
+        "sP" 'spacemacs/utop-eval-phrase-and-go
+        "sr" 'utop-eval-region
+        "sR" 'spacemacs/utop-eval-region-and-go))
     (define-key utop-mode-map (kbd "C-j") 'utop-history-goto-next)
     (define-key utop-mode-map (kbd "C-k") 'utop-history-goto-prev)))

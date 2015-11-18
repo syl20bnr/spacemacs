@@ -18,7 +18,7 @@
     :defer t
     :init
     (progn
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "ar" 'ranger
         "ad" 'deer)
 

@@ -21,5 +21,4 @@
     :init
     (progn
       (evil-commentary-mode)
-      (evil-leader/set-key ";" 'evil-commentary))))
-
+      (spacemacs/set-leader-keys ";" 'evil-commentary))))

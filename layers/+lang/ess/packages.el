@@ -73,32 +73,32 @@
        ((string= "STA" ess-language) (call-interactively 'stata))
        ((string= "SAS" ess-language) (call-interactively 'SAS))))
 
-    (evil-leader/set-key-for-mode 'ess-julia-mode
-      "msi" 'julia)
-    (evil-leader/set-key-for-mode 'ess-mode
-      "msi" 'spacemacs/ess-start-repl
+    (spacemacs/set-leader-keys-for-major-mode 'ess-julia-mode
+      "si" 'julia)
+    (spacemacs/set-leader-keys-for-major-mode 'ess-mode
+      "si" 'spacemacs/ess-start-repl
       ;; noweb
-      "mcC" 'ess-eval-chunk-and-go
-      "mcc" 'ess-eval-chunk
-      "mcd" 'ess-eval-chunk-and-step
-      "mcm" 'ess-noweb-mark-chunk
-      "mcN" 'ess-noweb-previous-chunk
-      "mcn" 'ess-noweb-next-chunk
+      "cC" 'ess-eval-chunk-and-go
+      "cc" 'ess-eval-chunk
+      "cd" 'ess-eval-chunk-and-step
+      "cm" 'ess-noweb-mark-chunk
+      "cN" 'ess-noweb-previous-chunk
+      "cn" 'ess-noweb-next-chunk
       ;; REPL
-      "msB" 'ess-eval-buffer-and-go
-      "msb" 'ess-eval-buffer
-      "msD" 'ess-eval-function-or-paragraph-and-step
-      "msd" 'ess-eval-region-or-line-and-step
-      "msL" 'ess-eval-line-and-go
-      "msl" 'ess-eval-line
-      "msR" 'ess-eval-region-and-go
-      "msr" 'ess-eval-region
-      "msT" 'ess-eval-function-and-go
-      "mst" 'ess-eval-function
+      "sB" 'ess-eval-buffer-and-go
+      "sb" 'ess-eval-buffer
+      "sD" 'ess-eval-function-or-paragraph-and-step
+      "sd" 'ess-eval-region-or-line-and-step
+      "sL" 'ess-eval-line-and-go
+      "sl" 'ess-eval-line
+      "sR" 'ess-eval-region-and-go
+      "sr" 'ess-eval-region
+      "sT" 'ess-eval-function-and-go
+      "st" 'ess-eval-function
       ;; R helpers
-      "mhd" 'ess-R-dv-pprint
-      "mhi" 'ess-R-object-popup
-      "mht" 'ess-R-dv-ctable
+      "hd" 'ess-R-dv-pprint
+      "hi" 'ess-R-object-popup
+      "ht" 'ess-R-dv-ctable
       )
     (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
     (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)

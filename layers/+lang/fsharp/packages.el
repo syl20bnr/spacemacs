@@ -44,25 +44,23 @@
         (switch-to-buffer-other-window inferior-fsharp-buffer-name)
         (evil-insert-state))
 
-      (evil-leader/set-key-for-mode 'fsharp-mode
+      (spacemacs/set-leader-keys-for-major-mode 'fsharp-mode
         ;; Compile
-        "mcc" 'compile
+        "cc" 'compile
 
-        "mfa" 'fsharp-find-alternate-file
+        "fa" 'fsharp-find-alternate-file
 
-        "mgg" 'fsharp-ac/gotodefn-at-point
+        "gg" 'fsharp-ac/gotodefn-at-point
 
-        "mht" 'fsharp-ac/show-tooltip-at-point
+        "ht" 'fsharp-ac/show-tooltip-at-point
 
-        "msb" 'fsharp-load-buffer-file
-        "msB" 'spacemacs/fsharp-load-buffer-file-focus
-        "msi" 'fsharp-show-subshell
-        "msp" 'fsharp-eval-phrase
-        "msP" 'spacemacs/fsharp-eval-phrase-focus
-        "msr" 'fsharp-eval-region
-        "msR" 'spacemacs/fsharp-eval-region-focus
-        "mss" 'fsharp-show-subshell
+        "sb" 'fsharp-load-buffer-file
+        "sB" 'spacemacs/fsharp-load-buffer-file-focus
+        "si" 'fsharp-show-subshell
+        "sp" 'fsharp-eval-phrase
+        "sP" 'spacemacs/fsharp-eval-phrase-focus
+        "sr" 'fsharp-eval-region
+        "sR" 'spacemacs/fsharp-eval-region-focus
+        "ss" 'fsharp-show-subshell
 
-        "mxf" 'fsharp-run-executable-file))))
-
-
+        "xf" 'fsharp-run-executable-file))))

@@ -22,7 +22,7 @@
     :commands (defengine spacemacs/search-engine-select)
     :defines search-engine-alist
     :init
-    (evil-leader/set-key
+    (spacemacs/set-leader-keys
       "a/" 'spacemacs/search-engine-select)
     (setq search-engine-alist
           '((amazon

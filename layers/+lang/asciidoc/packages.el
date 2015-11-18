@@ -27,18 +27,18 @@
       ;; functions are defined.
 
       ;; See /doc/CONVENTIONS.md#plain-text-markup-languages
-      (evil-leader/set-key-for-mode 'adoc-mode
-        "mh1" 'tempo-template-adoc-title-1
+      (spacemacs/set-leader-keys-for-major-mode 'adoc-mode
+        "h1" 'tempo-template-adoc-title-1
         ;; Alternative method of inserting top-level heading
-        "mhI" 'tempo-template-adoc-title-1
-        "mh2" 'tempo-template-adoc-title-2
+        "hI" 'tempo-template-adoc-title-1
+        "h2" 'tempo-template-adoc-title-2
         ;; Alternative method of inserting the most usual heading
-        "mhi" 'tempo-template-adoc-title-2
-        "mh3" 'tempo-template-adoc-title-3
-        "mh4" 'tempo-template-adoc-title-4
-        "mh5" 'tempo-template-adoc-title-5
-        "mxb" 'tempo-template-adoc-strong
-        "mxi" 'tempo-template-adoc-emphasis)
+        "hi" 'tempo-template-adoc-title-2
+        "h3" 'tempo-template-adoc-title-3
+        "h4" 'tempo-template-adoc-title-4
+        "h5" 'tempo-template-adoc-title-5
+        "xb" 'tempo-template-adoc-strong
+        "xi" 'tempo-template-adoc-emphasis)
       ;; yes, exactly like that. To "promote" title is to INCREASE its size.
       ;; `adoc-denote' does the opposite: increases its LEVEL,
       ;; which DECREASES its size.

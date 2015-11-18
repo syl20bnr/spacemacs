@@ -37,8 +37,8 @@
           (lisp-indent-line))))
     (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
       (spacemacs/declare-prefix-for-mode mode "ms" "ielm")
-      (evil-leader/set-key-for-mode mode
-        "msi" 'ielm))))
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "si" 'ielm))))
 
 (defun emacs-lisp/post-init-company ()
   (spacemacs|add-company-hook ielm-mode)
@@ -60,8 +60,8 @@
       (add-hook 'emacs-lisp-mode-hook 'auto-compile-mode))
     :config
     (progn
-      (evil-leader/set-key-for-mode 'emacs-lisp-mode
-        "mcl" 'auto-compile-display-log))))
+      (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
+        "cl" 'auto-compile-display-log))))
 
 (defun emacs-lisp/init-elisp-slime-nav ()
   ;; Elisp go-to-definition with M-. and back again with M-,
@@ -73,26 +73,26 @@
       (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
         (spacemacs/declare-prefix-for-mode mode "mg" "find-symbol")
         (spacemacs/declare-prefix-for-mode mode "mh" "help")
-        (evil-leader/set-key-for-mode mode
-          "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
-          "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point)))))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "gg" 'elisp-slime-nav-find-elisp-thing-at-point
+          "hh" 'elisp-slime-nav-describe-elisp-thing-at-point)))))
 
 (defun emacs-lisp/init-emacs-lisp ()
   (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
     (spacemacs/declare-prefix-for-mode mode "mc" "compile")
     (spacemacs/declare-prefix-for-mode mode "me" "eval")
     (spacemacs/declare-prefix-for-mode mode "mt" "tests")
-    (evil-leader/set-key-for-mode mode
-      "mcc" 'emacs-lisp-byte-compile
-      "me$" 'lisp-state-eval-sexp-end-of-line
-      "meb" 'eval-buffer
-      "mee" 'eval-last-sexp
-      "mer" 'eval-region
-      "mef" 'eval-defun
-      "mel" 'lisp-state-eval-sexp-end-of-line
-      "m,"  'lisp-state-toggle-lisp-state
-      "mtb" 'spacemacs/ert-run-tests-buffer
-      "mtq" 'ert))
+    (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
+      "cc" 'emacs-lisp-byte-compile
+      "e$" 'lisp-state-eval-sexp-end-of-line
+      "eb" 'eval-buffer
+      "ee" 'eval-last-sexp
+      "er" 'eval-region
+      "ef" 'eval-defun
+      "el" 'lisp-state-eval-sexp-end-of-line
+      ","  'lisp-state-toggle-lisp-state
+      "tb" 'spacemacs/ert-run-tests-buffer
+      "tq" 'ert))
   ;; company support
   (push 'company-capf company-backends-emacs-lisp-mode)
   (spacemacs|add-company-hook emacs-lisp-mode))
@@ -108,7 +108,7 @@
         :doc "[e] expand [c] collapse [n/N] next/previous [q] quit"
         :disable-evil-leader t
         :persistent t
-        :evil-leader-for-mode (emacs-lisp-mode . "mdm")
+        :evil-leader-for-mode (emacs-lisp-mode . "dm")
         :bindings
         ("e" macrostep-expand)
         ("c" macrostep-collapse)
@@ -146,12 +146,12 @@
                srefactor-lisp-one-line)
     :init
     (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-      (spacemacs/declare-prefix-for-mode mode "m=" "srefactor")
-      (evil-leader/set-key-for-mode mode
-        "m=b" 'srefactor-lisp-format-buffer
-        "m=d" 'srefactor-lisp-format-defun
-        "m=o" 'srefactor-lisp-one-line
-        "m=s" 'srefactor-lisp-format-sexp))))
+      (spacemacs/declare-prefix-for-mode mode "=" "srefactor")
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "=b" 'srefactor-lisp-format-buffer
+        "=d" 'srefactor-lisp-format-defun
+        "=o" 'srefactor-lisp-one-line
+        "=s" 'srefactor-lisp-format-sexp))))
 
 (defun emacs-lisp/post-init-smartparens ()
   (if (version< emacs-version "24.4")
@@ -186,6 +186,6 @@ point. Requires smartparens because all movement is done using
       (call-interactively 'eval-last-sexp)))
 
   (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-    (evil-leader/set-key-for-mode mode
-      "mec" 'spacemacs/eval-current-form-sp
-      "mes" 'spacemacs/eval-current-symbol-sp)))
+    (spacemacs/set-leader-keys-for-major-mode mode
+      "ec" 'spacemacs/eval-current-form-sp
+      "es" 'spacemacs/eval-current-symbol-sp)))

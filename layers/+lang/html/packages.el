@@ -76,9 +76,9 @@
         (while (not (looking-at "}"))
           (join-line -1)))
 
-      (evil-leader/set-key-for-mode 'css-mode
-        "mzc" 'css-contract-statement
-        "mzo" 'css-expand-statement))))
+      (spacemacs/set-leader-keys-for-major-mode 'css-mode
+        "zc" 'css-contract-statement
+        "zo" 'css-expand-statement))))
 
 (defun html/init-emmet-mode ()
   (use-package emmet-mode
@@ -112,7 +112,7 @@
     :defer t
     :init
     (dolist (mode '(css-mode scss-mode))
-      (evil-leader/set-key-for-mode mode "mgh" 'helm-css-scss))))
+      (spacemacs/set-leader-keys-for-major-mode mode "gh" 'helm-css-scss))))
 
 (defun html/init-jade-mode ()
   (use-package jade-mode
@@ -184,19 +184,19 @@
     (push '(company-web-html company-css) company-backends-web-mode)
     :config
     (progn
-      (evil-leader/set-key-for-mode 'web-mode
-        "meh" 'web-mode-dom-errors-show
-        "mgb" 'web-mode-element-beginning
-        "mgc" 'web-mode-element-child
-        "mgp" 'web-mode-element-parent
-        "mgs" 'web-mode-element-sibling-next
-        "mhp" 'web-mode-dom-xpath
-        "mrc" 'web-mode-element-clone
-        "mrd" 'web-mode-element-vanish
-        "mrk" 'web-mode-element-kill
-        "mrr" 'web-mode-element-rename
-        "mrw" 'web-mode-element-wrap
-        "mz" 'web-mode-fold-or-unfold
+      (spacemacs/set-leader-keys-for-major-mode 'web-mode
+        "eh" 'web-mode-dom-errors-show
+        "gb" 'web-mode-element-beginning
+        "gc" 'web-mode-element-child
+        "gp" 'web-mode-element-parent
+        "gs" 'web-mode-element-sibling-next
+        "hp" 'web-mode-dom-xpath
+        "rc" 'web-mode-element-clone
+        "rd" 'web-mode-element-vanish
+        "rk" 'web-mode-element-kill
+        "rr" 'web-mode-element-rename
+        "rw" 'web-mode-element-wrap
+        "z" 'web-mode-fold-or-unfold
         ;; TODO element close would be nice but broken with evil.
         )
 

@@ -21,7 +21,7 @@
       (setq deft-extensions '("org" "md" "txt")
             deft-text-mode 'org-mode
             deft-use-filename-as-title t)
-      (evil-leader/set-key "an" 'spacemacs/deft)
+      (spacemacs/set-leader-keys "an" 'spacemacs/deft)
 
       (defun spacemacs/deft ()
         "Helper to call deft and then fix things so that it is nice and works"
@@ -34,8 +34,8 @@
         (evil-insert-state nil)))
     :config
     (progn
-      (evil-leader/set-key-for-mode 'deft-mode
-        "md" 'deft-delete-file
-        "mi" 'deft-toggle-incremental-search
-        "mn" 'deft-new-file
-        "mr" 'deft-rename-file))))
+      (spacemacs/set-leader-keys-for-major-mode 'deft-mode
+        "d" 'deft-delete-file
+        "i" 'deft-toggle-incremental-search
+        "n" 'deft-new-file
+        "r" 'deft-rename-file))))

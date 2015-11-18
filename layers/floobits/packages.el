@@ -30,7 +30,7 @@
         (let ((floobitsrc (spacemacs/floobits-rclocation)))
           (if (file-exists-p floobitsrc) (load floobitsrc))))
 
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "Pc" 'floobits-clear-highlights
         "Pd" 'spacemacs/floobits-load-rcfile
         "Pf" 'floobits-follow-user

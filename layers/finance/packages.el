@@ -31,20 +31,20 @@
     (progn
       (setq ledger-post-amount-alignment-column 62)
       (push 'company-capf company-backends-ledger-mode)
-      (evil-leader/set-key-for-mode 'ledger-mode
-        "mhd"   'ledger-delete-current-transaction
-        "ma"    'ledger-add-transaction
-        "mb"    'ledger-post-edit-amount
-        "mc"    'ledger-toggle-current
-        "mC"    'ledger-mode-clean-buffer
-        "ml"    'ledger-display-ledger-stats
-        "mp"    'ledger-display-balance-at-point
-        "mq"    'ledger-post-align-xact
-        "mr"    'ledger-reconcile
-        "mR"    'ledger-report
-        "mt"    'ledger-insert-effective-date
-        "my"    'ledger-set-year
-        "m RET" 'ledger-set-month)
+      (spacemacs/set-leader-keys-for-major-mode 'ledger-mode
+         "mhd" 'ledger-delete-current-transaction
+         "ma" 'ledger-add-transaction
+         "mb" 'ledger-post-edit-amount
+         "mc" 'ledger-toggle-current
+         "mC" 'ledger-mode-clean-buffer
+         "ml" 'ledger-display-ledger-stats
+         "mp" 'ledger-display-balance-at-point
+         "mq" 'ledger-post-align-xact
+         "mr" 'ledger-reconcile
+         "mR" 'ledger-report
+         "mt" 'ledger-insert-effective-date
+         "my" 'ledger-set-year
+         "m RET" 'ledger-set-month)
       (evilified-state-evilify ledger-report-mode ledger-report-mode-map))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)

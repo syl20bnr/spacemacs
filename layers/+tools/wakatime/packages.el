@@ -9,5 +9,5 @@
     (defun spacemacs/wakatime-dashboard ()
       (interactive)
       (browse-url "wakatime.com/dashboard"))
-    (evil-leader/set-key
+    (spacemacs/set-leader-keys
       "aW" 'spacemacs/wakatime-dashboard)))

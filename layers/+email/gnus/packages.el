@@ -18,7 +18,7 @@
     :defer t
     :commands gnus
     :init
-    (evil-leader/set-key "ag" 'gnus)
+    (spacemacs/set-leader-keys "ag" 'gnus)
     :config
     (progn
       ;; No primary server

@@ -71,10 +71,10 @@
 
       (defun spacemacs/js-doc-set-key-bindings (mode)
         "Setup the key bindings for `js2-doc' for the given MODE."
-        (evil-leader/set-key-for-mode mode "mrdb" 'js-doc-insert-file-doc)
-        (evil-leader/set-key-for-mode mode "mrdf" 'js-doc-insert-function-doc)
-        (evil-leader/set-key-for-mode mode "mrdt" 'js-doc-insert-tag)
-        (evil-leader/set-key-for-mode mode "mrdh" 'js-doc-describe-tag))
+        (spacemacs/set-leader-keys-for-major-mode mode "rdb" 'js-doc-insert-file-doc)
+        (spacemacs/set-leader-keys-for-major-mode mode "rdf" 'js-doc-insert-function-doc)
+        (spacemacs/set-leader-keys-for-major-mode mode "rdt" 'js-doc-insert-tag)
+        (spacemacs/set-leader-keys-for-major-mode mode "rdh" 'js-doc-describe-tag))
       (spacemacs/js-doc-set-key-bindings 'js2-mode))))
 
 (defun javascript/init-js2-mode ()
@@ -87,15 +87,15 @@
       (add-hook 'js2-mode-hook 'js2-imenu-extras-mode))
     :config
     (progn
-      (evil-leader/set-key-for-mode 'js2-mode "mw" 'js2-mode-toggle-warnings-and-errors)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "w" 'js2-mode-toggle-warnings-and-errors)
 
       (spacemacs/declare-prefix-for-mode 'js2-mode "mz" "folding")
-      (evil-leader/set-key-for-mode 'js2-mode "mzc" 'js2-mode-hide-element)
-      (evil-leader/set-key-for-mode 'js2-mode "mzo" 'js2-mode-show-element)
-      (evil-leader/set-key-for-mode 'js2-mode "mzr" 'js2-mode-show-all)
-      (evil-leader/set-key-for-mode 'js2-mode "mze" 'js2-mode-toggle-element)
-      (evil-leader/set-key-for-mode 'js2-mode "mzF" 'js2-mode-toggle-hide-functions)
-      (evil-leader/set-key-for-mode 'js2-mode "mzC" 'js2-mode-toggle-hide-comments))))
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "zc" 'js2-mode-hide-element)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "zo" 'js2-mode-show-element)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "zr" 'js2-mode-show-all)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "ze" 'js2-mode-toggle-element)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "zF" 'js2-mode-toggle-hide-functions)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "zC" 'js2-mode-toggle-hide-comments))))
 
 (defun javascript/post-init-evil-matchit ()
   (add-hook `js2-mode `turn-on-evil-matchit-mode))
@@ -112,61 +112,61 @@
 
       (defun spacemacs/js2-refactor-set-key-bindings (mode)
         (spacemacs/declare-prefix-for-mode mode "mr3" "ternary")
-        (evil-leader/set-key-for-mode mode "mr3i" 'js2r-ternary-to-if)
+        (spacemacs/set-leader-keys-for-major-mode mode "r3i" 'js2r-ternary-to-if)
 
         (spacemacs/declare-prefix-for-mode mode "mra" "add/args")
-        (evil-leader/set-key-for-mode mode "mrag" 'js2r-add-to-globals-annotation)
-        (evil-leader/set-key-for-mode mode "mrao" 'js2r-arguments-to-object)
+        (spacemacs/set-leader-keys-for-major-mode mode "rag" 'js2r-add-to-globals-annotation)
+        (spacemacs/set-leader-keys-for-major-mode mode "rao" 'js2r-arguments-to-object)
 
         (spacemacs/declare-prefix-for-mode mode "mrb" "barf")
-        (evil-leader/set-key-for-mode mode "mrba" 'js2r-forward-barf)
+        (spacemacs/set-leader-keys-for-major-mode mode "rba" 'js2r-forward-barf)
 
         (spacemacs/declare-prefix-for-mode mode "mrc" "contract")
-        (evil-leader/set-key-for-mode mode "mrca" 'js2r-contract-array)
-        (evil-leader/set-key-for-mode mode "mrco" 'js2r-contract-object)
-        (evil-leader/set-key-for-mode mode "mrcu" 'js2r-contract-function)
+        (spacemacs/set-leader-keys-for-major-mode mode "rca" 'js2r-contract-array)
+        (spacemacs/set-leader-keys-for-major-mode mode "rco" 'js2r-contract-object)
+        (spacemacs/set-leader-keys-for-major-mode mode "rcu" 'js2r-contract-function)
 
         (spacemacs/declare-prefix-for-mode mode "mre" "expand/extract")
-        (evil-leader/set-key-for-mode mode "mrea" 'js2r-expand-array)
-        (evil-leader/set-key-for-mode mode "mref" 'js2r-extract-function)
-        (evil-leader/set-key-for-mode mode "mrem" 'js2r-extract-method)
-        (evil-leader/set-key-for-mode mode "mreo" 'js2r-expand-object)
-        (evil-leader/set-key-for-mode mode "mreu" 'js2r-expand-function)
-        (evil-leader/set-key-for-mode mode "mrev" 'js2r-extract-var)
+        (spacemacs/set-leader-keys-for-major-mode mode "rea" 'js2r-expand-array)
+        (spacemacs/set-leader-keys-for-major-mode mode "ref" 'js2r-extract-function)
+        (spacemacs/set-leader-keys-for-major-mode mode "rem" 'js2r-extract-method)
+        (spacemacs/set-leader-keys-for-major-mode mode "reo" 'js2r-expand-object)
+        (spacemacs/set-leader-keys-for-major-mode mode "reu" 'js2r-expand-function)
+        (spacemacs/set-leader-keys-for-major-mode mode "rev" 'js2r-extract-var)
 
         (spacemacs/declare-prefix-for-mode mode "mri" "inline/inject/introduct")
-        (evil-leader/set-key-for-mode mode "mrig" 'js2r-inject-global-in-iife)
-        (evil-leader/set-key-for-mode mode "mrip" 'js2r-introduce-parameter)
-        (evil-leader/set-key-for-mode mode "mriv" 'js2r-inline-var)
+        (spacemacs/set-leader-keys-for-major-mode mode "rig" 'js2r-inject-global-in-iife)
+        (spacemacs/set-leader-keys-for-major-mode mode "rip" 'js2r-introduce-parameter)
+        (spacemacs/set-leader-keys-for-major-mode mode "riv" 'js2r-inline-var)
 
         (spacemacs/declare-prefix-for-mode mode "mrl" "localize/log")
-        (evil-leader/set-key-for-mode mode "mrlp" 'js2r-localize-parameter)
-        (evil-leader/set-key-for-mode mode "mrlt" 'js2r-log-this)
+        (spacemacs/set-leader-keys-for-major-mode mode "rlp" 'js2r-localize-parameter)
+        (spacemacs/set-leader-keys-for-major-mode mode "rlt" 'js2r-log-this)
 
         (spacemacs/declare-prefix-for-mode mode "mrr" "rename")
-        (evil-leader/set-key-for-mode mode "mrrv" 'js2r-rename-var)
+        (spacemacs/set-leader-keys-for-major-mode mode "rrv" 'js2r-rename-var)
 
         (spacemacs/declare-prefix-for-mode mode "mrs" "split/slurp")
-        (evil-leader/set-key-for-mode mode "mrsl" 'js2r-forward-slurp)
-        (evil-leader/set-key-for-mode mode "mrss" 'js2r-split-string)
-        (evil-leader/set-key-for-mode mode "mrsv" 'js2r-split-var-declaration)
+        (spacemacs/set-leader-keys-for-major-mode mode "rsl" 'js2r-forward-slurp)
+        (spacemacs/set-leader-keys-for-major-mode mode "rss" 'js2r-split-string)
+        (spacemacs/set-leader-keys-for-major-mode mode "rsv" 'js2r-split-var-declaration)
 
         (spacemacs/declare-prefix-for-mode mode "mrt" "toggle")
-        (evil-leader/set-key-for-mode mode "mrtf" 'js2r-toggle-function-expression-and-declaration)
+        (spacemacs/set-leader-keys-for-major-mode mode "rtf" 'js2r-toggle-function-expression-and-declaration)
 
         (spacemacs/declare-prefix-for-mode mode "mru" "unwrap")
-        (evil-leader/set-key-for-mode mode "mruw" 'js2r-unwrap)
+        (spacemacs/set-leader-keys-for-major-mode mode "ruw" 'js2r-unwrap)
 
         (spacemacs/declare-prefix-for-mode mode "mrv" "var")
-        (evil-leader/set-key-for-mode mode "mrvt" 'js2r-var-to-this)
+        (spacemacs/set-leader-keys-for-major-mode mode "rvt" 'js2r-var-to-this)
 
         (spacemacs/declare-prefix-for-mode mode "mrw" "wrap")
-        (evil-leader/set-key-for-mode mode "mrwi" 'js2r-wrap-buffer-in-iife)
-        (evil-leader/set-key-for-mode mode "mrwl" 'js2r-wrap-in-for-loop)
+        (spacemacs/set-leader-keys-for-major-mode mode "rwi" 'js2r-wrap-buffer-in-iife)
+        (spacemacs/set-leader-keys-for-major-mode mode "rwl" 'js2r-wrap-in-for-loop)
 
-        (evil-leader/set-key-for-mode mode "mk" 'js2r-kill)
-        (evil-leader/set-key-for-mode mode "xmj" 'js2r-move-line-down)
-        (evil-leader/set-key-for-mode mode "xmk" 'js2r-move-line-up))
+        (spacemacs/set-leader-keys-for-major-mode mode "k" 'js2r-kill)
+        (spacemacs/set-leader-keys-for-major-mode mode "xmj" 'js2r-move-line-down)
+        (spacemacs/set-leader-keys-for-major-mode mode "xmk" 'js2r-move-line-up))
 
       (spacemacs/js2-refactor-set-key-bindings 'js2-mode))))
 
@@ -178,8 +178,8 @@
   (use-package json-snatcher
     :defer t
     :config
-    (evil-leader/set-key-for-mode 'json-mode
-      "mhp" 'jsons-print-path)
+    (spacemacs/set-leader-keys-for-major-mode 'json-mode
+      "hp" 'jsons-print-path)
     ))
 
 (defun javascript/init-tern ()
@@ -188,19 +188,19 @@
     :init (add-hook 'js2-mode-hook 'tern-mode)
     :config
     (progn
-      (evil-leader/set-key-for-mode 'js2-mode "mrrV" 'tern-rename-variable)
-      (evil-leader/set-key-for-mode 'js2-mode "mhd" 'tern-get-docs)
-      (evil-leader/set-key-for-mode 'js2-mode "mgg" 'tern-find-definition)
-      (evil-leader/set-key-for-mode 'js2-mode "mgG" 'tern-find-definition-by-name)
-      (evil-leader/set-key-for-mode 'js2-mode (kbd "m C-g") 'tern-pop-find-definition)
-      (evil-leader/set-key-for-mode 'js2-mode "mht" 'tern-get-type))))
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "rrV" 'tern-rename-variable)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "hd" 'tern-get-docs)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "gg" 'tern-find-definition)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "gG" 'tern-find-definition-by-name)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode (kbd " C-g") 'tern-pop-find-definition)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "ht" 'tern-get-type))))
 
 (defun javascript/init-web-beautify ()
   (use-package web-beautify
     :defer t
     :init
     (progn
-      (evil-leader/set-key-for-mode 'js2-mode  "m=" 'web-beautify-js)
-      (evil-leader/set-key-for-mode 'json-mode "m=" 'web-beautify-js)
-      (evil-leader/set-key-for-mode 'web-mode  "m=" 'web-beautify-html)
-      (evil-leader/set-key-for-mode 'css-mode  "m=" 'web-beautify-css))))
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode  "=" 'web-beautify-js)
+      (spacemacs/set-leader-keys-for-major-mode 'json-mode "=" 'web-beautify-js)
+      (spacemacs/set-leader-keys-for-major-mode 'web-mode  "=" 'web-beautify-html)
+      (spacemacs/set-leader-keys-for-major-mode 'css-mode  "=" 'web-beautify-css))))

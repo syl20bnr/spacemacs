@@ -19,8 +19,8 @@
     :mode "\\.ahk$"
     :defer t
     :init
-    (evil-leader/set-key-for-mode 'ahk-mode
-      "mcc" 'ahk-comment-dwim
-      "mcb" 'ahk-comment-block-dwim
-      "mh" 'ahk-lookup-web
-      "meb" 'ahk-run-script)))
+    (spacemacs/set-leader-keys-for-major-mode 'ahk-mode
+      "cc" 'ahk-comment-dwim
+      "cb" 'ahk-comment-block-dwim
+      "h" 'ahk-lookup-web
+      "eb" 'ahk-run-script)))

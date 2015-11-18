@@ -42,12 +42,12 @@
     (progn
       (require 'compile)
       (c-toggle-auto-newline 1)
-      (evil-leader/set-key-for-mode 'c-mode
-        "mga" 'projectile-find-other-file
-        "mgA" 'projectile-find-other-file-other-window)
-      (evil-leader/set-key-for-mode 'c++-mode
-        "mga" 'projectile-find-other-file
-        "mgA" 'projectile-find-other-file-other-window))))
+      (spacemacs/set-leader-keys-for-major-mode 'c-mode
+        "ga" 'projectile-find-other-file
+        "gA" 'projectile-find-other-file-other-window)
+      (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+        "ga" 'projectile-find-other-file
+        "gA" 'projectile-find-other-file-other-window))))
 
 (defun c-c++/init-disaster ()
   (use-package disaster
@@ -55,10 +55,10 @@
     :commands (disaster)
     :init
     (progn
-      (evil-leader/set-key-for-mode 'c-mode
-        "mD" 'disaster)
-      (evil-leader/set-key-for-mode 'c++-mode
-        "mD" 'disaster))))
+      (spacemacs/set-leader-keys-for-major-mode 'c-mode
+        "D" 'disaster)
+      (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+        "D" 'disaster))))
 
 (defun c-c++/init-clang-format ()
   (use-package clang-format
@@ -148,8 +148,8 @@
   (semantic/enable-semantic-mode 'c++-mode))
 
 (defun c-c++/post-init-srefactor ()
-  (evil-leader/set-key-for-mode 'c-mode "mr" 'srefactor-refactor-at-point)
-  (evil-leader/set-key-for-mode 'c++-mode "mr" 'srefactor-refactor-at-point)
+  (spacemacs/set-leader-keys-for-major-mode 'c-mode "r" 'srefactor-refactor-at-point)
+  (spacemacs/set-leader-keys-for-major-mode 'c++-mode "r" 'srefactor-refactor-at-point)
   (spacemacs/add-to-hooks 'spacemacs/lazy-load-srefactor '(c-mode-hook c++-mode-hook)))
 
 (defun c-c++/post-init-stickyfunc-enhance ()
@@ -157,9 +157,9 @@
 
 (defun c-c++/post-init-ycmd ()
   (add-hook 'c++-mode-hook 'ycmd-mode)
-  (evil-leader/set-key-for-mode 'c++-mode
-    "mgg" 'ycmd-goto
-    "mgG" 'ycmd-goto-imprecise))
+  (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+    "gg" 'ycmd-goto
+    "gG" 'ycmd-goto-imprecise))
 
 (defun c-c++/post-init-company-ycmd ()
   (push 'company-ycmd company-backends-c-mode-common))
@@ -168,7 +168,7 @@
   (spacemacs|use-package-add-hook xcscope
     :post-init
     (dolist (mode '(c-mode c++-mode))
-      (evil-leader/set-key-for-mode mode "mgi" 'cscope-index-files))))
+      (spacemacs/set-leader-keys-for-major-mode mode "gi" 'cscope-index-files))))
 
 (defun c-c++/pre-init-helm-cscope ()
   (spacemacs|use-package-add-hook xcscope

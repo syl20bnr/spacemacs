@@ -20,5 +20,5 @@
 (defun ansible/ansible-doc-maybe-enable ()
   (when (ansible/ansible-should-enable?)
     (ansible-doc-mode 1)
-    (evil-leader/set-key-for-mode 'yaml-mode
-      "ma?" 'ansible-doc)))
+    (spacemacs/set-leader-keys-for-major-mode 'yaml-mode
+      "a?" 'ansible-doc)))

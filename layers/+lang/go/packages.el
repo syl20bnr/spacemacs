@@ -61,21 +61,21 @@
           (format "go run %s"
                   (shell-quote-argument (buffer-file-name)))))
 
-      (evil-leader/set-key-for-mode 'go-mode
-        "mhh" 'godoc-at-point
-        "mig" 'go-goto-imports
-        "mia" 'go-import-add
-        "mir" 'go-remove-unused-imports
-        "meb" 'go-play-buffer
-        "mer" 'go-play-region
-        "med" 'go-download-play
-        "mxx" 'spacemacs/go-run-main
-        "mga" 'ff-find-other-file
-        "mgg" 'godef-jump
-        "mtt" 'spacemacs/go-run-test-current-function
-        "mts" 'spacemacs/go-run-test-current-suite
-        "mtp" 'spacemacs/go-run-package-tests
-        "mtP" 'spacemacs/go-run-package-tests-nested))))
+      (spacemacs/set-leader-keys-for-major-mode 'go-mode
+        "hh" 'godoc-at-point
+        "ig" 'go-goto-imports
+        "ia" 'go-import-add
+        "ir" 'go-remove-unused-imports
+        "eb" 'go-play-buffer
+        "er" 'go-play-region
+        "ed" 'go-download-play
+        "xx" 'spacemacs/go-run-main
+        "ga" 'ff-find-other-file
+        "gg" 'godef-jump
+        "tt" 'spacemacs/go-run-test-current-function
+        "ts" 'spacemacs/go-run-test-current-suite
+        "tp" 'spacemacs/go-run-package-tests
+        "tP" 'spacemacs/go-run-package-tests-nested))))
 
 (defun go/init-go-eldoc()
   (add-hook 'go-mode-hook 'go-eldoc-setup))

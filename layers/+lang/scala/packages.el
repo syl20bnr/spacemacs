@@ -95,75 +95,75 @@
                         ("ms" . "scala/repl")))
         (spacemacs/declare-prefix-for-mode 'scala-mode (car prefix) (cdr prefix)))
 
-      (evil-leader/set-key-for-mode 'scala-mode
-        "m/"     'ensime-search
+      (spacemacs/set-leader-keys-for-major-mode 'scala-mode
+        "/"     'ensime-search
 
-        "mbc"     'ensime-sbt-do-compile
-        "mbC"     'ensime-sbt-do-clean
-        "mbi"     'ensime-sbt-switch
-        "mbp"     'ensime-sbt-do-package
-        "mbr"     'ensime-sbt-do-run
+        "bc"     'ensime-sbt-do-compile
+        "bC"     'ensime-sbt-do-clean
+        "bi"     'ensime-sbt-switch
+        "bp"     'ensime-sbt-do-package
+        "br"     'ensime-sbt-do-run
 
-        "mct"     'ensime-typecheck-current-file
-        "mcT"     'ensime-typecheck-all
+        "ct"     'ensime-typecheck-current-file
+        "cT"     'ensime-typecheck-all
 
-        "mdA"     'ensime-db-attach
-        "mdb"     'ensime-db-set-break
-        "mdB"     'ensime-db-clear-break
-        "mdC"     'ensime-db-clear-all-breaks
-        "mdc"     'ensime-db-continue
-        "mdd"     'ensime-db-start
-        "mdi"     'ensime-db-inspect-value-at-point
-        "mdl"     'ensime-db-list-locals
-        "mdn"     'ensime-db-next
-        "mdo"     'ensime-db-step-out
-        "mdq"     'ensime-db-quit
-        "mdr"     'ensime-db-run
-        "mds"     'ensime-db-step
-        "mdt"     'ensime-db-backtrace
+        "dA"     'ensime-db-attach
+        "db"     'ensime-db-set-break
+        "dB"     'ensime-db-clear-break
+        "dC"     'ensime-db-clear-all-breaks
+        "dc"     'ensime-db-continue
+        "dd"     'ensime-db-start
+        "di"     'ensime-db-inspect-value-at-point
+        "dl"     'ensime-db-list-locals
+        "dn"     'ensime-db-next
+        "do"     'ensime-db-step-out
+        "dq"     'ensime-db-quit
+        "dr"     'ensime-db-run
+        "ds"     'ensime-db-step
+        "dt"     'ensime-db-backtrace
 
-        "mee"     'ensime-print-errors-at-point
-        "mel"     'ensime-show-all-errors-and-warnings
-        "mes"     'ensime-stacktrace-switch
+        "ee"     'ensime-print-errors-at-point
+        "el"     'ensime-show-all-errors-and-warnings
+        "es"     'ensime-stacktrace-switch
 
-        "mgg"     'ensime-edit-definition
-        "mgp"     'ensime-pop-find-definition-stack
-        "mgi"     'ensime-goto-impl
-        "mgt"     'ensime-goto-test
+        "gg"     'ensime-edit-definition
+        "gp"     'ensime-pop-find-definition-stack
+        "gi"     'ensime-goto-impl
+        "gt"     'ensime-goto-test
 
-        "mhh"     'ensime-show-doc-for-symbol-at-point
-        "mhu"     'ensime-show-uses-of-symbol-at-point
-        "mht"     'ensime-print-type-at-point
+        "hh"     'ensime-show-doc-for-symbol-at-point
+        "hu"     'ensime-show-uses-of-symbol-at-point
+        "ht"     'ensime-print-type-at-point
 
-        "mii"     'ensime-inspect-type-at-point
-        "miI"     'ensime-inspect-type-at-point-other-frame
-        "mip"     'ensime-inspect-project-package
+        "ii"     'ensime-inspect-type-at-point
+        "iI"     'ensime-inspect-type-at-point-other-frame
+        "ip"     'ensime-inspect-project-package
 
-        "mnF"     'ensime-reload-open-files
-        "mns"     'ensime
-        "mnS"     'ensime-gen-and-restart
+        "nF"     'ensime-reload-open-files
+        "ns"     'ensime
+        "nS"     'ensime-gen-and-restart
 
-        "mrd"     'ensime-refactor-inline-local
-        "mrD"     'ensime-undo-peek
-        "mrf"     'ensime-format-source
-        "mri"     'ensime-refactor-organize-imports
-        "mrm"     'ensime-refactor-extract-method
-        "mrr"     'ensime-refactor-rename
-        "mrt"     'ensime-import-type-at-point
-        "mrv"     'ensime-refactor-extract-local
+        "rd"     'ensime-refactor-inline-local
+        "rD"     'ensime-undo-peek
+        "rf"     'ensime-format-source
+        "ri"     'ensime-refactor-organize-imports
+        "rm"     'ensime-refactor-extract-method
+        "rr"     'ensime-refactor-rename
+        "rt"     'ensime-import-type-at-point
+        "rv"     'ensime-refactor-extract-local
 
-        "mta"     'ensime-sbt-do-test-dwim
-        "mtr"     'ensime-sbt-do-test-quick-dwim
-        "mtt"     'ensime-sbt-do-test-only-dwim
+        "ta"     'ensime-sbt-do-test-dwim
+        "tr"     'ensime-sbt-do-test-quick-dwim
+        "tt"     'ensime-sbt-do-test-only-dwim
 
-        "msa"     'ensime-inf-load-file
-        "msb"     'ensime-inf-eval-buffer
-        "msB"     'ensime-inf-eval-buffer-switch
-        "msi"     'ensime-inf-switch
-        "msr"     'ensime-inf-eval-region
-        "msR"     'ensime-inf-eval-region-switch
+        "sa"     'ensime-inf-load-file
+        "sb"     'ensime-inf-eval-buffer
+        "sB"     'ensime-inf-eval-buffer-switch
+        "si"     'ensime-inf-switch
+        "sr"     'ensime-inf-eval-region
+        "sR"     'ensime-inf-eval-region-switch
 
-        "mz"      'ensime-expand-selection-command
+        "z"      'ensime-expand-selection-command
         )
 
       ;; Don't use scala checker if ensime mode is active, since it provides
@@ -185,8 +185,8 @@
   (use-package sbt-mode
     :config
     (progn
-      (evil-leader/set-key-for-mode 'scala-mode
-        "mbb" 'sbt-command))))
+      (spacemacs/set-leader-keys-for-major-mode 'scala-mode
+        "bb" 'sbt-command))))
 
 (defun scala/init-scala-mode2 ()
   (use-package scala-mode2

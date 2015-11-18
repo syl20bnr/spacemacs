@@ -60,7 +60,7 @@
                p4-diff-all-opened
                p4-ediff)
     :init
-    (evil-leader/set-key
+    (spacemacs/set-leader-keys
       "p4a" 'p4-add
       "p4b" 'p4-branch
       "p4B" 'p4-branches

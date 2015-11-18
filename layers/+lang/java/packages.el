@@ -69,58 +69,58 @@
         (kbd "R") 'eclim-project-rename
         (kbd "q") 'eclim-quit-window)
 
-      (evil-leader/set-key-for-mode 'java-mode
-        "mea" 'eclim-problems-show-all
-        "meb" 'eclim-problems
-        "mec" 'eclim-problems-correct
-        "mee" 'eclim-problems-show-errors
-        "mef" 'eclim-problems-toggle-filefilter
-        "men" 'eclim-problems-next-same-window
-        "meo" 'eclim-problems-open
-        "mep" 'eclim-problems-previous-same-window
-        "mew" 'eclim-problems-show-warnings
+      (spacemacs/set-leader-keys-for-major-mode 'java-mode
+        "ea" 'eclim-problems-show-all
+        "eb" 'eclim-problems
+        "ec" 'eclim-problems-correct
+        "ee" 'eclim-problems-show-errors
+        "ef" 'eclim-problems-toggle-filefilter
+        "en" 'eclim-problems-next-same-window
+        "eo" 'eclim-problems-open
+        "ep" 'eclim-problems-previous-same-window
+        "ew" 'eclim-problems-show-warnings
 
-        "mff" 'eclim-java-find-generic
+        "ff" 'eclim-java-find-generic
 
-        "mgg" 'eclim-java-find-declaration
-        "mgt" 'eclim-java-find-type
+        "gg" 'eclim-java-find-declaration
+        "gt" 'eclim-java-find-type
 
-        "mrc" 'eclim-java-constructor
-        "mrg" 'eclim-java-generate-getter-and-setter
-        "mrf" 'eclim-java-format
-        "mri" 'eclim-java-import-organize
-        "mrj" 'eclim-java-implement
-        "mrr" 'eclim-java-refactor-rename-symbol-at-point
+        "rc" 'eclim-java-constructor
+        "rg" 'eclim-java-generate-getter-and-setter
+        "rf" 'eclim-java-format
+        "ri" 'eclim-java-import-organize
+        "rj" 'eclim-java-implement
+        "rr" 'eclim-java-refactor-rename-symbol-at-point
 
-        "mhc" 'eclim-java-call-hierarchy
-        "mhh" 'eclim-java-show-documentation-for-current-element
-        "mhi" 'eclim-java-hierarchy
-        "mhu" 'eclim-java-find-references
+        "hc" 'eclim-java-call-hierarchy
+        "hh" 'eclim-java-show-documentation-for-current-element
+        "hi" 'eclim-java-hierarchy
+        "hu" 'eclim-java-find-references
 
-        "mmi" 'spacemacs/java-maven-clean-install
-        "mmI" 'spacemacs/java-maven-install
-        "mmp" 'eclim-maven-lifecycle-phases
-        "mmr" 'eclim-maven-run
-        "mmR" 'eclim-maven-lifecycle-phase-run
-        "mmt" 'spacemacs/java-maven-test
+        "mi" 'spacemacs/java-maven-clean-install
+        "mI" 'spacemacs/java-maven-install
+        "mp" 'eclim-maven-lifecycle-phases
+        "mr" 'eclim-maven-run
+        "mR" 'eclim-maven-lifecycle-phase-run
+        "mt" 'spacemacs/java-maven-test
 
-        "maa" 'eclim-ant-run
-        "mac" 'eclim-ant-clear-cache
-        "mar" 'eclim-ant-run
-        "mav" 'eclim-ant-validate
+        "aa" 'eclim-ant-run
+        "ac" 'eclim-ant-clear-cache
+        "ar" 'eclim-ant-run
+        "av" 'eclim-ant-validate
 
-        "mpb" 'eclim-project-build
-        "mpc" 'eclim-project-create
-        "mpd" 'eclim-project-delete
-        "mpg" 'eclim-project-goto
-        "mpi" 'eclim-project-import
-        "mpj" 'eclim-project-info-mode
-        "mpk" 'eclim-project-close
-        "mpo" 'eclim-project-open
-        "mpp" 'eclim-project-mode
-        "mpu" 'eclim-project-update
+        "pb" 'eclim-project-build
+        "pc" 'eclim-project-create
+        "pd" 'eclim-project-delete
+        "pg" 'eclim-project-goto
+        "pi" 'eclim-project-import
+        "pj" 'eclim-project-info-mode
+        "pk" 'eclim-project-close
+        "po" 'eclim-project-open
+        "pp" 'eclim-project-mode
+        "pu" 'eclim-project-update
 
-        "mtt" 'eclim-run-junit)))
+        "tt" 'eclim-run-junit)))
 
   (use-package company-emacs-eclim
     :if (configuration-layer/package-usedp 'company)

@@ -14,7 +14,7 @@
 
 (defun spotify/init-spotify ()
   (use-package spotify
-    :config (evil-leader/set-key
+    :config (spacemacs/set-leader-keys
               "amsp" 'spotify-playpause
               "amsn" 'spotify-next
               "amsN" 'spotify-previous
@@ -22,5 +22,5 @@
 
 (defun spotify/init-helm-spotify ()
   (use-package helm-spotify
-    :config (evil-leader/set-key
+    :config (spacemacs/set-leader-keys
               "amsg" 'helm-spotify)))

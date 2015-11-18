@@ -38,59 +38,59 @@
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mm" "mix")
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mx" "execute")
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mg" "goto")
-    (evil-leader/set-key-for-mode 'elixir-mode
-      "mel" 'alchemist-eval-current-line
-      "meL" 'alchemist-eval-print-current-line
-      "mer" 'alchemist-eval-region
-      "meR" 'alchemist-eval-print-region
-      "meb" 'alchemist-eval-buffer
-      "meB" 'alchemist-eval-print-buffer
-      "mej" 'alchemist-eval-quoted-current-line
-      "meJ" 'alchemist-eval-print-quoted-current-line
-      "meu" 'alchemist-eval-quoted-region
-      "meU" 'alchemist-eval-print-quoted-region
-      "mev" 'alchemist-eval-quoted-buffer
-      "meV" 'alchemist-eval-print-quoted-buffer
+    (spacemacs/set-leader-keys-for-major-mode 'elixir-mode
+      "el" 'alchemist-eval-current-line
+      "eL" 'alchemist-eval-print-current-line
+      "er" 'alchemist-eval-region
+      "eR" 'alchemist-eval-print-region
+      "eb" 'alchemist-eval-buffer
+      "eB" 'alchemist-eval-print-buffer
+      "ej" 'alchemist-eval-quoted-current-line
+      "eJ" 'alchemist-eval-print-quoted-current-line
+      "eu" 'alchemist-eval-quoted-region
+      "eU" 'alchemist-eval-print-quoted-region
+      "ev" 'alchemist-eval-quoted-buffer
+      "eV" 'alchemist-eval-print-quoted-buffer
 
-      "mpt" 'alchemist-project-find-test
-      "mgt" 'alchemist-project-toggle-file-and-tests
-      "mgT" 'alchemist-project-toggle-file-and-tests-other-window
+      "pt" 'alchemist-project-find-test
+      "gt" 'alchemist-project-toggle-file-and-tests
+      "gT" 'alchemist-project-toggle-file-and-tests-other-window
 
-      "mh:" 'alchemist-help
-      "mhH" 'alchemist-help-history
-      "mhh" 'alchemist-help-search-at-point
-      "mhr" 'alchemist-help-search-marked-region
+      "h:" 'alchemist-help
+      "hH" 'alchemist-help-history
+      "hh" 'alchemist-help-search-at-point
+      "hr" 'alchemist-help-search-marked-region
 
-      "mm:" 'alchemist-mix
-      "mmc" 'alchemist-mix-compile
-      "mmx" 'alchemist-mix-run
-      "mmh" 'alchemist-mix-help
+      "m:" 'alchemist-mix
+      "mc" 'alchemist-mix-compile
+      "mx" 'alchemist-mix-run
+      "mh" 'alchemist-mix-help
 
-      "msi" 'alchemist-iex-run
-      "msI" 'alchemist-iex-project-run
-      "msl" 'alchemist-iex-send-current-line
-      "msL" 'alchemist-iex-send-current-line-and-go
-      "msr" 'alchemist-iex-send-region
-      "msR" 'alchemist-iex-send-region-and-go
-      "msc" 'alchemist-iex-compile-this-buffer
+      "si" 'alchemist-iex-run
+      "sI" 'alchemist-iex-project-run
+      "sl" 'alchemist-iex-send-current-line
+      "sL" 'alchemist-iex-send-current-line-and-go
+      "sr" 'alchemist-iex-send-region
+      "sR" 'alchemist-iex-send-region-and-go
+      "sc" 'alchemist-iex-compile-this-buffer
 
-      "mta" 'alchemist-mix-test
-      "mtb" 'alchemist-mix-test-this-buffer
-      "mtt" 'alchemist-mix-test-at-point
-      "mtf" 'alchemist-test-file
-      "mtn" 'alchemist-test-jump-to-next-test
-      "mtp" 'alchemist-test-jump-to-previous-test
+      "ta" 'alchemist-mix-test
+      "tb" 'alchemist-mix-test-this-buffer
+      "tt" 'alchemist-mix-test-at-point
+      "tf" 'alchemist-test-file
+      "tn" 'alchemist-test-jump-to-next-test
+      "tp" 'alchemist-test-jump-to-previous-test
 
-      "mxb" 'alchemist-execute-this-buffer
-      "mxf" 'alchemist-execute-file
-      "mx:" 'alchemist-execute
+      "xb" 'alchemist-execute-this-buffer
+      "xf" 'alchemist-execute-file
+      "x:" 'alchemist-execute
 
-      "mcb" 'alchemist-compile-this-buffer
-      "mcf" 'alchemist-compile-file
-      "mc:" 'alchemist-compile
+      "cb" 'alchemist-compile-this-buffer
+      "cf" 'alchemist-compile-file
+      "c:" 'alchemist-compile
 
-      "mgg" 'alchemist-goto-definition-at-point
-      "m," 'alchemist-goto-jump-back)
+      "gg" 'alchemist-goto-definition-at-point
+      "," 'alchemist-goto-jump-back)
 
     (dolist (mode (list alchemist-compile-mode-map
                         alchemist-eval-mode-map

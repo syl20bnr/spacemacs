@@ -17,7 +17,7 @@
   (use-package tss
     :defer t
     :mode ("\\.ts\\'" . typescript-mode)
-    :init (evil-leader/set-key-for-mode 'typescript-mode
-            "mgg" 'tss-jump-to-definition
-            "mhh" 'tss-popup-help)
+    :init (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
+            "gg" 'tss-jump-to-definition
+            "hh" 'tss-popup-help)
     :config (tss-config-default)))

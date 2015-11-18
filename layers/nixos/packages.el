@@ -13,7 +13,7 @@
 (defun nixos/init-helm-nixos-options ()
   (use-package helm-nixos-options
     :config
-    (evil-leader/set-key
+    (spacemacs/set-leader-keys
       "h>" 'helm-nixos-options)))
 
 (when (configuration-layer/layer-usedp 'auto-completion)

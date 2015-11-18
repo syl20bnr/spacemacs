@@ -15,11 +15,11 @@
         (interactive)
         (restclient-http-send-current t t))
 
-      (evil-leader/set-key-for-mode 'restclient-mode
-        "ms" 'restclient-http-send-current-stay-in-window
-        "mS" 'restclient-http-send-current
-        "mr" 'restclient-http-send-current-raw-stay-in-window
-        "mR" 'restclient-http-send-current-raw
+      (spacemacs/set-leader-keys-for-major-mode 'restclient-mode
+        "s" 'restclient-http-send-current-stay-in-window
+        "S" 'restclient-http-send-current
+        "r" 'restclient-http-send-current-raw-stay-in-window
+        "R" 'restclient-http-send-current-raw
         ))
     )
   )

@@ -54,21 +54,21 @@
 ;; ---------------------------------------------------------------------------
 
 ;; Universal argument ---------------------------------------------------------
-(evil-leader/set-key "u" 'universal-argument)
+(spacemacs/set-leader-keys "u" 'universal-argument)
 (when (memq dotspacemacs-editing-style '(vim hybrid))
   (define-key universal-argument-map
     (kbd (concat dotspacemacs-leader-key " u"))
     'universal-argument-more))
 ;; shell command  -------------------------------------------------------------
-(evil-leader/set-key "!" 'shell-command)
+(spacemacs/set-leader-keys "!" 'shell-command)
 ;; applications ---------------------------------------------------------------
-(evil-leader/set-key
+(spacemacs/set-leader-keys
   "ac"  'calc-dispatch
   "ad"  'dired
   "ap"  'proced
   "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
-(evil-leader/set-key
+(spacemacs/set-leader-keys
   "bd"  'kill-this-buffer
   "TAB" 'spacemacs/alternate-buffer
   "bh"  'spacemacs/home
@@ -84,7 +84,7 @@
   "bY"  'spacemacs/copy-whole-buffer-to-clipboard
   "bw"  'read-only-mode)
 ;; Cycling settings -----------------------------------------------------------
-(evil-leader/set-key "Tn" 'spacemacs/cycle-spacemacs-theme)
+(spacemacs/set-leader-keys "Tn" 'spacemacs/cycle-spacemacs-theme)
 ;; describe functions ---------------------------------------------------------
 (defmacro spacemacs||set-helm-key (keys func)
   "Define a key bindings for FUNC using KEYS.
@@ -97,14 +97,14 @@ Ensure that helm is required before calling FUNC."
          (interactive)
          (require 'helm)
          (call-interactively ',func))
-       (evil-leader/set-key ,keys ',func-name))))
+       (spacemacs/set-leader-keys ,keys ',func-name))))
 (spacemacs||set-helm-key "hdb" describe-bindings)
 (spacemacs||set-helm-key "hdc" describe-char)
 (spacemacs||set-helm-key "hdf" describe-function)
 (spacemacs||set-helm-key "hdk" describe-key)
 (spacemacs||set-helm-key "hdm" describe-mode)
 (spacemacs||set-helm-key "hdp" describe-package)
-(evil-leader/set-key "hds" 'spacemacs/describe-system-info)
+(spacemacs/set-leader-keys "hds" 'spacemacs/describe-system-info)
 (spacemacs||set-helm-key "hdt" describe-theme)
 (spacemacs||set-helm-key "hdv" describe-variable)
 (spacemacs||set-helm-key "hL"  helm-locate-library)
@@ -112,12 +112,12 @@ Ensure that helm is required before calling FUNC."
 (spacemacs||set-helm-key "sww" helm-wikipedia-suggest)
 (spacemacs||set-helm-key "swg" helm-google-suggest)
 ;; errors ---------------------------------------------------------------------
-(evil-leader/set-key
+(spacemacs/set-leader-keys
   "en" 'spacemacs/next-error
   "ep" 'spacemacs/previous-error
   "eN" 'spacemacs/previous-error)
 ;; file -----------------------------------------------------------------------
-(evil-leader/set-key
+(spacemacs/set-leader-keys
   "fc" 'spacemacs/copy-file
   "fD" 'spacemacs/delete-current-buffer-file
   "fei" 'spacemacs/find-user-init-file
@@ -140,7 +140,7 @@ Ensure that helm is required before calling FUNC."
   "fvp" 'add-file-local-variable-prop-line
   "fy" 'spacemacs/show-and-copy-buffer-filename)
 ;; insert stuff ---------------------------------------------------------------
-(evil-leader/set-key
+(spacemacs/set-leader-keys
   "iJ" 'spacemacs/insert-line-below-no-indent
   "iK" 'spacemacs/insert-line-above-no-indent
   "ik" 'spacemacs/evil-insert-line-above
@@ -148,7 +148,7 @@ Ensure that helm is required before calling FUNC."
 ;; format ---------------------------------------------------------------------
 ;; <SPC> j k key binding for a frequent action: go and indent line below the point
 ;; <SPC> J split the current line at point and indent it
-(evil-leader/set-key
+(spacemacs/set-leader-keys
   "J"  'sp-split-sexp
   "jj" 'sp-newline
   "jo" 'open-line
@@ -157,18 +157,18 @@ Ensure that helm is required before calling FUNC."
   "jk" 'spacemacs/evil-goto-next-line-and-indent)
 
 ;; navigation -----------------------------------------------------------------
-(evil-leader/set-key
+(spacemacs/set-leader-keys
   "jh" 'spacemacs/push-mark-and-goto-beginning-of-line
   "jl" 'spacemacs/push-mark-and-goto-end-of-line)
 
 ;; Compilation ----------------------------------------------------------------
-(evil-leader/set-key
+(spacemacs/set-leader-keys
   "cC" 'compile
   "cr" 'recompile
   "cq" 'spacemacs/close-compilation-window)
 
 ;; narrow & widen -------------------------------------------------------------
-(evil-leader/set-key
+(spacemacs/set-leader-keys
   "nr" 'narrow-to-region
   "np" 'narrow-to-page
   "nf" 'narrow-to-defun
@@ -282,7 +282,7 @@ Ensure that helm is required before calling FUNC."
   :documentation "Enable semantic-stickyfunc globally."
   :evil-leader "T C-s")
 ;; quit -----------------------------------------------------------------------
-(evil-leader/set-key
+(spacemacs/set-leader-keys
   "qs" 'spacemacs/save-buffers-kill-emacs
   "qq" 'spacemacs/prompt-kill-emacs
   "qQ" 'spacemacs/kill-emacs
@@ -306,7 +306,7 @@ Ensure that helm is required before calling FUNC."
              (symbol-value golden-ratio-mode))
     (golden-ratio)))
 
-(evil-leader/set-key
+(spacemacs/set-leader-keys
   "w2"  'spacemacs/layout-double-columns
   "w3"  'spacemacs/layout-triple-columns
   "wb"  'spacemacs/switch-to-minibuffer-window
@@ -345,7 +345,7 @@ Ensure that helm is required before calling FUNC."
 ;; text -----------------------------------------------------------------------
 (defalias 'count-region 'count-words-region)
 
-(evil-leader/set-key
+(spacemacs/set-leader-keys
   "xaa" 'align
   "xar" 'spacemacs/align-repeat
   "xam" 'spacemacs/align-repeat-math-oper
@@ -369,7 +369,7 @@ Ensure that helm is required before calling FUNC."
   "xu"  'downcase-region
   "xwc" 'spacemacs/count-words-analysis)
 ;; google translate -----------------------------------------------------------
-(evil-leader/set-key
+(spacemacs/set-leader-keys
   "xgl" 'spacemacs/set-google-translate-languages)
 ;; shell ----------------------------------------------------------------------
 (with-eval-after-load 'shell

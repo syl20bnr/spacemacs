@@ -34,11 +34,11 @@
         (define-key evil-normal-state-local-map (kbd "SPC m z") 'dos-mode))
       (add-hook 'outline-mode-hook 'windows-scripts/dos-outline-hook))
     :config
-    (evil-leader/set-key-for-mode 'dos-mode
-      "mhD" 'dos-help-cmd
-      "meb" 'dos-run
-      "meB" 'dos-run-args
-      "ms"  'dos-sep
-      "mt"  'dos-template-mini
-      "mT"  'dos-template
-      "mz"  'windows-scripts/dos-outline)))
+    (spacemacs/set-leader-keys-for-major-mode 'dos-mode
+      "hD" 'dos-help-cmd
+      "eb" 'dos-run
+      "eB" 'dos-run-args
+      "s"  'dos-sep
+      "t"  'dos-template-mini
+      "T"  'dos-template
+      "z"  'windows-scripts/dos-outline)))

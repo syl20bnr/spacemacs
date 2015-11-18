@@ -51,12 +51,12 @@
     :init
     (defun spacemacs/setup-helm-cscope (mode)
       "Setup `helm-cscope' for MODE"
-      (evil-leader/set-key-for-mode mode
-        "mgc" 'helm-cscope-find-called-function
-        "mgC" 'helm-cscope-find-calling-this-funtcion
-        "mgd" 'helm-cscope-find-global-definition
-        "mge" 'helm-cscope-find-egrep-pattern
-        "mgf" 'helm-cscope-find-this-file
-        "mgF" 'helm-cscope-find-files-including-file
-        "mgr" 'helm-cscope-find-this-symbol
-        "mgx" 'helm-cscope-find-this-text-string))))
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "gc" 'helm-cscope-find-called-function
+        "gC" 'helm-cscope-find-calling-this-funtcion
+        "gd" 'helm-cscope-find-global-definition
+        "ge" 'helm-cscope-find-egrep-pattern
+        "gf" 'helm-cscope-find-this-file
+        "gF" 'helm-cscope-find-files-including-file
+        "gr" 'helm-cscope-find-this-symbol
+        "gx" 'helm-cscope-find-this-text-string))))

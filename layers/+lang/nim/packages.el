@@ -25,5 +25,5 @@
       (defun spacemacs/nim-compile-run ()
         (interactive)
         (shell-command "nim compile --run main.nim"))
-      (evil-leader/set-key-for-mode 'nim-mode
-        "mcr" 'spacemacs/nim-compile-run))))
+      (spacemacs/set-leader-keys-for-major-mode 'nim-mode
+        "cr" 'spacemacs/nim-compile-run))))

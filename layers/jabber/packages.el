@@ -15,17 +15,17 @@
 (defun jabber/init-jabber ()
   (use-package jabber
     :defer t
-    :init (evil-leader/set-key "aj" 'jabber-connect-all)
-    :config (evil-leader/set-key-for-mode 'jabber-roster-mode
-              "ma" 'jabber-send-presence
-              "mb" 'jabber-get-browse
-              "md" 'jabber-disconnect
-              "me" 'jabber-roster-edit-action-at-point
-              "mg" 'jabber-display-roster
-              "mi" 'jabber-get-disco-items
-              "mj" 'jabber-muc-join
-              "mq" 'bury-buffer
-              "mr" 'jabber-roster-toggle-offline-display
-              "ms" 'jabber-send-subscription-request
-              "mv" 'jabber-get-version
-              "m RET" 'jabber-roster-ret-action-at-point)))
+    :init (spacemacs/set-leader-keys "aj" 'jabber-connect-all)
+    :config (spacemacs/set-leader-keys-for-major-mode 'jabber-roster-mode
+              "a" 'jabber-send-presence
+              "b" 'jabber-get-browse
+              "d" 'jabber-disconnect
+              "e" 'jabber-roster-edit-action-at-point
+              "g" 'jabber-display-roster
+              "i" 'jabber-get-disco-items
+              "j" 'jabber-muc-join
+              "q" 'bury-buffer
+              "r" 'jabber-roster-toggle-offline-display
+              "s" 'jabber-send-subscription-request
+              "v" 'jabber-get-version
+              "RET" 'jabber-roster-ret-action-at-point)))

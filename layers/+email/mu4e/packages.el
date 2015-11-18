@@ -18,7 +18,7 @@
     :commands (mu4e mu4e-compose-new)
     :init
     (progn
-      (evil-leader/set-key "a M" 'mu4e)
+      (spacemacs/set-leader-keys "a M" 'mu4e)
       (global-set-key (kbd "C-x m") 'mu4e-compose-new))
     :config
     (progn
