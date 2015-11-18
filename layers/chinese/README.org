@@ -61,8 +61,7 @@ If you don’t need to type Chinese in minibuffer, you could temporarily disable
 with the following configuration.
 
 #+BEGIN_SRC emacs-lisp
-  (defun your-layer/post-init-fcitx ()
-    (fcitx-aggressive-setup))
+  (fcitx-aggressive-setup)
 #+END_SRC
 
 
