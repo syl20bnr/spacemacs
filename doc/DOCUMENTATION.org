@@ -617,11 +617,11 @@ as follows.
 
 #+BEGIN_SRC emacs-lisp
 (evil-leader/set-key "C-]" 'forward-char)
-(evil-leader/set-key-for-mode 'emacs-lisp-mode "C-]" 'forward-char)
+(spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode "C-]" 'forward-char)
 #+END_SRC
 
 These functions use a macro like =kbd= to translate the key sequences for you.
-The second function, =evil-leader/set-key-for-mode=, binds the key only in the
+The second function, =spacemacs/set-leader-keys-for-major-mode=, binds the key only in the
 specified mode. The second key binding would not be in effect in =org-mode= for
 example.
 
