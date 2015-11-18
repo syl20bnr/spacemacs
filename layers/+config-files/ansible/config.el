@@ -10,6 +10,8 @@
 ;;
 ;;; License: GPLv3
 
+(configuration-layer/declare-layers '(yaml))
+
 ;; detect filenames compatible with Ansible's recommended layout.
 ;; http://docs.ansible.com/playbooks_best_practices.html#directory-layout
 (setq ansible/ansible-filename-re
