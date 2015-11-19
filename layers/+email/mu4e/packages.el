@@ -22,12 +22,14 @@
       (global-set-key (kbd "C-x m") 'mu4e-compose-new))
     :config
     (progn
-      (spacemacs|evilify-map mu4e-main-mode-map
+      (evilified-state-evilify-map mu4e-main-mode-map
         :mode mu4e-main-mode
         :bindings
         (kbd "j") 'mu4e~headers-jump-to-maildir)
-      (spacemacs|evilify-map mu4e-headers-mode-map :mode mu4e-headers-mode)
-      (spacemacs|evilify-map mu4e-view-mode-map :mode mu4e-view-mode)
+      (evilified-state-evilify-map mu4e-headers-mode-map
+        :mode mu4e-headers-mode)
+      (evilified-state-evilify-map mu4e-view-mode-map
+        :mode mu4e-view-mode)
 
       (setq mu4e-completing-read-function 'helm--completing-read-default)
 
