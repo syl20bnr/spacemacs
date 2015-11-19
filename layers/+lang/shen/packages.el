@@ -18,8 +18,11 @@
                                     :files ("inf-shen.el")))))
 
 (defun shen/init-shen-mode ()
-  "Initialize my package"
-  (use-package shen-mode))
+  (use-package shen-mode
+    :defer t
+    :mode "\\.shen\\'"
+    :config
+    (progn
 
 (defun shen/init-inf-shen ()
   (use-package inf-shen))
