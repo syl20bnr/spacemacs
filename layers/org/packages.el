@@ -294,7 +294,7 @@ Will work on both org-mode and any mode that accepts plain html."
     :defer t
     :init
     (progn
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify nil org-present-mode-keymap
           "h" 'org-present-prev
           "l" 'org-present-next

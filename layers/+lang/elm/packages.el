@@ -94,7 +94,7 @@
         "mpc" 'elm-package-catalog
         "mpd" 'elm-documentation-lookup)
 
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify elm-package-mode elm-package-mode-map
           "g" 'elm-package-refresh
           "n" 'elm-package-next

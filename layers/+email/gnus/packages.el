@@ -75,15 +75,15 @@
         (gnus-summary-scroll-up arg))))
     (add-to-list 'nnmail-extra-headers nnrss-url-field)
 
-    (when (configuration-layer/package-usedp 'evilified-state)
+    (when (configuration-layer/package-usedp 'evil-evilified-state)
       (evilified-state-evilify gnus-group-mode gnus-group-mode-map))
-    (when (configuration-layer/package-usedp 'evilified-state)
+    (when (configuration-layer/package-usedp 'evil-evilified-state)
       (evilified-state-evilify gnus-server-mode gnus-server-mode-map))
-    (when (configuration-layer/package-usedp 'evilified-state)
+    (when (configuration-layer/package-usedp 'evil-evilified-state)
       (evilified-state-evilify gnus-browse-mode gnus-browse-mode-map))
-    (when (configuration-layer/package-usedp 'evilified-state)
+    (when (configuration-layer/package-usedp 'evil-evilified-state)
       (evilified-state-evilify gnus-article-mode gnus-article-mode-map))
-    (when (configuration-layer/package-usedp 'evilified-state)
+    (when (configuration-layer/package-usedp 'evil-evilified-state)
       (evilified-state-evilify gnus-summary-mode gnus-summary-mode-map
         (kbd "J") 'gnus-summary-next-article
         (kbd "K") 'gnus-summary-prev-article

@@ -485,7 +485,7 @@
   (use-package doc-view
     :defer t
     :init
-    (when (configuration-layer/package-usedp 'evilified-state)
+    (when (configuration-layer/package-usedp 'evil-evilified-state)
       (evilified-state-evilify doc-view-mode doc-view-mode-map
                                "/"  'spacemacs/doc-view-search-new-query
                                "?"  'spacemacs/doc-view-search-new-query-backward
@@ -1212,7 +1212,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
             (helm-exit-and-execute-action 'spacemacs/helm-project-smart-do-search-in-dir))))
 
       ;; evilified-state-evilify the helm-grep buffer
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify helm-grep-mode helm-grep-mode-map
                                  (kbd "RET") 'helm-grep-mode-jump-other-window
                                  (kbd "q") 'quit-window))
@@ -1255,7 +1255,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :config
     (progn
       (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify helm-ag-mode helm-ag-mode-map
                                  (kbd "RET") 'helm-ag-mode-jump-other-window
                                  (kbd "q") 'quit-window)))))
@@ -1652,7 +1652,7 @@ It will toggle the overlay under point or create an overlay of one character."
                                            paradox-token)))))
         (paradox-list-packages nil))
 
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify paradox-menu-mode paradox-menu-mode-map
                                  "H" 'paradox-menu-quick-help
                                  "J" 'paradox-next-describe

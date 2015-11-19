@@ -4,7 +4,7 @@
 (add-hook 'dired-mode-hook 'vinegar/dired-setup)
 
 (with-eval-after-load 'dired
-  (when (configuration-layer/package-usedp 'evilified-state)
+  (when (configuration-layer/package-usedp 'evil-evilified-state)
     (evilified-state-evilify dired-mode dired-mode-map
       "j"         'vinegar/move-down
       "k"         'vinegar/move-up
