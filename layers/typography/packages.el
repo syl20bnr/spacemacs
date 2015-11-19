@@ -33,8 +33,8 @@
         :on (typo-mode)
         :off (typo-mode -1)
         :documentation "Enable typographic substitutions"
-        :evil-leader "tY")
-      (spacemacs|diminish typo-mode " Ⓨ" " Y"))
+        :evil-leader "tT")
+      (spacemacs|diminish typo-mode " Ⓣ" " T"))
     :config (setq-default typo-language "English")))
 
 (defun typography/init-tildify ()
