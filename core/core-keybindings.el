@@ -34,15 +34,9 @@ LONG-NAME if given is stored in `spacemacs/prefix-titles'."
                                  (kbd full-prefix-emacs))))
     ;; define the prefix command only if it does not already exist
     (unless long-name (setq long-name name))
-    (if (fboundp 'which-key-declare-prefixes)
-        (which-key-declare-prefixes
-          full-prefix-emacs (cons name long-name)
-          full-prefix (cons name long-name))
-      (unless (lookup-key spacemacs-default-map prefix)
-        (define-prefix-command (intern command))
-        (spacemacs/set-keys prefix (intern command))
-        (push (cons full-prefix-lst long-name) spacemacs/prefix-titles)
-        (push (cons full-prefix-emacs-lst long-name) spacemacs/prefix-titles)))))
+    (which-key-declare-prefixes
+      full-prefix-emacs (cons name long-name)
+      full-prefix (cons name long-name))))
 
 (defun spacemacs/declare-prefix-for-mode (mode prefix name &optional long-name)
   "Declare a prefix PREFIX. MODE is the mode in which this prefix command should
@@ -56,17 +50,13 @@ used as the prefix command."
          (major-mode-prefix-emacs (concat dotspacemacs-major-mode-emacs-leader-key " " (substring prefix 1))))
     (unless long-name (setq long-name name))
     (let ((prefix-name (cons name long-name)))
-      (if (fboundp 'which-key-declare-prefixes-for-mode)
-          (progn
-            (which-key-declare-prefixes-for-mode mode
-              full-prefix-emacs prefix-name
-              full-prefix prefix-name)
-            (when (and is-major-mode-prefix dotspacemacs-major-mode-leader-key)
-              (which-key-declare-prefixes-for-mode mode major-mode-prefix prefix-name))
-            (when (and is-major-mode-prefix dotspacemacs-major-mode-emacs-leader-key)
-              (which-key-declare-prefixes-for-mode mode major-mode-prefix-emacs prefix-name)))
-        (define-prefix-command command)
-        (spacemacs/set-keys-for-mode mode prefix command)))))
+      (which-key-declare-prefixes-for-mode mode
+        full-prefix-emacs prefix-name
+        full-prefix prefix-name)
+      (when (and is-major-mode-prefix dotspacemacs-major-mode-leader-key)
+        (which-key-declare-prefixes-for-mode mode major-mode-prefix prefix-name))
+      (when (and is-major-mode-prefix dotspacemacs-major-mode-emacs-leader-key)
+        (which-key-declare-prefixes-for-mode mode major-mode-prefix-emacs prefix-name)))))
 
 (defun spacemacs/set-leader-keys (key def &rest bindings)
   "Add KEY and DEF as key bindings under

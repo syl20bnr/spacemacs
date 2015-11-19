@@ -1453,25 +1453,13 @@ ARG non nil means that the editing style is `vim'."
         (which-key-add-key-based-replacements
          (concat leader-key " m")    "major mode commands"
          (concat leader-key " " dotspacemacs-command-key) "M-x"))
-      (if (fboundp 'which-key-declare-prefixes)
-          (which-key-declare-prefixes
-            dotspacemacs-leader-key '("root" . "Spacemacs root")
-            dotspacemacs-emacs-leader-key '("root" . "Spacemacs root")
-            (concat dotspacemacs-leader-key " m")
-            '("major-mode-cmd" . "Major mode commands")
-            (concat dotspacemacs-emacs-leader-key " m")
-            '("major-mode-cmd" . "Major mode commands"))
-        ;; no need to use this after everyone updates which-key
-        (setq which-key-prefix-title-alist
-              `((,(listify-key-sequence
-                   (kbd (concat dotspacemacs-leader-key " m"))) . "Major mode commands")
-                (,(listify-key-sequence
-                   (kbd (concat dotspacemacs-emacs-leader-key " m"))) . "Major mode commands")
-                (,(listify-key-sequence
-                   (kbd dotspacemacs-leader-key)) . "Spacemacs root")
-                (,(listify-key-sequence
-                   (kbd dotspacemacs-emacs-leader-key)) . "Spacemacs root")))
-        (nconc which-key-prefix-title-alist spacemacs/prefix-titles))
+      (which-key-declare-prefixes
+        dotspacemacs-leader-key '("root" . "Spacemacs root")
+        dotspacemacs-emacs-leader-key '("root" . "Spacemacs root")
+        (concat dotspacemacs-leader-key " m")
+        '("major-mode-cmd" . "Major mode commands")
+        (concat dotspacemacs-emacs-leader-key " m")
+        '("major-mode-cmd" . "Major mode commands"))
       ;; disable special key handling for spacemacs, since it can be
       ;; disorienting if you don't understand it
       (pcase dotspacemacs-which-key-position
