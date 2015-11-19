@@ -124,6 +124,11 @@
          :initform nil
          :type (satisfies (lambda (x) (member x '(nil pre))))
          :documentation "Initialization step.")
+   (protected :initarg :protected
+              :initform nil
+              :type boolean
+              :documentation
+              "If non-nil then this package cannot be excluded.")
    (excluded :initarg :excluded
              :initform nil
              :type boolean
@@ -247,10 +252,17 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
          (location (when (listp pkg) (plist-get (cdr pkg) :location)))
          (step (when (listp pkg) (plist-get (cdr pkg) :step)))
          (excluded (when (listp pkg) (plist-get (cdr pkg) :excluded)))
+         (protected (when (listp pkg) (plist-get (cdr pkg) :protected)))
+         (copyp (not (null obj)))
          (obj (if obj obj (cfgl-package name-str :name name-sym))))
     (when location (oset obj :location location))
     (when step (oset obj :step step))
     (oset obj :excluded excluded)
+    ;; cannot override protected packages
+    (unless copyp
+      (oset obj :protected protected)
+      (when protected
+        (push name-sym configuration-layer--protected-packages)))
     obj))
 
 (defun configuration-layer/get-packages (layers &optional dotfile)
@@ -756,7 +768,8 @@ path."
     (spacemacs-buffer/loading-animation)
     (let ((pkg-name (oref pkg :name)))
       (cond
-       ((oref pkg :excluded)
+       ((and (oref pkg :excluded)
+             (not (oref pkg :protected)))
         (spacemacs-buffer/message
          (format "%S ignored since it has been excluded." pkg-name)))
        ((null (oref pkg :owner))

@@ -23,7 +23,7 @@
         evil-leader
         evil-surround
         evil-visualstar
-        (evil-evilified-state :location local :step pre)
+        (evil-evilified-state :location local :step pre :protected t)
         exec-path-from-shell
         fill-column-indicator
         helm
