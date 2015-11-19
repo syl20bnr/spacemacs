@@ -30,7 +30,9 @@
 (defun git/init-evil-magit ()
   (unless (eq dotspacemacs-editing-style 'emacs)
     (with-eval-after-load 'magit
-      (require 'evil-magit))))
+      (require 'evil-magit)
+      (evil-define-key 'motion magit-mode-map
+        (kbd dotspacemacs-leader-key) spacemacs-default-map))))
 
 (defun git/init-helm-gitignore ()
   (use-package helm-gitignore
