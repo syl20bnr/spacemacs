@@ -97,6 +97,7 @@ prefix with ~SPC m~ to use with your evil-leader.
 | ~C-o~   | ein:console-open                          |
 | ~C-k~   | ein:worksheet-merge-cell                  |
 | ~C-j~   | spacemacs/ein:worksheet-merge-cell-next   |
+| ~s~     | ein:worksheet-split-cell-at-point         |
 | ~C-s~   | ein:notebook-save-notebook-command        |
 | ~C-r~   | ein:notebook-rename-command               |
 | ~1~     | ein:notebook-worksheet-open-1th           |
