@@ -140,10 +140,8 @@
       ;; seems to be necessary at the time of release
       (require 'git-rebase)
 
-      ;; use auto evilification if `evil-magit' is excluded
-      (unless (or (configuration-layer/package-usedp 'evil-magit)
-                  (not (configuration-layer/package-usedp
-                        'evil-evilified-state)))
+      (unless (configuration-layer/package-usedp 'evil-magit)
+        ;; use auto evilification if `evil-magit' is not used
         (evilified-state-evilify-map magit-mode-map)
         (evilified-state-evilify-map magit-status-mode-map
           :mode magit-status-mode
