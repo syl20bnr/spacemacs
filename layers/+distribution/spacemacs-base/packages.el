@@ -23,7 +23,7 @@
         evil-leader
         evil-surround
         evil-visualstar
-        (evilified-state :location local :step pre)
+        (evil-evilified-state :location local :step pre)
         exec-path-from-shell
         fill-column-indicator
         helm
@@ -446,8 +446,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (define-key evil-visual-state-map (kbd "#")
         'evil-visualstar/begin-search-backward))))
 
-(defun spacemacs-base/init-evilified-state ()
-  (use-package evilified-state)
+(defun spacemacs-base/init-evil-evilified-state ()
+  (use-package evil-evilified-state)
   (with-eval-after-load 'evil-leader
     (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
       evil-leader--default-map)))
@@ -1013,7 +1013,7 @@ ARG non nil means that the editing style is `vim'."
         ido-enable-flex-matching t))
 
 (defun spacemacs-base/init-package-menu ()
-  (spacemacs|evilify-map package-menu-mode-map
+  (evilified-state-evilify-map package-menu-mode-map
     :mode package-menu-mode))
 
 (defun spacemacs-base/init-ido-vertical-mode ()

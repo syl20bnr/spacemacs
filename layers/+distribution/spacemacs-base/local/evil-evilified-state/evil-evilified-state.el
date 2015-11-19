@@ -1,4 +1,4 @@
-;;; evilified-state.el --- A minimalistic evil state
+;;; evil-evilified-state.el --- A minimalistic evil state
 
 ;; Copyright (C) 2014, 2015 syl20bnr
 ;;
@@ -27,6 +27,12 @@
 
 ;; Define a `evilified' evil state inheriting from `emacs' state and
 ;; setting a minimalist list of Vim key bindings (like navigation, search, ...)
+
+;; The shadowed original mode key bindings are automatically reassigned
+;; following a set of rules:
+
+;;
+
 
 ;;; Code:
 
@@ -262,6 +268,6 @@ Currently this function infloops when the list is circular."
       (push (pop tail) result))
     (nreverse result)))
 
-(provide 'evilified-state)
+(provide 'evil-evilified-state)
 
 ;;; core-evilified-state.el ends here
