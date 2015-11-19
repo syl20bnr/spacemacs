@@ -84,6 +84,7 @@
         ;; Merge cells
         " C-k" 'ein:worksheet-merge-cell
         " C-j" 'spacemacs/ein:worksheet-merge-cell-next
+        " s" 'ein:worksheet-split-cell-at-point
         ;; Notebook
         " C-s" 'ein:notebook-save-notebook-command
         " C-r" 'ein:notebook-rename-command
@@ -155,9 +156,10 @@
         ("C-S-l" ein:worksheet-clear-all-output)
         ;;Console
         ("C-o" ein:console-open)
-        ;; Merge cells
+        ;; Merge and split cells
         ("C-k" ein:worksheet-merge-cell)
         ("C-j" spacemacs/ein:worksheet-merge-cell-next)
+        ("s" ein:worksheet-split-cell-at-point)
         ;; Notebook
         ("C-s" ein:notebook-save-notebook-command)
         ("C-r" ein:notebook-rename-command)
