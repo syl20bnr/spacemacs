@@ -22,7 +22,9 @@
 ;; can do the same thing and with fuzzy matching and other features.
 (with-eval-after-load 'dired
   (evil-define-key 'normal dired-mode-map "J" 'spacemacs/helm-find-files)
-  (define-key dired-mode-map "j" 'spacemacs/helm-find-files))
+  (define-key dired-mode-map "j" 'spacemacs/helm-find-files)
+  (evil-define-key 'normal dired-mode-map (kbd dotspacemacs-leader-key)
+    spacemacs-default-map))
 
 ;; alternate binding to search next occurrence with isearch without
 ;; exiting isearch
