@@ -150,7 +150,6 @@ initialization."
   ;; Use C-u as scroll-up (must be set before actually loading evil)
   (spacemacs/load-or-install-protected-package 'evil t)
   (spacemacs/load-or-install-protected-package 'evil-leader t)
-  (require 'core-evilified-state)
   ;; check for new version
   (if dotspacemacs-mode-line-unicode-symbols
       (setq-default spacemacs-version-check-lighter "[⇪]"))

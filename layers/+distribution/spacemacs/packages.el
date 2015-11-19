@@ -485,22 +485,23 @@
   (use-package doc-view
     :defer t
     :init
-    (evilify doc-view-mode doc-view-mode-map
-             "/"  'spacemacs/doc-view-search-new-query
-             "?"  'spacemacs/doc-view-search-new-query-backward
-             "gg" 'doc-view-first-page
-             "G"  'doc-view-last-page
-             "gt" 'doc-view-goto-page
-             "h"  'doc-view-previous-page
-             "j"  'doc-view-next-line-or-next-page
-             "k"  'doc-view-previous-line-or-previous-page
-             "K"  'doc-view-kill-proc-and-buffer
-             "l"  'doc-view-next-page
-             "n"  'doc-view-search
-             "N"  'doc-view-search-backward
-             (kbd "C-d") 'doc-view-scroll-up-or-next-page
-             (kbd "C-k") 'doc-view-kill-proc
-             (kbd "C-u") 'doc-view-scroll-down-or-previous-page)
+    (when (configuration-layer/package-usedp 'evilified-state)
+      (evilified-state-evilify doc-view-mode doc-view-mode-map
+                               "/"  'spacemacs/doc-view-search-new-query
+                               "?"  'spacemacs/doc-view-search-new-query-backward
+                               "gg" 'doc-view-first-page
+                               "G"  'doc-view-last-page
+                               "gt" 'doc-view-goto-page
+                               "h"  'doc-view-previous-page
+                               "j"  'doc-view-next-line-or-next-page
+                               "k"  'doc-view-previous-line-or-previous-page
+                               "K"  'doc-view-kill-proc-and-buffer
+                               "l"  'doc-view-next-page
+                               "n"  'doc-view-search
+                               "N"  'doc-view-search-backward
+                               (kbd "C-d") 'doc-view-scroll-up-or-next-page
+                               (kbd "C-k") 'doc-view-kill-proc
+                               (kbd "C-u") 'doc-view-scroll-down-or-previous-page))
     :config
     (progn
       (defun spacemacs/doc-view-search-new-query ()
@@ -1210,10 +1211,11 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
             (interactive)
             (helm-exit-and-execute-action 'spacemacs/helm-project-smart-do-search-in-dir))))
 
-      ;; evilify the helm-grep buffer
-      (evilify helm-grep-mode helm-grep-mode-map
-               (kbd "RET") 'helm-grep-mode-jump-other-window
-               (kbd "q") 'quit-window)
+      ;; evilified-state-evilify the helm-grep buffer
+      (when (configuration-layer/package-usedp 'evilified-state)
+        (evilified-state-evilify helm-grep-mode helm-grep-mode-map
+                                 (kbd "RET") 'helm-grep-mode-jump-other-window
+                                 (kbd "q") 'quit-window))
 
       (evil-leader/set-key
         ;; opened buffers scope
@@ -1253,9 +1255,10 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :config
     (progn
       (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)
-      (evilify helm-ag-mode helm-ag-mode-map
-               (kbd "RET") 'helm-ag-mode-jump-other-window
-               (kbd "q") 'quit-window))))
+      (when (configuration-layer/package-usedp 'evilified-state)
+        (evilified-state-evilify helm-ag-mode helm-ag-mode-map
+                                 (kbd "RET") 'helm-ag-mode-jump-other-window
+                                 (kbd "q") 'quit-window)))))
 
 (defun spacemacs/init-helm-make ()
   (use-package helm-make
@@ -1649,12 +1652,13 @@ It will toggle the overlay under point or create an overlay of one character."
                                            paradox-token)))))
         (paradox-list-packages nil))
 
-      (evilify paradox-menu-mode paradox-menu-mode-map
-               "H" 'paradox-menu-quick-help
-               "J" 'paradox-next-describe
-               "K" 'paradox-previous-describe
-               "L" 'paradox-menu-view-commit-list
-               "o" 'paradox-menu-visit-homepage)
+      (when (configuration-layer/package-usedp 'evilified-state)
+        (evilified-state-evilify paradox-menu-mode paradox-menu-mode-map
+                                 "H" 'paradox-menu-quick-help
+                                 "J" 'paradox-next-describe
+                                 "K" 'paradox-previous-describe
+                                 "L" 'paradox-menu-view-commit-list
+                                 "o" 'paradox-menu-visit-homepage))
       (evil-leader/set-key
         "aP" 'spacemacs/paradox-list-packages))))
 

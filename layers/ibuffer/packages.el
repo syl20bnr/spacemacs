@@ -32,8 +32,9 @@
       ;; Use ibuffer to provide :ls
       (evil-ex-define-cmd "buffers" 'ibuffer))
     :config
-    (spacemacs|evilify-map ibuffer-mode-map
-      :mode ibuffer-mode)))
+    (when (configuration-layer/package-usedp 'evilified-state)
+      (evilified-state-evilify-map ibuffer-mode-map
+        :mode ibuffer-mode))))
 
 (defun ibuffer/init-ibuffer-projectile()
     (use-package ibuffer-projectile
