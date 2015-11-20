@@ -69,13 +69,14 @@
       ;; Key bindings for LaTeX
       (spacemacs/set-leader-keys-for-major-mode 'latex-mode
         "\\" 'TeX-insert-macro
+        "-" 'TeX-recenter-output-buffer
         "b" 'latex/build
         "c" 'LaTeX-close-environment
         "C" 'TeX-command-master
         "e" 'LaTeX-environment
+        ;; TeX-doc is a very slow function
         "hd" 'TeX-doc
         "i" 'LaTeX-insert-item
-        ;; TeX-doc is a very slow function
         "pb" 'preview-buffer
         "pc" 'preview-clearout
         "pd" 'preview-document
