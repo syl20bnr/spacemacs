@@ -63,9 +63,10 @@
         "me" 'LaTeX-environment
         ;; Find a way to rebind tex-fonts
         "mf" 'TeX-font
+        ;; TeX-doc is a very slow function
         "mhd" 'TeX-doc
         "mi" 'LaTeX-insert-item
-        ;; TeX-doc is a very slow function
+        "mo" 'TeX-recenter-output-buffer
         "mpb" 'preview-buffer
         "mpc" 'preview-clearout
         "mpd" 'preview-document
