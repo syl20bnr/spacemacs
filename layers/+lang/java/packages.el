@@ -118,6 +118,7 @@
         "mpk" 'eclim-project-close
         "mpo" 'eclim-project-open
         "mpp" 'eclim-project-mode
+        "mpr" 'eclim-java-run-run
         "mpu" 'eclim-project-update
 
         "mtt" 'eclim-run-junit)))
