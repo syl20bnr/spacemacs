@@ -169,21 +169,21 @@ is achieved by adding the relevant text properties."
         "Initialize helm-eshell."
         ;; this is buggy for now
         ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete)
-        (evil-leader/set-key-for-mode 'eshell-mode
-          "mH" 'spacemacs/helm-eshell-history)
+        (spacemacs/set-leader-keys-for-major-mode 'eshell-mode
+          "H" 'spacemacs/helm-eshell-history)
         (define-key eshell-mode-map
           (kbd "M-l") 'spacemacs/helm-eshell-history))
       (add-hook 'eshell-mode-hook 'spacemacs/init-helm-eshell)
       ;;shell
-      (evil-leader/set-key-for-mode 'shell-mode
-        "mH" 'spacemacs/helm-shell-history))))
+      (spacemacs/set-leader-keys-for-major-mode 'shell-mode
+        "H" 'spacemacs/helm-shell-history))))
 
 (defun shell/init-multi-term ()
   (use-package multi-term
     :defer t
     :init
     (progn
-      (evil-leader/set-key "ast" 'shell-pop-multi-term)
+      (spacemacs/set-leader-keys "ast" 'shell-pop-multi-term)
       (defun multiterm (_)
         "Wrapper to be able to call multi-term from shell-pop"
         (interactive)
@@ -196,16 +196,16 @@ is achieved by adding the relevant text properties."
         (term-send-raw-string "\t"))
       (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab))
       ;; multi-term commands to create terminals and move through them.
-      (evil-leader/set-key-for-mode 'term-mode "mc" 'multi-term)
-      (evil-leader/set-key-for-mode 'term-mode "mp" 'multi-term-prev)
-      (evil-leader/set-key-for-mode 'term-mode "mn" 'multi-term-next)
+      (spacemacs/set-leader-keys-for-major-mode 'term-mode "c" 'multi-term)
+      (spacemacs/set-leader-keys-for-major-mode 'term-mode "p" 'multi-term-prev)
+      (spacemacs/set-leader-keys-for-major-mode 'term-mode "n" 'multi-term-next)
 
       (when (configuration-layer/package-usedp 'projectile)
         (defun projectile-multi-term-in-root ()
           "Invoke `multi-term' in the project's root."
           (interactive)
           (projectile-with-default-dir (projectile-project-root) (multi-term)))
-        (evil-leader/set-key "p$t" 'projectile-multi-term-in-root)))))
+        (spacemacs/set-leader-keys "p$t" 'projectile-multi-term-in-root)))))
 
 (defun shell/init-shell ()
   (defun shell-comint-input-sender-hook ()
@@ -272,7 +272,7 @@ is achieved by adding the relevant text properties."
                          'multiterm
                        shell-default-shell)))
           (call-interactively (intern (format "shell-pop-%S" shell)))))
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "'"   'spacemacs/default-pop-shell
         "ase" 'shell-pop-eshell
         "asi" 'shell-pop-shell

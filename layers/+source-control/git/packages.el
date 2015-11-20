@@ -30,12 +30,14 @@
 (defun git/init-evil-magit ()
   (unless (eq dotspacemacs-editing-style 'emacs)
     (with-eval-after-load 'magit
-      (require 'evil-magit))))
+      (require 'evil-magit)
+      (evil-define-key 'motion magit-mode-map
+        (kbd dotspacemacs-leader-key) spacemacs-default-map))))
 
 (defun git/init-helm-gitignore ()
   (use-package helm-gitignore
     :defer t
-    :init (evil-leader/set-key "gI" 'helm-gitignore)))
+    :init (spacemacs/set-leader-keys "gI" 'helm-gitignore)))
 
 (defun git/init-git-commit ()
   (use-package git-commit
@@ -45,7 +47,7 @@
   (use-package git-messenger
     :defer t
     :init
-     (evil-leader/set-key
+     (spacemacs/set-leader-keys
       "gm" 'git-messenger:popup-message)
     :config
     (define-key git-messenger-map [escape] 'git-messenger:popup-close)
@@ -56,7 +58,7 @@
     :defer t
     :commands spacemacs/time-machine-micro-state
     :init
-    (evil-leader/set-key
+    (spacemacs/set-leader-keys
       "gt" 'spacemacs/time-machine-micro-state)
 
     :config
@@ -110,7 +112,7 @@
         (interactive)
         (magit-diff "HEAD"))
 
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "gb" 'spacemacs/git-blame-micro-state
         "gc" 'magit-commit
         "gC" 'magit-checkout
@@ -354,7 +356,7 @@
             ;; ensure the target matches the whole string
             (push (cons (concat "\\`" (car nd) "\\'") (cdr nd))
                   which-key-description-replacement-alist))))
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "gHc" 'smeargle-clear
         "gHh" 'smeargle-commits
         "gHt" 'smeargle))))

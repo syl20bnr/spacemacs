@@ -250,7 +250,7 @@ To map ~<Leader>~ keybindings, use the =evil-leader/set-key= function.
   ;; Map killing a buffer to <Leader> b c
   (evil-leader/set-key "bc" 'kill-this-buffer)
   ;; Map opening a link to <Leader> o l only in org-mode
-  (evil-leader/set-key-for-mode 'org-mode
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode
     "ol" 'org-open-at-point)
 #+end_src
 

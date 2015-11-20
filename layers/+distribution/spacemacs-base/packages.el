@@ -13,6 +13,7 @@
 (setq spacemacs-base-packages
       '(
         bind-key
+        (bind-map :step pre)
         bookmark
         diminish
         (electric-indent-mode :location built-in)
@@ -20,7 +21,7 @@
         eldoc
         evil
         evil-escape
-        evil-leader
+        ;; evil-leader
         evil-surround
         evil-visualstar
         (evil-evilified-state :location local :step pre :protected t)
@@ -31,6 +32,7 @@
         helm-flx
         helm-projectile
         (helm-spacemacs :location local)
+        help-fns+
         (hs-minor-mode :location built-in)
         (holy-mode :location local :step pre)
         (hybrid-mode :location local :step pre)
@@ -61,6 +63,14 @@
 ;; Initialization of packages
 
 (defun spacemacs-base/init-bind-key ())
+
+(defun spacemacs-base/init-bind-map ()
+  (use-package bind-map
+    :init
+    (bind-map spacemacs-default-map
+      :prefix-cmd spacemacs-cmds
+      :keys (dotspacemacs-emacs-leader-key)
+      :evil-keys (dotspacemacs-leader-key))))
 
 (defun spacemacs-base/init-bookmark ()
   (use-package bookmark
@@ -225,7 +235,7 @@
       (define-key evil-window-map (kbd "<up>") 'evil-window-up)
       (define-key evil-window-map (kbd "<down>") 'evil-window-down)
 
-      (evil-leader/set-key "re" 'evil-show-registers)
+      (spacemacs/set-leader-keys "re" 'evil-show-registers)
 
       (defmacro evil-map (state key seq)
         "Map for a given STATE a KEY to a sequence SEQ of keys.
@@ -399,32 +409,6 @@ Example: (evil-map visual \"<\" \"<gv\")"
     :config
     (spacemacs|hide-lighter evil-escape-mode)))
 
-(defun spacemacs-base/init-evil-leader ()
-  (use-package evil-leader
-    :init
-    (progn
-      (setq evil-leader/leader dotspacemacs-leader-key)
-      (global-evil-leader-mode)
-      ;; This is the same hook used by evil-leader. We make sure that this
-      ;; function is called after `evil-leader-mode' using the last argument
-      (add-hook 'evil-local-mode-hook
-                #'spacemacs-additional-leader-mode t))
-    :config
-    (progn
-      ;; Unset shortcuts which shadow evil leader
-      (eval-after-load "compile"
-        '(progn
-           ;; (define-key compilation-mode-map (kbd dotspacemacs-leader-key) nil)
-           (define-key compilation-mode-map (kbd "h") nil)))
-      ;; (with-eval-after-load "dired" (define-key dired-mode-map (kbd
-      ;;   dotspacemacs-leader-key) nil))
-      ;; evil-leader does not get activated in existing buffers, so we have to
-      ;; force it here
-      (dolist (buffer (buffer-list))
-        (with-current-buffer buffer
-          (evil-leader-mode 1)
-          (spacemacs-additional-leader-mode 1))))))
-
 (defun spacemacs-base/init-evil-surround ()
   (use-package evil-surround
     :init
@@ -448,9 +432,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
 
 (defun spacemacs-base/init-evil-evilified-state ()
   (use-package evil-evilified-state)
-  (with-eval-after-load 'evil-leader
-    (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
-      evil-leader--default-map)))
+  (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
+    spacemacs-default-map))
 
 (defun spacemacs-base/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
@@ -651,7 +634,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
       (unless (configuration-layer/package-usedp 'smex)
         (global-set-key (kbd "M-x") 'helm-M-x))
 
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "<f1>" 'helm-apropos
         "bb"   'helm-mini
         "Cl"   'helm-colors
@@ -672,7 +655,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
         "sl"   'spacemacs/jump-in-buffer)
 
       ;; search with grep
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "sgb"  'spacemacs/helm-buffers-do-grep
         "sgB"  'spacemacs/helm-buffers-do-grep-region-or-symbol
         "sgf"  'spacemacs/helm-files-do-grep
@@ -685,7 +668,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
       (add-hook 'emacs-startup-hook
                 (lambda ()
                   (unless (configuration-layer/package-usedp 'smex)
-                    (evil-leader/set-key dotspacemacs-command-key 'helm-M-x))))
+                    (spacemacs/set-leader-keys dotspacemacs-command-key 'helm-M-x))))
 
       (defvar spacemacs-helm-display-help-buffer-regexp '("*.*Helm.*Help.**"))
       (defvar spacemacs-helm-display-buffer-regexp `("*.*helm.**"
@@ -921,7 +904,7 @@ ARG non nil means that the editing style is `vim'."
     (progn
       (setq helm-descbinds-window-style 'split)
       (add-hook 'helm-mode-hook 'helm-descbinds-mode)
-      (evil-leader/set-key "?" 'helm-descbinds))))
+      (spacemacs/set-leader-keys "?" 'helm-descbinds))))
 
 (defun spacemacs-base/init-helm-projectile ()
   (use-package helm-projectile
@@ -945,7 +928,7 @@ ARG non nil means that the editing style is `vim'."
       (defalias
         'spacemacs/helm-project-do-grep-region-or-symbol 'helm-projectile-grep)
 
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "pb"  'helm-projectile-switch-to-buffer
         "pd"  'helm-projectile-find-dir
         "pf"  'helm-projectile-find-file
@@ -960,9 +943,15 @@ ARG non nil means that the editing style is `vim'."
     :commands (helm-spacemacs helm-spacemacs-faq)
     :init
     (progn
-      (evil-leader/set-key "feh" 'helm-spacemacs)
-      (evil-leader/set-key "fef" 'helm-spacemacs-faq)
-      (evil-leader/set-key "h SPC" 'helm-spacemacs))))
+      (spacemacs/set-leader-keys "feh" 'helm-spacemacs)
+      (spacemacs/set-leader-keys "fef" 'helm-spacemacs-faq)
+      (spacemacs/set-leader-keys "h SPC" 'helm-spacemacs))))
+
+(defun spacemacs-base/init-help-fns+ ()
+  (use-package help-fns+
+    :commands (describe-keymap)
+    :init
+    (spacemacs/set-leader-keys "hK" 'describe-keymap)))
 
 (defun spacemacs-base/init-hs-minor-mode ()
   ;; required for evil folding
@@ -1022,7 +1011,7 @@ ARG non nil means that the editing style is `vim'."
     (progn
       (ido-vertical-mode t)
       (when dotspacemacs-use-ido
-        (evil-leader/set-key "ff" 'ido-find-file))
+        (spacemacs/set-leader-keys "ff" 'ido-find-file))
       (defun spacemacs//ido-minibuffer-setup ()
         "Setup the minibuffer."
         ;; Since ido is implemented in a while loop where each
@@ -1204,8 +1193,8 @@ ARG non nil means that the editing style is `vim'."
     :config
     (progn
       (popwin-mode 1)
-      (evil-leader/set-key "wpm" 'popwin:messages)
-      (evil-leader/set-key "wpp" 'popwin:close-popup-window)
+      (spacemacs/set-leader-keys "wpm" 'popwin:messages)
+      (spacemacs/set-leader-keys "wpp" 'popwin:close-popup-window)
 
       ;; don't use default value but manage it ourselves
       (setq popwin:special-display-config nil)
@@ -1268,14 +1257,14 @@ ARG non nil means that the editing style is `vim'."
             projectile-known-projects-file (concat spacemacs-cache-directory
                                                    "projectile-bookmarks.eld"))
       (unless (configuration-layer/package-usedp 'helm-projectile)
-        (evil-leader/set-key
+        (spacemacs/set-leader-keys
           "pb" 'projectile-switch-to-buffer
           "pd" 'projectile-find-dir
           "pf" 'projectile-find-file
           "ph" 'helm-projectile
           "pr" 'projectile-recentf
           "ps" 'projectile-switch-project))
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "p!" 'projectile-run-shell-command-in-root
         "p&" 'projectile-run-async-shell-command-in-root
         "pa" 'projectile-toggle-between-implementation-and-test
@@ -1289,7 +1278,7 @@ ARG non nil means that the editing style is `vim'."
         "pT" 'projectile-find-test-file
         "py" 'projectile-find-tag)
       (when (configuration-layer/package-usedp 'persp-mode)
-        (evil-leader/set-key
+        (spacemacs/set-leader-keys
           "pl" 'spacemacs/helm-persp-switch-project)))
     :config
     (progn
@@ -1323,7 +1312,7 @@ ARG non nil means that the editing style is `vim'."
   (use-package restart-emacs
     :defer t
     :init
-    (evil-leader/set-key "qr" 'spacemacs/restart-emacs)
+    (spacemacs/set-leader-keys "qr" 'spacemacs/restart-emacs)
     (defun spacemacs/restart-emacs ()
       (interactive)
       (setq spacemacs-really-kill-emacs t)
@@ -1433,7 +1422,7 @@ ARG non nil means that the editing style is `vim'."
         "Display a buffer with available key bindings."
         :evil-leader "tK")
 
-      (evil-leader/set-key "hk" 'which-key-show-top-level)
+      (spacemacs/set-leader-keys "hk" 'which-key-show-top-level)
 
       (let ((new-descriptions
              ;; being higher in this list means the replacement is applied later
@@ -1465,25 +1454,13 @@ ARG non nil means that the editing style is `vim'."
         (which-key-add-key-based-replacements
          (concat leader-key " m")    "major mode commands"
          (concat leader-key " " dotspacemacs-command-key) "M-x"))
-      (if (fboundp 'which-key-declare-prefixes)
-          (which-key-declare-prefixes
-            dotspacemacs-leader-key '("root" . "Spacemacs root")
-            dotspacemacs-emacs-leader-key '("root" . "Spacemacs root")
-            (concat dotspacemacs-leader-key " m")
-            '("major-mode-cmd" . "Major mode commands")
-            (concat dotspacemacs-emacs-leader-key " m")
-            '("major-mode-cmd" . "Major mode commands"))
-        ;; no need to use this after everyone updates which-key
-        (setq which-key-prefix-title-alist
-              `((,(listify-key-sequence
-                   (kbd (concat dotspacemacs-leader-key " m"))) . "Major mode commands")
-                (,(listify-key-sequence
-                   (kbd (concat dotspacemacs-emacs-leader-key " m"))) . "Major mode commands")
-                (,(listify-key-sequence
-                   (kbd dotspacemacs-leader-key)) . "Spacemacs root")
-                (,(listify-key-sequence
-                   (kbd dotspacemacs-emacs-leader-key)) . "Spacemacs root")))
-        (nconc which-key-prefix-title-alist spacemacs/prefix-titles))
+      (which-key-declare-prefixes
+        dotspacemacs-leader-key '("root" . "Spacemacs root")
+        dotspacemacs-emacs-leader-key '("root" . "Spacemacs root")
+        (concat dotspacemacs-leader-key " m")
+        '("major-mode-cmd" . "Major mode commands")
+        (concat dotspacemacs-emacs-leader-key " m")
+        '("major-mode-cmd" . "Major mode commands"))
       ;; disable special key handling for spacemacs, since it can be
       ;; disorienting if you don't understand it
       (pcase dotspacemacs-which-key-position

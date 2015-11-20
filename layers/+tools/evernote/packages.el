@@ -26,7 +26,7 @@
                )
     :init
     (progn
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "aec" 'geeknote-create
         "aee" 'geeknote-edit
         "aef" 'geeknote-find

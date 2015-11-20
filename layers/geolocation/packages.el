@@ -42,7 +42,7 @@
     :defer t
     :init
     (progn
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "aw" 'sunshine-forecast
         "aW" 'sunshine-quick-forecast)
 

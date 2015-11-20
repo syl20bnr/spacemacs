@@ -18,7 +18,7 @@
     :init
     (progn
       (spacemacs/declare-prefix "V" "vagrant")
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "VD" 'vagrant-destroy
         "Ve" 'vagrant-edit
         "VH" 'vagrant-halt
@@ -39,4 +39,4 @@
         (unless spacemacs--vagrant-tramp-loaded
           (vagrant-tramp-add-method)
           (setq spacemacs--vagrant-tramp-loaded t)))
-      (evil-leader/set-key "Vt" 'vagrant-tramp-term))))
+      (spacemacs/set-leader-keys "Vt" 'vagrant-tramp-term))))

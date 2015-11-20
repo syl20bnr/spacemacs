@@ -39,49 +39,49 @@
         (idris-pop-to-repl)
         (evil-insert-state))
 
-      (evil-leader/set-key-for-mode 'idris-mode
+      (spacemacs/set-leader-keys-for-major-mode 'idris-mode
         ;; Shorthands: rebind the standard evil-mode combinations to the local
         ;; leader for the keys not used as a prefix below.
-        "mc" 'idris-case-split
-        "md" 'idris-add-clause
-        "mp" 'idris-proof-search
-        "mr" 'idris-load-file
-        "mt" 'idris-type-at-point
-        "mw" 'idris-make-with-block
+        "c" 'idris-case-split
+        "d" 'idris-add-clause
+        "p" 'idris-proof-search
+        "r" 'idris-load-file
+        "t" 'idris-type-at-point
+        "w" 'idris-make-with-block
 
         ;; ipkg.
-        "mbc" 'idris-ipkg-build
-        "mbC" 'idris-ipkg-clean
-        "mbi" 'idris-ipkg-install
-        "mbp" 'idris-open-package-file
+        "bc" 'idris-ipkg-build
+        "bC" 'idris-ipkg-clean
+        "bi" 'idris-ipkg-install
+        "bp" 'idris-open-package-file
 
         ;; Interactive editing.
-        "mia" 'idris-proof-search
-        "mic" 'idris-case-split
-        "mie" 'idris-make-lemma
-        "mim" 'idris-add-missing
-        "mir" 'idris-refine
-        "mis" 'idris-add-clause
-        "miw" 'idris-make-with-block
+        "ia" 'idris-proof-search
+        "ic" 'idris-case-split
+        "ie" 'idris-make-lemma
+        "im" 'idris-add-missing
+        "ir" 'idris-refine
+        "is" 'idris-add-clause
+        "iw" 'idris-make-with-block
 
         ;; Documentation.
-        "mha" 'idris-apropos
-        "mhd" 'idris-docs-at-point
-        "mhs" 'idris-type-search
-        "mht" 'idris-type-at-point
+        "ha" 'idris-apropos
+        "hd" 'idris-docs-at-point
+        "hs" 'idris-type-search
+        "ht" 'idris-type-at-point
 
         ;; Active term manipulations.
-        "mmn" 'idris-normalise-term
-        "mmi" 'idris-show-term-implicits
-        "mmh" 'idris-hide-term-implicits
-        "mmc" 'idris-show-core-term
+        "mn" 'idris-normalise-term
+        "mi" 'idris-show-term-implicits
+        "mh" 'idris-hide-term-implicits
+        "mc" 'idris-show-core-term
 
         ;; REPL
-        "msb" 'idris-load-file
-        "msB" 'spacemacs/idris-load-file-and-focus
-        "msi" 'idris-ensure-process-and-repl-buffer
-        "msn" 'idris-load-forward-line
-        "msN" 'spacemacs/idris-load-forward-line-and-focus
-        "msp" 'idris-load-backward-line
-        "msP" 'spacemacs/idris-load-backward-line-and-focus
-        "mss" 'idris-pop-to-repl))))
+        "sb" 'idris-load-file
+        "sB" 'spacemacs/idris-load-file-and-focus
+        "si" 'idris-ensure-process-and-repl-buffer
+        "sn" 'idris-load-forward-line
+        "sN" 'spacemacs/idris-load-forward-line-and-focus
+        "sp" 'idris-load-backward-line
+        "sP" 'spacemacs/idris-load-backward-line-and-focus
+        "ss" 'idris-pop-to-repl))))

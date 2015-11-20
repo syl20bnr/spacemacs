@@ -17,7 +17,7 @@
     :defer t
     :commands ein:notebooklist-open
     :init
-    (evil-leader/set-key "ain" 'ein:notebooklist-open)
+    (spacemacs/set-leader-keys "ain" 'ein:notebooklist-open)
     :config
     (progn
       (defun spacemacs/ein:worksheet-merge-cell-next ()
@@ -59,55 +59,55 @@
             (concat "," key)
         ))
 
-      (evil-leader/set-key-for-mode 'ein:notebook-multilang-mode
-        "my" 'ein:worksheet-copy-cell
-        "mp" 'ein:worksheet-yank-cell
-        "md" 'ein:worksheet-kill-cell
-        "mh" 'ein:notebook-worksheet-open-prev-or-last
-        "mi" 'ein:worksheet-insert-cell-below
-        "mI" 'ein:worksheet-insert-cell-above
-        "mj" 'ein:worksheet-goto-next-input
-        "mk" 'ein:worksheet-goto-prev-input
-        "ml" 'ein:notebook-worksheet-open-next-or-first
-        "mH" 'ein:notebook-worksheet-move-prev
-        "mJ" 'ein:worksheet-move-cell-down
-        "mK" 'ein:worksheet-move-cell-up
-        "mL" 'ein:notebook-worksheet-move-next
-        "mt" 'ein:worksheet-toggle-output
-        "mR" 'ein:worksheet-rename-sheet
-        "m RET" 'ein:worksheet-execute-cell-and-goto-next
+      (spacemacs/set-leader-keys-for-major-mode 'ein:notebook-multilang-mode
+        "y" 'ein:worksheet-copy-cell
+        "p" 'ein:worksheet-yank-cell
+        "d" 'ein:worksheet-kill-cell
+        "h" 'ein:notebook-worksheet-open-prev-or-last
+        "i" 'ein:worksheet-insert-cell-below
+        "I" 'ein:worksheet-insert-cell-above
+        "j" 'ein:worksheet-goto-next-input
+        "k" 'ein:worksheet-goto-prev-input
+        "l" 'ein:notebook-worksheet-open-next-or-first
+        "H" 'ein:notebook-worksheet-move-prev
+        "J" 'ein:worksheet-move-cell-down
+        "K" 'ein:worksheet-move-cell-up
+        "L" 'ein:notebook-worksheet-move-next
+        "t" 'ein:worksheet-toggle-output
+        "R" 'ein:worksheet-rename-sheet
+        "RET" 'ein:worksheet-execute-cell-and-goto-next
         ;; Output
-        "m C-l" 'ein:worksheet-clear-output
-        "m C-S-l" 'ein:worksheet-clear-all-output
+        " C-l" 'ein:worksheet-clear-output
+        " C-S-l" 'ein:worksheet-clear-all-output
         ;;Console
-        "m C-o" 'ein:console-open
+        " C-o" 'ein:console-open
         ;; Merge cells
-        "m C-k" 'ein:worksheet-merge-cell
-        "m C-j" 'spacemacs/ein:worksheet-merge-cell-next
+        " C-k" 'ein:worksheet-merge-cell
+        " C-j" 'spacemacs/ein:worksheet-merge-cell-next
         ;; Notebook
-        "m C-s" 'ein:notebook-save-notebook-command
-        "m C-r" 'ein:notebook-rename-command
-        "m1" 'ein:notebook-worksheet-open-1th
-        "m2" 'ein:notebook-worksheet-open-2th
-        "m3" 'ein:notebook-worksheet-open-3th
-        "m4" 'ein:notebook-worksheet-open-4th
-        "m5" 'ein:notebook-worksheet-open-5th
-        "m6" 'ein:notebook-worksheet-open-6th
-        "m7" 'ein:notebook-worksheet-open-7th
-        "m8" 'ein:notebook-worksheet-open-8th
-        "m9" 'ein:notebook-worksheet-open-last
-        "m+" 'ein:notebook-worksheet-insert-next
-        "m-" 'ein:notebook-worksheet-delete
-        "mx" 'ein:notebook-close
-        "mu" 'ein:worksheet-change-cell-type
+        " C-s" 'ein:notebook-save-notebook-command
+        " C-r" 'ein:notebook-rename-command
+        "1" 'ein:notebook-worksheet-open-1th
+        "2" 'ein:notebook-worksheet-open-2th
+        "3" 'ein:notebook-worksheet-open-3th
+        "4" 'ein:notebook-worksheet-open-4th
+        "5" 'ein:notebook-worksheet-open-5th
+        "6" 'ein:notebook-worksheet-open-6th
+        "7" 'ein:notebook-worksheet-open-7th
+        "8" 'ein:notebook-worksheet-open-8th
+        "9" 'ein:notebook-worksheet-open-last
+        "+" 'ein:notebook-worksheet-insert-next
+        "-" 'ein:notebook-worksheet-delete
+        "x" 'ein:notebook-close
+        "u" 'ein:worksheet-change-cell-type
         "fs" 'ein:notebook-save-notebook-command)
 
       ;; keybindings for ipython notebook traceback mode
-      (evil-leader/set-key-for-mode 'ein:traceback-mode
-        "m RET" 'ein:tb-jump-to-source-at-point-command
-        "mn" 'ein:tb-next-item
-        "mp" 'ein:tb-prev-item
-        "mq" 'bury-buffer)
+      (spacemacs/set-leader-keys-for-major-mode 'ein:traceback-mode
+        "RET" 'ein:tb-jump-to-source-at-point-command
+        "n" 'ein:tb-next-item
+        "p" 'ein:tb-prev-item
+        "q" 'bury-buffer)
 
       ;; keybindings mirror ipython web interface behavior
       (evil-define-key 'insert ein:notebook-multilang-mode-map

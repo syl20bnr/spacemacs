@@ -45,7 +45,7 @@
       (when typography-enable-typographic-editing
         (add-hook 'text-mode-hook 'tildify-mode))
 
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "x~" 'tildify-region)
 
       ;; Use the symbolic non-breaking space for LaTeX

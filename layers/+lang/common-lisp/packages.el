@@ -39,45 +39,45 @@
       (dolist (m `(,slime-mode-map ,slime-repl-mode-map))
         (define-key m [(tab)] 'slime-fuzzy-complete-symbol))
       ;; TODO: Add bindings for the SLIME debugger?
-      (evil-leader/set-key-for-mode 'lisp-mode
-        "mcc" 'slime-compile-file
-        "mcC" 'slime-compile-and-load-file
-        "mcl" 'slime-load-file
-        "mcf" 'slime-compile-defun
-        "mcr" 'slime-compile-region
-        "mcn" 'slime-remove-notes
+      (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
+        "cc" 'slime-compile-file
+        "cC" 'slime-compile-and-load-file
+        "cl" 'slime-load-file
+        "cf" 'slime-compile-defun
+        "cr" 'slime-compile-region
+        "cn" 'slime-remove-notes
 
-        "meb" 'slime-eval-buffer
-        "mef" 'slime-eval-defun
-        "meF" 'slime-undefine-function
-        "mee" 'slime-eval-last-sexp
-        "mer" 'slime-eval-region
+        "eb" 'slime-eval-buffer
+        "ef" 'slime-eval-defun
+        "eF" 'slime-undefine-function
+        "ee" 'slime-eval-last-sexp
+        "er" 'slime-eval-region
 
-        "mgg" 'slime-inspect-definition
-        "mgb" 'slime-pop-find-definition-stack
-        "mgn" 'slime-next-note
-        "mgN" 'slime-previous-note
+        "gg" 'slime-inspect-definition
+        "gb" 'slime-pop-find-definition-stack
+        "gn" 'slime-next-note
+        "gN" 'slime-previous-note
 
-        "mha" 'slime-apropos
-        "mhA" 'slime-apropos-all
-        "mhd" 'slime-disassemble-symbol
-        "mhh" 'slime-describe-symbol
-        "mhH" 'slime-hyperspec-lookup
-        "mhp" 'slime-apropos-package
-        "mht" 'slime-toggle-trace-fdefinition
-        "mhT" 'slime-untrace-all
-        "mh<" 'slime-who-calls
-        "mh>" 'slime-calls-who
+        "ha" 'slime-apropos
+        "hA" 'slime-apropos-all
+        "hd" 'slime-disassemble-symbol
+        "hh" 'slime-describe-symbol
+        "hH" 'slime-hyperspec-lookup
+        "hp" 'slime-apropos-package
+        "ht" 'slime-toggle-trace-fdefinition
+        "hT" 'slime-untrace-all
+        "h<" 'slime-who-calls
+        "h>" 'slime-calls-who
         ;; TODO: Add key bindings for who binds/sets globals?
-        "mhr" 'slime-who-references
-        "mhm" 'slime-who-macroexpands
-        "mhs" 'slime-who-specializes
+        "hr" 'slime-who-references
+        "hm" 'slime-who-macroexpands
+        "hs" 'slime-who-specializes
 
-        "mma" 'slime-macroexpand-all
-        "mmo" 'slime-macroexpand-1
+        "ma" 'slime-macroexpand-all
+        "mo" 'slime-macroexpand-1
 
-        "mse" 'slime-eval-last-expression-in-repl
-        "msi" 'slime
-        "msq" 'slime-quit-lisp
+        "se" 'slime-eval-last-expression-in-repl
+        "si" 'slime
+        "sq" 'slime-quit-lisp
 
-        "mtf" 'slime-toggle-fancy-trace))))
+        "tf" 'slime-toggle-fancy-trace))))
