@@ -109,6 +109,8 @@
       ;; hooks
       (add-hook 'haskell-mode-hook 'spacemacs/init-haskell-mode)
       (add-hook 'haskell-cabal-mode-hook 'haskell-cabal-hook)
+      (unless haskell-enable-ghc-mod-support
+        (add-hook 'haskell-mode-hook 'interactive-haskell-mode))
 
       ;; prefixes
       (spacemacs/declare-prefix-for-mode 'haskell-mode "mg" "haskell/navigation")
