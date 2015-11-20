@@ -153,6 +153,7 @@
   `((name . "Layers")
     (candidates . ,(sort (configuration-layer/get-layers-list) 'string<))
     (candidate-number-limit)
+    (keymap . ,helm-spacemacs--layer-map)
     (action . (("Open README.org"
                 . helm-spacemacs//layer-action-open-readme)
                ("Open packages.el"
@@ -160,8 +161,19 @@
                ;; TODO remove extensions in 0.105.0
                ("Open extensions.el"
                 . helm-spacemacs//layer-action-open-extensions)
+               ("Add Layer"
+                . helm-spacemacs//layer-action-add-layer)
                ("Open README.org (for editing)"
                 . helm-spacemacs//layer-action-open-readme-edit)))))
+
+(defvar helm-spacemacs--layer-map
+  (let ((map (make-sparse-keymap)))
+    (set-keymap-parent map helm-map)
+    (define-key map (kbd "<S-return>") '(lambda () (interactive)
+                                          ;; Add Layer
+                                          (helm-select-nth-action 3)))
+    map)
+  "Keymap for Spacemacs Layers sources")
 
 (defun helm-spacemacs//package-source ()
   "Construct the helm source for the packages."
@@ -244,6 +256,20 @@
 (defun helm-spacemacs//layer-action-open-readme (candidate)
   "Open the `README.org' file of the passed CANDIDATE for reading."
   (helm-spacemacs//layer-action-open-file "README.org" candidate))
+
+(defun helm-spacemacs//layer-action-add-layer (candidate)
+  "Adds layer to dotspacemacs file and reloads configuration"
+  (if (configuration-layer/layer-usedp (intern candidate))
+      (message "Layer already added.")
+    (let ((dotspacemacs   (find-file-noselect (dotspacemacs/location))))
+      (with-current-buffer dotspacemacs
+        (beginning-of-buffer)
+        (let ((insert-point (re-search-forward
+                             "dotspacemacs-configuration-layers *\n?.*\\((\\)")))
+          (insert (format "\n%s\n" candidate))
+          (indent-region insert-point (+ insert-point (length candidate)))
+          (save-current-buffer)))
+      (dotspacemacs/sync-configuration-layers))))
 
 (defun helm-spacemacs//layer-action-open-readme-edit (candidate)
   "Open the `README.org' file of the passed CANDIDATE for editing."
