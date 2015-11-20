@@ -24,9 +24,9 @@
 (require 'core-spacemacs-buffer)
 
 (unless package--initialized
-  (let ((archives '((melpa . "melpa.org/packages/")
-                    ("org" . "orgmode.org/elpa/")
-                    ("gnu" . "elpa.gnu.org/packages/"))))
+  (let ((archives '(("melpa" . "melpa.org/packages/")
+                    ("org"   . "orgmode.org/elpa/")
+                    ("gnu"   . "elpa.gnu.org/packages/"))))
     (setq package-archives
           (mapcar (lambda (x)
                     (cons (car x) (concat
