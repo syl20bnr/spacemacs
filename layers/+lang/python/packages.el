@@ -49,7 +49,7 @@
         "mgg" 'anaconda-mode-find-definitions
         "mga" 'anaconda-mode-find-assignments
         "mgu" 'anaconda-mode-find-references)
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
           (kbd "q") 'quit-window))
       (spacemacs|hide-lighter anaconda-mode))))

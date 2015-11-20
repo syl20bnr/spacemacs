@@ -22,7 +22,7 @@
         (make-directory xkcd-cache-dir))
       (evil-leader/set-key
         "ax" 'xkcd)
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify xkcd-mode xkcd-mode-map
           "h" 'xkcd-prev
           "j" 'xkcd-next

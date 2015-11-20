@@ -32,7 +32,7 @@
       ;; Use ibuffer to provide :ls
       (evil-ex-define-cmd "buffers" 'ibuffer))
     :config
-    (when (configuration-layer/package-usedp 'evilified-state)
+    (when (configuration-layer/package-usedp 'evil-evilified-state)
       (evilified-state-evilify-map ibuffer-mode-map
         :mode ibuffer-mode))))
 

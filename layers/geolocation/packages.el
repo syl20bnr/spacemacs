@@ -46,7 +46,7 @@
         "aw" 'sunshine-forecast
         "aW" 'sunshine-quick-forecast)
 
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify sunshine-mode sunshine-mode-map
           (kbd "q") 'quit-window
           (kbd "i") 'sunshine-toggle-icons)))

@@ -199,7 +199,7 @@
                        magit-unpushed-section-map
                        magit-unstaged-section-map
                        magit-untracked-section-map))
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify-map map
           :mode magit-status-mode
           :bindings
@@ -220,7 +220,7 @@
     (dolist (map (list magit-popup-mode-map
                        magit-popup-help-mode-map
                        magit-popup-sequence-mode-map))
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify-map map
           :mode magit-commit-mode
           :bindings

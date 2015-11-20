@@ -46,7 +46,7 @@
       (evil-leader/set-key "al" 'launchctl))
     :config
     (progn
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify launchctl-mode launchctl-mode-map
           (kbd "q") 'quit-window
           (kbd "s") 'tabulated-list-sort

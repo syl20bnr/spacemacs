@@ -17,7 +17,7 @@
     :init
     (evil-leader/set-key "aS" 'prodigy)
     :config
-    (when (configuration-layer/package-usedp 'evilified-state)
+    (when (configuration-layer/package-usedp 'evil-evilified-state)
       (evilified-state-evilify prodigy-mode prodigy-mode-map
         "h" 'prodigy-first
         "j" 'prodigy-next

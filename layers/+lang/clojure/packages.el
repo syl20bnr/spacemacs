@@ -163,7 +163,7 @@ If called with a prefix argument, uses the other-window instead."
 
       (add-hook 'cider--debug-mode-hook 'spacemacs/cider-debug-setup)
 
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify cider-stacktrace-mode cider-stacktrace-mode-map
           (kbd "C-j") 'cider-stacktrace-next-cause
           (kbd "C-k") 'cider-stacktrace-previous-cause
@@ -184,18 +184,18 @@ If called with a prefix argument, uses the other-window instead."
       ;; open cider-doc directly and close it with q
       (setq cider-prompt-for-symbol nil)
 
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify cider-docview-mode cider-docview-mode-map
           (kbd "q") 'cider-popup-buffer-quit))
 
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify cider-inspector-mode cider-inspector-mode-map
           (kbd "L") 'cider-inspector-pop
           (kbd "n") 'cider-inspector-next-page
           (kbd "N") 'cider-inspector-previous-page
           (kbd "r") 'cider-inspector-refresh))
 
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify cider-test-report-mode cider-test-report-mode-map
           (kbd "C-j") 'cider-test-next-result
           (kbd "C-k") 'cider-test-previous-result

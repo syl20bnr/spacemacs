@@ -26,7 +26,7 @@
     :defer t
     :init
     (progn
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify gist-list-mode gist-list-menu-mode-map
           "f" 'gist-fetch-current
           "K" 'gist-kill-current

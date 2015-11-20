@@ -36,7 +36,7 @@
           (tetris-pause-game))))
     :config
     (progn
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify tetris-mode tetris-mode-map
           "h" 'tetris-move-left
           "i" 'tetris-rotate-prev

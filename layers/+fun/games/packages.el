@@ -22,7 +22,7 @@
     (progn
       (push '("2048" . (2048-game :quit (kill-buffer-ask (get-buffer "2048"))
                                   :reset 2048-init)) helm-games-list)
-      (when (configuration-layer/package-usedp 'evilified-state)
+      (when (configuration-layer/package-usedp 'evil-evilified-state)
         (evilified-state-evilify 2048-mode 2048-mode-map
           "j" '2048-down
           "k" '2048-up
@@ -35,7 +35,7 @@
     :init
     (push '("pacmacs" . (pacmacs-start :quit (kill-buffer-ask (get-buffer "*Pacmacs*"))
                                 :reset pacmacs-start)) helm-games-list)
-    (when (configuration-layer/package-usedp 'evilified-state)
+    (when (configuration-layer/package-usedp 'evil-evilified-state)
       (evilified-state-evilify pacmacs-mode pacmacs-mode-map
         "h" 'pacmacs-left
         "j" 'pacmacs-down
