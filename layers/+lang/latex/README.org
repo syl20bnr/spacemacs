@@ -76,36 +76,37 @@ The variable =latex-nofill-env= provide the list of environment names where
 
 * Keybindings
 
-| Key Binding   | Description                                             |
-|---------------+---------------------------------------------------------|
-| ~SPC m *~     | TeX documentation, can be very slow                     |
-| ~SPC m b~     | build                                                   |
-| ~SPC m c~     | close LaTeX environment                                 |
-| ~SPC m C~     | TeX command on master file                              |
-| ~SPC m e~     | insert LaTeX environment                                |
-| ~SPC m i~     | insert =\item=                                          |
-| ~SPC m p r~   | preview region                                          |
-| ~SPC m p b~   | preview buffer                                          |
-| ~SPC m p d~   | preview document                                        |
-| ~SPC m p e~   | preview environment                                     |
-| ~SPC m p s~   | preview section                                         |
-| ~SPC m p p~   | preview at point                                        |
-| ~SPC m p f~   | cache preamble for preview                              |
-| ~SPC m p c~   | clear previews                                          |
-| ~SPC m v~     | view                                                    |
-| ~SPC m x b~   | make font bold                                          |
-| ~SPC m x B~   | make font medium weight                                 |
-| ~SPC m x c~   | make font monospaced (for code)                         |
-| ~SPC m x e~   | make font emphasised                                    |
-| ~SPC m x i~   | make font italic                                        |
-| ~SPC m x o~   | make font oblique                                       |
-| ~SPC m x r~   | remove font properties                                  |
-| ~SPC m x f a~ | use calligraphic font                                   |
-| ~SPC m x f c~ | use small-caps font                                     |
-| ~SPC m x f f~ | use sans serif font                                     |
-| ~SPC m x f n~ | use normal font                                         |
-| ~SPC m x f r~ | use serif font                                          |
-| ~SPC m x f u~ | use upright font                                        |
+| Key Binding   | Description                         |
+|---------------+-------------------------------------|
+| ~SPC m -~     | open output buffer                  |
+| ~SPC m b~     | build                               |
+| ~SPC m c~     | close LaTeX environment             |
+| ~SPC m C~     | TeX command on master file          |
+| ~SPC m e~     | insert LaTeX environment            |
+| ~SPC m i~     | insert =\item=                      |
+| ~SPC m h d~   | TeX documentation, can be very slow |
+| ~SPC m p r~   | preview region                      |
+| ~SPC m p b~   | preview buffer                      |
+| ~SPC m p d~   | preview document                    |
+| ~SPC m p e~   | preview environment                 |
+| ~SPC m p s~   | preview section                     |
+| ~SPC m p p~   | preview at point                    |
+| ~SPC m p f~   | cache preamble for preview          |
+| ~SPC m p c~   | clear previews                      |
+| ~SPC m v~     | view                                |
+| ~SPC m x b~   | make font bold                      |
+| ~SPC m x B~   | make font medium weight             |
+| ~SPC m x c~   | make font monospaced (for code)     |
+| ~SPC m x e~   | make font emphasised                |
+| ~SPC m x i~   | make font italic                    |
+| ~SPC m x o~   | make font oblique                   |
+| ~SPC m x r~   | remove font properties              |
+| ~SPC m x f a~ | use calligraphic font               |
+| ~SPC m x f c~ | use small-caps font                 |
+| ~SPC m x f f~ | use sans serif font                 |
+| ~SPC m x f n~ | use normal font                     |
+| ~SPC m x f r~ | use serif font                      |
+| ~SPC m x f u~ | use upright font                    |
 
 ** RefTeX
 
