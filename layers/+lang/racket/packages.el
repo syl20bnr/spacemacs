@@ -1,7 +1,7 @@
 (setq racket-packages
   '(
     company
-    company-quickhelp-mode
+    company-quickhelp
     racket-mode
     ))
 
