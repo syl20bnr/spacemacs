@@ -10,7 +10,8 @@
 ;;
 ;;; License: GPLv3
 
-(setq idris-packages '(idris-mode))
+(setq idris-packages '(idris-mode
+                       popwin))
 
 (defun idris/init-idris-mode ()
   (use-package idris-mode
@@ -84,4 +85,19 @@
         "sN" 'spacemacs/idris-load-forward-line-and-focus
         "sp" 'idris-load-backward-line
         "sP" 'spacemacs/idris-load-backward-line-and-focus
-        "ss" 'idris-pop-to-repl))))
+        "ss" 'idris-pop-to-repl)))
+
+  ;; open special buffers in motion state so they can be closed with ~q~
+  (evil-set-initial-state 'idris-compiler-notes-mode 'motion)
+  (evil-set-initial-state 'idris-hole-list-mode 'motion)
+  (evil-set-initial-state 'idris-info-mode 'motion))
+
+(defun idris/pre-init-popwin ()
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    (push '("*idris-notes*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
+          popwin:special-display-config)
+    (push '("*idris-holes*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
+          popwin:special-display-config)
+    (push '("*idris-info*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
+          popwin:special-display-config)))
