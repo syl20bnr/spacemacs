@@ -41,6 +41,7 @@
         "mmx" 'geiser-expand-region
 
         "msi" 'geiser-mode-switch-to-repl
+        "mss" 'geiser-set-scheme
         "msb" 'geiser-eval-buffer
         "msB" 'geiser-eval-buffer-and-go
         "msf" 'geiser-eval-definition
