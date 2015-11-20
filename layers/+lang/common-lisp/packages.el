@@ -38,6 +38,18 @@
       (slime-setup)
       (dolist (m `(,slime-mode-map ,slime-repl-mode-map))
         (define-key m [(tab)] 'slime-fuzzy-complete-symbol))
+      (defun slime-eval-sexp-end-of-line ()
+        (interactive)
+        (move-end-of-line 1)
+        (slime-eval-last-expression))
+      (defadvice slime-last-expression (around evil activate)
+        "In normal-state or motion-state, last sexp ends at point."
+        (if (and (not evil-move-beyond-eol)
+                 (or (evil-normal-state-p) (evil-motion-state-p)))
+            (save-excursion
+              (unless (or (eobp) (eolp)) (forward-char))
+              ad-do-it)
+          ad-do-it))
       ;; TODO: Add bindings for the SLIME debugger?
       (evil-leader/set-key-for-mode 'lisp-mode
         "mcc" 'slime-compile-file
@@ -50,7 +62,8 @@
         "meb" 'slime-eval-buffer
         "mef" 'slime-eval-defun
         "meF" 'slime-undefine-function
-        "mee" 'slime-eval-last-sexp
+        "mee" 'slime-eval-last-expression
+        "mel" 'slime-eval-sexp-end-of-line
         "mer" 'slime-eval-region
 
         "mgg" 'slime-inspect-definition
