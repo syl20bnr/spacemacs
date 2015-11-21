@@ -117,6 +117,8 @@
        - [[Opening files with NeoTree][Opening files with NeoTree]]
        - [[Other NeoTree key bindings][Other NeoTree key bindings]]
        - [[NeoTree mode-line][NeoTree mode-line]]
+       - [[NeoTree Source Control Integration][NeoTree Source Control Integration]]
+       - [[NeoTree Theme][NeoTree Theme]]
      - [[Bookmarks][Bookmarks]]
      - [[DocView mode][DocView mode]]
    - [[Auto-saving][Auto-saving]]
@@ -1759,7 +1761,47 @@ The mode-line has the following format =[x/y] d (D:a, F:b)= where:
   - =d= the name of the current directory
   - =a= the number of directories in the current directory
   - =b= the number of files in the current directory
+**** NeoTree Source Control Integration
+If you would like NeoTree to show source control information, you can use the
+setting ~neo-vc-integration~.  Possible values are:
 
+| Setting | Description                                                               |
+|---------+---------------------------------------------------------------------------|
+| ~face~  | Show information by changing the color of the file/directory name.        |
+| ~char~  | Show information with a character to the left of the file/directory name. |
+| ~nil~   | Do not show source control information (recommended).                     |
+
+The default is ~nil~ (do not show source control information).
+
+For example,
+
+#+BEGIN_SRC emacs-lisp
+(setq neo-vc-integration 'face)
+#+END_SRC
+
+*Note*: At this time, it is not recommended to set this to anything other
+than ~nil~.  Otherwise, it will become very slow with larger source trees.
+See https://github.com/jaypei/emacs-neotree/issues/126 for more information.
+
+****
+**** NeoTree Theme
+You can change the NeoTree theme by using the setting ~neo-theme~.  Possible
+values are:
+
+| Setting   | Description                                                     |
+|-----------+-----------------------------------------------------------------|
+| ~classic~ | Use an icon to display items - only suitable for gui mode.      |
+| ~ascii~   | The simplest style, it will use =x=,=-= to display fold status. |
+| ~arrow~   | Use unicode arrows to display fold status.                      |
+| ~nerd~    | Use the NERDTree indentation mode and arrows.                   |
+
+The default is ~classic~.
+
+Use ~nerd~ if you want it to look most like NERDTree in VIM.  For example:
+
+#+BEGIN_SRC emacs-lisp
+(setq neo-theme 'nerd)
+#+END_SRC
 *** Bookmarks
 Bookmarks can be set anywhere in a file. Bookmarks are persistent. They are very
 useful to jump to/open a known project. Spacemacs uses =helm-bookmarks= to
