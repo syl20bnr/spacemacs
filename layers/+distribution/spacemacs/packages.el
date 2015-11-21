@@ -1656,7 +1656,7 @@ It will toggle the overlay under point or create an overlay of one character."
         "L" 'paradox-menu-view-commit-list
         "o" 'paradox-menu-visit-homepage)
       (evil-leader/set-key
-        "aP" 'spacemacs/paradox-list-packages))))
+        "a\\" 'spacemacs/paradox-list-packages))))
 
 (defun spacemacs/init-rainbow-delimiters ()
   (use-package rainbow-delimiters

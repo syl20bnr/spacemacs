@@ -65,7 +65,8 @@
 (evil-leader/set-key
   "ac"  'calc-dispatch
   "ad"  'dired
-  "ap"  'proced
+  "ap"  'list-processes
+  "aP"  'proced
   "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key
