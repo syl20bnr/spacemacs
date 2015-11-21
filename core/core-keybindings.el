@@ -77,6 +77,7 @@ pairs. For example,
   (while key
     (define-key spacemacs-default-map (kbd key) def)
     (setq key (pop bindings) def (pop bindings))))
+(put 'spacemacs/set-leader-keys 'lisp-indent-function 'defun)
 
 (defalias 'evil-leader/set-key 'spacemacs/set-leader-keys)
 
@@ -110,6 +111,7 @@ they are in `spacemacs/set-leader-keys'."
       (while key
         (define-key (symbol-value map) (kbd key) def)
         (setq key (pop bindings) def (pop bindings))))))
+(put 'spacemacs/set-leader-keys-for-major-mode 'lisp-indent-function 'defun)
 
 (defalias 'evil-leader/set-key-for-mode 'spacemacs/set-leader-keys-for-major-mode)
 
@@ -125,5 +127,6 @@ they are in `spacemacs/set-leader-keys'."
       (while key
         (define-key (symbol-value map) (kbd key) def)
         (setq key (pop bindings) def (pop bindings))))))
+(put 'spacemacs/set-leader-keys-for-minor-mode 'lisp-indent-function 'defun)
 
 (provide 'core-keybindings)
