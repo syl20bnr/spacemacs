@@ -61,6 +61,25 @@
     'universal-argument-more))
 ;; shell command  -------------------------------------------------------------
 (evil-leader/set-key "!" 'shell-command)
+;; evil-leader aliases for emacs bindings
+(defmacro spacemacs|emacs-binding-aliases (binding &rest evil-aliases)
+  "Define some EVIL-LEADER aliases for an emacs BINDING."
+  (let* ((binding-name (format
+                        "emacs-binding-alias-%s"
+                        (downcase (replace-regexp-in-string " " "-" binding))))
+         (binding-func (intern (format "spacemacs/%s" binding-name)))
+         (binding-regex (format "\\`%s\\'" binding-name)))
+    `(progn
+       (defun ,binding-func ()
+         (interactive)
+         (setq unread-command-events (listify-key-sequence (kbd ,binding))))
+       (dolist (evil-alias ',evil-aliases)
+         (evil-leader/set-key evil-alias ',binding-func))
+       (push '(,binding-regex . ,binding)
+             which-key-description-replacement-alist))))
+(which-key-declare-prefixes "SPC ." "C-c bindings")
+(spacemacs|emacs-binding-aliases "C-c C-c" ".." ".c")
+(spacemacs|emacs-binding-aliases "C-c C-k" ".k")
 ;; applications ---------------------------------------------------------------
 (evil-leader/set-key
   "ac"  'calc-dispatch
