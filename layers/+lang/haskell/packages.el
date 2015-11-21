@@ -129,6 +129,8 @@
       (evil-leader/set-key-for-mode 'haskell-mode
         "mgg"  'haskell-mode-jump-to-def-or-tag
         "mgi"  'haskell-navigate-imports
+        "mgp"  'beginning-of-defun
+        "mgn"  'end-of-defun
         "mf"   'haskell-mode-stylish-buffer
 
         "msb"  'haskell-process-load-or-reload
