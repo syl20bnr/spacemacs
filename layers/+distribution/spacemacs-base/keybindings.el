@@ -67,7 +67,8 @@
 (spacemacs/set-leader-keys
   "ac"  'calc-dispatch
   "ad"  'dired
-  "ap"  'proced
+  "ap"  'list-processes
+  "aP"  'proced
   "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
 (spacemacs/set-leader-keys
