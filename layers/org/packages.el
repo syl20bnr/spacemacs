@@ -177,9 +177,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "tw" 'org-table-wrap-region
 
         ;; Multi-purpose keys
-        (if dotspacemacs-major-mode-leader-key
-            (concat "m" dotspacemacs-major-mode-leader-key)
-          ",") 'org-ctrl-c-ctrl-c
+        (or dotspacemacs-major-mode-leader-key ",") 'org-ctrl-c-ctrl-c
         "*" 'org-ctrl-c-star
         "RET" 'org-ctrl-c-ret
         "-" 'org-ctrl-c-minus
