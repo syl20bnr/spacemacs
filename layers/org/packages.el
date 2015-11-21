@@ -294,11 +294,10 @@ Will work on both org-mode and any mode that accepts plain html."
     :defer t
     :init
     (progn
-      (when (configuration-layer/package-usedp 'evilified-state)
-        (evilified-state-evilify nil org-present-mode-keymap
-          "h" 'org-present-prev
-          "l" 'org-present-next
-          "q" 'org-present-quit))
+      (evilified-state-evilify nil org-present-mode-keymap
+        "h" 'org-present-prev
+        "l" 'org-present-next
+        "q" 'org-present-quit)
       (defun spacemacs//org-present-start ()
         "Initiate `org-present' mode"
         (org-present-big)

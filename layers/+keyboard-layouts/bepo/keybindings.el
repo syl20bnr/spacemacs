@@ -199,36 +199,31 @@
                        magit-unpushed-section-map
                        magit-unstaged-section-map
                        magit-untracked-section-map))
-      (when (configuration-layer/package-usedp 'evilified-state)
-        (evilified-state-evilify-map map
-          :mode magit-status-mode
-          :bindings
-          ;; Remap CRTS
-          (kbd "c") 'magit-commit-popup
-          (kbd "r") 'magit-rebase-popup
-          (kbd "t") 'evil-next-line
-          (kbd "s") 'evil-previous-line
-          ;; Remap HJKL from default spacemacs
-          (kbd "h") 'magit-discard
-          (kbd "j") 'magit-tag-popup
-          (kbd "k") 'magit-stage
-          (kbd "l") 'magit-log-popup
-          ;; Correct others
-          (kbd "v") 'magit-revert-popup
-          (kbd "g") 'magit-refresh
-          )))
+      (evilified-state-evilify-map map
+        :mode magit-status-mode
+        :bindings
+        ;; Remap CRTS
+        (kbd "c") 'magit-commit-popup
+        (kbd "r") 'magit-rebase-popup
+        (kbd "t") 'evil-next-line
+        (kbd "s") 'evil-previous-line
+        ;; Remap HJKL from default spacemacs
+        (kbd "h") 'magit-discard
+        (kbd "j") 'magit-tag-popup
+        (kbd "k") 'magit-stage
+        (kbd "l") 'magit-log-popup
+        ;; Correct others
+        (kbd "v") 'magit-revert-popup
+        (kbd "g") 'magit-refresh))
     (dolist (map (list magit-popup-mode-map
                        magit-popup-help-mode-map
                        magit-popup-sequence-mode-map))
-      (when (configuration-layer/package-usedp 'evilified-state)
-        (evilified-state-evilify-map map
-          :mode magit-commit-mode
-          :bindings
-          (kbd "c") 'magit-commit
-          (kbd "s") 'magit-commit-squash
-          (kbd "S") 'magit-commit-instant-squash
-          )))
-    ))
+      (evilified-state-evilify-map map
+        :mode magit-commit-mode
+        :bindings
+        (kbd "c") 'magit-commit
+        (kbd "s") 'magit-commit-squash
+        (kbd "S") 'magit-commit-instant-squash))))
 
 
 (bepo|rebind "neotree"

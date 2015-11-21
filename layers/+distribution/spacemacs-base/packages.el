@@ -1229,8 +1229,7 @@ ARG non nil means that the editing style is `vim'."
                        popwin:special-display-config))))))
 
 (defun spacemacs-base/init-process-menu ()
-  (when (configuration-layer/package-usedp 'evilified-state)
-    (evilified-state-evilify process-menu-mode process-menu-mode-map)))
+  (evilified-state-evilify process-menu-mode process-menu-mode-map))
 
 (defun spacemacs-base/init-projectile ()
   (use-package projectile

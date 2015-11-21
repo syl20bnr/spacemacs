@@ -23,10 +23,9 @@
     (progn
       (evil-leader/set-key "aE" 'emoji-cheat-sheet-plus-buffer)
       (evil-leader/set-key "ie" 'emoji-cheat-sheet-plus-insert)
-      (when (configuration-layer/package-usedp 'evilified-state)
-        (evilified-state-evilify emoji-cheat-sheet-plus-buffer-mode
-          emoji-cheat-sheet-plus-buffer-mode-map
-          "<RET>" 'emoji-cheat-sheet-plus-echo-and-copy))
+      (evilified-state-evilify emoji-cheat-sheet-plus-buffer-mode
+        emoji-cheat-sheet-plus-buffer-mode-map
+        "<RET>" 'emoji-cheat-sheet-plus-echo-and-copy)
       (defun spacemacs/delay-emoji-cheat-sheet-hook ()
         "Work-around for org buffers."
         ;; we need to wait for org buffer to be fully loaded before

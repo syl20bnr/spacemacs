@@ -26,11 +26,10 @@
     :defer t
     :init
     (progn
-      (when (configuration-layer/package-usedp 'evilified-state)
-        (evilified-state-evilify gist-list-mode gist-list-menu-mode-map
-          "f" 'gist-fetch-current
-          "K" 'gist-kill-current
-          "o" 'gist-browse-current-url))
+      (evilified-state-evilify gist-list-mode gist-list-menu-mode-map
+        "f" 'gist-fetch-current
+        "K" 'gist-kill-current
+        "o" 'gist-browse-current-url)
       (evil-leader/set-key
         "ggb" 'gist-buffer
         "ggB" 'gist-buffer-private
