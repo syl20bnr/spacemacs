@@ -23,6 +23,30 @@
     :mode "\\.shen\\'"
     :config
     (progn
+      (evil-leader/set-key-for-mode 'shen-mode
+        ;; e - eval
+        "mel" 'shen-eval-last-sexp
+        "med" 'shen-eval-defun
+        "meg" 'shen-eval-defun-and-go
+        "mer" 'shen-eval-region
+        "met" 'shen-eval-region-and-go
+
+        ;; compile
+        "mf"  'shen-compile-file
+        "md" 'shen-compile-defun
+        "mg" 'shen-compile-defun-and-go
+
+        ;; s - REPL
+        "msi" 'inferior-shen
+        "mss" 'switch-to-shen
+        "msl" 'shen-load-file
+
+        ;; h - help
+        "mha" 'shen-show-arglist
+        "mhs" 'shen-describe-sym
+        "mhf" 'shen-show-function-documentation
+        "mhv" 'shen-show-variable-documentation))))
 
 (defun shen/init-inf-shen ()
-  (use-package inf-shen))
+  (use-package inf-shen
+    :defer t))
