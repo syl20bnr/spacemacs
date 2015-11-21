@@ -49,7 +49,8 @@
               (lambda ()
                 (when (ensime-connected-p)
                   (ensime-print-type-at-point))))
-  (eldoc-mode +1))
+  (when scala-enable-eldoc-mode
+    (eldoc-mode +1)))
 
 (defun spacemacs/ensime-refactor-accept ()
   (interactive)
