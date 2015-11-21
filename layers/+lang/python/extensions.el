@@ -57,8 +57,7 @@
     :commands (pylookup-lookup pylookup-update pylookup-update-all)
     :init
     (progn
-      (when (configuration-layer/package-usedp 'evilified-state)
-        (evilified-state-evilify pylookup-mode pylookup-mode-map))
+      (evilified-state-evilify pylookup-mode pylookup-mode-map)
       (evil-leader/set-key-for-mode 'python-mode
         "mhH"  'pylookup-lookup))
     :config

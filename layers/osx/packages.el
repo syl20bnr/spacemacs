@@ -46,28 +46,27 @@
       (evil-leader/set-key "al" 'launchctl))
     :config
     (progn
-      (when (configuration-layer/package-usedp 'evilified-state)
-        (evilified-state-evilify launchctl-mode launchctl-mode-map
-          (kbd "q") 'quit-window
-          (kbd "s") 'tabulated-list-sort
-          (kbd "g") 'launchctl-refresh
-          (kbd "n") 'launchctl-new
-          (kbd "e") 'launchctl-edit
-          (kbd "v") 'launchctl-view
-          (kbd "l") 'launchctl-load
-          (kbd "u") 'launchctl-unload
-          (kbd "r") 'launchctl-reload
-          (kbd "S") 'launchctl-start
-          (kbd "K") 'launchctl-stop
-          (kbd "R") 'launchctl-restart
-          (kbd "D") 'launchctl-remove
-          (kbd "d") 'launchctl-disable
-          (kbd "E") 'launchctl-enable
-          (kbd "i") 'launchctl-info
-          (kbd "f") 'launchctl-filter
-          (kbd "=") 'launchctl-setenv
-          (kbd "#") 'launchctl-unsetenv
-          (kbd "h") 'launchctl-help)))))
+      (evilified-state-evilify launchctl-mode launchctl-mode-map
+        (kbd "q") 'quit-window
+        (kbd "s") 'tabulated-list-sort
+        (kbd "g") 'launchctl-refresh
+        (kbd "n") 'launchctl-new
+        (kbd "e") 'launchctl-edit
+        (kbd "v") 'launchctl-view
+        (kbd "l") 'launchctl-load
+        (kbd "u") 'launchctl-unload
+        (kbd "r") 'launchctl-reload
+        (kbd "S") 'launchctl-start
+        (kbd "K") 'launchctl-stop
+        (kbd "R") 'launchctl-restart
+        (kbd "D") 'launchctl-remove
+        (kbd "d") 'launchctl-disable
+        (kbd "E") 'launchctl-enable
+        (kbd "i") 'launchctl-info
+        (kbd "f") 'launchctl-filter
+        (kbd "=") 'launchctl-setenv
+        (kbd "#") 'launchctl-unsetenv
+        (kbd "h") 'launchctl-help))))
 
 (defun osx/init-reveal-in-osx-finder ()
   (use-package reveal-in-osx-finder

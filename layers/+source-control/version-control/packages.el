@@ -19,10 +19,9 @@
   (use-package diff-mode
     :defer t
     :config
-    (when (configuration-layer/package-usedp 'evilified-state)
-      (evilified-state-evilify diff-mode diff-mode-map
-        "j" 'diff-hunk-next
-        "k" 'diff-hunk-prev))))
+    (evilified-state-evilify diff-mode diff-mode-map
+      "j" 'diff-hunk-next
+      "k" 'diff-hunk-prev)))
 
 (defun version-control/init-diff-hl ()
   (use-package diff-hl
