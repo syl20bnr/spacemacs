@@ -202,13 +202,13 @@ Will work on both org-mode and any mode that accepts plain html."
         ;; images and other link types have no commands in org mode-line
         ;; could be inserted using yasnippet?
         ;; region manipulation
-        "mxb" (spacemacs|org-emphasize spacemacs/org-bold ?*)
-        "mxc" (spacemacs|org-emphasize spacemacs/org-code ?~)
-        "mxi" (spacemacs|org-emphasize spacemacs/org-italic ?/)
-        "mxr" (spacemacs|org-emphasize spacemacs/org-clear ? )
-        "mxs" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
-        "mxu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
-        "mxv" (spacemacs|org-emphasize spacemacs/org-verbose ?=))
+        "xb" (spacemacs|org-emphasize spacemacs/org-bold ?*)
+        "xc" (spacemacs|org-emphasize spacemacs/org-code ?~)
+        "xi" (spacemacs|org-emphasize spacemacs/org-italic ?/)
+        "xr" (spacemacs|org-emphasize spacemacs/org-clear ? )
+        "xs" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
+        "xu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
+        "xv" (spacemacs|org-emphasize spacemacs/org-verbose ?=))
 
       (with-eval-after-load 'org-agenda
         (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
