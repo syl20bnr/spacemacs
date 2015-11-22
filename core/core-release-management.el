@@ -74,11 +74,7 @@ users on `develop' branch must manually pull last commits instead."
   "Periodicly check for new for new Spacemacs version.
 Update `spacemacs-new-version' variable if any new version has been
 found."
-<<<<<<< HEAD
   (if (not dotspacemacs-version-check-enable)
-=======
-  (if (eq nil dotspacemacs-version-check-enable)
->>>>>>> 6be624d... add in variable to skip version check for spacemacs
       (message "Skipping check for new version because dotspacemacs-version-check-enable nil")
     (if (string-equal "develop" (spacemacs/git-get-current-branch))
         (message "Skipping check for new version because you are on develop.")
