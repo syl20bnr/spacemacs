@@ -439,7 +439,7 @@ There are three types of configuration layers:
 
 ** Submitting a configuration layer upstream
 If you decide to provide a =contrib= configuration layer, please check the
-contribution guidelines in [[file:CONTRIBUTE.org][CONTRIBUTE]].
+contribution guidelines in [[file:../CONTRIBUTING.org][CONTRIBUTING]].
 
 ** Example: Themes Megapack example
 This is a simple =contrib= configuration layer listing a bunch of themes, you

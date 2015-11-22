@@ -13,7 +13,7 @@
 |
 <b><a href="doc/DOCUMENTATION.org">documentation</a></b>
 |
-<b><a href="doc/CONTRIBUTE.org">contribute</a></b>
+<b><a href="CONTRIBUTING.org">contribute</a></b>
 |
 <b><a href="doc/DOCUMENTATION.org#achievements">achievements</a></b>
 |
@@ -269,7 +269,7 @@ Spacemacs is a community-driven project, it needs _you_ to keep it up to
 date and propose useful and complete configuration!
 
 Before contributing be sure to consult the
-[contribution guidelines][CONTRIBUTE.org] and [conventions][CONVENTIONS.org].
+[contribution guidelines][CONTRIBUTING.org] and [conventions][CONVENTIONS.org].
 
 # Communities
 
@@ -321,7 +321,7 @@ the spacemacs badge: [![Built with Spacemacs](https://cdn.rawgit.com/syl20bnr/sp
 Thank you!
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
-[CONTRIBUTE.org]: doc/CONTRIBUTE.org
+[CONTRIBUTING.org]: CONTRIBUTING.org
 [CONVENTIONS.org]: doc/CONVENTIONS.org
 [DOCUMENTATION.org]: doc/DOCUMENTATION.org
 [QUICK_START.org]: doc/QUICK_START.org

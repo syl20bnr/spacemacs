@@ -95,6 +95,11 @@
       (when (or (equal file-extension "md")
                 (equal file-extension "org"))
         (push filename result)))
+
+    ;; CONTRIBUTING.org is a special case as it should be at the root of the
+    ;; repository to be linked as the contributing guide on Github.
+    (push "CONTRIBUTING.org" result)
+
     ;; delete DOCUMENTATION.org to make it the first guide
     (delete "DOCUMENTATION.org" result)
     (push "DOCUMENTATION.org" result)
@@ -102,7 +107,7 @@
     ;; give each document an appropriate title
     (mapcar (lambda (r)
               (cond
-               ((string-equal r "CONTRIBUTE.org")
+               ((string-equal r "CONTRIBUTING.org")
                 `("How to contribute to Spacemacs" . ,r))
                ((string-equal r "CONVENTIONS.org")
                 `("Spacemacs conventions" . ,r))
@@ -124,7 +129,12 @@
 
 (defun helm-spacemacs//documentation-action-open-file (candidate)
   "Open documentation FILE."
-  (let ((file (concat spacemacs-docs-directory candidate)))
+  (let ((file (if (string= candidate "CONTRIBUTING.org")
+                  ;; CONTRIBUTING.org is a special case as it should be at the
+                  ;; root of the repository to be linked as the contributing
+                  ;; guide on Github.
+                  (concat user-emacs-directory candidate)
+                (concat spacemacs-docs-directory candidate))))
     (cond ((and (equal (file-name-extension file) "md")
                 (not helm-current-prefix-arg))
            (condition-case nil
