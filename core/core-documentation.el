@@ -62,9 +62,35 @@
     (spacemacs//generate-layers-from-path configuration-layer-directory "*")
     (write-file (concat user-emacs-directory "layers/LAYERS.org"))))
 
+(defun spacemacs//format-toc (&rest r)
+  (if (not (null (car r)))
+      (let* ((toc (car r))
+             (heading-pos (s-index-of "Contents</h" toc)))
+        (if (not (null heading-pos))
+            (let* ((end-of-heading-pos (+ (length "Contents") heading-pos))
+                   (beginning-of-heading (substring toc 0 end-of-heading-pos))
+                   (rest-of-toc (substring toc end-of-heading-pos)))
+              (format "%s<a href=\"#\">Close</a>%s" beginning-of-heading rest-of-toc))
+          toc))
+    (car r)))
+
+(defun spacemacs//format-content (&rest r)
+  (let* ((content (car r))
+         (div-string "<div id=\"content\">")
+         (toc-string "<div id=\"toggle-sidebar\"><a href=\"#table-of-contents\"><h2>Table of Contents</h2></a></div>")
+         (has-toc (s-index-of "Table of Contents" content))
+         (beginning-of-content-div-pos (+ (length div-string) (s-index-of div-string content)))
+         (beginning-of-content (substring content 0 beginning-of-content-div-pos))
+         (rest-of-content (substring content beginning-of-content-div-pos)))
+    (if (not (null has-toc))
+        (format "%s\n%s%s" beginning-of-content toc-string rest-of-content)
+      content)))
+
 (defun spacemacs/publish-doc ()
   "Publishe the documentation to doc/export/."
   (interactive)
+  (advice-add 'org-html-toc :filter-return #'spacemacs//format-toc)
+  (advice-add 'org-html-template :filter-return #'spacemacs//format-content)
   (let* ((header
           "<link rel=\"stylesheet\" type=\"text/css\"
                  href=\"http://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>
@@ -110,6 +136,8 @@
              :recursive t
              :publishing-directory ,(concat publish-target "layers/")
              :publishing-function org-publish-attachment))))
-    (org-publish-project "spacemacs")))
+    (org-publish-project "spacemacs"))
+  (advice-remove 'org-html-toc #'spacemacs//format-toc)
+  (advice-remove 'org-html-template #'spacemacs//format-content))
 
 (provide 'core-documentation)
