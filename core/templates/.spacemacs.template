@@ -62,6 +62,8 @@ values."
    ;; environment, otherwise it is strongly recommended to let it set to t.
    ;; (default t)
    dotspacemacs-elpa-https t
+   ;; If non nil then checking for updates is enabled (default t)
+   dotspacemacs-version-check-enable t
    ;; One of `vim', `emacs' or `hybrid'. Evil is always enabled but if the
    ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
    ;; uses emacs key bindings for vim's insert mode, but otherwise leaves evil
@@ -80,6 +82,8 @@ values."
    ;; Possible values are: `recents' `bookmarks' `projects'.
    ;; (default '(recents projects))
    dotspacemacs-startup-lists '(recents projects)
+   ;; If non nil then checking for updates is enabled
+   dotspacemacs-version-check-enable t
    ;; Number of recent files to show in the startup buffer. Ignored if
    ;; `dotspacemacs-startup-lists' doesn't include `recents'. (default 5)
    dotspacemacs-startup-recent-list-size 5
