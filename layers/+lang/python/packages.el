@@ -45,10 +45,10 @@
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
-        "mhh" 'anaconda-mode-show-doc
-        "mgg" 'anaconda-mode-find-definitions
-        "mga" 'anaconda-mode-find-assignments
-        "mgu" 'anaconda-mode-find-references)
+        "hh" 'anaconda-mode-show-doc
+        "gg" 'anaconda-mode-find-definitions
+        "ga" 'anaconda-mode-find-assignments
+        "gu" 'anaconda-mode-find-references)
       (evilified-state-evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
         (kbd "q") 'quit-window)
       (spacemacs|hide-lighter anaconda-mode))))
