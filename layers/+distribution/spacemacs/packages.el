@@ -590,12 +590,7 @@
     :init
     (progn
       (setq evil-lisp-state-global t)
-      (setq evil-lisp-state-leader-prefix "k"))
-    :config
-    ;; FIXME: This is a workaround for
-    ;; https://github.com/syl20bnr/spacemacs/issues/3901
-    (spacemacs/set-leader-keys
-      "k" (lookup-key evil-leader--default-map "k"))))
+      (setq evil-lisp-state-leader-prefix "k"))))
 
 (defun spacemacs/init-evil-mc ()
   (use-package evil-mc
