@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-08 Sun 18:49 -->
+<!-- 2015-11-23 Mon 13:49 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>bepo contribution layer for Spacemacs</title>
@@ -151,9 +151,10 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
+<div id="toggle-sidebar"><a href="#table-of-contents"><h2>Table of Contents</h2></a></div>
 <h1 class="title">bepo contribution layer for Spacemacs</h1>
 <div id="table-of-contents">
-<h2>Table of Contents</h2>
+<h2>Table of Contents<a href="#">Close</a></h2>
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#orgheadline1">1. Description</a></li>
@@ -190,10 +191,10 @@ for the JavaScript code in this tag.
 <h2 id="orgheadline1"><span class="section-number-2">1</span> Description</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-This layer change the key bindings in spacemacs to be compatible with the <a href="http://bepo.fr/">bepo</a>
+This layer changes the key bindings in spacemacs to be compatible with the <a href="http://bepo.fr/">bepo</a>
 keyboard layout. <code>bepo</code> is a keyboard layout optimized for the French language.
 This package first switch traditional <code>hjkl</code> movement keys with <code>ctsr</code>, and then
-try to correct the bugs induced by these changes in other modes/packages.
+try to correct the bugs introduced by these changes in other modes/packages.
 </p>
 
 
@@ -209,7 +210,7 @@ try to correct the bugs induced by these changes in other modes/packages.
 <div class="outline-text-2" id="text-2">
 <p>
 The mapping correction is the one proposed for vim on the bepo's official <a href="http://bepo.fr/wiki/Vim#Principe">wiki</a>.
-This layer tries to do the following changes when the following characters are
+This layer tries to do the following changes when the following letters are
 used for <b>doing a movement</b>:
 </p>
 
@@ -222,7 +223,7 @@ used for <b>doing a movement</b>:
 <li><code>r → l</code></li>
 </ul></li>
 
-<li>Map lost functionnalites back to some keys:
+<li>Map lost functionalities back to some keys:
 <ul class="org-ul">
 <li><code>h → r</code></li>
 <li><code>j → t</code></li>
@@ -232,7 +233,7 @@ used for <b>doing a movement</b>:
 </ul>
 
 <p>
-The equivalent remapping is also valid for uppercase characters when they are
+The equivalent remapping is also valid for uppercase letters when they are
 used te represent a movement, or to keep the mnemonic between the
 lower/upper-case consistent.
 </p>
@@ -244,7 +245,7 @@ shortcuts:
 </p>
 
 <ul class="org-ul">
-<li>Map unused <code>é</code> key as an alias of <code>w</code>, more usefull in vim mode:
+<li>Map unused <code>é</code> key as an alias of <code>w</code>, more useful in vim mode:
 <ul class="org-ul">
 <li><code>é → w</code></li>
 <li><code>É → W</code></li>
@@ -280,16 +281,15 @@ specified symbols.</li>
 </ul>
 
 <p>
-There will be some cases when the keys remapping will not follow these
-conventions, mainly because there is better alternatives, or because some moves
-don't make sense.
+In some cases the key remapping will not follow these conventions, mainly because
+there are better alternatives, or because some moves don't make sense.
 </p>
 
 <p class="verse">
 Example: In <code>magit</code> status, the <code>c</code> is used for <code>commit</code> by default, but if we<br  />
 want to follow the conventions, it should be remapped to "move left". As it is<br  />
-not usefull to move left on <code>magit</code>, because operations are done on lines, the<br  />
-<code>c</code> is not be remapped.<br  />
+not useful to move left on <code>magit</code>, because operations are done on lines, the<br  />
+<code>c</code> is not remapped.<br  />
 </p>
 
 <p>
@@ -339,7 +339,7 @@ To use this contribution add it to your <code>~/.spacemacs</code>
 <h2 id="orgheadline16"><span class="section-number-2">5</span> Key bindings</h2>
 <div class="outline-text-2" id="text-5">
 <p>
-Thanks to `wich-keys`, you shouldn't probably have to go through this list, the
+Thanks to `which-keys`, you shouldn't probably have to go through this list, the
 keys being shown after a small delay following a keypress.
 </p>
 </div>
@@ -435,7 +435,7 @@ keys being shown after a small delay following a keypress.
 <tbody>
 <tr>
 <td class="org-left"><code>C</code></td>
-<td class="org-left">Top of the windows</td>
+<td class="org-left">Top of the window</td>
 <td class="org-left"><code>L</code></td>
 </tr>
 
@@ -453,7 +453,7 @@ keys being shown after a small delay following a keypress.
 
 <tr>
 <td class="org-left"><code>R</code></td>
-<td class="org-left">Bottom of the windows</td>
+<td class="org-left">Bottom of the window</td>
 <td class="org-left"><code>H</code></td>
 </tr>
 </tbody>
@@ -591,7 +591,7 @@ keys being shown after a small delay following a keypress.
 <tbody>
 <tr>
 <td class="org-left"><code>k</code></td>
-<td class="org-left">Evil-surround functionnalites</td>
+<td class="org-left">Evil-surround functionalities</td>
 <td class="org-left"><code>s</code></td>
 </tr>
 </tbody>
@@ -1406,7 +1406,7 @@ licensed under the <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.e
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-08 Sun 18:49</p>
+<p class="date">Created: 2015-11-23 Mon 13:49</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

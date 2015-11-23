@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-11-23 Mon 13:48 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Spacemacs Layouts configuration layer for Spacemacs</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+                 href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+          <script type="text/javascript"
+                  src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+          <script type="text/javascript"
+                  src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<div id="toggle-sidebar"><a href="#table-of-contents"><h2>Table of Contents</h2></a></div>
+<h1 class="title">Spacemacs Layouts configuration layer for Spacemacs</h1>
+<div id="table-of-contents">
+<h2>Table of Contents<a href="#">Close</a></h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Description</a></li>
+<li><a href="#orgheadline3">2. Install</a>
+<ul>
+<li><a href="#orgheadline2">2.1. Layer</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline8">3. Features</a>
+<ul>
+<li><a href="#orgheadline7">3.1. Micro-states</a>
+<ul>
+<li><a href="#orgheadline4">3.1.1. <span class="todo nilTODO">TODO</span> Layouts Micro State</a></li>
+<li><a href="#orgheadline5">3.1.2. Project Layouts</a></li>
+<li><a href="#orgheadline6">3.1.3. Custom Layouts Micro State</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline14">4. Usage</a>
+<ul>
+<li><a href="#orgheadline9">4.1. Save/Load layouts into a file</a></li>
+<li><a href="#orgheadline10">4.2. Custom Layout Macro</a></li>
+<li><a href="#orgheadline13">4.3. Predefined custom layouts</a>
+<ul>
+<li><a href="#orgheadline11">4.3.1. Org-agenda custom layout</a></li>
+<li><a href="#orgheadline12">4.3.2. RCIRC/ERC custom layout</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Description</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This contribution layer adds layouts support to Spacemacs thanks to <code>persp-mode</code>.
+Layouts are window configurations that have buffer isolation between each other.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">2</span> Install</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">2.1</span> Layer</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+To use this contribution add it to your <code>~/.spacemacs</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>spacemacs-layouts<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">3</span> Features</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">3.1</span> Micro-states</h3>
+<div class="outline-text-3" id="text-3-1">
+</div><div id="outline-container-orgheadline4" class="outline-4">
+<h4 id="orgheadline4"><span class="section-number-4">3.1.1</span> <span class="todo TODO">TODO</span> Layouts Micro State</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<p>
+The layouts micro-state is initiated with <code>SPC l</code>.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>?</code></td>
+<td class="org-left">toggle the documentation</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>[1..9, 0]</code></td>
+<td class="org-left">switch to nth layout</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;tab&gt;</code></td>
+<td class="org-left">switch to the latest layout</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>a</code></td>
+<td class="org-left">add a buffer to the current layout</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>A</code></td>
+<td class="org-left">add all the buffers from another layout in the current one</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>b</code></td>
+<td class="org-left">select a buffer in the current layout</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>c</code></td>
+<td class="org-left">close the current layout and keep its buffers</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C</code></td>
+<td class="org-left">close the other layouts and keep their buffers</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-h</code></td>
+<td class="org-left">previous layout in list</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>l</code></td>
+<td class="org-left">select a layout with helm</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>L</code></td>
+<td class="org-left">load layouts from file</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-l</code></td>
+<td class="org-left">next layout in list</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>n</code></td>
+<td class="org-left">next layout in list</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>N</code></td>
+<td class="org-left">previous layout in list</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>o</code></td>
+<td class="org-left">open a custom layout</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>p</code></td>
+<td class="org-left">previous layout in list</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>r</code></td>
+<td class="org-left">remove current buffer from layout</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>R</code></td>
+<td class="org-left">rename layout</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>s</code></td>
+<td class="org-left">save layouts</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>t</code></td>
+<td class="org-left">display a buffer without adding it to the current layout</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>x</code></td>
+<td class="org-left">kill current layout with its buffers</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>X</code></td>
+<td class="org-left">kill other layouts with their buffers</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-4">
+<h4 id="orgheadline5"><span class="section-number-4">3.1.2</span> Project Layouts</h4>
+<div class="outline-text-4" id="text-3-1-2">
+<p>
+To create a layout for a specific project use <code>SPC p l</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-4">
+<h4 id="orgheadline6"><span class="section-number-4">3.1.3</span> Custom Layouts Micro State</h4>
+<div class="outline-text-4" id="text-3-1-3">
+<p>
+The layouts micro-state is initiated with <code>SPC l o</code>.
+</p>
+
+<p>
+Example of default custom layouts that are configured in the corresponding
+layers:
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>e</code></td>
+<td class="org-left">Emacs custom perspective</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>E</code></td>
+<td class="org-left">ERC custom perspective (needs the erc layer enabled)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>i</code></td>
+<td class="org-left">RCIRC custom perspective (needs the rcirc layer enabled)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>o</code></td>
+<td class="org-left">Org custom perspective</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<b><b>Note:</b></b> You can add more custom perspectives by using the
+<code>spacemacs|define-custom-layout</code> macro explained further below.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-2">
+<h2 id="orgheadline14"><span class="section-number-2">4</span> Usage</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+At the beginning there is only one layout called <code>Default</code>  which contains
+all the buffers.
+</p>
+
+<p>
+If you keep working within this layout then Emacs behaves as if layouts
+don't exist so you are never forced to use them even if they are available.
+</p>
+
+<p>
+They are two types of layouts:
+</p>
+<ul class="org-ul">
+<li>regular layouts which you can create dynamically or which can be bound to
+a projectile project (press <code>SPC l</code> to access them)</li>
+<li>custom layouts which are defined with the macro
+<code>spacemacs|define-custome-layout</code> and always active (press <code>SPC l o</code> to
+access them).</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">4.1</span> Save/Load layouts into a file</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+With <code>SPC l s</code> and <code>SPC l L</code> you can save and load perspectives to a file. This
+is available without configuration, support is great for emacs 24.4, but
+depends on <code>workgroups.el</code> for Emacs &lt;= 24.3.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">4.2</span> Custom Layout Macro</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+If you want to add a new custom layouts (for example if you want to have
+IRC on its own perspective or maybe calendar or gnus) you have to use
+the macro <code>spacemacs|define-custom-layout</code> as follows:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>spacemacs|define-custom-layout <span class="org-string">"&lt;name-to-be-shown-in-the-modeline&gt;"</span>
+  <span class="org-builtin">:binding</span> <span class="org-string">"&lt;bind-key&gt;"</span>
+  <span class="org-builtin">:body</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>...<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">(stuff to be done in the persp activating)</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">(a major mode like twittering-mode or whatever)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>...<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Other example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>spacemacs|define-custom-layout <span class="org-string">"c++"</span>
+  <span class="org-builtin">:binding</span> <span class="org-string">"+"</span>
+  <span class="org-builtin">:body</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>find-file <span class="org-string">"~/path/to/first/file.cpp"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>split-window-right<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>find-file <span class="org-string">"~/path/to/second/file.cpp"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">(... do more stuff but be careful not to destroy the universe ...)</span>
+<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Then you can access this persp with <code>SPC l o +</code>, where <code>+</code> is the binding.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">4.3</span> Predefined custom layouts</h3>
+<div class="outline-text-3" id="text-4-3">
+</div><div id="outline-container-orgheadline11" class="outline-4">
+<h4 id="orgheadline11"><span class="section-number-4">4.3.1</span> Org-agenda custom layout</h4>
+<div class="outline-text-4" id="text-4-3-1">
+<p>
+Here we define a custom layout that adds items to your org-agenda. If you
+do not know what that is check the <a href="https://www.gnu.org/software/emacs/manual/html_node/org/Agenda-commands.html">docs</a>.
+</p>
+
+<p>
+The cool part is that you can have many org files with todos in the agenda and
+with one simple command you can gather all the todos from all the agenda files
+you have and show them in a single buffer. (in evil the command starts with <code>;a</code>)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-4">
+<h4 id="orgheadline12"><span class="section-number-4">4.3.2</span> RCIRC/ERC custom layout</h4>
+<div class="outline-text-4" id="text-4-3-2">
+<p>
+Now you can also open IRC in a new layout to keep all the chat buffers in
+one layout isolated from your work buffers.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-11-23 Mon 13:48</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
