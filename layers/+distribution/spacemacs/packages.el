@@ -33,7 +33,7 @@
         evil-iedit-state
         (evil-indent-textobject :location (recipe :fetcher github :repo "TheBB/evil-indent-textobject"))
         evil-jumper
-        evil-lisp-state
+        (evil-lisp-state :location local)
         evil-nerd-commenter
         evil-matchit
         evil-numbers
@@ -573,11 +573,12 @@
       (evil-jumper-mode t))))
 
 (defun spacemacs/init-evil-lisp-state ()
-  (use-package evil-lisp-state
-    :init
-    (progn
-      (setq evil-lisp-state-global t)
-      (setq evil-lisp-state-leader-prefix "k"))))
+  (with-eval-after-load 'smartparens
+    (use-package evil-lisp-state
+      :init
+      (progn
+        (setq evil-lisp-state-global t)
+        (setq evil-lisp-state-leader-prefix "k")))))
 
 ;; other commenting functions in funcs.el with keybinds in keybindings.el
 (defun spacemacs/init-evil-nerd-commenter ()
