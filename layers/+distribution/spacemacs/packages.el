@@ -1524,7 +1524,7 @@ It will toggle the overlay under point or create an overlay of one character."
             neo-show-hidden-files t
             neo-auto-indent-point t
             neo-modern-sidebar t
-            neo-vc-integration '(face))
+            neo-vc-integration nil)
 
       (defun spacemacs/neotree-expand-or-open ()
         "Collapse a neotree node."
