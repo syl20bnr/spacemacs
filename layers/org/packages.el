@@ -80,11 +80,13 @@
     :defer t
     :init
     (progn
-      (when (member 'org features)
+      (when (featurep 'org)
         (configuration-layer//set-error)
         (spacemacs-buffer/append
-         "Org features have been loaded before the spacemacs org layer has initialised. \nTry removing org code from user initialisation and private layers." t
-         ))
+         (concat
+          "Org features were loaded before the `org' layer initialized.\n"
+          "Try removing org code from user initialization and private layers.") t))
+
       (setq org-clock-persist-file
             (concat spacemacs-cache-directory "org-clock-save.el")
             org-id-locations-file
