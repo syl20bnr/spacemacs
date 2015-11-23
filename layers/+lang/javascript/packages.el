@@ -165,6 +165,9 @@
         (spacemacs/set-leader-keys-for-major-mode mode "rwl" 'js2r-wrap-in-for-loop)
 
         (spacemacs/set-leader-keys-for-major-mode mode "k" 'js2r-kill)
+
+        (spacemacs/declare-prefix-for-mode mode "mx" "text")
+        (spacemacs/declare-prefix-for-mode mode "mxm" "move")
         (spacemacs/set-leader-keys-for-major-mode mode "xmj" 'js2r-move-line-down)
         (spacemacs/set-leader-keys-for-major-mode mode "xmk" 'js2r-move-line-up))
 
