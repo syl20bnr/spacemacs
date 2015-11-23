@@ -54,6 +54,7 @@
 
 * E-mail
 - [[file:+email/gnus/README.org][gnus]]
+- [[file:+email/mu4e/README.org][mu4e]]
 
 * Frameworks
 - [[file:+frameworks/django/README.org][django]]
@@ -143,4 +144,4 @@
 
 * Window management
 - [[file:+window-management/eyebrowse/README.org][eyebrowse]]
-- [[file:+window-management/perspectives/README.org][perspectives]]
+- [[file:+window-management/spacemacs-layouts/README.org][spacemacs-layouts]]
