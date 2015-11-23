@@ -950,8 +950,7 @@ ARG non nil means that the editing style is `vim'."
 (defun spacemacs-base/init-help-fns+ ()
   (use-package help-fns+
     :commands (describe-keymap)
-    :init
-    (spacemacs/set-leader-keys "hK" 'describe-keymap)))
+    :init (spacemacs/set-leader-keys "hdK" 'describe-keymap)))
 
 (defun spacemacs-base/init-hs-minor-mode ()
   ;; required for evil folding
