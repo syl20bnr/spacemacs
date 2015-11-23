@@ -5424,6 +5424,10 @@ figure {
   padding-top: 15px;
 }
 
+.attributions p {
+  margin-bottom: 5px;
+  font-size: 10px;
+}
 
 @media screen and (max-width: 768px) {
 
