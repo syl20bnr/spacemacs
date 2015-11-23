@@ -588,7 +588,8 @@
 (defun spacemacs/init-evil-lisp-state ()
   (use-package evil-lisp-state
     :init (setq evil-lisp-state-global t
-                ;; work-around to be removed when the fix is available in MELPA
+                ;; TODO work-around to be removed when the fix is available in
+                ;; MELPA
                 evil-lisp-state-leader (concat dotspacemacs-leader-key " k"))
     :config (evil-lisp-state-leader (concat dotspacemacs-leader-key " k"))))
 
