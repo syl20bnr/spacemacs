@@ -78,7 +78,8 @@
   [o]                  custom layouts
   [r]                  remove current buffer from layout
   [R]                  rename or create layout
-  [s]                  save layouts
+  [s]                  save all layouts
+  [S]                  save layouts by names
   [t]                  show a buffer without adding it to current layout
   [x]                  kill layout and its buffers
   [X]                  kill other layout(s) and their buffers")
@@ -132,6 +133,7 @@
         ("r" persp-remove-buffer :exit t)
         ("R" spacemacs/layouts-ms-rename :exit t)
         ("s" persp-save-state-to-file :exit t)
+        ("S" persp-save-to-file-by-names :exit t)
         ("t" persp-temporarily-display-buffer :exit t)
         ("x" spacemacs/layouts-ms-kill)
         ("X" spacemacs/layouts-ms-kill-other :exit t))
