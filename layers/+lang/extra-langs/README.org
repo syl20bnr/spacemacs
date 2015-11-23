@@ -1,6 +1,11 @@
 #+TITLE: Extra Languages
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+
+* Description
+
 Adds many more language modes for less common languages, some more niche than others.
 
 These include:
