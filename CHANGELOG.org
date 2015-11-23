@@ -1,4 +1,9 @@
 * Release 0.104.x
+** 0.104.5 (2015/11/22)
+*** Distribution layer changes
+**** Spacemacs
+- Use version 7.1 of =evil-lisp-state=, the version 8 is supported
+  in version 105 of Spacemacs only.
 ** 0.104.4 (2015/11/04)
 *** Layer changes
 **** Scala
