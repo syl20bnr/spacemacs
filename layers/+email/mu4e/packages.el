@@ -29,10 +29,26 @@
         :mode mu4e-main-mode
         :bindings
         (kbd "j") 'mu4e~headers-jump-to-maildir)
-      (evilified-state-evilify-map mu4e-headers-mode-map
-        :mode mu4e-headers-mode)
-      (evilified-state-evilify-map mu4e-view-mode-map
-        :mode mu4e-view-mode)
+
+      (evilified-state-evilify-map
+       mu4e-headers-mode-map
+       :mode mu4e-headers-mode
+       :bindings
+       (kbd "C-j") 'mu4e-headers-next
+       (kbd "C-k") 'mu4e-headers-prev
+       (kbd "J") (lambda ()
+                   (interactive)
+                   (mu4e-headers-mark-thread nil '(read))))
+
+      (evilified-state-evilify-map
+       mu4e-view-mode-map
+       :mode mu4e-view-mode
+       :bindings
+       (kbd "C-j") 'mu4e-view-headers-next
+       (kbd "C-k") 'mu4e-view-headers-prev
+       (kbd "J") (lambda ()
+                   (interactive)
+                    (mu4e-view-mark-thread '(read))))
 
       (setq mu4e-completing-read-function
             (if (configuration-layer/layer-usedp 'spacemacs-ivy)
