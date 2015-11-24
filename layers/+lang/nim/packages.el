@@ -1,6 +1,5 @@
 (setq nim-packages
       '(company
-        company-nim
         flycheck
         flycheck-nim
         nim-mode))
@@ -8,7 +7,6 @@
 (defun nim/post-init-company ()
   (spacemacs|add-company-hook nim-mode))
 
-(defun nim/init-company-nim ())
 
 (defun nim/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'nim-mode))
