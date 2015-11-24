@@ -9,7 +9,11 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(setq yaml-packages '(yaml-mode))
+(setq yaml-packages '(company
+                      yaml-mode))
+
+(defun yaml/post-init-company ()
+  (add-hook 'yaml-mode-hook 'company-mode))
 
 (defun yaml/init-yaml-mode ()
   "Initialize YAML mode"
