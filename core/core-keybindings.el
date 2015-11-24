@@ -111,9 +111,11 @@ minor-mode, the third argument should be non nil."
               :prefix-cmd ,prefix
               ,(if minor :minor-modes :major-modes) (,mode)
               :keys (,dotspacemacs-major-mode-emacs-leader-key
-                     ,(concat dotspacemacs-emacs-leader-key " m"))
+                     ,(concat dotspacemacs-emacs-leader-key
+                              (unless minor " m")))
               :evil-keys (,dotspacemacs-major-mode-leader-key
-                          ,(concat dotspacemacs-leader-key " m"))))
+                          ,(concat dotspacemacs-leader-key
+                                   (unless minor " m")))))
           (boundp prefix)))))
 
 (defun spacemacs/set-leader-keys-for-major-mode (mode key def &rest bindings)
