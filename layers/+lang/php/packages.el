@@ -14,6 +14,7 @@
       '(
         ac-php
         company
+        feature-mode
         drupal-mode
         eldoc
         flycheck
@@ -37,6 +38,11 @@
 
   (defun php/post-init-ac-php ()
     (push 'company-ac-php-backend company-backends-php-mode)))
+
+(defun php/init-feature-mode ()
+  "Initialize feature mode for Behat"
+  (use-package feature-mode
+    :mode (("\\.feature\\'" . feature-mode))))
 
 (defun php/init-drupal-mode ()
   (use-package drupal-mode
