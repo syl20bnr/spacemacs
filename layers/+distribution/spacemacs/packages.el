@@ -591,7 +591,7 @@
                 ;; TODO work-around to be removed when the fix is available in
                 ;; MELPA
                 evil-lisp-state-leader (concat dotspacemacs-leader-key " k"))
-    :config (evil-lisp-state-leader (concat dotspacemacs-leader-key " k"))))
+    :config (setq evil-lisp-state-leader (concat dotspacemacs-leader-key " k"))))
 
 (defun spacemacs/init-evil-mc ()
   (use-package evil-mc
