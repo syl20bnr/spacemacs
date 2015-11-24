@@ -12,6 +12,7 @@
 
 (setq php-packages
       '(
+        ac-php
         company
         drupal-mode
         eldoc
@@ -19,6 +20,8 @@
         ggtags
         helm-gtags
         php-auto-yasnippets
+        (ede-php-autoload :location (recipe :fetcher github :repo "stevenremot/ede-php-autoload"))
+        (semantic-php :location (recipe :fetcher github :repo "jorissteyn-semantic-php"))
         (php-extras :location (recipe :fetcher github :repo "arnested/php-extras"))
         php-mode
         phpcbf
@@ -27,11 +30,35 @@
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun php/post-init-company ()
-    (spacemacs|add-company-hook php-mode)))
+    (spacemacs|add-company-hook php-mode))
+
+  (defun php/post-init-php-extras ()
+    (push 'php-extras-company company-backends-php-mode))
+
+  (defun php/post-init-ac-php ()
+    (push 'company-ac-php-backend company-backends-php-mode)))
 
 (defun php/init-drupal-mode ()
   (use-package drupal-mode
     :defer t))
+
+(defun php/init-ac-php ()
+  (use-package ac-php
+    :defer t
+    :init (progn
+            (use-package ac-php-company
+              :defer t)
+            )))
+
+(defun php/init-semantic-php ()
+  (use-package semantic-php
+    ;; :init (load "~/src/jorissteyn-semantic-php/loaddefs.el")
+    :config (add-hook 'php-mode-hook #'semantic-mode)))
+
+(defun php/init-ede-php-autoload-mode ()
+  (use-package ede-php-autoload-mode
+    :init (progn
+            (add-hook 'php-mode-hook #'ede-php-autoload-mode))))
 
 (defun php/post-init-eldoc ()
   (add-hook 'php-mode-hook 'eldoc-mode)
