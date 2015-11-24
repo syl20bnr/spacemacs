@@ -930,7 +930,6 @@ and ~T~):
 
 | Key Binding | Description                                                       |
 |-------------+-------------------------------------------------------------------|
-| ~SPC t ~~   | display =~= in the fringe on empty lines                          |
 | ~SPC t f~   | display the fill column (by default the fill column is set to 80) |
 | ~SPC t h h~ | toggle highlight of the current line                              |
 | ~SPC t h i~ | toggle highlight indentation levels                               |
@@ -942,6 +941,7 @@ and ~T~):
 
 | Key Binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
+| ~SPC T ~~   | display =~= in the fringe on empty lines                     |
 | ~SPC T F~   | toggle frame fullscreen                                      |
 | ~SPC T f~   | toggle display of the fringe                                 |
 | ~SPC T m~   | toggle menu bar                                              |

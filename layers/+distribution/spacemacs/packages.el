@@ -1900,7 +1900,7 @@ It will toggle the overlay under point or create an overlay of one character."
         :off (global-vi-tilde-fringe-mode -1)
         :documentation
         "Globally display a ~ on empty lines in the fringe."
-        :evil-leader "t~")
+        :evil-leader "T~")
       ;; don't enable it on spacemacs home buffer
       (with-current-buffer  "*spacemacs*"
         (vi-tilde-fringe-mode -1))
