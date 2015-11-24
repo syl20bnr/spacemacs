@@ -61,6 +61,7 @@
                                   ".git"))
 (defvar nose-project-root-test 'nose-project-root)
 (defvar nose-use-verbose t)
+(defvar nose-capture nil)
 
 (defun run-nose (&optional tests suite debug failed)
   "run nosetests by calling python instead of nosetests script.
@@ -88,7 +89,9 @@ For more details: http://pswinkels.blogspot.ca/2010/04/debugging-python-code-fro
              (format
               (concat "%s "
                       (if nose-use-verbose "-v " "")
-                      "%s -s -w \"%s\" -c \"%ssetup.cfg\" \"%s\"")
+                      "%s "
+                      (if nose-capture "" "-s ")
+                      "-w \"%s\" -c \"%ssetup.cfg\" \"%s\"")
               nose args where where tnames)))
   )
 

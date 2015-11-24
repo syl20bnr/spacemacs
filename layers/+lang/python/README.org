@@ -72,6 +72,22 @@ directory local variable in your project root. ~SPC f v d~ in Spacemacs. See
 
 The root of the project is detected with a =.git= directory or a =setup.cfg= file.
 
+By default, =nose= is run with =--nocapture= flag enabled. This can be changed
+by setting the layer variable =nose-capture= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((python :variables nose-capture t)))
+#+END_SRC
+
+The verbosity of =nose= can be changed with =nose-use-verbose=, which is true by
+default. To make =nose= less verbose, it can be set to =nil=.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((python :variables nose-use-verbose nil)))
+#+END_SRC
+
 ** Anaconda dependencies
 =anaconda-mode= tries to install the dependencies itself but sometimes
 it does not work and you may encounter the following message when
