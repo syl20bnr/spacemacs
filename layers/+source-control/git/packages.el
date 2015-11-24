@@ -121,7 +121,10 @@
       ;; seems to be necessary at the time of release
       (require 'git-rebase)
       ;; mode maps
-      (spacemacs|evilify-map magit-mode-map)
+      (spacemacs|evilify-map magit-mode-map
+        :bindings
+        ;; `spacemacs|evilify-map' wrecks the `magit-delete-thing' magic.
+        (kbd "K") 'magit-delete-thing)
       (spacemacs|evilify-map magit-status-mode-map
         :mode magit-status-mode
         :bindings
