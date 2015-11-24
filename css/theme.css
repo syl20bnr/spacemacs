@@ -5472,6 +5472,10 @@ figure {
     .btn {
         font-size: 40%;
     }
+    .attributions-row {
+      margin-left: 15%;
+      margin-top: 2em;
+    }
 }
 
 /*# sourceMappingURL=theme.css.map */
