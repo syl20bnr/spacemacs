@@ -81,7 +81,7 @@
         ;; repl
         "si" 'elm-repl-load
         "sf" 'elm-repl-push-decl
-        "sF" 'spacemacs/elm-repl-push-decl
+        "sF" 'spacemacs/elm-repl-push-decl-focus
         "sr" 'elm-repl-push
         "sR" 'spacemacs/elm-repl-push-focus
 
