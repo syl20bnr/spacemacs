@@ -20,6 +20,7 @@
     flycheck
     flyspell
     smartparens
+    typo
     yasnippet
     ))
 
@@ -114,6 +115,12 @@
 
 (defun latex/post-init-smartparens ()
   (add-hook 'LaTeX-mode-hook 'smartparens-mode))
+
+(defun latex/post-init-typo ()
+  ;; Typo mode isn't useful for LaTeX.
+  (defun spacemacs//disable-typo-mode ()
+    (typo-mode -1))
+  (add-hook 'LaTeX-mode-hook 'spacemacs//disable-typo-mode))
 
 (defun latex/post-init-yasnippet ()
   (add-hook 'LaTeX-mode-hook 'spacemacs/load-yasnippet))

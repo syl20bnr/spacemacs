@@ -25,8 +25,7 @@
     :init
     (progn
       (when typography-enable-typographic-editing
-        (dolist (hook '(text-mode-hook org-mode-hook))
-          (add-hook hook 'typo-mode)))
+        (add-hook 'text-mode-hook 'typo-mode))
 
       (spacemacs|add-toggle typographic-substitutions
         :status typo-mode
