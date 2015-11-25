@@ -167,6 +167,7 @@ Test commands start with ~m t~:
 | ~SPC m d b~ | toggle a breakpoint                                                          |
 | ~SPC m g g~ | go to definition using =anaconda-mode-find-definitions= (~C-o~ to jump back) |
 | ~SPC m g a~ | go to assignment using =anaconda-mode-find-assignments= (~C-o~ to jump back) |
+| ~SPC m g b~ | jump back                                                                    |
 | ~SPC m g u~ | navigate between usages with =anaconda-mode-find-references=                 |
 | ~SPC m h d~ | look for documentation using =helm-pydoc=                                    |
 | ~SPC m h h~ | quick documentation using anaconda                                           |
