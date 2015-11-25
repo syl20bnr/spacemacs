@@ -14,10 +14,8 @@
    - [[Auto-fill][Auto-fill]]
  - [[Keybindings][Keybindings]]
    - [[RefTeX][RefTeX]]
- - [[Maintainer][Maintainer]]
 
 * Description
-
 This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects/auctex/][AucTeX]].
 
 ** Features
@@ -27,9 +25,7 @@ This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
 
 * Install
-
 ** Layer
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -37,12 +33,10 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 ** Auto-completion
-
 Add the layer =auto-completion= to the variable
 =dotspacemacs-configuration-layers= of your dotfile =~/.spacemacs=.
 
 ** Previewing
-
 To perform full-document previews (that is, aside from the inline previewing
 under ~SPC m p~), add the following to your =.spacemacs=
 under =dotspacemacs/user-config=:
@@ -55,7 +49,6 @@ Then when you open up a compiled PDF, the preview will update automatically
 when you recompile.
 
 ** Build command
-
 A build command can be specified via the layer variable =latex-build-command=.
 
 If =LatexMk= is specified, the appropriate =LatexMk= configuration
@@ -71,7 +64,6 @@ below.
 #+END_SRC
 
 ** Auto-fill
-
 To enable auto-fill set the variable =latex-enable-auto-fill= to =t=.
 
 The variable =latex-nofill-env= provide the list of environment names where
@@ -84,25 +76,36 @@ The variable =latex-nofill-env= provide the list of environment names where
 
 * Keybindings
 
-| Key Binding | Description                                             |
-|-------------+---------------------------------------------------------|
-| ~SPC m *~   | TeX documentation, can be very slow                     |
-| ~SPC m b~   | build                                                   |
-| ~SPC m c~   | close LaTeX environment                                 |
-| ~SPC m C~   | TeX command on master file                              |
-| ~SPC m e~   | insert LaTeX environment                                |
-| ~SPC m f~   | insert LaTeX font - full bindings here: [[https://www.gnu.org/software/auctex/manual/auctex/Font-Specifiers.html][AUCTeX Font Doc]] |
-| ~SPC m i~   | insert =\item=                                          |
-| ~SPC m p r~ | preview region                                          |
-| ~SPC m p b~ | preview buffer                                          |
-| ~SPC m p d~ | preview document                                        |
-| ~SPC m p e~ | preview environment                                     |
-| ~SPC m p s~ | preview section                                         |
-| ~SPC m p p~ | preview at point                                        |
-| ~SPC m p f~ | cache preamble for preview                              |
-| ~SPC m p c~ | clear previews                                          |
-| ~SPC m v~   | view                                                    |
-
+| Key Binding   | Description                                             |
+|---------------+---------------------------------------------------------|
+| ~SPC m *~     | TeX documentation, can be very slow                     |
+| ~SPC m b~     | build                                                   |
+| ~SPC m c~     | close LaTeX environment                                 |
+| ~SPC m C~     | TeX command on master file                              |
+| ~SPC m e~     | insert LaTeX environment                                |
+| ~SPC m i~     | insert =\item=                                          |
+| ~SPC m p r~   | preview region                                          |
+| ~SPC m p b~   | preview buffer                                          |
+| ~SPC m p d~   | preview document                                        |
+| ~SPC m p e~   | preview environment                                     |
+| ~SPC m p s~   | preview section                                         |
+| ~SPC m p p~   | preview at point                                        |
+| ~SPC m p f~   | cache preamble for preview                              |
+| ~SPC m p c~   | clear previews                                          |
+| ~SPC m v~     | view                                                    |
+| ~SPC m x b~   | make font bold                                          |
+| ~SPC m x B~   | make font medium weight                                 |
+| ~SPC m x c~   | make font monospaced (for code)                         |
+| ~SPC m x e~   | make font emphasised                                    |
+| ~SPC m x i~   | make font italic                                        |
+| ~SPC m x o~   | make font oblique                                       |
+| ~SPC m x r~   | remove font properties                                  |
+| ~SPC m x f a~ | use calligraphic font                                   |
+| ~SPC m x f c~ | use small-caps font                                     |
+| ~SPC m x f f~ | use sans serif font                                     |
+| ~SPC m x f n~ | use normal font                                         |
+| ~SPC m x f r~ | use serif font                                          |
+| ~SPC m x f u~ | use upright font                                        |
 
 ** RefTeX
 
@@ -121,9 +124,3 @@ The variable =latex-nofill-env= provide the list of environment names where
 | ~SPC m r t~   | reftex-toc                            |
 | ~SPC m r T~   | reftex-toc-recenter                   |
 | ~SPC m r v~   | reftex-view-crossref                  |
-
-* Maintainer
-
-This layer was created by and is maintained by @trishume, ping me in the Gitter
-chat if you have questions. Feel free to submit PRs for this layer though if
-you have improvements.
