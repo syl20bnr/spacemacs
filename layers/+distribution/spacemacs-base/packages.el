@@ -381,10 +381,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (when (configuration-layer/package-usedp 'smartparens)
         (defadvice evil-delete-backward-char-and-join
             (around spacemacs/evil-delete-backward-char-and-join activate)
-          (defvar smartparens-strict-mode)
-          ;; defadvice compiles this sexp generating a compiler warning for a
-          ;; free variable reference. The line above fixes this
-          (if smartparens-strict-mode
+          (if (bound-and-true-p smartparens-strict-mode)
               (call-interactively 'sp-backward-delete-char)
             ad-do-it))))))
 
