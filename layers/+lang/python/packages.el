@@ -51,6 +51,7 @@
         "hh" 'anaconda-mode-show-doc
         "gg" 'anaconda-mode-find-definitions
         "ga" 'anaconda-mode-find-assignments
+        "gb" 'anaconda-mode-go-back
         "gu" 'anaconda-mode-find-references)
       (evilified-state-evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
         (kbd "q") 'quit-window)
