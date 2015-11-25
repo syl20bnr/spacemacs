@@ -1,0 +1,21 @@
+* evil-cleverparens contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC_4_org:noexport:
+ - [[evil-cleverparens contribution layer for Spacemacs][evil-cleverparens contribution layer for Spacemacs]]
+ - [[Description][Description]]
+ - [[Install][Install]]
+
+* Description
+
+This simple layer adds the [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]] package, which overrides common
+normal-mode vim commands like D, dd, c, etc. to keep parentheses balanced. See
+the repository for more details. All the layer does right now is to add a hook
+to load evil-cleverparens with emacs-lisp-mode.
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(evil-cleverparens))
+#+END_SRC
