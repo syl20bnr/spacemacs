@@ -90,14 +90,8 @@ point to the position of the join."
   (when (s-matches? (rx (+ (not space)))
                     (buffer-substring (line-beginning-position) (point)))
     (delete-horizontal-space t))
-
-  (cond (company-backend
-         (company-complete-selection)
-         (scala/completing-dot))
-
-        (t
-         (insert ".")
-         (company-complete))))
+  (insert ".")
+  (company-complete))
 
 ;;; Flyspell
 
