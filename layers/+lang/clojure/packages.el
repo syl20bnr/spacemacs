@@ -305,49 +305,11 @@ If called with a prefix argument, uses the other-window instead."
       (cljr-add-keybindings-with-prefix "C-c C-f")
 
       (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
-        (spacemacs/set-leader-keys-for-major-mode m
-          "r?"  'cljr-describe-refactoring
-          "rad" 'cljr-add-declaration
-          "rai" 'cljr-add-import-to-ns
-          "ram" 'cljr-add-missing-libspec
-          "rap" 'cljr-add-project-dependency
-          "rar" 'cljr-add-require-to-ns
-          "ras" 'cljr-add-stubs
-          "rau" 'cljr-add-use-to-ns
-          "rcc" 'cljr-cycle-coll
-          "rci" 'cljr-cycle-if
-          "rcn" 'cljr-clean-ns
-          "rcp" 'cljr-cycle-privacy
-          "rdk" 'cljr-destructure-keys
-          "rec" 'cljr-extract-constant
-          "red" 'cljr-extract-def
-          "ref" 'cljr-extract-function
-          "rel" 'cljr-expand-let
-          "rfe" 'cljr-create-fn-from-example
-          "rfu" 'cljr-find-usages
-          "rhd" 'cljr-hotload-dependency
-          "ril" 'cljr-introduce-let
-          "ris" 'cljr-inline-symbol
-          "rmf" 'cljr-move-form
-          "rml" 'cljr-move-to-let
-          "rpc" 'cljr-project-clean
-          "rpf" 'cljr-promote-function
-          "rrd" 'cljr-remove-debug-fns
-          "rrf" 'cljr-rename-file-or-dir
-          "rrl" 'cljr-remove-let
-          "rrr" 'cljr-remove-unused-requires
-          "rrs" 'cljr-rename-symbol
-          "rru" 'cljr-replace-use
-          "rsc" 'cljr-show-changelog
-          "rsn" 'cljr-sort-ns
-          "rsp" 'cljr-sort-project-dependencies
-          "rsr" 'cljr-stop-referring
-          "rtf" 'cljr-thread-first-all
-          "rth" 'cljr-thread
-          "rtl" 'cljr-thread-last-all
-          "rua" 'cljr-unwind-all
-          "rup" 'cljr-update-project-dependencies
-          "ruw" 'cljr-unwind))
+        (dolist (r cljr--all-helpers)
+          (let* ((binding (car r))
+                 (func (car (cdr r))))
+            (when (not (string-prefix-p "hydra" (symbol-name func)))
+              (spacemacs/set-leader-keys-for-major-mode m (concat "r" binding) func)))))
 
       (spacemacs/set-leader-keys-for-major-mode 'cider-repl-mode
         "r?"  'cljr-describe-refactoring
