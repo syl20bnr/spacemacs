@@ -44,6 +44,12 @@
                                      ("mt" . "test")
                                      ("mT" . "toggle")
                                      ("mf" . "format")))
-(mapc (lambda (x) (spacemacs/declare-prefix-for-mode
-                   'clojure-mode (car x) (cdr x)))
-            clojure/key-binding-prefixes)
+
+(dolist (mode '(clojure-mode
+                clojurec-mode
+                clojurescript-mode
+                clojurex-mode
+                cider-repl-mode))
+  (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
+                     mode (car x) (cdr x)))
+        clojure/key-binding-prefixes))
