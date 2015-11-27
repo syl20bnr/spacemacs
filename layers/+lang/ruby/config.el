@@ -29,4 +29,4 @@
 
 ;; Command prefixes
 
-(spacemacs/declare-prefix-for-mode mode "mt" "ruby/test")
+(spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "ruby/test")
