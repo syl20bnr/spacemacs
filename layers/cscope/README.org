@@ -1,6 +1,6 @@
 #+TITLE: Cscope contribution layer for Spacemacs
 
-[[file:img/cscope.png]]
+[[file:img/cscope.jpg]]
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
