@@ -39,6 +39,7 @@
          "GOPATH variable not found, go-oracle configuration skipped.")
       (when (load-gopath-file
              go-path "/src/golang.org/x/tools/cmd/oracle/oracle.el")
+        (spacemacs/declare-prefix-for-mode 'go-mode "mr" "rename")
         (spacemacs/set-leader-keys-for-major-mode 'go-mode
           "ro" 'go-oracle-set-scope
           "r<" 'go-oracle-callers
