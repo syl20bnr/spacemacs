@@ -66,9 +66,9 @@
           "rgz" 'projectile-rails-goto-spec-helper
           "rg." 'projectile-rails-goto-file-at-point
           ;; Rails external commands
+          "r:" 'projectile-rails-rake
           "rcc" 'projectile-rails-generate
           "ri" 'projectile-rails-console
-          "rr:" 'projectile-rails-rake
           "rxs" 'projectile-rails-server
           ;; Refactoring 'projectile-rails-mode
           "rRx" 'projectile-rails-extract-region))

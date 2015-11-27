@@ -73,10 +73,10 @@ To use this contribution add it to your =~/.spacemacs=
 
 | Key binding   | Description          |
 |---------------+----------------------|
+| ~SPC m r :~   | run rake task        |
 | ~SPC m r c c~ | run rails generator  |
 | ~SPC m r i~   | start rails console  |
 | ~SPC m r s r~ | reload Rails project |
-| ~SPC m r r :~ | run rake task        |
 | ~SPC m r x s~ | start rails server   |
 
 ** Ex-commands
