@@ -27,10 +27,6 @@
     (add-to-list 'ruby-packages 'enh-ruby-mode)
   (add-to-list 'ruby-packages 'ruby-mode))
 
-(if ruby-use-ruby-test
-    (add-to-list 'ruby-packages 'ruby-test-mode)
-  (add-to-list 'ruby-packages 'rspec-mode))
-
 (when ruby-version-manager
   (add-to-list 'ruby-packages ruby-version-manager))
 
@@ -157,17 +153,23 @@
   "Define keybindings for rspec mode"
   (use-package rspec-mode
     :defer t
-    :init (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
-            (add-hook hook 'rspec-mode))
+    :init
+    (progn
+      (defun spacemacs//ruby-enable-rspec-mode ()
+        "Conditionally enable `rspec-mode'"
+        (when (eq 'rspec ruby-test-runner)
+          (rspec-mode)))
+      (spacemacs/add-to-hooks
+       'spacemacs//ruby-enable-rspec-mode '(ruby-mode-hook
+                                            enh-ruby-mode-hook)))
     :config
     (progn
       (spacemacs|hide-lighter rspec-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
-        (spacemacs/declare-prefix-for-mode mode "mt" "ruby/test")
         (spacemacs/set-leader-keys-for-major-mode mode
           "ta" 'rspec-verify-all
           "tc" 'rspec-verify-matching
-          "tf" 'rspec-run-last-failed
+          "tl" 'rspec-run-last-failed
           "tr" 'rspec-rerun
           "tt" 'rspec-verify-single)))))
 
@@ -192,15 +194,22 @@
   "Define keybindings for ruby test mode"
   (use-package ruby-test-mode)
     :defer t
-    :init (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
-            (add-hook hook 'ruby-test-mode))
+    :init
+    (progn
+      (defun spacemacs//ruby-enable-ruby-test-mode ()
+        "Conditionally enable `ruby-test-mode'"
+        (when (eq 'ruby-test ruby-test-runner)
+          (ruby-test-mode)))
+      (spacemacs/add-to-hooks
+       'spacemacs//ruby-enable-ruby-test-mode '(ruby-mode-hook
+                                                enh-ruby-mode-hook)))
     :config
     (progn
       (spacemacs|hide-lighter ruby-test-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
-        (spacemacs/declare-prefix-for-mode mode "mt" "ruby/test")
-        (evil-leader/set-key-for-mode mode "mtb" 'ruby-test-run)
-        (evil-leader/set-key-for-mode mode "mtt" 'ruby-test-run-at-point))))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "tb" 'ruby-test-run
+          "tt" 'ruby-test-run-at-point))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun ruby/post-init-company ()
