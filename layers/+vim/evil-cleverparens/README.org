@@ -19,3 +19,9 @@ To use this contribution add it to your =~/.spacemacs=.
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(evil-cleverparens))
 #+END_SRC
+
+Then enable it in your =user-config= function:
+
+#+BEGIN_SRC emacs-lisp
+  (spacemacs/toggle-evil-cleverparens-on)
+#+END_SRC

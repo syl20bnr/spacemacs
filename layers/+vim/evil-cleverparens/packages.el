@@ -18,9 +18,10 @@
     :defer t
     :diminish evil-cleverparens-mode
     :init
-    (setq evil-cleverparens-use-regular-insert t)
-    (spacemacs|add-toggle evil-cleverparens
-      :status evil-cleverparens-mode
-      :on  (evil-cleverparens-mode)
-      :off (evil-cleverparens-mode -1)
-      :documentation "Enable evil-cleverparens.")))
+    (progn
+      (setq evil-cleverparens-use-regular-insert t)
+      (spacemacs|add-toggle evil-cleverparens
+        :status evil-cleverparens-mode
+        :on  (evil-cleverparens-mode)
+        :off (evil-cleverparens-mode -1)
+        :documentation "Enable evil-cleverparens."))))
