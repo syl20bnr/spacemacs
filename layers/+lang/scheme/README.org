@@ -11,6 +11,7 @@
    - [[Insertion][Insertion]]
    - [[Macroexpansion][Macroexpansion]]
    - [[REPL][REPL]]
+   - [[Evaluation][Evaluation]]
 
 * Description
 
@@ -91,3 +92,13 @@ For full Chicken support, the following commands should be run:
 | ~SPC m s e~ | Send last sexp to the REPL               |
 | ~SPC m s r~ | Send region to the REPL                  |
 | ~SPC m s R~ | Send region to the REPL and focus it     |
+
+** Evaluation
+
+| Key Binding | Description               |
+|-------------+---------------------------|
+| ~SPC m e b~ | Evaluate the whole buffer |
+| ~SPC m e e~ | Evaluate last sexp        |
+| ~SPC m e f~ | Evaluate current function |
+| ~SPC m e l~ | Evaluate line             |
+| ~SPC m e r~ | Evaluate region           |
