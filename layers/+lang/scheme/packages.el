@@ -26,9 +26,9 @@
 
         "eb" 'geiser-eval-buffer
         "ee" 'geiser-eval-last-sexp
-        "er" 'geiser-eval-region
         "ef" 'geiser-eval-definition
         "el" 'lisp-state-eval-sexp-end-of-line
+        "er" 'geiser-eval-region
 
         "gg" 'geiser-edit-symbol-at-point
         "gb" 'geiser-pop-symbol-stack
