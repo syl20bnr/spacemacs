@@ -156,19 +156,27 @@
       (spacemacs|hide-lighter ruby-test-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
         (spacemacs/declare-prefix-for-mode mode "mt" "ruby/test")
-        (spacemacs/set-leader-keys-for-major-mode mode "tb" 'ruby-test-run)
-        (spacemacs/set-leader-keys-for-major-mode mode "tt" 'ruby-test-run-at-point)))))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "tb" 'ruby-test-run)
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "tt" 'ruby-test-run-at-point)))))
 
 (defun ruby/init-rubocop ()
   (use-package rubocop
     :defer t
-    :init (add-hook 'enh-ruby-mode-hook 'rubocop-mode)
+    :init (spacemacs/add-to-hooks 'rubocop-mode '(ruby-mode-hook
+                                                  enh-ruby-mode-hook))
     :config
     (progn
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mraD" 'rubocop-autocorrect-directory)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mraP" 'rubocop-autocorrect-project)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mraF" 'rubocop-autocorrect-current-file)
-      )))
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/declare-prefix-for-mode mode "mr" "ruby/refactor")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "rrd" 'rubocop-check-directory
+          "rrD" 'rubocop-autocorrect-directory
+          "rrf" 'rubocop-check-current-file
+          "rrF" 'rubocop-autocorrect-current-file
+          "rrp" 'rubocop-check-project
+          "rrP" 'rubocop-autocorrect-project)))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun ruby/post-init-company ()

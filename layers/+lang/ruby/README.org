@@ -11,7 +11,7 @@
  - [[Key bindings][Key bindings]]
    - [[Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
    - [[ruby-test-mode][ruby-test-mode]]
-   - [[rubocop][rubocop]]
+   - [[RuboCop][RuboCop]]
 
 * Description
 This layer provides support for the Ruby language with [[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]] and [[https://github.com/dgutov/robe][robe-mode]].
@@ -97,10 +97,13 @@ a couple of useful keybindings:
 | ~SPC m t b~ | run test file       |
 | ~SPC m t t~ | run test at pointer |
 
-** rubocop
+** RuboCop
 
-| Key binding   | Description                   |
-|---------------+-------------------------------|
-| ~SPC m r a F~ | autocorrect current file      |
-| ~SPC m r a D~ | autocorrect current directory |
-| ~SPC m r a P~ | autocorrect current project   |
+| Key binding   | Description                                          |
+|---------------+------------------------------------------------------|
+| ~SPC m r r f~ | Runs RuboCop on the currently visited file           |
+| ~SPC m r r F~ | Runs auto-correct on the currently visited file      |
+| ~SPC m r r d~ | Prompts from a directory on which to run RuboCop     |
+| ~SPC m r r D~ | Prompts for a directory on which to run auto-correct |
+| ~SPC m r r p~ | Runs RuboCop on the entire project                   |
+| ~SPC m r r P~ | Runs auto-correct on the project                     |
