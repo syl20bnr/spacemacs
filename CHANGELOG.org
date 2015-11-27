@@ -1,4 +1,7 @@
 * Release 0.104.x
+** 0.104.6 (2015/11/27)
+*** Hotfix
+- Fix void variable error =smartparens-strict-mode= (thanks to TheBB)
 ** 0.104.5 (2015/11/22)
 *** Distribution layer changes
 **** Spacemacs
