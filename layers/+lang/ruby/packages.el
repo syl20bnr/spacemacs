@@ -169,7 +169,7 @@
     :config
     (progn
       (dolist (mode '(ruby-mode enh-ruby-mode))
-        (spacemacs/declare-prefix-for-mode mode "mr" "ruby/refactor")
+        (spacemacs/declare-prefix-for-mode mode "mrr" "ruby/RuboCop")
         (spacemacs/set-leader-keys-for-major-mode mode
           "rrd" 'rubocop-check-directory
           "rrD" 'rubocop-autocorrect-directory
