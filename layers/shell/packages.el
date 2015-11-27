@@ -15,6 +15,7 @@
         company
         helm
         multi-term
+        (comint :location built-in)
         shell
         shell-pop
         term
@@ -206,6 +207,12 @@ is achieved by adding the relevant text properties."
           (interactive)
           (projectile-with-default-dir (projectile-project-root) (multi-term)))
         (spacemacs/set-leader-keys "p$t" 'projectile-multi-term-in-root)))))
+
+(defun shell/init-comint ()
+  (use-package comint
+    :defer t
+    :init
+    (setq comint-prompt-read-only t)))
 
 (defun shell/init-shell ()
   (defun shell-comint-input-sender-hook ()
