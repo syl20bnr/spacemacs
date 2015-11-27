@@ -61,6 +61,12 @@
           (format "go run %s"
                   (shell-quote-argument (buffer-file-name)))))
 
+      (spacemacs/declare-prefix-for-mode 'go-mode "me" "playground")
+      (spacemacs/declare-prefix-for-mode 'go-mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode 'go-mode "mh" "help")
+      (spacemacs/declare-prefix-for-mode 'go-mode "mi" "imports")
+      (spacemacs/declare-prefix-for-mode 'go-mode "mt" "test")
+      (spacemacs/declare-prefix-for-mode 'go-mode "mx" "execute")
       (spacemacs/set-leader-keys-for-major-mode 'go-mode
         "hh" 'godoc-at-point
         "ig" 'go-goto-imports
