@@ -62,6 +62,7 @@
         "C" 'TeX-command-master
         "e" 'LaTeX-environment
         ;; Find a way to rebind tex-fonts
+<<<<<<< a3635045c388daf0f5c3c85f3d01656c0931bb30
         "f" 'TeX-font
         "hd" 'TeX-doc
         "i" 'LaTeX-insert-item
@@ -75,6 +76,22 @@
         "pr" 'preview-region
         "ps" 'preview-section
         "v" 'TeX-view))))
+=======
+        "mf" 'TeX-font
+        ;; TeX-doc is a very slow function
+        "mhd" 'TeX-doc
+        "mi" 'LaTeX-insert-item
+        "mo" 'TeX-recenter-output-buffer
+        "mpb" 'preview-buffer
+        "mpc" 'preview-clearout
+        "mpd" 'preview-document
+        "mpe" 'preview-environment
+        "mpf" 'preview-cache-preamble
+        "mpp" 'preview-at-point
+        "mpr" 'preview-region
+        "mps" 'preview-section
+        "mv" 'TeX-view))))
+>>>>>>> Binding added to open Tex-output-buffer
 
 (when (string= latex-build-command "LatexMk")
   (defun latex/init-auctex-latexmk ()
