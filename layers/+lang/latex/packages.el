@@ -73,10 +73,9 @@
         "c" 'LaTeX-close-environment
         "C" 'TeX-command-master
         "e" 'LaTeX-environment
-        ;; TeX-doc is a very slow function
         "hd" 'TeX-doc
         "i" 'LaTeX-insert-item
-        "o" 'TeX-recenter-output-buffer
+        ;; TeX-doc is a very slow function
         "pb" 'preview-buffer
         "pc" 'preview-clearout
         "pd" 'preview-document
