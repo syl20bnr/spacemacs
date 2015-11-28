@@ -17,7 +17,6 @@
     ess-R-data-view
     ess-R-object-popup
     ess-smart-equals
-    rainbow-delimiters
     ))
 
 (defun ess/init-ess ()
@@ -53,6 +52,9 @@
     :commands (R stata julia SAS)
     :init
     (progn
+      ;; Explicitly run prog-mode hooks since ess-mode does not derive from
+      ;; prog-mode major-mode
+      (add-hook 'ess-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
       (when (configuration-layer/package-usedp 'company)
           (add-hook 'ess-mode-hook 'company-mode))))
 
@@ -107,9 +109,6 @@
 (defun ess/init-ess-R-data-view ())
 
 (defun ess/init-ess-R-object-popup ())
-
-(defun ess/post-init-rainbow-delimiters ()
-  (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
 
 (defun ess/init-ess-smart-equals ()
   (use-package ess-smart-equals
