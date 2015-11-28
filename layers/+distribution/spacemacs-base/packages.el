@@ -220,6 +220,10 @@
       (evil-mode 1))
     :config
     (progn
+      ;; let spacemacs handle C-i bindings
+      (define-key evil-motion-state-map (kbd "C-i") nil)
+      (when evil-want-C-i-jump
+        (spacemacs/set-key evil-motion-state-map "C-i" 'evil-jump-forward))
       ;; evil ex-command key
       (define-key evil-normal-state-map (kbd dotspacemacs-command-key) 'evil-ex)
       (define-key evil-visual-state-map (kbd dotspacemacs-command-key) 'evil-ex)
