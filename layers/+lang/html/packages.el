@@ -21,7 +21,6 @@
     helm-css-scss
     jade-mode
     less-css-mode
-    rainbow-delimiters
     sass-mode
     scss-mode
     slim-mode
@@ -51,6 +50,10 @@
 
       ;; Mark `css-indent-offset' as safe-local variable
       (put 'css-indent-offset 'safe-local-variable #'integerp)
+
+      ;; Explicitly run prog-mode hooks since css-mode does not derive from
+      ;; prog-mode major-mode
+      (add-hook 'css-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
 
       (defun css-expand-statement ()
         "Expand CSS block"
@@ -124,7 +127,11 @@
 
 (defun html/init-jade-mode ()
   (use-package jade-mode
-    :defer t))
+    :defer t
+    :init
+    ;; Explicitly run prog-mode hooks since jade-mode does not derivate from
+    ;; prog-mode major-mode
+    (add-hook 'jade-mode-hook (lambda () (run-hooks 'prog-mode-hook)))))
 
 (defun html/init-less-css-mode ()
   (use-package less-css-mode
@@ -162,13 +169,6 @@
       (tagedit-add-experimental-features)
       (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
       (spacemacs|diminish tagedit-mode " Ⓣ" " T"))))
-
-(defun html/post-init-rainbow-delimiters ()
-  (spacemacs/add-to-hooks 'rainbow-delimiters-mode '(haml-mode-hook
-                                                     jade-mode-hook
-                                                     less-css-mode-hook
-                                                     scss-mode-hook
-                                                     slim-mode-hook)))
 
 (defun html/init-web-mode ()
   (use-package web-mode
