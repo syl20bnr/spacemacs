@@ -112,6 +112,7 @@
         (interactive)
         (magit-diff "HEAD"))
 
+      (spacemacs/declare-prefix "gh" "diff")
       (spacemacs/set-leader-keys
         "gb" 'spacemacs/git-blame-micro-state
         "gc" 'magit-commit
