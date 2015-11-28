@@ -18,6 +18,13 @@
     :commands run-geiser
     :config
     (progn
+      (spacemacs/declare-prefix-for-mode 'scheme-mode "mc" "compiling")
+      (spacemacs/declare-prefix-for-mode 'scheme-mode "mg" "navigation")
+      (spacemacs/declare-prefix-for-mode 'scheme-mode "mh" "documentation")
+      (spacemacs/declare-prefix-for-mode 'scheme-mode "mi" "insertion")
+      (spacemacs/declare-prefix-for-mode 'scheme-mode "mm" "macroexpansion")
+      (spacemacs/declare-prefix-for-mode 'scheme-mode "ms" "repl")
+
       (spacemacs/set-leader-keys-for-major-mode 'scheme-mode
         ","  'lisp-state-toggle-lisp-state
 
