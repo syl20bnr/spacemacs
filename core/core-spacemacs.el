@@ -13,6 +13,7 @@
 (defconst emacs-start-time (current-time))
 
 (require 'subr-x nil 'noerror)
+(require 'core-configuration-layer)
 (require 'core-dotspacemacs)
 (require 'core-emacs-backports)
 (require 'core-release-management)
@@ -20,6 +21,7 @@
 (require 'core-themes-support)
 (require 'core-fonts-support)
 (require 'core-spacemacs-buffer)
+(require 'core-keybindings)
 (require 'core-toggle)
 (require 'core-micro-state)
 (require 'core-use-package-ext)
@@ -43,11 +45,10 @@
 
 (defvar spacemacs-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map [tab] 'widget-forward)
-    (define-key map (kbd "C-i") 'widget-forward)
-    (define-key map [backtab] 'widget-backward)
-    (define-key map (kbd "RET") 'widget-button-press)
-    (define-key map [down-mouse-1] 'widget-button-click)
+    (spacemacs/set-key map "<tab>" 'widget-forward)
+    (spacemacs/set-key map "<backtab>" 'widget-backward)
+    (spacemacs/set-key map "<return>" 'widget-button-press)
+    (spacemacs/set-key map "<down-mouse-1>" 'widget-button-click)
     map)
   "Keymap for spacemacs mode.")
 
@@ -63,8 +64,6 @@
   :syntax-table nil
   :abbrev-table nil
   (setq truncate-lines t)
-  ;; needed to make tab work correctly in terminal
-  (evil-define-key 'motion spacemacs-mode-map (kbd "C-i") 'widget-forward)
   ;; motion state since this is a special mode
   (add-to-list 'evil-motion-state-modes 'spacemacs-mode))
 

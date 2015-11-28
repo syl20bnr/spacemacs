@@ -46,8 +46,11 @@ used as the prefix command."
          (full-prefix (concat dotspacemacs-leader-key " " prefix))
          (full-prefix-emacs (concat dotspacemacs-emacs-leader-key " " prefix))
          (is-major-mode-prefix (string-prefix-p "m" prefix))
-         (major-mode-prefix (concat dotspacemacs-major-mode-leader-key " " (substring prefix 1)))
-         (major-mode-prefix-emacs (concat dotspacemacs-major-mode-emacs-leader-key " " (substring prefix 1))))
+         (major-mode-prefix (concat dotspacemacs-major-mode-leader-key
+                                    " " (substring prefix 1)))
+         (major-mode-prefix-emacs
+          (concat dotspacemacs-major-mode-emacs-leader-key
+                  " " (substring prefix 1))))
     (unless long-name (setq long-name name))
     (let ((prefix-name (cons name long-name)))
       (which-key-declare-prefixes-for-mode mode
@@ -56,7 +59,52 @@ used as the prefix command."
       (when (and is-major-mode-prefix dotspacemacs-major-mode-leader-key)
         (which-key-declare-prefixes-for-mode mode major-mode-prefix prefix-name))
       (when (and is-major-mode-prefix dotspacemacs-major-mode-emacs-leader-key)
-        (which-key-declare-prefixes-for-mode mode major-mode-prefix-emacs prefix-name)))))
+        (which-key-declare-prefixes-for-mode
+          mode major-mode-prefix-emacs prefix-name)))))
+
+(defun spacemacs//normalize-key (key)
+  "Returns a normalized KEY.
+
+When in GUI the function key corresponding to KEY is returned if such function
+key exists, i.e. if key is `TAB' then `<tab>' is returned otherwise KEY is
+returned unmodified.
+
+When in terminal any function key is returned as the standard key, i.e. if key
+is `<tab>' then `TAB' is returned instead. Also in terminal special keys
+like `C-i' and `C-m' are ignored and nil is returned.
+
+A quick explanation of the reason of this normalization is that `<tab>' is
+only seen in GUI context and `C-i' and `TAB' are the same keys. So the desired
+behavior for Spacemacs is to bind `TAB' exclusively in terminals (i.e. never
+`C-i' nor `<tab>') while in GUI this is the opposite we exclusively bind `C-i'
+and `<tab>' (i.e. never `TAB').
+
+TODO Support terminals capable of sending a different code for `C-i', should be
+easy to do it with a dotfile variable."
+  (cond
+   ((or (equal "TAB" key) (equal "<tab>" key))
+    (if (display-graphic-p) "<tab>" "TAB"))
+   ((or (equal "RET" key) (equal "<return>" key))
+    (if (display-graphic-p) "<return>" "RET"))
+   ((or (equal "C-i" key)
+        (equal "C-m" key))
+    ;; those keys are ignored when in a terminal
+    (when (display-graphic-p) key))
+   (t key)))
+
+(defun spacemacs/set-key (map key def)
+  "Bind normalized KEY with DEF in MAP if such normalized key exists.
+See `spacemacs//normalize-key' for more info."
+  (let ((key (spacemacs//normalize-key key)))
+    (when key
+      (define-key (if (keymapp map) map (symbol-value map)) (kbd key) def))))
+
+(defun spacemacs/set-key-for-state (state map key def)
+  "Bind normalized KEY with DEF in MAP for STATE if such normalized key exists.
+See `spacemacs//normalize-key' for more info."
+  (let ((key (spacemacs//normalize-key key)))
+    (when key
+      (eval `(evil-define-key ',state ,map ,(kbd key) ',def)))))
 
 (defun spacemacs/set-leader-keys (key def &rest bindings)
   "Add KEY and DEF as key bindings under
@@ -75,7 +123,7 @@ pairs. For example,
    \"C-c\" 'command2
    \"bb\" 'command3\)"
   (while key
-    (define-key spacemacs-default-map (kbd key) def)
+    (spacemacs/set-key spacemacs-default-map key def)
     (setq key (pop bindings) def (pop bindings))))
 (put 'spacemacs/set-leader-keys 'lisp-indent-function 'defun)
 
@@ -113,7 +161,9 @@ they are in `spacemacs/set-leader-keys'."
         (setq key (pop bindings) def (pop bindings))))))
 (put 'spacemacs/set-leader-keys-for-major-mode 'lisp-indent-function 'defun)
 
-(defalias 'evil-leader/set-key-for-mode 'spacemacs/set-leader-keys-for-major-mode)
+(defalias
+  'evil-leader/set-key-for-mode
+  'spacemacs/set-leader-keys-for-major-mode)
 
 (defun spacemacs/set-leader-keys-for-minor-mode (mode key def &rest bindings)
   "Add KEY and DEF as key bindings under
@@ -125,7 +175,7 @@ they are in `spacemacs/set-leader-keys'."
   (let* ((map (intern (format "spacemacs-%s-map" mode))))
     (when (spacemacs//init-leader-mode-map mode map t)
       (while key
-        (define-key (symbol-value map) (kbd key) def)
+        (spacemacs/set-key map key def)
         (setq key (pop bindings) def (pop bindings))))))
 (put 'spacemacs/set-leader-keys-for-minor-mode 'lisp-indent-function 'defun)
 
