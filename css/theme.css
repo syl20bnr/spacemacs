@@ -5478,4 +5478,16 @@ figure {
     }
 }
 
+.gitter-open-chat-button {
+    background-color: #7A7CA7;
+}
+
+.gitter-open-chat-button:hover {
+    background-color: #9A8BBC;
+}
+.gitter-open-chat-button:focus {
+    background-color: #9A8BBC;
+    box-shadow: 0 0 8px rgba(98, 123, 163, 0.6);
+}
+
 /*# sourceMappingURL=theme.css.map */
