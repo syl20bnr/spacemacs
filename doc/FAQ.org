@@ -105,7 +105,15 @@ configuration:
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 #+END_SRC
 
-See [[https://github.com/syl20bnr/spacemacs/issues/3422#issuecomment-148919047][issue #3422]] and [[https://github.com/emacs-helm/helm/issues/1000#issuecomment-119487649][helm issue #1000]] for details.
+See [[https://github.com/syl20bnr/spacemacs/issues/3422#issuecomment-148919047][issue #3422]] and [[https://github.com/emacs-helm/helm/issues/1000#issuecomment-119487649][helm issue #1000]] for details. If for any reason this code is
+not working, you can try to put these settings directly in =~/.ssh/config=:
+
+#+begin_SRC ssh
+Host *
+ControlMaster auto
+ControlPath ~/.ssh/master -%r@%h:%p
+ControlPersist = no
+#+end_SRC
 
 ** Why does =helm-M-x= (~SPC :~) not accept the prefix argument?
 If you try to run =helm-M-x= with the prefix argument (i.e. ~SPC u SPC :~) it
