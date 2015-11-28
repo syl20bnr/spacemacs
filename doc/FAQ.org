@@ -29,6 +29,7 @@
    - [[Change or define an alias for an =evil-leader= prefix?][Change or define an alias for an =evil-leader= prefix?]]
    - [[Restore the sentence delimiter to two spaces?][Restore the sentence delimiter to two spaces?]]
    - [[Prevent the visual selection overriding my system clipboard?][Prevent the visual selection overriding my system clipboard?]]
+   - [[Make spell-checking support curly quotes (or any other character)?][Make spell-checking support curly quotes (or any other character)?]]
  - [[Windows][Windows]]
    - [[Why do the fonts look crappy on Windows?][Why do the fonts look crappy on Windows?]]
    - [[Why is there no Spacemacs logo in the startup buffer?][Why is there no Spacemacs logo in the startup buffer?]]
@@ -99,7 +100,7 @@ non-existing addresses to their own servers.
 Try using these settings in the ~user-init~ function in your ~.spacemacs~
 configuration:
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 #+END_SRC
@@ -315,6 +316,23 @@ adding the following code to the =dotspacemacs/user-config= of your
 #+begin_src emacs-lisp
 (fset 'evil-visual-update-x-selection 'ignore)
 #+end_src
+
+** Make spell-checking support curly quotes (or any other character)?
+To have spell-checking support curly quotes (or any other character), you need
+to add a new entry to =ispell-local-dictionary-alist=, by adding for example the
+following code in the =dotspacemacs/user-config= of your =.spacemacs=:
+
+#+begin_SRC emacs-lisp
+(add-to-list 'ispell-local-dictionary-alist
+  (quote ("my_english" "[[:alpha:]]" "[^[:alpha:]]" "['’]" t ("-d" "en_US") nil utf-8)))
+#+end_SRC
+
+You can then add any regular expression you want in the fourth argument (i.e.
+add a symbol within =['’]=) to make it supported. Consult the help of
+=ispell-dictionary-alist= for more details about the possibilities.
+
+You finally have to set =my_english= as your =ispell-local-dictionary= in order
+to use the dictionary supporting your newly added characters.
 
 * Windows
 ** Why do the fonts look crappy on Windows?
