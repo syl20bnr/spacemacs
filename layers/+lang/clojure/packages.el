@@ -7,7 +7,6 @@
     (clojure-snippets :toggle (configuration-layer/layer-usedp 'auto-completion))
     company
     popwin
-    rainbow-delimiters
     subword
     ))
 
@@ -364,10 +363,6 @@ If called with a prefix argument, uses the other-window instead."
           popwin:special-display-config)
     (push '("*cider-doc*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
           popwin:special-display-config)))
-
-(defun clojure/post-init-rainbow-delimiters ()
-  (if (configuration-layer/package-usedp 'cider)
-      (add-hook 'cider-mode-hook 'rainbow-delimiters-mode)))
 
 (defun clojure/post-init-subword ()
   (unless (version< emacs-version "24.4")
