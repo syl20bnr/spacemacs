@@ -145,21 +145,19 @@
    '(css-mode-hook scss-mode-hook sass-mode-hook less-css-mode-hook))
 
   ;; Only use smartparens in web-mode
-  (spacemacs|use-package-add-hook web-mode
-    :post-config
-    (progn
-      (setq web-mode-enable-auto-pairing nil)
-      (sp-local-pair 'web-mode "<% " " %>")
-      (sp-local-pair 'web-mode "{ " " }")
-      (sp-local-pair 'web-mode "<%= "  " %>")
-      (sp-local-pair 'web-mode "<%# "  " %>")
-      (sp-local-pair 'web-mode "<%$ "  " %>")
-      (sp-local-pair 'web-mode "<%@ "  " %>")
-      (sp-local-pair 'web-mode "<%: "  " %>")
-      (sp-local-pair 'web-mode "{{ "  " }}")
-      (sp-local-pair 'web-mode "{% "  " %}")
-      (sp-local-pair 'web-mode "{%- "  " %}")
-      (sp-local-pair 'web-mode "{# "  " #}"))))
+  (with-eval-after-load 'smartparens
+    (setq web-mode-enable-auto-pairing nil)
+    (sp-local-pair 'web-mode "<% " " %>")
+    (sp-local-pair 'web-mode "{ " " }")
+    (sp-local-pair 'web-mode "<%= "  " %>")
+    (sp-local-pair 'web-mode "<%# "  " %>")
+    (sp-local-pair 'web-mode "<%$ "  " %>")
+    (sp-local-pair 'web-mode "<%@ "  " %>")
+    (sp-local-pair 'web-mode "<%: "  " %>")
+    (sp-local-pair 'web-mode "{{ "  " }}")
+    (sp-local-pair 'web-mode "{% "  " %}")
+    (sp-local-pair 'web-mode "{%- "  " %}")
+    (sp-local-pair 'web-mode "{# "  " #}")))
 
 (defun html/init-tagedit ()
   (use-package tagedit
