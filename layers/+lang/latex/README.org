@@ -78,13 +78,22 @@ The variable =latex-nofill-env= provide the list of environment names where
 
 | Key Binding   | Description                         |
 |---------------+-------------------------------------|
-| ~SPC m -~     | open output buffer                  |
-| ~SPC m b~     | build                               |
-| ~SPC m c~     | close LaTeX environment             |
-| ~SPC m C~     | TeX command on master file          |
-| ~SPC m e~     | insert LaTeX environment            |
-| ~SPC m i~     | insert =\item=                      |
+| ~SPC m c c~   | compile/typeset                     |
+| ~SPC m c C~   | clean generated files               |
+| ~SPC m c h~   | go to the master file               |
+| ~SPC m c :~   | command on master file              |
+| ~SPC m c : b~ | command on current buffer           |
+| ~SPC m c : r~ | command on selected region          |
+| ~SPC m d e~   | error overview                      |
+| ~SPC m d k~   | kill job                            |
+| ~SPC m d o~   | recenter output buffer              |
+| ~SPC m d n~   | next error                          |
+| ~SPC m d N~   | previous error                      |
 | ~SPC m h d~   | TeX documentation, can be very slow |
+| ~SPC m i e~   | insert environment                  |
+| ~SPC m i E~   | close environment                   |
+| ~SPC m i i~   | insert =\item=                      |
+| ~SPC m i \~   | insert macro                        |
 | ~SPC m p r~   | preview region                      |
 | ~SPC m p b~   | preview buffer                      |
 | ~SPC m p d~   | preview document                    |

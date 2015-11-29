@@ -49,9 +49,21 @@
     (progn
       ;; Key bindings for plain TeX
       (spacemacs/set-leader-keys-for-major-mode 'tex-mode
-        "\\" 'TeX-insert-macro
         "b" 'latex/build
-        "C" 'TeX-command-master
+        "cc" 'latex/build
+        "cC" 'TeX-clean
+        "ch" 'TeX-home-buffer
+        "c:" 'TeX-command-master
+        "c:r" 'TeX-command-region
+        "c:b" 'TeX-command-buffer
+        "de" 'TeX-error-overview
+        "dk" 'TeX-kill-job
+        "do" 'TeX-recenter-output-buffer
+        "dn" 'TeX-next-error
+        "dN" 'TeX-previous-error
+        ;; TeX-doc is a very slow function
+        "hd" 'TeX-doc
+        "i\\" 'TeX-insert-macro
         "v" 'TeX-view
 
         "xb" 'latex/font-bold
@@ -68,15 +80,24 @@
 
       ;; Key bindings for LaTeX
       (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-        "\\" 'TeX-insert-macro
-        "-" 'TeX-recenter-output-buffer
         "b" 'latex/build
-        "c" 'LaTeX-close-environment
-        "C" 'TeX-command-master
-        "e" 'LaTeX-environment
+        "cc" 'latex/build
+        "cC" 'TeX-clean
+        "ch" 'TeX-home-buffer
+        "c:" 'TeX-command-master
+        "c:r" 'TeX-command-region
+        "c:b" 'TeX-command-buffer
+        "de" 'TeX-error-overview
+        "dk" 'TeX-kill-job
+        "do" 'TeX-recenter-output-buffer
+        "dn" 'TeX-next-error
+        "dN" 'TeX-previous-error
         ;; TeX-doc is a very slow function
         "hd" 'TeX-doc
-        "i" 'LaTeX-insert-item
+        "ii" 'LaTeX-insert-item
+        "ie" 'LaTeX-environment
+        "iE" 'LaTeX-close-environment
+        "i\\" 'TeX-insert-macro
         "pb" 'preview-buffer
         "pc" 'preview-clearout
         "pd" 'preview-document
