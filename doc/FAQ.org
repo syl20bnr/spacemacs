@@ -163,7 +163,7 @@ remove =flycheck= support in python buffers, look for the function
 
 ** Disable company for a specific major-mode?
 It may be handy to disable =company= for a given mode if you plan on
-configuring =auto-complete= instead. On easy way to do it is to use the
+configuring =auto-complete= instead. One easy way to do it is to use the
 macro =spacemacs|disable-company= in the function =dotspacemacs/user-config=
 of your dotfile. The following snippet disables company for
 =python-mode=:
