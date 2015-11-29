@@ -62,49 +62,18 @@ used as the prefix command."
         (which-key-declare-prefixes-for-mode
           mode major-mode-prefix-emacs prefix-name)))))
 
-(defun spacemacs//normalize-key (key)
-  "Returns a normalized KEY.
-
-When in GUI the function key corresponding to KEY is returned if such function
-key exists, i.e. if key is `TAB' then `<tab>' is returned otherwise KEY is
-returned unmodified.
-
-When in terminal any function key is returned as the standard key, i.e. if key
-is `<tab>' then `TAB' is returned instead. Also in terminal special keys
-like `C-i' and `C-m' are ignored and nil is returned.
-
-A quick explanation of the reason of this normalization is that `<tab>' is
-only seen in GUI context and `C-i' and `TAB' are the same keys. So the desired
-behavior for Spacemacs is to bind `TAB' exclusively in terminals (i.e. never
-`C-i' nor `<tab>') while in GUI this is the opposite we exclusively bind `C-i'
-and `<tab>' (i.e. never `TAB').
-
-TODO Support terminals capable of sending a different code for `C-i', should be
-easy to do it with a dotfile variable."
-  (cond
-   ((or (equal "TAB" key) (equal "<tab>" key))
-    (if (display-graphic-p) "<tab>" "TAB"))
-   ((or (equal "RET" key) (equal "<return>" key))
-    (if (display-graphic-p) "<return>" "RET"))
-   ((or (equal "C-i" key)
-        (equal "C-m" key))
-    ;; those keys are ignored when in a terminal
-    (when (display-graphic-p) key))
-   (t key)))
-
-(defun spacemacs/set-key (map key def)
-  "Bind normalized KEY with DEF in MAP if such normalized key exists.
-See `spacemacs//normalize-key' for more info."
-  (let ((key (spacemacs//normalize-key key)))
-    (when key
-      (define-key (if (keymapp map) map (symbol-value map)) (kbd key) def))))
-
-(defun spacemacs/set-key-for-state (state map key def)
-  "Bind normalized KEY with DEF in MAP for STATE if such normalized key exists.
-See `spacemacs//normalize-key' for more info."
-  (let ((key (spacemacs//normalize-key key)))
-    (when key
-      (eval `(evil-define-key ',state ,map ,(kbd key) ',def)))))
+(defun spacemacs//handle-terminal-keys ()
+  "Translate on the fly terminal special keys to access the emacs function key.
+Translation occurs only the function key is effectively bound to a function."
+  (let ((kcode (and (not (display-graphic-p))
+                    (aref (this-command-keys-vector) 0))))
+    (cond
+     ((eq 9 kcode)
+      (let ((command (key-binding (kbd "<tab>"))))
+        (when command (setq this-command command))))
+     ((eq 13 kcode)
+      (let ((command (key-binding (kbd "<return>"))))
+        (when command (setq this-command command)))))))
 
 (defun spacemacs/set-leader-keys (key def &rest bindings)
   "Add KEY and DEF as key bindings under
@@ -123,7 +92,7 @@ pairs. For example,
    \"C-c\" 'command2
    \"bb\" 'command3\)"
   (while key
-    (spacemacs/set-key spacemacs-default-map key def)
+    (define-key spacemacs-default-map (kbd key) def)
     (setq key (pop bindings) def (pop bindings))))
 (put 'spacemacs/set-leader-keys 'lisp-indent-function 'defun)
 
@@ -175,7 +144,7 @@ they are in `spacemacs/set-leader-keys'."
   (let* ((map (intern (format "spacemacs-%s-map" mode))))
     (when (spacemacs//init-leader-mode-map mode map t)
       (while key
-        (spacemacs/set-key map key def)
+        (define-key (symbol-value map) (kbd key) def)
         (setq key (pop bindings) def (pop bindings))))))
 (put 'spacemacs/set-leader-keys-for-minor-mode 'lisp-indent-function 'defun)
 

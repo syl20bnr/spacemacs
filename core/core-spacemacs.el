@@ -45,10 +45,10 @@
 
 (defvar spacemacs-mode-map
   (let ((map (make-sparse-keymap)))
-    (spacemacs/set-key map "<tab>" 'widget-forward)
-    (spacemacs/set-key map "<backtab>" 'widget-backward)
-    (spacemacs/set-key map "<return>" 'widget-button-press)
-    (spacemacs/set-key map "<down-mouse-1>" 'widget-button-click)
+    (define-key map (kbd "<tab>") 'widget-forward)
+    (define-key map (kbd "<return>") 'widget-button-press)
+    (define-key map [backtab] 'widget-backward)
+    (define-key map [down-mouse-1] 'widget-button-click)
     map)
   "Keymap for spacemacs mode.")
 
@@ -208,7 +208,8 @@ initialization."
                   configuration-layer-error-count))
        (spacemacs-buffer/set-mode-line spacemacs--default-mode-line))
      (force-mode-line-update)
-     (spacemacs/check-for-new-version spacemacs-version-check-interval))))
+     (spacemacs/check-for-new-version spacemacs-version-check-interval)
+     (add-hook 'pre-command-hook 'spacemacs//handle-terminal-keys))))
 
 (defun spacemacs/describe-system-info ()
   "Gathers info about your Spacemacs setup and copies to clipboard."

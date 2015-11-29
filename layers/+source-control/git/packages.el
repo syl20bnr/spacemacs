@@ -141,7 +141,8 @@
     (progn
       ;; seems to be necessary at the time of release
       (require 'git-rebase)
-
+      ;; bind function keys
+      ;; (define-key magit-mode-map (kbd "<tab>") 'magit-section-toggle)
       (unless (configuration-layer/package-usedp 'evil-magit)
         ;; use auto evilification if `evil-magit' is not used
         (evilified-state-evilify-map magit-mode-map)
