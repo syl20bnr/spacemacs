@@ -5490,4 +5490,7 @@ figure {
     box-shadow: 0 0 8px rgba(98, 123, 163, 0.6);
 }
 
+.gitter-chat-embed {
+    z-index: 9999;
+}
 /*# sourceMappingURL=theme.css.map */
