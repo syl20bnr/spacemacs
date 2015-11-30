@@ -37,6 +37,10 @@
   (expand-file-name (concat user-emacs-directory "private/"))
   "Spacemacs private layers base directory.")
 
+(defconst configuration-layer-certs-directory
+  (expand-file-name (concat user-emacs-directory "certs/"))
+  "Spacemacs certificates base directory.")
+
 (defconst configuration-layer-private-layer-directory
   (let ((dotspacemacs-layer-dir
          (when dotspacemacs-directory
@@ -953,80 +957,86 @@ path."
 
 If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
   (interactive "P")
-  (spacemacs-buffer/insert-page-break)
-  (spacemacs-buffer/append "\nUpdating package archives, please wait...\n")
-  (configuration-layer/retrieve-package-archives nil 'force)
-  (setq configuration-layer--skipped-packages nil)
-  (let* ((update-packages
-          (configuration-layer//get-packages-to-update
-           (mapcar 'car (object-assoc-list
-                         :name configuration-layer--used-distant-packages))))
-         (skipped-count (length configuration-layer--skipped-packages))
-         (date (format-time-string "%y-%m-%d_%H.%M.%S"))
-         (rollback-dir (expand-file-name
-                        (concat configuration-layer-rollback-directory
-                                (file-name-as-directory date))))
-         (upgrade-count (length update-packages))
-         (upgraded-count 0)
-         (update-packages-alist))
-    (when configuration-layer--skipped-packages
-      (spacemacs-buffer/append
-       (format (concat "--> Warning: cannot update %s package(s), possibly due"
-                       " to a temporary network problem: %s\n")
-               skipped-count
-               (mapconcat #'symbol-name
-                          configuration-layer--skipped-packages
-                          " "))))
-    ;; (message "packages to udpate: %s" update-packages)
-    (when (> upgrade-count 0)
-      (spacemacs-buffer/append
-       (format (concat "--> Found %s package(s) to update"
-                       (if (> skipped-count 0)
-                           (format " (skipped %s):\n" skipped-count)
-                         ":\n"))
-               upgrade-count) t)
-      (mapc (lambda (x)
-              (spacemacs-buffer/append (format "%s\n" x) t))
-            (sort (mapcar 'symbol-name update-packages) 'string<))
-      (if (and (not always-update)
-               (not (yes-or-no-p
-                     (format "Do you want to update %s package(s) ? "
-                             upgrade-count))))
-          (spacemacs-buffer/append "Packages update has been cancelled.\n" t)
-        ;; backup the package directory and construct an alist
-        ;; variable to be cached for easy update and rollback
+;; Set the TLS verification variables as local to contains modifications here.
+  (let ((gnutls-verify-error)
+        (tls-checktrust))
+    ;; Enable TLS verification according to the dotspacemacs variable.
+    (when dotspacemacs-elpa-tls-verification
+      (configuration-layer//enable-tls-verification))
+    (spacemacs-buffer/insert-page-break)
+    (spacemacs-buffer/append "\nUpdating package archives, please wait...\n")
+    (configuration-layer/retrieve-package-archives nil 'force)
+    (setq configuration-layer--skipped-packages nil)
+    (let* ((update-packages
+            (configuration-layer//get-packages-to-update
+             (mapcar 'car (object-assoc-list
+                           :name configuration-layer--used-distant-packages))))
+           (skipped-count (length configuration-layer--skipped-packages))
+           (date (format-time-string "%y-%m-%d_%H.%M.%S"))
+           (rollback-dir (expand-file-name
+                          (concat configuration-layer-rollback-directory
+                                  (file-name-as-directory date))))
+           (upgrade-count (length update-packages))
+           (upgraded-count 0)
+           (update-packages-alist))
+      (when configuration-layer--skipped-packages
         (spacemacs-buffer/append
-         "--> performing backup of package(s) to update...\n" t)
-        (spacemacs//redisplay)
-        (dolist (pkg update-packages)
-          (let* ((src-dir (configuration-layer//get-package-directory pkg))
-                 (dest-dir (expand-file-name
-                            (concat rollback-dir
-                                    (file-name-as-directory
-                                     (file-name-nondirectory src-dir))))))
-            (copy-directory src-dir dest-dir 'keeptime 'create 'copy-content)
-            (push (cons pkg (file-name-nondirectory src-dir))
-                  update-packages-alist)))
-        (spacemacs/dump-vars-to-file
-         '(update-packages-alist)
-         (expand-file-name (concat rollback-dir
-                                   configuration-layer-rollback-info)))
-        (dolist (pkg update-packages)
-          (setq upgraded-count (1+ upgraded-count))
-          (spacemacs-buffer/replace-last-line
-           (format "--> preparing update of package %s... [%s/%s]"
-                   pkg upgraded-count upgrade-count) t)
+         (format (concat "--> Warning: cannot update %s package(s), possibly due"
+                         " to a temporary network problem: %s\n")
+                 skipped-count
+                 (mapconcat #'symbol-name
+                            configuration-layer--skipped-packages
+                            " "))))
+      ;; (message "packages to udpate: %s" update-packages)
+      (when (> upgrade-count 0)
+        (spacemacs-buffer/append
+         (format (concat "--> Found %s package(s) to update"
+                         (if (> skipped-count 0)
+                             (format " (skipped %s):\n" skipped-count)
+                           ":\n"))
+                 upgrade-count) t)
+        (mapc (lambda (x)
+                (spacemacs-buffer/append (format "%s\n" x) t))
+              (sort (mapcar 'symbol-name update-packages) 'string<))
+        (if (and (not always-update)
+                 (not (yes-or-no-p
+                       (format "Do you want to update %s package(s) ? "
+                               upgrade-count))))
+            (spacemacs-buffer/append "Packages update has been cancelled.\n" t)
+          ;; backup the package directory and construct an alist
+          ;; variable to be cached for easy update and rollback
+          (spacemacs-buffer/append
+           "--> performing backup of package(s) to update...\n" t)
           (spacemacs//redisplay)
-          (configuration-layer//package-delete pkg))
-        (spacemacs-buffer/append
-         (format "\n--> %s package(s) to be updated.\n" upgraded-count))
-        (spacemacs-buffer/append
-         "\nEmacs has to be restarted to actually install the new packages.\n")
-        (configuration-layer//cleanup-rollback-directory)
-        (spacemacs//redisplay)))
-    (when (eq upgrade-count 0)
-      (spacemacs-buffer/append "--> All packages are up to date.\n")
-      (spacemacs//redisplay))))
+          (dolist (pkg update-packages)
+            (let* ((src-dir (configuration-layer//get-package-directory pkg))
+                   (dest-dir (expand-file-name
+                              (concat rollback-dir
+                                      (file-name-as-directory
+                                       (file-name-nondirectory src-dir))))))
+              (copy-directory src-dir dest-dir 'keeptime 'create 'copy-content)
+              (push (cons pkg (file-name-nondirectory src-dir))
+                    update-packages-alist)))
+          (spacemacs/dump-vars-to-file
+           '(update-packages-alist)
+           (expand-file-name (concat rollback-dir
+                                     configuration-layer-rollback-info)))
+          (dolist (pkg update-packages)
+            (setq upgraded-count (1+ upgraded-count))
+            (spacemacs-buffer/replace-last-line
+             (format "--> preparing update of package %s... [%s/%s]"
+                     pkg upgraded-count upgrade-count) t)
+            (spacemacs//redisplay)
+            (configuration-layer//package-delete pkg))
+          (spacemacs-buffer/append
+           (format "\n--> %s package(s) to be updated.\n" upgraded-count))
+          (spacemacs-buffer/append
+           "\nEmacs has to be restarted to actually install the new packages.\n")
+          (configuration-layer//cleanup-rollback-directory)
+          (spacemacs//redisplay)))
+      (when (eq upgrade-count 0)
+        (spacemacs-buffer/append "--> All packages are up to date.\n")
+        (spacemacs//redisplay)))))
 
 (defun configuration-layer//ido-candidate-rollback-slot ()
   "Return a list of candidates to select a rollback slot."
@@ -1289,6 +1299,28 @@ to select one."
   (if configuration-layer-error-count
       (setq configuration-layer-error-count (1+ configuration-layer-error-count))
     (setq configuration-layer-error-count 1)))
+
+(defun configuration-layer//enable-tls-verification ()
+  "Enable TLS-verification."
+  ;; HACK: https://emacs.stackexchange.com/questions/18079/emacs-tls-check-is-still-ill-configured
+  ;; Emacs builtin TLS doesn't reject bad certificates by default. Force using external TLS.
+  (if (fboundp 'gnutls-available-p)
+      (fmakunbound 'gnutls-available-p))
+  (setq gnutls-verify-error t)
+  (setq tls-checktrust t))
+
+(defun configuration-layer//configure-tls-verification ()
+  "Configure TLS-verification programs and files."
+  (let ((trustfile (concat configuration-layer-certs-directory "ca-certificates.crt")))
+    ;; Configuration for the versions of emacs build *WITH* `GnuTLS'.
+    (if (boundp 'gnutls-trustfiles)
+        (add-to-list 'gnutls-trustfiles trustfile)
+      (setq gnutls-trustfiles (list trustfile)))
+    ;; Configuration for the versions of emacs build *WITHOUT* `GnuTLS'.
+    (setq tls-program (list (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
+                                    (if (eq window-system 'w32) ".exe" "") trustfile)))
+    ))
+(configuration-layer//configure-tls-verification)
 
 (provide 'core-configuration-layer)
 
