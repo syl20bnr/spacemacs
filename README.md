@@ -133,7 +133,8 @@ Please note: these homebrew commands will install Emacs, and link it to your
 the start of this file. That will populate your `~/.emacs.d` directory, which
 is what transforms a regular Emacs into Spacemacs.
 
-*After* you have completed the [install process below](#install), it is also recommended to add the [osx layer][] to your [dotfile][]:
+*After* you have completed the [install process below](#install), it is also
+ recommended to add the [osx layer][] to your [dotfile][]:
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(osx))
