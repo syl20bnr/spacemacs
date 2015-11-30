@@ -70,7 +70,8 @@
     (bind-map spacemacs-default-map
       :prefix-cmd spacemacs-cmds
       :keys (dotspacemacs-emacs-leader-key)
-      :evil-keys (dotspacemacs-leader-key))))
+      :evil-keys (dotspacemacs-leader-key)
+      :evil-use-local t)))
 
 (defun spacemacs-base/init-bookmark ()
   (use-package bookmark
