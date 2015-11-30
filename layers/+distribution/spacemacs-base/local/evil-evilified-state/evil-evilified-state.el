@@ -65,7 +65,8 @@
 
 (defun evilified-state--pre-command-hook ()
   (let ((map (get-char-property (point) 'keymap)))
-    (when (and map (assq 'evilified-state map))
+    (when (and (not (window-minibuffer-active-p))
+               map (assq 'evilified-state map))
       (let* ((submap (cdr (assq 'evilified-state map)))
              (command (when (and submap (eq 1 (length (this-command-keys))))
                         (lookup-key submap (this-command-keys)))))
