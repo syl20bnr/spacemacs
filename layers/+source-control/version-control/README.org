@@ -45,7 +45,8 @@ by setting =version-control-diff-tool=
                   version-control-diff-tool 'diff-hl)
 #+END_SRC
 
-To automatically enable diff margins in all buffers, set =version-control-global-margin=
+To automatically enable diff margins in all buffers, set
+=version-control-global-margin=
 
 #+BEGIN_SRC emacs-lisp
 '(version-control :variables
@@ -54,9 +55,11 @@ To automatically enable diff margins in all buffers, set =version-control-global
 
 ** Differences between margin programs:
 
-This layer contains generalized mappings for three diff margin packages: diff-hl, git-gutter, and git-gutter+.
+This layer contains generalized mappings for three diff margin packages:
+diff-hl, git-gutter, and git-gutter+.
 
-There are some differences between packages that might have some people prefer one over the other:
+There are some differences between packages that might have some people prefer
+one over the other:
 
 | Feature                             | diff-hl | git-gutter | git-gutter+ |
 |-------------------------------------+---------+------------+-------------|
