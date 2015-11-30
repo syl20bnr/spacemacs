@@ -44,24 +44,25 @@
   (use-package git-gutter
     :commands global-git-gutter-mode
     :init
-    ;; If you enable global minor mode
-    (when (and (eq version-control-diff-tool 'git-gutter)
-               version-control-global-margin)
-      (global-git-gutter-mode t))
-    ;; If you would like to use git-gutter.el and linum-mode
-    (unless dotspacemacs-line-numbers
-      (git-gutter:linum-setup))
-    (setq git-gutter:update-interval 2
-          git-gutter:modified-sign " "
-          git-gutter:added-sign "+"
-          git-gutter:deleted-sign "-"
-          git-gutter:diff-option "-w"
-          git-gutter:hide-gutter t
-          git-gutter:ask-p nil
-          git-gutter:verbosity 0
-          git-gutter:handled-backends '(git hg bzr svn)
-          git-gutter:hide-gutter t
-          )
+    (progn
+      ;; If you enable global minor mode
+      (when (and (eq version-control-diff-tool 'git-gutter)
+                 version-control-global-margin)
+        (global-git-gutter-mode t))
+      ;; If you would like to use git-gutter.el and linum-mode
+      (unless dotspacemacs-line-numbers
+        (git-gutter:linum-setup))
+      (setq git-gutter:update-interval 2
+            git-gutter:modified-sign " "
+            git-gutter:added-sign "+"
+            git-gutter:deleted-sign "-"
+            git-gutter:diff-option "-w"
+            git-gutter:hide-gutter t
+            git-gutter:ask-p nil
+            git-gutter:verbosity 0
+            git-gutter:handled-backends '(git hg bzr svn)
+            git-gutter:hide-gutter t))
+    :config
     (spacemacs|hide-lighter git-gutter-mode)))
 
 (defun version-control/init-git-gutter-fringe ()
@@ -101,21 +102,21 @@
   (use-package git-gutter+
     :commands global-git-gutter+-mode
     :init
-    ;; If you enable global minor mode
-    (when (and (eq version-control-diff-tool 'git-gutter+)
-               version-control-global-margin)
-      (add-hook 'magit-pre-refresh-hook 'git-gutter+-refresh)
-      (global-git-gutter+-mode t))
-    (setq
-     git-gutter+-modified-sign " "
-     git-gutter+-added-sign "+"
-     git-gutter+-deleted-sign "-"
-     git-gutter+-diff-option "-w"
-     git-gutter+-hide-gutter t
-     )
+    (progn
+      ;; If you enable global minor mode
+      (when (and (eq version-control-diff-tool 'git-gutter+)
+                 version-control-global-margin)
+        (add-hook 'magit-pre-refresh-hook 'git-gutter+-refresh)
+        (global-git-gutter+-mode t))
+      (setq
+       git-gutter+-modified-sign " "
+       git-gutter+-added-sign "+"
+       git-gutter+-deleted-sign "-"
+       git-gutter+-diff-option "-w"
+       git-gutter+-hide-gutter t))
     ;; identify magit changes
-    (spacemacs|hide-lighter git-gutter+-mode)
     :config
+    (spacemacs|hide-lighter git-gutter+-mode)
     ;; (set-face-foreground 'git-gutter+-modified "black")
     ;; (set-face-foreground 'git-gutter+-added    "black")
     ;; (set-face-foreground 'git-gutter+-deleted  "black")
