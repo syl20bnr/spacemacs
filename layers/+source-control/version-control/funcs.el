@@ -122,4 +122,4 @@
   :on (version-control/enable-margin-globally)
   :off (version-control/disable-margin-globally)
   :documentation "Enable diff margins globally."
-  :evil-leader "TD")
+  :evil-leader "T C-d")

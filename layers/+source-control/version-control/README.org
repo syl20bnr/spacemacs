@@ -75,7 +75,7 @@ one over the other:
 |-------------+------------------------------|
 | ~SPC g .~   | version control micro-state  |
 | ~SPC T d~   | toggle diff margins          |
-| ~SPC T D~   | toggle diff margins globally |
+| ~SPC T C-d~ | toggle diff margins globally |
 
 ** Version Control Micro-state
 
