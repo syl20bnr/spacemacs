@@ -209,10 +209,7 @@ is achieved by adding the relevant text properties."
         (spacemacs/set-leader-keys "p$t" 'projectile-multi-term-in-root)))))
 
 (defun shell/init-comint ()
-  (use-package comint
-    :defer t
-    :init
-    (setq comint-prompt-read-only t)))
+  (setq comint-prompt-read-only t))
 
 (defun shell/init-shell ()
   (defun shell-comint-input-sender-hook ()
