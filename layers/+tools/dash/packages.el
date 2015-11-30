@@ -3,7 +3,8 @@
 
 (cond
  ((spacemacs/system-is-mac) (push 'dash-at-point dash-packages))
- ((spacemacs/system-is-linux) (push 'zeal-at-point dash-packages)))
+ ((spacemacs/system-is-linux) (push 'zeal-at-point dash-packages))
+ ((spacemacs/system-is-mswindows) (push 'zeal-at-point dash-packages)))
 
 (defun dash/init-helm-dash ()
   (use-package helm-dash
