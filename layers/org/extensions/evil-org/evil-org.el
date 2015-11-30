@@ -141,8 +141,7 @@ FUN function callback"
   "^" 'org-beginning-of-line
   "<" 'org-metaleft
   ">" 'org-metaright
-  "-" 'org-cycle-list-bullet
-  (kbd "TAB") 'org-cycle)
+  "-" 'org-cycle-list-bullet)
 
 ;; normal & insert state shortcuts.
 (mapc (lambda (state)
