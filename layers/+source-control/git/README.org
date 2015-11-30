@@ -1,6 +1,7 @@
 #+TITLE: Git contribution layer for Spacemacs
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
+
 [[file:img/git.png]]
 
 * Table of Contents                                         :TOC_4_org:noexport:
@@ -110,7 +111,12 @@ Git commands (start with ~g~):
 | ~SPC g B~   | quit =magit= blame                                  |
 | ~SPC g c~   | commit changes                                      |
 | ~SPC g C~   | checkout branches                                   |
-| ~SPC g d h~ | show diff against current head                      |
+| ~SPC g d~   | show diff prompt                                    |
+| ~SPC g D~   | show diff against current head                      |
+| ~SPC g e~   | show ediff comparison                               |
+| ~SPC g E~   | show ediff against current head                     |
+| ~SPC g f~   | show fetch prompt                                   |
+| ~SPC g F~   | show pull prompt                                    |
 | ~SPC g H c~ | clear highlights                                    |
 | ~SPC g H h~ | highlight regions by age of commits                 |
 | ~SPC g H t~ | highlight regions by last updated time              |
@@ -118,9 +124,12 @@ Git commands (start with ~g~):
 | ~SPC g I~   | open =helm-gitignore=                               |
 | ~SPC g l~   | open a =magit= log                                  |
 | ~SPC g L~   | display the log for a file                          |
+| ~SPC g P~   | show push prompt                                    |
 | ~SPC g s~   | open a =magit= status window                        |
 | ~SPC g m~   | display the last commit message of the current line |
 | ~SPC g t~   | launch the git time machine                         |
+| ~SPC g w~   | stage current file                                  |
+| ~SPC g u~   | unstage current file                                |
 
 - Highlight by age of commit or last update time is provided by
  [[https://github.com/syohex/emacs-smeargle][smeargle]].
