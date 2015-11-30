@@ -697,19 +697,19 @@ So anything bound to =g= originally will be found on =C-G=, since =g=, =G= and
 ** States
 Spacemacs has 10 states:
 
-| State        | Color       | Description                                                                                                |
-|--------------+-------------+------------------------------------------------------------------------------------------------------------|
-| normal       | orange      | like the =normal mode of Vim=, used to execute and combine commands                                        |
-| insert       | green       | like the =insert mode of Vim=, used to actually insert text                                                |
-| visual       | gray        | like the =visual mode of Vim=, used to make text selection                                                 |
-| motion       | purple      | exclusive to =Evil=, used to navigate read only buffers                                                    |
-| emacs        | blue        | exclusive to =Evil=, using this state is like using a regular Emacs without Vim                            |
-| replace      | chocolate   | exclusive to =Evil=, overwrites the character under point instead of inserting a new one                   |
-| hybrid       | blue        | exclusive to Spacemacs, this is like the insert state except that all the emacs key bindings are available |
-| evilified    | light brown | exclusive to Spacemacs, this is an =emacs state= modified to bring Vim navigation, selection and search.   |
-| lisp         | pink        | exclusive to Spacemacs, used to navigate Lisp code and modify it (more [[Editing Lisp code][info]])                               |
-| iedit        | red         | exclusive to Spacemacs, used to navigate between multiple regions of text using =iedit= (more [[Replacing text with iedit][info]])        |
-| iedit-insert | red         | exclusive to Spacemacs, used to replace multiple regions of text using =iedit= (more [[Replacing text with iedit][info]])                 |
+| State        | Color       | Description                                                                                                  |
+|--------------+-------------+--------------------------------------------------------------------------------------------------------------|
+| normal       | green       | like the =normal mode of Vim=, used to execute and combine commands                                          |
+| insert       | gray        | like the =insert mode of Vim=, used to actually insert text                                                  |
+| visual       | white       | like the =visual mode of Vim=, used to make text selection                                                   |
+| motion       | violet      | exclusive to =Evil=, used to navigate read only buffers                                                      |
+| emacs        | purple      | exclusive to =Evil=, using this state is like using a regular Emacs without Vim                              |
+| replace      | chocolate   | exclusive to =Evil=, overwrites the character under point instead of inserting a new one                     |
+| hybrid       | sea green   | exclusive to =Spacemacs=, this is like the insert state except that all the emacs key bindings are available |
+| evilified    | light brown | exclusive to =Spacemacs=, this is an =emacs state= modified to bring Vim navigation, selection and search.   |
+| lisp         | pink        | exclusive to =Spacemacs=, used to navigate Lisp code and modify it (more [[#editing-lisp-code][info]])                               |
+| iedit        | red         | exclusive to =Spacemacs=, used to navigate between multiple regions of text using =iedit= (more [[#replacing-text-with-iedit][info]])        |
+| iedit-insert | red         | exclusive to =Spacemacs=, used to replace multiple regions of text using =iedit= (more [[#replacing-text-with-iedit][info]])                 |
 
 Note: Technically speaking there is also the =operator= evil state.
 
@@ -987,11 +987,12 @@ Reminder of the color codes for the states:
 
 | Evil State         | Color     |
 |--------------------+-----------|
-| Normal             | Orange    |
-| Insert             | Green     |
-| Visual             | Grey      |
-| Emacs              | Blue      |
-| Motion             | Purple    |
+| Normal             | Green     |
+| Insert             | Gray      |
+| Visual             | White     |
+| Emacs              | Purple    |
+| Hybrid             | Sea green |
+| Motion             | Violet    |
 | Replace            | Chocolate |
 | Lisp               | Pink      |
 | Iedit/Iedit-Insert | Red       |

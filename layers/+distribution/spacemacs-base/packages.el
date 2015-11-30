@@ -162,13 +162,13 @@
   (use-package evil
     :init
     (progn
-      (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
-                                       ("insert" "chartreuse3" (bar . 2))
-                                       ("emacs" "SkyBlue2" box)
-                                       ("hybrid" "SkyBlue2" (bar . 2))
+      (defvar spacemacs-evil-cursors '(("normal" "#007F00" box)
+                                       ("insert" "#7F7F7F" (bar . 2))
+                                       ("emacs" "#5955A9" box)
+                                       ("hybrid" "#2B6B52" (bar . 2))
                                        ("replace" "chocolate" (hbar . 2))
                                        ("evilified" "LightGoldenrod3" box)
-                                       ("visual" "gray" (hbar . 2))
+                                       ("visual" "gray" (hollow . 2))
                                        ("motion" "plum3" box)
                                        ("lisp" "HotPink1" box)
                                        ("iedit" "firebrick1" box)
