@@ -25,6 +25,7 @@
 (require 'core-toggle)
 (require 'core-micro-state)
 (require 'core-use-package-ext)
+(require 'core-emacs-ext)
 
 (defgroup spacemacs nil
   "Spacemacs customizations."
