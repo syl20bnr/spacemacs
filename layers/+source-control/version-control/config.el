@@ -14,7 +14,8 @@
   "If non-nil, will show diff margins globally.")
 
 (defvar version-control-diff-tool 'git-gutter+
-  "Options are `git-gutter', `git-gutter+', and `diff-hl' to show version-control markers.")
+  "Options are `git-gutter', `git-gutter+', and `diff-hl' to show
+version-control markers.")
 
 ;; unchanged face
 (defface git-gutter+-unchanged
