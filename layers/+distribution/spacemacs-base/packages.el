@@ -70,6 +70,7 @@
     (bind-map spacemacs-default-map
       :prefix-cmd spacemacs-cmds
       :keys (dotspacemacs-emacs-leader-key)
+      :override-minor-modes t ; only applies to :keys
       :evil-keys (dotspacemacs-leader-key)
       :evil-use-local t)))
 
