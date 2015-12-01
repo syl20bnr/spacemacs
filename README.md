@@ -269,6 +269,12 @@ date and propose useful and complete configuration!
 Before contributing be sure to consult the
 [contribution guidelines][CONTRIBUTE.org] and [conventions][CONVENTIONS.org].
 
+# Communities
+
+- [Gitter Chat]
+- [Stack Exchange]
+- [Reddit]
+
 # License
 
 The license is GPLv3 for all parts specific to Spacemacs, this includes:
@@ -335,3 +341,5 @@ Thank you!
 [cpaulik-unity-icon]: http://splendidabacus.com/posts/2015/03/spacemacs-unity-icon/
 [icon-mac-instructions]: http://www.idownloadblog.com/2014/07/16/how-to-change-app-icon-mac/
 [icon-repository]: https://github.com/nashamri/spacemacs-logo
+[Stack Exchange]: http://emacs.stackexchange.com/questions/tagged/spacemacs
+[Reddit]: https://www.reddit.com/r/spacemacs
