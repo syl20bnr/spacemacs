@@ -20,7 +20,7 @@ See `spacemacs/load-or-install-package' for more information."
   "Load PKG package. PKG will be installed if it is not already installed.
 Whenever the initial require fails the absolute path to the package
 directory is returned.
-If LOG is non-nil a message is displayed in spacemacs-mode buffer.
+If LOG is non-nil a message is displayed in spacemacs-buffer-mode buffer.
 FILE-TO-LOAD is an explicit file to load after the installation."
   (let ((warning-minimum-level :error))
     (condition-case nil

@@ -44,33 +44,11 @@
   (/ spacemacs-loading-dots-count spacemacs-loading-dots-chunk-count))
 (defvar spacemacs-loading-dots-chunk-threshold 0)
 
-(defvar spacemacs-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "<tab>") 'widget-forward)
-    (define-key map (kbd "<return>") 'widget-button-press)
-    (define-key map [backtab] 'widget-backward)
-    (define-key map [down-mouse-1] 'widget-button-click)
-    map)
-  "Keymap for spacemacs mode.")
-
 (defvar spacemacs--default-mode-line mode-line-format
   "Backup of default mode line format.")
 
-(define-derived-mode spacemacs-mode special-mode "Spacemacs"
-  "Spacemacs major mode for startup screen.
-
-\\<spacemacs-mode-map>
-"
-  :group 'spacemacs
-  :syntax-table nil
-  :abbrev-table nil
-  (setq truncate-lines t)
-  ;; motion state since this is a special mode
-  (add-to-list 'evil-motion-state-modes 'spacemacs-mode))
-
 (defun spacemacs/init ()
-  "Create the special buffer for `spacemacs-mode' and perform startup
-initialization."
+  "Perform startup initialization."
   ;; explicitly set the prefered coding systems to avoid annoying prompt
   ;; from emacs (especially on Microsoft Windows)
   (prefer-coding-system 'utf-8)
@@ -82,11 +60,9 @@ initialization."
   (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
   ;; spacemacs init
   (require 'core-configuration-layer)
-  (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
+  ;; spacemacs buffer
+  (spacemacs-buffer/goto-buffer)
   (setq initial-buffer-choice (lambda () (get-buffer spacemacs-buffer-name)))
-  (spacemacs-buffer/set-mode-line "")
-  ;; no welcome buffer
-  (setq inhibit-startup-screen t)
   ;; silence ad-handle-definition about advised functions getting redefined
   (setq ad-redefinition-action 'accept)
   ;; default theme
@@ -121,8 +97,6 @@ initialization."
       (spacemacs/set-default-font dotspacemacs-default-font)
     (spacemacs-buffer/warning "Cannot find font \"%s\"!"
                               (car dotspacemacs-default-font)))
-  ;; banner
-  (spacemacs-buffer/insert-banner-and-buttons)
   ;; mandatory dependencies
   ;; dash is required to prevent a package.el bug with f on 24.3.1
   (spacemacs/load-or-install-protected-package 'dash t)
@@ -153,9 +127,7 @@ initialization."
   ;; check for new version
   (if dotspacemacs-mode-line-unicode-symbols
       (setq-default spacemacs-version-check-lighter "[⇪]"))
-  (spacemacs/set-new-version-lighter-mode-line-faces)
-  (add-hook 'emacs-startup-hook 'spacemacs-buffer/goto-link-line)
-  (spacemacs-mode))
+  (spacemacs/set-new-version-lighter-mode-line-faces))
 
 (defun spacemacs/maybe-install-dotfile ()
   "Install the dotfile if it does not exist."
@@ -199,18 +171,8 @@ initialization."
         (format "\n[%s packages loaded in %.3fs]\n"
                 (configuration-layer/configured-packages-count)
                 elapsed)))
-     ;; Display useful lists of items
-     (when dotspacemacs-startup-lists
-       (spacemacs-buffer/insert-startupify-lists))
-     (if configuration-layer-error-count
-         (spacemacs-buffer/set-mode-line
-          (format (concat "%s error(s) at startup! "
-                          "Spacemacs may not be able to operate properly.")
-                  configuration-layer-error-count))
-       (spacemacs-buffer/set-mode-line spacemacs--default-mode-line))
-     (force-mode-line-update)
-     (spacemacs/check-for-new-version spacemacs-version-check-interval)
-     (add-hook 'pre-command-hook 'spacemacs//handle-terminal-keys))))
+     (add-hook 'pre-command-hook 'spacemacs//handle-terminal-keys)
+     (spacemacs/check-for-new-version spacemacs-version-check-interval))))
 
 (defun spacemacs/describe-system-info ()
   "Gathers info about your Spacemacs setup and copies to clipboard."
