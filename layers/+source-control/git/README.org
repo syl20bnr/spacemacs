@@ -126,10 +126,10 @@ Git commands (start with ~g~):
 | ~SPC g L~   | display the log for a file                          |
 | ~SPC g P~   | show push prompt                                    |
 | ~SPC g s~   | open a =magit= status window                        |
+| ~SPC g S~   | stage current file                                  |
 | ~SPC g m~   | display the last commit message of the current line |
 | ~SPC g t~   | launch the git time machine                         |
-| ~SPC g w~   | stage current file                                  |
-| ~SPC g u~   | unstage current file                                |
+| ~SPC g U~   | unstage current file                                |
 
 - Highlight by age of commit or last update time is provided by
  [[https://github.com/syohex/emacs-smeargle][smeargle]].

@@ -132,8 +132,8 @@
         "gL" 'magit-log-buffer-file
         "gP" 'magit-push-popup
         "gs" 'magit-status
-        "gw" 'magit-stage-file
-        "gu" 'magit-unstage-file)
+        "gS" 'magit-stage-file
+        "gU" 'magit-unstage-file)
 
       (spacemacs|define-micro-state git-blame
         :doc (concat "Press [b] again to blame further in the history, "
