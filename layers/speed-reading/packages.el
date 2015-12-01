@@ -10,13 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq speed-reading-packages
-    '(
-      spray
-      ))
-
-;; List of packages to exclude.
-(setq speed-reading-excluded-packages '())
+(setq speed-reading-packages '(spray))
 
 (defun spacemacs/init-spray ()
   (use-package spray

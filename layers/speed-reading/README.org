@@ -1,7 +1,6 @@
 #+TITLE: Speed Reading layer for Spacemacs
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
-
 * Table of Contents                                        :TOC_4_org:noexport:
  - [[Description][Description]]
  - [[Install][Install]]
@@ -12,7 +11,6 @@ A speed reading mode for Emacs.
 
 * Install
 To use this contribution add it to your =~/.spacemacs=
-
 
 #+begin_src emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(speed-reading))
