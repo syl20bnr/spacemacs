@@ -569,9 +569,8 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
   (interactive)
   (with-current-buffer spacemacs-buffer-name
     (goto-char (point-min))
-    (re-search-forward "Homepage")
-    (beginning-of-line)
-    (widget-forward 1)))
+    (with-demoted-errors "spacemacs buffer error: %s"
+      (widget-forward 1))))
 
 (defun spacemacs-buffer/goto-buffer ()
   "Create the special buffer for `spacemacs-buffer-mode' if it doesn't
