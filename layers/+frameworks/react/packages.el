@@ -72,6 +72,8 @@
     (emmet-mode 0)
     ;; See https://github.com/CestDiego/emmet-mode/commit/3f2904196e856d31b9c95794d2682c4c7365db23
     (setq-local emmet-expand-jsx-className? t)
+    ;; Enable js-mode snippets
+    (yas-activate-extra-mode 'js-mode)
     ;; Force jsx content type
     (web-mode-set-content-type "jsx")
     ;; Why do we do this ?
