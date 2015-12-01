@@ -71,7 +71,8 @@
     :init
     (progn
       (when (display-graphic-p)
-        (add-hook 'git-gutter-mode-hook '(lambda() (require 'git-gutter-fringe))))
+        (with-eval-after-load 'git-gutter
+          (require 'git-gutter-fringe)))
       (setq git-gutter-fr:side 'right-fringe))
     :config
     (progn
@@ -131,7 +132,8 @@
     :init
     (progn
       (when (display-graphic-p)
-        (add-hook 'git-gutter+-mode-hook '(lambda() (require 'git-gutter-fringe+))))
+        (with-eval-after-load 'git-gutter+
+          (require 'git-gutter-fringe+)))
       (setq git-gutter-fr+-side 'right-fringe))
     :config
     (progn
