@@ -31,9 +31,6 @@
 ;; The shadowed original mode key bindings are automatically reassigned
 ;; following a set of rules:
 
-;;
-
-
 ;;; Code:
 
 (require 'evil)
@@ -58,41 +55,14 @@
   :cursor box)
 
 (add-hook 'evil-evilified-state-entry-hook 'evilified-state--evilified-state-on-entry)
-(add-hook 'evil-evilified-state-exit-hook 'evilified-state--evilified-state-on-exit)
-
-(add-hook 'evil-visual-state-entry-hook 'evilified-state--visual-state-on-entry)
-(add-hook 'evil-visual-state-exit-hook 'evilified-state--visual-state-on-exit)
-
-(defun evilified-state--pre-command-hook ()
-  (let ((map (get-char-property (point) 'keymap)))
-    (when (and (not (window-minibuffer-active-p))
-               map (assq 'evilified-state map))
-      (let* ((submap (cdr (assq 'evilified-state map)))
-             (command (when (and submap (eq 1 (length (this-command-keys))))
-                        (lookup-key submap (this-command-keys)))))
-        (when command
-          (setq this-command command))))))
 
 (defun evilified-state--evilified-state-on-entry ()
   "Setup evilified state."
-  (add-hook 'pre-command-hook 'evilified-state--pre-command-hook nil 'local)
   (when (bound-and-true-p evil-surround-mode)
     (make-local-variable 'evil-surround-mode)
     (evil-surround-mode -1))
   (setq-local evil-normal-state-map (cons 'keymap nil))
   (setq-local evil-visual-state-map (cons 'keymap (list (cons ?y 'evil-yank)))))
-
-(defun evilified-state--evilified-state-on-exit ()
-  "Clean evilified state"
-  (remove-hook 'pre-command-hook 'evilified-state--pre-command-hook 'local))
-
-(defun evilified-state--visual-state-on-entry ()
-  "Setup visual state."
-  (add-hook 'pre-command-hook 'evilified-state--pre-command-hook nil 'local))
-
-(defun evilified-state--visual-state-on-exit ()
-  "Clean visual state"
-  (remove-hook 'pre-command-hook 'evilified-state--pre-command-hook 'local))
 
 ;; default key bindings for all evilified buffers
 (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
