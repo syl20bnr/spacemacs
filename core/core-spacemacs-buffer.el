@@ -136,7 +136,6 @@ buffer, right justified."
                          (format "(%s)" spacemacs-version)))
              (len (- maxcol (length lhs)))
              (buffer-read-only nil))
-        (message "injecting")
         (goto-char (point-min))
         (delete-region (point) (progn (end-of-line) (point)))
         (insert (format
