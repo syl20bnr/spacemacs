@@ -173,6 +173,8 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
                              (lookup-key evil-map kbd-event)
                              (car (pop pending-funcs)))))
         (when evil-value
+          (when (keymapp evil-value)
+            (setq evil-value (copy-keymap evil-value)))
           (evil-define-key 'evilified map kbd-event evil-value))
         (when map-value
           (add-to-list 'pending-funcs (cons map-value event) 'append))
