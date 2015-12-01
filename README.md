@@ -218,7 +218,7 @@ Spacemacs has a built-in notification of a new version when you are on the
 `master` branch. If you are on the `develop` branch then you'll have to
 update Spacemacs manually by updating your repository.
 
-## Automatic update(on master branch)
+## Automatic update (on master branch)
 
 When a new version is available a little arrow appears in the mode-line.
 
@@ -230,9 +230,10 @@ current version is older.
 
 Click on the arrow to update Spacemacs to the last version.
 
-## Manual update(on master branch)
+## Manual update (on master branch)
 
 (Remove the angle brackets when typing the lines below into your shell.)
+
 ```sh
 git fetch
 git reset --hard <tag version which you are updating to> 
