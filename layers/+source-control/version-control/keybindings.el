@@ -20,9 +20,9 @@
 Hunk Commands
   [n]          move to next hunk
   [N]          move to previous hunk
-  [r]          add a buffer from another layout
-  [s]          add all buffers from another layout
-  [h]          close other layout(s) (buffers are not closed)
+  [r]          revert hunk
+  [s]          stage hunk
+  [h]          show hunk
 Magit Commands
   [w]          stage changes in current file
   [u]          unstage changes in current file
