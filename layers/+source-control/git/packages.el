@@ -94,10 +94,14 @@
 
 (defun git/init-magit ()
   (use-package magit
-    :commands (magit-status
-               magit-blame-mode
-               magit-log
-               magit-commit)
+    :commands (magit-blame-mode
+               magit-commit-popup
+               magit-diff-popup
+               magit-fetch-popup
+               magit-log-popup
+               magit-pull-popup
+               magit-push-popup
+               magit-status)
     :init
     (progn
       (setq magit-completing-read-function 'magit-builtin-completing-read)
