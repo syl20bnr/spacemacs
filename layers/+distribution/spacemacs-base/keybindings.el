@@ -78,8 +78,11 @@
        (push '(,binding-regex . ,binding)
              which-key-description-replacement-alist))))
 (which-key-declare-prefixes "SPC ." "C-c bindings")
-(spacemacs|emacs-binding-aliases "C-c C-c" ".." ".c")
-(spacemacs|emacs-binding-aliases "C-c C-k" ".k")
+(dolist (letter (mapcar 'string (number-sequence ?a ?z)))
+  (let ((binding (concat "C-c C-" letter))
+        (evil-aliases (concat "." letter)))
+    (spacemacs|emacs-binding-aliases binding evil-aliases)))
+(spacemacs|emacs-binding-aliases "C-c C-c" "..")
 ;; applications ---------------------------------------------------------------
 (evil-leader/set-key
   "ac"  'calc-dispatch
