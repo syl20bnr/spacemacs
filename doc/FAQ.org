@@ -92,6 +92,18 @@ repository instead of the one shipped with emacs. Then, any `org` related code
 should not be loaded before `dotspacemacs/user-config`, otherwise both versions
 will be loaded and will conflict.
 
+Because of autoloading, calling to `org` function will trigger the loading up
+of the `org` shipped with emacs wich will induce conflicts.
+One way to do your `org` config is to wrap you config code in a
+`with-eval-after-load` block.
+
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'org
+    ;; here goes your Org config :)
+    ;; ....
+    )    
+#+END_SRC
+
 ** Why is Spacemacs hanging on startup?
 This is probably related to Helm using Tramp which tries to figure out some
 SSH/DNS settings at startup. The root cause is probably your ISP redirecting
