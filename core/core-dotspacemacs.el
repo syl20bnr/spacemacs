@@ -109,6 +109,14 @@ pressing `<leader> m`. Set it to `nil` to disable it.")
 (defvar dotspacemacs-major-mode-emacs-leader-key "C-M-m"
   "Major mode leader key accessible in `emacs state' and `insert state'")
 
+(defvar dotspacemacs-distinguish-gui-tab nil
+  "If non nil, distinguish C-i and tab in the GUI version of
+emacs.")
+
+;; (defvar dotspacemacs-distinguish-gui-ret nil
+;;   "If non nil, distinguish C-m and return in the GUI version of
+;; emacs.")
+
 (defvar dotspacemacs-default-font '("Source Code Pro"
                                     :size 13
                                     :weight normal
