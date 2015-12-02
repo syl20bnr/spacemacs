@@ -257,7 +257,7 @@
     (progn
       (setq hindent-style haskell-enable-hindent-style)
       (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
-        "F" 'hindent/reformat-decl))))
+        "F" 'hindent-reformat-decl))))
 
 (defun haskell/init-shm ()
   (use-package shm
