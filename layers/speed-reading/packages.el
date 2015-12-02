@@ -10,22 +10,26 @@
 ;;
 ;;; License: GPLv3
 
-(setq speed-reading-packages '(spray))
+(setq speed-reading-packages
+      '(
+        spray
+        which-key
+        ))
 
-(defun spacemacs/init-spray ()
+(defun speed-reading/init-spray ()
   (use-package spray
     :commands spray-mode
     :init
     (progn
-      (defun spacemacs/start-spray ()
+      (defun speed-reading/start-spray ()
         "Start spray speed reading on current buffer at current point."
         (interactive)
         (evil-insert-state)
         (spray-mode t)
         (internal-show-cursor (selected-window) nil))
-      (spacemacs/set-leader-keys "asr" 'spacemacs/start-spray)
+      (spacemacs/set-leader-keys "aR" 'speed-reading/start-spray)
 
-      (defadvice spray-quit (after spacemacs//quit-spray activate)
+      (defadvice spray-quit (after speed-reading//quit-spray activate)
         "Correctly quit spray."
         (internal-show-cursor (selected-window) t)
         (evil-normal-state)))
@@ -34,3 +38,7 @@
       (define-key spray-mode-map (kbd "h") 'spray-backward-word)
       (define-key spray-mode-map (kbd "l") 'spray-forward-word)
       (define-key spray-mode-map (kbd "q") 'spray-quit))))
+
+(defun speed-reading/post-init-which-key ()
+  (push '("\\`speed-reading/\\(.+\\)\\'" . "\\1")
+        which-key-description-replacement-alist))
