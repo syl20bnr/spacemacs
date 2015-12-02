@@ -210,8 +210,7 @@ initialization."
                   configuration-layer-error-count))
        (spacemacs-buffer/set-mode-line spacemacs--default-mode-line))
      (force-mode-line-update)
-     (spacemacs/check-for-new-version spacemacs-version-check-interval)
-     (add-hook 'pre-command-hook 'spacemacs//handle-terminal-keys))))
+     (spacemacs/check-for-new-version spacemacs-version-check-interval))))
 
 (defun spacemacs/describe-system-info ()
   "Gathers info about your Spacemacs setup and copies to clipboard."

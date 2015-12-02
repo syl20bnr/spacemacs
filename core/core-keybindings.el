@@ -18,6 +18,16 @@
 (defvar spacemacs-default-map (make-sparse-keymap)
   "Base keymap for all spacemacs leader key commands.")
 
+(defun spacemacs/translate-C-i (_)
+  (interactive)
+  (if (and dotspacemacs-distinguish-gui-tab (display-graphic-p)) [C-i] [?\C-i]))
+(define-key key-translation-map [?\C-i] 'spacemacs/translate-C-i)
+
+;; (defun spacemacs/translate-C-m (_)
+;;   (interactive)
+;;   (if (and dotspacemacs-distinguish-gui-ret (display-graphic-p)) [C-m] [?\C-m]))
+;; (define-key key-translation-map [?\C-m] 'spacemacs/translate-C-m)
+
 (defun spacemacs/declare-prefix (prefix name &optional long-name)
   "Declare a prefix PREFIX. PREFIX is a string describing a key
 sequence. NAME is a string used as the prefix command.
@@ -57,19 +67,6 @@ used as the prefix command."
       (when (and is-major-mode-prefix dotspacemacs-major-mode-emacs-leader-key)
         (which-key-declare-prefixes-for-mode
           mode major-mode-prefix-emacs prefix-name)))))
-
-(defun spacemacs//handle-terminal-keys ()
-  "Translate on the fly terminal special keys to access the emacs function key.
-Translation occurs only the function key is effectively bound to a function."
-  (let ((kcode (and (not (display-graphic-p))
-                    (aref (this-command-keys-vector) 0))))
-    (cond
-     ((eq 9 kcode)
-      (let ((command (key-binding (kbd "<tab>"))))
-        (when command (setq this-command command))))
-     ((eq 13 kcode)
-      (let ((command (key-binding (kbd "<return>"))))
-        (when command (setq this-command command)))))))
 
 (defun spacemacs/set-leader-keys (key def &rest bindings)
   "Add KEY and DEF as key bindings under
