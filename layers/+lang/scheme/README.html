@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-23 Mon 13:48 -->
+<!-- 2015-12-02 Wed 14:45 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Scheme contribution layer for Spacemacs</title>
@@ -159,7 +159,7 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#orgheadline1">1. Description</a></li>
 <li><a href="#orgheadline2">2. Install</a></li>
-<li><a href="#orgheadline9">3. Key Bindings</a>
+<li><a href="#orgheadline10">3. Key Bindings</a>
 <ul>
 <li><a href="#orgheadline3">3.1. Compiling</a></li>
 <li><a href="#orgheadline4">3.2. Navigation</a></li>
@@ -167,6 +167,7 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline6">3.4. Insertion</a></li>
 <li><a href="#orgheadline7">3.5. Macroexpansion</a></li>
 <li><a href="#orgheadline8">3.6. REPL</a></li>
+<li><a href="#orgheadline9">3.7. Evaluation</a></li>
 </ul>
 </li>
 </ul>
@@ -214,8 +215,8 @@ $ curl http://3e8.org/pub/chicken-doc/chicken-doc-repo.tgz | sudo tar zx
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-2">
-<h2 id="orgheadline9"><span class="section-number-2">3</span> Key Bindings</h2>
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">3</span> Key Bindings</h2>
 <div class="outline-text-2" id="text-3">
 </div><div id="outline-container-orgheadline3" class="outline-3">
 <h3 id="orgheadline3"><span class="section-number-3">3.1</span> Compiling</h3>
@@ -431,6 +432,11 @@ $ curl http://3e8.org/pub/chicken-doc/chicken-doc-repo.tgz | sudo tar zx
 </tr>
 
 <tr>
+<td class="org-left"><code>SPC m s s</code></td>
+<td class="org-left">Select Scheme implementation</td>
+</tr>
+
+<tr>
 <td class="org-left"><code>SPC m s b</code></td>
 <td class="org-left">Send buffer to the REPL</td>
 </tr>
@@ -468,10 +474,57 @@ $ curl http://3e8.org/pub/chicken-doc/chicken-doc-repo.tgz | sudo tar zx
 </table>
 </div>
 </div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">3.7</span> Evaluation</h3>
+<div class="outline-text-3" id="text-3-7">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m e b</code></td>
+<td class="org-left">Evaluate the whole buffer</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m e e</code></td>
+<td class="org-left">Evaluate last sexp</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m e f</code></td>
+<td class="org-left">Evaluate current function</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m e l</code></td>
+<td class="org-left">Evaluate line</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m e r</code></td>
+<td class="org-left">Evaluate region</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-23 Mon 13:48</p>
+<p class="date">Created: 2015-12-02 Wed 14:45</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-23 Mon 13:48 -->
+<!-- 2015-12-02 Wed 14:45 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Scala contribution layer for Spacemacs</title>
@@ -166,21 +166,22 @@ for the JavaScript code in this tag.
 </ul>
 </li>
 <li><a href="#orgheadline6">4. Scalastyle</a></li>
-<li><a href="#orgheadline19">5. Key bindings</a>
+<li><a href="#orgheadline7">5. Automatically show the type of the symbol under the cursor</a></li>
+<li><a href="#orgheadline20">6. Key bindings</a>
 <ul>
-<li><a href="#orgheadline18">5.1. Ensime key bindings</a>
+<li><a href="#orgheadline19">6.1. Ensime key bindings</a>
 <ul>
-<li><a href="#orgheadline7">5.1.1. Search</a></li>
-<li><a href="#orgheadline8">5.1.2. sbt</a></li>
-<li><a href="#orgheadline9">5.1.3. Typecheck</a></li>
-<li><a href="#orgheadline10">5.1.4. Debug</a></li>
-<li><a href="#orgheadline11">5.1.5. Errors</a></li>
-<li><a href="#orgheadline12">5.1.6. Goto</a></li>
-<li><a href="#orgheadline13">5.1.7. Documentation, Inspect</a></li>
-<li><a href="#orgheadline14">5.1.8. Server</a></li>
-<li><a href="#orgheadline15">5.1.9. Refactoring</a></li>
-<li><a href="#orgheadline16">5.1.10. Tests</a></li>
-<li><a href="#orgheadline17">5.1.11. REPL</a></li>
+<li><a href="#orgheadline8">6.1.1. Search</a></li>
+<li><a href="#orgheadline9">6.1.2. sbt</a></li>
+<li><a href="#orgheadline10">6.1.3. Typecheck</a></li>
+<li><a href="#orgheadline11">6.1.4. Debug</a></li>
+<li><a href="#orgheadline12">6.1.5. Errors</a></li>
+<li><a href="#orgheadline13">6.1.6. Goto</a></li>
+<li><a href="#orgheadline14">6.1.7. Documentation, Inspect</a></li>
+<li><a href="#orgheadline15">6.1.8. Server</a></li>
+<li><a href="#orgheadline16">6.1.9. Refactoring</a></li>
+<li><a href="#orgheadline17">6.1.10. Tests</a></li>
+<li><a href="#orgheadline18">6.1.11. REPL</a></li>
 </ul>
 </li>
 </ul>
@@ -300,15 +301,35 @@ See the <a href="http://flycheck.readthedocs.org/en/latest/guide/languages.html#
 </div>
 </div>
 
-<div id="outline-container-orgheadline19" class="outline-2">
-<h2 id="orgheadline19"><span class="section-number-2">5</span> Key bindings</h2>
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">5</span> Automatically show the type of the symbol under the cursor</h2>
 <div class="outline-text-2" id="text-5">
-</div><div id="outline-container-orgheadline18" class="outline-3">
-<h3 id="orgheadline18"><span class="section-number-3">5.1</span> Ensime key bindings</h3>
-<div class="outline-text-3" id="text-5-1">
-</div><div id="outline-container-orgheadline7" class="outline-4">
-<h4 id="orgheadline7"><span class="section-number-4">5.1.1</span> Search</h4>
-<div class="outline-text-4" id="text-5-1-1">
+<p>
+To enable the feature <code>ensime-print-type-at-point</code> when cursor moves, set the variable <code>scala-enable-eldoc-mode</code> to <code>t</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>
+  <span class="org-rainbow-delimiters-depth-3">(</span>scala <span class="org-builtin">:variables</span> scala-enable-eldoc-mode t<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Enabling this option can cause slow editor performance.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-2">
+<h2 id="orgheadline20"><span class="section-number-2">6</span> Key bindings</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19"><span class="section-number-3">6.1</span> Ensime key bindings</h3>
+<div class="outline-text-3" id="text-6-1">
+</div><div id="outline-container-orgheadline8" class="outline-4">
+<h4 id="orgheadline8"><span class="section-number-4">6.1.1</span> Search</h4>
+<div class="outline-text-4" id="text-6-1-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -338,9 +359,9 @@ See the <a href="http://flycheck.readthedocs.org/en/latest/guide/languages.html#
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-4">
-<h4 id="orgheadline8"><span class="section-number-4">5.1.2</span> sbt</h4>
-<div class="outline-text-4" id="text-5-1-2">
+<div id="outline-container-orgheadline9" class="outline-4">
+<h4 id="orgheadline9"><span class="section-number-4">6.1.2</span> sbt</h4>
+<div class="outline-text-4" id="text-6-1-2">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -385,9 +406,9 @@ See the <a href="http://flycheck.readthedocs.org/en/latest/guide/languages.html#
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-4">
-<h4 id="orgheadline9"><span class="section-number-4">5.1.3</span> Typecheck</h4>
-<div class="outline-text-4" id="text-5-1-3">
+<div id="outline-container-orgheadline10" class="outline-4">
+<h4 id="orgheadline10"><span class="section-number-4">6.1.3</span> Typecheck</h4>
+<div class="outline-text-4" id="text-6-1-3">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -417,9 +438,9 @@ See the <a href="http://flycheck.readthedocs.org/en/latest/guide/languages.html#
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-4">
-<h4 id="orgheadline10"><span class="section-number-4">5.1.4</span> Debug</h4>
-<div class="outline-text-4" id="text-5-1-4">
+<div id="outline-container-orgheadline11" class="outline-4">
+<h4 id="orgheadline11"><span class="section-number-4">6.1.4</span> Debug</h4>
+<div class="outline-text-4" id="text-6-1-4">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -513,9 +534,9 @@ See the <a href="http://flycheck.readthedocs.org/en/latest/guide/languages.html#
 </div>
 </div>
 
-<div id="outline-container-orgheadline11" class="outline-4">
-<h4 id="orgheadline11"><span class="section-number-4">5.1.5</span> Errors</h4>
-<div class="outline-text-4" id="text-5-1-5">
+<div id="outline-container-orgheadline12" class="outline-4">
+<h4 id="orgheadline12"><span class="section-number-4">6.1.5</span> Errors</h4>
+<div class="outline-text-4" id="text-6-1-5">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -550,9 +571,9 @@ See the <a href="http://flycheck.readthedocs.org/en/latest/guide/languages.html#
 </div>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-4">
-<h4 id="orgheadline12"><span class="section-number-4">5.1.6</span> Goto</h4>
-<div class="outline-text-4" id="text-5-1-6">
+<div id="outline-container-orgheadline13" class="outline-4">
+<h4 id="orgheadline13"><span class="section-number-4">6.1.6</span> Goto</h4>
+<div class="outline-text-4" id="text-6-1-6">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -587,9 +608,9 @@ See the <a href="http://flycheck.readthedocs.org/en/latest/guide/languages.html#
 </div>
 </div>
 
-<div id="outline-container-orgheadline13" class="outline-4">
-<h4 id="orgheadline13"><span class="section-number-4">5.1.7</span> Documentation, Inspect</h4>
-<div class="outline-text-4" id="text-5-1-7">
+<div id="outline-container-orgheadline14" class="outline-4">
+<h4 id="orgheadline14"><span class="section-number-4">6.1.7</span> Documentation, Inspect</h4>
+<div class="outline-text-4" id="text-6-1-7">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -639,9 +660,9 @@ See the <a href="http://flycheck.readthedocs.org/en/latest/guide/languages.html#
 </div>
 </div>
 
-<div id="outline-container-orgheadline14" class="outline-4">
-<h4 id="orgheadline14"><span class="section-number-4">5.1.8</span> Server</h4>
-<div class="outline-text-4" id="text-5-1-8">
+<div id="outline-container-orgheadline15" class="outline-4">
+<h4 id="orgheadline15"><span class="section-number-4">6.1.8</span> Server</h4>
+<div class="outline-text-4" id="text-6-1-8">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -676,9 +697,9 @@ See the <a href="http://flycheck.readthedocs.org/en/latest/guide/languages.html#
 </div>
 </div>
 
-<div id="outline-container-orgheadline15" class="outline-4">
-<h4 id="orgheadline15"><span class="section-number-4">5.1.9</span> Refactoring</h4>
-<div class="outline-text-4" id="text-5-1-9">
+<div id="outline-container-orgheadline16" class="outline-4">
+<h4 id="orgheadline16"><span class="section-number-4">6.1.9</span> Refactoring</h4>
+<div class="outline-text-4" id="text-6-1-9">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -743,9 +764,9 @@ See the <a href="http://flycheck.readthedocs.org/en/latest/guide/languages.html#
 </div>
 </div>
 
-<div id="outline-container-orgheadline16" class="outline-4">
-<h4 id="orgheadline16"><span class="section-number-4">5.1.10</span> Tests</h4>
-<div class="outline-text-4" id="text-5-1-10">
+<div id="outline-container-orgheadline17" class="outline-4">
+<h4 id="orgheadline17"><span class="section-number-4">6.1.10</span> Tests</h4>
+<div class="outline-text-4" id="text-6-1-10">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -780,9 +801,9 @@ See the <a href="http://flycheck.readthedocs.org/en/latest/guide/languages.html#
 </div>
 </div>
 
-<div id="outline-container-orgheadline17" class="outline-4">
-<h4 id="orgheadline17"><span class="section-number-4">5.1.11</span> REPL</h4>
-<div class="outline-text-4" id="text-5-1-11">
+<div id="outline-container-orgheadline18" class="outline-4">
+<h4 id="orgheadline18"><span class="section-number-4">6.1.11</span> REPL</h4>
+<div class="outline-text-4" id="text-6-1-11">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -835,7 +856,7 @@ See the <a href="http://flycheck.readthedocs.org/en/latest/guide/languages.html#
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-23 Mon 13:48</p>
+<p class="date">Created: 2015-12-02 Wed 14:45</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

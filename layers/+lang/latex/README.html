@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-23 Mon 13:48 -->
+<!-- 2015-12-02 Wed 14:45 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>LaTeX Layer for Spacemacs</title>
@@ -176,7 +176,6 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline9">3.1. RefTeX</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline11">4. Maintainer</a></li>
 </ul>
 </div>
 </div>
@@ -323,8 +322,8 @@ The variable <code>latex-nofill-env</code> provide the list of environment names
 </thead>
 <tbody>
 <tr>
-<td class="org-left"><code>SPC m *</code></td>
-<td class="org-left">TeX documentation, can be very slow</td>
+<td class="org-left"><code>SPC m -</code></td>
+<td class="org-left">open output buffer</td>
 </tr>
 
 <tr>
@@ -348,13 +347,13 @@ The variable <code>latex-nofill-env</code> provide the list of environment names
 </tr>
 
 <tr>
-<td class="org-left"><code>SPC m f</code></td>
-<td class="org-left">insert LaTeX font - full bindings here: <a href="https://www.gnu.org/software/auctex/manual/auctex/Font-Specifiers.html">AUCTeX Font Doc</a></td>
+<td class="org-left"><code>SPC m i</code></td>
+<td class="org-left">insert <code>\item</code></td>
 </tr>
 
 <tr>
-<td class="org-left"><code>SPC m i</code></td>
-<td class="org-left">insert <code>\item</code></td>
+<td class="org-left"><code>SPC m h d</code></td>
+<td class="org-left">TeX documentation, can be very slow</td>
 </tr>
 
 <tr>
@@ -401,10 +400,74 @@ The variable <code>latex-nofill-env</code> provide the list of environment names
 <td class="org-left"><code>SPC m v</code></td>
 <td class="org-left">view</td>
 </tr>
+
+<tr>
+<td class="org-left"><code>SPC m x b</code></td>
+<td class="org-left">make font bold</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x B</code></td>
+<td class="org-left">make font medium weight</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x c</code></td>
+<td class="org-left">make font monospaced (for code)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x e</code></td>
+<td class="org-left">make font emphasised</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x i</code></td>
+<td class="org-left">make font italic</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x o</code></td>
+<td class="org-left">make font oblique</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x r</code></td>
+<td class="org-left">remove font properties</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x f a</code></td>
+<td class="org-left">use calligraphic font</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x f c</code></td>
+<td class="org-left">use small-caps font</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x f f</code></td>
+<td class="org-left">use sans serif font</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x f n</code></td>
+<td class="org-left">use normal font</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x f r</code></td>
+<td class="org-left">use serif font</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x f u</code></td>
+<td class="org-left">use upright font</td>
+</tr>
 </tbody>
 </table>
 </div>
-
 
 <div id="outline-container-orgheadline9" class="outline-3">
 <h3 id="orgheadline9"><span class="section-number-3">3.1</span> RefTeX</h3>
@@ -493,20 +556,9 @@ The variable <code>latex-nofill-env</code> provide the list of environment names
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgheadline11" class="outline-2">
-<h2 id="orgheadline11"><span class="section-number-2">4</span> Maintainer</h2>
-<div class="outline-text-2" id="text-4">
-<p>
-This layer was created by and is maintained by @trishume, ping me in the Gitter
-chat if you have questions. Feel free to submit PRs for this layer though if
-you have improvements.
-</p>
-</div>
-</div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-23 Mon 13:48</p>
+<p class="date">Created: 2015-12-02 Wed 14:45</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

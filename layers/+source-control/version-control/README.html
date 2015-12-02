@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-23 Mon 13:48 -->
+<!-- 2015-12-02 Wed 14:45 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Version-Control contribution layer for Spacemacs</title>
@@ -167,10 +167,20 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline3">2.1. Layer</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline5">3. Key Bindings</a></li>
+<li><a href="#orgheadline6">3. Configuration</a>
+<ul>
+<li><a href="#orgheadline5">3.1. Differences between margin programs:</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline8">4. Key Bindings</a>
+<ul>
+<li><a href="#orgheadline7">4.1. Version Control Micro-state</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
+
 
 <div id="outline-container-orgheadline2" class="outline-2">
 <h2 id="orgheadline2"><span class="section-number-2">1</span> Description</h2>
@@ -185,11 +195,21 @@ It should work with all VC backends such as Git, Mercurial, Bazaar, SVN, etc&#x2
 <h3 id="orgheadline1"><span class="section-number-3">1.1</span> Features:</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
-<li>highlights uncommitted changes in the fringe or margin with <a href="https://github.com/dgutov/diff-hl">diff-hl</a></li>
+<li>highlights uncommitted changes in the fringe or margin with <a href="https://github.com/dgutov/diff-hl">diff-hl</a>,</li>
 </ul>
+<p>
+git-gutter, or git-gutter+
+</p>
+<ul class="org-ul">
+<li>adds vcs micro-state <code>SPC g.</code> to allow quick navigation and modification of</li>
+</ul>
+<p>
+buffer hunks.
+</p>
 </div>
 </div>
 </div>
+
 
 <div id="outline-container-orgheadline4" class="outline-2">
 <h2 id="orgheadline4"><span class="section-number-2">2</span> Install</h2>
@@ -210,9 +230,106 @@ To use this contribution add it to your <code>~/.spacemacs</code>
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5"><span class="section-number-2">3</span> Key Bindings</h2>
+
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6"><span class="section-number-2">3</span> Configuration</h2>
 <div class="outline-text-2" id="text-3">
+<p>
+You can choose the package to facilitate the diff micro-state and show margins
+by setting <code>version-control-diff-tool</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">'<span class="org-rainbow-delimiters-depth-1">(</span>version-control <span class="org-builtin">:variables</span>
+                  version-control-diff-tool 'diff-hl<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+To automatically enable diff margins in all buffers, set
+<code>version-control-global-margin</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">'<span class="org-rainbow-delimiters-depth-1">(</span>version-control <span class="org-builtin">:variables</span>
+                  verstion-control-global-margin t<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">3.1</span> Differences between margin programs:</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+This layer contains generalized mappings for three diff margin packages:
+diff-hl, git-gutter, and git-gutter+.
+</p>
+
+<p>
+There are some differences between packages that might have some people prefer
+one over the other:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Feature</th>
+<th scope="col" class="org-left">diff-hl</th>
+<th scope="col" class="org-left">git-gutter</th>
+<th scope="col" class="org-left">git-gutter+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Show in fringe</td>
+<td class="org-left">X</td>
+<td class="org-left">X</td>
+<td class="org-left">X</td>
+</tr>
+
+<tr>
+<td class="org-left">Extended VCS support (e.g. hg, svn)</td>
+<td class="org-left">X</td>
+<td class="org-left">X</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Stage hunks from buffer</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">X</td>
+<td class="org-left">X</td>
+</tr>
+
+<tr>
+<td class="org-left">Dired support</td>
+<td class="org-left">X</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">4</span> Key Bindings</h2>
+<div class="outline-text-2" id="text-4">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -229,31 +346,128 @@ To use this contribution add it to your <code>~/.spacemacs</code>
 </thead>
 <tbody>
 <tr>
-<td class="org-left"><code>SPC g d g</code></td>
-<td class="org-left">Go to hunk</td>
+<td class="org-left"><code>SPC g .</code></td>
+<td class="org-left">version control micro-state</td>
 </tr>
 
 <tr>
-<td class="org-left"><code>SPC g d N</code></td>
-<td class="org-left">Previous hunk</td>
+<td class="org-left"><code>SPC T d</code></td>
+<td class="org-left">toggle diff margins</td>
 </tr>
 
 <tr>
-<td class="org-left"><code>SPC g d n</code></td>
+<td class="org-left"><code>SPC T C-d</code></td>
+<td class="org-left">toggle diff margins globally</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">4.1</span> Version Control Micro-state</h3>
+<div class="outline-text-3" id="text-4-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC g . h</code></td>
+<td class="org-left">Show diff of hunk</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g . n</code></td>
 <td class="org-left">Next hunk</td>
 </tr>
 
 <tr>
-<td class="org-left"><code>SPC g d r</code></td>
+<td class="org-left"><code>SPC g . N</code></td>
+<td class="org-left">Previous hunk</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g . r</code></td>
 <td class="org-left">Revert hunk</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g . s</code></td>
+<td class="org-left">Stage hunk</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g . t</code></td>
+<td class="org-left">Toggle margin indicators</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g . w</code></td>
+<td class="org-left">Stage file</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g . u</code></td>
+<td class="org-left">Unstage file</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g . d</code></td>
+<td class="org-left">Repo diff popup</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g . D</code></td>
+<td class="org-left">Show diffs of unstaged hunks</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g . c</code></td>
+<td class="org-left">Commit with popup</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g . C</code></td>
+<td class="org-left">Commit</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g . P</code></td>
+<td class="org-left">Push repo with popup</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g . f</code></td>
+<td class="org-left">Fetch for repo with popup</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g . F</code></td>
+<td class="org-left">Pull repo with popup</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g . l</code></td>
+<td class="org-left">Show repo log</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
+</div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-23 Mon 13:48</p>
+<p class="date">Created: 2015-12-02 Wed 14:45</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

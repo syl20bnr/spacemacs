@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-23 Mon 13:48 -->
+<!-- 2015-12-02 Wed 14:45 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Frequently Asked Questions</title>
@@ -174,7 +174,7 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline13">1.13. Why does my color theme not render correctly in terminal mode?</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline27">2. How do I&#x2026;</a>
+<li><a href="#orgheadline28">2. How do I&#x2026;</a>
 <ul>
 <li><a href="#orgheadline15">2.1. Install a package not provided by a layer?</a></li>
 <li><a href="#orgheadline16">2.2. Disable a package completely?</a></li>
@@ -188,19 +188,20 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline24">2.10. Change or define an alias for an <code>evil-leader</code> prefix?</a></li>
 <li><a href="#orgheadline25">2.11. Restore the sentence delimiter to two spaces?</a></li>
 <li><a href="#orgheadline26">2.12. Prevent the visual selection overriding my system clipboard?</a></li>
+<li><a href="#orgheadline27">2.13. Make spell-checking support curly quotes (or any other character)?</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline32">3. Windows</a>
+<li><a href="#orgheadline33">3. Windows</a>
 <ul>
-<li><a href="#orgheadline28">3.1. Why do the fonts look crappy on Windows?</a></li>
-<li><a href="#orgheadline29">3.2. Why is there no Spacemacs logo in the startup buffer?</a></li>
-<li><a href="#orgheadline30">3.3. Why are all packages unavailable?</a></li>
-<li><a href="#orgheadline31">3.4. The powerline isn't shown correctly when Spacemacs is used within <code>PuTTY</code>.</a></li>
+<li><a href="#orgheadline29">3.1. Why do the fonts look crappy on Windows?</a></li>
+<li><a href="#orgheadline30">3.2. Why is there no Spacemacs logo in the startup buffer?</a></li>
+<li><a href="#orgheadline31">3.3. Why are all packages unavailable?</a></li>
+<li><a href="#orgheadline32">3.4. The powerline isn't shown correctly when Spacemacs is used within <code>PuTTY</code>.</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline34">4. OS X</a>
+<li><a href="#orgheadline35">4. OS X</a>
 <ul>
-<li><a href="#orgheadline33">4.1. Why are the powerline colors not correct on OS X?</a></li>
+<li><a href="#orgheadline34">4.1. Why are the powerline colors not correct on OS X?</a></li>
 </ul>
 </li>
 </ul>
@@ -341,14 +342,24 @@ configuration:
 
 <div class="org-src-container">
 
-<pre class="src src-elisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq tramp-ssh-controlmaster-options
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq tramp-ssh-controlmaster-options
       <span class="org-string">"-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
 <p>
-See <a href="https://github.com/syl20bnr/spacemacs/issues/3422#issuecomment-148919047">issue #3422</a> and <a href="https://github.com/emacs-helm/helm/issues/1000#issuecomment-119487649">helm issue #1000</a> for details.
+See <a href="https://github.com/syl20bnr/spacemacs/issues/3422#issuecomment-148919047">issue #3422</a> and <a href="https://github.com/emacs-helm/helm/issues/1000#issuecomment-119487649">helm issue #1000</a> for details. If for any reason this code is
+not working, you can try to put these settings directly in <code>~/.ssh/config</code>:
 </p>
+
+<div class="org-src-container">
+
+<pre class="src src-ssh">Host *
+ControlMaster auto
+ControlPath ~/.ssh/master -%r@%h:%p
+ControlPersist = no
+</pre>
+</div>
 </div>
 </div>
 
@@ -384,8 +395,8 @@ change your terminal color palette. More explanations can be found on
 </div>
 </div>
 
-<div id="outline-container-orgheadline27" class="outline-2">
-<h2 id="orgheadline27"><span class="section-number-2">2</span> How do I&#x2026;</h2>
+<div id="outline-container-orgheadline28" class="outline-2">
+<h2 id="orgheadline28"><span class="section-number-2">2</span> How do I&#x2026;</h2>
 <div class="outline-text-2" id="text-2">
 </div><div id="outline-container-orgheadline15" class="outline-3">
 <h3 id="orgheadline15"><span class="section-number-3">2.1</span> Install a package not provided by a layer?</h3>
@@ -444,7 +455,7 @@ remove <code>flycheck</code> support in python buffers, look for the function
 <div class="outline-text-3" id="text-2-4">
 <p>
 It may be handy to disable <code>company</code> for a given mode if you plan on
-configuring <code>auto-complete</code> instead. On easy way to do it is to use the
+configuring <code>auto-complete</code> instead. One easy way to do it is to use the
 macro <code>spacemacs|disable-company</code> in the function <code>dotspacemacs/user-config</code>
 of your dotfile. The following snippet disables company for
 <code>python-mode</code>:
@@ -708,13 +719,42 @@ adding the following code to the <code>dotspacemacs/user-config</code> of your
 </div>
 </div>
 </div>
+
+<div id="outline-container-orgheadline27" class="outline-3">
+<h3 id="orgheadline27"><span class="section-number-3">2.13</span> Make spell-checking support curly quotes (or any other character)?</h3>
+<div class="outline-text-3" id="text-2-13">
+<p>
+To have spell-checking support curly quotes (or any other character), you need
+to add a new entry to <code>ispell-local-dictionary-alist</code>, by adding for example the
+following code in the <code>dotspacemacs/user-config</code> of your <code>.spacemacs</code>:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>add-to-list 'ispell-local-dictionary-alist
+  <span class="org-rainbow-delimiters-depth-2">(</span>quote <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"my_english"</span> <span class="org-string">"[[:alpha:]]"</span> <span class="org-string">"[</span><span class="org-string"><span class="org-negation-char">^</span></span><span class="org-string">[:alpha:]]"</span> <span class="org-string">"['&#8217;]"</span> t <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"-d"</span> <span class="org-string">"en_US"</span><span class="org-rainbow-delimiters-depth-4">)</span> nil utf-8<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
 </div>
 
-<div id="outline-container-orgheadline32" class="outline-2">
-<h2 id="orgheadline32"><span class="section-number-2">3</span> Windows</h2>
+<p>
+You can then add any regular expression you want in the fourth argument (i.e.
+add a symbol within <code>['’]</code>) to make it supported. Consult the help of
+<code>ispell-dictionary-alist</code> for more details about the possibilities.
+</p>
+
+<p>
+You finally have to set <code>my_english</code> as your <code>ispell-local-dictionary</code> in order
+to use the dictionary supporting your newly added characters.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline33" class="outline-2">
+<h2 id="orgheadline33"><span class="section-number-2">3</span> Windows</h2>
 <div class="outline-text-2" id="text-3">
-</div><div id="outline-container-orgheadline28" class="outline-3">
-<h3 id="orgheadline28"><span class="section-number-3">3.1</span> Why do the fonts look crappy on Windows?</h3>
+</div><div id="outline-container-orgheadline29" class="outline-3">
+<h3 id="orgheadline29"><span class="section-number-3">3.1</span> Why do the fonts look crappy on Windows?</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 You can install <a href="https://code.google.com/p/mactype/">MacType</a> on Windows to get very nice looking fonts. It is
@@ -723,8 +763,8 @@ also recommended to disable smooth scrolling on Windows.
 </div>
 </div>
 
-<div id="outline-container-orgheadline29" class="outline-3">
-<h3 id="orgheadline29"><span class="section-number-3">3.2</span> Why is there no Spacemacs logo in the startup buffer?</h3>
+<div id="outline-container-orgheadline30" class="outline-3">
+<h3 id="orgheadline30"><span class="section-number-3">3.2</span> Why is there no Spacemacs logo in the startup buffer?</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 A GUI build of emacs supporting image display is required.
@@ -734,8 +774,8 @@ of emacs with image support included such as <a href="http://emacsbinw64.sourcef
 </div>
 </div>
 
-<div id="outline-container-orgheadline30" class="outline-3">
-<h3 id="orgheadline30"><span class="section-number-3">3.3</span> Why are all packages unavailable?</h3>
+<div id="outline-container-orgheadline31" class="outline-3">
+<h3 id="orgheadline31"><span class="section-number-3">3.3</span> Why are all packages unavailable?</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 Check if your Emacs has HTTPS capabilities by doing <code>M-:</code> and then:
@@ -754,8 +794,8 @@ directory as Emacs. See <a href="https://www.gnu.org/software/emacs/manual/html_
 </div>
 </div>
 
-<div id="outline-container-orgheadline31" class="outline-3">
-<h3 id="orgheadline31"><span class="section-number-3">3.4</span> The powerline isn't shown correctly when Spacemacs is used within <code>PuTTY</code>.</h3>
+<div id="outline-container-orgheadline32" class="outline-3">
+<h3 id="orgheadline32"><span class="section-number-3">3.4</span> The powerline isn't shown correctly when Spacemacs is used within <code>PuTTY</code>.</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 You can follow <a href="http://mschulte.nl/posts/using-powerline-in-PuTTY.html">this explanation</a> explaining how to correct this.
@@ -764,11 +804,11 @@ You can follow <a href="http://mschulte.nl/posts/using-powerline-in-PuTTY.html">
 </div>
 </div>
 
-<div id="outline-container-orgheadline34" class="outline-2">
-<h2 id="orgheadline34"><span class="section-number-2">4</span> OS X</h2>
+<div id="outline-container-orgheadline35" class="outline-2">
+<h2 id="orgheadline35"><span class="section-number-2">4</span> OS X</h2>
 <div class="outline-text-2" id="text-4">
-</div><div id="outline-container-orgheadline33" class="outline-3">
-<h3 id="orgheadline33"><span class="section-number-3">4.1</span> Why are the powerline colors not correct on OS X?</h3>
+</div><div id="outline-container-orgheadline34" class="outline-3">
+<h3 id="orgheadline34"><span class="section-number-3">4.1</span> Why are the powerline colors not correct on OS X?</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 This is a <a href="https://github.com/milkypostman/powerline/issues/54">known issue</a> as of Emacs 24.4 due to <code>ns-use-srgb-colorspace</code>
@@ -780,7 +820,7 @@ install section in the <a href="../README.md">README</a> for more details.
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-23 Mon 13:48</p>
+<p class="date">Created: 2015-12-02 Wed 14:45</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -6,7 +6,7 @@
 <!-- 2015-12-02 Wed 14:45 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
-<title>smex contribution layer for Spacemacs</title>
+<title>Speed Reading layer for Spacemacs</title>
 <meta  name="generator" content="Org-mode" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
@@ -101,7 +101,7 @@
                   src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
-<link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
+<link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -152,7 +152,7 @@ for the JavaScript code in this tag.
 <body>
 <div id="content">
 <div id="toggle-sidebar"><a href="#table-of-contents"><h2>Table of Contents</h2></a></div>
-<h1 class="title">smex contribution layer for Spacemacs</h1>
+<h1 class="title">Speed Reading layer for Spacemacs</h1>
 <div id="table-of-contents">
 <h2>Table of Contents<a href="#">Close</a></h2>
 <div id="text-table-of-contents">
@@ -164,18 +164,11 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div class="figure">
-<p><img src="img/smex.png" alt="smex.png" />
-</p>
-</div>
-
 <div id="outline-container-orgheadline1" class="outline-2">
 <h2 id="orgheadline1"><span class="section-number-2">1</span> Description</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-This layer replaces <code>helm-M-x</code> by <a href="https://github.com/nonsequitur/smex">smex</a> which is built on top of <code>ido</code>.
-<code>ido</code> can perform flex matching with the <a href="https://github.com/lewang/flx">flx-ido</a> mode which is already
-activated in the Spacemacs layer.
+A speed reading mode for Emacs.
 </p>
 </div>
 </div>
@@ -189,7 +182,7 @@ To use this contribution add it to your <code>~/.spacemacs</code>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>smex<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>speed-reading<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -214,13 +207,33 @@ To use this contribution add it to your <code>~/.spacemacs</code>
 </thead>
 <tbody>
 <tr>
-<td class="org-left"><code>SPC :</code></td>
-<td class="org-left">all Emacs commands (interactive functions)</td>
+<td class="org-left"><code>&lt;SPC&gt; a s r</code></td>
+<td class="org-left">Start Spray</td>
 </tr>
 
 <tr>
-<td class="org-left"><code>SPC m :</code></td>
-<td class="org-left">current major mode commands</td>
+<td class="org-left"><code>h</code></td>
+<td class="org-left">Backward word</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>l</code></td>
+<td class="org-left">Forward word</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>f</code></td>
+<td class="org-left">Faster speed</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>s</code></td>
+<td class="org-left">Slower speed</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>q</code></td>
+<td class="org-left">Quit Spray</td>
 </tr>
 </tbody>
 </table>

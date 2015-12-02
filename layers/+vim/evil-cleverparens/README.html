@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-12-02 Wed 14:45 -->
+<!-- 2015-12-02 Wed 14:47 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
-<title>smex contribution layer for Spacemacs</title>
+<title>Evil-Cleverparens configuration layer for Spacemacs</title>
 <meta  name="generator" content="Org-mode" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
@@ -101,7 +101,7 @@
                   src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
           <script type="text/javascript"
                   src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
-<link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -152,30 +152,25 @@ for the JavaScript code in this tag.
 <body>
 <div id="content">
 <div id="toggle-sidebar"><a href="#table-of-contents"><h2>Table of Contents</h2></a></div>
-<h1 class="title">smex contribution layer for Spacemacs</h1>
+<h1 class="title">Evil-Cleverparens configuration layer for Spacemacs</h1>
 <div id="table-of-contents">
 <h2>Table of Contents<a href="#">Close</a></h2>
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#orgheadline1">1. Description</a></li>
 <li><a href="#orgheadline2">2. Install</a></li>
-<li><a href="#orgheadline3">3. Key bindings</a></li>
 </ul>
 </div>
-</div>
-
-<div class="figure">
-<p><img src="img/smex.png" alt="smex.png" />
-</p>
 </div>
 
 <div id="outline-container-orgheadline1" class="outline-2">
 <h2 id="orgheadline1"><span class="section-number-2">1</span> Description</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-This layer replaces <code>helm-M-x</code> by <a href="https://github.com/nonsequitur/smex">smex</a> which is built on top of <code>ido</code>.
-<code>ido</code> can perform flex matching with the <a href="https://github.com/lewang/flx">flx-ido</a> mode which is already
-activated in the Spacemacs layer.
+This simple layer adds the <a href="https://github.com/luxbock/evil-cleverparens">evil-cleverparens</a> package, which overrides common
+normal-mode vim commands like D, dd, c, etc. to keep parentheses balanced. See
+the repository for more details. All the layer does right now is to add a hook
+to load evil-cleverparens with emacs-lisp-mode.
 </p>
 </div>
 </div>
@@ -184,51 +179,29 @@ activated in the Spacemacs layer.
 <h2 id="orgheadline2"><span class="section-number-2">2</span> Install</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-To use this contribution add it to your <code>~/.spacemacs</code>
+To use this contribution add it to your <code>~/.spacemacs</code>.
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>smex<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq-default dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-2">(</span>evil-cleverparens<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Then enable it in your <code>user-config</code> function:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>spacemacs/toggle-evil-cleverparens-on<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3"><span class="section-number-2">3</span> Key bindings</h2>
-<div class="outline-text-2" id="text-3">
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">Key Binding</th>
-<th scope="col" class="org-left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left"><code>SPC :</code></td>
-<td class="org-left">all Emacs commands (interactive functions)</td>
-</tr>
-
-<tr>
-<td class="org-left"><code>SPC m :</code></td>
-<td class="org-left">current major mode commands</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-12-02 Wed 14:45</p>
+<p class="date">Created: 2015-12-02 Wed 14:47</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

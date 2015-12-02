@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-23 Mon 13:48 -->
+<!-- 2015-12-02 Wed 14:45 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Org contribution layer for Spacemacs</title>
@@ -171,7 +171,7 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline7">2.4. Different bullets</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline21">3. Key bindings</a>
+<li><a href="#orgheadline22">3. Key bindings</a>
 <ul>
 <li><a href="#orgheadline9">3.1. Org</a></li>
 <li><a href="#orgheadline16">3.2. Org with evil-org-mode</a>
@@ -184,10 +184,11 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline15">3.2.6. Tagging</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline17">3.3. Pomodoro</a></li>
-<li><a href="#orgheadline18">3.4. Presentation</a></li>
-<li><a href="#orgheadline19">3.5. Org-repo-todo</a></li>
-<li><a href="#orgheadline20">3.6. Org-MIME</a></li>
+<li><a href="#orgheadline17">3.3. Org agenda</a></li>
+<li><a href="#orgheadline18">3.4. Pomodoro</a></li>
+<li><a href="#orgheadline19">3.5. Presentation</a></li>
+<li><a href="#orgheadline20">3.6. Org-repo-todo</a></li>
+<li><a href="#orgheadline21">3.7. Org-MIME</a></li>
 </ul>
 </li>
 </ul>
@@ -228,6 +229,8 @@ Since version 0.104, spacemacs uses the `org` version from the org ELPA
 repository instead of the one shipped with emacs. Then, any `org` related code
 should not be loaded before `dotspacemacs/user-config`, otherwise both versions
 will be loaded and will conflict.
+Org layer checks if this has occurred and signals an error if org features have
+been instantiated prior to org layer loading.
 </p>
 </div>
 </div>
@@ -300,8 +303,8 @@ You can tweak the bullets displayed in the org buffer in the function
 </div>
 </div>
 
-<div id="outline-container-orgheadline21" class="outline-2">
-<h2 id="orgheadline21"><span class="section-number-2">3</span> Key bindings</h2>
+<div id="outline-container-orgheadline22" class="outline-2">
+<h2 id="orgheadline22"><span class="section-number-2">3</span> Key bindings</h2>
 <div class="outline-text-2" id="text-3">
 </div><div id="outline-container-orgheadline9" class="outline-3">
 <h3 id="orgheadline9"><span class="section-number-3">3.1</span> Org</h3>
@@ -1104,8 +1107,69 @@ You can tweak the bullets displayed in the org buffer in the function
 </div>
 
 <div id="outline-container-orgheadline17" class="outline-3">
-<h3 id="orgheadline17"><span class="section-number-3">3.3</span> Pomodoro</h3>
+<h3 id="orgheadline17"><span class="section-number-3">3.3</span> Org agenda</h3>
 <div class="outline-text-3" id="text-3-3">
+<p>
+The evilified org agenda supports, among others, the following bindings:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>M-j</code></td>
+<td class="org-left">next item</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M-k</code></td>
+<td class="org-left">previous item</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M-h</code></td>
+<td class="org-left">earlier view</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M-l</code></td>
+<td class="org-left">later view</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>gr</code></td>
+<td class="org-left">refresh</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>gd</code></td>
+<td class="org-left">toggle grid</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-v</code></td>
+<td class="org-left">change view</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">3.4</span> Pomodoro</h3>
+<div class="outline-text-3" id="text-3-4">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1130,9 +1194,9 @@ You can tweak the bullets displayed in the org buffer in the function
 </div>
 </div>
 
-<div id="outline-container-orgheadline18" class="outline-3">
-<h3 id="orgheadline18"><span class="section-number-3">3.4</span> Presentation</h3>
-<div class="outline-text-3" id="text-3-4">
+<div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19"><span class="section-number-3">3.5</span> Presentation</h3>
+<div class="outline-text-3" id="text-3-5">
 <p>
 org-present must be activated explicitly by typing: <code>SPC : org-present</code>
 </p>
@@ -1171,9 +1235,9 @@ org-present must be activated explicitly by typing: <code>SPC : org-present</cod
 </div>
 </div>
 
-<div id="outline-container-orgheadline19" class="outline-3">
-<h3 id="orgheadline19"><span class="section-number-3">3.5</span> Org-repo-todo</h3>
-<div class="outline-text-3" id="text-3-5">
+<div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20"><span class="section-number-3">3.6</span> Org-repo-todo</h3>
+<div class="outline-text-3" id="text-3-6">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1198,9 +1262,9 @@ org-present must be activated explicitly by typing: <code>SPC : org-present</cod
 </div>
 </div>
 
-<div id="outline-container-orgheadline20" class="outline-3">
-<h3 id="orgheadline20"><span class="section-number-3">3.6</span> Org-MIME</h3>
-<div class="outline-text-3" id="text-3-6">
+<div id="outline-container-orgheadline21" class="outline-3">
+<h3 id="orgheadline21"><span class="section-number-3">3.7</span> Org-MIME</h3>
+<div class="outline-text-3" id="text-3-7">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1232,7 +1296,7 @@ org-present must be activated explicitly by typing: <code>SPC : org-present</cod
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-23 Mon 13:48</p>
+<p class="date">Created: 2015-12-02 Wed 14:45</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

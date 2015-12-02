@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-23 Mon 13:48 -->
+<!-- 2015-12-02 Wed 14:45 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Ruby contribution layer for Spacemacs</title>
@@ -158,16 +158,23 @@ for the JavaScript code in this tag.
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#orgheadline1">1. Description</a></li>
-<li><a href="#orgheadline4">2. Install</a>
+<li><a href="#orgheadline5">2. Install</a>
 <ul>
 <li><a href="#orgheadline2">2.1. Prerequisites</a></li>
 <li><a href="#orgheadline3">2.2. Ruby version management</a></li>
+<li><a href="#orgheadline4">2.3. Test runner</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline7">3. Key bindings</a>
+<li><a href="#orgheadline11">3. Key bindings</a>
 <ul>
-<li><a href="#orgheadline5">3.1. Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)</a></li>
-<li><a href="#orgheadline6">3.2. ruby-test-mode</a></li>
+<li><a href="#orgheadline6">3.1. Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)</a></li>
+<li><a href="#orgheadline7">3.2. RuboCop</a></li>
+<li><a href="#orgheadline10">3.3. Tests</a>
+<ul>
+<li><a href="#orgheadline8">3.3.1. RSpec-mode</a></li>
+<li><a href="#orgheadline9">3.3.2. Ruby-test-mode</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -189,8 +196,8 @@ Optionally Enh Ruby Mode can be replaced with the built-in Emacs Ruby Mode.
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4"><span class="section-number-2">2</span> Install</h2>
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">2</span> Install</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 To use this contribution add it to your <code>~/.spacemacs</code>
@@ -228,6 +235,7 @@ based on your version manager):
 <ul class="org-ul">
 <li><code>pry</code> and <code>pry-doc</code> are required for <b>jump to definition</b> and <b>code documentation</b> (<code>robe-mode</code>)</li>
 <li><code>ruby_parser</code> is required for <b>goto-step<sub>definition</sub></b> in <code>feature-mode</code></li>
+<li><code>rubocop</code> is required for rubocop integration</li>
 </ul>
 
 <p>
@@ -264,9 +272,8 @@ To enable it, set the <code>ruby-version-manager</code> var in your <code>~/.spa
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">dotspacemacs/user-init</span> <span class="org-rainbow-delimiters-depth-2">()</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>setq-default ruby-version-manager 'rbenv<span class="org-rainbow-delimiters-depth-2">)</span>
-<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">dotspacemacs-configuration-layers</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+   '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>ruby <span class="org-builtin">:variables</span> ruby-version-manager 'rbenv<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -275,13 +282,40 @@ Possible values are <code>rbenv</code> and <code>rvm</code>.
 </p>
 </div>
 </div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">2.3</span> Test runner</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+This layer supports both <code>RSpec</code> and <code>ruby-test</code> test runners (frameworks).
+By default <code>ruby-test</code> is used, to change to another frameworks set
+the layer variable <code>ruby-test-runner</code>.
+</p>
+
+<p>
+Example to set the test runner to <code>RSpec</code>:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">dotspacemacs-configuration-layers</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+   '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>ruby <span class="org-builtin">:variables</span> ruby-test-runner 'rspec<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="orgheadline7"><span class="section-number-2">3</span> Key bindings</h2>
+<p>
+<code>Tip:</code> You can enable different test runners for different projects by using
+directory local variables.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11"><span class="section-number-2">3</span> Key bindings</h2>
 <div class="outline-text-2" id="text-3">
-</div><div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5"><span class="section-number-3">3.1</span> Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)</h3>
+</div><div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">3.1</span> Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)</h3>
 <div class="outline-text-3" id="text-3-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -372,12 +406,112 @@ Possible values are <code>rbenv</code> and <code>rvm</code>.
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6"><span class="section-number-3">3.2</span> ruby-test-mode</h3>
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">3.2</span> RuboCop</h3>
 <div class="outline-text-3" id="text-3-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m r r f</code></td>
+<td class="org-left">Runs RuboCop on the currently visited file</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r r F</code></td>
+<td class="org-left">Runs auto-correct on the currently visited file</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r r d</code></td>
+<td class="org-left">Prompts from a directory on which to run RuboCop</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r r D</code></td>
+<td class="org-left">Prompts for a directory on which to run auto-correct</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r r p</code></td>
+<td class="org-left">Runs RuboCop on the entire project</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r r P</code></td>
+<td class="org-left">Runs auto-correct on the project</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">3.3</span> Tests</h3>
+<div class="outline-text-3" id="text-3-3">
+</div><div id="outline-container-orgheadline8" class="outline-4">
+<h4 id="orgheadline8"><span class="section-number-4">3.3.1</span> RSpec-mode</h4>
+<div class="outline-text-4" id="text-3-3-1">
 <p>
-ruby-test-mode comes bundled with spacemacs, but this contribution adds
-a couple of useful keybindings:
+When <code>ruby-test-runner</code> equals <code>rspec</code>.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m t a</code></td>
+<td class="org-left">run all specs</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t l</code></td>
+<td class="org-left">run last failed spec</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t r</code></td>
+<td class="org-left">re-run last spec</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t t</code></td>
+<td class="org-left">run spec at pointer</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-4">
+<h4 id="orgheadline9"><span class="section-number-4">3.3.2</span> Ruby-test-mode</h4>
+<div class="outline-text-4" id="text-3-3-2">
+<p>
+When <code>ruby-test-runner</code> equals <code>ruby-test</code>.
 </p>
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
@@ -410,8 +544,9 @@ a couple of useful keybindings:
 </div>
 </div>
 </div>
+</div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-11-23 Mon 13:48</p>
+<p class="date">Created: 2015-12-02 Wed 14:45</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
