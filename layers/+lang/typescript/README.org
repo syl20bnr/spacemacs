@@ -1,4 +1,4 @@
-#+TITLE: TypeScript contribution layer for Spacemacs
+#+TITLE: TypeScript layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/TypeScript.png]]
