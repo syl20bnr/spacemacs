@@ -1,11 +1,11 @@
-#+TITLE: Emoji contribution layer for Spacemacs
+#+TITLE: Emoji layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-#+HTML: :blue_heart::green_heart::heart::gift_heart::heartbeat::heartpulse::purple_heart::sparkling_heart::yellow_heart:
+[[file:img/emojis.png]]
 
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[Description][Description]]
-   - [[Features:][Features:]]
+   - [[Features][Features]]
  - [[Install][Install]]
  - [[Key bindings][Key bindings]]
    - [[Emoji dedicated buffer][Emoji dedicated buffer]]
@@ -13,7 +13,7 @@
 * Description
 This layer adds support for Emoji emoticons from [[http://www.emoji-cheat-sheet.com/][emoji-cheat-sheet.com]].
 
-** Features:
+** Features
 - Browse Emoji in a dedicated buffer
 - Display Emoji images in buffer
 - Insert one or several Emoji with an helm front-end
