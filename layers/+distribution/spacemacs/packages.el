@@ -377,7 +377,7 @@
         ("e" nil
          :post (if (configuration-layer/package-usedp 'evil-iedit-state)
                    (evil-iedit-state/iedit-mode)
-                 (ahs-edit-mode))
+                 (ahs-edit-mode t))
          :exit t)
         ("n" spacemacs/quick-ahs-forward)
         ("N" spacemacs/quick-ahs-backward)
