@@ -47,10 +47,10 @@ The `insert state' is replaced by the `emacs state'."
   :lighter " holy"
   :group 'spacemacs
   (if holy-mode
-      (in-nominus-patris-et-filii-et-sipritus-sancti)
+      (in-nomine-patris-et-filii-et-sipritus-sancti)
     (amen)))
 
-(defun in-nominus-patris-et-filii-et-sipritus-sancti ()
+(defun in-nomine-patris-et-filii-et-sipritus-sancti ()
   "Enter the church of Emacs (wash your hands)."
   ;; transfert all modes defaulting to `evilified state' to
   ;; `emacs state'
