@@ -38,6 +38,7 @@
 - [[file:semantic/README.org][semantic]]
 - [[file:shell/README.org][shell]]
 - [[file:smex/README.org][smex]]
+- [[file:speed-reading/README.org][speed-reading]]
 - [[file:spell-checking/README.org][spell-checking]]
 - [[file:spotify/README.org][spotify]]
 - [[file:syntax-checking/README.org][syntax-checking]]
@@ -135,6 +136,7 @@
 - [[file:+tools/ycmd/README.org][ycmd]]
 
 * Vim
+- [[file:+vim/evil-cleverparens/README.org][evil-cleverparens]]
 - [[file:+vim/evil-commentary/README.org][evil-commentary]]
 - [[file:+vim/evil-snipe/README.org][evil-snipe]]
 - [[file:+vim/unimpaired/README.org][unimpaired]]

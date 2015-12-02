@@ -1,7 +1,7 @@
-* evil-cleverparens contribution layer for Spacemacs
+#+TITLE: Evil-Cleverparens layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 * Table of Contents                                                   :TOC_4_org:noexport:
- - [[evil-cleverparens contribution layer for Spacemacs][evil-cleverparens contribution layer for Spacemacs]]
  - [[Description][Description]]
  - [[Install][Install]]
 

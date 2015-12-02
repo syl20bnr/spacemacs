@@ -1,25 +1,23 @@
-#+TITLE: Chrome contribution layer for Spacemacs
+#+TITLE: Chrome layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 
 [[file:img/chrome.png]]
 
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[Description][Description]]
-   - [[Feature:][Feature:]]
+   - [[Features][Features]]
  - [[Install][Install]]
    - [[Layer][Layer]]
    - [[Chrome extension][Chrome extension]]
  - [[Configuration][Configuration]]
 
 * Description
-
 This layer provides some integration with the Google Chrome browser.
 
-** Feature:
+** Features
 - Edit text boxes with Emacs using [[http://melpa.org/#/edit-server][edit-server]]
 
 * Install
-
 ** Layer
 
 To use this contribution add it to your =~/.spacemacs=
@@ -29,7 +27,6 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 ** Chrome extension
-
 [[http://melpa.org/#/edit-server][edit-server]] is a server that responds to edit requests sent Chrome via the
 Google Chrome extension [[https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh][Edit with Emacs]]. You have to install this extension.
 
@@ -37,7 +34,6 @@ More information can be found on [[http://www.emacswiki.org/emacs/Edit_with_Emac
 The edit server is configured to start automatically when Spacemacs starts.
 
 * Configuration
-
 Use =edit-server-url-major-mode-alist= to choose a major mode initialization
 function based on =edit-server-url=, or fall back to
 =edit-server-default-major-mode= that has a current value of =markdown-mode=.

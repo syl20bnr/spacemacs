@@ -132,7 +132,7 @@
              :publishing-function org-publish-attachment)
             ("layers-doc-static"
              :base-directory ,(concat user-emacs-directory "layers/")
-             :base-extension "jpg\\|png"
+             :base-extension "jpg\\|png\\|gif"
              :recursive t
              :publishing-directory ,(concat publish-target "layers/")
              :publishing-function org-publish-attachment))))
