@@ -25,7 +25,6 @@
 (require 'core-toggle)
 (require 'core-micro-state)
 (require 'core-use-package-ext)
-(require 'core-emacs-ext)
 
 (defgroup spacemacs nil
   "Spacemacs customizations."
@@ -81,7 +80,6 @@ initialization."
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
   (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
   ;; spacemacs init
-  (require 'core-configuration-layer)
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
   (setq initial-buffer-choice (lambda () (get-buffer spacemacs-buffer-name)))
   (spacemacs-buffer/set-mode-line "")
@@ -89,6 +87,9 @@ initialization."
   (setq inhibit-startup-screen t)
   ;; silence ad-handle-definition about advised functions getting redefined
   (setq ad-redefinition-action 'accept)
+  ;; initialize the configuration layer system
+  (require 'core-configuration-layer)
+  (configuration-layer/initialize)
   ;; default theme
   (let ((default-theme (car dotspacemacs-themes)))
     (spacemacs/load-theme default-theme)
@@ -127,9 +128,9 @@ initialization."
   ;; dash is required to prevent a package.el bug with f on 24.3.1
   (spacemacs/load-or-install-protected-package 'dash t)
   (spacemacs/load-or-install-protected-package 's t)
+  (spacemacs/load-or-install-protected-package 'bind-map t)
   ;; bind-key is required by use-package
   (spacemacs/load-or-install-protected-package 'bind-key t)
-  (spacemacs/load-or-install-protected-package 'bind-map t)
   (spacemacs/load-or-install-protected-package 'use-package t)
   (setq use-package-verbose init-file-debug)
   ;; package-build is required by quelpa

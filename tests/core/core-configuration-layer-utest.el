@@ -13,6 +13,46 @@
 (require 'core-configuration-layer)
 
 ;; ---------------------------------------------------------------------------
+;; configuration-layer//resolve-package-archives
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-resolve-package-archives--simple-https ()
+  (let ((input '(("melpa" . "melpa.org/packages/")))
+        (dotspacemacs-elpa-https t))
+    (should (equal '(("melpa" . "https://melpa.org/packages/"))
+                   (configuration-layer//resolve-package-archives input)))))
+
+(ert-deftest test-resolve-package-archives--simple-http ()
+  (let ((input '(("melpa" . "melpa.org/packages/")))
+        dotspacemacs-elpa-https)
+    (should (equal '(("melpa" . "http://melpa.org/packages/"))
+                   (configuration-layer//resolve-package-archives input)))))
+
+(ert-deftest test-resolve-package-archives--org-supports-http ()
+  (let ((input '(("org"   . "orgmode.org/elpa/")))
+        dotspacemacs-elpa-https)
+    (should (equal '(("org" . "http://orgmode.org/elpa/"))
+                   (configuration-layer//resolve-package-archives input)))))
+
+(ert-deftest test-resolve-package-archives--org-does-not-support-https ()
+  (let ((input '(("org"   . "orgmode.org/elpa/")))
+        (dotspacemacs-elpa-https t))
+    (should (equal '(("org" . "http://orgmode.org/elpa/"))
+                   (configuration-layer//resolve-package-archives input)))))
+
+(ert-deftest test-resolve-package-archives--idempotent-when-already-http-prefix ()
+  (let ((input '(("melpa"   . "http://melpa.org/packages/")))
+        (dotspacemacs-elpa-https t))
+    (should (equal '(("melpa" . "http://melpa.org/packages/"))
+                   (configuration-layer//resolve-package-archives input)))))
+
+(ert-deftest test-resolve-package-archives--idempotent-when-already-https-prefix ()
+  (let ((input '(("melpa"   . "https://melpa.org/packages/")))
+        dotspacemacs-elpa-https)
+    (should (equal '(("melpa" . "https://melpa.org/packages/"))
+                   (configuration-layer//resolve-package-archives input)))))
+
+;; ---------------------------------------------------------------------------
 ;; configuration-layer//make-layers
 ;; ---------------------------------------------------------------------------
 

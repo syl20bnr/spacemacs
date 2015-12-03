@@ -19,36 +19,13 @@
 (require 'package)
 (require 'warnings)
 (require 'ht)
+(require 'request)
 (require 'core-dotspacemacs)
 (require 'core-funcs)
 (require 'core-spacemacs-buffer)
 
-(unless package--initialized
-  (let ((archives '(("melpa" . "melpa.org/packages/")
-                    ("org"   . "orgmode.org/elpa/")
-                    ("gnu"   . "elpa.gnu.org/packages/"))))
-    (setq package-archives
-          (mapcar (lambda (x)
-                    (cons (car x) (concat
-                                   (if (and dotspacemacs-elpa-https
-                                            ;; for now org ELPA repository does
-                                            ;; not support HTTPS
-                                            ;; TODO when org ELPA repo support
-                                            ;; HTTPS remove the check
-                                            ;; `(not (equal "org" (car x)))'
-                                            (not (equal "org" (car x))))
-                                       "https://"
-                                     "http://") (cdr x))))
-                  archives)))
-  ;; optimization, no need to activate all the packages so early
-  (setq package-enable-at-startup nil)
-  (package-initialize 'noactivate)
-  ;; Emacs 24.3 and above ships with python.el but in some Emacs 24.3.1 packages
-  ;; for Ubuntu, python.el seems to be missing.
-  ;; This hack adds marmalade repository for this case only.
-  (unless (or (package-installed-p 'python) (version< emacs-version "24.3"))
-    (add-to-list 'package-archives
-                 '("marmalade" . "https://marmalade-repo.org/packages/"))))
+(defconst configuration-layer--refresh-package-timeout 3
+  "Timeout in seconds to reach a package archive page.")
 
 (defconst configuration-layer-template-directory
   (expand-file-name (concat spacemacs-core-directory "templates/"))
@@ -135,6 +112,12 @@
              :documentation
              "If non-nil this package is excluded from all layers.")))
 
+(defvar configuration-layer--elpa-archives
+  '(("melpa" . "melpa.org/packages/")
+    ("org"   . "orgmode.org/elpa/")
+    ("gnu"   . "elpa.gnu.org/packages/"))
+  "List of ELPA archives required by Spacemacs.")
+
 (defvar configuration-layer--layers '()
   "A non-sorted list of `cfgl-layer' objects.")
 
@@ -161,6 +144,73 @@ the path for this layer.")
 (defvar configuration-layer-categories '()
   "List of strings corresponding to category names. A category is a
 directory with a name starting with `+'.")
+
+(defun configuration-layer/initialize ()
+  "Initialize `package.el'."
+  (unless package--initialized
+    (setq package-archives (configuration-layer//resolve-package-archives
+                            configuration-layer--elpa-archives))
+    ;; optimization, no need to activate all the packages so early
+    (setq package-enable-at-startup nil)
+    (package-initialize 'noactivate)
+    ;; TODO remove the following hack when 24.3 support ends
+    ;; Emacs 24.3 and above ships with python.el but in some Emacs 24.3.1
+    ;; packages for Ubuntu, python.el seems to be missing.
+    ;; This hack adds marmalade repository for this case only.
+    (unless (or (package-installed-p 'python) (version< emacs-version "24.3"))
+      (add-to-list 'package-archives
+                   '("marmalade" . "https://marmalade-repo.org/packages/")))))
+
+(defun configuration-layer//resolve-package-archives (archives)
+  "Resolve HTTP handlers for each archive in ARCHIVES and return a list
+of all reachable ones.
+If the address of an archive already contains the protocol then this address is
+left untouched.
+The returned list has a `package-archives' compliant format."
+  (mapcar
+   (lambda (x)
+     (cons (car x)
+           (if (string-match-p "http" (cdr x))
+               (cdr x)
+             (concat (if (and dotspacemacs-elpa-https
+                              ;; for now org ELPA repository does
+                              ;; not support HTTPS
+                              ;; TODO when org ELPA repo support
+                              ;; HTTPS remove the check
+                              ;; `(not (equal "org" (car x)))'
+                              (not (equal "org" (car x))))
+                         "https://"
+                       "http://") (cdr x)))))
+   archives))
+
+(defun configuration-layer//retrieve-package-archives ()
+  "Retrieve all archives declared in current `package-archives'.
+This function first performs a simple GET request with a timeout in order to
+fix very long refresh time when an archive is not reachable.
+Note that this simple GET is a heuristic to determine the availability
+likelihood of an archive, so it can gives false positive if the archive
+page is served but the archive is not."
+  (let ((count (length package-archives))
+        (i 1))
+    (dolist (archive package-archives)
+      (spacemacs-buffer/replace-last-line
+       (format "--> refreshing package archive: %s... [%s/%s]"
+               (car archive) i count) t)
+      (spacemacs//redisplay)
+      (setq i (1+ i))
+      (request (cdr archive) :sync t :type "GET"
+               :timeout configuration-layer--refresh-package-timeout
+               :error (function* (lambda (&key error-thrown &allow-other-keys)
+                                   (configuration-layer//set-error)
+                                   (spacemacs-buffer/append
+                                    (format "\n%s: %s"
+                                            (car error-thrown)
+                                            (cdr error-thrown)))))
+               :status-code '((200 . (lambda (&rest _)
+                                       (let ((package-archives (list archive)))
+                                         (package-refresh-contents)))))))
+    (package-read-all-archive-contents)
+    (spacemacs-buffer/append "\n")))
 
 (defun configuration-layer/sync ()
   "Synchronize declared layers in dotfile with spacemacs."
@@ -555,7 +605,7 @@ path."
               ('error
                (configuration-layer//set-error)
                (spacemacs-buffer/append
-                (format (concat "An error occurred while setting layer "
+                (format (concat "\nAn error occurred while setting layer "
                                 "variable %s "
                                 "(error: %s). Be sure to quote the value "
                                 "if needed.\n") var err))))
@@ -634,10 +684,7 @@ path."
       (spacemacs-buffer/append
        (format "Found %s new package(s) to install...\n"
                noinst-count))
-      (spacemacs-buffer/append
-       "--> fetching new package repository indexes...\n")
-      (spacemacs//redisplay)
-      (package-refresh-contents)
+      (configuration-layer//retrieve-package-archives)
       (setq installed-count 0)
       (dolist (pkg-name noinst-pkg-names)
         (setq installed-count (1+ installed-count))
@@ -645,9 +692,10 @@ path."
                (layer (when pkg (oref pkg :owner)))
                (location (when pkg (oref pkg :location))))
           (spacemacs-buffer/replace-last-line
-           (format "--> installing %s%s... [%s/%s]"
-                   (if layer (format "%S:" layer) "dependency ")
-                   pkg-name installed-count noinst-count) t)
+           (format "--> installing %s: %s%s... [%s/%s]"
+                   (if layer "package" "dependency")
+                   pkg-name (if layer (format "@%S" layer) "")
+                   installed-count noinst-count) t)
           (unless (package-installed-p pkg-name)
             (condition-case err
                 (cond
@@ -660,7 +708,7 @@ path."
               ('error
                (configuration-layer//set-error)
                (spacemacs-buffer/append
-                (format (concat "An error occurred while installing %s "
+                (format (concat "\nAn error occurred while installing %s "
                                 "(error: %s)\n") pkg-name err))))))
         (spacemacs//redisplay))
       (spacemacs-buffer/append "\n"))))
@@ -828,7 +876,7 @@ path."
                  (configuration-layer//set-error)
                  (spacemacs-buffer/append
                   (format
-                   (concat "An error occurred while pre-configuring %S "
+                   (concat "\nAn error occurred while pre-configuring %S "
                            "in layer %S (error: %s)\n")
                    pkg-name layer err))))))
           (oref pkg :pre-layers))
@@ -848,7 +896,7 @@ path."
                  (configuration-layer//set-error)
                  (spacemacs-buffer/append
                   (format
-                   (concat "An error occurred while post-configuring %S "
+                   (concat "\nAn error occurred while post-configuring %S "
                            "in layer %S (error: %s)\n")
                    pkg-name layer err))))))
           (oref pkg :post-layers))))
@@ -875,12 +923,9 @@ path."
 If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
   (interactive "P")
   (spacemacs-buffer/insert-page-break)
-  (spacemacs-buffer/append
-   "\nUpdating Emacs packages from remote repositories (ELPA, MELPA, etc.)... \n")
-  (spacemacs-buffer/append
-   "--> fetching new package repository indexes...\n")
-  (spacemacs//redisplay)
-  (package-refresh-contents)
+  (spacemacs-buffer/append (concat "\nUpdating Emacs packages from remote "
+                                   "repositories (ELPA, MELPA, etc.)...\n"))
+  (configuration-layer//retrieve-package-archives)
   (setq configuration-layer--skipped-packages nil)
   (let* ((update-packages
           (configuration-layer//get-packages-to-update
