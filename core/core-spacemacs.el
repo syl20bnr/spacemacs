@@ -87,20 +87,6 @@ initialization."
   (setq inhibit-startup-screen t)
   ;; silence ad-handle-definition about advised functions getting redefined
   (setq ad-redefinition-action 'accept)
-  ;; initialize the configuration layer system
-  (require 'core-configuration-layer)
-  (configuration-layer/initialize)
-  ;; default theme
-  (let ((default-theme (car dotspacemacs-themes)))
-    (spacemacs/load-theme default-theme)
-    ;; protect used themes from deletion as orphans
-    (setq configuration-layer--protected-packages
-          (append
-           (delq nil (mapcar 'spacemacs//get-theme-package
-                             dotspacemacs-themes))
-           configuration-layer--protected-packages))
-    (setq-default spacemacs--cur-theme default-theme)
-    (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
   ;; removes the GUI elements
   (when (and (fboundp 'tool-bar-mode) (not (eq tool-bar-mode -1)))
     (tool-bar-mode -1))
@@ -117,6 +103,20 @@ initialization."
     (spacemacs-buffer/message (concat "No graphical support detected, you won't be"
                                       "able to launch a graphical instance of Emacs"
                                       "with this build.")))
+  ;; initialize the configuration layer system
+  (require 'core-configuration-layer)
+  (configuration-layer/initialize)
+  ;; default theme
+  (let ((default-theme (car dotspacemacs-themes)))
+    (spacemacs/load-theme default-theme)
+    ;; protect used themes from deletion as orphans
+    (setq configuration-layer--protected-packages
+          (append
+           (delq nil (mapcar 'spacemacs//get-theme-package
+                             dotspacemacs-themes))
+           configuration-layer--protected-packages))
+    (setq-default spacemacs--cur-theme default-theme)
+    (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
   ;; font
   (if (find-font (font-spec :name (car dotspacemacs-default-font)))
       (spacemacs/set-default-font dotspacemacs-default-font)

@@ -37,7 +37,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
              (spacemacs-buffer/append
               (format "(Bootstrap) Installing %s...\n" pkg))
              (spacemacs//redisplay))
-           (package-refresh-contents)
+           (configuration-layer/retrieve-package-archives 'quiet)
            (package-install pkg)
            (setq pkg-elpa-dir (spacemacs//get-package-directory pkg)))
          (require pkg nil 'noerror)

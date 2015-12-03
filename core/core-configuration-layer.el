@@ -118,6 +118,9 @@
     ("gnu"   . "elpa.gnu.org/packages/"))
   "List of ELPA archives required by Spacemacs.")
 
+(defvar configuration-layer--package-archives-refreshed nil
+  "Non nil if package archives have already been refreshed.")
+
 (defvar configuration-layer--layers '()
   "A non-sorted list of `cfgl-layer' objects.")
 
@@ -183,34 +186,48 @@ The returned list has a `package-archives' compliant format."
                        "http://") (cdr x)))))
    archives))
 
-(defun configuration-layer//retrieve-package-archives ()
+(defun configuration-layer/retrieve-package-archives (&optional quiet force)
   "Retrieve all archives declared in current `package-archives'.
+
 This function first performs a simple GET request with a timeout in order to
 fix very long refresh time when an archive is not reachable.
+
 Note that this simple GET is a heuristic to determine the availability
 likelihood of an archive, so it can gives false positive if the archive
-page is served but the archive is not."
-  (let ((count (length package-archives))
-        (i 1))
-    (dolist (archive package-archives)
-      (spacemacs-buffer/replace-last-line
-       (format "--> refreshing package archive: %s... [%s/%s]"
-               (car archive) i count) t)
-      (spacemacs//redisplay)
-      (setq i (1+ i))
-      (request (cdr archive) :sync t :type "GET"
-               :timeout configuration-layer--refresh-package-timeout
-               :error (function* (lambda (&key error-thrown &allow-other-keys)
-                                   (configuration-layer//set-error)
-                                   (spacemacs-buffer/append
-                                    (format "\n%s: %s"
-                                            (car error-thrown)
-                                            (cdr error-thrown)))))
-               :status-code '((200 . (lambda (&rest _)
-                                       (let ((package-archives (list archive)))
-                                         (package-refresh-contents)))))))
-    (package-read-all-archive-contents)
-    (spacemacs-buffer/append "\n")))
+page is served but the archive is not.
+
+If QUIET is non nil then the function does not print message in the Spacemacs
+home buffer.
+
+If FORCE is non nil then refresh the archives even if they have been already
+refreshed during the current session."
+  (unless (and configuration-layer--package-archives-refreshed
+               (not force))
+    (setq configuration-layer--package-archives-refreshed t)
+    (let ((count (length package-archives))
+          (i 1))
+      (dolist (archive package-archives)
+        (unless quiet
+          (spacemacs-buffer/replace-last-line
+           (format "--> refreshing package archive: %s... [%s/%s]"
+                   (car archive) i count) t))
+        (spacemacs//redisplay)
+        (setq i (1+ i))
+        (request (cdr archive) :sync t :type "GET"
+                 :timeout configuration-layer--refresh-package-timeout
+                 :error
+                 (function* (lambda (&key error-thrown &allow-other-keys)
+                              (configuration-layer//set-error)
+                              (spacemacs-buffer/append
+                               (format "\n%s: %s"
+                                       (car error-thrown)
+                                       (cdr error-thrown)))))
+                 :status-code
+                 '((200 . (lambda (&rest _)
+                            (let ((package-archives (list archive)))
+                              (package-refresh-contents)))))))
+      (package-read-all-archive-contents)
+      (unless quiet (spacemacs-buffer/append "\n")))))
 
 (defun configuration-layer/sync ()
   "Synchronize declared layers in dotfile with spacemacs."
@@ -684,7 +701,7 @@ path."
       (spacemacs-buffer/append
        (format "Found %s new package(s) to install...\n"
                noinst-count))
-      (configuration-layer//retrieve-package-archives)
+      (configuration-layer/retrieve-package-archives)
       (setq installed-count 0)
       (dolist (pkg-name noinst-pkg-names)
         (setq installed-count (1+ installed-count))
@@ -925,7 +942,7 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
   (spacemacs-buffer/insert-page-break)
   (spacemacs-buffer/append (concat "\nUpdating Emacs packages from remote "
                                    "repositories (ELPA, MELPA, etc.)...\n"))
-  (configuration-layer//retrieve-package-archives)
+  (configuration-layer/retrieve-package-archives nil 'force)
   (setq configuration-layer--skipped-packages nil)
   (let* ((update-packages
           (configuration-layer//get-packages-to-update
