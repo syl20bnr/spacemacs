@@ -50,7 +50,7 @@ To automatically enable diff margins in all buffers, set
 
 #+BEGIN_SRC emacs-lisp
 '(version-control :variables
-                  verstion-control-global-margin t)
+                  version-control-global-margin t)
 #+END_SRC
 
 ** Differences between margin programs:
