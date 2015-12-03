@@ -11,10 +11,6 @@
 ;;; License: GPLv3
 
 (require 'core-funcs)
-(unless (require 'which-key nil t)
-  (spacemacs/load-or-install-protected-package 'which-key t))
-(unless (require 'bind-map nil t)
-  (spacemacs/load-or-install-protected-package 'bind-map t))
 
 (defvar spacemacs/prefix-titles nil
   "alist for mapping command prefixes to long names.")
