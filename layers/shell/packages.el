@@ -293,6 +293,7 @@ is achieved by adding the relevant text properties."
   ;; work in term
   (evil-define-key 'normal term-raw-map "p" 'term-paste)
   (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
+  (evil-define-key 'insert term-raw-map (kbd "C-c C-z") 'term-stop-subjob)
   (evil-define-key 'insert term-raw-map (kbd "<tab>") 'term-send-tab)
 
   (evil-define-key 'insert term-raw-map
