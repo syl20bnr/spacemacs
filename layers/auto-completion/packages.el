@@ -21,6 +21,7 @@
         hippie-exp
         yasnippet
         auto-yasnippet
+        smartparens
         ))
 
 ;; company-quickhelp from MELPA is not compatible with 24.3 anymore
@@ -261,21 +262,7 @@
       (spacemacs/add-to-hooks 'spacemacs/force-yasnippet-off '(term-mode-hook
                                                                shell-mode-hook
                                                                eshell-mode-hook)))
-    :config
-    (progn
-      ;;  We need to know whether the smartparens was enabled, see
-      ;; `yas-before-expand-snippet-hook' below.
-      (defvar smartparens-enabled-initially t
-        "Stored whether smartparens is originally enabled or not.")
-
-      (add-hook 'yas-before-expand-snippet-hook (lambda ()
-                                                  ;; If enabled, smartparens will mess snippets expanded by `hippie-expand`
-                                                  (setq smartparens-enabled-initially smartparens-mode)
-                                                  (smartparens-mode -1)))
-      (add-hook 'yas-after-exit-snippet-hook (lambda ()
-                                               (when smartparens-enabled-initially
-                                                 (smartparens-mode 1))))
-      (spacemacs|diminish yas-minor-mode " ⓨ" " y"))))
+    :config (spacemacs|diminish yas-minor-mode " ⓨ" " y")))
 
 (defun auto-completion/init-auto-yasnippet ()
   (use-package auto-yasnippet
@@ -295,3 +282,19 @@
         "iSc" 'aya-create
         "iSe" 'spacemacs/auto-yasnippet-expand
         "iSw" 'aya-persist-snippet))))
+
+(defun auto-completion/post-init-smartparens ()
+  (with-eval-after-load 'smartparens
+    ;;  We need to know whether the smartparens was enabled, see
+    ;; `yas-before-expand-snippet-hook' below.
+    (defvar smartparens-enabled-initially t
+      "Stored whether smartparens is originally enabled or not.")
+    (add-hook 'yas-before-expand-snippet-hook
+              (lambda ()
+                ;; If enabled, smartparens will mess snippets expanded by `hippie-expand`
+                (setq smartparens-enabled-initially smartparens-mode)
+                (smartparens-mode -1)))
+    (add-hook 'yas-after-exit-snippet-hook
+              (lambda ()
+                (when smartparens-enabled-initially
+                  (smartparens-mode 1))))))
