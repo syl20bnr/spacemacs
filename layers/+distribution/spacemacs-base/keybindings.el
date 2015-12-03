@@ -79,9 +79,8 @@
              which-key-description-replacement-alist))))
 (which-key-declare-prefixes "SPC ." "C-c bindings")
 (dolist (letter (mapcar 'string (number-sequence ?a ?z)))
-  (let ((binding (concat "C-c C-" letter))
-        (evil-aliases (concat "." letter)))
-    (spacemacs|emacs-binding-aliases binding evil-aliases)))
+  (eval
+   `(spacemacs|emacs-binding-aliases ,(concat "C-c C-" letter) ,(concat "." letter))))
 (spacemacs|emacs-binding-aliases "C-c C-c" "..")
 ;; applications ---------------------------------------------------------------
 (evil-leader/set-key
