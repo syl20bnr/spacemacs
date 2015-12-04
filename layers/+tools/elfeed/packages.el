@@ -12,8 +12,11 @@
 
 (setq elfeed-packages
       '(elfeed
+        (elfeed-goodies :location (recipe :fetcher github
+                                          :repo "algernon/elfeed-goodies"))
+        elfeed-org
         elfeed-web
-        elfeed-org))
+        ))
 
 (defun elfeed/init-elfeed ()
   (use-package elfeed
@@ -36,6 +39,12 @@
         :mode elfeed-show-mode
         :eval-after-load elfeed-show
         :bindings "q" 'quit-window))))
+
+(defun elfeed/init-elfeed-goodies ()
+  (use-package elfeed-goodies
+    :commands elfeed-goodies/setup
+    :init (spacemacs|use-package-add-hook elfeed
+            :post-config (elfeed-goodies/setup))))
 
 (defun elfeed/init-elfeed-org ()
   (use-package elfeed-org
