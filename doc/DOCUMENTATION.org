@@ -2739,6 +2739,7 @@ file to =~/.spacemacs=
 | The Helm captain (see [[http://tuhdo.github.io/helm-intro.html][here]])             | [[https://github.com/tuhdo][tuhdo]]        |
 | The Master of the Keys (made [[https://github.com/justbur/emacs-which-key][which-key]]) | [[https://github.com/justbur][justbur]]      |
 | The PR Patrol Officer                   | [[https://github.com/robbyoconnor][robbyoconnor]] |
+| Expert in Latin Language ([[https://github.com/syl20bnr/spacemacs/pull/4043][PR]])           | [[https://github.com/vijaykiran][vijaykiran]]   |
 
 * Thank you
 [[Using configuration layers][Jokes aside]], thank you Richard for this great piece of software.
