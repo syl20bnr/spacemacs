@@ -116,7 +116,7 @@ The variable =latex-nofill-env= provide the list of environment names where
 | ~SPC m r g~   | reftex-grep-document                  |
 | ~SPC m r i~   | reftex-index-selection-or-word        |
 | ~SPC m r I~   | reftex-display-index                  |
-| ~SPC m r C-i~ | reftex-index                          |
+| ~SPC m r TAB~ | reftex-index                          |
 | ~SPC m r l~   | reftex-label                          |
 | ~SPC m r p~   | reftex-index-phrase-selection-or-word |
 | ~SPC m r P~   | reftex-index-visit-phrases-buffer     |
@@ -125,3 +125,4 @@ The variable =latex-nofill-env= provide the list of environment names where
 | ~SPC m r t~   | reftex-toc                            |
 | ~SPC m r T~   | reftex-toc-recenter                   |
 | ~SPC m r v~   | reftex-view-crossref                  |
+|               |                                       |
