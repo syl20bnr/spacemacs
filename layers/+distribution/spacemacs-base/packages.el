@@ -866,7 +866,7 @@ ARG non nil means that the editing style is `vim'."
         ("9" spacemacs/helm-action-9 :exit t)
         ("0" spacemacs/helm-action-10 :exit t)
         ("<tab>" helm-select-action :exit t)
-        ("C-i" helm-select-action :exit t)
+        ("TAB" helm-select-action :exit t)
         ("<RET>" helm-maybe-exit-minibuffer :exit t)
         ("?" nil :doc (spacemacs//helm-navigation-ms-full-doc))
         ("a" helm-select-action :post (spacemacs//helm-navigation-ms-set-face))

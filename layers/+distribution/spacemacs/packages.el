@@ -1443,7 +1443,7 @@ It will toggle the overlay under point or create an overlay of one character."
         :off (indent-guide-global-mode -1)
         :documentation
         "Highlight indentation level at point globally. (alternative to highlight-indentation)."
-        :evil-leader "t C-i"))
+        :evil-leader "t TAB"))
     :config
     (spacemacs|diminish indent-guide-mode " ⓘ" " i")))
 

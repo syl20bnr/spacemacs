@@ -23,7 +23,7 @@
     "rg"    'reftex-grep-document
     "ri"    'reftex-index-selection-or-word
     "rI"    'reftex-display-index
-    "r C-i" 'reftex-index
+    "r TAB" 'reftex-index
     "rl"    'reftex-label
     "rp"    'reftex-index-phrase-selection-or-word
     "rP"    'reftex-index-visit-phrases-buffer

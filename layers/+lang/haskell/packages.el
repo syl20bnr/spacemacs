@@ -146,7 +146,7 @@
         "hd"  'inferior-haskell-find-haddock
         "hh"  'hoogle
         "hH"  'hoogle-lookup-from-local
-        "mhi"  (lookup-key haskell-mode-map (kbd "C-c C-i"))
+        "mhi"  (lookup-key haskell-mode-map (kbd "C-c TAB"))
         "mht"  (lookup-key haskell-mode-map (kbd "C-c C-t"))
         "hT"  'spacemacs/haskell-process-do-type-on-prev-line
         "hy"  'hayoo
