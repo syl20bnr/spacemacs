@@ -1,14 +1,15 @@
 #+TITLE: Swift contribution layer for Spacemacs
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/swift.png]]
 
-* Table of Contens                                                    :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#usage-information][Usage information]]
- - [[#key-bindings][Key bindings]]
-   - [[#swift-mode][swift-mode]]
-   - [[#swift-repl-mode][swift-repl-mode]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Usage information][Usage information]]
+ - [[Key bindings][Key bindings]]
+   - [[swift-mode][swift-mode]]
+   - [[swift-repl-mode][swift-repl-mode]]
 
 * Description
 This layer adds support for Apple's Swift programming language, used as a
@@ -33,32 +34,27 @@ On OS X:
 #+END_SRC
 
 * Usage information
-
 Unless configured by the user, the REPL will be invoked using the command ~xcrun
 swift~.
-
 You can launch the REPL using the keybinding ~SPC m s s~ (or ~C-c C-z~).
-
 The universal prefix ~SPC u~ (~C-u~) may be used to modify command invocation.
 
 * Key bindings
-
 ** swift-mode
 
-| Emacs             | Evil                  | Description            |
-|-------------------+-----------------------+------------------------|
-| [~C-u~] ~C-c C-z~ | [~SPC u~] ~SPC m s s~ | swift-mode-run-repl    |
-| ~C-c C-f~         | ~SPC m s b~           | swift-mode-send-buffer |
-| ~C-c C-r~         | ~SPC m s r~           | swift-mode-send-region |
+| Key bindings | Description            |
+|--------------+------------------------|
+| ~SPC m s s~  | swift-mode-run-repl    |
+| ~SPC m s b~  | swift-mode-send-buffer |
+| ~SPC m s r~  | swift-mode-send-region |
 
 Notes: 
-
 1. ~swift-mode-run-repl~ will run or switch to an existing REPL.
 2. To edit the command invocation, prefix with ~SPC u~ (or ~C-u~).
 3. Emacs key bindings in use are the those set by the package.
 
 ** swift-repl-mode
 
-| Emacs     | Evil        | Description                 |
-|-----------+-------------+-----------------------------|
-| ~C-c C-z~ | ~SPC m s s~ | swift-repl-mode-switch-back |
+| Key bindings | Description                 |
+|--------------+-----------------------------|
+| ~SPC m s s~  | swift-repl-mode-switch-back |
