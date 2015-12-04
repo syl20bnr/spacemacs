@@ -18,39 +18,37 @@
 (defun elfeed/init-elfeed ()
   (use-package elfeed
     :defer t
-    :commands (elfeed-web-start elfeed-web-stop)
-    :init
-    (evil-leader/set-key "af" 'elfeed)
+    :init (spacemacs/set-leader-keys "af" 'elfeed)
     :config
     (progn
-      (spacemacs|evilify-map elfeed-search-mode-map
+      (evilified-state-evilify-map elfeed-search-mode-map
         :mode elfeed-search-mode
+        :eval-after-load elfeed-search
         :bindings
-        "q" 'quit-window
-        "c" 'elfeed-db-compact
-        "o" 'elfeed-load-opml
-        "w" 'elfeed-web-start
-        "W" 'elfeed-web-stop
-        "r" 'elfeed-search-update--force
-        "l" 'elfeed-update)
-      (spacemacs|evilify-map elfeed-show-mode-map
+        "c"  'elfeed-db-compact
+        "gr" 'elfeed-update
+        "o"  'elfeed-load-opml
+        "q"  'quit-window
+        "r"  'elfeed-search-update--force
+        "w"  'elfeed-web-start
+        "W"  'elfeed-web-stop)
+      (evilified-state-evilify-map elfeed-show-mode-map
         :mode elfeed-show-mode
-        :bindings
-        "q" 'quit-window))))
+        :eval-after-load elfeed-show
+        :bindings "q" 'quit-window))))
 
 (defun elfeed/init-elfeed-org ()
   (use-package elfeed-org
     :defer t
-    :if (boundp 'rmh-elfeed-org-files)
-    :commands elfeed-org
-    :init
-    (spacemacs|use-package-add-hook
-        :pre-config (elfeed-org))))
+    :init (spacemacs|use-package-add-hook elfeed
+            :pre-config (elfeed-org))))
 
 (defun elfeed/init-elfeed-web ()
   (use-package elfeed-web
-    :commands elfeed-web-start
-    :init
-    (progn
-      (when elfeed-web-enabled-on-emacs-startup
-        (elfeed-web-start)))))
+    :defer t
+    :commands elfeed-web-stop
+    :init (when elfeed-enable-web-interface
+            ;; TODO check if the port is already in use
+            ;; hack to force elfeed feature to be required before elfeed-search
+            (require 'elfeed)
+            (elfeed-web-start))))
