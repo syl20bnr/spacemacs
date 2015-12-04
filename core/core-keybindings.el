@@ -19,13 +19,28 @@
   "Base keymap for all spacemacs leader key commands.")
 
 (defun spacemacs/translate-C-i (_)
+  "If `dotspacemacs-distinguish-gui-tab' is non nil, the raw key
+sequence does not include <tab> or <kp-tab>, and we are in the
+gui, translate to [C-i]. Otherwise, [9] (TAB)."
   (interactive)
-  (if (and dotspacemacs-distinguish-gui-tab (display-graphic-p)) [C-i] [?\C-i]))
+  (if (and (not (cl-position 'tab (this-single-command-raw-keys)))
+           (not (cl-position 'kp-tab (this-single-command-raw-keys)))
+           dotspacemacs-distinguish-gui-tab
+           (display-graphic-p))
+      [C-i] [?\C-i]))
 (define-key key-translation-map [?\C-i] 'spacemacs/translate-C-i)
 
 ;; (defun spacemacs/translate-C-m (_)
+;;   "If `dotspacemacs-distinguish-gui-ret' is non nil, the raw key
+;; sequence does not include <ret>, and we are in the gui, translate
+;; to [C-m]. Otherwise, [9] (TAB)."
 ;;   (interactive)
-;;   (if (and dotspacemacs-distinguish-gui-ret (display-graphic-p)) [C-m] [?\C-m]))
+;;   (if (and
+;;        (not (cl-position 'return (this-single-command-raw-keys)))
+;;        (not (cl-position 'kp-enter (this-single-command-raw-keys)))
+;;        dotspacemacs-distinguish-gui-ret
+;;        (display-graphic-p))
+;;     [C-m] [?\C-m]))
 ;; (define-key key-translation-map [?\C-m] 'spacemacs/translate-C-m)
 
 (defun spacemacs/declare-prefix (prefix name &optional long-name)
