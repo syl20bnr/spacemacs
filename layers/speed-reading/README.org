@@ -1,4 +1,4 @@
-#+TITLE: Speed Reading layer for Spacemacs
+#+TITLE: Speed Reading layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
 * Table of Contents                                        :TOC_4_org:noexport:
@@ -18,11 +18,11 @@ To use this contribution add it to your =~/.spacemacs=
 
 * Key bindings
 
-| Key Binding     | Description    |
-|-----------------+----------------|
-| ~<SPC> a s r~   | Start Spray    |
-| ~h~             | Backward word  |
-| ~l~             | Forward word   |
-| ~f~             | Faster speed   |
-| ~s~             | Slower speed   |
-| ~q~             | Quit Spray     |
+| Key Binding   | Description   |
+|---------------+---------------|
+| ~<SPC> a s r~ | Start Spray   |
+| ~h~           | Backward word |
+| ~l~           | Forward word  |
+| ~f~           | Faster speed  |
+| ~s~           | Slower speed  |
+| ~q~           | Quit Spray    |

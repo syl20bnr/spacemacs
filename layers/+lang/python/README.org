@@ -1,4 +1,4 @@
-#+TITLE: Python contribution layer for Spacemacs
+#+TITLE: Python layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/python.png]]
@@ -172,7 +172,7 @@ Test commands start with ~m t~:
 | ~SPC m h h~ | quick documentation using anaconda                                           |
 | ~SPC m h H~ | open documentation in =firefox= using [[https://github.com/tsgates/pylookup][pylookup]]                               |
 | ~SPC m v s~ | activate a virtual environment with [[https://github.com/yyuu/pyenv][pyenv]]                                    |
-| ~SPC m v u~ | deactivate a virtual environment with [[https://github.com/yyuu/pyenv][pyenv]]                                 |
+| ~SPC m v u~ | deactivate a virtual environment with [[https://github.com/yyuu/pyenv][pyenv]]                                  |
 | ~SPC m V~   | activate a virtual environment with  [[https://github.com/jorgenschaefer/pyvenv][pyvenv]]                                  |
 * Configuration
 ** Fill column

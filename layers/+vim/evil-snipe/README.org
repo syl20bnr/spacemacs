@@ -1,4 +1,4 @@
-#+TITLE: evil-snipe contribution layer for Spacemacs
+#+TITLE: Evil-snipe layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/Cat_With_Rifle.jpg]]

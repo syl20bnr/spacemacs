@@ -1,4 +1,4 @@
-#+TITLE: Deft configuration layer for Spacemacs
+#+TITLE: Deft layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 
 * Table of Content                                          :TOC_4_org:noexport:
@@ -10,12 +10,10 @@
  - [[Key Bindings][Key Bindings]]
 
 * Description
-
 [[http://jblevins.org/projects/deft/][Deft]] is an Emacs mode inspired by =Notational Velocity= for quickly
 browsing and creating notes.
 
 ** Differences from default
-
 This layer sets the default to use filenames for note titles as well as
 =org-mode= for editing. The default extension is =org=. The default
 configuration is set to recognize =org=, =md=, and =txt= extensions. If
@@ -39,7 +37,6 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 ** Configuration
-
 By default deft tries to put notes in =~/.deft= but you can change
 this like so in your =dotspacemacs/user-config= function:
 
