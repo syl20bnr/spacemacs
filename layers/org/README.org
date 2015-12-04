@@ -6,7 +6,7 @@
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[Description][Description]]
    - [[Features:][Features:]]
-   - [[Note][Note]]
+   - [[Important Note][Important Note]]
  - [[Install][Install]]
    - [[Layer][Layer]]
    - [[Github support][Github support]]
@@ -37,22 +37,22 @@ This layer enables  [[http://orgmode.org/][org mode]] for Spacemacs.
 - TODO capture via [[https://github.com/waymondo/org-repo-todo][org-repo-todo]]
 - presentation mode via [[https://github.com/rlister/org-present][org-present]]
 - 
-** Note
+** Important Note
 Since version 0.104, spacemacs uses the =org= version from the org ELPA
 repository instead of the one shipped with emacs. Then, any =org= related code
 should not be loaded before =dotspacemacs/user-config=, otherwise both versions
 will be loaded and will conflict.
-Org layer checks if this has occurred and signals an error if org features have
-been instantiated prior to org layer loading.
 
-One way to do your =org= config is to wrap you config code in a 
-=with-eval-after-load= block.
+Because of autoloading, calling to =org= functions will trigger the loading up
+of the =org= shipped with emacs wich will induce conflicts.
+One way to avoid conflict is to wrap your =org= config code in a
+=with-eval-after-load= block like this:
 
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'org
     ;; here goes your Org config :)
     ;; ....
-    )    
+    )
 #+END_SRC
 
 * Install

@@ -87,15 +87,15 @@ in =user-init=, and any variable that Spacemacs explicitly sets but you wish to
 Anything that isn't just setting a variable should 99% be in =user-config=.
 
 ** Why do some of my =org=-related settings cause problems?
-Since version 0.104, spacemacs uses the `org` version from the org ELPA
-repository instead of the one shipped with emacs. Then, any `org` related code
-should not be loaded before `dotspacemacs/user-config`, otherwise both versions
+Since version 0.104, spacemacs uses the =org= version from the org ELPA
+repository instead of the one shipped with emacs. Then, any =org= related code
+should not be loaded before =dotspacemacs/user-config=, otherwise both versions
 will be loaded and will conflict.
 
-Because of autoloading, calling to `org` function will trigger the loading up
-of the `org` shipped with emacs wich will induce conflicts.
-One way to do your `org` config is to wrap you config code in a
-`with-eval-after-load` block.
+Because of autoloading, calling to =org= functions will trigger the loading up
+of the =org= shipped with emacs wich will induce conflicts.
+One way to avoid conflict is to wrap your =org= config code in a
+=with-eval-after-load= block like this:
 
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'org
