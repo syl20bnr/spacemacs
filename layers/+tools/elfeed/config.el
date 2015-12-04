@@ -12,5 +12,5 @@
 
 ;;; Variables
 
-(defvar elfeed-web-enabled-on-emacs-startup nil
-  "If true, serve web interface Elfeed with simpl-httpd.")
+(defvar elfeed-enable-web-interface nil
+  "If non nil start a web server to consult the database in a web browser.")
