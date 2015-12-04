@@ -51,10 +51,10 @@
 (evil-define-key 'motion help-mode-map (kbd "<tab>") 'forward-button)
 (evil-define-key 'motion help-mode-map (kbd "S-<tab>") 'backward-button)
 (evil-define-key 'motion help-mode-map (kbd "]") 'help-go-forward)
+(evil-define-key 'motion help-mode-map (kbd "gf") 'help-go-forward)
 (evil-define-key 'motion help-mode-map (kbd "[") 'help-go-back)
-(evil-define-key 'motion help-mode-map (kbd "s") 'help-follow-symbol)
-(evil-define-key 'motion help-mode-map (kbd "u") 'scroll-up)
-(evil-define-key 'motion help-mode-map (kbd "d") 'scroll-down)
+(evil-define-key 'motion help-mode-map (kbd "gb") 'help-go-back)
+(evil-define-key 'motion help-mode-map (kbd "mmh") 'help-follow-symbol)
 
 ;; ---------------------------------------------------------------------------
 ;; evil-leader key bindings
