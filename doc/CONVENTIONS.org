@@ -15,6 +15,7 @@
      - [[n and N][n and N]]
      - [[Code Navigation][Code Navigation]]
      - [[=insert state= buffers][=insert state= buffers]]
+   - [[Messages editing][Messages editing]]
    - [[Evaluation][Evaluation]]
    - [[REPLs][REPLs]]
      - [[Send code][Send code]]
@@ -130,6 +131,20 @@ should be performed with ~C-j~ and ~C-k~ bindings for vertical movements.
 |-------+-------------|
 | ~C-j~ | go down     |
 | ~C-k~ | go up       |
+
+** Messages editing
+Modes that are used to edit messages (texts, notes, mails, …) and are subjects
+to user validation (traditionally bound to ~C-c C-c~ and ~C-c C-k~ in emacs)
+should use the following bindings:
+
+| Key       | Description               |
+|-----------+---------------------------|
+| ~SPC m ,~ | Valid/Confirm the message |
+| ~SPC m c~ | Valid/Confirm the message |
+| ~SPC m k~ | Abort/Discard the message |
+
+Some example of these modes are =magit= commit messages, =message-mode= for
+mails or =org-mode= notes.
 
 ** Evaluation
 Live evaluation of code is under the prefix ~SPC m e~.
