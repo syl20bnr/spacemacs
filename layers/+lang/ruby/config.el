@@ -27,6 +27,9 @@
 (defvar ruby-test-runner 'ruby-test
   "Test runner to use. Possible values are `ruby-test' or `rspec'.")
 
+(defvar chruby-ruby-version nil
+  "If non-nil, sets chruby ruby version, see https://github.com/plexus/chruby.el for more information.")
+
 ;; Command prefixes
 
 (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "ruby/test")
