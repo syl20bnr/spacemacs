@@ -36,7 +36,7 @@ This layer enables  [[http://orgmode.org/][org mode]] for Spacemacs.
 - A [[http://pomodorotechnique.com/][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
 - TODO capture via [[https://github.com/waymondo/org-repo-todo][org-repo-todo]]
 - presentation mode via [[https://github.com/rlister/org-present][org-present]]
-- 
+
 ** Important Note
 Since version 0.104, spacemacs uses the =org= version from the org ELPA
 repository instead of the one shipped with emacs. Then, any =org= related code
