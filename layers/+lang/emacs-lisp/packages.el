@@ -82,7 +82,7 @@
     (spacemacs/declare-prefix-for-mode mode "mc" "compile")
     (spacemacs/declare-prefix-for-mode mode "me" "eval")
     (spacemacs/declare-prefix-for-mode mode "mt" "tests")
-    (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
+    (spacemacs/set-leader-keys-for-major-mode mode
       "cc" 'emacs-lisp-byte-compile
       "e$" 'lisp-state-eval-sexp-end-of-line
       "eb" 'eval-buffer
