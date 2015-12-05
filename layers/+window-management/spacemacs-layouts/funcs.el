@@ -133,3 +133,44 @@ Cancels autosave on exiting perspectives mode."
     (when spacemacs--layouts-autosave-timer
       (cancel-timer spacemacs--layouts-autosave-timer)
       (setq spacemacs--layouts-autosave-timer nil))))
+
+;; Eyebrowse - allow perspective-local workspaces --------------------------
+
+(defun spacemacs/load-eyebrowse-for-perspective (&optional frame)
+  "Load an eyebrowse workspace according to a perspective's parameters.
+FRAME's perspective is the perspective that is considered, defaulting to
+the current frame's perspective.
+If the perspective doesn't have a workspace, create one."
+  (let* ((persp (get-frame-persp frame))
+         (window-configs (persp-parameter 'eyebrowse-window-configs persp))
+         (current-slot (persp-parameter 'eyebrowse-current-slot persp))
+         (last-slot (persp-parameter 'eyebrowse-last-slot persp)))
+    (if window-configs
+        (progn
+          (eyebrowse--set 'window-configs window-configs frame)
+          (eyebrowse--set 'current-slot current-slot frame)
+          (eyebrowse--set 'last-slot last-slot frame)
+          (eyebrowse--load-window-config current-slot))
+      (eyebrowse--set 'window-configs nil frame)
+      (eyebrowse-init frame)
+      (spacemacs/save-eyebrowse-for-perspective frame))))
+
+(defun spacemacs/update-eyebrowse-for-perspective (_new-persp-name)
+  "Update and save current frame's eyebrowse workspace to its perspective.
+Parameter _NEW-PERSP-NAME is ignored, and exists only for compatibility with
+`persp-before-switch-functions'."
+  (eyebrowse--update-window-config-element
+   (eyebrowse--current-window-config (eyebrowse--get 'current-slot)
+                                     (eyebrowse--get 'current-tag)))
+  (spacemacs/save-eyebrowse-for-perspective))
+
+(defun spacemacs/save-eyebrowse-for-perspective (&optional frame)
+  "Save FRAME's eyebrowse workspace to FRAME's perspective.
+FRAME defaults to the current frame."
+  (let ((persp (get-frame-persp frame)))
+    (set-persp-parameter
+     'eyebrowse-window-configs (eyebrowse--get 'window-configs frame) persp)
+    (set-persp-parameter
+     'eyebrowse-current-slot (eyebrowse--get 'current-slot frame) persp)
+    (set-persp-parameter
+     'eyebrowse-last-slot (eyebrowse--get 'last-slot frame) persp)))

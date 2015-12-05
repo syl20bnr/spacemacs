@@ -9,7 +9,7 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(setq spacemacs-layouts-packages '(persp-mode spaceline))
+(setq spacemacs-layouts-packages '(persp-mode spaceline eyebrowse))
 
 (defun spacemacs-layouts/init-persp-mode ()
   (use-package persp-mode
@@ -298,3 +298,8 @@ format so they are supported by the
                (or (not (equal persp-nil-name
                                (safe-persp-name (get-frame-persp))))
                    dotspacemacs-display-default-layout))))
+
+(defun spacemacs-layouts/post-init-eyebrowse ()
+  (add-hook 'persp-before-switch-functions #'spacemacs/update-eyebrowse-for-perspective)
+  (add-hook 'eyebrowse-post-window-switch-hook #'spacemacs/save-eyebrowse-for-perspective)
+  (add-hook 'persp-activated-hook #'spacemacs/load-eyebrowse-for-perspective))
