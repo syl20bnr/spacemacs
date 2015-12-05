@@ -377,12 +377,12 @@
 
       (when dotspacemacs-major-mode-leader-key
         (add-hook 'with-editor-mode-hook 'evil-normalize-keymaps)
-        (evil-define-key 'normal with-editor-mode-map
-          (concat dotspacemacs-major-mode-leader-key "c") 'with-editor-finish
-          (concat dotspacemacs-major-mode-leader-key "a") 'with-editor-cancel)
-        (evil-define-key 'motion with-editor-mode-map
-          (concat dotspacemacs-major-mode-leader-key "c") 'with-editor-finish
-          (concat dotspacemacs-major-mode-leader-key "a") 'with-editor-cancel))
+        (let ((mm-key dotspacemacs-major-mode-leader-key))
+          (dolist (state '(normal motion))
+            (evil-define-key state with-editor-mode-map
+              (concat mm-key mm-key) 'with-editor-finish
+              (concat mm-key "c")    'with-editor-finish
+              (concat mm-key "k")    'with-editor-cancel))))
 
       ;; whitespace
       (defun magit-toggle-whitespace ()
