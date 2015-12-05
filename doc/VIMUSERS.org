@@ -243,13 +243,13 @@ The map is the keymap you want to bind the key in. Most of the time you will use
 =evil-<state-name>-state-map=. These correspond to different =evil-mode= states.
 For example, using =evil-insert-state-map= maps the keybinding in insert mode.
 
-To map ~<Leader>~ keybindings, use the =evil-leader/set-key= function.
+To map ~<Leader>~ keybindings, use the =spacemacs/set-leader-keys= function.
 
 #+begin_src emacs-lisp
-  (evil-leader/set-key key function) ; Syntax
+  (spacemacs/set-leader-keys key function) ; Syntax
   ;; Map killing a buffer to <Leader> b c
-  (evil-leader/set-key "bc" 'kill-this-buffer)
-  ;; Map opening a link to <Leader> o l only in org-mode
+  (spacemacs/set-leader-keys "bc" 'kill-this-buffer)
+  ;; Map opening a link to <Leader> o l only in org-mode (works for any major-mode)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode
     "ol" 'org-open-at-point)
 #+end_src
