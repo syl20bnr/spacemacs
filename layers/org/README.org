@@ -139,10 +139,10 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC m R~                                    | org-refile                                   |
 | ~SPC m s~                                    | org-schedule                                 |
 | ~SPC m T~                                    | org-show-todo-tree                           |
-| ~SPC m H~                                    | org-shiftleft                                |
-| ~SPC m J~                                    | org-shiftdown                                |
-| ~SPC m K~                                    | org-shiftup                                  |
 | ~SPC m L~                                    | org-shiftright                               |
+| ~SPC m H~                                    | org-shiftleft                                |
+| ~SPC m K~                                    | org-shiftup                                  |
+| ~SPC m J~                                    | org-shiftdown                                |
 | ~SPC m C-S-l~                                | org-shiftcontrolright                        |
 | ~SPC m C-S-h~                                | org-shiftcontrolleft                         |
 | ~SPC m C-S-j~                                | org-shiftcontroldown                         |
@@ -203,19 +203,17 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~gl~        | outline-next-visible-heading    |
 | ~t~         | org-todo                        |
 | ~T~         | org-insert-todo-heading nil     |
-| ~H~         | org-shiftleft                   |
-| ~J~         | org-shiftdown                   |
-| ~K~         | org-shiftup                     |
-| ~L~         | org-shiftright                  |
+| ~H~         | org-beginning-of-line           |
+| ~L~         | org-end-of-line                 |
 | ~o~         | always-insert-item              |
 | ~O~         | org-open-above                  |
 
 | Key Binding | Description                                |
 |-------------+--------------------------------------------|
+| ~M-l~       | org-metaright                              |
 | ~M-h~       | org-metaleft                               |
 | ~M-k~       | org-metaup                                 |
 | ~M-j~       | org-metadown                               |
-| ~M-l~       | org-metaright                              |
 | ~M-L~       | org-shiftmetaright                         |
 | ~M-H~       | org-shiftmetaleft                          |
 | ~M-K~       | org-shiftmetaup                            |
@@ -261,9 +259,9 @@ The evilified org agenda supports, among others, the following bindings:
 
 | Key Binding | Description   |
 |-------------+---------------|
-| ~M-h~       | earlier view  |
 | ~M-j~       | next item     |
 | ~M-k~       | previous item |
+| ~M-h~       | earlier view  |
 | ~M-l~       | later view    |
 | ~gr~        | refresh       |
 | ~gd~        | toggle grid   |
