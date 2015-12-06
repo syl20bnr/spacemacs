@@ -17,59 +17,60 @@
         company
         evil-matchit
         flycheck
+        rbenv
         robe
         ruby-test-mode
         rspec-mode
         ruby-tools
         rubocop
+        rvm
         ))
 
 (if ruby-enable-enh-ruby-mode
     (add-to-list 'ruby-packages 'enh-ruby-mode)
   (add-to-list 'ruby-packages 'ruby-mode))
 
-(when ruby-version-manager
-  (add-to-list 'ruby-packages ruby-version-manager))
-
 (defun ruby/init-chruby ()
   (use-package chruby
+    :if (equal 'chruby 'ruby-version-manager)
     :defer t
     :init
     (progn
       (defun spacemacs//enable-chruby ()
         "Enable chruby, use .ruby-version if exists."
-        (when (equal 'chruby 'ruby-version-manager)
-          (let ((version-file-path (chruby--locate-file ".ruby-version")))
-            (require 'chruby)
-            ;; try to use the ruby defined in .ruby-version
-            (if version-file-path
-                (progn
-                  (chruby-use (chruby--read-version-from-file
-                               version-file-path))
-                  (message "Using ruby version from .ruby-version file."))
-              (message "Using the currently activated ruby.")))))
+        (let ((version-file-path (chruby--locate-file ".ruby-version")))
+          (chruby)
+          ;; try to use the ruby defined in .ruby-version
+          (if version-file-path
+              (progn
+                (chruby-use (chruby--read-version-from-file
+                             version-file-path))
+                (message (concat "[chruby] Using ruby version "
+                                 "from .ruby-version file.")))
+            (message "[chruby] Using the currently activated ruby."))))
       (spacemacs/add-to-hooks 'spacemacs//enable-chruby
                               '(ruby-mode-hook enh-ruby-mode-hook)))))
 
 (defun ruby/init-rbenv ()
-  "Initialize RBENV mode"
   (use-package rbenv
+    :if (equal 'rbenv 'ruby-version-manager)
     :defer t
-    :init (global-rbenv-mode)
-    :config (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
-              (add-hook hook (lambda () (rbenv-use-corresponding))))))
-
-(defun ruby/init-rvm ()
-  "Initialize RVM mode"
-  (use-package rvm
-    :defer t
-    :init (rvm-use-default)
-    :config
+    :init
     (progn
-      (setq rspec-use-rvm t)
-      (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
-              (add-hook hook
-                        (lambda () (rvm-activate-corresponding-ruby)))))))
+      (defun spacemacs//enable-rbenv ()
+        "Enable rbenv, use .ruby-version if exists."
+        (let ((version-file-path (rbenv--locate-file ".ruby-version")))
+          (global-rbenv-mode)
+          ;; try to use the ruby defined in .ruby-version
+          (if version-file-path
+              (progn
+                (rbenv-use (rbenv--read-version-from-file
+                            version-file-path))
+                (message (concat "[rbenv] Using ruby version "
+                                 "from .ruby-version file.")))
+            (message "[rbenv] Using the currently activated ruby."))))
+      (spacemacs/add-to-hooks 'spacemacs//enable-rbenv
+                              '(ruby-mode-hook enh-ruby-mode-hook)))))
 
 (defun ruby/init-ruby-mode ()
   (use-package ruby-mode
@@ -231,6 +232,16 @@
         (spacemacs/set-leader-keys-for-major-mode mode
           "tb" 'ruby-test-run
           "tt" 'ruby-test-run-at-point))))
+
+(defun ruby/init-rvm ()
+  (use-package rvm
+    :if (equal 'rvm 'ruby-version-manager)
+    :defer t
+    :init
+    (progn
+      (setq rspec-use-rvm t)
+      (spacemacs/add-to-hooks 'rvm-activate-corresponding-ruby
+                              '(ruby-mode-hook enh-ruby-mode-hook)))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun ruby/post-init-company ()
