@@ -254,26 +254,50 @@
           "K" 'git-rebase-move-line-up
           "u" 'git-rebase-undo
           "y" 'git-rebase-insert)
-        ;;defaultstateforadditionalmodes
+        ;; default state for additional modes
         (dolist (mode '(magit-popup-mode
                         magit-popup-sequence-mode))
           (add-to-list 'evil-emacs-state-modes mode))
-        (evilified-state--configure-default-state 'magit-revision-mode)
-        ;;sectionmaps
-        (evilified-state-evilify-map magit-tag-section-map)
-        (evilified-state-evilify-map magit-untracked-section-map)
-        (evilified-state-evilify-map magit-branch-section-map)
-        (evilified-state-evilify-map magit-remote-section-map)
-        (evilified-state-evilify-map magit-file-section-map)
-        (evilified-state-evilify-map magit-hunk-section-map)
-        (evilified-state-evilify-map magit-unstaged-section-map)
-        (evilified-state-evilify-map magit-staged-section-map)
-        (evilified-state-evilify-map magit-commit-section-map)
-        (evilified-state-evilify-map magit-module-commit-section-map)
-        (evilified-state-evilify-map magit-unpulled-section-map)
-        (evilified-state-evilify-map magit-unpushed-section-map)
-        (evilified-state-evilify-map magit-stashes-section-map)
-        (evilified-state-evilify-map magit-stash-section-map))
+        (let ((delete-key (nth 0 (where-is-internal 'magit-delete-thing
+                                                    magit-mode-map))))
+          (evilified-state--configure-default-state 'magit-revision-mode)
+          ;; section maps
+          (eval `(evilified-state-evilify-map magit-tag-section-map
+            :pre-bindings
+            ,delete-key 'magit-tag-delete))
+          (eval `(evilified-state-evilify-map magit-untracked-section-map
+            :pre-bindings
+            ,delete-key 'magit-discard))
+          (eval `(evilified-state-evilify-map magit-branch-section-map
+            :pre-bindings
+            ,delete-key 'magit-branch-delete))
+          (eval `(evilified-state-evilify-map magit-remote-section-map
+            :pre-bindings
+            ,delete-key 'magit-remote-remove))
+          (eval `(evilified-state-evilify-map magit-file-section-map
+            :pre-bindings
+            ,delete-key 'magit-discard))
+          (eval `(evilified-state-evilify-map magit-hunk-section-map
+            :pre-bindings
+            ,delete-key 'magit-discard))
+          (eval `(evilified-state-evilify-map magit-unstaged-section-map
+            :pre-bindings
+            ,delete-key 'magit-discard))
+          (eval `(evilified-state-evilify-map magit-staged-section-map
+            :pre-bindings
+            ,delete-key 'magit-discard))
+          (eval `(evilified-state-evilify-map magit-commit-section-map
+            :pre-bindings
+            ,delete-key 'magit-discard))
+          (eval `(evilified-state-evilify-map magit-stashes-section-map
+            :pre-bindings
+            ,delete-key 'magit-stash-clear))
+          (eval `(evilified-state-evilify-map magit-stash-section-map
+            :pre-bindings
+            ,delete-key 'magit-stash-drop))
+          (evilified-state-evilify-map magit-module-commit-section-map)
+          (evilified-state-evilify-map magit-unpulled-section-map)
+          (evilified-state-evilify-map magit-unpushed-section-map)))
 
       ;; full screen magit-status
       (when git-magit-status-fullscreen
