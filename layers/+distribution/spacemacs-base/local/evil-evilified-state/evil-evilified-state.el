@@ -49,7 +49,7 @@
   "Evilified state.
  Hybrid `emacs state' with carrefully selected Vim key bindings.
  See spacemacs conventions for more info."
-  :tag " <EvilN> "
+  :tag " <N'> "
   :enable (emacs)
   :message "-- EVILIFIED BUFFER --"
   :cursor box)
