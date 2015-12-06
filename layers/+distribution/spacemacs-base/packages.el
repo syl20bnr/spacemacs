@@ -33,6 +33,7 @@
         helm-projectile
         (helm-spacemacs :location local)
         help-fns+
+        hl-todo
         (hs-minor-mode :location built-in)
         (holy-mode :location local :step pre)
         (hybrid-mode :location local :step pre)
@@ -958,6 +959,14 @@ ARG non nil means that the editing style is `vim'."
   (use-package help-fns+
     :commands (describe-keymap)
     :init (spacemacs/set-leader-keys "hdK" 'describe-keymap)))
+
+(defun spacemacs-base/init-hl-todo ()
+  (use-package hl-todo
+    :commands (hl-todo-mode)
+    :init
+    (progn
+      (setq hl-todo-activate-in-modes '(prog-mode))
+      (global-hl-todo-mode))))
 
 (defun spacemacs-base/init-hs-minor-mode ()
   ;; required for evil folding

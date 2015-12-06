@@ -236,9 +236,6 @@ or lists of these.")
     (if dotspacemacs-maximized-at-startup
         (add-hook 'window-setup-hook 'toggle-frame-maximized))))
 
-;; Highlight keywords like TODO, FIXME, etc.
-(add-hook 'prog-mode-hook 'spacemacs/highlight-TODO-words)
-
 ;; ---------------------------------------------------------------------------
 ;; Session
 ;; ---------------------------------------------------------------------------
