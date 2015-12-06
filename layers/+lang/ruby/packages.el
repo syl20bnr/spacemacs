@@ -13,6 +13,7 @@
 (setq ruby-packages
       '(
         bundler
+        chruby
         company
         evil-matchit
         flycheck
@@ -30,14 +31,25 @@
 (when ruby-version-manager
   (add-to-list 'ruby-packages ruby-version-manager))
 
-(defun ruby/init-chruby()
-  "Initialize Chruby mode"
+(defun ruby/init-chruby ()
   (use-package chruby
     :defer t
-    :init (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook)))
-                  (add-hook hook
-                    (lambda () (chruby (if chruby-ruby-version 'chruby-ruby-version
-                                         (message "chruby version not set!!")))))))
+    :init
+    (progn
+      (defun spacemacs//enable-chruby ()
+        "Enable chruby, use .ruby-version if exists."
+        (when (equal 'chruby 'ruby-version-manager)
+          (let ((version-file-path (chruby--locate-file ".ruby-version")))
+            (require 'chruby)
+            ;; try to use the ruby defined in .ruby-version
+            (if version-file-path
+                (progn
+                  (chruby-use (chruby--read-version-from-file
+                               version-file-path))
+                  (message "Using ruby version from .ruby-version file."))
+              (message "Using the currently activated ruby.")))))
+      (spacemacs/add-to-hooks 'spacemacs//enable-chruby
+                              '(ruby-mode-hook enh-ruby-mode-hook)))))
 
 (defun ruby/init-rbenv ()
   "Initialize RBENV mode"
