@@ -17,8 +17,11 @@
      - [[Ruby-test-mode][Ruby-test-mode]]
 
 * Description
-This layer provides support for the Ruby language with [[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]] and [[https://github.com/dgutov/robe][robe-mode]].
-Optionally Enh Ruby Mode can be replaced with the built-in Emacs Ruby Mode.
+This layer provides support for the Ruby language with the following feature:
+- version manager (rbenv, rvm or chruby)
+- test runner (ruby-test and rspec)
+- linter (rubocop)
+- interactive REPL and code navigation (robe)
 
 * Install
 To use this contribution add it to your =~/.spacemacs=
