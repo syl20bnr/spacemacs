@@ -63,6 +63,7 @@ Magit Commands
   ("w" magit-stage-file)
   ("n" version-control/next-hunk)
   ("N" version-control/previous-hunk)
+  ("p" version-control/previous-hunk)
   ("r" version-control/revert-hunk)
   ("s" version-control/stage-hunk)
   ("h" version-control/show-hunk)
