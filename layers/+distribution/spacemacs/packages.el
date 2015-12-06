@@ -1452,8 +1452,19 @@ It will toggle the overlay under point or create an overlay of one character."
     :defer t
     :commands (open-junk-file)
     :init
-    (spacemacs/set-leader-keys "fJ" 'open-junk-file)
-    (setq open-junk-file-directory (concat spacemacs-cache-directory "junk/%Y/%m/%d-%H%M%S."))))
+    (setq open-junk-file-format (concat spacemacs-cache-directory "junk/%Y/%m/%d-%H%M%S."))
+    (defun spacemacs/helm-open-junk-file (&optional arg)
+      "Open junk file
+Open junk file using helm, with `prefix-arg' search in junk files"
+      (interactive "P")
+      (let* ((fname (format-time-string open-junk-file-format (current-time)))
+             (junk-dir (file-name-directory fname))
+             (helm-ff-newfile-prompt-p nil)
+             (default-directory junk-dir))
+        (if arg
+             (spacemacs/helm-files-smart-do-search)
+          (helm-find-files-1 fname))))
+    (spacemacs/set-leader-keys "fJ" 'spacemacs/helm-open-junk-file)))
 
 (defun spacemacs/init-info+ ()
   (use-package info+
