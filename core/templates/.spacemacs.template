@@ -62,6 +62,8 @@ values."
    ;; environment, otherwise it is strongly recommended to let it set to t.
    ;; (default t)
    dotspacemacs-elpa-https t
+   ;; Maximum allowed time in seconds to contact an ELPA repository.
+   dotspacemacs-elpa-timeout 5
    ;; One of `vim', `emacs' or `hybrid'. Evil is always enabled but if the
    ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
    ;; uses emacs key bindings for vim's insert mode, but otherwise leaves evil
