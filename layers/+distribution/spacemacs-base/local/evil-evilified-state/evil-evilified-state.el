@@ -49,20 +49,59 @@
   "Evilified state.
  Hybrid `emacs state' with carrefully selected Vim key bindings.
  See spacemacs conventions for more info."
-  :tag " <Ev> "
+  :tag " <EvilN> "
   :enable (emacs)
   :message "-- EVILIFIED BUFFER --"
   :cursor box)
 
-(add-hook 'evil-evilified-state-entry-hook 'evilified-state--evilified-state-on-entry)
+(evil-define-command evil-force-evilified-state ()
+  "Switch to evilified state without recording current command."
+  :repeat abort
+  :suppress-operator t
+  (evil-evilified-state))
+
+(defun evilified-state--pre-command-hook ()
+  "Redirect key bindings to `evilified-state' when a visual state is on."
+  (unless (bound-and-true-p isearch-mode)
+    (let* ((map (get-char-property (point) 'keymap))
+           (evilified-map (when map (cdr (assq 'evilified-state map))))
+           (command (when evilified-map (lookup-key evilified-map
+                                                    (this-command-keys)))))
+      (when command (setq this-command command)))))
 
 (defun evilified-state--evilified-state-on-entry ()
   "Setup evilified state."
+  (add-hook 'pre-command-hook 'evilified-state--pre-command-hook nil 'local)
+  (when (derived-mode-p 'magit-mode)
+    ;; without this set-mark-command activates visual-state which is just annoying
+    ;; and introduces possible bugs
+    ;; courtesy of evil-magit package
+    (remove-hook 'activate-mark-hook 'evil-visual-activate-hook t))
   (when (bound-and-true-p evil-surround-mode)
     (make-local-variable 'evil-surround-mode)
     (evil-surround-mode -1))
   (setq-local evil-normal-state-map (cons 'keymap nil))
-  (setq-local evil-visual-state-map (cons 'keymap (list (cons ?y 'evil-yank)))))
+  (setq-local evil-visual-state-map
+              (cons 'keymap (list (cons ?y 'evil-yank)
+                                  (cons 'escape 'evil-exit-visual-state)))))
+
+(defun evilified-state--evilified-state-on-exit ()
+  "Clean evilified state"
+  (remove-hook 'pre-command-hook 'evilified-state--pre-command-hook 'local))
+
+(defun evilified-state--visual-state-on-entry ()
+  "Setup visual state."
+  (add-hook 'pre-command-hook 'evilified-state--pre-command-hook nil 'local))
+
+(defun evilified-state--visual-state-on-exit ()
+  "Clean visual state"
+  (remove-hook 'pre-command-hook 'evilified-state--pre-command-hook 'local))
+
+(add-hook 'evil-evilified-state-entry-hook 'evilified-state--evilified-state-on-entry)
+(add-hook 'evil-evilified-state-exit-hook 'evilified-state--evilified-state-on-exit)
+
+(add-hook 'evil-visual-state-entry-hook 'evilified-state--visual-state-on-entry)
+(add-hook 'evil-visual-state-exit-hook 'evilified-state--visual-state-on-exit)
 
 ;; default key bindings for all evilified buffers
 (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
@@ -202,10 +241,10 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
      ((equal event 32) ?')   ; space
      ((equal event ?/) ?\\)
      ((equal event ?:) ?|)
-     ((and (<= ?a event) (<= event ?z)) (- event 32))
+     ((and (numberp event) (<= ?a event) (<= event ?z)) (- event 32))
      ((equal event ?G) (+ (expt 2 25) ?\a)) ; G is mapped directly to C-S-g
-     ((and (<= ?A event) (<= event ?Z)) (- event 64))
-     ((and (<= 1 event) (<= event 26)) (+ (expt 2 25) event)))))
+     ((and (numberp event) (<= ?A event) (<= event ?Z)) (- event 64))
+     ((and (numberp event) (<= 1 event) (<= event 26)) (+ (expt 2 25) event)))))
 
 (defun evilified-state--sort-keymap (map)
   "Sort MAP following the order: `s' > `S' > `C-s' > `C-S-s'"
