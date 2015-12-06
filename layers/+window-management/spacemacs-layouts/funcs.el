@@ -58,7 +58,10 @@ perspectives does."
                  '(("Create new perspective" .
                     (lambda (name)
                       (let ((persp-reset-windows-on-nil-window-conf t))
-                        (persp-switch name)))))))))
+                        (if (member name (persp-names-current-frame-fast-ordered))
+                            (persp-switch name)
+                          (persp-switch name)
+                          (spacemacs/home))))))))))
 
 ;; ability to use helm find files but also adds to current perspective
 (defun spacemacs/helm-persp-close ()

@@ -152,7 +152,8 @@
                    (concat "Perspective in this position doesn't exist.\n"
                            "Do you want to create one? "))
               (let ((persp-reset-windows-on-nil-window-conf t))
-                (persp-switch nil))))))
+                (persp-switch nil)
+                (spacemacs/home))))))
 
       ;; Define all `spacemacs/persp-switch-to-X' functions
       (dolist (i (number-sequence 9 0 -1))
