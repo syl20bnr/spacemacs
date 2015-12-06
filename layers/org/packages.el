@@ -127,8 +127,6 @@ Will work on both org-mode and any mode that accepts plain html."
         "f" 'org-set-effort
         "P" 'org-set-property
         ":" 'org-set-tags
-        "\\" 'org-toggle-pretty-entities
-
 
         "a" 'org-agenda
         "b" 'org-tree-to-indirect-buffer
@@ -141,6 +139,12 @@ Will work on both org-mode and any mode that accepts plain html."
         ;; headings
         "hi" 'org-insert-heading-after-current
         "hI" 'org-insert-heading
+
+        ;; More cycling options (timestamps, headlines, items, properties)
+        "L" 'org-shiftright
+        "H" 'org-shiftleft
+        "J" 'org-shiftdown
+        "K" 'org-shiftup
 
         ;; Change between TODO sets
         "C-S-l" 'org-shiftcontrolright

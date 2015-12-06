@@ -3,6 +3,7 @@
 ;; Copyright (C) 2012-2014 by Edward Tjörnhammar
 ;; Author: Edward Tjörnhammar
 ;; URL: https://github.com/edwtjo/evil-org-mode.git
+;; Package-Version: 20150513.1610
 ;; Git-Repository; git://github.com/edwtjo/evil-org-mode.git
 ;; Created: 2012-06-14
 ;; Version: 0.1.1
@@ -132,10 +133,8 @@ FUN function callback"
   "gl" 'outline-next-visible-heading
   "t" 'org-todo
   "T" '(lambda () (interactive) (evil-org-eol-call (lambda() (org-insert-todo-heading nil))))
-  "H" 'org-shiftleft
-  "J" 'org-shiftdown
-  "K" 'org-shiftup
-  "L" 'org-shiftright
+  "H" 'org-beginning-of-line
+  "L" 'org-end-of-line
   "o" '(lambda () (interactive) (evil-org-eol-call 'clever-insert-item))
   "O" '(lambda () (interactive) (evil-org-eol-call 'org-insert-heading))
   "$" 'org-end-of-line
