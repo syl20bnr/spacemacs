@@ -133,3 +133,12 @@ Cancels autosave on exiting perspectives mode."
     (when spacemacs--layouts-autosave-timer
       (cancel-timer spacemacs--layouts-autosave-timer)
       (setq spacemacs--layouts-autosave-timer nil))))
+
+;; Eyebrowse micro-state wrapper -------------------------------------------
+
+(defun spacemacs/layout-workspaces-micro-state ()
+  "Launches the workspaces micro state, if defined."
+  (interactive)
+  (if (fboundp 'spacemacs/workspaces-micro-state)
+      (call-interactively 'spacemacs/workspaces-micro-state)
+    (message "You need the eyebrowse layer to use this feature.")))

@@ -81,6 +81,7 @@
   [s]                  save all layouts
   [S]                  save layouts by names
   [t]                  show a buffer without adding it to current layout
+  [w]                  workspaces micro-state
   [x]                  kill layout and its buffers
   [X]                  kill other layout(s) and their buffers")
 
@@ -135,6 +136,7 @@
         ("s" persp-save-state-to-file :exit t)
         ("S" persp-save-to-file-by-names :exit t)
         ("t" persp-temporarily-display-buffer :exit t)
+        ("w" spacemacs/layout-workspaces-micro-state :exit t)
         ("x" spacemacs/layouts-ms-kill)
         ("X" spacemacs/layouts-ms-kill-other :exit t))
 

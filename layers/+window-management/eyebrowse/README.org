@@ -13,12 +13,12 @@
 * Description
 This layer adds [[https://i3wm.org/][i3wm]] like workspaces thanks to the [[https://github.com/wasamasa/eyebrowse][eyebrowse]] package.
 
-Once the layer is activated a new number is added to the right side of the
+Once the layer is activated a new number is added to the left side of the
 mode-line. This number corresponds to the currently active workspace number.
 
 At startup, the workspace number 1 is active. Switching to a workspace will
 create it if it does not exist. For instance at startup you can press
-~SPC W 2~ to create the workspace 2.
+~SPC l w 2~ to create the workspace 2.
 
 The key bindings are registered in a micro-state displayed in the minibuffer.
 The docstring of the micro-state displays the existing workspaces and the
@@ -50,23 +50,23 @@ Set the variable =eyebrowse-display-help= to =nil=
 
 * Key bindings
 
-| Key Binding                         | Description                        |
-|-------------------------------------+------------------------------------|
-| ~gt~                                | go to next workspace               |
-| ~gT~                                | got to previous workspace          |
-| ~SPC W 1~                           | create or switch to workspace 1    |
-| ~SPC W 2~                           | create or switch to workspace 2    |
-| ~SPC W 3~                           | create or switch to workspace 3    |
-| ~SPC W 4~                           | create or switch to workspace 4    |
-| ~SPC W 5~                           | create or switch to workspace 5    |
-| ~SPC W 6~                           | create or switch to workspace 6    |
-| ~SPC W 7~                           | create or switch to workspace 7    |
-| ~SPC W 8~                           | create or switch to workspace 8    |
-| ~SPC W 9~                           | create or switch to workspace 9    |
-| ~SPC W 0~                           | create or switch to workspace 0    |
-| ~SPC W TAB~                         | switch to last active workspace    |
-| ~SPC W c~                           | close current workspace            |
-| ~SPC W n~ or ~SPC W l~              | switch to next workspace           |
-| ~SPC W N~ or ~SPC W p~ or ~SPC W h~ | switch to previous workspace       |
-| ~SPC W r~                           | set a tag to the current workspace |
-| ~SPC W s~                           | switched to tagged workspace       |
+| Key Binding                               | Description                        |
+|-------------------------------------------+------------------------------------|
+| ~gt~                                      | go to next workspace               |
+| ~gT~                                      | got to previous workspace          |
+| ~SPC l w 1~                               | create or switch to workspace 1    |
+| ~SPC l w 2~                               | create or switch to workspace 2    |
+| ~SPC l w 3~                               | create or switch to workspace 3    |
+| ~SPC l w 4~                               | create or switch to workspace 4    |
+| ~SPC l w 5~                               | create or switch to workspace 5    |
+| ~SPC l w 6~                               | create or switch to workspace 6    |
+| ~SPC l w 7~                               | create or switch to workspace 7    |
+| ~SPC l w 8~                               | create or switch to workspace 8    |
+| ~SPC l w 9~                               | create or switch to workspace 9    |
+| ~SPC l w 0~                               | create or switch to workspace 0    |
+| ~SPC l w TAB~                             | switch to last active workspace    |
+| ~SPC l w c~                               | close current workspace            |
+| ~SPC l w n~ or ~SPC l w l~                | switch to next workspace           |
+| ~SPC l w N~ or ~SPC l w p~ or ~SPC l w h~ | switch to previous workspace       |
+| ~SPC l w r~                               | set a tag to the current workspace |
+| ~SPC l w w~                               | switched to tagged workspace       |
