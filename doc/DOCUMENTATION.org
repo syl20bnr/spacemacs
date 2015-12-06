@@ -2730,16 +2730,18 @@ file to =~/.spacemacs=
 | [[https://github.com/syl20bnr/spacemacs/commit/7b44a56263049482ed540ed6815a295633ffe9d1][First contributed banner]]        | [[https://github.com/chrisbarrett][chrisbarrett]] |
 
 ** Specials
-| Achievements                            | Account      |
-|-----------------------------------------+--------------|
-| The Gunner (made 18 PRs in a row)       | [[https://github.com/ralesi][ralesi]]       |
-| The Saint (unlocked the holy-mode)      | [[https://github.com/trishume][trishume]]     |
-| The Artist (made the spacemacs logo)    | [[https://github.com/nashamri][nashamri]]     |
-| The Meme Master (made the doge banner)  | [[https://github.com/chrisbarrett][chrisbarrett]] |
-| The Helm captain (see [[http://tuhdo.github.io/helm-intro.html][here]])             | [[https://github.com/tuhdo][tuhdo]]        |
-| The Master of the Keys (made [[https://github.com/justbur/emacs-which-key][which-key]]) | [[https://github.com/justbur][justbur]]      |
-| The PR Patrol Officer                   | [[https://github.com/robbyoconnor][robbyoconnor]] |
-| Expert in Latin Language ([[https://github.com/syl20bnr/spacemacs/pull/4043][PR]])           | [[https://github.com/vijaykiran][vijaykiran]]   |
+| Achievements                                    | Account      |
+|-------------------------------------------------+--------------|
+| The Gunner (18 PRs in a row)                    | [[https://github.com/ralesi][ralesi]]       |
+| The Saint (unlocked the holy-mode)              | [[https://github.com/trishume][trishume]]     |
+| The Artist ([[https://github.com/nashamri/spacemacs-logo][logo]] and [[https://github.com/nashamri/spacemacs-theme][theme]])                     | [[https://github.com/nashamri][nashamri]]     |
+| The Meme Master (doge banner)                   | [[https://github.com/chrisbarrett][chrisbarrett]] |
+| The Helm captain ([[http://tuhdo.github.io/helm-intro.html][helm guide]])                   | [[https://github.com/tuhdo][tuhdo]]        |
+| The Master of the Keys ([[https://github.com/justbur/emacs-which-key][which-key]] and [[https://github.com/justbur/emacs-bind-map][bind-map]]) | [[https://github.com/justbur][justbur]]      |
+| The PR Patrol Officer                           | [[https://github.com/robbyoconnor][robbyoconnor]] |
+| The Expert in Latin Language ([[https://github.com/syl20bnr/spacemacs/pull/4043][PR]])               | [[https://github.com/vijaykiran][vijaykiran]]   |
+| The Tiler ([[https://github.com/syl20bnr/spacemacs/pull/4068][eyebrowse integration]])               | [[https://github.com/bmag][bmag]]         |
+| The Geometer ([[https://github.com/TheBB/spaceline][spaceline]])                        | [[https://github.com/TheBB][TheBB]]        |
 
 * Thank you
 [[Using configuration layers][Jokes aside]], thank you Richard for this great piece of software.
