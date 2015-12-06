@@ -69,8 +69,13 @@ example:
      '((ruby :variables ruby-version-manager 'rvm)))
 #+END_SRC
 
-=Tip:= You can enable different version manager for different projects by using
-directory local variables.
+When a version manager is enabled it will use the currently activated ruby
+except if a =.ruby-version= file exists in which case the ruby version of
+this file is used.
+=rvm= will also try to look for a =.rvmrc= and =gemfile=, the priority order is
+=.rvmrc= then =.ruby-version= then =gemfile=.
+
+Note: Only one version manager at a time can be enabled.
 
 ** Test runner
 This layer supports both =RSpec= and =ruby-test= test runners (frameworks).
