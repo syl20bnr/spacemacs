@@ -19,16 +19,38 @@
         flycheck
         rbenv
         robe
-        ruby-test-mode
         rspec-mode
-        ruby-tools
         rubocop
+        ruby-test-mode
+        ruby-tools
         rvm
         ))
 
 (if ruby-enable-enh-ruby-mode
     (add-to-list 'ruby-packages 'enh-ruby-mode)
   (add-to-list 'ruby-packages 'ruby-mode))
+
+(defun ruby/init-bundler ()
+  (use-package bundler
+    :defer t
+    :init
+    (dolist (mode '(ruby-mode enh-ruby-mode))
+      (spacemacs/declare-prefix-for-mode mode "mb" "ruby/bundle")
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "bc" 'bundle-check
+        "bi" 'bundle-install
+        "bs" 'bundle-console
+        "bu" 'bundle-update
+        "bx" 'bundle-exec))))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun ruby/post-init-company ()
+    (spacemacs|add-company-hook ruby-mode)
+    (spacemacs|add-company-hook enh-ruby-mode)
+
+    (with-eval-after-load 'company-dabbrev-code
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (push mode company-dabbrev-code-modes)))))
 
 (defun ruby/init-chruby ()
   (use-package chruby
@@ -51,6 +73,32 @@
       (spacemacs/add-to-hooks 'spacemacs//enable-chruby
                               '(ruby-mode-hook enh-ruby-mode-hook)))))
 
+(defun ruby/init-enh-ruby-mode ()
+  "Initialize Ruby Mode"
+  (use-package enh-ruby-mode
+    :mode (("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . enh-ruby-mode)
+           ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))
+    :interpreter "ruby"
+    :config
+    (progn
+      (setq enh-ruby-deep-indent-paren nil
+            enh-ruby-hanging-paren-deep-indent-level 2)
+      (sp-with-modes 'enh-ruby-mode
+        (sp-local-pair
+         "{" "}"
+         :pre-handlers '(sp-ruby-pre-handler)
+         :post-handlers '(sp-ruby-post-handler
+                          (spacemacs/smartparens-pair-newline-and-indent "RET"))
+         :suffix "")))))
+
+(defun ruby/post-init-evil-matchit ()
+  (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+    (add-hook hook `turn-on-evil-matchit-mode)))
+
+(defun ruby/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'ruby-mode)
+  (spacemacs/add-flycheck-hook 'enh-ruby-mode))
+
 (defun ruby/init-rbenv ()
   (use-package rbenv
     :if (equal 'rbenv 'ruby-version-manager)
@@ -71,73 +119,6 @@
             (message "[rbenv] Using the currently activated ruby."))))
       (spacemacs/add-to-hooks 'spacemacs//enable-rbenv
                               '(ruby-mode-hook enh-ruby-mode-hook)))))
-
-(defun ruby/init-ruby-mode ()
-  (use-package ruby-mode
-    :defer t
-    :config
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
-        "'" 'ruby-toggle-string-quotes
-        "{" 'ruby-toggle-block)
-      (sp-with-modes 'ruby-mode
-        (sp-local-pair "{" "}"
-                       :pre-handlers '(sp-ruby-pre-handler)
-                       :post-handlers '(sp-ruby-post-handler (spacemacs/smartparens-pair-newline-and-indent "RET"))
-                       :suffix "")))))
-
-(defun ruby/init-enh-ruby-mode ()
-  "Initialize Ruby Mode"
-  (use-package enh-ruby-mode
-    :mode (("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . enh-ruby-mode)
-           ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))
-    :interpreter "ruby"
-    :config
-    (progn
-      (setq enh-ruby-deep-indent-paren nil
-            enh-ruby-hanging-paren-deep-indent-level 2)
-      (sp-with-modes 'enh-ruby-mode
-        (sp-local-pair "{" "}"
-                       :pre-handlers '(sp-ruby-pre-handler)
-                       :post-handlers '(sp-ruby-post-handler (spacemacs/smartparens-pair-newline-and-indent "RET"))
-                       :suffix "")))))
-
-(defun ruby/post-init-evil-matchit ()
-  (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
-    (add-hook hook `turn-on-evil-matchit-mode)))
-
-(defun ruby/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'ruby-mode)
-  (spacemacs/add-flycheck-hook 'enh-ruby-mode))
-
-(defun ruby/init-ruby-tools ()
-  (use-package ruby-tools
-    :defer t
-    :init
-    (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
-      (add-hook hook 'ruby-tools-mode))
-    :config
-    (progn
-      (spacemacs|hide-lighter ruby-tools-mode)
-      (dolist (mode '(ruby-mode enh-ruby-mode))
-        (spacemacs/declare-prefix-for-mode mode "mx" "ruby/text")
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "x\'" 'ruby-tools-to-single-quote-string
-          "x\"" 'ruby-tools-to-double-quote-string
-          "x:" 'ruby-tools-to-symbol)))))
-
-(defun ruby/init-bundler ()
-  (use-package bundler
-    :defer t
-    :init
-    (dolist (mode '(ruby-mode enh-ruby-mode))
-      (spacemacs/declare-prefix-for-mode mode "mb" "ruby/bundle")
-      (spacemacs/set-leader-keys-for-major-mode mode
-        "bc" 'bundle-check
-        "bi" 'bundle-install
-        "bs" 'bundle-console
-        "bu" 'bundle-update
-        "bx" 'bundle-exec))))
 
 (defun ruby/init-robe ()
   "Initialize Robe mode"
@@ -212,6 +193,36 @@
           "rrp" 'rubocop-check-project
           "rrP" 'rubocop-autocorrect-project)))))
 
+(defun ruby/init-ruby-mode ()
+  (use-package ruby-mode
+    :defer t
+    :config
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
+        "'" 'ruby-toggle-string-quotes
+        "{" 'ruby-toggle-block)
+      (sp-with-modes 'ruby-mode
+        (sp-local-pair "{" "}"
+                       :pre-handlers '(sp-ruby-pre-handler)
+                       :post-handlers '(sp-ruby-post-handler (spacemacs/smartparens-pair-newline-and-indent "RET"))
+                       :suffix "")))))
+
+(defun ruby/init-ruby-tools ()
+  (use-package ruby-tools
+    :defer t
+    :init
+    (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+      (add-hook hook 'ruby-tools-mode))
+    :config
+    (progn
+      (spacemacs|hide-lighter ruby-tools-mode)
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/declare-prefix-for-mode mode "mx" "ruby/text")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "x\'" 'ruby-tools-to-single-quote-string
+          "x\"" 'ruby-tools-to-double-quote-string
+          "x:" 'ruby-tools-to-symbol)))))
+
 (defun ruby/init-ruby-test-mode ()
   "Define keybindings for ruby test mode"
   (use-package ruby-test-mode)
@@ -242,12 +253,3 @@
       (setq rspec-use-rvm t)
       (spacemacs/add-to-hooks 'rvm-activate-corresponding-ruby
                               '(ruby-mode-hook enh-ruby-mode-hook)))))
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun ruby/post-init-company ()
-    (spacemacs|add-company-hook ruby-mode)
-    (spacemacs|add-company-hook enh-ruby-mode)
-
-    (with-eval-after-load 'company-dabbrev-code
-      (dolist (mode '(ruby-mode enh-ruby-mode))
-        (push mode company-dabbrev-code-modes)))))
