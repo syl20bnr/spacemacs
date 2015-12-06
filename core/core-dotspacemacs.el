@@ -59,6 +59,9 @@ or `spacemacs'.")
 possible. Set it to nil if you have no way to use HTTPS in your
 environment, otherwise it is strongly recommended to let it set to t.")
 
+(defvar dotspacemacs-elpa-timeout 5
+  "Maximum allowed time in seconds to contact an ELPA repository.")
+
 (defvar dotspacemacs-configuration-layer-path '()
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')")

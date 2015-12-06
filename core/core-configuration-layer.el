@@ -24,7 +24,7 @@
 (require 'core-funcs)
 (require 'core-spacemacs-buffer)
 
-(defconst configuration-layer--refresh-package-timeout 3
+(defconst configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout
   "Timeout in seconds to reach a package archive page.")
 
 (defconst configuration-layer-template-directory
