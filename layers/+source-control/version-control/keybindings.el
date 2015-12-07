@@ -19,7 +19,7 @@
   [t]          toggle diff signs in margin
 Hunk Commands
   [n]          move to next hunk
-  [N]          move to previous hunk
+  [N] [p]      move to previous hunk
   [r]          revert hunk
   [s]          stage hunk
   [h]          show hunk
@@ -35,7 +35,7 @@ Magit Commands
   [l]          log popup")
 
 (defvar version-control--ms-documentation-short
-  "[n] next [N] previous [r] revert [s] stage [h] show-hunk [w] stage-file [u] unstage-file [t] toggle margin [q] quit")
+  "[n] next [N] [p] previous [r] revert [s] stage [h] show-hunk [w] stage-file [u] unstage-file [t] toggle margin [q] quit")
 
 (defun version-control//ms-doc ()
   "Return the docstring for the layouts micro-state."
