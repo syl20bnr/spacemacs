@@ -82,10 +82,17 @@
 (defun python/init-pyenv-mode ()
   (use-package pyenv-mode
     :defer t
-    :init (progn
-            (spacemacs/set-leader-keys-for-major-mode 'python-mode
-              "vs" 'pyenv-mode-set
-              "vu" 'pyenv-mode-unset))))
+    :commands (pyenv-mode-versions)
+    :init
+    (progn
+      (pcase python-auto-set-local-pyenv-version
+       (`on-visit
+        (add-hook 'python-mode-hook 'pyenv-mode-set-local-version))
+       (`on-project-switch
+        (add-hook 'projectile-after-switch-project-hook 'pyenv-mode-set-local-version)))
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "vs" 'pyenv-mode-set
+        "vu" 'pyenv-mode-unset))))
 
 (defun python/init-pyvenv ()
   (use-package pyvenv
