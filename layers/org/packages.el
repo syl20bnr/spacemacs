@@ -120,6 +120,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "mT" 'org-show-todo-tree
 
         "m." 'org-time-stamp
+        "m!" 'org-time-stamp-inactive
 
         ;; headings
         "mhi" 'org-insert-heading-after-current
