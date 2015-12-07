@@ -135,6 +135,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "T" 'org-show-todo-tree
 
         "." 'org-time-stamp
+        "!" 'org-time-stamp-inactive
 
         ;; headings
         "hi" 'org-insert-heading-after-current
