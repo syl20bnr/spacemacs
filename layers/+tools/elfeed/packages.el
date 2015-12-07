@@ -12,8 +12,7 @@
 
 (setq elfeed-packages
       '(elfeed
-        (elfeed-goodies :location (recipe :fetcher github
-                                          :repo "algernon/elfeed-goodies"))
+        elfeed-goodies
         elfeed-org
         elfeed-web
         ))
