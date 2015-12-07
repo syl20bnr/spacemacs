@@ -418,7 +418,7 @@ contribution guidelines in [[./CONTRIBUTE.org][CONTRIBUTE.org]].
 
 ** Example: Themes Megapack example
 This is a simple =contrib= configuration layer listing a bunch of themes, you
-can find it [[../contrib/themes-megapack][here]].
+can find it [[../layers/themes-megapack][here]].
 
 To install it, just add =themes-megapack= to your =~/.spacemacs= like so:
 
