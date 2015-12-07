@@ -43,3 +43,15 @@
                                (shell-quote-argument (buffer-file-name))))
         (revert-buffer t t t))
     (message "Error: Cannot find autoflake executable.")))
+
+(defun pyenv-mode-set-local-version ()
+  "Set pyenv version from \".python-version\" by looking in parent directories."
+  (interactive)
+  (-when-let (root-path (locate-dominating-file default-directory ".python-version"))
+    (let* ((file-path (expand-file-name ".python-version" root-path))
+           (version (with-temp-buffer
+                      (insert-file-contents-literally file-path)
+                      (current-word))))
+      (if (member version (pyenv-mode-versions))
+          (pyenv-mode-set version)
+        (message "pyenv: version `%s' is not installed (set by %s)" version file-path)))))
