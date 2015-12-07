@@ -71,6 +71,7 @@
   [b]                  select a buffer of the current layout
   [c]                  close layout (buffers are not closed)
   [C]                  close other layout(s) (buffers are not closed)
+  [h]                  go to default layout
   [l]                  jump to a layout
   [L]                  load saved layouts
   [n] or [C-l]         next layout
@@ -125,6 +126,7 @@
         ("b" spacemacs/persp-helm-mini :exit t)
         ("c" spacemacs/layouts-ms-close)
         ("C" spacemacs/layouts-ms-close-other :exit t)
+        ("h" spacemacs/layout-goto-default :exit t)
         ("l" spacemacs/helm-perspectives :exit t)
         ("L" persp-load-state-from-file :exit t)
         ("n" persp-next)
@@ -155,10 +157,16 @@
       ;; Define all `spacemacs/persp-switch-to-X' functions
       (dolist (i (number-sequence 9 0 -1))
         (eval `(defun ,(intern (format "spacemacs/persp-switch-to-%s" i)) nil
-                   ,(format "Switch to layout %s." i)
+                 ,(format "Switch to layout %s." i)
                  (interactive)
                  (spacemacs/layout-switch-by-pos ,(if (eq 0 i) 9 (1- i)))
                  (spacemacs/layouts-micro-state))))
+
+      (defun spacemacs/layout-goto-default ()
+        "Go to `dotspacemacs-default-layout-name` layout"
+        (interactive)
+        (when dotspacemacs-default-layout-name
+          (persp-switch dotspacemacs-default-layout-name)))
 
       (defun spacemacs/layouts-ms-rename ()
         "Rename a layout and get back to the perspectives micro-state."

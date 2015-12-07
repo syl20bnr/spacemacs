@@ -45,6 +45,7 @@ The layouts micro-state is initiated with ~SPC l~.
 | ~b~         | select a buffer in the current layout                      |
 | ~c~         | close the current layout and keep its buffers              |
 | ~C~         | close the other layouts and keep their buffers             |
+| ~h~         | go to default layout                                       |
 | ~C-h~       | previous layout in list                                    |
 | ~l~         | select a layout with helm                                  |
 | ~L~         | load layouts from file                                     |
