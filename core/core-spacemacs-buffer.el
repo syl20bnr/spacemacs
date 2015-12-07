@@ -54,6 +54,11 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
           (setq spacemacs-buffer--release-note-version spacemacs-version)
           (spacemacs/dump-vars-to-file
            '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file)))
+      ;; if there is no installed dotfile we assume the user is
+      ;; new to spacemacs and open the quickhelp
+      (when (not (file-exists-p dotspacemacs-filepath))
+        (spacemacs-buffer/toggle-note (concat spacemacs-info-directory "quickhelp.txt")
+                                      (spacemacs-buffer//insert-note-p 'quickhelp)))
       ;; if there is an installed dotfile we check the variable
       ;; spacemacs-buffer--release-note-version to decide whether
       ;; we show the release note
