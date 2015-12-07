@@ -11,6 +11,7 @@
    - [[Test runner][Test runner]]
    - [[Anaconda dependencies][Anaconda dependencies]]
    - [[Automatic buffer formatting on save][Automatic buffer formatting on save]]
+   - [[Automatic activation of local pyenv version][Automatic activation of local pyenv version]]
    - [[autoflake][autoflake]]
    - [[pylookup][pylookup]]
  - [[Key Bindings][Key Bindings]]
@@ -85,6 +86,17 @@ To enable automatic buffer formatting on save with  [[https://github.com/google/
   (setq-default dotspacemacs-configuration-layers '(
     (python :variables python-enable-yapf-format-on-save t)))
 #+END_SRC
+
+** Automatic activation of local pyenv version
+A project-specific pyenv version may be written to a file called
+=.python-version= using the [[https://github.com/yyuu/pyenv/blob/master/COMMANDS.md#pyenv-local][pyenv local]] command.
+
+Spacemacs can search in parent directories for this file, and automatically set
+the pyenv version. The behavior can be set with the variable
+=python-auto-set-local-pyenv-version= to:
+- =on-visit= (default) set the version when you visit a python buffer,
+- =on-project-switch= set the version when you switch projects,
+- =nil= to disable.
 
 ** autoflake
 To be able to suppress unused imports easily, install [[https://github.com/myint/autoflake][autoflake]]:
