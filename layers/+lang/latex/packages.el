@@ -49,6 +49,7 @@
     (progn
       ;; Key bindings for plain TeX
       (spacemacs/set-leader-keys-for-major-mode 'tex-mode
+<<<<<<< HEAD
         "cc" 'latex/build
         "c:" 'TeX-command-master
         "cr" 'TeX-command-region
@@ -59,6 +60,7 @@
         "do" 'TeX-recenter-output-buffer
         "dn" 'TeX-next-error
         "dN" 'TeX-previous-error
+<<<<<<< HEAD
         "gh" 'TeX-home-buffer
         ;; TeX-doc is a very slow function
         "hd" 'TeX-doc
@@ -79,6 +81,7 @@
 
       ;; Key bindings for LaTeX
       (spacemacs/set-leader-keys-for-major-mode 'latex-mode
+<<<<<<< HEAD
           "%" 'TeX-comment-or-uncomment-paragraph
           ";" 'TeX-comment-or-uncomment-region
           "a" 'TeX-master-file-ask
