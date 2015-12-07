@@ -658,8 +658,8 @@ Removes the automatic guessing of the initial value based on thing at point. "
         "ry"   'helm-show-kill-ring
         "rr"   'helm-register
         "rm"   'helm-all-mark-rings
-        "sL"   'spacemacs/last-search-buffer
-        "sl"   'spacemacs/jump-in-buffer)
+        "sl"   'spacemacs/last-search-buffer
+        "sL"   'spacemacs/jump-in-buffer)
 
       ;; search with grep
       (spacemacs/set-leader-keys

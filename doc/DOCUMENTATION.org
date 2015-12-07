@@ -1933,7 +1933,7 @@ called =pt=.
 | ~SPC h l~       | resume the last =helm= buffer                                            |
 | ~F3~            | in a =helm= buffer, convert a =helm= search buffer into a regular buffer |
 | ~SPC s `~       | go back to the previous place reached with =helm-ag=                     |
-| ~SPC s L~       | focus the last converted search buffer                                   |
+| ~SPC s l~       | focus the last converted search buffer                                   |
 | Prefix argument | will ask for file extensions                                             |
 
 **** Searching in current file
@@ -2070,7 +2070,7 @@ auto-highlight-symbol and its micro-state.
 Use =helm-semantic-or-imenu= command from =Helm= to quickly navigate between the
 symbols in a buffer.
 
-To list all the symbols of a buffer press: ~SPC s l~
+To list all the symbols of a buffer press: ~SPC s L~
 
 *** Helm-swoop
 This is very similar to =moccur=, it displays a =helm= buffer with all the
