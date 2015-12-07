@@ -1,42 +1,35 @@
 #+TITLE: Version-Control layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[Description][Description]]
-   - [[Features:][Features:]]
+   - [[Features][Features]]
  - [[Install][Install]]
    - [[Layer][Layer]]
  - [[Configuration][Configuration]]
-   - [[Differences between margin programs:][Differences between margin programs:]]
+   - [[Differences between margin programs][Differences between margin programs]]
  - [[Key Bindings][Key Bindings]]
    - [[Version Control Micro-state][Version Control Micro-state]]
 
 * Description
-
 This layers adds general configuration for [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html][Emacs VC]].
 It should work with all VC backends such as Git, Mercurial, Bazaar, SVN, etc...
 
-** Features:
+** Features
 - highlights uncommitted changes in the fringe or margin with [[https://github.com/dgutov/diff-hl][diff-hl]],
 git-gutter, or git-gutter+
 - adds vcs micro-state ~SPC g.~ to allow quick navigation and modification of
 buffer hunks.
 
-
 * Install
-
 ** Layer
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(version-control))
 #+END_SRC
 
-
 * Configuration
-
 You can choose the package to facilitate the diff micro-state and show margins
 by setting =version-control-diff-tool=
 
@@ -53,8 +46,7 @@ To automatically enable diff margins in all buffers, set
                   version-control-global-margin t)
 #+END_SRC
 
-** Differences between margin programs:
-
+** Differences between margin programs
 This layer contains generalized mappings for three diff margin packages:
 diff-hl, git-gutter, and git-gutter+.
 
@@ -84,6 +76,7 @@ one over the other:
 | ~SPC g . h~ | Show diff of hunk            |
 | ~SPC g . n~ | Next hunk                    |
 | ~SPC g . N~ | Previous hunk                |
+| ~SPC g . p~ | Previous hunk                |
 | ~SPC g . r~ | Revert hunk                  |
 | ~SPC g . s~ | Stage hunk                   |
 | ~SPC g . t~ | Toggle margin indicators     |
