@@ -9,7 +9,6 @@
    - [[Features:][Features:]]
  - [[Install][Install]]
    - [[Layer][Layer]]
-     - [[Recommended Settings][Recommended Settings]]
    - [[Magit status fullscreen][Magit status fullscreen]]
    - [[Magit auto-complete][Magit auto-complete]]
    - [[Magit SVN plugin][Magit SVN plugin]]
@@ -44,19 +43,6 @@ To use this contribution add it to your =~/.spacemacs=
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(git))
 #+END_SRC
-
-*** Recommended Settings
-Read the documentation for the =magit-push-always-verify= variable, then you may
-wish to set it to =nil= in your =dotspacemacs/user-config= function.
-
-#+BEGIN_SRC emacs-lisp
-(defun dotspacemacs/user-config ()
-  (setq magit-push-always-verify nil))
-#+END_SRC
-
-The =nag= default is to prevent surprising behavior for newcomers, but causes
-the ~PP~, ~Po~, ~Pe~ (and more) push commands to nag you in the same way. Once
-you understand what they do, it is better simply to give the command you intend.
 
 ** Magit status fullscreen
 To display the =magit status= buffer in fullscreen set the variable
