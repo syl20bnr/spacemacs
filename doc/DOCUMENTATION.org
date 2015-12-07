@@ -2070,7 +2070,7 @@ auto-highlight-symbol and its micro-state.
 Use =helm-semantic-or-imenu= command from =Helm= to quickly navigate between the
 symbols in a buffer.
 
-To list all the symbols of a buffer press: ~SPC s L~
+To list all the symbols of a buffer press: ~SPC s j~
 
 *** Helm-swoop
 This is very similar to =moccur=, it displays a =helm= buffer with all the
