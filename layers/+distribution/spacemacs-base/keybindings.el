@@ -172,6 +172,7 @@ Ensure that helm is required before calling FUNC."
 ;; Compilation ----------------------------------------------------------------
 (spacemacs/set-leader-keys
   "cC" 'compile
+  "ck" 'kill-compilation
   "cr" 'recompile
   "cq" 'spacemacs/close-compilation-window)
 

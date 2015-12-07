@@ -2590,6 +2590,7 @@ Spacemacs binds a few commands to support compiling a project.
    |-------------+--------------------------------|
    | ~SPC c c~   | use =helm-make= via projectile |
    | ~SPC c C~   | compile                        |
+   | ~SPC c k~   | kill compilation               |
    | ~SPC c m~   | =helm-make=                    |
    | ~SPC c r~   | recompile                      |
    | ~SPC c q~   | close compilation window       |
