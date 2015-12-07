@@ -1,0 +1,41 @@
+#+TITLE: common-tweaks layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Tweaks][Tweaks]]
+   - [[ct-neotree-close-on-open][ct-neotree-close-on-open]]
+   - [[ct-neotree-collapse-on-parent][ct-neotree-collapse-on-parent]]
+
+* Description
+This layer allows to easily enable some common Spacemacs tweaks.
+
+* Install
+To use this contribution add it to your =~/.spacemacs=:
+
+#+begin_src emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(common-tweaks))
+#+end_src
+
+This layer has no effect until some tweaks are enable through variables:
+
+#+begin_src emacs-lisp
+(setq-default dotspacemacs-configuration-layers '((common-tweaks
+                                                     :variables
+                                                     ct-neotree-close-on-open t
+                                                     ct-neotree-collapse-on-parent t
+                                                     ...
+                                                     )))
+#+end_src
+
+* Tweaks
+
+The following tweaks are available:
+
+** ct-neotree-close-on-open
+With this tweak, the neotree window is closed when a file is opened from it.
+
+** ct-neotree-collapse-on-parent
+With this tweak, the tree's hierarchy is collapsed when going on the parent's
+node.
