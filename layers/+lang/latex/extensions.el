@@ -20,6 +20,7 @@
 
   (spacemacs/set-leader-keys-for-major-mode 'latex-mode
     "rc"    'reftex-citation
+    "rd"    'reftex-query-replace-document
     "rg"    'reftex-grep-document
     "ri"    'reftex-index-selection-or-word
     "rI"    'reftex-display-index

@@ -49,21 +49,20 @@
     (progn
       ;; Key bindings for plain TeX
       (spacemacs/set-leader-keys-for-major-mode 'tex-mode
-        "b" 'latex/build
         "cc" 'latex/build
-        "cC" 'TeX-clean
-        "ch" 'TeX-home-buffer
         "c:" 'TeX-command-master
-        "c:r" 'TeX-command-region
-        "c:b" 'TeX-command-buffer
+        "cr" 'TeX-command-region
+        "cb" 'TeX-command-buffer
+        "dc" 'TeX-clean
         "de" 'TeX-error-overview
         "dk" 'TeX-kill-job
         "do" 'TeX-recenter-output-buffer
         "dn" 'TeX-next-error
         "dN" 'TeX-previous-error
+        "gh" 'TeX-home-buffer
         ;; TeX-doc is a very slow function
         "hd" 'TeX-doc
-        "i\\" 'TeX-insert-macro
+        "im" 'TeX-insert-macro
         "v" 'TeX-view
 
         "xb" 'latex/font-bold
@@ -80,47 +79,67 @@
 
       ;; Key bindings for LaTeX
       (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-        "b" 'latex/build
-        "cc" 'latex/build
-        "cC" 'TeX-clean
-        "ch" 'TeX-home-buffer
-        "c:" 'TeX-command-master
-        "c:r" 'TeX-command-region
-        "c:b" 'TeX-command-buffer
-        "de" 'TeX-error-overview
-        "dk" 'TeX-kill-job
-        "do" 'TeX-recenter-output-buffer
-        "dn" 'TeX-next-error
-        "dN" 'TeX-previous-error
-        ;; TeX-doc is a very slow function
-        "hd" 'TeX-doc
-        "ii" 'LaTeX-insert-item
-        "ie" 'LaTeX-environment
-        "iE" 'LaTeX-close-environment
-        "i\\" 'TeX-insert-macro
-        "pb" 'preview-buffer
-        "pc" 'preview-clearout
-        "pd" 'preview-document
-        "pe" 'preview-environment
-        "pf" 'preview-cache-preamble
-        "pp" 'preview-at-point
-        "pr" 'preview-region
-        "ps" 'preview-section
-        "v" 'TeX-view
+          "%" 'TeX-comment-or-uncomment-paragraph
+          ";" 'TeX-comment-or-uncomment-region
+          "a" 'TeX-master-file-ask
+          "b" 'bq-latex/build
+          "cc" 'bq-latex/build
+          "c:" 'TeX-command-master
+          "cb" 'TeX-command-buffer
+          "cr" 'TeX-command-region
+          "cs:" 'Tex-command-select-master
+          "csb" 'TeX-command-select-buffer
+          "csp" 'TeX-pin-region
+          "csr" 'TeX-command-select-region
+          "cv" 'TeX-command-run-all
+          "dc" 'TeX-clean
+          "de" 'TeX-error-overview
+          "dk" 'TeX-kill-job
+          "do" 'TeX-recenter-output-buffer
+          "dn" 'TeX-next-error
+          "dN" 'TeX-previous-error
+          "dr" 'TeX-normal-mode
+          "gh" 'TeX-home-buffer
+          ;; TeX-doc is a very slow function
+          "ha" 'TeX-goto-info-page
+          "hd" 'TeX-doc
+          "hp" 'preview-goto-info-page
+          "ie" 'LaTeX-environment
+          "iE" 'LaTeX-close-environment
+          "ii" 'LaTeX-insert-item
+          "im" 'TeX-insert-macro
+          "ms" 'LaTeX-mark-section
+          "me" 'LaTeX-mark-environment
+          "pb" 'preview-buffer
+          "pcb" 'preview-clearout-buffer
+          "pcd" 'preview-clearout-document
+          "pcp" 'preview-clearout-at-point
+          "pcr" 'preview-clearout ;;region
+          "pcs" 'preview-clearout-section
+          "pd" 'preview-document
+          "pe" 'preview-environment
+          "pf" 'preview-cache-preamble
+          "pF" 'preview-cache-preamble-off
+          "pp" 'preview-at-point
+          "pr" 'preview-region
+          "ps" 'preview-section
+          "s" 'TeX-save-document ;; all buffers known to the current document
+          "t$" 'LaTeX-math-mode ;; toggle
+          "v" 'TeX-view
 
-        "xb" 'latex/font-bold
-        "xB" 'latex/font-medium
-        "xc" 'latex/font-code
-        "xe" 'latex/font-emphasis
-        "xi" 'latex/font-italic
-        "xo" 'latex/font-oblique
-        "xr" 'latex/font-clear
-        "xfa" 'latex/font-calligraphic
-        "xfc" 'latex/font-small-caps
-        "xff" 'latex/font-sans-serif
-        "xfn" 'latex/font-normal
-        "xfr" 'latex/font-serif
-        "xfu" 'latex/font-upright)
+          "xb" 'latex/font-bold
+          "xB" 'latex/font-medium
+          "xc" 'latex/font-code
+          "xe" 'latex/font-emphasis
+          "xi" 'latex/font-italic
+          "xo" 'latex/font-oblique
+          "xr" 'latex/font-clear
+          "xfa" 'latex/font-calligraphic
+          "xfc" 'latex/font-small-caps
+          "xff" 'latex/font-sans-serif
+          "xfn" 'latex/font-normal
+          "xfr" 'latex/font-serif
+          "xfu" 'latex/font-upright)
       (spacemacs/declare-prefix-for-mode 'latex-mode "mx" "latex/text")
       (spacemacs/declare-prefix-for-mode 'latex-mode "mx" "latex/fonts"))))
 
