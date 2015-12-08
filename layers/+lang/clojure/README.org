@@ -92,9 +92,9 @@ Or set this variable when loading the configuration layer:
   
 #+BEGIN_SRC clojure
   {:repl {:plugins [[cider/cider-nrepl "0.10.0-SNAPSHOT"]
-                    [refactor-nrepl "1.2.0-SNAPSHOT"]]
+                    [refactor-nrepl "2.0.0-SNAPSHOT"]]
           :dependencies [[alembic "0.3.2"]
-                         [org.clojure/tools.nrepl "0.2.10"]]}}
+                         [org.clojure/tools.nrepl "0.2.12"]]}}
 #+END_SRC
 
 - After creating your project with ~lein new app <projectname>~ or
