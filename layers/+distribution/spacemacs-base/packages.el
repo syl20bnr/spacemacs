@@ -71,9 +71,9 @@
     (bind-map spacemacs-default-map
       :prefix-cmd spacemacs-cmds
       :keys (dotspacemacs-emacs-leader-key)
-      :override-minor-modes t ; only applies to :keys
       :evil-keys (dotspacemacs-leader-key)
-      :evil-use-local t)))
+      :override-minor-modes t
+      :override-mode-name spacemacs-leader-override-mode)))
 
 (defun spacemacs-base/init-bookmark ()
   (use-package bookmark
