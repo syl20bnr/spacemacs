@@ -10,5 +10,4 @@
 ;;
 ;;; License: GPLv3
 
-
-;; Nothing here yet
+(spacemacs|defvar-company-backends purescript-mode)
