@@ -2669,7 +2669,6 @@ You have to manually copy the =~/.emacs.d/core/templates/.spacemacs.template=
 file to =~/.spacemacs=
 
 * Achievements
-
 ** Issues
 | Achievements              | Account      |
 |---------------------------+--------------|
@@ -2684,17 +2683,21 @@ file to =~/.spacemacs=
 | [[https://github.com/syl20bnr/spacemacs/pull/900][900th issue (PR)]]          | [[https://github.com/jcpetkovich][jcpetkovich]]  |
 | [[https://github.com/syl20bnr/spacemacs/pull/1000][1000th issue (PR)]]         | [[https://github.com/tuhdo][tuhdo]]        |
 | [[https://github.com/syl20bnr/spacemacs/pull/2000][2000th issue (PR)]]         | [[https://github.com/IvanMalison][IvanMalison]]  |
+| [[https://github.com/syl20bnr/spacemacs/pull/3000][3000th issue (issue)]]      | [[https://github.com/malchmih][malchmih]]     |
+| [[https://github.com/syl20bnr/spacemacs/pull/4000][4000th issue (issue)]]      | [[https://github.com/icymist][icymist]]      |
+
 
 ** Merged Pull Requests
-| Achievements        | Account    |
-|---------------------+------------|
-| [[https://github.com/syl20bnr/spacemacs/pull/228][100th pull request]]  | [[https://github.com/bru][bru]]        |
-| [[https://github.com/syl20bnr/spacemacs/pull/418][200th pull request]]  | [[https://github.com/smt][smt]]        |
-| [[https://github.com/syl20bnr/spacemacs/pull/617][300th pull request]]  | [[https://github.com/BrianHicks][BrianHicks]] |
-| [[https://github.com/syl20bnr/spacemacs/pull/806][400th pull request]]  | [[https://github.com/cpaulik][cpaulik]]    |
-| [[https://github.com/syl20bnr/spacemacs/pull/993][500th pull request]]  | [[https://github.com/tuhdo][tuhdo]]      |
-| [[https://github.com/syl20bnr/spacemacs/pull/1205][600th pull request]]  | [[https://github.com/trishume][trishume]]   |
-| [[https://github.com/syl20bnr/spacemacs/pull/1995][1000th pull request]] | [[https://github.com/justbur][justbur]]    |
+| Achievements        | Account        |
+|---------------------+----------------|
+| [[https://github.com/syl20bnr/spacemacs/pull/228][100th pull request]]  | [[https://github.com/bru][bru]]            |
+| [[https://github.com/syl20bnr/spacemacs/pull/418][200th pull request]]  | [[https://github.com/smt][smt]]            |
+| [[https://github.com/syl20bnr/spacemacs/pull/617][300th pull request]]  | [[https://github.com/BrianHicks][BrianHicks]]     |
+| [[https://github.com/syl20bnr/spacemacs/pull/806][400th pull request]]  | [[https://github.com/cpaulik][cpaulik]]        |
+| [[https://github.com/syl20bnr/spacemacs/pull/993][500th pull request]]  | [[https://github.com/tuhdo][tuhdo]]          |
+| [[https://github.com/syl20bnr/spacemacs/pull/1205][600th pull request]]  | [[https://github.com/trishume][trishume]]       |
+| [[https://github.com/syl20bnr/spacemacs/pull/1995][1000th pull request]] | [[https://github.com/justbur][justbur]]        |
+| [[https://github.com/syl20bnr/spacemacs/pull/4089][2000th pull request]] | [[https://github.com/channingwalton][channingwalton]] |
 
 ** Stars, forks and watchers
 | Achievements    | Account         |
