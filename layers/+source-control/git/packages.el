@@ -159,7 +159,10 @@
       ;; (define-key magit-mode-map (kbd "<tab>") 'magit-section-toggle)
       (unless (configuration-layer/package-usedp 'evil-magit)
         ;; use auto evilification if `evil-magit' is not used
-        (evilified-state-evilify-map magit-mode-map)
+        (evilified-state-evilify-map magit-mode-map
+          :bindings
+          "gr" 'magit-refresh
+          "gR" 'magit-refresh-all)
         (evilified-state-evilify-map magit-status-mode-map
           :mode magit-status-mode
           :bindings
@@ -259,46 +262,90 @@
         (dolist (mode '(magit-popup-mode
                         magit-popup-sequence-mode))
           (add-to-list 'evil-emacs-state-modes mode))
-        (let ((delete-key (nth 0 (where-is-internal 'magit-delete-thing
+        (let ((refresh-key "gr")
+              (refresh-all-key "gR")
+              (delete-key (nth 0 (where-is-internal 'magit-delete-thing
                                                     magit-mode-map))))
           (evilified-state--configure-default-state 'magit-revision-mode)
           ;; section maps
           (eval `(evilified-state-evilify-map magit-tag-section-map
-            :pre-bindings
-            ,delete-key 'magit-tag-delete))
+                   :pre-bindings
+                   ,delete-key 'magit-tag-delete
+                   :bindings
+                   ,refresh-key 'magit-refresh
+                   ,refresh-all-key 'magit-refresh-all))
           (eval `(evilified-state-evilify-map magit-untracked-section-map
-            :pre-bindings
-            ,delete-key 'magit-discard))
+                   :pre-bindings
+                   ,delete-key 'magit-discard
+                   :bindings
+                   ,refresh-key 'magit-refresh
+                   ,refresh-all-key 'magit-refresh-all))
           (eval `(evilified-state-evilify-map magit-branch-section-map
-            :pre-bindings
-            ,delete-key 'magit-branch-delete))
+                   :pre-bindings
+                   ,delete-key 'magit-branch-delete
+                   :bindings
+                   ,refresh-key 'magit-refresh
+                   ,refresh-all-key 'magit-refresh-all))
           (eval `(evilified-state-evilify-map magit-remote-section-map
-            :pre-bindings
-            ,delete-key 'magit-remote-remove))
+                   :pre-bindings
+                   ,delete-key 'magit-remote-remove
+                   :bindings
+                   ,refresh-key 'magit-refresh
+                   ,refresh-all-key 'magit-refresh-all))
           (eval `(evilified-state-evilify-map magit-file-section-map
-            :pre-bindings
-            ,delete-key 'magit-discard))
+                   :pre-bindings
+                   ,delete-key 'magit-discard
+                   :bindings
+                   ,refresh-key 'magit-refresh
+                   ,refresh-all-key 'magit-refresh-all))
           (eval `(evilified-state-evilify-map magit-hunk-section-map
-            :pre-bindings
-            ,delete-key 'magit-discard))
+                   :pre-bindings
+                   ,delete-key 'magit-discard
+                   :bindings
+                   ,refresh-key 'magit-refresh
+                   ,refresh-all-key 'magit-refresh-all))
           (eval `(evilified-state-evilify-map magit-unstaged-section-map
-            :pre-bindings
-            ,delete-key 'magit-discard))
+                   :pre-bindings
+                   ,delete-key 'magit-discard
+                   :bindings
+                   ,refresh-key 'magit-refresh
+                   ,refresh-all-key 'magit-refresh-all))
           (eval `(evilified-state-evilify-map magit-staged-section-map
-            :pre-bindings
-            ,delete-key 'magit-discard))
+                   :pre-bindings
+                   ,delete-key 'magit-discard
+                   :bindings
+                   ,refresh-key 'magit-refresh
+                   ,refresh-all-key 'magit-refresh-all))
           (eval `(evilified-state-evilify-map magit-commit-section-map
-            :pre-bindings
-            ,delete-key 'magit-discard))
+                   :pre-bindings
+                   ,delete-key 'magit-discard
+                   :bindings
+                   ,refresh-key 'magit-refresh
+                   ,refresh-all-key 'magit-refresh-all))
           (eval `(evilified-state-evilify-map magit-stashes-section-map
-            :pre-bindings
-            ,delete-key 'magit-stash-clear))
+                   :pre-bindings
+                   ,delete-key 'magit-stash-clear
+                   :bindings
+                   ,refresh-key 'magit-refresh
+                   ,refresh-all-key 'magit-refresh-all))
           (eval `(evilified-state-evilify-map magit-stash-section-map
-            :pre-bindings
-            ,delete-key 'magit-stash-drop))
-          (evilified-state-evilify-map magit-module-commit-section-map)
-          (evilified-state-evilify-map magit-unpulled-section-map)
-          (evilified-state-evilify-map magit-unpushed-section-map)))
+                   :pre-bindings
+                   ,delete-key 'magit-stash-drop
+                   :bindings
+                   ,refresh-key 'magit-refresh
+                   ,refresh-all-key 'magit-refresh-all))
+          (eval `(evilified-state-evilify-map magit-module-commit-section-map
+                   :bindings
+                   ,refresh-key 'magit-refresh
+                   ,refresh-all-key 'magit-refresh-all))
+          (eval `(evilified-state-evilify-map magit-unpulled-section-map
+                   :bindings
+                   ,refresh-key 'magit-refresh
+                   ,refresh-all-key 'magit-refresh-all))
+          (eval `(evilified-state-evilify-map magit-unpushed-section-map
+                   :bindings
+                   ,refresh-key 'magit-refresh
+                   ,refresh-all-key 'magit-refresh-all))))
 
       ;; full screen magit-status
       (when git-magit-status-fullscreen
