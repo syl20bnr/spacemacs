@@ -37,7 +37,10 @@
       (evilified-state-evilify-map elfeed-show-mode-map
         :mode elfeed-show-mode
         :eval-after-load elfeed-show
-        :bindings "q" 'quit-window))))
+        :bindings
+        "q" 'quit-window
+        (kbd "C-j") 'elfeed-show-next
+        (kbd "C-k") 'elfeed-show-prev))))
 
 (defun elfeed/init-elfeed-goodies ()
   (use-package elfeed-goodies

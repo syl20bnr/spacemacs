@@ -110,6 +110,14 @@ Use =SPC ?= to discover major-mode key bindings.
 | ~w~         | start web server                       |
 | ~W~         | stop web server                        |
 
+In =elfeed-show= mode, you can use the following bindings:
+
+| Key Binding | Description      |
+|-------------+------------------|
+| ~q~         | quit show window |
+| ~C-j~       | Next entry       |
+| ~C-k~       | Previous entry   |
+
 * Troubleshooting
 ** Database empty at first start
 Be sure that you added some feeds first then load your feeds with ~gr~
