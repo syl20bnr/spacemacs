@@ -962,11 +962,8 @@ ARG non nil means that the editing style is `vim'."
 
 (defun spacemacs-base/init-hl-todo ()
   (use-package hl-todo
-    :commands (hl-todo-mode)
-    :init
-    (progn
-      (setq hl-todo-activate-in-modes '(prog-mode))
-      (global-hl-todo-mode))))
+    :defer t
+    :init (add-hook 'prog-mode-hook 'hl-todo-mode)))
 
 (defun spacemacs-base/init-hs-minor-mode ()
   ;; required for evil folding
