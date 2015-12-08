@@ -13,7 +13,6 @@
 (defconst emacs-start-time (current-time))
 
 (require 'subr-x nil 'noerror)
-(require 'core-configuration-layer)
 (require 'core-dotspacemacs)
 (require 'core-emacs-backports)
 (require 'core-release-management)
