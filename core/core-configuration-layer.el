@@ -19,7 +19,6 @@
 (require 'package)
 (require 'warnings)
 (require 'ht)
-(require 'request)
 (require 'core-dotspacemacs)
 (require 'core-funcs)
 (require 'core-spacemacs-buffer)
@@ -220,19 +219,17 @@ refreshed during the current session."
                    (car archive) i count) t))
         (spacemacs//redisplay)
         (setq i (1+ i))
-        (request (cdr archive) :sync t :type "GET"
-                 :timeout configuration-layer--refresh-package-timeout
-                 :error
-                 (function* (lambda (&key error-thrown &allow-other-keys)
-                              (configuration-layer//set-error)
-                              (spacemacs-buffer/append
-                               (format "\n%s: %s"
-                                       (car error-thrown)
-                                       (cdr error-thrown)))))
-                 :status-code
-                 '((200 . (lambda (&rest _)
-                            (let ((package-archives (list archive)))
-                              (package-refresh-contents)))))))
+        (unless (eq 'error (with-timeout
+                               (dotspacemacs-elpa-timeout
+                                (progn
+                                  (spacemacs-buffer/append
+                                   (format
+                                    "\nError while contacting %s repository!"
+                                    (car archive)))
+                                  'error))
+                             (url-retrieve-synchronously (cdr archive))))
+          (let ((package-archives (list archive)))
+            (package-refresh-contents))))
       (package-read-all-archive-contents)
       (unless quiet (spacemacs-buffer/append "\n")))))
 
