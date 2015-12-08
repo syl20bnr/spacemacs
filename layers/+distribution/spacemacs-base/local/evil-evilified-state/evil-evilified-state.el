@@ -105,8 +105,6 @@
 (add-hook 'evil-visual-state-exit-hook 'evilified-state--visual-state-on-exit)
 
 ;; default key bindings for all evilified buffers
-(define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
-  spacemacs-default-map)
 (define-key evil-evilified-state-map "/" 'evil-search-forward)
 (define-key evil-evilified-state-map ":" 'evil-ex)
 (define-key evil-evilified-state-map "h" 'evil-backward-char)
@@ -124,6 +122,12 @@
 (define-key evil-evilified-state-map (kbd "C-d") 'evil-scroll-down)
 (define-key evil-evilified-state-map (kbd "C-u") 'evil-scroll-up)
 (define-key evil-evilified-state-map (kbd "C-z") 'evil-emacs-state)
+(bind-map spacemacs-default-map
+  :prefix-cmd spacemacs-cmds
+  :evil-states (evilified)
+  :evil-keys (dotspacemacs-leader-key)
+  :evil-use-local t)
+(setq evil-evilified-state-map-original (copy-keymap evil-evilified-state-map))
 
 ;; old macro
 ;;;###autoload
@@ -177,7 +181,8 @@ These bindings are set directly in evil-evilified-state-map submap.
 Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
   (declare (indent 1))
   (let* ((mode (plist-get props :mode))
-         (evilified-map (plist-get props :evilified-map))
+         (evilified-map (or (plist-get props :evilified-map)
+                            'evil-evilified-state-map-original))
          (eval-after-load (plist-get props :eval-after-load))
          (pre-bindings (evilified-state--mplist-get props :pre-bindings))
          (bindings (evilified-state--mplist-get props :bindings))
@@ -185,19 +190,21 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
          (body
           (progn
             (evilified-state--define-pre-bindings map pre-bindings)
-            `((let ((sorted-map (evilified-state--sort-keymap
-                                 (or ,evilified-map evil-evilified-state-map)))
+            `(
+              ;; we need to work on a local copy of the evilified keymap to
+              ;; prevent the original keymap from being mutated.
+              (setq evil-evilified-state-map (copy-keymap ,evilified-map))
+              (let* ((sorted-map (evilified-state--sort-keymap
+                                  evil-evilified-state-map))
                     processed)
                 (mapc (lambda (map-entry)
                         (unless (member (car map-entry) processed)
                           (setq processed (evilified-state--evilify-event
-                                           ,map ',map
-                                           (or ,evilified-map
-                                               evil-evilified-state-map)
+                                           ,map ',map evil-evilified-state-map
                                            (car map-entry) (cdr map-entry)))))
-                      sorted-map))
-              (unless ,(null defkey)
-                (,@defkey))
+                      sorted-map)
+                (unless ,(null defkey)
+                  (,@defkey)))
               (unless ,(null mode)
                 (evilified-state--configure-default-state ',mode))))))
     (if (null eval-after-load)
@@ -220,7 +227,7 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
     (add-to-list 'evil-evilified-state-modes mode)))
 
 (defun evilified-state--evilify-event (map map-symbol evil-map event evil-value
-                                     &optional processed pending-funcs)
+                                           &optional processed pending-funcs)
   "Evilify EVENT in MAP and return a list of PROCESSED events."
   (if (and event (or evil-value pending-funcs))
       (let* ((kbd-event (kbd (single-key-description event)))
@@ -229,8 +236,6 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
                              (lookup-key evil-map kbd-event)
                              (car (pop pending-funcs)))))
         (when evil-value
-          (when (keymapp evil-value)
-            (setq evil-value (copy-keymap evil-value)))
           (evil-define-key 'evilified map kbd-event evil-value))
         (when map-value
           (add-to-list 'pending-funcs (cons map-value event) 'append))
