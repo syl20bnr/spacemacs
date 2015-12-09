@@ -17,6 +17,7 @@
     emoji-cheat-sheet-plus
     (evil-org :location local)
     evil-surround
+    flyspell
     gnuplot
     htmlize
     ;; org and org-agenda are installed by `org-plus-contrib'
@@ -63,6 +64,9 @@
   (defun spacemacs//surround-drawer ()
     (let ((dname (read-from-minibuffer "" "")))
       (cons (format ":%s:" (or dname "")) ":END:"))))
+
+(defun org/post-init-flyspell ()
+  (spell-checking/add-flyspell-hook 'org-mode-hook))
 
 (defun org/init-gnuplot ()
   (use-package gnuplot

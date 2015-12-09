@@ -269,7 +269,7 @@
     (add-hook `python-mode-hook `turn-on-evil-matchit-mode))
 
 (defun python/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'python-mode))
+  (spacemacs/add-flycheck-hook 'python-mode-hook))
 
 (defun python/init-hy-mode ()
   (use-package hy-mode

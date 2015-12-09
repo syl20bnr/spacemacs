@@ -42,4 +42,4 @@
     (require 'erlang-start)))
 
 (defun erlang/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'erlang-mode))
+  (spacemacs/add-flycheck-hook 'erlang-mode-hook))

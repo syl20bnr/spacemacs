@@ -100,8 +100,14 @@
   (add-hook 'web-mode-hook 'turn-on-evil-matchit-mode))
 
 (defun html/post-init-flycheck ()
-  (dolist (mode '(haml-mode jade-mode less-mode sass-mode scss-mode slim-mode web-mode))
-    (spacemacs/add-flycheck-hook mode)))
+  (dolist (hook '(haml-mode-hook
+                  jade-mode-hook
+                  less-mode-hook
+                  sass-mode-hook
+                  scss-mode-hook
+                  slim-mode-hook
+                  web-mode-hook))
+    (spacemacs/add-flycheck-hook hook)))
 
 (defun html/init-haml-mode ()
   (use-package haml-mode

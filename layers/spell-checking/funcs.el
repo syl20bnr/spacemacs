@@ -10,12 +10,11 @@
 ;;
 ;;; License: GPLv3
 
-(defun spell-checking/add-flyspell-hook (mode &optional target)
-  "Enable flyspell for the given MODE, if
+(defun spell-checking/add-flyspell-hook (hook)
+  "Add `flyspell-mode' to the given HOOK, if
 `spell-checking-enable-by-default' is true."
   (when spell-checking-enable-by-default
-    (let ((mode-hook (intern (format "%S-hook" mode))))
-      (add-hook mode-hook 'flyspell-mode))))
+    (add-hook hook 'flyspell-mode)))
 
 (defun spell-checking/change-dictionary ()
   "Change the dictionary. Use the ispell version if

@@ -22,7 +22,7 @@
     ))
 
 (defun rust/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'rust-mode))
+  (spacemacs/add-flycheck-hook 'rust-mode-hook))
 
 (when (configuration-layer/layer-usedp 'syntax-checking)
   (defun rust/init-flycheck-rust ()

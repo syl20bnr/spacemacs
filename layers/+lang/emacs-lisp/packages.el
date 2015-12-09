@@ -127,7 +127,8 @@
 (defun emacs-lisp/post-init-flycheck ()
   ;; Don't activate flycheck by default in elisp
   ;; because of too much false warnings
-  ;; (spacemacs/add-flycheck-hook 'emacs-lisp-mode)
+  ;; (spacemacs/add-flycheck-hook 'emacs-lisp-mode-hook)
+
   ;; Make flycheck recognize packages in loadpath
   ;; i.e (require 'company) will not give an error now
   (setq flycheck-emacs-lisp-load-path 'inherit))
