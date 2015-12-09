@@ -5,6 +5,9 @@
         flycheck
         go-mode
         go-eldoc
+        (ob-go :location (recipe
+                          :fetcher github
+                          :repo "pope/ob-go"))
         ))
 
 (defun go/post-init-flycheck ()
@@ -96,3 +99,8 @@
       :defer t
       :init
       (push 'company-go company-backends-go-mode))))
+
+
+(defun go/init-ob-go ()
+  (use-package ob-go
+    :if (configuration-layer/layer-usedp 'org)))

@@ -14,6 +14,7 @@
  - [[Working with Go][Working with Go]]
    - [[Go commands (start with =m=):][Go commands (start with =m=):]]
    - [[Go Oracle][Go Oracle]]
+   - [[Org-Babel Integration][Org-Babel Integration]]
 
 * Description
 This layer adds extensive support for go.
@@ -22,6 +23,7 @@ This layer adds extensive support for go.
 - gofmt/goimports on file save
 - Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]] (with the =auto-completion= layer)
 - Source analysis using [[http://golang.org/s/oracle-user-manual][go-oracle]]
+- Org-Babel integration
 
 * Install
 ** Pre-requisites
@@ -105,3 +107,17 @@ function testing to work.
 | ~SPC m r r~ | go-oracle show all references to object                    |
 | ~SPC m r s~ | go-oracle show callstack                                   |
 | ~SPC m r t~ | go-oracle describe selected syntax, kind, type and methods |
+
+** Org-Babel Integration
+
+If you have Org layer enabled, you can write go code and evaluate it right
+within Org mode.
+
+Example taken from https://github.com/pope/ob-go :
+
+#+begin_src go :imports "fmt"
+  fmt.Println("Hello, 世界")
+#+end_src
+
+#+RESULTS:
+: Hello, 世界
