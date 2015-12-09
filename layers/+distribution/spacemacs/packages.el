@@ -1584,7 +1584,9 @@ Open junk file using helm, with `prefix-arg' search in junk files"
 
       (defun spacemacs//neotree-key-bindings ()
         "Set the key bindings for a neotree buffer."
-        (evilified-state-evilify neotree-mode neotree-mode-map
+        (evilified-state-evilify-map neotree-mode-map
+          :mode neotree-mode
+          :bindings
           (kbd "TAB")  'neotree-stretch-toggle
           (kbd "RET") 'neotree-enter
           (kbd "|") 'neotree-enter-vertical-split
