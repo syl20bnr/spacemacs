@@ -381,6 +381,7 @@
           (dolist (state '(normal motion))
             (evil-define-key state with-editor-mode-map
               (concat mm-key mm-key) 'with-editor-finish
+              (concat mm-key "a")    'with-editor-cancel
               (concat mm-key "c")    'with-editor-finish
               (concat mm-key "k")    'with-editor-cancel))))
 
