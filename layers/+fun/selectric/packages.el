@@ -12,7 +12,10 @@
 
 (setq selectric-packages '(selectric-mode))
 
-(defun selectric/init-selectric ()
+(defun selectric/init-selectric-mode ()
   (use-package selectric-mode
-    :defer t
-    :init (spacemacs/set-leader-keys "at" 'selectric-mode)))
+    ;; at the moment of adding this layer, selectric-mode is not
+    ;; autoloaded.
+    :commands selectric-mode
+    :init (spacemacs/set-leader-keys "C-t t" 'selectric-mode)
+    :config (spacemacs|diminish selectric-mode "♬" "Tw")))
