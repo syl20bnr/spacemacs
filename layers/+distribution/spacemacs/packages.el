@@ -1457,6 +1457,7 @@ It will toggle the overlay under point or create an overlay of one character."
       "Open junk file
 Open junk file using helm, with `prefix-arg' search in junk files"
       (interactive "P")
+      (require 'helm)
       (let* ((fname (format-time-string open-junk-file-format (current-time)))
              (junk-dir (file-name-directory fname))
              (helm-ff-newfile-prompt-p nil)
