@@ -51,17 +51,17 @@ perspectives does."
   (interactive)
   (helm
    :buffer "*Helm Perspectives*"
-   :sources `(,(spacemacs//helm-perspectives-source)
-              ,(helm-build-dummy-source "Create new perspective"
-                 :requires-pattern t
-                 :action
-                 '(("Create new perspective" .
-                    (lambda (name)
-                      (let ((persp-reset-windows-on-nil-window-conf t))
-                        (if (member name (persp-names-current-frame-fast-ordered))
-                            (persp-switch name)
-                          (persp-switch name)
-                          (spacemacs/home))))))))))
+   :sources
+   `(,(spacemacs//helm-perspectives-source)
+     ,(helm-build-dummy-source "Create new perspective"
+        :requires-pattern t
+        :action
+        '(("Create new perspective" .
+           (lambda (name)
+             (let ((persp-reset-windows-on-nil-window-conf t))
+               (persp-switch name)
+               (unless (member name (persp-names-current-frame-fast-ordered))
+                 (spacemacs/home))))))))))
 
 ;; ability to use helm find files but also adds to current perspective
 (defun spacemacs/helm-persp-close ()
@@ -69,15 +69,16 @@ perspectives does."
   (interactive)
   (helm
    :buffer "*Helm Kill Perspectives (without killing buffers)*"
-   :sources (helm-build-in-buffer-source
-                (concat "Current Perspective: " (spacemacs//current-layout-name))
-              :data (persp-names)
-              :fuzzy-match t
-              :action
-              '(("Close perspective(s)" . (lambda (candidate)
-                                            (mapcar
-                                             'persp-kill-without-buffers
-                                             (helm-marked-candidates))))))))
+   :sources
+   (helm-build-in-buffer-source
+       (concat "Current Perspective: " (spacemacs//current-layout-name))
+     :data (persp-names)
+     :fuzzy-match t
+     :action
+     '(("Close perspective(s)" . (lambda (candidate)
+                                   (mapcar
+                                    'persp-kill-without-buffers
+                                    (helm-marked-candidates))))))))
 
 (defun spacemacs/helm-persp-kill ()
   "Kills perspectives with all their buffers"
