@@ -24,4 +24,4 @@ To use this contribution add it to your =~/.spacemacs=
 
 | Key Binding | Description              |
 |-------------+--------------------------|
-| ~SPC t t~   | Toggle clicky key sounds |
+| ~SPC C-t t~ | Toggle clicky key sounds |
