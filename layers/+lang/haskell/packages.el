@@ -96,7 +96,7 @@
         "mgg"  'haskell-mode-jump-to-def-or-tag
         "mf"   'haskell-mode-stylish-buffer
 
-        "msb"  'haskell-process-load-or-reload
+        "msb"  'haskell-process-load-file
         "msc"  'haskell-interactive-mode-clear
         "mss"  'haskell-interactive-bring
         "msS"  'haskell-interactive-switch
