@@ -21,7 +21,7 @@
     :commands (run-octave)
     :config (evil-leader/set-key-for-mode 'octave-mode
               ;; helpers
-              "mhd" 'octave-help
+              "mhh" 'octave-help
               "mhi" 'octave-lookfor
               ;; REPL
               "msb" 'octave-send-buffer
