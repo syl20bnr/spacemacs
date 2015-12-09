@@ -70,6 +70,7 @@
       "mtf" 'alchemist-test-file
       "mtn" 'alchemist-test-jump-to-next-test
       "mtp" 'alchemist-test-jump-to-previous-test
+      "mtr" 'alchemist-mix-rerun-last-test
 
       "mxb" 'alchemist-execute-this-buffer
       "mxf" 'alchemist-execute-file
