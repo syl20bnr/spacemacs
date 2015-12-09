@@ -126,7 +126,7 @@
       :init (push 'company-c-headers company-backends-c-mode-common))))
 
 (defun c-c++/post-init-flycheck ()
-  (dolist (mode '(c-mode-hook c++-mode-hook))
+  (dolist (mode '(c-mode c++-mode))
     (spacemacs/add-flycheck-hook mode)))
 
 (defun c-c++/init-gdb-mi ()
