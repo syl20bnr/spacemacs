@@ -6,7 +6,7 @@
     ))
 
 (defun lua/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'lua-mode))
+  (spacemacs/add-flycheck-hook 'lua-mode-hook))
 
 (defun lua/init-lua-mode ()
   (use-package lua-mode
