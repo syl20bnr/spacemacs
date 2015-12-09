@@ -1311,6 +1311,14 @@ Other help key bindings:
 | ~SPC h L~   | go to library a implementation                                     |
 | ~SPC h m~   | search available man pages                                         |
 
+Navigation key bindings in =help-mode=:
+
+| Key Binding  | Description                                         |
+|--------------+-----------------------------------------------------|
+| ~g b~ or ~[~ | go back (same as clicking on =[back]= button)       |
+| ~g f~ or ~]~ | go forward (same as clicking on =[forward]= button) |
+| ~g h~        | go to help for symbol under point                   |
+
 *** Available layers
 All layers can be easily discovered via =helm-spacemacs= accessible with ~SPC f
 e h~.
