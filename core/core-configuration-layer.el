@@ -1073,17 +1073,17 @@ to select one."
             (setq rollbacked-count (1+ rollbacked-count))
             (if (string-equal (format "%S-%s" pkg installed-ver) pkg-dir-name)
                 (spacemacs-buffer/replace-last-line
-                 (format "--> package %s already rollbacked! [%s/%s]"
+                 (format "--> package %s already rolled back! [%s/%s]"
                          pkg rollbacked-count rollback-count) t)
               ;; rollback the package
               (spacemacs-buffer/replace-last-line
-               (format "--> rollbacking package %s... [%s/%s]"
+               (format "--> rolling back package %s... [%s/%s]"
                        pkg rollbacked-count rollback-count) t)
               (configuration-layer//package-delete pkg)
               (copy-directory src-dir dest-dir 'keeptime 'create 'copy-content))
             (spacemacs//redisplay)))
         (spacemacs-buffer/append
-         (format "\n--> %s packages rollbacked.\n" rollbacked-count))
+         (format "\n--> %s packages rolled back.\n" rollbacked-count))
         (spacemacs-buffer/append
          "\nEmacs has to be restarted for the changes to take effect.\n")))))
 
