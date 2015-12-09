@@ -137,11 +137,10 @@ Modes that are used to edit messages (texts, notes, mails, …) and are subjects
 to user validation (traditionally bound to ~C-c C-c~ and ~C-c C-k~ in emacs)
 should use the following bindings:
 
-| Key       | Description               |
-|-----------+---------------------------|
-| ~SPC m ,~ | Valid/Confirm the message |
-| ~SPC m c~ | Valid/Confirm the message |
-| ~SPC m k~ | Abort/Discard the message |
+| Key                     | Description               |
+|-------------------------+---------------------------|
+| ~SPC m ,~ and ~SPC m c~ | Valid/Confirm the message |
+| ~SPC m a~ and ~SPC m k~ | Abort/Discard the message |
 
 Some example of these modes are =magit= commit messages, =message-mode= for
 mails or =org-mode= notes.
