@@ -8,7 +8,7 @@
         ))
 
 (defun go/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'go-mode))
+  (spacemacs/add-flycheck-hook 'go-mode-hook))
 
 (defun go/init-go-mode()
   (when (memq window-system '(mac ns x))

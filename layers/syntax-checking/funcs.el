@@ -10,9 +10,8 @@
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs/add-flycheck-hook (mode &optional target)
-  "Enable flycheck for the given MODE, if
+(defun spacemacs/add-flycheck-hook (hook)
+  "Add flycheck to the given HOOK, if
 `syntax-checking-enable-by-default' is true."
   (when syntax-checking-enable-by-default
-    (let ((mode-hook (intern (format "%S-hook" mode))))
-      (add-hook mode-hook 'flycheck-mode))))
+    (add-hook hook 'flycheck-mode)))

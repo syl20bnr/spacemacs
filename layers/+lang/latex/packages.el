@@ -134,10 +134,10 @@
   (add-hook 'LaTeX-mode-hook 'evil-matchit-mode))
 
 (defun latex/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'LaTeX-mode))
+  (spacemacs/add-flycheck-hook 'LaTeX-mode-hook))
 
 (defun latex/post-init-flyspell ()
-  (spell-checking/add-flyspell-hook 'LaTeX-mode))
+  (spell-checking/add-flyspell-hook 'LaTeX-mode-hook))
 
 (defun latex/post-init-smartparens ()
   (add-hook 'LaTeX-mode-hook 'smartparens-mode))

@@ -88,8 +88,8 @@
     (add-hook hook `turn-on-evil-matchit-mode)))
 
 (defun ruby/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'ruby-mode)
-  (spacemacs/add-flycheck-hook 'enh-ruby-mode))
+  (spacemacs/add-flycheck-hook 'ruby-mode-hook)
+  (spacemacs/add-flycheck-hook 'enh-ruby-mode-hook))
 
 (defun ruby/init-rbenv ()
   (use-package rbenv

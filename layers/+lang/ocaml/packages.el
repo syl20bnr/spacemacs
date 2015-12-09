@@ -30,7 +30,7 @@
 
 (when (configuration-layer/layer-usedp 'syntax-checking)
   (defun ocaml/post-init-flycheck ()
-    (spacemacs/add-flycheck-hook 'merlin-mode))
+    (spacemacs/add-flycheck-hook 'merlin-mode-hook))
   (defun ocaml/init-flycheck-ocaml ()
     (use-package flycheck-ocaml
       :if (configuration-layer/package-usedp 'flycheck)

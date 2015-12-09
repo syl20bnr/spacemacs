@@ -22,7 +22,7 @@
   (add-hook 'rcirc-mode-hook 'emoji-cheat-sheet-plus-display-mode))
 
 (defun rcirc/post-init-flyspell ()
-  (spell-checking/add-flyspell-hook 'rcirc-mode))
+  (spell-checking/add-flyspell-hook 'rcirc-mode-hook))
 
 (defun rcirc/post-init-persp-mode ()
   (spacemacs|define-custom-layout "@RCIRC"
