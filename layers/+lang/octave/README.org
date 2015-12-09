@@ -1,10 +1,7 @@
-#+TITLE: Octave contribution layer for Spacemacs
+#+TITLE: Octave layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
-#+CAPTION: logo
 [[file:img/octave.png]]
-
-
 
 * Table of Contents                                        :TOC_4_org:noexport:
  - [[Description][Description]]
@@ -45,5 +42,5 @@ Send code to inferior process with these commands:
 
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
-| ~SPC m h d~ | view documentation for function at point            |
+| ~SPC m h h~ | view documentation for function at point            |
 | ~SPC m h i~ | read octave info documentation                      |
