@@ -81,6 +81,7 @@
       "tf" 'alchemist-test-file
       "tn" 'alchemist-test-jump-to-next-test
       "tp" 'alchemist-test-jump-to-previous-test
+      "tr" 'alchemist-mix-rerun-last-test
 
       "xb" 'alchemist-execute-this-buffer
       "xf" 'alchemist-execute-file
