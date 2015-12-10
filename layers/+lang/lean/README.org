@@ -1,0 +1,53 @@
+#+TITLE: Lean Layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+[[file:img/lean.png]]
+
+* Description
+This layer adds support for the [[https://leanprover.github.io][Lean]] theorem prover.
+* Install
+** Layer
+To use this layer, first add it to your =.spacemacs=.
+
+#+BEGIN_SRC elisp
+(setq-default dotspacemacs-configuration-layers '(lean))
+#+END_SRC
+
+Then configure Lean's root directory as follows:
+*** Case 1: You built Lean from source:
+Suppose that the full path to the root directory of Lean's source is =~/projects/lean=, then put this in your =.spacemacs=:
+
+#+BEGIN_SRC elisp
+(setq-default lean-rootdir "~/projects/lean")
+#+END_SRC
+
+*** Case 2: You installed Lean via dpkg, or apt-get:
+Put this in your =.spacemacs.=
+
+#+BEGIN_SRC elisp
+(setq-default lean-rootdir "/usr")
+#+END_SRC
+
+*** Case 3: You installed Lean via homebrew:
+If you installed Lean in the default directory, put this in your =.spacemacs.=:
+
+#+BEGIN_SRC elisp
+(setq-default lean-rootdir "/usr/local")
+#+END_SRC
+
+
+* Key Bindings
+
+| Key Binding                              | Description                                  |
+|------------------------------------------+----------------------------------------------|
+| @@html:<kbd>@@ SPC m L @@html:</kbd>@@   | Compile the current file/project.            |
+| @@html:<kbd>@@ SPC m R @@html:</kbd>@@   | Restart the Lean Server.                     |
+| @@html:<kbd>@@ SPC m d @@html:</kbd>@@   | Show Eldoc Documentation for value at point. |
+| @@html:<kbd>@@ SPC m f @@html:</kbd>@@   | Fill a placeholder.                          |
+| @@html:<kbd>@@ SPC m g g @@html:</kbd>@@ | Find tag at point.                           |
+| @@html:<kbd>@@ SPC m g u @@html:</kbd>@@ | Update Lean tags.                            |
+| @@html:<kbd>@@ SPC m o @@html:</kbd>@@   | Set options for current Lean process.        |
+| @@html:<kbd>@@ SPC m c @@html:</kbd>@@   | Execute a Lean commmand.                     |
+| @@html:<kbd>@@ SPC m , @@html:</kbd>@@   | Show goal at point.                          |
+| @@html:<kbd>@@ SPC m t @@html:</kbd>@@   | Show type of value at point.                 |
+| @@html:<kbd>@@ SPC m i @@html:</kbd>@@   | Show ID/Keyword info at point.               |
+| @@html:<kbd>@@ SPC m k @@html:</kbd>@@   | Show how to type the key at point.           |
