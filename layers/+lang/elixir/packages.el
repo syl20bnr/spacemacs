@@ -63,6 +63,7 @@
       "msr" 'alchemist-iex-send-region
       "msR" 'alchemist-iex-send-region-and-go
       "msc" 'alchemist-iex-compile-this-buffer
+      "msm" 'alchemist-iex-reload-module
 
       "mta" 'alchemist-mix-test
       "mtb" 'alchemist-mix-test-this-buffer
