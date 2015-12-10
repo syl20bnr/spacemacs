@@ -167,6 +167,7 @@
       (dolist (mode '(ruby-mode enh-ruby-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
           "ta" 'rspec-verify-all
+          "tb" 'rspec-verify
           "tc" 'rspec-verify-continue
           "te" 'rspec-toggle-example-pendingness
           "tf" 'rspec-verify-method
