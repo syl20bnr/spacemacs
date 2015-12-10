@@ -15,6 +15,7 @@
 (setq eww-packages
     '(
       eww
+      eww-lnum
       ;; package names go here
       ))
 
@@ -40,11 +41,17 @@
     (evilified-state-evilify-map eww-mode-map
       :mode eww-mode
       :bindings
+      "i" 'evil-insert
       "H" 'eww-back-url
       "L" 'eww-forward-url
-      "f" 'ace-link-eww
+      "f" 'eww-lnum-follow ;;ace-link-eww
+      "F" 'eww-lnum-universal
       "o" 'eww
       "Y" 'eww-copy-page-url
       ;; "p" TODO: open url on clipboard
       "r" 'eww-reload
       "b" 'eww-add-bookmark)))
+
+(defun eww/init-eww-lnum ()
+  (use-package eww-lnum
+    :defer t))
