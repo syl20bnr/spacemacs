@@ -1,0 +1,50 @@
+;;; packages.el --- eww Layer packages File for Spacemacs
+;;
+;; Copyright (c) 2012-2014 Sylvain Benner
+;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;;
+;; Author: Andrea Moretti <axyzxp@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
+;; List of all packages to install and/or initialize. Built-in packages
+;; which require an initialization must be listed explicitly in the list.
+(setq eww-packages
+    '(
+      eww
+      ;; package names go here
+      ))
+
+;; List of packages to exclude.
+(setq eww-excluded-packages '())
+
+;; For each package, define a function eww/init-<package-name>
+;;
+;; (defun eww/init-my-package ()
+;;   "Initialize my package"
+;;   )
+;;
+;; Often the body of an initialize function uses `use-package'
+;; For more info on `use-package', see readme:
+;; https://github.com/jwiegley/use-package
+
+(defun eww/init-eww ()
+  (use-package eww
+    :defer t
+    :init
+    (evil-leader/set-key "aw" 'eww)
+    :config
+    (evilified-state-evilify-map eww-mode-map
+      :mode eww-mode
+      :bindings
+      "H" 'eww-back-url
+      "L" 'eww-forward-url
+      "f" 'ace-link-eww
+      "o" 'eww
+      "Y" 'eww-copy-page-url
+      ;; "p" TODO: open url on clipboard
+      "r" 'eww-reload
+      "b" 'eww-add-bookmark)))
