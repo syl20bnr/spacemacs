@@ -81,13 +81,14 @@
     (progn
       (setq enh-ruby-deep-indent-paren nil
             enh-ruby-hanging-paren-deep-indent-level 2)
-      (sp-with-modes 'enh-ruby-mode
-        (sp-local-pair
-         "{" "}"
-         :pre-handlers '(sp-ruby-pre-handler)
-         :post-handlers '(sp-ruby-post-handler
-                          (spacemacs/smartparens-pair-newline-and-indent "RET"))
-         :suffix "")))))
+      (with-eval-after-load 'smartparens
+        (sp-with-modes 'enh-ruby-mode
+          (sp-local-pair
+           "{" "}"
+           :pre-handlers '(sp-ruby-pre-handler)
+           :post-handlers '(sp-ruby-post-handler
+                            (spacemacs/smartparens-pair-newline-and-indent "RET"))
+           :suffix ""))))))
 
 (defun ruby/post-init-evil-matchit ()
   (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
@@ -201,11 +202,12 @@
       (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
         "'" 'ruby-toggle-string-quotes
         "{" 'ruby-toggle-block)
-      (sp-with-modes 'ruby-mode
-        (sp-local-pair "{" "}"
-                       :pre-handlers '(sp-ruby-pre-handler)
-                       :post-handlers '(sp-ruby-post-handler (spacemacs/smartparens-pair-newline-and-indent "RET"))
-                       :suffix "")))))
+      (with-eval-after-load 'smartparens
+        (sp-with-modes 'ruby-mode
+          (sp-local-pair "{" "}"
+                         :pre-handlers '(sp-ruby-pre-handler)
+                         :post-handlers '(sp-ruby-post-handler (spacemacs/smartparens-pair-newline-and-indent "RET"))
+                         :suffix ""))))))
 
 (defun ruby/init-ruby-tools ()
   (use-package ruby-tools
