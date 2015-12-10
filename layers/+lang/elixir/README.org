@@ -95,6 +95,7 @@ You find and overview of all the key-bindings on the [[file:alchemist-refcard.pd
 | ~SPC m s r~ | Send region to REPL buffer                                      |
 | ~SPC m s R~ | Send region to REPL buffer and focus it in =insert state=       |
 | ~SPC m s c~ | Compiles the current buffer in the IEx process.                 |
+| ~SPC m s m~ | Reloads the module in the current buffer in your IEx process    | 
 
 ** Tests
 
