@@ -26,7 +26,7 @@
     (push 'chinese-wbim chinese-packages)
   (push 'chinese-pyim chinese-packages))
 
-(if chinese-enable-fcitx
+(if (and chinese-enable-fcitx (not (spacemacs/system-is-mswindows))) ;; disable in Windows
     (push 'fcitx chinese-packages))
 
 (defun chinese/init-fcitx ()
