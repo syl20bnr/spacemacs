@@ -49,6 +49,7 @@ version the release note it displayed")
   :syntax-table nil
   :abbrev-table nil
   (setq truncate-lines t)
+  (page-break-lines-mode)
   ;; needed to make tab work correctly in terminal
   (evil-define-key 'motion spacemacs-buffer-mode-map (kbd "C-i") 'widget-forward)
   ;; motion state since this is a special mode
@@ -540,11 +541,10 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
 
 (defun spacemacs-buffer/insert-startupify-lists ()
   (interactive)
-  (with-current-buffer (get-buffer-create "*spacemacs*")
+  (with-current-buffer (get-buffer spacemacs-buffer-name)
     (let ((buffer-read-only nil)
           (list-separator "\n\n"))
       (goto-char (point-max))
-      (page-break-lines-mode)
       (spacemacs-buffer/insert-page-break)
       (mapc (lambda (el)
               (cond
@@ -593,7 +593,7 @@ already exist, and switch to it."
               (spacemacs-buffer-mode))
           (add-hook 'emacs-startup-hook
                     (lambda ()
-                      (with-current-buffer (get-buffer-create spacemacs-buffer-name)
+                      (with-current-buffer (get-buffer spacemacs-buffer-name)
                         (when dotspacemacs-startup-lists
                           (spacemacs-buffer/insert-startupify-lists))
                         (if configuration-layer-error-count
@@ -604,7 +604,7 @@ already exist, and switch to it."
                           (spacemacs-buffer/set-mode-line spacemacs--default-mode-line))
                         (force-mode-line-update)
                         (spacemacs-buffer-mode)
-                        (spacemacs-buffer/goto-link-line))))))))
+                        (spacemacs-buffer/goto-link-line))) t)))))
   (spacemacs-buffer/goto-link-line)
   (switch-to-buffer spacemacs-buffer-name))
 
