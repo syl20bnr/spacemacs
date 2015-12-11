@@ -940,6 +940,7 @@ ARG non nil means that the editing style is `vim'."
         "pb"  'helm-projectile-switch-to-buffer
         "pd"  'helm-projectile-find-dir
         "pf"  'helm-projectile-find-file
+        "pF"  'helm-projectile-find-file-dwim
         "ph"  'helm-projectile
         "pp"  'helm-projectile-switch-project
         "pr"  'helm-projectile-recentf
@@ -1260,8 +1261,8 @@ ARG non nil means that the editing style is `vim'."
       ;; note for Windows: GNU find or Cygwin find must be in path to enable
       ;; fast indexing
       (when (and (spacemacs/system-is-mswindows) (executable-find "find"))
-          (setq  projectile-indexing-method 'alien
-                 projectile-generic-command "find . -type f"))
+        (setq  projectile-indexing-method 'alien
+               projectile-generic-command "find . -type f"))
       (setq projectile-sort-order 'recentf
             projectile-cache-file (concat spacemacs-cache-directory
                                           "projectile.cache")
@@ -1272,6 +1273,7 @@ ARG non nil means that the editing style is `vim'."
           "pb" 'projectile-switch-to-buffer
           "pd" 'projectile-find-dir
           "pf" 'projectile-find-file
+          "pF"  'projectile-find-file-dwim
           "ph" 'helm-projectile
           "pr" 'projectile-recentf
           "ps" 'projectile-switch-project))
@@ -1463,8 +1465,8 @@ ARG non nil means that the editing style is `vim'."
                 which-key-description-replacement-alist)))
       (dolist (leader-key `(,dotspacemacs-leader-key ,dotspacemacs-emacs-leader-key))
         (which-key-add-key-based-replacements
-         (concat leader-key " m")    "major mode commands"
-         (concat leader-key " " dotspacemacs-command-key) "M-x"))
+          (concat leader-key " m")    "major mode commands"
+          (concat leader-key " " dotspacemacs-command-key) "M-x"))
       (which-key-declare-prefixes
         dotspacemacs-leader-key '("root" . "Spacemacs root")
         dotspacemacs-emacs-leader-key '("root" . "Spacemacs root")
