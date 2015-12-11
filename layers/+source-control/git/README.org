@@ -27,7 +27,7 @@
 This layers adds extensive support for [[http://git-scm.com/][git]].
 
 ** Features:
-- git repository management the indispensable  [[http://magit.vc/][magit]] package
+- git repository management the indispensable [[http://magit.vc/][magit]] package
 - [[https://github.com/jtatarik/magit-gitflow][git-flow]] add-on for magit.
 - quick in buffer history browsing with [[https://github.com/pidu/git-timemachine][git-timemachine]].
 - quick in buffer last commit message per line with [[https://github.com/syohex/emacs-git-messenger][git-messenger]]
