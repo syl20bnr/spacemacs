@@ -19,17 +19,20 @@ if [ $USER != "travis" ]; then
     exit 1
 fi
 
-ln -s `pwd` ~/.emacs.d
+echo "Pwd $(pwd)"
+rm -rf ~/.emacs.d
+ln -sf `pwd` ~/.emacs.d
 
 for test in "${tests[@]}"; do
     rm -rf ~/.emacs.d/elpa
     rm -rf ~/.emacs.d/.cache
-    rm ~/.spacemacs
+    rm -f ~/.spacemacs
 
     testdir=~/.emacs.d/tests/$test
+    echo "Running '$test' in '$testdir' folder"
     if [ -f $testdir/dotspacemacs.el ]; then
         cp $testdir/dotspacemacs.el ~/.spacemacs
     fi
-    cd $testdir
+    cd $testdir && echo "Now in $(pwd)"
     make test || exit 2
 done
