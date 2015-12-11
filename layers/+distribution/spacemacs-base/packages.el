@@ -783,8 +783,8 @@ below. Anything else exits."
       ;; note for Windows: GNU find or Cygwin find must be in path to enable
       ;; fast indexing
       (when (and (spacemacs/system-is-mswindows) (executable-find "find"))
-          (setq  projectile-indexing-method 'alien
-                 projectile-generic-command "find . -type f"))
+        (setq  projectile-indexing-method 'alien
+               projectile-generic-command "find . -type f"))
       (setq projectile-sort-order 'recentf
             projectile-cache-file (concat spacemacs-cache-directory
                                           "projectile.cache")
@@ -795,6 +795,7 @@ below. Anything else exits."
           "pb" 'projectile-switch-to-buffer
           "pd" 'projectile-find-dir
           "pf" 'projectile-find-file
+          "pF" 'projectile-find-file-dwim
           "ph" 'helm-projectile
           "pr" 'projectile-recentf
           "ps" 'projectile-switch-project))
@@ -991,8 +992,8 @@ below. Anything else exits."
                 which-key-description-replacement-alist)))
       (dolist (leader-key `(,dotspacemacs-leader-key ,dotspacemacs-emacs-leader-key))
         (which-key-add-key-based-replacements
-         (concat leader-key " m")    "major mode commands"
-         (concat leader-key " " dotspacemacs-emacs-command-key) "M-x"))
+          (concat leader-key " m")    "major mode commands"
+          (concat leader-key " " dotspacemacs-emacs-command-key) "M-x"))
       (which-key-declare-prefixes
         dotspacemacs-leader-key '("root" . "Spacemacs root")
         dotspacemacs-emacs-leader-key '("root" . "Spacemacs root")
