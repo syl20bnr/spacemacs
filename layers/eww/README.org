@@ -11,8 +11,19 @@
  - [[Key bindings][Key bindings]]
 
 * Description
-This layer does wonderful things:
-  - thing01
+This layer brings you vimperator style navigation on eww buffers to quickly
+browse websites or html files in text mode.
+
+It also provides some helm awesomeness such as fast bookmarks retrieval and
+editing.
+
+`eww-lnum` allows to quickly navigate to a link highlighting them with numbers,
+just press `f` and select the correct number; if you start typing you will
+filter the available links.
+
+`helm-eww-bookmarks` will search on all your saved pages and provides a primary
+action (enter or `F1`) to open the url and a secondary action (`F2`) to delete
+the bookmark.
 
 * Install
 To use this contribution add it to your =~/.spacemacs=
@@ -23,6 +34,15 @@ To use this contribution add it to your =~/.spacemacs=
 
 * Key bindings
 
-| Key Binding     | Description    |
-|-----------------+----------------|
-| ~<SPC> x x x~   | Does thing01   |
+| Key Binding | Description                   |
+|-------------+-------------------------------|
+| ~<SPC> a w~ | open a new eww buffer         |
+| ~H~         | go to previous page           |
+| ~L~         | go to next page               |
+| ~f~         | follow link with lnum         |
+| ~F~         | do action with link           |
+| ~o~         | open url                      |
+| ~Y~         | copy current page url         |
+| ~r~         | reload page                   |
+| ~b~         | helm bookmarks                |
+| ~a~         | add current page to bookmarks |
