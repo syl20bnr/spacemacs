@@ -391,5 +391,4 @@ Will work on both org-mode and any mode that accepts plain html."
     :defer t))
 
 (defun org/init-orgit ()
-  (use-package orgit
-    :defer t))
+  (use-package orgit))
