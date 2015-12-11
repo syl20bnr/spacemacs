@@ -16,7 +16,6 @@
     '(
       eww
       eww-lnum
-      ;; package names go here
       ))
 
 ;; List of packages to exclude.
@@ -38,6 +37,43 @@
     :init
     (evil-leader/set-key "aw" 'eww)
     :config
+    ;; needed to populate eww-bookmarks
+    (when eww-bookmarks
+      (eww-bookmark-prepare))
+
+    (defun get-title (bookmark)
+      (plist-get bookmark :title))
+
+    (defun has-title (title)
+      (lambda (el)
+        (equal (plist-get el :title) title)))
+
+    (defun get-url (title bookmarks)
+      (plist-get
+       (car (remove-if-not (has-title title) bookmarks))
+       :url))
+
+    (defun open-from-bookmarks ()
+      (lambda (title)
+        (eww-browse-url (get-url title eww-bookmarks))))
+
+    (defun delete-from-bookmarks ()
+      (lambda (title)
+        (setq eww-bookmarks (remove-if (has-title title) eww-bookmarks))
+        (eww-write-bookmarks)
+        (message "bookmark deleted")))
+
+    (defun helm-source-eww-bookmarks ()
+      `((name . "Bookmarks")
+        (candidates . ,(mapcar #'get-title eww-bookmarks))
+        (action . (("open url" . ,(open-from-bookmarks))
+                   ("delete bookmark" . ,(delete-from-bookmarks))))))
+
+    (defun helm-eww-bookmarks ()
+      (interactive)
+      (helm :sources (helm-source-eww-bookmarks)
+            :buffer "*helm-eww-bookmarks*"))
+
     (evil-make-overriding-map eww-mode-map 'normal)
     (evil-define-key 'normal eww-mode-map
       "l" 'evil-forward-char
@@ -50,7 +86,7 @@
       "Y" 'eww-copy-page-url
       ;; "p" TODO: open url on clipboard
       "r" 'eww-reload
-      ;; "b" TODO: helm buffer with bookmarks
+      "b" 'helm-eww-bookmarks
       "a" 'eww-add-bookmark)))
 
 (defun eww/init-eww-lnum ()
