@@ -56,11 +56,6 @@
   (dotspacemacs/load-file)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
   (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
-  ;; spacemacs init
-  (spacemacs-buffer/goto-buffer)
-  (setq initial-buffer-choice (lambda () (get-buffer spacemacs-buffer-name)))
-  ;; silence ad-handle-definition about advised functions getting redefined
-  (setq ad-redefinition-action 'accept)
   ;; removes the GUI elements
   (when (and (fboundp 'tool-bar-mode) (not (eq tool-bar-mode -1)))
     (tool-bar-mode -1))
@@ -72,6 +67,11 @@
   (unless (eq window-system 'mac)
     (when (and (fboundp 'menu-bar-mode) (not (eq menu-bar-mode -1)))
       (menu-bar-mode -1)))
+  ;; spacemacs init
+  (spacemacs-buffer/goto-buffer)
+  (setq initial-buffer-choice (lambda () (get-buffer spacemacs-buffer-name)))
+  ;; silence ad-handle-definition about advised functions getting redefined
+  (setq ad-redefinition-action 'accept)
   ;; for convenience and user support
   (unless (fboundp 'tool-bar-mode)
     (spacemacs-buffer/message (concat "No graphical support detected, you won't be"
