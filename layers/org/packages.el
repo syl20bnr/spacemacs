@@ -390,5 +390,4 @@ Will work on both org-mode and any mode that accepts plain html."
  (use-package htmlize
     :defer t))
 
-(defun org/init-orgit ()
-  (use-package orgit))
+(defun org/init-orgit ())
