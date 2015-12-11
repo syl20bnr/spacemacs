@@ -10,21 +10,22 @@
 ;;; License: GPLv3
 
 (setq latex-packages
-  '(
-    auctex
-    (auctex-latexmk :toggle (string= "LatexMk" latex-build-command))
-    (company-auctex :toggle (configuration-layer/package-usedp 'company))
-    evil-matchit
-    (reftex :location built-in)
-    flycheck
-    flyspell
-    ggtags
-    helm-gtags
-    smartparens
-    typo
-    yasnippet
-    which-key
-    ))
+      '(
+        auctex
+        (auctex-latexmk :toggle (string= "LatexMk" latex-build-command))
+        (company-auctex :toggle (configuration-layer/package-usedp 'company))
+        evil-matchit
+        (reftex :location built-in)
+        flycheck
+        flyspell
+        ggtags
+        helm-gtags
+        (magic-latex-buffer :toggle latex-enable-magic)
+        smartparens
+        typo
+        yasnippet
+        which-key
+        ))
 
 (defun latex/init-auctex ()
   (use-package tex
@@ -199,3 +200,15 @@
 (defun latex/post-init-which-key ()
   (push '((nil . "\\`latex/font-\\(.+\\)\\'") . (nil . "\\1"))
         which-key-replacement-alist))
+
+(defun latex/init-magic-latex-buffer ()
+  (use-package magic-latex-buffer
+    :defer t
+    :init
+    (progn
+      (add-hook 'LaTeX-mode-hook 'magic-latex-buffer)
+      (setq magic-latex-enable-block-highlight t
+            magic-latex-enable-suscript t
+            magic-latex-enable-pretty-symbols t
+            magic-latex-enable-block-align nil
+            magic-latex-enable-inline-image nil))))
