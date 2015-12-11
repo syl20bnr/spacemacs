@@ -67,8 +67,10 @@ with the following configuration.
 **** Requirement
 ***** Linux
 You need use this with =fcitx= and make sure =fcitx-remote= is in your search path.
+
 ***** Mac OS X
-We don't have a =fcitx= in OS X for now.But we already had a simulate =fcitx-remote= to make you happy with other Chinese input-methods.
+We don't have a =fcitx= in OS X yet but we already added an emulation called
+=fcitx-remote= to make you happy with other Chinese input-methods.
 
 You can install [[https://github.com/CodeFalling/fcitx-remote-for-osx][fcitx-remote-for-osx]] from homebrew.
 
@@ -78,14 +80,16 @@ You can install [[https://github.com/CodeFalling/fcitx-remote-for-osx][fcitx-rem
 
 =--with-input-method=baidu-pinyin= means install for Baidu-pinyin Input Method.
 
-You can use =brew info fcitx-remote-for-osx= to get more options info for input method support.
+You can use =brew info fcitx-remote-for-osx= to get more options info for input
+method support.
 
 #+BEGIN_EXAMPLE
 --with-input-method=
   Select input method: baidu-pinyin(default), baidu-wubi, sogou-pinyin, qq-wubi, squirrel-rime, osx-pinyin
 #+END_EXAMPLE
+
 ***** Windows
-=fcitx.el= dosen't support Windows for now.We just disable it in layer.
+=fcitx.el= doesn't support Windows for now.
 
 *** Enable YouDao(有道) Dictionary(激活有道字典)
 The YouDao Dictionary is disabled by default, if you want enable it.
