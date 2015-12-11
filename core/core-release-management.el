@@ -74,31 +74,33 @@ users on `develop' branch must manually pull last commits instead."
   "Periodicly check for new for new Spacemacs version.
 Update `spacemacs-new-version' variable if any new version has been
 found."
-  (if (not dotspacemacs-version-check-enable)
-      (message "Skipping check for new version because dotspacemacs-version-check-enable nil")
-    (if (string-equal "develop" (spacemacs/git-get-current-branch))
-        (message "Skipping check for new version because you are on develop.")
-      (message "Start checking for new version...")
-      (async-start
-       `(lambda ()
-          ,(async-inject-variables "\\`user-emacs-directory\\'")
-          (load-file (concat user-emacs-directory "core/core-load-paths.el"))
-          (require 'core-spacemacs)
-          (spacemacs/get-last-version))
-       (lambda (result)
-         (if result
-             (if (or (version< result spacemacs-version)
-                     (string= result spacemacs-version)
-                     (if spacemacs-new-version
-                         (string= result spacemacs-new-version)))
-                 (message "Spacemacs is up to date.")
-               (message "New version of Spacemacs available: %s" result)
-               (setq spacemacs-new-version result))
-           (message "Unable to check for new version."))))
-      (when interval
-        (setq spacemacs-version-check-timer
-              (run-at-time t (timer-duration interval)
-                           'spacemacs/check-for-new-version))))))
+  (cond
+   ((not dotspacemacs-check-for-update)
+    (message "Skipping check for new version (reason: dotfile)"))
+   ((string-equal "develop" (spacemacs/git-get-current-branch))
+    (message "Skipping check for new version (reason: develop branch)"))
+   (t
+    (message "Start checking for new version...")
+    (async-start
+     `(lambda ()
+        ,(async-inject-variables "\\`user-emacs-directory\\'")
+        (load-file (concat user-emacs-directory "core/core-load-paths.el"))
+        (require 'core-spacemacs)
+        (spacemacs/get-last-version))
+     (lambda (result)
+       (if result
+           (if (or (version< result spacemacs-version)
+                   (string= result spacemacs-version)
+                   (if spacemacs-new-version
+                       (string= result spacemacs-new-version)))
+               (message "Spacemacs is up to date.")
+             (message "New version of Spacemacs available: %s" result)
+             (setq spacemacs-new-version result))
+         (message "Unable to check for new version."))))
+    (when interval
+      (setq spacemacs-version-check-timer
+            (run-at-time t (timer-duration interval)
+                         'spacemacs/check-for-new-version))))))
 
 (defun spacemacs/get-last-version ()
   "Return the last tagged version."

@@ -83,8 +83,9 @@ banner, `random' chooses a random text banner in `core/banners'
 directory. A string value must be a path to a .PNG file.
 If the value is nil then no banner is displayed.")
 
-(defvar dotspacemacs-version-check-enable t
-  "If non-nil then enable checking for new versions of spacemacs")
+(defvar dotspacemacs-check-for-update t
+  "If non nil then spacemacs will check for updates at startup
+when the current branch is not `develop'")
 
 (defvar dotspacemacs-configuration-layers '(emacs-lisp)
   "List of configuration layers to load. If it is the symbol `all' instead
