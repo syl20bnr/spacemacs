@@ -12,6 +12,7 @@
    - [[Previewing][Previewing]]
    - [[Build command][Build command]]
    - [[Auto-fill][Auto-fill]]
+   - [[Magic latex buffer][Magic latex buffer]]
  - [[Keybindings][Keybindings]]
    - [[AucTeX][AucTeX]]
    - [[RefTeX][RefTeX]]
@@ -25,7 +26,6 @@ This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects
 - Auto-completion with [[https://github.com/alexeyr/company-auctex][company-auctex]]
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
-
 * Install
 ** Layer
 To use this contribution add it to your =~/.spacemacs=
@@ -49,6 +49,10 @@ under =dotspacemacs/user-config=:
 
 Then when you open up a compiled PDF, the preview will update automatically
 when you recompile.
+
+Font-locking for semi-WYSIWYG editing made with magic-latex-buffer can be customized.
+
+
 
 ** Build command
 A build command can be specified via the layer variable =latex-build-command=.
@@ -75,6 +79,15 @@ The variable =latex-nofill-env= provide the list of environment names where
   dotspacemacs-configuration-layers '(
     (latex :variables latex-enable-auto-fill t))
 #+END_SRC
+
+** Magic latex buffer
+Font-locking using magic latex buffer can be customized with the following variables (all toggled by default):
+
+=magic-latex-enable-block-highlight t=
+=magic-latex-enable-suscript t=
+=magic-latex-enable-pretty-symbols t=
+=magic-latex-enable-block-align t=
+=magic-latex-enable-inline-image t=
 
 * Keybindings
 ** AucTeX

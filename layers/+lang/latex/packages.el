@@ -19,6 +19,7 @@
     evil-matchit
     flycheck
     flyspell
+    magic-latex-buffer
     smartparens
     typo
     yasnippet
@@ -222,3 +223,16 @@
 (defun latex/post-init-which-key ()
   (push '("\\`latex/font-\\(.+\\)\\'" . "\\1")
         which-key-description-replacement-alist))
+
+(defun latex/init-magic-latex-buffer ()
+    (use-package magic-latex-buffer
+       :defer t
+       :init
+       (progn
+           (setq magic-latex-enable-block-highlight t
+              magic-latex-enable-suscript t
+              magic-latex-enable-pretty-symbols t
+              magic-latex-enable-block-align t
+              magic-latex-enable-inline-image t)))
+  (add-hook 'LaTeX-mode-hook 'magic-latex-buffer))
+
