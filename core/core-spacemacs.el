@@ -22,6 +22,7 @@
 (require 'core-spacemacs-buffer)
 (require 'core-keybindings)
 (require 'core-toggle)
+(require 'core-funcs)
 (require 'core-micro-state)
 (require 'core-use-package-ext)
 
@@ -47,6 +48,8 @@
 
 (defun spacemacs/init ()
   "Perform startup initialization."
+  ;; this is for a smoother UX at startup (i.e. less graphical glitches)
+  (hidden-mode-line-mode)
   ;; explicitly set the prefered coding systems to avoid annoying prompt
   ;; from emacs (especially on Microsoft Windows)
   (prefer-coding-system 'utf-8)
