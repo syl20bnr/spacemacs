@@ -9,7 +9,14 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(setq spacemacs-layouts-packages '(persp-mode spaceline eyebrowse))
+(setq spacemacs-layouts-packages
+      '(;; temporary switch on a fork to fix
+        ;; https://github.com/syl20bnr/spacemacs/issues/4120
+        (persp-mode :location (recipe :fetcher github
+                                      :repo "syl20bnr/persp-mode.el"
+                                      :branch "fix-emacsclient-crash"))
+        spaceline
+        eyebrowse))
 
 (defun spacemacs-layouts/init-persp-mode ()
   (use-package persp-mode
