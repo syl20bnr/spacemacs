@@ -2572,6 +2572,7 @@ To search in a project see [[Searching in a project][project searching]].
     | ~SPC p d~   | find directory                                        |
     | ~SPC p D~   | open project root in =dired=                          |
     | ~SPC p f~   | find file                                             |
+    | ~SPC p F~   | Find file based on path at point                      |
     | ~SPC p G~   | regenerate the project's =etags= / =gtags=            |
     | ~SPC p h~   | find file using =helm=                                |
     | ~SPC p I~   | invalidate the projectile cache                       |
