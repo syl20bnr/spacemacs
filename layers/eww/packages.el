@@ -38,9 +38,9 @@
     :init
     (evil-leader/set-key "aw" 'eww)
     :config
-    (evilified-state-evilify-map eww-mode-map
-      :mode eww-mode
-      :bindings
+    (evil-make-overriding-map eww-mode-map 'normal)
+    (evil-define-key 'normal eww-mode-map
+      "l" 'evil-forward-char
       "i" 'evil-insert
       "H" 'eww-back-url
       "L" 'eww-forward-url
@@ -50,7 +50,8 @@
       "Y" 'eww-copy-page-url
       ;; "p" TODO: open url on clipboard
       "r" 'eww-reload
-      "b" 'eww-add-bookmark)))
+      ;; "b" TODO: helm buffer with bookmarks
+      "a" 'eww-add-bookmark)))
 
 (defun eww/init-eww-lnum ()
   (use-package eww-lnum
