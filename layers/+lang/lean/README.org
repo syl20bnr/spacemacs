@@ -37,6 +37,7 @@ If you installed Lean in the default directory, put this in your =.spacemacs.=:
 
 * Key Bindings
 
+<<<<<<< HEAD
 | Key Binding | Description                                  |
 |-------------+----------------------------------------------|
 | ~SPC m L~   | Compile the current file/project.            |
