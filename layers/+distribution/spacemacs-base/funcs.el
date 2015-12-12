@@ -57,11 +57,11 @@
     (apply 'message msg args)))
 
 (defun spacemacs/system-is-mac ()
-  (string-equal system-type "darwin"))
+  (eq system-type 'darwin))
 (defun spacemacs/system-is-linux ()
-  (string-equal system-type "gnu/linux"))
+  (eq system-type 'gnu/linux))
 (defun spacemacs/system-is-mswindows ()
-  (string-equal system-type "windows-nt"))
+  (eq system-type 'windows-nt))
 
 (defun spacemacs/jump-in-buffer ()
   (interactive)
