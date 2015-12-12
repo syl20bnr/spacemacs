@@ -1686,6 +1686,7 @@ Open junk file using helm, with `prefix-arg' search in junk files"
 (defun spacemacs/init-smartparens ()
   (use-package smartparens
     :defer t
+    :commands (sp-split-sexp sp-newline)
     :init
     (progn
       (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
@@ -1718,7 +1719,11 @@ Open junk file using helm, with `prefix-arg' search in junk files"
       (setq sp-show-pair-delay 0.2
             ;; fix paren highlighting in normal mode
             sp-show-pair-from-inside t
-            sp-cancel-autoskip-on-backward-movement nil))
+            sp-cancel-autoskip-on-backward-movement nil)
+
+      (spacemacs/set-leader-keys
+        "J"  'sp-split-sexp
+        "jj" 'sp-newline))
     :config
     (progn
       (require 'smartparens-config)
