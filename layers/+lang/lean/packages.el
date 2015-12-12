@@ -9,7 +9,9 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(setq lean-packages '(mmm-mode f dash-functional
+(setq lean-packages '(mmm-mode 
+                      f 
+                      dash-functional
                       (lean-mode :location (recipe
                                             :fetcher github
                                             :repo leanprover/lean
@@ -24,7 +26,7 @@
   (use-package lean-mode
     :defer t
     :config
-    (evil-leader/set-key-for-mode 'lean-mode
+    (spacemacs/set-leader-keys-for-major-mode 'lean-mode
       "L" 'lean-std-exe
       "R" 'lean-server-restart-process
       "d" 'lean-eldoc-documentation-function
