@@ -14,17 +14,11 @@
                                             :fetcher github
                                             :repo leanprover/lean
                                             :files ("src/emacs/*.el")))))
-(defun lean/init-f ()
-  (use-package f
-    :defer t))
+(defun lean/init-f ())
 
-(defun lean/init-dash-functional ()
-  (use-package dash-functional
-    :defer t))
+(defun lean/init-dash-functional ())
 
-(defun lean/init-mmm-mode ()
-  (use-package mmm-mode
-    :defer t))
+(defun lean/init-mmm-mode ())
 
 (defun lean/init-lean-mode ()
   (use-package lean-mode
