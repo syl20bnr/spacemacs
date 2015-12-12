@@ -74,8 +74,9 @@
       (helm :sources (helm-source-eww-bookmarks)
             :buffer "*helm-eww-bookmarks*"))
 
-    (evil-make-overriding-map eww-mode-map 'normal)
-    (evil-define-key 'normal eww-mode-map
+    (evilified-state-evilify-map eww-mode-map
+      :mode eww-mode
+      :bindings
       "l" 'evil-forward-char
       "i" 'evil-insert
       "H" 'eww-back-url
