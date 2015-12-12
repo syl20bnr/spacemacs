@@ -2,53 +2,22 @@
 
 [[file:img/r.jpg]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
-- [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
-  - [[#inferior-repl-process][Inferior REPL process]]
-  - [[#helpers][Helpers]]
-- [[#options][Options]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[#install][Install]]
+ - [[#options][Options]]
+   - [[#style][Style]]
+   - [[#roxygen][Roxygen]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#inferior-ess-processes][Inferior ESS Processes]]
+   - [[#evaluation-commands][Evaluation Commands]]
+   - [[#Developer][Developer]]
+   - [[#debugging][Debugging]]
+   - [[#help][Help]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ess= to the existing =dotspacemacs-configuration-layers= list in this
 file.
-
-* Key Bindings
-
-** Inferior REPL process
-Send code to inferior process with these commands:
-
-| Key Binding | Description                                                      |
-|-------------+------------------------------------------------------------------|
-| ~SPC m c c~ | send knitr/sweave chunk and keep buffer focused                  |
-| ~SPC m c C~ | send knitr/sweave chunk and switch to REPL in insert mode        |
-| ~SPC m c d~ | send knitr/sweave chunk and step to next chunk                   |
-| ~SPC m c m~ | mark knitr/sweave chunk around point                             |
-| ~SPC m c n~ | next knitr/sweave chunk                                          |
-| ~SPC m c N~ | previous knitr/sweave chunk                                      |
-| ~SPC m s b~ | send buffer and keep code buffer focused                         |
-| ~SPC m s B~ | send buffer and switch to REPL in insert mode                    |
-| ~SPC m s d~ | send region or line and step (debug)                             |
-| ~SPC m s D~ | send function or paragraph and step (debug)                      |
-| ~SPC m s i~ | start an inferior REPL process                                   |
-| ~SPC m s l~ | send line and keep code buffer focused                           |
-| ~SPC m s L~ | send line and switch to REPL in insert mode                      |
-| ~SPC m s r~ | send region and keep code buffer focused                         |
-| ~SPC m s R~ | send region and switch to REPL in insert mode                    |
-| ~SPC m s f~ | send thing at point (function) and keep code buffer focused      |
-| ~SPC m s F~ | send thing at point (function) and switch to REPL in insert mode |
-| ~CTRL+j~    | next item in REPL history                                        |
-| ~CTRL+k~    | previous item in REPL history                                    |
-
-** Helpers
-Helpers for inspecting objects at point are available in R buffers only.
-
-| Key Binding | Description                                                         |
-|-------------+---------------------------------------------------------------------|
-| ~SPC m h d~ | view data under point using [ess-R-data-view][ess-R-data-view]      |
-| ~SPC m h i~ | object introspection popup [ess-R-object-popup][ess-R-object-popup] |
-| ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]                 |
 
 * Options
 =ess-smart-equals= is disabled by default. In order to enable it, set in your
@@ -67,3 +36,133 @@ hook:
             (lambda ()
               (ess-toggle-underscore nil)))
 #+end_src
+
+** Style
+ESS offers good support for various indentation styles.  This layer offers two
+variables to control the style =ess-user-style= and =ess-user-style-def=.  Set
+the former to the symbol of the style you want to use e.g.
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '((ess :variables
+                                                         ess-user-style 'GNU)))
+#+END_SRC
+
+ESS defines styles for (at time of writing) RStudio, GNU, RRR, BSD, C++, CLB,
+RRR+, and K&R
+
+If you want to define your own style, set the =ess-user-style-def= variable to
+the style specification; the layer will put it on =ess-style-alist=.  For
+example:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+ '((ess :variables
+         ess-user-style-def '(my-RStudio
+                              (ess-indent-offset . 4) ;; this is the only change.
+                              (ess-offset-arguments . open-delim)
+                              (ess-offset-arguments-newline . prev-line)
+                              (ess-offset-block . prev-line)
+                              (ess-offset-continued . straight)
+                              (ess-align-declaration-args . t)
+                              (ess-align-nested-calls . nil)
+                              (ess-align-continuations-in-calls . nil)
+                              (ess-align-blocks . nil)
+                              (ess-indent-prev-call-lhs . t)
+                              (ess-indent-prev-call-chains . t)
+                              (ess-indent-with-fancy-comments . nil)))))
+#+END_SRC
+
+** Roxygen
+ESS' fills in Roxygen templates from an internal variable.  Some users may wish
+to overwrite this variable with an alternative value e.g. so that the author
+field is specified.  For example:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+ '((ess :variables
+        ess-user-roxy-template '(("description" . " headline ")
+                                 ("details" . " details ")
+                                 ("param" . "")
+                                 ("author" . "Your Name")))))
+#+END_SRC
+
+* Key Bindings
+
+** Inferior ESS Processes
+Manage inferior ESS processes.
+
+| Key Binding | Description                                                                |
+|-------------+----------------------------------------------------------------------------|
+| ~SPC m s i~ | start an inferior REPL process                                             |
+| ~SPC m s a~ | pick an inferior process to attach the current buffer to                   |
+| ~SPC m s w~ | set the working directory for the REPL                                     |
+| ~SPC m s p~ | load the specified library into the REPL                                   |
+| ~SPC m s P~ | install the specified library                                              |
+
+** Evaluation Commands
+Send code to inferior process with these commands:
+
+| Key Binding | Description                                                                      |
+|-------------+----------------------------------------------------------------------------------|
+| ~SPC m c c~ | send knitr/sweave chunk and keep buffer focused                                  |
+| ~SPC m c C~ | send knitr/sweave chunk and switch to REPL in insert mode                        |
+| ~SPC m c d~ | send knitr/sweave chunk and step to next chunk                                   |
+| ~SPC m c m~ | mark knitr/sweave chunk around point                                             |
+| ~SPC m c n~ | next knitr/sweave chunk                                                          |
+| ~SPC m c N~ | previous knitr/sweave chunk                                                      |
+| ~SPC m s b~ | send buffer and keep code buffer focused                                         |
+| ~SPC m s B~ | send buffer and switch to REPL in insert mode                                    |
+| ~SPC m s d~ | send region or line and step (debug)                                             |
+| ~SPC m s D~ | send function or paragraph and step (debug)                                      |
+| ~SPC m s l~ | send line and keep code buffer focused                                           |
+| ~SPC m s L~ | send line and switch to REPL in insert mode                                      |
+| ~SPC m s r~ | send region and keep code buffer focused                                         |
+| ~SPC m s R~ | send region and switch to REPL in insert mode                                    |
+| ~SPC m s t~ | send thing at point (function) and keep code buffer focused                      |
+| ~SPC m s T~ | send thing at point (function) and switch to REPL in insert mode                 |
+| ~SPC m s :~ | execute a command in the REPL, displaying the results in a separate buffer       |
+| ~SPC m v d~ | display a dired-like buffer browsing the objects in the inferior session buffer. |
+| ~CTRL+j~    | next item in REPL history                                                        |
+| ~CTRL+k~    | previous item in REPL history                                                    |
+
+** Developer
+Useful, IDE like functions.
+| Key Binding | Description                                                                                |
+|-------------+--------------------------------------------------------------------------------------------|
+| ~SPC m d l~ | ~(ess-developer-load-package)~ load a specified directory with ~devtools::load_all~        |
+| ~SPC m d s~ | ~(ess-set-style)~ set the indenting style from the available specifications.               |
+| ~SPC m d t~ | ~(ess-build-tags-for-directory)~ build a RTAGS file for the specified directory            |
+| ~SPC m r r~ | ~(ess-roxy-update-entry)~ insert or update the roxygen string for the function under point |
+| ~SPC m r h~ | ~(ess-roxy-hide-all)~ hide all roxygen strings in the buffer                               |
+| ~SPC m r t~ | ~(ess-roxy-toggle-hiding)~ toggle hiding of the roxygen strings                            |
+| ~SPC m r n~ | ~(ess-roxy-next-entry)~ go to the next roxygen entry                                       |
+| ~SPC m r p~ | ~(ess-roxy-previous-entry)~ go to the previous roxygen entry                               |
+| ~SPC m r P~ | ~(ess-roxy-preview-text)~ preview the rendered help text                                   |
+
+** Debugging
+Bindings for interacting with the debugger.
+| Key Binding | Description                                                                                                      |
+|-------------+------------------------------------------------------------------------------------------------------------------|
+| ~SPC m d e~ | ~(ess-debug-toggle-error-action)~ cycle the error action for the buffer's inferior process                       |
+| ~SPC m d w~ | ~(ess-watch)~ set an ess-watch                                                                                   |
+| ~SPC m b s~ | ~(ess-bp-set)~ set a breakpoint at the point                                                                     |
+| ~SPC m b c~ | ~(ess-bp-set-condition)~ set a conditional breakpoint at the point                                               |
+| ~SPC m b l~ | ~(ess-bp-set-logger)~ set a logger at the point                                                                  |
+| ~SPC m b t~ | ~(ess-bp-toggle-state)~ toggle the state of the breakpoint under point                                           |
+| ~SPC m b k~ | ~(ess-bp-kill)~ kill the breakpoint under the point                                                              |
+| ~SPC m b K~ | ~(ess-bp-kill-all)~ kill all of the breakpoints                                                                  |
+| ~SPC m b n~ | ~(ess-bp-next)~ go to the next breakpoint                                                                        |
+| ~SPC m b p~ | ~(ess-bp-next)~ go to the previous breakpoint                                                                    |
+| ~SPC m b m~ | ~(ess-debug-flag-for-debugging)~ flag the specified function for debugging, as though you called debug(function) |
+| ~SPC m b M~ | ~(ess-debug-unflag-for-debugging)~ unset the debug flag for the specified function.                              |
+
+** Help
+Helpers for inspecting objects at point are available in R buffers only.
+| Key Binding | Description                                                         |
+|-------------+---------------------------------------------------------------------|
+| ~SPC m h d~ | view data under point using [ess-R-data-view][ess-R-data-view]      |
+| ~SPC m h i~ | object introspection popup [ess-R-object-popup][ess-R-object-popup] |
+| ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]                 |
+| ~SPC m h h~ | display help on the object under point (or as specified)            |
+| ~SPC m h a~ | display help apropos the search string                              |
+| ~SPC m h p~ | display the package index for the attached process                  |
+| ~SPC m h v~ | display vignettes for the selected package                          |

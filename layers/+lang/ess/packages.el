@@ -10,13 +10,14 @@
 ;;; License: GPLv3
 
 (setq ess-packages
-  '(
-    ess
-    ess-R-data-view
-    ess-R-object-popup
-    ess-smart-equals
-    golden-ratio
-    org))
+      '(
+        company
+        ess
+        ess-R-data-view
+        ess-R-object-popup
+        ess-smart-equals
+        rainbow-delimiters
+        ))
 
 (defun ess/init-ess ()
   (use-package ess-site
@@ -61,49 +62,81 @@
       (add-hook 'inferior-ess-mode-hook
                 'spacemacs//ess-fix-read-only-inferior-ess-mode)
       (when (configuration-layer/package-usedp 'company)
-          (add-hook 'ess-mode-hook 'company-mode))))
+        (add-hook 'ess-mode-hook 'company-mode))
+      (with-eval-after-load 'ess-site
+        (if ess-user-style-def
+            (add-to-list 'ess-style-alist ess-user-style-def))
+        (if ess-user-roxy-template
+            (setq ess-roxy-template-alist ess-user-roxy-template))
 
-  ;; R --------------------------------------------------------------------------
-  (with-eval-after-load 'ess-site
-    ;; Follow Hadley Wickham's R style guide
-    (setq ess-first-continued-statement-offset 2
-          ess-continued-statement-offset 0
-          ess-expression-offset 2
-          ess-nuke-trailing-whitespace-p t
-          ess-default-style 'DEFAULT)
+        ;; instead of setting style vars directly, set style with ess-set-style
+        (add-hook 'ess-mode-hook (lambda () (ess-set-style ess-user-style)))
 
-    (spacemacs/set-leader-keys-for-major-mode 'ess-julia-mode
-      "'"  'julia
-      "si" 'julia)
-    (spacemacs/set-leader-keys-for-major-mode 'ess-mode
-      "'"  'spacemacs/ess-start-repl
-      "si" 'spacemacs/ess-start-repl
-      ;; noweb
-      "cC" 'ess-eval-chunk-and-go
-      "cc" 'ess-eval-chunk
-      "cd" 'ess-eval-chunk-and-step
-      "cm" 'ess-noweb-mark-chunk
-      "cN" 'ess-noweb-previous-chunk
-      "cn" 'ess-noweb-next-chunk
-      ;; REPL
-      "sB" 'ess-eval-buffer-and-go
-      "sb" 'ess-eval-buffer
-      "sD" 'ess-eval-function-or-paragraph-and-step
-      "sd" 'ess-eval-region-or-line-and-step
-      "sL" 'ess-eval-line-and-go
-      "sl" 'ess-eval-line
-      "sR" 'ess-eval-region-and-go
-      "sr" 'ess-eval-region
-      "sF" 'ess-eval-function-and-go
-      "sf" 'ess-eval-function
-      ;; R helpers
-      "hd" 'ess-R-dv-pprint
-      "hi" 'ess-R-object-popup
-      "ht" 'ess-R-dv-ctable
-      )
-    (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
-    (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
-    (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input)))
+        (spacemacs/set-leader-keys-for-major-mode 'ess-julia-mode
+                                                  "'"  'julia
+          "si" 'julia)
+        (spacemacs/set-leader-keys-for-major-mode 'ess-mode
+                                                  "'"  'spacemacs/ess-start-repl
+          "si" 'spacemacs/ess-start-repl
+          ;; noweb
+          "cC" 'ess-eval-chunk-and-go
+          "cc" 'ess-eval-chunk
+          "cd" 'ess-eval-chunk-and-step
+          "cm" 'ess-noweb-mark-chunk
+          "cN" 'ess-noweb-previous-chunk
+          "cn" 'ess-noweb-next-chunk
+          ;; REPL
+          "sa" 'ess-switch-process
+          "sB" 'ess-eval-buffer-and-go
+          "sb" 'ess-eval-buffer
+          "sD" 'ess-eval-function-or-paragraph-and-step
+          "sd" 'ess-eval-region-or-line-and-step
+          "sL" 'ess-eval-line-and-go
+          "sl" 'ess-eval-line
+          "sR" 'ess-eval-region-and-go
+          "sr" 'ess-eval-region
+          "sT" 'ess-eval-function-and-go
+          "st" 'ess-eval-function
+          "sP" 'ess-install-library
+          "sp" 'ess-load-library
+          "s:" 'ess-execute
+          "sw" 'ess-set-working-directory
+          ;; R helpers
+          "hd" 'ess-R-dv-pprint
+          "hi" 'ess-R-object-popup
+          "ht" 'ess-R-dv-ctable
+          "hh" 'ess-display-help-on-object
+          "ha" 'ess-display-help-apropos
+          "hp" 'ess-display-package-index
+          "hv" 'ess-display-vignettes
+          ;; Developer bindings
+          "dl" 'ess-developer-load-package
+          "de" 'ess-debug-toggle-error-action
+          "dt" 'ess-build-tags-for-directory
+          "dw" 'ess-watch
+          "ds" 'ess-set-style
+          "bs" 'ess-bp-set
+          "bc" 'ess-bp-set-conditional
+          "bl" 'ess-bp-set-logger
+          "bt" 'ess-bp-toggle-state
+          "bk" 'ess-bp-kill
+          "bK" 'ess-bp-kill-all
+          "bn" 'ess-bp-next
+          "bp" 'ess-bp-previous
+          "bm" 'ess-debug-flag-for-debugging
+          "bM" 'ess-debug-unflag-for-debugging
+          ;; roxygen
+          "rh" 'ess-roxy-hide-all
+          "rr" 'ess-roxy-update-entry
+          "rn" 'ess-roxy-next-entry
+          "rp" 'ess-roxy-previous-entry
+          "rP" 'ess-roxy-preview-text
+          "rt" 'ess-roxy-toggle-hiding
+          ;; other views
+          "vd"  'ess-rdired)
+        (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
+        (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
+        (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input)))))
 
 (defun ess/init-ess-R-data-view ())
 
