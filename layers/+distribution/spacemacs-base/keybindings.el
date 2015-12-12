@@ -157,8 +157,6 @@ Ensure that helm is required before calling FUNC."
 ;; <SPC> j k key binding for a frequent action: go and indent line below the point
 ;; <SPC> J split the current line at point and indent it
 (spacemacs/set-leader-keys
-  "J"  'sp-split-sexp
-  "jj" 'sp-newline
   "jo" 'open-line
   "j=" 'spacemacs/indent-region-or-buffer
   "jJ" 'spacemacs/split-and-new-line
