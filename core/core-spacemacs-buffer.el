@@ -53,7 +53,8 @@ version the release note it displayed")
   ;; needed to make tab work correctly in terminal
   (evil-define-key 'motion spacemacs-buffer-mode-map (kbd "C-i") 'widget-forward)
   ;; motion state since this is a special mode
-  (add-to-list 'evil-motion-state-modes 'spacemacs-buffer-mode))
+  (unless (eq dotspacemacs-editing-style 'emacs)
+    (add-to-list 'evil-motion-state-modes 'spacemacs-buffer-mode)))
 
 (defun spacemacs-buffer/insert-banner-and-buttons ()
   "Choose a banner according to `dotspacemacs-startup-banner'and insert it
