@@ -35,6 +35,8 @@
   (use-package eww
     :defer t
     :init
+    (custom-set-variables
+     `(eww-search-prefix ,(cdr (assoc default-search-engine eww--search-engines))))
     (evil-leader/set-key "aw" 'eww)
     :config
     ;; needed to populate eww-bookmarks

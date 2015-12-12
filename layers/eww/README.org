@@ -17,12 +17,12 @@ browse websites or html files in text mode.
 It also provides some helm awesomeness such as fast bookmarks retrieval and
 editing.
 
-`eww-lnum` allows to quickly navigate to a link highlighting them with numbers,
-just press `f` and select the correct number; if you start typing you will
+~eww-lnum~ allows to quickly navigate to a link highlighting them with numbers,
+just press ~f~ and select the correct number; if you start typing you will
 filter the available links.
 
-`helm-eww-bookmarks` will search on all your saved pages and provides a primary
-action (enter or `F1`) to open the url and a secondary action (`F2`) to delete
+~helm-eww-bookmarks~ will search on all your saved pages and provides a primary
+action (enter or ~F1~) to open the url and a secondary action (~F2~) to delete
 the bookmark.
 
 * Install
@@ -31,6 +31,24 @@ To use this contribution add it to your =~/.spacemacs=
 #+begin_src emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(eww))
 #+end_src
+
+When you open a new eww buffer you will be prompted for an url or a search term.
+By default google will be used as a search engine.
+
+you can use the ~default-search-engine~ variable to use another service.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    eww :variables default-search-engine 'duckduckgo
+  ))
+#+END_SRC
+
+currently provided engines are:
+- 'google
+- 'stackoverflow
+- 'bing
+- 'answers (yahoo answers)
+- 'duckduckgo
 
 * Key bindings
 
