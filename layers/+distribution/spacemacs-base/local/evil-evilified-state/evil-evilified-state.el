@@ -61,14 +61,16 @@
   (evil-evilified-state))
 
 (defun evilified-state--pre-command-hook ()
-  "Redirect key bindings to `evilified-state' when a visual state is on."
+  "Redirect key bindings to `evilified-state'.
+Needed to bypass keymaps set as text properties."
   (unless (bound-and-true-p isearch-mode)
-    (let* ((map (get-char-property (point) 'keymap))
-           (evilified-map (when map (cdr (assq 'evilified-state map))))
-           (command (when (and evilified-map
-                               (eq 1 (length (this-command-keys))))
-                      (lookup-key evilified-map (this-command-keys)))))
-      (when command (setq this-command command)))))
+    (when (memq evil-state '(evilified visual))
+      (let* ((map (get-char-property (point) 'keymap))
+             (evilified-map (when map (cdr (assq 'evilified-state map))))
+             (command (when (and evilified-map
+                                 (eq 1 (length (this-command-keys))))
+                        (lookup-key evilified-map (this-command-keys)))))
+        (when command (setq this-command command))))))
 
 (defun evilified-state--evilified-state-on-entry ()
   "Setup evilified state."
@@ -81,7 +83,8 @@
   (when (bound-and-true-p evil-surround-mode)
     (make-local-variable 'evil-surround-mode)
     (evil-surround-mode -1))
-  (setq-local evil-normal-state-map (cons 'keymap nil))
+  (setq-local evil-normal-state-map (copy-keymap evil-normal-state-map))
+  (define-key evil-normal-state-map [escape] 'evil-evilified-state)
   (setq-local evil-visual-state-map
               (cons 'keymap (list (cons ?y 'evil-yank)
                                   (cons 'escape 'evil-exit-visual-state)))))
@@ -117,6 +120,7 @@
 (define-key evil-evilified-state-map "V" 'evil-visual-line)
 (define-key evil-evilified-state-map "gg" 'evil-goto-first-line)
 (define-key evil-evilified-state-map "G" 'evil-goto-line)
+(define-key evil-evilified-state-map [escape] 'evil-normal-state)
 (define-key evil-evilified-state-map (kbd "C-f") 'evil-scroll-page-down)
 (define-key evil-evilified-state-map (kbd "C-b") 'evil-scroll-page-up)
 (define-key evil-evilified-state-map (kbd "C-d") 'evil-scroll-down)
