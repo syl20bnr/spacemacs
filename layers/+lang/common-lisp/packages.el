@@ -31,7 +31,9 @@
       (defun slime/disable-smartparens ()
         (smartparens-strict-mode -1)
         (turn-off-smartparens-mode))
-      (add-hook 'slime-repl-mode-hook #'slime/disable-smartparens)
+      ;; only add hook if smartparens is present
+      (when (require 'smartparens nil 'noerror)
+        (add-hook 'slime-repl-mode-hook #'slime/disable-smartparens))
       (spacemacs/add-to-hooks 'slime-mode '(lisp-mode-hook)))
     :config
     (progn
