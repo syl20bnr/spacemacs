@@ -38,15 +38,15 @@ If you installed Lean in the default directory, put this in your =.spacemacs.=:
 * Key Bindings
 | Key Binding | Description                                  |
 |-------------+----------------------------------------------|
-| ~SPC m L~   | Compile the current file/project.            |
+| ~SPC m c c~ | Compile the current file/project.            |
 | ~SPC m R~   | Restart the Lean Server.                     |
-| ~SPC m d~   | Show Eldoc Documentation for value at point. |
+| ~SPC m h h~ | Show Eldoc Documentation for value at point. |
+| ~SPC m h t~ | Show type of value at point.                 |
+| ~SPC m h i~ | Show ID/Keyword info t point.                |
 | ~SPC m f~   | Fill a placeholder.                          |
 | ~SPC m g g~ | Find tag at point.                           |
 | ~SPC m g u~ | Update Lean tags.                            |
-| ~SPC m o~   | Set options for current Lean process.        |
-| ~SPC m c~   | Execute a Lean commmand.                     |
+| ~SPC e f~   | Set flags for current Lean process.          |
+| ~SPC e c~   | Execute a Lean commmand.                     |
 | ~SPC m ,~   | Show goal at point.                          |
-| ~SPC m t~   | Show type of value at point.                 |
-| ~SPC m i~   | Show ID/Keyword info t point.                |
-| ~SPC m k~   | Show how to type the key at point.           |
+| ~SPC m h k~ | Show how to type the key at point.           |

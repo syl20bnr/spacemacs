@@ -26,16 +26,17 @@
   (use-package lean-mode
     :defer t
     :config
+    (progn
     (spacemacs/set-leader-keys-for-major-mode 'lean-mode
-      "L" 'lean-std-exe
+      "cc" 'lean-std-exe
       "R" 'lean-server-restart-process
-      "d" 'lean-eldoc-documentation-function
+      "hh" 'lean-eldoc-documentation-function
       "f" 'lean-fill-placeholder
       "gu" 'lean-generate-tags
       "gg" 'lean-find-tag
-      "o" 'lean-set-option
-      "c" 'lean-eval-cmd
+      "ef" 'lean-set-option
+      "ec" 'lean-eval-cmd
       "," 'lean-show-goal-at-pos
-      "k" 'quail-show-key
-      "i" 'lean-show-id-keyword-info
-      "t" 'lean-show-type)))
+      "hk" 'quail-show-key
+      "hi" 'lean-show-id-keyword-info
+      "ht" 'lean-show-type))))
