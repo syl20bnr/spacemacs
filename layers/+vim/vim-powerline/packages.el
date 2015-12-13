@@ -1,7 +1,6 @@
 (setq vim-powerline-packages
       '(
         powerline
-        (spaceline :excluded t)
         (vim-powerline :location local)
         ))
 
