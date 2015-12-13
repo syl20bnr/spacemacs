@@ -564,7 +564,11 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                 (setq marker (get-text-property 0 'org-marker todo))
                 (setq pos (marker-position marker))
                 (setq txt (get-text-property 0 'txt todo))
-                (list (cons "text" txt) (cons "file" file) (cons "pos" pos)))
+                (setq time (get-text-property 0 'time todo))
+                (list (cons "text" txt)
+                      (cons "file" file)
+                      (cons "pos" pos)
+                      (cons "time" time)))
               ) rtn)))))
     rtnall))
 
@@ -595,7 +599,11 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                 (setq marker (get-text-property 0 'org-marker todo))
                 (setq pos (marker-position marker))
                 (setq txt (get-text-property 0 'txt todo))
-                (list (cons "text" txt) (cons "file" file) (cons "pos" pos)))
+                (setq time (get-text-property 0 'time todo))
+                (list (cons "text" txt)
+                      (cons "file" file)
+                      (cons "pos" pos)
+                      (cons "time" time)))
               ) rtn)))))
     rtnall))
 
@@ -621,6 +629,16 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
 (defun spacemacs-buffer//insert-todo-list (list-display-name list)
   (when (car list)
     (insert list-display-name)
+    (setq list (sort list
+                     (lambda (a b)
+                       (cond
+                        ((eq "" (cdr (assoc "time" b)))
+                         t)
+                        ((eq "" (cdr (assoc "time" a)))
+                         nil)
+                        (t
+                         (string< (cdr (assoc "time" a))
+                                  (cdr (assoc "time" b))))))))
     (mapc (lambda (el)
             (insert "\n    ")
             (widget-create 'push-button
@@ -630,8 +648,13 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                            :button-prefix ""
                            :button-suffix ""
                            :format "%[%t%]"
-                           (format "%s - %s" (abbreviate-file-name
-                                              (cdr (assoc "file" el)))
+                           (format "%s %s %s"
+                                   (abbreviate-file-name
+                                    (cdr (assoc "file" el)))
+                                   (if (not (eq "" (cdr (assoc "time" el))))
+                                       (format "- %s -"
+                                               (cdr (assoc "time" el)))
+                                     "-")
                                    (cdr (assoc "text" el)))))
           list)))
 
