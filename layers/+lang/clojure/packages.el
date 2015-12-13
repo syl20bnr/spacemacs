@@ -17,8 +17,9 @@
     :init
     (add-hook 'clojure-mode-hook (lambda () (require 'align-cljlet)))
     :config
-    (spacemacs/set-leader-keys-for-major-mode 'clojure-mode
-      "fl" 'align-cljlet)))
+    (dolist (mode '(clojure-mode clojurescript-mode))
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "fl" 'align-cljlet))))
 
 (defun clojure/init-cider ()
   (use-package cider
