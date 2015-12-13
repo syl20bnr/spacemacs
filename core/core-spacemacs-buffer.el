@@ -545,10 +545,13 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
           list)))
 
 (defun spacemacs-buffer/refresh-startupify-lists ()
+  "refresh home screen lists"
   (interactive)
   (spacemacs-buffer/delete-startupify-lists)
   (spacemacs-buffer/insert-startupify-lists)
-  (widget-forward 1))
+  (widget-forward 1)
+  (message "*spacemacs* refreshed")
+  )
 
 (defun spacemacs-buffer/delete-startupify-list (header)
   (with-current-buffer (get-buffer-create "*spacemacs*")
