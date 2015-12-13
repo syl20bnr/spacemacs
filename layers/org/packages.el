@@ -63,7 +63,7 @@
   (add-hook 'org-mode-hook 'spacemacs/add-org-surrounds)
   (defun spacemacs//surround-drawer ()
     (let ((dname (read-from-minibuffer "" "")))
-      (cons (format ":%s:" (or dname "")) ":END:"))))
+      (cons (format ":%s:\n" (or dname "")) "\n:END:"))))
 
 (defun org/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'org-mode-hook))
@@ -127,6 +127,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "'" 'org-edit-special
         "c" 'org-capture
         "d" 'org-deadline
+        "D" 'org-insert-drawer
         "e" 'org-export-dispatch
         "f" 'org-set-effort
         "P" 'org-set-property
