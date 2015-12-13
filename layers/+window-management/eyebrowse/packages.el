@@ -14,7 +14,6 @@
 
 (defun eyebrowse/init-eyebrowse ()
   (use-package eyebrowse
-    :diminish eyebrowse-mode
     :init
     (progn
       (setq eyebrowse-new-workspace #'spacemacs/home
