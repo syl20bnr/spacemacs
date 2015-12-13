@@ -607,6 +607,7 @@ already exist, and switch to it."
                         (spacemacs-buffer-mode)
                         (spacemacs-buffer/goto-link-line))) t)))))
   (spacemacs-buffer/goto-link-line)
-  (switch-to-buffer spacemacs-buffer-name))
+  (switch-to-buffer spacemacs-buffer-name)
+  (spacemacs//redisplay))
 
 (provide 'core-spacemacs-buffer)

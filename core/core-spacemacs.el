@@ -48,6 +48,8 @@
 
 (defun spacemacs/init ()
   "Perform startup initialization."
+  ;; silence ad-handle-definition about advised functions getting redefined
+  (setq ad-redefinition-action 'accept)
   ;; this is for a smoother UX at startup (i.e. less graphical glitches)
   (hidden-mode-line-mode)
   ;; explicitly set the prefered coding systems to avoid annoying prompt
@@ -70,11 +72,6 @@
   (unless (eq window-system 'mac)
     (when (and (fboundp 'menu-bar-mode) (not (eq menu-bar-mode -1)))
       (menu-bar-mode -1)))
-  ;; spacemacs init
-  (spacemacs-buffer/goto-buffer)
-  (setq initial-buffer-choice (lambda () (get-buffer spacemacs-buffer-name)))
-  ;; silence ad-handle-definition about advised functions getting redefined
-  (setq ad-redefinition-action 'accept)
   ;; for convenience and user support
   (unless (fboundp 'tool-bar-mode)
     (spacemacs-buffer/message (concat "No graphical support detected, you won't be"
@@ -99,6 +96,9 @@
       (spacemacs/set-default-font dotspacemacs-default-font)
     (spacemacs-buffer/warning "Cannot find font \"%s\"!"
                               (car dotspacemacs-default-font)))
+  ;; spacemacs init
+  (spacemacs-buffer/goto-buffer)
+  (setq initial-buffer-choice (lambda () (get-buffer spacemacs-buffer-name)))
   ;; mandatory dependencies
   ;; dash is required to prevent a package.el bug with f on 24.3.1
   (spacemacs/load-or-install-protected-package 'dash t)
