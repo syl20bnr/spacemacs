@@ -166,7 +166,7 @@
       (spacemacs|define-micro-state erc-log
         :doc (spacemacs//erc-log-ms-documentation)
         :use-minibuffer t
-        :evil-leader "m."
+        :evil-leader-for-mode (erc-mode . ".")
         :bindings
         ("r" erc-view-log-reload-file)
         (">" erc-view-log-next-mention)
