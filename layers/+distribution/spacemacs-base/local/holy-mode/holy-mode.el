@@ -38,7 +38,8 @@ before it was disabled.")
 (define-minor-mode holy-mode
   "Global minor mode to repulse the evil from spacemacs.
 
-The `insert state' is replaced by the `emacs state'."
+`evil-mode' is disabled and conflicting minor modes in
+`holy-mode-modes-to-disable-alist' are turned off."
   :global t
   :lighter " holy"
   :group 'spacemacs
