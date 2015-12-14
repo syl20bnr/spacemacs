@@ -39,8 +39,8 @@ If you installed Lean in the default directory, put this in your =.spacemacs=:
 | Key Binding | Description                                  |
 |-------------+----------------------------------------------|
 | ~SPC m c c~ | Compile the current file/project.            |
-| ~SPC m p r~   | Restart the Lean process.                    |
-| ~SPC m p f~   | Set flags for current Lean process.          |
+| ~SPC m p r~ | Restart the Lean process.                    |
+| ~SPC m p f~ | Set flags for current Lean process.          |
 | ~SPC m h h~ | Show Eldoc Documentation for value at point. |
 | ~SPC m h t~ | Show type of value at point.                 |
 | ~SPC m h g~ | Show goal at point.                          |
@@ -49,4 +49,4 @@ If you installed Lean in the default directory, put this in your =.spacemacs=:
 | ~SPC m f~   | Fill a placeholder.                          |
 | ~SPC m g u~ | Update Lean tags.                            |
 | ~SPC m g g~ | Find tag at point.                           |
-| ~SPC m s c~   | Send a command to the current Lean process.  |
+| ~SPC m s c~ | Send a command to the current Lean process.  |
