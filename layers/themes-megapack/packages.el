@@ -18,6 +18,7 @@
     ample-zen-theme
     apropospriate-theme
     anti-zenburn-theme
+    badwolf-theme
     ;; contains errors
     ; badger-theme
     birds-of-paradise-plus-theme
