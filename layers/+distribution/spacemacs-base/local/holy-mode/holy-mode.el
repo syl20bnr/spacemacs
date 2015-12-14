@@ -29,7 +29,8 @@
 ;;; Code:
 
 (defvar holy-mode-modes-to-disable-alist
-  `((evil-escape-mode . ,(when (boundp 'evil-escape-mode) evil-escape-mode)))
+  `((evil-escape-mode . ,(when (boundp 'evil-escape-mode) evil-escape-mode))
+    (hybrid-mode . ,(when (boundp 'hybrid-mode) hybrid-mode)))
   "Alist of modes that should be disabled when activating
 `holy-mode'. The cdr in each cell stores the state of the mode
 before it was disabled.")
@@ -56,6 +57,9 @@ before it was disabled.")
           (spacemacs//helm-hjkl-navigation nil)))
     (when (fboundp 'spacemacs//helm-hjkl-navigation)
       (spacemacs//helm-hjkl-navigation t))
-    (evil-mode 1)))
+    (evil-mode 1)
+    (dolist (mode holy-mode-modes-to-disable-alist)
+      (when (boundp (car mode))
+        (funcall (car mode) (cdr mode))))))
 
 (provide 'holy-mode)
