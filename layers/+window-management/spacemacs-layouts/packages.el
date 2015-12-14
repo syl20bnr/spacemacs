@@ -300,22 +300,8 @@ format so they are supported by the
       (remove-hook 'ido-make-buffer-list-hook 'persp-restrict-ido-buffers))))
 
 (defun spacemacs-layouts/post-init-spaceline ()
-  ;; redefine the persp-name format to allow optional
-  ;; default perspective display
-  ;; also display the perspective name only in active window
-  (spaceline-define-segment persp-name
-    "The current perspective name."
-    (let ((name (safe-persp-name (get-frame-persp))))
-      (if (file-directory-p name)
-          (file-name-nondirectory (directory-file-name name))
-        (propertize name 'face 'bold)))
-    :when (and active (bound-and-true-p persp-mode)
-               ;; There are multiple implementations of
-               ;; persp-mode with different APIs
-               (fboundp 'safe-persp-name) (fboundp 'get-frame-persp)
-               (or (not (equal persp-nil-name
-                               (safe-persp-name (get-frame-persp))))
-                   dotspacemacs-display-default-layout))))
+  (setq spaceline-display-default-perspective
+        dotspacemacs-display-default-layout))
 
 (defun spacemacs-layouts/post-init-eyebrowse ()
   (add-hook 'persp-before-switch-functions #'spacemacs/update-eyebrowse-for-perspective)
