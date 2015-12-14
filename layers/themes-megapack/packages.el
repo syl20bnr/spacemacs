@@ -20,6 +20,7 @@
     anti-zenburn-theme
     ;; contains errors
     ; badger-theme
+    badwolf-theme
     birds-of-paradise-plus-theme
     bubbleberry-theme
     busybee-theme
