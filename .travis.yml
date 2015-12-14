@@ -22,4 +22,4 @@ matrix:
       - EVM_EMACS=emacs-git-snapshot-travis
 
 script:
-  - ./travis/run_build.sh
+  - ./.travis-build.sh
