@@ -429,7 +429,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
 (defun spacemacs-base/init-evil-escape ()
   (use-package evil-escape
     :init
-    (evil-escape-mode)
+    (unless (eq dotspacemacs-editing-style 'emacs)
+      (evil-escape-mode))
     :config
     (spacemacs|hide-lighter evil-escape-mode)))
 
