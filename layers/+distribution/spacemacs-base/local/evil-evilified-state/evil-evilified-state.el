@@ -38,12 +38,13 @@
 (defvar evilified-state--modes nil
   "List of all evilified modes.")
 
-(defvar evilified-state--visual-state-map evil-visual-state-map
-  "Evil visual state map backup.")
-
 (defvar evilified-state--evil-surround nil
   "Evil surround mode variable backup.")
 (make-variable-buffer-local 'evilified-state--evil-surround)
+
+(defvar evilified-state--normal-state-map nil
+  "Local backup of normal state keymap.")
+(make-variable-buffer-local 'evilified-state--normal-state-map)
 
 (evil-define-state evilified
   "Evilified state.
@@ -72,9 +73,31 @@ Needed to bypass keymaps set as text properties."
                         (lookup-key evilified-map (this-command-keys)))))
         (when command (setq this-command command))))))
 
+(defun evilified-state--setup-normal-state-keymap ()
+  "Setup the normal state keymap."
+  (unless evilified-state--normal-state-map
+    (setq-local evilified-state--normal-state-map
+                (copy-keymap evil-normal-state-map)))
+  (setq-local evil-normal-state-map
+              (copy-keymap evilified-state--normal-state-map))
+  (define-key evil-normal-state-map [escape] 'evil-evilified-state))
+
+(defun evilified-state--restore-normal-state-keymap ()
+  "Restore the normal state keymap."
+  (setq-local evil-normal-state-map evilified-state--normal-state-map))
+
+(defun evilified-state--clear-normal-state-keymap ()
+  "Clear the normal state keymap."
+  (setq-local evil-normal-state-map (cons 'keymap nil)))
+
+(defun evilified-state--setup-visual-state-keymap ()
+  "Setup the normal state keymap."
+  (setq-local evil-visual-state-map
+              (cons 'keymap (list (cons ?y 'evil-yank)
+                                  (cons 'escape 'evil-exit-visual-state)))))
+
 (defun evilified-state--evilified-state-on-entry ()
   "Setup evilified state."
-  (add-hook 'pre-command-hook 'evilified-state--pre-command-hook nil 'local)
   (when (derived-mode-p 'magit-mode)
     ;; Courtesy of evil-magit package
     ;; without this set-mark-command activates visual-state which is just
@@ -83,11 +106,13 @@ Needed to bypass keymaps set as text properties."
   (when (bound-and-true-p evil-surround-mode)
     (make-local-variable 'evil-surround-mode)
     (evil-surround-mode -1))
-  (setq-local evil-normal-state-map (copy-keymap evil-normal-state-map))
-  (define-key evil-normal-state-map [escape] 'evil-evilified-state)
-  (setq-local evil-visual-state-map
-              (cons 'keymap (list (cons ?y 'evil-yank)
-                                  (cons 'escape 'evil-exit-visual-state)))))
+  (evilified-state--setup-normal-state-keymap)
+  (evilified-state--setup-visual-state-keymap)
+  (add-hook 'pre-command-hook 'evilified-state--pre-command-hook nil 'local)
+  (add-hook 'evil-visual-state-entry-hook
+            'evilified-state--visual-state-on-entry nil 'local)
+  (add-hook 'evil-visual-state-exit-hook
+            'evilified-state--visual-state-on-exit nil 'local))
 
 (defun evilified-state--evilified-state-on-exit ()
   "Clean evilified state"
@@ -95,17 +120,22 @@ Needed to bypass keymaps set as text properties."
 
 (defun evilified-state--visual-state-on-entry ()
   "Setup visual state."
+  ;; we need to clear temporarily the normal state keymap in order to reach
+  ;; the mode keymap
+  (when (eq 'evilified evil-previous-state)
+    (evilified-state--clear-normal-state-keymap))
   (add-hook 'pre-command-hook 'evilified-state--pre-command-hook nil 'local))
 
 (defun evilified-state--visual-state-on-exit ()
   "Clean visual state"
+  (when (eq 'evilified evil-previous-state)
+    (evilified-state--restore-normal-state-keymap))
   (remove-hook 'pre-command-hook 'evilified-state--pre-command-hook 'local))
 
-(add-hook 'evil-evilified-state-entry-hook 'evilified-state--evilified-state-on-entry)
-(add-hook 'evil-evilified-state-exit-hook 'evilified-state--evilified-state-on-exit)
-
-(add-hook 'evil-visual-state-entry-hook 'evilified-state--visual-state-on-entry)
-(add-hook 'evil-visual-state-exit-hook 'evilified-state--visual-state-on-exit)
+(add-hook 'evil-evilified-state-entry-hook
+          'evilified-state--evilified-state-on-entry)
+(add-hook 'evil-evilified-state-exit-hook
+          'evilified-state--evilified-state-on-exit)
 
 ;; default key bindings for all evilified buffers
 (define-key evil-evilified-state-map "/" 'evil-search-forward)
