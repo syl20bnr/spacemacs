@@ -225,7 +225,7 @@
       (spacemacs|define-micro-state web-mode
         :doc (spacemacs//web-mode-ms-doc)
         :persistent t
-        :evil-leader-for-mode (web-mode . "m.")
+        :evil-leader-for-mode (web-mode . ".")
         :bindings
         ("<escape>" nil :exit t)
         ("?" spacemacs//web-mode-ms-toggle-doc)
