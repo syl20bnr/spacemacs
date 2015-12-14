@@ -30,6 +30,15 @@
 
 (require 'evil)
 
+(defvar hybrid-mode-default-state-backup evil-default-state
+  "Backup of `evil-default-state'.")
+
+(defcustom hybrid-mode-default-state 'normal
+  "Value of `evil-default-state' for hybrid-mode. Set to hybrid
+to start in hybrid state (emacs bindings) by default."
+  :group 'spacemacs
+  :type 'symbol)
+
 (evil-define-state hybrid
   "Emacs/insert state for hybrid mode."
   :tag " <H> "
@@ -74,8 +83,12 @@ with `evil-hybrid-state-map'."
   :lighter " hybrid"
   :group 'spacemacs
   (if hybrid-mode
-      (setf (symbol-function 'evil-insert-state)
-            (symbol-function 'evil-hybrid-state))
+      (progn
+        (setq hybrid-mode-default-state-backup evil-default-state
+              evil-default-state hybrid-mode-default-state)
+        (setf (symbol-function 'evil-insert-state)
+              (symbol-function 'evil-hybrid-state)))
+    (setq evil-default-state hybrid-mode-default-state-backup)
     (setf (symbol-function 'evil-insert-state)
           (symbol-function 'hybrid-mode--evil-insert-state-backup))))
 
