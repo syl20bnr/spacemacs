@@ -40,8 +40,8 @@
       (with-eval-after-load 'golden-ratio
         (push 'cider-popup-buffer-quit-function golden-ratio-extra-commands))
       ;; add support for evil
-      (push 'cider-stacktrace-mode evil-motion-state-modes)
-      (push 'cider-popup-buffer-mode evil-motion-state-modes)
+      (evil-set-initial-state 'cider-stacktrace-mode 'motion)
+      (evil-set-initial-state 'cider-popup-buffer-mode 'motion)
 
       (defun spacemacs//cider-eval-in-repl-no-focus (form)
         "Insert FORM in the REPL buffer and eval it."
