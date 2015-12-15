@@ -72,7 +72,7 @@
          (rcirc-enable-authinfo-support (spacemacs//rcirc-with-authinfo arg))
          (rcirc-enable-znc-support (spacemacs//rcirc-with-znc arg))
          (t (rcirc arg))))
-      (push 'rcirc-mode evil-insert-state-modes))
+      (evil-set-initial-state 'rcirc-mode 'insert))
     :config
     (progn
       ;; (set-input-method "latin-1-prefix")
