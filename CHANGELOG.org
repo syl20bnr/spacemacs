@@ -1,4 +1,18 @@
 * Release 0.104.x
+** 0.104.7 (2015/12/15)
+*** Distribution layer changes
+**** Spacemacs
+- Remove fancy battery custom mode-line (moved to spaceline) (thanks to TheBB)
+*** Layers changes
+**** Eyebrowse
+- Eyebrowse doesn't have a lighter anymore (thanks to myrjola)
+**** Haskell
+- Replace obsolete function =haskell-process-load-or-reload= (thanks to
+  joehillen)
+- Fix renamed command =hindent-reformat-decl= (thanks to lunaryorn)
+**** Syntax-checking
+- Add support for =flycheck-pos-tip-mode= (thanks to StreakyCobra, TheBB and
+  lunaryorn)
 ** 0.104.6 (2015/11/27)
 *** Hotfix
 - Fix void variable error =smartparens-strict-mode= (thanks to TheBB)
