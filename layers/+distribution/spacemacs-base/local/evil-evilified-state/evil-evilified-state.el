@@ -166,9 +166,8 @@ BODY is a list of additional key bindings to apply for the given MAP in
               (unless (memq ',mode evilified-state--modes)
                 (push ',mode evilified-state--modes))
               (unless (or (bound-and-true-p holy-mode)
-                          (memq ',mode evil-evilified-state-modes))
-                (delq ',mode evil-emacs-state-modes)
-                (push ',mode evil-evilified-state-modes)))
+                          (eq 'evilified (evil-initial-state ',mode)))
+                (evil-set-initial-state ',mode 'evilified)))
             (unless ,(null defkey) (,@defkey)))))
 (put 'evilified-state-evilify 'lisp-indent-function 'defun)
 
@@ -248,8 +247,7 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
   "Configure default state for the passed mode."
   (add-to-list 'evilified-state--modes mode)
   (unless (bound-and-true-p holy-mode)
-    (delq mode evil-emacs-state-modes)
-    (add-to-list 'evil-evilified-state-modes mode)))
+    (evil-set-initial-state mode 'evilified)))
 
 (defun evilified-state--evilify-event (map map-symbol evil-map event evil-value
                                            &optional processed pending-funcs)
