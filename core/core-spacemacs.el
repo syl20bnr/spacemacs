@@ -60,10 +60,10 @@
   ;; packages.
   (setq-default evil-want-C-u-scroll t)
   (dotspacemacs/load-file)
+  (require 'core-configuration-layer)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
   (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
   ;; initialize the configuration layer system
-  (require 'core-configuration-layer)
   (configuration-layer/initialize)
   ;; default theme
   (let ((default-theme (car dotspacemacs-themes)))
