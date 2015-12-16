@@ -10,6 +10,8 @@
 ;;
 ;;; License: GPLv3
 
+(require 'profiler)
+
 ;; Keep debug-on-error on for stuff that is lazily loaded
 (add-hook 'after-init-hook (lambda () (setq debug-on-error t)))
 
