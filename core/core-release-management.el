@@ -18,6 +18,8 @@
 (defconst spacemacs-checkversion-branch "master"
   "Name of the branch used to check for new version.")
 
+(defvar dotspacemacs-check-for-update)
+(defvar spacemacs-version)
 ;; new version variables
 (defvar spacemacs-new-version nil
   "If non-nil a new Spacemacs version is available.")
