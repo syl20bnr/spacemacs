@@ -207,7 +207,7 @@ version and the NEW version."
       (with-current-buffer proc-buffer
         (prog1
             (when (buffer-string)
-                (end-of-buffer)
+                (goto-char (point-max))
                 (forward-line -1)
                 (replace-regexp-in-string
                  "\n$" ""
@@ -295,7 +295,7 @@ Returns the output of git status --porcelain."
   "Returns an integer from the version list.
 Example: (1 42 3) = 1 042 003"
   (let ((i -1))
-    (reduce '+ (mapcar (lambda (n) (setq i (1+ i)) (* n (expt 10 (* i 3))))
+    (cl-reduce '+ (mapcar (lambda (n) (setq i (1+ i)) (* n (expt 10 (* i 3))))
                        (reverse version)))))
 
 (provide 'core-release-management)

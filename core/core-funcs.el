@@ -49,7 +49,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
   "Return the directory of PKG. Return nil if not found."
   (let ((elpa-dir (concat user-emacs-directory "elpa/")))
     (when (file-exists-p elpa-dir)
-      (let ((dir (reduce (lambda (x y) (if x x y))
+      (let ((dir (cl-reduce (lambda (x y) (if x x y))
                          (mapcar (lambda (x)
                                    (when (string-match
                                           (concat "/"
@@ -173,9 +173,9 @@ Supported properties:
 
   (cond
    ((eq expand-scope 'subtree)
-    (show-subtree))
+    (outline-show-subtree))
    ((eq expand-scope 'all)
-    (show-all))
+    (outline-show-all))
    (t nil))
 
   ;; Make ~SPC ,~ work, reference:
