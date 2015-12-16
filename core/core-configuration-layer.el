@@ -147,6 +147,10 @@ the path for this layer.")
   "List of strings corresponding to category names. A category is a
 directory with a name starting with `+'.")
 
+(defvar update-packages-alist '()
+  "Used to collect information about rollback packages in the
+cache folder.")
+
 (defun configuration-layer/initialize ()
   "Initialize `package.el'."
   (configuration-layer//parse-command-line-arguments)
@@ -699,7 +703,8 @@ path."
            (mapcar 'car
                    (object-assoc-list
                     :name configuration-layer--used-distant-packages))))
-         (noinst-count (length noinst-pkg-names)))
+         (noinst-count (length noinst-pkg-names))
+         installed-count)
     ;; installation
     (when noinst-pkg-names
       (spacemacs-buffer/append
@@ -1247,7 +1252,8 @@ to select one."
                    configuration-layer--used-distant-packages
                    implicit-packages
                    dependencies))
-         (orphans-count (length orphans)))
+         (orphans-count (length orphans))
+         deleted-count)
     ;; (message "dependencies: %s" dependencies)
     ;; (message "implicit: %s" implicit-packages)
     ;; (message "orphans: %s" orphans)
