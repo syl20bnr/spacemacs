@@ -1150,11 +1150,11 @@ to select one."
               (memq pkg-name configuration-layer--protected-packages))
     (if (ht-contains? dependencies pkg-name)
         (let ((parents (ht-get dependencies pkg-name)))
-          (reduce (lambda (x y) (and x y))
-                  (mapcar (lambda (p) (configuration-layer//is-package-orphan
-                                       p dist-pkgs dependencies))
-                          parents)
-                  :initial-value t))
+          (cl-reduce (lambda (x y) (and x y))
+                     (mapcar (lambda (p) (configuration-layer//is-package-orphan
+                                          p dist-pkgs dependencies))
+                             parents)
+                     :initial-value t))
       (not (object-assoc pkg-name :name dist-pkgs)))))
 
 (defun configuration-layer//get-package-directory (pkg-name)

@@ -385,7 +385,7 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
                        (concat dotspacemacs-template-directory
                                ".spacemacs.template"))
       (dolist (p preferences)
-        (beginning-of-buffer)
+        (goto-char (point-min))
         (re-search-forward (car p))
         (replace-match (cadr p)))
       (let ((install
@@ -568,7 +568,7 @@ are caught and signalled to user in spacemacs buffer."
           ;; (insert (format "* Running tests on %s (v%s)\n" dotspacemacs-filepath dotspacemacs-version))
           (prog1
               ;; execute all tests no matter what
-              (reduce (lambda (x y)
+              (cl-reduce (lambda (x y)
                         (and (funcall y) x))
                       '(dotspacemacs//test-dotspacemacs/layers
                         dotspacemacs//test-dotspacemacs/init)
