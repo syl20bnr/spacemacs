@@ -1,4 +1,7 @@
 * Release 0.104.x
+** 0.104.8 (2015/12/16)
+*** Hotfix
+- Revert removal of fancy battery mode-line indicator.
 ** 0.104.7 (2015/12/15)
 *** Distribution layer changes
 **** Spacemacs
