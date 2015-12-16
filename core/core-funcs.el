@@ -10,6 +10,9 @@
 ;;
 ;;; License: GPLv3
 
+(defvar configuration-layer--protected-packages)
+(defvar dotspacemacs-filepath)
+
 (defun spacemacs/load-or-install-protected-package (pkg &optional log file-to-load)
   "Load PKG package, and protect it against being deleted as an orphan.
 See `spacemacs/load-or-install-package' for more information."
@@ -231,6 +234,7 @@ result, incrementing passed-tests and total-tests."
 ;; hide mode line
 ;; from http://bzg.fr/emacs-hide-mode-line.html
 (defvar-local hidden-mode-line-mode nil)
+(defvar-local hide-mode-line nil)
 (define-minor-mode hidden-mode-line-mode
   "Minor mode to hide the mode-line in the current buffer."
   :init-value nil
