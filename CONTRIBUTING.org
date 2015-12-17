@@ -46,6 +46,7 @@ Issues have to be reported on our [[https://github.com/syl20bnr/spacemacs/issues
     to reproduce the bug here. You can also check at the [[https://github.com/syl20bnr/spacemacs/tree/develop][source code]] to see if
     it has been changed/corrected.
 - Try to use a clear title, and describe your problem with complete sentences.
+  See also [[https://github.com/syl20bnr/spacemacs/wiki/Debugging#how-to-make-a-great-bug-report][How to make a great bug report]] in the wiki.
 - Include the following information in your issue:
   - The output of =SPC h d s= (=M-m h d s= in Emacs style), which gives the
     versions information about your installation.
