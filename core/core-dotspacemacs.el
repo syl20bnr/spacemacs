@@ -271,6 +271,22 @@ Possible values are: `recents' `bookmarks' `projects'.")
 ;; only for backward compatibility
 (defalias 'dotspacemacs-mode 'emacs-lisp-mode)
 
+(defmacro dotspacemacs|call-func (func &optional msg)
+  "Call the function from the dotfile only if it is bound.
+If MSG is not nil then display a message in `*Messages'. Errors
+are caught and signalled to user in spacemacs buffer."
+  `(progn
+     (when ,msg (spacemacs-buffer/message ,msg))
+     (when (fboundp ',func)
+       (condition-case-unless-debug err
+           (,func)
+         (error
+          (configuration-layer//set-error)
+          (spacemacs-buffer/append (format "Error in %s: %s\n"
+                                           ',(symbol-name func)
+                                           (error-message-string err))
+                                   t))))))
+
 (defun dotspacemacs/sync-configuration-layers (&optional arg)
   "Synchronize declared layers in dotfile with spacemacs.
 
@@ -446,22 +462,6 @@ error recovery."
       (ad-disable-advice 'dotspacemacs/init 'after
                          'error-recover-prompt-for-style)
       (ad-activate 'dotspacemacs/init))))
-
-(defmacro dotspacemacs|call-func (func &optional msg)
-  "Call the function from the dotfile only if it is bound.
-If MSG is not nil then display a message in `*Messages'. Errors
-are caught and signalled to user in spacemacs buffer."
-  `(progn
-     (when ,msg (spacemacs-buffer/message ,msg))
-     (when (fboundp ',func)
-         (condition-case-unless-debug err
-             (,func)
-           (error
-            (configuration-layer//set-error)
-            (spacemacs-buffer/append (format "Error in %s: %s\n"
-                                             ',(symbol-name func)
-                                             (error-message-string err))
-                                     t))))))
 
 (defun dotspacemacs//test-dotspacemacs/layers ()
   "Tests for `dotspacemacs/layers'"
