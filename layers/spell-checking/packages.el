@@ -42,7 +42,8 @@
     :init
     (progn
       (spell-checking/add-flyspell-hook 'text-mode-hook)
-      (spell-checking/add-flyspell-hook 'prog-mode-hook)
+      (when spell-checking-enable-by-default
+        (add-hook 'prog-mode-hook 'flyspell-prog-mode))
 
       (spacemacs|add-toggle spelling-checking
         :status flyspell-mode
