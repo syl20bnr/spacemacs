@@ -676,11 +676,11 @@ the right."
 
 ;; END align functions
 
-(defun spacemacs/write-file ()
-  "Write the file if visiting a file.
+(defun spacemacs/write-file (&optional force-new-file)
+  "Write the file if visiting a file and FORCE-NEW-FILE is nil.
    Otherwise ask for new filename."
-  (interactive)
-  (if (buffer-file-name)
+  (interactive "P")
+  (if (and (buffer-file-name) (null force-new-file))
       (call-interactively 'evil-write)
     (call-interactively 'write-file)))
 (evil-declare-not-repeat 'spacemacs/write-file)
