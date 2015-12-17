@@ -7,3 +7,6 @@
 ;; Variables
 
 (spacemacs|defvar-company-backends puppet-mode)
+
+;; Enable ruby-mode for Puppetfile support
+(configuration-layer/declare-layer 'ruby)

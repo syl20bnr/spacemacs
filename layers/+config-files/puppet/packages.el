@@ -1,22 +1,11 @@
 (setq puppet-packages
   '(
-    puppet-mode
     company
     flycheck
+    puppet-mode
     ))
 
-;; For each package, define a function puppet-mode/init-<package-puppet-mode>
-;;
-;; (defun puppet-mode/init-my-package ()
-;;   "Initialize my package"
-;;   )
-;;
-;; Often the body of an initialize function uses `use-package'
-;; For more info on `use-package', see readme:
-;; https://github.com/jwiegley/use-package
-
 (defun puppet/init-puppet-mode ()
-  "Initialize Puppet mode"
   (use-package puppet-mode
     :defer t
     :init
