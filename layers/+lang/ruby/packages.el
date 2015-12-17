@@ -190,6 +190,7 @@
 (defun ruby/init-ruby-mode ()
   (use-package ruby-mode
     :defer t
+    :mode "Puppetfile"
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
