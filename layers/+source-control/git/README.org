@@ -152,7 +152,7 @@ Here are the often used bindings inside a =status buffer=:
 | ~n~         | next search occurrence                              |
 | ~N~         | previous search occurrence                          |
 | ~o~         | revert item at point                                |
-| ~P P~       | push                                                |
+| ~P~         | Open a =push buffer=                                |
 | ~q~         | quit                                                |
 | ~s~         | on a file or hunk in a diff: stage the file or hunk |
 | ~x~         | discard changes                                     |
