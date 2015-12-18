@@ -327,7 +327,7 @@
 
 (defun helm-spacemacs//faq-candidate (cand)
   (let ((str (substring-no-properties (car cand))))
-    (when (string-match "\\`\\([^/]*\\)/\\(.*\\)\\'" str)
+    (when (string-match "\\`.*/\\([^/]*\\)/\\(.*\\)\\'" str)
       (cons (concat (propertize
                      (match-string 1 str)
                      'face 'font-lock-type-face)
@@ -337,14 +337,7 @@
 (defun helm-spacemacs//faq-candidates ()
   (delq nil
         (mapcar 'helm-spacemacs//faq-candidate
-                (with-temp-buffer
-                  (insert-file-contents helm-spacemacs--faq-filename)
-                  (org-mode)
-                  (mapcar (lambda (candidate)
-                            (cons (car candidate)
-                                  (marker-position (cdr candidate))))
-                          (helm-get-org-candidates-in-file
-                           (current-buffer) 1 8 nil t))))))
+                (helm-org-get-candidates (list helm-spacemacs--faq-filename) 1 8))))
 
 (defun helm-spacemacs//faq-goto-marker (marker)
   (find-file helm-spacemacs--faq-filename)
