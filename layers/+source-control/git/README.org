@@ -142,7 +142,7 @@ Here are the often used bindings inside a =status buffer=:
 | ~b b~       | checkout a branch                                   |
 | ~b c~       | create a branch                                     |
 | ~f f~       | fetch changes                                       |
-| ~F -r F~    | pull and rebase                                     |
+| ~F~         | pull and rebase                                     |
 | ~gr~        | refresh                                             |
 | ~j~         | goto next magit section                             |
 | ~C-j~       | next visual line                                    |
