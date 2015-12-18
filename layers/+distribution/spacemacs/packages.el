@@ -1575,7 +1575,6 @@ Open junk file using helm, with `prefix-arg' search in junk files"
 (defun spacemacs/init-pcre2el ()
   (use-package pcre2el
     :defer t
-    :commands rxt-fontify-regexp-at-point
     :init
     (progn
       (spacemacs/declare-prefix "R" "pcre2el")
@@ -1596,8 +1595,7 @@ Open junk file using helm, with `prefix-arg' search in junk files"
         "Res" 'rxt-elisp-to-sre
         "Re'" 'rxt-elisp-to-strings
         "Ret" 'rxt-toggle-elisp-rx
-        "Rt"  'rxt-toggle-elisp-rx
-        "Rh"  'rxt-fontify-regexp-at-point))))
+        "Rt"  'rxt-toggle-elisp-rx))))
 
 (defun spacemacs/init-paradox ()
   (use-package paradox
