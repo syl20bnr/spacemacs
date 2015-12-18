@@ -348,7 +348,12 @@ Ensure that helm is required before calling FUNC."
   "wV"  'split-window-right-and-focus
   "ww"  'other-window
   "w/"  'split-window-right
-  "w="  'balance-windows)
+  "w="  'balance-windows
+  "w["  'spacemacs/shrink-window-horizontally
+  "w]"  'spacemacs/enlarge-window-horizontally
+  "w{"  'spacemacs/shrink-window
+  "w}"  'spacemacs/enlarge-window)
+
 ;; text -----------------------------------------------------------------------
 (defalias 'count-region 'count-words-region)
 
@@ -393,6 +398,7 @@ Ensure that helm is required before calling FUNC."
   :doc "[n]ext [p]revious [K]ill [q]uit"
   :disable-evil-leader t
   :evil-leader "b."
+  :init-keys "n" "p" "N"
   :bindings
   ("K" kill-this-buffer)
   ("n" spacemacs/next-useful-buffer)
