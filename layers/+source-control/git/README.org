@@ -158,7 +158,7 @@ Here are the often used bindings inside a =status buffer=:
 | ~b b~       | checkout a branch                                   |
 | ~b c~       | create a branch                                     |
 | ~f f~       | fetch changes                                       |
-| ~F -r F~    | pull and rebase                                     |
+| ~F (r) u~   | pull tracked branch and rebase                      |
 | ~gr~        | refresh                                             |
 | ~j~         | goto next magit section                             |
 | ~C-j~       | next visual line                                    |
@@ -168,7 +168,7 @@ Here are the often used bindings inside a =status buffer=:
 | ~n~         | next search occurrence                              |
 | ~N~         | previous search occurrence                          |
 | ~o~         | revert item at point                                |
-| ~P P~       | push                                                |
+| ~P u~       | push to tracked branch                              |
 | ~q~         | quit                                                |
 | ~s~         | on a file or hunk in a diff: stage the file or hunk |
 | ~x~         | discard changes                                     |
