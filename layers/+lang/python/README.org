@@ -21,6 +21,7 @@
    - [[Other Python commands][Other Python commands]]
  - [[Configuration][Configuration]]
    - [[Fill column][Fill column]]
+   - [[Sort imports][Sort imports]]
 
 * Description
 This layer adds support for the Python language.
@@ -176,8 +177,23 @@ Test commands start with ~m t~:
 | ~SPC m V~   | activate a virtual environment with  [[https://github.com/jorgenschaefer/pyvenv][pyvenv]]                                  |
 * Configuration
 ** Fill column
-If you want to customize the fill column value, use something like this inside the ~user-init~ function in your ~.spacemacs~:
+If you want to customize the fill column value, set the ~python-fill-column~ variable in the python layer config section:
 
 #+BEGIN_SRC elisp
-(setq python-fill-column 99)
+(setq-default dotspacemacs-configuration-layers '(
+    (python :variables python-fill-column 99)))
 #+END_SRC
+
+** Sort imports
+If you want imports to be automatically sorted when you save a file, set the ~python-sort-imports~ variable in the python layer config section:
+
+#+BEGIN_SRC elisp
+(setq-default dotspacemacs-configuration-layers '(
+    (python :variables python-enable-sort-imports-on-save t)))
+#+END_SRC
+
+You will also need to install the ~isort~ python package:
+
+#+BEGIN_EXAMPLE
+pip install isort
+#+END_EXAMPLE

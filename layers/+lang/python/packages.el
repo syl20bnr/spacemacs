@@ -25,6 +25,7 @@
     hy-mode
     pip-requirements
     pyenv-mode
+    py-isort
     pytest
     python
     pyvenv
@@ -329,3 +330,9 @@ fix this issue."
   (spacemacs|use-package-add-hook xcscope
     :post-init
     (spacemacs/setup-helm-cscope 'python-mode)))
+
+(defun python/init-py-isort ()
+  (use-package py-isort
+    :if python-enable-sort-imports-on-save
+    :defer t
+    :init (add-hook 'before-save-hook 'py-isort-before-save)))

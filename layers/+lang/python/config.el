@@ -24,3 +24,6 @@
 
 (defvar python-fill-column 79
   "Fill column value for python buffers")
+
+(defvar python-enable-sort-imports-on-save nil
+  "If non-nil, automatically sort imports on save.")
