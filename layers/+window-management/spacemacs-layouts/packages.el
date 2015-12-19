@@ -60,8 +60,11 @@
               (logxor spacemacs--layouts-ms-doc-toggle 1)))
 
       (defun spacemacs//layout-format-name (name pos)
-        "Format the layout name given by NAME for display in  mode-line."
-        (let* ((string-name (format "%s" name))
+        "Format the layout name given by NAME for display in mode-line."
+        (let* ((layout-name (if (file-directory-p name)
+                                (file-name-nondirectory (directory-file-name name))
+                              name))
+               (string-name (format "%s" layout-name))
                (current (equal name (spacemacs//current-layout-name)))
                (caption (concat (number-to-string (if (eq 9 pos) 0 (1+ pos)))
                                 ":" string-name)))
