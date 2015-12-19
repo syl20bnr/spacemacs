@@ -896,6 +896,8 @@ ARG non nil means that the editing style is `vim'."
         ("?" nil :doc (spacemacs//helm-navigation-ms-full-doc))
         ("a" helm-select-action :post (spacemacs//helm-navigation-ms-set-face))
         ("e" spacemacs/helm-edit)
+        ("g" helm-beginning-of-buffer)
+        ("G" helm-end-of-buffer)
         ("h" helm-previous-source)
         ("j" helm-next-line)
         ("k" helm-previous-line)
