@@ -10,6 +10,7 @@
    - [[Purescript][Purescript]]
      - [[Imports][Imports]]
    - [[REPL][REPL]]
+   - [[PSC-IDE][PSC-IDE]]
 
 * Description
 
@@ -17,6 +18,7 @@ This layer provides basic Purescript editing support for spacemacs
 thanks to the following packages:
 - [[https://github.com/dysinger/purescript-mode][purescript-mode]]
 - [[https://github.com/ardumont/emacs-psci][psci]]
+- [[https://github.com/epost/psc-ide-emacs][psc-ide-emacs]]
 
 * Install
 
@@ -50,3 +52,22 @@ bindings are available:
 | ~SPC m s i~ | Launch a psci console buffer                                                     |
 | ~SPC m s m~ | Equivalent of =:i your.current.module.name= - Import <module> for use in PSCI    |
 | ~SPC m s p~ | Load or reload files defined in the project file .psci                           |
+
+** PSC-IDE
+[[https://github.com/epost/psc-ide-emacs][psc-ide-emacs]] very early stage emacs integration for [[https://github.com/kRITZCREEK/psc-ide][psc-ide]].
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '(purescript :variables
+                    psc-ide-executable "~/.local/bin/psc-ide"
+                    psc-ide-server-executable "~/.local/bin/psc-ide-server"))
+#+END_SRC
+
+The following key bindings are available:
+
+| Key Binding | Description          |
+|-------------+----------------------|
+| ~SPC m s s~ | psc-ide-server-start |
+| ~SPC m s t~ | psc-ide-show-type    |
+| ~SPC m s l~ | psc-ide-load-module  |
+| ~SPC m s c~ | company-complete     |
