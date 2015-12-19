@@ -9,6 +9,7 @@
  - [[Key bindings][Key bindings]]
    - [[Purescript][Purescript]]
      - [[Imports][Imports]]
+     - [[psc-ide][psc-ide]]
    - [[REPL][REPL]]
 
 * Description
@@ -17,6 +18,7 @@ This layer provides basic Purescript editing support for spacemacs
 thanks to the following packages:
 - [[https://github.com/dysinger/purescript-mode][purescript-mode]]
 - [[https://github.com/ardumont/emacs-psci][psci]]
+- [[https://github.com/epost/psc-ide-emacs][psc-ide-emacs]]
 
 * Install
 
@@ -25,6 +27,8 @@ To use this contribution add it to your =~/.spacemacs=
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(purescript))
 #+END_SRC
+
+If you want to get autocompletions and type information you have to install [[https://github.com/kRITZCREEK/psc-ide][psc-ide]].
 
 * Key bindings
 
@@ -38,6 +42,14 @@ To use this contribution add it to your =~/.spacemacs=
 | ~SPC m i \~ | Return to where you were editing before navigating to imports |
 | ~SPC m i a~ | Align imports                                                 |
 | ~SPC m i n~ | Navigate to the imports                                       |
+
+*** psc-ide
+
+| Key Binding | Description                                             |
+|-------------+---------------------------------------------------------|
+| ~SPC m m s~ | Start psc-ide-server                                    |
+| ~SPC m m l~ | Load a module with its dependencies into psc-ide-server |
+| ~SPC m m t~ | Show type at point                                      |
 
 ** REPL
 
