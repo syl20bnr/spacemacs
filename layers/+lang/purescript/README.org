@@ -47,9 +47,9 @@ If you want to get autocompletions and type information you have to install [[ht
 
 | Key Binding | Description                                             |
 |-------------+---------------------------------------------------------|
-| ~SPC m m s~ | Start psc-ide-server                                    |
+| ~SPC m h t~ | Show type at point                                      |
 | ~SPC m m l~ | Load a module with its dependencies into psc-ide-server |
-| ~SPC m m t~ | Show type at point                                      |
+| ~SPC m m s~ | Start psc-ide-server                                    |
 
 ** REPL
 
