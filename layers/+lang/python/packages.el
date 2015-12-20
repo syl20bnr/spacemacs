@@ -81,7 +81,6 @@
 
 (defun python/init-pyenv-mode ()
   (use-package pyenv-mode
-    :defer t
     :commands (pyenv-mode-versions)
     :init
     (progn
