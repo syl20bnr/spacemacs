@@ -32,7 +32,6 @@
     org-repo-todo
     persp-mode
     toc-org
-    orgit
     ))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
@@ -394,5 +393,3 @@ Will work on both org-mode and any mode that accepts plain html."
 (defun org/init-htmlize ()
  (use-package htmlize
     :defer t))
-
-(defun org/init-orgit ())
