@@ -24,6 +24,7 @@
         magit-gitflow
         ;; not compatible with magit 2.1 at the time of release
         ;; magit-svn
+        orgit
         smeargle
         ))
 
@@ -426,6 +427,8 @@
     (progn
       (evil-define-key 'emacs magit-status-mode-map
         "N" 'magit-key-mode-popup-svn))))
+
+(defun git/init-orgit ())
 
 (defun git/init-smeargle ()
   (use-package smeargle
