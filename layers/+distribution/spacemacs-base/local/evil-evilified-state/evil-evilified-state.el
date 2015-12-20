@@ -88,7 +88,8 @@ Needed to bypass keymaps set as text properties."
 
 (defun evilified-state--clear-normal-state-keymap ()
   "Clear the normal state keymap."
-  (setq-local evil-normal-state-map (cons 'keymap nil)))
+  (setq-local evil-normal-state-map (cons 'keymap nil))
+  (evil-normalize-keymaps))
 
 (defun evilified-state--setup-visual-state-keymap ()
   "Setup the normal state keymap."
@@ -114,28 +115,19 @@ Needed to bypass keymaps set as text properties."
   (add-hook 'evil-visual-state-exit-hook
             'evilified-state--visual-state-on-exit nil 'local))
 
-(defun evilified-state--evilified-state-on-exit ()
-  "Clean evilified state"
-  (remove-hook 'pre-command-hook 'evilified-state--pre-command-hook 'local))
-
 (defun evilified-state--visual-state-on-entry ()
   "Setup visual state."
   ;; we need to clear temporarily the normal state keymap in order to reach
   ;; the mode keymap
   (when (eq 'evilified evil-previous-state)
-    (evilified-state--clear-normal-state-keymap))
-  (add-hook 'pre-command-hook 'evilified-state--pre-command-hook nil 'local))
+    (evilified-state--clear-normal-state-keymap)))
 
 (defun evilified-state--visual-state-on-exit ()
   "Clean visual state"
-  (when (eq 'evilified evil-previous-state)
-    (evilified-state--restore-normal-state-keymap))
-  (remove-hook 'pre-command-hook 'evilified-state--pre-command-hook 'local))
+  (evilified-state--restore-normal-state-keymap))
 
 (add-hook 'evil-evilified-state-entry-hook
           'evilified-state--evilified-state-on-entry)
-(add-hook 'evil-evilified-state-exit-hook
-          'evilified-state--evilified-state-on-exit)
 
 ;; default key bindings for all evilified buffers
 (define-key evil-evilified-state-map "/" 'evil-search-forward)
@@ -150,7 +142,6 @@ Needed to bypass keymaps set as text properties."
 (define-key evil-evilified-state-map "V" 'evil-visual-line)
 (define-key evil-evilified-state-map "gg" 'evil-goto-first-line)
 (define-key evil-evilified-state-map "G" 'evil-goto-line)
-(define-key evil-evilified-state-map [escape] 'evil-normal-state)
 (define-key evil-evilified-state-map (kbd "C-f") 'evil-scroll-page-down)
 (define-key evil-evilified-state-map (kbd "C-b") 'evil-scroll-page-up)
 (define-key evil-evilified-state-map (kbd "C-d") 'evil-scroll-down)
