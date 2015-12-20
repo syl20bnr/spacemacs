@@ -678,6 +678,12 @@ Removes the automatic guessing of the initial value based on thing at point. "
                   (unless (configuration-layer/package-usedp 'smex)
                     (spacemacs/set-leader-keys dotspacemacs-command-key 'helm-M-x))))
 
+      (defun spacemacs//hide-cursor-in-helm-buffer ()
+        "Hide the cursor in helm buffers."
+        (with-helm-buffer
+          (setq cursor-in-non-selected-windows nil)))
+      (add-hook 'helm-after-initialize-hook 'spacemacs//hide-cursor-in-helm-buffer)
+
       (defvar spacemacs-helm-display-help-buffer-regexp '("*.*Helm.*Help.**"))
       (defvar spacemacs-helm-display-buffer-regexp `("*.*helm.**"
                                                      (display-buffer-in-side-window)
@@ -713,7 +719,6 @@ Removes the automatic guessing of the initial value based on thing at point. "
                                           ;; buffer, making the help buffer unable to be displayed.
                                           spacemacs-helm-display-buffer-regexp)))
           (helm-default-display-buffer buffer)))
-
       (setq helm-display-function 'spacemacs//display-helm-window)
 
       (defun spacemacs//restore-previous-display-config ()
