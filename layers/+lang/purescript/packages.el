@@ -56,4 +56,4 @@
       (spacemacs/set-leader-keys-for-major-mode 'purescript-mode
         "ms" 'psc-ide-server-start
         "ml" 'psc-ide-load-module
-        "mt" 'psc-ide-show-type))))
+        "ht" 'psc-ide-show-type))))
