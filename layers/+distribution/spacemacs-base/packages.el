@@ -220,7 +220,8 @@
       (defun evil-insert-state-cursor-hide ()
         (setq evil-insert-state-cursor '((hbar . 0))))
 
-      (evil-mode 1))
+      (unless (eq dotspacemacs-editing-style 'emacs)
+        (evil-mode 1)))
     :config
     (progn
       ;; bind function keys
@@ -413,7 +414,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
 (defun spacemacs-base/init-evil-escape ()
   (use-package evil-escape
     :init
-    (evil-escape-mode)
+    (unless (eq dotspacemacs-editing-style 'emacs)
+      (evil-escape-mode))
     :config
     (spacemacs|hide-lighter evil-escape-mode)))
 
