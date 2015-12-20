@@ -14,6 +14,7 @@
    - [[Magit SVN plugin][Magit SVN plugin]]
    - [[Git][Git]]
    - [[Git-Flow][Git-Flow]]
+   - [[Org integration][Org integration]]
  - [[Working with Git][Working with Git]]
    - [[Magit][Magit]]
    - [[Staging lines][Staging lines]]
@@ -33,6 +34,7 @@ This layers adds extensive support for [[http://git-scm.com/][git]].
 - quick in buffer last commit message per line with [[https://github.com/syohex/emacs-git-messenger][git-messenger]]
 - colorize buffer line by age of commit with [[https://github.com/syohex/emacs-smeargle][smeargle]]
 - gitignore generator with [[https://github.com/jupl/helm-gitignore][helm-gitignore]]
+- org integration with magit via [[https://github.com/magit/orgit][orgit]]
 
 New to Magit? Checkout the [[http://magit.vc/about.html][official intro]].
 
@@ -87,6 +89,10 @@ this easier, these do nothing you couldn't do manually.
 
 Support requires installation of the git-flow extensions. Please reference their
 [[https://github.com/petervanderdoes/gitflow/wiki][installation page]] for assistance.
+
+** Org integration
+
+See the commentary section of the package [[https://github.com/magit/orgit/blob/master/orgit.el#L28][here]].
 
 * Working with Git
 Git commands (start with ~g~):
