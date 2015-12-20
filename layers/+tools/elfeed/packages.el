@@ -29,6 +29,7 @@
         :bindings
         "c"  'elfeed-db-compact
         "gr" 'elfeed-update
+        "J"  'elfeed-unjam
         "o"  'elfeed-load-opml
         "q"  'quit-window
         "r"  'elfeed-search-update--force
