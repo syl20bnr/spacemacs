@@ -975,7 +975,12 @@ ARG non nil means that the editing style is `vim'."
     :commands (helm-spacemacs helm-spacemacs-faq)
     :init
     (progn
-      (spacemacs/set-leader-keys "feh" 'helm-spacemacs)
+      (defun spacemacs-base/helm-spacemacs-deprecated (arg)
+        "Provide helm-spacemacs with a binding's depreciation message."
+        (interactive "P")
+        (warn "The 'SPC f e h' (or 'M-m f e h') binding is now deprecated and will be remove in the next release. Please use 'SPC h SPC' (or 'M-m h SPC') instead.")
+        (helm-spacemacs arg))
+      (spacemacs/set-leader-keys "feh" 'spacemacs-base/helm-spacemacs-deprecated)
       (spacemacs/set-leader-keys "fef" 'helm-spacemacs-faq)
       (spacemacs/set-leader-keys "h SPC" 'helm-spacemacs))))
 
