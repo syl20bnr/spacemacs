@@ -70,6 +70,16 @@
     "C-k"
     "C-l"))
 
+(bepo|config elfeed
+  :description
+  "Remap `elfeed' bindings."
+  :loader
+  (spacemacs|use-package-add-hook elfeed :post-config BODY)
+  :config
+  (bepo/evil-correct-keys 'evilified elfeed-show-mode-map
+    "C-j"
+    "C-k"))
+
 (bepo|config evil
   :description
   "Remap `evil' bindings, and map some unused ones as aliases."
