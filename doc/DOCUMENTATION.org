@@ -673,6 +673,10 @@ in =evil-hybrid-state-map= keymap instead of =evil-insert-state-map=.
 Hybrid mode can be enabled by setting =dotspacemacs-editing-style= to =hybrid=.
 To switch between evil and hybrid mode use ~SPC t E y~ and ~M-m t E y~.
 
+The default state in hybrid mode can be changed by setting the variable
+=hybrid-mode-default-state= to a state value, the default is =normal=, set it
+to =hybrid= to start in hybrid insert state instead of normal state.
+
 ** Evilified modes
 Some buffers (such as Magit, for using git from within Emacs), are not for
 editing text, and provide their own keybindings for certain operations. These
