@@ -102,13 +102,16 @@ the default port by changing the value of =httpd-port=.
 
 Use =SPC ?= to discover major-mode key bindings.
 
-| Key Binding | Description                            |
-|-------------+----------------------------------------|
-| ~q~         | quit main window, or item view buffer. |
-| ~c~         | compact feed db                        |
-| ~o~         | looad OPML                             |
-| ~w~         | start web server                       |
-| ~W~         | stop web server                        |
+| Key Binding | Description                                       |
+|-------------+---------------------------------------------------|
+| ~c~         | compact feed db                                   |
+| ~gr~        | update all the feeds                              |
+| ~gR~        | force refresh view of the feed listing            |
+| ~gu~        | unjam elfeed if it is slow due to slow connection |
+| ~o~         | load OPML                                         |
+| ~q~         | quit main window, or item view buffer.            |
+| ~w~         | start web server                                  |
+| ~W~         | stop web server                                   |
 
 In =elfeed-show= mode, you can use the following bindings:
 
