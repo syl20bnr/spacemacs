@@ -25,29 +25,26 @@
 (defun c-c++/init-cc-mode ()
   (use-package cc-mode
     :defer t
-    :init
-    (add-to-list 'auto-mode-alist `("\\.h$" . ,c-c++-default-mode-for-headers))
-    :config
-    (progn
-      (require 'compile)
-      (c-toggle-auto-newline 1)
-      (spacemacs/set-leader-keys-for-major-mode 'c-mode
-        "ga" 'projectile-find-other-file
-        "gA" 'projectile-find-other-file-other-window)
-      (spacemacs/set-leader-keys-for-major-mode 'c++-mode
-        "ga" 'projectile-find-other-file
-        "gA" 'projectile-find-other-file-other-window))))
+    :init (add-to-list 'auto-mode-alist `("\\.h$" . ,c-c++-default-mode-for-headers))
+    :config (progn
+              (require 'compile)
+              (c-toggle-auto-newline 1)
+              (spacemacs/set-leader-keys-for-major-mode 'c-mode
+                "ga" 'projectile-find-other-file
+                "gA" 'projectile-find-other-file-other-window)
+              (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+                "ga" 'projectile-find-other-file
+                "gA" 'projectile-find-other-file-other-window))))
 
 (defun c-c++/init-disaster ()
   (use-package disaster
     :defer t
     :commands (disaster)
-    :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'c-mode
-        "D" 'disaster)
-      (spacemacs/set-leader-keys-for-major-mode 'c++-mode
-        "D" 'disaster))))
+    :init (progn
+            (spacemacs/set-leader-keys-for-major-mode 'c-mode
+              "D" 'disaster)
+            (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+              "D" 'disaster))))
 
 (defun c-c++/init-clang-format ()
   (use-package clang-format
@@ -87,12 +84,11 @@
 (defun c-c++/init-gdb-mi ()
   (use-package gdb-mi
     :defer t
-    :init
-    (setq
-     ;; use gdb-many-windows by default when `M-x gdb'
-     gdb-many-windows t
-     ;; Non-nil means display source file containing the main routine at startup
-     gdb-show-main t)))
+    :init (setq
+           ;; use gdb-many-windows by default when `M-x gdb'
+           gdb-many-windows t
+           ;; Non-nil means display source file containing the main routine at startup
+           gdb-show-main t)))
 
 (defun c-c++/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'c-mode)
