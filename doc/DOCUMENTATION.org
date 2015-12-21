@@ -175,7 +175,7 @@
    - [[Keeping the server alive][Keeping the server alive]]
    - [[Troubleshoot][Troubleshoot]]
      - [[Loading fails][Loading fails]]
-     - [[I have no file ~/.spacemacs][I have no file ~/.spacemacs]]
+     - [[Upgrading/Downgrading Emacs version][Upgrading/Downgrading Emacs version]]
  - [[Achievements][Achievements]]
    - [[Issues][Issues]]
    - [[Merged Pull Requests][Merged Pull Requests]]
@@ -2677,9 +2677,10 @@ errors should appear inline in the startup buffer. Spacemacs should still be
 usable, if it is not the case then restart Emacs with =emacs --debug-init= and
 open a [[https://github.com/syl20bnr/spacemacs/issues][Github issue]] with the backtrace.
 
-*** I have no file ~/.spacemacs
-You have to manually copy the =~/.emacs.d/core/templates/.spacemacs.template=
-file to =~/.spacemacs=
+*** Upgrading/Downgrading Emacs version
+To ensure that packages are correctly compiled for the new Emacs version you
+installed, be sure to run the interactive command =spacemacs/recompile-elpa=
+with ~SPC : spacemacs/recompile-elpa~.
 
 * Achievements
 ** Issues
