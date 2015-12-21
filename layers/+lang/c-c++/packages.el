@@ -11,27 +11,16 @@
 ;;; License: GPLv3
 
 (setq c-c++-packages
-  '(
-    cc-mode
+  '(cc-mode
     disaster
     clang-format
     cmake-mode
     company
     company-c-headers
-    company-ycmd
     flycheck
     gdb-mi
-    helm-cscope
     helm-gtags
-    semantic
-    srefactor
-    stickyfunc-enhance
-    ycmd
-    xcscope
     ))
-
-(unless (version< emacs-version "24.4")
-  (add-to-list 'c-c++-packages 'srefactor))
 
 (defun c-c++/init-cc-mode ()
   (use-package cc-mode
@@ -108,36 +97,3 @@
 (defun c-c++/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'c-mode)
   (spacemacs/helm-gtags-define-keys-for-mode 'c++-mode))
-
-(defun c-c++/post-init-semantic ()
-  (semantic/enable-semantic-mode 'c-mode)
-  (semantic/enable-semantic-mode 'c++-mode))
-
-(defun c-c++/post-init-srefactor ()
-  (spacemacs/set-leader-keys-for-major-mode 'c-mode "r" 'srefactor-refactor-at-point)
-  (spacemacs/set-leader-keys-for-major-mode 'c++-mode "r" 'srefactor-refactor-at-point)
-  (spacemacs/add-to-hooks 'spacemacs/lazy-load-srefactor '(c-mode-hook c++-mode-hook)))
-
-(defun c-c++/post-init-stickyfunc-enhance ()
-  (spacemacs/add-to-hooks 'spacemacs/lazy-load-stickyfunc-enhance '(c-mode-hook c++-mode-hook)))
-
-(defun c-c++/post-init-ycmd ()
-  (add-hook 'c++-mode-hook 'ycmd-mode)
-  (spacemacs/set-leader-keys-for-major-mode 'c++-mode
-    "gg" 'ycmd-goto
-    "gG" 'ycmd-goto-imprecise))
-
-(defun c-c++/post-init-company-ycmd ()
-  (push 'company-ycmd company-backends-c-mode-common))
-
-(defun c-c++/pre-init-xcscope ()
-  (spacemacs|use-package-add-hook xcscope
-    :post-init
-    (dolist (mode '(c-mode c++-mode))
-      (spacemacs/set-leader-keys-for-major-mode mode "gi" 'cscope-index-files))))
-
-(defun c-c++/pre-init-helm-cscope ()
-  (spacemacs|use-package-add-hook xcscope
-    :post-init
-    (dolist (mode '(c-mode c++-mode))
-      (spacemacs/setup-helm-cscope mode))))
