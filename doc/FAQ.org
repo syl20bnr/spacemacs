@@ -30,6 +30,7 @@
    - [[Restore the sentence delimiter to two spaces?][Restore the sentence delimiter to two spaces?]]
    - [[Prevent the visual selection overriding my system clipboard?][Prevent the visual selection overriding my system clipboard?]]
    - [[Make spell-checking support curly quotes (or any other character)?][Make spell-checking support curly quotes (or any other character)?]]
+   - [[Use Spacemacs as the =$EDITOR= for git commits?][Use Spacemacs as the =$EDITOR= for git commits?]]
  - [[Windows][Windows]]
    - [[Why do the fonts look crappy on Windows?][Why do the fonts look crappy on Windows?]]
    - [[Why is there no Spacemacs logo in the startup buffer?][Why is there no Spacemacs logo in the startup buffer?]]
@@ -353,6 +354,15 @@ add a symbol within =['’]=) to make it supported. Consult the help of
 
 You finally have to set =my_english= as your =ispell-local-dictionary= in order
 to use the dictionary supporting your newly added characters.
+
+** Use Spacemacs as the =$EDITOR= for git commits?
+Spacemacs can be used as the =$EDITOR= (or =$GIT_EDITOR=) for editing git
+commits messages. To enable this you have to add the following line to your
+=dotspacemacs/user-config=:
+
+#+begin_src emacs-lisp
+(global-git-commit-mode t)
+#+end_src
 
 * Windows
 ** Why do the fonts look crappy on Windows?

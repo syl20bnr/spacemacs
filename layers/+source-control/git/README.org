@@ -12,6 +12,7 @@
    - [[Magit status fullscreen][Magit status fullscreen]]
    - [[Magit auto-complete][Magit auto-complete]]
    - [[Magit SVN plugin][Magit SVN plugin]]
+   - [[Global git commit mode][Global git commit mode]]
    - [[Git][Git]]
    - [[Git-Flow][Git-Flow]]
    - [[Org integration][Org integration]]
@@ -77,6 +78,15 @@ layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
     (setq-default git-enable-magit-svn-plugin t)
   )
 #+END_SRC
+
+** Global git commit mode
+Spacemacs can be used as the =$EDITOR= (or =$GIT_EDITOR=) for editing git
+commits messages. To enable this you have to add the following line to your
+=dotspacemacs/user-config=:
+
+#+begin_src emacs-lisp
+(global-git-commit-mode t)
+#+end_src
 
 ** Git
 Of course if your OS does not ship with git (!) you'll have to install it
