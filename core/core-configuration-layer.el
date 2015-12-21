@@ -23,7 +23,7 @@
 (require 'core-funcs)
 (require 'core-spacemacs-buffer)
 
-(defconst configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout
+(defvar configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout
   "Timeout in seconds to reach a package archive page.")
 
 (defconst configuration-layer-template-directory
@@ -153,6 +153,7 @@ cache folder.")
 
 (defun configuration-layer/initialize ()
   "Initialize `package.el'."
+  (setq configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout)
   (configuration-layer//parse-command-line-arguments)
   (unless package--initialized
     (setq package-archives (configuration-layer//resolve-package-archives
