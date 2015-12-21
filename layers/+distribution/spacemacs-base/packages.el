@@ -1005,9 +1005,7 @@ ARG non nil means that the editing style is `vim'."
         (holy-mode))
       (spacemacs|add-toggle holy-mode
         :status holy-mode
-        :on (progn (when (bound-and-true-p hybrid-mode)
-                     (hybrid-mode -1))
-                   (holy-mode))
+        :on (holy-mode)
         :off (holy-mode -1)
         :documentation "Globally toggle holy mode."
         :evil-leader "tEe")
