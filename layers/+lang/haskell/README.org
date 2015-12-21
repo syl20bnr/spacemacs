@@ -75,7 +75,7 @@ packages. If you are using =cabal= it should be =~/.cabal/bin= or
 are using =stack= then it should be =~/.local/bin=.
 
 For information about setting up =$PATH=, check out the corresponding section in
-the FAQ (~SPC f e h $PATH RET~).
+the FAQ (~SPC h SPC $PATH RET~).
 
 ** ghc-mod support
 [[http://www.mew.org/~kazu/proj/ghc-mod/][ghc-mod]] enhances =haskell-mode= with for example code completion, templates,

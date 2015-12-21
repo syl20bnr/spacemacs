@@ -35,7 +35,7 @@ Quick instructions to install Agda assuming you have cabal installed:
 
 Then check that =agda= is available on your =$PATH= and seen by Emacs. For
 information about setting up =$PATH=, check out the corresponding section in the
-FAQ (~SPC f e h $PATH RET~).
+FAQ (~SPC h SPC $PATH RET~).
 
 * Key bindings
 The key bindings of this layer don't follow the Spacemacs conventions,

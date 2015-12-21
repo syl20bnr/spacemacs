@@ -16,7 +16,7 @@ Press SPC (in Vim mode) or Alt-m (in Emacs mode) to access Spacemacs commands.
 
 Press SPC f e d (Vim) or Alt-m f e d (Emacs) to access .spacemacs file.
 
-Press SPC f e h (Vim) or Alt-m f e h (Emacs) to access a list of documentation
+Press SPC h SPC (Vim) or Alt-m h SPC (Emacs) to access a list of documentation
 and supported layers. You can type anything to narrow to a specific feature i.e.
 "python" for Python layer. There are five lists and you can press Ctrl-o to switch
 between them:
@@ -28,4 +28,4 @@ When reading a document, you can use SPC s l (Vim) or M-m s l (Emacs) to jump to
 a heading. The table of content is just for overview and for using with Github
 when you read the doc with a web browser.
 
-Please consult Spacemacs documentation from SPC f e h for more details.
+Please consult Spacemacs documentation from SPC h SPC for more details.
