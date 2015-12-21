@@ -18,14 +18,6 @@
 ;; improve delete-other-windows
 (define-key global-map (kbd "C-x 1") 'spacemacs/toggle-maximize-buffer)
 
-;; replace `dired-goto-file' with `helm-find-files', since `helm-find-files'
-;; can do the same thing and with fuzzy matching and other features.
-(with-eval-after-load 'dired
-  (evil-define-key 'normal dired-mode-map "J" 'spacemacs/helm-find-files)
-  (define-key dired-mode-map "j" 'spacemacs/helm-find-files)
-  (evil-define-key 'normal dired-mode-map (kbd dotspacemacs-leader-key)
-    spacemacs-default-map))
-
 ;; alternate binding to search next occurrence with isearch without
 ;; exiting isearch
 (define-key isearch-mode-map (kbd "S-<return>") 'isearch-repeat-forward)
@@ -35,7 +27,6 @@
 
 ;; Make <escape> quit as much as possible
 (define-key minibuffer-local-map (kbd "<escape>") 'keyboard-escape-quit)
-(define-key evil-visual-state-map (kbd "<escape>") 'keyboard-quit)
 (define-key minibuffer-local-ns-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key minibuffer-local-completion-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key minibuffer-local-must-match-map (kbd "<escape>") 'keyboard-escape-quit)
@@ -47,17 +38,8 @@
 (global-set-key (kbd "<left-margin> <double-mouse-1>") 'spacemacs/select-current-block)
 (global-set-key (kbd "<left-margin> <drag-mouse-1>") 'spacemacs/mu-select-linum)
 
-;; motions keys for help buffers
-(evil-define-key 'motion help-mode-map (kbd "<tab>") 'forward-button)
-(evil-define-key 'motion help-mode-map (kbd "S-<tab>") 'backward-button)
-(evil-define-key 'motion help-mode-map (kbd "]") 'help-go-forward)
-(evil-define-key 'motion help-mode-map (kbd "gf") 'help-go-forward)
-(evil-define-key 'motion help-mode-map (kbd "[") 'help-go-back)
-(evil-define-key 'motion help-mode-map (kbd "gb") 'help-go-back)
-(evil-define-key 'motion help-mode-map (kbd "gh") 'help-follow-symbol)
-
 ;; ---------------------------------------------------------------------------
-;; evil-leader key bindings
+;; spacemacs leader key bindings
 ;; ---------------------------------------------------------------------------
 
 ;; Universal argument ---------------------------------------------------------
