@@ -29,8 +29,9 @@
 ;;; Code:
 
 (defvar holy-mode-modes-to-disable-alist
-  `((evil-escape-mode . ,(when (boundp 'evil-escape-mode) evil-escape-mode))
-    (hybrid-mode . ,(when (boundp 'hybrid-mode) hybrid-mode)))
+  `((evil-mode . 1)
+    (hybrid-mode . -1)
+    (evil-escape-mode . ,(when (boundp 'evil-escape-mode) 1 -1)))
   "Alist of modes that should be disabled when activating
 `holy-mode'. The cdr in each cell stores the state of the mode
 before it was disabled.")
@@ -39,25 +40,21 @@ before it was disabled.")
 (define-minor-mode holy-mode
   "Global minor mode to repulse the evil from spacemacs.
 
-`evil-mode' is disabled and conflicting minor modes in
+`evil-mode' and other minor modes in
 `holy-mode-modes-to-disable-alist' are turned off."
   :global t
   :lighter " holy"
   :group 'spacemacs
   (if holy-mode
       (progn
-        (evil-mode -1)
         (dolist (mode holy-mode-modes-to-disable-alist)
-          (when (boundp (car mode))
-            (setcdr mode (symbol-value (car mode)))
-            (funcall (car mode) -1)))
+          (when (boundp (car mode)) (funcall (car mode) -1)))
         (setq cursor-type 'box)
         (set-cursor-color "SkyBlue2")
         (when (fboundp 'spacemacs//helm-hjkl-navigation)
           (spacemacs//helm-hjkl-navigation nil)))
     (when (fboundp 'spacemacs//helm-hjkl-navigation)
       (spacemacs//helm-hjkl-navigation t))
-    (evil-mode 1)
     (dolist (mode holy-mode-modes-to-disable-alist)
       (when (boundp (car mode))
         (funcall (car mode) (cdr mode))))))
