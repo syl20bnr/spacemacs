@@ -46,7 +46,7 @@ installing =geeknote=:
 If you would prefer to customize the geeknote command to be used such as
 specifying the path to the geeknote python script, please refer to the
 =geeknote.el= [[https://github.com/avendael/emacs-geeknote][documentation]]. For more information about setting up =$PATH=,
-check out the corresponding section in the FAQ (~SPC f e h $PATH RET~).
+check out the corresponding section in the FAQ (~SPC h SPC $PATH RET~).
 
 * Key Bindings
 

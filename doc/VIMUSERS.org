@@ -184,7 +184,7 @@ explore:
 
 | Keybinding  | Function                                                      |
 |-------------+---------------------------------------------------------------|
-| ~SPC f e h~ | Lists all layers and allows you to view files from the layer. |
+| ~SPC h SPC~ | Lists all layers and allows you to view files from the layer. |
 | ~SPC ?~     | Lists all keybindings.                                        |
 
 * Customization
@@ -310,7 +310,7 @@ this:
 You can uncomment these suggested layers by deleting the semi-colons for a nice
 out-of-the-box experience. To add a layer, add its name to the list and restart
 Emacs or press ~SPC f e R~ . To view all layers and their documentation use ~SPC
-f e h~.
+h SPC~.
 
 ** Creating a Layer
 To group configuration or when configuration doesn't fit well in your

@@ -35,7 +35,7 @@ You will need =gocode= and =godef=:
 #+END_SRC
 
 Make sure that =gocode= executable is in your PATH. For information about
-setting up =$PATH=, check out the corresponding section in the FAQ (~SPC f e h
+setting up =$PATH=, check out the corresponding section in the FAQ (~SPC h SPC
 $PATH RET~).
 
 For best results, make sure that the =auto-completion= and =syntax-checking=

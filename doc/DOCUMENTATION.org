@@ -929,7 +929,7 @@ and ~T~):
 | ~SPC T T~   | toggle frame transparency and enter transparency micro-state |
 
 *Note*: These toggles are all available via the =helm-spacemacs= interface (press
-~SPC f e h~ to display the =helm-spacemacs= buffer).
+~SPC h SPC~ to display the =helm-spacemacs= buffer).
 
 **** Global line numbers
 Line numbers can be toggled on in all =prog-mode= and =text-mode= buffers by
@@ -1613,13 +1613,10 @@ navigate between =Emacs= and Spacemacs specific files.
 | ~SPC f e c~ | open =ido= in the =contrib= folder                                 |
 | ~SPC f e d~ | open the spacemacs dotfile (=~/.spacemacs=)                        |
 | ~SPC f e D~ | open =ediff= buffer of =~/.spacemacs= and =.spacemacs.template=    |
-| ~SPC f e h~ | discover Spacemacs documentation, layers and packages using =helm= |
 | ~SPC f e f~ | discover the =FAQ= using =helm=                                    |
 | ~SPC f e i~ | open the all mighty =init.el=                                      |
 | ~SPC f e R~ | resync the dotfile with spacemacs                                  |
 | ~SPC f e v~ | display and copy the spacemacs version                             |
-
-Additionally, ~SPC h SPC~ is a alias for ~SPC f e h~.
 
 **** Browsing files with Helm
 In =vim= and  =hybrid= styles, Spacemacs remap the navigation in Helm find-files
