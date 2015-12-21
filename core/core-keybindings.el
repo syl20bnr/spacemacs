@@ -130,8 +130,8 @@ minor-mode, the third argument should be non nil."
                                dotspacemacs-emacs-leader-key)
                           (concat dotspacemacs-emacs-leader-key
                                   (unless minor " m"))))
-         (leaders (-non-nil (list leader1 leader2)))
-         (emacs-leaders (-non-nil (list emacs-leader1 emacs-leader2))))
+         (leaders (delq nil (list leader1 leader2)))
+         (emacs-leaders (delq nil (list emacs-leader1 emacs-leader2))))
     (or (boundp prefix)
         (progn
           (eval
