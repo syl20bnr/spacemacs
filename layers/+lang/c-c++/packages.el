@@ -23,7 +23,6 @@
     helm-cscope
     helm-gtags
     semantic
-    srefactor
     stickyfunc-enhance
     ycmd
     xcscope
