@@ -34,9 +34,7 @@
             TeX-auto-save t
             TeX-parse-self t
             TeX-syntactic-comment t
-            TeX-PDF-mode t
             ;; Synctex support
-            TeX-source-correlate-mode t
             TeX-source-correlate-start-server nil
             ;; Setup reftex style (RefTeX is supported through extension)
             reftex-use-fonts t
@@ -44,7 +42,9 @@
             LaTeX-fill-break-at-separators nil)
       (when latex-enable-auto-fill
         (add-hook 'LaTeX-mode-hook 'latex/auto-fill-mode))
-      (add-hook 'LaTeX-mode-hook 'latex-math-mode))
+      (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+      (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
+      (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode))
     :config
     (progn
       ;; Key bindings for plain TeX
