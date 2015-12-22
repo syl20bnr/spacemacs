@@ -15,8 +15,8 @@
 (defvar c-c++-enable-clang-support nil
   "If non nil Clang related packages and configuration are enabled.")
 
-(spacemacs|defvar-company-backends c-mode-common)
-(spacemacs|defvar-company-backends cmake-mode)
-
 (defvar c-c++-default-mode-for-headers 'c-mode
   "Default mode to open header files. Can be `c-mode' or `c++-mode'.")
+
+(spacemacs|defvar-company-backends c-mode-common)
+(spacemacs|defvar-company-backends cmake-mode)

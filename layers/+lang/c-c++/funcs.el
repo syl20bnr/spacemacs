@@ -41,9 +41,12 @@
     compile-flags))
 
 (defun c-c++/load-clang-args ()
-  "Sets the arguments for company-clang based on a project-specific text file."
+  "Sets the arguments for company-clang, the system paths for company-c-headers
+and the arguments for flyckeck-clang based on a project-specific text file."
   (unless company-clang-arguments
     (let* ((cc-file (company-mode/find-clang-complete-file))
-           (flags (if cc-file (company-mode/load-clang-complete-file cc-file) '())))
+           (flags (if cc-file (company-mode/load-clang-complete-file cc-file) '()))
+           (dirs (mapcar (lambda (d) (substring d 2)) flags)))
       (setq-local company-clang-arguments flags)
+      (setq company-c-headers-path-system (append '("/usr/include" "/usr/local/include") dirs))
       (setq flycheck-clang-args flags))))
