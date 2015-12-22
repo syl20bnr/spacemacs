@@ -49,17 +49,22 @@
     (progn
       ;; Key bindings for plain TeX
       (spacemacs/set-leader-keys-for-major-mode 'tex-mode
-        "\\" 'TeX-insert-macro
-        "b" 'latex/build
-        "C" 'TeX-command-master
-        "v" 'TeX-view
+        "\\"  'TeX-insert-macro            ;; C-c C-m
+        dotspacemacs-major-mode-leader-key
+              'TeX-command-master          ;; C-c C-c
+        "k"   'TeX-kill-job                ;; C-c C-k
+        "b"   'latex/build
+        "f"   'TeX-fold-buffer
+        "l"   'TeX-recenter-output-buffer  ;; C-c C-l
+        "m"   'TeX-insert-macro            ;; C-c C-m
+        "v"   'TeX-view                    ;; C-c C-v
 
-        "xb" 'latex/font-bold
-        "xc" 'latex/font-code
-        "xe" 'latex/font-emphasis
-        "xi" 'latex/font-italic
-        "xr" 'latex/font-clear
-        "xo" 'latex/font-oblique
+        "xb"  'latex/font-bold
+        "xc"  'latex/font-code
+        "xe"  'latex/font-emphasis
+        "xi"  'latex/font-italic
+        "xr"  'latex/font-clear
+        "xo"  'latex/font-oblique
         "xfc" 'latex/font-small-caps
         "xff" 'latex/font-sans-serif
         "xfr" 'latex/font-serif)
@@ -68,32 +73,39 @@
 
       ;; Key bindings for LaTeX
       (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-        "\\" 'TeX-insert-macro
-        "-" 'TeX-recenter-output-buffer
-        "b" 'latex/build
-        "c" 'LaTeX-close-environment
-        "C" 'TeX-command-master
-        "e" 'LaTeX-environment
+        "*"   'LaTeX-mark-section           ;; C-c *
+        "."   'LaTeX-mark-environment       ;; C-c .
+        "\\"  'TeX-insert-macro             ;; C-c C-m
+        "-"   'TeX-recenter-output-buffer   ;; C-c C-l
+        dotspacemacs-major-mode-leader-key
+              'TeX-command-master           ;; C-c C-c
+        "b"   'latex/build
+        "c"   'LaTeX-close-environment      ;; C-c ]
+        "e"   'LaTeX-environment            ;; C-c C-e
+        "f"   'TeX-fold-buffer
+        "i"   'LaTeX-insert-item            ;; C-c C-j
+        "k"   'TeX-kill-job                 ;; C-c C-k
+        "l"   'TeX-recenter-output-buffer   ;; C-c C-l
+        "m"   'TeX-insert-macro             ;; C-c C-m
+        "s"   'LaTeX-section                ;; C-c C-s
+        "v"   'TeX-view                     ;; C-c C-v
         ;; TeX-doc is a very slow function
-        "hd" 'TeX-doc
-        "i" 'LaTeX-insert-item
-        "pb" 'preview-buffer
-        "pc" 'preview-clearout
-        "pd" 'preview-document
-        "pe" 'preview-environment
-        "pf" 'preview-cache-preamble
-        "pp" 'preview-at-point
-        "pr" 'preview-region
-        "ps" 'preview-section
-        "v" 'TeX-view
-
-        "xb" 'latex/font-bold
-        "xB" 'latex/font-medium
-        "xc" 'latex/font-code
-        "xe" 'latex/font-emphasis
-        "xi" 'latex/font-italic
-        "xo" 'latex/font-oblique
-        "xr" 'latex/font-clear
+        "hd"  'TeX-doc
+        "pb"  'preview-buffer
+        "pc"  'preview-clearout
+        "pd"  'preview-document
+        "pe"  'preview-environment
+        "pf"  'preview-cache-preamble
+        "pp"  'preview-at-point
+        "pr"  'preview-region
+        "ps"  'preview-section
+        "xb"  'latex/font-bold
+        "xB"  'latex/font-medium
+        "xc"  'latex/font-code
+        "xe"  'latex/font-emphasis
+        "xi"  'latex/font-italic
+        "xo"  'latex/font-oblique
+        "xr"  'latex/font-clear
         "xfa" 'latex/font-calligraphic
         "xfc" 'latex/font-small-caps
         "xff" 'latex/font-sans-serif
