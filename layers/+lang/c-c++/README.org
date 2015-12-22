@@ -23,11 +23,16 @@ scripts.
 - Support syntax checking via flycheck with Clang.
 - Support for disassembly of code with [[https://github.com/jart/disaster][disaster]].
 - Support code reformatting with [[http://clang.llvm.org/docs/ClangFormat.html][clang-format]].
-- Display function or variable definition at the bottom. (when =semantic= layer is included)
+- Display function or variable definition at the bottom. (when =semantic= layer
+  is included)
 - Display current function cursor is in at the top. See [[https://github.com/tuhdo/semantic-stickyfunc-enhance][stickyfunc-demos]] for
   demos in some programming languages. (when =semantic= layer is included)
 - Support common refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]] . See [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][srefactor-demos]] for
   demonstration of refactoring features. (when =semantic= layer is included)
+- Support code navigation via cscope (when =cscope= layer is included) and gtags.
+- Support auto-completion (when =auto-completion= layer is included) via
+  company-clang (when =c-c++-enable-clang-support= is turned on), or
+  company-ycmd (when =ycmd= layer is included).
 
 * Install
 ** Layer
