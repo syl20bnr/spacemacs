@@ -202,6 +202,10 @@
         (setq haskell-process-args-cabal-repl '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng"))
         ;; if haskell-process-type == GHCi
         (setq haskell-process-path-ghci "ghci-ng")
+        ;; fixes ghci-ng for stack projects
+        (setq haskell-process-wrapper-function
+              (lambda (args)
+                (append args (list "--with-ghc" "ghci-ng"))))
 
         (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
           ;; function suggested in
