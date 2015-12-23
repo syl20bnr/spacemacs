@@ -16,6 +16,7 @@
         helm
         multi-term
         (comint :location built-in)
+        xterm-color
         shell
         shell-pop
         term
@@ -210,6 +211,19 @@ is achieved by adding the relevant text properties."
 
 (defun shell/init-comint ()
   (setq comint-prompt-read-only t))
+
+(defun shell/init-xterm-color ()
+  (use-package xterm-color
+    :init
+    (progn
+      ;; Comint and Shell
+      (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter)
+      (setq comint-output-filter-functions (remove 'ansi-color-process-output comint-output-filter-functions))
+      (setq font-lock-unfontify-region-function 'xterm-color-unfontify-region)
+      (with-eval-after-load 'esh-mode
+        (add-hook 'eshell-mode-hook (lambda () (setq xterm-color-preserve-properties t)))
+        (add-hook 'eshell-preoutput-filter-functions 'xterm-color-filter)
+        (setq eshell-output-filter-functions (remove 'eshell-handle-ansi-color eshell-output-filter-functions))))))
 
 (defun shell/init-shell ()
   (defun shell-comint-input-sender-hook ()
