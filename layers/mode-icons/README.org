@@ -1,0 +1,45 @@
+#+TITLE: mode-icons layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+
+* Description
+Show icons instead of mode names in emacs.
+
+[[https://raw.githubusercontent.com/rhoit/mode-icons/dump/screenshots/screenshot01.png]]
+
+Modes that have icons instead of names now:
+
+| Modes      | icon                                                                     |
+|------------+--------------------------------------------------------------------------|
+| Coffee     | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/coffee.png]] |
+| CSS        | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/css.png]]    |
+| Emacs-Lisp | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/emacs.png]]  |
+| Haml       | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/haml.png]]   |
+| HTML       | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/html.png]]   |
+| JS         | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/js.png]]     |
+| Lisp       | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/cl.png]]     |
+| Org-mode   | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/org.png]]    |
+| PHP        | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/php.png]]    |
+| Python     | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/python.png]] |
+| Ruby       | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/ruby.png]]   |
+| SVG        | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/svg.png]]    |
+| Sass       | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/sass.png]]   |
+| Scheme     | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/scheme.png]] |
+| Shell      | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/bash.png]]   |
+| Slim       | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/slim.png]]   |
+| YAML       | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/yaml.png]]   |
+
+Note: I am using github.com/krazedkrish/mode-icons instead of github.com/rhoit/mode-icons because, rhoit's repo is still in development adding icons for minor mode as well. So, its unstable.
+
+
+* Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(mode-icons))
+#+end_src
+
