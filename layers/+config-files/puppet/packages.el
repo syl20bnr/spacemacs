@@ -1,7 +1,6 @@
 (setq puppet-packages
   '(
     puppet-mode
-    puppetfile-mode
     company
     flycheck
     ))
@@ -40,7 +39,3 @@
 
 (defun puppet/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'puppet-mode-hook))
-
-(defun puppet/init-puppetfile-mode ()
-  (use-package puppetfile-mode
-    :defer t))
