@@ -17,7 +17,7 @@
     company
     company-auctex
     evil-matchit
-    emacs-built-in-reftex
+    (reftex :location built-in)
     flycheck
     flyspell
     smartparens
@@ -118,7 +118,7 @@
           :post-config
           (auctex-latexmk-setup))))))
 
-(defun latex/init-emacs-builtin-reftex ()
+(defun latex/init-reftex ()
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
   (setq reftex-plug-into-AUCTeX '(nil nil t t t)
         reftex-use-fonts t)
