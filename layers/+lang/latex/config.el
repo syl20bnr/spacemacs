@@ -21,6 +21,9 @@
 (defvar latex-enable-auto-fill t
   "Whether to use auto-fill-mode or not in tex files.")
 
+(defvar latex-enable-folding nil
+  "Whether to use `TeX-fold-mode' or not in tex/latex buffers.")
+
 (defvar latex-nofill-env '("equation"
                            "equation*"
                            "align"
