@@ -1,0 +1,41 @@
+#+TITLE: ProofGeneral contribution layer for Spacemacs
+
+* Description
+
+This layer adds support for the [[http://http://proofgeneral.inf.ed.ac.uk/][Proof General]] proof assistant front-end
+
+** Some features:
+- Spacemacs bindings to some of Proof General's interactive tools
+  
+*This layer is in construction, it needs your contributions and bug reports.*
+
+* Install
+** Layer
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(proof-general))
+#+END_SRC
+
+** Proof General
+
+Quick instructions to install Proof General:
+
+#+BEGIN_SRC sh
+  curl http://proofgeneral.inf.ed.ac.uk/ProofGeneral-stable.tgz -o /usr/local/pgs.tgz
+  cd /usr/local
+  tar -xpzf pgs.tgz
+#+END_SRC
+
+*this layer assumes you have extracted Proof General to =/usr/local=*
+
+* Key bindings
+
+The key bindings of this layer don't follow the Spacemacs conventions, opting instead to
+follow Proof General's bindings prefixed by major-mode leader
+~SPC m~
+
+| Key binding | Description                |
+|-------------+----------------------------|
+| ~SPC m s~   | toggle active scripting    |
+| ~SPC m .~   | toggle electric terminator |
