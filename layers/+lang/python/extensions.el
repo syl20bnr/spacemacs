@@ -37,16 +37,16 @@
                nosetests-pdb-suite)
     :init
     (evil-leader/set-key-for-mode 'python-mode
-      "mtA" 'nosetests-pdb-all
-      "mta" 'nosetests-all
-      "mtB" 'nosetests-pdb-module
-      "mtb" 'nosetests-module
-      "mtT" 'nosetests-pdb-one
-      "mtt" 'nosetests-one
-      "mtM" 'nosetests-pdb-module
-      "mtm" 'nosetests-module
-      "mtS" 'nosetests-pdb-suite
-      "mts" 'nosetests-suite)
+      "ctA" 'nosetests-pdb-all
+      "cta" 'nosetests-all
+      "ctB" 'nosetests-pdb-module
+      "ctb" 'nosetests-module
+      "ctT" 'nosetests-pdb-one
+      "ctt" 'nosetests-one
+      "ctM" 'nosetests-pdb-module
+      "ctm" 'nosetests-module
+      "ctS" 'nosetests-pdb-suite
+      "cts" 'nosetests-suite)
     :config
     (progn
       (add-to-list 'nose-project-root-files "setup.cfg")
@@ -59,7 +59,7 @@
     (progn
       (evilify pylookup-mode pylookup-mode-map)
       (evil-leader/set-key-for-mode 'python-mode
-        "mhH"  'pylookup-lookup))
+        "chH"  'pylookup-lookup))
     :config
     (progn
       (let ((dir (configuration-layer/get-layer-property 'python)))
@@ -70,7 +70,7 @@
 (defun python/init-py-yapf ()
   (use-package py-yapf
     :init
-    (evil-leader/set-key-for-mode 'python-mode "m=" 'py-yapf-buffer)
+    (evil-leader/set-key-for-mode 'python-mode "c=" 'py-yapf-buffer)
     :config
     (if python-enable-yapf-format-on-save
         (add-hook 'python-mode-hook 'py-yapf-enable-on-save))))

@@ -45,10 +45,10 @@
     :config
     (progn
       (evil-leader/set-key-for-mode 'python-mode
-        "mhh" 'anaconda-mode-show-doc
-        "mgg" 'anaconda-mode-find-definitions
-        "mga" 'anaconda-mode-find-assignments
-        "mgu" 'anaconda-mode-find-references)
+        "chh" 'anaconda-mode-show-doc
+        "cgg" 'anaconda-mode-find-definitions
+        "cga" 'anaconda-mode-find-assignments
+        "cgu" 'anaconda-mode-find-references)
       (evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
                (kbd "q") 'quit-window)
       (spacemacs|hide-lighter anaconda-mode))))
@@ -59,9 +59,9 @@
     :init
     (progn
       (evil-leader/set-key-for-mode 'cython-mode
-        "mhh" 'anaconda-mode-view-doc
-        "mgg" 'anaconda-mode-goto
-        "mgu" 'anaconda-mode-usages))))
+        "chh" 'anaconda-mode-view-doc
+        "cgg" 'anaconda-mode-goto
+        "cgu" 'anaconda-mode-usages))))
 
 (defun python/post-init-eldoc ()
   (add-hook 'python-mode-hook 'eldoc-mode))
@@ -84,15 +84,15 @@
     :defer t
     :init (progn
             (evil-leader/set-key-for-mode 'python-mode
-              "mvs" 'pyenv-mode-set
-              "mvu" 'pyenv-mode-unset))))
+              "cvs" 'pyenv-mode-set
+              "cvu" 'pyenv-mode-unset))))
 
 (defun python/init-pyvenv ()
   (use-package pyvenv
     :defer t
     :init
     (evil-leader/set-key-for-mode 'python-mode
-      "mV" 'pyvenv-workon)))
+      "cV" 'pyvenv-workon)))
 
 (defun python/init-pytest ()
   (use-package pytest
@@ -105,14 +105,14 @@
                pytest-module
                pytest-pdb-module)
     :init (evil-leader/set-key-for-mode 'python-mode
-            "mtA" 'pytest-pdb-all
-            "mta" 'pytest-all
-            "mtB" 'pytest-pdb-module
-            "mtb" 'pytest-module
-            "mtT" 'pytest-pdb-one
-            "mtt" 'pytest-one
-            "mtM" 'pytest-pdb-module
-            "mtm" 'pytest-module)
+            "ctA" 'pytest-pdb-all
+            "cta" 'pytest-all
+            "ctB" 'pytest-pdb-module
+            "ctb" 'pytest-module
+            "ctT" 'pytest-pdb-one
+            "ctt" 'pytest-one
+            "ctM" 'pytest-pdb-module
+            "ctm" 'pytest-module)
     :config (add-to-list 'pytest-project-root-files "setup.cfg")))
 
 (defun python/init-python ()
@@ -212,17 +212,17 @@
         (evil-insert-state))
 
       (evil-leader/set-key-for-mode 'python-mode
-        "mcc" 'spacemacs/python-execute-file
-        "mcC" 'spacemacs/python-execute-file-focus
-        "mdb" 'python-toggle-breakpoint
-        "mri" 'python-remove-unused-imports
-        "msB" 'python-shell-send-buffer-switch
-        "msb" 'python-shell-send-buffer
-        "msF" 'python-shell-send-defun-switch
-        "msf" 'python-shell-send-defun
-        "msi" 'python-start-or-switch-repl
-        "msR" 'python-shell-send-region-switch
-        "msr" 'python-shell-send-region)
+        "cc" 'spacemacs/python-execute-file
+        "cC" 'spacemacs/python-execute-file-focus
+        "cdb" 'python-toggle-breakpoint
+        "cri" 'python-remove-unused-imports
+        "csB" 'python-shell-send-buffer-switch
+        "csb" 'python-shell-send-buffer
+        "csF" 'python-shell-send-defun-switch
+        "csf" 'python-shell-send-defun
+        "csi" 'python-start-or-switch-repl
+        "csR" 'python-shell-send-region-switch
+        "csr" 'python-shell-send-region)
 
       ;; Emacs users won't need these key bindings
       ;; TODO: make these key bindings dynamic given the current style
@@ -272,7 +272,7 @@
   (use-package helm-pydoc
     :defer t
     :init
-    (evil-leader/set-key-for-mode 'python-mode "mhd" 'helm-pydoc)))
+    (evil-leader/set-key-for-mode 'python-mode "chd" 'helm-pydoc)))
 
 (defun python/post-init-smartparens ()
   (defadvice python-indent-dedent-line-backspace
@@ -316,7 +316,7 @@ fix this issue."
 (defun python/pre-init-xcscope ()
   (spacemacs|use-package-add-hook xcscope
     :post-init
-    (evil-leader/set-key-for-mode 'python-mode "mgi" 'cscope/run-pycscope)))
+    (evil-leader/set-key-for-mode 'python-mode "cgi" 'cscope/run-pycscope)))
 
 (defun python/pre-init-helm-cscope ()
   (spacemacs|use-package-add-hook xcscope
