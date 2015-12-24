@@ -54,7 +54,7 @@
 
 (defun ruby/init-chruby ()
   (use-package chruby
-    :if (equal 'chruby 'ruby-version-manager)
+    :if (equal 'chruby ruby-version-manager)
     :defer t
     :init
     (progn
@@ -93,7 +93,7 @@
 
 (defun ruby/init-rbenv ()
   (use-package rbenv
-    :if (equal 'rbenv 'ruby-version-manager)
+    :if (equal 'rbenv ruby-version-manager)
     :defer t
     :init
     (progn
@@ -235,7 +235,7 @@
 
 (defun ruby/init-rvm ()
   (use-package rvm
-    :if (equal 'rvm 'ruby-version-manager)
+    :if (equal 'rvm ruby-version-manager)
     :defer t
     :init
     (progn
