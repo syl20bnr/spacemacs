@@ -585,7 +585,7 @@ already exist, and switch to it."
         (setq spacemacs-buffer--note-widgets nil)
         (spacemacs-buffer/insert-banner-and-buttons)
         ;; non-nil if emacs is loaded
-        (if after-init-time
+        (if (and init-file-user after-init-time)
             (progn
               (when dotspacemacs-startup-lists
                 (spacemacs-buffer/insert-startupify-lists))
