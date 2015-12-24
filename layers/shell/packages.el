@@ -63,6 +63,8 @@ the user activate the completion manually."
             eshell-buffer-maximum-lines 20000
             ;; history size
             eshell-history-size 350
+            ;; no duplicates in history
+            eshell-hist-ignoredups t
             ;; buffer shorthand -> echo foo > #'buffer
             eshell-buffer-shorthand t
             ;; my prompt is easy enough to see
@@ -106,6 +108,19 @@ is achieved by adding the relevant text properties."
                     'spacemacs//eshell-auto-end nil t))
         (when (configuration-layer/package-usedp 'semantic)
           (semantic-mode -1)))
+
+      ;; Defining a function like this makes it possible to type 'clear' in eshell and have it work
+      (defun eshell/clear ()
+        (interactive)
+        (let ((inhibit-read-only t))
+          (erase-buffer))
+        (eshell-send-input))
+
+      ;; Caution! this will erase buffer's content at C-l
+      (add-hook 'eshell-mode-hook
+         #'(lambda ()
+             (define-key eshell-mode-map (kbd "C-l") 'eshell/clear)
+             (define-key eshell-mode-map (kbd "C-d") 'eshell-life-is-too-much)))
       (add-hook 'eshell-mode-hook 'spacemacs//init-eshell))
     :config
     (progn
