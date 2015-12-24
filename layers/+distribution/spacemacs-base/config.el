@@ -256,9 +256,7 @@ nil."
 ;; scratch buffer empty
 (setq initial-scratch-message nil)
 ;; don't create backup~ files
-(setq backup-by-copying t
-      make-backup-files nil
-      create-lockfiles nil)
+(setq make-backup-files nil)
 
 ;; Auto-save file
 (setq auto-save-default (not (null dotspacemacs-auto-save-file-location)))
