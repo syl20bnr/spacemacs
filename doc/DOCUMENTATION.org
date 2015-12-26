@@ -1513,8 +1513,8 @@ window resizing.
 | ~7~           | go to window number 7                                         |
 | ~8~           | go to window number 8                                         |
 | ~9~           | go to window number 9                                         |
-| ~-~           | vertical split                                                |
-| ~/~           | horizontal split                                              |
+| ~/~           | vertical split                                                |
+| ~-~           | horizontal split                                              |
 | ~[~           | shrink window horizontally                                    |
 | ~]~           | enlarge window horizontally                                   |
 | ~{~           | shrink window vertically                                      |
