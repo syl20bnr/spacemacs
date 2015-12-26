@@ -1485,11 +1485,11 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w p m~            | open messages buffer in a popup window                                      |
 | ~SPC w p p~            | close the current sticky popup window                                       |
 | ~SPC w R~              | rotate windows clockwise                                                    |
-| ~SPC w s~ or ~SPC w /~ | horizontal split                                                            |
+| ~SPC w s~ or ~SPC w -~ | horizontal split                                                            |
 | ~SPC w S~              | horizontal split and focus new window                                       |
 | ~SPC w u~              | undo window layout (used to effectively undo a closed window)               |
 | ~SPC w U~              | redo window layout                                                          |
-| ~SPC w v~ or ~SPC w -~ | vertical split                                                              |
+| ~SPC w v~ or ~SPC w /~ | vertical split                                                              |
 | ~SPC w V~              | vertical split and focus new window                                         |
 | ~SPC w w~              | cycle and focus between windows                                             |
 | ~SPC w SPC~            | select window using [[https://github.com/abo-abo/ace-window][ace-window]]                                              |
@@ -1513,8 +1513,8 @@ window resizing.
 | ~7~           | go to window number 7                                         |
 | ~8~           | go to window number 8                                         |
 | ~9~           | go to window number 9                                         |
-| ~-~           | vertical split                                                |
-| ~/~           | horizontal split                                              |
+| ~/~           | vertical split                                                |
+| ~-~           | horizontal split                                              |
 | ~[~           | shrink window horizontally                                    |
 | ~]~           | enlarge window horizontally                                   |
 | ~{~           | shrink window vertically                                      |
