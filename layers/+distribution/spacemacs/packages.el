@@ -391,7 +391,7 @@
 (defun spacemacs/init-avy ()
   (use-package avy
     :defer t
-    :commands (spacemacs/avy-open-url)
+    :commands (spacemacs/avy-open-url avy-pop-mark)
     :init
     (progn
       (setq avy-all-windows 'all-frames)
