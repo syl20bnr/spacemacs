@@ -584,8 +584,8 @@ already exist, and switch to it."
         ;; needed in case the buffer was deleted and we are recreating it
         (setq spacemacs-buffer--note-widgets nil)
         (spacemacs-buffer/insert-banner-and-buttons)
-        ;; non-nil if emacs is loaded
-        (if (and init-file-user after-init-time)
+        ;; non-nil if emacs-startup-hook was run
+        (if (bound-and-true-p spacemacs-version-check-timer)
             (progn
               (when dotspacemacs-startup-lists
                 (spacemacs-buffer/insert-startupify-lists))
