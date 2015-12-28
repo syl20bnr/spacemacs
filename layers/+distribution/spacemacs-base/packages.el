@@ -590,10 +590,9 @@ Removes the automatic guessing of the initial value based on thing at point. "
                           (helm-read-file-name
                            "Search in file(s): "
                            :marked-candidates t
-                           :preselect (and helm-do-grep-preselect-candidate
-                                           (if helm-ff-transformer-show-only-basename
-                                               (helm-basename preselection)
-                                             preselection))))))
+                           :preselect (if helm-ff-transformer-show-only-basename
+                                          (helm-basename preselection)
+                                        preselection)))))
           (helm-do-grep-1 targets nil nil nil nil use-region-or-symbol-p)))
 
       (defun spacemacs/helm-file-do-grep ()
