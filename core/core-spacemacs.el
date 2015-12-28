@@ -45,6 +45,9 @@
 
 (defvar spacemacs--default-mode-line mode-line-format
   "Backup of default mode line format.")
+(defvar spacemacs-initialized nil
+  "Whether or not spacemacs has finished initializing by completing
+the final step of executing code in `emacs-startup-hook'.")
 
 (defun spacemacs/init ()
   "Perform startup initialization."
@@ -175,7 +178,8 @@
         (format "\n[%s packages loaded in %.3fs]\n"
                 (configuration-layer/configured-packages-count)
                 elapsed)))
-     (spacemacs/check-for-new-version spacemacs-version-check-interval))))
+     (spacemacs/check-for-new-version spacemacs-version-check-interval)
+     (setq spacemacs-initialized t))))
 
 (defun spacemacs/describe-system-info ()
   "Gathers info about your Spacemacs setup and copies to clipboard."
