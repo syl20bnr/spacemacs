@@ -31,7 +31,7 @@
                                        ("h"   "helm/help/highlight")
                                        ("hd"  "help-describe")
                                        ("i"   "insertion")
-                                       ("j"   "join/split")
+                                       ("j"   "jump/join/split")
                                        ("k"   "lisp")
                                        ("kd"  "delete")
                                        ("kD"  "delete-backward")

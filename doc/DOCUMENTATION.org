@@ -99,6 +99,7 @@
        - [[Smooth scrolling][Smooth scrolling]]
      - [[Vim motions with avy][Vim motions with avy]]
        - [[ace-link mode][ace-link mode]]
+     - [[Jumping][Jumping]]
      - [[Window manipulation][Window manipulation]]
        - [[Window manipulation key bindings][Window manipulation key bindings]]
        - [[Window manipulation micro-state][Window manipulation micro-state]]
@@ -1382,8 +1383,8 @@ Navigation is performed using the Vi key bindings ~hjkl~.
 | ~l~         | move cursor right                                                                 |
 | ~H~         | move cursor to the top of the screen                                              |
 | ~L~         | move cursor to the bottom of the screen                                           |
-| ~SPC j h~   | go to the beginning of line (and set a mark at the previous location in the line) |
-| ~SPC j l~   | go to the end of line (and set a mark at the previous location in the line)       |
+| ~SPC j 0~   | go to the beginning of line (and set a mark at the previous location in the line) |
+| ~SPC j $~   | go to the end of line (and set a mark at the previous location in the line)       |
 | ~SPC t -~   | lock the cursor at the center of the screen                                       |
 
 **** Smooth scrolling
@@ -1419,6 +1420,28 @@ Similar to =avy=, [[https://github.com/abo-abo/ace-link][ace-link]] allows one t
 | Key Binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~o~         | initiate ace link mode in =help-mode= and =info-mode= |
+
+*** Jumping
+The ~SPC j~ prefix includes several commands related to "jumping" or quickly
+moving to a relevant location based on context. You'll recognize some of the
+bindings from the previous sections, which are duplicated here.
+
+| Key Binding | Description                                                                       |
+|-------------+-----------------------------------------------------------------------------------|
+| ~SPC j 0~   | go to the beginning of line (and set a mark at the previous location in the line) |
+| ~SPC j $~   | go to the end of line (and set a mark at the previous location in the line)       |
+| ~SPC j b~   | jump to a bookmark                                                                |
+| ~SPC j c~   | jump to a character in the buffer                                                 |
+| ~SPC j d~   | jump to a listing of the current directory                                        |
+| ~SPC j D~   | jump to a listing of the current directory (other window)                         |
+| ~SPC j f~   | jump to the definition of the function under the point                            |
+| ~SPC j i~   | jump to a definition in buffer (imenu)                                            |
+| ~SPC j I~   | jump to a definition in any buffer (imenu)                                        |
+| ~SPC j l~   | initiate avy jump line                                                            |
+| ~SPC j u~   | undo a jump (go back to previous location)                                        |
+| ~SPC j U~   | jump to a URL in the current buffer                                               |
+| ~SPC j v~   | jump to the definition/declaration of the variable under the point                |
+| ~SPC j w~   | jump to a word in the current buffer                                              |
 
 *** Window manipulation
 **** Window manipulation key bindings

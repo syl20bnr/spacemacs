@@ -145,10 +145,22 @@ Ensure that helm is required before calling FUNC."
   "jJ" 'spacemacs/split-and-new-line
   "jk" 'spacemacs/evil-goto-next-line-and-indent)
 
-;; navigation -----------------------------------------------------------------
+;; navigation/jumping ---------------------------------------------------------
 (spacemacs/set-leader-keys
-  "jh" 'spacemacs/push-mark-and-goto-beginning-of-line
-  "jl" 'spacemacs/push-mark-and-goto-end-of-line)
+  "j0" 'spacemacs/push-mark-and-goto-beginning-of-line
+  "j$" 'spacemacs/push-mark-and-goto-end-of-line
+  "jb" 'bookmark-jump
+  "jc" 'evil-avy-goto-char-2
+  "jd" 'dired-jump
+  "jD" 'dired-jump-other-window
+  "jf" 'find-function-at-point
+  "ji" 'spacemacs/jump-in-buffer
+  "jI" 'helm-imenu-in-all-buffers
+  "jl" 'evil-avy-goto-line
+  "ju" 'avy-pop-mark
+  "jU" 'spacemacs/avy-goto-url
+  "jv" 'find-variable-at-point
+  "jw" 'evil-avy-goto-word-or-subword-1)
 
 ;; Compilation ----------------------------------------------------------------
 (spacemacs/set-leader-keys
