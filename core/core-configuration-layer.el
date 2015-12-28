@@ -1069,7 +1069,7 @@ to select one."
                  (pkg-dir-name (cdr apkg))
                  (installed-ver
                   (configuration-layer//get-package-version-string pkg))
-                 (elpa-dir (concat user-emacs-directory "elpa/"))
+                 (elpa-dir package-user-dir)
                  (src-dir (expand-file-name
                            (concat rollback-dir (file-name-as-directory
                                                  pkg-dir-name))))
@@ -1169,7 +1169,7 @@ to select one."
     (cond
      ((version< emacs-version "24.3.50")
       (let* ((version (aref (cdr pkg-desc) 0))
-             (elpa-dir (concat user-emacs-directory "elpa/"))
+             (elpa-dir package-user-dir)
              (pkg-dir-name (format "%s-%s.%s"
                                    (symbol-name pkg-name)
                                    (car version)
