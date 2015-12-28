@@ -53,6 +53,9 @@
 
 (defvar spacemacs--default-mode-line mode-line-format
   "Backup of default mode line format.")
+(defvar spacemacs-initialized nil
+  "Whether or not spacemacs has finished initializing by completing
+the final step of executing code in `emacs-startup-hook'.")
 
 (define-derived-mode spacemacs-mode special-mode "Spacemacs"
   "Spacemacs major mode for startup screen.
@@ -208,7 +211,8 @@ initialization."
                   configuration-layer-error-count))
        (spacemacs-buffer/set-mode-line spacemacs--default-mode-line))
      (force-mode-line-update)
-     (spacemacs/check-for-new-version spacemacs-version-check-interval))))
+     (spacemacs/check-for-new-version spacemacs-version-check-interval)
+     (setq spacemacs-initialized t))))
 
 (defun spacemacs/describe-system-info ()
   "Gathers info about your Spacemacs setup and copies to clipboard."
