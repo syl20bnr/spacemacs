@@ -52,6 +52,7 @@
 (defun elfeed/init-elfeed-org ()
   (use-package elfeed-org
     :defer t
+    :if (boundp 'rmh-elfeed-org-files)
     :init (spacemacs|use-package-add-hook elfeed
             :pre-config (elfeed-org))))
 
