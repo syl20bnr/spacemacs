@@ -48,7 +48,8 @@
       (defun spacemacs/jump-to-last-layout ()
         "Open the previously selected layout."
         (interactive)
-        (persp-switch spacemacs--last-selected-layout))
+        (when (persp-get-by-name spacemacs--last-selected-layout)
+          (persp-switch spacemacs--last-selected-layout)))
 
       ;; Perspectives micro-state -------------------------------------------
 
