@@ -27,7 +27,7 @@
       (defun spacemacs/workspaces-ms-rename ()
         "Rename a workspace and get back to micro-state."
         (interactive)
-        (eyebrowse-rename-window-config (eyebrowse--get 'current-slot))
+        (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) nil)
         (spacemacs/workspaces-micro-state))
 
       (defun spacemacs//workspaces-ms-get-slot-name (window-config)
