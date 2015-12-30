@@ -198,6 +198,16 @@
       (add-to-list 'completion-ignored-extensions ext))
     :config
     (progn
+      ;; Automatically insert asterisk in a comment when enabled
+      (defun scala/newline-and-indent-with-asterisk ()
+        (interactive)
+        (newline-and-indent)
+        (when scala-auto-insert-asterisk-in-comment
+          (scala-indent:insert-asterisk-on-multiline-comment)))
+
+      (evil-define-key 'insert scala-mode-map
+        (kbd "RET") 'scala/newline-and-indent-with-asterisk)
+
       (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
 
       ;; Compatibility with `aggressive-indent'
