@@ -40,6 +40,7 @@
         (ido :location built-in)
         ido-vertical-mode
         (package-menu :location built-in)
+        ido-grid-mode
         page-break-lines
         popup
         popwin
@@ -1037,11 +1038,15 @@ ARG non nil means that the editing style is `vim'."
   (evilified-state-evilify-map package-menu-mode-map
     :mode package-menu-mode))
 
-(defun spacemacs-base/init-ido-vertical-mode ()
-  (use-package ido-vertical-mode
+(defun spacemacs-base/init-ido-grid-mode ()
+  (use-package ido-grid-mode
     :init
     (progn
-      (ido-vertical-mode t)
+      (setq-default ido-grid-mode-keys '(tab)
+                    ido-grid-mode-prefix-scrolls t
+                    ido-grid-mode-max-columns 1
+                    ido-grid-mode-max-rows 30)
+      (ido-grid-mode 1)
       (when dotspacemacs-use-ido
         (spacemacs/set-leader-keys "ff" 'ido-find-file))
       (defun spacemacs//ido-minibuffer-setup ()
@@ -1065,11 +1070,11 @@ ARG non nil means that the editing style is `vim'."
         ;; use M-RET in terminal
         (define-key ido-completion-map "\M-\r" 'ido-select-text)
         (define-key ido-completion-map (kbd "C-h") 'ido-delete-backward-updir)
-        (define-key ido-completion-map (kbd "C-j") 'ido-next-match)
-        (define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
+        (define-key ido-completion-map (kbd "C-j") 'ido-grid-mode-down)
+        (define-key ido-completion-map (kbd "C-k") 'ido-grid-mode-up)
         (define-key ido-completion-map (kbd "C-l") 'ido-exit-minibuffer)
-        (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
-        (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
+        (define-key ido-completion-map (kbd "C-n") 'ido-grid-mode-next)
+        (define-key ido-completion-map (kbd "C-p") 'ido-grid-mode-previous)
         (define-key ido-completion-map (kbd "C-S-h") 'ido-prev-match-dir)
         (define-key ido-completion-map (kbd "C-S-j") 'next-history-element)
         (define-key ido-completion-map (kbd "C-S-k") 'previous-history-element)
@@ -1084,8 +1089,8 @@ ARG non nil means that the editing style is `vim'."
         ;; more natural navigation keys: up, down to change current item
         ;; left to go up dir
         ;; right to open the selected item
-        (define-key ido-completion-map (kbd "<up>") 'ido-prev-match)
-        (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
+        (define-key ido-completion-map (kbd "<up>") 'ido-grid-mode-up)
+        (define-key ido-completion-map (kbd "<down>") 'ido-grid-mode-down)
         (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
         (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)
         ;; initiate micro-state
