@@ -335,9 +335,18 @@
             (cdr cand)))))
 
 (defun helm-spacemacs//faq-candidates ()
-  (delq nil
-        (mapcar 'helm-spacemacs//faq-candidate
-                (helm-org-get-candidates (list helm-spacemacs--faq-filename) 1 8))))
+  (let ((cands (helm-org-get-candidates (list helm-spacemacs--faq-filename)))
+        section result)
+    (dolist (c cands)
+      (let ((str (substring-no-properties (car c))))
+        (when (string-match "\\`\\* \\(.*\\)\\'" str)
+          (setq section (match-string 1 str)))
+        (when (string-match "\\`\\*\\* \\(.*\\)\\'" str)
+          (push (cons (concat (propertize section 'face 'font-lock-type-face)
+                              ": " (match-string 1 str))
+                      (cdr c))
+                result))))
+    result))
 
 (defun helm-spacemacs//faq-goto-marker (marker)
   (find-file helm-spacemacs--faq-filename)
