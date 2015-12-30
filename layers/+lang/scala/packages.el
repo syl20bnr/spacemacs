@@ -180,7 +180,8 @@
       (when (configuration-layer/package-usedp 'expand-region)
         (require 'ensime-expand-region nil 'noerror)))))
 
-(defun scala/init-noflet ())
+(defun scala/init-noflet ()
+  (use-package noflet))
 
 (defun scala/init-sbt-mode ()
   (use-package sbt-mode
@@ -202,11 +203,4 @@
       ;; Compatibility with `aggressive-indent'
       (setq scala-indent:align-forms t
             scala-indent:align-parameters t
-            scala-indent:default-run-on-strategy scala-indent:operator-strategy)
-
-      (require 'noflet)
-
-      (defadvice scala-indent:indent-code-line (around retain-trailing-ws activate)
-        "Keep trailing-whitespace when indenting."
-        (noflet ((scala-lib:delete-trailing-whitespace ()))
-                ad-do-it)))))
+            scala-indent:default-run-on-strategy scala-indent:operator-strategy))))
