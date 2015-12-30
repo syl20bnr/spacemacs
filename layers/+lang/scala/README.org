@@ -11,6 +11,7 @@
    - [[Usage][Usage]]
  - [[Scalastyle][Scalastyle]]
  - [[Automatically show the type of the symbol under the cursor][Automatically show the type of the symbol under the cursor]]
+ - [[Automatically insert asterisk in multiline comments][Automatically insert asterisk in multiline comments]]
  - [[Key bindings][Key bindings]]
    - [[Ensime key bindings][Ensime key bindings]]
      - [[Search][Search]]
@@ -85,7 +86,6 @@ To use scalastyle,
    the jar.
 
 See the [[http://flycheck.readthedocs.org/en/latest/guide/languages.html#el.flycheck-checker.scala-scalastyle][flycheck documentation]] for up-to-date configuration instructions.
-
 * Automatically show the type of the symbol under the cursor
 
 To enable the feature =ensime-print-type-at-point= when cursor moves, set the variable =scala-enable-eldoc-mode= to =t=.
@@ -96,6 +96,15 @@ To enable the feature =ensime-print-type-at-point= when cursor moves, set the va
 #+END_SRC
 
 Enabling this option can cause slow editor performance.
+
+* Automatically insert asterisk in multiline comments
+
+To insert a leading asterisk in multiline comments automatically, set the variable =scala-auto-insert-asterisk-in-comments= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (scala :variables scala-auto-insert-asterisk-in-comments t)))
+#+END_SRC
 
 * Key bindings
 
