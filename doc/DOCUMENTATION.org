@@ -177,12 +177,12 @@
 * Core Pillars
 Four core pillars: Mnemonic, Discoverability, Consistency, "Crowd-Configured".
 
-If any of these core pillars is violated open an issue and we'll fix it.
+If any of these core pillars are violated, open an issue and we'll fix it.
 
 ** Mnemonic
 =Spacemacs= organizes key bindings by mnemonic namespaces as much as possible.
 If you are looking for commands to operate on your buffer, they are right under
-~SPC b~, if you want to operate on your project, then it is ~SPC p~, etc...
+~SPC b~. If you want to operate on your project, then it is ~SPC p~, etc...
 
 ** Discoverability
 =Spacemacs= comes with a dedicated major mode =spacemacs-mode=. Its goal is to
@@ -191,24 +191,23 @@ give useful feedbacks and easily perform maintenance tasks.
 It also comes with dedicated [[https://github.com/emacs-helm/helm][helm]] sources to quickly find layers, packages and
 more.
 
-[[https://github.com/justbur/emacs-which-key][which-key]] is enabled by default, it will display all the available key bindings
+[[https://github.com/justbur/emacs-which-key][which-key]] is enabled by default, displaying all the available key bindings
 in a dedicated popup buffer.
 
 ** Consistency
 Similar functionalities should have the same key binding no matter which major
-is currently active. For instance if you are looking for the definition of a
+is currently active. For instance, if you are looking for the definition of a
 function, the binding is ~SPC m g g~, =m= for =major mode= and =g g= for =go to
-thing at point=. No matter what is the major mode it is the same binding to
+thing at point=. No matter what the major mode is, it is the same binding to
 perform this action.
 
-This is also true for the documentation, each configuration layer comes with an
+This is also true for the documentation. Each configuration layer comes with an
 associated =README.org= file with the same base layout.
 
 The consistency core pillar is supported by a convention file: [[file:CONVENTIONS.org][CONVENTIONS.org]]
 
 ** Crowd-Configured
-By defining an very light structure called =configuration layer= which is easy
-to understand, =Spacemacs= makes it easy to contribute additional support.
+By defining a very light and easy to understand structure called =configuration layer=, =Spacemacs= makes it easy to contribute additional support.
 
 The conventions in [[file:CONVENTIONS.org][CONVENTIONS.org]] make it easy to get
 the spacemacs way and keep consistency even if there are a lot of contributions.
@@ -274,28 +273,28 @@ one-page guide]] about how to learn Emacs.
 
 * Update and Rollback
 ** Update Spacemacs repository
-Spacemacs will automatically check for a new version every startup. When it
-detects that a new version is available a arrow will appear in the modeline.
-Click it to update Spacemacs. You must restart Emacs after updating.
+Spacemacs will automatically check for a new version at every startup. When it
+detects that a new version is available, an arrow will appear in the modeline.
+Click it to update Spacemacs. You must then restart Emacs after updating.
 
 Update Button:
 [[file:img/powerline-update.png]]
 
 *Note*: If you use the =develop= branch of Spacemacs, you must update manually.
 
-To update manually close Emacs and update the git repository:
+To update manually, close Emacs and update the git repository:
 
 #+begin_src sh
   $ git pull --rebase
 #+end_src
 
-*Note*: It is recommended to update the packages first, see the next section.
+*Note*: It is recommended to update the packages first. See the next section.
 
 ** Update packages
-To update =Spacemacs= press RET (enter) or click on the link =[Update]= in the
-startup page under the banner then restart Emacs.
+To update =Spacemacs=, press ~RET~ (enter) or click on the link =[Update]= in the
+startup page under the banner, then restart Emacs.
 
-If anything goes wrong you should be able to rollback the update by pressing
+If anything goes wrong, you should be able to rollback the update by pressing
 ~RET~ or clicking on the =[Rollback]= link next to the =[Update]= link and
 choose a rollback slot (sorted by date).
 
@@ -308,7 +307,7 @@ Layers help collect related packages together to provide features. For example,
 the =python= layer provides auto-completion, syntax checking, and repl support
 for python files. This approach helps keep configuration organized and reduces
 overhead for the user by keeping them from having to think about what packages
-to install
+to install.
 
 ** Structure
 Configuration is organized in layers. Each layer has the following structure:
@@ -381,7 +380,7 @@ Example:
 #+end_src
 
 *** Without a layer
-Sometimes a layer can be an unnecessary overhead, this is the case if you just
+Sometimes a layer can be an unnecessary overhead. This is the case if you just
 want to install a package without any configuration associated to it. A good
 example is some niche language where you are only interested syntax
 highlighting.
@@ -389,7 +388,7 @@ highlighting.
 You can install such packages by adding them to the variable
 =dotspacemacs-additional-packages= in your dotfile.
 
-If you want to add some configuration for them then consider to create a layer,
+If you want to add some configuration for them, consider creating a layer,
 or just put the configuration in the =dotspacemacs/user-config= function.
 
 Example to install =llvm-mode= and =dts-mode=:
@@ -399,11 +398,11 @@ Example to install =llvm-mode= and =dts-mode=:
 #+end_src
 
 ** Packages synchronization (Vundle like feature)
-=Spacemacs= features a synchronization engine for the ELPA packages. It means
+=Spacemacs= features a synchronization engine for the ELPA packages. This means
 that =Spacemacs= will auto-install the new packages in =<layer>-packages= lists
 /and/ auto-delete orphan packages in your =elpa= directory.
 
-It effectively makes =Spacemacs= behave like [[https://github.com/gmarik/Vundle.vim][Vundle]].
+This effectively makes =Spacemacs= behave like [[https://github.com/gmarik/Vundle.vim][Vundle]].
 
 ** Types of configuration layers
 There are three types of configuration layers:
