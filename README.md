@@ -54,7 +54,7 @@
 Spacemacs is a proposition of a complete new experience for Emacs focused
 on ergonomics, mnemonics and consistency. 
 
-Clone it, launch it then press the space bar and let you guided by the built-in
+Clone it, launch it then press the space bar and let yourself be guided by the built-in
 interactive list of key-bindings. You can also press the `[?]` button on the
 home buffer for the first essential key bindings to know.
 
@@ -208,12 +208,12 @@ update Spacemacs manually by updating your repository.
 When a new version is available a little arrow appears in the mode-line.
 
 Its color depends on the number of versions available since your last update.
-Green means that your current version is recent, orange and red that your
+Green means that your current version is recent, orange and red mean that your
 current version is older.
 
-[[file:doc/img/powerline-update.png]]
+![powerline-update](doc/img/powerline-update.png)
 
-Click on the arrow to update Spacemacs to the last version.
+Click on the green arrow to update Spacemacs to the latest version.
 
 ## On develop branch
 
