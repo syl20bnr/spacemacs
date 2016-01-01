@@ -69,7 +69,7 @@ Spacemacs is currently in beta, and contributions are very welcome.
 
 # Features
 
-- **Great documentation:** Access documentation in Emacs with
+- **Great documentation:** access documentation in Emacs with
 <kbd>SPC f e h</kbd>
 - **Beautiful GUI:** you'll love the distraction free UI and its functional
 mode-line.
@@ -84,7 +84,7 @@ organised in configuration layers following a set of
 
 # Documentation
 
-A comprehensive documentation is available for each layer by pressing
+Comprehensive documentation is available for each layer by pressing
 <kbd>SPC f e h</kbd>.
 
 To go to the general documentation [click here][DOCUMENTATION.org].
@@ -225,7 +225,7 @@ update Spacemacs manually by updating your repository.
 When a new version is available a little arrow appears in the mode-line.
 
 Its color depends on the number of versions available since your last update.
-Green means that your current version is recent, orange and red that your
+Green means that your current version is recent, orange and red mean that your
 current version is older.
 
 ![powerline_update](doc/img/powerline-update.png)
@@ -281,7 +281,7 @@ Before contributing be sure to consult the
 
 The license is GPLv3 for all parts specific to Spacemacs, this includes:
 - the initialization and core files
-- all the layer files.
+- all the layer files
 - the documentation
 
 For the packages shipped in this repository you can refer to the files header.
