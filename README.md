@@ -211,9 +211,9 @@ Its color depends on the number of versions available since your last update.
 Green means that your current version is recent, orange and red mean that your
 current version is older.
 
-![poweline-update](doc/img/powerline-update.png)
+![powerline-update](doc/img/powerline-update.png)
 
-Click on the arrow to update Spacemacs to the last version.
+Click on the green arrow to update Spacemacs to the latest version.
 
 ## On develop branch
 
