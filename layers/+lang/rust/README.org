@@ -49,3 +49,4 @@ procedure, look [[https://github.com/racer-rust/emacs-racer][here]].
 | ~SPC m c d~ | generate documentation with Cargo |
 | ~SPC m c x~ | execute the project with Cargo    |
 | ~SPC m c C~ | remove build artifacts with Cargo |
+| ~SPC m g g~ | go jump to definition             |
