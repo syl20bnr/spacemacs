@@ -130,10 +130,15 @@
         (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers)
              nil)
         (ruby-end-mode +1))
-      (add-hook 'elixir-mode-hook 'spacemacs//ruby-end))
+      (add-hook 'elixir-mode-hook 'spacemacs//ruby-end)
+      ;; hack to remove the autoloaded `add-hook' in `ruby-end'
+      ;; since they are inserted as an autoload, they have to be removed both
+      ;; before and after loading
+      (remove-hook 'ruby-mode-hook 'ruby-end-mode)
+      (remove-hook 'enh-ruby-mode-hook 'ruby-end-mode))
     :config
     (progn
       (spacemacs|hide-lighter ruby-end-mode)
-      ;; hack to remove the autoloaded `add-hook' in `ruby-end'
+      ;; see comment in `:init' block
       (remove-hook 'ruby-mode-hook 'ruby-end-mode)
       (remove-hook 'enh-ruby-mode-hook 'ruby-end-mode))))
