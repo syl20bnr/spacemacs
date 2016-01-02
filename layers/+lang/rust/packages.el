@@ -40,12 +40,15 @@
         ;; Don't pair lifetime specifiers
         (sp-local-pair 'rust-mode "'" nil :actions nil))
 
+      (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
+      (spacemacs/declare-prefix-for-mode 'rust-mode "mg" "goto")
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "cc" 'spacemacs/rust-cargo-build
         "ct" 'spacemacs/rust-cargo-test
         "cd" 'spacemacs/rust-cargo-doc
         "cx" 'spacemacs/rust-cargo-run
-        "cC" 'spacemacs/rust-cargo-clean))))
+        "cC" 'spacemacs/rust-cargo-clean
+        "gg" 'racer-find-definition))))
 
 (defun rust/init-toml-mode ()
   (use-package toml-mode
