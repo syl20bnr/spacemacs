@@ -6,20 +6,30 @@
 - ~SPC a p~ is now for =list-processed= and ~SPC a P~ for =proced=,
   =paradox= is now on ~SPC a k~.
 - ~SPC s l~ is now used to bring back last search buffer and ~SPC s j~
-  is for jumping into a file using imenu.
-- Projectile caching is now disabled by default, while it should not
+  is for jumping into a file using =imenu=.
+- Projectile: caching is now disabled by default, while it should not
   break anything if you have some functions relying on caching being
   enabled be sure to activate it explicitly in your dotfile with
   =(setq projectile-enable-caching t)=.
-- Git: new key bindings scheme using =evil-magit= package. To continue
-  to use the old evilified bindings add =evil-magit= package to the
-  =dotspacemacs-excluded-packages= variable of your dotfile.
+- Git: new key bindings scheme using =evil-magit= package. If you want
+  to continue to use the old evilified bindings add =evil-magit= package
+  to the =dotspacemacs-excluded-packages= variable of your dotfile.
 - Ruby: the default major mode is now the Emacs built-in =ruby-mode=.
-  To continue to use =enh-ruby-mode= set the layer variable
+  If you want to continue to use =enh-ruby-mode= set the layer variable
   =ruby-enable-enh-ruby-mode= to =t=.
 *** Hot new features
 - Spacemacs layouts under ~SPC l~ with =eyebrowse= integration
   (thanks to CestDiego, bmag and TheBB)
+- Revamped Magit key bindings thanks to =evil-magit= which provides
+  a faithful port of Magit UX using Vim key bindings (thanks to justbur)
+- Brand new website on =spacemacs.org= with =readthedocs= documentation pages
+  (thanks to bobbyangelov, nashamri and TheBB)
+*** Other important notes
+- All =extensions= directories have been renamed to =local=. =extensions=
+  directories will be deprecated in 0.106.0.
+- The =evil-leader= functions =evil-leader/set-key= and
+  =evil-leader/set-key-for-mode= are now obsolete and will be deprecated
+  in a future version.
 *** New conventions
 - Commit and abort commands conventions:
   - ~SPC m ,~ and ~SPC m c~ to Valid/Confirm
