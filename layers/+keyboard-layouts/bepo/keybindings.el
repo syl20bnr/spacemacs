@@ -20,7 +20,7 @@
   (progn
     ;; HACK: Manual binding, otherwise conflicts with evil-window auto
     ;; remapping.
-    (evil-leader/set-key
+    (spacemacs/set-leader-keys
       "wC" 'evil-window-move-far-left
       "wL" 'ace-delete-window
       "wQ" 'ace-delete-window)
@@ -40,7 +40,7 @@
   :loader
   (with-eval-after-load 'buffer-move BODY)
   :config
-  (bepo/evil-leader-correct-keys
+  (bepo/leader-correct-keys
     "bmh"
     "bmj"
     "bmk"
@@ -153,7 +153,7 @@
    `q' for closing."
   :config
   (progn
-    (bepo/evil-leader-correct-keys
+    (bepo/leader-correct-keys
      "wh"
      "wj"
      "wk"
@@ -166,7 +166,7 @@
     (spacemacs/set-leader-keys
       "wé" 'other-window
       "wq" 'delete-window)
-    (bepo/evil-leader-alias-of "é" "w")))
+    (bepo/leader-alias-of "é" "w")))
 
 (bepo|config eyebrowse
   :description
@@ -360,7 +360,7 @@
   :description
   "Customize some `spacemacs' bindings."
   :config
-  (bepo/evil-leader-correct-keys
+  (bepo/leader-correct-keys
     "jh"
     "jj"
     "jk"
