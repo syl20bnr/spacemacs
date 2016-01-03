@@ -19,13 +19,13 @@
   (use-package octave
     :mode ("\\.m\\'" . octave-mode)
     :commands (run-octave)
-    :config (evil-leader/set-key-for-mode 'octave-mode
+    :config (spacemacs/set-leader-keys-for-major-mode 'octave-mode
               ;; helpers
-              "mhh" 'octave-help
-              "mhi" 'octave-lookfor
+              "hh" 'octave-help
+              "hi" 'octave-lookfor
               ;; REPL
-              "msb" 'octave-send-buffer
-              "msf" 'octave-send-defun
-              "msi" 'run-octave
-              "msl" 'octave-send-line
-              "msr" 'octave-send-region)))
+              "sb" 'octave-send-buffer
+              "sf" 'octave-send-defun
+              "si" 'run-octave
+              "sl" 'octave-send-line
+              "sr" 'octave-send-region)))
