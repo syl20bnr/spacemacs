@@ -186,48 +186,27 @@
  - [[Thank you][Thank you]]
 
 * Core Pillars
-Four core pillars: Mnemonic, Discoverability, Consistency, "Crowd-Configured".
+Four core pillars: Mnemonic, Discoverable, Consistent and "Crowd-Configured".
 
-If any of these core pillars is violated open an issue and we'll fix it.
+If any of these core pillars is violated open an issue and we'll try our best
+to fix it.
 
 ** Mnemonic
-Spacemacs organizes key bindings by mnemonic namespaces as much as possible.
-If you are looking for commands to operate on your buffer, they are right under
-~SPC b~, if you want to operate on your project, then it is ~SPC p~, etc...
+Key bindings are organized using mnemonic prefixes like ~b~ for buffer, ~p~ for
+project, ~s~ for search, ~h~ for help etc...
 
 ** Discoverable
-Spacemacs comes with a dedicated major mode =spacemacs-buffer-mode=. Its goal is
-to give useful feedbacks and easily perform maintenance tasks.
-
-It also comes with dedicated [[https://github.com/emacs-helm/helm][helm]] sources to quickly find layers, packages and
-more.
-
-[[https://github.com/justbur/emacs-which-key][which-key]] is enabled by default, it will display all the available key bindings
-in a dedicated popup buffer.
+Innovative real-time display of available key bindings. Simple query
+system to quickly find available layers, packages and more.
 
 ** Consistent
-Similar functionalities should have the same key binding no matter which major
-is currently active. For instance if you are looking for the definition of a
-function, the binding is ~SPC m g g~, =m= for =major mode= and =g g= for =go to
-thing at point=. No matter what is the major mode it is the same binding to
-perform this action.
-
-This is also true for the documentation, each configuration layer comes with an
-associated =README.org= file with the same base layout.
-
-The consistency core pillar is supported by a convention file: [[file:CONVENTIONS.org][CONVENTIONS]]
+Similar functionalities have the same key binding everywhere thanks to a
+clearly defined set of conventions. Documentation is mandatory for any layer
+that ships with Spacemacs.
 
 ** Crowd-Configured
-By defining an very light structure called =configuration layer= which is easy
-to understand, Spacemacs makes it easy to contribute additional support.
-
-The conventions in [[file:CONVENTIONS.org][CONVENTIONS]] make it easy to get
-the spacemacs way and keep consistency even if there are a lot of contributions.
-
-=Crowd-configuration= is the most powerful pillar of Spacemacs. Anybody can
-submit upstream improvements to configuration layers or a whole new one. Any
-user can easily and directly use this layer by adding it to a list in a dotfile.
-It is even possible to exclude /any/ unwanted packages.
+Community-driven configuration provides curated packages tuned by power users
+and bugs are fixed quickly.
 
 * Goals
 -  *Bring the power of modal editing* to the powerful Emacs editing platform.
