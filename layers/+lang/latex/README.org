@@ -1,4 +1,4 @@
-#+TITLE: LaTeX layer
+#+TITLE: LaTeX Layer for Spacemacs
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/latex.png]]
@@ -12,8 +12,11 @@
    - [[Previewing][Previewing]]
    - [[Build command][Build command]]
    - [[Auto-fill][Auto-fill]]
+   - [[Magic latex buffer][Magic latex buffer]]
  - [[Keybindings][Keybindings]]
+   - [[AucTeX][AucTeX]]
    - [[RefTeX][RefTeX]]
+     - [[reftex TOC mode][reftex TOC mode]]
 
 * Description
 This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects/auctex/][AucTeX]].
@@ -23,7 +26,6 @@ This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects
 - Auto-completion with [[https://github.com/alexeyr/company-auctex][company-auctex]]
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
-
 * Install
 ** Layer
 To use this contribution add it to your =~/.spacemacs=
@@ -47,6 +49,10 @@ under =dotspacemacs/user-config=:
 
 Then when you open up a compiled PDF, the preview will update automatically
 when you recompile.
+
+Font-locking for semi-WYSIWYG editing made with magic-latex-buffer can be customized.
+
+
 
 ** Build command
 A build command can be specified via the layer variable =latex-build-command=.
@@ -74,55 +80,128 @@ The variable =latex-nofill-env= provide the list of environment names where
     (latex :variables latex-enable-auto-fill t))
 #+END_SRC
 
-* Keybindings
+** Magic latex buffer
+Font-locking using magic latex buffer can be customized with the following variables (all toggled by default):
 
-| Key Binding   | Description                         |
-|---------------+-------------------------------------|
-| ~SPC m -~     | open output buffer                  |
-| ~SPC m b~     | build                               |
-| ~SPC m c~     | close LaTeX environment             |
-| ~SPC m C~     | TeX command on master file          |
-| ~SPC m e~     | insert LaTeX environment            |
-| ~SPC m i~     | insert =\item=                      |
-| ~SPC m h d~   | TeX documentation, can be very slow |
-| ~SPC m p r~   | preview region                      |
-| ~SPC m p b~   | preview buffer                      |
-| ~SPC m p d~   | preview document                    |
-| ~SPC m p e~   | preview environment                 |
-| ~SPC m p s~   | preview section                     |
-| ~SPC m p p~   | preview at point                    |
-| ~SPC m p f~   | cache preamble for preview          |
-| ~SPC m p c~   | clear previews                      |
-| ~SPC m v~     | view                                |
-| ~SPC m x b~   | make font bold                      |
-| ~SPC m x B~   | make font medium weight             |
-| ~SPC m x c~   | make font monospaced (for code)     |
-| ~SPC m x e~   | make font emphasised                |
-| ~SPC m x i~   | make font italic                    |
-| ~SPC m x o~   | make font oblique                   |
-| ~SPC m x r~   | remove font properties              |
-| ~SPC m x f a~ | use calligraphic font               |
-| ~SPC m x f c~ | use small-caps font                 |
-| ~SPC m x f f~ | use sans serif font                 |
-| ~SPC m x f n~ | use normal font                     |
-| ~SPC m x f r~ | use serif font                      |
-| ~SPC m x f u~ | use upright font                    |
+=magic-latex-enable-block-highlight t=
+=magic-latex-enable-suscript t=
+=magic-latex-enable-pretty-symbols t=
+=magic-latex-enable-block-align t=
+=magic-latex-enable-inline-image t=
+
+* Keybindings
+** AucTeX
+
+| Key Binding   | Description                                      |
+|---------------+--------------------------------------------------|
+| ~SPC m %~     | comment or uncomment paragraph                   |
+| ~SPC m ;~     | comment or uncomment region                      |
+| ~SPC m a m~   | set master in multifile documents                |
+| ~SPC m c :~   | next command on master                           |
+| ~SPC m c b~   | next commmand on buffer                          |
+| ~SPC m c c~   | build/compile/typeset                            |
+| ~SPC m c r~   | next command on region                           |
+| ~SPC m c s b~ | TeX-command-select-buffer                        |
+| ~SPC m c s r~ | TeX-command-select-region                        |
+| ~SPC m c s~   | Tex-command-select-master                        |
+| ~SPC m c v~   | compile document until error or finished         |
+| ~SPC m d c~   | remove generated intermediate files              |
+| ~SPC m d e~   | overview errors/warnings                         |
+| ~SPC m d k~   | kill currently running external application      |
+| ~SPC m d n~   | jump to next error of last LaTeX run             |
+| ~SPC m d N~   | jump to previous error of last run               |
+| ~SPC m d o~   | makes bottom line visible of the output buffer   |
+| ~SPC m d r~   | remove buffer information and reapply style hook |
+| ~SPC m g h~   | go to master file                                |
+| ~SPC m h a~   | help aucTeX                                      |
+| ~SPC m h d~   | help TeX                                         |
+| ~SPC m h p~   | help preview                                     |
+| ~SPC m i c~   | complete macro                                   |
+| ~SPC m i E~   | close environment                                |
+| ~SPC m i e~   | prompt for environment to insert                 |
+| ~SPC m i i~   | insert item in itemize-like environment          |
+| ~SPC m i m~   | insert macro                                     |
+| ~SPC m m e~   | mark environment                                 |
+| ~SPC m m p~   | pin region                                       |
+| ~SPC m m s~   | mark section                                     |
+| ~SPC m p b~   | preview buffer                                   |
+| ~SPC m p c b~ | remove preview from buffer                       |
+| ~SPC m p c d~ | remove preview from document                     |
+| ~SPC m p c p~ | remove preview at point                          |
+| ~SPC m p c r~ | remove preview from region                       |
+| ~SPC m p c s~ | remove preview from section                      |
+| ~SPC m p d~   | generate preview for document                    |
+| ~SPC m p e~   | generate preview for environment                 |
+| ~SPC m p F~   | generate preview cache preamble off              |
+| ~SPC m p f~   | generate preview cache preamble                  |
+| ~SPC m p p~   | generate preview at point                        |
+| ~SPC m p r~   | generate preview for region                      |
+| ~SPC m p s~   | generate preview for section                     |
+| ~SPC m s~     | save all buffers known to the current document   |
+| ~SPC m t $~   | toggle math mode                                 |
+| ~SPC m v~     | start a viewer without prompting                 |
+| ~SPC m x b~   | font-bold                                        |
+| ~SPC m x B~   | font-medium                                      |
+| ~SPC m x c~   | font-typewriter                                  |
+| ~SPC m x e~   | font-emphasis                                    |
+| ~SPC m x f a~ | font-calligraphic                                |
+| ~SPC m x f c~ | font-small-caps                                  |
+| ~SPC m x f f~ | font-sans-serif                                  |
+| ~SPC m x f n~ | font-normal                                      |
+| ~SPC m x f r~ | font-serif                                       |
+| ~SPC m x f u~ | font-upright                                     |
+| ~SPC m x i~   | font-italic                                      |
+| ~SPC m x o~   | font-slanted                                     |
+| ~SPC m x r~   | font-delete                                      |
+
+
 
 ** RefTeX
 
-| Key Binding   | Description                           |
-|---------------+---------------------------------------|
-| ~SPC m r c~   | reftex-citation                       |
-| ~SPC m r g~   | reftex-grep-document                  |
-| ~SPC m r i~   | reftex-index-selection-or-word        |
-| ~SPC m r I~   | reftex-display-index                  |
-| ~SPC m r TAB~ | reftex-index                          |
-| ~SPC m r l~   | reftex-label                          |
-| ~SPC m r p~   | reftex-index-phrase-selection-or-word |
-| ~SPC m r P~   | reftex-index-visit-phrases-buffer     |
-| ~SPC m r r~   | reftex-reference                      |
-| ~SPC m r s~   | reftex-search-document                |
-| ~SPC m r t~   | reftex-toc                            |
-| ~SPC m r T~   | reftex-toc-recenter                   |
-| ~SPC m r v~   | reftex-view-crossref                  |
-|               |                                       |
+| Key Binding   | Description                                                                        |
+|---------------+------------------------------------------------------------------------------------|
+| ~SPC m r g b~ | create or go to the index phrases file                                             |
+| ~SPC m r g l~ | prompt for a label (with completion) and jump to the location of this label        |
+| ~SPC m r i a~ | index all index phrases in the current region                                      |
+| ~SPC m r i c~ | make a citation using BibTeX database files                                        |
+| ~SPC m r i i~ | query for an index macro and insert it along with its arguments                    |
+| ~SPC m r i I~ | put current selection or the word near point into the default index macro          |
+| ~SPC m r i l~ | insert a unique label                                                              |
+| ~SPC m r i p~ | add current selection or the word at point to the phrases buffer                   |
+| ~SPC m r i r~ | start a selection process to select a label and insert a reference to it           |
+| ~SPC m r m t~ | create tags file by running etags on the current document                          |
+| ~SPC m r m b~ | create a new BibTeX database file with all entries referenced in document          |
+| ~SPC m r n l~ | renumber all simple labels in the document to make them sequentially               |
+| ~SPC m r p d~ | reparse entire documents                                                           |
+| ~SPC m r p f~ | parse one file                                                                     |
+| ~SPC m r s a~ | search again                                                                       |
+| ~SPC m r s d~ | produce a list of all duplicate labels in the document                             |
+| ~SPC m r s d~ | regexp search through all files of the current document                            |
+| ~SPC m r s g~ | run grep query through all files related to this document                          |
+| ~SPC m r s q~ | run a query-replace-regexp of FROM with TO over the entire document                |
+| ~SPC m r v c~ | view cross reference of macro at point                                             |
+| ~SPC m r v i~ | display a buffer with an index compiled for the current document                   |
+| ~SPC m r v t~ | display the table of contents for the current document                             |
+| ~SPC m r v T~ | display the table of contents and highlight line corresponding to current position |
+| ~SPC m r w~   | save all document buffers                                                          |
+
+*** reftex TOC mode
+
+| Key Binding   | Description                                      |
+|---------------+--------------------------------------------------|
+| ~SPC m d~   | demote section at point                          |
+| ~SPC m e t~ | replace current buffer with text of visited file |
+| ~SPC m g e~ | switch to TOC of external document               |
+| ~SPC m g l~ | go to doc location in other window. TOC stays    |
+| ~SPC m g L~ | doc location in other window. TOC is hidden      |
+| ~SPC m m d~ | regenerate toc buffer parsing entire document    |
+| ~SPC m m f~ | regenerate toc buffer parsing file               |
+| ~SPC m p~   | promote section at point                         |
+| ~SPC m r l~ | rename selected label in TOC                     |
+| ~SPC m t b~ | inclusion of boundaries in toc buffer            |
+| ~SPC m t i~ | inclusion of index in toc buffer                 |
+| ~SPC m t l~ | inclusion of labels in toc buffer                |
+| ~SPC m q~   | hide TOC and do not move point                   |
+| ~SPC m v c~ | show where =reftex-toc= was called from          |
+| ~SPC m v i~ | view index like =reftex-display-index=           |
+| ~SPC m v l~ | view document location in other window           |

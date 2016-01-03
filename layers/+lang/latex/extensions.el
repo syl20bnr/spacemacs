@@ -14,21 +14,52 @@
 
 (defun latex/init-emacs-builtin-reftex ()
   "Initialize reftex"
-
+  
+  (add-hook 'reftex-toc-mode-hook 'turn-on-evil-mode)
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
   (setq reftex-plug-into-AUCTeX '(nil nil t t t))
 
-  (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-    "rc"    'reftex-citation
-    "rg"    'reftex-grep-document
-    "ri"    'reftex-index-selection-or-word
-    "rI"    'reftex-display-index
-    "r TAB" 'reftex-index
-    "rl"    'reftex-label
-    "rp"    'reftex-index-phrase-selection-or-word
-    "rP"    'reftex-index-visit-phrases-buffer
-    "rr"    'reftex-reference
-    "rs"    'reftex-search-document
-    "rt"    'reftex-toc
-    "rT"    'reftex-toc-recenter
-    "rv"    'reftex-view-crossref))
+  "ric"  'reftex-citation
+  "rsq"  'reftex-query-replace-document
+  "rsg"  'reftex-grep-document
+  "riI"  'reftex-index-selection-or-word
+  "rvi"  'reftex-display-index
+  "rii"  'reftex-index
+  "ril"  'reftex-label
+  "rip"  'reftex-index-phrase-selection-or-word
+  "rgb"  'reftex-index-visit-phrases-buffer
+  "rir"  'reftex-reference
+  "rsd"  'reftex-search-document
+  "ria"  'reftex-index-phrases-apply-to-region ;; 
+  "rvt"  'reftex-toc
+  "rvT"  'reftex-toc-recenter
+  "rsd"  'reftex-find-duplicate-labels
+  "rit"  'reftex-create-tags-file
+  "rmb"  'reftex-create-bibtex-file
+  "rpf"  'reftex-parse-one
+  "rpd"  'reftex-parse-all
+  "rsa"  'tags-query-replace
+  "rw"   'reftex-save-all-document-buffers
+  "rns"  'reftex-renumber-simple-labels
+  "rgl"  'reftex-goto-label
+  "rvc"  'reftex-view-crossref)
+  ; =======
+  ; = TOC =
+  ; =======
+  (spacemacs/set-leader-keys-for-major-mode 'reftex-toc-mode
+  "vl"  'reftex-toc-view-line
+  "gl"  'reftex-toc-goto-line
+  "gL"  'reftex-toc-goto-line-and-hide
+  "vc"  'reftex-toc-show-calling-point
+  "q"  'reftex-toc-quit
+  "p"  'reftex-toc-promote
+  "d"  'reftex-toc-demote
+  "rl"  'reftex-toc-rename-label
+  "vi"  'reftex-toc-display-index
+  "ge"  'reftex-toc-external
+  "et"  'revert-buffer
+  "md"  'reftex-toc-Rescan
+  "tb"  'reftex-toc-toggle-file-boundary
+  "tl"  'reftex-toc-toggle-labels
+  "ti"  'reftex-toc-toggle-index
+  ))

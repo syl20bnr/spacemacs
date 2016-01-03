@@ -49,7 +49,7 @@ the automatic filling of the current paragraph."
 ;; Rebindings for TeX-font
 (defun latex/font-bold () (interactive) (TeX-font nil ?\C-b))
 (defun latex/font-medium () (interactive) (TeX-font nil ?\C-m))
-(defun latex/font-code () (interactive) (TeX-font nil ?\C-t))
+(defun latex/font-typewriter () (interactive) (TeX-font nil ?\C-t))
 (defun latex/font-emphasis () (interactive) (TeX-font nil ?\C-e))
 (defun latex/font-italic () (interactive) (TeX-font nil ?\C-i))
 (defun latex/font-clear () (interactive) (TeX-font nil ?\C-d))
@@ -58,5 +58,5 @@ the automatic filling of the current paragraph."
 (defun latex/font-sans-serif () (interactive) (TeX-font nil ?\C-f))
 (defun latex/font-normal () (interactive) (TeX-font nil ?\C-n))
 (defun latex/font-serif () (interactive) (TeX-font nil ?\C-r))
-(defun latex/font-oblique () (interactive) (TeX-font nil ?\C-s))
+(defun latex/font-slanted () (interactive) (TeX-font nil ?\C-s))
 (defun latex/font-upright () (interactive) (TeX-font nil ?\C-u))

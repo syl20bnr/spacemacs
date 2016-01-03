@@ -19,6 +19,7 @@
     evil-matchit
     flycheck
     flyspell
+    magic-latex-buffer
     smartparens
     typo
     yasnippet
@@ -49,57 +50,125 @@
     (progn
       ;; Key bindings for plain TeX
       (spacemacs/set-leader-keys-for-major-mode 'tex-mode
-        "\\" 'TeX-insert-macro
-        "b" 'latex/build
-        "C" 'TeX-command-master
-        "v" 'TeX-view
+          ;; build/compile/typeset
+          "b" 'bq-latex/build ; left for historical reason
+          "cc" 'bq-latex/build
+          "c:" 'TeX-command-master
+          "cr" 'TeX-command-region
+          "cb" 'TeX-command-buffer
+          ;;"cs" 'Tex-command-sentinel
+          "dc" 'TeX-clean
+          "de" 'TeX-error-overview
+          "dk" 'TeX-kill-job
+          "do" 'TeX-recenter-output-buffer
+          "dn" 'TeX-next-error
+          "dN" 'TeX-previous-error
+          "gh" 'TeX-home-buffer
+          ;; TeX-doc is a very slow function
+          "hd" 'TeX-doc
+          "im" 'TeX-insert-macro
+          "v" 'TeX-view
 
-        "xb" 'latex/font-bold
-        "xc" 'latex/font-code
-        "xe" 'latex/font-emphasis
-        "xi" 'latex/font-italic
-        "xr" 'latex/font-clear
-        "xo" 'latex/font-oblique
-        "xfc" 'latex/font-small-caps
-        "xff" 'latex/font-sans-serif
-        "xfr" 'latex/font-serif)
-      (spacemacs/declare-prefix-for-mode 'tex-mode "mx" "tex/text")
-      (spacemacs/declare-prefix-for-mode 'tex-mode "mx" "tex/fonts")
+          "xb" 'latex/font-bold
+          "xc" 'latex/font-code
+          "xe" 'latex/font-emphasis
+          "xi" 'latex/font-italic
+          "xr" 'latex/font-clear
+          "xo" 'latex/font-oblique
+          "xfc" 'latex/font-small-caps
+          "xff" 'latex/font-sans-serif
+          "xfr" 'latex/font-serif)
+        (spacemacs/declare-prefix-for-mode 'tex-mode "mx" "tex/text")
+        (spacemacs/declare-prefix-for-mode 'tex-mode "mx" "tex/fonts")
 
-      ;; Key bindings for LaTeX
-      (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-        "\\" 'TeX-insert-macro
-        "-" 'TeX-recenter-output-buffer
-        "b" 'latex/build
-        "c" 'LaTeX-close-environment
-        "C" 'TeX-command-master
-        "e" 'LaTeX-environment
-        ;; TeX-doc is a very slow function
-        "hd" 'TeX-doc
-        "i" 'LaTeX-insert-item
-        "pb" 'preview-buffer
-        "pc" 'preview-clearout
-        "pd" 'preview-document
-        "pe" 'preview-environment
-        "pf" 'preview-cache-preamble
-        "pp" 'preview-at-point
-        "pr" 'preview-region
-        "ps" 'preview-section
-        "v" 'TeX-view
-
-        "xb" 'latex/font-bold
-        "xB" 'latex/font-medium
-        "xc" 'latex/font-code
-        "xe" 'latex/font-emphasis
-        "xi" 'latex/font-italic
-        "xo" 'latex/font-oblique
-        "xr" 'latex/font-clear
-        "xfa" 'latex/font-calligraphic
-        "xfc" 'latex/font-small-caps
-        "xff" 'latex/font-sans-serif
-        "xfn" 'latex/font-normal
-        "xfr" 'latex/font-serif
-        "xfu" 'latex/font-upright)
+        ;; Key bindings for LaTeX
+        (spacemacs/set-leader-keys-for-major-mode 'latex-mode
+            ; ============
+            ; = comments =
+            ; ============
+          "%" 'TeX-comment-or-uncomment-paragraph
+          ";" 'TeX-comment-or-uncomment-region
+          ; ======================
+          ; = Controlling the output =
+          ; ======================
+          "dk" 'TeX-kill-job
+          "do" 'TeX-recenter-output-buffer
+          "gh" 'TeX-home-buffer
+          ; ======================
+          ; = Starting a command =
+          ; ======================
+          "a" 'TeX-master-file-ask
+          "cc" 'bq-latex/build
+          "c:" 'TeX-command-master
+          "cb" 'TeX-command-buffer
+          "cr" 'TeX-command-region
+          "cs:" 'Tex-command-select-master
+          "csb" 'TeX-command-select-buffer
+          "csr" 'TeX-command-select-region
+          "cv" 'TeX-command-run-all
+          "s" 'TeX-save-document
+          "v" 'TeX-view
+          ; =============
+          ; = Debugging =
+          ; =============
+          "dc" 'TeX-clean
+          "de" 'TeX-error-overview
+          "dn" 'TeX-next-error
+          "dN" 'TeX-previous-error
+          "dr" 'TeX-normal-mode
+          ; =================
+          ; = Documentation =
+          ; =================
+          "ha" 'TeX-goto-info-page
+          "hd" 'TeX-doc
+          "hp" 'preview-goto-info-page
+          ; ====================
+          ; = Editing document =
+          ; ====================
+          "ic" 'TeX-complete-symbol
+          "ie" 'LaTeX-environment
+          "iE" 'LaTeX-close-environment
+          "ii" 'LaTeX-insert-item
+          "im" 'TeX-insert-macro
+          "t$" 'LaTeX-math-mode
+          ; =========
+          ; = Marking =
+          ; =========
+          "ms" 'LaTeX-mark-section
+          "me" 'LaTeX-mark-environment
+          "mp" 'TeX-pin-region
+          ; ============
+          ; = Previewing =
+          ; ============
+          "pb" 'preview-buffer
+          "pcb" 'preview-clearout-buffer
+          "pcd" 'preview-clearout-document
+          "pcp" 'preview-clearout-at-point
+          "pcr" 'preview-clearout
+          "pcs" 'preview-clearout-section
+          "pd" 'preview-document
+          "pe" 'preview-environment
+          "pf" 'preview-cache-preamble
+          "pF" 'preview-cache-preamble-off
+          "pp" 'preview-at-point
+          "pr" 'preview-region
+          "ps" 'preview-section
+          ; ===============
+          ; = Remap fonts =
+          ; ===============
+          "xb" 'latex/font-bold
+          "xB" 'latex/font-medium
+          "xc" 'latex/font-typewriter
+          "xe" 'latex/font-emphasis
+          "xi" 'latex/font-italic
+          "xo" 'latex/font-slanted
+          "xr" 'latex/font-delete
+          "xfa" 'latex/font-calligraphic
+          "xfc" 'latex/font-small-caps
+          "xff" 'latex/font-sans-serif
+          "xfn" 'latex/font-normal
+          "xfr" 'latex/font-serif
+          "xfu" 'latex/font-upright)
       (spacemacs/declare-prefix-for-mode 'latex-mode "mx" "latex/text")
       (spacemacs/declare-prefix-for-mode 'latex-mode "mx" "latex/fonts"))))
 
@@ -154,3 +223,16 @@
 (defun latex/post-init-which-key ()
   (push '("\\`latex/font-\\(.+\\)\\'" . "\\1")
         which-key-description-replacement-alist))
+
+(defun latex/init-magic-latex-buffer ()
+    (use-package magic-latex-buffer
+       :defer t
+       :init
+       (progn
+           (setq magic-latex-enable-block-highlight t
+              magic-latex-enable-suscript t
+              magic-latex-enable-pretty-symbols t
+              magic-latex-enable-block-align t
+              magic-latex-enable-inline-image t)))
+  (add-hook 'LaTeX-mode-hook 'magic-latex-buffer))
+
