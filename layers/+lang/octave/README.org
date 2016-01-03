@@ -17,7 +17,7 @@ extensions and configures spacemacs-style [[#Key-bindings][Key Bindings]]
 * Install
 Make sure that [[https://gnu.org/software/octave/][GNU Octave]] is installed and
 in your PATH. For information about setting up $PATH, check out the
-corresponding section in the FAQ (=SPC f e h $PATH RET=).
+corresponding section in the FAQ (=SPC h SPC $PATH RET=).
 
 To use this contribution add it to your =~/.spacemacs=
 
