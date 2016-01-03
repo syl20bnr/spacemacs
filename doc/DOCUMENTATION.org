@@ -593,7 +593,7 @@ bindings live. There are two related commands from this package which are used
 as follows.
 
 #+BEGIN_SRC emacs-lisp
-(evil-leader/set-key "C-]" 'forward-char)
+(spacemacs/set-leader-keys "C-]" 'forward-char)
 (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode "C-]" 'forward-char)
 #+END_SRC
 
@@ -609,7 +609,7 @@ like ~SPC ac~ for =calc-dispatch=. Nesting bindings is easy.
 
 #+BEGIN_SRC emacs-lisp
 (spacemacs/declare-prefix "]" "bracket-prefix")
-(evil-leader/set-key "]]" 'double-bracket-command)
+(spacemacs/set-leader-keys "]]" 'double-bracket-command)
 #+END_SRC
 
 The first line declares ~SPC ]~ to be a prefix and the second binds the key
@@ -1190,7 +1190,7 @@ Additional text objects are defined in Spacemacs:
 ~SPC o~ and ~SPC m o~ are reserved for the user. Setting key bindings behind
 these is *guaranteed* to never conflict with Spacemacs default key bindings.
 
-*Example:* Put =(evil-leader/set-key "oc" 'org-capture)= inside
+*Example:* Put =(spacemacs/set-leader-keys "oc" 'org-capture)= inside
 =dotspacemacs/user-config= in your =~/.spacemacs= file, to be able to use ~SPC o
 c~ to run org mode capture.
 
