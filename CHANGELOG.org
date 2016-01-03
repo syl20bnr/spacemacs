@@ -69,6 +69,8 @@
 - New variable =dotspacemacs-line-numbers= to enable line numbers
   globally, possible values are =relative=, =t= or =nil=.
   Default is =nil= (thanks to StreakyCobra)
+- New variable =dotspacemacs-distinguish-gui-tab=, if non nil then ~TAB~
+  and ~C-i~ are distinct using GUI Emacs, default is =nil= (thanks to justbur)
 - New variable =dotspacemacs-startup-recent-list-size= to configure the
   number of recent files to display in the home buffer (thanks to bmag)
 - New variable =dotspacemacs-whitespace-cleanup= to enable automatic
