@@ -28,6 +28,14 @@ To use this layer, add it to your =~/.spacemacs=
 [[http://doc.crates.io/index.html][Cargo]] is a project management command line tool for Rust. Installation
 instructions can be found on the main page of [[http://doc.crates.io/index.html][Cargo]].
 
+** Autocompletion
+To enable autocompletion, ensure that the autocompletion layer is enabled and add the following line to your dotspacemacs/user-init:
+#+BEGIN_SRC emacs-lisp
+(setq-default rust-enable-racer t)
+#+END_SRC
+
+You have to install [[https://github.com/phildawes/racer][Racer]] to use this. For more information about this see [[https://github.com/racer-rust/emacs-racer][here]].
+
 * Key bindings
 
 | Key Binding | Description                       |
