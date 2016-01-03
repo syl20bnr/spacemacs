@@ -384,26 +384,28 @@ Example: (evil-map visual \"<\" \"<gv\")"
                (evil-select-paren ,start-regex ,end-regex beg end type count t))
              (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
              (define-key evil-outer-text-objects-map ,key (quote ,outer-name))
-             (when (configuration-layer/package-usedp 'evil-surround)
+             (with-eval-after-load 'evil-surround
                (push (cons (string-to-char ,key)
                            (if ,end
                                (cons ,start ,end)
                              ,start))
                      evil-surround-pairs-alist)))))
 
-      (defun spacemacs//standard-text-objects ()
-        ;; between dollars sign:
-        (spacemacs|define-text-object "$" "dollar" "$" "$")
-        ;; define stars
-        (spacemacs|define-text-object "*" "star" "*" "*")
-        ;; define block star text object
-        (spacemacs|define-text-object "8" "block-star" "/*" "*/")
-        ;; between pipe characters:
-        (spacemacs|define-text-object "|" "bar" "|" "|")
-        ;; between percent signs:
-        (spacemacs|define-text-object "%" "percent" "%" "%"))
+      (spacemacs|define-text-object "$" "dollar" "$" "$")
+      (spacemacs|define-text-object "*" "star" "*" "*")
+      (spacemacs|define-text-object "8" "block-star" "/*" "*/")
+      (spacemacs|define-text-object "|" "bar" "|" "|")
+      (spacemacs|define-text-object "%" "percent" "%" "%")
+      (spacemacs|define-text-object "/" "slash" "/" "/")
+      (spacemacs|define-text-object "_" "underscore" "_" "_")
+      (spacemacs|define-text-object "-" "hyphen" "-" "-")
+      (spacemacs|define-text-object "~" "tilde" "~" "~")
+      (spacemacs|define-text-object "=" "equal" "=" "=")
 
-      (spacemacs/add-to-hook 'prog-mode-hook '(spacemacs//standard-text-objects))
+      (evil-define-text-object evil-pasted (count &rest args)
+        (list (save-excursion (evil-goto-mark ?\[) (point))
+              (save-excursion (evil-goto-mark ?\]) (point))))
+      (define-key evil-inner-text-objects-map "P" 'evil-pasted)
 
       ;; define text-object for entire buffer
       (evil-define-text-object evil-inner-buffer (count &optional beg end type)
