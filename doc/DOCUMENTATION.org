@@ -7,7 +7,7 @@
    - [[Discoverable][Discoverable]]
    - [[Consistent][Consistent]]
    - [[Crowd-Configured][Crowd-Configured]]
- - [[Goals][Goals]]
+ - [[Highlighted feature][Highlighted feature]]
  - [[Screenshots][Screenshots]]
  - [[Who can benefit from this?][Who can benefit from this?]]
  - [[Update and Rollback][Update and Rollback]]
@@ -208,29 +208,29 @@ that ships with Spacemacs.
 Community-driven configuration provides curated packages tuned by power users
 and bugs are fixed quickly.
 
-* Goals
--  *Bring the power of modal editing* to the powerful Emacs editing platform.
+* Highlighted feature
+- *Bring the efficiency of modal editing* to the powerful Emacs lisp platform.
+  Modal UX is optional and Spacemacs can be used with only Emacs key bindings.
 
--  Integrate nicely with =Evil= states (=Vim= modes): Spacemacs tries to *keep
-   your fingers on the home row* as much as possible, no matter the mode you are
-   in.
+- Integrate nicely with =Evil= states (=Vim= modes).
 
--  *Crowd-configured*: Contribute easily your improvements and new configuration
-   layers.
+- *Keep your fingers on the home row* for quicker editing with support for
+  QWERTY and BEPO layouts.
 
--  *Minimalistic and nice graphical UI*, keep your available screen space for
-   what matters: your text files.
+- *Minimalistic and nice graphical UI*, keep your available screen space for
+  what matters: your text files.
 
--  *Mnemonic and consistent key bindings* which should be easier to learn and
-   remember and be the same in all major modes.
+- *Fast boot time*, packages and configuration are lazy-loaded as much as
+  possible.
 
--  *Fast boot time*, everything is lazy-loaded.
+- *Lower the risk of RSI* by heavily using the space bar instead of modifiers.
+  If you have issues with your thumbs you can still use Spacemacs using
+  modifiers.
 
--  *Lower the risk of RSI* by heavily using the space bar instead of modifiers.
+- Contribute easily your improvements and new configuration layers.
 
--  Hopefully, if it's not already the case:
-
-    Ɛ>Ɛ>Ɛ> *make you love modal editing!* <3<3<3
+- *Very active and helpful community* on =Gitter= and =IRC=
+  (via Gitter IRC bridge)
 
 * Screenshots
 /Startup/ [[file:img/spacemacs-startup.png]]
