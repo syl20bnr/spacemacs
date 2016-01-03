@@ -300,11 +300,11 @@ another sequence. For instance, if you want to switch ~SPC S~ (spelling) with
 ~SPC d~ (used by dash) to make the former easier to reach, you can use:
 
 #+begin_src emacs-lisp
-(defun my-evil-leader/swap-keys (key1 key2)
+(defun dear-leader/swap-keys (key1 key2)
   (let ((map1 (lookup-key evil-leader--default-map key1))
         (map2 (lookup-key evil-leader--default-map key2)))
-    (evil-leader/set-key key1 map2 key2 map1)))
-(my-evil-leader/swap-keys "S" "d")
+    (spacemacs/set-leader-keys key1 map2 key2 map1)))
+(dear-leader/swap-keys "S" "d")
 #+end_src
 
 If you want to define your own alias, like using ~SPC é~ (because it's an
@@ -312,10 +312,10 @@ unmapped key on your keyboard-layout for instance) for accessing ~SPC w~
 (windows management), you can use this:
 
 #+begin_src emacs-lisp
-(defun my-evil-leader/alias-of (key1 key2)
+(defun dear-leader/alias-of (key1 key2)
   (let ((map (lookup-key evil-leader--default-map key2)))
-    (evil-leader/set-key key1 map)))
-(my-evil-leader/alias-of "é" "w")
+    (spacemacs/set-leader-keys key1 map)))
+(dear-leader/alias-of "é" "w")
 #+end_src
 
 ** Restore the sentence delimiter to two spaces?
