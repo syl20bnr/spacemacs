@@ -335,8 +335,9 @@
             (cdr cand)))))
 
 (defun helm-spacemacs//faq-candidates ()
-  (let ((cands (helm-org-get-candidates (list helm-spacemacs--faq-filename)))
-        section result)
+  (let* ((helm-org-format-outline-path nil)
+         (cands (helm-org-get-candidates (list helm-spacemacs--faq-filename)))
+         section result)
     (dolist (c cands)
       (let ((str (substring-no-properties (car c))))
         (when (string-match "\\`\\* \\(.*\\)\\'" str)
