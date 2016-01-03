@@ -70,7 +70,7 @@ Spacemacs is currently in beta, and contributions are very welcome.
 # Features
 
 - **Great documentation:** access documentation in Emacs with
-<kbd>SPC f e h</kbd>
+<kbd>SPC f e h</kbd>.
 - **Beautiful GUI:** you'll love the distraction free UI and its functional
 mode-line.
 - **Excellent ergonomics:** all the key bindings are accessible by pressing
