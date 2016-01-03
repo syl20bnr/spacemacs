@@ -233,34 +233,30 @@ and bugs are fixed quickly.
   (via Gitter IRC bridge)
 
 * Screenshots
-/Startup/ [[file:img/spacemacs-startup.png]]
 
 /Python/ [[file:img/spacemacs-python.png]]
-
-/Terminal (urxvt)/ [[file:img/spacemacs-urxvt.png]]
 
 *Note*: Even though screenshots are updated frequently, Spacemacs is evolving
 quickly and the screenshots may not reflect exactly the current state of the
 project.
 
 * Who can benefit from this?
-Spacemacs is first intended to be used by *Vim users* who want to go to the
-next level by using Emacs. There is a [[./VIMUSERS.org][guide]] for these users to supplement the
-documentation.
+- Spacemacs was initially intended to be used by *Vim users* who want to go to
+  the next level by using Emacs (see [[./VIMUSERS.org][guide]] for Vimmers). But it is now
+  perfectly *usable by non Vim users* by choosing the =emacs= editing style.
 
-It is also a good fit for people wanting to *lower the [[http://en.wikipedia.org/wiki/Repetitive_strain_injury][risk of RSI]]* induced by
-the default Emacs key bindings (this is an assumption, there are no official
-studies to prove this).
+- It is also a good fit for people wanting to *lower the [[http://en.wikipedia.org/wiki/Repetitive_strain_injury][risk of RSI]]* induced by
+  the default Emacs key bindings (this is an assumption, there are no official
+  studies to prove this!). If you have issues using your thumbs you can still
+  use the =emacs= editing style which puts the leader key on a modifier
+  combination.
 
-Emacs users wanting to learn *a different way to edit files* or wanting to learn
-Vim key bindings.
+- Emacs users wanting to learn *a different way to edit files* or wanting to
+  learn Vim key bindings or even wanting to mix both editing styles by setting
+  their style to =hybrid=.
 
-Emacs users who want a neatly organized configuration to go along with the
-default Emacs keybindings (Yes, Spacemacs can be used without Vim keybindings).
-
-As a side note, if you are a programmer and you don't know Vim key bindings yet,
-I deeply recommend you to learn the basics as recommended in [[http://sachachua.com/blog/2013/05/how-to-learn-emacs-a-hand-drawn-one-pager-for-beginners/][Sacha Chua's
-one-page guide]] about how to learn Emacs.
+- Emacs users wanting a simple but deep configuration system that greatly
+  *lower the risk of .emacs bankruptcy*.
 
 * Update and Rollback
 ** Update Spacemacs repository
