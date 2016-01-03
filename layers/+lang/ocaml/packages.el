@@ -96,7 +96,7 @@
       (dolist (ext '(".cmo" ".cmx" ".cma" ".cmxa" ".cmi" ".cmxs" ".cmt" ".annot"))
         (add-to-list 'completion-ignored-extensions ext)))
     :config
-    (when (fboundp 'sp-local-pair)
+    (with-eval-after-load 'smartparens
       ;; don't auto-close apostrophes (type 'a = foo) and backticks (`Foo)
       (sp-local-pair 'tuareg-mode "'" nil :actions nil)
       (sp-local-pair 'tuareg-mode "`" nil :actions nil))))
