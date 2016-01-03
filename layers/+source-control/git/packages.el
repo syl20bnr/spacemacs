@@ -31,6 +31,7 @@
 (defun git/init-evil-magit ()
   (unless (eq dotspacemacs-editing-style 'emacs)
     (with-eval-after-load 'magit
+      (setq evil-magit-use-y-for-yank t)
       (require 'evil-magit)
       (evil-define-key 'motion magit-mode-map
         (kbd dotspacemacs-leader-key) spacemacs-default-map))))
