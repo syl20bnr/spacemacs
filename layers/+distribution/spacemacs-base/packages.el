@@ -53,6 +53,7 @@
         spacemacs-theme
         subword
         undo-tree
+        undohist
         (uniquify :location built-in)
         (url :location built-in)
         use-package
@@ -1435,6 +1436,13 @@ ARG non nil means that the editing style is `vim'."
     (setq undo-tree-visualizer-diff t)
     :config
     (spacemacs|hide-lighter undo-tree-mode)))
+
+(defun spacemacs-base/init-undohist ()
+  (use-package undohist
+    :init
+    (setq undohist-directory (expand-file-name "undo-history" spacemacs-cache-directory))
+    :config
+    (undohist-initialize)))
 
 (defun spacemacs-base/init-uniquify ()
   (require 'uniquify)
