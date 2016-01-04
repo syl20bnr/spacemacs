@@ -1,5 +1,5 @@
 * Release 0.105.x
-** 0.105.0 (2015/01/04)
+** 0.105.0 (2016/01/04)
 *** IMPORTANT - Breaking changes
 - ~SPC l~ for =avy-goto-line= is now under ~SPC y~. ~SPC l~ is for
   spacemacs layouts.
