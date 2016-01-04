@@ -31,7 +31,7 @@ To use this contribution add it to your =~/.spacemacs=
   (setq-default dotspacemacs-configuration-layers '(bepo))
 #+end_src
 
-It is possible to customize the layer via some [[#variables][Variables]].
+It is possible to customize the layer via some variables.
 
 ** Variables
 This layer can be customized with two variables:
