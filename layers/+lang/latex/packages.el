@@ -77,13 +77,13 @@
             dotspacemacs-major-mode-leader-key 'TeX-command-master))
         (when latex-enable-folding
           (spacemacs/set-leader-keys-for-major-mode mode
-            "ff" 'TeX-fold-buffer
-            "fe" 'TeX-fold-env
-            "fm" 'TeX-fold-macro
-            "f=" 'TeX-fold-math
-            "fr" 'TeX-fold-region))
-        (spacemacs/declare-prefix-for-mode mode "mf"  "fold")
-        (spacemacs/declare-prefix-for-mode mode "mx"  "text/fonts"))
+            "z=" 'TeX-fold-math
+            "zb" 'TeX-fold-buffer
+            "ze" 'TeX-fold-env
+            "zm" 'TeX-fold-macro
+            "zr" 'TeX-fold-region))
+        (spacemacs/declare-prefix-for-mode mode "mx"  "text/fonts")
+        (spacemacs/declare-prefix-for-mode mode "mz"  "fold"))
 
       ;; Key bindings specific to LaTeX
       (spacemacs/set-leader-keys-for-major-mode 'latex-mode
