@@ -463,12 +463,8 @@ you can [[Uninstalling a package][uninstall]] the =evil-search-highlight-persist
 
 *** Sessions
 Spacemacs does not automatically restore your windows and buffers when you
-reopen it. If you use vim sessions regularly you may want to add
-=(desktop-save-mode t)= to your =dotspacemacs/user-config= in your =.spacemacs=
-to get this functionality. You will then be able to load the saved session
-using ~SPC : desktop-read~. The location of the desktop file can be set with
-the variable =desktop-dirname=. To automatically load a session,
-add =(desktop-read)= to your =.spacemacs=.
+reopen it. If you use vim sessions regularly you may want to set
+=dotspacemacs-auto-resume-layouts= to =t= in your =.spacemacs=.
 
 *** Navigating using visual lines
 Spacemacs uses the vim default of navigating by actual lines, even if they are
