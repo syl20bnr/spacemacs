@@ -45,6 +45,10 @@
          "t" 'ledger-insert-effective-date
          "y" 'ledger-set-year
          "RET" 'ledger-set-month)
+      ;; temporary hack to work-around an issue with evil-define-key
+      ;; more info: https://bitbucket.org/lyro/evil/issues/301/evil-define-key-for-minor-mode-does-not
+      ;; TODO remove this hack if the limitation is removed upstream
+      (add-hook 'ledger-mode-hook 'evil-normalize-keymaps)
       (evilified-state-evilify ledger-report-mode ledger-report-mode-map))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
