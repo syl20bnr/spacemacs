@@ -27,7 +27,7 @@
    - [[Disable evilification of a mode?][Disable evilification of a mode?]]
    - [[Include underscores in word motions?][Include underscores in word motions?]]
    - [[Setup =$PATH=?][Setup =$PATH=?]]
-   - [[Change or define an alias for an =evil-leader= prefix?][Change or define an alias for an =evil-leader= prefix?]]
+   - [[Change or define an alias for a leader key?][Change or define an alias for a leader key?]]
    - [[Restore the sentence delimiter to two spaces?][Restore the sentence delimiter to two spaces?]]
    - [[Prevent the visual selection overriding my system clipboard?][Prevent the visual selection overriding my system clipboard?]]
    - [[Make spell-checking support curly quotes (or any other character)?][Make spell-checking support curly quotes (or any other character)?]]
@@ -240,7 +240,7 @@ binding in the mode's map, e.g. for =magit-status-mode=,
 #+begin_src emacs-lisp
   (with-eval-after-load 'magit
     (define-key magit-status-mode-map
-      (kbd dotspacemacs-leader-key) evil-leader--default-map))
+      (kbd dotspacemacs-leader-key) spacemacs-default-map))
 #+end_src
 
 ** Include underscores in word motions?
@@ -300,26 +300,26 @@ In that case you have the option of updating the value of =exec-path= in the
 (add-to-list 'exec-path "~/.local/bin/")
 #+END_SRC
 
-** Change or define an alias for an =evil-leader= prefix?
-It is possible to change an =evil-leader= prefix by binding its keymap to
-another sequence. For instance, if you want to switch ~SPC S~ (spelling) with
-~SPC d~ (used by dash) to make the former easier to reach, you can use:
+** Change or define an alias for a leader key?
+It is possible to change a leader key by binding its keymap to another sequence.
+For instance, if you want to switch ~SPC S~ (spelling) with ~SPC d~ (used by
+dash) to make the former easier to reach, you can use:
 
 #+begin_src emacs-lisp
 (defun dear-leader/swap-keys (key1 key2)
-  (let ((map1 (lookup-key evil-leader--default-map key1))
-        (map2 (lookup-key evil-leader--default-map key2)))
+  (let ((map1 (lookup-key spacemacs-default-map key1))
+        (map2 (lookup-key spacemacs-default-map key2)))
     (spacemacs/set-leader-keys key1 map2 key2 map1)))
 (dear-leader/swap-keys "S" "d")
 #+end_src
 
-If you want to define your own alias, like using ~SPC é~ (because it's an
-unmapped key on your keyboard-layout for instance) for accessing ~SPC w~
-(windows management), you can use this:
+If you want to define your own alias, like using ~SPC é~ (because it's a not
+used key on your keyboard-layout for instance) for accessing ~SPC w~ (windows
+management), you can use this:
 
 #+begin_src emacs-lisp
 (defun dear-leader/alias-of (key1 key2)
-  (let ((map (lookup-key evil-leader--default-map key2)))
+  (let ((map (lookup-key spacemacs-default-map key2)))
     (spacemacs/set-leader-keys key1 map)))
 (dear-leader/alias-of "é" "w")
 #+end_src
