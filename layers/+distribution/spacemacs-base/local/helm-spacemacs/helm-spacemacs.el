@@ -158,7 +158,7 @@
                 . helm-spacemacs//layer-action-open-readme)
                ("Open packages.el"
                 . helm-spacemacs//layer-action-open-packages)
-               ;; TODO remove extensions in 0.105.0
+               ;; TODO remove extensions in 0.106.0
                ("Open extensions.el"
                 . helm-spacemacs//layer-action-open-extensions)
                ("Add Layer"
@@ -279,7 +279,7 @@
   "Open the `packages.el' file of the passed CANDIDATE."
   (helm-spacemacs//layer-action-open-file "packages.el" candidate))
 
-;; TODO remove extensions in 0.105.0
+;; TODO remove extensions in 0.106.0
 (defun helm-spacemacs//layer-action-open-extensions (candidate)
   "Open the `extensions.el' file of the passed CANDIDATE."
   (helm-spacemacs//layer-action-open-file "extensions.el" candidate))

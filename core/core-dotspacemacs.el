@@ -308,7 +308,7 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
                 (if (member arg '((4) (16)))
                     (message (concat "Done (`dotspacemacs/user-config' function has "
                                      "been skipped)."))
-                  ;; TODO remove support for dotspacemacs/config in 0.105
+                  ;; TODO remove support for dotspacemacs/config in 0.106
                   (if (fboundp 'dotspacemacs/user-config)
                       (dotspacemacs|call-func dotspacemacs/user-config
                                               "Calling dotfile user config...")

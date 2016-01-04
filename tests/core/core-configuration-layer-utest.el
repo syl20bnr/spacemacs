@@ -485,7 +485,7 @@
      (should (equal (list (cfgl-package "pkg1" :name 'pkg1 :owner 'layer18 :excluded t))
                     (configuration-layer/get-packages layers))))))
 
-;; TODO remove extensions tests in 0.105.0
+;; TODO remove extensions tests in 0.106.0
 
 (ert-deftest test-get-packages--pre-extensions-backward-compatibility ()
   (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path"))
