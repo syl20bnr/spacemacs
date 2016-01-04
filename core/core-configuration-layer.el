@@ -384,7 +384,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
                 (push name (oref obj :pre-layers)))
               (when (fboundp post-init-func)
                 (push name (oref obj :post-layers)))))
-          ;; TODO remove support for <layer>-excluded-packages in 0.105.0
+          ;; TODO remove support for <layer>-excluded-packages in 0.106.0
           (let ((xvar (intern (format "%S-excluded-packages" name))))
             (when (boundp xvar)
               (dolist (xpkg (symbol-value xvar))
@@ -394,7 +394,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
                     (push obj result))
                   (oset obj :excluded t))))))
         ;; extensions (dummy duplication of the code above)
-        ;; TODO remove extensions in 0.105.0
+        ;; TODO remove extensions in 0.106.0
         (when (file-exists-p extensions-file)
           ;; required for lazy-loading of unused layers
           ;; for instance for helm-spacemacs
@@ -666,7 +666,7 @@ path."
   "Declare all packages contained in LAYERS."
   (let ((layers2 layers)
         (warning-minimum-level :error))
-    ;; TODO remove extensions in 0.105.0
+    ;; TODO remove extensions in 0.106.0
     (configuration-layer//load-layers-files layers2 '("packages.el" "extensions.el"))
     ;; gather all the packages of current layer
     (configuration-layer//sort-packages (configuration-layer/get-packages
@@ -871,7 +871,7 @@ path."
             (let* ((owner (object-assoc (oref pkg :owner) :name configuration-layer--layers))
                    (dir (when owner (oref owner :dir))))
               (push (format "%slocal/%S/" dir pkg-name) load-path)
-              ;; TODO remove extensions in 0.105.0
+              ;; TODO remove extensions in 0.106.0
               (push (format "%sextensions/%S/" dir pkg-name) load-path)))))
         ;; configuration
         (cond

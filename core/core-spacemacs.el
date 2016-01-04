@@ -158,7 +158,7 @@
    (lambda ()
      ;; Ultimate configuration decisions are given to the user who can defined
      ;; them in his/her ~/.spacemacs file
-     ;; TODO remove support for dotspacemacs/config in 0.105
+     ;; TODO remove support for dotspacemacs/config in 0.106
      (if (fboundp 'dotspacemacs/user-config)
          (dotspacemacs|call-func dotspacemacs/user-config
                                  "Calling dotfile user config...")
