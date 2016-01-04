@@ -12,7 +12,9 @@
    - [[Previewing][Previewing]]
    - [[Build command][Build command]]
    - [[Auto-fill][Auto-fill]]
+   - [[Folding][Folding]]
  - [[Keybindings][Keybindings]]
+   - [[Folding][Folding]]
    - [[RefTeX][RefTeX]]
 
 * Description
@@ -74,6 +76,15 @@ The variable =latex-nofill-env= provide the list of environment names where
     (latex :variables latex-enable-auto-fill t))
 #+END_SRC
 
+** Folding
+Enable folding of text by setting =latex-enable-folding= to =t=. Default value
+is nil.
+
+#+BEGIN_SRC emacs-lisp
+  dotspacemacs-configuration-layers '(
+    (latex :variables latex-enable-folding t))
+#+END_SRC
+
 * Keybindings
 
 | Key Binding   | Description                         |
@@ -85,11 +96,6 @@ The variable =latex-nofill-env= provide the list of environment names where
 | ~SPC m b~     | build                               |
 | ~SPC m c~     | close LaTeX environment             |
 | ~SPC m e~     | insert LaTeX environment            |
-| ~SPC m f f~   | fold TeX buffer                     |
-| ~SPC m f e~   | fold TeX environment                |
-| ~SPC m f m~   | fold TeX macro                      |
-| ~SPC m f =~   | fold TeX math                       |
-| ~SPC m f r~   | fold TeX region                     |
 | ~SPC m i~     | insert =\item=                      |
 | ~SPC m k~     | kill TeX job                        |
 | ~SPC m l~     | recenter output buffer              |
@@ -119,6 +125,17 @@ The variable =latex-nofill-env= provide the list of environment names where
 | ~SPC m x f n~ | use normal font                     |
 | ~SPC m x f r~ | use serif font                      |
 | ~SPC m x f u~ | use upright font                    |
+
+** Folding
+Available only when =latex-enable-auto-fill= is non nil.
+
+| Key Binding | Description          |
+|-------------+----------------------|
+| ~SPC m z =~ | fold TeX math        |
+| ~SPC m z b~ | fold TeX buffer      |
+| ~SPC m z e~ | fold TeX environment |
+| ~SPC m z m~ | fold TeX macro       |
+| ~SPC m z r~ | fold TeX region      |
 
 ** RefTeX
 
