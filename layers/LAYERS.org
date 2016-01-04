@@ -1,7 +1,7 @@
 #+TITLE: Configuration layers
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
+* Table of Contents                                      :TOC_4_org:noexport:
  - [[General layers][General layers]]
  - [[Configuration files][Configuration files]]
  - [[E-mail][E-mail]]
@@ -65,6 +65,7 @@
 * Fun
 - [[file:+fun/emoji/README.org][emoji]]
 - [[file:+fun/games/README.org][games]]
+- [[file:+fun/selectric/README.org][selectric]]
 - [[file:+fun/xkcd/README.org][xkcd]]
 
 * IRC
@@ -102,6 +103,7 @@
 - [[file:+lang/markdown/README.org][markdown]]
 - [[file:+lang/nim/README.org][nim]]
 - [[file:+lang/ocaml/README.org][ocaml]]
+- [[file:+lang/octave/README.org][octave]]
 - [[file:+lang/php/README.org][php]]
 - [[file:+lang/purescript/README.org][purescript]]
 - [[file:+lang/python/README.org][python]]
@@ -113,6 +115,7 @@
 - [[file:+lang/shell-scripts/README.org][shell-scripts]]
 - [[file:+lang/sml/README.org][sml]]
 - [[file:+lang/sql/README.org][sql]]
+- [[file:+lang/swift/README.org][swift]]
 - [[file:+lang/typescript/README.org][typescript]]
 - [[file:+lang/vimscript/README.org][vimscript]]
 - [[file:+lang/windows-scripts/README.org][windows-scripts]]
@@ -125,7 +128,9 @@
 - [[file:+source-control/version-control/README.org][version-control]]
 
 * Tools
+- [[file:+tools/command-log/README.org][command-log]]
 - [[file:+tools/dash/README.org][dash]]
+- [[file:+tools/elfeed/README.org][elfeed]]
 - [[file:+tools/evernote/README.org][evernote]]
 - [[file:+tools/fasd/README.org][fasd]]
 - [[file:+tools/pandoc/README.org][pandoc]]
