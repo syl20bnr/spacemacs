@@ -791,7 +791,7 @@ Spacemacs ships with the following evil plugins:
 Spacemacs has unique UI elements to make the Emacs experience even more
 enjoyable:
   - dedicated startup page with a mode aimed at easily managing Spacemacs
-  - dedicated helm source via =helm-spacemacs=
+  - dedicated helm source via =helm-spacemacs-help=
   - a [[https://github.com/justbur/emacs-which-key][which-key]] buffer
 
 ** Graphical UI
@@ -929,8 +929,8 @@ and ~T~):
 | ~SPC T t~   | toggle tool bar                                              |
 | ~SPC T T~   | toggle frame transparency and enter transparency micro-state |
 
-*Note*: These toggles are all available via the =helm-spacemacs= interface (press
-~SPC h SPC~ to display the =helm-spacemacs= buffer).
+*Note*: These toggles are all available via the =helm-spacemacs-help= interface
+(press ~SPC f e h~ to display the =helm-spacemacs-help= buffer).
 
 **** Global line numbers
 Line numbers can be toggled on in all =prog-mode= and =text-mode= buffers by
@@ -1300,8 +1300,8 @@ Navigation key bindings in =help-mode=:
 | ~g h~        | go to help for symbol under point                   |
 
 *** Available layers
-All layers can be easily discovered via =helm-spacemacs= accessible with ~SPC f
-e h~.
+All layers can be easily discovered via =helm-spacemacs-help= accessible with
+~SPC f e h~.
 
 The following helm actions are available:
   - default: open the layer =README.org=
@@ -1309,9 +1309,9 @@ The following helm actions are available:
   - 3nd: open the layer =extensions.el=
 
 **** Available packages in Spacemacs
-=helm-spacemacs= also lists all the packages available in Spacemacs. The entry
-format is =(layer) packages=. If you type =flycheck= you'll be able to see all
-the layers where =flycheck= is used.
+=helm-spacemacs-help= also lists all the packages available in Spacemacs. The
+entry format is =(layer) packages=. If you type =flycheck= you'll be able to see
+all the layers where =flycheck= is used.
 
 The following helm actions are available on packages:
   - default: go the package init function
@@ -1360,8 +1360,8 @@ Spacemacs.
 | ~x~         | execute (action flags)                                |
 
 *** Toggles
-=helm-spacemacs= is also a central place to discover the available toggles. To
-display only the toggles source press ~C-l~ (or in [[Helm micro-state][Helm micro-state]] you can
+=helm-spacemacs-help= is also a central place to discover the available toggles.
+To display only the toggles source press ~C-l~ (or in [[Helm micro-state][Helm micro-state]] you can
 press just ~l~).
 
 The following helm actions are available on packages:
