@@ -557,7 +557,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                ((eq el 'bookmarks)
                 (helm-mode)
                 (when (spacemacs-buffer//insert-bookmark-list "Bookmarks:" (bookmark-all-names))
-                  (spacemacs//insert--shortcut "a" "Bookmarks:")
+                  (spacemacs//insert--shortcut "b" "Bookmarks:")
                   (insert list-separator)))
                ((eq el 'projects)
                 (projectile-mode)
