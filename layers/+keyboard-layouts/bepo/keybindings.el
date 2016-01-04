@@ -234,6 +234,8 @@
     (bepo/set-in-state helm-generic-files-map "C-s" 'helm-previous-line)
     (bepo/set-in-state helm-generic-files-map "C-k" 'helm-ff-run-grep)))
 
+;; HACK: Waiting to find the bug…
+(setq evil-magit-use-y-for-yank nil)
 (bepo|config magit
   :description
   "Remap `magit' bindings."
