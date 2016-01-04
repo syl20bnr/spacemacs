@@ -12,31 +12,57 @@
 
 (setq smex-packages '(smex))
 
-(defun smex/init-smex ()
-  (use-package smex
-    :defer t
-    :init
-    (progn
-      (setq-default smex-history-length 32
-                    smex-save-file (concat spacemacs-cache-directory
-                                           ".smex-items"))
+(if (configuration-layer/layer-usedp 'spacemacs-ivy)
+    (defun smex/post-init-smex ()
+      (use-package smex
+        :defer t
+        :init
+        (progn
+          (defun spacemacs/smex ()
+            "Execute smex with a better prompt."
+            (interactive)
+            (let ((smex-prompt-string "Emacs commands: "))
+              (smex)))
 
-      (defun spacemacs/smex ()
-        "Execute smex with a better prompt."
-        (interactive)
-        (let ((smex-prompt-string "Emacs commands: "))
-          (smex)))
+          (defun spacemacs/smex-major-mode-commands ()
+            "Reexecute smex with major mode commands only."
+            (interactive)
+            (let ((smex-prompt-string (format "%s commands: " major-mode)))
+              (smex-major-mode-commands)))
 
-      (defun spacemacs/smex-major-mode-commands ()
-        "Reexecute smex with major mode commands only."
-        (interactive)
-        (let ((smex-prompt-string (format "%s commands: " major-mode)))
-          (smex-major-mode-commands)))
+          ;; define the key binding at the very end in order to allow the user
+          ;; to overwrite any key binding
+          (add-hook 'emacs-startup-hook
+                    (lambda () (spacemacs/set-leader-keys
+                                 dotspacemacs-emacs-command-key 'spacemacs/smex)))
+          (spacemacs/set-leader-keys ":" 'spacemacs/smex-major-mode-commands)
+          (global-set-key (kbd "M-x") 'spacemacs/smex))))
 
-      ;; define the key binding at the very end in order to allow the user
-      ;; to overwrite any key binding
-      (add-hook 'emacs-startup-hook
-                (lambda () (spacemacs/set-leader-keys
-                             dotspacemacs-emacs-command-key 'spacemacs/smex)))
-      (spacemacs/set-leader-keys ":" 'spacemacs/smex-major-mode-commands)
-      (global-set-key (kbd "M-x") 'spacemacs/smex))))
+  (defun smex/init-smex ()
+    (use-package smex
+      :defer t
+      :init
+      (progn
+        (setq-default smex-history-length 32
+                      smex-save-file (concat spacemacs-cache-directory
+                                             ".smex-items"))
+
+        (defun spacemacs/smex ()
+          "Execute smex with a better prompt."
+          (interactive)
+          (let ((smex-prompt-string "Emacs commands: "))
+            (smex)))
+
+        (defun spacemacs/smex-major-mode-commands ()
+          "Reexecute smex with major mode commands only."
+          (interactive)
+          (let ((smex-prompt-string (format "%s commands: " major-mode)))
+            (smex-major-mode-commands)))
+
+        ;; define the key binding at the very end in order to allow the user
+        ;; to overwrite any key binding
+        (add-hook 'emacs-startup-hook
+                  (lambda () (spacemacs/set-leader-keys dotspacemacs-command-key
+                               'spacemacs/smex)))
+        (spacemacs/set-leader-keys ":" 'spacemacs/smex-major-mode-commands)
+        (global-set-key (kbd "M-x") 'spacemacs/smex)))))

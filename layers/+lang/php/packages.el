@@ -44,8 +44,9 @@
 (defun php/post-init-ggtags ()
   (add-hook 'php-mode-hook 'ggtags-mode))
 
-(defun php/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'php-mode))
+(when (configuration-layer/layer-usedp 'spacemacs-helm)
+  (defun php/post-init-helm-gtags ()
+    (spacemacs/helm-gtags-define-keys-for-mode 'php-mode)))
 
 (defun php/init-php-auto-yasnippets ()
   (use-package php-auto-yasnippets
