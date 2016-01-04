@@ -15,7 +15,7 @@
      - [[n and N][n and N]]
      - [[Code Navigation][Code Navigation]]
      - [[=insert state= buffers][=insert state= buffers]]
-   - [[Messages editing][Messages editing]]
+   - [[Confirm and Abort][Confirm and Abort]]
    - [[Evaluation][Evaluation]]
    - [[REPLs][REPLs]]
      - [[Send code][Send code]]
@@ -132,10 +132,9 @@ should be performed with ~C-j~ and ~C-k~ bindings for vertical movements.
 | ~C-j~ | go down     |
 | ~C-k~ | go up       |
 
-** Messages editing
-Modes that are used to edit messages (texts, notes, mails, …) and are subjects
-to user validation (traditionally bound to ~C-c C-c~ and ~C-c C-k~ in emacs)
-should use the following bindings:
+** Confirm and Abort
+Confirming and aborting actions which are bound to ~C-c C-c~ and ~C-c C-k~
+in raw Emacs are mirrored in Spacemacs to:
 
 | Key                     | Description               |
 |-------------------------+---------------------------|
