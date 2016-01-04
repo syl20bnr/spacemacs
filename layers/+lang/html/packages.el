@@ -113,12 +113,13 @@
   (use-package haml-mode
     :defer t))
 
-(defun html/init-helm-css-scss ()
-  (use-package helm-css-scss
-    :defer t
-    :init
-    (dolist (mode '(css-mode scss-mode))
-      (spacemacs/set-leader-keys-for-major-mode mode "gh" 'helm-css-scss))))
+(when (configuration-layer/layer-usedp 'spacemacs-helm)
+  (defun html/init-helm-css-scss ()
+    (use-package helm-css-scss
+      :defer t
+      :init
+      (dolist (mode '(css-mode scss-mode))
+        (spacemacs/set-leader-keys-for-major-mode mode "gh" 'helm-css-scss)))))
 
 (defun html/init-jade-mode ()
   (use-package jade-mode
