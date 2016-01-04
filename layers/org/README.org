@@ -128,6 +128,7 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC m c~                                    | org-capture                                  |
 | ~SPC m C~                                    | evil-org-recompute-clocks                    |
 | ~SPC m d~                                    | org-deadline                                 |
+| ~SPC m D~                                    | org-insert-drawer                            |
 | ~SPC m e~                                    | org-export-dispatch                          |
 | ~SPC m f~                                    | org-set-effort                               |
 | ~SPC m I~                                    | org-clock-in                                 |
