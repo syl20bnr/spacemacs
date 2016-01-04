@@ -202,7 +202,7 @@
       (defun scala/newline-and-indent-with-asterisk ()
         (interactive)
         (newline-and-indent)
-        (when scala-auto-insert-asterisk-in-comment
+        (when scala-auto-insert-asterisk-in-comments
           (scala-indent:insert-asterisk-on-multiline-comment)))
 
       (evil-define-key 'insert scala-mode-map
