@@ -494,7 +494,8 @@
 - Add =xterm-color= package (thanks to CestDiego)
 - New key bindings ~C-j~ and ~C-k~ to browse history in normal state
   (thanks to mijoharas and TheBB)
-- Add ~C-c C-z~ key binding to stop jobs (thanks to darkfeline)
+- New key binding ~C-l~ in =eshell= to clear buffer (thanks to CestDiego)
+- New key binding ~C-c C-z~ to stop jobs (thanks to darkfeline)
 - Add support to open =zsh= common files with =sh-mode= (=.zsh=, =zlogin=,
   =zlogout=, =zpreztorc=, =zprofile=, =zshenv=, =zshrc=) (thanks to jcf)
 - Use login shell as term shell (thanks to lunaryorn)
@@ -502,6 +503,9 @@
   =comint-move-point-for-output= to =t=.
 - Deactivate scroll margin for shell buffers (thanks to darkfeline)
 - Protect prompt in =comint-mode= (thanks to CestDiego)
+- Set =eshell-hist-ignoredups= to =t= (thanks to CestDiego)
+- Typing =clear= in an =eshell= buffer will clear the buffer
+  (thanks to CestDiego)
 - Fix SIGQUIT bug (thanks to darkfeline)
 **** Spell-checking
 - New layer variable =spell-checking-enable-by-default= to enable/disable
