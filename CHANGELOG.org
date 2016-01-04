@@ -3,7 +3,7 @@
 *** IMPORTANT - Breaking changes
 - ~SPC l~ for =avy-goto-line= is now under ~SPC y~. ~SPC l~ is for
   spacemacs layouts.
-- ~SPC a p~ is now for =list-processed= and ~SPC a P~ for =proced=,
+- ~SPC a p~ is now for =list-processes= and ~SPC a P~ for =proced=,
   =paradox= is now on ~SPC a k~.
 - ~SPC s l~ is now used to bring back last search buffer and ~SPC s j~
   is for jumping into a file using =imenu=.
