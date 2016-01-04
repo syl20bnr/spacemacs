@@ -11,7 +11,8 @@
 ;;; License: GPLv3
 
 (setq mu4e-packages
-      '((mu4e :location built-in)))
+      '((mu4e :location built-in)
+        (mu4e-maildirs-extension)))
 
 (defun mu4e/init-mu4e ()
   (use-package mu4e
@@ -39,3 +40,8 @@
       (when mu4e-account-alist
         (add-hook 'mu4e-compose-pre-hook 'mu4e/set-account)
         (add-hook 'message-sent-hook 'mu4e/mail-account-reset)))))
+
+(defun mu4e/init-mu4e-maildirs-extension ()
+  (use-package mu4e-maildirs-extension
+    :if mu4e-use-maildirs
+    :init (with-eval-after-load 'mu4e (mu4e-maildirs-extension))))
