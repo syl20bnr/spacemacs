@@ -76,32 +76,7 @@
 ;; Cycling settings -----------------------------------------------------------
 (spacemacs/set-leader-keys "Tn" 'spacemacs/cycle-spacemacs-theme)
 ;; describe functions ---------------------------------------------------------
-(defmacro spacemacs||set-helm-key (keys func)
-  "Define a key bindings for FUNC using KEYS.
-Ensure that helm is required before calling FUNC."
-  (let ((func-name (intern (format "spacemacs/%s" (symbol-name func)))))
-    `(progn
-       (defun ,func-name ()
-         ,(format "Wrapper to ensure that `helm' is loaded before calling %s."
-                  (symbol-name func))
-         (interactive)
-         (require 'helm)
-         (call-interactively ',func))
-       (spacemacs/set-leader-keys ,keys ',func-name))))
-(spacemacs||set-helm-key "hdb" describe-bindings)
-(spacemacs||set-helm-key "hdc" describe-char)
-(spacemacs||set-helm-key "hdf" describe-function)
-(spacemacs||set-helm-key "hdk" describe-key)
-(spacemacs||set-helm-key "hdm" describe-mode)
-(spacemacs||set-helm-key "hdp" describe-package)
 (spacemacs/set-leader-keys "hds" 'spacemacs/describe-system-info)
-(spacemacs||set-helm-key "hdt" describe-theme)
-(spacemacs||set-helm-key "hdv" describe-variable)
-(spacemacs||set-helm-key "hn"  view-emacs-news)
-(spacemacs||set-helm-key "hL"  helm-locate-library)
-;; search functions -----------------------------------------------------------
-(spacemacs||set-helm-key "sww" helm-wikipedia-suggest)
-(spacemacs||set-helm-key "swg" helm-google-suggest)
 ;; errors ---------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "en" 'spacemacs/next-error
@@ -571,7 +546,7 @@ otherwise it is scaled down."
          dotfile-setting
        '(100 . 100))))
   ;; Immediately enter the micro-state, but also keep toggle
-  ;; accessible from helm-spacemacs
+  ;; accessible from helm-spacemacs-help
   (spacemacs/scale-transparency-micro-state))
 
 (defun spacemacs/increase-transparency ()

@@ -346,7 +346,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
         ;; packages
         (when (file-exists-p packages-file)
           ;; required for lazy-loading of unused layers
-          ;; for instance for helm-spacemacs
+          ;; for instance for helm-spacemacs-help
           (eval `(defvar ,(intern (format "%S-packages" name)) nil))
           (unless (configuration-layer/layer-usedp name)
             (load packages-file))
@@ -390,7 +390,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
         ;; TODO remove extensions in 0.106.0
         (when (file-exists-p extensions-file)
           ;; required for lazy-loading of unused layers
-          ;; for instance for helm-spacemacs
+          ;; for instance for helm-spacemacs-help
           (unless (configuration-layer/layer-usedp name)
             (load extensions-file))
           (dolist (step '(pre post))
