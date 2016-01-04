@@ -443,6 +443,7 @@
 - Fix =flycheck= setup, do not disable =jshint= globally,
   but only for =react= mode (thanks to lunaryorn)
 - Enable =js-mode= snippet (thanks to rhalukongor)
+- Open =index.android.js= and =index.ios.js= with react mode (thanks to erwan)
 **** Ruby
 - Enable built-in =ruby-mode= by default instead of =enh-ruby-mode=
   (thanks to lunaryorn)
