@@ -263,6 +263,10 @@ branch, for instance to revert to the last `0.103`:
    git checkout origin/release-0.103
    ```
 
+**After you update, either manually, or automatically, you are advised to update
+  your packages by clicking the `[Update Packages]` button on the Spacemacs Home
+  Buffer.**
+
 # Contributions
 
 Spacemacs is a community-driven project, it needs _you_ to keep it up to
