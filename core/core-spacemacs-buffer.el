@@ -505,12 +505,19 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  :follow-link "\C-m"
                  )
   (insert " ")
-  (widget-create 'url-link
-                 :tag (propertize "Search in Spacemacs" 'face 'font-lock-function-name-face)
-                 :help-echo "Find Spacemacs package and layer configs using helm-spacemacs."
-                 :action (lambda (&rest ignore) (call-interactively 'helm-spacemacs))
-                 :mouse-face 'highlight
-                 :follow-link "\C-m")
+  (if (configuration-layer/layer-usedp 'spacemacs-helm)
+      (widget-create 'url-link
+                     :tag (propertize "Search in Spacemacs" 'face 'font-lock-function-name-face)
+                     :help-echo "Find Spacemacs package and layer configs using helm-spacemacs-help."
+                     :action (lambda (&rest ignore) (call-interactively 'helm-spacemacs-help))
+                     :mouse-face 'highlight
+                     :follow-link "\C-m")
+    (widget-create 'url-link
+                   :tag (propertize "Search in Spacemacs" 'face 'font-lock-function-name-face)
+                   :help-echo "Find Spacemacs package and layer configs using helm-spacemacs-help."
+                   :action (lambda (&rest ignore) (call-interactively 'ivy-spacemacs-help))
+                   :mouse-face 'highlight
+                   :follow-link "\C-m"))
   (insert "\n\n"))
 
 (defun spacemacs-buffer//insert-file-list (list-display-name list)
