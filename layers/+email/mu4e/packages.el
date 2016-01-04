@@ -11,14 +11,15 @@
 ;;; License: GPLv3
 
 (setq mu4e-packages
-      '((mu4e :location built-in)))
+      '((mu4e :location built-in)
+        helm-mu))
 
 (defun mu4e/init-mu4e ()
   (use-package mu4e
     :commands (mu4e mu4e-compose-new)
     :init
     (progn
-      (spacemacs/set-leader-keys "a M" 'mu4e)
+      (spacemacs/set-leader-keys "a M m" 'mu4e)
       (global-set-key (kbd "C-x m") 'mu4e-compose-new))
     :config
     (progn
@@ -39,3 +40,16 @@
       (when mu4e-account-alist
         (add-hook 'mu4e-compose-pre-hook 'mu4e/set-account)
         (add-hook 'message-sent-hook 'mu4e/mail-account-reset)))))
+
+
+(defun mu4e/init-helm-mu ()
+  (spacemacs/set-leader-keys
+    "a M s" 'helm-mu
+    "a M c" 'helm-mu-contacts))
+
+
+(defun mu4e/post-init-helm ()
+  (require 'helm-config)
+  (autoload 'helm-mu "helm-mu" "" t)
+  (autoload 'helm-mu-contacts "helm-mu" "" t))
+
