@@ -1382,7 +1382,7 @@ on whether the spacemacs-ivy layer is used or not, with
       (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
                                   'smartparens-strict-mode
                                 'smartparens-mode)
-                              '(prog-mode-hook))
+                              '(prog-mode-hook comint-mode-hook))
 
       ;; enable smartparens-mode in `eval-expression'
       (defun conditionally-enable-smartparens-mode ()
