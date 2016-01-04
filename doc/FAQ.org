@@ -16,6 +16,7 @@
    - [[Why is Spacemacs hanging on startup?][Why is Spacemacs hanging on startup?]]
    - [[Why does =helm-M-x= (~SPC :~) not accept the prefix argument?][Why does =helm-M-x= (~SPC :~) not accept the prefix argument?]]
    - [[Why does my color theme not render correctly in terminal mode?][Why does my color theme not render correctly in terminal mode?]]
+   - [[Why do I get =(wrong-type-argument arrayp nil)= errors on startup?][Why do I get =(wrong-type-argument arrayp nil)= errors on startup?]]
  - [[How do I...][How do I...]]
    - [[Install a package not provided by a layer?][Install a package not provided by a layer?]]
    - [[Disable a package completely?][Disable a package completely?]]
@@ -145,6 +146,10 @@ In the terminal version of Emacs, color themes will not render correctly as
 colors are rendered by the terminal and not by emacs. You will probably have to
 change your terminal color palette. More explanations can be found on
 [[https://github.com/sellout/emacs-color-theme-solarized#important-note-for-terminal-users][emacs-color-theme-solarized webpage]].
+
+** Why do I get =(wrong-type-argument arrayp nil)= errors on startup?
+This is most likely caused by a corrupted package archive. Try deleting your
+=~/.emacs.d/elpa/archives/= folder and restart Emacs.
 
 * How do I...
 ** Install a package not provided by a layer?
