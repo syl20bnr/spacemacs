@@ -122,7 +122,7 @@ In =vim= editing style the universal argument defaults to ~SPC u~
 instead of ~C-u~ because the latter is used to scroll up as in Vim.
 
 ** Configuration layers and Package discovery
-By using =helm-spacemacs= with ~SPC h SPC~ you can quickly search
+By using =helm-spacemacs-help= with ~SPC h SPC~ you can quickly search
 for a package and get the name of the layers using it.
 
 You can also easily go to the =README.org= of a layer or go to the initialization
