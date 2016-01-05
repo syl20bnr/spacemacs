@@ -39,8 +39,7 @@
             caption)))
 
       (defun spacemacs//workspaces-ms-get-window-configs ()
-        "Return the list of window configs. Depends on value of
-`eyebrowse-place-zero-at-the-end'."
+        "Return the list of window configs."
         (--sort (if (eq (car other) 0)
                     t
                   (< (car it) (car other)))
