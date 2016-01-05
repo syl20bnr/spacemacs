@@ -233,20 +233,19 @@ derivatives. If set to `relative', also turns on relative line numbers.")
 
 (defvar dotspacemacs-highlight-delimiters 'all
   "Select a scope to highlight delimiters. Possible values are `any',
-  `current', `all' or `nil'. Default is `all' (highlight any scope and
-  emphasis the current one.")
+`current', `all' or `nil'. Default is `all' (highlight any scope and
+ emphasis the current one.")
 
-
-(defvar dotspacemacs-whitespace-cleanup 'changed
-  "Delete whitespace while saving buffer.
-
-Possible values are `all', `trailing', `changed' or `nil'.
-Default is `changed' (cleanup whitespace on changed lines)")
+(defvar dotspacemacs-whitespace-cleanup nil
+  "delete whitespace while saving buffer. possible values are `all'
+to aggressively delete empty lines and long sequences of whitespace, `trailing'
+to delete only the whitespace at end of lines, `changed' to delete only
+whitespace for changed lines or `nil' to disable cleanup.")
 
 (defvar dotspacemacs-delete-orphan-packages t
   "If non-nil spacemacs will delete any orphan packages, i.e. packages that are
 declared in a layer which is not a member of
- `dotspacemacs-configuration-layers'")
+`dotspacemacs-configuration-layers'")
 
 (defvar dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
   "List of search tool executable names. Spacemacs uses the first installed
