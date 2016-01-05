@@ -5,6 +5,7 @@
  - [[Install][Install]]
  - [[Commands][Commands]]
  - [[Configuration][Configuration]]
+   - [[Maildirs extension][Maildirs extension]]
    - [[Multiple Accounts][Multiple Accounts]]
    - [[Example configuration][Example configuration]]
  - [[See also][See also]]
@@ -35,6 +36,19 @@ existing =mu4e= list in this file.
 Configuration varies too much to give precise instructions.  What follows is one
 example configuration.  Refer to mu4e's manual for more detailed configuration
 instructions.
+
+** Maildirs extension
+The maildirs extension adds a list of all your maildirs to the main mu4e view
+that by default shows the unread and total mail counts for all your mail under
+your base mail directory.
+
+If you wish enable the maildirs extension you can set =mu4e-use-maildirs= to non
+nil value.
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((mu4e :variables mu4e-use-maildirs t)))
+#+end_src
 
 ** Multiple Accounts
 This layer includes support for multiple sending accounts.
