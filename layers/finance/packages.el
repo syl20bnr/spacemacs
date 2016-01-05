@@ -45,6 +45,7 @@
          "t" 'ledger-insert-effective-date
          "y" 'ledger-set-year
          "RET" 'ledger-set-month)
+      (add-hook 'ledger-mode-hook 'evil-normalize-keymaps)
       (evilified-state-evilify ledger-report-mode ledger-report-mode-map))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
