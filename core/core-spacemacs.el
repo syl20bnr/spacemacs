@@ -181,6 +181,9 @@
                                          "`dotspacemacs/user-config'"))
        (dotspacemacs|call-func dotspacemacs/config
                                "Calling dotfile user config..."))
+     (when (fboundp dotspacemacs-scratch-mode)
+       (with-current-buffer "*scratch*"
+         (funcall dotspacemacs-scratch-mode)))
      ;; from jwiegley
      ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
      (let ((elapsed (float-time

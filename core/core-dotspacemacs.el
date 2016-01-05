@@ -83,6 +83,9 @@ banner, `random' chooses a random text banner in `core/banners'
 directory. A string value must be a path to a .PNG file.
 If the value is nil then no banner is displayed.")
 
+(defvar dotspacemacs-scratch-mode 'text-mode
+  "Default major mode of the scratch buffer.")
+
 (defvar dotspacemacs-check-for-update t
   "If non nil then spacemacs will check for updates at startup
 when the current branch is not `develop'")
