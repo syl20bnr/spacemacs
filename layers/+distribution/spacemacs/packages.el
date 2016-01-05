@@ -1048,19 +1048,29 @@ It will toggle the overlay under point or create an overlay of one character."
     :commands (open-junk-file)
     :init
     (setq open-junk-file-format (concat spacemacs-cache-directory "junk/%Y/%m/%d-%H%M%S."))
-    (defun spacemacs/helm-open-junk-file (&optional arg)
-      "Open junk file
-Open junk file using helm, with `prefix-arg' search in junk files"
+    (defun spacemacs/open-junk-file (&optional arg)
+      "Open junk file Open junk file using helm or ivy depending
+on whether the spacemacs-ivy layer is used or not, with
+`prefix-arg' search in junk files"
       (interactive "P")
-      (require 'helm)
       (let* ((fname (format-time-string open-junk-file-format (current-time)))
+             (rel-fname (file-name-nondirectory fname))
              (junk-dir (file-name-directory fname))
-             (helm-ff-newfile-prompt-p nil)
              (default-directory junk-dir))
-        (if arg
-            (spacemacs/helm-files-smart-do-search)
-          (helm-find-files-1 fname))))
-    (spacemacs/set-leader-keys "fJ" 'spacemacs/helm-open-junk-file)))
+        (cond ((and arg (configuration-layer/layer-usedp 'spacemacs-ivy))
+               (spacemacs/counsel-search dotspacemacs-search-tools nil junk-dir))
+              ((configuration-layer/layer-usedp 'spacemacs-ivy)
+               (require 'counsel)
+               (counsel-find-file rel-fname))
+              (arg
+               (require 'helm)
+               (let (helm-ff-newfile-prompt-p)
+                 (spacemacs/helm-files-smart-do-search)))
+              (t
+               (require 'helm)
+               (let (helm-ff-newfile-prompt-p)
+                 (helm-find-files-1 fname))))))
+    (spacemacs/set-leader-keys "fJ" 'spacemacs/open-junk-file)))
 
 (defun spacemacs/init-info+ ()
   (use-package info+
