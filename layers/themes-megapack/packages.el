@@ -58,6 +58,7 @@
     minimal-theme
     moe-theme
     molokai-theme
+    monokai-theme
     monochrome-theme
     mustang-theme
     naquadah-theme
