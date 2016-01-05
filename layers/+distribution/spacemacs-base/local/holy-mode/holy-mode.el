@@ -31,7 +31,7 @@
 (defvar holy-mode-modes-to-disable-alist
   `((evil-mode . 1)
     (hybrid-mode . -1)
-    (evil-escape-mode . ,(when (boundp 'evil-escape-mode) 1 -1)))
+    (evil-escape-mode . ,(if (boundp 'evil-escape-mode) evil-escape-mode -1)))
   "Alist of modes that should be disabled when activating
 `holy-mode'. The cdr in each cell stores the state of the mode
 before it was disabled.")
