@@ -185,7 +185,10 @@ package name does not match theme name + `-theme' suffix.")
       ;; if not we will handle the special themes as we get issues in the tracker.
       (let ((pkg (spacemacs//get-theme-package theme)))
         (spacemacs/load-or-install-package pkg)))))
-  (load-theme theme t))
+  (load-theme theme t)
+  ;; explicitly reload the theme for the first GUI client
+  (eval `(spacemacs|do-after-display-system-init
+          (load-theme ',theme t))))
 
 (defun spacemacs/cycle-spacemacs-theme ()
   "Cycle through themes defined in `dotspacemacs-themes.'"
