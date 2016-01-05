@@ -6,6 +6,7 @@
    - [[Which version of Spacemacs am I running?][Which version of Spacemacs am I running?]]
    - [[What is the official pronunciation of Spacemacs?][What is the official pronunciation of Spacemacs?]]
    - [[Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?][Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?]]
+   - [[How to fix package download errors when installing Spacemacs ?][How to fix package download errors when installing Spacemacs ?]]
    - [[The Spacemacs banner is ugly, what should I do?][The Spacemacs banner is ugly, what should I do?]]
    - [[The powerline separators are ugly, how can I fix them?][The powerline separators are ugly, how can I fix them?]]
    - [[The powerline separators have no anti-aliasing, what can I do?][The powerline separators have no anti-aliasing, what can I do?]]
@@ -52,6 +53,14 @@ As it is written, that is _space_ then _macs_.
 To declare new packages you have to create a new configuration layer or
 add the package name to the variable =dotspacemacs-additonal-packages=
 of your dotfile, see the [[file:QUICK_START.org][quick start guide]] for more info.
+
+** How to fix package download errors when installing Spacemacs ?
+Since 0.105.0 HTTPS protocol is used by default to download packages. If your
+environment does not allow HTTPS to reach ELPA repositories then you can start
+Emacs with the =--insecure= argument for force the usage of HTTP non secured
+protocol.
+Then you can set the variable =dotspacemacs-elpa-https= to =nil= in your
+dotfile to remove the need to start Emacs with =--insecure== argument.
 
 ** The Spacemacs banner is ugly, what should I do?
 Install the default font supported by Spacemacs or choose a fixed width font.
