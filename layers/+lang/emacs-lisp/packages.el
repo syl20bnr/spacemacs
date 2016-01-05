@@ -117,12 +117,9 @@
         ("q" macrostep-collapse-all :exit t)))))
 
 (defun emacs-lisp/post-init-evil ()
-  (spacemacs/add-to-hook 'emacs-lisp-mode
-                         '(lambda ()
-                            (spacemacs|define-text-object ";"
-                                                          "elisp-comment"
-                                                          ";; "
-                                                          ""))))
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+              (spacemacs|define-text-object ";" "elisp-comment" ";; " ""))))
 
 (defun emacs-lisp/post-init-flycheck ()
   ;; Don't activate flycheck by default in elisp
