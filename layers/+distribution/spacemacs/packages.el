@@ -1795,6 +1795,8 @@ Open junk file using helm, with `prefix-arg' search in junk files"
         (setq spaceline-window-numbers-unicode unicodep)
         (setq spaceline-workspace-numbers-unicode unicodep))
 
+      (defvar spacemacs-mode-line-new-version-lighterp t)
+
       (defpowerline spacemacs-powerline-new-version
         (propertize
          spacemacs-version-check-lighter
