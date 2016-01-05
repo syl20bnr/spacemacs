@@ -84,6 +84,11 @@
                                (car dotspacemacs-default-font))))
   ;; spacemacs init
   (spacemacs-buffer/goto-buffer)
+  ;; explicitly recreate the home buffer for the first GUI client
+  (spacemacs|do-after-display-system-init
+   (kill-buffer (get-buffer spacemacs-buffer-name))
+   (spacemacs-buffer/goto-buffer))
+
   (setq initial-buffer-choice (lambda () (get-buffer spacemacs-buffer-name)))
   ;; mandatory dependencies
   ;; dash is required to prevent a package.el bug with f on 24.3.1
