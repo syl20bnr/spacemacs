@@ -582,7 +582,17 @@
     :init
     (progn
       (setq evil-jumper-auto-save-interval 600)
-      (evil-jumper-mode t))))
+      ;; Move keybindings into global motion state map
+      (add-hook 'evil-jumper-mode-hook
+                (lambda ()
+                  (if evil-jumper-mode
+                      (progn
+                        (define-key evil-motion-state-map (kbd "TAB") 'evil-jumper/forward)
+                        (define-key evil-motion-state-map (kbd "C-o") 'evil-jumper/backward))
+                    (define-key evil-motion-state-map (kbd "TAB") 'evil-jump-forward)
+                    (define-key evil-motion-state-map (kbd "C-o") 'evil-jump-backward))))
+      (evil-jumper-mode t)
+      (setcdr evil-jumper-mode-map nil))))
 
 (defun spacemacs/init-evil-lisp-state ()
   (use-package evil-lisp-state
