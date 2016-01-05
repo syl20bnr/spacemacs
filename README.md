@@ -136,11 +136,7 @@ the start of this file. That will populate your `~/.emacs.d` directory, which
 is what transforms a regular Emacs into Spacemacs.
 
 *After* you have completed the [install process below](#install), it is also
- recommended to add the [osx layer][] to your [dotfile][]:
-
-```elisp
-(setq-default dotspacemacs-configuration-layers '(osx))
-```
+ recommended to add the [osx layer][] to your [dotfile][]. Install instructions are available in the [osx layer][] documentation.
 
 Note that the `emacs-mac-port` server behaves differently than the regular Emacs
 server which in particular **DOES NOT** allow multi-tty if you start GUI i.e.
