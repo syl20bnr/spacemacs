@@ -243,7 +243,7 @@ git reset --hard <tag version which you are updating to>
 
 ## On develop branch
 
-1. Update Emacs packages by clicking (press `RET`) on the `[Update]` link of
+1. Update Emacs packages by clicking (press `RET`) on the `[Update Packages]` link of
 the starting page.
 
 2. Close Emacs and update the git repository:
