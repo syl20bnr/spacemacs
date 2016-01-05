@@ -56,6 +56,7 @@ to try is grep. If INPUT is non nil, use the region or the symbol
 at the point as the initial input. If DIR is non nil start in
 that directory."
     (interactive)
+    (require 'counsel)
     (letf* ((initial-input (when use-initial-input
                              (if (region-active-p)
                                  (buffer-substring-no-properties
