@@ -30,9 +30,9 @@ the display system initialized."
   "If the display-system is initialized, run `BODY', otherwise,
 add it to a queue of actions to perform after the first graphical frame is
 created."
-  `(let ((init (cond ((bound-and-true-p ns-initialized) 'ns-initialized)
-                     ((bound-and-true-p w32-initialized) 'w32-initialized)
-                     ((bound-and-true-p x-initialized) 'x-initialized)
+  `(let ((init (cond ((boundp 'ns-initialized) 'ns-initialized)
+                     ((boundp 'w32-initialized) 'w32-initialized)
+                     ((boundp 'x-initialized) 'x-initialized)
                      (t 't))))           ; fallback to normal loading behavior
      (if (symbol-value init)
          (progn
