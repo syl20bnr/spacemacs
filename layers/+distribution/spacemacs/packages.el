@@ -1735,8 +1735,9 @@ Open junk file using helm, with `prefix-arg' search in junk files"
   (use-package spaceline-config
     :init
     (progn
-      (setq-default powerline-default-separator (if (display-graphic-p) 'wave 'utf-8))
-
+      (spacemacs|do-after-display-system-init
+       (setq-default powerline-default-separator
+                     (if (display-graphic-p) 'wave 'utf-8)))
       (defun spacemacs//set-powerline-for-startup-buffers ()
         "Set the powerline for buffers created when Emacs starts."
         (unless configuration-layer-error-count
@@ -1746,7 +1747,6 @@ Open junk file using helm, with `prefix-arg' search in junk files"
               (spacemacs//restore-powerline buffer)))))
       (add-hook 'emacs-startup-hook
                 'spacemacs//set-powerline-for-startup-buffers))
-
     :config
     (progn
       (defun spacemacs/customize-powerline-faces ()
