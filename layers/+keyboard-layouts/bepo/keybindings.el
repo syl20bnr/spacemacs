@@ -234,8 +234,6 @@
     (bepo/set-in-state helm-generic-files-map "C-s" 'helm-previous-line)
     (bepo/set-in-state helm-generic-files-map "C-k" 'helm-ff-run-grep)))
 
-;; HACK: Waiting to find the bug…
-(setq evil-magit-use-y-for-yank nil)
 (bepo|config magit
   :description
   "Remap `magit' bindings."
@@ -243,7 +241,7 @@
   (spacemacs|use-package-add-hook magit :post-config BODY)
   :config
   (progn
-    (bepo/evil-correct-keys 'motion magit-mode-map
+    (bepo/evil-correct-keys evil-magit-state magit-mode-map
       "j"
       "k"
       "C-j"
