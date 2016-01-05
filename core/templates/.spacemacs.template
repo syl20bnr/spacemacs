@@ -223,17 +223,19 @@ values."
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
    dotspacemacs-default-package-repository nil
-   ;; Delete whitespace while saving buffer. Possible values are `all',
-   ;; `trailing', `changed' or `nil'. Default is `changed' (cleanup whitespace
-   ;; on changed lines) (default 'changed)
-   dotspacemacs-whitespace-cleanup 'changed
+   ;; Delete whitespace while saving buffer. Possible values are `all'
+   ;; to aggressively delete empty line and long sequences of whitespace,
+   ;; `trailing' to delete only the whitespace at end of lines, `changed'to
+   ;; delete only whitespace for changed lines or `nil' to disable cleanup.
+   ;; (default nil)
+   dotspacemacs-whitespace-cleanup nil
    ))
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
-It is called immediately after `dotspacemacs/init'.  You are free to put almost any
-user code here.  The exception is org related code, which should be placed in
-`dotspacemacs/user-config'."
+It is called immediately after `dotspacemacs/init'.  You are free to put almost
+any user code here.  The exception is org related code, which should be placed
+in `dotspacemacs/user-config'."
   )
 
 (defun dotspacemacs/user-config ()
