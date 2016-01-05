@@ -555,12 +555,13 @@ otherwise it is scaled down."
   "Toggle between transparent or opaque display."
   (interactive)
   (let* ((frame (selected-frame))
-         (alpha (frame-parameter frame 'alpha)))
+         (alpha (frame-parameter frame 'alpha))
+         (dotfile-setting (cons dotspacemacs-active-transparency
+                                dotspacemacs-inactive-transparency)))
     (set-frame-parameter
      frame 'alpha
-     (if (or (null alpha) (= (cdr-safe alpha) 100))
-         (cons dotspacemacs-active-transparency
-               dotspacemacs-inactive-transparency)
+     (if (not (equal alpha dotfile-setting))
+         dotfile-setting
        '(100 . 100))))
   ;; Immediately enter the micro-state, but also keep toggle
   ;; accessible from helm-spacemacs
