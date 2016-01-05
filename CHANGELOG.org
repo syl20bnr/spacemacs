@@ -1,4 +1,7 @@
 * Release 0.105.x
+** 0.105.2 (2016/01/05)
+- Fix empty mode-line when a new Spacemacs version is available
+  (thanks to TheBB)
 ** 0.105.1 (2016/01/05)
 *** Hot fixes
 - Fix and improve support for GUI clients using a server started with
