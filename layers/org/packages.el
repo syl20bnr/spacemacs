@@ -268,6 +268,10 @@ Will work on both org-mode and any mode that accepts plain html."
       ;; Open links and files with RET in normal state
       (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)
 
+      ;; Disable the TAB binding so that C-i will invoke the correct action
+      ;; in the GUI.
+      (define-key org-mode-map (kbd "TAB") nil)
+
       ;; We add this key mapping because an Emacs user can change
       ;; `dotspacemacs-major-mode-emacs-leader-key' to `C-c' and the key binding
       ;; C-c ' is shadowed by `spacemacs/default-pop-shell', effectively making
