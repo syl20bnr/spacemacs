@@ -5,15 +5,18 @@
 
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[Description][Description]]
-   - [[Features:][Features:]]
+   - [[Features][Features]]
  - [[Install][Install]]
    - [[Layer][Layer]]
    - [[Test runner][Test runner]]
    - [[Anaconda dependencies][Anaconda dependencies]]
    - [[Automatic buffer formatting on save][Automatic buffer formatting on save]]
-   - [[Automatic activation of local pyenv version][Automatic activation of local pyenv version]]
    - [[autoflake][autoflake]]
    - [[pylookup][pylookup]]
+ - [[Management of Python versions and virtual environments][Management of Python versions and virtual environments]]
+   - [[Manage virtual environments with pyvenv][Manage virtual environments with pyvenv]]
+   - [[Manage multiple Python versions with pyenv][Manage multiple Python versions with pyenv]]
+     - [[Automatic activation of local pyenv version][Automatic activation of local pyenv version]]
  - [[Key Bindings][Key Bindings]]
    - [[Inferior REPL process][Inferior REPL process]]
    - [[Running Python Script in shell][Running Python Script in shell]]
@@ -26,7 +29,7 @@
 * Description
 This layer adds support for the Python language.
 
-** Features:
+** Features
 - Auto-completion using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]
 - Code Navigation using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]
 - Documentation Lookup using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]  and [[https://github.com/tsgates/pylookup][pylookup]]
@@ -85,17 +88,6 @@ To enable automatic buffer formatting on save with  [[https://github.com/google/
     (python :variables python-enable-yapf-format-on-save t)))
 #+END_SRC
 
-** Automatic activation of local pyenv version
-A project-specific pyenv version may be written to a file called
-=.python-version= using the [[https://github.com/yyuu/pyenv/blob/master/COMMANDS.md#pyenv-local][pyenv local]] command.
-
-Spacemacs can search in parent directories for this file, and automatically set
-the pyenv version. The behavior can be set with the variable
-=python-auto-set-local-pyenv-version= to:
-- =on-visit= (default) set the version when you visit a python buffer,
-- =on-project-switch= set the version when you switch projects,
-- =nil= to disable.
-
 ** autoflake
 To be able to suppress unused imports easily, install [[https://github.com/myint/autoflake][autoflake]]:
 
@@ -106,6 +98,49 @@ To be able to suppress unused imports easily, install [[https://github.com/myint
 ** pylookup
 To use =pylookup= on ~SPC m h H~, make sure you update the database first, using
 ~SPC : pylookup-update~.
+
+* Management of Python versions and virtual environments
+
+** Manage virtual environments with pyvenv
+A virtual environment provides isolation of your Python package versions. For a
+general overview see [[http://docs.python-guide.org/en/latest/dev/virtualenvs/][this site]]. [[http://virtualenvwrapper.readthedocs.org/en/latest/index.html][Virtualenvwrapper]] which is also explained in the
+previous link, is a program which manages your virtual environments in a central
+location set by the ~WORKON_HOME~ environment variable.
+
+Spacemacs integration of virtual environments and virtualenvwrapper is provided
+by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides the following keybindings:
+
+| Key Binding | Description                                     |
+|-------------+-------------------------------------------------|
+| ~SPC m V w~ | work on virtual environment in ~WORKON_HOME~    |
+| ~SPC m V a~ | activate a virtual environment in any directory |
+| ~SPC m V d~ | deactivate active virtual environment           |
+
+** Manage multiple Python versions with pyenv
+If you need multiple Python versions (e.g. Python 2 and Python 3) then take a
+look at [[https://github.com/yyuu/pyenv][pyenv]]. It enables the installation and managment of multiple
+Python versions.
+[[https://www.brianthicks.com/2015/04/10/pyenv-your-python-environment-automated/][This blogpost]] gives a good overview on how to use the tool. Spacemacs
+integration is provided by [[https://github.com/proofit404/pyenv-mode][pyenv mode]] which has the following keybindings.
+
+| Key Binding | Description                          |
+|-------------+--------------------------------------|
+| ~SPC m v s~ | set a pyenv environment with [[https://github.com/yyuu/pyenv][pyenv]]   |
+| ~SPC m v u~ | unset a pyenv environment with [[https://github.com/yyuu/pyenv][pyenv]] |
+
+Pyenv can also manage virtual environments for each of the Python versions it
+has installed. Those will be listed alongside your Python versions.
+
+*** Automatic activation of local pyenv version
+A project-specific pyenv version may be written to a file called
+=.python-version= using the [[https://github.com/yyuu/pyenv/blob/master/COMMANDS.md#pyenv-local][pyenv local]] command.
+
+Spacemacs can search in parent directories for this file, and automatically set
+the pyenv version. The behavior can be set with the variable
+=python-auto-set-local-pyenv-version= to:
+- =on-visit= (default) set the version when you visit a python buffer,
+- =on-project-switch= set the version when you switch projects,
+- =nil= to disable.
 
 * Key Bindings
 
@@ -181,12 +216,16 @@ Test commands start with ~m t~:
 | ~SPC m h d~ | look for documentation using =helm-pydoc=                                    |
 | ~SPC m h h~ | quick documentation using anaconda                                           |
 | ~SPC m h H~ | open documentation in =firefox= using [[https://github.com/tsgates/pylookup][pylookup]]                               |
-| ~SPC m v s~ | activate a virtual environment with [[https://github.com/yyuu/pyenv][pyenv]]                                    |
-| ~SPC m v u~ | deactivate a virtual environment with [[https://github.com/yyuu/pyenv][pyenv]]                                  |
-| ~SPC m V~   | activate a virtual environment with  [[https://github.com/jorgenschaefer/pyvenv][pyvenv]]                                  |
+| ~SPC m v s~ | set a pyenv environment with [[https://github.com/yyuu/pyenv][pyenv]]                                           |
+| ~SPC m v u~ | unset a pyenv environment with [[https://github.com/yyuu/pyenv][pyenv]]                                         |
+| ~SPC m V w~ | work on virtual environment in ~WORKON_HOME~                                 |
+| ~SPC m V a~ | activate a virtual environment in any directory                              |
+| ~SPC m V d~ | deactivate active virtual environment                                        |
+
 * Configuration
 ** Fill column
-If you want to customize the fill column value, use something like this inside the ~user-init~ function in your ~.spacemacs~:
+If you want to customize the fill column value, use something like this inside
+the ~user-init~ function in your ~.spacemacs~:
 
 #+BEGIN_SRC elisp
 (setq python-fill-column 99)
