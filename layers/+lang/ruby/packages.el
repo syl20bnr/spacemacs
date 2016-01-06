@@ -99,6 +99,7 @@
     (progn
       (defun spacemacs//enable-rbenv ()
         "Enable rbenv, use .ruby-version if exists."
+        (require 'rbenv)
         (let ((version-file-path (rbenv--locate-file ".ruby-version")))
           (global-rbenv-mode)
           ;; try to use the ruby defined in .ruby-version
