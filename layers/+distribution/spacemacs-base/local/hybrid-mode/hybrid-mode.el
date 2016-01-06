@@ -40,57 +40,27 @@ to start in hybrid state (emacs bindings) by default."
   :group 'spacemacs
   :type 'symbol)
 
-(evil-define-state hybrid
-  "Emacs/insert state for hybrid mode."
-  :tag " <H> "
-  :cursor (bar . 2)
-  :message "-- HYBRID --"
-  :entry-hook (evil-start-track-last-insertion)
-  :exit-hook (evil-cleanup-insert-state evil-stop-track-last-insertion)
-  :input-method t
-  (cond
-   ((evil-hybrid-state-p)
-    (add-hook 'pre-command-hook #'evil-insert-repeat-hook)
-    (unless (eq evil-want-fine-undo t)
-      (evil-start-undo-step t)))
-   (t
-    (remove-hook 'pre-command-hook #'evil-insert-repeat-hook)
-    (setq evil-insert-repeat-info evil-repeat-info)
-    (evil-set-marker ?^ nil t)
-    (unless (eq evil-want-fine-undo t)
-      (evil-end-undo-step t (eq evil-want-fine-undo 'fine)))
-    (when evil-move-cursor-back
-      (when (or (evil-normal-state-p evil-next-state)
-                (evil-motion-state-p evil-next-state))
-        (evil-move-cursor-back))))))
-
-(define-key evil-hybrid-state-map [escape] 'evil-normal-state)
-(setf (symbol-function 'hybrid-mode--evil-insert-state-backup)
-      (symbol-function 'evil-insert-state))
-
-;; Override stock evil function `evil-insert-state-p'
-(defun evil-insert-state-p (&optional state)
-  "Whether the current state is insert.
-\(That is, whether `evil-state' is either `evil-insert-state' or
- `evil-hybrid-state'.)"
-  (and evil-local-mode
-       (memq (or state evil-state) '(insert hybrid))))
+(defvar hybrid-mode-insert-cursor evil-hybrid-state-cursor)
+(defvar hybrid-mode-insert-cursor-backup evil-insert-state-cursor)
 
 ;;;###autoload
 (define-minor-mode hybrid-mode
-  "Global minor mode to replaces the `evil-insert-state' keymap
-with `evil-hybrid-state-map'."
+  "Global minor mode to allow emacs bindings in `evil-insert-state'."
   :global t
   :lighter " hybrid"
   :group 'spacemacs
   (if hybrid-mode
       (progn
         (setq hybrid-mode-default-state-backup evil-default-state
-              evil-default-state hybrid-mode-default-state)
-        (setf (symbol-function 'evil-insert-state)
-              (symbol-function 'evil-hybrid-state)))
-    (setq evil-default-state hybrid-mode-default-state-backup)
-    (setf (symbol-function 'evil-insert-state)
-          (symbol-function 'hybrid-mode--evil-insert-state-backup))))
+              evil-default-state hybrid-mode-default-state
+              evil-insert-state-cursor hybrid-mode-insert-cursor)
+        (put 'spacemacs-insert-face 'face-alias 'spacemacs-hybrid-face)
+        ;; using this function to set the variable triggers the defcustom :set
+        ;; property which actually does the work of removing the bindings.
+        (customize-set-variable 'evil-disable-insert-state-bindings t))
+    (setq evil-default-state hybrid-mode-default-state-backup
+          evil-insert-state-cursor hybrid-mode-insert-cursor-backup)
+    (put 'spacemacs-insert-face 'face-alias nil)
+    (customize-set-variable 'evil-disable-insert-state-bindings nil)))
 
 (provide 'hybrid-mode)
