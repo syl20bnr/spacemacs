@@ -135,6 +135,7 @@
         "gi" 'magit-init
         "gl" 'magit-log-popup
         "gL" 'magit-log-buffer-file
+        "gr" 'magit-rebase-popup
         "gP" 'magit-push-popup
         "gs" 'magit-status
         "gS" 'magit-stage-file
