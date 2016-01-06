@@ -46,9 +46,11 @@
         "Timer for layouts auto-save.")
 
       (defun spacemacs/jump-to-last-layout ()
-        "Open the previously selected layout."
+        "Open the previously selected layout, if it exists."
         (interactive)
-        (when (persp-get-by-name spacemacs--last-selected-layout)
+        (unless (eq 'non-existent
+                    (gethash spacemacs--last-selected-layout
+                             *persp-hash* 'non-existent))
           (persp-switch spacemacs--last-selected-layout)))
 
       ;; Perspectives micro-state -------------------------------------------
