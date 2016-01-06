@@ -98,7 +98,9 @@
     :defer t
     :init
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "V" 'pyvenv-workon)))
+      "Vw" 'pyvenv-workon
+      "Va" 'pyvenv-activate
+      "Vd" 'pyvenv-deactivate)))
 
 (defun python/init-pytest ()
   (use-package pytest
@@ -223,7 +225,8 @@
       (spacemacs/declare-prefix-for-mode 'python-mode "mt" "test")
       (spacemacs/declare-prefix-for-mode 'python-mode "ms" "send to REPL")
       (spacemacs/declare-prefix-for-mode 'python-mode "mr" "refactor")
-      (spacemacs/declare-prefix-for-mode 'python-mode "mv" "venv")
+      (spacemacs/declare-prefix-for-mode 'python-mode "mv" "pyenv")
+      (spacemacs/declare-prefix-for-mode 'python-mode "mV" "pyvenv")
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "cc" 'spacemacs/python-execute-file
         "cC" 'spacemacs/python-execute-file-focus
