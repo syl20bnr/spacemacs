@@ -830,9 +830,6 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (add-hook 'find-file-hook (lambda () (unless recentf-mode
                                              (recentf-mode)
                                              (recentf-track-opened-file))))
-      (add-hook 'ivy-mode-hook (lambda () (unless recentf-mode
-                                             (recentf-mode)
-                                             (recentf-track-opened-file))))
       (setq recentf-save-file (concat spacemacs-cache-directory "recentf")
             recentf-max-saved-items 1000
             recentf-auto-cleanup 'never
