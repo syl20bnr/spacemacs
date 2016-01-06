@@ -19,6 +19,7 @@
     flycheck-rust
     rust-mode
     toml-mode
+    rustfmt
     ))
 
 (defun rust/post-init-flycheck ()
@@ -72,3 +73,8 @@
     :if rust-enable-racer
     :defer t
     :init (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode eldoc-mode))))
+
+(defun rust/init-rustfmt ()
+  (use-package rustfmt
+    :defer t
+    :init (spacemacs/add-to-hook 'rust-mode-hook '(rustfmt-enable-on-save))))

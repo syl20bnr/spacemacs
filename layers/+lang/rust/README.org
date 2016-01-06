@@ -9,6 +9,7 @@
    - [[Layer][Layer]]
    - [[Cargo][Cargo]]
    - [[Auto-completion][Auto-completion]]
+   - [[Format][Format]]
  - [[Key bindings][Key bindings]]
 
 * Description
@@ -37,6 +38,15 @@ add the following line to your =dotspacemacs/user-init=:
 
 You have to install [[https://github.com/phildawes/racer][Racer]] to use this. For more information on the installation
 procedure, look [[https://github.com/racer-rust/emacs-racer][here]].
+
+** Format
+To formatting Rust code according to style guidelines using [[https://github.com/rust-lang-nursery/rustfmt][rustfmt]].
+
+#+BEGIN_SRC sh
+cargo install rustfmt
+#+END_SRC
+
+
 
 * Key bindings
 
