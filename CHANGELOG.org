@@ -1,4 +1,20 @@
 * Release 0.105.x
+** 0.105.3 (2016/01/06)
+*** Hot fixes
+**** Emacs lisp layer
+- Fix wrong hook for adding evil text objects (thanks to justbur)
+**** Ledger
+- Fix missing major mode key bindings (thanks to travisbhartwell)
+**** Ocaml
+- Fix smartparens configuration (thanks to edwintorok)
+*** Layer changes
+**** Spacemacs
+- Improve robustness of =spacemacs/toggle-transparency= function
+  (thanks to justbur)
+*** Other improvements
+- Fix layer install section in all layers READMEs to be more explicit
+  and remove a source of confusion for new comers (thanks to mattbaker)
+- Typos and documentation improvements (thanks to d12frosted)
 ** 0.105.2 (2016/01/05)
 - Fix empty mode-line when a new Spacemacs version is available
   (thanks to TheBB)
