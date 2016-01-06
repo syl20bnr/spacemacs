@@ -23,11 +23,9 @@ style.
 The commands defined in this layer are taken from various sources like [[https://github.com/bbatsov/prelude][Prelude]].
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(better-defaults))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =better-defaults= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Functions
 ** =spacemacs/smart-move-beginning-of-line=

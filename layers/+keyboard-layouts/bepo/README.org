@@ -1,4 +1,4 @@
-#+TITLE: Bepo layer
+#+TITLE: Bépo layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 #+CAPTION: logo
@@ -25,11 +25,9 @@ try to correct the bugs introduced by these changes in other modes/packages.
 [[file:img/keymap.png]]
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(bepo))
-#+end_src
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =bepo= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 It is possible to customize the layer via some variables.
 

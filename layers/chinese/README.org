@@ -32,11 +32,9 @@ This Layer adds Chinese related packages:
 
 * Install
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(chinese))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =chinese= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Configuration
 *** Configure the Default Input Method(配置默认中文输入法)

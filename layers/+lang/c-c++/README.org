@@ -31,11 +31,9 @@ scripts.
 
 * Install
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(c-c++))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =c-c++= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 *Note:* [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]] is only available for Emacs 24.4+
 

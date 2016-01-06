@@ -27,11 +27,9 @@ This layer adds support for the Java language using the [[http://eclim.org][Ecli
 
 * Layer Installation
 ** Layer
-Add this layer to your =~/.spacemacs=.
-
-#+BEGIN_SRC elisp
-(setq-default dotspacemacs-configuration-layers '(java))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =java= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Eclim
 Eclim provides the ability to access Eclipse features such as code completion,

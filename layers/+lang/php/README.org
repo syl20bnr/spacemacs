@@ -23,12 +23,9 @@ The =gtags= layer is recommended to benefit from better =eldoc= and
 =helm-gtags=.
 
 * Install
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(php))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =php= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key bindings
 

@@ -20,21 +20,15 @@ DOCX.
 This layer automatically install an org exporter using the [[https://github.com/kawabata/ox-pandoc][ox-pandoc]].
 
 * Install
-
 ** Layer
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(pandoc))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =pandoc= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Pandoc
-
 To use the mode please [[http://pandoc.org/installing.html][install]] pandoc first.
 
 * Usage
-
 For a full list of possible conversions see the [[http://johnmacfarlane.net/pandoc][Pandoc documentation]].
 An explanation of all the options offered by =pandoc-mode= can be found at the
 [[http://joostkremers.github.io/pandoc-mode][Pandoc-mode website]].

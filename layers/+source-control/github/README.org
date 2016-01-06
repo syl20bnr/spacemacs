@@ -26,14 +26,10 @@ This layers adds support for [[http://github.com][Github]].
 - [[https://github.com/dgtized/github-clone.el][Github clone]] allows for easy cloning and forking of repositories.
 
 * Install
-
 ** Layer
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(github))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =github= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key Bindings
 

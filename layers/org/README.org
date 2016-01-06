@@ -57,11 +57,9 @@ One way to avoid conflict is to wrap your =org= config code in a
 
 * Install
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(org))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =org= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Github support
 To install Github related extensions like [[https://github.com/larstvei/ox-gfm][ox-gfm]] to export to Github

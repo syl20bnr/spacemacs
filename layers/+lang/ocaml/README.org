@@ -27,11 +27,9 @@ This is a very basic layer for editing ocaml files.
 
 * Install
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(ocaml))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =ocaml= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** OPAM packages
 This layer requires some [[http://opam.ocaml.org][opam]] packages:

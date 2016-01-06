@@ -17,11 +17,9 @@ This layer gathers all the configuration related to emacs-lisp. This should
 always be in your dotfile, it is not recommended to uninstall it.
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(emacs-lisp))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =emacs-lisp= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Auto-compile
 This layer adds the [[https://github.com/tarsius/auto-compile][auto-compile]] package to automatically keep the byte-compiled

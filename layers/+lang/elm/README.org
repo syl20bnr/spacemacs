@@ -6,11 +6,11 @@
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[Description][Description]]
  - [[Install][Install]]
+   - [[Layer][Layer]]
    - [[Elm Platform][Elm Platform]]
      - [[OS X and Windows installers][OS X and Windows installers]]
      - [[Universal installer using npm][Universal installer using npm]]
      - [[Source code][Source code]]
-   - [[elm-mode][elm-mode]]
    - [[elm-oracle][elm-oracle]]
  - [[Basic usage tips][Basic usage tips]]
    - [[Compilation][Compilation]]
@@ -38,6 +38,11 @@ It relies on [[https://github.com/jcollard/elm-mode][elm-mode]] and [[https://gi
 - Integration with elm-package
 
 * Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =elm= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
 ** Elm Platform
 The ~elm-platform~ is a bundle of tools, including the ~elm-compiler~, ~elm-make~,
 ~elm-reactor~, ~elm-repl~ and ~elm-package~. 
@@ -64,13 +69,6 @@ run, see this issue [[https://github.com/kevva/elm-bin/issues/28][https://github
 *** Source code
 To build from source, see instructions here:
 [[https://github.com/elm-lang/elm-platform][https://github.com/elm-lang/elm-platform]]
-
-** elm-mode
-To use this contribution, add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(elm))
-#+END_SRC
 
 ** elm-oracle
 ~elm-oracle~ can be used to show type signatures and docs for tokens under the
@@ -117,7 +115,6 @@ can be controlled by passing in these variables in your =~/.spacemacs=:
 #+END_SRC
 
 * Key bindings
-
 ** elm-make
 
 | Key Binding | Description                                  |

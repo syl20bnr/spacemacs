@@ -13,12 +13,9 @@
 This layer adds key bindings for controlling Spotify from inside Emacs.
 
 * Install
-
-To use this contribution layer add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(set-default dotspacemacs-configuration-layers '(spotify))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =spotify= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key bindings
 

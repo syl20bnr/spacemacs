@@ -16,11 +16,9 @@ This layer provides on the fly syntax checking using [[http://www.flycheck.org/]
 
 * Install
 ** Layer
-To use this configuration layer add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(syntax-checking))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =syntax-checking= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Enabling/Disabling tooltips
 By default tooltips are enabled and used whenever it is possible.

@@ -42,9 +42,9 @@ This is a WIP, feel free to collaborate.
 
 * Install
 ** Layer
-#+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(ipython-notebook))
-#+end_src
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =ipython-noteboolk= to the existing =dotspacemacs-configuration-layers= list
+in this file.
 ** Dependencies
 Install IPython > 3
 #+begin_src sh

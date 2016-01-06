@@ -6,7 +6,6 @@
  - [[Key bindings][Key bindings]]
 
 * Description
-
 This layer ports some of the functionality of [[https://github.com/tpope/vim-unimpaired][tpope's vim-unimpaired]].
 
 This plugin provides several pairs of bracket maps using ~[~ to denote

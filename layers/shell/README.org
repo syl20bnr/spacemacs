@@ -22,11 +22,9 @@ This layer configures the various shells available in Emacs.
 
 * Install
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(shell))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =shell= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Default shell
 Emacs supports three types of shell:
@@ -129,7 +127,6 @@ Some advanced configuration is setup for =eshell= in this layer:
 - add support for auto-completion via =company= (when the =auto-completion=
   layer is installed)
 - pressing ~i~ in normal state will automatically jump to the prompt
-
 
 * Key bindings
 

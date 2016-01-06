@@ -19,11 +19,9 @@ Incuded packages for extensions:
 - =.bat=: [[http://www.emacswiki.org/emacs/dos.el][dos.el]]
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(windows-scripts))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =windows-scripts= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key Bindings
 ** Powershell

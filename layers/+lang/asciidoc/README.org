@@ -17,11 +17,9 @@ This layer adds [[https://asciidoctor.org][AsciiDoc]] markup language support to
 - `.adoc` files are associated with `adoc-mode` by default
 
 * Install
-To use this contribution add it to your `~/.spacemacs`
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(asciidoc))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =asciidoc= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key bindings
 ** Element insertion

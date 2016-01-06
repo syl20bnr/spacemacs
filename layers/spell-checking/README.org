@@ -15,11 +15,9 @@ This layer provides spell checking using [[http://www-sop.inria.fr/members/Manue
 
 * Install
 ** Layer
-To use this configuration layer add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(spell-checking))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =spell-checking= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Spell Checker Configuration
 The built-in Emacs variable that controls which external spell-checking program

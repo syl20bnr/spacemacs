@@ -34,12 +34,9 @@
                    prefix argument C-u to edit the search string first.
 
 * Install
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(dash))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =dash= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Dash (OS X)
 
@@ -47,7 +44,6 @@ You have to install [[http://kapeli.com/dash][dash]] on your machine.
 
 It is recommended to set the =HUD mode= in your Dash application preferences
 when using this layer. 
-
 
 ** Zeal (Linux & Windows)
 

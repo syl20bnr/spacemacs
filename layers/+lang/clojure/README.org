@@ -31,24 +31,19 @@
      - [[test-report-mode][test-report-mode]]
 
 * Description
-
 This layer adds support for [[http://clojure.org][Clojure]] language using [[https://github.com/clojure-emacs/cider][CIDER]].
 
 * Features
-
 - REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
 - Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]] 
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
 - Aligning of code forms via [[https://github.com/gstamp/align-cljlet][align-cljlet]]
   
 * Install
-
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(clojure))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =clojure= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Pretty Symbols
 Pretty symbols for anonymous functions, set literals and partial, like =(λ [a]
@@ -68,7 +63,6 @@ Or set this variable when loading the configuration layer:
 #+END_SRC
 
 ** CIDER and clj-refactor
-
 *** Quick Start with boot
 - Install =boot= (see https://github.com/boot-clj/boot#install)
 - Create a file =~/.boot/profile.boot= with the following content:

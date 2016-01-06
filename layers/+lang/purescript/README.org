@@ -21,12 +21,9 @@ thanks to the following packages:
 - [[https://github.com/epost/psc-ide-emacs][psc-ide-emacs]]
 
 * Install
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(purescript))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =purescript= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 If you want to get autocompletions and type information you have to install [[https://github.com/kRITZCREEK/psc-ide][psc-ide]].
 

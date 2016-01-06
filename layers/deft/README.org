@@ -27,14 +27,10 @@ configuration by adding the following in your config file:
 Just add or substitute your preferred extension.
 
 * Install
-
 ** Layer
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(deft))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =deft= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Configuration
 By default deft tries to put notes in =~/.deft= but you can change

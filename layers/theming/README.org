@@ -13,11 +13,9 @@
 This layer allows for a simple way of modifying themes.
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(theming))
-#+end_src
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =theming= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Usage
 To use this layer, set the value of =theming-modifications=. It should be a list

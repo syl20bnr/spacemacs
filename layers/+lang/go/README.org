@@ -42,11 +42,9 @@ For best results, make sure that the =auto-completion= and =syntax-checking=
 layers are enabled as well.
 
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(go))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =go= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Configuration
 ** Formatting

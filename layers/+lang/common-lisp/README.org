@@ -25,11 +25,9 @@ you uninstall it before proceeding. You should clean up any config files tied to
 slime that are left behind as well. Linux users can just purge the slime package
 if it was a distribution install.
 
-To use this contribution, add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(common-lisp))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =common-lisp= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 This layer defaults to using [[http://www.sbcl.org/][sbcl]]. If you want to use a different implementation
 of Common Lisp, you can specify it in your =~/.spacemacs=
