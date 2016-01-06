@@ -10,5 +10,5 @@
 ;;
 ;;; License: GPLv3
 
-(spacemacs/declare-prefix "am" "music")
-(spacemacs/declare-prefix "ams" "Spotify")
+(spacemacs/declare-prefix "aM" "music")
+(spacemacs/declare-prefix "aMs" "Spotify")
