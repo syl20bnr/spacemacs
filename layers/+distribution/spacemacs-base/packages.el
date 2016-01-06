@@ -505,7 +505,8 @@ below. Anything else exits."
         :evil-leader "tEe")
       (spacemacs|diminish holy-mode " Ⓔe" " Ee"))))
 
-(defun spacemacs-base/init-hybrid-mode ()
+(defun spacemacs-base/init-hybrid-mode ())
+(defun spacemacs-base/post-init-evil ()
   (use-package hybrid-mode
     :config
     (progn
