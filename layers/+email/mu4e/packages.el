@@ -19,7 +19,7 @@
     :commands (mu4e mu4e-compose-new)
     :init
     (progn
-      (spacemacs/set-leader-keys "a M m" 'mu4e)
+      (spacemacs/set-leader-keys "a m m" 'mu4e)
       (global-set-key (kbd "C-x m") 'mu4e-compose-new))
     :config
     (progn
@@ -44,8 +44,8 @@
 
 (defun mu4e/init-helm-mu ()
   (spacemacs/set-leader-keys
-    "a M s" 'helm-mu
-    "a M c" 'helm-mu-contacts))
+    "a m s" 'helm-mu
+    "a m c" 'helm-mu-contacts))
 
 
 (defun mu4e/post-init-helm ()
