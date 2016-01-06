@@ -222,9 +222,12 @@ the symbol under the point in the current project with git grep."
       "fr" 'ivy-recentf
       "ir" 'ivy-resume
       "bb" 'ivy-switch-buffer)
-    (setq ivy-height 15
-          ;; merge recentf and bookmarks into buffer switching
-          ivy-use-virtual-buffers t)
+    (setq ivy-height 15)
+    (with-eval-after-load 'recentf
+      ;; merge recentf and bookmarks into buffer switching. If we set this
+      ;; before recentf loads, then ivy-mode loads recentf for us, which messes
+      ;; up the spacemacs version of recentf.
+      (setq ivy-use-virtual-buffers t))
     (when (configuration-layer/package-usedp 'projectile)
       (setq projectile-completion-system 'ivy))
     (ivy-mode 1)
