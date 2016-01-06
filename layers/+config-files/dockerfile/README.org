@@ -12,11 +12,9 @@
 This layer provides syntax highlighting and build functionality for Docker files.
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(dockerfile))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =dockerfile= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key bindings
 

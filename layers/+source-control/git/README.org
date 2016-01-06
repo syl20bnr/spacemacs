@@ -41,11 +41,9 @@ New to Magit? Checkout the [[http://magit.vc/about.html][official intro]].
 
 * Install
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(git))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =git= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Magit status fullscreen
 To display the =magit status= buffer in fullscreen set the variable

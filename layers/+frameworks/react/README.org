@@ -1,4 +1,4 @@
-#+TITLE: React contribution layer for Spacemacs
+#+TITLE: React layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/react.png]]
@@ -31,12 +31,9 @@ It will automatically recognize =.jsx= and =.react.js= files
 - js-doc
 
 * Install
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(react))
-#+end_src
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =react= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 You will also need to install =tern= to use the auto-completion and
 documentation features:

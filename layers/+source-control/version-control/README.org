@@ -23,11 +23,9 @@ buffer hunks.
 
 * Install
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(version-control))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =version-control= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Configuration
 You can choose the package to facilitate the diff micro-state and show margins
@@ -59,7 +57,6 @@ one over the other:
 | Extended VCS support (e.g. hg, svn) | X       | X          |             |
 | Stage hunks from buffer             |         | X          | X           |
 | Dired support                       | X       |            |             |
-
 
 * Key Bindings
 

@@ -18,11 +18,9 @@ provides modes to automatically insert and cycle among typographic characters:
   available on Emacs 25).
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(typography))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =typography= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 Typographic editing however is disabled by default.  To enable it by default set
 =typography-enable-typographic-editing= to =t=:

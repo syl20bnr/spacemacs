@@ -2,14 +2,14 @@
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 * Table of Contents                                         :TOC_4_org:noexport:
- - [[Installation][Installation]]
+ - [[Install][Install]]
  - [[Commands][Commands]]
  - [[Configuration][Configuration]]
    - [[Multiple Accounts][Multiple Accounts]]
    - [[Example configuration][Example configuration]]
  - [[See also][See also]]
 
-* Installation
+* Install
 In order to use this layer you must install mu and mu4e separately. Typically
 mu4e will be bundled with mu (this is the case on many Linux distributions).
 
@@ -21,6 +21,9 @@ the layer variable =mu4e-installation-path=, for example:
                 '((mu4e :variables
                         mu4e-installation-path "/usr/share/emacs/site-lisp")))
 #+end_src
+
+Then add this layer to your =~/.spacemacs=. You will need to add =Gnus= to the
+existing =mu4e= list in this file.
 
 * Commands
 

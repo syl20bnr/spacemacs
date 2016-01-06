@@ -12,11 +12,9 @@ keystrokes get logged into a designated buffer, along with the command
 bound to them. For more info check [[https://github.com/lewang/command-log-mode][command-log-mode]].
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(command-log))
-#+end_src
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =command-log= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key bindings
 

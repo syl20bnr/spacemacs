@@ -22,11 +22,9 @@ This layer adds support for the [[http://www.idris-lang.org/][Idris]] language.
 * Install
 
 ** Layer
-To use this layer, add it to your =~/.spacemacs=
-
-#+BEGIN_SRC elisp
-(setq-default dotspacemacs-configuration-layers '(idris))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =idris= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Idris
 

@@ -14,11 +14,9 @@ This layer adds support for peer programming tool [[https://github.com/Floobits/
 
 * Install
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(floobits))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =floobits= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key Bindings
 

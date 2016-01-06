@@ -22,14 +22,10 @@ This layer provides:
 - jump-to-definition
 
 * Install
-
 ** Layer
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(typescript))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =typescript= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Prerequisites
 

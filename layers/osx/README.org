@@ -32,7 +32,9 @@ and we encourage you to do so :)
 
 ** Layer
 
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to add `osx` to the existing list of `dotspacemacs-configuration-layers` in this file.
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =osx= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 *** Use with non-US keyboard layouts
 

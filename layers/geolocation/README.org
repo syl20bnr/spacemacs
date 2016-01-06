@@ -25,11 +25,9 @@ CoreLocation services.
 - [[https://github.com/purcell/osx-location][osx-location]]
 
 * Install
-To enable this contribution layer, add it to your =~/.spacemacs=~ like this:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(geolocation))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =geolocation= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 All services are disable by default. To enable all, or some of them, add instead
 something like this:

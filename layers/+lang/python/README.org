@@ -39,11 +39,9 @@ This layer adds support for the Python language.
 
 * Install
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(python))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =python= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Test runner
 Both =nose= and =pytest= are supported. By default =nose= is used.

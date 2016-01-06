@@ -24,11 +24,9 @@ This layer provides support for the Ruby language with the following feature:
 - interactive REPL and code navigation (robe)
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(ruby))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =ruby= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 This layer supports two different Ruby modes: Emacs' built-in Ruby Mode and
 [[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]].  By default the built-in Ruby mode is enabled.  To switch to the

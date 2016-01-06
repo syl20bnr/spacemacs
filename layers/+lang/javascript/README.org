@@ -30,11 +30,9 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - Get the path to a JSON value with [[https://github.com/Sterlingg/json-snatcher][json-snatcher]]
   
 * Install
-
-To use this contribution add it to your =~/.spacemacs=
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(javascript))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =javascript= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 You will also need to install =tern= to use the auto-completion and
 documentation features:

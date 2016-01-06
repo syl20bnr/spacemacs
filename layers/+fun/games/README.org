@@ -20,11 +20,9 @@ The games available now are:
 - Tetris
   
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(games))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =games= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key bindings
 To run a game:

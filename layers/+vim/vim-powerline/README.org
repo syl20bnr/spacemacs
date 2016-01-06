@@ -9,9 +9,6 @@
 A powerline theme modeled after the vim powerline theme.
 
 * Install
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(vim-powerline))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =vim-powerline= to the existing =dotspacemacs-configuration-layers= list in this
+file.

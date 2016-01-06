@@ -15,12 +15,9 @@
 Adds support for the [[http://www.smlnj.org][SML]] programming language.
 
 * Install
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC elisp
-(setq-default dotspacemacs-configuration-layers '(sml))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =sml= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key Bindings
 

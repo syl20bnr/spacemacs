@@ -22,25 +22,19 @@ This layer adds support for working with Vagrant using [[https://github.com/ottb
  - Remote editing on Vagrant boxes via Tramp
 
 * Install
-
 ** Layer
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(ruby vagrant))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =vagrant= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 *Note:* Since vagrant files are written in =ruby= it is recommended
 to install the =ruby= layer as well.
 
 ** Vagrant
-
 Follow the [[http://docs.vagrantup.com/v2/installation/index.html][Installing Vagrant]] and [[http://docs.vagrantup.com/v2/getting-started/index.html][Getting Started]] guides in
 Vagrant's documentation.
 
 ** Testing
-
 If you'd like to test this layer out in a simple way (for example to
 make sure you have Vagrant configured correctly) there is a [[file:Vagrantfile][Vagrantfile]]
 in this directory.

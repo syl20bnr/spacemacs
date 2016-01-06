@@ -43,11 +43,9 @@ This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
 
 * Install
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(haskell))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =haskell= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Dependencies
 This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:

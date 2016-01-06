@@ -8,7 +8,6 @@
    - [[Key bindings][Key bindings]]
 
 * Description
-
 This layer is a port contribution layer for vim-vinegar for emacs.
 
 A port of tpope's vinegar.vim
@@ -17,7 +16,6 @@ with a limited number of details and exposing the ~-~ command in all
 buffers to enter dired.
 
 ** Features
-
 -  navigation up folders with ~-~ key
 -  simplify dired buffer to show only file names
 -  better evil/vim bindings for navigation within dired buffer

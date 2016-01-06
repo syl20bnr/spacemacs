@@ -11,7 +11,6 @@
  - [[Key bindings][Key bindings]]
 
 * Description
-
 =helm-gtags= and =ggtags= are clients for GNU Global. GNU Global is a source
 code tagging system that allows querying symbol locations in source code, such
 as definitions or references.
@@ -33,7 +32,6 @@ as definitions or references.
 - Jump to a file in tag database
 
 * Install
-
 ** GNU Global
 
 You can install =helm-gtags= from the software repository of your OS. For example, in Ubuntu:
@@ -61,11 +59,9 @@ To be able to use =ctags= and other backends, you need to copy the sample
   cp gtags.conf ~/.globalrc
 #+end_src
 
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(gtags))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =gtags= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Usage
 

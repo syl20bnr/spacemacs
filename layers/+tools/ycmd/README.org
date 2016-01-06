@@ -15,27 +15,21 @@
 This layer adds [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]] support.
 
 * Install
-
 ** Layer
-
-To use this contribution add it to your =~/.spacemacs=
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(ycmd))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =ycmd= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** YCMD
-
 In order to use this layer you must have a local [[https://github.com/Valloric/ycmd#building][ycmd]] installation and must
 set the =ycmd-server-command= variable to reflect the path to that installation.
 See the [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]] readme for more instructions on this.
 
 ** Other Requirements
-
 This package requires the =auto-completion= layer in order to get actual
 completion. The =syntax-checking= layer is required for flycheck support.
 
 * Configuration
-
 By default this layer only activates ycmd for =c++-mode=.
 
 If you want ycmd suppoert in other modes you might just want to add it for

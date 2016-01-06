@@ -15,14 +15,10 @@
 This layer adds support for nim (nimrod).
 
 * Install
-
 ** Layer
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(nim))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =nim= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Working with Nim
 

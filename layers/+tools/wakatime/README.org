@@ -22,7 +22,6 @@ time you spend programming so you never have to manually track it again!
 P.S. wakati means time in Swahili
 
 * Install
-
 ** Wakatime Program
 You can follow wakatime installation instructions here
 https://github.com/wakatime/wakatime-mode.
@@ -38,14 +37,21 @@ sudo pip install wakatime
 #+END_SRC
 
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =wakatime= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
+Example:
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-                '((wakatime :variables
-                            wakatime-api-key    "your-api-key"
-                            ;; use the actual wakatime path
-                            wakatime-cli-path   "/usr/bin/wakatime")))
+                '(
+                  ;; ...
+                  (wakatime :variables
+                  wakatime-api-key  "your-api-key"
+                  ;; use the actual wakatime path
+                  wakatime-cli-path "/usr/bin/wakatime")
+                  ;; ...
+                 ))
 #+END_SRC
 
 ** API Keys

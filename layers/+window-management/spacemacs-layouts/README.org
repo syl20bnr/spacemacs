@@ -23,11 +23,11 @@ Layouts are window configurations that have buffer isolation between each other.
 
 * Install
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
+This layer is automatically included if you use the =spacemacs= distribution.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(spacemacs-layouts))
-#+END_SRC
+If you use =spacemacs-base= distribution then to use this configuration layer,
+add it to your =~/.spacemacs=. You will need to add =spacemacs-layout= to the
+existing =dotspacemacs-configuration-layers= list in this file.
 
 * Features 
 

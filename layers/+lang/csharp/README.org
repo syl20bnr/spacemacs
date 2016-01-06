@@ -23,29 +23,21 @@
    - [[Code manipulation][Code manipulation]]
 
 * Description
-
 This layer adds experimental support for C# language using [[https://github.com/OmniSharp/omnisharp-emacs][OmniSharp]].
 
 * Packages Included
-
 - [[https://github.com/OmniSharp/omnisharp-emacs][OmniSharp-emacs]]
   
 * Install
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(csharp))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =csharp= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Prerequisites
-
 *** ASP.NET 5
-
 Follow the instructions for your platform [[https://github.com/aspnet/home#getting-started][here]].
 
 *** curl
-
 You'll need [[http://curl.haxx.se/][curl]] to be able to use the Omnisharp package. Use your favorite
 package manager to install it (on Windows you can use [[https://chocolatey.org/][chocolatey]]).
 
@@ -58,7 +50,6 @@ or set the variable =omnisharp--curl-executable-path= in your dotfile function
 #+END_SRC
 
 *** Omnisharp server
-
 You have to compile the OmniSharp server following the instructions which can
 be found [[https://github.com/OmniSharp/omnisharp-server][here]].
 
@@ -75,7 +66,6 @@ OmniSharp should now automatically load and start a server when you open a
 =.cs= file.
 
 * Caveats
-
 - It's currently not possible to create a C# solution outside of an IDE such as
   [[http://www.monodevelop.com/][MonoDevelop]], it's therefore recommended that you install it to create your
   solutions.
@@ -83,8 +73,6 @@ OmniSharp should now automatically load and start a server when you open a
 - Debugging is possible using [[https://github.com/mono/sdb][SDB]].
   
 * Key Bindings
-
-
 ** Compilation
 
 | Key Binding | Description        |

@@ -25,13 +25,16 @@ following features:
   ~syntax-checking~ layer)
 
 * Install
-To be able to use this layer you should be able to run this from the
-command line:
+First check that you are able to run this from the command line:
 
 On OS X:
 #+BEGIN_SRC sh
   xcrun swift 
 #+END_SRC
+
+Then to use this configuration layer, add it to your =~/.spacemacs=. You will
+need to add =swift= to the existing =dotspacemacs-configuration-layers= list in
+this file.
 
 * Usage information
 Unless configured by the user, the REPL will be invoked using the command ~xcrun
