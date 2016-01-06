@@ -520,21 +520,21 @@ Example: (evil-map visual \"<\" \"<gv\")"
         :evil-leader "tEe")
       (spacemacs|diminish holy-mode " Ⓔe" " Ee"))))
 
-(defun spacemacs-base/init-hybrid-mode ()
-  (with-eval-after-load 'evil
-    (use-package hybrid-mode
-      :config
-      (progn
-        (when (eq 'hybrid dotspacemacs-editing-style) (hybrid-mode))
-        (spacemacs|add-toggle hybrid-mode
-          :status hybrid-mode
-          :on (progn (when (bound-and-true-p holy-mode)
-                       (holy-mode -1))
-                     (hybrid-mode))
-          :off (hybrid-mode -1)
-          :documentation "Globally toggle hybrid mode."
-          :evil-leader "tEh")
-        (spacemacs|diminish hybrid-mode " Ⓔh" " Eh")))))
+(defun spacemacs-base/init-hybrid-mode ())
+(defun spacemacs-base/post-init-evil ()
+  (use-package hybrid-mode
+    :config
+    (progn
+      (when (eq 'hybrid dotspacemacs-editing-style) (hybrid-mode))
+      (spacemacs|add-toggle hybrid-mode
+        :status hybrid-mode
+        :on (progn (when (bound-and-true-p holy-mode)
+                     (holy-mode -1))
+                   (hybrid-mode))
+        :off (hybrid-mode -1)
+        :documentation "Globally toggle hybrid mode."
+        :evil-leader "tEh")
+      (spacemacs|diminish hybrid-mode " Ⓔh" " Eh"))))
 
 (defun spacemacs-base/init-ido ()
   (ido-mode t)
