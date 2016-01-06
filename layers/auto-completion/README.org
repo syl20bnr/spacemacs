@@ -57,8 +57,9 @@ layer variables:
    as been entered quickly enough. If its value is =nil= then the feature is
    disabled.
 
-4. =auto-completion-private-snippets-directory= is a path to your private
-   snippets directory. If its value is =nil= then the spacemacs default is used.
+4. =auto-completion-private-snippets-directory= is a path or list of paths to
+   your private snippets directory. If its value is =nil= then the spacemacs
+   default (=~/.emacs.d/private/snippets=) is used.
 
 The default configuration of the layer is:
 
