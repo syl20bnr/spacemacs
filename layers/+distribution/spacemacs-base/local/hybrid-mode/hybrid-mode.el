@@ -42,6 +42,16 @@ to start in hybrid state (emacs bindings) by default."
 
 (defvar hybrid-mode-insert-cursor evil-hybrid-state-cursor)
 (defvar hybrid-mode-insert-cursor-backup evil-insert-state-cursor)
+(defvar hybrid-mode-insert-state-entry-hook)
+(defvar hybrid-mode-insert-state-exit-hook)
+
+(defun hybrid-mode-insert-state-entry-hook ()
+  "Run hooks in `hybrid-mode-insert-state-entry-hook'."
+  (run-hooks 'hybrid-mode-insert-state-entry-hook))
+
+(defun hybrid-mode-insert-state-exit-hook ()
+  "Run hooks in `hybrid-mode-insert-state-exit-hook'."
+  (run-hooks 'hybrid-mode-insert-state-exit-hook))
 
 ;;;###autoload
 (define-minor-mode hybrid-mode
@@ -57,10 +67,14 @@ to start in hybrid state (emacs bindings) by default."
         (put 'spacemacs-insert-face 'face-alias 'spacemacs-hybrid-face)
         ;; using this function to set the variable triggers the defcustom :set
         ;; property which actually does the work of removing the bindings.
-        (customize-set-variable 'evil-disable-insert-state-bindings t))
+        (customize-set-variable 'evil-disable-insert-state-bindings t)
+        (add-hook 'evil-insert-state-entry-hook 'hybrid-mode-insert-state-entry-hook)
+        (add-hook 'evil-insert-state-exit-hook 'hybrid-mode-insert-state-exit-hook))
     (setq evil-default-state hybrid-mode-default-state-backup
           evil-insert-state-cursor hybrid-mode-insert-cursor-backup)
     (put 'spacemacs-insert-face 'face-alias nil)
-    (customize-set-variable 'evil-disable-insert-state-bindings nil)))
+    (customize-set-variable 'evil-disable-insert-state-bindings nil)
+    (remove-hook 'evil-insert-state-entry-hook 'hybrid-mode-insert-state-entry-hook)
+    (remove-hook 'evil-insert-state-exit-hook 'hybrid-mode-insert-state-exit-hook)))
 
 (provide 'hybrid-mode)
