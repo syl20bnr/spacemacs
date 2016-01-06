@@ -226,7 +226,7 @@
       (defun spacemacs/load-yasnippet ()
         (unless yas-global-mode
           (progn
-            (yas-global-mode 1)
+            (require 'yasnippet)
             (let ((private-yas-dir (if auto-completion-private-snippets-directory
                                        auto-completion-private-snippets-directory
                                      (concat
@@ -236,12 +236,13 @@
                                            "snippets"
                                            spacemacs--auto-completion-dir)))
               (setq yas-snippet-dirs
-                    (append (list private-yas-dir)
+                    (append (if (listp private-yas-dir)
+                                private-yas-dir
+                              (list private-yas-dir))
                             (when (boundp 'yas-snippet-dirs)
-                              yas-snippet-dirs)
+                              (remove yas--default-user-snippets-dir yas-snippet-dirs))
                             (list spacemacs-snippets-dir)))
-              (yas-load-directory spacemacs-snippets-dir t)
-              (yas-load-directory private-yas-dir t)
+              (yas-global-mode 1)
               (setq yas-wrap-around-region t))))
         (yas-minor-mode 1))
 
