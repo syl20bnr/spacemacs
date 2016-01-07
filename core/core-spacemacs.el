@@ -86,6 +86,7 @@
      (spacemacs-buffer/warning "Cannot find font \"%s\"!"
                                (car dotspacemacs-default-font))))
   ;; spacemacs init
+  (setq inhibit-startup-screen t)
   (spacemacs-buffer/goto-buffer)
   (unless (display-graphic-p)
     ;; explicitly recreate the home buffer for the first GUI client

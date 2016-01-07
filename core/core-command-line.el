@@ -10,9 +10,10 @@
 ;;
 ;;; License: GPLv3
 
-;; process args
 (defun spacemacs//parse-command-line (args)
-  "Process ARGS relevant to core-debug.el"
+  "Handle Spacemacs specific command line arguments.
+The reason why we don't use the Emacs hooks for processing user defined
+arguments is that we want to process these arguments as soon as possible."
   (let ((i 0) new-args)
     (while (< i (length args))
       (let ((arg (nth i args))
@@ -42,5 +43,14 @@
     (nreverse new-args)))
 
 (setq command-line-args (spacemacs//parse-command-line command-line-args))
+
+(defun spacemacs//hide-home-buffer ()
+  "Hides the Spacemacs home buffer at startup to not obfuscate the opened
+startup file.
+Note that any non Emacsy command line parameter will have the effect to
+hide the home buffer."
+  (setq initial-buffer-choice nil))
+
+(push 'spacemacs//hide-home-buffer command-line-functions)
 
 (provide 'core-command-line)
