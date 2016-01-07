@@ -551,6 +551,125 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                                                  (bookmark-get-filename el)))))
           list)))
 
+(defun spacemacs-buffer//todo-list ()
+  "Returns current todo list"
+  (require 'org-agenda)
+  (org-compile-prefix-format 'todo)
+  (org-set-sorting-strategy 'todo)
+  (let ((rtnall nil)
+        (rtn nil)
+        (marker nil)
+        (files (org-agenda-files nil 'ifmode))
+        (date (calendar-gregorian-from-absolute (org-today)))
+        file txt pos)
+    (while (setq file (pop files))
+      (setq rtn (org-agenda-get-day-entries file date :todo))
+      (when rtn
+        (setq
+         rtnall
+         (append
+          rtnall
+          (mapcar
+           (lambda
+             (todo)
+              (progn
+                (setq marker (get-text-property 0 'org-marker todo))
+                (setq pos (marker-position marker))
+                (setq txt (get-text-property 0 'txt todo))
+                (setq time (get-text-property 0 'time todo))
+                (list (cons "text" txt)
+                      (cons "file" file)
+                      (cons "pos" pos)
+                      (cons "time" time)))
+              ) rtn)))))
+    rtnall))
+
+(defun spacemacs-buffer//agenda-list ()
+  "Returns agenda list for today"
+  (require 'org-agenda)
+  (org-compile-prefix-format 'agenda)
+  (org-set-sorting-strategy 'agenda)
+  (let ((rtnall nil)
+        (rtn nil)
+        (marker nil)
+        (files (org-agenda-files nil 'ifmode))
+        (date (calendar-gregorian-from-absolute (org-today)))
+        file txt pos)
+    (while (setq file (pop files))
+      (setq rtn (apply 'org-agenda-get-day-entries
+                       file date
+                       org-agenda-entry-types))
+      (when rtn
+        (setq
+         rtnall
+         (append
+          rtnall
+          (mapcar
+           (lambda
+             (todo)
+              (progn
+                (setq marker (get-text-property 0 'org-marker todo))
+                (setq pos (marker-position marker))
+                (setq txt (get-text-property 0 'txt todo))
+                (setq time (get-text-property 0 'time todo))
+                (list (cons "text" txt)
+                      (cons "file" file)
+                      (cons "pos" pos)
+                      (cons "time" time)))
+              ) rtn)))))
+    rtnall))
+
+(defun spacemacs-buffer//org-jump (el)
+  (require 'org-agenda)
+  (find-file-other-window (cdr (assoc "file" el)))
+  (widen)
+  (goto-char (cdr (assoc "pos" el)))
+  (when (derived-mode-p 'org-mode)
+    (org-show-context 'agenda)
+    (save-excursion
+      (and (outline-next-heading)
+           (org-flag-heading nil)))	; show the next heading
+    (when (outline-invisible-p)
+      (outline-show-entry))			; display invisible text
+    (recenter (/ (window-height) 2))
+    (org-back-to-heading t)
+    (if (re-search-forward org-complex-heading-regexp nil t)
+        (goto-char (match-beginning 4))))
+  (run-hooks 'org-agenda-after-show-hook)
+  )
+
+(defun spacemacs-buffer//insert-todo-list (list-display-name list)
+  (when (car list)
+    (insert list-display-name)
+    (setq list (sort list
+                     (lambda (a b)
+                       (cond
+                        ((eq "" (cdr (assoc "time" b)))
+                         t)
+                        ((eq "" (cdr (assoc "time" a)))
+                         nil)
+                        (t
+                         (string< (cdr (assoc "time" a))
+                                  (cdr (assoc "time" b))))))))
+    (mapc (lambda (el)
+            (insert "\n    ")
+            (widget-create 'push-button
+                           :action `(lambda (&rest ignore) (spacemacs-buffer//org-jump ',el))
+                           :mouse-face 'highlight
+                           :follow-link "\C-m"
+                           :button-prefix ""
+                           :button-suffix ""
+                           :format "%[%t%]"
+                           (format "%s %s %s"
+                                   (abbreviate-file-name
+                                    (cdr (assoc "file" el)))
+                                   (if (not (eq "" (cdr (assoc "time" el))))
+                                       (format "- %s -"
+                                               (cdr (assoc "time" el)))
+                                     "-")
+                                   (cdr (assoc "text" el)))))
+          list)))
+
 (defun spacemacs-buffer/insert-startupify-lists ()
   (interactive)
   (with-current-buffer (get-buffer spacemacs-buffer-name)
@@ -564,6 +683,14 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                 (recentf-mode)
                 (when (spacemacs-buffer//insert-file-list "Recent Files:" (recentf-elements dotspacemacs-startup-recent-list-size))
                   (spacemacs//insert--shortcut "r" "Recent Files:")
+                  (insert list-separator)))
+               ((eq el 'todos)
+                (when (spacemacs-buffer//insert-todo-list "ToDo:" (spacemacs-buffer//todo-list))
+                  (spacemacs//insert--shortcut "d" "ToDo:")
+                  (insert list-separator)))
+               ((eq el 'agenda)
+                (when (spacemacs-buffer//insert-todo-list "Agenda:" (spacemacs-buffer//agenda-list))
+                  (spacemacs//insert--shortcut "c" "Agenda:")
                   (insert list-separator)))
                ((eq el 'bookmarks)
                 (when (configuration-layer/layer-usedp 'spacemacs-helm) (helm-mode))
