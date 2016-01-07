@@ -1,4 +1,15 @@
 * Release 0.105.x
+** 0.105.4 (2016/01/07)
+*** Hot fixes
+**** Core
+- Fix home buffer obfuscating opened file when Emacs starts (thanks to justbur)
+**** Ruby layer 
+- Fix =rbenv= loading (thanks to TheBB)
+**** Spacemacs layouts 
+- Fix jumping to last layout when the last layout is the default layout
+  (thanks to TheBB)
+**** Yasnippet
+- Fix and improve =yasnippet= loading (thanks to TheBB)
 ** 0.105.3 (2016/01/06)
 *** Hot fixes
 **** Emacs lisp layer
