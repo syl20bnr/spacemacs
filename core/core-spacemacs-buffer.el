@@ -551,6 +551,99 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                                                  (bookmark-get-filename el)))))
           list)))
 
+(defun spacemacs-buffer//get-org-items (types)
+  "Make a list of agenda file items for today of kind types"
+  (require 'org-agenda)
+  (let ((date (calendar-gregorian-from-absolute (org-today))))
+    (apply #'append
+           (loop for file in (org-agenda-files nil 'ifmode)
+                 collect
+                 (spacemacs-buffer//make-org-items
+                  file
+                  (apply 'org-agenda-get-day-entries file date
+                         types))))))
+
+(defun spacemacs-buffer//agenda-list ()
+  "Returns today's agenda"
+  (require 'org-agenda)
+  (spacemacs-buffer//get-org-items
+   org-agenda-entry-types))
+
+(defun spacemacs-buffer//todo-list ()
+  "Returns current todos"
+  (require 'org-agenda)
+  (spacemacs-buffer//get-org-items
+   '(:todo)))
+
+(defun spacemacs-buffer//make-org-items (file items)
+  "make a spacemacs-buffer org item list"
+  (loop
+   for item in items
+   collect
+   (spacemacs-buffer//make-org-item file item)))
+
+(defun spacemacs-buffer//make-org-item (file item)
+  "make a spacemacs-buffer version of an org item"
+  (list (cons "text"
+              (get-text-property 0 'txt item))
+        (cons "file" file)
+        (cons "pos"
+              (marker-position
+               (get-text-property 0 'org-marker item)))
+        (cons "time"
+              (get-text-property 0 'time item))))
+
+(defun spacemacs-buffer//org-jump (el)
+  (require 'org-agenda)
+  (find-file-other-window (cdr (assoc "file" el)))
+  (widen)
+  (goto-char (cdr (assoc "pos" el)))
+  (when (derived-mode-p 'org-mode)
+    (org-show-context 'agenda)
+    (save-excursion
+      (and (outline-next-heading)
+           (org-flag-heading nil)))	; show the next heading
+    (when (outline-invisible-p)
+      (outline-show-entry))			; display invisible text
+    (recenter (/ (window-height) 2))
+    (org-back-to-heading t)
+    (if (re-search-forward org-complex-heading-regexp nil t)
+        (goto-char (match-beginning 4))))
+  (run-hooks 'org-agenda-after-show-hook)
+  )
+
+(defun spacemacs-buffer//insert-todo-list (list-display-name list)
+  (when (car list)
+    (insert list-display-name)
+    (setq list (sort list
+                     (lambda (a b)
+                       (cond
+                        ((eq "" (cdr (assoc "time" b)))
+                         t)
+                        ((eq "" (cdr (assoc "time" a)))
+                         nil)
+                        (t
+                         (string< (cdr (assoc "time" a))
+                                  (cdr (assoc "time" b))))))))
+    (mapc (lambda (el)
+            (insert "\n    ")
+            (widget-create 'push-button
+                           :action `(lambda (&rest ignore) (spacemacs-buffer//org-jump ',el))
+                           :mouse-face 'highlight
+                           :follow-link "\C-m"
+                           :button-prefix ""
+                           :button-suffix ""
+                           :format "%[%t%]"
+                           (format "%s %s %s"
+                                   (abbreviate-file-name
+                                    (cdr (assoc "file" el)))
+                                   (if (not (eq "" (cdr (assoc "time" el))))
+                                       (format "- %s -"
+                                               (cdr (assoc "time" el)))
+                                     "-")
+                                   (cdr (assoc "text" el)))))
+          list)))
+
 (defun spacemacs-buffer/insert-startupify-lists ()
   (interactive)
   (with-current-buffer (get-buffer spacemacs-buffer-name)
@@ -564,6 +657,14 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                 (recentf-mode)
                 (when (spacemacs-buffer//insert-file-list "Recent Files:" (recentf-elements dotspacemacs-startup-recent-list-size))
                   (spacemacs//insert--shortcut "r" "Recent Files:")
+                  (insert list-separator)))
+               ((eq el 'todos)
+                (when (spacemacs-buffer//insert-todo-list "ToDo:" (spacemacs-buffer//todo-list))
+                  (spacemacs//insert--shortcut "d" "ToDo:")
+                  (insert list-separator)))
+               ((eq el 'agenda)
+                (when (spacemacs-buffer//insert-todo-list "Agenda:" (spacemacs-buffer//agenda-list))
+                  (spacemacs//insert--shortcut "c" "Agenda:")
                   (insert list-separator)))
                ((eq el 'bookmarks)
                 (when (configuration-layer/layer-usedp 'spacemacs-helm) (helm-mode))
