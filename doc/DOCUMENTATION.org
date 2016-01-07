@@ -2732,6 +2732,9 @@ with ~SPC : spacemacs/recompile-elpa~.
 | The Expert in Latin Language ([[https://github.com/syl20bnr/spacemacs/pull/4043][PR]])               | [[https://github.com/vijaykiran][vijaykiran]]   |
 | The Tiler ([[https://github.com/syl20bnr/spacemacs/pull/4068][eyebrowse integration]])               | [[https://github.com/bmag][bmag]]         |
 | The Geometer ([[https://github.com/TheBB/spaceline][spaceline]])                        | [[https://github.com/TheBB][TheBB]]        |
+| The Poet [1]                                    | [[https://github.com/ashnur][ashnur]]       |
+
+[1] «[[https://gitter.im/syl20bnr/spacemacs?at=568e627a0cdaaa62045a7df6][I feel that spacemacs is an aircraft carrier and I am playing table tennis on the deck as a freerider]]»
 
 * Thank you
 [[Using configuration layers][Jokes aside]], thank you Richard for this great piece of software.
