@@ -9,27 +9,28 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(setq ansible-packages '(ansible
-                         ansible-doc))
+(setq ansible-packages
+      '(ansible
+        ansible-doc
+        company
+        yaml-mode))
 
 (defun ansible/init-ansible ()
-  (use-package ansible
-    :defer t
-    :init (progn
-            (with-eval-after-load 'yaml-mode
-              (add-hook 'yaml-mode-hook 'ansible/ansible-maybe-enable))
-
-            ;; ansible-mode requires ac-user-dictionary-files. If the
-            ;; config is using company-mode this variable will not be
-            ;; set, so we set it to a dummy value.
-            ;;
-            ;; Tracking here:
-            ;; https://github.com/k1LoW/emacs-ansible/issues/2
-            (when (member 'company-mode dotspacemacs-configuration-layers)
-              (setq ac-user-dictionary-files '())))))
+  (use-package ansible :defer t))
 
 (defun ansible/init-ansible-doc ()
-  (use-package ansible-doc
-    :defer t
-    :init (with-eval-after-load 'yaml-mode
-            (add-hook 'yaml-mode-hook 'ansible/ansible-doc-maybe-enable))))
+  (use-package ansible-doc :defer t))
+
+(defun ansible/post-init-company ()
+  ;; ansible-mode requires ac-user-dictionary-files. If the
+  ;; config is using company-mode this variable will not be
+  ;; set, so we set it to a dummy value.
+  ;;
+  ;; Tracking here:
+  ;; https://github.com/k1LoW/emacs-ansible/issues/2
+  (defvar ac-user-dictionary-files nil))
+
+(defun ansible/post-init-yaml-mode ()
+  (spacemacs/set-leader-keys-for-major-mode 'yaml-mode "ha" 'ansible-doc)
+  (spacemacs/add-to-hook 'yaml-mode-hook '(ansible/ansible-maybe-enable
+                                           ansible/ansible-doc-maybe-enable)))
