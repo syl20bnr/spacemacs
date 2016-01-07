@@ -12,9 +12,6 @@
 
 (require 'profiler)
 
-;; Keep debug-on-error on for stuff that is lazily loaded
-(add-hook 'after-init-hook (lambda () (setq debug-on-error t)))
-
 (defvar spacemacs-debug-timer-threshold 0.15
   "Generate message if file takes longer than this number of
 seconds to load")
@@ -139,6 +136,9 @@ seconds to load")
     ;;             (spacemacs||make-function-profiler configuration-layer/sync))
     (advice-add 'configuration-layer//configure-package
                 :around
-                (spacemacs||make-function-timer configuration-layer//configure-package))))
+                (spacemacs||make-function-timer configuration-layer//configure-package)))
+
+  ;; Keep debug-on-error on for stuff that is lazily loaded
+  (add-hook 'after-init-hook (lambda () (setq debug-on-error t))))
 
 (provide 'core-debug)
