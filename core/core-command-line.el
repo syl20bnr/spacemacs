@@ -44,13 +44,4 @@ arguments is that we want to process these arguments as soon as possible."
 
 (setq command-line-args (spacemacs//parse-command-line command-line-args))
 
-(defun spacemacs//hide-home-buffer ()
-  "Hides the Spacemacs home buffer at startup to not obfuscate the opened
-startup file.
-Note that any non Emacsy command line parameter will have the effect to
-hide the home buffer."
-  (setq initial-buffer-choice nil))
-
-(push 'spacemacs//hide-home-buffer command-line-functions)
-
 (provide 'core-command-line)
