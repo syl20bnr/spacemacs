@@ -22,7 +22,6 @@
                      "Spacemacs requires Emacs version %d or above.")
              emacs-version spacemacs-emacs-min-version)
   (load-file (concat user-emacs-directory "core/core-load-paths.el"))
-  (when init-file-debug (require 'core-debug))
   (require 'core-spacemacs)
   (spacemacs/init)
   (spacemacs/maybe-install-dotfile)

@@ -13,6 +13,8 @@
 (defconst emacs-start-time (current-time))
 
 (require 'subr-x nil 'noerror)
+(require 'core-debug)
+(require 'core-command-line)
 (require 'core-dotspacemacs)
 (require 'core-emacs-backports)
 (require 'core-release-management)
@@ -49,6 +51,7 @@
 
 (defun spacemacs/init ()
   "Perform startup initialization."
+  (when spacemacs-debugp (spacemacs/init-debug))
   ;; silence ad-handle-definition about advised functions getting redefined
   (setq ad-redefinition-action 'accept)
   ;; this is for a smoother UX at startup (i.e. less graphical glitches)
