@@ -38,6 +38,8 @@ arguments is that we want to process these arguments as soon as possible."
              (setq spacemacs-debug-timer-threshold next-arg-digit
                    i (1+ 1)))
            (setq spacemacs-debugp t))
+          ("--insecure"
+           (setq dotspacemacs-elpa-https nil))
           (_ (push arg new-args))))
       (setq i (1+ i)))
     (nreverse new-args)))
