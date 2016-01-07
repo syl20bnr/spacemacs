@@ -40,6 +40,9 @@ version the release note it displayed")
     map)
   "Keymap for spacemacs buffer mode.")
 
+(with-eval-after-load 'evil
+  (evil-make-overriding-map spacemacs-buffer-mode-map 'motion))
+
 (define-derived-mode spacemacs-buffer-mode special-mode "Spacemacs buffer"
   "Spacemacs major mode for startup screen.
 
