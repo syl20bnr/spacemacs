@@ -94,7 +94,8 @@
     (spacemacs|do-after-display-system-init
      (kill-buffer (get-buffer spacemacs-buffer-name))
      (spacemacs-buffer/goto-buffer)))
-  (setq initial-buffer-choice (lambda () (get-buffer spacemacs-buffer-name)))
+  (setq initial-buffer-choice nil)
+  (setq inhibit-startup-screen t)
   ;; mandatory dependencies
   ;; dash is required to prevent a package.el bug with f on 24.3.1
   ;; (spacemacs/load-or-install-protected-package 'dash t)
