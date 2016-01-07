@@ -807,13 +807,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
         "po" 'projectile-multi-occur
         "pR" 'projectile-replace
         "pT" 'projectile-find-test-file
-        "py" 'projectile-find-tag)
-      (when (configuration-layer/package-usedp 'persp-mode)
-        (if (configuration-layer/layer-usedp 'spacemacs-helm)
-            (spacemacs/set-leader-keys
-              "pl" 'spacemacs/helm-persp-switch-project)
-          (spacemacs/set-leader-keys
-            "pl" 'spacemacs/ivy-persp-switch-project))))
+        "py" 'projectile-find-tag))
     :config
     (progn
       (projectile-global-mode)
