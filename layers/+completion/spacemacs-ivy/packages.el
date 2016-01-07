@@ -143,6 +143,15 @@ the symbol under the point in the current project with git grep."
                    (thing-at-point 'symbol t))))
       (counsel-git-grep nil input)))
 
+  (defun spacemacs//ivy-command-not-implemented-yet (key)
+    (lexical-let ((-key key))
+      (spacemacs/set-leader-keys
+        -key (lambda ()
+              (interactive)
+              (message "The command usually bound to %s %s has \
+not been implemented for the spacemacs-ivy layer yet."
+                       dotspacemacs-leader-key -key)))))
+
   (use-package counsel
     :config
     (spacemacs/set-leader-keys
@@ -153,10 +162,6 @@ the symbol under the point in the current project with git grep."
       ;; help
       "hdf" 'counsel-describe-function
       "hdv" 'counsel-describe-variable
-      "hdk" 'describe-key
-      "hdp" 'describe-package
-      "hdc" 'describe-command
-      "hdb" 'describe-bindings
       ;; insert
       "iu"  'counsel-unicode-char
       ;; projects
@@ -187,7 +192,9 @@ the symbol under the point in the current project with git grep."
       "skf" 'spacemacs/search-ack
       "skF" 'spacemacs/search-ack-region-or-symbol
       "skp" 'spacemacs/search-project-ack
-      "skP" 'spacemacs/search-project-ack-region-or-symbol)))
+      "skP" 'spacemacs/search-project-ack-region-or-symbol)
+    ;; Commands to port
+    (spacemacs//ivy-command-not-implemented-yet "?")))
 
 (defun spacemacs-ivy/init-flx ())
 
