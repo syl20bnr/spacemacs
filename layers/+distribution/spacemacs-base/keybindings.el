@@ -105,6 +105,17 @@
   "fvf" 'add-file-local-variable
   "fvp" 'add-file-local-variable-prop-line
   "fy" 'spacemacs/show-and-copy-buffer-filename)
+;; help -----------------------------------------------------------------------
+(spacemacs/set-leader-keys
+  "hdb" 'describe-bindings
+  "hdc" 'describe-char
+  "hdf" 'describe-function
+  "hdk" 'describe-key
+  "hdm" 'describe-mode
+  "hdp" 'describe-package
+  "hds" 'spacemacs/describe-system-info
+  "hdt" 'describe-theme
+  "hdv" 'describe-variable)
 ;; insert stuff ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "iJ" 'spacemacs/insert-line-below-no-indent
