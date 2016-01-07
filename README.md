@@ -44,6 +44,7 @@
     - [Manual update (on master branch)](#manual-update-on-master-branch)
     - [On develop branch](#on-develop-branch)
     - [Revert to a specific version](#revert-to-a-specific-version)
+- [Quotes about Spacemacs](#quotes-about-spacemacs)
 - [Contributions](#contributions)
 - [Communities](#communities)
 - [License](#license)
@@ -274,6 +275,12 @@ branch, for instance to revert to the last `0.103`:
 **After you update, either manually, or automatically, you are advised to update
   your packages by clicking the `[Update Packages]` button on the Spacemacs Home
   Buffer.**
+
+# Quotes about Spacemacs
+
+[Quote](https://gitter.im/syl20bnr/spacemacs?at=568e627a0cdaaa62045a7df6) by [ashnur](https://github.com/ashnur):
+
+    «I feel that spacemacs is an aircraft carrier and I am playing table tennis on the deck as a freerider.»
 
 # Contributions
 
