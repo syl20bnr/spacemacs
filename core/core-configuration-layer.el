@@ -154,7 +154,6 @@ cache folder.")
 (defun configuration-layer/initialize ()
   "Initialize `package.el'."
   (setq configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout)
-  (configuration-layer//parse-command-line-arguments)
   (unless package--initialized
     (setq package-archives (configuration-layer//resolve-package-archives
                             configuration-layer--elpa-archives))
@@ -168,12 +167,6 @@ cache folder.")
     (unless (or (package-installed-p 'python) (version< emacs-version "24.3"))
       (add-to-list 'package-archives
                    '("marmalade" . "https://marmalade-repo.org/packages/")))))
-
-(defun configuration-layer//parse-command-line-arguments ()
-  "Handle command line arguments."
-  (when (member "--insecure" command-line-args)
-    (setq command-line-args (delete "--insecure" command-line-args))
-    (setq dotspacemacs-elpa-https nil)))
 
 (defun configuration-layer//resolve-package-archives (archives)
   "Resolve HTTP handlers for each archive in ARCHIVES and return a list
