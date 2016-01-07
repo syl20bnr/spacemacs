@@ -276,7 +276,7 @@
         "Call `yas-expand' and switch to `insert state'"
         (interactive)
         (call-interactively 'aya-expand)
-        (evil-insert-state))
+        (unless holy-mode (evil-insert-state)))
       (spacemacs/declare-prefix "iS" "auto-yasnippet")
       (spacemacs/set-leader-keys
         "iSc" 'aya-create
