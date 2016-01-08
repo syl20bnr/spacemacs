@@ -1729,6 +1729,7 @@ Open junk file using helm, with `prefix-arg' search in junk files"
       ;; add hooks here only for emacs built-in packages
       (spacemacs/add-to-hooks 'spacemacs//unset-scroll-margin
                               '(messages-buffer-mode-hook
+                                eshell-mode-hook
                                 comint-mode-hook
                                 term-mode-hook))))
 
