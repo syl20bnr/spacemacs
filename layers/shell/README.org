@@ -120,6 +120,7 @@ Some advanced configuration is setup for =eshell= in this layer:
     installed)
   - =d= for =dired=
   - =e= to find a file via a new buffer
+  - =z= for quickly jumping to a previously visited directory
 - optional configuration for =em-smart= (see =Install= section for more info)
 - support for visual commands via =em-term=
 - working directory sensitive prompt via [[https://github.com/hiddenlotus/eshell-prompt-extras][eshell-prompt-extras]]
