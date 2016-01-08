@@ -59,7 +59,7 @@
   (let ((current-prefix-arg t))
     (call-interactively
      (cl-case version-control-diff-tool
-       (diff-hl     'diff-hl-margin-minor-mode)
+       (diff-hl     'diff-hl-mode)
        (git-gutter  'git-gutter-mode)
        (git-gutter+ 'git-gutter+-mode)))))
 
@@ -68,7 +68,7 @@
   (let ((current-prefix-arg nil))
     (call-interactively
      (cl-case version-control-diff-tool
-       (diff-hl     'diff-hl-margin-minor-mode)
+       (diff-hl     'diff-hl-mode)
        (git-gutter  'git-gutter-mode)
        (git-gutter+ 'git-gutter+-mode)))))
 
@@ -77,7 +77,7 @@
   (let ((current-prefix-arg t))
     (call-interactively
      (cl-case version-control-diff-tool
-       (diff-hl     'diff-hl-margin-mode)
+       (diff-hl     'global-diff-hl-mode)
        (git-gutter  'global-git-gutter-mode)
        (git-gutter+ 'global-git-gutter+-mode)))))
 
@@ -86,7 +86,7 @@
   (let ((current-prefix-arg nil))
     (call-interactively
      (cl-case version-control-diff-tool
-       (diff-hl     'diff-hl-margin-mode)
+       (diff-hl     'global-diff-hl-mode)
        (git-gutter  'global-git-gutter-mode)
        (git-gutter+ 'global-git-gutter+-mode)))))
 
@@ -98,14 +98,14 @@
 (defun version-control/margin-p ()
   (interactive)
   (cl-case version-control-diff-tool
-    (diff-hl     diff-hl-margin-minor-mode)
+    (diff-hl     diff-hl-mode)
     (git-gutter  git-gutter-mode)
     (git-gutter+ git-gutter+-mode)))
 
 (defun version-control/margin-global-p ()
   (interactive)
   (cl-case version-control-diff-tool
-    (diff-hl     diff-hl-margin-mode)
+    (diff-hl     global-diff-hl-mode)
     (git-gutter  global-git-gutter-mode)
     (git-gutter+ global-git-gutter+-mode)))
 
