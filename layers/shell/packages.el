@@ -156,7 +156,11 @@ is achieved by adding the relevant text properties."
         (kbd "C-j") 'eshell-next-matching-input-from-input))))
 
 (defun shell/init-eshell-z ()
-  (use-package eshell-z))
+  (use-package eshell-z
+    :defer t
+    :init
+    (with-eval-after-load 'eshell
+      (require 'eshell-z))))
 
 (defun shell/init-esh-help ()
   (use-package esh-help
