@@ -224,15 +224,6 @@ Will work on both org-mode and any mode that accepts plain html."
         "xu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
         "xv" (spacemacs|org-emphasize spacemacs/org-verbose ?=))
 
-      (with-eval-after-load 'org-agenda
-        (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
-        (define-key org-agenda-mode-map "k" 'org-agenda-previous-line)
-        ;; Since we override SPC, let's make RET do that functionality
-        (define-key org-agenda-mode-map
-          (kbd "RET") 'org-agenda-show-and-scroll-up)
-        (define-key org-agenda-mode-map
-          (kbd "SPC") spacemacs-default-map))
-
       ;; Add global evil-leader mappings. Used to access org-agenda
       ;; functionalities – and a few others commands – from any other mode.
       (spacemacs/declare-prefix "ao" "org")
@@ -279,13 +270,13 @@ Will work on both org-mode and any mode that accepts plain html."
 
       ;; Evilify the calendar tool on C-c .
       (unless (eq 'emacs dotspacemacs-editing-style)
-        (define-key org-read-date-minibuffer-local-map (kbd "M-h")
+        (define-key org-read-date-minibuffer-local-map (kbd "H")
           (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-day 1))))
-        (define-key org-read-date-minibuffer-local-map (kbd "M-l")
+        (define-key org-read-date-minibuffer-local-map (kbd "L")
           (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-day 1))))
-        (define-key org-read-date-minibuffer-local-map (kbd "M-k")
+        (define-key org-read-date-minibuffer-local-map (kbd "K")
           (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-week 1))))
-        (define-key org-read-date-minibuffer-local-map (kbd "M-j")
+        (define-key org-read-date-minibuffer-local-map (kbd "J")
           (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-week 1))))
         (define-key org-read-date-minibuffer-local-map (kbd "M-H")
           (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-month 1))))
@@ -305,14 +296,67 @@ Will work on both org-mode and any mode that accepts plain html."
     (evilified-state-evilify-map org-agenda-mode-map
       :mode org-agenda-mode
       :bindings
-      "j" 'org-agenda-next-line
-      "k" 'org-agenda-previous-line
-      (kbd "M-j") 'org-agenda-next-item
-      (kbd "M-k") 'org-agenda-previous-item
-      (kbd "M-h") 'org-agenda-earlier
-      (kbd "M-l") 'org-agenda-later
-      (kbd "gd") 'org-agenda-toggle-time-grid
-      (kbd "gr") 'org-agenda-redo)))
+       "j" 'org-agenda-next-line
+       "k" 'org-agenda-previous-line
+       ;; Deadline
+       (kbd (concat dotspacemacs-major-mode-leader-key " d")) 'org-agenda-deadline
+       (kbd (concat dotspacemacs-leader-key " m d")) 'org-agenda-deadline
+       (kbd (concat dotspacemacs-major-mode-emacs-leader-key " d")) 'org-agenda-deadline
+       (kbd (concat dotspacemacs-emacs-leader-key " m d")) 'org-agenda-deadline
+       ;; Schedule
+       (kbd (concat dotspacemacs-major-mode-leader-key " s")) 'org-agenda-schedule
+       (kbd (concat dotspacemacs-leader-key " m s")) 'org-agenda-schedule
+       (kbd (concat dotspacemacs-major-mode-emacs-leader-key " s")) 'org-agenda-schedule
+       (kbd (concat dotspacemacs-emacs-leader-key " m s")) 'org-agenda-schedule
+       ;; Set effort
+       (kbd (concat dotspacemacs-major-mode-leader-key " f")) 'org-agenda-set-effort
+       (kbd (concat dotspacemacs-leader-key " m f")) 'org-agenda-set-effort
+       (kbd (concat dotspacemacs-major-mode-emacs-leader-key " f")) 'org-agenda-set-effort
+       (kbd (concat dotspacemacs-emacs-leader-key " m f")) 'org-agenda-set-effort
+       ;; Set property
+       (kbd (concat dotspacemacs-major-mode-leader-key " P")) 'org-agenda-set-property
+       (kbd (concat dotspacemacs-leader-key " m P")) 'org-agenda-set-property
+       (kbd (concat dotspacemacs-major-mode-emacs-leader-key " P")) 'org-agenda-set-property
+       (kbd (concat dotspacemacs-emacs-leader-key " m P")) 'org-agenda-set-property
+       ;; Set tags
+       (kbd (concat dotspacemacs-major-mode-leader-key " :")) 'org-agenda-set-tags
+       (kbd (concat dotspacemacs-leader-key " m :")) 'org-agenda-set-tags
+       (kbd (concat dotspacemacs-major-mode-emacs-leader-key " :")) 'org-agenda-set-tags
+       (kbd (concat dotspacemacs-emacs-leader-key " m :")) 'org-agenda-set-tags
+       ;; Agenda
+       (kbd (concat dotspacemacs-major-mode-leader-key " a")) 'org-agenda
+       (kbd (concat dotspacemacs-leader-key " m a")) 'org-agenda
+       (kbd (concat dotspacemacs-major-mode-emacs-leader-key " a")) 'org-agenda
+       (kbd (concat dotspacemacs-emacs-leader-key " m a")) 'org-agenda
+       ;; Clock in
+       (kbd (concat dotspacemacs-major-mode-leader-key " I")) 'org-agenda-clock-in
+       (kbd (concat dotspacemacs-leader-key " m I")) 'org-agenda-clock-in
+       (kbd (concat dotspacemacs-major-mode-emacs-leader-key " I")) 'org-agenda-clock-in
+       (kbd (concat dotspacemacs-emacs-leader-key " m I")) 'org-agenda-clock-in
+       ;; Clock out
+       (kbd (concat dotspacemacs-major-mode-leader-key " O")) 'org-agenda-clock-out
+       (kbd (concat dotspacemacs-leader-key " m O")) 'org-agenda-clock-out
+       (kbd (concat dotspacemacs-major-mode-emacs-leader-key " O")) 'org-agenda-clock-out
+       (kbd (concat dotspacemacs-emacs-leader-key " m O")) 'org-agenda-clock-out
+       ;; Clock cancel
+       (kbd (concat dotspacemacs-major-mode-leader-key " q")) 'org-agenda-clock-cancel
+       (kbd (concat dotspacemacs-leader-key " m q")) 'org-agenda-clock-cancel
+       (kbd (concat dotspacemacs-major-mode-emacs-leader-key " q")) 'org-agenda-clock-cancel
+       (kbd (concat dotspacemacs-emacs-leader-key " m q")) 'org-agenda-clock-cancel
+       ;; Refile
+       (kbd (concat dotspacemacs-major-mode-leader-key " q")) 'org-agenda-refile
+       (kbd (concat dotspacemacs-leader-key " m q")) 'org-agenda-refile
+       (kbd (concat dotspacemacs-major-mode-emacs-leader-key " q")) 'org-agenda-refile
+       (kbd (concat dotspacemacs-emacs-leader-key " m q")) 'org-agenda-refile
+       ;; Common key bindings
+       (kbd "M-j") 'org-agenda-next-item
+       (kbd "M-k") 'org-agenda-previous-item
+       (kbd "M-h") 'org-agenda-earlier
+       (kbd "M-l") 'org-agenda-later
+       (kbd "gd") 'org-agenda-toggle-time-grid
+       (kbd "gr") 'org-agenda-redo
+       (kbd "RET") 'org-agenda-show-and-scroll-up
+       (kbd "M-RET") 'org-agenda-goto)))
 
 (defun org/init-org-bullets ()
   (use-package org-bullets

@@ -20,4 +20,4 @@ file.
 
 | Key Binding | Description                              |
 |-------------+------------------------------------------|
-| ~SPC m a ?~ | looks up documentation using [[https://github.com/lunaryorn/ansible-doc.el][ansible-doc]] |
+| ~SPC m h a~ | looks up documentation using [[https://github.com/lunaryorn/ansible-doc.el][ansible-doc]] |
