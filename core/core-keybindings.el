@@ -139,7 +139,8 @@ minor-mode, the third argument should be non nil."
               :prefix-cmd ,prefix
               ,(if minor :minor-modes :major-modes) (,mode)
               :keys ,emacs-leaders
-              :evil-keys ,leaders))
+              :evil-keys ,leaders
+              :evil-states (normal motion visual evilified)))
           (boundp prefix)))))
 
 (defun spacemacs/set-leader-keys-for-major-mode (mode key def &rest bindings)
