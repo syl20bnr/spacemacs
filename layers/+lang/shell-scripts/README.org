@@ -25,4 +25,7 @@ file.
 
 * Key Bindings
 
-None for now.
+| Key Binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~SPC m \~   | insert end-of-line backslashes to the lines in the region |
+
