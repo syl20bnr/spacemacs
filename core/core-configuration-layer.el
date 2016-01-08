@@ -492,7 +492,7 @@ If LAYER_DIR is nil, the private directory is used."
       (copy-file src dest)
       (find-file dest)
 
-      (substitute "%LAYERNAME%" name)
+      (substitute "%LAYER_NAME%" name)
       (substitute "%USER_FULL_NAME%" (user-full-name))
       (substitute "%USER_MAIL_ADDRESS%" user-mail-address)
 

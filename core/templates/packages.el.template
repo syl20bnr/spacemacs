@@ -1,4 +1,4 @@
-;;; packages.el --- %LAYERNAME% layer packages file for Spacemacs.  -*- lexical-binding: t; -*-
+;;; packages.el --- %LAYER_NAME% layer packages file for Spacemacs.  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2016 Sylvain Benner & Contributors
@@ -19,20 +19,20 @@
 ;;
 ;;
 ;; Briefly, each package to be installed or configured by this layer should be
-;; added to `%LAYERNAME%-packages'. Then, for each package PACKAGE:
+;; added to `%LAYER_NAME%-packages'. Then, for each package PACKAGE:
 ;;
 ;; - If PACKAGE is not referenced by any other Spacemacs layer, define a
-;;   function `%LAYERNAME%/init-PACKAGE' to load and initialize the package.
+;;   function `%LAYER_NAME%/init-PACKAGE' to load and initialize the package.
 
 ;; - Otherwise, PACKAGE is already referenced by another spacemacs layer, so
-;;   define the functions `%LAYERNAME%/pre-init-PACKAGE' and/or
-;;   `%LAYERNAME%/post-init-PACKAGE' to customize the package as it is loaded.
+;;   define the functions `%LAYER_NAME%/pre-init-PACKAGE' and/or
+;;   `%LAYER_NAME%/post-init-PACKAGE' to customize the package as it is loaded.
 
 ;;; Code:
 
-(defconst %LAYERNAME%-packages
+(defconst %LAYER_NAME%-packages
   '()
-  "The list of Lisp packages required by the %LAYERNAME% layer.
+  "The list of Lisp packages required by the %LAYER_NAME% layer.
 
 Each entry is either:
 
