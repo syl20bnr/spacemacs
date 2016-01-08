@@ -1,10 +1,10 @@
-#+TITLE: %LAYERNAME% layer
+#+TITLE: %LAYER_NAME% layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
 #+CAPTION: logo
 
 # The maximum height of the logo should be 200 pixels.
-[[img/%LAYERNAME%.png]]
+[[img/%LAYER_NAME%.png]]
 
 * Table of Contents                                        :TOC_4_org:noexport:
  - [[Decsription][Description]]
@@ -19,7 +19,7 @@ This layer does wonderful things:
 To use this contribution add it to your =~/.spacemacs=
 
 #+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(%LAYERNAME%))
+  (setq-default dotspacemacs-configuration-layers '(%LAYER_NAME%))
 #+end_src
 
 * Key bindings
