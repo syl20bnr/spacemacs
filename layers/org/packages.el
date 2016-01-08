@@ -224,15 +224,6 @@ Will work on both org-mode and any mode that accepts plain html."
         "xu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
         "xv" (spacemacs|org-emphasize spacemacs/org-verbose ?=))
 
-      (with-eval-after-load 'org-agenda
-        (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
-        (define-key org-agenda-mode-map "k" 'org-agenda-previous-line)
-        ;; Since we override SPC, let's make RET do that functionality
-        (define-key org-agenda-mode-map
-          (kbd "RET") 'org-agenda-show-and-scroll-up)
-        (define-key org-agenda-mode-map
-          (kbd "SPC") spacemacs-default-map))
-
       ;; Add global evil-leader mappings. Used to access org-agenda
       ;; functionalities – and a few others commands – from any other mode.
       (spacemacs/declare-prefix "ao" "org")
