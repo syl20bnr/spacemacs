@@ -134,6 +134,9 @@ values."
    ;; (Not implemented) dotspacemacs-distinguish-gui-ret nil
    ;; If non nil `Y' is remapped to `y$'. (default t)
    dotspacemacs-remap-Y-to-y$ t
+   ;; If non nil, `:substitute' changes all matches in a line by default.
+   ;; (default t)
+   dotspacemacs-ex-substitute-global t
    ;; Name of the default layout (default "Default")
    dotspacemacs-default-layout-name "Default"
    ;; If non nil the default layout name is displayed in the mode-line.

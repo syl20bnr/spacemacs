@@ -140,6 +140,10 @@ size to make separators look not too crappy.")
 (defvaralias 'dotspacemacs-remap-Y-to-y$ 'evil-want-Y-yank-to-eol
   "If non nil `Y' is remapped to `y$'.")
 
+(defvaralias 'dotspacemacs-ex-substitute-global 'evil-ex-substitute-global
+  "If non nil, `:substitute' changes all matches in a line by default.
+The `g' flag toggles one or all matches.")
+
 (defvar dotspacemacs-default-layout-name "Default"
   " Name of the default layout.")
 
