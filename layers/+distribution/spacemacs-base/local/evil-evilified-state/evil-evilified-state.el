@@ -34,6 +34,7 @@
 ;;; Code:
 
 (require 'evil)
+(require 'bind-map)
 
 (defvar evilified-state--modes nil
   "List of all evilified modes.")
@@ -54,6 +55,13 @@
   :enable (emacs)
   :message "-- EVILIFIED BUFFER --"
   :cursor box)
+
+(bind-map spacemacs-default-map
+  :prefix-cmd spacemacs-cmds
+  :evil-keys (dotspacemacs-leader-key)
+  :evil-states (evilified)
+  :override-minor-modes t
+  :override-mode-name spacemacs-leader-override-mode)
 
 (evil-define-command evil-force-evilified-state ()
   "Switch to evilified state without recording current command."
