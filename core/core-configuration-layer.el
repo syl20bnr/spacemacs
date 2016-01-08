@@ -288,9 +288,9 @@ layer directory."
                        "this layer already exists.") name))
      (t
       (make-directory layer-dir t)
-      (configuration-layer//copy-template name "extensions.el" layer-dir)
       (configuration-layer//copy-template name "packages.el" layer-dir)
-      (configuration-layer//copy-template name "README.org" layer-dir)
+      (when (y-or-n-p "Create readme?")
+        (configuration-layer//copy-template name "README.org" layer-dir))
       (message "Configuration layer \"%s\" successfully created." name)))))
 
 (defun configuration-layer/make-layer (layer)
@@ -479,20 +479,28 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
 (defun configuration-layer//copy-template (name template &optional layer-dir)
   "Copy and replace special values of TEMPLATE to layer string NAME.
 If LAYER_DIR is nil, the private directory is used."
-  (let ((src (concat configuration-layer-template-directory
-                     (format "%s.template" template)))
-        (dest (if layer-dir
-                  (concat layer-dir "/" (format "%s" template))
-                (concat (configuration-layer//get-private-layer-dir name)
-                        (format "%s" template)))))
-    (copy-file src dest)
-    (find-file dest)
-    (save-excursion
-      (goto-char (point-min))
-      (let ((case-fold-search nil))
-        (while (re-search-forward "%LAYERNAME%" nil t)
-          (replace-match name t))))
-    (save-buffer)))
+  (cl-flet ((substitute (old new) (let ((case-fold-search nil))
+                                    (save-excursion
+                                      (goto-char (point-min))
+                                      (while (search-forward old nil t)
+                                        (replace-match new t))))))
+    (let ((src (concat configuration-layer-template-directory
+                       (format "%s.template" template)))
+          (dest (if layer-dir
+                    (concat layer-dir "/" (format "%s" template))
+                  (concat (configuration-layer//get-private-layer-dir name)
+                          (format "%s" template)))))
+      (copy-file src dest)
+      (find-file dest)
+      (substitute "%LAYER_NAME%" name)
+      (cond
+       (user-full-name
+        (substitute "%USER_FULL_NAME%" user-full-name)
+        (substitute "%USER_MAIL_ADDRESS%" user-mail-address))
+       (t
+        (substitute "%USER_FULL_NAME%" "Sylvain Benner & Contributors")
+        (substitute "%USER_MAIL_ADDRESS%" "sylvain.benner@gmail.com")))
+      (save-buffer))))
 
 (defun configuration-layer//directory-type (path)
   "Return the type of directory pointed by PATH.
