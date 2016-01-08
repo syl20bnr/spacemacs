@@ -299,7 +299,19 @@ Will work on both org-mode and any mode that accepts plain html."
   (use-package org-agenda
     :defer t
     :init
-    (setq org-agenda-restore-windows-after-quit t)
+    (progn
+      (setq org-agenda-restore-windows-after-quit t)
+      (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
+	"d" 'org-agenda-deadline
+	"s" 'org-agenda-schedule
+	"f" 'org-agenda-set-effort
+	"P" 'org-agenda-set-property
+	":" 'org-agenda-set-tags
+	"a" 'org-agenda
+	"I" 'org-agenda-clock-in
+	"O" 'org-agenda-clock-out
+	"q" 'org-agenda-clock-cancel
+	"q" 'org-agenda-refile))
     :config
     (evilified-state-evilify-map org-agenda-mode-map
       :mode org-agenda-mode
@@ -311,7 +323,9 @@ Will work on both org-mode and any mode that accepts plain html."
       (kbd "M-h") 'org-agenda-earlier
       (kbd "M-l") 'org-agenda-later
       (kbd "gd") 'org-agenda-toggle-time-grid
-      (kbd "gr") 'org-agenda-redo)))
+      (kbd "gr") 'org-agenda-redo
+      (kbd "M-RET") 'org-agenda-show-and-scroll-up
+      (kbd "RET") 'org-agenda-goto)))
 
 (defun org/init-org-bullets ()
   (use-package org-bullets
