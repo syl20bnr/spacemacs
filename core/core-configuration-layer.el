@@ -493,8 +493,14 @@ If LAYER_DIR is nil, the private directory is used."
       (find-file dest)
 
       (substitute "%LAYER_NAME%" name)
-      (substitute "%USER_FULL_NAME%" (user-full-name))
-      (substitute "%USER_MAIL_ADDRESS%" user-mail-address)
+
+      (cond
+       (user-full-name
+        (substitute "%USER_FULL_NAME%" user-full-name)
+        (substitute "%USER_MAIL_ADDRESS%" user-mail-address))
+       (t
+        (substitute "%USER_FULL_NAME%" "Sylvain Benner & Contributors")
+        (substitute "%USER_MAIL_ADDRESS%" "sylvain.benner@gmail.com")))
 
       (save-buffer))))
 
