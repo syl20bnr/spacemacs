@@ -23,6 +23,9 @@
     :defer t
     :init
     (progn
+      (spacemacs/set-leader-keys-for-major-mode 'sh-mode
+        "\\" 'sh-backslash-region)
+
       ;; Use sh-mode when opening `.zsh' files, and when opening Prezto runcoms.
       (dolist (pattern '("\\.zsh\\'"
                          "zlogin\\'"
