@@ -23,8 +23,8 @@ the layer variable =mu4e-installation-path=, for example:
                         mu4e-installation-path "/usr/share/emacs/site-lisp")))
 #+end_src
 
-Then add this layer to your =~/.spacemacs=. You will need to add =Gnus= to the
-existing =mu4e= list in this file.
+Then add this layer to your =~/.spacemacs=. You will need to add =mu4e= to the
+existing =dotspacemacs-configuration-layers= list in this file.
 
 * Commands
 
