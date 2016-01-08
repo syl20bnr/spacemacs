@@ -24,7 +24,7 @@
 ;; - If PACKAGE is not referenced by any other Spacemacs layer, define a
 ;;   function `%LAYER_NAME%/init-PACKAGE' to load and initialize the package.
 
-;; - Otherwise, PACKAGE is already referenced by another spacemacs layer, so
+;; - Otherwise, PACKAGE is already referenced by another Spacemacs layer, so
 ;;   define the functions `%LAYER_NAME%/pre-init-PACKAGE' and/or
 ;;   `%LAYER_NAME%/post-init-PACKAGE' to customize the package as it is loaded.
 
@@ -53,7 +53,7 @@ Each entry is either:
       - The symbol `elpa' (default) means PACKAGE will be
         installed using the Emacs package manager.
 
-      - The symbol `local' directs spacemacs to load the file at
+      - The symbol `local' directs Spacemacs to load the file at
         `./local/PACKAGE/PACKAGE.el'
 
       - A list beginning with the symbol `recipe' is a melpa
