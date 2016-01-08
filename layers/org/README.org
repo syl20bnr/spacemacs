@@ -21,6 +21,7 @@
      - [[Links][Links]]
      - [[Emphasis][Emphasis]]
      - [[Tagging][Tagging]]
+     - [[Navigating in calendar][Navigating in calendar]]
    - [[Org agenda][Org agenda]]
    - [[Pomodoro][Pomodoro]]
    - [[Presentation][Presentation]]
@@ -253,6 +254,19 @@ You can tweak the bullets displayed in the org buffer in the function
 | Key Binding | Description  |
 |-------------+--------------|
 | ~SPC m :~   | org-set-tags |
+
+*** Navigating in calendar
+
+| Key Binding | Description        |
+|-------------+--------------------|
+| ~M-l~       | One day forward    |
+| ~M-h~       | One day backward   |
+| ~M-j~       | One week forward   |
+| ~M-k~       | One week backward  |
+| ~M-L~       | One month forward  |
+| ~M-H~       | One month backward |
+| ~M-J~       | One year forward   |
+| ~M-K~       | One year backward  |
 
 ** Org agenda
 The evilified org agenda supports, among others, the following bindings:
