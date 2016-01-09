@@ -397,9 +397,11 @@
       (setq avy-all-windows 'all-frames)
       (setq avy-background t)
       (spacemacs/set-leader-keys
-        "SPC" 'avy-goto-word-or-subword-1
-        "y" 'avy-goto-line
-        "xo" 'spacemacs/avy-open-url))
+        "jc" 'evil-avy-goto-char-2
+        "jl" 'evil-avy-goto-line
+        "ju" 'avy-pop-mark
+        "jU" 'spacemacs/avy-goto-url
+        "jw" 'evil-avy-goto-word-or-subword-1))
     :config
     (progn
       (defun spacemacs/avy-goto-url()
@@ -411,9 +413,7 @@
         (interactive)
         (save-excursion
           (spacemacs/avy-goto-url)
-          (browse-url-at-point)))
-      (spacemacs/set-leader-keys "`" 'avy-pop-mark))
-      ))
+          (browse-url-at-point))))))
 
 (defun spacemacs/init-buffer-move ()
   (use-package buffer-move
