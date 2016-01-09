@@ -222,6 +222,7 @@ that directory."
         (setq ivy-use-virtual-buffers t))
       (when (configuration-layer/package-usedp 'projectile)
         (setq projectile-completion-system 'ivy))
+      (spacemacs|hide-lighter ivy-mode)
       (ivy-mode 1)
       (global-set-key (kbd "C-c C-r") 'ivy-resume)
       (global-set-key (kbd "<f6>") 'ivy-resume)
