@@ -7,9 +7,15 @@ This file containes the change log for the next major version of Spacemacs.
 *** IMPORTANT: Breaking changes
 - Key binding ~SPC :~ acting as M-x as been replaced by ~SPC SPC~.
   If you want to revert to the old ~SPC :~ key binding set the new
-  variable =dotspacemacs-emacs-command-key= to "SPC".
+  variable =dotspacemacs-emacs-command-key= to ":".
 - Key bindings ~SPC j h~ and ~SPC j l~ have been moved to ~SPC j 0~ and
   ~SPC j $~ respectively.
+*** Hot new features
+- Support for Ivy, add the =spacemacs-ivy= layer to your dotfile and
+  restart. Helm will be replaced by Ivy.
+*** New Layers
+- spacemacs-ivy in =completion= (thanks to justbur)
+- spacemacs-helm in =completion= (moved from spacemacs-base) (thanks to justbur)
 *** Dotfile changes
 - The variable =dotspacemacs-command-key= has been renamed to
   =dotspacemacs-emacs-command-key= (the old name is still valid though).
@@ -17,8 +23,10 @@ This file containes the change log for the next major version of Spacemacs.
   press after the leader key to execute =M-x=.
 *** Distribution layer changes
 - Command prefix ~SPC j~ is now also for =jumping=, introduced key bindings are:
-  - ~SPC j 0~ to go to the beginning of line (and set a mark at the previous location in the line)
-  - ~SPC j $~ to go to the end of line (and set a mark at the previous location in the line)
+  - ~SPC j 0~ to go to the beginning of line (and set a mark at the previous
+    location in the line)
+  - ~SPC j $~ to go to the end of line (and set a mark at the previous location
+    in the line)
   - ~SPC j b~ to jump to a bookmark
   - ~SPC j c~ to jump to a character in the buffer (works as an evil motion)
   - ~SPC j d~ to jump to a listing of the current directory
@@ -30,7 +38,8 @@ This file containes the change log for the next major version of Spacemacs.
   - ~SPC j l~ to jump to a line with avy (works as an evil motion)
   - ~SPC j u~ to undo a jump (go back to previous location)
   - ~SPC j U~ to jump to a URL in the current buffer
-  - ~SPC j v~ to jump to the definition/declaration of the variable under the point
+  - ~SPC j v~ to jump to the definition/declaration of the variable under the
+    point
   - ~SPC j w~ to jump to a word in the current buffer (works as an evil motion)
   (thanks to justbur)
 *** Layer changes
