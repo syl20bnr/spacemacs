@@ -344,9 +344,9 @@ Removes the automatic guessing of the initial value based on thing at point. "
       (add-hook 'helm-mode-hook 'simpler-helm-bookmark-keybindings)
 
       ;; helm navigation on hjkl
-      (defun spacemacs//helm-hjkl-navigation (&optional arg)
+      (defun spacemacs//hjkl-completion-navigation (&optional arg)
         "Set navigation in helm on `jklh'.
-ARG non nil means that the editing style is `vim'."
+ARG non nil means Vim like movements."
         (cond
          (arg
           ;; better navigation on homerow
@@ -365,7 +365,8 @@ ARG non nil means that the editing style is `vim'."
           (define-key helm-map (kbd "C-k") 'helm-delete-minibuffer-contents)
           (define-key helm-map (kbd "C-h") nil)
           (define-key helm-map (kbd "C-l") 'helm-recenter-top-bottom-other-window))))
-      (spacemacs//hjkl-completion-navigation)
+      (spacemacs//hjkl-completion-navigation
+       (member dotspacemacs-editing-style '(vim hybrid)))
 
       (defun spacemacs/helm-edit ()
         "Switch in edit mode depending on the current helm buffer."
