@@ -90,17 +90,17 @@
        (`on-project-switch
         (add-hook 'projectile-after-switch-project-hook 'pyenv-mode-set-local-version)))
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
-        "vs" 'pyenv-mode-set
-        "vu" 'pyenv-mode-unset))))
+        "vu" 'pyenv-mode-unset
+        "vs" 'pyenv-mode-set))))
 
 (defun python/init-pyvenv ()
   (use-package pyvenv
     :defer t
     :init
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "Vw" 'pyvenv-workon
       "Va" 'pyvenv-activate
-      "Vd" 'pyvenv-deactivate)))
+      "Vd" 'pyvenv-deactivate
+      "Vw" 'pyvenv-workon)))
 
 (defun python/init-pytest ()
   (use-package pytest
