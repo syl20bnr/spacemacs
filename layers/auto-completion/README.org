@@ -6,9 +6,10 @@
  - [[Install][Install]]
  - [[Configuration][Configuration]]
    - [[Key bindings][Key bindings]]
+   - [[Snippets directories][Snippets directories]]
+   - [[Show snippets in auto-completion popup][Show snippets in auto-completion popup]]
    - [[Tooltips][Tooltips]]
    - [[Sort results by usage][Sort results by usage]]
-   - [[Show snippets in auto-completion popup][Show snippets in auto-completion popup]]
    - [[Enable company or auto-complete globally][Enable company or auto-complete globally]]
    - [[Replacing company by auto-complete][Replacing company by auto-complete]]
    - [[Add auto-completion in a layer][Add auto-completion in a layer]]
@@ -57,10 +58,6 @@ layer variables:
    as been entered quickly enough. If its value is =nil= then the feature is
    disabled.
 
-4. =auto-completion-private-snippets-directory= is a path or list of paths to
-   your private snippets directory. If its value is =nil= then the spacemacs
-   default (=~/.emacs.d/private/snippets=) is used.
-
 The default configuration of the layer is:
 
 #+BEGIN_SRC emacs-lisp
@@ -69,12 +66,35 @@ The default configuration of the layer is:
                    auto-completion-return-key-behavior 'complete
                    auto-completion-tab-key-behavior 'cycle
                    auto-completion-complete-with-key-sequence nil
+                   auto-completion-complete-with-key-sequence-delay 0.1
                    auto-completion-private-snippets-directory nil)
                    ))
 #+END_SRC
 
 ~jk~ is a good candidate for =auto-completion-complete-with-key-sequence= if
 you don't use it already.
+
+** Snippets directories
+The following directories are added by default:
+- ~/.emacs.d/elpa/yasnippet-xxxxx/snippets
+- ~/.emacs.d/layers/auto-completion/snippets
+- ~/.emacs.d/private/snippets (conditional to the value of =auto-completion-private-snippets-directory=)
+- ~/.spacemacs.d/snippets (conditional to the existence of =~/.spacemacs.d= directory)
+
+You can provide additional directories by setting the variable
+=auto-completion-private-snippets-directory= which can take a string in case of
+a single path or a list of paths.
+If its value is =nil= then the path =~/.emacs.d/private/snippets= is used.
+
+** Show snippets in auto-completion popup
+By default, snippets are not shown in the auto-completion popup. To show them in
+the popup, set the variable =auto-completion-enable-snippets-in-popup= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((auto-completion :variables
+                                   auto-completion-enable-snippets-in-popup t))
+#+END_SRC
 
 ** Tooltips
 To enable docstring tooltips set =auto-completion-enable-help-tooltip= to =t=
@@ -96,16 +116,6 @@ The variable has no effect when =auto-complete= is used.
 (setq-default dotspacemacs-configuration-layers
   '(auto-completion :variables
                     auto-completion-enable-sort-by-usage t))
-#+END_SRC
-
-** Show snippets in auto-completion popup
-By default, snippets are not shown in the auto-completion popup. To show them in
-the popup, set the variable =auto-completion-enable-snippets-in-popup= to =t=.
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-                '((auto-completion :variables
-                                   auto-completion-enable-snippets-in-popup t))
 #+END_SRC
 
 ** Enable company or auto-complete globally
