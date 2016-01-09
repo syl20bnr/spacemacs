@@ -43,5 +43,5 @@
 
 (defun mu4e/init-mu4e-maildirs-extension ()
   (use-package mu4e-maildirs-extension
-    :if mu4e-use-maildirs
-    :init (with-eval-after-load 'mu4e (mu4e-maildirs-extension))))
+    :defer t
+    :init (with-eval-after-load 'mu4e (mu4e-maildirs-extension-load))))
