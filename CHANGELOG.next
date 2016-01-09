@@ -4,6 +4,34 @@ This file containes the change log for the next major version of Spacemacs.
 
 * Release 0.106.x
 ** 0.106.0 (no date)
+*** IMPORTANT: Breaking changes
+- Key binding ~SPC :~ acting as M-x as been replaced by ~SPC SPC~.
+  If you want to revert to the old ~SPC :~ key binding set the new
+  variable =dotspacemacs-emacs-command-key= to "SPC".
+- Key bindings ~SPC j h~ and ~SPC j l~ have been moved to ~SPC j 0~ and
+  ~SPC j $~ respectively.
+*** Dotfile changes
+- The variable =dotspacemacs-command-key= is now *deprecated*.
+- New variable =dotspacemacs-emacs-command-key= which is the key to
+  press after the leader key to execute =M-x=.
+*** Distribution layer changes
+- Command prefix ~SPC j~ is now also for =jumping=, introduced key bindings are:
+  - ~SPC j 0~ to go to the beginning of line (and set a mark at the previous location in the line)
+  - ~SPC j $~ to go to the end of line (and set a mark at the previous location in the line)
+  - ~SPC j b~ to jump to a bookmark
+  - ~SPC j c~ to jump to a character in the buffer (works as an evil motion)
+  - ~SPC j d~ to jump to a listing of the current directory
+  - ~SPC j D~ to jump to a listing of the current directory (other window)
+  - ~SPC j f~ to jump to the definition of the function under the point
+  - ~SPC j i~ to jump to a definition in buffer (imenu)
+  - ~SPC j I~ to jump to a definition in any buffer (imenu)
+  - ~SPC j k~ to jump to next line and indent it using auto-indent rules
+  - ~SPC j l~ to jump to a line with avy (works as an evil motion)
+  - ~SPC j u~ to undo a jump (go back to previous location)
+  - ~SPC j U~ to jump to a URL in the current buffer
+  - ~SPC j v~ to jump to the definition/declaration of the variable under the point
+  - ~SPC j w~ to jump to a word in the current buffer (works as an evil motion)
+  (thanks to justbur)
 *** Layer changes
 **** Ansible
 - Change key binding ~SPC m a ?~ to ~SPC m h a~
