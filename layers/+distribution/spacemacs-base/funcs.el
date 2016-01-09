@@ -65,11 +65,16 @@
 
 (defun spacemacs/jump-in-buffer ()
   (interactive)
-  (cond
-   ((eq major-mode 'org-mode)
-    (call-interactively 'helm-org-in-buffer-headings))
-   (t
-    (call-interactively 'helm-semantic-or-imenu))))
+  (call-interactively
+   (cond
+    ((and (configuration-layer/layer-usedp 'spacemacs-helm)
+          (eq major-mode 'org-mode))
+     'helm-org-in-buffer-headings)
+    ((configuration-layer/layer-usedp 'spacemacs-helm)
+     'helm-semantic-or-imenu)
+    ((configuration-layer/layer-usedp 'spacemacs-ivy)
+     'counsel-imenu)
+    (t 'imenu))))
 
 (defun spacemacs/split-and-new-line ()
   "Split a quoted string or s-expression and insert a new line with

@@ -165,6 +165,7 @@ not been implemented for the spacemacs-ivy layer yet."
       "hdv" 'counsel-describe-variable
       ;; insert
       "iu"  'counsel-unicode-char
+      ;; jump
       ;; projects
       "pp"  'projectile-switch-project
       ;; jumping
@@ -194,8 +195,9 @@ not been implemented for the spacemacs-ivy layer yet."
       "skF" 'spacemacs/search-ack-region-or-symbol
       "skp" 'spacemacs/search-project-ack
       "skP" 'spacemacs/search-project-ack-region-or-symbol)
-    ;; Commands to port
-    (spacemacs//ivy-command-not-implemented-yet "?")))
+    ;; TODO: Commands to port
+    (spacemacs//ivy-command-not-implemented-yet "?")
+    (spacemacs//ivy-command-not-implemented-yet "jI")))
 
 (defun spacemacs-ivy/init-flx ())
 

@@ -139,7 +139,6 @@
   "jD" 'dired-jump-other-window
   "jf" 'find-function-at-point
   "ji" 'spacemacs/jump-in-buffer
-  "jI" 'helm-imenu-in-all-buffers
   "jv" 'find-variable-at-point)
 
 ;; Compilation ----------------------------------------------------------------
