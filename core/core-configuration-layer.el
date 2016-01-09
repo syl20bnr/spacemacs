@@ -264,8 +264,12 @@ layer directory."
             (candidates . ,(append current-layer-paths
                                    (list other-choice)))
             (action . (lambda (c) c))))
-         (layer-path-sel (helm :sources helm-lp-source
-                               :prompt "Configuration layer path: "))
+         (layer-path-sel (if (configuration-layer/layer-usedp 'spacemacs-ivy)
+                             (ivy-read "Configuration layer path: "
+                                       (append current-layer-paths
+                                               (list other-choice)))
+                           (helm :sources helm-lp-source
+                                 :prompt "Configuration layer path: ")))
          (layer-path (cond
                       ((string-equal layer-path-sel other-choice)
                        (read-directory-name (concat "Other configuration "
@@ -346,7 +350,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
         ;; packages
         (when (file-exists-p packages-file)
           ;; required for lazy-loading of unused layers
-          ;; for instance for helm-spacemacs
+          ;; for instance for helm-spacemacs-help
           (eval `(defvar ,(intern (format "%S-packages" name)) nil))
           (unless (configuration-layer/layer-usedp name)
             (load packages-file))
@@ -390,7 +394,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
         ;; TODO remove extensions in 0.106.0
         (when (file-exists-p extensions-file)
           ;; required for lazy-loading of unused layers
-          ;; for instance for helm-spacemacs
+          ;; for instance for helm-spacemacs-help
           (unless (configuration-layer/layer-usedp name)
             (load extensions-file))
           (dolist (step '(pre post))
