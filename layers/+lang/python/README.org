@@ -112,9 +112,9 @@ by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides
 
 | Key Binding | Description                                     |
 |-------------+-------------------------------------------------|
-| ~SPC m V w~ | work on virtual environment in ~WORKON_HOME~    |
 | ~SPC m V a~ | activate a virtual environment in any directory |
 | ~SPC m V d~ | deactivate active virtual environment           |
+| ~SPC m V w~ | work on virtual environment in ~WORKON_HOME~    |
 
 ** Manage multiple Python versions with pyenv
 If you need multiple Python versions (e.g. Python 2 and Python 3) then take a
