@@ -1,0 +1,36 @@
+-*- mode: org -*-
+
+This file containes the change log for the next major version of Spacemacs.
+
+* Release 0.106.x
+** 0.106.0 (no date)
+*** Layer changes
+**** Ansible
+- Change key binding ~SPC m a ?~ to ~SPC m h a~
+**** Auto-completion
+- New layer variable =auto-completion-complete-with-key-sequence-delay= to
+  set the delay in second between the keys of sequence used to select
+  the auto-completion candidate (thanks to MadAnd)
+**** CSharp
+- New key bindings
+  - ~SPC m g c~ to go to member in current file
+  - ~SPC m g I~ to find implementations using ido
+  - ~SPC m g U~ to find usages of symbol under cursor using ido
+  - ~SPC m r M~ to rename symbol under cursor interactively
+  (thanks to retran)
+**** Javascript
+- New layer variable =javascript-disable-tern-port-files=, when non nil
+  tern port files are not created. Default value is nil. (thanks to mijoharas)
+**** mu4e
+- Add =mu4e-maildirs-extension= package (thanks to choppsv1)
+**** Python
+- New key bindings to manage virtual environments:
+  - ~SPC m V a~ to activate a virtual environment in any directory
+  - ~SPC m V d~ to deactivate the active virtual environment
+  - ~SPC m V w~ to work on virtual environment in ~WORKON_HOME~
+  (thanks to cpaulik)
+**** Shell
+- New =eshell-z= package (thanks to CestDiego)
+*** Other fixes and improvements
+- Typos and documentation improvements (thanks to cpaulik, TheBB)
+
