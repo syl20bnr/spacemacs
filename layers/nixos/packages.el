@@ -10,11 +10,12 @@
 (defun nixos/init-nixos-options ()
   (use-package nixos-options))
 
-(defun nixos/init-helm-nixos-options ()
-  (use-package helm-nixos-options
-    :config
-    (spacemacs/set-leader-keys
-      "h>" 'helm-nixos-options)))
+(when (configuration-layer/layer-usedp 'spacemacs-helm)
+  (defun nixos/init-helm-nixos-options ()
+    (use-package helm-nixos-options
+      :config
+      (spacemacs/set-leader-keys
+        "h>" 'helm-nixos-options))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun nixos/post-init-company ()

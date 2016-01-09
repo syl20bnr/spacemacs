@@ -65,11 +65,16 @@
 
 (defun spacemacs/jump-in-buffer ()
   (interactive)
-  (cond
-   ((eq major-mode 'org-mode)
-    (call-interactively 'helm-org-in-buffer-headings))
-   (t
-    (call-interactively 'helm-semantic-or-imenu))))
+  (call-interactively
+   (cond
+    ((and (configuration-layer/layer-usedp 'spacemacs-helm)
+          (eq major-mode 'org-mode))
+     'helm-org-in-buffer-headings)
+    ((configuration-layer/layer-usedp 'spacemacs-helm)
+     'helm-semantic-or-imenu)
+    ((configuration-layer/layer-usedp 'spacemacs-ivy)
+     'counsel-imenu)
+    (t 'imenu))))
 
 (defun spacemacs/split-and-new-line ()
   "Split a quoted string or s-expression and insert a new line with
@@ -901,3 +906,36 @@ current major mode."
     (when (and (integerp shift-width)
                (< 0 shift-width))
       (setq-local evil-shift-width shift-width))))
+
+(defun spacemacs//hjkl-completion-navigation ()
+  (cond
+   ((and (configuration-layer/layer-usedp 'spacemacs-helm)
+         (member dotspacemacs-editing-style '(vim hybrid)))
+    ;; better navigation on homerow
+    ;; rebind `describe-key' for convenience
+    (define-key helm-map (kbd "C-j") 'helm-next-line)
+    (define-key helm-map (kbd "C-k") 'helm-previous-line)
+    (define-key helm-map (kbd "C-h") 'helm-next-source)
+    (define-key helm-map (kbd "C-S-h") 'describe-key)
+    (define-key helm-map (kbd "C-l") (kbd "RET"))
+    (dolist (keymap (list helm-find-files-map helm-read-file-map))
+      (define-key keymap (kbd "C-l") 'helm-execute-persistent-action)
+      (define-key keymap (kbd "C-h") 'helm-find-files-up-one-level)
+      (define-key keymap (kbd "C-S-h") 'describe-key)))
+   ((configuration-layer/layer-usedp 'spacemacs-helm)
+    (define-key helm-map (kbd "C-j") 'helm-execute-persistent-action)
+    (define-key helm-map (kbd "C-k") 'helm-delete-minibuffer-contents)
+    (define-key helm-map (kbd "C-h") nil)
+    (define-key helm-map (kbd "C-l") 'helm-recenter-top-bottom-other-window))
+   ((and (configuration-layer/layer-usedp 'spacemacs-ivy)
+         (member dotspacemacs-editing-style '(vim hybrid)))
+    (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
+    (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
+    (define-key ivy-minibuffer-map (kbd "C-h") (kbd "DEL"))
+    (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-alt-done)
+    (define-key ivy-minibuffer-map (kbd "<escape>") 'minibuffer-keyboard-quit))
+   ((configuration-layer/layer-usedp 'spacemacs-ivy)
+    (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-alt-done)
+    (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-kill-line)
+    (define-key ivy-minibuffer-map (kbd "C-h") nil)
+    (define-key ivy-minibuffer-map (kbd "C-l") nil))))
