@@ -1726,12 +1726,10 @@ Open junk file using helm, with `prefix-arg' search in junk files"
     :config
     (progn
       (setq scroll-margin 5)
-      ;; add hooks here only for emacs built-in packages
+      ;; add hooks here only for emacs built-in packages that are not owned
+      ;; by a layer.
       (spacemacs/add-to-hooks 'spacemacs//unset-scroll-margin
-                              '(messages-buffer-mode-hook
-                                eshell-mode-hook
-                                comint-mode-hook
-                                term-mode-hook))))
+                              '(messages-buffer-mode-hook))))
 
   (unless dotspacemacs-smooth-scrolling
     ;; deactivate smooth-scrolling advices

@@ -19,6 +19,7 @@
         xterm-color
         shell
         shell-pop
+        smooth-scrolling
         term
         eshell
         eshell-z
@@ -320,6 +321,12 @@ is achieved by adding the relevant text properties."
         "asm" 'shell-pop-multiterm
         "ast" 'shell-pop-ansi-term
         "asT" 'shell-pop-term))))
+
+(defun shell/post-init-smooth-scrolling ()
+  (spacemacs/add-to-hooks 'spacemacs//unset-scroll-margin
+                          '(eshell-mode-hook
+                            comint-mode-hook
+                            term-mode-hook)))
 
 (defun shell/init-term ()
   (defun term-send-tab ()
