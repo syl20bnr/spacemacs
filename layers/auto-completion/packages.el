@@ -216,24 +216,31 @@
       ;; configure snippet directories
       (let* ((spacemacs--auto-completion-dir
               (configuration-layer/get-layer-property 'auto-completion :dir))
-             (yasnippet--elpa-dir (spacemacs//get-package-directory 'yasnippet))
              (private-yas-dir (if auto-completion-private-snippets-directory
                                   auto-completion-private-snippets-directory
                                 (concat
                                  configuration-layer-private-directory
                                  "snippets/")))
-             (spacemacs-snippets-dir (expand-file-name
+             (spacemacs-layer-snippets-dir (expand-file-name
                                       "snippets"
                                       spacemacs--auto-completion-dir))
-             (yasnippet-snippets-dir (expand-file-name
-                                      "snippets"
-                                      yasnippet--elpa-dir)))
-        (setq yas-snippet-dirs
-              (append (if (listp private-yas-dir)
-                          private-yas-dir
-                        (list private-yas-dir))
-                      (list spacemacs-snippets-dir)
-                      (list yasnippet-snippets-dir))))
+             (dotspacemacs-directory-snippets-dir (when dotspacemacs-directory
+                                                    (expand-file-name
+                                                     "snippets"
+                                                     dotspacemacs-directory))))
+        (setq yas-snippet-dirs nil)
+        ;; ~/.emacs.d/layers/auto-completion/snippets
+        (push spacemacs-layer-snippets-dir yas-snippet-dirs)
+        ;; ~/.emacs.d/elpa/yasnippet-xxxxx/snippets
+        (push 'yas-installed-snippets-dir yas-snippet-dirs)
+        ;; ~/.spacemacs.d/snippets
+        (when dotspacemacs-directory-snippets-dir
+          (push dotspacemacs-directory-snippets-dir yas-snippet-dirs))
+        ;; arbitrary directories in `auto-completion-private-snippets-directory'
+        (when private-yas-dir
+          (if (listp private-yas-dir)
+              (setq yas-snippet-dirs (append yas-snippet-dirs private-yas-dir))
+            (push private-yas-dir yas-snippet-dirs))))
 
       (defun spacemacs/load-yasnippet ()
         (unless yas-global-mode (yas-global-mode 1))
