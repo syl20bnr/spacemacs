@@ -1431,17 +1431,18 @@ bindings from the previous sections, which are duplicated here.
 | ~SPC j 0~   | go to the beginning of line (and set a mark at the previous location in the line) |
 | ~SPC j $~   | go to the end of line (and set a mark at the previous location in the line)       |
 | ~SPC j b~   | jump to a bookmark                                                                |
-| ~SPC j c~   | jump to a character in the buffer                                                 |
+| ~SPC j c~   | jump to a character in the buffer (works as an evil motion)                       |
 | ~SPC j d~   | jump to a listing of the current directory                                        |
 | ~SPC j D~   | jump to a listing of the current directory (other window)                         |
 | ~SPC j f~   | jump to the definition of the function under the point                            |
 | ~SPC j i~   | jump to a definition in buffer (imenu)                                            |
 | ~SPC j I~   | jump to a definition in any buffer (imenu)                                        |
-| ~SPC j l~   | initiate avy jump line                                                            |
+| ~SPC j k~   | jump to next line and indent it using auto-indent rules                           |
+| ~SPC j l~   | jump to a line with avy (works as an evil motion)                                 |
 | ~SPC j u~   | undo a jump (go back to previous location)                                        |
 | ~SPC j U~   | jump to a URL in the current buffer                                               |
 | ~SPC j v~   | jump to the definition/declaration of the variable under the point                |
-| ~SPC j w~   | jump to a word in the current buffer                                              |
+| ~SPC j w~   | jump to a word in the current buffer (works as an evil motion)                    |
 
 *** Window manipulation
 **** Window manipulation key bindings

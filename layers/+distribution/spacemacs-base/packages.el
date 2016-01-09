@@ -679,7 +679,6 @@ Removes the automatic guessing of the initial value based on thing at point. "
         "rr"   'helm-register
         "rm"   'helm-all-mark-rings
         "sl"   'spacemacs/last-search-buffer
-        "jm"   'spacemacs/jump-in-buffer
         "sj"   'spacemacs/jump-in-buffer)
 
       ;; search with grep
