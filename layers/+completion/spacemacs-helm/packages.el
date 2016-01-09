@@ -45,27 +45,33 @@
         (helm-autoresize-mode 1))
 
       ;; from https://www.reddit.com/r/emacs/comments/2z7nbv/lean_helm_window/
-      (defvar helm-source-header-default-background (face-attribute 'helm-source-header :background))
-      (defvar helm-source-header-default-foreground (face-attribute 'helm-source-header :foreground))
-      (defvar helm-source-header-default-box (face-attribute 'helm-source-header :box))
-      (defvar helm-source-header-default-height (face-attribute 'helm-source-header :height) )
+      (defvar helm-source-header-default-background
+        (face-attribute 'helm-source-header :background))
+      (defvar helm-source-header-default-foreground
+        (face-attribute 'helm-source-header :foreground))
+      (defvar helm-source-header-default-box
+        (face-attribute 'helm-source-header :box))
+      (defvar helm-source-header-default-height
+        (face-attribute 'helm-source-header :height) )
 
       (defun helm-toggle-header-line ()
         "Hide the `helm' header is there is only one source."
         (when dotspacemacs-helm-no-header
           (if (> (length helm-sources) 1)
-              (set-face-attribute 'helm-source-header
-                                  nil
-                                  :foreground helm-source-header-default-foreground
-                                  :background helm-source-header-default-background
-                                  :box helm-source-header-default-box
-                                  :height helm-source-header-default-height)
-            (set-face-attribute 'helm-source-header
-                                nil
-                                :foreground (face-attribute 'helm-selection :background)
-                                :background (face-attribute 'helm-selection :background)
-                                :box nil
-                                :height 0.1))))
+              (set-face-attribute
+               'helm-source-header
+               nil
+               :foreground helm-source-header-default-foreground
+               :background helm-source-header-default-background
+               :box helm-source-header-default-box
+               :height helm-source-header-default-height)
+            (set-face-attribute
+             'helm-source-header
+             nil
+             :foreground (face-attribute 'helm-selection :background)
+             :background (face-attribute 'helm-selection :background)
+             :box nil
+             :height 0.1))))
       (add-hook 'helm-before-initialize-hook 'helm-toggle-header-line)
 
       (defun spacemacs/helm-find-files (arg)
@@ -98,8 +104,9 @@ Removes the automatic guessing of the initial value based on thing at point. "
         (when (with-helm-buffer helm-echo-input-in-header-line)
           (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
             (overlay-put ov 'window (selected-window))
-            (overlay-put ov 'face (let ((bg-color (face-background 'default nil)))
-                                    `(:background ,bg-color :foreground ,bg-color)))
+            (overlay-put ov 'face
+                         (let ((bg-color (face-background 'default nil)))
+                           `(:background ,bg-color :foreground ,bg-color)))
             (setq-local cursor-type nil))))
       (add-hook 'helm-minibuffer-set-up-hook 'helm-hide-minibuffer-maybe)
 
@@ -117,21 +124,25 @@ Removes the automatic guessing of the initial value based on thing at point. "
       (unless (configuration-layer/package-usedp 'ibuffer)
         (evil-ex-define-cmd "buffers" 'helm-buffers-list))
 
-      (defun spacemacs//helm-do-grep-region-or-symbol (&optional targs use-region-or-symbol-p)
+      (defun spacemacs//helm-do-grep-region-or-symbol
+          (&optional targs use-region-or-symbol-p)
         "Version of `helm-do-grep' with a default input."
         (interactive)
         (require 'helm)
         (cl-letf*
             (((symbol-function 'this-fn) (symbol-function 'helm-do-grep-1))
              ((symbol-function 'helm-do-grep-1)
-              (lambda (targets &optional recurse zgrep exts default-input region-or-symbol-p)
+              (lambda (targets &optional recurse zgrep exts
+                               default-input region-or-symbol-p)
                 (let* ((new-input (when region-or-symbol-p
                                     (if (region-active-p)
                                         (buffer-substring-no-properties
                                          (region-beginning) (region-end))
                                       (thing-at-point 'symbol t))))
-                       (quoted-input (when new-input (rxt-quote-pcre new-input))))
-                  (this-fn targets recurse zgrep exts default-input quoted-input))))
+                       (quoted-input (when new-input
+                                       (rxt-quote-pcre new-input))))
+                  (this-fn targets recurse zgrep exts
+                           default-input quoted-input))))
              (preselection (or (dired-get-filename nil t)
                                (buffer-file-name (current-buffer))))
              (targets   (if targs
@@ -249,15 +260,17 @@ Removes the automatic guessing of the initial value based on thing at point. "
         "Hide the cursor in helm buffers."
         (with-helm-buffer
           (setq cursor-in-non-selected-windows nil)))
-      (add-hook 'helm-after-initialize-hook 'spacemacs//hide-cursor-in-helm-buffer)
+      (add-hook 'helm-after-initialize-hook
+                'spacemacs//hide-cursor-in-helm-buffer)
 
       (defvar spacemacs-helm-display-help-buffer-regexp '("*.*Helm.*Help.**"))
-      (defvar spacemacs-helm-display-buffer-regexp `("*.*helm.**"
-                                                     (display-buffer-in-side-window)
-                                                     (inhibit-same-window . t)
-                                                     (side . ,dotspacemacs-helm-position)
-                                                     (window-width . 0.6)
-                                                     (window-height . 0.4)))
+      (defvar spacemacs-helm-display-buffer-regexp
+        `("*.*helm.**"
+          (display-buffer-in-side-window)
+          (inhibit-same-window . t)
+          (side . ,dotspacemacs-helm-position)
+          (window-width . 0.6)
+          (window-height . 0.4)))
       (defvar spacemacs-display-buffer-alist nil)
       (defun spacemacs//helm-prepare-display ()
         "Prepare necessary settings to make Helm display properly."
@@ -277,14 +290,17 @@ Removes the automatic guessing of the initial value based on thing at point. "
             (define-key evil-motion-state-map [down-mouse-1] nil))))
 
       (defun spacemacs//display-helm-window (buffer)
-        (let ((display-buffer-alist (list spacemacs-helm-display-help-buffer-regexp
-                                          ;; this or any specialized case of Helm buffer must be added AFTER
-                                          ;; `spacemacs-helm-display-buffer-regexp'. Otherwise,
-                                          ;; `spacemacs-helm-display-buffer-regexp' will be used before
-                                          ;; `spacemacs-helm-display-help-buffer-regexp' and display
-                                          ;; configuration for normal Helm buffer is applied for helm help
-                                          ;; buffer, making the help buffer unable to be displayed.
-                                          spacemacs-helm-display-buffer-regexp)))
+        (let ((display-buffer-alist
+               (list spacemacs-helm-display-help-buffer-regexp
+                     ;; this or any specialized case of Helm buffer must be
+                     ;; added AFTER `spacemacs-helm-display-buffer-regexp'.
+                     ;; Otherwise, `spacemacs-helm-display-buffer-regexp' will
+                     ;; be used before
+                     ;; `spacemacs-helm-display-help-buffer-regexp' and display
+                     ;; configuration for normal Helm buffer is applied for helm
+                     ;; help buffer, making the help buffer unable to be
+                     ;; displayed.
+                     spacemacs-helm-display-buffer-regexp)))
           (helm-default-display-buffer buffer)))
       (setq helm-display-function 'spacemacs//display-helm-window)
 
@@ -292,11 +308,12 @@ Removes the automatic guessing of the initial value based on thing at point. "
         ;; workaround for a helm-evil incompatibility
         ;; see https://github.com/syl20bnr/spacemacs/issues/3700
         (when helm-prevent-escaping-from-minibuffer
-          (define-key evil-motion-state-map [down-mouse-1] 'evil-mouse-drag-region))
+          (define-key evil-motion-state-map
+            [down-mouse-1] 'evil-mouse-drag-region))
         (popwin-mode 1)
         ;; we must enable popwin-mode first then restore `display-buffer-alist'
-        ;; Otherwise, popwin keeps adding up its own buffers to `display-buffer-alist'
-        ;; and could slow down Emacs as the list grows
+        ;; Otherwise, popwin keeps adding up its own buffers to
+        ;; `display-buffer-alist' and could slow down Emacs as the list grows
         (setq display-buffer-alist spacemacs-display-buffer-alist))
 
       (add-hook 'helm-after-initialize-hook 'spacemacs//helm-prepare-display)
@@ -313,7 +330,8 @@ Removes the automatic guessing of the initial value based on thing at point. "
       (add-hook 'helm-cleanup-hook 'spacemacs//helm-cleanup)
 
       (defface spacemacs-helm-navigation-ms-face
-        `((t :background ,(face-attribute 'error :foreground) :foreground "black"))
+        `((t :background ,(face-attribute 'error :foreground)
+             :foreground "black"))
         "Face for helm heder when helm micro-state is activated."
         :group 'spacemacs))
 
@@ -321,7 +339,8 @@ Removes the automatic guessing of the initial value based on thing at point. "
     (progn
       (helm-mode +1)
 
-      ;; helm-locate uses es (from everything on windows, which doesnt like fuzzy)
+      ;; helm-locate uses es (from everything on windows,
+      ;; which doesnt like fuzzy)
       (helm-locate-set-command)
       (setq helm-locate-fuzzy-match (string-match "locate" helm-locate-command))
 
@@ -332,14 +351,17 @@ Removes the automatic guessing of the initial value based on thing at point. "
                             :foreground nil
                             :background nil
                             :inherit 'helm-ff-directory))
-      (add-hook 'helm-find-files-before-init-hook 'spacemacs//set-dotted-directory)
+      (add-hook 'helm-find-files-before-init-hook
+                'spacemacs//set-dotted-directory)
 
       ;; alter helm-bookmark key bindings to be simpler
       (defun simpler-helm-bookmark-keybindings ()
         (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
         (define-key helm-bookmark-map (kbd "C-e") 'helm-bookmark-run-edit)
-        (define-key helm-bookmark-map (kbd "C-f") 'helm-bookmark-toggle-filename)
-        (define-key helm-bookmark-map (kbd "C-o") 'helm-bookmark-run-jump-other-window)
+        (define-key helm-bookmark-map
+          (kbd "C-f") 'helm-bookmark-toggle-filename)
+        (define-key helm-bookmark-map
+          (kbd "C-o") 'helm-bookmark-run-jump-other-window)
         (define-key helm-bookmark-map (kbd "C-/") 'helm-bookmark-help))
       (add-hook 'helm-mode-hook 'simpler-helm-bookmark-keybindings)
 
@@ -364,7 +386,8 @@ ARG non nil means Vim like movements."
           (define-key helm-map (kbd "C-j") 'helm-execute-persistent-action)
           (define-key helm-map (kbd "C-k") 'helm-delete-minibuffer-contents)
           (define-key helm-map (kbd "C-h") nil)
-          (define-key helm-map (kbd "C-l") 'helm-recenter-top-bottom-other-window))))
+          (define-key helm-map
+            (kbd "C-l") 'helm-recenter-top-bottom-other-window))))
       (spacemacs//hjkl-completion-navigation
        (member dotspacemacs-editing-style '(vim hybrid)))
 
@@ -459,11 +482,14 @@ ARG non nil means Vim like movements."
       ;; Swap default TAB and C-z commands.
       ;; For GUI.
       (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-      (define-key helm-find-files-map (kbd "S-<tab>") 'helm-find-files-up-one-level)
-      (define-key helm-find-files-map (kbd "<backtab>") 'helm-find-files-up-one-level)
+      (define-key helm-find-files-map
+        (kbd "S-<tab>") 'helm-find-files-up-one-level)
+      (define-key helm-find-files-map
+        (kbd "<backtab>") 'helm-find-files-up-one-level)
       ;; For terminal.
       (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
-      (define-key helm-find-files-map (kbd "S-TAB") 'helm-find-files-up-one-level)
+      (define-key helm-find-files-map
+        (kbd "S-TAB") 'helm-find-files-up-one-level)
       (define-key helm-map (kbd "C-z") 'helm-select-action)
 
       (with-eval-after-load 'helm-mode ; required
@@ -673,7 +699,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (interactive)
         (let ((dir (projectile-project-root)))
           (if dir
-              (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-ack dir)
+              (spacemacs//helm-do-ag-region-or-symbol
+               'spacemacs/helm-files-do-ack dir)
             (message "error: Not in a project."))))
 
       (defun spacemacs/helm-project-do-pt ()
@@ -689,7 +716,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (interactive)
         (let ((dir (projectile-project-root)))
           (if dir
-              (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-pt dir)
+              (spacemacs//helm-do-ag-region-or-symbol
+               'spacemacs/helm-files-do-pt dir)
             (message "error: Not in a project."))))
 
       (defun spacemacs/helm-project-smart-do-search (&optional default-inputp)
@@ -722,7 +750,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
           (kbd "C-s")
           (lambda ()
             (interactive)
-            (helm-exit-and-execute-action 'spacemacs/helm-project-smart-do-search-in-dir))))
+            (helm-exit-and-execute-action
+             'spacemacs/helm-project-smart-do-search-in-dir))))
 
       ;; evilify the helm-grep buffer
       (evilified-state-evilify helm-grep-mode helm-grep-mode-map
@@ -850,7 +879,9 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (defun spacemacs-base/helm-spacemacs-deprecated (arg)
         "Provide helm-spacemacs with a binding's depreciation message."
         (interactive "P")
-        (warn "The 'SPC f e h' (or 'M-m f e h') binding is now deprecated and will be remove in the next release. Please use 'SPC h SPC' (or 'M-m h SPC') instead.")
+        (warn (concat "The 'SPC f e h' (or 'M-m f e h') binding is now "
+                      "deprecated and will be remove in the next release. "
+                      "Please use 'SPC h SPC' (or 'M-m h SPC') instead."))
         (helm-spacemacs arg))
       (spacemacs/set-leader-keys "feh" 'spacemacs-base/helm-spacemacs-deprecated)
       (spacemacs/set-leader-keys "fef" 'helm-spacemacs-faq)
