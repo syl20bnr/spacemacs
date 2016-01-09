@@ -1,6 +1,9 @@
 * Release 0.105.x
+** 0.105.6 (2016/01/09)
+*** Hotfix
+- Fix shadowed ~TAB~ (~C-i~) key in terminal (thanks to StreakyCobra)
 ** 0.105.5 (2016/01/08)
-*** Hot fixes
+*** Hotfixes
 **** Core
 - Fix unavailable major mode leader keys in =evilified= buffers
   (thanks to justbur)
@@ -15,7 +18,7 @@
 - Don't enter =evil-insert-state= after =aya-expand= when =holy-mode= if active
   (thanks to abaw)
 ** 0.105.4 (2016/01/07)
-*** Hot fixes
+*** Hotfixes
 **** Core
 - Fix home buffer obfuscating opened file when Emacs starts (thanks to justbur)
 **** Ruby layer 
@@ -26,7 +29,7 @@
 **** Yasnippet
 - Fix and improve =yasnippet= loading (thanks to TheBB)
 ** 0.105.3 (2016/01/06)
-*** Hot fixes
+*** Hotfixes
 **** Emacs lisp layer
 - Fix wrong hook for adding evil text objects (thanks to justbur)
 **** Ledger
@@ -45,7 +48,7 @@
 - Fix empty mode-line when a new Spacemacs version is available
   (thanks to TheBB)
 ** 0.105.1 (2016/01/05)
-*** Hot fixes
+*** Hotfixes
 - Fix and improve support for GUI clients using a server started with
   =emacs --daemon=:
   - Fix font
