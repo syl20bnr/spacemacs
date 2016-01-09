@@ -853,7 +853,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (helm-spacemacs arg))
       (spacemacs/set-leader-keys "feh" 'spacemacs-base/helm-spacemacs-deprecated)
       (spacemacs/set-leader-keys "fef" 'helm-spacemacs-faq)
-      (spacemacs/set-leader-keys "h SPC" 'helm-spacemacs))))
+      (spacemacs/set-leader-keys "h SPC" 'helm-spacemacs-help))))
 
 (defun spacemacs-helm/init-helm-swoop ()
   (use-package helm-swoop
