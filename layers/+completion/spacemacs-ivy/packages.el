@@ -161,6 +161,7 @@ not been implemented for the spacemacs-ivy layer yet."
       "fL"  'counsel-locate
       ;; help
       "hdf" 'counsel-describe-function
+      "hdm" 'describe-mode
       "hdv" 'counsel-describe-variable
       ;; insert
       "iu"  'counsel-unicode-char
