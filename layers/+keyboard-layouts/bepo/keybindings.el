@@ -24,7 +24,7 @@
       "wC" 'evil-window-move-far-left
       "wL" 'ace-delete-window
       "wQ" 'ace-delete-window)
-    (setq aw-keys '(?t ?e ?s ?i ?r ?u ?n ?a ?c ?,))))
+    (setq aw-keys '(?t ?e ?s ?i ?r ?u ?n ?a))))
 
 (bepo|config avy
   :description
