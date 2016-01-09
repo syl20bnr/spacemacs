@@ -60,9 +60,13 @@
   ;; explicitly set the prefered coding systems to avoid annoying prompt
   ;; from emacs (especially on Microsoft Windows)
   (prefer-coding-system 'utf-8)
-  ;; TODO move evil-want-C-u-scroll when evil is removed from the bootstrapped
+  ;; TODO move these variables when evil is removed from the bootstrapped
   ;; packages.
-  (setq-default evil-want-C-u-scroll t)
+  (setq-default evil-want-C-u-scroll t
+                ;; `evil-want-C-i-jump' is set to nil to avoid `TAB' being
+                ;; overlapped in terminal mode. The GUI specific `<C-i>' is used
+                ;; instead (defined in the init of `evil-jumper' package).
+                evil-want-C-i-jump nil)
   (dotspacemacs/load-file)
   (require 'core-configuration-layer)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
