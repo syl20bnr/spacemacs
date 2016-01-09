@@ -221,6 +221,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
         "hl"   'helm-resume
         "hm"   'helm-man-woman
         "iu"   'helm-ucs
+        "jI"   'helm-imenu-in-all-buffers
         "ry"   'helm-show-kill-ring
         "rr"   'helm-register
         "rm"   'helm-all-mark-rings
