@@ -241,7 +241,8 @@ Removes the automatic guessing of the initial value based on thing at point. "
       (add-hook 'emacs-startup-hook
                 (lambda ()
                   (unless (configuration-layer/package-usedp 'smex)
-                    (spacemacs/set-leader-keys dotspacemacs-command-key 'helm-M-x))))
+                    (spacemacs/set-leader-keys
+                      dotspacemacs-emacs-command-key 'helm-M-x))))
 
       (defun spacemacs//hide-cursor-in-helm-buffer ()
         "Hide the cursor in helm buffers."
