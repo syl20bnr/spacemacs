@@ -1,4 +1,4 @@
-;;; packages.el --- %LAYER_NAME% layer packages file for Spacemacs.  -*- lexical-binding: t; -*-
+;;; packages.el --- %LAYER_NAME% layer packages file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2016 Sylvain Benner & Contributors
