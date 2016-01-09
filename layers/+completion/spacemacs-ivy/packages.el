@@ -14,11 +14,12 @@
       '(counsel
         flx
         hydra
+        ;; hack since ivy is part for swiper but I like to
+        ;; treat it as a stand-alone package
+        (ivy :location built-in)
         (ivy-spacemacs-help :location local)
         smex
         swiper))
-
-;; Initialization of packages
 
 (defun spacemacs-ivy/init-counsel ()
   (defvar spacemacs--counsel-commands
@@ -225,26 +226,46 @@ not been implemented for the spacemacs-ivy layer yet."
                     smex-save-file (concat spacemacs-cache-directory
                                            ".smex-items")))))
 
-(defun spacemacs-ivy/init-swiper ()
+(defun spacemacs-ivy/init-ivy ()
   (use-package ivy
     :config
-    (spacemacs/set-leader-keys
-      "fr" 'ivy-recentf
-      "ir" 'ivy-resume
-      "bb" 'ivy-switch-buffer)
-    (setq ivy-height 15)
-    (with-eval-after-load 'recentf
-      ;; merge recentf and bookmarks into buffer switching. If we set this
-      ;; before recentf loads, then ivy-mode loads recentf for us, which messes
-      ;; up the spacemacs version of recentf.
-      (setq ivy-use-virtual-buffers t))
-    (when (configuration-layer/package-usedp 'projectile)
-      (setq projectile-completion-system 'ivy))
-    (ivy-mode 1)
-    (global-set-key (kbd "C-c C-r") 'ivy-resume)
-    (global-set-key (kbd "<f6>") 'ivy-resume)
-    (spacemacs//hjkl-completion-navigation))
+    (progn
+      (spacemacs/set-leader-keys
+        "fr" 'ivy-recentf
+        "ir" 'ivy-resume
+        "bb" 'ivy-switch-buffer)
+      (setq ivy-height 15)
+      (with-eval-after-load 'recentf
+        ;; merge recentf and bookmarks into buffer switching. If we set this
+        ;; before recentf loads, then ivy-mode loads recentf for us, which messes
+        ;; up the spacemacs version of recentf.
+        (setq ivy-use-virtual-buffers t))
+      (when (configuration-layer/package-usedp 'projectile)
+        (setq projectile-completion-system 'ivy))
+      (ivy-mode 1)
+      (global-set-key (kbd "C-c C-r") 'ivy-resume)
+      (global-set-key (kbd "<f6>") 'ivy-resume)
 
+      (defun spacemacs//hjkl-completion-navigation (&optional arg)
+        "Set navigation on `jklh'. ARG non nil means Vim like movements."
+        (cond
+         (arg
+          ;; better navigation on homerow
+          ;; rebind `describe-key' for convenience
+          (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
+          (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
+          (define-key ivy-minibuffer-map (kbd "C-h") (kbd "DEL"))
+          (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-alt-done)
+          (define-key ivy-minibuffer-map (kbd "<escape>") 'minibuffer-keyboard-quit))
+         (t
+          (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-alt-done)
+          (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-kill-line)
+          (define-key ivy-minibuffer-map (kbd "C-h") nil)
+          (define-key ivy-minibuffer-map (kbd "C-l") nil))))
+      (spacemacs//hjkl-completion-navigation
+       (member dotspacemacs-editing-style '(vim hybrid))))))
+
+(defun spacemacs-ivy/init-swiper ()
   (use-package swiper
     :config
     (defun spacemacs/swiper-region-or-symbol ()
