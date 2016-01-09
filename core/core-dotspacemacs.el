@@ -116,6 +116,9 @@ pressing `<leader> m`. Set it to `nil` to disable it.")
 (defvar dotspacemacs-major-mode-emacs-leader-key "C-M-m"
   "Major mode leader key accessible in `emacs state' and `insert state'")
 
+(defvar dotspacemacs-emacs-command-key "SPC"
+  "The key used for Emacs commands (M-x) (after pressing on the leader key).")
+
 (defvar dotspacemacs-distinguish-gui-tab nil
   "If non nil, distinguish C-i and tab in the GUI version of
 emacs.")
@@ -131,11 +134,6 @@ emacs.")
                                     :powerline-scale 1.1)
   "Default font. `powerline-scale' allows to quickly tweak the mode-line
 size to make separators look not too crappy.")
-
-(defvar dotspacemacs-command-key ":"
-  "The key used for Evil commands (ex-commands) and Emacs commands (M-x).
-By default the command key is `:' so ex-commands are executed like in Vim
-with `:' and Emacs commands are executed with `<leader> :'.")
 
 (defvaralias 'dotspacemacs-remap-Y-to-y$ 'evil-want-Y-yank-to-eol
   "If non nil `Y' is remapped to `y$'.")
@@ -533,7 +531,7 @@ error recovery."
    (spacemacs//test-var
     (lambda (x) (or (null x) (stringp x)))
     'dotspacemacs-major-mode-emacs-leader-key "is a string or nil")
-   (spacemacs//test-var 'stringp 'dotspacemacs-command-key "is a string")
+   (spacemacs//test-var 'stringp 'dotspacemacs-emacs-command-key "is a string")
    (insert (format
             (concat "** RESULTS: "
                     "[[file:%s::dotspacemacs/init][dotspacemacs/init]] "

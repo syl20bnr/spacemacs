@@ -226,10 +226,6 @@
     (progn
       ;; bind function keys
 
-      ;; evil ex-command key
-      (define-key evil-normal-state-map (kbd dotspacemacs-command-key) 'evil-ex)
-      (define-key evil-visual-state-map (kbd dotspacemacs-command-key) 'evil-ex)
-      (define-key evil-motion-state-map (kbd dotspacemacs-command-key) 'evil-ex)
       ;; Make the current definition and/or comment visible.
       (define-key evil-normal-state-map "zf" 'reposition-window)
       ;; toggle maximize buffer
@@ -695,7 +691,8 @@ Removes the automatic guessing of the initial value based on thing at point. "
       (add-hook 'emacs-startup-hook
                 (lambda ()
                   (unless (configuration-layer/package-usedp 'smex)
-                    (spacemacs/set-leader-keys dotspacemacs-command-key 'helm-M-x))))
+                    (spacemacs/set-leader-keys
+                      dotspacemacs-emacs-command-key 'helm-M-x))))
 
       (defun spacemacs//hide-cursor-in-helm-buffer ()
         "Hide the cursor in helm buffers."
@@ -1493,7 +1490,7 @@ ARG non nil means that the editing style is `vim'."
       (dolist (leader-key `(,dotspacemacs-leader-key ,dotspacemacs-emacs-leader-key))
         (which-key-add-key-based-replacements
          (concat leader-key " m")    "major mode commands"
-         (concat leader-key " " dotspacemacs-command-key) "M-x"))
+         (concat leader-key " " dotspacemacs-emacs-command-key) "M-x"))
       (which-key-declare-prefixes
         dotspacemacs-leader-key '("root" . "Spacemacs root")
         dotspacemacs-emacs-leader-key '("root" . "Spacemacs root")
