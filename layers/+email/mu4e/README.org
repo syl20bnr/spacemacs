@@ -42,13 +42,8 @@ The maildirs extension adds a list of all your maildirs to the main mu4e view
 that by default shows the unread and total mail counts for all your mail under
 your base mail directory.
 
-If you wish enable the maildirs extension you can set =mu4e-use-maildirs= to non
-nil value.
-
-#+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-                '((mu4e :variables mu4e-use-maildirs t)))
-#+end_src
+This extension is enabled by default, you can deactivate (and uninstall) it by
+adding the package == to your dotfile variable =dotspacemacs-excluded-packages=.
 
 ** Multiple Accounts
 This layer includes support for multiple sending accounts.
