@@ -79,4 +79,4 @@ Or you can use [[https://github.com/areina/helm-dash][helm-dash]] instead, it re
 CLOSED: [2015-06-12 Fri 16:30]
 [[http://zealdocs.org/][zeal]] is an open source alternative to dash with Emacs integration available.
 
-** TODO Make helm-dash use zeal or dash docsets by default.
+** DONE Make helm-dash use zeal or dash docsets by default.
