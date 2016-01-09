@@ -95,7 +95,7 @@ OmniSharp should now automatically load and start a server when you open a
 |-------------+-----------------------------------------------|
 | ~SPC m g f~ | Go to solution file                           |
 | ~SPC m g F~ | Go to solution file then member               |
-| ~SPC m g c  | Go to member in current file                  |
+| ~SPC m g c~ | Go to member in current file                  |
 | ~SPC m g g~ | Go to definition                              |
 | ~SPC m g G~ | Go to definition in other window              |
 | ~SPC m g i~ | Find implementations                          |
@@ -119,7 +119,7 @@ OmniSharp should now automatically load and start a server when you open a
 | Key Binding | Description                              |
 |-------------+------------------------------------------|
 | ~SPC m r m~ | Rename symbol under cursor               |
-| ~SPC m r M  | Rename symbol under cursor interactively |
+| ~SPC m r M~ | Rename symbol under cursor interactively |
 | ~SPC m r r~ | Refactor symbol under cursor             |
 
 ** OmniSharp server interaction
