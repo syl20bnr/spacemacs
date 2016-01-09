@@ -1132,7 +1132,7 @@
   (thanks to TheBB)
 **** Org
 + Install =org-plus-contrib= from org ELPA repository
-+ Add table related key bindins on `SPC m t` (thanks to JP-Ellis)
++ Add table related key bindins on =SPC m t= (thanks to JP-Ellis)
 + Add defer loading for =toc-org=.
 + Add =gnuplot= package to plot data from tables (thanks to JP-Ellis)
 + Add =org-mime= (moved from =gnus= layers)
@@ -1634,7 +1634,7 @@
 - New variable =dotspacemacs-search-tools= which is a list of search tool
   executable names. Spacemacs uses the first installed tool of the list
   with search related key bindings (~SPC /~, ~SPC s ...~).
-  Supported tools are `ag', `pt', `ack' and `grep'."
+  Supported tools are =ag=, =pt=, =ack= and =grep=.
 - New variable =dotspacemacs-highlight-delimiters= which selects a scope
   to highlight delimiters. Possible value is =all=, =current= or =nil=.
   Default is =all=. (thanks to tuhdo)

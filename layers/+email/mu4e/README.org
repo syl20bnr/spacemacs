@@ -48,7 +48,7 @@ adding the package == to your dotfile variable =dotspacemacs-excluded-packages=.
 ** Multiple Accounts
 This layer includes support for multiple sending accounts.
 If you have only one account you do not need to define this variable.
-If you have multiple accounts, configure the `mu4e-account-alist` variable:
+If you have multiple accounts, configure the =mu4e-account-alist= variable:
 
 #+BEGIN_SRC emacs-lisp
   (setq mu4e-account-alist
@@ -69,10 +69,10 @@ If you have multiple accounts, configure the `mu4e-account-alist` variable:
 #+END_SRC
 
 The first account listed will be the default account, so variables like
-`user-full-name`, which is used by other parts of Emacs, will have their value
+=user-full-name=, which is used by other parts of Emacs, will have their value
 reset for the default account after sending each email.
 
-Make sure you call `mu4e/mail-account-reset` afterward, which will initialize
+Make sure you call =mu4e/mail-account-reset= afterward, which will initialize
 the given account variables.
 
 ** Example configuration
