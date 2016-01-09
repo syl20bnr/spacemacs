@@ -111,7 +111,6 @@
   "hdc" 'describe-char
   "hdf" 'describe-function
   "hdk" 'describe-key
-  "hdm" 'describe-mode
   "hdp" 'describe-package
   "hds" 'spacemacs/describe-system-info
   "hdt" 'describe-theme

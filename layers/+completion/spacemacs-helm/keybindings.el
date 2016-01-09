@@ -24,6 +24,7 @@ Ensure that helm is required before calling FUNC."
          (call-interactively ',func))
        (spacemacs/set-leader-keys ,keys ',func-name))))
 (spacemacs||set-helm-key "hL"  helm-locate-library)
+(spacemacs||set-helm-key "hdm" describe-mode)
 ;; search functions -----------------------------------------------------------
 (spacemacs||set-helm-key "sww" helm-wikipedia-suggest)
 (spacemacs||set-helm-key "swg" helm-google-suggest)
