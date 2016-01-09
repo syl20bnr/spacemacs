@@ -155,7 +155,7 @@ You can tweak the bullets displayed in the org buffer in the function
 |---------------+----------------------------------------------------------------------------|
 | ~SPC m t a~   | Align the table at point by aligning all vertical bars                     |
 | ~SPC m t b~   | Blank the current table field or active region                             |
-| ~SPC m t c~   | Convert from `org-mode' table to table.el and back                         |
+| ~SPC m t c~   | Convert from =org-mode= table to table.el and back                         |
 | ~SPC m t d c~ | Delete a column from the table                                             |
 | ~SPC m t d r~ | Delete the current row or horizontal line from the table                   |
 | ~SPC m t e~   | Replace the table field value at the cursor by the result of a calculation |

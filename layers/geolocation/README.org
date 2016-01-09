@@ -66,7 +66,7 @@ Sunshine uses the imperial unit system by default. To switch to metric, do this:
 #+END_SRC
 
 Weather forecast icons are disabled by default, but can be toggled by pressing
-`i' within this mode's main buffer. To display weather forecast icons by default
+=i= within this mode's main buffer. To display weather forecast icons by default
 ("pretty mode"), change the settings to this:
 
 #+BEGIN_SRC emacs-lisp

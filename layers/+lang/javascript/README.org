@@ -53,7 +53,7 @@ To activate error checking using flycheck install =JSHint=:
 * Configuration
 
 To make tern re-use the server across multiple different editing sessions (thus
-creating multiple `.tern-port` files for each document you have open [[http://ternjs.net/doc/manual.html][see here
+creating multiple =.tern-port= files for each document you have open [[http://ternjs.net/doc/manual.html][see here
 for more details]]):
 
 #+BEGIN_SRC emacs-lisp

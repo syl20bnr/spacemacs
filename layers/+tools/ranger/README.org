@@ -46,7 +46,7 @@ dired buffer.
 (setq ranger-cleanup-eagerly t)
 #+END_SRC
 
-You can choose to show dotfiles at ranger startup, toggled by `zh`
+You can choose to show dotfiles at ranger startup, toggled by =zh=
 #+BEGIN_SRC elisp
 (setq ranger-show-dotfiles t)
 #+END_SRC
@@ -65,7 +65,7 @@ return a string that is placed in the header-line.
 
 ** Parent options
 
-You can set the number of folders to nest to the left, adjusted by `z-` and `z+`
+You can set the number of folders to nest to the left, adjusted by =z-= and =z+=
 #+BEGIN_SRC elisp
 (setq ranger-parent-depth 2)
 #+END_SRC
@@ -83,7 +83,7 @@ frame size to prevent filling up entire frame with parents.
 
 ** Preview options
 
-You can choose to show previews literally, or through find-file, toggled by `zi`
+You can choose to show previews literally, or through find-file, toggled by =zi=
 #+BEGIN_SRC elisp
 (setq ranger-show-dotfiles t)
 #+END_SRC
