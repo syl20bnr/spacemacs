@@ -1,4 +1,19 @@
 * Release 0.105.x
+** 0.105.5 (2016/01/08)
+*** Hot fixes
+**** Core
+- Fix unavailable major mode leader keys in =evilified= buffers
+  (thanks to justbur)
+- Fix ~b~ key binding on home buffer (thanks to justbur)
+*** Layer changes
+**** Spacemacs
+- Bind =evil-jumper/forward= to =<C-i>= to make it work when
+  =dotspacemacs-distinguish-gui-tab= is non nil (thanks to TheBB)
+**** Auto-completion
+- Add =~/.spacemacs.d/snippets= directory to the snippet sources of
+  yasnippet.
+- Don't enter =evil-insert-state= after =aya-expand= when =holy-mode= if active
+  (thanks to abaw)
 ** 0.105.4 (2016/01/07)
 *** Hot fixes
 **** Core
