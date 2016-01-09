@@ -36,7 +36,7 @@
       ;; define the key binding at the very end in order to allow the user
       ;; to overwrite any key binding
       (add-hook 'emacs-startup-hook
-                (lambda () (spacemacs/set-leader-keys dotspacemacs-command-key
-                             'spacemacs/smex)))
+                (lambda () (spacemacs/set-leader-keys
+                             dotspacemacs-emacs-command-key 'spacemacs/smex)))
       (spacemacs/set-leader-keys ":" 'spacemacs/smex-major-mode-commands)
-      (global-set-key (kbd "M-x") 'spacemacs/smex)))) 
+      (global-set-key (kbd "M-x") 'spacemacs/smex))))

@@ -1161,12 +1161,11 @@ state= to press quickly ~jj~ and inadvertently escape to =normal state=.
 | Command          | Key Binding |
 |------------------+-------------|
 | Vim (ex-command) | ~:~         |
-| Emacs (M-x)      | ~SPC :~     |
+| Emacs (M-x)      | ~SPC SPC~   |
 
-The command key ~:~ can be easily changed with the variable
-=dotspacemacs-command-key= of your =~/.spacemacs=. Note that is will change both
-~:~ and ~SPC :~ bindings to keep the symmetry between Vim and Emacs. A good key
-can be ~,~ for example.
+The emacs command key ~SPC~ (executed after the leader key) can be changed
+with the variable =dotspacemacs-emacs-command-key= of your =~/.spacemacs=.
+
 
 *** Leader key
 On top of =Vim= modes (modes are called states in Spacemacs) there is a
