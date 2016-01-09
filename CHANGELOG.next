@@ -11,7 +11,8 @@ This file containes the change log for the next major version of Spacemacs.
 - Key bindings ~SPC j h~ and ~SPC j l~ have been moved to ~SPC j 0~ and
   ~SPC j $~ respectively.
 *** Dotfile changes
-- The variable =dotspacemacs-command-key= is now *deprecated*.
+- The variable =dotspacemacs-command-key= has been renamed to
+  =dotspacemacs-emacs-command-key= (the old name is still valid though).
 - New variable =dotspacemacs-emacs-command-key= which is the key to
   press after the leader key to execute =M-x=.
 *** Distribution layer changes
