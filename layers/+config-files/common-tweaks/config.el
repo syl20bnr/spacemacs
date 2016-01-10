@@ -12,7 +12,8 @@
 
 (ct|tweak ct-global-fill-column-indicator-mode
   :description
-  "Turn on fill column indicator globally (all `prog-mode' and `text-mode')."
+  "Turn on the fill column indicator globally (in all `prog-mode'
+and `text-mode')."
   :tweak
   (progn
     (add-hook 'prog-mode-hook 'turn-on-fci-mode)
@@ -51,7 +52,7 @@
 
 (ct|tweak ct-neotree-close-on-open
   :description
-  "Close the neotree's window when a file is opened from it."
+  "Close the neotree window when a file is opened from it."
   :loader
   (spacemacs|use-package-add-hook neotree :post-config BODY)
   :functions

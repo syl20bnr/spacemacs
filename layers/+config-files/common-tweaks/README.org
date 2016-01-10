@@ -36,14 +36,13 @@ This layer has no effect until some tweaks are enable through variables:
 The following tweaks are available:
 
 ** ct-global-fill-column-indicator-mode
-Turn =fill-column-indicator= on globally by using it in all =prog-mode= and
-=text-mode=.
+Turn on the fill column indicator globally (all =prog-mode= and =text-mode=).
 
 ** ct-helm-no-dots
 Remove dots (=.= and =..=) from helm files buffer.
 
 ** ct-neotree-close-on-open
-Close the neotree's window when a file is opened from it.
+Close the neotree window when a file is opened from it.
 
 ** ct-neotree-collapse-on-parent
 Collapse the neotree hierarchy when going on a parent node.
