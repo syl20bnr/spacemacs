@@ -10,6 +10,16 @@
 ;;
 ;;; License: GPLv3
 
+(ct|tweak ct-find-dotfile-no-symlink-confirmation
+  :description
+  "Prevent asking for symlink confirmation when loading the `dotspacemacs'."
+  :functions
+  (defun common-tweaks/find-dotfile (orig-fun &rest args)
+    (let ((vc-follow-symlinks t))
+      (apply orig-fun args)))
+  :tweak
+  (advice-add 'spacemacs/find-dotfile :around 'common-tweaks/find-dotfile))
+
 (ct|tweak ct-global-fill-column-indicator-mode
   :description
   "Turn on the fill column indicator globally (in all `prog-mode'

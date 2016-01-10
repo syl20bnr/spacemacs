@@ -5,6 +5,7 @@
  - [[Description][Description]]
  - [[Install][Install]]
  - [[Tweaks][Tweaks]]
+   - [[ct-find-dotfile-no-symlink-confirmation][ct-find-dotfile-no-symlink-confirmation]]
    - [[ct-global-fill-column-indicator-mode][ct-global-fill-column-indicator-mode]]
    - [[ct-helm-no-dots][ct-helm-no-dots]]
    - [[ct-helm-yas-in-hippie-expand][ct-helm-yas-in-hippie-expand]]
@@ -37,6 +38,9 @@ This layer has no effect until some tweaks are enable through variables:
 * Tweaks
 
 The following tweaks are available:
+
+** ct-find-dotfile-no-symlink-confirmation
+Prevent asking for symlink confirmation when loading the =dotspacemacs=.
 
 ** ct-global-fill-column-indicator-mode
 Turn on the fill column indicator globally (all =prog-mode= and =text-mode=).
