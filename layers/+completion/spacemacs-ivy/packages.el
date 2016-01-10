@@ -179,7 +179,7 @@ Helm hack."
         (call-interactively 'describe-mode))
 
       (spacemacs/set-leader-keys
-        dotspacemacs-command-key 'counsel-M-x
+        dotspacemacs-emacs-command-key 'counsel-M-x
         ;; files
         "ff"  'counsel-find-file
         "fL"  'counsel-locate
