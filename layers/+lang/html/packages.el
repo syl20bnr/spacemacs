@@ -23,6 +23,7 @@
     jade-mode
     less-css-mode
     rainbow-delimiters
+    stylus-mode
     sass-mode
     scss-mode
     slim-mode
@@ -119,6 +120,10 @@
     :init
     (dolist (mode '(css-mode scss-mode))
       (spacemacs/set-leader-keys-for-major-mode mode "gh" 'helm-css-scss))))
+
+(defun html/init-stylus-mode ()
+  (use-package stylus-mode
+    :defer t))
 
 (defun html/init-jade-mode ()
   (use-package jade-mode
