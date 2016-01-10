@@ -54,11 +54,13 @@ All properties are optional, except for `:tweak'."
          (tweak (plist-get props :tweak))
          (pre (plist-get props :pre))
          (post (plist-get props :post))
+         (intro (concat  "This variable is part of the `common-tweaks' layer.\n"
+                         "Read the `README.org' there for more information."))
          (body tweak))
     ;; If the tweak is not disabled
     (when (not disable)
       ;; Define the variable
-      (eval `(defvar ,name nil ,description))
+      (eval `(defvar ,name nil ,(concat intro "\n\n" description)))
       ;; Use the `:loader' if it exists
       (when loader
         (ct//replace-in-list-rec loader 'BODY body)
