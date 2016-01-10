@@ -7,15 +7,14 @@
  - [[Description][Description]]
  - [[Install][Install]]
    - [[Layer][Layer]]
+   - [[Racer][Racer]]
    - [[Cargo][Cargo]]
-   - [[Auto-completion][Auto-completion]]
  - [[Key bindings][Key bindings]]
 
 * Description
-This layer aims to support [[http://www.rust-lang.org/][Rust]] development in Spacemacs.
+This layer supports [[http://www.rust-lang.org/][Rust]] development in Spacemacs.
 
-It supports [[http://doc.crates.io/index.html][Cargo]], and has some basic auto-completion support through [[https://github.com/phildawes/racer][Racer]],
-though Racer needs some additional configurations as described on their page.
+It has auto-completion and navigation support through [[https://github.com/phildawes/racer][Racer]] and supports [[http://doc.crates.io/index.html][Cargo]].
 
 * Install
 ** Layer
@@ -23,20 +22,16 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =rust= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+** Racer
+You must install [[https://github.com/phildawes/racer][Racer]] to use this. Make sure the =racer= binary is available in
+your =PATH= and to set the environment variable =RUST_SRC_PATH=, as described in
+the [[https://github.com/phildawes/racer#installation][installation instructions]].
+
+To enable auto-completion, ensure that the =auto-completion= layer is enabled.
+
 ** Cargo
 [[http://doc.crates.io/index.html][Cargo]] is a project management command line tool for Rust. Installation
 instructions can be found on the main page of [[http://doc.crates.io/index.html][Cargo]].
-
-** Auto-completion
-To enable auto-completion, ensure that the =auto-completion= layer is enabled and
-add the following line to your =dotspacemacs/user-init=:
-
-#+BEGIN_SRC emacs-lisp
-(setq-default rust-enable-racer t)
-#+END_SRC
-
-You have to install [[https://github.com/phildawes/racer][Racer]] to use this. For more information on the installation
-procedure, look [[https://github.com/racer-rust/emacs-racer][here]].
 
 * Key bindings
 
@@ -47,4 +42,4 @@ procedure, look [[https://github.com/racer-rust/emacs-racer][here]].
 | ~SPC m c d~ | generate documentation with Cargo |
 | ~SPC m c x~ | execute the project with Cargo    |
 | ~SPC m c C~ | remove build artifacts with Cargo |
-| ~SPC m g g~ | go jump to definition             |
+| ~SPC m g g~ | jump to definition                |
