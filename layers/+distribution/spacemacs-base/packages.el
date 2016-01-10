@@ -485,7 +485,10 @@ Example: (evil-map visual \"<\" \"<gv\")"
 (defun spacemacs-base/init-hl-todo ()
   (use-package hl-todo
     :defer t
-    :init (add-hook 'prog-mode-hook 'hl-todo-mode)))
+    :init
+    (progn
+      (add-hook 'text-mode-hook 'hl-todo-mode)
+      (add-hook 'prog-mode-hook 'hl-todo-mode))))
 
 (defun spacemacs-base/init-hs-minor-mode ()
   ;; required for evil folding
