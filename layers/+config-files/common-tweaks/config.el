@@ -106,6 +106,16 @@ and `text-mode')."
   (let ((keymap (evil-get-auxiliary-keymap neotree-mode-map 'evilified)))
     (define-key keymap (kbd "h") 'neotree-to-parent-and-close)))
 
+(ct|tweak ct-persistent-undo
+  :description
+  "Enable persistent undo between emacs sessions."
+  :tweak
+  (setq undo-tree-auto-save-history t
+        undo-tree-history-directory-alist
+        `(("." . ,(concat spacemacs-cache-directory "undo"))))
+  (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
+    (make-directory (concat spacemacs-cache-directory "undo"))))
+
 (ct|tweak ct-python-underscore-in-word
   :description
   "Make underscore part of `word' text objects in `python-mode'."

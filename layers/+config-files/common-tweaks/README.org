@@ -11,6 +11,7 @@
    - [[ct-helm-yas-in-hippie-expand][ct-helm-yas-in-hippie-expand]]
    - [[ct-neotree-close-on-open][ct-neotree-close-on-open]]
    - [[ct-neotree-collapse-on-parent][ct-neotree-collapse-on-parent]]
+   - [[ct-persistent-undo][ct-persistent-undo]]
    - [[ct-python-underscore-in-word][ct-python-underscore-in-word]]
    - [[ct-space-dot-evil-ex][ct-space-dot-evil-ex]]
 
@@ -56,6 +57,9 @@ Close the neotree window when a file is opened from it.
 
 ** ct-neotree-collapse-on-parent
 Collapse the neotree hierarchy when going on a parent node.
+
+** ct-persistent-undo
+Enable persistent undo between emacs sessions.
 
 ** ct-python-underscore-in-word
 Make underscore part of =word= text objects in =python-mode=.
