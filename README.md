@@ -199,11 +199,14 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
 
 3. Launch Emacs. Spacemacs will automatically install the packages it requires.
    If you get an error regarding package downloads then you may try to disable
-   HTTPS protocol by starting Emacs with
+   the HTTPS protocol by starting Emacs with
 
    ```sh
    emacs --insecure
    ```
+
+   You may wish to clear out your `.emacs.d/elpa` directory before doing this,
+   so that any corrupted packages you may have downloaded will be reinstalled.
 
 4. Restart Emacs to complete the installation.
 
