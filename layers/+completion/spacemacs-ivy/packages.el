@@ -69,7 +69,9 @@ that directory."
                                  (executable-find tool))
                         (throw 'tool tool)))
                     (throw 'tool "grep"))))
-      (setq counsel--git-grep-dir (or initial-directory default-directory))
+      (setq counsel--git-grep-dir
+            (or initial-directory
+                (read-directory-name "Start from directory: ")))
       (ivy-read
        (format "%s from [%s]: "
                tool
@@ -192,6 +194,8 @@ Helm hack."
         ;; jump
         ;; projects
         "pp"  'projectile-switch-project
+        ;; register/ring
+        "ry"  'counsel-yank-pop
         ;; jumping
         "sj"  'counsel-imenu
         ;; themes
