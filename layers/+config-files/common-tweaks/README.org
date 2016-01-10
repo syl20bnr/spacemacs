@@ -5,6 +5,7 @@
  - [[Description][Description]]
  - [[Install][Install]]
  - [[Tweaks][Tweaks]]
+   - [[ct-global-fill-column-indicator-mode][ct-global-fill-column-indicator-mode]]
    - [[ct-helm-no-dots][ct-helm-no-dots]]
    - [[ct-neotree-close-on-open][ct-neotree-close-on-open]]
    - [[ct-neotree-collapse-on-parent][ct-neotree-collapse-on-parent]]
@@ -33,6 +34,10 @@ This layer has no effect until some tweaks are enable through variables:
 * Tweaks
 
 The following tweaks are available:
+
+** ct-global-fill-column-indicator-mode
+Turn =fill-column-indicator= on globally by using it in all =prog-mode= and
+=text-mode=.
 
 ** ct-helm-no-dots
 Remove dots (=.= and =..=) from helm files buffer.

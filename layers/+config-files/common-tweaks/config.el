@@ -10,6 +10,14 @@
 ;;
 ;;; License: GPLv3
 
+(ct|tweak ct-global-fill-column-indicator-mode
+  :description
+  "Turn on fill column indicator globally (all `prog-mode' and `text-mode')."
+  :tweak
+  (progn
+    (add-hook 'prog-mode-hook 'turn-on-fci-mode)
+    (add-hook 'text-mode-hook 'turn-on-fci-mode)))
+
 (ct|tweak ct-helm-no-dots
   :description
   "Remove dots (`.' and `..') from helm files buffers."
