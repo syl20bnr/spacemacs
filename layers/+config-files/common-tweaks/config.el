@@ -12,8 +12,7 @@
 
 (ct|tweak ct-neotree-close-on-open
   :description
-  "With this tweak, the neotree window is closed when a file is
-opened from it."
+  "Close the neotree's window when a file is opened from it."
   :loader
   (spacemacs|use-package-add-hook neotree :post-config BODY)
   :functions
@@ -34,8 +33,7 @@ opened from it."
 
 (ct|tweak ct-neotree-collapse-on-parent
   :description
-  "With this tweak, the tree's hierarchy is collapsed when going
-on the parent's node."
+  "Collapse the neotree hierarchy when going on a parent node."
   :loader
   (spacemacs|use-package-add-hook neotree :post-config BODY)
   :functions

@@ -34,8 +34,7 @@ This layer has no effect until some tweaks are enable through variables:
 The following tweaks are available:
 
 ** ct-neotree-close-on-open
-With this tweak, the neotree window is closed when a file is opened from it.
+Close the neotree's window when a file is opened from it.
 
 ** ct-neotree-collapse-on-parent
-With this tweak, the tree's hierarchy is collapsed when going on the parent's
-node.
+Collapse the neotree hierarchy when going on a parent node.
