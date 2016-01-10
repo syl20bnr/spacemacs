@@ -5,6 +5,7 @@
  - [[Description][Description]]
  - [[Install][Install]]
  - [[Tweaks][Tweaks]]
+   - [[ct-helm-no-dots][ct-helm-no-dots]]
    - [[ct-neotree-close-on-open][ct-neotree-close-on-open]]
    - [[ct-neotree-collapse-on-parent][ct-neotree-collapse-on-parent]]
 
@@ -32,6 +33,9 @@ This layer has no effect until some tweaks are enable through variables:
 * Tweaks
 
 The following tweaks are available:
+
+** ct-helm-no-dots
+Remove dots (=.= and =..=) from helm files buffer.
 
 ** ct-neotree-close-on-open
 Close the neotree's window when a file is opened from it.

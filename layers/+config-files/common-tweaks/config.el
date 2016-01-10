@@ -10,6 +10,37 @@
 ;;
 ;;; License: GPLv3
 
+(ct|tweak ct-helm-no-dots
+  :description
+  "Remove dots (`.' and `..') from helm files buffers."
+  :pre
+  (defvar no-dots-whitelist '() "List of helm buffers in which to show dots.")
+  :loading
+  (with-eval-after-load 'helm-files BODY)
+  :functions
+  (progn
+    (require 'cl-lib)
+    (defun no-dots/whitelistedp ()
+      (member (with-helm-buffer (buffer-name)) no-dots-whitelist))
+    (defun no-dots/helm-ff-filter-candidate-one-by-one (fcn file)
+      (when (or (no-dots/whitelistedp)
+                (not (string-match "\\(?:/\\|\\`\\)\\.\\{1,2\\}\\'" file)))
+        (funcall fcn file)))
+    (defun no-dots/helm-file-completion-source-p (&rest args) t)
+    (defun no-dots/helm-find-files-up-one-level (fcn &rest args)
+      (prog2
+          (advice-add 'helm-file-completion-source-p
+                      :around 'no-dots/helm-file-completion-source-p)
+          (apply fcn args)
+        (advice-remove 'helm-file-completion-source-p
+                       'no-dots/helm-file-completion-source-p))))
+  :tweak
+  (progn
+    (advice-add 'helm-ff-filter-candidate-one-by-one
+                :around 'no-dots/helm-ff-filter-candidate-one-by-one)
+    (advice-add 'helm-find-files-up-one-level
+                :around 'no-dots/helm-find-files-up-one-level)))
+
 (ct|tweak ct-neotree-close-on-open
   :description
   "Close the neotree's window when a file is opened from it."
