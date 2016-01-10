@@ -11,9 +11,9 @@
   (spacemacs/add-flycheck-hook 'go-mode-hook))
 
 (defun go/init-go-mode()
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-copy-env "GOPATH")
-    (exec-path-from-shell-copy-env "GO15VENDOREXPERIMENT"))
+  (dolist (var '("GOPATH" "GO15VENDOREXPERIMENT"))
+    (unless (getenv var)
+      (exec-path-from-shell-copy-env var)))
 
   (use-package go-mode
     :defer t
