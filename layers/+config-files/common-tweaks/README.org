@@ -9,6 +9,7 @@
    - [[ct-helm-no-dots][ct-helm-no-dots]]
    - [[ct-neotree-close-on-open][ct-neotree-close-on-open]]
    - [[ct-neotree-collapse-on-parent][ct-neotree-collapse-on-parent]]
+   - [[ct-python-underscore-in-word][ct-python-underscore-in-word]]
 
 * Description
 This layer allows to easily enable some common Spacemacs tweaks.
@@ -46,3 +47,6 @@ Close the neotree window when a file is opened from it.
 
 ** ct-neotree-collapse-on-parent
 Collapse the neotree hierarchy when going on a parent node.
+
+** ct-python-underscore-in-word
+Make underscore part of =word= text objects in =python-mode=.

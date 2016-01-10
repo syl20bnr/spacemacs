@@ -85,3 +85,11 @@ and `text-mode')."
   :tweak
   (let ((keymap (evil-get-auxiliary-keymap neotree-mode-map 'evilified)))
     (define-key keymap (kbd "h") 'neotree-to-parent-and-close)))
+
+(ct|tweak ct-python-underscore-in-word
+  :description
+  "Make underscore part of `word' text objects in `python-mode'."
+  :loader
+  (with-eval-after-load 'python BODY)
+  :tweak
+  (modify-syntax-entry ?_ "w" python-mode-syntax-table))
