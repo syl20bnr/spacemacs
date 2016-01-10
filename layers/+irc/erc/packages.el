@@ -182,7 +182,10 @@
   (spacemacs|define-custom-layout "@ERC"
     :binding "E"
     :body
-    (call-interactively 'erc))
+    (progn
+      (add-hook 'erc-mode #'(lambda ()
+                              (persp-add-buffer (current-buffer))))
+      (call-interactively 'erc)))
   ;; do not save erc buffers
   (spacemacs|use-package-add-hook persp-mode
     :post-config

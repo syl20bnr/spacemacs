@@ -28,7 +28,10 @@
   (spacemacs|define-custom-layout "@RCIRC"
     :binding "i"
     :body
-    (call-interactively 'spacemacs/rcirc))
+    (progn
+      (add-hook 'rcirc-mode-hook #'(lambda ()
+                                     (persp-add-buffer (current-buffer))))
+      (call-interactively 'spacemacs/rcirc)))
   ;; do not save rcirc buffers
   (spacemacs|use-package-add-hook persp-mode
     :post-config
