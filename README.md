@@ -40,10 +40,12 @@
 - [Install](#install)
     - [Spacemacs logo](#spacemacs-logo)
 - [Update](#update)
-    - [Automatic update](#automatic-update)
+    - [Automatic update (on master branch)](#automatic-update-on-master-branch)
+    - [Manual update (on master branch)](#manual-update-on-master-branch)
     - [On develop branch](#on-develop-branch)
     - [Revert to a specific version](#revert-to-a-specific-version)
 - [Contributions](#contributions)
+- [Communities](#communities)
 - [License](#license)
 - [Supporting Spacemacs](#supporting-spacemacs)
 
