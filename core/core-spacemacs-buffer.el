@@ -37,6 +37,7 @@ version the release note it displayed")
     (define-key map [backtab] 'widget-backward)
     (define-key map (kbd "RET") 'widget-button-press)
     (define-key map [down-mouse-1] 'widget-button-click)
+    (define-key map "q" 'quit-window)
     map)
   "Keymap for spacemacs buffer mode.")
 
