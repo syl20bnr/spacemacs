@@ -53,7 +53,8 @@
       (let* ((file-path (expand-file-name ".python-version" root-path))
              (version (with-temp-buffer
                         (insert-file-contents-literally file-path)
-                        (current-word))))
+                        (buffer-substring-no-properties (line-beginning-position)
+                                                        (line-end-position)))))
         (if (member version (pyenv-mode-versions))
             (pyenv-mode-set version)
           (message "pyenv: version `%s' is not installed (set by %s)"
