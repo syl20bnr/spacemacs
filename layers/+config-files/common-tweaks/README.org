@@ -11,6 +11,7 @@
    - [[ct-neotree-close-on-open][ct-neotree-close-on-open]]
    - [[ct-neotree-collapse-on-parent][ct-neotree-collapse-on-parent]]
    - [[ct-python-underscore-in-word][ct-python-underscore-in-word]]
+   - [[ct-space-dot-evil-ex][ct-space-dot-evil-ex]]
 
 * Description
 This layer allows to easily enable some common Spacemacs tweaks.
@@ -54,3 +55,6 @@ Collapse the neotree hierarchy when going on a parent node.
 
 ** ct-python-underscore-in-word
 Make underscore part of =word= text objects in =python-mode=.
+
+** ct-space-dot-evil-ex
+Provide some =evil-ex= bindings on the ~SPC .~ prefix.

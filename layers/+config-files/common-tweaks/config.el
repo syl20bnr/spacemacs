@@ -103,3 +103,21 @@ and `text-mode')."
   (with-eval-after-load 'python BODY)
   :tweak
   (modify-syntax-entry ?_ "w" python-mode-syntax-table))
+
+(ct|tweak ct-space-dot-evil-ex
+  :description
+  "Provide some `evil-ex' bindings on the `SPC .' prefix."
+  :tweak
+  (progn
+    (which-key-declare-prefixes "SPC ." "evil-ex")
+    (setq ct-evil-ex-commands '(("e" . "e ")
+                                ("s" . "s/")
+                                ("w" . "w ")
+                                ("%s" . "%s/")))
+    (dolist (command ct-evil-ex-commands)
+      (eval
+       `(spacemacs/set-leader-keys ,(concat "." (car command))
+          (lambda ()
+            (interactive)
+            (let ((evil-ex-initial-input ,(cdr command)))
+              (call-interactively #'evil-ex))))))))
