@@ -7,6 +7,7 @@
  - [[Tweaks][Tweaks]]
    - [[ct-global-fill-column-indicator-mode][ct-global-fill-column-indicator-mode]]
    - [[ct-helm-no-dots][ct-helm-no-dots]]
+   - [[ct-helm-yas-in-hippie-expand][ct-helm-yas-in-hippie-expand]]
    - [[ct-neotree-close-on-open][ct-neotree-close-on-open]]
    - [[ct-neotree-collapse-on-parent][ct-neotree-collapse-on-parent]]
    - [[ct-python-underscore-in-word][ct-python-underscore-in-word]]
@@ -41,6 +42,9 @@ Turn on the fill column indicator globally (all =prog-mode= and =text-mode=).
 
 ** ct-helm-no-dots
 Remove dots (=.= and =..=) from helm files buffer.
+
+** ct-helm-yas-in-hippie-expand
+Add helm-yas as a hippie-expand function.
 
 ** ct-neotree-close-on-open
 Close the neotree window when a file is opened from it.

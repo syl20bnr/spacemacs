@@ -50,6 +50,16 @@ and `text-mode')."
     (advice-add 'helm-find-files-up-one-level
                 :around 'no-dots/helm-find-files-up-one-level)))
 
+(ct|tweak ct-helm-yas-in-hippie-expand
+  :description
+  "Add helm-yas as a hippie-expand function."
+  :loader
+  (with-eval-after-load 'hippie-exp BODY)
+  :tweak
+  (add-to-list 'hippie-expand-try-functions-list
+               '(lambda (&rest args)
+                  (interactive) (spacemacs/helm-yas) t) 'append))
+
 (ct|tweak ct-neotree-close-on-open
   :description
   "Close the neotree window when a file is opened from it."
