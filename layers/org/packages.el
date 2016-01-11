@@ -98,7 +98,10 @@
             (concat spacemacs-cache-directory ".org-id-locations")
             org-log-done t
             org-startup-with-inline-images t
-            org-src-fontify-natively t)
+            org-src-fontify-natively t
+            ;; this is consistent with the value of
+            ;; `helm-org-headings-max-depth'.
+            org-imenu-depth 8)
 
       (with-eval-after-load 'org-indent
         (spacemacs|hide-lighter org-indent-mode))
