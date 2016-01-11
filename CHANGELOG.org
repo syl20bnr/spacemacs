@@ -1,4 +1,27 @@
 * Release 0.105.x
+** 0.105.7 (2016/01/11)
+*** Hotfixes
+- Fix missing ~q~ key binding in the home buffer introduced in =0.105.5=
+  (thanks to justbur)
+**** ERC and RCIRC layers
+- Properly add all opened buffers to custom layouts
+  (thanks to AlejandroCatalina)
+**** Go layer
+- Prevent from clobbering environment variables if already set (thanks to whilp)
+**** Haskell
+- Remove reference to undefined function =haskell-cabal-hook=
+  (thanks to chrisbarrett)
+**** Python layer
+- Fix errors when reading =.python-version= files (thanks to fbergroth)
+*** Dotfile changes
+- New variable =dotspacemacs-scratch-mode= to configure the default major-mode
+  for the scratch buffer, default value is =text-mode= (thanks to TheBB)
+*** Improvements
+- Display a list of packages to update when pressing the =[Update packages]=
+  in the home buffer
+- Various documentation improvements (thanks to StreakyCobra, TheBB)
+*** Layer changes
+
 ** 0.105.6 (2016/01/09)
 *** Hotfix
 - Fix shadowed ~TAB~ (~C-i~) key in terminal (thanks to StreakyCobra)
