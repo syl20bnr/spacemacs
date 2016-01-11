@@ -41,7 +41,8 @@
         (add-hook 'mu4e-compose-pre-hook 'mu4e/set-account)
         (add-hook 'message-sent-hook 'mu4e/mail-account-reset)))))
 
-(defun mu4e/init-mu4e-maildirs-extension ()
-  (use-package mu4e-maildirs-extension
-    :defer t
-    :init (with-eval-after-load 'mu4e (mu4e-maildirs-extension-load))))
+(when mu4e-enable-maildirs-extension
+  (defun mu4e/init-mu4e-maildirs-extension ()
+    (use-package mu4e-maildirs-extension
+      :defer t
+      :init (with-eval-after-load 'mu4e (mu4e-maildirs-extension-load)))))
