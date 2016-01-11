@@ -201,8 +201,8 @@ Helm hack."
         "*"   'spacemacs/search-project-auto-region-or-symbol
         "sf"  'spacemacs/search-auto
         "sF"  'spacemacs/search-auto-region-or-symbol
-        "sp"  'spacemacs/search-project
-        "sP"  'spacemacs/search-project-region-or-symbol
+        "sp"  'spacemacs/search-project-auto
+        "sP"  'spacemacs/search-project-auto-region-or-symbol
         "saf" 'spacemacs/search-ag
         "saF" 'spacemacs/search-ag-region-or-symbol
         "sap" 'spacemacs/search-project-ag
