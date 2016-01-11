@@ -93,7 +93,6 @@ Ensure that helm is required before calling FUNC."
 (spacemacs||set-helm-key "hdk" describe-key)
 (spacemacs||set-helm-key "hdm" describe-mode)
 (spacemacs||set-helm-key "hdp" describe-package)
-(spacemacs/set-leader-keys "hds" 'spacemacs/describe-system-info)
 (spacemacs||set-helm-key "hdt" describe-theme)
 (spacemacs||set-helm-key "hdv" describe-variable)
 (spacemacs||set-helm-key "hn"  view-emacs-news)
@@ -129,6 +128,17 @@ Ensure that helm is required before calling FUNC."
   "fvf" 'add-file-local-variable
   "fvp" 'add-file-local-variable-prop-line
   "fy" 'spacemacs/show-and-copy-buffer-filename)
+;; help -----------------------------------------------------------------------
+(spacemacs/set-leader-keys
+  "hdb" 'describe-bindings
+  "hdc" 'describe-char
+  "hdf" 'describe-function
+  "hdk" 'describe-key
+  "hdl" 'spacemacs/describe-last-keys
+  "hdp" 'describe-package
+  "hds" 'spacemacs/describe-system-info
+  "hdt" 'describe-theme
+  "hdv" 'describe-variable)
 ;; insert stuff ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "iJ" 'spacemacs/insert-line-below-no-indent
