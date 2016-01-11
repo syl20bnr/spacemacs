@@ -980,7 +980,7 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
                upgrade-count) t)
       (mapc (lambda (x)
               (spacemacs-buffer/append (format "%s\n" x) t))
-            update-packages)
+            (sort (mapcar 'symbol-name update-packages) 'string<))
       (if (and (not always-update)
                (not (yes-or-no-p
                      (format "Do you want to update %s package(s) ? "
