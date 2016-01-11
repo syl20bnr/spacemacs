@@ -227,4 +227,21 @@
                      "You can paste it in the gitter chat.\n"
                      "Check the *Messages* buffer if you need to review it"))))
 
+(defun spacemacs/describe-last-keys ()
+  "Gathers info about your Emacs last keys and copies to clipboard."
+  (interactive)
+  (view-lossage)
+  (let* ((lossage-buffer "*Help*")
+         (lossage (format "#### Emacs last keys\n```text\n%s```\n"
+                          (with-current-buffer lossage-buffer
+                            (buffer-string)))))
+    (kill-buffer lossage-buffer)
+    (kill-new lossage)
+    (message lossage)
+    (message (concat "Information has been copied to clipboard.\n"
+                     (propertize
+                      "PLEASE REVIEW THE DATA BEFORE GOING FURTHER AS IT CAN CONTAIN SENSITIVE DATA (PASSWORD, ...)\n"
+                      'face 'font-lock-warning-face)
+                     "You can paste it in the gitter chat.\n"
+                     "Check the *Messages* buffer if you need to review it"))))
 (provide 'core-spacemacs)
