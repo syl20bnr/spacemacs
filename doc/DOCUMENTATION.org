@@ -1274,6 +1274,7 @@ thusly:
 | ~SPC h d F~ | describe a face                                           |
 | ~SPC h d k~ | describe a key                                            |
 | ~SPC h d K~ | describe a keymap                                         |
+| ~SPC h d l~ | copy last pressed keys that you can paste in gitter chat  |
 | ~SPC h d m~ | describe current modes                                    |
 | ~SPC h d p~ | describe a package                                        |
 | ~SPC h d s~ | copy system information that you can paste in gitter chat |

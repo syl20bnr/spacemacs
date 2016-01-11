@@ -108,6 +108,7 @@
   "hdc" 'describe-char
   "hdf" 'describe-function
   "hdk" 'describe-key
+  "hdl" 'spacemacs/describe-last-keys
   "hdp" 'describe-package
   "hds" 'spacemacs/describe-system-info
   "hdt" 'describe-theme
