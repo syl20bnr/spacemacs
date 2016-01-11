@@ -37,6 +37,7 @@ version the release note it displayed")
     (define-key map [backtab] 'widget-backward)
     (define-key map (kbd "RET") 'widget-button-press)
     (define-key map [down-mouse-1] 'widget-button-click)
+    (define-key map (kbd "g") 'spacemacs-buffer/refresh-startupify-lists)
     map)
   "Keymap for spacemacs buffer mode.")
 
@@ -56,6 +57,10 @@ version the release note it displayed")
   (page-break-lines-mode)
   ;; needed to make tab work correctly in terminal
   (evil-define-key 'motion spacemacs-buffer-mode-map (kbd "C-i") 'widget-forward)
+  (evil-define-key 'motion spacemacs-buffer-mode-map (kbd "gr")
+    'spacemacs-buffer/refresh-startupify-lists)
+  (evil-define-key 'motion spacemacs-buffer-mode-map (kbd "C-S-g")
+    'spacemacs-buffer/refresh-startupify-lists)
   ;; motion state since this is a special mode
   (unless (eq dotspacemacs-editing-style 'emacs)
     (evil-set-initial-state 'spacemacs-buffer-mode 'motion)))
@@ -550,6 +555,40 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                            (format "%s - %s" el (abbreviate-file-name
                                                  (bookmark-get-filename el)))))
           list)))
+
+(defun spacemacs-buffer/refresh-startupify-lists ()
+  "refresh home screen lists"
+  (interactive)
+  (spacemacs-buffer/delete-startupify-lists)
+  (spacemacs-buffer/insert-startupify-lists)
+  (widget-forward 1)
+  (message "*spacemacs* refreshed")
+  )
+
+(defun spacemacs-buffer/delete-startupify-list (header)
+  (with-current-buffer (get-buffer-create "*spacemacs*")
+    (let ((buffer-read-only nil))
+      (goto-char (point-min))
+      (when (re-search-forward header (point-max) t)
+        (beginning-of-line)
+        (kill-region (point) (re-search-forward "\n\n"))))))
+
+(defun spacemacs-buffer/delete-startupify-lists ()
+  (interactive)
+  (with-current-buffer (get-buffer-create "*spacemacs*")
+    (let ((buffer-read-only nil)
+          (list-separator "\n\n"))
+      (goto-char (point-min))
+      (replace-regexp "\n\n\n" "")
+      (mapc (lambda (el)
+              (cond
+               ((eq el 'recents)
+                (spacemacs-buffer/delete-startupify-list "Recent Files:"))
+               ((eq el 'bookmarks)
+                (spacemacs-buffer/delete-startupify-list "Bookmarks:"))
+               ((eq el 'projects)
+                (spacemacs-buffer/delete-startupify-list "Projects:")
+                ))) dotspacemacs-startup-lists))))
 
 (defun spacemacs-buffer/insert-startupify-lists ()
   (interactive)
