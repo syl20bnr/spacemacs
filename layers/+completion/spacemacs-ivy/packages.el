@@ -239,7 +239,8 @@ Helm hack."
         "fr" 'ivy-recentf
         "ir" 'ivy-resume
         "bb" 'ivy-switch-buffer)
-      (setq ivy-height 15)
+      (setq ivy-height 15
+            ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
       (with-eval-after-load 'recentf
         ;; merge recentf and bookmarks into buffer switching. If we set this
         ;; before recentf loads, then ivy-mode loads recentf for us,
