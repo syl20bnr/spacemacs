@@ -124,6 +124,33 @@ and `text-mode')."
   :tweak
   (modify-syntax-entry ?_ "w" python-mode-syntax-table))
 
+(ct|tweak ct-space-dot-C-c
+  :description
+  "Provide all `C-c C-[a-z]' bindings on the `SPC .' prefix."
+  :functions
+  (defmacro spacemacs|emacs-binding-aliases (binding &rest leader-aliases)
+    "Define some LEADER-ALIASES for an emacs BINDING."
+    (let* ((binding-name (format
+                          "emacs-binding-alias-%s"
+                          (downcase (replace-regexp-in-string " " "-" binding))))
+           (binding-func (intern (format "spacemacs/%s" binding-name)))
+           (binding-regex (format "\\`%s\\'" binding-name)))
+      `(progn
+         (defun ,binding-func ()
+           (interactive)
+           (setq unread-command-events (listify-key-sequence (kbd ,binding))))
+         (dolist (leader-aliase ',leader-aliases)
+           (spacemacs/set-leader-keys leader-aliase ',binding-func))
+         (push '(,binding-regex . ,binding)
+               which-key-description-replacement-alist))))
+  :tweak
+  (progn
+    (which-key-declare-prefixes "SPC ." "C-c bindings")
+    (dolist (letter (mapcar 'string (number-sequence ?a ?z)))
+      (eval
+       `(spacemacs|emacs-binding-aliases ,(concat "C-c C-" letter) ,(concat "." letter))))
+    (spacemacs|emacs-binding-aliases "C-c C-c" "..")))
+
 (ct|tweak ct-space-dot-evil-ex
   :description
   "Provide some `evil-ex' bindings on the `SPC .' prefix."

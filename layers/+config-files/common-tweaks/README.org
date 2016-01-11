@@ -13,6 +13,7 @@
    - [[ct-neotree-collapse-on-parent][ct-neotree-collapse-on-parent]]
    - [[ct-persistent-undo][ct-persistent-undo]]
    - [[ct-python-underscore-in-word][ct-python-underscore-in-word]]
+   - [[ct-space-dot-C-c][ct-space-dot-C-c]]
    - [[ct-space-dot-evil-ex][ct-space-dot-evil-ex]]
 
 * Description
@@ -63,6 +64,9 @@ Enable persistent undo between emacs sessions.
 
 ** ct-python-underscore-in-word
 Make underscore part of =word= text objects in =python-mode=.
+
+** ct-space-dot-C-c
+Provide all =C-c C-[a-z]= bindings on the =SPC .= prefix.
 
 ** ct-space-dot-evil-ex
 Provide some =evil-ex= bindings on the ~SPC .~ prefix.
