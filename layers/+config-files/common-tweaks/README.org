@@ -9,6 +9,7 @@
    - [[ct-global-fill-column-indicator-mode][ct-global-fill-column-indicator-mode]]
    - [[ct-helm-no-dots][ct-helm-no-dots]]
    - [[ct-helm-yas-in-hippie-expand][ct-helm-yas-in-hippie-expand]]
+   - [[ct-ivy-no-dots][ct-ivy-no-dots]]
    - [[ct-neotree-close-on-open][ct-neotree-close-on-open]]
    - [[ct-neotree-collapse-on-parent][ct-neotree-collapse-on-parent]]
    - [[ct-persistent-undo][ct-persistent-undo]]
@@ -52,6 +53,10 @@ Remove dots (=.= and =..=) from helm files buffer.
 
 ** ct-helm-yas-in-hippie-expand
 Add helm-yas as a hippie-expand function.
+
+** ct-ivy-no-dots
+Ignore any file or directory starting with a dot (plus a couple of more) unless
+the user starts the search string with a dot.
 
 ** ct-neotree-close-on-open
 Close the neotree window when a file is opened from it.

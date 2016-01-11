@@ -70,6 +70,14 @@ and `text-mode')."
                '(lambda (&rest args)
                   (interactive) (spacemacs/helm-yas) t) 'append))
 
+(ct|tweak ct-ivy-no-dots
+  :description
+  "Ignore any file or directory starting with a dot (plus a
+couple of more) unless the user starts the search string with a
+dot."
+  :tweak
+  (setq counsel-find-file-ignore-regexp "\\(?:\\`[#.]\\)\\|\\(?:[#~]\\'\\)"))
+
 (ct|tweak ct-neotree-close-on-open
   :description
   "Close the neotree window when a file is opened from it."
