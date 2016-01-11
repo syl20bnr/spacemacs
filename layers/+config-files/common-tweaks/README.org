@@ -67,6 +67,8 @@ Make underscore part of =word= text objects in =python-mode=.
 
 ** ct-space-dot-C-c
 Provide all =C-c C-[a-z]= bindings on the =SPC .= prefix.
+Can't be used at the same time as other =ct-space-dot= variables.
 
 ** ct-space-dot-evil-ex
 Provide some =evil-ex= bindings on the ~SPC .~ prefix.
+Can't be used at the same time as other =ct-space-dot= variables.
