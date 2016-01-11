@@ -205,6 +205,8 @@
                           "- Spacemacs: %s\n"
                           "- Spacemacs branch: %s (rev. %s)\n"
                           "- Distribution: %s\n"
+                          "- Editing style: %s\n"
+                          "- Completion: %s\n"
                           "- Layers:\n```elisp\n%s```\n")
                   system-type
                   emacs-version
@@ -212,6 +214,12 @@
                   (spacemacs/git-get-current-branch)
                   (spacemacs/git-get-current-branch-rev)
                   dotspacemacs-distribution
+                  dotspacemacs-editing-style
+                  (cond ((configuration-layer/layer-usedp 'spacemacs-helm)
+                         'helm)
+                        ((configuration-layer/layer-usedp 'spacemacs-ivy)
+                         'ivy)
+                        (t 'helm))
                   (pp dotspacemacs-configuration-layers))))
     (kill-new sysinfo)
     (message sysinfo)
