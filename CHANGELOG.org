@@ -19,6 +19,7 @@
 *** Improvements
 - Display a list of packages to update when pressing the =[Update packages]=
   in the home buffer
+- Add highlight of TODOs in text mode files (thanks to StreakyCobra)
 - Various documentation improvements (thanks to StreakyCobra, TheBB)
 *** Layer changes
 
