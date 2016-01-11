@@ -21,8 +21,6 @@
   in the home buffer
 - Add highlight of TODOs in text mode files (thanks to StreakyCobra)
 - Various documentation improvements (thanks to StreakyCobra, TheBB)
-*** Layer changes
-
 ** 0.105.6 (2016/01/09)
 *** Hotfix
 - Fix shadowed ~TAB~ (~C-i~) key in terminal (thanks to StreakyCobra)
