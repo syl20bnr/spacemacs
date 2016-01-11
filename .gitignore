@@ -40,6 +40,7 @@ server/
 *.db
 python-*-docs-html
 /.cask/
+/request/curl-cookie-jar
 
 # Private directory
 private/*
