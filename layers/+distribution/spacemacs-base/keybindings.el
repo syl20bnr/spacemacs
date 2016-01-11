@@ -74,8 +74,6 @@
   "bw"  'read-only-mode)
 ;; Cycling settings -----------------------------------------------------------
 (spacemacs/set-leader-keys "Tn" 'spacemacs/cycle-spacemacs-theme)
-;; describe functions ---------------------------------------------------------
-(spacemacs/set-leader-keys "hds" 'spacemacs/describe-system-info)
 ;; errors ---------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "en" 'spacemacs/next-error
