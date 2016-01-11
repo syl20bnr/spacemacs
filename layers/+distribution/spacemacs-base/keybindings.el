@@ -128,7 +128,9 @@
   "jo" 'open-line
   "j=" 'spacemacs/indent-region-or-buffer
   "jJ" 'spacemacs/split-and-new-line
-  "jk" 'spacemacs/evil-goto-next-line-and-indent)
+  "jk" 'spacemacs/evil-goto-next-line-and-indent
+  "j SPC" 'just-one-space
+  "j |" 'spacemacs/kill-whitespace)
 
 ;; navigation/jumping ---------------------------------------------------------
 (spacemacs/set-leader-keys

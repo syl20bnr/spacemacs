@@ -119,6 +119,16 @@ the current state and point position."
       (newline-and-indent)
       (setq counter (1- counter)))))
 
+(defun spacemacs/kill-whitespace ()
+  "Remove all whitespace (including newlines) surrounding `point'."
+  (interactive "*")
+  (save-excursion
+    (save-restriction
+      (save-match-data
+        (re-search-backward "[^ \t\r\n]" nil t)
+        (re-search-forward "[ \t\r\n]+" nil t)
+        (replace-match "" nil nil)))))
+
 ;; from Prelude
 ;; TODO: dispatch these in the layers
 (defvar spacemacs-indent-sensitive-modes
