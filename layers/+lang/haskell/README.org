@@ -54,10 +54,16 @@ This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
 - =hasktags=
 - =ghc-mod=
 
-To install them, use following command (or the =stack= equivalent):
+To install them, use following command:
 
 #+BEGIN_SRC sh
 $ cabal install stylish-haskell hlint hasktags ghc-mod
+#+END_SRC
+
+or
+
+#+BEGIN_SRC sh
+$ stack install stylish-haskell hlint hasktags ghc-mod
 #+END_SRC
 
 ** Setup PATH
@@ -93,10 +99,9 @@ checkout this [[https://github.com/kazu-yamamoto/ghc-mod/wiki#known-issues-relat
 
 *** Stack users
 
-Time to time =ghc-mod= is not available via latest Stackage LTS version. So if
-you have problems with calling =stack install ghc-mod=, try to use =stack
-install ghc-mod --resolver lts-3.1= (the last known LTS version that had
-=ghc-mod=). But even if it doesn't work, don't panic, it's easy to install it
+=ghc-mod= should be available via the latest Stackage LTS version. If not, try to use
+=stack install ghc-mod --resolver lts-4.0= (the current LTS which has =ghc-mod=).
+But even if it doesn't work, don't panic, it's easy to install it
 from sources.
 
 #+BEGIN_SRC sh
