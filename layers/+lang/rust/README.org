@@ -9,6 +9,7 @@
    - [[Layer][Layer]]
    - [[Racer][Racer]]
    - [[Cargo][Cargo]]
+   - [[Rustfmt][Rustfmt]]
  - [[Key bindings][Key bindings]]
 
 * Description
@@ -33,6 +34,21 @@ To enable auto-completion, ensure that the =auto-completion= layer is enabled.
 [[http://doc.crates.io/index.html][Cargo]] is a project management command line tool for Rust. Installation
 instructions can be found on the main page of [[http://doc.crates.io/index.html][Cargo]].
 
+** Rustfmt
+
+Format Rust code according to style guidelines using [[https://github.com/rust-lang-nursery/rustfmt][rustfmt]].
+
+#+BEGIN_SRC sh
+cargo install rustfmt
+#+END_SRC
+
+To enable automatic buffer formatting on save, set the variable =rust-enable-rustfmt-on-save= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rust :variables rust-enable-rustfmt-on-save t)))
+#+END_SRC
+
 * Key bindings
 
 | Key Binding | Description                       |
@@ -43,3 +59,4 @@ instructions can be found on the main page of [[http://doc.crates.io/index.html]
 | ~SPC m c x~ | execute the project with Cargo    |
 | ~SPC m c C~ | remove build artifacts with Cargo |
 | ~SPC m g g~ | jump to definition                |
+| ~SPC m =~   | reformat the buffer               |

@@ -17,6 +17,7 @@
     flycheck-rust
     rust-mode
     toml-mode
+    rustfmt
     ))
 
 (when (configuration-layer/layer-usedp 'syntax-checking)
@@ -71,3 +72,15 @@
       (spacemacs/declare-prefix-for-mode 'rust-mode "mg" "goto")
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "gg" 'racer-find-definition))))
+
+(defun rust/init-rustfmt ()
+  (use-package rustfmt
+    :defer t
+    :init
+    (progn
+      (when rust-enable-rustfmt-on-save
+          (spacemacs/add-to-hook 'rust-mode-hook
+                                 '(rustfmt-enable-on-save)))
+
+      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+        "=" 'rustfmt-format-buffer))))
