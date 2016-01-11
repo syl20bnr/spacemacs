@@ -313,7 +313,7 @@ license.
 The best way to support Spacemacs is to contribute to it either by reporting
 bugs, helping the community on the [Gitter Chat][] or sending pull requests.
 
-If you want to show your support financially you can buy a drink to the
+If you want to show your support financially you can contribute to [Bountysource][] or buy a drink for the
 maintainer by clicking on the [Paypal badge](#top).
 
 If you used spacemacs in a project and you want to show that fact, you can use
@@ -365,3 +365,4 @@ Thank you!
 [Stack Exchange]: http://emacs.stackexchange.com/questions/tagged/spacemacs
 [Reddit]: https://www.reddit.com/r/spacemacs
 [quote01]: https://gitter.im/syl20bnr/spacemacs?at=568e627a0cdaaa62045a7df6
+[Bountysource]: https://salt.bountysource.com/teams/spacemacs
