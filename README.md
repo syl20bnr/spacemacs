@@ -43,7 +43,7 @@
     - [Automatic update](#automatic-update)
     - [On develop branch](#on-develop-branch)
     - [Revert to a specific version](#revert-to-a-specific-version)
-- [Quotes about Spacemacs](#quotes-about-spacemacs)
+- [Quotes](#quotes)
 - [Contributions](#contributions)
 - [License](#license)
 - [Supporting Spacemacs](#supporting-spacemacs)
@@ -274,9 +274,9 @@ branch, for instance to revert to the last `0.103`:
   your packages by clicking the `[Update Packages]` button on the Spacemacs Home
   Buffer.**
 
-# Quotes about Spacemacs
+# Quotes
 
-[Quote](https://gitter.im/syl20bnr/spacemacs?at=568e627a0cdaaa62045a7df6) by [ashnur](https://github.com/ashnur):
+[Quote][quote01] by [ashnur](https://github.com/ashnur):
 
     «I feel that spacemacs is an aircraft carrier and I am playing table tennis on the deck as a freerider.»
 
@@ -362,3 +362,4 @@ Thank you!
 [icon-repository]: https://github.com/nashamri/spacemacs-logo
 [Stack Exchange]: http://emacs.stackexchange.com/questions/tagged/spacemacs
 [Reddit]: https://www.reddit.com/r/spacemacs
+[quote01]: https://gitter.im/syl20bnr/spacemacs?at=568e627a0cdaaa62045a7df6
