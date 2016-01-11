@@ -1,4 +1,7 @@
 * Release 0.105.x
+** 0.105.8 (next)
+*** Improvements
+- sort alphabetically the list of package to be update on the home buffer
 ** 0.105.7 (2016/01/11)
 *** Hotfixes
 - Fix missing ~q~ key binding in the home buffer introduced in =0.105.5=
