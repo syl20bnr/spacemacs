@@ -2542,7 +2542,7 @@ To search in a project see [[Searching in a project][project searching]].
     | ~SPC s a p~ | run =ag=                                              |
     | ~SPC s g p~ | run =grep=                                            |
     | ~SPC s k p~ | run =ack=                                             |
-    | ~SPC s p p~ | run =pt=                                              |
+    | ~SPC s t p~ | run =pt=                                              |
 
 *Note for Windows Users*: To enable fast indexing the GNU ~find~ or
 Cygwin ~find~ must be in your ~PATH~.
