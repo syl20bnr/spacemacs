@@ -383,7 +383,8 @@
       (setq avy-all-windows 'all-frames)
       (setq avy-background t)
       (spacemacs/set-leader-keys
-        "jc" 'evil-avy-goto-char-2
+        "jj" 'evil-avy-goto-char
+        "jJ" 'evil-avy-goto-char-2
         "jl" 'evil-avy-goto-line
         "ju" 'avy-pop-mark
         "jU" 'spacemacs/avy-goto-url
@@ -1324,8 +1325,8 @@ on whether the spacemacs-ivy layer is used or not, with
             sp-cancel-autoskip-on-backward-movement nil)
 
       (spacemacs/set-leader-keys
-        "J"  'sp-split-sexp
-        "jj" 'sp-newline))
+        "js" 'sp-split-sexp
+        "jn" 'sp-newline))
     :config
     (progn
       (require 'smartparens-config)
