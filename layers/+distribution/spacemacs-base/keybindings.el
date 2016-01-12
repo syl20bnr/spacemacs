@@ -112,7 +112,8 @@
   "hdp" 'describe-package
   "hds" 'spacemacs/describe-system-info
   "hdt" 'describe-theme
-  "hdv" 'describe-variable)
+  "hdv" 'describe-variable
+  "hn"  'view-emacs-news)
 ;; insert stuff ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "iJ" 'spacemacs/insert-line-below-no-indent
