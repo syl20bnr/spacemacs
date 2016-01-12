@@ -186,6 +186,7 @@ Helm hack."
         "ff"  'counsel-find-file
         "fL"  'counsel-locate
         ;; help
+        "?"   'counsel-descbinds
         "hdf" 'counsel-describe-function
         "hdm" 'spacemacs/describe-mode
         "hdv" 'counsel-describe-variable
@@ -223,8 +224,10 @@ Helm hack."
         "skF" 'spacemacs/search-ack-region-or-symbol
         "skp" 'spacemacs/search-project-ack
         "skP" 'spacemacs/search-project-ack-region-or-symbol)
+
+      ;; Note: Must be set before which-key is loaded.
+      (setq prefix-help-command 'counsel-descbinds)
       ;; TODO: Commands to port
-      (spacemacs//ivy-command-not-implemented-yet "?")
       (spacemacs//ivy-command-not-implemented-yet "jI"))))
 
 (defun spacemacs-ivy/init-flx ())
