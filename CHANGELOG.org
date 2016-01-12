@@ -1,9 +1,24 @@
 * Release 0.105.x
-** 0.105.8 (next)
+** 0.105.8 (2016/01/12)
+*** Fixes
+- Fix the red mode-line when error occurs during loading
+- Fix and improve layer templates and layer creation (thanks to chrisbarrett)
+- Fix and simplify copyrights in file headers
+- Fix =.gitignore= pattern for =private= directory (thanks to jballanc)
 *** Improvements
-- sort alphabetically the list of package to be update on the home buffer
+- New key binding ~SPC h d l~ to describe the last key pressed, useful
+  when reporting a bug (thanks to StreakyCobra)
+- Sort alphabetically the list of package to be update on the home buffer
+- Improve =describe-system-info= function with completion engine info
+  (ivy completion engine will be available in 0.106) (thanks to StreakyCobra)
+- Add link to =BountySource= page to =README.md= (thanks to houli)
+- Move =request= storage folder to =.cache= directory 
+*** Layer changes
+**** Markdown
+- Add support for javascript code blocks syntax highlighting
+  (thanks to AlejandroCatalina)
 ** 0.105.7 (2016/01/11)
-*** Hotfixes
+*** Fixes
 - Fix missing ~q~ key binding in the home buffer introduced in =0.105.5=
   (thanks to justbur)
 **** ERC and RCIRC layers
@@ -25,10 +40,10 @@
 - Add highlight of TODOs in text mode files (thanks to StreakyCobra)
 - Various documentation improvements (thanks to StreakyCobra, TheBB)
 ** 0.105.6 (2016/01/09)
-*** Hotfix
+*** Fixes
 - Fix shadowed ~TAB~ (~C-i~) key in terminal (thanks to StreakyCobra)
 ** 0.105.5 (2016/01/08)
-*** Hotfixes
+*** Fixes
 **** Core
 - Fix unavailable major mode leader keys in =evilified= buffers
   (thanks to justbur)
@@ -43,7 +58,7 @@
 - Don't enter =evil-insert-state= after =aya-expand= when =holy-mode= if active
   (thanks to abaw)
 ** 0.105.4 (2016/01/07)
-*** Hotfixes
+*** Fixes
 **** Core
 - Fix home buffer obfuscating opened file when Emacs starts (thanks to justbur)
 **** Ruby layer 
@@ -54,7 +69,7 @@
 **** Yasnippet
 - Fix and improve =yasnippet= loading (thanks to TheBB)
 ** 0.105.3 (2016/01/06)
-*** Hotfixes
+*** Fixes
 **** Emacs lisp layer
 - Fix wrong hook for adding evil text objects (thanks to justbur)
 **** Ledger
@@ -73,7 +88,7 @@
 - Fix empty mode-line when a new Spacemacs version is available
   (thanks to TheBB)
 ** 0.105.1 (2016/01/05)
-*** Hotfixes
+*** Fixes
 - Fix and improve support for GUI clients using a server started with
   =emacs --daemon=:
   - Fix font
