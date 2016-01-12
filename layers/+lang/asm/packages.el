@@ -1,17 +1,14 @@
-;;; packages.el --- asm Layer packages File for Spacemacs
+;;; packages.el --- Asm Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
-;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; Author: Tu, Do Hoang <tuhdo1710@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
 
-;; List of all packages to install and/or initialize. Built-in packages
-;; which require an initialization must be listed explicitly in the list.
 (setq asm-packages
       '(
         ;; package names go here
@@ -20,21 +17,10 @@
         x86-lookup
         ))
 
-;; List of packages to exclude.
-(setq asm-excluded-packages '())
-
-;; For each package, define a function asm/init-<package-name>
-;;
-;; (defun asm/init-my-package ()
-;;   "Initialize my package"
-;;   )
-;;
-;; Often the body of an initialize function uses `use-package'
-;; For more info on `use-package', see readme:
-;; https://github.com/jwiegley/use-package
 (defun asm/init-asm-mode ()
-  "Setup for built-in `asm-mode'"
   (use-package asm-mode
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'asm-mode "h" 'x86-lookup)
     :config
     (progn
       ;; We need to insert a non-indented line, otherwise it's annoying
@@ -48,7 +34,8 @@
     :init
     (progn
       (add-hook 'nasm-mode-hook #'asm-generic-setup)
-      (add-to-list 'auto-mode-alist '("\\.[n]*\\(asm\\|s\\)$" . nasm-mode)))
+      (add-to-list 'auto-mode-alist '("\\.[n]*\\(asm\\|s\\)$" . nasm-mode))
+      (spacemacs/set-leader-keys-for-major-mode 'nasm-mode "h" 'x86-lookup))
     :config
     (progn
       ;; We need to insert a non-indented line, otherwise it's annoying
@@ -69,11 +56,3 @@
 (defun asm/post-init-company ()
   (spacemacs|add-company-hook asm-mode)
   (spacemacs|add-company-hook nasm-mode))
-
-(defun asm/post-init-asm-mode ()
-  (spacemacs/set-leader-keys-for-major-mode 'nasm-mode
-    "h" 'x86-lookup))
-
-(defun asm/post-init-nasm-mode ()
-  (spacemacs/set-leader-keys-for-major-mode 'nasm-mode
-    "h" 'x86-lookup))
