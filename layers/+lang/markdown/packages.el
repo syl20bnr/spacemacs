@@ -190,7 +190,7 @@ Will work on both org-mode and any mode that accepts plain html."
       (mmm-add-classes '((markdown-ess
                           :submode R-mode
                           :face mmm-declaration-submode-face
-                          :front "^```[{]r.*[}][\n\r]+"
+                          :front "^```{?r.*}?[\n\r]+"
                           :back "^```$")))
       (setq mmm-global-mode t)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-python)
