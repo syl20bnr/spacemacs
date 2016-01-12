@@ -99,7 +99,9 @@
        - [[Smooth scrolling][Smooth scrolling]]
      - [[Vim motions with avy][Vim motions with avy]]
        - [[ace-link mode][ace-link mode]]
-     - [[Jumping][Jumping]]
+     - [[Jumping, Joining and Splitting][Jumping, Joining and Splitting]]
+       - [[Jumping][Jumping]]
+       - [[Joining and splitting][Joining and splitting]]
      - [[Window manipulation][Window manipulation]]
        - [[Window manipulation key bindings][Window manipulation key bindings]]
        - [[Window manipulation micro-state][Window manipulation micro-state]]
@@ -155,7 +157,6 @@
        - [[Expand-region][Expand-region]]
        - [[Indent text object][Indent text object]]
      - [[Region narrowing][Region narrowing]]
-     - [[Line formatting][Line formatting]]
      - [[Replacing text with iedit][Replacing text with iedit]]
        - [[iedit states key bindings][iedit states key bindings]]
        - [[Examples][Examples]]
@@ -1421,28 +1422,40 @@ Similar to =avy=, [[https://github.com/abo-abo/ace-link][ace-link]] allows one t
 |-------------+-------------------------------------------------------|
 | ~o~         | initiate ace link mode in =help-mode= and =info-mode= |
 
-*** Jumping
-The ~SPC j~ prefix includes several commands related to "jumping" or quickly
-moving to a relevant location based on context. You'll recognize some of the
-bindings from the previous sections, which are duplicated here.
+*** Jumping, Joining and Splitting
+The ~SPC j~ prefix is for jumping, joining and splitting.
+
+**** Jumping
 
 | Key Binding | Description                                                                       |
 |-------------+-----------------------------------------------------------------------------------|
 | ~SPC j 0~   | go to the beginning of line (and set a mark at the previous location in the line) |
 | ~SPC j $~   | go to the end of line (and set a mark at the previous location in the line)       |
 | ~SPC j b~   | jump to a bookmark                                                                |
-| ~SPC j c~   | jump to a character in the buffer (works as an evil motion)                       |
 | ~SPC j d~   | jump to a listing of the current directory                                        |
 | ~SPC j D~   | jump to a listing of the current directory (other window)                         |
 | ~SPC j f~   | jump to the definition of the function under the point                            |
 | ~SPC j i~   | jump to a definition in buffer (imenu)                                            |
 | ~SPC j I~   | jump to a definition in any buffer (imenu)                                        |
+| ~SPC j j~   | jump to a character in the buffer (works as an evil motion)                       |
+| ~SPC j J~   | jump to a suite of two characters in the buffer (works as an evil motion)         |
 | ~SPC j k~   | jump to next line and indent it using auto-indent rules                           |
 | ~SPC j l~   | jump to a line with avy (works as an evil motion)                                 |
 | ~SPC j u~   | undo a jump (go back to previous location)                                        |
 | ~SPC j U~   | jump to a URL in the current buffer                                               |
 | ~SPC j v~   | jump to the definition/declaration of the variable under the point                |
 | ~SPC j w~   | jump to a word in the current buffer (works as an evil motion)                    |
+
+
+**** Joining and splitting
+
+| Key Binding | Description                                                              |
+|-------------+--------------------------------------------------------------------------|
+| ~J~         | join the current line with the next line                                 |
+| ~SPC j k~   | go to next line and indent it using auto-indent rules                    |
+| ~SPC j n~   | split the current line at point, insert a new line and auto-indent       |
+| ~SPC j s~   | split a quoted string or s-expression in place                           |
+| ~SPC j S~   | split a quoted string or s-expression, insert a new line and auto-indent |
 
 *** Window manipulation
 **** Window manipulation key bindings
@@ -2282,23 +2295,6 @@ The displayed text of a buffer can be narrowed with the commands (start with
 | ~SPC n p~   | narrow the buffer to the visible page     |
 | ~SPC n r~   | narrow the buffer to the selected text    |
 | ~SPC n w~   | widen, i.e show the whole buffer again    |
-
-*** Line formatting
-Spacemacs performs =go to the line below point and indent it= with ~SPC j k~.
-You may repeat this operation with =evil-repeat= if you need to indent many
-lines.
-
-Line formatting commands start with ~j~:
-
-   | Key Binding | Description                                              |
-   |-------------+----------------------------------------------------------|
-   | ~J~         | join the current line with the next line                 |
-   | ~SPC j j~   | same as SPC j k but will split the current line at point |
-   | ~SPC J~     | split a quoted string or s-expression in place           |
-   | ~SPC j J~   | split a quoted string or s-expression and auto-indent    |
-   | ~SPC j k~   | go to next line and indent it using auto-indent rules    |
-
-Used together these key bindings are very powerful to quickly reformat code.
 
 *** Replacing text with iedit
 Spacemacs uses the powerful [[https://github.com/tsdh/iedit][iedit]] mode through [[https://github.com/syl20bnr/evil-iedit-state][evil-iedit-state]] to quickly

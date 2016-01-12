@@ -8,11 +8,19 @@ This file containes the change log for the next major version of Spacemacs.
 - Key binding ~SPC :~ acting as M-x as been replaced by ~SPC SPC~.
   If you want to revert to the old ~SPC :~ key binding set the new
   variable =dotspacemacs-emacs-command-key= to ":".
-- Key bindings ~SPC j h~ and ~SPC j l~ have been moved to ~SPC j 0~ and
-  ~SPC j $~ respectively.
+- ~SPC j~ prefix has been modified to include =jump= commands:
+  - =avy= commands are now behind the prefix ~SPC j~ for =jump=:
+    - ~SPC j j~ to jump to a character in the buffer (works as an evil motion)
+    - ~SPC j l~ to jump to a line with avy (works as an evil motion)
+    - ~SPC j w~ to jump to a word in the current buffer (works as an evil motion)
+  - the following key bindings have been moved:
+    - ~SPC j j~ to split a line has been moved to ~SPC j n~
+    - ~SPC j h~ and ~SPC j l~ have been moved to ~SPC j 0~ and ~SPC j $~
+      respectively.
+    - ~SPC J~ to split a string or sexp has been moved to ~SPC j s~
 *** Hot new features
 - Support for Ivy, add the =spacemacs-ivy= layer to your dotfile and
-  restart. Helm will be replaced by Ivy.
+  restart to replace =Helm= by =Ivy=.
 *** New Layers
 - asm in =+lang= (thanks to thudo)
 - spacemacs-ivy in =completion= (thanks to justbur)
@@ -32,14 +40,18 @@ This file containes the change log for the next major version of Spacemacs.
   - ~SPC j $~ to go to the end of line (and set a mark at the previous location
     in the line)
   - ~SPC j b~ to jump to a bookmark
-  - ~SPC j c~ to jump to a character in the buffer (works as an evil motion)
   - ~SPC j d~ to jump to a listing of the current directory
   - ~SPC j D~ to jump to a listing of the current directory (other window)
   - ~SPC j f~ to jump to the definition of the function under the point
   - ~SPC j i~ to jump to a definition in buffer (imenu)
+  - ~SPC j j~ to jump to a character in the buffer (works as an evil motion)
+  - ~SPC j J~ to jump to a suite of two characters in the buffer (works as an evil motion)
   - ~SPC j I~ to jump to a definition in any buffer (imenu)
   - ~SPC j k~ to jump to next line and indent it using auto-indent rules
   - ~SPC j l~ to jump to a line with avy (works as an evil motion)
+  - ~SPC j n~ to split the current line at point, insert a new line and auto-indent
+  - ~SPC j s~ to split a quoted string or s-expression in place
+  - ~SPC j S~ to split a quoted string or s-expression, insert a new line and auto-indent
   - ~SPC j u~ to undo a jump (go back to previous location)
   - ~SPC j U~ to jump to a URL in the current buffer
   - ~SPC j v~ to jump to the definition/declaration of the variable under the
