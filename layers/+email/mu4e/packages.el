@@ -15,7 +15,9 @@
         ;; This is a hack because mu4e is installed as part of
         ;; mu installation.
         (mu4e :location built-in)
-        (mu4e-maildirs-extension)))
+        mu4e-maildirs-extension
+        org
+        ))
 
 (defun mu4e/init-mu4e ()
   (use-package mu4e
@@ -40,9 +42,6 @@
       (add-to-list 'mu4e-view-actions
                    '("View in browser" . mu4e-action-view-in-browser) t)
 
-      (when (configuration-layer/layer-usedp 'org)
-        (require 'org-mu4e))
-
       (when mu4e-account-alist
         (add-hook 'mu4e-compose-pre-hook 'mu4e/set-account)
         (add-hook 'message-sent-hook 'mu4e/mail-account-reset)))))
@@ -51,3 +50,9 @@
   (use-package mu4e-maildirs-extension
     :defer t
     :init (with-eval-after-load 'mu4e (mu4e-maildirs-extension-load))))
+
+(defun mu4e/post-init-org ()
+  ;; load org-mu4e when org is actually loaded
+  (with-eval-after-load 'org (require 'org-mu4e)))
+
+
