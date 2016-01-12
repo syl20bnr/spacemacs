@@ -19,6 +19,7 @@
         aggressive-indent
         auto-highlight-symbol
         avy
+        bracketed-paste
         buffer-move
         (centered-cursor :location local)
         clean-aindent-mode
@@ -413,6 +414,13 @@
           (browse-url-at-point)))
       (spacemacs/set-leader-keys "`" 'avy-pop-mark))
       ))
+
+(defun spacemacs/init-bracketed-paste ()
+  (use-package bracketed-paste
+    :defer t
+    :init
+    ;; Enable bracketed-paste for tty
+    (add-hook 'tty-setup-hook 'bracketed-paste-enable)))
 
 (defun spacemacs/init-buffer-move ()
   (use-package buffer-move
