@@ -1,6 +1,6 @@
 ;;; holy-mode.el --- Enter the church of Emacs
 
-;; Copyright (C) 2014-2015 syl20bnr
+;; Copyright (C) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing
