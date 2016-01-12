@@ -257,10 +257,12 @@ Helm hack."
         (cond
          (arg
           ;; better navigation on homerow
-          ;; rebind `describe-key' for convenience
+          (define-key counsel-find-file-map (kbd "C-h") 'counsel-up-directory)
           (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
           (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
           (define-key ivy-minibuffer-map (kbd "C-h") (kbd "DEL"))
+          ;; Move C-h to C-S-h
+          (define-key ivy-minibuffer-map (kbd "C-S-h") help-map)
           (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-alt-done)
           (define-key ivy-minibuffer-map (kbd "<escape>")
             'minibuffer-keyboard-quit))
