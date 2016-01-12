@@ -270,6 +270,7 @@ Will work on both org-mode and any mode that accepts plain html."
       (require 'org-indent)
       (define-key global-map "\C-cl" 'org-store-link)
       (define-key global-map "\C-ca" 'org-agenda)
+      (define-key global-map "\C-cc" 'org-capture)
 
       ;; Open links and files with RET in normal state
       (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)
