@@ -75,6 +75,7 @@
         volatile-highlights
         window-numbering
         (zoom-frm :location local)
+        bracketed-paste
         ))
 
 ;; Paradox from MELPA is not compatible with 24.3, so we use
@@ -1605,3 +1606,9 @@ on whether the spacemacs-ivy layer is used or not, with
       (global-set-key (kbd "<C-wheel-up>") 'spacemacs/zoom-frm-in)
       (global-set-key (kbd "<C-wheel-down>") 'spacemacs/zoom-frm-out))))
 
+(defun spacemacs/init-bracketed-paste ()
+  (use-package bracketed-paste
+    :defer t
+    :init
+    ;; Enable bracketed-paste for tty
+    (add-hook 'tty-setup-hook 'bracketed-paste-enable)))
