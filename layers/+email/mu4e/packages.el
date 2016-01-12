@@ -10,7 +10,11 @@
 ;;; License: GPLv3
 
 (setq mu4e-packages
-      '((mu4e :location built-in)
+      '(
+        ;; mu4e is not a built-in package
+        ;; This is a hack because mu4e is installed as part of
+        ;; mu installation.
+        (mu4e :location built-in)
         (mu4e-maildirs-extension)))
 
 (defun mu4e/init-mu4e ()
@@ -19,9 +23,7 @@
     :init
     (progn
       (spacemacs/set-leader-keys "a M" 'mu4e)
-      (global-set-key (kbd "C-x m") 'mu4e-compose-new)
-      (with-eval-after-load 'org
-        (require 'org-mu4e)))
+      (global-set-key (kbd "C-x m") 'mu4e-compose-new))
     :config
     (progn
       (evilified-state-evilify-map mu4e-main-mode-map
