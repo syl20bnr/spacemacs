@@ -77,7 +77,7 @@
 (defun org/pre-init-mu4e ()
   ;; Load org-mu4e when mu4e is actually loaded
   (spacemacs|use-package-add-hook mu4e
-    :post-config (require 'org-mu4e)))
+    :post-config (require 'org-mu4e nil 'noerror)))
 
 ;; dummy init function to force installation of `org-plus-contrib'
 (defun org/init-org-plus-contrib ())
