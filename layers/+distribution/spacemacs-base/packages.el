@@ -46,6 +46,9 @@
         projectile
         quelpa
         recentf
+        ;; request is not a built-in package
+        ;; this is a hack to be able to configure request cache directory.
+        (request :location built-in)
         restart-emacs
         savehist
         saveplace
@@ -1347,6 +1350,10 @@ ARG non nil means that the editing style is `vim'."
                    (expand-file-name spacemacs-cache-directory))
       (add-to-list 'recentf-exclude (expand-file-name package-user-dir))
       (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'"))))
+
+(defun spacemacs-base/init-request ()
+  (setq request-storage-directory (concat spacemacs-cache-directory
+                                          "request/")))
 
 (defun spacemacs-base/init-restart-emacs()
   (use-package restart-emacs
