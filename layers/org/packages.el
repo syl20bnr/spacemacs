@@ -260,9 +260,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "aol" 'org-store-link))
     :config
     (progn
-      ;; setup org directory
-      (unless (file-exists-p org-directory)
-        (make-directory org-directory))
+      (setq org-default-notes-file "notes.org")
       (font-lock-add-keywords
        'org-mode '(("\\(@@html:<kbd>@@\\) \\(.*\\) \\(@@html:</kbd>@@\\)"
                     (1 font-lock-comment-face prepend)
