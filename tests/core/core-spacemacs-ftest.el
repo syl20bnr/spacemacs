@@ -1,7 +1,6 @@
 ;;; core-spacemacs-ftest.el --- Spacemacs Functional Test File
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Alberto Zaccagni & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Alberto Zaccagni <me@lazywithclass.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

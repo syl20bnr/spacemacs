@@ -1,7 +1,6 @@
 ;;; packages.el --- selectric Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015 Gergely Nagy
-;; Copyright (c) 2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Gergely Nagy
 ;; URL: https://github.com/syl20bnr/spacemacs

@@ -1,7 +1,6 @@
 ;;; core-spacemacs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -101,6 +100,8 @@
   (setq initial-buffer-choice nil)
   (setq inhibit-startup-screen t)
   ;; bootstrap packages
+  (spacemacs/load-or-install-protected-package 'dash t)
+  (spacemacs/load-or-install-protected-package 's t)
   (setq evil-want-Y-yank-to-eol dotspacemacs-remap-Y-to-y$
         evil-ex-substitute-global dotspacemacs-ex-substitute-global)
   (spacemacs/load-or-install-protected-package 'evil t)

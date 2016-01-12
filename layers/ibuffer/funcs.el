@@ -1,7 +1,6 @@
 ;;; funcs.el --- ibuffer Layer extensions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2015 Aleksandr Guljajev & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Aleksandr Guljajev <gulj.aleks@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

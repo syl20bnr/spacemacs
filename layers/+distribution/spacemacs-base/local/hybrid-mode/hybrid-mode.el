@@ -1,8 +1,9 @@
 ;;; hybrid-mode.el --- Put one foot in the church of Emacs
 
-;; Copyright (C) 2014-2015 syl20bnr
+;; Copyright (C) 2012-2016 Sylvain Benner & Contributors
 ;;
-;; Author: Justin Burkett <justin@burkett.cc>, Chris Ewald <chrisewald@gmail.com>
+;; Authors: Justin Burkett <justin@burkett.cc>
+;;          Chris Ewald <chrisewald@gmail.com>
 ;; Keywords: convenience editing
 ;; Created: 12 Aug 2015
 ;; Version: 1.00
