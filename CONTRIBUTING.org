@@ -158,10 +158,9 @@ The file header for =elisp= files should look like the following template:
 #+BEGIN_EXAMPLE
     ;;; FILENAME --- NAME Layer extensions File for Spacemacs
     ;;
-    ;; Copyright (c) 2012-2014 Sylvain Benner
-    ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+    ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
     ;;
-    ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+    ;; Author: YOUR_NAME <YOUR_EMAIL>
     ;; URL: https://github.com/syl20bnr/spacemacs
     ;;
     ;; This file is not part of GNU Emacs.
@@ -169,11 +168,12 @@ The file header for =elisp= files should look like the following template:
     ;;; License: GPLv3
 #+END_EXAMPLE
 
-You should replace =FILENAME= by the name of the file (e.g. =packages.el=) and
-=NAME= by the name of the layer you are creating. Some files already have a
-template inside =core/templates/=, so look in there first. Note that if you use
-=configuration-layer/create-layer=, spacemacs will prepare files and headers for
-you, and for free :smile: !
+You should replace =FILENAME= by the name of the file (e.g. =packages.el=)
+and =NAME= by the name of the layer you are creating, don't forget to replace
+=YOUR_NAME= and =YOUR_EMAIL= also. Some files already have a template inside
+=core/templates/=, so look in there first.
+Note that if you use =configuration-layer/create-layer=, spacemacs will prepare
+files and headers for you, and for free :smile: !
 
 *** Author of a new layer
 In the files header, change the default author name (=Sylvain Benner=) to your
