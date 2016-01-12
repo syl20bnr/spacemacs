@@ -595,6 +595,19 @@ path."
   (when (eq 'all dotspacemacs-configuration-layers)
     (setq dotspacemacs-configuration-layers
           (ht-keys configuration-layer-paths)))
+  ;; If both `spacemacs-helm' and `spacemacs-ivy' are used, keep only
+  ;; `spacemacs-helm'.
+  ;; TODO: Remove this when they are no longer exclusive, or move this check in
+  ;; the new system to verify `dotspacemacs'-variable values when this will be
+  ;; in place.
+  (when (and (member 'spacemacs-helm dotspacemacs-configuration-layers)
+             (member 'spacemacs-ivy dotspacemacs-configuration-layers))
+    (setq dotspacemacs-configuration-layers
+          (remove 'spacemacs-ivy dotspacemacs-configuration-layers))
+    (warn (concat "You have defined both `spacemacs-helm' and `spacemacs-ivy' "
+                  "in your `dotspacemacs-configuration-layers'. They are "
+                  "mutually exclusive, please select only one. In the meantime "
+                  "`spacemacs-ivy' has been disabled.")))
   (dolist (layer dotspacemacs-configuration-layers)
     (let ((layer-name (if (listp layer) (car layer) layer)))
       (if (ht-contains? configuration-layer-paths layer-name)
