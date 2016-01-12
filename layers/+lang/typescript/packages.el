@@ -1,7 +1,6 @@
 ;;; packages.el --- typescript Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Chris Bowdon & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Chris Bowdon <c.bowdon@bath.edu>
 ;; URL: https://github.com/syl20bnr/spacemacs

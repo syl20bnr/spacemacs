@@ -1,7 +1,6 @@
 ;;; packages.el --- sml Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Keith Simmons & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Keith Simmons <keith@the-simmons.net>
 ;; URL: https://github.com/syl20bnr/spacemacs

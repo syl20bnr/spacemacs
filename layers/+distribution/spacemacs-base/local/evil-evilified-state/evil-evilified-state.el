@@ -1,6 +1,6 @@
 ;;; evil-evilified-state.el --- A minimalistic evil state
-
-;; Copyright (C) 2014, 2015 syl20bnr
+;;
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil spacemacs
