@@ -285,7 +285,7 @@ are caught and signalled to user in spacemacs buffer."
        (condition-case-unless-debug err
            (,func)
          (error
-          (configuration-layer//set-error)
+          (configuration-layer//increment-error-count)
           (spacemacs-buffer/append (format "Error in %s: %s\n"
                                            ',(symbol-name func)
                                            (error-message-string err))

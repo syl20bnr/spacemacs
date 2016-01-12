@@ -604,20 +604,26 @@ already exist, and switch to it."
               (spacemacs-buffer/set-mode-line spacemacs--default-mode-line)
               (force-mode-line-update)
               (spacemacs-buffer-mode))
-          (add-hook 'emacs-startup-hook
-                    (lambda ()
-                      (with-current-buffer (get-buffer spacemacs-buffer-name)
-                        (when dotspacemacs-startup-lists
-                          (spacemacs-buffer/insert-startupify-lists))
-                        (if configuration-layer-error-count
-                            (spacemacs-buffer/set-mode-line
-                             (format (concat "%s error(s) at startup! "
-                                             "Spacemacs may not be able to operate properly.")
-                                     configuration-layer-error-count))
-                          (spacemacs-buffer/set-mode-line spacemacs--default-mode-line))
-                        (force-mode-line-update)
-                        (spacemacs-buffer-mode)
-                        (spacemacs-buffer/goto-link-line))) t)))))
+          (add-hook
+           'emacs-startup-hook
+           (lambda ()
+             (with-current-buffer (get-buffer spacemacs-buffer-name)
+               (when dotspacemacs-startup-lists
+                 (spacemacs-buffer/insert-startupify-lists))
+               (if configuration-layer-error-count
+                   (progn
+                     (spacemacs-buffer-mode)
+                     (spacemacs-buffer/set-mode-line
+                      (format
+                       (concat "%s error(s) at startup! "
+                               "Spacemacs may not be able to operate properly.")
+                       configuration-layer-error-count))
+                     (face-remap-add-relative 'mode-line
+                                              '((:background "red") mode-line)))
+                 (spacemacs-buffer/set-mode-line spacemacs--default-mode-line)
+                 (spacemacs-buffer-mode))
+               (force-mode-line-update)
+               (spacemacs-buffer/goto-link-line))) t)))))
   (spacemacs-buffer/goto-link-line)
   (switch-to-buffer spacemacs-buffer-name)
   (spacemacs//redisplay))

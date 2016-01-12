@@ -33,12 +33,11 @@ PAD import on left (l) or right (r) or left-right (lr)."
 
   (defun spacemacs//set-vimish-powerline-for-startup-buffers ()
     "Set the powerline for buffers created when Emacs starts."
-    (unless configuration-layer-error-count
-      (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
-        (when (get-buffer buffer)
-          (with-current-buffer buffer
-            (setq-local mode-line-format (default-value 'mode-line-format))
-            (powerline-set-selected-window)
-            (powerline-reset))))))
+    (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
+      (when (get-buffer buffer)
+        (with-current-buffer buffer
+          (setq-local mode-line-format (default-value 'mode-line-format))
+          (powerline-set-selected-window)
+          (powerline-reset)))))
   (add-hook 'emacs-startup-hook
             'spacemacs//set-vimish-powerline-for-startup-buffers))
