@@ -1,7 +1,6 @@
 ;;; packages.el --- Idris Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2015 Timothy Jones
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Timothy Jones <git@zmthy.io>
 ;; URL: https://github.com/syl20bnr/spacemacs

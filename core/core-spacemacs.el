@@ -1,7 +1,6 @@
 ;;; core-spacemacs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -100,12 +99,7 @@
      (spacemacs-buffer/goto-buffer)))
   (setq initial-buffer-choice nil)
   (setq inhibit-startup-screen t)
-  ;; mandatory dependencies
-  ;; dash is required to prevent a package.el bug with f on 24.3.1
-  ;; (spacemacs/load-or-install-protected-package 'dash t)
-  ;; (spacemacs/load-or-install-protected-package 's t)
-
-  ;; evil is required by bind-map
+  ;; bootstrap packages
   (spacemacs/load-or-install-protected-package 'evil t)
   (spacemacs/load-or-install-protected-package 'bind-map t)
   ;; bind-key is required by use-package
