@@ -14,6 +14,7 @@ This file containes the change log for the next major version of Spacemacs.
 - Support for Ivy, add the =spacemacs-ivy= layer to your dotfile and
   restart. Helm will be replaced by Ivy.
 *** New Layers
+- asm in =+lang= (thanks to thudo)
 - spacemacs-ivy in =completion= (thanks to justbur)
 - spacemacs-helm in =completion= (moved from spacemacs-base) (thanks to justbur)
 *** Dotfile changes
@@ -59,11 +60,17 @@ This file containes the change log for the next major version of Spacemacs.
   - ~SPC m g U~ to find usages of symbol under cursor using ido
   - ~SPC m r M~ to rename symbol under cursor interactively
   (thanks to retran)
+**** Helm
+- Rename action =Add layer= to =Install layer= in =helm-spacemacs-help=
+  (thanks to CestDiego)
 **** Javascript
 - New layer variable =javascript-disable-tern-port-files=, when non nil
   tern port files are not created. Default value is nil. (thanks to mijoharas)
 **** mu4e
 - Add =mu4e-maildirs-extension= package (thanks to choppsv1)
+- Enable =org-mu4e= (thanks to choppsv1)
+**** Org
+- Set =org-imenu-depth= to 8 (thanks to justbur)
 **** Python
 - New key bindings to manage virtual environments:
   - ~SPC m V a~ to activate a virtual environment in any directory
@@ -75,6 +82,10 @@ This file containes the change log for the next major version of Spacemacs.
   (thanks to fbergroth)
 - Remove package =company-racer= since =racer= works with default
   =company= backends (thanks to fbergroth)
+- New layer variable =rust-enable-rustfmt-on-save= (thanks to isphinx)
+- New package =rustfmt= with new key binding ~SPC m =~ to format the buffer
+  (thanks to isphinx)
+
 **** Shell
 - New =eshell-z= package (thanks to CestDiego)
 *** Other fixes and improvements
