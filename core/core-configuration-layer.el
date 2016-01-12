@@ -633,7 +633,7 @@ path."
             (condition-case err
                 (set-default var (eval (pop variables)))
               ('error
-               (configuration-layer//set-error)
+               (configuration-layer//increment-error-count)
                (spacemacs-buffer/append
                 (format (concat "\nAn error occurred while setting layer "
                                 "variable %s "
@@ -737,7 +737,7 @@ path."
                  (t (spacemacs-buffer/warning "Cannot install package %S."
                                               pkg-name)))
               ('error
-               (configuration-layer//set-error)
+               (configuration-layer//increment-error-count)
                (spacemacs-buffer/append
                 (format (concat "\nAn error occurred while installing %s "
                                 "(error: %s)\n") pkg-name err))))))
@@ -904,7 +904,7 @@ path."
               (condition-case err
                   (funcall (intern (format "%S/pre-init-%S" layer pkg-name)))
                 ('error
-                 (configuration-layer//set-error)
+                 (configuration-layer//increment-error-count)
                  (spacemacs-buffer/append
                   (format
                    (concat "\nAn error occurred while pre-configuring %S "
@@ -924,7 +924,7 @@ path."
               (condition-case err
                   (funcall (intern (format "%S/post-init-%S" layer pkg-name)))
                 ('error
-                 (configuration-layer//set-error)
+                 (configuration-layer//increment-error-count)
                  (spacemacs-buffer/append
                   (format
                    (concat "\nAn error occurred while post-configuring %S "
@@ -1284,12 +1284,10 @@ to select one."
           (spacemacs-buffer/append "\n"))
       (spacemacs-buffer/message "No orphan package to delete."))))
 
-(defun configuration-layer//set-error ()
-  "Set the error flag and change the mode-line color to red."
+(defun configuration-layer//increment-error-count ()
+  "Increment the error counter."
   (if configuration-layer-error-count
-      (setq configuration-layer-error-count
-            (1+ configuration-layer-error-count))
-    (face-remap-add-relative 'mode-line '((:background "red") mode-line))
+      (setq configuration-layer-error-count (1+ configuration-layer-error-count))
     (setq configuration-layer-error-count 1)))
 
 (provide 'core-configuration-layer)
