@@ -161,8 +161,8 @@
                ;; TODO remove extensions in 0.106.0
                ("Open extensions.el"
                 . helm-spacemacs-help//layer-action-open-extensions)
-               ("Add Layer"
-                . helm-spacemacs-help//layer-action-add-layer)
+               ("Install Layer"
+                . helm-spacemacs-help//layer-action-install-layer)
                ("Open README.org (for editing)"
                 . helm-spacemacs-help//layer-action-open-readme-edit)))))
 
@@ -257,17 +257,17 @@
   "Open the `README.org' file of the passed CANDIDATE for reading."
   (helm-spacemacs-help//layer-action-open-file "README.org" candidate))
 
-(defun helm-spacemacs-help//layer-action-add-layer (candidate)
-  "Adds layer to dotspacemacs file and reloads configuration"
-  (if (configuration-layer/layer-usedp (intern candidate))
-      (message "Layer already added.")
+(defun helm-spacemacs-help//layer-action-install-layer (candidate-layer)
+  "Add CANDIDATE-LAYER to dotspacemacs file and reloads configuration"
+  (if (configuration-layer/layer-usedp (intern candidate-layer))
+      (message "Layer already installed. Not Doing Anything")
     (let ((dotspacemacs   (find-file-noselect (dotspacemacs/location))))
       (with-current-buffer dotspacemacs
         (beginning-of-buffer)
         (let ((insert-point (re-search-forward
                              "dotspacemacs-configuration-layers *\n?.*\\((\\)")))
-          (insert (format "\n%s\n" candidate))
-          (indent-region insert-point (+ insert-point (length candidate)))
+          (insert (format "\n%s\n" candidate-layer))
+          (indent-region insert-point (+ insert-point (length candidate-layer)))
           (save-current-buffer)))
       (dotspacemacs/sync-configuration-layers))))
 
