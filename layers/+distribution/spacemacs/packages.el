@@ -463,10 +463,6 @@
     (spacemacs/set-leader-keys
       "xwd" 'define-word-at-point)))
 
-(defun spacemacs/init-dired+ ()
-  (use-package dired+
-    :defer t))
-
 (defun spacemacs/init-doc-view ()
   (use-package doc-view
     :defer t
