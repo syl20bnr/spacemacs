@@ -140,7 +140,7 @@
                                 collect (buffer-file-name buffer))))
           (spacemacs//helm-do-grep-region-or-symbol buffers t)))
 
-      (defun spacemacs/last-search-buffer ()
+      (defun spacemacs/resume-last-completion-buffer ()
         "open last helm-ag or hgrep buffer."
         (interactive)
         (cond ((get-buffer "*helm ag results*")
@@ -176,14 +176,15 @@
         "fb"   'helm-filtered-bookmarks
         "hdF"  'spacemacs/helm-faces
         "hi"   'helm-info-at-point
-        "hl"   'helm-resume
         "hm"   'helm-man-woman
         "iu"   'helm-ucs
         "jI"   'helm-imenu-in-all-buffers
-        "ry"   'helm-show-kill-ring
-        "rr"   'helm-register
         "rm"   'helm-all-mark-rings
-        "sl"   'spacemacs/last-search-buffer
+        "rl"   'helm-resume
+        "rr"   'helm-register
+        "rs"   'spacemacs/resume-last-completion-buffer
+        "ry"   'helm-show-kill-ring
+        "sl"   'spacemacs/resume-last-completion-buffer
         "sj"   'spacemacs/jump-in-buffer)
 
       ;; search with grep

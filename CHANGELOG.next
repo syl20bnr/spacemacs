@@ -18,6 +18,11 @@ This file containes the change log for the next major version of Spacemacs.
     - ~SPC j h~ and ~SPC j l~ have been moved to ~SPC j 0~ and ~SPC j $~
       respectively.
     - ~SPC J~ to split a string or sexp has been moved to ~SPC j s~
+- All helm related key bindings under ~SPC h~ that are not about help have
+  moved to different key bindings:
+  - ~SPC h b~ for =helm-filetered-bookmarks~is now ~SPC f b~
+  - ~SPC h l~ for =helm-resume= is now ~SPC r l~
+  - ~SPC h L~ for =helm-locate-library= is now ~SPC s L~
 *** Hot new features
 - Support for Ivy, add the =spacemacs-ivy= layer to your dotfile and
   restart to replace =Helm= by =Ivy=.
