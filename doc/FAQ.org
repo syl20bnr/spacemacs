@@ -18,6 +18,7 @@
    - [[Why does =helm-M-x= (~SPC :~) not accept the prefix argument?][Why does =helm-M-x= (~SPC :~) not accept the prefix argument?]]
    - [[Why does my color theme not render correctly in terminal mode?][Why does my color theme not render correctly in terminal mode?]]
    - [[Why do I get =(wrong-type-argument arrayp nil)= errors on startup?][Why do I get =(wrong-type-argument arrayp nil)= errors on startup?]]
+   - [[Typing quickly =fd= takes me out of =insert state=. What is going on?][Typing quickly =fd= takes me out of =insert state=. What is going on?]]
  - [[How do I...][How do I...]]
    - [[Install a package not provided by a layer?][Install a package not provided by a layer?]]
    - [[Disable a package completely?][Disable a package completely?]]
@@ -159,6 +160,16 @@ change your terminal color palette. More explanations can be found on
 ** Why do I get =(wrong-type-argument arrayp nil)= errors on startup?
 This is most likely caused by a corrupted package archive. Try deleting your
 =~/.emacs.d/elpa/archives/= folder and restart Emacs.
+
+** Typing quickly =fd= takes me out of =insert state=. What is going on?
+This is a feature of Spacemacs, enabling you to easily escape from a lot of
+situations, like escaping from =insert state= to =normal state=.
+
+The sequence of characters used can be customized. See the [[http://spacemacs.org/doc/DOCUMENTATION.html#orgheadline78][documentation]] for
+more information.
+
+If you don't like this feature, you can deactivate it by adding =evil-escape= to
+=dotspacemacs-excluded-packages= in your init file.
 
 * How do I...
 ** Install a package not provided by a layer?
