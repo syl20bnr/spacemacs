@@ -102,6 +102,7 @@
   ;; bootstrap packages
   (spacemacs/load-or-install-protected-package 'dash t)
   (spacemacs/load-or-install-protected-package 's t)
+  (spacemacs/load-or-install-protected-package 'f t)
   (setq evil-want-Y-yank-to-eol dotspacemacs-remap-Y-to-y$
         evil-ex-substitute-global dotspacemacs-ex-substitute-global)
   (spacemacs/load-or-install-protected-package 'evil t)

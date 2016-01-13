@@ -15,6 +15,9 @@
 (define-key evil-normal-state-map (kbd "[ b") 'spacemacs/previous-useful-buffer)
 (define-key evil-normal-state-map (kbd "] b") 'spacemacs/next-useful-buffer)
 
+(define-key evil-normal-state-map (kbd "[ f") 'unimpaired/previous-file)
+(define-key evil-normal-state-map (kbd "] f") 'unimpaired/next-file)
+
 (define-key evil-normal-state-map (kbd "] l") 'spacemacs/next-error)
 (define-key evil-normal-state-map (kbd "[ l") 'spacemacs/previous-error)
 
@@ -33,4 +36,3 @@
 ;; paste above or below with newline
 (define-key evil-normal-state-map (kbd "[ p") 'unimpaired/paste-above)
 (define-key evil-normal-state-map (kbd "] p") 'unimpaired/paste-below)
-
