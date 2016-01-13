@@ -610,7 +610,7 @@ path."
         configuration-layer--layers))
 
 (defun configuration-layer/declare-layers (layer-names)
-  "Add layer with LAYER-NAMES to used layers."
+  "Add layers with LAYER-NAMES to used layers."
   (mapc 'configuration-layer/declare-layer layer-names))
 
 (defun configuration-layer/declare-layer (layer-name)
@@ -619,6 +619,16 @@ path."
     (let ((new-layer (configuration-layer/make-layer layer-name)))
       (push new-layer configuration-layer--layers)
       (configuration-layer//configure-layer new-layer))))
+
+(defun configuration-layer/remove-layers (layer-names)
+  "Remove layers with LAYER-NAMES from used layers."
+  (mapc 'configuration-layer/remove-layer layer-names))
+
+(defun configuration-layer/remove-layer (layer-name)
+  "Remove an used layer with name LAYER-NAME."
+  (setq configuration-layer--layers
+        (delete (object-assoc layer-name :name configuration-layer--layers)
+                configuration-layer--layers)))
 
 (defun configuration-layer//set-layers-variables (layers)
   "Set the configuration variables for the passed LAYERS."
