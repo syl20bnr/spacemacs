@@ -179,6 +179,7 @@ Helm hack."
         (interactive)
         (call-interactively 'describe-mode))
 
+      (define-key counsel-find-file-map (kbd "C-h") 'counsel-up-directory)
       (spacemacs/set-leader-keys
         dotspacemacs-emacs-command-key 'counsel-M-x
         ;; files
@@ -257,7 +258,6 @@ Helm hack."
         (cond
          (arg
           ;; better navigation on homerow
-          (define-key counsel-find-file-map (kbd "C-h") 'counsel-up-directory)
           (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
           (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
           (define-key ivy-minibuffer-map (kbd "C-h") (kbd "DEL"))
