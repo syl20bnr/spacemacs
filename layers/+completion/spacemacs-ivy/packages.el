@@ -286,11 +286,21 @@ Helm hack."
 
 (defun spacemacs-ivy/init-ivy-spacemacs-help ()
   (use-package ivy-spacemacs-help
+    :commands (ivy-spacemacs-help-dotspacemacs
+               ivy-spacemacs-help
+               ivy-spacemacs-help-faq
+               ivy-spacemacs-help-layers
+               ivy-spacemacs-help-packages
+               ivy-spacemacs-help-docs
+               ivy-spacemacs-help-toggles)
     :init (spacemacs/set-leader-keys
-            "h SPC"  'ivy-spacemacs-help-docs
-            "h ."    'ivy-spacemacs-help-dotspacemacs
-            "h l"    'ivy-spacemacs-help
-            "h t"    'ivy-spacemacs-help-toggles)))
+            "h ."   'ivy-spacemacs-help-dotspacemacs
+            "h SPC" 'ivy-spacemacs-help
+            "h f"   'ivy-spacemacs-help-faq
+            "h l"   'ivy-spacemacs-help-layers
+            "h p"   'ivy-spacemacs-help-packages
+            "h r"   'ivy-spacemacs-help-docs
+            "h t"   'ivy-spacemacs-help-toggles)))
 
 (defun spacemacs-ivy/init-swiper ()
   (use-package swiper
