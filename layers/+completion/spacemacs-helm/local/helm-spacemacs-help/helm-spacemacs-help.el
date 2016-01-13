@@ -72,9 +72,50 @@
                    ,(helm-spacemacs-help//faq-source))))
 
 ;;;###autoload
-(defun helm-spacemacs-help-faq (arg)
-  "Looking in the FAQ with helm."
+(defun helm-spacemacs-help-dotspacemacs ()
+  "Helm session to search for dotfile variables."
+  (interactive)
+  (helm-spacemacs-help-mode)
+  (helm :buffer "*helm: spacemacs*"
+        :sources `(,(helm-spacemacs-help//dotspacemacs-source))))
+
+;;;###autoload
+(defun helm-spacemacs-help-layers ()
+  "Helm session to search for layers."
+  (interactive)
+  (helm-spacemacs-help-mode)
+  (helm :buffer "*helm: spacemacs*"
+        :sources `(,(helm-spacemacs-help//layer-source))))
+
+;;;###autoload
+(defun helm-spacemacs-help-packages (arg)
+  "Helm session to search for packages."
   (interactive "P")
+  (helm-spacemacs-help-mode)
+  (helm-spacemacs-help//init arg)
+  (helm :buffer "*helm: spacemacs*"
+        :sources `(,(helm-spacemacs-help//package-source))))
+
+;;;###autoload
+(defun helm-spacemacs-help-docs ()
+  "Helm session to search for documentation."
+  (interactive)
+  (helm-spacemacs-help-mode)
+  (helm :buffer "*helm: spacemacs*"
+        :sources `(,(helm-spacemacs-help//documentation-source))))
+
+;;;###autoload
+(defun helm-spacemacs-help-toggles ()
+  "Helm session to search for toggles."
+  (interactive)
+  (helm-spacemacs-help-mode)
+  (helm :buffer "*helm: spacemacs*"
+        :sources `(,(helm-spacemacs-help//toggle-source))))
+
+;;;###autoload
+(defun helm-spacemacs-help-faq ()
+  "Helm session to search for the FAQ."
+  (interactive)
   (helm-spacemacs-help-mode)
   (helm :buffer "*helm: spacemacs*"
         :sources `(,(helm-spacemacs-help//faq-source))))

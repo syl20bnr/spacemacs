@@ -871,7 +871,13 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
 (defun spacemacs-helm/init-helm-spacemacs-help ()
   (use-package helm-spacemacs-help
-    :commands (helm-spacemacs-help helm-spacemacs-help-faq)
+    :commands (helm-spacemacs-help-dotspacemacs
+               helm-spacemacs-help
+               helm-spacemacs-help-faq
+               helm-spacemacs-help-layers
+               helm-spacemacs-help-packages
+               helm-spacemacs-help-docs
+               helm-spacemacs-help-toggles)
     :init
     (progn
       (defun spacemacs-base/helm-spacemacs-deprecated (arg)
@@ -883,7 +889,14 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (helm-spacemacs arg))
       (spacemacs/set-leader-keys "feh" 'spacemacs-base/helm-spacemacs-deprecated)
       (spacemacs/set-leader-keys "fef" 'helm-spacemacs-help-faq)
-      (spacemacs/set-leader-keys "h SPC" 'helm-spacemacs-help))))
+      (spacemacs/set-leader-keys
+        "h ."   'helm-spacemacs-help-dotspacemacs
+        "h SPC" 'helm-spacemacs-help
+        "h f"   'helm-spacemacs-help-faq
+        "h l"   'helm-spacemacs-help-layers
+        "h p"   'helm-spacemacs-help-packages
+        "h r"   'helm-spacemacs-help-docs
+        "h t"   'helm-spacemacs-help-toggles))))
 
 (defun spacemacs-helm/init-helm-swoop ()
   (use-package helm-swoop
