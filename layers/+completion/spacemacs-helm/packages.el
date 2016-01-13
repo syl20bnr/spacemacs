@@ -161,12 +161,32 @@
                           (format "%s" (or default "default")))
                 :buffer "*helm faces*")))
 
+      (defun helm-available-repls ()
+        "Show all the repls available."
+        (interactive)
+        (let ((helm-available-repls
+               `((name . "HELM available REPLs")
+                 (candidates . ,(mapcar #'car spacemacs-repl-list))
+                 (action . (lambda (candidate)
+                             (let* ((repl (cdr (assoc candidate spacemacs-repl-list)))
+                                    (mode (car repl))
+                                    (f    (cdr repl)))
+                               (if (featurep mode)
+                                   (funcall f)
+                                 (let ((old-mode major-mode))
+                                   (funcall mode)
+                                   (funcall old-mode)
+                                   (funcall f)))))))))
+          (helm :sources '(helm-available-repls)
+                :buffer "*helm repls*")))
+
       ;; use helm by default for M-x
       (unless (configuration-layer/package-usedp 'smex)
         (global-set-key (kbd "M-x") 'helm-M-x))
 
       (spacemacs/set-leader-keys
         "<f1>" 'helm-apropos
+        "aR"   'helm-available-repls
         "bb"   'helm-mini
         "Cl"   'helm-colors
         "ff"   'spacemacs/helm-find-files
