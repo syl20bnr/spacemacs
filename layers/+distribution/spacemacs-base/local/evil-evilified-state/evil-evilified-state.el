@@ -152,6 +152,8 @@ Needed to bypass keymaps set as text properties."
 (define-key evil-evilified-state-map "G" 'evil-goto-line)
 (define-key evil-evilified-state-map (kbd "C-f") 'evil-scroll-page-down)
 (define-key evil-evilified-state-map (kbd "C-b") 'evil-scroll-page-up)
+(define-key evil-evilified-state-map (kbd "C-e") 'evil-scroll-line-down)
+(define-key evil-evilified-state-map (kbd "C-y") 'evil-scroll-line-up)
 (define-key evil-evilified-state-map (kbd "C-d") 'evil-scroll-down)
 (define-key evil-evilified-state-map (kbd "C-u") 'evil-scroll-up)
 (define-key evil-evilified-state-map (kbd "C-z") 'evil-emacs-state)
