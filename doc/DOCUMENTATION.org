@@ -1622,6 +1622,7 @@ Files manipulation commands (start with ~f~):
 
 | Key Binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
+| ~SPC f b~   | go to file bookmarks                                           |
 | ~SPC f c~   | copy current file to a different location                      |
 | ~SPC f C d~ | convert file from unix to dos encoding                         |
 | ~SPC f C u~ | convert file from dos to unix encoding                         |
@@ -1830,7 +1831,7 @@ Bookmarks can be set anywhere in a file. Bookmarks are persistent. They are very
 useful to jump to/open a known project. Spacemacs uses =helm-bookmarks= to
 manage them.
 
-Open an =helm= window with the current bookmarks by pressing: ~SPC h b~
+Open an =helm= window with the current bookmarks by pressing: ~SPC f b~
 
 Then in the =helm-bookmarks= buffer:
 

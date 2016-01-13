@@ -173,7 +173,7 @@
         "fF"   'helm-find-files
         "fL"   'helm-locate
         "fr"   'helm-recentf
-        "hb"   'helm-filtered-bookmarks
+        "fb"   'helm-filtered-bookmarks
         "hdF"  'spacemacs/helm-faces
         "hi"   'helm-info-at-point
         "hl"   'helm-resume
