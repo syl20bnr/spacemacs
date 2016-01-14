@@ -114,10 +114,8 @@
                   (when (equal 1 spacemacs--layouts-ms-doc-toggle)
                     spacemacs--layouts-ms-documentation))))
 
-      (spacemacs|define-micro-state layouts
-        :doc (spacemacs//layouts-ms-doc)
-        :use-minibuffer t
-        :evil-leader "l"
+      (spacemacs|define-micro-state-2 layouts
+        :doc (concat (spacemacs//layouts-ms-doc))
         :bindings
         ;; need to exit in case number doesn't exist
         ("?" spacemacs//layouts-ms-toggle-doc)
@@ -155,6 +153,7 @@
         ("w" spacemacs/layout-workspaces-micro-state :exit t)
         ("x" spacemacs/layouts-ms-kill)
         ("X" spacemacs/layouts-ms-kill-other :exit t))
+      (spacemacs/set-leader-keys "l" 'spacemacs/layouts-micro-state/body)
 
       (defun spacemacs/layout-switch-by-pos (pos)
         "Switch to perspective of position POS."
@@ -175,7 +174,7 @@
                  ,(format "Switch to layout %s." i)
                  (interactive)
                  (spacemacs/layout-switch-by-pos ,(if (eq 0 i) 9 (1- i)))
-                 (spacemacs/layouts-micro-state))))
+                 (spacemacs/layouts-micro-state/body))))
 
       (defun spacemacs/layout-goto-default ()
         "Go to `dotspacemacs-default-layout-name` layout"
@@ -187,7 +186,7 @@
         "Rename a layout and get back to the perspectives micro-state."
         (interactive)
         (call-interactively 'persp-rename)
-        (spacemacs/layouts-micro-state))
+        (spacemacs/layouts-micro-state/body))
 
       (defun spacemacs/layouts-ms-close ()
         "Kill current perspective"
@@ -197,7 +196,7 @@
       (defun spacemacs/layouts-ms-close-other ()
         (interactive)
         (call-interactively 'spacemacs/helm-persp-close)
-        (spacemacs/layouts-micro-state))
+        (spacemacs/layouts-micro-state/body))
 
       (defun spacemacs/layouts-ms-kill ()
         "Kill current perspective"
@@ -207,7 +206,7 @@
       (defun spacemacs/layouts-ms-kill-other ()
         (interactive)
         (call-interactively 'spacemacs/helm-persp-kill)
-        (spacemacs/layouts-micro-state))
+        (spacemacs/layouts-micro-state/body))
 
       (defun spacemacs/layouts-ms-last ()
         "Switch to the last active perspective"
@@ -270,7 +269,7 @@ Available PROPS:
         "Update the custom-perspectives microstate and then activate it."
         (interactive)
         (spacemacs//update-custom-layouts)
-        (spacemacs/custom-layouts-micro-state))
+        (spacemacs/custom-layouts-micro-state/body))
 
       (defun spacemacs//custom-layouts-ms-documentation ()
         "Return the docstring for the custom perspectives micro-state."
@@ -292,9 +291,8 @@ format so they are supported by the
                    (name (cdr custom-persp))
                    (func-name (spacemacs//custom-layout-func-name name)))
               (push (list binding func-name) bindings)))
-          (eval `(spacemacs|define-micro-state custom-layouts
-                   :doc (spacemacs//custom-layouts-ms-documentation)
-                   :use-minibuffer t
+          (eval `(spacemacs|define-micro-state-2 custom-layouts
+                   :doc (concat (spacemacs//custom-layouts-ms-documentation))
                    :bindings
                    ,@bindings))))
       )
