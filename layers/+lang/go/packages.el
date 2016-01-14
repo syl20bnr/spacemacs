@@ -15,6 +15,8 @@
     (exec-path-from-shell-copy-env "GOPATH")
     (exec-path-from-shell-copy-env "GO15VENDOREXPERIMENT"))
 
+  (add-hook 'go-mode-hook (lambda () (setq-local tab-width 8)))
+
   (use-package go-mode
     :defer t
     :config
