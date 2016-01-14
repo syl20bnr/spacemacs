@@ -13,13 +13,14 @@
   '(
     cmm-mode
     company
-    company-ghc
     company-cabal
+    company-ghc
     flycheck
     flycheck-haskell
     ghc
     haskell-mode
     haskell-snippets
+    helm-hoogle
     hindent
     shm
     ))
@@ -27,6 +28,11 @@
 (defun haskell/init-cmm-mode ()
   (use-package cmm-mode
     :defer t))
+
+(when (configuration-layer/layer-usedp 'spacemacs-helm)
+  (defun haskell/init-helm-hoogle ()
+    (use-package helm-hoogle
+      :defer t))
 
 (defun haskell/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'haskell-mode-hook))
@@ -144,6 +150,7 @@
         "hd"  'inferior-haskell-find-haddock
         "hh"  'hoogle
         "hH"  'hoogle-lookup-from-local
+        "hf"  'helm-hoogle
         "hi"  (lookup-key haskell-mode-map (kbd "C-c TAB"))
         "ht"  (lookup-key haskell-mode-map (kbd "C-c C-t"))
         "hT"  'spacemacs/haskell-process-do-type-on-prev-line
