@@ -28,24 +28,24 @@
 
       (defun spacemacs//ipython-notebook-ms-doc ()
         (if (equal 0 spacemacs--ipython-notebook-ms-doc-toggle)
-            "[?] for help"
+            "[_?_] for help"
           "
-        [?] toggle this help
+        [_?_] toggle this help
 
-        [k,j] prev/next cell               [K,J] move cell up/down
-        [h,l] prev/next worksheet          [H,L] move worksheet left/right
-        [C-k,C-j] merge cell above/bellow  [O,o] insert cell above/bellow
-        [d] kill cell                      [y,p] copy or past cell
-        [RET] execute cell                 [u] change cell type
+        [_k_,_j_] prev/next cell               [_K_,_J_] move cell up/down
+        [_h_,_l_] prev/next worksheet          [_H_,_L_] move worksheet left/right
+        [_C-k_,_C-j_] merge cell above/bellow  [_O_,_o_] insert cell above/bellow
+        [_d_] kill cell                      [_y_,_p_] copy or past cell
+        [_RET_] execute cell                 [_u_] change cell type
 
-        [C-o]: open console                [t] toggle output
-        [C-l,C-S-L] clear/clear all output
+        [_C-o_]: open console                [_t_] toggle output
+        [_C-l_,_C-S-L_] clear/clear all output
 
-        [C-s,C-r] save/rename notebook
-        [1..9] open [1st..last] worksheet
-        [+,-] create/delete worksheet
+        [_C-s_,_C-r_] save/rename notebook
+        [_1_.._9_] open [_1st..last_] worksheet
+        [_+_,_-_] create/delete worksheet
 
-        [x] close notebook                 [q] quit micro-state"))
+        [_x_] close notebook                 [_q_] quit micro-state"))
 
       (defun spacemacs//ipython-notebook-ms-toggle-doc ()
         (interactive)
@@ -125,10 +125,8 @@
       (define-key ein:notebook-multilang-mode-map (kbd "M-j") 'ein:worksheet-move-cell-down)
       (define-key ein:notebook-multilang-mode-map (kbd "M-k") 'ein:worksheet-move-cell-up)
 
-      (spacemacs|define-micro-state ipython-notebook
-        :doc (spacemacs//ipython-notebook-ms-doc)
-        :use-minibuffer t
-        :evil-leader "ein"
+      (spacemacs|define-micro-state-2 ipython-notebook
+        :doc (concat (spacemacs//ipython-notebook-ms-doc))
         :bindings
         ("q" nil :exit t)
         ("?" spacemacs//ipython-notebook-ms-toggle-doc)
@@ -171,4 +169,5 @@
         ("9" ein:notebook-worksheet-open-last)
         ("+" ein:notebook-worksheet-insert-next)
         ("-" ein:notebook-worksheet-delete)
-        ("x" ein:notebook-close)))))
+        ("x" ein:notebook-close))
+      (spacemacs/set-leader-keys "ein" ))))
