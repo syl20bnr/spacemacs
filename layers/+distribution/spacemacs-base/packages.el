@@ -32,6 +32,7 @@
         (hs-minor-mode :location built-in)
         (holy-mode :location local :step pre)
         (hybrid-mode :location local :step pre)
+        hydra
         (ido :location built-in)
         ido-vertical-mode
         (package-menu :location built-in)
@@ -537,6 +538,9 @@ Example: (evil-map visual \"<\" \"<gv\")"
         :documentation "Globally toggle hybrid mode."
         :evil-leader "tEh")
       (spacemacs|diminish hybrid-mode " Ⓔh" " Eh"))))
+
+(defun spacemacs-base/init-hydra ()
+  (use-package hydra))
 
 (defun spacemacs-base/init-ido ()
   (ido-mode t)
