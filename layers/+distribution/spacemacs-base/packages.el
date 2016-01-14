@@ -323,56 +323,32 @@ Example: (evil-map visual \"<\" \"<gv\")"
         (evil-next-visual-line)
         (let ((recenter-redisplay nil))
           (recenter nil)))
-      (spacemacs|define-micro-state scroll
-        :doc "[,] page up [.] page down [<] half page up [>] half page down"
-        :execute-binding-on-enter t
-        :evil-leader "n." "n," "n<" "n>"
+      (spacemacs|define-micro-state-2 scroll
         :bindings
-        ;; page
-        ("," evil-scroll-page-up)
-        ("." evil-scroll-page-down)
+        ("," evil-scroll-page-up "page up")
+        ("." evil-scroll-page-down "page down")
         ;; half page
-        ("<" spacemacs/scroll-half-page-up)
-        (">" spacemacs/scroll-half-page-down))
-
-      ;; support for auto-indentation inhibition on universal argument
-      (spacemacs|advise-commands
-       "handle-indent" (evil-paste-before evil-paste-after) around
-       "Handle the universal prefix argument for auto-indentation."
-       (let ((prefix (ad-get-arg 0)))
-         (ad-set-arg 0 (unless (equal '(4) prefix) prefix))
-         ad-do-it
-         (ad-set-arg 0 prefix)))
+        ("<" spacemacs/scroll-half-page-up "half page up")
+        (">" spacemacs/scroll-half-page-down "half page down"))
+      (spacemacs/set-leader-keys
+        "n," 'spacemacs/scroll-micro-state/evil-scroll-page-up
+        "n." 'spacemacs/scroll-micro-state/evil-scroll-page-down
+        "n<" 'spacemacs/scroll-micro-state/spacemacs/scroll-half-page-up
+        "n>" 'spacemacs/scroll-micro-state/spacemacs/scroll-half-page-down)
 
       ;; pasting micro-state
-      (spacemacs|advise-commands
-       "paste-micro-state"
-       (evil-paste-before evil-paste-after evil-visual-paste) after
-       "Initate the paste micro-state."
-       (unless (or (evil-ex-p)
-                   (eq 'evil-paste-from-register this-command))
-         (spacemacs/paste-micro-state)))
-      (defun spacemacs//paste-ms-doc ()
-        "The documentation for the paste micro-state."
-        (format (concat "[%s/%s] Type [p] or [P] to paste the previous or "
-                        "next copied text, [.] to paste the same text")
-                (length kill-ring-yank-pointer) (length kill-ring)))
-      (spacemacs|define-micro-state paste
-        :doc (spacemacs//paste-ms-doc)
-        :use-minibuffer t
+      (spacemacs|define-micro-state-2 paste
+        :doc "\n[%s(length kill-ring-yank-pointer)/%s(length kill-ring)] \
+[_J_/_K_] cycles through yanked text, [_p_/_P_] pastes the same text above or \
+below. Anything else exits."
         :bindings
-        ("p" evil-paste-pop)
-        ("P" evil-paste-pop-next))
-      (unless dotspacemacs-enable-paste-micro-state
-        (ad-disable-advice 'evil-paste-before 'after
-                           'evil-paste-before-paste-micro-state)
-        (ad-activate 'evil-paste-before)
-        (ad-disable-advice 'evil-paste-after 'after
-                           'evil-paste-after-paste-micro-state)
-        (ad-activate 'evil-paste-after)
-        (ad-disable-advice 'evil-visual-paste 'after
-                           'evil-visual-paste-paste-micro-state)
-        (ad-activate 'evil-visual-paste))
+        ("J" evil-paste-pop)
+        ("K" evil-paste-pop-next)
+        ("p" evil-paste-after)
+        ("P" evil-paste-before))
+      (when dotspacemacs-enable-paste-micro-state
+        (define-key evil-normal-state-map "p" 'spacemacs/paste-micro-state/evil-paste-after)
+        (define-key evil-normal-state-map "P" 'spacemacs/paste-micro-state/evil-paste-before))
 
       ;; define text objects
       (defmacro spacemacs|define-text-object (key name start end)
@@ -702,13 +678,12 @@ Example: (evil-map visual \"<\" \"<gv\")"
   [v]          open in a new vertical split
   [q]          quit")
 
-      (spacemacs|define-micro-state ido-navigation
-        :persistent t
-        :disable-evil-leader t
+      (spacemacs|define-micro-state-2 ido-navigation
+        :foreign-keys run
         :on-enter (spacemacs//ido-navigation-ms-on-enter)
         :on-exit  (spacemacs//ido-navigation-ms-on-exit)
         :bindings
-        ("?" nil :doc (spacemacs//ido-navigation-ms-full-doc))
+        ;;("?" nil (spacemacs//ido-navigation-ms-full-doc))
         ("<RET>" ido-exit-minibuffer :exit t)
         ("<escape>" nil :exit t)
         ("e" ido-select-text :exit t)
