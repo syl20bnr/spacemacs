@@ -13,13 +13,14 @@
   '(
     cmm-mode
     company
-    company-ghc
     company-cabal
+    company-ghc
     flycheck
     flycheck-haskell
     ghc
     haskell-mode
     haskell-snippets
+    helm-hoogle
     hindent
     shm
     ))
@@ -27,6 +28,13 @@
 (defun haskell/init-cmm-mode ()
   (use-package cmm-mode
     :defer t))
+
+(when (configuration-layer/layer-usedp 'spacemacs-helm)
+  (defun haskell/init-helm-hoogle ()
+    (use-package helm-hoogle
+      :defer t
+      :init
+      (spacemacs/set-leader-keys-for-major-mode 'haskell-mode "hf" 'helm-hoogle))))
 
 (defun haskell/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'haskell-mode-hook))
