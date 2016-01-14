@@ -5,7 +5,7 @@
  - [[Description][Description]]
  - [[Install][Install]]
    - [[Layer][Layer]]
- - [[Features ][Features ]]
+ - [[Features][Features]]
    - [[Micro-states][Micro-states]]
      - [[Layouts Micro State][Layouts Micro State]]
      - [[Project Layouts][Project Layouts]]
@@ -16,6 +16,7 @@
    - [[Predefined custom layouts][Predefined custom layouts]]
      - [[Org-agenda custom layout][Org-agenda custom layout]]
      - [[RCIRC/ERC custom layout][RCIRC/ERC custom layout]]
+ - [[Key bindings][Key bindings]]
 
 * Description
 This contribution layer adds layouts support to Spacemacs thanks to =persp-mode=.
@@ -37,29 +38,29 @@ The layouts micro-state is initiated with ~SPC l~.
 
 | Key Binding | Description                                                |
 |-------------+------------------------------------------------------------|
-| ~?~         | toggle the documentation                                   |
-| ~[1..9, 0]~ | switch to nth layout                                       |
-| ~<tab>~     | switch to the latest layout                                |
-| ~a~         | add a buffer to the current layout                         |
-| ~A~         | add all the buffers from another layout in the current one |
-| ~b~         | select a buffer in the current layout                      |
-| ~c~         | close the current layout and keep its buffers              |
-| ~C~         | close the other layouts and keep their buffers             |
-| ~h~         | go to default layout                                       |
-| ~C-h~       | previous layout in list                                    |
-| ~l~         | select a layout with helm                                  |
-| ~L~         | load layouts from file                                     |
-| ~C-l~       | next layout in list                                        |
-| ~n~         | next layout in list                                        |
-| ~N~         | previous layout in list                                    |
-| ~o~         | open a custom layout                                       |
-| ~p~         | previous layout in list                                    |
-| ~r~         | remove current buffer from layout                          |
-| ~R~         | rename layout                                              |
-| ~s~         | save layouts                                               |
-| ~t~         | display a buffer without adding it to the current layout   |
-| ~x~         | kill current layout with its buffers                       |
-| ~X~         | kill other layouts with their buffers                      |
+| ~?~           | toggle the documentation                                   |
+| ~[1..9, 0]~   | switch to nth layout                                       |
+| ~<tab>~       | switch to the latest layout                                |
+| ~a~           | add a buffer to the current layout                         |
+| ~A~           | add all the buffers from another layout in the current one |
+| ~b~           | select a buffer in the current layout                      |
+| ~c~           | close the current layout and keep its buffers              |
+| ~C~           | close the other layouts and keep their buffers             |
+| ~h~           | go to default layout                                       |
+| ~C-h~         | previous layout in list                                    |
+| ~l~           | select a layout with helm                                  |
+| ~L~           | load layouts from file                                     |
+| ~C-l~         | next layout in list                                        |
+| ~n~           | next layout in list                                        |
+| ~N~           | previous layout in list                                    |
+| ~o~           | open a custom layout                                       |
+| ~p~           | previous layout in list                                    |
+| ~r~           | remove current buffer from layout                          |
+| ~R~           | rename layout                                              |
+| ~s~           | save layouts                                               |
+| ~t~           | display a buffer without adding it to the current layout   |
+| ~x~           | kill current layout with its buffers                       |
+| ~X~           | kill other layouts with their buffers                      |
 
 *** Project Layouts
 To create a layout for a specific project use ~SPC p l~.
@@ -140,3 +141,11 @@ you have and show them in a single buffer. (in evil the command starts with ~;a~
 *** RCIRC/ERC custom layout
 Now you can also open IRC in a new layout to keep all the chat buffers in
 one layout isolated from your work buffers.
+
+* Key bindings
+
+| Key Binding             | Description               |
+|-------------------------+---------------------------|
+| ~Control+Super+Tab~       | Switch to next layout     |
+| ~Control+Super+Shift+Tab~ | Switch to previous layout |
+| ~Control+Super+[0-9]~     | Switch to [0-9]th layout  |

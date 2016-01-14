@@ -59,6 +59,24 @@
                     "[n] next, [p/N] previous, [TAB] back and forth, [c] close, "
                     "[r] rename"))))))
 
+      (global-set-key (kbd "<C-tab>")
+                      'spacemacs//workspaces-eyebrowse-next-window-config-l)
+      (global-set-key (kbd "<C-S-tab>")
+                      'spacemacs//workspaces-eyebrowse-prev-window-config-h)
+      (global-set-key (kbd "<C-S-iso-lefttab>")
+                      'spacemacs//workspaces-eyebrowse-prev-window-config-h)
+
+      (global-set-key (kbd "M-s-1") 'spacemacs//workspaces-eyebrowse-switch-to-window-config-1-1)
+      (global-set-key (kbd "M-s-2") 'spacemacs//workspaces-eyebrowse-switch-to-window-config-2-2)
+      (global-set-key (kbd "M-s-3") 'spacemacs//workspaces-eyebrowse-switch-to-window-config-3-3)
+      (global-set-key (kbd "M-s-4") 'spacemacs//workspaces-eyebrowse-switch-to-window-config-4-4)
+      (global-set-key (kbd "M-s-5") 'spacemacs//workspaces-eyebrowse-switch-to-window-config-5-5)
+      (global-set-key (kbd "M-s-6") 'spacemacs//workspaces-eyebrowse-switch-to-window-config-6-6)
+      (global-set-key (kbd "M-s-7") 'spacemacs//workspaces-eyebrowse-switch-to-window-config-7-7)
+      (global-set-key (kbd "M-s-8") 'spacemacs//workspaces-eyebrowse-switch-to-window-config-8-8)
+      (global-set-key (kbd "M-s-9") 'spacemacs//workspaces-eyebrowse-switch-to-window-config-9-9)
+      (global-set-key (kbd "M-s-0") 'spacemacs//workspaces-eyebrowse-switch-to-window-config-0-0)
+
       (spacemacs|define-micro-state workspaces
         :doc (spacemacs//workspaces-ms-documentation)
         :use-minibuffer t

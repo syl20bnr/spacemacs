@@ -114,6 +114,25 @@
                   (when (equal 1 spacemacs--layouts-ms-doc-toggle)
                     spacemacs--layouts-ms-documentation))))
 
+
+      (global-set-key (kbd "<C-s-tab>")
+                      'spacemacs//layouts-persp-next-n)
+      (global-set-key (kbd "<C-S-s-tab>")
+                      'spacemacs//layouts-persp-prev-p)
+      (global-set-key (kbd "<C-S-s-iso-lefttab>")
+                      'spacemacs//layouts-persp-prev-p)
+
+      (global-set-key (kbd "C-s-1") 'spacemacs//layouts-spacemacs/persp-switch-to-1-1)
+      (global-set-key (kbd "C-s-2") 'spacemacs//layouts-spacemacs/persp-switch-to-2-2)
+      (global-set-key (kbd "C-s-3") 'spacemacs//layouts-spacemacs/persp-switch-to-3-3)
+      (global-set-key (kbd "C-s-4") 'spacemacs//layouts-spacemacs/persp-switch-to-4-4)
+      (global-set-key (kbd "C-s-5") 'spacemacs//layouts-spacemacs/persp-switch-to-5-5)
+      (global-set-key (kbd "C-s-6") 'spacemacs//layouts-spacemacs/persp-switch-to-6-6)
+      (global-set-key (kbd "C-s-7") 'spacemacs//layouts-spacemacs/persp-switch-to-7-7)
+      (global-set-key (kbd "C-s-8") 'spacemacs//layouts-spacemacs/persp-switch-to-8-8)
+      (global-set-key (kbd "C-s-9") 'spacemacs//layouts-spacemacs/persp-switch-to-9-9)
+      (global-set-key (kbd "C-s-0") 'spacemacs//layouts-spacemacs/persp-switch-to-0-0)
+
       (spacemacs|define-micro-state layouts
         :doc (spacemacs//layouts-ms-doc)
         :use-minibuffer t
