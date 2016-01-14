@@ -200,21 +200,16 @@
       ;; installation instructions
       (add-hook 'erc-view-log-mode-hook 'turn-on-auto-revert-tail-mode)
 
-
-      (defun spacemacs//erc-log-ms-documentation ()
-        "Return the docstring for the workspaces micro-state."
-        (concat
-         "\n[r]  to reload the log file"
-         "[>], [<] to go to the next/prev mention"))
-
-      (spacemacs|define-micro-state erc-log
-        :doc (spacemacs//erc-log-ms-documentation)
-        :use-minibuffer t
-        :evil-leader-for-mode (erc-mode . ".")
+      (spacemacs|define-micro-state-2 erc-log
+        :doc (concat
+              "\n[_r_]  to reload the log file"
+              "[_>_], [_<_] to go to the next/prev mention")
         :bindings
         ("r" erc-view-log-reload-file)
         (">" erc-view-log-next-mention)
-        ("<" erc-view-log-previous-mention)))))
+        ("<" erc-view-log-previous-mention))
+      (spacemacs/set-leader-keys-for-major-mode 'erc-mode
+        "." 'spacemacs/erc-log-micro-state/body))))
 
 (defun erc/init-erc-image ()
   (use-package erc-image
