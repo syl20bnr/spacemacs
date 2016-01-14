@@ -265,4 +265,64 @@ pressed)."
       (delete-window corelv-wnd)
       (kill-buffer buf))))
 
+(defmacro spacemacs|define-micro-state-2 (name &rest props)
+  "Define a micro-state called NAME.
+NAME is a symbol.
+Available PROPS:
+`:on-enter SEXP'
+    Evaluate SEXP when the micro-state is switched on.
+`:on-exit SEXP'
+    Evaluate SEXP when leaving the micro-state.
+`:doc STRING or SEXP'
+    A docstring supported by `defhydra'.
+`:columns INTEGER'
+    Automatically generate :doc with this many number of columns.
+`:hint BOOLEAN'
+    Whether to automatically add hints to the docstring. Default is nil.
+`:foreign-keys SYMBOL'
+    What to do when keys not bound in the micro-state are entered. This
+    can be nil (default), which means to exit the micro-state, warn,
+    which means to not exit but warn the user that the key is not part
+    of the micro-state, or run, which means to try to run the key binding
+    without exiting.
+`:entry-binding MAP KEY'
+    Key binding to use for entering the micro-state.
+`:bindings EXPRESSIONS'
+    One or several EXPRESSIONS with the form
+    (STRING1 SYMBOL1 DOCSTRING
+                     :exit SYMBOL)
+    where:
+    - STRING1 is a key to be bound to the function or key map SYMBOL1.
+    - DOCSTRING is a STRING or an SEXP that evaluates to a string
+    - :exit SYMBOL or SEXP, if non nil then pressing this key will
+      leave the micro-state (default is nil).
+      Important note: due to inner working of transient-maps in Emacs
+      the `:exit' keyword is evaluate *before* the actual execution
+      of the bound command.
+All properties supported by `spacemacs//create-key-binding-form' can be
+used."
+  (declare (indent 1))
+  (let* ((func (spacemacs//micro-state-func-name name))
+         (entry-binding (spacemacs/mplist-get props :entry-binding))
+         (bindings (spacemacs/mplist-get props :bindings))
+         (doc (or (plist-get props :doc) "\n"))
+         (columns (plist-get props :columns))
+         (entry-sexp (plist-get props :on-enter))
+         (exit-sexp (plist-get props :on-exit))
+         (hint (plist-get props :hint))
+         (foreign-keys (plist-get props :foreign-keys))
+         (bindkeys (spacemacs//create-key-binding-form props func)))
+    `(progn
+       (defhydra ,func
+         (,(car entry-binding) ,(cadr entry-binding)
+          :hint ,hint
+          :columns ,columns
+          :foreign-keys ,foreign-keys
+          :body-pre ,entry-sexp
+          :before-exit ,exit-sexp)
+         ,doc
+         ,@bindings)
+       ,@bindkeys)))
+
+
 (provide 'core-micro-state)
