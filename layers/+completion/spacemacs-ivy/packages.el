@@ -12,7 +12,6 @@
 (setq spacemacs-ivy-packages
       '(counsel
         flx
-        hydra
         ;; hack since ivy is part for swiper but I like to
         ;; treat it as a stand-alone package
         (ivy :location built-in)
@@ -231,8 +230,6 @@ Helm hack."
       (spacemacs//ivy-command-not-implemented-yet "jI"))))
 
 (defun spacemacs-ivy/init-flx ())
-
-(defun spacemacs-ivy/init-hydra ())
 
 (defun spacemacs-ivy/init-ivy ()
   (use-package ivy

@@ -120,6 +120,8 @@
         quelpa-persistent-cache-file (expand-file-name "cache" quelpa-dir)
         quelpa-update-melpa-p nil)
   (spacemacs/load-or-install-protected-package 'quelpa t)
+  ;; required for some micro-states
+  (spacemacs/load-or-install-protected-package 'hydra t)
   ;; inject use-package hooks for easy customization of stock package
   ;; configuration
   (setq use-package-inject-hooks t)
