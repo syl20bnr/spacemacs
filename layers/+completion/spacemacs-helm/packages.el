@@ -303,6 +303,13 @@
       (defvar helm-source-header-default-height
         (face-attribute 'helm-source-header :height) )
 
+      (defadvice spacemacs/post-theme-init (after spacemacs/helm-header-line-adv activate)
+        "Update defaults for `helm' header line whenever a new theme is loaded"
+        (setq helm-source-header-default-foreground (face-attribute 'helm-source-header :foreground)
+              helm-source-header-default-background (face-attribute 'helm-source-header :background)
+              helm-source-header-default-box (face-attribute 'helm-source-header :box)
+              helm-source-header-default-height (face-attribute 'helm-source-header :height)))
+
       (defun helm-toggle-header-line ()
         "Hide the `helm' header is there is only one source."
         (when dotspacemacs-helm-no-header
@@ -317,8 +324,8 @@
             (set-face-attribute
              'helm-source-header
              nil
-             :foreground (face-attribute 'helm-selection :background)
-             :background (face-attribute 'helm-selection :background)
+             :foreground (face-attribute 'default :background)
+             :background (face-attribute 'default :background)
              :box nil
              :height 0.1))))
       (add-hook 'helm-before-initialize-hook 'helm-toggle-header-line)
