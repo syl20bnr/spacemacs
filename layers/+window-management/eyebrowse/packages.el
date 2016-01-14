@@ -59,9 +59,8 @@
                     "[n] next, [p/N] previous, [TAB] back and forth, [c] close, "
                     "[r] rename"))))))
 
-      (spacemacs|define-micro-state workspaces
-        :doc (spacemacs//workspaces-ms-documentation)
-        :use-minibuffer t
+      (spacemacs|define-micro-state-2 workspaces
+        :doc (concat (spacemacs//workspaces-ms-documentation))
         :bindings
         ("0" eyebrowse-switch-to-window-config-0)
         ("1" eyebrowse-switch-to-window-config-1)
@@ -87,4 +86,4 @@
       ;; The layouts layer defines this keybinding inside a microstate
       ;; thus this is only needed if that layer is not used
       (unless (configuration-layer/layer-usedp 'spacemacs-layouts)
-        (spacemacs/set-leader-keys "lw" 'spacemacs/workspaces-micro-state)))))
+        (spacemacs/set-leader-keys "lw" 'spacemacs/workspaces-micro-state/body)))))
