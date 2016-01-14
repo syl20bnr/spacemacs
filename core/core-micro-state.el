@@ -134,6 +134,10 @@ used."
   "Return the name of the micro-state function."
   (intern (format "spacemacs/%S-micro-state" name)))
 
+(defun spacemacs//micro-state-body-func-name (name)
+  "Return the name of the micro-state function."
+  (intern (format "spacemacs/%S-micro-state/body" name)))
+
 (defun spacemacs//micro-state-auto-execute (bindings)
   "Auto execute the binding corresponding to `this-command-keys'."
   `(let* ((key (substring (this-command-keys)
@@ -303,6 +307,7 @@ All properties supported by `spacemacs//create-key-binding-form' can be
 used."
   (declare (indent 1))
   (let* ((func (spacemacs//micro-state-func-name name))
+         (body-func (spacemacs//micro-state-body-func-name name))
          (entry-binding (spacemacs/mplist-get props :entry-binding))
          (bindings (spacemacs/mplist-get props :bindings))
          (doc (or (plist-get props :doc) "\n"))
@@ -311,7 +316,7 @@ used."
          (exit-sexp (plist-get props :on-exit))
          (hint (plist-get props :hint))
          (foreign-keys (plist-get props :foreign-keys))
-         (bindkeys (spacemacs//create-key-binding-form props func)))
+         (bindkeys (spacemacs//create-key-binding-form props body-func)))
     `(progn
        (defhydra ,func
          (,(car entry-binding) ,(cadr entry-binding)
