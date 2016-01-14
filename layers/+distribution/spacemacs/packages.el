@@ -205,7 +205,7 @@
         (if spacemacs-last-ahs-highlight-p
             (progn (goto-char (nth 1 spacemacs-last-ahs-highlight-p))
                    (spacemacs/ahs-highlight-now-wrapper)
-                   (spacemacs/symbol-highlight-micro-state))
+                   (spacemacs/symbol-highlight-micro-state/body))
           (message "No symbol has been searched for now.")))
 
       (defun spacemacs/integrate-evil-search (forward)
@@ -281,17 +281,15 @@
               (spacemacs/ahs-highlight-now-wrapper)
               (when (configuration-layer/package-usedp 'evil-jumper)
                 (evil-set-jump))
-              (spacemacs/symbol-highlight-micro-state)
-              (ahs-forward)
-              )
+              (spacemacs/symbol-highlight-micro-state/body)
+              (ahs-forward))
           (progn
             (spacemacs/integrate-evil-search nil)
             (spacemacs/ahs-highlight-now-wrapper)
             (when (configuration-layer/package-usedp 'evil-jumper)
               (evil-set-jump))
-            (spacemacs/symbol-highlight-micro-state)
-            (ahs-backward)
-            )))
+            (spacemacs/symbol-highlight-micro-state/body)
+            (ahs-backward))))
 
       (with-eval-after-load 'evil
         (define-key evil-motion-state-map (kbd "*")
@@ -304,7 +302,7 @@
         (interactive)
         (spacemacs/ahs-highlight-now-wrapper)
         (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
-        (spacemacs/symbol-highlight-micro-state)
+        (spacemacs/symbol-highlight-micro-state/body)
         (spacemacs/integrate-evil-search nil))
 
       (defun spacemacs//ahs-ms-on-exit ()
@@ -335,38 +333,44 @@
                    (spacemacs/ahs-highlight-now-wrapper)
                    (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))))))
 
-      (spacemacs|define-micro-state symbol-highlight
-        :doc (let* ((i 0)
-                    (overlay-count (length ahs-overlay-list))
-                    (overlay (format "%s" (nth i ahs-overlay-list)))
-                    (current-overlay (format "%s" ahs-current-overlay))
-                    (st (ahs-stat))
-                    (plighter (ahs-current-plugin-prop 'lighter))
-                    (plugin (format " <%s> " (cond ((string= plighter "HS") "D")
-                                                   ((string= plighter "HSA") "B")
-                                                   ((string= plighter "HSD") "F"))))
-                    (propplugin (propertize plugin 'face
-                                            `(:foreground "#ffffff"
-                                                          :background ,(face-attribute
-                                                                        'ahs-plugin-defalt-face :foreground)))))
-               (while (not (string= overlay current-overlay))
-                 (setq i (1+ i))
-                 (setq overlay (format "%s" (nth i ahs-overlay-list))))
-               (let* ((x/y (format "(%s/%s)" (- overlay-count i) overlay-count))
-                      (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
-                      (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
-                      (prophidden (propertize hidden 'face '(:weight bold))))
-                 (format "%s %s%s [n] find next [N/p] find previous [e] edit [r] range [R] reset [d/D] definition [/] find in project [f] find in files [b] find in opened buffers [q] exit"
-                         propplugin propx/y prophidden)))
-        :on-exit  (spacemacs//ahs-ms-on-exit)
+      (defun symbol-highlight-doc ()
+        (let* ((i 0)
+               (overlay-count (length ahs-overlay-list))
+               (overlay (format "%s" (nth i ahs-overlay-list)))
+               (current-overlay (format "%s" ahs-current-overlay))
+               (st (ahs-stat))
+               (plighter (ahs-current-plugin-prop 'lighter))
+               (plugin (format " <%s> " (cond ((string= plighter "HS") "D")
+                                              ((string= plighter "HSA") "B")
+                                              ((string= plighter "HSD") "F"))))
+               (propplugin (propertize plugin 'face
+                                       `(:foreground "#ffffff"
+                                                     :background ,(face-attribute
+                                                                   'ahs-plugin-defalt-face :foreground)))))
+          (while (not (string= overlay current-overlay))
+            (setq i (1+ i))
+            (setq overlay (format "%s" (nth i ahs-overlay-list))))
+          (let* ((x/y (format "(%s/%s)" (- overlay-count i) overlay-count))
+                 (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
+                 (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
+                 (prophidden (propertize hidden 'face '(:weight bold))))
+            (format "%s %s%s" propplugin propx/y prophidden))))
+
+      (defun ahs-to-iedit ()
+        (interactive)
+        (if (configuration-layer/package-usedp 'evil-iedit-state)
+            (evil-iedit-state/iedit-mode)
+          (ahs-edit-mode t)))
+
+      (spacemacs|define-micro-state-2 symbol-highlight
+        :doc "
+%s(symbol-highlight-doc)  [_n_] forward [_N_ or p] backward   [_R_] restart      [_e_] iedit       [_b_] search buffers
+%s(make-string (length (symbol-highlight-doc)) 32)  [_d_/_D_] fwd/bwd definition [_r_] change range [_/_] search proj [_f_] search files"
+        :before-exit (spacemacs//ahs-ms-on-exit)
         :bindings
         ("d" ahs-forward-definition)
         ("D" ahs-backward-definition)
-        ("e" nil
-         :post (if (configuration-layer/package-usedp 'evil-iedit-state)
-                   (evil-iedit-state/iedit-mode)
-                 (ahs-edit-mode t))
-         :exit t)
+        ("e" ahs-to-iedit :exit t)
         ("n" spacemacs/quick-ahs-forward)
         ("N" spacemacs/quick-ahs-backward)
         ("p" spacemacs/quick-ahs-backward)
@@ -375,7 +379,15 @@
         ("/" spacemacs/helm-project-smart-do-search-region-or-symbol :exit t)
         ("b" spacemacs/helm-buffers-smart-do-search-region-or-symbol :exit t)
         ("f" spacemacs/helm-files-smart-do-search-region-or-symbol :exit t)
-        ("q" nil :exit t)))))
+        ("q" nil :exit t))
+
+      (defun spacemacs/symbol-highlight ()
+        "Highlight the symbol under point with `auto-highlight-symbol'."
+        (interactive)
+        (spacemacs/ahs-highlight-now-wrapper)
+        (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
+        (spacemacs/symbol-highlight-micro-state/body)
+        (spacemacs/integrate-evil-search nil)))))
 
 (defun spacemacs/init-avy ()
   (use-package avy
@@ -654,33 +666,16 @@
   (use-package evil-numbers
     :config
     (progn
-      (defun spacemacs/evil-numbers-micro-state-doc ()
-        "Display a short documentation in the mini buffer."
-        (spacemacs/echo "+/= to increase the value or - to decrease it"))
-
-      (defun spacemacs/evil-numbers-micro-state-overlay-map ()
-        "Set a temporary overlay map to easily increase or decrease a number"
-        (set-temporary-overlay-map
-         (let ((map (make-sparse-keymap)))
-           (define-key map (kbd "+") 'spacemacs/evil-numbers-increase)
-           (define-key map (kbd "=") 'spacemacs/evil-numbers-increase)
-           (define-key map (kbd "-") 'spacemacs/evil-numbers-decrease)
-           map) t)
-        (spacemacs/evil-numbers-micro-state-doc))
-
-      (defun spacemacs/evil-numbers-increase (amount &optional no-region)
-        "Increase number at point."
-        (interactive "p*")
-        (evil-numbers/inc-at-pt amount no-region)
-        (spacemacs/evil-numbers-micro-state-overlay-map))
-      (defun spacemacs/evil-numbers-decrease (amount)
-        "Decrease number at point."
-        (interactive "p*")
-        (evil-numbers/dec-at-pt amount)
-        (spacemacs/evil-numbers-micro-state-overlay-map))
-      (spacemacs/set-leader-keys "n+" 'spacemacs/evil-numbers-increase)
-      (spacemacs/set-leader-keys "n=" 'spacemacs/evil-numbers-increase)
-      (spacemacs/set-leader-keys "n-" 'spacemacs/evil-numbers-decrease))))
+      (spacemacs|define-micro-state-2 evil-numbers
+        :doc "\n[_+_/_=_] increase number [_-_] decrease"
+        :bindings
+        ("+" evil-numbers/inc-at-pt)
+        ("=" evil-numbers/inc-at-pt)
+        ("-" evil-numbers/dec-at-pt))
+      (spacemacs/set-leader-keys
+        "n+" 'spacemacs/evil-numbers-micro-state/evil-numbers/inc-at-pt
+        "n=" 'spacemacs/evil-numbers-micro-state/evil-numbers/inc-at-pt
+        "n-" 'spacemacs/evil-numbers-micro-state/evil-numbers/dec-at-pt))))
 
 (defun spacemacs/init-evil-search-highlight-persist ()
   (use-package evil-search-highlight-persist
@@ -1188,14 +1183,13 @@ on whether the spacemacs-ivy layer is used or not, with
   (use-package move-text
     :defer t
     :init
-    (spacemacs|define-micro-state move-text
-      :doc "[J] move down [K] move up"
-      :use-minibuffer t
-      :execute-binding-on-enter t
-      :evil-leader "xJ" "xK"
+    (spacemacs|define-micro-state-2 move-text
       :bindings
-      ("J" move-text-down)
-      ("K" move-text-up))))
+      ("J" move-text-down "move down")
+      ("K" move-text-up "move up"))
+    (spacemacs/set-leader-keys
+      "xJ" 'spacemacs/move-text-micro-state/move-text-down
+      "xK" 'spacemacs/move-text-micro-state/move-text-up)))
 
 (defun spacemacs/init-neotree ()
   (use-package neotree
@@ -1628,16 +1622,16 @@ on whether the spacemacs-ivy layer is used or not, with
                zoom-frm-in)
     :init
     (progn
-      (spacemacs|define-micro-state zoom-frm
-        :doc "[+/=] zoom frame in [-] zoom frame out [0] reset zoom [q]uit"
-        :evil-leader "zf"
-        :use-minibuffer t
+      (spacemacs|define-micro-state-2 zoom-frm
+        :doc "
+[_+_/_=_] zoom frame in [_-_] zoom frame out [_0_] reset zoom [_q_] quit"
         :bindings
-        ("+" spacemacs/zoom-frm-in :post (spacemacs//zoom-frm-powerline-reset))
-        ("=" spacemacs/zoom-frm-in :post (spacemacs//zoom-frm-powerline-reset))
-        ("-" spacemacs/zoom-frm-out :post (spacemacs//zoom-frm-powerline-reset))
-        ("0" spacemacs/zoom-frm-unzoom :post (spacemacs//zoom-frm-powerline-reset))
+        ("+" spacemacs/zoom-frm-in)
+        ("=" spacemacs/zoom-frm-in)
+        ("-" spacemacs/zoom-frm-out)
+        ("0" spacemacs/zoom-frm-unzoom)
         ("q" nil :exit t))
+      (spacemacs/set-leader-keys "zf" 'spacemacs/zoom-frm-micro-state/body)
 
       (defun spacemacs//zoom-frm-powerline-reset ()
         (when (fboundp 'powerline-reset)
@@ -1662,17 +1656,20 @@ on whether the spacemacs-ivy layer is used or not, with
       (defun spacemacs/zoom-frm-in ()
         "zoom in frame, but keep the same pixel size"
         (interactive)
-        (spacemacs//zoom-frm-do 1))
+        (spacemacs//zoom-frm-do 1)
+        (spacemacs//zoom-frm-powerline-reset))
 
       (defun spacemacs/zoom-frm-out ()
         "zoom out frame, but keep the same pixel size"
         (interactive)
-        (spacemacs//zoom-frm-do -1))
+        (spacemacs//zoom-frm-do -1)
+        (spacemacs//zoom-frm-powerline-reset))
 
       (defun spacemacs/zoom-frm-unzoom ()
         "Unzoom current frame, keeping the same pixel size"
         (interactive)
-        (spacemacs//zoom-frm-do 0))
+        (spacemacs//zoom-frm-do 0)
+        (spacemacs//zoom-frm-powerline-reset))
 
       ;; Font size, either with ctrl + mouse wheel
       (global-set-key (kbd "<C-wheel-up>") 'spacemacs/zoom-frm-in)

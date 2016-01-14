@@ -371,16 +371,14 @@
 
 ;; Buffer micro state
 
-(spacemacs|define-micro-state buffer
-  :doc "[n]ext [p]revious [K]ill [q]uit"
-  :disable-evil-leader t
-  :evil-leader "b."
+(spacemacs|define-micro-state-2 buffer
   :bindings
-  ("K" kill-this-buffer)
-  ("n" spacemacs/next-useful-buffer)
-  ("N" spacemacs/previous-useful-buffer)
-  ("p" spacemacs/previous-useful-buffer)
-  ("q" nil :exit t))
+  ("n" spacemacs/next-useful-buffer "next")
+  ("N" spacemacs/previous-useful-buffer "previous")
+  ("p" spacemacs/previous-useful-buffer "previous")
+  ("K" kill-this-buffer "kill")
+  ("q" nil "quit" :exit t))
+(spacemacs/set-leader-keys "b." 'spacemacs/buffer-micro-state/body)
 
 ;; end of Buffer micro state
 
@@ -406,104 +404,66 @@
   (interactive "p")
   (enlarge-window delta t))
 
-(defun spacemacs//window-manipulation-full-doc ()
-  "Full documentation for window manipulation micro-state."
+(spacemacs|define-micro-state-2 window-manipulation
+  :doc
   "
-  [?]                       display this help
-  [0,9]                     go to numbered window
-  [-] [/] [s] [v] [S] [V]   split windows below|right and focus
-  [c] [C]                   close current|other windows
-  [g]                       toggle golden-ratio
-  [h] [j] [k] [l]           go to left|bottom|top|right
-  [H] [J] [K] [L]           move windows to far/very left|bottom|top|right
-  [[] []] [{] [}]           shrink/enlarge horizontally and vertically respectively
-  [o] [w]                   other frame|window
-  [R]                       rotate windows
-  [u] [U]                   restore previous|next window layout")
-
-(defun spacemacs//window-manipulation-move-doc ()
-  "Help string for moving between windows"
-  (concat "[h] [j] [k] [l] to move focus, "
-          "[H] [J] [K] [L] to move window, "
-          "[R]otate windows, other [f]rame, other [w]indow"))
-
-(defun spacemacs//window-manipulation-resize-doc ()
-  "Dynamic help string when resizing windows."
-  (format
-   (concat "[%sx%s] Resize window: [[] []] shrink/enlarge horizontally, "
-           "[{] [}] shrink/enlarge vertically.")
-   (window-total-width) (window-total-height)))
-
-(defun spacemacs//window-manipulation-split-doc ()
-  "Help string for moving between windows"
-  (concat "[-], [s] to split horizontally,  [/], [v] to split vertically, "
-          "[S], [V] to split and focus"))
-
-(defun spacemacs//window-manipulation-number-doc ()
-  "Help string for selecting window with number."
-  (format "(selected window #%s) press [0,9] to select the corresponding numbered window."
-          (window-numbering-get-number-string)))
-
-(defun spacemacs//window-manipulation-layout-doc ()
-  "Help string for layout manipulation"
-  (concat "[c]lose window, [C]lose other windows, "
-          "[u]ndo window layout, [U] redo window layout."))
-
-(defun spacemacs//window-manipulation-gratio-doc ()
-  "Help string for golden ratio"
-  (format "(golden-ratio %s) toggle with [g]"
-          (if (symbol-value golden-ratio-mode) "enabled" "disabled")))
-
-(spacemacs|define-micro-state window-manipulation
-  :doc "[?] for help"
-  :evil-leader "w."
-  :use-minibuffer t
+^^^^ Go to/Move Window
+^^^^ -----------------
+^^        _k_/_K_^^        [_0_,_9_] go to window N            [_s_/_S_] split horizontally/and focus
+^^^^         |^^^^         [_o_/_w_] go to other frame/window  [_v_/_V_] split vertically/and focus
+   _h_/_H_ --+-- _l_/_L_   [_u_/_U_] restore prev/next layout  [_[_/_]_] shrink/enlarge horizontally
+^^^^         |^^^^         [_R_]^^   rotate windows            [_{_/_}_] shrink/enlarge horizontally
+^^        _j_/_J_^^        [_g_]^^   toggle golden-ratio       [_c_/_C_] close current/other windows
+^^^^^^^^                   [_q_]^^   quit
+"
   :bindings
-  ("?" nil                                   :doc (spacemacs//window-manipulation-full-doc))
-  ("0" select-window-0                       :doc (spacemacs//window-manipulation-number-doc))
-  ("1" select-window-1                       :doc (spacemacs//window-manipulation-number-doc))
-  ("2" select-window-2                       :doc (spacemacs//window-manipulation-number-doc))
-  ("3" select-window-3                       :doc (spacemacs//window-manipulation-number-doc))
-  ("4" select-window-4                       :doc (spacemacs//window-manipulation-number-doc))
-  ("5" select-window-5                       :doc (spacemacs//window-manipulation-number-doc))
-  ("6" select-window-6                       :doc (spacemacs//window-manipulation-number-doc))
-  ("7" select-window-7                       :doc (spacemacs//window-manipulation-number-doc))
-  ("8" select-window-8                       :doc (spacemacs//window-manipulation-number-doc))
-  ("9" select-window-9                       :doc (spacemacs//window-manipulation-number-doc))
-  ("-" split-window-below-and-focus          :doc (spacemacs//window-manipulation-split-doc))
-  ("/" split-window-right-and-focus          :doc (spacemacs//window-manipulation-split-doc))
-  ("[" spacemacs/shrink-window-horizontally  :doc (spacemacs//window-manipulation-resize-doc))
-  ("]" spacemacs/enlarge-window-horizontally :doc (spacemacs//window-manipulation-resize-doc))
-  ("{" spacemacs/shrink-window               :doc (spacemacs//window-manipulation-resize-doc))
-  ("}" spacemacs/enlarge-window              :doc (spacemacs//window-manipulation-resize-doc))
-  ("c" delete-window                         :doc (spacemacs//window-manipulation-layout-doc))
-  ("C" delete-other-windows                  :doc (spacemacs//window-manipulation-layout-doc))
-  ("g" spacemacs/toggle-golden-ratio         :doc (spacemacs//window-manipulation-gratio-doc))
-  ("h" evil-window-left                      :doc (spacemacs//window-manipulation-move-doc))
-  ("<left>" evil-window-left                 :doc (spacemacs//window-manipulation-move-doc))
-  ("j" evil-window-down                      :doc (spacemacs//window-manipulation-move-doc))
-  ("<down>" evil-window-down                 :doc (spacemacs//window-manipulation-move-doc))
-  ("k" evil-window-up                        :doc (spacemacs//window-manipulation-move-doc))
-  ("<up>" evil-window-up                     :doc (spacemacs//window-manipulation-move-doc))
-  ("l" evil-window-right                     :doc (spacemacs//window-manipulation-move-doc))
-  ("<right>" evil-window-right               :doc (spacemacs//window-manipulation-move-doc))
-  ("H" evil-window-move-far-left             :doc (spacemacs//window-manipulation-move-doc))
-  ("<S-left>" evil-window-move-far-left      :doc (spacemacs//window-manipulation-move-doc))
-  ("J" evil-window-move-very-bottom          :doc (spacemacs//window-manipulation-move-doc))
-  ("<S-down>" evil-window-move-very-bottom   :doc (spacemacs//window-manipulation-move-doc))
-  ("K" evil-window-move-very-top             :doc (spacemacs//window-manipulation-move-doc))
-  ("<S-up>" evil-window-move-very-top        :doc (spacemacs//window-manipulation-move-doc))
-  ("L" evil-window-move-far-right            :doc (spacemacs//window-manipulation-move-doc))
-  ("<S-right>" evil-window-move-far-right    :doc (spacemacs//window-manipulation-move-doc))
-  ("o" other-frame                           :doc (spacemacs//window-manipulation-move-doc))
-  ("R" spacemacs/rotate-windows              :doc (spacemacs//window-manipulation-move-doc))
-  ("s" split-window-below                    :doc (spacemacs//window-manipulation-split-doc))
-  ("S" split-window-below-and-focus          :doc (spacemacs//window-manipulation-split-doc))
-  ("u" winner-undo                           :doc (spacemacs//window-manipulation-layout-doc))
-  ("U" winner-redo                           :doc (spacemacs//window-manipulation-layout-doc))
-  ("v" split-window-right                    :doc (spacemacs//window-manipulation-split-doc))
-  ("V" split-window-right-and-focus          :doc (spacemacs//window-manipulation-split-doc))
-  ("w" other-window                          :doc (spacemacs//window-manipulation-move-doc)))
+  ("q" nil :exit t)
+  ("0" select-window-0)
+  ("1" select-window-1)
+  ("2" select-window-2)
+  ("3" select-window-3)
+  ("4" select-window-4)
+  ("5" select-window-5)
+  ("6" select-window-6)
+  ("7" select-window-7)
+  ("8" select-window-8)
+  ("9" select-window-9)
+  ("-" split-window-below-and-focus)
+  ("/" split-window-right-and-focus)
+  ("[" spacemacs/shrink-window-horizontally)
+  ("]" spacemacs/enlarge-window-horizontally)
+  ("{" spacemacs/shrink-window)
+  ("}" spacemacs/enlarge-window)
+  ("c" delete-window)
+  ("C" delete-other-windows)
+  ("g" spacemacs/toggle-golden-ratio)
+  ("h" evil-window-left)
+  ("<left>" evil-window-left)
+  ("j" evil-window-down)
+  ("<down>" evil-window-down)
+  ("k" evil-window-up)
+  ("<up>" evil-window-up)
+  ("l" evil-window-right)
+  ("<right>" evil-window-right)
+  ("H" evil-window-move-far-left)
+  ("<S-left>" evil-window-move-far-left)
+  ("J" evil-window-move-very-bottom)
+  ("<S-down>" evil-window-move-very-bottom)
+  ("K" evil-window-move-very-top)
+  ("<S-up>" evil-window-move-very-top)
+  ("L" evil-window-move-far-right)
+  ("<S-right>" evil-window-move-far-right)
+  ("o" other-frame)
+  ("R" spacemacs/rotate-windows)
+  ("s" split-window-below)
+  ("S" split-window-below-and-focus)
+  ("u" winner-undo)
+  ("U" winner-redo)
+  ("v" split-window-right)
+  ("V" split-window-right-and-focus)
+  ("w" other-window))
+(spacemacs/set-leader-keys "w."
+  'spacemacs/window-manipulation-micro-state/body)
 
 ;; end of Window Manipulation Micro State
 
@@ -535,15 +495,15 @@ otherwise it is scaled down."
   (interactive)
   (spacemacs/scale-up-or-down-font-size 0))
 
-(spacemacs|define-micro-state scale-font
-  :doc "[+/=] scale up [-] scale down [0] reset font [q]uit"
-  :evil-leader "zx"
+(spacemacs|define-micro-state-2 scale-font
+  :doc "\n[_+_/_=_] scale up [_-_] scale down [_0_] reset font [_q_] quit"
   :bindings
   ("+" spacemacs/scale-up-font)
   ("=" spacemacs/scale-up-font)
   ("-" spacemacs/scale-down-font)
   ("0" spacemacs/reset-font-size)
   ("q" nil :exit t))
+(spacemacs/set-leader-keys "zx" 'spacemacs/scale-font-micro-state/body)
 
 ;; end of Text Manipulation Micro State
 
@@ -560,10 +520,7 @@ otherwise it is scaled down."
      frame 'alpha
      (if (not (equal alpha dotfile-setting))
          dotfile-setting
-       '(100 . 100))))
-  ;; Immediately enter the micro-state, but also keep toggle
-  ;; accessible from helm-spacemacs-help
-  (spacemacs/scale-transparency-micro-state))
+       '(100 . 100)))))
 
 (defun spacemacs/increase-transparency ()
   "Increase transparency of current frame."
@@ -583,12 +540,13 @@ otherwise it is scaled down."
       (set-frame-parameter (selected-frame) 'alpha
                            (cons decreased-alpha decreased-alpha)))))
 
-(spacemacs|define-micro-state scale-transparency
-  :doc "[+] increase [-] decrease [T] toggle transparency [q] quit"
+(spacemacs|define-micro-state-2 scale-transparency
   :bindings
-  ("+" spacemacs/increase-transparency)
-  ("-" spacemacs/decrease-transparency)
-  ("T" spacemacs/toggle-transparency)
-  ("q" nil :exit t))
+  ("+" spacemacs/increase-transparency "increase")
+  ("-" spacemacs/decrease-transparency "decrease")
+  ("T" spacemacs/toggle-transparency "toggle")
+  ("q" nil "quit" :exit t))
+(spacemacs/set-leader-keys "TT"
+  'spacemacs/scale-transparency-micro-state/spacemacs/toggle-transparency)
 
 ;; end of Transparency Micro State
