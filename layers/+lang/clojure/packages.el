@@ -359,28 +359,7 @@ If called with a prefix argument, uses the other-window instead."
 
       (when clojure-enable-fancify-symbols
         (dolist (m '(clojure-mode clojurescript-mode clojurec-mode clojurex-mode))
-          (clojure/fancify-symbols m)))
-
-      (define-clojure-indent
-        ;; Compojure
-        (ANY 2)
-        (DELETE 2)
-        (GET 2)
-        (HEAD 2)
-        (POST 2)
-        (PUT 2)
-        (context 2)
-        (defroutes 'defun)
-        ;; Cucumber
-        (After 1)
-        (Before 1)
-        (Given 2)
-        (Then 2)
-        (When 2)
-        ;; Schema
-        (s/defrecord 2)
-        ;; test.check
-        (for-all 'defun)))))
+          (clojure/fancify-symbols m))))))
 
 (defun clojure/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
