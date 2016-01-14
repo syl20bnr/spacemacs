@@ -11,6 +11,7 @@
    - [[Layer][Layer]]
  - [[Configuration][Configuration]]
    - [[Formatting][Formatting]]
+   - [[GoMetaLinter][GoMetaLinter]]
  - [[Working with Go][Working with Go]]
    - [[Go commands (start with =m=):][Go commands (start with =m=):]]
    - [[Go Oracle][Go Oracle]]
@@ -41,6 +42,14 @@ $PATH RET~).
 For best results, make sure that the =auto-completion= and =syntax-checking=
 layers are enabled as well.
 
+To use gometalinter, follow the instructions at
+https://github.com/alecthomas/gometalinter :
+
+#+BEGIN_SRC sh
+  go get github.com/alecthomas/gometalinter
+  gometalinter --install --update
+#+END_SRC
+
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =go= to the existing =dotspacemacs-configuration-layers= list in this
@@ -64,6 +73,16 @@ or
 If you're using =gocheck= in your project you can use the
 =go-use-gocheck-for-testing= variable to enable suite testing and to get single
 function testing to work.
+
+** GoMetaLinter
+You can enable/disable linters used in the gometalinter via the variables
+mentioned at https://github.com/favadi/flycheck-gometalinter#configuration , for
+example:
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+   '((go :variables flycheck-gometalinter-disable-linters ("gotype" "gocyclo"))))
+#+end_src
 
 * Working with Go
 ** Go commands (start with =m=):

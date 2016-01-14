@@ -3,6 +3,7 @@
         company
         company-go
         flycheck
+        flycheck-gometalinter
         go-mode
         go-eldoc
         ))
@@ -97,3 +98,12 @@
       :defer t
       :init
       (push 'company-go company-backends-go-mode))))
+
+
+(defun go/init-flycheck-gometalinter ()
+  (use-package flycheck-gometalinter
+    :if (configuration-layer/package-usedp 'flycheck)
+    :ensure t
+    :config
+    (progn
+      (flycheck-gometalinter-setup))))
