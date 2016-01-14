@@ -57,22 +57,23 @@
 (defun git/init-git-timemachine ()
   (use-package git-timemachine
     :defer t
-    :commands spacemacs/time-machine-micro-state
+    :commands spacemacs/time-machine-micro-state/body
     :init
     (spacemacs/set-leader-keys
-      "gt" 'spacemacs/time-machine-micro-state)
+      "gt" 'spacemacs/time-machine-micro-state/body)
 
     :config
     (progn
 
-      (spacemacs|define-micro-state time-machine
-        :doc "[p] [N] previous [n] next [c] current [Y] copy hash [q] quit"
+      (spacemacs|define-micro-state-2 time-machine
+        :doc "
+[_p_/_N_] previous [_n_] next [_c_] current [_Y_] copy hash [_q_] quit"
         :on-enter (let (golden-ratio-mode)
                     (unless (bound-and-true-p git-timemachine-mode)
                       (call-interactively 'git-timemachine)))
         :on-exit (when (bound-and-true-p git-timemachine-mode)
                    (git-timemachine-quit))
-        :persistent t
+        :foreign-keys run
         :bindings
         ("c" git-timemachine-show-current-revision)
         ("p" git-timemachine-show-previous-revision)
@@ -126,7 +127,7 @@
       (spacemacs/declare-prefix "gd" "diff")
       (spacemacs/set-leader-keys
         "gA" 'magit-cherry-pick-popup
-        "gb" 'spacemacs/git-blame-micro-state
+        "gb" 'spacemacs/git-blame-micro-state/body
         "gc" 'magit-commit-popup
         "gC" 'magit-checkout
         "gd" 'magit-diff-popup
@@ -144,13 +145,13 @@
         "gS" 'magit-stage-file
         "gU" 'magit-unstage-file)
 
-      (spacemacs|define-micro-state git-blame
-        :doc (concat "Press [b] again to blame further in the history, "
-                     "[q] to go up or quit.")
+      (spacemacs|define-micro-state-2 git-blame
+        :doc (concat "Press [_b_] again to blame further in the history, "
+                     "[_q_] to go up or quit.")
         :on-enter (let (golden-ratio-mode)
                     (unless (bound-and-true-p magit-blame-mode)
                       (call-interactively 'magit-blame)))
-        :persistent t
+        :foreign-keys run
         :bindings
         ("b" magit-blame)
         ;; here we use the :exit keyword because we should exit the
