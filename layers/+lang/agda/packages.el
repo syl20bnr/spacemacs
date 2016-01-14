@@ -37,16 +37,15 @@
        (agda2-highlight-record-face                . font-lock-type-face)))
     :config
     (progn
-      (spacemacs|define-micro-state goal-navigation
-        :doc "[f] next [b] previous [q]uit"
-        :execute-binding-on-enter t
-        :evil-leader-for-mode
-        (agda2-mode . "mf")
-        (agda2-mode . "mb")
+      (spacemacs|define-micro-state-2 goal-navigation
+        :doc "\n[_f_] next [_b_] previous [_q_] quit"
         :bindings
         ("f" agda2-next-goal)
         ("b" agda2-previous-goal)
         ("q" nil :exit t))
+      (spacemacs/set-leader-keys-for-major-mode 'agda2-mode
+        "f" 'spacemacs/goal-navigation-micro-state/agda2-next-goal
+        "b" 'spacemacs/goal-navigation-micro-state/agda2-previous-goal)
 
       (spacemacs/set-leader-keys-for-major-mode 'agda2-mode
         "?" 'agda2-show-goals
