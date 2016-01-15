@@ -379,7 +379,7 @@
 (defun spacemacs/init-avy ()
   (use-package avy
     :defer t
-    :commands (spacemacs/avy-open-url avy-pop-mark)
+    :commands (spacemacs/avy-open-url spacemacs/avy-goto-url avy-pop-mark)
     :init
     (progn
       (setq avy-all-windows 'all-frames)
@@ -390,7 +390,8 @@
         "jl" 'evil-avy-goto-line
         "ju" 'avy-pop-mark
         "jU" 'spacemacs/avy-goto-url
-        "jw" 'evil-avy-goto-word-or-subword-1))
+        "jw" 'evil-avy-goto-word-or-subword-1
+        "xo" 'spacemacs/avy-open-url))
     :config
     (progn
       (defun spacemacs/avy-goto-url()
