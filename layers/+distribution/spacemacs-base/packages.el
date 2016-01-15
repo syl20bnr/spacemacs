@@ -970,7 +970,9 @@ below. Anything else exits."
                ("helm-apropos" . "apropos")
                ("spacemacs/toggle-hybrid-mode" . "hybrid (hybrid-mode)")
                ("spacemacs/toggle-holy-mode" . "emacs (holy-mode)")
-               ("evil-lisp-state-\\(.+\\)" . "\\1"))))
+               ("evil-lisp-state-\\(.+\\)" . "\\1")
+               ("\\(.+\\)-micro-state/\\(.+\\)" . "\\2")
+               ("\\(.+\\)-micro-state/body" . "\\1-micro-state"))))
         (dolist (nd new-descriptions)
           ;; ensure the target matches the whole string
           (push (cons (concat "\\`" (car nd) "\\'") (cdr nd))
