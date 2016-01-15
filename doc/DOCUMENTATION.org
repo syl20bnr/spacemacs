@@ -2188,6 +2188,11 @@ Text related commands (start with ~x~):
     | ~SPC x g l~ | set languages used by translate commands                      |
     | ~SPC x g t~ | translate current word using Google Translate                 |
     | ~SPC x g T~ | reverse source and target languages                           |
+    | ~SPC x j c~ | set the justification to center                               |
+    | ~SPC x j f~ | set the justification to full                                 |
+    | ~SPC x j l~ | set the justification to left                                 |
+    | ~SPC x j n~ | set the justification to none                                 |
+    | ~SPC x j r~ | set the justification to right                                |
     | ~SPC x J~   | move down a line of text (enter micro-state)                  |
     | ~SPC x K~   | move up a line of text (enter micro-state)                    |
     | ~SPC x l s~ | sort lines                                                    |
