@@ -342,6 +342,11 @@
   "xa)" 'spacemacs/align-repeat-right-paren
   "xc"  'count-region
   "xdw" 'delete-trailing-whitespace
+  "xjc" 'set-justification-center
+  "xjf" 'set-justification-full
+  "xjl" 'set-justification-left
+  "xjn" 'set-justification-none
+  "xjr" 'set-justification-right
   "xls" 'spacemacs/sort-lines
   "xlu" 'spacemacs/uniquify-lines
   "xtc" 'transpose-chars
