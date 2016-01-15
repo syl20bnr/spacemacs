@@ -516,7 +516,16 @@ below. Anything else exits."
       (spacemacs|diminish hybrid-mode " Ⓔh" " Eh"))))
 
 (defun spacemacs-base/init-hydra ()
-  (use-package hydra))
+  (use-package hydra
+    :init
+    ;; turn off evil in corelv buffers
+    (push '("\\*LV\\*") evil-buffer-regexps)
+
+    (defun spacemacs//hydra-key-doc-function (key key-width doc doc-width)
+      (format (format "[%%%ds] %%%ds" key-width (- -1 doc-width))
+              key doc))
+    (setq hydra-key-doc-function 'spacemacs//hydra-key-doc-function)
+    (setq hydra-head-format "[%s] ")))
 
 (defun spacemacs-base/init-ido ()
   (ido-mode t)
