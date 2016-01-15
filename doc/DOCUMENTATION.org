@@ -1403,16 +1403,16 @@ On Windows, you may want to disable it. To disable the smooth scrolling set the
 Spacemacs uses the =evil= integration of [[https://github.com/abo-abo/avy][avy]] which enables the
 invocation of =avy= during motions.
 
-It is useful for deleting visually a set of lines, try the following sequence in
-a buffer containing some text: ~d SPC y~
+For instance, it is useful for deleting a set of visual lines from the current line.
+Try the following sequence in a buffer containing some text: ~d SPC j l~, followed by
+selecting an avy candidate.
 
 | Key Binding | Description                                        |
 |-------------+----------------------------------------------------|
-| ~SPC SPC~   | initiate avy jump word                             |
-| ~SPC y~     | initiate avy jump line                             |
-| ~SPC `~     | go back to the previous location (before the jump) |
-
-*Hint*: you may change to char mode by ~C-c C-c~ in word mode.
+| ~SPC j j~   | initiate avy jump char                             |
+| ~SPC j w~   | initiate avy jump word                             |
+| ~SPC j l~   | initiate avy jump line                             |
+| ~SPC j u~   | go back to the previous location (before the jump) |
 
 **** ace-link mode
 Similar to =avy=, [[https://github.com/abo-abo/ace-link][ace-link]] allows one to jump to any link in
