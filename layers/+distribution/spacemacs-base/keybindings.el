@@ -67,6 +67,7 @@
   "b C-k" 'spacemacs/kill-matching-buffers-rudely
   "bP"  'spacemacs/copy-clipboard-to-whole-buffer
   "bn"  'spacemacs/next-useful-buffer
+  "bN"  'spacemacs/new-empty-buffer
   "bp"  'spacemacs/previous-useful-buffer
   "bR"  'spacemacs/safe-revert-buffer
   "bs"  'spacemacs/switch-to-scratch-buffer
