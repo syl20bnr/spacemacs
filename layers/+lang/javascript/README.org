@@ -28,7 +28,7 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - CoffeeScript support
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 - Get the path to a JSON value with [[https://github.com/Sterlingg/json-snatcher][json-snatcher]]
-  
+
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =javascript= to the existing =dotspacemacs-configuration-layers= list in this
@@ -55,6 +55,9 @@ To activate error checking using flycheck install =JSHint=:
 To make tern re-use the server across multiple different editing sessions (thus
 creating multiple =.tern-port= files for each document you have open [[http://ternjs.net/doc/manual.html][see here
 for more details]]):
+
+The variables provided below can be set when adding the =javascript= configuration
+layer, as detailed in [[file:../../../doc/DOCUMENTATION.org::Setting%20configuration%20layers%20variables][this]] section of the documentation.
 
 #+BEGIN_SRC emacs-lisp
   (javascript :variables javascript-disable-tern-port-files nil)
