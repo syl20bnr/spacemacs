@@ -2691,12 +2691,13 @@ variable =dotspacemacs-persistent-server= to =t= in your =~./spacemacs=.
 When this variable is set to =t=, the only way to quit Emacs /and/ kill the
 server is to use the following bindings:
 
-| Keybinding | Description                                                        |
-|------------+--------------------------------------------------------------------|
-| ~SPC q q~  | Quit Emacs and kill the server, prompt for changed buffers to save |
-| ~SPC q Q~  | Quit Emacs and kill the server, lose all unsaved changes.          |
-| ~SPC q s~  | Save the buffers, quit Emacs and kill the server                   |
-| ~SPC q z~  | Kill the current frame                                             |
+| Keybinding | Description                                                              |
+|------------+--------------------------------------------------------------------------|
+| ~SPC q q~  | Quit Emacs and kill the server, prompt for changed buffers to save       |
+| ~SPC q Q~  | Quit Emacs and kill the server, lose all unsaved changes.                |
+| ~SPC q r~  | Restart both Emacs and the server, prompting to save any changed buffers |
+| ~SPC q s~  | Save the buffers, quit Emacs and kill the server                         |
+| ~SPC q z~  | Kill the current frame                                                   |
 
 ** Troubleshoot
 *** Loading fails
