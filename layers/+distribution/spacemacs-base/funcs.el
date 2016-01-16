@@ -336,7 +336,7 @@ argument takes the kindows rotate backwards."
 
 ;; from http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
 (defun spacemacs/toggle-current-window-dedication ()
-  "Toggle dedication state of a window."
+  "Toggle dedication state of a window (dedicated windows cannot be reused by a mode)."
  (interactive)
  (let* ((window    (selected-window))
         (dedicated (window-dedicated-p window)))
