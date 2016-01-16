@@ -551,73 +551,47 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                                                  (bookmark-get-filename el)))))
           list)))
 
-(defun spacemacs-buffer//todo-list ()
-  "Returns current todo list"
+(defun spacemacs-buffer//get-org-items (types)
+  "Make a list of agenda file items for today of kind types"
   (require 'org-agenda)
-  (org-compile-prefix-format 'todo)
-  (org-set-sorting-strategy 'todo)
-  (let ((rtnall nil)
-        (rtn nil)
-        (marker nil)
-        (files (org-agenda-files nil 'ifmode))
-        (date (calendar-gregorian-from-absolute (org-today)))
-        file txt pos)
-    (while (setq file (pop files))
-      (setq rtn (org-agenda-get-day-entries file date :todo))
-      (when rtn
-        (setq
-         rtnall
-         (append
-          rtnall
-          (mapcar
-           (lambda
-             (todo)
-              (progn
-                (setq marker (get-text-property 0 'org-marker todo))
-                (setq pos (marker-position marker))
-                (setq txt (get-text-property 0 'txt todo))
-                (setq time (get-text-property 0 'time todo))
-                (list (cons "text" txt)
-                      (cons "file" file)
-                      (cons "pos" pos)
-                      (cons "time" time)))
-              ) rtn)))))
-    rtnall))
+  (let ((date (calendar-gregorian-from-absolute (org-today))))
+    (apply #'append
+           (loop for file in (org-agenda-files nil 'ifmode)
+                 collect
+                 (spacemacs-buffer//make-org-items
+                  file
+                  (apply 'org-agenda-get-day-entries file date
+                         types))))))
 
 (defun spacemacs-buffer//agenda-list ()
-  "Returns agenda list for today"
+  "Returns today's agenda"
   (require 'org-agenda)
-  (org-compile-prefix-format 'agenda)
-  (org-set-sorting-strategy 'agenda)
-  (let ((rtnall nil)
-        (rtn nil)
-        (marker nil)
-        (files (org-agenda-files nil 'ifmode))
-        (date (calendar-gregorian-from-absolute (org-today)))
-        file txt pos)
-    (while (setq file (pop files))
-      (setq rtn (apply 'org-agenda-get-day-entries
-                       file date
-                       org-agenda-entry-types))
-      (when rtn
-        (setq
-         rtnall
-         (append
-          rtnall
-          (mapcar
-           (lambda
-             (todo)
-              (progn
-                (setq marker (get-text-property 0 'org-marker todo))
-                (setq pos (marker-position marker))
-                (setq txt (get-text-property 0 'txt todo))
-                (setq time (get-text-property 0 'time todo))
-                (list (cons "text" txt)
-                      (cons "file" file)
-                      (cons "pos" pos)
-                      (cons "time" time)))
-              ) rtn)))))
-    rtnall))
+  (spacemacs-buffer//get-org-items
+   org-agenda-entry-types))
+
+(defun spacemacs-buffer//todo-list ()
+  "Returns current todos"
+  (require 'org-agenda)
+  (spacemacs-buffer//get-org-items
+   '(:todo)))
+
+(defun spacemacs-buffer//make-org-items (file items)
+  "make a spacemacs-buffer org item list"
+  (loop
+   for item in items
+   collect
+   (spacemacs-buffer//make-org-item file item)))
+
+(defun spacemacs-buffer//make-org-item (file item)
+  "make a spacemacs-buffer version of an org item"
+  (list (cons "text"
+              (get-text-property 0 'txt item))
+        (cons "file" file)
+        (cons "pos"
+              (marker-position
+               (get-text-property 0 'org-marker item)))
+        (cons "time"
+              (get-text-property 0 'time item))))
 
 (defun spacemacs-buffer//org-jump (el)
   (require 'org-agenda)
