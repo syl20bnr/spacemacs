@@ -1647,29 +1647,30 @@ Spacemacs marks buffers as useful. For instructions, see the [[file:FAQ.org::Cha
 **** Files manipulations key bindings
 Files manipulation commands (start with ~f~):
 
-| Key Binding | Description                                                    |
-|-------------+----------------------------------------------------------------|
-| ~SPC f b~   | go to file bookmarks                                           |
-| ~SPC f c~   | copy current file to a different location                      |
-| ~SPC f C d~ | convert file from unix to dos encoding                         |
-| ~SPC f C u~ | convert file from dos to unix encoding                         |
-| ~SPC f D~   | delete a file and the associated buffer (ask for confirmation) |
-| ~SPC f E~   | open a file with elevated privileges (sudo edit)               |
-| ~SPC f f~   | open file with =helm= (or =ido=)                               |
-| ~SPC f F~   | try to open the file under point =helm=                        |
-| ~SPC f j~   | jump to the current buffer file in dired                       |
-| ~SPC f l~   | open file literally in =fundamental mode=                      |
-| ~SPC f L~   | Locate a file (using =locate=)                                 |
-| ~SPC f o~   | open a file using the default external program                 |
-| ~SPC f R~   | rename the current file                                        |
-| ~SPC f s~   | save a file                                                    |
-| ~SPC f S~   | save all files                                                 |
-| ~SPC f r~   | open a recent file with =helm=                                 |
-| ~SPC f t~   | toggle file tree side bar using [[https://github.com/jaypei/emacs-neotree][NeoTree]]                        |
-| ~SPC f v d~ | add a directory variable                                       |
-| ~SPC f v f~ | add a local variable to the current file                       |
-| ~SPC f v p~ | add a local variable to the first line of the current file     |
-| ~SPC f y~   | show current file absolute path in the minibuffer              |
+| Key Binding | Description                                                                                                                     |
+|-------------+---------------------------------------------------------------------------------------------------------------------------------|
+| ~SPC f b~   | go to file bookmarks                                                                                                            |
+| ~SPC f c~   | copy current file to a different location                                                                                       |
+| ~SPC f C d~ | convert file from unix to dos encoding                                                                                          |
+| ~SPC f C u~ | convert file from dos to unix encoding                                                                                          |
+| ~SPC f D~   | delete a file and the associated buffer (ask for confirmation)                                                                  |
+| ~SPC f E~   | open a file with elevated privileges (sudo edit)                                                                                |
+| ~SPC f f~   | open file with =helm= (or =ido=)                                                                                                |
+| ~SPC f F~   | try to open the file under point =helm=                                                                                         |
+| ~SPC f j~   | jump to the current buffer file in dired                                                                                        |
+| ~SPC f J~   | open a junk file, in mode determined by the file extension provided (defaulting to =fundamental mode=), using =helm= (or =ivy=) |
+| ~SPC f l~   | open file literally in =fundamental mode=                                                                                       |
+| ~SPC f L~   | Locate a file (using =locate=)                                                                                                  |
+| ~SPC f o~   | open a file using the default external program                                                                                  |
+| ~SPC f R~   | rename the current file                                                                                                         |
+| ~SPC f s~   | save a file                                                                                                                     |
+| ~SPC f S~   | save all files                                                                                                                  |
+| ~SPC f r~   | open a recent file with =helm=                                                                                                  |
+| ~SPC f t~   | toggle file tree side bar using [[https://github.com/jaypei/emacs-neotree][NeoTree]]                                                                                         |
+| ~SPC f v d~ | add a directory variable                                                                                                        |
+| ~SPC f v f~ | add a local variable to the current file                                                                                        |
+| ~SPC f v p~ | add a local variable to the first line of the current file                                                                      |
+| ~SPC f y~   | show current file absolute path in the minibuffer                                                                               |
 
 **** Emacs and Spacemacs files
 Convenient key bindings are located under the prefix ~SPC f e~ to quickly
