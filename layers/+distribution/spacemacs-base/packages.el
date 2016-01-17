@@ -19,6 +19,7 @@
         ediff
         eldoc
         evil
+        evil-ediff
         evil-escape
         ;; evil-leader
         evil-surround
@@ -144,6 +145,11 @@
        ;; emacs is evil and decrees that vertical shall henceforth be horizontal
        ediff-split-window-function 'split-window-horizontally
        ediff-merge-split-window-function 'split-window-horizontally))))
+
+(defun spacemacs-base/init-evil-ediff ()
+  (use-package evil-ediff
+    :after (ediff)
+    :if (memq dotspacemacs-editing-style '(hybrid vim))))
 
 (defun spacemacs-base/init-eldoc ()
   (use-package eldoc
