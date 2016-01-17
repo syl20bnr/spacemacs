@@ -2,8 +2,9 @@
       '(
         arduino-mode
         (ebuild-mode :location (recipe :fetcher github :repo "emacsmirror/ebuild-mode"))
-        julia-mode
         (hoon-mode :location (recipe :fetcher github :repo "urbit/hoon-mode.el"))
+        julia-mode
+        kivy-mode
         (logcat :location (recipe :fetcher github :repo "dcolascione/logcat-mode"))
         matlab-mode
         pkgbuild-mode
@@ -36,6 +37,8 @@
 (defun major-modes/init-logcat ()
   (use-package logcat
     :commands (logcat logcat-mode)))
+
+(defun major-modes/init-kivy-mode ())
 
 (defun major-modes/init-matlab-mode ()
   (use-package matlab-mode

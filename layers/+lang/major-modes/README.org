@@ -16,6 +16,7 @@ These include:
 - Gentoo ebuilds
 - Hoon
 - Julia
+- Kivy
 - MATLAB
 - QML
 - OpenScad
