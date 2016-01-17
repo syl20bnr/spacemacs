@@ -76,27 +76,27 @@
       (defvar spacemacs--layouts-ms-documentation
         "
   [?]                  toggle this help
-  [0,9]                go to nth layout
-  [tab]                last layout
-  [a]                  add a buffer from another layout
+  [0,9]                switch to nth layout
+  [tab]                switch to the last
   [A]                  add all buffers from another layout
-  [b]                  select a buffer of the current layout
-  [c]                  close layout (buffers are not closed)
-  [C]                  close other layout(s) (buffers are not closed)
+  [a]                  add all the buffers from another layout in the current one
+  [b]                  select a buffer in the current layout
+  [c]                  close the current layout and keep its buffers
+  [C]                  close the other layouts and keep their buffers
   [h]                  go to default layout
-  [l]                  jump to a layout
-  [L]                  load saved layouts
-  [n] or [C-l]         next layout
-  [N] or [p] or [C-h]  previous layout
-  [o]                  custom layouts
+  [l]                  select/create a layout with helm
+  [L]                  load layouts from file
+  [n] or [C-l]         next layout in list
+  [N] or [p] or [C-h]  previous layout in list
+  [o]                  open a custom layout
   [r]                  remove current buffer from layout
-  [R]                  rename or create layout
+  [R]                  rename current layout
   [s]                  save all layouts
   [S]                  save layouts by names
   [t]                  show a buffer without adding it to current layout
-  [w]                  workspaces micro-state
-  [x]                  kill layout and its buffers
-  [X]                  kill other layout(s) and their buffers")
+  [w]                  workspaces micro-state (needs eyebrowse layer enabled)
+  [x]                  kill current layout with its buffers
+  [X]                  kill other layouts with their buffers")
 
       (defun spacemacs//layouts-ms-doc ()
         "Return the docstring for the layouts micro-state."
