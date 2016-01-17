@@ -32,7 +32,7 @@ existing =dotspacemacs-configuration-layers= list in this file.
 * Features 
 
 ** Micro-states
-*** TODO Layouts Micro State
+*** Layouts Micro State
 The layouts micro-state is initiated with ~SPC l~.
 
 | Key Binding | Description                                                |
@@ -47,7 +47,7 @@ The layouts micro-state is initiated with ~SPC l~.
 | ~C~         | close the other layouts and keep their buffers             |
 | ~h~         | go to default layout                                       |
 | ~C-h~       | previous layout in list                                    |
-| ~l~         | select a layout with helm                                  |
+| ~l~         | select/create a layout with helm                           |
 | ~L~         | load layouts from file                                     |
 | ~C-l~       | next layout in list                                        |
 | ~n~         | next layout in list                                        |
@@ -55,9 +55,10 @@ The layouts micro-state is initiated with ~SPC l~.
 | ~o~         | open a custom layout                                       |
 | ~p~         | previous layout in list                                    |
 | ~r~         | remove current buffer from layout                          |
-| ~R~         | rename layout                                              |
+| ~R~         | rename current layout                                      |
 | ~s~         | save layouts                                               |
 | ~t~         | display a buffer without adding it to the current layout   |
+| ~w~         | workspaces micro-state (needs eyebrowse layer enabled)     |
 | ~x~         | kill current layout with its buffers                       |
 | ~X~         | kill other layouts with their buffers                      |
 
