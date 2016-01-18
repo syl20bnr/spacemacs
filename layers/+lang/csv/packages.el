@@ -19,16 +19,16 @@
       (spacemacs/declare-prefix-for-mode 'csv-mode "ms" "sort")
       (spacemacs/declare-prefix-for-mode 'csv-mode "mv" "yank")
       (spacemacs/set-leader-keys-for-major-mode 'csv-mode
-        "t"  'csv-transpose
         "a"  'csv-align-fields
-        "u"  'csv-unalign-fields
-        "sf" 'csv-sort-fields
-        "sn" 'csv-sort-numeric-fields
-        "so" 'csv-toggle-descending
+        "d"  'csv-kill-fields
+        "i"  'csv-toggle-invisibility
         "n"  'csv-forward-field
         "p"  'csv-backward-field
         "r"  'csv-reverse-region
-        "d"  'csv-kill-fields
-        "i"  'csv-toggle-invisibility
+        "sf" 'csv-sort-fields
+        "sn" 'csv-sort-numeric-fields
+        "so" 'csv-toggle-descending
+        "t"  'csv-transpose
+        "u"  'csv-unalign-fields
         "vf" 'csv-yank-fields
         "vt" 'csv-yank-as-new-table))))
