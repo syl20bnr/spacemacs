@@ -34,6 +34,7 @@
     darkmine-theme
     darktooth-theme
     django-theme
+    dracula-theme
     espresso-theme
     farmhouse-theme
     firebelly-theme
