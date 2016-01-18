@@ -11,10 +11,7 @@
 
 (setq mu4e-packages
       '(
-        ;; mu4e is not a built-in package
-        ;; This is a hack because mu4e is installed as part of
-        ;; mu installation.
-        (mu4e :location built-in)
+        (mu4e :skip-install t)
         mu4e-maildirs-extension
         org
         ))
