@@ -43,7 +43,7 @@ This is a WIP, feel free to collaborate.
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =ipython-noteboolk= to the existing =dotspacemacs-configuration-layers= list
+add =ipython-notebook= to the existing =dotspacemacs-configuration-layers= list
 in this file.
 ** Dependencies
 Install IPython > 3
