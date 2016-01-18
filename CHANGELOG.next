@@ -124,6 +124,9 @@ This file containes the change log for the next major version of Spacemacs.
 *** Core Changes 
 - New functions =configuration-layer/remove-layer= and
   =configuration-layer/remove-layers=.
+- New keyword =:skip-install= for packages, if non-nil then Spacemacs does not
+  handle the installation for the package (i.e. it has to be installed by
+  something else).
 *** Other fixes and improvements
 - Typos and documentation improvements (thanks to cpaulik, TheBB)
 
