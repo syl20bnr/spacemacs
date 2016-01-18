@@ -1,4 +1,4 @@
-;;; extensions.el --- Games Layer extensions File for Spacemacs
+;;; config.el --- Games Layer configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

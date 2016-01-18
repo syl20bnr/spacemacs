@@ -344,8 +344,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
     (dolist (layer layers)
       (let* ((name (oref layer :name))
              (dir (oref layer :dir))
-             (packages-file (concat dir "packages.el"))
-             (extensions-file (concat dir "extensions.el")))
+             (packages-file (concat dir "packages.el")))
         ;; packages
         (when (file-exists-p packages-file)
           ;; required for lazy-loading of unused layers
@@ -379,59 +378,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
               (when (fboundp pre-init-func)
                 (push name (oref obj :pre-layers)))
               (when (fboundp post-init-func)
-                (push name (oref obj :post-layers)))))
-          ;; TODO remove support for <layer>-excluded-packages in 0.106.0
-          (let ((xvar (intern (format "%S-excluded-packages" name))))
-            (when (boundp xvar)
-              (dolist (xpkg (symbol-value xvar))
-                (let ((obj (object-assoc xpkg :name result)))
-                  (unless obj
-                    (setq obj (configuration-layer/make-package xpkg))
-                    (push obj result))
-                  (oset obj :excluded t))))))
-        ;; extensions (dummy duplication of the code above)
-        ;; TODO remove extensions in 0.106.0
-        (when (file-exists-p extensions-file)
-          ;; required for lazy-loading of unused layers
-          ;; for instance for helm-spacemacs-help
-          (unless (configuration-layer/layer-usedp name)
-            (load extensions-file))
-          (dolist (step '(pre post))
-            (eval `(defvar ,(intern (format "%S-%S-extensions" name step)) nil))
-            (let ((var (intern (format "%S-%S-extensions" name step))))
-              (when (boundp var)
-                (dolist (pkg (symbol-value var))
-                  (let ((pkg-name (if (listp pkg) (car pkg) pkg)))
-                    (when (fboundp (intern (format "%S/init-%S"
-                                                   name pkg-name)))
-                      (let ((obj (configuration-layer/make-package pkg))
-                            (init-func (intern (format "%S/init-%S"
-                                                       name pkg-name)))
-                            (pre-init-func (intern (format "%S/pre-init-%S"
-                                                           name pkg-name)))
-                            (post-init-func (intern (format "%S/post-init-%S"
-                                                            name pkg-name)))
-                            (obj (object-assoc pkg :name result)))
-                        (unless obj
-                          (setq obj (configuration-layer/make-package pkg))
-                          (push obj result))
-                        (when (fboundp init-func)
-                          ;; last owner wins over the previous one,
-                          ;; still warn about mutliple owners
-                          (when (oref obj :owner)
-                            (spacemacs-buffer/warning
-                             (format (concat
-                                      "More than one init function found for "
-                                      "package %S. Previous owner was %S, "
-                                      "replacing it with layer %S.")
-                                     pkg (oref obj :owner) name)))
-                          (oset obj :owner name))
-                        (when (fboundp pre-init-func)
-                          (push name (oref obj :pre-layers)))
-                        (when (fboundp post-init-func)
-                          (push name (oref obj :post-layers)))
-                        (oset obj :location 'local)
-                        (oset obj :step (when (eq 'pre step) step))))))))))))
+                (push name (oref obj :post-layers))))))))
     ;; additional and excluded packages from dotfile
     (when dotfile
       (dolist (pkg dotspacemacs-additional-packages)
@@ -516,7 +463,6 @@ Possible return values:
       (let ((files (directory-files path)))
         ;; most frequent files encoutered in a layer are tested first
         (when (or (member "packages.el" files)
-                  (member "extensions.el" files)
                   (member "config.el" files)
                   (member "keybindings.el" files)
                   (member "funcs.el" files))
@@ -680,8 +626,7 @@ path."
   "Declare all packages contained in LAYERS."
   (let ((layers2 layers)
         (warning-minimum-level :error))
-    ;; TODO remove extensions in 0.106.0
-    (configuration-layer//load-layers-files layers2 '("packages.el" "extensions.el"))
+    (configuration-layer//load-layers-files layers2 '("packages.el"))
     ;; gather all the packages of current layer
     (configuration-layer//sort-packages (configuration-layer/get-packages
                                          layers2 t))))
@@ -884,9 +829,7 @@ path."
            ((eq 'local location)
             (let* ((owner (object-assoc (oref pkg :owner) :name configuration-layer--layers))
                    (dir (when owner (oref owner :dir))))
-              (push (format "%slocal/%S/" dir pkg-name) load-path)
-              ;; TODO remove extensions in 0.106.0
-              (push (format "%sextensions/%S/" dir pkg-name) load-path)))))
+              (push (format "%slocal/%S/" dir pkg-name) load-path)))))
         ;; configuration
         (cond
          ((eq 'dotfile (oref pkg :owner))

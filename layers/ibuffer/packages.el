@@ -9,11 +9,11 @@
 ;;
 ;;; License: GPLv3
 
-(defvar ibuffer-packages
-  '(
-    ibuffer
-    ibuffer-projectile
-    ))
+(setq ibuffer-packages
+      '(
+        ibuffer
+        ibuffer-projectile
+        ))
 
 (defun ibuffer/init-ibuffer()
   (use-package ibuffer

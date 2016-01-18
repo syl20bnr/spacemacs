@@ -9,11 +9,11 @@
 ;;
 ;;; License: GPLv3
 
-(defvar java-packages
-  '(
-    emacs-eclim
-    company
-    ))
+(setq java-packages
+      '(
+        emacs-eclim
+        company
+        ))
 
 (defun java/init-emacs-eclim ()
   (use-package eclim

@@ -1,4 +1,4 @@
-;;; funcs.el --- Ansible Layer extensions File for Spacemacs
+;;; funcs.el --- Ansible Layer functions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

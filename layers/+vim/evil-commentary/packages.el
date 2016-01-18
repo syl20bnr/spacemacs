@@ -9,10 +9,10 @@
 ;;
 ;;; License: GPLv3
 
-(setq evil-commentary-packages '(evil-commentary))
-
-(setq evil-commentary-excluded-packages '(evil-nerd-commenter))
-
+(setq evil-commentary-packages
+      '(evil-commentary
+        (evil-nerd-commenter :excluded t)
+        ))
 
 (defun evil-commentary/init-evil-commentary ()
   (use-package evil-commentary

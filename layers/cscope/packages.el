@@ -13,8 +13,6 @@
                         helm-cscope
                         xcscope))
 
-(setq cscope-excluded-packages '())
-
 (defun cscope/post-init-evil-jump ()
   (defadvice helm-cscope-find-this-symbol (before cscope/goto activate)
     (evil-jumper--push)))

@@ -1,4 +1,4 @@
-;;; packages.el --- Ansible Layer extensions File for Spacemacs
+;;; packages.el --- Ansible Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

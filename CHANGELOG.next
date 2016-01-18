@@ -5,6 +5,14 @@ This file containes the change log for the next major version of Spacemacs.
 * Release 0.106.x
 ** 0.106.0 (no date)
 *** IMPORTANT: Breaking changes
+- =extensions= are deprecated as announced in previous releases, if you still
+  have =extensions= directories you must rename them to =local= and move
+  the contents of the =extensions.el= files to the =packages.el= files adding
+  the keyword =:location local= to them in the package list. Refer to other
+  layers for examples (for instance the =python= layer)
+- =<package>-excluded-packages= variables are now deprecated as announced is
+  previous releases, you must now  use the keyword =:excluded t= of the package
+  list, see the =vim-empty-lines= layer for example.
 - Key binding ~SPC :~ acting as M-x as been replaced by ~SPC SPC~.
   If you want to revert to the old ~SPC :~ key binding set the new
   variable =dotspacemacs-emacs-command-key= to ":".

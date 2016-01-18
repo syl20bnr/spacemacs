@@ -1,4 +1,4 @@
-;;; packages.el --- Vagrant Layer extensions File for Spacemacs
+;;; packages.el --- Vagrant Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

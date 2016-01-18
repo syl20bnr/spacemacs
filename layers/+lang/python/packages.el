@@ -22,11 +22,14 @@
     helm-cscope
     helm-pydoc
     hy-mode
+    (nose :location local)
     pip-requirements
     pyenv-mode
+    (pylookup :location local)
     pytest
     python
     pyvenv
+    (py-yapf :location local)
     semantic
     smartparens
     stickyfunc-enhance
@@ -52,6 +55,23 @@
         (kbd "q") 'quit-window)
       (spacemacs|hide-lighter anaconda-mode))))
 
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun python/post-init-company ()
+    (spacemacs|add-company-hook python-mode)
+    (spacemacs|add-company-hook inferior-python-mode)
+    (push '(company-files company-capf) company-backends-inferior-python-mode)
+    (add-hook 'inferior-python-mode-hook (lambda ()
+                                           (setq-local company-minimum-prefix-length 0)
+                                           (setq-local company-idle-delay 0.5))))
+
+  (defun python/init-company-anaconda ()
+    (use-package company-anaconda
+      :if (configuration-layer/package-usedp 'company)
+      :defer t
+      :init
+      (push 'company-anaconda company-backends-python-mode))))
+
+
 (defun python/init-cython-mode ()
   (use-package cython-mode
     :defer t
@@ -68,6 +88,57 @@
 (defun python/post-init-evil-jumper ()
   (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
     (evil-jumper--push)))
+
+(defun python/post-init-evil-matchit ()
+  (add-hook `python-mode-hook `turn-on-evil-matchit-mode))
+
+(defun python/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'python-mode-hook))
+
+(when (configuration-layer/layer-usedp 'spacemacs-helm)
+  (defun python/pre-init-helm-cscope ()
+    (spacemacs|use-package-add-hook xcscope
+      :post-init
+      (spacemacs/setup-helm-cscope 'python-mode))))
+
+(when (configuration-layer/layer-usedp 'spacemacs-helm)
+  (defun python/init-helm-pydoc ()
+    (use-package helm-pydoc
+      :defer t
+      :init
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode "hd" 'helm-pydoc))))
+
+(defun python/init-hy-mode ()
+  (use-package hy-mode
+    :defer t))
+
+(defun python/init-nose ()
+  (use-package nose
+    :if (eq 'nose python-test-runner)
+    :commands (nosetests-one
+               nosetests-pdb-one
+               nosetests-all
+               nosetests-pdb-all
+               nosetests-module
+               nosetests-pdb-module
+               nosetests-suite
+               nosetests-pdb-suite)
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode
+      "tA" 'nosetests-pdb-all
+      "ta" 'nosetests-all
+      "tB" 'nosetests-pdb-module
+      "tb" 'nosetests-module
+      "tT" 'nosetests-pdb-one
+      "tt" 'nosetests-one
+      "tM" 'nosetests-pdb-module
+      "tm" 'nosetests-module
+      "tS" 'nosetests-pdb-suite
+      "ts" 'nosetests-suite)
+    :config
+    (progn
+      (add-to-list 'nose-project-root-files "setup.cfg")
+      (setq nose-use-verbose nil))))
 
 (defun python/init-pip-requirements ()
   (use-package pip-requirements
@@ -92,6 +163,7 @@
         "vu" 'pyenv-mode-unset
         "vs" 'pyenv-mode-set))))
 
+
 (defun python/init-pyvenv ()
   (use-package pyvenv
     :defer t
@@ -100,6 +172,21 @@
       "Va" 'pyvenv-activate
       "Vd" 'pyvenv-deactivate
       "Vw" 'pyvenv-workon)))
+
+(defun python/init-pylookup ()
+  (use-package pylookup
+    :commands (pylookup-lookup pylookup-update pylookup-update-all)
+    :init
+    (progn
+      (evilified-state-evilify pylookup-mode pylookup-mode-map)
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "mhH" 'pylookup-lookup))
+    :config
+    (progn
+      (let ((dir (configuration-layer/get-layer-local-dir 'python)))
+        (setq pylookup-dir (concat dir "pylookup/")
+              pylookup-program (concat pylookup-dir "pylookup.py")
+              pylookup-db-file (concat pylookup-dir "pylookup.db"))))))
 
 (defun python/init-pytest ()
   (use-package pytest
@@ -273,48 +360,6 @@
         (setq imenu-create-index-function
               #'spacemacs/python-imenu-create-index-python-or-semantic)))))
 
-(defun python/post-init-evil-matchit ()
-    (add-hook `python-mode-hook `turn-on-evil-matchit-mode))
-
-(defun python/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'python-mode-hook))
-
-(defun python/init-hy-mode ()
-  (use-package hy-mode
-    :defer t))
-
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun python/init-helm-pydoc ()
-    (use-package helm-pydoc
-      :defer t
-      :init
-      (spacemacs/set-leader-keys-for-major-mode 'python-mode "hd" 'helm-pydoc))))
-
-(defun python/post-init-smartparens ()
-  (defadvice python-indent-dedent-line-backspace
-      (around python/sp-backward-delete-char activate)
-    (let ((pythonp (or (not smartparens-strict-mode)
-                       (char-equal (char-before) ?\s))))
-      (if pythonp
-          ad-do-it
-        (call-interactively 'sp-backward-delete-char)))))
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun python/post-init-company ()
-    (spacemacs|add-company-hook python-mode)
-    (spacemacs|add-company-hook inferior-python-mode)
-    (push '(company-files company-capf) company-backends-inferior-python-mode)
-    (add-hook 'inferior-python-mode-hook (lambda ()
-                                           (setq-local company-minimum-prefix-length 0)
-                                           (setq-local company-idle-delay 0.5))))
-
-  (defun python/init-company-anaconda ()
-    (use-package company-anaconda
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init
-      (push 'company-anaconda company-backends-python-mode))))
-
 (defun python/post-init-semantic ()
   (semantic/enable-semantic-mode 'python-mode)
   (defadvice semantic-python-get-system-include-path (around semantic-python-skip-error-advice activate)
@@ -326,6 +371,15 @@ fix this issue."
         ad-do-it
       (error nil))))
 
+(defun python/post-init-smartparens ()
+  (defadvice python-indent-dedent-line-backspace
+      (around python/sp-backward-delete-char activate)
+    (let ((pythonp (or (not smartparens-strict-mode)
+                       (char-equal (char-before) ?\s))))
+      (if pythonp
+          ad-do-it
+        (call-interactively 'sp-backward-delete-char)))))
+
 (defun python/post-init-stickyfunc-enhance ()
   (add-hook 'python-mode-hook 'spacemacs/lazy-load-stickyfunc-enhance))
 
@@ -333,9 +387,3 @@ fix this issue."
   (spacemacs|use-package-add-hook xcscope
     :post-init
     (spacemacs/set-leader-keys-for-major-mode 'python-mode "gi" 'cscope/run-pycscope)))
-
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun python/pre-init-helm-cscope ()
-    (spacemacs|use-package-add-hook xcscope
-      :post-init
-      (spacemacs/setup-helm-cscope 'python-mode))))

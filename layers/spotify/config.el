@@ -1,4 +1,4 @@
-;;; extensions.el --- sql Layer extensions File for Spacemacs
+;;; config.el --- sql Layer configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

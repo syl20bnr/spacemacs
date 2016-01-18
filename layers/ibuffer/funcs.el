@@ -1,4 +1,4 @@
-;;; funcs.el --- ibuffer Layer extensions File for Spacemacs
+;;; funcs.el --- ibuffer Layer functions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

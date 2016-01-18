@@ -270,7 +270,7 @@ Possible values are: `recents' `bookmarks' `projects'.")
 `dotspacemacs-startup-lists' doesn't include `recents'.")
 
 (defvar dotspacemacs-excluded-packages '()
-  "A list of packages and/or extensions that will not be install and loaded.")
+  "A list of packages that will not be install and loaded.")
 
 ;; only for backward compatibility
 (defalias 'dotspacemacs-mode 'emacs-lisp-mode)
@@ -310,17 +310,10 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
                                         "Calling dotfile init...")
                 (configuration-layer/sync)
                 (if (member arg '((4) (16)))
-                    (message (concat "Done (`dotspacemacs/user-config' function has "
-                                     "been skipped)."))
-                  ;; TODO remove support for dotspacemacs/config in 0.106
-                  (if (fboundp 'dotspacemacs/user-config)
-                      (dotspacemacs|call-func dotspacemacs/user-config
-                                              "Calling dotfile user config...")
-                    (spacemacs-buffer/warning (concat "`dotspacemacs/config' is deprecated, "
-                                                      "please rename your function to "
-                                                      "`dotspacemacs/user-config'"))
-                    (dotspacemacs|call-func dotspacemacs/config
-                                            "Calling dotfile user config..."))
+                    (message (concat "Done (`dotspacemacs/user-config' "
+                                     "function has been skipped)."))
+                  (dotspacemacs|call-func dotspacemacs/user-config
+                                          "Calling dotfile user config...")
                   (message "Done."))
                 (when (configuration-layer/package-usedp 'spaceline)
                   (spacemacs//restore-powerline (current-buffer))))

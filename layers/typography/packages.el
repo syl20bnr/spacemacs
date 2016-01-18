@@ -17,8 +17,6 @@
 (when (version<= "25" emacs-version)
   (push 'tildify typography-packages))
 
-(setq typography-excluded-packages '())
-
 (defun typography/init-typo ()
   (use-package typo
     :defer t
