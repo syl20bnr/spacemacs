@@ -71,6 +71,15 @@ This file containes the change log for the next major version of Spacemacs.
     point
   - ~SPC j w~ to jump to a word in the current buffer (works as an evil motion)
   (thanks to justbur)
+- New key bindings under ~SPC h~:
+  - ~SPC h .~ to search for dotfile variables
+  - ~SPC h f~ to search for FAQ
+  - ~SPC h l~ to search for layers
+  - ~SPC h p~ to search for packages
+  - ~SPC h r~ to search for documentation files
+  - ~SPC h t~ to search for toggles
+  (thanks to justbur)
+- New key binding ~SPC h d d~ for =helm-apropos= (thanks to StreakyCobra)
 *** Layer changes
 **** Ansible
 - Change key binding ~SPC m a ?~ to ~SPC m h a~
@@ -110,9 +119,11 @@ This file containes the change log for the next major version of Spacemacs.
 - New layer variable =rust-enable-rustfmt-on-save= (thanks to isphinx)
 - New package =rustfmt= with new key binding ~SPC m =~ to format the buffer
   (thanks to isphinx)
-
 **** Shell
 - New =eshell-z= package (thanks to CestDiego)
+*** Core Changes 
+- New functions =configuration-layer/remove-layer= and
+  =configuration-layer/remove-layers=.
 *** Other fixes and improvements
 - Typos and documentation improvements (thanks to cpaulik, TheBB)
 
