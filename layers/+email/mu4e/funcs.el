@@ -9,14 +9,29 @@
 ;;
 ;;; License: GPLv3
 
+(defun mu4e/search-account-by-mail-address (mail-address)
+  (car (rassoc-if (lambda (x)
+                    (equal (cadr (assoc 'user-mail-address x)) mail-address))
+                  mu4e-account-alist)))
+
 (defun mu4e/set-account ()
   "Set the account for composing a message."
   (let* ((account
           (if mu4e-compose-parent-message
-              (let ((maildir
-                     (mu4e-message-field mu4e-compose-parent-message :maildir)))
-                (string-match "/\\(.*?\\)/" maildir)
-                (match-string 1 maildir))
+              (let* ((mailtos
+                      (mu4e-message-field mu4e-compose-parent-message :to))
+                     (mailto-account
+                      (car (cl-remove-if-not 'identity
+                                             (mapcar (lambda (x)
+                                                       (mu4e/search-account-by-mail-address (cdr x)))
+                                                     mailtos))))
+                     (maildir
+                      (mu4e-message-field mu4e-compose-parent-message :maildir))
+                     (maildir-account
+                      (progn
+                        (string-match "/\\(.*?\\)/" maildir)
+                        (match-string 1 maildir))))
+                (or mailto-account maildir-account))
             (funcall mu4e-completing-read-function
                      "Compose with account:"
                      (mapcar (lambda (var) (car var)) mu4e-account-alist))))
