@@ -137,6 +137,12 @@ that directory."
          (interactive)
          (spacemacs/counsel-search ,tools t (projectile-project-root))))))
 
+  (defun spacemacs/counsel-search-docs ()
+    "Search spacemacs docs using `spacemacs/counsel-search'"
+    (interactive)
+    (spacemacs/counsel-search dotspacemacs-search-tools
+                              nil spacemacs-docs-directory))
+
   (defun spacemacs/counsel-git-grep-region-or-symbol ()
     "Use `counsel-git-grep' to search for the selected region or
  the symbol under the point in the current project with git grep."
@@ -190,6 +196,7 @@ Helm hack."
         "hdf" 'counsel-describe-function
         "hdm" 'spacemacs/describe-mode
         "hdv" 'counsel-describe-variable
+        "hR"  'spacemacs/counsel-search-docs
         ;; insert
         "iu"  'counsel-unicode-char
         ;; jump
