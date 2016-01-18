@@ -77,4 +77,28 @@ to start in hybrid state (emacs bindings) by default."
     (remove-hook 'evil-insert-state-entry-hook 'hybrid-mode-insert-state-entry-hook)
     (remove-hook 'evil-insert-state-exit-hook 'hybrid-mode-insert-state-exit-hook)))
 
+;;; Temporary to support old method of defining bindings. Should be removed
+;;; eventually.
+(when (fboundp 'advice-add)
+  (defun hybrid-mode-evil-define-key (old-func &rest args)
+    (if (equal (car args) ''hybrid)
+        (let ((map (nth 1 args))
+              (key (nth 2 args))
+              (def (nth 3 args))
+              (bindings (nthcdr 4 args)))
+          (message "warning: evil-define-key no longer supports \
+hybrid as a state please convert to (define-key map key def)")
+          (while key
+            (when (keymapp (symbol-value map))
+              (define-key (symbol-value map) key def)
+              (setq key (pop bindings)
+                    def (pop bindings)))))
+      (apply old-func args)))
+  (advice-add 'evil-define-key :around #'hybrid-mode-evil-define-key))
+
+(defvar evil-hybrid-state-map
+  (let ((map (make-sparse-keymap)))
+    (set-keymap-parent evil-insert-state-map map)
+    map))
+
 (provide 'hybrid-mode)
