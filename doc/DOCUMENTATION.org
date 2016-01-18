@@ -99,6 +99,7 @@
        - [[Smooth scrolling][Smooth scrolling]]
      - [[Vim motions with avy][Vim motions with avy]]
        - [[ace-link mode][ace-link mode]]
+     - [[Unimpaired bindings][Unimpaired bindings]]
      - [[Jumping, Joining and Splitting][Jumping, Joining and Splitting]]
        - [[Jumping][Jumping]]
        - [[Joining and splitting][Joining and splitting]]
@@ -1419,6 +1420,34 @@ Similar to =avy=, [[https://github.com/abo-abo/ace-link][ace-link]] allows one t
 | Key Binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~o~         | initiate ace link mode in =help-mode= and =info-mode= |
+
+*** Unimpaired bindings
+Spacemacs comes with a built-in port of [[https://github.com/tpope/vim-unimpaired][tpope's vim-unimpaired]].
+
+This plugin provides several pairs of bracket maps using ~[~ to denote
+previous, and ~]~ as next.
+
+| KeyBindings | Description                      |
+|-------------+----------------------------------|
+| ~[ SPC~     | Insert space above               |
+| ~] SPC~     | Insert space below               |
+| ~[ b~       | Go to previous buffer            |
+| ~] b~       | Go to next buffer                |
+| ~[ f~       | Go to previous file in directory |
+| ~] f~       | Go to next file in directory     |
+| ~[ l~       | Go to the previous error         |
+| ~] l~       | Go to the next error             |
+| ~[ h~       | Go to the previous vcs hunk      |
+| ~] h~       | Go to the next vcs hunk          |
+| ~[ t~       | Go to the previous frame         |
+| ~] t~       | Go to the next frame             |
+| ~[ w~       | Go to the previous window        |
+| ~] w~       | Go to the next window            |
+| ~[ e~       | Move line up                     |
+| ~] e~       | Move line down                   |
+| ~[ p~       | Paste above current line         |
+| ~] p~       | Paste below current line         |
+| ~g p~       | Select pasted text               |
 
 *** Jumping, Joining and Splitting
 The ~SPC j~ prefix is for jumping, joining and splitting.
