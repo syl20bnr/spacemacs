@@ -99,6 +99,11 @@
          :initform nil
          :type (satisfies (lambda (x) (member x '(nil pre))))
          :documentation "Initialization step.")
+   (skip-install :initarg :skip-install
+                 :initform nil
+                 :type boolean
+                 :documentation
+                 "If non-nil then this package is not installed by Spacemacs.")
    (protected :initarg :protected
               :initform nil
               :type boolean
@@ -325,11 +330,13 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
          (location (when (listp pkg) (plist-get (cdr pkg) :location)))
          (step (when (listp pkg) (plist-get (cdr pkg) :step)))
          (excluded (when (listp pkg) (plist-get (cdr pkg) :excluded)))
+         (skip-install (when (listp pkg) (plist-get (cdr pkg) :skip-install)))
          (protected (when (listp pkg) (plist-get (cdr pkg) :protected)))
          (copyp (not (null obj)))
          (obj (if obj obj (cfgl-package name-str :name name-sym))))
     (when location (oset obj :location location))
     (when step (oset obj :step step))
+    (oset obj :skip-install skip-install)
     (oset obj :excluded excluded)
     ;; cannot override protected packages
     (unless copyp
@@ -415,6 +422,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
    packages (lambda (x) (and (not (null (oref x :owner)))
                              (not (memq (oref x :location) '(built-in local)))
                              (not (stringp (oref x :location)))
+                             (not (oref x :skip-install))
                              (not (oref x :excluded))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
