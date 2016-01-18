@@ -12,7 +12,8 @@
 
 This simple layer adds support for shell scripting.
 
-Incuded packages for extensions:
+Supported scripting files:
+- =.sh=
 - =.fish=: [[https://github.com/fish-shell/fish-shell][fish shell]]
 
 *Note:* For Windows scripting see the layer =windows-scripts=

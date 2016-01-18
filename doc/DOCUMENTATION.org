@@ -545,9 +545,8 @@ can be set directly in the =dotspacemacs-configuration-layers= like this:
 
 *** Excluding packages
 You can exclude packages you don't want to install with the variable
-=dotspacemacs-excluded-packages=, this variable can exclude both packages and
-extensions (see [[Configuration layers][Configuration layers]] for more info on
-packages and extensions).
+=dotspacemacs-excluded-packages= (see [[Configuration layers][Configuration layers]] for more info
+on packages).
 
 For instance to disable the =rainbow-delimiters= package:
 
@@ -1308,7 +1307,6 @@ All layers can be easily discovered via =helm-spacemacs-help= accessible with
 The following helm actions are available:
   - default: open the layer =README.org=
   - 2nd: open the layer =packages.el=
-  - 3nd: open the layer =extensions.el=
 
 **** Available packages in Spacemacs
 =helm-spacemacs-help= also lists all the packages available in Spacemacs. The

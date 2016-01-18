@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar spotify-packages '(spotify helm-spotify))
+(setq spotify-packages '(spotify helm-spotify))
 
 (defun spotify/init-spotify ()
   (use-package spotify

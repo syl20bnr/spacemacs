@@ -9,9 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar sql-packages '(sql sql-indent))
-
-(defvar sql-excluded-packages '())
+(setq sql-packages '(sql sql-indent))
 
 (defun sql/init-sql ()
   (use-package sql

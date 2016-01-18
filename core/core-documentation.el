@@ -121,7 +121,7 @@
              :publishing-directory ,(concat publish-target "layers/")
              :publishing-function org-html-publish-to-html
              :preparation-function spacemacs//generate-layers-file
-             :exclude "extensions"
+             :exclude "local"
              :html-head ,header)
             ("spacemacs-doc-static"
              :base-directory ,spacemacs-docs-directory

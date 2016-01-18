@@ -1,4 +1,4 @@
-;;; packages.el --- elfeed Layer extensions File for Spacemacs
+;;; packages.el --- elfeed Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

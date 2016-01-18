@@ -167,11 +167,6 @@
   "Open the `packages.el' file of the passed CANDIDATE."
   (ivy-spacemacs-help//layer-action-open-file "packages.el" candidate))
 
-;; TODO remove extensions in 0.105.0
-(defun ivy-spacemacs-help//layer-action-open-extensions (candidate)
-  "Open the `extensions.el' file of the passed CANDIDATE."
-  (ivy-spacemacs-help//layer-action-open-file "extensions.el" candidate))
-
 ;;;###autoload
 (defun ivy-spacemacs-help-layers ()
   (interactive)

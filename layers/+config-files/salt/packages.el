@@ -1,4 +1,4 @@
-;;; packages.el --- Salt Layer extensions File for Spacemacs
+;;; packages.el --- Salt Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

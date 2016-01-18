@@ -14,7 +14,7 @@
 This simple layer adds support for the Powershell scripting language as well
 as support for batch files.
 
-Incuded packages for extensions:
+Supported windows scription extensions:
 - =.ps1=: [[https://github.com/jschaf/powershell.el][powershell]]
 - =.bat=: [[http://www.emacswiki.org/emacs/dos.el][dos.el]]
 

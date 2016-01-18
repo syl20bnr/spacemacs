@@ -18,8 +18,6 @@
                                             :repo "bmag/command-log-mode"
                                             :branch "color"))))
 
-(setq command-log-excluded-packages '())
-
 (defun command-log/init-command-log-mode ()
   (use-package command-log-mode
     :commands global-command-log-mode

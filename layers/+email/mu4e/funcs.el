@@ -1,4 +1,4 @@
-;;; funcs.el --- mu4e Layer extensions File for Spacemacs
+;;; funcs.el --- mu4e Layer functions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

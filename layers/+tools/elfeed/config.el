@@ -1,4 +1,4 @@
-;;; config.el --- elfeed Layer extensions File for Spacemacs
+;;; config.el --- elfeed Layer configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

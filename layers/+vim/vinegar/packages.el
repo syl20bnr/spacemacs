@@ -16,8 +16,6 @@
     (dired :location built-in)
     ))
 
-(setq vinegar-excluded-packages '())
-
 (defun vinegar/init-dired+ ()
   (use-package dired+
     :defer t

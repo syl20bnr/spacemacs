@@ -199,9 +199,6 @@
                 . helm-spacemacs-help//layer-action-open-readme)
                ("Open packages.el"
                 . helm-spacemacs-help//layer-action-open-packages)
-               ;; TODO remove extensions in 0.106.0
-               ("Open extensions.el"
-                . helm-spacemacs-help//layer-action-open-extensions)
                ("Install Layer"
                 . helm-spacemacs-help//layer-action-install-layer)
                ("Open README.org (for editing)"
@@ -319,10 +316,6 @@
 (defun helm-spacemacs-help//layer-action-open-packages (candidate)
   "Open the `packages.el' file of the passed CANDIDATE."
   (helm-spacemacs-help//layer-action-open-file "packages.el" candidate))
-
-(defun helm-spacemacs-help//layer-action-open-extensions (candidate)
-  "Open the `extensions.el' file of the passed CANDIDATE."
-  (helm-spacemacs-help//layer-action-open-file "extensions.el" candidate))
 
 (defun helm-spacemacs-help//package-action-goto-init-func (candidate)
   "Open the file `packages.el' and go to the init function."

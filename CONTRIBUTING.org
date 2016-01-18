@@ -67,9 +67,9 @@ The license is =GPLv3= for all parts specific to Spacemacs, this includes:
 - The initialization and core files
 - All the layer files.
 
-For files not belonging to Spacemacs like extensions and libraries, refer to the
-header file. Those files should not have an empty header, we may not accept
-code without a proper header file.
+For files not belonging to Spacemacs like local packages and libraries, refer
+to the header file. Those files should not have an empty header, we may not
+accept code without a proper header file.
 
 *** Conventions
 Spacemacs is based on conventions, mainly for naming functions, keybindings
@@ -156,7 +156,7 @@ in. For example a layer for a language would go in the =layers/+lang/= folder.
 The file header for =elisp= files should look like the following template:
 
 #+BEGIN_EXAMPLE
-    ;;; FILENAME --- NAME Layer extensions File for Spacemacs
+    ;;; FILENAME --- NAME Layer packages File for Spacemacs
     ;;
     ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
     ;;
