@@ -14,3 +14,6 @@
 
 (defvar scala-auto-insert-asterisk-in-comments nil
   "If non-nil automatically insert leading asterisk in multi-line comments.")
+
+(defvar scala-use-unicode-arrows nil
+  "If non-nil then `->`, `=>` and `<-` are replaced with unicode arrows.")
