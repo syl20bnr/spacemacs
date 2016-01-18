@@ -14,12 +14,12 @@
 (defun spotify/init-spotify ()
   (use-package spotify
     :config (spacemacs/set-leader-keys
-              "amsp" 'spotify-playpause
-              "amsn" 'spotify-next
-              "amsN" 'spotify-previous
-              "amsQ" 'spotify-quit)))
+              "aMsp" 'spotify-playpause
+              "aMsn" 'spotify-next
+              "aMsN" 'spotify-previous
+              "aMsQ" 'spotify-quit)))
 
 (defun spotify/init-helm-spotify ()
   (use-package helm-spotify
     :config (spacemacs/set-leader-keys
-              "amsg" 'helm-spotify)))
+              "aMsg" 'helm-spotify)))
