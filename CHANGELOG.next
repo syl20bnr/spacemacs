@@ -36,6 +36,7 @@ This file containes the change log for the next major version of Spacemacs.
   restart to replace =Helm= by =Ivy=.
 *** New Layers
 - asm in =+lang= (thanks to thudo)
+- csv in =+lang= (thanks to jb55)
 - spacemacs-ivy in =completion= (thanks to justbur)
 - spacemacs-helm in =completion= (moved from spacemacs-base) (thanks to justbur)
 *** Dotfile changes
