@@ -1,4 +1,29 @@
 * Release 0.105.x
+** 0.105.9 (2016/01/17)
+*** Improvements
+- Fix error on Microsoft Windows 10 OS regarding missing =printf= command
+  (don't call =exec-path-from-shell= function on Microsoft Windows)
+  (thanks to syohex)
+- New key bindings ~C-e~ and ~C-y~ in evilified buffers to scroll lines
+  (thanks to CestDiego)
+- Remove key binding hack for =evil-jumper= since the issue has been fixed
+  upstream (thanks to justbur)
+- Remove unused =init-dired+= function (thanks to AlejandroCatalina)
+- Various documentation improvements (thanks to balajisivaraman, jcppython,
+  jmiven, jorisE)
+*** New conventions
+- =use-package= code guidelines
+- Key bindings documentation only need to mention ~SPC~ prefix
+*** Layer changes
+**** Markdown
+- Add syntax highlighting for =R= code blocks (thanks to rustyplanet)
+**** Org
+- Fix early creation of empty =org= directory (thanks to tboby)
+- Add default key binding ~C-c c~ for =org-capture=
+  (thanks to AlejandroCatalina)
+**** Spacemacs
+- Add =bracketed-paste= package to improve pasted text in terminals
+  (thanks to AlejandroCatalina)
 ** 0.105.8 (2016/01/12)
 *** Fixes
 - Fix the red mode-line when error occurs during loading
