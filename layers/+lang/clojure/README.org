@@ -29,6 +29,8 @@
      - [[stacktrace-mode][stacktrace-mode]]
      - [[inspector-mode][inspector-mode]]
      - [[test-report-mode][test-report-mode]]
+ - [[Development Notes][Development Notes]]
+   - [[Indentation][Indentation]]
 
 * Description
 This layer adds support for [[http://clojure.org][Clojure]] language using [[https://github.com/clojure-emacs/cider][CIDER]].
@@ -297,3 +299,9 @@ In general, ~q~ should always quit the popped up buffer.
 | ~t~         | run test          |
 | ~T~         | run tests         |
 
+* Development Notes
+** Indentation
+With a [[https://github.com/clojure-emacs/cider/blob/master/doc/Indent-Spec.md#indent-specification][new]] functionality of Cider to read the custom indentation rules from the
+var's metadata, it is better for consistency reasons to not add the custom
+indentation rules to Spacemacs, but to add them to the metadata of those
+specific vars.
