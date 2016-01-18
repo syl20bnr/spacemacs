@@ -1676,15 +1676,16 @@ Files manipulation commands (start with ~f~):
 Convenient key bindings are located under the prefix ~SPC f e~ to quickly
 navigate between =Emacs= and Spacemacs specific files.
 
-| Key Binding | Description                                                        |
-|-------------+--------------------------------------------------------------------|
-| ~SPC f e c~ | open =ido= in the =contrib= folder                                 |
-| ~SPC f e d~ | open the spacemacs dotfile (=~/.spacemacs=)                        |
-| ~SPC f e D~ | open =ediff= buffer of =~/.spacemacs= and =.spacemacs.template=    |
-| ~SPC f e f~ | discover the =FAQ= using =helm=                                    |
-| ~SPC f e i~ | open the all mighty =init.el=                                      |
-| ~SPC f e R~ | resync the dotfile with spacemacs                                  |
-| ~SPC f e v~ | display and copy the spacemacs version                             |
+| Key Binding | Description                                                     |
+|-------------+-----------------------------------------------------------------|
+| ~SPC f e c~ | open =ido= in the =contrib= folder                              |
+| ~SPC f e d~ | open the spacemacs dotfile (=~/.spacemacs=)                     |
+| ~SPC f e D~ | open =ediff= buffer of =~/.spacemacs= and =.spacemacs.template= |
+| ~SPC f e f~ | discover the =FAQ= using =helm=                                 |
+| ~SPC f e i~ | open the all mighty =init.el=                                   |
+| ~SPC f e l~ | locate an Emacs library                                         |
+| ~SPC f e R~ | resync the dotfile with spacemacs                               |
+| ~SPC f e v~ | display and copy the spacemacs version                          |
 
 **** Browsing files with Helm
 In =vim= and  =hybrid= styles, Spacemacs remap the navigation in Helm find-files
@@ -1986,7 +1987,6 @@ called =pt=.
 | ~SPC r l~              | resume the last =completion= buffer                                      |
 | ~SPC r s~ or ~SPC s l~ | resume search buffer (completion or converted search buffer)             |
 | ~SPC s `~              | go back to the previous place reached with =helm-ag=                     |
-| ~SPC s L~              | search for library implementation                                        |
 | Prefix argument        | will ask for file extensions                                             |
 
 **** Searching in current file
