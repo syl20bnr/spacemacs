@@ -111,7 +111,7 @@
             org-imenu-depth 8)
 
       (with-eval-after-load 'org-indent
-        (spacemacs|hide-lighter org-indent-mode))
+        (spacemacs|diminish org-indent-mode))
       (setq org-startup-indented t)
       (let ((dir (configuration-layer/get-layer-property 'org :dir)))
         (setq org-export-async-init-file (concat dir "org-async-init.el")))

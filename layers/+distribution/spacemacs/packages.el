@@ -193,7 +193,7 @@
                                                             markdown-mode-hook)))
     :config
     (progn
-      (spacemacs|hide-lighter auto-highlight-symbol-mode)
+      (spacemacs|diminish auto-highlight-symbol-mode)
       (defvar-local spacemacs-last-ahs-highlight-p nil
         "Info on the last searched highlighted symbol.")
       (defvar-local spacemacs--ahs-searching-forward t)
@@ -527,7 +527,7 @@
     (global-anzu-mode t)
     :config
     (progn
-      (spacemacs|hide-lighter anzu-mode)
+      (spacemacs|diminish anzu-mode)
       (setq anzu-search-threshold 1000
             anzu-cons-mode-line-p nil)
       ;; powerline integration
@@ -1029,7 +1029,7 @@ For instance pass En as source for English."
                               "IndianRed3"
                               "IndianRed4")))
     :config
-    (spacemacs|hide-lighter highlight-parentheses-mode)
+    (spacemacs|diminish highlight-parentheses-mode)
     (set-face-attribute 'hl-paren-face nil :weight 'ultra-bold)))
 
 (defun spacemacs/init-hl-anything ()
@@ -1048,7 +1048,7 @@ For instance pass En as source for English."
         "hN"  'hl-find-prev-thing
         "hr"  'hl-restore-highlights
         "hs"  'hl-save-highlights))
-    :config (spacemacs|hide-lighter hl-highlight-mode)))
+    :config (spacemacs|diminish hl-highlight-mode)))
 
 (defun spacemacs/init-hungry-delete ()
   (use-package hungry-delete
@@ -1506,7 +1506,9 @@ on whether the spacemacs-ivy layer is used or not, with
       (let ((unicodep (dotspacemacs|symbol-value
                        dotspacemacs-mode-line-unicode-symbols)))
         (setq spaceline-window-numbers-unicode unicodep)
-        (setq spaceline-workspace-numbers-unicode unicodep))
+        (setq spaceline-workspace-numbers-unicode unicodep)
+        (setq spaceline-minor-modes-separator
+              (if unicodep (if (display-graphic-p) "" " ") "|")))
 
       (defpowerline spacemacs-powerline-new-version
         (propertize
@@ -1543,24 +1545,7 @@ on whether the spacemacs-ivy layer is used or not, with
         (with-current-buffer buffer
           (setq-local mode-line-format (default-value 'mode-line-format))
           (powerline-set-selected-window)
-          (powerline-reset)))
-
-      (defun spacemacs//prepare-diminish ()
-        (when spaceline-minor-modes-p
-          (let ((unicodep (dotspacemacs|symbol-value
-                           dotspacemacs-mode-line-unicode-symbols)))
-            (setq spaceline-minor-modes-separator
-                  (if unicodep (if (display-graphic-p) "" " ") "|"))
-            (dolist (mm spacemacs--diminished-minor-modes)
-              (let ((mode (car mm)))
-                (when (and (boundp mode) (symbol-value mode))
-                  (let* ((unicode (cadr mm))
-                         (ascii (caddr mm))
-                         (dim (if unicodep
-                                  unicode
-                                (if ascii ascii unicode))))
-                    (diminish mode dim))))))))
-      (add-hook 'spaceline-pre-hook 'spacemacs//prepare-diminish))))
+          (powerline-reset))))))
 
 (defun spacemacs/init-vi-tilde-fringe ()
   (use-package vi-tilde-fringe
@@ -1584,7 +1569,7 @@ on whether the spacemacs-ivy layer is used or not, with
                                                 (when buffer-read-only
                                                   (vi-tilde-fringe-mode -1)))))
     :config
-    (spacemacs|hide-lighter vi-tilde-fringe-mode)))
+    (spacemacs|diminish vi-tilde-fringe-mode)))
 
 (defun spacemacs/init-window-numbering ()
   (use-package window-numbering
@@ -1622,7 +1607,7 @@ on whether the spacemacs-ivy layer is used or not, with
     :config
     (progn
       (volatile-highlights-mode t)
-      (spacemacs|hide-lighter volatile-highlights-mode))))
+      (spacemacs|diminish volatile-highlights-mode))))
 
 (defun spacemacs/init-zoom-frm ()
   (use-package zoom-frm

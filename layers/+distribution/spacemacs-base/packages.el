@@ -112,7 +112,7 @@
       ;; enable eldoc in IELM
       (add-hook 'ielm-mode-hook #'eldoc-mode)
       ;; don't display eldoc on modeline
-      (spacemacs|hide-lighter eldoc-mode))))
+      (spacemacs|diminish eldoc-mode))))
 
 (defun spacemacs-base/init-electric-indent-mode ()
   (electric-indent-mode))
@@ -161,7 +161,7 @@
       ;; enable eldoc in IELM
       (add-hook 'ielm-mode-hook #'eldoc-mode)
       ;; don't display eldoc on modeline
-      (spacemacs|hide-lighter eldoc-mode))))
+      (spacemacs|diminish eldoc-mode))))
 
 (defun spacemacs-base/init-evil ()
   (use-package evil
@@ -433,7 +433,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
     (unless (eq dotspacemacs-editing-style 'emacs)
       (evil-escape-mode))
     :config
-    (spacemacs|hide-lighter evil-escape-mode)))
+    (spacemacs|diminish evil-escape-mode)))
 
 (defun spacemacs-base/init-evil-surround ()
   (use-package evil-surround
@@ -483,7 +483,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
         :documentation "Display the fill column indicator."
         :evil-leader "tf"))
     :config
-    (spacemacs|hide-lighter fci-mode)))
+    (spacemacs|diminish fci-mode)))
 
 (defun spacemacs-base/init-help-fns+ ()
   (use-package help-fns+
@@ -502,7 +502,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
     "Enable hs-minor-mode for code folding."
     (ignore-errors
       (hs-minor-mode)
-      (spacemacs|hide-lighter hs-minor-mode)))
+      (spacemacs|diminish hs-minor-mode)))
   (add-hook 'prog-mode-hook 'spacemacs//enable-hs-minor-mode))
 
 (defun spacemacs-base/init-holy-mode ()
@@ -723,7 +723,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
   (use-package page-break-lines
     :init
     (global-page-break-lines-mode t)
-    (spacemacs|hide-lighter page-break-lines-mode)))
+    (spacemacs|diminish page-break-lines-mode)))
 
 (defun spacemacs-base/init-popup ()
   (use-package popup
@@ -820,7 +820,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
     :config
     (progn
       (projectile-global-mode)
-      (spacemacs|hide-lighter projectile-mode))))
+      (spacemacs|diminish projectile-mode))))
 
 (defun spacemacs-base/init-quelpa ())
 
@@ -935,7 +935,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
     (setq undo-tree-visualizer-timestamps t)
     (setq undo-tree-visualizer-diff t)
     :config
-    (spacemacs|hide-lighter undo-tree-mode)))
+    (spacemacs|diminish undo-tree-mode)))
 
 (defun spacemacs-base/init-uniquify ()
   (require 'uniquify)
@@ -1082,7 +1082,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
     :config
     (progn
       (ws-butler-global-mode 1)
-      (spacemacs|hide-lighter ws-butler-mode))))
+      (spacemacs|diminish ws-butler-mode))))
 
 (defun spacemacs-base/init-winner ()
   (use-package winner

@@ -62,7 +62,7 @@
             git-gutter:handled-backends '(git hg bzr svn)
             git-gutter:hide-gutter t))
     :config
-    (spacemacs|hide-lighter git-gutter-mode)))
+    (spacemacs|diminish git-gutter-mode)))
 
 (defun version-control/init-git-gutter-fringe ()
   (use-package git-gutter-fringe
@@ -116,7 +116,7 @@
        git-gutter+-hide-gutter t))
     ;; identify magit changes
     :config
-    (spacemacs|hide-lighter git-gutter+-mode)
+    (spacemacs|diminish git-gutter+-mode)
     ;; (set-face-foreground 'git-gutter+-modified "black")
     ;; (set-face-foreground 'git-gutter+-added    "black")
     ;; (set-face-foreground 'git-gutter+-deleted  "black")
