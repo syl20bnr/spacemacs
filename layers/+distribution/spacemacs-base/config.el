@@ -86,7 +86,7 @@
 ;; Regexp for useful and useless buffers for smarter buffer switching
 (defvar spacemacs-useless-buffers-regexp '("*\.\+")
   "Regexp used to determine if a buffer is not useful.")
-(defvar spacemacs-useful-buffers-regexp '("\\*\\(scratch\\|terminal\.\+\\|ansi-term\\|eshell\\)\\*")
+(defvar spacemacs-useful-buffers-regexp '("\\*scratch\\*")
   "Regexp used to define buffers that are useful despite matching
 `spacemacs-useless-buffers-regexp'.")
 
