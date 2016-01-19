@@ -38,6 +38,10 @@
       (slime-setup)
       (dolist (m `(,slime-mode-map ,slime-repl-mode-map))
         (define-key m [(tab)] 'slime-fuzzy-complete-symbol))
+
+      (with-eval-after-load 'auto-highlight-symbol
+        (add-to-list 'ahs-plugin-bod-modes 'lisp-mode))
+
       ;; TODO: Add bindings for the SLIME debugger?
       (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
         "cc" 'slime-compile-file
