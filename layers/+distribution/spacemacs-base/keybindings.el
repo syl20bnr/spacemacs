@@ -407,14 +407,14 @@
 (spacemacs|define-micro-state-2 window-manipulation
   :doc
   "
-^^^^ Go to/Move Window
-^^^^ -----------------
-^^        _k_/_K_^^        [_0_,_9_] go to window N            [_s_/_S_] split horizontally/and focus
-^^^^         |^^^^         [_o_/_w_] go to other frame/window  [_v_/_V_] split vertically/and focus
-   _h_/_H_ --+-- _l_/_L_   [_u_/_U_] restore prev/next layout  [_[_/_]_] shrink/enlarge horizontally
-^^^^         |^^^^         [_R_]^^   rotate windows            [_{_/_}_] shrink/enlarge horizontally
-^^        _j_/_J_^^        [_g_]^^   toggle golden-ratio       [_c_/_C_] close current/other windows
-^^^^^^^^                   [_q_]^^   quit
+Select^^^^               Move^^^^              Split^^                Resize^^                     Other^^
+------^^^^------------- -----^^^^------------ ------^^-------------- -------^^------------------- ------^^-------------------
+[_j_/_k_] down/up        [_J_/_K_] down/up     [_s_] vertical         [_[_] shrink horizontally    [_q_] quit
+[_h_/_l_] left/right     [_h_/_l_] left/right  [_S_] vert & follow    [_]_] enlarge horizontally   [_u_] restore prev layout
+[_0_-_9_] window N       [_R_]^^   rotate      [_v_] horizontal       [_{_] shrink vertically      [_U_] restore next layout
+[_w_]^^   other window   ^^^^                  [_V_] horiz & follow   [_}_] enlarge vertically     [_c_] close current
+[_o_]^^   other frame    ^^^^                  ^^                     ^^                           [_C_] close other
+^^^^                     ^^^^                  ^^                     ^^                           [_g_] golden-ratio %`golden-ratio-mode
 "
   :bindings
   ("q" nil :exit t)
