@@ -118,10 +118,11 @@ is achieved by adding the relevant text properties."
         (eshell-send-input))
 
       ;; Caution! this will erase buffer's content at C-l
+      (require 'em-rebind)
       (add-hook 'eshell-mode-hook
          #'(lambda ()
              (define-key eshell-mode-map (kbd "C-l") 'eshell/clear)
-             (define-key eshell-mode-map (kbd "C-d") 'eshell-life-is-too-much)))
+             (define-key eshell-mode-map (kbd "C-d") 'eshell-delchar-or-maybe-eof)))
       (add-hook 'eshell-mode-hook 'spacemacs//init-eshell))
     :config
     (progn
