@@ -10,7 +10,8 @@
 ;;; License: GPLv3
 
 (setq common-lisp-packages
-      '(slime))
+      '(slime
+        common-lisp-snippets))
 
 (defun common-lisp/init-slime ()
   (use-package slime
@@ -80,3 +81,8 @@
         "sq" 'slime-quit-lisp
 
         "tf" 'slime-toggle-fancy-trace))))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun common-lisp/init-common-lisp-snippets ()
+    (use-package common-lisp-snippets
+      :defer t)))
