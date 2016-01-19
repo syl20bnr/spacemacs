@@ -269,6 +269,20 @@ pressed)."
       (delete-window corelv-wnd)
       (kill-buffer buf))))
 
+(defmacro spacemacs|add-micro-state-bindings (micro-state-name &rest bindings)
+  "Add bindings to MICRO-STATE. Bindings take the same form as
+they do in `spacemacs|define-micro-state-2'."
+  (declare (indent 1))
+  (let ((add-bindings
+         (intern (format "spacemacs-%s-micro-state-additional-bindings"
+                         micro-state-name))))
+    `(progn
+       (defvar ,add-bindings nil
+         ,(format "Additional bindings for the %s micro-state"
+                  micro-state-name))
+       (dolist (binding ',bindings)
+         (push binding ,add-bindings)))))
+
 (defmacro spacemacs|define-micro-state-2 (name &rest props)
   "Define a micro-state called NAME.
 NAME is a symbol.
@@ -309,7 +323,12 @@ used."
   (let* ((func (spacemacs//micro-state-func-name name))
          (body-func (spacemacs//micro-state-body-func-name name))
          (entry-binding (spacemacs/mplist-get props :entry-binding))
-         (bindings (spacemacs/mplist-get props :bindings))
+         (add-bindings (intern (format "spacemacs-%s-micro-state-additional-bindings"
+                                       name)))
+         (bindings (append (spacemacs/mplist-get props :bindings)
+                           (when (and (boundp add-bindings)
+                                      (listp (symbol-value add-bindings)))
+                             (symbol-value add-bindings))))
          (doc (or (plist-get props :doc) "\n"))
          (columns (plist-get props :columns))
          (entry-sexp (plist-get props :on-enter))
