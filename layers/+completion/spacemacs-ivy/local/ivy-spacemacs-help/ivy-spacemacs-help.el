@@ -343,6 +343,17 @@
             (ivy-spacemacs-help//dotspacemacs-candidates)
             :action 'ivy-spacemacs-help//go-to-dotfile-variable))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; FAQ
+
+;;;###autoload
+(defun ivy-spacemacs-help-faq ()
+  "Show FAQ and launch swiper session."
+  (interactive)
+  (find-file-read-only
+   (expand-file-name "FAQ.org" spacemacs-docs-directory))
+  (swiper "\\*\\* "))
+
 (provide 'ivy-spacemacs-help)
 
 ;;; ivy-spacemacs-help.el ends here
