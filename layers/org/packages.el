@@ -119,6 +119,22 @@
         `(defun ,fname () (interactive)
                 (org-emphasize ,char)))
 
+      ;; Follow the confirm and abort conventions
+      (with-eval-after-load 'org-capture
+        (spacemacs/set-leader-keys-for-minor-mode 'org-capture-mode
+          dotspacemacs-major-mode-leader-key 'org-capture-finalize
+          "c" 'org-capture-finalize
+          "k" 'org-capture-kill
+          "a" 'org-capture-kill
+          "r" 'org-capture-refile))
+
+      (with-eval-after-load 'org-src
+        (spacemacs/set-leader-keys-for-minor-mode 'org-src-mode
+          "'" 'org-edit-src-exit
+          "c" 'org-edit-src-exit
+          "a" 'org-edit-src-abort
+          "k" 'org-edit-src-abort))
+
       ;; Insert key for org-mode and markdown a la C-h k
       ;; from SE endless http://emacs.stackexchange.com/questions/2206/i-want-to-have-the-kbd-tags-for-my-blog-written-in-org-mode/2208#2208
       (defun spacemacs/insert-keybinding-org (key)
