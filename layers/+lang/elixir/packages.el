@@ -137,7 +137,7 @@
       (remove-hook 'enh-ruby-mode-hook 'ruby-end-mode))
     :config
     (progn
-      (spacemacs|hide-lighter ruby-end-mode)
+      (spacemacs|diminish ruby-end-mode)
       ;; see comment in `:init' block
       (remove-hook 'ruby-mode-hook 'ruby-end-mode)
       (remove-hook 'enh-ruby-mode-hook 'ruby-end-mode))))

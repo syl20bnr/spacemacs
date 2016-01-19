@@ -88,13 +88,13 @@
       (if chinese-enable-avy-pinyin
           (setq ace-pinyin-use-avy t))
       (ace-pinyin-global-mode t)
-      (spacemacs|hide-lighter ace-pinyin-mode))))
+      (spacemacs|diminish ace-pinyin-mode))))
 
 (defun chinese/init-pangu-spacing ()
   (use-package pangu-spacing
     :defer t
     :init (progn (global-pangu-spacing-mode 1)
-                 (spacemacs|hide-lighter pangu-spacing-mode)
+                 (spacemacs|diminish pangu-spacing-mode)
                  ;; Always insert `real' space in org-mode.
                  (add-hook 'org-mode-hook
                            '(lambda ()

@@ -499,7 +499,7 @@ ARG non nil means Vim like movements."
       (define-key helm-map (kbd "C-z") 'helm-select-action)
 
       (with-eval-after-load 'helm-mode ; required
-        (spacemacs|hide-lighter helm-mode)))))
+        (spacemacs|diminish helm-mode)))))
 
 (defun spacemacs-helm/init-helm-ag ()
   (use-package helm-ag

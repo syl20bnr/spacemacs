@@ -259,7 +259,7 @@ C1 and C2 are triples of floats in [0.0 1.0] range."
         (setq ivy-use-virtual-buffers t))
       (when (configuration-layer/package-usedp 'projectile)
         (setq projectile-completion-system 'ivy))
-      (spacemacs|hide-lighter ivy-mode)
+      (spacemacs|diminish ivy-mode)
       (ivy-mode 1)
       (global-set-key (kbd "C-c C-r") 'ivy-resume)
       (global-set-key (kbd "<f6>") 'ivy-resume)

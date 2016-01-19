@@ -124,7 +124,7 @@
         (push 'company-robe company-backends-ruby-mode)))
     :config
     (progn
-      (spacemacs|hide-lighter robe-mode)
+      (spacemacs|diminish robe-mode)
 
       (dolist (mode '(ruby-mode enh-ruby-mode))
         (spacemacs/declare-prefix-for-mode mode "mg" "ruby/goto")
@@ -157,7 +157,7 @@
                                             enh-ruby-mode-hook)))
     :config
     (progn
-      (spacemacs|hide-lighter rspec-mode)
+      (spacemacs|diminish rspec-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
           "ta" 'rspec-verify-all
@@ -204,7 +204,7 @@
       (add-hook hook 'ruby-tools-mode))
     :config
     (progn
-      (spacemacs|hide-lighter ruby-tools-mode)
+      (spacemacs|diminish ruby-tools-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
         (spacemacs/declare-prefix-for-mode mode "mx" "ruby/text")
         (spacemacs/set-leader-keys-for-major-mode mode
@@ -227,7 +227,7 @@
                                                 enh-ruby-mode-hook)))
     :config
     (progn
-      (spacemacs|hide-lighter ruby-test-mode)
+      (spacemacs|diminish ruby-test-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
           "tb" 'ruby-test-run

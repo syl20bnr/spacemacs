@@ -167,4 +167,4 @@ Press any other key to exit." component (eval var) component component)))
   (use-package rainbow-mode
     :commands rainbow-mode
     :init (spacemacs/set-leader-keys "tCc" 'rainbow-mode)
-    :config (spacemacs|hide-lighter rainbow-mode)))
+    :config (spacemacs|diminish rainbow-mode)))

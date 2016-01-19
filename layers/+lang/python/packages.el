@@ -53,7 +53,7 @@
         "gu" 'anaconda-mode-find-references)
       (evilified-state-evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
         (kbd "q") 'quit-window)
-      (spacemacs|hide-lighter anaconda-mode))))
+      (spacemacs|diminish anaconda-mode))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun python/post-init-company ()
