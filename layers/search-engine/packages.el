@@ -86,10 +86,29 @@
                                                        (car engine)))))
                                engines))
         (action . (lambda (candidate) (call-interactively candidate)))))
-    (defun spacemacs/search-engine-select ()
-      "set search engine to use"
+
+    (defun spacemacs/helm-search-engine-select ()
+      "Set search engine to use with helm."
       (interactive)
       (helm :sources (list (spacemacs//search-engine-source
                             search-engine-alist))))
-    )
+
+    (defun spacemacs/ivy-search-engine-select ()
+      "Set search engine to use with ivy."
+      "return a source for ivy selection"
+      (interactive)
+      (ivy-read "Search Engines: "
+                (mapcar (lambda (engine)
+                          (cons (plist-get (cdr engine) :name)
+                                (intern (format "engine/search-%S"
+                                                (car engine)))))
+                        search-engine-alist)
+                :action (lambda (candidate) (call-interactively candidate))))
+
+    (defun spacemacs/search-engine-select ()
+      "Set search engine to use."
+      (interactive)
+      (if (configuration-layer/layer-usedp 'spacemacs-ivy)
+          (call-interactively 'spacemacs/ivy-search-engine-select)
+        (call-interactively 'spacemacs/helm-search-engine-select))))
   )
