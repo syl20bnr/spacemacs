@@ -229,6 +229,9 @@
     (progn
       ;; bind function keys
 
+      ;; bind evil-jump-forward for GUI only.
+      (define-key evil-motion-state-map [C-i] 'evil-jump-forward)
+
       ;; Make the current definition and/or comment visible.
       (define-key evil-normal-state-map "zf" 'reposition-window)
       ;; toggle maximize buffer
