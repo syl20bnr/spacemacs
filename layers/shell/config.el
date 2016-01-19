@@ -14,6 +14,9 @@
 ;; move point to the end of buffer on new output
 (setq comint-move-point-for-output t)
 
+;; Add shell buffers to useful buffers list
+(push "\\*\\(ansi-term\\|eshell\\|shell\\|terminal\.\+\\)\\*" spacemacs-useful-buffers-regexp)
+
 ;; Variables
 
 (spacemacs|defvar-company-backends eshell-mode)
