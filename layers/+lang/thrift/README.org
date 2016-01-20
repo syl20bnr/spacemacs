@@ -1,0 +1,14 @@
+#+TITLE: Thrift layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+
+* Description
+This layer provides syntax highlighting for thrift file.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =thrift= to the existing =dotspacemacs-configuration-layers= list in this
+file.
