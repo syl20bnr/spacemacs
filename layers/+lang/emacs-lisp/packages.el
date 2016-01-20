@@ -107,7 +107,8 @@
     :init
     (progn
       (evil-define-key 'normal macrostep-keymap "q" 'macrostep-collapse-all)
-      (spacemacs|define-micro-state-2 macrostep
+      (spacemacs|define-transient-state macrostep
+        :title "MacroStep Transient State"
         :doc "\n[_e_] expand [_c_] collapse [_n_/_N_] next/previous [_q_] quit"
         :foreign-keys run
         :bindings
@@ -117,7 +118,7 @@
         ("N" macrostep-prev-macro)
         ("q" macrostep-collapse-all :exit t))
       (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
-        "dm" 'spacemacs/macrostep-micro-state/body))))
+        "dm" 'spacemacs/macrostep-transient-state/body))))
 
 (defun emacs-lisp/post-init-evil ()
   (add-hook 'emacs-lisp-mode-hook

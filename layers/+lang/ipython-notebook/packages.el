@@ -125,7 +125,8 @@
       (define-key ein:notebook-multilang-mode-map (kbd "M-j") 'ein:worksheet-move-cell-down)
       (define-key ein:notebook-multilang-mode-map (kbd "M-k") 'ein:worksheet-move-cell-up)
 
-      (spacemacs|define-micro-state-2 ipython-notebook
+      (spacemacs|define-transient-state ipython-notebook
+        :title "iPython Notebook Transient State"
         :doc (concat (spacemacs//ipython-notebook-ms-doc))
         :bindings
         ("q" nil :exit t)

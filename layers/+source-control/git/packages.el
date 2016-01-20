@@ -57,15 +57,16 @@
 (defun git/init-git-timemachine ()
   (use-package git-timemachine
     :defer t
-    :commands spacemacs/time-machine-micro-state/body
+    :commands spacemacs/time-machine-transient-state/body
     :init
     (spacemacs/set-leader-keys
-      "gt" 'spacemacs/time-machine-micro-state/body)
+      "gt" 'spacemacs/time-machine-transient-state/body)
 
     :config
     (progn
 
-      (spacemacs|define-micro-state-2 time-machine
+      (spacemacs|define-transient-state time-machine
+        :title "Git Timemachine Transient State"
         :doc "
 [_p_/_N_] previous [_n_] next [_c_] current [_Y_] copy hash [_q_] quit"
         :on-enter (let (golden-ratio-mode)
@@ -127,7 +128,7 @@
       (spacemacs/declare-prefix "gd" "diff")
       (spacemacs/set-leader-keys
         "gA" 'magit-cherry-pick-popup
-        "gb" 'spacemacs/git-blame-micro-state/body
+        "gb" 'spacemacs/git-blame-transient-state/body
         "gc" 'magit-commit-popup
         "gC" 'magit-checkout
         "gd" 'magit-diff-popup
@@ -145,7 +146,8 @@
         "gS" 'magit-stage-file
         "gU" 'magit-unstage-file)
 
-      (spacemacs|define-micro-state-2 git-blame
+      (spacemacs|define-transient-state git-blame
+        :title "Git Blame Transient State"
         :doc (concat "Press [_b_] again to blame further in the history, "
                      "[_q_] to go up or quit.")
         :on-enter (let (golden-ratio-mode)

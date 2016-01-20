@@ -470,7 +470,7 @@ ARG non nil means Vim like movements."
         (call-interactively 'helm-select-action)
         (spacemacs//helm-navigation-ms-set-face))
 
-      (spacemacs|define-micro-state-2 helm-navigation
+      (spacemacs|define-transient-state helm-navigation
         ;; TODO: Figure out what to do with this docstring
         :doc (concat (spacemacs//helm-navigation-ms-full-doc))
         :foreign-keys run
@@ -504,9 +504,9 @@ ARG non nil means Vim like movements."
         ("T" helm-toggle-all-marks)
         ("v" helm-execute-persistent-action))
       (define-key helm-map (kbd "M-SPC")
-        'spacemacs/helm-navigation-micro-state/body)
+        'spacemacs/helm-navigation-transient-state/body)
       (define-key helm-map (kbd "s-M-SPC")
-        'spacemacs/helm-navigation-micro-state/body)
+        'spacemacs/helm-navigation-transient-state/body)
 
       ;; Swap default TAB and C-z commands.
       ;; For GUI.
