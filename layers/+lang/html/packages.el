@@ -222,7 +222,8 @@
   ;;       (setq spacemacs--web-mode-ms-doc-toggle
   ;;             (logxor spacemacs--web-mode-ms-doc-toggle 1)))
 
-      (spacemacs|define-micro-state-2 web-mode
+      (spacemacs|define-transient-state web-mode
+        :title "Web-mode Transient State"
         :columns 4
         :foreign-keys run
         :bindings
@@ -243,7 +244,7 @@
         ("q" nil "quit" :exit t)
         ("<escape>" nil nil :exit t))
       (spacemacs/set-leader-keys-for-major-mode 'web-mode
-        "." 'spacemacs/web-mode-micro-state/body))
+        "." 'spacemacs/web-mode-transient-state/body))
 
     :mode
     (("\\.phtml\\'"      . web-mode)

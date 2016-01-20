@@ -205,7 +205,7 @@
         (if spacemacs-last-ahs-highlight-p
             (progn (goto-char (nth 1 spacemacs-last-ahs-highlight-p))
                    (spacemacs/ahs-highlight-now-wrapper)
-                   (spacemacs/symbol-highlight-micro-state/body))
+                   (spacemacs/symbol-highlight-transient-state/body))
           (message "No symbol has been searched for now.")))
 
       (defun spacemacs/integrate-evil-search (forward)
@@ -281,14 +281,14 @@
               (spacemacs/ahs-highlight-now-wrapper)
               (when (configuration-layer/package-usedp 'evil-jumper)
                 (evil-set-jump))
-              (spacemacs/symbol-highlight-micro-state/body)
+              (spacemacs/symbol-highlight-transient-state/body)
               (ahs-forward))
           (progn
             (spacemacs/integrate-evil-search nil)
             (spacemacs/ahs-highlight-now-wrapper)
             (when (configuration-layer/package-usedp 'evil-jumper)
               (evil-set-jump))
-            (spacemacs/symbol-highlight-micro-state/body)
+            (spacemacs/symbol-highlight-transient-state/body)
             (ahs-backward))))
 
       (with-eval-after-load 'evil
@@ -302,7 +302,7 @@
         (interactive)
         (spacemacs/ahs-highlight-now-wrapper)
         (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
-        (spacemacs/symbol-highlight-micro-state/body)
+        (spacemacs/symbol-highlight-transient-state/body)
         (spacemacs/integrate-evil-search nil))
 
       (defun spacemacs//ahs-ms-on-exit ()
@@ -362,7 +362,8 @@
             (evil-iedit-state/iedit-mode)
           (ahs-edit-mode t)))
 
-      (spacemacs|define-micro-state-2 symbol-highlight
+      (spacemacs|define-transient-state symbol-highlight
+        :title "Symbol Highlight Transient State"
         :doc "
 %s(symbol-highlight-doc)  [_n_] forward [_N_ or p] backward   [_R_] restart      [_e_] iedit       [_b_] search buffers
 %s(make-string (length (symbol-highlight-doc)) 32)  [_d_/_D_] fwd/bwd definition [_r_] change range [_/_] search proj [_f_] search files"
@@ -386,7 +387,7 @@
         (interactive)
         (spacemacs/ahs-highlight-now-wrapper)
         (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
-        (spacemacs/symbol-highlight-micro-state/body)
+        (spacemacs/symbol-highlight-transient-state/body)
         (spacemacs/integrate-evil-search nil)))))
 
 (defun spacemacs/init-avy ()
@@ -666,16 +667,17 @@
   (use-package evil-numbers
     :config
     (progn
-      (spacemacs|define-micro-state-2 evil-numbers
+      (spacemacs|define-transient-state evil-numbers
+        :title "Evil Numbers Transient State"
         :doc "\n[_+_/_=_] increase number [_-_] decrease"
         :bindings
         ("+" evil-numbers/inc-at-pt)
         ("=" evil-numbers/inc-at-pt)
         ("-" evil-numbers/dec-at-pt))
       (spacemacs/set-leader-keys
-        "n+" 'spacemacs/evil-numbers-micro-state/evil-numbers/inc-at-pt
-        "n=" 'spacemacs/evil-numbers-micro-state/evil-numbers/inc-at-pt
-        "n-" 'spacemacs/evil-numbers-micro-state/evil-numbers/dec-at-pt))))
+        "n+" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
+        "n=" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
+        "n-" 'spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt))))
 
 (defun spacemacs/init-evil-search-highlight-persist ()
   (use-package evil-search-highlight-persist
@@ -1183,13 +1185,14 @@ on whether the spacemacs-ivy layer is used or not, with
   (use-package move-text
     :defer t
     :init
-    (spacemacs|define-micro-state-2 move-text
+    (spacemacs|define-transient-state move-text
+      :title "Move Text Transient State"
       :bindings
       ("J" move-text-down "move down")
       ("K" move-text-up "move up"))
     (spacemacs/set-leader-keys
-      "xJ" 'spacemacs/move-text-micro-state/move-text-down
-      "xK" 'spacemacs/move-text-micro-state/move-text-up)))
+      "xJ" 'spacemacs/move-text-transient-state/move-text-down
+      "xK" 'spacemacs/move-text-transient-state/move-text-up)))
 
 (defun spacemacs/init-neotree ()
   (use-package neotree
@@ -1622,7 +1625,8 @@ on whether the spacemacs-ivy layer is used or not, with
                zoom-frm-in)
     :init
     (progn
-      (spacemacs|define-micro-state-2 zoom-frm
+      (spacemacs|define-transient-state zoom-frm
+        :title "Zoom Frame Transient State"
         :doc "
 [_+_/_=_] zoom frame in [_-_] zoom frame out [_0_] reset zoom [_q_] quit"
         :bindings
@@ -1631,7 +1635,7 @@ on whether the spacemacs-ivy layer is used or not, with
         ("-" spacemacs/zoom-frm-out)
         ("0" spacemacs/zoom-frm-unzoom)
         ("q" nil :exit t))
-      (spacemacs/set-leader-keys "zf" 'spacemacs/zoom-frm-micro-state/body)
+      (spacemacs/set-leader-keys "zf" 'spacemacs/zoom-frm-transient-state/body)
 
       (defun spacemacs//zoom-frm-powerline-reset ()
         (when (fboundp 'powerline-reset)

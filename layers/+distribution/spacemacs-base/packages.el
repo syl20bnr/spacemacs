@@ -323,7 +323,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
         (evil-next-visual-line)
         (let ((recenter-redisplay nil))
           (recenter nil)))
-      (spacemacs|define-micro-state-2 scroll
+      (spacemacs|define-transient-state scroll
+        :title "Scrolling Transient State"
         :bindings
         ("," evil-scroll-page-up "page up")
         ("." evil-scroll-page-down "page down")
@@ -331,13 +332,14 @@ Example: (evil-map visual \"<\" \"<gv\")"
         ("<" spacemacs/scroll-half-page-up "half page up")
         (">" spacemacs/scroll-half-page-down "half page down"))
       (spacemacs/set-leader-keys
-        "n," 'spacemacs/scroll-micro-state/evil-scroll-page-up
-        "n." 'spacemacs/scroll-micro-state/evil-scroll-page-down
-        "n<" 'spacemacs/scroll-micro-state/spacemacs/scroll-half-page-up
-        "n>" 'spacemacs/scroll-micro-state/spacemacs/scroll-half-page-down)
+        "n," 'spacemacs/scroll-transient-state/evil-scroll-page-up
+        "n." 'spacemacs/scroll-transient-state/evil-scroll-page-down
+        "n<" 'spacemacs/scroll-transient-state/spacemacs/scroll-half-page-up
+        "n>" 'spacemacs/scroll-transient-state/spacemacs/scroll-half-page-down)
 
       ;; pasting micro-state
-      (spacemacs|define-micro-state-2 paste
+      (spacemacs|define-transient-state paste
+        :title "Pasting Transient State"
         :doc "\n[%s(length kill-ring-yank-pointer)/%s(length kill-ring)] \
 [_J_/_K_] cycles through yanked text, [_p_/_P_] pastes the same text above or \
 below. Anything else exits."
@@ -347,8 +349,8 @@ below. Anything else exits."
         ("p" evil-paste-after)
         ("P" evil-paste-before))
       (when dotspacemacs-enable-paste-micro-state
-        (define-key evil-normal-state-map "p" 'spacemacs/paste-micro-state/evil-paste-after)
-        (define-key evil-normal-state-map "P" 'spacemacs/paste-micro-state/evil-paste-before))
+        (define-key evil-normal-state-map "p" 'spacemacs/paste-transient-state/evil-paste-after)
+        (define-key evil-normal-state-map "P" 'spacemacs/paste-transient-state/evil-paste-before))
 
       ;; define text objects
       (defmacro spacemacs|define-text-object (key name start end)
@@ -687,7 +689,8 @@ below. Anything else exits."
   [v]          open in a new vertical split
   [q]          quit")
 
-      (spacemacs|define-micro-state-2 ido-navigation
+      (spacemacs|define-transient-state ido-navigation
+        :title "ido Transient State"
         :foreign-keys run
         :on-enter (spacemacs//ido-navigation-ms-on-enter)
         :on-exit  (spacemacs//ido-navigation-ms-on-exit)
@@ -980,8 +983,8 @@ below. Anything else exits."
                ("spacemacs/toggle-hybrid-mode" . "hybrid (hybrid-mode)")
                ("spacemacs/toggle-holy-mode" . "emacs (holy-mode)")
                ("evil-lisp-state-\\(.+\\)" . "\\1")
-               ("\\(.+\\)-micro-state/\\(.+\\)" . "\\2")
-               ("\\(.+\\)-micro-state/body" . "\\1-micro-state"))))
+               ("\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
+               ("\\(.+\\)-transient-state/body" . "\\1-micro-state"))))
         (dolist (nd new-descriptions)
           ;; ensure the target matches the whole string
           (push (cons (concat "\\`" (car nd) "\\'") (cdr nd))

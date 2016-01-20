@@ -371,14 +371,15 @@
 
 ;; Buffer micro state
 
-(spacemacs|define-micro-state-2 buffer
+(spacemacs|define-transient-state buffer
+  :title "Buffer Selection Transient State"
   :bindings
   ("n" spacemacs/next-useful-buffer "next")
   ("N" spacemacs/previous-useful-buffer "previous")
   ("p" spacemacs/previous-useful-buffer "previous")
   ("K" kill-this-buffer "kill")
   ("q" nil "quit" :exit t))
-(spacemacs/set-leader-keys "b." 'spacemacs/buffer-micro-state/body)
+(spacemacs/set-leader-keys "b." 'spacemacs/buffer-transient-state/body)
 
 ;; end of Buffer micro state
 
@@ -404,7 +405,8 @@
   (interactive "p")
   (enlarge-window delta t))
 
-(spacemacs|define-micro-state-2 window-manipulation
+(spacemacs|define-transient-state window-manipulation
+  :title "Window Manipulation Transient State"
   :doc
   "
 Select^^^^               Move^^^^              Split^^                Resize^^                     Other^^
@@ -463,7 +465,7 @@ Select^^^^               Move^^^^              Split^^                Resize^^  
   ("V" split-window-right-and-focus)
   ("w" other-window))
 (spacemacs/set-leader-keys "w."
-  'spacemacs/window-manipulation-micro-state/body)
+  'spacemacs/window-manipulation-transient-state/body)
 
 ;; end of Window Manipulation Micro State
 
@@ -495,7 +497,8 @@ otherwise it is scaled down."
   (interactive)
   (spacemacs/scale-up-or-down-font-size 0))
 
-(spacemacs|define-micro-state-2 scale-font
+(spacemacs|define-transient-state scale-font
+  :title "Font Scaling Transient State"
   :doc "\n[_+_/_=_] scale up [_-_] scale down [_0_] reset font [_q_] quit"
   :bindings
   ("+" spacemacs/scale-up-font)
@@ -503,7 +506,7 @@ otherwise it is scaled down."
   ("-" spacemacs/scale-down-font)
   ("0" spacemacs/reset-font-size)
   ("q" nil :exit t))
-(spacemacs/set-leader-keys "zx" 'spacemacs/scale-font-micro-state/body)
+(spacemacs/set-leader-keys "zx" 'spacemacs/scale-font-transient-state/body)
 
 ;; end of Text Manipulation Micro State
 
@@ -540,13 +543,14 @@ otherwise it is scaled down."
       (set-frame-parameter (selected-frame) 'alpha
                            (cons decreased-alpha decreased-alpha)))))
 
-(spacemacs|define-micro-state-2 scale-transparency
+(spacemacs|define-transient-state scale-transparency
+  :title "Frame Transparency Transient State"
   :bindings
   ("+" spacemacs/increase-transparency "increase")
   ("-" spacemacs/decrease-transparency "decrease")
   ("T" spacemacs/toggle-transparency "toggle")
   ("q" nil "quit" :exit t))
 (spacemacs/set-leader-keys "TT"
-  'spacemacs/scale-transparency-micro-state/spacemacs/toggle-transparency)
+  'spacemacs/scale-transparency-transient-state/spacemacs/toggle-transparency)
 
 ;; end of Transparency Micro State
