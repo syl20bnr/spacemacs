@@ -267,19 +267,33 @@ pressed)."
 
 ;; Transient states (based on hydras)
 
-(defmacro spacemacs|add-transient-state-bindings (transient-state &rest bindings)
-  "Add bindings to TRANSIENT-STATE. Bindings take the same form as
-they do in `spacemacs|define-transient-state'."
-  (declare (indent 1))
-  (let ((add-bindings
-         (intern (format "spacemacs-%s-transient-state-additional-bindings"
-                         transient-state))))
-    `(progn
-       (defvar ,add-bindings nil
-         ,(format "Additional bindings for the %s transient state"
-                  micro-state-name))
-       (dolist (binding ',bindings)
-         (push binding ,add-bindings)))))
+;; (defmacro spacemacs|remove-transient-state-bindings (transient-state &rest bindings)
+;;   "Remove bindings from TRANSIENT-STATE. Each element of BINDINGS
+;; should be a string to be passed to `kbd'."
+;;   (declare (indent 1))
+;;   (let ((add-bindings
+;;          (intern (format "spacemacs-%s-transient-state-remove-bindings"
+;;                          transient-state))))
+;;     `(progn
+;;        (defvar ,remove-bindings nil
+;;          ,(format "Bindings to remove from the %s transient state"
+;;                   transient-state))
+;;        (dolist (binding ',bindings)
+;;          (push binding ,remove-bindings)))))
+
+;; (defmacro spacemacs|add-transient-state-bindings (transient-state &rest bindings)
+;;   "Add bindings to TRANSIENT-STATE. Bindings take the same form as
+;; they do in `spacemacs|define-transient-state'."
+;;   (declare (indent 1))
+;;   (let ((add-bindings
+;;          (intern (format "spacemacs-%s-transient-state-add-bindings"
+;;                          transient-state))))
+;;     `(progn
+;;        (defvar ,add-bindings nil
+;;          ,(format "Additional bindings for the %s transient state"
+;;                   transient-state))
+;;        (dolist (binding ',bindings)
+;;          (push binding ,add-bindings)))))
 
 (defun spacemacs//transient-state-func-name (name)
   "Return the name of the transient state function."
@@ -335,9 +349,19 @@ used."
   (let* ((func (spacemacs//transient-state-func-name name))
          (body-func (spacemacs//transient-state-body-func-name name))
          (entry-binding (spacemacs/mplist-get props :entry-binding))
-         (add-bindings (intern (format "spacemacs-%s-transient-state-additional-bindings"
+         (add-bindings (intern (format "spacemacs-%s-transient-state-add-bindings"
                                        name)))
-         (bindings (append (spacemacs/mplist-get props :bindings)
+         (remove-bindings (intern (format "spacemacs-%s-transient-state-remove-bindings"
+                                       name)))
+         (bindings (spacemacs/mplist-get props :bindings))
+         (bindings (if (and (boundp remove-bindings)
+                            (listp (symbol-value remove-bindings)))
+                       (cl-remove-if
+                        (lambda (bnd)
+                          (member (car bnd) (symbol-value remove-bindings)))
+                        bindings)
+                     bindings))
+         (bindings (append bindings
                            (when (and (boundp add-bindings)
                                       (listp (symbol-value add-bindings)))
                              (symbol-value add-bindings))))
