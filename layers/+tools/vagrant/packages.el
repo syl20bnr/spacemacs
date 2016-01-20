@@ -23,6 +23,7 @@
         "VH" 'vagrant-halt
         "Vp" 'vagrant-provision
         "Vr" 'vagrant-resume
+        "VR" 'vagrant-reload
         "Vs" 'vagrant-status
         "VS" 'vagrant-suspend
         "VV" 'vagrant-up))))
