@@ -134,10 +134,6 @@ used."
   "Return the name of the micro-state function."
   (intern (format "spacemacs/%S-micro-state" name)))
 
-(defun spacemacs//micro-state-body-func-name (name)
-  "Return the name of the micro-state function."
-  (intern (format "spacemacs/%S-micro-state/body" name)))
-
 (defun spacemacs//micro-state-auto-execute (bindings)
   "Auto execute the binding corresponding to `this-command-keys'."
   `(let* ((key (substring (this-command-keys)
@@ -269,48 +265,58 @@ pressed)."
       (delete-window corelv-wnd)
       (kill-buffer buf))))
 
-(defmacro spacemacs|add-micro-state-bindings (micro-state-name &rest bindings)
-  "Add bindings to MICRO-STATE. Bindings take the same form as
-they do in `spacemacs|define-micro-state-2'."
+;; Transient states (based on hydras)
+
+(defmacro spacemacs|add-transient-state-bindings (transient-state &rest bindings)
+  "Add bindings to TRANSIENT-STATE. Bindings take the same form as
+they do in `spacemacs|define-transient-state'."
   (declare (indent 1))
   (let ((add-bindings
-         (intern (format "spacemacs-%s-micro-state-additional-bindings"
-                         micro-state-name))))
+         (intern (format "spacemacs-%s-transient-state-additional-bindings"
+                         transient-state))))
     `(progn
        (defvar ,add-bindings nil
-         ,(format "Additional bindings for the %s micro-state"
+         ,(format "Additional bindings for the %s transient state"
                   micro-state-name))
        (dolist (binding ',bindings)
          (push binding ,add-bindings)))))
 
-(defface spacemacs-micro-state-title-face
-  '((t :inherit header-line))
-  "Face for title of micro states.")
+(defun spacemacs//transient-state-func-name (name)
+  "Return the name of the transient state function."
+  (intern (format "spacemacs/%S-transient-state" name)))
 
-(defmacro spacemacs|define-micro-state-2 (name &rest props)
-  "Define a micro-state called NAME.
+(defun spacemacs//transient-state-body-func-name (name)
+  "Return the name of the transient state function."
+  (intern (format "spacemacs/%S-transient-state/body" name)))
+
+(defface spacemacs-transient-state-title-face
+  '((t :inherit header-line))
+  "Face for title of transient states.")
+
+(defmacro spacemacs|define-transient-state (name &rest props)
+  "Define a transient state called NAME.
 NAME is a symbol.
 Available PROPS:
 `:on-enter SEXP'
-    Evaluate SEXP when the micro-state is switched on.
+    Evaluate SEXP when the transient state is switched on.
 `:on-exit SEXP'
-    Evaluate SEXP when leaving the micro-state.
+    Evaluate SEXP when leaving the transient state.
 `:doc STRING or SEXP'
     A docstring supported by `defhydra'.
 `:title STRING'
-   Provide a title in the header of the micro-state
+   Provide a title in the header of the transient state
 `:columns INTEGER'
     Automatically generate :doc with this many number of columns.
 `:hint BOOLEAN'
     Whether to automatically add hints to the docstring. Default is nil.
 `:foreign-keys SYMBOL'
-    What to do when keys not bound in the micro-state are entered. This
-    can be nil (default), which means to exit the micro-state, warn,
+    What to do when keys not bound in the transient state are entered. This
+    can be nil (default), which means to exit the transient state, warn,
     which means to not exit but warn the user that the key is not part
-    of the micro-state, or run, which means to try to run the key binding
+    of the transient state, or run, which means to try to run the key binding
     without exiting.
 `:entry-binding MAP KEY'
-    Key binding to use for entering the micro-state.
+    Key binding to use for entering the transient state.
 `:bindings EXPRESSIONS'
     One or several EXPRESSIONS with the form
     (STRING1 SYMBOL1 DOCSTRING
@@ -319,17 +325,17 @@ Available PROPS:
     - STRING1 is a key to be bound to the function or key map SYMBOL1.
     - DOCSTRING is a STRING or an SEXP that evaluates to a string
     - :exit SYMBOL or SEXP, if non nil then pressing this key will
-      leave the micro-state (default is nil).
+      leave the transient state (default is nil).
       Important note: due to inner working of transient-maps in Emacs
       the `:exit' keyword is evaluate *before* the actual execution
       of the bound command.
 All properties supported by `spacemacs//create-key-binding-form' can be
 used."
   (declare (indent 1))
-  (let* ((func (spacemacs//micro-state-func-name name))
-         (body-func (spacemacs//micro-state-body-func-name name))
+  (let* ((func (spacemacs//transient-state-func-name name))
+         (body-func (spacemacs//transient-state-body-func-name name))
          (entry-binding (spacemacs/mplist-get props :entry-binding))
-         (add-bindings (intern (format "spacemacs-%s-micro-state-additional-bindings"
+         (add-bindings (intern (format "spacemacs-%s-transient-state-additional-bindings"
                                        name)))
          (bindings (append (spacemacs/mplist-get props :bindings)
                            (when (and (boundp add-bindings)
@@ -358,7 +364,7 @@ used."
          (setq ,hint-var
                (list 'concat
                      (propertize ,title
-                           'face 'spacemacs-micro-state-title-face)
+                           'face 'spacemacs-transient-state-title-face)
                      "\n" ,hint-var)))
        ,@bindkeys)))
 

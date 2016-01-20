@@ -200,7 +200,8 @@
       ;; installation instructions
       (add-hook 'erc-view-log-mode-hook 'turn-on-auto-revert-tail-mode)
 
-      (spacemacs|define-micro-state-2 erc-log
+      (spacemacs|define-transient-state erc-log
+        :title "ERC Log Transient State"
         :doc (concat
               "\n[_r_]  to reload the log file"
               "[_>_], [_<_] to go to the next/prev mention")
@@ -209,7 +210,7 @@
         (">" erc-view-log-next-mention)
         ("<" erc-view-log-previous-mention))
       (spacemacs/set-leader-keys-for-major-mode 'erc-mode
-        "." 'spacemacs/erc-log-micro-state/body))))
+        "." 'spacemacs/erc-log-transient-state/body))))
 
 (defun erc/init-erc-image ()
   (use-package erc-image

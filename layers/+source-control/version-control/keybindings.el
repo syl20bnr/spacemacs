@@ -9,7 +9,8 @@
 ;;
 ;;; License: GPLv3
 
-(spacemacs|define-micro-state-2 vcs
+(spacemacs|define-transient-state vcs
+  :title "VCS Transient State"
   :doc "
  Hunk Commands^^^^^^                 Magit Commands
 ----------------------------^^^^^^  ------------------------------------------
@@ -37,5 +38,5 @@
   ("h" version-control/show-hunk)
   ("t" spacemacs/toggle-version-control-margin)
   ("q" nil :exit t))
-(spacemacs/set-leader-keys "g." 'spacemacs/vcs-micro-state/body)
+(spacemacs/set-leader-keys "g." 'spacemacs/vcs-transient-state/body)
 
