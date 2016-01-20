@@ -34,7 +34,10 @@
       (evilified-state-evilify-map mu4e-view-mode-map
         :mode mu4e-view-mode)
 
-      (setq mu4e-completing-read-function 'helm--completing-read-default)
+      (setq mu4e-completing-read-function
+            (if (configuration-layer/layer-usedp 'spacemacs-ivy)
+                'ivy-completing-read
+              'helm--completing-read-default))
 
       (add-to-list 'mu4e-view-actions
                    '("View in browser" . mu4e-action-view-in-browser) t)
@@ -51,5 +54,3 @@
 (defun mu4e/post-init-org ()
   ;; load org-mu4e when org is actually loaded
   (with-eval-after-load 'org (require 'org-mu4e nil 'noerror)))
-
-
