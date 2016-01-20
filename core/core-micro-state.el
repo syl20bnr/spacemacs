@@ -303,6 +303,18 @@ pressed)."
   "Return the name of the transient state function."
   (intern (format "spacemacs/%S-transient-state/body" name)))
 
+(defun spacemacs//transient-state-adjust-bindings (bindings to-remove to-add)
+  (append
+   (cl-remove-if
+    (lambda (bnd)
+      (and (boundp to-remove)
+           (listp (symbol-value to-remove))
+           (member (car bnd) (symbol-value to-remove))))
+    bindings)
+   (when (and (boundp to-add)
+              (listp (symbol-value to-add)))
+     (symbol-value to-add))))
+
 (defface spacemacs-transient-state-title-face
   '((t :inherit header-line))
   "Face for title of transient states.")
@@ -354,17 +366,6 @@ used."
          (remove-bindings (intern (format "spacemacs-%s-transient-state-remove-bindings"
                                        name)))
          (bindings (spacemacs/mplist-get props :bindings))
-         (bindings (if (and (boundp remove-bindings)
-                            (listp (symbol-value remove-bindings)))
-                       (cl-remove-if
-                        (lambda (bnd)
-                          (member (car bnd) (symbol-value remove-bindings)))
-                        bindings)
-                     bindings))
-         (bindings (append bindings
-                           (when (and (boundp add-bindings)
-                                      (listp (symbol-value add-bindings)))
-                             (symbol-value add-bindings))))
          (doc (or (plist-get props :doc) "\n"))
          (title (plist-get props :title))
          (hint-var (intern (format "%s/hint" func)))
@@ -375,22 +376,27 @@ used."
          (foreign-keys (plist-get props :foreign-keys))
          (bindkeys (spacemacs//create-key-binding-form props body-func)))
     `(progn
-       (defhydra ,func
-         (,(car entry-binding) ,(cadr entry-binding)
-          :hint ,hint
-          :columns ,columns
-          :foreign-keys ,foreign-keys
-          :body-pre ,entry-sexp
-          :before-exit ,exit-sexp)
-         ,doc
-         ,@bindings)
-       (when ,title
-         (setq ,hint-var
-               (list 'concat
-                     (propertize ,title
-                           'face 'spacemacs-transient-state-title-face)
-                     "\n" ,hint-var)))
-       ,@bindkeys)))
+       (add-hook 'spacemacs-transient-state-defs
+                 (lambda ()
+                   (eval
+                    (append
+                     '(defhydra ,func
+                        (,(car entry-binding) ,(cadr entry-binding)
+                         :hint ,hint
+                         :columns ,columns
+                         :foreign-keys ,foreign-keys
+                         :body-pre ,entry-sexp
+                         :before-exit ,exit-sexp)
+                        ,doc)
+                     (spacemacs//transient-state-adjust-bindings
+                      ',bindings ',remove-bindings ',add-bindings)))
+                   (when ,title
+                     (setq ,hint-var
+                           (list 'concat
+                                 (propertize ,title
+                                             'face 'spacemacs-transient-state-title-face)
+                                 "\n" ,hint-var)))
+                   ,@bindkeys)))))
 
 
 (provide 'core-micro-state)
