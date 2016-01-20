@@ -283,6 +283,10 @@ they do in `spacemacs|define-micro-state-2'."
        (dolist (binding ',bindings)
          (push binding ,add-bindings)))))
 
+(defface spacemacs-micro-state-title-face
+  '((t :inherit header-line))
+  "Face for title of micro states.")
+
 (defmacro spacemacs|define-micro-state-2 (name &rest props)
   "Define a micro-state called NAME.
 NAME is a symbol.
@@ -293,6 +297,8 @@ Available PROPS:
     Evaluate SEXP when leaving the micro-state.
 `:doc STRING or SEXP'
     A docstring supported by `defhydra'.
+`:title STRING'
+   Provide a title in the header of the micro-state
 `:columns INTEGER'
     Automatically generate :doc with this many number of columns.
 `:hint BOOLEAN'
@@ -330,6 +336,8 @@ used."
                                       (listp (symbol-value add-bindings)))
                              (symbol-value add-bindings))))
          (doc (or (plist-get props :doc) "\n"))
+         (title (plist-get props :title))
+         (hint-var (intern (format "%s/hint" func)))
          (columns (plist-get props :columns))
          (entry-sexp (plist-get props :on-enter))
          (exit-sexp (plist-get props :on-exit))
@@ -346,6 +354,12 @@ used."
           :before-exit ,exit-sexp)
          ,doc
          ,@bindings)
+       (when ,title
+         (setq ,hint-var
+               (list 'concat
+                     (propertize ,title
+                           'face 'spacemacs-micro-state-title-face)
+                     "\n" ,hint-var)))
        ,@bindkeys)))
 
 
