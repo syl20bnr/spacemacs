@@ -15,4 +15,5 @@ These include:
 - QML
 - OpenScad
 - Stan
+- Thrift
 - Wolfram Language / Mathematica
