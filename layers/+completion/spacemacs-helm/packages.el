@@ -443,19 +443,6 @@ ARG non nil means Vim like movements."
         (face-remap-remove-relative
          spacemacs--helm-navigation-ms-face-cookie-minibuffer))
 
-      (defun spacemacs//helm-navigation-ms-full-doc ()
-        "Full documentation for helm navigation micro-state."
-        "
-  [?]          display this help
-  [a]          toggle action selection page
-  [e]          edit occurrences if supported
-  [j] [k]      next/previous candidate
-  [h] [l]      previous/next source
-  [t]          toggle visible mark
-  [T]          toggle all mark
-  [v]          persistent action
-  [q]          quit")
-
       ;; Define functions to pick actions
       (dotimes (n 10)
         (let ((func (intern (format "spacemacs/helm-action-%d" n)))
@@ -471,8 +458,11 @@ ARG non nil means Vim like movements."
         (spacemacs//helm-navigation-ms-set-face))
 
       (spacemacs|define-transient-state helm-navigation
-        ;; TODO: Figure out what to do with this docstring
-        :doc (concat (spacemacs//helm-navigation-ms-full-doc))
+        :title "Helm Transient State"
+        :doc "
+[_j_/_k_]  next/prev candidate  [_v_]^^     persistent action     [_e_]^^    edit occurrences
+[_h_/_l_]  prev/next source     [_1_.._0_]  action 1..10          [_t_/_T_]  toggle visible/all mark
+[_q_]^^    quit                 [_a_]^^     action selection pg"
         :foreign-keys run
         :on-enter (spacemacs//helm-navigation-ms-on-enter)
         :on-exit  (spacemacs//helm-navigation-ms-on-exit)
