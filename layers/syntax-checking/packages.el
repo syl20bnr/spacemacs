@@ -77,6 +77,13 @@ If the error list is visible, hide it.  Otherwise, show it."
             (quit-window nil window)
           (flycheck-list-errors)))
 
+      (defun spacemacs/goto-flycheck-error-list ()
+        "Open and go to the error list buffer."
+        (interactive)
+        (unless (get-buffer-window (get-buffer flycheck-error-list-buffer))
+          (flycheck-list-errors))
+        (switch-to-buffer-other-window flycheck-error-list-buffer))
+
       (evilified-state-evilify-map flycheck-error-list-mode-map
         :mode flycheck-error-list-mode
         :bindings
@@ -89,6 +96,7 @@ If the error list is visible, hide it.  Otherwise, show it."
         "ec" 'flycheck-clear
         "eh" 'flycheck-describe-checker
         "el" 'spacemacs/toggle-flycheck-error-list
+        "eL" 'spacemacs/goto-flycheck-error-list
         "es" 'flycheck-select-checker
         "eS" 'flycheck-set-checker-executable
         "ev" 'flycheck-verify-setup))))

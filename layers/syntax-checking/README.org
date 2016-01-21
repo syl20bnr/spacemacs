@@ -42,10 +42,11 @@ toggled off with ~SPC t s~. You can default this to off by setting the variable
 
 * Key Bindings
 
-| Key Binding | Description                      |
-|-------------+----------------------------------|
-| ~SPC e c~   | clear errors                     |
-| ~SPC e l~   | display a list of all the errors |
-| ~SPC e s~   | set flycheck checker             |
-| ~SPC e S~   | set flycheck checker executable  |
-| ~SPC t s~   | toggle flycheck                  |
+| Key Binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC e c~   | clear errors                                                 |
+| ~SPC e l~   | display a list of all the errors                             |
+| ~SPC e L~   | display a list of all the errors and focus the errore buffer |
+| ~SPC e s~   | set flycheck checker                                         |
+| ~SPC e S~   | set flycheck checker executable                              |
+| ~SPC t s~   | toggle flycheck                                              |
