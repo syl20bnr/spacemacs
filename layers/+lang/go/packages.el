@@ -42,7 +42,7 @@
                                    "-check.f"
                                  "-run")))
               (save-excursion
-                  (re-search-backward "^func[ ]+([[:alnum:]]*?[ ]?[*]?\\([[:alnum:]]+\\))[ ]+\\(Test[[:alnum:]]+\\)(.*)")
+                  (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?[[:alnum:]]+)[ ]+\\)?\\(Test[[:alnum:]]+\\)(.*)")
                   (spacemacs/go-run-tests (concat test-method "='" (match-string-no-properties 2) "'"))))
           (message "Must be in a _test.go file to run go-run-test-current-function")))
 
@@ -51,8 +51,8 @@
         (if (string-match "_test\.go" buffer-file-name)
             (if go-use-gocheck-for-testing
                 (save-excursion
-                    (re-search-backward "^func[ ]+([[:alnum:]]*?[ ]?[*]?\\([[:alnum:]]+\\))[ ]+\\(Test[[:alnum:]]+\\)(.*)")
-                    (spacemacs/go-run-tests (concat "-check.f='" (match-string-no-properties 1) "'")))
+                    (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?\\([[:alnum:]]+\\))[ ]+\\)?Test[[:alnum:]]+(.*)")
+                    (spacemacs/go-run-tests (concat "-check.f='" (match-string-no-properties 2) "'")))
               (message "Gocheck is needed to test the current suite"))
           (message "Must be in a _test.go file to run go-test-current-suite")))
 
