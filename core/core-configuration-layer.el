@@ -330,13 +330,16 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
          (location (when (listp pkg) (plist-get (cdr pkg) :location)))
          (step (when (listp pkg) (plist-get (cdr pkg) :step)))
          (excluded (when (listp pkg) (plist-get (cdr pkg) :excluded)))
+         (skip-install-given-p (when (listp pkg) (plist-member (cdr pkg) :skip-install)))
          (skip-install (when (listp pkg) (plist-get (cdr pkg) :skip-install)))
          (protected (when (listp pkg) (plist-get (cdr pkg) :protected)))
          (copyp (not (null obj)))
          (obj (if obj obj (cfgl-package name-str :name name-sym))))
     (when location (oset obj :location location))
     (when step (oset obj :step step))
-    (oset obj :skip-install skip-install)
+    ;; since skip-install can reasonably be expected to be set to nil, we
+    ;; must explicitly check if it's a key in the plist before overriding
+    (when skip-install-given-p (oset obj :skip-install skip-install))
     (oset obj :excluded excluded)
     ;; cannot override protected packages
     (unless copyp
