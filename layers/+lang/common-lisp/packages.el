@@ -10,7 +10,22 @@
 ;;; License: GPLv3
 
 (setq common-lisp-packages
-      '(slime))
+      '(slime
+        company
+        slime-company))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun common-lisp/post-init-company ()
+    (spacemacs|add-company-hook slime-mode)
+    (spacemacs|add-company-hook slime-repl-mode))
+
+  (defun common-lisp/init-slime-company ()
+    (use-package slime-company
+      :if (configuration-layer/package-usedp 'company)
+      ;; :defer nil ;; slime-company doesn't has autoloads
+      :init (progn
+              (push 'company-slime company-backends-slime-mode)
+              (push 'company-slime company-backends-slime-repl-mode)))))
 
 (defun common-lisp/init-slime ()
   (use-package slime
