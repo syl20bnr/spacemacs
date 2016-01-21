@@ -254,6 +254,7 @@ Helm hack."
         ;; jump
         ;; projects
         "pp"  'projectile-switch-project
+        "pv"  'projectile-vc
         ;; register/ring
         "ry"  'counsel-yank-pop
         ;; jumping
