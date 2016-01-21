@@ -44,23 +44,10 @@
                   (< (car it) (car other)))
                 (eyebrowse--get 'window-configs)))
 
-      (defun spacemacs//workspaces-ms-documentation ()
-        "Return the docstring for the workspaces micro-state."
-        (let* ((current-slot (eyebrowse--get 'current-slot))
-               (window-configs (spacemacs//workspaces-ms-get-window-configs)))
-          (concat
-           "<" (if window-configs
-                   (concat
-                    (mapconcat 'spacemacs//workspaces-ms-get-slot-name
-                               window-configs "> <") ">")
-                 (when eyebrowse-display-help
-                   (concat
-                    "\n[0-9] to create/switch to a workspace, "
-                    "[n] next, [p/N] previous, [TAB] back and forth, [c] close, "
-                    "[r] rename"))))))
-
       (spacemacs|define-transient-state workspaces
         :title "Workspaces Transient State"
+        :doc "
+[_0_.._9_] switch to workspace  [_n_/_p_] next/prev  [_TAB_] last  [_c_] close  [_r_] rename"
         :doc (concat (spacemacs//workspaces-ms-documentation))
         :bindings
         ("0" eyebrowse-switch-to-window-config-0)

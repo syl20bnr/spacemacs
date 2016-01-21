@@ -148,8 +148,8 @@
 
       (spacemacs|define-transient-state git-blame
         :title "Git Blame Transient State"
-        :doc (concat "Press [_b_] again to blame further in the history, "
-                     "[_q_] to go up or quit.")
+        :doc "
+Press [_b_] again to blame further in the history, [_q_] to go up or quit."
         :on-enter (let (golden-ratio-mode)
                     (unless (bound-and-true-p magit-blame-mode)
                       (call-interactively 'magit-blame)))

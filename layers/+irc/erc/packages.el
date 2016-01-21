@@ -202,9 +202,7 @@
 
       (spacemacs|define-transient-state erc-log
         :title "ERC Log Transient State"
-        :doc (concat
-              "\n[_r_]  to reload the log file"
-              "[_>_], [_<_] to go to the next/prev mention")
+        :doc "\n[_r_] reload the log file  [_>_/_<_] go to the next/prev mention"
         :bindings
         ("r" erc-view-log-reload-file)
         (">" erc-view-log-next-mention)
