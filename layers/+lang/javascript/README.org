@@ -184,11 +184,20 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 
 ** REPL (skewer-mode)
 
-| Key Binding | Description                                                             |
-|-------------+-------------------------------------------------------------------------|
-| ~SPC m s s~ | prepares the skewer environment - run this before running REPL commands |
-| ~SPC m s i~ | starts/goes to the skewer REPL                                          |
-| ~SPC m s b~ | loads the current file in the skewer REPL                               |
-| ~SPC m e e~ | evaluates the last expression                                           |
-| ~SPC m e p~ | evaluates and inserts the result of the last expression at point        |
-| ~SPC m s f~ | evaluates the current function at point                                 |
+| Key Binding | Description                                                      |
+|-------------+------------------------------------------------------------------|
+| ~SPC m e e~ | evaluates the last expression                                    |
+| ~SPC m e E~ | evaluates and inserts the result of the last expression at point |
+
+
+| Key Binding | Description                                                                        |
+|-------------+------------------------------------------------------------------------------------|
+| ~SPC m s a~ | Toggle live evaluation of whole buffer in REPL on buffer changes                   |
+| ~SPC m s b~ | send current buffer contents to the skewer REPL                                    |
+| ~SPC m s B~ | send current buffer contents to the skewer REPL and switch to it in insert state   |
+| ~SPC m s f~ | send current function at point to the skewer REPL                                  |
+| ~SPC m s F~ | send current function at point to the skewer REPL and switch to it in insert state |
+| ~SPC m s i~ | starts/switch to the skewer REPL                                                   |
+| ~SPC m s r~ | send current region to the skewer REPL                                             |
+| ~SPC m s R~ | send current region to the skewer REPL and switch to it in insert state            |
+| ~SPC m s s~ | switch to REPL                                                                     |
