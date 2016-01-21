@@ -83,6 +83,4 @@
         "tf" 'slime-toggle-fancy-trace))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (defun common-lisp/init-common-lisp-snippets ()
-    (use-package common-lisp-snippets
-      :defer t)))
+  (defun common-lisp/init-common-lisp-snippets ()))
