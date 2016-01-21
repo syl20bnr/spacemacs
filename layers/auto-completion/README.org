@@ -92,7 +92,7 @@ the popup, set the variable =auto-completion-enable-snippets-in-popup= to =t=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-                '((auto-completion :variables
+                '(auto-completion :variables
                                    auto-completion-enable-snippets-in-popup t))
 #+END_SRC
 
