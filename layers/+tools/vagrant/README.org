@@ -48,6 +48,7 @@ in this directory.
 | ~SPC V H~   | halt (shut down) a box                                                                         |
 | ~SPC V p~   | (re)provision a box that is already up                                                         |
 | ~SPC V r~   | resume a suspended box (you can also use =SPC V V= for this)                                   |
+| ~SPC V R~   | reload a box                                                                                   |
 | ~SPC V s~   | view the status of running boxes in the current project                                        |
 | ~SPC V S~   | suspend a box                                                                                  |
 | ~SPC V t~   | start a =vagrant-tramp-term= session - after start, edit files at =/vagrant:box_name:filename= |
