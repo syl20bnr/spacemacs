@@ -29,7 +29,7 @@
   (use-package stan-mode :defer t))
 
 (defun extra-langs/init-thrift ()
-  (use-package thrift :defer t :mode ("\\.thrift\\'" . thrift-mode)))
+  (use-package thrift :defer t))
 
 ;; no associated extension because conflicts with more common Objective-C, manually invoke for .m files.
 (defun extra-langs/init-wolfram-mode ()
