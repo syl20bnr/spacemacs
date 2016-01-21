@@ -108,7 +108,12 @@ is achieved by adding the relevant text properties."
           (add-hook 'evil-insert-state-entry-hook
                     'spacemacs//eshell-auto-end nil t))
         (when (configuration-layer/package-usedp 'semantic)
-          (semantic-mode -1)))
+          (semantic-mode -1))
+        ;; Caution! this will erase buffer's content at C-l
+        (define-key eshell-mode-map (kbd "C-l") 'eshell/clear)
+        (define-key eshell-mode-map (kbd "C-d") 'eshell-delchar-or-maybe-eof))
+
+      (autoload 'eshell-delchar-or-maybe-eof "em-rebind")
 
       ;; Defining a function like this makes it possible to type 'clear' in eshell and have it work
       (defun eshell/clear ()
@@ -117,12 +122,6 @@ is achieved by adding the relevant text properties."
           (erase-buffer))
         (eshell-send-input))
 
-      ;; Caution! this will erase buffer's content at C-l
-      (require 'em-rebind)
-      (add-hook 'eshell-mode-hook
-         #'(lambda ()
-             (define-key eshell-mode-map (kbd "C-l") 'eshell/clear)
-             (define-key eshell-mode-map (kbd "C-d") 'eshell-delchar-or-maybe-eof)))
       (add-hook 'eshell-mode-hook 'spacemacs//init-eshell))
     :config
     (progn
