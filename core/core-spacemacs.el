@@ -46,6 +46,11 @@
   (/ spacemacs-loading-dots-count spacemacs-loading-dots-chunk-count))
 (defvar spacemacs-loading-dots-chunk-threshold 0)
 
+(defvar spacemacs-post-user-config-hook nil
+  "Hook run after dotspacemacs/user-config")
+(defvar spacemacs-post-user-config-hook-run nil
+  "Whether `spacemacs-post-user-config-hook' has been run")
+
 (defvar spacemacs--default-mode-line mode-line-format
   "Backup of default mode line format.")
 
@@ -170,6 +175,13 @@
   "Change the default welcome message of minibuffer to another one."
   (message "Spacemacs is ready."))
 
+(defun spacemacs/defer-until-after-user-config (func)
+  "Call FUNC if dotspacemacs/user-config has been called. Otherwise,
+defer call using `spacemacs-post-user-config-hook'."
+  (if spacemacs-post-user-config-hook-run
+      (funcall func)
+    (add-hook 'spacemacs-post-user-config-hook func)))
+
 (defun spacemacs/setup-startup-hook ()
   "Add post init processing."
   (add-hook
@@ -179,7 +191,8 @@
      ;; them in his/her ~/.spacemacs file
      (dotspacemacs|call-func dotspacemacs/user-config
                              "Calling dotfile user config...")
-     (run-hooks 'spacemacs-transient-state-defs)
+     (run-hooks 'spacemacs-post-user-config-hook)
+     (setq spacemacs-post-user-config-hook-run t)
      (when (fboundp dotspacemacs-scratch-mode)
        (with-current-buffer "*scratch*"
          (funcall dotspacemacs-scratch-mode)))
