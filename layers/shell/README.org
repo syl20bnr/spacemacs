@@ -143,7 +143,7 @@ Some advanced configuration is setup for =eshell= in this layer:
 | ~C-k~       | previous item in history                                   |
 
 *Note:* You can open multiple shells using a numerical prefix argument,
-for instance pressing ~2 SPC ;~ will a second default shell, the
+for instance pressing ~2 SPC '~ will a second default shell, the
 number of shell is indicated on the mode-line.
 
 ** Multi-term
