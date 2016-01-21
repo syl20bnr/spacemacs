@@ -11,13 +11,6 @@
 ;;; License: GPLv3
 (require 'corelv)
 
-(defvar spacemacs-transient-state-defs nil
-  "List of declarations for transient states to be executed after
-spacemacs has loaded. We do this to allow layers and users to
-modify their bindings before they are defined. Each element
-should be a lambda taking no arguments that defines a transient
-state.")
-
 (defun spacemacs//transient-state-func-name (name)
   "Return the name of the transient state function."
   (intern (format "spacemacs/%S-transient-state" name)))
@@ -99,26 +92,26 @@ used."
          (foreign-keys (plist-get props :foreign-keys))
          (bindkeys (spacemacs//create-key-binding-form props body-func)))
     `(progn
-       (add-hook 'spacemacs-transient-state-defs
-                 (lambda ()
-                   (eval
-                    (append
-                     '(defhydra ,func
-                        (,(car entry-binding) ,(cadr entry-binding)
-                         :hint ,hint
-                         :columns ,columns
-                         :foreign-keys ,foreign-keys
-                         :body-pre ,entry-sexp
-                         :before-exit ,exit-sexp)
-                        ,doc)
-                     (spacemacs//transient-state-adjust-bindings
-                      ',bindings ',remove-bindings ',add-bindings)))
-                   (when ,title
-                     (setq ,hint-var
-                           (list 'concat
-                                 (propertize ,title
-                                             'face 'spacemacs-transient-state-title-face)
-                                 "\n" ,hint-var)))
-                   ,@bindkeys)))))
+       (spacemacs/defer-until-after-user-config
+        '(lambda ()
+           (eval
+            (append
+             '(defhydra ,func
+                (,(car entry-binding) ,(cadr entry-binding)
+                 :hint ,hint
+                 :columns ,columns
+                 :foreign-keys ,foreign-keys
+                 :body-pre ,entry-sexp
+                 :before-exit ,exit-sexp)
+                ,doc)
+             (spacemacs//transient-state-adjust-bindings
+              ',bindings ',remove-bindings ',add-bindings)))
+           (when ,title
+             (setq ,hint-var
+                   (list 'concat
+                         (propertize ,title
+                                     'face 'spacemacs-transient-state-title-face)
+                         "\n" ,hint-var)))
+           ,@bindkeys)))))
 
 (provide 'core-transient-state)
