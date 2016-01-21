@@ -19,7 +19,7 @@
     flyspell
     gnuplot
     htmlize
-    mu4e
+    (mu4e :skip-install t)
     ;; org and org-agenda are installed by `org-plus-contrib'
     (org :location built-in)
     (org-agenda :location built-in)
