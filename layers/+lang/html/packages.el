@@ -150,20 +150,7 @@
      'smartparens-mode)
    '(css-mode-hook scss-mode-hook sass-mode-hook less-css-mode-hook))
 
-  ;; Only use smartparens in web-mode
-  (with-eval-after-load 'smartparens
-    (setq web-mode-enable-auto-pairing nil)
-    (sp-local-pair 'web-mode "<% " " %>")
-    (sp-local-pair 'web-mode "{ " " }")
-    (sp-local-pair 'web-mode "<%= "  " %>")
-    (sp-local-pair 'web-mode "<%# "  " %>")
-    (sp-local-pair 'web-mode "<%$ "  " %>")
-    (sp-local-pair 'web-mode "<%@ "  " %>")
-    (sp-local-pair 'web-mode "<%: "  " %>")
-    (sp-local-pair 'web-mode "{{ "  " }}")
-    (sp-local-pair 'web-mode "{% "  " %}")
-    (sp-local-pair 'web-mode "{%- "  " %}")
-    (sp-local-pair 'web-mode "{# "  " #}")))
+  (add-hook 'web-mode-hook 'spacemacs/toggle-smartparens-off))
 
 (defun html/init-tagedit ()
   (use-package tagedit
