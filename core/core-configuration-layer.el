@@ -996,7 +996,8 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
       (reverse
        (delq nil (mapcar
                   (lambda (x)
-                    (when (not (or (string= "." x) (string= ".." x)))
+                    (when (and (file-directory-p (concat rolldir x))
+                               (not (or (string= "." x) (string= ".." x))))
                       (let ((p (length (directory-files (file-name-as-directory
                                                          (concat rolldir x))))))
                         ;; -3 for . .. and rollback-info
