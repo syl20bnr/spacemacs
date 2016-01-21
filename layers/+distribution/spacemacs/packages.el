@@ -574,7 +574,6 @@
   (use-package evil-jumper
     :init
     (progn
-      (setq evil-jumper-auto-save-interval 600)
       (evil-jumper-mode t))))
 
 (defun spacemacs/init-evil-lisp-state ()
