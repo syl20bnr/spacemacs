@@ -567,14 +567,11 @@
 
 (defun spacemacs/init-evil-indent-plus ()
   (use-package evil-indent-plus
-    :init
-    (evil-indent-plus-default-bindings)))
+    :init (evil-indent-plus-default-bindings)))
 
 (defun spacemacs/init-evil-jumper ()
   (use-package evil-jumper
-    :init
-    (progn
-      (evil-jumper-mode t))))
+    :init (evil-jumper-mode t)))
 
 (defun spacemacs/init-evil-lisp-state ()
   (use-package evil-lisp-state
