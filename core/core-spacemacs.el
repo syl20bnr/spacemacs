@@ -26,6 +26,7 @@
 (require 'core-toggle)
 (require 'core-funcs)
 (require 'core-micro-state)
+(require 'core-transient-state)
 (require 'core-use-package-ext)
 
 (defgroup spacemacs nil
