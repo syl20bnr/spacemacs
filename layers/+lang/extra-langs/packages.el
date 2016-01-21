@@ -6,6 +6,7 @@
     qml-mode
     scad-mode
     stan-mode
+    sparql-mode
     wolfram-mode
     ))
 
@@ -26,6 +27,11 @@
 
 (defun extra-langs/init-stan-mode ()
   (use-package stan-mode :defer t))
+
+(defun extra-langs/init-sparql-mode ()
+  (use-package sparql-mode :defer t :mode "\\.sparql\\'")
+  (spacemacs|add-company-hook sparql-mode)
+  )
 
 ;; no associated extension because conflicts with more common Objective-C, manually invoke for .m files.
 (defun extra-langs/init-wolfram-mode ()
