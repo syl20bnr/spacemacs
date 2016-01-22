@@ -11,6 +11,7 @@
  - [[Key Bindings][Key Bindings]]
    - [[magit-gh-pulls][magit-gh-pulls]]
    - [[gist.el][gist.el]]
+   - [[github-issues.el][github-issues.el]]
    - [[Clone repositories][Clone repositories]]
    - [[Browse files][Browse files]]
 
@@ -79,6 +80,24 @@ In the gist list buffer:
 | ~V~         | =visual-line state=          |
 | ~y~         | print URL and copy it        |
 
+** github-issues.el
+Allows you to browse issues from emacs
+| Key Binding | Description         |
+| ~SPC ggi~   | Open the issue list |
+
+In the github-issues buffer
+
+| Key Binding | Description        |
+| ~r~         | Refresh Issue List |
+
+In the github-issue detail buffer
+
+Currently, there seems to be a bug so refreshing the issue details is not possible.
+I have reported it upstream, so I excluded it from evilification. 
+
+| Key Binding | Description                                         |
+| ~a~         | Browse to the issue author’s github in your browser |
+| ~o~         | Browse to the issue in your browser                 |
 ** Clone repositories
 
 | Key Binding   | Description                          |

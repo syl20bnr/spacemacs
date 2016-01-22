@@ -15,6 +15,7 @@
         git-link
         github-browse-file
         github-clone
+        github-issues
         ;; not up to date
         ;; helm-gist
         magit-gh-pulls
@@ -93,6 +94,22 @@
         "ghC" 'spacemacs/git-link-commit-copy-url-only)
       ;; default is to open the generated link
       (setq git-link-open-in-browser t))))
+
+(defun github/init-github-issues ()
+  (use-package github-issue
+    :defer t
+    :init
+    (progn
+      (evilified-state-evilify github-issues-mode github-issues-mode-map
+        "r" 'github-issues-refresh)
+      (evilified-state-evilify github-issue-mode github-issue-mode-map
+        ;; un-comment the line below when https://github.com/inkel/github-issues.el/issues/7 is fixed. -- robbyoconnor
+        
+        ;;"r"  'github-issue-refresh
+        "o" 'github-issue-browse
+        "a" 'github-issue-browse-author)
+      (spacemacs/set-leader-keys
+        "ggi" 'github-issues))))
 
 ;; magit-gh-pulls has to be loaded via a pre-config hook because the source code
 ;; makes assumptions about the status of the magit-mode keymaps that are
