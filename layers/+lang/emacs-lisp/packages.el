@@ -18,26 +18,30 @@
         (emacs-lisp :location built-in)
         evil
         flycheck
-        ielm
+        (ielm :location built-in)
         macrostep
         semantic
         smartparens
         srefactor
         ))
 
-(use-package ielm
-  :config
-  (progn
+(defun emacs-lisp/init-ielm ()
+  (use-package ielm
+    :defer t
+    :init
+    (progn
+      (spacemacs/register-repl 'ielm 'ielm)
+      (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
+        (spacemacs/declare-prefix-for-mode mode "ms" "ielm")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "si" 'ielm)))
+    :config
     (defun ielm-indent-line ()
       (interactive)
       (let ((current-point (point)))
         (save-restriction
           (narrow-to-region (search-backward-regexp "^ELISP>") (goto-char current-point))
-          (lisp-indent-line))))
-    (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-      (spacemacs/declare-prefix-for-mode mode "ms" "ielm")
-      (spacemacs/set-leader-keys-for-major-mode mode
-        "si" 'ielm))))
+          (lisp-indent-line))))))
 
 (defun emacs-lisp/post-init-company ()
   (spacemacs|add-company-hook ielm-mode)
