@@ -9,7 +9,7 @@
 |
 <b><a href="http://spacemacs.org/doc/DOCUMENTATION#orgheadline7">screenshots</a></b>
 |
-<b><a href="http://spacemacs.org/doc/DOCUMENTATION">documentation</a></b>
+<b><a href="http://spacemacs.org/doc/DOCUMENTATION.html">documentation</a></b>
 |
 <b><a href="CONTRIBUTING.org">contribute</a></b>
 |
