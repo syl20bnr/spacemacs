@@ -1,4 +1,4 @@
-;;; packages.el --- Spacemacs Core Layer packages File
+;;; packages.el --- Spacemacs-helm Layer packages File
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
@@ -175,46 +175,49 @@
                 :buffer "*helm repls*")))
 
       ;; use helm by default for M-x
-      (unless (configuration-layer/package-usedp 'smex)
+      (unless (or (configuration-layer/package-usedp 'smex)
+                  spacemacs-helm-basic-config)
         (global-set-key (kbd "M-x") 'helm-M-x))
 
-      (spacemacs/set-leader-keys
-        "<f1>" 'helm-apropos
-        "a'"   'helm-available-repls
-        "bb"   'helm-mini
-        "Cl"   'helm-colors
-        "ff"   'spacemacs/helm-find-files
-        "fF"   'helm-find-files
-        "fL"   'helm-locate
-        "fr"   'helm-recentf
-        "fb"   'helm-filtered-bookmarks
-        "hdF"  'spacemacs/helm-faces
-        "hi"   'helm-info-at-point
-        "hm"   'helm-man-woman
-        "iu"   'helm-ucs
-        "jI"   'helm-imenu-in-all-buffers
-        "rm"   'helm-all-mark-rings
-        "rl"   'helm-resume
-        "rr"   'helm-register
-        "rs"   'spacemacs/resume-last-search-buffer
-        "ry"   'helm-show-kill-ring
-        "sl"   'spacemacs/resume-last-search-buffer
-        "sj"   'spacemacs/jump-in-buffer)
+      (unless spacemacs-helm-basic-config
+        (spacemacs/set-leader-keys
+          "<f1>" 'helm-apropos
+          "a'"   'helm-available-repls
+          "bb"   'helm-mini
+          "Cl"   'helm-colors
+          "ff"   'spacemacs/helm-find-files
+          "fF"   'helm-find-files
+          "fL"   'helm-locate
+          "fr"   'helm-recentf
+          "fb"   'helm-filtered-bookmarks
+          "hdF"  'spacemacs/helm-faces
+          "hi"   'helm-info-at-point
+          "hm"   'helm-man-woman
+          "iu"   'helm-ucs
+          "jI"   'helm-imenu-in-all-buffers
+          "rm"   'helm-all-mark-rings
+          "rl"   'helm-resume
+          "rr"   'helm-register
+          "rs"   'spacemacs/resume-last-search-buffer
+          "ry"   'helm-show-kill-ring
+          "sl"   'spacemacs/resume-last-search-buffer
+          "sj"   'spacemacs/jump-in-buffer)
 
-      ;; search with grep
-      (spacemacs/set-leader-keys
-        "sgb"  'spacemacs/helm-buffers-do-grep
-        "sgB"  'spacemacs/helm-buffers-do-grep-region-or-symbol
-        "sgf"  'spacemacs/helm-files-do-grep
-        "sgF"  'spacemacs/helm-files-do-grep-region-or-symbol
-        "sgg"  'spacemacs/helm-file-do-grep
-        "sgG"  'spacemacs/helm-file-do-grep-region-or-symbol)
+        ;;search with grep
+        (spacemacs/set-leader-keys
+          "sgb"  'spacemacs/helm-buffers-do-grep
+          "sgB"  'spacemacs/helm-buffers-do-grep-region-or-symbol
+          "sgf"  'spacemacs/helm-files-do-grep
+          "sgF"  'spacemacs/helm-files-do-grep-region-or-symbol
+          "sgg"  'spacemacs/helm-file-do-grep
+          "sgG"  'spacemacs/helm-file-do-grep-region-or-symbol))
 
       ;; define the key binding at the very end in order to allow the user
       ;; to overwrite any key binding
       (add-hook 'emacs-startup-hook
                 (lambda ()
-                  (unless (configuration-layer/package-usedp 'smex)
+                  (unless (or (configuration-layer/package-usedp 'smex)
+                              spacemacs-helm-basic-config)
                     (spacemacs/set-leader-keys
                       dotspacemacs-emacs-command-key 'helm-M-x))))
 
@@ -299,7 +302,8 @@
 
     :config
     (progn
-      (helm-mode +1)
+      (unless spacemacs-helm-basic-config
+        (helm-mode +1))
 
       (when (and dotspacemacs-helm-resize
                  (or (eq dotspacemacs-helm-position 'bottom)
@@ -361,8 +365,9 @@ Removes the automatic guessing of the initial value based on thing at point. "
 
       ;; helm-locate uses es (from everything on windows,
       ;; which doesnt like fuzzy)
-      (helm-locate-set-command)
-      (setq helm-locate-fuzzy-match (string-match "locate" helm-locate-command))
+      (unless spacemacs-helm-basic-config
+        (helm-locate-set-command)
+        (setq helm-locate-fuzzy-match (string-match "locate" helm-locate-command)))
 
       (defun spacemacs//set-dotted-directory ()
         "Set the face of diretories for `.' and `..'"
@@ -386,30 +391,31 @@ Removes the automatic guessing of the initial value based on thing at point. "
       (add-hook 'helm-mode-hook 'simpler-helm-bookmark-keybindings)
 
       ;; helm navigation on hjkl
-      (defun spacemacs//hjkl-completion-navigation (&optional arg)
-        "Set navigation in helm on `jklh'.
+      (unless spacemacs-helm-basic-config
+        (defun spacemacs//hjkl-completion-navigation (&optional arg)
+          "Set navigation in helm on `jklh'.
 ARG non nil means Vim like movements."
-        (cond
-         (arg
-          ;; better navigation on homerow
-          ;; rebind `describe-key' for convenience
-          (define-key helm-map (kbd "C-j") 'helm-next-line)
-          (define-key helm-map (kbd "C-k") 'helm-previous-line)
-          (define-key helm-map (kbd "C-h") 'helm-next-source)
-          (define-key helm-map (kbd "C-S-h") 'describe-key)
-          (define-key helm-map (kbd "C-l") (kbd "RET"))
-          (dolist (keymap (list helm-find-files-map helm-read-file-map))
-            (define-key keymap (kbd "C-l") 'helm-execute-persistent-action)
-            (define-key keymap (kbd "C-h") 'helm-find-files-up-one-level)
-            (define-key keymap (kbd "C-S-h") 'describe-key)))
-         (t
-          (define-key helm-map (kbd "C-j") 'helm-execute-persistent-action)
-          (define-key helm-map (kbd "C-k") 'helm-delete-minibuffer-contents)
-          (define-key helm-map (kbd "C-h") nil)
-          (define-key helm-map
-            (kbd "C-l") 'helm-recenter-top-bottom-other-window))))
-      (spacemacs//hjkl-completion-navigation
-       (member dotspacemacs-editing-style '(vim hybrid)))
+          (cond
+           (arg
+            ;; better navigation on homerow
+            ;; rebind `describe-key' for convenience
+            (define-key helm-map (kbd "C-j") 'helm-next-line)
+            (define-key helm-map (kbd "C-k") 'helm-previous-line)
+            (define-key helm-map (kbd "C-h") 'helm-next-source)
+            (define-key helm-map (kbd "C-S-h") 'describe-key)
+            (define-key helm-map (kbd "C-l") (kbd "RET"))
+            (dolist (keymap (list helm-find-files-map helm-read-file-map))
+              (define-key keymap (kbd "C-l") 'helm-execute-persistent-action)
+              (define-key keymap (kbd "C-h") 'helm-find-files-up-one-level)
+              (define-key keymap (kbd "C-S-h") 'describe-key)))
+           (t
+            (define-key helm-map (kbd "C-j") 'helm-execute-persistent-action)
+            (define-key helm-map (kbd "C-k") 'helm-delete-minibuffer-contents)
+            (define-key helm-map (kbd "C-h") nil)
+            (define-key helm-map
+              (kbd "C-l") 'helm-recenter-top-bottom-other-window))))
+        (spacemacs//hjkl-completion-navigation
+         (member dotspacemacs-editing-style '(vim hybrid))))
 
       (defun spacemacs/helm-edit ()
         "Switch in edit mode depending on the current helm buffer."
@@ -501,14 +507,16 @@ ARG non nil means Vim like movements."
       ;; Swap default TAB and C-z commands.
       ;; For GUI.
       (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-      (define-key helm-find-files-map
-        (kbd "S-<tab>") 'helm-find-files-up-one-level)
-      (define-key helm-find-files-map
-        (kbd "<backtab>") 'helm-find-files-up-one-level)
+      (with-eval-after-load 'helm-files
+        (define-key helm-find-files-map
+          (kbd "S-<tab>") 'helm-find-files-up-one-level)
+        (define-key helm-find-files-map
+          (kbd "<backtab>") 'helm-find-files-up-one-level))
       ;; For terminal.
       (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
-      (define-key helm-find-files-map
-        (kbd "S-TAB") 'helm-find-files-up-one-level)
+      (with-eval-after-load 'helm-files
+        (define-key helm-find-files-map
+          (kbd "S-TAB") 'helm-find-files-up-one-level))
       (define-key helm-map (kbd "C-z") 'helm-select-action)
 
       (with-eval-after-load 'helm-mode ; required
@@ -777,43 +785,44 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (kbd "RET") 'helm-grep-mode-jump-other-window
         (kbd "q") 'quit-window)
 
-      (spacemacs/set-leader-keys
-        ;; helm-ag marks
-        "s`"  'helm-ag-pop-stack
-        ;; opened buffers scope
-        "sb"  'spacemacs/helm-buffers-smart-do-search
-        "sB"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
-        "sab" 'helm-do-ag-buffers
-        "saB" 'spacemacs/helm-buffers-do-ag-region-or-symbol
-        "skb" 'spacemacs/helm-buffers-do-ack
-        "skB" 'spacemacs/helm-buffers-do-ack-region-or-symbol
-        "stb" 'spacemacs/helm-buffers-do-pt
-        "stB" 'spacemacs/helm-buffers-do-pt-region-or-symbol
-        ;; current file scope
-        "ss"  'spacemacs/helm-file-smart-do-search
-        "sS"  'spacemacs/helm-file-smart-do-search-region-or-symbol
-        "saa" 'helm-ag-this-file
-        "saA" 'spacemacs/helm-file-do-ag-region-or-symbol
-        ;; files scope
-        "sf"  'spacemacs/helm-files-smart-do-search
-        "sF"  'spacemacs/helm-files-smart-do-search-region-or-symbol
-        "saf" 'helm-do-ag
-        "saF" 'spacemacs/helm-files-do-ag-region-or-symbol
-        "skf" 'spacemacs/helm-files-do-ack
-        "skF" 'spacemacs/helm-files-do-ack-region-or-symbol
-        "stf" 'spacemacs/helm-files-do-pt
-        "stF" 'spacemacs/helm-files-do-pt-region-or-symbol
-        ;; current project scope
-        "/"   'spacemacs/helm-project-smart-do-search
-        "*"   'spacemacs/helm-project-smart-do-search-region-or-symbol
-        "sp"  'spacemacs/helm-project-smart-do-search
-        "sP"  'spacemacs/helm-project-smart-do-search-region-or-symbol
-        "sap" 'spacemacs/helm-project-do-ag
-        "saP" 'spacemacs/helm-project-do-ag-region-or-symbol
-        "skp" 'spacemacs/helm-project-do-ack
-        "skP" 'spacemacs/helm-project-do-ack-region-or-symbol
-        "stp" 'spacemacs/helm-project-do-pt
-        "stP" 'spacemacs/helm-project-do-pt-region-or-symbol))
+      (unless spacemacs-helm-basic-config
+        (spacemacs/set-leader-keys
+          ;; helm-ag marks
+          "s`"  'helm-ag-pop-stack
+          ;; opened buffers scope
+          "sb"  'spacemacs/helm-buffers-smart-do-search
+          "sB"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
+          "sab" 'helm-do-ag-buffers
+          "saB" 'spacemacs/helm-buffers-do-ag-region-or-symbol
+          "skb" 'spacemacs/helm-buffers-do-ack
+          "skB" 'spacemacs/helm-buffers-do-ack-region-or-symbol
+          "stb" 'spacemacs/helm-buffers-do-pt
+          "stB" 'spacemacs/helm-buffers-do-pt-region-or-symbol
+          ;; current file scope
+          "ss"  'spacemacs/helm-file-smart-do-search
+          "sS"  'spacemacs/helm-file-smart-do-search-region-or-symbol
+          "saa" 'helm-ag-this-file
+          "saA" 'spacemacs/helm-file-do-ag-region-or-symbol
+          ;; files scope
+          "sf"  'spacemacs/helm-files-smart-do-search
+          "sF"  'spacemacs/helm-files-smart-do-search-region-or-symbol
+          "saf" 'helm-do-ag
+          "saF" 'spacemacs/helm-files-do-ag-region-or-symbol
+          "skf" 'spacemacs/helm-files-do-ack
+          "skF" 'spacemacs/helm-files-do-ack-region-or-symbol
+          "stf" 'spacemacs/helm-files-do-pt
+          "stF" 'spacemacs/helm-files-do-pt-region-or-symbol
+          ;; current project scope
+          "/"   'spacemacs/helm-project-smart-do-search
+          "*"   'spacemacs/helm-project-smart-do-search-region-or-symbol
+          "sp"  'spacemacs/helm-project-smart-do-search
+          "sP"  'spacemacs/helm-project-smart-do-search-region-or-symbol
+          "sap" 'spacemacs/helm-project-do-ag
+          "saP" 'spacemacs/helm-project-do-ag-region-or-symbol
+          "skp" 'spacemacs/helm-project-do-ack
+          "skP" 'spacemacs/helm-project-do-ack-region-or-symbol
+          "stp" 'spacemacs/helm-project-do-pt
+          "stP" 'spacemacs/helm-project-do-pt-region-or-symbol)))
     :config
     (progn
       (evil-define-key 'normal helm-ag-map "SPC" spacemacs-default-map)
@@ -828,7 +837,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     (progn
       (setq helm-descbinds-window-style 'split)
       (add-hook 'helm-mode-hook 'helm-descbinds-mode)
-      (spacemacs/set-leader-keys "?" 'helm-descbinds))))
+      (unless spacemacs-helm-basic-config
+        (spacemacs/set-leader-keys "?" 'helm-descbinds)))))
 
 (defun spacemacs-helm/init-helm-flx ()
   (use-package helm-flx
@@ -845,18 +855,20 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
   (use-package helm-make
     :defer t
     :init
-    (spacemacs/set-leader-keys
-      "cc" 'helm-make-projectile
-      "cm" 'helm-make)))
+    (unless spacemacs-helm-basic-config
+      (spacemacs/set-leader-keys
+        "cc" 'helm-make-projectile
+        "cm" 'helm-make))))
 
 (defun spacemacs-helm/init-helm-mode-manager ()
   (use-package helm-mode-manager
     :defer t
     :init
-    (spacemacs/set-leader-keys
-      "hM"    'helm-switch-major-mode
-      ;; "hm"    'helm-disable-minor-mode
-      "h C-m" 'helm-enable-minor-mode)))
+    (unless spacemacs-helm-basic-config
+      (spacemacs/set-leader-keys
+        "hM"    'helm-switch-major-mode
+        ;; "hm"    'helm-disable-minor-mode
+        "h C-m" 'helm-enable-minor-mode))))
 
 (defun spacemacs-helm/init-helm-projectile ()
   (use-package helm-projectile
@@ -880,16 +892,17 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (defalias
         'spacemacs/helm-project-do-grep-region-or-symbol 'helm-projectile-grep)
 
-      (spacemacs/set-leader-keys
-        "pb"  'helm-projectile-switch-to-buffer
-        "pd"  'helm-projectile-find-dir
-        "pf"  'helm-projectile-find-file
-        "pF"  'helm-projectile-find-file-dwim
-        "ph"  'helm-projectile
-        "pp"  'helm-projectile-switch-project
-        "pr"  'helm-projectile-recentf
-        "pv"  'projectile-vc
-        "sgp" 'helm-projectile-grep))))
+      (unless spacemacs-helm-basic-config
+        (spacemacs/set-leader-keys
+          "pb"  'helm-projectile-switch-to-buffer
+          "pd"  'helm-projectile-find-dir
+          "pf"  'helm-projectile-find-file
+          "pF"  'helm-projectile-find-file-dwim
+          "ph"  'helm-projectile
+          "pp"  'helm-projectile-switch-project
+          "pr"  'helm-projectile-recentf
+          "pv"  'projectile-vc
+          "sgp" 'helm-projectile-grep)))))
 
 (defun spacemacs-helm/init-helm-spacemacs-help ()
   (use-package helm-spacemacs-help
@@ -909,16 +922,17 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
                       "deprecated and will be remove in the next release. "
                       "Please use 'SPC h SPC' (or 'M-m h SPC') instead."))
         (helm-spacemacs arg))
-      (spacemacs/set-leader-keys "feh" 'spacemacs-base/helm-spacemacs-deprecated)
-      (spacemacs/set-leader-keys "fef" 'helm-spacemacs-help-faq)
-      (spacemacs/set-leader-keys
-        "h ."   'helm-spacemacs-help-dotspacemacs
-        "h SPC" 'helm-spacemacs-help
-        "h f"   'helm-spacemacs-help-faq
-        "h l"   'helm-spacemacs-help-layers
-        "h p"   'helm-spacemacs-help-packages
-        "h r"   'helm-spacemacs-help-docs
-        "h t"   'helm-spacemacs-help-toggles))))
+      (unless spacemacs-helm-basic-config
+        (spacemacs/set-leader-keys "feh" 'spacemacs-base/helm-spacemacs-deprecated)
+        (spacemacs/set-leader-keys "fef" 'helm-spacemacs-help-faq)
+        (spacemacs/set-leader-keys
+          "h ."   'helm-spacemacs-help-dotspacemacs
+          "h SPC" 'helm-spacemacs-help
+          "h f"   'helm-spacemacs-help-faq
+          "h l"   'helm-spacemacs-help-layers
+          "h p"   'helm-spacemacs-help-packages
+          "h r"   'helm-spacemacs-help-docs
+          "h t"   'helm-spacemacs-help-toggles)))))
 
 (defun spacemacs-helm/init-helm-swoop ()
   (use-package helm-swoop
@@ -943,10 +957,11 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
                      (if thing thing ""))))))
           (call-interactively 'helm-swoop)))
 
-      (spacemacs/set-leader-keys
-        "ss"    'helm-swoop
-        "sS"    'spacemacs/helm-swoop-region-or-symbol
-        "s C-s" 'helm-multi-swoop-all)
+      (unless spacemacs-helm-basic-config
+        (spacemacs/set-leader-keys
+          "ss"    'helm-swoop
+          "sS"    'spacemacs/helm-swoop-region-or-symbol
+          "s C-s" 'helm-multi-swoop-all))
       (defadvice helm-swoop (before add-evil-jump activate)
         (when (configuration-layer/package-usedp 'evil-jumper)
           (evil-set-jump))))))
@@ -955,5 +970,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
   (use-package helm-themes
     :defer t
     :init
-    (spacemacs/set-leader-keys
-      "Th" 'helm-themes)))
+    (unless spacemacs-helm-basic-config
+      (spacemacs/set-leader-keys
+        "Th" 'helm-themes))))

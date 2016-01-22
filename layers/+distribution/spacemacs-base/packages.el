@@ -794,13 +794,13 @@ below. Anything else exits."
                                           "projectile.cache")
             projectile-known-projects-file (concat spacemacs-cache-directory
                                                    "projectile-bookmarks.eld"))
-      (unless (configuration-layer/package-usedp 'helm-projectile)
+      (unless (and (not spacemacs-helm-basic-config)
+                   (configuration-layer/package-usedp 'helm-projectile))
         (spacemacs/set-leader-keys
           "pb" 'projectile-switch-to-buffer
           "pd" 'projectile-find-dir
           "pf" 'projectile-find-file
           "pF" 'projectile-find-file-dwim
-          "ph" 'helm-projectile
           "pr" 'projectile-recentf
           "ps" 'projectile-switch-project))
       (spacemacs/set-leader-keys
