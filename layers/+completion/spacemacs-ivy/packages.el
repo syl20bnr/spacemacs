@@ -33,6 +33,53 @@ with options to run in the shell.")
     "Truncate the current path in counsel search if it is longer
 than this amount.")
 
+  (defvar spacemacs--counsel-initial-cands-shown nil)
+  (defvar spacemacs--counsel-initial-number-cand 100)
+
+  (defun spacemacs//counsel-async-command (cmd)
+    (let* ((counsel--process " *counsel*")
+           (proc (get-process counsel--process))
+           (buff (get-buffer counsel--process)))
+      (when proc
+        (delete-process proc))
+      (when buff
+        (kill-buffer buff))
+      (setq proc (start-process-shell-command
+                  counsel--process
+                  counsel--process
+                  cmd))
+      (setq spacemacs--counsel-initial-cands-shown nil)
+      (setq counsel--async-time (current-time))
+      (set-process-sentinel proc #'counsel--async-sentinel)
+      (set-process-filter proc #'spacemacs//counsel-async-filter)))
+
+  (defun spacemacs//counsel-async-filter (process str)
+    (with-current-buffer (process-buffer process)
+      (insert str))
+    (when (or (null spacemacs--counsel-initial-cands-shown)
+              (time-less-p
+               ;; 0.5s
+               '(0 0 500000 0)
+               (time-since counsel--async-time)))
+      (let (size display-now)
+        (with-current-buffer (process-buffer process)
+          (goto-char (point-min))
+          (setq size (- (buffer-size) (forward-line (buffer-size))))
+          (when (and (null spacemacs--counsel-initial-cands-shown)
+                     (> size spacemacs--counsel-initial-number-cand))
+            (setq ivy--all-candidates
+                  (split-string (buffer-string) "\n" t))
+            (setq display-now t)
+            (setq spacemacs--counsel-initial-cands-shown t)))
+        (let ((ivy--prompt
+               (format (ivy-state-prompt ivy-last)
+                       size)))
+          (if display-now
+              (ivy--insert-minibuffer
+               (ivy--format ivy--all-candidates))
+            (ivy--insert-prompt))))
+      (setq counsel--async-time (current-time))))
+
   ;; see `counsel-ag-function'
   (defun spacemacs//make-counsel-search-function (tool)
     (lexical-let ((base-cmd
@@ -45,7 +92,7 @@ than this amount.")
                 (regex (counsel-unquote-regex-parens
                         (setq ivy--old-re
                               (ivy--regex string)))))
-            (counsel--async-command (format base-cmd regex))
+            (spacemacs//counsel-async-command (format base-cmd regex))
             nil)))))
 
   ;; see `counsel-ag'
@@ -72,16 +119,17 @@ that directory."
             (or initial-directory
                 (read-directory-name "Start from directory: ")))
       (ivy-read
-       (format "%s from [%s]: "
-               tool
-               (if (< (length counsel--git-grep-dir)
-                      spacemacs--counsel-search-max-path-length)
-                   counsel--git-grep-dir
-                 (concat
-                  "..." (substring counsel--git-grep-dir
-                                   (- (length counsel--git-grep-dir)
-                                      spacemacs--counsel-search-max-path-length)
-                                   (length counsel--git-grep-dir)))))
+       (concat "%-5d "
+               (format "%s from [%s]: "
+                       tool
+                       (if (< (length counsel--git-grep-dir)
+                              spacemacs--counsel-search-max-path-length)
+                           counsel--git-grep-dir
+                         (concat
+                          "..." (substring counsel--git-grep-dir
+                                           (- (length counsel--git-grep-dir)
+                                              spacemacs--counsel-search-max-path-length)
+                                           (length counsel--git-grep-dir))))))
        (spacemacs//make-counsel-search-function tool)
        :initial-input initial-input
        :dynamic-collection t
