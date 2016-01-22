@@ -109,9 +109,13 @@ used."
            (when ,title
              (setq ,hint-var
                    (list 'concat
-                         (propertize ,title
-                                     'face 'spacemacs-transient-state-title-face)
-                         "\n" ,hint-var)))
+                     (propertize ,title
+                                 'face 'spacemacs-transient-state-title-face)
+                     "\n" ,hint-var "\nColor Guide: ["
+                     (propertize "KEY" 'face 'hydra-face-blue)
+                     "] exits transient state  ["
+                     (propertize "KEY" 'face 'hydra-face-red)
+                     "] will not exit")))
            ,@bindkeys)))))
 
 (provide 'core-transient-state)
