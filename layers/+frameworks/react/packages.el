@@ -77,6 +77,8 @@
     (yas-activate-extra-mode 'js-mode)
     ;; Force jsx content type
     (web-mode-set-content-type "jsx")
+    ;; Don't auto-quote attribute values
+    (setq-local web-mode-enable-auto-quoting nil)
     ;; Why do we do this ?
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
       (let ((web-mode-enable-part-face nil))
