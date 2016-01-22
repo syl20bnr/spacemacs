@@ -59,6 +59,7 @@ the user activate the completion manually."
     :defer t
     :init
     (progn
+      (spacemacs/register-repl 'eshell 'eshell)
       (setq eshell-cmpl-cycle-completions nil
             ;; auto truncate after 20k lines
             eshell-buffer-maximum-lines 20000
@@ -209,6 +210,7 @@ is achieved by adding the relevant text properties."
     :defer t
     :init
     (progn
+      (spacemacs/register-repl 'multi-term 'multi-term)
       (spacemacs/set-leader-keys "ast" 'shell-pop-multi-term)
       (defun multiterm (_)
         "Wrapper to be able to call multi-term from shell-pop"
@@ -250,6 +252,7 @@ is achieved by adding the relevant text properties."
         (setq eshell-output-filter-functions (remove 'eshell-handle-ansi-color eshell-output-filter-functions))))))
 
 (defun shell/init-shell ()
+  (spacemacs/register-repl 'shell 'shell)
   (defun shell-comint-input-sender-hook ()
     "Check certain shell commands.
  Executes the appropriate behavior for certain commands."
@@ -329,6 +332,8 @@ is achieved by adding the relevant text properties."
                             term-mode-hook)))
 
 (defun shell/init-term ()
+  (spacemacs/register-repl 'term 'term)
+  (spacemacs/register-repl 'term 'ansi-term)
   (defun term-send-tab ()
     "Send tab in term mode."
     (interactive)
