@@ -107,6 +107,7 @@ Git commands (start with ~g~):
 
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
+| ~SPC g A~   | show cherry-pick prompt                             |
 | ~SPC g b~   | open a =magit= blame                                |
 | ~SPC g B~   | quit =magit= blame                                  |
 | ~SPC g c~   | commit changes                                      |
