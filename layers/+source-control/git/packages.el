@@ -102,6 +102,7 @@
                magit-log-popup
                magit-pull-popup
                magit-push-popup
+               magit-rebase-popup
                magit-status)
     :init
     (progn
