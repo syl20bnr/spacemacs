@@ -168,15 +168,9 @@
                `((name . "HELM available REPLs")
                  (candidates . ,(mapcar #'car spacemacs-repl-list))
                  (action . (lambda (candidate)
-                             (let* ((repl (cdr (assoc candidate spacemacs-repl-list)))
-                                    (mode (car repl))
-                                    (f    (cdr repl)))
-                               (if (featurep mode)
-                                   (funcall f)
-                                 (let ((old-mode major-mode))
-                                   (funcall mode)
-                                   (funcall old-mode)
-                                   (funcall f)))))))))
+                             (let ((repl (cdr (assoc candidate spacemacs-repl-list))))
+                               (require (car repl))
+                               (call-interactively (cdr repl))))))))
           (helm :sources '(helm-available-repls)
                 :buffer "*helm repls*")))
 
@@ -186,7 +180,7 @@
 
       (spacemacs/set-leader-keys
         "<f1>" 'helm-apropos
-        "aR"   'helm-available-repls
+        "a'"   'helm-available-repls
         "bb"   'helm-mini
         "Cl"   'helm-colors
         "ff"   'spacemacs/helm-find-files
