@@ -243,15 +243,7 @@ Helm hack."
         "ir" 'ivy-resume
         "bb" 'ivy-switch-buffer)
       (setq ivy-height 15
-            ivy-re-builders-alist '((t . ivy--regex-ignore-order))
-            colir-compose-method (lambda (c1 c2) c1))
-      (with-eval-after-load 'colir
-        ;; override colir-blend to remove bad rendering with spacemacs-dark
-        ;; theme
-        (defun colir-blend (c1 c2)
-          "Blend the two colors C1 and C2 using `colir-compose-method'.
-C1 and C2 are triples of floats in [0.0 1.0] range."
-          (apply #'color-rgb-to-hex (cl-mapcar colir-compose-method c1 c2))))
+            ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
       (with-eval-after-load 'recentf
         ;; merge recentf and bookmarks into buffer switching. If we set this
         ;; before recentf loads, then ivy-mode loads recentf for us,
