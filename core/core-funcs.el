@@ -264,16 +264,13 @@ Emacs versions."
   (interactive)
   (byte-recompile-directory package-user-dir nil t))
 
-(defun spacemacs/register-repl (major-mode repl-func &optional tag)
+(defun spacemacs/register-repl (feature repl-func &optional tag)
   "Register REPL-FUNC to the global list of REPLs SPACEMACS-REPL-LIST.
-Major-mode will be loaded before running the REPL,  in case it is
-not already loaded. If TAG is non-nil, it will be used as the string
-to show in the helm buffer."
-  (setq spacemacs-repl-list (cons (cons (or tag
-                                            (symbol-name major-mode))
-                                        (cons major-mode repl-func))
-                                  spacemacs-repl-list))
-  spacemacs-repl-list)
+FEATURE will be loaded before running the REPL, in case it is not already
+loaded. If TAG is non-nil, it will be used as the string to show in the helm
+buffer."
+  (push `(,(or tag (symbol-name repl-func))
+          . (,feature . ,repl-func))
+        spacemacs-repl-list))
 
 (provide 'core-funcs)
-
