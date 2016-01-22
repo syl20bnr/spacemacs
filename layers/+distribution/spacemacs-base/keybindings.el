@@ -295,6 +295,7 @@
   "wb"  'spacemacs/switch-to-minibuffer-window
   "wc"  'delete-window
   "wd"  'spacemacs/toggle-current-window-dedication
+  "wf"  'follow-mode
   "wH"  'evil-window-move-far-left
   "w <S-left>"  'evil-window-move-far-left
   "wh"  'evil-window-left
