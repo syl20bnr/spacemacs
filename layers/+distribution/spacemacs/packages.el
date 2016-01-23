@@ -356,7 +356,7 @@
                       (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                       (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                       (prophidden (propertize hidden 'face '(:weight bold))))
-                 (format "%s %s%s [n/N] move [e] edit [r] range [R] reset [d/D] definition [/] find in project [f] find in files [b] find in opened buffers [q] exit"
+                 (format "%s %s%s [n] find next [N/p] find previous [e] edit [r] range [R] reset [d/D] definition [/] find in project [f] find in files [b] find in opened buffers [q] exit"
                          propplugin propx/y prophidden)))
         :on-exit  (spacemacs//ahs-ms-on-exit)
         :bindings
@@ -369,6 +369,7 @@
          :exit t)
         ("n" spacemacs/quick-ahs-forward)
         ("N" spacemacs/quick-ahs-backward)
+        ("p" spacemacs/quick-ahs-backward)
         ("R" ahs-back-to-start)
         ("r" ahs-change-range)
         ("/" spacemacs/helm-project-smart-do-search-region-or-symbol :exit t)
