@@ -360,6 +360,14 @@
         (setq imenu-create-index-function
               #'spacemacs/python-imenu-create-index-python-or-semantic)))))
 
+(defun python/init-py-yapf ()
+  (use-package py-yapf
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode "=" 'py-yapf-buffer)
+    :config
+    (when python-enable-yapf-format-on-save
+      (add-hook 'python-mode-hook 'py-yapf-enable-on-save))))
+
 (defun python/post-init-semantic ()
   (semantic/enable-semantic-mode 'python-mode)
   (defadvice semantic-python-get-system-include-path (around semantic-python-skip-error-advice activate)
