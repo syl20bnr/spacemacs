@@ -2,6 +2,7 @@
   '(
     arduino-mode
     julia-mode
+    faust-mode
     matlab-mode
     qml-mode
     scad-mode
@@ -12,6 +13,9 @@
 
 (defun extra-langs/init-arduino-mode ()
   (use-package arduino-mode :defer t))
+
+(defun extra-langs/init-faust-mode ()
+  (use-package faust-mode :defer t :mode "\\.\\(dsp\\|lib\\)\\'"))
 
 (defun extra-langs/init-scad-mode ()
   (use-package scad-mode :defer t))
