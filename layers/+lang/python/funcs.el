@@ -44,11 +44,12 @@
     (message "Error: Cannot find autoflake executable.")))
 
 (defun pyenv-mode-set-local-version ()
-  "Set pyenv version from \".python-version\" by looking in parent directories."
+  "Set pyenv version from \".python-version\" by looking in parent directories.
+   If no local version is found set the global version."
   (interactive)
   (let ((root-path (locate-dominating-file default-directory
                                            ".python-version")))
-    (when root-path
+    (if root-path
       (let* ((file-path (expand-file-name ".python-version" root-path))
              (version (with-temp-buffer
                         (insert-file-contents-literally file-path)
@@ -57,4 +58,10 @@
         (if (member version (pyenv-mode-versions))
             (pyenv-mode-set version)
           (message "pyenv: version `%s' is not installed (set by %s)"
-                   version file-path))))))
+                   version file-path)))
+      (pyenv-mode-set (spacemacs-pyenv-mode-global-version)))))
+
+(defun spacemacs-pyenv-mode-global-version ()
+  "Get global pyenv version directly from pyenv"
+  (replace-regexp-in-string "\n" ""
+                            (shell-command-to-string "pyenv global")))
