@@ -21,6 +21,7 @@
      - [[Links][Links]]
      - [[Emphasis][Emphasis]]
      - [[Tagging][Tagging]]
+     - [[Navigating in calendar][Navigating in calendar]]
    - [[Org agenda][Org agenda]]
    - [[Pomodoro][Pomodoro]]
    - [[Presentation][Presentation]]
@@ -254,18 +255,43 @@ You can tweak the bullets displayed in the org buffer in the function
 |-------------+--------------|
 | ~SPC m :~   | org-set-tags |
 
-** Org agenda
-The evilified org agenda supports, among others, the following bindings:
+*** Navigating in calendar
 
-| Key Binding | Description   |
-|-------------+---------------|
-| ~M-j~       | next item     |
-| ~M-k~       | previous item |
-| ~M-h~       | earlier view  |
-| ~M-l~       | later view    |
-| ~gr~        | refresh       |
-| ~gd~        | toggle grid   |
-| ~C-v~       | change view   |
+| Key Binding | Description        |
+|-------------+--------------------|
+| ~L~         | One day forward    |
+| ~H~         | One day backward   |
+| ~J~         | One week forward   |
+| ~K~         | One week backward  |
+| ~M-L~       | One month forward  |
+| ~M-H~       | One month backward |
+| ~M-J~       | One year forward   |
+| ~M-K~       | One year backward  |
+
+** Org agenda
+The evilified org agenda supports, the following bindings:
+
+| Key Binding | Description                   |
+|-------------+-------------------------------|
+| ~SPC m a~   | org-agenda                    |
+| ~SPC m d~   | org-agenda-deadline           |
+| ~SPC m s~   | org-agenda-schedule           |
+| ~SPC m f~   | org-agenda-set-effort         |
+| ~SPC m P~   | org-agenda-set-property       |
+| ~SPC m :~   | org-agenda-set-tags           |
+| ~SPC m I~   | org-agenda-clock-in           |
+| ~SPC m O~   | org-agenda-clock-out          |
+| ~SPC m q~   | org-agenda-clock-cancel       |
+| ~SPC m q~   | org-agenda-refile             |
+| ~M-j~       | next item                     |
+| ~M-k~       | previous item                 |
+| ~M-h~       | earlier view                  |
+| ~M-l~       | later view                    |
+| ~gr~        | refresh                       |
+| ~gd~        | toggle grid                   |
+| ~C-v~       | change view                   |
+| ~RET~       | org-agenda-goto               |
+| ~M-RET~     | org-agenda-show-and-scroll-up |
 
 ** Pomodoro
 
