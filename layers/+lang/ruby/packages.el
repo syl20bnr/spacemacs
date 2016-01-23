@@ -16,6 +16,7 @@
         company
         evil-matchit
         flycheck
+        popwin
         rbenv
         robe
         rspec-mode
@@ -89,6 +90,10 @@
 (defun ruby/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'ruby-mode-hook)
   (spacemacs/add-flycheck-hook 'enh-ruby-mode-hook))
+
+(defun ruby/post-init-popwin ()
+  (push '("*rspec-compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
+        popwin:special-display-config))
 
 (defun ruby/init-rbenv ()
   (use-package rbenv
