@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(defconst emacs-built-in-themes (custom-available-themes)
+(defconst emacs-built-in-themes (cons 'default (custom-available-themes))
   "List of emacs built-in themes")
 
 (defface org-kbd
@@ -167,7 +167,8 @@ package name does not match theme name + `-theme' suffix.")
             (eq 'solarized-dark theme))
         (spacemacs/load-or-install-package 'dash))
   ;; Unless Emacs stock themes
-  (unless (memq theme (custom-available-themes))
+  (unless (or (memq theme (custom-available-themes))
+              (eq 'default theme))
     (cond
      ;; themes with explicitly declared package names
      ((assq theme spacemacs-theme-name-to-package)
@@ -184,10 +185,15 @@ package name does not match theme name + `-theme' suffix.")
       ;; if not we will handle the special themes as we get issues in the tracker.
       (let ((pkg (spacemacs//get-theme-package theme)))
         (spacemacs/load-or-install-package pkg)))))
-  (load-theme theme t)
-  ;; explicitly reload the theme for the first GUI client
-  (eval `(spacemacs|do-after-display-system-init
-          (load-theme ',theme t))))
+  (mapc 'disable-theme custom-enabled-themes)
+  (if (eq 'default theme)
+      (progn
+        (setq spacemacs--cur-theme 'default)
+        (spacemacs/post-theme-init 'default))
+    (load-theme theme t)
+    ;; explicitly reload the theme for the first GUI client
+    (eval `(spacemacs|do-after-display-system-init
+            (load-theme ',theme t)))))
 
 (defun spacemacs/cycle-spacemacs-theme ()
   "Cycle through themes defined in `dotspacemacs-themes.'"

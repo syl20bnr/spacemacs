@@ -73,8 +73,7 @@
   (configuration-layer/initialize)
   ;; default theme
   (let ((default-theme (car dotspacemacs-themes)))
-    (unless (string= "default" (car dotspacemacs-themes))
-      (spacemacs/load-theme default-theme))
+    (spacemacs/load-theme default-theme)
     ;; protect used themes from deletion as orphans
     (setq configuration-layer--protected-packages
           (append
