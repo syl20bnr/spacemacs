@@ -239,6 +239,7 @@ Helm hack."
     :config
     (progn
       (spacemacs/set-leader-keys
+        "a'" 'spacemacs/ivy-available-repls
         "fr" 'ivy-recentf
         "ir" 'ivy-resume
         "bb" 'ivy-switch-buffer)
@@ -255,6 +256,16 @@ Helm hack."
       (ivy-mode 1)
       (global-set-key (kbd "C-c C-r") 'ivy-resume)
       (global-set-key (kbd "<f6>") 'ivy-resume)
+
+      (defun spacemacs/ivy-available-repls ()
+        "Show available repls."
+        (interactive)
+        (ivy-read "Repls: "
+                  (mapcar #'car spacemacs-repl-list)
+                  :action (lambda (candidate)
+                            (let ((repl (cdr (assoc candidate spacemacs-repl-list))))
+                              (require (car repl))
+                              (call-interactively (cdr repl))))))
 
       (defun spacemacs//hjkl-completion-navigation (&optional arg)
         "Set navigation on `jklh'. ARG non nil means Vim like movements."
