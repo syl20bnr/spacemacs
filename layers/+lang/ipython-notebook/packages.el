@@ -23,40 +23,10 @@
         (interactive)
         (ein:worksheet-merge-cell (ein:worksheet--get-ws-or-error) (ein:worksheet-get-current-cell) t t))
 
-      (defvar spacemacs--ipython-notebook-ms-doc-toggle 0
-        "Display a short doc when nil, full doc otherwise.")
-
-      (defun spacemacs//ipython-notebook-ms-doc ()
-        (if (equal 0 spacemacs--ipython-notebook-ms-doc-toggle)
-            "[?] for help"
-          "
-        [?] toggle this help
-
-        [k,j] prev/next cell               [K,J] move cell up/down
-        [h,l] prev/next worksheet          [H,L] move worksheet left/right
-        [C-k,C-j] merge cell above/bellow  [O,o] insert cell above/bellow
-        [d] kill cell                      [y,p] copy or past cell
-        [RET] execute cell                 [u] change cell type
-
-        [C-o]: open console                [t] toggle output
-        [C-l,C-S-L] clear/clear all output
-
-        [C-s,C-r] save/rename notebook
-        [1..9] open [1st..last] worksheet
-        [+,-] create/delete worksheet
-
-        [x] close notebook                 [q] quit micro-state"))
-
-      (defun spacemacs//ipython-notebook-ms-toggle-doc ()
-        (interactive)
-        (setq spacemacs--ipython-notebook-ms-doc-toggle
-              (logxor spacemacs--ipython-notebook-ms-doc-toggle 1)))
-
       (defun spacemacs//concat-leader (key)
         (if dotspacemacs-major-mode-leader-key
             (concat dotspacemacs-major-mode-leader-key key)
-            (concat "," key)
-        ))
+            (concat "," key)))
 
       (spacemacs/set-leader-keys-for-major-mode 'ein:notebook-multilang-mode
         "y" 'ein:worksheet-copy-cell
@@ -125,10 +95,18 @@
       (define-key ein:notebook-multilang-mode-map (kbd "M-j") 'ein:worksheet-move-cell-down)
       (define-key ein:notebook-multilang-mode-map (kbd "M-k") 'ein:worksheet-move-cell-up)
 
-      (spacemacs|define-micro-state ipython-notebook
-        :doc (spacemacs//ipython-notebook-ms-doc)
-        :use-minibuffer t
-        :evil-leader "ein"
+      (spacemacs|define-transient-state ipython-notebook
+        :title "iPython Notebook Transient State"
+        :doc "
+Operations on Cells^^^^^^            On Worksheets^^^^              Other
+----------------------------^^^^^^   ------------------------^^^^   ----------------------------------^^^^
+[_k_/_j_]^^     select prev/next     [_h_/_l_]   select prev/next   [_t_]^^         toggle output
+[_K_/_J_]^^     move up/down         [_H_/_L_]   move left/right    [_C-l_/_C-S-l_] clear/clear all output
+[_C-k_/_C-j_]^^ merge above/below    [_1_.._9_]  open [1st..last]   [_C-o_]^^       open console
+[_O_/_o_]^^     insert above/below   [_+_/_-_]   create/delete      [_C-s_/_C-r_]   save/rename notebook
+[_y_/_p_/_d_]   copy/paste           ^^^^                           [_x_]^^         close notebook
+[_u_]^^^^       change type          ^^^^                           [_q_]^^         quit micro-state
+[_RET_]^^^^     execute"
         :bindings
         ("q" nil :exit t)
         ("?" spacemacs//ipython-notebook-ms-toggle-doc)
@@ -171,4 +149,5 @@
         ("9" ein:notebook-worksheet-open-last)
         ("+" ein:notebook-worksheet-insert-next)
         ("-" ein:notebook-worksheet-delete)
-        ("x" ein:notebook-close)))))
+        ("x" ein:notebook-close))
+      (spacemacs/set-leader-keys "ein" 'spacemacs/ipython-notebook-transient-state/body))))

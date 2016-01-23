@@ -204,46 +204,47 @@
         ;; TODO element close would be nice but broken with evil.
         )
 
-      (defvar spacemacs--web-mode-ms-doc-toggle 0
-        "Display a short doc when nil, full doc otherwise.")
+      ;; (defvar spacemacs--web-mode-ms-doc-toggle 0
+      ;;   "Display a short doc when nil, full doc otherwise.")
 
-      (defun spacemacs//web-mode-ms-doc ()
-        (if (equal 0 spacemacs--web-mode-ms-doc-toggle)
-            "[?] for help"
-          "
-  [?] display this help
-  [k] previous [j] next   [K] previous sibling [J] next sibling
-  [h] parent   [l] child  [c] clone [d] delete [D] kill [r] rename
-  [w] wrap     [p] xpath
-  [q] quit"))
+  ;;     (defun spacemacs//web-mode-ms-doc ()
+  ;;       (if (equal 0 spacemacs--web-mode-ms-doc-toggle)
+  ;;           "[_?_] for help"
+  ;;         "
+  ;; [_?_] display this help
+  ;; [_k_] previous [_j_] next   [_K_] previous sibling [_J_] next sibling
+  ;; [_h_] parent   [_l_] child  [_c_] clone [_d_] delete [_D_] kill [_r_] rename
+  ;; [_w_] wrap     [_p_] xpath
+  ;; [_q_] quit"))
 
-      (defun spacemacs//web-mode-ms-toggle-doc ()
-        (interactive)
-        (setq spacemacs--web-mode-ms-doc-toggle
-              (logxor spacemacs--web-mode-ms-doc-toggle 1)))
+  ;;     (defun spacemacs//web-mode-ms-toggle-doc ()
+  ;;       (interactive)
+  ;;       (setq spacemacs--web-mode-ms-doc-toggle
+  ;;             (logxor spacemacs--web-mode-ms-doc-toggle 1)))
 
-      (spacemacs|define-micro-state web-mode
-        :doc (spacemacs//web-mode-ms-doc)
-        :persistent t
-        :evil-leader-for-mode (web-mode . ".")
+      (spacemacs|define-transient-state web-mode
+        :title "Web-mode Transient State"
+        :columns 4
+        :foreign-keys run
         :bindings
-        ("<escape>" nil :exit t)
-        ("?" spacemacs//web-mode-ms-toggle-doc)
-        ("c" web-mode-element-clone)
-        ("d" web-mode-element-vanish)
-        ("D" web-mode-element-kill)
-        ("j" web-mode-element-next)
-        ("J" web-mode-element-sibling-next)
+        ("j" web-mode-element-next "next")
+        ("J" web-mode-element-sibling-next "next sibling")
         ("gj" web-mode-element-sibling-next)
-        ("k" web-mode-element-previous)
-        ("K" web-mode-element-sibling-previous)
+        ("k" web-mode-element-previous "previous")
+        ("K" web-mode-element-sibling-previous "previous sibling")
         ("gk" web-mode-element-sibling-previous)
-        ("h" web-mode-element-parent)
-        ("l" web-mode-element-child)
-        ("p" web-mode-dom-xpath)
-        ("r" web-mode-element-rename :exit t)
-        ("q" nil :exit t)
-        ("w" web-mode-element-wrap)))
+        ("h" web-mode-element-parent "parent")
+        ("l" web-mode-element-child "child")
+        ("c" web-mode-element-clone "clone")
+        ("d" web-mode-element-vanish "delete")
+        ("D" web-mode-element-kill "kill")
+        ("r" web-mode-element-rename "rename" :exit t)
+        ("w" web-mode-element-wrap "wrap")
+        ("p" web-mode-dom-xpath "xpath")
+        ("q" nil "quit" :exit t)
+        ("<escape>" nil nil :exit t))
+      (spacemacs/set-leader-keys-for-major-mode 'web-mode
+        "." 'spacemacs/web-mode-transient-state/body))
 
     :mode
     (("\\.phtml\\'"      . web-mode)

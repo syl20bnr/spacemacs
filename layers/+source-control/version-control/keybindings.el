@@ -9,47 +9,17 @@
 ;;
 ;;; License: GPLv3
 
-(defvar version-control--ms-doc-toggle 0
-  "Display a short doc when nil, full doc otherwise.")
-
-(defvar version-control--ms-documentation-long
-  "
-  [?]          toggle this help
-  [t]          toggle diff signs in margin
-Hunk Commands
-  [n]          move to next hunk
-  [N] [p]      move to previous hunk
-  [r]          revert hunk
-  [s]          stage hunk
-  [h]          show hunk
-Magit Commands
-  [w]          stage changes in current file
-  [u]          unstage changes in current file
-  [c]          commit with popup
-  [C]          direct commit
-  [D]          diff popup
-  [P]          push popup
-  [f]          fetch popup
-  [F]          pull popup
-  [l]          log popup")
-
-(defvar version-control--ms-documentation-short
-  "[n] next [N] [p] previous [r] revert [s] stage [h] show-hunk [w] stage-file [u] unstage-file [t] toggle margin [q] quit")
-
-(defun version-control//ms-doc ()
-  "Return the docstring for the layouts micro-state."
-  (if (equal 1 version-control--ms-doc-toggle)
-      version-control--ms-documentation-long
-    version-control--ms-documentation-short))
-
-(spacemacs|define-micro-state vcs
-  :doc (version-control//ms-doc)
-  :disable-evil-leader t
-  :use-minibuffer t
-  :evil-leader "g."
+(spacemacs|define-transient-state vcs
+  :title "VCS Transient State"
+  :doc "
+ Hunk Commands^^^^^^                 Magit Commands
+----------------------------^^^^^^  ------------------------------------------
+ [_n_]^^^^      next hunk            [_w_/_u_]^^    stage/unstage in current file
+ [_N_/_p_]^^    previous hunk        [_c_/_C_]^^    commit with popup/direct commit
+ [_r_/_s_/_h_]  revert/stage/show    [_f_/_F_/_P_]  fetch/pull/push popup
+ [_t_]^^^^      toggle diff signs    [_l_/_D_]^^    log/diff popup"
   :on-enter (version-control/enable-margin)
   :bindings
-  ("?" version-control/show-help)
   ("C" magit-commit :exit t)
   ("d" magit-ediff-popup :exit t)
   ("D" magit-diff-unstaged :exit t)
@@ -68,4 +38,5 @@ Magit Commands
   ("h" version-control/show-hunk)
   ("t" spacemacs/toggle-version-control-margin)
   ("q" nil :exit t))
+(spacemacs/set-leader-keys "g." 'spacemacs/vcs-transient-state/body)
 

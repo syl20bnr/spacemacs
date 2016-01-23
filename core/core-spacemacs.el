@@ -26,6 +26,7 @@
 (require 'core-toggle)
 (require 'core-funcs)
 (require 'core-micro-state)
+(require 'core-transient-state)
 (require 'core-use-package-ext)
 
 (defgroup spacemacs nil
@@ -44,6 +45,11 @@
 (defvar spacemacs-loading-dots-chunk-size
   (/ spacemacs-loading-dots-count spacemacs-loading-dots-chunk-count))
 (defvar spacemacs-loading-dots-chunk-threshold 0)
+
+(defvar spacemacs-post-user-config-hook nil
+  "Hook run after dotspacemacs/user-config")
+(defvar spacemacs-post-user-config-hook-run nil
+  "Whether `spacemacs-post-user-config-hook' has been run")
 
 (defvar spacemacs--default-mode-line mode-line-format
   "Backup of default mode line format.")
@@ -120,6 +126,8 @@
         quelpa-persistent-cache-file (expand-file-name "cache" quelpa-dir)
         quelpa-update-melpa-p nil)
   (spacemacs/load-or-install-protected-package 'quelpa t)
+  ;; required for some micro-states
+  (spacemacs/load-or-install-protected-package 'hydra t)
   ;; inject use-package hooks for easy customization of stock package
   ;; configuration
   (setq use-package-inject-hooks t)
@@ -167,6 +175,13 @@
   "Change the default welcome message of minibuffer to another one."
   (message "Spacemacs is ready."))
 
+(defun spacemacs/defer-until-after-user-config (func)
+  "Call FUNC if dotspacemacs/user-config has been called. Otherwise,
+defer call using `spacemacs-post-user-config-hook'."
+  (if spacemacs-post-user-config-hook-run
+      (funcall func)
+    (add-hook 'spacemacs-post-user-config-hook func)))
+
 (defun spacemacs/setup-startup-hook ()
   "Add post init processing."
   (add-hook
@@ -176,6 +191,8 @@
      ;; them in his/her ~/.spacemacs file
      (dotspacemacs|call-func dotspacemacs/user-config
                              "Calling dotfile user config...")
+     (run-hooks 'spacemacs-post-user-config-hook)
+     (setq spacemacs-post-user-config-hook-run t)
      (when (fboundp dotspacemacs-scratch-mode)
        (with-current-buffer "*scratch*"
          (funcall dotspacemacs-scratch-mode)))

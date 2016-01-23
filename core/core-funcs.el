@@ -149,19 +149,23 @@ Supported properties:
         (evil-leader-for-mode (spacemacs/mplist-get props :evil-leader-for-mode))
         (global-key (spacemacs/mplist-get props :global-key))
         (def-key (spacemacs/mplist-get props :define-key)))
-    `((unless (null ',evil-leader)
-        (dolist (key ',evil-leader)
-          (spacemacs/set-leader-keys key ',func)))
-      (unless (null ',evil-leader-for-mode)
-        (dolist (val ',evil-leader-for-mode)
+    (append
+     (when evil-leader
+       `((dolist (key ',evil-leader)
+            (spacemacs/set-leader-keys key ',func))))
+
+     (when evil-leader-for-mode
+       `((dolist (val ',evil-leader-for-mode)
           (spacemacs/set-leader-keys-for-major-mode
-            (car val) (cdr val) ',func)))
-      (unless (null ',global-key)
-        (dolist (key ',global-key)
-          (global-set-key (kbd key) ',func)))
-      (unless (null ',def-key)
-        (dolist (val ',def-key)
-          (define-key (eval (car val)) (kbd (cdr val)) ',func))))))
+            (car val) (cdr val) ',func))))
+
+     (when global-key
+       `((dolist (key ',global-key)
+          (global-set-key (kbd key) ',func))))
+
+     (when def-key
+       `((dolist (val ',def-key)
+          (define-key (eval (car val)) (kbd (cdr val)) ',func)))))))
 
 (defun spacemacs/view-org-file (file &optional anchor-text expand-scope)
   "Open the change log for the current version."
