@@ -302,16 +302,16 @@ Will work on both org-mode and any mode that accepts plain html."
     (progn
       (setq org-agenda-restore-windows-after-quit t)
       (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
+        ":" 'org-agenda-set-tags
+        "a" 'org-agenda
 	"d" 'org-agenda-deadline
-	"s" 'org-agenda-schedule
-	"f" 'org-agenda-set-effort
-	"P" 'org-agenda-set-property
-	":" 'org-agenda-set-tags
-	"a" 'org-agenda
-	"I" 'org-agenda-clock-in
-	"O" 'org-agenda-clock-out
-	"q" 'org-agenda-clock-cancel
-	"q" 'org-agenda-refile))
+        "f" 'org-agenda-set-effort
+        "I" 'org-agenda-clock-in
+        "O" 'org-agenda-clock-out
+        "P" 'org-agenda-set-property
+        "q" 'org-agenda-refile
+        "Q" 'org-agenda-clock-cancel
+        "s" 'org-agenda-schedule))
     :config
     (evilified-state-evilify-map org-agenda-mode-map
       :mode org-agenda-mode
