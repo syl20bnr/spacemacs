@@ -22,10 +22,10 @@
 
 (defun spacemacs-ivy/init-counsel ()
   (defvar spacemacs--counsel-commands
-    '(("ag" . "ag --vimgrep %S .")
-      ("pt" . "pt.exe -e --nocolor --nogroup --column %S .")
-      ("ack" . "ack --nocolor --nogroup --column %S .")
-      ("grep" . "grep -nrP %S ."))
+    '(("ag" . "ag --vimgrep %s %S .")
+      ("pt" . "pt -e --nocolor --nogroup --column %s %S .")
+      ("ack" . "ack --nocolor --nogroup --column %s %S .")
+      ("grep" . "grep -nrP %s %S ."))
     "Alist of search commands and their corresponding commands
 with options to run in the shell.")
 
@@ -88,11 +88,16 @@ than this amount.")
         "Grep in the current directory for STRING."
         (if (< (length string) 3)
             (counsel-more-chars 3)
-          (let ((default-directory counsel--git-grep-dir)
-                (regex (counsel-unquote-regex-parens
-                        (setq ivy--old-re
-                              (ivy--regex string)))))
-            (spacemacs//counsel-async-command (format base-cmd regex))
+          (let* ((default-directory counsel--git-grep-dir)
+                 (args (if (string-match-p " -- " string)
+                           (let ((split (split-string string " -- ")))
+                             (prog1 (pop split)
+                               (setq string (mapconcat #'identity split " -- "))))
+                         ""))
+                 (regex (counsel-unquote-regex-parens
+                         (setq ivy--old-re
+                               (ivy--regex string)))))
+            (spacemacs//counsel-async-command (format base-cmd args regex))
             nil)))))
 
   ;; see `counsel-ag'
