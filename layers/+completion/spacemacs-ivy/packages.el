@@ -202,8 +202,8 @@ Helm hack."
         ;; themes
         "Tc"  'counsel-load-theme
         ;; search
-        "/"   'spacemacs/search-project-auto
-        "*"   'spacemacs/search-project-auto-region-or-symbol
+        "/"   'counsel-git-grep
+        "*"   'spacemacs/counsel-git-grep-region-or-symbol
         "sf"  'spacemacs/search-auto
         "sF"  'spacemacs/search-auto-region-or-symbol
         "sp"  'spacemacs/search-project-auto
