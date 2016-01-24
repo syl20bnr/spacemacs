@@ -36,9 +36,9 @@
         ;; for testing purpose, contribute by reporting bugs and sending PRs
         ;; to https://github.com/gabesoft/evil-mc
         ;; To enable it add `(global-evil-mc-mode)' to user-config function
+        evil-matchit
         evil-mc
         evil-nerd-commenter
-        evil-matchit
         evil-numbers
         evil-search-highlight-persist
         ;; Temporarily disabled, pending the resolution of
@@ -58,15 +58,15 @@
         ;; see https://github.com/syl20bnr/spacemacs/issues/2529
         (hl-anything :excluded t)
         hungry-delete
-        info+
         iedit
         indent-guide
-        open-junk-file
+        info+
         leuven-theme
         linum-relative
         lorem-ipsum
         move-text
         neotree
+        open-junk-file
         pcre2el
         rainbow-delimiters
         recentf
