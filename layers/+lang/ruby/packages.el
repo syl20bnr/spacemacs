@@ -150,16 +150,10 @@
 
 (defun ruby/init-rspec-mode ()
   (use-package rspec-mode
+    :if (equal 'rspec ruby-test-runner)
     :defer t
-    :init
-    (progn
-      (defun spacemacs//ruby-enable-rspec-mode ()
-        "Conditionally enable `rspec-mode'"
-        (when (eq 'rspec ruby-test-runner)
-          (rspec-mode)))
-      (spacemacs/add-to-hooks
-       'spacemacs//ruby-enable-rspec-mode '(ruby-mode-hook
-                                            enh-ruby-mode-hook)))
+    :init (spacemacs/add-to-hooks 'rspec-mode '(ruby-mode-hook
+                                                enh-ruby-mode-hook))
     :config
     (progn
       (spacemacs|hide-lighter rspec-mode)
@@ -220,16 +214,10 @@
 (defun ruby/init-ruby-test-mode ()
   "Define keybindings for ruby test mode"
   (use-package ruby-test-mode)
+    :if (equal 'ruby-test ruby-test-runner)
     :defer t
-    :init
-    (progn
-      (defun spacemacs//ruby-enable-ruby-test-mode ()
-        "Conditionally enable `ruby-test-mode'"
-        (when (eq 'ruby-test ruby-test-runner)
-          (ruby-test-mode)))
-      (spacemacs/add-to-hooks
-       'spacemacs//ruby-enable-ruby-test-mode '(ruby-mode-hook
-                                                enh-ruby-mode-hook)))
+    :init (spacemacs/add-to-hooks 'ruby-test-mode '(ruby-mode-hook
+                                                    enh-ruby-mode-hook))
     :config
     (progn
       (spacemacs|hide-lighter ruby-test-mode)
