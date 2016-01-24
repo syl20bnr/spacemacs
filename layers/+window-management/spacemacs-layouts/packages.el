@@ -256,7 +256,7 @@ Available PROPS:
              ;; Check for Clashes
              (if ,already-defined?
                  (unless (equal ,already-defined? ,name)
-                   (warn "Replacing existing binding \"%s\" for %s with %s"
+                   (spacemacs-buffer/warning "Replacing existing binding \"%s\" for %s with %s"
                          ,binding ,already-defined? ,name )
                    (push '(,binding . ,name) spacemacs--custom-layout-alist))
                (push '(,binding . ,name) spacemacs--custom-layout-alist)))))
@@ -279,7 +279,7 @@ Available PROPS:
                          (format "[%s] %s"
                                  (car custom-persp) (cdr custom-persp)))
                        spacemacs--custom-layout-alist " ")
-          (warn (format "`spacemacs--custom-layout-alist' variable is empty" ))))
+          (spacemacs-buffer/warning (format "`spacemacs--custom-layout-alist' variable is empty" ))))
 
       (defun spacemacs//update-custom-layouts ()
         "Ensure the custom-perspectives micro-state is updated.
