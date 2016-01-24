@@ -6,6 +6,7 @@
         launchctl
         reveal-in-osx-finder
         helm
+        term
         ))
 
 (when (spacemacs/system-is-mac)
@@ -83,3 +84,7 @@
         ;; https://github.com/emacs-helm/helm/issues/799
         (setq helm-locate-fuzzy-match nil)
         (setq helm-locate-command "mdfind -name %s %s")))))
+
+(defun osx/post-init-term ()
+  (with-eval-after-load 'term
+    (define-key term-raw-map (kbd "s-v") 'term-paste)))
