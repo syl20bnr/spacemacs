@@ -51,6 +51,7 @@
         flx-ido
         golden-ratio
         google-translate
+        (hexl :location built-in)
         highlight-indentation
         highlight-numbers
         highlight-parentheses
@@ -978,6 +979,28 @@ For instance pass En as source for English."
       (setq google-translate-default-source-language "en")
       (setq google-translate-default-target-language "fr"))))
 
+(defun spacemacs/init-hexl ()
+  (use-package hexl
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys "fh" 'hexl-find-file)
+      (spacemacs/set-leader-keys-for-major-mode 'hexl-mode
+        "d" 'hexl-insert-decimal-char
+        "c" 'hexl-insert-octal-char
+        "x" 'hexl-insert-hex-char
+        "X" 'hexl-insert-hex-string
+        "g" 'hexl-goto-address)
+      (evil-define-key 'motion hexl-mode-map
+        "]]" 'hexl-end-of-1k-page
+        "[[" 'hexl-beginning-of-1k-page
+        "h" 'hexl-backward-char
+        "l" 'hexl-forward-char
+        "j" 'hexl-next-line
+        "k" 'hexl-previous-line
+        "$" 'hexl-end-of-line
+        "^" 'hexl-beginning-of-line
+        "0" 'hexl-beginning-of-line))))
 
 (defun spacemacs/init-highlight-indentation ()
   (use-package highlight-indentation
