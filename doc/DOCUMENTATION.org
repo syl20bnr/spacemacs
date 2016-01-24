@@ -1658,6 +1658,7 @@ Files manipulation commands (start with ~f~):
 | ~SPC f E~   | open a file with elevated privileges (sudo edit)                                                                                |
 | ~SPC f f~   | open file with =helm= (or =ido=)                                                                                                |
 | ~SPC f F~   | try to open the file under point =helm=                                                                                         |
+| ~SPC f h~   | open binary file with =hexl= (a hex editor)                                                                                     |
 | ~SPC f j~   | jump to the current buffer file in dired                                                                                        |
 | ~SPC f J~   | open a junk file, in mode determined by the file extension provided (defaulting to =fundamental mode=), using =helm= (or =ivy=) |
 | ~SPC f l~   | open file literally in =fundamental mode=                                                                                       |
