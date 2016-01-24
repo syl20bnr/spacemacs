@@ -70,6 +70,7 @@
         pcre2el
         rainbow-delimiters
         recentf
+        region-state
         smartparens
         smooth-scrolling
         spaceline
@@ -1359,6 +1360,10 @@ on whether the spacemacs-ivy layer is used or not, with
       (when (member dotspacemacs-highlight-delimiters '(any all))
         (spacemacs/add-to-hooks 'rainbow-delimiters-mode '(prog-mode-hook))))))
 
+(defun spacemacs/init-region-state ()
+  (use-package region-state
+    :init (region-state-mode 1)))
+
 (defun spacemacs/init-smartparens ()
   (use-package smartparens
     :defer t
@@ -1456,6 +1461,8 @@ on whether the spacemacs-ivy layer is used or not, with
   (use-package spaceline-config
     :init
     (progn
+      ;; Remove the selection-info segment as we use `region-state'.
+      (setq spaceline-selection-info-p nil)
       (spacemacs|do-after-display-system-init
        (setq-default powerline-default-separator
                      (if (display-graphic-p) 'wave 'utf-8)))
