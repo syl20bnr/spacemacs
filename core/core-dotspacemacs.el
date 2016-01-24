@@ -181,6 +181,12 @@ Default value is `cache'.")
   "If non nil the paste micro-state is enabled. While enabled pressing `p`
 several times cycle between the kill ring content.'")
 
+(defvar dotspacemacs-micro-init-keys '((buffer . ("n" "N" "p"))
+                                       (window-manipulation . ("[" "]")))
+  "Keys within provided micro-state that should allow entrance into buffer. Form
+is an association list of (`MICRO-STATE' . (`KEY-LIST')). A blank list will
+disable `:init-keys' defined in the micro-state instance.")
+
 (defvar dotspacemacs-which-key-delay 0.4
   "Delay in seconds starting from the last keystroke after which
 the which-key buffer will be shown if you have not completed a

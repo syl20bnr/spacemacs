@@ -104,11 +104,12 @@ used."
                        'message
                      'corelv-message))
          (exec-binding (plist-get props :execute-binding-on-enter))
+         (init-keys (spacemacs/mplist-get props :init-keys))
          (on-enter (spacemacs/mplist-get props :on-enter))
          (on-exit (spacemacs/mplist-get props :on-exit))
          (bindings (spacemacs/mplist-get props :bindings))
          (wrappers (spacemacs//micro-state-create-wrappers
-                    name doc msg-func disable-leader bindings))
+                    name doc msg-func disable-leader init-keys bindings))
          (keymap-body (spacemacs//micro-state-fill-map-sexps wrappers))
          (bindkeys (spacemacs//create-key-binding-form props func)))
     `(progn (defun ,func ()
@@ -143,10 +144,10 @@ used."
        (call-interactively (cadr binding)))))
 
 (defun spacemacs//micro-state-create-wrappers
-    (name doc msg-func disable-leader bindings)
+    (name doc msg-func disable-leader init-keys bindings)
   "Return an alist (key wrapper) for each binding in BINDINGS."
   (mapcar (lambda (x) (spacemacs//micro-state-create-wrapper
-                       name doc msg-func x))
+                       name doc msg-func init-keys x))
           (append bindings
                   ;; force SPC to quit the micro-state to avoid a edge case
                   ;; with evil-leader
@@ -154,13 +155,15 @@ used."
                           ,(unless disable-leader 'spacemacs-default-map)
                           :exit t)))))
 
-(defun spacemacs//micro-state-create-wrapper (name default-doc msg-func binding)
+(defun spacemacs//micro-state-create-wrapper (name default-doc msg-func init-keys binding)
   "Create a wrapper of FUNC and return a tuple (key wrapper BINDING)."
   (let* ((key (car binding))
          (wrapped (cadr binding))
+         (wrapped-name (intern (format "%S" wrapped)))
          (binding-doc (spacemacs/mplist-get binding :doc))
          (binding-pre (spacemacs/mplist-get binding :pre))
          (binding-post (spacemacs/mplist-get binding :post))
+         (micro-name (spacemacs//micro-state-func-name name))
          (wrapper-name (intern (format "spacemacs//%S-%S-%s" name wrapped key)))
          (doc-body
           `((let ((bdoc ,@binding-doc)
@@ -176,6 +179,9 @@ used."
                          (list (spacemacs//micro-state-propertize-doc
                                 (format "%S: %s" ',name defdoc))))
                   defdoc)))))
+         (wrapper-advice
+          `(defadvice ,wrapped-name (after micro-state activate)
+             (,micro-name)))
          (wrapper-func
           (if (and (boundp wrapped)
                    (eval `(keymapp ,wrapped)))
@@ -196,7 +202,20 @@ used."
                (when ,@doc-body
                  (spacemacs//micro-state-set-minibuffer-height ,@doc-body)
                  ,@doc-body)))))
-    (append (list (car binding) (eval wrapper-func)) binding)))
+        (let* ((allowed-keys (cdr-safe (assoc name dotspacemacs-micro-init-keys)))
+               (key-preferred (member key allowed-keys))
+               (key-default (member key init-keys)))
+          (when (and wrapper-advice
+                     (or
+                      key-preferred
+                      (and (not allowed-keys)
+                           key-default)))
+            (progn
+              (message "%s found, advice applied to %s micro-state (def: %s, set: %s)\n%s advised by \n%s" key name key-default key-preferred wrapped-name wrapper-advice)
+              ;; (redisplay)
+              ;; (sleep-for 4)
+              (eval wrapper-advice)))
+        (append (list (car binding) (eval wrapper-func)) binding))))
 
 (defun spacemacs//micro-state-fill-map-sexps (wrappers)
   "Return a list of `define-key' sexp to fill the micro-state temporary map."

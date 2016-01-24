@@ -168,6 +168,11 @@ values."
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
    dotspacemacs-enable-paste-micro-state nil
+   ;; Keys within provided micro-state that should allow entrance into buffer.
+   ;; Form is an association list of (`MICRO-STATE' . (`KEY-LIST')). A blank
+   ;; list will disable `init-keys' defined in the micro-state instance.
+   dotspacemacs-micro-init-keys '((buffer . ("n" "N" "p"))
+                                  (window-manipulation . ("[" "]")))
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
    dotspacemacs-which-key-delay 0.4
