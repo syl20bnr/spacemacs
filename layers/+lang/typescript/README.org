@@ -4,44 +4,68 @@
 [[file:img/TypeScript.png]]
 
 * Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[Prerequisites][Prerequisites]]
- - [[Key bindings][Key bindings]]
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#notes][Notes]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 
-This layer adds support for TypeScript editing via [[https://github.com/clausreinke/typescript-tools][typescript-tools]] and
-[[https://github.com/aki2o/emacs-tss][emacs-tss]].
+This layer adds support for TypeScript editing via [[https://github.com/ananthakumaran/tide][tide]].
 
 This layer provides:
-- syntax coloring
-- error highlighting
-- auto-completion via Flymake
-- jump-to-definition
+- ElDoc
+- Auto complete
+- Flycheck
+- Jump to definition, Jump to type definition
+- Find occurrences
+- Rename symbol
+- Imenu
 
 * Install
+** Pre-requisites
+You will need =node.js v0.12.0= or greater
+
+For best results, make sure that the =auto-completion=(company) layer is enabled.
+
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =typescript= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** Prerequisites
-
-You'll need [[https://github.com/clausreinke/typescript-tools][typescript-tools]] and fairly obviously also the TypeScript
-compiler:
-
-#+BEGIN_SRC sh
-  $ npm install typescript
-  $ git clone git://github.com/clausreinke/typescript-tools.git
-  $ cd typescript-tools/
-  $ npm install -g
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(typescript))
 #+END_SRC
 
+** Notes
+
+Make sure to add [[https://github.com/Microsoft/TypeScript/wiki/tsconfig.json][tsconfig.json]] in the project root folder.
+
+tsserver mangles output sometimes [[https://github.com/Microsoft/TypeScript/issues/2758][issue - #2758]], which will result in json parse error. Try node version 0.12.x if you get this error
+
+Currently tsserver doesn't pickup tsconfig.json file changes. You might need to restart server after editing it.
+
 * Key bindings
+
+** Typescript Major Mode
+
+| Key Binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC g b~   | jump back                        |
+| ~SPC g i~   | jump to type definition          |
+| ~SPC g g~   | jump to definition               |
+| ~SPC h d~   | documentation at point           |
+| ~SPC n r~   | rename symbol                    |
+| ~SPC r~     | references                       |
+| ~SPC s~     | restart server                   |
+
+
+** References Major Mode                          
 
 | Key Binding | Description                      |
 |-------------+----------------------------------|
 | ~SPC m g g~ | Jump to definition               |
 | ~SPC m h h~ | Show popup help (with type info) |
+| ~SPC m r r~ | Rename Symbol                    |
+
