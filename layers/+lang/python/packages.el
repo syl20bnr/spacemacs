@@ -151,6 +151,7 @@
 
 (defun python/init-pyenv-mode ()
   (use-package pyenv-mode
+    :if (executable-find "pyenv")
     :commands (pyenv-mode-versions)
     :init
     (progn
