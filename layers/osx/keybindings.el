@@ -18,10 +18,6 @@
     (global-set-key (kbd "s-0") 'spacemacs/reset-font-size)
     (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
     (global-set-key (kbd "s-v") 'yank)
-    ;; Allow s-v to paste in term-mode
-    (add-hook 'term-mode-hook
-              (lambda ()
-                (define-key term-raw-map (kbd "s-v") 'term-paste)))
     (global-set-key (kbd "s-c") 'evil-yank)
     (global-set-key (kbd "s-a") 'mark-whole-buffer)
     (global-set-key (kbd "s-x") 'kill-region)
