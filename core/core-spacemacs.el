@@ -191,47 +191,56 @@
                 elapsed)))
      (spacemacs/check-for-new-version spacemacs-version-check-interval))))
 
+(defun spacemacs//describe-system-info-string ()
+  "Gathers info about your Spacemacs setup and returns it as a string."
+  (format
+   (concat "#### System Info\n"
+           "- OS: %s\n"
+           "- Emacs: %s\n"
+           "- Spacemacs: %s\n"
+           "- Spacemacs branch: %s (rev. %s)\n"
+           "- Distribution: %s\n"
+           "- Editing style: %s\n"
+           "- Completion: %s\n"
+           "- Layers:\n```elisp\n%s```\n")
+   system-type
+   emacs-version
+   spacemacs-version
+   (spacemacs/git-get-current-branch)
+   (spacemacs/git-get-current-branch-rev)
+   dotspacemacs-distribution
+   dotspacemacs-editing-style
+   (cond ((configuration-layer/layer-usedp 'spacemacs-helm)
+          'helm)
+         ((configuration-layer/layer-usedp 'spacemacs-ivy)
+          'ivy)
+         (t 'helm))
+   (pp-to-string dotspacemacs-configuration-layers)))
+
 (defun spacemacs/describe-system-info ()
   "Gathers info about your Spacemacs setup and copies to clipboard."
   (interactive)
-  (let ((sysinfo (format
-                  (concat "#### System Info\n"
-                          "- OS: %s\n"
-                          "- Emacs: %s\n"
-                          "- Spacemacs: %s\n"
-                          "- Spacemacs branch: %s (rev. %s)\n"
-                          "- Distribution: %s\n"
-                          "- Editing style: %s\n"
-                          "- Completion: %s\n"
-                          "- Layers:\n```elisp\n%s```\n")
-                  system-type
-                  emacs-version
-                  spacemacs-version
-                  (spacemacs/git-get-current-branch)
-                  (spacemacs/git-get-current-branch-rev)
-                  dotspacemacs-distribution
-                  dotspacemacs-editing-style
-                  (cond ((configuration-layer/layer-usedp 'spacemacs-helm)
-                         'helm)
-                        ((configuration-layer/layer-usedp 'spacemacs-ivy)
-                         'ivy)
-                        (t 'helm))
-                  (pp dotspacemacs-configuration-layers))))
+  (let ((sysinfo (spacemacs//describe-system-info-string)))
     (kill-new sysinfo)
     (message sysinfo)
     (message (concat "Information has been copied to clipboard.\n"
                      "You can paste it in the gitter chat.\n"
                      "Check the *Messages* buffer if you need to review it"))))
 
+(defun spacemacs//describe-last-keys-string ()
+  "Gathers info about your Emacs last keys and returns it as a string."
+  (view-lossage)
+  (let* ((lossage-buffer "*Help*")
+         (last-keys (format "#### Emacs last keys\n```text\n%s```\n"
+                            (with-current-buffer lossage-buffer
+                              (buffer-string)))))
+    (kill-buffer lossage-buffer)
+    last-keys))
+
 (defun spacemacs/describe-last-keys ()
   "Gathers info about your Emacs last keys and copies to clipboard."
   (interactive)
-  (view-lossage)
-  (let* ((lossage-buffer "*Help*")
-         (lossage (format "#### Emacs last keys\n```text\n%s```\n"
-                          (with-current-buffer lossage-buffer
-                            (buffer-string)))))
-    (kill-buffer lossage-buffer)
+  (let ((lossage (spacemacs//describe-last-keys-string)))
     (kill-new lossage)
     (message lossage)
     (message (concat "Information has been copied to clipboard.\n"
@@ -240,4 +249,44 @@
                       'face 'font-lock-warning-face)
                      "You can paste it in the gitter chat.\n"
                      "Check the *Messages* buffer if you need to review it"))))
+
+(defun spacemacs/report-issue (arg)
+  "Browse the page for creating a new Spacemacs issue on GitHub,
+with the message pre-filled with template and information."
+  (interactive "P")
+  (let* ((url "http://github.com/syl20bnr/spacemacs/issues/new?body=")
+         (template (with-temp-buffer
+                     (insert-file-contents-literally
+                      (concat configuration-layer-template-directory "REPORTING.template"))
+                     (buffer-string))))
+    ;; Include the system info description directly into the template
+    (setq template (replace-regexp-in-string
+                    "%SYSTEM_INFO%"
+                    (spacemacs//describe-system-info-string)
+                    template [keep-case]))
+    ;; Include the backtrace directly in the template, if it exists
+    (setq template (replace-regexp-in-string
+                    "%BACKTRACE%"
+                    (if (get-buffer "*Backtrace*")
+                        (with-current-buffer "*Backtrace*"
+                           (buffer-substring-no-properties
+                            (point-min) (min (point-max) 1000)))
+                      "BACKTRACE IF RELEVANT")
+                    template [keep-case]))
+    ;; Include the last keys description directly into the template, if
+    ;; prefix argument has been passed
+    (setq template (replace-regexp-in-string
+                    "(%LAST_KEYS%)\n"
+                    (if (and arg (y-or-n-p (concat "Do you really want to "
+                                                   "include your last pressed keys? It "
+                                                   "may include some sensitive data.")))
+                        (concat (spacemacs//describe-last-keys-string) "\n")
+                      "")
+                    template [keep-case]))
+    ;; Create the encoded url
+    (setq url (url-encode-url (concat url template)))
+    ;; HACK: Needed because the first `#' is not encoded
+    (setq url (replace-regexp-in-string "#" "%23" url))
+    (browse-url url)))
+
 (provide 'core-spacemacs)

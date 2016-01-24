@@ -103,8 +103,9 @@ Ensure that helm is required before calling FUNC."
 ;; errors ---------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "en" 'spacemacs/next-error
+  "eN" 'spacemacs/previous-error
   "ep" 'spacemacs/previous-error
-  "eN" 'spacemacs/previous-error)
+  "er" 'spacemacs/report-issue)
 ;; file -----------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "fc" 'spacemacs/copy-file
