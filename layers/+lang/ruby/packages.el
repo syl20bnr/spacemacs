@@ -151,15 +151,6 @@
 (defun ruby/init-rspec-mode ()
   (use-package rspec-mode
     :defer t
-    :init
-    (progn
-      (defun spacemacs//ruby-enable-rspec-mode ()
-        "Conditionally enable `rspec-mode'"
-        (when (eq 'rspec ruby-test-runner)
-          (rspec-mode)))
-      (spacemacs/add-to-hooks
-       'spacemacs//ruby-enable-rspec-mode '(ruby-mode-hook
-                                            enh-ruby-mode-hook)))
     :config
     (progn
       (spacemacs|hide-lighter rspec-mode)
