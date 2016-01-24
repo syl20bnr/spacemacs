@@ -1302,6 +1302,16 @@ Navigation key bindings in =help-mode=:
 | ~g f~ or ~]~ | go forward (same as clicking on =[forward]= button) |
 | ~g h~        | go to help for symbol under point                   |
 
+Reporting an issue:
+
+| Key Binding     | Description                                                                          |
+|-----------------+--------------------------------------------------------------------------------------|
+| ~SPC e r~       | Open a page for creating a new Spacemacs issue on GitHub with information pre-filled |
+| ~SPC u SPC e r~ | Open a page for creating a new Spacemacs issue on GitHub with information pre-filled |
+
+/Note:/ If these two bindings are used with the =*Backtrace*= buffer open, the
+backtrace is automatically included
+
 *** Available layers
 All layers can be easily discovered via =helm-spacemacs-help= accessible with
 ~SPC f e h~.
