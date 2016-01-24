@@ -1,0 +1,25 @@
+#+TITLE: systemd layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
+
+* Description
+This layer provides syntax highlighting for systemd files and completion through
+=company= if the =auto-completion= layer is used.
+
+* Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(systemd))
+#+end_src
+
+* Key bindings
+
+| Key Binding   | Description                                                              |
+|---------------+--------------------------------------------------------------------------|
+| ~<SPC> m h d~ | Systemd open the directives documentation                                |
+| ~<SPC> m h o~ | Systemd open documentation (if a =\=Documentation= directive is provided |
