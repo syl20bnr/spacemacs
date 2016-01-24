@@ -128,7 +128,7 @@
       (spacemacs/declare-prefix "gd" "diff")
       (spacemacs/set-leader-keys
         "gA" 'magit-cherry-pick-popup
-        "gb" 'spacemacs/git-blame-transient-state/body
+        "gb" 'spacemacs/git-blame-micro-state
         "gc" 'magit-commit-popup
         "gC" 'magit-checkout
         "gd" 'magit-diff-popup
@@ -146,7 +146,7 @@
         "gS" 'magit-stage-file
         "gU" 'magit-unstage-file)
 
-      (spacemacs|define-transient-state git-blame
+      (spacemacs|define-micro-state git-blame
         :title "Git Blame Transient State"
         :doc "
 Press [_b_] again to blame further in the history, [_q_] to go up or quit."
