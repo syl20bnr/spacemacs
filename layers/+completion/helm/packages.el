@@ -60,6 +60,8 @@
       (spacemacs/add-to-hook 'helm-cleanup-hook
                              '(spacemacs//restore-previous-display-config
                                spacemacs//helm-cleanup))
+      (when (configuration-layer/package-usedp 'projectile)
+        (setq projectile-completion-system 'helm))
       ;; key bindings
       ;; Use helm to provide :ls, unless ibuffer is used
       (unless (configuration-layer/package-usedp 'ibuffer)
