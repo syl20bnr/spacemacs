@@ -9,6 +9,7 @@
    - [[OS X][OS X]]
    - [[Social graph][Social graph]]
  - [[Key bindings][Key bindings]]
+ - [[Spacemacs Layout Support][Spacemacs Layout Support]]
 
 * Description
 Layer for [[http://www.emacswiki.org/emacs/ERC][ERC IRC chat]].
@@ -62,3 +63,8 @@ notifications via the OS X Notification Center.
 *Note:* If you want to connect securely to an IRC server, you must run =erc-tls=
      command on ~SPC a i E~ instead of the =erc= command.
 
+* Spacemacs Layout Support
+
+ERC buffers are added automatically to the default layout for ERC controlled by
+the variable ~erc-spacemacs-layout-name~ (defaults to "@ERC") and the default
+binding ("E") is controlled by ~erc-spacemacs-layout-binding~
