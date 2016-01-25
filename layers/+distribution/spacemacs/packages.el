@@ -749,13 +749,13 @@
 
   (defun evil-unimpaired/insert-space-above ()
     (interactive)
-    (evil-insert-newline-above)
-    (forward-line))
+    (save-excursion
+      (evil-insert-newline-above)))
 
   (defun evil-unimpaired/insert-space-below ()
     (interactive)
-    (evil-insert-newline-below)
-    (forward-line -1))
+    (save-excursion
+      (evil-insert-newline-below)))
 
   (defun evil-unimpaired/next-frame ()
     (interactive)
