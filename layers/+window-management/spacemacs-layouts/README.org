@@ -71,12 +71,12 @@ The layouts transient-state is initiated with ~SPC l o~.
 
 Example of default custom layouts that are configured in the corresponding
 layers:
-| Key Binding | Description                                              |
-|-------------+----------------------------------------------------------|
-| ~e~         | Emacs custom perspective                                 |
-| ~E~         | ERC custom perspective (needs the erc layer enabled)     |
-| ~i~         | RCIRC custom perspective (needs the rcirc layer enabled) |
-| ~o~         | Org custom perspective                                   |
+| Key Binding | Description                                                                               |
+|-------------+-------------------------------------------------------------------------------------------|
+| ~e~         | Emacs custom perspective                                                                  |
+| ~E~         | ERC custom perspective (needs the erc layer enabled - configurable, check ERC docs)       |
+| ~i~         | RCIRC custom perspective (needs the rcirc layer enabled - configurable, check RCIRC docs) |
+| ~o~         | Org custom perspective                                                                    |
 
 **Note:** You can add more custom perspectives by using the
 ~spacemacs|define-custom-layout~ macro explained further below.

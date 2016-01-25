@@ -17,4 +17,10 @@
 (defvar rcirc-enable-znc-support nil
   "if non nil then znc is enabled.")
 
+(defvar rcirc-spacemacs-layout-name "@RCIRC"
+  "Name used in the setup for `spacemacs-layouts' micro-state")
+
+(defvar rcirc-spacemacs-layout-binding "i"
+  "Binding used in the setup for `spacemacs-layouts' micro-state")
+
 (spacemacs|defvar-company-backends rcirc-mode)

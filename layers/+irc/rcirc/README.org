@@ -19,6 +19,7 @@
        - [[Note][Note]]
  - [[Key Bindings][Key Bindings]]
  - [[Rcirc documentation][Rcirc documentation]]
+ - [[Spacemacs Layout Support][Spacemacs Layout Support]]
 
 * Description
 This layer provide support for [[http://www.gnu.org/software/emacs/manual/html_mono/rcirc.html][rcirc]] with optional support for authinfo
@@ -185,3 +186,9 @@ In normal state:
 
 * Rcirc documentation
 The rcirc documentation can be found [[http://www.gnu.org/software/emacs/manual/html_mono/rcirc.html][here]]. 
+
+* Spacemacs Layout Support
+
+RCIRC buffers are added automatically to the default layout for RCIRC controlled by
+the variable ~rcirc-spacemacs-layout-name~ (defaults to "@RCIRC") and the default
+binding ("i") is controlled by ~rcirc-spacemacs-layout-binding~
