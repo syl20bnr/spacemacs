@@ -178,9 +178,10 @@ If the perspective doesn't have a workspace, create one."
   "Update and save current frame's eyebrowse workspace to its perspective.
 Parameter _NEW-PERSP-NAME is ignored, and exists only for compatibility with
 `persp-before-switch-functions'."
-  (eyebrowse--update-window-config-element
-   (eyebrowse--current-window-config (eyebrowse--get 'current-slot)
-                                     (eyebrowse--get 'current-tag)))
+  (let* ((current-slot (eyebrowse--get 'current-slot))
+         (current-tag (nth 2 (assoc current-slot (eyebrowse--get 'window-configs)))))
+    (eyebrowse--update-window-config-element
+     (eyebrowse--current-window-config current-slot current-tag)))
   (spacemacs/save-eyebrowse-for-perspective))
 
 (defun spacemacs/save-eyebrowse-for-perspective (&optional frame)
