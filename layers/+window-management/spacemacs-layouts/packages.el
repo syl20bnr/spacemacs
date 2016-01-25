@@ -312,7 +312,9 @@ current perspective."
 
       ;; Override SPC TAB to only change buffers in perspective
       (spacemacs/set-leader-keys
-        "TAB" 'spacemacs/alternate-buffer-in-persp))))
+        "TAB" 'spacemacs/alternate-buffer-in-persp
+        "ba"   'persp-add-buffer
+        "br"   'persp-remove-buffer))))
 
 (defun spacemacs-layouts/post-init-spaceline ()
   (setq spaceline-display-default-perspective
