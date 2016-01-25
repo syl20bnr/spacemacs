@@ -303,6 +303,30 @@ format so they are supported by the
         (setq spacemacs--last-selected-layout persp-last-persp-name))
       (add-hook 'persp-mode-hook 'spacemacs//layout-autosave)
 
+      (defun spacemacs/alternate-buffer-in-persp ()
+        "Switch back and forth between current and last buffer in the
+current perspective."
+        (interactive)
+        (with-persp-buffer-list ()
+          (switch-to-buffer (other-buffer (current-buffer) t))))
+
+      (defun spacemacs-layouts/non-restricted-buffer-list ()
+        (interactive)
+        (remove-hook 'ido-make-buffer-list-hook  #'persp-restrict-ido-buffers)
+        (helm-mini)
+        (add-hook 'ido-make-buffer-list-hook  #'persp-restrict-ido-buffers))
+
+      (spacemacs/declare-prefix "b" "persp-buffers")
+      (spacemacs/declare-prefix "B" "global-buffers")
+
+      ;; Override SPC TAB to only change buffers in perspective
+      (spacemacs/set-leader-keys
+        "TAB"  'spacemacs/alternate-buffer-in-persp
+        "ba"   'persp-add-buffer
+        "br"   'persp-remove-buffer
+        "Bb"   'spacemacs-layouts/non-restricted-buffer-list
+        ))))
+
 (defun spacemacs-layouts/post-init-spaceline ()
   (setq spaceline-display-default-perspective
         dotspacemacs-display-default-layout))
