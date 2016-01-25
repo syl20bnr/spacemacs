@@ -302,8 +302,6 @@ format so they are supported by the
       (defadvice persp-activate (before spacemacs//save-toggle-layout activate)
         (setq spacemacs--last-selected-layout persp-last-persp-name))
       (add-hook 'persp-mode-hook 'spacemacs//layout-autosave)
-      ;; By default, persp mode wont affect either helm or ido
-      (remove-hook 'ido-make-buffer-list-hook 'persp-restrict-ido-buffers))))
 
 (defun spacemacs-layouts/post-init-spaceline ()
   (setq spaceline-display-default-perspective
