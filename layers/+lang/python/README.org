@@ -133,8 +133,7 @@ has installed. Those will be listed alongside your Python versions.
 
 *** Automatic activation of local pyenv version
 A project-specific pyenv version may be written to a file called
-=.python-version= using the [[https://github.com/yyuu/pyenv/blob/master/COMMANDS.md#pyenv-local][pyenv local]] command. If this file is not found then
-the global pyenv version is set.
+=.python-version= using the [[https://github.com/yyuu/pyenv/blob/master/COMMANDS.md#pyenv-local][pyenv local]] command.
 
 Spacemacs can search in parent directories for this file, and automatically set
 the pyenv version. The behavior can be set with the variable
