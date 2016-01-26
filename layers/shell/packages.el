@@ -274,7 +274,7 @@ is achieved by adding the relevant text properties."
     :init
     (progn
       (setq shell-pop-window-position shell-default-position
-            shell-pop-window-height   shell-default-height
+            shell-pop-window-size     shell-default-height
             shell-pop-term-shell      shell-default-term-shell
             shell-pop-full-span t)
       (defmacro make-shell-pop-command (type &optional shell)
