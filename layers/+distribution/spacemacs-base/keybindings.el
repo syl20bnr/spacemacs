@@ -358,9 +358,6 @@
   "xU"  'upcase-region
   "xu"  'downcase-region
   "xwc" 'spacemacs/count-words-analysis)
-;; google translate -----------------------------------------------------------
-(spacemacs/set-leader-keys
-  "xgl" 'spacemacs/set-google-translate-languages)
 ;; shell ----------------------------------------------------------------------
 (with-eval-after-load 'shell
   (evil-define-key 'insert comint-mode-map [up] 'comint-previous-input)
