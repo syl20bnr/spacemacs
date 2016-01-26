@@ -1,11 +1,11 @@
 (setq osx-packages
       '(
         exec-path-from-shell
+        helm
+        launchctl
         osx-trash
         pbcopy
-        launchctl
         reveal-in-osx-finder
-        helm
         term
         ))
 
@@ -26,16 +26,16 @@
         (setq insert-directory-program gls
               dired-listing-switches "-aBhl --group-directories-first")))))
 
-(defun osx/init-osx-trash ()
-  (use-package osx-trash
-    :if (and (spacemacs/system-is-mac)
-             (not (boundp 'mac-system-move-file-to-trash-use-finder)))
-    :init (osx-trash-setup)))
-
-(defun osx/init-pbcopy ()
-  (use-package pbcopy
-    :if (and (spacemacs/system-is-mac) (not (display-graphic-p)))
-    :init (turn-on-pbcopy)))
+(when (configuration-layer/layer-usedp 'spacemacs-helm)
+  (defun osx/pre-init-helm ()
+    ;; Use `mdfind' instead of `locate'.
+    (when (spacemacs/system-is-mac)
+      (spacemacs|use-package-add-hook helm
+        :post-config
+        ;; Disable fuzzy matchting to make mdfind work with helm-locate
+        ;; https://github.com/emacs-helm/helm/issues/799
+        (setq helm-locate-fuzzy-match nil)
+        (setq helm-locate-command "mdfind -name %s %s")))))
 
 (defun osx/init-launchctl ()
   (use-package launchctl
@@ -69,21 +69,21 @@
         (kbd "#") 'launchctl-unsetenv
         (kbd "h") 'launchctl-help))))
 
+(defun osx/init-osx-trash ()
+  (use-package osx-trash
+    :if (and (spacemacs/system-is-mac)
+             (not (boundp 'mac-system-move-file-to-trash-use-finder)))
+    :init (osx-trash-setup)))
+
+(defun osx/init-pbcopy ()
+  (use-package pbcopy
+    :if (and (spacemacs/system-is-mac) (not (display-graphic-p)))
+    :init (turn-on-pbcopy)))
+
 (defun osx/init-reveal-in-osx-finder ()
   (use-package reveal-in-osx-finder
     :if (spacemacs/system-is-mac)
     :commands reveal-in-osx-finder))
-
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun osx/pre-init-helm ()
-    ;; Use `mdfind' instead of `locate'.
-    (when (spacemacs/system-is-mac)
-      (spacemacs|use-package-add-hook helm
-        :post-config
-        ;; Disable fuzzy matchting to make mdfind work with helm-locate
-        ;; https://github.com/emacs-helm/helm/issues/799
-        (setq helm-locate-fuzzy-match nil)
-        (setq helm-locate-command "mdfind -name %s %s")))))
 
 (defun osx/post-init-term ()
   (with-eval-after-load 'term
