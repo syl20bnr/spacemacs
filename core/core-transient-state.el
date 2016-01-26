@@ -106,15 +106,17 @@ used."
              (spacemacs//transient-state-adjust-bindings
               ',bindings ',remove-bindings ',add-bindings)))
            (when ,title
-             (setq ,hint-var
-                   (list 'concat
-                     (propertize ,title
-                                 'face 'spacemacs-transient-state-title-face)
-                     "\n" ,hint-var "\nColor Guide: ["
-                     (propertize "KEY" 'face 'hydra-face-blue)
-                     "] exits transient state  ["
-                     (propertize "KEY" 'face 'hydra-face-red)
-                     "] will not exit")))
+             (let ((guide (concat "[" (propertize "KEY" 'face 'hydra-face-blue)
+                                  "] exits state  "
+                                  "[" (propertize "KEY" 'face 'hydra-face-red)
+                                  "] will not exit")))
+               ;; (add-face-text-property 0 (length guide) '(:height 0.9) t guide)
+               (add-face-text-property 0 (length guide) 'italic t guide)
+               (setq ,hint-var
+                     (list 'concat
+                           (propertize ,(concat title "\n")
+                                       'face 'spacemacs-transient-state-title-face)
+                           ,hint-var "\n\n" guide))))
            ,@bindkeys)))))
 
 (provide 'core-transient-state)
