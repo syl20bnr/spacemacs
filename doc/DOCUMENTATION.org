@@ -932,7 +932,7 @@ and ~T~):
 | ~SPC T T~   | toggle frame transparency and enter transparency micro-state |
 
 *Note*: These toggles are all available via the =helm-spacemacs-help= interface
-(press ~SPC f e h~ to display the =helm-spacemacs-help= buffer).
+(press ~SPC h SPC~ to display the =helm-spacemacs-help= buffer).
 
 **** Global line numbers
 Line numbers can be toggled on in all =prog-mode= and =text-mode= buffers by
@@ -1314,7 +1314,7 @@ backtrace is automatically included
 
 *** Available layers
 All layers can be easily discovered via =helm-spacemacs-help= accessible with
-~SPC f e h~.
+~SPC h SPC~.
 
 The following helm actions are available:
   - default: open the layer =README.org=
