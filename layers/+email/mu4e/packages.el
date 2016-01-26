@@ -37,7 +37,7 @@
       (setq mu4e-completing-read-function
             (if (configuration-layer/layer-usedp 'spacemacs-ivy)
                 'ivy-completing-read
-              'helm-completing-read))
+              'helm--completing-read-default))
 
       (add-to-list 'mu4e-view-actions
                    '("View in browser" . mu4e-action-view-in-browser) t)
