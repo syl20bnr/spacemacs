@@ -9,7 +9,6 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(require 'corelv)
 
 (defun spacemacs/defface-micro-state-faces ()
   "Define faces for micro-states."
@@ -102,7 +101,7 @@ used."
          (disable-leader (plist-get props :disable-evil-leader))
          (msg-func (if (plist-get props :use-minibuffer)
                        'message
-                     'corelv-message))
+                     'lv-message))
          (exec-binding (plist-get props :execute-binding-on-enter))
          (on-enter (spacemacs/mplist-get props :on-enter))
          (on-exit (spacemacs/mplist-get props :on-exit))
@@ -260,9 +259,9 @@ pressed)."
 
 (defun spacemacs//micro-state-close-window ()
   "Close micro-state help window."
-  (when (window-live-p corelv-wnd)
-    (let ((buf (window-buffer corelv-wnd)))
-      (delete-window corelv-wnd)
+  (when (window-live-p lv-wnd)
+    (let ((buf (window-buffer lv-wnd)))
+      (delete-window lv-wnd)
       (kill-buffer buf))))
 
 (provide 'core-micro-state)
