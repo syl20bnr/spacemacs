@@ -104,8 +104,7 @@ Ensure that helm is required before calling FUNC."
 (spacemacs/set-leader-keys
   "en" 'spacemacs/next-error
   "eN" 'spacemacs/previous-error
-  "ep" 'spacemacs/previous-error
-  "er" 'spacemacs/report-issue)
+  "ep" 'spacemacs/previous-error)
 ;; file -----------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "fc" 'spacemacs/copy-file
@@ -139,7 +138,9 @@ Ensure that helm is required before calling FUNC."
   "hdp" 'describe-package
   "hds" 'spacemacs/describe-system-info
   "hdt" 'describe-theme
-  "hdv" 'describe-variable)
+  "hdv" 'describe-variable
+  "hI"  'spacemacs/report-issue
+  "hn"  'view-emacs-news)
 ;; insert stuff ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "iJ" 'spacemacs/insert-line-below-no-indent
