@@ -1618,15 +1618,13 @@ on whether the spacemacs-ivy layer is used or not, with
         "9" 'select-window-9)
       (window-numbering-mode 1))
 
-    (defun spacemacs//window-numbering-assign (windows)
-      "Custom number assignment for special buffers."
-      (mapc (lambda (w)
-              (when (and (boundp 'neo-global--window)
-                         (eq w neo-global--window))
-                (window-numbering-assign w 0)))
-            windows))
-    (add-hook 'window-numbering-before-hook 'spacemacs//window-numbering-assign)
-    (add-hook 'neo-after-create-hook '(lambda (w) (window-numbering-update)))))
+    ;; make sure neotree is always 0
+    (defun spacemacs//window-numbering-assign ()
+      "Custom number assignment for neotree."
+      (when (and (boundp 'neo-buffer-name)
+                 (string= (buffer-name) neo-buffer-name))
+        0))
+    (setq window-numbering-assign-func #'spacemacs//window-numbering-assign)))
 
 (defun spacemacs/init-volatile-highlights ()
   (use-package volatile-highlights
