@@ -23,6 +23,7 @@
     :commands slime-mode
     :init
     (progn
+      (spacemacs/register-repl 'slime 'slime)
       (setq slime-contribs '(slime-fancy
                              slime-indentation
                              slime-sbcl-exts
@@ -46,6 +47,8 @@
 
       ;; TODO: Add bindings for the SLIME debugger?
       (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
+        "'" 'slime
+
         "cc" 'slime-compile-file
         "cC" 'slime-compile-and-load-file
         "cl" 'slime-load-file

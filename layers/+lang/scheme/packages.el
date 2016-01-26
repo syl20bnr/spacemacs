@@ -15,6 +15,7 @@
 (defun scheme/init-geiser ()
   (use-package geiser
     :commands run-geiser
+    :init (spacemacs/register-repl 'geiser 'geiser-mode-switch-to-repl "geiser")
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'scheme-mode "mc" "compiling")
@@ -25,6 +26,7 @@
       (spacemacs/declare-prefix-for-mode 'scheme-mode "ms" "repl")
 
       (spacemacs/set-leader-keys-for-major-mode 'scheme-mode
+        "'"  'geiser-mode-switch-to-repl
         ","  'lisp-state-toggle-lisp-state
 
         "cc" 'geiser-compile-current-buffer

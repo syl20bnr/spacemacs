@@ -16,6 +16,7 @@
     :defer t
     :init
     (progn
+      (spacemacs/register-repl 'cider 'cider-jack-in "cider")
       (setq cider-stacktrace-default-filters '(tooling dup)
             cider-repl-pop-to-buffer-on-connect nil
             cider-prompt-save-file-on-load nil
@@ -216,6 +217,7 @@ If called with a prefix argument, uses the other-window instead."
           "gg" 'cider-find-var
           "gr" 'cider-jump-to-resource
 
+          "'"  'cider-jack-in
           "sb" 'cider-load-buffer
           "sB" 'spacemacs/cider-send-buffer-in-repl-and-focus
           "sc" 'cider-connect

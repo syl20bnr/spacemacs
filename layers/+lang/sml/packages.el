@@ -20,6 +20,7 @@
     :mode ("\\.\\(sml\\|sig\\)\\'" . sml-mode)
     :defer t
     :commands run-sml
+    :init (spacemacs/register-repl 'sml-mode 'run-sml "sml")
     :config
     (progn
       (defun spacemacs/sml-prog-proc-send-buffer-and-focus ()
@@ -42,6 +43,7 @@
 
       (spacemacs/set-leader-keys-for-major-mode 'sml-mode
         ;; REPL
+        "'"  'run-sml
         "sb" 'sml-prog-proc-send-buffer
         "sB" 'spacemacs/sml-prog-proc-send-buffer-and-focus
         "sf" 'sml-send-function

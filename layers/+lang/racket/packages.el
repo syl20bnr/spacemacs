@@ -22,6 +22,7 @@
 (defun racket/init-racket-mode ()
   (use-package racket-mode
     :defer t
+    :init (spacemacs/register-repl 'racket-mode 'racket-repl "racket")
     :config
     (progn
       ;; smartparens configuration
@@ -79,6 +80,7 @@
         ;; insert
         "il" 'racket-insert-lambda
         ;; REPL
+        "'"  'racket-repl
         "sb" 'racket-run
         "sB" 'spacemacs/racket-run-and-switch-to-repl
         "se" 'racket-send-last-sexp

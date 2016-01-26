@@ -100,7 +100,10 @@
 (defun ocaml/init-utop ()
   (use-package utop
     :defer t
-    :init (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+    :init
+    (progn
+      (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+      (spacemacs/register-repl 'utop 'utop "ocaml"))
     :config
     (progn
       ;; Setup environment variables using opam
@@ -139,6 +142,7 @@
         (evil-insert-state))
 
       (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+        "'"  'utop
         "sb" 'utop-eval-buffer
         "sB" 'spacemacs/utop-eval-buffer-and-go
         "si" 'utop

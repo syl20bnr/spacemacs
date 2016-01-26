@@ -38,8 +38,10 @@
     :defer t
     :init
     (progn
+      (spacemacs/register-repl 'psci 'psci "purescript")
       (add-hook 'purescript-mode-hook 'inferior-psci-mode)
       (spacemacs/set-leader-keys-for-major-mode 'purescript-mode
+        "'"  'psci
         "sb" 'psci/load-current-file!
         "si" 'psci
         "sm" 'psci/load-module!

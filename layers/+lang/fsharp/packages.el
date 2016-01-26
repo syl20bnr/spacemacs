@@ -15,7 +15,9 @@
   (use-package fsharp-mode
     :defer t
     :init
-    (setq fsharp-doc-idle-delay .2)
+    (progn
+      (setq fsharp-doc-idle-delay .2)
+      (spacemacs/register-repl 'fsharp-mode 'fsharp-show-subshell "F#"))
     :config
     (progn
 
@@ -53,6 +55,7 @@
 
         "ht" 'fsharp-ac/show-tooltip-at-point
 
+        "'"  'fsharp-show-subshell
         "sb" 'fsharp-load-buffer-file
         "sB" 'spacemacs/fsharp-load-buffer-file-focus
         "si" 'fsharp-show-subshell
