@@ -214,7 +214,10 @@
 (defun javascript/init-skewer-mode ()
   (use-package skewer-mode
     :defer t
-    :init (add-hook 'js2-mode-hook 'skewer-mode)
+    :init
+    (progn
+      (spacemacs/register-repl 'skewer-mode 'spacemacs/skewer-start-repl "skewer")
+      (add-hook 'js2-mode-hook 'skewer-mode))
     :config
     (progn
       (defun spacemacs/skewer-start-repl ()
@@ -250,6 +253,7 @@
         (evil-insert-state))
 
       (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+        "'" 'spacemacs/skewer-start-repl
         "ee" 'skewer-eval-last-expression
         "eE" 'skewer-eval-print-last-expression
         "sb" 'skewer-load-buffer

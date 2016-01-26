@@ -14,6 +14,7 @@
     :defer t
     :init
     (progn
+      (spacemacs/register-repl 'alchemist 'alchemist-iex-run "alchemist")
       (add-hook 'elixir-mode-hook 'alchemist-mode)
       (setq alchemist-project-compile-when-needed t)
       (push 'alchemist-company company-backends-elixir-mode)
@@ -56,6 +57,7 @@
       "mx" 'alchemist-mix-run
       "mh" 'alchemist-mix-help
 
+      "'"  'alchemist-iex-run
       "sc" 'alchemist-iex-compile-this-buffer
       "si" 'alchemist-iex-run
       "sI" 'alchemist-iex-project-run

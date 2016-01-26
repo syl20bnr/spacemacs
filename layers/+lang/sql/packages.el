@@ -14,6 +14,7 @@
 (defun sql/init-sql ()
   (use-package sql
     :defer t
+    :init (spacemacs/register-repl 'sql 'spacemacs/sql-start "sql")
     :config
     (progn
       (setq spacemacs-sql-highlightable sql-product-alist
@@ -78,6 +79,8 @@
           (evil-insert-state)))
 
       (spacemacs/set-leader-keys-for-major-mode 'sql-mode
+        "'" 'spacemacs/sql-start
+
         ;; sqli buffer
         "bb" 'sql-show-sqli-buffer
         "bs" 'sql-set-sqli-buffer
