@@ -151,6 +151,8 @@
 (defun ruby/init-rspec-mode ()
   (use-package rspec-mode
     :defer t
+    ;; there is no :init block to add the hooks since rspec-mode
+    ;; setup the hook via an autoload
     :config
     (progn
       (spacemacs|hide-lighter rspec-mode)
