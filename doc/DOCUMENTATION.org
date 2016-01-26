@@ -1306,8 +1306,8 @@ Reporting an issue:
 
 | Key Binding     | Description                                                                          |
 |-----------------+--------------------------------------------------------------------------------------|
-| ~SPC e r~       | Open a page for creating a new Spacemacs issue on GitHub with information pre-filled |
-| ~SPC u SPC e r~ | Open a page for creating a new Spacemacs issue on GitHub with information pre-filled |
+| ~SPC h I~       | Open a page for creating a new Spacemacs issue on GitHub with information pre-filled |
+| ~SPC u SPC h I~ | Open a page for creating a new Spacemacs issue on GitHub with information pre-filled |
 
 /Note:/ If these two bindings are used with the =*Backtrace*= buffer open, the
 backtrace is automatically included

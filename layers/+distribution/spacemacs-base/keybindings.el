@@ -79,8 +79,7 @@
 (spacemacs/set-leader-keys
   "en" 'spacemacs/next-error
   "eN" 'spacemacs/previous-error
-  "ep" 'spacemacs/previous-error
-  "er" 'spacemacs/report-issue)
+  "ep" 'spacemacs/previous-error)
 ;; file -----------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "fc" 'spacemacs/copy-file
@@ -116,6 +115,7 @@
   "hds" 'spacemacs/describe-system-info
   "hdt" 'describe-theme
   "hdv" 'describe-variable
+  "hI"  'spacemacs/report-issue
   "hn"  'view-emacs-news)
 ;; insert stuff ---------------------------------------------------------------
 (spacemacs/set-leader-keys
