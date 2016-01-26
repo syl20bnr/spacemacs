@@ -33,6 +33,7 @@
     (ox-gfm :location local)
     persp-mode
     toc-org
+    hide-lines
     ))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
@@ -273,6 +274,24 @@ Will work on both org-mode and any mode that accepts plain html."
       ;; the Emacs user unable to exit src block editing.
       (define-key org-src-mode-map (kbd (concat dotspacemacs-major-mode-emacs-leader-key " '")) 'org-edit-src-exit)
 
+      ;; Hide #
+      (add-hook 'org-mode-hook
+        (lambda ()
+          (push '("[#" . ?[) prettify-symbols-alist)))
+
+      ;; Hide :TOC: annotation
+      (add-hook 'org-mode-hook
+        (lambda ()
+          (push '(":TOC:" . ?⁣	) prettify-symbols-alist)))
+
+      ;; Hide comment lines
+      (add-hook 'org-mode-hook
+        '(lambda () 
+          (let ()
+            (interactive)
+            (hide-lines-matching "^#.*")
+            (add-hook 'after-change-functions '(lambda () (interactive)(hide-lines-matching "^#.*")) nil t))))
+
       (spacemacs/set-leader-keys
         "Cc" 'org-capture)
 
@@ -450,4 +469,9 @@ a Markdown buffer and use this command to convert it.
 
 (defun org/init-htmlize ()
  (use-package htmlize
+    :defer t))
+
+;; Hide comments.
+(defun org/init-hide-lines ()
+  (use-package hide-lines
     :defer t))
