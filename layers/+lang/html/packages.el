@@ -26,6 +26,7 @@
     scss-mode
     slim-mode
     smartparens
+    stylus
     tagedit
     web-mode
     yasnippet
@@ -164,6 +165,10 @@
     (sp-local-pair 'web-mode "{% "  " %}")
     (sp-local-pair 'web-mode "{%- "  " %}")
     (sp-local-pair 'web-mode "{# "  " #}")))
+
+(defun html/init-stylus-mode ()
+  (use-package stylus-mode
+    :defer t))
 
 (defun html/init-tagedit ()
   (use-package tagedit
