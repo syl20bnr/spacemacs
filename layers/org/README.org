@@ -3,7 +3,7 @@
 
 [[file:img/org.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
+* Table of Contents                                         :TOC:
  - [[#description][Description]]
    - [[#features][Features:]]
    - [[#important-note][Important Note]]
@@ -16,12 +16,11 @@
    - [[#org][Org]]
    - [[#org-with-evil-org-mode][Org with evil-org-mode]]
      - [[#tables][Tables]]
-     - [[#tree][Tree ]]
+     - [[#tree-][Tree ]]
      - [[#element-insertion][Element insertion]]
      - [[#links][Links]]
      - [[#emphasis][Emphasis]]
      - [[#tagging][Tagging]]
-     - [[#navigating-in-calendar][Navigating in calendar]]
    - [[#org-agenda][Org agenda]]
    - [[#pomodoro][Pomodoro]]
    - [[#presentation][Presentation]]
