@@ -9,7 +9,6 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(require 'corelv)
 
 (defun spacemacs//transient-state-func-name (name)
   "Return the name of the transient state function."
