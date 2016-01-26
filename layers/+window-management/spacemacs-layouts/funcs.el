@@ -198,6 +198,6 @@ FRAME defaults to the current frame."
 (defun spacemacs/layout-workspaces-micro-state ()
   "Launches the workspaces micro state, if defined."
   (interactive)
-  (if (fboundp 'spacemacs/workspaces-micro-state)
-      (call-interactively 'spacemacs/workspaces-micro-state)
+  (if (fboundp 'spacemacs/workspaces-transient-state/body)
+      (call-interactively 'spacemacs/workspaces-transient-state/body)
     (message "You need the eyebrowse layer to use this feature.")))
