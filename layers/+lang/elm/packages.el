@@ -40,6 +40,8 @@
     :mode ("\\.elm\\'" . elm-mode)
     :init
     (progn
+      (spacemacs/register-repl 'elm-mode 'elm-repl-load "elm")
+
       (defun spacemacs/init-elm-mode ()
         "Disable electric-indent-mode and let indentation cycling feature work"
         (if (fboundp 'electric-indent-local-mode)
@@ -78,6 +80,7 @@
         "ht" 'elm-oracle-type-at-point
 
         ;; repl
+        "'"  'elm-repl-load
         "si" 'elm-repl-load
         "sf" 'elm-repl-push-decl
         "sF" 'spacemacs/elm-repl-push-decl-focus

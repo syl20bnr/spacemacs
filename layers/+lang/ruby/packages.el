@@ -122,6 +122,7 @@
     :defer t
     :init
     (progn
+      (spacemacs/register-repl 'robe 'robe-start "robe")
       (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
         (add-hook hook 'robe-mode))
       (when (configuration-layer/layer-usedp 'auto-completion)
@@ -136,6 +137,7 @@
         (spacemacs/declare-prefix-for-mode mode "mh" "ruby/docs")
         (spacemacs/declare-prefix-for-mode mode "ms" "ruby/repl")
         (spacemacs/set-leader-keys-for-major-mode mode
+          "'" 'robe-start
           ;; robe mode specific
           "gg" 'robe-jump
           "hd" 'robe-doc

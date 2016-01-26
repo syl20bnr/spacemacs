@@ -215,6 +215,8 @@
     :defer t
     :init
     (progn
+      (spacemacs/register-repl 'python 'python-start-or-switch-repl "python")
+
       (defun python-default ()
         (setq mode-name "Python"
               tab-width 4
@@ -315,6 +317,7 @@
       (spacemacs/declare-prefix-for-mode 'python-mode "mv" "pyenv")
       (spacemacs/declare-prefix-for-mode 'python-mode "mV" "pyvenv")
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "'"  'python-start-or-switch-repl
         "cc" 'spacemacs/python-execute-file
         "cC" 'spacemacs/python-execute-file-focus
         "db" 'python-toggle-breakpoint

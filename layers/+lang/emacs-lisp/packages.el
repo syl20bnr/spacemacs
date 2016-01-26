@@ -34,6 +34,7 @@
       (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
         (spacemacs/declare-prefix-for-mode mode "ms" "ielm")
         (spacemacs/set-leader-keys-for-major-mode mode
+          "'" 'ielm
           "si" 'ielm)))
     :config
     (defun ielm-indent-line ()
