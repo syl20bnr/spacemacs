@@ -273,6 +273,11 @@ Will work on both org-mode and any mode that accepts plain html."
       ;; the Emacs user unable to exit src block editing.
       (define-key org-src-mode-map (kbd (concat dotspacemacs-major-mode-emacs-leader-key " '")) 'org-edit-src-exit)
 
+      ;; Cures eye cancer.
+      (add-hook 'org-mode-hook
+        (lambda ()
+          (push '("[#" . ?[) prettify-symbols-alist)))
+
       (spacemacs/set-leader-keys
         "Cc" 'org-capture)
 
