@@ -116,7 +116,6 @@
 
       (spacemacs|define-transient-state layouts
         :title "Layouts Transient State"
-        :doc (concat (spacemacs//layouts-ms-doc))
         :bindings
         ;; need to exit in case number doesn't exist
         ("?" spacemacs//layouts-ms-toggle-doc)
@@ -155,6 +154,17 @@
         ("x" spacemacs/layouts-ms-kill)
         ("X" spacemacs/layouts-ms-kill-other :exit t))
       (spacemacs/set-leader-keys "l" 'spacemacs/layouts-transient-state/body)
+
+      ;; FIXME: This enables the dynamic behavior from micro-states using ? but
+      ;; does not yet do highlighting of the keys
+      (add-hook 'spacemacs-post-user-config-hook
+                (lambda ()
+                  (setq spacemacs/layouts-transient-state/hint
+                        `(concat
+                          ,(propertize "Layouts Transient State\n"
+                                       'face 'spacemacs-transient-state-title-face)
+                          (spacemacs//layouts-ms-doc))))
+                t)
 
       (defun spacemacs/layout-switch-by-pos (pos)
         "Switch to perspective of position POS."
