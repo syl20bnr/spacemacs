@@ -58,7 +58,7 @@
   "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
 (spacemacs/set-leader-keys
-  "bd"  'kill-this-buffer
+  "bc"  'kill-this-buffer
   "TAB" 'spacemacs/alternate-buffer
   "bh"  'spacemacs/home
   "be"  'spacemacs/safe-erase-buffer
