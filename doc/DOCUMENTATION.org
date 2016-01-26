@@ -1672,7 +1672,7 @@ Files manipulation commands (start with ~f~):
 | ~SPC f v d~ | add a directory variable                                                                                                        |
 | ~SPC f v f~ | add a local variable to the current file                                                                                        |
 | ~SPC f v p~ | add a local variable to the first line of the current file                                                                      |
-| ~SPC f y~   | show current file absolute path in the minibuffer                                                                               |
+| ~SPC f y~   | show and copy current file absolute path in the minibuffer                                                                      |
 
 **** Emacs and Spacemacs files
 Convenient key bindings are located under the prefix ~SPC f e~ to quickly
