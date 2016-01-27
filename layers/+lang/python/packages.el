@@ -93,7 +93,7 @@
   (add-hook `python-mode-hook `turn-on-evil-matchit-mode))
 
 (defun python/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'python-mode-hook))
+  (spacemacs/add-flycheck-hook 'python-mode))
 
 (when (configuration-layer/layer-usedp 'spacemacs-helm)
   (defun python/pre-init-helm-cscope ()
