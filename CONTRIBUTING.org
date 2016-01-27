@@ -81,6 +81,8 @@ Submit your contribution against the =develop= branch. You should not use
 your =master= branch to modify Spacemacs, this branch is considered to be
 read-only.
 
+You may want to [[https://github.com/syl20bnr/spacemacs/wiki/Beginner%27s-Guide-to-Contributing-a-Pull-Request-to-Spacemacs][read our beginner’s guide for Pull Requests]]. 
+
 /PR = Pull-Request/
 
 **** Ideally for /simple/ PRs (most of them):
