@@ -308,11 +308,11 @@ format so they are supported by the
 current perspective."
         (interactive)
         (with-persp-buffer-list ()
-          (other-buffer (current-buffer) t)))
+          (switch-to-buffer (other-buffer (current-buffer) t))))
 
       ;; Override SPC TAB to only change buffers in perspective
       (spacemacs/set-leader-keys
-        "TAB" 'spacemacs/alternate-buffer-in-persp
+        "TAB"  'spacemacs/alternate-buffer-in-persp
         "ba"   'persp-add-buffer
         "br"   'persp-remove-buffer))))
 
