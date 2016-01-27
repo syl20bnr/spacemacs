@@ -55,7 +55,7 @@
             message-kill-buffer-on-exit 't)
 
       (add-to-list 'mu4e-view-actions
-                  '("View in browser" . mu4e-action-view-in-browser) t)
+                   '("View in browser" . mu4e-action-view-in-browser) t)
 
       (add-hook 'mu4e-compose-mode-hook
                 (lambda ()
