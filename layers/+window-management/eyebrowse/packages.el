@@ -15,7 +15,7 @@
   (use-package eyebrowse
     :init
     (progn
-      (setq eyebrowse-new-workspace #'spacemacs/home
+      (setq eyebrowse-new-workspace #'spacemacs/home-delete-other-windows
             eyebrowse-wrap-around t)
       (eyebrowse-mode)
 
