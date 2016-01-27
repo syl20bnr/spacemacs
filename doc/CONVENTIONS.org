@@ -158,7 +158,7 @@ Live evaluation of code is under the prefix ~SPC m e~.
 
 | Key     | Description                                       |
 |---------+---------------------------------------------------|
-| ~m e $~ | put the point at the end of the line and evaluate |
+| ~m e $~ | put point at the end of the line and evaluate |
 | ~m e b~ | evaluate buffer                                   |
 | ~m e e~ | evaluate last expression                          |
 | ~m e f~ | evaluate function                                 |

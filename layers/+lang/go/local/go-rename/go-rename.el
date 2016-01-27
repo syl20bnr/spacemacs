@@ -69,7 +69,7 @@ the `gorename' tool."
             (set-window-point w (point-min)))))))
 
   ;; Reload the modified files, saving line/col.
-  ;; (Don't restore the point since the text has changed.)
+  ;; (Don't restore point since the text has changed.)
   ;;
   ;; TODO(adonovan): should we also do this for all other files
   ;; that were updated (the tool can print them)?
