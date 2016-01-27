@@ -37,7 +37,7 @@
       (spacemacs/set-leader-keys-for-major-mode 'haskell-mode "hf" 'helm-hoogle))))
 
 (defun haskell/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'haskell-mode-hook))
+  (spacemacs/add-flycheck-hook 'haskell-mode))
 
 (when (configuration-layer/layer-usedp 'syntax-checking)
   (defun haskell/init-flycheck-haskell ()

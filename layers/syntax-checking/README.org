@@ -40,6 +40,10 @@ toggled off with ~SPC t s~. You can default this to off by setting the variable
   '((syntax-checking :variables syntax-checking-enable-by-default nil)))
 #+END_SRC
 
+If you want more fine-grained control, you can configure the variable
+=flycheck-global-modes= instead. Note that this variable should be manipulated
+in =dotspacemacs/user-config=.
+
 * Key Bindings
 
 | Key Binding | Description                                                  |
