@@ -18,19 +18,22 @@
 
 (defun syntax-checking/init-flycheck ()
   (use-package flycheck
-    :defer t
     :init
     (progn
-      (setq flycheck-standard-error-navigation nil)
+      (setq flycheck-standard-error-navigation nil
+            flycheck-global-modes nil)
+
       (spacemacs|add-toggle syntax-checking
         :status flycheck-mode
         :on (flycheck-mode)
         :off (flycheck-mode -1)
         :documentation "Enable error and syntax checking."
-        :evil-leader "ts"))
-    :config
-    (progn
+        :evil-leader "ts")
+
       (spacemacs|diminish flycheck-mode " ⓢ" " s")
+
+      (when syntax-checking-enable-by-default
+        (global-flycheck-mode 1))
 
       ;; Custom fringe indicator
       (when (fboundp 'define-fringe-bitmap)

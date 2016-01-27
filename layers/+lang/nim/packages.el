@@ -8,7 +8,7 @@
   (spacemacs|add-company-hook nim-mode))
 
 (defun nim/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'nim-mode-hook))
+  (spacemacs/add-flycheck-hook 'nim-mode))
 
 (defun nim/init-flycheck-nim ()
   (use-package flycheck-nim
