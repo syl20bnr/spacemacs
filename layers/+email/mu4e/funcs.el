@@ -33,3 +33,23 @@
 (defun mu4e/mail-account-reset ()
   "Reset mail account info to first."
   (mu4e//map-set (cdar mu4e-account-alist)))
+
+(defun mu4e/load-signature-from-file (file)
+  "Load signature from FILE and strip separator if needed."
+  (setq mu4e-compose-signature
+        (with-temp-buffer
+          (insert-file-contents file)
+          (flush-lines message-signature-separator)
+          (buffer-string))))
+
+(defun mu4e/message-is-for-p (msg rx)
+  "Check if to, cc or bcc field in MSG has any address in RX."
+  (when (and msg rx)
+    (or (mu4e-message-contact-field-matches msg :to rx)
+        (mu4e-message-contact-field-matches msg :cc rx)
+        (mu4e-message-contact-field-matches msg :bcc rx))))
+
+(defun mu4e/set-send-function (function)
+  "Set FUNCTION for sending mails."
+  (setq send-mail-function         function
+        message-send-mail-function function))
