@@ -18,9 +18,6 @@
 (defvar mu4e-spacemacs-layout-binding "m"
   "Binding used in the setup for `spacemacs-layouts' micro-state")
 
-(defvar mu4e-account-alist nil
-  "Account alist for custom multi-account compose.")
-
 (defvar mu4e-enable-notifications nil
   "If non-nil, enable desktop notifications for unread emails.")
 

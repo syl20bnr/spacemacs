@@ -79,47 +79,57 @@ adding the package =mu4e-maildirs-extension= to your dotfile variable
 =dotspacemacs-excluded-packages=.
 
 ** Multiple Accounts
-This layer includes support for multiple sending accounts.
-If you have only one account you do not need to define this variable.
-If you have multiple accounts, configure the =mu4e-account-alist= variable:
+With `mu 0.9.16`, mu4e comes with a native contexts feature for managing
+multiple accounts.
+
+The following example is taken from the manual:
 
 #+BEGIN_SRC emacs-lisp
-  (setq mu4e-account-alist
-        '(("gmail"
-           ;; Under each account, set the account-specific variables you want.
-           (mu4e-sent-messages-behavior delete)
-           (mu4e-sent-folder "/gmail/[Gmail]/.Sent Mail")
-           (mu4e-drafts-folder "/gmail/[Gmail]/.Drafts")
-           (user-mail-address "billy@gmail.com")
-           (user-full-name "Billy"))
-          ("college"
-           (mu4e-sent-messages-behavior sent)
-           (mu4e-sent-folder "/college/Sent Items")
-           (mu4e-drafts-folder "/college/Drafts")
-           (user-mail-address "bb15@college.edu")
-           (user-full-name "Billy Bob 15"))))
-  (mu4e/mail-account-reset)
+  (setq mu4e-contexts
+    `( ,(make-mu4e-context
+    :name "Private"
+    :enter-func (lambda () (mu4e-message "Switch to the Private context"))
+    ;; leave-func not defined
+    :match-func (lambda (msg)
+      (when msg
+        (mu4e-message-contact-field-matches msg
+          :to "aliced@home.example.com")))
+    :vars '(  ( user-mail-address      . "aliced@home.example.com"  )
+       ( user-full-name     . "Alice Derleth" )
+       ( mu4e-compose-signature .
+         (concat
+           "Alice Derleth\n"
+           "Lauttasaari, Finland\n"))))
+       ,(make-mu4e-context
+    :name "Work"
+    :enter-func (lambda () (mu4e-message "Switch to the Work context"))
+    ;; leave-fun not defined
+    :match-func (lambda (msg)
+      (when msg
+        (mu4e-message-contact-field-matches msg
+          :to "aderleth@miskatonic.example.com")))
+    :vars '(  ( user-mail-address      . "aderleth@miskatonic.example.com" )
+       ( user-full-name     . "Alice Derleth" )
+       ( mu4e-compose-signature .
+         (concat
+           "Prof. Alice Derleth\n"
+           "Miskatonic University, Dept. of Occult Sciences\n"))))))
+
+  ;; set `mu4e-context-policy` and `mu4e-compose-policy` to tweak when mu4e should
+  ;; guess or ask the correct context, e.g.
+
+  ;; start with the first (default) context;
+  ;; default is to ask-if-none (ask when there's no context yet, and none match)
+  ;; (setq mu4e-context-policy 'pick-first)
+
+  ;; compose with the current context is no context matches;
+  ;; default is to ask
+  ;; '(setq mu4e-compose-context-policy nil)
 #+END_SRC
 
-The first account listed will be the default account, so variables like
-=user-full-name=, which is used by other parts of Emacs, will have their value
-reset for the default account after sending each email.
-
-Note that the mu4e layer expects =mu4e-account-alist= to be defined before the
-layer is loaded. For example, you can set =mu4e-account-alist= to a dummy
-setting in =dotspacemacs/layers=:
-
-#+BEGIN_SRC emacs-lisp
-(mu4e :variables mu4e-account-alist t)
-#+END_SRC
-
-and then actually set =mu4e-account-alist= later in =dotspacemacs/user-config=.
-
-Make sure you call =mu4e/mail-account-reset= afterward, which will initialize
-the given account variables.
-
-If you have mu 0.9.16 or later, you can use mu4e's built-in contexts feature
-instead (see [[http://www.djcbsoftware.nl/code/mu/mu4e/Contexts.html#Contexts][mu4e's manual]]).
+Note: We used to have a hack to support multiple accounts with older version of
+`mu` but we removed it to encourage people to update their version and use the
+new contexts feature.
 
 ** Example configuration
 #+BEGIN_SRC emacs-lisp
