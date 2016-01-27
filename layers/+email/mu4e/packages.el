@@ -79,11 +79,7 @@
       (setq mu4e-completing-read-function 'completing-read)
 
       (add-to-list 'mu4e-view-actions
-                   '("View in browser" . mu4e-action-view-in-browser) t)
-
-      (when mu4e-account-alist
-        (add-hook 'mu4e-compose-pre-hook 'mu4e/set-account)
-        (add-hook 'message-sent-hook 'mu4e/mail-account-reset)))))
+                   '("View in browser" . mu4e-action-view-in-browser) t))))
 
 (defun mu4e/init-mu4e-alert ()
   (use-package mu4e-alert
