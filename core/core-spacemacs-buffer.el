@@ -578,7 +578,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                   (insert list-separator))))) dotspacemacs-startup-lists))))
 
 (defun spacemacs-buffer/goto-link-line ()
-  "Move the point to the beginning of the link line."
+  "Set point to the beginning of the link line."
   (interactive)
   (with-current-buffer spacemacs-buffer-name
     (goto-char (point-min))

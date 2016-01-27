@@ -83,12 +83,11 @@ ease of use of modern day shells, and the review-before-you-proceed
 mentality of Plan 9's 9term.
 #+END_QUOTE
 
-In a nutshell, when =em-smart= is enabled the point won't jump at the
-end of the buffer when a command is executed, it will stay at the
-same command prompt used to execute the command. This allows to quickly
-edit the last command in the case of a mistake. If there is no mistake
-and you directly type a new command then the prompt will jump to the
-next prompt at the end of the buffer.
+In a nutshell, when =em-smart= is enabled point won't jump at the end of the
+buffer when a command is executed, it will stay at the same command prompt used
+to execute the command. This allows to quickly edit the last command in the case
+of a mistake. If there is no mistake and you directly type a new command then
+the prompt will jump to the next prompt at the end of the buffer.
 
 To enable =em-smart= put the following layer variable to non-nil:
 

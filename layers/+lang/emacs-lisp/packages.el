@@ -178,8 +178,8 @@ Requires smartparens because all movement is done using
       (call-interactively 'eval-last-sexp)))
 
   (defun spacemacs/eval-current-symbol-sp ()
-    "Call `eval-last-sexp' on the symbol underneath the
-point. Requires smartparens because all movement is done using
+    "Call `eval-last-sexp' on the symbol around point. Requires
+smartparens because all movement is done using
 `sp-forward-symbol'."
     (interactive)
     (require 'smartparens)

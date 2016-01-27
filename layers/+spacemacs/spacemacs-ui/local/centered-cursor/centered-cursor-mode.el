@@ -332,7 +332,7 @@ the center. Just the variable ccm-vpos is set."
                    (bottom-lines (+ (count-lines (point) (point-max))
                                     correction)))
 
-              ;; only animate if the point was moved rather far away
+              ;; only animate if point was moved rather far away
               ;; before by a mouseclick (see ccm-ignored-commands)
               ;; or if minor mode is just entered interactively
               (if (not (and (> (abs diff) 4)

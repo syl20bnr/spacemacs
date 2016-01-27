@@ -91,7 +91,7 @@
         "si" 'spacemacs/sql-start
         ;; paragraph gets "f" here because they can be assimilated to functions.
         ;; If you separate your commands in a SQL file, this key will send the
-        ;; command under the point, which is what you probably want.
+        ;; command around point, which is what you probably want.
         "sf" 'sql-send-paragraph
         "sF" 'spacemacs/sql-send-paragraph-and-focus
         "sq" 'sql-send-string
