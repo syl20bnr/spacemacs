@@ -416,6 +416,13 @@ argument takes the kindows rotate backwards."
 (defalias 'spacemacs/home 'spacemacs-buffer/goto-buffer
   "Go to home Spacemacs buffer")
 
+(defun spacemacs/home-delete-other-windows ()
+  "Open home Spacemacs buffer and delete other windows.
+Useful for making the home buffer the only visible buffer in the frame."
+  (interactive)
+  (spacemacs/home)
+  (delete-other-windows))
+
 (defun spacemacs/insert-line-above-no-indent (count)
   (interactive "p")
   (let ((p (+ (point) count)))

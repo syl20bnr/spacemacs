@@ -167,7 +167,7 @@
                            "Do you want to create one? "))
               (let ((persp-reset-windows-on-nil-window-conf t))
                 (persp-switch nil)
-                (spacemacs/home))))))
+                (spacemacs/home-delete-other-windows))))))
 
       ;; Define all `spacemacs/persp-switch-to-X' functions
       (dolist (i (number-sequence 9 0 -1))
