@@ -113,7 +113,7 @@ is achieved by adding the relevant text properties."
         (if (bound-and-true-p linum-mode) (linum-mode -1))
         (unless shell-enable-smart-eshell
           ;; we don't want auto-jump to prompt when smart eshell is enabled.
-          ;; Idea: maybe we could make auto-jump smarter and jump only if the
+          ;; Idea: maybe we could make auto-jump smarter and jump only if
           ;; point is not on a prompt line
           (add-hook 'evil-insert-state-entry-hook
                     'spacemacs//eshell-auto-end nil t))

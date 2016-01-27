@@ -225,9 +225,10 @@ can be toggled through `toggle-transparency'.")
   "If non nil unicode symbols are displayed in the mode-line (eg. for lighters)")
 
 (defvar dotspacemacs-smooth-scrolling t
-  "If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
-overrides the default behavior of Emacs which recenters the point when
-it reaches the top or bottom of the screen.")
+  "If non nil smooth scrolling (native-scrolling) is enabled.
+Smooth scrolling overrides the default behavior of Emacs which
+recenters point when it reaches the top or bottom of the
+screen.")
 
 (defvar dotspacemacs-line-numbers nil
   "If non nil line numbers are turned on in all `prog-mode' and `text-mode'
