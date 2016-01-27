@@ -46,15 +46,25 @@
 (defun pyenv-mode-set-local-version ()
   "Set pyenv version from \".python-version\" by looking in parent directories."
   (interactive)
-  (let ((root-path (locate-dominating-file default-directory
-                                           ".python-version")))
-    (when root-path
-      (let* ((file-path (expand-file-name ".python-version" root-path))
-             (version (with-temp-buffer
-                        (insert-file-contents-literally file-path)
-                        (buffer-substring-no-properties (line-beginning-position)
-                                                        (line-end-position)))))
-        (if (member version (pyenv-mode-versions))
-            (pyenv-mode-set version)
-          (message "pyenv: version `%s' is not installed (set by %s)"
-                   version file-path))))))
+  (message (format "%s" last-command))
+  (unless (member last-command '(anaconda-mode-find-assignments
+                                 anaconda-mode-find-definitions
+                                 anaconda-mode-find-references
+                                 evil-jumper/backward))
+    (let ((root-path (locate-dominating-file default-directory
+                                             ".python-version")))
+      (if root-path
+        (let* ((file-path (expand-file-name ".python-version" root-path))
+               (version (with-temp-buffer
+                          (insert-file-contents-literally file-path)
+                          (buffer-substring-no-properties (line-beginning-position)
+                                                          (line-end-position)))))
+          (if (member version (pyenv-mode-versions))
+              (pyenv-mode-set version)
+            (message "pyenv: version `%s' is not installed (set by %s)"
+                     version file-path)))
+        (pyenv-mode-set (spacemacs-pyenv-mode-global-version))))))
+
+(defun spacemacs-pyenv-mode-global-version ()
+   "Get global pyenv version directly from pyenv"
+  (replace-regexp-in-string "\n" "" (shell-command-to-string "pyenv global")))

@@ -136,8 +136,8 @@ A project-specific pyenv version may be written to a file called
 =.python-version= using the [[https://github.com/yyuu/pyenv/blob/master/COMMANDS.md#pyenv-local][pyenv local]] command.
 
 Spacemacs can search in parent directories for this file, and automatically set
-the pyenv version. The behavior can be set with the variable
-=python-auto-set-local-pyenv-version= to:
+the pyenv version or if no such file is found set the global pyenv version. The
+behavior can be set with the variable =python-auto-set-local-pyenv-version= to:
 - =on-visit= (default) set the version when you visit a python buffer,
 - =on-project-switch= set the version when you switch projects,
 - =nil= to disable.
