@@ -39,7 +39,7 @@ This layer adds support for [[http://clojure.org][Clojure]] language using [[htt
 - REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
 - Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]] 
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
-- Aligning of code forms via [[https://github.com/gstamp/align-cljlet][align-cljlet]]
+- Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
   
 * Install
 ** Layer
@@ -231,20 +231,6 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m r u w~ | unwind                      |
 
 *** Reformatting
-Forms currently handled:
-  - let
-  - when-let
-  - if-let
-  - binding
-  - loop
-  - with-open
-  - literal hashes {}
-  - defroute
-  - cond
-  - condp (except :>> subforms)
-  
-More info at [[https://github.com/gstamp/align-cljlet][align-cljlet]].
-
 | Key Binding | Description             |
 |-------------+-------------------------|
 | ~SPC m f l~ | realign current form    |
