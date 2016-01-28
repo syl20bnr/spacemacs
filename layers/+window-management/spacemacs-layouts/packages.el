@@ -161,8 +161,11 @@
                 (lambda ()
                   (setq spacemacs/layouts-transient-state/hint
                         `(concat
-                          ,(propertize "Layouts Transient State\n"
-                                       'face 'spacemacs-transient-state-title-face)
+                          ,(when dotspacemacs-show-transient-state-title
+                             (concat
+                              (propertize "Layouts Transient State"
+                                          'face 'spacemacs-transient-state-title-face)
+                              "\n"))
                           (spacemacs//layouts-ms-doc))))
                 t)
 
