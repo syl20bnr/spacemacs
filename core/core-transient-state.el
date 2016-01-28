@@ -132,8 +132,10 @@ used."
               ',bindings ',remove-bindings ',add-bindings)))
            (when ,title
              (let ((guide (concat "[" (propertize "KEY" 'face 'hydra-face-blue)
-                                  "] exits state  "
-                                  "[" (propertize "KEY" 'face 'hydra-face-red)
+                                  "] exits state  ["
+                                  (if ',foreign-keys
+                                      (propertize "KEY" 'face 'hydra-face-pink)
+                                    (propertize "KEY" 'face 'hydra-face-red))
                                   "] will not exit")))
                ;; (add-face-text-property 0 (length guide) '(:height 0.9) t guide)
                (add-face-text-property 0 (length guide) 'italic t guide)
