@@ -18,6 +18,11 @@
   "Return the name of the transient state function."
   (intern (format "spacemacs/%S-transient-state/body" name)))
 
+(defun spacemacs//transient-state-heads-name (name)
+  "Return the name of the transient state heads variable which
+holds the key bindings."
+  (intern (format "spacemacs/%S-transient-state/heads" name)))
+
 (defun spacemacs//transient-state-adjust-bindings (bindings to-remove to-add)
   (append
    (cl-remove-if
@@ -29,6 +34,13 @@
    (when (and (boundp to-add)
               (listp (symbol-value to-add)))
      (symbol-value to-add))))
+
+(defun spacemacs//transient-state-make-doc
+    (transient-state docstring &optional body)
+  (let ((heads (spacemacs//transient-state-heads-name transient-state)))
+    (setq body (if body body '(nil nil :hint nil :foreign-keys nil)))
+    (eval
+     (hydra--format nil body docstring (symbol-value heads)))))
 
 ;; (defface spacemacs-transient-state-title-face
 ;;   `((t :background "DarkGoldenrod2"
@@ -53,8 +65,11 @@ Available PROPS:
     Evaluate SEXP when leaving the transient state.
 `:doc STRING or SEXP'
     A docstring supported by `defhydra'.
+`:additional-docs cons cells (VARIABLE . STRING)'
+    Additional docstrings to format and store in the corresponding VARIABLE.
+    This can be used to dynamically change the docstring.
 `:title STRING'
-   Provide a title in the header of the transient state
+    Provide a title in the header of the transient state
 `:columns INTEGER'
     Automatically generate :doc with this many number of columns.
 `:hint BOOLEAN'
@@ -97,6 +112,7 @@ used."
          (entry-sexp (plist-get props :on-enter))
          (exit-sexp (plist-get props :on-exit))
          (hint (plist-get props :hint))
+         (additional-docs (spacemacs/mplist-get props :additional-docs))
          (foreign-keys (plist-get props :foreign-keys))
          (bindkeys (spacemacs//create-key-binding-form props body-func)))
     `(progn
@@ -128,6 +144,17 @@ used."
                            "\n" ,hint-var
                            (when dotspacemacs-show-transient-state-color-guide
                              (concat "\n" guide))))))
+           (dolist (add-doc ',additional-docs)
+             (unless (boundp (car add-doc))
+               (set (car add-doc)
+                    (spacemacs//transient-state-make-doc
+                     ',name (cdr add-doc) '(,(car entry-binding)
+                                            ,(cadr entry-binding)
+                                            :hint ,hint
+                                            :columns ,columns
+                                            :foreign-keys ,foreign-keys
+                                            :body-pre ,entry-sexp
+                                            :before-exit ,exit-sexp)))))
            ,@bindkeys)))))
 
 (provide 'core-transient-state)
