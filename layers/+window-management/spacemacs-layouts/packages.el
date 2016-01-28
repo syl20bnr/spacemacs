@@ -75,31 +75,6 @@
               (concat (when current "[") caption (when current "]"))
             caption)))
 
-      (defvar spacemacs--layouts-ms-documentation
-        "
-  [?]                  toggle this help
-  [0,9]                switch to nth layout
-  [tab]                switch to the last
-  [A]                  add all buffers from another layout
-  [a]                  add all the buffers from another layout in the current one
-  [b]                  select a buffer in the current layout
-  [c]                  close the current layout and keep its buffers
-  [C]                  close the other layouts and keep their buffers
-  [h]                  go to default layout
-  [l]                  select/create a layout with helm
-  [L]                  load layouts from file
-  [n] or [C-l]         next layout in list
-  [N] or [p] or [C-h]  previous layout in list
-  [o]                  open a custom layout
-  [r]                  remove current buffer from layout
-  [R]                  rename current layout
-  [s]                  save all layouts
-  [S]                  save layouts by names
-  [t]                  show a buffer without adding it to current layout
-  [w]                  workspaces transient-state (needs eyebrowse layer enabled)
-  [x]                  kill current layout with its buffers
-  [X]                  kill other layouts with their buffers")
-
       (defun spacemacs//layouts-ms-doc ()
         "Return the docstring for the layouts transient-state."
         (let* ((persp-list (or (persp-names-current-frame-fast-ordered)
@@ -116,6 +91,32 @@
 
       (spacemacs|define-transient-state layouts
         :title "Layouts Transient State"
+        :additional-docs
+        (spacemacs--layouts-ms-documentation .
+                                             "
+
+  [_?_]^^^^       toggle this help
+  [_0_,_9_]^^     switch to nth layout
+  [_<tab>_]^^^^   switch to the last
+  [_A_]^^^^       add all buffers from another layout
+  [_a_]^^^^       add all the buffers from another layout in the current one
+  [_b_]^^^^       select a buffer in the current layout
+  [_c_]^^^^       close the current layout and keep its buffers
+  [_C_]^^^^       close the other layouts and keep their buffers
+  [_h_]^^^^       go to default layout
+  [_l_]^^^^       select/create a layout with helm
+  [_L_]^^^^       load layouts from file
+  [_n_/_C-l_]^^   next layout in list
+  [_N_/_p_/_C-h_] previous layout in list
+  [_o_]^^^^       open a custom layout
+  [_r_]^^^^       remove current buffer from layout
+  [_R_]^^^^       rename current layout
+  [_s_]^^^^       save all layouts
+  [_S_]^^^^       save layouts by names
+  [_t_]^^^^       show a buffer without adding it to current layout
+  [_w_]^^^^       workspaces micro-state (needs eyebrowse layer enabled)
+  [_x_]^^^^       kill current layout with its buffers
+  [_X_]^^^^       kill other layouts with their buffers")
         :bindings
         ;; need to exit in case number doesn't exist
         ("?" spacemacs//layouts-ms-toggle-doc)
@@ -155,8 +156,7 @@
         ("X" spacemacs/layouts-ms-kill-other :exit t))
       (spacemacs/set-leader-keys "l" 'spacemacs/layouts-transient-state/body)
 
-      ;; FIXME: This enables the dynamic behavior from micro-states using ? but
-      ;; does not yet do highlighting of the keys
+      ;; This enables the dynamic behavior from micro-states using ?
       (add-hook 'spacemacs-post-user-config-hook
                 (lambda ()
                   (setq spacemacs/layouts-transient-state/hint
