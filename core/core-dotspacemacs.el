@@ -221,6 +221,9 @@ can be toggled through `toggle-transparency'.")
 transparency level of a frame when it's inactive or deselected. Transparency
 can be toggled through `toggle-transparency'.")
 
+(defvar dotspacemacs-show-transient-state-title t
+  "If non nil show the titles of transient states.")
+
 (defvar dotspacemacs-show-transient-state-color-guide t
   "If non nil show the color guide hint for transient state keys.")
 
