@@ -319,6 +319,7 @@ If called with a prefix argument, uses the other-window instead."
         "rcc" 'cljr-cycle-coll
         "rci" 'cljr-cycle-if
         "rcp" 'cljr-cycle-privacy
+        "rcn" 'cljr-clean-ns
         "rdk" 'cljr-destructure-keys
         "rel" 'cljr-expand-let
         "rfu" 'cljr-find-usages
