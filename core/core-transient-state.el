@@ -141,9 +141,12 @@ used."
                (add-face-text-property 0 (length guide) 'italic t guide)
                (setq ,hint-var
                      (list 'concat
-                           (propertize ,title
-                                       'face 'spacemacs-transient-state-title-face)
-                           "\n" ,hint-var
+                           (when dotspacemacs-show-transient-state-title
+                             (concat
+                              (propertize
+                               ,title
+                               'face 'spacemacs-transient-state-title-face)
+                              "\n")) ,hint-var
                            (when dotspacemacs-show-transient-state-color-guide
                              (concat "\n" guide))))))
            (dolist (add-doc ',additional-docs)
