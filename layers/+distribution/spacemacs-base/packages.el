@@ -988,7 +988,7 @@ below. Anything else exits."
                ("spacemacs/toggle-holy-mode" . "emacs (holy-mode)")
                ("evil-lisp-state-\\(.+\\)" . "\\1")
                ("\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
-               ("\\(.+\\)-transient-state/body" . "\\1-micro-state"))))
+               ("\\(.+\\)-transient-state/body" . "\\1-transient-state"))))
         (dolist (nd new-descriptions)
           ;; ensure the target matches the whole string
           (push (cons (concat "\\`" (car nd) "\\'") (cdr nd))
