@@ -116,7 +116,9 @@ used."
                      (list 'concat
                            (propertize ,(concat title "\n")
                                        'face 'spacemacs-transient-state-title-face)
-                           ,hint-var "\n\n" guide))))
+                           "\n" ,hint-var
+                           (when dotspacemacs-show-transient-state-color-guide
+                             (concat "\n" guide))))))
            ,@bindkeys)))))
 
 (provide 'core-transient-state)
