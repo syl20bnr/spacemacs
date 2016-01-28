@@ -30,8 +30,17 @@
               (listp (symbol-value to-add)))
      (symbol-value to-add))))
 
+;; (defface spacemacs-transient-state-title-face
+;;   `((t :background "DarkGoldenrod2"
+;;        :foreground "black"
+;;        :bold t
+;;        :box (:line-width -1 (plist-get
+;;                              (face-attribute 'mode-line :box)
+;;                              :color))))
+;;   "Face for title of transient states.")
+
 (defface spacemacs-transient-state-title-face
-  '((t :inherit header-line))
+  `((t :inherit mode-line))
   "Face for title of transient states.")
 
 (defmacro spacemacs|define-transient-state (name &rest props)
@@ -114,7 +123,7 @@ used."
                (add-face-text-property 0 (length guide) 'italic t guide)
                (setq ,hint-var
                      (list 'concat
-                           (propertize ,(concat title "\n")
+                           (propertize ,title
                                        'face 'spacemacs-transient-state-title-face)
                            "\n" ,hint-var
                            (when dotspacemacs-show-transient-state-color-guide
