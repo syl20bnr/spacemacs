@@ -48,7 +48,6 @@
         :title "Workspaces Transient State"
         :doc "
 [_0_.._9_] switch to workspace  [_n_/_p_] next/prev  [_[tab]_] last  [_c_] close  [_r_] rename"
-        :doc (concat (spacemacs//workspaces-ms-documentation))
         :bindings
         ("0" eyebrowse-switch-to-window-config-0)
         ("1" eyebrowse-switch-to-window-config-1)
