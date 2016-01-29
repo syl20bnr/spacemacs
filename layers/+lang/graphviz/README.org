@@ -1,0 +1,37 @@
+#+TITLE: graphviz layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+
+#+CAPTION: logo
+
+# The maximum height of the logo should be 200 pixels.
+[[img/graphviz.png]]
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
+
+* Description
+This contains a forked version of [[https://github.com/ppareit/graphviz-dot-mode][graphviz-dot-mode]] that enables a live-reload
+type work flow for editing `.dot` files. When live-preview is enabled, saving
+the file will automatically trigger a compilation and reload of the image buffer
+associated with the file.
+
+If the live preview is not always updating the rendered image properly, you can
+try to adjust the value of ~graphviz-dot-revert-delay~ higher to give the
+compiler more time to finish generating the file before reverting the buffer.
+
+* Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(graphviz))
+#+end_src
+
+* Key bindings
+| Key Binding | Description                          |
+|-------------+--------------------------------------|
+| ~<SPC> t~   | Toggle live-preview                  |
+| ~<SPC> c~   | Set compile command and compile file |
+| ~<SPC> p~   | Preview file                         |
+| ~<SPC> ,~   | Preview file                         |
