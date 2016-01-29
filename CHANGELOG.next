@@ -72,8 +72,7 @@ This file containes the change log for the next major version of Spacemacs.
   - ~SPC j S~ to split a quoted string or s-expression, insert a new line and auto-indent
   - ~SPC j u~ to undo a jump (go back to previous location)
   - ~SPC j U~ to jump to a URL in the current buffer
-  - ~SPC j v~ to jump to the definition/declaration of the variable under the
-    point
+  - ~SPC j v~ to jump to the definition/declaration of the variable around point
   - ~SPC j w~ to jump to a word in the current buffer (works as an evil motion)
   (thanks to justbur)
 - New key bindings under ~SPC h~:
