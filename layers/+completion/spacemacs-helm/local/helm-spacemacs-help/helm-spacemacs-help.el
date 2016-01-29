@@ -156,8 +156,6 @@
                 `("Spacemacs documentation" . ,r))
                ((string-equal r "FAQ.org")
                 `("Spacemacs FAQ" . ,r))
-               ((string-equal r "HOWTOs.org")
-                `("Quick HOW-TOs for Spacemacs" . ,r))
                ((string-equal r "LAYERS.org")
                 `("Tips on writing layers for Spacemacs" . ,r))
                ((string-equal r "QUICK_START.org")

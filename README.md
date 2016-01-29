@@ -364,7 +364,6 @@ Thank you!
 [DOCUMENTATION.org]: doc/DOCUMENTATION.org
 [QUICK_START.org]: doc/QUICK_START.org
 [FAQ.org]: doc/FAQ.org
-[HOWTOs.org]: doc/HOWTOs.org
 [VIMUSERS.org]: doc/VIMUSERS.org
 [dotfile]: doc/DOCUMENTATION.org#dotfile-configuration
 [troubleshoot]: doc/DOCUMENTATION.org#troubleshoot
