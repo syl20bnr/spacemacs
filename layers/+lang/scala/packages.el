@@ -22,6 +22,7 @@
     :commands (ensime-mode)
     :init
     (progn
+      (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime")
       (when scala-enable-eldoc
         (add-hook 'ensime-mode-hook 'scala/enable-eldoc))
       (add-hook 'scala-mode-hook 'scala/configure-flyspell)
@@ -96,7 +97,8 @@
         (spacemacs/declare-prefix-for-mode 'scala-mode (car prefix) (cdr prefix)))
 
       (spacemacs/set-leader-keys-for-major-mode 'scala-mode
-        "/"     'ensime-search
+        "/"      'ensime-search
+        "'"      'ensime-inf-switch
 
         "bc"     'ensime-sbt-do-compile
         "bC"     'ensime-sbt-do-clean

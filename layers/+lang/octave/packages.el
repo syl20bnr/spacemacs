@@ -18,11 +18,13 @@
   (use-package octave
     :mode ("\\.m\\'" . octave-mode)
     :commands (run-octave)
+    :init (spacemacs/register-repl 'octave 'run-octave "octave")
     :config (spacemacs/set-leader-keys-for-major-mode 'octave-mode
               ;; helpers
               "hh" 'octave-help
               "hi" 'octave-lookfor
               ;; REPL
+              "'" 'run-octave
               "sb" 'octave-send-buffer
               "sf" 'octave-send-defun
               "si" 'run-octave
