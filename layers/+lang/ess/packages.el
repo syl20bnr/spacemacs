@@ -53,7 +53,11 @@
     :init
     (progn
       (when (configuration-layer/package-usedp 'company)
-          (add-hook 'ess-mode-hook 'company-mode))))
+        (add-hook 'ess-mode-hook 'company-mode))
+      (spacemacs/register-repl 'ess-site 'R)
+      (spacemacs/register-repl 'ess-site 'stata)
+      (spacemacs/register-repl 'ess-site 'SAS)
+      (spacemacs/register-repl 'ess-site 'julia)))
 
   ;; R --------------------------------------------------------------------------
   (with-eval-after-load 'ess-site
