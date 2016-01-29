@@ -159,4 +159,4 @@ about functions, variables, modes etc. These commands are bound thusly:
 | ~SPC h d v~ | describe-variable |
 
 * How-To's
-Some quick =how-to's= are compiled in the [[file:HOWTOs.org][HOWTOs.org]] file.
+Some quick =how-to's= are compiled in the [[file:FAQ.org::How%20do%20I...][FAQ.org]] file.
