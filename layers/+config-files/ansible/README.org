@@ -9,7 +9,7 @@
  - [[Key bindings][Key bindings]]
 
 * Description
-This layer adds support for Ansible-flavored YAML buffers.
+This layer adds support for Ansible-flavored YAML buffers and Jinja2 templates.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

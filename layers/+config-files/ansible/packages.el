@@ -12,6 +12,7 @@
       '(ansible
         ansible-doc
         company
+        jinja2-mode
         yaml-mode))
 
 (defun ansible/init-ansible ()
@@ -28,6 +29,11 @@
   ;; Tracking here:
   ;; https://github.com/k1LoW/emacs-ansible/issues/2
   (defvar ac-user-dictionary-files nil))
+
+(defun ansible/init-jinja2-mode ()
+  (use-package jinja2-mode
+    :mode ("\\.j2\\'" . jinja2-mode)
+    :defer t))
 
 (defun ansible/post-init-yaml-mode ()
   (spacemacs/set-leader-keys-for-major-mode 'yaml-mode "ha" 'ansible-doc)
