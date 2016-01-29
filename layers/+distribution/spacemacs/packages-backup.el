@@ -65,6 +65,7 @@
         open-junk-file
         leuven-theme
         linum-relative
+        link-hint
         lorem-ipsum
         move-text
         neotree
@@ -394,7 +395,7 @@
 (defun spacemacs/init-avy ()
   (use-package avy
     :defer t
-    :commands (spacemacs/avy-open-url spacemacs/avy-goto-url avy-pop-mark)
+    :commands (spacemacs/avy-goto-url avy-pop-mark)
     :init
     (progn
       (setq avy-all-windows 'all-frames)
@@ -405,20 +406,12 @@
         "jl" 'evil-avy-goto-line
         "ju" 'avy-pop-mark
         "jU" 'spacemacs/avy-goto-url
-        "jw" 'evil-avy-goto-word-or-subword-1
-        "xo" 'spacemacs/avy-open-url))
+        "jw" 'evil-avy-goto-word-or-subword-1))
     :config
-    (progn
-      (defun spacemacs/avy-goto-url()
-        "Use avy to go to an URL in the buffer."
-        (interactive)
-        (avy--generic-jump "https?://" nil 'pre))
-      (defun spacemacs/avy-open-url ()
-        "Use avy to select an URL in the buffer and open it."
-        (interactive)
-        (save-excursion
-          (spacemacs/avy-goto-url)
-          (browse-url-at-point))))))
+    (defun spacemacs/avy-goto-url()
+      "Use avy to go to an URL in the buffer."
+      (interactive)
+      (avy--generic-jump "https?://" nil 'pre))))
 
 (defun spacemacs/init-bracketed-paste ()
   (use-package bracketed-paste
@@ -1178,6 +1171,14 @@ on whether the spacemacs-ivy layer is used or not, with
   (use-package leuven-theme
     :defer t
     :init (setq org-fontify-whole-heading-line t)))
+
+(defun spacemacs/init-link-hint ()
+  (use-package link-hint
+    :defer t
+    :init
+    (spacemacs/set-leader-keys
+      "xo" 'link-hint-open-link
+      "xO" 'link-hint-open-multiple-links)))
 
 (defun spacemacs/init-linum-relative ()
   (use-package linum-relative

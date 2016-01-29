@@ -2184,9 +2184,6 @@ Text related commands (start with ~x~):
 
     | Key Binding | Description                                                   |
     |-------------+---------------------------------------------------------------|
-    | ~SPC x o~   | use avy to select a link in the buffer and open it            |
-    | ~SPC x u~   | set the selected text to lower case                           |
-    | ~SPC x U~   | set the selected text to upper case                           |
     | ~SPC x a a~ | align region (or guessed section) using default rules         |
     | ~SPC x a r~ | align region using user-specified regexp                      |
     | ~SPC x a m~ | align region at arithmetic operators (+-*/)                   |
@@ -2210,9 +2207,13 @@ Text related commands (start with ~x~):
     | ~SPC x K~   | move up a line of text (enter transient-state)                    |
     | ~SPC x l s~ | sort lines                                                    |
     | ~SPC x l u~ | uniquify lines                                                |
+    | ~SPC x o~   | use avy to select a link in the frame and open it             |
+    | ~SPC x O~   | use avy to select multiple links in the frame and open them   |
     | ~SPC x t c~ | swap (transpose) the current character with the previous one  |
     | ~SPC x t w~ | swap (transpose) the current word with the previous one       |
     | ~SPC x t l~ | swap (transpose) the current line with the previous one       |
+    | ~SPC x u~   | set the selected text to lower case                           |
+    | ~SPC x U~   | set the selected text to upper case                           |
     | ~SPC x w c~ | count the number of occurrences per word in the select region |
     | ~SPC x w d~ | show dictionary entry of word from wordnik.com                |
 
