@@ -18,7 +18,8 @@
         helm-make
         helm-mode-manager
         helm-projectile
-        helm-swoop
+        (helm-swoop :excluded t)
+        swiper-helm
         helm-themes
         (helm-spacemacs-help :location local)))
 
@@ -960,3 +961,21 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :init
     (spacemacs/set-leader-keys
       "Th" 'helm-themes)))
+
+(defun spacemacs-helm/init-swiper-helm ()
+  (use-package swiper-helm
+    :defer t
+    :init
+    (progn
+
+      (defun spacemacs/swiper-helm-region-or-symbol ()
+        (interactive)
+        (swiper-helm
+         (if (region-active-p)
+             (buffer-substring-no-properties (region-beginning)
+                                             (region-end))
+           (or (thing-at-point 'symbol t) ""))))
+
+      (spacemacs/set-leader-keys
+        "ss" 'swiper-helm
+        "sS" 'spacemacs/swiper-helm-region-or-symbol))))
