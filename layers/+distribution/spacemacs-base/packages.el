@@ -248,6 +248,7 @@
       (spacemacs/set-leader-keys "re" 'evil-show-registers)
       (define-key evil-visual-state-map (kbd "<escape>") 'keyboard-quit)
       ;; motions keys for help buffers
+      (evil-define-key 'motion help-mode-map (kbd "ESC") 'quit-window)
       (evil-define-key 'motion help-mode-map (kbd "<tab>") 'forward-button)
       (evil-define-key 'motion help-mode-map (kbd "S-<tab>") 'backward-button)
       (evil-define-key 'motion help-mode-map (kbd "]") 'help-go-forward)
