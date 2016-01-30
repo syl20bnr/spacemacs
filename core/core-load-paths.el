@@ -46,7 +46,7 @@
   (expand-file-name "~/")
   "User home directory (~/).")
 (defconst pcache-directory
-  (concat spacemacs-cache-directory "pcache"))
+  (concat spacemacs-cache-directory "pcache/"))
 (unless (file-exists-p spacemacs-cache-directory)
     (make-directory spacemacs-cache-directory))
 
