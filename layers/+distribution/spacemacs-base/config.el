@@ -135,7 +135,8 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
               tab-width 2)
 
 ;; Text
-(setq longlines-show-hard-newlines t)
+(setq require-final-newline t
+      longlines-show-hard-newlines t)
 
 ;; Use system trash for file deletion
 ;; should work on Windows and Linux distros
