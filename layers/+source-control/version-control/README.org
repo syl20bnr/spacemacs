@@ -9,7 +9,7 @@
  - [[Configuration][Configuration]]
    - [[Differences between margin programs][Differences between margin programs]]
  - [[Key Bindings][Key Bindings]]
-   - [[Version Control Micro-state][Version Control Micro-state]]
+   - [[Version Control Transient-state][Version Control Transient-state]]
 
 * Description
 This layers adds general configuration for [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html][Emacs VC]].
@@ -18,7 +18,7 @@ It should work with all VC backends such as Git, Mercurial, Bazaar, SVN, etc...
 ** Features
 - highlights uncommitted changes in the fringe or margin with [[https://github.com/dgutov/diff-hl][diff-hl]],
 git-gutter, or git-gutter+
-- adds vcs micro-state ~SPC g.~ to allow quick navigation and modification of
+- adds vcs transient-state ~SPC g.~ to allow quick navigation and modification of
 buffer hunks.
 
 * Install
@@ -28,7 +28,7 @@ add =version-control= to the existing =dotspacemacs-configuration-layers= list i
 file.
 
 * Configuration
-You can choose the package to facilitate the diff micro-state and show margins
+You can choose the package to facilitate the diff transient-state and show margins
 by setting =version-control-diff-tool=
 
 #+BEGIN_SRC emacs-lisp
@@ -62,11 +62,11 @@ one over the other:
 
 | Key Binding | Description                  |
 |-------------+------------------------------|
-| ~SPC g .~   | version control micro-state  |
+| ~SPC g .~   | version control transient-state  |
 | ~SPC T d~   | toggle diff margins          |
 | ~SPC T C-d~ | toggle diff margins globally |
 
-** Version Control Micro-state
+** Version Control Transient-state
 
 | Key Binding | Description                  |
 |-------------+------------------------------|

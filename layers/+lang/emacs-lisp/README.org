@@ -61,7 +61,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m ,~                  | toggle =lisp state=                                        |
 | ~SPC m t b~                | run tests of current buffer                                |
 | ~SPC m t q~                | run =ert=                                                  |
-| ~SPC m d m~                | open [[https://github.com/joddie/macrostep][macrostep]] micro-state                                 |
+| ~SPC m d m~                | open [[https://github.com/joddie/macrostep][macrostep]] transient-state                        |
 
 ** srefactor
 The [[file:../../semantic/README.org][semantic]] layer should be installed for these key bindings to become active.

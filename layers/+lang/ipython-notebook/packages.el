@@ -105,7 +105,7 @@ Operations on Cells^^^^^^            On Worksheets^^^^              Other
 [_C-k_/_C-j_]^^ merge above/below    [_1_.._9_]  open [1st..last]   [_C-o_]^^       open console
 [_O_/_o_]^^     insert above/below   [_+_/_-_]   create/delete      [_C-s_/_C-r_]   save/rename notebook
 [_y_/_p_/_d_]   copy/paste           ^^^^                           [_x_]^^         close notebook
-[_u_]^^^^       change type          ^^^^                           [_q_]^^         quit micro-state
+[_u_]^^^^       change type          ^^^^                           [_q_]^^         quit transient-state
 [_RET_]^^^^     execute"
         :bindings
         ("q" nil :exit t)

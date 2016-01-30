@@ -287,14 +287,14 @@
 
       (defun spacemacs//helm-cleanup ()
         "Cleanup some helm related states when quitting."
-        ;; deactivate any running transient map (micro-state)
+        ;; deactivate any running transient map (transient-state)
         (setq overriding-terminal-local-map nil))
       (add-hook 'helm-cleanup-hook 'spacemacs//helm-cleanup)
 
       (defface spacemacs-helm-navigation-ms-face
         `((t :background ,(face-attribute 'error :foreground)
              :foreground "black"))
-        "Face for helm heder when helm micro-state is activated."
+        "Face for helm heder when helm transient-state is activated."
         :group 'spacemacs))
 
     :config
@@ -419,7 +419,7 @@ ARG non nil means Vim like movements."
           (helm-ag-edit))))
 
       (defun spacemacs//helm-navigation-ms-on-enter ()
-        "Initialization of helm micro-state."
+        "Initialization of helm transient-state."
         ;; faces
         (spacemacs//helm-navigation-ms-set-face)
         (setq spacemacs--helm-navigation-ms-face-cookie-minibuffer
@@ -428,7 +428,7 @@ ARG non nil means Vim like movements."
                'spacemacs-helm-navigation-ms-face)))
 
       (defun spacemacs//helm-navigation-ms-set-face ()
-        "Set the face for helm header in helm navigation micro-state"
+        "Set the face for helm header in helm navigation transient-state"
         (with-helm-window
           (setq spacemacs--helm-navigation-ms-face-cookie-header
                 (face-remap-add-relative
@@ -436,7 +436,7 @@ ARG non nil means Vim like movements."
                  'spacemacs-helm-navigation-ms-face))))
 
       (defun spacemacs//helm-navigation-ms-on-exit ()
-        "Action to perform when exiting helm micro-state."
+        "Action to perform when exiting helm transient-state."
         (with-helm-window
           (face-remap-remove-relative
            spacemacs--helm-navigation-ms-face-cookie-header))
@@ -452,7 +452,7 @@ ARG non nil means Vim like movements."
                    (intern)
                    (helm-select-nth-action ,(1- n))))))
 
-      (defun spacemacs/helm-micro-state-select-action ()
+      (defun spacemacs/helm-transient-state-select-action ()
         (interactive)
         (call-interactively 'helm-select-action)
         (spacemacs//helm-navigation-ms-set-face))
@@ -481,7 +481,7 @@ ARG non nil means Vim like movements."
         ("TAB" helm-select-action :exit t)
         ("<RET>" helm-maybe-exit-minibuffer :exit t)
         ;; ("?" nil :doc (spacemacs//helm-navigation-ms-full-doc))
-        ("a" spacemacs/helm-micro-state-select-action)
+        ("a" spacemacs/helm-transient-state-select-action)
         ("e" spacemacs/helm-edit)
         ("g" helm-beginning-of-buffer)
         ("G" helm-end-of-buffer)
