@@ -114,13 +114,13 @@ used."
               ,(format "%S micro-state." name)
               (interactive)
               ,@on-enter
+              ,(when exec-binding
+                 (spacemacs//micro-state-auto-execute bindings))
               (let ((doc ,@doc))
                 (when doc
                   (spacemacs//micro-state-set-minibuffer-height doc)
                   (apply ',msg-func (list (spacemacs//micro-state-propertize-doc
                                            (format "%S: %s" ',name doc))))))
-              ,(when exec-binding
-                 (spacemacs//micro-state-auto-execute bindings))
               (,(if (version< emacs-version "24.4")
                     'set-temporary-overlay-map
                   'set-transient-map)
