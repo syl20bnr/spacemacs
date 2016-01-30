@@ -367,10 +367,10 @@
   (evil-define-key 'insert comint-mode-map [down] 'comint-next-input))
 
 ;; ---------------------------------------------------------------------------
-;; Micro-states
+;; Transient-states
 ;; ---------------------------------------------------------------------------
 
-;; Buffer micro state
+;; Buffer transient state
 
 (spacemacs|define-transient-state buffer
   :title "Buffer Selection Transient State"
@@ -382,9 +382,9 @@
   ("q" nil "quit" :exit t))
 (spacemacs/set-leader-keys "b." 'spacemacs/buffer-transient-state/body)
 
-;; end of Buffer micro state
+;; end of Buffer transient state
 
-;; Window Manipulation Micro State
+;; Window Manipulation Transient State
 
 (defun spacemacs/shrink-window-horizontally (delta)
   "Wrap `spacemacs/shrink-window-horizontally'."
@@ -468,9 +468,9 @@ Select^^^^               Move^^^^              Split^^                Resize^^  
 (spacemacs/set-leader-keys "w."
   'spacemacs/window-manipulation-transient-state/body)
 
-;; end of Window Manipulation Micro State
+;; end of Window Manipulation Transient State
 
-;; text Manipulation Micro State
+;; text Manipulation Transient State
 
 (defun spacemacs/scale-up-or-down-font-size (direction)
   "Scale the font. If DIRECTION is positive or zero the font is scaled up,
@@ -509,9 +509,9 @@ otherwise it is scaled down."
   ("q" nil :exit t))
 (spacemacs/set-leader-keys "zx" 'spacemacs/scale-font-transient-state/body)
 
-;; end of Text Manipulation Micro State
+;; end of Text Manipulation Transient State
 
-;; Transparency micro-state
+;; Transparency transient-state
 
 (defun spacemacs/toggle-transparency ()
   "Toggle between transparent or opaque display."
@@ -554,4 +554,4 @@ otherwise it is scaled down."
 (spacemacs/set-leader-keys "TT"
   'spacemacs/scale-transparency-transient-state/spacemacs/toggle-transparency)
 
-;; end of Transparency Micro State
+;; end of Transparency Transient State
