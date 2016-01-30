@@ -34,6 +34,7 @@
    - [[Prevent the visual selection overriding my system clipboard?][Prevent the visual selection overriding my system clipboard?]]
    - [[Make spell-checking support curly quotes (or any other character)?][Make spell-checking support curly quotes (or any other character)?]]
    - [[Use Spacemacs as the =$EDITOR= for git commits?][Use Spacemacs as the =$EDITOR= for git commits?]]
+   - [[Try Spacemacs without modifying my existing Emacs configuration?][Try Spacemacs without modifying my existing Emacs configuration?]]
  - [[Windows][Windows]]
    - [[Why do the fonts look crappy on Windows?][Why do the fonts look crappy on Windows?]]
    - [[Why is there no Spacemacs logo in the startup buffer?][Why is there no Spacemacs logo in the startup buffer?]]
@@ -389,6 +390,20 @@ commits messages. To enable this you have to add the following line to your
 #+begin_src emacs-lisp
 (global-git-commit-mode t)
 #+end_src
+
+** Try Spacemacs without modifying my existing Emacs configuration?
+Emacs' ability to use any directory as the home for launching it allows us to
+try out Spacemacs (or any other Emacs configuration we desire) without having to go
+through the trouble of backing up our =~/.emacs.d= directory and then cloning the new
+configuration. This can be achieved easily using the following steps:
+
+#+BEGIN_SRC shell
+  mkdir ~/spacemacs
+  git clone git@github.com:syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
+  HOME=~/spacemacs emacs
+#+END_SRC
+
+If you're on Fish shell, you will need to modify the last command to: =env HOME=$HOME/spacemacs emacs=
 
 * Windows
 ** Why do the fonts look crappy on Windows?
