@@ -195,8 +195,8 @@ FRAME defaults to the current frame."
     (set-persp-parameter
      'eyebrowse-last-slot (eyebrowse--get 'last-slot frame) persp)))
 
-(defun spacemacs/layout-workspaces-micro-state ()
-  "Launches the workspaces micro state, if defined."
+(defun spacemacs/layout-workspaces-transient-state ()
+  "Launches the workspaces transient state, if defined."
   (interactive)
   (if (fboundp 'spacemacs/workspaces-transient-state/body)
       (call-interactively 'spacemacs/workspaces-transient-state/body)

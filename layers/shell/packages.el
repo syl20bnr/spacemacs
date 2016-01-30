@@ -334,7 +334,7 @@ is achieved by adding the relevant text properties."
     "Send tab in term mode."
     (interactive)
     (term-send-raw-string "\t"))
-  ;; hack to fix pasting issue, the paste micro-state won't
+  ;; hack to fix pasting issue, the paste transient-state won't
   ;; work in term
   (evil-define-key 'normal term-raw-map "p" 'term-paste)
   (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)

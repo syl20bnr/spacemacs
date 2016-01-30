@@ -24,7 +24,7 @@
       (define-key evil-motion-state-map "gT" 'eyebrowse-prev-window-config)
 
       (defun spacemacs/workspaces-ms-rename ()
-        "Rename a workspace and get back to micro-state."
+        "Rename a workspace and get back to transient-state."
         (interactive)
         (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) nil)
         (spacemacs/workspaces-micro-state))
@@ -71,7 +71,7 @@
         ("r" spacemacs/workspaces-ms-rename :exit t)
         ("w" eyebrowse-switch-to-window-config :exit t))
 
-      ;; The layouts layer defines this keybinding inside a microstate
+      ;; The layouts layer defines this keybinding inside a transient-state
       ;; thus this is only needed if that layer is not used
       (unless (configuration-layer/layer-usedp 'spacemacs-layouts)
         (spacemacs/set-leader-keys "lw" 'spacemacs/workspaces-transient-state/body)))))

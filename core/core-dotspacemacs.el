@@ -180,8 +180,8 @@ auto-save the file in-place, `cache' to auto-save the file to another
 file stored in the cache directory and `nil' to disable auto-saving.
 Default value is `cache'.")
 
-(defvar dotspacemacs-enable-paste-micro-state t
-  "If non nil the paste micro-state is enabled. While enabled pressing `p`
+(defvar dotspacemacs-enable-paste-transient-state t
+  "If non nil the paste transient-state is enabled. While enabled pressing `p`
 several times cycle between the kill ring content.'")
 
 (defvar dotspacemacs-which-key-delay 0.4

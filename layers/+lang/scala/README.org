@@ -150,7 +150,7 @@ To insert a leading asterisk in multiline comments automatically, set the variab
 | ~SPC m d s~ | step                        |
 | ~SPC m d t~ | backtrace                   |
 
-*Note:* These key bindings need a micro-state, PR welcome :-)
+*Note:* These key bindings need a transient-state, PR welcome :-)
 
 *** Errors
 

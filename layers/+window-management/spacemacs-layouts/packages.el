@@ -54,10 +54,10 @@
                              *persp-hash* 'non-existent))
           (persp-switch spacemacs--last-selected-layout)))
 
-      ;; Perspectives micro-state -------------------------------------------
+      ;; Perspectives transient-state -------------------------------------------
 
       (defun spacemacs//layouts-ms-toggle-doc ()
-        "Toggle the full documenation for the layouts micro-state."
+        "Toggle the full documenation for the layouts transient-state."
         (interactive)
         (setq spacemacs--layouts-ms-doc-toggle
               (logxor spacemacs--layouts-ms-doc-toggle 1)))
@@ -96,12 +96,12 @@
   [s]                  save all layouts
   [S]                  save layouts by names
   [t]                  show a buffer without adding it to current layout
-  [w]                  workspaces micro-state (needs eyebrowse layer enabled)
+  [w]                  workspaces transient-state (needs eyebrowse layer enabled)
   [x]                  kill current layout with its buffers
   [X]                  kill other layouts with their buffers")
 
       (defun spacemacs//layouts-ms-doc ()
-        "Return the docstring for the layouts micro-state."
+        "Return the docstring for the layouts transient-state."
         (let* ((persp-list (or (persp-names-current-frame-fast-ordered)
                                (list persp-nil-name)))
                (formatted-persp-list
@@ -151,7 +151,7 @@
         ("s" persp-save-state-to-file :exit t)
         ("S" persp-save-to-file-by-names :exit t)
         ("t" persp-temporarily-display-buffer :exit t)
-        ("w" spacemacs/layout-workspaces-micro-state :exit t)
+        ("w" spacemacs/layout-workspaces-transient-state :exit t)
         ("x" spacemacs/layouts-ms-kill)
         ("X" spacemacs/layouts-ms-kill-other :exit t))
       (spacemacs/set-leader-keys "l" 'spacemacs/layouts-transient-state/body)
@@ -184,7 +184,7 @@
           (persp-switch dotspacemacs-default-layout-name)))
 
       (defun spacemacs/layouts-ms-rename ()
-        "Rename a layout and get back to the perspectives micro-state."
+        "Rename a layout and get back to the perspectives transient-state."
         (interactive)
         (call-interactively 'persp-rename)
         (spacemacs/layouts-transient-state/body))
@@ -214,7 +214,7 @@
         (interactive)
         (persp-switch persp-last-persp-name))
 
-      ;; Custom perspectives micro-state -------------------------------------
+      ;; Custom perspectives transient-state -------------------------------------
 
       (defun spacemacs//custom-layout-func-name (name)
         "Return the name of the custom-perspective function for NAME."
@@ -267,13 +267,13 @@ Available PROPS:
         (spacemacs/find-dotfile))
 
       (defun spacemacs/select-custom-layout ()
-        "Update the custom-perspectives microstate and then activate it."
+        "Update the custom-perspectives transient-state and then activate it."
         (interactive)
         (spacemacs//update-custom-layouts)
         (spacemacs/custom-layouts-transient-state/body))
 
       (defun spacemacs//custom-layouts-ms-documentation ()
-        "Return the docstring for the custom perspectives micro-state."
+        "Return the docstring for the custom perspectives transient-state."
         (if spacemacs--custom-layout-alist
             (mapconcat (lambda (custom-persp)
                          (format "[%s] %s"
@@ -282,10 +282,10 @@ Available PROPS:
           (spacemacs-buffer/warning (format "`spacemacs--custom-layout-alist' variable is empty" ))))
 
       (defun spacemacs//update-custom-layouts ()
-        "Ensure the custom-perspectives micro-state is updated.
+        "Ensure the custom-perspectives transient-state is updated.
 Takes each element in the list `spacemacs--custom-layout-alist'
 format so they are supported by the
-`spacemacs/custom-layouts-micro-state' macro."
+`spacemacs/custom-layouts-transient-state' macro."
         (let (bindings)
           (dolist (custom-persp spacemacs--custom-layout-alist bindings)
             (let* ((binding (car custom-persp))

@@ -44,7 +44,7 @@ file.
 | ~SPC m z~   | fold/unfold current element                               |
 | ~%~         | evil-matchit keybinding to jump to closing tag            |
 
-A micro-state is also defined, start it with ~SPC m .~ or ~, .~
+A transient-state is also defined, start it with ~SPC m .~ or ~, .~
 
 | Key Binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
@@ -59,7 +59,7 @@ A micro-state is also defined, start it with ~SPC m .~ or ~, .~
 | ~K~ / ~gk~  | previous sibling element                                       |
 | ~l~         | first child element                                            |
 | ~p~         | show xpath of current element                                  |
-| ~q~         | leave the micro-state                                          |
+| ~q~         | leave the transient-state                                          |
 | ~r~         | rename current element                                         |
 | ~w~         | wrap current element                                           |
 

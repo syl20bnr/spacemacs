@@ -320,7 +320,7 @@
         "sh" 'spacemacs/symbol-highlight
         "sH" 'spacemacs/goto-last-searched-ahs-symbol)
 
-      ;; micro-state to easily jump from a highlighted symbol to the others
+      ;; transient-state to easily jump from a highlighted symbol to the others
       (dolist (sym '(ahs-forward
                      ahs-forward-definition
                      ahs-backward

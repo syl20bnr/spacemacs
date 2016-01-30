@@ -5,11 +5,11 @@
  - [[Description][Description]]
  - [[Install][Install]]
    - [[Layer][Layer]]
- - [[Features ][Features ]]
-   - [[Micro-states][Micro-states]]
-     - [[Layouts Micro State][Layouts Micro State]]
+ - [[Features][Features]]
+   - [[Transient-states][Transient-states]]
+     - [[Layouts Transient State][Layouts Transient State]]
      - [[Project Layouts][Project Layouts]]
-     - [[Custom Layouts Micro State][Custom Layouts Micro State]]
+     - [[Custom Layouts Transient State][Custom Layouts Transient State]]
  - [[Usage][Usage]]
    - [[Save/Load layouts into a file][Save/Load layouts into a file]]
    - [[Custom Layout Macro][Custom Layout Macro]]
@@ -29,11 +29,11 @@ If you use =spacemacs-base= distribution then to use this configuration layer,
 add it to your =~/.spacemacs=. You will need to add =spacemacs-layout= to the
 existing =dotspacemacs-configuration-layers= list in this file.
 
-* Features 
+* Features
 
-** Micro-states
-*** Layouts Micro State
-The layouts micro-state is initiated with ~SPC l~.
+** Transient-states
+*** Layouts Transient State
+The layouts transient-state is initiated with ~SPC l~.
 
 | Key Binding | Description                                                |
 |-------------+------------------------------------------------------------|
@@ -58,15 +58,15 @@ The layouts micro-state is initiated with ~SPC l~.
 | ~R~         | rename current layout                                      |
 | ~s~         | save layouts                                               |
 | ~t~         | display a buffer without adding it to the current layout   |
-| ~w~         | workspaces micro-state (needs eyebrowse layer enabled)     |
+| ~w~         | workspaces transient-state (needs eyebrowse layer enabled) |
 | ~x~         | kill current layout with its buffers                       |
 | ~X~         | kill other layouts with their buffers                      |
 
 *** Project Layouts
 To create a layout for a specific project use ~SPC p l~.
 
-*** Custom Layouts Micro State
-The layouts micro-state is initiated with ~SPC l o~.
+*** Custom Layouts Transient State
+The layouts transient-state is initiated with ~SPC l o~.
 
 Example of default custom layouts that are configured in the corresponding
 layers:

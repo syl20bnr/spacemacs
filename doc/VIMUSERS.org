@@ -8,7 +8,7 @@
    - [[Terms][Terms]]
      - [[Modes vs. States][Modes vs. States]]
      - [[Layers][Layers]]
-     - [[Micro-states][Micro-states]]
+     - [[Transient-states][Transient-states]]
    - [[Keybinding conventions][Keybinding conventions]]
    - [[Running commands][Running commands]]
    - [[Buffer and window management][Buffer and window management]]
@@ -83,17 +83,17 @@ about what packages to install, and instead worry about what features you want.
 More information on layers can be found in the [[./VIMUSERS.org#customization][customization]] section and in the
 [[./DOCUMENTATION.org#configuration-layers][documentation]]. There is also a more in-depth guide on writing layers [[file:LAYERS.org][here]].
 
-*** Micro-states
-Spacemacs provides a special functionality called micro-states. Micro-states
+*** Transient-states
+Spacemacs provides a special functionality called transient-states. Transient-states
 allow similar commands to be run in succession without repeatedly pressing the
-~<Leader>~ key. Micro-states are usually triggered by using a keybinding with the
+~<Leader>~ key. Transient-states are usually triggered by using a keybinding with the
 following pattern: ~<Leader> <group> .~ where group is the category the
-micro-state falls under. When in a micro-state you will see documentation at the
-bottom of your window. To exit a micro-state press ~q~.
+transient-state falls under. When in a transient-state you will see documentation at the
+bottom of your window. To exit a transient-state press ~q~.
 
-#+CAPTION: Micro-state documentation window
+#+CAPTION: Transient-state documentation window
 
-[[file:img/spacemacs-scale-micro-state.png]]
+[[file:img/spacemacs-scale-transient-state.png]]
 
 ** Keybinding conventions
 Spacemacs uses ~SPC~ as its ~<Leader>~ key. This document will use ~SPC~ to refer to
@@ -130,7 +130,7 @@ are located under the ~SPC b~ prefix.
 | ~SPC b d~ or ~:bdelete~   | Kill current buffer.                                 |
 | ~SPC b k~                 | Search for a buffer to kill.                         |
 | ~SPC b K~                 | Kill all buffers except the current buffer.          |
-| ~SPC b .~                 | Buffer micro-state.                                  |
+| ~SPC b .~                 | Buffer transient-state.                                  |
 
 **** Special buffers
 By default Emacs creates a lot of buffers that most people will never need, like
@@ -147,7 +147,7 @@ once. All window keybindings are under the ~SPC w~ prefix.
 | ~SPC w s~ or ~:split~  | Opens a horizontal split below.      |
 | ~SPC w h/j/k/l~        | Navigate among windows.              |
 | ~SPC w H/J/K/L~        | Move the current window.             |
-| ~SPC w .~              | Window micro-state.                  |
+| ~SPC w .~              | Window transient-state.                  |
 
 ** Files
 All file commands in Spacemacs are available under the ~SPC f~ prefix.

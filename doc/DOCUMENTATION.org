@@ -55,7 +55,7 @@
    - [[States][States]]
    - [[Evil leader][Evil leader]]
    - [[Universal argument][Universal argument]]
-   - [[Micro-states][Micro-states]]
+   - [[Transient-states][Transient-states]]
  - [[Differences between Vim, Evil and Spacemacs][Differences between Vim, Evil and Spacemacs]]
    - [[The vim-surround case][The vim-surround case]]
  - [[Evil plugins][Evil plugins]]
@@ -84,7 +84,7 @@
    - [[Helm][Helm]]
      - [[C-z and Tab switch][C-z and Tab switch]]
      - [[Helm focus][Helm focus]]
-     - [[Helm micro-state][Helm micro-state]]
+     - [[Helm transient-state][Helm transient-state]]
    - [[Discovering][Discovering]]
      - [[Key bindings][Key bindings]]
        - [[Which-key][Which-key]]
@@ -105,17 +105,17 @@
        - [[Joining and splitting][Joining and splitting]]
      - [[Window manipulation][Window manipulation]]
        - [[Window manipulation key bindings][Window manipulation key bindings]]
-       - [[Window manipulation micro-state][Window manipulation micro-state]]
+       - [[Window manipulation transient-state][Window manipulation transient-state]]
        - [[Golden ratio][Golden ratio]]
      - [[Buffers and Files][Buffers and Files]]
        - [[Buffers manipulation key bindings][Buffers manipulation key bindings]]
-       - [[Buffers manipulation micro-state][Buffers manipulation micro-state]]
+       - [[Buffers manipulation transient-state][Buffers manipulation transient-state]]
        - [[Special Buffers][Special Buffers]]
        - [[Files manipulations key bindings][Files manipulations key bindings]]
        - [[Emacs and Spacemacs files][Emacs and Spacemacs files]]
        - [[Browsing files with Helm][Browsing files with Helm]]
      - [[Ido][Ido]]
-     - [[Ido micro-state][Ido micro-state]]
+     - [[Ido transient-state][Ido transient-state]]
      - [[NeoTree file tree][NeoTree file tree]]
        - [[NeoTree navigation][NeoTree navigation]]
        - [[Opening files with NeoTree][Opening files with NeoTree]]
@@ -144,7 +144,7 @@
      - [[Helm-swoop][Helm-swoop]]
    - [[Editing][Editing]]
      - [[Paste text][Paste text]]
-       - [[Paste Micro-state][Paste Micro-state]]
+       - [[Paste Transient-state][Paste Transient-state]]
        - [[Auto-indent pasted text][Auto-indent pasted text]]
      - [[Text manipulation commands][Text manipulation commands]]
      - [[Text insertion commands][Text insertion commands]]
@@ -723,19 +723,19 @@ to ~SPC u~.
 =helm-M-x= first, select the command you want to run, and press ~C-u~ before
 pressing ~RETURN~. For instance: ~SPC : org-reload C-u RET~
 
-** Micro-states
-Spacemacs defines a wide variety of =micro-states= (temporary overlay maps)
+** Transient-states
+Spacemacs defines a wide variety of =transient-states= (temporary overlay maps)
 where it makes sense. This prevents one from doing repetitive and tedious
 presses on the ~SPC~ key.
 
-When a =micro-state= is active, a documentation is displayed in the minibuffer.
+When a =transient-state= is active, a documentation is displayed in the minibuffer.
 Additional information may as well be displayed in the minibuffer.
 
-Auto-highlight-symbol micro-state:
-[[file:img/spacemacs-ahs-micro-state.png]]
+Auto-highlight-symbol transient-state:
+[[file:img/spacemacs-ahs-transient-state.png]]
 
-[[Text][Text scale micro-state]]:
-[[file:img/spacemacs-scale-micro-state.png]]
+[[Text][Text scale transient-state]]:
+[[file:img/spacemacs-scale-transient-state.png]]
 
 * Differences between Vim, Evil and Spacemacs
 - The ~,~ key does "repeat last ~f~, ~t~, ~F~, or ~T~ command in
@@ -929,7 +929,7 @@ and ~T~):
 | ~SPC T m~   | toggle menu bar                                              |
 | ~SPC T M~   | toggle frame maximize                                        |
 | ~SPC T t~   | toggle tool bar                                              |
-| ~SPC T T~   | toggle frame transparency and enter transparency micro-state |
+| ~SPC T T~   | toggle frame transparency and enter transparency transient-state |
 
 *Note*: These toggles are all available via the =helm-spacemacs-help= interface
 (press ~SPC h SPC~ to display the =helm-spacemacs-help= buffer).
@@ -1214,17 +1214,17 @@ makes sense to swap them. It's also recommended [[http://tuhdo.github.io/helm-in
 If you find yourself unable to return focus to Helm (after a careless
 mouse-click for example), use ~SPC w b~ to return focus to the minibuffer.
 
-*** Helm micro-state
-Spacemacs defines a [[Micro-states][micro-state]] for =Helm= to make it work like [[https://github.com/Shougo/unite.vim][Vim's Unite]]
+*** Helm transient-state
+Spacemacs defines a [[Transient-states][transient-state]] for =Helm= to make it work like [[https://github.com/Shougo/unite.vim][Vim's Unite]]
 plugin.
 
-Initiate the micro-state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
+Initiate the transient-state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
 
 | Key Binding          | Description                                      |
 |----------------------+--------------------------------------------------|
-| ~M-SPC~ or ~s-M-SPC~ | initiate the micro-state                         |
-| ~q~                  | quit micro-state                                 |
-| ~TAB~                | switch to actions page and leave the micro-state |
+| ~M-SPC~ or ~s-M-SPC~ | initiate the transient-state                         |
+| ~q~                  | quit transient-state                                 |
+| ~TAB~                | switch to actions page and leave the transient-state |
 | ~1~                  | execute action 0                                 |
 | ~2~                  | execute action 1                                 |
 | ~3~                  | execute action 2                                 |
@@ -1373,7 +1373,7 @@ Spacemacs.
 
 *** Toggles
 =helm-spacemacs-help= is also a central place to discover the available toggles.
-To display only the toggles source press ~C-l~ (or in [[Helm micro-state][Helm micro-state]] you can
+To display only the toggles source press ~C-l~ (or in [[Helm transient-state][Helm transient-state]] you can
 press just ~l~).
 
 The following helm actions are available on packages:
@@ -1546,14 +1546,14 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w w~              | cycle and focus between windows                                             |
 | ~SPC w SPC~            | select window using [[https://github.com/abo-abo/ace-window][ace-window]]                                              |
 
-**** Window manipulation micro-state
-A convenient window manipulation micro-state allows to perform most of the
-actions listed above. The micro-state allows additional actions as well like
+**** Window manipulation transient-state
+A convenient window manipulation transient-state allows to perform most of the
+actions listed above. The transient-state allows additional actions as well like
 window resizing.
 
 | Key Binding   | Description                                                   |
 |---------------+---------------------------------------------------------------|
-| ~SPC w .~     | initiate micro-state                                          |
+| ~SPC w .~     | initiate transient-state                                          |
 | ~?~           | display the full documentation in minibuffer                  |
 | ~0~           | go to window number 0                                         |
 | ~1~           | go to window number 1                                         |
@@ -1591,7 +1591,7 @@ window resizing.
 | ~v~           | vertical split                                                |
 | ~V~           | horizontal split and focus new window                         |
 | ~w~           | focus other window                                            |
-| Any other key | leave the micro-state                                         |
+| Any other key | leave the transient-state                                         |
 
 **** Golden ratio
 If you resize windows like crazy you may want to give a try to [[https://github.com/roman/golden-ratio.el][golden-ratio]].
@@ -1637,17 +1637,17 @@ Buffer manipulation commands (start with ~b~):
 | ~SPC b Y~   | copy whole buffer to clipboard (useful when copying to a browser)        |
 | ~z f~       | Make current function or comments visible in buffer as much as possible  |
 
-**** Buffers manipulation micro-state
-A convenient buffer manipulation micro-state allows to quickly cycles through
+**** Buffers manipulation transient-state
+A convenient buffer manipulation transient-state allows to quickly cycles through
 the opened buffer and kill them.
 
 | Key Binding   | Description                                   |
 |---------------+-----------------------------------------------|
-| ~SPC b .~     | initiate micro-state                          |
+| ~SPC b .~     | initiate transient-state                          |
 | ~K~           | kill current buffer                           |
 | ~n~           | go to next buffer (avoid special buffers)     |
 | ~N~           | go to previous buffer (avoid special buffers) |
-| Any other key | leave the micro-state                         |
+| Any other key | leave the transient-state                         |
 
 **** Special Buffers
 Unlike vim, emacs creates many buffers that most people do not need to see. Some
@@ -1737,14 +1737,14 @@ Basic =ido= operations can be done with ~Ctrl~ key:
 | ~C-S-k~ or ~C-S-p~ | previous history element                          |
 | ~C-S-l~            | go to next directory                              |
 
-*** Ido micro-state
-Spacemacs defines a [[Micro-states][micro-state]] for =ido=.
+*** Ido transient-state
+Spacemacs defines a [[Transient-states][transient-state]] for =ido=.
 
-Initiate the micro-state with ~M-SPC~ or ~s-M-SPC~ while in an =ido= buffer.
+Initiate the transient-state with ~M-SPC~ or ~s-M-SPC~ while in an =ido= buffer.
 
 | Key Binding          | Description                         |
 |----------------------+-------------------------------------|
-| ~M-SPC~ or ~s-M-SPC~ | initiate or leave the micro-state   |
+| ~M-SPC~ or ~s-M-SPC~ | initiate or leave the transient-state   |
 | ~?~                  | display help                        |
 | ~e~                  | open dired                          |
 | ~h~                  | delete backward or parent directory |
@@ -1756,7 +1756,7 @@ Initiate the micro-state with ~M-SPC~ or ~s-M-SPC~ while in an =ido= buffer.
 | ~n~                  | next directory in history           |
 | ~o~                  | open in other window                |
 | ~p~                  | previous directory in history       |
-| ~q~                  | quit micro-state                    |
+| ~q~                  | quit transient-state                    |
 | ~s~                  | open in a new horizontal split      |
 | ~t~                  | open in other frame                 |
 | ~v~                  | open in a new vertical split        |
@@ -2069,7 +2069,7 @@ by pressing ~SPC s c~ or executing the ex command =:noh=.
 
 *** Highlight current symbol
 Spacemacs supports highlighting of the current symbol on demand (provided by
-[[https://github.com/emacsmirror/auto-highlight-symbol][auto-highlight-symbol]] mode) and adds a micro-state to easily navigate and rename
+[[https://github.com/emacsmirror/auto-highlight-symbol][auto-highlight-symbol]] mode) and adds a transient-state to easily navigate and rename
 this symbol.
 
 It is also possible to change the range of the navigation on the fly to:
@@ -2083,14 +2083,14 @@ Navigation between the highlighted symbols can be done with the commands:
 
 | Key Binding | Description                                                                        |
 |-------------+------------------------------------------------------------------------------------|
-| ~/~         | initiate navigation micro-state on current symbol and jump forwards                |
-| ~#~         | initiate navigation micro-state on current symbol and jump backwards               |
+| ~/~         | initiate navigation transient-state on current symbol and jump forwards                |
+| ~#~         | initiate navigation transient-state on current symbol and jump backwards               |
 | ~SPC s e~   | edit all occurrences of the current symbol(/)                                      |
 | ~SPC s h~   | highlight the current symbol and all its occurrence within the current range       |
 | ~SPC s H~   | go to the last searched occurrence of the last highlighted symbol                  |
 | ~SPC t h a~ | toggle automatic highlight of symbol under point after =ahs-idle-interval= seconds |
 
-In 'Spacemacs' highlight symbol micro-state:
+In 'Spacemacs' highlight symbol transient-state:
 
 | Key Binding   | Description                                                   |
 |---------------+---------------------------------------------------------------|
@@ -2101,12 +2101,12 @@ In 'Spacemacs' highlight symbol micro-state:
 | ~D~           | go to previous definition occurrence                          |
 | ~r~           | change range (=function=, =display area=, =whole buffer=)     |
 | ~R~           | go to home occurrence (reset position to starting occurrence) |
-| Any other key | leave the navigation micro-state                              |
+| Any other key | leave the navigation transient-state                              |
 
 (*) using [[https://github.com/tsdh/iedit][iedit]] or the default implementation
 of =auto-highlight-symbol=
 
-The micro-state text in minibuffer display the following information:
+The transient-state text in minibuffer display the following information:
 
 #+BEGIN_EXAMPLE
     <M> [6/11]* press (n/N) to navigate, (e) to edit, (r) to change range or (R)
@@ -2129,7 +2129,7 @@ selection.
 It is pretty useful combined with the [[Region selection][expand-region]] bindings.
 
 *Note*: If the current state is not the =visual state= then pressing ~*~ uses
-auto-highlight-symbol and its micro-state.
+auto-highlight-symbol and its transient-state.
 
 *** Listing symbols by semantic
 Use =helm-semantic-or-imenu= command from =Helm= to quickly navigate between the
@@ -2153,23 +2153,23 @@ modifications to the buffer.
 
 ** Editing
 *** Paste text
-**** Paste Micro-state
-The paste micro-state can be enabled by settings the variable
-=dotspacemacs-enable-paste-micro-state= to =t=. By default it is disabled.
+**** Paste Transient-state
+The paste transient-state can be enabled by settings the variable
+=dotspacemacs-enable-paste-transient-state= to =t=. By default it is disabled.
 
-When the micro-state is enabled, pressing ~p~ again will replace the pasted text
+When the transient-state is enabled, pressing ~p~ again will replace the pasted text
 with the previous yanked (copied) text on the kill ring.
 
 For example if you copy =foo= and =bar= then press ~p~ the text =bar= will
 be pasted, pressing ~p~ again will replace =bar= with =foo=.
 
-| Key Binding   | Description                                                               |
-|---------------+---------------------------------------------------------------------------|
-| ~p~ or ~P~    | paste the text before or after point and initiate the =paste= micro-state |
-| ~p~           | in micro-state: replace paste text with the previously copied one         |
-| ~P~           | in micro-state: replace paste text with the next copied one               |
-| ~.~           | paste the same text and leave the micro-state                             |
-| Any other key | leave the micro-state                                                     |
+| Key Binding   | Description                                                                   |
+|---------------+-------------------------------------------------------------------------------|
+| ~p~ or ~P~    | paste the text before or after point and initiate the =paste= transient-state |
+| ~p~           | in transient-state: replace paste text with the previously copied one         |
+| ~P~           | in transient-state: replace paste text with the next copied one               |
+| ~.~           | paste the same text and leave the transient-state                             |
+| Any other key | leave the transient-state                                                     |
 
 **** Auto-indent pasted text
 By default any pasted text will be auto-indented. To paste text un-indented use
@@ -2206,8 +2206,8 @@ Text related commands (start with ~x~):
     | ~SPC x j l~ | set the justification to left                                 |
     | ~SPC x j n~ | set the justification to none                                 |
     | ~SPC x j r~ | set the justification to right                                |
-    | ~SPC x J~   | move down a line of text (enter micro-state)                  |
-    | ~SPC x K~   | move up a line of text (enter micro-state)                    |
+    | ~SPC x J~   | move down a line of text (enter transient-state)                  |
+    | ~SPC x K~   | move up a line of text (enter transient-state)                    |
     | ~SPC x l s~ | sort lines                                                    |
     | ~SPC x l u~ | uniquify lines                                                |
     | ~SPC x t c~ | swap (transpose) the current character with the previous one  |
@@ -2246,15 +2246,15 @@ The font size of the current buffer can be adjusted with the commands:
 
 | Key Binding   | Description                                                                |
 |---------------+----------------------------------------------------------------------------|
-| ~SPC z x +~   | scale up the font and initiate the font scaling micro-state                |
-| ~SPC z x =~   | scale up the font and initiate the font scaling micro-state                |
-| ~SPC z x -~   | scale down the font and initiate the font scaling micro-state              |
-| ~SPC z x 0~   | reset the font size (no scaling) and initiate the font scaling micro-state |
+| ~SPC z x +~   | scale up the font and initiate the font scaling transient-state                |
+| ~SPC z x =~   | scale up the font and initiate the font scaling transient-state                |
+| ~SPC z x -~   | scale down the font and initiate the font scaling transient-state              |
+| ~SPC z x 0~   | reset the font size (no scaling) and initiate the font scaling transient-state |
 | ~+~           | increase the font size                                                     |
 | ~=~           | increase the font size                                                     |
 | ~-~           | decrease the font size                                                     |
 | ~0~           | reset the font size                                                        |
-| Any other key | leave the font scaling micro-state                                         |
+| Any other key | leave the font scaling transient-state                                         |
 
 Note that /only/ the text of the current buffer is scaled, the other buffers,
 the mode-line and the minibuffer are not affected. To zoom the whole content of
@@ -2265,31 +2265,31 @@ You can zoom in and out the whole content of the frame with the commands:
 
 | Key Binding   | Description                                                             |
 |---------------+-------------------------------------------------------------------------|
-| ~SPC z f +~   | zoom in the frame content and initiate the frame scaling micro-state    |
-| ~SPC z f =~   | zoom in the frame content and initiate the frame scaling micro-state    |
-| ~SPC z f -~   | zoom out the frame content and initiate the frame scaling micro-state   |
-| ~SPC z f 0~   | reset the frame content size and initiate the frame scaling micro-state |
+| ~SPC z f +~   | zoom in the frame content and initiate the frame scaling transient-state    |
+| ~SPC z f =~   | zoom in the frame content and initiate the frame scaling transient-state    |
+| ~SPC z f -~   | zoom out the frame content and initiate the frame scaling transient-state   |
+| ~SPC z f 0~   | reset the frame content size and initiate the frame scaling transient-state |
 | ~+~           | zoom in                                                                 |
 | ~=~           | zoom in                                                                 |
 | ~-~           | zoom out                                                                |
 | ~0~           | reset zoom                                                              |
-| Any other key | leave the zoom frame micro-state                                        |
+| Any other key | leave the zoom frame transient-state                                        |
 
 *** Increase/Decrease numbers
 Spacemacs uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or increase numbers.
 
 | Key Binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
-| ~SPC n +~   | increase the number under point by one and initiate micro-state |
-| ~SPC n -~   | decrease the number under point by one and initiate micro-state |
+| ~SPC n +~   | increase the number under point by one and initiate transient-state |
+| ~SPC n -~   | decrease the number under point by one and initiate transient-state |
 
-In micro-state:
+In transient-state:
 
 | Key Binding   | Description                            |
 |---------------+----------------------------------------|
 | ~+~           | increase the number under point by one |
 | ~-~           | decrease the number under point by one |
-| Any other key | leave the micro-state                  |
+| Any other key | leave the transient-state                  |
 
 *Tips:* you can increase or decrease a value by more that once by using a prefix
 argument (ie. ~10 SPC n +~ will add 10 to the number under point).
