@@ -12,6 +12,7 @@
 (setq mu4e-packages
       '(
         (mu4e :skip-install t)
+        mu4e-alert
         mu4e-maildirs-extension
         org
         ))
@@ -61,6 +62,17 @@
       (when mu4e-account-alist
         (add-hook 'mu4e-compose-pre-hook 'mu4e/set-account)
         (add-hook 'message-sent-hook 'mu4e/mail-account-reset)))))
+
+(defun mu4e/init-mu4e-alert ()
+  (use-package mu4e-alert
+    :defer t
+    :init
+    (progn
+      (with-eval-after-load 'mu4e
+        (when mu4e-enable-notifications
+          (mu4e-alert-enable-notifications))
+        (when mu4e-enable-mode-line
+          (mu4e-alert-enable-mode-line-display))))))
 
 (defun mu4e/init-mu4e-maildirs-extension ()
   (use-package mu4e-maildirs-extension

@@ -11,6 +11,7 @@
    - [[Maildirs extension][Maildirs extension]]
    - [[Multiple Accounts][Multiple Accounts]]
    - [[Example configuration][Example configuration]]
+   - [[Notifications][Notifications]]
  - [[See also][See also]]
 
 * Install
@@ -139,6 +140,44 @@ instead (see [[http://www.djcbsoftware.nl/code/mu/mu4e/Contexts.html#Contexts][m
                         mu4e-maildir-shortcuts) " OR ")
            "All inboxes" ?i)))
 #+END_SRC
+
+** Notifications
+~mu4e-alert~ is an extension that provides desktop notifications and adds the
+count of unread messages to the modeline.
+
+[[https://raw.githubusercontent.com/iqbalansari/mu4e-alert/master/screenshots/mu4e-alert-in-action.png]]
+
+To enable notifications about new messages, add the following line to your
+~dotspacemacs/user-config~:
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-enable-notifications t)
+#+END_SRC
+
+By default, notifications will be shown in the ~*Messages*~ buffer. To enable
+desktop notifications about new messages, add the following lines to
+your ~dotspacemacs/user-config~, according to your operating system and the
+installed libraries:
+
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'mu4e-alert
+    ;; Enable Desktop notifications
+    (mu4e-alert-set-default-style 'notifications)) ; For linux
+    ;; (mu4e-alert-set-default-style 'libnotify))  ; Alternative for linux
+    ;; (mu4e-alert-set-default-style 'notifier))   ; For Mac OSX (through the
+                                                   ; terminal notifier app)
+    ;; (mu4e-alert-set-default-style 'growl))      ; Alternative for Mac OSX
+#+END_SRC
+
+To enable modeline display about new messages, add the following line to
+your ~dotspacemacs/user-config~:
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-enable-mode-line t)
+#+END_SRC
+
+For an extended documentation of the available customizations please refer to
+[[https://github.com/iqbalansari/mu4e-alert#customizations][mu4e-alert's documentation]]
 
 * See also
 Refer to the official mu and mu4e documentation for additional info.

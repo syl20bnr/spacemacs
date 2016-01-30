@@ -15,5 +15,11 @@
 (defvar mu4e-account-alist nil
   "Account alist for custom multi-account compose.")
 
+(defvar mu4e-enable-notifications nil
+  "If non-nil, enable desktop notifications for unread emails.")
+
+(defvar mu4e-enable-mode-line nil
+  "If non-nil, enable display of unread emails in mode-line.")
+
 (when mu4e-installation-path
   (push mu4e-installation-path load-path))
