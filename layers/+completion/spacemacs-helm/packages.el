@@ -884,6 +884,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "pb"  'helm-projectile-switch-to-buffer
         "pd"  'helm-projectile-find-dir
         "pf"  'helm-projectile-find-file
+        "pF"  'helm-projectile-find-file-dwim
         "ph"  'helm-projectile
         "pp"  'helm-projectile-switch-project
         "pr"  'helm-projectile-recentf
