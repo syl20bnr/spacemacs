@@ -11,7 +11,17 @@
 
 ;; Prerequisites
 
-(configuration-layer/declare-layers '(spacemacs-base spacemacs-layouts))
+(configuration-layer/declare-layers '(spacemacs-base
+                                      spacemacs-layouts
+                                      spacemacs-editing
+                                      spacemacs-editing-visual
+                                      spacemacs-language
+                                      spacemacs-ui
+                                      spacemacs-ui-visual))
+
+(unless (eq dotspacemacs-editing-style 'emacs)
+  (configuration-layer/declare-layers '(spacemacs-evil)))
+
 ;; If the user has not explicitly declared spacemacs-helm or spacemacs-ivy and
 ;; they are using the standard distribution, assume they want helm completion.
 (unless (or (configuration-layer/layer-usedp 'spacemacs-ivy)
