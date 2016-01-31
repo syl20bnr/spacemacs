@@ -214,7 +214,9 @@
   (use-package erc-image
     :init (with-eval-after-load 'erc (add-to-list 'erc-modules 'image))))
 
-(defun erc/init-erc-terminal-notifier ())
+(defun erc/init-erc-terminal-notifier ()
+  (use-package erc-terminal-notifier
+    :if (executable-find "terminal-notifier")))
 
 (defun erc/post-init-persp-mode ()
   (spacemacs|define-custom-layout "@ERC"
