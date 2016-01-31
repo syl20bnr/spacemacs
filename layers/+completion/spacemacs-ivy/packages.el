@@ -104,7 +104,7 @@ than this amount.")
       (&optional tools use-initial-input initial-directory)
     "Search using the first available tool in TOOLS. Default tool
 to try is grep. If INPUT is non nil, use the region or the symbol
-at the point as the initial input. If DIR is non nil start in
+around point as the initial input. If DIR is non nil start in
 that directory."
     (interactive)
     (require 'counsel)
@@ -164,7 +164,7 @@ that directory."
                                tool-name)) ()
          ,(format
            "Use `spacemacs/counsel-search' to search for
- the selected region or the symbol under the point in the current
+ the selected region or the symbol around point in the current
  directory with %s." (if (string= tool-name "auto")
                          "a tool selected from `dotspacemacs-search-tools'."
                        tool-name))
@@ -182,7 +182,7 @@ that directory."
                                tool-name)) ()
          ,(format
            "Use `spacemacs/counsel-search' to search for
- the selected region or the symbol under the point in the current
+ the selected region or the symbol around point in the current
  project with %s." (if (string= tool-name "auto")
                        "a tool selected from `dotspacemacs-search-tools'."
                      tool-name))
@@ -197,7 +197,7 @@ that directory."
 
   (defun spacemacs/counsel-git-grep-region-or-symbol ()
     "Use `counsel-git-grep' to search for the selected region or
- the symbol under the point in the current project with git grep."
+ the symbol around point in the current project with git grep."
     (let ((input (if (region-active-p)
                      (buffer-substring-no-properties
                       (region-beginning) (region-end))
@@ -376,8 +376,8 @@ Helm hack."
     :config
     (progn
       (defun spacemacs/swiper-region-or-symbol ()
-        "Run `swiper' with the selected region or the symbol under
-the point as the initial input."
+        "Run `swiper' with the selected region or the symbol
+around point as the initial input."
         (interactive)
         (let ((input (if (region-active-p)
                          (buffer-substring-no-properties
@@ -387,7 +387,7 @@ the point as the initial input."
 
       (defun spacemacs/swiper-all-region-or-symbol ()
         "Run `swiper-all' with the selected region or the symbol
-under the point as the initial input."
+around point as the initial input."
         (interactive)
         (ivy-read "Swiper: " (swiper--multi-candidates
                               (cl-remove-if-not
