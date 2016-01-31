@@ -189,6 +189,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
     (perl-mode . perl-indent-level)
     (puppet-mode . puppet-indent-level)
     (ruby-mode . ruby-indent-level)
+    (rust-mode . rust-indent-offset)
     (scala-mode . scala-indent:step)
     (sgml-mode . sgml-basic-offset)
     (sh-mode . sh-basic-offset)
