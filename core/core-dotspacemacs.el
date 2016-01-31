@@ -65,6 +65,9 @@ environment, otherwise it is strongly recommended to let it set to t.")
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')")
 
+(defvar dotspacemacs-enable-lazy-installation nil
+  "If non-nil layers with lazy install support are lazy installed.")
+
 (defvar dotspacemacs-additional-packages '()
   "List of additional packages that will be installed wihout being
 wrapped in a layer. If you need some configuration for these
