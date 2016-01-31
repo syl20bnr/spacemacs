@@ -15,7 +15,7 @@
  - [[Using the IPython notebook][Using the IPython notebook]]
    - [[Open Notebook List][Open Notebook List]]
    - [[Key Bindings][Key Bindings]]
-     - [[Micro-state: =ipython-notebook=][Micro-state: =ipython-notebook=]]
+     - [[Transient-state: =ipython-notebook=][Transient-state: =ipython-notebook=]]
      - [[Normal mode][Normal mode]]
      - [[Insert mode][Insert mode]]
      - [[Traceback mode][Traceback mode]]
@@ -31,7 +31,7 @@ Do not hesitate to check the original package README [[https://github.com/millej
 lots of informative stuff.
 
 * Features
-- Keybindings available through micro-State or leader key
+- Keybindings available through transient-state or leader key
 - Lazy-loading
 
 * List of TODOS
@@ -58,16 +58,16 @@ Have an IPython notebook running
 
 * Using the IPython notebook
 ** Open Notebook List
-This layer is lazy loaded so the micro-state will only work after you summon the
+This layer is lazy loaded so the transient-state will only work after you summon the
 command =ein:notebooklist-open= which is bound to ~SPC a i n~
 ** Key Bindings
-The key bindings can be used through a micro state or the usual evil-leader.
+The key bindings can be used through a transient state or the usual evil-leader.
 
-*** Micro-state: =ipython-notebook=
-Once you are in the ipython notebook you can activate the micro-state with
+*** Transient-state: =ipython-notebook=
+Once you are in the ipython notebook you can activate the transient-state with
 ~SPC e i n~
 
-The following table lists the keys. Use them as listed in the micro-state or
+The following table lists the keys. Use them as listed in the transient-state or
 prefix with ~SPC m~ to use with your evil-leader.
 
 | Key     | Function                                  |

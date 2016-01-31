@@ -10,7 +10,7 @@
    - [[Reserved prefix][Reserved prefix]]
      - [[User prefix][User prefix]]
      - [[Major mode prefix][Major mode prefix]]
-     - [[Micro-state][Micro-state]]
+     - [[Transient-state][Transient-state]]
    - [[Evilified buffers][Evilified buffers]]
    - [[Navigation][Navigation]]
      - [[n and N][n and N]]
@@ -54,7 +54,7 @@ Variables follow these conventions:
 A package is initialized in a function with name =<layer>/init-xxx= where:
   - =<layer>= is the layer name
   - =xxx= is the package name
-  
+
 ** Use-package
 - Always use =progn= when a code block requires multiple lines for =:init= or
   =:config= keywords.
@@ -73,14 +73,14 @@ user.
 ~SPC m~ is reserved for the current major mode. Three keys bindings are not an
 issue (ie. ~SPC m h d~) since ~SPC m~ can be accessed via ~,~.
 
-*** Micro-state
-Whenever possible a micro-state should be enabled with ~M-SPC~ and ~s-M-SPC~. We
+*** Transient-state
+Whenever possible a transient-state should be enabled with ~M-SPC~ and ~s-M-SPC~. We
 need the latter bindings on OS X since ~M-SPC~ is used by the OS for spotlight.
 
-For instance micro-states dedicated to special buffers like =helm= or =ido=
+For instance transient-states dedicated to special buffers like =helm= or =ido=
 buffers are good candidates to be put on ~M-SPC~ and ~s-M-SPC~.
 
-It is recommended to add ~q~ to leave the micro-state.
+It is recommended to add ~q~ to leave the transient-state.
 
 ** Evilified buffers
 /Evilifying/ a buffer is to set the =evilified state= as the default
@@ -89,7 +89,7 @@ state for the major mode of the buffer.
 The =evilified state= is derived from the =emacs state= and modify the
 map to:
 - add ~hjkl~ navigation
-- add scrolling feature on ~C-f~, ~C-b~, ~C-d~ and ~C-u~ 
+- add scrolling feature on ~C-f~, ~C-b~, ~C-d~ and ~C-u~
 - ~G~ and ~gg~ to go to the end and beginning of the buffer
 - add incremental search with ~/~, ~n~ and ~N~
 - enabling =evil-ex= on ~:~
@@ -116,10 +116,10 @@ is displayed in =*Messages*=.
 To be consistent with the Vim way, ~n~ and ~N~ are favored over Emacs ~n~ and
 ~p~.
 
-Ideally a micro-state should be provided to smooth the navigation
-experience. A micro-state allows to repeat key bindings without entering
-each time the prefix commands. More info on micro-states in the
-[[file:DOCUMENTATION.org::Micro-states][documentation]].
+Ideally a transient-state should be provided to smooth the navigation
+experience. A transient-state allows to repeat key bindings without entering
+each time the prefix commands. More info on transient-states in the
+[[file:DOCUMENTATION.org::Transient-states][documentation]].
 
 *** Code Navigation
 The prefix for going to something is ~SPC m g~.
@@ -231,7 +231,7 @@ The base prefix for debugging commands is ~SPC d~.
 | ~m d s~     | step                    |
 
 Notes:
-  - Ideally a micro-state for breakpoint navigation should be provided.
+  - Ideally a transient-state for breakpoint navigation should be provided.
   - If there is no toggle breakpoint function, then it should be implemented at
     the spacemacs level and ideally the function should be proposed as a patch
     upstream (major mode repository).
@@ -361,6 +361,6 @@ Spacemacs provides an example layer =README.org= file in
   - At the end of each header node, there should be an empty line
   - Note: Many layer =READMEs= do not follow this convention yet. Please fix
     them if you can.
-  
+
 - To keep things readable only mention the prefix ~SPC~ when documenting
-  key bindings, you don't need to mention ~M-m~. 
+  key bindings, you don't need to mention ~M-m~.

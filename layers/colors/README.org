@@ -81,7 +81,7 @@ The prefix associated with colors is ~C~.
 Note that the toggle is local to the current buffer.
 
 The =saturation= and =lightness= of identifier colors can be adjusted live
-with the micro-state:
+with the transient-state:
 
 | Key Binding     | Description                              |
 |-----------------+------------------------------------------|
