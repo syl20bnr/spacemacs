@@ -62,10 +62,19 @@
    (dir :initarg :dir
         :type string
         :documentation "Absolute path to the layer directory.")
+   (packages :initarg :packages
+             :initform nil
+             :type list
+             :documentation "List of package names declared in this layer.")
    (variables :initarg :variables
               :initform nil
               :type list
               :documentation "A list of variable-value pairs.")
+   (lazy-install :initarg :lazy-install
+                 :initform nil
+                 :type boolean
+                 :documentation
+                 "If non-nil then the layer needs to be installed")
    (disabled :initarg :disabled-for
              :initform nil
              :type list
@@ -104,6 +113,11 @@
                  :type boolean
                  :documentation
                  "If non-nil then this package is not installed by Spacemacs.")
+   (lazy-install :initarg :lazy-install
+                 :initform nil
+                 :type boolean
+                 :documentation
+                 "If non-nil then the package needs to be installed")
    (protected :initarg :protected
               :initform nil
               :type boolean
@@ -249,7 +263,10 @@ refreshed during the current session."
   (setq configuration-layer--used-distant-packages
         (configuration-layer//get-distant-used-packages
          configuration-layer--packages))
-  (configuration-layer//load-packages configuration-layer--packages)
+  (configuration-layer//install-packages
+   (configuration-layer/filter-objects configuration-layer--used-distant-packages
+                                       (lambda (x) (not (oref x :lazy-install)))))
+  (configuration-layer//configure-packages configuration-layer--packages)
   (when dotspacemacs-delete-orphan-packages
     (configuration-layer/delete-orphan-packages configuration-layer--packages)))
 
@@ -354,6 +371,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
     (dolist (layer layers)
       (let* ((name (oref layer :name))
              (dir (oref layer :dir))
+             (lazy-install (oref layer :lazy-install))
              (packages-file (concat dir "packages.el")))
         ;; packages
         (when (file-exists-p packages-file)
@@ -371,10 +389,12 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
                    (post-init-func (intern (format "%S/post-init-%S"
                                                    name pkg-name)))
                    (obj (object-assoc pkg-name :name result)))
+              (cl-pushnew pkg-name (oref layer :packages))
               (if obj
                   (setq obj (configuration-layer/make-package pkg obj))
                 (setq obj (configuration-layer/make-package pkg))
                 (push obj result))
+              (oset obj :lazy-install lazy-install)
               (when (fboundp init-func)
                 ;; last owner wins over the previous one,
                 ;; still warn about mutliple owners
@@ -411,6 +431,27 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
   "Return a sorted list of PACKAGES objects."
   (sort packages (lambda (x y) (string< (symbol-name (oref x :name))
                                         (symbol-name (oref y :name))))))
+
+(defun configuration-layer/lazy-install (layer-name &rest props)
+  "Configure auto-installation of layer with name LAYER-NAME."
+  (declare (indent 1))
+  (when dotspacemacs-enable-lazy-installation
+    (let ((layer (object-assoc layer-name :name configuration-layer--layers))
+          (extensions (spacemacs/mplist-get props :extensions)))
+      (oset layer :lazy-install t)
+      (dolist (x extensions)
+        (let ((ext (car x))
+              (mode (cadr x)))
+          (add-to-list
+           'auto-mode-alist
+           `(,ext . (lambda ()
+                      (configuration-layer//auto-mode
+                       ',layer-name ',mode)))))))))
+
+(defun configuration-layer//auto-mode (layer-name mode)
+  "Auto mode support of lazily installed layers."
+  (when (configuration-layer//lazy-install-packages layer-name)
+    (funcall mode)))
 
 (defun configuration-layer/filter-objects (objects ffunc)
   "Return a filtered OBJECTS list where each element satisfies FFUNC."
@@ -613,10 +654,20 @@ path."
   "Return non-nil if NAME is the name of a used layer."
   (not (null (object-assoc name :name configuration-layer--layers))))
 
+(defun  configuration-layer/layer-lazy-installp (name)
+  "Return non-nil if NAME is the name of a layer to be lazily installed."
+  (let ((obj (object-assoc name :name configuration-layer--layers)))
+    (when obj (oref obj :lazy-install))))
+
 (defun configuration-layer/package-usedp (name)
   "Return non-nil if NAME is the name of a used package."
   (let ((obj (object-assoc name :name configuration-layer--packages)))
     (when (and obj (not (oref obj :excluded))) (oref obj :owner))))
+
+(defun  configuration-layer/package-lazy-installp (name)
+  "Return non-nil if NAME is the name of a package to be lazily installed."
+  (let ((obj (object-assoc name :name configuration-layer--packages)))
+    (when obj (oref obj :lazy-install))))
 
 (defun configuration-layer//configure-layers (layers)
   "Configure LAYERS."
@@ -644,15 +695,6 @@ path."
     (configuration-layer//sort-packages (configuration-layer/get-packages
                                          layers2 t))))
 
-(defun configuration-layer//load-packages (packages)
-  "Load PACKAGES."
-  ;; number of chuncks for the loading screen
-  (setq spacemacs-loading-dots-chunk-threshold
-        (/ (configuration-layer/configured-packages-count)
-           spacemacs-loading-dots-chunk-count))
-  (configuration-layer//install-packages packages)
-  (configuration-layer//configure-packages packages))
-
 (defun configuration-layer//load-layers-files (layers files)
   "Load the files of list FILES for all passed LAYERS."
   (dolist (layer layers)
@@ -668,14 +710,57 @@ path."
   "Return the number of configured packages."
   (length configuration-layer--packages))
 
+(defun configuration-layer//install-package (pkg)
+  "Unconditionally install the package PKG."
+  (let* ((layer (when pkg (oref pkg :owner)))
+         (location (when pkg (oref pkg :location))))
+    (spacemacs-buffer/replace-last-line
+     (format "--> installing %s: %s%s... [%s/%s]"
+             (if layer "package" "dependency")
+             pkg-name (if layer (format "@%S" layer) "")
+             installed-count noinst-count) t)
+    (unless (package-installed-p pkg-name)
+      (condition-case err
+          (cond
+           ((or (null pkg) (eq 'elpa location))
+            (configuration-layer//install-from-elpa pkg-name)
+            (oset pkg :lazy-install nil))
+           ((and (listp location) (eq 'recipe (car location)))
+            (configuration-layer//install-from-recipe pkg)
+            (oset pkg :lazy-install nil))
+           (t (spacemacs-buffer/warning "Cannot install package %S."
+                                        pkg-name)))
+        ('error
+         (configuration-layer//increment-error-count)
+         (spacemacs-buffer/append
+          (format (concat "\nAn error occurred while installing %s "
+                          "(error: %s)\n") pkg-name err)))))))
+
+(defun configuration-layer//lazy-install-packages (layer-name)
+  "Install packages of a lazily installed layer.
+Returns non-nil if the packages have been installed."
+  (let* ((layer (object-assoc layer-name :name configuration-layer--layers))
+         (packages (delq nil (mapcar (lambda (x)
+                                       (object-assoc
+                                        x :name configuration-layer--packages))
+                                     (oref layer :packages))))
+         (pkg-count (length packages)))
+    (when (and (oref layer :lazy-install)
+               (yes-or-no-p (format
+                             (concat "Support for %s requires installation of "
+                                     "%s package(s), do you want to install?")
+                             layer-name pkg-count)))
+      (configuration-layer//install-packages packages)
+      (configuration-layer//configure-packages packages)
+      (oset layer :lazy-install nil))
+    (not (oref layer :lazy-install))))
+
 (defun configuration-layer//install-packages (packages)
-  "Install PACKAGES."
+  "Install PACKAGES which are not lazy installed."
   (interactive)
   (let* ((noinst-pkg-names
           (configuration-layer//get-uninstalled-packages
-           (mapcar 'car
-                   (object-assoc-list
-                    :name configuration-layer--used-distant-packages))))
+           (mapcar 'car (object-assoc-list :name packages))))
          (noinst-count (length noinst-pkg-names))
          installed-count)
     ;; installation
@@ -687,28 +772,8 @@ path."
       (setq installed-count 0)
       (dolist (pkg-name noinst-pkg-names)
         (setq installed-count (1+ installed-count))
-        (let* ((pkg (object-assoc pkg-name :name configuration-layer--packages))
-               (layer (when pkg (oref pkg :owner)))
-               (location (when pkg (oref pkg :location))))
-          (spacemacs-buffer/replace-last-line
-           (format "--> installing %s: %s%s... [%s/%s]"
-                   (if layer "package" "dependency")
-                   pkg-name (if layer (format "@%S" layer) "")
-                   installed-count noinst-count) t)
-          (unless (package-installed-p pkg-name)
-            (condition-case err
-                (cond
-                 ((or (null pkg) (eq 'elpa location))
-                  (configuration-layer//install-from-elpa pkg-name))
-                 ((and (listp location) (eq 'recipe (car location)))
-                  (configuration-layer//install-from-recipe pkg))
-                 (t (spacemacs-buffer/warning "Cannot install package %S."
-                                              pkg-name)))
-              ('error
-               (configuration-layer//increment-error-count)
-               (spacemacs-buffer/append
-                (format (concat "\nAn error occurred while installing %s "
-                                "(error: %s)\n") pkg-name err))))))
+        (configuration-layer//install-package
+         (object-assoc pkg-name :name configuration-layer--packages))
         (spacemacs//redisplay))
       (spacemacs-buffer/append "\n"))))
 
@@ -739,7 +804,7 @@ path."
 
 (defun configuration-layer//filter-packages-with-deps
     (pkg-names filter &optional use-archive)
-  "Return a filtered PACKAGES list where each elements satisfies FILTER."
+  "Return a filtered PKG-NAMES list where each elements satisfies FILTER."
   (when pkg-names
     (let (result)
       (dolist (pkg-name pkg-names)
@@ -803,6 +868,9 @@ path."
 
 (defun configuration-layer//configure-packages (packages)
   "Configure all passed PACKAGES honoring the steps order."
+  (setq spacemacs-loading-dots-chunk-threshold
+        (/ (configuration-layer/configured-packages-count)
+           spacemacs-loading-dots-chunk-count))
   (configuration-layer//configure-packages-2
    (configuration-layer/filter-objects
     packages (lambda (x) (eq 'pre (oref x :step)))))
