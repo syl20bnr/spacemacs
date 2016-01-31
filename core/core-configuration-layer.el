@@ -690,7 +690,7 @@ path."
         (warning-minimum-level :error))
     (configuration-layer//load-layers-files layers2 '("packages.el"
                                                       "packages-config.el"
-                                                      "pakcages-funs.el"))
+                                                      "packages-funcs.el"))
     ;; gather all the packages of current layer
     (configuration-layer//sort-packages (configuration-layer/get-packages
                                          layers2 t))))
