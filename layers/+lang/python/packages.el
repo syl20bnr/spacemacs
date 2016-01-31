@@ -119,8 +119,7 @@
     :commands live-py-mode
     :init
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "l" 'live-py-mode))
-  )
+      "l" 'live-py-mode)))
 
 (defun python/init-nose ()
   (use-package nose
