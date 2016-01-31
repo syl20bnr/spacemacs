@@ -243,7 +243,8 @@ refreshed during the current session."
                                     "\nError while contacting %s repository!"
                                     (car archive)))
                                   'error))
-                             (url-retrieve-synchronously (cdr archive))))
+                             (or (file-directory-p (cdr archive))
+                                 (url-retrieve-synchronously (cdr archive)))))
           (let ((package-archives (list archive)))
             (package-refresh-contents))))
       (package-read-all-archive-contents)
