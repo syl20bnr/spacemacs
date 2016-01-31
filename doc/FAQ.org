@@ -52,16 +52,15 @@ may also just type ~SPC f e v~.
 As it is written, that is _space_ then _macs_.
 
 ** Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?
-To declare new packages you have to create a new configuration layer or
-add the package name to the variable =dotspacemacs-additonal-packages=
-of your dotfile, see the [[file:QUICK_START.org][quick start guide]] for more info.
+To declare new packages you have to create a new configuration layer or add the
+package name to the variable =dotspacemacs-additonal-packages= of your dotfile,
+see the [[file:QUICK_START.org][quick start guide]] for more info.
 
 ** How to fix package download errors when installing Spacemacs ?
 Since 0.105.0 HTTPS protocol is used by default to download packages. If your
 environment does not allow HTTPS to reach ELPA repositories then you can start
 Emacs with the =--insecure= argument for force the usage of HTTP non secured
-protocol.
-Then you can set the variable =dotspacemacs-elpa-https= to =nil= in your
+protocol. You can set the variable =dotspacemacs-elpa-https= to =nil= in your
 dotfile to remove the need to start Emacs with =--insecure== argument.
 
 ** The Spacemacs banner is ugly, what should I do?
@@ -80,18 +79,19 @@ section in the font section of the [[file:DOCUMENTATION.org][documentation]].
 
 ** Why is after-init-hook not executed?
 Don't launch Spacemacs with =emacs -q -l init.el= command. This command will run
-the hooked functions in =after-init-hook= before the evaluation of the passed =-l
-init.el= file.
+the hooked functions in =after-init-hook= before the evaluation of the passed
+=-l init.el= file.
 
 ** What is the difference between =spacemacs-base= and =spacemacs= distributions?
-The =distribution= concept was introduced in 0.104.x. You can now choose
-between two distributions =spacemacs= or =spacemacs-base=.
-=spacemacs-base= contains only a minimal set of packages; whereas =spacemacs=
-is the full Spacemacs experience.
+The =distribution= concept was introduced in 0.104.x. You can now choose between
+two distributions =spacemacs= or =spacemacs-base=. =spacemacs-base= contains
+only a minimal set of packages; whereas =spacemacs= is the full Spacemacs
+experience.
+
 Set the distribution with =dotspacemacs-distribution= variable. The default is
-=spacemacs=. For more information as to what is included,
-check out the =packages.el= file in the respective folders in the
-=+distribution= folder of the =layers/= directory.
+=spacemacs=. For more information as to what is included, check out the
+=packages.el= file in the respective folders in the =+distribution= folder of
+the =layers/= directory.
 
 ** Should I place my settings in =user-init= or =user-config=?
 Any variable that layer configuration code will *read* and *act on* must be set
@@ -107,15 +107,15 @@ should not be loaded before =dotspacemacs/user-config=, otherwise both versions
 will be loaded and will conflict.
 
 Because of autoloading, calling to =org= functions will trigger the loading up
-of the =org= shipped with emacs wich will induce conflicts.
-One way to avoid conflict is to wrap your =org= config code in a
-=with-eval-after-load= block like this:
+of the =org= shipped with emacs wich will induce conflicts. One way to avoid
+conflict is to wrap your =org= config code in a =with-eval-after-load= block
+like this:
 
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'org
     ;; here goes your Org config :)
     ;; ....
-    )    
+    )
 #+END_SRC
 
 ** Why is Spacemacs hanging on startup?
@@ -180,33 +180,31 @@ to the list and it will be installed when you reload your configuration with
 ~SPC f e R~, or at the next Spacemacs launch.
 
 ** Disable a package completely?
-To completely disable a package and effectively uninstalling it even if
-it is part of your used layers, look for the variable
-=dotspacemacs-excluded-packages= in your dotfile and add the package
-name to it:
+To completely disable a package and effectively uninstalling it even if it is
+part of your used layers, look for the variable =dotspacemacs-excluded-packages=
+in your dotfile and add the package name to it:
 
 #+begin_src emacs-lisp
   (setq-default dotspacemacs-excluded-packages '(package1 package2 ...))
 #+end_src
 
 ** Disable a package only for a specific major-mode?
-This is done by removing the hook added by Spacemacs. For example to
-remove =flycheck= support in python buffers, look for the function
+This is done by removing the hook added by Spacemacs. For example to remove
+=flycheck= support in python buffers, look for the function
 =dotspacemacs/user-config= in your dotfile and add the following code:
 
 #+begin_src emacs-lisp
     (remove-hook 'python-mode-hook 'flycheck-mode)
 #+end_src
 
-*Hint* to know the name of the major-mode of the current buffer press:
-~SPC h d v major-mode RET~
+*Hint* to know the name of the major-mode of the current buffer press: ~SPC h d
+v major-mode RET~
 
 ** Disable company for a specific major-mode?
-It may be handy to disable =company= for a given mode if you plan on
-configuring =auto-complete= instead. One easy way to do it is to use the
-macro =spacemacs|disable-company= in the function =dotspacemacs/user-config=
-of your dotfile. The following snippet disables company for
-=python-mode=:
+It may be handy to disable =company= for a given mode if you plan on configuring
+=auto-complete= instead. One easy way to do it is to use the macro
+=spacemacs|disable-company= in the function =dotspacemacs/user-config= of your
+dotfile. The following snippet disables company for =python-mode=:
 
 #+begin_src emacs-lisp
     (spacemacs|disable-company python-mode)
@@ -214,10 +212,9 @@ of your dotfile. The following snippet disables company for
 
 ** Change special buffer rules?
 To change the way spacemacs marks buffers as useless, you can customize
-=spacemacs-useless-buffers-regexp= which marks buffers matching the
-regexp as useless. The variable =spacemacs-useful-buffers-regexp= marks
-buffers matching the regexp as useful buffers. Both can be customized
-the same way.
+=spacemacs-useless-buffers-regexp= which marks buffers matching the regexp as
+useless. The variable =spacemacs-useful-buffers-regexp= marks buffers matching
+the regexp as useful buffers. Both can be customized the same way.
 
 Examples:
 #+begin_src emacs-lisp
@@ -393,27 +390,28 @@ commits messages. To enable this you have to add the following line to your
 
 ** Try Spacemacs without modifying my existing Emacs configuration?
 Emacs' ability to use any directory as the home for launching it allows us to
-try out Spacemacs (or any other Emacs configuration we desire) without having to go
-through the trouble of backing up our =~/.emacs.d= directory and then cloning the new
-configuration. This can be achieved easily using the following steps:
+try out Spacemacs (or any other Emacs configuration we desire) without having to
+go through the trouble of backing up our =~/.emacs.d= directory and then cloning
+the new configuration. This can be achieved easily using the following steps:
 
 #+BEGIN_SRC shell
-  mkdir ~/spacemacs
-  git clone git@github.com:syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
-  HOME=~/spacemacs emacs
+mkdir ~/spacemacs
+git clone git@github.com:syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
+HOME=~/spacemacs emacs
 #+END_SRC
 
-If you're on Fish shell, you will need to modify the last command to: =env HOME=$HOME/spacemacs emacs=
+If you're on Fish shell, you will need to modify the last command to:
+=env HOME=$HOME/spacemacs emacs=
 
 * Windows
 ** Why do the fonts look crappy on Windows?
-You can install [[https://code.google.com/p/mactype/][MacType]] on Windows to get very nice looking fonts. It is
-also recommended to disable smooth scrolling on Windows.
+You can install [[https://code.google.com/p/mactype/][MacType]] on Windows to get very nice looking fonts. It is also
+recommended to disable smooth scrolling on Windows.
 
 ** Why is there no Spacemacs logo in the startup buffer?
-A GUI build of emacs supporting image display is required.
-You can follow the instructions [[http://stackoverflow.com/questions/2650041/emacs-under-windows-and-png-files][here]]. Alternatively you can download binaries
-of emacs with image support included such as [[http://emacsbinw64.sourceforge.net/][this one]].
+A GUI build of emacs supporting image display is required. You can follow the
+instructions [[http://stackoverflow.com/questions/2650041/emacs-under-windows-and-png-files][here]]. Alternatively you can download binaries of emacs with image
+support included such as [[http://emacsbinw64.sourceforge.net/][this one]].
 
 ** Why are all packages unavailable?
 Check if your Emacs has HTTPS capabilities by doing =M-:= and then:
