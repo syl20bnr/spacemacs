@@ -66,6 +66,9 @@ reset for the default account after sending each email.
 Make sure you call `mu4e/mail-account-reset` afterward, which will initialize
 the given account variables.
 
+If you have mu 0.9.16 or later, you can use mu4e's built-in contexts feature
+instead (see mu4e's manual).
+
 ** Example configuration
 #+BEGIN_SRC emacs-lisp
   ;;; Set up some common mu4e variables
