@@ -14,7 +14,8 @@
    - [[Use-package][Use-package]]
  - [[Anatomy of a layer][Anatomy of a layer]]
    - [[packages.el][packages.el]]
-   - [[config.el, funcs.el and keybindings.el][config.el, funcs.el and keybindings.el]]
+   - [[packages-config.el][packages-config.el]]
+   - [[config.el, packages-funcs.el and keybindings.el][config.el, packages-funcs.el and keybindings.el]]
  - [[The Spacemacs loading process][The Spacemacs loading process]]
  - [[Case study: auto-completion][Case study: auto-completion]]
  - [[Layer tips and tricks][Layer tips and tricks]]
@@ -278,10 +279,10 @@ more.
 A layer is simply a folder somewhere in Spacemacs' layer search path that
 contains /at least one/ of these files, ordered vaguely by importance.
 
-- =packages.el= :: for specifying which packages the layer uses
+- =packages.el= :: for defining the list of packages
+- =packages-config.el= :: for initializing packages and setting up keybindings
 - =config.el= :: for miscellaneous configuration
-- =funcs.el= :: for defining general utility functions
-- =keybindings.el= :: for defining general keybindings
+- =packages-funcs.el= :: for defining general utility functions
 
 Additionally, for each local package (see the next section), there should be a
 folder =<layer>/local/<package>/= containing the source code for that package.
@@ -291,7 +292,7 @@ path for you.
 ** packages.el
 This file should define a variable called =<layer>-packages=, which should be a
 list of all the packages that this layer needs. Some valid package
-specifications are as follows.
+specifications are as follows. Do not define other things in this file.
 
 #+begin_src emacs-lisp
   (setq mylayer-packages
@@ -321,7 +322,7 @@ information about recipes.
 Packages may be /excluded/ by setting the =:excluded= property to true. This
 will prevent the package from being installed even if it is used by another
 layer.
-
+** packages-config.el
 For each included package, you may define one or more of the following
 functions, which are called in order by Spacemacs to initialize the package.
 
@@ -339,13 +340,13 @@ does mandatory setup while the =pre-init= and =post-init= functions do optional
 setup. This can be used for managing cross-layer dependencies, which we will
 discuss later.
 
-** config.el, funcs.el and keybindings.el
+** config.el, packages-funcs.el and keybindings.el
 These files contain no magic variables or functions, merely code that is
 executed. The intended use cases are
 
 - config.el :: configuration code that is independent of packages, declaration
      layer variables, and so on
-- funcs.el :: definition of general utility functions
+- packages-funcs.el :: definition of general utility functions
 - keybindings.el :: general keybindings
 
 The word /general/ here means /independent of any package/. Since the end user
