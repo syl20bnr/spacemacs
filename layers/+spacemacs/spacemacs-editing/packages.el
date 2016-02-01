@@ -19,6 +19,7 @@
         (hexl :location built-in)
         hungry-delete
         iedit
+        link-hint
         lorem-ipsum
         move-text
         pcre2el
@@ -197,6 +198,14 @@ It will toggle the overlay under point or create an overlay of one character."
                                       (length iedit-occurrences-overlays)))
                    'face 'font-lock-warning-face))
             (force-mode-line-update)))))))
+
+(defun spacemacs-editing/init-link-hint ()
+  (use-package link-hint
+    :defer t
+    :init
+    (spacemacs/set-leader-keys
+      "xo" 'link-hint-open-link
+      "xO" 'link-hint-open-multiple-links)))
 
 (defun spacemacs-editing/init-lorem-ipsum ()
   (use-package lorem-ipsum
