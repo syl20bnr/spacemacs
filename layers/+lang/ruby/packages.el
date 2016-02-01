@@ -88,8 +88,8 @@
     (add-hook hook `turn-on-evil-matchit-mode)))
 
 (defun ruby/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'ruby-mode-hook)
-  (spacemacs/add-flycheck-hook 'enh-ruby-mode-hook))
+  (spacemacs/add-flycheck-hook 'ruby-mode)
+  (spacemacs/add-flycheck-hook 'enh-ruby-mode))
 
 (defun ruby/post-init-popwin ()
   (push '("*rspec-compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)

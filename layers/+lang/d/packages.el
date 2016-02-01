@@ -24,7 +24,7 @@
 
 (when (configuration-layer/layer-usedp 'syntax-checking)
   (defun d/post-init-flycheck ()
-    (spacemacs/add-flycheck-hook 'd-mode-hook))
+    (spacemacs/add-flycheck-hook 'd-mode))
   (defun d/init-flycheck-dmd-dub ()
     (use-package flycheck-dmd-dub :defer t
       :init (add-hook 'd-mode-hook 'flycheck-dmd-dub-set-include-path))))
