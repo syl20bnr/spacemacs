@@ -13,6 +13,6 @@
   "Use flycheck in MODE by default, if `syntax-checking-enable-by-default' is
 true."
   (when (and syntax-checking-enable-by-default
-             (listp flycheck-global-modes
-                    (not (eq 'not (car flycheck-global-modes)))))
+             (listp flycheck-global-modes)
+             (not (eq 'not (car flycheck-global-modes))))
     (push mode flycheck-global-modes)))
