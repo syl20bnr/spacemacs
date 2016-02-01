@@ -40,8 +40,8 @@ something like this:
 
 * Configuration
 ** Location
-To set location manually, add something like this inside the ~dotspacemacs/config
-defun~. 
+Set location manually by setting the following variables to the
+=dotspacemacs/user-config= function of your dotfile:
 
 #+BEGIN_SRC emacs-lisp
   (setq calendar-location-name "Barcelona, Spain"
@@ -50,9 +50,9 @@ defun~.
 #+END_SRC
 
 On OS X, all of these variables get setup automatically if the ~osx-location~
-service was enabled. In this case, if ~calendar-location-name~ was omitted,
-it'll be stringed-up ~calendar-latitude~ and ~calendar-longitude~ i.e. "41.23,
-1.80".
+service was enabled (Wifi must be turned on to make it work). In this case, if
+~calendar-location-name~ was omitted, it'll be stringed-up ~calendar-latitude~
+and ~calendar-longitude~ i.e. "41.23, 1.80".
 
 ** theme-changer
 This layer implement a simple "theme changer" which, when enabled, will switch
