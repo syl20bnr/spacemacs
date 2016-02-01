@@ -36,6 +36,7 @@
    - [[Use Spacemacs as the =$EDITOR= for git commits?][Use Spacemacs as the =$EDITOR= for git commits?]]
    - [[Try Spacemacs without modifying my existing Emacs configuration?][Try Spacemacs without modifying my existing Emacs configuration?]]
    - [[Make copy/paste working with the mouse in X11 terminals?][Make copy/paste working with the mouse in X11 terminals?]]
+   - [[Use =helm-ag= to search only in files of a certain type?][Use =helm-ag= to search only in files of a certain type?]]
  - [[Windows][Windows]]
    - [[Why do the fonts look crappy on Windows?][Why do the fonts look crappy on Windows?]]
    - [[Why is there no Spacemacs logo in the startup buffer?][Why is there no Spacemacs logo in the startup buffer?]]
@@ -412,6 +413,24 @@ enable copying/pasting with the mouse. You need to add this line to your
 #+begin_src emacs-lisp
 (xterm-mouse-mode -1)
 #+end_src
+
+** Use =helm-ag= to search only in files of a certain type?
+It is possible to restrict the scope of =helm-ag= to search only expressions in
+some specified file types. There is two way of doing this, both by appending
+some expressions to the search input:
+
+- By using a regexp with =-G=, for instance =-G\.el$= will look for all files
+  ending with =.el= which are emacs-lisp files.
+
+- By using a flag like =--python= which should be self-explaining. The list of
+  available flags colud be accessed from terminal with:
+
+  #+begin_src shell
+  ag --list-file-types
+  #+end_src
+
+This is possible because =helm-ag= is treating the search input as command-line
+arguments of the =ag= program.
 
 * Windows
 ** Why do the fonts look crappy on Windows?
