@@ -20,12 +20,8 @@
     (spacemacs/set-leader-keys
       "xwd" 'define-word-at-point)))
 
-(defun spacemacs-language/init-google-translate ()
+(defun spacemacs/init-google-translate ()
   (use-package google-translate
-    :commands (google-translate-query-translate
-               google-translate-at-point
-               google-translate-query-translate-reverse
-               google-translate-at-point-reverse)
     :init
     (progn
       (defun spacemacs/set-google-translate-languages (source target)
@@ -40,15 +36,12 @@ For instance pass En as source for English."
         (setq google-translate-default-source-language (downcase source))
         (setq google-translate-default-target-language (downcase target)))
       (spacemacs/set-leader-keys
+        "xgl" 'spacemacs/set-google-translate-languages
         "xgQ" 'google-translate-query-translate-reverse
         "xgq" 'google-translate-query-translate
         "xgT" 'google-translate-at-point-reverse
         "xgt" 'google-translate-at-point))
-    :config
-    (progn
-      (require 'google-translate-default-ui)
       (setq google-translate-enable-ido-completion t)
       (setq google-translate-show-phonetic t)
       (setq google-translate-default-source-language "en")
-      (setq google-translate-default-target-language "fr"))))
-
+      (setq google-translate-default-target-language "fr")))
