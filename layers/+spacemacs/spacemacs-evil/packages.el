@@ -277,6 +277,8 @@
   (define-key evil-normal-state-map (kbd "] f") 'evil-unimpaired/next-file)
   (define-key evil-normal-state-map (kbd "] l") 'spacemacs/next-error)
   (define-key evil-normal-state-map (kbd "[ l") 'spacemacs/previous-error)
+  (define-key evil-normal-state-map (kbd "] q") 'spacemacs/next-error)
+  (define-key evil-normal-state-map (kbd "[ q") 'spacemacs/previous-error)
   (define-key evil-normal-state-map (kbd "[ h") 'diff-hl-previous-hunk)
   (define-key evil-normal-state-map (kbd "] h") 'diff-hl-next-hunk)
   (define-key evil-normal-state-map (kbd "[ t") 'evil-unimpaired/previous-frame)
