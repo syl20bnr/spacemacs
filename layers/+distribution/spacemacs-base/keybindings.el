@@ -168,6 +168,12 @@
   :off (toggle-truncate-lines -1)
   :documentation "Truncate long lines (no wrap)."
   :evil-leader "tl")
+(spacemacs|add-toggle word-wrap
+  :status word-wrap
+  :on (toggle-word-wrap)
+  :off (toggle-word-wrap -1)
+  :documentation "Word-wrapping for continuation lines."
+  :evil-leader "tW")
 (spacemacs|add-toggle visual-line-navigation
   :status visual-line-mode
   :on (progn
