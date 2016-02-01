@@ -11,9 +11,18 @@
     :init
     (progn
 
+      (defun restclient-new-buffer ()
+        "Switch to a new buffer in restclient-mode"
+        (interactive)
+        (let ((b (generate-new-buffer "*restclient*")))
+          (switch-to-buffer b)
+          (funcall 'restclient-mode)))
+
       (defun restclient-http-send-current-raw-stay-in-window ()
         (interactive)
         (restclient-http-send-current t t))
+
+      (evil-leader/set-key "ah" 'restclient-new-buffer)
 
       (spacemacs/set-leader-keys-for-major-mode 'restclient-mode
         "s" 'restclient-http-send-current-stay-in-window
