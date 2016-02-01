@@ -397,8 +397,9 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
               (oset obj :lazy-install lazy-install)
               (when (fboundp init-func)
                 ;; last owner wins over the previous one,
-                ;; still warn about mutliple owners
-                (when (oref obj :owner)
+                ;; still warn about multiple owners
+                (when (and (oref obj :owner)
+                           (not (eq name (oref obj :owner))))
                   (spacemacs-buffer/warning
                    (format (concat "More than one init function found for "
                                    "package %S. Previous owner was %S, "
