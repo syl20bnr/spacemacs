@@ -279,25 +279,20 @@ argument takes the kindows rotate backwards."
       (previous-buffer))))
 
 ;; from magnars
-(defun spacemacs/rename-current-buffer-file ()
-  "Renames current buffer and file it is visiting."
-  (interactive)
-  (let ((name (buffer-name))
-        (filename (buffer-file-name)))
-    (if (not (and filename (file-exists-p filename)))
-        (error "Buffer '%s' is not visiting a file!" name)
-      (let ((new-name (read-file-name "New name: " filename)))
-        (cond ((get-buffer new-name)
-               (error "A buffer named '%s' already exists!" new-name))
-              (t
-               (let ((dir (file-name-directory new-name)))
-                 (when (and (not (file-exists-p dir)) (yes-or-no-p (format "Create directory '%s'?" dir)))
-                   (make-directory dir t)))
-               (rename-file filename new-name 1)
-               (rename-buffer new-name)
-               (set-visited-file-name new-name)
-               (set-buffer-modified-p nil)
-               (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
+(defun spacemacs/rename-current-buffer-file (new-name)
+  "Rename this buffer's file to NEW-NAME."
+  (interactive "FNew name: ")
+  (let ((filename (buffer-file-name)))
+    (unless (and filename (file-exists-p filename))
+      (user-error "Buffer `%s' is not visiting a file!" (buffer-name)))
+    (let ((dir (file-name-directory new-name)))
+      (when (and (not (file-exists-p dir))
+                 (yes-or-no-p (format "Create directory `%s'?" dir)))
+        (make-directory dir 'parents)))
+    (rename-file filename new-name 1)
+    (set-visited-file-name new-name 'no-query 'along-with-file)
+    (message "File `%s' successfully renamed to `%s'."
+             (buffer-name) (file-name-nondirectory new-name))))
 
 ;; from magnars
 (defun spacemacs/delete-current-buffer-file ()
