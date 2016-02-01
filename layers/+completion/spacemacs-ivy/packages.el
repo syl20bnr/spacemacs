@@ -10,7 +10,8 @@
 ;;; License: GPLv3
 
 (setq spacemacs-ivy-packages
-      '(counsel
+      '(auto-highlight-symbol
+        counsel
         flx
         ;; hack since ivy is part for swiper but I like to
         ;; treat it as a stand-alone package
@@ -290,6 +291,14 @@ Helm hack."
       (setq prefix-help-command 'counsel-descbinds)
       ;; TODO: Commands to port
       (spacemacs//ivy-command-not-implemented-yet "jI"))))
+
+(defun spacemacs-ivy/post-init-auto-highlight-symbol ()
+  (setq spacemacs-symbol-highlight-transient-state-remove-bindings
+        '("/" "b" "f"))
+  (setq spacemacs-symbol-highlight-transient-state-add-bindings
+        '(("/" spacemacs/search-project-auto-region-or-symbol :exit t)
+          ("b" spacemacs/swiper-all-region-or-symbol :exit t)
+          ("f" spacemacs/search-auto-region-or-symbol :exit t))))
 
 (defun spacemacs-ivy/init-flx ())
 
