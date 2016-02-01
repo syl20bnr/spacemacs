@@ -35,6 +35,7 @@
    - [[Make spell-checking support curly quotes (or any other character)?][Make spell-checking support curly quotes (or any other character)?]]
    - [[Use Spacemacs as the =$EDITOR= for git commits?][Use Spacemacs as the =$EDITOR= for git commits?]]
    - [[Try Spacemacs without modifying my existing Emacs configuration?][Try Spacemacs without modifying my existing Emacs configuration?]]
+   - [[Make copy/paste working with the mouse in X11 terminals?][Make copy/paste working with the mouse in X11 terminals?]]
  - [[Windows][Windows]]
    - [[Why do the fonts look crappy on Windows?][Why do the fonts look crappy on Windows?]]
    - [[Why is there no Spacemacs logo in the startup buffer?][Why is there no Spacemacs logo in the startup buffer?]]
@@ -402,6 +403,15 @@ HOME=~/spacemacs emacs
 
 If you're on Fish shell, you will need to modify the last command to:
 =env HOME=$HOME/spacemacs emacs=
+
+** Make copy/paste working with the mouse in X11 terminals?
+It is possible to disable the mouse support in X11 terminals in order to
+enable copying/pasting with the mouse. You need to add this line to your
+=dotspacemacs/user-config=:
+
+#+begin_src emacs-lisp
+(xterm-mouse-mode -1)
+#+end_src
 
 * Windows
 ** Why do the fonts look crappy on Windows?
