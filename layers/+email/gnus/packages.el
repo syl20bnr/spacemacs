@@ -48,7 +48,6 @@
        gnus-sum-thread-tree-single-leaf "╰► "
        gnus-sum-thread-tree-vertical "│"
        gnus-article-browse-delete-temp t
-       gnus-fetch-old-headers t
        gnus-treat-strip-trailing-blank-lines 'last
        gnus-keep-backlog 'nil
        gnus-summary-display-arrow nil ; Don't show that annoying arrow:
