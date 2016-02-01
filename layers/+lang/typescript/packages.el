@@ -29,10 +29,10 @@
                       (flycheck-mode t)
                       (setq flycheck-check-syntax-automatically '(save mode-enabled))
                       (eldoc-mode t)
-                      (when (configuration-layer/package-usedp 'company) 
+                      (when (configuration-layer/package-usedp 'company)
                             (company-mode-on)))))
     :config (progn
-             
+
               (when typescript-use-tslint
                     (use-package flycheck-typescript-tslint)
                     (flycheck-add-next-checker 'typescript-tide
@@ -48,15 +48,15 @@
 
               (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
                 "gb" 'tide-jump-back
-                "gm" 'typescript/jump-to-type-def
                 "gg" 'tide-jump-to-definition
-                "hd" 'tide-documentation-at-point
-                "nr" 'tide-rename-symbol
-                "r"  'tide-references
-                "s"  'tide-restart-server))))
+                "gt" 'typescript/jump-to-type-def
+                "gu"  'tide-references
+                "hh" 'tide-documentation-at-point
+                "rr" 'tide-rename-symbol
+                "sr"  'tide-restart-server))))
 
 
-(when (configuration-layer/package-usedp 'web-mode) 
+(when (configuration-layer/package-usedp 'web-mode)
   (defun typescript/init-web-mode ()
    (use-package web-mode
    :defer t
@@ -68,10 +68,10 @@
                          (flycheck-mode +1)
                          (setq flycheck-check-syntax-automatically '(save mode-enabled))
                          (eldoc-mode +1)
-                         (when (configuration-layer/package-usedp 'company) 
+                         (when (configuration-layer/package-usedp 'company)
                                (company-mode-on))))))))
 
 (when typescript-use-tslint
   (defun typescript/init-flycheck-typescript-tslint ()
-    (use-package flycheck-typescript-tslint 
+    (use-package flycheck-typescript-tslint
     :defer t)))

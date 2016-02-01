@@ -6,9 +6,12 @@
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[Description][Description]]
  - [[Install][Install]]
-     - [[Layer][Layer]]
-     - [[Notes][Notes]]
+   - [[Pre-requisites][Pre-requisites]]
+   - [[Layer][Layer]]
+   - [[Notes][Notes]]
  - [[Key bindings][Key bindings]]
+   - [[Typescript Major Mode][Typescript Major Mode]]
+   - [[Reference Major Mode                          ][Reference Major Mode                          ]]
 
 * Description
 
@@ -67,12 +70,12 @@ Currently tsserver doesn't pickup tsconfig.json file changes. You might need to 
 | Key Binding | Description                      |
 |-------------+----------------------------------|
 | ~SPC g b~   | jump back                        |
-| ~SPC g m~   | jump to entity's type definition |
 | ~SPC g g~   | jump to entity's definition      |
-| ~SPC h d~   | documentation at point           |
-| ~SPC n r~   | rename symbol                    |
-| ~SPC r~     | references                       |
-| ~SPC s~     | restart server                   |
+| ~SPC g t~   | jump to entity's type definition |
+| ~SPC g u~   | references                       |
+| ~SPC h h~   | documentation at point           |
+| ~SPC r r~   | rename symbol                    |
+| ~SPC s r~   | restart server                   |
 
 
 ** Reference Major Mode                          
