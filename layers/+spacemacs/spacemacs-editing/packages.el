@@ -21,7 +21,6 @@
         iedit
         lorem-ipsum
         move-text
-        neotree
         pcre2el
         smartparens))
 
