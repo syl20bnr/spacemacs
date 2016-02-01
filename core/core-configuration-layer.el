@@ -638,7 +638,7 @@ path."
     (while variables
       (let ((var (pop variables)))
         (if (consp variables)
-            (condition-case err
+            (condition-case-unless-debug err
                 (set-default var (eval (pop variables)))
               ('error
                (configuration-layer//increment-error-count)
@@ -935,7 +935,7 @@ Returns non-nil if the packages have been installed."
                  (format "  -> ignored pre-init (%S)..." layer))
               (spacemacs-buffer/message
                (format "  -> pre-init (%S)..." layer))
-              (condition-case err
+              (condition-case-unless-debug err
                   (funcall (intern (format "%S/pre-init-%S" layer pkg-name)))
                 ('error
                  (configuration-layer//increment-error-count)
@@ -955,7 +955,7 @@ Returns non-nil if the packages have been installed."
                  (format "  -> ignored post-init (%S)..." layer))
               (spacemacs-buffer/message
                (format "  -> post-init (%S)..." layer))
-              (condition-case err
+              (condition-case-unless-debug err
                   (funcall (intern (format "%S/post-init-%S" layer pkg-name)))
                 ('error
                  (configuration-layer//increment-error-count)
