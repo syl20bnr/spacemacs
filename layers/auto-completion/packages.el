@@ -168,7 +168,8 @@
 (defun auto-completion/init-hippie-exp ()
   ;; replace dabbrev-expand
   (global-set-key (kbd "M-/") 'hippie-expand)
-  (define-key evil-insert-state-map (kbd "C-p") 'hippie-expand)
+  (when (eq dotspacemacs-editing-style 'vim)
+    (define-key evil-insert-state-map (kbd "C-p") 'hippie-expand))
   (setq hippie-expand-try-functions-list
         '(
           ;; Try to expand word "dynamically", searching the current buffer.
