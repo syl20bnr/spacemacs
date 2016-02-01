@@ -55,7 +55,8 @@ version the release note it displayed")
         truncate-lines t)
   (page-break-lines-mode)
   ;; needed to make tab work correctly in terminal
-  (evil-define-key 'motion spacemacs-buffer-mode-map (kbd "C-i") 'widget-forward)
+  (evil-define-key 'motion spacemacs-buffer-mode-map
+    (kbd "C-i") 'widget-forward)
   ;; motion state since this is a special mode
   (unless (eq dotspacemacs-editing-style 'emacs)
     (evil-set-initial-state 'spacemacs-buffer-mode 'motion)))
@@ -83,12 +84,14 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
           ;; fresh install of spacemacs, the release notes are not displayed
           (setq spacemacs-buffer--release-note-version spacemacs-version)
           (spacemacs/dump-vars-to-file
-           '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file)))
+           '(spacemacs-buffer--release-note-version)
+           spacemacs-buffer--cache-file)))
       ;; if there is no installed dotfile we assume the user is
       ;; new to spacemacs and open the quickhelp
       (when (not (file-exists-p dotspacemacs-filepath))
-        (spacemacs-buffer/toggle-note (concat spacemacs-info-directory "quickhelp.txt")
-                                      (spacemacs-buffer//insert-note-p 'quickhelp)))
+        (spacemacs-buffer/toggle-note
+         (concat spacemacs-info-directory "quickhelp.txt")
+         (spacemacs-buffer//insert-note-p 'quickhelp)))
       ;; if there is an installed dotfile we check the variable
       ;; spacemacs-buffer--release-note-version to decide whether
       ;; we show the release note
@@ -96,8 +99,8 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
                  (or (not spacemacs-buffer--release-note-version)
                      (version< spacemacs-buffer--release-note-version
                                spacemacs-version)))
-        (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.105.txt")
-                                      'release-note))
+        (spacemacs-buffer/toggle-note
+         (concat spacemacs-release-notes-directory "0.105.txt") 'release-note))
       (spacemacs//redisplay))))
 
 (defun spacemacs-buffer//choose-banner ()
@@ -188,9 +191,8 @@ HELP-STRING is the help message of the button for additional action."
     (goto-char (point-min))
     (search-forward "Search in Spacemacs\]")
     (forward-line)
-    (let* ((note (concat "\n" (spacemacs//render-framed-text file
-                                                             spacemacs-buffer--banner-length
-                                                             caption))))
+    (let* ((note (concat "\n" (spacemacs//render-framed-text
+                               file spacemacs-buffer--banner-length caption))))
       (add-to-list 'spacemacs-buffer--note-widgets (widget-create 'text note))
       (funcall additional-widgets))))
 
@@ -228,48 +230,65 @@ If TYPE is nil, just remove widgets."
 (defun spacemacs-buffer//insert-quickhelp-widget (file)
   "Insert quickhelp with content from FILE."
   (spacemacs-buffer//remove-existing-widget-if-exist)
-  (let ((widget-func (lambda ()
-                       (add-to-list 'spacemacs-buffer--note-widgets
-                                    (widget-create 'push-button
-                                                   :tag (propertize "Evil Tutorial" 'face 'font-lock-keyword-face)
-                                                   :help-echo "Teach you how to use Vim basics."
-                                                   :action (lambda (&rest ignore) (call-interactively #'evil-tutor-start))
-                                                   :mouse-face 'highlight
-                                                   :follow-link "\C-m"))
-                       (widget-insert " ")
-                       (add-to-list 'spacemacs-buffer--note-widgets
-                                    (widget-create 'push-button
-                                                   :tag (propertize "Emacs Tutorial" 'face 'font-lock-keyword-face)
-                                                   :help-echo "Teach you how to use Emacs basics."
-                                                   :action (lambda (&rest ignore) (call-interactively #'help-with-tutorial))
-                                                   :mouse-face 'highlight
-                                                   :follow-link "\C-m"))
-                       (widget-insert " ")
-                       (add-to-list 'spacemacs-buffer--note-widgets
-                                    (widget-create 'push-button
-                                                   :tag (propertize "Vim Migration Guide" 'face 'font-lock-keyword-face)
-                                                   :help-echo "Documentation for former vim users."
-                                                   :action (lambda (&rest ignore) (spacemacs/view-org-file (concat spacemacs-docs-directory "VIMUSERS.org") "^" 'all))
-                                                   :mouse-face 'highlight
-                                                   :follow-link "\C-m")))))
+  (let ((widget-func
+         (lambda ()
+           (add-to-list
+            'spacemacs-buffer--note-widgets
+            (widget-create 'push-button
+                           :tag (propertize "Evil Tutorial"
+                                            'face 'font-lock-keyword-face)
+                           :help-echo
+                           "Teach you how to use Vim basics."
+                           :action (lambda (&rest ignore)
+                                     (call-interactively #'evil-tutor-start))
+                           :mouse-face 'highlight
+                           :follow-link "\C-m"))
+           (widget-insert " ")
+           (add-to-list
+            'spacemacs-buffer--note-widgets
+            (widget-create 'push-button
+                           :tag (propertize "Emacs Tutorial"
+                                            'face 'font-lock-keyword-face)
+                           :help-echo "Teach you how to use Emacs basics."
+                           :action (lambda (&rest ignore)
+                                     (call-interactively #'help-with-tutorial))
+                           :mouse-face 'highlight
+                           :follow-link "\C-m"))
+           (widget-insert " ")
+           (add-to-list
+            'spacemacs-buffer--note-widgets
+            (widget-create 'push-button
+                           :tag (propertize "Vim Migration Guide"
+                                            'face 'font-lock-keyword-face)
+                           :help-echo "Documentation for former vim users."
+                           :action (lambda (&rest ignore)
+                                     (spacemacs/view-org-file
+                                      (concat spacemacs-docs-directory
+                                              "VIMUSERS.org") "^" 'all))
+                           :mouse-face 'highlight
+                           :follow-link "\C-m")))))
     (spacemacs-buffer//insert-note file "Quick Help" widget-func))
   (setq spacemacs-buffer--previous-insert-type 'quickhelp))
 
 (defun spacemacs-buffer//insert-release-note-widget (file)
   "Insert release note with content from FILE."
   (spacemacs-buffer//remove-existing-widget-if-exist)
-  (let ((widget-func (lambda ()
-                       (add-to-list 'spacemacs-buffer--note-widgets
-                                    (widget-create 'push-button
-                                                   :tag (propertize "Click here for full change log" 'face 'font-lock-warning-face)
-                                                   :help-echo "Open the full change log."
-                                                   :action (lambda (&rest ignore)
-                                                             (funcall 'spacemacs/view-org-file
-                                                                      (concat user-emacs-directory "CHANGELOG.org")
-                                                                      "Release 0.105.x"
-                                                                      'subtree))
-                                                   :mouse-face 'highlight
-                                                   :follow-link "\C-m")))))
+  (let ((widget-func
+         (lambda ()
+           (add-to-list
+            'spacemacs-buffer--note-widgets
+            (widget-create 'push-button
+                           :tag (propertize "Click here for full change log"
+                                            'face 'font-lock-warning-face)
+                           :help-echo "Open the full change log."
+                           :action (lambda (&rest ignore)
+                                     (funcall 'spacemacs/view-org-file
+                                              (concat user-emacs-directory
+                                                      "CHANGELOG.org")
+                                              "Release 0.105.x"
+                                              'subtree))
+                           :mouse-face 'highlight
+                           :follow-link "\C-m")))))
     (spacemacs-buffer//insert-note file
                                    " Important Notes (Release 0.105.x) "
                                    widget-func))
@@ -350,8 +369,8 @@ parameters."
   (when (file-exists-p filepath)
     (with-current-buffer (get-buffer-create "*spacemacs*")
       (let ((buffer-read-only nil))
-        (insert (spacemacs//render-framed-text filepath spacemacs-buffer--banner-length
-                                               caption hpadding))))))
+        (insert (spacemacs//render-framed-text
+                 filepath spacemacs-buffer--banner-length caption hpadding))))))
 
 (defun spacemacs//render-framed-text (content &optional width caption hpadding)
   "Return a formated string framed with plained lines of width FILL-COLUMN.
@@ -406,7 +425,8 @@ with width FILL-COLUMN.
 
 If length of LINE is bigger than FILL-COLUMN it returns nil.
 
-HPADDING is the horizontal spacing betwee the content line and the frame border."
+HPADDING is the horizontal spacing betwee the content line and the frame
+border."
   (let* ((len (length line))
          (fill (- fill-column len)))
     (when (>= fill 0)
@@ -415,7 +435,8 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
               (make-string hpadding ?\s) "│\n"))))
 
 (defun spacemacs-buffer/loading-animation ()
-  "Display the progress bar by chunk of size `spacemacs--loading-dots-chunk-threshold'."
+  "Display the progress bar by chunk of size
+`spacemacs--loading-dots-chunk-threshold'."
   (when dotspacemacs-loading-progress-bar
     (setq spacemacs-loading-counter (1+ spacemacs-loading-counter))
     (when (>= spacemacs-loading-counter spacemacs-loading-dots-chunk-threshold)
@@ -427,14 +448,16 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
       (spacemacs-buffer/set-mode-line spacemacs-loading-string)
       (spacemacs//redisplay))))
 
-(defmacro spacemacs//insert--shortcut (shortcut-char search-label &optional no-next-line)
-  `(define-key spacemacs-buffer-mode-map ,shortcut-char (lambda ()
-                                                          (interactive)
-                                                          (unless (search-forward ,search-label (point-max) t)
-                                                            (search-backward ,search-label (point-min) t))
-                                                          ,@(unless no-next-line
-                                                              '((forward-line 1)))
-                                                          (back-to-indentation))))
+(defmacro spacemacs//insert--shortcut (shortcut-char search-label
+                                                     &optional no-next-line)
+  `(define-key spacemacs-buffer-mode-map
+     ,shortcut-char (lambda ()
+                      (interactive)
+                      (unless (search-forward ,search-label (point-max) t)
+                        (search-backward ,search-label (point-min) t))
+                      ,@(unless no-next-line
+                          '((forward-line 1)))
+                      (back-to-indentation))))
 
 (defun spacemacs-buffer//insert-buttons ()
   (goto-char (point-max))
@@ -444,9 +467,11 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  :tag (propertize "?" 'face 'font-lock-doc-face)
                  :help-echo "Open the quickhelp."
                  :action (lambda (&rest ignore)
-                           (spacemacs-buffer/toggle-note (concat spacemacs-info-directory "quickhelp.txt")
-                                                         ;; if nil is returned, just delete the current note widgets
-                                                         (spacemacs-buffer//insert-note-p 'quickhelp)))
+                           (spacemacs-buffer/toggle-note
+                            (concat spacemacs-info-directory "quickhelp.txt")
+                            ;; if nil is returned,
+                            ;; just delete the current note widgets
+                            (spacemacs-buffer//insert-note-p 'quickhelp)))
                  :mouse-face 'highlight
                  :follow-link "\C-m"
                  )
@@ -467,7 +492,8 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
   (insert " ")
   (widget-create 'url-link
                  :tag (propertize "Gitter Chat" 'face 'font-lock-keyword-face)
-                 :help-echo "Ask questions and chat with fellow users in our chat room."
+                 :help-echo
+                 "Ask questions and chat with fellow users in our chat room."
                  :mouse-face 'highlight
                  :follow-link "\C-m"
                  "https://gitter.im/syl20bnr/spacemacs")
@@ -481,43 +507,53 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
   (insert "\n               ")
   (widget-create 'push-button
                  :help-echo "Update all ELPA packages to the latest versions."
-                 :action (lambda (&rest ignore) (configuration-layer/update-packages))
+                 :action (lambda (&rest ignore)
+                           (configuration-layer/update-packages))
                  :mouse-face 'highlight
                  :follow-link "\C-m"
                  (propertize "Update Packages" 'face 'font-lock-keyword-face))
   (insert " ")
   (widget-create 'push-button
-                 :help-echo "Rollback ELPA package updates if something got borked."
-                 :action (lambda (&rest ignore) (call-interactively 'configuration-layer/rollback))
+                 :help-echo
+                 "Rollback ELPA package updates if something got borked."
+                 :action (lambda (&rest ignore)
+                           (call-interactively 'configuration-layer/rollback))
                  :mouse-face 'highlight
                  :follow-link "\C-m"
-                 (propertize "Rollback Package Update" 'face 'font-lock-keyword-face))
+                 (propertize "Rollback Package Update"
+                             'face 'font-lock-keyword-face))
   (insert "\n")
   (insert "                  ")
   (widget-create 'push-button
-                 :tag (propertize "Release Notes" 'face 'font-lock-preprocessor-face)
+                 :tag (propertize "Release Notes"
+                                  'face 'font-lock-preprocessor-face)
                  :help-echo "Hide or show the Changelog"
                  :action (lambda (&rest ignore)
-                           (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.105.txt")
-                                                         ;; if nil is returned, just delete the current note widgets
-                                                         (spacemacs-buffer//insert-note-p 'release-note)))
+                           (spacemacs-buffer/toggle-note
+                            (concat spacemacs-release-notes-directory
+                                    "0.105.txt")
+                            ;; if nil is returned,
+                            ;; just delete the current note widgets
+                            (spacemacs-buffer//insert-note-p 'release-note)))
                  :mouse-face 'highlight
                  :follow-link "\C-m"
                  )
   (insert " ")
-  (if (configuration-layer/layer-usedp 'spacemacs-helm)
-      (widget-create 'url-link
-                     :tag (propertize "Search in Spacemacs" 'face 'font-lock-function-name-face)
-                     :help-echo "Find Spacemacs package and layer configs using helm-spacemacs-help."
-                     :action (lambda (&rest ignore) (call-interactively 'helm-spacemacs-help))
-                     :mouse-face 'highlight
-                     :follow-link "\C-m")
-    (widget-create 'url-link
-                   :tag (propertize "Search in Spacemacs" 'face 'font-lock-function-name-face)
-                   :help-echo "Find Spacemacs package and layer configs using helm-spacemacs-help."
-                   :action (lambda (&rest ignore) (call-interactively 'ivy-spacemacs-help))
-                   :mouse-face 'highlight
-                   :follow-link "\C-m"))
+  (widget-create 'url-link
+                 :tag (propertize "Search in Spacemacs"
+                                  'face 'font-lock-function-name-face)
+                 :help-echo "Search Spacemacs contents."
+                 :action
+                 (lambda (&rest ignore)
+                   (let ((comp-frontend
+                          (cond
+                           ((configuration-layer/layer-usedp 'spacemacs-helm)
+                            'helm-spacemacs-help)
+                           ((configuration-layer/layer-usedp 'spacemacs-ivy)
+                            'ivy-spacemacs-help))))
+                     (call-interactively comp-frontend)))
+                 :mouse-face 'highlight
+                 :follow-link "\C-m")
   (insert "\n\n"))
 
 (defun spacemacs-buffer//insert-file-list (list-display-name list)
@@ -526,7 +562,8 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
     (mapc (lambda (el)
             (insert "\n    ")
             (widget-create 'push-button
-                           :action `(lambda (&rest ignore) (find-file-existing ,el))
+                           :action `(lambda (&rest ignore)
+                                      (find-file-existing ,el))
                            :mouse-face 'highlight
                            :follow-link "\C-m"
                            :button-prefix ""
@@ -566,14 +603,12 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
 (defun spacemacs-buffer//agenda-list ()
   "Returns today's agenda"
   (require 'org-agenda)
-  (spacemacs-buffer//get-org-items
-   org-agenda-entry-types))
+  (spacemacs-buffer//get-org-items org-agenda-entry-types))
 
 (defun spacemacs-buffer//todo-list ()
   "Returns current todos"
   (require 'org-agenda)
-  (spacemacs-buffer//get-org-items
-   '(:todo)))
+  (spacemacs-buffer//get-org-items '(:todo)))
 
 (defun spacemacs-buffer//make-org-items (file items)
   "make a spacemacs-buffer org item list"
@@ -609,8 +644,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
     (org-back-to-heading t)
     (if (re-search-forward org-complex-heading-regexp nil t)
         (goto-char (match-beginning 4))))
-  (run-hooks 'org-agenda-after-show-hook)
-  )
+  (run-hooks 'org-agenda-after-show-hook))
 
 (defun spacemacs-buffer//insert-todo-list (list-display-name list)
   (when (car list)
@@ -628,7 +662,8 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
     (mapc (lambda (el)
             (insert "\n    ")
             (widget-create 'push-button
-                           :action `(lambda (&rest ignore) (spacemacs-buffer//org-jump ',el))
+                           :action `(lambda (&rest ignore)
+                                      (spacemacs-buffer//org-jump ',el))
                            :mouse-face 'highlight
                            :follow-link "\C-m"
                            :button-prefix ""
@@ -655,26 +690,37 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
               (cond
                ((eq el 'recents)
                 (recentf-mode)
-                (when (spacemacs-buffer//insert-file-list "Recent Files:" (recentf-elements dotspacemacs-startup-recent-list-size))
+                (when (spacemacs-buffer//insert-file-list
+                       "Recent Files:"
+                       (recentf-elements dotspacemacs-startup-recent-list-size))
                   (spacemacs//insert--shortcut "r" "Recent Files:")
                   (insert list-separator)))
                ((eq el 'todos)
-                (when (spacemacs-buffer//insert-todo-list "ToDo:" (spacemacs-buffer//todo-list))
+                (when (spacemacs-buffer//insert-todo-list
+                       "ToDo:"
+                       (spacemacs-buffer//todo-list))
                   (spacemacs//insert--shortcut "d" "ToDo:")
                   (insert list-separator)))
                ((eq el 'agenda)
-                (when (spacemacs-buffer//insert-todo-list "Agenda:" (spacemacs-buffer//agenda-list))
+                (when (spacemacs-buffer//insert-todo-list
+                       "Agenda:"
+                       (spacemacs-buffer//agenda-list))
                   (spacemacs//insert--shortcut "c" "Agenda:")
                   (insert list-separator)))
                ((eq el 'bookmarks)
-                (when (configuration-layer/layer-usedp 'spacemacs-helm) (helm-mode))
+                (when (configuration-layer/layer-usedp 'spacemacs-helm)
+                  (helm-mode))
                 (require 'bookmark)
-                (when (spacemacs-buffer//insert-bookmark-list "Bookmarks:" (bookmark-all-names))
+                (when (spacemacs-buffer//insert-bookmark-list
+                       "Bookmarks:"
+                       (bookmark-all-names))
                   (spacemacs//insert--shortcut "b" "Bookmarks:")
                   (insert list-separator)))
                ((eq el 'projects)
                 (projectile-mode)
-                (when (spacemacs-buffer//insert-file-list "Projects:" (projectile-relevant-known-projects))
+                (when (spacemacs-buffer//insert-file-list
+                       "Projects:"
+                       (projectile-relevant-known-projects))
                   (spacemacs//insert--shortcut "p" "Projects:")
                   (insert list-separator))))) dotspacemacs-startup-lists))))
 
