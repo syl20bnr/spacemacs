@@ -9,7 +9,8 @@
 ;;
 ;;; License: GPLv3
 
-(setq ipython-notebook-packages '(ein))
+(setq ipython-notebook-packages '(ein
+                                  ob-ipython))
 
 (defun ipython-notebook/init-ein ()
   (use-package ein
@@ -157,4 +158,11 @@
         ("9" ein:notebook-worksheet-open-last)
         ("+" ein:notebook-worksheet-insert-next)
         ("-" ein:notebook-worksheet-delete)
-        ("x" ein:notebook-close)))))
+        ("x" ein:notebook-close))
+      (spacemacs/set-leader-keys "ein" 'spacemacs/ipython-notebook-transient-state/body))))
+
+(defun ipython-notebook/init-ob-ipython ()
+  (use-package ob-ipython
+    :defer t
+    :init
+    (org-babel-do-load-languages 'org-babel-load-languages '((ipython . t)))))
