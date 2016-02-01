@@ -53,7 +53,9 @@
     :init
     (progn
       (spacemacs/register-repl 'ess-site 'julia)
-      (spacemacs/register-repl 'ess-site 'spacemacs/ess-start-repl "ess")
+      (spacemacs/register-repl 'ess-site 'R)
+      (spacemacs/register-repl 'ess-site 'SAS)
+      (spacemacs/register-repl 'ess-site 'stata)
       (when (configuration-layer/package-usedp 'company)
           (add-hook 'ess-mode-hook 'company-mode))))
 
