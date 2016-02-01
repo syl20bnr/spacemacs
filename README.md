@@ -240,6 +240,21 @@ HOME=~/spacemacs emacs
 Note: If you're on Fish shell, you will need to modify the last command to: `env
 HOME=$HOME/spacemacs emacs`
 
+## Installation alongside another configuration
+
+To try out Spacemacs (or any other Emacs configuration you desire) without
+having to go through the trouble of backing up you `~/.emacs.d` directory and
+then cloning the new configuration:
+
+```sh
+mkdir ~/spacemacs
+git clone git@github.com:syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
+HOME=~/spacemacs emacs
+```
+
+Note: If you're on Fish shell, you will need to modify the last command to: `env
+HOME=$HOME/spacemacs emacs`
+
 ## Spacemacs logo
 
 If you are using Ubuntu and Unity then you can add the Spacemacs logo by
