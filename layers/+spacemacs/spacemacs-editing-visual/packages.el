@@ -236,8 +236,8 @@
       (spacemacs|define-transient-state symbol-highlight
         :title "Symbol Highlight Transient State"
         :doc "
-%s(symbol-highlight-doc)  [_n_] forward [_N_ or p] backward   [_R_] restart      [_e_] iedit       [_b_] search buffers
-%s(make-string (length (symbol-highlight-doc)) 32)  [_d_/_D_] fwd/bwd definition [_r_] change range [_/_] search proj [_f_] search files"
+%s(symbol-highlight-doc)  [_n_/_N_/_p_] next/prev/prev   [_R_] restart      [_e_] iedit       [_b_] search buffers
+%s(make-string (length (symbol-highlight-doc)) 32)  [_d_/_D_]^^   next/prev def'n  [_r_] change range [_/_] search proj [_f_] search files"
         :before-exit (spacemacs//ahs-ms-on-exit)
         :bindings
         ("d" ahs-forward-definition)
