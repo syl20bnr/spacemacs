@@ -65,7 +65,6 @@
         open-junk-file
         leuven-theme
         linum-relative
-        link-hint
         lorem-ipsum
         move-text
         neotree
@@ -1171,14 +1170,6 @@ on whether the spacemacs-ivy layer is used or not, with
   (use-package leuven-theme
     :defer t
     :init (setq org-fontify-whole-heading-line t)))
-
-(defun spacemacs/init-link-hint ()
-  (use-package link-hint
-    :defer t
-    :init
-    (spacemacs/set-leader-keys
-      "xo" 'link-hint-open-link
-      "xO" 'link-hint-open-multiple-links)))
 
 (defun spacemacs/init-linum-relative ()
   (use-package linum-relative
