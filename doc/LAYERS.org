@@ -277,12 +277,17 @@ more.
 
 * Anatomy of a layer
 A layer is simply a folder somewhere in Spacemacs' layer search path that
-contains /at least one/ of these files, ordered vaguely by importance.
+usually contains these files.
 
-- =packages.el= :: for defining the list of packages
-- =packages-config.el= :: for initializing packages and setting up keybindings
-- =config.el= :: for miscellaneous configuration
-- =packages-funcs.el= :: for defining general utility functions
+- =config.el= :: layer specific configuration
+- =packages.el= :: the list of packages
+- =packages-config.el= :: packages configuration and keybindings
+- =packages-funcs.el= :: additional packages functions
+
+Other files (rarely needed):
+
+- =funcs.el= :: layer specific functions
+- =keybindings.el= :: key bindings for Emacs built-in feature
 
 Additionally, for each local package (see the next section), there should be a
 folder =<layer>/local/<package>/= containing the source code for that package.
