@@ -20,6 +20,7 @@
         helm
         magit
         multi-term
+        projectile
         (shell :location built-in)
         shell-pop
         smooth-scrolling
@@ -243,6 +244,9 @@ is achieved by adding the relevant text properties."
           (interactive)
           (projectile-with-default-dir (projectile-project-root) (multi-term)))
         (spacemacs/set-leader-keys "p$t" 'projectile-multi-term-in-root)))))
+
+(defun shell/post-init-projectile ()
+  (spacemacs/set-leader-keys "p'" 'spacemacs/projectile-shell-pop))
 
 (defun shell/init-shell ()
   (spacemacs/register-repl 'shell 'shell)
