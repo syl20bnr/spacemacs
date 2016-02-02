@@ -243,7 +243,8 @@ refreshed during the current session."
                                     "\nError while contacting %s repository!"
                                     (car archive)))
                                   'error))
-                             (or (file-directory-p (cdr archive))
+                             ;; Check for local file system path
+                             (or (null (url-host (url-generic-parse-url (cdr archive))))
                                  (url-retrieve-synchronously (cdr archive)))))
           (let ((package-archives (list archive)))
             (package-refresh-contents))))
