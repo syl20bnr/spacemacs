@@ -368,28 +368,28 @@
       (add-hook 'spaceline-pre-hook 'spacemacs//prepare-diminish))))
 
 (defun spacemacs-ui-visual/init-vi-tilde-fringe ()
-  (use-package vi-tilde-fringe
-    :if window-system
-    :init
-    (progn
-      (global-vi-tilde-fringe-mode)
-      (spacemacs|add-toggle vi-tilde-fringe
-        :status vi-tilde-fringe-mode
-        :on (global-vi-tilde-fringe-mode)
-        :off (global-vi-tilde-fringe-mode -1)
-        :documentation
-        "Globally display a ~ on empty lines in the fringe."
-        :evil-leader "T~")
-      ;; don't enable it on spacemacs home buffer
-      (with-current-buffer  "*spacemacs*"
-        (vi-tilde-fringe-mode -1))
-      ;; after a major mode is loaded, check if the buffer is read only
-      ;; if so, disable vi-tilde-fringe-mode
-      (add-hook 'after-change-major-mode-hook (lambda ()
-                                                (when buffer-read-only
-                                                  (vi-tilde-fringe-mode -1)))))
-    :config
-    (spacemacs|hide-lighter vi-tilde-fringe-mode)))
+  (spacemacs|do-after-display-system-init
+   (use-package vi-tilde-fringe
+     :init
+     (progn
+       (global-vi-tilde-fringe-mode)
+       (spacemacs|add-toggle vi-tilde-fringe
+         :status vi-tilde-fringe-mode
+         :on (global-vi-tilde-fringe-mode)
+         :off (global-vi-tilde-fringe-mode -1)
+         :documentation
+         "Globally display a ~ on empty lines in the fringe."
+         :evil-leader "T~")
+       ;; don't enable it on spacemacs home buffer
+       (with-current-buffer  "*spacemacs*"
+         (vi-tilde-fringe-mode -1))
+       ;; after a major mode is loaded, check if the buffer is read only
+       ;; if so, disable vi-tilde-fringe-mode
+       (add-hook 'after-change-major-mode-hook (lambda ()
+                                                 (when buffer-read-only
+                                                   (vi-tilde-fringe-mode -1)))))
+     :config
+     (spacemacs|hide-lighter vi-tilde-fringe-mode))))
 
 (defun spacemacs-ui-visual/init-zoom-frm ()
   (use-package zoom-frm
