@@ -2567,8 +2567,9 @@ To search in a project see [[Searching in a project][project searching]].
 
     | Key Binding | Description                                           |
     |-------------+-------------------------------------------------------|
-    | ~SPC p !~   | run shell command in root                             |
-    | ~SPC p &~   | run async shell command in root                       |
+    | ~SPC p '~   | open a shell in project's root                        |
+    | ~SPC p !~   | run shell command in project's root                   |
+    | ~SPC p &~   | run async shell command in project's root             |
     | ~SPC p a~   | toggle between implementation and test                |
     | ~SPC p b~   | switch to project buffer                              |
     | ~SPC p c~   | compile project using =projectile=                    |
