@@ -84,6 +84,8 @@
     :defer t
     :init (spacemacs/add-to-hooks 'emmet-mode '(css-mode-hook
                                                 html-mode-hook
+                                                sass-mode-hook
+                                                scss-mode-hook
                                                 web-mode-hook))
     :config
     (progn
