@@ -26,9 +26,20 @@
         :bindings
         (kbd "j") 'mu4e~headers-jump-to-maildir)
       (evilified-state-evilify-map mu4e-headers-mode-map
-        :mode mu4e-headers-mode)
+        :mode mu4e-headers-mode
+        :bindings
+        (kbd "Y") 'mu4e-select-other-view
+        (kbd "y") 'evil-yank)
       (evilified-state-evilify-map mu4e-view-mode-map
-        :mode mu4e-view-mode)
+        :mode mu4e-view-mode
+        :bindings
+        (kbd "Y") 'mu4e-select-other-view
+        (kbd "y") 'evil-yank
+        (kbd "w") 'evil-forward-word-begin
+        (kbd "V") 'visual-line-mode
+        (kbd "e") 'evil-forward-word-end
+        (kbd "{") 'evil-backward-paragraph
+        (kbd "}") 'evil-forward-paragraph)
 
       (setq mu4e-completing-read-function 'helm--completing-read-default)
 
