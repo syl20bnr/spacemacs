@@ -27,12 +27,15 @@ This layer provides:
 - Imenu
 - linting
 - tsx mode
+- formatting
 
 * Install
 ** Pre-requisites
 You will need =node.js v0.12.0= or greater
 
-If you want linting run:  =npm instell -g typescript=  =npm install -g tslint=  
+If you want linting run:  =npm install -g typescript=  =npm install -g tslint=  
+
+If you want formatting run:  =npm install -g typescript-formatter=  
 
 For best results, make sure that the =auto-completion= (company) and =html= layers are enabled.
 
@@ -45,17 +48,32 @@ file.
 (setq-default dotspacemacs-configuration-layers '(typescript))
 #+END_SRC
 
-or if you don't need linting.
+If you don't need linting, you can use:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(
-  (typescript :variables 
-              typescript-use-tslint nil))
+  (typescript :variables
+              typescript-use-tslint  nil)))
+
+#+END_SRC
+
+If you need formatting on save:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(
+  (typescript :variables
+              typescript-fmt-on-save t)))
+
 #+END_SRC
 
 ** Notes
 
-This layer uses [[https://github.com/ananthakumaran/tide][tide]] and [[https://github.com/Simplify/flycheck-typescript-tslint/][flycheck-typescript-tslint]]
+This layer uses:
+- [[https://github.com/ananthakumaran/tide][tide]]
+- [[https://github.com/Simplify/flycheck-typescript-tslint][flycheck-typescript-tslint]]
+- [[https://github.com/vvakame/typescript-formatter][typescript-formatter]]
+
+*Those tools use configuration files. You can learn more in their documentations.*
 
 Make sure to add [[https://github.com/Microsoft/TypeScript/wiki/tsconfig.json][tsconfig.json]] in the project root folder.
 
@@ -69,19 +87,20 @@ Currently tsserver doesn't pickup tsconfig.json file changes. You might need to 
 
 | Key Binding | Description                      |
 |-------------+----------------------------------|
-| ~SPC g b~   | jump back                        |
-| ~SPC g g~   | jump to entity's definition      |
-| ~SPC g t~   | jump to entity's type definition |
-| ~SPC g u~   | references                       |
-| ~SPC h h~   | documentation at point           |
-| ~SPC r r~   | rename symbol                    |
-| ~SPC s r~   | restart server                   |
+| ~SPC m =~   | Reformat the buffer              |
+| ~SPC m g b~ | jump back                        |
+| ~SPC m g g~ | jump to entity's definition      |
+| ~SPC m g t~ | jump to entity's type definition |
+| ~SPC m g u~ | references                       |
+| ~SPC m h h~ | documentation at point           |
+| ~SPC m r r~ | rename symbol                    |
+| ~SPC m s r~ | restart server                   |
 
 
 ** Reference Major Mode                          
 
-| Key Binding | Description                      |
-|-------------+----------------------------------|
-| ~C-j~       | find previous reference          |
-| ~C-k~       | find next reference              |
-| ~C-l~       | goto reference                   |
+| Key Binding | Description             |
+|-------------+-------------------------|
+| ~C-j~       | find previous reference |
+| ~C-k~       | find next reference     |
+| ~C-l~       | goto reference          |

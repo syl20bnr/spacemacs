@@ -9,8 +9,9 @@
 ;;
 ;;; License: GPLv3
 
-(setq typescript-packages '(tide
-                            flycheck-typescript-tslint
+(setq typescript-packages '(flycheck-typescript-tslint
+                            tide
+                            typescript-mode
                             web-mode))
 
 (defun typescript/init-tide ()
@@ -70,6 +71,48 @@
                          (eldoc-mode +1)
                          (when (configuration-layer/package-usedp 'company)
                                (company-mode-on))))))))
+
+(defun typescript/init-typescript-mode ()
+  (use-package typescript-mode
+    :defer t
+    :commands (typescript/format-buffer)
+    :config (progn
+              (defun typescript/format-buffer ()
+                "Format buffer with tsfmt."
+                (interactive)
+                (if (executable-find "tsfmt")
+                    (let*  ((tmpfile (make-temp-file "~fmt-tmp" nil ".ts"))
+                            (coding-system-for-read 'utf-8)
+                            (coding-system-for-write 'utf-8)
+                            (outputbuf (get-buffer-create "*~fmt-tmp.ts*")))
+                      (unwind-protect
+                          (progn
+                            (with-current-buffer outputbuf (erase-buffer))
+                            (write-region nil nil tmpfile)
+                            (if (zerop (apply 'call-process "tsfmt" nil outputbuf nil (list tmpfile)))
+                                (let ((p (point)))
+                                  (save-excursion
+                                    (with-current-buffer (current-buffer)
+                                      (erase-buffer)
+                                      (insert-buffer-substring outputbuf)))
+                                  (goto-char p)
+                                  (message "formatted.")
+                                  (kill-buffer outputbuf))
+                                (progn 
+                                  (message "Formatting failed!")
+                                  (display-buffer outputbuf)))
+                            (progn
+                              (delete-file tmpfile)))))
+                  (message "tsfmt not found. Run \"npm install -g typescript-formatter\"")))
+
+              (spacemacs/set-leader-keys-for-major-mode 'typescript-mode "=" 'typescript/format-buffer)
+
+              (when typescript-fmt-on-save
+
+                    (defun typescript/before-save-hook ()
+                      (add-hook 'before-save-hook 'typescript/format-buffer t t))
+
+                    (add-hook 'typescript-mode-hook 'typescript/before-save-hook)))))
 
 (when typescript-use-tslint
   (defun typescript/init-flycheck-typescript-tslint ()
