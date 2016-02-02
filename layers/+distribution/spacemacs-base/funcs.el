@@ -919,3 +919,9 @@ current major mode."
     (when (and (integerp shift-width)
                (< 0 shift-width))
       (setq-local evil-shift-width shift-width))))
+
+(defun spacemacs/projectile-shell-pop ()
+  "Open a term buffer at projectile project root."
+  (interactive)
+  (let ((default-directory (projectile-project-root)))
+    (call-interactively 'spacemacs/default-pop-shell)))
