@@ -11,6 +11,8 @@
 - [[#configuration][Configuration]]
   - [[#maildirs-extension][Maildirs extension]]
   - [[#multiple-accounts][Multiple Accounts]]
+  - [[#async-mode][Async mode]]
+  - [[#attachment-directory][Attachment directory]]
   - [[#example-configuration][Example configuration]]
   - [[#notifications][Notifications]]
     - [[#os-notifications][OS notifications]]
@@ -60,6 +62,7 @@ existing =dotspacemacs-configuration-layers= list in this file.
 | ~SPC a M~              | Start mu4e                      |
 | ~SPC m S~ or ~SPC m /~ | Search emails (requires helm)   |
 | ~SPC m C~              | Search contacts (requires helm) |
+| C-x m                  | Compose new message             |
 
 ** Headers mode
 
@@ -143,6 +146,26 @@ The following example is taken from the manual:
 Note: We used to have a hack to support multiple accounts with older version of
 `mu` but we removed it to encourage people to update their version and use the
 new contexts feature.
+
+** Async mode
+mu4e can send mails in async mode, which speeds up sending as you do not have
+to wait for the email to be sent. This is off by default but you can enable
+it by setting the ~mu4e-enable-async-operations~ variable when including the
+layer.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((mu4e :variables
+                        mu4e-enable-async-operations t)))
+#+END_SRC
+
+** Attachment directory
+By default mu4e will save attachment files to $HOME, but this layer changes
+that to $HOME/Downloads if it exists. You can override this in your user-config:
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-attachment-dir "~/files")
+#+END_SRC
 
 ** Example configuration
 #+BEGIN_SRC emacs-lisp
