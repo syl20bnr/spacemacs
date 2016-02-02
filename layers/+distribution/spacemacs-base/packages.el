@@ -804,7 +804,6 @@ below. Anything else exits."
           "pr" 'projectile-recentf
           "ps" 'projectile-switch-project))
       (spacemacs/set-leader-keys
-        "p'" 'spacemacs/projectile-shell-pop
         "p!" 'projectile-run-shell-command-in-root
         "p&" 'projectile-run-async-shell-command-in-root
         "pa" 'projectile-toggle-between-implementation-and-test
