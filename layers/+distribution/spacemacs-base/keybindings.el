@@ -243,7 +243,7 @@ Ensure that helm is required before calling FUNC."
   :evil-leader "TF")
 (spacemacs|add-toggle maximize-frame
   :if (version< "24.3.50" emacs-version)
-  :status (eq (frame-parameter nil 'maximized) 'maximized)
+  :status (eq (frame-parameter nil 'fullscreen) 'maximized)
   :on (toggle-frame-maximized)
   :off (toggle-frame-maximized)
   :documentation "Maximize the current frame."
