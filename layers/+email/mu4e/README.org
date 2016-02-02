@@ -28,9 +28,10 @@ existing =dotspacemacs-configuration-layers= list in this file.
 
 * Commands
 
-| Keybinding | Command    |
-|------------+------------|
-| SPC a M    | Start mu4e |
+| Keybinding | Command             |
+|------------+---------------------|
+| SPC a M    | Start mu4e          |
+| C-x m      | Compose new message |
 
 * Configuration
 Configuration varies too much to give precise instructions.  What follows is one
