@@ -264,12 +264,16 @@ binding in the mode's map, e.g. for =magit-status-mode=,
 #+END_SRC
 
 ** Include underscores in word motions?
-You can modify the syntax table of the mode in question. For example, for Python
-mode:
+You can modify the syntax table of the mode in question. To do so you can
+include this on your =dotspacemacs/user-config=.
 
 #+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'python
-  (modify-syntax-entry ?_ "w" python-mode-syntax-table))
+;; For python
+(add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+;; For ruby
+(add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+;; For Javascript
+(add-hook 'js2-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 #+END_SRC
 
 ** Setup =$PATH=?
