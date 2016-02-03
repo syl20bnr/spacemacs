@@ -174,9 +174,12 @@
           (helm :sources '(helm-available-repls)
                 :buffer "*helm repls*")))
 
-      ;; use helm by default for M-x
+      ;; use helm by default for M-x, C-x C-f, and C-x b
       (unless (configuration-layer/package-usedp 'smex)
         (global-set-key (kbd "M-x") 'helm-M-x))
+      (unless dotspacemacs-use-ido
+        (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
+        (global-set-key (kbd "C-x b") 'helm-buffers-list))
 
       (spacemacs/set-leader-keys
         "<f1>" 'helm-apropos
