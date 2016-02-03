@@ -15,7 +15,7 @@
    - [[Should I place my settings in =user-init= or =user-config=?][Should I place my settings in =user-init= or =user-config=?]]
    - [[Why do some of my =org=-related settings cause problems?][Why do some of my =org=-related settings cause problems?]]
    - [[Why is Spacemacs hanging on startup?][Why is Spacemacs hanging on startup?]]
-   - [[Why does =helm-M-x= (~SPC :~) not accept the prefix argument?][Why does =helm-M-x= (~SPC :~) not accept the prefix argument?]]
+   - [[Why does =helm-M-x= (~SPC SPC~) not accept the prefix argument?][Why does =helm-M-x= (~SPC SPC~) not accept the prefix argument?]]
    - [[Why does my color theme not render correctly in terminal mode?][Why does my color theme not render correctly in terminal mode?]]
    - [[Why do I get =(wrong-type-argument arrayp nil)= errors on startup?][Why do I get =(wrong-type-argument arrayp nil)= errors on startup?]]
    - [[Typing quickly =fd= takes me out of =insert state=. What is going on?][Typing quickly =fd= takes me out of =insert state=. What is going on?]]
@@ -143,8 +143,8 @@ ControlPath ~/.ssh/master -%r@%h:%p
 ControlPersist = no
 #+END_SRC
 
-** Why does =helm-M-x= (~SPC :~) not accept the prefix argument?
-If you try to run =helm-M-x= with the prefix argument (i.e. ~SPC u SPC :~) it
+** Why does =helm-M-x= (~SPC SPC~) not accept the prefix argument?
+If you try to run =helm-M-x= with the prefix argument (i.e. ~SPC u SPC SPC~) it
 will fail with this message:
 
 #+BEGIN_VERSE
@@ -152,7 +152,7 @@ Error: Specifying a prefix arg before calling helm-M-x
 #+END_VERSE
 
 Instead, call =helm-M-x= first, select the command you want to run, and press
-~C-u~ before pressing ~RETURN~. For instance: ~SPC : org-reload C-u RET~
+~C-u~ before pressing ~RETURN~. For instance: ~SPC SPC org-reload C-u RET~
 
 ** Why does my color theme not render correctly in terminal mode?
 In the terminal version of Emacs, color themes will not render correctly as
