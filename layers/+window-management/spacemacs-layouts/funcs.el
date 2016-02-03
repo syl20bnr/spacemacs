@@ -115,7 +115,7 @@ perspectives does."
                     (persp-switch project)
                     (let ((projectile-completion-system 'helm))
                       (projectile-switch-project-by-name project)))))))
-   :buffer "*Projectile Layouts*"))
+   :buffer "*Helm Projectile Layouts*"))
 
 ;; Autosave ----------------------------------------------------------------
 
