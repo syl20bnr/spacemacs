@@ -20,7 +20,7 @@
     (spacemacs/set-leader-keys
       "xwd" 'define-word-at-point)))
 
-(defun spacemacs/init-google-translate ()
+(defun spacemacs-language/init-google-translate ()
   (use-package google-translate
     :init
     (progn
