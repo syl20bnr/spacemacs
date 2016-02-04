@@ -345,7 +345,49 @@ Helm hack."
           (define-key ivy-minibuffer-map (kbd "C-h") nil)
           (define-key ivy-minibuffer-map (kbd "C-l") nil))))
       (spacemacs//hjkl-completion-navigation
-       (member dotspacemacs-editing-style '(vim hybrid))))))
+       (member dotspacemacs-editing-style '(vim hybrid)))
+
+      (require 'ivy-hydra)
+      (spacemacs|define-transient-state ivy
+        :doc "
+ Move/Resize^^^^      | Select Action^^^^   |  Call^^          |  Cancel^^    | Toggles
+--^-^-^-^-------------|--^-^-^-^------------|--^---^-----------|--^-^---------|---------------------
+ [_j_/_k_] by line    | [_s_/_w_] next/prev | [_RET_] & done   | [_i_] & ins  | [_C_] calling: %s(if ivy-calling \"on\" \"off\")
+ [_h_/_l_] first/last | [_a_]^ ^  list all  | [_TAB_] alt done | [_q_] & quit | [_m_] matcher: %s(ivy--matcher-desc)
+ [_<_/_>_] resize     |  ^ ^ ^ ^            | [_c_]   & cont   |  ^ ^         | [_f_] case-fold: %`ivy-case-fold-search
+  ^ ^ ^ ^             |  ^ ^ ^ ^            | [_d_]   dump     |  ^ ^         | [_t_] truncate: %`truncate-lines
+
+Current Action: %s(ivy-action-name)
+"
+        :foreign-keys run
+        :bindings
+        ;; arrows
+        ("h" ivy-beginning-of-buffer)
+        ("j" ivy-next-line)
+        ("k" ivy-previous-line)
+        ("l" ivy-end-of-buffer)
+        ;; actions
+        ("q" keyboard-escape-quit :exit t)
+        ("C-g" keyboard-escape-quit :exit t)
+        ("i" nil)
+        ("C-o" nil)
+        ("TAB" ivy-alt-done :exit nil)
+        ;; ("C-j" ivy-alt-done :exit nil)
+        ;; ("d" ivy-done :exit t)
+        ("RET" ivy-done :exit t)
+        ("c" ivy-call)
+        ("C-m" ivy-done :exit t)
+        ("C" ivy-toggle-calling)
+        ("m" ivy-toggle-fuzzy)
+        (">" ivy-minibuffer-grow)
+        ("<" ivy-minibuffer-shrink)
+        ("w" ivy-prev-action)
+        ("s" ivy-next-action)
+        ("a" ivy-read-action)
+        ("t" (setq truncate-lines (not truncate-lines)))
+        ("f" ivy-toggle-case-fold)
+        ("d" ivy-occur :exit t))
+      (define-key ivy-minibuffer-map "\C-o" 'spacemacs/ivy-transient-state/body))))
 
 (defun spacemacs-ivy/init-smex ()
   (use-package smex
