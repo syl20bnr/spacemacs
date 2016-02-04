@@ -2,40 +2,40 @@
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
 * Migrating from vim                                        :TOC_4_org:noexport:
- - [[Purpose of this document][Purpose of this document]]
- - [[Philosophy][Philosophy]]
- - [[Basic orientation][Basic orientation]]
-   - [[Terms][Terms]]
-     - [[Modes vs. States][Modes vs. States]]
-     - [[Layers][Layers]]
-     - [[Transient-states][Transient-states]]
-   - [[Keybinding conventions][Keybinding conventions]]
-   - [[Running commands][Running commands]]
-   - [[Buffer and window management][Buffer and window management]]
-     - [[Buffers][Buffers]]
-       - [[Special buffers][Special buffers]]
-     - [[Windows][Windows]]
-   - [[Files][Files]]
-   - [[The Help System][The Help System]]
-   - [[Exploring][Exploring]]
- - [[Customization][Customization]]
-   - [[The .spacemacs file][The .spacemacs file]]
-   - [[Emacs Lisp][Emacs Lisp]]
-     - [[Variables][Variables]]
-     - [[Keybindings][Keybindings]]
-     - [[Functions][Functions]]
-   - [[Activating a Layer][Activating a Layer]]
-   - [[Creating a Layer][Creating a Layer]]
-   - [[Installing a single package][Installing a single package]]
-   - [[Loading packages][Loading packages]]
-   - [[Uninstalling a package][Uninstalling a package]]
-   - [[Common tweaks][Common tweaks]]
-     - [[Changing the escape key][Changing the escape key]]
-     - [[Changing the colorscheme][Changing the colorscheme]]
-     - [[Nohlsearch][Nohlsearch]]
-     - [[Sessions][Sessions]]
-     - [[Navigating using visual lines][Navigating using visual lines]]
- - [[Other useful links][Other useful links]]
+ - [[#purpose-of-this-document][Purpose of this document]]
+ - [[#philosophy][Philosophy]]
+ - [[#basic-orientation][Basic orientation]]
+   - [[#terms][Terms]]
+     - [[#modes-vs.-States][Modes vs. States]]
+     - [[#layers][Layers]]
+     - [[#transient-states][Transient-states]]
+   - [[#keybinding-conventions][Keybinding conventions]]
+   - [[#running-commands][Running commands]]
+   - [[#buffer-and-window-management][Buffer and window management]]
+     - [[#buffers][Buffers]]
+       - [[#special-buffers][Special buffers]]
+     - [[#windows][Windows]]
+   - [[files][Files]]
+   - [[#the-Help-System][The Help System]]
+   - [[#exploring][Exploring]]
+ - [[#customization][Customization]]
+   - [[#the-.spacemacs-file][The .spacemacs file]]
+   - [[#emacs-Lisp][Emacs Lisp]]
+     - [[#variables][Variables]]
+     - [[#keybindings][Keybindings]]
+     - [[#functions][Functions]]
+   - [[#activating-a-Layer][Activating a Layer]]
+   - [[#creating-a-Layer][Creating a Layer]]
+   - [[#installing-a-single-package][Installing a single package]]
+   - [[#loading-packages][Loading packages]]
+   - [[#uninstalling-a-package][Uninstalling a package]]
+   - [[#common-tweaks][Common tweaks]]
+     - [[#changing-the-escape-key][Changing the escape key]]
+     - [[#changing-the-colorscheme][Changing the colorscheme]]
+     - [[#nohlsearch][Nohlsearch]]
+     - [[#sessions][Sessions]]
+     - [[#navigating-using-visual-lines][Navigating using visual lines]]
+ - [[#other-useful-links][Other useful links]]
 
 * Purpose of this document
 This document is intended to supplement the Spacemacs documentation by bridging
@@ -81,7 +81,7 @@ layer includes support for auto-completion, documentation look-up, tests, and
 much more by using several different packages. This keeps you from thinking
 about what packages to install, and instead worry about what features you want.
 More information on layers can be found in the [[./VIMUSERS.org#customization][customization]] section and in the
-[[./DOCUMENTATION.org#configuration-layers][documentation]]. There is also a more in-depth guide on writing layers [[file:LAYERS.org][here]].
+[[./DOCUMENTATION.org#configuration-layers][documentation]].-There-is-also-a-more-in-depth-guide-on-writing-layers-[[file:LAYERS.org][here]].
 
 *** Transient-states
 Spacemacs provides a special functionality called transient-states. Transient-states
@@ -364,7 +364,7 @@ to override the configuration of a package in another layer, use a
 If a package is not available on MELPA, you must use a local package or a
 package recipe. For more details see [[file:LAYERS.org#anatomy-of-a-layer][anatomy of a layer]].
 
-Make sure you [[Activating a Layer][add]] your layer to your =.spacemacs= file and restart to
+Make sure you [[#activating-a-Layer][add]] your layer to your =.spacemacs= file and restart to
 activate it.
 
 A detailed description of the loading process and how layers work can be found in
@@ -376,7 +376,7 @@ and don't want to maintain a whole layer. Spacemacs provides a variable in the
 =dotspacemacs/layers= function in =.spacemacs= called
 =dotspacemacs-additional-packages=. Just add a package name to the list and it
 will be installed when you restart. Loading the package is covered in the next
-[[Loading packages][section]].
+[[#loading-packages][section]].
 
 ** Loading packages
 Ever wonder how Spacemacs can load over a 100 packages in just a few seconds?
@@ -459,7 +459,7 @@ when you are not navigating between them. You can use ~SPC s c~ or ~:nohlsearch~
 to disable search result highlighting.
 
 To disable the result highlighting when it is not needed anymore automatically,
-you can [[Uninstalling a package][uninstall]] the =evil-search-highlight-persist= package.
+you can [[#uninstalling-a-package][uninstall]] the =evil-search-highlight-persist= package.
 
 *** Sessions
 Spacemacs does not automatically restore your windows and buffers when you
