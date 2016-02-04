@@ -47,6 +47,10 @@
             ahs-idle-interval 0.25
             ahs-inhibit-face-list nil)
 
+      ;; since we are creating our own maps,
+      ;; prevent the default keymap from getting created
+      (setq auto-highlight-symbol-mode-map (make-sparse-keymap))
+
       (spacemacs|add-toggle automatic-symbol-highlight
         :status (timerp ahs-idle-timer)
         :on (progn
