@@ -1,0 +1,23 @@
+#+TITLE: nginx layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+
+#+CAPTION: logo
+
+# The maximum height of the logo should be 200 pixels.
+[[img/nginx.png]]
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+
+* Description
+[nginx-mode](https://github.com/ajc/nginx-mode) for editing [nginx](http://nginx.org) configuration files. Adds basic syntax highlighting and syntax-aware tabbing.
+
+* Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(nginx))
+#+end_src
+
+
