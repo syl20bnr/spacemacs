@@ -32,10 +32,9 @@
     (progn
       (setq user-emacs-ensime-directory ".cache/ensime")
 
-      (evil-define-key 'insert ensime-mode-map
-        (kbd ".") 'scala/completing-dot
-        (kbd "M-.") 'ensime-edit-definition
-        (kbd "M-,") 'ensime-pop-find-definition-stack)
+      (define-key ensime-mode-map (kbd ".") 'scala/completing-dot)
+      (define-key ensime-mode-map (kbd "M-.") 'ensime-edit-definition)
+      (define-key ensime-mode-map (kbd "M-,") 'ensime-pop-find-definition-stack)
 
       (evil-define-key 'normal ensime-mode-map
         (kbd "M-.") 'ensime-edit-definition
@@ -206,8 +205,7 @@
         (when scala-auto-insert-asterisk-in-comments
           (scala-indent:insert-asterisk-on-multiline-comment)))
 
-      (evil-define-key 'insert scala-mode-map
-        (kbd "RET") 'scala/newline-and-indent-with-asterisk)
+      (define-key scala-mode-map (kbd "RET") 'scala/newline-and-indent-with-asterisk)
 
       ;; Automatically replace arrows with unicode ones when enabled
       (defconst scala-unicode-arrows-alist
