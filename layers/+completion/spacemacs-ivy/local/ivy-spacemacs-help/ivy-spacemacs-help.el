@@ -191,7 +191,10 @@
          (number-to-string
           (cl-reduce
            (lambda (a x) (max (length (symbol-name (oref x :name))) a))
-           ivy-spacemacs-help-all-layers :initial-value 0))))
+           ivy-spacemacs-help-all-layers :initial-value 0)))
+        (owners (cl-remove-duplicates
+                 (mapcar (lambda (pkg) (oref pkg :owner))
+                         ivy-spacemacs-help-all-packages))))
     (dolist (pkg ivy-spacemacs-help-all-packages)
       (push (list (format (concat "%-" left-column-width "S %s %s")
                           (oref pkg :owner)
@@ -204,21 +207,35 @@
                   (symbol-name (oref pkg :owner))
                   (symbol-name (oref pkg :name)))
             result))
+    (dolist (layer (delq nil
+                         (cl-remove-if
+                          (lambda (layer)
+                            (memq (oref layer :name) owners))
+                          ivy-spacemacs-help-all-layers)))
+      (push (list (format (concat "%-" left-column-width "S %s")
+                          (oref layer :name)
+                          (propertize "no packages"
+                                      'face 'warning))
+                  (oref layer :name)
+                  nil)
+            result))
     (sort result (lambda (a b) (string< (car a) (car b))))))
 
 (defun ivy-spacemacs-help//help-action (args)
   "Open the file `packages.el' and go to the init function."
-  (let* ((layer-str (car args))
-         (layer-sym (intern layer-str))
-         (package-str (cadr args))
-         (path (file-name-as-directory
-                (concat (ht-get configuration-layer-paths layer-sym)
-                        layer-str)))
-         (filename (concat path "packages.el")))
-    (find-file filename)
-    (goto-char (point-min))
-    (re-search-forward (format "init-%s" package-str))
-    (beginning-of-line)))
+  (if (null (cadr args))
+      (message "There are no packages associated with this layer.")
+    (let* ((layer-str (car args))
+           (layer-sym (intern layer-str))
+           (package-str (cadr args))
+           (path (file-name-as-directory
+                  (concat (ht-get configuration-layer-paths layer-sym)
+                          layer-str)))
+           (filename (concat path "packages.el")))
+      (find-file filename)
+      (goto-char (point-min))
+      (re-search-forward (format "init-%s" package-str))
+      (beginning-of-line))))
 
 (defun ivy-spacemacs-help//help-action-add-layer (args)
   (let* ((layer-str (car args))
