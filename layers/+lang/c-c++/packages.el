@@ -80,9 +80,7 @@
       (company-clang-guess-prefix))
 
     (setq company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser)
-
-    (when c-c++-enable-clang-support
-      (spacemacs/add-to-hooks 'c-c++/load-clang-args '(c-mode-hook c++-mode-hook))))
+    (spacemacs/add-to-hooks 'c-c++/load-clang-args '(c-mode-hook c++-mode-hook))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun c-c++/init-company-c-headers ()
