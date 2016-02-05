@@ -20,6 +20,7 @@
         "S" 'restclient-http-send-current
         "r" 'restclient-http-send-current-raw-stay-in-window
         "R" 'restclient-http-send-current-raw
+        "y" 'restclient-copy-curl-command        
         ))
     )
   )
