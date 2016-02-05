@@ -8,6 +8,6 @@
     :config
     (defun spacemacs/wakatime-dashboard ()
       (interactive)
-      (browse-url "wakatime.com/dashboard"))
+      (browse-url "https://wakatime.com/dashboard"))
     (spacemacs/set-leader-keys
       "aW" 'spacemacs/wakatime-dashboard)))
