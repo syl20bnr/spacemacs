@@ -12,6 +12,7 @@
 (setq spacemacs-ivy-packages
       '(counsel
         flx
+        helm
         ;; hack since ivy is part for swiper but I like to
         ;; treat it as a stand-alone package
         (ivy :location built-in)
@@ -338,12 +339,28 @@ Helm hack."
           (define-key ivy-minibuffer-map (kbd "C-S-h") help-map)
           (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-alt-done)
           (define-key ivy-minibuffer-map (kbd "<escape>")
-            'minibuffer-keyboard-quit))
+            'minibuffer-keyboard-quit)
+          (with-eval-after-load 'helm
+            (define-key helm-map (kbd "C-j") 'helm-next-line)
+            (define-key helm-map (kbd "C-k") 'helm-previous-line)
+            (define-key helm-map (kbd "C-h") 'helm-next-source)
+            (define-key helm-map (kbd "C-S-h") 'describe-key)
+            (define-key helm-map (kbd "C-l") (kbd "RET"))
+            (dolist (keymap (list helm-find-files-map helm-read-file-map))
+              (define-key keymap (kbd "C-l") 'helm-execute-persistent-action)
+              (define-key keymap (kbd "C-h") 'helm-find-files-up-one-level)
+              (define-key keymap (kbd "C-S-h") 'describe-key))))
          (t
           (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-alt-done)
           (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-kill-line)
           (define-key ivy-minibuffer-map (kbd "C-h") nil)
-          (define-key ivy-minibuffer-map (kbd "C-l") nil))))
+          (define-key ivy-minibuffer-map (kbd "C-l") nil)
+          (with-eval-after-load 'helm
+            (define-key helm-map (kbd "C-j") 'helm-execute-persistent-action)
+            (define-key helm-map (kbd "C-k") 'helm-delete-minibuffer-contents)
+            (define-key helm-map (kbd "C-h") nil)
+            (define-key helm-map
+              (kbd "C-l") 'helm-recenter-top-bottom-other-window)))))
       (spacemacs//hjkl-completion-navigation
        (member dotspacemacs-editing-style '(vim hybrid))))))
 
@@ -408,3 +425,7 @@ around point as the initial input."
         "sb" 'swiper-all
         "sB" 'spacemacs/swiper-all-region-or-symbol)
       (global-set-key "\C-s" 'swiper))))
+
+(defun spacemacs-ivy/pre-init-helm ()
+  ;; prevents spacemacs-helm from binding keys and enabling helm-mode
+  (setq spacemacs-helm-basic-config t))

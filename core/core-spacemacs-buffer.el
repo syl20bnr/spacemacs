@@ -708,8 +708,6 @@ border."
                   (spacemacs//insert--shortcut "c" "Agenda:")
                   (insert list-separator)))
                ((eq el 'bookmarks)
-                (when (configuration-layer/layer-usedp 'spacemacs-helm)
-                  (helm-mode))
                 (require 'bookmark)
                 (when (spacemacs-buffer//insert-bookmark-list
                        "Bookmarks:"
