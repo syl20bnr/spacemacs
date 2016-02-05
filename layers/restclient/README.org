@@ -26,4 +26,5 @@ file.
 | ~SPC m S~   | Send and switch window (pretty-print response if possible)  |
 | ~SPC m r~   | Send and stay in window (do not attempt to pretty-print)    |
 | ~SPC m R~   | Send and switch window (do not attempt to pretty-print)     |
+| ~SPC m y~   | Copy query under the cursor as a curl command               |
 
