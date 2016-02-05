@@ -290,6 +290,51 @@ Will work on both org-mode and any mode that accepts plain html."
       (spacemacs/set-leader-keys
         "Cc" 'org-capture)
 
+      (defvar spacemacs--org-hide-docs-meta-tags-p nil)
+
+      (defun spacemacs//org-hide-docs-meta-tags ()
+        "Hide org export tags and annotations."
+        (unless spacemacs--org-hide-docs-meta-tags-p
+          (progn
+            (setq spacemacs--org-hide-docs-meta-tags-p t)
+
+            (defvar spacemacs--org-tag-f-o
+              (face-attribute 'org-tag :foreground))
+            (defvar spacemacs--org-meta-line-f-o
+              (face-attribute 'org-meta-line :foreground))
+            (defvar spacemacs--org-block-begin-line-f-o
+              (face-attribute 'org-block-begin-line :foreground))
+            (defvar spacemacs--org-document-info-keyword-f-o
+              (face-attribute 'org-document-info-keyword :foreground))
+
+            (let ((bg (face-attribute 'default :background)))
+              (set-face-attribute 'org-tag                   nil :foreground bg)
+              (set-face-attribute 'org-meta-line             nil :foreground bg)
+              (set-face-attribute 'org-block-begin-line      nil :foreground bg)
+              (set-face-attribute 'org-document-info-keyword nil :foreground bg)))))
+
+      (defun spacemacs//org-unhide-docs-meta-tags ()
+        "Unhide org export tags and annotations."
+        (when spacemacs--org-hide-docs-meta-tags-p
+          (progn
+            (setq spacemacs--org-hide-docs-meta-tags-p nil)
+
+            (set-face-attribute 'org-tag                   nil :foreground spacemacs--org-tag-f-o)
+            (set-face-attribute 'org-meta-line             nil :foreground spacemacs--org-meta-line-f-o)
+            (set-face-attribute 'org-block-begin-line      nil :foreground spacemacs--org-block-begin-line-f-o) 
+            (set-face-attribute 'org-document-info-keyword nil :foreground spacemacs--org-document-info-keyword-f-o))))
+
+      (defun spacemacs//org-toggle-docs-meta-tags-hook ()
+        "Make `org-mode' meta tags transparent when viewing README.org
+        files for layers with `view-mode' enabled."
+        (if (and
+             (string-match (concat (expand-file-name "~") "/.emacs.d/layers/.*README\.org")  buffer-file-name)
+             (boundp 'view-mode))
+            (spacemacs//org-hide-docs-meta-tags)
+          (spacemacs//org-unhide-docs-meta-tags)))
+
+      (add-hook 'org-mode-hook 'spacemacs//org-toggle-docs-meta-tags-hook)
+
       ;; Evilify the calendar tool on C-c .
       (unless (eq 'emacs dotspacemacs-editing-style)
         (define-key org-read-date-minibuffer-local-map (kbd "M-h")
