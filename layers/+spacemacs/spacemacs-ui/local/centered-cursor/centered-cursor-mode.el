@@ -94,7 +94,7 @@
 ;; This file is *NOT* part of GNU Emacs.
 
 ;;; Code:
- 
+
 (defgroup centered-cursor nil
   "Makes the cursor stay vertically in a defined position (usually centered).
 Instead the cursor the text moves around the cursor."
@@ -191,10 +191,16 @@ to successively recenter to")
     (define-key ccm-map [(control v)] 'ccm-scroll-up)
     (define-key ccm-map [prior] 'ccm-scroll-down)
     (define-key ccm-map [next] 'ccm-scroll-up)
+    (evil-define-key 'normal ccm-map (kbd "zt") 'ccm-vpos-scroll-line-to-top )
+    (evil-define-key 'normal ccm-map (kbd "zz") 'ccm-vpos-scroll-line-to-center)
+    (evil-define-key 'normal ccm-map (kbd "zb") 'ccm-vpos-scroll-line-to-bottom)
+    (evil-define-key 'normal ccm-map (kbd "H") 'ccm-vpos-top)
+    (evil-define-key 'normal ccm-map (kbd "M") 'ccm-vpos-middle)
+    (evil-define-key 'normal ccm-map (kbd "L") 'ccm-vpos-bottom)
    ccm-map)
   "Keymap used in centered-cursor-mode.")
 
- 
+
 (defun ccm-mwheel-scroll (event)
   "Very similar to `mwheel-scroll', but does not use `scroll-down'
 and `scroll-up' but `previous-line' and `next-line', that is, the
@@ -251,7 +257,7 @@ the movement appears as page up."
                         next-screen-context-lines))))
     (forward-line amt)))
 
- 
+
 (defun ccm-vpos-down (arg)
   "Adjust the value of the screen line (where the cursor stays) by arg.
 Negative values for arg are possible. Just the variable ccm-vpos
@@ -282,6 +288,43 @@ is set."
   (interactive "p")
   (or arg (setq arg 1))
   (ccm-vpos-down (- arg)))
+
+(defun ccm-set-vpos-and-maybe-move (arg &optional move-cursor)
+  "Set `ccm-vpos' to arg. If move-cursor is non-nil, move the cursor to the line at the new vertical position without scrolling the window. Otherwise, scroll the window without moving the cursor."
+  (message "vpos: %d" arg)
+  (setq ccm-vpos arg)
+  (if move-cursor
+      (move-to-window-line ccm-vpos)))
+
+(defun ccm-vpos-scroll-line-to-top ()
+  "Analogous to evil-scroll-line-to-top"
+  (interactive)
+  (ccm-set-vpos-and-maybe-move scroll-margin))
+
+(defun ccm-vpos-scroll-line-to-center ()
+  "Analogous to evil-scroll-line-to-center"
+  (interactive)
+  (ccm-set-vpos-and-maybe-move (round (window-text-height) 2)))
+
+(defun ccm-vpos-scroll-line-to-bottom ()
+  "Analogous to evil-scroll-line-to-bottom"
+  (interactive)
+  (ccm-set-vpos-and-maybe-move (- (window-text-height) scroll-margin)))
+
+(defun ccm-vpos-top ()
+  "Analogous to evil-window-top"
+  (interactive)
+  (ccm-set-vpos-and-maybe-move scroll-margin t))
+
+(defun ccm-vpos-middle()
+  "Analogous to evil-window-middle"
+  (interactive)
+  (ccm-set-vpos-and-maybe-move (round (window-text-height) 2) t))
+
+(defun ccm-vpos-bottom()
+  "Analogous to evil-window-bottom"
+  (interactive)
+  (ccm-set-vpos-and-maybe-move (- (window-text-height) scroll-margin) t))
 
 (defun ccm-vpos-recenter ()
   "Set the value of the screen line (where the cursor stays) in
@@ -413,9 +456,9 @@ position (usually centered)."
 ;; (info "(elisp)Hooks")
 ;; (info "(elisp)Customization")
 ;; (find-function 'mwheel-scroll)
- 
+
 ;; Local Variables:
 ;; coding: utf-8
 ;; End:
- 
+
 ;;; centered-cursor-mode.el ends here
