@@ -367,6 +367,13 @@
   (evil-define-key 'insert comint-mode-map [up] 'comint-previous-input)
   (evil-define-key 'insert comint-mode-map [down] 'comint-next-input))
 
+;; ivy/helm keys --------------------------------------------------------------
+
+(defvar spacemacs--hjkl-completion-navigation-functions nil
+  "Hook to adjust hjkl keys for completion (helm/ivy) navigation.
+Each function in the hook is run with a single argument, which
+when true should disable the hjkl keys.")
+
 ;; ---------------------------------------------------------------------------
 ;; Transient-states
 ;; ---------------------------------------------------------------------------
