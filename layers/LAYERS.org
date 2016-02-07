@@ -9,7 +9,7 @@
  - [[Fun][Fun]]
  - [[IRC][IRC]]
  - [[Keyboard layouts][Keyboard layouts]]
- - [[Programming languages][Programming languages]]
+ - [[Programming and markup languages][Programming and markup languages]]
  - [[Source control][Source control]]
  - [[Tools][Tools]]
  - [[Vim][Vim]]
@@ -75,7 +75,7 @@
 * Keyboard layouts
 - [[file:+keyboard-layouts/bepo/README.org][bepo]]
 
-* Programming languages
+* Programming and markup languages
 - [[file:+lang/agda/README.org][agda]]
 - [[file:+lang/asciidoc/README.org][asciidoc]]
 - [[file:+lang/autohotkey/README.org][autohotkey]]
