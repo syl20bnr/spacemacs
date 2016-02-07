@@ -32,7 +32,7 @@ of the following form:
 #+end_src
 
 This will apply the given attributes to the relevant faces whenever the
-appropriate theme is loaded. To update without changing the theme, use ~SPC :
+appropriate theme is loaded. To update without changing the theme, use ~SPC SPC
 spacemacs/update-theme~.
 
 * Attributes
@@ -49,7 +49,7 @@ common attributes you might want to tweak are the following:
 - =:box= :: set to =t= to draw a box around characters in the foreground
 
 * Faces
-To see a list over all loaded faces and what they look like, use ~SPC :
+To see a list over all loaded faces and what they look like, use ~SPC SPC
 list-faces-display~. You can also use ~SPC h d c~ (describe character) on a
 character to see its face.
 

@@ -109,12 +109,12 @@ Spacemacs uses [[https://github.com/justbur/emacs-which-key][which-key]] to show
 [[file:img/which-key.png]]
 
 ** Running commands
-Emacs commands can be run using ~SPC :~. This will pop up a buffer using [[https://github.com/emacs-helm/helm][Helm]]
+Emacs commands can be run using ~SPC SPC~. This will pop up a buffer using [[https://github.com/emacs-helm/helm][Helm]]
 which can be used to run any Emacs command. You can also run many ex commands
 using ~:~, just like in vim.
 
 Note: You can run Emacs interactive commands using ~:~, but you cannot run ex
-commands using ~SPC :~.
+commands using ~SPC SPC~.
 
 ** Buffer and window management
 *** Buffers
@@ -315,8 +315,8 @@ h SPC~.
 ** Creating a Layer
 To group configuration or when configuration doesn't fit well in your
 =.spacemacs= file, you can create a configuration layer. Spacemacs provides a
-builtin command to generate the layer boilerplate:
-~SPC :configuration-layer/create-layer~. This generates a folder that looks like this:
+builtin command to generate the layer boilerplate: ~SPC SPC
+configuration-layer/create-layer~. This generates a folder that looks like this:
 
 #+BEGIN_EXAMPLE
     [layer-name]

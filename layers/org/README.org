@@ -314,7 +314,7 @@ The evilified org agenda supports, the following bindings:
 | ~SPC m p~   | starts a pomodoro |
 
 ** Presentation
-org-present must be activated explicitly by typing: ~SPC : org-present~
+org-present must be activated explicitly by typing: ~SPC SPC org-present~
 
 | Key Binding | Description    |
 |-------------+----------------|
