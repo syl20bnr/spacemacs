@@ -128,17 +128,19 @@ directory local variables.
 *** RSpec-mode
 When =ruby-test-runner= equals =rspec=.
 
-| Key binding | Description                                   |
-|-------------+-----------------------------------------------|
-| ~SPC m t a~ | run all specs                                 |
-| ~SPC m t b~ | run current spec file                         |
-| ~SPC m t c~ | run the current spec file and subsequent ones |
-| ~SPC m t e~ | mark example as pending                       |
-| ~SPC m t f~ | run method                                    |
-| ~SPC m t l~ | run last failed spec                          |
-| ~SPC m t m~ | run specs related to the current buffer       |
-| ~SPC m t r~ | re-run last spec                              |
-| ~SPC m t t~ | run spec at pointer                           |
+| Key binding   | Description                                            |
+|---------------+--------------------------------------------------------|
+| ~SPC m t a~   | run all specs                                          |
+| ~SPC m t b~   | run current spec file                                  |
+| ~SPC m t c~   | run the current spec file and subsequent ones          |
+| ~SPC m t e~   | mark example as pending                                |
+| ~SPC m t f~   | run method                                             |
+| ~SPC m t l~   | run last failed spec                                   |
+| ~SPC m t m~   | run specs related to the current buffer                |
+| ~SPC m t r~   | re-run last spec                                       |
+| ~SPC m t t~   | run spec at pointer                                    |
+| ~SPC m t TAB~ | toggle between spec's and target's buffer              |
+| ~SPC m t ~~   | toggle between spec's and target's buffer find example |
 
 *** Ruby-test-mode
 When =ruby-test-runner= equals =ruby-test=.
