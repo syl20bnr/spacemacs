@@ -18,7 +18,7 @@
   '(("config-files" . "Configuration files")
     ("email" . "E-mail")
     ("irc" . "IRC")
-    ("lang" . "Programming languages"))
+    ("lang" . "Programming and markup languages"))
   "Special names for categories. Used to generate the layers list.")
 
 (defun spacemacs//generate-layers-from-path (path level)
