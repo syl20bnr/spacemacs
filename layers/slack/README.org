@@ -1,0 +1,64 @@
+#+TITLE: Slack layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+
+#+CAPTION: logo
+
+# The maximum height of the logo should be 200 pixels.
+[[img/slack.png]]
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
+
+* Description
+This layer provides an interface to the Slack chat service via the emacs-slack package. Where possible, this layer aims to reuse keybindings from the IRC packages in Spacemacs.
+
+* Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(slack))
+#+end_src
+
+Follow the instructions in the [[https://github.com/yuya373/emacs-slack/blob/master/README.md][emacs-slack]] package for obtaining your client ID, client secret, and token.
+
+Then, in your ~dotspacemacs/user-init()~ set the following:
+
+#+begin_src emacs-lisp
+(setq slack-enable-emoji t)
+(slack-register-team
+  :name "emacs-slack"
+  :default t
+  :client-id "something"
+  :client-secret "secret!"
+  :token "token"
+  :subscribed-channels '(general slackbot)
+)
+#+end_src
+
+* Key bindings
+
+| Key Binding   | Description              |
+|---------------+--------------------------|
+| ~<SPC> a C s~ | (Re)connects to Slack    |
+| ~<SPC> a C j~ | Join a channel           |
+| ~<SPC> a C d~ | Direct message someone   |
+| ~<SPC> m j~   | Join a channel           |
+| ~<SPC> m d~   | Direct message someone   |
+| ~<SPC> m p~   | Load previous messages   |
+| ~<SPC> m e~   | Edit message at point    |
+| ~<SPC> m q~   | Quit Slack               |
+| ~<SPC> m m~   | Embed mention of user    |
+| ~<SPC> m c~   | Embed mention of channel |
+
+The following bindings are provided to mimic bindings in the official Slack client.
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~<SPC> m k~ | Join a channel           |
+| ~<SPC> m @~ | Embed mention of user    |
+| ~<SPC> m #~ | Embed mention of channel |
+
+In insert state, one can also use ~@~ and ~#~ directly without the leader key prefix.
+
