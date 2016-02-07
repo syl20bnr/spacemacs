@@ -501,7 +501,7 @@ use the =on= or =off= versions instead (i.e. instead of
 =dotspacemacs/user-config= with the universal argument (~SPC u SPC f e R~).
 
 ** Testing
-You can use the command =SPC : dotspacemacs/test-dotfile= to check if your
+You can use the command =SPC SPC dotspacemacs/test-dotfile= to check if your
 =~/.spacemacs= looks correct. This will check, among other things, whether the
 declared layers can be found and that the variables have sensible values. These
 tests are also run automatically when you synchronize with ~SPC f e R~.
@@ -719,9 +719,9 @@ very handy Vim key binding to scroll up.
 Spacemacs binds ~C-u~ to =scroll-up= and change the universal argument binding
 to ~SPC u~.
 
-*Note*: ~SPC u~ is not working before =helm-M-x= (~SPC :~). Instead, call
+*Note*: ~SPC u~ is not working before =helm-M-x= (~SPC SPC~). Instead, call
 =helm-M-x= first, select the command you want to run, and press ~C-u~ before
-pressing ~RETURN~. For instance: ~SPC : org-reload C-u RET~
+pressing ~RETURN~. For instance: ~SPC SPC org-reload C-u RET~
 
 ** Transient-states
 Spacemacs defines a wide variety of =transient-states= (temporary overlay maps)
@@ -1143,9 +1143,9 @@ The choice of ~fd~ was made to be able to use the same sequence to escape from
   - quit helm-ag-edit
   - hide neotree buffer
 
-If you find yourself in a buffer where the Spacemacs (~SPC~) or Vim
-keybindings don't work you can use this to get back to =normal state= (for
-example in ~SPC : customize~ press ~fd~ to make ~SPC b b~ work again).
+If you find yourself in a buffer where the Spacemacs (~SPC~) or Vim keybindings
+don't work you can use this to get back to =normal state= (for example in ~SPC
+SPC customize~ press ~fd~ to make ~SPC b b~ work again).
 
 This sequence can be customized in your =~/.spacemacs=.
 Example to set it to ~jj~:
@@ -2727,7 +2727,7 @@ open a [[https://github.com/syl20bnr/spacemacs/issues][Github issue]] with the b
 *** Upgrading/Downgrading Emacs version
 To ensure that packages are correctly compiled for the new Emacs version you
 installed, be sure to run the interactive command =spacemacs/recompile-elpa=
-with ~SPC : spacemacs/recompile-elpa~.
+with ~SPC SPC spacemacs/recompile-elpa~.
 
 * Achievements
 ** Issues

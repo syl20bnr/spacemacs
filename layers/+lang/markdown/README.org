@@ -38,7 +38,7 @@ file.
 * Usage
 
 To generate a table of contents type on top of the buffer:
-~SPC : markdown-toc/generate-toc RET~
+~SPC SPC markdown-toc/generate-toc RET~
 
 * Key bindings
 

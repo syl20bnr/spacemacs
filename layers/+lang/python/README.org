@@ -98,7 +98,7 @@ To be able to suppress unused imports easily, install [[https://github.com/myint
 
 ** pylookup
 To use =pylookup= on ~SPC m h H~, make sure you update the database first, using
-~SPC : pylookup-update~.
+~SPC SPC pylookup-update~.
 
 * Management of Python versions and virtual environments
 
