@@ -344,11 +344,11 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (spacemacs|define-transient-state paste
         :title "Pasting Transient State"
         :doc "\n[%s(length kill-ring-yank-pointer)/%s(length kill-ring)] \
-[_J_/_K_] cycles through yanked text, [_p_/_P_] pastes the same text above or \
+[_C-j_/_C-k_] cycles through yanked text, [_p_/_P_] pastes the same text above or \
 below. Anything else exits."
         :bindings
-        ("J" evil-paste-pop)
-        ("K" evil-paste-pop-next)
+        ("C-j" evil-paste-pop)
+        ("C-k" evil-paste-pop-next)
         ("p" evil-paste-after)
         ("P" evil-paste-before))
       (when dotspacemacs-enable-paste-transient-state
