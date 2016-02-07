@@ -13,8 +13,8 @@
    - [[Eval after load][Eval after load]]
    - [[Use-package][Use-package]]
  - [[Anatomy of a layer][Anatomy of a layer]]
-   - [[packages.el][packages.el]]
    - [[packages-config.el][packages-config.el]]
+   - [[packages.el][packages.el]]
    - [[config.el, packages-funcs.el and keybindings.el][config.el, packages-funcs.el and keybindings.el]]
  - [[The Spacemacs loading process][The Spacemacs loading process]]
  - [[Case study: auto-completion][Case study: auto-completion]]
@@ -294,13 +294,13 @@ folder =<layer>/local/<package>/= containing the source code for that package.
 Before initializing that package, Spacemacs will add this folder to the load
 path for you.
 
-** packages.el
+** packages-config.el
 This file should define a variable called =<layer>-packages=, which should be a
 list of all the packages that this layer needs. Some valid package
 specifications are as follows. Do not define other things in this file.
 
 #+begin_src emacs-lisp
-  (setq mylayer-packages
+  (defconst mylayer-packages
         '(
           ;; Get the package from MELPA, ELPA, etc.
           some-package
@@ -327,7 +327,7 @@ information about recipes.
 Packages may be /excluded/ by setting the =:excluded= property to true. This
 will prevent the package from being installed even if it is used by another
 layer.
-** packages-config.el
+** packages.el
 For each included package, you may define one or more of the following
 functions, which are called in order by Spacemacs to initialize the package.
 
