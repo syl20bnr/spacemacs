@@ -128,8 +128,8 @@ is achieved by adding the relevant text properties."
       (require 'esh-opt)
 
       ;; quick commands
-      (defalias 'e 'find-file-other-window)
-      (defalias 'd 'dired)
+      (defalias 'eshell/e 'find-file-other-window)
+      (defalias 'eshell/d 'dired)
       (setenv "PAGER" "cat")
 
       ;; support `em-smart'
