@@ -86,7 +86,7 @@ Make sure you call =mu4e/mail-account-reset= afterward, which will initialize
 the given account variables.
 
 If you have mu 0.9.16 or later, you can use mu4e's built-in contexts feature
-instead (see mu4e's manual).
+instead (see [[http://www.djcbsoftware.nl/code/mu/mu4e/Contexts.html#Contexts][mu4e's manual]]).
 
 ** Example configuration
 #+BEGIN_SRC emacs-lisp
