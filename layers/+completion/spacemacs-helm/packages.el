@@ -188,6 +188,7 @@
         "fL"   'helm-locate
         "fr"   'helm-recentf
         "fb"   'helm-filtered-bookmarks
+        "hdd"  'helm-apropos
         "hdF"  'spacemacs/helm-faces
         "hi"   'helm-info-at-point
         "hm"   'helm-man-woman

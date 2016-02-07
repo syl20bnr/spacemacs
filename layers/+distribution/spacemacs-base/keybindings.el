@@ -107,7 +107,6 @@
 (spacemacs/set-leader-keys
   "hdb" 'describe-bindings
   "hdc" 'describe-char
-  "hdd" 'helm-apropos
   "hdf" 'describe-function
   "hdk" 'describe-key
   "hdl" 'spacemacs/describe-last-keys
