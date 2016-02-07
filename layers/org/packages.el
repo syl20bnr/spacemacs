@@ -290,6 +290,21 @@ Will work on both org-mode and any mode that accepts plain html."
       (spacemacs/set-leader-keys
         "Cc" 'org-capture)
 
+      (unless (version< emacs-version "24.4")
+
+        (defun spacemacs/org-clearer-view ()
+          "Hide export tags and annotations when viewing documentation with `SPC` `h` `SPC`"
+          (interactive)
+           (when (string-match (concat (expand-file-name "~") "/.emacs.d/layers/.*README\.org")  buffer-file-name)
+             (progn
+               (push '("#+TITLE: " . ?⁣) prettify-symbols-alist)
+               (push `(,(concat  "#+HTML_HEAD_EXTRA: <link rel=" [34] "stylesheet" [34] " type=" [34] "text/css"
+                                 [34] " href=" [34] "../../../css/readtheorg.css" [34] " />" ) . ?⁣) prettify-symbols-alist)
+               (push '("#+CAPTION: logo" . ?⁣) prettify-symbols-alist)
+               (push '(":TOC_4_org:noexport:" . ?⁣) prettify-symbols-alist))))
+
+        (add-hook 'org-mode-hook 'spacemacs/org-clearer-view))
+ 
       ;; Evilify the calendar tool on C-c .
       (unless (eq 'emacs dotspacemacs-editing-style)
         (define-key org-read-date-minibuffer-local-map (kbd "M-h")
