@@ -325,6 +325,8 @@ Helm hack."
       (global-set-key (kbd "C-c C-r") 'ivy-resume)
       (global-set-key (kbd "<f6>") 'ivy-resume)
 
+      (ido-mode -1)
+
       (defun spacemacs/ivy-available-repls ()
         "Show available repls."
         (interactive)
