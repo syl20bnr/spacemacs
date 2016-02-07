@@ -29,12 +29,15 @@
   (use-package cmm-mode
     :defer t))
 
+(setq haskell-modes '(haskell-mode literate-haskell-mode))
+
 (when (configuration-layer/layer-usedp 'spacemacs-helm)
   (defun haskell/init-helm-hoogle ()
     (use-package helm-hoogle
       :defer t
       :init
-      (spacemacs/set-leader-keys-for-major-mode 'haskell-mode "hf" 'helm-hoogle))))
+      (dolist (mode haskell-modes)
+        (spacemacs/set-leader-keys-for-major-mode mode "hf" 'helm-hoogle)))))
 
 (defun haskell/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'haskell-mode))
@@ -53,8 +56,9 @@
     :init (add-hook 'haskell-mode-hook 'ghc-init)
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode 'haskell-mode "mm" "haskell/ghc-mod")
-      (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
+      (dolist (mode haskell-modes)
+        (spacemacs/declare-prefix-for-mode mode "mm" "haskell/ghc-mod")
+        (spacemacs/set-leader-keys-for-major-mode mode
           "mt" 'ghc-insert-template-or-signature
           "mu" 'ghc-initial-code-from-signature
           "ma" 'ghc-auto
@@ -63,7 +67,7 @@
           "mn" 'ghc-goto-next-hole
           "mp" 'ghc-goto-prev-hole
           "m>"  'ghc-make-indent-deeper
-          "m<"  'ghc-make-indent-shallower)
+          "m<"  'ghc-make-indent-shallower))
       (when (configuration-layer/package-usedp 'flycheck)
         ;; remove overlays from ghc-check.el if flycheck is enabled
         (set-face-attribute 'ghc-face-error nil :underline nil)
@@ -119,11 +123,12 @@
         (add-hook 'haskell-mode-hook 'interactive-haskell-mode))
 
       ;; prefixes
-      (spacemacs/declare-prefix-for-mode 'haskell-mode "mg" "haskell/navigation")
-      (spacemacs/declare-prefix-for-mode 'haskell-mode "ms" "haskell/repl")
-      (spacemacs/declare-prefix-for-mode 'haskell-mode "mc" "haskell/cabal")
-      (spacemacs/declare-prefix-for-mode 'haskell-mode "mh" "haskell/documentation")
-      (spacemacs/declare-prefix-for-mode 'haskell-mode "md" "haskell/debug")
+      (dolist (mode haskell-modes)
+        (spacemacs/declare-prefix-for-mode mode "mg" "haskell/navigation")
+        (spacemacs/declare-prefix-for-mode mode "ms" "haskell/repl")
+        (spacemacs/declare-prefix-for-mode mode "mc" "haskell/cabal")
+        (spacemacs/declare-prefix-for-mode mode "mh" "haskell/documentation")
+        (spacemacs/declare-prefix-for-mode mode "md" "haskell/debug"))
       (spacemacs/declare-prefix-for-mode 'haskell-interactive-mode "ms" "haskell/repl")
       (spacemacs/declare-prefix-for-mode 'haskell-cabal-mode "ms" "haskell/repl")
 
@@ -134,37 +139,38 @@
             (haskell-mode-show-type-at 1)
           (haskell-process-do-type 1)))
 
-      (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
-        "gg"  'haskell-mode-jump-to-def-or-tag
-        "gi"  'haskell-navigate-imports
-        "f"   'haskell-mode-stylish-buffer
+      (dolist (mode haskell-modes)
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "gg"  'haskell-mode-jump-to-def-or-tag
+          "gi"  'haskell-navigate-imports
+          "f"   'haskell-mode-stylish-buffer
 
-        "sb"  'haskell-process-load-file
-        "sc"  'haskell-interactive-mode-clear
-        "ss"  'spacemacs/haskell-interactive-bring
-        "sS"  'haskell-interactive-switch
+          "sb"  'haskell-process-load-file
+          "sc"  'haskell-interactive-mode-clear
+          "ss"  'spacemacs/haskell-interactive-bring
+          "sS"  'haskell-interactive-switch
 
-        "ca"  'haskell-process-cabal
-        "cb"  'haskell-process-cabal-build
-        "cc"  'haskell-compile
-        "cv"  'haskell-cabal-visit-file
+          "ca"  'haskell-process-cabal
+          "cb"  'haskell-process-cabal-build
+          "cc"  'haskell-compile
+          "cv"  'haskell-cabal-visit-file
 
-        "hd"  'inferior-haskell-find-haddock
-        "hh"  'hoogle
-        "hH"  'haskell-hoogle-lookup-from-local
-        "hi"  (lookup-key haskell-mode-map (kbd "C-c TAB"))
-        "ht"  (lookup-key haskell-mode-map (kbd "C-c C-t"))
-        "hT"  'spacemacs/haskell-process-do-type-on-prev-line
-        "hy"  'hayoo
+          "hd"  'inferior-haskell-find-haddock
+          "hh"  'hoogle
+          "hH"  'haskell-hoogle-lookup-from-local
+          "hi"  (lookup-key haskell-mode-map (kbd "C-c TAB"))
+          "ht"  (lookup-key haskell-mode-map (kbd "C-c C-t"))
+          "hT"  'spacemacs/haskell-process-do-type-on-prev-line
+          "hy"  'hayoo
 
-        "dd"  'haskell-debug
-        "db"  'haskell-debug/break-on-function
-        "dn"  'haskell-debug/next
-        "dN"  'haskell-debug/previous
-        "dB"  'haskell-debug/delete
-        "dc"  'haskell-debug/continue
-        "da"  'haskell-debug/abandon
-        "dr"  'haskell-debug/refresh)
+          "dd"  'haskell-debug
+          "db"  'haskell-debug/break-on-function
+          "dn"  'haskell-debug/next
+          "dN"  'haskell-debug/previous
+          "dB"  'haskell-debug/delete
+          "dc"  'haskell-debug/continue
+          "da"  'haskell-debug/abandon
+          "dr"  'haskell-debug/refresh))
 
       ;; configure C-c C-l so it doesn't throw any errors
       (bind-key "C-c C-l" 'haskell-process-load-file haskell-mode-map)
@@ -213,12 +219,13 @@
               (lambda (args)
                 (append args (list "--with-ghc" "ghci-ng"))))
 
-        (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
-          ;; function suggested in
-          ;; https://github.com/chrisdone/ghci-ng#using-with-haskell-mode
-          "u"   'haskell-mode-find-uses
-          "ht"  'haskell-mode-show-type-at
-          "gg"  'haskell-mode-goto-loc))
+        (dolist (mode haskell-modes)
+          (spacemacs/set-leader-keys-for-major-mode mode
+            ;; function suggested in
+            ;; https://github.com/chrisdone/ghci-ng#using-with-haskell-mode
+            "u"   'haskell-mode-find-uses
+            "ht"  'haskell-mode-show-type-at
+            "gg"  'haskell-mode-goto-loc))
 
       ;; Useful to have these keybindings for .cabal files, too.
       (with-eval-after-load 'haskell-cabal-mode-map
@@ -230,19 +237,19 @@
     (add-to-list 'align-rules-list
                  '(haskell-types
                    (regexp . "\\(\\s-+\\)\\(::\\|∷\\)\\s-+")
-                   (modes . '(haskell-mode literate-haskell-mode))))
+                   (modes . haskell-modes)))
     (add-to-list 'align-rules-list
                  '(haskell-assignment
                    (regexp . "\\(\\s-+\\)=\\s-+")
-                   (modes . '(haskell-mode literate-haskell-mode))))
+                   (modes . haskell-modes)))
     (add-to-list 'align-rules-list
                  '(haskell-arrows
                    (regexp . "\\(\\s-+\\)\\(->\\|→\\)\\s-+")
-                   (modes . '(haskell-mode literate-haskell-mode))))
+                   (modes . haskell-modes)))
     (add-to-list 'align-rules-list
                  '(haskell-left-arrows
                    (regexp . "\\(\\s-+\\)\\(<-\\|←\\)\\s-+")
-                   (modes . '(haskell-mode literate-haskell-mode))))))
+                   (modes . haskell-modes))))))
 
 (defun haskell/init-haskell-snippets ()
   ;; manually load the package since the current implementation is not lazy
@@ -257,6 +264,7 @@
 
   (with-eval-after-load 'yasnippet (haskell-snippets-initialize)))
 
+;; doesn't support literate-haskell-mode :(
 (defun haskell/init-hindent ()
   (use-package hindent
     :defer t
