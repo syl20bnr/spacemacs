@@ -39,7 +39,9 @@
   (use-package elfeed-goodies
     :commands elfeed-goodies/setup
     :init (spacemacs|use-package-add-hook elfeed
-            :post-config (elfeed-goodies/setup))))
+            :post-config (progn
+                           (elfeed-goodies/setup)
+                           (evil-define-key 'evilified elfeed-show-mode-map "o" 'elfeed-goodies/show-ace-link)))))
 
 (defun elfeed/init-elfeed-org ()
   (use-package elfeed-org
