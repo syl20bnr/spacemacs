@@ -74,7 +74,6 @@
       "#" 'slack-message-embed-channel
       )
     (evil-define-key 'insert slack-mode-map
-      (kbd "C-k") 'slack-channel-select
       (kbd "@") 'slack-message-embed-mention
       (kbd "#") 'slack-message-embed-channel)
     )

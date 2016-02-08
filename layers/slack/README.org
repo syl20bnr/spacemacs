@@ -58,5 +58,5 @@ The following bindings are provided to mimic bindings in the official Slack clie
 | ~<SPC> m @~ | Embed mention of user    |
 | ~<SPC> m #~ | Embed mention of channel |
 
-In insert state, one can also use ~@~, ~#~ and ~C-k~ directly without the leader key prefix.
+In insert state, one can also use ~@~ and ~#~ directly without the leader key prefix.
 
