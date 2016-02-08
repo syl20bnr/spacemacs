@@ -88,37 +88,35 @@
                     (spacemacs//layout-format-name
                      persp (position persp persp-list))) persp-list " | "))))
           (concat formatted-persp-list
-                  (when (equal 1 spacemacs--layouts-ms-doc-toggle)
-                    spacemacs--layouts-ms-documentation))))
+                  (if (equal 1 spacemacs--layouts-ms-doc-toggle)
+                      spacemacs--layouts-ms-documentation
+                    (concat
+                     "\n ["
+                     (propertize "?" 'face 'hydra-face-red)
+                     "]   toggle help")))))
 
       (spacemacs|define-transient-state layouts
         :title "Layouts Transient State"
         :additional-docs
         (spacemacs--layouts-ms-documentation .
-                                             "
-
-  [_?_]^^^^       toggle this help
-  [_0_,_9_]^^     switch to nth layout
-  [_<tab>_]^^^^   switch to the last
-  [_A_]^^^^       add all buffers from another layout
-  [_a_]^^^^       add all the buffers from another layout in the current one
-  [_b_]^^^^       select a buffer in the current layout
-  [_d_]^^^^       close the current layout and keep its buffers
-  [_D_]^^^^       close the other layouts and keep their buffers
-  [_h_]^^^^       go to default layout
-  [_l_]^^^^       select/create a layout with helm
-  [_L_]^^^^       load layouts from file
-  [_n_/_C-l_]^^   next layout in list
-  [_N_/_p_/_C-h_] previous layout in list
-  [_o_]^^^^       open a custom layout
-  [_r_]^^^^       remove current buffer from layout
-  [_R_]^^^^       rename current layout
-  [_s_]^^^^       save all layouts
-  [_S_]^^^^       save layouts by names
-  [_t_]^^^^       show a buffer without adding it to current layout
-  [_w_]^^^^       workspaces micro-state (needs eyebrowse layer enabled)
-  [_x_]^^^^       kill current layout with its buffers
-  [_X_]^^^^       kill other layouts with their buffers")
+                                             "\n
+ Go to^^^^^^                         Add/Remove/Rename^^
+--^-^--^^^^-----------------------  --^-^---------------------------
+ [_b_]^^^^       buffer in layout    [_a_] add buffer
+ [_h_]^^^^       default layout      [_A_] add all from layout
+ [_o_]^^^^       custom layout       [_r_] remove current buffer
+ [_l_]^^^^       layout w/helm/ivy   [_d_] close current layout
+ [_L_]^^^^       layouts in file     [_D_] close other layout
+ [_0_,_9_]^^     nth layout          [_x_] kill current w/buffers
+ [_n_/_C-l_]^^   next layout         [_X_] kill other w/buffers
+ [_N_/_p_/_C-h_] prev layout         [_R_] rename current layout
+ [_<tab>_]^^^^   last layout
+--^^^^^^^^----------------------------------------------------------
+ [_s_/_S_] save all layouts/save by names
+ [_t_]^^   show a buffer without adding it to current layout
+ [_w_]^^   workspaces micro-state (requires eyebrowse layer)
+ [_?_]^^   toggle help
+")
         :bindings
         ;; need to exit in case number doesn't exist
         ("?" spacemacs//layouts-ms-toggle-doc)
@@ -356,5 +354,18 @@ current perspective."
     "pl" 'spacemacs/helm-persp-switch-project))
 
 (defun spacemacs-layouts/post-init-swiper ()
+  (defun spacemacs/ivy-persp-switch-project (arg)
+    (interactive "P")
+    (ivy-read "Switch to Project Perspective: "
+              (if (projectile-project-p)
+                  (cons (abbreviate-file-name (projectile-project-root))
+                        (projectile-relevant-known-projects))
+                projectile-known-projects)
+              :action (lambda (project)
+                        (let ((persp-reset-windows-on-nil-window-conf t))
+                          (persp-switch project)
+                          (let ((projectile-completion-system 'ivy))
+                            (projectile-switch-project-by-name project))))))
+
   (spacemacs/set-leader-keys
     "pl" 'spacemacs/ivy-persp-switch-project))
