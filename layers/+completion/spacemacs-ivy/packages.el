@@ -443,9 +443,17 @@ perspectives does."
        '(("c" persp-kill-without-buffers "Close perspective(s)")
          ("k" persp-kill  "Kill perspective(s)")))
 
-      (setq spacemacs-layouts-transient-state-remove-bindings '("l"))
+      (defun spacemacs/ivy-persp-buffer ()
+        "Switch to perspective buffer using ivy."
+        (interactive)
+        (let (ivy-use-virtual-buffers)
+          (with-persp-buffer-list ()
+            (call-interactively 'ivy-switch-buffer))))
+
+      (setq spacemacs-layouts-transient-state-remove-bindings '("l" "b"))
       (setq spacemacs-layouts-transient-state-add-bindings
-            '(("l" spacemacs/ivy-perspectives))))))
+            '(("l" spacemacs/ivy-perspectives)
+              ("b" spacemacs/ivy-persp-buffer))))))
 
 (defun spacemacs-ivy/init-smex ()
   (use-package smex
