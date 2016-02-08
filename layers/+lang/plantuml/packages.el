@@ -21,4 +21,13 @@
     :config (spacemacs/set-leader-keys-for-major-mode 'puml-mode
               "cc" 'puml-preview
               "co" 'puml-set-output-type)))
+
+(defun plantuml/post-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config
+    (when (boundp 'org-plantuml-jar-path)
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '((plantuml . t))))))
+
 ;;; packages.el ends here

@@ -14,6 +14,7 @@
 ;;; Code:
 
 (defconst plantuml-packages
-  '(puml-mode))
+  '(org
+    puml-mode))
 
 ;;; packages-config.el ends here
