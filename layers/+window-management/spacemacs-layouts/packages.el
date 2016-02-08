@@ -88,8 +88,12 @@
                     (spacemacs//layout-format-name
                      persp (position persp persp-list))) persp-list " | "))))
           (concat formatted-persp-list
-                  (when (equal 1 spacemacs--layouts-ms-doc-toggle)
-                    spacemacs--layouts-ms-documentation))))
+                  (if (equal 1 spacemacs--layouts-ms-doc-toggle)
+                      spacemacs--layouts-ms-documentation
+                    (concat
+                     "\n  ["
+                     (propertize "?" 'face 'hydra-face-red)
+                     "] toggle help")))))
 
       (spacemacs|define-transient-state layouts
         :title "Layouts Transient State"
@@ -97,7 +101,7 @@
         (spacemacs--layouts-ms-documentation .
                                              "
 
-  [_?_]^^^^       toggle this help
+  [_?_]^^^^       toggle help
   [_0_,_9_]^^     switch to nth layout
   [_<tab>_]^^^^   switch to the last
   [_A_]^^^^       add all buffers from another layout
