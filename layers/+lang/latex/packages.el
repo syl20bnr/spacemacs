@@ -104,7 +104,9 @@
         "xr"  'latex/font-clear
         "xfa" 'latex/font-calligraphic
         "xfn" 'latex/font-normal
-        "xfu" 'latex/font-upright))))
+        "xfu" 'latex/font-upright)
+      (spacemacs/declare-prefix-for-mode 'latex-mode "mp"  "preview"))))
+
 
 (when (string= latex-build-command "LatexMk")
   (defun latex/init-auctex-latexmk ()
