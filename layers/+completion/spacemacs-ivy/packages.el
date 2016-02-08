@@ -412,7 +412,40 @@ Current Action: %s(ivy-action-name)
         ("t" (setq truncate-lines (not truncate-lines)))
         ("f" ivy-toggle-case-fold)
         ("o" ivy-occur :exit t))
-      (define-key ivy-minibuffer-map "\C-o" 'spacemacs/ivy-transient-state/body))))
+      (define-key ivy-minibuffer-map "\C-o" 'spacemacs/ivy-transient-state/body)
+
+      (defun spacemacs/ivy-perspectives ()
+        "Control Panel for perspectives. Has many actions.
+If match is found
+\(default) Select perspective
+c: Close Perspective(s) <- mark with C-SPC to close more than one-window
+k: Kill Perspective(s)
+
+If match is not found
+<enter> Creates perspective
+
+Closing doesn't kill buffers inside the perspective while killing
+perspectives does."
+        (interactive)
+        (ivy-read "Perspective: "
+                  (persp-names)
+                  :caller 'spacemacs/ivy-perspectives
+                  :action (lambda (name)
+                            (let ((persp-reset-windows-on-nil-window-conf t))
+                              (persp-switch name)
+                              (unless
+                                  (member name
+                                          (persp-names-current-frame-fast-ordered))
+                                (spacemacs/home))))))
+
+      (ivy-set-actions
+       'spacemacs/ivy-perspectives
+       '(("c" persp-kill-without-buffers "Close perspective(s)")
+         ("k" persp-kill  "Kill perspective(s)")))
+
+      (setq spacemacs-layouts-transient-state-remove-bindings '("l"))
+      (setq spacemacs-layouts-transient-state-add-bindings
+            '(("l" spacemacs/ivy-perspectives))))))
 
 (defun spacemacs-ivy/init-smex ()
   (use-package smex
