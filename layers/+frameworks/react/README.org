@@ -22,6 +22,8 @@
 ES6 and JSX ready configuration layer for React
 It will automatically recognize =.jsx= and =.react.js= files
 
+It will also recognize =/** @jsx React.DOM */= if it is the first line.
+
 ** Features
 - on-the-fly syntax checking
 - proper syntax highlight and indentation with jsx
