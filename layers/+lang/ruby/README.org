@@ -11,6 +11,7 @@
    - [[Test runner][Test runner]]
  - [[Key bindings][Key bindings]]
    - [[Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
+   - [[Bundler][Bundler]]
    - [[RuboCop][RuboCop]]
    - [[Tests][Tests]]
      - [[RSpec-mode][RSpec-mode]]
@@ -19,6 +20,7 @@
 * Description
 This layer provides support for the Ruby language with the following feature:
 - version manager (rbenv, rvm or chruby)
+- integration with bundler
 - test runner (ruby-test and rspec)
 - linter (rubocop)
 - interactive REPL and code navigation (robe)
@@ -112,6 +114,17 @@ directory local variables.
 | ~SPC m x "~ | Change symbol or ' string to "                       |
 | ~SPC m x :~ | Change string to symbol                              |
 | ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks                    |
+
+** Bundler
+
+| Key binding | Description        |
+|-------------+--------------------|
+| ~SPC b c~   | run bundle check   |
+| ~SPC b i~   | run bundle install |
+| ~SPC b s~   | run bundle console |
+| ~SPC b u~   | run bundle update  |
+| ~SPC b x~   | run bundle exec    |
+| ~SPC b o~   | run bundle open    |
 
 ** RuboCop
 
