@@ -38,12 +38,13 @@
 
 (defun version-control/stage-hunk ()
   (interactive)
-  (let ((current-prefix-arg t))
-    (call-interactively
-     (cl-case version-control-diff-tool
-       (diff-hl     (message "staging not available."))
-       (git-gutter  'git-gutter:stage-hunk)
-       (git-gutter+ 'git-gutter+-stage-hunks)))))
+  (if (eq 'diff-hl version-control-diff-tool)
+      (message "Staging not available")
+    (let ((current-prefix-arg t))
+      (call-interactively
+       (cl-case version-control-diff-tool
+         (git-gutter  'git-gutter:stage-hunk)
+         (git-gutter+ 'git-gutter+-stage-hunks))))))
 
 (defun version-control/show-hunk ()
   (interactive)
