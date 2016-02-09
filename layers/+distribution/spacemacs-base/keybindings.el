@@ -128,7 +128,6 @@
 ;; <SPC> J split the current line at point and indent it
 (spacemacs/set-leader-keys
   "jo" 'open-line
-  "j=" 'spacemacs/indent-region-or-buffer
   "jS" 'spacemacs/split-and-new-line
   "jk" 'spacemacs/evil-goto-next-line-and-indent)
 
@@ -347,6 +346,7 @@
   "xa)" 'spacemacs/align-repeat-right-paren
   "xc"  'count-region
   "xdw" 'delete-trailing-whitespace
+  "xi"  'spacemacs/indent-region-or-buffer
   "xjc" 'set-justification-center
   "xjf" 'set-justification-full
   "xjl" 'set-justification-left
