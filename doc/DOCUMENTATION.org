@@ -2200,6 +2200,7 @@ Text related commands (start with ~x~):
     | ~SPC x g l~ | set languages used by translate commands                      |
     | ~SPC x g t~ | translate current word using Google Translate                 |
     | ~SPC x g T~ | reverse source and target languages                           |
+    | ~SPC x i~   | corrent indentation of region or buffer                       |
     | ~SPC x j c~ | set the justification to center                               |
     | ~SPC x j f~ | set the justification to full                                 |
     | ~SPC x j l~ | set the justification to left                                 |
