@@ -2186,14 +2186,18 @@ Text related commands (start with ~x~):
 
     | Key Binding | Description                                                   |
     |-------------+---------------------------------------------------------------|
-    | ~SPC x a a~ | align region (or guessed section) using default rules         |
-    | ~SPC x a r~ | align region using user-specified regexp                      |
-    | ~SPC x a m~ | align region at arithmetic operators (+-*/)                   |
-    | ~SPC x a .~ | align region at . (for numeric tables)                        |
+    | ~SPC x a &~ | align region at &                                             |
+    | ~SPC x a (~ | align region at (                                             |
+    | ~SPC x a )~ | align region at )                                             |
     | ~SPC x a ,~ | align region at ,                                             |
+    | ~SPC x a .~ | align region at . (for numeric tables)                        |
+    | ~SPC x a :~ | align region at :                                             |
     | ~SPC x a ;~ | align region at ;                                             |
     | ~SPC x a =~ | align region at =                                             |
-    | ~SPC x a &~ | align region at &                                             |
+    | ~SPC x a a~ | align region (or guessed section) using default rules         |
+    | ~SPC x a c~ | align current intendation region using default rules          |
+    | ~SPC x a r~ | align region using user-specified regexp                      |
+    | ~SPC x a m~ | align region at arithmetic operators (+-*/)                   |
     | ~SPC x a ¦~ | align region at ¦                                             |
     | ~SPC x c~   | count the number of chars/words/lines in the selection region |
     | ~SPC x d w~ | delete trailing whitespaces                                   |
@@ -2205,8 +2209,8 @@ Text related commands (start with ~x~):
     | ~SPC x j l~ | set the justification to left                                 |
     | ~SPC x j n~ | set the justification to none                                 |
     | ~SPC x j r~ | set the justification to right                                |
-    | ~SPC x J~   | move down a line of text (enter transient-state)                  |
-    | ~SPC x K~   | move up a line of text (enter transient-state)                    |
+    | ~SPC x J~   | move down a line of text (enter transient-state)              |
+    | ~SPC x K~   | move up a line of text (enter transient-state)                |
     | ~SPC x l s~ | sort lines                                                    |
     | ~SPC x l u~ | uniquify lines                                                |
     | ~SPC x o~   | use avy to select a link in the frame and open it             |
