@@ -41,7 +41,8 @@
         "bi" 'bundle-install
         "bs" 'bundle-console
         "bu" 'bundle-update
-        "bx" 'bundle-exec))))
+        "bx" 'bundle-exec
+        "bo" 'bundle-open))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun ruby/post-init-company ()
