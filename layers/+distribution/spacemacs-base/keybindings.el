@@ -345,7 +345,6 @@
   "xac" 'align-current
   "xam" 'spacemacs/align-repeat-math-oper
   "xar" 'spacemacs/align-repeat
-  "xax" 'align-regexp
   "xa|" 'spacemacs/align-repeat-bar
   "xc"  'count-region
   "xdw" 'delete-trailing-whitespace
