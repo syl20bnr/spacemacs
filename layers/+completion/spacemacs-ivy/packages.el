@@ -327,6 +327,10 @@ Helm hack."
 
       (ido-mode -1)
 
+      ;; Occur
+      (with-eval-after-load 'evil
+        (evil-make-overriding-map ivy-occur-mode-map 'normal))
+
       (defun spacemacs/ivy-available-repls ()
         "Show available repls."
         (interactive)
