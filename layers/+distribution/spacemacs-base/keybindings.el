@@ -333,18 +333,20 @@
 (defalias 'count-region 'count-words-region)
 
 (spacemacs/set-leader-keys
-  "xaa" 'align
-  "xar" 'spacemacs/align-repeat
-  "xam" 'spacemacs/align-repeat-math-oper
-  "xa." 'spacemacs/align-repeat-decimal
-  "xa," 'spacemacs/align-repeat-comma
-  "xa;" 'spacemacs/align-repeat-semicolon
-  "xa:" 'spacemacs/align-repeat-colon
-  "xa=" 'spacemacs/align-repeat-equal
   "xa&" 'spacemacs/align-repeat-ampersand
-  "xa|" 'spacemacs/align-repeat-bar
   "xa(" 'spacemacs/align-repeat-left-paren
   "xa)" 'spacemacs/align-repeat-right-paren
+  "xa," 'spacemacs/align-repeat-comma
+  "xa." 'spacemacs/align-repeat-decimal
+  "xa:" 'spacemacs/align-repeat-colon
+  "xa;" 'spacemacs/align-repeat-semicolon
+  "xa=" 'spacemacs/align-repeat-equal
+  "xaa" 'align
+  "xac" 'align-current
+  "xam" 'spacemacs/align-repeat-math-oper
+  "xar" 'spacemacs/align-repeat
+  "xax" 'align-regexp
+  "xa|" 'spacemacs/align-repeat-bar
   "xc"  'count-region
   "xdw" 'delete-trailing-whitespace
   "xjc" 'set-justification-center
