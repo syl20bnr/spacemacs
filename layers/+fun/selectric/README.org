@@ -3,10 +3,10 @@
 
 [[file:img/typewriter.jpg]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key Bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
 
 * Description
 This layer makes your Emacs sound like a typewriter, for those moments when your

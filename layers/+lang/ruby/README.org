@@ -3,18 +3,18 @@
 
 [[file:img/ruby.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Prerequisites][Prerequisites]]
-   - [[Ruby version management][Ruby version management]]
-   - [[Test runner][Test runner]]
- - [[Key bindings][Key bindings]]
-   - [[Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
-   - [[RuboCop][RuboCop]]
-   - [[Tests][Tests]]
-     - [[RSpec-mode][RSpec-mode]]
-     - [[Ruby-test-mode][Ruby-test-mode]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#prerequisites][Prerequisites]]
+   - [[#ruby-version-management][Ruby version management]]
+   - [[#test-runner][Test runner]]
+ - [[#key-bindings][Key bindings]]
+   - [[#ruby-enh-ruby-mode-robe-inf-ruby-ruby-tools][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
+   - [[#rubocop][RuboCop]]
+   - [[#tests][Tests]]
+     - [[#rspec-mode][RSpec-mode]]
+     - [[#ruby-test-mode][Ruby-test-mode]]
 
 * Description
 This layer provides support for the Ruby language with the following feature:

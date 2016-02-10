@@ -3,11 +3,11 @@
 
 [[file:img/floobits.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
- - [[Key Bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+ - [[#key-bindings][Key Bindings]]
 
 * Description
 This layer adds support for peer programming tool [[https://github.com/Floobits/floobits-emacs][floobits]].

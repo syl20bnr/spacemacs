@@ -3,12 +3,12 @@
 
 [[file:img/searchengine.jpg]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Supported search engines][Supported search engines]]
- - [[Install][Install]]
- - [[Key Bindings][Key Bindings]]
- - [[Customize it!][Customize it!]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+   - [[#supported-search-engines][Supported search engines]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+ - [[#customize-it][Customize it!]]
 
 * Description
 

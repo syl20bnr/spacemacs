@@ -3,14 +3,14 @@
 
 [[file:img/purescript-logo.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
-   - [[Purescript][Purescript]]
-     - [[Imports][Imports]]
-     - [[psc-ide][psc-ide]]
-   - [[REPL][REPL]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+   - [[#purescript][Purescript]]
+     - [[#imports][Imports]]
+     - [[#psc-ide][psc-ide]]
+   - [[#repl][REPL]]
 
 * Description
 

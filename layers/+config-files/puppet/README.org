@@ -3,10 +3,10 @@
 
 [[file:img/puppet.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 This layer aims at providing support for the Puppet DSL using [[https://github.com/lunaryorn/puppet-mode][puppet-mode]].

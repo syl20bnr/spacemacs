@@ -1,14 +1,14 @@
 #+TITLE: Mu4e layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Install][Install]]
- - [[Commands][Commands]]
- - [[Configuration][Configuration]]
-   - [[Maildirs extension][Maildirs extension]]
-   - [[Multiple Accounts][Multiple Accounts]]
-   - [[Example configuration][Example configuration]]
- - [[See also][See also]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#install][Install]]
+ - [[#commands][Commands]]
+ - [[#configuration][Configuration]]
+   - [[#maildirs-extension][Maildirs extension]]
+   - [[#multiple-accounts][Multiple Accounts]]
+   - [[#example-configuration][Example configuration]]
+ - [[#see-also][See also]]
 
 * Install
 In order to use this layer you must install mu and mu4e separately. Typically

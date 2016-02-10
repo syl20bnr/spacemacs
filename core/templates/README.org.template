@@ -6,10 +6,10 @@
 # The maximum height of the logo should be 200 pixels.
 [[img/%LAYER_NAME%.png]]
 
-* Table of Contents                                        :TOC_4_org:noexport:
- - [[Decsription][Description]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
+* Table of Contents                                        :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 This layer does wonderful things:

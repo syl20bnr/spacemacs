@@ -3,13 +3,13 @@
 
 [[file:img/emacs.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Functions][Functions]]
-   - [[=spacemacs/smart-move-beginning-of-line=][=spacemacs/smart-move-beginning-of-line=]]
-   - [[=spacemacs/backward-kill-word-or-region=][=spacemacs/backward-kill-word-or-region=]]
- - [[Key bindings][Key bindings]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#functions][Functions]]
+   - [[#spacemacssmart-move-beginning-of-line][=spacemacs/smart-move-beginning-of-line=]]
+   - [[#spacemacsbackward-kill-word-or-region][=spacemacs/backward-kill-word-or-region=]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 This layer enhances the default commands of Emacs and is primarily intended to

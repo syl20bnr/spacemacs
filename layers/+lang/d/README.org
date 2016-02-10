@@ -3,9 +3,9 @@
 
 [[file:img/dlogo.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
 
 * Description
 This simple layer adds support for the [[http://dlang.org/][D language]].

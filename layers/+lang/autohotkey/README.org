@@ -3,11 +3,11 @@
 
 [[file:img/ahk.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Features][Features]]
- - [[Install][Install]]
- - [[Key Bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
 
 * Description
 

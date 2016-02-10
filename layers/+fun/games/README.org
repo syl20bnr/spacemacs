@@ -3,13 +3,13 @@
 
 [[file:img/games.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
-   - [[2048][2048]]
-   - [[Pacmacs][Pacmacs]]
-   - [[Tetris][Tetris]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+   - [[#2048][2048]]
+   - [[#pacmacs][Pacmacs]]
+   - [[#tetris][Tetris]]
 
 * Description
 This layer allows you to play evilified games in spacemacs.
