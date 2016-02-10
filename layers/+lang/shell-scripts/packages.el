@@ -12,6 +12,8 @@
 (setq shell-scripts-packages
   '(fish-mode
     (sh-script :location built-in)
+    company
+    company-shell
     ))
 
 (defun shell-scripts/init-fish-mode ()
@@ -41,3 +43,18 @@
                    (string-match-p "\\.zsh\\'" buffer-file-name))
           (sh-set-shell "zsh")))
       (add-hook 'sh-mode-hook 'spacemacs//setup-shell))))
+
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun python/post-init-company ()
+    (spacemacs|add-company-hook sh-mode)
+    (spacemacs|add-company-hook fish-mode))
+
+  (defun shell-scripts/init-company-shell ()
+    (use-package company-shell
+      :if (configuration-layer/package-usedp 'company)
+      :defer t
+      :init
+      (progn
+        (push 'company-shell                      company-backends-sh-mode)
+        (push '(company-shell company-fish-shell) company-backends-fish-mode)))))
