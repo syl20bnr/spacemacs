@@ -3,13 +3,13 @@
 
 [[file:img/chrome.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Features][Features]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[Chrome extension][Chrome extension]]
- - [[Configuration][Configuration]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+   - [[#features][Features]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#chrome-extension][Chrome extension]]
+ - [[#configuration][Configuration]]
 
 * Description
 This layer provides some integration with the Google Chrome browser.

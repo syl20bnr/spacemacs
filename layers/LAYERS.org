@@ -1,19 +1,19 @@
 #+TITLE: Configuration layers
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
-* Table of Contents                                      :TOC_4_org:noexport:
- - [[General layers][General layers]]
- - [[Configuration files][Configuration files]]
- - [[E-mail][E-mail]]
- - [[Frameworks][Frameworks]]
- - [[Fun][Fun]]
- - [[IRC][IRC]]
- - [[Keyboard layouts][Keyboard layouts]]
- - [[Programming and markup languages][Programming and markup languages]]
- - [[Source control][Source control]]
- - [[Tools][Tools]]
- - [[Vim][Vim]]
- - [[Window management][Window management]]
+* Table of Contents                                      :TOC_4:noexport:
+ - [[#general-layers][General layers]]
+ - [[#configuration-files][Configuration files]]
+ - [[#e-mail][E-mail]]
+ - [[#frameworks][Frameworks]]
+ - [[#fun][Fun]]
+ - [[#irc][IRC]]
+ - [[#keyboard-layouts][Keyboard layouts]]
+ - [[#programming-and-markup-languages][Programming and markup languages]]
+ - [[#source-control][Source control]]
+ - [[#tools][Tools]]
+ - [[#vim][Vim]]
+ - [[#window-management][Window management]]
 
 * General layers
 - [[file:auto-completion/README.org][auto-completion]]

@@ -3,13 +3,13 @@
 
 [[file:img/html.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Features][Features]]
- - [[Install][Install]]
- - [[Key Bindings][Key Bindings]]
-   - [[Web mode][Web mode]]
-   - [[CSS/SCSS][CSS/SCSS]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+   - [[#features][Features]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#web-mode][Web mode]]
+   - [[#cssscss][CSS/SCSS]]
 
 * Description
 This layer adds support for editing HTML and CSS.
@@ -59,7 +59,7 @@ A transient-state is also defined, start it with ~SPC m .~ or ~, .~
 | ~K~ / ~gk~  | previous sibling element                                       |
 | ~l~         | first child element                                            |
 | ~p~         | show xpath of current element                                  |
-| ~q~         | leave the transient-state                                          |
+| ~q~         | leave the transient-state                                      |
 | ~r~         | rename current element                                         |
 | ~w~         | wrap current element                                           |
 

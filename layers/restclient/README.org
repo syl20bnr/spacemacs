@@ -1,10 +1,10 @@
 #+TITLE: Restclient layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[What is this?][What is this?]]
- - [[Install][Install]]
- - [[Keybindings][Keybindings]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#what-is-this][What is this?]]
+ - [[#install][Install]]
+ - [[#keybindings][Keybindings]]
 
 * What is this?
 This is a package that lets you have a REPL-like interface

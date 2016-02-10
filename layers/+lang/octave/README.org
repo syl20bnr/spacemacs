@@ -3,12 +3,12 @@
 
 [[file:img/octave.png]]
 
-* Table of Contents                                        :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
-   - [[Inferior REPL process][Inferior REPL process]]
-   - [[Helpers][Helpers]]
+* Table of Contents                                        :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+   - [[#inferior-repl-process][Inferior REPL process]]
+   - [[#helpers][Helpers]]
 
 * Description
 This layer activates [[info:octave-mode][octave-mode]] for files with =.m=
@@ -37,7 +37,7 @@ Send code to inferior process with these commands:
 
 ** Helpers
 
-| Key Binding | Description                                         |
-|-------------+-----------------------------------------------------|
-| ~SPC m h h~ | view documentation for function at point            |
-| ~SPC m h i~ | read octave info documentation                      |
+| Key Binding | Description                              |
+|-------------+------------------------------------------|
+| ~SPC m h h~ | view documentation for function at point |
+| ~SPC m h i~ | read octave info documentation           |

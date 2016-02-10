@@ -3,15 +3,15 @@
 
 [[file:img/TypeScript.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Pre-requisites][Pre-requisites]]
-   - [[Layer][Layer]]
-   - [[Notes][Notes]]
- - [[Key bindings][Key bindings]]
-   - [[Typescript Major Mode][Typescript Major Mode]]
-   - [[Reference Major Mode                          ][Reference Major Mode                          ]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#pre-requisites][Pre-requisites]]
+   - [[#layer][Layer]]
+   - [[#notes][Notes]]
+ - [[#key-bindings][Key bindings]]
+   - [[#typescript-major-mode][Typescript Major Mode]]
+   - [[#reference-major-mode--------------------------][Reference Major Mode                          ]]
 
 * Description
 
@@ -80,8 +80,8 @@ Currently tsserver doesn't pickup tsconfig.json file changes. You might need to 
 
 ** Reference Major Mode                          
 
-| Key Binding | Description                      |
-|-------------+----------------------------------|
-| ~C-j~       | find previous reference          |
-| ~C-k~       | find next reference              |
-| ~C-l~       | goto reference                   |
+| Key Binding | Description             |
+|-------------+-------------------------|
+| ~C-j~       | find previous reference |
+| ~C-k~       | find next reference     |
+| ~C-l~       | goto reference          |

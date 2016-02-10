@@ -1,21 +1,21 @@
 #+TITLE: Spacemacs Layouts layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
- - [[Features][Features]]
-   - [[Transient-states][Transient-states]]
-     - [[Layouts Transient State][Layouts Transient State]]
-     - [[Project Layouts][Project Layouts]]
-     - [[Custom Layouts Transient State][Custom Layouts Transient State]]
- - [[Usage][Usage]]
-   - [[Save/Load layouts into a file][Save/Load layouts into a file]]
-   - [[Custom Layout Macro][Custom Layout Macro]]
-   - [[Predefined custom layouts][Predefined custom layouts]]
-     - [[Org-agenda custom layout][Org-agenda custom layout]]
-     - [[RCIRC/ERC custom layout][RCIRC/ERC custom layout]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+ - [[#features][Features]]
+   - [[#transient-states][Transient-states]]
+     - [[#layouts-transient-state][Layouts Transient State]]
+     - [[#project-layouts][Project Layouts]]
+     - [[#custom-layouts-transient-state][Custom Layouts Transient State]]
+ - [[#usage][Usage]]
+   - [[#saveload-layouts-into-a-file][Save/Load layouts into a file]]
+   - [[#custom-layout-macro][Custom Layout Macro]]
+   - [[#predefined-custom-layouts][Predefined custom layouts]]
+     - [[#org-agenda-custom-layout][Org-agenda custom layout]]
+     - [[#rcircerc-custom-layout][RCIRC/ERC custom layout]]
 
 * Description
 This contribution layer adds layouts support to Spacemacs thanks to =persp-mode=.

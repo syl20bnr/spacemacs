@@ -5,16 +5,16 @@
 
 [[file:img/bepo.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Variables][Variables]]
-   - [[Customization][Customization]]
- - [[Mapping][Mapping]]
- - [[Configurations][Configurations]]
- - [[Keybindings][Keybindings]]
- - [[Contributors][Contributors]]
- - [[Sources][Sources]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#variables][Variables]]
+   - [[#customization][Customization]]
+ - [[#mapping][Mapping]]
+ - [[#configurations][Configurations]]
+ - [[#keybindings][Keybindings]]
+ - [[#contributors][Contributors]]
+ - [[#sources][Sources]]
 
 * Description
 This layer changes the key bindings in spacemacs to be compatible with the [[http://bepo.fr/][bepo]]

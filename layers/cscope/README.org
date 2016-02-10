@@ -3,14 +3,14 @@
 
 [[file:img/cscope.jpg]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[Cscope][Cscope]]
-   - [[PyCscope][PyCscope]]
- - [[Usage][Usage]]
- - [[Key bindings][Key bindings]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#cscope][Cscope]]
+   - [[#pycscope][PyCscope]]
+ - [[#usage][Usage]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 This layer provides bindings for using [[http://cscope.sourceforge.net][Cscope]] and [[https://github.com/portante/pycscope][PyCscope]] in Spacemacs.

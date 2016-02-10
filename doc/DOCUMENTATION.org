@@ -1,192 +1,192 @@
 #+TITLE: Spacemacs documentation
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
-* Spacemacs documentation                                   :TOC_4_org:noexport:
- - [[Core Pillars][Core Pillars]]
-   - [[Mnemonic][Mnemonic]]
-   - [[Discoverable][Discoverable]]
-   - [[Consistent][Consistent]]
-   - [[Crowd-Configured][Crowd-Configured]]
- - [[Highlighted feature][Highlighted feature]]
- - [[Screenshots][Screenshots]]
- - [[Who can benefit from this?][Who can benefit from this?]]
- - [[Update and Rollback][Update and Rollback]]
-   - [[Update Spacemacs repository][Update Spacemacs repository]]
-      - [[Automatic Updates][Automatic Updates]]
-     - [[Updating from the Spacemacs Buffer][Updating from the Spacemacs Buffer]]
-     - [[Updating Manually with git][Updating Manually with git]]
-   - [[Update packages][Update packages]]
- - [[Configuration layers][Configuration layers]]
-   - [[Purpose][Purpose]]
-   - [[Structure][Structure]]
-   - [[Packages][Packages]]
-     - [[Within a layer][Within a layer]]
-       - [[Declaration][Declaration]]
-       - [[Initialization][Initialization]]
-       - [[Exclusion][Exclusion]]
-     - [[Without a layer][Without a layer]]
-   - [[Packages synchronization (Vundle like feature)][Packages synchronization (Vundle like feature)]]
-   - [[Types of configuration layers][Types of configuration layers]]
-   - [[Submitting a configuration layer upstream][Submitting a configuration layer upstream]]
-   - [[Example: Themes Megapack example][Example: Themes Megapack example]]
-   - [[Managing private configuration layers][Managing private configuration layers]]
-     - [[Using the private directory][Using the private directory]]
-     - [[Using an external Git repository][Using an external Git repository]]
-     - [[Using a personal branch][Using a personal branch]]
-   - [[Tips for writing layers][Tips for writing layers]]
- - [[Dotfile Configuration][Dotfile Configuration]]
-   - [[Installation][Installation]]
-     - [[Alternative setup][Alternative setup]]
-   - [[Synchronization of dotfile changes][Synchronization of dotfile changes]]
-   - [[Testing][Testing]]
-   - [[Content][Content]]
-     - [[Using configuration layers][Using configuration layers]]
-     - [[Setting configuration layers variables][Setting configuration layers variables]]
-     - [[Excluding packages][Excluding packages]]
-     - [[Hooks][Hooks]]
-     - [[Binding keys][Binding keys]]
-     - [[Custom variables][Custom variables]]
- - [[Main principles][Main principles]]
-   - [[Editing Styles][Editing Styles]]
-     - [[Vim][Vim]]
-     - [[Emacs][Emacs]]
-     - [[Hybrid][Hybrid]]
-   - [[Evilified modes][Evilified modes]]
-   - [[States][States]]
-   - [[Evil leader][Evil leader]]
-   - [[Universal argument][Universal argument]]
-   - [[Transient-states][Transient-states]]
- - [[Differences between Vim, Evil and Spacemacs][Differences between Vim, Evil and Spacemacs]]
-   - [[The vim-surround case][The vim-surround case]]
- - [[Evil plugins][Evil plugins]]
- - [[Spacemacs UI][Spacemacs UI]]
-   - [[Graphical UI][Graphical UI]]
-     - [[Color themes][Color themes]]
-     - [[Font][Font]]
-     - [[Graphical UI Toggles][Graphical UI Toggles]]
-       - [[Global line numbers][Global line numbers]]
-     - [[Mouse usage][Mouse usage]]
-     - [[Mode-line][Mode-line]]
-       - [[Powerline font installation for terminal-mode users][Powerline font installation for terminal-mode users]]
-       - [[Flycheck integration][Flycheck integration]]
-       - [[Anzu integration][Anzu integration]]
-       - [[Battery status integration][Battery status integration]]
-       - [[Powerline separators][Powerline separators]]
-       - [[Minor Modes][Minor Modes]]
-       - [[Customizing the mode-line][Customizing the mode-line]]
- - [[Commands][Commands]]
-   - [[Vim key bindings][Vim key bindings]]
-     - [[Escaping][Escaping]]
-     - [[Executing Vim and Emacs ex/M-x commands][Executing Vim and Emacs ex/M-x commands]]
-     - [[Leader key][Leader key]]
-     - [[Additional text objects][Additional text objects]]
-   - [[Reserved prefix command for user][Reserved prefix command for user]]
-   - [[Helm][Helm]]
-     - [[C-z and Tab switch][C-z and Tab switch]]
-     - [[Helm focus][Helm focus]]
-     - [[Helm transient-state][Helm transient-state]]
-   - [[Discovering][Discovering]]
-     - [[Key bindings][Key bindings]]
-       - [[Which-key][Which-key]]
-       - [[Helm describe key bindings][Helm describe key bindings]]
-     - [[Getting help][Getting help]]
-     - [[Available layers][Available layers]]
-       - [[Available packages in Spacemacs][Available packages in Spacemacs]]
-       - [[New packages from ELPA repositories][New packages from ELPA repositories]]
-     - [[Toggles][Toggles]]
-   - [[Navigating][Navigating]]
-     - [[Point/Cursor][Point/Cursor]]
-       - [[Smooth scrolling][Smooth scrolling]]
-     - [[Vim motions with avy][Vim motions with avy]]
-       - [[ace-link mode][ace-link mode]]
-     - [[Unimpaired bindings][Unimpaired bindings]]
-     - [[Jumping, Joining and Splitting][Jumping, Joining and Splitting]]
-       - [[Jumping][Jumping]]
-       - [[Joining and splitting][Joining and splitting]]
-     - [[Window manipulation][Window manipulation]]
-       - [[Window manipulation key bindings][Window manipulation key bindings]]
-       - [[Window manipulation transient-state][Window manipulation transient-state]]
-       - [[Golden ratio][Golden ratio]]
-     - [[Buffers and Files][Buffers and Files]]
-       - [[Buffers manipulation key bindings][Buffers manipulation key bindings]]
-       - [[Buffers manipulation transient-state][Buffers manipulation transient-state]]
-       - [[Special Buffers][Special Buffers]]
-       - [[Files manipulations key bindings][Files manipulations key bindings]]
-       - [[Emacs and Spacemacs files][Emacs and Spacemacs files]]
-       - [[Browsing files with Helm][Browsing files with Helm]]
-     - [[Ido][Ido]]
-     - [[Ido transient-state][Ido transient-state]]
-     - [[NeoTree file tree][NeoTree file tree]]
-       - [[NeoTree navigation][NeoTree navigation]]
-       - [[Opening files with NeoTree][Opening files with NeoTree]]
-       - [[Other NeoTree key bindings][Other NeoTree key bindings]]
-       - [[NeoTree mode-line][NeoTree mode-line]]
-       - [[NeoTree Source Control Integration][NeoTree Source Control Integration]]
-       - [[NeoTree Theme][NeoTree Theme]]
-     - [[Bookmarks][Bookmarks]]
-     - [[DocView mode][DocView mode]]
-   - [[Auto-saving][Auto-saving]]
-     - [[Frequency of auto-saving][Frequency of auto-saving]]
-     - [[Location of auto-saved files][Location of auto-saved files]]
-     - [[Disable auto-save][Disable auto-save]]
-   - [[Searching][Searching]]
-     - [[With an external tool][With an external tool]]
-       - [[Useful key bindings][Useful key bindings]]
-       - [[Searching in current file][Searching in current file]]
-       - [[Searching in all open buffers visiting files][Searching in all open buffers visiting files]]
-       - [[Searching in files in an arbitrary directory][Searching in files in an arbitrary directory]]
-       - [[Searching in a project][Searching in a project]]
-       - [[Searching the web][Searching the web]]
-     - [[Persistent highlighting][Persistent highlighting]]
-     - [[Highlight current symbol][Highlight current symbol]]
-     - [[Visual Star][Visual Star]]
-     - [[Listing symbols by semantic][Listing symbols by semantic]]
-     - [[Helm-swoop][Helm-swoop]]
-   - [[Editing][Editing]]
-     - [[Paste text][Paste text]]
-       - [[Paste Transient-state][Paste Transient-state]]
-       - [[Auto-indent pasted text][Auto-indent pasted text]]
-     - [[Text manipulation commands][Text manipulation commands]]
-     - [[Text insertion commands][Text insertion commands]]
-     - [[Smartparens Strict mode][Smartparens Strict mode]]
-     - [[Zooming][Zooming]]
-       - [[Text][Text]]
-       - [[Frame][Frame]]
-     - [[Increase/Decrease numbers][Increase/Decrease numbers]]
-     - [[Spell checking][Spell checking]]
-     - [[Region selection][Region selection]]
-       - [[Expand-region][Expand-region]]
-       - [[Indent text object][Indent text object]]
-     - [[Region narrowing][Region narrowing]]
-     - [[Replacing text with iedit][Replacing text with iedit]]
-       - [[iedit states key bindings][iedit states key bindings]]
-       - [[Examples][Examples]]
-     - [[Replacing text in several files][Replacing text in several files]]
-     - [[Commenting][Commenting]]
-     - [[Deleting files][Deleting files]]
-     - [[Editing Lisp code][Editing Lisp code]]
-       - [[Lisp Key Bindings][Lisp Key Bindings]]
-   - [[Managing projects][Managing projects]]
-   - [[Registers][Registers]]
-   - [[Errors handling][Errors handling]]
-   - [[Compiling][Compiling]]
-   - [[Modes][Modes]]
-     - [[Major Mode leader key][Major Mode leader key]]
-     - [[Helm][Helm]]
-   - [[Emacs Server][Emacs Server]]
-     - [[Connecting to the Emacs server][Connecting to the Emacs server]]
-   - [[Keeping the server alive][Keeping the server alive]]
-   - [[Troubleshoot][Troubleshoot]]
-     - [[Loading fails][Loading fails]]
-     - [[Upgrading/Downgrading Emacs version][Upgrading/Downgrading Emacs version]]
- - [[Achievements][Achievements]]
-   - [[Issues][Issues]]
-   - [[Merged Pull Requests][Merged Pull Requests]]
-   - [[Stars, forks and watchers][Stars, forks and watchers]]
-   - [[Gitter chat][Gitter chat]]
-   - [[First times][First times]]
-   - [[Specials][Specials]]
- - [[Thank you][Thank you]]
+* Spacemacs documentation                                   :TOC_4:noexport:
+ - [[#core-pillars][Core Pillars]]
+   - [[#mnemonic][Mnemonic]]
+   - [[#discoverable][Discoverable]]
+   - [[#consistent][Consistent]]
+   - [[#crowd-configured][Crowd-Configured]]
+ - [[#highlighted-feature][Highlighted feature]]
+ - [[#screenshots][Screenshots]]
+ - [[#who-can-benefit-from-this][Who can benefit from this?]]
+ - [[#update-and-rollback][Update and Rollback]]
+   - [[#update-spacemacs-repository][Update Spacemacs repository]]
+      - [[#automatic-updates][Automatic Updates]]
+     - [[#updating-from-the-spacemacs-buffer][Updating from the Spacemacs Buffer]]
+     - [[#updating-manually-with-git][Updating Manually with git]]
+   - [[#update-packages][Update packages]]
+ - [[#configuration-layers][Configuration layers]]
+   - [[#purpose][Purpose]]
+   - [[#structure][Structure]]
+   - [[#packages][Packages]]
+     - [[#within-a-layer][Within a layer]]
+       - [[#declaration][Declaration]]
+       - [[#initialization][Initialization]]
+       - [[#exclusion][Exclusion]]
+     - [[#without-a-layer][Without a layer]]
+   - [[#packages-synchronization-vundle-like-feature][Packages synchronization (Vundle like feature)]]
+   - [[#types-of-configuration-layers][Types of configuration layers]]
+   - [[#submitting-a-configuration-layer-upstream][Submitting a configuration layer upstream]]
+   - [[#example-themes-megapack-example][Example: Themes Megapack example]]
+   - [[#managing-private-configuration-layers][Managing private configuration layers]]
+     - [[#using-the-private-directory][Using the private directory]]
+     - [[#using-an-external-git-repository][Using an external Git repository]]
+     - [[#using-a-personal-branch][Using a personal branch]]
+   - [[#tips-for-writing-layers][Tips for writing layers]]
+ - [[#dotfile-configuration][Dotfile Configuration]]
+   - [[#installation][Installation]]
+     - [[#alternative-setup][Alternative setup]]
+   - [[#synchronization-of-dotfile-changes][Synchronization of dotfile changes]]
+   - [[#testing][Testing]]
+   - [[#content][Content]]
+     - [[#using-configuration-layers][Using configuration layers]]
+     - [[#setting-configuration-layers-variables][Setting configuration layers variables]]
+     - [[#excluding-packages][Excluding packages]]
+     - [[#hooks][Hooks]]
+     - [[#binding-keys][Binding keys]]
+     - [[#custom-variables][Custom variables]]
+ - [[#main-principles][Main principles]]
+   - [[#editing-styles][Editing Styles]]
+     - [[#vim][Vim]]
+     - [[#emacs][Emacs]]
+     - [[#hybrid][Hybrid]]
+   - [[#evilified-modes][Evilified modes]]
+   - [[#states][States]]
+   - [[#evil-leader][Evil leader]]
+   - [[#universal-argument][Universal argument]]
+   - [[#transient-states][Transient-states]]
+ - [[#differences-between-vim-evil-and-spacemacs][Differences between Vim, Evil and Spacemacs]]
+   - [[#the-vim-surround-case][The vim-surround case]]
+ - [[#evil-plugins][Evil plugins]]
+ - [[#spacemacs-ui][Spacemacs UI]]
+   - [[#graphical-ui][Graphical UI]]
+     - [[#color-themes][Color themes]]
+     - [[#font][Font]]
+     - [[#graphical-ui-toggles][Graphical UI Toggles]]
+       - [[#global-line-numbers][Global line numbers]]
+     - [[#mouse-usage][Mouse usage]]
+     - [[#mode-line][Mode-line]]
+       - [[#powerline-font-installation-for-terminal-mode-users][Powerline font installation for terminal-mode users]]
+       - [[#flycheck-integration][Flycheck integration]]
+       - [[#anzu-integration][Anzu integration]]
+       - [[#battery-status-integration][Battery status integration]]
+       - [[#powerline-separators][Powerline separators]]
+       - [[#minor-modes][Minor Modes]]
+       - [[#customizing-the-mode-line][Customizing the mode-line]]
+ - [[#commands][Commands]]
+   - [[#vim-key-bindings][Vim key bindings]]
+     - [[#escaping][Escaping]]
+     - [[#executing-vim-and-emacs-exm-x-commands][Executing Vim and Emacs ex/M-x commands]]
+     - [[#leader-key][Leader key]]
+     - [[#additional-text-objects][Additional text objects]]
+   - [[#reserved-prefix-command-for-user][Reserved prefix command for user]]
+   - [[#helm][Helm]]
+     - [[#c-z-and-tab-switch][C-z and Tab switch]]
+     - [[#helm-focus][Helm focus]]
+     - [[#helm-transient-state][Helm transient-state]]
+   - [[#discovering][Discovering]]
+     - [[#key-bindings][Key bindings]]
+       - [[#which-key][Which-key]]
+       - [[#helm-describe-key-bindings][Helm describe key bindings]]
+     - [[#getting-help][Getting help]]
+     - [[#available-layers][Available layers]]
+       - [[#available-packages-in-spacemacs][Available packages in Spacemacs]]
+       - [[#new-packages-from-elpa-repositories][New packages from ELPA repositories]]
+     - [[#toggles][Toggles]]
+   - [[#navigating][Navigating]]
+     - [[#pointcursor][Point/Cursor]]
+       - [[#smooth-scrolling][Smooth scrolling]]
+     - [[#vim-motions-with-avy][Vim motions with avy]]
+       - [[#ace-link-mode][ace-link mode]]
+     - [[#unimpaired-bindings][Unimpaired bindings]]
+     - [[#jumping-joining-and-splitting][Jumping, Joining and Splitting]]
+       - [[#jumping][Jumping]]
+       - [[#joining-and-splitting][Joining and splitting]]
+     - [[#window-manipulation][Window manipulation]]
+       - [[#window-manipulation-key-bindings][Window manipulation key bindings]]
+       - [[#window-manipulation-transient-state][Window manipulation transient-state]]
+       - [[#golden-ratio][Golden ratio]]
+     - [[#buffers-and-files][Buffers and Files]]
+       - [[#buffers-manipulation-key-bindings][Buffers manipulation key bindings]]
+       - [[#buffers-manipulation-transient-state][Buffers manipulation transient-state]]
+       - [[#special-buffers][Special Buffers]]
+       - [[#files-manipulations-key-bindings][Files manipulations key bindings]]
+       - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
+       - [[#browsing-files-with-helm][Browsing files with Helm]]
+     - [[#ido][Ido]]
+     - [[#ido-transient-state][Ido transient-state]]
+     - [[#neotree-file-tree][NeoTree file tree]]
+       - [[#neotree-navigation][NeoTree navigation]]
+       - [[#opening-files-with-neotree][Opening files with NeoTree]]
+       - [[#other-neotree-key-bindings][Other NeoTree key bindings]]
+       - [[#neotree-mode-line][NeoTree mode-line]]
+       - [[#neotree-source-control-integration][NeoTree Source Control Integration]]
+       - [[#neotree-theme][NeoTree Theme]]
+     - [[#bookmarks][Bookmarks]]
+     - [[#docview-mode][DocView mode]]
+   - [[#auto-saving][Auto-saving]]
+     - [[#frequency-of-auto-saving][Frequency of auto-saving]]
+     - [[#location-of-auto-saved-files][Location of auto-saved files]]
+     - [[#disable-auto-save][Disable auto-save]]
+   - [[#searching][Searching]]
+     - [[#with-an-external-tool][With an external tool]]
+       - [[#useful-key-bindings][Useful key bindings]]
+       - [[#searching-in-current-file][Searching in current file]]
+       - [[#searching-in-all-open-buffers-visiting-files][Searching in all open buffers visiting files]]
+       - [[#searching-in-files-in-an-arbitrary-directory][Searching in files in an arbitrary directory]]
+       - [[#searching-in-a-project][Searching in a project]]
+       - [[#searching-the-web][Searching the web]]
+     - [[#persistent-highlighting][Persistent highlighting]]
+     - [[#highlight-current-symbol][Highlight current symbol]]
+     - [[#visual-star][Visual Star]]
+     - [[#listing-symbols-by-semantic][Listing symbols by semantic]]
+     - [[#helm-swoop][Helm-swoop]]
+   - [[#editing][Editing]]
+     - [[#paste-text][Paste text]]
+       - [[#paste-transient-state][Paste Transient-state]]
+       - [[#auto-indent-pasted-text][Auto-indent pasted text]]
+     - [[#text-manipulation-commands][Text manipulation commands]]
+     - [[#text-insertion-commands][Text insertion commands]]
+     - [[#smartparens-strict-mode][Smartparens Strict mode]]
+     - [[#zooming][Zooming]]
+       - [[#text][Text]]
+       - [[#frame][Frame]]
+     - [[#increasedecrease-numbers][Increase/Decrease numbers]]
+     - [[#spell-checking][Spell checking]]
+     - [[#region-selection][Region selection]]
+       - [[#expand-region][Expand-region]]
+       - [[#indent-text-object][Indent text object]]
+     - [[#region-narrowing][Region narrowing]]
+     - [[#replacing-text-with-iedit][Replacing text with iedit]]
+       - [[#iedit-states-key-bindings][iedit states key bindings]]
+       - [[#examples][Examples]]
+     - [[#replacing-text-in-several-files][Replacing text in several files]]
+     - [[#commenting][Commenting]]
+     - [[#deleting-files][Deleting files]]
+     - [[#editing-lisp-code][Editing Lisp code]]
+       - [[#lisp-key-bindings][Lisp Key Bindings]]
+   - [[#managing-projects][Managing projects]]
+   - [[#registers][Registers]]
+   - [[#errors-handling][Errors handling]]
+   - [[#compiling][Compiling]]
+   - [[#modes][Modes]]
+     - [[#major-mode-leader-key][Major Mode leader key]]
+     - [[#helm][Helm]]
+   - [[#emacs-server][Emacs Server]]
+     - [[#connecting-to-the-emacs-server][Connecting to the Emacs server]]
+   - [[#keeping-the-server-alive][Keeping the server alive]]
+   - [[#troubleshoot][Troubleshoot]]
+     - [[#loading-fails][Loading fails]]
+     - [[#upgradingdowngrading-emacs-version][Upgrading/Downgrading Emacs version]]
+ - [[#achievements][Achievements]]
+   - [[#issues][Issues]]
+   - [[#merged-pull-requests][Merged Pull Requests]]
+   - [[#stars-forks-and-watchers][Stars, forks and watchers]]
+   - [[#gitter-chat][Gitter chat]]
+   - [[#first-times][First times]]
+   - [[#specials][Specials]]
+ - [[#thank-you][Thank you]]
 
 * Core Pillars
 Four core pillars: Mnemonic, Discoverable, Consistent and "Crowd-Configured".
@@ -921,14 +921,14 @@ and ~T~):
 | ~SPC t L~   | toggle visual lines                                               |
 | ~SPC t n~   | toggle line numbers                                               |
 
-| Key Binding | Description                                                  |
-|-------------+--------------------------------------------------------------|
-| ~SPC T ~~   | display =~= in the fringe on empty lines                     |
-| ~SPC T F~   | toggle frame fullscreen                                      |
-| ~SPC T f~   | toggle display of the fringe                                 |
-| ~SPC T m~   | toggle menu bar                                              |
-| ~SPC T M~   | toggle frame maximize                                        |
-| ~SPC T t~   | toggle tool bar                                              |
+| Key Binding | Description                                                      |
+|-------------+------------------------------------------------------------------|
+| ~SPC T ~~   | display =~= in the fringe on empty lines                         |
+| ~SPC T F~   | toggle frame fullscreen                                          |
+| ~SPC T f~   | toggle display of the fringe                                     |
+| ~SPC T m~   | toggle menu bar                                                  |
+| ~SPC T M~   | toggle frame maximize                                            |
+| ~SPC T t~   | toggle tool bar                                                  |
 | ~SPC T T~   | toggle frame transparency and enter transparency transient-state |
 
 *Note*: These toggles are all available via the =helm-spacemacs-help= interface
@@ -1220,31 +1220,31 @@ plugin.
 
 Initiate the transient-state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
 
-| Key Binding          | Description                                      |
-|----------------------+--------------------------------------------------|
+| Key Binding          | Description                                          |
+|----------------------+------------------------------------------------------|
 | ~M-SPC~ or ~s-M-SPC~ | initiate the transient-state                         |
 | ~q~                  | quit transient-state                                 |
 | ~TAB~                | switch to actions page and leave the transient-state |
-| ~1~                  | execute action 0                                 |
-| ~2~                  | execute action 1                                 |
-| ~3~                  | execute action 2                                 |
-| ~4~                  | execute action 3                                 |
-| ~5~                  | execute action 4                                 |
-| ~6~                  | execute action 5                                 |
-| ~7~                  | execute action 6                                 |
-| ~8~                  | execute action 7                                 |
-| ~9~                  | execute action 8                                 |
-| ~0~                  | execute action 9                                 |
-| ~a~                  | switch to actions page                           |
-| ~g~                  | go to first candidate                            |
-| ~G~                  | go to last candidate                             |
-| ~h~                  | go to previous source                            |
-| ~j~                  | select next candidate                            |
-| ~k~                  | select previous candidate                        |
-| ~l~                  | go to next source                                |
-| ~t~                  | mark current candidate                           |
-| ~T~                  | mark all candidates                              |
-| ~v~                  | execute persistent action                        |
+| ~1~                  | execute action 0                                     |
+| ~2~                  | execute action 1                                     |
+| ~3~                  | execute action 2                                     |
+| ~4~                  | execute action 3                                     |
+| ~5~                  | execute action 4                                     |
+| ~6~                  | execute action 5                                     |
+| ~7~                  | execute action 6                                     |
+| ~8~                  | execute action 7                                     |
+| ~9~                  | execute action 8                                     |
+| ~0~                  | execute action 9                                     |
+| ~a~                  | switch to actions page                               |
+| ~g~                  | go to first candidate                                |
+| ~G~                  | go to last candidate                                 |
+| ~h~                  | go to previous source                                |
+| ~j~                  | select next candidate                                |
+| ~k~                  | select previous candidate                            |
+| ~l~                  | go to next source                                    |
+| ~t~                  | mark current candidate                               |
+| ~T~                  | mark all candidates                                  |
+| ~v~                  | execute persistent action                            |
 
 ** Discovering
 *** Key bindings
@@ -1555,7 +1555,7 @@ window resizing.
 
 | Key Binding   | Description                                                   |
 |---------------+---------------------------------------------------------------|
-| ~SPC w .~     | initiate transient-state                                          |
+| ~SPC w .~     | initiate transient-state                                      |
 | ~?~           | display the full documentation in minibuffer                  |
 | ~0~           | go to window number 0                                         |
 | ~1~           | go to window number 1                                         |
@@ -1593,7 +1593,7 @@ window resizing.
 | ~v~           | vertical split                                                |
 | ~V~           | horizontal split and focus new window                         |
 | ~w~           | focus other window                                            |
-| Any other key | leave the transient-state                                         |
+| Any other key | leave the transient-state                                     |
 
 **** Golden ratio
 If you resize windows like crazy you may want to give a try to [[https://github.com/roman/golden-ratio.el][golden-ratio]].
@@ -1645,11 +1645,11 @@ the opened buffer and kill them.
 
 | Key Binding   | Description                                   |
 |---------------+-----------------------------------------------|
-| ~SPC b .~     | initiate transient-state                          |
+| ~SPC b .~     | initiate transient-state                      |
 | ~K~           | kill current buffer                           |
 | ~n~           | go to next buffer (avoid special buffers)     |
 | ~N~           | go to previous buffer (avoid special buffers) |
-| Any other key | leave the transient-state                         |
+| Any other key | leave the transient-state                     |
 
 **** Special Buffers
 Unlike vim, emacs creates many buffers that most people do not need to see. Some
@@ -1744,24 +1744,24 @@ Spacemacs defines a [[Transient-states][transient-state]] for =ido=.
 
 Initiate the transient-state with ~M-SPC~ or ~s-M-SPC~ while in an =ido= buffer.
 
-| Key Binding          | Description                         |
-|----------------------+-------------------------------------|
-| ~M-SPC~ or ~s-M-SPC~ | initiate or leave the transient-state   |
-| ~?~                  | display help                        |
-| ~e~                  | open dired                          |
-| ~h~                  | delete backward or parent directory |
-| ~j~                  | next match                          |
-| ~J~                  | sub directory                       |
-| ~k~                  | previous match                      |
-| ~K~                  | parent directory                    |
-| ~l~                  | select match                        |
-| ~n~                  | next directory in history           |
-| ~o~                  | open in other window                |
-| ~p~                  | previous directory in history       |
-| ~q~                  | quit transient-state                    |
-| ~s~                  | open in a new horizontal split      |
-| ~t~                  | open in other frame                 |
-| ~v~                  | open in a new vertical split        |
+| Key Binding          | Description                           |
+|----------------------+---------------------------------------|
+| ~M-SPC~ or ~s-M-SPC~ | initiate or leave the transient-state |
+| ~?~                  | display help                          |
+| ~e~                  | open dired                            |
+| ~h~                  | delete backward or parent directory   |
+| ~j~                  | next match                            |
+| ~J~                  | sub directory                         |
+| ~k~                  | previous match                        |
+| ~K~                  | parent directory                      |
+| ~l~                  | select match                          |
+| ~n~                  | next directory in history             |
+| ~o~                  | open in other window                  |
+| ~p~                  | previous directory in history         |
+| ~q~                  | quit transient-state                  |
+| ~s~                  | open in a new horizontal split        |
+| ~t~                  | open in other frame                   |
+| ~v~                  | open in a new vertical split          |
 
 *** NeoTree file tree
 Spacemacs provides a quick and simple way to navigate in an unknown project
@@ -2085,8 +2085,8 @@ Navigation between the highlighted symbols can be done with the commands:
 
 | Key Binding | Description                                                                        |
 |-------------+------------------------------------------------------------------------------------|
-| ~/~         | initiate navigation transient-state on current symbol and jump forwards                |
-| ~#~         | initiate navigation transient-state on current symbol and jump backwards               |
+| ~/~         | initiate navigation transient-state on current symbol and jump forwards            |
+| ~#~         | initiate navigation transient-state on current symbol and jump backwards           |
 | ~SPC s e~   | edit all occurrences of the current symbol(/)                                      |
 | ~SPC s h~   | highlight the current symbol and all its occurrence within the current range       |
 | ~SPC s H~   | go to the last searched occurrence of the last highlighted symbol                  |
@@ -2103,7 +2103,7 @@ In 'Spacemacs' highlight symbol transient-state:
 | ~D~           | go to previous definition occurrence                          |
 | ~r~           | change range (=function=, =display area=, =whole buffer=)     |
 | ~R~           | go to home occurrence (reset position to starting occurrence) |
-| Any other key | leave the navigation transient-state                              |
+| Any other key | leave the navigation transient-state                          |
 
 (*) using [[https://github.com/tsdh/iedit][iedit]] or the default implementation
 of =auto-highlight-symbol=
@@ -2205,8 +2205,8 @@ Text related commands (start with ~x~):
     | ~SPC x j l~ | set the justification to left                                 |
     | ~SPC x j n~ | set the justification to none                                 |
     | ~SPC x j r~ | set the justification to right                                |
-    | ~SPC x J~   | move down a line of text (enter transient-state)                  |
-    | ~SPC x K~   | move up a line of text (enter transient-state)                    |
+    | ~SPC x J~   | move down a line of text (enter transient-state)              |
+    | ~SPC x K~   | move up a line of text (enter transient-state)                |
     | ~SPC x l s~ | sort lines                                                    |
     | ~SPC x l u~ | uniquify lines                                                |
     | ~SPC x o~   | use avy to select a link in the frame and open it             |
@@ -2247,16 +2247,16 @@ It is possible to enable it easily for /all programming modes/ with the variable
 **** Text
 The font size of the current buffer can be adjusted with the commands:
 
-| Key Binding   | Description                                                                |
-|---------------+----------------------------------------------------------------------------|
+| Key Binding   | Description                                                                    |
+|---------------+--------------------------------------------------------------------------------|
 | ~SPC z x +~   | scale up the font and initiate the font scaling transient-state                |
 | ~SPC z x =~   | scale up the font and initiate the font scaling transient-state                |
 | ~SPC z x -~   | scale down the font and initiate the font scaling transient-state              |
 | ~SPC z x 0~   | reset the font size (no scaling) and initiate the font scaling transient-state |
-| ~+~           | increase the font size                                                     |
-| ~=~           | increase the font size                                                     |
-| ~-~           | decrease the font size                                                     |
-| ~0~           | reset the font size                                                        |
+| ~+~           | increase the font size                                                         |
+| ~=~           | increase the font size                                                         |
+| ~-~           | decrease the font size                                                         |
+| ~0~           | reset the font size                                                            |
 | Any other key | leave the font scaling transient-state                                         |
 
 Note that /only/ the text of the current buffer is scaled, the other buffers,
@@ -2266,23 +2266,23 @@ a frame use the =zoom frame= bindings (see next section).
 **** Frame
 You can zoom in and out the whole content of the frame with the commands:
 
-| Key Binding   | Description                                                             |
-|---------------+-------------------------------------------------------------------------|
+| Key Binding   | Description                                                                 |
+|---------------+-----------------------------------------------------------------------------|
 | ~SPC z f +~   | zoom in the frame content and initiate the frame scaling transient-state    |
 | ~SPC z f =~   | zoom in the frame content and initiate the frame scaling transient-state    |
 | ~SPC z f -~   | zoom out the frame content and initiate the frame scaling transient-state   |
 | ~SPC z f 0~   | reset the frame content size and initiate the frame scaling transient-state |
-| ~+~           | zoom in                                                                 |
-| ~=~           | zoom in                                                                 |
-| ~-~           | zoom out                                                                |
-| ~0~           | reset zoom                                                              |
+| ~+~           | zoom in                                                                     |
+| ~=~           | zoom in                                                                     |
+| ~-~           | zoom out                                                                    |
+| ~0~           | reset zoom                                                                  |
 | Any other key | leave the zoom frame transient-state                                        |
 
 *** Increase/Decrease numbers
 Spacemacs uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or increase numbers.
 
-| Key Binding | Description                                                     |
-|-------------+-----------------------------------------------------------------|
+| Key Binding | Description                                                         |
+|-------------+---------------------------------------------------------------------|
 | ~SPC n +~   | increase the number under point by one and initiate transient-state |
 | ~SPC n -~   | decrease the number under point by one and initiate transient-state |
 
@@ -2292,7 +2292,7 @@ In transient-state:
 |---------------+----------------------------------------|
 | ~+~           | increase the number under point by one |
 | ~-~           | decrease the number under point by one |
-| Any other key | leave the transient-state                  |
+| Any other key | leave the transient-state              |
 
 *Tips:* you can increase or decrease a value by more that once by using a prefix
 argument (ie. ~10 SPC n +~ will add 10 to the number under point).

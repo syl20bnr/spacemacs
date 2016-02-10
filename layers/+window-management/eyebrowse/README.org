@@ -3,12 +3,12 @@
 
 [[file:img/eyebrowse.gif]] [[file:img/i3wm.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[Removing additional help][Removing additional help]]
- - [[Key bindings][Key bindings]]
+* Table of Contents                                         :TOC_4:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#removing-additional-help][Removing additional help]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds [[https://i3wm.org/][i3wm]] like workspaces thanks to the [[https://github.com/wasamasa/eyebrowse][eyebrowse]] package.
