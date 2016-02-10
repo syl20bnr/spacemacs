@@ -304,7 +304,7 @@ the command =configuration-layer/rollback=.
 
 * Configuration layers
 *Note*: This is a very simple overview of how layers work. A more extensive
-introduction to writing configuration layers can be found [[file:LAYERS.org][here]].
+introduction to writing configuration layers can be found [[./LAYERS.org][here]].
 
 ** Purpose
 Layers help collect related packages together to provide features. For example,
@@ -357,7 +357,7 @@ Example:
 #+END_SRC
 
 For details on installing local packages using quelpa or in the layer's =local=
-folder, see [[file:LAYERS.org::packages.el][LAYERS]].
+folder, see [[LAYERS.org#packagesel][this document]].
 
 **** Initialization
 To initialize an extension or a package =xxx=, define a function with this
