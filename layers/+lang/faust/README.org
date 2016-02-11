@@ -1,0 +1,23 @@
+#+TITLE: faust layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+
+#+CAPTION: logo
+
+# The maximum height of the logo should be 200 pixels.
+[[img/faust.png]]
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Decsription][Description]]
+ - [[Install][Install]]
+
+* Description
+This simple layer adds support for the [[http://faust.grame.fr/][faust language]].
+It adds =faust-mode= as well as integrating it with =auto-completion=.
+
+
+* Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(faust))
+#+end_src
