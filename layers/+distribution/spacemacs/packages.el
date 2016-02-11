@@ -1443,6 +1443,7 @@ Open junk file using helm, with `prefix-arg' search in junk files"
 (defun spacemacs/init-linum-relative ()
   (use-package linum-relative
     :commands (linum-relative-toggle linum-relative-on)
+    :diminish ""
     :init
     (progn
       (when (eq dotspacemacs-line-numbers 'relative)
