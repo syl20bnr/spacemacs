@@ -199,6 +199,7 @@ that directory."
   (defun spacemacs/counsel-git-grep-region-or-symbol ()
     "Use `counsel-git-grep' to search for the selected region or
  the symbol around point in the current project with git grep."
+    (interactive)
     (let ((input (if (region-active-p)
                      (buffer-substring-no-properties
                       (region-beginning) (region-end))
