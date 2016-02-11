@@ -18,7 +18,8 @@
         (ivy :location built-in)
         (ivy-spacemacs-help :location local)
         smex
-        swiper))
+        swiper
+        wgrep))
 
 (defun spacemacs-ivy/init-counsel ()
   (defvar spacemacs--counsel-commands
@@ -540,3 +541,5 @@ around point as the initial input."
         "sb" 'swiper-all
         "sB" 'spacemacs/swiper-all-region-or-symbol)
       (global-set-key "\C-s" 'swiper))))
+
+(defun spacemacs-ivy/init-wgrep ())
