@@ -26,4 +26,6 @@
       (unless (file-directory-p image-dired-dir)
         (make-directory image-dired-dir)))
     :config
-    (define-key ranger-mode-map (kbd "-") 'ranger-up-directory)))
+    (progn
+      (define-key ranger-mode-map (kbd "e") 'ranger-search-files)
+      (define-key ranger-mode-map (kbd "-") 'ranger-up-directory))))
