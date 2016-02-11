@@ -13,6 +13,7 @@
       '(
         (mu4e :skip-install t)
         mu4e-maildirs-extension
+        helm-mu
         org
         ))
 
@@ -21,7 +22,7 @@
     :commands (mu4e mu4e-compose-new)
     :init
     (progn
-      (spacemacs/set-leader-keys "a M" 'mu4e)
+      (spacemacs/set-leader-keys "a m m" 'mu4e)
       (global-set-key (kbd "C-x m") 'mu4e-compose-new))
     :config
     (progn
@@ -45,6 +46,16 @@
       (when mu4e-account-alist
         (add-hook 'mu4e-compose-pre-hook 'mu4e/set-account)
         (add-hook 'message-sent-hook 'mu4e/mail-account-reset)))))
+
+(defun mu4e/init-helm-mu ()
+  (spacemacs/set-leader-keys
+    "a m s" 'helm-mu
+    "a m c" 'helm-mu-contacts))
+
+(defun mu4e/post-init-helm ()
+  (require 'helm-config)
+  (autoload 'helm-mu "helm-mu" "" t)
+  (autoload 'helm-mu-contacts "helm-mu" "" t))
 
 (defun mu4e/init-mu4e-maildirs-extension ()
   (use-package mu4e-maildirs-extension
