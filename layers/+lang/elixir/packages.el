@@ -15,5 +15,5 @@
     company
     elixir-mode
     popwin
-    ruby-end
+    smartparens
     ))

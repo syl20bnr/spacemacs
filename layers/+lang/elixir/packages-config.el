@@ -102,6 +102,25 @@
   (spacemacs|add-company-hook elixir-mode)
   (spacemacs|add-company-hook alchemist-iex-mode))
 
+(defun elixir-do-end-close-action (id action context)
+  (when (eq action 'insert)
+    (newline-and-indent)
+    (forward-line -1)
+    (indent-according-to-mode)))
+
+(defun elixir/post-init-smartparens ()
+  (sp-with-modes '(elixir-mode)
+    (sp-local-pair "->" "end"
+                   :when '(("RET"))
+                   :post-handlers '(:add elixir-do-end-close-action)
+                   :actions '(insert)))
+
+  (sp-with-modes '(elixir-mode)
+    (sp-local-pair "do" "end"
+                   :when '(("SPC" "RET"))
+                   :post-handlers '(:add elixir-do-end-close-action)
+                   :actions '(insert))))
+
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
     :defer t))
@@ -110,27 +129,3 @@
   (spacemacs|use-package-add-hook popwin
     :post-config
     (push '("*mix*" :tail t :noselect t) popwin:special-display-config)))
-
-(defun elixir/init-ruby-end ()
-  (use-package ruby-end
-    :defer t
-    :init
-    (progn
-      (defun spacemacs//ruby-end ()
-        (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
-             "\\(?:^\\|\\s-+\\)\\(?:do\\)")
-        (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers)
-             nil)
-        (ruby-end-mode +1))
-      (add-hook 'elixir-mode-hook 'spacemacs//ruby-end)
-      ;; hack to remove the autoloaded `add-hook' in `ruby-end'
-      ;; since they are inserted as an autoload, they have to be removed both
-      ;; before and after loading
-      (remove-hook 'ruby-mode-hook 'ruby-end-mode)
-      (remove-hook 'enh-ruby-mode-hook 'ruby-end-mode))
-    :config
-    (progn
-      (spacemacs|hide-lighter ruby-end-mode)
-      ;; see comment in `:init' block
-      (remove-hook 'ruby-mode-hook 'ruby-end-mode)
-      (remove-hook 'enh-ruby-mode-hook 'ruby-end-mode))))
