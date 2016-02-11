@@ -1176,6 +1176,7 @@ on whether the spacemacs-ivy layer is used or not, with
 (defun spacemacs/init-linum-relative ()
   (use-package linum-relative
     :commands (linum-relative-toggle linum-relative-on)
+    :diminish ""
     :init
     (progn
       (when (eq dotspacemacs-line-numbers 'relative)
