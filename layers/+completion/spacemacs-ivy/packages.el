@@ -18,13 +18,14 @@
         (ivy :location built-in)
         (ivy-spacemacs-help :location local)
         smex
-        swiper))
+        swiper
+        wgrep))
 
 (defun spacemacs-ivy/init-counsel ()
   (defvar spacemacs--counsel-commands
-    '(("ag" . "ag --vimgrep %s %S .")
-      ("pt" . "pt -e --nocolor --nogroup --column %s %S .")
-      ("ack" . "ack --nocolor --nogroup --column %s %S .")
+    '(("ag" . "ag --nocolor --nogroup %s %S .")
+      ("pt" . "pt -e --nocolor --nogroup %s %S .")
+      ("ack" . "ack --nocolor --nogroup %s %S .")
       ("grep" . "grep -nrP %s %S ."))
     "Alist of search commands and their corresponding commands
 with options to run in the shell.")
@@ -332,6 +333,13 @@ Helm hack."
       (with-eval-after-load 'evil
         (evil-make-overriding-map ivy-occur-mode-map 'normal))
 
+      (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
+        "w" 'ivy-wgrep-change-to-wgrep-mode)
+      (evil-define-key 'normal wgrep-mode-map ",," 'wgrep-finish-edit)
+      (evil-define-key 'normal wgrep-mode-map ",c" 'wgrep-finish-edit)
+      (evil-define-key 'normal wgrep-mode-map ",a" 'wgrep-abort-changes)
+      (evil-define-key 'normal wgrep-mode-map ",k" 'wgrep-abort-changes)
+
       (defun spacemacs/ivy-available-repls ()
         "Show available repls."
         (interactive)
@@ -540,3 +548,5 @@ around point as the initial input."
         "sb" 'swiper-all
         "sB" 'spacemacs/swiper-all-region-or-symbol)
       (global-set-key "\C-s" 'swiper))))
+
+(defun spacemacs-ivy/init-wgrep ())
