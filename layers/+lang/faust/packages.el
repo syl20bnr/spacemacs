@@ -62,8 +62,10 @@ Each entry is either:
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
 (defun faust/init-faust-mode ()
-  (use-package faust-mode :defer t :mode "\\.\\(dsp\\|lib\\)\\'"))
-
+  (use-package faust-mode
+  :defer t
+  :mode "\\.\\(dsp\\|lib\\)\\'")
+  
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun faust/post-init-company ()
     (spacemacs|add-company-hook faust-mode)
