@@ -261,7 +261,7 @@ It will toggle the overlay under point or create an overlay of one character."
 (defun spacemacs-editing/init-smartparens ()
   (use-package smartparens
     :defer t
-    :commands (sp-split-sexp sp-newline)
+    :commands (sp-split-sexp sp-newline sp-up-sexp)
     :init
     (progn
       (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
@@ -321,6 +321,22 @@ It will toggle the overlay under point or create an overlay of one character."
       (sp-pair "{" nil :post-handlers
                '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
       (sp-pair "[" nil :post-handlers
-               '(:add (spacemacs/smartparens-pair-newline-and-indent "RET"))))))
+               '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
 
-
+      (defun spacemacs/smart-closing-parenthesis ()
+        (interactive)
+        (let* ((sp-navigate-close-if-unbalanced t)
+               (current-pos (point))
+               (current-line (line-number-at-pos current-pos))
+               (next-pos (save-excursion
+                           (sp-up-sexp)
+                           (point)))
+               (next-line (line-number-at-pos next-pos)))
+          (cond
+           ((and (= current-line next-line)
+                 (not (= current-pos next-pos)))
+            (sp-up-sexp))
+           (t
+            (insert-char ?\))))))
+      (when dotspacemacs-smart-closing-parenthesis
+          (define-key evil-insert-state-map ")" 'spacemacs/smart-closing-parenthesis)))))

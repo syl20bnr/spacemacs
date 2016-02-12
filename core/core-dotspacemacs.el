@@ -246,6 +246,11 @@ derivatives. If set to `relative', also turns on relative line numbers.")
 (defvar dotspacemacs-smartparens-strict-mode nil
   "If non-nil smartparens-strict-mode will be enabled in programming modes.")
 
+(defvar dotspacemacs-smart-closing-parenthesis nil
+  "If non-nil pressing the closing parenthesis `)' key in insert mode passes
+  over any automatically added closing parenthesis, bracket, quote, etc…
+  This can be temporary disabled by pressing `C-q' before `)'. (default nil)")
+
 (defvar dotspacemacs-highlight-delimiters 'all
   "Select a scope to highlight delimiters. Possible values are `any',
 `current', `all' or `nil'. Default is `all' (highlight any scope and
