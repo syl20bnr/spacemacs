@@ -54,6 +54,7 @@
     jbeans-theme
     light-soap-theme
     lush-theme
+    majapahit-theme
     material-theme
     minimal-theme
     moe-theme

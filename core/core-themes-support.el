@@ -145,6 +145,8 @@
     (colorsarenice-light . colorsarenice-theme)
     (hemisu-dark  . hemisu-theme)
     (hemisu-light . hemisu-theme)
+    (majapahit-dark . majapahit-theme)
+    (majapahit-light . majapahit-theme)
     (material-light . material-theme)
     (minimal-light . minimal-theme)
     (moe-dark  . moe-theme)
