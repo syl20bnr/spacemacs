@@ -724,7 +724,7 @@ path."
           (cond
            ((or (null pkg) (eq 'elpa location))
             (configuration-layer//install-from-elpa pkg-name)
-            (oset pkg :lazy-install nil))
+            (when pkg (oset pkg :lazy-install nil)))
            ((and (listp location) (eq 'recipe (car location)))
             (configuration-layer//install-from-recipe pkg)
             (oset pkg :lazy-install nil))
