@@ -13,6 +13,7 @@
 
 (defconst faust-packages
   '(company
+    dumb-jump
     faust-mode
     yasnippet))
 
@@ -25,6 +26,16 @@
     "f" 'faust/faust-to-firefox
     "j" 'faust/faust-to-jack
     "q" 'faust/faust-to-jack-qt))
+
+(defun faust/init-dumb-jump ()
+  ;; Load omnisharp-mode with csharp-mode, this should start the omnisharp server automatically
+  (add-hook 'faust-mode-hook 'dumb-jump-mode)
+  (use-package dumb-jump)
+  :defer t
+  (spacemacs/set-leader-keys-for-major-mode 'faust-mode
+    ;; Navigation
+    "g"   'dumb-jump-go
+    "b"   'dumb-jump-back))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun faust/post-init-company ()
