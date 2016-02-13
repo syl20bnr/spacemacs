@@ -66,6 +66,7 @@
     noctilux-theme
     obsidian-theme
     occidental-theme
+    omtose-phellack-theme
     oldlace-theme
     organic-green-theme
     pastels-on-dark-theme
