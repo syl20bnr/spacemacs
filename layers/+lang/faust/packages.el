@@ -33,45 +33,35 @@
      'spacemacs/load-yasnippet
      '(faust-mode-hook))))
 
-(defun faust/shell-command-on-buffer (command)
-  "todo"
-  (interactive)
-  (if (buffer-file-name
-       (shell-command (concat command (buffer-file-name)))
-       )
-      (error "The buffer must be saved in a file first")))
-
-
-
-(defun faust/async-shell-command-on-buffer (command)
-  (interactive)
-  (if (buffer-file-name
-       (start-process-shell-command "faust-compile" "faust-compile" (concat command (buffer-file-name))))
-      (error "The buffer must be saved in a file first")))
-
 (defun faust/faust-to-firefox ()
+  "compile a block-diagram and show it in the browser"
   (interactive)
   (set-process-sentinel
    (start-process-shell-command "faust2svg" "faust-compile"
                                 (concat  "faust2svg " buffer-file-name))
-   'faust2svg-sentinel))
+   'faust/faust2svg-sentinel))
 
-(defun faust2svg-sentinel (process event)
+(defun faust/faust2svg-sentinel (process event)
+  "show block-diagram in browser"
   (browse-url-of-file (concat  (file-name-sans-extension buffer-file-name) "-svg/process.svg")))
 
 (defun faust/faust-to-jack ()
+  "compile a jack-gtk program and run it"
   (interactive)
   (set-process-sentinel
    (start-process-shell-command "faust2jack" "faust-compile"
                                 (concat  "faust2jack " buffer-file-name))
-   'faust-run-sentinel))
+   'faust/faust-run-sentinel))
 
 (defun faust/faust-to-jack-qt ()
+  "compile a jack-qt program and run it"
   (interactive)
   (set-process-sentinel
    (start-process-shell-command "faust2jaqt" "faust-compile"
                                 (concat  "faust2jaqt " buffer-file-name))
-   'faust-run-sentinel))
+   'faust/faust-run-sentinel))
 
-(defun faust-run-sentinel (process event)
-  (start-process-shell-command "faust-run" "faust-compile" (file-name-sans-extension (buffer-file-name))))
+(defun faust/faust-run-sentinel (process event)
+  "run the program"
+  (start-process-shell-command "faust-run" nil (file-name-sans-extension (buffer-file-name)))
+  (switch-to-buffer-other-window "faust-compile"))
