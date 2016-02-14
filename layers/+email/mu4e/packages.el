@@ -66,13 +66,11 @@
 (defun mu4e/init-mu4e-alert ()
   (use-package mu4e-alert
     :defer t
-    :init
-    (progn
-      (with-eval-after-load 'mu4e
-        (when mu4e-enable-notifications
-          (mu4e-alert-enable-notifications))
-        (when mu4e-enable-mode-line
-          (mu4e-alert-enable-mode-line-display))))))
+    :init (with-eval-after-load 'mu4e
+            (when mu4e-enable-notifications
+              (mu4e-alert-enable-notifications))
+            (when mu4e-enable-mode-line
+              (mu4e-alert-enable-mode-line-display)))))
 
 (defun mu4e/init-mu4e-maildirs-extension ()
   (use-package mu4e-maildirs-extension

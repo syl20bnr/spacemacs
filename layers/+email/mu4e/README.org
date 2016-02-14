@@ -12,6 +12,8 @@
    - [[Multiple Accounts][Multiple Accounts]]
    - [[Example configuration][Example configuration]]
    - [[Notifications][Notifications]]
+     - [[OS notifications][OS notifications]]
+     - [[Mode-line notifications][Mode-line notifications]]
  - [[See also][See also]]
 
 * Install
@@ -147,11 +149,22 @@ count of unread messages to the modeline.
 
 [[https://raw.githubusercontent.com/iqbalansari/mu4e-alert/master/screenshots/mu4e-alert-in-action.png]]
 
+For an extended documentation of the available customizations please refer to
+[[https://github.com/iqbalansari/mu4e-alert#customizations][mu4e-alert's documentation]]
+
+*** OS notifications
 To enable notifications about new messages, add the following line to your
 ~dotspacemacs/user-config~:
 
 #+BEGIN_SRC emacs-lisp
   (setq mu4e-enable-notifications t)
+#+END_SRC
+
+or use layer variables when you add the layer to
+=dotspacemacs-configuration-layers=:
+
+#+BEGIN_SRC emacs-lisp
+  (mu4e :variables mu4e-enable-notifications t)
 #+END_SRC
 
 By default, notifications will be shown in the ~*Messages*~ buffer. To enable
@@ -169,15 +182,20 @@ installed libraries:
     ;; (mu4e-alert-set-default-style 'growl))      ; Alternative for Mac OSX
 #+END_SRC
 
-To enable modeline display about new messages, add the following line to
+*** Mode-line notifications
+To enable mode-line display about new messages, add the following line to
 your ~dotspacemacs/user-config~:
 
 #+BEGIN_SRC emacs-lisp
   (setq mu4e-enable-mode-line t)
 #+END_SRC
 
-For an extended documentation of the available customizations please refer to
-[[https://github.com/iqbalansari/mu4e-alert#customizations][mu4e-alert's documentation]]
+or use layer variables when you add the layer to
+=dotspacemacs-configuration-layers=:
+
+#+BEGIN_SRC emacs-lisp
+  (mu4e :variables mu4e-enable-mode-line t)
+#+END_SRC
 
 * See also
 Refer to the official mu and mu4e documentation for additional info.
