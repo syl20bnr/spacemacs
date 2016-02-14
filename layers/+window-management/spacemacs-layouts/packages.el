@@ -19,7 +19,9 @@
     :diminish persp-mode
     :init
     (progn
-      (setq persp-auto-resume-time (if dotspacemacs-auto-resume-layouts 1 -1)
+      (setq persp-auto-resume-time (if (or dotspacemacs-auto-resume-layouts
+                                           spacemacs-force-resume-layouts)
+                                       1 -1)
             persp-nil-name dotspacemacs-default-layout-name
             persp-reset-windows-on-nil-window-conf nil
             persp-set-last-persp-for-new-frames nil
