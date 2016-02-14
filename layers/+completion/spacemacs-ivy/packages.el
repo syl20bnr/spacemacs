@@ -355,6 +355,13 @@ Helm hack."
       (with-eval-after-load 'evil
         (evil-make-overriding-map ivy-occur-mode-map 'normal))
 
+      (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
+        "w" 'ivy-wgrep-change-to-wgrep-mode)
+      (evil-define-key 'normal wgrep-mode-map ",," 'wgrep-finish-edit)
+      (evil-define-key 'normal wgrep-mode-map ",c" 'wgrep-finish-edit)
+      (evil-define-key 'normal wgrep-mode-map ",a" 'wgrep-abort-changes)
+      (evil-define-key 'normal wgrep-mode-map ",k" 'wgrep-abort-changes)
+
       (defun spacemacs/ivy-available-repls ()
         "Show available repls."
         (interactive)
