@@ -81,6 +81,8 @@ than this amount.")
             (ivy--insert-prompt))))
       (setq counsel--async-time (current-time))))
 
+  (defvar spacemacs--counsel-search-cmd)
+
   ;; see `counsel-ag-function'
   (defun spacemacs//make-counsel-search-function (tool)
     (lexical-let ((base-cmd
@@ -98,7 +100,8 @@ than this amount.")
                  (regex (counsel-unquote-regex-parens
                          (setq ivy--old-re
                                (ivy--regex string)))))
-            (spacemacs//counsel-async-command (format base-cmd args regex))
+            (setq spacemacs--counsel-search-cmd (format base-cmd args regex))
+            (spacemacs//counsel-async-command spacemacs--counsel-search-cmd)
             nil)))))
 
   ;; see `counsel-ag'
@@ -141,6 +144,7 @@ that directory."
        :dynamic-collection t
        :history 'counsel-git-grep-history
        :action #'counsel-git-grep-action
+       :caller 'spacemacs/counsel-search
        :unwind (lambda ()
                  (counsel-delete-process)
                  (swiper--cleanup)))))
@@ -190,6 +194,24 @@ that directory."
                      tool-name))
          (interactive)
          (spacemacs/counsel-search ,tools t (projectile-project-root))))))
+
+  (defun spacemacs//counsel-occur ()
+    "Generate a custom occur buffer for `counsel-git-grep'."
+    (ivy-occur-grep-mode)
+    (setq default-directory counsel--git-grep-dir)
+    (let ((cands ivy--old-cands))
+      ;; Need precise number of header lines for `wgrep' to work.
+      (insert (format "-*- mode:grep; default-directory: %S -*-\n\n\n"
+                      default-directory))
+      (insert (format "%d candidates:\n" (length cands)))
+      (ivy--occur-insert-lines
+       (mapcar
+        (lambda (cand) (concat "./" cand))
+        ivy--old-cands))))
+
+  (with-eval-after-load 'ivy
+    (ivy-set-occur 'spacemacs/counsel-search
+                   'spacemacs//counsel-occur))
 
   (defun spacemacs/counsel-search-docs ()
     "Search spacemacs docs using `spacemacs/counsel-search'"
