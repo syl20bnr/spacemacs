@@ -533,15 +533,18 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
     (insert list-display-name)
     (mapc (lambda (el)
             (insert "\n    ")
-            (widget-create 'push-button
-                           :action `(lambda (&rest ignore) (bookmark-jump ,el))
-                           :mouse-face 'highlight
-                           :follow-link "\C-m"
-                           :button-prefix ""
-                           :button-suffix ""
-                           :format "%[%t%]"
-                           (format "%s - %s" el (abbreviate-file-name
-                                                 (bookmark-get-filename el)))))
+            (let ((filename (bookmark-get-filename el)))
+              (widget-create 'push-button
+                             :action `(lambda (&rest ignore) (bookmark-jump ,el))
+                             :mouse-face 'highlight
+                             :follow-link "\C-m"
+                             :button-prefix ""
+                             :button-suffix ""
+                             :format "%[%t%]"
+                             (if filename
+                                 (format "%s - %s"
+                                         el (abbreviate-file-name filename))
+                               (format "%s" el)))))
           list)))
 
 (defun spacemacs-buffer/insert-startupify-lists ()
