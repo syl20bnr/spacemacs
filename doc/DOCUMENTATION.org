@@ -1521,9 +1521,9 @@ Windows manipulation commands (start with ~w~):
 |------------------------+-----------------------------------------------------------------------------|
 | ~SPC w =~              | balance split windows                                                       |
 | ~SPC w b~              | force the focus back to the minibuffer (usefull with =helm= popups)         |
-| ~SPC w c~              | close a window                                                              |
-| ~SPC w C~              | delete another window using [[https://github.com/abo-abo/ace-window][ace-delete-window]]                               |
-| ~SPC w d~              | toggle window dedication (dedicated window cannot be reused by a mode)      |
+| ~SPC w d~              | close a window                                                              |
+| ~SPC w D~              | delete another window using [[https://github.com/abo-abo/ace-window][ace-delete-window]]                               |
+| ~SPC w t~              | toggle window dedication (dedicated window cannot be reused by a mode)      |
 | ~SPC w f~              | toggle follow mode                                                          |
 | ~SPC w h~              | move to window on the left                                                  |
 | ~SPC w H~              | move window to the left                                                     |
@@ -1555,7 +1555,7 @@ window resizing.
 
 | Key Binding   | Description                                                   |
 |---------------+---------------------------------------------------------------|
-| ~SPC w .~     | initiate transient-state                                          |
+| ~SPC w .~     | initiate transient-state                                      |
 | ~?~           | display the full documentation in minibuffer                  |
 | ~0~           | go to window number 0                                         |
 | ~1~           | go to window number 1                                         |
@@ -1573,8 +1573,8 @@ window resizing.
 | ~]~           | enlarge window horizontally                                   |
 | ~{~           | shrink window vertically                                      |
 | ~}~           | enlarge window vertically                                     |
-| ~c~           | close window                                                  |
-| ~C~           | close other windows                                           |
+| ~d~           | close window                                                  |
+| ~D~           | close other windows                                           |
 | ~g~           | toggle =golden-ratio= on and off                              |
 | ~h~           | go to window on the left                                      |
 | ~j~           | go to window below                                            |
@@ -1593,7 +1593,7 @@ window resizing.
 | ~v~           | vertical split                                                |
 | ~V~           | horizontal split and focus new window                         |
 | ~w~           | focus other window                                            |
-| Any other key | leave the transient-state                                         |
+| Any other key | leave the transient-state                                     |
 
 **** Golden ratio
 If you resize windows like crazy you may want to give a try to [[https://github.com/roman/golden-ratio.el][golden-ratio]].
@@ -1619,7 +1619,7 @@ Buffer manipulation commands (start with ~b~):
 |-------------+--------------------------------------------------------------------------|
 | ~SPC TAB~   | switch to alternate buffer in the current window (switch back and forth) |
 | ~SPC b b~   | switch to a buffer using =helm=                                          |
-| ~SPC b c~   | kill the current buffer (does not delete the visited file)               |
+| ~SPC b d~   | kill the current buffer (does not delete the visited file)               |
 | ~SPC b e~   | erase the content of the buffer (ask for confirmation)                   |
 | ~SPC b h~   | open =*spacemacs*= home buffer                                           |
 | ~SPC b k~   | kill a buffer                                                            |
