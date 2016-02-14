@@ -852,11 +852,16 @@ below. Anything else exits."
   (use-package restart-emacs
     :defer t
     :init
-    (spacemacs/set-leader-keys "qr" 'spacemacs/restart-emacs)
-    (defun spacemacs/restart-emacs ()
+    (defun spacemacs/restart-emacs (&optional args)
       (interactive)
       (setq spacemacs-really-kill-emacs t)
-      (restart-emacs))))
+      (restart-emacs args))
+    (defun spacemacs/restart-emacs-resume-layouts (&optional args)
+      (interactive)
+      (spacemacs/restart-emacs (cons "--resume-layouts" args)))
+    (spacemacs/set-leader-keys
+      "qr" 'spacemacs/restart-emacs-resume-layouts
+      "qR" 'spacemacs/restart-emacs)))
 
 (defun spacemacs-base/init-savehist ()
   (use-package savehist
