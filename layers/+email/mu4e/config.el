@@ -21,5 +21,8 @@
 (defvar mu4e-enable-mode-line nil
   "If non-nil, enable display of unread emails in mode-line.")
 
+(defvar mu4e-use-maildirs-extension nil
+  "Use mu4e-maildirs-extension package if value is non-nil.")
+
 (when mu4e-installation-path
   (push mu4e-installation-path load-path))
