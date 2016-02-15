@@ -46,7 +46,7 @@
 
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (defun python/post-init-company ()
+  (defun shell-scripts/post-init-company ()
     (spacemacs|add-company-hook sh-mode)
     (spacemacs|add-company-hook fish-mode))
 
