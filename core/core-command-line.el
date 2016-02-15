@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar spacemacs-force-resume-layout nil
+(defvar spacemacs-force-resume-layouts nil
   "If non-nil force the current emacs instance to resume layouts
   at start time despite the value of `dotspacemacs-auto-resume-layouts'.")
 
