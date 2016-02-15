@@ -1176,7 +1176,6 @@ on whether the spacemacs-ivy layer is used or not, with
 (defun spacemacs/init-linum-relative ()
   (use-package linum-relative
     :commands (linum-relative-toggle linum-relative-on)
-    :diminish ""
     :init
     (progn
       (when (eq dotspacemacs-line-numbers 'relative)
@@ -1184,6 +1183,7 @@ on whether the spacemacs-ivy layer is used or not, with
       (spacemacs/set-leader-keys "tr" 'linum-relative-toggle))
     :config
     (progn
+      (spacemacs|hide-lighter linum-relative-mode)
       (setq linum-relative-current-symbol ""))))
 
 (defun spacemacs/init-lorem-ipsum ()
