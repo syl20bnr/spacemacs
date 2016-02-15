@@ -26,7 +26,7 @@ then fallback to the maildir."
                      (mailto-account
                       (car (cl-remove-if-not
                             'identity
-                            (mapcar ´mu4e//search-account-by-mail-address
+                            (mapcar 'mu4e//search-account-by-mail-address
                                     mailtos))))
                      (maildir
                       (mu4e-message-field mu4e-compose-parent-message :maildir))
