@@ -259,6 +259,8 @@
       "k"
       "C-j"
       "C-k")
+    (bepo/evil-correct-keys 'normal evil-magit-toggle-text-minor-mode-map
+      "C-j")
     (dolist (map (list magit-branch-section-map
                        magit-commit-section-map
                        magit-file-section-map
@@ -266,7 +268,13 @@
                        magit-remote-section-map
                        magit-staged-section-map
                        magit-unstaged-section-map
-                       ))
+                       magit-module-commit-section-map
+                       magit-stash-section-map
+                       magit-stashes-section-map
+                       magit-tag-section-map
+                       magit-unpulled-section-map
+                       magit-unpushed-section-map
+                       magit-untracked-section-map))
       (bepo/correct-keys map
         "j"
         "k"
