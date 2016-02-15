@@ -68,7 +68,9 @@
 (defun spacemacs-evil/init-evil-iedit-state ()
   (use-package evil-iedit-state
     :commands (evil-iedit-state evil-iedit-state/iedit-mode)
-    :init (spacemacs/set-leader-keys "se" 'evil-iedit-state/iedit-mode)
+    :init (spacemacs/set-leader-keys "se" (if (eq dotspacemacs-editing-style 'emacs)
+                                              'iedit-mode
+                                            'evil-iedit-state/iedit-mode))
     :config
     ;; activate leader in iedit and iedit-insert states
     (define-key evil-iedit-state-map
