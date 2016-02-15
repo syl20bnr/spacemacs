@@ -266,7 +266,7 @@ Click on the arrow to update Spacemacs to the last version.
 
 ```sh
 git fetch
-git reset --hard <tag version which you are updating to> 
+git reset --hard <tag version which you are updating to>
 ```
 
 ## On develop branch
