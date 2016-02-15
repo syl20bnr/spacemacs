@@ -103,8 +103,8 @@
   [_A_]^^^^       add all buffers from another layout
   [_a_]^^^^       add all the buffers from another layout in the current one
   [_b_]^^^^       select a buffer in the current layout
-  [_c_]^^^^       close the current layout and keep its buffers
-  [_C_]^^^^       close the other layouts and keep their buffers
+  [_d_]^^^^       close the current layout and keep its buffers
+  [_D_]^^^^       close the other layouts and keep their buffers
   [_h_]^^^^       go to default layout
   [_l_]^^^^       select/create a layout with helm
   [_L_]^^^^       load layouts from file
