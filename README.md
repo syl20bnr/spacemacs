@@ -125,6 +125,8 @@ You should install the "emacs" package, not the "xemacs" package.
 XEmacs is an old fork of Emacs. The X in its name is unrelated to X11.
 Both Emacs and XEmacs have graphical support.
 
+**Note:** Ubuntu’s package repository (Ubuntu LTS 12.04, and 14.04; **15.10 and later is okay to install from the package repository**) currently has only 24.3 available. You are advised to [build from source](https://www.gnu.org/software/emacs/manual/html_node/efaq/Installing-Emacs.html) and get 24.4 or greater, as most packages require this version. The same may be true for other distributions as well.
+
 ### OS X
 
 We recommend the homebrew [emacs-mac-port][] formula:
