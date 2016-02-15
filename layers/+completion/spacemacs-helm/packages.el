@@ -948,8 +948,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "sS"    'spacemacs/helm-swoop-region-or-symbol
         "s C-s" 'helm-multi-swoop-all)
       (defadvice helm-swoop (before add-evil-jump activate)
-        (when (configuration-layer/package-usedp 'evil-jumper)
-          (evil-set-jump))))))
+        (evil-set-jump)))))
 
 (defun spacemacs-helm/init-helm-themes ()
   (use-package helm-themes

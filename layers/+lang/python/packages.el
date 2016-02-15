@@ -16,7 +16,6 @@
     company-anaconda
     cython-mode
     eldoc
-    evil-jumper
     evil-matchit
     flycheck
     helm-cscope
@@ -55,7 +54,10 @@
         "gu" 'anaconda-mode-find-references)
       (evilified-state-evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
         (kbd "q") 'quit-window)
-      (spacemacs|hide-lighter anaconda-mode))))
+      (spacemacs|hide-lighter anaconda-mode)
+
+      (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
+        (evil-jumper--push)))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun python/post-init-company ()
@@ -86,10 +88,6 @@
 
 (defun python/post-init-eldoc ()
   (add-hook 'python-mode-hook 'eldoc-mode))
-
-(defun python/post-init-evil-jumper ()
-  (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
-    (evil-jumper--push)))
 
 (defun python/post-init-evil-matchit ()
   (add-hook `python-mode-hook `turn-on-evil-matchit-mode))
