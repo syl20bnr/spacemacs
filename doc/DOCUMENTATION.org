@@ -1521,7 +1521,7 @@ Windows manipulation commands (start with ~w~):
 |------------------------+-----------------------------------------------------------------------------|
 | ~SPC w =~              | balance split windows                                                       |
 | ~SPC w b~              | force the focus back to the minibuffer (usefull with =helm= popups)         |
-| ~SPC w d~              | close a window                                                              |
+| ~SPC w d~              | delete a window                                                             |
 | ~SPC w D~              | delete another window using [[https://github.com/abo-abo/ace-window][ace-delete-window]]                               |
 | ~SPC w t~              | toggle window dedication (dedicated window cannot be reused by a mode)      |
 | ~SPC w f~              | toggle follow mode                                                          |
@@ -1573,8 +1573,8 @@ window resizing.
 | ~]~           | enlarge window horizontally                                   |
 | ~{~           | shrink window vertically                                      |
 | ~}~           | enlarge window vertically                                     |
-| ~d~           | close window                                                  |
-| ~D~           | close other windows                                           |
+| ~d~           | delete window                                                 |
+| ~D~           | delete other windows                                          |
 | ~g~           | toggle =golden-ratio= on and off                              |
 | ~h~           | go to window on the left                                      |
 | ~j~           | go to window below                                            |
