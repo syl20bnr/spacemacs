@@ -193,7 +193,7 @@ If called with a prefix argument, uses the other-window instead."
         (kbd "q")   'cider-popup-buffer-quit
         (kbd "r")   'cider-test-rerun-tests
         (kbd "t")   'cider-test-run-test
-        (kbd "T")   'cider-test-run-tests)
+        (kbd "T")   'cider-test-run-ns-tests)
 
       ;; TODO: having this work for cider-macroexpansion-mode would be nice,
       ;;       but the problem is that it uses clojure-mode as its major-mode
