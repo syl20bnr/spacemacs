@@ -150,15 +150,13 @@
             (progn
               (spacemacs/integrate-evil-search t)
               (spacemacs/ahs-highlight-now-wrapper)
-              (when (configuration-layer/package-usedp 'evil-jumper)
-                (evil-set-jump))
+              (evil-set-jump)
               (spacemacs/symbol-highlight-transient-state/body)
               (ahs-forward))
           (progn
             (spacemacs/integrate-evil-search nil)
             (spacemacs/ahs-highlight-now-wrapper)
-            (when (configuration-layer/package-usedp 'evil-jumper)
-              (evil-set-jump))
+            (evil-set-jump)
             (spacemacs/symbol-highlight-transient-state/body)
             (ahs-backward))))
 
