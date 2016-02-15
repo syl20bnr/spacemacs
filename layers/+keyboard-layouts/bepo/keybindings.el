@@ -75,9 +75,16 @@
   :loader
   (spacemacs|use-package-add-hook elfeed :post-config BODY)
   :config
-  (bepo/evil-correct-keys 'evilified elfeed-show-mode-map
-    "C-j"
-    "C-k"))
+  (progn
+    (bepo/evil-correct-keys 'evilified elfeed-search-mode-map
+      "j"
+      "k")
+    (bepo/evil-correct-keys 'evilified elfeed-show-mode-map
+      "C-j"
+      "C-k")
+    ;; HACK: The auto correction doesn't work... mystery.
+    (evil-define-key 'evilified elfeed-search-mode-map
+      "k" 'elfeed-search-live-filter)))
 
 (bepo|config evil
   :description
