@@ -102,23 +102,17 @@
   (spacemacs|add-company-hook elixir-mode)
   (spacemacs|add-company-hook alchemist-iex-mode))
 
-(defun elixir-do-end-close-action (id action context)
-  (when (eq action 'insert)
-    (newline-and-indent)
-    (forward-line -1)
-    (indent-according-to-mode)))
-
 (defun elixir/post-init-smartparens ()
   (sp-with-modes '(elixir-mode)
     (sp-local-pair "->" "end"
                    :when '(("RET"))
-                   :post-handlers '(:add elixir-do-end-close-action)
+                   :post-handlers '(:add spacemacs//elixir-do-end-close-action)
                    :actions '(insert)))
 
   (sp-with-modes '(elixir-mode)
     (sp-local-pair "do" "end"
                    :when '(("SPC" "RET"))
-                   :post-handlers '(:add elixir-do-end-close-action)
+                   :post-handlers '(:add spacemacs//elixir-do-end-close-action)
                    :actions '(insert))))
 
 (defun elixir/init-elixir-mode ()
