@@ -10,20 +10,22 @@
 ;;; License: GPLv3
 
 (setq spacemacs-ivy-packages
-      '(counsel
+      '(auto-highlight-symbol
+        counsel
         flx
         ;; hack since ivy is part for swiper but I like to
         ;; treat it as a stand-alone package
         (ivy :location built-in)
         (ivy-spacemacs-help :location local)
         smex
-        swiper))
+        swiper
+        wgrep))
 
 (defun spacemacs-ivy/init-counsel ()
   (defvar spacemacs--counsel-commands
-    '(("ag" . "ag --vimgrep %s %S .")
-      ("pt" . "pt -e --nocolor --nogroup --column %s %S .")
-      ("ack" . "ack --nocolor --nogroup --column %s %S .")
+    '(("ag" . "ag --nocolor --nogroup %s %S .")
+      ("pt" . "pt -e --nocolor --nogroup %s %S .")
+      ("ack" . "ack --nocolor --nogroup %s %S .")
       ("grep" . "grep -nrP %s %S ."))
     "Alist of search commands and their corresponding commands
 with options to run in the shell.")
@@ -79,6 +81,8 @@ than this amount.")
             (ivy--insert-prompt))))
       (setq counsel--async-time (current-time))))
 
+  (defvar spacemacs--counsel-search-cmd)
+
   ;; see `counsel-ag-function'
   (defun spacemacs//make-counsel-search-function (tool)
     (lexical-let ((base-cmd
@@ -96,7 +100,8 @@ than this amount.")
                  (regex (counsel-unquote-regex-parens
                          (setq ivy--old-re
                                (ivy--regex string)))))
-            (spacemacs//counsel-async-command (format base-cmd args regex))
+            (setq spacemacs--counsel-search-cmd (format base-cmd args regex))
+            (spacemacs//counsel-async-command spacemacs--counsel-search-cmd)
             nil)))))
 
   ;; see `counsel-ag'
@@ -139,6 +144,7 @@ that directory."
        :dynamic-collection t
        :history 'counsel-git-grep-history
        :action #'counsel-git-grep-action
+       :caller 'spacemacs/counsel-search
        :unwind (lambda ()
                  (counsel-delete-process)
                  (swiper--cleanup)))))
@@ -189,6 +195,24 @@ that directory."
          (interactive)
          (spacemacs/counsel-search ,tools t (projectile-project-root))))))
 
+  (defun spacemacs//counsel-occur ()
+    "Generate a custom occur buffer for `counsel-git-grep'."
+    (ivy-occur-grep-mode)
+    (setq default-directory counsel--git-grep-dir)
+    (let ((cands ivy--old-cands))
+      ;; Need precise number of header lines for `wgrep' to work.
+      (insert (format "-*- mode:grep; default-directory: %S -*-\n\n\n"
+                      default-directory))
+      (insert (format "%d candidates:\n" (length cands)))
+      (ivy--occur-insert-lines
+       (mapcar
+        (lambda (cand) (concat "./" cand))
+        ivy--old-cands))))
+
+  (with-eval-after-load 'ivy
+    (ivy-set-occur 'spacemacs/counsel-search
+                   'spacemacs//counsel-occur))
+
   (defun spacemacs/counsel-search-docs ()
     "Search spacemacs docs using `spacemacs/counsel-search'"
     (interactive)
@@ -198,6 +222,7 @@ that directory."
   (defun spacemacs/counsel-git-grep-region-or-symbol ()
     "Use `counsel-git-grep' to search for the selected region or
  the symbol around point in the current project with git grep."
+    (interactive)
     (let ((input (if (region-active-p)
                      (buffer-substring-no-properties
                       (region-beginning) (region-end))
@@ -291,6 +316,14 @@ Helm hack."
       ;; TODO: Commands to port
       (spacemacs//ivy-command-not-implemented-yet "jI"))))
 
+(defun spacemacs-ivy/post-init-auto-highlight-symbol ()
+  (setq spacemacs-symbol-highlight-transient-state-remove-bindings
+        '("/" "b" "f"))
+  (setq spacemacs-symbol-highlight-transient-state-add-bindings
+        '(("/" spacemacs/search-project-auto-region-or-symbol :exit t)
+          ("b" spacemacs/swiper-all-region-or-symbol :exit t)
+          ("f" spacemacs/search-auto-region-or-symbol :exit t))))
+
 (defun spacemacs-ivy/init-flx ())
 
 (defun spacemacs-ivy/init-ivy ()
@@ -300,7 +333,7 @@ Helm hack."
       (spacemacs/set-leader-keys
         "a'" 'spacemacs/ivy-available-repls
         "fr" 'ivy-recentf
-        "ir" 'ivy-resume
+        "ri" 'ivy-resume
         "bb" 'ivy-switch-buffer)
       (setq ivy-height 15
             ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
@@ -316,6 +349,19 @@ Helm hack."
       (global-set-key (kbd "C-c C-r") 'ivy-resume)
       (global-set-key (kbd "<f6>") 'ivy-resume)
 
+      (ido-mode -1)
+
+      ;; Occur
+      (with-eval-after-load 'evil
+        (evil-make-overriding-map ivy-occur-mode-map 'normal))
+
+      (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
+        "w" 'ivy-wgrep-change-to-wgrep-mode)
+      (evil-define-key 'normal wgrep-mode-map ",," 'wgrep-finish-edit)
+      (evil-define-key 'normal wgrep-mode-map ",c" 'wgrep-finish-edit)
+      (evil-define-key 'normal wgrep-mode-map ",a" 'wgrep-abort-changes)
+      (evil-define-key 'normal wgrep-mode-map ",k" 'wgrep-abort-changes)
+
       (defun spacemacs/ivy-available-repls ()
         "Show available repls."
         (interactive)
@@ -326,26 +372,142 @@ Helm hack."
                               (require (car repl))
                               (call-interactively (cdr repl))))))
 
-      (defun spacemacs//hjkl-completion-navigation (&optional arg)
-        "Set navigation on `jklh'. ARG non nil means Vim like movements."
-        (cond
-         (arg
-          ;; better navigation on homerow
-          (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
-          (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
-          (define-key ivy-minibuffer-map (kbd "C-h") (kbd "DEL"))
-          ;; Move C-h to C-S-h
-          (define-key ivy-minibuffer-map (kbd "C-S-h") help-map)
-          (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-alt-done)
-          (define-key ivy-minibuffer-map (kbd "<escape>")
-            'minibuffer-keyboard-quit))
-         (t
+      (defun spacemacs//ivy-hjkl-navigation (&optional arg)
+        "Set navigation on \"hjkl\" for ivy. ARG non nil means
+vim like movements."
+        (if arg
+            (progn
+              ;; better navigation on homerow
+              (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
+              (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
+              (define-key ivy-minibuffer-map (kbd "C-h") (kbd "DEL"))
+              ;; Move C-h to C-S-h
+              (define-key ivy-minibuffer-map (kbd "C-S-h") help-map)
+              (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-alt-done)
+              (define-key ivy-minibuffer-map (kbd "<escape>")
+                'minibuffer-keyboard-quit))
           (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-alt-done)
           (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-kill-line)
           (define-key ivy-minibuffer-map (kbd "C-h") nil)
-          (define-key ivy-minibuffer-map (kbd "C-l") nil))))
-      (spacemacs//hjkl-completion-navigation
-       (member dotspacemacs-editing-style '(vim hybrid))))))
+          (define-key ivy-minibuffer-map (kbd "C-l") nil)))
+      (add-hook 'spacemacs--hjkl-completion-navigation-functions
+                'spacemacs//ivy-hjkl-navigation)
+      (run-hook-with-args 'spacemacs--hjkl-completion-navigation-functions
+                          (member dotspacemacs-editing-style '(vim hybrid)))
+
+      (defun spacemacs/counsel-up-directory-no-error ()
+        "`counsel-up-directory' ignoring errors."
+        (interactive)
+        (ignore-errors
+          (call-interactively 'counsel-up-directory)))
+
+      (require 'ivy-hydra)
+      (spacemacs|define-transient-state ivy
+        :doc "
+ Move/Resize^^^^      | Select Action^^^^   |  Call^^          |  Cancel^^    | Toggles
+--^-^-^-^-------------|--^-^-^-^------------|--^---^-----------|--^-^---------|---------------------
+ [_j_/_k_] by line    | [_s_/_w_] next/prev | [_RET_] & done   | [_i_] & ins  | [_C_] calling: %s(if ivy-calling \"on\" \"off\")
+ [_g_/_G_] first/last | [_a_]^ ^  list all  | [_TAB_] alt done | [_q_] & quit | [_m_] matcher: %s(ivy--matcher-desc)
+ [_d_/_u_] pg down/up |  ^ ^ ^ ^            | [_c_]   & cont   |  ^ ^         | [_f_] case-fold: %`ivy-case-fold-search
+ [_<_/_>_] resize     |  ^ ^ ^ ^            | [_o_]   occur    |  ^ ^         | [_t_] truncate: %`truncate-lines
+ [_h_/_l_] out/in dir |  ^ ^ ^ ^            |  ^ ^             |  ^ ^         |  ^ ^
+
+Current Action: %s(ivy-action-name)
+"
+        :foreign-keys run
+        :bindings
+        ;; arrows
+        ("j" ivy-next-line)
+        ("k" ivy-previous-line)
+        ("l" ivy-alt-done)
+        ("h" spacemacs/counsel-up-directory-no-error)
+        ("g" ivy-beginning-of-buffer)
+        ("G" ivy-end-of-buffer)
+        ("d" ivy-scroll-up-command)
+        ("u" ivy-scroll-down-command)
+        ;; actions
+        ("q" keyboard-escape-quit :exit t)
+        ("C-g" keyboard-escape-quit :exit t)
+        ("<escape>" keyboard-escape-quit :exit t)
+        ("i" nil)
+        ("C-o" nil)
+        ("TAB" ivy-alt-done :exit nil)
+        ;; ("C-j" ivy-alt-done :exit nil)
+        ;; ("d" ivy-done :exit t)
+        ("RET" ivy-done :exit t)
+        ("c" ivy-call)
+        ("C-m" ivy-done :exit t)
+        ("C" ivy-toggle-calling)
+        ("m" ivy-toggle-fuzzy)
+        (">" ivy-minibuffer-grow)
+        ("<" ivy-minibuffer-shrink)
+        ("w" ivy-prev-action)
+        ("s" ivy-next-action)
+        ("a" ivy-read-action)
+        ("t" (setq truncate-lines (not truncate-lines)))
+        ("f" ivy-toggle-case-fold)
+        ("o" ivy-occur :exit t))
+      (define-key ivy-minibuffer-map "\C-o" 'spacemacs/ivy-transient-state/body)
+
+      (defun spacemacs/ivy-perspectives ()
+        "Control Panel for perspectives. Has many actions.
+If match is found
+\(default) Select perspective
+c: Close Perspective(s) <- mark with C-SPC to close more than one-window
+k: Kill Perspective(s)
+
+If match is not found
+<enter> Creates perspective
+
+Closing doesn't kill buffers inside the perspective while killing
+perspectives does."
+        (interactive)
+        (ivy-read "Perspective: "
+                  (persp-names)
+                  :caller 'spacemacs/ivy-perspectives
+                  :action (lambda (name)
+                            (let ((persp-reset-windows-on-nil-window-conf t))
+                              (persp-switch name)
+                              (unless
+                                  (member name
+                                          (persp-names-current-frame-fast-ordered))
+                                (spacemacs/home))))))
+
+      (ivy-set-actions
+       'spacemacs/ivy-perspectives
+       '(("c" persp-kill-without-buffers "Close perspective(s)")
+         ("k" persp-kill  "Kill perspective(s)")))
+
+      (defun spacemacs/ivy-persp-buffer ()
+        "Switch to perspective buffer using ivy."
+        (interactive)
+        (let (ivy-use-virtual-buffers)
+          (with-persp-buffer-list ()
+            (call-interactively 'ivy-switch-buffer))))
+
+      (defun spacemacs/ivy-persp-close-other ()
+        "Kills perspectives without killing the buffers"
+        (interactive)
+        (ivy-read (format "Close perspective [current %s]: "
+                          (spacemacs//current-layout-name))
+                  (persp-names)
+                  :action 'persp-kill-without-buffers))
+
+      (defun spacemacs/ivy-persp-kill-other ()
+        "Kills perspectives with all their buffers"
+        (interactive)
+        (ivy-read (format "Kill perspective [current %s]: "
+                          (spacemacs//current-layout-name))
+                  (persp-names)
+                  :action 'persp-kill))
+
+      (setq spacemacs-layouts-transient-state-remove-bindings
+            '("b" "l" "C" "X"))
+      (setq spacemacs-layouts-transient-state-add-bindings
+            '(("b" spacemacs/ivy-persp-buffer)
+              ("l" spacemacs/ivy-perspectives)
+              ("C" spacemacs/ivy-persp-close-other :exit t)
+              ("X" spacemacs/ivy-persp-kill-other :exit t))))))
 
 (defun spacemacs-ivy/init-smex ()
   (use-package smex
@@ -408,3 +570,5 @@ around point as the initial input."
         "sb" 'swiper-all
         "sB" 'spacemacs/swiper-all-region-or-symbol)
       (global-set-key "\C-s" 'swiper))))
+
+(defun spacemacs-ivy/init-wgrep ())
