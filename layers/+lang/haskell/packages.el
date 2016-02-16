@@ -26,7 +26,6 @@
     (helm-hoogle :toggle (configuration-layer/package-usedp 'helm))
     hindent
     hlint-refactor
-    shm
     ))
 
 (defun haskell/init-cmm-mode ()
@@ -129,10 +128,7 @@
       (defun spacemacs/init-haskell-mode ()
         ;; use only internal indentation system from haskell
         (if (fboundp 'electric-indent-local-mode)
-            (electric-indent-local-mode -1))
-        (when haskell-enable-shm-support
-          ;; in structured-haskell-mode line highlighting creates noise
-          (setq-local global-hl-line-mode nil)))
+            (electric-indent-local-mode -1)))
 
       (defun spacemacs/haskell-interactive-bring ()
         "Bring up the interactive mode for this session without
@@ -335,38 +331,3 @@
       (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
         "rb" 'hlint-refactor-refactor-buffer
         "rr" 'hlint-refactor-refactor-at-point))))
-
-(defun haskell/init-shm ()
-  (use-package shm
-    :defer t
-    :if haskell-enable-shm-support
-    :init
-    (add-hook 'haskell-mode-hook 'structured-haskell-mode)
-    :config
-    (progn
-      (when (require 'shm-case-split nil 'noerror)
-        ;;TODO: Find some better bindings for case-splits
-        (define-key shm-map (kbd "C-c S") 'shm/case-split)
-        (define-key shm-map (kbd "C-c C-s") 'shm/do-case-split))
-
-      (evil-define-key 'normal shm-map
-        (kbd "RET") nil
-        (kbd "C-k") nil
-        (kbd "C-j") nil
-        (kbd "D") 'shm/kill-line
-        (kbd "R") 'shm/raise
-        (kbd "P") 'shm/yank
-        (kbd "RET") 'shm/newline-indent
-        (kbd "RET") 'shm/newline-indent
-        (kbd "M-RET") 'evil-ret)
-
-      (evil-define-key 'operator shm-map
-        (kbd ")") 'shm/forward-node
-        (kbd "(") 'shm/backward-node)
-
-      (evil-define-key 'motion shm-map
-        (kbd ")") 'shm/forward-node
-        (kbd "(") 'shm/backward-node)
-
-      (define-key shm-map (kbd "C-j") nil)
-      (define-key shm-map (kbd "C-k") nil))))
