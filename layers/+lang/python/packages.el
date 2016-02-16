@@ -87,7 +87,11 @@
         "gu" 'anaconda-mode-usages))))
 
 (defun python/post-init-eldoc ()
-  (add-hook 'python-mode-hook 'eldoc-mode))
+  (defun spacemacs//init-eldoc-python-mode ()
+    (eldoc-mode)
+    (when (configuration-layer/package-usedp 'anaconda-mode)
+      (anaconda-eldoc-mode)))
+  (add-hook 'python-mode-hook 'spacemacs//init-eldoc-python-mode))
 
 (defun python/post-init-evil-matchit ()
   (add-hook `python-mode-hook `turn-on-evil-matchit-mode))
