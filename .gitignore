@@ -14,6 +14,7 @@ eshell/history
 eshell/alias
 eshell/lastdir
 /url/cookies
+/url/cache
 my-org/
 org-files/
 semanticdb/
