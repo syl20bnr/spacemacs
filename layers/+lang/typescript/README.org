@@ -17,14 +17,13 @@
 This layer adds support for TypeScript and TSX editing.
 
 This layer provides:
-- ElDoc
+- Eldoc-mode
+- Documentation at point 
 - Auto complete
-- Flycheck
+- Flycheck with linter
 - Jump to definition, Jump to type definition
-- Find occurrences
+- Find occurrences (Imenu-mode)
 - Rename symbol
-- Imenu
-- linting
 - tsx mode
 - formatting
 
@@ -53,7 +52,6 @@ If you don't need linting, you can use:
 (setq-default dotspacemacs-configuration-layers '(
   (typescript :variables
               typescript-use-tslint  nil)))
-
 #+END_SRC
 
 If you need formatting on save:
@@ -62,7 +60,6 @@ If you need formatting on save:
 (setq-default dotspacemacs-configuration-layers '(
   (typescript :variables
               typescript-fmt-on-save t)))
-
 #+END_SRC
 
 ** Notes
@@ -72,7 +69,7 @@ This layer uses:
 - [[https://github.com/Simplify/flycheck-typescript-tslint][flycheck-typescript-tslint]]
 - [[https://github.com/vvakame/typescript-formatter][typescript-formatter]]
 
-*Those tools use configuration files. You can learn more in their documentations.*
+*The tools use configuration files. You can learn more in their documentation.*
 
 Make sure to add [[https://github.com/Microsoft/TypeScript/wiki/tsconfig.json][tsconfig.json]] in the project root folder.
 
