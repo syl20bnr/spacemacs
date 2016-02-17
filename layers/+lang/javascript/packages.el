@@ -231,14 +231,14 @@
         (interactive)
         (skewer-load-buffer)
         (skewer-repl)
-        (evil-insert-state))
+        (spacemacs/normal-to-insert-state))
 
       (defun spacemacs/skewer-eval-defun-and-focus ()
        "Execute function at point in browser and switch to REPL in insert state."
        (interactive)
        (skewer-eval-defun)
        (skewer-repl)
-       (evil-insert-state))
+       (spacemacs/normal-to-insert-state))
 
       (defun spacemacs/skewer-eval-region (beg end)
         "Execute the region as JavaScript code in the attached browser."
@@ -250,7 +250,7 @@
         (interactive "r")
         (spacemacs/skewer-eval-region beg end)
         (skewer-repl)
-        (evil-insert-state))
+        (spacemacs/normal-to-insert-state))
 
       (spacemacs/set-leader-keys-for-major-mode 'js2-mode
         "'" 'spacemacs/skewer-start-repl

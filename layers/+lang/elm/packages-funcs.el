@@ -25,10 +25,10 @@
   (interactive)
   (elm-repl-push-decl)
   (run-elm-interactive)
-  (evil-insert-state))
+  (spacemacs/normal-to-insert-state))
 
 (defun spacemacs/elm-repl-push-focus ()
   "Send current region to the REPL and focus it in insert state."
   (elm-repl-push)
   (run-elm-interactive)
-  (evil-insert-state))
+  (spacemacs/normal-to-insert-state))

@@ -226,6 +226,12 @@
       (defun evil-insert-state-cursor-hide ()
         (setq evil-insert-state-cursor '((hbar . 0))))
 
+      (defun spacemacs/normal-to-insert-state ()
+        "Switches to evil-insert-state if the current state is
+evil-normal state."
+        (when (evil-normal-state-p)
+          (evil-insert-state)))
+
       (unless (eq dotspacemacs-editing-style 'emacs)
         (evil-mode 1)))
     :config
