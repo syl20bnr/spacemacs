@@ -264,7 +264,11 @@ Will work on both org-mode and any mode that accepts plain html."
         ;; other
         "aoO" 'org-clock-out
         "aoc" 'org-capture
-        "aol" 'org-store-link))
+        "aol" 'org-store-link)
+
+      (define-key global-map "\C-cl" 'org-store-link)
+      (define-key global-map "\C-ca" 'org-agenda)
+      (define-key global-map "\C-cc" 'org-capture))
     :config
     (progn
       (setq org-default-notes-file "notes.org")
@@ -273,10 +277,6 @@ Will work on both org-mode and any mode that accepts plain html."
                     (1 font-lock-comment-face prepend)
                     (2 font-lock-function-name-face)
                     (3 font-lock-comment-face prepend))))
-
-      (define-key global-map "\C-cl" 'org-store-link)
-      (define-key global-map "\C-ca" 'org-agenda)
-      (define-key global-map "\C-cc" 'org-capture)
 
       ;; Open links and files with RET in normal state
       (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)
