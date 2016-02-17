@@ -289,9 +289,7 @@ nil."
       eval-expression-print-level nil)
 
 ;; cache files
-(setq url-configuration-directory (concat spacemacs-cache-directory "url")
-      eshell-directory-name (concat spacemacs-cache-directory "eshell" )
-      tramp-persistency-file-name (concat spacemacs-cache-directory "tramp"))
+(setq tramp-persistency-file-name (concat spacemacs-cache-directory "tramp/"))
 
 ;; seems pointless to warn. There's always undo.
 (put 'narrow-to-region 'disabled nil)
