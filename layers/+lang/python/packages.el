@@ -52,7 +52,7 @@
       (spacemacs|hide-lighter anaconda-mode)
 
       (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
-        (evil-jumper--push)))))
+        (evil--jumps-push)))))
 
 (defun python/init-cython-mode ()
   (use-package cython-mode
