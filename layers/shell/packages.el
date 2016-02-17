@@ -82,7 +82,9 @@ the user activate the completion manually."
             ;; my prompt is easy enough to see
             eshell-highlight-prompt nil
             ;; treat 'echo' like shell echo
-            eshell-plain-echo-behavior t)
+            eshell-plain-echo-behavior t
+            ;; cache directory
+            eshell-directory-name (concat spacemacs-cache-directory "eshell/"))
 
       (defun spacemacs//eshell-auto-end ()
         "Move point to end of current prompt when switching to insert state."
