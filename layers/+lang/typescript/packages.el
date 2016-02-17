@@ -98,7 +98,7 @@
                                   (goto-char p)
                                   (message "formatted.")
                                   (kill-buffer outputbuf))
-                                (progn 
+                                (progn
                                   (message "Formatting failed!")
                                   (display-buffer outputbuf)))
                             (progn
