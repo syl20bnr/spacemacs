@@ -333,7 +333,7 @@ Helm hack."
       (spacemacs/set-leader-keys
         "a'" 'spacemacs/ivy-available-repls
         "fr" 'ivy-recentf
-        "ir" 'ivy-resume
+        "rl" 'ivy-resume
         "bb" 'ivy-switch-buffer)
       (setq ivy-height 15
             ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
