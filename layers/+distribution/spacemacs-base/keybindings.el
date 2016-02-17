@@ -316,7 +316,7 @@
   "wl"  'evil-window-right
   "w <right>"  'evil-window-right
   "wm"  'spacemacs/toggle-maximize-buffer
-  "wM"  'spacemacs/toggle-maximize-centered-buffer
+  "wM"  'spacemacs-centered-buffer-mode
   "wo"  'other-frame
   "wR"  'spacemacs/rotate-windows
   "ws"  'split-window-below
