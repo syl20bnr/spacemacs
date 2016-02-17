@@ -14,6 +14,3 @@
 
 ;; Define the buffer local company backend variable
 (spacemacs|defvar-company-backends rust-mode)
-
-(defvar rust-enable-rustfmt-on-save nil
-  "If non-nil, automatically format code with rustfmt on save.")
