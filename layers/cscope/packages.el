@@ -55,4 +55,4 @@
           "gx" 'helm-cscope-find-this-text-string))
       :config
       (defadvice helm-cscope-find-this-symbol (before cscope/goto activate)
-        (evil-jumper--push)))))
+        (evil--jumps-push)))))
