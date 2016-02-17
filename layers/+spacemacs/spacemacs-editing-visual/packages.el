@@ -227,9 +227,14 @@
 
       (defun ahs-to-iedit ()
         (interactive)
-        (if (configuration-layer/package-usedp 'evil-iedit-state)
-            (evil-iedit-state/iedit-mode)
-          (ahs-edit-mode t)))
+        (cond
+         ((and (not (eq dotspacemacs-editing-style 'emacs))
+               (configuration-layer/package-usedp 'evil-iedit-state))
+          (evil-iedit-state/iedit-mode))
+         ((and (eq dotspacemacs-editing-style 'emacs)
+               (configuration-layer/package-usedp 'iedit))
+          (iedit-mode))
+         (t (ahs-edit-mode t))))
 
       (spacemacs|define-transient-state symbol-highlight
         :title "Symbol Highlight Transient State"
