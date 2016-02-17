@@ -23,7 +23,8 @@
         lorem-ipsum
         move-text
         pcre2el
-        smartparens))
+        smartparens
+        uuidgen))
 
 ;; Initialization of packages
 
@@ -340,3 +341,15 @@ It will toggle the overlay under point or create an overlay of one character."
             (insert-char ?\))))))
       (when dotspacemacs-smart-closing-parenthesis
           (define-key evil-insert-state-map ")" 'spacemacs/smart-closing-parenthesis)))))
+
+(defun spacemacs-editing/init-uuidgen ()
+  (use-package uuidgen
+    :commands (uuidgen-1 uuidgen-4)
+    :init
+    (progn
+      (spacemacs/declare-prefix "iU" "uuid")
+      (spacemacs/set-leader-keys
+        "iU1" 'spacemacs/uuidgen-1
+        "iU4" 'spacemacs/uuidgen-4
+        "iUU" 'spacemacs/uuidgen-4))))
+

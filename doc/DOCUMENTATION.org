@@ -2227,10 +2227,13 @@ Text insertion commands (start with ~i~):
 
     | Key binding | Description                                                           |
     |-------------+-----------------------------------------------------------------------|
-    | ~SPC i u~   | Search for Unicode characters and insert them into the active buffer. |
     | ~SPC i l l~ | insert lorem-ipsum list                                               |
     | ~SPC i l p~ | insert lorem-ipsum paragraph                                          |
     | ~SPC i l s~ | insert lorem-ipsum sentence                                           |
+    | ~SPC i u~   | Search for Unicode characters and insert them into the active buffer. |
+    | ~SPC i U 1~ | insert UUIDv1 (use universal argument to insert with CID format)      |
+    | ~SPC i U 4~ | insert UUIDv4 (use universal argument to insert with CID format)      |
+    | ~SPC i U U~ | insert UUIDv4 (use universal argument to insert with CID format)      |
 
 *** Smartparens Strict mode
 [[https://github.com/Fuco1/smartparens][Smartparens]] comes with a strict mode which prevents deletion of parenthesis if
