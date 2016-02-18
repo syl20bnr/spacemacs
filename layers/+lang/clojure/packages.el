@@ -116,7 +116,7 @@ the focus."
       (defun spacemacs/cider-test-run-all-tests ()
         (interactive)
         (cider-load-buffer)
-        (spacemacs//cider-eval-in-repl-no-focus (cider-test-run-tests nil)))
+        (spacemacs//cider-eval-in-repl-no-focus (cider-test-run-ns-tests nil)))
 
       (defun spacemacs/cider-test-rerun-tests ()
         (interactive)
