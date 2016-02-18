@@ -84,6 +84,8 @@
              hybrid-mode-enable-hjkl-bindings))
     (define-key helm-map (kbd "C-j") 'helm-next-line)
     (define-key helm-map (kbd "C-k") 'helm-previous-line)
+    (define-key helm-map (kbd "C-S-j") 'helm-follow-action-forward)
+    (define-key helm-map (kbd "C-S-k") 'helm-follow-action-backward)
     (define-key helm-map (kbd "C-h") 'helm-next-source)
     (define-key helm-map (kbd "C-S-h") 'describe-key)
     (define-key helm-map (kbd "C-l") (kbd "RET"))
