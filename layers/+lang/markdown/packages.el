@@ -78,6 +78,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "cn"  'markdown-cleanup-list-numbers
         "co"  'markdown-open
         "cp"  'markdown-preview
+        "cP"  'markdown-live-preview-mode
         "cv"  'markdown-export-and-preview
         "cw"  'markdown-kill-ring-save
         ;; headings
