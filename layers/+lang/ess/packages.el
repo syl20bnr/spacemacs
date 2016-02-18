@@ -17,6 +17,7 @@
     ess-R-object-popup
     ess-smart-equals
     rainbow-delimiters
+    polymode
     ))
 
 (defun ess/init-ess ()
@@ -48,7 +49,8 @@
            ("\\.[Bb][Mm][Dd]\\'" . ess-bugs-mode)
            ("\\.[Jj][Aa][Gg]\\'" . ess-jags-mode)
            ("\\.[Jj][Oo][Gg]\\'" . ess-jags-mode)
-           ("\\.[Jj][Mm][Dd]\\'" . ess-jags-mode))
+           ("\\.[Jj][Mm][Dd]\\'" . ess-jags-mode)
+           ("\\.Rmd" . poly-markdown+r-mode))
     :commands (R stata julia SAS)
     :init
     (progn
@@ -124,3 +126,10 @@
     (progn
       (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
       (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))))
+
+(defun ess/init-polymode ()
+  (use-package poly-R
+    :defer t)
+  (use-package poly-markdown
+    :defer t)
+  )

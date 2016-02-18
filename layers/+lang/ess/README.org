@@ -9,11 +9,14 @@
    - [[Inferior REPL process][Inferior REPL process]]
    - [[Helpers][Helpers]]
  - [[Options][Options]]
+ - [[RMarkdown support][RMarkdown support]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ess= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+To use Knitr follow the [[https://github.com/yihui/knitr#installation][installation instructions]] on the official github site.
 
 * Key Bindings
 
@@ -67,3 +70,8 @@ hook:
             (lambda ()
               (ess-toggle-underscore nil)))
 #+end_src
+
+* RMarkdown support
+RMarkdown files ~.Rmd~ are supported by using [[https://github.com/vspinu/polymode][polymode]]. They can be knitted to
+~.md~ files using ~M-x ess-swv-knit~ .
+
