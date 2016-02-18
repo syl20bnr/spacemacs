@@ -20,3 +20,6 @@
 
 (defvar layouts-autosave-delay 900
   "Delay in seconds between each layouts auto-save.")
+
+(defvar layouts-projectile nil
+  "List of projectile open layouts")

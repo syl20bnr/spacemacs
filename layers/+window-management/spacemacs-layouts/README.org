@@ -64,7 +64,7 @@ The layouts transient-state is initiated with ~SPC l~.
 
 *** Project Layouts
 To create a layout for a specific project use ~SPC p l~.
-
+To switch between already open projects layouts use ~SPC p L~.
 *** Custom Layouts Transient State
 The layouts transient-state is initiated with ~SPC l o~.
 

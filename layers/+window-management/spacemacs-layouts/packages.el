@@ -205,7 +205,10 @@
       (defun spacemacs/layouts-ms-close ()
         "Kill current perspective"
         (interactive)
-        (persp-kill-without-buffers (spacemacs//current-layout-name)))
+        (let ((persp (spacemacs//current-layout-name)))
+          (persp-kill-without-buffers persp)
+          (and (member persp layouts-projectile)
+               (setq layouts-projectile (remove persp layouts-projectile)))))
 
       (defun spacemacs/layouts-ms-close-other ()
         (interactive)
@@ -351,7 +354,8 @@ current perspective."
 
 (defun spacemacs-layouts/post-init-helm ()
   (spacemacs/set-leader-keys
-    "pl" 'spacemacs/helm-persp-switch-project))
+    "pl" 'spacemacs/helm-persp-switch-project
+    "pL" 'spacemacs/helm-persp-switch-open-project))
 
 (defun spacemacs-layouts/post-init-swiper ()
   (defun spacemacs/ivy-persp-switch-project (arg)
@@ -368,4 +372,5 @@ current perspective."
                             (projectile-switch-project-by-name project))))))
 
   (spacemacs/set-leader-keys
-    "pl" 'spacemacs/ivy-persp-switch-project))
+    "pl" 'spacemacs/ivy-persp-switch-project
+    "pL" 'spacemacs/ivy-persp-switch-open-projects))

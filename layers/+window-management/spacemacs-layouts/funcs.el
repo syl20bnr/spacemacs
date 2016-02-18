@@ -96,8 +96,15 @@ perspectives does."
                            (helm-marked-candidates))))))))
 
 ;; Helm Projectile related functions ---------------------------------------
+(defun spacemacs//layout-search-project (project)
+  "Look for a project perspective among current layouts."
+  (let ((persps (persp-names-current-frame-fast-ordered)))
+    (do ((idx 0 (1+ idx))
+         (curr (car persps) (nth idx persps)))
+        ((equal curr project) idx))))
 
 (defun spacemacs/helm-persp-switch-project (arg)
+  "Switch to a project perspective using Helm."
   (interactive "P")
   (helm
    :sources
@@ -113,9 +120,55 @@ perspectives does."
                 (lambda (project)
                   (let ((persp-reset-windows-on-nil-window-conf t))
                     (persp-switch project)
+                    (push project layouts-projectile)
                     (let ((projectile-completion-system 'helm))
                       (projectile-switch-project-by-name project)))))))
    :buffer "*Helm Projectile Layouts*"))
+
+(defun spacemacs/helm-persp-switch-open-project (arg)
+  "Switch to an already open project perspective using Helm."
+  (interactive "P")
+  (helm
+   :sources
+   (helm-build-in-buffer-source "*Helm Switch Project Layout*"
+     :data (lambda ()
+             layouts-projectile)
+     :fuzzy-match helm-projectile-fuzzy-match
+     :mode-line helm-read-file-name-mode-line-string
+     :action '(("Switch to Project Perspective" .
+                (lambda (project)
+                  (let ((persp-reset-windows-on-nil-window-conf t)
+                        (persp-project
+                         (- (spacemacs//layout-search-project project) 1)))
+                    (spacemacs/layout-switch-by-pos persp-project))))))
+   :buffer "*Helm Projectile Layouts*"))
+
+(defun spacemacs/ivy-persp-switch-project (arg)
+  "Switch to a project perspective using Ivy."
+  (interactive "P")
+  (ivy-read "Switch to Project Perspective:"
+            (if (projectile-project-p)
+                (cons (abbreviate-file-name (projectile-project-root))
+                      (projectile-relevant-known-projects))
+              projectile-known-projects)
+            :action (lambda (project)
+                      (let ((persp-reset-windows-on-nil-window-conf t))
+                        (persp-switch project)
+                        (push project layouts-projectile)
+                        (let ((projectile-completion-system 'ivy))
+                          (projectile-switch-project-by-name project))))))
+
+(defun spacemacs/ivy-persp-switch-open-projects (arg)
+  "Switch to an already open project perspective using Ivy."
+  (interactive "P")
+  (ivy-read "Switch to Project Perspective:"
+            (or layouts-projectile
+                projectile-known-projects)
+            :action (lambda (project)
+                      (let ((persp-reset-windows-on-nil-window-conf t)
+                            (persp-project
+                             (- (spacemacs//layout-search-project project) 1)))
+                        (spacemacs/layout-switch-by-pos persp-project)))))
 
 ;; Autosave ----------------------------------------------------------------
 
