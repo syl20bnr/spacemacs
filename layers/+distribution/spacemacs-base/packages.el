@@ -318,33 +318,19 @@ Example: (evil-map visual \"<\" \"<gv\")"
         (kbd "gd") 'spacemacs/evil-smart-goto-definition)
 
       ;; scrolling transient state
-      (defun spacemacs/scroll-half-page-up ()
-        "Scroll half a page up while keeping cursor in middle of page."
-        (interactive)
-        (evil-window-top)
-        (let ((recenter-redisplay nil))
-          (recenter nil)))
-      (defun spacemacs/scroll-half-page-down ()
-        "Scroll half a page down while keeping cursor in middle of page."
-        (interactive)
-        (evil-window-bottom)
-        ;; required to make repeated presses idempotent
-        (evil-next-visual-line)
-        (let ((recenter-redisplay nil))
-          (recenter nil)))
       (spacemacs|define-transient-state scroll
         :title "Scrolling Transient State"
         :bindings
         ("," evil-scroll-page-up "page up")
         ("." evil-scroll-page-down "page down")
         ;; half page
-        ("<" spacemacs/scroll-half-page-up "half page up")
-        (">" spacemacs/scroll-half-page-down "half page down"))
+        ("<" evil-scroll-up "half page up")
+        (">" evil-scroll-down "half page down"))
       (spacemacs/set-leader-keys
         "n," 'spacemacs/scroll-transient-state/evil-scroll-page-up
         "n." 'spacemacs/scroll-transient-state/evil-scroll-page-down
-        "n<" 'spacemacs/scroll-transient-state/spacemacs/scroll-half-page-up
-        "n>" 'spacemacs/scroll-transient-state/spacemacs/scroll-half-page-down)
+        "n<" 'spacemacs/scroll-transient-state/scroll-half-page-up
+        "n>" 'spacemacs/scroll-transient-state/scroll-half-page-down)
 
       ;; pasting transient-state
       (evil-define-command spacemacs//transient-state-0 ()
