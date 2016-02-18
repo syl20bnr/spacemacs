@@ -26,22 +26,25 @@
 
             (add-hook 'typescript-mode-hook
                       (lambda ()
-                      (tide-setup)
-                      (flycheck-mode t)
-                      (setq flycheck-check-syntax-automatically '(save mode-enabled))
-                      (eldoc-mode t)
-                      (when (configuration-layer/package-usedp 'company)
-                            (company-mode-on)))))
+                        (tide-setup)
+                        (flycheck-mode t)
+                        (setq flycheck-check-syntax-automatically '(save mode-enabled))
+                        (eldoc-mode t)
+                        (when (configuration-layer/package-usedp 'company)
+                          (company-mode-on)))))
     :config (progn
 
               (when typescript-use-tslint
-                    (use-package flycheck-typescript-tslint)
-                    (flycheck-add-next-checker 'typescript-tide
-                                               'typescript-tslint 'append))
+                (use-package flycheck-typescript-tslint)
+                (flycheck-add-next-checker 'typescript-tide
+                                           'typescript-tslint 'append))
 
               (spacemacs/declare-prefix-for-mode 'typescript-mode "mg" "goto")
               (spacemacs/declare-prefix-for-mode 'typescript-mode "mh" "help")
               (spacemacs/declare-prefix-for-mode 'typescript-mode "mn" "name")
+              (spacemacs/declare-prefix-for-mode 'typescript-mode "mr" "rename")
+              (spacemacs/declare-prefix-for-mode 'typescript-mode "mS" "server")
+              (spacemacs/declare-prefix-for-mode 'typescript-mode "ms" "send")
 
               (defun typescript/jump-to-type-def()
                 (interactive)
@@ -51,31 +54,30 @@
                 "gb" 'tide-jump-back
                 "gg" 'tide-jump-to-definition
                 "gt" 'typescript/jump-to-type-def
-                "gu"  'tide-references
+                "gu" 'tide-references
                 "hh" 'tide-documentation-at-point
                 "rr" 'tide-rename-symbol
-                "sr"  'tide-restart-server))))
-
+                "Sr" 'tide-restart-server))))
 
 (when (configuration-layer/package-usedp 'web-mode)
   (defun typescript/init-web-mode ()
-   (use-package web-mode
-   :defer t
-   :mode ("\\.tsx\\'" . web-mode)
-   :config (add-hook 'web-mode-hook
-                     (lambda ()
-                       (when (string-equal "tsx" (file-name-extension buffer-file-name))
-                         (tide-setup)
-                         (flycheck-mode +1)
-                         (setq flycheck-check-syntax-automatically '(save mode-enabled))
-                         (eldoc-mode +1)
-                         (when (configuration-layer/package-usedp 'company)
-                               (company-mode-on))))))))
+    (use-package web-mode
+      :defer t
+      :mode ("\\.tsx\\'" . web-mode)
+      :config (add-hook 'web-mode-hook
+                        (lambda ()
+                          (when (string-equal "tsx" (file-name-extension buffer-file-name))
+                            (tide-setup)
+                            (flycheck-mode +1)
+                            (setq flycheck-check-syntax-automatically '(save mode-enabled))
+                            (eldoc-mode +1)
+                            (when (configuration-layer/package-usedp 'company)
+                              (company-mode-on))))))))
 
 (defun typescript/init-typescript-mode ()
   (use-package typescript-mode
     :defer t
-    :commands (typescript/format-buffer)
+    :commands (typescript/format-buffer typescript/open-region-in-playground)
     :config (progn
               (defun typescript/format-buffer ()
                 "Format buffer with tsfmt."
@@ -98,23 +100,32 @@
                                   (goto-char p)
                                   (message "formatted.")
                                   (kill-buffer outputbuf))
-                                (progn
-                                  (message "Formatting failed!")
-                                  (display-buffer outputbuf)))
+                              (progn
+                                (message "Formatting failed!")
+                                (display-buffer outputbuf)))
                             (progn
                               (delete-file tmpfile)))))
                   (message "tsfmt not found. Run \"npm install -g typescript-formatter\"")))
 
-              (spacemacs/set-leader-keys-for-major-mode 'typescript-mode "=" 'typescript/format-buffer)
-
               (when typescript-fmt-on-save
+                (defun typescript/before-save-hook ()
+                  (add-hook 'before-save-hook 'typescript/format-buffer t t))
+                (add-hook 'typescript-mode-hook 'typescript/before-save-hook))
 
-                    (defun typescript/before-save-hook ()
-                      (add-hook 'before-save-hook 'typescript/format-buffer t t))
+              (defun typescript/open-region-in-playground (start end)
+                "Open selected region in http://www.typescriptlang.org/Playground
+                 If nothing is selected - open the whole current buffer."
+                (interactive (if (use-region-p)
+                                 (list (region-beginning) (region-end))
+                               (list (point-min) (point-max))))
+                (browse-url (concat "http://www.typescriptlang.org/Playground#src="
+                                    (url-hexify-string (buffer-substring-no-properties start end)))))
 
-                    (add-hook 'typescript-mode-hook 'typescript/before-save-hook)))))
+              (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
+                "=" 'typescript/format-buffer
+                "sp" 'typescript/open-region-in-playground))))
 
 (when typescript-use-tslint
   (defun typescript/init-flycheck-typescript-tslint ()
     (use-package flycheck-typescript-tslint
-    :defer t)))
+      :defer t)))
