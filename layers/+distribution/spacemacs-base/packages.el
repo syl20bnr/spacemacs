@@ -853,13 +853,51 @@ below. Anything else exits."
     :defer t
     :init
     (defun spacemacs/restart-emacs (&optional args)
+      "Restart emacs."
       (interactive)
       (setq spacemacs-really-kill-emacs t)
       (restart-emacs args))
     (defun spacemacs/restart-emacs-resume-layouts (&optional args)
+      "Restart emacs and resume layouts."
       (interactive)
       (spacemacs/restart-emacs (cons "--resume-layouts" args)))
+    (defun spacemacs/restart-emacs-debug-init (&optional args)
+      "Restart emacs and enable debug-init."
+      (interactive)
+      (spacemacs/restart-emacs (cons "--debug-init" args)))
+    (defun spacemacs/restart-stock-emacs-with-packages (packages &optional args)
+      "Restart emacs without the spacemacs configuration, enable
+debug-init and load the given list of packages."
+      (interactive
+       (let* ((guess (function-called-at-point)))
+         (require 'finder-inf nil t)
+         ;; Load the package list if necessary (but don't activate them).
+         (unless package--initialized
+           (package-initialize t))
+         (let ((packages (append (mapcar 'car package-alist)
+                                 (mapcar 'car package-archive-contents)
+                                 (mapcar 'car package--builtins))))
+           (unless (memq guess packages)
+             (setq guess nil))
+           (setq packages (mapcar 'symbol-name packages))
+           (let ((val
+                  (completing-read-multiple
+                   (if guess
+                       (format "Describe package (default %s): "
+                               guess)
+                     "Describe package: ")
+                   packages nil t nil nil guess)))
+             `(,val)))))
+      (let ((load-packages-string (mapconcat (lambda (pkg) (format "(use-package %s)" pkg))
+                                             packages " ")))
+        (spacemacs/restart-emacs-debug-init
+         (append (list "-q" "--execute"
+                       (concat "(progn (package-initialize) "
+                               load-packages-string ")"))
+                 args))))
     (spacemacs/set-leader-keys
+      "qd" 'spacemacs/restart-emacs-debug-init
+      "qD" 'spacemacs/restart-stock-emacs-with-packages
       "qr" 'spacemacs/restart-emacs-resume-layouts
       "qR" 'spacemacs/restart-emacs)))
 
