@@ -893,6 +893,7 @@ debug-init and load the given list of packages."
         (spacemacs/restart-emacs-debug-init
          (append (list "-q" "--execute"
                        (concat "(progn (package-initialize) "
+                               "(require 'use-package)"
                                load-packages-string ")"))
                  args))))
     (spacemacs/set-leader-keys
