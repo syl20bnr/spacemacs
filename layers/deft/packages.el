@@ -37,4 +37,9 @@
         "d" 'deft-delete-file
         "i" 'deft-toggle-incremental-search
         "n" 'deft-new-file
-        "r" 'deft-rename-file))))
+        "r" 'deft-rename-file)
+      (evil-define-key 'insert deft-mode-map
+        (kbd "C-h") 'deft-filter-clear
+        (kbd "C-j") 'evil-next-line
+        (kbd "C-k") 'evil-previous-line
+        (kbd "C-l") 'deft-complete))))

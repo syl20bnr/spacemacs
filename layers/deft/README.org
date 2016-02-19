@@ -49,3 +49,7 @@ this like so in your =dotspacemacs/user-config= function:
 | ~SPC m r~   | Rename selected note             |
 | ~SPC m i~   | Toggle to regex search           |
 | ~SPC m n~   | Create new file with filter text |
+| ~C-h~       | Clear the filter text            |
+| ~C-j~       | Select next note                 |
+| ~C-k~       | Select previous note             |
+| ~C-l~       | Enter the selected note          |
