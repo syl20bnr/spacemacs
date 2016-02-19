@@ -155,6 +155,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m s n~ | send and eval ns form in REPL                                |
 | ~SPC m s N~ | send and eval ns form and switch to REPL in =insert state=   |
 | ~SPC m s q~ | kill REPL (cider-quit)                                       |
+| ~SPC m s o~ | switch to other repl instance (cider-repl-switch-to-other)   |
 | ~SPC m s r~ | send and eval region in REPL                                 |
 | ~SPC m s R~ | send and eval region and switch to REPL in =insert state=    |
 | ~SPC m s s~ | switch to REPL                                               |
