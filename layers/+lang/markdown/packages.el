@@ -192,6 +192,11 @@ Will work on both org-mode and any mode that accepts plain html."
                           :face mmm-declaration-submode-face
                           :front "^```{?r.*}?[\n\r]+"
                           :back "^```$")))
+      (mmm-add-classes '((markdown-rust
+                          :submode rust-mode
+                          :face mmm-declaration-submode-face
+                          :front "^```rust[\n\r]+"
+                          :back "^```$")))
       (setq mmm-global-mode t)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-python)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-java)
@@ -201,7 +206,8 @@ Will work on both org-mode and any mode that accepts plain html."
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-elisp)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-html)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-javascript)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ess))))
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ess)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-rust))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun markdown/post-init-company ()
