@@ -244,6 +244,8 @@ or lists of these.")
     (if dotspacemacs-maximized-at-startup
         (add-hook 'window-setup-hook 'toggle-frame-maximized))))
 
+(setq ns-use-native-fullscreen (not dotspacemacs-fullscreen-use-non-native))
+
 ;; ---------------------------------------------------------------------------
 ;; Session
 ;; ---------------------------------------------------------------------------
