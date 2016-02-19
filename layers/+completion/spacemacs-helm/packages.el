@@ -961,4 +961,4 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :defer t
     :init
     (spacemacs/set-leader-keys
-      "Th" 'helm-themes)))
+      "Ts" 'helm-themes)))

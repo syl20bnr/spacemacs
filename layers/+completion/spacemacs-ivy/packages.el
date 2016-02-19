@@ -286,7 +286,7 @@ Helm hack."
         ;; jumping
         "sj"  'counsel-imenu
         ;; themes
-        "Tc"  'counsel-load-theme
+        "Ts"  'counsel-load-theme
         ;; search
         "/"   'spacemacs/search-project-auto
         "*"   'spacemacs/search-project-auto-region-or-symbol
