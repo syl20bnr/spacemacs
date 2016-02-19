@@ -1,4 +1,83 @@
 * Release 0.105.x
+** 0.105.10 (2016/02/18)
+*** Fixes
+- Fix re-toggle of fullscreen when pressing ~SPC f e R~ (thanks to MadAnd)
+- Fix display of recent bookmarks without filename (thanks to lislon)
+- Fix =toggle-maximize-buffer= (thanks to justbur)
+- Remove files from rollback slot list (thanks to microamp)
+- Don't catch errors while loading if =--debug-init= is provided.
+- Don't change scratch major mode if buffer exists (thanks to TheBB)
+- Restore windows layout when qitting =ediff= (thanks to fbergroth)
+- Ensure that =pcache-directory= ends in a slash (thanks to rpglover64)
+- Ensure new Spacemacs layouts only shows home buffer (thanks to bmag)
+*** Improvements
+- Add a bug report template for GitHub issues on ~SPC h I
+  (thanks to StreakyCobra)
+- Add files used by =eww= to =.gitignore= (thanks to ahyatt)
+- Various enhancements for themes handling (thanks to TheBB)
+- Allow =default= theme (no theme) to be defined in =dotspacemacs-themes=
+  (thanks to izahn)
+- Add support for missing =base16= themes (thanks to curtmack)
+- Update recent files list when a file is renamed (thanks to lislon)
+- Improve frame-fullscreen and maximize-frame toggles (thanks to MadAnd)
+- Diminish relative line numbers lighter in mode-line (thanks to peterhoeg)
+- Various documentation improvements (thanks to balajisivaraman, crododile,
+  darkfeline, ernestas, franciscoj, j4, kRITZCREEK, nixmaniack, numkem,
+  robbyoconnor, TheBB, tonylotts)
+*** Layer changes
+**** Auto-completion
+- Better choice of =company= front-ends (thanks to fbergroth)
+**** C-C++
+- Get =clang= args even if =flycheck= isn't installed (thanks to TheBB)
+**** Clojure
+- Fix renamed =cider-test-run-tests= function (thanks to AlejandroCatalina)
+- Substitute =align-cljlet= with =clojure-align=. =align-cljlet= was deprecated
+  in favour of the vertical alignment in the clojure-mode package (thanks to
+  vise890)
+**** Elm
+- Fix =flycheck= not working on sub-directories (thanks to AlejandroCatalina)
+**** ERC
+- Fix initialisation of =erc-terminal-notifier= (thanks to Andre0991)
+**** Gnus
+- Remove =gnus-fetch-old-headers= customization which was causing slowdown
+  while consulting some newsgroups (thanks to StreakyCobra)
+**** Haskell
+- Fix broken =hoogle-lookup-from-local= (thanks to jb55)
+**** Html
+- Remove =.jsx= from =web-mode= auto mode alist (thanks to lunaryorn)
+**** Org
+- Remove ~H~ and ~L~ key bindings from =evil-org= (thanks to choppsv1)
+**** Python
+- Add missing =py-yapf= configuration (thanks to TheBB)
+- Enable =anaconda-eldoc-mode= (thanks to TheBB)
+- Only load =pyenv= if it is installed (thanks to cpaulik)
+**** Racket
+- Disable =company-quickhelp-mode= only when it is already enabled
+  (thanks to syohex)
+**** React
+- Disable auto-quote of attributes (thanks to TheBB)
+- Fix react magic mode, it will now recognize =/** @jsx React.DOM */= in the
+  first line of a file (thanks to EMayej)
+**** Ruby
+- Use =popwin= for =rspec= compilations (thanks to joshcass)
+- Do not force =rspec-mode= on ruby files (thanks to morhekil)
+**** Rust
+- Fix indentation setting for =evil-shift-width= (thanks to Stebalien)
+**** Shell
+- Set the correct shell-pop size variable (thanks to TheBB)
+**** Themes-megapack
+- Add =dracula= theme (thanks to MarkRedeman)
+- Add =omtose-phellack= theme (thanks to duien)
+- Add =majapahit= theme (thanks to kostajh)
+**** Tmux
+- Fix key bindings ~C-h~, ~C-j~, ~C-k~ and ~C-l~ (thanks to justbur)
+**** Vagrant
+- New key binding ~SPC V R~ to reload to restart VMs (thanks to kostajh)
+**** Version control
+- Fix bugs due to wrong mode for =diff-hl= margin (thanks to abaw)
+- Fix =git-gutter= linum setup (thanks to person808)
+**** Wakatime
+- Fix wakatime-dashboard url (thanks to hallfox)
 ** 0.105.9 (2016/01/17)
 *** Improvements
 - Fix error on Microsoft Windows 10 OS regarding missing =printf= command
@@ -1416,7 +1495,7 @@
 - Add support for Magit 2.1!
 - Helm now uses its header to display the input pattern.
 - Use Flycheck default configuration to check the current buffer in
-  "real time" (yes this is a hot new features :-)) 
+  "real time" (yes this is a hot new features :-))
 - New interactive function =spacemacs/switch-to-version=, it will ask
   for a version number and warn if the current branch is not =master=.
   Users on =develop= branch cannot use this function (it has no effect).
