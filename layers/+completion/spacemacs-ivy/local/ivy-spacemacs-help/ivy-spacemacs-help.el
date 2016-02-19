@@ -324,7 +324,7 @@
             (setq toggle-doc
                   (format "%s (%s)"
                           toggle-doc
-                          (propertize key 'face 'helm-M-x-key)))))
+                          (propertize key 'face 'font-lock-keyword-face)))))
         (if (plist-member (cdr toggle) :documentation)
             (push `(,toggle-doc . ,toggle-symbol) result)
           (push `(,toggle-name . ,toggle-symbol) result))))
