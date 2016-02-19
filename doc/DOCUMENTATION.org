@@ -882,7 +882,7 @@ variable =dotspacemacs-themes=. For instance, to specify =solarized-light=,
 | Key Binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC T n~   | switch to next theme listed in =dotspacemacs-themes=. |
-| ~SPC T h~   | select a theme using a =helm= buffer.                 |
+| ~SPC T s~   | select a theme using a =helm= buffer.                 |
 
 You can see samples of all included themes in this [[http://themegallery.robdor.com][theme gallery]] from [[http://www.twitter.com/robmerrell][Rob Merrell]].
 
