@@ -426,11 +426,11 @@ Example: (evil-map visual \"<\" \"<gv\")"
 
       ;; Define history commands for comint
       (evil-define-key 'insert comint-mode-map
-        (kbd "C-k") 'comint-next-input
-        (kbd "C-j") 'comint-previous-input)
+        (kbd "C-k") 'comint-previous-input
+        (kbd "C-j") 'comint-next-input)
       (evil-define-key 'normal comint-mode-map
-        (kbd "C-k") 'comint-next-input
-        (kbd "C-j") 'comint-previous-input))))
+        (kbd "C-k") 'comint-previous-input
+        (kbd "C-j") 'comint-next-input))))
 
 (defun spacemacs-base/init-evil-escape ()
   (use-package evil-escape
