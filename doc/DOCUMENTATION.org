@@ -873,11 +873,11 @@ in the function =dotspacemacs/user-init= of your =~/.spacemacs=:
   - the height of org section titles with =spacemacs-theme-org-height=
 
 It is possible to define your default themes in your =~/.spacemacs= with the
-variable =dotspacemacs-themes=. For instance, to specify =solarized-light=,
+variable =dotspacemacs-themes=. For instance, to specify =spacemacs-light=,
 =leuven= and =zenburn=:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-themes '(solarized-light leuven zenburn))
+(setq-default dotspacemacs-themes '(spacemacs-light leuven zenburn))
 #+END_SRC
 
 | Key Binding | Description                                           |
