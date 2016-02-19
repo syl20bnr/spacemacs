@@ -69,6 +69,18 @@
     "C-k"
     "C-l"))
 
+(bepo|config deft
+  :description
+  "Remap `deft' bindings."
+  :loader
+  (spacemacs|use-package-add-hook deft :post-config BODY)
+  :config
+  (bepo/evil-correct-keys 'insert deft-mode-map
+    "C-h"
+    "C-j"
+    "C-k"
+    "C-l"))
+
 (bepo|config elfeed
   :description
   "Remap `elfeed' bindings."
