@@ -189,30 +189,40 @@ package name does not match theme name + `-theme' suffix.")
 (defun spacemacs/load-theme (theme)
   "Load THEME."
   ;; Required dependencies for some themes
-  (when (or (eq 'zonokai-blue theme)
-            (eq 'zonokai-red theme)
-            (eq 'solarized-light theme)
-            (eq 'solarized-dark theme))
-        (spacemacs/load-or-install-package 'dash))
-  ;; Unless Emacs stock themes
-  (unless (or (memq theme (custom-available-themes))
-              (eq 'default theme))
-    (cond
-     ;; themes with explicitly declared package names
-     ((assq theme spacemacs-theme-name-to-package)
-      (let* ((pkg (spacemacs//get-theme-package theme))
-             (pkg-dir (spacemacs/load-or-install-package pkg)))
-        (when (or (eq 'moe-light theme)
-                  (eq 'moe-dark theme))
-          (load-file (concat pkg-dir "moe-light-theme.el"))
-          (load-file (concat pkg-dir "moe-dark-theme.el")))
-        (add-to-list 'custom-theme-load-path pkg-dir)))
-     (t
-      ;; other themes
-      ;; we assume that the package name is suffixed with `-theme'
-      ;; if not we will handle the special themes as we get issues in the tracker.
-      (let ((pkg (spacemacs//get-theme-package theme)))
-        (spacemacs/load-or-install-package pkg)))))
+  (condition-case err
+      (progn
+        (when (or (eq 'zonokai-blue theme)
+                  (eq 'zonokai-red theme)
+                  (eq 'solarized-light theme)
+                  (eq 'solarized-dark theme))
+          (spacemacs/load-or-install-package 'dash))
+        ;; Unless Emacs stock themes
+        (unless (or (memq theme (custom-available-themes))
+                    (eq 'default theme))
+          (cond
+           ;; themes with explicitly declared package names
+           ((assq theme spacemacs-theme-name-to-package)
+            (let* ((pkg (spacemacs//get-theme-package theme))
+                   (pkg-dir (spacemacs/load-or-install-package pkg)))
+              (when (or (eq 'moe-light theme)
+                        (eq 'moe-dark theme))
+                (load-file (concat pkg-dir "moe-light-theme.el"))
+                (load-file (concat pkg-dir "moe-dark-theme.el")))
+              (add-to-list 'custom-theme-load-path pkg-dir)))
+           (t
+            ;; other themes
+            ;; we assume that the package name is suffixed with `-theme'
+            ;; if not we will handle the special themes as we get issues
+            ;; in the tracker.
+            (let ((pkg (spacemacs//get-theme-package theme)))
+              (spacemacs/load-or-install-package pkg))))))
+    ('error
+     (setq theme 'default)
+     (display-warning 'spacemacs
+                      (format (concat "An error occurred while retrieving the "
+                                      "theme, using default theme. (error: %s)")
+                              err)
+                      :warning)))
   (mapc 'disable-theme custom-enabled-themes)
   (if (eq 'default theme)
       (progn
