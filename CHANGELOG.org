@@ -1,10 +1,9 @@
 * Release 0.105.x
 ** 0.105.11 (2016/02/18)
 Improve loading robustness:
-- when an ELPA repository is down Spacemacs will now be able to finish
-loading,
-- Spacemacs will use the default theme (i.e. no theme) if there is any
-error during the download of the starting theme.
+- When an ELPA repository is down Spacemacs will now be able to finish loading
+- Spacemacs will use the default theme (i.e. no theme) if there is any error
+  during the download of the starting theme.
 ** 0.105.10 (2016/02/18)
 *** Fixes
 - Fix re-toggle of fullscreen when pressing ~SPC f e R~ (thanks to MadAnd)
