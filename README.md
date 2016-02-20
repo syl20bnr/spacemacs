@@ -138,11 +138,10 @@ distributions as well.
 
 ### OS X
 
-We recommend the homebrew [emacs-mac-port][] formula:
+The recommended way of installing Emacs on OS X is using [homebrew][]:
 
 ```sh
-$ brew tap railwaycat/homebrew-emacsmacport
-$ brew install emacs-mac --with-spacemacs-icon  # OR, brew cask install emacs-mac
+$ brew install emacs --with-cocoa --with-gnutls --with-rsvg --with-imagemagick
 $ brew linkapps
 ```
 
@@ -154,12 +153,6 @@ is what transforms a regular Emacs into Spacemacs.
 *After* you have completed the [install process below](#install), it is also
  recommended to add the [osx layer][] to your [dotfile][]. Install instructions
  are available in the [osx layer][] documentation.
-
-Note that the `emacs-mac-port` server behaves differently than the regular Emacs
-server which in particular **DOES NOT** allow multi-tty if you start GUI i.e.
-you can't connect to the Emacs GUI server with `emacsclient` but server-client
-works if you start from terminal(TTY-only).
-Details can be found on the emacs-mac-port [README][emacs-mac-port-server].
 
 ### Windows
 
@@ -379,8 +372,7 @@ Thank you!
 [osx layer]: http://spacemacs.org/layers/osx/README
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
 [Gitter Chat IRC server]: https://irc.gitter.im/
-[emacs-mac-port]: https://github.com/railwaycat/homebrew-emacsmacport
-[emacs-mac-port-server]: https://github.com/railwaycat/emacs-mac-port/blob/master/README-mac#L210-L213
+[homebrew]: http://brew.sh
 [emacs-for-windows]: http://emacsbinw64.sourceforge.net/
 [the platinum searcher]: https://github.com/monochromegane/the_platinum_searcher
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
