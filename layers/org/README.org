@@ -24,6 +24,8 @@
      - [[Navigating in calendar][Navigating in calendar]]
    - [[Capture buffers and src blocks][Capture buffers and src blocks]]
    - [[Org agenda][Org agenda]]
+     - [[Keybindings][Keybindings]]
+     - [[Org agenda transient state][Org agenda transient state]]
    - [[Pomodoro][Pomodoro]]
    - [[Presentation][Presentation]]
    - [[Org-repo-todo][Org-repo-todo]]
@@ -283,29 +285,105 @@ conventions.
 | ~SPC m r~                                    | org-capture-refile in org-capture-mode |
 
 ** Org agenda
-The evilified org agenda supports, the following bindings:
 
-| Key Binding | Description                   |
-|-------------+-------------------------------|
-| ~SPC m :~   | org-agenda-set-tags           |
-| ~SPC m a~   | org-agenda                    |
-| ~SPC m d~   | org-agenda-deadline           |
-| ~SPC m f~   | org-agenda-set-effort         |
-| ~SPC m I~   | org-agenda-clock-in           |
-| ~SPC m O~   | org-agenda-clock-out          |
-| ~SPC m P~   | org-agenda-set-property       |
-| ~SPC m q~   | org-agenda-refile             |
-| ~SPC m Q~   | org-agenda-clock-cancel       |
-| ~SPC m s~   | org-agenda-schedule           |
-| ~M-j~       | next item                     |
-| ~M-k~       | previous item                 |
-| ~M-h~       | earlier view                  |
-| ~M-l~       | later view                    |
-| ~gr~        | refresh                       |
-| ~gd~        | toggle grid                   |
-| ~C-v~       | change view                   |
-| ~RET~       | org-agenda-goto               |
-| ~M-RET~     | org-agenda-show-and-scroll-up |
+*** Keybindings
+The evilified org agenda supports the following bindings:
+
+| Key Binding          | Description                   |
+|----------------------+-------------------------------|
+| ~M-SPC~ or ~s-M-SPC~ | org-agenda transient state    |
+| ~SPC m :~            | org-agenda-set-tags           |
+| ~SPC m a~            | org-agenda                    |
+| ~SPC m d~            | org-agenda-deadline           |
+| ~SPC m f~            | org-agenda-set-effort         |
+| ~SPC m I~            | org-agenda-clock-in           |
+| ~SPC m O~            | org-agenda-clock-out          |
+| ~SPC m P~            | org-agenda-set-property       |
+| ~SPC m q~            | org-agenda-refile             |
+| ~SPC m Q~            | org-agenda-clock-cancel       |
+| ~SPC m s~            | org-agenda-schedule           |
+| ~M-j~                | next item                     |
+| ~M-k~                | previous item                 |
+| ~M-h~                | earlier view                  |
+| ~M-l~                | later view                    |
+| ~gr~                 | refresh                       |
+| ~gd~                 | toggle grid                   |
+| ~C-v~                | change view                   |
+| ~RET~                | org-agenda-goto               |
+| ~M-RET~              | org-agenda-show-and-scroll-up |
+
+*** Org agenda transient state
+Use ~M-SPC~ or ~s-M-SPC~ in an org agenda buffer to activate its transient state.
+The transient state aims to list the most useful org agenda commands and
+visually organize them by category. The commands associated with each binding
+are listed bellow.
+
+| Keybinding  | Description         | Command                           |
+|-------------+---------------------+-----------------------------------|
+| Entry       |                     |                                   |
+|-------------+---------------------+-----------------------------------|
+| ~ht~        | set status          | org-agenda-todo                   |
+| ~hk~        | kill                | org-agenda-kill                   |
+| ~hr~        | refile              | org-agenda-refile                 |
+| ~hA~        | archive             | org-agenda-archive-default        |
+| ~hT~        | set tags            | org-agenda-set-tags               |
+| ~hp~        | set priority        | org-agenda-priority               |
+|-------------+---------------------+-----------------------------------|
+| Visit entry |                     |                                   |
+|-------------+---------------------+-----------------------------------|
+| ~SPC~       | in other window     | org-agenda-show-and-scroll-up     |
+| ~TAB~       | & go to location    | org-agenda-goto                   |
+| ~RET~       | & del other windows | org-agenda-switch-to              |
+| ~o~         | link                | link-hint-open-link               |
+|-------------+---------------------+-----------------------------------|
+| Filter      |                     |                                   |
+|-------------+---------------------+-----------------------------------|
+| ~ft~        | by tag              | org-agenda-filter-by-tag          |
+| ~fr~        | refine by tag       | org-agenda-filter-by-tag-refine   |
+| ~fc~        | by category         | org-agenda-filter-by-category     |
+| ~fh~        | by top headline     | org-agenda-filter-by-top-headline |
+| ~fx~        | by regexp           | org-agenda-filter-by-regexp       |
+| ~fd~        | delete all filters  | org-agenda-filter-remove-all      |
+|-------------+---------------------+-----------------------------------|
+| Date        |                     |                                   |
+|-------------+---------------------+-----------------------------------|
+| ~ds~        | schedule            | org-agenda-schedule               |
+| ~dd~        | set deadline        | org-agenda-deadline               |
+| ~dt~        | timestamp           | org-agenda-date-prompt            |
+| ~+~         | do later            | org-agenda-do-date-later          |
+| ~-~         | do earlier          | org-agenda-do-date-earlier        |
+|-------------+---------------------+-----------------------------------|
+| Toggle      |                     |                                   |
+|-------------+---------------------+-----------------------------------|
+| ~tf~        | follow              | org-agenda-follow-mode            |
+| ~tl~        | log                 | org-agenda-log-mode               |
+| ~ta~        | archive             | org-agenda-archives-mode          |
+| ~tr~        | clock report        | org-agenda-clockreport-mode       |
+| ~td~        | diaries             | org-agenda-toggle-diary           |
+|-------------+---------------------+-----------------------------------|
+| View        |                     |                                   |
+|-------------+---------------------+-----------------------------------|
+| ~vd~        | day                 | org-agenda-day-view               |
+| ~vw~        | week                | org-agenda-week-view              |
+| ~vt~        | fortnight           | org-agenda-fortnight-view         |
+| ~vm~        | month               | org-agenda-month-view             |
+| ~vy~        | year                | org-agenda-year-view              |
+| ~vn~        | next span           | org-agenda-later                  |
+| ~vp~        | prev span           | org-agenda-earlier                |
+| ~vr~        | reset               | org-agenda-reset-view             |
+|-------------+---------------------+-----------------------------------|
+| Clock       |                     |                                   |
+|-------------+---------------------+-----------------------------------|
+| ~ci~        | in                  | org-agenda-clock-in               |
+| ~co~        | out                 | org-agenda-clock-out              |
+| ~ck~        | cancel              | org-agenda-clock-cancel           |
+| ~cj~        | jump                | org-agenda-clock-goto             |
+|-------------+---------------------+-----------------------------------|
+| Other       |                     |                                   |
+|-------------+---------------------+-----------------------------------|
+| ~gr~        | reload              | org-agenda-redo                   |
+| ~.~         | go to today         | org-agenda-goto-today             |
+| ~gd~        | go to date          | org-agenda-goto-date              |
 
 ** Pomodoro
 
