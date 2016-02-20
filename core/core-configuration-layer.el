@@ -235,15 +235,23 @@ refreshed during the current session."
                    (car archive) i count) t))
         (spacemacs//redisplay)
         (setq i (1+ i))
-        (unless (eq 'error (with-timeout
-                               (dotspacemacs-elpa-timeout
-                                (progn
-                                  (spacemacs-buffer/append
-                                   (format
-                                    "\nError while contacting %s repository!"
-                                    (car archive)))
-                                  'error))
-                             (url-retrieve-synchronously (cdr archive))))
+        (unless (eq 'error
+                    (with-timeout
+                        (dotspacemacs-elpa-timeout
+                         (progn
+                           (spacemacs-buffer/append
+                            (format
+                             "\nError connection time out for %s repository!"
+                             (car archive)))
+                           'error))
+                      (condition-case err
+                          (url-retrieve-synchronously (cdr archive))
+                        ('error
+                         (spacemacs-buffer/append
+                          (format
+                           "\nError while contacting %s repository!"
+                           (car archive)))
+                         'error))))
           (let ((package-archives (list archive)))
             (package-refresh-contents))))
       (package-read-all-archive-contents)
