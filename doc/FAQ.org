@@ -453,7 +453,7 @@ Check if your Emacs has HTTPS capabilities by doing =M-:= and then:
   (gnutls-available-p)
 #+END_SRC
 
-If this returns =nil=, you need to install the GnuTLS DDL file in the same
+If this returns =nil=, you need to install the GnuTLS DLL file in the same
 directory as Emacs. See [[https://www.gnu.org/software/emacs/manual/html_mono/emacs-gnutls.html#Help-For-Users][here]] for instructions.
 
 ** The powerline isn't shown correctly when Spacemacs is used within =PuTTY=.
