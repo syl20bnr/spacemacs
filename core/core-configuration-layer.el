@@ -239,18 +239,19 @@ refreshed during the current session."
                     (with-timeout
                         (dotspacemacs-elpa-timeout
                          (progn
-                           (spacemacs-buffer/append
+                           (display-warning
+                            'spacemacs
                             (format
                              "\nError connection time out for %s repository!"
-                             (car archive)))
+                             (car archive)) :warning)
                            'error))
                       (condition-case err
                           (url-retrieve-synchronously (cdr archive))
                         ('error
-                         (spacemacs-buffer/append
+                         (display-warning 'spacemacs
                           (format
                            "\nError while contacting %s repository!"
-                           (car archive)))
+                           (car archive)) :warning)
                          'error))))
           (let ((package-archives (list archive)))
             (package-refresh-contents))))
