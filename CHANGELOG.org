@@ -17,7 +17,7 @@ error during the download of the starting theme.
 - Ensure that =pcache-directory= ends in a slash (thanks to rpglover64)
 - Ensure new Spacemacs layouts only shows home buffer (thanks to bmag)
 *** Improvements
-- Add a bug report template for GitHub issues on ~SPC h I
+- Add a bug report template for GitHub issues on ~SPC h I~
   (thanks to StreakyCobra)
 - Add files used by =eww= to =.gitignore= (thanks to ahyatt)
 - Various enhancements for themes handling (thanks to TheBB)
