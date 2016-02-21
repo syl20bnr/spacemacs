@@ -316,13 +316,12 @@ This file containes the change log for the next major version of Spacemacs.
   =packages-funcs.el= files
 - New functions =configuration-layer/remove-layer= and
   =configuration-layer/remove-layers=.
-- New keyword =:skip-install= for packages, if non-nil then Spacemacs does not
-  handle the installation for the package (i.e. it has to be installed by
-  something else).
+- New package location =site=, a site package is a package installed on the
+  host by a third party (ie. =mu4e= which is installed by =mu=)
 - Improve =spacemacs|diminish= function (thanks to TheBB)
 *** Other fixes and improvements
-- Typos and documentation improvements (thanks to adrsta, andreas-h, balajisivaraman,
-  cpaulik, TheBB, StreakyCobra, xfq)
+- Typos and documentation improvements (thanks to adrsta, andreas-h,
+  balajisivaraman, cpaulik, TheBB, StreakyCobra, xfq)
 *** Core team members
 - Sylvain Benner (syl20bnr)
 - Eivind Fonn (TheBB)

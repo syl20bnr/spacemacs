@@ -11,7 +11,7 @@
 
 (setq mu4e-packages
       '(
-        (mu4e :skip-install t)
+        (mu4e :location site)
         mu4e-alert
         mu4e-maildirs-extension
         org

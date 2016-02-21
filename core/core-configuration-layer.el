@@ -101,18 +101,13 @@
              :initform elpa
              :type (satisfies (lambda (x)
                                 (or (stringp x)
-                                    (member x '(built-in local elpa))
+                                    (member x '(built-in local site elpa))
                                     (and (listp x) (eq 'recipe (car x))))))
              :documentation "Location of the package.")
    (step :initarg :step
          :initform nil
          :type (satisfies (lambda (x) (member x '(nil pre))))
          :documentation "Initialization step.")
-   (skip-install :initarg :skip-install
-                 :initform nil
-                 :type boolean
-                 :documentation
-                 "If non-nil then this package is not installed by Spacemacs.")
    (lazy-install :initarg :lazy-install
                  :initform nil
                  :type boolean
@@ -356,16 +351,11 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
          (location (when (listp pkg) (plist-get (cdr pkg) :location)))
          (step (when (listp pkg) (plist-get (cdr pkg) :step)))
          (excluded (when (listp pkg) (plist-get (cdr pkg) :excluded)))
-         (skip-install-given-p (when (listp pkg) (plist-member (cdr pkg) :skip-install)))
-         (skip-install (when (listp pkg) (plist-get (cdr pkg) :skip-install)))
          (protected (when (listp pkg) (plist-get (cdr pkg) :protected)))
          (copyp (not (null obj)))
          (obj (if obj obj (cfgl-package name-str :name name-sym))))
     (when location (oset obj :location location))
     (when step (oset obj :step step))
-    ;; since skip-install can reasonably be expected to be set to nil, we
-    ;; must explicitly check if it's a key in the plist before overriding
-    (when skip-install-given-p (oset obj :skip-install skip-install))
     (oset obj :excluded excluded)
     ;; cannot override protected packages
     (unless copyp
@@ -473,9 +463,8 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
   "Return the distant packages (ie to be intalled) that are effectively used."
   (configuration-layer/filter-objects
    packages (lambda (x) (and (not (null (oref x :owner)))
-                             (not (memq (oref x :location) '(built-in local)))
+                             (not (memq (oref x :location) '(built-in site local)))
                              (not (stringp (oref x :location)))
-                             (not (oref x :skip-install))
                              (not (oref x :excluded))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
