@@ -304,4 +304,10 @@ with the message pre-filled with template and information."
     (setq url (replace-regexp-in-string "#" "%23" url))
     (browse-url url)))
 
+(defun spacemacs/check-for-customized (arg)
+  "Non-nil if a value has been set via customize"
+  (or (get arg 'customized-value)
+      (get arg 'customized-face)
+      (get arg 'saved-value)))
+
 (provide 'core-spacemacs)
