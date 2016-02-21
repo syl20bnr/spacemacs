@@ -316,8 +316,11 @@ This file containes the change log for the next major version of Spacemacs.
   =packages-funcs.el= files
 - New functions =configuration-layer/remove-layer= and
   =configuration-layer/remove-layers=.
-- New package location =site=, a site package is a package installed on the
-  host by a third party (ie. =mu4e= which is installed by =mu=)
+- New package keyword =:toggle= which can be a symbol or a list. A package is
+  considered to be used if the toggle evaluates to non nil. By default =:toggle=
+  is =t=.
+- New value =site= for package =:location= keyword, a site package is a package
+  installed on the host by a third party (ie. =mu4e= which is installed by =mu=)
 - Improve =spacemacs|diminish= function (thanks to TheBB)
 *** Other fixes and improvements
 - Typos and documentation improvements (thanks to adrsta, andreas-h,
