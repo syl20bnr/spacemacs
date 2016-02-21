@@ -86,7 +86,7 @@
 (defun org/init-org ()
   (use-package org
     :mode ("\\.org$" . org-mode)
-    :commands (org-clock-out org-occur-in-agenda-files)
+    :commands (org-clock-out org-occur-in-agenda-files org-agenda-files)
     :defer t
     :init
     (progn
@@ -452,7 +452,7 @@ a Markdown buffer and use this command to convert it.
   (spacemacs|define-custom-layout "@Org"
     :binding "o"
     :body
-    (find-file (first org-agenda-files))))
+    (find-file (first (org-agenda-files)))))
 
 (defun org/init-toc-org ()
   (use-package toc-org
