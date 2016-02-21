@@ -92,11 +92,11 @@
    (pre-layers :initarg :pre-layers
                :initform '()
                :type list
-               :documentation "Layers with a pre-init function.")
+               :documentation "List of layers with a pre-init function.")
    (post-layers :initarg :post-layers
                :initform '()
                :type list
-               :documentation "Layers with a post-init function.")
+               :documentation "List of layers with a post-init function.")
    (location :initarg :location
              :initform elpa
              :type (satisfies (lambda (x)
@@ -104,6 +104,11 @@
                                     (member x '(built-in local site elpa))
                                     (and (listp x) (eq 'recipe (car x))))))
              :documentation "Location of the package.")
+   (toggle :initarg :toggle
+           :initform t
+           :type (satisfies (lambda (x) (or (symbolp x) (listp x))))
+           :documentation
+           "Package is enabled/installed if toggle evaluates to non-nil.")
    (step :initarg :step
          :initform nil
          :type (satisfies (lambda (x) (member x '(nil pre))))
@@ -123,6 +128,13 @@
              :type boolean
              :documentation
              "If non-nil this package is excluded from all layers.")))
+
+(defmethod cfgl-package-enabledp ((pkg cfgl-package))
+  "Evaluate the `toggle' slot of passed PKG."
+  (let ((toggle (oref pkg :toggle)))
+    (cond
+     ((symbolp toggle) (symbol-value toggle))
+     ((listp toggle) (eval toggle)))))
 
 (defvar configuration-layer--elpa-archives
   '(("melpa" . "melpa.org/packages/")
@@ -465,6 +477,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
    packages (lambda (x) (and (not (null (oref x :owner)))
                              (not (memq (oref x :location) '(built-in site local)))
                              (not (stringp (oref x :location)))
+                             (cfgl-package-enabledp x)
                              (not (oref x :excluded))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
@@ -889,6 +902,8 @@ Returns non-nil if the packages have been installed."
        ((null (oref pkg :owner))
         (spacemacs-buffer/message
          (format "%S ignored since it has no owner layer." pkg-name)))
+       ((not (cfgl-package-enabledp pkg))
+        (spacemacs-buffer/message (format "%S is toggled off." pkg-name)))
        (t
         ;; load-path
         (let ((location (oref pkg :location)))

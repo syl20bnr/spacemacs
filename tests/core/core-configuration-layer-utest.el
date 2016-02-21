@@ -12,6 +12,38 @@
 (require 'core-configuration-layer)
 
 ;; ---------------------------------------------------------------------------
+;; class cfgl-package
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-cfgl-package-enabledp--default-toggle-eval-non-nil ()
+  (let ((pkg (cfgl-package "testpkg" :name 'testpkg)))
+    (should (cfgl-package-enabledp pkg))))
+
+(ert-deftest test-cfgl-package-enabledp--symbol-toggle-eval-non-nil-example ()
+  (let ((pkg (cfgl-package "testpkg" :name 'testpkg :toggle 'package-toggle))
+        (package-toggle t))
+    (should (cfgl-package-enabledp pkg))))
+
+(ert-deftest test-cfgl-package-enabledp--symbol-toggle-eval-nil-example ()
+  (let ((pkg (cfgl-package "testpkg" :name 'testpkg :toggle 'package-toggle))
+        (package-toggle nil))
+    (should (null (cfgl-package-enabledp pkg)))))
+
+(ert-deftest test-cfgl-package-enabledp--list-toggle-eval-non-nil-example ()
+  (let ((pkg (cfgl-package "testpkg"
+                           :name 'testpkg
+                           :toggle '(memq package-toggle '(foo bar))))
+        (package-toggle 'foo))
+    (should (cfgl-package-enabledp pkg))))
+
+(ert-deftest test-cfgl-package-enabledp--list-toggle-eval-nil-example ()
+  (let ((pkg (cfgl-package "testpkg"
+                           :name 'testpkg
+                           :toggle '(memq package-toggle '(foo bar))))
+        (package-toggle 'other))
+    (should (null (cfgl-package-enabledp pkg)))))
+
+;; ---------------------------------------------------------------------------
 ;; configuration-layer//resolve-package-archives
 ;; ---------------------------------------------------------------------------
 
@@ -501,7 +533,7 @@
       (layer1/init-pkg nil ((:output nil :occur 1))))
      (configuration-layer//configure-package pkg))))
 
-(ert-deftest test-configure-packages--pre-init-is-evaluated ()
+(ert-deftest test-configure-package--pre-init-is-evaluated ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owner 'layer1 :pre-layers '(layer2)))
         (configuration-layer--layers
          `(,(cfgl-layer "layer1" :name 'layer1)
@@ -591,6 +623,23 @@
     (mocker-let
      ((configuration-layer//configure-package (p) ((:occur 1)))
       (spacemacs-buffer/loading-animation nil ((:output nil))))
+     (configuration-layer//configure-packages-2 `(,pkg)))))
+
+(ert-deftest test-configure-packages-2--toggle-t-is-configured ()
+  (let ((pkg (cfgl-package "pkg" :name 'pkg :owner 'layer1 :toggle t))
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (mocker-let
+     ((configuration-layer//configure-package (p) ((:occur 1)))
+      (spacemacs-buffer/loading-animation nil ((:output nil))))
+     (configuration-layer//configure-packages-2 `(,pkg)))))
+
+(ert-deftest test-configure-packages-2--toggle-nil-is-not-configured ()
+  (let ((pkg (cfgl-package "pkg" :name 'pkg :owner 'layer1 :toggle nil))
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (mocker-let
+     ((configuration-layer//configure-package (p) nil)
+      (spacemacs-buffer/loading-animation nil ((:output nil)))
+      (spacemacs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-packages-2 `(,pkg)))))
 
 (ert-deftest test-configure-packages-2--protected-package-is-configured()
