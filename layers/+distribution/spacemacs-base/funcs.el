@@ -122,14 +122,14 @@ the current state and point position."
 ;; TODO: dispatch these in the layers
 (defvar spacemacs-indent-sensitive-modes
   '(coffee-mode
-    python-mode
-    slim-mode
     haml-mode
-    yaml-mode
+    haskell-mode
+    slim-mode
     makefile-mode
+    makefile-bsdmake-mode
     makefile-gmake-mode
     makefile-imake-mode
-    makefile-bsdmake-mode)
+    python-mode)
   "Modes for which auto-indenting is suppressed.")
 
 (defcustom spacemacs-yank-indent-threshold 1000
