@@ -76,6 +76,7 @@
     planet-theme
     professional-theme
     purple-haze-theme
+    railscasts-theme
     reverse-theme
     seti-theme
     smyx-theme
