@@ -28,7 +28,7 @@
         ;; https://github.com/7696122/evil-terminal-cursor-changer/issues/8
         (evil-terminal-cursor-changer :excluded t)
         evil-tutor
-        (evil-unimpaired :skip-install t)))
+        (evil-unimpaired :location local)))
 
 (defun spacemacs-evil/init-evil-anzu ()
   (use-package evil-anzu

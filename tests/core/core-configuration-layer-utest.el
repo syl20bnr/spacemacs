@@ -585,6 +585,14 @@
       (spacemacs-buffer/loading-animation nil ((:output nil))))
      (configuration-layer//configure-packages-2 `(,pkg)))))
 
+(ert-deftest test-configure-packages-2--site-package-is-configured()
+  (let ((pkg (cfgl-package "pkg" :name 'pkg :owner 'layer1 :location 'site))
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (mocker-let
+     ((configuration-layer//configure-package (p) ((:occur 1)))
+      (spacemacs-buffer/loading-animation nil ((:output nil))))
+     (configuration-layer//configure-packages-2 `(,pkg)))))
+
 (ert-deftest test-configure-packages-2--protected-package-is-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owner 'layer1 :protected t))
         (mocker-mock-default-record-cls 'mocker-stub-record))
@@ -595,14 +603,6 @@
 
 (ert-deftest test-configure-packages-2--protected-excluded-package-is-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owner 'layer1 :excluded t :protected t))
-        (mocker-mock-default-record-cls 'mocker-stub-record))
-    (mocker-let
-     ((configuration-layer//configure-package (p) ((:occur 1)))
-      (spacemacs-buffer/loading-animation nil ((:output nil))))
-     (configuration-layer//configure-packages-2 `(,pkg)))))
-
-(ert-deftest test-configure-packages-2--skip-install-package-is-configured()
-  (let ((pkg (cfgl-package "pkg" :name 'pkg :owner 'layer1 :skip-install t))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
      ((configuration-layer//configure-package (p) ((:occur 1)))
