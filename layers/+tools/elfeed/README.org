@@ -74,7 +74,7 @@ in your =.spacemacs= file.
 (elfeed :variables
    elfeed-feeds '(("http://nullprogram.com/feed/" blog emacs)
                   "http://www.50ply.com/atom.xml"  ; no autotagging
-                  ("http://nedroid.com/feed/" webcomic))))
+                  ("http://nedroid.com/feed/" webcomic)))
 #+END_SRC
 
 Check documentation for =elfeed-feeds= for more information about this variable
