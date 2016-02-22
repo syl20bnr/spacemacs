@@ -177,7 +177,7 @@
 (ivy-set-actions
  'ivy-spacemacs-help-layers
  '(("a" ivy-spacemacs-help//layer-action-add-layer "add layer")
-   ("e" ivy-spacemacs-help//layer-action-open-readme-edit "add readme for editing")
+   ("e" ivy-spacemacs-help//layer-action-open-readme-edit "open readme for editing")
    ("p" ivy-spacemacs-help//layer-action-open-packages "open packages.el")
    ("r" ivy-spacemacs-help//layer-action-open-readme "open readme")))
 
@@ -250,6 +250,13 @@
     (re-search-forward (format "init-%s" package-str))
     (beginning-of-line)))
 
+(defun ivy-spacemacs-help//help-action-describe-package (args)
+  "Describe the passed package using Spacemacs describe function."
+  (if (null (cadr args))
+      (message "There are no packages associated with this layer.")
+    (let ((package-str (cadr args)))
+      (configuration-layer/describe-package (intern package-str)))))
+
 (defun ivy-spacemacs-help//help-action-open-packages (args)
   "Open the `packages.el' file of the passed CANDIDATE."
   (ivy-spacemacs-help//layer-action-open-file "packages.el" (car args)))
@@ -288,7 +295,8 @@
 (ivy-set-actions
  'ivy-spacemacs-help
  '(("a" ivy-spacemacs-help//help-action-add-layer "add layer")
-   ("e" ivy-spacemacs-help//help-action-open-readme-edit "add readme for editing")
+   ("d" ivy-spacemacs-help//help-action-describe-package "describe package")
+   ("e" ivy-spacemacs-help//help-action-open-readme-edit "open readme for editing")
    ("p" ivy-spacemacs-help//help-action-open-packages "open packages.el")
    ("r" ivy-spacemacs-help//help-action-open-readme "open readme")))
 

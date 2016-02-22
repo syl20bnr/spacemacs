@@ -217,7 +217,9 @@
     (candidates . ,(helm-spacemacs-help//package-candidates))
     (candidate-number-limit)
     (action . (("Go to init function"
-                . helm-spacemacs-help//package-action-goto-init-func)))))
+                . helm-spacemacs-help//package-action-goto-init-func)
+               ("Describe"
+                . helm-spacemacs-help//package-action-decribe)))))
 
 (defun helm-spacemacs-help//package-candidates ()
   "Return the sorted candidates for package source."
@@ -314,6 +316,13 @@
 (defun helm-spacemacs-help//layer-action-open-packages (candidate)
   "Open the `packages.el' file of the passed CANDIDATE."
   (helm-spacemacs-help//layer-action-open-file "packages.el" candidate))
+
+(defun helm-spacemacs-help//package-action-decribe (candidate)
+  "Describe the passed package using Spacemacs describe function."
+  (save-match-data
+    (string-match "^\\(.+\\)\s(\\(.+\\) layer)$" candidate)
+    (let* ((package (match-string 1 candidate)))
+      (configuration-layer/describe-package (intern package)))))
 
 (defun helm-spacemacs-help//package-action-goto-init-func (candidate)
   "Open the file `packages.el' and go to the init function."
