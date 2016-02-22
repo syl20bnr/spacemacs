@@ -214,6 +214,7 @@ defer call using `spacemacs-post-user-config-hook'."
            "- Emacs: %s\n"
            "- Spacemacs: %s\n"
            "- Spacemacs branch: %s (rev. %s)\n"
+           "- Graphic display: %s\n"
            "- Distribution: %s\n"
            "- Editing style: %s\n"
            "- Completion: %s\n"
@@ -223,6 +224,7 @@ defer call using `spacemacs-post-user-config-hook'."
    spacemacs-version
    (spacemacs/git-get-current-branch)
    (spacemacs/git-get-current-branch-rev)
+   (display-graphic-p)
    dotspacemacs-distribution
    dotspacemacs-editing-style
    (cond ((configuration-layer/layer-usedp 'spacemacs-helm)
