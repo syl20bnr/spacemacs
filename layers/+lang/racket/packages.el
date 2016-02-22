@@ -69,6 +69,13 @@
         (racket-repl)
         (spacemacs/normal-to-insert-state))
 
+      (dolist (prefix '(("mg" . "navigation")
+                        ("mh" . "doc")
+                        ("mi" . "insert")
+                        ("ms" . "repl")
+                        ("mt" . "tests")))
+        (spacemacs/declare-prefix-for-mode 'racket-mode (car prefix) (cdr prefix)))
+
       (spacemacs/set-leader-keys-for-major-mode 'racket-mode
         ;; navigation
         "g`" 'racket-unvisit
