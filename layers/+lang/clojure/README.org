@@ -116,6 +116,7 @@ As this state works the same for all files, the documentation is in global
 
 | Key Binding | Description    |
 |-------------+----------------|
+| ~SPC m h a~ | cider apropos  |
 | ~SPC m h g~ | cider grimoire |
 | ~SPC m h h~ | cider doc      |
 | ~SPC m h j~ | cider javadoc  |
