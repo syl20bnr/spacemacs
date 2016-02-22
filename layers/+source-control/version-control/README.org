@@ -1,15 +1,21 @@
 #+TITLE: Version-Control layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
-- [[#description][Description]]
-  - [[#features][Features]]
-- [[#install][Install]]
-  - [[#layer][Layer]]
-- [[#configuration][Configuration]]
-  - [[#differences-between-margin-programs][Differences between margin programs]]
-- [[#key-bindings][Key Bindings]]
-  - [[#version-control-transient-state][Version Control Transient-state]]
-  - [[#smerge-mode-transient-state][Smerge Mode Transient-state]]
+ - [[#description][Description]]
+   - [[#features][Features]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+ - [[#configuration][Configuration]]
+   - [[#differences-between-margin-programs][Differences between margin programs]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#vc-directory-buffer-commands][VC Directory buffer commands]]
+   - [[#commit-message-editing-buffer][Commit message editing buffer]]
+   - [[#diff-buffer][Diff buffer]]
+   - [[#log-view-buffer][Log view buffer]]
+   - [[#annotation-buffer][Annotation buffer]]
+   - [[#version-control-transient-state][Version Control Transient-state]]
+   - [[#smerge-mode-transient-state][Smerge Mode Transient-state]]
+   - [[#toggles][Toggles]]
 
 * Description
 This layers adds general configuration for [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html][Emacs VC]].
@@ -66,14 +72,100 @@ one over the other:
 | Dired support                       | X       |            |             |
 
 * Key Bindings
+VC commands:
 
-| Key Binding | Description                     |
-|-------------+---------------------------------|
-| ~SPC g .~   | version control transient-state |
-| ~SPC g r~   | smerge mode transient-state     |
-| ~SPC T d~   | toggle diff margins             |
-| ~SPC T C-d~ | toggle diff margins globally    |
-| ~SPC g h o~ | browser at remote               |
+| Key Binding | Description                                            |
+|-------------+--------------------------------------------------------|
+| ~SPC g .~   | version control transient-state                        |
+| ~SPC g r~   | smerge mode transient-state                            |
+| ~SPC g h o~ | browser at remote                                      |
+| ~SPC g v =~ | open a hunk under the point in the diff buffer         |
+| ~SPC g v D~ | compare the entire working tree with head              |
+| ~SPC g v e~ | show diff against current head using ediff             |
+| ~SPC g v g~ | visually annotate the current file                     |
+| ~SPC g v d~ | open the VC Directory buffer                           |
+| ~SPC g v +~ | update the working copy                                |
+| ~SPC g v i~ | register (add) into a version control system           |
+| ~SPC g v u~ | revert working copy to their repository contents       |
+| ~SPC g v l~ | list the change log                                    |
+| ~SPC g v L~ | list the change log for the current VC controlled tree |
+| ~SPC g v v~ | do the next logical VC operation (=vc-next-action=)    |
+| ~SPC g v I~ | ignore file (=vc-ignore=)                              |
+| ~SPC g v r~ | resolve conflicts in file                              |
+
+** VC Directory buffer commands
+You can hit ~SPC pv~ from the current project to open the VC Directory buffer,
+or use ~SPC g v d~ for specifying a root directory.
+Then you may mark (=m= key) files you are interested in, to form a fileset.
+Most commands described above are applicable to filesets too.
+To some of them are given shortcuts:
+
+| Key | Description                       |
+|-----+-----------------------------------|
+| ~=~ | compare selected files with head  |
+| ~c~ | open a =commit message buffer=    |
+| ~l~ | list changes                      |
+| ~a~ | annotate selected files           |
+| ~i~ | add into a version control system |
+| ~r~ | refresh directory view            |
+| ~E~ | ignore file under cursor          |
+
+Navigation and interaction commands in the VC Directory buffer:
+
+| Key Bindings    | Description        |
+|-----------------+--------------------|
+| ~j~ or ~M-n~    | next file          |
+| ~k~ or ~M-p~    | previous file      |
+| ~gj~ or ~TAB~   | next directory     |
+| ~gk~ or ~S-TAB~ | previous directory |
+| ~m~             | mark a file        |
+| ~u~             | unmark a file      |
+
+** Commit message editing buffer
+In a commit message buffer press ~C-c C-c~ to commit the changes with the entered message.
+Pressing ~C-c C-k~ will discard the commit message and close this buffer.
+
+
+** Diff buffer
+
+| Key Bindings           | Description                                    |
+|------------------------+------------------------------------------------|
+| ~C-j~ or ~M-n~         | next hunk                                      |
+| ~C-k~ or ~M-p~         | previous hunk                                  |
+| ~gj~ or ~J~ or ~TAB~   | next file                                      |
+| ~gk~ or ~K~ or ~S-TAB~ | previous file                                  |
+| ~a~                    | apply a hunk                                   |
+| ~r~                    | revert a hunk                                  |
+| ~S~                    | split the current hunk at point into two hunks |
+| ~D~                    | kill a hunk                                    |
+| ~u~                    | undo killing or splitting                      |
+
+
+** Log view buffer
+
+| Key Bindings           | Description                                                                |
+|------------------------+----------------------------------------------------------------------------|
+| ~C-j~ or ~M-n~         | next message                                                               |
+| ~C-k~ or ~M-p~         | previous message                                                           |
+| ~gj~ or ~J~ or ~TAB~   | next file                                                                  |
+| ~gk~ or ~K~ or ~S-TAB~ | previous file                                                              |
+| ~f~ or ~ENTER~         | visit the version at point                                                 |
+| ~d~                    | display a diff between the revision at point and the next earlier revision |
+| ~o~                    | use for jumping to links                                                   |
+| ~H~                    | toggle hiding of the full message                                          |
+
+** Annotation buffer
+
+| Key Bindings | Description                                                                    |
+|--------------+--------------------------------------------------------------------------------|
+| ~J~          | visit the annotation of the revision after this one                            |
+| ~K~          | visit the annotation of the revision previous to this one                      |
+| ~L~          | Visit the log of the revision at line                                          |
+| ~H~          | toggle whether or not the annotation is visible                                |
+| ~a~          | visit the annotation of the revision identified in the current line            |
+| ~p~          | visit the annotation of the revision before the revision at line               |
+| ~d~          | display the diff between the current line’s revision and the previous revision |
+| ~f~          | show in a buffer the file revision indicated by the current line               |
 
 ** Version Control Transient-state
 
@@ -115,3 +207,9 @@ one over the other:
 | ~SPC g r u~ | Undo                     |
 | ~SPC g r r~ | Smerge refine            |
 | ~SPC g r q~ | Quit transient state     |
+
+** Toggles
+| Key Binding | Description                  |
+|-------------+------------------------------|
+| ~SPC T d~   | toggle diff margins          |
+| ~SPC T C-d~ | toggle diff margins globally |
