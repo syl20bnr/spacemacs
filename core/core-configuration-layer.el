@@ -17,6 +17,7 @@
 (require 'eieio)
 (require 'package)
 (require 'warnings)
+(require 'help-mode)
 (require 'ht)
 (require 'core-dotspacemacs)
 (require 'core-funcs)
@@ -159,6 +160,9 @@
 
 (defvar configuration-layer--protected-packages nil
   "A list of packages that will be protected from removal as orphans.")
+
+(defvar configuration-layer--lazy-mode-alist nil
+  "Association list where the key is a mode and the value a regexp.")
 
 (defvar configuration-layer-error-count nil
   "Non nil indicates the number of errors occurred during the
@@ -376,6 +380,191 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
         (push name-sym configuration-layer--protected-packages)))
     obj))
 
+(define-button-type 'help-dotfile-variable
+  :supertype 'help-xref
+  'help-function
+  (lambda (variable)
+    (with-current-buffer (find-file-noselect dotspacemacs-filepath)
+      (pop-to-buffer (current-buffer))
+      (goto-char (point-min))
+      ;; try to exclude comments
+      (if (re-search-forward (format "^[a-z\s\\(\\-]*%s" variable)
+                             nil 'noerror)
+          (beginning-of-line)
+        (message "Unable to find location in file"))))
+  'help-echo
+  (purecopy (concat "mouse-2, RET: "
+                    "visit the Spacemacs dotfile where variable is defined.")))
+
+(defun configuration-layer/describe-package (pkg-symbol
+                                             &optional layer-list pkg-list)
+  "Describe a package in the context of the configuration layer system."
+  (interactive)
+  (let* ((pkg (object-assoc pkg-symbol
+                            :name (or pkg-list configuration-layer--packages)))
+         (owner (oref pkg :owner)))
+    (with-help-window (help-buffer)
+      ;; declaration location
+      (princ pkg-symbol)
+      (princ " is a package declared and configured ")
+      (cond
+       ((eq 'dotfile owner)
+        (princ "by the variable `dotspacemacs-additional-packages' ")
+        (with-current-buffer standard-output
+          (save-excursion
+            (re-search-backward "`\\([^`']+\\)'" nil t)
+            (help-xref-button 1 'help-variable
+                              'dotspacemacs-additional-packages
+                              dotspacemacs-filepath)))
+        (princ "in your `dotfile'.\n")
+        (with-current-buffer standard-output
+          (save-excursion
+            (re-search-backward "`\\([^`']+\\)'" nil t)
+            (help-xref-button
+             1 'help-dotfile-variable 'dotspacemacs-additional-packages))))
+       ((not (null owner))
+        (let* ((layer (object-assoc
+                       owner :name (or layer-list configuration-layer--layers)))
+               (path (concat (oref layer dir) "packages.el")))
+          (princ "by the layer `")
+          (princ owner)
+          (princ "'.\n")
+          (with-current-buffer standard-output
+            (save-excursion
+              (re-search-backward "`\\([^`']+\\)'" nil t)
+              (help-xref-button
+               1 'help-function-def
+               (intern (format "%S/init-%S" owner pkg-symbol)) path)))))
+       (t
+        (princ "in an unknown place in the lisp parenthesis universe.\n")))
+      ;; exclusion/protection
+      (if (oref pkg :protected)
+          (princ "\nThis package is protected and cannot be excluded.\n")
+        (when (oref pkg :excluded)
+          ;; TODO extend excluded support in cfgl-package object to know who is
+          ;; excluding the package
+          (princ "\nThis packages is excluded and cannot be installed.\n")))
+      ;; toggle
+      (unless (or (oref pkg :excluded) (eq t (oref pkg :toggle)))
+        (princ "\nA toggle is defined for this package, it is currently ")
+        (princ (if (cfgl-package-enabledp pkg)
+                   (princ "`on' ")
+                 (princ "`off' ")))
+        (princ "because the following expression evaluates to ")
+        (if (cfgl-package-enabledp pkg)
+            (princ "t:\n")
+          (princ "nil:\n"))
+        (princ (oref pkg :toggle))
+        (princ "\n"))
+      (unless (oref pkg :excluded)
+        ;; usage and installation
+        (if (not (configuration-layer/package-usedp pkg-symbol))
+            (princ "\nYou are not using this package.\n")
+          (princ "\nYou are using this package")
+          (if (memq (oref pkg :location) '(built-in local site))
+              (princ ".\n")
+            (if (not (package-installed-p pkg-symbol))
+                (princ " but it is not yet installed.\n")
+              (princ ", it is currently installed ")
+              (if (featurep pkg-symbol)
+                  (princ "and loaded.\n")
+                (princ "but it has not been loaded yet.\n")))))
+        (when (configuration-layer/package-lazy-installp pkg-symbol)
+          (princ
+           "\nThis package can be lazily installed using `auto-mode-alist'.\n")
+          (with-current-buffer standard-output
+            (save-excursion
+              (re-search-backward "`\\([^`']+\\)'" nil t)
+              (help-xref-button 1 'help-variable 'auto-mode-alist)))
+          (when (assq pkg-symbol configuration-layer--lazy-mode-alist)
+            (princ (concat "Actually it will be installed when one of the "
+                           "following files is opened: \n"))
+            (princ (cdr (assq pkg-symbol
+                              configuration-layer--lazy-mode-alist)))
+            (princ "\n")))
+        ;; source location
+        (let ((location (oref pkg :location)))
+          (cond
+           ((eq 'built-in location)
+            (princ "\nThis is a built-in package distributed with Emacs.\n"))
+           ((eq 'local location)
+            (let* ((layer (object-assoc
+                           owner :name (or layer-list
+                                           configuration-layer--layers)))
+                   (path (format "%slocal/%S" (oref layer dir) pkg-symbol)))
+              (princ (concat "\nThis is a local package whose source files "
+                             "can be found in layer `"))
+              (princ owner)
+              (princ "'.\n")
+              (with-current-buffer standard-output
+                (save-excursion
+                  (re-search-backward "`\\([^`']+\\)'" nil t)
+                  (help-xref-button 1 'help-package-def path)))))
+           ((eq 'site location)
+            ;; TODO find a way to find the location on disk and detect if it is
+            ;; really installed
+            (princ "\nWhen used it must be installed by a third party.\n"))
+           ((eq 'elpa location)
+            ;; TODO find a way to find the ELPA repository
+            (princ "\nWhen used it is downloaded from an ELPA repository.\n"))
+           ((and (listp location) (eq 'recipe (car location)))
+            (princ (concat "\nWhen used it is downloaded using `quelpa' "
+                           "with the following recipe:\n"))
+            (with-current-buffer standard-output
+              (save-excursion
+                (re-search-backward "`\\([^`']+\\)'" nil t)
+                (help-xref-button
+                 1 'help-url "https://github.com/quelpa/quelpa")))
+            (princ location)
+            (princ "\n"))))
+        ;; pre/post init functions
+        (when (or (oref pkg pre-layers) (oref pkg post-layers))
+          (princ (concat "\nAdditional configuration for this package "
+                         "can be found in the following "))
+          (if (null layer-list)
+              (princ "used layers:\n")
+            (princ "layers:\n"))
+          (when (oref pkg pre-layers)
+            (princ "(pre-init)  ")
+            (dolist (layer-sym (sort (oref pkg pre-layers) 'string<))
+              (let* ((layer (object-assoc
+                             layer-sym
+                             :name (or layer-list configuration-layer--layers)))
+                     (path (concat (oref layer dir) "packages.el")))
+                (princ (concat "`" (symbol-name layer-sym) "'"))
+                (with-current-buffer standard-output
+                  (save-excursion
+                    (re-search-backward "`\\([^`']+\\)'" nil t)
+                    (help-xref-button
+                     1 'help-function-def
+                     (intern (format "%S/pre-init-%S" layer-sym pkg-symbol))
+                     path))))
+              (princ " "))
+            (princ "\n"))
+          (when (oref pkg post-layers)
+            (princ "(post-init) ")
+            (dolist (layer-sym (sort (oref pkg post-layers) 'string<))
+              (let* ((layer (object-assoc
+                             layer-sym
+                             :name (or layer-list configuration-layer--layers)))
+                     (path (concat (oref layer dir) "packages.el")))
+                (princ (concat "`" (symbol-name layer-sym) "'"))
+                (with-current-buffer standard-output
+                  (save-excursion
+                    (re-search-backward "`\\([^`']+\\)'" nil t)
+                    (help-xref-button
+                     1 'help-function-def
+                     (intern (format "%S/post-init-%S" layer-sym pkg-symbol))
+                     path))))
+              (princ " "))
+            (princ "\n"))))
+      (princ (concat "\nClick [here] to display an Emacs description "
+                     "for this package.\n"))
+      (with-current-buffer standard-output
+        (save-excursion
+          (re-search-backward "\\(\\[.+\\]\\)" nil t)
+          (help-xref-button 1 'help-package pkg-symbol))))))
+
 (defun configuration-layer/get-packages (layers &optional dotfile)
   "Read the package lists of LAYERS and dotfile and return a list of packages."
   (let (result)
@@ -453,6 +642,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
       (dolist (x extensions)
         (let ((ext (car x))
               (mode (cadr x)))
+          (add-to-list 'configuration-layer--lazy-mode-alist (cons mode ext))
           (add-to-list
            'auto-mode-alist
            `(,ext . (lambda ()
