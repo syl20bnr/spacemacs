@@ -129,7 +129,8 @@ the current state and point position."
     makefile-bsdmake-mode
     makefile-gmake-mode
     makefile-imake-mode
-    python-mode)
+    python-mode
+    yaml-mode)
   "Modes for which auto-indenting is suppressed.")
 
 (defcustom spacemacs-yank-indent-threshold 1000
