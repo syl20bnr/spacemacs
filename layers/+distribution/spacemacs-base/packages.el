@@ -875,24 +875,15 @@ below. Anything else exits."
       "Restart emacs without the spacemacs configuration, enable
 debug-init and load the given list of packages."
       (interactive
-       (let* ((guess (function-called-at-point)))
-         (require 'finder-inf nil t)
-         ;; Load the package list if necessary (but don't activate them).
+       (progn
          (unless package--initialized
            (package-initialize t))
          (let ((packages (append (mapcar 'car package-alist)
                                  (mapcar 'car package-archive-contents)
                                  (mapcar 'car package--builtins))))
-           (unless (memq guess packages)
-             (setq guess nil))
            (setq packages (mapcar 'symbol-name packages))
-           (let ((val
-                  (completing-read-multiple
-                   (if guess
-                       (format "Describe package (default %s): "
-                               guess)
-                     "Describe package: ")
-                   packages nil t nil nil guess)))
+           (let ((val (completing-read-multiple "Packages to load (comma separated): "
+                                                packages nil t)))
              `(,val)))))
       (let ((load-packages-string (mapconcat (lambda (pkg) (format "(use-package %s)" pkg))
                                              packages " ")))
