@@ -116,7 +116,7 @@ To set the max files size (in MB), set the following parameter:
 | ~k~         | (ranger) navigate up                                 |
 | ~C-j~       | (ranger) scroll preview window down                  |
 | ~C-k~       | (ranger) scroll preview window up                    |
-| ~f~         | (ranger) search for file names                       |
+| ~e~         | (ranger) search for file names                       |
 | ~i~         | (ranger) show preview of current file                |
 | ~zi~        | (ranger) toggle showing literal / full-text previews |
 | ~zh~        | (ranger) toggle showing dotfiles                     |
