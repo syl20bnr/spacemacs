@@ -23,13 +23,11 @@
     helm-cscope
     helm-gtags
     semantic
+    (srefactor :toggle (version< emacs-version "24.4"))
     stickyfunc-enhance
     ycmd
     xcscope
     ))
-
-(unless (version< emacs-version "24.4")
-  (add-to-list 'c-c++-packages 'srefactor))
 
 (defun c-c++/init-cc-mode ()
   (use-package cc-mode
