@@ -22,6 +22,7 @@
     mu4e
     ;; org and org-agenda are installed by `org-plus-contrib'
     (org :location built-in)
+    ox-ioslide
     (org-agenda :location built-in)
     (org-plus-contrib :step pre)
     org-bullets
@@ -425,6 +426,12 @@ Headline^^            Visit entry^^               Filter^^                    Da
   (use-package org-bullets
     :defer t
     :init (add-hook 'org-mode-hook 'org-bullets-mode)))
+
+(defun org/init-ox-ioslide ()
+  (use-package ox-ioslide
+    :if org-enable-ioslide
+    :config
+    (require 'ox-ioslide-helper)))
 
 (defun org/init-org-mime ()
   (use-package org-mime

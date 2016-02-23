@@ -11,6 +11,7 @@
    - [[Layer][Layer]]
    - [[Github support][Github support]]
    - [[Gnuplot support][Gnuplot support]]
+   - [[IOSlide export support][IOSlide export support]]
    - [[Different bullets][Different bullets]]
  - [[Key bindings][Key bindings]]
    - [[Org][Org]]
@@ -81,6 +82,11 @@ demonstrated [[http://orgmode.org/worg/org-tutorials/org-plot.html][here]]; unfo
 at this stage.  It is possible to disable the configuration of gnuplot support
 as usual by adding the package =gnuplot= to your =dotspacemacs-excluded-packages=
 variable.
+
+** IOSlide export support
+
+To enable the export of your org file as a [[https://code.google.com/p/io-2012-slides/][Google I/O HTML 5 presentation]], set the
++variable =org-enable-ioslide= to =t=. This will install the [[https://github.com/coldnew/org-ioslide][org-ioslide]] extension.
 
 ** Different bullets
 You can tweak the bullets displayed in the org buffer in the function
