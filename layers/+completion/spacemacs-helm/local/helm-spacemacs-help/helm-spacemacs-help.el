@@ -176,7 +176,7 @@
                 (concat spacemacs-docs-directory candidate))))
     (cond ((and (equal (file-name-extension file) "md")
                 (not helm-current-prefix-arg))
-           (condition-case nil
+           (condition-case-unless-debug nil
                (with-current-buffer (find-file-noselect file)
                  (gh-md-render-buffer)
                  (kill-this-buffer))
