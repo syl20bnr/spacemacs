@@ -327,11 +327,9 @@ Will work on both org-mode and any mode that accepts plain html."
       (defun spacemacs//org-toggle-docs-meta-tags-hook ()
         "Make `org-mode' meta tags transparent when viewing README.org
         files for layers with `view-mode' enabled."
-        (if (and
-             (string-match (concat (expand-file-name "~") "/.emacs.d/layers/.*README\.org")  buffer-file-name)
-             (boundp 'view-mode))
+        (if (bound-and-true-p view-mode)
             (spacemacs//org-hide-docs-meta-tags)
-          (spacemacs//org-unhide-docs-meta-tags)))
+            (spacemacs//org-unhide-docs-meta-tags)))
 
       (add-hook 'org-mode-hook 'spacemacs//org-toggle-docs-meta-tags-hook)
 
