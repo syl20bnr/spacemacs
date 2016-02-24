@@ -128,7 +128,7 @@
           (error "No file chosen"))
       (set-buffer (window-buffer window))
       (goto-char pos)
-      (condition-case ex
+      (condition-case-unless-debug ex
           (progn
             (setq file (dired-get-file-for-visit))
             (dired-find-file-other-window))

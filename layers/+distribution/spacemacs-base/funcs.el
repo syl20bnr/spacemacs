@@ -166,7 +166,7 @@ the current state and point position."
   "Replace the preceding sexp with its value."
   (interactive)
   (backward-kill-sexp)
-  (condition-case nil
+  (condition-case-unless-debug nil
       (prin1 (eval (read (current-kill 0)))
              (current-buffer))
     (error (message "Invalid expression")
@@ -500,7 +500,7 @@ dotspacemacs-persistent-server to be t"
 (defun spacemacs/frame-killer ()
   "Kill server buffer and hide the main Emacs window"
   (interactive)
-  (condition-case nil
+  (condition-case-unless-debug nil
       (delete-frame nil 1)
       (error
        (make-frame-invisible nil 1))))
