@@ -546,7 +546,7 @@ around point as the initial input."
                          (buffer-substring-no-properties
                           (region-beginning) (region-end))
                        (thing-at-point 'symbol t))))
-          (swiper--ivy input)))
+          (swiper input)))
 
       (defun spacemacs/swiper-all-region-or-symbol ()
         "Run `swiper-all' with the selected region or the symbol
