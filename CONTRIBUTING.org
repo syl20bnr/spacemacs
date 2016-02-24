@@ -154,6 +154,10 @@ Contributed configuration layers are stored in the =layers/= folder. The
 =layers/= folder also contains categories prefixed with =+= to put your layers
 in. For example a layer for a language would go in the =layers/+lang/= folder.
 
+*Note*: If there is no special configuration for a given package, there is no
+      need to contribute a layer, instead users can either add it to their =dotspacemacs/additional-packages= list or
+      make a private layer.
+
 *** File header
 The file header for =elisp= files should look like the following template:
 
