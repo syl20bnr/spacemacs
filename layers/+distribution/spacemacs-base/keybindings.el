@@ -420,7 +420,7 @@ when true should disable the hjkl keys.")
 Select^^^^               Move^^^^              Split^^                Resize^^                     Other^^
 ------^^^^------------- -----^^^^------------ ------^^-------------- -------^^------------------- ------^^-------------------
 [_j_/_k_] down/up        [_J_/_K_] down/up     [_s_] vertical         [_[_] shrink horizontally    [_q_] quit
-[_h_/_l_] left/right     [_h_/_l_] left/right  [_S_] vert & follow    [_]_] enlarge horizontally   [_u_] restore prev layout
+[_h_/_l_] left/right     [_H_/_L_] left/right  [_S_] vert & follow    [_]_] enlarge horizontally   [_u_] restore prev layout
 [_0_-_9_] window N       [_R_]^^   rotate      [_v_] horizontal       [_{_] shrink vertically      [_U_] restore next layout
 [_w_]^^   other window   ^^^^                  [_V_] horiz & follow   [_}_] enlarge vertically     [_d_] close current
 [_o_]^^   other frame    ^^^^                  ^^                     ^^                           [_D_] close other
