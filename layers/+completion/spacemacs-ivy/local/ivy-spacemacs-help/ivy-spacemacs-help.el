@@ -98,7 +98,7 @@
                   (concat user-emacs-directory candidate)
                 (concat spacemacs-docs-directory candidate))))
     (cond ((equal (file-name-extension file) "md")
-           (condition-case nil
+           (condition-case-unless-debug nil
                (with-current-buffer (find-file-noselect file)
                  (gh-md-render-buffer)
                  (kill-this-buffer))

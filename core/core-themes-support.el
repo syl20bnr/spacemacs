@@ -189,7 +189,7 @@ package name does not match theme name + `-theme' suffix.")
 (defun spacemacs/load-theme (theme)
   "Load THEME."
   ;; Required dependencies for some themes
-  (condition-case err
+  (condition-case-unless-debug err
       (progn
         (when (or (eq 'zonokai-blue theme)
                   (eq 'zonokai-red theme)
