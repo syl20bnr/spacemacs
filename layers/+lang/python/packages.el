@@ -193,7 +193,7 @@
     (progn
       (evilified-state-evilify pylookup-mode pylookup-mode-map)
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
-        "mhH" 'pylookup-lookup))
+        "hH" 'pylookup-lookup))
     :config
     (progn
       (let ((dir (configuration-layer/get-layer-local-dir 'python)))
