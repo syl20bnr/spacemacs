@@ -103,18 +103,20 @@ perspectives does."
    :sources
    (helm-build-in-buffer-source "*Helm Switch Project Layout*"
      :data (lambda ()
-             (if (projectile-project-p)
-                 (cons (abbreviate-file-name (projectile-project-root))
-                       (projectile-relevant-known-projects))
-               projectile-known-projects))
+             (cons persp-nil-name
+                   (if (projectile-project-p)
+                       (cons (abbreviate-file-name (projectile-project-root))
+                             (projectile-relevant-known-projects))
+                     projectile-known-projects)))
      :fuzzy-match helm-projectile-fuzzy-match
      :mode-line helm-read-file-name-mode-line-string
      :action '(("Switch to Project Perspective" .
                 (lambda (project)
                   (let ((persp-reset-windows-on-nil-window-conf t))
                     (persp-switch project)
-                    (let ((projectile-completion-system 'helm))
-                      (projectile-switch-project-by-name project)))))))
+                    (unless (equal project persp-nil-name)
+                      (let ((projectile-completion-system 'helm))
+                        (projectile-switch-project-by-name project))))))))
    :buffer "*Helm Projectile Layouts*"))
 
 ;; Autosave ----------------------------------------------------------------
