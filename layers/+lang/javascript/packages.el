@@ -84,7 +84,7 @@
     :init
     (progn
       (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-      ;; required to make `<SPC> s l' to work correctly
+      ;; required to make `<leader> s j' or `<leacer> i j` to work correctly
       (add-hook 'js2-mode-hook 'js2-imenu-extras-mode))
     :config
     (progn
