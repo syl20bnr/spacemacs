@@ -27,7 +27,7 @@
         "Rename a workspace and get back to transient-state."
         (interactive)
         (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) nil)
-        (spacemacs/workspaces-micro-state))
+        (spacemacs/workspaces-transient-state/body))
 
       (defun spacemacs//workspaces-ms-get-slot-name (window-config)
         "Return the name for the given window-config"
