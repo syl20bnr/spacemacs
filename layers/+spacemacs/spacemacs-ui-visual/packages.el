@@ -395,7 +395,13 @@
        ;; if so, disable vi-tilde-fringe-mode
        (add-hook 'after-change-major-mode-hook (lambda ()
                                                  (when buffer-read-only
-                                                   (vi-tilde-fringe-mode -1)))))
+                                                   (vi-tilde-fringe-mode -1))))
+       (spacemacs/add-to-hooks (lambda () (vi-tilde-fringe-mode -1))
+                               '(comint-mode-hook
+                                 eshell-mode-hook
+                                 eww-mode-hook
+                                 shell-mode-hook
+                                 term-mode-hook)))
      :config
      (spacemacs|hide-lighter vi-tilde-fringe-mode))))
 
