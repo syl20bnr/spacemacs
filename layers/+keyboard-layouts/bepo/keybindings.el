@@ -312,6 +312,20 @@
       "h" 'neotree-hidden-file-toggle
       "k" 'neotree-rename-node)))
 
+(bepo|config org-agenda
+  :description
+  "Remap `org-agenda' bindings."
+  :loader
+  (spacemacs|use-package-add-hook org-agenda :post-config BODY)
+  :config
+  (bepo/evil-correct-keys 'evilified org-agenda-mode-map
+    "j"
+    "k"
+    "M-h"
+    "M-j"
+    "M-k"
+    "M-l"))
+
 (bepo|config org
   :description
   "Remap keys in `org-mode'."
