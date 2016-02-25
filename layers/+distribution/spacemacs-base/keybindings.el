@@ -341,6 +341,7 @@
   "xa:" 'spacemacs/align-repeat-colon
   "xa;" 'spacemacs/align-repeat-semicolon
   "xa=" 'spacemacs/align-repeat-equal
+  "xa\\" 'spacemacs/align-repeat-backslash
   "xaa" 'align
   "xac" 'align-current
   "xam" 'spacemacs/align-repeat-math-oper
