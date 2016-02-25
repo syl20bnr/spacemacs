@@ -1,0 +1,107 @@
+#vorak layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+
+#+CAPTION: logo
+
+# The maximum height of the logo should be 200 pixels.
+[[img/dvorak.png]]
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Configurations][Configurations]]
+ - [[Mapping][Mapping]]
+ - [[Key bindings][Key bindings]]
+ - [[Contributors][Contributors]]
+ - [[Sources][Sources]]
+
+* Description
+This layer changes the key bindings in spacemacs to be
+[[http://www.kaufmann.no/roland/dvorak/][dvorak programmer]] friendly. =dvorak programmer= is an optimized keyboard layout
+focused in programming and it's a variant of the more general =dvorak= (us)
+keyboard layout. The main changes on this layer are the navigation keys, ~hjkl~
+to ~htns~ (as you can see, located in the home row). As this changes affect a
+lot of packages, this layer needs to deal with some corrections and swappings.
+
+[[file:img/dvp.png]]
+
+* Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(dvorak))
+#+end_src
+
+It is possible to modify wether some features are loaded or not through the
+setting of this two variables:
+
+- dvorak-set-enabled-configurations
+- dvorak-set-disabled-configurations
+
+The first one will list all the features to activate (nil default to /all/) and
+the second will list the features *not* to load. Note that the second takes
+precedence over the first, thus, if a feature is listed in both lists, it will
+*not* be loaded.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+              '((dvorak :variables dvorak-set-disabled-configurations '(eyebrowse org))))
+#+END_SRC
+
+* Configurations
+The available configurations are:
+
+- avy
+- ace-window
+- helm
+- buffer-move
+- comint-mode
+- company
+- elfeed
+- evil
+- evil-escape
+- evil-surround
+- evil-evilified-state
+- evil-window
+- eyebrowse
+- ivy
+- magit
+- org
+- ranger
+- spacemacs
+
+* Mapping
+The mapping correction doesn't follow any standard more than the current
+=evil-dvorak= package's keybindings. This layer tries to keep the rule as
+generic as possible and remap everything based on the same criteria.
+
+The main rebindings are done in the movement keys, thus corresponding:
+
+- ~h -> h~
+- ~j -> t~
+- ~k -> n~
+- ~l -> s~
+
+And when a conflict is found the functionality is just swapped, so we'll find
+the lost functions on ~t~ under ~j~.
+
+There are also other remappings between evil commands, such as replacing ~a~
+with =evil-first-non-blank=. This keybindings don't affect anything outside evil
+base keybindings, so they need no correction. To see further information on
+this, see =evil-dvorak= package README.
+* Key bindings
+This layer tries to remap keybindings automatically, thus making its
+documentation hard. As a general overview, we tried to keep as much consistency
+as possible, and always keeping the main keybindings in the home row fingers. 
+
+However, to see the basic keybindings rules, see the [[https://github.com/AlejandroCatalina/evil-dvorak][evil-dvorak]] keybindings. 
+
+* Contributors
+- Alejandro Catalina
+- Thanks to Fabien Dubosson for the creation of the Bepo layer, which serve as
+  my inspiration and model (actually reusing its code).
+
+* Sources
+The dvorak keymap was taken from [[http://www.kaufmann.no/roland/dvorak/]]
+
+
