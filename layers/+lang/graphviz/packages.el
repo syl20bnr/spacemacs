@@ -15,8 +15,12 @@
 
 (defun graphviz/init-graphviz-dot-mode ()
   (use-package graphviz-dot-mode
-    :mode "\\.dot$"
-    :defer t
+    :mode (("\\.diag$"      . graphviz-dot-mode)
+           ("\\.blockdiag$" . graphviz-dot-mode)
+           ("\\.nwdiag$"    . graphviz-dot-mode)
+           ("\\.rackdiag$"  . graphviz-dot-mode)
+           ("\\.dot$"       . graphviz-dot-mode)
+           ("\\.gv"         . graphviz-dot-mode))
     :config
     (progn
       (spacemacs|add-toggle graphviz-live-reload
