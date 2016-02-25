@@ -23,6 +23,8 @@
       (define-key evil-motion-state-map "gt" 'eyebrowse-next-window-config)
       (define-key evil-motion-state-map "gT" 'eyebrowse-prev-window-config)
 
+      (spacemacs/set-leader-keys "bW" 'spacemacs/goto-buffer-workspace)
+
       (defun spacemacs/find-workspace (buffer)
         "Find Eyebrowse workspace containing BUFFER.
 If several workspaces contain BUFFER, return the first one. Workspaces are
@@ -31,7 +33,7 @@ If no workspace contains
 BUFFER, return nil."
         ;; the second element of a workspace is its window-state object
         (--find (memq buffer (spacemacs/window-state-get-buffers (cadr it)))
-               (eyebrowse--get 'window-configs)))
+                (eyebrowse--get 'window-configs)))
 
       (defun spacemacs/display-in-workspace (buffer alist)
         "Display BUFFER's workspace.
