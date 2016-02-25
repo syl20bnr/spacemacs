@@ -146,7 +146,7 @@
         "gS" 'magit-stage-file
         "gU" 'magit-unstage-file)
 
-      (spacemacs|define-micro-state git-blame
+      (spacemacs|define-transient-state git-blame
         :title "Git Blame Transient State"
         :doc "
 Press [_b_] again to blame further in the history, [_q_] to go up or quit."
