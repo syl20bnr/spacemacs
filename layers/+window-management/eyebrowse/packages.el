@@ -79,8 +79,9 @@ workspace, preferably in the current window."
 
       (spacemacs|define-transient-state workspaces
         :title "Workspaces Transient State"
-        :doc "
-[_0_.._9_] switch to workspace  [_n_/_p_] next/prev  [_<tab>_] last  [_c_] close  [_r_] rename"
+        :additional-docs
+        (spacemacs--workspaces-ms-documentation .
+         "\n\n[_0_.._9_] switch to workspace  [_n_/_p_] next/prev  [_<tab>_] last  [_c_] close  [_r_] rename")
         :bindings
         ("0" eyebrowse-switch-to-window-config-0)
         ("1" eyebrowse-switch-to-window-config-1)
@@ -102,6 +103,34 @@ workspace, preferably in the current window."
         ("p" eyebrowse-prev-window-config)
         ("r" spacemacs/workspaces-ms-rename :exit t)
         ("w" eyebrowse-switch-to-window-config :exit t))
+
+
+      (defun spacemacs//workspace-format-name (workspace)
+        (let ((current (eq (eyebrowse--get 'current-slot) (car workspace)))
+              (name (nth 2 workspace))
+              (number (car workspace)))
+          (concat
+           (if current "[" "")
+           (if (< 0 (length name)) name (int-to-string number))
+           (if current "]" ""))))
+
+      (defun spacemacs//workspaces-ms-list ()
+        "Return the list of workspaces for the workspacae
+transient state."
+        (mapconcat 'spacemacs//workspace-format-name (eyebrowse--get 'window-configs) " | "))
+
+      (add-hook 'spacemacs-post-user-config-hook
+                (lambda ()
+                  (setq spacemacs/workspaces-transient-state/hint
+                        `(concat
+                          ,(when dotspacemacs-show-transient-state-title
+                             (concat
+                              (propertize "Workspaces Transient State"
+                                          'face 'spacemacs-transient-state-title-face)
+                              "\n"))
+                          (spacemacs//workspaces-ms-list)
+                          spacemacs--workspaces-ms-documentation)))
+                t)
 
       ;; The layouts layer defines this keybinding inside a transient-state
       ;; thus this is only needed if that layer is not used
