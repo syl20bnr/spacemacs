@@ -304,7 +304,7 @@ format so they are supported by the
             (let* ((binding (car custom-persp))
                    (name (cdr custom-persp))
                    (func-name (spacemacs//custom-layout-func-name name)))
-              (push (list binding func-name) bindings)))
+              (push (list binding func-name :exit t) bindings)))
           (eval `(spacemacs|define-transient-state custom-layouts
                    :doc (concat (spacemacs//custom-layouts-ms-documentation))
                    :bindings
