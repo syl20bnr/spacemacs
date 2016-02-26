@@ -1,0 +1,19 @@
+#+TITLE: column-enforce-mode layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+
+[[./img/bi80-assembled.jpg]]
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+
+* Description
+This layer adds the column-enforce-mode package.
+
+* Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(column-enforce-mode))
+#+end_src
+
