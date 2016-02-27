@@ -79,8 +79,8 @@
     :interpreter "ruby"
     :config
     (progn
-      (setq enh-ruby-deep-indent-paren nil
-            enh-ruby-hanging-paren-deep-indent-level 2))))
+      (setq enh-ruby-deep-indent-paren t
+            enh-ruby-hanging-paren-deep-indent-level 0))))
 
 (defun ruby/post-init-evil-matchit ()
   (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
