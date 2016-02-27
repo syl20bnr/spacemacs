@@ -91,6 +91,8 @@ is nil.
 | ~SPC m ,~     | TeX command on master file          |
 | ~SPC m .~     | mark LaTeX environment              |
 | ~SPC m *~     | mark LaTeX section                  |
+| ~SPC m %~     | comment or uncomment a paragraph    |
+| ~SPC m ;~     | comment or uncomment a region       |
 | ~SPC m b~     | build                               |
 | ~SPC m c~     | close LaTeX environment             |
 | ~SPC m e~     | insert LaTeX environment            |
@@ -101,6 +103,10 @@ is nil.
 | ~SPC m s~     | insert LaTeX section                |
 | ~SPC m v~     | view output                         |
 | ~SPC m h d~   | TeX documentation, can be very slow |
+| ~SPC m f e~   | fill LaTeX environment              |
+| ~SPC m f p~   | fill LaTeX paragraph                |
+| ~SPC m f r~   | fill LaTeX region                   |
+| ~SPC m f s~   | fill LaTeX section                  |
 | ~SPC m p r~   | preview region                      |
 | ~SPC m p b~   | preview buffer                      |
 | ~SPC m p d~   | preview document                    |
@@ -152,4 +158,3 @@ Available only when =latex-enable-auto-fill= is non nil.
 | ~SPC m r t~   | reftex-toc                            |
 | ~SPC m r T~   | reftex-toc-recenter                   |
 | ~SPC m r v~   | reftex-view-crossref                  |
-|               |                                       |
