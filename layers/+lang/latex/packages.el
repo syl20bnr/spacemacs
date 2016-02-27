@@ -54,6 +54,8 @@
           "-"   'TeX-recenter-output-buffer                  ;; C-c C-l
           "%"   'TeX-comment-or-uncomment-paragraph          ;; C-c %
           ";"   'TeX-comment-or-uncomment-region             ;; C-c ; or C-c :
+          ;; TeX-command-run-all runs compile and open the viewer
+          "a"   'TeX-command-run-all                         ;; C-c C-a
           "b"   'latex/build
           "k"   'TeX-kill-job                                ;; C-c C-k
           "l"   'TeX-recenter-output-buffer                  ;; C-c C-l
