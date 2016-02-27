@@ -195,8 +195,9 @@ Available PROPS:
   One or several EXPRESSIONS that are going to be evaluated after
   we change into the perspective NAME."
   (declare (indent 1))
-  (let* ((func (spacemacs//custom-layout-func-name name))
-         (binding (car (spacemacs/mplist-get props :binding)))
+  (let* ((name (eval name))
+         (func (spacemacs//custom-layout-func-name name))
+         (binding (eval (car (spacemacs/mplist-get props :binding))))
          (body (spacemacs/mplist-get props :body))
          (already-defined? (cdr (assoc binding
                                        spacemacs--custom-layout-alist))))
@@ -213,7 +214,7 @@ Available PROPS:
        (if ,already-defined?
            (unless (equal ,already-defined? ,name)
              (spacemacs-buffer/warning "Replacing existing binding \"%s\" for %s with %s"
-                                ,binding ,already-defined? ,name )
+                                ,binding ,already-defined? ,name)
              (push '(,binding . ,name) spacemacs--custom-layout-alist))
          (push '(,binding . ,name) spacemacs--custom-layout-alist)))))
 
