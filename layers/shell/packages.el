@@ -29,7 +29,8 @@
         ))
 
 (defun shell/init-comint ()
-  (setq comint-prompt-read-only t))
+  (setq comint-prompt-read-only t)
+  (add-hook 'comint-mode-hook 'spacemacs/disable-hl-line-mode))
 
 (defun shell/pre-init-company ()
   ;; support in eshell
@@ -136,7 +137,8 @@ is achieved by adding the relevant text properties."
           (erase-buffer))
         (eshell-send-input))
 
-      (add-hook 'eshell-mode-hook 'spacemacs//init-eshell))
+      (add-hook 'eshell-mode-hook 'spacemacs//init-eshell)
+      (add-hook 'eshell-mode-hook 'spacemacs/disable-hl-line-mode))
     :config
     (progn
       (require 'esh-opt)
@@ -272,7 +274,8 @@ is achieved by adding the relevant text properties."
               (funcall 'man command))
              ;; Send other commands to the default handler.
              (t (comint-simple-send proc command))))))
-  (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook))
+  (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook)
+  (add-hook 'shell-mode-hook 'spacemacs/disable-hl-line-mode))
 
 (defun shell/init-shell-pop ()
   (use-package shell-pop
@@ -352,7 +355,9 @@ is achieved by adding the relevant text properties."
     (kbd "C-j") 'term-send-down)
   (evil-define-key 'normal term-raw-map
     (kbd "C-k") 'term-send-up
-    (kbd "C-j") 'term-send-down))
+    (kbd "C-j") 'term-send-down)
+
+  (add-hook 'term-mode-hook 'spacemacs/disable-hl-line-mode))
 
 (defun shell/init-xterm-color ()
   (use-package xterm-color
