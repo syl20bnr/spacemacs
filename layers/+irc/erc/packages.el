@@ -219,23 +219,21 @@
     :if (executable-find "terminal-notifier")))
 
 (defun erc/post-init-persp-mode ()
-  (spacemacs|use-package-add-hook persp-mode
-    :post-config
-    (progn
-      ;; do not save erc buffers
-      (push (lambda (b) (with-current-buffer b (eq major-mode 'erc-mode)))
-            persp-filter-save-buffers-functions)
+  ;; do not save erc buffers
+  (with-eval-after-load 'persp-mode
+    (push (lambda (b) (with-current-buffer b (eq major-mode 'erc-mode)))
+          persp-filter-save-buffers-functions))
 
-      (spacemacs|define-custom-layout erc-spacemacs-layout-name
-        :binding erc-spacemacs-layout-binding
-        :body
-        (progn
-          (defun spacemacs-layouts/add-erc-buffer-to-persp ()
-            (persp-add-buffer (current-buffer)
-                              (persp-get-by-name
-                               erc-spacemacs-layout-name)))
-          (add-hook 'erc-mode-hook #'spacemacs-layouts/add-erc-buffer-to-persp)
-          (call-interactively 'erc))))))
+  (spacemacs|define-custom-layout erc-spacemacs-layout-name
+    :binding erc-spacemacs-layout-binding
+    :body
+    (progn
+      (defun spacemacs-layouts/add-erc-buffer-to-persp ()
+        (persp-add-buffer (current-buffer)
+                          (persp-get-by-name
+                           erc-spacemacs-layout-name)))
+      (add-hook 'erc-mode-hook #'spacemacs-layouts/add-erc-buffer-to-persp)
+      (call-interactively 'erc))))
 
 (defun erc/post-init-smooth-scrolling ()
   (add-hook 'erc-mode-hook 'spacemacs//unset-scroll-margin))

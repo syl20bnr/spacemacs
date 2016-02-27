@@ -33,23 +33,21 @@
       (spacemacs/set-leader-keys "irc" 'helm-rcirc-auto-join-channels))))
 
 (defun rcirc/post-init-persp-mode ()
-  (spacemacs|use-package-add-hook persp-mode
-    :post-config
-    (progn
-      ;; do not save rcirc buffers
-      (push (lambda (b) (with-current-buffer b (eq major-mode 'rcirc-mode)))
-            persp-filter-save-buffers-functions)
+  ;; do not save rcirc buffers
+  (with-eval-after-load 'persp-mode
+    (push (lambda (b) (with-current-buffer b (eq major-mode 'rcirc-mode)))
+          persp-filter-save-buffers-functions))
 
-      (spacemacs|define-custom-layout rcirc-spacemacs-layout-name
-        :binding rcirc-spacemacs-layout-binding
-        :body
-        (progn
-          (defun spacemacs-layouts/add-rcirc-buffer-to-persp ()
-            (persp-add-buffer (current-buffer)
-                              (persp-get-by-name
-                               rcirc-spacemacs-layout-name)))
-          (add-hook 'rcirc-mode-hook #'spacemacs-layouts/add-rcirc-buffer-to-persp)
-          (call-interactively 'spacemacs/rcirc))))))
+  (spacemacs|define-custom-layout rcirc-spacemacs-layout-name
+    :binding rcirc-spacemacs-layout-binding
+    :body
+    (progn
+      (defun spacemacs-layouts/add-rcirc-buffer-to-persp ()
+        (persp-add-buffer (current-buffer)
+                          (persp-get-by-name
+                           rcirc-spacemacs-layout-name)))
+      (add-hook 'rcirc-mode-hook #'spacemacs-layouts/add-rcirc-buffer-to-persp)
+      (call-interactively 'spacemacs/rcirc))))
 
 (defun rcirc/init-rcirc ()
   (use-package rcirc
