@@ -1,5 +1,4 @@
 #+TITLE: Spacemacs documentation
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
 * Spacemacs documentation                                   :TOC_4_org:noexport:
  - [[Core Pillars][Core Pillars]]

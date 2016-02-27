@@ -1,5 +1,4 @@
 #+TITLE: Bépo layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 #+CAPTION: logo
 
