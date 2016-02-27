@@ -6,7 +6,7 @@
 
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[Description][Description]]
-   - [[Features:][Features:]]
+   - [[Features][Features]]
  - [[Install][Install]]
    - [[Layer][Layer]]
    - [[Magit status fullscreen][Magit status fullscreen]]
@@ -28,7 +28,7 @@
 * Description
 This layers adds extensive support for [[http://git-scm.com/][git]].
 
-** Features:
+** Features
 - git repository management the indispensable [[http://magit.vc/][magit]] package
 - [[https://github.com/jtatarik/magit-gitflow][git-flow]] add-on for magit.
 - quick in buffer history browsing with [[https://github.com/pidu/git-timemachine][git-timemachine]].

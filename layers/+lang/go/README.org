@@ -5,7 +5,7 @@
 
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[Description][Description]]
-   - [[Features:][Features:]]
+   - [[Features][Features]]
  - [[Install][Install]]
    - [[Pre-requisites][Pre-requisites]]
    - [[Layer][Layer]]
@@ -18,7 +18,7 @@
 * Description
 This layer adds extensive support for go.
 
-** Features:
+** Features
 - gofmt/goimports on file save
 - Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]] (with the =auto-completion= layer)
 - Source analysis using [[http://golang.org/s/oracle-user-manual][go-oracle]]
