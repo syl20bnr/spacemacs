@@ -26,7 +26,7 @@
 * Description
 This layer adds support for [[http://elm-lang.org][Elm]].
 
-It relies on [[https://github.com/jcollard/elm-mode][elm-mode]] and [[https://github.com/bsermons/flycheck-elm][flycheck-elm]] to provide the following features:
+It relies on [[https://github.com/jcollard/elm-mode][elm-mode]] and [[https://github.com/bsermons/flycheck-elm][flycheck-elm]] to provide the following features
 - Syntax highlighting.
 - Intelligent indentation
 - Auto-completion integration for company (default) or auto-complete modes,

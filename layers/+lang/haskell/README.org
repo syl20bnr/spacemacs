@@ -5,7 +5,7 @@
 
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[Description][Description]]
-   - [[Features:][Features:]]
+   - [[Features][Features]]
  - [[Install][Install]]
    - [[Layer][Layer]]
    - [[Dependencies][Dependencies]]
@@ -35,7 +35,7 @@
 * Description
 This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
 
-** Features:
+** Features
 - syntax highlighting for [[https://github.com/haskell/haskell-mode][haskell source]], [[https://github.com/haskell/haskell-mode][cabal files]], [[https://github.com/bgamari/cmm-mode][C-- source]],
 - auto-completion with [[https://github.com/iquiw/company-ghc][company-ghc]].
 

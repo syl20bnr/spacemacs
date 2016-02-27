@@ -5,7 +5,7 @@
 
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[Description][Description]]
-   - [[Features:][Features:]]
+   - [[Features][Features]]
  - [[Install][Install]]
  - [[Configuration][Configuration]]
    - [[Tern][Tern]]
@@ -25,7 +25,7 @@
 
 This layer adds support for the JavaScript language using [[https://github.com/mooz/js2-mode][js2-mode]].
 
-** Features:
+** Features
 - Smart code folding
 - Refactoring: done using [[https://github.com/magnars/js2-refactor.el][js2-refactor]].
 - Auto-completion and documentation: provided by [[http://ternjs.net/][tern]]
@@ -40,7 +40,7 @@ add =javascript= to the existing =dotspacemacs-configuration-layers= list in thi
 file.
 
 You will also need to install =tern= to use the auto-completion and
-documentation features:
+documentation features
 #+BEGIN_SRC sh
   $ npm install -g tern
 #+END_SRC

@@ -5,7 +5,7 @@
 
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[Description][Description]]
-   - [[Features:][Features:]]
+   - [[Features][Features]]
  - [[Install][Install]]
  - [[Key Bindings][Key Bindings]]
    - [[Commands][Commands]]
@@ -13,7 +13,7 @@
 * Description
 This layer adds support for editing Lua.
 
-** Features:
+** Features
 - Editing lua files using [[https://github.com/immerrr/lua-mode][lua-mode]]
 - Sending code to a lua REPL
 - Code linting using [[https://github.com/mpeterv/luacheck][Luacheck]]

@@ -5,7 +5,7 @@
 
 * Table of Content                                          :TOC_4_org:noexport:
  - [[Description][Description]]
-   - [[Features:][Features:]]
+   - [[Features][Features]]
  - [[Install][Install]]
    - [[Layer][Layer]]
    - [[OPAM packages][OPAM packages]]
@@ -19,7 +19,7 @@
 * Description
 This is a very basic layer for editing ocaml files.
 
-** Features:
+** Features
 - Syntax highlighting (major-mode) via [[https://github.com/ocaml/tuareg][tuareg-mode]]
 - Error reporting, completion and type display via [[https://github.com/the-lambda-church/merlin][merlin]]
 - auto-completion with company mode via [[https://github.com/the-lambda-church/merlin][merlin]]

@@ -38,7 +38,7 @@ add =react= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 You will also need to install =tern= to use the auto-completion and
-documentation features:
+documentation features
 #+BEGIN_SRC sh
   $ npm install -g tern
 #+END_SRC
