@@ -64,7 +64,7 @@ option in =emacs-eclim= itself.
 | ~SPC m p j~ | Information about project      |
 | ~SPC m p k~ | Close project                  |
 | ~SPC m p o~ | Open project                   |
-| ~SPC m p s~ | Open project management buffer |
+| ~SPC m p p~ | Open project management buffer |
 | ~SPC m p u~ | Update project                 |
 
 *** Maven
