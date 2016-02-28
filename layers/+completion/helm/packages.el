@@ -316,35 +316,22 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (defun spacemacs/helm-project-do-ag ()
         "Search in current project with `ag'."
         (interactive)
-        (let ((dir (projectile-project-root)))
-          (if dir
-              (helm-do-ag dir)
-            (message "error: Not in a project."))))
+        (helm-projectile-ag))
 
       (defun spacemacs/helm-project-do-ag-region-or-symbol ()
         "Search in current project with `ag' using a default input."
         (interactive)
-        (let ((dir (projectile-project-root)))
-          (if dir
-              (spacemacs//helm-do-ag-region-or-symbol 'helm-do-ag dir)
-            (message "error: Not in a project."))))
+        (spacemacs//helm-do-ag-region-or-symbol 'helm-projectile-ag))
 
       (defun spacemacs/helm-project-do-ack ()
         "Search in current project with `ack'."
         (interactive)
-        (let ((dir (projectile-project-root)))
-          (if dir
-              (spacemacs/helm-files-do-ack dir)
-            (message "error: Not in a project."))))
+        (helm-projectile-ack))
 
       (defun spacemacs/helm-project-do-ack-region-or-symbol ()
         "Search in current project with `ack' using a default input."
         (interactive)
-        (let ((dir (projectile-project-root)))
-          (if dir
-              (spacemacs//helm-do-ag-region-or-symbol
-               'spacemacs/helm-files-do-ack dir)
-            (message "error: Not in a project."))))
+        (spacemacs//helm-do-ag-region-or-symbol 'helm-projectile-ack))
 
       (defun spacemacs/helm-project-do-pt ()
         "Search in current project with `pt'."
