@@ -1,4 +1,11 @@
-;;; init.el --- Spacemacs as an elisp package
+;;; spacemacs.el --- The famous Spacemacs
+
+;; Copyright (C) 2010-2015 Your Name
+;; Author: Your Name <yourname@example.com>
+;; Maintainer: [maintainers]
+;; Created: [date]
+;; Keywords: spacemacs
+;; Homepage: http://spacemacs.org/
 
 (defconst spacemacs-dir
   (file-name-directory (or load-file-name (buffer-file-name)))
@@ -25,3 +32,5 @@
   Update spacemacs using package tools, like quelpa")
 
 (provide 'spacemacs)
+
+;;; spacemacs.el ends here
