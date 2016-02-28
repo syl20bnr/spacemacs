@@ -13,3 +13,8 @@
 ;; to use the ownership mechanism of layers because it is dependent
 ;; on the order of layer declaration
 (configuration-layer/remove-layer 'smex)
+
+(defvar ivy-want-escape-quit (member dotspacemacs-editing-style '(vim hybrid))
+  "If non-nil, <escape> quits the ivy minibuffer with one
+  keypress, rather than requiring three. Vim and hybrid editing
+  styles set this variable to non-nil by default.")

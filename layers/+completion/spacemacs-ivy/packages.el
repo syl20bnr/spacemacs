@@ -376,27 +376,30 @@ Helm hack."
                               (call-interactively (cdr repl))))))
 
       (defun spacemacs//ivy-hjkl-navigation (&optional arg)
-        "Set navigation on \"hjkl\" for ivy. ARG non nil means
-vim like movements."
-        (if arg
+        "Set navigation on \"hjkl\" for ivy when ARG is non-nil.
+ARG non-nil means vim movements."
+        (let ((map ivy-minibuffer-map))
+          (if arg
+              (progn
+                ;; better navigation on homerow
+                (define-key map (kbd "C-j") 'ivy-next-line)
+                (define-key map (kbd "C-k") 'ivy-previous-line)
+                (define-key map (kbd "C-h") (kbd "DEL"))
+                ;; Move C-h to C-S-h
+                (define-key map (kbd "C-S-h") help-map)
+                (define-key map (kbd "C-l") 'ivy-alt-done))
             (progn
-              ;; better navigation on homerow
-              (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
-              (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
-              (define-key ivy-minibuffer-map (kbd "C-h") (kbd "DEL"))
-              ;; Move C-h to C-S-h
-              (define-key ivy-minibuffer-map (kbd "C-S-h") help-map)
-              (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-alt-done)
-              (define-key ivy-minibuffer-map (kbd "<escape>")
-                'minibuffer-keyboard-quit))
-          (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-alt-done)
-          (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-kill-line)
-          (define-key ivy-minibuffer-map (kbd "C-h") nil)
-          (define-key ivy-minibuffer-map (kbd "C-l") nil)))
+              (define-key map (kbd "C-j") 'ivy-alt-done)
+              (define-key map (kbd "C-k") 'ivy-kill-line)
+              (define-key map (kbd "C-h") nil)
+              (define-key map (kbd "C-S-h") nil)
+              (define-key map (kbd "C-l") nil)))
+          (when ivy-want-escape-quit
+            (define-key map (kbd "<escape>") 'minibuffer-keyboard-quit))))
       (add-hook 'spacemacs--hjkl-completion-navigation-functions
                 'spacemacs//ivy-hjkl-navigation)
       (run-hook-with-args 'spacemacs--hjkl-completion-navigation-functions
-                          (member dotspacemacs-editing-style '(vim hybrid)))
+                          (member dotspacemacs-editing-style '(vim)))
 
       (defun spacemacs/counsel-up-directory-no-error ()
         "`counsel-up-directory' ignoring errors."
