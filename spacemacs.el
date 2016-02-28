@@ -14,4 +14,9 @@
   ;; Initial spacemacs, our emacs run on top of it
   (load spacemacs-init))
 
+;; Make spacemacs not remove my packages.
+(defadvice configuration-layer/delete-orphan-packages (around null-func activate)
+  "Overwrite the spacemacs's `configuration-layer/delete-orphan-packages'
+  to make it not remove any orphan packages.")
+
 (provide 'spacemacs)
