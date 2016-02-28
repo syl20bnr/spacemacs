@@ -19,4 +19,9 @@
   "Overwrite the spacemacs's `configuration-layer/delete-orphan-packages'
   to make it not remove any orphan packages.")
 
+
+(defadvice spacemacs/check-for-new-version (around null-func activate)
+  "Overwrite the spacemacs's `spacemacs/check-for-new-version' to
+  Update spacemacs using package tools, like quelpa")
+
 (provide 'spacemacs)
