@@ -187,8 +187,7 @@
         (eval `(defun ,(intern (format "spacemacs/persp-switch-to-%s" i)) nil
                  ,(format "Switch to layout %s." i)
                  (interactive)
-                 (spacemacs/layout-switch-by-pos ,(if (eq 0 i) 9 (1- i)))
-                 (spacemacs/layouts-transient-state/body))))
+                 (spacemacs/layout-switch-by-pos ,(if (eq 0 i) 9 (1- i))))))
 
       (defun spacemacs/layout-goto-default ()
         "Go to `dotspacemacs-default-layout-name` layout"
