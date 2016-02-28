@@ -30,7 +30,7 @@ For full Chicken support, the following commands should be run:
 #+BEGIN_SRC shell
   $ chicken-install -s apropos chicken-doc
   $ cd `csi -p '(chicken-home)'`
-  $ curl http://3e8.org/pub/chicken-doc/chicken-doc-repo.tgz | sudo tar zx
+  $ curl https://3e8.org/pub/chicken-doc/chicken-doc-repo.tgz | sudo tar zx
 #+END_SRC
 
 * Key Bindings
