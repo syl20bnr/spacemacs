@@ -4,11 +4,12 @@
     cider-eval-sexp-fu
     clj-refactor
     clojure-mode
+    (clojure-snippets :toggle (configuration-layer/layer-usedp 'auto-completion))
     company
     popwin
     rainbow-delimiters
     subword
-   ))
+    ))
 
 
 (defun clojure/init-cider ()
@@ -379,3 +380,7 @@ If called with a prefix argument, uses the other-window instead."
 
     (push 'company-capf company-backends-cider-repl-mode)
     (spacemacs|add-company-hook cider-repl-mode)))
+
+(defun clojure/init-clojure-snippets ()
+  (use-package clojure-snippets
+    :defer t))
