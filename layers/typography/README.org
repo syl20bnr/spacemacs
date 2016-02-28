@@ -47,9 +47,9 @@ The following keybindings are available in insert state.
 
 | Key Bindings | Description                              |
 |--------------+------------------------------------------|
-| ~"~          | Cycle among quotation marks              |
+| ~​"​~          | Cycle among quotation marks              |
 | ~`~          | Cycle among left single quotation marks  |
-| ~'~          | Cycle among right single quotation marks |
+| ~​'​~          | Cycle among right single quotation marks |
 | ~-~          | Cycle among dashes                       |
 | ~.~          | Cycle among ellipsis                     |
 | ~<~          | Cycle among left angle brackets          |

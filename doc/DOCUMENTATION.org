@@ -697,7 +697,7 @@ Note: Technically speaking there is also the =operator= evil state.
 Spacemacs heavily uses the [[https://github.com/cofi/evil-leader][evil-leader]] mode which brings the Vim leader key to
 the Emacs world.
 
-This leader key is commonly set to ~,~ by Vim users, in Spacemacs the leader
+This leader key is commonly set to ~​,​~ by Vim users, in Spacemacs the leader
 key is set on ~SPC~ (space bar, hence the name =spacemacs=). This key is the
 most accessible key on a keyboard and it is pressed with the thumb which is a
 good choice to lower the risk of [[http://en.wikipedia.org/wiki/Repetitive_strain_injury][RSI]].
@@ -736,7 +736,7 @@ Auto-highlight-symbol micro-state:
 [[file:img/spacemacs-scale-micro-state.png]]
 
 * Differences between Vim, Evil and Spacemacs
-- The ~,~ key does "repeat last ~f~, ~t~, ~F~, or ~T~ command in
+- The ~​,​~ key does "repeat last ~f~, ~t~, ~F~, or ~T~ command in
   opposite direction in =Vim=, but in Spacemacs it is the major mode specific
   leader key by default (which can be set on another key binding in the
   dotfile).
@@ -1166,7 +1166,7 @@ state= to press quickly ~jj~ and inadvertently escape to =normal state=.
 The command key ~:~ can be easily changed with the variable
 =dotspacemacs-command-key= of your =~/.spacemacs=. Note that is will change both
 ~:~ and ~SPC :~ bindings to keep the symmetry between Vim and Emacs. A good key
-can be ~,~ for example.
+can be ~​,​~ for example.
 
 *** Leader key
 On top of =Vim= modes (modes are called states in Spacemacs) there is a
@@ -2123,7 +2123,7 @@ Text related commands (start with ~x~):
     | ~SPC x a r~ | align region using user-specified regexp                      |
     | ~SPC x a m~ | align region at arithmetic operators (+-*/)                   |
     | ~SPC x a .~ | align region at . (for numeric tables)                        |
-    | ~SPC x a ,~ | align region at ,                                             |
+    | ~SPC x a ,​~ | align region at ,                                             |
     | ~SPC x a ;~ | align region at ;                                             |
     | ~SPC x a =~ | align region at =                                             |
     | ~SPC x a &~ | align region at &                                             |
@@ -2588,7 +2588,7 @@ Spacemacs binds a few commands to support compiling a project.
 *** Major Mode leader key
 Key bindings specific to the current =major mode= start with ~SPC m~. For
 convenience a shortcut key called the major mode leader key is set by default on
-~,~ which saves one precious keystroke.
+~​,​~ which saves one precious keystroke.
 
 It is possible to change the major mode leader key by defining the variable
 =dotspacemacs-major-mode-leader-key= in your =~/.spacemacs=. For example to
