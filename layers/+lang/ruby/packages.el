@@ -25,6 +25,7 @@
         ruby-tools
         rvm
         smartparens
+        rake
         ))
 (if ruby-enable-enh-ruby-mode
     (add-to-list 'ruby-packages 'enh-ruby-mode)
@@ -257,3 +258,16 @@
        :post-handlers '(sp-ruby-post-handler
                         (spacemacs/smartparens-pair-newline-and-indent "RET"))
        :suffix ""))))
+
+(defun ruby/init-rake ()
+  (use-package rake
+    :defer t
+    :config
+    (progn
+      (setq rake-cache-file (concat spacemacs-cache-directory "rake.cache"))
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+                (spacemacs/set-leader-keys-for-major-mode mode
+                  "kk"    'rake
+                  "kr"    'rake-rerun
+                  "kR"    'rake-regenerate-cache
+                  "kf"    'rake-find-task)))))
