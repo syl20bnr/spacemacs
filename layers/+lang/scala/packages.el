@@ -143,7 +143,7 @@
         "ns"     'ensime
         "nS"     'ensime-gen-and-restart
 
-        "rd"     'ensime-refactor-inline-local
+        "rd"     'ensime-refactor-diff-inline-local
         "rD"     'ensime-undo-peek
         "rf"     'ensime-format-source
         "ri"     'ensime-refactor-organize-imports
