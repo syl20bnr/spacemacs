@@ -21,6 +21,9 @@
 (defvar clojure-enable-fancify-symbols nil
   "If non nil the `fancify-symbols' function is enabled.")
 
+(defvar clojure-cljr-prefix "C-c C-f"
+  "Prefix keys for cljr bindings.")
+
 (setq clojure/key-binding-prefixes '(("md" . "debug")
                                      ("me" . "evaluation")
                                      ("mg" . "goto")

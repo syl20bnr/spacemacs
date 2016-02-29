@@ -297,7 +297,7 @@ If called with a prefix argument, uses the other-window instead."
     (add-hook 'clojure-mode-hook 'clj-refactor-mode)
     :config
     (progn
-      (cljr-add-keybindings-with-prefix "C-c C-f")
+      (cljr-add-keybindings-with-prefix clojure-cljr-prefix)
 
       (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
         (dolist (r cljr--all-helpers)
