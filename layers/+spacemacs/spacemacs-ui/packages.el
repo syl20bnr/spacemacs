@@ -56,10 +56,10 @@
       (defun spacemacs/ace-buffer-links ()
         "Ace jump to links in `spacemacs' buffer."
         (interactive)
-        (let ((res (avy--with-avy-keys spacemacs/ace-buffer-links
-                                       (avy--process
-                                        (spacemacs//collect-spacemacs-buffer-links)
-                                        #'avy--overlay-pre))))
+        (let ((res (avy-with spacemacs/ace-buffer-links
+                             (avy--process
+                              (spacemacs//collect-spacemacs-buffer-links)
+                              #'avy--overlay-pre))))
           (when res
             (goto-char (1+ res))
             (widget-button-press (point))))))))
