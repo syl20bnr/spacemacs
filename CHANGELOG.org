@@ -262,11 +262,11 @@ Improve loading robustness:
   in a future version.
 *** New conventions
 - Commit and abort commands conventions:
-  - ~SPC m ,~ and ~SPC m c~ to Valid/Confirm
+  - ~SPC m ​,​~ and ~SPC m c~ to Valid/Confirm
   - ~SPC m a~ and ~SPC m k~ to Abort/Discard
   (thanks to StreakyCobra)
 - Update evilified state rebinding conventions:
-  ~SPC~ to ~'~, ~/~ to ~\~ and ~:~ to ~|~
+  ~SPC~ to ~​'​~, ~/~ to ~\~ and ~:~ to ~|~
 *** New Layers
 - bepo in =keyboard-layouts= (thanks to StreakyCobra)
 - command-log in =tools= (thanks to bmag)
@@ -498,7 +498,7 @@ Improve loading robustness:
 - New key binding scheme using =evil-magit= package (thanks to justbur)
 - New key binding ~SPC g i~ for =magit-init= (thanks to CestDiego)
 - New key binding ~SPC g c~ for =magit-checkout= (thanks to PierreR)
-- New key bindings ~SPC m ,~ and ~SPC m c~ to Valid/Confirm =with-editor=
+- New key bindings ~SPC m ​,​~ and ~SPC m c~ to Valid/Confirm =with-editor=
   buffers (thanks to justbur)
 - New key bindings ~SPC m a~ and ~SPC m k~ to Abort/Discard =with-editor=
   buffers (thanks to justbur)
@@ -576,7 +576,7 @@ Improve loading robustness:
 **** LaTeX
 - New layer variable =latex-enable-folding= to enable text folding, default
   value is =nil= (thanks to justbur)
-- New key bindings ~SPC m ,~ and ~SPC m k~ for ~C-c C-c~ and ~C-c C-k~
+- New key bindings ~SPC m ​,​~ and ~SPC m k~ for ~C-c C-c~ and ~C-c C-k~
   respectively (thanks to justbur)
 - New key bindings:
   - ~SPC m .~ to mark LaTeX environment
@@ -908,7 +908,7 @@ Improve loading robustness:
 *** Core
 - Silence =ad-handle-definition= about advised functions getting redefined  
 - Improve evilification rules, now ~:~ is rebound to ~|~, ~/~ is rebound to ~\~
-  and ~SPC~ is rebound to ~'~
+  and ~SPC~ is rebound to ~​'​~
 *** Other fixes and improvements
 - Add FAQ entry on the difference between available distributions (thanks to
   robbyoconnor)

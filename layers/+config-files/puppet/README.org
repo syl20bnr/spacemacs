@@ -24,7 +24,7 @@ The following key bindings are available in Puppet Mode:
 | ~SPC m {~   | Move to the beginning of the current block        |
 | ~SPC m }~   | Move to the end of the current block              |
 | ~SPC m a~   | Align parameters in the current block             |
-| ~SPC m '~   | Toggle string quoting between single and double   |
+| ~SPC m '​~   | Toggle string quoting between single and double   |
 | ~SPC m ;~   | Blank the string at point                         |
 | ~SPC m j~   | Jump to a =class=, =define=, variable or resource |
 | ~SPC m c~   | Apply the current manifest in dry-run mode        |
