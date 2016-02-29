@@ -80,7 +80,7 @@ option in =emacs-eclim= itself.
 *** Goto
 | Key Binding | Description                                 |
 |-------------+---------------------------------------------|
-| ~M-,~       | jump back from go to declaration/definition |
+| ~M-​,​~       | jump back from go to declaration/definition |
 | ~SPC m g g~ | go to declaration                           |
 | ~SPC m g t~ | go to type definition                       |
 

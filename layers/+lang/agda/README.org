@@ -47,7 +47,7 @@ All Agda specific bindings are prefixed with the major-mode leader
 |-------------+-------------------------------------------------------------------------------------------------------------------------------------------|
 | ~SPC m =~   | Show constraints.                                                                                                                         |
 | ~SPC m ?~   | Show all goals.                                                                                                                           |
-| ~SPC m ,~   | Shows the type of the goal at point and the currect context.                                                                              |
+| ~SPC m ​,​~   | Shows the type of the goal at point and the currect context.                                                                              |
 | ~SPC m .~   | Shows the context, the goal and the given expression's inferred type.                                                                     |
 | ~SPC m a~   | Simple proof search.                                                                                                                      |
 | ~SPC m b~   | Go to the previous goal, if any and activate goal-navigation transient-state.                                                             |
