@@ -16,12 +16,14 @@
    - [[Tests][Tests]]
      - [[RSpec-mode][RSpec-mode]]
      - [[Ruby-test-mode][Ruby-test-mode]]
+   - [[Rake][Rake]]
 
 * Description
 This layer provides support for the Ruby language with the following feature:
 - version manager (rbenv, rvm or chruby)
 - integration with bundler
 - test runner (ruby-test and rspec)
+- rake runner
 - linter (rubocop)
 - interactive REPL and code navigation (robe)
 
@@ -162,3 +164,11 @@ When =ruby-test-runner= equals =ruby-test=.
 |-------------+---------------------|
 | ~SPC m t b~ | run test file       |
 | ~SPC m t t~ | run test at pointer |
+** Rake
+
+| Key binding | Description                     |
+|-------------+---------------------------------|
+| ~SPC m k k~ | Runs rake                       |
+| ~SPC m k r~ | Re-runs the last rake task      |
+| ~SPC m k R~ | Regenerates the rake cache      |
+| ~SPC m k f~ | Finds definition of a rake task |
