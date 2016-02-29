@@ -109,7 +109,7 @@ For simplicity the documentation always refers to the leader key as
 ~SPC~.
 
 There is secondary leader key called the major-mode leader key which is
-set to ~,~ by default. This key is a shortcut for ~SPC m~
+set to ~​,​~ by default. This key is a shortcut for ~SPC m~
 where all the major-mode specific commands are bound.
 
 ** Evil-tutor

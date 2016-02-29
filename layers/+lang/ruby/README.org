@@ -100,7 +100,7 @@ directory local variables.
 
 | Key binding | Description                                          |
 |-------------+------------------------------------------------------|
-| ~SPC m '~   | toggle quotes of current string (only built-in mode) |
+| ~SPC m '​~   | toggle quotes of current string (only built-in mode) |
 | ~SPC m {~   | toggle style of current block (only built-in mode)   |
 | ~SPC m g g~ | go to definition (robe-jump)                         |
 | ~SPC m h d~ | go to Documentation                                  |
@@ -110,8 +110,8 @@ directory local variables.
 | ~SPC m s r~ | send region                                          |
 | ~SPC m s R~ | send region and switch to REPL                       |
 | ~SPC m s s~ | switch to REPL                                       |
-| ~SPC m x '~ | Change symbol or " string to '                       |
-| ~SPC m x "~ | Change symbol or ' string to "                       |
+| ~SPC m x '​~ | Change symbol or " string to '                       |
+| ~SPC m x "​~| Change symbol or ' string to "                       |
 | ~SPC m x :~ | Change string to symbol                              |
 | ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks                    |
 

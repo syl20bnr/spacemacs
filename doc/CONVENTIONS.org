@@ -71,7 +71,7 @@ user.
 
 *** Major mode prefix
 ~SPC m~ is reserved for the current major mode. Three keys bindings are not an
-issue (ie. ~SPC m h d~) since ~SPC m~ can be accessed via ~,~.
+issue (ie. ~SPC m h d~) since ~SPC m~ can be accessed via ~​,​~.
 
 *** Transient-state
 Whenever possible a transient-state should be enabled with ~M-SPC~ and ~s-M-SPC~. We
@@ -103,7 +103,7 @@ Setting the =evilified state= to a mode is done by calling the macro
 /Evilification/ rebinds shadowed key bindings according to the following
 rules:
 - alphabetic key bindings: ~x~ -> ~X~ -> ~C-x~ -> ~C-X~
-- ~SPC~ -> ~'~
+- ~SPC~ -> ~​'​~
 - ~/~ -> ~\~
 - ~:~ -> ~|~
 - ~C-g~ cannot be shadowed
@@ -147,7 +147,7 @@ in raw Emacs are mirrored in Spacemacs to:
 
 | Key                     | Description               |
 |-------------------------+---------------------------|
-| ~SPC m ,~ and ~SPC m c~ | Valid/Confirm the message |
+| ~SPC m ​,​~ and ~SPC m c~ | Valid/Confirm the message |
 | ~SPC m a~ and ~SPC m k~ | Abort/Discard the message |
 
 Some example of these modes are =magit= commit messages, =message-mode= for

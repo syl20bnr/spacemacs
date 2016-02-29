@@ -35,7 +35,7 @@ file.
 With evil-snipe you can define your own search scope for ~f~ and ~t~ searches
 which means that you won't have to jump to the correct line before searching
 with ~f~ / ~t~ / ~F~ / ~T~. And after you have found a match, you can just press
-~f~ or ~t~ again afterwards to continue the search. No need to use ~;~ / ~,~.
+~f~ or ~t~ again afterwards to continue the search. No need to use ~;~ / ~​,​~.
 
 This alternate behavior is disabled by default, to enable it set the
 layer variable =evil-snipe-enable-alternate-f-and-t-behaviors= to =t=:

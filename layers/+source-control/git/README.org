@@ -190,7 +190,7 @@ intended. To work around this, you can use =v= instead (since Magit only stages
 whole lines, in any case).
 
 ** Commit message editing buffer
-In a commit message buffer press ~,c~ (if =dotspacemacs-major-mode-leader-key= is ~,~)
+In a commit message buffer press ~,c~ (if =dotspacemacs-major-mode-leader-key= is ~​,​~)
 or ~C-c C-c~ to commit the changes with the entered message. Pressing ~,a~ or ~C-c C-k~
 will discard the commit message.
 
