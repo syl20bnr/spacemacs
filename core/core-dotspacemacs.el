@@ -72,8 +72,10 @@ packages then consider to create a layer, you can also put the
 configuration in `dotspacemacs/user-config'.")
 
 (defvar dotspacemacs-editing-style 'vim
-  "Either `vim' or `emacs'. Evil is always enabled but if the variable
-is `emacs' then the `holy-mode' is enabled at startup.")
+  "One of `vim', `emacs' or `hybrid'. Evil is always enabled but if the
+variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
+uses emacs key bindings for vim's insert mode, but otherwise leaves evil
+unchanged.")
 
 (defvar dotspacemacs-startup-banner 'official
    "Specify the startup banner. Default value is `official', it displays
