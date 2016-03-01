@@ -262,12 +262,11 @@
 (defun ruby/init-rake ()
   (use-package rake
     :defer t
+    :init (setq rake-cache-file (concat spacemacs-cache-directory "rake.cache"))
     :config
-    (progn
-      (setq rake-cache-file (concat spacemacs-cache-directory "rake.cache"))
-      (dolist (mode '(ruby-mode enh-ruby-mode))
-                (spacemacs/set-leader-keys-for-major-mode mode
-                  "kk"    'rake
-                  "kr"    'rake-rerun
-                  "kR"    'rake-regenerate-cache
-                  "kf"    'rake-find-task)))))
+    (dolist (mode '(ruby-mode enh-ruby-mode))
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "kk"    'rake
+        "kr"    'rake-rerun
+        "kR"    'rake-regenerate-cache
+        "kf"    'rake-find-task))))
