@@ -10,11 +10,14 @@
 ;;; License: GPLv3
 
 (setq shell-scripts-packages
-  '(fish-mode
-    (sh-script :location built-in)
-    company
-    company-shell
-    ))
+      '(company
+        company-shell
+        fish-mode
+        flycheck
+        (sh-script :location built-in)))
+
+(defun shell-scripts/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'sh-mode))
 
 (defun shell-scripts/init-fish-mode ()
   (use-package fish-mode
