@@ -9,8 +9,8 @@
 
     (when osx-use-option-as-meta
       ;; Treat option as meta
-      (setq mac-option-key-is-meta t)
-      (setq mac-option-modifier 'meta))
+      (setq mac-option-key-is-meta t))
+    (setq mac-option-modifier (if osx-use-option-as-meta 'meta nil))
 
     ;; Keybindings
     (global-set-key (kbd "s-=") 'spacemacs/scale-up-font)
