@@ -199,7 +199,8 @@
       (let ((dir (configuration-layer/get-layer-local-dir 'python)))
         (setq pylookup-dir (concat dir "pylookup/")
               pylookup-program (concat pylookup-dir "pylookup.py")
-              pylookup-db-file (concat pylookup-dir "pylookup.db"))))))
+              pylookup-db-file (concat pylookup-dir "pylookup.db")))
+        (setq pylookup-completing-read 'completing-read))))
 
 (defun python/init-pytest ()
   (use-package pytest
