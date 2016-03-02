@@ -30,7 +30,7 @@
   "Configuration layer templates directory.")
 
 (defconst configuration-layer-directory
-  (expand-file-name (concat user-emacs-directory "layers/"))
+  (expand-file-name (concat spacemacs-start-directory "layers/"))
   "Spacemacs contribution layers base directory.")
 
 (defconst configuration-layer-private-directory
