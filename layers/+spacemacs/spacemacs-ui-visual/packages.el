@@ -233,32 +233,33 @@
     (spacemacs//neotree-key-bindings)))
 
 (defun spacemacs-ui-visual/init-smooth-scrolling ()
-  (defun spacemacs//unset-scroll-margin ()
-    "Set scroll-margin to zero."
-    (setq-local scroll-margin 0))
-
   (use-package smooth-scrolling
-    :if dotspacemacs-smooth-scrolling
-    :init (setq smooth-scroll-margin 5
-                scroll-conservatively 101
-                scroll-preserve-screen-position t
-                auto-window-vscroll nil)
-    :config
+    :init
     (progn
-      (setq scroll-margin 5)
+      (setq smooth-scroll-margin 5)
+      (spacemacs|add-toggle smooth-scrolling
+        :status smooth-scrolling-mode
+        :on (progn
+              (smooth-scrolling-mode)
+              (enable-smooth-scroll-for-function previous-line)
+              (enable-smooth-scroll-for-function next-line)
+              (enable-smooth-scroll-for-function isearch-repeat))
+        :off (progn
+               (smooth-scrolling-mode -1)
+               (disable-smooth-scroll-for-function previous-line)
+               (disable-smooth-scroll-for-function next-line)
+               (disable-smooth-scroll-for-function isearch-repeat))
+        :documentation "Smooth scrolling."
+        :evil-leader "tv")
+      (unless dotspacemacs-smooth-scrolling
+        (spacemacs/toggle-smooth-scrolling-off))
       ;; add hooks here only for emacs built-in packages that are not owned
       ;; by a layer.
+      (defun spacemacs//unset-scroll-margin ()
+        "Set scroll-margin to zero."
+        (setq-local scroll-margin 0))
       (spacemacs/add-to-hooks 'spacemacs//unset-scroll-margin
-                              '(messages-buffer-mode-hook))))
-
-  (unless dotspacemacs-smooth-scrolling
-    ;; deactivate smooth-scrolling advices
-    (ad-disable-advice 'previous-line 'after 'smooth-scroll-down)
-    (ad-activate 'previous-line)
-    (ad-disable-advice 'next-line 'after 'smooth-scroll-up)
-    (ad-activate 'next-line)
-    (ad-disable-advice 'isearch-repeat 'after 'isearch-smooth-scroll)
-    (ad-activate 'isearch-repeat)))
+                              '(messages-buffer-mode-hook)))))
 
 (defun spacemacs-ui-visual/init-spaceline ()
   (use-package spaceline-config
