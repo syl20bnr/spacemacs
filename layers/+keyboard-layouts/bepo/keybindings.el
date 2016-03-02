@@ -188,7 +188,7 @@
   :description
   "Remap `flycheck-error-list' bindings."
   :loader
-  (spacemacs|use-package-add-hook flycheck :post-init BODY)
+  (spacemacs|use-package-add-hook flycheck :post-config BODY)
   :config
   (bepo/evil-correct-keys 'evilified flycheck-error-list-mode-map
     "j"
