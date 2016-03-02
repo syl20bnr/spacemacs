@@ -157,11 +157,6 @@ Needed to bypass keymaps set as text properties."
 (define-key evil-evilified-state-map (kbd "C-d") 'evil-scroll-down)
 (define-key evil-evilified-state-map (kbd "C-u") 'evil-scroll-up)
 (define-key evil-evilified-state-map (kbd "C-z") 'evil-emacs-state)
-(bind-map spacemacs-default-map
-  :prefix-cmd spacemacs-cmds
-  :evil-states (evilified)
-  :evil-keys (dotspacemacs-leader-key)
-  :evil-use-local t)
 (setq evil-evilified-state-map-original (copy-keymap evil-evilified-state-map))
 
 ;; old macro
