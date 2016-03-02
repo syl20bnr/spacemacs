@@ -270,9 +270,7 @@ Helm hack."
         "fL"  'counsel-locate
         ;; help
         "?"   'counsel-descbinds
-        "hdf" 'counsel-describe-function
         "hdm" 'spacemacs/describe-mode
-        "hdv" 'counsel-describe-variable
         "hR"  'spacemacs/counsel-search-docs
         ;; insert
         "iu"  'counsel-unicode-char
@@ -310,6 +308,8 @@ Helm hack."
         "skp" 'spacemacs/search-project-ack
         "skP" 'spacemacs/search-project-ack-region-or-symbol)
       (global-set-key (kbd "M-x") 'counsel-M-x)
+      (global-set-key [remap describe-function] 'counsel-describe-function)
+      (global-set-key [remap describe-variable] 'counsel-describe-variable)
 
       ;; Note: Must be set before which-key is loaded.
       (setq prefix-help-command 'counsel-descbinds)
