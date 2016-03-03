@@ -165,9 +165,10 @@ is achieved by adding the relevant text properties."
 
       ;; These don't work well in normal state
       ;; due to evil/emacs cursor incompatibility
-      (evil-define-key 'insert eshell-mode-map
-        (kbd "C-k") 'eshell-previous-matching-input-from-input
-        (kbd "C-j") 'eshell-next-matching-input-from-input))))
+      (when (eq dotspacemacs-editing-style 'vim)
+        (evil-define-key 'insert eshell-mode-map
+          (kbd "C-k") 'eshell-previous-matching-input-from-input
+          (kbd "C-j") 'eshell-next-matching-input-from-input)))))
 
 (defun shell/init-eshell-prompt-extras ()
   (use-package eshell-prompt-extras
@@ -347,12 +348,14 @@ is achieved by adding the relevant text properties."
   (evil-define-key 'insert term-raw-map (kbd "C-c C-z") 'term-stop-subjob)
   (evil-define-key 'insert term-raw-map (kbd "<tab>") 'term-send-tab)
 
-  (evil-define-key 'insert term-raw-map
-    (kbd "C-k") 'term-send-up
-    (kbd "C-j") 'term-send-down)
-  (evil-define-key 'normal term-raw-map
-    (kbd "C-k") 'term-send-up
-    (kbd "C-j") 'term-send-down))
+  (when (eq dotspacemacs-editing-style 'vim)
+    (progn
+      (evil-define-key 'insert term-raw-map
+        (kbd "C-k") 'term-send-up
+        (kbd "C-j") 'term-send-down)
+      (evil-define-key 'normal term-raw-map
+        (kbd "C-k") 'term-send-up
+        (kbd "C-j") 'term-send-down))))
 
 (defun shell/init-xterm-color ()
   (use-package xterm-color
