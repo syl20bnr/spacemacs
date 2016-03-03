@@ -256,7 +256,7 @@ refreshed during the current session."
                              "\nError connection time out for %s repository!"
                              (car archive)) :warning)
                            'error))
-                      (condition-case err
+                      (condition-case-unless-debug err
                           (url-retrieve-synchronously (cdr archive))
                         ('error
                          (display-warning 'spacemacs
@@ -921,7 +921,7 @@ path."
              pkg-name (if layer (format "@%S" layer) "")
              installed-count noinst-count) t)
     (unless (package-installed-p pkg-name)
-      (condition-case err
+      (condition-case-unless-debug err
           (cond
            ((or (null pkg) (eq 'elpa location))
             (configuration-layer//install-from-elpa pkg-name)
