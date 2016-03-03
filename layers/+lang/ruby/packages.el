@@ -139,6 +139,5 @@
       (evil-leader/set-key-for-mode 'ruby-mode "msb" 'seeing-is-believing-run)
       (evil-leader/set-key-for-mode 'enh-ruby-mode "msb" 'seeing-is-believing-run)
       (evil-leader/set-key-for-mode 'ruby-mode "msc" 'seeing-is-believing-clear)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "msc" 'seeing-is-believing-clear)))
-  )
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "msc" 'seeing-is-believing-clear))))
 
