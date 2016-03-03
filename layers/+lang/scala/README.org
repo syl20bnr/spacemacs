@@ -78,9 +78,8 @@ provided by Flycheck.
 
 To use scalastyle,
 
-1. Download the [[https://oss.sonatype.org/content/repositories/releases/org/scalastyle/scalastyle_2.11/0.6.0/][scalastyle jar]] and put it somewhere sensible
-2. Customise the =flycheck-scalastyle-jar= variable and set it to the path of
-   the jar.
+1. Create a [[http://www.scalastyle.org/command-line.html][scalastyle executable]] and put it on your PATH.
+2. Customise the =flycheck-scalastylerc= variable (it must point to your scalastyle configuration file).
 
 See the [[http://flycheck.readthedocs.org/en/latest/guide/languages.html#el.flycheck-checker.scala-scalastyle][flycheck documentation]] for up-to-date configuration instructions.
 * Automatically show the type of the symbol under the cursor
