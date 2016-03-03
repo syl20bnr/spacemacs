@@ -27,8 +27,7 @@ directory is returned.
 If LOG is non-nil a message is displayed in spacemacs-buffer-mode buffer.
 FILE-TO-LOAD is an explicit file to load after the installation."
   (let ((warning-minimum-level :error))
-    (if (locate-file (symbol-name pkg) load-path (get-load-suffixes))
-        (require pkg)
+    (unless (require pkg nil 'noerror)
       ;; not installed, we try to initialize package.el only if required to
       ;; precious seconds during boot time
       (require 'cl)
