@@ -89,11 +89,7 @@
                      persp (position persp persp-list))) persp-list " | "))))
           (concat formatted-persp-list
                   (if (equal 1 spacemacs--layouts-ms-doc-toggle)
-                      spacemacs--layouts-ms-documentation
-                    (concat
-                     "\n ["
-                     (propertize "?" 'face 'hydra-face-red)
-                     "]   toggle help")))))
+                      spacemacs--layouts-ms-documentation))))
 
       (spacemacs|define-transient-state layouts
         :title "Layouts Transient State"
