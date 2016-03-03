@@ -1735,8 +1735,8 @@ Open junk file using helm, with `prefix-arg' search in junk files"
                (disable-smooth-scroll-for-function isearch-repeat))
         :documentation "Smooth scrolling."
         :evil-leader "tv")
-      (unless dotspacemacs-smooth-scrolling
-        (spacemacs/toggle-smooth-scrolling-off))
+      (when dotspacemacs-smooth-scrolling
+        (spacemacs/toggle-smooth-scrolling-on))
       ;; add hooks here only for emacs built-in packages that are not owned
       ;; by a layer.
       (defun spacemacs//unset-scroll-margin ()
