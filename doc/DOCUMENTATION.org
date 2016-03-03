@@ -918,6 +918,7 @@ and ~T~):
 | ~SPC t l~   | toggle truncate lines                                             |
 | ~SPC t L~   | toggle visual lines                                               |
 | ~SPC t n~   | toggle line numbers                                               |
+| ~SPC t v~   | toggle smooth scrolling                                           |
 
 | Key Binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
@@ -1406,8 +1407,10 @@ On Windows, you may want to disable it. To disable the smooth scrolling set the
 =dotspacemacs-smooth-scrolling= variable in your =~/.spacemacs= to =nil=:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-smooth-scrolling t)
+(setq-default dotspacemacs-smooth-scrolling nil)
 #+END_SRC
+
+You can also toggle smooth scrolling with ~SPC t v~.
 
 *** Vim motions with avy
 Spacemacs uses the =evil= integration of [[https://github.com/abo-abo/avy][avy]] which enables the

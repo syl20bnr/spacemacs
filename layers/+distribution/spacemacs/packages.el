@@ -585,7 +585,17 @@
     :init
     (progn
       (setq evil-jumper-auto-save-interval 600)
-      (evil-jumper-mode t))))
+      ;; Move keybindings into global motion state map
+      (add-hook 'evil-jumper-mode-hook
+                (lambda ()
+                  (if evil-jumper-mode
+                      (progn
+                        (define-key evil-motion-state-map (kbd "<C-i>") 'evil-jumper/forward)
+                        (define-key evil-motion-state-map (kbd "C-o") 'evil-jumper/backward))
+                    (define-key evil-motion-state-map (kbd "<C-i>") 'evil-jump-forward)
+                    (define-key evil-motion-state-map (kbd "C-o") 'evil-jump-backward))))
+      (evil-jumper-mode t)
+      (setcdr evil-jumper-mode-map nil))))
 
 (defun spacemacs/init-evil-lisp-state ()
   (use-package evil-lisp-state
@@ -1707,33 +1717,33 @@ Open junk file using helm, with `prefix-arg' search in junk files"
                '(:add (spacemacs/smartparens-pair-newline-and-indent "RET"))))))
 
 (defun spacemacs/init-smooth-scrolling ()
-  (defun spacemacs//unset-scroll-margin ()
-    "Set scroll-margin to zero."
-    (setq-local scroll-margin 0))
-
   (use-package smooth-scrolling
-    :if dotspacemacs-smooth-scrolling
-    :init (setq smooth-scroll-margin 5
-                scroll-conservatively 101
-                scroll-preserve-screen-position t
-                auto-window-vscroll nil)
-    :config
+    :init
     (progn
-      (setq scroll-margin 5)
-      ;; add hooks here only for emacs built-in packages
+      (setq smooth-scroll-margin 5)
+      (spacemacs|add-toggle smooth-scrolling
+        :status smooth-scrolling-mode
+        :on (progn
+              (smooth-scrolling-mode)
+              (enable-smooth-scroll-for-function previous-line)
+              (enable-smooth-scroll-for-function next-line)
+              (enable-smooth-scroll-for-function isearch-repeat))
+        :off (progn
+               (smooth-scrolling-mode -1)
+               (disable-smooth-scroll-for-function previous-line)
+               (disable-smooth-scroll-for-function next-line)
+               (disable-smooth-scroll-for-function isearch-repeat))
+        :documentation "Smooth scrolling."
+        :evil-leader "tv")
+      (unless dotspacemacs-smooth-scrolling
+        (spacemacs/toggle-smooth-scrolling-off))
+      ;; add hooks here only for emacs built-in packages that are not owned
+      ;; by a layer.
+      (defun spacemacs//unset-scroll-margin ()
+        "Set scroll-margin to zero."
+        (setq-local scroll-margin 0))
       (spacemacs/add-to-hooks 'spacemacs//unset-scroll-margin
-                              '(messages-buffer-mode-hook
-                                comint-mode-hook
-                                term-mode-hook))))
-
-  (unless dotspacemacs-smooth-scrolling
-    ;; deactivate smooth-scrolling advices
-    (ad-disable-advice 'previous-line 'after 'smooth-scroll-down)
-    (ad-activate 'previous-line)
-    (ad-disable-advice 'next-line 'after 'smooth-scroll-up)
-    (ad-activate 'next-line)
-    (ad-disable-advice 'isearch-repeat 'after 'isearch-smooth-scroll)
-    (ad-activate 'isearch-repeat)))
+                              '(messages-buffer-mode-hook)))))
 
 (defun spacemacs/init-spaceline ()
   (use-package spaceline-config

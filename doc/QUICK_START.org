@@ -145,7 +145,9 @@ type a pattern like this regular expression:
     SPC\ b
 #+END_EXAMPLE
 
-which would list all =buffer= related bindings.
+which would list all =buffer= related bindings. *Note:* You are at the
+/HELM-Descbind/ prompt, the pattern consists of 6 letters: uppercase ~SPC~, a
+backslash, an actual space and a lowercase ~b~.
 
 ** Describe functions
 =Describe functions= are powerful Emacs introspection commands to get information

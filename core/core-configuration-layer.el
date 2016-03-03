@@ -759,7 +759,9 @@ path."
     (dolist
         (dep (configuration-layer//get-package-deps-from-archive
               pkg-name))
-      (configuration-layer//activate-package (car dep)))
+      (if (package-installed-p (car dep))
+          (configuration-layer//activate-package (car dep))
+        (package-install (car dep))))
     (package-install pkg-name)))
 
 (defun configuration-layer//install-from-recipe (pkg)
@@ -877,19 +879,20 @@ path."
                            (symbol-name (oref pkg :name))))
                   load-path))
            ((eq 'local location)
-            (let* ((owner (object-assoc (oref pkg :owner) :name configuration-layer--layers))
+            (let* ((owner (object-assoc (oref pkg :owner)
+                                        :name configuration-layer--layers))
                    (dir (when owner (oref owner :dir))))
               (push (format "%slocal/%S/" dir pkg-name) load-path)
               ;; TODO remove extensions in 0.106.0
               (push (format "%sextensions/%S/" dir pkg-name) load-path)))))
         ;; configuration
+        (unless (memq (oref pkg :location) '(local site built-in))
+          (configuration-layer//activate-package pkg-name))
         (cond
          ((eq 'dotfile (oref pkg :owner))
-          (configuration-layer//activate-package pkg-name)
           (spacemacs-buffer/message
            (format "%S is configured in the dotfile." pkg-name)))
          (t
-          (configuration-layer//activate-package pkg-name)
           (configuration-layer//configure-package pkg))))))))
 
 (defun configuration-layer//configure-package (pkg)
@@ -1112,7 +1115,8 @@ to select one."
   (if (version< emacs-version "24.3.50")
       ;; fake version list to always activate the package
       (package-activate pkg '(0 0 0 0))
-    (package-activate pkg)))
+    (unless (memq pkg package-activated-list)
+      (package-activate pkg))))
 
 (defun configuration-layer/get-layers-list ()
   "Return a list of all discovered layer symbols."

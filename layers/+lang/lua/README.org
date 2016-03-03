@@ -11,20 +11,21 @@
    - [[Commands][Commands]]
 
 * Description
-
 This layer adds support for editing Lua.
 
 ** Features:
 - Editing lua files using [[https://github.com/immerrr/lua-mode][lua-mode]]
 - Sending code to a lua REPL
+- Code linting using [[https://github.com/mpeterv/luacheck][Luacheck]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =lua= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+In order to enable code linting, install [[https://github.com/mpeterv/luacheck][Luacheck]].
 
+* Key Bindings
 ** Commands
 
 | Key Binding | Description                                |

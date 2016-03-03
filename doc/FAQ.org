@@ -19,6 +19,7 @@
    - [[Why does my color theme not render correctly in terminal mode?][Why does my color theme not render correctly in terminal mode?]]
    - [[Why do I get =(wrong-type-argument arrayp nil)= errors on startup?][Why do I get =(wrong-type-argument arrayp nil)= errors on startup?]]
    - [[Typing quickly =fd= takes me out of =insert state=. What is going on?][Typing quickly =fd= takes me out of =insert state=. What is going on?]]
+   - [[Why do I get files starting with .#?][Why do I get files starting with .#?]]
  - [[How do I...][How do I...]]
    - [[Install a package not provided by a layer?][Install a package not provided by a layer?]]
    - [[Disable a package completely?][Disable a package completely?]]
@@ -173,6 +174,15 @@ more information.
 
 If you don't like this feature, you can deactivate it by adding =evil-escape= to
 =dotspacemacs-excluded-packages= in your init file.
+
+** Why do I get files starting with .#?
+These are lockfiles, created by Emacs to prevent editing conflicts which occur
+when the same file is edited simultaneously by two different programs. To
+disable this behaviour:
+
+#+BEGIN_SRC emacs-lisp
+(setq create-lockfiles nil)
+#+END_SRC
 
 * How do I...
 ** Install a package not provided by a layer?

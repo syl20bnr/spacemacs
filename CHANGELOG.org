@@ -1,10 +1,51 @@
 * Release 0.105.x
+** 0.105.12 (2016/03/02)
+*** Fixes
+- Fix activation of package dependencies
+- Fix =smooth-scrolling= error due to recent changes in package repository
+*** Layer changes
+**** Distribution
+- New key binding ~SPC t v~ to toggle smooth scrolling.
+**** C-C++
+- Add notes on related layers (thanks to magthe)
+- Remove srefactor from static package list (thanks to magthe)
+- Set paths for C headers from clang (thanks to magthe)
+**** Evil-snipe
+- Disable =evil-snipe= in =ranger= (thanks to TheBB)
+**** Haskell
+- Fix bad indentation when pasting text (thanks to robbyoconnor)
+**** Markdown
+- Add support for =rust= code blocks (thanks to panicbit)
+**** Org
+- Fix custom Spacemacs layout when =org-agenda-files= isn't a list.
+  The org-agenda-files variable can be the name of a directory or a file.
+  (thanks to jmiven)
+**** Osx
+- Fix =osx-use-options-as-meta= for Emacs 25 (thanks to d12frosted)
+**** React
+- make =evil-matchit= jump between html/jsx tags (thanks to tko)
+**** Racket
+- Add command prefix names for =racket-mode= key bindings
+  (thanks to rodrigosetti)
+**** Scala
+- Rename =ensime-refactor-inline-local= to =ensime-refactor-diff-inline-local=
+  (thanks to chessman)
+**** Shell
+- Fix reverse key bindings for comint-previous/next (thanks to olejorgenb))
+- Scope the aliases under =eshell= so they are not defined globally
+  (thanks to bling)
+**** Themes megapack
+- Add =railscasts-theme= (thanks to olsonjeffery)
+*** Improvements
+- Improve =toggle-maximize-centered-buffer= (thanks to justbur)
+- Add =display-graphic-p= to ~SPC h d s~ (thanks to TheBB)
+- Various documentation improvements (thanks to d12frosted, davbo, marcopaga,
+  microamp, nixmaniack, NJBS, SShrike, TheBB, Tinche, triklsbg, xfq)
 ** 0.105.11 (2016/02/18)
 Improve loading robustness:
-- when an ELPA repository is down Spacemacs will now be able to finish
-loading,
-- Spacemacs will use the default theme (i.e. no theme) if there is any
-error during the download of the starting theme.
+- When an ELPA repository is down Spacemacs will now be able to finish loading
+- Spacemacs will use the default theme (i.e. no theme) if there is any error
+  during the download of the starting theme.
 ** 0.105.10 (2016/02/18)
 *** Fixes
 - Fix re-toggle of fullscreen when pressing ~SPC f e R~ (thanks to MadAnd)
