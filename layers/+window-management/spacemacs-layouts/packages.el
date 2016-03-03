@@ -74,7 +74,7 @@
                (caption (concat (number-to-string (if (eq 9 pos) 0 (1+ pos)))
                                 ":" string-name)))
           (if current
-              (concat (when current "[") caption (when current "]"))
+              (propertize (concat "[" caption "]") 'face 'warning)
             caption)))
 
       (defun spacemacs//layouts-ms-doc ()
