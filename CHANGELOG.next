@@ -39,6 +39,9 @@ This file containes the change log for the next major version of Spacemacs.
 - Spacemacs layouts scope has been changed, now ~SPC b b~ lists the buffers of
   the current layout, use ~SPC B b~ to list all the opened buffers.
 - =org-indent= is now turned off by default
+- Micro states are now called transient states
+- Spacemacs layouts and workspaces transient states now exit when a layout or
+  workspace is selected.
 *** Hot new features
 - Add lazy installation of layers based on =auto-mode-alist=.
 - Support for Ivy, add the =spacemacs-ivy= layer to your dotfile and
@@ -139,6 +142,7 @@ This file containes the change log for the next major version of Spacemacs.
   - ~SPC x j r~ to set the justification to right
   (thanks to StreakyCobra)
 - New key binding ~SPC w f~ to toggle =follow= mode (thanks to JAremko)
+- New key binding ~SPC x a \~ to align backslashes (thanks to nocash)
 - New key binding ~SPC h d d~ for =helm-apropos= (thanks to StreakyCobra)
 - New key bindings ~[ f~ and ~] f~ to go to the next or previous file in current
   directory (thanks to fbergroth)
@@ -151,6 +155,7 @@ This file containes the change log for the next major version of Spacemacs.
 - Fix =neotree= window number assigment (thanks to bmag)
 - Fix ~SPC s e~ for emacs style users, the binding now call =iedit= instead of
   =evil-iedit-state= (thanks to AlejandroCatalina)
+- Fix usage of deprecated function =avy--with-avy-keys= (thanks to NJBS)
 - Various =google-translate= fixes (thanks to TheBB)
 - Simplify =hybrid-mode= implementation (thanks to justbur)
 - Prevent =auto-highlight-symbol= from setting up its own default map
@@ -170,10 +175,14 @@ This file containes the change log for the next major version of Spacemacs.
 - Remap =evil-complete-previous= to =hippie-expand= (thanks to justbur)
 **** Bépo
 - Treat emacs-state the same as insert-state (thanks to StreakyCobra)
-- Fix =elfeed= remapping
-- Fix =evil-magit= remapping
-- Fix =flycheck-error-list= remapping
+- Add support for =org-agenda= (thanks to StreakyCobra)
+- Fix =elfeed= remapping (thanks to StreakyCobra)
+- Fix =evil-magit= remapping (thanks to StreakyCobra)
+- Fix =flycheck-error-list= remapping (thanks to StreakyCobra)
 **** Clojure
+- New key binding ~SPC m s o~ for switching between REPL connections
+  (thanks to mahinshaw)
+- New key binding ~SPC m h a~ for cider apropos (thanks to birdspider)
 - Remove indentation rules (thanks to ernestas)
 **** Common-Lisp
 - Add =common-lisp-snippets= package (thanks to thudo)
@@ -219,6 +228,16 @@ This file containes the change log for the next major version of Spacemacs.
 - New layer variable =javascript-disable-tern-port-files=, when non nil
   tern port files are not created. Default value is nil. (thanks to mijoharas)
 - Add REPL via =skewer-mode= and =livid-mode= (thanks to dcluna)
+**** LaTeX
+- New key bindings for fill and uncomment:
+  - ~SPC m %~ to comment or uncomment a paragraph
+  - ~SPC m ;~ to comment or uncomment a region
+  - ~SPC m f e~ to fill LaTeX environment
+  - ~SPC m f p~ to fill LaTeX paragraph
+  - ~SPC m f r~ to fill LaTeX region
+  - ~SPC m f s~ to fill LaTeX section
+  (thanks to kccai)
+- New key binding ~SPC m a~ for =TeX-command-run-all= (thanks to kccai)
 **** mu4e
 - Add =mu4e-maildirs-extension= package (thanks to choppsv1)
 - Add =mu4-alert= package (thanks to zakkak)
@@ -269,10 +288,17 @@ This file containes the change log for the next major version of Spacemacs.
   - ~SPC m V w~ to work on virtual environment in ~WORKON_HOME~
   (thanks to cpaulik)
 - New key binding ~SPC m g b~ for =anaconda-mode-go-back= (thanks to jluttine)
+- Fix =pylookup= key binding ~SPC m h H~ (thanks to darkfeline)
 **** Restclient
 - New key binding ~SPC m y~ to copy the query around point as a =curl= command
   (thanks to d1egoaz)
 **** Ruby
+- Add =rake= package with key bindings:
+  - ~SPC m k k~ to runs rake
+  - ~SPC m k r~ to re-runs the last rake task
+  - ~SPC m k R~ to regenerates the rake cache
+  - ~SPC m k f~ to finds definition of a rake task
+  (thansk to asok)
 - New =rspec= key binding ~SPC m t ~~ for
   =rspec-toggle-spec-and-target-find-example= (thanks to asok)
 - New =rspec= key binding ~SPC m t TAB~ for =rspec-toggle-spec-and-target=
@@ -283,6 +309,8 @@ This file containes the change log for the next major version of Spacemacs.
   (thanks to fbergroth)
 - Remove package =company-racer= since =racer= works with default
   =company= backends (thanks to fbergroth)
+- Remove obsolete package =rustfmt= which has been integrated into =rust-mode=
+  (thanks to fbergroth)
 - New layer variable =rust-enable-rustfmt-on-save= (thanks to isphinx)
 - New package =rustfmt= with new key binding ~SPC m =~ to format the buffer
   (thanks to isphinx)
@@ -316,6 +344,8 @@ This file containes the change log for the next major version of Spacemacs.
   =packages-funcs.el= files
 - New functions =configuration-layer/remove-layer= and
   =configuration-layer/remove-layers=.
+- New function =spacemacs/describe-package= giving useful information on a
+package in the Spacemacs layers context
 - New package keyword =:toggle= which can be a symbol or a list. A package is
   considered to be used if the toggle evaluates to non nil. By default =:toggle=
   is =t=.
@@ -324,7 +354,7 @@ This file containes the change log for the next major version of Spacemacs.
 - Improve =spacemacs|diminish= function (thanks to TheBB)
 *** Other fixes and improvements
 - Typos and documentation improvements (thanks to adrsta, andreas-h,
-  balajisivaraman, cpaulik, TheBB, StreakyCobra, xfq)
+  balajisivaraman, cpaulik, johankj, TheBB, StreakyCobra, xfq)
 *** Core team members
 - Sylvain Benner (syl20bnr)
 - Eivind Fonn (TheBB)
