@@ -106,13 +106,15 @@ workspace, preferably in the current window."
 
 
       (defun spacemacs//workspace-format-name (workspace)
-        (let ((current (eq (eyebrowse--get 'current-slot) (car workspace)))
-              (name (nth 2 workspace))
-              (number (car workspace)))
-          (concat
-           (if current "[" "")
-           (if (< 0 (length name)) name (int-to-string number))
-           (if current "]" ""))))
+        (let* ((current (eq (eyebrowse--get 'current-slot) (car workspace)))
+               (name (nth 2 workspace))
+               (number (car workspace))
+               (caption (if (< 0 (length name))
+                            name
+                          (int-to-string number))))
+          (if current
+              (propertize (concat "[" caption "]") 'face 'warning)
+            caption)))
 
       (defun spacemacs//workspaces-ms-list ()
         "Return the list of workspaces for the workspacae
