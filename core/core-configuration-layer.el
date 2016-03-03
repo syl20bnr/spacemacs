@@ -256,7 +256,7 @@ refreshed during the current session."
                              "\nError connection time out for %s repository!"
                              (car archive)) :warning)
                            'error))
-                      (condition-case-unless-debug err
+                      (condition-case err
                           (url-retrieve-synchronously (cdr archive))
                         ('error
                          (display-warning 'spacemacs
