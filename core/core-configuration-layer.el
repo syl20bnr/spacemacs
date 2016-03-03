@@ -34,7 +34,7 @@
   "Spacemacs contribution layers base directory.")
 
 (defconst configuration-layer-private-directory
-  (expand-file-name (concat user-emacs-directory "private/"))
+  (expand-file-name (concat spacemacs-start-directory "private/"))
   "Spacemacs private layers base directory.")
 
 (defconst configuration-layer-private-layer-directory
