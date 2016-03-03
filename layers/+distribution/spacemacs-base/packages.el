@@ -300,7 +300,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
         i.e. `SPC m h h`, to lookup the source of the definition,
         while falling back to `evil-lookup'"
         (interactive)
-        (let (binding (key-binding " mhh"))
+        (let ((binding (key-binding (kbd (concat dotspacemacs-leader-key " mhh")))))
           (if (commandp binding)
               (call-interactively binding)
             (evil-lookup))))
@@ -312,7 +312,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
         i.e. `SPC m g g`, to lookup the source of the definition,
         while falling back to `evil-goto-definition'"
         (interactive)
-        (let (binding (key-binding " mgg"))
+        (let ((binding (key-binding (kbd (concat dotspacemacs-leader-key " mgg")))))
           (if (commandp binding)
               (call-interactively binding)
             (evil-goto-definition))))
