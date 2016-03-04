@@ -74,6 +74,9 @@ Available PROPS:
     Automatically generate :doc with this many number of columns.
 `:hint BOOLEAN'
     Whether to automatically add hints to the docstring. Default is nil.
+`:dynamic-hint SEXP'
+    An sexp evaluating to a string for dynamic hinting.
+    When provided `:hint' has no effect.
 `:foreign-keys SYMBOL'
     What to do when keys not bound in the transient state are entered. This
     can be nil (default), which means to exit the transient state, warn,
@@ -112,6 +115,7 @@ used."
          (entry-sexp (plist-get props :on-enter))
          (exit-sexp (plist-get props :on-exit))
          (hint (plist-get props :hint))
+         (dyn-hint (plist-get props :dynamic-hint))
          (additional-docs (spacemacs/mplist-get props :additional-docs))
          (foreign-keys (plist-get props :foreign-keys))
          (bindkeys (spacemacs//create-key-binding-form props body-func)))
@@ -146,9 +150,10 @@ used."
                               (propertize
                                ,title
                                'face 'spacemacs-transient-state-title-face)
-                              "\n")) ,hint-var
-                           (when dotspacemacs-show-transient-state-color-guide
-                             (concat "\n" guide))))))
+                              " ")) ,hint-var
+                              ',dyn-hint
+                              (when dotspacemacs-show-transient-state-color-guide
+                                (concat "\n" guide))))))
            (dolist (add-doc ',additional-docs)
              (unless (boundp (car add-doc))
                (set (car add-doc)
