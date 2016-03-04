@@ -57,22 +57,11 @@
 (defun ruby/init-chruby ()
   (use-package chruby
     :if (equal ruby-version-manager 'chruby)
+    :commands chruby-use-corresponding
     :defer t
     :init
     (progn
-      (defun spacemacs//enable-chruby ()
-        "Enable chruby, use .ruby-version if exists."
-        (let ((version-file-path (chruby--locate-file ".ruby-version")))
-          (chruby)
-          ;; try to use the ruby defined in .ruby-version
-          (if version-file-path
-              (progn
-                (chruby-use (chruby--read-version-from-file
-                             version-file-path))
-                (message (concat "[chruby] Using ruby version "
-                                 "from .ruby-version file.")))
-            (message "[chruby] Using the currently activated ruby."))))
-      (spacemacs/add-to-hooks 'spacemacs//enable-chruby
+      (spacemacs/add-to-hooks 'chruby-use-corresponding
                               '(ruby-mode-hook enh-ruby-mode-hook)))))
 
 (defun ruby/init-enh-ruby-mode ()
