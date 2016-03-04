@@ -24,6 +24,7 @@ This layer adds extensive support for go.
 - Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]] (with the =auto-completion= layer)
 - Source analysis using [[http://golang.org/s/oracle-user-manual][go-oracle]]
 - Linting with flycheck's built-in checkers or flycheck-gometalinter
+- Coverage profile visualization
 
 * Install
 ** Pre-requisites
@@ -66,7 +67,7 @@ add =go= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
-** Formatting
+
 By default, go buffers are run through =gofmt= on save. To use a different
 formatter, set the value of =gofmt-command=, e.g.
 
@@ -93,6 +94,10 @@ If you're using =gocheck= in your project you can use the
 =go-use-gocheck-for-testing= variable to enable suite testing and to get single
 function testing to work.
 
+=go-coverage-display-buffer-func= controls how =go-coverage= should display
+the coverage buffer. See [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html][=display-buffer=]] for a list of possible functions.
+The default value is =display-buffer-reuse-window=.
+
 * Working with Go
 ** Go commands (start with =m=):
 
@@ -107,6 +112,7 @@ function testing to work.
 | ~SPC m e d~ | download go-play snippet                                                              |
 | ~SPC m x x~ | run "go run" for the current 'main' package                                           |
 | ~SPC m g a~ | jump to matching test file or back from test to code file                             |
+| ~SPC m g c~ | open a clone of the current buffer with a coverage info (=go tool cover -h= for help) |
 | ~SPC m g g~ | go jump to definition                                                                 |
 | ~SPC m r n~ | go rename                                                                             |
 | ~SPC m t p~ | run "go test" for the current package                                                 |
