@@ -148,11 +148,11 @@
         "rd"     'ensime-refactor-diff-inline-local
         "rD"     'ensime-undo-peek
         "rf"     'ensime-format-source
-        "ri"     'ensime-refactor-organize-imports
-        "rm"     'ensime-refactor-extract-method
-        "rr"     'ensime-refactor-rename
+        "ri"     'ensime-refactor-diff-organize-imports
+        "rm"     'ensime-refactor-diff-extract-method
+        "rr"     'ensime-refactor-diff-rename
         "rt"     'ensime-import-type-at-point
-        "rv"     'ensime-refactor-extract-local
+        "rv"     'ensime-refactor-diff-extract-local
 
         "ta"     'ensime-sbt-do-test-dwim
         "tr"     'ensime-sbt-do-test-quick-dwim
