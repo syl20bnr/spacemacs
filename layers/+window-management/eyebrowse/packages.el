@@ -129,22 +129,25 @@ workspace, preferably in the current window."
       (defun spacemacs//workspaces-ms-list ()
         "Return the list of workspaces for the workspacae
 transient state."
-        (mapconcat 'spacemacs//workspace-format-name (eyebrowse--get 'window-configs) " | "))
+        (mapconcat 'spacemacs//workspace-format-name
+                   (eyebrowse--get 'window-configs)
+                   " | "))
 
-      (add-hook 'spacemacs-post-user-config-hook
-                (lambda ()
-                  (setq spacemacs/workspaces-transient-state/hint
-                        `(concat
-                          ,(when dotspacemacs-show-transient-state-title
-                             (concat
-                              (propertize "Workspaces Transient State"
-                                          'face 'spacemacs-transient-state-title-face)
-                              "\n"))
-                          (spacemacs//workspaces-ms-list)
-                          spacemacs--workspaces-ms-documentation)))
-                t)
+      (add-hook
+       'spacemacs-post-user-config-hook
+       (lambda ()
+         (setq spacemacs/workspaces-transient-state/hint
+               `(concat
+                 ,(when dotspacemacs-show-transient-state-title
+                    (concat
+                     (propertize "Workspaces Transient State"
+                                 'face 'spacemacs-transient-state-title-face)
+                     "\n"))
+                 (spacemacs//workspaces-ms-list)
+                 spacemacs--workspaces-ms-documentation))) 'append)
 
       ;; The layouts layer defines this keybinding inside a transient-state
       ;; thus this is only needed if that layer is not used
       (unless (configuration-layer/layer-usedp 'spacemacs-layouts)
-        (spacemacs/set-leader-keys "lw" 'spacemacs/workspaces-transient-state/body)))))
+        (spacemacs/set-leader-keys
+          "lw" 'spacemacs/workspaces-transient-state/body)))))
