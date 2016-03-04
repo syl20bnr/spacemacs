@@ -35,32 +35,33 @@ existing =dotspacemacs-configuration-layers= list in this file.
 *** Layouts Transient State
 The layouts transient-state is initiated with ~SPC l~.
 
-| Key Binding | Description                                                |
-|-------------+------------------------------------------------------------|
-| ~?~         | toggle the documentation                                   |
-| ~[1..9, 0]~ | switch to nth layout                                       |
-| ~<tab>~     | switch to the latest layout                                |
-| ~a~         | add a buffer to the current layout                         |
-| ~A~         | add all the buffers from another layout in the current one |
-| ~b~         | select a buffer in the current layout                      |
-| ~d~         | delete the current layout and keep its buffers             |
-| ~D~         | delete the other layouts and keep their buffers            |
-| ~h~         | go to default layout                                       |
-| ~C-h~       | previous layout in list                                    |
-| ~l~         | select/create a layout with helm                           |
-| ~L~         | load layouts from file                                     |
-| ~C-l~       | next layout in list                                        |
-| ~n~         | next layout in list                                        |
-| ~N~         | previous layout in list                                    |
-| ~o~         | open a custom layout                                       |
-| ~p~         | previous layout in list                                    |
-| ~r~         | remove current buffer from layout                          |
-| ~R~         | rename current layout                                      |
-| ~s~         | save layouts                                               |
-| ~t~         | display a buffer without adding it to the current layout   |
-| ~w~         | workspaces transient-state (needs eyebrowse layer enabled) |
-| ~x~         | kill current layout with its buffers                       |
-| ~X~         | kill other layouts with their buffers                      |
+| Key Binding       | Description                                                |
+|-------------------+------------------------------------------------------------|
+| ~?~               | toggle the documentation                                   |
+| ~[1..9, 0]~       | switch to nth layout                                       |
+| ~[C-1..C-9, C-0]~ | switch to nth layout and keep the transient state active   |
+| ~<tab>~           | switch to the latest layout                                |
+| ~a~               | add a buffer to the current layout                         |
+| ~A~               | add all the buffers from another layout in the current one |
+| ~b~               | select a buffer in the current layout                      |
+| ~d~               | delete the current layout and keep its buffers             |
+| ~D~               | delete the other layouts and keep their buffers            |
+| ~h~               | go to default layout                                       |
+| ~C-h~             | previous layout in list                                    |
+| ~l~               | select/create a layout with helm                           |
+| ~L~               | load layouts from file                                     |
+| ~C-l~             | next layout in list                                        |
+| ~n~               | next layout in list                                        |
+| ~N~               | previous layout in list                                    |
+| ~o~               | open a custom layout                                       |
+| ~p~               | previous layout in list                                    |
+| ~r~               | remove current buffer from layout                          |
+| ~R~               | rename current layout                                      |
+| ~s~               | save layouts                                               |
+| ~t~               | display a buffer without adding it to the current layout   |
+| ~w~               | workspaces transient-state (needs eyebrowse layer enabled) |
+| ~x~               | kill current layout with its buffers                       |
+| ~X~               | kill other layouts with their buffers                      |
 
 *** Project Layouts
 To create a layout for a specific project use ~SPC p l~.
