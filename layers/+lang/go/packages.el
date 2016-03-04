@@ -87,6 +87,7 @@
         "ed" 'go-download-play
         "xx" 'spacemacs/go-run-main
         "ga" 'ff-find-other-file
+        "gc" 'go-coverage
         "gg" 'godef-jump
         "tt" 'spacemacs/go-run-test-current-function
         "ts" 'spacemacs/go-run-test-current-suite
