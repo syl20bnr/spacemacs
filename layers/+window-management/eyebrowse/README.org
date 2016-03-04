@@ -9,6 +9,7 @@
    - [[Layer][Layer]]
    - [[Removing additional help][Removing additional help]]
  - [[Key bindings][Key bindings]]
+     - [[Transient State][Transient State]]
 
 * Description
 This layer adds [[https://i3wm.org/][i3wm]] like workspaces thanks to the [[https://github.com/wasamasa/eyebrowse][eyebrowse]] package.
@@ -48,24 +49,22 @@ Set the variable =eyebrowse-display-help= to =nil=
 
 * Key bindings
 
-| Key Binding                               | Description                          |
-|-------------------------------------------+--------------------------------------|
-| ~gt~                                      | go to next workspace                 |
-| ~gT~                                      | got to previous workspace            |
-| ~SPC b W~                                 | go to workspace and window by buffer |
-| ~SPC l w 1~                               | create or switch to workspace 1      |
-| ~SPC l w 2~                               | create or switch to workspace 2      |
-| ~SPC l w 3~                               | create or switch to workspace 3      |
-| ~SPC l w 4~                               | create or switch to workspace 4      |
-| ~SPC l w 5~                               | create or switch to workspace 5      |
-| ~SPC l w 6~                               | create or switch to workspace 6      |
-| ~SPC l w 7~                               | create or switch to workspace 7      |
-| ~SPC l w 8~                               | create or switch to workspace 8      |
-| ~SPC l w 9~                               | create or switch to workspace 9      |
-| ~SPC l w 0~                               | create or switch to workspace 0      |
-| ~SPC l w TAB~                             | switch to last active workspace      |
-| ~SPC l w c~                               | close current workspace              |
-| ~SPC l w n~ or ~SPC l w l~                | switch to next workspace             |
-| ~SPC l w N~ or ~SPC l w p~ or ~SPC l w h~ | switch to previous workspace         |
-| ~SPC l w r~                               | set a tag to the current workspace   |
-| ~SPC l w w~                               | switched to tagged workspace         |
+| Key Binding | Description                          |
+|-------------+--------------------------------------|
+| ~gt~        | go to next workspace                 |
+| ~gT~        | got to previous workspace            |
+| ~SPC b W~   | go to workspace and window by buffer |
+
+*** Transient State
+
+| Key Binding       | Description                                                 |
+|-------------------+-------------------------------------------------------------|
+| ~SPC l w~         | activate the transient state                                |
+| ~[1..9, 0]~       | switch to nth workspace                                     |
+| ~[C-1..C-9, C-0]~ | switch to nth workspace and keep the transient state active |
+| ~TAB~             | switch to last active workspace                             |
+| ~c~               | close current workspace                                     |
+| ~n~ or ~l~        | switch to next workspace                                    |
+| ~N~ or ~p~ or ~h~ | switch to previous workspace                                |
+| ~r~               | set a tag to the current workspace                          |
+| ~w~               | switched to tagged workspace                                |
