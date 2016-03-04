@@ -18,7 +18,7 @@
    - [[Occur mode][Occur mode]]
 
 * Description
-This layer enables support for the [[https://github.com/politza/pdf-tools][=pdf-tools=]] package.
+This layer enables support for the [[https://github.com/politza/pdf-tools][pdf-tools]] package.
 
 According to the official repository:
 
