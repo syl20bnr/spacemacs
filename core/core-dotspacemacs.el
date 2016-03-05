@@ -415,7 +415,7 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
              ("spacemacs-helm"
               ,(dotspacemacs//ido-completing-read
                 "What type of completion framework do you want? "
-                '(("An heavy one but full-featured (helm)"
+                '(("A heavy one but full-featured (helm)"
                    "spacemacs-helm")
                   ("A lighter one but still very powerful (ivy)"
                    "spacemacs-ivy")
