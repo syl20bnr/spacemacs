@@ -56,32 +56,27 @@ workspace, preferably in the current window."
                                  display-buffer-same-window)
                                 (inhibit-same-window . nil))))
 
-      (defun spacemacs/workspaces-ms-rename ()
+      (defun spacemacs/workspaces-ts-rename ()
         "Rename a workspace and get back to transient-state."
         (interactive)
         (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) nil)
         (spacemacs/workspaces-transient-state/body))
 
-      (defun spacemacs//workspaces-ms-get-slot-name (window-config)
-        "Return the name for the given window-config"
-        (let ((slot (car window-config))
-              (caption (eyebrowse-format-slot window-config)))
-          (if (= slot current-slot)
-              (format "[%s]" caption)
-            caption)))
-
-      (defun spacemacs//workspaces-ms-get-window-configs ()
-        "Return the list of window configs."
-        (--sort (if (eq (car other) 0)
-                    t
-                  (< (car it) (car other)))
-                (eyebrowse--get 'window-configs)))
+      (spacemacs|transient-state-format-hint workspaces
+        spacemacs--workspaces-ts-full-hint
+        "\n\n
+ Go to^^^^^^                         Remove/Rename...^^
+--^-^--^^^^-----------------------  --^-^---------------------------
+ [_0_,_9_]^^     nth/new workspace   [_d_] close current workspace
+ [_C-0_,_C-9_]^^ nth/new workspace   [_R_] rename current workspace
+ [_n_/_C-l_]^^   next workspace
+ [_N_/_p_/_C-h_] prev workspace
+ [_<tab>_]^^^^   last workspace\n")
 
       (spacemacs|define-transient-state workspaces
         :title "Workspaces Transient State"
-        :additional-docs
-        (spacemacs--workspaces-ms-documentation .
-         "\n\n[_0_.._9_] switch to workspace  [_n_/_p_] next/prev  [_<tab>_] last  [_c_] close  [_r_] rename")
+        :hint-is-doc t
+        :dynamic-hint (spacemacs//workspaces-ts-hint)
         :bindings
         ("0" eyebrowse-switch-to-window-config-0 :exit t)
         ("1" eyebrowse-switch-to-window-config-1 :exit t)
@@ -104,18 +99,20 @@ workspace, preferably in the current window."
         ("C-8" eyebrowse-switch-to-window-config-8)
         ("C-9" eyebrowse-switch-to-window-config-9)
         ("<tab>" eyebrowse-last-window-config)
+        ("C-h" eyebrowse-prev-window-config)
         ("C-i" eyebrowse-last-window-config)
-        ("c" eyebrowse-close-window-config)
+        ("C-l" eyebrowse-next-window-config)
+        ("d" eyebrowse-close-window-config)
         ("h" eyebrowse-prev-window-config)
         ("l" eyebrowse-next-window-config)
         ("n" eyebrowse-next-window-config)
         ("N" eyebrowse-prev-window-config)
         ("p" eyebrowse-prev-window-config)
-        ("r" spacemacs/workspaces-ms-rename :exit t)
+        ("R" spacemacs/workspaces-ts-rename :exit t)
         ("w" eyebrowse-switch-to-window-config :exit t))
 
-
       (defun spacemacs//workspace-format-name (workspace)
+        "Return a porpertized string given a WORKSPACE name."
         (let* ((current (eq (eyebrowse--get 'current-slot) (car workspace)))
                (name (nth 2 workspace))
                (number (car workspace))
@@ -126,25 +123,13 @@ workspace, preferably in the current window."
               (propertize (concat "[" caption "]") 'face 'warning)
             caption)))
 
-      (defun spacemacs//workspaces-ms-list ()
-        "Return the list of workspaces for the workspacae
-transient state."
-        (mapconcat 'spacemacs//workspace-format-name
-                   (eyebrowse--get 'window-configs)
-                   " | "))
-
-      (add-hook
-       'spacemacs-post-user-config-hook
-       (lambda ()
-         (setq spacemacs/workspaces-transient-state/hint
-               `(concat
-                 ,(when dotspacemacs-show-transient-state-title
-                    (concat
-                     (propertize "Workspaces Transient State"
-                                 'face 'spacemacs-transient-state-title-face)
-                     "\n"))
-                 (spacemacs//workspaces-ms-list)
-                 spacemacs--workspaces-ms-documentation))) 'append)
+      (defun spacemacs//workspaces-ts-hint ()
+        "Return a one liner string containing all the workspace names."
+        (concat
+         " "
+         (mapconcat 'spacemacs//workspace-format-name
+                    (eyebrowse--get 'window-configs) " | ")
+         (when eyebrowse-display-help spacemacs--workspaces-ts-full-hint)))
 
       ;; The layouts layer defines this keybinding inside a transient-state
       ;; thus this is only needed if that layer is not used
