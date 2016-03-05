@@ -35,7 +35,7 @@
       ;; always activate persp-mode
       (persp-mode)
 
-      (defvar spacemacs--layouts-ms-doc-toggle 0
+      (defvar spacemacs--layouts-ts-full-hint-toggle 0
         "Display a short doc when nil, full doc otherwise.")
 
       (defvar spacemacs--last-selected-layout persp-nil-name
@@ -58,11 +58,11 @@
 
       ;; Perspectives transient-state -------------------------------------------
 
-      (defun spacemacs//layouts-ms-toggle-doc ()
-        "Toggle the full documenation for the layouts transient-state."
+      (defun spacemacs//layouts-ts-toggle-hint ()
+        "Toggle the full hint docstring for the layouts transient-state."
         (interactive)
-        (setq spacemacs--layouts-ms-doc-toggle
-              (logxor spacemacs--layouts-ms-doc-toggle 1)))
+        (setq spacemacs--layouts-ts-full-hint-toggle
+              (logxor spacemacs--layouts-ts-full-hint-toggle 1)))
 
       (defun spacemacs//layout-format-name (name pos)
         "Format the layout name given by NAME for display in mode-line."
@@ -77,49 +77,52 @@
               (propertize (concat "[" caption "]") 'face 'warning)
             caption)))
 
-      (defun spacemacs//layouts-ms-doc ()
-        "Return the docstring for the layouts transient-state."
+      (defun spacemacs//layouts-ts-hint ()
+        "Return a one liner string containing all the layout names."
         (let* ((persp-list (or (persp-names-current-frame-fast-ordered)
                                (list persp-nil-name)))
                (formatted-persp-list
-                (concat
-                 (mapconcat
-                  (lambda (persp)
-                    (spacemacs//layout-format-name
-                     persp (position persp persp-list))) persp-list " | "))))
-          (concat formatted-persp-list
-                  (if (equal 1 spacemacs--layouts-ms-doc-toggle)
-                      spacemacs--layouts-ms-documentation
-                    (concat
-                     "\n ["
+                (concat " "
+                        (mapconcat (lambda (persp)
+                                     (spacemacs//layout-format-name
+                                      persp (position persp persp-list)))
+                                   persp-list " | "))))
+          (concat
+           formatted-persp-list
+           (if (equal 1 spacemacs--layouts-ts-full-hint-toggle)
+               spacemacs--layouts-ts-full-hint
+             (concat "  (["
                      (propertize "?" 'face 'hydra-face-red)
-                     "]   toggle help")))))
+                     "] help)")))))
 
-      (spacemacs|define-transient-state layouts
-        :title "Layouts Transient State"
-        :additional-docs
-        (spacemacs--layouts-ms-documentation .
-                                             "\n
- Go to^^^^^^                         Add/Remove/Rename^^
+      (spacemacs|transient-state-format-hint layouts
+        spacemacs--layouts-ts-full-hint
+        "\n\n
+ Go to^^^^^^                         Add/Remove/Rename...^^
 --^-^--^^^^-----------------------  --^-^---------------------------
  [_b_]^^^^       buffer in layout    [_a_] add buffer
  [_h_]^^^^       default layout      [_A_] add all from layout
  [_o_]^^^^       custom layout       [_r_] remove current buffer
  [_l_]^^^^       layout w/helm/ivy   [_d_] close current layout
  [_L_]^^^^       layouts in file     [_D_] close other layout
- [_0_,_9_]^^     nth layout          [_x_] kill current w/buffers
- [_n_/_C-l_]^^   next layout         [_X_] kill other w/buffers
- [_N_/_p_/_C-h_] prev layout         [_R_] rename current layout
+ [_0_,_9_]^^     nth/new layout      [_x_] kill current w/buffers
+ [_C-0_,_C-9_]^^ nth/new layout      [_X_] kill other w/buffers
+ [_n_/_C-l_]^^   next layout         [_R_] rename current layout
+ [_N_/_p_/_C-h_] prev layout
  [_<tab>_]^^^^   last layout
 --^^^^^^^^----------------------------------------------------------
  [_s_/_S_] save all layouts/save by names
  [_t_]^^   show a buffer without adding it to current layout
  [_w_]^^   workspaces micro-state (requires eyebrowse layer)
- [_?_]^^   toggle help
-")
+ [_?_]^^   toggle help\n")
+
+      (spacemacs|define-transient-state layouts
+        :title "Layouts Transient State"
+        :hint-is-doc t
+        :dynamic-hint (spacemacs//layouts-ts-hint)
         :bindings
         ;; need to exit in case number doesn't exist
-        ("?" spacemacs//layouts-ms-toggle-doc)
+        ("?" spacemacs//layouts-ts-toggle-hint)
         ("1" spacemacs/persp-switch-to-1 :exit t)
         ("2" spacemacs/persp-switch-to-2 :exit t)
         ("3" spacemacs/persp-switch-to-3 :exit t)
@@ -147,8 +150,8 @@
         ("a" persp-add-buffer :exit t)
         ("A" persp-import-buffers :exit t)
         ("b" spacemacs/persp-helm-mini :exit t)
-        ("d" spacemacs/layouts-ms-close)
-        ("D" spacemacs/layouts-ms-close-other :exit t)
+        ("d" spacemacs/layouts-ts-close)
+        ("D" spacemacs/layouts-ts-close-other :exit t)
         ("h" spacemacs/layout-goto-default :exit t)
         ("l" spacemacs/helm-perspectives :exit t)
         ("L" persp-load-state-from-file :exit t)
@@ -157,27 +160,14 @@
         ("o" spacemacs/select-custom-layout :exit t)
         ("p" persp-prev)
         ("r" persp-remove-buffer :exit t)
-        ("R" spacemacs/layouts-ms-rename :exit t)
+        ("R" spacemacs/layouts-ts-rename :exit t)
         ("s" persp-save-state-to-file :exit t)
         ("S" persp-save-to-file-by-names :exit t)
         ("t" persp-temporarily-display-buffer :exit t)
         ("w" spacemacs/layout-workspaces-transient-state :exit t)
-        ("x" spacemacs/layouts-ms-kill)
-        ("X" spacemacs/layouts-ms-kill-other :exit t))
+        ("x" spacemacs/layouts-ts-kill)
+        ("X" spacemacs/layouts-ts-kill-other :exit t))
       (spacemacs/set-leader-keys "l" 'spacemacs/layouts-transient-state/body)
-
-      ;; This enables the dynamic behavior from micro-states using ?
-      (add-hook 'spacemacs-post-user-config-hook
-                (lambda ()
-                  (setq spacemacs/layouts-transient-state/hint
-                        `(concat
-                          ,(when dotspacemacs-show-transient-state-title
-                             (concat
-                              (propertize "Layouts Transient State"
-                                          'face 'spacemacs-transient-state-title-face)
-                              "\n"))
-                          (spacemacs//layouts-ms-doc))))
-                t)
 
       (defun spacemacs/layout-switch-by-pos (pos)
         "Switch to perspective of position POS."
@@ -205,36 +195,31 @@
         (when dotspacemacs-default-layout-name
           (persp-switch dotspacemacs-default-layout-name)))
 
-      (defun spacemacs/layouts-ms-rename ()
+      (defun spacemacs/layouts-ts-rename ()
         "Rename a layout and get back to the perspectives transient-state."
         (interactive)
         (call-interactively 'persp-rename)
         (spacemacs/layouts-transient-state/body))
 
-      (defun spacemacs/layouts-ms-close ()
+      (defun spacemacs/layouts-ts-close ()
         "Kill current perspective"
         (interactive)
         (persp-kill-without-buffers (spacemacs//current-layout-name)))
 
-      (defun spacemacs/layouts-ms-close-other ()
+      (defun spacemacs/layouts-ts-close-other ()
         (interactive)
         (call-interactively 'spacemacs/helm-persp-close)
         (spacemacs/layouts-transient-state/body))
 
-      (defun spacemacs/layouts-ms-kill ()
+      (defun spacemacs/layouts-ts-kill ()
         "Kill current perspective"
         (interactive)
         (persp-kill (spacemacs//current-layout-name)))
 
-      (defun spacemacs/layouts-ms-kill-other ()
+      (defun spacemacs/layouts-ts-kill-other ()
         (interactive)
         (call-interactively 'spacemacs/helm-persp-kill)
         (spacemacs/layouts-transient-state/body))
-
-      (defun spacemacs/layouts-ms-last ()
-        "Switch to the last active perspective"
-        (interactive)
-        (persp-switch persp-last-persp-name))
 
       ;; Custom perspectives transient-state -------------------------------------
 

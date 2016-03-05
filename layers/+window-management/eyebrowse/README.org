@@ -63,8 +63,8 @@ Set the variable =eyebrowse-display-help= to =nil=
 | ~[1..9, 0]~       | switch to nth workspace                                     |
 | ~[C-1..C-9, C-0]~ | switch to nth workspace and keep the transient state active |
 | ~TAB~             | switch to last active workspace                             |
-| ~c~               | close current workspace                                     |
+| ~d~               | close current workspace                                     |
 | ~n~ or ~l~        | switch to next workspace                                    |
 | ~N~ or ~p~ or ~h~ | switch to previous workspace                                |
-| ~r~               | set a tag to the current workspace                          |
+| ~R~               | set a tag to the current workspace                          |
 | ~w~               | switched to tagged workspace                                |
