@@ -262,7 +262,11 @@
 (defun ruby/init-rake ()
   (use-package rake
     :defer t
-    :init (setq rake-cache-file (concat spacemacs-cache-directory "rake.cache"))
+    :init
+    (progn
+      (setq rake-cache-file (concat spacemacs-cache-directory "rake.cache"))
+      (push '("*rake-compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
+            popwin:special-display-config))
     :config
     (dolist (mode '(ruby-mode enh-ruby-mode))
       (spacemacs/set-leader-keys-for-major-mode mode
