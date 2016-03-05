@@ -95,6 +95,8 @@
 
 (defun ruby/post-init-popwin ()
   (push '("*rspec-compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
+        popwin:special-display-config)
+  (push '("*rake-compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
         popwin:special-display-config))
 
 (defun ruby/init-rbenv ()
@@ -262,11 +264,7 @@
 (defun ruby/init-rake ()
   (use-package rake
     :defer t
-    :init
-    (progn
-      (setq rake-cache-file (concat spacemacs-cache-directory "rake.cache"))
-      (push '("*rake-compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
-            popwin:special-display-config))
+    :init (setq rake-cache-file (concat spacemacs-cache-directory "rake.cache"))
     :config
     (dolist (mode '(ruby-mode enh-ruby-mode))
       (spacemacs/set-leader-keys-for-major-mode mode
