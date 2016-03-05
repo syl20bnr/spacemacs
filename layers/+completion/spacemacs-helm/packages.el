@@ -823,6 +823,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (evil-define-key 'normal helm-ag-map "SPC" spacemacs-default-map)
       (evilified-state-evilify helm-ag-mode helm-ag-mode-map
         (kbd "RET") 'helm-ag-mode-jump-other-window
+        (kbd "gr") 'helm-ag--update-save-results
         (kbd "q") 'quit-window))))
 
 (defun spacemacs-helm/init-helm-descbinds ()
