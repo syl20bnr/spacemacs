@@ -11,7 +11,7 @@
 
 (setq octave-packages
   '(
-    octave
+    (octave :location built-in)
     ))
 
 (defun octave/init-octave ()
