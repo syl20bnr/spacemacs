@@ -11,13 +11,9 @@
 
 (spacemacs|add-toggle auto-completion
   :status
-  (if (boundp 'auto-completion-front-end)
-      (if (eq 'company auto-completion-front-end)
-          company-mode
-        auto-complete-mode)
-    ;; default completion hardcoded to be company for now
-    (setq auto-completion-front-end 'company)
-    nil)
+  (if (eq 'company auto-completion-front-end)
+      (bound-and-true-p company-mode)
+    (bound-and-true-p auto-complete-mode))
   :on
   (progn
     (if (eq 'company auto-completion-front-end)
