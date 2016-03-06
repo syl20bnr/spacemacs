@@ -12,6 +12,24 @@
 (require 'core-configuration-layer)
 
 ;; ---------------------------------------------------------------------------
+;; class cfgl-layer
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-cfgl-layer-owned-packages--owns-packages ()
+  (let ((layer1 (cfgl-layer "layer1"
+                            :name 'layer1
+                            :packages '(pkg1 pkg2 pkg3 pkg4)))
+        (configuration-layer--packages
+         (list (cfgl-package "pkg1" :name 'pkg1 :owner 'layer2)
+               (cfgl-package "pkg2" :name 'pkg2 :owner 'layer1)
+               (cfgl-package "pkg3" :name 'pkg3 :owner 'layer1)
+               (cfgl-package "pkg4" :name 'pkg4 :owner 'layer2))))
+    (should (equal '(pkg2 pkg3) (cfgl-layer-owned-packages layer1)))))
+
+(ert-deftest test-cfgl-layer-owned-packages--nil-layer-returns-nil ()
+  (should (null (cfgl-layer-owned-packages nil))))
+
+;; ---------------------------------------------------------------------------
 ;; class cfgl-package
 ;; ---------------------------------------------------------------------------
 
@@ -1044,3 +1062,76 @@
      ((file-directory-p (f)
                         ((:record-cls 'mocker-stub-record :output t :occur 1))))
      (should (eq 'cat (configuration-layer//get-category-from-path input))))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//gather-auto-mode-extensions
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-gather-auto-mode-extensions--one-entry-in-auto-mode-alist ()
+  (let ((auto-mode-alist '(("\\.spacemacs\\'" . mode))))
+    (should (equal
+             "\\(\\.spacemacs\\'\\)"
+             (configuration-layer//gather-auto-mode-extensions 'mode)))))
+
+(ert-deftest test-gather-auto-mode-extensions--several-entries-in-auto-mode-alist ()
+  (let ((auto-mode-alist '(("\\.spacemacs\\'" . mode)
+                           ("\\.dotspacemacs\\'" . mode)
+                           ("\\.spacelayer\\'" . mode))))
+    (should (equal
+             "\\(\\.spacelayer\\'\\|\\.dotspacemacs\\'\\|\\.spacemacs\\'\\)"
+             (configuration-layer//gather-auto-mode-extensions 'mode)))))
+
+(ert-deftest test-gather-auto-mode-extensions--ext-entry-is-not-symbol ()
+  (let ((auto-mode-alist '(((nil t) . mode))))
+    (should (null (configuration-layer//gather-auto-mode-extensions 'mode)))))
+
+(ert-deftest test-gather-auto-mode-extensions--mode-entry-is-not-symbol ()
+  (let ((auto-mode-alist '(("ext" . (lambda nil nil)))))
+    (should (null (configuration-layer//gather-auto-mode-extensions 'mode)))))
+
+(ert-deftest test-gather-auto-mode-extensions--regexp-correctness ()
+  "Correctness is a big word here :-)"
+  (let ((regexp (configuration-layer//gather-auto-mode-extensions
+                 'emacs-lisp-mode)))
+    (should (string-match-p regexp "/_emacs"))
+    (should (string-match-p regexp "/.toto_gnus"))
+    (should (string-match-p regexp "/.toto_viper"))
+    (should (string-match-p regexp "/toto/emacs.el"))
+    (should (string-match-p regexp "/toto/project.ede"))
+    (should (not (string-match-p regexp "/toto/emacs.dummy")))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//lazy-install-extensions-for-layer
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-lazy-install-extensions-for-layer--owned-packages ()
+  (let ((configuration-layer--layers
+         (list (cfgl-layer "layer" :name 'layer :packages '(pkg1 pkg2))))
+        (configuration-layer--packages
+         (list (cfgl-package "pkg1" :name 'pkg1 :owner 'layer)
+               (cfgl-package "pkg2" :name 'pkg2 :owner 'layer)))
+        (auto-mode-alist '(("\\.pkg1\\'" . pkg1)
+                           ("\\.pkg2\\'" . pkg2))))
+    (should (equal '((pkg2 . "\\(\\.pkg2\\'\\)")
+                     (pkg1 . "\\(\\.pkg1\\'\\)"))
+                   (configuration-layer//lazy-install-extensions-for-layer 'layer)))))
+
+(ert-deftest test-lazy-install-extensions-for-layer--not-owned-package ()
+  (let ((configuration-layer--layers
+         (list (cfgl-layer "layer" :name 'layer :packages '(pkg1))))
+        (configuration-layer--packages
+         (list (cfgl-package "pkg1" :name 'pkg1 :owner 'other)))
+        (auto-mode-alist '(("\\.pkg1\\'" . pkg1))))
+    (should (null (configuration-layer//lazy-install-extensions-for-layer 'layer)))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//insert-lazy-install-form
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-insert-lazy-install-form ()
+  (cl-letf (((symbol-function 'insert) 'identity))
+    (should
+     (equal
+      (concat "(configuration-layer/lazy-install 'mode "
+              ":extensions '(\"\\\\(\\\\.ext\\\\'\\\\)\"))\n")
+      (configuration-layer//insert-lazy-install-form 'mode "\\(\\.ext\\'\\)")))))
