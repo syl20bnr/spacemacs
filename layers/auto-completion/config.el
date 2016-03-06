@@ -11,6 +11,9 @@
 
 ;; Company -------------------------------------------------------------------
 
+(defvar-local auto-completion-front-end 'company
+  "Which auto-completion front end to use.")
+
 (defvar auto-completion-return-key-behavior 'complete
   "What the RET key should do when auto-completion menu is active.
 Possible values are `complete' or `nil'.")
