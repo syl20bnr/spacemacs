@@ -331,8 +331,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (spacemacs/set-leader-keys
         "n," 'spacemacs/scroll-transient-state/evil-scroll-page-up
         "n." 'spacemacs/scroll-transient-state/evil-scroll-page-down
-        "n<" 'spacemacs/scroll-transient-state/scroll-half-page-up
-        "n>" 'spacemacs/scroll-transient-state/scroll-half-page-down)
+        "n<" 'spacemacs/scroll-transient-state/evil-scroll-up
+        "n>" 'spacemacs/scroll-transient-state/evil-scroll-down)
 
       ;; pasting transient-state
       (evil-define-command spacemacs//transient-state-0 ()
