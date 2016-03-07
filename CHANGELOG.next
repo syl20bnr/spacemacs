@@ -41,7 +41,8 @@ This file containes the change log for the next major version of Spacemacs.
 - =org-indent= is now turned off by default
 - Micro states are now called transient states
 - Spacemacs layouts and workspaces transient states now exit when a layout or
-  workspace is selected.
+  workspace is selected, use ~C-0~ ... ~C-9~ to switch to a layout and keep
+  the transient state open.
 *** Hot new features
 - Add lazy installation of layers based on =auto-mode-alist=.
 - Support for Ivy, add the =spacemacs-ivy= layer to your dotfile and
@@ -56,6 +57,7 @@ This file containes the change log for the next major version of Spacemacs.
 *** New Layers
 - asm in =+lang= (thanks to thudo)
 - csv in =+lang= (thanks to jb55)
+- pdf-tools in =+tools= (thanks to Andre0991)
 - plantuml in =+lang= (thanks to robbyoconnor)
 - spacemacs-ivy in =completion= (thanks to justbur)
 - spacemacs-helm in =completion= (moved from spacemacs-base) (thanks to justbur)
@@ -146,6 +148,8 @@ This file containes the change log for the next major version of Spacemacs.
 - New key binding ~SPC h d d~ for =helm-apropos= (thanks to StreakyCobra)
 - New key bindings ~[ f~ and ~] f~ to go to the next or previous file in current
   directory (thanks to fbergroth)
+- New key binding ~gr~ in =helm-ag= buffers to update saved results
+  (thanks to darkfeline)
 - ~ESC~ now quits =help= buffers (thanks to olivierverdier)
 - Add ~p~ for previous match to =auto-highlight-symbol= transient state
   (thanks to microamp)
@@ -180,6 +184,7 @@ This file containes the change log for the next major version of Spacemacs.
 - Fix =evil-magit= remapping (thanks to StreakyCobra)
 - Fix =flycheck-error-list= remapping (thanks to StreakyCobra)
 **** Clojure
+- Add =clojure-snippets= package (thanks to AlejandroCatalina)
 - New key binding ~SPC m s o~ for switching between REPL connections
   (thanks to mahinshaw)
 - New key binding ~SPC m h a~ for cider apropos (thanks to birdspider)
@@ -289,6 +294,7 @@ This file containes the change log for the next major version of Spacemacs.
   (thanks to cpaulik)
 - New key binding ~SPC m g b~ for =anaconda-mode-go-back= (thanks to jluttine)
 - Fix =pylookup= key binding ~SPC m h H~ (thanks to darkfeline)
+- Make =pylookup= use std =completing-read= function (thanks to darkfeline)
 **** Restclient
 - New key binding ~SPC m y~ to copy the query around point as a =curl= command
   (thanks to d1egoaz)
@@ -304,6 +310,8 @@ This file containes the change log for the next major version of Spacemacs.
 - New =rspec= key binding ~SPC m t TAB~ for =rspec-toggle-spec-and-target=
   (thanks to asok)
 - New key binding ~SPC b o~ to run bundle open (thanks to asok)
+- Add =popwin= configuration to =*rake-compilation*= (thanks to nixmaniack)
+- Fix =chruby= configuration to find out the ruby version to use (thanks to asok)
 **** Rust
 - Remove layer variable =rust-enable-racer=, now =racer= is always used
   (thanks to fbergroth)
@@ -323,8 +331,10 @@ This file containes the change log for the next major version of Spacemacs.
 - ~C-d~ is now bound to =eshell-delchar-or-maybe-eof= which checks if there is
   a char after the point. If so, it performs the normal delete-char,
   otherwise if quit eshell (thanks to microamp)
+- Disable =global-hl-line-mode= in =shell-like= buffers (thanks to TheBB)
 **** Shell-scripts
 - Add =company-shell= package (thanks to joehillen)
+- Enable =flycheck= in =sh-mode= (thanks to fbergroth)
 - New key binding ~SPC m \~ for =sh-backslash-region= to add a backslash at
   end of lines (thanks to fbergroth)
 **** Syntax-checking
