@@ -247,15 +247,16 @@ values."
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
-It is called immediately after `dotspacemacs/init'.  You are free to put almost
-any user code here.  The exception is org related code, which should be placed
-in `dotspacemacs/user-config'."
+It is called immediately after `dotspacemacs/init', before layer configuration
+executes.  You are free to put almost any user code here.  The exception is
+org related code, which should be placed in `dotspacemacs/user-config'."
   )
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
-layers configuration. You are free to put any user code."
+layers configuration. Any variable that Spacemacs explicitly sets but you wish
+to override must be set here."
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
