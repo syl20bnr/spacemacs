@@ -23,7 +23,7 @@
     helm-cscope
     helm-gtags
     semantic
-    (srefactor :toggle (version< emacs-version "24.4"))
+    (srefactor :toggle (version<= "24.4" emacs-version))
     stickyfunc-enhance
     ycmd
     xcscope
