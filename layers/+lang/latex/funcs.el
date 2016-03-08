@@ -20,6 +20,14 @@
     ;; (when build-proc
     ;;   (set-process-sentinel build-proc 'latex//build-sentinel))))
 
+(defun latex/all ()
+  "Save, build and view in one command."
+  (interactive)
+  (progn
+    (let ((TeX-save-query nil))
+      (TeX-save-document (TeX-master-file)))
+    (TeX-command-run-all ())))
+
 (defun latex//build-sentinel (process event)
   (if (string= event "finished\n")
       (TeX-view)
