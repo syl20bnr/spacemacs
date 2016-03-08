@@ -54,6 +54,13 @@
 (defvar spacemacs--default-mode-line mode-line-format
   "Backup of default mode line format.")
 
+;; Use emacs version number in the directory where packages are installed in
+;; order to support multiple emacs versions (with potentially incompatible
+;; bytecode formats) from the same spacemacs directory.
+(let ((ver (format "%s.%s" emacs-major-version emacs-minor-version)))
+  (custom-set-variables
+   `(package-user-dir (locate-user-emacs-file (format "elpa-%s/" ,ver)))))
+
 (defun spacemacs/init ()
   "Perform startup initialization."
   (when spacemacs-debugp (spacemacs/init-debug))
