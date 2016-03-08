@@ -140,7 +140,7 @@ that directory."
                                               spacemacs--counsel-search-max-path-length)
                                            (length counsel--git-grep-dir))))))
        (spacemacs//make-counsel-search-function tool)
-       :initial-input initial-input
+       :initial-input (rxt-quote-pcre initial-input)
        :dynamic-collection t
        :history 'counsel-git-grep-history
        :action #'counsel-git-grep-action
