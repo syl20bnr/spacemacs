@@ -49,7 +49,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
 
 (defun spacemacs//get-package-directory (pkg)
   "Return the directory of PKG. Return nil if not found."
-  (let ((elpa-dir (concat user-emacs-directory "elpa/")))
+  (let ((elpa-dir (file-name-as-directory package-user-dir)))
     (when (file-exists-p elpa-dir)
       (let ((dir (cl-reduce (lambda (x y) (if x x y))
                          (mapcar (lambda (x)
