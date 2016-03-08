@@ -68,6 +68,10 @@
              :initform nil
              :type list
              :documentation "List of package symbols declared in this layer.")
+   (user-packages :initarg :user-packages
+             :initform nil
+             :type list
+             :documentation "List of package symbols declared by user.")
    (variables :initarg :variables
               :initform nil
               :type list
@@ -357,14 +361,18 @@ layer directory."
          (disabled (when (listp layer)
                      (spacemacs/mplist-get layer :disabled-for)))
          (variables (when (listp layer)
-                      (spacemacs/mplist-get layer :variables))))
+                      (spacemacs/mplist-get layer :variables)))
+         (user-packages (when (listp layer)
+                          (car-safe
+                           (spacemacs/mplist-get layer :packages)))))
     (if base-dir
         (let* ((dir (format "%s%s/" base-dir name-str)))
           (cfgl-layer name-str
                       :name name-sym
                       :dir dir
                       :disabled-for disabled
-                      :variables variables))
+                      :variables variables
+                      :user-packages user-packages))
       (spacemacs-buffer/warning "Cannot find layer %S !" name-sym)
       nil)))
 
@@ -589,6 +597,14 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
       (let* ((name (oref layer :name))
              (dir (oref layer :dir))
              (lazy-install (oref layer :lazy-install))
+             (include-packages
+              (when (and (oref layer :user-packages)
+                         (not (eq 'not (car (oref layer :user-packages)))))
+                (oref layer :user-packages)))
+             (exclude-packages
+              (when (and (oref layer :user-packages)
+                         (eq 'not (car (oref layer :user-packages))))
+                (cdr (oref layer :user-packages))))
              (packages-file (concat dir "packages.el")))
         ;; packages
         (when (file-exists-p packages-file)
@@ -605,11 +621,17 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
                                                   name pkg-name)))
                    (post-init-func (intern (format "%S/post-init-%S"
                                                    name pkg-name)))
-                   (obj (object-assoc pkg-name :name result)))
+                   (obj (object-assoc pkg-name :name result))
+                   (excluded (or (and include-packages
+                                      (not (memq pkg-name include-packages)))
+                                 (and exclude-packages
+                                      (memq pkg-name exclude-packages)))))
               (cl-pushnew pkg-name (oref layer :packages))
               (if obj
                   (setq obj (configuration-layer/make-package pkg obj))
                 (setq obj (configuration-layer/make-package pkg))
+                (when excluded
+                  (oset obj :excluded t))
                 (push obj result))
               (oset obj :lazy-install lazy-install)
               (when (fboundp init-func)
