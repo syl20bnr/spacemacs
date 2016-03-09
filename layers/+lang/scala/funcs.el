@@ -101,3 +101,11 @@ point to the position of the join."
 
 (defun scala/configure-flyspell ()
   (setq-local flyspell-generic-check-word-predicate 'scala/flyspell-verify))
+
+(defun scala/yank-type-at-point ()
+  "Yank to kill ring and print type at point to the minibuffer without package name."
+  (interactive)
+  (let* ((type (ensime-rpc-get-type-at-point))
+         (shortname (ensime-type-short-name-with-args type)))
+    (kill-new shortname)
+    (message shortname)))

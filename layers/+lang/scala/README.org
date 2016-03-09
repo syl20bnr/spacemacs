@@ -202,6 +202,7 @@ disable it with
 | ~SPC m i i~ | inspect type at point                  |
 | ~SPC m i I~ | inspect type in other frame            |
 | ~SPC m i p~ | inspect project package                |
+| ~SPC m i y~ | yank type at point                     |
 
 *** Server
 
@@ -215,6 +216,7 @@ disable it with
 
 | Key Binding | Description                                                          |
 |-------------+----------------------------------------------------------------------|
+| ~SPC m r a~ | add type annotation                                                  |
 | ~SPC m r f~ | format source                                                        |
 | ~SPC m r d~ | get rid of an intermediate variable (=ensime-refactor-inline-local=) |
 | ~SPC m r D~ | get rid of an intermediate variable (=ensime-undo-peek=)             |
