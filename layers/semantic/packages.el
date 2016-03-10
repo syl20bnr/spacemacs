@@ -11,14 +11,10 @@
 
 (setq semantic-packages
       '(
-        ;; package semantic go here
         semantic
-        ;; srefactor
+        (srefactor :toggle (version<= "24.4" emacs-version))
         stickyfunc-enhance
         ))
-
-(unless (version< emacs-version "24.4")
-  (add-to-list 'semantic-packages 'srefactor))
 
 (defun semantic/enable-semantic-mode (mode)
   (let ((hook (intern (concat (symbol-name mode) "-hook"))))
