@@ -386,7 +386,7 @@
       (add-hook 'python-mode-hook 'py-yapf-enable-on-save))))
 
 (defun python/post-init-semantic ()
-  (semantic/enable-semantic-mode 'python-mode)
+  (add-hook 'python-mode-hook 'semantic-mode)
   (defadvice semantic-python-get-system-include-path (around semantic-python-skip-error-advice activate)
     "Don't cause error when Semantic cannot retrieve include
 paths for Python then prevent the buffer to be switched. This

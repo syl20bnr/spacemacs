@@ -16,16 +16,6 @@
         stickyfunc-enhance
         ))
 
-(defun semantic/enable-semantic-mode (mode)
-  (let ((hook (intern (concat (symbol-name mode) "-hook"))))
-    (add-hook hook (lambda ()
-                     (require 'semantic)
-                     (add-to-list 'semantic-default-submodes
-                                  'global-semantic-stickyfunc-mode)
-                     (add-to-list 'semantic-default-submodes
-                                  'global-semantic-idle-summary-mode)
-                     (semantic-mode 1)))))
-
 (defun semantic/init-semantic ()
   (use-package semantic
     :defer t
@@ -36,8 +26,13 @@
       (setq semanticdb-default-save-directory (concat spacemacs-cache-directory
                                                       "semanticdb/"))
       (unless (file-exists-p semanticdb-default-save-directory)
-        (make-directory semanticdb-default-save-directory))
-      )))
+        (make-directory semanticdb-default-save-directory)))
+    :config
+    (progn
+      (add-to-list 'semantic-default-submodes
+                   'global-semantic-stickyfunc-mode)
+      (add-to-list 'semantic-default-submodes
+                   'global-semantic-idle-summary-mode))))
 
 (defun semantic/init-srefactor ()
   (use-package srefactor
