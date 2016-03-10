@@ -54,9 +54,11 @@
   (add-hook 'react-mode-hook 'spacemacs/js-doc-require)
   (spacemacs/js-doc-set-key-bindings 'react-mode))
 
+(defun react//setup-imenu ()
+  (setq imenu-create-index-function #'js2-mode-create-imenu-index))
+
 (defun react/post-init-js2-mode ()
-  (add-hook 'react-mode-hook (lambda ()
-                               (setq imenu-create-index-function #'js2-mode-create-imenu-index)))
+  (add-hook 'react-mode-hook 'react//setup-imenu)
   (add-hook 'react-mode-hook 'js2-imenu-extras-mode)
   (add-hook 'react-mode-hook 'js2-minor-mode))
 
