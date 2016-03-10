@@ -265,7 +265,7 @@ If TYPE is nil, just remove widgets."
                                                    :help-echo "Open the full change log."
                                                    :action (lambda (&rest ignore)
                                                              (funcall 'spacemacs/view-org-file
-                                                                      (concat user-emacs-directory "CHANGELOG.org")
+                                                                      (concat spacemacs-start-directory "CHANGELOG.org")
                                                                       "Release 0.105.x"
                                                                       'subtree))
                                                    :mouse-face 'highlight
