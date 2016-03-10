@@ -136,7 +136,7 @@
   (setq flycheck-emacs-lisp-load-path 'inherit))
 
 (defun emacs-lisp/post-init-semantic ()
-  (semantic/enable-semantic-mode 'emacs-lisp-mode)
+  (add-hook 'emacs-lisp-mode-hook 'semantic-mode)
   (with-eval-after-load 'semantic
     (semantic-default-elisp-setup)))
 
