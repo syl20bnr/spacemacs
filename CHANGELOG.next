@@ -156,6 +156,8 @@ This file containes the change log for the next major version of Spacemacs.
 - Add numerical prefix argument support for ~G~ in =doc-view= to go to a page
   (thansk to TheBB)
 - Add =smartparens= to =comint-mode= (thanks to CestDiego)
+- Remove ~ESC~ re binding in visual state (thanks to sooheon)
+- Fix =rainbow-delimiter-mode= in various modes (thanks to StreakyCobra)
 - Fix =neotree= window number assigment (thanks to bmag)
 - Fix ~SPC s e~ for emacs style users, the binding now call =iedit= instead of
   =evil-iedit-state= (thanks to AlejandroCatalina)
@@ -213,8 +215,6 @@ This file containes the change log for the next major version of Spacemacs.
 - New key binding ~SPC g r~ for =magit-rebase-popup= (thanks to C089)
 **** Go
 - Improve indentation (thanks to bogdanteleaga)
-- Fix bug when there is no test suite when running tests
-  (thanks to bogdanteleaga)
 - Show function signatures (thanks to carlosgaldino)
 **** Haskell
 - New =helm-hoogle= package under ~SPC m h f~ (thanks to jb55)
