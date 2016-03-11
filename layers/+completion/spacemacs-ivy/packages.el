@@ -113,11 +113,12 @@ around point as the initial input. If DIR is non nil start in
 that directory."
     (interactive)
     (require 'counsel)
-    (letf* ((initial-input (when use-initial-input
+    (letf* ((initial-input (if use-initial-input
                              (if (region-active-p)
                                  (buffer-substring-no-properties
                                   (region-beginning) (region-end))
-                               (thing-at-point 'symbol t))))
+                               (thing-at-point 'symbol t))
+                             ""))
             (tool (catch 'tool
                     (dolist (tool tools)
                       (when (and (assoc-string tool spacemacs--counsel-commands)
