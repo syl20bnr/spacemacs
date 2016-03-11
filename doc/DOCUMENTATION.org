@@ -162,6 +162,7 @@
        - [[iedit states key bindings][iedit states key bindings]]
        - [[Examples][Examples]]
      - [[Replacing text in several files][Replacing text in several files]]
+     - [[Renaming files in a directory][Renaming files in a directory]]
      - [[Commenting][Commenting]]
      - [[Deleting files][Deleting files]]
      - [[Editing Lisp code][Editing Lisp code]]
@@ -2446,6 +2447,14 @@ project:
 
 *Note*: In Spacemacs, =helm-ag= despite its name works with =ack= and =pt= as
 well.
+
+*** Renaming files in a directory
+It is possible to batch rename files in a directory using =wdired= from an
+=helm= session:
+- browse for a directory using ~SPC f f~
+- enter =wdired= with ~C-c C-e~
+- edit the file names and use ~C-c C-c~ to confirm the changes
+- use ~C-c C-k~ to abort any changes
 
 *** Commenting
 Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]], it's bound to the following keys.
