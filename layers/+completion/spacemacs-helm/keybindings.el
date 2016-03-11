@@ -36,5 +36,5 @@ Ensure that helm is required before calling FUNC."
   "Exits helm, opens a dired buffer and immediately switches to editable mode."
   (interactive)
   (helm-exit-and-execute-action 'spacemacs-helm//find-files-edit))
-(with-eval-after-load 'helm
+(with-eval-after-load 'helm-files
   (define-key helm-find-files-map (kbd "C-c C-e") 'spacemacs-helm/find-files-edit))
