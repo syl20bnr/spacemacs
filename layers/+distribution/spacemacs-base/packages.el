@@ -556,8 +556,6 @@ below. Anything else exits."
     :init
     (progn
       (ido-vertical-mode t)
-      (when dotspacemacs-use-ido
-        (spacemacs/set-leader-keys "ff" 'ido-find-file))
       (defun spacemacs//ido-minibuffer-setup ()
         "Setup the minibuffer."
         ;; Since ido is implemented in a while loop where each

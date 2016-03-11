@@ -1607,13 +1607,7 @@ selected or not. By default =golden-ratio= is off.
 The mode can be toggled on and off with ~SPC t g~.
 
 *** Buffers and Files
-Since =helm= is used everywhere, by default Spacemacs uses =helm= to open files.
-
-Some users prefer the =ido= way to navigate the file system because it can
-remember the last selected directories and buffers and ~RET~ is used to open
-directories instead of ~TAB~ or ~C-z~ in =helm=. It is possible to use =ido=
-instead of =helm= by setting the variable =dotspacemacs-use-ido= to =t= in your
-dotfile.
+By default Spacemacs uses =helm= to open files.
 
 **** Buffers manipulation key bindings
 Buffer manipulation commands (start with ~b~):
@@ -1671,7 +1665,7 @@ Files manipulation commands (start with ~f~):
 | ~SPC f C u~ | convert file from dos to unix encoding                                                                                          |
 | ~SPC f D~   | delete a file and the associated buffer (ask for confirmation)                                                                  |
 | ~SPC f E~   | open a file with elevated privileges (sudo edit)                                                                                |
-| ~SPC f f~   | open file with =helm= (or =ido=)                                                                                                |
+| ~SPC f f~   | open file with =helm=                                                                                                           |
 | ~SPC f F~   | try to open the file under point =helm=                                                                                         |
 | ~SPC f h~   | open binary file with =hexl= (a hex editor)                                                                                     |
 | ~SPC f j~   | jump to the current buffer file in dired                                                                                        |
@@ -1695,7 +1689,6 @@ navigate between =Emacs= and Spacemacs specific files.
 
 | Key Binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
-| ~SPC f e c~ | open =ido= in the =contrib= folder                              |
 | ~SPC f e d~ | open the spacemacs dotfile (=~/.spacemacs=)                     |
 | ~SPC f e D~ | open =ediff= buffer of =~/.spacemacs= and =.spacemacs.template= |
 | ~SPC f e f~ | discover the =FAQ= using =helm=                                 |

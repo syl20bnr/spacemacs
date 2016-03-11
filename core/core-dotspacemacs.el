@@ -163,9 +163,6 @@ start.")
 (defvar dotspacemacs-max-rollback-slots 5
   "Maximum number of rollback slots to keep in the cache.")
 
-(defvar dotspacemacs-use-ido nil
-  "If non nil then `ido' replaces `helm' for some commands.")
-
 (defvar dotspacemacs-helm-resize nil
   "If non nil, `helm' will try to minimize the space it uses.")
 
