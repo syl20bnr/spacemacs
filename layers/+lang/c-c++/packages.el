@@ -108,8 +108,7 @@
     (spacemacs/helm-gtags-define-keys-for-mode 'c++-mode)))
 
 (defun c-c++/post-init-semantic ()
-  (add-hook 'emacs-lisp-mode-hook 'c-mode)
-  (add-hook 'emacs-lisp-mode-hook 'c++-mode))
+  (spacemacs/add-to-hooks 'semantic-mode '(c-mode-hook c++-mode-hook)))
 
 (defun c-c++/post-init-srefactor ()
   (spacemacs/set-leader-keys-for-major-mode 'c-mode "r" 'srefactor-refactor-at-point)
