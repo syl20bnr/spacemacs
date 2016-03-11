@@ -31,7 +31,7 @@
       (defadvice spray-quit (after speed-reading//quit-spray activate)
         "Correctly quit spray."
         (internal-show-cursor (selected-window) t)
-        (evil-normal-state)))
+        (spacemacs/normal-to-insert-state)))
     :config
     (progn
       (define-key spray-mode-map (kbd "h") 'spray-backward-word)
