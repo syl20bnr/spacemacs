@@ -177,8 +177,9 @@ start.")
   "Position in which to show the `helm' mini-buffer.")
 
 (defvar dotspacemacs-large-file-size 1
-  "Size (in MB) above which spacemacs will prompt to open literally to avoid
-  performance issues.")
+  "Size (in MB) above which spacemacs will prompt to open the large file
+literally to avoid performance issues. Opening a file literally means that
+no major mode or minor modes are active.")
 
 (defvar dotspacemacs-auto-save-file-location 'cache
   "Location where to auto-save files. Possible values are `original' to
