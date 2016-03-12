@@ -4,6 +4,7 @@
     julia-mode
     faust-mode
     matlab-mode
+    ponylang-mode
     qml-mode
     scad-mode
     stan-mode
@@ -22,6 +23,9 @@
 
 (defun extra-langs/init-qml-mode ()
   (use-package qml-mode :defer t :mode "\\.qml\\'"))
+
+(defun extra-langs/init-ponylang-mode ()
+  (use-package ponylang-mode :defer t))
 
 (defun extra-langs/init-julia-mode ()
   (use-package julia-mode :defer t))
