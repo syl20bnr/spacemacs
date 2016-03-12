@@ -147,10 +147,7 @@ LAYER has to be installed for this method to work properly."
 
 (defmethod cfgl-package-enabledp ((pkg cfgl-package))
   "Evaluate the `toggle' slot of passed PKG."
-  (let ((toggle (oref pkg :toggle)))
-    (cond
-     ((symbolp toggle) (symbol-value toggle))
-     ((listp toggle) (eval toggle)))))
+  (let ((toggle (oref pkg :toggle))) (eval toggle)))
 
 (defvar configuration-layer--elpa-archives
   '(("melpa" . "melpa.org/packages/")
