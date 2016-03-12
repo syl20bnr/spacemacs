@@ -148,9 +148,9 @@
   "ck" 'kill-compilation
   "cr" 'recompile
   "cq" 'spacemacs/close-compilation-window)
-(define-key compilation-mode-map "r" 'recompile)
-(define-key compilation-mode-map "g" nil)
-
+(with-eval-after-load 'compile
+  (define-key compilation-mode-map "r" 'recompile)
+  (define-key compilation-mode-map "g" nil))
 ;; narrow & widen -------------------------------------------------------------
 (spacemacs/set-leader-keys
   "nr" 'narrow-to-region
