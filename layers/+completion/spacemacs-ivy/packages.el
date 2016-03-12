@@ -114,10 +114,10 @@ that directory."
     (interactive)
     (require 'counsel)
     (letf* ((initial-input (if use-initial-input
-                             (if (region-active-p)
-                                 (buffer-substring-no-properties
-                                  (region-beginning) (region-end))
-                               (thing-at-point 'symbol t))
+                               (if (region-active-p)
+                                   (buffer-substring-no-properties
+                                    (region-beginning) (region-end))
+                                 (thing-at-point 'symbol t))
                              ""))
             (tool (catch 'tool
                     (dolist (tool tools)
