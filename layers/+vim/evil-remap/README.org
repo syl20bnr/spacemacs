@@ -1,0 +1,47 @@
+#+TITLE: evil-remap layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Functions][Functions]]
+ - [[Keybindings][Keybindings]]
+
+* Description
+This layer allows you to use vim-like commands to set new keybindings.
+
+For example, to map semicolon to open the ex modeline:
+
+Without this layer:
+#+begin_src emacs-lisp
+(define-key evil-normal-state-map (kbd ";") 'evil-ex)
+#+end_src
+
+With this layer:
+#+begin_src emacs-lisp
+(evil-nnoremap ";" 'evil-ex)
+#+end_src
+
+* Install
+To use this layer, add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(evil-remap))
+#+end_src
+
+* Functions
+
+| Function       | Description                                                                      |
+|----------------+----------------------------------------------------------------------------------|
+| evil-noremap   | Maps a key to a function in the normal, visual, and operator pending states.     |
+| evil-nnoremap  | Maps a key to a function in the normal state.                                    |
+| evil-vnoremap  | Maps a key to a function in the visual state.                                    |
+| evil-xnoremap  | Maps a key to a function in ex-mode                                              |
+| evil-onoremap  | Maps a key to a function when there is an operator (such as `c`) pending         |
+| evil-inoremap  | Maps a key to a function in the insert mode.                                     |
+| evil-enoremap  | Maps a key to a function in the emacs state.                                     |
+| evil-mnoremap  | Maps a key to a function in the motion state.                                    |
+| evil-nnoremap! | Maps a key to a function in normal, visual, motion, and operator pending states. |
+
+* Keybindings
+This layer does not define any keybindings, since it is intended to help you define your own.
