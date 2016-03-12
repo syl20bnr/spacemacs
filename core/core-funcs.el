@@ -25,19 +25,24 @@
   ;; ns is returned instead of mac on Emacs 25+
   (memq (window-system) '(mac ns)))
 
-(defun spacemacs//get-package-directory (pkg)
-  "Return the directory of PKG. Return nil if not found."
-  (let ((elpa-dir (file-name-as-directory package-user-dir)))
-    (when (file-exists-p elpa-dir)
-      (let ((dir (cl-reduce (lambda (x y) (if x x y))
-                         (mapcar (lambda (x)
-                                   (when (string-match
-                                          (concat "/"
-                                                  (symbol-name pkg)
-                                                  "-[0-9]+") x) x))
-                                 (directory-files elpa-dir 'full))
-                         :initial-value nil)))
-        (when dir (file-name-as-directory dir))))))
+(defun spacemacs//get-package-directory (pkg &optional directory)
+  "Return the directory where PKG (a package name as a symbol) is installed. If
+optional DIRECTORY is non-nil, then just search that directory only. If it is
+nil, then search both user's directory as well as `package-directory-list',
+i.e., site-wide common directories."
+  (if directory
+      ;; Look for first sub-directory of DIRECTORY whose name starts with the
+
+      ;; package name followed by numeric version string.
+      ;; FIXME: should we error out if two or more items match?
+      (cl-some (lambda (x)
+                 (when (string-match (concat "/" (symbol-name pkg) "-[0-9]+") x) x))
+               (if (file-directory-p directory)
+                   (directory-files directory 'full)))
+    ;; Use recursion to search user's package install directory as well as
+    ;; common directories.
+    (cl-some (lambda (x) (spacemacs//get-package-directory pkg x))
+             (cons package-user-dir package-directory-list))))
 
 (defun spacemacs/mplist-get (plist prop)
   "Get the values associated to PROP in PLIST, a modified plist.

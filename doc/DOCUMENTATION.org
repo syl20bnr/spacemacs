@@ -431,9 +431,46 @@ Example to install =llvm-mode= and =dts-mode=:
 ** Packages synchronization
 Spacemacs will only install the packages that are explicitly used by the user.
 A package is considered to be used if its layer is used (i.e. listed in
-=dotspacemacs-configuration-layers=).
-Any packages that are not used is considered to be orphan and is deleted at
-the next startup of Emacs.
+=dotspacemacs-configuration-layers=) or if it is listed in
+=dotspacemacs-additional-packages=.
+Any package that is not used is considered to be orphaned and is deleted at the
+next start up of Emacs unless =dotspacemacs-delete-orphan-packages= is =nil=.
+This variable defaults to =t=.  Thus set this to =nil= if you want to prevent
+spacemacs from uninstalling packages installed via =package-install=.
+
+Spacemacs installs packages into =package-user-dir= directory as is normally
+done by emacs. If you use multiple versions of emacs, you might want to
+customize this to have emacs version dependent value if you want to avoid
+potential byte compiled file format compatibility problems, e.g., following
+uses =elpa24= or =elpa25= directories depending on the major emacs version
+number:
+
+#+BEGIN_SRC emacs-lisp
+(custom-set-variables
+ '(package-user-dir
+   (locate-user-emacs-file (format "elpa%s" emacs-major-version)))
+#+END_SRC
+
+This way two completely separate directories are used for the two emacs versions.
+
+In addition if you want to share installed packages among multiple users (e.g.,
+all of whom using shared file systems such as NFS), then you can make use of
+=package-directory-list= to house installed packages in shared areas. This
+lists directories that emacs searches for installed packages after searching
+=package-user-dir= first. Let's say you want to make all your own installed
+packages available to others. You can do this merely by copying your installed
+files into one of the directories listed in =package-directory-list= via
+something like this:
+
+#+BEGIN_SRC emacs-lisp
+(copy-directory package-user-dir (car package-directory-list) t t t)
+#+END_SRC
+
+assuming of course that you have the necessary permissions to write to the
+destination directory.
+
+You can then remove all files and directories under =package-user-dir=.
+Now everyone who uses the same emacs would shared the installed packages.
 
 ** Types of configuration layers
 There are two types of configuration layers:
