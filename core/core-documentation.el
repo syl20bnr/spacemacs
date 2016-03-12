@@ -13,6 +13,7 @@
 (require 'ox-publish)
 (require 's)
 (require 'dash)
+(require 'f)
 
 (defvar spacemacs--category-names
   '(("config-files" . "Configuration files")
@@ -85,11 +86,41 @@
         (format "%s\n%s%s" beginning-of-content toc-string rest-of-content)
       content)))
 
+(defun spacemacs//add-org-meta-readtheorg-css (origfunc &rest args)
+  (save-current-buffer
+    (let* ((head-css-extra-readtheorg-head (concat
+                                            "#+HTML_HEAD_EXTRA:"
+                                            "<link rel=\"stylesheet\" "
+                                            "type=\"text/css\" "
+                                            "href=\""))
+           (head-css-extra-readtheorg-tail "css/readtheorg.css\" />\n")
+           (filename (car (nthcdr 1 args)))
+           (visitingp (find-buffer-visiting filename)))
+      (with-temp-buffer
+        (when visitingp (with-current-buffer visitingp (setq buffer-file-name nil)))
+        (insert-file-contents filename t)
+        (save-match-data
+          (if (or (re-search-forward "\+HTML_HEAD_EXTRA\:.*\/css\/readtheorg\.css" nil t nil)
+                  (string= filename "LAYERS.org"))
+              (apply origfunc args)
+            (progn (goto-char (point-min))
+                            (if (search-forward "#+TITLE:" nil t nil)
+                                (beginning-of-line 2)
+                              (error "Can't find #+TITLE:"))
+                            (insert (concat head-css-extra-readtheorg-head
+                                            (f-relative user-emacs-directory
+                                                        (file-name-directory filename))
+                                            head-css-extra-readtheorg-tail))
+                            (apply origfunc args)
+                            (not-modified)))))
+        (when visitingp (with-current-buffer visitingp (setq buffer-file-name filename))))))
+
 (defun spacemacs/publish-doc ()
   "Publishe the documentation to doc/export/."
   (interactive)
   (advice-add 'org-html-toc :filter-return #'spacemacs//format-toc)
   (advice-add 'org-html-template :filter-return #'spacemacs//format-content)
+  (advice-add 'org-html-publish-to-html :around #'spacemacs//add-org-meta-readtheorg-css)
   (let* ((header
           "<link rel=\"stylesheet\" type=\"text/css\"
                  href=\"http://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>
@@ -146,6 +177,7 @@
              :publishing-function org-publish-attachment))))
     (org-publish-project "spacemacs"))
   (advice-remove 'org-html-toc #'spacemacs//format-toc)
-  (advice-remove 'org-html-template #'spacemacs//format-content))
+  (advice-remove 'org-html-template #'spacemacs//format-content)
+  (advice-remove 'org-html-publish-to-html #'spacemacs//add-org-meta-readtheorg-css))
 
 (provide 'core-documentation)
