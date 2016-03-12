@@ -99,10 +99,12 @@
       ;;     "Org features were loaded before the `org' layer initialized.\n"
       ;;     "Try removing org code from user initialization and private layers.") t))
 
-      (setq org-clock-persist-file
-            (concat spacemacs-cache-directory "org-clock-save.el")
-            org-id-locations-file
-            (concat spacemacs-cache-directory ".org-id-locations")
+      (setq org-clock-persist-file (concat spacemacs-cache-directory
+                                           "org-clock-save.el")
+            org-id-locations-file (concat spacemacs-cache-directory
+                                          ".org-id-locations")
+            org-publish-timestamp-directory (concat spacemacs-cache-directory
+                                                    ".org-timestamps/")
             org-log-done t
             org-startup-with-inline-images t
             org-src-fontify-natively t
