@@ -78,12 +78,10 @@ To generate a table of contents type on top of the buffer:
 |-------------+---------------------|
 | ~SPC m k~   | kill thing at point |
 
-** Completion, and Cycling
+** Completion
 
 | Key Binding | Description |
 |-------------+-------------|
-| ~SPC m =~   | promote     |
-| ~SPC m -~   | demote      |
 | ~SPC m ]~   | complete    |
 
 ** Following and Jumping
@@ -128,11 +126,7 @@ To generate a table of contents type on top of the buffer:
 
 | Key Binding | Description      |
 |-------------+------------------|
-| ~SPC m l h~ | promote          |
 | ~SPC m l i~ | insert list item |
-| ~SPC m l j~ | move down        |
-| ~SPC m l k~ | move up          |
-| ~SPC m l l~ | demote           |
 
 ** Movement
 
