@@ -496,6 +496,7 @@
                projectile-recentf
                projectile-regenerate-tags
                projectile-replace
+               projectile-replace-regexp
                projectile-run-async-shell-command-in-root
                projectile-run-shell-command-in-root
                projectile-switch-project
@@ -534,7 +535,8 @@
         "po" 'projectile-multi-occur
         "pR" 'projectile-replace
         "pT" 'projectile-find-test-file
-        "py" 'projectile-find-tag))
+        "py" 'projectile-find-tag
+        "p%" 'projectile-replace-regexp))
     :config
     (progn
       (projectile-global-mode)
