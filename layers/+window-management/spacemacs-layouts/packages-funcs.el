@@ -195,9 +195,14 @@ Available PROPS:
   One or several EXPRESSIONS that are going to be evaluated after
   we change into the perspective NAME."
   (declare (indent 1))
-  (let* ((name (eval name))
+  (let* ((name (if (symbolp name)
+                   (symbol-value name)
+                 name))
          (func (spacemacs//custom-layout-func-name name))
-         (binding (eval (car (spacemacs/mplist-get props :binding))))
+         (binding-prop (car (spacemacs/mplist-get props :binding)))
+         (binding (if (symbolp binding-prop)
+                      (symbol-value binding-prop)
+                    binding-prop))
          (body (spacemacs/mplist-get props :body))
          (already-defined? (cdr (assoc binding
                                        spacemacs--custom-layout-alist))))
