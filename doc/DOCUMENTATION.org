@@ -25,7 +25,7 @@
        - [[Initialization][Initialization]]
        - [[Exclusion][Exclusion]]
      - [[Without a layer][Without a layer]]
-   - [[Packages synchronization (Vundle like feature)][Packages synchronization (Vundle like feature)]]
+   - [[Installing Packages][Installing Packages]]
    - [[Types of configuration layers][Types of configuration layers]]
    - [[Submitting a configuration layer upstream][Submitting a configuration layer upstream]]
    - [[Example: Themes Megapack example][Example: Themes Megapack example]]
@@ -402,12 +402,52 @@ Example to install =llvm-mode= and =dts-mode=:
 (setq dotspacemacs-additional-packages '(llvm-mode dts-mode)
 #+END_SRC
 
-** Packages synchronization (Vundle like feature)
-Spacemacs features a synchronization engine for the ELPA packages. It means
-that Spacemacs will auto-install the new packages in =<layer>-packages= lists
-/and/ auto-delete orphan packages in your =elpa= directory.
+** Installing Packages
+All necessary ELPA packages are installed automatically so that you never
+have to invoke =package-install= command manually.  This is the case for
+both [[Within a layer][packages associated with layers]] as well as
+packages listed in =dotspacemacs-additional-packages=.
 
-It effectively makes Spacemacs behave like [[https://github.com/gmarik/Vundle.vim][Vundle]].
+In fact if you install packages via =package-install= apart from the two
+sanctioned methods above, then these are considered /orphaned/ packages. Such
+packages are deleted (i.e., uninstalled) automatically the next time emacs
+starts up if =dotspacemacs-delete-orphan-packages= is =t= which is the default
+value.  You can set this to =nil= to prevent emacs from deleting orphaned
+packages on startup.
+
+Spacemacs installs packages into =package-user-dir= directory as is normally
+done by emacs. If you use multiple versions of emacs, you might want to
+customize this to have emacs version dependent value if you want to avoid
+potential byte compiled file format compatibility problems, e.g., following
+uses =elpa24= or =elpa25= directories depending on the major emacs version
+number:
+
+#+BEGIN_SRC emacs-lisp
+(custom-set-variables
+ '(package-user-dir
+   (locate-user-emacs-file (format "elpa%s" emacs-major-version)))
+#+END_SRC
+
+This way two completely separate directories are used for the two emacs versions.
+
+In addition if you want to share installed packages among multiple users (e.g.,
+all of whom using shared file systems such as NFS), then you can make use of
+=package-directory-list= to house installed packages in shared areas. This
+lists directories that emacs searches for installed packages after searching
+=package-user-dir= first. Let's say you want to make all your own installed
+packages available to others. You can do this merely by copying your installed
+files into one of the directories listed in =package-directory-list= via
+something like this:
+
+#+BEGIN_SRC emacs-lisp
+(copy-directory package-user-dir (car package-directory-list) t t t)
+#+END_SRC
+
+assuming of course that you have the necessary permissions to write to the
+destination directory.
+
+You can then remove all files and directories under =package-user-dir=.
+Now everyone who uses the same emacs would shared the installed packages.
 
 ** Types of configuration layers
 There are three types of configuration layers:
