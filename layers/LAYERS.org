@@ -3,6 +3,7 @@
 
 * Table of Contents                                      :TOC_4_org:noexport:
  - [[General layers][General layers]]
+ - [[Completion][Completion]]
  - [[Configuration files][Configuration files]]
  - [[E-mail][E-mail]]
  - [[Frameworks][Frameworks]]
@@ -11,6 +12,7 @@
  - [[Keyboard layouts][Keyboard layouts]]
  - [[Programming and markup languages][Programming and markup languages]]
  - [[Source control][Source control]]
+ - [[Spacemacs][Spacemacs]]
  - [[Tools][Tools]]
  - [[Vim][Vim]]
  - [[Window management][Window management]]
@@ -46,11 +48,16 @@
 - [[file:theming/README.org][theming]]
 - [[file:typography/README.org][typography]]
 
+* Completion
+- [[file:+completion/spacemacs-helm/README.org][spacemacs-helm]]
+- [[file:+completion/spacemacs-ivy/README.org][spacemacs-ivy]]
+
 * Configuration files
 - [[file:+config-files/ansible/README.org][ansible]]
 - [[file:+config-files/dockerfile/README.org][dockerfile]]
 - [[file:+config-files/puppet/README.org][puppet]]
 - [[file:+config-files/salt/README.org][salt]]
+- [[file:+config-files/systemd/README.org][systemd]]
 - [[file:+config-files/terraform/README.org][terraform]]
 
 * E-mail
@@ -78,11 +85,13 @@
 * Programming and markup languages
 - [[file:+lang/agda/README.org][agda]]
 - [[file:+lang/asciidoc/README.org][asciidoc]]
+- [[file:+lang/asm/README.org][asm]]
 - [[file:+lang/autohotkey/README.org][autohotkey]]
 - [[file:+lang/c-c++/README.org][c-c++]]
 - [[file:+lang/clojure/README.org][clojure]]
 - [[file:+lang/common-lisp/README.org][common-lisp]]
 - [[file:+lang/csharp/README.org][csharp]]
+- [[file:+lang/csv/README.org][csv]]
 - [[file:+lang/d/README.org][d]]
 - [[file:+lang/elixir/README.org][elixir]]
 - [[file:+lang/elm/README.org][elm]]
@@ -105,6 +114,7 @@
 - [[file:+lang/ocaml/README.org][ocaml]]
 - [[file:+lang/octave/README.org][octave]]
 - [[file:+lang/php/README.org][php]]
+- [[file:+lang/plantuml/README.org][plantuml]]
 - [[file:+lang/purescript/README.org][purescript]]
 - [[file:+lang/python/README.org][python]]
 - [[file:+lang/racket/README.org][racket]]
@@ -127,6 +137,14 @@
 - [[file:+source-control/perforce/README.org][perforce]]
 - [[file:+source-control/version-control/README.org][version-control]]
 
+* Spacemacs
+- [[file:+spacemacs/spacemacs-editing/README.org][spacemacs-editing]]
+- [[file:+spacemacs/spacemacs-editing-visual/README.org][spacemacs-editing-visual]]
+- [[file:+spacemacs/spacemacs-evil/README.org][spacemacs-evil]]
+- [[file:+spacemacs/spacemacs-language/README.org][spacemacs-language]]
+- [[file:+spacemacs/spacemacs-ui/README.org][spacemacs-ui]]
+- [[file:+spacemacs/spacemacs-ui-visual/README.org][spacemacs-ui-visual]]
+
 * Tools
 - [[file:+tools/command-log/README.org][command-log]]
 - [[file:+tools/dash/README.org][dash]]
@@ -134,6 +152,7 @@
 - [[file:+tools/evernote/README.org][evernote]]
 - [[file:+tools/fasd/README.org][fasd]]
 - [[file:+tools/pandoc/README.org][pandoc]]
+- [[file:+tools/pdf-tools/README.org][pdf-tools]]
 - [[file:+tools/ranger/README.org][ranger]]
 - [[file:+tools/tmux/README.org][tmux]]
 - [[file:+tools/vagrant/README.org][vagrant]]
@@ -144,7 +163,6 @@
 - [[file:+vim/evil-cleverparens/README.org][evil-cleverparens]]
 - [[file:+vim/evil-commentary/README.org][evil-commentary]]
 - [[file:+vim/evil-snipe/README.org][evil-snipe]]
-- [[file:+vim/unimpaired/README.org][unimpaired]]
 - [[file:+vim/vim-empty-lines/README.org][vim-empty-lines]]
 - [[file:+vim/vim-powerline/README.org][vim-powerline]]
 - [[file:+vim/vinegar/README.org][vinegar]]
