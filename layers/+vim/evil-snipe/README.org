@@ -75,8 +75,8 @@ With symbol groups you can let a character stand for a regex, for example a
 group of characters. By adding a pair of =(CHAR REGEX)= to the list
 =evil-snipe-aliases= you can search for a regex very simply:
 
-- Here we set the ~[~ character to mean =all characters [({= *in all modes* so a search
-with ~sa[~ would find ~a[~, ~a{~ or ~a(~.
+- Here we set the ~[~ character to mean =all characters [({= *in all modes* so a
+  search with ~sa[~ would find ~a[~, ~a{~ or ~a(~.
 
 #+BEGIN_SRC emacs-lisp
   ;; Alias [ and ] to all types of brackets
@@ -84,8 +84,9 @@ with ~sa[~ would find ~a[~, ~a{~ or ~a(~.
   (push '(?\] "[]})]") evil-snipe-aliases)
 #+END_SRC
 
-- Here we set the char ~:~ to mean =a regex matching python function definitions= (but only in python-mode), so by searching with ~f:fff~ you can quickly cycle through
-all function definitions in a buffer!
+- Here we set the char ~:~ to mean =a regex matching python function
+  definitions= (but only in python-mode), so by searching with ~f:fff~ you can
+  quickly cycle through all function definitions in a buffer!
 
 #+BEGIN_SRC emacs-lisp
   ;; For python style functions
