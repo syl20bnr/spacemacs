@@ -35,6 +35,7 @@
         hydra
         (ido :location built-in)
         ido-vertical-mode
+        (occur-mode :location built-in)
         (package-menu :location built-in)
         page-break-lines
         popup
@@ -546,6 +547,9 @@ below. Anything else exits."
                                              "ido.last")
         ;; enable fuzzy matching
         ido-enable-flex-matching t))
+
+(defun spacemacs-base/init-occur-mode ()
+  (evilified-state-evilify occur-mode occur-mode-map))
 
 (defun spacemacs-base/init-package-menu ()
   (evilified-state-evilify-map package-menu-mode-map
