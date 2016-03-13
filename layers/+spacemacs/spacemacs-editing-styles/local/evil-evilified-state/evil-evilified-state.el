@@ -36,9 +36,6 @@
 (require 'evil)
 (require 'bind-map)
 
-(defvar evilified-state--modes nil
-  "List of all evilified modes.")
-
 (defvar evilified-state--evil-surround nil
   "Evil surround mode variable backup.")
 (make-variable-buffer-local 'evilified-state--evil-surround)
@@ -168,8 +165,6 @@ BODY is a list of additional key bindings to apply for the given MAP in
 `evilified state'."
   (let ((defkey (when body `(evil-define-key 'evilified ,map ,@body))))
     `(progn (unless ,(null mode)
-              (unless (memq ',mode evilified-state--modes)
-                (push ',mode evilified-state--modes))
               (unless (or (bound-and-true-p holy-mode)
                           (eq 'evilified (evil-initial-state ',mode)))
                 (evil-set-initial-state ',mode 'evilified)))
@@ -250,9 +245,7 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
 
 (defun evilified-state--configure-default-state (mode)
   "Configure default state for the passed mode."
-  (add-to-list 'evilified-state--modes mode)
-  (unless (bound-and-true-p holy-mode)
-    (evil-set-initial-state mode 'evilified)))
+  (evil-set-initial-state mode 'evilified))
 
 (defun evilified-state--evilify-event (map map-symbol evil-map event evil-value
                                            &optional processed pending-funcs)

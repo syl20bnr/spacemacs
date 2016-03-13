@@ -43,7 +43,7 @@
 `insert state'."
         (interactive)
         (racket-run-and-switch-to-repl)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/racket-send-last-sexp-focus ()
         "Call `racket-send-last-sexp' and switch to REPL buffer in
@@ -51,7 +51,7 @@
         (interactive)
         (racket-send-last-sexp)
         (racket-repl)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/racket-send-definition-focus ()
         "Call `racket-send-definition' and switch to REPL buffer in
@@ -59,7 +59,7 @@
         (interactive)
         (racket-send-definition)
         (racket-repl)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/racket-send-region-focus (start end)
         "Call `racket-send-region' and switch to REPL buffer in
@@ -67,7 +67,7 @@
         (interactive "r")
         (racket-send-region start end)
         (racket-repl)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (dolist (prefix '(("mg" . "navigation")
                         ("mh" . "doc")

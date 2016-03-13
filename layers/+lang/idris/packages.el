@@ -24,21 +24,21 @@
         (interactive "p")
         (idris-load-file set-line)
         (idris-pop-to-repl)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/idris-load-forward-line-and-focus ()
         "Pass the next line to REPL and switch to it in `insert state'."
         (interactive)
         (idris-load-forward-line)
         (idris-pop-to-repl)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/idris-load-backward-line-and-focus ()
         "Pass the previous line to REPL and switch to it in `insert state'."
         (interactive)
         (idris-load-backward-line)
         (idris-pop-to-repl)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (spacemacs/set-leader-keys-for-major-mode 'idris-mode
         ;; Shorthands: rebind the standard evil-mode combinations to the local

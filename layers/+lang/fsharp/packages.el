@@ -27,7 +27,7 @@
         (interactive)
         (fsharp-load-buffer-file)
         (switch-to-buffer-other-window inferior-fsharp-buffer-name)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/fsharp-eval-phrase-focus ()
         "Send the current phrase to REPL and switch to the REPL in
@@ -35,7 +35,7 @@
         (interactive)
         (fsharp-eval-phrase)
         (switch-to-buffer-other-window inferior-fsharp-buffer-name)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/fsharp-eval-region-focus (start end)
         "Send the current phrase to REPL and switch to the REPL in
@@ -43,7 +43,7 @@
         (interactive "r")
         (fsharp-eval-region start end)
         (switch-to-buffer-other-window inferior-fsharp-buffer-name)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (spacemacs/set-leader-keys-for-major-mode 'fsharp-mode
         ;; Compile

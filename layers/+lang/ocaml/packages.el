@@ -123,7 +123,7 @@
         (interactive)
         (utop-eval-phrase)
         (utop)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/utop-eval-buffer-and-go ()
         "Send buffer to REPL and evaluate it and switch to the REPL in
@@ -131,7 +131,7 @@
         (interactive)
         (utop-eval-buffer)
         (utop)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/utop-eval-region-and-go (start end)
         "Send region to REPL and evaluate it and switch to the REPL in
@@ -139,7 +139,7 @@
         (interactive "r")
         (utop-eval-region start end)
         (utop)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
         "'"  'utop

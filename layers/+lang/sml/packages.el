@@ -27,19 +27,19 @@
         "Send buffer to REPL and switch to it in `insert state'."
         (interactive)
         (sml-prog-proc-send-buffer t)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/sml-prog-proc-send-region-and-focus (start end)
         "Send region to REPL and switch to it in `insert state'."
         (interactive "r")
         (sml-prog-proc-send-region start end t)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/sml-send-function-and-focus ()
         "Send function at point to REPL and switch to it in `insert state'."
         (interactive)
         (sml-send-function t)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (spacemacs/set-leader-keys-for-major-mode 'sml-mode
         ;; REPL

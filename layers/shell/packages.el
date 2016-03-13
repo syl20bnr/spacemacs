@@ -195,12 +195,12 @@ is achieved by adding the relevant text properties."
           "Correctly revert to insert state after selection."
           (interactive)
           (helm-eshell-history)
-          (spacemacs/normal-to-insert-state))
+          (evil-insert-state))
         (defun spacemacs/helm-shell-history ()
           "Correctly revert to insert state after selection."
           (interactive)
           (helm-comint-input-ring)
-          (spacemacs/normal-to-insert-state))
+          (evil-insert-state))
         (defun spacemacs/init-helm-eshell ()
           "Initialize helm-eshell."
           ;; this is buggy for now

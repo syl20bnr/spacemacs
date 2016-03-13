@@ -24,7 +24,6 @@
         ;; evil-leader
         evil-surround
         evil-visualstar
-        (evil-evilified-state :location local :step pre :protected t)
         exec-path-from-shell
         fill-column-indicator
         help-fns+
@@ -226,14 +225,7 @@
       (defun evil-insert-state-cursor-hide ()
         (setq evil-insert-state-cursor '((hbar . 0))))
 
-      (defun spacemacs/normal-to-insert-state ()
-        "Switches to evil-insert-state if the current state is
-evil-normal state."
-        (when (evil-normal-state-p)
-          (evil-insert-state)))
-
-      (unless (eq dotspacemacs-editing-style 'emacs)
-        (evil-mode 1)))
+      (evil-mode 1))
     :config
     (progn
       ;; bind function keys
@@ -421,11 +413,8 @@ below. Anything else exits."
 
 (defun spacemacs-base/init-evil-escape ()
   (use-package evil-escape
-    :init
-    (unless (eq dotspacemacs-editing-style 'emacs)
-      (evil-escape-mode))
-    :config
-    (spacemacs|hide-lighter evil-escape-mode)))
+    :init (evil-escape-mode)
+    :config (spacemacs|hide-lighter evil-escape-mode)))
 
 (defun spacemacs-base/init-evil-surround ()
   (use-package evil-surround
@@ -447,11 +436,6 @@ below. Anything else exits."
         'evil-visualstar/begin-search-forward)
       (define-key evil-visual-state-map (kbd "#")
         'evil-visualstar/begin-search-backward))))
-
-(defun spacemacs-base/init-evil-evilified-state ()
-  (use-package evil-evilified-state)
-  (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
-    spacemacs-default-map))
 
 (defun spacemacs-base/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
@@ -496,37 +480,6 @@ below. Anything else exits."
       (hs-minor-mode)
       (spacemacs|hide-lighter hs-minor-mode)))
   (add-hook 'prog-mode-hook 'spacemacs//enable-hs-minor-mode))
-
-(defun spacemacs-base/init-holy-mode ()
-  (use-package holy-mode
-    :commands holy-mode
-    :init
-    (progn
-      (when (eq 'emacs dotspacemacs-editing-style)
-        (holy-mode))
-      (spacemacs|add-toggle holy-mode
-        :status holy-mode
-        :on (holy-mode)
-        :off (holy-mode -1)
-        :documentation "Globally toggle holy mode."
-        :evil-leader "tEe")
-      (spacemacs|diminish holy-mode " Ⓔe" " Ee"))))
-
-(defun spacemacs-base/init-hybrid-mode ())
-(defun spacemacs-base/post-init-evil ()
-  (use-package hybrid-mode
-    :config
-    (progn
-      (when (eq 'hybrid dotspacemacs-editing-style) (hybrid-mode))
-      (spacemacs|add-toggle hybrid-mode
-        :status hybrid-mode
-        :on (progn (when (bound-and-true-p holy-mode)
-                     (holy-mode -1))
-                   (hybrid-mode))
-        :off (hybrid-mode -1)
-        :documentation "Globally toggle hybrid mode."
-        :evil-leader "tEh")
-      (spacemacs|diminish hybrid-mode " Ⓔh" " Eh"))))
 
 (defun spacemacs-base/init-hydra ()
   (use-package hydra
