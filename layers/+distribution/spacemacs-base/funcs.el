@@ -894,5 +894,6 @@ is nonempty."
 (defun spacemacs/close-compilation-window ()
   "Close the window containing the '*compilation*' buffer."
   (interactive)
-  (delete-windows-on "*compilation*"))
+  (when compilation-last-buffer
+    (delete-windows-on compilation-last-buffer)))
 

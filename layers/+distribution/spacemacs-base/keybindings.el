@@ -202,7 +202,7 @@
   "cC" 'compile
   "ck" 'kill-compilation
   "cr" 'recompile
-  "cq" 'spacemacs/close-compilation-window)
+  "cd" 'spacemacs/close-compilation-window)
 (with-eval-after-load 'compile
   (define-key compilation-mode-map "r" 'recompile)
   (define-key compilation-mode-map "g" nil))
