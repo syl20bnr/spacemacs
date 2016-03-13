@@ -900,7 +900,8 @@ is nonempty."
 (defun spacemacs/close-compilation-window ()
   "Close the window containing the '*compilation*' buffer."
   (interactive)
-  (delete-windows-on "*compilation*"))
+  (when compilation-last-buffer
+    (delete-windows-on compilation-last-buffer)))
 
 (defun spacemacs//set-evil-shift-width ()
   "Set the value of `evil-shift-width' based on the indentation settings of the
