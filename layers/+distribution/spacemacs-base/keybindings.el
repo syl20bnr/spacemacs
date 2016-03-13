@@ -362,10 +362,10 @@
 
 ;; ivy/helm keys --------------------------------------------------------------
 
-(defvar spacemacs--hjkl-completion-navigation-functions nil
-  "Hook to adjust hjkl keys for completion (helm/ivy) navigation.
-Each function in the hook is run with a single argument, which
-when true should disable the hjkl keys.")
+(defvar spacemacs-editing-style-hook nil
+  "Hook run whenever an editing style is toggled.
+Each function in the hook is run with a single argument which is the current
+editing style.")
 
 ;; ---------------------------------------------------------------------------
 ;; Transient-states

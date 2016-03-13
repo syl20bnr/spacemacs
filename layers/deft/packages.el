@@ -30,7 +30,7 @@
         (when (fboundp 'hungry-delete-mode)
           (hungry-delete-mode -1))
         ;; When opening it you always want to filter right away
-        (spacemacs/normal-to-insert-state)))
+        (evil-insert-state nil)))
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'deft-mode

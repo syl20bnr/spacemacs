@@ -55,28 +55,28 @@
         (interactive)
         (let ((sql-pop-to-buffer-after-send-region t))
           (call-interactively 'sql-send-string)
-          (spacemacs/normal-to-insert-state)))
+          (evil-insert-state)))
 
       (defun spacemacs/sql-send-buffer-and-focus ()
         "Send the buffer to SQLi and switch to SQLi in `insert state'."
         (interactive)
         (let ((sql-pop-to-buffer-after-send-region t))
           (sql-send-buffer)
-          (spacemacs/normal-to-insert-state)))
+          (evil-insert-state)))
 
       (defun spacemacs/sql-send-paragraph-and-focus ()
         "Send the paragraph to SQLi and switch to SQLi in `insert state'."
         (interactive)
         (let ((sql-pop-to-buffer-after-send-region t))
           (sql-send-paragraph)
-          (spacemacs/normal-to-insert-state)))
+          (evil-insert-state)))
 
       (defun spacemacs/sql-send-region-and-focus (start end)
         "Send region to SQLi and switch to SQLi in `insert state'."
         (interactive "r")
         (let ((sql-pop-to-buffer-after-send-region t))
           (sql-send-region start end)
-          (spacemacs/normal-to-insert-state)))
+          (evil-insert-state)))
 
       (spacemacs/set-leader-keys-for-major-mode 'sql-mode
         "'" 'spacemacs/sql-start

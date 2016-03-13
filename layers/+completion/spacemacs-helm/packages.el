@@ -389,13 +389,10 @@ Removes the automatic guessing of the initial value based on thing at point. "
       (add-hook 'helm-mode-hook 'simpler-helm-bookmark-keybindings)
 
       ;; helm navigation on hjkl
-      (defun spacemacs//helm-hjkl-navigation (&optional arg)
-        "Set navigation in helm on `jklh'.
-ARG non nil means Vim like movements."
+      (defun spacemacs//helm-hjkl-navigation (style)
+        "Set navigation on 'hjkl' for the given editing STYLE."
         (cond
-         (arg
-          ;; better navigation on homerow
-          ;; rebind `describe-key' for convenience
+         ((eq 'vim style)
           (define-key helm-map (kbd "C-j") 'helm-next-line)
           (define-key helm-map (kbd "C-k") 'helm-previous-line)
           (define-key helm-map (kbd "C-h") 'helm-next-source)
@@ -405,6 +402,7 @@ ARG non nil means Vim like movements."
             (dolist (keymap (list helm-find-files-map helm-read-file-map))
               (define-key keymap (kbd "C-l") 'helm-execute-persistent-action)
               (define-key keymap (kbd "C-h") 'helm-find-files-up-one-level)
+              ;; rebind `describe-key' for convenience
               (define-key keymap (kbd "C-S-h") 'describe-key))))
          (t
           (define-key helm-map (kbd "C-j") 'helm-execute-persistent-action)
@@ -412,10 +410,9 @@ ARG non nil means Vim like movements."
           (define-key helm-map (kbd "C-h") nil)
           (define-key helm-map
             (kbd "C-l") 'helm-recenter-top-bottom-other-window))))
-      (add-hook 'spacemacs--hjkl-completion-navigation-functions
-                'spacemacs//helm-hjkl-navigation)
-      (run-hook-with-args 'spacemacs--hjkl-completion-navigation-functions
-                          (member dotspacemacs-editing-style '(vim hybrid)))
+      (add-hook 'spacemacs-editing-style-hook 'spacemacs//helm-hjkl-navigation)
+      ;; ensure that the correct bindings are set at startup
+      (spacemacs//helm-hjkl-navigation dotspacemacs-editing-style)
 
       (defun spacemacs/helm-edit ()
         "Switch in edit mode depending on the current helm buffer."

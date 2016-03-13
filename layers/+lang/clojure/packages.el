@@ -57,7 +57,7 @@ the focus."
 `insert state'."
         (interactive)
         (cider-insert-last-sexp-in-repl t)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/cider-send-region-to-repl (start end)
         "Send region to REPL and evaluate it without changing
@@ -72,7 +72,7 @@ the focus."
         (interactive "r")
         (cider-insert-in-repl
          (buffer-substring-no-properties start end) t)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/cider-send-function-to-repl ()
         "Send current function to REPL and evaluate it without changing
@@ -85,7 +85,7 @@ the focus."
 `insert state'."
         (interactive)
         (cider-insert-defun-in-repl t)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/cider-send-ns-form-to-repl ()
         "Send buffer's ns form to REPL and evaluate it without changing
@@ -98,7 +98,7 @@ the focus."
 `insert state'."
         (interactive)
         (cider-insert-ns-form-in-repl t)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/cider-send-buffer-in-repl-and-focus ()
         "Send the current buffer in the REPL and switch to the REPL in
@@ -106,7 +106,7 @@ the focus."
         (interactive)
         (cider-load-buffer)
         (cider-switch-to-repl-buffer)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun spacemacs/cider-test-run-focused-test ()
         (interactive)

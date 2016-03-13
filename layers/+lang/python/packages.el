@@ -272,27 +272,27 @@
         (interactive)
         (python-shell-send-buffer)
         (python-shell-switch-to-shell)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun python-shell-send-defun-switch ()
         "Send function content to shell and switch to it in insert mode."
         (interactive)
         (python-shell-send-defun nil)
         (python-shell-switch-to-shell)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun python-shell-send-region-switch (start end)
         "Send region content to shell and switch to it in insert mode."
         (interactive "r")
         (python-shell-send-region start end)
         (python-shell-switch-to-shell)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (defun python-start-or-switch-repl ()
         "Start and/or switch to the REPL."
         (interactive)
         (python-shell-switch-to-shell)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       ;; reset compile-command (by default it is `make -k')
       (setq compile-command nil)
@@ -318,7 +318,7 @@
         (spacemacs/python-execute-file arg)
         (switch-to-buffer-other-window "*compilation*")
         (end-of-buffer)
-        (spacemacs/normal-to-insert-state))
+        (evil-insert-state))
 
       (spacemacs/declare-prefix-for-mode 'python-mode "mc" "execute")
       (spacemacs/declare-prefix-for-mode 'python-mode "md" "debug")

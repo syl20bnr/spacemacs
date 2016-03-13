@@ -14,6 +14,7 @@
 (configuration-layer/declare-layers '(spacemacs-base
                                       spacemacs-layouts
                                       spacemacs-editing
+                                      spacemacs-editing-styles
                                       spacemacs-editing-visual
                                       spacemacs-evil
                                       spacemacs-language

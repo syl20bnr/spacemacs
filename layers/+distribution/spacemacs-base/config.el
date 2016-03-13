@@ -207,15 +207,6 @@ or lists of these.")
 ;; UI
 ;; ---------------------------------------------------------------------------
 
-(defface face-of-god
-  `((t (:background "SkyBlue2"
-                    :foreground ,(face-background 'mode-line)
-                    :box ,(face-attribute 'mode-line :box)
-                    :inherit 'mode-line)))
-  "Face to use when `evil-mode' is disabled or `evil-state' is
-nil."
-  :group 'spacemacs)
-
 ;; important for golden-ratio to better work
 (setq window-combination-resize t)
 ;; fringes
