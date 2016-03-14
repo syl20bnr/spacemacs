@@ -45,7 +45,7 @@
 
 (defun rust/init-toml-mode ()
   (use-package toml-mode
-    :defer t))
+    :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'"))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun rust/post-init-company ()
