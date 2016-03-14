@@ -43,7 +43,7 @@
     :defer t
     :init
     (progn
-      (add-to-list 'auto-mode-alist '("\\.plist$" . nxml-mode))
+      (add-to-list 'auto-mode-alist '("\\.plist\\'" . nxml-mode))
       (spacemacs/set-leader-keys "al" 'launchctl))
     :config
     (progn

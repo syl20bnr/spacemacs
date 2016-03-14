@@ -34,7 +34,7 @@
     :init
     (progn
       (add-hook 'nasm-mode-hook #'asm-generic-setup)
-      (add-to-list 'auto-mode-alist '("\\.[n]*\\(asm\\|s\\)$" . nasm-mode))
+      (add-to-list 'auto-mode-alist '("\\.[n]*\\(asm\\|s\\)\\'" . nasm-mode))
       (spacemacs/set-leader-keys-for-major-mode 'nasm-mode "h" 'x86-lookup))
     :config
     (progn
