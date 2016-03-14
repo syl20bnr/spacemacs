@@ -16,7 +16,7 @@
   (use-package adoc-mode
     ;; We will NOT default `.txt' files to AsciiDoc mode,
     ;; and `.asciidoc' extension is just plain stupid.
-    :mode (("\\.adoc?$" . adoc-mode))
+    :mode (("\\.adoc?\\'" . adoc-mode))
 		:defer t
     :config
     (progn
