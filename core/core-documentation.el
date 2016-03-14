@@ -90,7 +90,7 @@
       content)))
 
 (defun spacemacs/publish-doc ()
-  "Publishe the documentation to doc/export/."
+  "Publish the documentation to doc/export/."
   (interactive)
   (advice-add 'org-html-toc :filter-return #'spacemacs//format-toc)
   (advice-add 'org-html-template :filter-return #'spacemacs//format-content)
