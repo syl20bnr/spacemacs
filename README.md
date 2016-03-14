@@ -11,7 +11,7 @@
 |
 <b><a href="doc/DOCUMENTATION.org#screenshots">screenshots</a></b>
 |
-<b><a href="doc/DOCUMENTATION.org">documentation</a></b>
+<b><a href="http://spacemacs.org/doc/DOCUMENTATION.html">documentation</a></b>
 |
 <b><a href="CONTRIBUTING.org">contribute</a></b>
 |
