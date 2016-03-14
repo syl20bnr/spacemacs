@@ -38,6 +38,7 @@
    - [[Try Spacemacs without modifying my existing Emacs configuration?][Try Spacemacs without modifying my existing Emacs configuration?]]
    - [[Make copy/paste working with the mouse in X11 terminals?][Make copy/paste working with the mouse in X11 terminals?]]
    - [[Use =helm-ag= to search only in files of a certain type?][Use =helm-ag= to search only in files of a certain type?]]
+   - [[Remap paste key to be able to paste copied text multiple times][Remap paste key to be able to paste copied text multiple times]]
  - [[Windows][Windows]]
    - [[Why do the fonts look crappy on Windows?][Why do the fonts look crappy on Windows?]]
    - [[Why is there no Spacemacs logo in the startup buffer?][Why is there no Spacemacs logo in the startup buffer?]]
@@ -445,6 +446,20 @@ some expressions to the search input:
 
 This is possible because =helm-ag= is treating the search input as command-line
 arguments of the =ag= program.
+
+** Remap paste key to be able to paste copied text multiple times
+In vim and evil, pasting over a text would cause it to be copied, hence making it impossible to paste
+the same text multiple times.
+
+To fix this, add the following snippet to your ~user-config~:
+#+BEGIN_SRC emacs-lisp
+(defun evil-paste-after-from-0 ()
+  (interactive)
+  (let ((evil-this-register ?0))
+    (call-interactively 'evil-paste-after)))
+
+(define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+#+END_SRC
 
 * Windows
 ** Why do the fonts look crappy on Windows?
