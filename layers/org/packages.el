@@ -292,6 +292,32 @@ Will work on both org-mode and any mode that accepts plain html."
       (spacemacs/set-leader-keys
         "Cc" 'org-capture)
 
+      (defun spacemacs//toggle-transparent-org-meta ()
+        "Toggles `org-mode' meta tags transparency when `view-mode' is toggled."
+        (interactive)
+        (progn
+          (defvar-local spacemacs--org-face-remap-p nil)
+          (if (not spacemacs--org-face-remap-p)
+              (let ((bg (face-attribute 'default :background)))
+                (progn
+                  (set (make-local-variable 'spacemacs--org-face-remap-cookie-org-tag)
+                       (face-remap-add-relative 'org-tag                  `(:foreground ,bg)))
+                  (set (make-local-variable 'spacemacs--org-face-remap-cookie-org-meta-line)
+                       (face-remap-add-relative 'org-meta-line             `(:foreground ,bg)))
+                  (set (make-local-variable 'spacemacs--org-face-remap-cookie-org-block-begin-line)
+                       (face-remap-add-relative 'org-block-begin-line      `(:foreground ,bg)))
+                  (set (make-local-variable 'spacemacs--org-face-remap-cookie-org-document-info-keyword)
+                       (face-remap-add-relative 'org-document-info-keyword `(:foreground ,bg)))
+                  (setq spacemacs--org-face-remap-p t)))
+            (progn
+              (face-remap-remove-relative spacemacs--org-face-remap-cookie-org-tag)
+              (face-remap-remove-relative spacemacs--org-face-remap-cookie-org-meta-line)
+              (face-remap-remove-relative spacemacs--org-face-remap-cookie-org-block-begin-line)
+              (face-remap-remove-relative spacemacs--org-face-remap-cookie-org-document-info-keyword)
+              (setq spacemacs--org-face-remap-p nil)))))
+
+      (advice-add 'view-mode :before #'spacemacs//toggle-transparent-org-meta)
+
       ;; Evilify the calendar tool on C-c .
       (unless (eq 'emacs dotspacemacs-editing-style)
         (define-key org-read-date-minibuffer-local-map (kbd "M-h")
