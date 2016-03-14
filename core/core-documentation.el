@@ -100,8 +100,6 @@
           <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\"></script>
           <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
           <script type=\"text/javascript\"
-                  src=\"http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js\"></script>
-          <script type=\"text/javascript\"
                   src=\"http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js\"></script>
           <script>
            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
