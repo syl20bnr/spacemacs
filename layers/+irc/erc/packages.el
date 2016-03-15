@@ -233,9 +233,10 @@
                           (persp-get-by-name
                            erc-spacemacs-layout-name)))
       (add-hook 'erc-mode-hook #'spacemacs-layouts/add-erc-buffer-to-persp)
-      (if erc-enable-tls
-          (call-interactively 'erc-tls)
-        (call-interactively 'erc)))))
+      (call-interactively
+       (if erc-enable-tls
+           'erc-tls
+         'erc)))))
 
 (defun erc/post-init-smooth-scrolling ()
   (add-hook 'erc-mode-hook 'spacemacs//unset-scroll-margin))
