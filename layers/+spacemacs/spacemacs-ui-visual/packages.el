@@ -16,7 +16,7 @@
         neotree
         smooth-scrolling
         spaceline
-        vi-tilde-fringe
+        (vi-tilde-fringe :toggle (display-graphic-p))
         (zoom-frm :location local)))
 
 (defun spacemacs-ui-visual/init-fancy-battery ()
