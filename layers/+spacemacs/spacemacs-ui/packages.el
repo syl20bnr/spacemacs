@@ -19,13 +19,8 @@
         flx-ido
         info+
         open-junk-file
+        paradox
         window-numbering))
-
-;; Paradox from MELPA is not compatible with 24.3, so we use
-;; a local paradox with 24.3
-(if  (version< emacs-version "24.4")
-    (push '(paradox :location local) spacemacs-ui-packages)
-  (push 'paradox spacemacs-ui-packages))
 
 ;; Initialization of packages
 

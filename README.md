@@ -115,8 +115,7 @@ If you prefer IRC, connect to the [Gitter Chat IRC server][] and join the
 
 ## Emacs
 
-Spacemacs is operational with Emacs 24.3, but Emacs 24.4 and above are highly
-recommended to enjoy a full experience. The next Emacs major release, Emacs 25,
+Spacemacs requires Emacs 24.4 or above. The next Emacs major release, Emacs 25,
 is not *officially* supported but is partially working (i.e. bugs should be
 expected).
 
