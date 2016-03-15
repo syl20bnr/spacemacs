@@ -33,6 +33,7 @@
     org-repo-todo
     (ox-gfm :location local)
     persp-mode
+    (space-doc :location local)
     toc-org
     ))
 
@@ -567,3 +568,6 @@ a Markdown buffer and use this command to convert it.
 (defun org/init-htmlize ()
  (use-package htmlize
     :defer t))
+
+(defun org/init-space-doc ()
+  (use-package space-doc))
