@@ -171,6 +171,7 @@ Supported properties:
   (find-file file)
   (org-indent-mode)
   (view-mode)
+  (when(and(boundp 'space-doc-mode)(fboundp 'space-doc-mode)(space-doc-mode)))
   (goto-char (point-min))
 
   (when anchor-text
