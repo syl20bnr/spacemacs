@@ -6,6 +6,7 @@
  - [[Features][Features]]
  - [[Install][Install]]
    - [[Layer][Layer]]
+   - [[Use =erc-tls= in ERC layout][Use =erc-tls= in ERC layout]]
    - [[OS X][OS X]]
    - [[Social graph][Social graph]]
  - [[Key bindings][Key bindings]]
@@ -36,6 +37,16 @@ Layer for [[http://www.emacswiki.org/emacs/ERC][ERC IRC chat]].
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =erc= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+** Use =erc-tls= in ERC layout
+   To use =erc-tls= in the predefined custom layout rather than the default =erc=
+   set the variable =erc-enable-tls= to =t=:
+
+   #+BEGIN_SRC emacs-lisp
+     (setq-default dotspacemacs-configuration-layers
+                   '((erc :variables
+                          erc-enable-tls)))
+   #+END_SRC
 
 ** OS X
 It's recommended to install the [[https://github.com/alloy/terminal-notifier][terminal-notifier gem]] so that you get
