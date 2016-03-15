@@ -12,7 +12,7 @@
 (setq semantic-packages
       '(
         (semantic :location built-in)
-        (srefactor :toggle (version<= "24.4" emacs-version))
+        srefactor
         stickyfunc-enhance
         ))
 

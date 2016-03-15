@@ -158,9 +158,7 @@
         "=s" 'srefactor-lisp-format-sexp))))
 
 (defun emacs-lisp/post-init-smartparens ()
-  (if (version< emacs-version "24.4")
-      (ad-disable-advice 'preceding-sexp 'around 'evil)
-    (advice-remove 'elisp--preceding-sexp 'evil--preceding-sexp))
+  (advice-remove 'elisp--preceding-sexp 'evil--preceding-sexp)
 
   (defun spacemacs/eval-current-form-sp (&optional arg)
     "Call `eval-last-sexp' after moving out of one level of

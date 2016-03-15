@@ -16,7 +16,6 @@
 (require 'core-debug)
 (require 'core-command-line)
 (require 'core-dotspacemacs)
-(require 'core-emacs-backports)
 (require 'core-release-management)
 (require 'core-auto-completion)
 (require 'core-display-init)
