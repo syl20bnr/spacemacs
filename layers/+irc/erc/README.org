@@ -9,6 +9,7 @@
    - [[OS X][OS X]]
    - [[Social graph][Social graph]]
    - [[Default servers][Default servers]]
+     - [[Security Note][Security Note]]
  - [[Key bindings][Key bindings]]
  - [[Spacemacs Layout Support][Spacemacs Layout Support]]
 
@@ -52,20 +53,33 @@ notifications via the OS X Notification Center.
    #+BEGIN_SRC emacs-lisp
      (setq-default dotspacemacs-configuration-layers
                    '((erc :variables
-                          erc-server-list '(
-                                            (erc/server
-                                             :server "irc.freenode.net"
-                                             :port "6697"
-                                             :ssl t
-                                             :nick "some-user"
-                                             :password "secret")
-                                            (erc/server
-                                             :server "irc.myworkirc.net"
-                                             :port "1234"
-                                             :nick "some-suit"
-                                             :password "hunter2")))))
-
+                          erc-server-list
+                          '(("irc.freenode.net"
+                             :port "6697"
+                             :ssl t
+                             :nick "some-user"
+                             :password "secret")
+                            ("irc.myworkirc.net"
+                             :port "1234"
+                             :nick "some-suit"
+                             :password "hunter2")))))
    #+END_SRC
+
+*** Security Note
+    You should not store your passwords in the clear in your =.spacemacs=, and
+    that goes double if you version your config file. ERC allows for a number
+    of ways of protecting this information.
+
+    First, ERC will check your =~/.authinfo.gpg=, looking for lines like
+
+    #+BEGIN_SRC shell
+      machine <irc.server.url> login <yournick> password <yourpassword> port <portnumber>
+    #+END_SRC
+
+    You can leave password blank in this case.
+
+    You could also set an environment variable (or otherwise secret variable) and
+    read that in =:password=.
 
 * Key bindings
 
