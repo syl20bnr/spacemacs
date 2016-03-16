@@ -55,13 +55,6 @@
   (let ((message-log-max nil))
     (apply 'message msg args)))
 
-(defun spacemacs/system-is-mac ()
-  (eq system-type 'darwin))
-(defun spacemacs/system-is-linux ()
-  (eq system-type 'gnu/linux))
-(defun spacemacs/system-is-mswindows ()
-  (eq system-type 'windows-nt))
-
 (defun spacemacs/jump-in-buffer ()
   (interactive)
   (call-interactively
