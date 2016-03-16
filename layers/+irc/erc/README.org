@@ -76,7 +76,7 @@ notifications via the OS X Notification Center.
       machine <irc.server.url> login <yournick> password <yourpassword> port <portnumber>
     #+END_SRC
 
-    You can leave password blank in this case.
+    You can omit =:password= in this case.
 
     You could also set an environment variable (or otherwise secret variable) and
     read that in =:password=.
