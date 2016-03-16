@@ -7,6 +7,8 @@
    - [[#layer][Layer]]
    - [[#os-x][OS X]]
    - [[#social-graph][Social graph]]
+   - [[#default-servers][Default servers]]
+     - [[#security-note][Security Note]]
  - [[#key-bindings][Key bindings]]
  - [[#spacemacs-layout-support][Spacemacs Layout Support]]
 
@@ -43,6 +45,41 @@ notifications via the OS X Notification Center.
 ** Social graph
  [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]] needs graphviz to be installed on your system.
 
+** Default servers
+   You can define the default servers in the ERC custom layout by setting the variable =erc-server-list=.
+   Setting =:ssl= non nil will connect with =erc-tls=. You can also use =<leader>aiD=
+   to connect to your default servers outside the custom layout.
+   #+BEGIN_SRC emacs-lisp
+     (setq-default dotspacemacs-configuration-layers
+                   '((erc :variables
+                          erc-server-list
+                          '(("irc.freenode.net"
+                             :port "6697"
+                             :ssl t
+                             :nick "some-user"
+                             :password "secret")
+                            ("irc.myworkirc.net"
+                             :port "1234"
+                             :nick "some-suit"
+                             :password "hunter2")))))
+   #+END_SRC
+
+*** Security Note
+    You should not store your passwords in the clear in your =.spacemacs=, and
+    that goes double if you version your config file. ERC allows for a number
+    of ways of protecting this information.
+
+    First, ERC will check your =~/.authinfo.gpg=, looking for lines like
+
+    #+BEGIN_SRC shell
+      machine <irc.server.url> login <yournick> password <yourpassword> port <portnumber>
+    #+END_SRC
+
+    You can omit =:password= in this case.
+
+    You could also set an environment variable (or otherwise secret variable) and
+    read that in =:password=.
+
 * Key bindings
 
 | Key Binding | Description                                           |
@@ -50,6 +87,7 @@ notifications via the OS X Notification Center.
 | ~SPC a i e~ | Starts ERC                                            |
 | ~SPC a i E~ | Starts ERC via TLS/SSL                                |
 | ~SPC a i i~ | Switch to next active ERC buffer                      |
+| ~SPC a i D~ | Start ERC with default servers                        |
 | ~SPC m b~   | Switch between ERC buffers                            |
 | ~SPC m d~   | Interactively input a user action and send it to IRC. |
 | ~SPC m D~   | Draw Social Graph using  [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]]             |

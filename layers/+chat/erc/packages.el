@@ -53,7 +53,8 @@
     (spacemacs/set-leader-keys
       "aie" 'erc
       "aiE" 'erc-tls
-      "aii" 'erc-track-switch-buffer)
+      "aii" 'erc-track-switch-buffer
+      "aiD" 'erc/default-servers)
     ;; utf-8 always and forever
     (setq erc-server-coding-system '(utf-8 . utf-8))
     ;; disable linum mode in erc
@@ -245,7 +246,9 @@
                           (persp-get-by-name
                            erc-spacemacs-layout-name)))
       (add-hook 'erc-mode-hook #'spacemacs-layouts/add-erc-buffer-to-persp)
-      (call-interactively 'erc))))
+      (if erc-server-list
+          (erc/default-servers)
+        (call-interactively 'erc)))))
 
 (defun erc/post-init-smooth-scrolling ()
   (add-hook 'erc-mode-hook 'spacemacs//unset-scroll-margin))
