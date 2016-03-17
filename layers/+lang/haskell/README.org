@@ -44,11 +44,12 @@ This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
 - =hlint=
 - =stylish-haskell=
 - =hasktags=
+- =hoogle=
 
 To install them, use the following command: 
 
 #+BEGIN_SRC sh
-  cabal install stylish-haskell hlint hasktags
+  cabal install stylish-haskell hlint hasktags hoogle
 #+END_SRC
 
 Then you have to add this path to your system =$PATH= (preferred):
