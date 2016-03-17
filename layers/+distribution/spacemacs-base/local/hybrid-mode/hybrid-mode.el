@@ -33,7 +33,7 @@
 
 (defvar hybrid-mode-enable-hjkl-bindings)
 
-(defcustom hybrid-mode-default-state 'hybrid
+(defcustom hybrid-mode-default-state 'normal
   "Value of `evil-default-state' for hybrid-mode."
   :group 'spacemacs
   :type 'symbol)
