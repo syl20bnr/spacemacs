@@ -360,13 +360,6 @@
   (evil-define-key 'insert comint-mode-map [up] 'comint-previous-input)
   (evil-define-key 'insert comint-mode-map [down] 'comint-next-input))
 
-;; ivy/helm keys --------------------------------------------------------------
-
-(defvar spacemacs-editing-style-hook nil
-  "Hook run whenever an editing style is toggled.
-Each function in the hook is run with a single argument which is the current
-editing style.")
-
 ;; ---------------------------------------------------------------------------
 ;; Transient-states
 ;; ---------------------------------------------------------------------------
