@@ -392,7 +392,9 @@ Removes the automatic guessing of the initial value based on thing at point. "
       (defun spacemacs//helm-hjkl-navigation (style)
         "Set navigation on 'hjkl' for the given editing STYLE."
         (cond
-         ((eq 'vim style)
+         ((or (eq 'vim style)
+              (and (eq 'hybrid style)
+                   hybrid-mode-enable-hjkl-bindings))
           (define-key helm-map (kbd "C-j") 'helm-next-line)
           (define-key helm-map (kbd "C-k") 'helm-previous-line)
           (define-key helm-map (kbd "C-h") 'helm-next-source)
