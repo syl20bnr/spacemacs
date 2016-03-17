@@ -52,7 +52,7 @@ to start in hybrid state (emacs bindings) by default."
   :group 'spacemacs
   (if hybrid-mode
       (enable-hybrid-editing-style)
-    (enable-hybrid-editing-style)))
+    (disable-hybrid-editing-style)))
 
 (defun enable-hybrid-editing-style ()
   "Enable the hybrid editing style."
