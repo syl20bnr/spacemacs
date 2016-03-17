@@ -72,7 +72,7 @@ The `insert state' is replaced by the `emacs state'."
   ;; key bindings hooks for dynamic switching of editing styles
   (run-hook-with-args 'spacemacs-editing-style-hook 'emacs)
   ;; initiate `emacs state' and enter the church
-  (holy-mode//update-states-for-current-buffers))
+  (holy-mode//update-states-for-current-buffers 'emacs))
 
 (defun amen ()
   "May the force be with you my son (or not)."
@@ -88,19 +88,17 @@ The `insert state' is replaced by the `emacs state'."
   ;; restore key bindings
   (run-hook-with-args 'spacemacs-editing-style-hook 'vim)
   ;; restore the states
-  (holy-mode//update-states-for-current-buffers t))
+  (holy-mode//update-states-for-current-buffers 'vim))
 
-(defun holy-mode//update-states-for-current-buffers (&optional arg)
-  "Update the active state in all current buffers.
-ARG non nil means that the editing style is `vim'."
+(defun holy-mode//update-states-for-current-buffers (style)
+  "Update the active state in all current buffers given current STYLE."
   (dolist (buffer (buffer-list))
     (with-current-buffer buffer
-      ;; switch to holy-mode
-      (when (not arg)
-        (evil-emacs-state))
-      ;; disable holy-mode
-      (when (and arg (eq 'emacs evil-state))
+      (cond
+       ((eq 'emacs style) (evil-emacs-state))
+       ((and (eq 'vim style)
+             (eq 'emacs evil-state))
         (cond
          ((memq major-mode evil-evilified-state-modes) (evil-evilified-state))
          ((memq major-mode evil-motion-state-modes) (evil-motion-state))
-         (t (evil-normal-state)))))))
+         (t (evil-normal-state))))))))
