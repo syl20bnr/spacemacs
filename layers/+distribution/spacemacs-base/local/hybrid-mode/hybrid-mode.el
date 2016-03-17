@@ -31,14 +31,22 @@
 
 (require 'evil)
 
-(defvar hybrid-mode-default-state-backup evil-default-state
-  "Backup of `evil-default-state'.")
+(defvar hybrid-mode-enable-hjkl-bindings)
 
 (defcustom hybrid-mode-default-state 'normal
   "Value of `evil-default-state' for hybrid-mode. Set to hybrid
 to start in hybrid state (emacs bindings) by default."
   :group 'spacemacs
   :type 'symbol)
+
+(defcustom hybrid-mode-enable-hjkl-bindings nil
+  "If non nil then packages configuration should define the
+key bindings for hjkl navigation."
+  :group 'spacemacs
+  :type 'boolean)
+
+(defvar hybrid-mode-default-state-backup evil-default-state
+  "Backup of `evil-default-state'.")
 
 (defadvice evil-insert-state (around hybrid-insert-to-hybrid-state disable)
   "Forces Hybrid state."

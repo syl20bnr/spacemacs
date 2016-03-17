@@ -379,7 +379,9 @@ Helm hack."
       (defun spacemacs//ivy-hjkl-navigation (style)
         "Set navigation on 'hjkl' for the given editing STYLE."
         (cond
-         ((eq 'vim style)
+         ((or (eq 'vim style)
+              (and (eq 'hybrid style)
+                   hybrid-mode-enable-hjkl-bindings))
           (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
           (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
           (define-key ivy-minibuffer-map (kbd "C-h") (kbd "DEL"))

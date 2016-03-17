@@ -76,6 +76,8 @@
   (require 'core-configuration-layer)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
   (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
+  (setq dotspacemacs-editing-style (dotspacemacs//read-editing-style-config
+                                    dotspacemacs-editing-style))
   (configuration-layer/initialize)
   ;; default theme
   (let ((default-theme (car dotspacemacs-themes)))
