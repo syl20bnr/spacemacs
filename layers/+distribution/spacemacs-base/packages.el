@@ -391,7 +391,7 @@ below. Anything else exits."
 
       ;; define text-object for entire buffer
       (evil-define-text-object evil-inner-buffer (count &optional beg end type)
-        (evil-select-paren "\\`" "\\'" beg end type count nil))
+        (list (point-min) (point-max)))
       (define-key evil-inner-text-objects-map "g" 'evil-inner-buffer)
 
       ;; support smart 1parens-strict-mode
