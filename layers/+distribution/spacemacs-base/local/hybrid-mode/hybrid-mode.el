@@ -33,15 +33,13 @@
 
 (defvar hybrid-mode-enable-hjkl-bindings)
 
-(defcustom hybrid-mode-default-state 'normal
-  "Value of `evil-default-state' for hybrid-mode. Set to hybrid
-to start in hybrid state (emacs bindings) by default."
+(defcustom hybrid-mode-default-state 'hybrid
+  "Value of `evil-default-state' for hybrid-mode."
   :group 'spacemacs
   :type 'symbol)
 
 (defcustom hybrid-mode-enable-hjkl-bindings nil
-  "If non nil then packages configuration should define the
-key bindings for hjkl navigation."
+  "If non nil then packages configuration should enable hjkl navigation."
   :group 'spacemacs
   :type 'boolean)
 
