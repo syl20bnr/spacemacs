@@ -144,7 +144,8 @@
         "gP" 'magit-push-popup
         "gs" 'magit-status
         "gS" 'magit-stage-file
-        "gU" 'magit-unstage-file)
+        "gU" 'magit-unstage-file
+        "gx" 'magit-reset-popup)
 
       (spacemacs|define-micro-state git-blame
         :title "Git Blame Transient State"
