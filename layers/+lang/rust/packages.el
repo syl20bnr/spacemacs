@@ -41,7 +41,8 @@
         "ct" 'spacemacs/rust-cargo-test
         "cd" 'spacemacs/rust-cargo-doc
         "cx" 'spacemacs/rust-cargo-run
-        "cC" 'spacemacs/rust-cargo-clean))))
+        "cC" 'spacemacs/rust-cargo-clean
+        "cf" 'spacemacs/rust-cargo-fmt))))
 
 (defun rust/init-toml-mode ()
   (use-package toml-mode
