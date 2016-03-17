@@ -53,11 +53,12 @@ This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
 - =stylish-haskell=
 - =hasktags=
 - =ghc-mod=
+- =hoogle=
 
 To install them, use following command (or the =stack= equivalent):
 
 #+BEGIN_SRC sh
-$ cabal install stylish-haskell hlint hasktags ghc-mod
+$ cabal install stylish-haskell hlint hasktags ghc-mod hoogle
 #+END_SRC
 
 ** Setup PATH
