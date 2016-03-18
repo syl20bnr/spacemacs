@@ -26,6 +26,7 @@
     pytest
     python
     pyvenv
+    py-yapf
     semantic
     smartparens
     stickyfunc-enhance
