@@ -29,7 +29,7 @@
     pytest
     python
     pyvenv
-    (py-yapf :location local)
+    py-yapf
     semantic
     smartparens
     stickyfunc-enhance
