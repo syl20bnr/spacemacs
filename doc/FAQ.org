@@ -448,8 +448,9 @@ arguments of the =ag= program.
 
 * Windows
 ** Why do the fonts look crappy on Windows?
-You can install [[https://code.google.com/p/mactype/][MacType]] on Windows to get very nice looking fonts. It is also
-recommended to disable smooth scrolling on Windows.
+You can install [[https://code.google.com/archive/p/gdipp/][GDIPP]] (simplest) or [[https://code.google.com/p/mactype/][MacType]] (more complete) on Windows to get
+very nice looking fonts. It is also recommended to disable smooth scrolling on
+Windows.
 
 ** Why is there no Spacemacs logo in the startup buffer?
 A GUI build of emacs supporting image display is required. You can follow the
