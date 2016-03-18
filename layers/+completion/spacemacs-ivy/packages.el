@@ -318,7 +318,10 @@ Helm hack."
       ;; Note: Must be set before which-key is loaded.
       (setq prefix-help-command 'counsel-descbinds)
       ;; TODO: Commands to port
-      (spacemacs//ivy-command-not-implemented-yet "jI"))))
+      (spacemacs//ivy-command-not-implemented-yet "jI")
+
+      ;; Set syntax highlighting for counsel search results
+      (ivy-set-display-transformer 'spacemacs/counsel-search 'counsel-git-grep-transformer))))
 
 (defun spacemacs-ivy/post-init-auto-highlight-symbol ()
   (setq spacemacs-symbol-highlight-transient-state-remove-bindings
