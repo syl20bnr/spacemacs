@@ -601,9 +601,9 @@ as follows.
 #+END_SRC
 
 These functions use a macro like =kbd= to translate the key sequences for you.
-The second function, =spacemacs/set-leader-keys-for-major-mode=, binds the key only in the
-specified mode. The second key binding would not be in effect in =org-mode= for
-example.
+The second function, =spacemacs/set-leader-keys-for-major-mode=, binds the key
+only in the specified mode. The second key binding would not be in effect in
+=org-mode= for example.
 
 Finally, one should be aware of prefix keys. Essentially, all keymaps can be
 nested. Nested keymaps are used extensively in spacemacs, and in vanilla Emacs
@@ -629,41 +629,82 @@ automatically saved by Emacs are stored at the end of your =~/.spacemacs= file.
 
 * Main principles
 ** Editing Styles
+   Spacemacs comes with several editing styles which can be switched dynamically
+providing an easier way to do pair programming, for instance between a Vim user
+and an Emacs user.
+
+Three styles are available:
+- Vim,
+- Emacs,
+- Hybrid (a mix between Vim and Emacs).
+
 *** Vim
 Spacemacs behaves like in Vim using [[https://gitorious.org/evil/pages/Home][Evil]] mode package to emulate Vim key bindings.
 This is the default style of Spacemacs, it can be set explicitly by setting
 the =dotspacemacs-editing-style= variable to =vim= in the dotfile.
 
+To bind keys in Vim editing style (=insert state=):
+
+#+BEGIN_SRC emacs-lisp
+(define-key evil-insert-state-map (kbd "C-]") 'forward-char)
+#+END_SRC
+
 *** Emacs
 Spacemacs behaves like in raw Emacs using the Holy mode which configures Evil to
-make the emacs state the default state everywhere.
+make the =emacs state= the default state everywhere.
 Set the =dotspacemacs-editing-style= variable to =emacs= in the dotfile.
 
-In Emacs style the leader is available on ~M-m~. It is possible to dynamically
-switch between evil and holy mode using ~SPC t E h~ and ~M-m t E h~.
+In Emacs style the leader is available on ~M-m~. It is possible to toggle it on
+and off with ~SPC t E e~ and ~M-m t E e~. When off the =vim= style is enabled.
+
+To bind keys in Emacs editing style (=emacs state=):
+
+#+BEGIN_SRC emacs-lisp
+(define-key evil-emacs-state-map (kbd "C-]") 'forward-char)
+#+END_SRC
 
 *** Hybrid
-The hybrid editing style is like the Vim style except that insert state
-has all the Emacs key bindings available like in emacs state. The insert state
-in hybrid mode is called the hybrid state and you have to map your key bindings
-in =evil-hybrid-state-map= keymap instead of =evil-insert-state-map=.
+The hybrid editing style is like the Vim style except that =insert state= is
+replaced by a new state called =hybrid state=. In =hybrid state= all the Emacs
+key bindings are available, this is like replacing the =insert state= with the
+=emacs state= but provides an isolated key map =evil-hybrid-state-map=.
 
-Hybrid mode can be enabled by setting =dotspacemacs-editing-style= to =hybrid=.
-To switch between evil and hybrid mode use ~SPC t E y~ and ~M-m t E y~.
+To bind keys in Hybrid editing style (=hybrid state=):
 
-The default state in hybrid mode can be changed by setting the variable
-=hybrid-mode-default-state= to a state value, the default is =normal=, set it
-to =hybrid= to start in hybrid insert state instead of normal state.
+#+BEGIN_SRC emacs-lisp
+(define-key evil-hybrid-state-map (kbd "C-]") 'forward-char)
+#+END_SRC
+
+This style can be tweaked to be more like Emacs or more like Vim depending
+on the user preferences. The following variable are available to change the
+style configuration:
+
+| Variable                             | Description                                                                                                      |
+|--------------------------------------+------------------------------------------------------------------------------------------------------------------|
+| =hybrid-mode-default-state=          | The default state when opening a new buffer, default is =normal=. Set it to =emacs= for a more emacsy style.     |
+| =hybrid-mode-enable-hjkl-bindings=   | If non nil then packages will configure =h j k l= key bindings for navigation.                                   |
+| =hybrid-mode-enable-evilified-state= | If non nil buffer are =evilified= when supported, if nil then =emacs= state is enabled in those buffers instead. |
+
+Default configuration is:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-editing-style '(hybrid :variables
+                                           hybrid-mode-enable-evilified-state nil
+                                           hybrid-mode-enable-hjkl-bindings nil
+                                           hybrid-mode-default-state 'normal)
+#+END_SRC
+
+To toggle the hybrid style on and off use ~SPC t E h~ and ~M-m t E h~. When
+off the =vim= style is enabled.
 
 ** Evilified modes
-Some buffers (such as Magit, for using git from within Emacs), are not for
-editing text, and provide their own keybindings for certain operations. These
-often conflict with Vim bindings. To make such buffers behave Vim-like in a
-consistent manner, they use a special state called /evilified/ state. In
-evilified state, a handful of keys work as in Evil, namely =/=, =:=, =h=, =j=,
-=k=, =l=, =n=, =N=, =v=, =V=, =gg=, =G=, =C-f=, =C-b=, =C-d=, =C-e=, =C-u=,
-=C-y= and =C-z=.
-All other keys work as intended by the underlying mode.
+Some buffers are not for editing text and provide their own keybindings for
+certain operations. These often conflict with Vim bindings. To make such buffers
+behave more like Vim in a consistent manner, they use a special state called
+/evilified/ state. In evilified state, a handful of keys work as in Evil, namely
+=/=, =:=, =h=, =j=, =k=, =l=, =n=, =N=, =v=, =V=, =gg=, =G=, =C-f=, =C-b=,
+=C-d=, =C-e=, =C-u=, =C-y= and =C-z=. All other keys work as intended by the
+underlying mode.
 
 Shadowed keys are moved according to the pattern: =a= → =A= → =C-a= → =C-A=
 
@@ -680,19 +721,19 @@ So anything bound to =g= originally will be found on =C-G=, since =g=, =G= and
 ** States
 Spacemacs has 10 states:
 
-| State        | Color       | Description                                                                                                |
-|--------------+-------------+------------------------------------------------------------------------------------------------------------|
-| normal       | orange      | like the =normal mode of Vim=, used to execute and combine commands                                        |
-| insert       | green       | like the =insert mode of Vim=, used to actually insert text                                                |
-| visual       | gray        | like the =visual mode of Vim=, used to make text selection                                                 |
-| motion       | purple      | exclusive to =Evil=, used to navigate read only buffers                                                    |
-| emacs        | blue        | exclusive to =Evil=, using this state is like using a regular Emacs without Vim                            |
-| replace      | chocolate   | exclusive to =Evil=, overwrites the character under point instead of inserting a new one                   |
-| hybrid       | blue        | exclusive to Spacemacs, this is like the insert state except that all the emacs key bindings are available |
-| evilified    | light brown | exclusive to Spacemacs, this is an =emacs state= modified to bring Vim navigation, selection and search.   |
-| lisp         | pink        | exclusive to Spacemacs, used to navigate Lisp code and modify it (more [[Editing Lisp code][info]])                               |
-| iedit        | red         | exclusive to Spacemacs, used to navigate between multiple regions of text using =iedit= (more [[Replacing text with iedit][info]])        |
-| iedit-insert | red         | exclusive to Spacemacs, used to replace multiple regions of text using =iedit= (more [[Replacing text with iedit][info]])                 |
+| State        | Default Color | Description                                                                                                |
+|--------------+---------------+------------------------------------------------------------------------------------------------------------|
+| normal       | orange        | like the =normal mode of Vim=, used to execute and combine commands                                        |
+| insert       | green         | like the =insert mode of Vim=, used to actually insert text                                                |
+| visual       | gray          | like the =visual mode of Vim=, used to make text selection                                                 |
+| motion       | purple        | exclusive to =Evil=, used to navigate read only buffers                                                    |
+| emacs        | blue          | exclusive to =Evil=, using this state is like using a regular Emacs without Vim                            |
+| replace      | chocolate     | exclusive to =Evil=, overwrites the character under point instead of inserting a new one                   |
+| hybrid       | blue          | exclusive to Spacemacs, this is like the insert state except that all the emacs key bindings are available |
+| evilified    | light brown   | exclusive to Spacemacs, this is an =emacs state= modified to bring Vim navigation, selection and search.   |
+| lisp         | pink          | exclusive to Spacemacs, used to navigate Lisp code and modify it (more [[Editing Lisp code][info]])                               |
+| iedit        | red           | exclusive to Spacemacs, used to navigate between multiple regions of text using =iedit= (more [[Replacing text with iedit][info]])        |
+| iedit-insert | red           | exclusive to Spacemacs, used to replace multiple regions of text using =iedit= (more [[Replacing text with iedit][info]])                 |
 
 Note: Technically speaking there is also the =operator= evil state.
 
