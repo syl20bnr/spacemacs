@@ -595,6 +595,7 @@ otherwise it is scaled down."
   :title "Frame Transparency Transient State"
   :bindings
   ("+" spacemacs/increase-transparency "increase")
+  ("=" spacemacs/increase-transparency "increase")
   ("-" spacemacs/decrease-transparency "decrease")
   ("T" spacemacs/toggle-transparency "toggle")
   ("q" nil "quit" :exit t))
