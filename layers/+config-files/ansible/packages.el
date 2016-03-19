@@ -16,7 +16,10 @@
         yaml-mode))
 
 (defun ansible/init-ansible ()
-  (use-package ansible :defer t))
+  (use-package ansible
+    :defer t
+    :init (add-to-list 'auto-mode-alist
+                       '("\\(group_vars/.+\\|host_vars/.+\\)" . yaml-mode))))
 
 (defun ansible/init-ansible-doc ()
   (use-package ansible-doc :defer t))
