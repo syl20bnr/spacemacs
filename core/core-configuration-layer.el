@@ -369,17 +369,18 @@ layer directory."
   "Make `cfgl-layer' objects from the passed layer SYMBOLS."
   (delq nil (mapcar 'configuration-layer/make-layer symbols)))
 
-(defun configuration-layer/make-package (pkg &optional obj)
+(defun configuration-layer/make-package (pkg &optional obj togglep)
   "Return a `cfgl-package' object based on PKG.
 If OBJ is non nil then copy PKG properties into OBJ, otherwise create
 a new object.
-Properties that can be copied are `:location', `:step' and `:excluded'."
+Properties that can be copied are `:location', `:step' and `:excluded'.
+If TOGGLEP is non nil then `:toggle' parameter is ignored."
   (let* ((name-sym (if (listp pkg) (car pkg) pkg))
          (name-str (symbol-name name-sym))
          (location (when (listp pkg) (plist-get (cdr pkg) :location)))
          (step (when (listp pkg) (plist-get (cdr pkg) :step)))
          (excluded (when (listp pkg) (plist-get (cdr pkg) :excluded)))
-         (toggle (when (listp pkg) (plist-get (cdr pkg) :toggle)))
+         (toggle (when (and togglep (listp pkg)) (plist-get (cdr pkg) :toggle)))
          (protected (when (listp pkg) (plist-get (cdr pkg) :protected)))
          (copyp (not (null obj)))
          (obj (if obj obj (cfgl-package name-str :name name-sym))))
@@ -602,14 +603,15 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
                                                   name pkg-name)))
                    (post-init-func (intern (format "%S/post-init-%S"
                                                    name pkg-name)))
+                   (ownerp (fboundp init-func))
                    (obj (object-assoc pkg-name :name result)))
               (cl-pushnew pkg-name (oref layer :packages))
               (if obj
-                  (setq obj (configuration-layer/make-package pkg obj))
-                (setq obj (configuration-layer/make-package pkg))
+                  (setq obj (configuration-layer/make-package pkg obj ownerp))
+                (setq obj (configuration-layer/make-package pkg nil ownerp))
                 (push obj result))
               (oset obj :lazy-install lazy-install)
-              (when (fboundp init-func)
+              (when ownerp
                 ;; last owner wins over the previous one,
                 ;; still warn about mutliple owners
                 (when (oref obj :owner)
@@ -617,8 +619,14 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
                    (format (concat "More than one init function found for "
                                    "package %S. Previous owner was %S, "
                                    "replacing it with layer %S.")
-                           pkg (oref obj :owner) name)))
+                           pkg-name (oref obj :owner) name)))
                 (oset obj :owner name))
+              (when (and (not ownerp)
+                         (listp pkg)
+                         (spacemacs/mplist-get pkg :toggle))
+                (spacemacs-buffer/warning
+                 (format (concat "Ignoring :toggle for package %s because "
+                                 "layer %S does not own it.") pkg-name name)))
               (when (fboundp pre-init-func)
                 (push name (oref obj :pre-layers)))
               (when (fboundp post-init-func)
@@ -629,8 +637,8 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
         (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
                (obj (object-assoc pkg-name :name result)))
           (if obj
-              (setq obj (configuration-layer/make-package pkg obj))
-            (setq obj (configuration-layer/make-package pkg))
+              (setq obj (configuration-layer/make-package pkg obj t))
+            (setq obj (configuration-layer/make-package pkg nil t))
             (push obj result)
             (oset obj :owner 'dotfile))))
       (dolist (xpkg dotspacemacs-excluded-packages)
