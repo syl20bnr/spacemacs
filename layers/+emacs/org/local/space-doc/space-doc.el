@@ -7,6 +7,22 @@
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
+;; Description:
+;; This package provides:
+;;   - `space-doc-mode' - buffer local minor mode
+;; for viewing the Spacemacs documentation files.
+;; The mode hides org meta tags to improve readability.
+;;   - `org-mode' link-type "https" that opens the local
+;; copies of the Spacemacs documentation files with
+;; `spacemacs/view-org-file' and supports GitHub style
+;; heading links.
+;;
+;; For example, the link:
+;;  https://github.com/syl20bnr/spacemacs/blob/develop/layers/org/README.org#links
+;; Will be handled similary to as if it was:
+;; file:~/.emacs.d/layers/org/README.org::*links
+;; Also the `space-doc' mode will be applied.
+
 ;;; License: GPLv3
 ;;; Code:
 (require 'face-remap)
@@ -54,6 +70,24 @@ keeping their content visible."
     (progn (message (format "space-doc-mode error:%s isn't an org-mode buffer"
                             (buffer-name)))
            (setq org-mode nil))))
+
+(defun spacemacs//space-doc-open (path)
+  "If the `path' argument is a link to an .org file that is located
+in the Spacemacs GitHub repository - Visit the local copy
+of the file with `spacemacs/view-org-file'.
+Open all other links with `browse-url'."
+  (let ((git-url-root-regexp
+         (concat "\\/\\/github\\.com\\/syl20bnr"
+                 "\\/spacemacs\\/blob\\/[^/]+\\/\\(.*\\.org\\)\\(\\#.*\\)?")))
+    (if (string-match git-url-root-regexp path)
+        (spacemacs/view-org-file (concat user-emacs-directory
+                                         (match-string 1 path))
+                                 (or (match-string 2 path)
+                                     "^")
+                                 'subtree)
+      (browse-url (concat "https://" path)))))
+
+(org-add-link-type "https" 'spacemacs//space-doc-open)
 
 (provide 'space-doc)
 ;;; space-doc.el ends here
