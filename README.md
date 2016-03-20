@@ -3,21 +3,19 @@
 ***
 <p align="center"><img src="/doc/img/title2.png" alt="Spacemacs"/></p>
 <p align="center">
-<b><a href="http://spacemacs.org/doc/DOCUMENTATION.org#core-pillars">philosophy</a></b>
+<b><a href="http://spacemacs.org/doc/DOCUMENTATION#orgheadline5">philosophy</a></b>
 |
-<b><a href="http://spacemacs.org/doc/DOCUMENTATION.org#goals">goals</a></b>
+<b><a href="http://spacemacs.org/doc/DOCUMENTATION#orgheadline8">for whom?</a></b>
 |
-<b><a href="http://spacemacs.org/doc/DOCUMENTATION.org#user-content-who-can-benefit-from-this">for whom?</a></b>
+<b><a href="http://spacemacs.org/doc/DOCUMENTATION#orgheadline7">screenshots</a></b>
 |
-<b><a href="http://spacemacs.org/doc/DOCUMENTATION.org#screenshots">screenshots</a></b>
-|
-<b><a href="http://spacemacs.org/doc/DOCUMENTATION.org">documentation</a></b>
+<b><a href="http://spacemacs.org/doc/DOCUMENTATION">documentation</a></b>
 |
 <b><a href="CONTRIBUTING.org">contribute</a></b>
 |
-<b><a href="http://spacemacs.org/doc/DOCUMENTATION.org#achievements">achievements</a></b>
+<b><a href="http://spacemacs.org/doc/DOCUMENTATION#orgheadline187">achievements</a></b>
 |
-<b><a href="http://spacemacs.org/doc/FAQ.org">FAQ</a></b>
+<b><a href="http://spacemacs.org/doc/FAQ">FAQ</a></b>
 </p>
 ***
 <p align="center">
@@ -228,8 +226,7 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
 
 4. Restart Emacs to complete the installation.
 
-If the mode-line turns red then be sure to visit the
-[troubleshooting][troubleshoot] guide and consult the [FAQ][FAQ.org].
+If the mode-line turns red then be sure to consult the [FAQ][FAQ.org].
 
 ## Installation alongside another configuration
 
@@ -373,14 +370,13 @@ Thank you!
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
 [CONTRIBUTING.org]: CONTRIBUTING.org
-[CONVENTIONS.org]: http://spacemacs.org/doc/CONVENTIONS.org
-[DOCUMENTATION.org]: http://spacemacs.org/doc/DOCUMENTATION.org
-[QUICK_START.org]: http://spacemacs.org/doc/QUICK_START.org
-[FAQ.org]: http://spacemacs.org/doc/FAQ.org
-[VIMUSERS.org]: http://spacemacs.org/doc/VIMUSERS.org
-[dotfile]: http://spacemacs.org/doc/DOCUMENTATION.org#dotfile-configuration
-[troubleshoot]: http://spacemacs.org/doc/DOCUMENTATION.org#troubleshoot
-[osx layer]: layers/osx/README.org
+[CONVENTIONS.org]: http://spacemacs.org/doc/CONVENTIONS
+[DOCUMENTATION.org]: http://spacemacs.org/doc/DOCUMENTATION
+[QUICK_START.org]: http://spacemacs.org/doc/QUICK_START
+[FAQ.org]: http://spacemacs.org/doc/FAQ
+[VIMUSERS.org]: http://spacemacs.org/doc/VIMUSERS
+[dotfile]: http://spacemacs.org/doc/DOCUMENTATION#orgheadline45
+[osx layer]: http://spacemacs.org/layers/osx/README
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
 [Gitter Chat IRC server]: https://irc.gitter.im/
 [emacs-mac-port]: https://github.com/railwaycat/homebrew-emacsmacport
