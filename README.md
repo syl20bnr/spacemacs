@@ -3,21 +3,21 @@
 ***
 <p align="center"><img src="/doc/img/title2.png" alt="Spacemacs"/></p>
 <p align="center">
-<b><a href="doc/DOCUMENTATION.org#core-pillars">philosophy</a></b>
+<b><a href="http://spacemacs.org/doc/DOCUMENTATION.org#core-pillars">philosophy</a></b>
 |
-<b><a href="doc/DOCUMENTATION.org#goals">goals</a></b>
+<b><a href="http://spacemacs.org/doc/DOCUMENTATION.org#goals">goals</a></b>
 |
-<b><a href="doc/DOCUMENTATION.org#user-content-who-can-benefit-from-this">for whom?</a></b>
+<b><a href="http://spacemacs.org/doc/DOCUMENTATION.org#user-content-who-can-benefit-from-this">for whom?</a></b>
 |
-<b><a href="doc/DOCUMENTATION.org#screenshots">screenshots</a></b>
+<b><a href="http://spacemacs.org/doc/DOCUMENTATION.org#screenshots">screenshots</a></b>
 |
-<b><a href="doc/DOCUMENTATION.org">documentation</a></b>
+<b><a href="http://spacemacs.org/doc/DOCUMENTATION.org">documentation</a></b>
 |
 <b><a href="CONTRIBUTING.org">contribute</a></b>
 |
-<b><a href="doc/DOCUMENTATION.org#achievements">achievements</a></b>
+<b><a href="http://spacemacs.org/doc/DOCUMENTATION.org#achievements">achievements</a></b>
 |
-<b><a href="doc/FAQ.org">FAQ</a></b>
+<b><a href="http://spacemacs.org/doc/FAQ.org">FAQ</a></b>
 </p>
 ***
 <p align="center">
@@ -134,8 +134,9 @@ XEmacs is an old fork of Emacs. The X in its name is unrelated to X11.
 Both Emacs and XEmacs have graphical support.
 
 **Note:** Ubuntu LTS 12.04 and 14.04 repositories have only Emacs 24.3
-available. You are advised to [build from source](https://www.gnu.org/software/emacs/manual/html_node/efaq/Installing-Emacs.html) Emacs 24.4 or greater, as most packages require
-this version. The same may be true for other distributions as well.
+available. You are advised to [build from source][build_source] Emacs 24.4 or
+greater, as most packages require this version. The same may be true for other
+distributions as well.
 
 ### OS X
 
@@ -372,13 +373,13 @@ Thank you!
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
 [CONTRIBUTING.org]: CONTRIBUTING.org
-[CONVENTIONS.org]: doc/CONVENTIONS.org
-[DOCUMENTATION.org]: doc/DOCUMENTATION.org
-[QUICK_START.org]: doc/QUICK_START.org
-[FAQ.org]: doc/FAQ.org
-[VIMUSERS.org]: doc/VIMUSERS.org
-[dotfile]: doc/DOCUMENTATION.org#dotfile-configuration
-[troubleshoot]: doc/DOCUMENTATION.org#troubleshoot
+[CONVENTIONS.org]: http://spacemacs.org/doc/CONVENTIONS.org
+[DOCUMENTATION.org]: http://spacemacs.org/doc/DOCUMENTATION.org
+[QUICK_START.org]: http://spacemacs.org/doc/QUICK_START.org
+[FAQ.org]: http://spacemacs.org/doc/FAQ.org
+[VIMUSERS.org]: http://spacemacs.org/doc/VIMUSERS.org
+[dotfile]: http://spacemacs.org/doc/DOCUMENTATION.org#dotfile-configuration
+[troubleshoot]: http://spacemacs.org/doc/DOCUMENTATION.org#troubleshoot
 [osx layer]: layers/osx/README.org
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
 [Gitter Chat IRC server]: https://irc.gitter.im/
@@ -395,4 +396,5 @@ Thank you!
 [Stack Exchange]: http://emacs.stackexchange.com/questions/tagged/spacemacs
 [Reddit]: https://www.reddit.com/r/spacemacs
 [quote01]: https://gitter.im/syl20bnr/spacemacs?at=568e627a0cdaaa62045a7df6
+[build_source]: https://www.gnu.org/software/emacs/manual/html_node/efaq/Installing-Emacs.html
 [Bountysource]: https://salt.bountysource.com/teams/spacemacs
