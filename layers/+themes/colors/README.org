@@ -75,7 +75,7 @@ The prefix associated with colors is ~C~.
 
 =rainbow-identifiers= mode can be toggled on and off with:
 
-    ~<SPC> t C i~
+    ~SPC t C i~
 
 Note that the toggle is local to the current buffer.
 
@@ -84,8 +84,8 @@ with the transient-state:
 
 | Key Binding     | Description                              |
 |-----------------+------------------------------------------|
-| ~<SPC> C i s~   | initiate change =saturation= mini-mode   |
-| ~<SPC> C i l~   | initiate change =lightness= mini-mode    |
+| ~SPC C i s~     | initiate change =saturation= mini-mode   |
+| ~SPC C i l~     | initiate change =lightness= mini-mode    |
 | ~+~             | increase the =saturation= or =lightness= |
 | ~-~             | decrease the =saturation= or =lightness= |
 | ~=~             | reset the =saturation= or =lightness=    |
@@ -97,11 +97,11 @@ with the transient-state:
 
 =rainbow-mode= mode can be toggled on and off with:
 
-    ~<SPC> t C c~
+    ~SPC t C c~
 
 ** Nyan Mode
 =nyan-mode= mode can be toggled on and off with:
 
-    ~<SPC> t m n~
+    ~SPC t m n~
 
 Note that the toggle is local to the current buffer.
