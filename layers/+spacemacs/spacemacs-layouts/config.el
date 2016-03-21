@@ -24,6 +24,9 @@
 (defvar spacemacs--layouts-ts-full-hint-toggle 0
   "Display a short doc when nil, full doc otherwise.")
 
+(defvar spacemacs--workspaces-ts-full-hint-toggle 0
+  "Display a short doc when nil, full doc otherwise.")
+
 (defvar spacemacs--last-selected-layout dotspacemacs-default-layout-name
   "Previously selected layout.")
 
