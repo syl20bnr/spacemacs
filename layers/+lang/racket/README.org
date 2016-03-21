@@ -24,6 +24,11 @@ file.
 
 * Key Bindings
 
+| Key Binding | Description       |
+|-------------+-------------------|
+| ~SPC m ,~     | toggle Lisp state |
+| ~, ,~         | toggle Lisp state |
+
 ** Navigation
 
 | Key Binding | Description                         |

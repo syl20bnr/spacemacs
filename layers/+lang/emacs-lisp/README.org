@@ -42,12 +42,13 @@ supports slurpage, barfage and more tools you'll likely want when working with
 lisp.
 
 As this state works the same for all files, the documentation is in global
-[[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
+[[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ (or ~, ,~ while editing a lisp) to interact with the lisp-state.
 
 ** Leader
 
 | Key Binding                | Description                                                |
 |----------------------------+------------------------------------------------------------|
+| ~SPC m ​,​~                  | toggle =lisp state=                                        |
 | ~SPC m g g~                | go to definition of symbol under point                     |
 | ~SPC m h h~                | describe symbol at point                                   |
 | ~SPC m c c~                | byte compile the current file                              |
@@ -58,7 +59,6 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m e e~                | evaluate sexp before point                                 |
 | ~SPC m e r~                | evaluate current region                                    |
 | ~SPC m e f~                | evaluation current function                                |
-| ~SPC m ​,​~                  | toggle =lisp state=                                        |
 | ~SPC m t b~                | run tests of current buffer                                |
 | ~SPC m t q~                | run =ert=                                                  |
 | ~SPC m d m~                | open [[https://github.com/joddie/macrostep][macrostep]] transient-state                        |

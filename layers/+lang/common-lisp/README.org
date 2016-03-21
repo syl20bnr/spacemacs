@@ -47,6 +47,12 @@ As this state works the same for all files, the documentation is in global
 [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
 
 ** Leader
+
+| Key Binding | Description       |
+|-------------+-------------------|
+| ~SPC m ,~     | toggle Lisp state |
+| ~, ,~         | toggle Lisp state |
+
 *** Help
 
 | Key Binding | Description                                             |
