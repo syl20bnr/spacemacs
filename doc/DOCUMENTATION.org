@@ -59,14 +59,12 @@
    - [[The vim-surround case][The vim-surround case]]
  - [[Evil plugins][Evil plugins]]
  - [[Binding keys][Binding keys]]
- - [[Spacemacs UI][Spacemacs UI]]
-   - [[Graphical UI][Graphical UI]]
-     - [[Color themes][Color themes]]
-     - [[Font][Font]]
-     - [[Graphical UI Toggles][Graphical UI Toggles]]
+ - [[GUI Elements][GUI Elements]]
+   - [[Color themes][Color themes]]
+   - [[Font][Font]]
+   - [[GUI Toggles][GUI Toggles]]
        - [[Global line numbers][Global line numbers]]
-     - [[Mouse usage][Mouse usage]]
-     - [[Mode-line][Mode-line]]
+   - [[Mode-line][Mode-line]]
        - [[Powerline font installation for terminal-mode users][Powerline font installation for terminal-mode users]]
        - [[Flycheck integration][Flycheck integration]]
        - [[Anzu integration][Anzu integration]]
@@ -74,6 +72,15 @@
        - [[Powerline separators][Powerline separators]]
        - [[Minor Modes][Minor Modes]]
        - [[Customizing the mode-line][Customizing the mode-line]]
+ - [[Layouts and workspaces][Layouts and workspaces]]
+   - [[Layouts][Layouts]]
+     - [[The default layout][The default layout]]
+     - [[Project layouts][Project layouts]]
+     - [[Custom Layouts][Custom Layouts]]
+     - [[Save/Load layouts into a file][Save/Load layouts into a file]]
+     - [[Layout key bindings][Layout key bindings]]
+   - [[Workspaces][Workspaces]]
+     - [[Workspace key bindings][Workspace key bindings]]
  - [[Commands][Commands]]
    - [[Vim key bindings][Vim key bindings]]
      - [[Escaping][Escaping]]
@@ -167,6 +174,7 @@
      - [[Deleting files][Deleting files]]
      - [[Editing Lisp code][Editing Lisp code]]
        - [[Lisp Key Bindings][Lisp Key Bindings]]
+     - [[Mouse usage][Mouse usage]]
    - [[Managing projects][Managing projects]]
    - [[Registers][Registers]]
    - [[Errors handling][Errors handling]]
@@ -849,20 +857,13 @@ key-discovery tools can use (e.g., which-key).
 There is much more to say about bindings keys, but these are the basics. Keys
 can be bound in your =~/.spacemacs= file or in individual layers.
 
-* Spacemacs UI
-Spacemacs has unique UI elements to make the Emacs experience even more
-enjoyable:
-  - dedicated startup page with a mode aimed at easily managing Spacemacs
-  - dedicated helm source via =helm-spacemacs-help=
-  - a [[https://github.com/justbur/emacs-which-key][which-key]] buffer
-
-** Graphical UI
+* GUI Elements
 Spacemacs has a minimalistic and distraction free graphical UI:
   - custom [[https://github.com/milkypostman/powerline][powerline]] mode-line [[Flycheck integration][with color feedback]] according to current [[https://github.com/flycheck/flycheck][Flycheck]] status
   - Unicode symbols for minor mode lighters which appear in the mode-line
   - [[Errors handling][custom fringe bitmaps]] and error feedbacks for [[https://github.com/flycheck/flycheck][Flycheck]]
 
-*** Color themes
+** Color themes
 
 The official Spacemacs theme is [[https://github.com/nashamri/spacemacs-theme][spacemacs-dark]] and it is the default theme
 installed when you first started Spacemacs. There are two variants of the
@@ -900,7 +901,7 @@ You can see samples of all included themes in this [[http://themegallery.robdor.
 
 *Hint*: If you are an =Org= user, [[https://github.com/fniessen/emacs-leuven-theme][leuven-theme]] is amazing ;-)
 
-*** Font
+** Font
 The default font used by Spacemacs is [[https://github.com/adobe-fonts/source-code-pro][Source Code Pro]] by Adobe. It is
 recommended to install it on your system.
 
@@ -966,7 +967,7 @@ separators like on the following screenshot (default value is 1.1).
 
 [[file:img/crappy-powerline-separators.png]]
 
-*** Graphical UI Toggles
+** GUI Toggles
 Some graphical UI indicators can be toggled on and off (toggles start with ~t~
 and ~T~):
 
@@ -1010,14 +1011,7 @@ If it is set to =relative=, line numbers are show in a relative way:
 (setq-default dotspacemacs-line-numbers 'relative)
 #+END_SRC
 
-*** Mouse usage
-There are some added mouse features set for the line number margin (if shown):
-
--  single click in line number margin visually selects the entire line
--  drag across line number margin visually selects the region
--  double click in line number margin visually select the current code block
-
-*** Mode-line
+** Mode-line
 The mode line is a heavily customized [[https://github.com/milkypostman/powerline][powerline]] with the following capabilities:
   - show the window number
   - color code for current state
@@ -1175,6 +1169,160 @@ right hand side variables.
 
 Please see the Spaceline documentation for more information.
 
+* Layouts and workspaces
+Layouts are window configurations with buffer isolation, each layout can define
+several workspaces (think of them as sub-layouts) sharing the same list of
+buffers as their parent layout.
+
+** Layouts
+A layout is a window configuration associated with a list of buffers. The list
+of buffers can be an arbitrarily chosen set of buffers. Spacemacs provides
+some facilities to create meaningful sets of buffers, for instance the buffers
+related to a projectile project.
+
+The name of the current layout appears in the mode-line at the far left (first
+element of the mode-line).
+
+To create a new layout type a layout number that does not exist yet.
+For instance if you have two layouts currently then type ~SPC l 3~ to create a
+third layout.
+
+*** The default layout
+The =default= layout (the layout created at the startup of Emacs) is not
+displayed in the mode-line but it is possible to display it by setting the
+variable =dotspacemacs-display-default-layout= to =t=.
+
+Its name is "default" by default but it can be changed by setting the variable
+=dotspacemacs-default-layout-name=.
+
+The =default= layout is special because it has a global scope which means that
+all the opened buffers belong to it. So using only the =default= layout feels
+like not using layouts at all.
+
+*** Project layouts
+A project layout is bound to a projectile project. To create a project layout
+use ~SPC p l~.
+
+The name of the layout is the name of the project root directory.
+
+*** Custom Layouts
+Custom layouts can be defined using the macro ~spacemacs|define-custom-layout~,
+they are accessible via ~SPC l o~.
+
+By convention the name of a custom layout should start with =@=.
+
+Example of custom layout definition for =ERC= buffers:
+
+#+BEGIN_SRC emacs-lisp
+  (spacemacs|define-custom-layout "@ERC"
+    :binding "E"
+    :body
+    (progn
+      ;; hook to add all ERC buffers to the layout
+      (defun spacemacs-layouts/add-erc-buffer-to-persp ()
+        (persp-add-buffer (current-buffer)
+                          (persp-get-by-name
+                           erc-spacemacs-layout-name)))
+      (add-hook 'erc-mode-hook #'spacemacs-layouts/add-erc-buffer-to-persp)
+      ;; Start ERC
+      (call-interactively 'erc)))
+#+END_SRC
+
+Then use ~SPC l o E~ to start ERC inside its own layout. Any new ERC buffer
+will be part of the custom layout.
+
+Some custom layouts that ship with Spacemacs:
+
+| Name       | Key Binding | Description                                                                     |
+|------------+-------------+---------------------------------------------------------------------------------|
+| @Spacemacs | ~e~         | Custom perspective containing all buffers of =~/.emacs.d=                       |
+| @ERC       | ~E~         | Custom perspective containing all ERC buffers (needs the erc layer enabled)     |
+| @RCIRC     | ~i~         | Custom perspective containing all RCIRC buffers (needs the rcirc layer enabled) |
+| @Org       | ~o~         | Custom perspective containing all the =org-agenda= buffers                      |
+
+*** Save/Load layouts into a file
+With ~SPC l s~ and ~SPC l L~ you can save and load layouts to/from a file.
+
+*Note:* By default, Spacemacs will automatically save the layouts under the name
+=persp-auto-save=.
+
+Setting the variable =dotspacemacs-auto-resume-layouts= to =t= will
+automatically resume the last saved layouts.
+
+*** Layout key bindings
+
+| Key Binding       | Description                                                |
+|-------------------+------------------------------------------------------------|
+| ~SPC l~           | activate the transient- state                               |
+| ~?~               | toggle the documentation                                   |
+| ~[1..9, 0]~       | switch to nth layout                                       |
+| ~[C-1..C-9, C-0]~ | switch to nth layout and keep the transient-state active   |
+| ~<tab>~           | switch to the latest layout                                |
+| ~a~               | add a buffer to the current layout                         |
+| ~A~               | add all the buffers from another layout in the current one |
+| ~b~               | select a buffer in the current layout                      |
+| ~d~               | delete the current layout and keep its buffers             |
+| ~D~               | delete the other layouts and keep their buffers            |
+| ~h~               | go to default layout                                       |
+| ~C-h~             | previous layout in list                                    |
+| ~l~               | select/create a layout with helm                           |
+| ~L~               | load layouts from file                                     |
+| ~C-l~             | next layout in list                                        |
+| ~n~               | next layout in list                                        |
+| ~N~               | previous layout in list                                    |
+| ~o~               | open a custom layout                                       |
+| ~p~               | previous layout in list                                    |
+| ~r~               | remove current buffer from layout                          |
+| ~R~               | rename current layout                                      |
+| ~s~               | save layouts                                               |
+| ~t~               | display a buffer without adding it to the current layout   |
+| ~w~               | workspaces transient-state (needs eyebrowse layer enabled) |
+| ~x~               | kill current layout with its buffers                       |
+| ~X~               | kill other layouts with their buffers                      |
+
+** Workspaces
+Workspaces are like sub-layouts, they allow to define multiple layouts into a
+given layout, those layouts share the same buffer as the parent layout.
+
+The currently active workspace number is displayed before the window number,
+for instance "➊|➍" or "1|4" means the fourth window of the first workspace.
+
+At startup, the workspace number 1 is active. Switching to a workspace will
+create it if it does not exist. For instance at startup you can press
+~SPC l w 2~ to create the workspace 2.
+
+The key bindings are registered in a transient-state. The docstring of the
+transient-state displays the existing workspaces and the currently active
+workspace has square brackets. Pressing a workspace number will activate it (or
+create a new one) and exit the transient-state. It is possible to just preview a
+workspace with ~Ctrl-<number>~. Pressing ~TAB~ will activate the previously
+selected workspace. It is also possible to give a label to the current workspace
+by pressing ~r~.
+
+*** Workspace key bindings
+Global key bindings:
+
+| Key Binding | Description                          |
+|-------------+--------------------------------------|
+| ~gt~        | go to next workspace                 |
+| ~gT~        | got to previous workspace            |
+| ~SPC b W~   | go to workspace and window by buffer |
+
+Transient state key bindings:
+
+| Key Binding       | Description                                                 |
+|-------------------+-------------------------------------------------------------|
+| ~SPC l w~         | activate the transient-state                                |
+| ~?~               | toggle the documentation                                    |
+| ~[1..9, 0]~       | switch to nth workspace                                     |
+| ~[C-1..C-9, C-0]~ | switch to nth workspace and keep the transient-state active |
+| ~TAB~             | switch to last active workspace                             |
+| ~d~               | close current workspace                                     |
+| ~n~ or ~l~        | switch to next workspace                                    |
+| ~N~ or ~p~ or ~h~ | switch to previous workspace                                |
+| ~R~               | set a tag to the current workspace                          |
+| ~w~               | switched to tagged workspace                                |
+
 * Commands
 ** Vim key bindings
 Spacemacs is based on =Vim= modal user interface to navigate and edit text. If
@@ -1228,7 +1376,6 @@ state= to press quickly ~jj~ and inadvertently escape to =normal state=.
 
 The emacs command key ~SPC~ (executed after the leader key) can be changed
 with the variable =dotspacemacs-emacs-command-key= of your =~/.spacemacs=.
-
 
 *** Leader key
 On top of =Vim= modes (modes are called states in Spacemacs) there is a
@@ -2624,6 +2771,13 @@ These commands automatically switch to =lisp state=.
 | ~SPC m h h~ | describe elisp thing at point (show documentation) |
 | ~SPC m t b~ | execute buffer tests                               |
 | ~SPC m t q~ | ask for test function to execute                   |
+
+*** Mouse usage
+There are some added mouse features set for the line number margin (if shown):
+
+- single click in line number margin visually selects the entire line
+- drag across line number margin visually selects the region
+- double click in line number margin visually select the current code block
 
 ** Managing projects
 Projects in Spacemacs are managed with [[https://github.com/bbatsov/projectile][projectile]]. In =projectile= projects
