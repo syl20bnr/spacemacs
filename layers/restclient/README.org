@@ -22,6 +22,7 @@ file.
 
 | Key Binding | Description                                                 |
 |-------------+-------------------------------------------------------------|
+| ~SPC a h~   | Switch to a new buffer in restclient-mode                   |
 | ~SPC m s~   | Send and stay in window (pretty-print response if possible) |
 | ~SPC m S~   | Send and switch window (pretty-print response if possible)  |
 | ~SPC m r~   | Send and stay in window (do not attempt to pretty-print)    |
