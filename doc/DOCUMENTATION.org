@@ -1250,10 +1250,18 @@ Setting the variable =dotspacemacs-auto-resume-layouts= to =t= will
 automatically resume the last saved layouts.
 
 *** Layout key bindings
+The key bindings are registered in a transient-state. The docstring of the
+transient-state displays the existing layouts and the currently active
+layout has square brackets. Pressing a layout number will activate it (or
+create a new one) and exit the transient-state. It is possible to just preview a
+layout with ~Ctrl-<number>~. Pressing ~TAB~ will activate the previously
+selected layout.
+
+Press ~?~ to toggle the full help.
 
 | Key Binding       | Description                                                |
 |-------------------+------------------------------------------------------------|
-| ~SPC l~           | activate the transient- state                               |
+| ~SPC l~           | activate the transient- state                              |
 | ~?~               | toggle the documentation                                   |
 | ~[1..9, 0]~       | switch to nth layout                                       |
 | ~[C-1..C-9, C-0]~ | switch to nth layout and keep the transient-state active   |
@@ -1281,34 +1289,30 @@ automatically resume the last saved layouts.
 | ~X~               | kill other layouts with their buffers                      |
 
 ** Workspaces
-Workspaces are like sub-layouts, they allow to define multiple layouts into a
-given layout, those layouts share the same buffer as the parent layout.
+Workspaces are sub-layouts, they allow to define multiple layouts into a given
+layout, those layouts share the same buffer as the parent layout.
 
 The currently active workspace number is displayed before the window number,
 for instance "➊|➍" or "1|4" means the fourth window of the first workspace.
 
-At startup, the workspace number 1 is active. Switching to a workspace will
-create it if it does not exist. For instance at startup you can press
-~SPC l w 2~ to create the workspace 2.
+Any new layout comes with a default workspace which is the workspace 1.
 
+Switching to a workspace that does not exist in the current layout will create a
+new one. For instance at startup you can press ~SPC l w 2~ to create the
+workspace 2 in the =default= layout.
+
+When created a workspace is anonymous, you can give them a name with
+~SPC l w R~.
+
+*** Workspace key bindings
 The key bindings are registered in a transient-state. The docstring of the
 transient-state displays the existing workspaces and the currently active
 workspace has square brackets. Pressing a workspace number will activate it (or
 create a new one) and exit the transient-state. It is possible to just preview a
 workspace with ~Ctrl-<number>~. Pressing ~TAB~ will activate the previously
-selected workspace. It is also possible to give a label to the current workspace
-by pressing ~r~.
+selected workspace.
 
-*** Workspace key bindings
-Global key bindings:
-
-| Key Binding | Description                          |
-|-------------+--------------------------------------|
-| ~gt~        | go to next workspace                 |
-| ~gT~        | got to previous workspace            |
-| ~SPC b W~   | go to workspace and window by buffer |
-
-Transient state key bindings:
+Press ~?~ to toggle the full help.
 
 | Key Binding       | Description                                                 |
 |-------------------+-------------------------------------------------------------|
@@ -1322,6 +1326,14 @@ Transient state key bindings:
 | ~N~ or ~p~ or ~h~ | switch to previous workspace                                |
 | ~R~               | set a tag to the current workspace                          |
 | ~w~               | switched to tagged workspace                                |
+
+There are also some handy globally available key bindings related to workspaces:
+
+| Key Binding | Description                          |
+|-------------+--------------------------------------|
+| ~gt~        | go to next workspace                 |
+| ~gT~        | got to previous workspace            |
+| ~SPC b W~   | go to workspace and window by buffer |
 
 * Commands
 ** Vim key bindings
