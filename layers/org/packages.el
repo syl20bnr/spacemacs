@@ -273,7 +273,8 @@ Will work on both org-mode and any mode that accepts plain html."
       (define-key global-map "\C-cc" 'org-capture))
     :config
     (progn
-      (setq org-default-notes-file "notes.org")
+      (unless (spacemacs/check-for-customized 'org-default-notes-file)
+          (setq org-default-notes-file "notes.org"))
       (font-lock-add-keywords
        'org-mode '(("\\(@@html:<kbd>@@\\) \\(.*\\) \\(@@html:</kbd>@@\\)"
                     (1 font-lock-comment-face prepend)
