@@ -87,6 +87,7 @@
     (spacemacs/declare-prefix-for-mode mode "me" "eval")
     (spacemacs/declare-prefix-for-mode mode "mt" "tests")
     (spacemacs/set-leader-keys-for-major-mode mode
+      ","  'lisp-state-toggle-lisp-state
       "cc" 'emacs-lisp-byte-compile
       "e$" 'lisp-state-eval-sexp-end-of-line
       "eb" 'eval-buffer
@@ -94,7 +95,6 @@
       "er" 'eval-region
       "ef" 'eval-defun
       "el" 'lisp-state-eval-sexp-end-of-line
-      ","  'lisp-state-toggle-lisp-state
       "tb" 'spacemacs/ert-run-tests-buffer
       "tq" 'ert))
   ;; company support

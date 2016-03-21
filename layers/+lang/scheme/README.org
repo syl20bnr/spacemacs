@@ -5,7 +5,7 @@
  - [[Description][Description]]
  - [[Install][Install]]
  - [[Key Bindings][Key Bindings]]
-   - [[Compiling ][Compiling ]]
+   - [[Compiling][Compiling]]
    - [[Navigation][Navigation]]
    - [[Documentation][Documentation]]
    - [[Insertion][Insertion]]
@@ -35,7 +35,12 @@ For full Chicken support, the following commands should be run:
 
 * Key Bindings
 
-** Compiling 
+| Key Binding | Description       |
+|-------------+-------------------|
+| ~SPC m ,~   | toggle Lisp state |
+| ~, ,~       | toggle Lisp state |
+
+** Compiling
 
 | Key Binding | Description                |
 |-------------+----------------------------|
