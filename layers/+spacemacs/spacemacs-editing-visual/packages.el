@@ -14,6 +14,7 @@
         ;; default
         adaptive-wrap
         auto-highlight-symbol
+        column-enforce-mode
         highlight-indentation
         highlight-numbers
         highlight-parentheses
@@ -267,6 +268,28 @@
         (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
         (spacemacs/symbol-highlight-transient-state/body)
         (spacemacs/integrate-evil-search nil)))))
+
+(defun spacemacs-editing-visual/init-column-enforce-mode ()
+  (use-package column-enforce-mode
+    :defer t
+    :init
+    (progn
+      ;; TODO Ideally find a way to define the minimum length for long lines
+      ;; We may add support for the universal prefix argument in toggles to
+      ;; be able to do this.
+      (spacemacs|add-toggle long-lines
+        :status column-enforce-mode
+        :on (column-enforce-mode)
+        :off (column-enforce-mode -1)
+        :documentation "Highlight the characters past the 80th column."
+        :evil-leader "t8")
+      (spacemacs|add-toggle long-lines-globally
+        :status column-enforce-mode
+        :on (global-column-enforce-mode)
+        :off (global-column-enforce-mode -1)
+        :documentation "Globally Highlight the characters past the 80th column."
+        :evil-leader "t C-8"))
+    :config (spacemacs|diminish column-enforce-mode "⑧" "8")))
 
 (defun spacemacs-editing-visual/init-highlight-indentation ()
   (use-package highlight-indentation
