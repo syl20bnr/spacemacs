@@ -52,10 +52,9 @@ The default shell is quickly accessible via a the default shortcut key ~SPC '​
 
 ** Default shell position and height
 It is possible to choose where the shell should pop up by setting the variable
-=shell-default-position= to either =top=, =bottom= or =full=. It is not possible
-to show it on the side for now. Default value is =bottom=. It is also possible
-to set the default height in percents with the variable =shell-default-height=.
-Default value is =30=.
+=shell-default-position= to either =top=, =bottom=, =left=, =right=, or =full=.
+Default value is =bottom=. It is also possible to set the default height in
+percents with the variable =shell-default-height=. Default value is =30=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers

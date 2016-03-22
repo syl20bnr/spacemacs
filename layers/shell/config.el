@@ -28,7 +28,8 @@
 `term' and `ansi-term'.")
 
 (defvar shell-default-position 'bottom
-  "Position of the shell. Possible values are `top', `bottom' and `full'.")
+  "Position of the shell. Possible values are `top', `bottom', `full',
+`left' and `right'.")
 
 (defvar shell-default-height 30
   "Height in percents for the shell window.")
