@@ -58,11 +58,11 @@
       (setq avy-all-windows 'all-frames)
       (setq avy-background t)
       (spacemacs/set-leader-keys
+        "jb" 'avy-pop-mark
         "jj" 'evil-avy-goto-char
         "jJ" 'evil-avy-goto-char-2
         "jl" 'evil-avy-goto-line
-        "ju" 'avy-pop-mark
-        "jU" 'spacemacs/avy-goto-url
+        "ju" 'spacemacs/avy-goto-url
         "jw" 'evil-avy-goto-word-or-subword-1
         "xo" 'spacemacs/avy-open-url))
     :config

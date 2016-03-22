@@ -110,7 +110,7 @@ This file containes the change log for the next major version of Spacemacs.
     location in the line)
   - ~SPC j $~ to go to the end of line (and set a mark at the previous location
     in the line)
-  - ~SPC j b~ to jump to a bookmark
+  - ~SPC j b~ to undo a jump (go back to previous location)
   - ~SPC j d~ to jump to a listing of the current directory
   - ~SPC j D~ to jump to a listing of the current directory (other window)
   - ~SPC j f~ to jump to the definition of the function around point
@@ -123,8 +123,7 @@ This file containes the change log for the next major version of Spacemacs.
   - ~SPC j n~ to split the current line at point, insert a new line and auto-indent
   - ~SPC j s~ to split a quoted string or s-expression in place
   - ~SPC j S~ to split a quoted string or s-expression, insert a new line and auto-indent
-  - ~SPC j u~ to undo a jump (go back to previous location)
-  - ~SPC j U~ to jump to a URL in the current buffer
+  - ~SPC j u~ to jump to a URL in the current buffer
   - ~SPC j v~ to jump to the definition/declaration of the variable around point
   - ~SPC j w~ to jump to a word in the current buffer (works as an evil motion)
   (thanks to justbur)
