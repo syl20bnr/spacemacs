@@ -15,12 +15,15 @@
 (defun ranger/init-ranger ()
   (use-package ranger
     :defer t
+    :commands (ranger deer ranger-override-dired-fn)
     :init
     (progn
       (spacemacs/set-leader-keys
         "ar" 'ranger
         "ad" 'deer)
-
+      ;; need to apply this to compensate for defer
+      (when ranger-override-dired
+        (add-hook 'dired-mode-hook #'ranger-override-dired-fn))
       ;; set up image-dired to allow picture resize
       (setq image-dired-dir (concat spacemacs-cache-directory "image-dir"))
       (unless (file-directory-p image-dired-dir)
