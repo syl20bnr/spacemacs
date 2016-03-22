@@ -18,7 +18,7 @@
 (defun windows-scripts/init-dos ()
   (use-package dos
     :commands dos-mode
-    :mode ("\\.bat$" . dos-mode)
+    :mode ("\\.bat\\'" . dos-mode)
     :init
     (progn
       (defun windows-scripts/dos-outline-hook ()
@@ -45,7 +45,7 @@
 
 (defun windows-scripts/init-powershell ()
   (use-package powershell
-    :mode ("\\.ps1$" . powershell-mode)
+    :mode ("\\.ps1\\'" . powershell-mode)
     :defer t
     :init
     (progn

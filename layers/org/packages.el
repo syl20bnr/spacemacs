@@ -85,7 +85,7 @@
 
 (defun org/init-org ()
   (use-package org
-    :mode ("\\.org$" . org-mode)
+    :mode ("\\.org\\'" . org-mode)
     :commands (org-clock-out org-occur-in-agenda-files org-agenda-files)
     :defer t
     :init

@@ -15,7 +15,7 @@
 (defun pdf-tools/init-pdf-tools ()
   (use-package pdf-tools
     :defer t
-    :mode (("\\.pdf$" . pdf-view-mode))
+    :mode (("\\.pdf\\'" . pdf-view-mode))
     :config
     (progn
       (pdf-tools-install)
