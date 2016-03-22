@@ -271,20 +271,20 @@
 
 (defun spacemacs-editing-visual/init-column-enforce-mode ()
   (use-package column-enforce-mode
-    :defer t
+    :commands (column-enforce-mode global-column-enforce-mode)
     :init
     (progn
       ;; TODO Ideally find a way to define the minimum length for long lines
       ;; We may add support for the universal prefix argument in toggles to
       ;; be able to do this.
-      (spacemacs|add-toggle long-lines
+      (spacemacs|add-toggle highlight-long-lines
         :status column-enforce-mode
         :on (column-enforce-mode)
         :off (column-enforce-mode -1)
         :documentation "Highlight the characters past the 80th column."
         :evil-leader "t8")
-      (spacemacs|add-toggle long-lines-globally
-        :status column-enforce-mode
+      (spacemacs|add-toggle highlight-long-lines-globally
+        :status global-column-enforce-mode
         :on (global-column-enforce-mode)
         :off (global-column-enforce-mode -1)
         :documentation "Globally Highlight the characters past the 80th column."
