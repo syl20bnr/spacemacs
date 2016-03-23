@@ -20,7 +20,8 @@
     gnuplot
     htmlize
     mu4e
-    ;; org and org-agenda are installed by `org-plus-contrib'
+    ;; ob, org and org-agenda are installed by `org-plus-contrib'
+    (ob :location built-in)
     (org :location built-in)
     (org-agenda :location built-in)
     (org-plus-contrib :step pre)
@@ -82,6 +83,17 @@
 
 ;; dummy init function to force installation of `org-plus-contrib'
 (defun org/init-org-plus-contrib ())
+
+(defun org/init-ob ()
+  (use-package ob
+    :defer t
+    :init
+    (progn
+      (defun spacemacs//org-babel-do-load-languages ()
+        "Load all the languages declared in `org-babel-load-languages'."
+        (org-babel-do-load-languages 'org-babel-load-languages
+                                     org-babel-load-languages))
+      (add-hook 'org-mode-hook 'spacemacs//org-babel-do-load-languages))))
 
 (defun org/init-org ()
   (use-package org
@@ -287,29 +299,38 @@ Will work on both org-mode and any mode that accepts plain html."
       ;; `dotspacemacs-major-mode-emacs-leader-key' to `C-c' and the key binding
       ;; C-c ' is shadowed by `spacemacs/default-pop-shell', effectively making
       ;; the Emacs user unable to exit src block editing.
-      (define-key org-src-mode-map (kbd (concat dotspacemacs-major-mode-emacs-leader-key " '")) 'org-edit-src-exit)
+      (define-key org-src-mode-map
+        (kbd (concat dotspacemacs-major-mode-emacs-leader-key " '"))
+        'org-edit-src-exit)
 
-      (spacemacs/set-leader-keys
-        "Cc" 'org-capture)
+      (spacemacs/set-leader-keys "Cc" 'org-capture)
 
       ;; Evilify the calendar tool on C-c .
       (unless (eq 'emacs dotspacemacs-editing-style)
         (define-key org-read-date-minibuffer-local-map (kbd "M-h")
-          (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-day 1))))
+          (lambda () (interactive)
+            (org-eval-in-calendar '(calendar-backward-day 1))))
         (define-key org-read-date-minibuffer-local-map (kbd "M-l")
-          (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-day 1))))
+          (lambda () (interactive)
+            (org-eval-in-calendar '(calendar-forward-day 1))))
         (define-key org-read-date-minibuffer-local-map (kbd "M-k")
-          (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-week 1))))
+          (lambda () (interactive)
+            (org-eval-in-calendar '(calendar-backward-week 1))))
         (define-key org-read-date-minibuffer-local-map (kbd "M-j")
-          (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-week 1))))
+          (lambda () (interactive)
+            (org-eval-in-calendar '(calendar-forward-week 1))))
         (define-key org-read-date-minibuffer-local-map (kbd "M-H")
-          (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-month 1))))
+          (lambda () (interactive)
+            (org-eval-in-calendar '(calendar-backward-month 1))))
         (define-key org-read-date-minibuffer-local-map (kbd "M-L")
-          (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-month 1))))
+          (lambda () (interactive)
+            (org-eval-in-calendar '(calendar-forward-month 1))))
         (define-key org-read-date-minibuffer-local-map (kbd "M-K")
-          (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-year 1))))
+          (lambda () (interactive)
+            (org-eval-in-calendar '(calendar-backward-year 1))))
         (define-key org-read-date-minibuffer-local-map (kbd "M-J")
-          (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-year 1))))))))
+          (lambda () (interactive)
+            (org-eval-in-calendar '(calendar-forward-year 1))))))))
 
 (defun org/init-org-agenda ()
   (use-package org-agenda
