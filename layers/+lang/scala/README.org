@@ -2,29 +2,30 @@
 
 [[file:img/scala.png]] with [[file:img/ensime.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#layer-installation][Layer Installation]]
- - [[#ensime][Ensime]]
-   - [[#installation][Installation]]
-   - [[#usage][Usage]]
- - [[#scalastyle][Scalastyle]]
- - [[#automatically-show-the-type-of-the-symbol-under-the-cursor][Automatically show the type of the symbol under the cursor]]
- - [[#automatically-insert-asterisk-in-multiline-comments][Automatically insert asterisk in multiline comments]]
- - [[#automatically-replace-arrows-with-unicode-ones][Automatically replace arrows with unicode ones]]
- - [[#key-bindings][Key bindings]]
-   - [[#ensime-key-bindings][Ensime key bindings]]
-     - [[#search][Search]]
-     - [[#sbt][sbt]]
-     - [[#typecheck][Typecheck]]
-     - [[#debug][Debug]]
-     - [[#errors][Errors]]
-     - [[#goto][Goto]]
-     - [[#documentation-inspect][Documentation, Inspect]]
-     - [[#server][Server]]
-     - [[#refactoring][Refactoring]]
-     - [[#tests][Tests]]
-     - [[#repl][REPL]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Layer Installation][Layer Installation]]
+ - [[Ensime][Ensime]]
+   - [[Installation][Installation]]
+   - [[Usage][Usage]]
+ - [[Scalastyle][Scalastyle]]
+ - [[Automatically show the type of the symbol under the cursor][Automatically show the type of the symbol under the cursor]]
+ - [[Automatically insert asterisk in multiline comments][Automatically insert asterisk in multiline comments]]
+ - [[Automatically replace arrows with unicode ones][Automatically replace arrows with unicode ones]]
+ - [[Disable auto-start][Disable auto-start]]
+ - [[Key bindings][Key bindings]]
+   - [[Ensime key bindings][Ensime key bindings]]
+     - [[Search][Search]]
+     - [[sbt][sbt]]
+     - [[Typecheck][Typecheck]]
+     - [[Debug][Debug]]
+     - [[Errors][Errors]]
+     - [[Goto][Goto]]
+     - [[Documentation, Inspect][Documentation, Inspect]]
+     - [[Server][Server]]
+     - [[Refactoring][Refactoring]]
+     - [[Tests][Tests]]
+     - [[REPL][REPL]]
 
 * Description
 
@@ -115,6 +116,15 @@ the ascii arrows back.
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (scala :variables scala-use-unicode-arrows t)))
+
+* Disable auto-start
+
+If you prefer not to have Ensime start when you load a scala file, you can
+disable it with
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(
+    (scala :variables scala-auto-start-ensime nil)))
 #+END_SRC
 
 * Key bindings
