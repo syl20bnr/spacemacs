@@ -79,6 +79,20 @@ In the gist list buffer:
 | ~V~         | =visual-line state=          |
 | ~y~         | print URL and copy it        |
 
+In-place edition. While viewing a gist file buffer, you can:
+
+| Key Binding | Description                    |
+|-------------+--------------------------------|
+| C-x C-s     | save a new version of the gist |
+| C-x C-w     | rename some file               |
+|             |                                |
+
+Dired integration. From a dired buffer, you can:
+
+| Key Binding | Description                                                      |
+|-------------+------------------------------------------------------------------|
+| @           | make a gist out of marked files (with a prefix, make it private) |
+
 ** Clone repositories
 
 | Key Binding   | Description                          |
