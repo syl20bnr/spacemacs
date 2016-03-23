@@ -27,7 +27,8 @@
         (add-hook 'ensime-mode-hook 'scala/enable-eldoc))
       (add-hook 'scala-mode-hook 'scala/configure-flyspell)
       (add-hook 'scala-mode-hook 'scala/configure-ensime)
-      (add-hook 'scala-mode-hook 'scala/maybe-start-ensime))
+      (when scala-auto-start-ensime
+        (add-hook 'scala-mode-hook 'scala/maybe-start-ensime)))
     :config
     (progn
       (setq user-emacs-ensime-directory ".cache/ensime")
