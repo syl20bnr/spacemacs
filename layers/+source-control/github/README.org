@@ -85,7 +85,6 @@ In-place edition. While viewing a gist file buffer, you can:
 |-------------+--------------------------------|
 | C-x C-s     | save a new version of the gist |
 | C-x C-w     | rename some file               |
-|             |                                |
 
 Dired integration. From a dired buffer, you can:
 
