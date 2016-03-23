@@ -9,25 +9,19 @@
 ;;
 ;;; License: GPLv3
 
-;;; Commentary:
+(defconst plantuml-packages
+  '(org
+    puml-mode))
 
-;;; Code:
+(defun plantuml/post-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(plantuml . t))))
 
 (defun plantuml/init-puml-mode ()
   (use-package puml-mode
     :defer t
     :mode ("\\.pum$" . puml-mode)
-
     :config (spacemacs/set-leader-keys-for-major-mode 'puml-mode
               "cc" 'puml-preview
               "co" 'puml-set-output-type)))
 
-(defun plantuml/post-init-org ()
-  (spacemacs|use-package-add-hook org
-    :post-config
-    (when (boundp 'org-plantuml-jar-path)
-      (org-babel-do-load-languages
-       'org-babel-load-languages
-       '((plantuml . t))))))
-
-;;; packages.el ends here
