@@ -54,6 +54,7 @@
         (define-key map "G"   'end-of-buffer)
         (define-key map "i"   'twittering-view-user-page)
         (define-key map "Q"   'twittering-kill-buffer)
+        (define-key map "I"   'twittering-icon-mode)
         (define-key map "j"   'twittering-goto-next-status)
         (define-key map "J"   'twittering-goto-next-status-of-user)
         (define-key map "k"   'twittering-goto-previous-status)
@@ -78,7 +79,7 @@
  [_b_]^^   heart          [_n_] post new tweet  [_F_]^^ unfollow        [_Q_] quit twitter
  [_B_]^^   unheart        [_t_] show thread     [_i_]^^ profile         [_u_] update
  [_e_]^^   edit mode      [_X_] delete tweet    [_J_/_K_] down/up       [_/_] search
- [_g_]^^   first          [_y_] yank url
+ [_g_]^^   first          [_y_] yank url        ^^^^                    [_I_] toggle images
  [_G_]^^   last           [_Y_] yank tweet
  [_o_]^^   open url"
         :bindings
@@ -97,6 +98,7 @@
         ("i"          twittering-view-user-page)
         ("q"          nil :exit t)
         ("Q"          twittering-kill-buffer :exit t)
+        ("I"          twittering-icon-mode)
         ("j"          twittering-goto-next-status)
         ("J"          twittering-goto-next-status-of-user)
         ("k"          twittering-goto-previous-status)
