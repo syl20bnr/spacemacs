@@ -19,7 +19,7 @@
     :defer t
     :init
     (progn
-      (evil-leader/set-key "at" 'twit)
+      (spacemacs/set-leader-keys "at" 'twit)
       (setq twittering-initial-timeline-spec-string '(":home")
             twittering-icon-mode t
             twittering-use-icon-storage 1
