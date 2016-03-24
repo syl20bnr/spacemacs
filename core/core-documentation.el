@@ -17,8 +17,10 @@
 (defvar spacemacs--category-names
   '(("config-files" . "Configuration files")
     ("email" . "E-mail")
-    ("irc" . "IRC")
-    ("lang" . "Programming and markup languages"))
+    ("intl" . "International support")
+    ("lang" . "Programming and markup languages")
+    ("os" . "Operating systems")
+    ("spacemacs" . "Spacemacs distribution layers"))
   "Special names for categories. Used to generate the layers list.")
 
 (defun spacemacs//generate-layers-from-path (path level)
