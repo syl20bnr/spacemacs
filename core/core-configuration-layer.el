@@ -8,10 +8,6 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-;;
-;;; Commentary:
-;;
-;;; Code:
 
 (require 'cl-lib)
 (require 'eieio)
@@ -281,26 +277,40 @@ refreshed during the current session."
       (package-read-all-archive-contents)
       (unless quiet (spacemacs-buffer/append "\n")))))
 
-(defun configuration-layer/sync ()
-  "Synchronize declared layers in dotfile with spacemacs."
+(defun configuration-layer/sync (&optional no-install)
+  "Synchronize declared layers in dotfile with spacemacs.
+If NO-INSTALL is non nil then install steps are skipped."
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
   (when (spacemacs-buffer//choose-banner)
     (spacemacs-buffer//inject-version t))
   ;; layers
   (setq configuration-layer--layers (configuration-layer//declare-layers))
   (configuration-layer//configure-layers configuration-layer--layers)
+  (when dotspacemacs-enable-lazy-installation
+    (configuration-layer/load-auto-layer-file))
   ;; packages
   (setq configuration-layer--packages (configuration-layer//declare-packages
                                       configuration-layer--layers))
   (setq configuration-layer--used-distant-packages
         (configuration-layer//get-distant-used-packages
          configuration-layer--packages))
-  (configuration-layer//install-packages
-   (configuration-layer/filter-objects configuration-layer--used-distant-packages
-                                       (lambda (x) (not (oref x :lazy-install)))))
-  (configuration-layer//configure-packages configuration-layer--packages)
-  (when dotspacemacs-delete-orphan-packages
-    (configuration-layer/delete-orphan-packages configuration-layer--packages)))
+  (unless no-install
+    (configuration-layer//install-packages
+     (configuration-layer/filter-objects
+      configuration-layer--used-distant-packages
+      (lambda (x)
+        (not (oref x :lazy-install)))))
+    (configuration-layer//configure-packages configuration-layer--packages)
+    (when dotspacemacs-delete-orphan-packages
+      (configuration-layer/delete-orphan-packages
+       configuration-layer--packages))))
+
+(defun configuration-layer/load-auto-layer-file ()
+  "Load `auto-layer.el' file"
+  (let ((file (concat configuration-layer-directory "auto-layer.el")))
+    (when (file-exists-p file)
+      (spacemacs-buffer/message "Loading auto-layer file...")
+      (load-file file))))
 
 (defun configuration-layer/create-layer ()
   "Ask the user for a configuration layer name and the layer
@@ -657,23 +667,24 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
 (defun configuration-layer/lazy-install (layer-name &rest props)
   "Configure auto-installation of layer with name LAYER-NAME."
   (declare (indent 1))
-  (when dotspacemacs-enable-lazy-installation
-    (let ((layer (object-assoc layer-name :name configuration-layer--layers))
-          (extensions (spacemacs/mplist-get props :extensions)))
-      (oset layer :lazy-install t)
-      (dolist (x extensions)
-        (let ((ext (car x))
-              (mode (cadr x)))
-          (add-to-list 'configuration-layer--lazy-mode-alist (cons mode ext))
-          (add-to-list
-           'auto-mode-alist
-           `(,ext . (lambda ()
-                      (configuration-layer//auto-mode
-                       ',layer-name ',mode)))))))))
+  (let ((extensions (spacemacs/mplist-get props :extensions)))
+    (when (configuration-layer/layer-usedp layer-name)
+      (let ((layer (object-assoc layer-name
+                                 :name configuration-layer--layers)))
+        (oset layer :lazy-install t)))
+    (dolist (x extensions)
+      (let ((ext (car x))
+            (mode (cadr x)))
+        (add-to-list 'configuration-layer--lazy-mode-alist (cons mode ext))
+        (add-to-list
+         'auto-mode-alist
+         `(,ext . (lambda ()
+                    (configuration-layer//auto-mode
+                     ',layer-name ',mode))))))))
 
 (defun configuration-layer//auto-mode (layer-name mode)
   "Auto mode support of lazily installed layers."
-  (when (configuration-layer//lazy-install-packages layer-name)
+  (when (configuration-layer//lazy-install-packages layer-name mode)
     (funcall mode)))
 
 (defun configuration-layer/filter-objects (objects ffunc)
@@ -959,24 +970,32 @@ path."
           (format (concat "\nAn error occurred while installing %s "
                           "(error: %s)\n") pkg-name err)))))))
 
-(defun configuration-layer//lazy-install-packages (layer-name)
-  "Install packages of a lazily installed layer.
+(defun configuration-layer//lazy-install-p (layer-name)
+  "Return non nil if the layer with LAYER-NAME should be lazy installed."
+  (or (not (memq layer-name configuration-layer--layers))
+      (let ((layer (object-assoc layer-name :name configuration-layer--layers)))
+        (oref layer :lazy-install))))
+
+(defun configuration-layer//lazy-install-packages (layer-name mode)
+  "Install layer with LAYER-NAME to support MODE.
 Returns non-nil if the packages have been installed."
-  (let* ((layer (object-assoc layer-name :name configuration-layer--layers))
-         (packages (delq nil (mapcar (lambda (x)
-                                       (object-assoc
-                                        x :name configuration-layer--packages))
-                                     (oref layer :packages))))
-         (pkg-count (length packages)))
-    (when (and (oref layer :lazy-install)
-               (yes-or-no-p (format
-                             (concat "Support for %s requires installation of "
-                                     "%s package(s), do you want to install?")
-                             layer-name pkg-count)))
+  (when (and (configuration-layer//lazy-install-p layer-name)
+             (yes-or-no-p (format
+                           (concat "Support for %s requires installation of "
+                                   "layer %s, do you want to install it?")
+                           mode layer-name)))
+    (when (dotspacemacs/add-layer layer-name)
+      (configuration-layer/sync 'no-install))
+    (let* ((layer (object-assoc layer-name :name configuration-layer--layers))
+           (packages (delq nil
+                           (mapcar (lambda (x)
+                                     (object-assoc
+                                      x :name configuration-layer--packages))
+                                   (oref layer :packages)))))
       (configuration-layer//install-packages packages)
       (configuration-layer//configure-packages packages)
       (oset layer :lazy-install nil))
-    (not (oref layer :lazy-install))))
+    t))
 
 (defun configuration-layer//install-packages (packages)
   "Install PACKAGES which are not lazy installed."
@@ -1574,28 +1593,32 @@ to select one."
           (when ext (push (cons mode ext) result)))))
     result))
 
-(defun configuration-layer//insert-lazy-install-form (mode ext)
+(defun configuration-layer//insert-lazy-install-form (layer-name mode ext)
   "Insert a configuration form for lazy installation of MODE."
   (let ((str (concat "(configuration-layer/lazy-install '"
-                     (symbol-name mode)
+                     (symbol-name layer-name)
                      " :extensions '("
                      (let ((print-quoted t)) (prin1-to-string ext))
+                     " "
+                     (symbol-name mode)
                      "))\n")))
     (insert str)))
 
 (defun configuration-layer/insert-lazy-install-configuration ()
   "Prompt for a layer and insert the forms to configure lazy installation."
   (interactive)
-  (let ((layer-sym
-         (completing-read
-          "Choose a used layer"
-          (sort (object-assoc-list :name configuration-layer--layers)
-                (lambda (x y)
-                  (string< (oref (cdr x) :name) (oref (cdr y) :name)))))))
+  (let ((layer-name
+         (intern (completing-read
+                  "Choose a used layer"
+                  (sort (object-assoc-list :name configuration-layer--layers)
+                        (lambda (x y)
+                          (string< (oref (cdr x) :name)
+                                   (oref (cdr y) :name))))))))
     (let ((mode-exts (configuration-layer//lazy-install-extensions-for-layer
-                      (intern layer-sym))))
+                      layer-name)))
       (dolist (x mode-exts)
-        (configuration-layer//insert-lazy-install-form (car x) (cdr x))))))
+        (configuration-layer//insert-lazy-install-form
+         layer-name (car x) (cdr x))))))
 
 (defun configuration-layer//increment-error-count ()
   "Increment the error counter."
