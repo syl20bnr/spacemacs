@@ -26,6 +26,7 @@
     (spacemacs/set-leader-keys-for-major-mode mode
       "gc" 'helm-gtags-create-tags
       "gd" 'helm-gtags-find-tag
+      "gD" 'helm-gtags-find-tag-other-window
       "gf" 'helm-gtags-select-path
       "gg" 'helm-gtags-dwim
       "gG" 'helm-gtags-dwim-other-window
