@@ -359,13 +359,19 @@
       (add-hook 'python-mode-hook 'py-yapf-enable-on-save))))
 
 (defun python/post-init-semantic ()
-  (semantic/enable-semantic-mode 'python-mode)
-  (defadvice semantic-python-get-system-include-path (around semantic-python-skip-error-advice activate)
+  (add-hook 'python-mode-hook 'semantic-mode)
+
+  (when (configuration-layer/package-usedp 'anaconda-mode)
+    (add-hook 'python-mode-hook (lambda ()  (semantic-idle-summary-mode 0)) t))
+
+
+  (defadvice semantic-python-get-system-include-path
+      (around semantic-python-skip-error-advice activate)
     "Don't cause error when Semantic cannot retrieve include
 paths for Python then prevent the buffer to be switched. This
 issue might be fixed in Emacs 25. Until then, we need it here to
 fix this issue."
-    (condition-case nil
+    (condition-case-unless-debug nil
         ad-do-it
       (error nil))))
 
