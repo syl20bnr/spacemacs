@@ -2,25 +2,26 @@
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
+;; Author: luxbock <opieppo@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
 
-;;; Commentary:
-
-;;; Code:
-
 (defconst graphviz-packages
-  '((graphviz-dot-mode :location (recipe :fetcher github :repo "luxbock/graphviz-dot-mode"))))
+  '((graphviz-dot-mode :location (recipe :fetcher github
+                                         :repo "luxbock/graphviz-dot-mode"))
+    smartparens))
 
 (defun graphviz/init-graphviz-dot-mode ()
   (use-package graphviz-dot-mode
-    :mode (("\\.diag$"      . graphviz-dot-mode)
-           ("\\.blockdiag$" . graphviz-dot-mode)
-           ("\\.nwdiag$"    . graphviz-dot-mode)
-           ("\\.rackdiag$"  . graphviz-dot-mode)
-           ("\\.dot$"       . graphviz-dot-mode)
-           ("\\.gv"         . graphviz-dot-mode))
+    :mode (("\\.diag\\'"      . graphviz-dot-mode)
+           ("\\.blockdiag\\'" . graphviz-dot-mode)
+           ("\\.nwdiag\\'"    . graphviz-dot-mode)
+           ("\\.rackdiag\\'"  . graphviz-dot-mode)
+           ("\\.dot\\'"       . graphviz-dot-mode)
+           ("\\.gv\\'"        . graphviz-dot-mode))
     :config
     (progn
       (spacemacs|add-toggle graphviz-live-reload
@@ -28,11 +29,21 @@
         :on (graphviz-turn-on-live-preview)
         :off (graphviz-turn-off-live-preview)
         :documentation "Enable Graphviz live reload.")
-      (define-key graphviz-dot-mode-map (kbd "M-q") 'graphviz-dot-indent-graph)
       (spacemacs/set-leader-keys-for-major-mode 'graphviz-dot-mode
-        "t" 'spacemacs/toggle-graphviz-live-reload
+        "=" 'graphviz-dot-indent-graph
         "c" 'compile
-        "p" 'graphviz-dot-preview
-        "," 'graphviz-dot-preview))))
+        "t" 'spacemacs/toggle-graphviz-live-reload)
+      (when dotspacemacs-major-mode-emacs-leader-key
+        (spacemacs/set-leader-keys-for-major-mode 'graphviz-dot-mode
+          dotspacemacs-major-mode-emacs-leader-key 'graphviz-dot-preview))
+      (when dotspacemacs-major-mode-leader-key
+        (spacemacs/set-leader-keys-for-major-mode 'graphviz-dot-mode
+          dotspacemacs-major-mode-leader-key 'graphviz-dot-preview)))))
 
-;;; packages.el ends here
+(defun graphviz/post-init-smartparens ()
+  (spacemacs|use-package-add-hook graphviz-dot-mode
+    :post-config
+    (progn
+      ;; allow smartparens to work properly
+      (define-key graphviz-dot-mode-map "{" nil)
+      (define-key graphviz-dot-mode-map "}" nil))))
