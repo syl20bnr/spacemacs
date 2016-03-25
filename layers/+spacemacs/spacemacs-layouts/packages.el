@@ -80,9 +80,9 @@
         ("p" eyebrowse-prev-window-config)
         ("R" spacemacs/workspaces-ts-rename :exit t)
         ("w" eyebrowse-switch-to-window-config :exit t))
-      (spacemacs/set-leader-keys
-        "bW" 'spacemacs/goto-buffer-workspace
-        "lw" 'spacemacs/workspaces-transient-state/body)
+      ;; note: we don't need to declare the `SPC l w' binding, it is
+      ;; declare in the layout transient state
+      (spacemacs/set-leader-keys "bW" 'spacemacs/goto-buffer-workspace)
       ;; hooks
       (add-hook 'persp-before-switch-functions
                 #'spacemacs/update-eyebrowse-for-perspective)
