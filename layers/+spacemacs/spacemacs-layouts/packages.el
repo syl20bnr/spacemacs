@@ -26,9 +26,7 @@
   (use-package eyebrowse
     :init
     (progn
-      (setq eyebrowse-new-workspace #'spacemacs/home-delete-other-windows
-            eyebrowse-wrap-around t)
-      ;; always activate eyebrowse
+      (setq eyebrowse-wrap-around t)
       (eyebrowse-mode)
       ;; transient state
       (spacemacs|transient-state-format-hint workspaces
