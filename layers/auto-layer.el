@@ -25,6 +25,8 @@
 
 ;; csharp
 
+(configuration-layer/lazy-install 'csv :extensions '("\\(\\.[Cc][Ss][Vv]\\'\\)" csv-mode))
+
 (configuration-layer/lazy-install 'd :extensions '("\\(\\.d[i]?\\'\\)" d-mode))
 
 (configuration-layer/lazy-install 'elixir :extensions '("\\.\\(ex\\|exs\\|elixir\\)\\'" elixir-mode))
