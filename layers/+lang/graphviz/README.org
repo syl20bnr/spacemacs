@@ -1,14 +1,12 @@
 #+TITLE: graphviz layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
-#+CAPTION: logo
-
-# The maximum height of the logo should be 200 pixels.
-[[img/graphviz.png]]
+[[file:img/graphviz.png]]
 
 * Table of Contents                                        :TOC_4_org:noexport:
  - [[Description][Description]]
  - [[Install][Install]]
+ - [[Configuration][Configuration]]
  - [[Key bindings][Key bindings]]
 
 * Description
@@ -17,21 +15,20 @@ type work flow for editing `.dot` files. When live-preview is enabled, saving
 the file will automatically trigger a compilation and reload of the image buffer
 associated with the file.
 
-If the live preview is not always updating the rendered image properly, you can
-try to adjust the value of ~graphviz-dot-revert-delay~ higher to give the
-compiler more time to finish generating the file before reverting the buffer.
-
 * Install
-To use this contribution add it to your =~/.spacemacs=
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =graphviz= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
-#+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(graphviz))
-#+end_src
+* Configuration
+If the live preview is not always updating the rendered image properly, you can
+try to adjust the value of =graphviz-dot-revert-delay= higher to give the
+compiler more time to finish generating the file before reverting the buffer.
 
 * Key bindings
 | Key Binding | Description                          |
 |-------------+--------------------------------------|
-| ~<SPC> t~   | Toggle live-preview                  |
-| ~<SPC> c~   | Set compile command and compile file |
-| ~<SPC> p~   | Preview file                         |
-| ~<SPC> ,~   | Preview file                         |
+| ~<SPC> m ,~ | Preview file                         |
+| ~<SPC> m =~ | Indent graph                         |
+| ~<SPC> m t~ | Toggle live-preview                  |
+| ~<SPC> m c~ | Set compile command and compile file |
