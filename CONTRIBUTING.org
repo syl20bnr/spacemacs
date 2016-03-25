@@ -155,7 +155,7 @@ Contributed configuration layers are stored in the =layers/= folder. The
 in. For example a layer for a language would go in the =layers/+lang/= folder.
 
 Layer with no associated configuration will be rejected. For instance a layer
-with just a package and a hook can be easily replace by the usage of the
+with just a package and a hook can be easily replaced by the usage of the
 variable =dotspacemacs-additional-packages=.
 
 *** File header
