@@ -1223,6 +1223,6 @@
   (cl-letf (((symbol-function 'insert) 'identity))
     (should
      (equal
-      (concat "(configuration-layer/lazy-install 'mode "
-              ":extensions '(\"\\\\(\\\\.ext\\\\'\\\\)\"))\n")
-      (configuration-layer//insert-lazy-install-form 'mode "\\(\\.ext\\'\\)")))))
+      (concat "(configuration-layer/lazy-install 'layer "
+              ":extensions '(\"\\\\(\\\\.ext\\\\'\\\\)\" mode))\n")
+      (configuration-layer//insert-lazy-install-form 'layer 'mode "\\(\\.ext\\'\\)")))))
