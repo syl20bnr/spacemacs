@@ -132,6 +132,16 @@ the current state and point position."
   :type 'number
   :group 'spacemacs)
 
+(defcustom spacemacs-large-file-modes-list
+  '(archive-mode tar-mode jka-compr git-commit-mode image-mode
+                 doc-view-mode doc-view-mode-maybe ebrowse-tree-mode
+                 pdf-view-mode)
+  "Major modes which `spacemacs/check-large-file' will not be
+automatically applied to."
+  :group 'spacemacs
+  :type '(list symbol))
+
+
 (defun spacemacs/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
   (interactive)
@@ -324,8 +334,10 @@ argument takes the kindows rotate backwards."
 ;; check when opening large files - literal file open
 (defun spacemacs/check-large-file ()
   (let ((size (nth 7 (file-attributes (buffer-file-name)))))
-    (when (and size (> size (* 1024 1024 dotspacemacs-large-file-size))
-               (y-or-n-p "This is a large file, open literally to avoid performance issues?"))
+    (when (and
+           (not (memq major-mode spacemacs-large-file-modes-list))
+           size (> size (* 1024 1024 dotspacemacs-large-file-size))
+           (y-or-n-p "This is a large file, open literally to avoid performance issues?"))
       (setq buffer-read-only t)
       (buffer-disable-undo)
       (fundamental-mode))))
