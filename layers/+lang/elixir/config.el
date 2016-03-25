@@ -11,8 +11,5 @@
 
 ;; Variables
 
-(configuration-layer/lazy-install 'elixir
-  :extensions '("\\.\\(ex\\|exs\\|elixir\\)\\'" elixir-mode))
-
 (spacemacs|defvar-company-backends elixir-mode)
 (spacemacs|defvar-company-backends alchemist-iex-mode)

@@ -65,7 +65,7 @@ environment, otherwise it is strongly recommended to let it set to t.")
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')")
 
-(defvar dotspacemacs-enable-lazy-installation nil
+(defvar dotspacemacs-enable-lazy-installation t
   "If non-nil layers with lazy install support are lazy installed.")
 
 (defvar dotspacemacs-additional-packages '()
@@ -333,6 +333,21 @@ the symbol of an editing style and the cdr is a list of keyword arguments like
             (spacemacs-buffer/warning "Missing value for variable %s !"
                                       var)))))
     (car config))))
+
+(defun dotspacemacs/add-layer (layer-name)
+  "Add LAYER_NAME to dotfile and reload the it.
+Returns non nil if the layer has been effectively inserted."
+  (unless (configuration-layer/layer-usedp layer-name)
+    (with-current-buffer (find-file-noselect (dotspacemacs/location))
+      (beginning-of-buffer)
+      (let ((insert-point (re-search-forward
+                           "dotspacemacs-configuration-layers *\n?.*\\((\\)")))
+        (insert (format "\n%S" layer-name))
+        (indent-region insert-point (+ insert-point
+                                       (length (symbol-name layer-name))))
+        (save-buffer)))
+    (load-file (dotspacemacs/location))
+    t))
 
 (defun dotspacemacs/sync-configuration-layers (&optional arg)
   "Synchronize declared layers in dotfile with spacemacs.

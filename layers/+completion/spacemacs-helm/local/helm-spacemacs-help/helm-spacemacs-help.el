@@ -297,17 +297,8 @@
 
 (defun helm-spacemacs-help//layer-action-install-layer (candidate-layer)
   "Add CANDIDATE-LAYER to dotspacemacs file and reloads configuration"
-  (if (configuration-layer/layer-usedp (intern candidate-layer))
-      (message "Layer already installed. Not Doing Anything")
-    (let ((dotspacemacs   (find-file-noselect (dotspacemacs/location))))
-      (with-current-buffer dotspacemacs
-        (beginning-of-buffer)
-        (let ((insert-point (re-search-forward
-                             "dotspacemacs-configuration-layers *\n?.*\\((\\)")))
-          (insert (format "\n%s\n" candidate-layer))
-          (indent-region insert-point (+ insert-point (length candidate-layer)))
-          (save-current-buffer)))
-      (dotspacemacs/sync-configuration-layers))))
+  (when (dotspacemacs/add-layer (intern candidate-layer))
+    (dotspacemacs/sync-configuration-layers)))
 
 (defun helm-spacemacs-help//layer-action-open-readme-edit (candidate)
   "Open the `README.org' file of the passed CANDIDATE for editing."
