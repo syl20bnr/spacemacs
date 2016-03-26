@@ -987,13 +987,20 @@ Returns non-nil if the packages have been installed."
     (when (dotspacemacs/add-layer layer-name)
       (configuration-layer/sync 'no-install))
     (let* ((layer (object-assoc layer-name :name configuration-layer--layers))
-           (packages (delq nil
-                           (mapcar (lambda (x)
-                                     (object-assoc
-                                      x :name configuration-layer--packages))
-                                   (oref layer :packages)))))
-      (configuration-layer//install-packages packages)
-      (configuration-layer//configure-packages packages)
+           (pkgs-to-install
+            (delq nil (mapcar
+                       (lambda (x)
+                         (object-assoc
+                          x :name configuration-layer--used-distant-packages))
+                       (oref layer :packages))))
+           (pkgs-to-configure
+            (delq nil (mapcar
+                       (lambda (x)
+                         (object-assoc
+                          x :name configuration-layer--packages))
+                       (oref layer :packages)))))
+      (configuration-layer//install-packages pkgs-to-install)
+      (configuration-layer//configure-packages pkgs-to-configure)
       (oset layer :lazy-install nil))
     t))
 
