@@ -1154,6 +1154,9 @@ path."
     (spacemacs-buffer/loading-animation)
     (let ((pkg-name (oref pkg :name)))
       (cond
+       ((oref pkg :lazy-install)
+        (spacemacs-buffer/message
+         (format "%S ignored since it can be lazily installed." pkg-name)))
        ((and (oref pkg :excluded)
              (not (oref pkg :protected)))
         (spacemacs-buffer/message
