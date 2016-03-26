@@ -684,8 +684,8 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
 
 (defun configuration-layer//auto-mode (layer-name mode)
   "Auto mode support of lazily installed layers."
-  (when (configuration-layer//lazy-install-packages layer-name mode)
-    (funcall mode)))
+  (configuration-layer//lazy-install-packages layer-name mode)
+  (when (fboundp mode) (funcall mode)))
 
 (defun configuration-layer/filter-objects (objects ffunc)
   "Return a filtered OBJECTS list where each element satisfies FFUNC."
@@ -977,8 +977,7 @@ path."
         (oref layer :lazy-install))))
 
 (defun configuration-layer//lazy-install-packages (layer-name mode)
-  "Install layer with LAYER-NAME to support MODE.
-Returns non-nil if the packages have been installed."
+  "Install layer with LAYER-NAME to support MODE."
   (when (and (configuration-layer//lazy-install-p layer-name)
              (yes-or-no-p (format
                            (concat "Support for %s requires installation of "
@@ -1001,8 +1000,7 @@ Returns non-nil if the packages have been installed."
                        (oref layer :packages)))))
       (configuration-layer//install-packages pkgs-to-install)
       (configuration-layer//configure-packages pkgs-to-configure)
-      (oset layer :lazy-install nil))
-    t))
+      (oset layer :lazy-install nil))))
 
 (defun configuration-layer//install-packages (packages)
   "Install PACKAGES which are not lazy installed."
