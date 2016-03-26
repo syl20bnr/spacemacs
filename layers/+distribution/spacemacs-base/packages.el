@@ -15,6 +15,7 @@
         (bind-map :step pre)
         bookmark
         diminish
+        (dired-x :location built-in)
         (electric-indent-mode :location built-in)
         ediff
         eldoc
@@ -105,6 +106,13 @@
       (with-eval-after-load 'subword
         (when (eval-when-compile (version< "24.3.1" emacs-version))
           (diminish 'subword-mode))))))
+
+(defun spacemacs-base/init-dired-x ()
+  (autoload 'dired-jump "dired-x"
+    "Jump to Dired buffer corresponding to current buffer." t)
+
+  (autoload 'dired-jump-other-window "dired-x"
+    "Like \\[dired-jump] (dired-jump) but in other window." t))
 
 (defun spacemacs-base/init-eldoc ()
   (use-package eldoc
