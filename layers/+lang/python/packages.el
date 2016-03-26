@@ -27,7 +27,7 @@
     pyenv-mode
     (pylookup :location local)
     pytest
-    python
+    (python :location built-in)
     pyvenv
     (py-yapf :location local)
     semantic
