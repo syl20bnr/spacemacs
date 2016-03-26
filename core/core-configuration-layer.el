@@ -286,14 +286,14 @@ If NO-INSTALL is non nil then install steps are skipped."
   ;; layers
   (setq configuration-layer--layers (configuration-layer//declare-layers))
   (configuration-layer//configure-layers configuration-layer--layers)
-  (when dotspacemacs-enable-lazy-installation
-    (configuration-layer/load-auto-layer-file))
   ;; packages
   (setq configuration-layer--packages (configuration-layer//declare-packages
                                       configuration-layer--layers))
   (setq configuration-layer--used-distant-packages
         (configuration-layer//get-distant-used-packages
          configuration-layer--packages))
+  (when dotspacemacs-enable-lazy-installation
+    (configuration-layer/load-auto-layer-file))
   (unless no-install
     (configuration-layer//install-packages
      (configuration-layer/filter-objects
@@ -594,25 +594,25 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
   "Read the package lists of LAYERS and dotfile and return a list of packages."
   (let (result)
     (dolist (layer layers)
-      (let* ((name (oref layer :name))
-             (dir (oref layer :dir))
-             (lazy-install (oref layer :lazy-install))
-             (packages-file (concat dir "packages.el")))
+      (let* ((layer-name (oref layer :name))
+             (layer-dir (oref layer :dir))
+             (packages-file (concat layer-dir "packages.el")))
         ;; packages
         (when (file-exists-p packages-file)
           ;; required for lazy-loading of unused layers
           ;; for instance for helm-spacemacs-help
-          (eval `(defvar ,(intern (format "%S-packages" name)) nil))
-          (unless (configuration-layer/layer-usedp name)
+          (eval `(defvar ,(intern (format "%S-packages" layer-name)) nil))
+          (unless (configuration-layer/layer-usedp layer-name)
             (load packages-file))
-          (dolist (pkg (symbol-value (intern (format "%S-packages" name))))
+          (dolist (pkg (symbol-value (intern (format "%S-packages"
+                                                     layer-name))))
             (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
                    (init-func (intern (format "%S/init-%S"
-                                              name pkg-name)))
+                                              layer-name pkg-name)))
                    (pre-init-func (intern (format "%S/pre-init-%S"
-                                                  name pkg-name)))
+                                                  layer-name pkg-name)))
                    (post-init-func (intern (format "%S/post-init-%S"
-                                                   name pkg-name)))
+                                                   layer-name pkg-name)))
                    (ownerp (fboundp init-func))
                    (obj (object-assoc pkg-name :name result)))
               (cl-pushnew pkg-name (oref layer :packages))
@@ -620,7 +620,6 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
                   (setq obj (configuration-layer/make-package pkg obj ownerp))
                 (setq obj (configuration-layer/make-package pkg nil ownerp))
                 (push obj result))
-              (oset obj :lazy-install lazy-install)
               (when ownerp
                 ;; last owner wins over the previous one,
                 ;; still warn about mutliple owners
@@ -629,18 +628,19 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
                    (format (concat "More than one init function found for "
                                    "package %S. Previous owner was %S, "
                                    "replacing it with layer %S.")
-                           pkg-name (oref obj :owner) name)))
-                (oset obj :owner name))
+                           pkg-name (oref obj :owner) layer-name)))
+                (oset obj :owner layer-name))
               (when (and (not ownerp)
                          (listp pkg)
                          (spacemacs/mplist-get pkg :toggle))
                 (spacemacs-buffer/warning
                  (format (concat "Ignoring :toggle for package %s because "
-                                 "layer %S does not own it.") pkg-name name)))
+                                 "layer %S does not own it.")
+                         pkg-name layer-name)))
               (when (fboundp pre-init-func)
-                (push name (oref obj :pre-layers)))
+                (push layer-name (oref obj :pre-layers)))
               (when (fboundp post-init-func)
-                (push name (oref obj :post-layers))))))))
+                (push layer-name (oref obj :post-layers))))))))
     ;; additional and excluded packages from dotfile
     (when dotfile
       (dolist (pkg dotspacemacs-additional-packages)
@@ -669,9 +669,29 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
   (declare (indent 1))
   (let ((extensions (spacemacs/mplist-get props :extensions)))
     (when (configuration-layer/layer-usedp layer-name)
-      (let ((layer (object-assoc layer-name
-                                 :name configuration-layer--layers)))
-        (oset layer :lazy-install t)))
+      (let* ((layer (object-assoc layer-name
+                                  :name configuration-layer--layers))
+             (packages (when layer
+                         (delq nil
+                               (mapcar
+                                (lambda (x)
+                                  (object-assoc
+                                   x :name
+                                   configuration-layer--used-distant-packages))
+                                (oref layer :packages))))))
+        ;; set lazy install flag for a layer if and only if all its owned
+        ;; packages are not already installed
+        (let ((lazy (cl-reduce (lambda (x y) (and x y))
+                               (mapcar
+                                (lambda (p)
+                                  (or (not (eq layer-name (oref p :owner)))
+                                      (null (package-installed-p
+                                             (oref p :name)))))
+                                       packages)
+                               :initial-value t)))
+          (oset layer :lazy-install lazy)
+          (dolist (pkg packages)
+            (oset pkg :lazy-install lazy)))))
     (dolist (x extensions)
       (let ((ext (car x))
             (mode (cadr x)))
@@ -697,11 +717,12 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
 (defun configuration-layer//get-distant-used-packages (packages)
   "Return the distant packages (ie to be intalled) that are effectively used."
   (configuration-layer/filter-objects
-   packages (lambda (x) (and (not (null (oref x :owner)))
-                             (not (memq (oref x :location) '(built-in site local)))
-                             (not (stringp (oref x :location)))
-                             (cfgl-package-enabledp x)
-                             (not (oref x :excluded))))))
+   packages (lambda (x)
+              (and (not (null (oref x :owner)))
+                   (not (memq (oref x :location) '(built-in site local)))
+                   (not (stringp (oref x :location)))
+                   (cfgl-package-enabledp x)
+                   (not (oref x :excluded))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path to the private configuration layer string NAME."
