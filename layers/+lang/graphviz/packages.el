@@ -12,6 +12,7 @@
 (defconst graphviz-packages
   '((graphviz-dot-mode :location (recipe :fetcher github
                                          :repo "luxbock/graphviz-dot-mode"))
+    org
     smartparens))
 
 (defun graphviz/init-graphviz-dot-mode ()
@@ -47,3 +48,8 @@
       ;; allow smartparens to work properly
       (define-key graphviz-dot-mode-map "{" nil)
       (define-key graphviz-dot-mode-map "}" nil))))
+
+(defun graphviz/post-init-org ()
+  (with-eval-after-load 'org
+    (setq org-src-lang-modes (append '(("dot" . graphviz-dot))
+                                     (delete '("dot" . fundamental) org-src-lang-modes)))))
