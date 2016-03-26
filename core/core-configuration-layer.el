@@ -972,8 +972,8 @@ path."
 
 (defun configuration-layer//lazy-install-p (layer-name)
   "Return non nil if the layer with LAYER-NAME should be lazy installed."
-  (or (not (memq layer-name configuration-layer--layers))
-      (let ((layer (object-assoc layer-name :name configuration-layer--layers)))
+  (let ((layer (object-assoc layer-name :name configuration-layer--layers)))
+    (or (null layer)
         (oref layer :lazy-install))))
 
 (defun configuration-layer//lazy-install-packages (layer-name mode)
