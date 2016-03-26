@@ -114,6 +114,7 @@
 (configuration-layer/lazy-install 'vimscript :extensions '("\\(\\.vim\\'\\|[._]?g?vimrc\\'\\|\\.exrc\\'\\|_vimrc\\'\\|\\.vim[rc]?\\'\\)" vimrc-mode))
 (configuration-layer/lazy-install 'vimscript :extensions '("\\(_vimperatorrc\\'\\|_pentadactylrc\\'\\|\\.penta\\'\\|vimperatorrc\\'\\|\\.vimp\\'\\|pentadactylrc\\'\\)" dactyl-mode))
 
-;; windows-script
+(configuration-layer/lazy-install 'windows-scripts :extensions '("\\(\\.bat$\\)" dos-mode))
+(configuration-layer/lazy-install 'windows-scripts :extensions '("\\(\\.ps[dm]?1\\'\\|\\.ps1$\\)" powershell-mode))
 
 (configuration-layer/lazy-install 'yaml :extensions '("\\(\\.e?ya?ml$\\|\\.\\(yml\\|yaml\\)\\'\\|Procfile\\'\\)" yaml-mode))
