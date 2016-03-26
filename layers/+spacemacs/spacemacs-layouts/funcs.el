@@ -315,6 +315,13 @@ perspectives does."
                    (mapcar 'persp-kill
                            (helm-marked-candidates))))))))
 
+
+(defun spacemacs//helm-persp-switch-project-helper (project func)
+  (let ((persp-reset-windows-on-nil-window-conf t))
+    (persp-switch project)
+    (funcall func project)
+    (delete-other-windows)))
+
 (defun spacemacs/helm-persp-switch-project (arg)
   (interactive "P")
   (helm
@@ -326,13 +333,31 @@ perspectives does."
                        (projectile-relevant-known-projects))
                projectile-known-projects))
      :fuzzy-match helm-projectile-fuzzy-match
+     :keymap (let ((map (make-sparse-keymap)))
+               (set-keymap-parent map helm-map)
+               (helm-projectile-define-key map
+                 (kbd "C-d") (lambda (project) (spacemacs//helm-persp-switch-project-helper project 'dired))
+                 (kbd "M-g") (lambda (project) (spacemacs//helm-persp-switch-project-helper project 'helm-projectile-vc))
+                 (kbd "M-e") (lambda (project) (spacemacs//helm-persp-switch-project-helper project 'helm-projectile-switch-to-eshell))
+                 (kbd "C-s") (lambda (project) (spacemacs//helm-persp-switch-project-helper project 'helm-projectile-grep))
+                 (kbd "M-c") (lambda (project) (spacemacs//helm-persp-switch-project-helper project 'helm-projectile-compile-project))
+                 (kbd "M-t") (lambda (project) (spacemacs//helm-persp-switch-project-helper project 'helm-projectile-test-project))
+                 (kbd "M-r") (lambda (project) (spacemacs//helm-persp-switch-project-helper project 'helm-projectile-run-project))
+                 (kbd "M-D") 'helm-projectile-remove-known-project)
+               map)
      :mode-line helm-read-file-name-mode-line-string
      :action '(("Switch to Project Perspective" .
                 (lambda (project)
                   (let ((persp-reset-windows-on-nil-window-conf t))
                     (persp-switch project)
                     (let ((projectile-completion-system 'helm))
-                      (projectile-switch-project-by-name project)))))))
+                      (projectile-switch-project-by-name project)))))
+               ("Open project root in vc-dir or magit `M-g'" .(lambda (project) (spacemacs//helm-persp-switch-project-helper project 'helm-projectile-vc)) )
+               ("Switch to Eshell `M-e'" .(lambda (project) (spacemacs//helm-persp-switch-project-helper project 'helm-projectile-switch-to-eshell)) )
+               ("Grep in projects `C-s'" . (lambda (project) (spacemacs//helm-persp-switch-project-helper project 'helm-projectile-grep)))
+               ("Compile project `M-c'. With C-u, new compile command"
+                . (lambda (project) (spacemacs//helm-persp-switch-project-helper project 'helm-projectile-compile-project)))
+               ("Remove project(s) `M-D'" . 'helm-projectile-remove-known-project)))
    :buffer "*Helm Projectile Layouts*"))
 
 
