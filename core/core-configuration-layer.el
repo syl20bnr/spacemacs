@@ -1019,9 +1019,13 @@ path."
                          (object-assoc
                           x :name configuration-layer--packages))
                        (oref layer :packages)))))
-      (configuration-layer//install-packages pkgs-to-install)
-      (configuration-layer//configure-packages pkgs-to-configure)
-      (oset layer :lazy-install nil))))
+      (let ((last-buffer (current-buffer)))
+        (spacemacs-buffer/goto-buffer)
+        (goto-char (point-max))
+        (configuration-layer//install-packages pkgs-to-install)
+        (configuration-layer//configure-packages pkgs-to-configure)
+        (switch-to-buffer last-buffer)
+        (oset layer :lazy-install nil)))))
 
 (defun configuration-layer//install-packages (packages)
   "Install PACKAGES which are not lazy installed."
