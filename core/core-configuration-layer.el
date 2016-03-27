@@ -993,11 +993,11 @@ path."
 
 (defun configuration-layer//lazy-install-packages (layer-name mode)
   "Install layer with LAYER-NAME to support MODE."
-  (when (and (configuration-layer//lazy-install-p layer-name)
-             (yes-or-no-p (format
-                           (concat "Support for %s requires installation of "
-                                   "layer %s, do you want to install it?")
-                           mode layer-name)))
+  (when (or (not dotspacemacs-ask-for-lazy-installation)
+            (yes-or-no-p (format
+                          (concat "Support for %s requires installation of "
+                                  "layer %s, do you want to install it?")
+                          mode layer-name)))
     (when (dotspacemacs/add-layer layer-name)
       (configuration-layer/sync 'no-install))
     (let* ((layer (object-assoc layer-name :name configuration-layer--layers))
