@@ -75,6 +75,10 @@ that support lazy installation even the layers listed in
 and you have to explicitly list a layer in the variable
 `dotspacemacs-configuration-layers' to install it.")
 
+(defvar dotspacemacs-ask-for-lazy-installation t
+  "If non-nil then Spacemacs will ask for confirmation before installing
+a layer lazily.")
+
 (defvar dotspacemacs-additional-packages '()
   "List of additional packages that will be installed wihout being
 wrapped in a layer. If you need some configuration for these
