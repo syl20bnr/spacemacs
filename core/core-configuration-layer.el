@@ -671,18 +671,17 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
     (when (configuration-layer/layer-usedp layer-name)
       (let* ((layer (object-assoc layer-name
                                   :name configuration-layer--layers))
-             (packages (when layer
-                         (configuration-layer//get-distant-used-packages
-                          (cfgl-layer-owned-packages layer)))))
+             (packages (when layer (cfgl-layer-owned-packages layer))))
         ;; set lazy install flag for a layer if and only if all its owned
-        ;; packages are not already installed
+        ;; distant packages are not already installed
         (let ((lazy (cl-reduce (lambda (x y) (and x y))
                                (mapcar
                                 (lambda (p)
                                   (or (not (eq layer-name (oref p :owner)))
                                       (null (package-installed-p
                                              (oref p :name)))))
-                                       packages)
+                                (configuration-layer//get-distant-used-packages
+                                 packages))
                                :initial-value t)))
           (oset layer :lazy-install lazy)
           (dolist (pkg packages)
@@ -1002,25 +1001,29 @@ path."
     (when (dotspacemacs/add-layer layer-name)
       (configuration-layer/sync 'no-install))
     (let* ((layer (object-assoc layer-name :name configuration-layer--layers))
-           (pkgs-to-install
+           (inst-pkgs
             (delq nil (mapcar
                        (lambda (x)
                          (object-assoc
                           x :name configuration-layer--used-distant-packages))
                        (oref layer :packages))))
-           (pkgs-to-configure
+           (config-pkgs
             (delq nil (mapcar
                        (lambda (x)
-                         (object-assoc
-                          x :name configuration-layer--packages))
+                         (let ((pkg (object-assoc
+                                     x :name configuration-layer--packages)))
+                           (oset pkg :lazy-install nil)
+                           pkg))
                        (oref layer :packages)))))
-      (let ((last-buffer (current-buffer)))
+      (let ((last-buffer (current-buffer))
+            (sorted-inst (configuration-layer//sort-packages inst-pkgs))
+            (sorted-config (configuration-layer//sort-packages config-pkgs)))
         (spacemacs-buffer/goto-buffer)
         (goto-char (point-max))
-        (configuration-layer//install-packages pkgs-to-install)
-        (configuration-layer//configure-packages pkgs-to-configure)
-        (switch-to-buffer last-buffer)
-        (oset layer :lazy-install nil)))))
+        (oset layer :lazy-install nil)
+        (configuration-layer//install-packages sorted-inst)
+        (configuration-layer//configure-packages sorted-config)
+        (switch-to-buffer last-buffer)))))
 
 (defun configuration-layer//install-packages (packages)
   "Install PACKAGES which are not lazy installed."
