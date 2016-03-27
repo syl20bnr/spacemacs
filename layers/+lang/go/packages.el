@@ -5,7 +5,7 @@
         flycheck
         go-eldoc
         go-mode
-        (go-oracle :location local)
+        (go-oracle :location site)
         (go-rename :location local)
         ))
 
