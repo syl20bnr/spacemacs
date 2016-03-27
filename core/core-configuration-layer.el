@@ -292,8 +292,7 @@ If NO-INSTALL is non nil then install steps are skipped."
   (setq configuration-layer--used-distant-packages
         (configuration-layer//get-distant-used-packages
          configuration-layer--packages))
-  (when dotspacemacs-enable-lazy-installation
-    (configuration-layer/load-auto-layer-file))
+  (configuration-layer/load-auto-layer-file)
   (unless no-install
     (configuration-layer//install-packages
      (configuration-layer/filter-objects
@@ -667,34 +666,35 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
 (defun configuration-layer/lazy-install (layer-name &rest props)
   "Configure auto-installation of layer with name LAYER-NAME."
   (declare (indent 1))
-  (let ((extensions (spacemacs/mplist-get props :extensions)))
-    (when (configuration-layer/layer-usedp layer-name)
-      (let* ((layer (object-assoc layer-name
-                                  :name configuration-layer--layers))
-             (packages (when layer (cfgl-layer-owned-packages layer))))
-        ;; set lazy install flag for a layer if and only if all its owned
-        ;; distant packages are not already installed
-        (let ((lazy (cl-reduce (lambda (x y) (and x y))
-                               (mapcar
-                                (lambda (p)
-                                  (or (not (eq layer-name (oref p :owner)))
-                                      (null (package-installed-p
-                                             (oref p :name)))))
-                                (configuration-layer//get-distant-used-packages
-                                 packages))
-                               :initial-value t)))
-          (oset layer :lazy-install lazy)
-          (dolist (pkg packages)
-            (oset pkg :lazy-install lazy)))))
-    (dolist (x extensions)
-      (let ((ext (car x))
-            (mode (cadr x)))
-        (add-to-list 'configuration-layer--lazy-mode-alist (cons mode ext))
-        (add-to-list
-         'auto-mode-alist
-         `(,ext . (lambda ()
-                    (configuration-layer//auto-mode
-                     ',layer-name ',mode))))))))
+  (when (configuration-layer//lazy-install-p layer-name)
+    (let ((extensions (spacemacs/mplist-get props :extensions)))
+      (when (configuration-layer/layer-usedp layer-name)
+        (let* ((layer (object-assoc layer-name
+                                    :name configuration-layer--layers))
+               (packages (when layer (cfgl-layer-owned-packages layer))))
+          ;; set lazy install flag for a layer if and only if all its owned
+          ;; distant packages are not already installed
+          (let ((lazy (cl-reduce
+                       (lambda (x y) (and x y))
+                       (mapcar (lambda (p)
+                                 (or (not (eq layer-name (oref p :owner)))
+                                     (null (package-installed-p
+                                            (oref p :name)))))
+                               (configuration-layer//get-distant-used-packages
+                                packages))
+                       :initial-value t)))
+            (oset layer :lazy-install lazy)
+            (dolist (pkg packages)
+              (oset pkg :lazy-install lazy)))))
+      (dolist (x extensions)
+        (let ((ext (car x))
+              (mode (cadr x)))
+          (add-to-list 'configuration-layer--lazy-mode-alist (cons mode ext))
+          (add-to-list
+           'auto-mode-alist
+           `(,ext . (lambda ()
+                      (configuration-layer//auto-mode
+                       ',layer-name ',mode)))))))))
 
 (defun configuration-layer//auto-mode (layer-name mode)
   "Auto mode support of lazily installed layers."
@@ -987,9 +987,9 @@ path."
 
 (defun configuration-layer//lazy-install-p (layer-name)
   "Return non nil if the layer with LAYER-NAME should be lazy installed."
-  (let ((layer (object-assoc layer-name :name configuration-layer--layers)))
-    (or (null layer)
-        (oref layer :lazy-install))))
+  (or (memq dotspacemacs-enable-lazy-installation '(all t))
+      (and (eq 'unused dotspacemacs-enable-lazy-installation)
+           (not (configuration-layer/layer-usedp layer-name)))))
 
 (defun configuration-layer//lazy-install-packages (layer-name mode)
   "Install layer with LAYER-NAME to support MODE."
