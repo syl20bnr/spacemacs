@@ -86,7 +86,7 @@ LAYER has to be installed for this method to work properly."
              (lambda (x)
                (let ((pkg (object-assoc x :name configuration-layer--packages)))
                  (when (and pkg (eq (oref layer :name) (oref pkg :owner)))
-                   x)))
+                   pkg)))
              (oref layer :packages))))
 
 (defmethod cfgl-layer-owned-packages ((layer nil))
@@ -672,13 +672,8 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
       (let* ((layer (object-assoc layer-name
                                   :name configuration-layer--layers))
              (packages (when layer
-                         (delq nil
-                               (mapcar
-                                (lambda (x)
-                                  (object-assoc
-                                   x :name
-                                   configuration-layer--used-distant-packages))
-                                (oref layer :packages))))))
+                         (configuration-layer//get-distant-used-packages
+                          (cfgl-layer-owned-packages layer)))))
         ;; set lazy install flag for a layer if and only if all its owned
         ;; packages are not already installed
         (let ((lazy (cl-reduce (lambda (x y) (and x y))
@@ -1620,10 +1615,11 @@ to select one."
   (let* ((layer (object-assoc layer-symbol :name configuration-layer--layers))
          (packages (cfgl-layer-owned-packages layer))
          result)
-    (dolist (pkg-sym packages)
-      (dolist (mode (list pkg-sym (intern (format "%S-mode" pkg-sym))))
-        (let ((ext (configuration-layer//gather-auto-mode-extensions mode)))
-          (when ext (push (cons mode ext) result)))))
+    (dolist (pkg packages)
+      (let ((pkg-sym (oref pkg :name)))
+        (dolist (mode (list pkg-sym (intern (format "%S-mode" pkg-sym))))
+          (let ((ext (configuration-layer//gather-auto-mode-extensions mode)))
+            (when ext (push (cons mode ext) result))))))
     result))
 
 (defun configuration-layer//insert-lazy-install-form (layer-name mode ext)
