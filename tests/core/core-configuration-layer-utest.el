@@ -24,7 +24,9 @@
                (cfgl-package "pkg2" :name 'pkg2 :owner 'layer1)
                (cfgl-package "pkg3" :name 'pkg3 :owner 'layer1)
                (cfgl-package "pkg4" :name 'pkg4 :owner 'layer2))))
-    (should (equal '(pkg2 pkg3) (cfgl-layer-owned-packages layer1)))))
+    (should (equal (list (cfgl-package "pkg2" :name 'pkg2 :owner 'layer1)
+                         (cfgl-package "pkg3" :name 'pkg3 :owner 'layer1))
+                   (cfgl-layer-owned-packages layer1)))))
 
 (ert-deftest test-cfgl-layer-owned-packages--nil-layer-returns-nil ()
   (should (null (cfgl-layer-owned-packages nil))))
