@@ -59,7 +59,9 @@
     (insert "#+HTML_HEAD_EXTRA: <link rel=\"stylesheet\" type=\"text/css\" href=\"../css/readtheorg.css\" />\n\n")
     (insert "* Table of Contents\n")
     (org-set-tags-to '("TOC_4_org" "noexport"))
-    (insert "* General layers\n")
+    ;; there is no layer at the root level for now
+    ;; uncomment this line if any new layer is added at the root level
+    ;; (insert "* General layers\n")
     (spacemacs//generate-layers-from-path configuration-layer-directory "*")
     (write-file (concat user-emacs-directory "layers/LAYERS.org"))))
 
