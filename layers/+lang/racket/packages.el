@@ -77,6 +77,7 @@
         (spacemacs/declare-prefix-for-mode 'racket-mode (car prefix) (cdr prefix)))
 
       (spacemacs/set-leader-keys-for-major-mode 'racket-mode
+        ","  'lisp-state-toggle-lisp-state
         ;; navigation
         "g`" 'racket-unvisit
         "gg" 'racket-visit-definition

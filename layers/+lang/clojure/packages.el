@@ -200,6 +200,8 @@ If called with a prefix argument, uses the other-window instead."
 
       (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
         (spacemacs/set-leader-keys-for-major-mode m
+          ","  'lisp-state-toggle-lisp-state
+
           "ha" 'cider-apropos
           "hh" 'cider-doc
           "hg" 'cider-grimoire

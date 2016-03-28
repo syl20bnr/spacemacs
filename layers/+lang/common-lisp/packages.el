@@ -48,6 +48,7 @@
       ;; TODO: Add bindings for the SLIME debugger?
       (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
         "'" 'slime
+        ","  'lisp-state-toggle-lisp-state
 
         "cc" 'slime-compile-file
         "cC" 'slime-compile-and-load-file
