@@ -11,7 +11,6 @@
 
 (setq java-packages
       '(
-        eldoc
         emacs-eclim
         company
         ggtags
