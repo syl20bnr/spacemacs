@@ -13,6 +13,8 @@
       '(
         emacs-eclim
         company
+        ggtags
+        helm-gtags
         ))
 
 (defun java/init-emacs-eclim ()
@@ -131,3 +133,10 @@
 
 (defun java/post-init-company ()
   (spacemacs|add-company-hook java-mode))
+
+(defun java/post-init-ggtags ()
+  (spacemacs/ggtags-enable-eldoc 'java-mode)
+  (add-hook 'java-mode-hook '(lambda () (ggtags-mode 1))))
+
+(defun java/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'java-mode))
