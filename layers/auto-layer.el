@@ -20,6 +20,9 @@
 (configuration-layer/lazy-install 'autohotkey :extensions '("\\(\\.ahk\\'\\|\\.ahk$\\)" ahk-mode))
 
 (configuration-layer/lazy-install 'clojure :extensions '("\\(\\.\\(clj\\|dtm\\|edn\\)\\'\\|\\(?:build\\|profile\\)\\.boot\\'\\|\\.boot\\'\\)" clojure-mode))
+(configuration-layer/lazy-install 'clojure :extensions '("\\(\\.cljs\\)" clojurescript-mode))
+(configuration-layer/lazy-install 'clojure :extensions '("\\(\\.cljc\\)" clojurec-mode))
+(configuration-layer/lazy-install 'clojure :extensions '("\\(\\.cljx\\)" clojurex-mode))
 
 ;; common-lisp
 
