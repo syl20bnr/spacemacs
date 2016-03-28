@@ -1,7 +1,7 @@
 #+TITLE: faust layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
-[[img/faust.png]]
+[[file:img/faust.png]]
 
 * Table of Contents                                        :TOC_4_org:noexport:
  - [[Description][Description]]
