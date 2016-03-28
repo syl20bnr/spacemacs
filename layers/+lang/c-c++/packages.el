@@ -93,7 +93,7 @@
   (when c-c++-enable-clang-support
     (spacemacs/add-to-hooks 'c-c++/load-clang-args '(c-mode-hook c++-mode-hook))))
 
-(defun ruby/post-init-ggtags ()
+(defun c-c++/post-init-ggtags ()
   (add-hook 'c-mode-hook '(lambda () (ggtags-mode 1)))
   (add-hook 'c++-mode-hook '(lambda () (ggtags-mode 1))))
 
