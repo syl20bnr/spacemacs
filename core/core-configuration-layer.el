@@ -987,8 +987,8 @@ path."
 
 (defun configuration-layer//lazy-install-p (layer-name)
   "Return non nil if the layer with LAYER-NAME should be lazy installed."
-  (or (memq dotspacemacs-enable-lazy-installation '(all t))
-      (and (eq 'unused dotspacemacs-enable-lazy-installation)
+  (or (eq 'all dotspacemacs-enable-lazy-installation)
+      (and (memq dotspacemacs-enable-lazy-installation '(unused t))
            (not (configuration-layer/layer-usedp layer-name)))))
 
 (defun configuration-layer//lazy-install-packages (layer-name mode)
