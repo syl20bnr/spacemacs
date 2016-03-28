@@ -12,6 +12,8 @@
 (setq scala-packages
   '(
     ensime
+    ggtags
+    helm-gtags
     noflet
     sbt-mode
     scala-mode2
@@ -254,3 +256,9 @@ replace it with the unicode arrow."
       (setq scala-indent:align-forms t
             scala-indent:align-parameters t
             scala-indent:default-run-on-strategy scala-indent:operator-strategy))))
+
+(defun scala/post-init-ggtags ()
+  (add-hook 'scala-mode-hook '(lambda () (ggtags-mode 1))))
+
+(defun scala/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'scala-mode))

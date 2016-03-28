@@ -11,13 +11,24 @@
 
 (setq gtags-packages
   '(
+    eldoc
     helm-gtags
     ggtags
     ))
 
 (defun gtags/init-ggtags ()
   (use-package ggtags
-    :defer t))
+    :defer t
+    :init
+    (progn
+      ;; modes that do not have a layer, add here.
+      (add-hook 'awk-mode-hook (lambda () (ggtags-mode 1)))
+      (add-hook 'shell-mode-hook (lambda () (ggtags-mode 1)))
+      (add-hook 'tcl-mode-hook (lambda () (ggtags-mode 1)))
+      (add-hook 'vhdl-mode-hook (lambda () (ggtags-mode 1)))
+
+      (spacemacs/ggtags-enable-eldoc 'tcl-mode)
+      (spacemacs/ggtags-enable-eldoc 'vhdl-mode))))
 
 (when (configuration-layer/layer-usedp 'spacemacs-helm)
   (defun gtags/init-helm-gtags ()
@@ -31,18 +42,11 @@
               helm-gtags-pulse-at-cursor t)
         ;; modes that do not have a layer, define here
         (spacemacs/helm-gtags-define-keys-for-mode 'tcl-mode)
-        (spacemacs/helm-gtags-define-keys-for-mode 'java-mode)
         (spacemacs/helm-gtags-define-keys-for-mode 'vhdl-mode)
-        (spacemacs/helm-gtags-define-keys-for-mode 'shell-script-mode)
         (spacemacs/helm-gtags-define-keys-for-mode 'awk-mode)
-        (spacemacs/helm-gtags-define-keys-for-mode 'asm-mode)
         (spacemacs/helm-gtags-define-keys-for-mode 'dired-mode)
         (spacemacs/helm-gtags-define-keys-for-mode 'compilation-mode)
-        (spacemacs/helm-gtags-define-keys-for-mode 'shell-mode)
-
-        (spacemacs/ggtags-enable-eldoc 'tcl-mode)
-        (spacemacs/ggtags-enable-eldoc 'java-mode)
-        (spacemacs/ggtags-enable-eldoc 'vhdl-mode))
+        (spacemacs/helm-gtags-define-keys-for-mode 'shell-mode))
       :config
       (progn
         ;; if anyone uses helm-gtags, they would want to use these key bindings

@@ -14,6 +14,8 @@
         company-shell
         fish-mode
         flycheck
+        ggtags
+        helm-gtags
         (sh-script :location built-in)))
 
 (defun shell-scripts/post-init-flycheck ()
@@ -61,3 +63,9 @@
       (progn
         (push 'company-shell                      company-backends-sh-mode)
         (push '(company-shell company-fish-shell) company-backends-fish-mode)))))
+
+(defun sh-mode/post-init-ggtags ()
+  (add-hook 'sh-mode-mode-hook '(lambda () (ggtags-mode 1))))
+
+(defun sh-mode/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'sh-mode-mode))
