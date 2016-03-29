@@ -316,7 +316,8 @@ is achieved by adding the relevant text properties."
                                   (when (string-match "\\(finished\\|exited\\)"
                                                       change)
                                     (kill-buffer (process-buffer proc))
-                                    (delete-window))))))
+                                    (when (> (count-windows) 1)
+                                      (delete-window)))))))
       (add-hook 'term-mode-hook 'ansi-term-handle-close)
       (add-hook 'term-mode-hook (lambda () (linum-mode -1)))
 
