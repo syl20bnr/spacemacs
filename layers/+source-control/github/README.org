@@ -7,6 +7,7 @@
    - [[#features][Features:]]
  - [[#install][Install]]
    - [[#layer][Layer]]
+   - [[#git-configuration][Git configuration]]
  - [[#key-bindings][Key Bindings]]
    - [[#magit-gh-pulls][magit-gh-pulls]]
    - [[#gistel][gist.el]]
@@ -14,7 +15,6 @@
    - [[#browse-files][Browse files]]
 
 * Description
-
 This layers adds support for [[http://github.com][Github]].
 
 ** Features:
@@ -30,8 +30,16 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =github= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+** Git configuration
+You will need to generate a [[https://github.com/settings/tokens][personal access token]] on GitHub. This token should
+have the =gist= and =repo= permissions. Once this token is created, it needs to
+be added to your =~/.gitconfig=
 
+#+BEGIN_SRC sh
+  git config --global github.oauth-token <token>
+#+END_SRC
+
+* Key Bindings
 ** magit-gh-pulls
 
 In a =magit status= buffer (~SPC g s~):
