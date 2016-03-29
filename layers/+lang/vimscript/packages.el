@@ -12,6 +12,8 @@
 (setq vimscript-packages
     '(
       vimrc-mode
+      ggtags
+      helm-gtags
       dactyl-mode
       ))
 
@@ -38,3 +40,9 @@
     :mode "\\.penta\\'"
     :mode "\\.vimp\\'"
     :defer t))
+
+(defun vimrc-mode/post-init-ggtags ()
+  (add-hook 'vimrc-mode-mode-hook '(lambda () (ggtags-mode 1))))
+
+(defun vimrc-mode/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'vimrc-mode-mode))
