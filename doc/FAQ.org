@@ -20,6 +20,7 @@
    - [[#why-does-my-color-theme-not-render-correctly-in-terminal-mode][Why does my color theme not render correctly in terminal mode?]]
    - [[#typing-quickly-fd-takes-me-out-of-insert-state-what-is-going-on][Typing quickly =fd= takes me out of =insert state=. What is going on?]]
    - [[#why-do-i-get-files-starting-with-][Why do I get files starting with .#?]]
+   - [[#why-do-i-get-4m-characters-inside-ansi-term][Why do I get '4m' characters inside ansi-term?]]
  - [[#how-do-i][How do I...]]
    - [[#install-a-package-not-provided-by-a-layer][Install a package not provided by a layer?]]
    - [[#disable-a-package-completely][Disable a package completely?]]
@@ -195,6 +196,12 @@ disable this behaviour:
 
 #+BEGIN_SRC emacs-lisp
 (setq create-lockfiles nil)
+#+END_SRC
+
+** Why do I get '4m' characters inside ansi-term?
+Ansi-term only has a subset of capabilities supported by xterm256. Your shell (e.g. fish shell) might ignore =$TERMINFO= information and require you to set the =~/.terminfo= yourself.
+#+BEGIN_SRC fish
+tic -o ~/.terminfo $TERMINFO/e/eterm-color.ti
 #+END_SRC
 
 * How do I...
