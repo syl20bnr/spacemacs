@@ -90,7 +90,9 @@
 
 (defun spacemacs-evil/init-evil-mc ()
   (use-package evil-mc
-    :defer t))
+    :defer t
+    :init
+    (setq mc/list-file (concat spacemacs-cache-directory "mc-lists.el"))))
 
 ;; other commenting functions in funcs.el with keybinds in keybindings.el
 (defun spacemacs-evil/init-evil-nerd-commenter ()
