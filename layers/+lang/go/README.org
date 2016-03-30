@@ -10,6 +10,7 @@
    - [[#layer][Layer]]
  - [[#configuration][Configuration]]
    - [[#formatting][Formatting]]
+   - [[#indentation][Indentation]]
  - [[#working-with-go][Working with Go]]
    - [[#go-commands-start-with-m][Go commands (start with =m=):]]
    - [[#go-oracle][Go Oracle]]
@@ -58,6 +59,20 @@ or
 
 #+begin_src emacs-lisp
   (go :variables gofmt-command "goimports")
+#+end_src
+
+** Indentation
+By default, the width of tab in Go mode is 8 spaces. To use a different value
+for tab width, set the value of =go-tab-width=, e.g.
+
+#+begin_src emacs-lisp
+  (setq go-tab-width 4)
+#+end_src
+
+or
+
+#+begin_src emacs-lisp
+  (go :variables go-tab-width 4)
 #+end_src
 
 If you're using =gocheck= in your project you can use the

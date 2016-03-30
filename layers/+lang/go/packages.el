@@ -9,6 +9,11 @@
         (go-rename :location local)
         ))
 
+(defcustom go-tab-width 8
+  "`tab-width' in Go mode. Default is 8."
+  :type 'integer
+  :group 'go)
+
 (defun go/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'go-mode))
 
@@ -18,7 +23,9 @@
       (unless (getenv var)
         (exec-path-from-shell-copy-env var))))
 
-  (add-hook 'go-mode-hook (lambda () (setq-local tab-width 8)))
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (setq-local tab-width go-tab-width)))
 
   (use-package go-mode
     :defer t
