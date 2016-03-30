@@ -23,6 +23,9 @@
 
 This layer adds markdown support to Spacemacs.
 
+For more extensive support of references with BibTeX files, have a look at the
+[[../bibtex][BibTeX layer]].
+
 ** Features:
 - markdown files support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
 - TOC generation via [[https://github.com/ardumont/markdown-toc][markdown-toc]]
