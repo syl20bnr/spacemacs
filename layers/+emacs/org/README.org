@@ -33,6 +33,9 @@
 * Description
 This layer enables  [[http://orgmode.org/][org mode]] for Spacemacs.
 
+For more extensive support of references through BibTeX files, have a look at
+the [[../+lang/bibtex][BibTeX layer]].
+
 ** Features:
 - Vim inspired key bindings are provided by [[https://github.com/edwtjo/evil-org-mode][evil-org-mode]]
 - Nicer bullet via [[https://github.com/sabof/org-bullets][org-bullets]]
