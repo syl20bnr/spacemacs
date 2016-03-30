@@ -61,8 +61,8 @@ current perspective."
 (defun spacemacs//layouts-ts-toggle-hint ()
   "Toggle the full hint docstring for the layouts transient-state."
   (interactive)
-  (setq spacemacs--layouts-ts-full-hint-toggle
-        (logxor spacemacs--layouts-ts-full-hint-toggle 1)))
+  (setq spacemacs--ts-full-hint-toggle
+        (logxor spacemacs--ts-full-hint-toggle 1)))
 
 (defun spacemacs//layout-format-name (name pos)
   "Format the layout name given by NAME for display in mode-line."
@@ -89,7 +89,7 @@ current perspective."
                              persp-list " | "))))
     (concat
      formatted-persp-list
-     (if (equal 1 spacemacs--layouts-ts-full-hint-toggle)
+     (if (equal 1 spacemacs--ts-full-hint-toggle)
          spacemacs--layouts-ts-full-hint
        (concat "  (["
                (propertize "?" 'face 'hydra-face-red)
@@ -456,8 +456,8 @@ STATE is a window-state object as returned by `window-state-get'."
 (defun spacemacs//workspaces-ts-toggle-hint ()
   "Toggle the full hint docstring for the workspaces transient-state."
   (interactive)
-  (setq spacemacs--workspaces-ts-full-hint-toggle
-        (logxor spacemacs--workspaces-ts-full-hint-toggle 1)))
+  (setq spacemacs--ts-full-hint-toggle
+        (logxor spacemacs--ts-full-hint-toggle 1)))
 
 (defun spacemacs/workspaces-ts-rename ()
   "Rename a workspace and get back to transient-state."
@@ -483,7 +483,7 @@ STATE is a window-state object as returned by `window-state-get'."
    " "
    (mapconcat 'spacemacs//workspace-format-name
               (eyebrowse--get 'window-configs) " | ")
-   (if (equal 1 spacemacs--workspaces-ts-full-hint-toggle)
+   (if (equal 1 spacemacs--ts-full-hint-toggle)
        spacemacs--workspaces-ts-full-hint
      (concat "  (["
              (propertize "?" 'face 'hydra-face-red)
@@ -531,10 +531,3 @@ FRAME defaults to the current frame."
      'eyebrowse-current-slot (eyebrowse--get 'current-slot frame) persp)
     (set-persp-parameter
      'eyebrowse-last-slot (eyebrowse--get 'last-slot frame) persp)))
-
-(defun spacemacs/layout-workspaces-transient-state ()
-  "Launches the workspaces transient state, if defined."
-  (interactive)
-  (if (fboundp 'spacemacs/workspaces-transient-state/body)
-      (call-interactively 'spacemacs/workspaces-transient-state/body)
-    (message "You need the eyebrowse layer to use this feature.")))
