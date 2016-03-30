@@ -21,11 +21,8 @@
 (defvar layouts-autosave-delay 900
   "Delay in seconds between each layouts auto-save.")
 
-(defvar spacemacs--layouts-ts-full-hint-toggle 0
-  "Display a short doc when nil, full doc otherwise.")
-
-(defvar spacemacs--workspaces-ts-full-hint-toggle 0
-  "Display a short doc when nil, full doc otherwise.")
+(defvar spacemacs--ts-full-hint-toggle 0
+  "Toggle display of transient states documentations.")
 
 (defvar spacemacs--last-selected-layout dotspacemacs-default-layout-name
   "Previously selected layout.")

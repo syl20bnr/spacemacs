@@ -32,13 +32,14 @@
       (spacemacs|transient-state-format-hint workspaces
         spacemacs--workspaces-ts-full-hint
         "\n\n
- Go to^^^^^^                         Remove/Rename...^^
- --^-^--^^^^-----------------------  --^-^---------------------------
+ Go to^^^^^^                         Actions^^
+ ─────^^^^^^───────────────────────  ───────^^──────────────────────
  [_0_,_9_]^^     nth/new workspace   [_d_] close current workspace
  [_C-0_,_C-9_]^^ nth/new workspace   [_R_] rename current workspace
+ [_<tab>_]^^^^   last workspace      [_?_] toggle help\n
+ [_l_]^^^^       layouts
  [_n_/_C-l_]^^   next workspace
- [_N_/_p_/_C-h_] prev workspace
- [_<tab>_]^^^^   last workspace\n")
+ [_N_/_p_/_C-h_] prev workspace\n")
 
       (spacemacs|define-transient-state workspaces
         :title "Workspaces Transient State"
@@ -71,8 +72,7 @@
         ("C-i" eyebrowse-last-window-config)
         ("C-l" eyebrowse-next-window-config)
         ("d" eyebrowse-close-window-config)
-        ("h" eyebrowse-prev-window-config)
-        ("l" eyebrowse-next-window-config)
+        ("l" spacemacs/layouts-transient-state/body :exit t)
         ("n" eyebrowse-next-window-config)
         ("N" eyebrowse-prev-window-config)
         ("p" eyebrowse-prev-window-config)
@@ -118,23 +118,19 @@
       (spacemacs|transient-state-format-hint layouts
         spacemacs--layouts-ts-full-hint
         "\n\n
- Go to^^^^^^                         Add/Remove/Rename...^^
---^-^--^^^^-----------------------  --^-^---------------------------
- [_b_]^^^^       buffer in layout    [_a_] add buffer
- [_h_]^^^^       default layout      [_A_] add all from layout
- [_o_]^^^^       custom layout       [_r_] remove current buffer
- [_l_]^^^^       layout w/helm/ivy   [_d_] close current layout
- [_L_]^^^^       layouts in file     [_D_] close other layout
- [_0_,_9_]^^     nth/new layout      [_x_] kill current w/buffers
- [_C-0_,_C-9_]^^ nth/new layout      [_X_] kill other w/buffers
- [_n_/_C-l_]^^   next layout         [_R_] rename current layout
- [_N_/_p_/_C-h_] prev layout
- [_<tab>_]^^^^   last layout
---^^^^^^^^----------------------------------------------------------
- [_s_/_S_] save all layouts/save by names
- [_t_]^^   show a buffer without adding it to current layout
- [_w_]^^   workspaces micro-state (requires eyebrowse layer)
- [_?_]^^   toggle help\n")
+ Go to^^^^^^                                  Actions^^
+ ─────^^^^^^──────────────────────────────    ───────^^──────────────────────────────────────────────────
+ [_0_,_9_]^^     nth/new layout               [_a_]^^   add buffer
+ [_C-0_,_C-9_]^^ nth/new layout               [_A_]^^   add all from layout
+ [_<tab>_]^^^^   last layout                  [_d_]^^   close current layout
+ [_b_]^^^^       buffer in layout             [_D_]^^   close other layout
+ [_h_]^^^^       default layout               [_r_]^^   remove current buffer
+ [_l_]^^^^       layout w/helm/ivy            [_R_]^^   rename current layout
+ [_L_]^^^^       layouts in file              [_s_/_S_] save all layouts/save by names
+ [_n_/_C-l_]^^   next layout                  [_t_]^^   show a buffer without adding it to current layout
+ [_N_/_p_/_C-h_] prev layout                  [_x_]^^   kill current w/buffers
+ [_o_]^^^^       custom layout                [_X_]^^   kill other w/buffers
+ [_w_]^^^^       workspaces transient state   [_?_]^^   toggle help\n")
 
       (spacemacs|define-transient-state layouts
         :title "Layouts Transient State"
@@ -184,7 +180,7 @@
         ("s" persp-save-state-to-file :exit t)
         ("S" persp-save-to-file-by-names :exit t)
         ("t" persp-temporarily-display-buffer :exit t)
-        ("w" spacemacs/layout-workspaces-transient-state :exit t)
+        ("w" spacemacs/workspaces-transient-state/body :exit t)
         ("x" spacemacs/layouts-ts-kill)
         ("X" spacemacs/layouts-ts-kill-other :exit t))
       (spacemacs/set-leader-keys "l" 'spacemacs/layouts-transient-state/body)
