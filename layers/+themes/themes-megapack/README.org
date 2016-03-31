@@ -1,9 +1,8 @@
 #+TITLE: Themes Megapack layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[What is this?][What is this?]]
- - [[Install][Install]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#what-is-this][What is this?]]
+ - [[#install][Install]]
 
 * What is this?
 This simple contribution layer is an example. It installs around 100 themes

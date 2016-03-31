@@ -1,15 +1,14 @@
 #+TITLE: Version-Control layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Features][Features]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
- - [[Configuration][Configuration]]
-   - [[Differences between margin programs][Differences between margin programs]]
- - [[Key Bindings][Key Bindings]]
-   - [[Version Control Transient-state][Version Control Transient-state]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+ - [[#configuration][Configuration]]
+   - [[#differences-between-margin-programs][Differences between margin programs]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#version-control-transient-state][Version Control Transient-state]]
 
 * Description
 This layers adds general configuration for [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html][Emacs VC]].

@@ -1,14 +1,13 @@
 #+TITLE: YCMD layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[YCMD][YCMD]]
-   - [[Other Requirements][Other Requirements]]
- - [[Configuration][Configuration]]
- - [[Key Bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#ycmd][YCMD]]
+   - [[#other-requirements][Other Requirements]]
+ - [[#configuration][Configuration]]
+ - [[#key-bindings][Key Bindings]]
 
 * Description
 

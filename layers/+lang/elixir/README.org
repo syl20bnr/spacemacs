@@ -1,22 +1,21 @@
 #+TITLE: Elixir layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/elixir.png]] with [[file:img/alchemist.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
-   - [[Refcard][Refcard]]
-   - [[Help][Help]]
-   - [[Mix][Mix]]
-   - [[Project][Project]]
-   - [[Evaluation in place][Evaluation in place]]
-   - [[REPL interactions][REPL interactions]]
-   - [[Tests][Tests]]
-   - [[Compile][Compile]]
-   - [[Execute][Execute]]
-   - [[Code Definition Jump][Code Definition Jump]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+   - [[#refcard][Refcard]]
+   - [[#help][Help]]
+   - [[#mix][Mix]]
+   - [[#project][Project]]
+   - [[#evaluation-in-place][Evaluation in place]]
+   - [[#repl-interactions][REPL interactions]]
+   - [[#tests][Tests]]
+   - [[#compile][Compile]]
+   - [[#execute][Execute]]
+   - [[#code-definition-jump][Code Definition Jump]]
 
 * Description
 

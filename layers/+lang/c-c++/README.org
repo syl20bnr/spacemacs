@@ -1,19 +1,18 @@
 #+TITLE: C/C++ layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/ccpp.jpg]]
 [[file:img/cmake.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Features][Features]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[Default mode for header files][Default mode for header files]]
-   - [[Enable Clang support][Enable Clang support]]
-     - [[clang-format][clang-format]]
-     - [[Company-clang and flycheck][Company-clang and flycheck]]
- - [[Key Bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#default-mode-for-header-files][Default mode for header files]]
+   - [[#enable-clang-support][Enable Clang support]]
+     - [[#clang-format][clang-format]]
+     - [[#company-clang-and-flycheck][Company-clang and flycheck]]
+ - [[#key-bindings][Key Bindings]]
 
 * Description
 This layer adds configuration for C/C++ language as well support for [[http://www.cmake.org/][CMake]]

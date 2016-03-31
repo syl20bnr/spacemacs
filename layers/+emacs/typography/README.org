@@ -1,12 +1,11 @@
 #+TITLE: Typography layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
-   - [[Typo Mode][Typo Mode]]
-   - [[Tildify Mode][Tildify Mode]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+   - [[#typo-mode][Typo Mode]]
+   - [[#tildify-mode][Tildify Mode]]
 
 * Description
 This layer provides support for typographic text editing in Spacemacs.  It

@@ -1,9 +1,8 @@
 #+TITLE: Evil-Cleverparens layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-* Table of Contents                                                   :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
+* Table of Contents                                                   :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
 
 * Description
 

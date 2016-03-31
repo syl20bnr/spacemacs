@@ -1,17 +1,16 @@
 #+TITLE: TypeScript layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/TypeScript.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Pre-requisites][Pre-requisites]]
-   - [[Layer][Layer]]
-   - [[Notes][Notes]]
- - [[Key bindings][Key bindings]]
-   - [[Typescript Major Mode][Typescript Major Mode]]
-   - [[Reference Major Mode                          ][Reference Major Mode                          ]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#pre-requisites][Pre-requisites]]
+   - [[#layer][Layer]]
+   - [[#notes][Notes]]
+ - [[#key-bindings][Key bindings]]
+   - [[#typescript-major-mode][Typescript Major Mode]]
+   - [[#reference-major-mode--------------------------][Reference Major Mode                          ]]
 
 * Description
 

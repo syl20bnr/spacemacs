@@ -1,16 +1,15 @@
 #+TITLE: Ruby on Rails layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/ror.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
-   - [[Code Navigation][Code Navigation]]
-   - [[Refactoring][Refactoring]]
-   - [[RUN commands][RUN commands]]
-   - [[Ex-commands][Ex-commands]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+   - [[#code-navigation][Code Navigation]]
+   - [[#refactoring][Refactoring]]
+   - [[#run-commands][RUN commands]]
+   - [[#ex-commands][Ex-commands]]
 
 * Description
 This layer aims at providing support for the Ruby on Rails framework.

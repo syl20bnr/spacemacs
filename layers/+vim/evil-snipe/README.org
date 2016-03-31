@@ -1,17 +1,16 @@
 #+TITLE: Evil-snipe layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/Cat_With_Rifle.jpg]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[Improved f and t search behavior][Improved f and t search behavior]]
-   - [[Two-character search with s][Two-character search with s]]
-   - [[More scopes][More scopes]]
-   - [[Symbol groups][Symbol groups]]
- - [[Key bindings][Key bindings]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#improved-f-and-t-search-behavior][Improved f and t search behavior]]
+   - [[#two-character-search-with-s][Two-character search with s]]
+   - [[#more-scopes][More scopes]]
+   - [[#symbol-groups][Symbol groups]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 The package [[https://github.com/hlissner/evil-snipe][evil-snipe]]

@@ -1,19 +1,18 @@
 #+TITLE: Quick start
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
-* Configuration                                             :TOC_4_org:noexport:
- - [[Configuration layers][Configuration layers]]
- - [[Dotfile (.spacemacs)][Dotfile (.spacemacs)]]
- - [[Dotdirectory (~/.spacemacs.d)][Dotdirectory (~/.spacemacs.d)]]
- - [[Learning Spacemacs][Learning Spacemacs]]
-   - [[Editing Styles][Editing Styles]]
-   - [[The leader keys][The leader keys]]
-   - [[Evil-tutor][Evil-tutor]]
-   - [[Universal argument][Universal argument]]
-   - [[Configuration layers and Package discovery][Configuration layers and Package discovery]]
-   - [[Key bindings discovery][Key bindings discovery]]
-   - [[Describe functions][Describe functions]]
- - [[How-To's][How-To's]]
+* Configuration                                             :TOC_4_gh:noexport:
+ - [[#configuration-layers][Configuration layers]]
+ - [[#dotfile-spacemacs][Dotfile (.spacemacs)]]
+ - [[#dotdirectory-spacemacsd][Dotdirectory (~/.spacemacs.d)]]
+ - [[#learning-spacemacs][Learning Spacemacs]]
+   - [[#editing-styles][Editing Styles]]
+   - [[#the-leader-keys][The leader keys]]
+   - [[#evil-tutor][Evil-tutor]]
+   - [[#universal-argument][Universal argument]]
+   - [[#configuration-layers-and-package-discovery][Configuration layers and Package discovery]]
+   - [[#key-bindings-discovery][Key bindings discovery]]
+   - [[#describe-functions][Describe functions]]
+ - [[#how-tos][How-To's]]
 
 * Configuration layers
 Spacemacs divides its configuration into self-contained units called

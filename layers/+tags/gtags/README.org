@@ -1,14 +1,13 @@
 #+TITLE: Helm Gtags layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Features][Features]]
- - [[Install][Install]]
-   - [[GNU Global][GNU Global]]
- - [[Usage][Usage]]
-   - [[Eldoc integration][Eldoc integration]]
- - [[Key bindings][Key bindings]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#install][Install]]
+   - [[#gnu-global][GNU Global]]
+ - [[#usage][Usage]]
+   - [[#eldoc-integration][Eldoc integration]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 =helm-gtags= and =ggtags= are clients for GNU Global. GNU Global is a source

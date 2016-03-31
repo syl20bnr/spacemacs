@@ -1,29 +1,28 @@
 #+TITLE: Git contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 
 [[file:img/git.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Features:][Features:]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[Magit status fullscreen][Magit status fullscreen]]
-   - [[Magit auto-complete][Magit auto-complete]]
-   - [[Magit SVN plugin][Magit SVN plugin]]
-   - [[Global git commit mode][Global git commit mode]]
-   - [[Git][Git]]
-   - [[Git-Flow][Git-Flow]]
-   - [[Org integration][Org integration]]
- - [[Working with Git][Working with Git]]
-   - [[Magit][Magit]]
-   - [[Staging lines][Staging lines]]
-   - [[Commit message editing buffer][Commit message editing buffer]]
-   - [[Interactive rebase buffer][Interactive rebase buffer]]
-   - [[Quick guide for recurring use cases in Magit][Quick guide for recurring use cases in Magit]]
-   - [[Git-Flow][Git-Flow]]
-   - [[Git time machine][Git time machine]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features:]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#magit-status-fullscreen][Magit status fullscreen]]
+   - [[#magit-auto-complete][Magit auto-complete]]
+   - [[#magit-svn-plugin][Magit SVN plugin]]
+   - [[#global-git-commit-mode][Global git commit mode]]
+   - [[#git][Git]]
+   - [[#git-flow][Git-Flow]]
+   - [[#org-integration][Org integration]]
+ - [[#working-with-git][Working with Git]]
+   - [[#magit][Magit]]
+   - [[#staging-lines][Staging lines]]
+   - [[#commit-message-editing-buffer][Commit message editing buffer]]
+   - [[#interactive-rebase-buffer][Interactive rebase buffer]]
+   - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
+   - [[#git-flow][Git-Flow]]
+   - [[#git-time-machine][Git time machine]]
 
 * Description
 This layers adds extensive support for [[http://git-scm.com/][git]].

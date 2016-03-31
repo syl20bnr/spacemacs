@@ -1,14 +1,13 @@
 #+TITLE: F# layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/fsharp.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Packages Included][Packages Included]]
- - [[Install][Install]]
- - [[Key Bindings][Key Bindings]]
-   - [[REPL][REPL]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#packages-included][Packages Included]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#repl][REPL]]
 
 * Description
 

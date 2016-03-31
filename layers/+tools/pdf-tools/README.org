@@ -1,21 +1,20 @@
 #+TITLE: pdf-tools layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
 [[file:img/pdf.png]]
 
-* Table of Contents                                        :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Prerequisites][Prerequisites]]
-   - [[Dotfile][Dotfile]]
- - [[Usage][Usage]]
- - [[Known Issues][Known Issues]]
- - [[Key bindings][Key bindings]]
-   - [[PDF View][PDF View]]
-   - [[Leader keys][Leader keys]]
-   - [[Outline buffer mode][Outline buffer mode]]
-   - [[Annotation list mode][Annotation list mode]]
-   - [[Occur mode][Occur mode]]
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#prerequisites][Prerequisites]]
+   - [[#dotfile][Dotfile]]
+ - [[#usage][Usage]]
+ - [[#known-issues][Known Issues]]
+ - [[#key-bindings][Key bindings]]
+   - [[#pdf-view][PDF View]]
+   - [[#leader-keys][Leader keys]]
+   - [[#outline-buffer-mode][Outline buffer mode]]
+   - [[#annotation-list-mode][Annotation list mode]]
+   - [[#occur-mode][Occur mode]]
 
 * Description
 This layer enables support for the [[https://github.com/politza/pdf-tools][pdf-tools]] package.

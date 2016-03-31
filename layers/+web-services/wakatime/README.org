@@ -1,15 +1,14 @@
 #+TITLE: Wakatime layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/wakatime.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Wakatime Program][Wakatime Program]]
-   - [[Layer][Layer]]
-   - [[API Keys][API Keys]]
-     - [[Note to =venv-workon= users:][Note to =venv-workon= users:]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#wakatime-program][Wakatime Program]]
+   - [[#layer][Layer]]
+   - [[#api-keys][API Keys]]
+     - [[#note-to-venv-workon-users][Note to =venv-workon= users:]]
 
 * Description
 This layer adds support for Wakatime.

@@ -1,13 +1,12 @@
 #+TITLE: Deft layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 
-* Table of Content                                          :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Differences from default][Differences from default]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[Configuration][Configuration]]
- - [[Key Bindings][Key Bindings]]
+* Table of Content                                          :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#differences-from-default][Differences from default]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#configuration][Configuration]]
+ - [[#key-bindings][Key Bindings]]
 
 * Description
 [[http://jblevins.org/projects/deft/][Deft]] is an Emacs mode inspired by =Notational Velocity= for quickly

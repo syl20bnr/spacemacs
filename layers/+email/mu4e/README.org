@@ -1,20 +1,19 @@
 #+TITLE: Mu4e layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Install][Install]]
- - [[Commands][Commands]]
-   - [[Global bindings][Global bindings]]
-   - [[Headers mode][Headers mode]]
-   - [[View mode][View mode]]
- - [[Configuration][Configuration]]
-   - [[Maildirs extension][Maildirs extension]]
-   - [[Multiple Accounts][Multiple Accounts]]
-   - [[Example configuration][Example configuration]]
-   - [[Notifications][Notifications]]
-     - [[OS notifications][OS notifications]]
-     - [[Mode-line notifications][Mode-line notifications]]
- - [[See also][See also]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#install][Install]]
+ - [[#commands][Commands]]
+   - [[#global-bindings][Global bindings]]
+   - [[#headers-mode][Headers mode]]
+   - [[#view-mode][View mode]]
+ - [[#configuration][Configuration]]
+   - [[#maildirs-extension][Maildirs extension]]
+   - [[#multiple-accounts][Multiple Accounts]]
+   - [[#example-configuration][Example configuration]]
+   - [[#notifications][Notifications]]
+     - [[#os-notifications][OS notifications]]
+     - [[#mode-line-notifications][Mode-line notifications]]
+ - [[#see-also][See also]]
 
 * Install
 In order to use this layer you must install mu and mu4e separately. Typically
