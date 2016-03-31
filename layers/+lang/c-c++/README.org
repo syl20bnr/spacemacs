@@ -13,6 +13,7 @@
     - [[#clang-format][clang-format]]
     - [[#company-clang-and-flycheck][Company-clang and flycheck]]
   - [[#cmake-configuration][CMake configuration]]
+  - [[#enable-google-set-c-style][Enable google-set-c-style]]
 - [[#key-bindings][Key Bindings]]
   - [[#debugger-realgud][Debugger (realgud)]]
 
@@ -133,6 +134,36 @@ build your project with ~SPC c c~ key binding.
        (helm-make-build-dir . "build")
        (helm-make-arguments . "-j7"))))
 #+END_SRC
+
+** Enable google-set-c-style
+If you have clang enabled with =clang-format= as described earlier in this page
+you may not have a lot of neeed for =google-set-c-style= if you are already
+using a mode based on Google mode for most of your projects.
+
+However, if you don't have (or want) =clang-format=, or if you have to do a lot
+[[https://www.emacswiki.org/emacs/TrampMode][Tramp]] remote editing on systems that don't have =clang-format= installed, you
+may want =google-c-style= enabled and added to your common hooks.
+
+To get =google-c-style= actually install itself into your C/C++ common hooks,
+you need to have =c-c++-enable-google-style= defined to true when you load the
+C-C++ lang in Spacemacs. In your =~/.spacemacs= file, a possible way that this
+would look is that in your list of =dostpacemacs-configuration-layers= you have
+an entry like
+
+#+BEGIN_SRC emacs-lisp
+     (c-c++ :variables
+            c-c++-enable-google-style t)
+#+END_SRC emacs-lisp
+
+Additionally, if you have =c-c++-enable-google-newline= variable set then
+=`google-make-newline-indent= will be set as a =c-mode-common-hook=. You would
+set that up like this:
+
+#+BEGIN_SRC emacs-lisp
+     (c-c++ :variables
+            c-c++-enable-google-style t
+            c-c++-enable-google-newline t)
+#+END_SRC emacs-lisp
 
 * Key Bindings
 

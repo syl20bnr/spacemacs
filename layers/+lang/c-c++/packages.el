@@ -23,6 +23,7 @@
     gdb-mi
     ggtags
     counsel-gtags
+    google-c-style
     helm-cscope
     helm-gtags
     realgud
@@ -156,6 +157,13 @@
         "r" 'realgud:cmd-restart
         "q" 'realgud:cmd-quit
         "S" 'realgud-window-cmd-undisturb-src))))
+
+(defun c-c++/init-google-c-style ()
+  (use-package google-c-style
+    :if (or 'c-c++-enable-google-style 'c-c++-enable-google-newline)
+    :config (progn
+    (when 'c-c++-enable-google-style (add-hook 'c-mode-common-hook 'google-set-c-style))
+    (when 'c-c++-enable-google-newline (add-hook 'c-mode-common-hook 'google-set-c-style)))))
 
 (defun c-c++/post-init-semantic ()
   (spacemacs/add-to-hooks 'semantic-mode c-c++-mode-hooks))
