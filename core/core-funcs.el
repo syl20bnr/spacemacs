@@ -169,7 +169,7 @@ Supported properties:
   (org-indent-mode)
   (view-mode)
   ;; Enable `space-doc-mode' if defined.
-  (when (bound-and-true-p space-doc-mode)
+  (when (boundp 'space-doc-mode)
     (space-doc-mode))
   (goto-char (point-min))
   (when anchor-text
