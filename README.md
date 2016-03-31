@@ -307,10 +307,14 @@ branch, for instance to revert to the last `0.103`:
 # Contributions
 
 Spacemacs is a community-driven project, it needs _you_ to keep it up to
-date and propose useful and complete configuration!
+date and propose great and useful configuration for all the things!
 
 Before contributing be sure to consult the
 [contribution guidelines][CONTRIBUTING.org] and [conventions][CONVENTIONS.org].
+
+Here is a throughput graph of the repository for the last few weeks:
+
+[![Throughput Graph](https://graphs.waffle.io/syl20bnr/spacemacs/throughput.svg)](https://waffle.io/syl20bnr/spacemacs/metrics)
 
 # Communities
 
