@@ -208,13 +208,6 @@ defer call using `spacemacs-post-user-config-hook'."
                 elapsed)))
      (spacemacs/check-for-new-version spacemacs-version-check-interval))))
 
-(defun spacemacs/system-is-mac ()
-  (eq system-type 'darwin))
-(defun spacemacs/system-is-linux ()
-  (eq system-type 'gnu/linux))
-(defun spacemacs/system-is-mswindows ()
-  (eq system-type 'windows-nt))
-
 (defun spacemacs//describe-system-info-string ()
   "Gathers info about your Spacemacs setup and returns it as a string."
   (format
