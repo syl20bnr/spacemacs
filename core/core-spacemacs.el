@@ -148,7 +148,7 @@
 (defun spacemacs//removes-gui-elements ()
   "Remove the menu bar, tool bar and scroll bars."
   ;; removes the GUI elements
-  (unless (eq window-system 'mac)
+  (unless (spacemacs/system-is-mac)
     (when (and (fboundp 'menu-bar-mode) (not (eq menu-bar-mode -1)))
       (menu-bar-mode -1)))
   (when (and (fboundp 'scroll-bar-mode) (not (eq scroll-bar-mode -1)))
@@ -207,6 +207,13 @@ defer call using `spacemacs-post-user-config-hook'."
                 (configuration-layer/configured-packages-count)
                 elapsed)))
      (spacemacs/check-for-new-version spacemacs-version-check-interval))))
+
+(defun spacemacs/system-is-mac ()
+  (eq system-type 'darwin))
+(defun spacemacs/system-is-linux ()
+  (eq system-type 'gnu/linux))
+(defun spacemacs/system-is-mswindows ()
+  (eq system-type 'windows-nt))
 
 (defun spacemacs//describe-system-info-string ()
   "Gathers info about your Spacemacs setup and returns it as a string."
