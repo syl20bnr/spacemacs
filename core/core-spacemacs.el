@@ -148,7 +148,7 @@
 (defun spacemacs//removes-gui-elements ()
   "Remove the menu bar, tool bar and scroll bars."
   ;; removes the GUI elements
-  (unless (spacemacs/system-is-mac)
+  (unless (spacemacs/window-system-is-mac)
     (when (and (fboundp 'menu-bar-mode) (not (eq menu-bar-mode -1)))
       (menu-bar-mode -1)))
   (when (and (fboundp 'scroll-bar-mode) (not (eq scroll-bar-mode -1)))

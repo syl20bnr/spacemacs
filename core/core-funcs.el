@@ -20,6 +20,11 @@
   (eq system-type 'gnu/linux))
 (defun spacemacs/system-is-mswindows ()
   (eq system-type 'windows-nt))
+
+(defun spacemacs/window-system-is-mac ()
+  ;; ns is returned instead of mac on Emacs 25+
+  (memq (window-system) '(mac ns)))
+
 (defun spacemacs/load-or-install-protected-package (pkg &optional log file-to-load)
   "Load PKG package, and protect it against being deleted as an orphan.
 See `spacemacs/load-or-install-package' for more information."
