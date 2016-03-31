@@ -20,6 +20,7 @@
     company-ycmd
     flycheck
     gdb-mi
+    google-c-style
     helm-cscope
     helm-gtags
     semantic
@@ -102,10 +103,18 @@
      ;; Non-nil means display source file containing the main routine at startup
      gdb-show-main t)))
 
+
 (when (configuration-layer/layer-usedp 'spacemacs-helm)
   (defun c-c++/post-init-helm-gtags ()
     (spacemacs/helm-gtags-define-keys-for-mode 'c-mode)
     (spacemacs/helm-gtags-define-keys-for-mode 'c++-mode)))
+
+(defun c-c++/init-google-c-style ()
+  (use-package google-c-style
+    :if (or 'c-c++-enable-google-style 'c-c++-enable-google-newline)
+    :config (progn
+    (when 'c-c++-enable-google-style (add-hook 'c-mode-common-hook 'google-set-c-style))
+    (when 'c-c++-enable-google-newline (add-hook 'c-mode-common-hook 'google-set-c-style)))))
 
 (defun c-c++/post-init-semantic ()
   (spacemacs/add-to-hooks 'semantic-mode '(c-mode-hook c++-mode-hook)))
