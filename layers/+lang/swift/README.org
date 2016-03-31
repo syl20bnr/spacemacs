@@ -1,15 +1,14 @@
 #+TITLE: Swift layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/swift.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Usage information][Usage information]]
- - [[Key bindings][Key bindings]]
-   - [[swift-mode][swift-mode]]
-   - [[swift-repl-mode][swift-repl-mode]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#usage-information][Usage information]]
+ - [[#key-bindings][Key bindings]]
+   - [[#swift-mode][swift-mode]]
+   - [[#swift-repl-mode][swift-repl-mode]]
 
 * Description
 This layer adds support for Apple's Swift programming language, used as a

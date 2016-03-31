@@ -1,16 +1,15 @@
 #+TITLE: Jabber contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 
 [[file:img/jabber-logo.gif]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
-   - [[Jabber Roster][Jabber Roster]]
- - [[HipChat][HipChat]]
-   - [[Authentication][Authentication]]
-   - [[Joining rooms][Joining rooms]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+   - [[#jabber-roster][Jabber Roster]]
+ - [[#hipchat][HipChat]]
+   - [[#authentication][Authentication]]
+   - [[#joining-rooms][Joining rooms]]
 
 * Description
 This layer adds keybindings for jabber.el. jabber.el is a Jabber (XMPP) client for Emacs

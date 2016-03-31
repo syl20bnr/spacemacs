@@ -1,15 +1,14 @@
 #+TITLE: Syntax Checking layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 
 [[file:img/flycheck.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[Enabling/Disabling tooltips][Enabling/Disabling tooltips]]
-   - [[Disabling by default][Disabling by default]]
- - [[Key Bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#enablingdisabling-tooltips][Enabling/Disabling tooltips]]
+   - [[#disabling-by-default][Disabling by default]]
+ - [[#key-bindings][Key Bindings]]
 
 * Description
 This layer provides on the fly syntax checking using [[http://www.flycheck.org/][Flycheck]].

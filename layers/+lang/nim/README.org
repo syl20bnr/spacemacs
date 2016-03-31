@@ -1,14 +1,13 @@
 #+TITLE: Nim layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/logo.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
- - [[Working with Nim][Working with Nim]]
-   - [[Nim commands (start with =m=):][Nim commands (start with =m=):]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+ - [[#working-with-nim][Working with Nim]]
+   - [[#nim-commands-start-with-m][Nim commands (start with =m=):]]
 
 * Description
 

@@ -1,14 +1,13 @@
 #+TITLE: Emoji layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/emojis.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Features][Features]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
-   - [[Emoji dedicated buffer][Emoji dedicated buffer]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+   - [[#emoji-dedicated-buffer][Emoji dedicated buffer]]
 
 * Description
 This layer adds support for Emoji emoticons from [[http://www.emoji-cheat-sheet.com/][emoji-cheat-sheet.com]].

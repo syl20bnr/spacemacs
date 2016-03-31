@@ -1,14 +1,13 @@
 #+TITLE: Spell Checking layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[Spell Checker Configuration][Spell Checker Configuration]]
-   - [[Disabling by default][Disabling by default]]
-   - [[Enabling auto-dictionary-mode][Enabling auto-dictionary-mode]]
- - [[Key Bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#spell-checker-configuration][Spell Checker Configuration]]
+   - [[#disabling-by-default][Disabling by default]]
+   - [[#enabling-auto-dictionary-mode][Enabling auto-dictionary-mode]]
+ - [[#key-bindings][Key Bindings]]
 
 * Description
 This layer provides spell checking using [[http://www-sop.inria.fr/members/Manuel.Serrano/flyspell/flyspell.html][Flyspell]] and =[[https://github.com/nschum/auto-dictionary-mode][auto-dictionary-mode]]=.

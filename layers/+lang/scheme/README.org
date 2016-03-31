@@ -1,17 +1,16 @@
 #+TITLE: Scheme layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key Bindings][Key Bindings]]
-   - [[Compiling ][Compiling ]]
-   - [[Navigation][Navigation]]
-   - [[Documentation][Documentation]]
-   - [[Insertion][Insertion]]
-   - [[Macroexpansion][Macroexpansion]]
-   - [[REPL][REPL]]
-   - [[Evaluation][Evaluation]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#compiling-][Compiling ]]
+   - [[#navigation][Navigation]]
+   - [[#documentation][Documentation]]
+   - [[#insertion][Insertion]]
+   - [[#macroexpansion][Macroexpansion]]
+   - [[#repl][REPL]]
+   - [[#evaluation][Evaluation]]
 
 * Description
 

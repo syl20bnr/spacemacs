@@ -1,11 +1,10 @@
 #+TITLE: Vinegar layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Features][Features]]
-   - [[Mouse bindings][Mouse bindings]]
-   - [[Key bindings][Key bindings]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features]]
+   - [[#mouse-bindings][Mouse bindings]]
+   - [[#key-bindings][Key bindings]]
 
 * Description
 This layer is a port contribution layer for vim-vinegar for emacs.

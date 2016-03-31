@@ -1,14 +1,13 @@
 #+TITLE: Ranger layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Features][Features]]
- - [[Configuration][Configuration]]
-   - [[Customizing][Customizing]]
-   - [[Parent options][Parent options]]
-   - [[Preview options][Preview options]]
- - [[Key Bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#configuration][Configuration]]
+   - [[#customizing][Customizing]]
+   - [[#parent-options][Parent options]]
+   - [[#preview-options][Preview options]]
+ - [[#key-bindings][Key Bindings]]
 
 * Description
 

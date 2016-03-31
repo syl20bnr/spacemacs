@@ -1,20 +1,19 @@
 #+TITLE: Ocaml layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/ocaml.png]]
 
-* Table of Content                                          :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Features:][Features:]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[OPAM packages][OPAM packages]]
- - [[Key Bindings][Key Bindings]]
-   - [[REPL (utop)][REPL (utop)]]
- - [[TODOS][TODOS]]
-   - [[Add more proper spacemacs key-bindings for basic merlin tasks][Add more proper spacemacs key-bindings for basic merlin tasks]]
-   - [[Add proper keybindings for ocamldebug][Add proper keybindings for ocamldebug]]
-   - [[Add more keybindings for tuareg-mode][Add more keybindings for tuareg-mode]]
+* Table of Content                                          :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features:]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#opam-packages][OPAM packages]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#repl-utop][REPL (utop)]]
+ - [[#todos][TODOS]]
+   - [[#add-more-proper-spacemacs-key-bindings-for-basic-merlin-tasks][Add more proper spacemacs key-bindings for basic merlin tasks]]
+   - [[#add-proper-keybindings-for-ocamldebug][Add proper keybindings for ocamldebug]]
+   - [[#add-more-keybindings-for-tuareg-mode][Add more keybindings for tuareg-mode]]
 
 * Description
 This is a very basic layer for editing ocaml files.

@@ -1,13 +1,12 @@
 #+TITLE: Theming layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Usage][Usage]]
- - [[Attributes][Attributes]]
- - [[Faces][Faces]]
- - [[Headers][Headers]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#usage][Usage]]
+ - [[#attributes][Attributes]]
+ - [[#faces][Faces]]
+ - [[#headers][Headers]]
 
 * Description
 This layer allows for a simple way of modifying themes.

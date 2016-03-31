@@ -1,26 +1,25 @@
 #+TITLE: C# layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/csharp.png]] [[file:img/dotnet.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Packages Included][Packages Included]]
- - [[Install][Install]]
-   - [[Prerequisites][Prerequisites]]
-     - [[ASP.NET 5][ASP.NET 5]]
-     - [[curl][curl]]
-     - [[Omnisharp server][Omnisharp server]]
- - [[Caveats][Caveats]]
- - [[Key Bindings][Key Bindings]]
-   - [[Compilation][Compilation]]
-   - [[File/Solution/Project manipulation][File/Solution/Project manipulation]]
-   - [[Navigation][Navigation]]
-   - [[Helpers (documentation, info)][Helpers (documentation, info)]]
-   - [[Refactoring][Refactoring]]
-   - [[OmniSharp server interaction][OmniSharp server interaction]]
-   - [[Tests][Tests]]
-   - [[Code manipulation][Code manipulation]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#packages-included][Packages Included]]
+ - [[#install][Install]]
+   - [[#prerequisites][Prerequisites]]
+     - [[#aspnet-5][ASP.NET 5]]
+     - [[#curl][curl]]
+     - [[#omnisharp-server][Omnisharp server]]
+ - [[#caveats][Caveats]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#compilation][Compilation]]
+   - [[#filesolutionproject-manipulation][File/Solution/Project manipulation]]
+   - [[#navigation][Navigation]]
+   - [[#helpers-documentation-info][Helpers (documentation, info)]]
+   - [[#refactoring][Refactoring]]
+   - [[#omnisharp-server-interaction][OmniSharp server interaction]]
+   - [[#tests][Tests]]
+   - [[#code-manipulation][Code manipulation]]
 
 * Description
 This layer adds experimental support for C# language using [[https://github.com/OmniSharp/omnisharp-emacs][OmniSharp]].

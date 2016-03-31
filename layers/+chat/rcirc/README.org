@@ -1,25 +1,24 @@
 #+TITLE: RCIRC layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/irc.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Features][Features]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[Configuration][Configuration]]
-     - [[Storing the credentials in your dotfile][Storing the credentials in your dotfile]]
-       - [[Example:][Example:]]
-     - [[Storing the credentials in your Dropbox][Storing the credentials in your Dropbox]]
-       - [[Example:][Example:]]
-     - [[Storing the credentials in authinfo][Storing the credentials in authinfo]]
-     - [[Connecting behind a ZNC bouncer and storing the credentials in authinfo][Connecting behind a ZNC bouncer and storing the credentials in authinfo]]
-       - [[Disclaimer][Disclaimer]]
-       - [[Note][Note]]
- - [[Key Bindings][Key Bindings]]
- - [[Rcirc documentation][Rcirc documentation]]
- - [[Spacemacs Layout Support][Spacemacs Layout Support]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#configuration][Configuration]]
+     - [[#storing-the-credentials-in-your-dotfile][Storing the credentials in your dotfile]]
+       - [[#example][Example:]]
+     - [[#storing-the-credentials-in-your-dropbox][Storing the credentials in your Dropbox]]
+       - [[#example][Example:]]
+     - [[#storing-the-credentials-in-authinfo][Storing the credentials in authinfo]]
+     - [[#connecting-behind-a-znc-bouncer-and-storing-the-credentials-in-authinfo][Connecting behind a ZNC bouncer and storing the credentials in authinfo]]
+       - [[#disclaimer][Disclaimer]]
+       - [[#note][Note]]
+ - [[#key-bindings][Key Bindings]]
+ - [[#rcirc-documentation][Rcirc documentation]]
+ - [[#spacemacs-layout-support][Spacemacs Layout Support]]
 
 * Description
 This layer provide support for [[http://www.gnu.org/software/emacs/manual/html_mono/rcirc.html][rcirc]] with optional support for authinfo

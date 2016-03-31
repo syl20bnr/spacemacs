@@ -1,12 +1,11 @@
 #+TITLE: IBuffer layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[Grouping buffers][Grouping buffers]]
- - [[Key bindings][Key bindings]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#grouping-buffers][Grouping buffers]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 

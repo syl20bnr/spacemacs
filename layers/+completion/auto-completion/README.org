@@ -1,25 +1,24 @@
 #+TITLE: Auto-completion layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Configuration][Configuration]]
-   - [[Key bindings][Key bindings]]
-   - [[Snippets directories][Snippets directories]]
-   - [[Show snippets in auto-completion popup][Show snippets in auto-completion popup]]
-   - [[Tooltips][Tooltips]]
-   - [[Sort results by usage][Sort results by usage]]
-   - [[Enable company or auto-complete globally][Enable company or auto-complete globally]]
-   - [[Replacing company by auto-complete][Replacing company by auto-complete]]
-   - [[Add auto-completion in a layer][Add auto-completion in a layer]]
-     - [[In =config.el=][In =config.el=]]
-     - [[In =packages.el=][In =packages.el=]]
- - [[Key Bindings][Key Bindings]]
-   - [[Company][Company]]
-   - [[Auto-complete][Auto-complete]]
-   - [[Yasnippet][Yasnippet]]
-   - [[Auto-yasnippet][Auto-yasnippet]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#configuration][Configuration]]
+   - [[#key-bindings][Key bindings]]
+   - [[#snippets-directories][Snippets directories]]
+   - [[#show-snippets-in-auto-completion-popup][Show snippets in auto-completion popup]]
+   - [[#tooltips][Tooltips]]
+   - [[#sort-results-by-usage][Sort results by usage]]
+   - [[#enable-company-or-auto-complete-globally][Enable company or auto-complete globally]]
+   - [[#replacing-company-by-auto-complete][Replacing company by auto-complete]]
+   - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
+     - [[#in-configel][In =config.el=]]
+     - [[#in-packagesel][In =packages.el=]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#company][Company]]
+   - [[#auto-complete][Auto-complete]]
+   - [[#yasnippet][Yasnippet]]
+   - [[#auto-yasnippet][Auto-yasnippet]]
 
 * Description
 This layer provides auto-completion to Spacemacs.

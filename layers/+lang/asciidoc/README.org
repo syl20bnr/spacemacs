@@ -1,13 +1,12 @@
 #+TITLE: Asciidoc layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Feature][Feature]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
-   - [[Element insertion][Element insertion]]
-   - [[Promotion, Demotion][Promotion, Demotion]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#feature][Feature]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+   - [[#element-insertion][Element insertion]]
+   - [[#promotion-demotion][Promotion, Demotion]]
 
 * Description
 This layer adds [[https://asciidoctor.org][AsciiDoc]] markup language support to Spacemacs.

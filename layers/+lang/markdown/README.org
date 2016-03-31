@@ -1,24 +1,23 @@
 #+TITLE: Markdown layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/markdown.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Features:][Features:]]
- - [[Install][Install]]
- - [[Usage][Usage]]
- - [[Key bindings][Key bindings]]
-   - [[Element insertion][Element insertion]]
-   - [[Element removal][Element removal]]
-   - [[Completion, and Cycling][Completion, and Cycling]]
-   - [[Following and Jumping][Following and Jumping]]
-   - [[Indentation][Indentation]]
-   - [[Header navigation][Header navigation]]
-   - [[Buffer-wide commands][Buffer-wide commands]]
-   - [[List editing][List editing]]
-   - [[Movement][Movement]]
-   - [[Promotion, Demotion][Promotion, Demotion]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features:]]
+ - [[#install][Install]]
+ - [[#usage][Usage]]
+ - [[#key-bindings][Key bindings]]
+   - [[#element-insertion][Element insertion]]
+   - [[#element-removal][Element removal]]
+   - [[#completion-and-cycling][Completion, and Cycling]]
+   - [[#following-and-jumping][Following and Jumping]]
+   - [[#indentation][Indentation]]
+   - [[#header-navigation][Header navigation]]
+   - [[#buffer-wide-commands][Buffer-wide commands]]
+   - [[#list-editing][List editing]]
+   - [[#movement][Movement]]
+   - [[#promotion-demotion][Promotion, Demotion]]
 
 * Description
 

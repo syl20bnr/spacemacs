@@ -1,21 +1,20 @@
 #+TITLE: LaTeX layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/latex.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Features][Features]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[Auto-completion][Auto-completion]]
-   - [[Previewing][Previewing]]
-   - [[Build command][Build command]]
-   - [[Auto-fill][Auto-fill]]
-   - [[Folding][Folding]]
- - [[Keybindings][Keybindings]]
-   - [[Folding][Folding]]
-   - [[RefTeX][RefTeX]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#auto-completion][Auto-completion]]
+   - [[#previewing][Previewing]]
+   - [[#build-command][Build command]]
+   - [[#auto-fill][Auto-fill]]
+   - [[#folding][Folding]]
+ - [[#keybindings][Keybindings]]
+   - [[#folding][Folding]]
+   - [[#reftex][RefTeX]]
 
 * Description
 This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects/auctex/][AucTeX]].

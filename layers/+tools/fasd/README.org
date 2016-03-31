@@ -1,12 +1,11 @@
 #+TITLE: fasd layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Layer ][Layer ]]
-   - [[fasd][fasd]]
- - [[Keybindings][Keybindings]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer-][Layer ]]
+   - [[#fasd][fasd]]
+ - [[#keybindings][Keybindings]]
 
 * Description
 

@@ -1,20 +1,19 @@
 #+TITLE: Common Lisp layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/slime.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key Bindings][Key Bindings]]
-   - [[Working with lisp files (barfage, slurpage & more)][Working with lisp files (barfage, slurpage & more)]]
-   - [[Leader][Leader]]
-     - [[Help][Help]]
-     - [[Evaluation][Evaluation]]
-     - [[REPL][REPL]]
-     - [[Compile][Compile]]
-     - [[Navigation][Navigation]]
-     - [[Macroexpansion][Macroexpansion]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
+   - [[#leader][Leader]]
+     - [[#help][Help]]
+     - [[#evaluation][Evaluation]]
+     - [[#repl][REPL]]
+     - [[#compile][Compile]]
+     - [[#navigation][Navigation]]
+     - [[#macroexpansion][Macroexpansion]]
 
 * Description
 A Spacemacs contribution layer providing Common Lisp support via [[https://github.com/slime/slime][SLIME]].
