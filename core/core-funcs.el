@@ -14,6 +14,12 @@
 (defvar spacemacs-repl-list '()
   "List of all registered REPLs.")
 
+(defun spacemacs/system-is-mac ()
+  (eq system-type 'darwin))
+(defun spacemacs/system-is-linux ()
+  (eq system-type 'gnu/linux))
+(defun spacemacs/system-is-mswindows ()
+  (eq system-type 'windows-nt))
 (defun spacemacs/load-or-install-protected-package (pkg &optional log file-to-load)
   "Load PKG package, and protect it against being deleted as an orphan.
 See `spacemacs/load-or-install-package' for more information."
