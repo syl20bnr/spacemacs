@@ -151,16 +151,13 @@ Supported properties:
      (when evil-leader
        `((dolist (key ',evil-leader)
             (spacemacs/set-leader-keys key ',func))))
-
      (when evil-leader-for-mode
        `((dolist (val ',evil-leader-for-mode)
           (spacemacs/set-leader-keys-for-major-mode
             (car val) (cdr val) ',func))))
-
      (when global-key
        `((dolist (key ',global-key)
           (global-set-key (kbd key) ',func))))
-
      (when def-key
        `((dolist (val ',def-key)
           (define-key (eval (car val)) (kbd (cdr val)) ',func)))))))
@@ -171,25 +168,22 @@ Supported properties:
   (find-file file)
   (org-indent-mode)
   (view-mode)
-  (when(and(boundp 'space-doc-mode)(fboundp 'space-doc-mode)(space-doc-mode)))
+  (when (bound-and-true-p space-doc-mode)
+    (space-doc-mode))
   (goto-char (point-min))
-
   (when anchor-text
     (re-search-forward anchor-text))
   (beginning-of-line)
-
   (cond
    ((eq expand-scope 'subtree)
     (outline-show-subtree))
    ((eq expand-scope 'all)
     (outline-show-all))
    (t nil))
-
   ;; Make ~SPC ,~ work, reference:
   ;; http://stackoverflow.com/questions/24169333/how-can-i-emphasize-or-verbatim-quote-a-comma-in-org-mode
   (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\n")
   (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
-
   (setq-local org-emphasis-alist '(("*" bold)
                                    ("/" italic)
                                    ("_" underline)
@@ -197,7 +191,6 @@ Supported properties:
                                    ("~" org-kbd)
                                    ("+"
                                     (:strike-through t))))
-
   (setq-local org-hide-emphasis-markers t))
 
 (defun spacemacs//test-var (pred var test-desc)
