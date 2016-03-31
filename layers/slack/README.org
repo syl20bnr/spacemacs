@@ -26,13 +26,15 @@ Follow the instructions in the [[https://github.com/yuya373/emacs-slack/blob/mas
 Then, in your ~dotspacemacs/user-init()~ set the following:
 
 #+begin_src emacs-lisp
-(setq slack-enable-emoji t
-  slack-room-subscription '(general slackbot)
-  slack-client-id "something"
-  slack-user-name "yourusername"
-  slack-client-secret "secret!"
-  slack-token "token"
-  )
+(setq slack-enable-emoji t)
+(slack-register-team
+  :name "emacs-slack"
+  :default t
+  :client-id "something"
+  :client-secret "secret!"
+  :token "token"
+  :subscribed-channels '(general slackbot)
+)
 #+end_src
 
 * Key bindings
