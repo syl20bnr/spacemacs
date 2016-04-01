@@ -12,7 +12,7 @@
 
 (setq spacemacs-buffer-name "*zemacs*")
 (setq spacemacs-buffer-logo-title "[Z E M A C S]")
-(setq spacemacs-buffer-version-info "af-1.0")
+(setq spacemacs-buffer-version-info "af-1.01")
 
 (define-minor-mode zemacs-buffer-mode
   "Zemacs major mode for startup screen."
@@ -32,9 +32,6 @@
     (ad-disable-advice 'spacemacs-buffer/insert-banner-and-buttons
                        'after 'zemacs/insert-banner-and-buttons)
     (ad-activate 'spacemacs-buffer/insert-banner-and-buttons)
-    (ad-disable-advice 'spacemacs-buffer//startup-hook
-                       'around 'zemacs//startup-hook)
-    (ad-activate 'spacemacs-buffer//startup-hook)
     (load-file (concat user-emacs-directory "core/core-spacemacs-buffer.el"))
     (setq dotspacemacs-startup-banner 'official)
     (kill-buffer)
@@ -108,7 +105,7 @@
     (around zemacs/inject-version activate)
   (let ((emacs-version "99.9999999")
         (dotspacemacs-distribution "zemacs")
-        (spacemacs-version "af-1.0"))
+        (spacemacs-version "af-1.01"))
     ad-do-it))
 
 (defadvice spacemacs-buffer/insert-banner-and-buttons
@@ -117,9 +114,6 @@
   (spacemacs-buffer//insert-release-note-widget
    (concat spacemacs-release-notes-directory
            spacemacs-buffer-version-info ".txt")))
-
-(defadvice spacemacs-buffer//startup-hook (around zemacs//startup-hook activate)
-  (let (dotspacemacs-startup-lists) ad-do-it))
 
 (add-hook 'emacs-startup-hook 'zemacs-buffer-mode t)
 
