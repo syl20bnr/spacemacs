@@ -23,8 +23,7 @@ find ./layers -name "*.org" -type f -exec gsed -i 's/:TOC_4_org:/:TOC_4_gh:/' {}
 
 
 #apply toc-org to doc.
-find ./doc    -name "*.org" -type f -exec emacs -batch -l ./doc-fmt/toc-org-apply.el '{}' -f toc-apply \;
+find ./doc    -name "*.org" -type f -exec emacs -batch -l ./core/tools/doc-fmt/toc-org-apply.el '{}' -f toc-apply \;
 
 #apply toc-org to layers.
-find ./layers -name "*.org" -type f -exec emacs -batch -l ./doc-fmt/toc-org-apply.el '{}' -f toc-apply \;
-
+find ./layers -name "*.org" -type f -exec emacs -batch -l ./core/tools/doc-fmt/toc-org-apply.el '{}' -f toc-apply \;
