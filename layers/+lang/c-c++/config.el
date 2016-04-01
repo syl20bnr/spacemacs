@@ -14,6 +14,9 @@
 (defvar c-c++-enable-clang-support nil
   "If non nil Clang related packages and configuration are enabled.")
 
+(defvar c-c++-enable-c++11 nil
+  "If non nil then c++11 related features will be enabled")
+
 (spacemacs|defvar-company-backends c-mode-common)
 (spacemacs|defvar-company-backends cmake-mode)
 
