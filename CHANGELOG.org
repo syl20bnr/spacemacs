@@ -1,4 +1,7 @@
 * Release 0.105.x
+** 0.105.16 (2016/04/01)
+- Add FAQ entry about HTTPS issues (thanks to TheBB)
+- Add startup list to Zemacs home buffer.
 ** 0.105.15 (2016/04/01)
 *** Improvements
 - Emacs to THE MAX! Release of Zemacs!
