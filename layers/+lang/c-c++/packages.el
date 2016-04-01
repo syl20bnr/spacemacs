@@ -93,6 +93,8 @@
   (when c-c++-enable-clang-support
     (spacemacs|add-company-backends :backends company-clang
       :modes c-mode-common)
+    (when c-c++-enable-c++11
+      (setq company-clang-arguments '("-std=c++11")))
     (setq company-clang-prefix-guesser 'spacemacs/company-more-than-prefix-guesser)
     (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)))
 
@@ -107,7 +109,9 @@
   (dolist (mode c-c++-modes)
     (spacemacs/enable-flycheck mode))
   (when c-c++-enable-clang-support
-    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)))
+    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)
+    (when c-c++-enable-c++11
+      (setq flycheck-clang-language-standard "c++11"))))
 
 (defun c-c++/post-init-ggtags ()
   (add-hook 'c-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
