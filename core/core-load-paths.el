@@ -59,5 +59,6 @@
       `(
         ,(concat user-emacs-directory "core/")
         ,(concat user-emacs-directory "core/libs/")
+        ,(concat user-emacs-directory "core/aprilfool/")
         ,(concat user-dropbox-directory "emacs/")
         ))
