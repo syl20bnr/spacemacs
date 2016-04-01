@@ -62,6 +62,7 @@ function of your dotfile.
 | ~g~         | First tweet                              |
 | ~G~         | Last tweet                               |
 | ~i~         | View user profile around point           |
+| ~I~         | toggle user icons                        |
 | ~q~         | Quit transient state                     |
 | ~Q~         | Quit twittering mode                     |
 | ~j~         | Next tweet                               |
