@@ -229,8 +229,6 @@ This file containes the change log for the next major version of Spacemacs.
 - Use built-in =web-mode= pairing (disable =smartparens=) (thanks to TheBB)
 - Enable =emmet-mode= in sass and scss modes (thanks to utkarshkukreti)
 **** Javascript
-- New layer variable =javascript-disable-tern-port-files=, when non nil
-  tern port files are not created. Default value is nil. (thanks to mijoharas)
 - Add REPL via =skewer-mode= and =livid-mode= (thanks to dcluna)
 **** LaTeX
 - New key bindings for fill and uncomment:
