@@ -17,6 +17,7 @@
    - [[#why-does-helm-m-x-spc-spc-not-accept-the-prefix-argument][Why does =helm-M-x= (~SPC SPC~) not accept the prefix argument?]]
    - [[#why-does-my-color-theme-not-render-correctly-in-terminal-mode][Why does my color theme not render correctly in terminal mode?]]
    - [[#why-do-i-get-wrong-type-argument-arrayp-nil-errors-on-startup][Why do I get =(wrong-type-argument arrayp nil)= errors on startup?]]
+   - [[#why-do-i-get-symbols-value-as-variable-is-void-errors-on-startup][Why do I get "Symbol's value as variable is void" errors on startup?]]
    - [[#typing-quickly-fd-takes-me-out-of-insert-state-what-is-going-on][Typing quickly =fd= takes me out of =insert state=. What is going on?]]
    - [[#why-do-i-get-files-starting-with-][Why do I get files starting with .#?]]
  - [[#how-do-i][How do I...]]
@@ -164,6 +165,18 @@ change your terminal color palette. More explanations can be found on
 ** Why do I get =(wrong-type-argument arrayp nil)= errors on startup?
 This is most likely caused by a corrupted package archive. Try deleting your
 =~/.emacs.d/elpa/archives/= folder and restart Emacs.
+
+** Why do I get "Symbol's value as variable is void" errors on startup?
+If Emacs reports an error that the symbol =closed= or =-= is unbound as a
+variable, it is probably because you are using HTTPS to download packages, but
+you shouldn't be. Try deleting your packages (the =.emacs.d/elpa= folder), and
+restart Emacs without HTTPS to download the packages again. There are two ways
+to do this:
+
+- Run Emacs with the =--insecure= command line argument: =emacs --insecure=. You
+  will have to do this again the next time you update your packages.
+- Set the variable =dotspacemacs-elpa-https= to =nil= in your dotfile. This has
+  the same effect as =--insecure=, but is persistent.
 
 ** Typing quickly =fd= takes me out of =insert state=. What is going on?
 This is a feature of Spacemacs, enabling you to easily escape from a lot of
