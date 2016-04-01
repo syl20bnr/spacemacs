@@ -1,4 +1,13 @@
 * Release 0.105.x
+** 0.105.15 (2016/04/01)
+*** Improvements
+- Emacs to THE MAX! Release of Zemacs!
+*** Layer changes
+**** Javascript
+- New layer variable =javascript-disable-tern-port-files=, when non nil
+  tern port files are not created. Default value is nil. (thanks to mijoharas)
+**** Swift
+- Fix all =swift= major-mode key bindings (thanks to xinranmsn)
 ** 0.105.14 (2016/03/09)
 *** Fixes
 - Fix bad window index for =neotree= buffer (thanks to bmag)
