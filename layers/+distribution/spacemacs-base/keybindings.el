@@ -251,13 +251,13 @@
   :on (semantic-stickyfunc-mode)
   :off (semantic-stickyfunc-mode -1)
   :documentation "Enable semantic-stickyfunc."
-  :evil-leader "Ts")
+  :evil-leader "TS")
 (spacemacs|add-toggle semantic-stickyfunc-globally
   :status global-semantic-stickyfunc-mode
   :on (global-semantic-stickyfunc-mode)
   :off (global-semantic-stickyfunc-mode -1)
   :documentation "Enable semantic-stickyfunc globally."
-  :evil-leader "T C-s")
+  :evil-leader "T C-S")
 ;; quit -----------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "qs" 'spacemacs/save-buffers-kill-emacs
