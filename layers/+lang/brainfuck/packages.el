@@ -1,0 +1,1 @@
+(setq brainfuck-packages '(brainfuck-mode))(defun brainfuck/init-brainfuck-mode()(use-package brainfuck-mode :defer t :init(spacemacs/set-leader-keys-for-major-mode 'brainfuck-mode "bf" 'bf-help-describe-symbol)))
