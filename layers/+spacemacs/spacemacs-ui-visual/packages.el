@@ -380,7 +380,7 @@
          "Globally display a ~ on empty lines in the fringe."
          :evil-leader "T~")
        ;; don't enable it on spacemacs home buffer
-       (with-current-buffer  "*spacemacs*"
+       (with-current-buffer spacemacs-buffer-name
          (vi-tilde-fringe-mode -1))
        ;; after a major mode is loaded, check if the buffer is read only
        ;; if so, disable vi-tilde-fringe-mode
