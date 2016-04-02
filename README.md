@@ -141,7 +141,8 @@ distributions as well.
 The recommended way of installing Emacs on OS X is using [homebrew][]:
 
 ```sh
-$ brew install emacs --with-cocoa --with-gnutls --with-rsvg --with-imagemagick
+$ brew tap d12frosted/emacs-plus
+$ brew install emacs-plus --with-cocoa --with-gnutls --with-librsvg --with-imagemagick --with-spacemacs-icon
 $ brew linkapps
 ```
 
