@@ -65,7 +65,8 @@
 
 (defun ruby/init-enh-ruby-mode ()
   (use-package enh-ruby-mode
-    :mode (("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . enh-ruby-mode)
+    :mode (("Appraisals\\'" . enh-ruby-mode)
+           ("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . enh-ruby-mode)
            ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))
     :interpreter "ruby"
     :config
@@ -184,7 +185,8 @@
 (defun ruby/init-ruby-mode ()
   (use-package ruby-mode
     :defer t
-    :mode "Puppetfile"
+    :mode (("Appraisals\\'" . ruby-mode)
+           ("Puppetfile" . ruby-mode))
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
