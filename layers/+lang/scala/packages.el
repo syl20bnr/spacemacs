@@ -189,10 +189,9 @@
 
 (defun scala/init-sbt-mode ()
   (use-package sbt-mode
-    :config
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'scala-mode
-        "bb" 'sbt-command))))
+    :defer t
+    :init (spacemacs/set-leader-keys-for-major-mode 'scala-mode
+            "bb" 'sbt-command)))
 
 (defun scala/init-scala-mode2 ()
   (use-package scala-mode2
