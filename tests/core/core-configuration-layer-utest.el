@@ -1237,3 +1237,40 @@
       (concat "(configuration-layer/lazy-install 'layer "
               ":extensions '(\"\\\\(\\\\.ext\\\\'\\\\)\" mode))\n")
       (configuration-layer//insert-lazy-install-form 'layer 'mode "\\(\\.ext\\'\\)")))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer/configured-packages-stats
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-configured-packages-stats--correct-counts ()
+  (let ((packages
+         (list (cfgl-package "pkg1" :name 'pkg1 :location 'built-in)
+               (cfgl-package "pkg2" :name 'pkg2 :location 'built-in)
+               (cfgl-package "pkg3" :name 'pkg3 :location 'elpa)
+               (cfgl-package "pkg4" :name 'pkg4 :location 'elpa)
+               (cfgl-package "pkg5" :name 'pkg5 :location 'elpa)
+               (cfgl-package "pkg6" :name 'pkg6 :location 'local)
+               (cfgl-package "pkg7" :name 'pkg7 :location '(recipe :foo bar))
+               (cfgl-package "pkg8" :name 'pkg8 :location '(recipe :foo bar)))))
+    (should (equal '((total 8)
+                     (elpa 3)
+                     (recipe 2)
+                     (local 1)
+                     (built-in 2))
+                   (configuration-layer/configured-packages-stats packages)))))
+
+(ert-deftest test-configured-packages-stats--sum-is-correct ()
+  (let* ((packages
+          (list (cfgl-package "pkg1" :name 'pkg1 :location 'built-in)
+                (cfgl-package "pkg2" :name 'pkg2 :location 'built-in)
+                (cfgl-package "pkg3" :name 'pkg3 :location 'elpa)
+                (cfgl-package "pkg4" :name 'pkg4 :location 'elpa)
+                (cfgl-package "pkg5" :name 'pkg5 :location 'elpa)
+                (cfgl-package "pkg6" :name 'pkg6 :location 'local)
+                (cfgl-package "pkg7" :name 'pkg7 :location '(recipe :foo bar))
+                (cfgl-package "pkg8" :name 'pkg8 :location '(recipe :foo bar))))
+         (stats (configuration-layer/configured-packages-stats packages)))
+    (should (equal 8 (+ (cadr (assq 'elpa stats))
+                        (cadr (assq 'recipe stats))
+                        (cadr (assq 'local stats))
+                        (cadr (assq 'built-in stats)))))))

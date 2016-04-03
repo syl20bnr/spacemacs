@@ -172,14 +172,7 @@ defer call using `spacemacs-post-user-config-hook'."
      (when (fboundp dotspacemacs-scratch-mode)
        (with-current-buffer "*scratch*"
          (funcall dotspacemacs-scratch-mode)))
-     ;; from jwiegley
-     ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
-     (let ((elapsed (float-time
-                     (time-subtract (current-time) emacs-start-time))))
-       (spacemacs-buffer/append
-        (format "\n[%s packages loaded in %.3fs]\n"
-                (configuration-layer/configured-packages-count)
-                elapsed)))
+     (configuration-layer/display-summary emacs-start-time)
      (spacemacs/check-for-new-version spacemacs-version-check-interval))))
 
 (defun spacemacs//describe-system-info-string ()
