@@ -19,7 +19,8 @@
     (progn
       (spacemacs/set-leader-keys
         "ar" 'ranger
-        "ad" 'deer)
+        "ad" 'deer
+        "fj" 'deer)
 
       ;; set up image-dired to allow picture resize
       (setq image-dired-dir (concat spacemacs-cache-directory "image-dir"))
