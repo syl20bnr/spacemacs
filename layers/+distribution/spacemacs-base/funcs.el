@@ -382,7 +382,6 @@ argument takes the kindows rotate backwards."
   (interactive)
   (let ((newbuf (generate-new-buffer-name "untitled")))
     (switch-to-buffer newbuf)))
-(evil-ex-define-cmd "enew" 'spacemacs/new-empty-buffer)
 
 ;; from https://gist.github.com/timcharper/493269
 (defun spacemacs/split-window-vertically-and-switch ()

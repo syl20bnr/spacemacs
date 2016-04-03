@@ -123,7 +123,7 @@ LAYER has to be installed for this method to work properly."
            "Package is enabled/installed if toggle evaluates to non-nil.")
    (step :initarg :step
          :initform nil
-         :type (satisfies (lambda (x) (member x '(nil pre))))
+         :type (satisfies (lambda (x) (member x '(nil bootstrap pre))))
          :documentation "Initialization step.")
    (lazy-install :initarg :lazy-install
                  :initform nil
@@ -300,6 +300,8 @@ If NO-INSTALL is non nil then install steps are skipped."
       (lambda (x)
         (not (oref x :lazy-install)))))
     (configuration-layer//configure-packages configuration-layer--packages)
+    (configuration-layer//load-layers-files
+     configuration-layer--layers '("keybindings.el"))
     (when dotspacemacs-delete-orphan-packages
       (configuration-layer/delete-orphan-packages
        configuration-layer--packages))))
@@ -399,7 +401,8 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
     (when toggle (oset obj :toggle toggle))
     ;; cannot override protected packages
     (unless copyp
-      (oset obj :protected protected)
+      ;; a bootstrap package is protected
+      (oset obj :protected (or protected (eq 'bootstrap step)))
       (when protected
         (push name-sym configuration-layer--protected-packages)))
     obj))
@@ -852,8 +855,10 @@ path."
         (spacemacs-buffer/warning "Unknown layer %s declared in dotfile."
                                   layer-name))))
   (setq configuration-layer--layers (reverse configuration-layer--layers))
-  ;; distribution layer is always first
+  ;; distribution and bootstrap layers are always first
   (push (configuration-layer/make-layer dotspacemacs-distribution)
+        configuration-layer--layers)
+  (push (configuration-layer/make-layer 'spacemacs-bootstrap)
         configuration-layer--layers))
 
 (defun configuration-layer/declare-layers (layer-names)
@@ -911,7 +916,8 @@ path."
 (defun configuration-layer/package-usedp (name)
   "Return non-nil if NAME is the name of a used package."
   (let ((obj (object-assoc name :name configuration-layer--packages)))
-    (when (and obj (not (oref obj :excluded))) (oref obj :owner))))
+    (when (and obj (not (oref obj :excluded)))
+      (not (null (oref obj :owner))))))
 
 (defun  configuration-layer/package-lazy-installp (name)
   "Return non-nil if NAME is the name of a package to be lazily installed."
@@ -930,19 +936,17 @@ path."
   "Configure LAYER."
   (configuration-layer//set-layer-variables layer)
   (configuration-layer//load-layer-files layer '("funcs.el"
-                                                 "config.el"
-                                                 "keybindings.el")))
+                                                 "config.el")))
 
 (defun configuration-layer//declare-packages (layers)
   "Declare all packages contained in LAYERS."
-  (let ((layers2 layers)
-        (warning-minimum-level :error))
-    (configuration-layer//load-layers-files layers2 '("packages.el"
-                                                      "packages-config.el"
-                                                      "packages-funcs.el"))
+  (let ((warning-minimum-level :error))
+    (configuration-layer//load-layers-files layers '("packages.el"
+                                                     "packages-config.el"
+                                                     "packages-funcs.el"))
     ;; gather all the packages of current layer
     (configuration-layer//sort-packages (configuration-layer/get-packages
-                                         layers2 t))))
+                                         layers t))))
 
 (defun configuration-layer//load-layers-files (layers files)
   "Load the files of list FILES for all passed LAYERS."
@@ -1023,6 +1027,7 @@ path."
         (oset layer :lazy-install nil)
         (configuration-layer//install-packages sorted-inst)
         (configuration-layer//configure-packages sorted-config)
+        (configuration-layer//load-layer-files layer '("keybindings.el"))
         (switch-to-buffer last-buffer)))))
 
 (defun configuration-layer//install-packages (packages)
@@ -1143,9 +1148,15 @@ path."
   (setq spacemacs-loading-dots-chunk-threshold
         (/ (configuration-layer/configured-packages-count)
            spacemacs-loading-dots-chunk-count))
+  (spacemacs-buffer/message "+ Configuring bootstrap packages...")
+  (configuration-layer//configure-packages-2
+   (configuration-layer/filter-objects
+    packages (lambda (x) (eq 'bootstrap (oref x :step)))))
+  (spacemacs-buffer/message "+ Configuring pre packages...")
   (configuration-layer//configure-packages-2
    (configuration-layer/filter-objects
     packages (lambda (x) (eq 'pre (oref x :step)))))
+  (spacemacs-buffer/message "+ Configuring packages...")
   (configuration-layer//configure-packages-2
    (configuration-layer/filter-objects
     packages (lambda (x) (null (oref x :step))))))

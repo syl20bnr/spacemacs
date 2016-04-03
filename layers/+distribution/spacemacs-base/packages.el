@@ -11,14 +11,11 @@
 
 (setq spacemacs-base-packages
       '(
-        bind-key
-        (bind-map :step pre)
-        bookmark
+        (bookmark :location built-in)
         diminish
         (electric-indent-mode :location built-in)
-        ediff
-        eldoc
-        evil
+        (ediff :location built-in)
+        (eldoc :location built-in)
         evil-ediff
         evil-escape
         (evil-evilified-state :location local :step pre :protected t)
@@ -31,7 +28,6 @@
         (hs-minor-mode :location built-in)
         (holy-mode :location local :step pre)
         (hybrid-mode :location local :step pre)
-        hydra
         (ido :location built-in)
         ido-vertical-mode
         (package-menu :location built-in)
@@ -40,38 +36,23 @@
         popwin
         (process-menu :location built-in)
         projectile
-        quelpa
-        recentf
+        (recentf :location built-in)
         ;; request is not a built-in package
         ;; this is a hack to be able to configure request cache directory.
         (request :location built-in)
         restart-emacs
-        savehist
-        saveplace
+        (savehist :location built-in)
+        (saveplace :location built-in)
         spacemacs-theme
-        subword
+        (subword :location built-in)
         undo-tree
         (uniquify :location built-in)
         (url :location built-in)
-        use-package
-        which-key
-        whitespace
-        winner
+        (whitespace :location built-in)
+        (winner :location built-in)
         ws-butler))
 
 ;; Initialization of packages
-
-(defun spacemacs-base/init-bind-key ())
-
-(defun spacemacs-base/init-bind-map ()
-  (use-package bind-map
-    :init
-    (bind-map spacemacs-default-map
-      :prefix-cmd spacemacs-cmds
-      :keys (dotspacemacs-emacs-leader-key)
-      :evil-keys (dotspacemacs-leader-key)
-      :override-minor-modes t
-      :override-mode-name spacemacs-leader-override-mode)))
 
 (defun spacemacs-base/init-bookmark ()
   (use-package bookmark
@@ -164,252 +145,6 @@
       (add-hook 'ielm-mode-hook #'eldoc-mode)
       ;; don't display eldoc on modeline
       (spacemacs|hide-lighter eldoc-mode))))
-
-(defun spacemacs-base/init-evil ()
-  (use-package evil
-    :init
-    (progn
-      (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
-                                       ("insert" "chartreuse3" (bar . 2))
-                                       ("emacs" "SkyBlue2" box)
-                                       ("hybrid" "SkyBlue2" (bar . 2))
-                                       ("replace" "chocolate" (hbar . 2))
-                                       ("evilified" "LightGoldenrod3" box)
-                                       ("visual" "gray" (hbar . 2))
-                                       ("motion" "plum3" box)
-                                       ("lisp" "HotPink1" box)
-                                       ("iedit" "firebrick1" box)
-                                       ("iedit-insert" "firebrick1" (bar . 2)))
-        "Colors assigned to evil states with cursor definitions.")
-
-      (loop for (state color cursor) in spacemacs-evil-cursors
-            do
-            (eval `(defface ,(intern (format "spacemacs-%s-face" state))
-                     `((t (:background ,color
-                                       :foreground ,(face-background 'mode-line)
-                                       :box ,(face-attribute 'mode-line :box)
-                                       :inherit 'mode-line)))
-                     (format "%s state face." state)
-                     :group 'spacemacs))
-            (eval `(setq ,(intern (format "evil-%s-state-cursor" state))
-                         (list (when dotspacemacs-colorize-cursor-according-to-state color)
-                               cursor))))
-
-      ;; put back refresh of the cursor on post-command-hook see status of:
-      ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
-      ;; (add-hook 'post-command-hook 'evil-refresh-cursor)
-
-      (defun spacemacs/state-color-face (state)
-        "Return the symbol of the face for the given STATE."
-        (intern (format "spacemacs-%s-face" (symbol-name state))))
-
-      (defun spacemacs/state-color (state)
-        "Return the color string associated to STATE."
-        (face-background (spacemacs/state-color-face state)))
-
-      (defun spacemacs/current-state-color ()
-        "Return the color string associated to the current state."
-        (face-background (spacemacs/state-color-face evil-state)))
-
-      (defun spacemacs/state-face (state)
-        "Return the face associated to the STATE."
-        (spacemacs/state-color-face state))
-
-      (defun spacemacs/current-state-face ()
-        "Return the face associated to the current state."
-        (let ((state (if (eq evil-state 'operator)
-                         evil-previous-state
-                       evil-state)))
-          (spacemacs/state-color-face state)))
-
-      (defun evil-insert-state-cursor-hide ()
-        (setq evil-insert-state-cursor '((hbar . 0))))
-
-      (evil-mode 1))
-    :config
-    (progn
-      ;; bind function keys
-
-      ;; bind evil-jump-forward for GUI only.
-      (define-key evil-motion-state-map [C-i] 'evil-jump-forward)
-
-      ;; Make the current definition and/or comment visible.
-      (define-key evil-normal-state-map "zf" 'reposition-window)
-      ;; toggle maximize buffer
-      (define-key evil-window-map (kbd "o") 'spacemacs/toggle-maximize-buffer)
-      (define-key evil-window-map (kbd "C-o") 'spacemacs/toggle-maximize-buffer)
-      ;; make cursor keys work
-      (define-key evil-window-map (kbd "<left>") 'evil-window-left)
-      (define-key evil-window-map (kbd "<right>") 'evil-window-right)
-      (define-key evil-window-map (kbd "<up>") 'evil-window-up)
-      (define-key evil-window-map (kbd "<down>") 'evil-window-down)
-      (spacemacs/set-leader-keys "re" 'evil-show-registers)
-      ;; motions keys for help buffers
-      (evil-define-key 'motion help-mode-map (kbd "<escape>") 'quit-window)
-      (evil-define-key 'motion help-mode-map (kbd "<tab>") 'forward-button)
-      (evil-define-key 'motion help-mode-map (kbd "S-<tab>") 'backward-button)
-      (evil-define-key 'motion help-mode-map (kbd "]") 'help-go-forward)
-      (evil-define-key 'motion help-mode-map (kbd "gf") 'help-go-forward)
-      (evil-define-key 'motion help-mode-map (kbd "[") 'help-go-back)
-      (evil-define-key 'motion help-mode-map (kbd "gb") 'help-go-back)
-      (evil-define-key 'motion help-mode-map (kbd "gh") 'help-follow-symbol)
-
-      ;; replace `dired-goto-file' with `helm-find-files', since `helm-find-files'
-      ;; can do the same thing and with fuzzy matching and other features.
-      (with-eval-after-load 'dired
-        (evil-define-key 'normal dired-mode-map "J" 'spacemacs/helm-find-files)
-        (define-key dired-mode-map "j" 'spacemacs/helm-find-files)
-        (evil-define-key 'normal dired-mode-map (kbd dotspacemacs-leader-key)
-          spacemacs-default-map))
-
-      ;; It's better that the default value is too small than too big
-      (setq-default evil-shift-width 2)
-      ;; After major mode has changed, reset evil-shift-width
-      (add-hook 'after-change-major-mode-hook 'spacemacs//set-evil-shift-width 'append)
-
-      (defmacro evil-map (state key seq)
-        "Map for a given STATE a KEY to a sequence SEQ of keys.
-
-Can handle recursive definition only if KEY is the first key of SEQ.
-Example: (evil-map visual \"<\" \"<gv\")"
-        (let ((map (intern (format "evil-%S-state-map" state))))
-          `(define-key ,map ,key
-             (lambda ()
-               (interactive)
-               ,(if (string-equal key (substring seq 0 1))
-                    `(progn
-                       (call-interactively ',(lookup-key evil-normal-state-map key))
-                       (execute-kbd-macro ,(substring seq 1)))
-                  (execute-kbd-macro ,seq))))))
-      ;; Keep the region active when shifting
-      (evil-map visual "<" "<gv")
-      (evil-map visual ">" ">gv")
-
-      (defun spacemacs/evil-smart-doc-lookup ()
-        "Version of `evil-lookup' that attempts to use
-        the mode specific goto-definition binding,
-        i.e. `SPC m h h`, to lookup the source of the definition,
-        while falling back to `evil-lookup'"
-        (interactive)
-        (let ((binding (key-binding (kbd (concat dotspacemacs-leader-key " mhh")))))
-          (if (commandp binding)
-              (call-interactively binding)
-            (evil-lookup))))
-      (define-key evil-normal-state-map (kbd "K") 'spacemacs/evil-smart-doc-lookup)
-
-      (defun spacemacs/evil-smart-goto-definition ()
-        "Version of `evil-goto-definition' that attempts to use
-        the mode specific goto-definition binding,
-        i.e. `SPC m g g`, to lookup the source of the definition,
-        while falling back to `evil-goto-definition'"
-        (interactive)
-        (let ((binding (key-binding (kbd (concat dotspacemacs-leader-key " mgg")))))
-          (if (commandp binding)
-              (call-interactively binding)
-            (evil-goto-definition))))
-      (define-key evil-normal-state-map
-        (kbd "gd") 'spacemacs/evil-smart-goto-definition)
-
-      ;; scrolling transient state
-      (spacemacs|define-transient-state scroll
-        :title "Scrolling Transient State"
-        :bindings
-        ("," evil-scroll-page-up "page up")
-        ("." evil-scroll-page-down "page down")
-        ;; half page
-        ("<" evil-scroll-up "half page up")
-        (">" evil-scroll-down "half page down"))
-      (spacemacs/set-leader-keys
-        "n," 'spacemacs/scroll-transient-state/evil-scroll-page-up
-        "n." 'spacemacs/scroll-transient-state/evil-scroll-page-down
-        "n<" 'spacemacs/scroll-transient-state/evil-scroll-up
-        "n>" 'spacemacs/scroll-transient-state/evil-scroll-down)
-
-      ;; pasting transient-state
-      (evil-define-command spacemacs//transient-state-0 ()
-        :keep-visual t
-        :repeat nil
-        (interactive)
-        (if current-prefix-arg
-            (progn
-              (setq this-command #'digit-argument)
-              (call-interactively #'digit-argument))
-          (setq this-command #'evil-beginning-of-line
-                hydra-deactivate t)
-          (call-interactively #'evil-beginning-of-line)))
-
-      (spacemacs|define-transient-state paste
-        :title "Pasting Transient State"
-        :doc "\n[%s(length kill-ring-yank-pointer)/%s(length kill-ring)] \
-[_C-j_/_C-k_] cycles through yanked text, [_p_/_P_] pastes the same text above or \
-below. Anything else exits."
-        :bindings
-        ("C-j" evil-paste-pop)
-        ("C-k" evil-paste-pop-next)
-        ("p" evil-paste-after)
-        ("P" evil-paste-before)
-        ("0" spacemacs//transient-state-0))
-      (when dotspacemacs-enable-paste-transient-state
-        (define-key evil-normal-state-map "p" 'spacemacs/paste-transient-state/evil-paste-after)
-        (define-key evil-normal-state-map "P" 'spacemacs/paste-transient-state/evil-paste-before))
-
-      ;; define text objects
-      (defmacro spacemacs|define-text-object (key name start end)
-        (let ((inner-name (make-symbol (concat "evil-inner-" name)))
-              (outer-name (make-symbol (concat "evil-outer-" name)))
-              (start-regex (regexp-opt (list start)))
-              (end-regex (regexp-opt (list end))))
-          `(progn
-             (evil-define-text-object ,inner-name (count &optional beg end type)
-               (evil-select-paren ,start-regex ,end-regex beg end type count nil))
-             (evil-define-text-object ,outer-name (count &optional beg end type)
-               (evil-select-paren ,start-regex ,end-regex beg end type count t))
-             (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
-             (define-key evil-outer-text-objects-map ,key (quote ,outer-name))
-             (with-eval-after-load 'evil-surround
-               (push (cons (string-to-char ,key)
-                           (if ,end
-                               (cons ,start ,end)
-                             ,start))
-                     evil-surround-pairs-alist)))))
-
-      (spacemacs|define-text-object "$" "dollar" "$" "$")
-      (spacemacs|define-text-object "*" "star" "*" "*")
-      (spacemacs|define-text-object "8" "block-star" "/*" "*/")
-      (spacemacs|define-text-object "|" "bar" "|" "|")
-      (spacemacs|define-text-object "%" "percent" "%" "%")
-      (spacemacs|define-text-object "/" "slash" "/" "/")
-      (spacemacs|define-text-object "_" "underscore" "_" "_")
-      (spacemacs|define-text-object "-" "hyphen" "-" "-")
-      (spacemacs|define-text-object "~" "tilde" "~" "~")
-      (spacemacs|define-text-object "=" "equal" "=" "=")
-
-      (evil-define-text-object evil-pasted (count &rest args)
-        (list (save-excursion (evil-goto-mark ?\[) (point))
-              (save-excursion (evil-goto-mark ?\]) (point))))
-      (define-key evil-inner-text-objects-map "P" 'evil-pasted)
-
-      ;; define text-object for entire buffer
-      (evil-define-text-object evil-inner-buffer (count &optional beg end type)
-        (list (point-min) (point-max)))
-      (define-key evil-inner-text-objects-map "g" 'evil-inner-buffer)
-
-      ;; support smart 1parens-strict-mode
-      (when (configuration-layer/package-usedp 'smartparens)
-        (defadvice evil-delete-backward-char-and-join
-            (around spacemacs/evil-delete-backward-char-and-join activate)
-          (if (bound-and-true-p smartparens-strict-mode)
-              (call-interactively 'sp-backward-delete-char)
-            ad-do-it)))
-
-      ;; Define history commands for comint
-      (when (eq dotspacemacs-editing-style 'vim)
-        (evil-define-key 'insert comint-mode-map
-          (kbd "C-k") 'comint-previous-input
-          (kbd "C-j") 'comint-next-input))
-      (evil-define-key 'normal comint-mode-map
-        (kbd "C-k") 'comint-previous-input
-        (kbd "C-j") 'comint-next-input))))
 
 (defun spacemacs-base/init-evil-escape ()
   (use-package evil-escape
@@ -517,18 +252,6 @@ below. Anything else exits."
         :documentation "Globally toggle hybrid mode."
         :evil-leader "tEh")
       (spacemacs|diminish hybrid-mode " Ⓔh" " Eh"))))
-
-(defun spacemacs-base/init-hydra ()
-  (use-package hydra
-    :init
-    ;; turn off evil in corelv buffers
-    (push '("\\*LV\\*") evil-buffer-regexps)
-
-    (defun spacemacs//hydra-key-doc-function (key key-width doc doc-width)
-      (format (format "[%%%ds] %%%ds" key-width (- -1 doc-width))
-              key doc))
-    (setq hydra-key-doc-function 'spacemacs//hydra-key-doc-function)
-    (setq hydra-head-format "[%s] ")))
 
 (defun spacemacs-base/init-ido ()
   (ido-mode t)
@@ -817,8 +540,6 @@ below. Anything else exits."
       (projectile-global-mode)
       (spacemacs|hide-lighter projectile-mode))))
 
-(defun spacemacs-base/init-quelpa ())
-
 (defun spacemacs-base/init-recentf ()
   (use-package recentf
     :defer t
@@ -978,80 +699,6 @@ debug-init and load the given list of packages."
 (defun spacemacs-base/init-url ()
   ;; gravatars from magit use this to store their cache
   (setq url-configuration-directory (concat spacemacs-cache-directory "url/")))
-
-(defun spacemacs-base/init-use-package ())
-
-(defun spacemacs-base/init-which-key ()
-  (use-package which-key
-    :init
-    (progn
-      (spacemacs|add-toggle which-key
-        :status which-key-mode
-        :on (which-key-mode)
-        :off (which-key-mode -1)
-        :documentation
-        "Display a buffer with available key bindings."
-        :evil-leader "tK")
-
-      (spacemacs/set-leader-keys "hk" 'which-key-show-top-level)
-
-      (let ((new-descriptions
-             ;; being higher in this list means the replacement is applied later
-             '(
-               ("spacemacs/\\(.+\\)" . "\\1")
-               ("spacemacs/toggle-\\(.+\\)" . "\\1")
-               ("select-window-\\([0-9]\\)" . "window \\1")
-               ("spacemacs/alternate-buffer" . "last buffer")
-               ("spacemacs/toggle-mode-line-\\(.+\\)" . "\\1")
-               ("avy-goto-word-or-subword-1" . "avy word")
-               ("shell-command" . "shell cmd")
-               ("spacemacs/default-pop-shell" . "open shell")
-               ("spacemacs/helm-project-smart-do-search-region-or-symbol" . "smart search w/input")
-               ("spacemacs/helm-project-smart-do-search" . "smart search")
-               ("spacemacs/search-project-auto-region-or-symbol" . "search project w/input")
-               ("spacemacs/search-project-auto" . "search project")
-               ("helm-descbinds" . "show keybindings")
-               ("sp-split-sexp" . "split sexp")
-               ("avy-goto-line" . "avy line")
-               ("universal-argument" . "universal arg")
-               ("er/expand-region" . "expand region")
-               ("helm-apropos" . "apropos")
-               ("spacemacs/toggle-hybrid-mode" . "hybrid (hybrid-mode)")
-               ("spacemacs/toggle-holy-mode" . "emacs (holy-mode)")
-               ("evil-lisp-state-\\(.+\\)" . "\\1")
-               ("\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
-               ("\\(.+\\)-transient-state/body" . "\\1-transient-state"))))
-        (dolist (nd new-descriptions)
-          ;; ensure the target matches the whole string
-          (push (cons (concat "\\`" (car nd) "\\'") (cdr nd))
-                which-key-description-replacement-alist)))
-      (dolist (leader-key `(,dotspacemacs-leader-key ,dotspacemacs-emacs-leader-key))
-        (which-key-add-key-based-replacements
-          (concat leader-key " m")    "major mode commands"
-          (concat leader-key " " dotspacemacs-emacs-command-key) "M-x"))
-      (which-key-declare-prefixes
-        dotspacemacs-leader-key '("root" . "Spacemacs root")
-        dotspacemacs-emacs-leader-key '("root" . "Spacemacs root")
-        (concat dotspacemacs-leader-key " m")
-        '("major-mode-cmd" . "Major mode commands")
-        (concat dotspacemacs-emacs-leader-key " m")
-        '("major-mode-cmd" . "Major mode commands"))
-      ;; disable special key handling for spacemacs, since it can be
-      ;; disorienting if you don't understand it
-      (pcase dotspacemacs-which-key-position
-        (`right (which-key-setup-side-window-right))
-        (`bottom (which-key-setup-side-window-bottom))
-        (`right-then-bottom (which-key-setup-side-window-right-bottom)))
-      (setq which-key-special-keys nil
-            which-key-use-C-h-for-paging t
-            which-key-prevent-C-h-from-cycling t
-            which-key-echo-keystrokes 0.02
-            which-key-max-description-length 32
-            which-key-sort-order 'which-key-key-order-alpha
-            which-key-idle-delay dotspacemacs-which-key-delay
-            which-key-allow-evil-operators t)
-      (which-key-mode)
-      (spacemacs|diminish which-key-mode " Ⓚ" " K"))))
 
 (defun spacemacs-base/init-whitespace ()
   (use-package whitespace
