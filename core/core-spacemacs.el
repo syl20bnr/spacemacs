@@ -139,7 +139,7 @@
     (spacemacs-buffer/set-mode-line "Dotfile wizard installer")
     (spacemacs//redisplay)
     (when (dotspacemacs/install 'with-wizard)
-      (dotspacemacs/sync-configuration-layers '(16)))))
+      (configuration-layer/sync))))
 
 (defun spacemacs/display-and-copy-version ()
   "Echo the current spacemacs version and copy it."

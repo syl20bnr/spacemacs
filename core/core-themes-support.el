@@ -195,7 +195,7 @@ package name does not match theme name + `-theme' suffix.")
                   (eq 'zonokai-red theme)
                   (eq 'solarized-light theme)
                   (eq 'solarized-dark theme))
-          (spacemacs/load-or-install-package 'dash))
+          (configuration-layer/load-or-install-package 'dash))
         ;; Unless Emacs stock themes
         (unless (or (memq theme (custom-available-themes))
                     (eq 'default theme))
@@ -203,7 +203,7 @@ package name does not match theme name + `-theme' suffix.")
            ;; themes with explicitly declared package names
            ((assq theme spacemacs-theme-name-to-package)
             (let* ((pkg (spacemacs//get-theme-package theme))
-                   (pkg-dir (spacemacs/load-or-install-package pkg)))
+                   (pkg-dir (configuration-layer/load-or-install-package pkg)))
               (when (or (eq 'moe-light theme)
                         (eq 'moe-dark theme))
                 (load-file (concat pkg-dir "moe-light-theme.el"))
@@ -215,7 +215,7 @@ package name does not match theme name + `-theme' suffix.")
             ;; if not we will handle the special themes as we get issues
             ;; in the tracker.
             (let ((pkg (spacemacs//get-theme-package theme)))
-              (spacemacs/load-or-install-package pkg))))))
+              (configuration-layer/load-or-install-package pkg))))))
     ('error
      (setq theme 'default)
      (display-warning 'spacemacs

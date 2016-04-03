@@ -25,39 +25,6 @@
   ;; ns is returned instead of mac on Emacs 25+
   (memq (window-system) '(mac ns)))
 
-(defun spacemacs/load-or-install-protected-package (pkg &optional log file-to-load)
-  "Load PKG package, and protect it against being deleted as an orphan.
-See `spacemacs/load-or-install-package' for more information."
-  (push pkg configuration-layer--protected-packages)
-  (spacemacs/load-or-install-package pkg log file-to-load))
-
-(defun spacemacs/load-or-install-package (pkg &optional log file-to-load)
-  "Load PKG package. PKG will be installed if it is not already installed.
-Whenever the initial require fails the absolute path to the package
-directory is returned.
-If LOG is non-nil a message is displayed in spacemacs-buffer-mode buffer.
-FILE-TO-LOAD is an explicit file to load after the installation."
-  (let ((warning-minimum-level :error))
-    (unless (require pkg nil 'noerror)
-      ;; not installed, we try to initialize package.el only if required to
-      ;; precious seconds during boot time
-      (require 'cl)
-      (let ((pkg-elpa-dir (spacemacs//get-package-directory pkg)))
-        (if pkg-elpa-dir
-            (add-to-list 'load-path pkg-elpa-dir)
-          ;; install the package
-          (when log
-            (spacemacs-buffer/append
-             (format "(Bootstrap) Installing %s...\n" pkg))
-            (spacemacs//redisplay))
-          (configuration-layer/retrieve-package-archives 'quiet)
-          (package-install pkg)
-          (setq pkg-elpa-dir (spacemacs//get-package-directory pkg)))
-        (require pkg nil 'noerror)
-        (when file-to-load
-          (load-file (concat pkg-elpa-dir file-to-load)))
-        pkg-elpa-dir))))
-
 (defun spacemacs//get-package-directory (pkg)
   "Return the directory of PKG. Return nil if not found."
   (let ((elpa-dir (file-name-as-directory package-user-dir)))

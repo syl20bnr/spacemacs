@@ -205,6 +205,16 @@ cache folder.")
       (add-to-list 'package-archives
                    '("marmalade" . "https://marmalade-repo.org/packages/")))))
 
+(defun configuration-layer//install-quelpa ()
+  "Install `quelpa'."
+  (setq quelpa-verbose init-file-debug
+        quelpa-dir (concat spacemacs-cache-directory "quelpa/")
+        quelpa-build-dir (expand-file-name "build" quelpa-dir)
+        quelpa-persistent-cache-file (expand-file-name "cache" quelpa-dir)
+        quelpa-update-melpa-p nil)
+  (configuration-layer/load-or-install-protected-package 'package-build)
+  (configuration-layer/load-or-install-protected-package 'quelpa))
+
 (defun configuration-layer//resolve-package-archives (archives)
   "Resolve HTTP handlers for each archive in ARCHIVES and return a list
 of all reachable ones.
@@ -972,6 +982,7 @@ path."
              (if layer "package" "dependency")
              pkg-name (if layer (format "@%S" layer) "")
              installed-count noinst-count) t)
+    (spacemacs//redisplay)
     (unless (package-installed-p pkg-name)
       (condition-case-unless-debug err
           (cond
@@ -987,7 +998,8 @@ path."
          (configuration-layer//increment-error-count)
          (spacemacs-buffer/append
           (format (concat "\nAn error occurred while installing %s "
-                          "(error: %s)\n") pkg-name err)))))))
+                          "(error: %s)\n") pkg-name err))
+         (spacemacs//redisplay))))))
 
 (defun configuration-layer//lazy-install-p (layer-name)
   "Return non nil if the layer with LAYER-NAME should be lazy installed."
@@ -1033,6 +1045,8 @@ path."
 (defun configuration-layer//install-packages (packages)
   "Install PACKAGES which are not lazy installed."
   (interactive)
+  ;; ensure we have quelpa available first
+  (configuration-layer//install-quelpa)
   (let* ((noinst-pkg-names
           (configuration-layer//get-uninstalled-packages
            (mapcar 'car (object-assoc-list :name packages))))
@@ -1045,11 +1059,11 @@ path."
                noinst-count))
       (configuration-layer/retrieve-package-archives)
       (setq installed-count 0)
+      (spacemacs//redisplay)
       (dolist (pkg-name noinst-pkg-names)
         (setq installed-count (1+ installed-count))
         (configuration-layer//install-package
-         (object-assoc pkg-name :name configuration-layer--packages))
-        (spacemacs//redisplay))
+         (object-assoc pkg-name :name configuration-layer--packages)))
       (spacemacs-buffer/append "\n"))))
 
 (defun configuration-layer//install-from-elpa (pkg-name)
@@ -1662,6 +1676,41 @@ to select one."
       (dolist (x mode-exts)
         (configuration-layer//insert-lazy-install-form
          layer-name (car x) (cdr x))))))
+
+(defun configuration-layer/load-or-install-protected-package
+    (pkg &optional log file-to-load)
+  "Load PKG package, and protect it against being deleted as an orphan.
+See `configuration-layer/load-or-install-package' for more information."
+  (push pkg configuration-layer--protected-packages)
+  (configuration-layer/load-or-install-package pkg log file-to-load))
+
+(defun configuration-layer/load-or-install-package
+    (pkg &optional log file-to-load)
+  "Load PKG package. PKG will be installed if it is not already installed.
+Whenever the initial require fails the absolute path to the package
+directory is returned.
+If LOG is non-nil a message is displayed in spacemacs-buffer-mode buffer.
+FILE-TO-LOAD is an explicit file to load after the installation."
+  (let ((warning-minimum-level :error))
+    (unless (require pkg nil 'noerror)
+      ;; not installed, we try to initialize package.el only if required to
+      ;; precious seconds during boot time
+      (require 'cl)
+      (let ((pkg-elpa-dir (spacemacs//get-package-directory pkg)))
+        (if pkg-elpa-dir
+            (add-to-list 'load-path pkg-elpa-dir)
+          ;; install the package
+          (when log
+            (spacemacs-buffer/append
+             (format "(Bootstrap) Installing %s...\n" pkg))
+            (spacemacs//redisplay))
+          (configuration-layer/retrieve-package-archives 'quiet)
+          (package-install pkg)
+          (setq pkg-elpa-dir (spacemacs//get-package-directory pkg)))
+        (require pkg nil 'noerror)
+        (when file-to-load
+          (load-file (concat pkg-elpa-dir file-to-load)))
+        pkg-elpa-dir))))
 
 (defun configuration-layer//increment-error-count ()
   "Increment the error counter."

@@ -17,8 +17,6 @@
         (evil :step bootstrap)
         (f :step bootstrap)
         (hydra :step bootstrap)
-        (package-build :step bootstrap)
-        (quelpa :step bootstrap)
         (s :step bootstrap)
         (use-package :step bootstrap)
         (which-key :step bootstrap)
@@ -211,14 +209,6 @@
   (require 'hydra)
   (setq hydra-key-doc-function 'spacemacs//hydra-key-doc-function
         hydra-head-format "[%s] "))
-
-(defun spacemacs-bootstrap/init-quelpa ()
-  (setq quelpa-verbose init-file-debug
-        quelpa-dir (concat spacemacs-cache-directory "quelpa/")
-        quelpa-build-dir (expand-file-name "build" quelpa-dir)
-        quelpa-persistent-cache-file (expand-file-name "cache" quelpa-dir)
-        quelpa-update-melpa-p nil)
-  (require 'quelpa))
 
 (defun spacemacs-bootstrap/init-use-package ()
   (require 'use-package)
