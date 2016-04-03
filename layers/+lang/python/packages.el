@@ -383,6 +383,7 @@
 (defun python/init-py-yapf ()
   (use-package py-yapf
     :defer t
+    :commands py-yapf-buffer
     :init (spacemacs/set-leader-keys-for-major-mode 'python-mode
             "=" 'py-yapf-buffer)
     :config (when python-enable-yapf-format-on-save
