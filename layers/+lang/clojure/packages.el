@@ -198,7 +198,23 @@ If called with a prefix argument, uses the other-window instead."
       ;; TODO: having this work for cider-macroexpansion-mode would be nice,
       ;;       but the problem is that it uses clojure-mode as its major-mode
 
-      (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
+      (setq cider--key-binding-prefixes
+            '(("md" . "debug")
+              ("me" . "evaluation")
+              ("mg" . "goto")
+              ("mh" . "documentation")
+              ("ms" . "repl")
+              ("mt" . "test")
+              ("mT" . "toggle")
+              ("mf" . "format")))
+      (dolist (m '(clojure-mode
+                   clojurec-mode
+                   clojurescript-mode
+                   clojurex-mode
+                   cider-repl-mode))
+        (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
+                           mode (car x) (cdr x)))
+              cider--key-binding-prefixes)
         (spacemacs/set-leader-keys-for-major-mode m
           "ha" 'cider-apropos
           "hh" 'cider-doc
@@ -248,34 +264,6 @@ If called with a prefix argument, uses the other-window instead."
           "de" 'spacemacs/cider-display-error-buffer
           "di" 'cider-inspect))
 
-      (spacemacs/set-leader-keys-for-major-mode 'cider-repl-mode
-        "hh" 'cider-doc
-        "hg" 'cider-grimoire
-        "hj" 'cider-javadoc
-
-        "ee" 'cider-eval-last-sexp
-        "ef" 'cider-eval-defun-at-point
-        "er" 'cider-eval-region
-        "ew" 'cider-eval-last-sexp-and-replace
-
-        "gb" 'cider-jump-back
-        "ge" 'cider-jump-to-compilation-error
-        "gg" 'cider-find-var
-        "gr" 'cider-jump-to-resource
-
-        "sc" 'cider-repl-clear-buffer
-        "sn" 'cider-repl-set-ns
-        "so" 'cider-repl-switch-to-other
-        "sq" 'cider-quit
-        "ss" 'cider-switch-to-last-clojure-buffer
-        "sx" 'cider-refresh
-
-        "Tf" 'spacemacs/cider-toggle-repl-font-locking
-        "Tp" 'spacemacs/cider-toggle-repl-pretty-printing
-
-        "de" 'spacemacs/cider-display-error-buffer
-        "di" 'cider-inspect)
-
       (evil-define-key 'normal cider-repl-mode-map
         "C-j" 'cider-repl-next-input
         "C-k" 'cider-repl-previous-input)
@@ -299,36 +287,35 @@ If called with a prefix argument, uses the other-window instead."
     (progn
       (cljr-add-keybindings-with-prefix "C-c C-f")
 
-      (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
+      (setq clj-refactor--key-binding-prefixes
+            '(("mr" . "refactor")
+              ("mra" . "add")
+              ("mrc" . "cycle/clean")
+              ("mrd" . "destructure")
+              ("mre" . "extract/expand")
+              ("mrf" . "find/function")
+              ("mrh" . "hotload")
+              ("mri" . "introduce/inline")
+              ("mrm" . "move")
+              ("mrp" . "project/promote")
+              ("mrr" . "remove/rename/replace")
+              ("mrs" . "show/sort/stop")
+              ("mrt" . "thread")
+              ("mru" . "unwind/update")))
+      (dolist (m '(clojure-mode
+                   clojurec-mode
+                   clojurescript-mode
+                   clojurex-mode
+                   cider-repl-mode))
+        (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
+                           mode (car x) (cdr x)))
+              clj-refactor--key-binding-prefixes)
         (dolist (r cljr--all-helpers)
           (let* ((binding (car r))
                  (func (car (cdr r))))
             (when (not (string-prefix-p "hydra" (symbol-name func)))
-              (spacemacs/set-leader-keys-for-major-mode m (concat "r" binding) func)))))
-
-      (spacemacs/set-leader-keys-for-major-mode 'cider-repl-mode
-        "r?"  'cljr-describe-refactoring
-        "rap" 'cljr-add-project-dependency
-        "ras" 'cljr-add-stubs
-        "rcc" 'cljr-cycle-coll
-        "rci" 'cljr-cycle-if
-        "rcp" 'cljr-cycle-privacy
-        "rdk" 'cljr-destructure-keys
-        "rel" 'cljr-expand-let
-        "rfu" 'cljr-find-usages
-        "rhd" 'cljr-hotload-dependency
-        "ril" 'cljr-introduce-let
-        "rml" 'cljr-move-to-let
-        "rpc" 'cljr-project-clean
-        "rrl" 'cljr-remove-let
-        "rsp" 'cljr-sort-project-dependencies
-        "rsc" 'cljr-show-changelog
-        "rtf" 'cljr-thread-first-all
-        "rth" 'cljr-thread
-        "rtl" 'cljr-thread-last-all
-        "rua" 'cljr-unwind-all
-        "rup" 'cljr-update-project-dependencies
-        "ruw" 'cljr-unwind))))
+              (spacemacs/set-leader-keys-for-major-mode m
+                (concat "r" binding) func))))))))
 
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
