@@ -67,7 +67,8 @@
     :config
     (progn
       (use-package erc-autoaway
-        :config
+        :defer t
+        :init
         (setq erc-auto-discard-away t
               erc-autoaway-idle-seconds 600
               erc-autoaway-use-emacs-idle t))
@@ -115,87 +116,95 @@
 
 
 (defun erc/init-erc-hl-nicks ()
-  (use-package erc-hl-nicks
-    :defer t
-    ;; may need a hook ?
-    ))
+  (spacemacs|use-package-add-hook 'erc
+    :post-config
+    (use-package erc-hl-nicks)))
 
 (defun erc/init-erc-sasl ()
-  (use-package erc-sasl
-    :if erc-enable-sasl-auth
-    ;; Following http://www.emacswiki.org/emacs/ErcSASL
-    ;; Maybe an advice would be better?
-    :config
-    (progn
-      ;; Add any server like this
-      ;; (add-to-list 'erc-sasl-server-regexp-list "host\\.server\\.com")
-      (add-to-list 'erc-sasl-server-regexp-list "irc\\.freenode\\.net")
-      (defun erc-login ()
-        "Perform user authentication at the IRC server."
-        (erc-log (format "login: nick: %s, user: %s %s %s :%s"
-                         (erc-current-nick)
-                         (user-login-name)
-                         (or erc-system-name (system-name))
-                         erc-session-server
-                         erc-session-user-full-name))
-        (if erc-session-password
-            (erc-server-send (format "PASS %s" erc-session-password))
-          (message "Logging in without password"))
-        (when (and (featurep 'erc-sasl) (erc-sasl-use-sasl-p))
-          (erc-server-send "CAP REQ :sasl"))
-        (erc-server-send (format "NICK %s" (erc-current-nick)))
-        (erc-server-send
-         (format "USER %s %s %s :%s"
-                 ;; hacked - S.B.
-                 (if erc-anonymous-login erc-email-userid (user-login-name))
-                 "0" "*"
-                 erc-session-user-full-name))
-        (erc-update-mode-line)))))
+  (spacemacs|use-package-add-hook 'erc
+    :post-config
+    (use-package erc-sasl
+      :if erc-enable-sasl-auth
+      ;; Following http://www.emacswiki.org/emacs/ErcSASL
+      ;; Maybe an advice would be better?
+      :config
+      (progn
+        ;; Add any server like this
+        ;; (add-to-list 'erc-sasl-server-regexp-list "host\\.server\\.com")
+        (add-to-list 'erc-sasl-server-regexp-list "irc\\.freenode\\.net")
+        (defun erc-login ()
+          "Perform user authentication at the IRC server."
+          (erc-log (format "login: nick: %s, user: %s %s %s :%s"
+                           (erc-current-nick)
+                           (user-login-name)
+                           (or erc-system-name (system-name))
+                           erc-session-server
+                           erc-session-user-full-name))
+          (if erc-session-password
+              (erc-server-send (format "PASS %s" erc-session-password))
+            (message "Logging in without password"))
+          (when (and (featurep 'erc-sasl) (erc-sasl-use-sasl-p))
+            (erc-server-send "CAP REQ :sasl"))
+          (erc-server-send (format "NICK %s" (erc-current-nick)))
+          (erc-server-send
+           (format "USER %s %s %s :%s"
+                   ;; hacked - S.B.
+                   (if erc-anonymous-login erc-email-userid (user-login-name))
+                   "0" "*"
+                   erc-session-user-full-name))
+          (erc-update-mode-line))))))
 
 (defun erc/init-erc-social-graph ()
-  (use-package erc-social-graph
-    :init
-    (progn
-      ;; does not exist ?
-      ;; (erc-social-graph-enable)
-      (setq erc-social-graph-dynamic-graph t)
-      (spacemacs/set-leader-keys-for-major-mode 'erc-mode
-        "D" 'erc-social-graph-draw))))
+  (spacemacs|use-package-add-hook 'erc
+    :post-config
+    (use-package erc-social-graph
+      :init
+      (progn
+        ;; does not exist ?
+        ;; (erc-social-graph-enable)
+        (setq erc-social-graph-dynamic-graph t)
+        (spacemacs/set-leader-keys-for-major-mode 'erc-mode
+          "D" 'erc-social-graph-draw)))))
 
 (defun erc/init-erc-tex ()
-  (require 'erc-tex))
+  (spacemacs|use-package-add-hook 'erc
+    :post-config
+    (require 'erc-tex)))
 
 (defun erc/init-erc-yt ()
-  (use-package erc-yt
-    :init (with-eval-after-load 'erc (add-to-list 'erc-modules 'youtube))))
+  (spacemacs|use-package-add-hook 'erc
+    :post-config
+    (use-package erc-yt
+      :init (with-eval-after-load 'erc
+              (add-to-list 'erc-modules 'youtube)))))
 
 (defun erc/init-erc-yank ()
-  (use-package erc-yank
-    :if (configuration-layer/package-usedp 'gist)
-    :init
-    (evil-define-key 'normal erc-mode-map
-      "p" 'erc-yank)))
+  (spacemacs|use-package-add-hook 'erc
+    :post-config
+    (use-package erc-yank
+      :if (configuration-layer/package-usedp 'gist)
+      :init (evil-define-key 'normal erc-mode-map "p" 'erc-yank))))
 
 (defun erc/init-erc-view-log ()
   (use-package erc-view-log
+    :defer t
     :init
     (progn
-      (with-eval-after-load 'erc (add-to-list 'erc-modules 'log))
       (setq erc-log-channels-directory
             (expand-file-name
              (concat spacemacs-cache-directory
                      "erc-logs")))
       (unless (file-exists-p erc-log-channels-directory)
-        (make-directory erc-log-channels-directory)))
-
-    :config
-    ;; ERC Logging
-    (progn
+        (make-directory erc-log-channels-directory))
       (add-to-list 'auto-mode-alist
                    `(,(format "%s/.*\\.[log|txt]"
                               (regexp-quote
                                (expand-file-name
                                 erc-log-channels-directory))) . erc-view-log-mode))
+      (with-eval-after-load 'erc (add-to-list 'erc-modules 'log)))
+    :config
+    ;; ERC Logging
+    (progn
       ;; Following https://raw.githubusercontent.com/Niluge-KiWi/erc-view-log/master/erc-view-log.el
       ;; installation instructions
       (add-hook 'erc-view-log-mode-hook 'turn-on-auto-revert-tail-mode)
@@ -212,7 +221,10 @@
 
 (defun erc/init-erc-image ()
   (use-package erc-image
-    :init (with-eval-after-load 'erc (add-to-list 'erc-modules 'image))))
+    :defer t
+    :init (with-eval-after-load 'erc
+            (require 'erc-image)
+            (add-to-list 'erc-modules 'image))))
 
 (defun erc/init-erc-terminal-notifier ()
   (use-package erc-terminal-notifier
