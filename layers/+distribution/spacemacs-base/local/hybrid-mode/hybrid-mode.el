@@ -43,7 +43,7 @@
   :group 'spacemacs
   :type 'boolean)
 
-(defcustom hybrid-mode-enable-evilified-state nil
+(defcustom hybrid-mode-enable-evilified-state t
   "If non nil then evilified states is enabled in buffer supporting it."
   :group 'spacemacs
   :type 'boolean)
