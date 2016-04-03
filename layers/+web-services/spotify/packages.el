@@ -13,14 +13,19 @@
 
 (defun spotify/init-spotify ()
   (use-package spotify
-    :config (spacemacs/set-leader-keys
-              "amsp" 'spotify-playpause
-              "amsn" 'spotify-next
-              "amsN" 'spotify-previous
-              "amsQ" 'spotify-quit)))
+    :defer t
+    :init
+    (progn
+      (spacemacs/declare-prefix "am" "music")
+      (spacemacs/declare-prefix "ams" "Spotify")
+      (spacemacs/set-leader-keys
+        "amsp" 'spotify-playpause
+        "amsn" 'spotify-next
+        "amsN" 'spotify-previous
+        "amsQ" 'spotify-quit))))
 
 (when (configuration-layer/layer-usedp 'spacemacs-helm)
   (defun spotify/init-helm-spotify ()
     (use-package helm-spotify
-      :config (spacemacs/set-leader-keys
-                "amsg" 'helm-spotify))))
+      :defer t
+      :init (spacemacs/set-leader-keys "amsg" 'helm-spotify))))
