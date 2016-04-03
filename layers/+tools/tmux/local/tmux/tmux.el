@@ -24,9 +24,6 @@
   :prefix "navigate-"
   :group 'evil)
 
-; Without unsetting C-h this is useless
-(global-unset-key (kbd "C-h"))
-
 ; This requires windmove commands
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
