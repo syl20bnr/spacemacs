@@ -350,19 +350,22 @@
       (when (eq dotspacemacs-editing-style 'vim)
         ;; the default in Emacs is M-n
         (define-key inferior-python-mode-map (kbd "C-j") 'comint-next-input)
-        ;; the default in Emacs is M-p and this key binding overrides default C-k
-        ;; which prevents Emacs users to kill line
+        ;; the default in Emacs is M-p and this key binding overrides
+        ;; default C-k which prevents Emacs users to kill line
         (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input)
         ;; the default in Emacs is M-r; C-r to search backward old output
         ;; and should not be changed
-        (define-key inferior-python-mode-map (kbd "C-r") 'comint-history-isearch-backward)
+        (define-key inferior-python-mode-map
+          (kbd "C-r") 'comint-history-isearch-backward)
         ;; this key binding is for recentering buffer in Emacs
         ;; it would be troublesome if Emacs user
         ;; Vim users can use this key since they have other key
-        (define-key inferior-python-mode-map (kbd "C-l") 'spacemacs/comint-clear-buffer))
+        (define-key inferior-python-mode-map
+          (kbd "C-l") 'spacemacs/comint-clear-buffer))
 
       ;; add this optional key binding for Emacs user, since it is unbound
-      (define-key inferior-python-mode-map (kbd "C-c M-l") 'spacemacs/comint-clear-buffer)
+      (define-key inferior-python-mode-map
+        (kbd "C-c M-l") 'spacemacs/comint-clear-buffer)
 
       ;; fix for issue #2569 (https://github.com/syl20bnr/spacemacs/issues/2569)
       ;; use `semantic-create-imenu-index' only when `semantic-mode' is enabled,
@@ -379,15 +382,16 @@
 
 (defun python/init-py-yapf ()
   (use-package py-yapf
-    :init
-    (spacemacs/set-leader-keys-for-major-mode 'python-mode "=" 'py-yapf-buffer)
-    :config
-    (when python-enable-yapf-format-on-save
-      (add-hook 'python-mode-hook 'py-yapf-enable-on-save))))
+    :defer t
+    :init (spacemacs/set-leader-keys-for-major-mode 'python-mode
+            "=" 'py-yapf-buffer)
+    :config (when python-enable-yapf-format-on-save
+              (add-hook 'python-mode-hook 'py-yapf-enable-on-save))))
 
 (defun python/post-init-semantic ()
   (add-hook 'python-mode-hook 'semantic-mode)
-  (defadvice semantic-python-get-system-include-path (around semantic-python-skip-error-advice activate)
+  (defadvice semantic-python-get-system-include-path
+      (around semantic-python-skip-error-advice activate)
     "Don't cause error when Semantic cannot retrieve include
 paths for Python then prevent the buffer to be switched. This
 issue might be fixed in Emacs 25. Until then, we need it here to
