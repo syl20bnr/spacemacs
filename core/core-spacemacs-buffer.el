@@ -35,6 +35,10 @@ version the release note it displayed")
 (defvar spacemacs-buffer--previous-insert-type nil
   "Previous type of note inserted.")
 
+(defvar spacemacs-buffer--fresh-install
+  (not (file-exists-p dotspacemacs-filepath))
+  "Non-nil if this Emacs instance if a fresh install.")
+
 (defvar spacemacs-buffer-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map [tab] 'widget-forward)
@@ -83,31 +87,30 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
           (insert-file-contents banner))
         (spacemacs-buffer//inject-version))
       (spacemacs-buffer//insert-buttons)
-      (if (file-exists-p spacemacs-buffer--cache-file)
-          (load spacemacs-buffer--cache-file)
-        (unless (file-exists-p dotspacemacs-filepath)
-          ;; fresh install of spacemacs, the release notes are not displayed
-          (setq spacemacs-buffer--release-note-version spacemacs-version)
-          (spacemacs/dump-vars-to-file
-           '(spacemacs-buffer--release-note-version)
-           spacemacs-buffer--cache-file)))
-      ;; if there is no installed dotfile we assume the user is
-      ;; new to spacemacs and open the quickhelp
-      (when (not (file-exists-p dotspacemacs-filepath))
-        (spacemacs-buffer/toggle-note
-         (concat spacemacs-info-directory "quickhelp.txt")
-         (spacemacs-buffer//insert-note-p 'quickhelp)))
-      ;; if there is an installed dotfile we check the variable
-      ;; spacemacs-buffer--release-note-version to decide whether
-      ;; we show the release note
-      (when (and (file-exists-p dotspacemacs-filepath)
-                 (or (not spacemacs-buffer--release-note-version)
-                     (version< spacemacs-buffer--release-note-version
-                               spacemacs-version)))
-        (spacemacs-buffer/toggle-note
-         (concat spacemacs-release-notes-directory
-                 spacemacs-buffer-version-info ".txt") 'release-note))
       (spacemacs//redisplay))))
+
+(defun spacemacs-buffer/display-info-box ()
+  "Display an info box."
+  (when (file-exists-p spacemacs-buffer--cache-file)
+    (load spacemacs-buffer--cache-file))
+  (cond
+   (spacemacs-buffer--fresh-install
+    ;; we assume the user is  new to spacemacs and open the quickhelp
+    (spacemacs-buffer/toggle-note
+     (concat spacemacs-info-directory "quickhelp.txt")
+     (spacemacs-buffer//insert-note-p 'quickhelp))
+    (setq spacemacs-buffer--release-note-version spacemacs-version)
+    (spacemacs/dump-vars-to-file '(spacemacs-buffer--release-note-version)
+                                   spacemacs-buffer--cache-file))
+   ((or (not spacemacs-buffer--release-note-version)
+        (version< spacemacs-buffer--release-note-version
+                  spacemacs-version))
+    ;; check the variable ;; spacemacs-buffer--release-note-version
+    ;; to decide whether ;; we show the release note
+    (spacemacs-buffer/toggle-note
+     (concat spacemacs-release-notes-directory
+             spacemacs-buffer-version-info ".txt") 'release-note)))
+  (spacemacs//redisplay))
 
 (defun spacemacs-buffer//choose-banner ()
   "Return the full path of a banner based on the dotfile value."
