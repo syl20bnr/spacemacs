@@ -569,5 +569,4 @@ a Markdown buffer and use this command to convert it.
  (use-package htmlize
     :defer t))
 
-(defun org/init-space-doc ()
-  (use-package space-doc))
+(defun org/init-space-doc ())

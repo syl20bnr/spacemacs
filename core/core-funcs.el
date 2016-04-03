@@ -176,12 +176,11 @@ Supported properties:
 (defun spacemacs/view-org-file (file &optional anchor-text expand-scope)
   "Open the change log for the current version."
   (interactive)
+  (require 'space-doc)
   (find-file file)
   (org-indent-mode)
   (view-mode)
-  ;; Enable `space-doc-mode' if defined.
-  (when (boundp 'space-doc-mode)
-    (space-doc-mode))
+  (space-doc-mode)
   (goto-char (point-min))
   (when anchor-text
     ;; If `anchor-text' is GitHub style link.
