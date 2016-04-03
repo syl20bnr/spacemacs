@@ -18,6 +18,7 @@
 
 (defun syntax-checking/init-flycheck ()
   (use-package flycheck
+    :defer t
     :init
     (progn
       (setq flycheck-standard-error-navigation nil
