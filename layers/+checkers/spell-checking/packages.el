@@ -56,12 +56,12 @@
         :documentation "Enable automatic spell checking."
         :evil-leader "tS")
 
+      (spacemacs/declare-prefix "S" "spelling")
       (spacemacs/set-leader-keys
         "Sb" 'flyspell-buffer
         "Sd" 'spell-checking/change-dictionary
         "Sn" 'flyspell-goto-next-error))
-    :config
-    (spacemacs|diminish flyspell-mode " Ⓢ" " S")))
+    :config (spacemacs|diminish flyspell-mode " Ⓢ" " S")))
 
 (when (configuration-layer/layer-usedp 'spacemacs-helm)
   (defun spell-checking/init-helm-flyspell ()

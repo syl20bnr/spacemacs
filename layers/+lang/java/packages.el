@@ -11,9 +11,13 @@
 
 (setq java-packages
       '(
-        emacs-eclim
         company
+        emacs-eclim
+        (java-mode :location built-in)
         ))
+
+(defun java/post-init-company ()
+  (spacemacs|add-company-hook java-mode))
 
 (defun java/init-emacs-eclim ()
   (use-package eclim
@@ -129,5 +133,16 @@
     :init
     (push 'company-emacs-eclim company-backends-java-mode)))
 
-(defun java/post-init-company ()
-  (spacemacs|add-company-hook java-mode))
+(defun java/init-java-mode ()
+  (setq java/key-binding-prefixes '(("me" . "errors")
+                                    ("mf" . "find")
+                                    ("mg" . "goto")
+                                    ("mr" . "refactor")
+                                    ("mh" . "documentation")
+                                    ("mm" . "maven")
+                                    ("ma" . "ant")
+                                    ("mp" . "project")
+                                    ("mt" . "test")))
+  (mapc (lambda(x) (spacemacs/declare-prefix-for-mode
+                    'java-mode (car x) (cdr x)))
+        java/key-binding-prefixes))

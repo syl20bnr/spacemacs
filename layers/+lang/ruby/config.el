@@ -23,7 +23,3 @@ Possible values are `rbenv', `rvm' or `chruby'.)")
 
 (defvar ruby-test-runner 'ruby-test
   "Test runner to use. Possible values are `ruby-test' or `rspec'.")
-
-;; Command prefixes
-
-(spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "ruby/test")

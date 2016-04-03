@@ -57,6 +57,7 @@
                                                     font-lock-keyword-face
                                                     font-lock-function-name-face
                                                     font-lock-variable-name-face))
+      (spacemacs/declare-prefix "Ci" "colors-identifiers")
 
       (spacemacs|add-toggle rainbow-identifier-globally
         :status rainbow-identifiers-mode

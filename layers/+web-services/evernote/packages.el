@@ -21,10 +21,10 @@
                geeknote-find
                geeknote-show
                geeknote-remove
-               geeknote-move
-               )
+               geeknote-move)
     :init
     (progn
+      (spacemacs/declare-prefix "ae" "applications-evernote")
       (spacemacs/set-leader-keys
         "aec" 'geeknote-create
         "aee" 'geeknote-edit

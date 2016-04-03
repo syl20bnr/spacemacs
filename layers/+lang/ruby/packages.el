@@ -185,6 +185,7 @@
   (use-package ruby-mode
     :defer t
     :mode "Puppetfile"
+    :init (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "ruby/test")
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'ruby-mode

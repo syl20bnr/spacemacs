@@ -34,7 +34,10 @@
   (defun games/init-helm-games ()
     (use-package helm-games
       :commands helm-games
-      :init (spacemacs/set-leader-keys "aG" 'helm-games))))
+      :init
+      (progn
+        (spacemacs/declare-prefix "aG" "games")
+        (spacemacs/set-leader-keys "aG" 'helm-games)))))
 
 (defun games/init-pacmacs ()
   (use-package pacmacs

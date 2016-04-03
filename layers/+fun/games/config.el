@@ -20,7 +20,3 @@
   (make-directory spacemacs-games-cache-directory))
 
 (setq helm-games-list nil)
-
-;; Command prefixes
-
-(spacemacs/declare-prefix "aG" "games")

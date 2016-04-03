@@ -29,10 +29,3 @@
     (spacemacs-dark . (125 100))
     (zenburn . (40 65)))
   "alist of theme symbols and pair of saturation and lightness values.")
-
-;; Command prefixes
-
-(when colors-enable-rainbow-identifiers
-  (setq colors/key-binding-prefixes '(("Ci" . "colors-identifiers")))
-  (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
-        colors/key-binding-prefixes))

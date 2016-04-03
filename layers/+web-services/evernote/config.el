@@ -16,9 +16,3 @@
 
 (defvar colors-enable-nyan-cat-progress-bar nil
   "if non nil all nyan cat packges are enabled (for now only `nyan-mode').")
-
-;; Command prefixes
-
-(setq evernote/key-binding-prefixes '(("ae" . "applications-evernote")))
-(mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
-      evernote/key-binding-prefixes)

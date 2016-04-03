@@ -18,6 +18,11 @@
         ;; not up to date
         ;; helm-gist
         magit-gh-pulls
+        ;; this package does not exits, we need it to wrap
+        ;; the call to spacemacs/declare-prefix which cannot
+        ;; be place in `config.el' because `which-key' is not
+        ;; available when `config.el' is loaded.
+        (spacemacs-github :location built-in)
         ))
 
 (defun github/init-gist ()
@@ -29,6 +34,7 @@
         "f" 'gist-fetch-current
         "K" 'gist-kill-current
         "o" 'gist-browse-current-url)
+      (spacemacs/declare-prefix "gg" "github gist")
       (spacemacs/set-leader-keys
         "ggb" 'gist-buffer
         "ggB" 'gist-buffer-private
@@ -116,3 +122,6 @@
           (define-key magit-mode-map "#" 'spacemacs/load-gh-pulls-mode))
         :config
         (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))))
+
+(defun github/init-spacemacs-github ()
+  (spacemacs/declare-prefix "gh" "github"))
