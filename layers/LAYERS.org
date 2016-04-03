@@ -110,6 +110,7 @@
 - [[file:+lang/php/README.org][php]]
 - [[file:+lang/plantuml/README.org][plantuml]]
 - [[file:+lang/protobuf/README.org][protobuf]]
+- [[file:+lang/pony/README.org][pony]]
 - [[file:+lang/purescript/README.org][purescript]]
 - [[file:+lang/python/README.org][python]]
 - [[file:+lang/racket/README.org][racket]]

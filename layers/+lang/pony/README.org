@@ -1,0 +1,25 @@
+#+TITLE: Pony layer
+
+[[file:img/pony.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+
+This layer adds support for Pony.
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =pony= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description                           |
+|-------------+---------------------------------------|
+|  ~SPC m c~  | Build current directory               |
