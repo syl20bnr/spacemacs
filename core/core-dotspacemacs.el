@@ -388,9 +388,7 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
                                      "function has been skipped)."))
                   (dotspacemacs|call-func dotspacemacs/user-config
                                           "Calling dotfile user config...")
-                  (message "Done."))
-                (when (configuration-layer/package-usedp 'spaceline)
-                  (spacemacs//restore-powerline (current-buffer))))
+                  (message "Done.")))
             (switch-to-buffer-other-window dotspacemacs-test-results-buffer)
             (spacemacs-buffer/warning "Some tests failed, check `%s' buffer"
                                       dotspacemacs-test-results-buffer))))))

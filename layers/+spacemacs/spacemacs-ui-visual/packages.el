@@ -263,19 +263,12 @@
 
 (defun spacemacs-ui-visual/init-spaceline ()
   (use-package spaceline-config
+    :defer 0.1
     :init
     (progn
       (spacemacs|do-after-display-system-init
        (setq-default powerline-default-separator
-                     (if (display-graphic-p) 'wave 'utf-8)))
-      (defun spacemacs//set-powerline-for-startup-buffers ()
-        "Set the powerline for buffers created when Emacs starts."
-        (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
-          (when (and (get-buffer buffer)
-                     (configuration-layer/package-usedp 'spaceline))
-            (spacemacs//restore-powerline buffer))))
-      (add-hook 'emacs-startup-hook
-                'spacemacs//set-powerline-for-startup-buffers))
+                     (if (display-graphic-p) 'wave 'utf-8))))
     :config
     (progn
       (defun spacemacs/customize-powerline-faces ()
@@ -349,6 +342,13 @@
           (powerline-set-selected-window)
           (powerline-reset)))
 
+      (defun spacemacs//set-powerline-for-startup-buffers ()
+        "Set the powerline for buffers created when Emacs starts."
+        (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
+          (when (and (get-buffer buffer)
+                     (configuration-layer/package-usedp 'spaceline))
+            (spacemacs//restore-powerline buffer))))
+
       (defun spacemacs//prepare-diminish ()
         (when spaceline-minor-modes-p
           (let ((unicodep (dotspacemacs|symbol-value
@@ -364,7 +364,8 @@
                                   unicode
                                 (if ascii ascii unicode))))
                     (diminish mode dim))))))))
-      (add-hook 'spaceline-pre-hook 'spacemacs//prepare-diminish))))
+      (add-hook 'spaceline-pre-hook 'spacemacs//prepare-diminish)
+      (spacemacs//set-powerline-for-startup-buffers))))
 
 (defun spacemacs-ui-visual/init-vi-tilde-fringe ()
   (spacemacs|do-after-display-system-init
