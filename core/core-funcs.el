@@ -155,44 +155,46 @@ Supported properties:
   (interactive)
   (require 'space-doc)
   (find-file file)
-  (org-indent-mode)
-  (view-mode)
-  (space-doc-mode)
-  (goto-char (point-min))
-  (when anchor-text
-    ;; If `anchor-text' is GitHub style link.
-    (if (string-prefix-p "#" anchor-text)
-        ;; If the toc-org package is loaded.
-        (if (configuration-layer/package-usedp 'toc-org)
-            ;; For each heading. Search the heading that corresponds
-            ;; to `anchor-text'.
-            (while (and (re-search-forward "^[\\*]+\s\\(.*\\).*$" nil t)
-                        (not (string= (toc-org-hrefify-gh (match-string 1))
-                                      anchor-text))))
-          ;; This is not a problem because without the space-doc package
-          ;; those links will be opened in the browser.
-          (message (format (concat "Can't follow the GitHub style anchor: '%s' "
-                                   "without the org layer.") anchor-text)))
-      (re-search-forward anchor-text)))
-  (beginning-of-line)
-  (cond
-   ((eq expand-scope 'subtree)
-    (outline-show-subtree))
-   ((eq expand-scope 'all)
-    (outline-show-all))
-   (t nil))
-  ;; Make ~SPC ,~ work, reference:
-  ;; http://stackoverflow.com/questions/24169333/how-can-i-emphasize-or-verbatim-quote-a-comma-in-org-mode
-  (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\n")
-  (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
-  (setq-local org-emphasis-alist '(("*" bold)
-                                   ("/" italic)
-                                   ("_" underline)
-                                   ("=" org-verbatim verbatim)
-                                   ("~" org-kbd)
-                                   ("+"
-                                    (:strike-through t))))
-  (setq-local org-hide-emphasis-markers t))
+  (if (not (string-suffix-p ".org" file))
+      (user-error (format "%s not a .org file", file))
+    (org-indent-mode)
+    (view-mode)
+    (space-doc-mode)
+    (goto-char (point-min))
+    (when anchor-text
+      ;; If `anchor-text' is GitHub style link.
+      (if (string-prefix-p "#" anchor-text)
+          ;; If the toc-org package is loaded.
+          (if (configuration-layer/package-usedp 'toc-org)
+              ;; For each heading. Search the heading that corresponds
+              ;; to `anchor-text'.
+              (while (and (re-search-forward "^[\\*]+\s\\(.*\\).*$" nil t)
+                          (not (string= (toc-org-hrefify-gh (match-string 1))
+                                        anchor-text))))
+            ;; This is not a problem because without the space-doc package
+            ;; those links will be opened in the browser.
+            (message (format (concat "Can't follow the GitHub style anchor: '%s' "
+                                     "without the org layer.") anchor-text)))
+        (re-search-forward anchor-text)))
+    (beginning-of-line)
+    (cond
+     ((eq expand-scope 'subtree)
+      (outline-show-subtree))
+     ((eq expand-scope 'all)
+      (outline-show-all))
+     (t nil))
+    ;; Make ~SPC ,~ work, reference:
+    ;; http://stackoverflow.com/questions/24169333/how-can-i-emphasize-or-verbatim-quote-a-comma-in-org-mode
+    (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\n")
+    (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
+    (setq-local org-emphasis-alist '(("*" bold)
+                                     ("/" italic)
+                                     ("_" underline)
+                                     ("=" org-verbatim verbatim)
+                                     ("~" org-kbd)
+                                     ("+"
+                                      (:strike-through t))))
+    (setq-local org-hide-emphasis-markers t)))
 
 (defun spacemacs//test-var (pred var test-desc)
   "Test PRED against VAR and print test result, incrementing
