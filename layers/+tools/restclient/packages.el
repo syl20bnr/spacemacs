@@ -13,14 +13,12 @@
         restclient))
 
 (defun restclient/init-ob-http ()
+  (when restclient-use-org
+    (add-to-list 'auto-mode-alist '("\\.http\\'" . org-mode)))
   (spacemacs|use-package-add-hook org
     :post-config
     (use-package ob-http
-      :init
-      (progn
-        (when restclient-use-org
-          (add-to-list 'auto-mode-alist '("\\.http\\'" . org-mode)))
-        (add-to-list 'org-babel-load-languages '(http . t))))))
+      :init (add-to-list 'org-babel-load-languages '(http . t)))))
 
 (defun restclient/init-restclient ()
   (use-package restclient
