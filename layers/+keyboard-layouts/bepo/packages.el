@@ -19,10 +19,11 @@
     elfeed
     evil
     evil-escape
-    evil-surround
     evil-evilified-state
+    evil-surround
     eyebrowse
     flycheck
+    helm
     ivy
     magit
     neotree
@@ -177,6 +178,19 @@
     :config
     (setq-default evil-escape-key-sequence "gq")))
 
+(defun bepo/pre-init-evil-evilified-state ()
+  (bepo|config evil-evilified-state
+    :description
+    "Remap `evil-evilified-state' bindings."
+    :loader
+    (with-eval-after-load 'evil-evilified-state BODY)
+    :config
+    (bepo/correct-keys evil-evilified-state-map
+      "h"
+      "j"
+      "k"
+      "l")))
+
 (defun bepo/pre-init-evil-surround ()
   (bepo|config evil-surround
     :description
@@ -191,19 +205,6 @@
                                        evil-surround-pairs-alist)
        evil-surround-pairs-alist (cons '(?» "«" . "»")
                                        evil-surround-pairs-alist)))))
-
-(defun bepo/pre-init-evil-evilified-state ()
-  (bepo|config evil-evilified-state
-    :description
-    "Remap `evil-evilified-state' bindings."
-    :loader
-    (with-eval-after-load 'evil-evilified-state BODY)
-    :config
-    (bepo/correct-keys evil-evilified-state-map
-      "h"
-      "j"
-      "k"
-      "l")))
 
 (defun bepo/pre-init-eyebrowse ()
   (bepo|config eyebrowse
