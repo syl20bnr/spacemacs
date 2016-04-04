@@ -31,32 +31,46 @@
 ;;;###autoload
 (define-minor-mode space-doc-mode
   "Buffer local minor mode for Spacemacs documentation files.
-The mode hides `org-mode' meta tags like #+TITLE: while
-keeping their content visible."
+This mode:
+ - hides `org-mode' meta tags like #+TITLE: while
+keeping their content visible.
+ - enables buffer local link  opening with `spacemacs//space-doc-open'."
   :init-value nil
   :lighter " SD"
-  (if (eq major-mode 'org-mode)
+  (if (derived-mode-p 'org-mode)
       (if space-doc-mode
-          (let ((bg (face-attribute 'default :background)))
-            (progn
-              ;; Make `org-mode' meta tags invisible.
-              (set (make-local-variable
-                    'spacemacs--org-face-remap-cookie-org-tag)
-                   (face-remap-add-relative 'org-tag
-                                            `(:foreground ,bg)))
-              (set (make-local-variable
-                    'spacemacs--org-face-remap-cookie-org-meta-line)
-                   (face-remap-add-relative 'org-meta-line
-                                            `(:foreground ,bg)))
-              (set (make-local-variable
-                    'spacemacs--org-face-remap-cookie-org-block-begin-line)
-                   (face-remap-add-relative 'org-block-begin-line
-                                            `(:foreground ,bg)))
-              (set (make-local-variable
-                    'spacemacs--org-face-remap-cookie-org-document-info-keyword)
-                   (face-remap-add-relative 'org-document-info-keyword
-                                            `(:foreground ,bg)))))
+          (progn
+            ;; Make `space-doc' https link opener buffer local
+            ;; and enable it only when `space-doc' mode is enabled.
+            (make-local-variable 'org-link-types)
+            (make-local-variable 'org-link-protocols)
+            (org-add-link-type "https" 'spacemacs//space-doc-open)
+
+            (let ((bg (face-attribute 'default :background)))
+              (progn
+                ;; Make `org-mode' meta tags invisible.
+                (set (make-local-variable
+                      'spacemacs--org-face-remap-cookie-org-tag)
+                     (face-remap-add-relative 'org-tag
+                                              `(:foreground ,bg)))
+                (set (make-local-variable
+                      'spacemacs--org-face-remap-cookie-org-meta-line)
+                     (face-remap-add-relative 'org-meta-line
+                                              `(:foreground ,bg)))
+                (set (make-local-variable
+                      'spacemacs--org-face-remap-cookie-org-block-begin-line)
+                     (face-remap-add-relative 'org-block-begin-line
+                                              `(:foreground ,bg)))
+                (set (make-local-variable
+                      'spacemacs--org-face-remap-cookie-org-document-info-keyword)
+                     (face-remap-add-relative 'org-document-info-keyword
+                                              `(:foreground ,bg))))))
         (progn
+          (kill-local-variable 'org-link-types)
+          (kill-local-variable 'org-link-protocols)
+          ;; Trigger `org-mode' internal updates.
+          (org-add-link-type nil)
+
           ;; Make `org-mode' meta tags visible.
           (face-remap-remove-relative
            spacemacs--org-face-remap-cookie-org-tag)
@@ -86,8 +100,6 @@ Open all other links with `browse-url'."
                                      "^")
                                  'subtree)
       (browse-url (concat "https://" path)))))
-
-(org-add-link-type "https" 'spacemacs//space-doc-open)
 
 (provide 'space-doc)
 ;;; space-doc.el ends here
