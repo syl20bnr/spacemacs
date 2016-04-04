@@ -484,14 +484,21 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-org-repo-todo ()
   (use-package org-repo-todo
-    :defer t
+    :commands (ort/todo-root ort/find-root ort/todo-file)
     :init
     (progn
       (spacemacs/set-leader-keys
-        "Ct"  'ort/capture-todo
-        "CT"  'ort/capture-checkitem)
-      (spacemacs/set-leader-keys-for-major-mode 'org-mode
-        "gt" 'ort/goto-todos))))
+        "Ct" 'ort/capture-todo
+        "CT" 'ort/capture-checkitem
+        "aop" 'ort/list-project-todos)
+      (when (configuration-layer/package-usedp 'projectile)
+        (spacemacs/set-leader-keys
+          "aoT" 'ort/list-all-todos
+          "aoP" 'ort/list-all-project-todos)))
+    :config
+    ;; Better default capture template
+    (setcdr (cdddr (assoc "ort/todo" org-capture-templates))
+            '("* TODO %?\n%U\n\n%i" :empty-lines 1))
 
 (defun org/init-ox-gfm ()
   ;; installing this package from melpa is buggy,

@@ -39,7 +39,7 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 - Vim inspired key bindings are provided by [[https://github.com/edwtjo/evil-org-mode][evil-org-mode]]
 - Nicer bullet via [[https://github.com/sabof/org-bullets][org-bullets]]
 - A [[http://pomodorotechnique.com/][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
-- TODO capture via [[https://github.com/waymondo/org-repo-todo][org-repo-todo]]
+- Project TODO capture via [[https://github.com/waymondo/org-repo-todo][org-repo-todo]]
 - presentation mode via [[https://github.com/rlister/org-present][org-present]]
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
 
@@ -114,8 +114,6 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC a o s~ | org search view                |
 | ~SPC a o t~ | org todo list                  |
 | ~SPC C c~   | org-capture                    |
-| ~SPC C t~   | ort/capture-todo               |
-| ~SPC C T~   | ort/capture-checkitem          |
 
 ** Org with evil-org-mode
 
@@ -409,9 +407,13 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 
 ** Org-repo-todo
 
-| Key Binding | Description    |
-|-------------+----------------|
-| ~SPC m g t~ | ort/goto-todos |
+| Key Binding | Description                                                |
+|-------------+------------------------------------------------------------|
+| ~SPC C t~   | capture a TODO item for the current project                |
+| ~SPC C T~   | capture a checklist item for the current project           |
+| ~SPC a o p~ | show the TODO list for the current project                 |
+| ~SPC a o P~ | show the TODO list for all known projects                  |
+| ~SPC a o T~ | show the TODO list including those from all known projects |
 
 ** Org-MIME
 
