@@ -20,6 +20,7 @@
         helm
         magit
         multi-term
+        org
         projectile
         (shell :location built-in)
         shell-pop
@@ -248,6 +249,10 @@ is achieved by adding the relevant text properties."
           (interactive)
           (projectile-with-default-dir (projectile-project-root) (multi-term)))
         (spacemacs/set-leader-keys "p$t" 'projectile-multi-term-in-root)))))
+
+(defun shell/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(shell . t))))
 
 (defun shell/post-init-projectile ()
   (spacemacs/set-leader-keys "p'" 'spacemacs/projectile-shell-pop))
