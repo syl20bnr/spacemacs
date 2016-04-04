@@ -263,7 +263,8 @@
 
 (defun spacemacs-ui-visual/init-spaceline ()
   (use-package spaceline-config
-    :defer 0.1
+    ;; not possible for now, maybe we can add support for it in spaceline itself
+    ;; :defer 0.1
     :init
     (progn
       (spacemacs|do-after-display-system-init
