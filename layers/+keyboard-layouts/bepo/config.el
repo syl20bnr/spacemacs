@@ -55,16 +55,17 @@ they will not be loaded in any case.")
           bepo--base-rebinding-map)
   "The full bepo's rebinding map. Dots should be read as `will behave as'.")
 
-(defvar bepo--all-evil-states
-  (list evil-normal-state-map
-        evil-visual-state-map
-        evil-insert-state-map
-        evil-emacs-state-map
-        evil-motion-state-map)
-  "The list of all evil states.")
+(with-eval-after-load 'evil
+  (defvar bepo--all-evil-states
+    (list evil-normal-state-map
+          evil-visual-state-map
+          evil-insert-state-map
+          evil-emacs-state-map
+          evil-motion-state-map)
+    "The list of all evil states.")
 
-(defvar bepo--all-evil-states-but-insert
-  (list evil-normal-state-map
-        evil-visual-state-map
-        evil-motion-state-map)
-  "The list of all evil states except insert.")
+  (defvar bepo--all-evil-states-but-insert
+    (list evil-normal-state-map
+          evil-visual-state-map
+          evil-motion-state-map)
+    "The list of all evil states except insert."))
