@@ -213,7 +213,7 @@ If called with a prefix argument, uses the other-window instead."
                    clojurex-mode
                    cider-repl-mode))
         (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
-                           mode (car x) (cdr x)))
+                           m (car x) (cdr x)))
               cider--key-binding-prefixes)
         (spacemacs/set-leader-keys-for-major-mode m
           "ha" 'cider-apropos
@@ -308,7 +308,7 @@ If called with a prefix argument, uses the other-window instead."
                    clojurex-mode
                    cider-repl-mode))
         (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
-                           mode (car x) (cdr x)))
+                           m (car x) (cdr x)))
               clj-refactor--key-binding-prefixes)
         (dolist (r cljr--all-helpers)
           (let* ((binding (car r))
