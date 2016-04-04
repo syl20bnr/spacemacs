@@ -34,7 +34,7 @@
 The mode hides `org-mode' meta tags like #+TITLE: while
 keeping their content visible."
   :init-value nil
-  :lighter " ❤"
+  :lighter " SD"
   (if (eq major-mode 'org-mode)
       (if space-doc-mode
           (let ((bg (face-attribute 'default :background)))
