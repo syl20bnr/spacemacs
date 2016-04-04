@@ -200,11 +200,8 @@
     :config
     (progn
       (bepo/evil-correct-keys 'visual evil-surround-mode-map "s")
-      (setq-default
-       evil-surround-pairs-alist (cons '(?« "« " . " »")
-                                       evil-surround-pairs-alist)
-       evil-surround-pairs-alist (cons '(?» "«" . "»")
-                                       evil-surround-pairs-alist)))))
+      (setq-default evil-surround-pairs-alist
+                    (append '((?» "«" . "»") (?« "« " . " »")) evil-surround-pairs-alist)))))
 
 (defun bepo/pre-init-eyebrowse ()
   (bepo|config eyebrowse
