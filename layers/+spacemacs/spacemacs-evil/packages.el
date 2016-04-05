@@ -73,7 +73,9 @@
       (setq iedit-current-symbol-default t
             iedit-only-at-symbol-boundaries t
             iedit-toggle-key-default nil)
-      (spacemacs/set-leader-keys "se" 'evil-iedit-state/iedit-mode))
+      (spacemacs/set-leader-keys "se" 'evil-iedit-state/iedit-mode)
+      (add-hook 'spacemacs-editing-style-hook 'spacemacs//set-evil-iedit-default-state)
+      (spacemacs//set-evil-iedit-default-state 'vim))
     :config
     ;; activate leader in iedit and iedit-insert states
     (define-key evil-iedit-state-map
