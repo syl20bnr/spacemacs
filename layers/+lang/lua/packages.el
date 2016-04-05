@@ -2,6 +2,8 @@
   '(
     company
     flycheck
+    ggtags
+    helm-gtags
     lua-mode
     ))
 
@@ -25,3 +27,9 @@
 
 (defun lua/post-init-company ()
   (add-hook 'lua-mode-hook 'company-mode))
+
+(defun lua/post-init-ggtags ()
+  (add-hook 'lua-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun lua/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'lua-mode))

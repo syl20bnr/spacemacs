@@ -15,6 +15,8 @@
     company
    ;; flycheck
    ;; flycheck-ocaml
+    ggtags
+    helm-gtags
     merlin
     ocp-indent
     smartparens
@@ -37,6 +39,12 @@
         (with-eval-after-load 'merlin
           (setq merlin-error-after-save nil)
           (flycheck-ocaml-setup))))))
+
+(defun ocaml/post-init-ggtags ()
+  (add-hook 'ocaml-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun ocaml/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'ocaml-mode))
 
 (defun ocaml/init-merlin ()
   (use-package merlin

@@ -13,6 +13,8 @@
       '(
         company
         emacs-eclim
+        ggtags
+        helm-gtags
         (java-mode :location built-in)
         ))
 
@@ -132,6 +134,12 @@
     :defer t
     :init
     (push 'company-emacs-eclim company-backends-java-mode)))
+
+(defun java/post-init-ggtags ()
+  (add-hook 'java-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun java/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'java-mode))
 
 (defun java/init-java-mode ()
   (setq java/key-binding-prefixes '(("me" . "errors")

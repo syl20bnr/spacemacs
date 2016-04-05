@@ -119,6 +119,12 @@
   (use-package elixir-mode
     :defer t))
 
+(defun elixir/post-init-ggtags ()
+  (add-hook 'elixir-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun elixir/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'elixir-mode))
+
 (defun elixir/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
     :post-config

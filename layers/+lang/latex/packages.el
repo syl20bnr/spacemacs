@@ -19,6 +19,8 @@
     (reftex :location built-in)
     flycheck
     flyspell
+    ggtags
+    helm-gtags
     smartparens
     typo
     yasnippet
@@ -171,6 +173,12 @@
 
 (defun latex/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'LaTeX-mode-hook))
+
+(defun latex/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'latex-mode))
+
+(defun latex/post-init-ggtags ()
+  (add-hook 'latex-mode-hook #'spacemacs/ggtags-mode-enable))
 
 (defun latex/post-init-smartparens ()
   (add-hook 'LaTeX-mode-hook 'smartparens-mode))

@@ -33,19 +33,16 @@
     :defer t))
 
 (defun php/post-init-eldoc ()
-  (add-hook 'php-mode-hook 'eldoc-mode)
-  (when (configuration-layer/package-usedp 'ggtags)
-    (spacemacs/ggtags-enable-eldoc 'php-mode)))
+  (add-hook 'php-mode-hook 'eldoc-mode))
 
 (defun php/post-init-flycheck ()
   (add-hook 'php-mode-hook 'flycheck-mode))
 
 (defun php/post-init-ggtags ()
-  (add-hook 'php-mode-hook 'ggtags-mode))
+  (add-hook 'php-mode-hook #'spacemacs/ggtags-mode-enable))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun php/post-init-helm-gtags ()
-    (spacemacs/helm-gtags-define-keys-for-mode 'php-mode)))
+(defun php/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'php-mode))
 
 (defun php/init-php-auto-yasnippets ()
   (use-package php-auto-yasnippets

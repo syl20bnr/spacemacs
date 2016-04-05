@@ -14,6 +14,8 @@
     alchemist
     company
     elixir-mode
+    ggtags
+    helm-gtags
     popwin
     smartparens
     ))

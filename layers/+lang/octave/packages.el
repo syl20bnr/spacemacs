@@ -11,6 +11,8 @@
 
 (setq octave-packages
   '(
+    ggtags
+    helm-gtags
     (octave :location built-in)
     ))
 
@@ -30,3 +32,9 @@
               "si" 'run-octave
               "sl" 'octave-send-line
               "sr" 'octave-send-region)))
+
+(defun octave/post-init-ggtags ()
+  (add-hook 'octave-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun octave/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'octave-mode))
