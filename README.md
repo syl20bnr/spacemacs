@@ -144,14 +144,17 @@ $ brew install emacs-plus --with-cocoa --with-gnutls --with-librsvg --with-image
 $ brew linkapps
 ```
 
-Please note: these homebrew commands will install Emacs, and link it to your
+*Note:* these homebrew commands will install Emacs, and link it to your
 `/Applications` directory. You still need to run the `git clone` mentioned at
 the start of this file. That will populate your `~/.emacs.d` directory, which
 is what transforms a regular Emacs into Spacemacs.
 
-*After* you have completed the [install process below](#install), it is also
- recommended to add the [osx layer][] to your [dotfile][]. Install instructions
- are available in the [osx layer][] documentation.
+*Note:* the proposed `emacs-plus` tap is indentical to the `emacs` formulae,
+it just defines some additional options like `--with-spacemacs-icon`.
+
+*Note:* after you have completed the [install process below](#install), it is
+also recommended to add the [osx layer][] to your [dotfile][]. Install
+instructions are available in the [osx layer][] documentation.
 
 Note that the `emacs-mac-port` server behaves differently than the regular Emacs
 server which in particular **DOES NOT** allow multi-tty if you start GUI i.e.
