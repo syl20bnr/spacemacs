@@ -711,7 +711,10 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
 
 (defun configuration-layer//auto-mode (layer-name mode)
   "Auto mode support of lazily installed layers."
-  (configuration-layer//lazy-install-packages layer-name mode)
+  (let ((layer (object-assoc layer-name :name configuration-layer--layers)))
+    (when (or (null layer)
+              (oref layer :lazy-install))
+      (configuration-layer//lazy-install-packages layer-name mode)))
   (when (fboundp mode) (funcall mode)))
 
 (defun configuration-layer/filter-objects (objects ffunc)
