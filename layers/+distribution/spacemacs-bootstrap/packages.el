@@ -106,6 +106,10 @@
   (evil-map visual "<" "<gv")
   (evil-map visual ">" ">gv")
 
+  ;; move selection up and down
+  (define-key evil-visual-state-map "J" (concat ":m '>+1" (kbd "RET") "gv=gv"))
+  (define-key evil-visual-state-map "K" (concat ":m '<-2" (kbd "RET") "gv=gv"))
+
   (evil-ex-define-cmd "enew" 'spacemacs/new-empty-buffer)
 
   (define-key evil-normal-state-map (kbd "K") 'spacemacs/evil-smart-doc-lookup)
