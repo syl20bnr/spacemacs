@@ -199,7 +199,10 @@ disable this behaviour:
 #+END_SRC
 
 ** Why do I get '4m' characters inside ansi-term?
-Ansi-term only has a subset of capabilities supported by xterm256. Your shell (e.g. fish shell) might ignore =$TERMINFO= information and require you to set the =~/.terminfo= yourself.
+Ansi-term only has a subset of capabilities supported by xterm256. Your shell
+(e.g. fish shell) might ignore =$TERMINFO= information and require you to set
+the =~/.terminfo= yourself.
+
 #+BEGIN_SRC fish
 tic -o ~/.terminfo $TERMINFO/e/eterm-color.ti
 #+END_SRC
