@@ -63,7 +63,7 @@ or
 #+end_src
 
 ** Indentation
-By default, the tab widt in Go mode is 8 spaces. To use a different value
+By default, the tab width in Go mode is 8 spaces. To use a different value
 set the layer variable =go-tab-width=, e.g.
 
 #+begin_src emacs-lisp
