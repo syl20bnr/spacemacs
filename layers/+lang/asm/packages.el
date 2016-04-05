@@ -14,6 +14,8 @@
         ;; package names go here
         asm-mode
         electric-indent-mode
+        ggtags
+        helm-gtags
         nasm-mode
         x86-lookup
         ))
@@ -61,3 +63,9 @@
 (defun asm/post-init-company ()
   (spacemacs|add-company-hook asm-mode)
   (spacemacs|add-company-hook nasm-mode))
+
+(defun asm/post-init-ggtags ()
+  (add-hook 'asm-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun asm/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'asm-mode))

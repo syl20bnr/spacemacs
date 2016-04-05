@@ -12,7 +12,9 @@
 (setq common-lisp-packages
       '(auto-highlight-symbol
         (common-lisp-snippets :toggle (configuration-layer/package-usedp 'yasnippet))
+        ggtags
         helm
+        helm-gtags
         slime))
 
 (defun common-lisp/post-init-auto-highlight-symbol ()
@@ -24,6 +26,12 @@
 (defun common-lisp/post-init-helm ()
   (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
     "sI" 'spacemacs/helm-slime))
+
+(defun common-lisp/post-init-ggtags ()
+  (add-hook 'common-lisp-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun common-lisp/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'common-lisp-mode))
 
 (defun common-lisp/init-slime ()
   (use-package slime

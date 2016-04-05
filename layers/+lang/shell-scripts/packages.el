@@ -15,6 +15,8 @@
         (company-shell :toggle (configuration-layer/package-usedp 'company))
         fish-mode
         flycheck
+        ggtags
+        helm-gtags
         (sh-script :location built-in)
         ))
 
@@ -61,3 +63,8 @@
           (sh-set-shell "zsh")))
       (add-hook 'sh-mode-hook 'spacemacs//setup-shell))))
 
+(defun shell-scripts/post-init-ggtags ()
+  (add-hook 'sh-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun shell-scripts/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'sh-mode))

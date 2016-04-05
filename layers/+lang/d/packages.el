@@ -17,6 +17,8 @@
         d-mode
         flycheck
         (flycheck-dmd-dub :toggle (configuration-layer/package-usedp 'flycheck))
+        ggtags
+        helm-gtags
         ))
 
 (defun d/post-init-company ()
@@ -33,3 +35,9 @@
 (defun d/init-flycheck-dmd-dub ()
   (use-package flycheck-dmd-dub :defer t
     :init (add-hook 'd-mode-hook 'flycheck-dmd-dub-set-include-path)))
+
+(defun d/post-init-ggtags ()
+  (add-hook 'd-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun d/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'd-mode))

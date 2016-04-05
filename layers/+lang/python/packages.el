@@ -18,7 +18,9 @@
     eldoc
     evil-matchit
     flycheck
+    ggtags
     helm-cscope
+    helm-gtags
     (helm-pydoc :toggle (configuration-layer/package-usedp 'helm))
     hy-mode
     live-py-mode
@@ -101,6 +103,12 @@
   (spacemacs|use-package-add-hook xcscope
     :post-init
     (spacemacs/setup-helm-cscope 'python-mode)))
+
+(defun python/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'python-mode))
+
+(defun python/post-init-ggtags ()
+  (add-hook 'python-mode-hook #'spacemacs/ggtags-mode-enable))
 
 (defun python/init-helm-pydoc ()
   (use-package helm-pydoc

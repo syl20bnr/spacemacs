@@ -18,6 +18,8 @@
         (emacs-lisp :location built-in)
         evil
         flycheck
+        ggtags
+        helm-gtags
         (ielm :location built-in)
         macrostep
         semantic
@@ -135,6 +137,12 @@
   ;; Make flycheck recognize packages in loadpath
   ;; i.e (require 'company) will not give an error now
   (setq flycheck-emacs-lisp-load-path 'inherit))
+
+(defun emacs-lisp/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'emacs-lisp-mode))
+
+(defun emacs-lisp/post-init-ggtags ()
+  (add-hook 'emacs-lisp-mode-hook #'spacemacs/ggtags-mode-enable))
 
 (defun emacs-lisp/post-init-semantic ()
   (add-hook 'emacs-lisp-mode-hook 'semantic-mode)

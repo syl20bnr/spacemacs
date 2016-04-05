@@ -13,6 +13,8 @@
   '(
     company
     evil-matchit
+    ggtags
+    helm-gtags
     omnisharp
     ))
 
@@ -89,3 +91,9 @@
     (plist-put evilmi-plugins 'csharp-mode '((evilmi-simple-get-tag evilmi-simple-jump)
                                              (evilmi-c-get-tag evilmi-c-jump))))
   (add-hook 'csharp-mode-hook 'turn-on-evil-matchit-mode))
+
+(defun csharp/post-init-ggtags ()
+  (add-hook 'csharp-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun csharp/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'csharp-mode))

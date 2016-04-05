@@ -12,6 +12,8 @@
 (setq windows-scripts-packages
   '(
     (dos :location local)
+    ggtags
+    helm-gtags
     powershell
     ))
 
@@ -43,6 +45,12 @@
       "t"  'dos-template-mini
       "T"  'dos-template
       "z"  'windows-scripts/dos-outline)))
+
+(defun windows-scripts/post-init-ggtags ()
+  (add-hook 'dos-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun windows-scripts/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'dos-mode))
 
 (defun windows-scripts/init-powershell ()
   (use-package powershell

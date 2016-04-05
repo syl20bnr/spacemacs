@@ -40,10 +40,10 @@
       "gS" 'helm-gtags-show-stack
       "gu" 'helm-gtags-update-tags)))
 
-(defun spacemacs/ggtags-enable-eldoc (mode)
-  (add-hook (intern (concat (symbol-name mode) "-hook"))
-            (lambda ()
-              (ggtags-mode 1)
-              (eldoc-mode 1)
-              (setq-local eldoc-documentation-function
-                          #'ggtags-eldoc-function))))
+(defun spacemacs/ggtags-mode-enable ()
+  "Enable ggtags and eldoc mode.
+
+For eldoc, ggtags advises the eldoc function at the lowest priority
+so that if the major mode has better support it will use it first."
+  (ggtags-mode 1)
+  (eldoc-mode 1))

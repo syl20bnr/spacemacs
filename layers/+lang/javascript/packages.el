@@ -16,6 +16,8 @@
     (company-tern :toggle (configuration-layer/package-usedp 'company))
     evil-matchit
     flycheck
+    ggtags
+    helm-gtags
     js-doc
     js2-mode
     js2-refactor
@@ -58,6 +60,12 @@
 (defun javascript/post-init-flycheck ()
   (dolist (mode '(coffee-mode js2-mode json-mode))
     (spacemacs/add-flycheck-hook mode)))
+
+(defun javascript/post-init-ggtags ()
+  (add-hook 'js2-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun javascript/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'js2-mode))
 
 (defun javascript/init-js-doc ()
   (use-package js-doc

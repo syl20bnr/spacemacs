@@ -13,6 +13,8 @@
       '(
         company
         geiser
+        ggtags
+        helm-gtags
         ))
 
 (defun scheme/post-init-company ()
@@ -72,3 +74,9 @@
         "sr" 'geiser-eval-region
         "sR" 'geiser-eval-region-and-go
         "ss" 'geiser-set-scheme))))
+
+(defun scheme/post-init-ggtags ()
+  (add-hook 'scheme-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun scheme/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'scheme-mode))

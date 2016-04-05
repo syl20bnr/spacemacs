@@ -19,6 +19,8 @@
     (reftex :location built-in)
     flycheck
     flyspell
+    ggtags
+    helm-gtags
     smartparens
     typo
     yasnippet
@@ -170,6 +172,12 @@
     "rt"    'reftex-toc
     "rT"    'reftex-toc-recenter
     "rv"    'reftex-view-crossref))
+
+(defun latex/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'latex-mode))
+
+(defun latex/post-init-ggtags ()
+  (add-hook 'latex-mode-hook #'spacemacs/ggtags-mode-enable))
 
 (defun latex/post-init-smartparens ()
   (add-hook 'LaTeX-mode-hook 'smartparens-mode))

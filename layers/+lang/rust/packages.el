@@ -15,6 +15,8 @@
     racer
     flycheck
     (flycheck-rust :toggle (configuration-layer/package-usedp 'flycheck))
+    ggtags
+    helm-gtags
     rust-mode
     toml-mode
     ))
@@ -26,6 +28,12 @@
   (use-package flycheck-rust
     :defer t
     :init (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+
+(defun rust/post-init-ggtags ()
+  (add-hook 'rust-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun rust/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'rust-mode))
 
 (defun rust/init-rust-mode ()
   (use-package rust-mode

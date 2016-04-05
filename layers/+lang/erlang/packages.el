@@ -13,6 +13,8 @@
   '(
     company
     erlang
+    ggtags
+    helm-gtags
     flycheck
     ))
 
@@ -42,3 +44,9 @@
 
 (defun erlang/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'erlang-mode))
+
+(defun erlang/post-init-ggtags ()
+  (add-hook 'erlang-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun erlang/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'erlang-mode))
