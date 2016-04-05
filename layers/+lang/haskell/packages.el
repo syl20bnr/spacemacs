@@ -207,6 +207,17 @@
       (evil-define-key 'normal haskell-interactive-mode-map
         (kbd "RET") 'haskell-interactive-mode-return)
 
+      ;; mimic haskell-indentation on region in visual state
+      (unless haskell-enable-shm-support
+        (spacemacs|define-micro-state haskell-indentation
+          :doc "Press = to indent further or - to indent backwards"
+          :use-minibuffer t
+          :bindings
+          ("=" indent-for-tab-command)
+          ("-" haskell-indentation-indent-backwards))
+
+        (evil-define-key 'visual haskell-mode-map (kbd "=") 'spacemacs/haskell-indentation-micro-state))
+
       ;;GHCi-ng
       (when haskell-enable-ghci-ng-support
         ;; haskell-process-type is set to auto, so setup ghci-ng for either case
