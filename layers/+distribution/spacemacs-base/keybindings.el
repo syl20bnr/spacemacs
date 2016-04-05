@@ -112,7 +112,6 @@
 ;; applications ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "ac"  'calc-dispatch
-  "ad"  'dired
   "ap"  'list-processes
   "aP"  'proced
   "au"  'undo-tree-visualize)
@@ -153,7 +152,6 @@
   "fCd" 'spacemacs/unix2dos
   "fCu" 'spacemacs/dos2unix
   "fg" 'rgrep
-  "fj" 'dired-jump
   "fl" 'find-file-literally
   "fE" 'spacemacs/sudo-edit
   "fo" 'spacemacs/open-in-external-app
@@ -196,8 +194,6 @@
 (spacemacs/set-leader-keys
   "j0" 'spacemacs/push-mark-and-goto-beginning-of-line
   "j$" 'spacemacs/push-mark-and-goto-end-of-line
-  "jd" 'dired-jump
-  "jD" 'dired-jump-other-window
   "jf" 'find-function-at-point
   "ji" 'spacemacs/jump-in-buffer
   "jv" 'find-variable-at-point)

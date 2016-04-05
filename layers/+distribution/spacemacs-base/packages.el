@@ -13,6 +13,7 @@
       '(
         (bookmark :location built-in)
         diminish
+        (dired :location built-in)
         (dired-x :location built-in)
         (electric-indent-mode :location built-in)
         (ediff :location built-in)
@@ -83,6 +84,13 @@
       (with-eval-after-load 'subword
         (when (eval-when-compile (version< "24.3.1" emacs-version))
           (diminish 'subword-mode))))))
+
+(defun spacemacs-base/init-dired ()
+  (spacemacs/set-leader-keys
+    "ad" 'dired
+    "fj" 'dired-jump
+    "jd" 'dired-jump
+    "jD" 'dired-jump-other-window))
 
 (defun spacemacs-base/init-dired-x ()
   (autoload 'dired-jump "dired-x"

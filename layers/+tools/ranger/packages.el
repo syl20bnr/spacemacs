@@ -10,20 +10,22 @@
 ;;
 ;;; License: GPLv3
 
-(setq ranger-packages '(ranger))
+(setq ranger-packages '(dired
+                        ranger))
 
 (defun ranger/init-ranger ()
   (use-package ranger
     :defer t
     :init
     (progn
-      (spacemacs/set-leader-keys
-        "ar" 'ranger
-        "ad" 'deer)
-
       ;; set up image-dired to allow picture resize
       (setq image-dired-dir (concat spacemacs-cache-directory "image-dir"))
       (unless (file-directory-p image-dired-dir)
         (make-directory image-dired-dir)))
     :config
     (define-key ranger-mode-map (kbd "-") 'ranger-up-directory)))
+
+(defun ranger/post-init-dired ()
+  (spacemacs/set-leader-keys
+    "ar" 'ranger
+    "ad" 'deer))
