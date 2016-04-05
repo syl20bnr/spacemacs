@@ -552,7 +552,8 @@
         "po" 'projectile-multi-occur
         "pR" 'projectile-replace
         "pT" 'projectile-find-test-file
-        "py" 'projectile-find-tag))
+        "py" 'projectile-find-tag
+        "p%" 'projectile-replace-regexp))
     :config
     (progn
       (projectile-global-mode)
