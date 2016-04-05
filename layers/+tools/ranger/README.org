@@ -113,6 +113,10 @@ To set the max files size (in MB), set the following parameter:
 | ~C-p~       | (ranger) toggle ranger in dired buffer               |
 | ~j~         | (ranger) navigate down                               |
 | ~k~         | (ranger) navigate up                                 |
+| ~yy~        | (ranger) copy                                        |
+| ~pp~        | (ranger) paste                                       |
+| ~R~         | (ranger) rename                                      |
+| ~D~         | (ranger) delete                                      |
 | ~C-j~       | (ranger) scroll preview window down                  |
 | ~C-k~       | (ranger) scroll preview window up                    |
 | ~f~         | (ranger) search for file names                       |
@@ -132,3 +136,5 @@ To set the max files size (in MB), set the following parameter:
 | ~V~         | (ranger) visually select lines                       |
 | ~S~         | (ranger) enter shell                                 |
 | ~C-SPC~     | (ranger) mark current file                           |
+| ~;C~        | (ranger) copy directory / copy and move directory    |
+| ~;+~        | (ranger) create directory                            |
