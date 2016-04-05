@@ -21,8 +21,9 @@
     helm-cscope
     helm-pydoc
     hy-mode
-    (nose :location local)
     live-py-mode
+    (nose :location local)
+    org
     pip-requirements
     pyenv-mode
     (pylookup :location local)
@@ -151,6 +152,10 @@
     (progn
       (add-to-list 'nose-project-root-files "setup.cfg")
       (setq nose-use-verbose nil))))
+
+(defun python/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(python . t))))
 
 (defun python/init-pip-requirements ()
   (use-package pip-requirements
