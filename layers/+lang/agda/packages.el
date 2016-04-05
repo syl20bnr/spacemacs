@@ -49,30 +49,30 @@
         "b" 'spacemacs/goal-navigation-transient-state/agda2-previous-goal)
 
       (spacemacs/set-leader-keys-for-major-mode 'agda2-mode
-        "?" 'agda2-show-goals
-        "." 'agda2-goal-and-context-and-inferred
-        "," 'agda2-goal-and-context
-        "=" 'agda2-show-constraints
+        "?"   'agda2-show-goals
+        "."   'agda2-goal-and-context-and-inferred
+        ","   'agda2-goal-and-context
+        "="   'agda2-show-constraints
         "SPC" 'agda2-give
-        "a" 'agda2-auto
-        "c" 'agda2-make-case
-        "d" 'agda2-infer-type-maybe-toplevel
-        "e" 'agda2-show-context
-        "gg" 'agda2-goto-definition-keyboard
-        "gG" 'agda2-go-back
-        "h" 'agda2-helper-function-type
-        "l" 'agda2-load
-        "n" 'agda2-compute-normalised-maybe-toplevel
-        "p" 'agda2-module-contents-maybe-toplevel
-        "r" 'agda2-refine
-        "s" 'agda2-solveAll
-        "t" 'agda2-goal-type
-        "w" 'agda2-why-in-scope-maybe-toplevel
-        "xc" 'agda2-compile
-        "xd" 'agda2-remove-annotations
-        "xh" 'agda2-display-implicit-arguments
-        "xq" 'agda2-quit
-        "xr" 'agda2-restart)
+        "a"   'agda2-auto
+        "c"   'agda2-make-case
+        "d"   'agda2-infer-type-maybe-toplevel
+        "e"   'agda2-show-context
+        "gg"  'agda2-goto-definition-keyboard
+        "gG"  'agda2-go-back
+        "h"   'agda2-helper-function-type
+        "l"   'agda2-load
+        "n"   'agda2-compute-normalised-maybe-toplevel
+        "p"   'agda2-module-contents-maybe-toplevel
+        "r"   'agda2-refine
+        "s"   'agda2-solveAll
+        "t"   'agda2-goal-type
+        "w"   'agda2-why-in-scope-maybe-toplevel
+        "xc"  'agda2-compile
+        "xd"  'agda2-remove-annotations
+        "xh"  'agda2-display-implicit-arguments
+        "xq"  'agda2-quit
+        "xr"  'agda2-restart)
 
       (with-eval-after-load 'golden-ratio
         (add-to-list 'golden-ratio-exclude-buffer-names
