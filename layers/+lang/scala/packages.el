@@ -107,7 +107,7 @@
         "bp"     'ensime-sbt-do-package
         "br"     'ensime-sbt-do-run
 
-        "ct"     'ensime-typecheck-current-file
+        "ct"     'ensime-typecheck-current-buffer
         "cT"     'ensime-typecheck-all
 
         "dA"     'ensime-db-attach
