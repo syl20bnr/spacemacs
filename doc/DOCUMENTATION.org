@@ -2808,6 +2808,7 @@ To search in a project see [[Searching in a project][project searching]].
 | ~SPC p '​~   | open a shell in project's root (with the =shell= layer) |
 | ~SPC p !~   | run shell command in project's root                     |
 | ~SPC p &~   | run async shell command in project's root               |
+| ~SPC p %~   | replace a regexp                                        |
 | ~SPC p a~   | toggle between implementation and test                  |
 | ~SPC p b~   | switch to project buffer                                |
 | ~SPC p c~   | compile project using =projectile=                      |
@@ -2823,7 +2824,6 @@ To search in a project see [[Searching in a project][project searching]].
 | ~SPC p p~   | switch project                                          |
 | ~SPC p r~   | open a recent file                                      |
 | ~SPC p R~   | replace a string                                        |
-| ~SPC p %~   | replace a regexp                                        |
 | ~SPC p s~   | see [[Searching in a project][search in project]]                                   |
 | ~SPC p t~   | open =NeoTree= in =projectile= root                     |
 | ~SPC p T~   | find test files                                         |

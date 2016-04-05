@@ -526,6 +526,7 @@
       (spacemacs/set-leader-keys
         "p!" 'projectile-run-shell-command-in-root
         "p&" 'projectile-run-async-shell-command-in-root
+        "p%" 'projectile-replace-regexp
         "pa" 'projectile-toggle-between-implementation-and-test
         "pc" 'projectile-compile-project
         "pD" 'projectile-dired
@@ -535,8 +536,7 @@
         "po" 'projectile-multi-occur
         "pR" 'projectile-replace
         "pT" 'projectile-find-test-file
-        "py" 'projectile-find-tag
-        "p%" 'projectile-replace-regexp))
+        "py" 'projectile-find-tag))
     :config
     (progn
       (projectile-global-mode)
