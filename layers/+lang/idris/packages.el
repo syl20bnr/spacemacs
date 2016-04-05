@@ -40,11 +40,19 @@
         (idris-pop-to-repl)
         (evil-insert-state))
 
+      ;; prefix
+      (spacemacs/declare-prefix-for-mode 'idris-mode "mb" "idris/build")
+      (spacemacs/declare-prefix-for-mode 'idris-mode "mi" "idris/editing")
+      (spacemacs/declare-prefix-for-mode 'idris-mode "mh" "idris/documentation")
+      (spacemacs/declare-prefix-for-mode 'idris-mode "ms" "idris/repl")
+      (spacemacs/declare-prefix-for-mode 'idris-mode "mm" "idris/term")
+
       (spacemacs/set-leader-keys-for-major-mode 'idris-mode
         ;; Shorthands: rebind the standard evil-mode combinations to the local
         ;; leader for the keys not used as a prefix below.
-        "c" 'idris-case-split
+        "c" 'idris-case-dwim
         "d" 'idris-add-clause
+        "l" 'idris-make-lemma
         "p" 'idris-proof-search
         "r" 'idris-load-file
         "t" 'idris-type-at-point
@@ -58,7 +66,7 @@
 
         ;; Interactive editing.
         "ia" 'idris-proof-search
-        "ic" 'idris-case-split
+        "ic" 'idris-case-dwim
         "ie" 'idris-make-lemma
         "im" 'idris-add-missing
         "ir" 'idris-refine
@@ -78,10 +86,8 @@
         "mc" 'idris-show-core-term
 
         ;; REPL
-        "'"  'idris-ensure-process-and-repl-buffer
         "sb" 'idris-load-file
         "sB" 'spacemacs/idris-load-file-and-focus
-        "si" 'idris-ensure-process-and-repl-buffer
         "sn" 'idris-load-forward-line
         "sN" 'spacemacs/idris-load-forward-line-and-focus
         "sp" 'idris-load-backward-line
