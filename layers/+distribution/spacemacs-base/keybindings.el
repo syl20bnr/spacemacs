@@ -184,8 +184,8 @@
   "ik" 'spacemacs/evil-insert-line-above
   "ij" 'spacemacs/evil-insert-line-below)
 ;; format ---------------------------------------------------------------------
-;; <SPC> j k key binding for a frequent action: go and indent line below the point
-;; <SPC> J split the current line at point and indent it
+;; `SPC j k' key binding for a frequent action: go and indent line below the point
+;; `SPC J' split the current line at point and indent it
 (spacemacs/set-leader-keys
   "jo" 'open-line
   "j=" 'spacemacs/indent-region-or-buffer

@@ -27,7 +27,7 @@ compiler more time to finish generating the file before reverting the buffer.
 * Key bindings
 | Key Binding | Description                          |
 |-------------+--------------------------------------|
-| ~<SPC> m ,~ | Preview file                         |
-| ~<SPC> m =~ | Indent graph                         |
-| ~<SPC> m t~ | Toggle live-preview                  |
-| ~<SPC> m c~ | Set compile command and compile file |
+| ~SPC m ,~   | Preview file                         |
+| ~SPC m =~   | Indent graph                         |
+| ~SPC m t~   | Toggle live-preview                  |
+| ~SPC m c~   | Set compile command and compile file |

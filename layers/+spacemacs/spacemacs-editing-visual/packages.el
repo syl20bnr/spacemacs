@@ -43,7 +43,7 @@
       (setq ahs-case-fold-search nil
             ahs-default-range 'ahs-range-whole-buffer
             ;; by default disable auto-highlight of symbol
-            ;; current symbol can always be highlighted with <SPC> s h
+            ;; current symbol can always be highlighted with `SPC s h'
             ahs-idle-timer 0
             ahs-idle-interval 0.25
             ahs-inhibit-face-list nil)

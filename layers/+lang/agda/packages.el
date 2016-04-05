@@ -53,7 +53,7 @@
         "." 'agda2-goal-and-context-and-inferred
         "," 'agda2-goal-and-context
         "=" 'agda2-show-constraints
-        " <SPC>" 'agda2-give
+        "SPC" 'agda2-give
         "a" 'agda2-auto
         "c" 'agda2-make-case
         "d" 'agda2-infer-type-maybe-toplevel

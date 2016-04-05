@@ -52,7 +52,7 @@
         "sr" 'sml-prog-proc-send-region
         "sR" 'spacemacs/sml-prog-proc-send-region-and-focus
         "ss" 'run-sml)
-      (define-key sml-mode-map (kbd "M-<SPC>") 'sml-electric-space)
+      (define-key sml-mode-map (kbd "M-SPC") 'sml-electric-space)
       (define-key sml-mode-map (kbd "|") 'sml-electric-pipe))))
 
 (defun sml/init-ob-sml ()
