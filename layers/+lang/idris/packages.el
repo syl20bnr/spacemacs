@@ -15,7 +15,7 @@
 (defun idris/init-idris-mode ()
   (use-package idris-mode
     :defer t
-    :init (spacemacs/register-repl 'idris-mode 'idris-ensure-process-and-repl-buffer "idris")
+    :init (spacemacs/register-repl 'idris-mode 'idris-repl "idris")
     :config
     (progn
       (defun spacemacs/idris-load-file-and-focus (&optional set-line)
