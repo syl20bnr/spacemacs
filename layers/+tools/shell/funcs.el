@@ -19,3 +19,12 @@
   "Locally disable global-hl-line-mode"
   (interactive)
   (setq-local global-hl-line-mode nil))
+
+(defun spacemacs/init-eshell-xterm-color ()
+  "Initialize xterm coloring for eshell"
+  (setq-local xterm-color-preserve-properties t)
+  (make-local-variable 'eshell-preoutput-filter-functions)
+  (add-hook 'eshell-preoutput-filter-functions 'xterm-color-filter)
+  (setq-local eshell-output-filter-functions
+              (remove 'eshell-handle-ansi-color
+                      eshell-output-filter-functions)))
