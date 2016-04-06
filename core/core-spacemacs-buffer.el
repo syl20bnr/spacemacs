@@ -63,7 +63,8 @@ version the release note it displayed")
   :abbrev-table nil
   (setq buffer-read-only t
         truncate-lines t)
-  (page-break-lines-mode)
+  (when (fboundp 'page-break-lines-mode)
+    (page-break-lines-mode))
   ;; needed to make tab work correctly in terminal
   (evil-define-key 'motion spacemacs-buffer-mode-map
     (kbd "C-i") 'widget-forward)
@@ -732,7 +733,8 @@ border."
                        (bookmark-all-names))
                   (spacemacs//insert--shortcut "b" "Bookmarks:")
                   (insert list-separator)))
-               ((eq el 'projects)
+               ((and (eq el 'projects)
+                     (fboundp 'projectile-mode))
                 (projectile-mode)
                 (when (spacemacs-buffer//insert-file-list
                        "Projects:"

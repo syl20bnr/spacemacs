@@ -869,8 +869,9 @@ path."
                                   layer-name))))
   (setq configuration-layer--layers (reverse configuration-layer--layers))
   ;; distribution and bootstrap layers are always first
-  (push (configuration-layer/make-layer dotspacemacs-distribution)
-        configuration-layer--layers)
+  (unless (eq 'spacemacs-bootstrap dotspacemacs-distribution)
+    (push (configuration-layer/make-layer dotspacemacs-distribution)
+          configuration-layer--layers))
   (push (configuration-layer/make-layer 'spacemacs-bootstrap)
         configuration-layer--layers))
 

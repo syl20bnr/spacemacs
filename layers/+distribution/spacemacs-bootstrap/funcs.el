@@ -50,6 +50,29 @@
         (call-interactively binding)
       (evil-goto-definition))))
 
+(defun spacemacs//set-evil-shift-width ()
+  "Set the value of `evil-shift-width' based on the indentation settings of the
+current major mode."
+  (let ((shift-width
+         (catch 'break
+           (dolist (test spacemacs--indent-variable-alist)
+             (let ((mode (car test))
+                   (val (cdr test)))
+               (when (or (and (symbolp mode) (derived-mode-p mode))
+                         (and (listp mode) (apply 'derived-mode-p mode))
+                         (eq 't mode))
+                 (when (not (listp val))
+                   (setq val (list val)))
+                 (dolist (v val)
+                   (cond
+                    ((integerp v) (throw 'break v))
+                    ((and (symbolp v) (boundp v))
+                     (throw 'break (symbol-value v))))))))
+           (throw 'break (default-value 'evil-shift-width)))))
+    (when (and (integerp shift-width)
+               (< 0 shift-width))
+      (setq-local evil-shift-width shift-width))))
+
 (defmacro spacemacs|define-text-object (key name start end)
   (let ((inner-name (make-symbol (concat "evil-inner-" name)))
         (outer-name (make-symbol (concat "evil-outer-" name)))
