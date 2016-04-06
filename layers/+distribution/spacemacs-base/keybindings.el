@@ -141,7 +141,6 @@
   "ep" 'spacemacs/previous-error)
 ;; file -----------------------------------------------------------------------
 (spacemacs/set-leader-keys
-  "fb" 'bookmark-jump
   "fc" 'spacemacs/copy-file
   "fD" 'spacemacs/delete-current-buffer-file
   "fei" 'spacemacs/find-user-init-file

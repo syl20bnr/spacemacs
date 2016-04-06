@@ -11,6 +11,7 @@
 
 (setq spacemacs-helm-packages
       '(ace-jump-helm-line
+        bookmark
         helm
         helm-ag
         helm-descbinds
@@ -30,6 +31,9 @@
     :init
     (with-eval-after-load 'helm
       (define-key helm-map (kbd "C-q") 'ace-jump-helm-line))))
+
+(defun spacemacs-helm/post-init-bookmark ()
+  (spacemacs/set-leader-keys "fb" 'helm-filtered-bookmarks))
 
 (defun spacemacs-helm/init-helm ()
   (use-package helm
@@ -189,7 +193,6 @@
         "fF"   'helm-find-files
         "fL"   'helm-locate
         "fr"   'helm-recentf
-        "fb"   'helm-filtered-bookmarks
         "hdd"  'helm-apropos
         "hdF"  'spacemacs/helm-faces
         "hi"   'helm-info-at-point

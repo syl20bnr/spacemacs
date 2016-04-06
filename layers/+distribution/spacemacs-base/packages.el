@@ -60,9 +60,11 @@
   (use-package bookmark
     :defer t
     :init
-    (setq bookmark-default-file (concat spacemacs-cache-directory "bookmarks")
-          ;; autosave each change
-          bookmark-save-flag 1)))
+    (progn
+      (setq bookmark-default-file (concat spacemacs-cache-directory "bookmarks")
+            ;; autosave each change
+            bookmark-save-flag 1)
+      (spacemacs/set-leader-keys "fb" 'bookmark-jump))))
 
 (defun spacemacs-base/init-diminish ()
   (use-package diminish
