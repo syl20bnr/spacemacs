@@ -76,11 +76,14 @@
   (use-package typit
     :defer t
     :init
-    (push '("typit (beginner)" . (spacemacs/games-start-typit-beginner
-                                  :quit (kill-buffer-ask (get-buffer "*typit*"))
-                                  :reset spacemacs/games-start-typit-beginner))
-          helm-games-list)
-    (push '("typit (expert)" . (spacemacs/games-start-typit-expert
-                                :quit (kill-buffer-ask (get-buffer "*typit*"))
-                                :reset spacemacs/games-start-typit-expert))
-          helm-games-list)))
+    (progn
+      (push '("typit (beginner)" .
+              (spacemacs/games-start-typit-beginner
+               :quit (kill-buffer-ask (get-buffer "*typit*"))
+               :reset spacemacs/games-start-typit-beginner))
+            helm-games-list)
+      (push '("typit (expert)" .
+              (spacemacs/games-start-typit-expert
+               :quit (kill-buffer-ask (get-buffer "*typit*"))
+               :reset spacemacs/games-start-typit-expert))
+            helm-games-list))))
