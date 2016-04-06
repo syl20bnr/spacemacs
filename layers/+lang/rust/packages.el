@@ -65,6 +65,7 @@
     (exec-path-from-shell-copy-env "RUST_SRC_PATH"))
 
   (use-package racer
+    :diminish racer-mode
     :defer t
     :init
     (progn
