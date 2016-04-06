@@ -10,7 +10,11 @@
 ;;; License: GPLv3
 
 (setq idris-packages '(idris-mode
+                       company
                        popwin))
+
+(defun idris/post-init-company ()
+  (spacemacs|add-company-hook idris-mode))
 
 (defun idris/init-idris-mode ()
   (use-package idris-mode
