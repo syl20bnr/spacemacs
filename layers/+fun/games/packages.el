@@ -15,6 +15,7 @@
         (helm-games :location local)
         pacmacs
         (tetris :location built-in)
+        typit
         ))
 
 (defun games/init-2048-game ()
@@ -43,8 +44,9 @@
   (use-package pacmacs
     :defer t
     :init
-    (push '("pacmacs" . (pacmacs-start :quit (kill-buffer-ask (get-buffer "*Pacmacs*"))
-                                :reset pacmacs-start)) helm-games-list)
+    (push '("pacmacs" . (pacmacs-start
+                         :quit (kill-buffer-ask (get-buffer "*Pacmacs*"))
+                         :reset pacmacs-start)) helm-games-list)
     (evilified-state-evilify pacmacs-mode pacmacs-mode-map
       "h" 'pacmacs-left
       "j" 'pacmacs-down
@@ -59,16 +61,7 @@
       (push '("Tetris" . (tetris :quit spacemacs/tetris-quit-game
                                  :reset tetris-start-game)) helm-games-list)
       (setq tetris-score-file (concat spacemacs-games-cache-directory
-                                      "tetris-scores.txt"))
-      (defun spacemacs/tetris-quit-game ()
-        "Correctly quit tetris by killng the game buffer."
-        (interactive)
-        (tetris-pause-game)
-        (if (yes-or-no-p "Do you really want to quit ? ")
-            (progn
-              (tetris-end-game)
-              (kill-buffer "*Tetris*"))
-          (tetris-pause-game))))
+                                      "tetris-scores.txt")))
     :config
     (progn
       (evilified-state-evilify tetris-mode tetris-mode-map
@@ -78,3 +71,16 @@
         "k" 'tetris-rotate-next
         "l" 'tetris-move-right
         "q" 'spacemacs/tetris-quit-game))))
+
+(defun games/init-typit ()
+  (use-package typit
+    :defer t
+    :init
+    (push '("typit (beginner)" . (spacemacs/games-start-typit-beginner
+                                  :quit (kill-buffer-ask (get-buffer "*typit*"))
+                                  :reset spacemacs/games-start-typit-beginner))
+          helm-games-list)
+    (push '("typit (expert)" . (spacemacs/games-start-typit-expert
+                                :quit (kill-buffer-ask (get-buffer "*typit*"))
+                                :reset spacemacs/games-start-typit-expert))
+          helm-games-list)))

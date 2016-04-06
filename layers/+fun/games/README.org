@@ -5,10 +5,11 @@
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
+ - [[#key-bindings-and-configuration][Key bindings and configuration]]
    - [[#2048][2048]]
    - [[#pacmacs][Pacmacs]]
    - [[#tetris][Tetris]]
+   - [[#typit][Typit]]
 
 * Description
 This layer allows you to play evilified games in spacemacs.
@@ -17,13 +18,14 @@ The games available now are:
 - 2048-game
 - Pacmacs (Pacman for Emacs)
 - Tetris
+- Typit
   
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =games= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key bindings
+* Key bindings and configuration
 To run a game:
 
 | Key Binding | Description                            |
@@ -53,6 +55,7 @@ Possible helm actions:
 | ~k~         | Move up     |
 | ~l~         | Move right  |
 |             |             |
+
 ** Tetris
 
 | Key Binding | Description                    |
@@ -65,3 +68,23 @@ Possible helm actions:
 | ~n~         | Start a new game               |
 | ~p~         | Pause the game                 |
 | ~q~         | Quit the game                  |
+
+** Typit
+There is no specific key bindings for this game, just launch it and begin
+typing.
+
+The game can be customized with the following variables:
+
+| Vsariable           | Description                                           |
+|---------------------+-------------------------------------------------------|
+| =typit-dict=        | Language dictionary to use (default is =english.txt=) |
+| =typit-dict-dir=    | A directory path where to find dictionaries           |
+| =typit-line-length= | Length of generated lines (default 80)                |
+| =typit-test-time=   | Duration of a game (default 60sec)                    |
+
+Instrutions to create a new dictionary:
+
+To add a new dictionary, you need to create a text file named your-language.txt
+and put it under the dict directory. That file should contain 1000 most common
+words from the language, a word per line. Please make sure that it uses
+Unix-style (that is, LF) end-of-line sequence and the file ends with a newline.
