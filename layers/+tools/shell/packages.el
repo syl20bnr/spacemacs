@@ -375,10 +375,4 @@ is achieved by adding the relevant text properties."
       (setq comint-output-filter-functions
             (remove 'ansi-color-process-output comint-output-filter-functions))
       (setq font-lock-unfontify-region-function 'xterm-color-unfontify-region)
-      (with-eval-after-load 'esh-mode
-        (add-hook 'eshell-mode-hook
-                  (lambda () (setq xterm-color-preserve-properties t)))
-        (add-hook 'eshell-preoutput-filter-functions 'xterm-color-filter)
-        (setq eshell-output-filter-functions
-              (remove 'eshell-handle-ansi-color
-                      eshell-output-filter-functions))))))
+      (add-hook 'eshell-mode-hook 'spacemacs/init-eshell-xterm-color))))
