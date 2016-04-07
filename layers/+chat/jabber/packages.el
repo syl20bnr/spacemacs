@@ -15,16 +15,21 @@
   (use-package jabber
     :defer t
     :init (spacemacs/set-leader-keys "aj" 'jabber-connect-all)
-    :config (spacemacs/set-leader-keys-for-major-mode 'jabber-roster-mode
-              "a" 'jabber-send-presence
-              "b" 'jabber-get-browse
-              "d" 'jabber-disconnect
-              "e" 'jabber-roster-edit-action-at-point
-              "g" 'jabber-display-roster
-              "i" 'jabber-get-disco-items
-              "j" 'jabber-muc-join
-              "q" 'bury-buffer
-              "r" 'jabber-roster-toggle-offline-display
-              "s" 'jabber-send-subscription-request
-              "v" 'jabber-get-version
-              "RET" 'jabber-roster-ret-action-at-point)))
+    :config
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'jabber-roster-mode
+        "a" 'jabber-send-presence
+        "b" 'jabber-get-browse
+        "d" 'jabber-disconnect
+        "e" 'jabber-roster-edit-action-at-point
+        "g" 'jabber-display-roster
+        "i" 'jabber-get-disco-items
+        "j" 'jabber-muc-join
+        "q" 'bury-buffer
+        "r" 'jabber-roster-toggle-offline-display
+        "s" 'jabber-send-subscription-request
+        "v" 'jabber-get-version
+        "RET" 'jabber-roster-ret-action-at-point)
+      (evilified-state-evilify jabber-roster-mode jabber-roster-mode-map
+        "j" 'jabber-go-to-next-roster-item
+        "k" 'jabber-go-to-previous-roster-item))))
