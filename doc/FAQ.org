@@ -347,7 +347,7 @@ This is the value that will be used by Emacs. So it must contain =~/.local/bin=.
 After that you can run Spacemacs and check that it properly gets the value of
 =$PATH= by running =M-: (getenv "PATH")=.
 
-Note that having =~/.local.bin= in your =$PATH= also means that it's possible to
+Note that having =~/.local/bin= in your =$PATH= also means that it's possible to
 run terminal and call tools from =~/.local/bin= without specifying their full
 path. Under certain conditions you might want to avoid modifying your =$PATH=.
 In that case you have the option of updating the value of =exec-path= in the
