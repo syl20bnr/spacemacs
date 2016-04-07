@@ -95,11 +95,10 @@
     "jD" 'dired-jump-other-window))
 
 (defun spacemacs-base/init-dired-x ()
-  (autoload 'dired-jump "dired-x"
-    "Jump to Dired buffer corresponding to current buffer." t)
-
-  (autoload 'dired-jump-other-window "dired-x"
-    "Like \\[dired-jump] (dired-jump) but in other window." t))
+  (use-package dired-x
+    :commands (dired-jump
+               dired-jump-other-window
+               dired-omit-mode)))
 
 (defun spacemacs-base/init-eldoc ()
   (use-package eldoc
