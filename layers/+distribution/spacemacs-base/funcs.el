@@ -602,7 +602,8 @@ current window."
   "Dispatch to flycheck or standard emacs error."
   (interactive "P")
   (if (and (boundp 'flycheck-mode)
-           (symbol-value flycheck-mode))
+           (symbol-value flycheck-mode)
+           (not (get-buffer-window "*compilation*")))
       (call-interactively 'flycheck-next-error)
     (call-interactively 'next-error)))
 
@@ -610,7 +611,8 @@ current window."
   "Dispatch to flycheck or standard emacs error."
   (interactive "P")
   (if (and (boundp 'flycheck-mode)
-           (symbol-value flycheck-mode))
+           (symbol-value flycheck-mode)
+           (not (get-buffer-window "*compilation*")))
       (call-interactively 'flycheck-previous-error)
     (call-interactively 'previous-error)))
 
