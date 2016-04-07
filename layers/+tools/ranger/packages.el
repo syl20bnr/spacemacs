@@ -10,8 +10,11 @@
 ;;
 ;;; License: GPLv3
 
-(setq ranger-packages '(dired
-                        ranger))
+(setq ranger-packages
+      '(
+        (dired :location built-in)
+        ranger
+        ))
 
 (defun ranger//set-leader-keys ()
   (spacemacs/set-leader-keys

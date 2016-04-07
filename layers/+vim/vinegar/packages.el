@@ -10,11 +10,11 @@
 ;;; License: GPLv3
 
 (setq vinegar-packages
-  '(
-    diff-hl
-    ;; dired+
-    (dired :location built-in)
-    ))
+      '(
+        diff-hl
+        ;; dired+
+        (dired :location built-in)
+        ))
 
 (defun vinegar/init-dired+ ()
   (use-package dired+
