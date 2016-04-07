@@ -145,6 +145,9 @@ Some advanced configuration is setup for =eshell= in this layer:
 for instance pressing ~2 SPC '​~ will a second default shell, the
 number of shell is indicated on the mode-line.
 
+*Note:* Use the universal prefix argument ~SPC u SPC '​~ to open the shell
+in the current buffer instead of a popup.
+
 ** Multi-term
 
 | Key Binding | Description                  |

@@ -226,7 +226,6 @@ is achieved by adding the relevant text properties."
     :init
     (progn
       (spacemacs/register-repl 'multi-term 'multi-term)
-      (spacemacs/set-leader-keys "ast" 'shell-pop-multi-term)
       (defun multiterm (_)
         "Wrapper to be able to call multi-term from shell-pop"
         (interactive)
@@ -291,50 +290,22 @@ is achieved by adding the relevant text properties."
             shell-pop-window-size     shell-default-height
             shell-pop-term-shell      shell-default-term-shell
             shell-pop-full-span t)
-      (defmacro make-shell-pop-command (type &optional shell)
-        (let* ((name (symbol-name type)))
-          `(defun ,(intern (concat "shell-pop-" name)) (index)
-             (interactive "P")
-             (require 'shell-pop)
-             (shell-pop--set-shell-type
-              'shell-pop-shell-type
-              (backquote (,name
-                          ,(concat "*" name "*")
-                          (lambda nil (funcall ',type ,shell)))))
-             (shell-pop index))))
       (make-shell-pop-command eshell)
       (make-shell-pop-command shell)
       (make-shell-pop-command term shell-pop-term-shell)
       (make-shell-pop-command multiterm)
       (make-shell-pop-command ansi-term shell-pop-term-shell)
 
-      (defun ansi-term-handle-close ()
-        "Close current term buffer when `exit' from term buffer."
-        (when (ignore-errors (get-buffer-process (current-buffer)))
-          (set-process-sentinel (get-buffer-process (current-buffer))
-                                (lambda (proc change)
-                                  (when (string-match "\\(finished\\|exited\\)"
-                                                      change)
-                                    (kill-buffer (process-buffer proc))
-                                    (when (> (count-windows) 1)
-                                      (delete-window)))))))
       (add-hook 'term-mode-hook 'ansi-term-handle-close)
       (add-hook 'term-mode-hook (lambda () (linum-mode -1)))
 
-      (defun spacemacs/default-pop-shell ()
-        "Open the default shell in a popup."
-        (interactive)
-        (let ((shell (if (eq 'multi-term shell-default-shell)
-                         'multiterm
-                       shell-default-shell)))
-          (call-interactively (intern (format "shell-pop-%S" shell)))))
       (spacemacs/set-leader-keys
         "'"   'spacemacs/default-pop-shell
-        "ase" 'shell-pop-eshell
-        "asi" 'shell-pop-shell
-        "asm" 'shell-pop-multiterm
-        "ast" 'shell-pop-ansi-term
-        "asT" 'shell-pop-term))))
+        "ase" 'spacemacs/shell-pop-eshell
+        "asi" 'spacemacs/shell-pop-shell
+        "asm" 'spacemacs/shell-pop-multiterm
+        "ast" 'spacemacs/shell-pop-ansi-term
+        "asT" 'spacemacs/shell-pop-term))))
 
 (defun shell/post-init-smooth-scrolling ()
   (spacemacs/add-to-hooks 'spacemacs//unset-scroll-margin
