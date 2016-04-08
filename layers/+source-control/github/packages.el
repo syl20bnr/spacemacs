@@ -92,6 +92,12 @@
         (let (git-link-open-in-browser)
           (call-interactively 'git-link-commit)))
 
+      ;; this allows the user to run git-link in a git-timemachine buffer and get the correct link to the current revision
+      (defun git-timemachine-git-link-get-commit-or-branch (git-link-branch-fn)
+        (if git-timemachine-revision (car git-timemachine-revision) (funcall git-link-branch-fn)))
+
+      (advice-add 'git-link--branch :around #'git-timemachine-git-link-get-commit-or-branch )
+
       (spacemacs/set-leader-keys
         "ghl" 'git-link
         "ghL" 'spacemacs/git-link-copy-url-only
