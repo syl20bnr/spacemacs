@@ -748,7 +748,7 @@ Send a PR to add the differences you found in this section.
 
 ** The vim-surround case
 There is one obvious visible difference though. It is not between =Evil= and
-=Vim= but between Spacemacs and [[https://github.com/tpope/vim-surround][vim-surround]]: the =surround= command is on ~S~
+=Vim= but between Spacemacs and [[https://github.com/tpope/vim-surround][vim-surround]]: in visual mode the =surround= command is on ~S~
 in =vim-surround= whereas it is on ~s~ in Spacemacs.
 
 This is something that can surprise some Vim users so let me explain why this is
