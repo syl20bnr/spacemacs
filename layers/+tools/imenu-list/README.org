@@ -1,0 +1,32 @@
+* imenu-list contribution layer for Spacemacs
+** Table of Contents                                                  :TOC@4:
+ - [[#imenu-list-contribution-layer-for-spacemacs][imenu-list contribution layer for Spacemacs]]
+   - [[#description][Description]]
+   - [[#install][Install]]
+   - [[#key-bindings][Key bindings]]
+     - [[#from-any-buffer][From any buffer]]
+     - [[#from-imenu-list-buffer][From imenu-list buffer]]
+
+** Description
+This layer uses [[https://github.com/bmag/imenu-list][imenu-list]] to show the current buffer's index in a side bar.
+[[file:img/imenu-list-example.png]]
+
+** Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(imenu-list))
+#+end_src
+
+** Key bindings
+*** From any buffer
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC b i~   | toggle imenu-list window |
+*** From imenu-list buffer
+| Key Binding | Description                                            |
+|-------------+--------------------------------------------------------|
+| ~q~         | quit imenu-list window                                 |
+| ~RET~       | go to current entry                                    |
+| ~d~         | display current entry, keep focus on imenu-list window |
+| ~f~         | fold/unfold current section                            |
