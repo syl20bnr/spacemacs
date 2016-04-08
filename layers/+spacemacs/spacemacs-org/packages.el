@@ -15,35 +15,25 @@
 
 (defconst spacemacs-org-packages
   '(
-    (evil-org :location local)
     flyspell
-    ;; org is installed by `org-plus-contrib'
-    (org :location built-in)
+    ;; default-org package does not exist, we invent this package name
+    ;; to allow the `org' layer to own the `org' package instead of this
+    ;; layer. So it is easier for users to steal the ownership of the
+    ;; `org' package.
+    (default-org :location built-in)
     (org-plus-contrib :step pre)
     org-bullets
     toc-org
     ))
 
-(defun spacemacs-org/init-evil-org ()
-  (use-package evil-org
-    :commands evil-org-mode
-    :init
-    (add-hook 'org-mode-hook 'evil-org-mode)
-    :config
-    (progn
-      (evil-define-key 'normal evil-org-mode-map
-        "O" 'evil-open-above)
-      (spacemacs|diminish evil-org-mode " ⓔ" " e"))))
-
 (defun spacemacs-org/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'org-mode-hook))
 
 ;; dummy init function to force installation of `org-plus-contrib'
-(defun spacemacs-org/post-init-org-plus-contrib ())
+(defun spacemacs-org/init-org-plus-contrib ())
 
-(defun spacemacs-org/init-org ()
+(defun spacemacs-org/init-default-org ()
   (use-package org
-    :mode ("\\.org$" . org-mode)
     :commands (org-clock-out org-occur-in-agenda-files org-agenda-files)
     :defer t
     :init
@@ -56,7 +46,6 @@
       ;;    (concat
       ;;     "Org features were loaded before the `org' layer initialized.\n"
       ;;     "Try removing org code from user initialization and private layers.") t))
-
       (setq org-startup-with-inline-images t
             org-src-fontify-natively t
             ;; this is consistent with the value of
@@ -69,7 +58,6 @@
                     (1 font-lock-comment-face prepend)
                     (2 font-lock-function-name-face)
                     (3 font-lock-comment-face prepend))))
-
       ;; Open links and files with RET in normal state
       (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)))))
 

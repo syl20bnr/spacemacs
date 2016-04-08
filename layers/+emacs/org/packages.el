@@ -14,7 +14,7 @@
     company
     company-emoji
     emoji-cheat-sheet-plus
-    evil-org
+    (evil-org :location local)
     evil-surround
     gnuplot
     htmlize
@@ -23,7 +23,6 @@
     (ob :location built-in)
     (org :location built-in)
     (org-agenda :location built-in)
-    (org-plus-contrib :step pre)
     ;; org-mime is installed by `org-plus-contrib'
     (org-mime :location built-in)
     org-pomodoro
@@ -32,7 +31,6 @@
     (ox-gfm :location local)
     persp-mode
     (space-doc :location local)
-    toc-org
     ))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
@@ -45,13 +43,17 @@
 (defun org/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'org-mode-hook 'spacemacs/delay-emoji-cheat-sheet-hook))
 
-(defun org/post-init-evil-org ()
+(defun org/init-evil-org ()
   (use-package evil-org
-    :defer t
+    :commands (evil-org-mode evil-org-recompute-clocks)
+    :init (add-hook 'org-mode-hook 'evil-org-mode)
     :config
     (progn
+      (evil-define-key 'normal evil-org-mode-map
+        "O" 'evil-open-above)
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
-        "C" 'evil-org-recompute-clocks))))
+        "C" 'evil-org-recompute-clocks)
+      (spacemacs|diminish evil-org-mode " ⓔ" " e"))))
 
 (defun org/post-init-evil-surround ()
   (defun spacemacs/add-org-surrounds ()
@@ -72,9 +74,6 @@
   (spacemacs|use-package-add-hook mu4e
     :post-config (require 'org-mu4e nil 'noerror)))
 
-;; dummy init function to force installation of `org-plus-contrib'
-(defun org/post-init-org-plus-contrib ())
-
 (defun org/init-ob ()
   (use-package ob
     :defer t
@@ -86,19 +85,11 @@
                                      org-babel-load-languages))
       (add-hook 'org-mode-hook 'spacemacs//org-babel-do-load-languages))))
 
-(defun org/post-init-org ()
+(defun org/init-org ()
   (use-package org
+    :defer t
     :init
     (progn
-      ;; FIXME: This check has been disabled pending a resolution of
-      ;; https://github.com/syl20bnr/spacemacs/issues/3933
-      ;; (when (featurep 'org)
-      ;;   (configuration-layer//set-error)
-      ;;   (spacemacs-buffer/append
-      ;;    (concat
-      ;;     "Org features were loaded before the `org' layer initialized.\n"
-      ;;     "Try removing org code from user initialization and private layers.") t))
-
       (setq org-clock-persist-file (concat spacemacs-cache-directory
                                            "org-clock-save.el")
             org-id-locations-file (concat spacemacs-cache-directory
