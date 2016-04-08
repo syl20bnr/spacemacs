@@ -11,7 +11,7 @@
 
 (defun javascript//tern-detect ()
   "Detect tern binary and warn if not found."
-  (if (executable-find "tern")
-      t
-    (unless javascript-disable-tern-missing-warning
-      (warn "tern binary not found"))))
+  (let ((found (executable-find "tern")))
+    (unless found
+      (spacemacs-buffer/warning "tern binary not found!"))
+    found))
