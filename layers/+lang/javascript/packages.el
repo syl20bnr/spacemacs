@@ -192,6 +192,7 @@
 (defun javascript/init-tern ()
   (use-package tern
     :defer t
+    :if (javascript//tern-detect)
     :init (add-hook 'js2-mode-hook 'tern-mode)
     :config
     (progn
