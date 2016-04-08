@@ -23,6 +23,3 @@
 
 (defvar javascript-disable-tern-port-files t
   "Stops tern from creating tern port files.")
-
-(defvar javascript-disable-tern-missing-warning nil
-  "If non-nil then disables tern binary missing wanrings.")
