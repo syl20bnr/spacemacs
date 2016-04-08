@@ -241,6 +241,7 @@
               fill-column python-fill-column
               ;; auto-indent on colon doesn't work well with if statement
               electric-indent-chars (delq ?: electric-indent-chars))
+        (setq-local comment-inline-offset 2)
         (annotate-pdb)
         ;; make C-j work the same way as RET
         (local-set-key (kbd "C-j") 'newline-and-indent))
