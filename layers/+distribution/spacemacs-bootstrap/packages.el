@@ -37,6 +37,9 @@
 
 (defun spacemacs-bootstrap/init-evil ()
   ;; evil-mode is mandatory for Spacemacs to work properly
+  ;; evil must be require explicitly, the autoload seems to not
+  ;; work properly sometimes.
+  (require 'evil)
   (evil-mode 1)
   (require 'cl)
   ;; State cursors
