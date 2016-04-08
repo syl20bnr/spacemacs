@@ -593,6 +593,7 @@ otherwise it is scaled down."
 
 (spacemacs|define-transient-state scale-transparency
   :title "Frame Transparency Transient State"
+  :doc "\n[_+_/_=_] increase transparency [_-_] decrease [_T_] toggle [_q_] quit"
   :bindings
   ("+" spacemacs/increase-transparency "increase")
   ("=" spacemacs/increase-transparency "increase")
