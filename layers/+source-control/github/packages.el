@@ -79,30 +79,6 @@
     :defer t
     :init
     (progn
-
-      (defun spacemacs/git-link-copy-url-only ()
-        "Only copy the generated link to the kill ring."
-        (interactive)
-        (let (git-link-open-in-browser)
-          (call-interactively 'spacemacs/git-link)))
-
-      (defun spacemacs/git-link-commit-copy-url-only ()
-        "Only copy the generated link to the kill ring."
-        (interactive)
-        (let (git-link-open-in-browser)
-          (call-interactively 'git-link-commit)))
-
-      (defun spacemacs/git-link ()
-        "Allow the user to run git-link in a git-timemachine buffer."
-        (interactive)
-        (require 'git-link)
-        (if git-timemachine-revision
-            (cl-letf (((symbol-function 'git-link--branch)
-                       (lambda ()
-                         (car git-timemachine-revision))))
-              (call-interactively 'git-link))
-          (call-interactively 'git-link)))
-
       (spacemacs/set-leader-keys
         "ghl" 'spacemacs/git-link
         "ghL" 'spacemacs/git-link-copy-url-only
