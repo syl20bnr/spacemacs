@@ -62,10 +62,10 @@ SHELL is the SHELL function to use (i.e. when FUNC represents a terminal)."
        (require 'shell-pop)
        (if (equal '(4) index)
            ;; no popup
-           (call-interactively ',func)
+           (,func ,shell)
          (shell-pop--set-shell-type
           'shell-pop-shell-type
           (backquote (,name
                       ,(concat "*" name "*")
-                      (lambda nil (call-interactively ',func ,shell)))))
+                      (lambda nil (,func ,shell)))))
          (shell-pop index)))))
