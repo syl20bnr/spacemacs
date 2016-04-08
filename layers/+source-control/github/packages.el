@@ -84,7 +84,7 @@
         "Only copy the generated link to the kill ring."
         (interactive)
         (let (git-link-open-in-browser)
-          (call-interactively 'git-link)))
+          (call-interactively 'spacemacs/git-link)))
 
       (defun spacemacs/git-link-commit-copy-url-only ()
         "Only copy the generated link to the kill ring."
@@ -92,14 +92,19 @@
         (let (git-link-open-in-browser)
           (call-interactively 'git-link-commit)))
 
-      ;; this allows the user to run git-link in a git-timemachine buffer and get the correct link to the current revision
-      (defun git-timemachine-git-link-get-commit-or-branch (git-link-branch-fn)
-        (if git-timemachine-revision (car git-timemachine-revision) (funcall git-link-branch-fn)))
-
-      (advice-add 'git-link--branch :around #'git-timemachine-git-link-get-commit-or-branch )
+      (defun spacemacs/git-link ()
+        "Allow the user to run git-link in a git-timemachine buffer."
+        (interactive)
+        (require 'git-link)
+        (if git-timemachine-revision
+            (cl-letf (((symbol-function 'git-link--branch)
+                       (lambda ()
+                         (car git-timemachine-revision))))
+              (call-interactively 'git-link))
+          (call-interactively 'git-link)))
 
       (spacemacs/set-leader-keys
-        "ghl" 'git-link
+        "ghl" 'spacemacs/git-link
         "ghL" 'spacemacs/git-link-copy-url-only
         "ghc" 'git-link-commit
         "ghC" 'spacemacs/git-link-commit-copy-url-only)
