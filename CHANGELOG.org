@@ -1,4 +1,7 @@
 * Release 0.105.x
+** 0.105.17 (2016/04/09)
+- Hotfix for Yasnippet, using stable version until resolution of
+ https://github.com/capitaomorte/yasnippet/issues/673
 ** 0.105.16 (2016/04/01)
 - Add FAQ entry about HTTPS issues (thanks to TheBB)
 - Add startup list to Zemacs home buffer.
