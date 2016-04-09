@@ -159,6 +159,9 @@ size to make separators look not too crappy.")
 (defvar dotspacemacs-remap-Y-to-y$ nil
   "If non nil `Y' is remapped to `y$' in Evil states.")
 
+(defvar dotspacemacs-retain-visual-mode-on-shift nil
+  "If non nil `>' is remapped to `>gv' and `<' is remapped to `<gv' in visual mode.")
+
 (defvar dotspacemacs-ex-substitute-global nil
   "If non nil, inverse the meaning of `g' in `:substitute' Evil ex-command.")
 
