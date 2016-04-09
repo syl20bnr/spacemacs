@@ -71,7 +71,7 @@
     (progn
       (spacemacs/set-leader-keys
         "bM"    'ace-swap-window
-        "wC"    'ace-delete-window
+        "wD"    'ace-delete-window
         "w SPC" 'ace-window)
       ;; set ace-window keys to home-row
       (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))))

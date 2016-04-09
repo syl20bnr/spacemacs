@@ -344,7 +344,6 @@
   "w3"  'spacemacs/layout-triple-columns
   "wb"  'spacemacs/switch-to-minibuffer-window
   "wd"  'delete-window
-  "wD"  'ace-delete-window
   "wt"  'spacemacs/toggle-current-window-dedication
   "wf"  'follow-mode
   "wH"  'evil-window-move-far-left
