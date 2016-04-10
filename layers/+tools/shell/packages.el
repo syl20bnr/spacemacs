@@ -226,7 +226,7 @@ is achieved by adding the relevant text properties."
     :init
     (progn
       (spacemacs/register-repl 'multi-term 'multi-term)
-      (defun multiterm ()
+      (defun multiterm (_)
         "Wrapper to be able to call multi-term from shell-pop"
         (interactive)
         (multi-term)))
