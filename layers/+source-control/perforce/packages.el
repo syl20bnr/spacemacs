@@ -13,6 +13,9 @@
 
 (defun perforce/init-p4 ()
   (use-package p4
+    :init
+    (progn
+      (spacemacs/declare-prefix "p4" "perforce"))
     :commands (p4-add
                p4-branch
                p4-branches
