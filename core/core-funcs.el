@@ -141,7 +141,13 @@ Supported properties:
           (define-key (eval (car val)) (kbd (cdr val)) ',func)))))))
 
 (defun spacemacs/view-org-file (file &optional anchor-text expand-scope)
-  "Open the change log for the current version."
+  "Open org file and apply visual enchantments.
+`file' - org file to be opened.
+If `anchor-text'  is `nil' - run `re-search-forward' with  ^ (beginning-of-line).
+If `anchor-text' is a GitHub style anchor - find a corresponding header.
+If `anchor-text' isn't a GitHub style anchor - run `re-search-forward' with `anchor-text'.
+If `expand-scope' is `subtree' run `outline-show-subtree' at the matched line.
+If `expand-scope' is `all' `outline-show-all' at the matched line."
   (interactive)
   (require 'space-doc)
   (find-file file)
