@@ -1,3 +1,6 @@
+/This document is under construction, the final version will be released in the
+version 0.106.0 of Spacemacs/
+
 * For the Contributors:
 - This community is an hacker community based on meritocracy and volunteering.
   Be good in what you bring to the project, be it code, documentation, typo
