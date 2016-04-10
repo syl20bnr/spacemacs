@@ -10,7 +10,6 @@
     subword
    ))
 
-
 (defun clojure/init-cider ()
   (use-package cider
     :defer t
@@ -23,6 +22,7 @@
       (push "\\*cider-repl\.\+\\*" spacemacs-useful-buffers-regexp)
       (add-hook 'clojure-mode-hook 'cider-mode)
       (add-hook 'cider-mode-hook 'eldoc-mode)
+      (add-hook 'cider-repl-mode-hook 'eldoc-mode)
       (if dotspacemacs-smartparens-strict-mode
           (add-hook 'cider-repl-mode-hook #'smartparens-strict-mode)))
     :config
