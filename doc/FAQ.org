@@ -21,7 +21,7 @@
    - [[#typing-quickly-fd-takes-me-out-of-insert-state-what-is-going-on][Typing quickly =fd= takes me out of =insert state=. What is going on?]]
    - [[#why-do-i-get-files-starting-with-][Why do I get files starting with .#?]]
    - [[#why-do-i-get-4m-characters-inside-ansi-term][Why do I get '4m' characters inside ansi-term?]]
- - [[#how-do-i][How do I...]]
+ - [[#how-do-i][How do I:]]
    - [[#install-a-package-not-provided-by-a-layer][Install a package not provided by a layer?]]
    - [[#disable-a-package-completely][Disable a package completely?]]
    - [[#disable-a-package-only-for-a-specific-major-mode][Disable a package only for a specific major-mode?]]
@@ -207,7 +207,7 @@ the =~/.terminfo= yourself.
 tic -o ~/.terminfo $TERMINFO/e/eterm-color.ti
 #+END_SRC
 
-* How do I...
+* How do I:
 ** Install a package not provided by a layer?
 Spacemacs provides a variable in the =dotspacemacs/layers= function in
 =.spacemacs= called =dotspacemacs-additional-packages=. Just add a package name
