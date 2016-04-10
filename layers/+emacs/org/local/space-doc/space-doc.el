@@ -39,51 +39,50 @@ keeping their content visible.
   :lighter " SD"
   (if (derived-mode-p 'org-mode)
       (if space-doc-mode
-          (progn
+          (let ((bg (face-attribute 'default :background)))
             ;; Make `space-doc' https link opener buffer local
             ;; and enable it only when `space-doc' mode is enabled.
             (make-local-variable 'org-link-types)
             (make-local-variable 'org-link-protocols)
             (org-add-link-type "https" 'spacemacs//space-doc-open)
 
-            (let ((bg (face-attribute 'default :background)))
-              (progn
-                ;; Make `org-mode' meta tags invisible.
-                (set (make-local-variable
-                      'spacemacs--org-face-remap-cookie-org-tag)
-                     (face-remap-add-relative 'org-tag
-                                              `(:foreground ,bg)))
-                (set (make-local-variable
-                      'spacemacs--org-face-remap-cookie-org-meta-line)
-                     (face-remap-add-relative 'org-meta-line
-                                              `(:foreground ,bg)))
-                (set (make-local-variable
-                      'spacemacs--org-face-remap-cookie-org-block-begin-line)
-                     (face-remap-add-relative 'org-block-begin-line
-                                              `(:foreground ,bg)))
-                (set (make-local-variable
-                      'spacemacs--org-face-remap-cookie-org-document-info-keyword)
-                     (face-remap-add-relative 'org-document-info-keyword
-                                              `(:foreground ,bg))))))
-        (progn
-          (kill-local-variable 'org-link-types)
-          (kill-local-variable 'org-link-protocols)
-          ;; Trigger `org-mode' internal updates.
-          (org-add-link-type nil)
+            ;; Make `org-mode' meta tags invisible.
+            (set (make-local-variable
+                  'spacemacs--org-face-remap-cookie-org-tag)
+                 (face-remap-add-relative 'org-tag
+                                          `(:foreground ,bg)))
+            (set (make-local-variable
+                  'spacemacs--org-face-remap-cookie-org-meta-line)
+                 (face-remap-add-relative 'org-meta-line
+                                          `(:foreground ,bg)))
+            (set (make-local-variable
+                  'spacemacs--org-face-remap-cookie-org-block-begin-line)
+                 (face-remap-add-relative 'org-block-begin-line
+                                          `(:foreground ,bg)))
+            (set (make-local-variable
+                  'spacemacs--org-face-remap-cookie-org-document-info-keyword)
+                 (face-remap-add-relative 'org-document-info-keyword
+                                          `(:foreground ,bg))))
 
-          ;; Make `org-mode' meta tags visible.
-          (face-remap-remove-relative
-           spacemacs--org-face-remap-cookie-org-tag)
-          (face-remap-remove-relative
-           spacemacs--org-face-remap-cookie-org-meta-line)
-          (face-remap-remove-relative
-           spacemacs--org-face-remap-cookie-org-block-begin-line)
-          (face-remap-remove-relative
-           spacemacs--org-face-remap-cookie-org-document-info-keyword)
-          (setq spacemacs--org-face-remap-p nil)))
-    (progn (message (format "space-doc-mode error:%s isn't an org-mode buffer"
-                            (buffer-name)))
-           (setq org-mode nil))))
+        (kill-local-variable 'org-link-types)
+        (kill-local-variable 'org-link-protocols)
+        ;; Trigger `org-mode' internal updates.
+        (org-add-link-type nil)
+
+        ;; Make `org-mode' meta tags visible.
+        (face-remap-remove-relative
+         spacemacs--org-face-remap-cookie-org-tag)
+        (face-remap-remove-relative
+         spacemacs--org-face-remap-cookie-org-meta-line)
+        (face-remap-remove-relative
+         spacemacs--org-face-remap-cookie-org-block-begin-line)
+        (face-remap-remove-relative
+         spacemacs--org-face-remap-cookie-org-document-info-keyword)
+        (setq spacemacs--org-face-remap-p nil))
+
+    (message (format "space-doc-mode error:%s isn't an org-mode buffer"
+                     (buffer-name)))
+    (setq org-mode nil)))
 
 (defun spacemacs//space-doc-open (path)
   "If the `path' argument is a link to an .org file that is located
