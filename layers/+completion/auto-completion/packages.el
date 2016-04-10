@@ -18,10 +18,7 @@
         helm-company
         helm-c-yasnippet
         hippie-exp
-        ;; using stable package waiting for https://github.com/capitaomorte/yasnippet/issues/673
-        (yasnippet :location (recipe :fetcher github
-                                     :repo "capitaomorte/yasnippet"
-                                     :stable t))
+        yasnippet
         auto-yasnippet
         smartparens
         ))
