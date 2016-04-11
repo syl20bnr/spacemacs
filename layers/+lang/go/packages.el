@@ -3,6 +3,7 @@
         company
         company-go
         flycheck
+        flycheck-gometalinter
         go-eldoc
         go-mode
         (go-oracle :location site)
@@ -10,7 +11,22 @@
         ))
 
 (defun go/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'go-mode))
+
+  (spacemacs/add-flycheck-hook 'go-mode)
+
+  (defun spacemacs//go-gometalinter-maybe-enable ()
+    "Enable `flycheck-gometalinter' and disable overlapping `flycheck' linters
+if gometalinter executable is found."
+    (when (executable-find "gometalinter")
+      (setq flycheck-disabled-checkers '(go-gofmt
+                                         go-golint
+                                         go-vet
+                                         go-build
+                                         go-test
+                                         go-errcheck)))
+    (flycheck-gometalinter-setup))
+
+  (add-hook 'go-mode-hook 'spacemacs//go-gometalinter-maybe-enable) t)
 
 (defun go/init-go-mode()
   (when (memq window-system '(mac ns x))
@@ -134,3 +150,7 @@
   (use-package go-rename
     :init
     (spacemacs/set-leader-keys-for-major-mode 'go-mode "rn" 'go-rename)))
+
+(defun go/init-flycheck-gometalinter()
+  (use-package flycheck-gometalinter
+  :defer t))
