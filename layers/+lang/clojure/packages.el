@@ -5,6 +5,7 @@
     clj-refactor
     clojure-mode
     company
+    eldoc
     popwin
     rainbow-delimiters
     subword
@@ -21,8 +22,6 @@
             cider-repl-use-clojure-font-lock t)
       (push "\\*cider-repl\.\+\\*" spacemacs-useful-buffers-regexp)
       (add-hook 'clojure-mode-hook 'cider-mode)
-      (add-hook 'cider-mode-hook 'eldoc-mode)
-      (add-hook 'cider-repl-mode-hook 'eldoc-mode)
       (if dotspacemacs-smartparens-strict-mode
           (add-hook 'cider-repl-mode-hook #'smartparens-strict-mode)))
     :config
@@ -371,6 +370,10 @@ If called with a prefix argument, uses the other-window instead."
         (s/defrecord 2)
         ;; test.check
         (for-all 'defun)))))
+
+(defun clojure/post-init-eldoc ()
+  (add-hook 'cider-mode-hook 'eldoc-mode)
+  (add-hook 'cider-repl-mode-hook 'eldoc-mode))
 
 (defun clojure/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
