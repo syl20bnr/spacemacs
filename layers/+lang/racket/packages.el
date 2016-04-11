@@ -2,6 +2,8 @@
   '(
     company
     company-quickhelp
+    ggtags
+    helm-gtags
     racket-mode
     ))
 
@@ -19,6 +21,12 @@
                (when (and (equal major-mode 'racket-mode)
                           (bound-and-true-p company-quickhelp-mode))
                  (company-quickhelp-mode -1))) t))
+
+(defun racket/post-init-ggtags ()
+  (add-hook 'racket-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun racket/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'racket-mode))
 
 (defun racket/init-racket-mode ()
   (use-package racket-mode

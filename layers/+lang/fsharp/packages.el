@@ -9,7 +9,12 @@
 ;;
 ;;; License: GPLv3
 
-(setq fsharp-packages '(fsharp-mode))
+(setq fsharp-packages
+      '(
+        fsharp-mode
+        ggtags
+        helm-gtags
+        ))
 
 (defun fsharp/init-fsharp-mode ()
   (use-package fsharp-mode
@@ -66,3 +71,9 @@
         "ss" 'fsharp-show-subshell
 
         "xf" 'fsharp-run-executable-file))))
+
+(defun fsharp/post-init-ggtags ()
+  (add-hook 'fsharp-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun fsharp/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'fsharp-mode))

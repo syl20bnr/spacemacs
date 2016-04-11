@@ -12,6 +12,8 @@
 (setq csharp-packages
   '(
     company
+    ggtags
+    helm-gtags
     omnisharp
     ))
 
@@ -83,3 +85,9 @@
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun csharp/post-init-company ()
     (spacemacs|add-company-hook csharp-mode)))
+
+(defun csharp/post-init-ggtags ()
+  (add-hook 'csharp-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun csharp/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'csharp-mode))

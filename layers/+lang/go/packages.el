@@ -3,6 +3,8 @@
         company
         company-go
         flycheck
+        ggtags
+        helm-gtags
         go-eldoc
         go-mode
         (go-oracle :location site)
@@ -134,3 +136,9 @@
   (use-package go-rename
     :init
     (spacemacs/set-leader-keys-for-major-mode 'go-mode "rn" 'go-rename)))
+
+(defun go/post-init-ggtags ()
+  (add-hook 'go-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun go/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'go-mode))

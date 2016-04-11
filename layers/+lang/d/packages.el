@@ -17,6 +17,8 @@
         flycheck-dmd-dub
         flycheck
         company
+        ggtags
+        helm-gtags
         ))
 
 (defun d/init-d-mode ()
@@ -34,3 +36,9 @@
     ;; Need to convince company that this C-derived mode is a code mode.
     (with-eval-after-load 'company-dabbrev-code (push 'd-mode company-dabbrev-code-modes))
     (spacemacs|add-company-hook d-mode)))
+
+(defun d/post-init-ggtags ()
+  (add-hook 'd-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun d/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'd-mode))

@@ -10,7 +10,11 @@
 ;;; License: GPLv3
 
 (setq scheme-packages
-      '(geiser))
+      '(
+        geiser
+        ggtags
+        helm-gtags
+        ))
 
 (defun scheme/init-geiser ()
   (use-package geiser
@@ -70,3 +74,9 @@
   (defun scheme/post-init-company ()
     ;; Geiser provides completion as long as company mode is loaded.
     (spacemacs|add-company-hook scheme-mode)))
+
+(defun scheme/post-init-ggtags ()
+  (add-hook 'scheme-mode-hook #'spacemacs/ggtags-mode-enable))
+
+(defun scheme/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'scheme-mode))

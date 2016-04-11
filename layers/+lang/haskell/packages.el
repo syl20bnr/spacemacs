@@ -17,9 +17,11 @@
     company-ghc
     flycheck
     flycheck-haskell
+    ggtags
     ghc
     haskell-mode
     haskell-snippets
+    helm-gtags
     helm-hoogle
     hindent
     shm
@@ -48,6 +50,9 @@
       :if (configuration-layer/package-usedp 'flycheck)
       :commands flycheck-haskell-configure
       :init (add-hook 'flycheck-mode-hook 'flycheck-haskell-configure))))
+
+(defun haskell/post-init-ggtags ()
+  (add-hook 'haskell-mode-hook #'spacemacs/ggtags-mode-enable))
 
 (defun haskell/init-ghc ()
   (use-package ghc
@@ -263,6 +268,9 @@
       (yas-load-directory snip-dir)))
 
   (with-eval-after-load 'yasnippet (haskell-snippets-initialize)))
+
+(defun haskell/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'haskell-mode))
 
 ;; doesn't support literate-haskell-mode :(
 (defun haskell/init-hindent ()
