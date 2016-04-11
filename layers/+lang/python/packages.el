@@ -76,7 +76,6 @@
       :init
       (push 'company-anaconda company-backends-python-mode))))
 
-
 (defun python/init-cython-mode ()
   (use-package cython-mode
     :defer t
@@ -180,7 +179,6 @@
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "vu" 'pyenv-mode-unset
         "vs" 'pyenv-mode-set))))
-
 
 (defun python/init-pyvenv ()
   (use-package pyvenv
@@ -397,8 +395,7 @@
   (add-hook 'python-mode-hook 'semantic-mode)
 
   (when (configuration-layer/package-usedp 'anaconda-mode)
-    (add-hook 'python-mode-hook (lambda ()  (semantic-idle-summary-mode 0)) t))
-
+    (add-hook 'python-mode-hook (lambda () (semantic-idle-summary-mode 0)) t))
 
   (defadvice semantic-python-get-system-include-path
       (around semantic-python-skip-error-advice activate)
