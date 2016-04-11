@@ -13,8 +13,9 @@
                        company
                        popwin))
 
-(defun idris/post-init-company ()
-  (spacemacs|add-company-hook idris-mode))
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun idris/post-init-company ()
+    (spacemacs|add-company-hook idris-mode)))
 
 (defun idris/init-idris-mode ()
   (use-package idris-mode
