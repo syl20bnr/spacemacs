@@ -387,8 +387,8 @@ properly. For instance if package =A= depends on =B= then you can configure
 For details on installing packages using quelpa or local packages see [[file:LAYERS.org::packages.el][LAYERS]].
 
 **** Initialization
-To initialize an extension or a package =xxx=, define a function with this
-format in =packages.el=:
+To initialize a package =xxx=, define a function with this format in
+=packages.el=:
 
 #+BEGIN_SRC emacs-lisp
 (defun <layer>/init-xxx () ...body )
