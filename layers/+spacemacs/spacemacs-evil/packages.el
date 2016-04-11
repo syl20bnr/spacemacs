@@ -28,7 +28,8 @@
         ;; https://github.com/7696122/evil-terminal-cursor-changer/issues/8
         (evil-terminal-cursor-changer :excluded t)
         evil-tutor
-        (evil-unimpaired :location local)))
+        (evil-unimpaired :location local)
+        evil-visual-mark-mode))
 
 (defun spacemacs-evil/init-evil-anzu ()
   (use-package evil-anzu
@@ -297,3 +298,13 @@
   (define-key evil-normal-state-map (kbd "[ p") 'evil-unimpaired/paste-above)
   (define-key evil-normal-state-map (kbd "] p") 'evil-unimpaired/paste-below))
 
+(defun spacemacs-evil/init-evil-visual-mark-mode ()
+  (use-package evil-visual-mark-mode
+    :defer t
+    :init
+    (spacemacs|add-toggle evil-visual-mark-mode
+      :status evil-visual-mark-mode
+      :on (evil-visual-mark-mode)
+      :off (evil-visual-mark-mode -1)
+      :documentation "Enable evil visual marks mode."
+      :evil-leader "t`")))
