@@ -1,4 +1,9 @@
 * Release 0.105.x
+** 0.105.18 (2016/04/10)
+- Revert hotfix for =Yasnippet=, the bug has been fixed upstream and is now
+  available in MELPA (thanks to TheBB)
+- Remove oboslete package =evil-jumper= which is now part of =evil=
+  (thanks to justbur)
 ** 0.105.17 (2016/04/09)
 - Hotfix for Yasnippet, using stable version until resolution of
  https://github.com/capitaomorte/yasnippet/issues/673
