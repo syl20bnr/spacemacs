@@ -46,11 +46,11 @@ To enable automatic buffer formatting on save, set the variable =rust-format-on-
 
 | Key Binding | Description                           |
 |-------------+---------------------------------------|
-| ~SPC m c c~ | compile project with Cargo            |
-| ~SPC m c t~ | run tests with Cargo                  |
-| ~SPC m c d~ | generate documentation with Cargo     |
-| ~SPC m c x~ | execute the project with Cargo        |
-| ~SPC m c C~ | remove build artifacts with Cargo     |
-| ~SPC m c f~ | format all project files with rustfmt |
-| ~SPC m g g~ | jump to definition                    |
 | ~SPC m =~   | reformat the buffer                   |
+| ~SPC m c C~ | remove build artifacts with Cargo     |
+| ~SPC m c c~ | compile project with Cargo            |
+| ~SPC m c d~ | generate documentation with Cargo     |
+| ~SPC m c f~ | format all project files with rustfmt |
+| ~SPC m c t~ | run tests with Cargo                  |
+| ~SPC m c x~ | execute the project with Cargo        |
+| ~SPC m g g~ | jump to definition                    |

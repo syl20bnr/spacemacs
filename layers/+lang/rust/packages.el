@@ -37,12 +37,12 @@
       (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "="  'rust-format-buffer
-        "cc" 'spacemacs/rust-cargo-build
-        "ct" 'spacemacs/rust-cargo-test
-        "cd" 'spacemacs/rust-cargo-doc
-        "cx" 'spacemacs/rust-cargo-run
         "cC" 'spacemacs/rust-cargo-clean
+        "cc" 'spacemacs/rust-cargo-build
+        "cd" 'spacemacs/rust-cargo-doc
         "cf" 'spacemacs/rust-cargo-fmt))))
+        "ct" 'spacemacs/rust-cargo-test
+        "cx" 'spacemacs/rust-cargo-run
 
 (defun rust/init-toml-mode ()
   (use-package toml-mode
