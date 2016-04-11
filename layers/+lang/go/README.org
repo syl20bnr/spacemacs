@@ -23,6 +23,7 @@ This layer adds extensive support for go.
 - gofmt/goimports on file save
 - Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]] (with the =auto-completion= layer)
 - Source analysis using [[http://golang.org/s/oracle-user-manual][go-oracle]]
+- Linting with flycheck's built-in checkers or flycheck-gometalinter
 
 * Install
 ** Pre-requisites
@@ -35,6 +36,16 @@ You will need =gocode= and =godef=:
   go get -u -v golang.org/x/tools/cmd/gorename
   go get -u -v golang.org/x/tools/cmd/goimports
 #+END_SRC
+
+If you wish to use =gometalinter=:
+
+#+BEGIN_SRC sh
+  go get -u -v github.com/alecthomas/gometalinter
+  gometalinter --install --update
+#+END_SRC
+
+For more information read [[https://github.com/alecthomas/gometalinter/blob/master/README.md][gometalinter README.md]]
+and [[https://github.com/favadi/flycheck-gometalinter/blob/master/README.md][flycheck-gometalinter README.md]]
 
 Make sure that =gocode= executable is in your PATH. For information about
 setting up =$PATH=, check out the corresponding section in the FAQ (~SPC h SPC
