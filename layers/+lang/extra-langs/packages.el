@@ -23,7 +23,12 @@
   (use-package julia-mode :defer t))
 
 (defun extra-langs/init-matlab-mode ()
-  (use-package matlab-mode :defer t))
+  (use-package matlab-mode
+    :defer t
+    :init
+    ;; Explicitly run prog-mode hooks since matlab-mode does not derive from
+    ;; prog-mode major-mode
+    (add-hook 'matlab-mode-hook 'spacemacs/run-prog-mode-hooks)))
 
 (defun extra-langs/init-stan-mode ()
   (use-package stan-mode :defer t))
