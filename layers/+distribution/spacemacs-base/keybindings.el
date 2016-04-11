@@ -366,7 +366,8 @@
   "wm"  'spacemacs/toggle-maximize-buffer
   "wM"  'spacemacs-centered-buffer-mode
   "wo"  'other-frame
-  "wR"  'spacemacs/rotate-windows
+  "wr"  'spacemacs/rotate-windows
+  "wR"  'spacemacs/rotate-windows-backward
   "ws"  'split-window-below
   "wS"  'split-window-below-and-focus
   "w-"  'split-window-below
