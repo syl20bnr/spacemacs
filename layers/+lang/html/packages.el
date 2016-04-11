@@ -53,7 +53,7 @@
 
       ;; Explicitly run prog-mode hooks since css-mode does not derive from
       ;; prog-mode major-mode
-      (add-hook 'css-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
+      (add-hook 'css-mode-hook 'spacemacs/run-prog-mode-hooks)
 
       (defun css-expand-statement ()
         "Expand CSS block"
@@ -131,7 +131,7 @@
     :init
     ;; Explicitly run prog-mode hooks since jade-mode does not derivate from
     ;; prog-mode major-mode
-    (add-hook 'jade-mode-hook (lambda () (run-hooks 'prog-mode-hook)))))
+    (add-hook 'jade-mode-hook 'spacemacs/run-prog-mode-hooks)))
 
 (defun html/init-less-css-mode ()
   (use-package less-css-mode

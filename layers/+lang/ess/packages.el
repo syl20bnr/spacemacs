@@ -57,7 +57,7 @@
       (spacemacs/register-repl 'ess-site 'stata)
       ;; Explicitly run prog-mode hooks since ess-mode does not derive from
       ;; prog-mode major-mode
-      (add-hook 'ess-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
+      (add-hook 'ess-mode-hook 'spacemacs/run-prog-mode-hooks)
       (when (configuration-layer/package-usedp 'company)
           (add-hook 'ess-mode-hook 'company-mode))))
 

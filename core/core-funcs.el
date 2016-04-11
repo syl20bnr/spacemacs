@@ -25,6 +25,16 @@
   ;; ns is returned instead of mac on Emacs 25+
   (memq (window-system) '(mac ns)))
 
+(defun spacemacs/run-prog-mode-hooks ()
+  "Runs `prog-mode-hook'. Useful for modes that don't derive from
+`prog-mode' but should."
+  (run-hooks 'prog-mode-hook))
+
+(defun spacemacs/run-text-mode-hooks ()
+  "Runs `text-mode-hook'. Useful for modes that don't derive from
+`text-mode' but should."
+  (run-hooks 'text-mode-hook))
+
 (defun spacemacs//get-package-directory (pkg)
   "Return the directory of PKG. Return nil if not found."
   (let ((elpa-dir (file-name-as-directory package-user-dir)))
