@@ -90,8 +90,10 @@
         "mc" 'idris-show-core-term
 
         ;; REPL
+        "'" 'idris-repl
         "sb" 'idris-load-file
         "sB" 'spacemacs/idris-load-file-and-focus
+        "si" 'idris-repl
         "sn" 'idris-load-forward-line
         "sN" 'spacemacs/idris-load-forward-line-and-focus
         "sp" 'idris-load-backward-line

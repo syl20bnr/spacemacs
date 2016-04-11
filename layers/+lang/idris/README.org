@@ -78,6 +78,7 @@ are reproduced under the local leader.
 |-------------+----------------------------------------------------------------------------------------|
 | ~SPC m s b~ | Load the current buffer into Idris.                                                    |
 | ~SPC m s B~ | Load the current buffer into Idris and switch to REPL in insert state                  |
+| ~SPC m s i~ | Start Idris inferior process                                                           |
 | ~SPC m s n~ | Extend the region to be loaded one line at a time.                                     |
 | ~SPC m s N~ | Extend the region to be loaded one line at a time and switch to REPL in insert state   |
 | ~SPC m s p~ | Contract the region to be loaded one line at a time                                    |
