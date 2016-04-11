@@ -395,6 +395,11 @@
 
 (defun python/post-init-semantic ()
   (add-hook 'python-mode-hook 'semantic-mode)
+
+  (when (configuration-layer/package-usedp 'anaconda-mode)
+    (add-hook 'python-mode-hook (lambda ()  (semantic-idle-summary-mode 0)) t))
+
+
   (defadvice semantic-python-get-system-include-path
       (around semantic-python-skip-error-advice activate)
     "Don't cause error when Semantic cannot retrieve include
