@@ -6,6 +6,7 @@
     clojure-mode
     (clojure-snippets :toggle (configuration-layer/layer-usedp 'auto-completion))
     company
+    eldoc
     popwin
     subword
     ))
@@ -22,8 +23,6 @@
             cider-repl-use-clojure-font-lock t)
       (push "\\*cider-repl\.\+\\*" spacemacs-useful-buffers-regexp)
       (add-hook 'clojure-mode-hook 'cider-mode)
-      (add-hook 'cider-mode-hook 'eldoc-mode)
-      (add-hook 'cider-repl-mode-hook 'eldoc-mode)
       (if dotspacemacs-smartparens-strict-mode
           (add-hook 'cider-repl-mode-hook #'smartparens-strict-mode)))
     :config
@@ -342,6 +341,10 @@ If called with a prefix argument, uses the other-window instead."
       (when clojure-enable-fancify-symbols
         (dolist (m '(clojure-mode clojurescript-mode clojurec-mode clojurex-mode))
           (clojure/fancify-symbols m))))))
+
+(defun clojure/post-init-eldoc ()
+  (add-hook 'cider-mode-hook 'eldoc-mode)
+  (add-hook 'cider-repl-mode-hook 'eldoc-mode))
 
 (defun clojure/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
