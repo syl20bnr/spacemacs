@@ -65,9 +65,9 @@
                                       :inherit 'mode-line)))
                     (format "%s state face." state)
                     :group 'spacemacs))
-           (eval `(setq ,(intern (format "evil-%s-state-cursor" state))
-                        (list (when dotspacemacs-colorize-cursor-according-to-state color)
-                              cursor))))
+           (set (intern (format "evil-%s-state-cursor" state))
+                (list (when dotspacemacs-colorize-cursor-according-to-state color)
+                      cursor)))
 
   ;; put back refresh of the cursor on post-command-hook see status of:
   ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
