@@ -4,7 +4,7 @@ version 0.106.0 of Spacemacs/
 * Philosophy
 ** For Contributors
 - This community is a community of hackers based on meritocracy and volunteering.
-  Hackers strive for excellent to make the world a better place, so does the
+  Hackers strive for excellence to make the world a better place, so does the
   Spacemacs community.
 - Be good in what you bring to the project be it code, documentation, typo
   fixes, art, humor, ideas, project management, web design, assurance quality,
