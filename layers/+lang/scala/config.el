@@ -20,3 +20,6 @@
 
 (defvar scala-auto-start-ensime t
   "If non nil then ensime will be started when a scala file is opened.")
+
+(defvar scala-use-java-doc-style t
+  "If non nil then use java doc style")
