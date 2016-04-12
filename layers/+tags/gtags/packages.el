@@ -23,6 +23,7 @@
   (defun gtags/init-helm-gtags ()
     (use-package helm-gtags
       :defer t
+      :diminish helm-gtags-mode
       :init
       (progn
         (setq helm-gtags-ignore-case t
