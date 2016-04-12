@@ -9,6 +9,7 @@
    - [[#installation][Installation]]
    - [[#usage][Usage]]
  - [[#scalastyle][Scalastyle]]
+   - [[#use-java-doc-style][use java doc style]]
  - [[#automatically-show-the-type-of-the-symbol-under-the-cursor][Automatically show the type of the symbol under the cursor]]
  - [[#automatically-insert-asterisk-in-multiline-comments][Automatically insert asterisk in multiline comments]]
  - [[#automatically-replace-arrows-with-unicode-ones][Automatically replace arrows with unicode ones]]
@@ -85,6 +86,15 @@ To use scalastyle,
 
 See the [[http://flycheck.readthedocs.org/en/latest/guide/languages.html#el.flycheck-checker.scala-scalastyle][flycheck documentation]] for up-to-date configuration instructions.
 
+** use java doc style
+
+   To enable =java-doc-style=, set the variable =scala-java-doc-style= to =t=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (scala :variables scala-enable-eldoc t)))
+#+END_SRC
+
 * Automatically show the type of the symbol under the cursor
 
 To enable the feature =ensime-print-type-at-point= when cursor moves, set the
@@ -92,7 +102,7 @@ variable =scala-enable-eldoc= to =t=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (scala :variables scala-enable-eldoc t)))
+    (scala :variables scala-use-java-doc-style t)))
 #+END_SRC
 
 Enabling this option can cause slow editor performance.
