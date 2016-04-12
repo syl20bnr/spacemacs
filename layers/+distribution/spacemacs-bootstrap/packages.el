@@ -76,7 +76,7 @@
   (setq evil-ex-substitute-global dotspacemacs-ex-substitute-global)
 
   ;; evil-want-Y-yank-to-eol must be set via customize to have an effect
-  (custom-set-variables `(evil-want-Y-yank-to-eol ,dotspacemacs-remap-Y-to-y$))
+  (customize-set-variable 'evil-want-Y-yank-to-eol dotspacemacs-remap-Y-to-y$)
 
   ;; bind evil-jump-forward for GUI only.
   (define-key evil-motion-state-map [C-i] 'evil-jump-forward)
