@@ -94,7 +94,7 @@
         "."   'LaTeX-mark-environment  ;; C-c .
         "c"   'LaTeX-close-environment ;; C-c ]
         "e"   'LaTeX-environment       ;; C-c C-e
-        "i"   'LaTeX-insert-item       ;; C-c C-j
+        "ii"   'LaTeX-insert-item       ;; C-c C-j
         "s"   'LaTeX-section           ;; C-c C-s
         "fe"  'LaTeX-fill-environment  ;; C-c C-q C-e
         "fp"  'LaTeX-fill-paragraph    ;; C-c C-q C-p

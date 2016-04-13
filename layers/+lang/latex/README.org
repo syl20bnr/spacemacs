@@ -19,6 +19,9 @@
 * Description
 This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects/auctex/][AucTeX]].
 
+For more extensive support of BibTeX files than RefTeX provides, have a look at
+the [[../bibtex][BibTeX layer]].
+
 ** Features
 - Auto-build with [[https://github.com/tom-tan/auctex-latexmk/][auctex-latexmk]]
 - Auto-completion with [[https://github.com/alexeyr/company-auctex][company-auctex]]
@@ -83,7 +86,6 @@ is nil.
 #+END_SRC
 
 * Keybindings
-
 | Key Binding   | Description                                |
 |---------------+--------------------------------------------|
 | ~SPC m -~     | recenter output buffer                     |
@@ -96,7 +98,7 @@ is nil.
 | ~SPC m b~     | build                                      |
 | ~SPC m c~     | close LaTeX environment                    |
 | ~SPC m e~     | insert LaTeX environment                   |
-| ~SPC m i~     | insert =\item=                             |
+| ~SPC m i i~   | insert =\item=                             |
 | ~SPC m k~     | kill TeX job                               |
 | ~SPC m l~     | recenter output buffer                     |
 | ~SPC m m~     | insert LaTeX macro                         |
