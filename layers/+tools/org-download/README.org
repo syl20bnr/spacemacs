@@ -1,0 +1,24 @@
+#+TITLE: org-download layer
+
+# The maximum height of the logo should be 200 pixels.
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds org-download support to spacemacs. It allows to drag-and-drop images from your browser or file-system into an org file.
+For further details about the org-download package, have a look at the [[https://github.com/abo-abo/org-download][readme]].
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =org-download= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description             |
+|-------------+-------------------------|
+| ~SPC m i s~ | org-download-screenshot |
+| ~SPC m i y~ | org-download-yank       |
