@@ -126,7 +126,7 @@
 
 (defun python/init-nose ()
   (use-package nose
-    :if (eq 'nose python-test-runner)
+    :if (or (eq 'nose python-test-runner) (member 'nose python-test-runner))
     :commands (nosetests-one
                nosetests-pdb-one
                nosetests-all
@@ -136,17 +136,11 @@
                nosetests-suite
                nosetests-pdb-suite)
     :init
-    (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "tA" 'nosetests-pdb-all
-      "ta" 'nosetests-all
-      "tB" 'nosetests-pdb-module
-      "tb" 'nosetests-module
-      "tT" 'nosetests-pdb-one
-      "tt" 'nosetests-one
-      "tM" 'nosetests-pdb-module
-      "tm" 'nosetests-module
-      "tS" 'nosetests-pdb-suite
-      "ts" 'nosetests-suite)
+    (progn
+      (spacemacs//bind-python-testing-keys)
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "tS" 'nosetests-pdb-suite
+        "ts" 'nosetests-suite))
     :config
     (progn
       (add-to-list 'nose-project-root-files "setup.cfg")
@@ -207,7 +201,7 @@
 
 (defun python/init-pytest ()
   (use-package pytest
-    :if (eq 'pytest python-test-runner)
+    :if (or (eq 'pytest python-test-runner) (member 'pytest python-test-runner))
     :defer t
     :commands (pytest-one
                pytest-pdb-one
@@ -215,15 +209,9 @@
                pytest-pdb-all
                pytest-module
                pytest-pdb-module)
-    :init (spacemacs/set-leader-keys-for-major-mode 'python-mode
-            "tA" 'pytest-pdb-all
-            "ta" 'pytest-all
-            "tB" 'pytest-pdb-module
-            "tb" 'pytest-module
-            "tT" 'pytest-pdb-one
-            "tt" 'pytest-one
-            "tM" 'pytest-pdb-module
-            "tm" 'pytest-module)
+    :init
+    (progn
+      (spacemacs//bind-python-testing-keys))
     :config (add-to-list 'pytest-project-root-files "setup.cfg")))
 
 (defun python/init-python ()
@@ -327,7 +315,6 @@
       (spacemacs/declare-prefix-for-mode 'python-mode "md" "debug")
       (spacemacs/declare-prefix-for-mode 'python-mode "mh" "help")
       (spacemacs/declare-prefix-for-mode 'python-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'python-mode "mt" "test")
       (spacemacs/declare-prefix-for-mode 'python-mode "ms" "send to REPL")
       (spacemacs/declare-prefix-for-mode 'python-mode "mr" "refactor")
       (spacemacs/declare-prefix-for-mode 'python-mode "mv" "pyenv")
