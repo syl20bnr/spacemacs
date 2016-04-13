@@ -96,7 +96,6 @@ function testing to work.
 | ~SPC m t t~ | run "go test" for the function you're currently in (while you're in a _.test.go file) |
 | ~SPC m t s~ | run "go test" for the suite you're currently in (requires gocheck)                    |
 
-
 ** Go Oracle
 
 | Key Binding | Description                                                |

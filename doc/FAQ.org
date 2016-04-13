@@ -44,7 +44,7 @@
    - [[#why-do-the-fonts-look-crappy-on-windows][Why do the fonts look crappy on Windows?]]
    - [[#why-is-there-no-spacemacs-logo-in-the-startup-buffer][Why is there no Spacemacs logo in the startup buffer?]]
    - [[#why-are-all-packages-unavailable][Why are all packages unavailable?]]
-   - [[#the-powerline-isnt-shown-correctly-when-spacemacs-is-used-within-putty][The powerline isn't shown correctly when Spacemacs is used within =PuTTY=.]]
+   - [[#the-powerline-isnt-shown-correctly-when-spacemacs-is-used-within-putty][The powerline isn't shown correctly when Spacemacs is used within =PuTTY=]]
  - [[#os-x][OS X]]
    - [[#why-are-the-powerline-colors-not-correct-on-os-x][Why are the powerline colors not correct on OS X?]]
 
@@ -504,7 +504,7 @@ Check if your Emacs has HTTPS capabilities by doing =M-:= and then:
 If this returns =nil=, you need to install the GnuTLS DLL file in the same
 directory as Emacs. See [[https://www.gnu.org/software/emacs/manual/html_mono/emacs-gnutls.html#Help-For-Users][here]] for instructions.
 
-** The powerline isn't shown correctly when Spacemacs is used within =PuTTY=.
+** The powerline isn't shown correctly when Spacemacs is used within =PuTTY=
 You can follow [[http://mschulte.nl/posts/using-powerline-in-PuTTY.html][this explanation]] explaining how to correct this.
 
 * OS X

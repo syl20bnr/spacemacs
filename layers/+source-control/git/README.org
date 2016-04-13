@@ -1,6 +1,5 @@
 #+TITLE: Git contribution layer for Spacemacs
 
-
 [[file:img/git.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:

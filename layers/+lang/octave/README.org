@@ -36,7 +36,7 @@ Send code to inferior process with these commands:
 
 ** Helpers
 
-| Key Binding | Description                                         |
-|-------------+-----------------------------------------------------|
-| ~SPC m h h~ | view documentation for function at point            |
-| ~SPC m h i~ | read octave info documentation                      |
+| Key Binding | Description                              |
+|-------------+------------------------------------------|
+| ~SPC m h h~ | view documentation for function at point |
+| ~SPC m h i~ | read octave info documentation           |

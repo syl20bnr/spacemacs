@@ -43,6 +43,7 @@ Send code to inferior process with these commands:
 
 ** Helpers
 Helpers for inspecting objects at point are available in R buffers only.
+
 | Key Binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
 | ~SPC m h d~ | view data under point using [ess-R-data-view][ess-R-data-view]      |

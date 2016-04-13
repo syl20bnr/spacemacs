@@ -10,7 +10,7 @@
  - [[#key-bindings][Key bindings]]
    - [[#element-insertion][Element insertion]]
    - [[#element-removal][Element removal]]
-   - [[#completion-and-cycling][Completion, and Cycling]]
+   - [[#completion][Completion]]
    - [[#following-and-jumping][Following and Jumping]]
    - [[#indentation][Indentation]]
    - [[#header-navigation][Header navigation]]

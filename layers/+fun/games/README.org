@@ -20,7 +20,7 @@ The games available now are:
 - Pacmacs (Pacman for Emacs)
 - Tetris
 - Typit
-  
+
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =games= to the existing =dotspacemacs-configuration-layers= list in this
@@ -37,7 +37,7 @@ Possible helm actions:
 - run (default)
 - quit
 - reset
-  
+
 ** 2048
 
 | Key Binding | Description          |

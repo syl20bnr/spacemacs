@@ -23,7 +23,7 @@ new users so the basics are listed here:
 - Group :: A Newsgroup but can also be a RSS Feed or a mail directory
 - Topic :: Newsgroups can be assigned to topics which will be used to structure
      the Group Buffer if Topic Mode is enabled(default).
-  
+
 * Adding news sources
 
 Adding news sources can be done in your =.spacemacs= file by adding the
@@ -46,7 +46,7 @@ For adding RSS Feeds please see the [[Keybindings][keybindings section]].
 * Configuring gmail
 
 To configure Gnus with gmail support you can add the following to your
-=.spacemacs= file. 
+=.spacemacs= file.
 
 #+BEGIN_SRC emacs-lisp
 ;; Get email, and store in nnml

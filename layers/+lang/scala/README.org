@@ -84,6 +84,7 @@ To use scalastyle,
    the jar.
 
 See the [[http://flycheck.readthedocs.org/en/latest/guide/languages.html#el.flycheck-checker.scala-scalastyle][flycheck documentation]] for up-to-date configuration instructions.
+
 * Automatically show the type of the symbol under the cursor
 
 To enable the feature =ensime-print-type-at-point= when cursor moves, set the

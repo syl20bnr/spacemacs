@@ -37,7 +37,7 @@ file.
 
 ** Configuration
 *** Configure the Default Input Method(配置默认中文输入法)
-The default Chinese input method is =Chinese-pyim=, if you are a Wubi(五笔) user, 
+The default Chinese input method is =Chinese-pyim=, if you are a Wubi(五笔) user,
 you could set the variable =chinese-default-input-method= to =wubi=:
 #+begin_src emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
@@ -50,6 +50,7 @@ file. You could call =pyim-dicts-manager= to open up the settings buffer and
 press =i e= to install the default lexicon. The lexicon is about 20M, so you
 should be patient when downloading starts. After the lexicon file is downloaded,
 just press =s= to save and =R= to restart configuration.
+
 *** Enable fcitx
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((chinese :variables
@@ -61,6 +62,7 @@ with the following configuration.
 #+BEGIN_SRC emacs-lisp
   (fcitx-aggressive-setup)
 #+END_SRC
+
 **** Requirement
 ***** Linux
 You need use this with =fcitx= and make sure =fcitx-remote= is in your search path.
@@ -106,7 +108,7 @@ your own Chinese font name in =dotspacemacs/user-config= function.
 
 Example configuration:
 #+BEGIN_SRC emacs-lisp
-;; Note: The Hiragino Sans GB is bundled with MacOS X. 
+;; Note: The Hiragino Sans GB is bundled with MacOS X.
 ;; If you are not using MacOS X, you should change it to another Chinese font name.
 (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16)
 #+END_SRC

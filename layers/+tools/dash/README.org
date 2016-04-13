@@ -14,7 +14,7 @@
    - [[#helm-dash][helm-dash]]
  - [[#todos][TODOs]]
    - [[#check-zeal][Check zeal]]
-   - [[#make-helm-dash-use-zeal-or-dash-docsets-by-default][Make helm-dash use zeal or dash docsets by default.]]
+   - [[#make-helm-dash-use-zeal-or-dash-docsets-by-default][Make helm-dash use zeal or dash docsets by default]]
 
 * Description
 +*This layer works only on OS X for the moment*+
@@ -42,7 +42,7 @@ file.
 You have to install [[http://kapeli.com/dash][dash]] on your machine.
 
 It is recommended to set the =HUD mode= in your Dash application preferences
-when using this layer. 
+when using this layer.
 
 ** Zeal (Linux & Windows)
 
@@ -78,4 +78,4 @@ Or you can use [[https://github.com/areina/helm-dash][helm-dash]] instead, it re
 CLOSED: [2015-06-12 Fri 16:30]
 [[http://zealdocs.org/][zeal]] is an open source alternative to dash with Emacs integration available.
 
-** TODO Make helm-dash use zeal or dash docsets by default.
+** TODO Make helm-dash use zeal or dash docsets by default

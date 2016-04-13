@@ -59,7 +59,7 @@ If everything goes right, the compilation won't display any error and you will
 be able to see /PDFView/ (instead of /DocView/) on the spaceline after opening a
 pdf file.
 
-If the compilation run successfully but you get 
+If the compilation run successfully but you get
 ~Error (use-package): pdf-tools :config: No executable `epdfinfo' found~,
 try restarting Spacemacs ([[https://github.com/politza/pdf-tools/issues/31][issue]]).
 
@@ -85,7 +85,7 @@ Tips:
   lateral margins, making the useful portion larger.
 - The last visited page is not saved across Emacs sessions. If you want save it,
   use the bookmarks commands on ~SPC j b~ to save and go to a bookmark.
- 
+
 * Known Issues
 Due to =image-mode='s behaviour, the =pdf-tools= buffer might go back to the
 first page after switching windows. If this happens, you can quickly go back to

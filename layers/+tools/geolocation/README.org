@@ -91,7 +91,7 @@ It will use the imperial unit system by default. To switch to metric, add
 #+END_SRC
 
 Weather forecast icons are disabled by default, and can be toggled by pressing
-`i' within this mode's main buffer. 
+`i' within this mode's main buffer.
 
 To display weather forecast icons by default ("pretty mode"), add
 ~sunshine-show-icons t~ to the variables list for this layer, or add this:
@@ -112,6 +112,7 @@ activated.
 
 * Key Bindings
 ** Weather
+
 | Evil      | Holy | Command                                       |
 |-----------+------+-----------------------------------------------|
 | ~SPC a w~ |      | Display pretty weather forecast               |

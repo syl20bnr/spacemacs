@@ -25,6 +25,7 @@ try to adjust the value of =graphviz-dot-revert-delay= higher to give the
 compiler more time to finish generating the file before reverting the buffer.
 
 * Key bindings
+
 | Key Binding | Description                          |
 |-------------+--------------------------------------|
 | ~SPC m ,~   | Preview file                         |

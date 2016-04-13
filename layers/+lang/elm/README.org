@@ -44,7 +44,7 @@ file.
 
 ** Elm Platform
 The ~elm-platform~ is a bundle of tools, including the ~elm-compiler~, ~elm-make~,
-~elm-reactor~, ~elm-repl~ and ~elm-package~. 
+~elm-reactor~, ~elm-repl~ and ~elm-package~.
 
 Depending on the method of installation, the ~elm-mode~ package would need to be
 able to access commands such as ~elm-reactor~ or ~elm-make~.
@@ -63,7 +63,7 @@ Also, note that you might need to set the ~ELM_HOME~ environment variables to
 the corresponding directory created by the installer.
 
 OS X Users facing problems with ~elm-reactor~ failing to properly install or
-run, see this issue [[https://github.com/kevva/elm-bin/issues/28][https://github.com/kevva/elm-bin/issues/28]]. 
+run, see this issue [[https://github.com/kevva/elm-bin/issues/28][https://github.com/kevva/elm-bin/issues/28]].
 
 *** Source code
 To build from source, see instructions here:
@@ -75,7 +75,7 @@ cursor and provide support for auto-completion, but it is not part of the standa
 elm-platform.
 
 Both the "company" and "auto-complete" backends are supported, but this layer
-is configured with company. 
+is configured with company.
 
 To install ~elm-oracle~, install ~node.js~ and ~npm~, then
 run this command:

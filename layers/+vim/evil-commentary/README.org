@@ -22,6 +22,7 @@ add =evil-commentary= to the existing =dotspacemacs-configuration-layers= list i
 file.
 
 * Key bindings
+
 | Key Binding | Description                   |
 |-------------+-------------------------------|
 | ~SPC ;~     | comment operator              |

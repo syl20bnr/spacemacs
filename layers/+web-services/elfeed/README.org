@@ -92,6 +92,7 @@ By default web interface is available on [[http://localhost:8080/elfeed/][localh
 the default port by changing the value of =httpd-port=.
 
 * Key Bindings
+
 | Key Binding | Description  |
 |-------------+--------------|
 | ~SPC a f~   | start elfeed |

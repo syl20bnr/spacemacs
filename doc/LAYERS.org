@@ -326,6 +326,7 @@ information about recipes.
 Packages may be /excluded/ by setting the =:excluded= property to true. This
 will prevent the package from being installed even if it is used by another
 layer.
+
 ** packages-config.el
 For each included package, you may define one or more of the following
 functions, which are called in order by Spacemacs to initialize the package.

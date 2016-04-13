@@ -24,7 +24,6 @@ file.
 | Key Binding | Description          |
 | ~SPC a j~   | Connect all accounts |
 
-
 ** Jabber Roster
 | Key Binding | Description                          |
 | ~SPC m a~   | Jabber send presence                 |
@@ -42,7 +41,7 @@ file.
 
 * HipChat
 ** Authentication
-To find YOUR_JABBER_ID visit "XMPP/Jabber info" section on your profile page at hipchat.com 
+To find YOUR_JABBER_ID visit "XMPP/Jabber info" section on your profile page at hipchat.com
  #+begin_src emacs-lisp
 
   (setq ssl-program-name "gnutls-cli"
@@ -62,7 +61,7 @@ To simplify joining rooms, you can use something like this:
   (defvar hipchat-room-list '(
                               ("HIPCHAT NAME" . "XMPP/JABBER NAME")
                               ))
-  
+
   (defvar hipchat-number "")
   (defvar hipchat-nickname "YOU_NICKNAME")
   (defun hipchat-join ()

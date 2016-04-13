@@ -22,6 +22,7 @@ file.
 * Working with Nim
 
 ** Nim commands (start with =m=):
+
 | Key Binding | Description                |
 |-------------+----------------------------|
 | ~SPC m c r~ | nim compile --run main.nim |

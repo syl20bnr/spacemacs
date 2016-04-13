@@ -112,7 +112,6 @@ You find and overview of all the key-bindings on the [[file:alchemist-refcard.pd
 | ~SPC m c b~ | Compile the current buffer with elixirc. =elixirc= |
 | ~SPC m c f~ | Compile the given filename with =elixirc=          |
 
-
 ** Execute
 
 | Key Binding | Description                                |

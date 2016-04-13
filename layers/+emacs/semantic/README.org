@@ -1,5 +1,12 @@
 #+TITLE: Semantic layer
 
+
+* Table of Contents                      :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+
 * Description
 
 CEDET is a *C*ollection of *E*macs *D*evelopment *E*nvironment *T*ools written

@@ -108,7 +108,6 @@ And if you want to have 2 space indent also for element's attributes, concatenat
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
 #+end_src
 
-
 * Key Bindings
 
 ** js2-mode

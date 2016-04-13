@@ -26,13 +26,13 @@ and ZNC.
 
 * Features
 - Store channel logs into =~/.emacs.d/.cache/rcirc-logs/<channel>=
-- Support for credentials stored in =~/.authinfo.gpg= (need to have gnutls) 
+- Support for credentials stored in =~/.authinfo.gpg= (need to have gnutls)
 - Support ZNC support (with optional =~/.authinfo.gpg=)
 - Colored nicknames
 - WIP: Real time change when people use =/s/foo/bar= in the chats
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
   using the =emoji= layer or having a proper font) :clap:
-  
+
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -47,7 +47,7 @@ There are several ways to configure rcirc supported by the layer:
   but still not secured)
 - By storing your credentials in authinfo (secured)
 - By using a ZNC bouncer _and_ storing your credentials (secured)
-  
+
 *** Storing the credentials in your dotfile
 You can store your servers configuration along with your credentials in the
 =dotspacemacs/user-config= of your dotfile.
@@ -92,7 +92,7 @@ rcirc.
 
 1) If you want to use =authinfo.gpg= you have to enable the support for it by
    setting =rcirc-enable-authinfo-support= to =t= in your dotfile:
- 
+
    #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (rcirc :variables rcirc-enable-authinfo-support t)))
@@ -184,7 +184,7 @@ In normal state:
 | ~C-k~       | previous item in history |
 
 * Rcirc documentation
-The rcirc documentation can be found [[http://www.gnu.org/software/emacs/manual/html_mono/rcirc.html][here]]. 
+The rcirc documentation can be found [[http://www.gnu.org/software/emacs/manual/html_mono/rcirc.html][here]].
 
 * Spacemacs Layout Support
 

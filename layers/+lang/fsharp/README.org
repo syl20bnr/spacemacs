@@ -16,14 +16,13 @@ This layer adds support for F# language using [[https://github.com/fsharp/fsharp
 * Packages Included
 
 - [[https://github.com/fsharp/fsharpbinding][fsharp-mode]]
-  
+
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =fsharp= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key Bindings
-
 
 | Key Binding | Description                |
 |-------------+----------------------------|

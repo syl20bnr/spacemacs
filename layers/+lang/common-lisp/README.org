@@ -94,7 +94,6 @@ As this state works the same for all files, the documentation is in global
 
 *** Navigation
 
-
 | Key Binding               | Description        |
 |---------------------------+--------------------|
 | ~SPC m g g~               | Inspect definition |

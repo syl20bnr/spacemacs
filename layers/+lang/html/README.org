@@ -60,7 +60,7 @@ A transient-state is also defined, start it with ~SPC m .~ or ~, .~
 | ~K~ / ~gk~  | previous sibling element                                       |
 | ~l~         | first child element                                            |
 | ~p~         | show xpath of current element                                  |
-| ~q~         | leave the transient-state                                          |
+| ~q~         | leave the transient-state                                      |
 | ~r~         | rename current element                                         |
 | ~w~         | wrap current element                                           |
 

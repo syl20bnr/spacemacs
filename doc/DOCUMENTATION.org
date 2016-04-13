@@ -789,18 +789,18 @@ your =~/.spacemacs=):
 * Evil plugins
 Spacemacs ships with the following evil plugins:
 
-| Mode                          | Description                                              |
-|-------------------------------+----------------------------------------------------------|
-| [[https://github.com/wcsmith/evil-args][evil-args]]                     | motions and text objects for arguments                   |
-| [[https://github.com/Dewdrops/evil-exchange][evil-exchange]]                 | port of [[https://github.com/tommcdo/vim-exchange][vim-exchange]]                                     |
-| [[https://github.com/cofi/evil-indent-textobject][evil-indent-textobject]]        | add text object based on indentation level               |
-| [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]                  | port of [[http://www.vim.org/scripts/script.php?script_id=39][matchit.vim]]                                      |
-| [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]]           | port of [[https://github.com/scrooloose/nerdcommenter][nerdcommenter]]                                    |
-| [[https://github.com/cofi/evil-numbers][evil-numbers]]                  | like ~C-a~ and ~C-x~ in vim                              |
-| [[https://github.com/juanjux/evil-search-highlight-persist][evil-search-highlight-persist]] | emulation of hlsearch behavior                           |
-| [[https://github.com/timcharper/evil-surround][evil-surround]]                 | port of [[https://github.com/tpope/vim-surround][vim-surround]]                                     |
-| [[https://github.com/bling/evil-visualstar][evil-visualstar]]               | search for current selection with ~*~                    |
-| [[https://github.com/jaypei/emacs-neotree][NeoTree]]                       | mimic [[https://github.com/scrooloose/nerdtree][NERD Tree]]                                          |
+| Mode                          | Description                                |
+|-------------------------------+--------------------------------------------|
+| [[https://github.com/wcsmith/evil-args][evil-args]]                     | motions and text objects for arguments     |
+| [[https://github.com/Dewdrops/evil-exchange][evil-exchange]]                 | port of [[https://github.com/tommcdo/vim-exchange][vim-exchange]]                       |
+| [[https://github.com/cofi/evil-indent-textobject][evil-indent-textobject]]        | add text object based on indentation level |
+| [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]                  | port of [[http://www.vim.org/scripts/script.php?script_id=39][matchit.vim]]                        |
+| [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]]           | port of [[https://github.com/scrooloose/nerdcommenter][nerdcommenter]]                      |
+| [[https://github.com/cofi/evil-numbers][evil-numbers]]                  | like ~C-a~ and ~C-x~ in vim                |
+| [[https://github.com/juanjux/evil-search-highlight-persist][evil-search-highlight-persist]] | emulation of hlsearch behavior             |
+| [[https://github.com/timcharper/evil-surround][evil-surround]]                 | port of [[https://github.com/tpope/vim-surround][vim-surround]]                       |
+| [[https://github.com/bling/evil-visualstar][evil-visualstar]]               | search for current selection with ~*~      |
+| [[https://github.com/jaypei/emacs-neotree][NeoTree]]                       | mimic [[https://github.com/scrooloose/nerdtree][NERD Tree]]                            |
 
 * Binding keys
 Key sequences are bound to commands in Emacs in various keymaps. The most basic
@@ -1383,6 +1383,7 @@ sequences are not optimal for Spacemacs. Indeed it is very easy in =visual
 state= to press quickly ~jj~ and inadvertently escape to =normal state=.
 
 *** Executing Vim and Emacs ex/M-x commands
+
 | Command          | Key Binding |
 |------------------+-------------|
 | Vim (ex-command) | ~:~         |
@@ -1709,7 +1710,6 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | ~SPC j v~   | jump to the definition/declaration of the variable around point                   |
 | ~SPC j w~   | jump to a word in the current buffer (works as an evil motion)                    |
 
-
 **** Joining and splitting
 
 | Key Binding | Description                                                              |
@@ -2027,6 +2027,7 @@ open the file in a split window with ~|~ and ~-~:
 | ~-~              | open file in an horizontally split window |
 
 **** Other NeoTree key bindings
+
 | Key Binding | Description                     |
 |-------------+---------------------------------|
 | ~TAB~       | toggle stretching of the buffer |
@@ -2211,6 +2212,7 @@ file with =ag=.
 called =pt=.
 
 **** Useful key bindings
+
 | Key Binding            | Description                                                              |
 |------------------------+--------------------------------------------------------------------------|
 | ~F3~                   | in a =helm= buffer, convert a =helm= search buffer into a regular buffer |
@@ -2220,6 +2222,7 @@ called =pt=.
 | Prefix argument        | will ask for file extensions                                             |
 
 **** Searching in current file
+
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC s s~   | search with the first found tool                    |
@@ -2230,6 +2233,7 @@ called =pt=.
 | ~SPC s g G~ | =grep= with default input                           |
 
 **** Searching in all open buffers visiting files
+
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC s b~   | search with the first found tool                    |
@@ -2244,6 +2248,7 @@ called =pt=.
 | ~SPC s t B~ | =pt= with default text                              |
 
 **** Searching in files in an arbitrary directory
+
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC s f~   | search with the first found tool                    |
@@ -2258,6 +2263,7 @@ called =pt=.
 | ~SPC s t F~ | =pt= with default text                              |
 
 **** Searching in a project
+
 | Key Binding           | Description                                         |
 |-----------------------+-----------------------------------------------------|
 | ~SPC /~  or ~SPC s p~ | search with the first found tool                    |
@@ -2275,6 +2281,7 @@ file beforehand. To do so use ~SPC p p~ and then ~C-s~ on a given project to
 directly search into it like with ~SPC s p~.
 
 **** Searching the web
+
 | Key Binding | Description                                                          |
 |-------------+----------------------------------------------------------------------|
 | ~SPC s w g~ | Get Google suggestions in emacs. Opens Google results in Browser.    |
@@ -2585,6 +2592,7 @@ editing of the currently selected text by pressing ~e~.
 
 **** iedit states key bindings
 ***** State transitions
+
 | Key Binding | From             | To     |
 |-------------+------------------+--------|
 | ~SPC s e~   | normal or visual | iedit  |
@@ -2635,6 +2643,7 @@ specific to =iedit state=.
 an ~occurrence~.
 
 ***** In iedit-insert state
+
 | Key Binding | Description               |
 |-------------+---------------------------|
 | ~ESC~       | go back to =iedit state=  |
@@ -2767,6 +2776,7 @@ These commands automatically switch to =lisp state=.
 | ~SPC k y~   | copy expression                                                     |
 
 ***** Emacs lisp specific key bindings
+
 | Key Binding | Function                                   |
 |-------------+--------------------------------------------|
 | ~SPC m e $~ | go to end of line and evaluate last sexp   |
@@ -2776,7 +2786,6 @@ These commands automatically switch to =lisp state=.
 | ~SPC m e f~ | evaluate current defun                     |
 | ~SPC m e l~ | go to end of line and evaluate last sexp   |
 | ~SPC m e r~ | evaluate region                            |
-
 
 | Key Binding | Function                                           |
 |-------------+----------------------------------------------------|
@@ -2970,6 +2979,7 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 
 * Achievements
 ** Issues
+
 | Achievements              | Account      |
 |---------------------------+--------------|
 | [[https://github.com/syl20bnr/spacemacs/pull/100][100th issue (PR)]]          | [[https://github.com/danielwuz][danielwuz]]    |
@@ -2987,6 +2997,7 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | [[https://github.com/syl20bnr/spacemacs/pull/4000][4000th issue (issue)]]      | [[https://github.com/icymist][icymist]]      |
 
 ** Merged Pull Requests
+
 | Achievements        | Account        |
 |---------------------+----------------|
 | [[https://github.com/syl20bnr/spacemacs/pull/228][100th pull request]]  | [[https://github.com/bru][bru]]            |
@@ -2999,6 +3010,7 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | [[https://github.com/syl20bnr/spacemacs/pull/4089][2000th pull request]] | [[https://github.com/channingwalton][channingwalton]] |
 
 ** Stars, forks and watchers
+
 | Achievements      | Account         |
 |-------------------+-----------------|
 | 100th watcher     | [[https://github.com/adouzzy][adouzzy]]         |
@@ -3020,12 +3032,14 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | 6000th star!!!!!! | [[https://github.com/NJBS][NJBS]]            |
 
 ** Gitter chat
+
 | Achievements                    | Account     |
 |---------------------------------+-------------|
 | First joiner on the Gitter Chat | [[https://github.com/trishume][trishume]]    |
 | 1000th joiner                   | [[https://github.com/gabrielpoca][gabrielpoca]] |
 
 ** First times
+
 | Achievements                    | Account      |
 |---------------------------------+--------------|
 | [[https://github.com/syl20bnr/spacemacs/pull/19][First contribution]]              | [[https://github.com/trishume][trishume]]     |
@@ -3034,6 +3048,7 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | [[https://github.com/syl20bnr/spacemacs/commit/7b44a56263049482ed540ed6815a295633ffe9d1][First contributed banner]]        | [[https://github.com/chrisbarrett][chrisbarrett]] |
 
 ** Specials
+
 | Achievements                                    | Account      |
 |-------------------------------------------------+--------------|
 | The Gunner (18 PRs in a row)                    | [[https://github.com/ralesi][ralesi]]       |

@@ -37,7 +37,7 @@ This layer requires some [[http://opam.ocaml.org][opam]] packages:
 - =utop=
 - =ocp-indent=
 
-To install them, use the following command: 
+To install them, use the following command:
 
 #+BEGIN_SRC sh
   opam install merlin utop ocp-indent

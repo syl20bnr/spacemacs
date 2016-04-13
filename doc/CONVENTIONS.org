@@ -321,6 +321,7 @@ implement an auto-save of the buffer before executing the tests of
 buffer.
 
 *** Language specific
+
 | Key     | Description                                      |
 |---------+--------------------------------------------------|
 | ~m t m~ | execute the tests of the current module          |

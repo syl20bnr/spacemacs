@@ -74,6 +74,7 @@ are reproduced under the local leader.
 | ~SPC m h t~ | Get the type for the identifier under point.          |
 
 ** REPL
+
 | Key Binding | Description                                                                            |
 |-------------+----------------------------------------------------------------------------------------|
 | ~SPC m s b~ | Load the current buffer into Idris.                                                    |

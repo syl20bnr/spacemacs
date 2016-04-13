@@ -15,7 +15,7 @@
    - [[#org][Org]]
    - [[#org-with-evil-org-mode][Org with evil-org-mode]]
      - [[#tables][Tables]]
-     - [[#tree-][Tree ]]
+     - [[#tree][Tree]]
      - [[#element-insertion][Element insertion]]
      - [[#links][Links]]
      - [[#emphasis][Emphasis]]
@@ -184,7 +184,7 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC m t t o~ | Toggle the display of Row/Column numbers in tables                         |
 | ~SPC m t w~   | Wrap several fields in a column like a paragraph                           |
 
-*** Tree 
+*** Tree
 
 | Key Binding | Description           |
 |-------------+-----------------------|

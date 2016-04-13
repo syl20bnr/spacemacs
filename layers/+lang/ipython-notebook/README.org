@@ -5,8 +5,8 @@
  - [[#features][Features]]
  - [[#list-of-todos][List of TODOS]]
    - [[#maybe-itd-be-better-if-there-was-a-state-for-this][Maybe it'd be better if there was a state for this]]
-   - [[#make-more-keybinding-to-connect-to-a-python-buffer][Make more keybinding to =connect= to a python buffer.]]
-   - [[#deleting-visual-regions-dont-work-find-out-why][Deleting visual regions don't work, find out why.]]
+   - [[#make-more-keybinding-to-connect-to-a-python-buffer][Make more keybinding to =connect= to a python buffer]]
+   - [[#deleting-visual-regions-dont-work-find-out-why][Deleting visual regions don't work, find out why]]
  - [[#install][Install]]
    - [[#layer][Layer]]
    - [[#dependencies][Dependencies]]
@@ -35,20 +35,23 @@ lots of informative stuff.
 
 * List of TODOS
 This is a WIP, feel free to collaborate.
+
 ** TODO Maybe it'd be better if there was a state for this
-** TODO Make more keybinding to =connect= to a python buffer.
-** TODO Deleting visual regions don't work, find out why.
+** TODO Make more keybinding to =connect= to a python buffer
+** TODO Deleting visual regions don't work, find out why
 
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ipython-notebook= to the existing =dotspacemacs-configuration-layers= list
 in this file.
+
 ** Dependencies
 Install IPython > 3
 #+begin_src sh
   pip install ipython
 #+end_src
+
 ** What needs to be run
 Have an IPython notebook running
 #+begin_src sh
@@ -59,6 +62,7 @@ Have an IPython notebook running
 ** Open Notebook List
 This layer is lazy loaded so the transient-state will only work after you summon the
 command =ein:notebooklist-open= which is bound to ~SPC a i n~
+
 ** Key Bindings
 The key bindings can be used through a transient state or the usual evil-leader.
 
@@ -141,6 +145,7 @@ In traceback mode the following key bindings are defined:
 * Screenshots
 ** Light
 [[file:img/light.png]]
+
 ** Dark
 [[file:img/dark.png]]
 

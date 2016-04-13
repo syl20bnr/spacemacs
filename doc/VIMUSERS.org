@@ -129,7 +129,7 @@ are located under the ~SPC b~ prefix.
 | ~SPC b d~ or ~:bdelete~   | Kill current buffer.                                 |
 | ~SPC b k~                 | Search for a buffer to kill.                         |
 | ~SPC b K~                 | Kill all buffers except the current buffer.          |
-| ~SPC b .~                 | Buffer transient-state.                                  |
+| ~SPC b .~                 | Buffer transient-state.                              |
 
 **** Special buffers
 By default Emacs creates a lot of buffers that most people will never need, like
@@ -146,7 +146,7 @@ once. All window keybindings are under the ~SPC w~ prefix.
 | ~SPC w s~ or ~:split~  | Opens a horizontal split below.      |
 | ~SPC w h/j/k/l~        | Navigate among windows.              |
 | ~SPC w H/J/K/L~        | Move the current window.             |
-| ~SPC w .~              | Window transient-state.                  |
+| ~SPC w .~              | Window transient-state.              |
 
 ** Files
 All file commands in Spacemacs are available under the ~SPC f~ prefix.
@@ -448,7 +448,6 @@ that is loaded at startup. Here is an example:
                                           soothe
                                           gotham)))
 #+end_src
-
 
 All installed themes can be listed and chosen using the ~SPC T h~ keybinding.
 

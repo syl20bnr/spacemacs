@@ -20,7 +20,7 @@ you prefer that =Deft= recognize other extensions set an alternate
 configuration by adding the following in your config file:
 
 #+Begin_SRC emacs-lisp
-  (setq deft-extensions '("org" "md" "txt"))  
+  (setq deft-extensions '("org" "md" "txt"))
 #+END_SRC
 
 Just add or substitute your preferred extension.

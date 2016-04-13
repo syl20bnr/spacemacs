@@ -26,7 +26,7 @@ This layer adds experimental support for C# language using [[https://github.com/
 
 * Packages Included
 - [[https://github.com/OmniSharp/omnisharp-emacs][OmniSharp-emacs]]
-  
+
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =csharp= to the existing =dotspacemacs-configuration-layers= list in this
@@ -70,7 +70,7 @@ OmniSharp should now automatically load and start a server when you open a
   solutions.
 
 - Debugging is possible using [[https://github.com/mono/sdb][SDB]].
-  
+
 * Key Bindings
 ** Compilation
 

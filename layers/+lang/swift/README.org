@@ -28,7 +28,7 @@ First check that you are able to run this from the command line:
 
 On OS X:
 #+BEGIN_SRC sh
-  xcrun swift 
+  xcrun swift
 #+END_SRC
 
 Then to use this configuration layer, add it to your =~/.spacemacs=. You will
@@ -50,7 +50,7 @@ The universal prefix ~SPC u~ (~C-u~) may be used to modify command invocation.
 | ~SPC m s b~  | swift-mode-send-buffer |
 | ~SPC m s r~  | swift-mode-send-region |
 
-Notes: 
+Notes:
 1. ~swift-mode-run-repl~ will run or switch to an existing REPL.
 2. To edit the command invocation, prefix with ~SPC u~ (or ~C-u~).
 3. Emacs key bindings in use are the those set by the package.

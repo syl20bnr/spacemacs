@@ -17,7 +17,7 @@ This layer adds support for Emoji emoticons from [[http://www.emoji-cheat-sheet.
 - Display Emoji images in buffer
 - Insert one or several Emoji with an helm front-end
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]]
-  
+
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =emoji= to the existing =dotspacemacs-configuration-layers= list in this

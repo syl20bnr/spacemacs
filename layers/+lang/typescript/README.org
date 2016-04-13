@@ -10,7 +10,7 @@
    - [[#notes][Notes]]
  - [[#key-bindings][Key bindings]]
    - [[#typescript-major-mode][Typescript Major Mode]]
-   - [[#reference-major-mode--------------------------][Reference Major Mode                          ]]
+   - [[#reference-major-mode][Reference Major Mode]]
 
 * Description
 
@@ -32,9 +32,9 @@ This layer provides:
 ** Pre-requisites
 You will need =node.js v0.12.0= or greater
 
-If you want linting run:  =npm install -g typescript=  =npm install -g tslint=  
+If you want linting run:  =npm install -g typescript=  =npm install -g tslint=
 
-If you want formatting run:  =npm install -g typescript-formatter=  
+If you want formatting run:  =npm install -g typescript-formatter=
 
 For best results, make sure that the =auto-completion= (company) and =html= layers are enabled.
 
@@ -95,8 +95,7 @@ Currently tsserver doesn't pickup tsconfig.json file changes. You might need to 
 | ~SPC m r r~ | rename symbol                    |
 | ~SPC m s r~ | restart server                   |
 
-
-** Reference Major Mode                          
+** Reference Major Mode
 
 | Key Binding | Description             |
 |-------------+-------------------------|

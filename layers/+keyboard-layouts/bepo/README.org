@@ -80,7 +80,7 @@ lower/upper-case consistent.
 
 Some bepo keys are not used in traditional mapping, mainly because they are not
 on the =en-us= keyboard layout. They are used as aliases for other shortcuts:
-  
+
 - Map unused ~é~ key as an alias of ~w~, more useful in vim mode:
   - ~é → w~
   - ~É → W~

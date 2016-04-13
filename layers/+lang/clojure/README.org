@@ -36,10 +36,10 @@ This layer adds support for [[http://clojure.org][Clojure]] language using [[htt
 
 * Features
 - REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
-- Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]] 
+- Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]]
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
-  
+
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -84,7 +84,7 @@ Or set this variable when loading the configuration layer:
 *** Quick Start with lein
 - Install =lein= version 2.5.2 or newer (see http://leiningen.org/#install)
 - Create a file =~/.lein/profiles.clj= with the following content:
-  
+
 #+BEGIN_SRC clojure
   {:repl {:plugins [[cider/cider-nrepl "0.10.0-SNAPSHOT"]
                     [refactor-nrepl "2.0.0-SNAPSHOT"]]
@@ -100,7 +100,7 @@ Or set this variable when loading the configuration layer:
 More info regarding installation of nREPL middleware can be found here:
 - CIDER: [[https://github.com/clojure-emacs/cider#installation][cider_install]]
 - clj-refactor: [[https://github.com/clojure-emacs/refactor-nrepl][refactor-nrepl]]
-  
+
 * Key Bindings
 ** Working with clojure files (barfage, slurpage & more)
 Spacemacs comes with a special ~lisp-state~ for working with lisp code that
@@ -232,6 +232,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m r u w~ | unwind                      |
 
 *** Reformatting
+
 | Key Binding | Description             |
 |-------------+-------------------------|
 | ~SPC m f l~ | realign current form    |

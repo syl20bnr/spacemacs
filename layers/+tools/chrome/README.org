@@ -51,8 +51,8 @@ To change frame defaults (width, height, etc. use =edit-server-new-frame-alist=)
 
 If you want Emacs to switch focus to Chrome after done editing, you can utilize =edit-server-done-hook=.
 Emacs cannot control focus of windows for external apps, so you need to use some sort of command line window manager like =wmctrl=.
-The following example works on OS X:  
+The following example works on OS X:
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'edit-server-done-hook (lambda () (shell-command "open -a \"Google Chrome\""))) 
+  (add-hook 'edit-server-done-hook (lambda () (shell-command "open -a \"Google Chrome\"")))
 #+END_SRC

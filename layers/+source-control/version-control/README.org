@@ -59,11 +59,11 @@ one over the other:
 
 * Key Bindings
 
-| Key Binding | Description                  |
-|-------------+------------------------------|
-| ~SPC g .~   | version control transient-state  |
-| ~SPC T d~   | toggle diff margins          |
-| ~SPC T C-d~ | toggle diff margins globally |
+| Key Binding | Description                     |
+|-------------+---------------------------------|
+| ~SPC g .~   | version control transient-state |
+| ~SPC T d~   | toggle diff margins             |
+| ~SPC T C-d~ | toggle diff margins globally    |
 
 ** Version Control Transient-state
 

@@ -4,7 +4,7 @@
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#key-bindings][Key Bindings]]
-   - [[#compiling-][Compiling ]]
+   - [[#compiling][Compiling]]
    - [[#navigation][Navigation]]
    - [[#documentation][Documentation]]
    - [[#insertion][Insertion]]
@@ -34,7 +34,7 @@ For full Chicken support, the following commands should be run:
 
 * Key Bindings
 
-** Compiling 
+** Compiling
 
 | Key Binding | Description                |
 |-------------+----------------------------|
