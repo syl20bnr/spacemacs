@@ -193,7 +193,8 @@
    - [[#stars-forks-and-watchers][Stars, forks and watchers]]
    - [[#gitter-chat][Gitter chat]]
    - [[#first-times][First times]]
-   - [[#specials][Specials]]
+   - [[#special-mentions][Special Mentions]]
+   - [[#special-titles][Special Titles]]
  - [[#thank-you][Thank you]]
 
 * Core Pillars
@@ -3047,7 +3048,18 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | [[http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/][First blog article on Spacemacs]] | [[https://github.com/Wolfy87][Wolfy87]]      |
 | [[https://github.com/syl20bnr/spacemacs/commit/7b44a56263049482ed540ed6815a295633ffe9d1][First contributed banner]]        | [[https://github.com/chrisbarrett][chrisbarrett]] |
 
-** Specials
+** Special Mentions
+
+| Reason                       | Account      |
+|------------------------------+--------------|
+| Autumnal Cleanup 2015 ([[https://github.com/syl20bnr/spacemacs/wiki/Autumnal-Cleanup-2015][wiki]]) | [[https://github.com/StreakyCobra][StreakyCobra]] |
+| Test and debug tools         | [[https://github.com/justbur][justbur]]      |
+| Integration of Ivy           | [[https://github.com/justbur][justbur]]      |
+| Transient States             | [[https://github.com/justbur][justbur]]      |
+| Integration of Persp-mode    | [[https://github.com/CestDiego][CestDiego]]    |
+| Cleanest PR ([[https://github.com/syl20bnr/spacemacs/pull/5545][PR #5545]])       | [[https://github.com/JAremko][JAremko]]      |
+
+** Special Titles
 
 | Achievements                                    | Account      |
 |-------------------------------------------------+--------------|
@@ -3061,6 +3073,8 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | The Expert in Latin Language ([[https://github.com/syl20bnr/spacemacs/pull/4043][PR]])               | [[https://github.com/vijaykiran][vijaykiran]]   |
 | The Tiler ([[https://github.com/syl20bnr/spacemacs/pull/4068][eyebrowse integration]])               | [[https://github.com/bmag][bmag]]         |
 | The Geometer ([[https://github.com/TheBB/spaceline][spaceline]])                        | [[https://github.com/TheBB][TheBB]]        |
+| The Librarian (doc-fmt tool and space-doc mode) | [[https://github.com/JAremko][JAremko]]      |
+
 
 * Thank you
 [[Using configuration layers][Jokes aside]], thank you Richard for this great piece of software.
