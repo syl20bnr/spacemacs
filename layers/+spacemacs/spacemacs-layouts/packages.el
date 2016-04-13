@@ -12,11 +12,7 @@
 (setq spacemacs-layouts-packages
       '(eyebrowse
         helm
-        ;; temporary switch on a fork to fix
-        ;; https://github.com/syl20bnr/spacemacs/issues/4120
-        (persp-mode :location (recipe :fetcher github
-                                      :repo "syl20bnr/persp-mode.el"
-                                      :branch "fix-emacsclient-crash"))
+        persp-mode
         spaceline
         swiper))
 
