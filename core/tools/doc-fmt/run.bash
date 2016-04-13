@@ -9,7 +9,7 @@ fi
 #Use "sed" or "gsed" if avaliable.
 seder="sed"
 if hash gsed 2>/dev/null; then
-    $seder="gsed"
+    seder="gsed"
 fi
 
 if [ $1 = "test" ]
