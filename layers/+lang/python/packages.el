@@ -39,7 +39,9 @@
     (progn
       (setq anaconda-mode-installation-directory
             (concat spacemacs-cache-directory "anaconda-mode"))
-      (add-hook 'python-mode-hook 'anaconda-mode))
+      (add-hook 'python-mode-hook 'anaconda-mode)
+      (add-hook 'python-mode-hook
+                'spacemacs//disable-semantic-idle-summary-mode t))
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
@@ -360,10 +362,6 @@
 
 (defun python/post-init-semantic ()
   (add-hook 'python-mode-hook 'semantic-mode)
-
-  (when (configuration-layer/package-usedp 'anaconda-mode)
-    (add-hook 'python-mode-hook (lambda ()  (semantic-idle-summary-mode 0)) t))
-
 
   (defadvice semantic-python-get-system-include-path
       (around semantic-python-skip-error-advice activate)
