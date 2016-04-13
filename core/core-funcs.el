@@ -152,12 +152,13 @@ Supported properties:
 
 (defun spacemacs/view-org-file (file &optional anchor-text expand-scope)
   "Open org file and apply visual enchantments.
-`file' - org file to be opened.
-If `anchor-text'  is `nil' - run `re-search-forward' with  ^ (beginning-of-line).
-If `anchor-text' is a GitHub style anchor - find a corresponding header.
-If `anchor-text' isn't a GitHub style anchor - run `re-search-forward' with `anchor-text'.
-If `expand-scope' is `subtree' run `outline-show-subtree' at the matched line.
-If `expand-scope' is `all' `outline-show-all' at the matched line."
+FILE is the org file to be opened.
+If ANCHOR-TEXT  is `nil' then run `re-search-forward' with ^ (beginning-of-line).
+If ANCHOR-TEXT is a GitHub style anchor then find a corresponding header.
+If ANCHOR-TEXT isn't a GitHub style anchor then run `re-search-forward' with
+ANCHOR-TEXT.
+If EXPAND-SCOPE is `subtree' then run `outline-show-subtree' at the matched line.
+If EXPAND-SCOPE is `all' then run `outline-show-all' at the matched line."
   (interactive)
   (require 'space-doc)
   (find-file file)
