@@ -140,14 +140,29 @@ Supported properties:
        `((dolist (val ',def-key)
           (define-key (eval (car val)) (kbd (cdr val)) ',func)))))))
 
-(defun spacemacs/view-org-file (file &optional anchor-text expand-scope)
-  "Open the change log for the current version."
+(defun spacemacs/prettify-org-buffer ()
+  "Apply visual enchantments to the current buffer.
+The buffer's major mode should be `org-mode'."
   (interactive)
-  (require 'space-doc)
+  (if (not (derived-mode-p 'org-mode))
+      (user-error "org-mode should be enabled in the current buffer.")
+
+    (require 'space-doc)
+    (org-indent-mode)
+    (view-mode)
+    (space-doc-mode)))
+
+(defun spacemacs/view-org-file (file &optional anchor-text expand-scope)
+  "Open org file and apply visual enchantments.
+`file' - org file to be opened.
+If `anchor-text'  is `nil' - run `re-search-forward' with  ^ (beginning-of-line).
+If `anchor-text' is a GitHub style anchor - find a corresponding header.
+If `anchor-text' isn't a GitHub style anchor - run `re-search-forward' with `anchor-text'.
+If `expand-scope' is `subtree' run `outline-show-subtree' at the matched line.
+If `expand-scope' is `all' `outline-show-all' at the matched line."
+  (interactive)
   (find-file file)
-  (org-indent-mode)
-  (view-mode)
-  (space-doc-mode)
+  (spacemacs/prettify-org-buffer)
   (goto-char (point-min))
   (when anchor-text
     ;; If `anchor-text' is GitHub style link.
