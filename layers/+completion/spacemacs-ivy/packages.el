@@ -129,7 +129,7 @@ that directory."
             (or initial-directory
                 (read-directory-name "Start from directory: ")))
       (ivy-read
-       (concat "%-5d "
+       (concat ivy-count-format
                (format "%s from [%s]: "
                        tool
                        (if (< (length counsel--git-grep-dir)
