@@ -1528,10 +1528,11 @@ Navigation key bindings in =help-mode=:
 
 Reporting an issue:
 
-| Key Binding     | Description                                                                          |
-|-----------------+--------------------------------------------------------------------------------------|
-| ~SPC h I~       | Open a page for creating a new Spacemacs issue on GitHub with information pre-filled |
-| ~SPC u SPC h I~ | Open a page for creating a new Spacemacs issue on GitHub with information pre-filled |
+| Key Binding     | Description                                                                              |
+|-----------------+------------------------------------------------------------------------------------------|
+| ~SPC h I~       | Open Spacemacs GitHub issue page with pre-filled information                             |
+| ~SPC u SPC h I~ | Open Spacemacs GitHub issue page with pre-filled information - include last pressed keys |
+
 
 /Note:/ If these two bindings are used with the =*Backtrace*= buffer open, the
 backtrace is automatically included
