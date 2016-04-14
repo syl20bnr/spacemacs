@@ -492,7 +492,7 @@
                projectile-find-dir
                projectile-find-file
                projectile-find-tag
-               projectile-find-test-file
+               projectile-test-project
                projectile-grep
                projectile-invalidate-cache
                projectile-kill-buffers
@@ -541,7 +541,7 @@
         "pk" 'projectile-kill-buffers
         "po" 'projectile-multi-occur
         "pR" 'projectile-replace
-        "pT" 'projectile-find-test-file
+        "pT" 'projectile-test-project
         "py" 'projectile-find-tag))
     :config
     (progn
