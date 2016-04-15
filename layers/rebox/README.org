@@ -1,0 +1,374 @@
+#+TITLE: README for rebox layer
+#+AUTHOR: Christian E. Hopps
+#+EMAIL: chopps@gmail.com
+#+STARTUP: indent
+
+
+#+TITLE: Rebox layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Installation][Installation]]
+ - [[Commands][Commands]]
+   - [[spacemacs bindings][spacemacs bindings]]
+   - [[rebox-minor-mode bindings][rebox-minor-mode bindings]]
+ - [[Configuration][Configuration]]
+   - [[Example configuration][Example configuration]]
+   - [[Style Templates][Style Templates]]
+     - [[Standard packaged templates][Standard packaged templates]]
+       - [[Leader Comment Character Templates (lisp, python, perl, ...)][Leader Comment Character Templates (lisp, python, perl, ...)]]
+       - [[Text Mode (config required)][Text Mode (config required)]]
+       - [[C Mode (disabled due to bug)][C Mode (disabled due to bug)]]
+     - [[Templates added by layer][Templates added by layer]]
+ - [[Rebox Package Authors][Rebox Package Authors]]
+
+* Installation
+* Commands
+** spacemacs bindings
+
+| Keybinding | Command                 |
+|------------+-------------------------|
+| SPC c b    | rebox-dwim              |
+| SPC c B    | rebox-dwim-no-fill      |
+|------------+-------------------------|
+
+** rebox-minor-mode bindings
+
+|----------+-------------------------|
+| S-return | rebox-indent-new-line   |
+| M-q      | rebox-dwim              |
+| M-Q      | rebox-cycle             |
+| C-a      | rebox-beginning-of-line |
+| C-e      | rebox-end-of-line       |
+| C-k      | rebox-kill-line         |
+| M-w      | rebox-kill-ring-save    |
+| C-y      | rebox-yank              |
+| M-y      | rebox-yank-pop          |
+| M-c      | rebox-center            |
+| SPC      | rebox-space             |
+| DEL      | rebox-backspace         |
+
+* Configuration
+
+Rebox has some basic templates setup, so that one can simply define a loop to
+use to loop through the styles. One can also configure ones own templates. The
+description of how to do this is beyond the scope of this README.
+
+Features of rebox mode:
+- Auto-wrap correctly in comments
+- Auto-fill correctly in comments
+- Boxes auto-adapt as text is inserted or deleted.
+- ~S-return~ (shift-return) to continue a comment on the next line
+- Kill/yank within the box
+- Apparently works well with ancient ~filladpt-mode~ (see authors video)
+
+A nice video demonstration by the author can be found [[https://www.youtube.com/watch?v=53YeTdVtDkU][here]].
+
+** Example configuration
+
+The only real configuration to make is to possibly override the default set of
+box styles that you wish rebox to cycle through with repeated ~rebox-dwim~
+invocations. The example below uses the some styles added by the spacemacs
+layer.
+
+One could also set different styles for different major modes by using mode
+hooks.
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs/user-init ()
+    (setq rebox-style-loop '(71 72 73))
+    )
+#+END_SRC
+
+** Style Templates
+
+*** Standard packaged templates
+
+**** Leader Comment Character Templates (lisp, python, perl, ...)
+
+These templates work for any single line (non-recursive) comment style typical
+of most languages, configuration files, shell scripts, etc. A "#" is used here
+for illustration; however, it will work equally well if the comment character is
+different (e.g., lisp's ~;~ comment character)
+
+#+begin_src sh
+  #box-style 10
+
+  # box style 11
+
+  # box style 12 #
+  # ------------ #
+
+  # ------------ #
+  # box style 13 #
+  # ------------ #
+
+  # box style 14 #
+  ################
+
+  ################
+  # box style 15 #
+  ################
+
+  #,----
+  #| box style 16
+  #`----
+
+  #,-------------
+  #| box style 17
+  #`-------------
+
+  ##box style 20
+
+  ## box style 21
+
+  ## box style 22 ##
+  ## ------------ ##
+
+  ## ------------ ##
+  ## box style 23 ##
+  ## ------------ ##
+
+  ## box style 24 ##
+  ##################
+
+  ##################
+  ## box style 25 ##
+  ##################
+
+  ##,----
+  ##| box style 26
+  ##`----
+
+  ##,-------------
+  ##| box style 27
+  ##`-------------
+
+  ###box style 30
+
+#+end_src
+
+... and so on repeating up to 5x which, you guessed it has 5 leading (and possibly trailing) comment characters
+
+**** Text Mode (config required)
+As text mode usage has no comment character and thus could surprise users not
+expecting it (e.g., when they enter M-q to fill a paragraph) rebox mode is not
+enabled by default. To enable you need to add the following to your dotfile
+config:
+
+#+begin_src emacs-lisp
+  (add-hook 'text-mode-hook 'rebox-mode)
+#+end_src
+
+#+begin_src text
+
+  box style 111
+
+  | box style 112 |
+  +---------------+
+
+  +---------------+
+  | box style 113 |
+  +---------------+
+
+  | box style 114 |
+  *===============*
+
+  *===============*
+  | box style 115 |
+  *===============*
+
+  -------------
+  box style 116
+  -------------
+
+  | box style 121 |
+
+  | box style 122 |
+  `---------------'
+
+  .---------------.
+  | box style 123 |
+  `---------------'
+
+  | box style 124 |
+  \===============/
+
+  /===============\
+  | box style 125 |
+  \===============/
+
+  ,----
+  | box style 126
+  `----
+
+  ,--------------
+  | box style 127
+  `--------------
+
+  ,----
+  | box style 136
+  `----
+
+  ,--------------
+  | box style 137
+  `--------------
+
+  | box style 141
+
+  ** box style 142 *
+  ******************
+
+  ******************
+  ** box style 143 *
+  ******************
+
+  X box style 144 X
+  XXXXXXXXXXXXXXXXX
+
+  XXXXXXXXXXXXXXXXX
+  X box style 145 X
+  XXXXXXXXXXXXXXXXX
+#+end_src
+
+**** C Mode (disabled due to bug)
+*Note* this mode is disabled for now due to bugs in rebox.
+
+#+begin_src c
+  /* box style 111 */
+
+  /* box style 112 */
+  /* ------------- */
+
+  /* ------------- */
+  /* box style 113 */
+  /* ------------- */
+
+  /* box style 114 */
+  /* ============= */
+
+  /* ============= */
+  /* box style 115 */
+  /* ============= */
+
+  /*
+     box style 221
+   */
+
+  /*          .
+   | box style 222 |
+   `--------------*/
+
+  /*--------------.
+  | box style 223 |
+  `--------------*/
+
+  /*              \
+  | box style 224 |
+  \==============*/
+
+  /*==============\
+  | box style 225 |
+  \==============*/
+
+  /*
+   | box style 231
+   */
+
+  /*
+   | box style 232 |
+   *---------------*/
+
+  /*---------------*
+   | box style 233 |
+   *---------------*/
+
+  /* box style 234 */
+  /*---------------*/
+
+  /*---------------*/
+  /* box style 235 */
+  /*---------------*/
+
+  /*
+   * box style 241
+   */
+
+  /*               *
+   * box style 242 *
+   *****************/
+
+  /*****************
+   * box style 243 *
+   *****************/
+
+  /* box style 244 */
+  /*****************/
+
+  /*****************/
+  /* box style 245 */
+  /*****************/
+
+  /****************//**
+   * box style 246
+   ********************/
+#+end_src
+
+
+*** Templates added by layer
+#+begin_src sh
+
+  #
+  # box style 71
+  #
+
+  # ------------
+  # box style 72
+  # ------------
+
+  # ============
+  # box style 73
+  # ============
+
+  #--------------
+  # box style 74
+  #--------------
+
+  #--------------+
+  # box style 75
+  #--------------+
+
+  #==============
+  # box style 76
+  #==============
+
+  ##
+  ## box style 81
+  ##
+
+  ## ------------
+  ## box style 82
+  ## ------------
+
+  ## ============
+  ## box style 83
+  ## ============
+
+  ##--------------
+  ## box style 84
+  ##--------------
+
+  ##--------------+
+  ## box style 85
+  ##--------------+
+
+  ##==============
+  ## box style 86
+  ##==============
+
+#+end_src
+* Rebox Package Authors
+Thanks go to the author of the rebox package Le Wang, and François Pinard, the
+author of original pymacs based package.
+
+URL: https://github.com/lewang/rebox2
