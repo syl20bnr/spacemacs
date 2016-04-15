@@ -1,7 +1,6 @@
 ;;; packages.el --- PHP Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -44,8 +43,9 @@
 (defun php/post-init-ggtags ()
   (add-hook 'php-mode-hook 'ggtags-mode))
 
-(defun php/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'php-mode))
+(when (configuration-layer/layer-usedp 'spacemacs-helm)
+  (defun php/post-init-helm-gtags ()
+    (spacemacs/helm-gtags-define-keys-for-mode 'php-mode)))
 
 (defun php/init-php-auto-yasnippets ()
   (use-package php-auto-yasnippets

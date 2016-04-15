@@ -1,7 +1,6 @@
 ;;; funcs.el --- Spacemacs Base Layer functions File
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -56,20 +55,18 @@
   (let ((message-log-max nil))
     (apply 'message msg args)))
 
-(defun spacemacs/system-is-mac ()
-  (string-equal system-type "darwin"))
-(defun spacemacs/system-is-linux ()
-  (string-equal system-type "gnu/linux"))
-(defun spacemacs/system-is-mswindows ()
-  (string-equal system-type "windows-nt"))
-
 (defun spacemacs/jump-in-buffer ()
   (interactive)
-  (cond
-   ((eq major-mode 'org-mode)
-    (call-interactively 'helm-org-in-buffer-headings))
-   (t
-    (call-interactively 'helm-semantic-or-imenu))))
+  (call-interactively
+   (cond
+    ((and (configuration-layer/layer-usedp 'spacemacs-helm)
+          (eq major-mode 'org-mode))
+     'helm-org-in-buffer-headings)
+    ((configuration-layer/layer-usedp 'spacemacs-helm)
+     'helm-semantic-or-imenu)
+    ((configuration-layer/layer-usedp 'spacemacs-ivy)
+     'counsel-imenu)
+    (t 'imenu))))
 
 (defun spacemacs/split-and-new-line ()
   "Split a quoted string or s-expression and insert a new line with
@@ -111,21 +108,22 @@ the current state and point position."
   (let ((counter (or count 1)))
     (while (> counter 0)
       (join-line 1)
-      (sp-newline)
+      (newline-and-indent)
       (setq counter (1- counter)))))
 
 ;; from Prelude
 ;; TODO: dispatch these in the layers
 (defvar spacemacs-indent-sensitive-modes
   '(coffee-mode
-    python-mode
-    slim-mode
     haml-mode
-    yaml-mode
+    haskell-mode
+    slim-mode
     makefile-mode
+    makefile-bsdmake-mode
     makefile-gmake-mode
     makefile-imake-mode
-    makefile-bsdmake-mode)
+    python-mode
+    yaml-mode)
   "Modes for which auto-indenting is suppressed.")
 
 (defcustom spacemacs-yank-indent-threshold 1000
@@ -161,7 +159,7 @@ the current state and point position."
   "Replace the preceding sexp with its value."
   (interactive)
   (backward-kill-sexp)
-  (condition-case nil
+  (condition-case-unless-debug nil
       (prin1 (eval (read (current-kill 0)))
              (current-buffer))
     (error (message "Invalid expression")
@@ -172,38 +170,30 @@ the current state and point position."
   "Maximize buffer"
   (interactive)
   (if (and (= 1 (length (window-list)))
-           (assoc'_ register-alist))
-      (jump-to-register '_)
+           (assoc ?_ register-alist))
+      (jump-to-register ?_)
     (progn
-      (window-configuration-to-register '_)
+      (window-configuration-to-register ?_)
       (delete-other-windows))))
 
-;; A small minor mode to use a big fringe
-;; from http://bzg.fr/emacs-strip-tease.html
-(defvar bzg-big-fringe-mode nil)
-(define-minor-mode bzg-big-fringe-mode
+;; A small minor mode to use a big fringe adapted from
+;; http://bzg.fr/emacs-strip-tease.html
+(define-minor-mode spacemacs-centered-buffer-mode
   "Minor mode to use big fringe in the current buffer."
-  :init-value nil
   :global t
-  :variable bzg-big-fringe-mode
+  :init-value nil
   :group 'editing-basics
-  (if (not bzg-big-fringe-mode)
-      (set-fringe-style nil)
-    (set-fringe-mode
-     (/ (- (frame-pixel-width)
-           (* 100 (frame-char-width)))
-        2))))
-
-(defun spacemacs/toggle-maximize-centered-buffer ()
-  "Maximize buffer and center it on the screen"
-  (interactive)
-  (if (= 1 (length (window-list)))
-      (progn  (bzg-big-fringe-mode 0)
-              (jump-to-register '_))
-    (progn
-      (set-register '_ (list (current-window-configuration)))
-      (delete-other-windows)
-      (bzg-big-fringe-mode 1))))
+  (if spacemacs-centered-buffer-mode
+      (progn
+        (window-configuration-to-register ?_)
+        (delete-other-windows)
+        (set-fringe-mode
+         (/ (- (frame-pixel-width)
+               (* 100 (frame-char-width)))
+            2)))
+    (set-fringe-style nil)
+    (when (assoc ?_ register-alist)
+      (jump-to-register ?_))))
 
 (defun spacemacs/useless-buffer-p (buffer)
   "Determines if a buffer is useful."
@@ -293,6 +283,9 @@ argument takes the kindows rotate backwards."
                (rename-buffer new-name)
                (set-visited-file-name new-name)
                (set-buffer-modified-p nil)
+               (when (fboundp 'recentf-add-file)
+                   (recentf-add-file new-name)
+                   (recentf-remove-if-non-kept filename))
                (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
 
 ;; from magnars
@@ -312,18 +305,37 @@ argument takes the kindows rotate backwards."
 ;; from magnars
 (defun spacemacs/sudo-edit (&optional arg)
   (interactive "p")
-  (if (or arg (not buffer-file-name))
-      (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+  (let ((fname (if (or arg (not buffer-file-name)) (read-file-name "File: ") buffer-file-name)))
+    (find-file
+     (cond ((string-match-p "^/ssh:" fname)
+            (with-temp-buffer
+              (insert fname)
+              (search-backward ":")
+              (let ((last-match-end nil)
+                    (last-ssh-hostname nil))
+                (while (string-match "@\\\([^:|]+\\\)" fname last-match-end)
+                  (setq last-ssh-hostname (or (match-string 1 fname) last-ssh-hostname))
+                  (setq last-match-end (match-end 0)))
+                (insert (format "|sudo:%s" (or last-ssh-hostname "localhost"))))
+              (buffer-string)))
+           (t (concat "/sudo:root@localhost:" fname))))))
+
+;; check when opening large files - literal file open
+(defun spacemacs/check-large-file ()
+  (let ((size (nth 7 (file-attributes (buffer-file-name)))))
+    (when (and size (> size (* 1024 1024 dotspacemacs-large-file-size))
+               (y-or-n-p "This is a large file, open literally to avoid performance issues?"))
+      (setq buffer-read-only t)
+      (buffer-disable-undo)
+      (fundamental-mode))))
 
 ;; found at http://emacswiki.org/emacs/KillingBuffers
 (defun spacemacs/kill-other-buffers ()
   "Kill all other buffers."
   (interactive)
-  (let (name (buffer-name))
-    (when (yes-or-no-p (format "Killing all buffers except \"%s\" ? " buffer-file-name))
-      (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
-      (message "Buffers deleted!"))))
+  (when (yes-or-no-p (format "Killing all buffers except \"%s\"? " (buffer-name)))
+    (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
+    (message "Buffers deleted!")))
 
 ;; from http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
 (defun spacemacs/toggle-current-window-dedication ()
@@ -338,13 +350,12 @@ argument takes the kindows rotate backwards."
 
 ;; http://camdez.com/blog/2013/11/14/emacs-show-buffer-file-name/
 (defun spacemacs/show-and-copy-buffer-filename ()
-  "Show the full path to the current file in the minibuffer."
+  "Show and copy the full path to the current file in the minibuffer."
   (interactive)
-  (let ((file-name (buffer-file-name)))
+  ;; list-buffers-directory is the variable set in dired buffers
+  (let ((file-name (or (buffer-file-name) list-buffers-directory)))
     (if file-name
-        (progn
-          (message file-name)
-          (kill-new file-name))
+        (message (kill-new file-name))
       (error "Buffer not visiting a file"))))
 
 ;; adapted from bozhidar
@@ -385,7 +396,6 @@ argument takes the kindows rotate backwards."
 (defun spacemacs/layout-triple-columns ()
   " Set the layout to triple columns. "
   (interactive)
-  (golden-ratio-mode 0)
   (delete-other-windows)
   (dotimes (i 2) (split-window-right))
   (balance-windows))
@@ -393,14 +403,18 @@ argument takes the kindows rotate backwards."
 (defun spacemacs/layout-double-columns ()
   " Set the layout to double columns. "
   (interactive)
-  (golden-ratio-mode 1)
   (delete-other-windows)
   (split-window-right))
 
-(defun spacemacs/home ()
-  "Go to home Spacemacs buffer"
+(defalias 'spacemacs/home 'spacemacs-buffer/goto-buffer
+  "Go to home Spacemacs buffer")
+
+(defun spacemacs/home-delete-other-windows ()
+  "Open home Spacemacs buffer and delete other windows.
+Useful for making the home buffer the only visible buffer in the frame."
   (interactive)
-  (switch-to-buffer "*spacemacs*"))
+  (spacemacs/home)
+  (delete-other-windows))
 
 (defun spacemacs/insert-line-above-no-indent (count)
   (interactive "p")
@@ -486,7 +500,7 @@ dotspacemacs-persistent-server to be t"
 (defun spacemacs/frame-killer ()
   "Kill server buffer and hide the main Emacs window"
   (interactive)
-  (condition-case nil
+  (condition-case-unless-debug nil
       (delete-frame nil 1)
       (error
        (make-frame-invisible nil 1))))
@@ -565,13 +579,6 @@ current window."
       (switch-to-buffer (car (evil-alternate-buffer)))
     (switch-to-buffer (other-buffer (current-buffer) t))))
 
-(defun spacemacs/highlight-TODO-words ()
-  "Highlight keywords for  "
-  (interactive)
-  (font-lock-add-keywords
-   nil '(("\\<\\(\\(FIX\\(ME\\)?\\|TODO\\|OPTIMIZE\\|HACK\\|REFACTOR\\):\\)"
-          1 font-lock-warning-face t))))
-
 (defun current-line ()
   "Return the line at point as a string."
   (buffer-substring (line-beginning-position) (line-end-position)))
@@ -594,7 +601,8 @@ current window."
   "Dispatch to flycheck or standard emacs error."
   (interactive "P")
   (if (and (boundp 'flycheck-mode)
-           (symbol-value flycheck-mode))
+           (symbol-value flycheck-mode)
+           (not (get-buffer-window "*compilation*")))
       (call-interactively 'flycheck-next-error)
     (call-interactively 'next-error)))
 
@@ -602,7 +610,8 @@ current window."
   "Dispatch to flycheck or standard emacs error."
   (interactive "P")
   (if (and (boundp 'flycheck-mode)
-           (symbol-value flycheck-mode))
+           (symbol-value flycheck-mode)
+           (not (get-buffer-window "*compilation*")))
       (call-interactively 'flycheck-previous-error)
     (call-interactively 'previous-error)))
 
@@ -629,31 +638,6 @@ current window."
   (delete-region (point-min) (point-max))
   (clipboard-yank)
   (deactivate-mark))
-
-;; hide mode line
-;; from http://bzg.fr/emacs-hide-mode-line.html
-(defvar-local hidden-mode-line-mode nil)
-(define-minor-mode hidden-mode-line-mode
-  "Minor mode to hide the mode-line in the current buffer."
-  :init-value nil
-  :global t
-  :variable hidden-mode-line-mode
-  :group 'editing-basics
-  (if hidden-mode-line-mode
-      (setq hide-mode-line mode-line-format
-            mode-line-format nil)
-    (setq mode-line-format hide-mode-line
-          hide-mode-line nil))
-  (force-mode-line-update)
-  ;; Apparently force-mode-line-update is not always enough to
-  ;; redisplay the mode-line
-  (redraw-display)
-  (when (and (called-interactively-p 'interactive)
-             hidden-mode-line-mode)
-    (run-with-idle-timer
-     0 nil 'message
-     (concat "Hidden Mode Line Mode enabled.  "
-             "Use M-x hidden-mode-line-mode to make the mode-line appear."))))
 
 ;; BEGIN align functions
 
@@ -699,17 +683,9 @@ the right."
 (spacemacs|create-align-repeat-x "bar" "|")
 (spacemacs|create-align-repeat-x "left-paren" "(")
 (spacemacs|create-align-repeat-x "right-paren" ")" t)
+(spacemacs|create-align-repeat-x "backslash" "\\\\")
 
 ;; END align functions
-
-(defun spacemacs/write-file ()
-  "Write the file if visiting a file.
-   Otherwise ask for new filename."
-  (interactive)
-  (if (buffer-file-name)
-      (call-interactively 'evil-write)
-    (call-interactively 'write-file)))
-
 
 (defun spacemacs/dos2unix ()
   "Converts the current buffer to UNIX file format."
@@ -856,16 +832,6 @@ Compare them on count first,and in case of tie sort them alphabetically."
         (message "No words.")))
     words))
 
-;; byte compile elisp files
-(defun byte-compile-current-buffer ()
-  "`byte-compile' current buffer if it's emacs-lisp-mode and compiled file exists."
-  (interactive)
-  (when (and (eq major-mode 'emacs-lisp-mode)
-             (file-exists-p (byte-compile-dest-file buffer-file-name)))
-    (byte-compile-file buffer-file-name)))
-
-(add-hook 'after-save-hook 'byte-compile-current-buffer)
-
 ;; indent on paste
 ;; from Prelude: https://github.com/bbatsov/prelude
 (defun spacemacs/yank-advised-indent-function (beg end)
@@ -909,4 +875,23 @@ is nonempty."
 (defun spacemacs/switch-to-scratch-buffer ()
   "Switch to the `*scratch*' buffer. Create it first if needed."
   (interactive)
-  (switch-to-buffer (get-buffer-create "*scratch*")))
+  (let ((exists (get-buffer "*scratch*")))
+    (switch-to-buffer (get-buffer-create "*scratch*"))
+    (when (and (not exists)
+               (not (eq major-mode dotspacemacs-scratch-mode))
+               (fboundp dotspacemacs-scratch-mode))
+      (funcall dotspacemacs-scratch-mode))))
+
+;; http://stackoverflow.com/questions/11847547/emacs-regexp-count-occurrences
+(defun how-many-str (regexp str)
+  (loop with start = 0
+        for count from 0
+        while (string-match regexp str start)
+        do (setq start (match-end 0))
+        finally return count))
+
+(defun spacemacs/close-compilation-window ()
+  "Close the window containing the '*compilation*' buffer."
+  (interactive)
+  (delete-windows-on "*compilation*"))
+

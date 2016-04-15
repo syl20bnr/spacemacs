@@ -1,7 +1,6 @@
-;;; packages.el --- Vagrant Layer extensions File for Spacemacs
+;;; packages.el --- Vagrant Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2015 Brian Hicks & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Brian Hicks <brian@brianthicks.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -18,12 +17,13 @@
     :init
     (progn
       (spacemacs/declare-prefix "V" "vagrant")
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "VD" 'vagrant-destroy
         "Ve" 'vagrant-edit
         "VH" 'vagrant-halt
         "Vp" 'vagrant-provision
         "Vr" 'vagrant-resume
+        "VR" 'vagrant-reload
         "Vs" 'vagrant-status
         "VS" 'vagrant-suspend
         "VV" 'vagrant-up))))
@@ -37,6 +37,6 @@
       (defadvice vagrant-tramp-term (before spacemacs//load-vagrant activate)
         "Lazy load vagrant-tramp."
         (unless spacemacs--vagrant-tramp-loaded
-          (vagrant-tramp-enable)
+          (vagrant-tramp-add-method)
           (setq spacemacs--vagrant-tramp-loaded t)))
-      (evil-leader/set-key "Vt" 'vagrant-tramp-term))))
+      (spacemacs/set-leader-keys "Vt" 'vagrant-tramp-term))))

@@ -1,0 +1,87 @@
+#+TITLE: Theming layer
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#usage][Usage]]
+ - [[#attributes][Attributes]]
+ - [[#faces][Faces]]
+ - [[#headers][Headers]]
+
+* Description
+This layer allows for a simple way of modifying themes.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =theming= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Usage
+To use this layer, set the value of =theming-modifications=. It should be a list
+of the following form:
+
+#+begin_src emacs-lisp
+  ((theme1 (face1 attributes...)
+           (face2 attributes...)
+           ...)
+   (theme2 (face1 attributes...)
+           (face2 attributes...)
+           ...)
+   ...)
+#+end_src
+
+This will apply the given attributes to the relevant faces whenever the
+appropriate theme is loaded. To update without changing the theme, use ~SPC SPC
+spacemacs/update-theme~.
+
+* Attributes
+See [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html#Face-Attributes][face attributes]] in the Emacs manual for more information. Some of the more
+common attributes you might want to tweak are the following:
+
+- =:inherit= :: the name of a face to inherit attributes from
+- =:foreground= and =:background= :: Hexadecimal color strings
+- =:height= :: typically a floating point number (1.0 gives the same height as
+     the underlying face)
+- =:weight= :: typically =bold= or =normal=
+- =:underline= :: typically =nil= or =t=
+- =:slant= :: typically =oblique=, =italic= or =normal=
+- =:box= :: set to =t= to draw a box around characters in the foreground
+
+* Faces
+To see a list over all loaded faces and what they look like, use ~SPC SPC
+list-faces-display~. You can also use ~SPC h d c~ (describe character) on a
+character to see its face.
+
+Some of the most common faces to modify are the syntactical elements:
+- =font-lock-builtin-face=
+- =font-lock-comment-delimiter-face=
+- =font-lock-comment-face=
+- =font-lock-constant-face=
+- =font-lock-doc-face=
+- =font-lock-function-name-face=
+- =font-lock-keyword-face=
+- =font-lock-preprocessor-face=
+- =font-lock-string-face=
+- =font-lock-type-face=
+- =font-lock-variable-name-face=
+- =font-lock-warning-face=
+
+As well as the mode-line faces for the active and inactive windows:
+- =powerline-active1=
+- =powerline-active2=
+- =powerline-inactive1=
+- =powerline-inactive2=
+- =mode-line=
+- =mode-line-inactive=
+
+* Headers
+This layer includes three additional layer variables for tweaking headings.
+Allowed values are a list of themes in which the given effect should happen, or
+the symbol =all= to apply it on all themes.
+
+- =theming-headings-inherit-from-default= :: inherits all headings from the
+     default face to avoid non-monospaced fonts
+- =theming-headings-same-size= :: sets the =:height= attribute to one on all
+     headings to give them the same size as the rest of the text
+- =theming-headings-bold= :: sets the =:weight= attribute to bold on all
+     headings

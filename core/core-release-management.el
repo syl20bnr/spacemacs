@@ -1,7 +1,6 @@
 ;;; core-spacemacs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -18,6 +17,8 @@
 (defconst spacemacs-checkversion-branch "master"
   "Name of the branch used to check for new version.")
 
+(defvar dotspacemacs-check-for-update)
+(defvar spacemacs-version)
 ;; new version variables
 (defvar spacemacs-new-version nil
   "If non-nil a new Spacemacs version is available.")
@@ -40,44 +41,53 @@ specified version.
 It is not possible to switch version when you are on `develop' branch,
 users on `develop' branch must manually pull last commits instead."
   (interactive)
-  (let ((branch (spacemacs/git-get-current-branch)))
-    (if (string-equal "develop" branch)
-        (message (concat "Cannot switch version because you are on develop.\n"
-                         "You have to manually `pull --rebase' the latest commits."))
-      (unless version
-        (let ((last-version (spacemacs/get-last-version)))
-          (setq version (read-string
-                         (format "Version (default %s [latest]): " last-version)
-                         nil nil last-version))))
-      (when (and
-             (or (string-equal "master" branch)
-                 (yes-or-no-p (format (concat "You are not on master, are you "
-                                              "sure that you want to switch to "
-                                              "version %s ? ") version)))
-             (or (not (string-equal version spacemacs-version))
-                 (yes-or-no-p (format (concat "You are currently on the latest "
-                                              "version. This operation will "
-                                              "perform a hard reset. Continue? ")))))
-        (let ((tag (concat "v" version)))
-          (if (spacemacs/git-hard-reset-to-tag tag)
-              (progn
-                (setq spacemacs-version version)
-                (message "Succesfully switched to version %s" version))
-            (message "An error occurred while switching to version %s"
-                     version)))))))
+  (let ((branch (spacemacs/git-get-current-branch))
+        (dirty (spacemacs/git-working-directory-dirty)))
+    (unless version
+      (message "Getting version information...")
+      (let ((last-version (spacemacs/get-last-version)))
+        (setq version (read-string
+                       (format "Version (default %s [latest]): " last-version)
+                       nil nil last-version))))
+    (cond ((string-equal "develop" branch)
+           (message (concat "Cannot switch version because you are on develop.\n"
+                            "You have to manually `pull --rebase' the latest commits.")))
+          (dirty
+           (message "Your Emacs directory is not clean.\ngit status:\n%s" dirty))
+          ((string-equal version spacemacs-version)
+           (message "You are already on the latest version."))
+          ((or (string-equal "master" branch)
+               (yes-or-no-p
+                (format (concat "You are not on master. This command will switch branches.\n"
+                                "Are you sure that you want to switch to version %s ? ")
+                        version)))
+           (let ((tag (concat "v" version)))
+             (if (spacemacs/git-hard-reset-to-tag tag)
+                 (progn
+                   (setq spacemacs-version version)
+                   (message "Succesfully switched to version %s" version))
+               (message "An error occurred while switching to version %s"
+                        version))))
+          (t
+           (message "Update aborted.")))))
 
 (defun spacemacs/check-for-new-version (&optional interval)
   "Periodicly check for new for new Spacemacs version.
 Update `spacemacs-new-version' variable if any new version has been
 found."
-  (if (string-equal "develop" (spacemacs/git-get-current-branch))
-      (message "Skipping check for new version because you are on develop.")
+  (cond
+   ((not dotspacemacs-check-for-update)
+    (message "Skipping check for new version (reason: dotfile)"))
+   ((string-equal "develop" (spacemacs/git-get-current-branch))
+    (message "Skipping check for new version (reason: develop branch)"))
+   (t
     (message "Start checking for new version...")
     (async-start
-     (lambda ()
-       (load-file (concat user-emacs-directory "core/core-load-paths.el"))
-       (require 'core-spacemacs)
-       (spacemacs/get-last-version))
+     `(lambda ()
+        ,(async-inject-variables "\\`user-emacs-directory\\'")
+        (load-file (concat user-emacs-directory "core/core-load-paths.el"))
+        (require 'core-spacemacs)
+        (spacemacs/get-last-version))
      (lambda (result)
        (if result
            (if (or (version< result spacemacs-version)
@@ -91,7 +101,7 @@ found."
     (when interval
       (setq spacemacs-version-check-timer
             (run-at-time t (timer-duration interval)
-                         'spacemacs/check-for-new-version)))))
+                         'spacemacs/check-for-new-version))))))
 
 (defun spacemacs/get-last-version ()
   "Return the last tagged version."
@@ -198,7 +208,7 @@ version and the NEW version."
       (with-current-buffer proc-buffer
         (prog1
             (when (buffer-string)
-                (end-of-buffer)
+                (goto-char (point-max))
                 (forward-line -1)
                 (replace-regexp-in-string
                  "\n$" ""
@@ -248,6 +258,21 @@ Returns nil if an error occurred."
                                  (line-end-position))))
           (kill-buffer proc-buffer))))))
 
+(defun spacemacs/git-working-directory-dirty ()
+  "Non-nil if the user's emacs directory is not clean.
+Returns the output of git status --porcelain."
+  (let((proc-buffer "git-working-directory-dirty")
+       (default-directory (file-truename user-emacs-directory)))
+    (when (eq 0 (process-file "git" nil proc-buffer nil
+                              "status" "--porcelain"))
+      (with-current-buffer proc-buffer
+        (prog1
+            (when (and (buffer-string)
+                       ;;simplecheckforanytext
+                       (string-match-p "[^ \t\n]" (buffer-string)))
+              (replace-regexp-in-string "\n\\'" "" (buffer-string)))
+          (kill-buffer proc-buffer))))))
+
 (defun spacemacs//deffaces-new-version-lighter (state)
   "Define a new version lighter face for the given STATE."
   (let* ((fname (intern (format "spacemacs-mode-line-new-version-lighter-%s-face"
@@ -271,7 +296,7 @@ Returns nil if an error occurred."
   "Returns an integer from the version list.
 Example: (1 42 3) = 1 042 003"
   (let ((i -1))
-    (reduce '+ (mapcar (lambda (n) (setq i (1+ i)) (* n (expt 10 (* i 3))))
+    (cl-reduce '+ (mapcar (lambda (n) (setq i (1+ i)) (* n (expt 10 (* i 3))))
                        (reverse version)))))
 
 (provide 'core-release-management)

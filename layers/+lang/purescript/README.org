@@ -1,14 +1,15 @@
-#+TITLE: Purescript contribution layer for Spacemacs
+#+TITLE: Purescript layer
 
 [[file:img/purescript-logo.png]]
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#key-bindings][Key bindings]]
-     - [[#purescript][Purescript]]
-         - [[#imports][Imports]]
-     - [[#repl][REPL]]
+   - [[#purescript][Purescript]]
+     - [[#imports][Imports]]
+     - [[#psc-ide][psc-ide]]
+   - [[#repl][REPL]]
 
 * Description
 
@@ -16,14 +17,14 @@ This layer provides basic Purescript editing support for spacemacs
 thanks to the following packages:
 - [[https://github.com/dysinger/purescript-mode][purescript-mode]]
 - [[https://github.com/ardumont/emacs-psci][psci]]
+- [[https://github.com/epost/psc-ide-emacs][psc-ide-emacs]]
 
 * Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =purescript= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(purescript))
-#+END_SRC
+If you want to get autocompletions and type information you have to install [[https://github.com/kRITZCREEK/psc-ide][psc-ide]].
 
 * Key bindings
 
@@ -37,6 +38,14 @@ To use this contribution add it to your =~/.spacemacs=
 | ~SPC m i \~ | Return to where you were editing before navigating to imports |
 | ~SPC m i a~ | Align imports                                                 |
 | ~SPC m i n~ | Navigate to the imports                                       |
+
+*** psc-ide
+
+| Key Binding | Description                                             |
+|-------------+---------------------------------------------------------|
+| ~SPC m h t~ | Show type at point                                      |
+| ~SPC m m l~ | Load a module with its dependencies into psc-ide-server |
+| ~SPC m m s~ | Start psc-ide-server                                    |
 
 ** REPL
 

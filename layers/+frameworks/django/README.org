@@ -1,31 +1,27 @@
-#+TITLE: Python contribution layer for Spacemacs
+#+TITLE: Django layer
+
 [[file:img/django.png]]
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#key-bindings][Key Bindings]]
-     - [[#fabric][Fabric]]
-     - [[#files][Files]]
-     - [[#interactive][Interactive]]
-     - [[#server][Server]]
-     - [[#southsyncdb][South/Syncdb]]
-     - [[#test][Test]]
+   - [[#fabric][Fabric]]
+   - [[#files][Files]]
+   - [[#interactive][Interactive]]
+   - [[#server][Server]]
+   - [[#southsyncdb][South/Syncdb]]
+   - [[#test][Test]]
 
 * Description
-
 This layer adds support for the Python [[https://www.djangoproject.com/][Django]] framework via [[https://github.com/davidmiller/pony-mode][pony-mode]].
 
 * Install
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(django))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =django= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key Bindings
-
 Django related key bindings uses  [[https://github.com/davidmiller/pony-mode][pony-mode]] and are behind the prefix ~SPC m j~.
 
 Configuration options for pony-mode are documented at

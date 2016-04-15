@@ -1,9 +1,9 @@
-#+TITLE: C/C++ contribution layer for Spacemacs
+#+TITLE: C/C++ layer
 
 [[file:img/ccpp.jpg]]
 [[file:img/cmake.png]]
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#features][Features]]
  - [[#install][Install]]
@@ -15,35 +15,33 @@
  - [[#key-bindings][Key Bindings]]
 
 * Description
-
 This layer adds configuration for C/C++ language as well support for [[http://www.cmake.org/][CMake]]
 scripts.
 
 * Features
-
 - Support syntax checking via flycheck with Clang.
 - Support for disassembly of code with [[https://github.com/jart/disaster][disaster]].
 - Support code reformatting with [[http://clang.llvm.org/docs/ClangFormat.html][clang-format]].
-- Display function or variable definition at the bottom. (when =semantic= layer is included)
+- Display function or variable definition at the bottom. (when =semantic= layer
+  is included)
 - Display current function cursor is in at the top. See [[https://github.com/tuhdo/semantic-stickyfunc-enhance][stickyfunc-demos]] for
   demos in some programming languages. (when =semantic= layer is included)
 - Support common refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]] . See [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][srefactor-demos]] for
   demonstration of refactoring features. (when =semantic= layer is included)
+- Support code navigation via cscope (when =cscope= layer is included) and gtags.
+- Support auto-completion (when =auto-completion= layer is included) via
+  company-clang (when =c-c++-enable-clang-support= is turned on), or
+  company-ycmd (when =ycmd= layer is included).
 
 * Install
-
 ** Layer
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(c-c++))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =c-c++= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 *Note:* [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]] is only available for Emacs 24.4+
 
 ** Default mode for header files
-
 By default header files are opened in =c-mode=, you can open them in =c++-mode=
 by setting the variable =c-c++-default-mode-for-headers= to =c++-mode=.
 
@@ -58,7 +56,6 @@ variable at the root of your project. More info on directory local variables
 can be found in the [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Directory-Local-Variables.html][dir-locals]].
 
 ** Enable Clang support
-
 To enable Clang support set the layer variable =c-c++-enable-clang-support=
 to =t= in the dotfile:
 
@@ -68,7 +65,6 @@ to =t= in the dotfile:
 #+END_SRC
 
 *** clang-format
-
 [[http://clang.llvm.org/docs/ClangFormat.html][clang-format]] allows reformatting either a selected region of code
 (=clang-format-region=) or a whole buffer (=clang-format-buffer=) to make it
 conform to a style defined in a =.clang-format= file. This file is either
@@ -89,7 +85,6 @@ particular mode or all modes in your =dotspacemacs/user-config= (within your
 #+END_SRC
 
 *** Company-clang and flycheck
-
 This layer adds some fancy improvements to =company-clang=.
 It includes a hook to load a projects =.clang_complete= file, which is
 just a text file with one clang flag per line, a format also used by
@@ -103,8 +98,8 @@ doesn't complain about missing header files.
 
 | Key Binding | Description                                                            |
 |-------------+------------------------------------------------------------------------|
-| ~SPC m g o~ | open matching file (e.g. switch between .cpp and .h)                   |
-| ~SPC m g O~ | open matching file in another window (e.g. switch between .cpp and .h) |
+| ~SPC m g a~ | open matching file (e.g. switch between .cpp and .h)                   |
+| ~SPC m g A~ | open matching file in another window (e.g. switch between .cpp and .h) |
 | ~SPC m D~   | disaster: disassemble c/c++ code                                       |
 | ~SPC m r~   | srefactor: refactor thing at point.                                    |
 

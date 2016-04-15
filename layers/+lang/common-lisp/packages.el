@@ -1,7 +1,6 @@
 ;;; packages.el --- Common Lisp Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -11,13 +10,20 @@
 ;;; License: GPLv3
 
 (setq common-lisp-packages
-      '(slime))
+      '(auto-highlight-symbol
+        common-lisp-snippets
+        slime))
+
+(defun common-lisp/post-init-auto-highlight-symbol ()
+  (with-eval-after-load 'auto-highlight-symbol
+    (add-to-list 'ahs-plugin-bod-modes 'lisp-mode)))
 
 (defun common-lisp/init-slime ()
   (use-package slime
     :commands slime-mode
     :init
     (progn
+      (spacemacs/register-repl 'slime 'slime)
       (setq slime-contribs '(slime-fancy
                              slime-indentation
                              slime-sbcl-exts
@@ -38,46 +44,52 @@
       (slime-setup)
       (dolist (m `(,slime-mode-map ,slime-repl-mode-map))
         (define-key m [(tab)] 'slime-fuzzy-complete-symbol))
+
       ;; TODO: Add bindings for the SLIME debugger?
-      (evil-leader/set-key-for-mode 'lisp-mode
-        "mcc" 'slime-compile-file
-        "mcC" 'slime-compile-and-load-file
-        "mcl" 'slime-load-file
-        "mcf" 'slime-compile-defun
-        "mcr" 'slime-compile-region
-        "mcn" 'slime-remove-notes
+      (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
+        "'" 'slime
 
-        "meb" 'slime-eval-buffer
-        "mef" 'slime-eval-defun
-        "meF" 'slime-undefine-function
-        "mee" 'slime-eval-last-sexp
-        "mer" 'slime-eval-region
+        "cc" 'slime-compile-file
+        "cC" 'slime-compile-and-load-file
+        "cl" 'slime-load-file
+        "cf" 'slime-compile-defun
+        "cr" 'slime-compile-region
+        "cn" 'slime-remove-notes
 
-        "mgg" 'slime-inspect-definition
-        "mgb" 'slime-pop-find-definition-stack
-        "mgn" 'slime-next-note
-        "mgN" 'slime-previous-note
+        "eb" 'slime-eval-buffer
+        "ef" 'slime-eval-defun
+        "eF" 'slime-undefine-function
+        "ee" 'slime-eval-last-sexp
+        "er" 'slime-eval-region
 
-        "mha" 'slime-apropos
-        "mhA" 'slime-apropos-all
-        "mhd" 'slime-disassemble-symbol
-        "mhh" 'slime-describe-symbol
-        "mhH" 'slime-hyperspec-lookup
-        "mhp" 'slime-apropos-package
-        "mht" 'slime-toggle-trace-fdefinition
-        "mhT" 'slime-untrace-all
-        "mh<" 'slime-who-calls
-        "mh>" 'slime-calls-who
+        "gg" 'slime-inspect-definition
+        "gb" 'slime-pop-find-definition-stack
+        "gn" 'slime-next-note
+        "gN" 'slime-previous-note
+
+        "ha" 'slime-apropos
+        "hA" 'slime-apropos-all
+        "hd" 'slime-disassemble-symbol
+        "hh" 'slime-describe-symbol
+        "hH" 'slime-hyperspec-lookup
+        "hp" 'slime-apropos-package
+        "ht" 'slime-toggle-trace-fdefinition
+        "hT" 'slime-untrace-all
+        "h<" 'slime-who-calls
+        "h>" 'slime-calls-who
         ;; TODO: Add key bindings for who binds/sets globals?
-        "mhr" 'slime-who-references
-        "mhm" 'slime-who-macroexpands
-        "mhs" 'slime-who-specializes
+        "hr" 'slime-who-references
+        "hm" 'slime-who-macroexpands
+        "hs" 'slime-who-specializes
 
-        "mma" 'slime-macroexpand-all
-        "mmo" 'slime-macroexpand-1
+        "ma" 'slime-macroexpand-all
+        "mo" 'slime-macroexpand-1
 
-        "mse" 'slime-eval-last-expression-in-repl
-        "msi" 'slime
-        "msq" 'slime-quit-lisp
+        "se" 'slime-eval-last-expression-in-repl
+        "si" 'slime
+        "sq" 'slime-quit-lisp
 
-        "mtf" 'slime-toggle-fancy-trace))))
+        "tf" 'slime-toggle-fancy-trace))))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun common-lisp/init-common-lisp-snippets ()))

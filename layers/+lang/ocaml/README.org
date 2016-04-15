@@ -1,8 +1,8 @@
-#+TITLE: Ocaml contribution layer for Spacemacs
+#+TITLE: Ocaml layer
 
 [[file:img/ocaml.png]]
 
-* Table of Content                                                    :TOC@4:
+* Table of Content                                          :TOC_4_gh:noexport:
  - [[#description][Description]]
    - [[#features][Features:]]
  - [[#install][Install]]
@@ -26,11 +26,9 @@ This is a very basic layer for editing ocaml files.
 
 * Install
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(ocaml))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =ocaml= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** OPAM packages
 This layer requires some [[http://opam.ocaml.org][opam]] packages:
@@ -39,7 +37,7 @@ This layer requires some [[http://opam.ocaml.org][opam]] packages:
 - =utop=
 - =ocp-indent=
 
-To install them, use the following command: 
+To install them, use the following command:
 
 #+BEGIN_SRC sh
   opam install merlin utop ocp-indent

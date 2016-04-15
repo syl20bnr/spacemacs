@@ -1,7 +1,6 @@
 ;;; packages.el --- Rust Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2015 Chris Hoeppner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Chris Hoeppner <me@mkaito.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -13,7 +12,6 @@
 (setq rust-packages
   '(
     company
-    company-racer
     racer
     flycheck
     flycheck-rust
@@ -21,10 +19,10 @@
     toml-mode
     ))
 
-(defun rust/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'rust-mode))
-
 (when (configuration-layer/layer-usedp 'syntax-checking)
+  (defun rust/post-init-flycheck ()
+    (spacemacs/add-flycheck-hook 'rust-mode))
+
   (defun rust/init-flycheck-rust ()
     (use-package flycheck-rust
       :if (configuration-layer/package-usedp 'flycheck)
@@ -36,36 +34,43 @@
     :defer t
     :config
     (progn
-      (when (fboundp 'sp-local-pair)
-        ;; Don't pair lifetime specifiers
-        (sp-local-pair 'rust-mode "'" nil :actions nil))
-
-      (evil-leader/set-key-for-mode 'rust-mode
-        "mcc" 'spacemacs/rust-cargo-build
-        "mct" 'spacemacs/rust-cargo-test
-        "mcd" 'spacemacs/rust-cargo-doc
-        "mcx" 'spacemacs/rust-cargo-run
-        "mcC" 'spacemacs/rust-cargo-clean))))
+      (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
+      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+        "="  'rust-format-buffer
+        "cC" 'spacemacs/rust-cargo-clean
+        "cc" 'spacemacs/rust-cargo-build
+        "cd" 'spacemacs/rust-cargo-doc
+        "cf" 'spacemacs/rust-cargo-fmt))))
+        "ct" 'spacemacs/rust-cargo-test
+        "cx" 'spacemacs/rust-cargo-run
 
 (defun rust/init-toml-mode ()
   (use-package toml-mode
-    :defer t))
+    :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'"))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun rust/post-init-company ()
-    (spacemacs|add-company-hook rust-mode))
+    (push 'company-capf company-backends-rust-mode)
+    (spacemacs|add-company-hook rust-mode)
+    (add-hook 'rust-mode-hook
+              (lambda ()
+                (setq-local company-tooltip-align-annotations t)))))
 
-  (defun rust/init-company-racer ()
-    (use-package company-racer
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init (push 'company-racer company-backends-rust-mode))))
+(defun rust/post-init-smartparens ()
+  (with-eval-after-load 'smartparens
+    ;; Don't pair lifetime specifiers
+    (sp-local-pair 'rust-mode "'" nil :actions nil)))
 
 (defun rust/init-racer ()
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-copy-env "RUST_SRC_PATH"))
 
   (use-package racer
-    :if rust-enable-racer
+    :diminish racer-mode
     :defer t
-    :init (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode eldoc-mode))))
+    :init
+    (progn
+      (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode eldoc-mode))
+      (spacemacs/declare-prefix-for-mode 'rust-mode "mg" "goto")
+      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+        "gg" 'racer-find-definition))))

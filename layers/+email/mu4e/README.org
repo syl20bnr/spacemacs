@@ -1,0 +1,202 @@
+#+TITLE: Mu4e layer
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#install][Install]]
+ - [[#commands][Commands]]
+   - [[#global-bindings][Global bindings]]
+   - [[#headers-mode][Headers mode]]
+   - [[#view-mode][View mode]]
+ - [[#configuration][Configuration]]
+   - [[#maildirs-extension][Maildirs extension]]
+   - [[#multiple-accounts][Multiple Accounts]]
+   - [[#example-configuration][Example configuration]]
+   - [[#notifications][Notifications]]
+     - [[#os-notifications][OS notifications]]
+     - [[#mode-line-notifications][Mode-line notifications]]
+ - [[#see-also][See also]]
+
+* Install
+In order to use this layer you must install mu and mu4e separately. Typically
+mu4e will be bundled with mu (this is the case on many Linux distributions).
+
+If the installation directory of mu4e is not in Emacs’ load path, you can set
+the layer variable =mu4e-installation-path=, for example:
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((mu4e :variables
+                        mu4e-installation-path "/usr/share/emacs/site-lisp")))
+#+end_src
+
+Then add this layer to your =~/.spacemacs=. You will need to add =mu4e= to the
+existing =dotspacemacs-configuration-layers= list in this file.
+
+* Commands
+
+** Global bindings
+
+| Keybinding | Command    |
+|------------+------------|
+| SPC a M    | Start mu4e |
+
+** Headers mode
+
+| Keybinding | Command                                                     |
+|------------+-------------------------------------------------------------|
+| J          | Go to next unread thread marking other mail read on the way |
+| C-j        | Next header                                                 |
+| C-k        | Previous header                                             |
+
+** View mode
+
+| Keybinding | Command                                                     |
+|------------+-------------------------------------------------------------|
+| J          | Go to next unread thread marking other mail read on the way |
+| C-j        | Next header                                                 |
+| C-k        | Previous header                                             |
+
+* Configuration
+Configuration varies too much to give precise instructions.  What follows is one
+example configuration.  Refer to mu4e's manual for more detailed configuration
+instructions.
+
+** Maildirs extension
+The maildirs extension adds a list of all your maildirs to the main mu4e view
+that by default shows the unread and total mail counts for all your mail under
+your base mail directory.
+
+This extension is enabled by default, you can deactivate (and uninstall) it by
+adding the package == to your dotfile variable =dotspacemacs-excluded-packages=.
+
+** Multiple Accounts
+This layer includes support for multiple sending accounts.
+If you have only one account you do not need to define this variable.
+If you have multiple accounts, configure the =mu4e-account-alist= variable:
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-account-alist
+        '(("gmail"
+           ;; Under each account, set the account-specific variables you want.
+           (mu4e-sent-messages-behavior delete)
+           (mu4e-sent-folder "/gmail/[Gmail]/.Sent Mail")
+           (mu4e-drafts-folder "/gmail/[Gmail]/.Drafts")
+           (user-mail-address "billy@gmail.com")
+           (user-full-name "Billy"))
+          ("college"
+           (mu4e-sent-messages-behavior sent)
+           (mu4e-sent-folder "/college/Sent Items")
+           (mu4e-drafts-folder "/college/Drafts")
+           (user-mail-address "bb15@college.edu")
+           (user-full-name "Billy Bob 15"))))
+  (mu4e/mail-account-reset)
+#+END_SRC
+
+The first account listed will be the default account, so variables like
+=user-full-name=, which is used by other parts of Emacs, will have their value
+reset for the default account after sending each email.
+
+Note that the mu4e layer expects =mu4e-account-alist= to be defined before the
+layer is loaded. For example, you can set =mu4e-account-alist= to a dummy
+setting in =dotspacemacs/layers=:
+
+#+BEGIN_SRC emacs-lisp
+(mu4e :variables mu4e-account-alist t)
+#+END_SRC
+
+and then actually set =mu4e-account-alist= later in =dotspacemacs/user-config=.
+
+Make sure you call =mu4e/mail-account-reset= afterward, which will initialize
+the given account variables.
+
+If you have mu 0.9.16 or later, you can use mu4e's built-in contexts feature
+instead (see [[http://www.djcbsoftware.nl/code/mu/mu4e/Contexts.html#Contexts][mu4e's manual]]).
+
+** Example configuration
+#+BEGIN_SRC emacs-lisp
+  ;;; Set up some common mu4e variables
+  (setq mu4e-maildir "~/.mail"
+        mu4e-trash-folder "/Trash"
+        mu4e-refile-folder "/Archive"
+        mu4e-get-mail-command "mbsync -a"
+        mu4e-update-interval nil
+        mu4e-compose-signature-auto-include nil
+        mu4e-view-show-images t
+        mu4e-view-show-addresses t)
+
+  ;;; Mail directory shortcuts
+  (setq mu4e-maildir-shortcuts
+        '(("/gmail/INBOX" . ?g)
+          ("/college/INBOX" . ?c)))
+
+  ;;; Bookmarks
+  (setq mu4e-bookmarks
+        `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+          ("date:today..now" "Today's messages" ?t)
+          ("date:7d..now" "Last 7 days" ?w)
+          ("mime:image/*" "Messages with images" ?p)
+          (,(mapconcat 'identity
+                       (mapcar
+                        (lambda (maildir)
+                          (concat "maildir:" (car maildir)))
+                        mu4e-maildir-shortcuts) " OR ")
+           "All inboxes" ?i)))
+#+END_SRC
+
+** Notifications
+~mu4e-alert~ is an extension that provides desktop notifications and adds the
+count of unread messages to the modeline.
+
+[[https://raw.githubusercontent.com/iqbalansari/mu4e-alert/master/screenshots/mu4e-alert-in-action.png]]
+
+For an extended documentation of the available customizations please refer to
+[[https://github.com/iqbalansari/mu4e-alert#customizations][mu4e-alert's documentation]]
+
+*** OS notifications
+To enable notifications about new messages, add the following line to your
+~dotspacemacs/user-config~:
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-enable-notifications t)
+#+END_SRC
+
+or use layer variables when you add the layer to
+=dotspacemacs-configuration-layers=:
+
+#+BEGIN_SRC emacs-lisp
+  (mu4e :variables mu4e-enable-notifications t)
+#+END_SRC
+
+By default, notifications will be shown in the ~*Messages*~ buffer. To enable
+desktop notifications about new messages, add the following lines to
+your ~dotspacemacs/user-config~, according to your operating system and the
+installed libraries:
+
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'mu4e-alert
+    ;; Enable Desktop notifications
+    (mu4e-alert-set-default-style 'notifications)) ; For linux
+    ;; (mu4e-alert-set-default-style 'libnotify))  ; Alternative for linux
+    ;; (mu4e-alert-set-default-style 'notifier))   ; For Mac OSX (through the
+                                                   ; terminal notifier app)
+    ;; (mu4e-alert-set-default-style 'growl))      ; Alternative for Mac OSX
+#+END_SRC
+
+*** Mode-line notifications
+To enable mode-line display about new messages, add the following line to
+your ~dotspacemacs/user-config~:
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-enable-mode-line t)
+#+END_SRC
+
+or use layer variables when you add the layer to
+=dotspacemacs-configuration-layers=:
+
+#+BEGIN_SRC emacs-lisp
+  (mu4e :variables mu4e-enable-mode-line t)
+#+END_SRC
+
+* See also
+Refer to the official mu and mu4e documentation for additional info.
+
+- [[http://www.djcbsoftware.nl/code/mu/mu4e/index.html][mu4e Manual]]

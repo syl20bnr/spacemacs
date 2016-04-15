@@ -1,20 +1,24 @@
-#+TITLE: JavaScript contribution layer for Spacemacs
+#+TITLE: JavaScript layer
 
 [[file:img/javascript.png]] [[file:img/coffee.png]]
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
-     - [[#features][Features:]]
+   - [[#features][Features:]]
  - [[#install][Install]]
  - [[#configuration][Configuration]]
+   - [[#tern][Tern]]
+   - [[#indentation][Indentation]]
+   - [[#repl][REPL]]
  - [[#key-bindings][Key Bindings]]
-     - [[#js2-mode][js2-mode]]
-     - [[#folding-js2-mode][Folding (js2-mode)]]
-     - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
-     - [[#formatting-web-beautify][Formatting (web-beautify)]]
-         - [[#documentation-js-doc][Documentation (js-doc)]]
-     - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
-     - [[#json][JSON]]
+   - [[#js2-mode][js2-mode]]
+   - [[#folding-js2-mode][Folding (js2-mode)]]
+   - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
+   - [[#formatting-web-beautify][Formatting (web-beautify)]]
+     - [[#documentation-js-doc][Documentation (js-doc)]]
+   - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
+   - [[#json][JSON]]
+   - [[#repl-skewer-mode][REPL (skewer-mode)]]
 
 * Description
 
@@ -27,13 +31,12 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - CoffeeScript support
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 - Get the path to a JSON value with [[https://github.com/Sterlingg/json-snatcher][json-snatcher]]
-  
-* Install
+- REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
 
-To use this contribution add it to your =~/.spacemacs=
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(javascript))
-#+END_SRC
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =javascript= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 You will also need to install =tern= to use the auto-completion and
 documentation features:
@@ -52,18 +55,40 @@ To activate error checking using flycheck install =JSHint=:
 #+END_SRC
 
 * Configuration
+** Tern
+To make tern re-use the server across multiple different editing sessions (thus
+creating multiple =.tern-port= files for each document you have open [[http://ternjs.net/doc/manual.html][see here
+for more details]]):
 
+The variables provided below can be set when adding the =javascript= configuration
+layer, as detailed in [[file:../../../doc/DOCUMENTATION.org::Setting%20configuration%20layers%20variables][this]] section of the documentation.
+
+#+BEGIN_SRC emacs-lisp
+  (javascript :variables javascript-disable-tern-port-files nil)
+#+END_SRC
+
+** Indentation
 To change how js2-mode indents code, set the variable =js2-basic-offset=, as such:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default js2-basic-offset 2)
 #+END_SRC
 
-Similarly, to change how js-mode indents JSON files, set the variable =js-indent-level=, as such:
+Similarly, to change how js-mode indents JSON files, set the variable
+=js-indent-level=, as such:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default js-indent-level 2)
 #+END_SRC
+
+** REPL
+To use the available JS repl, you need a running httpd server and a page
+loaded with skewer. If a blank page serves your needs, just use the
+run-skewer command in your javascript buffer. If you want to inject it
+in your own page, follow the instructions in
+https://github.com/skeeto/skewer-mode#skewering-with-cors (install the
+Greasemonkey script and then click the triangle in the top-right
+corner - if it turns green, you're good to go).
 
 * Key Bindings
 
@@ -155,3 +180,22 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | Key Binding | Description                        |
 |-------------+------------------------------------|
 | ~SPC m h p~ | Get the path of the value at point |
+
+** REPL (skewer-mode)
+
+| Key Binding | Description                                                      |
+|-------------+------------------------------------------------------------------|
+| ~SPC m e e~ | evaluates the last expression                                    |
+| ~SPC m e E~ | evaluates and inserts the result of the last expression at point |
+
+| Key Binding | Description                                                                        |
+|-------------+------------------------------------------------------------------------------------|
+| ~SPC m s a~ | Toggle live evaluation of whole buffer in REPL on buffer changes                   |
+| ~SPC m s b~ | send current buffer contents to the skewer REPL                                    |
+| ~SPC m s B~ | send current buffer contents to the skewer REPL and switch to it in insert state   |
+| ~SPC m s f~ | send current function at point to the skewer REPL                                  |
+| ~SPC m s F~ | send current function at point to the skewer REPL and switch to it in insert state |
+| ~SPC m s i~ | starts/switch to the skewer REPL                                                   |
+| ~SPC m s r~ | send current region to the skewer REPL                                             |
+| ~SPC m s R~ | send current region to the skewer REPL and switch to it in insert state            |
+| ~SPC m s s~ | switch to REPL                                                                     |

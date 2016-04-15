@@ -1,8 +1,8 @@
-#+TITLE: LaTeX Layer for Spacemacs
+#+TITLE: LaTeX layer
 
 [[file:img/latex.png]]
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
    - [[#features][Features]]
  - [[#install][Install]]
@@ -11,36 +11,31 @@
    - [[#previewing][Previewing]]
    - [[#build-command][Build command]]
    - [[#auto-fill][Auto-fill]]
+   - [[#folding][Folding]]
  - [[#keybindings][Keybindings]]
+   - [[#folding][Folding]]
    - [[#reftex][RefTeX]]
- - [[#maintainer][Maintainer]]
 
 * Description
-
 This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects/auctex/][AucTeX]].
 
 ** Features
+- Auto-build with [[https://github.com/tom-tan/auctex-latexmk/][auctex-latexmk]]
 - Auto-completion with [[https://github.com/alexeyr/company-auctex][company-auctex]]
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
 
 * Install
-
 ** Layer
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(latex))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =latex= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Auto-completion
-
 Add the layer =auto-completion= to the variable
 =dotspacemacs-configuration-layers= of your dotfile =~/.spacemacs=.
 
 ** Previewing
-
 To perform full-document previews (that is, aside from the inline previewing
 under ~SPC m p~), add the following to your =.spacemacs=
 under =dotspacemacs/user-config=:
@@ -53,50 +48,98 @@ Then when you open up a compiled PDF, the preview will update automatically
 when you recompile.
 
 ** Build command
+A build command can be specified via the layer variable =latex-build-command=.
 
-A build command can be specific via the layer variable =latex-build-command=.
-
-The default value is =LaTeX=. If =LatexMk= is specified, the appropriate
-=LatexMk= configuration will be applied.
+If =LatexMk= is specified, the appropriate =LatexMk= configuration
+will be applied. (the default on systems with =latexmk= in the path)
+This variable can be set to any of the entities in =TeX-command-list=,
+including any custom entries you may have added there. To use the
+regular =AucTeX= command set =latex-build-command= to =LaTeX= as shown
+below.
 
 #+BEGIN_SRC emacs-lisp
   dotspacemacs-configuration-layers '(
-    (latex :variables latex-build-command "LatexMk"))
+    (latex :variables latex-build-command "LaTeX"))
 #+END_SRC
 
 ** Auto-fill
-
 To enable auto-fill set the variable =latex-enable-auto-fill= to =t=.
 
 The variable =latex-nofill-env= provide the list of environment names where
-=auto-fille-mode= will be inhibited.
+=auto-fill-mode= will be inhibited.
 
 #+BEGIN_SRC emacs-lisp
   dotspacemacs-configuration-layers '(
     (latex :variables latex-enable-auto-fill t))
 #+END_SRC
 
+** Folding
+Enable folding of text by setting =latex-enable-folding= to =t=. Default value
+is nil.
+
+#+BEGIN_SRC emacs-lisp
+  dotspacemacs-configuration-layers '(
+    (latex :variables latex-enable-folding t))
+#+END_SRC
+
 * Keybindings
 
-| Key Binding | Description                                             |
-|-------------+---------------------------------------------------------+
-| ~SPC m *~   | TeX documentation, can be very slow                     |
-| ~SPC m b~   | build                                                   |
-| ~SPC m c~   | close LaTeX environment                                 |
-| ~SPC m C~   | TeX command on master file                              |
-| ~SPC m e~   | insert LaTeX environment                                |
-| ~SPC m f~   | insert LaTeX font - full bindings here: [[https://www.gnu.org/software/auctex/manual/auctex/Font-Specifiers.html][AUCTeX Font Doc]] |
-| ~SPC m i~   | insert =\item=                                          |
-| ~SPC m p r~ | preview region                                          |
-| ~SPC m p b~ | preview buffer                                          |
-| ~SPC m p d~ | preview document                                        |
-| ~SPC m p e~ | preview environment                                     |
-| ~SPC m p s~ | preview section                                         |
-| ~SPC m p p~ | preview at point                                        |
-| ~SPC m p f~ | cache preamble for preview                              |
-| ~SPC m p c~ | clear previews                                          |
-| ~SPC m v~   | view                                                    |
+| Key Binding   | Description                                |
+|---------------+--------------------------------------------|
+| ~SPC m -~     | recenter output buffer                     |
+| ~SPC m ​,​~     | TeX command on master file                 |
+| ~SPC m .~     | mark LaTeX environment                     |
+| ~SPC m *~     | mark LaTeX section                         |
+| ~SPC m %~     | comment or uncomment a paragraph           |
+| ~SPC m ;~     | comment or uncomment a region              |
+| ~SPC m a~     | run all commands (compile and open viewer) |
+| ~SPC m b~     | build                                      |
+| ~SPC m c~     | close LaTeX environment                    |
+| ~SPC m e~     | insert LaTeX environment                   |
+| ~SPC m i~     | insert =\item=                             |
+| ~SPC m k~     | kill TeX job                               |
+| ~SPC m l~     | recenter output buffer                     |
+| ~SPC m m~     | insert LaTeX macro                         |
+| ~SPC m s~     | insert LaTeX section                       |
+| ~SPC m v~     | view output                                |
+| ~SPC m h d~   | TeX documentation, can be very slow        |
+| ~SPC m f e~   | fill LaTeX environment                     |
+| ~SPC m f p~   | fill LaTeX paragraph                       |
+| ~SPC m f r~   | fill LaTeX region                          |
+| ~SPC m f s~   | fill LaTeX section                         |
+| ~SPC m p r~   | preview region                             |
+| ~SPC m p b~   | preview buffer                             |
+| ~SPC m p d~   | preview document                           |
+| ~SPC m p e~   | preview environment                        |
+| ~SPC m p s~   | preview section                            |
+| ~SPC m p p~   | preview at point                           |
+| ~SPC m p f~   | cache preamble for preview                 |
+| ~SPC m p c~   | clear previews                             |
+| ~SPC m v~     | view                                       |
+| ~SPC m x b~   | make font bold                             |
+| ~SPC m x B~   | make font medium weight                    |
+| ~SPC m x c~   | make font monospaced (for code)            |
+| ~SPC m x e~   | make font emphasised                       |
+| ~SPC m x i~   | make font italic                           |
+| ~SPC m x o~   | make font oblique                          |
+| ~SPC m x r~   | remove font properties                     |
+| ~SPC m x f a~ | use calligraphic font                      |
+| ~SPC m x f c~ | use small-caps font                        |
+| ~SPC m x f f~ | use sans serif font                        |
+| ~SPC m x f n~ | use normal font                            |
+| ~SPC m x f r~ | use serif font                             |
+| ~SPC m x f u~ | use upright font                           |
 
+** Folding
+Available only when =latex-enable-auto-fill= is non nil.
+
+| Key Binding | Description          |
+|-------------+----------------------|
+| ~SPC m z =~ | fold TeX math        |
+| ~SPC m z b~ | fold TeX buffer      |
+| ~SPC m z e~ | fold TeX environment |
+| ~SPC m z m~ | fold TeX macro       |
+| ~SPC m z r~ | fold TeX region      |
 
 ** RefTeX
 
@@ -106,7 +149,7 @@ The variable =latex-nofill-env= provide the list of environment names where
 | ~SPC m r g~   | reftex-grep-document                  |
 | ~SPC m r i~   | reftex-index-selection-or-word        |
 | ~SPC m r I~   | reftex-display-index                  |
-| ~SPC m r C-i~ | reftex-index                          |
+| ~SPC m r TAB~ | reftex-index                          |
 | ~SPC m r l~   | reftex-label                          |
 | ~SPC m r p~   | reftex-index-phrase-selection-or-word |
 | ~SPC m r P~   | reftex-index-visit-phrases-buffer     |
@@ -115,9 +158,3 @@ The variable =latex-nofill-env= provide the list of environment names where
 | ~SPC m r t~   | reftex-toc                            |
 | ~SPC m r T~   | reftex-toc-recenter                   |
 | ~SPC m r v~   | reftex-view-crossref                  |
-
-* Maintainer
-
-This layer was created by and is maintained by @trishume, ping me in the Gitter
-chat if you have questions. Feel free to submit PRs for this layer though if
-you have improvements.

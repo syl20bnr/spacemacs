@@ -1,8 +1,8 @@
-#+TITLE: Gnus contribution layer for Spacemacs
+#+TITLE: Gnus layer
 
 [[file:img/gnus.gif]]
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#install][Install]]
  - [[#basic-concepts][Basic Concepts]]
  - [[#adding-news-sources][Adding news sources]]
@@ -11,12 +11,9 @@
  - [[#keybindings][Keybindings]]
 
 * Install
-
-To use this contribution layer add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(gnus))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =gnus= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Basic Concepts
 
@@ -26,7 +23,7 @@ new users so the basics are listed here:
 - Group :: A Newsgroup but can also be a RSS Feed or a mail directory
 - Topic :: Newsgroups can be assigned to topics which will be used to structure
      the Group Buffer if Topic Mode is enabled(default).
-  
+
 * Adding news sources
 
 Adding news sources can be done in your =.spacemacs= file by adding the
@@ -44,12 +41,12 @@ following:
       ))
 #+END_SRC
 
-For adding RSS Feeds please see the [[#Keybindings][keybindings section]].
+For adding RSS Feeds please see the [[Keybindings][keybindings section]].
 
 * Configuring gmail
 
 To configure Gnus with gmail support you can add the following to your
-=.spacemacs= file. 
+=.spacemacs= file.
 
 #+BEGIN_SRC emacs-lisp
 ;; Get email, and store in nnml
@@ -85,10 +82,10 @@ To configure Gnus with gmail support you can add the following to your
 Authentication for your gmail account is best stored in an =authinfo= or
 =authinfo.pgp= file. It must be of the form:
 
-#+BEGIN_SRC
+#+BEGIN_EXAMPLE
 machine smtp.gmail.com login name@gmail.com password SUPER_SECRET_PASS
 machine imap.gmail.com login name@gmail.com port 993 password SUPER_SECRET_PASS
-#+END_SRC
+#+END_EXAMPLE
 
 If you use two-step verification the password has to be an [[https://support.google.com/accounts/answer/185833?hl=en][application specific
 password]].
@@ -108,15 +105,15 @@ Please see the [[http://www.gnus.org/manual.html][manual]] for a complete list.
 
 Basic and Spacemacs specific keybindings can be found in the following table.
 
-| Key Binding | Gnus mode - Description                                  |
-|-------------+----------------------------------------------------------|
-| ~SPC a g~   | Starts Gnus                                              |
-| ~m~         | New Message                                              |
-| ~G R~       | Group Buffer - Add RSS feed                              |
-| ~^~         | Open Server Buffer. Browse Newsgroups.                   |
-| ~T n~       | Group Buffer - new Topic                                 |
-| ~T m~       | Group Buffer - Move Group to Topic                       |
-| ~K~         | Article Buffer - Previous article                        |
-| ~J~         | Article Buffer - Next article                            |
-| ~RET~       | Summary Buffer(RSS) - Open article Link in browser       |
-| ~TAB~       | Summary Buffer(RSS) - Open article and switch to it      |
+| Key Binding | Gnus mode - Description                             |
+|-------------+-----------------------------------------------------|
+| ~SPC a g~   | Starts Gnus                                         |
+| ~m~         | New Message                                         |
+| ~G R~       | Group Buffer - Add RSS feed                         |
+| ~^~         | Open Server Buffer. Browse Newsgroups.              |
+| ~T n~       | Group Buffer - new Topic                            |
+| ~T m~       | Group Buffer - Move Group to Topic                  |
+| ~K~         | Article Buffer - Previous article                   |
+| ~J~         | Article Buffer - Next article                       |
+| ~RET~       | Summary Buffer(RSS) - Open article Link in browser  |
+| ~TAB~       | Summary Buffer(RSS) - Open article and switch to it |

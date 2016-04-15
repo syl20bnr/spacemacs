@@ -1,19 +1,20 @@
-#+TITLE: Github contribution layer for Spacemacs
+#+TITLE: Github layer
 
 [[file:img/github.png]]
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
-     - [[#features][Features:]]
+   - [[#features][Features:]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
+   - [[#layer][Layer]]
+   - [[#git-configuration][Git configuration]]
  - [[#key-bindings][Key Bindings]]
-     - [[#magit-gh-pulls][magit-gh-pulls]]
-     - [[#gistel][gist.el]]
-     - [[#browse-files][Browse files]]
+   - [[#magit-gh-pulls][magit-gh-pulls]]
+   - [[#gistel][gist.el]]
+   - [[#clone-repositories][Clone repositories]]
+   - [[#browse-files][Browse files]]
 
 * Description
-
 This layers adds support for [[http://github.com][Github]].
 
 ** Features:
@@ -21,30 +22,35 @@ This layers adds support for [[http://github.com][Github]].
 - [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post Github gists.
 - [[https://github.com/osener/github-browse-file][github-browse-file]] and [[https://github.com/sshaw/git-link][git-link]]: quickly browse github URL in your
   browser.
+- [[https://github.com/dgtized/github-clone.el][Github clone]] allows for easy cloning and forking of repositories.
 
 * Install
-
 ** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =github= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
-To use this contribution add it to your =~/.spacemacs=
+** Git configuration
+You will need to generate a [[https://github.com/settings/tokens][personal access token]] on GitHub. This token should
+have the =gist= and =repo= permissions. Once this token is created, it needs to
+be added to your =~/.gitconfig=
 
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(github))
+#+BEGIN_SRC sh
+  git config --global github.oauth-token <token>
 #+END_SRC
 
 * Key Bindings
-
 ** magit-gh-pulls
 
 In a =magit status= buffer (~SPC g s~):
 
 | Key Binding | Description                                     |
 |-------------+-------------------------------------------------|
-| ~# g c~     | create a pull request                           |
-| ~# g g~     | get a list of all PRs in the current repository |
-| ~# g f~     | fetch the commits associated to the current PR  |
-| ~# g b~     | create a branch for the current PR              |
-| ~# g m~     | merge the PR with current branch                |
+| ~# c~       | create a pull request                           |
+| ~# g~       | get a list of all PRs in the current repository |
+| ~# f~       | fetch the commits associated to the current PR  |
+| ~# b~       | create a branch for the current PR              |
+| ~# m~       | merge the PR with current branch                |
 
 Note that =magit-gh-pulls= will try to fast-forward the PRs whenever it is
 possible.
@@ -80,15 +86,21 @@ In the gist list buffer:
 | ~V~         | =visual-line state=          |
 | ~y~         | print URL and copy it        |
 
+** Clone repositories
+
+| Key Binding   | Description                          |
+|---------------+--------------------------------------|
+| ~SPC g h C-c~ | clone and optionally fork repository |
+
 ** Browse files
 
 | Key Binding | Description                                                        |
 |-------------+--------------------------------------------------------------------|
-| ~SPC g f b~ | browse to file on github                                           |
-| ~SPC g f c~ | browse to file on github/bitbucket/etc (on current line at commit) |
-| ~SPC g f C~ | only copy the generated link on the kill ring                      |
-| ~SPC g f l~ | browse to file on github/bitbucket/etc (on current line position)  |
-| ~SPC g f L~ | only copy the generated link on the kill ring                      |
+| ~SPC g h c~ | browse to file on github/bitbucket/etc (on current line at commit) |
+| ~SPC g h C~ | only copy the generated link on the kill ring                      |
+| ~SPC g h l~ | browse to file on github/bitbucket/etc (on current line position)  |
+| ~SPC g h L~ | only copy the generated link on the kill ring                      |
+| ~SPC g h o~ | browse to file on github                                           |
 
 *Notes:*
 - You can use the universal argument ~SPC u~ to select a remote repository.

@@ -1,7 +1,6 @@
 ;;; packages.el --- Ruby Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -11,122 +10,49 @@
 ;;; License: GPLv3
 
 (setq ruby-packages
-  '(
-    bundler
-    company
-    enh-ruby-mode
-    evil-matchit
-    flycheck
-    robe
-    ruby-test-mode
-    ruby-tools
-    seeing-is-believing))
-
-(when ruby-version-manager
-  (add-to-list 'ruby-packages ruby-version-manager))
-
-(defun ruby/init-rbenv ()
-  "Initialize RBENV mode"
-  (use-package rbenv
-    :defer t
-    :init (global-rbenv-mode)
-    :config (add-hook 'enh-ruby-mode-hook
-                      (lambda () (rbenv-use-corresponding)))))
-
-(defun ruby/init-rvm ()
-  "Initialize RVM mode"
-  (use-package rvm
-    :defer t
-    :init (rvm-use-default)
-    :config (add-hook 'enh-ruby-mode-hook
-                      (lambda () (rvm-activate-corresponding-ruby)))))
-
-(defun ruby/init-enh-ruby-mode ()
-  "Initialize Ruby Mode"
-  (use-package enh-ruby-mode
-    :mode (("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . enh-ruby-mode)
-           ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))
-    :interpreter "ruby"
-    :config
-    (progn
-      (setq enh-ruby-deep-indent-paren nil
-            enh-ruby-hanging-paren-deep-indent-level 2)
-      (sp-with-modes '(ruby-mode enh-ruby-mode)
-        (sp-local-pair "{" "}"
-                       :pre-handlers '(sp-ruby-pre-handler)
-                       :post-handlers '(sp-ruby-post-handler (spacemacs/smartparens-pair-newline-and-indent "RET"))
-                       :suffix "")))))
-
-(defun ruby/post-init-evil-matchit ()
-  (add-hook `enh-ruby-mode-hook `turn-on-evil-matchit-mode))
-
-
-(defun ruby/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'enh-ruby-mode))
-
-(defun ruby/init-ruby-tools ()
-  (use-package ruby-tools
-    :defer t
-    :init
-    (add-hook 'enh-ruby-mode-hook 'ruby-tools-mode)
-    :config
-    (progn
-      (spacemacs|hide-lighter ruby-tools-mode)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mx\'" 'ruby-tools-to-single-quote-string)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mx\"" 'ruby-tools-to-double-quote-string)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mx:" 'ruby-tools-to-symbol))))
+      '(
+        bundler
+        chruby
+        company
+        (enh-ruby-mode :toggle ruby-enable-enh-ruby-mode)
+        evil-matchit
+        flycheck
+        popwin
+        rbenv
+        robe
+        rspec-mode
+        rubocop
+        (ruby-mode :location built-in :toggle (not ruby-enable-enh-ruby-mode))
+        ruby-test-mode
+        ruby-tools
+        seeing-is-believing
+        rvm
+        smartparens
+        rake
+        ))
 
 (defun ruby/init-bundler ()
   (use-package bundler
     :defer t
     :init
-    (progn
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mbc" 'bundle-check)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mbi" 'bundle-install)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mbs" 'bundle-console)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mbu" 'bundle-update)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mbx" 'bundle-exec))))
-
-(defun ruby/init-robe ()
-  "Initialize Robe mode"
-  (use-package robe
-    :defer t
-    :init
-    (progn
-      (add-hook 'enh-ruby-mode-hook 'robe-mode)
-      (when (configuration-layer/layer-usedp 'auto-completion)
-        (push 'company-robe company-backends-enh-ruby-mode)))
-    :config
-    (progn
-      (spacemacs|hide-lighter robe-mode)
-      ;; robe mode specific
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mgg" 'robe-jump)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mhd" 'robe-doc)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mrsr" 'robe-rails-refresh)
-      ;; inf-enh-ruby-mode
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "msf" 'ruby-send-definition)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "msF" 'ruby-send-definition-and-go)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "msi" 'robe-start)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "msr" 'ruby-send-region)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "msR" 'ruby-send-region-and-go)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mss" 'ruby-switch-to-inf))))
-
-(defun ruby/init-ruby-test-mode ()
-  "Define keybindings for ruby test mode"
-  (use-package ruby-test-mode
-    :defer t
-    :init (add-hook 'enh-ruby-mode-hook 'ruby-test-mode)
-    :config
-    (progn
-      (spacemacs|hide-lighter ruby-test-mode)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mtb" 'ruby-test-run)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "mtt" 'ruby-test-run-at-point))))
+    (dolist (mode '(ruby-mode enh-ruby-mode))
+      (spacemacs/declare-prefix-for-mode mode "mb" "ruby/bundle")
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "bc" 'bundle-check
+        "bi" 'bundle-install
+        "bs" 'bundle-console
+        "bu" 'bundle-update
+        "bx" 'bundle-exec
+        "bo" 'bundle-open))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun ruby/post-init-company ()
+    (spacemacs|add-company-hook ruby-mode)
     (spacemacs|add-company-hook enh-ruby-mode)
+
     (with-eval-after-load 'company-dabbrev-code
-      (push 'enh-ruby-mode company-dabbrev-code-modes))))
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (push mode company-dabbrev-code-modes)))))
 
 (defun seeing-is-believing/init-seeing-is-believing ()
   (use-package seeing-is-believing
@@ -141,3 +67,211 @@
       (evil-leader/set-key-for-mode 'ruby-mode "msc" 'seeing-is-believing-clear)
       (evil-leader/set-key-for-mode 'enh-ruby-mode "msc" 'seeing-is-believing-clear))))
 
+(defun ruby/init-chruby ()
+  (use-package chruby
+    :if (equal ruby-version-manager 'chruby)
+    :commands chruby-use-corresponding
+    :defer t
+    :init
+    (progn
+      (spacemacs/add-to-hooks 'chruby-use-corresponding
+                              '(ruby-mode-hook enh-ruby-mode-hook)))))
+
+(defun ruby/init-enh-ruby-mode ()
+  (use-package enh-ruby-mode
+    :mode (("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . enh-ruby-mode)
+           ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))
+    :interpreter "ruby"
+    :config
+    (progn
+      (setq enh-ruby-deep-indent-paren nil
+            enh-ruby-hanging-paren-deep-indent-level 2))))
+
+(defun ruby/post-init-evil-matchit ()
+  (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+    (add-hook hook `turn-on-evil-matchit-mode)))
+
+(defun ruby/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'ruby-mode)
+  (spacemacs/add-flycheck-hook 'enh-ruby-mode))
+
+(defun ruby/post-init-popwin ()
+  (push '("*rspec-compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
+        popwin:special-display-config)
+  (push '("*rake-compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
+        popwin:special-display-config))
+
+(defun ruby/init-rbenv ()
+  (use-package rbenv
+    :if (equal ruby-version-manager 'rbenv)
+    :defer t
+    :init
+    (progn
+      (defun spacemacs//enable-rbenv ()
+        "Enable rbenv, use .ruby-version if exists."
+        (require 'rbenv)
+        (let ((version-file-path (rbenv--locate-file ".ruby-version")))
+          (global-rbenv-mode)
+          ;; try to use the ruby defined in .ruby-version
+          (if version-file-path
+              (progn
+                (rbenv-use (rbenv--read-version-from-file
+                            version-file-path))
+                (message (concat "[rbenv] Using ruby version "
+                                 "from .ruby-version file.")))
+            (message "[rbenv] Using the currently activated ruby."))))
+      (spacemacs/add-to-hooks 'spacemacs//enable-rbenv
+                              '(ruby-mode-hook enh-ruby-mode-hook)))))
+
+(defun ruby/init-robe ()
+  (use-package robe
+    :defer t
+    :init
+    (progn
+      (spacemacs/register-repl 'robe 'robe-start "robe")
+      (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+        (add-hook hook 'robe-mode))
+      (when (configuration-layer/layer-usedp 'auto-completion)
+        (push 'company-robe company-backends-enh-ruby-mode)
+        (push 'company-robe company-backends-ruby-mode)))
+    :config
+    (progn
+      (spacemacs|hide-lighter robe-mode)
+
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/declare-prefix-for-mode mode "mg" "ruby/goto")
+        (spacemacs/declare-prefix-for-mode mode "mh" "ruby/docs")
+        (spacemacs/declare-prefix-for-mode mode "ms" "ruby/repl")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "'" 'robe-start
+          ;; robe mode specific
+          "gg" 'robe-jump
+          "hd" 'robe-doc
+          "rsr" 'robe-rails-refresh
+          ;; inf-enh-ruby-mode
+          "sf" 'ruby-send-definition
+          "sF" 'ruby-send-definition-and-go
+          "si" 'robe-start
+          "sr" 'ruby-send-region
+          "sR" 'ruby-send-region-and-go
+          "ss" 'ruby-switch-to-inf)))))
+
+(defun ruby/init-rspec-mode ()
+  (use-package rspec-mode
+    :defer t
+    ;; there is no :init block to add the hooks since rspec-mode
+    ;; setup the hook via an autoload
+    :config
+    (progn
+      (spacemacs|hide-lighter rspec-mode)
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "ta"    'rspec-verify-all
+          "tb"    'rspec-verify
+          "tc"    'rspec-verify-continue
+          "te"    'rspec-toggle-example-pendingness
+          "tf"    'rspec-verify-method
+          "tl"    'rspec-run-last-failed
+          "tm"    'rspec-verify-matching
+          "tr"    'rspec-rerun
+          "tt"    'rspec-verify-single
+          "t~"    'rspec-toggle-spec-and-target-find-example
+          "t TAB" 'rspec-toggle-spec-and-target)))))
+
+(defun ruby/init-rubocop ()
+  (use-package rubocop
+    :defer t
+    :init (spacemacs/add-to-hooks 'rubocop-mode '(ruby-mode-hook
+                                                  enh-ruby-mode-hook))
+    :config
+    (progn
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/declare-prefix-for-mode mode "mrr" "ruby/RuboCop")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "rrd" 'rubocop-check-directory
+          "rrD" 'rubocop-autocorrect-directory
+          "rrf" 'rubocop-check-current-file
+          "rrF" 'rubocop-autocorrect-current-file
+          "rrp" 'rubocop-check-project
+          "rrP" 'rubocop-autocorrect-project)))))
+
+(defun ruby/init-ruby-mode ()
+  (use-package ruby-mode
+    :defer t
+    :mode "Puppetfile"
+    :init (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "ruby/test")
+    :config
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
+        "'" 'ruby-toggle-string-quotes
+        "{" 'ruby-toggle-block))))
+
+(defun ruby/init-ruby-tools ()
+  (use-package ruby-tools
+    :defer t
+    :init
+    (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+      (add-hook hook 'ruby-tools-mode))
+    :config
+    (progn
+      (spacemacs|hide-lighter ruby-tools-mode)
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/declare-prefix-for-mode mode "mx" "ruby/text")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "x\'" 'ruby-tools-to-single-quote-string
+          "x\"" 'ruby-tools-to-double-quote-string
+          "x:" 'ruby-tools-to-symbol)))))
+
+(defun ruby/init-ruby-test-mode ()
+  "Define keybindings for ruby test mode"
+  (use-package ruby-test-mode)
+    :defer t
+    :init
+    (progn
+      (defun spacemacs//ruby-enable-ruby-test-mode ()
+        "Conditionally enable `ruby-test-mode'"
+        (when (eq 'ruby-test ruby-test-runner)
+          (ruby-test-mode)))
+      (spacemacs/add-to-hooks
+       'spacemacs//ruby-enable-ruby-test-mode '(ruby-mode-hook
+                                                enh-ruby-mode-hook)))
+    :config
+    (progn
+      (spacemacs|hide-lighter ruby-test-mode)
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "tb" 'ruby-test-run
+          "tt" 'ruby-test-run-at-point))))
+
+(defun ruby/init-rvm ()
+  (use-package rvm
+    :if (equal ruby-version-manager 'rvm)
+    :defer t
+    :init
+    (progn
+      (setq rspec-use-rvm t)
+      (spacemacs/add-to-hooks 'rvm-activate-corresponding-ruby
+                              '(ruby-mode-hook enh-ruby-mode-hook)))))
+
+(defun ruby/post-init-smartparens ()
+  (spacemacs|use-package-add-hook smartparens
+    :post-config
+    (sp-with-modes (if ruby-enable-enh-ruby-mode 'enh-ruby-mode 'ruby-mode)
+      (sp-local-pair
+       "{" "}"
+       :pre-handlers '(sp-ruby-pre-handler)
+       :post-handlers '(sp-ruby-post-handler
+                        (spacemacs/smartparens-pair-newline-and-indent "RET"))
+       :suffix ""))))
+
+(defun ruby/init-rake ()
+  (use-package rake
+    :defer t
+    :init (setq rake-cache-file (concat spacemacs-cache-directory "rake.cache"))
+    :config
+    (dolist (mode '(ruby-mode enh-ruby-mode))
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "kk"    'rake
+        "kr"    'rake-rerun
+        "kR"    'rake-regenerate-cache
+        "kf"    'rake-find-task))))

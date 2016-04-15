@@ -1,0 +1,24 @@
+#+TITLE: Evil-Cleverparens layer
+
+* Table of Contents                                                   :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+
+* Description
+
+This simple layer adds the [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]] package, which overrides common
+normal-mode vim commands like D, dd, c, etc. to keep parentheses balanced. See
+the repository for more details.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =evil-cleverparens= to the existing =dotspacemacs-configuration-layers= list
+in this file.
+
+Then enable it in your =user-config= function and add your desired hooks, for
+example:
+
+#+BEGIN_SRC emacs-lisp
+  (spacemacs/toggle-evil-cleverparens-on)
+  (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
+#+END_SRC

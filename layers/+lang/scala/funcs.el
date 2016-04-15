@@ -1,7 +1,6 @@
 ;;; funcs.el --- Scala Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -90,14 +89,8 @@ point to the position of the join."
   (when (s-matches? (rx (+ (not space)))
                     (buffer-substring (line-beginning-position) (point)))
     (delete-horizontal-space t))
-
-  (cond (company-backend
-         (company-complete-selection)
-         (scala/completing-dot))
-
-        (t
-         (insert ".")
-         (company-complete))))
+  (insert ".")
+  (company-complete))
 
 ;;; Flyspell
 
@@ -108,3 +101,11 @@ point to the position of the join."
 
 (defun scala/configure-flyspell ()
   (setq-local flyspell-generic-check-word-predicate 'scala/flyspell-verify))
+
+(defun scala/yank-type-at-point ()
+  "Yank to kill ring and print type at point to the minibuffer without package name."
+  (interactive)
+  (let* ((type (ensime-rpc-get-type-at-point))
+         (shortname (ensime-type-short-name-with-args type)))
+    (kill-new shortname)
+    (message shortname)))

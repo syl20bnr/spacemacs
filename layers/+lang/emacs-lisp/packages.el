@@ -1,7 +1,6 @@
 ;;; packages.el --- Emacs Lisp Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,32 +11,38 @@
 
 (setq emacs-lisp-packages
       '(
+        auto-compile
         company
         eldoc
         elisp-slime-nav
         (emacs-lisp :location built-in)
         evil
         flycheck
-        ielm
+        (ielm :location built-in)
         macrostep
         semantic
         smartparens
         srefactor
         ))
 
-(use-package ielm
-  :config
-  (progn
+(defun emacs-lisp/init-ielm ()
+  (use-package ielm
+    :defer t
+    :init
+    (progn
+      (spacemacs/register-repl 'ielm 'ielm)
+      (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
+        (spacemacs/declare-prefix-for-mode mode "ms" "ielm")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "'" 'ielm
+          "si" 'ielm)))
+    :config
     (defun ielm-indent-line ()
       (interactive)
       (let ((current-point (point)))
         (save-restriction
           (narrow-to-region (search-backward-regexp "^ELISP>") (goto-char current-point))
-          (lisp-indent-line))))
-    (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-      (spacemacs/declare-prefix-for-mode mode "ms" "ielm")
-      (evil-leader/set-key-for-mode mode
-        "msi" 'ielm))))
+          (lisp-indent-line))))))
 
 (defun emacs-lisp/post-init-company ()
   (spacemacs|add-company-hook ielm-mode)
@@ -45,6 +50,22 @@
 
 (defun emacs-lisp/post-init-eldoc ()
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
+
+(defun emacs-lisp/init-auto-compile ()
+  (use-package auto-compile
+    :defer t
+    :diminish (auto-compile-mode . "")
+    :init
+    (progn
+      (setq auto-compile-display-buffer nil
+            ;; lets spaceline manage the mode-line
+            auto-compile-use-mode-line nil
+            auto-compile-mode-line-counter t)
+      (add-hook 'emacs-lisp-mode-hook 'auto-compile-mode))
+    :config
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
+        "cl" 'auto-compile-display-log))))
 
 (defun emacs-lisp/init-elisp-slime-nav ()
   ;; Elisp go-to-definition with M-. and back again with M-,
@@ -56,24 +77,26 @@
       (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
         (spacemacs/declare-prefix-for-mode mode "mg" "find-symbol")
         (spacemacs/declare-prefix-for-mode mode "mh" "help")
-        (evil-leader/set-key-for-mode mode
-          "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
-          "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point)))))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "gg" 'elisp-slime-nav-find-elisp-thing-at-point
+          "hh" 'elisp-slime-nav-describe-elisp-thing-at-point)))))
 
 (defun emacs-lisp/init-emacs-lisp ()
   (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
+    (spacemacs/declare-prefix-for-mode mode "mc" "compile")
     (spacemacs/declare-prefix-for-mode mode "me" "eval")
     (spacemacs/declare-prefix-for-mode mode "mt" "tests")
-    (evil-leader/set-key-for-mode mode
-      "me$" 'lisp-state-eval-sexp-end-of-line
-      "meb" 'eval-buffer
-      "mee" 'eval-last-sexp
-      "mer" 'eval-region
-      "mef" 'eval-defun
-      "mel" 'lisp-state-eval-sexp-end-of-line
-      "m,"  'lisp-state-toggle-lisp-state
-      "mtb" 'spacemacs/ert-run-tests-buffer
-      "mtq" 'ert))
+    (spacemacs/set-leader-keys-for-major-mode mode
+      "cc" 'emacs-lisp-byte-compile
+      "e$" 'lisp-state-eval-sexp-end-of-line
+      "eb" 'eval-buffer
+      "ee" 'eval-last-sexp
+      "er" 'eval-region
+      "ef" 'eval-defun
+      "el" 'lisp-state-eval-sexp-end-of-line
+      ","  'lisp-state-toggle-lisp-state
+      "tb" 'spacemacs/ert-run-tests-buffer
+      "tq" 'ert))
   ;; company support
   (push 'company-capf company-backends-emacs-lisp-mode)
   (spacemacs|add-company-hook emacs-lisp-mode))
@@ -84,36 +107,36 @@
     :mode ("\\*.el\\'" . emacs-lisp-mode)
     :init
     (progn
-      (spacemacs|define-micro-state macrostep
-        :doc "[e] expand [c] collapse [n/N] next/previous [q] quit"
-        :disable-evil-leader t
-        :persistent t
-        :evil-leader-for-mode (emacs-lisp-mode . "mdm")
+      (evil-define-key 'normal macrostep-keymap "q" 'macrostep-collapse-all)
+      (spacemacs|define-transient-state macrostep
+        :title "MacroStep Transient State"
+        :doc "\n[_e_] expand [_c_] collapse [_n_/_N_] next/previous [_q_] quit"
+        :foreign-keys run
         :bindings
         ("e" macrostep-expand)
         ("c" macrostep-collapse)
         ("n" macrostep-next-macro)
         ("N" macrostep-prev-macro)
-        ("q" macrostep-collapse-all :exit t)))))
+        ("q" macrostep-collapse-all :exit t))
+      (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
+        "dm" 'spacemacs/macrostep-transient-state/body))))
 
 (defun emacs-lisp/post-init-evil ()
-  (spacemacs/add-to-hook 'emacs-lisp-mode
-                         '(lambda ()
-                            (spacemacs|define-text-object ";"
-                                                          "elisp-comment"
-                                                          ";; "
-                                                          ""))))
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+              (spacemacs|define-text-object ";" "elisp-comment" ";; " ""))))
 
 (defun emacs-lisp/post-init-flycheck ()
   ;; Don't activate flycheck by default in elisp
   ;; because of too much false warnings
   ;; (spacemacs/add-flycheck-hook 'emacs-lisp-mode)
+
   ;; Make flycheck recognize packages in loadpath
   ;; i.e (require 'company) will not give an error now
   (setq flycheck-emacs-lisp-load-path 'inherit))
 
 (defun emacs-lisp/post-init-semantic ()
-  (semantic/enable-semantic-mode 'emacs-lisp-mode)
+  (add-hook 'emacs-lisp-mode-hook 'semantic-mode)
   (with-eval-after-load 'semantic
     (semantic-default-elisp-setup)))
 
@@ -126,12 +149,12 @@
                srefactor-lisp-one-line)
     :init
     (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-      (spacemacs/declare-prefix-for-mode mode "m=" "srefactor")
-      (evil-leader/set-key-for-mode mode
-        "m=b" 'srefactor-lisp-format-buffer
-        "m=d" 'srefactor-lisp-format-defun
-        "m=o" 'srefactor-lisp-one-line
-        "m=s" 'srefactor-lisp-format-sexp))))
+      (spacemacs/declare-prefix-for-mode mode "=" "srefactor")
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "=b" 'srefactor-lisp-format-buffer
+        "=d" 'srefactor-lisp-format-defun
+        "=o" 'srefactor-lisp-one-line
+        "=s" 'srefactor-lisp-format-sexp))))
 
 (defun emacs-lisp/post-init-smartparens ()
   (if (version< emacs-version "24.4")
@@ -156,8 +179,8 @@ Requires smartparens because all movement is done using
       (call-interactively 'eval-last-sexp)))
 
   (defun spacemacs/eval-current-symbol-sp ()
-    "Call `eval-last-sexp' on the symbol underneath the
-point. Requires smartparens because all movement is done using
+    "Call `eval-last-sexp' on the symbol around point. Requires
+smartparens because all movement is done using
 `sp-forward-symbol'."
     (interactive)
     (require 'smartparens)
@@ -166,6 +189,6 @@ point. Requires smartparens because all movement is done using
       (call-interactively 'eval-last-sexp)))
 
   (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-    (evil-leader/set-key-for-mode mode
-      "mec" 'spacemacs/eval-current-form-sp
-      "mes" 'spacemacs/eval-current-symbol-sp)))
+    (spacemacs/set-leader-keys-for-major-mode mode
+      "ec" 'spacemacs/eval-current-form-sp
+      "es" 'spacemacs/eval-current-symbol-sp)))

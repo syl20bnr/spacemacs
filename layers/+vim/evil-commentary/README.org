@@ -1,6 +1,6 @@
-#+TITLE: Evil-commentary contribution layer for Spacemacs
+#+TITLE: Evil-commentary layer
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#key-bindings][Key bindings]]
@@ -17,17 +17,16 @@ who prefer the behaviour of [[https://github.com/tpope/vim-commentary][vim-comme
 For more details see the [[https://github.com/linktohack/evil-commentary][evil-commentary]] repository.
 
 * Install
-To use this contribution add it to your =~/.spacemacs=.
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(evil-commentary))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =evil-commentary= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key bindings
+
 | Key Binding | Description                   |
 |-------------+-------------------------------|
 | ~SPC ;~     | comment operator              |
 | ~gcc~       | comment current line          |
 | ~gcap~      | comment paragraphs            |
-| ~gc SPC l~  | comment up to a line with avy |
+| ~gc SPC y~  | comment up to a line with avy |
 | ~gy~        | comment and yank              |

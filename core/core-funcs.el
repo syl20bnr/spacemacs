@@ -1,7 +1,6 @@
 ;;; core-funcs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -10,40 +9,37 @@
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs/load-or-install-package (pkg &optional log file-to-load)
-  "Load PKG package. PKG will be installed if it is not already installed.
-Whenever the initial require fails the absolute path to the package
-directory is returned.
-If LOG is non-nil a message is displayed in spacemacs-mode buffer.
-FILE-TO-LOAD is an explicit file to load after the installation."
-  (let ((warning-minimum-level :error))
-    (condition-case nil
-        (require pkg)
-      (error
-       ;; not installed, we try to initialize package.el only if required to
-       ;; precious seconds during boot time
-       (require 'cl)
-       (let ((pkg-elpa-dir (spacemacs//get-package-directory pkg)))
-         (if pkg-elpa-dir
-             (add-to-list 'load-path pkg-elpa-dir)
-           ;; install the package
-           (when log
-             (spacemacs-buffer/append
-              (format "(Bootstrap) Installing %s...\n" pkg))
-             (spacemacs//redisplay))
-           (package-refresh-contents)
-           (package-install pkg)
-           (setq pkg-elpa-dir (spacemacs//get-package-directory pkg)))
-         (require pkg nil 'noerror)
-         (when file-to-load
-           (load-file (concat pkg-elpa-dir file-to-load)))
-         pkg-elpa-dir)))))
+(defvar configuration-layer--protected-packages)
+(defvar dotspacemacs-filepath)
+(defvar spacemacs-repl-list '()
+  "List of all registered REPLs.")
+
+(defun spacemacs/system-is-mac ()
+  (eq system-type 'darwin))
+(defun spacemacs/system-is-linux ()
+  (eq system-type 'gnu/linux))
+(defun spacemacs/system-is-mswindows ()
+  (eq system-type 'windows-nt))
+
+(defun spacemacs/window-system-is-mac ()
+  ;; ns is returned instead of mac on Emacs 25+
+  (memq (window-system) '(mac ns)))
+
+(defun spacemacs/run-prog-mode-hooks ()
+  "Runs `prog-mode-hook'. Useful for modes that don't derive from
+`prog-mode' but should."
+  (run-hooks 'prog-mode-hook))
+
+(defun spacemacs/run-text-mode-hooks ()
+  "Runs `text-mode-hook'. Useful for modes that don't derive from
+`text-mode' but should."
+  (run-hooks 'text-mode-hook))
 
 (defun spacemacs//get-package-directory (pkg)
   "Return the directory of PKG. Return nil if not found."
-  (let ((elpa-dir (concat user-emacs-directory "elpa/")))
+  (let ((elpa-dir (file-name-as-directory package-user-dir)))
     (when (file-exists-p elpa-dir)
-      (let ((dir (reduce (lambda (x y) (if x x y))
+      (let ((dir (cl-reduce (lambda (x y) (if x x y))
                          (mapcar (lambda (x)
                                    (when (string-match
                                           (concat "/"
@@ -122,12 +118,12 @@ and its values are removed."
 Supported properties:
 
 `:evil-leader STRING'
-    One or several key sequence strings to be set with `evil-leader/set-key'.
+    One or several key sequence strings to be set with `spacemacs/set-leader-keys .
 
 `:evil-leader-for-mode CONS CELL'
     One or several cons cells (MODE . KEY) where MODE is a major-mode symbol
     and KEY is a key sequence string to be set with
-    `evil-leader/set-key-for-mode'.
+    `spacemacs/set-leader-keys-for-major-mode'.
 
 `:global-key STRING'
     One or several key sequence strings to be set with `global-set-key'.
@@ -139,44 +135,72 @@ Supported properties:
         (evil-leader-for-mode (spacemacs/mplist-get props :evil-leader-for-mode))
         (global-key (spacemacs/mplist-get props :global-key))
         (def-key (spacemacs/mplist-get props :define-key)))
-    `((unless (null ',evil-leader)
-        (dolist (key ',evil-leader)
-          (evil-leader/set-key key ',func)))
-      (unless (null ',evil-leader-for-mode)
-        (dolist (val ',evil-leader-for-mode)
-          (evil-leader/set-key-for-mode
-            (car val) (cdr val) ',func)))
-      (unless (null ',global-key)
-        (dolist (key ',global-key)
-          (global-set-key (kbd key) ',func)))
-      (unless (null ',def-key)
-        (dolist (val ',def-key)
-          (define-key (eval (car val)) (kbd (cdr val)) ',func))))))
+    (append
+     (when evil-leader
+       `((dolist (key ',evil-leader)
+            (spacemacs/set-leader-keys key ',func))))
+     (when evil-leader-for-mode
+       `((dolist (val ',evil-leader-for-mode)
+          (spacemacs/set-leader-keys-for-major-mode
+            (car val) (cdr val) ',func))))
+     (when global-key
+       `((dolist (key ',global-key)
+          (global-set-key (kbd key) ',func))))
+     (when def-key
+       `((dolist (val ',def-key)
+          (define-key (eval (car val)) (kbd (cdr val)) ',func)))))))
+
+(defun spacemacs/prettify-org-buffer ()
+  "Apply visual enchantments to the current buffer.
+The buffer's major mode should be `org-mode'."
+  (interactive)
+  (if (not (derived-mode-p 'org-mode))
+      (user-error "org-mode should be enabled in the current buffer.")
+
+    (require 'space-doc)
+    (org-indent-mode)
+    (view-mode)
+    (space-doc-mode)))
 
 (defun spacemacs/view-org-file (file &optional anchor-text expand-scope)
-  "Open the change log for the current version."
+  "Open org file and apply visual enchantments.
+FILE is the org file to be opened.
+If ANCHOR-TEXT  is `nil' then run `re-search-forward' with ^ (beginning-of-line).
+If ANCHOR-TEXT is a GitHub style anchor then find a corresponding header.
+If ANCHOR-TEXT isn't a GitHub style anchor then run `re-search-forward' with
+ANCHOR-TEXT.
+If EXPAND-SCOPE is `subtree' then run `outline-show-subtree' at the matched line.
+If EXPAND-SCOPE is `all' then run `outline-show-all' at the matched line."
   (interactive)
   (find-file file)
-  (org-indent-mode)
-  (view-mode)
+  (spacemacs/prettify-org-buffer)
   (goto-char (point-min))
-
   (when anchor-text
-    (re-search-forward anchor-text))
+    ;; If `anchor-text' is GitHub style link.
+    (if (string-prefix-p "#" anchor-text)
+        ;; If the toc-org package is loaded.
+        (if (configuration-layer/package-usedp 'toc-org)
+            ;; For each heading. Search the heading that corresponds
+            ;; to `anchor-text'.
+            (while (and (re-search-forward "^[\\*]+\s\\(.*\\).*$" nil t)
+                        (not (string= (toc-org-hrefify-gh (match-string 1))
+                                      anchor-text))))
+          ;; This is not a problem because without the space-doc package
+          ;; those links will be opened in the browser.
+          (message (format (concat "Can't follow the GitHub style anchor: '%s' "
+                                   "without the org layer.") anchor-text)))
+      (re-search-forward anchor-text)))
   (beginning-of-line)
-
   (cond
    ((eq expand-scope 'subtree)
-    (show-subtree))
+    (outline-show-subtree))
    ((eq expand-scope 'all)
-    (show-all))
+    (outline-show-all))
    (t nil))
-
   ;; Make ~SPC ,~ work, reference:
   ;; http://stackoverflow.com/questions/24169333/how-can-i-emphasize-or-verbatim-quote-a-comma-in-org-mode
   (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\n")
   (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
-
   (setq-local org-emphasis-alist '(("*" bold)
                                    ("/" italic)
                                    ("_" underline)
@@ -184,7 +208,6 @@ Supported properties:
                                    ("~" org-kbd)
                                    ("+"
                                     (:strike-through t))))
-
   (setq-local org-hide-emphasis-markers t))
 
 (defun spacemacs//test-var (pred var test-desc)
@@ -222,5 +245,45 @@ result, incrementing passed-tests and total-tests."
             (insert (format "*** PASS: %s\n" var)))
         (insert (propertize (format "*** FAIL: %s\n" var) 'font-lock-face 'font-lock-warning-face))))))
 
-(provide 'core-funcs)
+;; hide mode line
+;; from http://bzg.fr/emacs-hide-mode-line.html
+(defvar-local hidden-mode-line-mode nil)
+(defvar-local hide-mode-line nil)
+(define-minor-mode hidden-mode-line-mode
+  "Minor mode to hide the mode-line in the current buffer."
+  :init-value nil
+  :global t
+  :variable hidden-mode-line-mode
+  :group 'editing-basics
+  (if hidden-mode-line-mode
+      (setq hide-mode-line mode-line-format
+            mode-line-format nil)
+    (setq mode-line-format hide-mode-line
+          hide-mode-line nil))
+  (force-mode-line-update)
+  ;; Apparently force-mode-line-update is not always enough to
+  ;; redisplay the mode-line
+  (redraw-display)
+  (when (and (called-interactively-p 'interactive)
+             hidden-mode-line-mode)
+    (run-with-idle-timer
+     0 nil 'message
+     (concat "Hidden Mode Line Mode enabled.  "
+             "Use M-x hidden-mode-line-mode to make the mode-line appear."))))
 
+(defun spacemacs/recompile-elpa ()
+  "Recompile packages in elpa directory. Useful if you switch
+Emacs versions."
+  (interactive)
+  (byte-recompile-directory package-user-dir nil t))
+
+(defun spacemacs/register-repl (feature repl-func &optional tag)
+  "Register REPL-FUNC to the global list of REPLs SPACEMACS-REPL-LIST.
+FEATURE will be loaded before running the REPL, in case it is not already
+loaded. If TAG is non-nil, it will be used as the string to show in the helm
+buffer."
+  (push `(,(or tag (symbol-name repl-func))
+          . (,feature . ,repl-func))
+        spacemacs-repl-list))
+
+(provide 'core-funcs)

@@ -1,15 +1,15 @@
-#+TITLE: Elm contribution layer for Spacemacs
+#+TITLE: Elm layer
 
 [[file:img/elm.png]]
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
+   - [[#layer][Layer]]
    - [[#elm-platform][Elm Platform]]
      - [[#os-x-and-windows-installers][OS X and Windows installers]]
      - [[#universal-installer-using-npm][Universal installer using npm]]
      - [[#source-code][Source code]]
-   - [[#elm-mode][elm-mode]]
    - [[#elm-oracle][elm-oracle]]
  - [[#basic-usage-tips][Basic usage tips]]
    - [[#compilation][Compilation]]
@@ -37,9 +37,14 @@ It relies on [[https://github.com/jcollard/elm-mode][elm-mode]] and [[https://gi
 - Integration with elm-package
 
 * Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =elm= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
 ** Elm Platform
 The ~elm-platform~ is a bundle of tools, including the ~elm-compiler~, ~elm-make~,
-~elm-reactor~, ~elm-repl~ and ~elm-package~. 
+~elm-reactor~, ~elm-repl~ and ~elm-package~.
 
 Depending on the method of installation, the ~elm-mode~ package would need to be
 able to access commands such as ~elm-reactor~ or ~elm-make~.
@@ -58,18 +63,11 @@ Also, note that you might need to set the ~ELM_HOME~ environment variables to
 the corresponding directory created by the installer.
 
 OS X Users facing problems with ~elm-reactor~ failing to properly install or
-run, see this issue [[https://github.com/kevva/elm-bin/issues/28][https://github.com/kevva/elm-bin/issues/28]]. 
+run, see this issue [[https://github.com/kevva/elm-bin/issues/28][https://github.com/kevva/elm-bin/issues/28]].
 
 *** Source code
 To build from source, see instructions here:
 [[https://github.com/elm-lang/elm-platform][https://github.com/elm-lang/elm-platform]]
-
-** elm-mode
-To use this contribution, add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(elm))
-#+END_SRC
 
 ** elm-oracle
 ~elm-oracle~ can be used to show type signatures and docs for tokens under the
@@ -77,7 +75,7 @@ cursor and provide support for auto-completion, but it is not part of the standa
 elm-platform.
 
 Both the "company" and "auto-complete" backends are supported, but this layer
-is configured with company. 
+is configured with company.
 
 To install ~elm-oracle~, install ~node.js~ and ~npm~, then
 run this command:
@@ -116,7 +114,6 @@ can be controlled by passing in these variables in your =~/.spacemacs=:
 #+END_SRC
 
 * Key bindings
-
 ** elm-make
 
 | Key Binding | Description                                  |
@@ -129,7 +126,7 @@ can be controlled by passing in these variables in your =~/.spacemacs=:
 
 | Key Binding | Description                                                |
 |-------------+------------------------------------------------------------|
-| ~SPC m s i~ | load-elm-repl                                              |
+| ~SPC m s i~ | elm-repl-load                                              |
 | ~SPC m s f~ | send current function to REPL                              |
 | ~SPC m s F~ | send current function to REPL and focus it in insert state |
 | ~SPC m s r~ | send current region to REPL                                |

@@ -1,7 +1,6 @@
 ;;; config.el --- Spacemacs Base Layer configuration File
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,62 +8,6 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-
-;; ---------------------------------------------------------------------------
-;; Prefixes
-;; ---------------------------------------------------------------------------
-
-;; We define prefix commands only for the sake of which-key
-(setq spacemacs/key-binding-prefixes '(("a"   "applications")
-                                       ("ai"  "irc")
-                                       ("as"  "shells")
-                                       ("b"   "buffers")
-                                       ("bm"  "move")
-                                       ("c"   "compile/comments")
-                                       ("C"   "capture/colors")
-                                       ("e"   "errors")
-                                       ("f"   "files")
-                                       ("fC"  "files/convert")
-                                       ("fe"  "emacs(spacemacs)")
-                                       ("g"   "git/versions-control")
-                                       ("h"   "helm/help/highlight")
-                                       ("hd"  "help-describe")
-                                       ("i"   "insertion")
-                                       ("j"   "join/split")
-                                       ("k"   "lisp")
-                                       ("kd"  "delete")
-                                       ("kD"  "delete-backward")
-                                       ("k`"  "hybrid")
-                                       ("n"   "narrow/numbers")
-                                       ("p"   "projects")
-                                       ("p$"  "projects/shell")
-                                       ("q"   "quit")
-                                       ("r"   "registers/rings")
-                                       ("s"   "search/symbol")
-                                       ("sa"  "ag")
-                                       ("sg"  "grep")
-                                       ("sk"  "ack")
-                                       ("st"  "pt")
-                                       ("sw"  "web")
-                                       ("t"   "toggles")
-                                       ("tC"  "colors")
-                                       ("tE"  "editing-styles")
-                                       ("th"  "highlight")
-                                       ("tm"  "modeline")
-                                       ("T"   "toggles/themes")
-                                       ("w"   "windows")
-                                       ("wp"  "popup")
-                                       ("x"   "text")
-                                       ("xa"  "align")
-                                       ("xd"  "delete")
-                                       ("xg"  "google-translate")
-                                       ("xl"  "lines")
-                                       ("xm"  "move")
-                                       ("xt"  "transpose")
-                                       ("xw"  "words")
-                                       ("z"   "zoom")))
-(mapc (lambda (x) (apply #'spacemacs/declare-prefix x))
-      spacemacs/key-binding-prefixes)
 
 ;; ---------------------------------------------------------------------------
 ;; Navigation
@@ -76,10 +19,14 @@
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose nil)
 
+;; Make dired "guess" target directory for some operations, like copy to
+;; directory visited in other split buffer.
+(setq dired-dwim-target t)
+
 ;; Regexp for useful and useless buffers for smarter buffer switching
 (defvar spacemacs-useless-buffers-regexp '("*\.\+")
   "Regexp used to determine if a buffer is not useful.")
-(defvar spacemacs-useful-buffers-regexp '("\\*\\(scratch\\|terminal\.\+\\|ansi-term\\|eshell\\)\\*")
+(defvar spacemacs-useful-buffers-regexp '("\\*scratch\\*")
   "Regexp used to define buffers that are useful despite matching
 `spacemacs-useless-buffers-regexp'.")
 
@@ -112,6 +59,9 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Keep focus while navigating help buffers
 (setq help-window-select 't)
 
+;; Scroll compilation to first error or end
+(setq compilation-scroll-output 'first-error)
+
 ;; ---------------------------------------------------------------------------
 ;; Edit
 ;; ---------------------------------------------------------------------------
@@ -132,8 +82,8 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; on OS X, see contrib/osx layer
 (setq delete-by-moving-to-trash t)
 
-;; auto fill breaks line beyond current-fill-column
-(setq-default default-fill-column 80)
+;; auto fill breaks line beyond buffer's fill-column
+(setq-default fill-column 80)
 (spacemacs|diminish auto-fill-function " Ⓕ" " F")
 
 ;; persistent abbreviation file
@@ -151,6 +101,14 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 (with-eval-after-load 'comint
   (define-key comint-mode-map (kbd "C-d") nil))
 
+;; Prompt to open file literally if large file.
+(add-hook 'find-file-hook 'spacemacs/check-large-file)
+
+;; whitespace-cleanup configuration
+(pcase dotspacemacs-whitespace-cleanup
+  (`all (add-hook 'before-save-hook 'whitespace-cleanup))
+  (`trailing (add-hook 'before-save-hook 'delete-trailing-whitespace)))
+
 ;; ---------------------------------------------------------------------------
 ;; UI
 ;; ---------------------------------------------------------------------------
@@ -162,6 +120,11 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
               '((truncation . nil) (continuation . nil)))
 ;; Show column number in mode line
 (setq column-number-mode t)
+;; Activate linum-mode in all prog-mode and text-mode buffers if the setting is
+;; enabled.
+(when dotspacemacs-line-numbers
+  (add-hook 'prog-mode-hook 'linum-mode)
+  (add-hook 'text-mode-hook 'linum-mode))
 ;; line number
 (setq linum-format "%4d")
 ;; highlight current line
@@ -179,22 +142,27 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Emacs 24.4 new features
 (unless (version< emacs-version "24.4")
   (if dotspacemacs-fullscreen-at-startup
-      (spacemacs/toggle-frame-fullscreen)
+      ;; spacemacs/toggle-fullscreen-frame-on is NOT available during the startup,
+      ;; but IS available during the subsequent config reloads
+      (if (fboundp 'spacemacs/toggle-fullscreen-frame-on)
+          (spacemacs/toggle-fullscreen-frame-on)
+        (spacemacs/toggle-frame-fullscreen))
     (if dotspacemacs-maximized-at-startup
         (add-hook 'window-setup-hook 'toggle-frame-maximized))))
+
+(setq ns-use-native-fullscreen (not dotspacemacs-fullscreen-use-non-native))
 
 ;; ---------------------------------------------------------------------------
 ;; Session
 ;; ---------------------------------------------------------------------------
 
 ;; save custom variables in ~/.spacemacs
-(setq custom-file (dotspacemacs/location))
+(unless (bound-and-true-p custom-file)
+  (setq custom-file (dotspacemacs/location)))
 ;; scratch buffer empty
 (setq initial-scratch-message nil)
 ;; don't create backup~ files
-(setq backup-by-copying t
-      make-backup-files nil
-      create-lockfiles nil)
+(setq make-backup-files nil)
 
 ;; Auto-save file
 (setq auto-save-default (not (null dotspacemacs-auto-save-file-location)))
@@ -223,9 +191,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
       eval-expression-print-level nil)
 
 ;; cache files
-(setq url-configuration-directory (concat spacemacs-cache-directory "url")
-      eshell-directory-name (concat spacemacs-cache-directory "eshell" )
-      tramp-persistency-file-name (concat spacemacs-cache-directory "tramp"))
+(setq tramp-persistency-file-name (concat spacemacs-cache-directory "tramp/"))
 
 ;; seems pointless to warn. There's always undo.
 (put 'narrow-to-region 'disabled nil)

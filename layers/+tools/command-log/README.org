@@ -1,0 +1,22 @@
+#+TITLE: command-log layer
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+command-log can be used to demo Emacs to an audience. When activated,
+keystrokes get logged into a designated buffer, along with the command
+bound to them. For more info check [[https://github.com/lewang/command-log-mode][command-log-mode]].
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =command-log= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description            |
+|-------------+------------------------|
+| ~SPC a L~   | Toggle the command log |

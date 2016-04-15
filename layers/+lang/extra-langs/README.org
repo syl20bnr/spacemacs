@@ -1,5 +1,10 @@
 #+TITLE: Extra Languages
 
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+
+* Description
+
 Adds many more language modes for less common languages, some more niche than others.
 
 These include:
@@ -9,4 +14,5 @@ These include:
 - QML
 - OpenScad
 - Stan
+- Thrift
 - Wolfram Language / Mathematica

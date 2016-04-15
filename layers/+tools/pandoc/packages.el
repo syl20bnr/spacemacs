@@ -1,7 +1,6 @@
 ;;; packages.el --- pandoc Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2015 Christoph Paulik & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Christoph Paulik <cpaulik@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -30,7 +29,7 @@
       (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings))
     :init
     (progn
-      (evil-leader/set-key "P/" 'spacemacs/run-pandoc))))
+      (spacemacs/set-leader-keys "P/" 'spacemacs/run-pandoc))))
 
 (defun pandoc/init-ox-pandoc ()
   (use-package ox-pandoc

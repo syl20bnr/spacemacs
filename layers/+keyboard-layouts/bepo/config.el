@@ -1,7 +1,6 @@
-;;; config.el --- bepo Layer extensions File for Spacemacs
+;;; config.el --- bepo Layer configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Fabien Dubosson & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Fabien Dubosson <fabien.dubosson@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -10,29 +9,63 @@
 ;;
 ;;; License: GPLv3
 
-(bepo|config "evil-escape"
-  :description
-  "Provide a better default escape combination than 'fd'."
-  :loader
-  (spacemacs|use-package-add-hook evil-escape :pre-init BODY)
-  :config
-  (setq-default evil-escape-key-sequence "gq"))
+;;------------------------------------------------------------------------------
+;; PUBLIC VARIABLES
+;;------------------------------------------------------------------------------
 
-(bepo|config "avk-keys"
-  :description
-  "Better prefix for joining multi-character places (central keys)"
-  :loader
-  (spacemacs|use-package-add-hook avy :post-init BODY)
-  :config
-  (setq-default avy-keys '(?t ?e ?s ?i ?r ?u ?n ?a)))
+(defvar bepo-set-enabled-configurations nil
+  "If non nil, `bepo' will enable configurations only for the passed list of
+symbols. Configurations that are also in `bepo-set-disabled-configurations' will
+not be loaded.")
 
-(bepo|config "evil-surround-pairs"
-  :description
-  "Add support for `«' `»' in evil-surround"
-  :loader
-  (spacemacs|use-package-add-hook evil-surround :post-init BODY)
-  :config
-  (progn
-    (setq-default evil-surround-pairs-alist (cons '(?« "« " . " »") evil-surround-pairs-alist))
-    (setq-default evil-surround-pairs-alist (cons '(?» "«" . "»") evil-surround-pairs-alist))))
+(defvar bepo-set-disabled-configurations nil
+  "If non nil, `bepo' will disable configurations for the passed list of
+symbols. This list takes priority over `bepo-set-enabled-configurations', so
+they will not be loaded in any case.")
 
+;;------------------------------------------------------------------------------
+;; PRIVATE VARIABLES
+;;------------------------------------------------------------------------------
+
+(defvar bepo--base-rebinding-map
+  '(("c" . "h")
+    ("t" . "j")
+    ("s" . "k")
+    ("r" . "l")
+    ;;
+    ("h" . "r")
+    ("j" . "t")
+    ("k" . "s")
+    ("l" . "c"))
+  "The base bepo's rebinding map. Dots should be read as `will
+  behave as'. It should be a bidirectional mapping, i.e. all
+  present keys should be once in each column.")
+
+(defvar bepo--rebinding-map
+  (mapcan (lambda (binding)
+            (let ((key1 (car binding))
+                  (key2 (cdr binding)))
+              (append
+               (list  (cons (upcase key1) (upcase key2))
+                      (cons key1 key2))
+               (mapcar
+                (lambda (modifier)
+                  (cons (concat modifier key1) (concat modifier key2)))
+                '("" "C-" "M-" "C-S-")))))
+          bepo--base-rebinding-map)
+  "The full bepo's rebinding map. Dots should be read as `will behave as'.")
+
+(with-eval-after-load 'evil
+  (defvar bepo--all-evil-states
+    (list evil-normal-state-map
+          evil-visual-state-map
+          evil-insert-state-map
+          evil-emacs-state-map
+          evil-motion-state-map)
+    "The list of all evil states.")
+
+  (defvar bepo--all-evil-states-but-insert
+    (list evil-normal-state-map
+          evil-visual-state-map
+          evil-motion-state-map)
+    "The list of all evil states except insert."))

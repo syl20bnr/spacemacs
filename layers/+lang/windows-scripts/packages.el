@@ -1,7 +1,6 @@
 ;;; packages.el --- Windows Scripts Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,8 +11,37 @@
 
 (setq windows-scripts-packages
   '(
+    (dos :location local)
     powershell
     ))
+
+(defun windows-scripts/init-dos ()
+  (use-package dos
+    :commands dos-mode
+    :mode ("\\.bat$" . dos-mode)
+    :init
+    (progn
+      (defun windows-scripts/dos-outline-hook ()
+        (defun outline-mouse-select ()
+          "Select position and return to `dos-mode'."
+          (interactive)
+          (dos-mode)
+          (beginning-of-line)))
+      (defun windows-scripts/dos-outline ()
+        "Set a local binding to be able to return easily in dos-mode."
+        (interactive)
+        (dos-outline)
+        (define-key evil-normal-state-local-map (kbd "SPC m z") 'dos-mode))
+      (add-hook 'outline-mode-hook 'windows-scripts/dos-outline-hook))
+    :config
+    (spacemacs/set-leader-keys-for-major-mode 'dos-mode
+      "hD" 'dos-help-cmd
+      "eb" 'dos-run
+      "eB" 'dos-run-args
+      "s"  'dos-sep
+      "t"  'dos-template-mini
+      "T"  'dos-template
+      "z"  'windows-scripts/dos-outline)))
 
 (defun windows-scripts/init-powershell ()
   (use-package powershell
@@ -25,10 +53,10 @@
         (spacemacs|define-text-object "$" "dollarparen" "$(" ")")
         )
       (add-hook 'powershell-mode-hook 'powershell/define-text-objects)
-      (evil-leader/set-key
+      (spacemacs/set-leader-keys
         "asp" 'powershell)
-      (evil-leader/set-key-for-mode 'powershell-mode
-        "mrr" 'powershell-regexp-to-regex)
+      (spacemacs/set-leader-keys-for-major-mode 'powershell-mode
+        "rr" 'powershell-regexp-to-regex)
 
     ;; TODO
     ;; - split out powershell

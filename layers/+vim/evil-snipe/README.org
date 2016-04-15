@@ -1,16 +1,16 @@
-#+TITLE: evil-snipe contribution layer for Spacemacs
+#+TITLE: Evil-snipe layer
 
 [[file:img/Cat_With_Rifle.jpg]]
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#improved-f-and-t-search-behavior][Improved f and t search behavior]]
-     - [[#two-character-search-with-s][Two-character search with s]]
-     - [[#more-scopes][More scopes]]
-     - [[#symbol-groups][Symbol groups]]
- - [[#todo-key-bindings][TODO Key bindings]]
+   - [[#layer][Layer]]
+   - [[#improved-f-and-t-search-behavior][Improved f and t search behavior]]
+   - [[#two-character-search-with-s][Two-character search with s]]
+   - [[#more-scopes][More scopes]]
+   - [[#symbol-groups][Symbol groups]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 The package [[https://github.com/hlissner/evil-snipe][evil-snipe]]
@@ -25,32 +25,26 @@ search command, namely ~s~ / ~S~.
 buffer with two chars.
 
 * Install
-
 ** Layer
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(evil-snipe))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =evil-snipe= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Improved f and t search behavior
-
 With evil-snipe you can define your own search scope for ~f~ and ~t~ searches
 which means that you won't have to jump to the correct line before searching
 with ~f~ / ~t~ / ~F~ / ~T~. And after you have found a match, you can just press
-~f~ or ~t~ again afterwards to continue the search. No need to use ~;~ / ~,~.
+~f~ or ~t~ again afterwards to continue the search. No need to use ~;~ / ~​,​~.
 
 This alternate behavior is disabled by default, to enable it set the
 layer variable =evil-snipe-enable-alternate-f-and-t-behaviors= to =t=:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '(evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t ))
+    '((evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)))
 #+END_SRC
 
 ** Two-character search with s
-
 With the ~s~/~S~ keys you can do a simple search like ~f~/~t~, but instead of
 searching for one character, you search for two. This makes the search a lot
 more precise than regular ~f~/~t~ searches. While you can search forward or
@@ -59,7 +53,6 @@ don't require you to press enter and they are precise enough for many common
 purposes.
 
 ** More scopes
-
 Evil-snipe also adds several scope options for searches (set =evil-snipe-scope=
 and =evil-snipe-repeat-scope= to one of these, the default value is =buffer=):
 
@@ -77,26 +70,29 @@ remove this line from =evil-snipe/packages.el=:
 =(evil-snipe-replace-evil)=
 
 ** Symbol groups
-
 With symbol groups you can let a character stand for a regex, for example a
-group of characters. By adding a pair of ='(CHAR REGEX)= to the list
-='evil-snipe-symbol-groups= you can search for a regex very simply:
+group of characters. By adding a pair of =(CHAR REGEX)= to the list
+=evil-snipe-aliases= you can search for a regex very simply:
 
-- Here we set the ~[~ character to mean =all characters "[({"= so a search
-with ~sa[~ would find ~a[~, ~a{~ or ~a(~.
+- Here we set the ~[~ character to mean =all characters [({= *in all modes* so a
+  search with ~sa[~ would find ~a[~, ~a{~ or ~a(~.
 
 #+BEGIN_SRC emacs-lisp
   ;; Alias [ and ] to all types of brackets
-  (add-to-list 'evil-snipe-symbol-groups '(?\\[ \"[[{(]\"))
+  (push '(?\[ "[[{(]") evil-snipe-aliases)
+  (push '(?\] "[]})]") evil-snipe-aliases)
 #+END_SRC
 
 - Here we set the char ~:~ to mean =a regex matching python function
-definitions= so by searching with ~f:fff~ you can quickly cycle through
-all function definitions in a buffer!
+  definitions= (but only in python-mode), so by searching with ~f:fff~ you can
+  quickly cycle through all function definitions in a buffer!
 
 #+BEGIN_SRC emacs-lisp
   ;; For python style functions
-  (add-to-list 'evil-snipe-symbol-groups '(?\\: \"def .+:\"\))
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (make-variable-buffer-local 'evil-snipe-aliases)
+              (push '(?: "def .+:") evil-snipe-aliases)))
 #+END_SRC
 
 * TODO Key bindings

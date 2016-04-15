@@ -1,7 +1,6 @@
 ;;; packages.el --- Haskell Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -14,13 +13,14 @@
   '(
     cmm-mode
     company
-    company-ghc
     company-cabal
+    company-ghc
     flycheck
     flycheck-haskell
     ghc
     haskell-mode
     haskell-snippets
+    helm-hoogle
     hindent
     shm
     ))
@@ -28,6 +28,16 @@
 (defun haskell/init-cmm-mode ()
   (use-package cmm-mode
     :defer t))
+
+(setq haskell-modes '(haskell-mode literate-haskell-mode))
+
+(when (configuration-layer/layer-usedp 'spacemacs-helm)
+  (defun haskell/init-helm-hoogle ()
+    (use-package helm-hoogle
+      :defer t
+      :init
+      (dolist (mode haskell-modes)
+        (spacemacs/set-leader-keys-for-major-mode mode "hf" 'helm-hoogle)))))
 
 (defun haskell/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'haskell-mode))
@@ -45,14 +55,49 @@
     :if haskell-enable-ghc-mod-support
     :init (add-hook 'haskell-mode-hook 'ghc-init)
     :config
-    (when (configuration-layer/package-usedp 'flycheck)
-      ;; remove overlays from ghc-check.el if flycheck is enabled
-      (set-face-attribute 'ghc-face-error nil :underline nil)
-      (set-face-attribute 'ghc-face-warn nil :underline nil))))
+    (progn
+      (dolist (mode haskell-modes)
+        (spacemacs/declare-prefix-for-mode mode "mm" "haskell/ghc-mod")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "mt" 'ghc-insert-template-or-signature
+          "mu" 'ghc-initial-code-from-signature
+          "ma" 'ghc-auto
+          "mf" 'ghc-refine
+          "me" 'ghc-expand-th
+          "mn" 'ghc-goto-next-hole
+          "mp" 'ghc-goto-prev-hole
+          "m>"  'ghc-make-indent-deeper
+          "m<"  'ghc-make-indent-shallower))
+      (when (configuration-layer/package-usedp 'flycheck)
+        ;; remove overlays from ghc-check.el if flycheck is enabled
+        (set-face-attribute 'ghc-face-error nil :underline nil)
+        (set-face-attribute 'ghc-face-warn nil :underline nil)))))
 
 (defun haskell/init-haskell-mode ()
   (use-package haskell-mode
     :defer t
+    :init
+    (progn
+      (defun spacemacs//force-haskell-mode-loading ()
+        "Force `haskell-mode' loading when visiting cabal file."
+        (require 'haskell-mode))
+      (add-hook 'haskell-cabal-mode-hook
+                'spacemacs//force-haskell-mode-loading))
+
+    (setq
+     ;; Use notify.el (if you have it installed) at the end of running
+     ;; Cabal commands or generally things worth notifying.
+     haskell-notify-p t
+     ;; To enable tags generation on save.
+     haskell-tags-on-save t
+     ;; Remove annoying error popups
+     haskell-interactive-popup-errors nil
+     ;; Better import handling
+     haskell-process-suggest-remove-import-lines t
+     haskell-process-auto-import-loaded-modules t
+     ;; Disable haskell-stylish-on-save, as it breaks flycheck highlighting.
+     ;; NOTE: May not be true anymore - taksuyu 2015-10-06
+     haskell-stylish-on-save nil)
     :config
     (progn
       ;; Haskell main editing mode key bindings.
@@ -64,26 +109,28 @@
           ;; in structured-haskell-mode line highlighting creates noise
           (setq-local global-hl-line-mode nil)))
 
+      (defun spacemacs/haskell-interactive-bring ()
+        "Bring up the interactive mode for this session without
+         switching to it."
+        (interactive)
+        (let* ((session (haskell-session))
+               (buffer (haskell-session-interactive-buffer session)))
+          (display-buffer buffer)))
+
       ;; hooks
       (add-hook 'haskell-mode-hook 'spacemacs/init-haskell-mode)
-      (add-hook 'haskell-cabal-mode-hook 'haskell-cabal-hook)
-      (unless haskell-enable-shm-support
-        (add-hook 'haskell-mode-hook 'haskell-indentation-mode))
+      (unless haskell-enable-ghc-mod-support
+        (add-hook 'haskell-mode-hook 'interactive-haskell-mode))
 
-      ;; settings
-      (setq
-       ;; Use notify.el (if you have it installed) at the end of running
-       ;; Cabal commands or generally things worth notifying.
-       haskell-notify-p t
-       ;; To enable tags generation on save.
-       haskell-tags-on-save t
-       ;; Remove annoying error popups
-       haskell-interactive-popup-errors nil
-       ;; Better import handling
-       haskell-process-suggest-remove-import-lines t
-       haskell-process-auto-import-loaded-modules t
-       ;; Disable haskell-stylish on save, it breaks flycheck highlighting
-       haskell-stylish-on-save nil)
+      ;; prefixes
+      (dolist (mode haskell-modes)
+        (spacemacs/declare-prefix-for-mode mode "mg" "haskell/navigation")
+        (spacemacs/declare-prefix-for-mode mode "ms" "haskell/repl")
+        (spacemacs/declare-prefix-for-mode mode "mc" "haskell/cabal")
+        (spacemacs/declare-prefix-for-mode mode "mh" "haskell/documentation")
+        (spacemacs/declare-prefix-for-mode mode "md" "haskell/debug"))
+      (spacemacs/declare-prefix-for-mode 'haskell-interactive-mode "ms" "haskell/repl")
+      (spacemacs/declare-prefix-for-mode 'haskell-cabal-mode "ms" "haskell/repl")
 
       ;; key bindings
       (defun spacemacs/haskell-process-do-type-on-prev-line ()
@@ -92,60 +139,67 @@
             (haskell-mode-show-type-at 1)
           (haskell-process-do-type 1)))
 
-      (evil-leader/set-key-for-mode 'haskell-mode
-        "mgg"  'haskell-mode-jump-to-def-or-tag
-        "mgi"  'haskell-navigate-imports
-        "mf"   'haskell-mode-stylish-buffer
+      (dolist (mode haskell-modes)
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "gg"  'haskell-mode-jump-to-def-or-tag
+          "gi"  'haskell-navigate-imports
+          "f"   'haskell-mode-stylish-buffer
 
-        "msb"  'haskell-process-load-or-reload
-        "msc"  'haskell-interactive-mode-clear
-        "mss"  'haskell-interactive-bring
-        "msS"  'haskell-interactive-switch
+          "sb"  'haskell-process-load-file
+          "sc"  'haskell-interactive-mode-clear
+          "ss"  'spacemacs/haskell-interactive-bring
+          "sS"  'haskell-interactive-switch
 
-        "mca"  'haskell-process-cabal
-        "mcb"  'haskell-process-cabal-build
-        "mcc"  'haskell-compile
-        "mcv"  'haskell-cabal-visit-file
+          "ca"  'haskell-process-cabal
+          "cb"  'haskell-process-cabal-build
+          "cc"  'haskell-compile
+          "cv"  'haskell-cabal-visit-file
 
-        "mhd"  'inferior-haskell-find-haddock
-        "mhh"  'hoogle
-        "mhH"  'hoogle-lookup-from-local
-        "mhi"  (lookup-key haskell-mode-map (kbd "C-c C-i"))
-        "mht"  (lookup-key haskell-mode-map (kbd "C-c C-t"))
-        "mhT"  'spacemacs/haskell-process-do-type-on-prev-line
-        "mhy"  'hayoo
+          "hd"  'inferior-haskell-find-haddock
+          "hh"  'hoogle
+          "hH"  'haskell-hoogle-lookup-from-local
+          "hi"  (lookup-key haskell-mode-map (kbd "C-c TAB"))
+          "ht"  (lookup-key haskell-mode-map (kbd "C-c C-t"))
+          "hT"  'spacemacs/haskell-process-do-type-on-prev-line
+          "hy"  'hayoo
 
-        "mdd"  'haskell-debug
-        "mdb"  'haskell-debug/break-on-function
-        "mdn"  'haskell-debug/next
-        "mdN"  'haskell-debug/previous
-        "mdB"  'haskell-debug/delete
-        "mdc"  'haskell-debug/continue
-        "mda"  'haskell-debug/abandon
-        "mdr"  'haskell-debug/refresh)
+          "dd"  'haskell-debug
+          "db"  'haskell-debug/break-on-function
+          "dn"  'haskell-debug/next
+          "dN"  'haskell-debug/previous
+          "dB"  'haskell-debug/delete
+          "dc"  'haskell-debug/continue
+          "da"  'haskell-debug/abandon
+          "dr"  'haskell-debug/refresh))
+
+      ;; configure C-c C-l so it doesn't throw any errors
+      (bind-key "C-c C-l" 'haskell-process-load-file haskell-mode-map)
 
       ;; Switch back to editor from REPL
-      (evil-leader/set-key-for-mode 'haskell-interactive-mode
-        "msS"  'haskell-interactive-switch-back)
+      (spacemacs/set-leader-keys-for-major-mode 'haskell-interactive-mode
+        "sS"  'haskell-interactive-switch-back)
 
       ;; Compile
-      (evil-leader/set-key-for-mode 'haskell-cabal
-        "mC"  'haskell-compile)
+      (spacemacs/set-leader-keys-for-major-mode 'haskell-cabal
+        "C"  'haskell-compile)
 
       ;; Cabal-file bindings
-      (evil-leader/set-key-for-mode 'haskell-cabal-mode
-        ;; "m="  'haskell-cabal-subsection-arrange-lines ;; Does a bad job, 'gg=G' works better
-        "md" 'haskell-cabal-add-dependency
-        "mb" 'haskell-cabal-goto-benchmark-section
-        "me" 'haskell-cabal-goto-executable-section
-        "mt" 'haskell-cabal-goto-test-suite-section
-        "mm" 'haskell-cabal-goto-exposed-modules
-        "ml" 'haskell-cabal-goto-library-section
-        "mn" 'haskell-cabal-next-subsection
-        "mp" 'haskell-cabal-previous-subsection
-        "mN" 'haskell-cabal-next-section
-        "mP" 'haskell-cabal-previous-section
-        "mf" 'haskell-cabal-find-or-create-source-file)
+      (spacemacs/set-leader-keys-for-major-mode 'haskell-cabal-mode
+        ;; "="   'haskell-cabal-subsection-arrange-lines ;; Does a bad job, 'gg=G' works better
+        "d"   'haskell-cabal-add-dependency
+        "b"   'haskell-cabal-goto-benchmark-section
+        "e"   'haskell-cabal-goto-executable-section
+        "t"   'haskell-cabal-goto-test-suite-section
+        "m"   'haskell-cabal-goto-exposed-modules
+        "l"   'haskell-cabal-goto-library-section
+        "n"   'haskell-cabal-next-subsection
+        "p"   'haskell-cabal-previous-subsection
+        "sc"  'haskell-interactive-mode-clear
+        "ss"  'spacemacs/haskell-interactive-bring
+        "sS"  'haskell-interactive-switch
+        "N"   'haskell-cabal-next-section
+        "P"   'haskell-cabal-previous-section
+        "f"   'haskell-cabal-find-or-create-source-file)
 
       ;; Make "RET" behaviour in REPL saner
       (evil-define-key 'insert haskell-interactive-mode-map
@@ -160,58 +214,42 @@
         (setq haskell-process-args-cabal-repl '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng"))
         ;; if haskell-process-type == GHCi
         (setq haskell-process-path-ghci "ghci-ng")
+        ;; fixes ghci-ng for stack projects
+        (setq haskell-process-wrapper-function
+              (lambda (args)
+                (append args (list "--with-ghc" "ghci-ng"))))
 
-        (evil-leader/set-key-for-mode 'haskell-mode
-          ;; function suggested in
-          ;; https://github.com/chrisdone/ghci-ng#using-with-haskell-mode
-          "mu"   'haskell-mode-find-uses
-          "mht"  'haskell-mode-show-type-at
-          "mgg"  'haskell-mode-goto-loc))
+        (dolist (mode haskell-modes)
+          (spacemacs/set-leader-keys-for-major-mode mode
+            ;; function suggested in
+            ;; https://github.com/chrisdone/ghci-ng#using-with-haskell-mode
+            "u"   'haskell-mode-find-uses
+            "ht"  'haskell-mode-show-type-at
+            "gg"  'haskell-mode-goto-loc))
 
       ;; Useful to have these keybindings for .cabal files, too.
       (with-eval-after-load 'haskell-cabal-mode-map
         (define-key haskell-cabal-mode-map
           [?\C-c ?\C-z] 'haskell-interactive-switch))))
 
-
-  (with-eval-after-load 'haskell-indentation
-    ;; Show indentation guides in insert or emacs state only.
-    (defun spacemacs//haskell-indentation-show-guides ()
-      "Show visual indentation guides."
-      (when (and (boundp 'haskell-indentation-mode) haskell-indentation-mode)
-        (haskell-indentation-enable-show-indentations)))
-
-    (defun spacemacs//haskell-indentation-hide-guides ()
-      "Hide visual indentation guides."
-      (when (and (boundp 'haskell-indentation-mode) haskell-indentation-mode)
-        (haskell-indentation-disable-show-indentations)))
-
-    ;; first entry in normal state
-    (add-hook 'evil-normal-state-entry-hook 'spacemacs//haskell-indentation-hide-guides)
-
-    (add-hook 'evil-insert-state-entry-hook 'spacemacs//haskell-indentation-show-guides)
-    (add-hook 'evil-emacs-state-entry-hook 'spacemacs//haskell-indentation-show-guides)
-    (add-hook 'evil-insert-state-exit-hook 'spacemacs//haskell-indentation-hide-guides)
-    (add-hook 'evil-emacs-state-exit-hook 'spacemacs//haskell-indentation-hide-guides))
-
   ;; align rules for Haskell
   (with-eval-after-load 'align
     (add-to-list 'align-rules-list
                  '(haskell-types
                    (regexp . "\\(\\s-+\\)\\(::\\|∷\\)\\s-+")
-                   (modes . '(haskell-mode literate-haskell-mode))))
+                   (modes . haskell-modes)))
     (add-to-list 'align-rules-list
                  '(haskell-assignment
                    (regexp . "\\(\\s-+\\)=\\s-+")
-                   (modes . '(haskell-mode literate-haskell-mode))))
+                   (modes . haskell-modes)))
     (add-to-list 'align-rules-list
                  '(haskell-arrows
                    (regexp . "\\(\\s-+\\)\\(->\\|→\\)\\s-+")
-                   (modes . '(haskell-mode literate-haskell-mode))))
+                   (modes . haskell-modes)))
     (add-to-list 'align-rules-list
                  '(haskell-left-arrows
                    (regexp . "\\(\\s-+\\)\\(<-\\|←\\)\\s-+")
-                   (modes . '(haskell-mode literate-haskell-mode))))))
+                   (modes . haskell-modes))))))
 
 (defun haskell/init-haskell-snippets ()
   ;; manually load the package since the current implementation is not lazy
@@ -226,6 +264,7 @@
 
   (with-eval-after-load 'yasnippet (haskell-snippets-initialize)))
 
+;; doesn't support literate-haskell-mode :(
 (defun haskell/init-hindent ()
   (use-package hindent
     :defer t
@@ -235,8 +274,8 @@
     :config
     (progn
       (setq hindent-style haskell-enable-hindent-style)
-      (evil-leader/set-key-for-mode 'haskell-mode
-        "mF" 'hindent/reformat-decl))))
+      (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
+        "F" 'hindent-reformat-decl))))
 
 (defun haskell/init-shm ()
   (use-package shm
@@ -284,8 +323,10 @@
       :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
-      (push '(company-ghc company-dabbrev-code company-yasnippet)
-            company-backends-haskell-mode)))
+      (push (if haskell-enable-ghc-mod-support
+                '(company-ghc company-dabbrev-code company-yasnippet)
+              '(company-dabbrev-code company-yasnippet))
+              company-backends-haskell-mode)))
 
   (defun haskell/init-company-cabal ()
     (use-package company-cabal

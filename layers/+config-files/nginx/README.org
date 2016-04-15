@@ -1,0 +1,16 @@
+#+TITLE: nginx layer
+
+[[file:img/nginx.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+
+* Description
+[[https://github.com/ajc/nginx-mode][nginx-mode]] for editing [[http://nginx.org][nginx]] configuration files.
+It adds basic syntax highlighting and syntax-aware tabbing.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =nginx= to the existing =dotspacemacs-configuration-layers= list in this
+file.

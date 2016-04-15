@@ -1,7 +1,6 @@
 ;;; packages.el --- d Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,14 +11,13 @@
 
 ;; List of all packages to install and/or initialize. Built-in packages
 ;; which require an initialization must be listed explicitly in the list.
-(defvar d-packages
-  '(
-    d-mode
-    flycheck-dmd-dub
-
-    flycheck
-    company
-    ))
+(setq d-packages
+      '(
+        d-mode
+        flycheck-dmd-dub
+        flycheck
+        company
+        ))
 
 (defun d/init-d-mode ()
   (use-package d-mode :defer t))

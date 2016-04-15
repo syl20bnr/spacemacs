@@ -1,10 +1,10 @@
-#+TITLE: fasd contribution layer for Spacemacs
+#+TITLE: fasd layer
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#fasd][fasd]]
+   - [[#layer][Layer]]
+   - [[#fasd][fasd]]
  - [[#keybindings][Keybindings]]
 
 * Description
@@ -15,17 +15,12 @@ to quickly jump between locations in a POSIX shell.
 The integration is implemented in the package [[https://github.com/steckerhalter/emacs-fasd][emacs-fasd]].
 
 * Install
-
 ** Layer
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(fasd))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =fasd= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** fasd
-
 [[https://github.com/clvv/fasd][fasd]] must be installed on your system. The general installation
 instructions can be found in the repository [[https://github.com/clvv/fasd#install][README]]
 

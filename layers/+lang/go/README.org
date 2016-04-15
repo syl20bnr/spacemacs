@@ -1,8 +1,8 @@
-#+TITLE: GO contribution layer for Spacemacs
+#+TITLE: GO layer
 
 [[file:img/go.png]]
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
    - [[#features][Features:]]
  - [[#install][Install]]
@@ -10,6 +10,8 @@
    - [[#layer][Layer]]
  - [[#configuration][Configuration]]
    - [[#formatting][Formatting]]
+   - [[#indentation][Indentation]]
+   - [[#tests][Tests]]
  - [[#working-with-go][Working with Go]]
    - [[#go-commands-start-with-m][Go commands (start with =m=):]]
    - [[#go-oracle][Go Oracle]]
@@ -18,12 +20,11 @@
 This layer adds extensive support for go.
 
 ** Features:
-- gofmt on file save
+- gofmt/goimports on file save
 - Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]] (with the =auto-completion= layer)
 - Source analysis using [[http://golang.org/s/oracle-user-manual][go-oracle]]
 
 * Install
-
 ** Pre-requisites
 You will need =gocode= and =godef=:
 
@@ -31,22 +32,22 @@ You will need =gocode= and =godef=:
   go get -u -v github.com/nsf/gocode
   go get -u -v github.com/rogpeppe/godef
   go get -u -v golang.org/x/tools/cmd/oracle
+  go get -u -v golang.org/x/tools/cmd/gorename
 #+END_SRC
 
-Make sure that =gocode= executable is in your PATH.
+Make sure that =gocode= executable is in your PATH. For information about
+setting up =$PATH=, check out the corresponding section in the FAQ (~SPC h SPC
+$PATH RET~).
 
 For best results, make sure that the =auto-completion= and =syntax-checking=
 layers are enabled as well.
 
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(go))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =go= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Configuration
-
 ** Formatting
 By default, go buffers are run through =gofmt= on save. To use a different
 formatter, set the value of =gofmt-command=, e.g.
@@ -55,23 +56,45 @@ formatter, set the value of =gofmt-command=, e.g.
   (setq gofmt-command "goimports")
 #+end_src
 
+or
+
+#+begin_src emacs-lisp
+  (go :variables gofmt-command "goimports")
+#+end_src
+
+** Indentation
+By default, the tab width in Go mode is 8 spaces. To use a different value set
+the layer variable =go-tab-width=, e.g.
+
+#+begin_src emacs-lisp
+  (go :variables go-tab-width 4)
+#+end_src
+
+** Tests
+If you're using =gocheck= in your project you can use the
+=go-use-gocheck-for-testing= variable to enable suite testing and to get single
+function testing to work.
+
 * Working with Go
-
 ** Go commands (start with =m=):
-| Key Binding | Description                                               |
-|-------------+-----------------------------------------------------------|
-| ~SPC m h h~ | godoc at point                                            |
-| ~SPC m i g~ | goto imports                                              |
-| ~SPC m i a~ | add import                                                |
-| ~SPC m i r~ | remove unused import                                      |
-| ~SPC m e b~ | go-play buffer                                            |
-| ~SPC m e r~ | go-play region                                            |
-| ~SPC m e d~ | download go-play snippet                                  |
-| ~SPC m t p~ | run "go test" for the current package                     |
-| ~SPC m g a~ | jump to matching test file or back from test to code file |
-| ~SPC m g g~ | go jump to definition                                     |
-| ~SPC m r n~ | go rename                                                 |
 
+| Key Binding | Description                                                                           |
+|-------------+---------------------------------------------------------------------------------------|
+| ~SPC m h h~ | godoc at point                                                                        |
+| ~SPC m i g~ | goto imports                                                                          |
+| ~SPC m i a~ | add import                                                                            |
+| ~SPC m i r~ | remove unused import                                                                  |
+| ~SPC m e b~ | go-play buffer                                                                        |
+| ~SPC m e r~ | go-play region                                                                        |
+| ~SPC m e d~ | download go-play snippet                                                              |
+| ~SPC m x x~ | run "go run" for the current 'main' package                                           |
+| ~SPC m g a~ | jump to matching test file or back from test to code file                             |
+| ~SPC m g g~ | go jump to definition                                                                 |
+| ~SPC m r n~ | go rename                                                                             |
+| ~SPC m t p~ | run "go test" for the current package                                                 |
+| ~SPC m t P~ | run "go test" for the current package and all packages under it                       |
+| ~SPC m t t~ | run "go test" for the function you're currently in (while you're in a _.test.go file) |
+| ~SPC m t s~ | run "go test" for the suite you're currently in (requires gocheck)                    |
 
 ** Go Oracle
 

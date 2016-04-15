@@ -1,7 +1,6 @@
 ;;; packages.el --- csharp Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -38,44 +37,48 @@
       (spacemacs/declare-prefix-for-mode 'csharp-mode "mr" "csharp/refactoring")
       (spacemacs/declare-prefix-for-mode 'csharp-mode "ms" "csharp/server")
       (spacemacs/declare-prefix-for-mode 'csharp-mode "mt" "csharp/tests")
-      (evil-leader/set-key-for-mode 'csharp-mode
+      (spacemacs/set-leader-keys-for-major-mode 'csharp-mode
         ;; Compile
-        "mcc" 'omnisharp-build-in-emacs ;; Only one compile command so use top-level
+        "cc" 'omnisharp-build-in-emacs ;; Only one compile command so use top-level
         ;; Solution/project manipulation
-        "mfa" 'omnisharp-add-to-solution-current-file
-        "mfA" 'omnisharp-add-to-solution-dired-selected-files
-        "mfr" 'omnisharp-remove-from-project-current-file
-        "mfR" 'omnisharp-remove-from-project-dired-selected-files
-        "mpl" 'omnisharp-add-reference
+        "fa" 'omnisharp-add-to-solution-current-file
+        "fA" 'omnisharp-add-to-solution-dired-selected-files
+        "fr" 'omnisharp-remove-from-project-current-file
+        "fR" 'omnisharp-remove-from-project-dired-selected-files
+        "pl" 'omnisharp-add-reference
         ;; Navigation
-        "mgg"   'omnisharp-go-to-definition
-        "mgG"   'omnisharp-go-to-definition-other-window
-        "mgu"   'omnisharp-helm-find-usages
-        "mgs"   'omnisharp-helm-find-symbols
-        "mgi"   'omnisharp-find-implementations
-        "mgr"   'omnisharp-navigate-to-region
-        "mgm"   'omnisharp-navigate-to-solution-member
-        "mgM"   'omnisharp-navigate-to-solution-member-other-window
-        "mgf"   'omnisharp-navigate-to-solution-file
-        "mgF"   'omnisharp-navigate-to-solution-file-then-file-member
+        "gg"   'omnisharp-go-to-definition
+        "gG"   'omnisharp-go-to-definition-other-window
+        "gu"   'omnisharp-helm-find-usages
+        "gU"   'omnisharp-find-usages-with-ido
+        "gs"   'omnisharp-helm-find-symbols
+        "gi"   'omnisharp-find-implementations
+        "gI"   'omnisharp-find-implementations-with-ido
+        "gr"   'omnisharp-navigate-to-region
+        "gm"   'omnisharp-navigate-to-solution-member
+        "gM"   'omnisharp-navigate-to-solution-member-other-window
+        "gf"   'omnisharp-navigate-to-solution-file
+        "gF"   'omnisharp-navigate-to-solution-file-then-file-member
+        "gc"   'omnisharp-navigate-to-current-file-member
         ;; Help, documentation, info
-        "mht" 'omnisharp-current-type-information
-        "mhT" 'omnisharp-current-type-information-to-kill-ring
+        "ht" 'omnisharp-current-type-information
+        "hT" 'omnisharp-current-type-information-to-kill-ring
         ;; Refactoring
-        "mrm" 'omnisharp-rename
-        "mrr" 'omnisharp-run-code-action-refactoring
+        "rm" 'omnisharp-rename
+        "rM" 'omnisharp-rename-interactively
+        "rr" 'omnisharp-run-code-action-refactoring
         ;; Server manipulation, inspired spacemacs REPL bindings since C# does not provice a REPL
-        "mss" 'omnisharp-start-omnisharp-server
-        "msS" 'omnisharp-stop-server
-        "msr" 'omnisharp-reload-solution
+        "ss" 'omnisharp-start-omnisharp-server
+        "sS" 'omnisharp-stop-server
+        "sr" 'omnisharp-reload-solution
         ;; Tests
-        "mta" 'omnisharp-unit-test-all
-        "mtb" 'omnisharp-unit-test-fixture
-        "mtt" 'omnisharp-unit-test-single
+        "ta" 'omnisharp-unit-test-all
+        "tb" 'omnisharp-unit-test-fixture
+        "tt" 'omnisharp-unit-test-single
         ;; Code manipulation
-        "mu" 'omnisharp-auto-complete-overrides
-        "mi" 'omnisharp-fix-usings
-        "m=" 'omnisharp-code-format))))
+        "u" 'omnisharp-auto-complete-overrides
+        "i" 'omnisharp-fix-usings
+        "=" 'omnisharp-code-format))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun csharp/post-init-company ()

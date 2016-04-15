@@ -1,15 +1,12 @@
-* React contribution layer for Spacemacs
+#+TITLE: React layer
 
-#+CAPTION: logo
+[[file:img/react.png]]
 
-[[img/react.png]]
-
-** Table of Contents                                                  :TOC@4:
- - [[#react-contribution-layer-for-spacemacs][React contribution layer for Spacemacs]]
-   - [[#description][Description]]
-     - [[#features][Features]]
-   - [[#install][Install]]
-   - [[#optional-configuration][Optional Configuration]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features]]
+ - [[#install][Install]]
+ - [[#optional-configuration][Optional Configuration]]
  - [[#key-bindings][Key Bindings]]
    - [[#js2-mode][js2-mode]]
    - [[#folding-js2-mode][Folding (js2-mode)]]
@@ -19,12 +16,14 @@
    - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
    - [[#json][JSON]]
 
-** Description
+* Description
 
 ES6 and JSX ready configuration layer for React
 It will automatically recognize =.jsx= and =.react.js= files
 
-*** Features
+It will also recognize =/** @jsx React.DOM */= if it is the first line.
+
+** Features
 - on-the-fly syntax checking
 - proper syntax highlight and indentation with jsx
 - ternjs turbocharged autocompletion as in js2-mode
@@ -32,13 +31,10 @@ It will automatically recognize =.jsx= and =.react.js= files
 - js2-refactor
 - js-doc
 
-** TODO Install
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(react))
-#+end_src
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =react= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 You will also need to install =tern= to use the auto-completion and
 documentation features:
@@ -86,7 +82,7 @@ Be sure to have the ~e4x~ option set to ~true~ on your ~.jsbeautifyrc~ here it i
   }
 #+END_SRC
 
-** Optional Configuration
+* Optional Configuration
 
 You may refer to the =web-mode= configuration for fine tuning the indenting behaviour.
 
@@ -111,7 +107,6 @@ And if you want to have 2 space indent also for element's attributes, concatenat
     (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
 #+end_src
-
 
 * Key Bindings
 

@@ -1,7 +1,6 @@
 ;;; packages.el --- Ruby on Rails Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -27,50 +26,51 @@
       (spacemacs|diminish projectile-rails-mode " ⇋" " RoR")
 
       ;; Find files
-      (evil-leader/set-key-for-mode 'enh-ruby-mode
-        "mrfa" 'projectile-rails-find-locale
-        "mrfc" 'projectile-rails-find-controller
-        "mrfe" 'projectile-rails-find-environment
-        "mrff" 'projectile-rails-find-feature
-        "mrfh" 'projectile-rails-find-helper
-        "mrfi" 'projectile-rails-find-initializer
-        "mrfj" 'projectile-rails-find-javascript
-        "mrfl" 'projectile-rails-find-lib
-        "mrfm" 'projectile-rails-find-model
-        "mrfn" 'projectile-rails-find-migration
-        "mrfo" 'projectile-rails-find-log
-        "mrfp" 'projectile-rails-find-spec
-        "mrfr" 'projectile-rails-find-rake-task
-        "mrfs" 'projectile-rails-find-stylesheet
-        "mrft" 'projectile-rails-find-test
-        "mrfu" 'projectile-rails-find-fixture
-        "mrfv" 'projectile-rails-find-view
-        "mrfy" 'projectile-rails-find-layout
-        "mrf@" 'projectile-rails-find-mailer
-        ;; Goto file
-        "mrgc" 'projectile-rails-find-current-controller
-        "mrgd" 'projectile-rails-goto-schema
-        "mrge" 'projectile-rails-goto-seeds
-        "mrgh" 'projectile-rails-find-current-helper
-        "mrgj" 'projectile-rails-find-current-javascript
-        "mrgg" 'projectile-rails-goto-gemfile
-        "mrgm" 'projectile-rails-find-current-model
-        "mrgn" 'projectile-rails-find-current-migration
-        "mrgp" 'projectile-rails-find-current-spec
-        "mrgr" 'projectile-rails-goto-routes
-        "mrgs" 'projectile-rails-find-current-stylesheet
-        "mrgt" 'projectile-rails-find-current-test
-        "mrgu" 'projectile-rails-find-current-fixture
-        "mrgv" 'projectile-rails-find-current-view
-        "mrgz" 'projectile-rails-goto-spec-helper
-        "mrg." 'projectile-rails-goto-file-at-point
-        ;; Rails external commands
-        "mrcc" 'projectile-rails-generate
-        "mri" 'projectile-rails-console
-        "mrr:" 'projectile-rails-rake
-        "mrxs" 'projectile-rails-server
-        ;; Refactoring 'projectile-rails-mode
-        "mrRx" 'projectile-rails-extract-region)
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "rfa" 'projectile-rails-find-locale
+          "rfc" 'projectile-rails-find-controller
+          "rfe" 'projectile-rails-find-environment
+          "rff" 'projectile-rails-find-feature
+          "rfh" 'projectile-rails-find-helper
+          "rfi" 'projectile-rails-find-initializer
+          "rfj" 'projectile-rails-find-javascript
+          "rfl" 'projectile-rails-find-lib
+          "rfm" 'projectile-rails-find-model
+          "rfn" 'projectile-rails-find-migration
+          "rfo" 'projectile-rails-find-log
+          "rfp" 'projectile-rails-find-spec
+          "rfr" 'projectile-rails-find-rake-task
+          "rfs" 'projectile-rails-find-stylesheet
+          "rft" 'projectile-rails-find-test
+          "rfu" 'projectile-rails-find-fixture
+          "rfv" 'projectile-rails-find-view
+          "rfy" 'projectile-rails-find-layout
+          "rf@" 'projectile-rails-find-mailer
+          ;; Goto file
+          "rgc" 'projectile-rails-find-current-controller
+          "rgd" 'projectile-rails-goto-schema
+          "rge" 'projectile-rails-goto-seeds
+          "rgh" 'projectile-rails-find-current-helper
+          "rgj" 'projectile-rails-find-current-javascript
+          "rgg" 'projectile-rails-goto-gemfile
+          "rgm" 'projectile-rails-find-current-model
+          "rgn" 'projectile-rails-find-current-migration
+          "rgp" 'projectile-rails-find-current-spec
+          "rgr" 'projectile-rails-goto-routes
+          "rgs" 'projectile-rails-find-current-stylesheet
+          "rgt" 'projectile-rails-find-current-test
+          "rgu" 'projectile-rails-find-current-fixture
+          "rgv" 'projectile-rails-find-current-view
+          "rgz" 'projectile-rails-goto-spec-helper
+          "rg." 'projectile-rails-goto-file-at-point
+          ;; Rails external commands
+          "r:" 'projectile-rails-rake
+          "rcc" 'projectile-rails-generate
+          "ri" 'projectile-rails-console
+          "rxs" 'projectile-rails-server
+          ;; Refactoring 'projectile-rails-mode
+          "rRx" 'projectile-rails-extract-region))
       ;; Ex-commands
       (evil-ex-define-cmd "A" 'projectile-toggle-between-implementation-and-test))))
 

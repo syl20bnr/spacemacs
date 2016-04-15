@@ -2,31 +2,29 @@
 
 [[file:img/lua.gif]]
 
-* Table of Contents                                                  :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
-     - [[#features][Features:]]
+   - [[#features][Features:]]
  - [[#install][Install]]
  - [[#key-bindings][Key Bindings]]
-     - [[#commands][Commands]]
+   - [[#commands][Commands]]
 
 * Description
-
 This layer adds support for editing Lua.
 
 ** Features:
 - Editing lua files using [[https://github.com/immerrr/lua-mode][lua-mode]]
 - Sending code to a lua REPL
+- Code linting using [[https://github.com/mpeterv/luacheck][Luacheck]]
 
 * Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =lua= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(lua))
-#+END_SRC
+In order to enable code linting, install [[https://github.com/mpeterv/luacheck][Luacheck]].
 
 * Key Bindings
-
 ** Commands
 
 | Key Binding | Description                                |

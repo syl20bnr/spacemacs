@@ -1,0 +1,24 @@
+#+TITLE: selectric layer
+
+[[file:img/typewriter.jpg]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+
+* Description
+This layer makes your Emacs sound like a typewriter, for those moments when your
+loud, clicky mechanical keyboard is not at hand, yet, you'd still wish to enjoy
+the sound.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =selectric= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key Bindings
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC C-t t~ | Toggle clicky key sounds |

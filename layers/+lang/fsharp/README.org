@@ -1,13 +1,13 @@
-#+TITLE: F# contribution layer for Spacemacs
+#+TITLE: F# layer
 
 [[file:img/fsharp.png]]
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#packages-included][Packages Included]]
  - [[#install][Install]]
  - [[#key-bindings][Key Bindings]]
-     - [[#repl][REPL]]
+   - [[#repl][REPL]]
 
 * Description
 
@@ -16,17 +16,13 @@ This layer adds support for F# language using [[https://github.com/fsharp/fsharp
 * Packages Included
 
 - [[https://github.com/fsharp/fsharpbinding][fsharp-mode]]
-  
+
 * Install
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(fsharp))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =fsharp= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key Bindings
-
 
 | Key Binding | Description                |
 |-------------+----------------------------|

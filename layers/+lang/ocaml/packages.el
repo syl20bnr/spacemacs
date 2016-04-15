@@ -1,7 +1,6 @@
 ;;; packages.el --- ocaml Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -18,12 +17,10 @@
    ;; flycheck-ocaml
     merlin
     ocp-indent
+    smartparens
     tuareg
     utop
     ))
-
-;;(defun ocaml/post-init-auto-complete ()
-;;  (spacemacs|enable-auto-complete merlin-mode))
 
 (defun ocaml/post-init-company ()
   (spacemacs|add-company-hook merlin-mode))
@@ -39,8 +36,7 @@
       (progn
         (with-eval-after-load 'merlin
           (setq merlin-error-after-save nil)
-          (flycheck-ocaml-setup))
-        ))))
+          (flycheck-ocaml-setup))))))
 
 (defun ocaml/init-merlin ()
   (use-package merlin
@@ -52,30 +48,29 @@
       (set-default 'merlin-use-auto-complete-mode nil)
       (setq merlin-completion-with-doc t)
       (push 'merlin-company-backend company-backends-merlin-mode)
-      (evil-leader/set-key-for-mode 'tuareg-mode
-        "mcp" 'merlin-project-check
-        "mcr" 'merlin-refresh
-        "mcv" 'merlin-goto-project-file
-        "meC" 'merlin-error-check
-        "men" 'merlin-error-next
-        "meN" 'merlin-error-prev
-        "mgb" 'merlin-pop-stack
-        "mgg" #'(lambda ()
+      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+        "cp" 'merlin-project-check
+        "cr" 'merlin-refresh
+        "cv" 'merlin-goto-project-file
+        "eC" 'merlin-error-check
+        "en" 'merlin-error-next
+        "eN" 'merlin-error-prev
+        "gb" 'merlin-pop-stack
+        "gg" #'(lambda ()
                 (interactive)
                 (let ((merlin-locate-in-new-window 'never))
                   (merlin-locate)))
-        "mgG" #'(lambda ()
+        "gG" #'(lambda ()
                 (interactive)
                 (let ((merlin-locate-in-new-window 'always))
                   (merlin-locate)))
-        "mgl" 'merlin-locate-ident
-        "mgi" 'merlin-switch-to-ml
-        "mgI" 'merlin-switch-to-mli
-        "mhh" 'merlin-document
-        "mht" 'merlin-type-enclosing
-        "mhT" 'merlin-type-expr
-        "mrd" 'merlin-destruct
-        ))))
+        "gl" 'merlin-locate-ident
+        "gi" 'merlin-switch-to-ml
+        "gI" 'merlin-switch-to-mli
+        "hh" 'merlin-document
+        "ht" 'merlin-type-enclosing
+        "hT" 'merlin-type-expr
+        "rd" 'merlin-destruct))))
 
 (defun ocaml/init-ocp-indent ()
   (use-package ocp-indent
@@ -83,25 +78,32 @@
     :init
     (add-hook 'tuareg-mode-hook 'ocp-indent-caml-mode-setup)))
 
+(defun ocaml/post-init-smartparens ()
+  (with-eval-after-load 'smartparens
+    ;; don't auto-close apostrophes (type 'a = foo) and backticks (`Foo)
+    (sp-local-pair 'tuareg-mode "'" nil :actions nil)
+    (sp-local-pair 'tuareg-mode "`" nil :actions nil)))
+
 (defun ocaml/init-tuareg ()
   (use-package tuareg
     :defer t
     :init
     (progn
       (spacemacs//init-ocaml-opam)
-      (evil-leader/set-key-for-mode 'tuareg-mode
-        "mga" 'tuareg-find-alternate-file
-        "mcc" 'compile))
-    :config
-    (when (fboundp 'sp-local-pair)
-      ;; don't auto-close apostrophes (type 'a = foo) and backticks (`Foo)
-      (sp-local-pair 'tuareg-mode "'" nil :actions nil)
-      (sp-local-pair 'tuareg-mode "`" nil :actions nil))))
+      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+        "ga" 'tuareg-find-alternate-file
+        "cc" 'compile)
+      ;; Make OCaml-generated files invisible to filename completion
+      (dolist (ext '(".cmo" ".cmx" ".cma" ".cmxa" ".cmi" ".cmxs" ".cmt" ".annot"))
+        (add-to-list 'completion-ignored-extensions ext)))))
 
 (defun ocaml/init-utop ()
   (use-package utop
     :defer t
-    :init (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+    :init
+    (progn
+      (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+      (spacemacs/register-repl 'utop 'utop "ocaml"))
     :config
     (progn
       ;; Setup environment variables using opam
@@ -139,13 +141,14 @@
         (utop)
         (evil-insert-state))
 
-      (evil-leader/set-key-for-mode 'tuareg-mode
-        "msb" 'utop-eval-buffer
-        "msB" 'spacemacs/utop-eval-buffer-and-go
-        "msi" 'utop
-        "msp" 'utop-eval-phrase
-        "msP" 'spacemacs/utop-eval-phrase-and-go
-        "msr" 'utop-eval-region
-        "msR" 'spacemacs/utop-eval-region-and-go))
+      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+        "'"  'utop
+        "sb" 'utop-eval-buffer
+        "sB" 'spacemacs/utop-eval-buffer-and-go
+        "si" 'utop
+        "sp" 'utop-eval-phrase
+        "sP" 'spacemacs/utop-eval-phrase-and-go
+        "sr" 'utop-eval-region
+        "sR" 'spacemacs/utop-eval-region-and-go))
     (define-key utop-mode-map (kbd "C-j") 'utop-history-goto-next)
     (define-key utop-mode-map (kbd "C-k") 'utop-history-goto-prev)))

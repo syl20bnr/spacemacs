@@ -1,0 +1,89 @@
+#+TITLE: Spell Checking layer
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#spell-checker-configuration][Spell Checker Configuration]]
+   - [[#disabling-by-default][Disabling by default]]
+   - [[#enabling-auto-dictionary-mode][Enabling auto-dictionary-mode]]
+ - [[#key-bindings][Key Bindings]]
+
+* Description
+This layer provides spell checking using [[http://www-sop.inria.fr/members/Manuel.Serrano/flyspell/flyspell.html][Flyspell]] and =[[https://github.com/nschum/auto-dictionary-mode][auto-dictionary-mode]]=.
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =spell-checking= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+** Spell Checker Configuration
+The built-in Emacs variable that controls which external spell-checking program
+is used is =ispell-program-name=, which can be set in your
+=dotspacemacs/user-init= function if you do not like the default. It will give
+priority to =aspell= if it is installed on your system. Another important
+variable to be aware of is =ispell-dictionary= which will control the default
+dictionary used by =ispell-program-name= (instead of using this variable you can
+also use the key binding ~SPC S d~).
+
+** Disabling by default
+By default, =spell-checking= is enabled in all available major modes and may be
+toggled off with ~SPC t S~. You can default this to off by setting the variable
+=spell-checking-enable-by-default= to =nil=:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((spell-checking :variables spell-checking-enable-by-default nil)))
+#+END_SRC
+
+** Enabling auto-dictionary-mode
+=auto-dictionary-mode= tries to detect the current language from the buffer
+content, and activate the corresponding dictionary. You can enable it by setting
+the variable =spell-checking-enable-auto-dictionary= to something other than
+=nil=:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((spell-checking :variables spell-checking-enable-auto-dictionary t)))
+#+END_SRC
+
+Some people encountered bugs with =auto-dictionary-mode=, especially in *daemon
+mode* where new =emacsclient= open directly freezed. If so, no other workaround
+have been found yet than disabling =auto-dictionary-mode= completely.
+
+Not all languages are supported by =auto-dictionary-list=. The supported
+languages are listed in the =adict-language-list= variable, that can be checked
+with =spacemacs/describe-variable=. For convenience, here is the list of
+currently supported language:
+
+| Language          |
+|-------------------|
+| catalan           |
+| classical greek   |
+| danish            |
+| english           |
+| esperanto         |
+| french            |
+| german            |
+| hindi             |
+| hungarian         |
+| modern greek      |
+| norwegian bokmål  |
+| norwegian nynorsk |
+| portuguese        |
+| romanian          |
+| slovak            |
+| slovene           |
+| spanish           |
+| swedish           |
+
+* Key Bindings
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC S b~   | flyspell whole buffer    |
+| ~SPC S c~   | flyspell correct         |
+| ~SPC S d~   | change dictionary        |
+| ~SPC S n~   | flyspell goto next error |
+| ~SPC t S~   | toggle flyspell          |

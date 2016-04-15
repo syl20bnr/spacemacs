@@ -1,19 +1,20 @@
-#+TITLE: Dash contribution layer for Spacemacs
+#+TITLE: Dash layer
+
 [[file:img/dash.png]]
 
 [[file:img/zeal.png]]
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
-     - [[#dash-os-x][Dash (OS X)]]
-     - [[#zeal-linux--windows][Zeal (Linux & Windows)]]
-     - [[#check-documentation-for-x-at-point][Check Documentation for x-at-point]]
+   - [[#dash-os-x][Dash (OS X)]]
+   - [[#zeal-linux--windows][Zeal (Linux & Windows)]]
+   - [[#check-documentation-for-x-at-point][Check Documentation for x-at-point]]
  - [[#key-bindings][Key bindings]]
-     - [[#helm-dash][helm-dash]]
+   - [[#helm-dash][helm-dash]]
  - [[#todos][TODOs]]
-     - [[#done-check-zeal][DONE Check zeal]]
-     - [[#todo-make-helm-dash-use-zeal-or-dash-docsets-by-default][TODO Make helm-dash use zeal or dash docsets by default.]]
+   - [[#check-zeal][Check zeal]]
+   - [[#make-helm-dash-use-zeal-or-dash-docsets-by-default][Make helm-dash use zeal or dash docsets by default]]
 
 * Description
 +*This layer works only on OS X for the moment*+
@@ -32,20 +33,16 @@
                    prefix argument C-u to edit the search string first.
 
 * Install
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(dash))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =dash= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Dash (OS X)
 
 You have to install [[http://kapeli.com/dash][dash]] on your machine.
 
 It is recommended to set the =HUD mode= in your Dash application preferences
-when using this layer. 
-
+when using this layer.
 
 ** Zeal (Linux & Windows)
 
@@ -81,4 +78,4 @@ Or you can use [[https://github.com/areina/helm-dash][helm-dash]] instead, it re
 CLOSED: [2015-06-12 Fri 16:30]
 [[http://zealdocs.org/][zeal]] is an open source alternative to dash with Emacs integration available.
 
-** TODO Make helm-dash use zeal or dash docsets by default.
+** TODO Make helm-dash use zeal or dash docsets by default

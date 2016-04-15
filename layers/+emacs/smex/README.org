@@ -1,0 +1,25 @@
+#+TITLE: Smex layer
+
+[[file:img/smex.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer replaces =helm-M-x= by [[https://github.com/nonsequitur/smex][smex]] which is built on top of =ido=.
+=ido= can perform flex matching with the [[https://github.com/lewang/flx][flx-ido]] mode which is already
+activated in the Spacemacs layer.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =smex= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description                                |
+|-------------+--------------------------------------------|
+| ~SPC :~     | all Emacs commands (interactive functions) |
+| ~SPC m :~   | current major mode commands                |

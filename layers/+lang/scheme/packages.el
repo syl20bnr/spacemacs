@@ -1,7 +1,6 @@
 ;;; packages.el --- Scheme Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -16,41 +15,58 @@
 (defun scheme/init-geiser ()
   (use-package geiser
     :commands run-geiser
+    :init (spacemacs/register-repl 'geiser 'geiser-mode-switch-to-repl "geiser")
     :config
     (progn
-      (evil-leader/set-key-for-mode 'scheme-mode
-        "mcc" 'geiser-compile-current-buffer
-        "mcp" 'geiser-add-to-load-path
+      (spacemacs/declare-prefix-for-mode 'scheme-mode "mc" "compiling")
+      (spacemacs/declare-prefix-for-mode 'scheme-mode "mg" "navigation")
+      (spacemacs/declare-prefix-for-mode 'scheme-mode "mh" "documentation")
+      (spacemacs/declare-prefix-for-mode 'scheme-mode "mi" "insertion")
+      (spacemacs/declare-prefix-for-mode 'scheme-mode "mm" "macroexpansion")
+      (spacemacs/declare-prefix-for-mode 'scheme-mode "ms" "repl")
 
-        "mgg" 'geiser-edit-symbol-at-point
-        "mgb" 'geiser-pop-symbol-stack
-        "mgm" 'geiser-edit-module
-        "mgn" 'next-error
-        "mgN" 'previous-error
+      (spacemacs/set-leader-keys-for-major-mode 'scheme-mode
+        "'"  'geiser-mode-switch-to-repl
+        ","  'lisp-state-toggle-lisp-state
 
-        "mhh" 'geiser-doc-symbol-at-point
-        "mhd" 'geiser-doc-look-up-manual
-        "mhm" 'geiser-doc-module
-        "mh<" 'geiser-xref-callers
-        "mh>" 'geiser-xref-callees
+        "cc" 'geiser-compile-current-buffer
+        "cp" 'geiser-add-to-load-path
 
-        "mil" 'geiser-insert-lambda
+        "eb" 'geiser-eval-buffer
+        "ee" 'geiser-eval-last-sexp
+        "ef" 'geiser-eval-definition
+        "el" 'lisp-state-eval-sexp-end-of-line
+        "er" 'geiser-eval-region
 
-        "mme" 'geiser-expand-last-sexp
-        "mmf" 'geiser-expand-definition
-        "mmx" 'geiser-expand-region
+        "gg" 'geiser-edit-symbol-at-point
+        "gb" 'geiser-pop-symbol-stack
+        "gm" 'geiser-edit-module
+        "gn" 'next-error
+        "gN" 'previous-error
 
-        "msi" 'geiser-mode-switch-to-repl
-        "msb" 'geiser-eval-buffer
-        "msB" 'geiser-eval-buffer-and-go
-        "msf" 'geiser-eval-definition
-        "msF" 'geiser-eval-definition-and-go
-        "mse" 'geiser-eval-last-sexp
-        "msr" 'geiser-eval-region
-        "msR" 'geiser-eval-region-and-go))))
+        "hh" 'geiser-doc-symbol-at-point
+        "hd" 'geiser-doc-look-up-manual
+        "hm" 'geiser-doc-module
+        "h<" 'geiser-xref-callers
+        "h>" 'geiser-xref-callees
+
+        "il" 'geiser-insert-lambda
+
+        "me" 'geiser-expand-last-sexp
+        "mf" 'geiser-expand-definition
+        "mx" 'geiser-expand-region
+
+        "si" 'geiser-mode-switch-to-repl
+        "sb" 'geiser-eval-buffer
+        "sB" 'geiser-eval-buffer-and-go
+        "sf" 'geiser-eval-definition
+        "sF" 'geiser-eval-definition-and-go
+        "se" 'geiser-eval-last-sexp
+        "sr" 'geiser-eval-region
+        "sR" 'geiser-eval-region-and-go
+        "ss" 'geiser-set-scheme))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-
   (defun scheme/post-init-company ()
     ;; Geiser provides completion as long as company mode is loaded.
     (spacemacs|add-company-hook scheme-mode)))

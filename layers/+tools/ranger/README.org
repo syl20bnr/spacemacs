@@ -1,6 +1,6 @@
-#+TITLE: Ranger contribution layer for Spacemacs
+#+TITLE: Ranger layer
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#features][Features]]
  - [[#configuration][Configuration]]
@@ -13,15 +13,13 @@
 
 This layer brings Ranger features to spacemacs from the =ranger= package.
 
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(ranger))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =ranger= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 To default with preview enabled when entering ranger:
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers 
+(setq-default dotspacemacs-configuration-layers
               '(ranger :variables
                        ranger-show-preview t))
 #+END_SRC
@@ -30,9 +28,8 @@ To default with preview enabled when entering ranger:
 - use ranger to display dired with ranger like preview and stacked parent windows.
 
 * Configuration
-
 Most parameters can be toggled on and off and stay within the current emacs
-session. Any settings that are desired on startup should be set below. 
+session. Any settings that are desired on startup should be set below.
 
 ** Customizing
 
@@ -48,7 +45,7 @@ dired buffer.
 (setq ranger-cleanup-eagerly t)
 #+END_SRC
 
-You can choose to show dotfiles at ranger startup, toggled by `zh`
+You can choose to show dotfiles at ranger startup, toggled by =zh=
 #+BEGIN_SRC elisp
 (setq ranger-show-dotfiles t)
 #+END_SRC
@@ -67,7 +64,7 @@ return a string that is placed in the header-line.
 
 ** Parent options
 
-You can set the number of folders to nest to the left, adjusted by `z-` and `z+`
+You can set the number of folders to nest to the left, adjusted by =z-= and =z+=
 #+BEGIN_SRC elisp
 (setq ranger-parent-depth 2)
 #+END_SRC
@@ -85,7 +82,7 @@ frame size to prevent filling up entire frame with parents.
 
 ** Preview options
 
-You can choose to show previews literally, or through find-file, toggled by `zi`
+You can choose to show previews literally, or through find-file, toggled by =zi=
 #+BEGIN_SRC elisp
 (setq ranger-show-dotfiles t)
 #+END_SRC
@@ -111,27 +108,33 @@ To set the max files size (in MB), set the following parameter:
 
 | Key Binding | Description                                          |
 |-------------+------------------------------------------------------|
-| ~SPC a r~     | launch ranger                                        |
-| SPC a d     | deer (minimal ranger window in current directory)    |
-| ~C-p~         | (ranger) toggle ranger in dired buffer               |
-| ~j~           | (ranger) navigate down                               |
-| ~k~           | (ranger) navigate up                                 |
-| ~C-j~         | (ranger) scroll preview window down                  |
-| ~C-k~         | (ranger) scroll preview window up                    |
-| ~f~           | (ranger) search for file names                       |
-| ~i~           | (ranger) show preview of current file                |
-| ~zi~          | (ranger) toggle showing literal / full-text previews |
-| ~zh~          | (ranger) toggle showing dotfiles                     |
-| ~o~           | (ranger) sort options                                |
-| ~H~           | (ranger) search through history                      |
-| ~h~           | (ranger) go up directory                             |
-| ~l~           | (ranger) find file / enter directory                 |
-| ~RET~         | (ranger) find file / enter directory                 |
-| ~q~           | (ranger) quit                                        |
-| ~r~           | (ranger) revert buffer                               |
-| ~z-~          | (ranger) reduce number of parents                    |
-| ~z+~          | (ranger) increment number of parents                 |
-| ~v~           | (ranger) toggle all marks                            |
-| ~V~           | (ranger) visually select lines                       |
-| ~S~           | (ranger) enter shell                                 |
-| ~C-SPC~       | (ranger) mark current file                           |
+| ~SPC a r~   | launch ranger                                        |
+| ~SPC a d~   | deer (minimal ranger window in current directory)    |
+| ~C-p~       | (ranger) toggle ranger in dired buffer               |
+| ~j~         | (ranger) navigate down                               |
+| ~k~         | (ranger) navigate up                                 |
+| ~yy~        | (ranger) copy                                        |
+| ~pp~        | (ranger) paste                                       |
+| ~R~         | (ranger) rename                                      |
+| ~D~         | (ranger) delete                                      |
+| ~C-j~       | (ranger) scroll preview window down                  |
+| ~C-k~       | (ranger) scroll preview window up                    |
+| ~f~         | (ranger) search for file names                       |
+| ~i~         | (ranger) show preview of current file                |
+| ~zi~        | (ranger) toggle showing literal / full-text previews |
+| ~zh~        | (ranger) toggle showing dotfiles                     |
+| ~o~         | (ranger) sort options                                |
+| ~H~         | (ranger) search through history                      |
+| ~h~         | (ranger) go up directory                             |
+| ~l~         | (ranger) find file / enter directory                 |
+| ~RET~       | (ranger) find file / enter directory                 |
+| ~q~         | (ranger) quit                                        |
+| ~r~         | (ranger) revert buffer                               |
+| ~z-~        | (ranger) reduce number of parents                    |
+| ~z+~        | (ranger) increment number of parents                 |
+| ~v~         | (ranger) toggle all marks                            |
+| ~V~         | (ranger) visually select lines                       |
+| ~S~         | (ranger) enter shell                                 |
+| ~C-SPC~     | (ranger) mark current file                           |
+| ~;C~        | (ranger) copy directory / copy and move directory    |
+| ~;+~        | (ranger) create directory                            |

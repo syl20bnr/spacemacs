@@ -1,7 +1,6 @@
 ;;; funcs.el --- Python Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -43,3 +42,25 @@
                                (shell-quote-argument (buffer-file-name))))
         (revert-buffer t t t))
     (message "Error: Cannot find autoflake executable.")))
+
+(defun pyenv-mode-set-local-version ()
+  "Set pyenv version from \".python-version\" by looking in parent directories."
+  (interactive)
+  (let ((root-path (locate-dominating-file default-directory
+                                           ".python-version")))
+    (when root-path
+      (let* ((file-path (expand-file-name ".python-version" root-path))
+             (version (with-temp-buffer
+                        (insert-file-contents-literally file-path)
+                        (buffer-substring-no-properties (line-beginning-position)
+                                                        (line-end-position)))))
+        (if (member version (pyenv-mode-versions))
+            (pyenv-mode-set version)
+          (message "pyenv: version `%s' is not installed (set by %s)"
+                   version file-path))))))
+
+(defun spacemacs//disable-semantic-idle-summary-mode ()
+  " Disable semantic-idle-summary in Python mode.
+Anaconda provides more useful information but can not do it properly
+when this mode is enabled since the minibuffer is cleared all the time."
+  (semantic-idle-summary-mode 0))

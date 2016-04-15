@@ -1,0 +1,27 @@
+#+TITLE: faust layer
+
+[[file:img/faust.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This simple layer adds support for the [[http://faust.grame.fr/][faust language]].
+It adds =faust-mode= as well as integrating it with =auto-completion= layer.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =faust= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description                           |
+|-------------+---------------------------------------|
+| ~SPC m c f~ | Compile to SVG and open in Firefox    |
+| ~SPC m c g~ | Compile a jack-gtk program and run it |
+| ~SPC m c q~ | Compile a jack-qt program and run it  |
+| ~SPC m g b~ | Jump back to previous location        |
+| ~SPC m g g~ | Jump to definition around point       |

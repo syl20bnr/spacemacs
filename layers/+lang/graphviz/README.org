@@ -1,0 +1,34 @@
+#+TITLE: graphviz layer
+
+[[file:img/graphviz.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#configuration][Configuration]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This contains a forked version of [[https://github.com/ppareit/graphviz-dot-mode][graphviz-dot-mode]] that enables a live-reload
+type work flow for editing `.dot` files. When live-preview is enabled, saving
+the file will automatically trigger a compilation and reload of the image buffer
+associated with the file.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =graphviz= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Configuration
+If the live preview is not always updating the rendered image properly, you can
+try to adjust the value of =graphviz-dot-revert-delay= higher to give the
+compiler more time to finish generating the file before reverting the buffer.
+
+* Key bindings
+
+| Key Binding | Description                          |
+|-------------+--------------------------------------|
+| ~SPC m ,~   | Preview file                         |
+| ~SPC m =~   | Indent graph                         |
+| ~SPC m t~   | Toggle live-preview                  |
+| ~SPC m c~   | Set compile command and compile file |

@@ -1,7 +1,6 @@
 ;;; packages.el --- Github Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,9 +14,15 @@
         gist
         git-link
         github-browse-file
+        github-clone
         ;; not up to date
         ;; helm-gist
         magit-gh-pulls
+        ;; this package does not exits, we need it to wrap
+        ;; the call to spacemacs/declare-prefix which cannot
+        ;; be place in `config.el' because `which-key' is not
+        ;; available when `config.el' is loaded.
+        (spacemacs-github :location built-in)
         ))
 
 (defun github/init-gist ()
@@ -25,12 +30,12 @@
     :defer t
     :init
     (progn
-      (evilify gist-list-mode gist-list-menu-mode-map
-               "f" 'gist-fetch-current
-               "K" 'gist-kill-current
-               "o" 'gist-browse-current-url)
-
-      (evil-leader/set-key
+      (evilified-state-evilify gist-list-mode gist-list-menu-mode-map
+        "f" 'gist-fetch-current
+        "K" 'gist-kill-current
+        "o" 'gist-browse-current-url)
+      (spacemacs/declare-prefix "gg" "github gist")
+      (spacemacs/set-leader-keys
         "ggb" 'gist-buffer
         "ggB" 'gist-buffer-private
         "ggl" 'gist-list
@@ -52,39 +57,33 @@
 ;;         (egist-mode)
 ;;         (helm-for-gist))
 
-;;       (evil-leader/set-key "ggh" 'spacemacs/helm-gist-list))
+;;       (spacemacs/set-leader-keys "ggh" 'spacemacs/helm-gist-list))
 ;;     ))
 
 (defun github/init-github-browse-file ()
   (use-package github-browse-file
     :defer t
     :init
-    (evil-leader/set-key
-      "gfb" 'github-browse-file)))
+    (spacemacs/set-leader-keys
+      "gho" 'github-browse-file)))
+
+(defun github/init-github-clone ()
+  (use-package github-clone
+    :defer t
+    :init
+    (spacemacs/set-leader-keys
+      "gh C-c" 'github-clone)))
 
 (defun github/init-git-link ()
   (use-package git-link
     :defer t
     :init
     (progn
-
-      (defun spacemacs/git-link-copy-url-only ()
-        "Only copy the generated link to the kill ring."
-        (interactive)
-        (let (git-link-open-in-browser)
-          (call-interactively 'git-link)))
-
-      (defun spacemacs/git-link-commit-copy-url-only ()
-        "Only copy the generated link to the kill ring."
-        (interactive)
-        (let (git-link-open-in-browser)
-          (call-interactively 'git-link-commit)))
-
-      (evil-leader/set-key
-        "gfl" 'git-link
-        "gfL" 'spacemacs/git-link-copy-url-only
-        "gfc" 'git-link-commit
-        "gfC" 'spacemacs/git-link-commit-copy-url-only)
+      (spacemacs/set-leader-keys
+        "ghl" 'spacemacs/git-link
+        "ghL" 'spacemacs/git-link-copy-url-only
+        "ghc" 'spacemacs/git-link-commit
+        "ghC" 'spacemacs/git-link-commit-copy-url-only)
       ;; default is to open the generated link
       (setq git-link-open-in-browser t))))
 
@@ -105,15 +104,11 @@
             "Start `magit-gh-pulls-mode' only after a manual request."
             (interactive)
             (magit-gh-pulls-mode)
-            (magit-gh-pulls-reload))
+            (magit-gh-pulls-popup))
 
-          (defun spacemacs/fetch-gh-pulls-mode ()
-            "Start `magit-gh-pulls-mode' only after a manual request."
-            (interactive)
-            (magit-gh-pulls-mode)
-            (magit-gh-pulls-fetch-commits))
-
-          (define-key magit-mode-map "#gf" 'spacemacs/fetch-gh-pulls-mode)
-          (define-key magit-mode-map "#gg" 'spacemacs/load-gh-pulls-mode))
+          (define-key magit-mode-map "#" 'spacemacs/load-gh-pulls-mode))
         :config
         (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))))
+
+(defun github/init-spacemacs-github ()
+  (spacemacs/declare-prefix "gh" "github"))

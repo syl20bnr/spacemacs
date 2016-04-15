@@ -1,8 +1,8 @@
-#+TITLE: R (ESS) contribution layer for Spacemacs
+#+TITLE: ESS (R) layer
 
 [[file:img/r.jpg]]
 
-* Table of Contents                                                   :TOC@4:
+* Table of Contents                                         :TOC_4_gh:noexport:
  - [[#install][Install]]
  - [[#key-bindings][Key Bindings]]
    - [[#inferior-repl-process][Inferior REPL process]]
@@ -10,24 +10,14 @@
  - [[#options][Options]]
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(ess))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =ess= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key Bindings
 
 ** Inferior REPL process
-Start an inferior REPL process with these commands:
-| Keybinding | Description         |
-|------------+---------------------|
-| ~SCP msir~ | start R process     |
-| ~SPC msis~ | start Stata process |
-| ~SPC msiS~ | start SAS process   |
-| ~SPC msij~ | start Julia process |
-
-Send code to inferior process commands:
+Send code to inferior process with these commands:
 
 | Key Binding | Description                                                      |
 |-------------+------------------------------------------------------------------|
@@ -52,6 +42,7 @@ Send code to inferior process commands:
 | ~CTRL+k~    | previous item in REPL history                                    |
 
 ** Helpers
+Helpers for inspecting objects at point are available in R buffers only.
 
 | Key Binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
