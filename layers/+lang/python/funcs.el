@@ -63,4 +63,6 @@
   " Disable semantic-idle-summary in Python mode.
 Anaconda provides more useful information but can not do it properly
 when this mode is enabled since the minibuffer is cleared all the time."
-  (semantic-idle-summary-mode 0))
+  (add-hook 'semantic-mode-hook (lambda()
+                                  (semantic-idle-summary-mode 0))
+            ))
