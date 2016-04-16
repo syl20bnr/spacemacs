@@ -99,7 +99,7 @@ the focus."
         (cider-insert-ns-form-in-repl t)
         (evil-insert-state))
 
-      (defun spacemacs/cider-send-buffer-in-repl-and-focus ()
+      (defun spacemacs/cider-send-buffer-in-repl-focus ()
         "Send the current buffer in the REPL and switch to the REPL in
 `insert state'."
         (interactive)
@@ -273,9 +273,12 @@ If called with a prefix argument, uses the other-window instead."
           "de" 'spacemacs/cider-display-error-buffer
           "di" 'cider-inspect))
 
-      (evil-define-key 'normal cider-repl-mode-map
-        "C-j" 'cider-repl-next-input
-        "C-k" 'cider-repl-previous-input)
+      (when (or (eq 'vim dotspacemacs-editing-style)
+                (and (eq 'hybrid dotspacemacs-editing-style)
+                     hybrid-mode-enable-hjkl-bindings))
+        (evil-define-key 'normal cider-repl-mode-map
+          "C-j" 'cider-repl-next-input
+          "C-k" 'cider-repl-previous-input))
 
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)))
