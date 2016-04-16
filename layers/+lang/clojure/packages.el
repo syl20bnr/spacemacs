@@ -148,7 +148,7 @@ If called with a prefix argument, uses the other-window instead."
                  (if cider-repl-use-clojure-font-lock "ON" "OFF")))
 
       (defun spacemacs/cider-debug-setup ()
-        (when (eq dotspacemacs-editing-style 'vim)
+        (when (memq dotspacemacs-editing-style '(hybrid vim))
           (evil-make-overriding-map cider--debug-mode-map 'normal)
           (evil-normalize-keymaps)))
 
