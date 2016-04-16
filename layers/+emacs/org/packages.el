@@ -31,6 +31,7 @@
     (ox-gfm :location local)
     persp-mode
     (space-doc :location local)
+    org-download
     ))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
@@ -442,6 +443,13 @@ Headline^^            Visit entry^^               Filter^^                    Da
         (setq org-pomodoro-audio-player "/usr/bin/afplay"))
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "p" 'org-pomodoro))))
+
+(defun org/init-org-download ()
+  (use-package org-download
+    :init
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "iy" 'org-download-yank
+        "is" 'org-download-screenshot )))
 
 (defun org/init-org-present ()
   (use-package org-present
