@@ -110,17 +110,33 @@ the focus."
       (defun spacemacs/cider-test-run-focused-test ()
         (interactive)
         (cider-load-buffer)
-        (spacemacs//cider-eval-in-repl-no-focus (cider-test-run-test)))
+        (cider-test-run-test))
 
-      (defun spacemacs/cider-test-run-all-tests ()
+      (defalias 'spacemacs/cider-test-run-all-tests #'spacemacs/cider-test-run-ns-tests
+        "ns tests are not actually *all* tests;
+        cider-test-run-project-tests would be better here, but
+        there currently is a bug with the function. Replace once
+        it gets fixed.")
+
+      (defun spacemacs/cider-test-run-ns-tests ()
         (interactive)
         (cider-load-buffer)
-        (spacemacs//cider-eval-in-repl-no-focus (cider-test-run-ns-tests nil)))
+        (cider-test-run-ns-tests nil))
+
+      (defun spacemacs/cider-test-run-loaded-tests ()
+        (interactive)
+        (cider-load-buffer)
+        (cider-test-run-loaded-tests nil))
+
+      (defun spacemacs/cider-test-run-project-tests ()
+        (interactive)
+        (cider-load-buffer)
+        (cider-test-run-project-tests nil))
 
       (defun spacemacs/cider-test-rerun-tests ()
         (interactive)
         (cider-load-buffer)
-        (spacemacs//cider-eval-in-repl-no-focus (cider-test-rerun-tests)))
+        (cider-test-rerun-tests))
 
       (defun spacemacs/cider-display-error-buffer (&optional arg)
         "Displays the *cider-error* buffer in the current window.
@@ -256,6 +272,10 @@ If called with a prefix argument, uses the other-window instead."
           "Tp" 'spacemacs/cider-toggle-repl-pretty-printing
 
           "ta" 'spacemacs/cider-test-run-all-tests
+          "tb" 'cider-test-show-report
+          "tl" 'spacemacs/cider-test-run-loaded-tests
+          "tp" 'spacemacs/cider-test-run-project-tests
+          "tn" 'spacemacs/cider-test-run-ns-tests
           "tr" 'spacemacs/cider-test-rerun-tests
           "tt" 'spacemacs/cider-test-run-focused-test
 
