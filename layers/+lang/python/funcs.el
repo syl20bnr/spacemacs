@@ -60,9 +60,11 @@
                    version file-path))))))
 
 (defun spacemacs//disable-semantic-idle-summary-mode ()
-  " Disable semantic-idle-summary in Python mode.
+  "Disable semantic-idle-summary in Python mode.
 Anaconda provides more useful information but can not do it properly
 when this mode is enabled since the minibuffer is cleared all the time."
-  (add-hook 'semantic-mode-hook (lambda()
-                                  (semantic-idle-summary-mode 0))
-            ))
+  (semantic-idle-summary-mode 0))
+
+(defun spacemacs//python-imenu-create-index-use-semantic ()
+  "Use semantic if the layer is enabled."
+  (setq imenu-create-index-function 'semantic-create-imenu-index))
