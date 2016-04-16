@@ -345,17 +345,8 @@ If called with a prefix argument, uses the other-window instead."
       (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode)))
     :config
     (progn
-
-      (defun spacemacs/clojure-mode-toggle-default-indent-style ()
-        (interactive)
-        (setq clojure-defun-style-default-indent
-              (if clojure-defun-style-default-indent nil t))
-        (message "Clojure-mode default indent style: %s"
-                 (if clojure-defun-style-default-indent "ON" "OFF")))
-
       (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
         (spacemacs/set-leader-keys-for-major-mode m
-          "Ti" 'spacemacs/clojure-mode-toggle-default-indent-style
           "fl" 'clojure-align))
 
       (when clojure-enable-fancify-symbols
