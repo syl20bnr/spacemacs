@@ -89,6 +89,20 @@ Like =Emacs=, Spacemacs initialization can also be contained in an =init.el= fil
 in a special directory =~/.spacemacs.d=. The contents of the dotfile should be
 then copied in the =init.el= file.
 
+The Emacs dotfile or dotdirectory is not replaced but rather
+complemented by the Spacemacs dotfile or dotdirectory. During startup,
+Emacs still uses =~/.emacs.d/init.el= (or =~/.emacs=) for its
+initialization, and variable =user-emacs-directory= will still point
+to =~/.emacs.d/=, even if =~/.spacemacs.d= or =~/.spacemacs= are
+present. Only now =~/.emacs.d/init.el= is provided by Spacemacs
+(e.g. after cloning the Spacemacs git repo into an empty
+=~/.emacs.d/=), and your own personnal configurations go into
+=~/.spacemacs.d/init.el= (or =~/.spacemacs=).
+
+Have a look into the FAQ for an easy workaround to maintain (your
+former) vanilla Emacs and (your new) Spacemacs configurations
+side-by-side without the need to rename and backup =~/.emacs.d/=.
+
 * Learning Spacemacs
 ** Editing Styles
 Spacemacs can be used by Vim users or Emacs users by setting the
