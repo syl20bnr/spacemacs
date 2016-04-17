@@ -117,6 +117,7 @@ the current state and point position."
 ;; TODO: dispatch these in the layers
 (defvar spacemacs-indent-sensitive-modes
   '(coffee-mode
+    elm-mode
     haml-mode
     haskell-mode
     slim-mode
