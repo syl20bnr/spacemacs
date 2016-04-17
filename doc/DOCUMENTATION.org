@@ -1533,7 +1533,6 @@ Reporting an issue:
 | ~SPC h I~       | Open Spacemacs GitHub issue page with pre-filled information                             |
 | ~SPC u SPC h I~ | Open Spacemacs GitHub issue page with pre-filled information - include last pressed keys |
 
-
 /Note:/ If these two bindings are used with the =*Backtrace*= buffer open, the
 backtrace is automatically included
 
@@ -3075,7 +3074,6 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | The Tiler ([[https://github.com/syl20bnr/spacemacs/pull/4068][eyebrowse integration]])               | [[https://github.com/bmag][bmag]]         |
 | The Geometer ([[https://github.com/TheBB/spaceline][spaceline]])                        | [[https://github.com/TheBB][TheBB]]        |
 | The Librarian (doc-fmt tool and space-doc mode) | [[https://github.com/JAremko][JAremko]]      |
-
 
 * Thank you
 [[Using configuration layers][Jokes aside]], thank you Richard for this great piece of software.
