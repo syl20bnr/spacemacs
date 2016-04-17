@@ -1,95 +1,67 @@
-#+TITLE: README for rebox layer
-#+AUTHOR: Christian E. Hopps
-#+EMAIL: chopps@gmail.com
-#+STARTUP: indent
-
-
 #+TITLE: Rebox layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Installation][Installation]]
- - [[Commands][Commands]]
-   - [[spacemacs bindings][spacemacs bindings]]
-   - [[rebox-minor-mode bindings][rebox-minor-mode bindings]]
- - [[Configuration][Configuration]]
-   - [[Example configuration][Example configuration]]
-   - [[Style Templates][Style Templates]]
-     - [[Standard packaged templates][Standard packaged templates]]
-       - [[Leader Comment Character Templates (lisp, python, perl, ...)][Leader Comment Character Templates (lisp, python, perl, ...)]]
-       - [[Text Mode (config required)][Text Mode (config required)]]
-       - [[C Mode (disabled due to bug)][C Mode (disabled due to bug)]]
-     - [[Templates added by layer][Templates added by layer]]
- - [[Rebox Package Authors][Rebox Package Authors]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#configuration][Configuration]]
+     - [[#styles-cycling][Styles cycling]]
+     - [[#text-mode][Text mode]]
+ - [[#style-templates][Style Templates]]
+   - [[#standard-packaged-templates][Standard packaged templates]]
+     - [[#comments][Comments]]
+     - [[#text-mode][Text Mode]]
+     - [[#c-mode][C Mode]]
+   - [[#additional-templates][Additional Templates]]
+ - [[#key-bindings][Key bindings]]
 
-* Installation
-* Commands
-** spacemacs bindings
+* Description
+This layer adds support for [[https://github.com/lewang/rebox2][rebox2]] package which is a minor-mode allowing
+to easily add ASCII text boxes to a buffer.
 
-| Keybinding | Command                 |
-|------------+-------------------------|
-| SPC c b    | rebox-dwim              |
-| SPC c B    | rebox-dwim-no-fill      |
-|------------+-------------------------|
+A nice video demonstration by the package author can be found [[https://www.youtube.com/watch?v=53YeTdVtDkU][here]].
 
-** rebox-minor-mode bindings
+** Features
+- Auto-wrap correctly in comments,
+- Auto-fill correctly in comments,
+- Boxes auto-adapt as text is inserted or deleted,
+- ~S-return~ to continue a comment on the next line,
+- Kill/yank within the box,
+- Apparently works well with ancient ~filladpt-mode~ (see authors video).
 
-|----------+-------------------------|
-| S-return | rebox-indent-new-line   |
-| M-q      | rebox-dwim              |
-| M-Q      | rebox-cycle             |
-| C-a      | rebox-beginning-of-line |
-| C-e      | rebox-end-of-line       |
-| C-k      | rebox-kill-line         |
-| M-w      | rebox-kill-ring-save    |
-| C-y      | rebox-yank              |
-| M-y      | rebox-yank-pop          |
-| M-c      | rebox-center            |
-| SPC      | rebox-space             |
-| DEL      | rebox-backspace         |
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =rebox= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
-* Configuration
-
-Rebox has some basic templates setup, so that one can simply define a loop to
-use to loop through the styles. One can also configure ones own templates. The
-description of how to do this is beyond the scope of this README.
-
-Features of rebox mode:
-- Auto-wrap correctly in comments
-- Auto-fill correctly in comments
-- Boxes auto-adapt as text is inserted or deleted.
-- ~S-return~ (shift-return) to continue a comment on the next line
-- Kill/yank within the box
-- Apparently works well with ancient ~filladpt-mode~ (see authors video)
-
-A nice video demonstration by the author can be found [[https://www.youtube.com/watch?v=53YeTdVtDkU][here]].
-
-** Example configuration
-
-The only real configuration to make is to possibly override the default set of
-box styles that you wish rebox to cycle through with repeated ~rebox-dwim~
-invocations. The example below uses the some styles added by the spacemacs
-layer.
-
-One could also set different styles for different major modes by using mode
-hooks.
+** Configuration
+*** Styles cycling
+Box styles are identified by numbers, it is possible to cycle through a list
+of styles using ~SPC i b n~. This list can be customized by setting the variable
+=rebox-style-loop=.
 
 #+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/user-init ()
-    (setq rebox-style-loop '(71 72 73))
-    )
+(setq rebox-style-loop '(71 72 73))
 #+END_SRC
 
-** Style Templates
+*** Text mode
+As text mode usage could surprise some users (e.g., when they enter M-q to fill
+a paragraph) =rebox= is not enabled by default in =text-mode=. To enable it you
+need to set the layer variable =rebox-enable-in-text-mode= to =t=.
 
-*** Standard packaged templates
+#+begin_src emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(
+    (rebox :variables rebox-enable-in-text-mode t)))
+#+end_src
 
-**** Leader Comment Character Templates (lisp, python, perl, ...)
-
-These templates work for any single line (non-recursive) comment style typical
-of most languages, configuration files, shell scripts, etc. A "#" is used here
-for illustration; however, it will work equally well if the comment character is
-different (e.g., lisp's ~;~ comment character)
+* Style Templates
+** Standard packaged templates
+*** Comments
+These templates are single line comments styles. A =#= is used here for
+illustration; however, it will work equally well if the comment character is
+different (e.g., lisp's =;= comment character).
 
 #+begin_src sh
   #box-style 10
@@ -146,22 +118,11 @@ different (e.g., lisp's ~;~ comment character)
 
   ###box style 30
 
+  # and so on repeating up to styles 5x which have 5 leading comment characters
 #+end_src
 
-... and so on repeating up to 5x which, you guessed it has 5 leading (and possibly trailing) comment characters
-
-**** Text Mode (config required)
-As text mode usage has no comment character and thus could surprise users not
-expecting it (e.g., when they enter M-q to fill a paragraph) rebox mode is not
-enabled by default. To enable you need to add the following to your dotfile
-config:
-
-#+begin_src emacs-lisp
-  (add-hook 'text-mode-hook 'rebox-mode)
-#+end_src
-
+*** Text Mode
 #+begin_src text
-
   box style 111
 
   | box style 112 |
@@ -231,7 +192,7 @@ config:
   XXXXXXXXXXXXXXXXX
 #+end_src
 
-**** C Mode (disabled due to bug)
+*** C Mode
 *Note* this mode is disabled for now due to bugs in rebox.
 
 #+begin_src c
@@ -314,10 +275,10 @@ config:
    ********************/
 #+end_src
 
+** Additional Templates
+These templates are added by the Spacemacs layer.
 
-*** Templates added by layer
 #+begin_src sh
-
   #
   # box style 71
   #
@@ -365,10 +326,17 @@ config:
   ##==============
   ## box style 86
   ##==============
-
 #+end_src
-* Rebox Package Authors
-Thanks go to the author of the rebox package Le Wang, and François Pinard, the
-author of original pymacs based package.
 
-URL: https://github.com/lewang/rebox2
+* Key bindings
+*Note:* Use a numerical prefix argument to choose a specific style for instance
+~86 SPC i b b~ to use the style 86 above.
+
+| Keybinding                 | Command                                                           |
+|----------------------------+-------------------------------------------------------------------|
+| ~SPC i b >~                | Move box to the right (point must be around left side of the box) |
+| ~SPC i b <~                | Move box to the left (point must be around left side of the box)  |
+| ~SPC i b b~                | Draw next box defined in =rebox-style-loop=                       |
+| ~SPC i b B~                | Draw previous box defined in =rebox-style-loop=                   |
+| ~SPC i b c~                | Center box (point must be around left side of the box)                                                       |
+| ~S-return~                 | rebox-indent-new-line                                             |
