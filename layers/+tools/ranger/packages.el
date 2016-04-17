@@ -39,5 +39,6 @@
   ;; Be sure to override dired bindings
   (ranger//set-leader-keys)
   ;; need to apply this to compensate for defer
-  (when ranger-override-dired
-    (add-hook 'dired-mode-hook #'ranger-override-dired-fn)))
+  (spacemacs|use-package-add-hook ranger
+    :post-init (when ranger-override-dired
+                 (add-hook 'dired-mode-hook #'ranger-override-dired-fn))))
