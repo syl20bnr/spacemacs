@@ -103,13 +103,16 @@
       (spacemacs//auto-completion-set-RET-key-behavior 'company)
       (spacemacs//auto-completion-set-TAB-key-behavior 'company)
       (spacemacs//auto-completion-setup-key-sequence 'company)
-      (let ((map company-active-map))
-        (define-key map (kbd "C-/") 'company-search-candidates)
-        (define-key map (kbd "C-M-/") 'company-filter-candidates)
-        (define-key map (kbd "C-d") 'company-show-doc-buffer)
-        (define-key map (kbd "C-j") 'company-select-next)
-        (define-key map (kbd "C-k") 'company-select-previous)
-        (define-key map (kbd "C-l") 'company-complete-selection))
+      (when (or (eq 'vim dotspacemacs-editing-style)
+                (and (eq 'hybrid dotspacemacs-editing-style)
+                     hybrid-mode-enable-hjkl-bindings))
+        (let ((map company-active-map))
+          (define-key map (kbd "C-/") 'company-search-candidates)
+          (define-key map (kbd "C-M-/") 'company-filter-candidates)
+          (define-key map (kbd "C-d") 'company-show-doc-buffer)
+          (define-key map (kbd "C-j") 'company-select-next)
+          (define-key map (kbd "C-k") 'company-select-previous)
+          (define-key map (kbd "C-l") 'company-complete-selection)))
       ;; Nicer looking faces
       (custom-set-faces
        '(company-tooltip-common
