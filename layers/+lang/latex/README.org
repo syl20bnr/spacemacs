@@ -5,6 +5,7 @@
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
    - [[#features][Features]]
+   - [[#bibtex][BibTeX]]
  - [[#install][Install]]
    - [[#layer][Layer]]
    - [[#auto-completion][Auto-completion]]
@@ -19,14 +20,15 @@
 * Description
 This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects/auctex/][AucTeX]].
 
-For more extensive support of BibTeX files than RefTeX provides, have a look at
-the [[../bibtex][BibTeX layer]].
-
 ** Features
 - Auto-build with [[https://github.com/tom-tan/auctex-latexmk/][auctex-latexmk]]
 - Auto-completion with [[https://github.com/alexeyr/company-auctex][company-auctex]]
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
+
+** BibTeX
+For more extensive support of BibTeX files than RefTeX provides, have a look at
+the [[../bibtex][BibTeX layer]].
 
 * Install
 ** Layer
@@ -86,6 +88,7 @@ is nil.
 #+END_SRC
 
 * Keybindings
+
 | Key Binding   | Description                                |
 |---------------+--------------------------------------------|
 | ~SPC m -~     | recenter output buffer                     |

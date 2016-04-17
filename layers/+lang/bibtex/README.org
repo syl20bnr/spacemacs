@@ -1,11 +1,12 @@
 #+TITLE: BibTeX layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
+
 [[file:img/logo.png]]
-* Table of Contents                                        :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Configuration][Configuration]]
- - [[Key bindings][Key bindings]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#configuration][Configuration]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 BibTeX and BibLaTeX files are a common way to manage bibliographies.  The format
@@ -20,11 +21,9 @@ Once enabled, this layer also introduces additional shortcuts in other modes to
 easily insert citations.
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(bibtex))
-#+end_src
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =bibtex= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Configuration
 This layer also supports having a global BibTeX file.  For a basic
@@ -37,7 +36,7 @@ configuration, add this to your =~/.spacemacs= inside
         org-ref-bibliography-notes "~/Papers/notes.org")
 #+end_src
 
-Certain modes, such as ~latex-mode~ with AucTeX, will automatically lookup
+Certain modes, such as =latex-mode= with AucTeX, will automatically lookup
 references in a document if any of the recognized bibliography commands are
 used.  Other modes may have a similar feature, or one could always set
 file-local variables (through ~SPC f v f~).
@@ -46,32 +45,34 @@ You can also customize which program is used to display the PDFs.  For example,
 to use Zathura:
 
 #+begin_src emacs-lisp
-  (setq org-ref-open-pdf-function (lambda (fpath) (start-process "zathura" "*helm-bibtex-zathura*" "/usr/bin/zathura" fpath)))
+  (setq org-ref-open-pdf-function
+    (lambda (fpath)
+      (start-process "zathura" "*helm-bibtex-zathura*" "/usr/bin/zathura" fpath)))
 #+end_src
 
-More configuration options are available and are detailed in the ~org-ref~ and
-~helm-bibtex~ package documentations.
+More configuration options are available and are detailed in the =org-ref= and
+=helm-bibtex= package documentations.
 
 * Key bindings
-In a Bib(La)TeX files, the following key bindings are added:
+In a Bib(La)TeX file, the following key bindings are added:
 
-| Key Binding   | Description                                |
-|---------------+--------------------------------------------|
-| ~<SPC> m j~   | Next entry                                 |
-| ~<SPC> m k~   | Previous entry                             |
-| ~<SPC> m p~   | Open PDF                                   |
-| ~<SPC> m n~   | Open notes                                 |
-| ~<SPC> m b~   | Open browser                               |
-| ~<SPC> m i~   | Insert new entry                           |
-| ~<SPC> m s~   | Sort entry                                 |
-| ~<SPC> m h~   | Various actions on entry                   |
-| ~<SPC> m l a~ | Lookup and add arXiv paper (don't get PDF) |
-| ~<SPC> m l A~ | Lookup and add arXiv paper (download PDF)  |
-| ~<SPC> m l d~ | Lookup and add paper by DOI                |
-| ~<SPC> m l i~ | Lookup and add book by ISBN                |
-| ~<SPC> m l p~ | Lookup and add paper by PMID               |
+| Key Binding | Description                                |
+|-------------+--------------------------------------------|
+| ~SPC m j~   | Next entry                                 |
+| ~SPC m k~   | Previous entry                             |
+| ~SPC m p~   | Open PDF                                   |
+| ~SPC m n~   | Open notes                                 |
+| ~SPC m b~   | Open browser                               |
+| ~SPC m i~   | Insert new entry                           |
+| ~SPC m s~   | Sort entry                                 |
+| ~SPC m h~   | Various actions on entry                   |
+| ~SPC m l a~ | Lookup and add arXiv paper (don't get PDF) |
+| ~SPC m l A~ | Lookup and add arXiv paper (download PDF)  |
+| ~SPC m l d~ | Lookup and add paper by DOI                |
+| ~SPC m l i~ | Lookup and add book by ISBN                |
+| ~SPC m l p~ | Lookup and add paper by PMID               |
 
-In addition, ~org-mode~, ~latex-mode~ and ~markdown-mode~ all have the following
+In addition, =org-mode=, =latex-mode= and =markdown-mode= all have the following
 key binding added:
 
 | Key Binding | Description     |

@@ -5,6 +5,7 @@
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
    - [[#features][Features:]]
+   - [[#bibtex][BibTeX]]
    - [[#important-note][Important Note]]
  - [[#install][Install]]
    - [[#layer][Layer]]
@@ -31,10 +32,7 @@
    - [[#org-mime][Org-MIME]]
 
 * Description
-This layer enables  [[http://orgmode.org/][org mode]] for Spacemacs.
-
-For more extensive support of references through BibTeX files, have a look at
-the [[../+lang/bibtex][BibTeX layer]].
+This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 
 ** Features:
 - Vim inspired key bindings are provided by [[https://github.com/edwtjo/evil-org-mode][evil-org-mode]]
@@ -42,6 +40,10 @@ the [[../+lang/bibtex][BibTeX layer]].
 - A [[http://pomodorotechnique.com/][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
 - TODO capture via [[https://github.com/waymondo/org-repo-todo][org-repo-todo]]
 - presentation mode via [[https://github.com/rlister/org-present][org-present]]
+
+** BibTeX
+For more extensive support of references through BibTeX files, have a look at
+the [[../+lang/bibtex][BibTeX layer]].
 
 ** Important Note
 Since version 0.104, spacemacs uses the =org= version from the org ELPA
