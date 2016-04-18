@@ -265,7 +265,6 @@
                                  'python-setup-shell))
     :config
     (progn
-      (add-hook 'inferior-python-mode-hook 'smartparens-mode)
       ;; add support for `ahs-range-beginning-of-defun' for python-mode
       (with-eval-after-load 'auto-highlight-symbol
         (add-to-list 'ahs-plugin-bod-modes 'python-mode))
@@ -395,6 +394,7 @@ fix this issue."
       (error nil))))
 
 (defun python/post-init-smartparens ()
+  (add-hook 'inferior-python-mode-hook 'smartparens-mode)
   (defadvice python-indent-dedent-line-backspace
       (around python/sp-backward-delete-char activate)
     (let ((pythonp (or (not smartparens-strict-mode)
