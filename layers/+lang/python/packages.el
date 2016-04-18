@@ -348,8 +348,9 @@
       (add-hook 'python-mode-hook 'py-yapf-enable-on-save))))
 
 (defun python/post-init-semantic ()
-  (add-hook 'python-mode-hook
-            'spacemacs//disable-semantic-idle-summary-mode t)
+  (when (configuration-layer/package-usedp 'anaconda-mode)
+      (add-hook 'python-mode-hook
+                'spacemacs//disable-semantic-idle-summary-mode t))
   (add-hook 'python-mode-hook 'semantic-mode)
   (add-hook 'python-mode-hook 'spacemacs//python-imenu-create-index-use-semantic)
 
