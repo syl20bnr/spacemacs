@@ -57,11 +57,9 @@
 
 (defun org/post-init-evil-surround ()
   (defun spacemacs/add-org-surrounds ()
-    (push '(?: . spacemacs//surround-drawer) evil-surround-pairs-alist))
-  (add-hook 'org-mode-hook 'spacemacs/add-org-surrounds)
-  (defun spacemacs//surround-drawer ()
-    (let ((dname (read-from-minibuffer "" "")))
-      (cons (format ":%s:\n" (or dname "")) "\n:END:"))))
+    (push '(?: . spacemacs//surround-drawer) evil-surround-pairs-alist)
+    (push '(?# . spacemacs//surround-code) evil-surround-pairs-alist))
+  (add-hook 'org-mode-hook 'spacemacs/add-org-surrounds))
 
 (defun org/init-gnuplot ()
   (use-package gnuplot

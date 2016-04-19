@@ -46,3 +46,13 @@ projects) as well as those from `org-agenda-files'."
   "Fix redisplay of inline images after a code block evaluation."
   (when org-inline-image-overlays
     (org-redisplay-inline-images)))
+
+
+
+(defun spacemacs//surround-drawer ()
+  (let ((dname (read-from-minibuffer "" "")))
+    (cons (format ":%s:" (upcase (or dname ""))) ":END:")))
+
+(defun spacemacs//surround-code ()
+  (let ((dname (read-from-minibuffer "" "")))
+    (cons (format "#+BEGIN_SRC %s" (or dname "")) "#+END_SRC")))
