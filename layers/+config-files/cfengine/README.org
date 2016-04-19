@@ -82,12 +82,28 @@ Here is an example:
   This function is called at the very end of Spacemacs initialization after
   layers configuration. You are free to put any user code."
 
+
+    ;; ----------------------------------------------------------------
+    ;; Function to set permissions to 600
+    ;;  - Helps avoid errors
+    ;;    - =error: File ./example.cf (owner 1000) is writable by others (security exception)=
+    ;; ----------------------------------------------------------------
+
+    (defun cfengine-permissions-policy-owner-only ()
+      "If file starts with a shebang, make `buffer-file-name' executable"
+      (save-excursion
+        (set-file-modes buffer-file-name #o600)
+        (message (concat "Made " buffer-file-name " accessibly only by the owner (600)."))))
+
+
     ;; ----------------------------------------------------------------
     ;; Enable line numbering for CFEngine policy files
+    ;; Automatically set permissions on save
     ;; ----------------------------------------------------------------
     (add-hook 'cfengine3-mode-hook
               (lambda ()
-                (linum-mode 1)))
+                (linum-mode 1)
+                (add-hook 'after-save-hook 'cfengine-permissions-policy-owner-only nil 'make-it-local)))))
 
     ;; ----------------------------------------------------------------
     ;; "Easy template"  for quickly inserting cfengine3 code blocks in
