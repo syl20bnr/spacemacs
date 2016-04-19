@@ -169,6 +169,7 @@ Will work on both org-mode and any mode that accepts plain html."
         ;; headings
         "hi" 'org-insert-heading-after-current
         "hI" 'org-insert-heading
+        "hs" 'org-insert-subheading
 
         ;; More cycling options (timestamps, headlines, items, properties)
         "L" 'org-shiftright
