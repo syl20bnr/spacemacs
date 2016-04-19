@@ -227,17 +227,22 @@
   :evil-leader "tl")
 (spacemacs|add-toggle visual-line-navigation
   :status visual-line-mode
-  :on (progn
-        (visual-line-mode)
-        (evil-define-minor-mode-key 'motion 'visual-line-mode "j" 'evil-next-visual-line)
-        (evil-define-minor-mode-key 'motion 'visual-line-mode "k" 'evil-previous-visual-line)
-        (when (bound-and-true-p evil-escape-mode)
-          (evil-escape-mode -1)
-          (setq evil-escape-motion-state-shadowed-func nil)
-          (evil-define-minor-mode-key 'motion 'visual-line-mode "j" 'evil-next-visual-line)
-          (evil-define-minor-mode-key 'motion 'visual-line-mode "k" 'evil-previous-visual-line)
-          (evil-escape-mode)))
-  :off (visual-line-mode -1)
+  :on
+  (progn
+    (visual-line-mode)
+    (evil-define-minor-mode-key 'motion 'visual-line-mode "j" 'evil-next-visual-line)
+    (evil-define-minor-mode-key 'motion 'visual-line-mode "k" 'evil-previous-visual-line)
+    (when (bound-and-true-p evil-escape-mode)
+      (evil-escape-mode -1)
+      (setq evil-escape-motion-state-shadowed-func nil)
+      (evil-define-minor-mode-key 'motion 'visual-line-mode "j" 'evil-next-visual-line)
+      (evil-define-minor-mode-key 'motion 'visual-line-mode "k" 'evil-previous-visual-line)
+      (evil-escape-mode))
+    (evil-normalize-keymaps))
+  :off
+  (progn
+    (visual-line-mode -1)
+    (evil-normalize-keymaps))
   :documentation "Move point according to visual lines."
   :evil-leader "tL")
 (spacemacs|add-toggle line-numbers
