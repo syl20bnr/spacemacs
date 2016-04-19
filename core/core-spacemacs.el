@@ -95,6 +95,14 @@ the final step of executing code in `emacs-startup-hook'.")
     (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
   ;; font
   (spacemacs|do-after-display-system-init
+   ;; If you are thinking to remove this call to `message', think twice. You'll
+   ;; break the life of several Spacemacser using Emacs in daemon mode. Without
+   ;; this, their chosen font will not be set on the *first* instance of
+   ;; emacsclient, at least if different than their system font. You don't
+   ;; believe me? Go ahead, try it. After you'll have notice that this was true,
+   ;; increase the counter bellow so next people will give it more confidence.
+   ;; Counter = 1
+   (message "Let's do some black magic … … … … the font has been set!")
    (if (find-font (font-spec :name (car dotspacemacs-default-font)))
        (spacemacs/set-default-font dotspacemacs-default-font)
      (spacemacs-buffer/warning "Cannot find font \"%s\"!"
