@@ -12,9 +12,15 @@
 
 * Description
 This layer makes working with CFEngine policy easier:
-  - Syntax highlighting
-  - On the fly syntax checks
-  - Auto completion
+  - *Syntax highlighting*
+    [[file:./img/syntax-highlighting.png]]
+  - *Syntax validation* (=syntax-checking= layer/=flycheck-mode=)
+  - [[file:./img/syntax-checking.png]]
+  - *Syntax usage hints* (=eldoc=)
+    [[file:./img/function_prototypes.png]]
+  - *Auto completion* (=auto-completion= layer)
+    [[file:./img/completion-1.png]]
+    [[file:./img/completion-2.png]]
 
 * Install & Configuration
 
