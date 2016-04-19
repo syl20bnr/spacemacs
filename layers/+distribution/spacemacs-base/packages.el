@@ -39,9 +39,7 @@
         (process-menu :location built-in)
         projectile
         (recentf :location built-in)
-        ;; request is not a built-in package
-        ;; this is a hack to be able to configure request cache directory.
-        (request :location built-in)
+        request
         restart-emacs
         (savehist :location built-in)
         (saveplace :location built-in)
