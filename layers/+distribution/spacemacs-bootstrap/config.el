@@ -11,6 +11,7 @@
 
 ;; Thanks to `editorconfig-emacs' for many of these
 (defvar spacemacs--indent-variable-alist
+  ;; Note that derived modes must come before their sources
   '(((awk-mode c-mode c++-mode java-mode groovy-mode
       idl-mode java-mode objc-mode pike-mode) . c-basic-offset)
     (python-mode . python-indent-offset)
@@ -22,9 +23,9 @@
     ((emacs-lisp-mode lisp-mode) . lisp-indent-offset)
     (enh-ruby-mode . enh-ruby-indent-level)
     (erlang-mode . erlang-indent-level)
-    ((js-mode json-mode) . js-indent-level)
     (js2-mode . js2-basic-offset)
     (js3-mode . js3-indent-level)
+    ((js-mode json-mode) . js-indent-level)
     (latex-mode . (LaTeX-indent-level tex-indent-basic))
     (livescript-mode . livescript-tab-width)
     (mustache-mode . mustache-basic-offset)
