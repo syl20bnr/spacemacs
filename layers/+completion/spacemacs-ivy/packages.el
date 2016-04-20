@@ -315,8 +315,6 @@ Helm hack."
       (counsel-mode 1)
       (spacemacs|hide-lighter counsel-mode)
 
-      ;; Note: Must be set before which-key is loaded.
-      (setq prefix-help-command 'counsel-descbinds)
       ;; TODO: Commands to port
       (spacemacs//ivy-command-not-implemented-yet "jI")
 
