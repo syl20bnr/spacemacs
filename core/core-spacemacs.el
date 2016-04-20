@@ -291,8 +291,4 @@ with the message pre-filled with template and information."
     (setq url (replace-regexp-in-string "#" "%23" url))
     (browse-url url)))
 
-(when (and (display-graphic-p)
-           (string-equal "04/01/16" (format-time-string "%D")))
-  (require 'zemacs))
-
 (provide 'core-spacemacs)
