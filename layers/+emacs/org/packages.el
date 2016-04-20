@@ -535,4 +535,5 @@ a Markdown buffer and use this command to convert it.
 
 (defun org/init-space-doc ()
   (use-package space-doc
+    :commands space-doc-mode
     :config (spacemacs|diminish space-doc-mode " ❤" " d")))
