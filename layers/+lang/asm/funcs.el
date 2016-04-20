@@ -28,7 +28,8 @@
 (defvar asm-colon-has-space nil)
 (defun asm-colon-check-space ()
   (setq asm-colon-has-space nil)
-  (when (member (string (char-after)) '(" " "\t"))
+  (when (and (not (null (char-after)))
+             (member (string (char-after)) '(" " "\t")))
     (setq asm-colon-has-space t)))
 (defun asm-colon-delete-spaces ()
   (unless asm-colon-has-space
