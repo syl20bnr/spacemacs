@@ -281,8 +281,4 @@ With prefix arg also inlcude last pressed keys."
     (setq url (replace-regexp-in-string "#" "%23" url))
     (browse-url url)))
 
-(when (and (display-graphic-p)
-           (string-equal "04/01/16" (format-time-string "%D")))
-  (require 'zemacs))
-
 (provide 'core-spacemacs)
