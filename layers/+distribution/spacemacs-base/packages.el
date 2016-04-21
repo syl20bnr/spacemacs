@@ -226,7 +226,7 @@
     :config
     (progn
       ;; bind function keys
-
+      (define-key evil-motion-state-map [C-i] 'evil-jump-forward)
       ;; evil ex-command key
       (define-key evil-normal-state-map (kbd dotspacemacs-command-key) 'evil-ex)
       (define-key evil-visual-state-map (kbd dotspacemacs-command-key) 'evil-ex)
