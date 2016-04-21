@@ -1,6 +1,6 @@
 ;;; holy-mode.el --- Enter the church of Emacs
 
-;; Copyright (C) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (C) 2014-2015 syl20bnr
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing
@@ -28,35 +28,79 @@
 
 ;;; Code:
 
-(defvar holy-mode-modes-to-disable-alist
-  `((evil-mode . 1)
-    (hybrid-mode . -1)
-    (evil-escape-mode . ,(if (boundp 'evil-escape-mode) evil-escape-mode -1)))
-  "Alist of modes that should be disabled when activating
-`holy-mode'. The cdr in each cell stores the state of the mode
-before it was disabled.")
+(defadvice evil-insert-state (around holy-insert-to-emacs-state disable)
+  "Forces Emacs state."
+  (if (equal -1 (ad-get-arg 0))
+      ad-do-it
+    (evil-emacs-state)))
+
+(defadvice evil-motion-state (around holy-motion-to-emacs-state disable)
+  "Forces Emacs state."
+  (if (equal -1 (ad-get-arg 0))
+      ad-do-it
+    (evil-emacs-state)))
+
+(defadvice evil-normal-state (around holy-normal-to-emacs-state disable)
+  "Forces Emacs state."
+  (if (equal -1 (ad-get-arg 0))
+      ad-do-it
+    (evil-emacs-state)))
 
 ;;;###autoload
 (define-minor-mode holy-mode
   "Global minor mode to repulse the evil from spacemacs.
 
-`evil-mode' and other minor modes in
-`holy-mode-modes-to-disable-alist' are turned off."
+The `insert state' is replaced by the `emacs state'."
   :global t
   :lighter " holy"
   :group 'spacemacs
   (if holy-mode
-      (progn
-        (dolist (mode holy-mode-modes-to-disable-alist)
-          (when (boundp (car mode)) (funcall (car mode) -1)))
-        (setq cursor-type 'box)
-        (set-cursor-color "SkyBlue2")
-        (when (fboundp 'spacemacs//helm-hjkl-navigation)
-          (spacemacs//helm-hjkl-navigation nil)))
-    (when (fboundp 'spacemacs//helm-hjkl-navigation)
-      (spacemacs//helm-hjkl-navigation t))
-    (dolist (mode holy-mode-modes-to-disable-alist)
-      (when (boundp (car mode))
-        (funcall (car mode) (cdr mode))))))
+      (in-nominus-patris-et-filii-et-sipritus-sancti)
+    (amen)))
+
+(defun in-nominus-patris-et-filii-et-sipritus-sancti ()
+  "Enter the church of Emacs (wash your hands)."
+  ;; make all buffers' initial state emacs
+  (push '("." . emacs) evil-buffer-regexps)
+  ;; replace evil states by `emacs state'
+  (ad-enable-advice 'evil-insert-state 'around 'holy-insert-to-emacs-state)
+  (ad-enable-advice 'evil-motion-state 'around 'holy-motion-to-emacs-state)
+  (ad-enable-advice 'evil-normal-state 'around 'holy-normal-to-emacs-state)
+  (ad-activate 'evil-insert-state)
+  (ad-activate 'evil-motion-state)
+  (ad-activate 'evil-normal-state)
+  ;; key bindings hooks for dynamic switching of editing styles
+  (run-hook-with-args 'spacemacs-editing-style-hook 'emacs)
+  ;; initiate `emacs state' and enter the church
+  (holy-mode//update-states-for-current-buffers 'emacs))
+
+(defun amen ()
+  "May the force be with you my son (or not)."
+  ;; restore defaults
+  (setq evil-buffer-regexps (delete '("." . emacs) evil-buffer-regexps))
+  ;; restore evil states
+  (ad-disable-advice 'evil-insert-state 'around 'holy-insert-to-emacs-state)
+  (ad-disable-advice 'evil-motion-state 'around 'holy-motion-to-emacs-state)
+  (ad-disable-advice 'evil-normal-state 'around 'holy-normal-to-emacs-state)
+  (ad-activate 'evil-insert-state)
+  (ad-activate 'evil-motion-state)
+  (ad-activate 'evil-normal-state)
+  ;; restore key bindings
+  (run-hook-with-args 'spacemacs-editing-style-hook 'vim)
+  ;; restore the states
+  (holy-mode//update-states-for-current-buffers 'vim))
+
+(defun holy-mode//update-states-for-current-buffers (style)
+  "Update the active state in all current buffers given current STYLE."
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (cond
+       ((eq 'emacs style) (evil-emacs-state))
+       ((and (eq 'vim style)
+             (eq 'emacs evil-state))
+        (cond
+         ((memq major-mode evil-evilified-state-modes) (evil-evilified-state))
+         ((memq major-mode evil-motion-state-modes) (evil-motion-state))
+         (t (evil-normal-state))))))))
 
 (provide 'holy-mode)
