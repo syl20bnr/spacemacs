@@ -31,7 +31,7 @@ completion. The =syntax-checking= layer is required for flycheck support.
 * Configuration
 By default this layer only activates ycmd for =c++-mode=.
 
-If you want ycmd suppoert in other modes you might just want to add it for
+If you want ycmd support in other modes you might just want to add it for
 specific languages like:
 
 #+BEGIN_SRC emacs-lisp
