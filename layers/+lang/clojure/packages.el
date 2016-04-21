@@ -108,6 +108,7 @@ the focus."
         (evil-insert-state))
 
       (defun spacemacs/cider-test-run-focused-test ()
+        "Run test around point."
         (interactive)
         (cider-load-buffer)
         (cider-test-run-test))
@@ -119,21 +120,25 @@ the focus."
         it gets fixed.")
 
       (defun spacemacs/cider-test-run-ns-tests ()
+        "Run namespace test."
         (interactive)
         (cider-load-buffer)
         (cider-test-run-ns-tests nil))
 
       (defun spacemacs/cider-test-run-loaded-tests ()
+        "Run loaded tests."
         (interactive)
         (cider-load-buffer)
         (cider-test-run-loaded-tests nil))
 
       (defun spacemacs/cider-test-run-project-tests ()
+        "Run project tests."
         (interactive)
         (cider-load-buffer)
         (cider-test-run-project-tests nil))
 
       (defun spacemacs/cider-test-rerun-tests ()
+        "Run previous tests again."
         (interactive)
         (cider-load-buffer)
         (cider-test-rerun-tests))
@@ -150,6 +155,7 @@ If called with a prefix argument, uses the other-window instead."
                      buffer))))
 
       (defun spacemacs/cider-toggle-repl-pretty-printing ()
+        "Toggle REPL pretty printing on and off."
         (interactive)
         (setq cider-repl-use-pretty-printing
               (if cider-repl-use-pretty-printing nil t))
@@ -157,6 +163,7 @@ If called with a prefix argument, uses the other-window instead."
                  (if cider-repl-use-pretty-printing "ON" "OFF")))
 
       (defun spacemacs/cider-toggle-repl-font-locking ()
+        "Toggle font locking in REPL."
         (interactive)
         (setq cider-repl-use-clojure-font-lock
               (if cider-repl-use-pretty-printing nil t))
@@ -164,6 +171,7 @@ If called with a prefix argument, uses the other-window instead."
                  (if cider-repl-use-clojure-font-lock "ON" "OFF")))
 
       (defun spacemacs/cider-debug-setup ()
+        "Initialize debug mode."
         (when (memq dotspacemacs-editing-style '(hybrid vim))
           (evil-make-overriding-map cider--debug-mode-map 'normal)
           (evil-normalize-keymaps)))
