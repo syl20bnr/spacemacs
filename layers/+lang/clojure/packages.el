@@ -99,7 +99,7 @@ the focus."
         (cider-insert-ns-form-in-repl t)
         (evil-insert-state))
 
-      (defun spacemacs/cider-send-buffer-in-repl-and-focus ()
+      (defun spacemacs/cider-send-buffer-in-repl-focus ()
         "Send the current buffer in the REPL and switch to the REPL in
 `insert state'."
         (interactive)
@@ -107,20 +107,26 @@ the focus."
         (cider-switch-to-repl-buffer)
         (evil-insert-state))
 
-      (defun spacemacs/cider-test-run-focused-test ()
-        (interactive)
-        (cider-load-buffer)
-        (spacemacs//cider-eval-in-repl-no-focus (cider-test-run-test)))
+      (defalias 'spacemacs/cider-test-run-all-tests #'spacemacs/cider-test-run-ns-tests
+        "ns tests are not actually *all* tests;
+        cider-test-run-project-tests would be better here, but
+        there currently is a bug with the function. Replace once
+        it gets fixed.")
 
-      (defun spacemacs/cider-test-run-all-tests ()
+      (defun spacemacs/cider-test-run-ns-tests ()
         (interactive)
         (cider-load-buffer)
-        (spacemacs//cider-eval-in-repl-no-focus (cider-test-run-ns-tests nil)))
+        (cider-test-run-ns-tests nil))
 
-      (defun spacemacs/cider-test-rerun-tests ()
-        (interactive)
-        (cider-load-buffer)
-        (spacemacs//cider-eval-in-repl-no-focus (cider-test-rerun-tests)))
+      (dolist (test-fn '(cider-test-run-project-tests
+                         cider-test-run-test
+                         cider-test-run-loaded-tests
+                         cider-test-rerun-tests))
+        (eval `(defun ,(intern (format "spacemacs/%S" test-fn)) ()
+                 ,(format "Load current buffer before calling %S." test-fn)
+                 (interactive)
+                 (cider-load-buffer)
+                 (test-fn))))
 
       (defun spacemacs/cider-display-error-buffer (&optional arg)
         "Displays the *cider-error* buffer in the current window.
@@ -148,7 +154,7 @@ If called with a prefix argument, uses the other-window instead."
                  (if cider-repl-use-clojure-font-lock "ON" "OFF")))
 
       (defun spacemacs/cider-debug-setup ()
-        (when (eq dotspacemacs-editing-style 'vim)
+        (when (memq dotspacemacs-editing-style '(hybrid vim))
           (evil-make-overriding-map cider--debug-mode-map 'normal)
           (evil-normalize-keymaps)))
 
@@ -256,16 +262,23 @@ If called with a prefix argument, uses the other-window instead."
           "Tp" 'spacemacs/cider-toggle-repl-pretty-printing
 
           "ta" 'spacemacs/cider-test-run-all-tests
+          "tb" 'cider-test-show-report
+          "tl" 'spacemacs/cider-test-run-loaded-tests
+          "tp" 'spacemacs/cider-test-run-project-tests
+          "tn" 'spacemacs/cider-test-run-ns-tests
           "tr" 'spacemacs/cider-test-rerun-tests
-          "tt" 'spacemacs/cider-test-run-focused-test
+          "tt" 'spacemacs/cider-test-run-test
 
           "db" 'cider-debug-defun-at-point
           "de" 'spacemacs/cider-display-error-buffer
           "di" 'cider-inspect))
 
-      (evil-define-key 'normal cider-repl-mode-map
-        "C-j" 'cider-repl-next-input
-        "C-k" 'cider-repl-previous-input)
+      (when (or (eq 'vim dotspacemacs-editing-style)
+                (and (eq 'hybrid dotspacemacs-editing-style)
+                     hybrid-mode-enable-hjkl-bindings))
+        (evil-define-key 'normal cider-repl-mode-map
+          "C-j" 'cider-repl-next-input
+          "C-k" 'cider-repl-previous-input))
 
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)))
@@ -325,17 +338,8 @@ If called with a prefix argument, uses the other-window instead."
       (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode)))
     :config
     (progn
-
-      (defun spacemacs/clojure-mode-toggle-default-indent-style ()
-        (interactive)
-        (setq clojure-defun-style-default-indent
-              (if clojure-defun-style-default-indent nil t))
-        (message "Clojure-mode default indent style: %s"
-                 (if clojure-defun-style-default-indent "ON" "OFF")))
-
       (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
         (spacemacs/set-leader-keys-for-major-mode m
-          "Ti" 'spacemacs/clojure-mode-toggle-default-indent-style
           "fl" 'clojure-align))
 
       (when clojure-enable-fancify-symbols
