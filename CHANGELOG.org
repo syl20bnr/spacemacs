@@ -1,4 +1,56 @@
 * Release 0.105.x
+** 0.105.19 (2016/04/20)
+*** Fixes
+- Fix =dired-x= autoload (thanks to darkfeline)
+- Fix ~SPC f y~ in =dired= buffers (thanks to dcluna)
+- Fix ~C-i~ key binding for =evil-jump-forward=.
+- Fix ~SPC q r~ to restart Emacs and restore Spacemacs layouts.
+- Fix go to next/previous error when a compilation buffer is opened
+  (thanks to dennishamester)
+- Fix error when opening =spacemacs-helm= with unknown org documentation
+  files (thanks to kuangdash)
+- Fix wrong states when exiting =evil-lisp-state= and =evil-iedit-state=
+  while using the =emacs= editing style.
+- Fix ASCII banners first line being overwritten by the version numbers
+- Use MELPA version of =persp-mode=, the package may need to be deleted
+  manually from the =elpa= directory and a restart of Emacs may be
+  required.
+- Discover layers before running dotfile tests when reloading the
+  configuration, prevents false negatives (thanks to TheBB)
+- Remove duplicated configuration for =eldoc= (thanks to zilongshanren)
+*** Layer changes
+**** Clojure
+- Fix usage of deprecated =cider-turn-on-eldoc-mode=, using =eldoc-mode=
+  instead (thanks to tekacs and sooheon)
+**** Elm
+- Fix text copy/paste
+- Fix auto-completion
+**** Javascript
+- Improve detection of =tern= binary, if =tern= is not found a message
+  is displayed in the =*Messages*= buffer (thanks to nixmaniack)
+**** Go
+- Fix execution of tests with function names containing underscores
+  (thanks to jaffee)
+**** Python
+- Use MELPA version of =py-yapf= package (thanks to cpaulik)
+- Fix =makefile= of =pylookup= (thanks to hemcsec)
+- Disable =semantic-idle-summary= which obfuscates =anaconda= information
+  in the minibuffer (thanks to cpaulik)
+**** Scala
+- Fix =ensime-typecheck-current-file=, rename it to
+  =ensime-typecheck-current-buffer=
+- Fix =scala-enable-eldoc-mode=, rename it to =scala-enable-eldoc=
+  (thanks to channingwalton)
+**** Shell
+- Fix error when attempting to delete the last shell window
+  (thanks to joelmccracken)
+**** Tmux
+- Fix loading of package (thanks to aaronjensen)
+**** Vinegar
+- Correct =dired= configuration (thanks to StreakyCobra)
+*** Improvements
+- Various documentation improvements (thanks to d12frosted, gilch, ksrb,
+  nixmaniack, StreakyCobra, TheBB, The-Compiler, xiaohanyu)
 ** 0.105.18 (2016/04/10)
 - Revert hotfix for =Yasnippet=, the bug has been fixed upstream and is now
   available in MELPA (thanks to TheBB)
