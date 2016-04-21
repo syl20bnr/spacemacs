@@ -16,8 +16,6 @@
         evil-matchit
         flycheck
         js-doc
-        js2-mode
-        js2-refactor
         tern
         web-beautify
         web-mode
@@ -36,35 +34,14 @@
                                             (evilmi-javascript-get-tag evilmi-javascript-jump)
                                             (evilmi-html-get-tag evilmi-html-jump)))))
 
-(defun react/pre-init-flycheck ()
-  (spacemacs|use-package-add-hook flycheck
-    :post-config
-    (progn
-      (flycheck-add-mode 'javascript-eslint 'react-mode)
-
-      (defun react/disable-jshint ()
-        (push 'javascript-jshint flycheck-disabled-checkers))
-
-      (add-hook 'react-mode-hook #'react/disable-jshint))))
-
 (defun react/post-init-flycheck ()
+  (with-eval-after-load 'flycheck
+    (flycheck-add-mode 'javascript-eslint 'react-mode))
   (spacemacs/add-flycheck-hook 'react-mode))
 
 (defun react/post-init-js-doc ()
   (add-hook 'react-mode-hook 'spacemacs/js-doc-require)
   (spacemacs/js-doc-set-key-bindings 'react-mode))
-
-(defun react//setup-imenu ()
-  (setq imenu-create-index-function #'js2-mode-create-imenu-index))
-
-(defun react/post-init-js2-mode ()
-  (add-hook 'react-mode-hook 'react//setup-imenu)
-  (add-hook 'react-mode-hook 'js2-imenu-extras-mode)
-  (add-hook 'react-mode-hook 'js2-minor-mode))
-
-(defun react/post-init-js2-refactor ()
-  (add-hook 'react-mode-hook 'spacemacs/js2-refactor-require)
-  (spacemacs/js2-refactor-set-key-bindings 'react-mode))
 
 (defun react/post-init-tern ()
   (add-hook 'react-mode-hook 'tern-mode))
@@ -74,7 +51,7 @@
 
 (defun react/post-init-web-mode ()
   (define-derived-mode react-mode web-mode "react")
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . react-mode))
+    (add-to-list 'auto-mode-alist '("\\.jsx\\'" . react-mode))
   (add-to-list 'auto-mode-alist '("\\.react.js\\'" . react-mode))
   (add-to-list 'auto-mode-alist '("\\index.android.js\\'" . react-mode))
   (add-to-list 'auto-mode-alist '("\\index.ios.js\\'" . react-mode))
