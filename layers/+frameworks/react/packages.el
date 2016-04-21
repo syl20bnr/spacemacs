@@ -57,11 +57,12 @@
 
 (defun react/post-init-web-mode ()
   (define-derived-mode react-mode web-mode "react")
-    (add-to-list 'auto-mode-alist '("\\.jsx\\'" . react-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . react-mode))
   (add-to-list 'auto-mode-alist '("\\.react.js\\'" . react-mode))
   (add-to-list 'auto-mode-alist '("\\index.android.js\\'" . react-mode))
   (add-to-list 'auto-mode-alist '("\\index.ios.js\\'" . react-mode))
   (add-to-list 'magic-mode-alist '("/\\*\\* @jsx React\\.DOM \\*/" . react-mode))
+  (add-to-list 'magic-mode-alist '("^import React" . react-mode))
   (defun spacemacs//setup-react-mode ()
     "Adjust web-mode to accommodate react-mode"
     (emmet-mode 0)
