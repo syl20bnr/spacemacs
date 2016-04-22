@@ -446,10 +446,15 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-org-download ()
   (use-package org-download
+    :commands (org-download-enable
+               org-download-yank
+               org-download-screenshot)
     :init
+    (progn
+      (add-hook 'org-mode-hook 'org-download-enable)
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "iy" 'org-download-yank
-        "is" 'org-download-screenshot )))
+        "is" 'org-download-screenshot))))
 
 (defun org/init-org-present ()
   (use-package org-present
