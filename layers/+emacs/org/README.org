@@ -30,6 +30,7 @@
    - [[#presentation][Presentation]]
    - [[#org-repo-todo][Org-repo-todo]]
    - [[#org-mime][Org-MIME]]
+   - [[#org-download][Org-download]]
 
 * Description
 This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
@@ -40,6 +41,7 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 - A [[http://pomodorotechnique.com/][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
 - TODO capture via [[https://github.com/waymondo/org-repo-todo][org-repo-todo]]
 - presentation mode via [[https://github.com/rlister/org-present][org-present]]
+- Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
 
 ** BibTeX
 For more extensive support of references through BibTeX files, have a look at
@@ -416,3 +418,10 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 |-------------+---------------------------------------------------|
 | ~SPC m M~   | in =message-mode= buffers convert into html email |
 | ~SPC m m~   | send current buffer as HTML email message         |
+
+** Org-download
+
+| Key Binding | Description     |
+|-------------+-----------------|
+| ~SPC m i s~ | Take screenshot |
+| ~SPC m i y~ | Yank image url  |
