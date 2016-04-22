@@ -99,6 +99,8 @@
         (define-key map (kbd "C-M-/") 'company-filter-candidates)
         (define-key map (kbd "C-d")   'company-show-doc-buffer))
       (add-hook 'spacemacs-editing-style-hook 'spacemacs//company-active-navigation)
+      ;; ensure that the correct bindings are set at startup
+      (spacemacs//company-active-navigation dotspacemacs-editing-style)
 
       ;; Nicer looking faces
       (custom-set-faces
