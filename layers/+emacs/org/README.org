@@ -233,10 +233,11 @@ You can tweak the bullets displayed in the org buffer in the function
 
 | Key Binding | Description                      |
 |-------------+----------------------------------|
-| ~SPC m h i~ | org-insert-heading-after-current |
-| ~SPC m h I~ | org-insert-heading               |
-| ~SPC m i f~ | org-insert-footnote              |
-| ~SPC m i l~ | org-insert-link                  |
+| ~SPC m h i~   | org-insert-heading-after-current |
+| ~SPC m h I~   | org-insert-heading               |
+| ~SPC m h s~   | org-insert-subheading            |
+| ~SPC m i f~   | org-insert-footnote              |
+| ~SPC m i l~   | org-insert-link                  |
 
 *** Links
 
