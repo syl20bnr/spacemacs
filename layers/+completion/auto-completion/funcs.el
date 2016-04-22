@@ -9,6 +9,8 @@
 ;;
 ;;; License: GPLv3
 
+
+
 (spacemacs|add-toggle auto-completion
   :status
   (if (eq 'company auto-completion-front-end)
@@ -30,6 +32,7 @@
   :documentation "Enable auto-completion."
   :evil-leader "ta")
 
+
 ;; auto-completion key bindings functions
 
 (defun spacemacs//auto-completion-set-RET-key-behavior (package)
@@ -78,6 +81,7 @@
                'spacemacs//auto-completion-key-sequence-start))
             (t (message "Not yet implemented for package %S" package))))))
 
+
 ;; key sequence to complete selection
 
 (defvar spacemacs--auto-completion-time nil)
@@ -146,3 +150,73 @@
       evil-emacs-state-map
       second-key
       spacemacs--auto-completion-shadowed-emacs-binding)))
+
+
+;; Editing style
+
+(defun spacemacs//company-active-navigation (style)
+  "Set navigation for the given editing STYLE."
+  (cond
+   ((or (eq 'vim style)
+        (and (eq 'hybrid style)
+             hybrid-mode-enable-hjkl-bindings))
+    (let ((map company-active-map))
+      (define-key map (kbd "C-j") 'company-select-next)
+      (define-key map (kbd "C-k") 'company-select-previous)
+      (define-key map (kbd "C-l") 'company-complete-selection)))
+   (t
+    (let ((map company-active-map))
+      (define-key map (kbd "C-n") 'company-select-next)
+      (define-key map (kbd "C-p") 'company-select-previous)
+      (define-key map (kbd "C-f") 'company-complete-selection)))))
+
+
+;; Transformers
+
+(defun spacemacs//company-transformer-cancel (candidates)
+  "Cancel completion if prefix is in the list
+`company-mode-completion-cancel-keywords'"
+  (unless (member company-prefix company-mode-completion-cancel-keywords)
+    candidates))
+
+
+
+(defvar-local company-fci-mode-on-p nil)
+
+(defun company-turn-off-fci (&rest ignore)
+  (when (boundp 'fci-mode)
+    (setq company-fci-mode-on-p fci-mode)
+    (when fci-mode (fci-mode -1))))
+
+(defun company-maybe-turn-on-fci (&rest ignore)
+  (when company-fci-mode-on-p (fci-mode 1)))
+
+
+;; helm-yas
+
+(defun spacemacs/helm-yas ()
+  "Properly lazy load helm-c-yasnipper."
+  (interactive)
+  (spacemacs/load-yasnippet)
+  (require 'helm-c-yasnippet)
+  (call-interactively 'helm-yas-complete))
+
+
+;; Yasnippet
+
+(defun spacemacs/load-yasnippet ()
+  (unless yas-global-mode (yas-global-mode 1))
+  (yas-minor-mode 1))
+
+(defun spacemacs/force-yasnippet-off ()
+  (yas-minor-mode -1)
+  (setq yas-dont-activate t))
+
+
+;; Auto-Yasnippet
+
+(defun spacemacs/auto-yasnippet-expand ()
+  "Call `yas-expand' and switch to `insert state'"
+  (interactive)
+  (call-interactively 'aya-expand)
+  (unless holy-mode (evil-insert-state)))
