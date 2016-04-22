@@ -183,19 +183,19 @@ Here is an example to add =company= auto-completion to python buffer:
 
 Vim Style:
 
-| Key Binding | Description                                                              |
-|-------------+--------------------------------------------------------------------------|
-| ~C-j~       | (vim style) go down in company dropdown menu                             |
-| ~C-k~       | (vim style) go up in company dropdown menu                               |
-| ~C-l~       | (vim style) complete selection                                           |
+| Key Binding | Description                                  |
+|-------------+----------------------------------------------|
+| ~C-j~       | (vim style) go down in company dropdown menu |
+| ~C-k~       | (vim style) go up in company dropdown menu   |
+| ~C-l~       | (vim style) complete selection               |
 
 Emacs style:
 
-| Key Binding | Description                                                              |
-|-------------+--------------------------------------------------------------------------|
-| ~C-f~       | (emacs style) complete selection                                         |
-| ~C-n~       | (emacs style) go down in company dropdown menu                           |
-| ~C-p~       | (emacs style) go up in company dropdown menu                             |
+| Key Binding | Description                                    |
+|-------------+------------------------------------------------|
+| ~C-f~       | (emacs style) complete selection               |
+| ~C-n~       | (emacs style) go down in company dropdown menu |
+| ~C-p~       | (emacs style) go up in company dropdown menu   |
 
 ** Auto-complete
 
