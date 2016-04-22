@@ -42,13 +42,13 @@
     (let* ((root (locate-dominating-file
                   (or (buffer-file-name) default-directory)
                   "node_modules"))
-           (eslint (if root
-                       (expand-file-name "node_modules/.bin/eslint"
-                                         root)
-                     (executable-find "eslint")
-                     )))
-      (when (file-executable-p eslint)
-        (setq-local flycheck-javascript-eslint-executable eslint))))
+           (global-eslint (executable-find "eslint"))
+           (local-eslint (expand-file-name "node_modules/.bin/eslint"
+                                           root))
+           (eslint (if (file-executable-p local-eslint)
+                       local-eslint
+                     global-eslint)))
+      (setq-local flycheck-javascript-eslint-executable eslint)))
 
   (add-hook 'react-mode-hook #'react/use-eslint-from-node-modules)
 
