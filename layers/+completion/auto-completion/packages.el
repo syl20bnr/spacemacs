@@ -103,16 +103,29 @@
       (spacemacs//auto-completion-set-RET-key-behavior 'company)
       (spacemacs//auto-completion-set-TAB-key-behavior 'company)
       (spacemacs//auto-completion-setup-key-sequence 'company)
-      (when (or (eq 'vim dotspacemacs-editing-style)
-                (and (eq 'hybrid dotspacemacs-editing-style)
-                     hybrid-mode-enable-hjkl-bindings))
-        (let ((map company-active-map))
-          (define-key map (kbd "C-/") 'company-search-candidates)
-          (define-key map (kbd "C-M-/") 'company-filter-candidates)
-          (define-key map (kbd "C-d") 'company-show-doc-buffer)
-          (define-key map (kbd "C-j") 'company-select-next)
-          (define-key map (kbd "C-k") 'company-select-previous)
-          (define-key map (kbd "C-l") 'company-complete-selection)))
+
+      (let ((map company-active-map))
+        (define-key map (kbd "C-/")   'company-search-candidates)
+        (define-key map (kbd "C-M-/") 'company-filter-candidates)
+        (define-key map (kbd "C-d")   'company-show-doc-buffer))
+
+      (defun spacemacs//company-active-navigation (style)
+        "Set navigation for the given editing STYLE."
+        (cond
+         ((or (eq 'vim style)
+              (and (eq 'hybrid style)
+                   hybrid-mode-enable-hjkl-bindings))
+          (let ((map company-active-map))
+            (define-key map (kbd "C-j") 'company-select-next)
+            (define-key map (kbd "C-k") 'company-select-previous)
+            (define-key map (kbd "C-l") 'company-complete-selection)))
+         (t
+          (let ((map company-active-map))
+            (define-key map (kbd "C-n") 'company-select-next)
+            (define-key map (kbd "C-p") 'company-select-previous)
+            (define-key map (kbd "C-f") 'company-complete-selection)))))
+      (add-hook 'spacemacs-editing-style-hook 'spacemacs//company-active-navigation)
+
       ;; Nicer looking faces
       (custom-set-faces
        '(company-tooltip-common
