@@ -102,7 +102,7 @@ the final step of executing code in `emacs-startup-hook'.")
    ;; believe me? Go ahead, try it. After you'll have notice that this was true,
    ;; increase the counter bellow so next people will give it more confidence.
    ;; Counter = 1
-   (message "Let's do some black magic … … … … the font has been set!")
+   (message "Setting the font...")
    (if (find-font (font-spec :name (car dotspacemacs-default-font)))
        (spacemacs/set-default-font dotspacemacs-default-font)
      (spacemacs-buffer/warning "Cannot find font \"%s\"!"
