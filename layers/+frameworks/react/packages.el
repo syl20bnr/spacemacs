@@ -45,8 +45,10 @@
            (eslint (if root
                        (expand-file-name "node_modules/.bin/eslint"
                                          root)
-                     "eslint")))
-      (setq-local flycheck-javascript-eslint-executable eslint)))
+                     (executable-find "eslint")
+                     )))
+      (when (file-executable-p eslint)
+        (setq-local flycheck-javascript-eslint-executable eslint))))
 
   (add-hook 'react-mode-hook #'react/use-eslint-from-node-modules)
 
