@@ -23,6 +23,7 @@
     (ob :location built-in)
     (org :location built-in)
     (org-agenda :location built-in)
+    org-download
     ;; org-mime is installed by `org-plus-contrib'
     (org-mime :location built-in)
     org-pomodoro
@@ -31,7 +32,6 @@
     (ox-gfm :location local)
     persp-mode
     (space-doc :location local)
-    org-download
     ))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
@@ -423,6 +423,18 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (kbd "M-SPC") 'spacemacs/org-agenda-transient-state/body
       (kbd "s-M-SPC") 'spacemacs/org-agenda-transient-state/body)))
 
+(defun org/init-org-download ()
+  (use-package org-download
+    :commands (org-download-enable
+               org-download-yank
+               org-download-screenshot)
+    :init
+    (progn
+      (add-hook 'org-mode-hook 'org-download-enable)
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "iy" 'org-download-yank
+        "is" 'org-download-screenshot))))
+
 (defun org/init-org-mime ()
   (use-package org-mime
     :defer t
@@ -443,18 +455,6 @@ Headline^^            Visit entry^^               Filter^^                    Da
         (setq org-pomodoro-audio-player "/usr/bin/afplay"))
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "p" 'org-pomodoro))))
-
-(defun org/init-org-download ()
-  (use-package org-download
-    :commands (org-download-enable
-               org-download-yank
-               org-download-screenshot)
-    :init
-    (progn
-      (add-hook 'org-mode-hook 'org-download-enable)
-      (spacemacs/set-leader-keys-for-major-mode 'org-mode
-        "iy" 'org-download-yank
-        "is" 'org-download-screenshot))))
 
 (defun org/init-org-present ()
   (use-package org-present
@@ -498,7 +498,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :config
     ;; Better default capture template
     (setcdr (cdddr (assoc "ort/todo" org-capture-templates))
-            '("* TODO %?\n%U\n\n%i" :empty-lines 1))
+            '("* TODO %?\n%U\n\n%i" :empty-lines 1))))
 
 (defun org/init-ox-gfm ()
   ;; installing this package from melpa is buggy,
