@@ -1,118 +1,43 @@
 #+TITLE: CFEngine layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
-#+CAPTION: logo
-# The maximum height of the logo should be 200 pixels.
 [[file:./img/agent.png]]
 
-* Table of Contents                                        :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install & Configuration][Install & Configuration]]
- - [[Key bindings][Key bindings]]
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#configuration][Configuration]]
+   - [[#set-file-permission-on-save][Set file permission on save]]
+   - [[#indendation][Indendation]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 This layer makes working with CFEngine policy easier:
-  - Syntax highlighting
-  - On the fly syntax checks
-  - Auto completion
+- Syntax highlighting
+- On the fly syntax checks (via =syntax-checking= layer)
+- Auto completion (via =auto-completion= layer)
 
-* Install & Configuration
-
+* Install
 Add =cfengine= to the =dotspacemacs-configuration-layers= in your =~/.spacemacs=
 to use this layer.
 
-For working with CFEngine policy I highly recommend the =syntax-checking=, and
-=auto-completion= layers.
+* Configuration
+** Set file permission on save
+Here is a function to set permissions to 600 on save, this can help avoid
+errors like:
 
-Here is an example:
+=File ./example.cf (owner 1000) is writable by others (security exception)=
 
-#+begin_src emacs-lisp
-  (defun dotspacemacs/layers ()
-    "Configuration Layers declaration.
-  You should not put any user code in this function besides modifying the variable
-  values."
-    (setq-default
-     dotspacemacs-configuration-layers
-     '(
-       ;; ----------------------------------------------------------------
-       ;; Example of useful layers you may want to use right away.
-       ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-       ;; <M-m f e R> (Emacs style) to install them.
-       ;; ----------------------------------------------------------------
+#+BEGIN_SRC elisp
+(defun cfengine-permissions-policy-owner-only ()
+  "If file starts with a shebang, make `buffer-file-name' executable"
+  (save-excursion
+    (set-file-modes buffer-file-name #o600)
+    (message (concat "Made " buffer-file-name " accessibly only by the owner (600)."))))
 
-       ;; ----------------------------------------------------------------
-       ;; CFEngine Related Layers
-       ;; ----------------------------------------------------------------
-       cfengine
-       syntax-checking
-       auto-completion
+(add-hook 'after-save-hook 'cfengine-permissions-policy-owner-only nil 'make-it-local)
+#+END_SRC
 
-       ;; ----------------------------------------------------------------
-       ;; Other Userful Layers
-       ;; ----------------------------------------------------------------
-       git
-       github
-       markdown
-       org
-       spell-checking
-       )
-
-     ;; Delete whitespace while saving buffer. Possible values are `all'
-     ;; to aggressively delete empty line and long sequences of whitespace,
-     ;; `trailing' to delete only the whitespace at end of lines, `changed'to
-     ;; delete only whitespace for changed lines or `nil' to disable cleanup.
-     ;; (default nil)
-     ;;
-     ;; ----------------------------------------------------------------
-     ;; This is conservative, if you want to cleanup traling whitespace
-     ;; left by the efforts from others consider setting it to `trailing'.
-     ;; ----------------------------------------------------------------
-     dotspacemacs-whitespace-cleanup 'changed
-
-     ;; ----------------------------------------------------------------)
-
-  (defun dotspacemacs/user-config ()
-    "Configuration function for user code.
-  This function is called at the very end of Spacemacs initialization after
-  layers configuration. You are free to put any user code."
-
-
-    ;; ----------------------------------------------------------------
-    ;; Function to set permissions to 600
-    ;;  - Helps avoid errors
-    ;;    - =error: File ./example.cf (owner 1000) is writable by others (security exception)=
-    ;; ----------------------------------------------------------------
-
-    (defun cfengine-permissions-policy-owner-only ()
-      "If file starts with a shebang, make `buffer-file-name' executable"
-      (save-excursion
-        (set-file-modes buffer-file-name #o600)
-        (message (concat "Made " buffer-file-name " accessibly only by the owner (600)."))))
-
-
-    ;; ----------------------------------------------------------------
-    ;; Enable line numbering for CFEngine policy files
-    ;; Automatically set permissions on save
-    ;; ----------------------------------------------------------------
-    (add-hook 'cfengine3-mode-hook
-              (lambda ()
-                (linum-mode 1)
-                (add-hook 'after-save-hook 'cfengine-permissions-policy-owner-only nil 'make-it-local)))))
-
-    ;; ----------------------------------------------------------------
-    ;; "Easy template"  for quickly inserting cfengine3 code blocks in
-    ;; org-mode. Simply type =<cfe= and then press TAB
-    ;; ----------------------------------------------------------------
-    (eval-after-load 'org
-      '(progn
-         (add-to-list 'org-structure-template-alist
-           '("cfe" "#+begin_src cfengine3\n?\n#+end_src"))))
-
-    ;; ----------------------------------------------------------------)
-#+end_src
-
-Use =M-x customize-group RET cfengine= to customize CFEngine Mode.
-
+** Indendation
 If you like attributes to be intended from the promiser set =Indentation amount
 from anchor= to =2=. For example:
 
