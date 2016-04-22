@@ -151,6 +151,12 @@ LAYER has to be installed for this method to work properly."
     ("gnu"   . "elpa.gnu.org/packages/"))
   "List of ELPA archives required by Spacemacs.")
 
+(defvar configuration-layer-no-layer nil
+  "If non nil then only the distribution layer is loaded.")
+
+(defvar configuration-layer-distribution nil
+  "If set, bypass the user's choice `dotspacemacs-distribution'.")
+
 (defvar configuration-layer--package-archives-refreshed nil
   "Non nil if package archives have already been refreshed.")
 
@@ -312,7 +318,9 @@ If NO-INSTALL is non nil then install steps are skipped."
     (configuration-layer//configure-packages configuration-layer--packages)
     (configuration-layer//load-layers-files
      configuration-layer--layers '("keybindings.el"))
-    (when dotspacemacs-delete-orphan-packages
+    (when (and dotspacemacs-delete-orphan-packages
+               (not configuration-layer-distribution)
+               (not configuration-layer-no-layer))
       (configuration-layer/delete-orphan-packages
        configuration-layer--packages))))
 
@@ -855,23 +863,27 @@ path."
   "Declare default layers and user layers declared in the dotfile."
   (setq configuration-layer--layers nil)
   (setq configuration-layer-paths (configuration-layer//discover-layers))
-  (when (eq 'all dotspacemacs-configuration-layers)
-    (setq dotspacemacs-configuration-layers
-          (ht-keys configuration-layer-paths)))
-  (dolist (layer dotspacemacs-configuration-layers)
-    (let ((layer-name (if (listp layer) (car layer) layer)))
-      (if (ht-contains? configuration-layer-paths layer-name)
-          (unless (string-match-p "+distribution"
-                                  (ht-get configuration-layer-paths layer-name))
-            (push (configuration-layer/make-layer layer)
-                  configuration-layer--layers))
-        (spacemacs-buffer/warning "Unknown layer %s declared in dotfile."
-                                  layer-name))))
-  (setq configuration-layer--layers (reverse configuration-layer--layers))
+  (unless configuration-layer-no-layer
+    (when (eq 'all dotspacemacs-configuration-layers)
+      (setq dotspacemacs-configuration-layers
+            (ht-keys configuration-layer-paths)))
+    (dolist (layer dotspacemacs-configuration-layers)
+      (let ((layer-name (if (listp layer) (car layer) layer)))
+        (if (ht-contains? configuration-layer-paths layer-name)
+            (unless (string-match-p "+distribution"
+                                    (ht-get configuration-layer-paths layer-name))
+              (push (configuration-layer/make-layer layer)
+                    configuration-layer--layers))
+          (spacemacs-buffer/warning "Unknown layer %s declared in dotfile."
+                                    layer-name))))
+    (setq configuration-layer--layers (reverse configuration-layer--layers)))
   ;; distribution and bootstrap layers are always first
-  (unless (eq 'spacemacs-bootstrap dotspacemacs-distribution)
-    (push (configuration-layer/make-layer dotspacemacs-distribution)
-          configuration-layer--layers))
+  (let ((distribution (if configuration-layer-distribution
+                          configuration-layer-distribution
+                        dotspacemacs-distribution)))
+    (unless (eq 'spacemacs-bootstrap distribution)
+      (push (configuration-layer/make-layer distribution)
+            configuration-layer--layers)))
   (push (configuration-layer/make-layer 'spacemacs-bootstrap)
         configuration-layer--layers))
 

@@ -22,7 +22,7 @@ arguments is that we want to process these arguments as soon as possible."
       (let ((arg (nth i args))
             (next-arg-digit
              (when (< (1+ i) (length args))
-               (string-to-number (nth (1+ i ) args)))))
+               (string-to-number (nth (1+ i) args)))))
         (when (or (null next-arg-digit) (= 0 next-arg-digit))
           (setq next-arg-digit nil))
         (pcase arg
@@ -43,6 +43,11 @@ arguments is that we want to process these arguments as soon as possible."
            (setq spacemacs-debugp t))
           ("--insecure"
            (setq dotspacemacs-elpa-https nil))
+          ("--no-layer"
+           (setq configuration-layer-no-layer t))
+          ("--distribution"
+           (setq configuration-layer-distribution (intern (nth (1+ i) args))
+                 i (1+ i)))
           ("--resume-layouts"
            (setq spacemacs-force-resume-layouts t))
           (_ (push arg new-args))))
