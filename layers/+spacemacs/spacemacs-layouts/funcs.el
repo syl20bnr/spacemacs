@@ -492,24 +492,25 @@ STATE is a window-state object as returned by `window-state-get'."
 
 ;; Eyebrowse and Persp integration
 
-(defun spacemacs/load-eyebrowse-for-perspective (&optional frame)
+(defun spacemacs/load-eyebrowse-for-perspective (type &optional frame)
   "Load an eyebrowse workspace according to a perspective's parameters.
  FRAME's perspective is the perspective that is considered, defaulting to
  the current frame's perspective.
  If the perspective doesn't have a workspace, create one."
-  (let* ((persp (get-frame-persp frame))
-         (window-configs (persp-parameter 'eyebrowse-window-configs persp))
-         (current-slot (persp-parameter 'eyebrowse-current-slot persp))
-         (last-slot (persp-parameter 'eyebrowse-last-slot persp)))
-    (if window-configs
-        (progn
-          (eyebrowse--set 'window-configs window-configs frame)
-          (eyebrowse--set 'current-slot current-slot frame)
-          (eyebrowse--set 'last-slot last-slot frame)
-          (eyebrowse--load-window-config current-slot))
-      (eyebrowse--set 'window-configs nil frame)
-      (eyebrowse-init frame)
-      (spacemacs/save-eyebrowse-for-perspective frame))))
+  (when (eq type 'frame)
+    (let* ((persp (get-frame-persp frame))
+           (window-configs (persp-parameter 'eyebrowse-window-configs persp))
+           (current-slot (persp-parameter 'eyebrowse-current-slot persp))
+           (last-slot (persp-parameter 'eyebrowse-last-slot persp)))
+      (if window-configs
+          (progn
+            (eyebrowse--set 'window-configs window-configs frame)
+            (eyebrowse--set 'current-slot current-slot frame)
+            (eyebrowse--set 'last-slot last-slot frame)
+            (eyebrowse--load-window-config current-slot))
+        (eyebrowse--set 'window-configs nil frame)
+        (eyebrowse-init frame)
+        (spacemacs/save-eyebrowse-for-perspective frame)))))
 
 (defun spacemacs/update-eyebrowse-for-perspective (_new-persp-name _frame)
   "Update and save current frame's eyebrowse workspace to its perspective.

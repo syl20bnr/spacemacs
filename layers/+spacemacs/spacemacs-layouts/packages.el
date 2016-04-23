@@ -82,7 +82,7 @@
                 #'spacemacs/update-eyebrowse-for-perspective)
       (add-hook 'eyebrowse-post-window-switch-hook
                 #'spacemacs/save-eyebrowse-for-perspective)
-      (add-hook 'persp-activated-hook
+      (add-hook 'persp-activated-functions
                 #'spacemacs/load-eyebrowse-for-perspective)
       ;; vim-style tab switching
       (define-key evil-motion-state-map "gt" 'eyebrowse-next-window-config)
