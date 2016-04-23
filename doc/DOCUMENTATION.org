@@ -205,11 +205,11 @@ to fix it.
 
 ** Mnemonic
 Key bindings are organized using mnemonic prefixes like ~b~ for buffer, ~p~ for
-project, ~s~ for search, ~h~ for help etc...
+project, ~s~ for search, ~h~ for help, etc...
 
 ** Discoverable
 Innovative real-time display of available key bindings. Simple query
-system to quickly find available layers, packages and more.
+system to quickly find available layers, packages, and more.
 
 ** Consistent
 Similar functionalities have the same key binding everywhere thanks to a
@@ -229,10 +229,10 @@ and bugs are fixed quickly.
 - *Keep your fingers on the home row* for quicker editing with support for
   QWERTY and BEPO layouts.
 
-- *Minimalistic and nice graphical UI*, keep your available screen space for
+- *Minimalistic and nice graphical UI* keeps your available screen space for
   what matters: your text files.
 
-- *Fast boot time*, packages and configuration are lazy-loaded as much as
+- *Fast boot time*: packages and configuration are lazy-loaded as much as
   possible.
 
 - *Lower the risk of RSI* by heavily using the space bar instead of modifiers.
@@ -258,8 +258,8 @@ project.
   perfectly *usable by non Vim users* by choosing the =emacs= editing style.
 
 - It is also a good fit for people wanting to *lower the [[http://en.wikipedia.org/wiki/Repetitive_strain_injury][risk of RSI]]* induced by
-  the default Emacs key bindings (this is an assumption, there are no official
-  studies to prove this!). If you have issues using your thumbs you can still
+  the default Emacs key bindings. (This is an assumption, there are no official
+  studies to prove this!) If you have issues using your thumbs you can still
   use the =emacs= editing style which puts the leader key on a modifier
   combination.
 
@@ -277,7 +277,7 @@ project.
 * Update and Rollback
 ** Update Spacemacs repository
 There are several methods of updating the core files and layer information for
-Spacemacs. It is recommended to update the packages first, see the next section.
+Spacemacs. It is recommended to update the packages first; see the next section.
 
 *** Automatic Updates
 Spacemacs will automatically check for a new version every startup. When it
@@ -288,7 +288,7 @@ Update Button:
 [[file:img/powerline-update.png]]
 
 *Note*: If you use the =develop= branch of Spacemacs, automatic update is
-disabled, you have to update manually using git.
+disabled---you have to update manually using git.
 
 *** Updating from the Spacemacs Buffer
 Use the button labeled "Update Spacemacs" in the Spacemacs buffer. You will be
@@ -316,7 +316,7 @@ Emacs. If you prefer, you can use the command
 
 If anything goes wrong you should be able to rollback the update by pressing
 ~RET~ or clicking on the =[Rollback Package Update]= link in the startup page
-and choose a rollback slot (sorted by date). This button uses the command
+and choosing a rollback slot (sorted by date). This button uses the command
 =configuration-layer/rollback=.
 
 * Configuration layers
@@ -325,7 +325,7 @@ configuration layers can be found [[file:LAYERS.org][here]].
 
 ** Purpose
 Layers help collect related packages together to provide features. For example,
-the =python= layer provides auto-completion, syntax checking, and repl support
+the =python= layer provides auto-completion, syntax checking, and REPL support
 for python files. This approach helps keep configuration organized and reduces
 overhead for the user by keeping them from having to think about what packages
 to install. To install all the =python= features the user has just to add the
@@ -398,7 +398,7 @@ To initialize a package =xxx=, define a function with this format in
 It is common to define the body with the [[https://github.com/jwiegley/use-package][use-package]] macro.
 
 **** Exclusion
-It is possible to exclude some packages from Spacemacs on a per layer basis.
+It is possible to exclude some packages from Spacemacs on a per-layer basis.
 This is useful when a configuration layer aims to replace a stock package
 declared in the Spacemacs layer.
 
@@ -456,11 +456,11 @@ To install it, just add =themes-megapack= to your =~/.spacemacs= like so:
 (setq-default dotspacemacs-configuration-layers '(themes-megapack))
 #+END_SRC
 
-Adding this layer will install around 100 themes, to uninstall them remove the
+Adding this layer will install around 100 themes; to uninstall them remove the
 layer from the =dotspacemacs-configuration-layers= and press ~SPC f e R~.
 
 ** Managing private configuration layers
-Spacemacs configuration system is flexible enough to let you manage your
+Spacemacs's configuration system is flexible enough to let you manage your
 private layers in different ways.
 
 *** Using the private directory
@@ -537,7 +537,7 @@ tests are also run automatically when you synchronize with ~SPC f e R~.
 To use a configuration layer, add it to the =dotspacemacs-configuration-layers=
 variable of your =~/.spacemacs=.
 
-For instance [[Thank you][RMS]] can add his private configuration layer like this:
+For instance, [[Thank you][RMS]] can add his private configuration layer like this:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(rms))
@@ -572,14 +572,14 @@ You can exclude packages you don't want to install with the variable
 =dotspacemacs-excluded-packages= (see [[Configuration layers][Configuration layers]] for more info
 on packages).
 
-For instance to disable the =rainbow-delimiters= package:
+For instance, to disable the =rainbow-delimiters= package:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-excluded-packages '(rainbow-delimiters))
 #+END_SRC
 
 When you exclude a package, Spacemacs will automatically delete it for you the
-next time you launch Emacs. All the orphan dependencies are as well deleted
+next time you launch Emacs. All the orphan dependencies are also deleted
 automatically.
 
 *** Configuration functions
@@ -615,7 +615,7 @@ Three styles are available:
 
 *** Vim
 Spacemacs behaves like in Vim using [[https://gitorious.org/evil/pages/Home][Evil]] mode package to emulate Vim key bindings.
-This is the default style of Spacemacs, it can be set explicitly by setting
+This is the default style of Spacemacs; it can be set explicitly by setting
 the =dotspacemacs-editing-style= variable to =vim= in the dotfile.
 
 To bind keys in Vim editing style (=insert state=):
@@ -641,7 +641,7 @@ To bind keys in Emacs editing style (=emacs state=):
 *** Hybrid
 The hybrid editing style is like the Vim style except that =insert state= is
 replaced by a new state called =hybrid state=. In =hybrid state= all the Emacs
-key bindings are available, this is like replacing the =insert state= with the
+key bindings are available; this is like replacing the =insert state= with the
 =emacs state= but provides an isolated key map =evil-hybrid-state-map=.
 
 To bind keys in Hybrid editing style (=hybrid state=):
@@ -1773,7 +1773,7 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w SPC~            | select window using [[https://github.com/abo-abo/ace-window][ace-window]]                                              |
 
 **** Window manipulation transient state
-A convenient window manipulation transient state allows to perform most of the
+A convenient window manipulation transient state allows performing most of the
 actions listed above. The transient state allows additional actions as well like
 window resizing.
 
@@ -1996,8 +1996,8 @@ current state. With default =spacemacs-dark= theme:
 - purple: modified file
 
 **** NeoTree navigation
-Navigation is centered on the ~hjkl~ with the hope to provide a fast navigation
-experience like in [[http://ranger.nongnu.org/][ranger]]:
+Navigation is centered on the ~hjkl~ keys with the hope of providing a fast
+navigation experience like in [[http://ranger.nongnu.org/][ranger]]:
 
 | Key Binding  | Description                                                            |
 |--------------+------------------------------------------------------------------------|
@@ -2971,8 +2971,8 @@ server is to use the following bindings:
 *** Loading fails
 If any errors happen during the loading the mode-line will turn red and the
 errors should appear inline in the startup buffer. Spacemacs should still be
-usable, if it is not the case then restart Emacs with =emacs --debug-init= and
-open a [[https://github.com/syl20bnr/spacemacs/issues][Github issue]] with the backtrace.
+usable; if it is not then restart Emacs with =emacs --debug-init= and open a
+[[https://github.com/syl20bnr/spacemacs/issues][Github issue]] with the backtrace.
 
 *** Upgrading/Downgrading Emacs version
 To ensure that packages are correctly compiled for the new Emacs version you
