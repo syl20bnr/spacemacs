@@ -33,6 +33,7 @@ You will need =gocode= and =godef=:
   go get -u -v github.com/rogpeppe/godef
   go get -u -v golang.org/x/tools/cmd/oracle
   go get -u -v golang.org/x/tools/cmd/gorename
+  go get -u -v golang.org/x/tools/cmd/goimports
 #+END_SRC
 
 Make sure that =gocode= executable is in your PATH. For information about
