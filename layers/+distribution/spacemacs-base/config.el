@@ -126,7 +126,20 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
   (add-hook 'prog-mode-hook 'linum-mode)
   (add-hook 'text-mode-hook 'linum-mode))
 ;; line number
-(setq linum-format "%4d")
+;; add a space before/after the line number
+;; and make number width more flexible to suit with the max lines
+(defun linum-format-func (line)
+  (concat
+    (propertize " " 'face 'linum)
+    (propertize (format linum-format-fmt line) 'face 'linum)
+    (propertize " " 'face 'linum)))
+(add-hook 'linum-before-numbering-hook
+  (lambda ()
+    (setq-local linum-format-fmt
+    (let ((w (length (number-to-string
+          (line-number-at-pos (point-max))))))
+      (concat "%" (number-to-string w) "d")))))
+(setq linum-format 'linum-format-func)
 ;; highlight current line
 (global-hl-line-mode t)
 ;; no blink
