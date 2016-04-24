@@ -67,6 +67,13 @@ layer, as detailed in [[file:../../../doc/DOCUMENTATION.org::Setting%20configura
   (javascript :variables javascript-disable-tern-port-files nil)
 #+END_SRC
 
+Windows users may need to set the variable =tern-command= in order for emacs to locate
+and launch tern server successfully. See [[https://github.com/ternjs/tern/issues/256#issuecomment-141531735][this open issue for more details]]:
+
+#+BEGIN_SRC emacs-lisp
+  (setq tern-command '("node" "/path/to/tern/bin/tern"))
+#+END_SRC
+
 ** Indentation
 To change how js2-mode indents code, set the variable =js2-basic-offset=, as such:
 
