@@ -259,15 +259,7 @@
         ("/" spacemacs/helm-project-smart-do-search-region-or-symbol :exit t)
         ("b" spacemacs/helm-buffers-smart-do-search-region-or-symbol :exit t)
         ("f" spacemacs/helm-files-smart-do-search-region-or-symbol :exit t)
-        ("q" nil :exit t))
-
-      (defun spacemacs/symbol-highlight ()
-        "Highlight the symbol under point with `auto-highlight-symbol'."
-        (interactive)
-        (spacemacs/ahs-highlight-now-wrapper)
-        (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
-        (spacemacs/symbol-highlight-transient-state/body)
-        (spacemacs/integrate-evil-search nil)))))
+        ("q" nil :exit t)))))
 
 (defun spacemacs-editing-visual/init-column-enforce-mode ()
   (use-package column-enforce-mode
