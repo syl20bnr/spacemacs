@@ -357,4 +357,4 @@ NOTE: It can find only fontified regions."
     ret))
 
 (provide 'space-doc)
-;;; space-doc.el ends here
+;;; space-doc.el ends here.
