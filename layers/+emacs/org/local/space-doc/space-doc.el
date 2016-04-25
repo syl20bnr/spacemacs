@@ -51,6 +51,7 @@ keeping their content visible.
     spacemacs//space-doc-modf-link-protocol
     spacemacs//space-doc-modf-org-block-line-face-remap
     spacemacs//space-doc-modf-org-kbd-face-remap
+    spacemacs//space-doc-modf-advice-org-do-emphasis-faces
     (lambda (flag) (spacemacs//space-doc-run-modfs-deferred
                '()
                flag )))
@@ -70,7 +71,7 @@ It is set by `spacemacs//space-doc-set-space-doc-cache'.")
 
 (defun spacemacs//space-doc-set-space-doc-cache (&optional flag)
   "Set `spacemacs--space-doc-cache' to filled
-`spacemacs//space-doc-cache' structure. FLAG is ignored."
+`spacemacs//space-doc-cache' structure."
 
   (setq spacemacs--space-doc-cache
         (if flag
@@ -100,22 +101,26 @@ It is set by `spacemacs//space-doc-set-space-doc-cache'.")
 (defun spacemacs//space-doc-org-do-emphasis-faces-advice (found)
   "If FOUND has non-nil value - modify emphasized regions
 appearances in the current buffer. The function uses
-`match-data' set by `org-do-emphasis-faces' function.
-NOTE: `org-do-emphasis-faces' is lazy and will emphasize only
-part of the buffer. So piggybacking it should be pretty
-performant solution."
+`match-data' set by `org-do-emphasis-faces' function."
 
   ;; `org-do-emphasis-faces' returns non-nil value when it
   ;; found a region to emphasize.
-  (when (and found spacemacs--space-doc-cache)
+  (when (and found space-doc-mode)
     (spacemacs//space-doc-emphasis-region
      (match-beginning 2)
      (match-end 2)))
   found)
 
-(advice-add 'org-do-emphasis-faces
-            :after
-            'spacemacs//space-doc-org-do-emphasis-faces-advice)
+(defun spacemacs//space-doc-modf-advice-org-do-emphasis-faces (&optional enable)
+  "If ENABLE has non-nil value - advice `org-do-emphasis-faces' function
+with `spacemacs//space-doc-org-do-emphasis-faces-advice'.
+NOTE: `org-do-emphasis-faces' is lazy and will emphasize only part of the
+current buffer so piggybacking it should be pretty performant solution."
+
+  (when enable
+    (advice-add 'org-do-emphasis-faces
+                :after
+                #'spacemacs//space-doc-org-do-emphasis-faces-advice)))
 
 (defun spacemacs//space-doc-emphasis-region (begin end)
   "Emphasis region based on its leading character.
@@ -170,22 +175,23 @@ from `org-emphasis-alist'."
                  'space-doc-emphasis-overlay t)))
 
 (defun spacemacs//space-doc-modf-emphasis-overlays (&optional enable)
-  "If ENABLE has non-nil value - overlay regions which have already been
-emphasized by `org-do-emphasis-faces'. Otherwise remove all overlays
-from the current buffer with property `space-doc-emphasis-overlay'."
+  "If ENABLE has non-nil value - overlay regions which have
+already been emphasized by `org-do-emphasis-faces'
+in the current buffer. Otherwise remove all overlays
+with property `space-doc-emphasis-overlay'."
 
-  (if enable
+  ;; Remove overlays.
+  (dolist (overlay (overlays-in (point-min) (point-max)))
+    (when (overlay-get overlay 'space-doc-emphasis-overlay)
+      (delete-overlay overlay)))
+
+  (when enable
       (dolist (emphasized-region
                (spacemacs//space-doc-find-regions-by-text-property
                 'org-emphasis t))
         (spacemacs//space-doc-emphasis-region
          (car  emphasized-region)
-         (cadr emphasized-region)))
-
-    ;; Remove overlays.
-    (dolist (overlay (overlays-in (point-min) (point-max)))
-      (when (overlay-get overlay 'space-doc-emphasis-overlay)
-        (delete-overlay overlay)))))
+         (cadr emphasized-region)))))
 
 (defun spacemacs//space-doc-modf-org-kbd-face-remap (&optional enable)
   "If ENABLE has non-nil value - removes boxes from the `org-kbd'
@@ -201,9 +207,10 @@ default."
 
 (defun spacemacs//space-doc-modf-meta-tags-overlays (&optional enable)
   "If ENABLE has non-nil value - modify `org-mode' meta tags
-appearance in the current `org-mode' buffer. Otherwise - disable."
+appearance in the current buffer. Otherwise - disable."
 
   (if enable
+      ;; TODO add more types of tags or meta-line if needed.
       (let* ((invisible-org-meta-tags-list
               `(;; Hide TITLE tag.
                 ("\\([ \t]*\\#\\+TITLE\\:\[ \t]*\\)"
@@ -252,9 +259,9 @@ appearance in the current `org-mode' buffer. Otherwise - disable."
         (delete-overlay overlay)))))
 
 (defun spacemacs//space-doc-modf-org-block-line-face-remap (&optional enable)
-  "If ENABLE has non-nil value - hide text in the code block meta lines
+  "If ENABLE has non-nil value - hide text of the code block meta lines
 in the current buffer. If the blocks have background color text won't be
-removed because it makes them look ugly with some themes.
+masked because it makes them look ugly with some themes.
 If ENABLE has nil value - revert to the default."
 
   (if enable
@@ -332,7 +339,8 @@ FLAG is passed through."
     (property value &optional start end)
   "Return a list of pairs (region-beginning region-end) in
 the current buffer. If START or END has non-nil value - use them as
-boundaries. NOTE: Specified region should be fontified."
+boundaries.
+NOTE: It can find only fontified regions."
 
   (let ((p-min (or start (point-min)))
         (p-max (or end (point-max)))
