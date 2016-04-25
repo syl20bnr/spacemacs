@@ -23,6 +23,7 @@
     (default-org :location built-in)
     (org-plus-contrib :step pre)
     org-bullets
+    (space-doc :location local)
     toc-org
     ))
 
@@ -73,5 +74,7 @@
     (progn
       (setq toc-org-max-depth 10)
       (add-hook 'org-mode-hook 'toc-org-enable))))
+
+(defun spacemacs-org/init-space-doc ())
 
 ;;; packages.el ends here

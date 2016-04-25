@@ -31,7 +31,6 @@
     org-repo-todo
     (ox-gfm :location local)
     persp-mode
-    (space-doc :location local)
     ))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
@@ -553,8 +552,3 @@ a Markdown buffer and use this command to convert it.
 (defun org/init-htmlize ()
  (use-package htmlize
    :defer t))
-
-(defun org/init-space-doc ()
-  (use-package space-doc
-    :commands space-doc-mode
-    :config (spacemacs|diminish space-doc-mode " ❤" " d")))
