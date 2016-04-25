@@ -108,9 +108,5 @@
     ;; Force jsx content type
     (web-mode-set-content-type "jsx")
     ;; Don't auto-quote attribute values
-    (setq-local web-mode-enable-auto-quoting nil)
-    ;; Why do we do this ?
-    (defadvice web-mode-highlight-part (around tweak-jsx activate)
-      (let ((web-mode-enable-part-face nil))
-        ad-do-it)))
+    (setq-local web-mode-enable-auto-quoting nil))
   (add-hook 'react-mode-hook 'spacemacs//setup-react-mode))
