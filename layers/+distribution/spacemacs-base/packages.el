@@ -48,6 +48,7 @@
         undo-tree
         (uniquify :location built-in)
         (url :location built-in)
+        (visual-line-mode :location built-in)
         (whitespace :location built-in)
         (winner :location built-in)
         ws-butler))
@@ -98,9 +99,11 @@
                dired-jump-other-window
                dired-omit-mode)))
 
-
 (defun spacemacs-base/init-electric-indent-mode ()
   (electric-indent-mode))
+
+(defun spacemacs-base/init-visual-line-mode ()
+  (spacemacs|diminish visual-line-mode " Ⓥ" " V"))
 
 ;; notes from mijoharas
 ;; We currently just set a few variables to make it look nicer.
