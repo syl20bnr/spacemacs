@@ -91,7 +91,11 @@
                           (progn
                             (with-current-buffer outputbuf (erase-buffer))
                             (write-region nil nil tmpfile)
-                            (if (zerop (apply 'call-process "tsfmt" nil outputbuf nil (list "--baseDir=." tmpfile)))
+                            (if (zerop (apply 'call-process "tsfmt" nil outputbuf nil
+                                              (list (format
+                                                     "--baseDir='%s' --"
+                                                     default-directory)
+                                                    tmpfile)))
                                 (let ((p (point)))
                                   (save-excursion
                                     (with-current-buffer (current-buffer)
