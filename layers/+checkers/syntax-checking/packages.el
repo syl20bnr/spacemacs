@@ -85,8 +85,8 @@ If the error list is visible, hide it.  Otherwise, show it."
         "Open and go to the error list buffer."
         (interactive)
         (unless (get-buffer-window (get-buffer flycheck-error-list-buffer))
-          (flycheck-list-errors))
-        (switch-to-buffer-other-window flycheck-error-list-buffer))
+          (flycheck-list-errors)
+          (switch-to-buffer-other-window flycheck-error-list-buffer)))
 
       (evilified-state-evilify-map flycheck-error-list-mode-map
         :mode flycheck-error-list-mode
