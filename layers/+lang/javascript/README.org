@@ -68,11 +68,12 @@ layer, as detailed in [[file:../../../doc/DOCUMENTATION.org::Setting%20configura
 #+END_SRC
 
 Windows users may need to set the variable =tern-command= in order for emacs to
-locate and launch tern server successfully. See [[https://github.com/ternjs/tern/issues/256#issuecomment-141531735][this open issue for more
-details]]:
+locate and launch tern server successfully. See [[https://github.com/syl20bnr/spacemacs/issues/5733][this open issue for more
+details]]. The variable can be set when adding the =javascript= configuration
+layer:
 
 #+BEGIN_SRC emacs-lisp
-  (setq tern-command '("node" "/path/to/tern/bin/tern"))
+  (javascript :variables tern-command '("node" "/path/to/tern/bin/tern"))
 #+END_SRC
 
 ** Indentation
