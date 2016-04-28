@@ -14,7 +14,8 @@
                        popwin))
 
 (defun idris/post-init-company ()
-  (spacemacs|add-company-hook idris-mode))
+  (spacemacs|add-company-hook idris-mode)
+  (push 'company-capf company-backends-idris-mode))
 
 (defun idris/init-idris-mode ()
   (use-package idris-mode
