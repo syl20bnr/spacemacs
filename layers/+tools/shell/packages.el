@@ -290,7 +290,7 @@ is achieved by adding the relevant text properties."
       (setq shell-pop-window-position shell-default-position
             shell-pop-window-size     shell-default-height
             shell-pop-term-shell      shell-default-term-shell
-            shell-pop-full-span t)
+            shell-pop-full-span       shell-default-full-span)
       (make-shell-pop-command eshell)
       (make-shell-pop-command shell)
       (make-shell-pop-command term shell-pop-term-shell)
