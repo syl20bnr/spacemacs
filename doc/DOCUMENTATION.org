@@ -180,7 +180,7 @@
    - [[#compiling][Compiling]]
    - [[#modes][Modes]]
      - [[#major-mode-leader-key][Major Mode leader key]]
-     - [[#helm][Helm]]
+     - [[#helm-1][Helm]]
    - [[#emacs-server][Emacs Server]]
      - [[#connecting-to-the-emacs-server][Connecting to the Emacs server]]
    - [[#keeping-the-server-alive][Keeping the server alive]]
@@ -2658,7 +2658,8 @@ an ~occurrence~.
    e p ESC ESC~
 
 *** Replacing text in several files
-If you have =ag=, =pt= or =ack= installed, replacing an occurrence of text in several files can be performed via [[https://github.com/syohex/emacs-helm-ag][helm-ag]].
+If you have =ag=, =pt= or =ack= installed, replacing an occurrence of text in
+several files can be performed via [[https://github.com/syohex/emacs-helm-ag][helm-ag]].
 
 Say you want to replace all =foo= occurrences by =bar= in your current
 project:
