@@ -131,7 +131,7 @@
   (spacemacs|use-package-add-hook xcscope
     :post-init
     (dolist (mode '(c-mode c++-mode))
-      (spacemacs/set-leader-keys-for-major-mode mode "gi" 'cscope-index-files))))
+      (spacemacs/set-leader-keys-for-major-mode mode "ci" 'cscope-index-files))))
 
 (when (configuration-layer/layer-usedp 'spacemacs-helm)
   (defun c-c++/pre-init-helm-cscope ()

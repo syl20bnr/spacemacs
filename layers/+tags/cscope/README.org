@@ -54,18 +54,18 @@ pip install pycscope
 * Usage
 Before using any helm-cscope commands, remember to create a Cscope index file.
 Do it by running the command =cscope-index-files= for C and C++ projects, or the
-command =cscope/run-pycscope= for Python projects, bound to ~SPC m g i~.
+command =cscope/run-pycscope= for Python projects, bound to ~SPC m c i~.
 
 * Key bindings
 
 | Key Binding | Description                                   |
 |-------------+-----------------------------------------------|
-| ~SPC m g c~ | find which functions are called by a function |
-| ~SPC m g C~ | find where a function is called               |
-| ~SPC m g d~ | find global definition of a symbol            |
-| ~SPC m g e~ | search regular expression                     |
-| ~SPC m g f~ | find a file                                   |
-| ~SPC m g F~ | find which files include a file               |
-| ~SPC m g i~ | create Cscope index                           |
-| ~SPC m g r~ | find references of a symbol                   |
-| ~SPC m g x~ | search text                                   |
+| ~SPC m c c~ | find which functions are called by a function |
+| ~SPC m c C~ | find where a function is called               |
+| ~SPC m c d~ | find global definition of a symbol            |
+| ~SPC m c e~ | search regular expression                     |
+| ~SPC m c f~ | find a file                                   |
+| ~SPC m c F~ | find which files include a file               |
+| ~SPC m c i~ | create Cscope index                           |
+| ~SPC m c r~ | find references of a symbol                   |
+| ~SPC m c x~ | search text                                   |

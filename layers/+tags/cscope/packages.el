@@ -45,14 +45,14 @@
       (defun spacemacs/setup-helm-cscope (mode)
         "Setup `helm-cscope' for MODE"
         (spacemacs/set-leader-keys-for-major-mode mode
-          "gc" 'helm-cscope-find-called-function
-          "gC" 'helm-cscope-find-calling-this-funtcion
-          "gd" 'helm-cscope-find-global-definition
-          "ge" 'helm-cscope-find-egrep-pattern
-          "gf" 'helm-cscope-find-this-file
-          "gF" 'helm-cscope-find-files-including-file
-          "gr" 'helm-cscope-find-this-symbol
-          "gx" 'helm-cscope-find-this-text-string))
+          "cc" 'helm-cscope-find-called-function
+          "cC" 'helm-cscope-find-calling-this-funtcion
+          "cd" 'helm-cscope-find-global-definition
+          "ce" 'helm-cscope-find-egrep-pattern
+          "cf" 'helm-cscope-find-this-file
+          "cF" 'helm-cscope-find-files-including-file
+          "cr" 'helm-cscope-find-this-symbol
+          "cx" 'helm-cscope-find-this-text-string))
       :config
       (defadvice helm-cscope-find-this-symbol (before cscope/goto activate)
         (evil--jumps-push)))))
