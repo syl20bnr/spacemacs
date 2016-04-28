@@ -19,7 +19,7 @@
     :defer t
     :init
     (spacemacs/set-leader-keys-for-major-mode 'ahk-mode
-      "cc" 'ahk-comment-dwim
       "cb" 'ahk-comment-block-dwim
-      "h" 'ahk-lookup-web
-      "eb" 'ahk-run-script)))
+      "cc" 'ahk-comment-dwim
+      "eb" 'ahk-run-script
+      "h" 'ahk-lookup-web)))
