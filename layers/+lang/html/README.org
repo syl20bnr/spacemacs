@@ -18,7 +18,7 @@ This layer adds support for editing HTML and CSS.
 - Support for Sass/Scss and Less files
 - Generate HTML and CSS coding using [[https://github.com/smihica/emmet-mode][emmet-mode]]
 - Tags navigation on key ~%~ using [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
-- Support for editing Slim and Jade templates using [[https://github.com/slim-template/emacs-slim][slim-mode]]
+- Support for editing Slim and Jade/Pug templates using [[https://github.com/slim-template/emacs-slim][slim-mode]]
   and [[https://github.com/brianc/jade-mode][jade-mode]]
 
 * Install
