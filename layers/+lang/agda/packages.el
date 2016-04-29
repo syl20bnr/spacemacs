@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq agda-post-packages
+(setq agda-packages
       '((agda :location local)))
 
 (defun agda/init-agda ()
