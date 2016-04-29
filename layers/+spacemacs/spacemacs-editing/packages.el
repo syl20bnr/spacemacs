@@ -21,6 +21,7 @@
         link-hint
         lorem-ipsum
         move-text
+        origami
         pcre2el
         smartparens
         uuidgen))
@@ -203,6 +204,77 @@
     (spacemacs/set-leader-keys
       "xJ" 'spacemacs/move-text-transient-state/move-text-down
       "xK" 'spacemacs/move-text-transient-state/move-text-up)))
+
+(defun spacemacs-editing/init-origami ()
+  (use-package origami
+    :defer t
+    :init
+    (progn
+      (pcase dotspacemacs-folding-method
+        (`origami
+         (progn
+           (global-origami-mode)
+           (define-key evil-normal-state-map "za" 'origami-forward-toggle-node)
+           (define-key evil-normal-state-map "zc" 'origami-close-node)
+           (define-key evil-normal-state-map "zC" 'origami-close-node-recursively)
+           (define-key evil-normal-state-map "zO" 'origami-open-node-recursively)
+           (define-key evil-normal-state-map "zo" 'origami-open-node)
+           (define-key evil-normal-state-map "zr" 'origami-open-all-nodes)
+           (define-key evil-normal-state-map "zm" 'origami-close-all-nodes)
+           (define-key evil-normal-state-map "zs" 'origami-show-only-node)
+           (define-key evil-normal-state-map "zn" 'origami-next-fold)
+           (define-key evil-normal-state-map "zp" 'origami-previous-fold)
+           (define-key evil-normal-state-map "zR" 'origami-reset)
+           (define-key evil-normal-state-map (kbd "z <tab>") 'origami-recursively-toggle-node)
+           (define-key evil-normal-state-map (kbd "z TAB") 'origami-recursively-toggle-node))
+
+         (spacemacs|define-transient-state fold
+           :title "Code Fold Transient State"
+           :doc "
+Close^^                Open^^                 Toggle^^                 Goto^^                   Other^^
+───────^^────────────  ─────^^──────────────  ─────^^───────────────── ──────^^──────────────── ─────^^──────────────────────────
+[_c_] at point         [_o_] at point         [_a_] first after point  [_n_] next               [_s_] show at point, close others
+[_C_] recursively      [_O_] recursively      [_A_] all                [_p_] previous           [_R_] reset
+[_m_] all              [_r_] all              [_TAB_] all (like org)   ^^                       [_q_] quit"
+           :foreign-keys run
+           :on-enter (unless (bound-and-true-p origami-mode) (origami-mode 1))
+           :bindings
+           ("a" origami-forward-toggle-node)
+           ("A" origami-toggle-all-nodes)
+           ("c" origami-close-node)
+           ("C" origami-close-node-recursively)
+           ("o" origami-open-node)
+           ("O" origami-open-node-recursively)
+           ("r" origami-open-all-nodes)
+           ("m" origami-close-all-nodes)
+           ("n" origami-next-fold)
+           ("p" origami-previous-fold)
+           ("s" origami-show-only-node)
+           ("R" origami-reset)
+           ("TAB" origami-recursively-toggle-node)
+           ("<tab>" origami-recursively-toggle-node)
+           ("q" nil :exit t)))
+
+        (`evil
+          (spacemacs|define-transient-state fold
+           :title "Code Fold Transient State"
+           :doc "
+Close^^                Open^^                 Toggle^^                  Other^^
+───────^^────────────  ─────^^──────────────  ─────^^─────────────────  ─────^^───
+[_c_] at point         [_o_] at point         [_a_] around point        [_q_] quit
+^^                     [_O_] recursively      ^^
+[_m_] all              [_r_] all"
+           :foreign-keys run
+           :bindings
+           ("a" evil-toggle-fold)
+           ("c" evil-close-fold)
+           ("o" evil-open-fold)
+           ("O" evil-open-fold-rec)
+           ("r" evil-open-folds)
+           ("m" evil-close-folds)
+           ("q" nil :exit t))))
+
+      (spacemacs/set-leader-keys "z." 'spacemacs/fold-transient-state/body))))
 
 (defun spacemacs-editing/init-pcre2el ()
   (use-package pcre2el

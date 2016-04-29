@@ -166,6 +166,9 @@ if used there.")
 (defvar dotspacemacs-ex-substitute-global nil
   "If non nil, inverse the meaning of `g' in `:substitute' Evil ex-command.")
 
+(defvar dotspacemacs-folding-method 'evil
+  "Code folding method. Possible values are `evil' and `origami'.")
+
 (defvar dotspacemacs-default-layout-name "Default"
   " Name of the default layout.")
 
