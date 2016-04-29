@@ -11,6 +11,7 @@
 
 (setq spacemacs-bootstrap-packages
       '(
+        (async :step bootstrap)
         (bind-map :step bootstrap)
         (bind-key :step bootstrap)
         (dash :step bootstrap)
@@ -23,6 +24,8 @@
         ))
 
 ;; Note: `use-package' cannot be used for bootstrap packages configuration
+
+(defun spacemacs-bootstrap/init-async ())
 
 (defun spacemacs-bootstrap/init-bind-key ())
 
