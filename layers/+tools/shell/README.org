@@ -9,12 +9,13 @@
    - [[#default-shell][Default shell]]
    - [[#default-shell-position-and-height][Default shell position and height]]
    - [[#set-shell-for-term-and-ansi-term][Set shell for term and ansi-term]]
+   - [[#width-of-the-shell-popup-buffers][Width of the shell popup buffers]]
    - [[#enable-em-smart-in-eshell][Enable em-smart in Eshell]]
    - [[#protect-your-eshell-prompt][Protect your Eshell prompt]]
  - [[#eshell][Eshell]]
  - [[#key-bindings][Key bindings]]
    - [[#multi-term][Multi-term]]
-   - [[#eshell][Eshell]]
+   - [[#eshell-1][Eshell]]
 
 * Description
 This layer configures the various shells available in Emacs.
@@ -69,6 +70,16 @@ Default value is =/bin/bash=.
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
     '(shell :variables shell-default-term-shell "/bin/bash"))
+#+END_SRC
+
+** Width of the shell popup buffers
+By default the popup buffer spans the full width of the current frame, if
+you prefer to spans only the width of the current window then set the
+layer variable =shell-default-full-span= to nil.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '(shell :variables shell-default-full-span nil))
 #+END_SRC
 
 ** Enable em-smart in Eshell
