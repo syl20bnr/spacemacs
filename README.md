@@ -159,6 +159,13 @@ it just defines some additional options like `--with-spacemacs-icon`.
 also recommended to add the [osx layer][] to your [dotfile][]. Install
 instructions are available in the [osx layer][] documentation.
 
+*Note:* if the powerline separators on the spaceline are a different (less
+saturated) color than the rest of the line, you can add
+```elisp
+(setq ns-use-srgb-colorspace nil)
+```
+to your dotspacemacs/user-config section of your dotfile to fix it.
+
 ### Windows
 
 Good quality builds can be found [on this page][emacs-for-windows]. It is
