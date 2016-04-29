@@ -128,6 +128,7 @@
 (defun html/init-jade-mode ()
   (use-package jade-mode
     :defer t
+    :mode ("\\.pug$" . jade-mode)
     :init
     ;; Explicitly run prog-mode hooks since jade-mode does not derivate from
     ;; prog-mode major-mode
