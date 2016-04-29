@@ -15,6 +15,7 @@
     company
     company-cabal
     company-ghc
+    company-ghci
     flycheck
     flycheck-haskell
     ghc
@@ -325,7 +326,7 @@
       :init
       (push (if haskell-enable-ghc-mod-support
                 '(company-ghc company-dabbrev-code company-yasnippet)
-              '(company-dabbrev-code company-yasnippet))
+              '(company-ghci company-dabbrev-code company-yasnippet))
               company-backends-haskell-mode)))
 
   (defun haskell/init-company-cabal ()
