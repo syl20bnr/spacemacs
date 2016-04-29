@@ -1,4 +1,13 @@
-
+;;; funcs.el --- Spacemacs Bootstrap Layer functions File
+;;
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;;
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
 
 
 
@@ -92,20 +101,22 @@ current major mode."
                        ,start))
                evil-surround-pairs-alist)))))
 
-(defmacro evil-map (state key seq)
-  "Map for a given STATE a KEY to a sequence SEQ of keys.
+;; need to delay this macro since it relies on evil key maps to be defined
+(with-eval-after-load 'evil
+  (defmacro evil-map (state key seq)
+    "Map for a given STATE a KEY to a sequence SEQ of keys.
 
 Can handle recursive definition only if KEY is the first key of SEQ.
 Example: (evil-map visual \"<\" \"<gv\")"
-  (let ((map (intern (format "evil-%S-state-map" state))))
-    `(define-key ,map ,key
-       (lambda ()
-         (interactive)
-         ,(if (string-equal key (substring seq 0 1))
-              `(progn
-                 (call-interactively ',(lookup-key evil-normal-state-map key))
-                 (execute-kbd-macro ,(substring seq 1)))
-            (execute-kbd-macro ,seq))))))
+    (let ((map (intern (format "evil-%S-state-map" state))))
+      `(define-key ,map ,key
+         (lambda ()
+           (interactive)
+           ,(if (string-equal key (substring seq 0 1))
+                `(progn
+                   (call-interactively ',(lookup-key evil-normal-state-map key))
+                   (execute-kbd-macro ,(substring seq 1)))
+              (execute-kbd-macro ,seq)))))))
 
 
 
