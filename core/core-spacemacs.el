@@ -270,7 +270,7 @@ defer call using `spacemacs-post-user-config-hook'."
                (buffer-substring-no-properties
                 (point-min)
                 (min (point-max) 1000)))
-           "BACKTRACE IF RELEVANT"))
+           "<<BACKTRACE IF RELEVANT>>"))
         (last-keys
          (if (and arg (y-or-n-p (concat "Do you really want to "
                                         "include your last pressed keys? It "
@@ -301,12 +301,14 @@ that the issue has been created successfully, you can close this buffer.
 Markdown syntax is supported in this buffer.
 
 \\{spacemacs/report-issue-mode-map}
-")
+"
+  (font-lock-add-keywords 'spacemacs/report-issue-mode
+                          '(("\\(<<.*?>>\\)" . 'font-lock-comment-face))))
 
-(define-key
-  spacemacs/report-issue-mode-map
-  (kbd "C-c C-c")
-  'spacemacs//report-issue-done)
+(define-key spacemacs/report-issue-mode-map
+  (kbd "C-c C-c") 'spacemacs//report-issue-done)
+(define-key spacemacs/report-issue-mode-map
+  (kbd "C-c C-k") 'kill-buffer)
 
 (with-eval-after-load 'bind-map
   (spacemacs/set-leader-keys-for-major-mode 'spacemacs/report-issue-mode
