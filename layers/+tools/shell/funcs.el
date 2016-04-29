@@ -1,4 +1,4 @@
-;;; funcs.el --- Spacemacs Base Layer functions File
+;;; funcs.el --- Shell Layer functions File
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

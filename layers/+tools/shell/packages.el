@@ -27,6 +27,7 @@
         smooth-scrolling
         (term :location built-in)
         xterm-color
+        vi-tilde-fringe
         ))
 
 (defun shell/init-comint ()
@@ -347,3 +348,10 @@ is achieved by adding the relevant text properties."
             (remove 'ansi-color-process-output comint-output-filter-functions))
       (setq font-lock-unfontify-region-function 'xterm-color-unfontify-region)
       (add-hook 'eshell-mode-hook 'spacemacs/init-eshell-xterm-color))))
+
+(defun shell/post-init-vi-tilde-fringe ()
+  (spacemacs/add-to-hooks 'spacemacs/disable-vi-tilde-fringe
+                          '(comint-mode-hook
+                            eshell-mode-hook
+                            shell-mode-hook
+                            term-mode-hook)))

@@ -390,18 +390,14 @@
          :evil-leader "T~")
        ;; don't enable it on spacemacs home buffer
        (with-current-buffer spacemacs-buffer-name
-         (vi-tilde-fringe-mode -1))
+         (spacemacs/disable-vi-tilde-fringe))
        ;; after a major mode is loaded, check if the buffer is read only
        ;; if so, disable vi-tilde-fringe-mode
-       (add-hook 'after-change-major-mode-hook (lambda ()
-                                                 (when buffer-read-only
-                                                   (vi-tilde-fringe-mode -1))))
-       (spacemacs/add-to-hooks (lambda () (vi-tilde-fringe-mode -1))
-                               '(comint-mode-hook
-                                 eshell-mode-hook
-                                 eww-mode-hook
-                                 shell-mode-hook
-                                 term-mode-hook)))
+       (add-hook 'after-change-major-mode-hook
+                 'spacemacs/disable-vi-tilde-fringe-read-only)
+       ;; TODO move this hook if/when we have a layer for eww
+       (spacemacs/add-to-hooks 'spacemacs/disable-vi-tilde-fringe
+                               '(eww-mode-hook)))
      :config
      (spacemacs|hide-lighter vi-tilde-fringe-mode))))
 
