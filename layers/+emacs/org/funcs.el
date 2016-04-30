@@ -39,3 +39,10 @@ projects) as well as those from `org-agenda-files'."
   (interactive)
   (let ((org-agenda-files (append (org-agenda-files) (ort/find-all-todo-files))))
     (org-todo-list)))
+
+
+
+(defun spacemacs/ob-fix-inline-images ()
+  "Fix redisplay of inline images after a code block evaluation."
+  (when org-inline-image-overlays
+    (org-redisplay-inline-images)))
