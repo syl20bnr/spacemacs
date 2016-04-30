@@ -50,6 +50,11 @@
       (define-key graphviz-dot-mode-map "}" nil))))
 
 (defun graphviz/post-init-org ()
-  (with-eval-after-load 'org
-    (setq org-src-lang-modes (append '(("dot" . graphviz-dot))
-                                     (delete '("dot" . fundamental) org-src-lang-modes)))))
+  (spacemacs|use-package-add-hook org
+    :post-config
+    (progn
+      (add-to-list 'org-babel-load-languages '(dot . t))
+      ;; replace fundamental mode by graphiz one
+      (setq org-src-lang-modes
+            (append '(("dot" . graphviz-dot))
+                    (delete '("dot" . fundamental) org-src-lang-modes))))))
