@@ -263,7 +263,7 @@ With prefix arg also inlcude last pressed keys."
     (setq template (replace-regexp-in-string
                     "%SYSTEM_INFO%"
                     (spacemacs//describe-system-info-string)
-                    template [keep-case]))
+                    template [keep-case] 'literal))
     ;; Include the backtrace directly in the template, if it exists
     (setq template (replace-regexp-in-string
                     "%BACKTRACE%"
