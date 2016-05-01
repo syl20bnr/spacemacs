@@ -56,8 +56,6 @@
     (push '(company-cabal)
           company-backends-haskell-cabal-mode)))
 
-(setq haskell-modes '(haskell-mode literate-haskell-mode))
-
 (when (configuration-layer/layer-usedp 'spacemacs-helm)
   (defun haskell/init-helm-hoogle ()
     (use-package helm-hoogle

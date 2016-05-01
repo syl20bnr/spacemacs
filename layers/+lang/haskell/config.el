@@ -11,6 +11,8 @@
 
 ;; Variables
 
+(setq haskell-modes '(haskell-mode literate-haskell-mode))
+
 (spacemacs|defvar-company-backends haskell-mode)
 (spacemacs|defvar-company-backends haskell-cabal-mode)
 
