@@ -13,9 +13,11 @@
   '(
     cmm-mode
     company
-    company-cabal
-    company-ghc
-    company-ghci
+    (company-cabal :toggle (configuration-layer/package-usedp 'company))
+    (company-ghc :toggle (and (configuration-layer/package-usedp 'company)
+                              haskell-enable-ghc-mod-support))
+    (company-ghci :toggle (and (configuration-layer/package-usedp 'company)
+                               (not haskell-enable-ghc-mod-support)))
     flycheck
     flycheck-haskell
     ghc
@@ -29,6 +31,30 @@
 (defun haskell/init-cmm-mode ()
   (use-package cmm-mode
     :defer t))
+
+(defun haskell/post-init-company ()
+  (spacemacs|add-company-hook haskell-mode)
+  (spacemacs|add-company-hook haskell-cabal-mode))
+
+(defun haskell/init-company-ghc ()
+  (use-package company-ghc
+    :defer t
+    :init (push '(company-ghc company-dabbrev-code company-yasnippet)
+                company-backends-haskell-mode)))
+
+(defun haskell/init-company-ghci ()
+  (use-package company-ghc
+    :defer t
+    :init (push '(company-ghci company-dabbrev-code company-yasnippet)
+                company-backends-haskell-mode)))
+
+(defun haskell/init-company-cabal ()
+  (use-package company-cabal
+    :if (configuration-layer/package-usedp 'company)
+    :defer t
+    :init
+    (push '(company-cabal)
+          company-backends-haskell-cabal-mode)))
 
 (setq haskell-modes '(haskell-mode literate-haskell-mode))
 
@@ -300,8 +326,7 @@
         (kbd "P") 'shm/yank
         (kbd "RET") 'shm/newline-indent
         (kbd "RET") 'shm/newline-indent
-        (kbd "M-RET") 'evil-ret
-        )
+        (kbd "M-RET") 'evil-ret)
 
       (evil-define-key 'operator shm-map
         (kbd ")") 'shm/forward-node
@@ -314,25 +339,3 @@
       (define-key shm-map (kbd "C-j") nil)
       (define-key shm-map (kbd "C-k") nil))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun haskell/post-init-company ()
-    (spacemacs|add-company-hook haskell-mode)
-    (spacemacs|add-company-hook haskell-cabal-mode))
-
-  (defun haskell/init-company-ghc ()
-    (use-package company-ghc
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init
-      (push (if haskell-enable-ghc-mod-support
-                '(company-ghc company-dabbrev-code company-yasnippet)
-              '(company-ghci company-dabbrev-code company-yasnippet))
-              company-backends-haskell-mode)))
-
-  (defun haskell/init-company-cabal ()
-    (use-package company-cabal
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init
-      (push '(company-cabal)
-            company-backends-haskell-cabal-mode))))
