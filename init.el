@@ -30,5 +30,4 @@
   (spacemacs-buffer/display-info-box)
   (spacemacs/setup-startup-hook)
   (require 'server)
-  (unless (server-running-p) (server-start))
-  (add-hook 'emacs-startup-hook (lambda () (setq gc-cons-threshold 800000)) t))
+  (unless (server-running-p) (server-start)))
