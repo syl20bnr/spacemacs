@@ -108,8 +108,11 @@
             persp-reset-windows-on-nil-window-conf nil
             persp-set-last-persp-for-new-frames nil
             persp-save-dir spacemacs-layouts-directory)
-      ;; always activate persp-mode
-      (persp-mode)
+      ;; always activate persp-mode, unless it is already active (e.g. don't
+      ;; re-activate during `dotspacemacs/sync-configuration-layers' - see
+      ;; issues #5925 and #3875)
+      (unless (bound-and-true-p persp-mode)
+        (persp-mode))
       ;; layouts transient state
       (spacemacs|transient-state-format-hint layouts
         spacemacs--layouts-ts-full-hint
