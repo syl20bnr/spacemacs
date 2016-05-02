@@ -86,17 +86,12 @@ and its values are removed."
       (push (pop tail) result))
     (nreverse result)))
 
-;; From http://stackoverflow.com/questions/2321904/elisp-how-to-save-data-in-a-file
+;; Originally based on http://stackoverflow.com/questions/2321904/elisp-how-to-save-data-in-a-file
 (defun spacemacs/dump-vars-to-file (varlist filename)
   "simplistic dumping of variables in VARLIST to a file FILENAME"
-  (save-excursion
-    (let ((buf (find-file-noselect filename)))
-      (set-buffer buf)
-      (erase-buffer)
-      (spacemacs/dump varlist buf)
-      (make-directory (file-name-directory filename) t)
-      (save-buffer)
-      (kill-buffer))))
+  (with-temp-file filename
+    (spacemacs/dump varlist (current-buffer))
+    (make-directory (file-name-directory filename) t)))
 
 ;; From http://stackoverflow.com/questions/2321904/elisp-how-to-save-data-in-a-file
 (defun spacemacs/dump (varlist buffer)
