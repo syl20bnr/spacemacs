@@ -63,12 +63,22 @@ If you need formatting on save:
               typescript-fmt-on-save t)))
 #+END_SRC
 
+You can choose formatting tool:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(
+  (typescript :variables
+              typescript-fmt-tool 'typescript-formatter)))
+#+END_SRC
+
+Default is 'tide .
+
 ** Notes
 
 This layer uses:
 - [[https://github.com/ananthakumaran/tide][tide]]
 - [[https://github.com/Simplify/flycheck-typescript-tslint][flycheck-typescript-tslint]]
-- [[https://github.com/vvakame/typescript-formatter][typescript-formatter]]
+- [[https://github.com/vvakame/typescript-formatter][typescript-formatter]] - optional.
 
 *The tools use configuration files. You can learn more in their documentation.*
 
