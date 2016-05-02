@@ -55,6 +55,25 @@ current perspective."
   (helm-mini)
   (add-hook 'ido-make-buffer-list-hook  #'persp-restrict-ido-buffers))
 
+(defun spacemacs/find-file-in-project (filename)
+  "Open a file like find-file. If the file belongs to a project, creates
+   a new persp and enables projectile mode for it."
+  (interactive (list (read-file-name "Find file: " nil default-directory (confirm-nonexistent-file-or-buffer))))
+  ;; need the require since the projectile functions used here are not auto-loadable.
+  (require 'projectile)
+  (let* ((persp-reset-windows-on-nil-window-conf t)
+         (filename-fullpath (file-truename filename))
+         (filename-directory (if (file-directory-p filename-fullpath)
+                                 (file-name-as-directory filename-fullpath)
+                               (file-name-directory filename-fullpath)))
+         (projectile-switch-project-action (lambda () (find-file filename-fullpath)))
+         (project-root (projectile-root-bottom-up filename-directory)))
+    (if project-root
+        (progn
+          (persp-switch (file-name-nondirectory (directory-file-name project-root)))
+          (projectile-switch-project-by-name project-root))
+      (message "Requested file does not belong to any project"))))
+
 
 ;; Persp transient-state
 
