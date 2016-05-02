@@ -101,7 +101,4 @@ the mode will not show in the mode line."
   "Diminish MODE name in mode line to LIGHTER."
   `(eval-after-load 'diminish '(diminish ',mode)))
 
-;; fixes powerline separators on OS X
-(setq-default ns-use-srgb-colorspace nil)
-
 (provide 'core-fonts-support)
