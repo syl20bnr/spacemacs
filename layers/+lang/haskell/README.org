@@ -2,34 +2,50 @@
 
 [[file:img/haskell.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features:]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#dependencies][Dependencies]]
-   - [[#setup-path][Setup PATH]]
-   - [[#ghc-mod-support][ghc-mod support]]
-     - [[#stack-users][Stack users]]
-   - [[#optional-extras][Optional extras]]
-     - [[#ghci-ng-support][GHCi-ng support]]
-       - [[#stack-users][Stack users]]
-       - [[#ghc-mod-users][ghc-mod users]]
-     - [[#structured-haskell-mode][structured-haskell-mode]]
-     - [[#hindent][hindent]]
- - [[#key-bindings][Key bindings]]
-   - [[#documentation][Documentation]]
-   - [[#debug][Debug]]
-   - [[#repl][REPL]]
-   - [[#cabal-commands][Cabal commands]]
-   - [[#cabal-files][Cabal files]]
-   - [[#ghc-mod][Ghc-mod]]
-     - [[#insert-template][insert template]]
- - [[#faq][FAQ]]
-   - [[#repl-doesnt-work][REPL doesn't work]]
-   - [[#repl-is-stuck][REPL is stuck]]
-   - [[#i-am-using-stack-and-ghc-mod-but-ghc-mod-doesnt-work][I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work]]
-   - [[#indentation-doesnt-reset-when-pressing-return-after-empty-line][Indentation doesn't reset when pressing return after empty line]]
+* Table of Contents                                      :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Features:][Features:]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+   - [[Dependencies][Dependencies]]
+   - [[Setup PATH][Setup PATH]]
+   - [[ghc-mod support][ghc-mod support]]
+     - [[Stack users][Stack users]]
+   - [[Optional extras][Optional extras]]
+     - [[GHCi-ng support][GHCi-ng support]]
+       - [[Stack users][Stack users]]
+       - [[ghc-mod users][ghc-mod users]]
+     - [[structured-haskell-mode][structured-haskell-mode]]
+     - [[hindent][hindent]]
+ - [[Key bindings][Key bindings]]
+   - [[Documentation][Documentation]]
+   - [[Debug][Debug]]
+   - [[REPL][REPL]]
+   - [[Cabal commands][Cabal commands]]
+   - [[Cabal files][Cabal files]]
+   - [[Ghc-mod][Ghc-mod]]
+     - [[insert template][insert template]]
+ - [[Syntax checking][Syntax checking]]
+   - [[Flycheck   ][Flycheck   ]]
+   - [[HLint][HLint]]
+   - [[GHC-MOD][GHC-MOD]]
+   - [[Haskell-mode interactive][Haskell-mode interactive]]
+   - [[Flymake][Flymake]]
+   - [[Troubles shooting][Troubles shooting]]
+ - [[FAQ][FAQ]]
+   - [[REPL doesn't work][REPL doesn't work]]
+   - [[REPL is stuck][REPL is stuck]]
+   - [[I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work][I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work]]
+   - [[Indentation doesn't reset when pressing return after empty line][Indentation doesn't reset when pressing return after empty line]]
+   - [[Flycheck displays HLInt warnings but not errors][Flycheck displays HLInt warnings but not errors]]
+   - [[I can see highlighted errors but they don't appear in the errors list][I can see highlighted errors but they don't appear in the errors list]]
+   - [[Flycheck doesn't work][Flycheck doesn't work]]
+   - [[Flycheck doesn't work with =stack=][Flycheck doesn't work with =stack=]]
+     - [[stack build directory is wrong][stack build directory is wrong]]
+     - [[Project root directory not set properly][Project root directory not set properly]]
+   - [[haskell-mode commands don't work ][haskell-mode commands don't work ]]
+   - [[=ghc-mod= and =haskell-mode= commands overlaps. How do I know which command belongs to what ?][=ghc-mod= and =haskell-mode= commands overlaps. How do I know which command belongs to what ?]]
+   - [[Some commands start with =ghc-= and some with =haskell-=. What does that mean ?][Some commands start with =ghc-= and some with =haskell-=. What does that mean ?]]
 
 * Description
 This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
@@ -283,6 +299,7 @@ REPL commands are prefixed by ~SPC m s~:
 | ~SPC m s S~ | show and switch to the REPL                     |
 
 ** Cabal commands
+
 Cabal commands are prefixed by ~SPC m c~:
 
 | Key Binding | Description                                                |
@@ -291,7 +308,7 @@ Cabal commands are prefixed by ~SPC m c~:
 | ~SPC m c b~ | build the current cabal project, i.e. invoke =cabal build= |
 | ~SPC m c c~ | compile the current project, i.e. invoke =ghc=             |
 | ~SPC m c v~ | visit the cabal file                                       |
-
+ 
 ** Cabal files
 This commands are available in a cabal file.
 
@@ -342,6 +359,47 @@ type is inserted. On a symbol "foo" without definition,
 the case is split. When checking with hlint, original code
 is replaced with hlint's suggestion if possible.
 
+* Syntax checking
+At the moment there are 4 components which can check the syntax and indicates somehow error and warnings in the code.
+Those components are :
+
+
+  - flycheck
+  - hlint (via flycheck)
+  - ghc-mod
+  - haskell-mode interactive
+    
+As all those components can be active at the same time, it can be tricky to know which component is display which message,
+especially when they disagree or one is not working. Only flycheck errors (ghc and hlint) are displayed in the error list and
+can be navigated using the standard spacemacs key bindings even though errors from other mode might highlight error in the buffer.
+
+** Flycheck   
+This is the standard spacemacs way to do syntax checking and the most elaborate. flyckeck displays errors, warning, info, including symbols on the left or right side of the buffer
+and tooltips if possible.
+Errors are also available in the error window (~SPC e l~) and you can navigate between errors using ~SPC e n~ and ~SPC e p~.
+Flycheck can be toggle on/off with ~SPC t s~.
+Flycheck has different haskell checker : haskell-ghc, haskell-stackghc and haskell-hlint.
+It normally detect automatically the good one, but if it doesn't work, you can change it using =flycheck-select-checker= (~SPC e s~).
+
+** HLint
+HLint is a linter for Haskell. It doesn't detect error (as long as it can parse the file) but detect bad coding style and code smell.
+HLint is done
+
+** GHC-MOD
+ghc-mod when enabled, does also syntax checking. It doesn't highlight errors but instead displays a ! in the left band.
+You can navigate between errors using =ghc-goto-next-error= (~M-n)~ and =ghc-goto-prev-error= (~M-p~).
+
+** Haskell-mode interactive
+Finally, haskell-mode when in interactive (~SPC m s b~) also displays errors.
+haskell-mode errors can be navigated from the interactive buffer (by clicking on the error) or using
+=haskell-goto-next-error= (~M-n~) and =haskell-goto-prev-error= (~M-p~) (same binding as ghc-mod).
+
+
+** Flymake
+An alternative to syntax checking is to build your project using =flymake-compile=. It doesn't highlight the error on the buffer but is more reliable.
+Error navigation is similar to haskell-mode interactive.
+** Troubles shooting
+Flycheck and ghc-mod can fails silently for miscellaneous reasons. See the [[FAQ]] for trouble shootings.
 * FAQ
 ** REPL doesn't work
 Usually =haskell-mode= is great at figuring out which interactive process to
@@ -392,7 +450,6 @@ could place following snippet in your =dotspacemacs/user-config= function:
 ** I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work
 Make sure that =dist= directory doesn't exist in your project root. So if it
 exists, just remove it and try again.
-
 ** Indentation doesn't reset when pressing return after empty line
 
 This is intended behavior in =haskell-indentation-mode=. If you want to reset indentation when pressing return after empty line, add following snippet into your =dotspacemacs/user-config= function.
@@ -408,3 +465,62 @@ This is intended behavior in =haskell-indentation-mode=. If you want to reset in
 (advice-add 'haskell-indentation-newline-and-indent
             :after 'haskell-indentation-advice)
 #+END_SRC
+** Flycheck displays HLInt warnings but not errors
+HLint checker is called *after* normal flycheck checker even if the checkers fails. Check the [[Flycheck doesn't work]] section.
+** I can see highlighted errors but they don't appear in the errors list
+The errors list is only set by flycheck. You are probably seeing highlightings coming from either ghc-mode or haskell-mode.
+Check the [[Flycheck doesn't work]] section.
+** Flycheck doesn't work
+You can check what is wrong with flychec with the =flycheck-compile= command. 
+This will show you the exact command line used and its output.
+
+If you are using stack, check the [[Flycheck doesn't work with =stack=]] section.
+
+** Flycheck doesn't work with =stack=
+First check flycheck use the correct checker and all the path are properly configured using =flycheck-verify-setup= (~SPC e v~).
+You can force the checker by using =flycheck-set-checker= (~SPC e s~) to =haskell-stack-ghc=.
+If it still doesn't work, it could be one of the following problems :
+
+- stack build directory is wrong.
+- project root not set properly
+
+
+*** stack build directory is wrong
+The path to the build directory containing some generated files is normally under
+
+=.stack-work/install/<os>/Cabal-<version/build=. 
+
+However, the version of the cabal library used by stack to generate the directory name is not
+the version of the cabal library installed by stack, but the version of cabal associated to the ghc version.
+This error can happen after upgrading cabal or cabal-install.
+To check if it's the problem, look at path name of the build pathn used by flycheck using =flycheck-compile= and compare it to
+to the actual name path in the =.stack-work= directory. If they mismatch you need to reinstall ghc using the  command 
+=stack setup --upgrade-cabal=.
+
+
+*** Project root directory not set properly
+Flycheck launch the ghc command not from the project root directory but from the the directory of the file being checked.
+This is not normally a problem as all the paths are set properly. However it could be a problem if some template haskell 
+function uses relative paths (as found in Yesod scaffholded projects).
+
+Until it's fixed in flycheck the alternative is to the wrap the stack command to run all subcommand from the project root directory. You can do so with the following script:
+
+#+BEGIN_SRC bash
+#!/bin/bash
+cd `stack --project-root`
+stack $*
+#+END_SRC
+
+and set the =flycheck-haskell-stack-ghc-executable= to it.
+
+** haskell-mode commands don't work 
+Some (most of) haskell-mode commands only works when haskell-mode is in interactive mode, .i.e as a interactive session associated to it.
+Load the buffer using ~SPC s b~.
+** =ghc-mod= and =haskell-mode= commands overlaps. How do I know which command belongs to what ?
+ghc-mod commands are prefixed with =ghc-=, haskell-mode ones are prefixed with =haskell-=.
+** Some commands start with =ghc-= and some with =haskell-=. What does that mean ?
+Commands starting with =ghc-= are ghc-mod commands.
+Commands starting with =haskell-= are haskell-mode.
+
+
+
