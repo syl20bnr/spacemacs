@@ -3,7 +3,7 @@
         company
         company-go
         flycheck
-        (flycheck-gometalinter :toggle (executable-find "gometalinter"))
+        (flycheck-gometalinter :toggle go-use-gometalinter)
         go-eldoc
         go-mode
         (go-oracle :location site)
