@@ -37,14 +37,13 @@ You will need =gocode= and =godef=:
   go get -u -v golang.org/x/tools/cmd/goimports
 #+END_SRC
 
-If you wish to use =gometalinter=:
-set the value of =go-use-gometalinter=
+If you wish to use =gometalinter= set the value of =go-use-gometalinter=:
 
 #+begin_src emacs-lisp
   (go :variables go-use-gometalinter t)
 #+end_src
 
- and install the tool:
+and install the tool:
 
 #+BEGIN_SRC sh
   go get -u -v github.com/alecthomas/gometalinter
