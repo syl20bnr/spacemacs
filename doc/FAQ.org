@@ -21,6 +21,7 @@
    - [[#typing-quickly-fd-takes-me-out-of-insert-state-what-is-going-on][Typing quickly =fd= takes me out of =insert state=. What is going on?]]
    - [[#why-do-i-get-files-starting-with-][Why do I get files starting with .#?]]
    - [[#why-do-i-get-4m-characters-inside-ansi-term][Why do I get '4m' characters inside ansi-term?]]
+   - [[#why-are-my-font-settings-not-being-respected][Why are my font settings not being respected?]]
  - [[#how-do-i][How do I:]]
    - [[#install-a-package-not-provided-by-a-layer][Install a package not provided by a layer?]]
    - [[#disable-a-package-completely][Disable a package completely?]]
@@ -206,6 +207,12 @@ the =~/.terminfo= yourself.
 #+BEGIN_SRC fish
 tic -o ~/.terminfo $TERMINFO/e/eterm-color.ti
 #+END_SRC
+
+** Why are my font settings not being respected?
+The settings of =dotspacemacs-default-font= (such as size, weight, etc.) will
+only be applied if the name of the font exists on your system. Check to make
+sure that this is the case. If Spacemacs can't find the font, there should be a
+warning to this effect in the =*Messages*= buffer.
 
 * How do I:
 ** Install a package not provided by a layer?
