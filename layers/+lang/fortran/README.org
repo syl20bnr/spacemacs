@@ -1,0 +1,28 @@
+#+TITLE: Fortran layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+
+#+CAPTION: logo
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
+
+* Description
+This layer provides auto-completion support for Fortran 90 and 2003 using the
+[[https://github.com/rosenbrockc/fortpy][fortpy]] and [[https://github.com/rosenbrockc/fortpy-el][fortpy-el]] packages. The auto-completion is based on the
+=auto-complete= package.
+
+* Install
+To use this layer add it to your =~/.spacemacs=. You will need to add =fortran=
+to the existing =dotspacemacs-configuration-layers= list in this file.
+
+To complete the installation, run the following command: =M-x
+fortpy-install-server RET=. This installation involves some compiling that may
+require installing some header files through system-wide dev-packages, such as
+(Ubuntu package names) =libffi-dev= (for =ffi.h=), =libssl-dev= (for =e_os2.h=).
+
+* Key bindings
+No custom key bindings are set for the =fortran= layer. However, the key
+bindings for the =auto-complete= package provided by the =auto-completion=
+layer are relevant.
