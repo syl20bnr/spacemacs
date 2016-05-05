@@ -106,7 +106,8 @@
                magit-pull-popup
                magit-push-popup
                magit-rebase-popup
-               magit-status)
+               magit-status
+               magit-submodule-popup)
     :init
     (progn
       (setq magit-completing-read-function
@@ -127,6 +128,7 @@
 
       (spacemacs/declare-prefix "gd" "diff")
       (spacemacs/set-leader-keys
+        "g>" 'magit-submodule-popup
         "gA" 'magit-cherry-pick-popup
         "gb" 'spacemacs/git-blame-micro-state
         "gc" 'magit-commit-popup
