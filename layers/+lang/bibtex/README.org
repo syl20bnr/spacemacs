@@ -58,6 +58,10 @@ In a Bib(La)TeX file, the following key bindings are added:
 
 | Key Binding | Description                                |
 |-------------+--------------------------------------------|
+| ~g j~       | Next entry                                 |
+| ~g k~       | Previous entry                             |
+| ~C-j~       | Next entry                                 |
+| ~C-k~       | Previous entry                             |
 | ~SPC m j~   | Next entry                                 |
 | ~SPC m k~   | Previous entry                             |
 | ~SPC m p~   | Open PDF                                   |
