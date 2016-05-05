@@ -261,7 +261,7 @@ Examples:
 #+END_SRC
 
 ** Enable navigation by visual lines?
-Add the following snippet to your =dostpacemacs/config= function:
+Add the following snippet to your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
 ;; Make evil-mode up/down operate in screen lines instead of logical lines
