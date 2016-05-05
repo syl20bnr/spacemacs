@@ -28,27 +28,48 @@
 (defun bibtex/init-org-ref ()
   (use-package org-ref
     :defer t
-    :config (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
-              ;; Navigation
-              "j" 'org-ref-bibtex-next-entry
-              "k" 'org-ref-bibtex-previous-entry
+    :commands (org-ref-bibtex-next-entry
+               org-ref-bibtex-previous-entry
+               org-ref-open-in-browser
+               org-ref-open-bibtex-notes
+               org-ref-open-bibtex-pdf
+               org-ref-bibtex-hydra/body
+               org-ref-bibtex-hydra/org-ref-bibtex-new-entry/body-and-exit
+               org-ref-sort-bibtex-entry
+               arxiv-add-bibtex-entry
+               arxiv-get-pdf-add-bibtex-entry
+               doi-utils-add-bibtex-entry-from-doi
+               isbn-to-bibtex
+               pubmed-insert-bibtex-from-pmid)
+    :init
+    (progn
+      (evil-define-key 'normal bibtex-mode-map
+        (kbd "C-j") 'org-ref-bibtex-next-entry
+        (kbd "C-k") 'org-ref-bibtex-previous-entry
+        "gj" 'org-ref-bibtex-next-entry
+        "gk" 'org-ref-bibtex-previous-entry)
 
-              ;; Open
-              "b" 'org-ref-open-in-browser
-              "n" 'org-ref-open-bibtex-notes
-              "p" 'org-ref-open-bibtex-pdf
+      (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
+        ;; Navigation
+        "j" 'org-ref-bibtex-next-entry
+        "k" 'org-ref-bibtex-previous-entry
 
-              ;; Misc
-              "h" 'org-ref-bibtex-hydra/body
-              "i" 'org-ref-bibtex-hydra/org-ref-bibtex-new-entry/body-and-exit
-              "s" 'org-ref-sort-bibtex-entry
+        ;; Open
+        "b" 'org-ref-open-in-browser
+        "n" 'org-ref-open-bibtex-notes
+        "p" 'org-ref-open-bibtex-pdf
 
-              ;; Lookup utilities
-              "la" 'arxiv-add-bibtex-entry
-              "lA" 'arxiv-get-pdf-add-bibtex-entry
-              "ld" 'doi-utils-add-bibtex-entry-from-doi
-              "li" 'isbn-to-bibtex
-              "lp" 'pubmed-insert-bibtex-from-pmid)))
+        ;; Misc
+        "h" 'org-ref-bibtex-hydra/body
+        "i" 'org-ref-bibtex-hydra/org-ref-bibtex-new-entry/body-and-exit
+        "s" 'org-ref-sort-bibtex-entry
+
+        ;; Lookup utilities
+        "la" 'arxiv-add-bibtex-entry
+        "lA" 'arxiv-get-pdf-add-bibtex-entry
+        "ld" 'doi-utils-add-bibtex-entry-from-doi
+        "li" 'isbn-to-bibtex
+        "lp" 'pubmed-insert-bibtex-from-pmid))))
 
 (defun bibtex/post-init-markdown-mode ()
   (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
