@@ -103,7 +103,7 @@
   (electric-indent-mode))
 
 (defun spacemacs-base/init-visual-line-mode ()
-  (spacemacs|diminish visual-line-mode " Ⓥ" " V"))
+  (spacemacs|diminish visual-line-mode " Ⓛ" " L"))
 
 ;; notes from mijoharas
 ;; We currently just set a few variables to make it look nicer.
