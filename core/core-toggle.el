@@ -40,6 +40,12 @@ Avaiblabe PROPS:
 `:documentation STRING'
     STRING describes what the toggle does.
 
+`:prefix SYMBOL'
+    SYMBOL is bound to the raw value of prefix-arg (same as calling (interactive \"P\")) in the wrapper function.
+
+`:on-message EXPRESSION'
+    EXPRESSION is evaluated and displayed when the \"on\" toggle is activated.
+
 All properties supported by `spacemacs//create-key-binding-form' can be
 used."
   (declare (indent 1))
@@ -52,6 +58,8 @@ used."
          (doc (plist-get props :documentation))
          (on-body (spacemacs/mplist-get props :on))
          (off-body (spacemacs/mplist-get props :off))
+         (prefix-arg-var (plist-get props :prefix))
+         (on-message (plist-get props :on-message))
          (bindkeys (spacemacs//create-key-binding-form props wrapper-func))
          ;; we evaluate condition and status only if they are a list or
          ;; a bound symbol
@@ -62,9 +70,9 @@ used."
        (push (append '(,name) '(:function ,wrapper-func) ',props)
              spacemacs-toggles)
        ;; toggle function
-       (defun ,wrapper-func ()
+       (defun ,wrapper-func ,(if prefix-arg-var (list prefix-arg-var) ())
          ,(format "Toggle %s on and off." (symbol-name name))
-         (interactive)
+         ,(if prefix-arg-var '(interactive "P") '(interactive))
          (if (or (null ',condition)
                  (and (or (and (symbolp ',condition) (boundp ',condition))
                           (listp ',condition))
@@ -73,7 +81,7 @@ used."
                  (progn ,@off-body
                         (message ,(format "%s disabled." name)))
                ,@on-body
-               (message ,(format "%s enabled." name)))
+               (message ,(or on-message `(format "%s enabled." name))))
            (message "This toggle is not supported.")))
        ;; Only define on- or off-functions when status is available
        ,@(when status
