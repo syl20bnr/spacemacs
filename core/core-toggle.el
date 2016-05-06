@@ -41,7 +41,8 @@ Avaiblabe PROPS:
     STRING describes what the toggle does.
 
 `:prefix SYMBOL'
-    SYMBOL is bound to the raw value of prefix-arg (same as calling (interactive \"P\")) in the wrapper function.
+    SYMBOL is bound to the raw value of prefix-arg (same as calling
+    (interactive \"P\")) in the wrapper function.
 
 `:on-message EXPRESSION'
     EXPRESSION is evaluated and displayed when the \"on\" toggle is activated.
