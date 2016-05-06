@@ -82,7 +82,7 @@ used."
                  (progn ,@off-body
                         (message ,(format "%s disabled." name)))
                ,@on-body
-               (message ,(or on-message `(format "%s enabled." name))))
+               (message ,(or on-message (format "%s enabled." name))))
            (message "This toggle is not supported.")))
        ;; Only define on- or off-functions when status is available
        ,@(when status
