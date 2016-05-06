@@ -9,7 +9,7 @@
    - [[#installation][Installation]]
    - [[#usage][Usage]]
  - [[#scalastyle][Scalastyle]]
-   - [[#use-java-doc-style][use java doc style]]
+   - [[#use-java-doc-style][Use Java doc-style]]
  - [[#automatically-show-the-type-of-the-symbol-under-the-cursor][Automatically show the type of the symbol under the cursor]]
  - [[#automatically-insert-asterisk-in-multiline-comments][Automatically insert asterisk in multiline comments]]
  - [[#automatically-replace-arrows-with-unicode-ones][Automatically replace arrows with unicode ones]]
@@ -29,7 +29,6 @@
      - [[#repl][REPL]]
 
 * Description
-
 This layer adds support for the Scala language using the excellent [[https://github.com/ensime][ENSIME]]
 client/server.
 
@@ -39,7 +38,6 @@ add =scala= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Ensime
-
 [[https://github.com/ensime][ENSIME]] provides IDE-like features, such as refactoring, incremental
 compilation and project-wide type-checking.
 
@@ -47,7 +45,6 @@ ENSIME requires a configuration file at the root of each Scala project. It
 provides an SBT plugin to generate these files.
 
 ** Installation
-
 Configure the ENSIME sbt plugin by adding the following to
 =~/.sbt/0.13/plugins/plugins.sbt=:
 
@@ -57,7 +54,8 @@ Configure the ENSIME sbt plugin by adding the following to
 
 Please go to [[https://github.com/ensime/ensime-sbt][ensime-sbt Github Page]] to check the latest version of =ensime-sbt= plugin.
 
-Please note your projects' =project/build.properties= need to use a version newer that =0.13.5= of sbt.
+Please note your projects' =project/build.properties= need to use a version
+newer that =0.13.5= of sbt.
 #+BEGIN_SRC scala
   sbt.version=0.13.9
 #+END_SRC
@@ -66,7 +64,6 @@ Please note your projects' =project/build.properties= need to use a version newe
 
 1. Create a =.ensime= file at the root of your Scala project using =sbt
    gen-ensime= at the shell.
-
 2. Run =M-x ensime= within Emacs to start an ENSIME session.
 
 Each Scala project uses a dedicated ENSIME session, so you only need to run =M-x
@@ -74,7 +71,6 @@ ensime= once per project. Any Scala files you create or visit within the project
 will automatically use ENSIME for the remainder of your editing session.
 
 * Scalastyle
-
 [[http://flycheck.readthedocs.org/en/latest/guide/languages.html#el.flycheck-checker.scala-scalastyle][Scalastyle]] provides style-checking and linting. The Emacs functionality is
 provided by Flycheck.
 
@@ -95,7 +91,6 @@ To enable =java-doc-style=, set the variable =scala-indent:use-javadoc-style= to
 #+END_SRC
 
 * Automatically show the type of the symbol under the cursor
-
 To enable the feature =ensime-print-type-at-point= when cursor moves, set the
 variable =scala-enable-eldoc= to =t=.
 
@@ -107,7 +102,6 @@ variable =scala-enable-eldoc= to =t=.
 Enabling this option can cause slow editor performance.
 
 * Automatically insert asterisk in multiline comments
-
 To insert a leading asterisk in multiline comments automatically, set the variable =scala-auto-insert-asterisk-in-comments= to =t=.
 
 #+BEGIN_SRC emacs-lisp
@@ -116,7 +110,6 @@ To insert a leading asterisk in multiline comments automatically, set the variab
 #+END_SRC
 
 * Automatically replace arrows with unicode ones
-
 To replace ~=>~, =->= and =<-= with unicode arrows =⇒=, =→= and =←=, set the
 variable =scala-use-unicode-arrows= to =t=.
 
@@ -127,9 +120,9 @@ the ascii arrows back.
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (scala :variables scala-use-unicode-arrows t)))
+#+END_SRC
 
 * Disable auto-start
-
 If you prefer not to have Ensime start when you load a scala file, you can
 disable it with
 
@@ -139,9 +132,7 @@ disable it with
 #+END_SRC
 
 * Key bindings
-
 ** Ensime key bindings
-
 *** Search
 
 | Key Binding | Description                                         |
