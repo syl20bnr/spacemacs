@@ -86,13 +86,12 @@ To use scalastyle,
 
 See the [[http://flycheck.readthedocs.org/en/latest/guide/languages.html#el.flycheck-checker.scala-scalastyle][flycheck documentation]] for up-to-date configuration instructions.
 
-** use java doc style
-
-   To enable =java-doc-style=, set the variable =scala-java-doc-style= to =t=
+** Use Java doc-style
+To enable =java-doc-style=, set the variable =scala-indent:use-javadoc-style= to =t=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (scala :variables scala-enable-eldoc t)))
+    (scala :variables scala-indent:use-javadoc-style t)))
 #+END_SRC
 
 * Automatically show the type of the symbol under the cursor

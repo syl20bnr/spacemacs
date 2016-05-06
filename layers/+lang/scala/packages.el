@@ -252,7 +252,6 @@ replace it with the unicode arrow."
 
       (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
 
-      (setq scala-indent:use-javadoc-style scala-use-java-doc-style)
       ;; Compatibility with `aggressive-indent'
       (setq scala-indent:align-forms t
             scala-indent:align-parameters t
