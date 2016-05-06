@@ -111,9 +111,9 @@
   (add-hook 'after-change-major-mode-hook 'spacemacs//set-evil-shift-width 'append)
 
   ;; Keep the region active when shifting
-  (when dotspacemacs-retain-visual-mode-on-shift
-    ((evil-map visual "<" "<gv")
-     (evil-map visual ">" ">gv")))
+  (when dotspacemacs-retain-visual-state-on-shift
+    (evil-map visual "<" "<gv")
+    (evil-map visual ">" ">gv"))
 
   ;; move selection up and down
   (define-key evil-visual-state-map "J" (concat ":m '>+1" (kbd "RET") "gv=gv"))
