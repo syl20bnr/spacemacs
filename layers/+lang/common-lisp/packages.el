@@ -63,7 +63,7 @@
         "eb" 'slime-eval-buffer
         "ef" 'slime-eval-defun
         "eF" 'slime-undefine-function
-        "ee" 'slime-eval-last-sexp
+        "ee" 'slime-eval-last-expression
         "er" 'slime-eval-region
 
         "gg" 'slime-inspect-definition
