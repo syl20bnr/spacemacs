@@ -261,9 +261,9 @@
         (setq indent-tabs-mode t))
 
       (add-hook 'inferior-python-mode-hook #'inferior-python-setup-hook)
-      (spacemacs/add-all-to-hook 'python-mode-hook
-                                 'python-default
-                                 'python-setup-shell))
+      (add-hook 'python-mode-hook #'python-default)
+      ;; call `python-setup-shell' once, don't put it in a hook (see issue #5988)
+      (python-setup-shell))
     :config
     (progn
       ;; add support for `ahs-range-beginning-of-defun' for python-mode
