@@ -32,6 +32,7 @@
     dakrone-theme
     darkburn-theme
     darkmine-theme
+    darkokai-theme
     darktooth-theme
     django-theme
     dracula-theme
