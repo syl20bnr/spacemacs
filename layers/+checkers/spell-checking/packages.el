@@ -13,7 +13,7 @@
   '(
     auto-dictionary
     flyspell
-    helm-flyspell
+    flyspell-correct
     ))
 
 (defun spell-checking/init-auto-dictionary ()
@@ -63,8 +63,13 @@
         "Sn" 'flyspell-goto-next-error))
     :config (spacemacs|diminish flyspell-mode " Ⓢ" " S")))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun spell-checking/init-helm-flyspell ()
-    (use-package helm-flyspell
-      :commands helm-flyspell-correct
-      :init (spacemacs/set-leader-keys "Sc" 'helm-flyspell-correct))))
+(defun spell-checking/init-flyspell-correct ()
+  (use-package flyspell-correct
+    :commands (flyspell-correct-word-generic)
+    :init
+    (when (configuration-layer/layer-usedp 'spacemacs-ivy)
+      (setq flyspell-correct-interface 'flyspell-correct-ivy))
+    (when (configuration-layer/layer-usedp 'spacemacs-helm)
+      (setq flyspell-correct-interface 'flyspell-correct-helm))
+    (when (bound-and-true-p flyspell-correct-interface)
+      (spacemacs/set-leader-keys "Sc" 'flyspell-correct-word-generic))))
