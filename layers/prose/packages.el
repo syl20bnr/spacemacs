@@ -36,7 +36,9 @@
     :status prose-proselint-enabled
     :on (progn
           (setq prose-proselint-enabled t)
-          (flycheck-buffer))
+          (if (not flycheck-mode)
+            (flycheck-mode 1)
+          (flycheck-buffer)))
     :off (progn
            (setq prose-proselint-enabled nil)
            (flycheck-buffer))
