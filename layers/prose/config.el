@@ -1,4 +1,4 @@
-;;; packages.el --- proselint layer packages file for Spacemacs.
+;;; packages.el --- prose layer packages file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

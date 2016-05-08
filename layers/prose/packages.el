@@ -1,4 +1,4 @@
-;;; packages.el --- proselint layer packages file for Spacemacs.
+;;; packages.el --- prose layer packages file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
@@ -9,10 +9,10 @@
 ;;
 ;;; License: GPLv3
 
-(defconst proselint-packages
+(defconst prose-packages
   '(flycheck))
 
-(defun proselint/post-init-flycheck ()
+(defun prose/post-init-flycheck ()
 
   (defun flycheck-proselint-enabled-p ()
     enable-proselint-feedback)

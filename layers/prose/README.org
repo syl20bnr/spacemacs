@@ -1,10 +1,10 @@
-#+TITLE: proselint layer
+#+TITLE: prose layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
 #+CAPTION: logo
 
 # The maximum height of the logo should be 200 pixels.
-[[img/proselint.png]]
+[[img/prose.png]]
 
 * Table of Contents                                        :TOC_4_org:noexport:
  - [[Description][Description]]
@@ -33,15 +33,15 @@ Install the proselint executable. Make sure it is in your $PATH.
 Add the following to your =~/.spacemacs=
 
 #+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(proselint))
+  (setq-default dotspacemacs-configuration-layers '(prose))
 #+end_src
 
 You may have proselint available but not started immediately by setting the
 `enable-proselint-feedback` variable to `nil`.
 
 #+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(proselint :variables
-                                                              enable-proselint-feedback nil))
+  (setq-default dotspacemacs-configuration-layers '(prose :variables
+                                                          enable-proselint-feedback nil))
 #+end_src
 
 * Key bindings
