@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar prose-proselint-enable-by-default t
+(defvar prose-proselint-enable-by-default nil
   "Enable proselint feedback by default")
 
 (defvar-local prose-proselint-enabled prose-proselint-enable-by-default
