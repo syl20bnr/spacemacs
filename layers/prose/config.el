@@ -9,7 +9,10 @@
 ;;
 ;;; License: GPLv3
 
-(defvar enable-proselint-feedback t
-  "Non-nil if proselint feedback should be started automatically.")
+(defvar prose-proselint-enable-by-default t
+  "Enable proselint feedback by default")
+
+(defvar-local prose-proselint-enabled prose-proselint-enable-by-default
+  "Buffer local proselint enabled status")
 
 ;; (length flycheck-checkers)

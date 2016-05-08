@@ -14,9 +14,6 @@
 
 (defun prose/post-init-flycheck ()
 
-  (defun flycheck-proselint-enabled-p ()
-    enable-proselint-feedback)
-
   (flycheck-define-checker proselint
     "A linter for prose."
     :command ("proselint" source-inplace)
@@ -26,18 +23,18 @@
               (message (one-or-more not-newline)
                        (zero-or-more "\n" (any " ") (one-or-more not-newline)))
               line-end))
-    :predicate flycheck-proselint-enabled-p)
+    :predicate (lambda () prose-proselint-enabled))
     ;; :modes (text-mode markdown-mode gfm-mode))
 
   (add-to-list 'flycheck-checkers 'proselint)
 
   (spacemacs|add-toggle flycheck-proselint
-    :status enable-proselint-feedback
+    :status prose-proselint-enabled
     :on (progn
-          (setq enable-proselint-feedback t)
+          (setq prose-proselint-enabled t)
           (flycheck-buffer))
     :off (progn
-           (setq enable-proselint-feedback nil)
+           (setq prose-proselint-enabled nil)
            (flycheck-buffer))
     :documentation "Better writing with proselint feedback."
     :evil-leader "tP"))
