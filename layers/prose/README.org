@@ -10,6 +10,8 @@
  - [[Description][Description]]
  - [[Install][Install]]
  - [[Key bindings][Key bindings]]
+ - [[Current Issues][Current Issues]]
+   - [[Running a flycheck checker everywhere][Running a flycheck checker everywhere]]
 
 * Description
 
@@ -36,17 +38,28 @@ Add the following to your =~/.spacemacs=
   (setq-default dotspacemacs-configuration-layers '(prose))
 #+end_src
 
-You may have proselint available but not started immediately by setting the
-`enable-proselint-feedback` variable to `nil`.
+By default, proselint is not started immediately in buffers. You can change this
+behavior by setting the `prose-proselint-enable-by-default` variable to non-nil.
 
 #+begin_src emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(prose :variables
-                                                          enable-proselint-feedback nil))
+                                                          prose-proselint-enable-by-default t))
 #+end_src
 
 * Key bindings
 
 | Key Binding  | Description                                        |
-|--------------+--------------------------------------------------- |
+|--------------+----------------------------------------------------|
 | ~<SPC> t P~  | Toggles the proselint flycheck feedback on and off |
 
+* Current Issues
+
+** Running a flycheck checker everywhere
+
+   Flycheck only allows one checker to be run, without explicitly setting the
+   the next checker that will be run. Emacs-Lisp mode runs 3 elisp checkers by
+   knowing ahead of time what checkers they are and then defining them via the
+   `flycheck-add-next-checker` function (describe that function for more info).
+   Because the proselint checker can be run in all modes, we cannot anticipate
+   and set the next-checker, which means that we can have to run the proselint
+   checker by itself.
