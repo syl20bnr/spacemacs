@@ -14,6 +14,10 @@
 
 (defun prose/post-init-flycheck ()
 
+  (defun prose-proselint-enabled-p ()
+    "Workaround for proselint flycheck checker predicate"
+    prose-proselint-enabled)
+
   (flycheck-define-checker proselint
     "A linter for prose."
     :command ("proselint" source-inplace)
@@ -23,7 +27,7 @@
               (message (one-or-more not-newline)
                        (zero-or-more "\n" (any " ") (one-or-more not-newline)))
               line-end))
-    :predicate (lambda () prose-proselint-enabled))
+    :predicate prose-proselint-enabled-p)
     ;; :modes (text-mode markdown-mode gfm-mode))
 
   (add-to-list 'flycheck-checkers 'proselint)
