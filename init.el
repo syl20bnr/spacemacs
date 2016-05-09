@@ -20,7 +20,7 @@
 
 (if (not (version<= spacemacs-emacs-min-version emacs-version))
     (message (concat "Your version of Emacs (%s) is too old. "
-                     "Spacemacs requires Emacs version %d or above.")
+                     "Spacemacs requires Emacs version %s or above.")
              emacs-version spacemacs-emacs-min-version)
   (load-file (concat user-emacs-directory "core/core-load-paths.el"))
   (require 'core-spacemacs)
