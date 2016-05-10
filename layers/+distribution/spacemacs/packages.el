@@ -1798,10 +1798,10 @@ Open junk file using helm, with `prefix-arg' search in junk files"
                       map)))
 
       (spaceline-define-segment new-version
-        (spacemacs-powerline-new-version
-         (spacemacs/get-new-version-lighter-face
-          spacemacs-version spacemacs-new-version))
-        :when spacemacs-new-version)
+        (when spacemacs-new-version
+          (spacemacs-powerline-new-version
+           (spacemacs/get-new-version-lighter-face
+            spacemacs-version spacemacs-new-version))))
 
       (spaceline-spacemacs-theme '(new-version :when active))
       (spaceline-helm-mode t)
