@@ -231,11 +231,11 @@
          (spacemacs|define-transient-state fold
            :title "Code Fold Transient State"
            :doc "
-Close^^                Open^^                 Toggle^^                 Goto^^                   Other^^
-───────^^────────────  ─────^^──────────────  ─────^^───────────────── ──────^^──────────────── ─────^^──────────────────────────
-[_c_] at point         [_o_] at point         [_a_] first after point  [_n_] next               [_s_] show at point, close others
-[_C_] recursively      [_O_] recursively      [_A_] all                [_p_] previous           [_R_] reset
-[_m_] all              [_r_] all              [_TAB_] all (like org)   ^^                       [_q_] quit"
+Close^^            Open^^             Toggle^^         Goto^^         Other^^
+───────^^───────── ─────^^─────────── ─────^^───────── ──────^^────── ─────^^─────────
+[_c_] at point     [_o_] at point     [_a_] at point   [_n_] next     [_s_] single out
+[_C_] recursively  [_O_] recursively  [_A_] all        [_p_] previous [_R_] reset
+[_m_] all          [_r_] all          [_TAB_] like org ^^             [_q_] quit"
            :foreign-keys run
            :on-enter (unless (bound-and-true-p origami-mode) (origami-mode 1))
            :bindings
@@ -253,17 +253,19 @@ Close^^                Open^^                 Toggle^^                 Goto^^   
            ("R" origami-reset)
            ("TAB" origami-recursively-toggle-node)
            ("<tab>" origami-recursively-toggle-node)
-           ("q" nil :exit t)))
+           ("q" nil :exit t)
+           ("C-g" nil :exit t)
+           ("<SPC>" nil :exit t)))
 
         (`evil
           (spacemacs|define-transient-state fold
            :title "Code Fold Transient State"
            :doc "
-Close^^                Open^^                 Toggle^^                  Other^^
-───────^^────────────  ─────^^──────────────  ─────^^─────────────────  ─────^^───
-[_c_] at point         [_o_] at point         [_a_] around point        [_q_] quit
-^^                     [_O_] recursively      ^^
-[_m_] all              [_r_] all"
+Close^^          Open^^              Toggle^^             Other^^
+───────^^──────  ─────^^───────────  ─────^^────────────  ─────^^───
+[_c_] at point   [_o_] at point      [_a_] around point   [_q_] quit
+^^               [_O_] recursively   ^^
+[_m_] all        [_r_] all"
            :foreign-keys run
            :bindings
            ("a" evil-toggle-fold)
@@ -272,7 +274,9 @@ Close^^                Open^^                 Toggle^^                  Other^^
            ("O" evil-open-fold-rec)
            ("r" evil-open-folds)
            ("m" evil-close-folds)
-           ("q" nil :exit t))))
+           ("q" nil :exit t)
+           ("C-g" nil :exit t)
+           ("<SPC>" nil :exit t))))
 
       (spacemacs/set-leader-keys "z." 'spacemacs/fold-transient-state/body))))
 
