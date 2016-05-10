@@ -193,6 +193,7 @@
   (use-package tern
     :defer t
     :if (javascript//tern-detect)
+    :diminish tern-mode
     :init (add-hook 'js2-mode-hook 'tern-mode)
     :config
     (progn
@@ -218,6 +219,7 @@
 (defun javascript/init-skewer-mode ()
   (use-package skewer-mode
     :defer t
+    :diminish skewer-mode
     :init
     (progn
       (spacemacs/register-repl 'skewer-mode 'spacemacs/skewer-start-repl "skewer")
