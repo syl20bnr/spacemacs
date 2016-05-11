@@ -34,7 +34,7 @@ You will need =node.js v0.12.0= or greater
 
 If you want linting run:  =npm install -g typescript=  =npm install -g tslint=
 
-If you want formatting run:  =npm install -g typescript-formatter=
+If you want to use typescript-formatter for formatting run:  =npm install -g typescript-formatter=
 
 For best results, make sure that the =auto-completion= (company) and =html= layers are enabled.
 
@@ -45,14 +45,6 @@ file.
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(typescript))
-#+END_SRC
-
-If you don't need linting, you can use:
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (typescript :variables
-              typescript-use-tslint  nil)))
 #+END_SRC
 
 If you need formatting on save:

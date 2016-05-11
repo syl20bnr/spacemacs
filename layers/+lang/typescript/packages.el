@@ -9,8 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq typescript-packages '(flycheck-typescript-tslint
-                            tide
+(setq typescript-packages '(tide
                             typescript-mode
                             web-mode))
 
@@ -33,12 +32,6 @@
                         (when (configuration-layer/package-usedp 'company)
                           (company-mode-on)))))
     :config (progn
-
-              (when typescript-use-tslint
-                (use-package flycheck-typescript-tslint)
-                (flycheck-add-next-checker 'typescript-tide
-                                           'typescript-tslint 'append))
-
               (spacemacs/declare-prefix-for-mode 'typescript-mode "mg" "goto")
               (spacemacs/declare-prefix-for-mode 'typescript-mode "mh" "help")
               (spacemacs/declare-prefix-for-mode 'typescript-mode "mn" "name")
@@ -83,8 +76,3 @@
               (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
                 "="  'typescript/format
                 "sp" 'typescript/open-region-in-playground))))
-
-(when typescript-use-tslint
-  (defun typescript/init-flycheck-typescript-tslint ()
-    (use-package flycheck-typescript-tslint
-      :defer t)))
