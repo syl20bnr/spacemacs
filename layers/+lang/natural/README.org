@@ -1,15 +1,14 @@
-#+TITLE: prose layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+#+TITLE: Natural languages layer
 
-[[file:img/proselint.png]]
+[[file:img/sir.png]]
 
-* Table of Contents                                        :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
- - [[Current Issues][Current Issues]]
-   - [[Running a flycheck checker everywhere][Running a flycheck checker everywhere]]
-   - [[Disabled checkers][Disabled checkers]]
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+ - [[#current-issues][Current Issues]]
+   - [[#running-a-flycheck-checker-everywhere][Running a flycheck checker everywhere]]
+   - [[#disabled-checkers][Disabled checkers]]
 
 * Description
 

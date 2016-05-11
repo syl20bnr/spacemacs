@@ -1,4 +1,4 @@
-;;; packages.el --- prose layer packages file for Spacemacs.
+;;; packages.el --- natural layer packages file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
