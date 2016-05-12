@@ -403,6 +403,9 @@ Removes the automatic guessing of the initial value based on thing at point. "
           (define-key helm-map (kbd "C-h") 'helm-next-source)
           (define-key helm-map (kbd "C-S-h") 'describe-key)
           (define-key helm-map (kbd "C-l") (kbd "RET"))
+          ;; rebind missing `C-k' and `C-h' commands to `M-k' and `M-h'
+          (define-key helm-map (kbd "M-k") 'helm-delete-minibuffer-contents)
+          (define-key helm-map (kbd "M-h") 'help-command)
           (with-eval-after-load 'helm-files
             (dolist (keymap (list helm-find-files-map helm-read-file-map))
               (define-key keymap (kbd "C-l") 'helm-execute-persistent-action)

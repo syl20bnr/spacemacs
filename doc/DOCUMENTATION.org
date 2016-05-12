@@ -1924,13 +1924,15 @@ navigate between =Emacs= and Spacemacs specific files.
 In =vim= and  =hybrid= styles, Spacemacs remap the navigation in Helm find-files
 to keep finger on the home row.
 
-| Key Binding | Description                       |
-|-------------+-----------------------------------|
-| ~C-h~       | go up one level (parent directory |
-| ~C-H~       | describe key (replace ~C-h~)      |
-| ~C-j~       | go to previous candidate          |
-| ~C-k~       | go to next candidate              |
-| ~C-l~       | enter current directory           |
+| Key Binding | Description                        |
+|-------------+------------------------------------|
+| ~C-h~       | go up one level (parent directory) |
+| ~C-H~       | describe key (replace ~C-h k~)     |
+| ~C-j~       | go to previous candidate           |
+| ~C-k~       | go to next candidate               |
+| ~C-l~       | enter current directory            |
+| ~M-h~       | help prefix (replace ~C-h~)        |
+| ~M-k~       | kill input (replace ~C-k~)         |
 
 *** Ido
 Spacemacs displays the =ido= minibuffer vertically thanks to the
