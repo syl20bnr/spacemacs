@@ -22,7 +22,7 @@
         ;; see https://github.com/syl20bnr/spacemacs/issues/2529
         (hl-anything :excluded t)
         indent-guide
-        linum-relative
+        nlinum-relative
         rainbow-delimiters
         volatile-highlights
         ))
@@ -370,17 +370,20 @@
     :config
     (spacemacs|diminish indent-guide-mode " ⓘ" " i")))
 
-(defun spacemacs-editing-visual/init-linum-relative ()
-  (use-package linum-relative
-    :commands (linum-relative-toggle linum-relative-on)
+(defun spacemacs-editing-visual/init-nlinum-relative ()
+  (use-package nlinum-relative
+    :commands (nlinum-relative-toggle nlinum-relative-on)
     :init
     (progn
       (when (eq dotspacemacs-line-numbers 'relative)
-        (linum-relative-on))
-      (spacemacs/set-leader-keys "tr" 'linum-relative-toggle))
+        (nlinum-relative-setup-evil)
+        (add-hook 'nlinum-mode-hook 'nlinum-relative-on))
+      (spacemacs/set-leader-keys "tr" 'nlinum-relative-toggle))
     :config
     (progn
-      (setq linum-relative-current-symbol ""))))
+      (setq nlinum-relative-current-symbol "")
+      (setq nlinum-relative-redisplay-delay 0)
+      )))
 
 (defun spacemacs-editing-visual/init-rainbow-delimiters ()
   (use-package rainbow-delimiters

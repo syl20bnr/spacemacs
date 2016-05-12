@@ -26,6 +26,7 @@
         (hi-lock :location built-in)
         (holy-mode :location local :step pre)
         (hybrid-mode :location local :step pre)
+        nlinum
         (package-menu :location built-in)
         (process-menu :location built-in)
         (recentf :location built-in)
@@ -182,6 +183,18 @@
         :documentation "Globally toggle hybrid mode."
         :evil-leader "tEh")
       (spacemacs|diminish hybrid-mode " Ⓔh" " Eh"))))
+
+(defun spacemacs-base/init-nlinum ()
+  (use-package nlinum
+    :init
+    (progn
+      ;; Activate nlinum-mode in all prog-mode and text-mode buffers if the setting is
+      ;; enabled.
+      (when dotspacemacs-line-numbers
+        (add-hook 'prog-mode-hook 'nlinum-mode)
+        (add-hook 'text-mode-hook 'nlinum-mode))
+      ;; line number
+      (setq nlinum-format "%4d"))))
 
 (defun spacemacs-base/init-package-menu ()
   (evilified-state-evilify-map package-menu-mode-map

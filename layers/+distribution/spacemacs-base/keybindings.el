@@ -246,9 +246,9 @@
   :documentation "Move point according to visual lines."
   :evil-leader "tL")
 (spacemacs|add-toggle line-numbers
-  :status linum-mode
-  :on (linum-mode)
-  :off (linum-mode -1)
+  :status nlinum-mode
+  :on (nlinum-mode)
+  :off (nlinum-mode -1)
   :documentation "Show the line numbers."
   :evil-leader "tn")
 (spacemacs|add-toggle auto-fill-mode
