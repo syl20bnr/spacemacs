@@ -392,6 +392,7 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
                                      "function has been skipped)."))
                   (dotspacemacs|call-func dotspacemacs/user-config
                                           "Calling dotfile user config...")
+                  (run-hooks 'spacemacs-post-user-config-hook)
                   (message "Done.")))
             (switch-to-buffer-other-window dotspacemacs-test-results-buffer)
             (spacemacs-buffer/warning "Some tests failed, check `%s' buffer"

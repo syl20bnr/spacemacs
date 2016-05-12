@@ -270,13 +270,17 @@
 
 (defun spacemacs-ui-visual/init-spaceline ()
   (use-package spaceline-config
-    ;; not possible for now, maybe we can add support for it in spaceline itself
-    ;; :defer 0.1
     :init
     (progn
+      (add-hook 'spacemacs-post-user-config-hook 'spaceline-compile)
+      (setq-default powerline-default-separator 'utf-8)
       (spacemacs|do-after-display-system-init
-       (setq-default powerline-default-separator
-                     (if (display-graphic-p) 'wave 'utf-8))))
+       (when (and (eq 'utf-8 powerline-default-separator))
+         (setq-default powerline-default-separator 'wave))
+       ;; seems to be needed to avoid weird graphical artefacts with the
+       ;; first graphical client
+       (require 'spaceline)
+       (spaceline-compile)))
     :config
     (progn
       (defun spacemacs/customize-powerline-faces ()
