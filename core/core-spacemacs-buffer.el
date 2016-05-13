@@ -47,6 +47,7 @@ version the release note it displayed")
     (define-key map (kbd "RET") 'widget-button-press)
     (define-key map [down-mouse-1] 'widget-button-click)
     (define-key map "q" 'quit-window)
+    (define-key map (kbd "C-r") 'spacemacs-buffer/refresh)
     map)
   "Keymap for spacemacs buffer mode.")
 
@@ -86,7 +87,7 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
         (if (image-type-available-p (intern (file-name-extension banner)))
             (spacemacs-buffer//insert-image-banner banner)
           (insert-file-contents banner))
-        (spacemacs-buffer//inject-version))
+        (spacemacs-buffer//inject-version t))
       (spacemacs-buffer//insert-buttons)
       (spacemacs//redisplay))))
 
@@ -793,5 +794,13 @@ already exist, and switch to it."
   (spacemacs-buffer/goto-link-line)
   (switch-to-buffer spacemacs-buffer-name)
   (spacemacs//redisplay))
+
+(defun spacemacs-buffer/refresh ()
+  "Recreate the spacemacs buffer."
+  (interactive)
+  (let ((inhibit-redisplay t))
+    (when (buffer-live-p (get-buffer spacemacs-buffer-name))
+      (kill-buffer spacemacs-buffer-name))
+    (spacemacs-buffer/goto-buffer)))
 
 (provide 'core-spacemacs-buffer)
