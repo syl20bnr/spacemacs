@@ -382,7 +382,7 @@
     :config
     (progn
       (setq nlinum-relative-current-symbol "")
-      (setq nlinum-relative-redisplay-delay 0.2)
+      (setq nlinum-relative-redisplay-delay 0)
       )))
 
 (defun spacemacs-editing-visual/init-rainbow-delimiters ()
