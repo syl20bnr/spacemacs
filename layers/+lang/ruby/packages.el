@@ -61,11 +61,12 @@
     :if (executable-find "seeing_is_believing")
     :init
     (progn
-      (add-hook 'ruby-mode-hook 'seeing-is-believing)
-      (evil-leader/set-key-for-mode 'ruby-mode "msb" 'seeing-is-believing-run)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "msb" 'seeing-is-believing-run)
-      (evil-leader/set-key-for-mode 'ruby-mode "msc" 'seeing-is-believing-clear)
-      (evil-leader/set-key-for-mode 'enh-ruby-mode "msc" 'seeing-is-believing-clear))))
+      (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+        (add-hook hook 'seeing-is-believing))
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "sb" 'seeing-is-believing-run
+          "sc" 'seeing-is-believing-clear)))))
 
 (defun ruby/init-chruby ()
   (use-package chruby
