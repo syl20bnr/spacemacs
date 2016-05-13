@@ -106,8 +106,15 @@
       (with-eval-after-load 'org-element
         (evil-define-text-object evil-org-link (count &rest args)
           (list (save-match-data (org-element-property :begin (org-element-context)))
-                (save-match-data (org-element-property :end (org-element-context)))))
-        (define-key evil-inner-text-objects-map "l" 'evil-org-link))
+                (save-match-data (org-element-property :end (org-element-context))))))
+
+      (add-hook 'org-mode-hook (lambda ()
+                                 (let ((old-map evil-inner-text-objects-map)
+                                       (new-map (make-sparse-keymap)))
+                                   (set-keymap-parent new-map old-map)
+                                   (define-key new-map "k" 'evil-org-link)
+                                   (define-key evil-visual-state-local-map "i" new-map)
+                                   (define-key evil-operator-state-local-map "i" new-map))))
 
       (with-eval-after-load 'org-indent
         (spacemacs|hide-lighter org-indent-mode))
