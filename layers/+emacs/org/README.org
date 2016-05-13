@@ -409,6 +409,7 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 
 | Key Binding | Description                                                |
 |-------------+------------------------------------------------------------|
+| ~SPC b t~   | Switch to the TODO list buffer                             |
 | ~SPC C t~   | capture a TODO item for the current project                |
 | ~SPC C T~   | capture a checklist item for the current project           |
 | ~SPC a o p~ | show the TODO list for the current project                 |
