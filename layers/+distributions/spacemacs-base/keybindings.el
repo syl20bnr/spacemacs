@@ -219,9 +219,12 @@
 (spacemacs/set-leader-keys
   "j0" 'spacemacs/push-mark-and-goto-beginning-of-line
   "j$" 'spacemacs/push-mark-and-goto-end-of-line
-  "jf" 'find-function-at-point
+  "jL" 'find-library
+  "jF" 'find-function-at-point
+  "jf" 'find-function
   "ji" 'spacemacs/jump-in-buffer
-  "jv" 'find-variable-at-point)
+  "jv" 'find-variable
+  "jV" 'find-variable-at-point)
 
 ;; Compilation ----------------------------------------------------------------
 (spacemacs/set-leader-keys
