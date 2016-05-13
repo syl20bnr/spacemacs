@@ -22,10 +22,7 @@
         ;; see https://github.com/syl20bnr/spacemacs/issues/2529
         (hl-anything :excluded t)
         indent-guide
-        (nlinum-relative :location (recipe
-                                    :fetcher github
-                                    :repo "CodeFalling/nlinum-relative"
-                                    ))
+        nlinum-relative
         rainbow-delimiters
         volatile-highlights
         ))
