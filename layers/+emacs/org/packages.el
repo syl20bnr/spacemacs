@@ -109,12 +109,12 @@
                 (save-match-data (org-element-property :end (org-element-context))))))
 
       (add-hook 'org-mode-hook (lambda ()
-                                 (let ((old-map evil-inner-text-objects-map)
+                                 (let ((old-map evil-outer-text-objects-map)
                                        (new-map (make-sparse-keymap)))
                                    (set-keymap-parent new-map old-map)
                                    (define-key new-map "k" 'evil-org-link)
-                                   (define-key evil-visual-state-local-map "i" new-map)
-                                   (define-key evil-operator-state-local-map "i" new-map))))
+                                   (define-key evil-visual-state-local-map "a" new-map)
+                                   (define-key evil-operator-state-local-map "a" new-map))))
 
       (with-eval-after-load 'org-indent
         (spacemacs|hide-lighter org-indent-mode))
