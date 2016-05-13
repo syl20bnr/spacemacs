@@ -103,6 +103,12 @@
             ;; `helm-org-headings-max-depth'.
             org-imenu-depth 8)
 
+      (with-eval-after-load 'org-element
+        (evil-define-text-object evil-org-link (count &rest args)
+          (list (save-match-data (org-element-property :begin (org-element-context)))
+                (save-match-data (org-element-property :end (org-element-context)))))
+        (define-key evil-inner-text-objects-map "l" 'evil-org-link))
+
       (with-eval-after-load 'org-indent
         (spacemacs|hide-lighter org-indent-mode))
       (let ((dir (configuration-layer/get-layer-property 'org :dir)))
