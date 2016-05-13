@@ -53,6 +53,8 @@
         (spacemacs|define-text-object "$" "dollarparen" "$(" ")")
         )
       (add-hook 'powershell-mode-hook 'powershell/define-text-objects)
+      ;; set powershell indent based on tab-width
+      (setq powershell-indent tab-width)
       (spacemacs/set-leader-keys
         "asp" 'powershell)
       (spacemacs/set-leader-keys-for-major-mode 'powershell-mode
