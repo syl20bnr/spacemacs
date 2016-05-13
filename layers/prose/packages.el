@@ -32,6 +32,17 @@
 
   (add-to-list 'flycheck-checkers 'proselint)
 
+  (defun prose-reset-proselint-next-checkers ()
+    "Adds the usual mode checkers as next checkers to the proselint checker"
+    ;; Reset the proselint next-checkers prop to nil
+    (setf (flycheck-checker-get 'proselint 'next-checkers) nil)
+    ;; Add the regular mode and predicate checkers for this buffer
+    (dolist (checker (flycheck-possibly-suitable-checkers))
+      (unless (eq checker 'proselint)
+        (flycheck-add-next-checker 'proselint (cons t checker) t))))
+
+  (add-hook 'flycheck-before-syntax-check-hook 'prose-reset-proselint-next-checkers)
+
   (spacemacs|add-toggle flycheck-proselint
     :status prose-proselint-enabled
     :on (progn
