@@ -497,7 +497,8 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
         (when install
           (write-file dotspacemacs-filepath)
           (message "%s has been installed." dotspacemacs-filepath)
-          t)))))
+          t))))
+  (load-file dotspacemacs-filepath))
 
 (defun dotspacemacs//install-and-replace (&optional values)
   "Install the dotfile and replace its content according to VALUES.
