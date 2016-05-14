@@ -17,6 +17,7 @@
                                       spacemacs-editing-visual
                                       spacemacs-evil
                                       spacemacs-language
+                                      spacemacs-projects
                                       spacemacs-ui
                                       spacemacs-ui-visual
                                       spacemacs-org))

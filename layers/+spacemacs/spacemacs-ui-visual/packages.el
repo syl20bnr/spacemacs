@@ -15,7 +15,6 @@
         golden-ratio
         hl-todo
         leuven-theme
-        neotree
         popup
         popwin
         smooth-scrolling
@@ -166,100 +165,6 @@
     :defer t
     :init (setq org-fontify-whole-heading-line t)))
 
-(defun spacemacs-ui-visual/init-neotree ()
-  (use-package neotree
-    :defer t
-    :commands neo-global--window-exists-p
-    :init
-    (progn
-      (setq neo-window-width 32
-            neo-create-file-auto-open t
-            neo-banner-message nil
-            neo-show-updir-line nil
-            neo-mode-line-type 'neotree
-            neo-smart-open t
-            neo-dont-be-alone t
-            neo-persist-show nil
-            neo-show-hidden-files t
-            neo-auto-indent-point t
-            neo-modern-sidebar t
-            neo-vc-integration nil)
-
-      (defun spacemacs/neotree-expand-or-open ()
-        "Collapse a neotree node."
-        (interactive)
-        (let ((node (neo-buffer--get-filename-current-line)))
-          (when node
-            (if (file-directory-p node)
-                (progn
-                  (neo-buffer--set-expand node t)
-                  (neo-buffer--refresh t)
-                  (when neo-auto-indent-point
-                    (next-line)
-                    (neo-point-auto-indent)))
-              (call-interactively 'neotree-enter)))))
-
-      (defun spacemacs/neotree-collapse ()
-        "Collapse a neotree node."
-        (interactive)
-        (let ((node (neo-buffer--get-filename-current-line)))
-          (when node
-            (when (file-directory-p node)
-              (neo-buffer--set-expand node nil)
-              (neo-buffer--refresh t))
-            (when neo-auto-indent-point
-              (neo-point-auto-indent)))))
-
-      (defun spacemacs/neotree-collapse-or-up ()
-        "Collapse an expanded directory node or go to the parent node."
-        (interactive)
-        (let ((node (neo-buffer--get-filename-current-line)))
-          (when node
-            (if (file-directory-p node)
-                (if (neo-buffer--expanded-node-p node)
-                    (spacemacs/neotree-collapse)
-                  (neotree-select-up-node))
-              (neotree-select-up-node)))))
-
-      (defun neotree-find-project-root ()
-        (interactive)
-        (if (neo-global--window-exists-p)
-            (neotree-hide)
-          (let ((origin-buffer-file-name (buffer-file-name)))
-            (neotree-find (projectile-project-root))
-            (neotree-find origin-buffer-file-name))))
-
-      (defun spacemacs//neotree-maybe-attach-window ()
-        (when (get-buffer-window (neo-global--get-buffer))
-          (neo-global--attach)))
-
-      (defun spacemacs//neotree-key-bindings ()
-        "Set the key bindings for a neotree buffer."
-        (evilified-state-evilify-map neotree-mode-map
-          :mode neotree-mode
-          :bindings
-          (kbd "TAB")  'neotree-stretch-toggle
-          (kbd "RET") 'neotree-enter
-          (kbd "|") 'neotree-enter-vertical-split
-          (kbd "-") 'neotree-enter-horizontal-split
-          (kbd "?") 'evil-search-backward
-          (kbd "c") 'neotree-create-node
-          (kbd "d") 'neotree-delete-node
-          (kbd "gr") 'neotree-refresh
-          (kbd "h") 'spacemacs/neotree-collapse-or-up
-          (kbd "H") 'neotree-select-previous-sibling-node
-          (kbd "J") 'neotree-select-down-node
-          (kbd "K") 'neotree-select-up-node
-          (kbd "l") 'spacemacs/neotree-expand-or-open
-          (kbd "L") 'neotree-select-next-sibling-node
-          (kbd "q") 'neotree-hide
-          (kbd "r") 'neotree-rename-node
-          (kbd "R") 'neotree-change-root
-          (kbd "s") 'neotree-hidden-file-toggle))
-
-      (spacemacs/set-leader-keys
-        "ft" 'neotree-toggle
-        "pt" 'neotree-find-project-root))
 (defun spacemacs-ui-visual/init-popup ())
 
 (defun spacemacs-ui-visual/init-popwin ()

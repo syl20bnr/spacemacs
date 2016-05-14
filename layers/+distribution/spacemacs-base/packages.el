@@ -30,7 +30,6 @@
         ido-vertical-mode
         (package-menu :location built-in)
         (process-menu :location built-in)
-        projectile
         (recentf :location built-in)
         request
         (savehist :location built-in)
@@ -371,71 +370,6 @@
 
 (defun spacemacs-base/init-process-menu ()
   (evilified-state-evilify process-menu-mode process-menu-mode-map))
-
-(defun spacemacs-base/init-projectile ()
-  (use-package projectile
-    :commands (projectile-ack
-               projectile-ag
-               projectile-compile-project
-               projectile-dired
-               projectile-find-dir
-               projectile-find-file
-               projectile-find-tag
-               projectile-test-project
-               projectile-grep
-               projectile-invalidate-cache
-               projectile-kill-buffers
-               projectile-multi-occur
-               projectile-project-p
-               projectile-project-root
-               projectile-recentf
-               projectile-regenerate-tags
-               projectile-replace
-               projectile-replace-regexp
-               projectile-run-async-shell-command-in-root
-               projectile-run-shell-command-in-root
-               projectile-switch-project
-               projectile-switch-to-buffer
-               projectile-vc)
-    :init
-    (progn
-      ;; note for Windows: GNU find or Cygwin find must be in path to enable
-      ;; fast indexing
-      (when (and (spacemacs/system-is-mswindows) (executable-find "find"))
-        (setq  projectile-indexing-method 'alien
-               projectile-generic-command "find . -type f"))
-      (setq projectile-sort-order 'recentf
-            projectile-cache-file (concat spacemacs-cache-directory
-                                          "projectile.cache")
-            projectile-known-projects-file (concat spacemacs-cache-directory
-                                                   "projectile-bookmarks.eld"))
-      (unless (configuration-layer/package-usedp 'helm-projectile)
-        (spacemacs/set-leader-keys
-          "pb" 'projectile-switch-to-buffer
-          "pd" 'projectile-find-dir
-          "pf" 'projectile-find-file
-          "pF" 'projectile-find-file-dwim
-          "ph" 'helm-projectile
-          "pr" 'projectile-recentf
-          "ps" 'projectile-switch-project))
-      (spacemacs/set-leader-keys
-        "p!" 'projectile-run-shell-command-in-root
-        "p&" 'projectile-run-async-shell-command-in-root
-        "p%" 'projectile-replace-regexp
-        "pa" 'projectile-toggle-between-implementation-and-test
-        "pc" 'projectile-compile-project
-        "pD" 'projectile-dired
-        "pG" 'projectile-regenerate-tags
-        "pI" 'projectile-invalidate-cache
-        "pk" 'projectile-kill-buffers
-        "po" 'projectile-multi-occur
-        "pR" 'projectile-replace
-        "pT" 'projectile-test-project
-        "py" 'projectile-find-tag))
-    :config
-    (progn
-      (projectile-global-mode)
-      (spacemacs|hide-lighter projectile-mode))))
 
 (defun spacemacs-base/init-recentf ()
   (use-package recentf
