@@ -11,9 +11,13 @@
 
 (setq spacemacs-ui-visual-packages
       '(fancy-battery
+        fill-column-indicator
         golden-ratio
+        hl-todo
         leuven-theme
         neotree
+        popup
+        popwin
         smooth-scrolling
         spaceline
         (zoom-frm :location local)))
@@ -30,6 +34,25 @@
         :documentation "Display battery info in mode-line."
         :evil-leader "tmb")
       (setq-default fancy-battery-show-percentage t))))
+
+(defun spacemacs-ui-visual/init-fill-column-indicator ()
+  (use-package fill-column-indicator
+    :defer t
+    :init
+    (progn
+      (setq fci-rule-width 1)
+      (setq fci-rule-color "#D0BF8F")
+      ;; manually register the minor mode since it does not define any
+      ;; lighter
+      (push '(fci-mode "") minor-mode-alist)
+      (spacemacs|add-toggle fill-column-indicator
+        :status fci-mode
+        :on (turn-on-fci-mode)
+        :off (turn-off-fci-mode)
+        :documentation "Display the fill column indicator."
+        :evil-leader "tf"))
+    :config
+    (spacemacs|hide-lighter fci-mode)))
 
 (defun spacemacs-ui-visual/init-golden-ratio ()
   (use-package golden-ratio
@@ -132,6 +155,12 @@
 
       (spacemacs|diminish golden-ratio-mode " ⓖ" " g"))))
 
+(defun spacemacs-ui-visual/init-hl-todo ()
+  (use-package hl-todo
+    :defer t
+    :init (spacemacs/add-to-hooks 'hl-todo-mode '(text-mode-hook
+                                                  prog-mode-hook))))
+
 (defun spacemacs-ui-visual/init-leuven-theme ()
   (use-package leuven-theme
     :defer t
@@ -231,12 +260,36 @@
       (spacemacs/set-leader-keys
         "ft" 'neotree-toggle
         "pt" 'neotree-find-project-root))
+(defun spacemacs-ui-visual/init-popup ())
 
+(defun spacemacs-ui-visual/init-popwin ()
+  (use-package popwin
     :config
     (progn
-      (spacemacs//neotree-key-bindings)
-      (add-hook 'persp-activated-hook #'spacemacs//neotree-maybe-attach-window)
-      (add-hook 'eyebrowse-post-window-switch-hook #'spacemacs//neotree-maybe-attach-window))))
+      (popwin-mode 1)
+      (spacemacs/set-leader-keys "wpm" 'popwin:messages)
+      (spacemacs/set-leader-keys "wpp" 'popwin:close-popup-window)
+
+      ;; don't use default value but manage it ourselves
+      (setq popwin:special-display-config nil)
+
+      ;; buffers that we manage
+      (push '("*Help*"                 :dedicated t :position bottom :stick t :noselect t   :height 0.4) popwin:special-display-config)
+      (push '("*compilation*"          :dedicated t :position bottom :stick t :noselect t   :height 0.4) popwin:special-display-config)
+      (push '("*Shell Command Output*" :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
+      (push '("*Async Shell Command*"  :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
+      (push '(" *undo-tree*"           :dedicated t :position bottom :stick t :noselect nil :height 0.4) popwin:special-display-config)
+      (push '("*ert*"                  :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
+      (push '("*grep*"                 :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
+      (push '("*nosetests*"            :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
+      (push '("^\*WoMan.+\*$" :regexp t             :position bottom                                   ) popwin:special-display-config)
+
+      (defun spacemacs/remove-popwin-display-config (str)
+        "Removes the popwin display configurations that matches the passed STR"
+        (setq popwin:special-display-config
+              (-remove (lambda (x) (if (and (listp x) (stringp (car x)))
+                                       (string-match str (car x))))
+                       popwin:special-display-config))))))
 
 (defun spacemacs-ui-visual/init-smooth-scrolling ()
   (use-package smooth-scrolling

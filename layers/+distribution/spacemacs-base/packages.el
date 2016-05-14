@@ -22,9 +22,7 @@
         (evil-evilified-state :location local :step pre :protected t)
         evil-visualstar
         exec-path-from-shell
-        fill-column-indicator
         help-fns+
-        hl-todo
         (hi-lock :location built-in)
         (holy-mode :location local :step pre)
         (hybrid-mode :location local :step pre)
@@ -32,8 +30,6 @@
         ido-vertical-mode
         (package-menu :location built-in)
         page-break-lines
-        popup
-        popwin
         (process-menu :location built-in)
         projectile
         (recentf :location built-in)
@@ -153,35 +149,11 @@
     :init (when (memq window-system '(mac ns x))
             (exec-path-from-shell-initialize))))
 
-(defun spacemacs-base/init-fill-column-indicator ()
-  (use-package fill-column-indicator
-    :defer t
-    :init
-    (progn
-      (setq fci-rule-width 1)
-      (setq fci-rule-color "#D0BF8F")
-      ;; manually register the minor mode since it does not define any
-      ;; lighter
-      (push '(fci-mode "") minor-mode-alist)
-      (spacemacs|add-toggle fill-column-indicator
-        :status fci-mode
-        :on (turn-on-fci-mode)
-        :off (turn-off-fci-mode)
-        :documentation "Display the fill column indicator."
-        :evil-leader "tf"))
-    :config
-    (spacemacs|hide-lighter fci-mode)))
-
 (defun spacemacs-base/init-help-fns+ ()
   (use-package help-fns+
     :commands (describe-keymap)
     :init (spacemacs/set-leader-keys "hdK" 'describe-keymap)))
 
-(defun spacemacs-base/init-hl-todo ()
-  (use-package hl-todo
-    :defer t
-    :init (spacemacs/add-to-hooks 'hl-todo-mode '(text-mode-hook
-                                                  prog-mode-hook))))
 (defun spacemacs-base/init-hi-lock ()
   (spacemacs|hide-lighter hi-lock-mode))
 
@@ -404,39 +376,6 @@
     :init
     (global-page-break-lines-mode t)
     (spacemacs|hide-lighter page-break-lines-mode)))
-
-(defun spacemacs-base/init-popup ()
-  (use-package popup
-    :defer t))
-
-(defun spacemacs-base/init-popwin ()
-  (use-package popwin
-    :config
-    (progn
-      (popwin-mode 1)
-      (spacemacs/set-leader-keys "wpm" 'popwin:messages)
-      (spacemacs/set-leader-keys "wpp" 'popwin:close-popup-window)
-
-      ;; don't use default value but manage it ourselves
-      (setq popwin:special-display-config nil)
-
-      ;; buffers that we manage
-      (push '("*Help*"                 :dedicated t :position bottom :stick t :noselect t   :height 0.4) popwin:special-display-config)
-      (push '("*compilation*"          :dedicated t :position bottom :stick t :noselect t   :height 0.4) popwin:special-display-config)
-      (push '("*Shell Command Output*" :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
-      (push '("*Async Shell Command*"  :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
-      (push '(" *undo-tree*"           :dedicated t :position bottom :stick t :noselect nil :height 0.4) popwin:special-display-config)
-      (push '("*ert*"                  :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
-      (push '("*grep*"                 :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
-      (push '("*nosetests*"            :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
-      (push '("^\*WoMan.+\*$" :regexp t             :position bottom                                   ) popwin:special-display-config)
-
-      (defun spacemacs/remove-popwin-display-config (str)
-        "Removes the popwin display configurations that matches the passed STR"
-        (setq popwin:special-display-config
-              (-remove (lambda (x) (if (and (listp x) (stringp (car x)))
-                                       (string-match str (car x))))
-                       popwin:special-display-config))))))
 
 (defun spacemacs-base/init-process-menu ()
   (evilified-state-evilify process-menu-mode process-menu-mode-map))
