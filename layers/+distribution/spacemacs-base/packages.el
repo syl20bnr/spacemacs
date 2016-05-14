@@ -29,7 +29,6 @@
         (ido :location built-in)
         ido-vertical-mode
         (package-menu :location built-in)
-        page-break-lines
         (process-menu :location built-in)
         projectile
         (recentf :location built-in)
@@ -369,12 +368,6 @@
         ("s" spacemacs/ido-invoke-in-vertical-split :exit t)
         ("t" spacemacs/ido-invoke-in-new-frame :exit t)
         ("v" spacemacs/ido-invoke-in-horizontal-split :exit t)))))
-
-(defun spacemacs-base/init-page-break-lines ()
-  (use-package page-break-lines
-    :init
-    (global-page-break-lines-mode t)
-    (spacemacs|hide-lighter page-break-lines-mode)))
 
 (defun spacemacs-base/init-process-menu ()
   (evilified-state-evilify process-menu-mode process-menu-mode-map))
