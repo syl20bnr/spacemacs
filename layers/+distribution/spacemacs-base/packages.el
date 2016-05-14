@@ -1,4 +1,4 @@
-;;; packages.el --- Spacemacs Core Layer packages File
+;;; packages.el --- Spacemacs Base Layer packages File
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
@@ -31,7 +31,6 @@
         (package-menu :location built-in)
         (process-menu :location built-in)
         (recentf :location built-in)
-        request
         (savehist :location built-in)
         (saveplace :location built-in)
         spacemacs-theme
@@ -391,10 +390,6 @@
                    (expand-file-name spacemacs-cache-directory))
       (add-to-list 'recentf-exclude (expand-file-name package-user-dir))
       (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'"))))
-
-(defun spacemacs-base/init-request ()
-  (setq request-storage-directory (concat spacemacs-cache-directory
-                                          "request/")))
 
 (defun spacemacs-base/init-savehist ()
   (use-package savehist
