@@ -14,7 +14,6 @@
         (async :step bootstrap)
         (bind-map :step bootstrap)
         (bind-key :step bootstrap)
-        (dash :step bootstrap)
         (diminish :step bootstrap)
         (evil :step bootstrap)
         (f :step bootstrap)
