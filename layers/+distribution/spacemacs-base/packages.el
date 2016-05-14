@@ -11,8 +11,8 @@
 
 (setq spacemacs-base-packages
       '(
+        (abbrev :location built-in)
         (bookmark :location built-in)
-        diminish
         (dired :location built-in)
         (dired-x :location built-in)
         (electric-indent-mode :location built-in)
@@ -28,6 +28,7 @@
         help-fns+
         hl-todo
         (hs-minor-mode :location built-in)
+        (hi-lock :location built-in)
         (holy-mode :location local :step pre)
         (hybrid-mode :location local :step pre)
         (ido :location built-in)
@@ -55,6 +56,9 @@
 
 ;; Initialization of packages
 
+(defun spacemacs-base/init-abbrev ()
+  (spacemacs|hide-lighter abbrev-mode))
+
 (defun spacemacs-base/init-bookmark ()
   (use-package bookmark
     :defer t
@@ -64,27 +68,6 @@
             ;; autosave each change
             bookmark-save-flag 1)
       (spacemacs/set-leader-keys "fb" 'bookmark-jump))))
-
-(defun spacemacs-base/init-diminish ()
-  (use-package diminish
-    :init
-    (progn
-      ;; Minor modes abbrev --------------------------------------------------------
-      (when (display-graphic-p)
-        (with-eval-after-load 'eproject
-          (diminish 'eproject-mode " eⓅ"))
-        (with-eval-after-load 'flymake
-          (diminish 'flymake-mode " Ⓕ2")))
-      ;; Minor Mode (hidden) ------------------------------------------------------
-      (with-eval-after-load 'elisp-slime-nav
-        (diminish 'elisp-slime-nav-mode))
-      (with-eval-after-load 'hi-lock
-        (diminish 'hi-lock-mode))
-      (with-eval-after-load 'abbrev
-        (diminish 'abbrev-mode))
-      (with-eval-after-load 'subword
-        (when (eval-when-compile (version< "24.3.1" emacs-version))
-          (diminish 'subword-mode))))))
 
 (defun spacemacs-base/init-dired ()
   (spacemacs/set-leader-keys
@@ -227,6 +210,8 @@
       (hs-minor-mode)
       (spacemacs|hide-lighter hs-minor-mode)))
   (add-hook 'prog-mode-hook 'spacemacs//enable-hs-minor-mode))
+(defun spacemacs-base/init-hi-lock ()
+  (spacemacs|hide-lighter hi-lock-mode))
 
 (defun spacemacs-base/init-holy-mode ()
   (use-package holy-mode

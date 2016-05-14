@@ -15,6 +15,7 @@
         (bind-map :step bootstrap)
         (bind-key :step bootstrap)
         (dash :step bootstrap)
+        (diminish :step bootstrap)
         (evil :step bootstrap)
         (f :step bootstrap)
         (hydra :step bootstrap)
@@ -28,6 +29,8 @@
 (defun spacemacs-bootstrap/init-async ())
 
 (defun spacemacs-bootstrap/init-bind-key ())
+
+(defun spacemacs-bootstrap/init-diminish ())
 
 (defun spacemacs-bootstrap/init-bind-map ()
   (require 'bind-map)

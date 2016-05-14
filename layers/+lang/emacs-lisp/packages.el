@@ -71,6 +71,7 @@
   ;; Elisp go-to-definition with M-. and back again with M-,
   (use-package elisp-slime-nav
     :defer t
+    :diminish elisp-slime-nav-mode
     :init
     (progn
       (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
