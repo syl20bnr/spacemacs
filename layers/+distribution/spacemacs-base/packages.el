@@ -18,16 +18,13 @@
         (electric-indent-mode :location built-in)
         (ediff :location built-in)
         (eldoc :location built-in)
-        evil-ediff
         evil-escape
         (evil-evilified-state :location local :step pre :protected t)
-        evil-surround
         evil-visualstar
         exec-path-from-shell
         fill-column-indicator
         help-fns+
         hl-todo
-        (hs-minor-mode :location built-in)
         (hi-lock :location built-in)
         (holy-mode :location local :step pre)
         (hybrid-mode :location local :step pre)
@@ -119,11 +116,6 @@
       ;; restore window layout when done
       (add-hook 'ediff-quit-hook #'winner-undo))))
 
-(defun spacemacs-base/init-evil-ediff ()
-  (use-package evil-ediff
-    :after (ediff)
-    :if (memq dotspacemacs-editing-style '(hybrid vim))))
-
 (defun spacemacs-base/init-eldoc ()
   (use-package eldoc
     :defer t
@@ -145,16 +137,6 @@
   (use-package evil-evilified-state)
   (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
     spacemacs-default-map))
-
-(defun spacemacs-base/init-evil-surround ()
-  (use-package evil-surround
-    :init
-    (progn
-      (global-evil-surround-mode 1)
-      ;; `s' for surround instead of `substitute'
-      ;; see motivation for this change in the documentation
-      (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region)
-      (evil-define-key 'visual evil-surround-mode-map "S" 'evil-substitute))))
 
 (defun spacemacs-base/init-evil-visualstar ()
   (use-package evil-visualstar
@@ -201,15 +183,6 @@
     :defer t
     :init (spacemacs/add-to-hooks 'hl-todo-mode '(text-mode-hook
                                                   prog-mode-hook))))
-
-(defun spacemacs-base/init-hs-minor-mode ()
-  ;; required for evil folding
-  (defun spacemacs//enable-hs-minor-mode ()
-    "Enable hs-minor-mode for code folding."
-    (ignore-errors
-      (hs-minor-mode)
-      (spacemacs|hide-lighter hs-minor-mode)))
-  (add-hook 'prog-mode-hook 'spacemacs//enable-hs-minor-mode))
 (defun spacemacs-base/init-hi-lock ()
   (spacemacs|hide-lighter hi-lock-mode))
 

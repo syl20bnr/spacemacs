@@ -12,6 +12,7 @@
 (setq spacemacs-evil-packages
       '(evil-anzu
         evil-args
+        evil-ediff
         evil-exchange
         evil-iedit-state
         evil-indent-plus
@@ -24,12 +25,16 @@
         evil-matchit
         evil-numbers
         evil-search-highlight-persist
+        evil-surround
         ;; Temporarily disabled, pending the resolution of
         ;; https://github.com/7696122/evil-terminal-cursor-changer/issues/8
         (evil-terminal-cursor-changer :excluded t)
         evil-tutor
         (evil-unimpaired :location local)
-        evil-visual-mark-mode))
+        evil-visual-mark-mode
+        (hs-minor-mode :location built-in)
+        vi-tilde-fringe
+        ))
 
 (defun spacemacs-evil/init-evil-anzu ()
   (use-package evil-anzu
@@ -61,6 +66,11 @@
       ;; bind evil-args text objects
       (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
       (define-key evil-outer-text-objects-map "a" 'evil-outer-arg))))
+
+(defun spacemacs-evil/init-evil-ediff ()
+  (use-package evil-ediff
+    :after (ediff)
+    :if (memq dotspacemacs-editing-style '(hybrid vim))))
 
 (defun spacemacs-evil/init-evil-exchange ()
   (use-package evil-exchange
@@ -199,6 +209,16 @@
                             :foreground nil))
       (spacemacs/adaptive-evil-highlight-persist-face))))
 
+(defun spacemacs-evil/init-evil-surround ()
+  (use-package evil-surround
+    :init
+    (progn
+      (global-evil-surround-mode 1)
+      ;; `s' for surround instead of `substitute'
+      ;; see motivation for this change in the documentation
+      (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region)
+      (evil-define-key 'visual evil-surround-mode-map "S" 'evil-substitute))))
+
 (defun spacemacs-evil/init-evil-terminal-cursor-changer ()
   (use-package evil-terminal-cursor-changer
     :if (not (display-graphic-p))
@@ -306,3 +326,37 @@
       :off (evil-visual-mark-mode -1)
       :documentation "Enable evil visual marks mode."
       :evil-leader "t`")))
+
+(defun spacemacs-evil/init-hs-minor-mode ()
+  ;; required for evil folding
+  (defun spacemacs//enable-hs-minor-mode ()
+    "Enable hs-minor-mode for code folding."
+    (ignore-errors
+      (hs-minor-mode)
+      (spacemacs|hide-lighter hs-minor-mode))))
+
+(defun spacemacs-evil/init-vi-tilde-fringe ()
+  (spacemacs|do-after-display-system-init
+   (use-package vi-tilde-fringe
+     :init
+     (progn
+       (global-vi-tilde-fringe-mode)
+       (spacemacs|add-toggle vi-tilde-fringe
+         :status vi-tilde-fringe-mode
+         :on (global-vi-tilde-fringe-mode)
+         :off (global-vi-tilde-fringe-mode -1)
+         :documentation
+         "Globally display a ~ on empty lines in the fringe."
+         :evil-leader "T~")
+       ;; don't enable it on spacemacs home buffer
+       (with-current-buffer spacemacs-buffer-name
+         (spacemacs/disable-vi-tilde-fringe))
+       ;; after a major mode is loaded, check if the buffer is read only
+       ;; if so, disable vi-tilde-fringe-mode
+       (add-hook 'after-change-major-mode-hook
+                 'spacemacs/disable-vi-tilde-fringe-read-only)
+       ;; TODO move this hook if/when we have a layer for eww
+       (spacemacs/add-to-hooks 'spacemacs/disable-vi-tilde-fringe
+                               '(eww-mode-hook)))
+     :config
+     (spacemacs|hide-lighter vi-tilde-fringe-mode))))
