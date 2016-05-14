@@ -23,7 +23,9 @@
         move-text
         pcre2el
         smartparens
-        uuidgen))
+        undo-tree
+        uuidgen
+        ws-butler))
 
 ;; Initialization of packages
 
@@ -312,6 +314,15 @@
       (when dotspacemacs-smart-closing-parenthesis
           (define-key evil-insert-state-map ")" 'spacemacs/smart-closing-parenthesis)))))
 
+(defun spacemacs-editing/init-undo-tree ()
+  (use-package undo-tree
+    :init
+    (global-undo-tree-mode)
+    (setq undo-tree-visualizer-timestamps t)
+    (setq undo-tree-visualizer-diff t)
+    :config
+    (spacemacs|hide-lighter undo-tree-mode)))
+
 (defun spacemacs-editing/init-uuidgen ()
   (use-package uuidgen
     :commands (uuidgen-1 uuidgen-4)
@@ -323,3 +334,10 @@
         "iU4" 'spacemacs/uuidgen-4
         "iUU" 'spacemacs/uuidgen-4))))
 
+(defun spacemacs-editing/init-ws-butler ()
+  (use-package ws-butler
+    :if (eq 'changed dotspacemacs-whitespace-cleanup)
+    :config
+    (progn
+      (ws-butler-global-mode 1)
+      (spacemacs|hide-lighter ws-butler-mode))))

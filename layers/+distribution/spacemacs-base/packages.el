@@ -38,13 +38,12 @@
         (saveplace :location built-in)
         spacemacs-theme
         (subword :location built-in)
-        undo-tree
         (uniquify :location built-in)
         (url :location built-in)
         (visual-line-mode :location built-in)
         (whitespace :location built-in)
         (winner :location built-in)
-        ws-butler))
+        ))
 
 ;; Initialization of packages
 
@@ -539,15 +538,6 @@
       :config
       (spacemacs|diminish subword-mode " ⓒ" " c"))))
 
-(defun spacemacs-base/init-undo-tree ()
-  (use-package undo-tree
-    :init
-    (global-undo-tree-mode)
-    (setq undo-tree-visualizer-timestamps t)
-    (setq undo-tree-visualizer-diff t)
-    :config
-    (spacemacs|hide-lighter undo-tree-mode)))
-
 (defun spacemacs-base/init-uniquify ()
   (require 'uniquify)
   ;; When having windows with repeated filenames, uniquify them
@@ -614,14 +604,6 @@
                           :background nil)
       (spacemacs|diminish whitespace-mode " ⓦ" " w")
       (spacemacs|diminish global-whitespace-mode " Ⓦ" " W"))))
-
-(defun spacemacs-base/init-ws-butler ()
-  (use-package ws-butler
-    :if (eq 'changed dotspacemacs-whitespace-cleanup)
-    :config
-    (progn
-      (ws-butler-global-mode 1)
-      (spacemacs|hide-lighter ws-butler-mode))))
 
 (defun spacemacs-base/init-winner ()
   (use-package winner
