@@ -117,13 +117,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 (setq window-combination-resize t)
 ;; Show column number in mode line
 (setq column-number-mode t)
-;; Activate linum-mode in all prog-mode and text-mode buffers if the setting is
-;; enabled.
-(when dotspacemacs-line-numbers
-  (add-hook 'prog-mode-hook 'linum-mode)
-  (add-hook 'text-mode-hook 'linum-mode))
-;; line number
-(setq linum-format "%4d")
+
 ;; highlight current line
 (global-hl-line-mode t)
 ;; no blink
