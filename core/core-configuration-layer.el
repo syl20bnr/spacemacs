@@ -296,33 +296,40 @@ refreshed during the current session."
 (defun configuration-layer/sync (&optional no-install)
   "Synchronize declared layers in dotfile with spacemacs.
 If NO-INSTALL is non nil then install steps are skipped."
-  (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
-  (when (spacemacs-buffer//choose-banner)
-    (spacemacs-buffer//inject-version t))
-  ;; layers
-  (setq configuration-layer--layers (configuration-layer//declare-layers))
-  (configuration-layer//configure-layers configuration-layer--layers)
-  ;; packages
-  (setq configuration-layer--packages (configuration-layer//declare-packages
-                                      configuration-layer--layers))
-  (setq configuration-layer--used-distant-packages
-        (configuration-layer//get-distant-used-packages
-         configuration-layer--packages))
-  (configuration-layer/load-auto-layer-file)
-  (unless no-install
-    (configuration-layer//install-packages
-     (configuration-layer/filter-objects
-      configuration-layer--used-distant-packages
-      (lambda (x)
-        (not (oref x :lazy-install)))))
-    (configuration-layer//configure-packages configuration-layer--packages)
-    (configuration-layer//load-layers-files
-     configuration-layer--layers '("keybindings.el"))
-    (when (and dotspacemacs-delete-orphan-packages
-               (not configuration-layer-distribution)
-               (not configuration-layer-no-layer))
-      (configuration-layer/delete-orphan-packages
-       configuration-layer--packages))))
+  ;; Force the display of warning buffers at the bottom
+  (let ((display-buffer-alist
+         '(("\\(\\*Compile-Log\\*\\)\\|\\(\\*Warnings\\*\\)"
+            (display-buffer-in-side-window)
+            (inhibit-same-window . t)
+            (side . bottom)
+            (window-height . 0.2)))))
+    (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
+    (when (spacemacs-buffer//choose-banner)
+      (spacemacs-buffer//inject-version t))
+    ;; layers
+    (setq configuration-layer--layers (configuration-layer//declare-layers))
+    (configuration-layer//configure-layers configuration-layer--layers)
+    ;; packages
+    (setq configuration-layer--packages (configuration-layer//declare-packages
+                                         configuration-layer--layers))
+    (setq configuration-layer--used-distant-packages
+          (configuration-layer//get-distant-used-packages
+           configuration-layer--packages))
+    (configuration-layer/load-auto-layer-file)
+    (unless no-install
+      (configuration-layer//install-packages
+       (configuration-layer/filter-objects
+        configuration-layer--used-distant-packages
+        (lambda (x)
+          (not (oref x :lazy-install)))))
+      (configuration-layer//configure-packages configuration-layer--packages)
+      (configuration-layer//load-layers-files
+       configuration-layer--layers '("keybindings.el"))
+      (when (and dotspacemacs-delete-orphan-packages
+                 (not configuration-layer-distribution)
+                 (not configuration-layer-no-layer))
+        (configuration-layer/delete-orphan-packages
+         configuration-layer--packages)))))
 
 (defun configuration-layer/load-auto-layer-file ()
   "Load `auto-layer.el' file"
