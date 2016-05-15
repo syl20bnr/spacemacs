@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq spacemacs-projects
+(setq spacemacs-projects-packages
       '(
         neotree
         projectile
