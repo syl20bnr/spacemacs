@@ -263,7 +263,6 @@
 
 (defun spacemacs-base/init-nlinum ()
   (use-package nlinum
-    :defer 1 ;; fix `Invalid face: linum'
     :init
     (progn
       ;; Activate nlinum-mode in all prog-mode and text-mode buffers if the setting is
