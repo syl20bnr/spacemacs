@@ -50,6 +50,9 @@
             helm-imenu-execute-action-at-once-if-one nil
             helm-org-format-outline-path t)
 
+      (when (configuration-layer/package-usedp 'projectile)
+        (setq projectile-completion-system 'helm))
+
       ;; hide minibuffer in Helm session, since we use the header line already
       (defun helm-hide-minibuffer-maybe ()
         (when (with-helm-buffer helm-echo-input-in-header-line)
