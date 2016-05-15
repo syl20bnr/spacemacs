@@ -180,7 +180,10 @@
 
       ;; use helm by default for M-x, C-x C-f, and C-x b
       (unless (configuration-layer/package-usedp 'smex)
-        (global-set-key (kbd "M-x") 'helm-M-x))
+        (global-set-key (kbd "M-x") 'helm-M-x)
+        (spacemacs/set-leader-keys
+          "SPC" 'helm-M-x)
+        )
       (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
       (global-set-key (kbd "C-x b") 'helm-buffers-list)
 
