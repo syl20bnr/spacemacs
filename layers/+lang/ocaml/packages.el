@@ -70,7 +70,12 @@
         "hh" 'merlin-document
         "ht" 'merlin-type-enclosing
         "hT" 'merlin-type-expr
-        "rd" 'merlin-destruct))))
+        "rd" 'merlin-destruct)
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mc" "compile/check")
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "me" "errors")
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mh" "help")
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mf" "refactor"))))
 
 (defun ocaml/init-ocp-indent ()
   (use-package ocp-indent
@@ -151,6 +156,7 @@
         "sp" 'utop-eval-phrase
         "sP" 'spacemacs/utop-eval-phrase-and-go
         "sr" 'utop-eval-region
-        "sR" 'spacemacs/utop-eval-region-and-go))
+        "sR" 'spacemacs/utop-eval-region-and-go)
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "ms" "send"))
     (define-key utop-mode-map (kbd "C-j") 'utop-history-goto-next)
     (define-key utop-mode-map (kbd "C-k") 'utop-history-goto-prev)))
