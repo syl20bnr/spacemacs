@@ -89,7 +89,17 @@
         "si" 'slime
         "sq" 'slime-quit-lisp
 
-        "tf" 'slime-toggle-fancy-trace))))
+        "tf" 'slime-toggle-fancy-trace)
+      ;; prefix names for which-key
+      (mapc (lambda (x)
+              (spacemacs/declare-prefix-for-mode 'lisp-mode (car x) (cdr x)))
+            '(("mh" . "help")
+              ("me" . "eval")
+              ("ms" . "repl")
+              ("mc" . "compile")
+              ("mg" . "nav")
+              ("mm" . "macro")
+              ("mt" . "toggle"))))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun common-lisp/init-common-lisp-snippets ()))
