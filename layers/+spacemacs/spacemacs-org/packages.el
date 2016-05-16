@@ -20,7 +20,7 @@
     ;; to allow the `org' layer to own the `org' package instead of this
     ;; layer. So it is easier for users to steal the ownership of the
     ;; `org' package.
-    (default-org :location built-in)
+    (default-org-config :location built-in)
     (org-plus-contrib :step pre)
     org-bullets
     (space-doc :location local)
@@ -33,7 +33,7 @@
 ;; dummy init function to force installation of `org-plus-contrib'
 (defun spacemacs-org/init-org-plus-contrib ())
 
-(defun spacemacs-org/init-default-org ()
+(defun spacemacs-org/init-default-org-config ()
   (use-package org
     :commands (org-clock-out org-occur-in-agenda-files org-agenda-files)
     :defer t
