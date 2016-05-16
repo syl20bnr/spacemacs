@@ -67,9 +67,9 @@
   (use-package flyspell-correct
     :commands (flyspell-correct-word-generic)
     :init
-    (when (configuration-layer/layer-usedp 'spacemacs-ivy)
+    (when (configuration-layer/layer-usedp 'ivy)
       (setq flyspell-correct-interface 'flyspell-correct-ivy))
-    (when (configuration-layer/layer-usedp 'spacemacs-helm)
+    (when (configuration-layer/layer-usedp 'helm)
       (setq flyspell-correct-interface 'flyspell-correct-helm))
     (when (bound-and-true-p flyspell-correct-interface)
       (spacemacs/set-leader-keys "Sc" 'flyspell-correct-word-generic))))

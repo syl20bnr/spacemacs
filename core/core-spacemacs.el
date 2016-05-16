@@ -209,9 +209,9 @@ defer call using `spacemacs-post-user-config-hook'."
    (display-graphic-p)
    dotspacemacs-distribution
    dotspacemacs-editing-style
-   (cond ((configuration-layer/layer-usedp 'spacemacs-helm)
+   (cond ((configuration-layer/layer-usedp 'helm)
           'helm)
-         ((configuration-layer/layer-usedp 'spacemacs-ivy)
+         ((configuration-layer/layer-usedp 'ivy)
           'ivy)
          (t 'helm))
    (pp-to-string dotspacemacs-configuration-layers)))

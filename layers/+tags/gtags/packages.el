@@ -19,7 +19,7 @@
   (use-package ggtags
     :defer t))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
+(when (configuration-layer/layer-usedp 'helm)
   (defun gtags/init-helm-gtags ()
     (use-package helm-gtags
       :defer t

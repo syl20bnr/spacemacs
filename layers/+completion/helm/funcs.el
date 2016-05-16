@@ -146,13 +146,13 @@ Ensure that helm is required before calling FUNC."
          (call-interactively ',func))
        (spacemacs/set-leader-keys ,keys ',func-name))))
 
-(defun spacemacs-helm//find-files-edit (candidate)
+(defun spacemacs//helm-find-files-edit (candidate)
   "Opens a dired buffer and immediately switches to editable mode."
   (dired (file-name-directory candidate))
   (dired-goto-file candidate)
   (dired-toggle-read-only))
 
-(defun spacemacs-helm/find-files-edit ()
+(defun spacemacs/helm-find-files-edit ()
   "Exits helm, opens a dired buffer and immediately switches to editable mode."
   (interactive)
-  (helm-exit-and-execute-action 'spacemacs-helm//find-files-edit))
+  (helm-exit-and-execute-action 'spacemacs//helm-find-files-edit))

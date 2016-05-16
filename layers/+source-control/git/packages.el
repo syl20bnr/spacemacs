@@ -33,7 +33,7 @@
     (evil-define-key 'motion magit-mode-map
       (kbd dotspacemacs-leader-key) spacemacs-default-map)))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
+(when (configuration-layer/layer-usedp 'helm)
   (defun git/init-helm-gitignore ()
     (use-package helm-gitignore
       :defer t
@@ -111,7 +111,7 @@
     :init
     (progn
       (setq magit-completing-read-function
-            (if (configuration-layer/layer-usedp 'spacemacs-ivy)
+            (if (configuration-layer/layer-usedp 'ivy)
                 'ivy-completing-read
               'magit-builtin-completing-read))
       (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))

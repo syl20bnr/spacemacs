@@ -99,13 +99,13 @@
 (defun python/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'python-mode))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
+(when (configuration-layer/layer-usedp 'helm)
   (defun python/pre-init-helm-cscope ()
     (spacemacs|use-package-add-hook xcscope
       :post-init
       (spacemacs/setup-helm-cscope 'python-mode))))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
+(when (configuration-layer/layer-usedp 'helm)
   (defun python/init-helm-pydoc ()
     (use-package helm-pydoc
       :defer t

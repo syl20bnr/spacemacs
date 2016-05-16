@@ -197,16 +197,16 @@
     (setq open-junk-file-format (concat spacemacs-cache-directory "junk/%Y/%m/%d-%H%M%S."))
     (defun spacemacs/open-junk-file (&optional arg)
       "Open junk file Open junk file using helm or ivy depending
-on whether the spacemacs-ivy layer is used or not, with
+on whether the `ivy' layer is used or not, with
 `prefix-arg' search in junk files"
       (interactive "P")
       (let* ((fname (format-time-string open-junk-file-format (current-time)))
              (rel-fname (file-name-nondirectory fname))
              (junk-dir (file-name-directory fname))
              (default-directory junk-dir))
-        (cond ((and arg (configuration-layer/layer-usedp 'spacemacs-ivy))
+        (cond ((and arg (configuration-layer/layer-usedp 'ivy))
                (spacemacs/counsel-search dotspacemacs-search-tools nil junk-dir))
-              ((configuration-layer/layer-usedp 'spacemacs-ivy)
+              ((configuration-layer/layer-usedp 'ivy)
                (require 'counsel)
                (counsel-find-file rel-fname))
               (arg

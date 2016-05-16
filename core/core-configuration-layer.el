@@ -353,7 +353,7 @@ layer directory."
             (candidates . ,(append current-layer-paths
                                    (list other-choice)))
             (action . (lambda (c) c))))
-         (layer-path-sel (if (configuration-layer/layer-usedp 'spacemacs-ivy)
+         (layer-path-sel (if (configuration-layer/layer-usedp 'ivy)
                              (ivy-read "Configuration layer path: "
                                        (append current-layer-paths
                                                (list other-choice)))

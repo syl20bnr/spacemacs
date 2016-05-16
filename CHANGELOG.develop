@@ -43,7 +43,7 @@ This file containes the change log for the next major version of Spacemacs.
   the transient state open.
 *** Hot new features
 - Add lazy installation of layers based on =auto-mode-alist=.
-- Support for Ivy, add the =spacemacs-ivy= layer to your dotfile and
+- Support for Ivy, add the =ivy= layer to your dotfile and
   restart to replace =Helm= by =Ivy= (thanks to justbur and contributors)
 - New micro states powered by =Hydra=. Micro states are now called transient
   states (thanks to justbur)
@@ -61,8 +61,8 @@ This file containes the change log for the next major version of Spacemacs.
 - pdf-tools in =+tools= (thanks to Andre0991)
 - plantuml in =+lang= (thanks to robbyoconnor)
 - rebox in =+tools= (thanks to choppsv1)
-- spacemacs-ivy in =completion= (thanks to justbur)
-- spacemacs-helm in =completion= (moved from spacemacs-base) (thanks to justbur)
+- ivy in =completion= (thanks to justbur)
+- helm in =completion= (moved from spacemacs-base) (thanks to justbur)
 - systemd in =+config-files= (thanks to StreakyCobra)
 *** Dotfile changes
 - The editing style value can now be a list. Like layers the keyword

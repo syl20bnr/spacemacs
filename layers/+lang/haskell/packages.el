@@ -56,7 +56,7 @@
     (push '(company-cabal)
           company-backends-haskell-cabal-mode)))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
+(when (configuration-layer/layer-usedp 'helm)
   (defun haskell/init-helm-hoogle ()
     (use-package helm-hoogle
       :defer t

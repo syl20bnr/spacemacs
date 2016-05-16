@@ -31,7 +31,7 @@
         "h" '2048-left
         "l" '2048-right))))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
+(when (configuration-layer/layer-usedp 'helm)
   (defun games/init-helm-games ()
     (use-package helm-games
       :commands helm-games

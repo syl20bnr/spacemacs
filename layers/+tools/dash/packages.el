@@ -8,7 +8,7 @@
       (spacemacs/system-is-mswindows))
   (push 'zeal-at-point dash-packages)))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
+(when (configuration-layer/layer-usedp 'helm)
   (defun dash/init-helm-dash ()
     (use-package helm-dash
       :defer t

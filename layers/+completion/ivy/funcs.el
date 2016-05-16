@@ -240,8 +240,8 @@ To prevent this error we just wrap `describe-mode' to defeat the
     (spacemacs/set-leader-keys
       -key (lambda ()
              (interactive)
-             (message "The command usually bound to %s %s has \
- not been implemented for the spacemacs-ivy layer yet."
+             (message (concat "The command usually bound to %s %s has "
+                              "not been implemented for the `ivy' layer yet.")
                       dotspacemacs-leader-key -key)))))
 
 (defun spacemacs/ivy-available-repls ()

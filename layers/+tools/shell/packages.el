@@ -187,7 +187,7 @@ is achieved by adding the relevant text properties."
     (with-eval-after-load 'eshell
       (require 'eshell-z))))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
+(when (configuration-layer/layer-usedp 'helm)
   (defun shell/pre-init-helm ()
     (spacemacs|use-package-add-hook helm
       :post-init

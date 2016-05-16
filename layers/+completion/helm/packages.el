@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq spacemacs-helm-packages
+(setq helm-packages
       '(ace-jump-helm-line
         bookmark
         helm
@@ -25,17 +25,17 @@
 
 ;; Initialization of packages
 
-(defun spacemacs-helm/init-ace-jump-helm-line ()
+(defun helm/init-ace-jump-helm-line ()
   (use-package ace-jump-helm-line
     :defer t
     :init
     (with-eval-after-load 'helm
       (define-key helm-map (kbd "C-q") 'ace-jump-helm-line))))
 
-(defun spacemacs-helm/post-init-bookmark ()
+(defun helm/post-init-bookmark ()
   (spacemacs/set-leader-keys "fb" 'helm-filtered-bookmarks))
 
-(defun spacemacs-helm/init-helm ()
+(defun helm/init-helm ()
   (use-package helm
     :defer 1
     :commands (spacemacs/helm-find-files)
@@ -92,7 +92,7 @@
       (spacemacs||set-helm-key "swg" helm-google-suggest)
       (with-eval-after-load 'helm-files
         (define-key helm-find-files-map
-          (kbd "C-c C-e") 'spacemacs-helm/find-files-edit))
+          (kbd "C-c C-e") 'helm/find-files-edit))
       ;; Add minibuffer history with `helm-minibuffer-history'
       (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
       ;; define the key binding at the very end in order to allow the user
@@ -122,7 +122,7 @@
       (with-eval-after-load 'helm-mode ; required
         (spacemacs|hide-lighter helm-mode)))))
 
-(defun spacemacs-helm/init-helm-ag ()
+(defun helm/init-helm-ag ()
   (use-package helm-ag
     :defer t
     :init
@@ -430,7 +430,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (kbd "gr") 'helm-ag--update-save-results
         (kbd "q") 'quit-window))))
 
-(defun spacemacs-helm/init-helm-descbinds ()
+(defun helm/init-helm-descbinds ()
   (use-package helm-descbinds
     :defer t
     :init
@@ -439,7 +439,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (add-hook 'helm-mode-hook 'helm-descbinds-mode)
       (spacemacs/set-leader-keys "?" 'helm-descbinds))))
 
-(defun spacemacs-helm/init-helm-flx ()
+(defun helm/init-helm-flx ()
   (use-package helm-flx
     :defer t)
   (spacemacs|use-package-add-hook helm
@@ -450,7 +450,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (setq helm-flx-for-helm-find-files nil)
       (helm-flx-mode))))
 
-(defun spacemacs-helm/init-helm-make ()
+(defun helm/init-helm-make ()
   (use-package helm-make
     :defer t
     :init
@@ -458,7 +458,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       "cc" 'helm-make-projectile
       "cm" 'helm-make)))
 
-(defun spacemacs-helm/init-helm-mode-manager ()
+(defun helm/init-helm-mode-manager ()
   (use-package helm-mode-manager
     :defer t
     :init
@@ -467,7 +467,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       ;; "hm"    'helm-disable-minor-mode
       "h C-m" 'helm-enable-minor-mode)))
 
-(defun spacemacs-helm/init-helm-projectile ()
+(defun helm/init-helm-projectile ()
   (use-package helm-projectile
     :commands (helm-projectile-switch-to-buffer
                helm-projectile-find-dir
@@ -500,7 +500,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "pv"  'projectile-vc
         "sgp" 'helm-projectile-grep))))
 
-(defun spacemacs-helm/init-helm-spacemacs-help ()
+(defun helm/init-helm-spacemacs-help ()
   (use-package helm-spacemacs-help
     :commands (helm-spacemacs-help-dotspacemacs
                helm-spacemacs-help
@@ -529,7 +529,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "h r"   'helm-spacemacs-help-docs
         "h t"   'helm-spacemacs-help-toggles))))
 
-(defun spacemacs-helm/init-helm-swoop ()
+(defun helm/init-helm-swoop ()
   (use-package helm-swoop
     :defer t
     :init
@@ -559,7 +559,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (defadvice helm-swoop (before add-evil-jump activate)
         (evil-set-jump)))))
 
-(defun spacemacs-helm/init-helm-themes ()
+(defun helm/init-helm-themes ()
   (use-package helm-themes
     :defer t
     :init

@@ -37,7 +37,7 @@
            (format "pycscope -R -f '%s'"
                    (expand-file-name "cscope.out" directory))))))))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
+(when (configuration-layer/layer-usedp 'helm)
   (defun cscope/init-helm-cscope ()
     (use-package helm-cscope
       :defer t

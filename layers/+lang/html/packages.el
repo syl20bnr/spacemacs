@@ -117,7 +117,7 @@
   (use-package haml-mode
     :defer t))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
+(when (configuration-layer/layer-usedp 'helm)
   (defun html/init-helm-css-scss ()
     (use-package helm-css-scss
       :defer t

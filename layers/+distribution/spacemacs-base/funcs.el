@@ -59,12 +59,12 @@
   (interactive)
   (call-interactively
    (cond
-    ((and (configuration-layer/layer-usedp 'spacemacs-helm)
+    ((and (configuration-layer/layer-usedp 'helm)
           (eq major-mode 'org-mode))
      'helm-org-in-buffer-headings)
-    ((configuration-layer/layer-usedp 'spacemacs-helm)
+    ((configuration-layer/layer-usedp 'helm)
      'helm-semantic-or-imenu)
-    ((configuration-layer/layer-usedp 'spacemacs-ivy)
+    ((configuration-layer/layer-usedp 'ivy)
      'counsel-imenu)
     (t 'imenu))))
 

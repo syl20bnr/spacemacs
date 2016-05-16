@@ -10,7 +10,7 @@
 (defun nixos/init-nixos-options ()
   (use-package nixos-options))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
+(when (configuration-layer/layer-usedp 'helm)
   (defun nixos/init-helm-nixos-options ()
     (use-package helm-nixos-options
       :config

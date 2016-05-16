@@ -567,9 +567,9 @@ border."
                    (lambda (&rest ignore)
                      (let ((comp-frontend
                             (cond
-                             ((configuration-layer/layer-usedp 'spacemacs-helm)
+                             ((configuration-layer/layer-usedp 'helm)
                               'helm-spacemacs-help)
-                             ((configuration-layer/layer-usedp 'spacemacs-ivy)
+                             ((configuration-layer/layer-usedp 'ivy)
                               'ivy-spacemacs-help))))
                        (call-interactively comp-frontend)))
                    :mouse-face 'highlight
@@ -732,7 +732,7 @@ border."
                   (spacemacs//insert--shortcut "c" "Agenda:")
                   (insert list-separator)))
                ((eq el 'bookmarks)
-                (when (configuration-layer/layer-usedp 'spacemacs-helm)
+                (when (configuration-layer/layer-usedp 'helm)
                   (helm-mode))
                 (require 'bookmark)
                 (when (spacemacs-buffer//insert-bookmark-list

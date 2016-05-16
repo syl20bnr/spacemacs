@@ -472,13 +472,13 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
                    (,(concat "A minimalist distribution that you can build on "
                              "(spacemacs-base)")
                     spacemacs-base)))))
-             ("spacemacs-helm"
+             ("helm"
               ,(dotspacemacs//ido-completing-read
                 "What type of completion framework do you want? "
                 '(("A heavy one but full-featured (helm)"
-                   "spacemacs-helm")
+                   "helm")
                   ("A lighter one but still very powerful (ivy)"
-                   "spacemacs-ivy")
+                   "ivy")
                   ;; For now, None works only if the user selected
                   ;; the spacemacs-base distribution
                   ("None (not recommended)" ""))))))))

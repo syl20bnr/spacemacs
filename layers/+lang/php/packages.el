@@ -43,7 +43,7 @@
 (defun php/post-init-ggtags ()
   (add-hook 'php-mode-hook 'ggtags-mode))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
+(when (configuration-layer/layer-usedp 'helm)
   (defun php/post-init-helm-gtags ()
     (spacemacs/helm-gtags-define-keys-for-mode 'php-mode)))
 

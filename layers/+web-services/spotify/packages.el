@@ -24,7 +24,7 @@
         "amsN" 'spotify-previous
         "amsQ" 'spotify-quit))))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
+(when (configuration-layer/layer-usedp 'helm)
   (defun spotify/init-helm-spotify ()
     (use-package helm-spotify
       :defer t

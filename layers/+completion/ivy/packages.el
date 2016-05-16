@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq spacemacs-ivy-packages
+(setq ivy-packages
       '(auto-highlight-symbol
         counsel
         evil
@@ -23,7 +23,7 @@
         swiper
         wgrep))
 
-(defun spacemacs-ivy/init-counsel ()
+(defun ivy/init-counsel ()
   (use-package counsel
     :config
     (progn
@@ -79,7 +79,7 @@
       ;; Set syntax highlighting for counsel search results
       (ivy-set-display-transformer 'spacemacs/counsel-search 'counsel-git-grep-transformer))))
 
-(defun spacemacs-ivy/post-init-auto-highlight-symbol ()
+(defun ivy/post-init-auto-highlight-symbol ()
   (setq spacemacs-symbol-highlight-transient-state-remove-bindings
         '("/" "b" "f"))
   (setq spacemacs-symbol-highlight-transient-state-add-bindings
@@ -87,9 +87,9 @@
           ("b" spacemacs/swiper-all-region-or-symbol :exit t)
           ("f" spacemacs/search-auto-region-or-symbol :exit t))))
 
-(defun spacemacs-ivy/init-flx ())
+(defun ivy/init-flx ())
 
-(defun spacemacs-ivy/init-ivy ()
+(defun ivy/init-ivy ()
   (use-package ivy
     :config
     (progn
@@ -129,23 +129,23 @@
       (ido-mode -1))))
 
 ;; Why do we need this ?
-(defun spacemacs-ivy/init-pcre2el ()
+(defun ivy/init-pcre2el ()
   (use-package pcre2el :defer t))
 
-(defun spacemacs-ivy/post-init-projectile ()
+(defun ivy/post-init-projectile ()
   (setq projectile-completion-system 'ivy)
   (spacemacs/set-leader-keys
     "pp"  'projectile-switch-project
     "pv"  'projectile-vc))
 
-(defun spacemacs-ivy/init-smex ()
+(defun ivy/init-smex ()
   (use-package smex
     :defer t
     :init (setq-default smex-history-length 32
                         smex-save-file (concat spacemacs-cache-directory
                                                ".smex-items"))))
 
-(defun spacemacs-ivy/init-ivy-spacemacs-help ()
+(defun ivy/init-ivy-spacemacs-help ()
   (use-package ivy-spacemacs-help
     :commands (ivy-spacemacs-help-dotspacemacs
                ivy-spacemacs-help
@@ -163,7 +163,7 @@
             "h r"   'ivy-spacemacs-help-docs
             "h t"   'ivy-spacemacs-help-toggles)))
 
-(defun spacemacs-ivy/init-swiper ()
+(defun ivy/init-swiper ()
   (use-package swiper
     :config
     (progn
@@ -174,7 +174,7 @@
         "sB" 'spacemacs/swiper-all-region-or-symbol)
       (global-set-key "\C-s" 'swiper))))
 
-(defun spacemacs-ivy/init-wgrep ()
+(defun ivy/init-wgrep ()
   (evil-define-key 'normal wgrep-mode-map ",," 'wgrep-finish-edit)
   (evil-define-key 'normal wgrep-mode-map ",c" 'wgrep-finish-edit)
   (evil-define-key 'normal wgrep-mode-map ",a" 'wgrep-abort-changes)

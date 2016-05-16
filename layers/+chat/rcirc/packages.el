@@ -25,7 +25,7 @@
 (defun rcirc/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'rcirc-mode-hook))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
+(when (configuration-layer/layer-usedp 'helm)
   (defun rcirc/init-helm-rcirc ()
     (use-package helm-rcirc
       :commands helm-rcirc-auto-join-channels

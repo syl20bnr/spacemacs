@@ -26,7 +26,7 @@
         (setq insert-directory-program gls
               dired-listing-switches "-aBhl --group-directories-first")))))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
+(when (configuration-layer/layer-usedp 'helm)
   (defun osx/pre-init-helm ()
     ;; Use `mdfind' instead of `locate'.
     (when (spacemacs/system-is-mac)
