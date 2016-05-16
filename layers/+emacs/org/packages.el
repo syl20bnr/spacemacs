@@ -147,6 +147,16 @@ Will work on both org-mode and any mode that accepts plain html."
                (format tag (help-key-description key nil)))
             (insert (format tag ""))
             (forward-char -8))))
+
+      (dolist (prefix '(("mx" . "text")
+                        ("mh" . "headings")
+                        ("mi" . "insert")
+                        ("mS" . "subtrees")
+                        ("mt" . "tables")
+                        ("mtd" . "delete")
+                        ("mti" . "insert")
+                        ("mtt" . "toggle")))
+        (spacemacs/declare-prefix-for-mode 'org-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "'" 'org-edit-special
         "c" 'org-capture
