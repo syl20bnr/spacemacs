@@ -76,7 +76,9 @@
   (use-package ocp-indent
     :defer t
     :init
-    (add-hook 'tuareg-mode-hook 'ocp-indent-caml-mode-setup)))
+    (add-hook 'tuareg-mode-hook 'ocp-indent-caml-mode-setup)
+    (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+      "=" 'ocp-indent-buffer)))
 
 (defun ocaml/post-init-smartparens ()
   (with-eval-after-load 'smartparens
