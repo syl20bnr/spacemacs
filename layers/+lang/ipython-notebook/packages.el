@@ -26,7 +26,7 @@
       (defun spacemacs//concat-leader (key)
         (if dotspacemacs-major-mode-leader-key
             (concat dotspacemacs-major-mode-leader-key key)
-            (concat "," key)))
+          (concat "," key)))
 
       (spacemacs/set-leader-keys-for-major-mode 'ein:notebook-multilang-mode
         "y" 'ein:worksheet-copy-cell
@@ -81,14 +81,16 @@
       ;; keybindings mirror ipython web interface behavior
       (evil-define-key 'insert ein:notebook-multilang-mode-map
         (kbd "<C-return>") 'ein:worksheet-execute-cell
-        (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next)
+        (kbd "<s-return>") 'ein:worksheet-execute-cell-and-goto-next)
 
       (evil-define-key 'normal ein:notebook-multilang-mode-map
         ;; keybindings mirror ipython web interface behavior
         (kbd "<C-return>") 'ein:worksheet-execute-cell
-        (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next
+        (kbd "<s-return>") 'ein:worksheet-execute-cell-and-goto-next
         "gj" 'ein:worksheet-goto-next-input
         "gk" 'ein:worksheet-goto-prev-input)
+
+      (define-key ein:notebooklist-mode-map "o" 'spacemacs/ace-buffer-links)
 
       ;; if this is not required then the following keygindings fail
       (require 'ein-multilang)
