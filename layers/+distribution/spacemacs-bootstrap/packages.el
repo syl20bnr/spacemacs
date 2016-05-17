@@ -131,16 +131,16 @@
   (spacemacs|define-transient-state scroll
     :title "Scrolling Transient State"
     :bindings
-    ("." evil-scroll-page-up "page up")
-    ("," evil-scroll-page-down "page down")
+    ("," evil-scroll-page-up "page up")
+    ("." evil-scroll-page-down "page down")
     ;; half page
-    (">" evil-scroll-up "half page up")
-    ("<" evil-scroll-down "half page down"))
+    ("<" evil-scroll-up "half page up")
+    (">" evil-scroll-down "half page down"))
   (spacemacs/set-leader-keys
-    "n." 'spacemacs/scroll-transient-state/evil-scroll-page-up
-    "n," 'spacemacs/scroll-transient-state/evil-scroll-page-down
-    "n>" 'spacemacs/scroll-transient-state/evil-scroll-up
-    "n<" 'spacemacs/scroll-transient-state/evil-scroll-down)
+    "n," 'spacemacs/scroll-transient-state/evil-scroll-page-up
+    "n." 'spacemacs/scroll-transient-state/evil-scroll-page-down
+    "n<" 'spacemacs/scroll-transient-state/evil-scroll-up
+    "n>" 'spacemacs/scroll-transient-state/evil-scroll-down)
 
   ;; pasting transient-state
   (evil-define-command spacemacs//transient-state-0 ()
