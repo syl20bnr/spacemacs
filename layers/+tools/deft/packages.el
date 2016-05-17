@@ -33,6 +33,7 @@
         (evil-insert-state nil)))
     :config
     (progn
+      (setq deft-use-filter-string-for-filename t)
       (spacemacs/set-leader-keys-for-major-mode 'deft-mode
         "d" 'deft-delete-file
         "i" 'deft-toggle-incremental-search
