@@ -328,12 +328,7 @@
       :evil-leader "t`")))
 
 (defun spacemacs-evil/init-hs-minor-mode ()
-  ;; required for evil folding
-  (defun spacemacs//enable-hs-minor-mode ()
-    "Enable hs-minor-mode for code folding."
-    (ignore-errors
-      (hs-minor-mode)
-      (spacemacs|hide-lighter hs-minor-mode))))
+  (add-hook 'prog-mode-hook 'spacemacs//enable-hs-minor-mode))
 
 (defun spacemacs-evil/init-vi-tilde-fringe ()
   (spacemacs|do-after-display-system-init
