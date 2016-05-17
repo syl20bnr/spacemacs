@@ -81,12 +81,12 @@
       ;; keybindings mirror ipython web interface behavior
       (evil-define-key 'insert ein:notebook-multilang-mode-map
         (kbd "<C-return>") 'ein:worksheet-execute-cell
-        (kbd "<s-return>") 'ein:worksheet-execute-cell-and-goto-next)
+        (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next)
 
       (evil-define-key 'normal ein:notebook-multilang-mode-map
         ;; keybindings mirror ipython web interface behavior
         (kbd "<C-return>") 'ein:worksheet-execute-cell
-        (kbd "<s-return>") 'ein:worksheet-execute-cell-and-goto-next
+        (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next
         "gj" 'ein:worksheet-goto-next-input
         "gk" 'ein:worksheet-goto-prev-input)
 
