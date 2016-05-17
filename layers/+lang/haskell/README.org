@@ -189,7 +189,7 @@ need to add following line in your =dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
 (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
-        "mht"  'ghc-show-type)
+        "ht"  'ghc-show-type)
 #+END_SRC
 
 This might be useful, because =ghc-mod= doesn't require active REPL in order to
