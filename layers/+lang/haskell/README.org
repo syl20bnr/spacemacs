@@ -20,13 +20,14 @@
  - [[Key bindings][Key bindings]]
    - [[Documentation][Documentation]]
    - [[Debug][Debug]]
+   - [[Debug Buffer][Debug Buffer]]
    - [[REPL][REPL]]
    - [[Cabal commands][Cabal commands]]
    - [[Cabal files][Cabal files]]
    - [[Ghc-mod][Ghc-mod]]
      - [[Insert template][Insert template]]
  - [[Syntax checking][Syntax checking]]
-   - [[Flycheck   ][Flycheck   ]]
+   - [[Flycheck][Flycheck]]
    - [[HLint][HLint]]
    - [[ghc-mod][ghc-mod]]
    - [[Interactive haskell-mode][Interactive haskell-mode]]
@@ -43,7 +44,7 @@
    - [[Flycheck doesn't work with =stack=][Flycheck doesn't work with =stack=]]
      - [[The stack build directory is wrong][The stack build directory is wrong]]
      - [[The Project root directory is not set properly][The Project root directory is not set properly]]
-   - [[haskell-mode commands don't work ][haskell-mode commands don't work ]]
+   - [[haskell-mode commands don't work][haskell-mode commands don't work]]
    - [[=ghc-mod= and =haskell-mode= commands overlap. How do I know which command belongs to what?][=ghc-mod= and =haskell-mode= commands overlap. How do I know which command belongs to what?]]
    - [[Some commands start with =ghc-= and some with =haskell-=. What does that mean?][Some commands start with =ghc-= and some with =haskell-=. What does that mean?]]
 
@@ -285,6 +286,20 @@ Debug commands are prefixed by ~SPC m d~:
 | ~SPC m d a~ | abandon current process                    |
 | ~SPC m d r~ | refresh process buffer                     |
 
+** Debug Buffer
+| Key Binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~RET~         | select object at the point                  |
+| ~a~           | abandon current computation                 |
+| ~b~           | break on function                           |
+| ~c~           | continue the current computation            |
+| ~d~           | delete object at the point                  |
+| ~g~           | refresh the debugger buffer                 |
+| ~n~           | go to next step to inspect bindings         |
+| ~p~           | go to previous step to inspect the bindings |
+| ~s~           | step into the next function                 |
+| ~t~           | trace the expression                        |
+
 ** REPL
 REPL commands are prefixed by ~SPC m s~:
 
@@ -305,7 +320,7 @@ Cabal commands are prefixed by ~SPC m c~:
 | ~SPC m c b~ | build the current cabal project, i.e. invoke =cabal build= |
 | ~SPC m c c~ | compile the current project, i.e. invoke =ghc=             |
 | ~SPC m c v~ | visit the cabal file                                       |
- 
+
 ** Cabal files
 This commands are available in a cabal file.
 
@@ -362,14 +377,14 @@ somehow error and warnings in the code. Those components are
 - hlint (via flycheck)
 - ghc-mod
 - haskell-mode interactive
-    
+
 As all these components can be active at the same time, it can be tricky to know
 which component is displaying which message, especially when they disagree or
 one is not working. Only flycheck errors (ghc and hlint) are displayed in the
 error list and can be navigated using the standard spacemacs key bindings (under
 ~SPC e~) even though errors from other modes might highlight the actual buffer.
 
-** Flycheck   
+** Flycheck
 This is the standard spacemacs way to do syntax checking and the most elaborate.
 You need the syntax-checking layer to enable this. Please the documentation for
 that layer on how to interact with flycheck.
@@ -528,7 +543,7 @@ stack $*
 
 Make sure you set =flycheck-haskell-stack-ghc-executable= to this script.
 
-** haskell-mode commands don't work 
+** haskell-mode commands don't work
 Some (most of) the haskell-mode commands only works when haskell-mode is in
 interactive mode, i.e. as a interactive session associated to it. Load it using
 ~SPC m s b~.
