@@ -351,6 +351,7 @@
   "wd"  'delete-window
   "wt"  'spacemacs/toggle-current-window-dedication
   "wf"  'follow-mode
+  "wF"  'make-frame
   "wH"  'evil-window-move-far-left
   "w <S-left>"  'evil-window-move-far-left
   "wh"  'evil-window-left
