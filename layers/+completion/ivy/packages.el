@@ -17,6 +17,7 @@
         flx
         ivy
         (ivy-spacemacs-help :location local)
+        perspectives
         projectile
         smex
         swiper
@@ -70,6 +71,12 @@
         "skF" 'spacemacs/search-ack-region-or-symbol
         "skp" 'spacemacs/search-project-ack
         "skP" 'spacemacs/search-project-ack-region-or-symbol)
+
+      ;; set additional ivy actions
+      (ivy-set-actions
+       'counsel-find-file
+       spacemacs--ivy-file-actions)
+
       ;; remaps built-in commands that have a counsel replacement
       (counsel-mode 1)
       (spacemacs|hide-lighter counsel-mode)
@@ -119,6 +126,12 @@
         "fr" 'ivy-recentf
         "rl" 'ivy-resume
         "bb" 'ivy-switch-buffer)
+
+      ;; custom actions for recentf
+      (ivy-set-actions
+       'ivy-recentf
+       spacemacs--ivy-file-actions)
+
       (ivy-mode 1)
       (global-set-key (kbd "C-c C-r") 'ivy-resume)
       (global-set-key (kbd "<f6>") 'ivy-resume)
@@ -128,20 +141,21 @@
                      'spacemacs//counsel-occur)
       (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
         "w" 'ivy-wgrep-change-to-wgrep-mode)
-      ;; Perspectives support
-      (ivy-set-actions
-       'spacemacs/ivy-perspectives
-       '(("c" persp-kill-without-buffers "Close perspective(s)")
-         ("k" persp-kill  "Kill perspective(s)")))
-      (setq spacemacs-layouts-transient-state-remove-bindings
-            '("b" "l" "C" "X"))
-      (setq spacemacs-layouts-transient-state-add-bindings
-            '(("b" spacemacs/ivy-persp-buffer)
-              ("l" spacemacs/ivy-perspectives)
-              ("C" spacemacs/ivy-persp-close-other :exit t)
-              ("X" spacemacs/ivy-persp-kill-other :exit t)))
       ;; Why do we do this ?
       (ido-mode -1))))
+
+(defun ivy/post-init-perspectives ()
+  (ivy-set-actions
+   'spacemacs/ivy-perspectives
+   '(("c" persp-kill-without-buffers "Close perspective(s)")
+     ("k" persp-kill  "Kill perspective(s)")))
+  (setq spacemacs-layouts-transient-state-remove-bindings
+        '("b" "l" "C" "X"))
+  (setq spacemacs-layouts-transient-state-add-bindings
+        '(("b" spacemacs/ivy-persp-buffer)
+          ("l" spacemacs/ivy-perspectives)
+          ("C" spacemacs/ivy-persp-close-other :exit t)
+          ("X" spacemacs/ivy-persp-kill-other :exit t))))
 
 (defun ivy/post-init-projectile ()
   (setq projectile-completion-system 'ivy)
