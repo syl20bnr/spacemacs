@@ -18,16 +18,16 @@
         ))
 
 (defun spacemacs-completion/init-default-helm-config ()
+  (setq helm-prevent-escaping-from-minibuffer t
+        helm-bookmark-show-location t
+        helm-display-header-line nil
+        helm-split-window-in-side-p t
+        helm-always-two-windows t
+        helm-echo-input-in-header-line t
+        helm-imenu-execute-action-at-once-if-one nil
+        helm-org-format-outline-path t
+        helm-display-function 'spacemacs//display-helm-window)
   (with-eval-after-load 'helm
-    (setq helm-prevent-escaping-from-minibuffer t
-          helm-bookmark-show-location t
-          helm-display-header-line nil
-          helm-split-window-in-side-p t
-          helm-always-two-windows t
-          helm-echo-input-in-header-line t
-          helm-imenu-execute-action-at-once-if-one nil
-          helm-org-format-outline-path t
-          helm-display-function 'spacemacs//display-helm-window)
     (spacemacs|hide-lighter helm-mode)
     (when (and dotspacemacs-helm-resize
                (or (eq dotspacemacs-helm-position 'bottom)
