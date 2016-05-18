@@ -232,6 +232,20 @@ To prevent this error we just wrap `describe-mode' to defeat the
       (interactive)
       (call-interactively 'describe-mode))))
 
+(defun spacemacs//counsel-with-git-grep (func x)
+  (when (string-match "\\`\\(.*?\\):\\([0-9]+\\):\\(.*\\)\\'" x)
+    (with-ivy-window
+      (let ((file-name (match-string-no-properties 1 x))
+            (line-number (match-string-no-properties 2 x)))
+        (funcall func
+                 (expand-file-name file-name counsel--git-grep-dir))
+        (goto-char (point-min))
+        (forward-line (1- (string-to-number line-number)))
+        (re-search-forward (ivy--regex ivy-text t) (line-end-position) t)
+        (unless (eq ivy-exit 'done)
+          (swiper--cleanup)
+          (swiper--add-overlays (ivy--regex ivy-text)))))))
+
 
 ;; Ivy
 
@@ -254,7 +268,8 @@ To prevent this error we just wrap `describe-mode' to defeat the
                         (require (car repl))
                         (call-interactively (cdr repl))))))
 
-;; perspectives
+
+;; Perspectives
 
 (defun spacemacs/ivy-perspectives ()
   "Control Panel for perspectives. Has many actions.

@@ -868,6 +868,28 @@ Compare them on count first,and in case of tie sort them alphabetically."
                                                (region-end))))
  (evil-end-undo-step))
 
+;; find file functions in split
+(defun spacemacs//display-in-split (buffer alist)
+  "Split selected window and display BUFFER in the new window.
+BUFFER and ALIST have the same form as in `display-buffer'. If ALIST contains
+a split-side entry, its value must be usable as the SIDE argument for
+`split-window'."
+  (let ((window (split-window nil nil (cdr (assq 'split-side alist)))))
+    (window--display-buffer buffer window 'window alist)
+    window))
+
+(defun spacemacs/find-file-vsplit (file)
+  "find file in vertical split"
+  (interactive "FFind file (vsplit): ")
+  (let ((buffer (find-file-noselect file)))
+    (pop-to-buffer buffer '(spacemacs//display-in-split (split-side . right)))))
+
+(defun spacemacs/find-file-split (file)
+  "find file in horizonatl split"
+  (interactive "FFind file (split): ")
+  (let ((buffer (find-file-noselect file)))
+    (pop-to-buffer buffer '(spacemacs//display-in-split (split-side . below)))))
+
 (defun spacemacs//intersperse (seq separator)
   "Returns a list with `SEPARATOR' added between each element
 of the list `SEQ'."
@@ -908,4 +930,3 @@ is nonempty."
   (interactive)
   (when compilation-last-buffer
     (delete-windows-on compilation-last-buffer)))
-
