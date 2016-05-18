@@ -20,6 +20,7 @@
  - [[Key bindings][Key bindings]]
    - [[Documentation][Documentation]]
    - [[Debug][Debug]]
+   - [[Debug Buffer][Debug Buffer]]
    - [[REPL][REPL]]
    - [[Cabal commands][Cabal commands]]
    - [[Cabal files][Cabal files]]
@@ -287,6 +288,20 @@ Debug commands are prefixed by ~SPC m d~:
 | ~SPC m d c~ | continue current process                   |
 | ~SPC m d a~ | abandon current process                    |
 | ~SPC m d r~ | refresh process buffer                     |
+
+** Debug Buffer
+| Key Binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~RET~         | select object at the point                  |
+| ~a~           | abandon current computation                 |
+| ~b~           | break on function                           |
+| ~c~           | continue the current computation            |
+| ~d~           | delete object at the point                  |
+| ~g~           | refresh the debugger buffer                 |
+| ~n~           | go to next step to inspect bindings         |
+| ~p~           | go to previous step to inspect the bindings |
+| ~s~           | step into the next function                 |
+| ~t~           | trace the expression                        |
 
 ** REPL
 REPL commands are prefixed by ~SPC m s~:
