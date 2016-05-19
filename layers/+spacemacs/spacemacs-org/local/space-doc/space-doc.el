@@ -105,7 +105,12 @@ appearances in the current buffer. The function uses
 
   ;; `org-do-emphasis-faces' returns non-nil value when it
   ;; found a region to emphasize.
-  (when (and found space-doc-mode)
+  (when (and found
+             space-doc-mode
+             (not (string-empty-p
+                   (replace-regexp-in-string "\\*+"
+                                             ""
+                                             (match-string 4)))))
     (spacemacs//space-doc-emphasis-region
      (match-beginning 2)
      (match-end 2)))
@@ -287,10 +292,14 @@ If ENABLE has nil value - revert to the default."
                 'spacemacs--space-doc-org-block-end-line-face-remap-cookie)
                (face-remap-add-relative 'org-block-end-line
                                         hide-bn-text-face))))
-    (face-remap-remove-relative
-     spacemacs--space-doc-org-block-begin-line-face-remap-cookie)
-    (face-remap-remove-relative
-     spacemacs--space-doc-org-block-end-line-face-remap-cookie)))
+    (when (bound-and-true-p
+           spacemacs--space-doc-org-block-begin-line-face-remap-cookie)
+      (face-remap-remove-relative
+       spacemacs--space-doc-org-block-begin-line-face-remap-cookie))
+    (when (bound-and-true-p
+           spacemacs--space-doc-org-block-end-line-face-remap-cookie)
+      (face-remap-remove-relative
+       spacemacs--space-doc-org-block-end-line-face-remap-cookie))))
 
 (defun spacemacs//space-doc-modf-link-protocol (&optional enable)
   "If ENABLE has non-nil value - use `spacemacs//space-doc-open' to
