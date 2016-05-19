@@ -75,18 +75,14 @@
         "lp" 'pubmed-insert-bibtex-from-pmid))))
 
 (defun bibtex/post-init-org-ref ()
-  (add-hook 'org-mode-hook (lambda () (require 'org-ref)))
-  )
+  (add-hook 'org-mode-hook (lambda () (require 'org-ref))))
 
 (defun bibtex/post-init-markdown-mode ()
   (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
     "ic" 'org-ref-helm-insert-cite-link))
 
-(defun bibtex/init-helm-bibtex ()
-  )
-(defun bibtex/init-biblio ()
-  )
-(defun bibtex/init-biblio-core ()
-  )
+(defun bibtex/init-helm-bibtex ())
+(defun bibtex/init-biblio ())
+(defun bibtex/init-biblio-core ())
 
 ;;; packages-config.el ends here
