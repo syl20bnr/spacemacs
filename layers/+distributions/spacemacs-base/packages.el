@@ -31,6 +31,7 @@
         (package-menu :location built-in)
         ;; page-break-lines is shipped with spacemacs core
         (page-break-lines :location built-in)
+        pcre2el
         (process-menu :location built-in)
         projectile
         (recentf :location built-in)
@@ -213,6 +214,10 @@
   (require 'page-break-lines)
   (global-page-break-lines-mode t)
   (spacemacs|hide-lighter page-break-lines-mode))
+
+(defun spacemacs-base/init-pcre2el ()
+  (use-package pcre2el
+    :defer t))
 
 (defun spacemacs-base/init-process-menu ()
   (evilified-state-evilify process-menu-mode process-menu-mode-map))
