@@ -15,6 +15,9 @@
         org
         org-ref
         markdown-mode
+        helm-bibtex
+        biblio
+        biblio-core
         ))
 
 (defun bibtex/post-init-auctex ()
@@ -74,5 +77,12 @@
 (defun bibtex/post-init-markdown-mode ()
   (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
     "ic" 'org-ref-helm-insert-cite-link))
+
+(defun bibtex/init-helm-bibtex ()
+  )
+(defun bibtex/init-biblio ()
+  )
+(defun bibtex/init-biblio-core ()
+  )
 
 ;;; packages-config.el ends here
