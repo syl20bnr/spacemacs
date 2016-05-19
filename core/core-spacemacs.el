@@ -186,7 +186,9 @@ defer call using `spacemacs-post-user-config-hook'."
          (funcall dotspacemacs-scratch-mode)))
      (configuration-layer/display-summary emacs-start-time)
      (spacemacs/check-for-new-version spacemacs-version-check-interval)
-     (setq spacemacs-initialized t))))
+     (setq spacemacs-initialized t)
+     (load-file custom-file)
+     )))
 
 (defun spacemacs//describe-system-info-string ()
   "Gathers info about your Spacemacs setup and returns it as a string."
