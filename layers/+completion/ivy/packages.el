@@ -17,7 +17,6 @@
         ivy
         (ivy-spacemacs-help :location local)
         ;; Why do we need this ?
-        pcre2el
         projectile
         smex
         swiper
@@ -127,10 +126,6 @@
               ("X" spacemacs/ivy-persp-kill-other :exit t)))
       ;; Why do we do this ?
       (ido-mode -1))))
-
-;; Why do we need this ?
-(defun ivy/init-pcre2el ()
-  (use-package pcre2el :defer t))
 
 (defun ivy/post-init-projectile ()
   (setq projectile-completion-system 'ivy)

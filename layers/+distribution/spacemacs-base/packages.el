@@ -28,6 +28,7 @@
         (hybrid-mode :location local :step pre)
         nlinum
         (package-menu :location built-in)
+        pcre2el
         (process-menu :location built-in)
         (recentf :location built-in)
         (savehist :location built-in)
@@ -199,6 +200,10 @@
 (defun spacemacs-base/init-package-menu ()
   (evilified-state-evilify-map package-menu-mode-map
     :mode package-menu-mode))
+
+(defun spacemacs-base/init-pcre2el ()
+  (use-package pcre2el
+    :defer t))
 
 (defun spacemacs-base/init-process-menu ()
   (evilified-state-evilify process-menu-mode process-menu-mode-map))
