@@ -46,7 +46,7 @@
 
 (defun version-control/init-git-gutter ()
   (use-package git-gutter
-    :commands global-git-gutter-mode
+    :commands (global-git-gutter-mode git-gutter-mode)
     :init
     (progn
       ;; If you enable global minor mode
@@ -105,7 +105,7 @@
 
 (defun version-control/init-git-gutter+ ()
   (use-package git-gutter+
-    :commands global-git-gutter+-mode
+    :commands (global-git-gutter+-mode git-gutter+-mode)
     :init
     (progn
       ;; If you enable global minor mode

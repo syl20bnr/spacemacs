@@ -100,8 +100,8 @@
   (interactive)
   (cl-case version-control-diff-tool
     (diff-hl     diff-hl-mode)
-    (git-gutter  git-gutter-mode)
-    (git-gutter+ git-gutter+-mode)))
+    (git-gutter  (bound-and-true-p git-gutter-mode))
+    (git-gutter+ (bound-and-true-p git-gutter+-mode))))
 
 (defun version-control/margin-global-p ()
   (interactive)
