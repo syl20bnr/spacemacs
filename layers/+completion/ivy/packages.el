@@ -12,6 +12,7 @@
 (setq ivy-packages
       '(auto-highlight-symbol
         counsel
+        counsel-projectile
         evil
         flx
         ivy
@@ -78,6 +79,19 @@
       (spacemacs//ivy-command-not-implemented-yet "jI")
       ;; Set syntax highlighting for counsel search results
       (ivy-set-display-transformer 'spacemacs/counsel-search 'counsel-git-grep-transformer))))
+
+(defun ivy/init-counsel-projectile ()
+  (when (configuration-layer/package-usedp 'projectile)
+    (use-package counsel-projectile
+      :defer t
+      :init
+      (spacemacs/set-leader-keys
+        "pb" 'counsel-projectile-switch-to-buffer
+        "pd" 'counsel-projectile-find-dir
+        "pp" 'counsel-projectile
+        "pf" 'counsel-projectile-find-file
+        "pr" 'projectile-recentf
+        "ps" 'counsel-projectile))))
 
 (defun ivy/post-init-auto-highlight-symbol ()
   (setq spacemacs-symbol-highlight-transient-state-remove-bindings

@@ -153,7 +153,8 @@
                                           "projectile.cache")
             projectile-known-projects-file (concat spacemacs-cache-directory
                                                    "projectile-bookmarks.eld"))
-      (unless (configuration-layer/package-usedp 'helm-projectile)
+      (unless (or (configuration-layer/package-usedp 'helm-projectile)
+                  (configuration-layer/package-usedp 'counsel-projectile))
         (spacemacs/set-leader-keys
           "pb" 'projectile-switch-to-buffer
           "pd" 'projectile-find-dir
