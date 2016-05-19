@@ -337,7 +337,7 @@
     :init
     (progn
       (setq nlinum-relative-current-symbol ""
-            nlinum-relative-redisplay-delay 0)
+            nlinum-relative-redisplay-delay 0.2)
       (when (eq dotspacemacs-line-numbers 'relative)
         (nlinum-relative-setup-evil)
         (add-hook 'nlinum-mode-hook 'nlinum-relative-on))
