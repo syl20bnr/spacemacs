@@ -151,7 +151,8 @@
     :init (spacemacs/set-leader-keys "hdK" 'describe-keymap)))
 
 (defun spacemacs-base/init-hi-lock ()
-  (spacemacs|hide-lighter hi-lock-mode))
+  (with-eval-after-load 'hi-lock
+    (spacemacs|hide-lighter hi-lock-mode)))
 
 (defun spacemacs-base/init-holy-mode ()
   (use-package holy-mode
