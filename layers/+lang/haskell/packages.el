@@ -88,8 +88,10 @@
           "me" 'ghc-expand-th
           "mn" 'ghc-goto-next-hole
           "mp" 'ghc-goto-prev-hole
-          "m>"  'ghc-make-indent-deeper
-          "m<"  'ghc-make-indent-shallower))
+          "m>" 'ghc-make-indent-deeper
+          "m<" 'ghc-make-indent-shallower
+          "hi" 'ghc-show-info
+          "ht" 'ghc-show-type))
       (when (configuration-layer/package-usedp 'flycheck)
         ;; remove overlays from ghc-check.el if flycheck is enabled
         (set-face-attribute 'ghc-face-error nil :underline nil)
@@ -229,7 +231,15 @@
       (evil-define-key 'normal haskell-interactive-mode-map
         (kbd "RET") 'haskell-interactive-mode-return)
 
-      ;;GHCi-ng
+      ;; interactive haskell mode
+      (unless (or haskell-enable-ghc-mod-support
+                  haskell-enable-ghci-ng-support)
+        (dolist (mode haskell-modes)
+          (spacemacs/set-leader-keys-for-major-mode mode
+            "hi" 'haskell-process-do-info
+            "ht" 'haskell-process-do-type)))
+
+      ;; GHCi-ng
       (when haskell-enable-ghci-ng-support
         ;; haskell-process-type is set to auto, so setup ghci-ng for either case
         ;; if haskell-process-type == cabal-repl
@@ -333,4 +343,3 @@
 
       (define-key shm-map (kbd "C-j") nil)
       (define-key shm-map (kbd "C-k") nil))))
-
