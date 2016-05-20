@@ -35,6 +35,7 @@
         (saveplace :location built-in)
         spacemacs-theme
         (subword :location built-in)
+        (tar-mode :location built-in)
         (uniquify :location built-in)
         (url :location built-in)
         (visual-line-mode :location built-in)
@@ -359,6 +360,11 @@
           :evil-leader "t C-c"))
       :config
       (spacemacs|diminish subword-mode " ⓒ" " c"))))
+
+(defun spacemacs-base/init-tar-mode ()
+  (evilified-state-evilify-map tar-mode-map
+    :mode tar-mode
+    :eval-after-load tar-mode))
 
 (defun spacemacs-base/init-uniquify ()
   (require 'uniquify)
