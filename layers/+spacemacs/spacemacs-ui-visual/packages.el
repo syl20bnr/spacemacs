@@ -211,7 +211,9 @@
 
       (spacemacs/set-leader-keys
         "ft" 'neotree-toggle
-        "pt" 'neotree-find-project-root))))
+        "pt" 'neotree-find-project-root))
+    :config
+    (spacemacs//neotree-key-bindings)))
 
 (defun spacemacs-ui-visual/init-popup ())
 
