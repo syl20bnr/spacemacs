@@ -10,6 +10,19 @@
 ;;; License: GPLv3
 
 
+;; smooth scrolling
+
+(defun spacemacs/enable-smooth-scrolling ()
+  "Enable smooth scrolling."
+  (interactive)
+  (setq scroll-conservatively 101))
+
+(defun spacemacs/disable-smooth-scrolling ()
+  "Enable smooth scrolling."
+  (interactive)
+  (setq scroll-conservatively 0))
+
+
 ;; neotree
 
 (defun spacemacs/neotree-expand-or-open ()

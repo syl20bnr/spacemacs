@@ -18,7 +18,7 @@
         neotree
         popup
         popwin
-        smooth-scrolling
+        (smooth-scrolling :location built-in)
         spaceline
         (zoom-frm :location local)))
 
@@ -247,33 +247,15 @@
                        popwin:special-display-config))))))
 
 (defun spacemacs-ui-visual/init-smooth-scrolling ()
-  (use-package smooth-scrolling
-    :init
-    (progn
-      (setq smooth-scroll-margin 5)
-      (spacemacs|add-toggle smooth-scrolling
-        :status smooth-scrolling-mode
-        :on (progn
-              (smooth-scrolling-mode)
-              (enable-smooth-scroll-for-function previous-line)
-              (enable-smooth-scroll-for-function next-line)
-              (enable-smooth-scroll-for-function isearch-repeat))
-        :off (progn
-               (smooth-scrolling-mode -1)
-               (disable-smooth-scroll-for-function previous-line)
-               (disable-smooth-scroll-for-function next-line)
-               (disable-smooth-scroll-for-function isearch-repeat))
-        :documentation "Smooth scrolling."
-        :evil-leader "tv")
-      (when dotspacemacs-smooth-scrolling
-        (spacemacs/toggle-smooth-scrolling-on))
-      ;; add hooks here only for emacs built-in packages that are not owned
-      ;; by a layer.
-      (defun spacemacs//unset-scroll-margin ()
-        "Set scroll-margin to zero."
-        (setq-local scroll-margin 0))
-      (spacemacs/add-to-hooks 'spacemacs//unset-scroll-margin
-                              '(messages-buffer-mode-hook)))))
+  (setq scroll-preserve-screen-position t
+        scroll-margin 0
+        scroll-conservatively (if dotspacemacs-smooth-scrolling 101 0))
+  (spacemacs|add-toggle smooth-scrolling
+    :status (= 101 scroll-conservatively)
+    :on (spacemacs/enable-smooth-scrolling)
+    :off (spacemacs/disable-smooth-scrolling)
+    :documentation "Smooth scrolling."
+    :evil-leader "tv"))
 
 (defun spacemacs-ui-visual/init-spaceline ()
   (use-package spaceline-config
