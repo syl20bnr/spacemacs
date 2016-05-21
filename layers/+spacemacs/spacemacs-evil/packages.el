@@ -33,7 +33,7 @@
         (evil-unimpaired :location local)
         evil-visual-mark-mode
         (hs-minor-mode :location built-in)
-        nlinum-relative
+        linum-relative
         vi-tilde-fringe
         ))
 
@@ -331,17 +331,17 @@
 (defun spacemacs-evil/init-hs-minor-mode ()
   (add-hook 'prog-mode-hook 'spacemacs//enable-hs-minor-mode))
 
-(defun spacemacs-evil/init-nlinum-relative ()
-  (use-package nlinum-relative
-    :commands (nlinum-relative-toggle nlinum-relative-on)
+(defun spacemacs-evil/init-linum-relative ()
+  (use-package linum-relative
+    :commands (linum-relative-toggle linum-relative-on)
     :init
     (progn
-      (setq nlinum-relative-current-symbol ""
-            nlinum-relative-redisplay-delay 0)
       (when (eq dotspacemacs-line-numbers 'relative)
-        (nlinum-relative-setup-evil)
-        (add-hook 'nlinum-mode-hook 'nlinum-relative-on))
-      (spacemacs/set-leader-keys "tr" 'nlinum-relative-toggle))))
+        (linum-relative-on))
+      (spacemacs/set-leader-keys "tr" 'linum-relative-toggle))
+    :config
+    (progn
+      (setq linum-relative-current-symbol ""))))
 
 (defun spacemacs-evil/init-vi-tilde-fringe ()
   (spacemacs|do-after-display-system-init
