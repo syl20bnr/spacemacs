@@ -140,11 +140,11 @@
     (define-key ivy-minibuffer-map "\C-o"
       (defhydra spacemacs/ivy-transient-state (:hint nil :color pink)
         "
- Move ^^^^^^^^^^     | Call^^         ^^ | Cancel^^ | Options^^     | Action _w_/_s_/_a_: %s(ivy-action-name)
--^-^-^-^-^-^-^-^-^-^-+-^---^----------^^-+-^-^------+-^-^-----------+-----------------------------
+ Move     ^^^^^^^^^^ | Call         ^^^^ | Cancel^^ | Options    ^^ | Action _w_/_s_/_a_: %s(ivy-action-name)
+----------^^^^^^^^^^-+--------------^^^^-+-------^^-+------------^^-+-----------------------------
  _g_ ^ ^ _k_ ^ ^ _u_ | call-_f_n _o_ccur | _i_nsert | _c_alling: %-7s(if ivy-calling \"on\" \"off\") _C_ase-fold: %-10`ivy-case-fold-search
  ^↨^ _h_ ^+^ _l_ ^↕^ | _RET_ done     ^^ | _q_uit   | _m_atcher: %-7s(ivy--matcher-desc)^^^^^^^^^^^^ _t_runcate: %-11`truncate-lines
- _G_ ^ ^ _j_ ^ ^ _d_ | _TAB_ alt-done ^^ | ^ ^      | _<_/_>_: shrink/grow^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ _G_ ^ ^ _j_ ^ ^ _d_ | _TAB_ alt-done ^^ | ^^       | _<_/_>_: shrink/grow
 "
         ;; arrows
         ("j" ivy-next-line)
