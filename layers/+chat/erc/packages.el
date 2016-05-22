@@ -249,6 +249,3 @@
       (if erc-server-list
           (erc/default-servers)
         (call-interactively 'erc)))))
-
-(defun erc/post-init-smooth-scrolling ()
-  (add-hook 'erc-mode-hook 'spacemacs//unset-scroll-margin))
