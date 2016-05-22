@@ -308,12 +308,6 @@ is achieved by adding the relevant text properties."
         "ast" 'spacemacs/shell-pop-ansi-term
         "asT" 'spacemacs/shell-pop-term))))
 
-(defun shell/post-init-smooth-scrolling ()
-  (spacemacs/add-to-hooks 'spacemacs//unset-scroll-margin
-                          '(eshell-mode-hook
-                            comint-mode-hook
-                            term-mode-hook)))
-
 (defun shell/init-term ()
   (spacemacs/register-repl 'term 'term)
   (spacemacs/register-repl 'term 'ansi-term)
