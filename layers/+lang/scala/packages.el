@@ -14,7 +14,7 @@
     ensime
     noflet
     sbt-mode
-    scala-mode2
+    scala-mode
     ))
 
 (defun scala/init-ensime ()
