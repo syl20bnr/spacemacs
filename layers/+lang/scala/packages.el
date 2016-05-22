@@ -14,7 +14,7 @@
     ensime
     noflet
     sbt-mode
-    scala-mode2
+    scala-mode
     ))
 
 (defun scala/init-ensime ()
@@ -189,8 +189,8 @@
       (spacemacs/set-leader-keys-for-major-mode 'scala-mode
         "bb" 'sbt-command))))
 
-(defun scala/init-scala-mode2 ()
-  (use-package scala-mode2
+(defun scala/init-scala-mode ()
+  (use-package scala-mode
     :defer t
     :init
     (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
