@@ -28,7 +28,6 @@
         (erc-yank :location local :excluded t)
         erc-yt
         persp-mode
-        smooth-scrolling
         ))
 
 (when (spacemacs/system-is-mac)

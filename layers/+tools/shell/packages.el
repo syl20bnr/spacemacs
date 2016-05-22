@@ -24,7 +24,6 @@
         projectile
         (shell :location built-in)
         shell-pop
-        smooth-scrolling
         (term :location built-in)
         xterm-color
         vi-tilde-fringe
