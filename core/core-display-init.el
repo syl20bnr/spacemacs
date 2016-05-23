@@ -32,7 +32,7 @@ created."
   `(let ((init (cond ((boundp 'ns-initialized) 'ns-initialized)
                      ((boundp 'w32-initialized) 'w32-initialized)
                      ((boundp 'x-initialized) 'x-initialized)
-                     (t 't))))           ; fallback to normal loading behavior
+                     (t (display-graphic-p))))) ; fallback to normal loading behavior only for GUI client
      (if (symbol-value init)
          (progn
            ,@body)
