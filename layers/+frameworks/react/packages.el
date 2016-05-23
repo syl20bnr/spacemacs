@@ -22,7 +22,7 @@
         web-mode
         ))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun react/post-init-company ()
     (spacemacs|add-company-hook react-mode))
 

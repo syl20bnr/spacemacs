@@ -34,9 +34,8 @@
         ;; text properties are not applied correctly.
         (run-at-time 0.1 nil 'emoji-cheat-sheet-plus-display-mode)))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun emoji/init-company-emoji ()
     (use-package company-emoji
-      :if (configuration-layer/package-usedp 'company)
       :defer t
       :init (setq company-emoji-insert-unicode nil))))

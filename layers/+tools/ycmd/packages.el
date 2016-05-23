@@ -9,17 +9,15 @@
   (message (concat "YCMD won't work unless you set the ycmd-server-command "
                    "variable to the path to a ycmd install.")))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun ycmd/init-company-ycmd ()
     (use-package company-ycmd
-      :if (configuration-layer/package-usedp 'company)
       :defer t
       :commands company-ycmd)))
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
+(when (configuration-layer/package-usedp 'flycheck)
   (defun ycmd/init-flycheck-ycmd ()
     (use-package flycheck-ycmd
-      :if (configuration-layer/package-usedp 'flycheck)
       :defer t
       :init (add-hook 'ycmd-mode-hook 'flycheck-ycmd-setup))))
 

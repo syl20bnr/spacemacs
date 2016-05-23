@@ -66,7 +66,7 @@
         "sR" 'geiser-eval-region-and-go
         "ss" 'geiser-set-scheme))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun scheme/post-init-company ()
     ;; Geiser provides completion as long as company mode is loaded.
     (spacemacs|add-company-hook scheme-mode)))

@@ -48,14 +48,13 @@
       (add-hook 'sh-mode-hook 'spacemacs//setup-shell))))
 
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun shell-scripts/post-init-company ()
     (spacemacs|add-company-hook sh-mode)
     (spacemacs|add-company-hook fish-mode))
 
   (defun shell-scripts/init-company-shell ()
     (use-package company-shell
-      :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
       (progn

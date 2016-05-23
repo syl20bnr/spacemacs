@@ -25,12 +25,11 @@
 (defun ocaml/post-init-company ()
   (spacemacs|add-company-hook merlin-mode))
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
+(when (configuration-layer/package-usedp 'flycheck)
   (defun ocaml/post-init-flycheck ()
     (spacemacs/add-flycheck-hook 'merlin-mode))
   (defun ocaml/init-flycheck-ocaml ()
     (use-package flycheck-ocaml
-      :if (configuration-layer/package-usedp 'flycheck)
       :defer t
       :init
       (progn

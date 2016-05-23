@@ -67,10 +67,9 @@
 (defun haskell/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'haskell-mode))
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
+(when (configuration-layer/package-usedp 'flycheck)
   (defun haskell/init-flycheck-haskell ()
     (use-package flycheck-haskell
-      :if (configuration-layer/package-usedp 'flycheck)
       :commands flycheck-haskell-configure
       :init (add-hook 'flycheck-mode-hook 'flycheck-haskell-configure))))
 

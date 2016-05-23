@@ -22,14 +22,14 @@
 (defun d/init-d-mode ()
   (use-package d-mode :defer t))
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
+(when (configuration-layer/package-usedp 'flycheck)
   (defun d/post-init-flycheck ()
     (spacemacs/add-flycheck-hook 'd-mode))
   (defun d/init-flycheck-dmd-dub ()
     (use-package flycheck-dmd-dub :defer t
       :init (add-hook 'd-mode-hook 'flycheck-dmd-dub-set-include-path))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun d/post-init-company ()
     ;; Need to convince company that this C-derived mode is a code mode.
     (with-eval-after-load 'company-dabbrev-code (push 'd-mode company-dabbrev-code-modes))

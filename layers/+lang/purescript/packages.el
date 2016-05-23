@@ -26,10 +26,9 @@
 (defun purescript/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'purescript-mode-hook))
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
+(when (configuration-layer/package-usedp 'flycheck)
   (defun purescript/init-flycheck-purescript ()
     (use-package flycheck-purescript
-      :if (configuration-layer/package-usedp 'flycheck)
       :commands flycheck-purescript-configure
       :init (add-hook 'flycheck-mode-hook 'flycheck-purescript-configure))))
 

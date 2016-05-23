@@ -33,7 +33,7 @@
 (when (spacemacs/system-is-mac)
   (push 'erc-terminal-notifier erc-packages))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun erc/post-init-company ()
     (spacemacs|add-company-hook erc-mode)
     (push 'company-capf company-backends-erc-mode))

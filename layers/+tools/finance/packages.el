@@ -17,7 +17,7 @@
     ))
 
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
+(when (configuration-layer/package-usedp 'flycheck)
   (defun finance/init-flycheck-ledger ()
     (with-eval-after-load 'flycheck
       (require 'flycheck-ledger))))
@@ -50,6 +50,6 @@
       (add-hook 'ledger-mode-hook 'evil-normalize-keymaps)
       (evilified-state-evilify ledger-report-mode ledger-report-mode-map))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun finance/post-init-company ()
     (spacemacs|add-company-hook ledger-mode)))
