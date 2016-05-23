@@ -17,11 +17,10 @@
   (add-hook 'elm-mode-hook 'flycheck-mode)
   (add-hook 'elm-mode-hook 'spacemacs//elm-find-root))
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
+(when (configuration-layer/package-usedp 'flycheck)
   (defun elm/init-flycheck-elm ()
     "Initialize flycheck-elm"
     (use-package flycheck-elm
-      :if (configuration-layer/package-usedp 'flycheck)
       :defer t
       :init (add-hook 'flycheck-mode-hook 'flycheck-elm-setup t))))
 

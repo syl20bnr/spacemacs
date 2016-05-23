@@ -22,7 +22,7 @@
 (defun d/init-d-mode ()
   (use-package d-mode :defer t))
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
+(when (configuration-layer/package-usedp 'flycheck)
   (defun d/post-init-flycheck ()
     (spacemacs/add-flycheck-hook 'd-mode))
   (defun d/init-flycheck-dmd-dub ()
