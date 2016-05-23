@@ -60,7 +60,7 @@
       (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
         (evil--jumps-push)))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun python/post-init-company ()
     (spacemacs|add-company-hook python-mode)
     (spacemacs|add-company-hook inferior-python-mode)
@@ -71,7 +71,6 @@
 
   (defun python/init-company-anaconda ()
     (use-package company-anaconda
-      :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
       (push 'company-anaconda company-backends-python-mode))))

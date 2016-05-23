@@ -210,7 +210,7 @@ Will work on both org-mode and any mode that accepts plain html."
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ess)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-rust))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun markdown/post-init-company ()
     (spacemacs|add-company-hook markdown-mode)
     (push 'company-capf company-backends-markdown-mode))

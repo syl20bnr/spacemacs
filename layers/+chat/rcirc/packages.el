@@ -11,7 +11,7 @@
     rcirc-notify
     ))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun rcirc/post-init-company ()
     (spacemacs|add-company-hook rcirc-mode)
     (push 'company-capf company-backends-rcirc-mode))

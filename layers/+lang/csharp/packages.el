@@ -80,6 +80,6 @@
         "i" 'omnisharp-fix-usings
         "=" 'omnisharp-code-format))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun csharp/post-init-company ()
     (spacemacs|add-company-hook csharp-mode)))

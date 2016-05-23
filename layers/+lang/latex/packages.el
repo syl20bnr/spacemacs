@@ -147,13 +147,12 @@
     "rT"    'reftex-toc-recenter
     "rv"    'reftex-view-crossref))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun latex/post-init-company ()
     (spacemacs|add-company-hook LaTeX-mode))
 
   (defun latex/init-company-auctex ()
     (use-package company-auctex
-      :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
       (progn
