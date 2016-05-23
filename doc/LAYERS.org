@@ -19,7 +19,7 @@
  - [[#case-study-auto-completion][Case study: auto-completion]]
  - [[#layer-tips-and-tricks][Layer tips and tricks]]
    - [[#cross-dependencies][Cross-dependencies]]
-   - [[#use-package][Use-package]]
+   - [[#use-package-1][Use-package]]
    - [[#use-package-hooks][Use-package hooks]]
    - [[#best-practices][Best practices]]
      - [[#package-ownership][Package ownership]]
@@ -559,11 +559,9 @@ if the =auto-completion= layer is enabled.
                         ;; ...
                         )
 
-  (when (configuration-layer/layer-usedp 'auto-completion)
+  (when (configuration-layer/package-usedp 'company)
     (defun yoyo/init-some-weird-package ()
       (use-package some-weird-package
-        ;; Only if company is installed
-        :if (configuration-layer/package-usedp 'company)
         :defer t
         ;; This has to be in init because it's a package entry point
         :init

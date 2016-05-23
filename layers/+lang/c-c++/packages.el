@@ -79,10 +79,9 @@
     (setq company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser)
     (spacemacs/add-to-hooks 'c-c++/load-clang-args '(c-mode-hook c++-mode-hook))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun c-c++/init-company-c-headers ()
     (use-package company-c-headers
-      :if (configuration-layer/package-usedp 'company)
       :defer t
       :init (push 'company-c-headers company-backends-c-mode-common))))
 

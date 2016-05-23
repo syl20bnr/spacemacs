@@ -44,7 +44,7 @@
                                      (setq indent-line-function 'javascript/coffee-indent
                                            evil-shift-width coffee-tab-width))))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun javascript/post-init-company ()
     (spacemacs|add-company-hook js2-mode))
 

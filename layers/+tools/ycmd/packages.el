@@ -9,10 +9,9 @@
   (message (concat "YCMD won't work unless you set the ycmd-server-command "
                    "variable to the path to a ycmd install.")))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun ycmd/init-company-ycmd ()
     (use-package company-ycmd
-      :if (configuration-layer/package-usedp 'company)
       :defer t
       :commands company-ycmd)))
 

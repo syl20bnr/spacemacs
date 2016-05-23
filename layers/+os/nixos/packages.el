@@ -17,14 +17,13 @@
       (spacemacs/set-leader-keys
         "h>" 'helm-nixos-options))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun nixos/post-init-company ()
     (spacemacs|add-company-hook nix-mode)
     (push 'company-capf company-backends-nix-mode))
 
   (defun nixos/init-company-nixos-options ()
     (use-package company-nixos-options
-      :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
       (push 'company-nixos-options company-backends-nix-mode))))

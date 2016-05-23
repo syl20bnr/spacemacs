@@ -14,7 +14,7 @@
    - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
      - [[#in-configel][In =config.el=]]
      - [[#in-packagesel][In =packages.el=]]
- - [[#key-bindings][Key Bindings]]
+ - [[#key-bindings-1][Key Bindings]]
    - [[#company][Company]]
    - [[#auto-complete][Auto-complete]]
    - [[#yasnippet][Yasnippet]]
@@ -158,7 +158,7 @@ Here is an example to add =company= auto-completion to python buffer:
       ...))
 
   ;; Configure the packages
-  (when (configuration-layer/layer-usedp 'auto-completion)
+  (when (configuration-layer/package-usedp 'company)
 
     ;; Hook company to python-mode
     (defun python/post-init-company ()
@@ -167,7 +167,6 @@ Here is an example to add =company= auto-completion to python buffer:
     ;; Add the backend to the major-mode specific backend list
     (defun python/init-company-anaconda ()
       (use-package company-anaconda
-        :if (configuration-layer/package-usedp 'company)
         :defer t
         :init (push 'company-anaconda company-backends-python-mode))))
 #+END_SRC

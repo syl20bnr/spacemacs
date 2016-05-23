@@ -47,7 +47,7 @@
   (use-package toml-mode
     :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'"))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun rust/post-init-company ()
     (push 'company-capf company-backends-rust-mode)
     (spacemacs|add-company-hook rust-mode)

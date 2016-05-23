@@ -97,13 +97,12 @@
 (defun go/init-go-eldoc()
   (add-hook 'go-mode-hook 'go-eldoc-setup))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun go/post-init-company ()
     (spacemacs|add-company-hook go-mode))
 
   (defun go/init-company-go ()
     (use-package company-go
-      :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
       (progn

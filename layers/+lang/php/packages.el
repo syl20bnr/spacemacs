@@ -24,7 +24,7 @@
         phpunit
         ))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun php/post-init-company ()
     (spacemacs|add-company-hook php-mode)))
 

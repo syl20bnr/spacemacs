@@ -30,7 +30,7 @@
     yasnippet
     ))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   ;;TODO: whenever company-web makes a backend for haml-mode it should be added here. -- @robbyoconnor
   (defun html/post-init-company ()
     (spacemacs|add-company-hook css-mode)

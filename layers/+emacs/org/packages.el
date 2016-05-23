@@ -33,7 +33,7 @@
     persp-mode
     ))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun org/post-init-company ()
     (spacemacs|add-company-hook org-mode)
     (push 'company-capf company-backends-org-mode))

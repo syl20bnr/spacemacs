@@ -44,7 +44,7 @@
         "bx" 'bundle-exec
         "bo" 'bundle-open))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
+(when (configuration-layer/package-usedp 'company)
   (defun ruby/post-init-company ()
     (spacemacs|add-company-hook ruby-mode)
     (spacemacs|add-company-hook enh-ruby-mode)
@@ -117,7 +117,7 @@
       (spacemacs/register-repl 'robe 'robe-start "robe")
       (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
         (add-hook hook 'robe-mode))
-      (when (configuration-layer/layer-usedp 'auto-completion)
+      (when (configuration-layer/package-usedp 'company)
         (push 'company-robe company-backends-enh-ruby-mode)
         (push 'company-robe company-backends-ruby-mode)))
     :config
