@@ -102,12 +102,6 @@
       ;; ensure that the correct bindings are set at startup
       (spacemacs//company-active-navigation dotspacemacs-editing-style)
 
-      ;; Nicer looking faces
-      (custom-set-faces
-       '(company-tooltip-common
-         ((t (:inherit company-tooltip :weight bold :underline nil))))
-       '(company-tooltip-common-selection
-         ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
       (setq company-transformers '(spacemacs//company-transformer-cancel
                                    company-sort-by-occurrence)))))
 
