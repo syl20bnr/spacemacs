@@ -17,7 +17,7 @@
     ))
 
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
+(when (configuration-layer/package-usedp 'flycheck)
   (defun finance/init-flycheck-ledger ()
     (with-eval-after-load 'flycheck
       (require 'flycheck-ledger))))

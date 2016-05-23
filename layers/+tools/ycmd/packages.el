@@ -16,10 +16,9 @@
       :defer t
       :commands company-ycmd)))
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
+(when (configuration-layer/package-usedp 'flycheck)
   (defun ycmd/init-flycheck-ycmd ()
     (use-package flycheck-ycmd
-      :if (configuration-layer/package-usedp 'flycheck)
       :defer t
       :init (add-hook 'ycmd-mode-hook 'flycheck-ycmd-setup))))
 

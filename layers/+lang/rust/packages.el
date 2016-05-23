@@ -19,13 +19,12 @@
     toml-mode
     ))
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
+(when (configuration-layer/package-usedp 'flycheck)
   (defun rust/post-init-flycheck ()
     (spacemacs/add-flycheck-hook 'rust-mode))
 
   (defun rust/init-flycheck-rust ()
     (use-package flycheck-rust
-      :if (configuration-layer/package-usedp 'flycheck)
       :defer t
       :init (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))))
 
