@@ -64,7 +64,7 @@
         "Regenerate `.ensime' file and restart the ensime server."
         (interactive)
         (progn
-          (sbt-command "gen-ensime")
+          (sbt-command ";ensimeConfig;ensimeConfigProject")
           (ensime-shutdown)
           (ensime)))
 

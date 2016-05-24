@@ -62,9 +62,8 @@ Please note your projects' =project/build.properties= need to use a version newe
 
 ** Usage
 
-1. Create a =.ensime= file at the root of your Scala project using =sbt
-   gen-ensime= at the shell.
-
+1. Create a =.ensime= file at the root of your Scala project using
+   =sbt ensimeConfig= and =sbt ensimeConfigProject= at the shell.
 2. Run =M-x ensime= within Emacs to start an ENSIME session.
 
 Each Scala project uses a dedicated ENSIME session, so you only need to run =M-x
