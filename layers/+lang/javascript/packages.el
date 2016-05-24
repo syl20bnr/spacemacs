@@ -104,6 +104,9 @@
 (defun javascript/post-init-evil-matchit ()
   (add-hook `js2-mode `turn-on-evil-matchit-mode))
 
+(defun javascript/post-init-evil-matchit ()
+  (add-hook `js2-mode `turn-on-evil-matchit-mode))
+
 (defun javascript/init-js2-refactor ()
   (use-package js2-refactor
     :defer t
