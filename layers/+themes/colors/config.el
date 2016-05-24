@@ -14,6 +14,9 @@
 (defvar colors-enable-rainbow-identifiers nil
   "If non nil the `rainbow-identifers' package is enabled.")
 
+(defvar colors-enable-rainbow-identifiers-aggressive-coloring nil
+  "If non nil `rainbow-identifers' package is configured to take over more theme faces.")
+
 (defvar colors-enable-nyan-cat-progress-bar nil
   "If non nil all nyan cat packges are enabled (for now only `nyan-mode').")
 
