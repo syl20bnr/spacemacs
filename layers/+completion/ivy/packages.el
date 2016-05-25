@@ -128,10 +128,6 @@
       ;; Why do we do this ?
       (ido-mode -1))))
 
-;; Why do we need this ?
-(defun ivy/init-pcre2el ()
-  (use-package pcre2el :defer t))
-
 (defun ivy/post-init-projectile ()
   (setq projectile-completion-system 'ivy)
   (spacemacs/set-leader-keys
