@@ -39,4 +39,23 @@
     (use-package company-emoji
       :if (configuration-layer/package-usedp 'company)
       :defer t
-      :init (setq company-emoji-insert-unicode nil))))
+      :init
+      (progn
+        (setq company-emoji-insert-unicode nil)
+        ;; From https://github.com/dunn/company-emoji/README.md for Linux, or on Mac OS X and using the Cocoa version of Emacs
+        (defun --set-emoji-font (frame)
+          "Adjust the font settings of FRAME so Emacs can display emoji properly.Only works in GUI mode"
+          (when (display-graphic-p)
+            (cond
+             ;; For NS/Cocoa
+             ((spacemacs/system-is-mac)
+              (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") frame 'prepend))
+             ;; For Linux
+             ((spacemacs/system-is-linux)
+              (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)))))
+
+        (--set-emoji-font nil)
+        ;; Hook for when a frame is created with emacsclient
+        ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
+        (add-hook 'after-make-frame-functions '--set-emoji-font)
+        ))))
