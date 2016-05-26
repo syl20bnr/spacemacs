@@ -191,7 +191,7 @@ defer call using `spacemacs-post-user-config-hook'."
 (defun spacemacs//describe-system-info-string ()
   "Gathers info about your Spacemacs setup and returns it as a string."
   (format
-   (concat "#### System Info\n"
+   (concat "#### System Info :computer:\n"
            "- OS: %s\n"
            "- Emacs: %s\n"
            "- Spacemacs: %s\n"
@@ -240,7 +240,7 @@ defer call using `spacemacs-post-user-config-hook'."
               (set-fill-column 60)
               (insert (mapconcat 'identity keys " "))
               (fill-region (point-min) (point-max))
-              (format "#### Emacs last keys\n```text\n%s\n```\n" (buffer-string))))))
+              (format "#### Emacs last keys :musical_keyboard: \n```text\n%s\n```\n" (buffer-string))))))
 
 (defun spacemacs/describe-last-keys ()
   "Gathers info about your Emacs last keys and copies to clipboard."
