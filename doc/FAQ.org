@@ -460,7 +460,7 @@ enable copying/pasting with the mouse. You need to add this line to your
 
 ** Use =helm-ag= to search only in files of a certain type?
 It is possible to restrict the scope of =helm-ag= to search only expressions in
-some specified file types. There is two way of doing this, both by appending
+some specified file types. There are two ways of doing this, both by appending
 some expressions to the search input:
 
 - By using a regexp with =-G=, for instance =-G\.el$= will look for all files
