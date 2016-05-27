@@ -1,4 +1,4 @@
-;;; packages-funcs.el --- Spacemacs editing Layer packages functions File for Spacemacs
+;;; funcs.el --- Spacemacs editing Layer functions File
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

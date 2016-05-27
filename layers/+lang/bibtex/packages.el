@@ -74,5 +74,3 @@
 (defun bibtex/post-init-markdown-mode ()
   (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
     "ic" 'org-ref-helm-insert-cite-link))
-
-;;; packages-config.el ends here

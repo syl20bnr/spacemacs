@@ -1,4 +1,4 @@
-;;; packages-funcs.el --- Elm Layer packages functions File for Spacemacs
+;;; funcs.el --- Elm Layer functions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

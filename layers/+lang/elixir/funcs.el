@@ -1,4 +1,4 @@
-;;; packages-funcs.el --- Elixir Layer packages functions File for Spacemacs
+;;; funcs.el --- Elixir Layer functions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
