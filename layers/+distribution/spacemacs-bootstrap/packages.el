@@ -31,12 +31,6 @@
 (defun spacemacs-bootstrap/init-bind-key ())
 
 (defun spacemacs-bootstrap/init-diminish ()
-  (defun spacemacs/diminish-hook (_)
-    (cl-loop for (mode uni nouni) in spacemacs--diminished-minor-modes
-             do
-             (diminish mode
-                       (if dotspacemacs-mode-line-unicode-symbols
-                           uni nouni))))
   (when (not (configuration-layer/package-usedp 'spaceline))
     (add-hook 'after-load-functions 'spacemacs/diminish-hook)))
 
