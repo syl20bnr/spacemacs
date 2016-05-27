@@ -10,7 +10,7 @@
 ;;; License: GPLv3
 
 
-(load-file  "./core/tools/doc-fmt/toc-org.el")
+(load-file  "./core/tools/spacefmt/toc-org.el")
 
 (require 'cl)
 (require 'files)

@@ -1,8 +1,15 @@
 #!/bin/bash
-# Formatting/Migration tool for Spacemacs
+# ----------------------------------------------------------------------
+#              Formatting/Migration tool for Spacemacs
+# ----------------------------------------------------------------------
+#
+# Authors: Eugene Yaremenko and Sylvain Benner
 #
 # Arguments:
 # $1: action name can be `all`, `doc`, `config`
+#     `doc` formats documentation files
+#     `config` format configuration files
+#     `all` performs all actions
 # $2: if equal to `test` then use test files as input
 
 # TODO a function to add headers to config.el, packages.el etc...
@@ -28,7 +35,7 @@ fi
 
 if [[ $2 = "test" ]]
 then
-    places=("./core/tools/doc-fmt/tests")
+    places=("./core/tools/spacefmt/tests")
 else
     places=("./doc" "./layers")
 fi
@@ -55,13 +62,13 @@ do :
           # Replace :TOC_4_org: with :TOC_4_gh:
           find $place -name "*.org" -type f -exec $seder -i 's/:TOC_4_org:/:TOC_4_gh:/' {} \;
           # apply toc-org
-          find $place -name "*.org" -type f -exec emacs -batch -l ./core/tools/doc-fmt/fmt.el '{}' -f apply-all \;
+          find $place -name "*.org" -type f -exec emacs -batch -l ./core/tools/spacefmt/spacefmt.el '{}' -f apply-all \;
        fi
 
        if [ $1 = "all" ] || [ $1 == "config" ]
        then
            # migrate packages lists to config.el
-           find $place -name "packages.el" -type f -exec emacs -batch -l ./core/tools/doc-fmt/fmt.el '{}' -f move-packages-to-config \;
+           find $place -name "packages.el" -type f -exec emacs -batch -l ./core/tools/spacefmt/spacefmt.el '{}' -f move-packages-to-config \;
        fi
 
        # Calculate md5 of the files in $place after formating
