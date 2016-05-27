@@ -15,6 +15,7 @@
 (require 'cl)
 (require 'files)
 (require 'org)
+(require 'thingatpt)
 
 (defconst empty-line-regexp "^[ \t]*$")
 
@@ -135,12 +136,30 @@ Returns nil if no more tables left."
   (when (re-search-forward org-table-hline-regexp nil t)
     (forward-line -1 )))
 
+(defun move-packages-to-config ()
+  "Move xxx-packages list to config.el."
+  (let ((config-file (concat default-directory "config.el")))
+    (when (or (re-search-forward "(setq.*-packages" nil t)
+              (re-search-forward "(defcustom.*-packages" nil t))
+      (re-search-backward "(")
+      (kill-sexp)
+      (with-current-buffer (find-file-noselect config-file)
+        (when (file-exists-p config-file)
+          (re-search-forward ";;; License: GPLv3")
+          (newline)
+          (forward-line 2))
+        (yank)
+        ;; config.el
+        (save-buffer 0))
+      ;; packages.el
+      (save-buffer 0))))
+
 (defmacro clj/->> (o &rest forms)
   "Threads the expr through the forms.
- Inserts o as the  last item in the first form,
- making a list of it if it is not a  list already.
+Inserts o as the  last item in the first form,
+making a list of it if it is not a  list already.
 If there are more forms, inserts the first form
- as the  last item in second form, etc."
+as the  last item in second form, etc."
   (cond ((not forms) o)
         ((= 1 (length forms))
          (let ((f (first forms)))

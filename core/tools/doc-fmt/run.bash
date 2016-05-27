@@ -1,4 +1,11 @@
 #!/bin/bash
+# Formatting/Migration tool for Spacemacs
+#
+# Arguments:
+# $1: action name can be `all`, `doc`, `config`
+# $2: if equal to `test` then use test files as input
+
+# TODO a function to add headers to config.el, packages.el etc...
 
 if ! [ -d "./.git" ]
 then
@@ -12,9 +19,16 @@ if hash gsed 2>/dev/null; then
     seder="gsed"
 fi
 
-if [[ $1 = "test" ]]
+#Use md5 or md5sum
+mdfive="md5sum"
+if hash md5 2>/dev/null; then
+    mdfive="md5"
+fi
+
+
+if [[ $2 = "test" ]]
 then
-    places=("./core/tools/doc-fmt")
+    places=("./core/tools/doc-fmt/tests")
 else
     places=("./doc" "./layers")
 fi
@@ -26,22 +40,31 @@ do :
    while ! [ "$before_md5" = "$after_md5" ]
    do
        # Calculate md5 of the files in $place before formating
-       before_md5=$(find $place -type f -exec md5sum {} \; | sort -k 2 | md5sum)
+       before_md5=$(find $place -type f -exec $mdfive {} \; | sort -k 2 | $mdfive)
 
-       # Remove trailing delimiters in headlines
-       find $place -name "*.org" -type f -exec $seder -i 's/^\(*\+\s\+.*\)[;,.]$/\1/g' {} \;
-       # Remove trailing spaces
-       find $place -name "*.org" -type f -exec $seder -i 's/[ \t]*$//' {} \;
-       # Remove #+HTML_HEAD_EXTRA: ... readtheorg.css" />
-       find $place -name "*.org" -type f -exec $seder -i '/#+HTML_HEAD_EXTRA.*readtheorg.css.*/d' {} \;
-       # Replace multiply empty lines with a single empty line
-       find $place -name "*.org" -type f -exec $seder -i '/^$/N;/^\n$/D' {} \;
-       # Replace :TOC_4_org: with :TOC_4_gh:
-       find $place -name "*.org" -type f -exec $seder -i 's/:TOC_4_org:/:TOC_4_gh:/' {} \;
-       # apply toc-org
-       find $place -name "*.org" -type f -exec emacs -batch -l ./core/tools/doc-fmt/fmt.el '{}' -f apply-all \;
+       if [ $1 = "all" ] || [ $1 == "doc" ]
+       then
+          # Remove trailing delimiters in headlines
+          find $place -name "*.org" -type f -exec $seder -i 's/^\(*\+\s\+.*\)[;,.]$/\1/g' {} \;
+          # Remove trailing spaces
+          find $place -name "*.org" -type f -exec $seder -i 's/[ \t]*$//' {} \;
+          # Remove #+HTML_HEAD_EXTRA: ... readtheorg.css" />
+          find $place -name "*.org" -type f -exec $seder -i '/#+HTML_HEAD_EXTRA.*readtheorg.css.*/d' {} \;
+          # Replace multiply empty lines with a single empty line
+          find $place -name "*.org" -type f -exec $seder -i '/^$/N;/^\n$/D' {} \;
+          # Replace :TOC_4_org: with :TOC_4_gh:
+          find $place -name "*.org" -type f -exec $seder -i 's/:TOC_4_org:/:TOC_4_gh:/' {} \;
+          # apply toc-org
+          find $place -name "*.org" -type f -exec emacs -batch -l ./core/tools/doc-fmt/fmt.el '{}' -f apply-all \;
+       fi
+
+       if [ $1 = "all" ] || [ $1 == "config" ]
+       then
+           # migrate packages lists to config.el
+           find $place -name "packages.el" -type f -exec emacs -batch -l ./core/tools/doc-fmt/fmt.el '{}' -f move-packages-to-config \;
+       fi
 
        # Calculate md5 of the files in $place after formating
-       after_md5=$(find $place -type f -exec md5sum {} \; | sort -k 2 | md5sum)
+       after_md5=$(find $place -type f -exec $mdfive {} \; | sort -k 2 | $mdfive)
    done
 done
