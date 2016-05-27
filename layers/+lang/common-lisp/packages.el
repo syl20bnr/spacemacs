@@ -12,11 +12,19 @@
 (setq common-lisp-packages
       '(auto-highlight-symbol
         common-lisp-snippets
+        helm
         slime))
 
 (defun common-lisp/post-init-auto-highlight-symbol ()
   (with-eval-after-load 'auto-highlight-symbol
     (add-to-list 'ahs-plugin-bod-modes 'lisp-mode)))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun common-lisp/init-common-lisp-snippets ()))
+
+(defun common-lisp/post-init-helm ()
+  (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
+    "sI" 'spacemacs/helm-slime))
 
 (defun common-lisp/init-slime ()
   (use-package slime
@@ -41,18 +49,6 @@
       (spacemacs/add-to-hooks 'slime-mode '(lisp-mode-hook)))
     :config
     (progn
-      (defun spacemacs//slime-source (&optional table)
-        (or table (setq table slime-lisp-implementations))
-        `((name . "Slime")
-          (candidates . ,(mapcar #'car table))
-          (action . (lambda (candidate)
-                      (car (helm-marked-candidates))))))
-
-      (defun spacemacs/helm-slime ()
-        (interactive)
-        (let ((command (helm :sources (spacemacs//slime-source))))
-          (and command (slime (intern command)))))
-
       (slime-setup)
       (dolist (m `(,slime-mode-map ,slime-repl-mode-map))
         (define-key m [(tab)] 'slime-fuzzy-complete-symbol))
@@ -99,7 +95,6 @@
 
         "se" 'slime-eval-last-expression-in-repl
         "si" 'slime
-        "sI" 'spacemacs/helm-slime
         "sq" 'slime-quit-lisp
 
         "tf" 'slime-toggle-fancy-trace)
@@ -113,6 +108,3 @@
               ("mg" . "nav")
               ("mm" . "macro")
               ("mt" . "toggle"))))))
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun common-lisp/init-common-lisp-snippets ()))
