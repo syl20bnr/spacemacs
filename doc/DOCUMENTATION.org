@@ -321,7 +321,7 @@ and choosing a rollback slot (sorted by date). This button uses the command
 
 * Configuration layers
 This section is an overview of layers. A more extensive introduction to writing
-configuration layers can be found [[file:LAYERS.org][here]].
+configuration layers can be found [[file:LAYERS.org][here]] (recommended reading!).
 
 ** Purpose
 Layers help collect related packages together to provide features. For example,
@@ -341,21 +341,21 @@ Configuration is organized in layers. Each layer has the following structure:
       | |     ...
       | |__ [package n]
       |__ config.el
+      |__ packages.el
       |__ funcs.el
       |__ keybindings.el
-      |__ packages.el
 
     [] = directory
 #+END_EXAMPLE
 
 Where:
 
-| File           | Usage                                                                                    |
-|----------------+------------------------------------------------------------------------------------------|
-| config.el      | Layer configuration (defines the list of package for the layer and layer variables)      |
-| funcs.el       | All functions defined in the layer (used in package configuration for instance)          |
-| keybindings.el | General key bindings no tied to a specific package configuration                         |
-| packages.el    | The actual configuration of the packages (defines the functions init, post-init, etc...) |
+| File           | Usage                                                                             |
+|----------------+-----------------------------------------------------------------------------------|
+| config.el      | Layer configuration (defines the layer variables and setup some config variables) |
+| packages.el    | The list of packages and their configuration functions (init, post-init, etc...)  |
+| funcs.el       | All functions defined in the layer (used in package configuration for instance)   |
+| keybindings.el | General key bindings no tied to a specific package configuration                  |
 
 =Packages= can be:
 - =ELPA= packages installed from an =ELPA= compliant repository
