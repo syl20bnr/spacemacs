@@ -163,6 +163,9 @@ LAYER has to be installed for this method to work properly."
 (defvar configuration-layer--layers '()
   "A non-sorted list of `cfgl-layer' objects.")
 
+(defvar configuration-layer--delayed-layers '()
+  "A list of layers to check again after first pass of package declaration.")
+
 (defvar configuration-layer--packages '()
   "An alphabetically sorted list of `cfgl-package' objects.")
 
@@ -312,6 +315,8 @@ If NO-INSTALL is non nil then install steps are skipped."
     ;; packages
     (setq configuration-layer--packages (configuration-layer//declare-packages
                                          configuration-layer--layers))
+    (configuration-layer//load-layers-files configuration-layer--layers
+                                            '("funcs.el"))
     (setq configuration-layer--used-distant-packages
           (configuration-layer//get-distant-used-packages
            configuration-layer--packages))
@@ -493,8 +498,6 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
       (if (oref pkg :protected)
           (princ "\nThis package is protected and cannot be excluded.\n")
         (when (oref pkg :excluded)
-          ;; TODO extend excluded support in cfgl-package object to know who is
-          ;; excluding the package
           (princ "\nThis packages is excluded and cannot be installed.\n")))
       ;; toggle
       (unless (or (oref pkg :excluded) (eq t (oref pkg :toggle)))
@@ -617,9 +620,9 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
           (re-search-backward "\\(\\[.+\\]\\)" nil t)
           (help-xref-button 1 'help-package pkg-symbol))))))
 
-(defun configuration-layer/get-packages (layers &optional dotfile)
+(defun configuration-layer/get-packages (layers &optional dotfile packages)
   "Read the package lists of LAYERS and dotfile and return a list of packages."
-  (let (result)
+  (let ((result packages))
     (dolist (layer layers)
       (let* ((layer-name (oref layer :name))
              (layer-dir (oref layer :dir))
@@ -629,8 +632,7 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
           ;; required for lazy-loading of unused layers
           ;; for instance for helm-spacemacs-help
           (eval `(defvar ,(intern (format "%S-packages" layer-name)) nil))
-          (unless (configuration-layer/layer-usedp layer-name)
-            (load packages-file))
+          (load packages-file)
           (dolist (pkg (symbol-value (intern (format "%S-packages"
                                                      layer-name))))
             (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
@@ -650,13 +652,22 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
               (when ownerp
                 ;; last owner wins over the previous one,
                 ;; still warn about mutliple owners
-                (when (oref obj :owner)
+                (when (and (oref obj :owner)
+                           (not (eq layer-name (oref obj :owner))))
                   (spacemacs-buffer/warning
                    (format (concat "More than one init function found for "
                                    "package %S. Previous owner was %S, "
                                    "replacing it with layer %S.")
                            pkg-name (oref obj :owner) layer-name)))
                 (oset obj :owner layer-name))
+              ;; if no function at all is found for the package, then check
+              ;; again this layer later to resolve `package-usedp'  usage in
+              ;; `packages.el' files
+              (unless (or ownerp
+                          (fboundp pre-init-func)
+                          (fboundp post-init-func))
+                (add-to-list 'configuration-layer--delayed-layers layer))
+              ;; check if toggle can be applied
               (when (and (not ownerp)
                          (listp pkg)
                          (spacemacs/mplist-get pkg :toggle))
@@ -972,11 +983,14 @@ path."
 
 (defun configuration-layer//declare-packages (layers)
   "Declare all packages contained in LAYERS."
-  (let ((warning-minimum-level :error))
-    (configuration-layer//load-layers-files layers '("funcs.el" "packages.el"))
-    ;; gather all the packages of current layer
-    (configuration-layer//sort-packages (configuration-layer/get-packages
-                                         layers t))))
+  (let* ((warning-minimum-level :error)
+         ;; first pass
+         (configuration-layer--packages
+          (configuration-layer/get-packages layers t)))
+    (configuration-layer//sort-packages
+     ;; second pass
+     (configuration-layer/get-packages
+      configuration-layer--delayed-layers nil configuration-layer--packages))))
 
 (defun configuration-layer//load-layers-files (layers files)
   "Load the files of list FILES for all passed LAYERS."
