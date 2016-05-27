@@ -17,7 +17,6 @@
         ivy
         (ivy-spacemacs-help :location local)
         ;; Why do we need this ?
-        pcre2el
         projectile
         smex
         swiper
