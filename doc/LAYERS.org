@@ -12,9 +12,10 @@
    - [[#eval-after-load][Eval after load]]
    - [[#use-package][Use-package]]
  - [[#anatomy-of-a-layer][Anatomy of a layer]]
+   - [[#configel][config.el]]
    - [[#packagesel][packages.el]]
-   - [[#packages-configel][packages-config.el]]
-   - [[#configel-packages-funcsel-and-keybindingsel][config.el, packages-funcs.el and keybindings.el]]
+   - [[#funcsel][funcs.el]]
+   - [[#keybindingsel][keybindings.el]]
  - [[#the-spacemacs-loading-process][The Spacemacs loading process]]
  - [[#case-study-auto-completion][Case study: auto-completion]]
  - [[#layer-tips-and-tricks][Layer tips and tricks]]
@@ -279,24 +280,20 @@ A layer is simply a folder somewhere in Spacemacs' layer search path that
 usually contains these files.
 
 - =config.el= :: layer specific configuration
-- =packages.el= :: the list of packages
-- =packages-config.el= :: packages configuration and keybindings
-- =packages-funcs.el= :: additional packages functions
-
-Other files (rarely needed):
-
-- =funcs.el= :: layer specific functions
-- =keybindings.el= :: key bindings for Emacs built-in feature
+- =packages.el= :: the packages configuration
+- =funcs.el= :: all functions used in the layer should be declared here
+- =keybindings.el= :: general key bindings
 
 Additionally, for each local package (see the next section), there should be a
 folder =<layer>/local/<package>/= containing the source code for that package.
 Before initializing that package, Spacemacs will add this folder to the load
 path for you.
 
-** packages.el
-This file should define a variable called =<layer>-packages=, which should be a
-list of all the packages that this layer needs. Some valid package
-specifications are as follows. Do not define other things in this file.
+** config.el
+This file configure the layer, it must at least include a variable called
+=<layer>-packages=, which should be a list of all the packages that this layer
+needs. It also contains what we call =layer variables= to further configure the
+layer. Some valid package specifications are as follows:
 
 #+begin_src emacs-lisp
   (setq mylayer-packages
@@ -327,7 +324,8 @@ Packages may be /excluded/ by setting the =:excluded= property to true. This
 will prevent the package from being installed even if it is used by another
 layer.
 
-** packages-config.el
+** packages.el
+It contains the actual configuration for the packages included in the layer.
 For each included package, you may define one or more of the following
 functions, which are called in order by Spacemacs to initialize the package.
 
@@ -345,14 +343,23 @@ does mandatory setup while the =pre-init= and =post-init= functions do optional
 setup. This can be used for managing cross-layer dependencies, which we will
 discuss later.
 
-** config.el, packages-funcs.el and keybindings.el
-These files contain no magic variables or functions, merely code that is
-executed. The intended use cases are
+** funcs.el
+It contains all the defined functions used in the layer.
 
-- config.el :: configuration code that is independent of packages, declaration
-     layer variables, and so on
-- packages-funcs.el :: definition of general utility functions
-- keybindings.el :: general keybindings
+It is good practice to guard the definition of functions to make sure a package
+is actually used. For instance:
+
+#+begin_src emacs-lisp
+(when (configuration-layer/package-usedp 'my-package)
+  (defun spacemacs/my-package-enable () ...)
+  (defun spacemacs/my-package-disable () ...))
+#+end_src
+
+By guarding these functions we avoid to define them in case the package
+`my-package` is not used.
+
+** keybindings.el
+It contains general key bindings.
 
 The word /general/ here means /independent of any package/. Since the end user
 can exclude an arbitrary set of packages, you cannot be sure that, just because

@@ -344,20 +344,18 @@ Configuration is organized in layers. Each layer has the following structure:
       |__ funcs.el
       |__ keybindings.el
       |__ packages.el
-      |__ packages-funcs.el
 
     [] = directory
 #+END_EXAMPLE
 
 Where:
 
-| File              | Usage                                                                                  |
-|-------------------+----------------------------------------------------------------------------------------|
-| config.el         | Layer configuration (not related to packages contained in this layer)                  |
-| funcs.el          | Various functions and macros (not related to packages contained in this layer)         |
-| keybindings.el    | Emacs built-in key bindings or mandatory key bindings                                  |
-| packages.el       | The list of packages to install and the configuration functions (init, post-init, ...) |
-| packages-funcs.el | Additional functions used in the packages.el                                           |
+| File           | Usage                                                                                    |
+|----------------+------------------------------------------------------------------------------------------|
+| config.el      | Layer configuration (defines the list of package for the layer and layer variables)      |
+| funcs.el       | All functions defined in the layer (used in package configuration for instance)          |
+| keybindings.el | General key bindings no tied to a specific package configuration                         |
+| packages.el    | The actual configuration of the packages (defines the functions init, post-init, etc...) |
 
 =Packages= can be:
 - =ELPA= packages installed from an =ELPA= compliant repository
