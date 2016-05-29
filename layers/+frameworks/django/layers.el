@@ -1,4 +1,4 @@
-;;; config.el --- Django Layer config File for Spacemacs
+;;; layers.el --- Django Layer layers File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

@@ -1,4 +1,4 @@
-;;; config.el --- Ruby on Rails Layer config File for Spacemacs
+;;; layers.el --- Ruby on Rails Layer layers File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

@@ -1,4 +1,4 @@
-;;; config.el --- react Layer packages File for Spacemacs
+;;; layers.el --- react Layer layers File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
@@ -9,6 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-;; Variables
-
-(spacemacs|defvar-company-backends react-mode)
+(configuration-layer/declare-layers '(html javascript))

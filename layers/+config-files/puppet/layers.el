@@ -1,4 +1,4 @@
-;;; config.el --- Puppet layer configuration File for Spacemacs
+;;; layers.el --- Puppet layer layers File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
@@ -9,6 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-;; Variables
-
-(spacemacs|defvar-company-backends puppet-mode)
+(configuration-layer/declare-layer 'ruby)
