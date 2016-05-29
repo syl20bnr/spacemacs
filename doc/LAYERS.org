@@ -12,9 +12,10 @@
    - [[#eval-after-load][Eval after load]]
    - [[#use-package][Use-package]]
  - [[#anatomy-of-a-layer][Anatomy of a layer]]
-   - [[#configel][config.el]]
+   - [[#layersel][layers.el]]
    - [[#packagesel][packages.el]]
    - [[#funcsel][funcs.el]]
+   - [[#configel][config.el]]
    - [[#keybindingsel][keybindings.el]]
  - [[#the-spacemacs-loading-process][The Spacemacs loading process]]
  - [[#case-study-auto-completion][Case study: auto-completion]]
@@ -277,11 +278,12 @@ more.
 
 * Anatomy of a layer
 A layer is simply a folder somewhere in Spacemacs' layer search path that
-usually contains these files.
+usually contains these files (listed in loading order).
 
-- =config.el= :: layer specific configuration
+- =layers.el= :: declare additional layers
 - =packages.el= :: the packages list and configuration
 - =funcs.el= :: all functions used in the layer should be declared here
+- =config.el= :: layer specific configuration
 - =keybindings.el= :: general key bindings
 
 Additionally, for each local package (see the next section), there should be a
@@ -289,15 +291,25 @@ folder =<layer>/local/<package>/= containing the source code for that package.
 Before initializing that package, Spacemacs will add this folder to the load
 path for you.
 
-** config.el
-This file configure the layer like declaring layer variables and setup some
-other variables related to the layer.
+** layers.el
+This file is the first file to be loaded and this is the place where addtional
+layers can be declared.
 
-This is the first file loaded when loading a layer.
+For instance is layer A depends on some functionality of layer B then in the
+file =layers.el= of layer A we can add:
+
+#+begin_src emacs-lisp
+(configuration-layer/declare-layer 'B)
+#+end_src
+
+The effect is that B is considered a used layer and will be loaded as if it
+was added to =dotspacemacs-configuration-layers= variables.
 
 ** packages.el
 It contains this list of packages of the layer and the actual configuration for
 the packages included in the layer.
+
+This file is loaded after =layers.el=.
 
 It must define a variable called =<layer>-packages=, which should be a list of
 all the packages that this layer needs. Some valid package specifications are
@@ -352,7 +364,7 @@ discuss later.
 ** funcs.el
 It contains all the defined functions used in the layer.
 
-This file is loaded _after_ =config.el= and =packages.el=.
+This file is loaded after  =packages.el= and before =config.el=.
 
 It is good practice to guard the definition of functions to make sure a package
 is actually used. For instance:
@@ -366,8 +378,16 @@ is actually used. For instance:
 By guarding these functions we avoid to define them in case the package
 `my-package` is not used.
 
+** config.el
+This file configure the layer like declaring layer variables default values
+and setup some other variables related to the layer.
+
+This file is loaded after =funcs.el=.
+
 ** keybindings.el
 It contains general key bindings.
+
+This is the last file loaded.
 
 The word /general/ here means /independent of any package/. Since the end user
 can exclude an arbitrary set of packages, you cannot be sure that, just because

@@ -340,9 +340,10 @@ Configuration is organized in layers. Each layer has the following structure:
       | |__ [package 1]
       | |     ...
       | |__ [package n]
-      |__ config.el
+      |-- layers.el
       |__ packages.el
       |__ funcs.el
+      |__ config.el
       |__ keybindings.el
 
     [] = directory
@@ -350,12 +351,13 @@ Configuration is organized in layers. Each layer has the following structure:
 
 Where:
 
-| File           | Usage                                                                             |
-|----------------+-----------------------------------------------------------------------------------|
-| config.el      | Layer configuration (defines the layer variables and setup some config variables) |
-| packages.el    | The list of packages and their configuration functions (init, post-init, etc...)  |
-| funcs.el       | All functions defined in the layer (used in package configuration for instance)   |
-| keybindings.el | General key bindings no tied to a specific package configuration                  |
+| File           | Usage                                                                                            |
+|----------------+--------------------------------------------------------------------------------------------------|
+| layers.el      | The place to declare additional layers                                                           |
+| packages.el    | The list of packages and their configuration functions (init, post-init, etc...)                 |
+| funcs.el       | All functions defined in the layer (used in package configuration for instance)                  |
+| config.el      | Layer configuration (defines the layer variables default values and setup some config variables) |
+| keybindings.el | General key bindings no tied to a specific package configuration                                 |
 
 =Packages= can be:
 - =ELPA= packages installed from an =ELPA= compliant repository
