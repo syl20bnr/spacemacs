@@ -179,7 +179,7 @@ before or after the bepo's configurations."
       (when (not (member name bepo-set-disabled-configurations))
         ;; If the package is in enabled-list, if any.
         (when (or (not bepo-set-enabled-configurations) (member name bepo-set-enabled-configurations))
-          (when dotspacemacs-verbose-loading
+          (when init-file-debug
             (message (format "[bepo] Configuration enabled: '%s'" name)))
           `(progn
              ,functions
