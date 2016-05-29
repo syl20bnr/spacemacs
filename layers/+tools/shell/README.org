@@ -45,7 +45,7 @@ to the following variables:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
-  '(shell :variables shell-default-shell 'eshell))
+  '((shell :variables shell-default-shell 'eshell)))
 #+END_SRC
 
 The default shell is quickly accessible via a the default shortcut key ~SPC '​~.
@@ -58,9 +58,9 @@ percents with the variable =shell-default-height=. Default value is =30=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '(shell :variables
-            shell-default-position 'bottom
-            shell-default-height 30))
+    '((shell :variables
+             shell-default-position 'bottom
+             shell-default-height 30)))
 #+END_SRC
 
 ** Set shell for term and ansi-term
@@ -69,7 +69,7 @@ Default value is =/bin/bash=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '(shell :variables shell-default-term-shell "/bin/bash"))
+    '((shell :variables shell-default-term-shell "/bin/bash")))
 #+END_SRC
 
 ** Width of the shell popup buffers
@@ -79,7 +79,7 @@ layer variable =shell-default-full-span= to nil.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '(shell :variables shell-default-full-span nil))
+    '((shell :variables shell-default-full-span nil)))
 #+END_SRC
 
 ** Enable em-smart in Eshell
@@ -102,7 +102,7 @@ To enable =em-smart= put the following layer variable to non-nil:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '(shell :variables shell-enable-smart-eshell t))
+    '((shell :variables shell-enable-smart-eshell t)))
 #+END_SRC
 
 ** Protect your Eshell prompt
@@ -118,7 +118,7 @@ to nil.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '(shell :variables shell-protect-eshell-prompt nil))
+    '((shell :variables shell-protect-eshell-prompt nil)))
 #+END_SRC
 
 * Eshell
