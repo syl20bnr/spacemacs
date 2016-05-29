@@ -153,6 +153,9 @@
 
 (defun spacemacs-base/init-evil-evilified-state ()
   (use-package evil-evilified-state)
+  (define-key evil-normal-state-map (kbd dotspacemacs-ex-key) 'evil-ex)
+  (define-key evil-visual-state-map (kbd dotspacemacs-ex-key) 'evil-ex)
+  (define-key evil-motion-state-map (kbd dotspacemacs-ex-key) 'evil-ex)
   (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
     spacemacs-default-map))
 
