@@ -12,7 +12,7 @@
 (setq latex-packages
   '(
     auctex
-    auctex-latexmk
+    (auctex-latexmk :toggle (string= "LatexMk" latex-build-command))
     company
     company-auctex
     evil-matchit
@@ -116,16 +116,15 @@
       (spacemacs/declare-prefix-for-mode 'latex-mode "mp"  "preview"))))
 
 
-(when (string= latex-build-command "LatexMk")
-  (defun latex/init-auctex-latexmk ()
-    (use-package auctex-latexmk
-      :defer t
-      :init
-      (progn
-        (setq auctex-latexmk-inherit-TeX-PDF-mode t)
-        (spacemacs|use-package-add-hook tex
-          :post-config
-          (auctex-latexmk-setup))))))
+(defun latex/init-auctex-latexmk ()
+  (use-package auctex-latexmk
+    :defer t
+    :init
+    (progn
+      (setq auctex-latexmk-inherit-TeX-PDF-mode t)
+      (spacemacs|use-package-add-hook tex
+        :post-config
+        (auctex-latexmk-setup)))))
 
 (defun latex/init-reftex ()
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
