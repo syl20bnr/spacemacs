@@ -67,7 +67,6 @@
            (eval `(defface ,(intern (format "spacemacs-%s-face" state))
                     `((t (:background ,color
                                       :foreground ,(face-background 'mode-line)
-                                      :box ,(face-attribute 'mode-line :box)
                                       :inherit 'mode-line)))
                     (format "%s state face." state)
                     :group 'spacemacs))
