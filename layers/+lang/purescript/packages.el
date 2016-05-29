@@ -24,7 +24,7 @@
   (spacemacs|add-company-hook purescript-mode))
 
 (defun purescript/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'purescript-mode-hook))
+  (spacemacs/add-flycheck-hook 'purescript-mode))
 
 (when (configuration-layer/package-usedp 'flycheck)
   (defun purescript/init-flycheck-purescript ()
