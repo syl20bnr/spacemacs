@@ -148,6 +148,9 @@ pressing `<leader> m`. Set it to `nil` to disable it.")
 (defvar dotspacemacs-major-mode-emacs-leader-key "C-M-m"
   "Major mode leader key accessible in `emacs state' and `insert state'")
 
+(defvar dotspacemacs-ex-key ":"
+  "The key used for Ex commands on normal and visual states.")
+
 (defvar dotspacemacs-command-key "SPC"
   "The key used for Emacs commands (M-x) (after pressing on the leader key).")
 (defvaralias 'dotspacemacs-emacs-command-key 'dotspacemacs-command-key
