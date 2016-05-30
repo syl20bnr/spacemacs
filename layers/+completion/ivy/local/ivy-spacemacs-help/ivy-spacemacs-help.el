@@ -46,8 +46,9 @@
       (unless (configuration-layer/layer-usedp (oref layer :name))
         (configuration-layer//load-layer-files layer '("funcs.el"
                                                        "config.el"))))
-    (setq ivy-spacemacs-help-all-packages (configuration-layer/get-packages
-                                           ivy-spacemacs-help-all-layers))))
+    (let (configuration-layer--packages)
+      (configuration-layer/get-packages ivy-spacemacs-help-all-layers)
+      (setq ivy-spacemacs-help-all-packages configuration-layer--packages))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Docs

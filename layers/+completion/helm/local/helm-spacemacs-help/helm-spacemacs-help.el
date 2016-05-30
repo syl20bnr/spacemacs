@@ -54,8 +54,9 @@
       (unless (configuration-layer/layer-usedp (oref layer :name))
         (configuration-layer//load-layer-files layer '("funcs.el"
                                                        "config.el"))))
-    (setq helm-spacemacs-help-all-packages (configuration-layer/get-packages
-                                       helm-spacemacs-help-all-layers))))
+    (let (configuration-layer--packages)
+      (configuration-layer/get-packages helm-spacemacs-help-all-layers)
+      (setq helm-spacemacs-help-all-packages configuration-layer--packages))))
 
 ;;;###autoload
 (defun helm-spacemacs-help (arg)
