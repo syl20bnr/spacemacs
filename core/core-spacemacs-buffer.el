@@ -78,7 +78,7 @@ in spacemacs buffer along with quick buttons underneath.
 
 Easter egg:
 Doge special text banner can be reachable via `999', `doge' or `random*'.
-Cate special text banner can de reachable via `998', `cate' or `random*'.
+Cate special text banner can de reachable via `998', `cat' or `random*'.
 `random' ignore special banners whereas `random*' does not."
   (let ((banner (spacemacs-buffer//choose-banner))
         (buffer-read-only nil))
@@ -128,7 +128,7 @@ Cate special text banner can de reachable via `998', `cate' or `random*'.
            (spacemacs-buffer//choose-random-text-banner t))
           ((eq 'doge dotspacemacs-startup-banner)
            (spacemacs-buffer//get-banner-path 999))
-          ((eq 'cate dotspacemacs-startup-banner)
+          ((eq 'cat dotspacemacs-startup-banner)
            (spacemacs-buffer//get-banner-path 998))
           ((integerp dotspacemacs-startup-banner)
            (spacemacs-buffer//get-banner-path dotspacemacs-startup-banner))
