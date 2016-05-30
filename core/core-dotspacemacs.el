@@ -107,8 +107,7 @@ If the value is nil then no banner is displayed.")
 when the current branch is not `develop'")
 
 (defvar dotspacemacs-configuration-layers '(emacs-lisp)
-  "List of configuration layers to load. If it is the symbol `all' instead
-of a list then all discovered layers will be installed.")
+  "List of configuration layers to load.")
 
 (defvar dotspacemacs-themes '(spacemacs-dark
                               spacemacs-light
