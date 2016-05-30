@@ -13,6 +13,7 @@
       '(
         company
         company-tern
+        dumb-jump
         evil-matchit
         flycheck
         js-doc
@@ -27,6 +28,15 @@
 
 (defun react/post-init-company-tern ()
   (push 'company-tern company-backends-react-mode))
+
+(defun react/init-dumb-jump ()
+  (use-package dumb-jump
+    :defer t
+    :init (add-hook 'react-mode-hook 'dumb-jump-mode)
+    :config
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'react-mode "j" 'dumb-jump-go)
+      (spacemacs/set-leader-keys-for-major-mode 'react-mode "J" 'dumb-jump-back))))
 
 (defun react/post-init-evil-matchit ()
   (with-eval-after-load 'evil-matchit
