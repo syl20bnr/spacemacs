@@ -9,9 +9,12 @@
 ;;
 ;;; License: GPLv3
 
-(setq typescript-packages '(tide
-                            typescript-mode
-                            web-mode))
+(setq typescript-packages
+      '(
+        tide
+        typescript-mode
+        web-mode
+        ))
 
 (defun typescript/init-tide ()
   (use-package tide
@@ -52,20 +55,17 @@
                 "rr" 'tide-rename-symbol
                 "Sr" 'tide-restart-server))))
 
-(when (configuration-layer/package-usedp 'web-mode)
-  (defun typescript/init-web-mode ()
-    (use-package web-mode
-      :defer t
-      :mode ("\\.tsx\\'" . web-mode)
-      :config (add-hook 'web-mode-hook
-                        (lambda ()
-                          (when (string-equal "tsx" (file-name-extension buffer-file-name))
-                            (tide-setup)
-                            (flycheck-mode +1)
-                            (setq flycheck-check-syntax-automatically '(save mode-enabled))
-                            (eldoc-mode +1)
-                            (when (configuration-layer/package-usedp 'company)
-                              (company-mode-on))))))))
+(defun typescript/post-init-web-mode ()
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equal "tsx" (file-name-extension buffer-file-name))
+                (tide-setup)
+                (flycheck-mode +1)
+                (setq flycheck-check-syntax-automatically '(save mode-enabled))
+                (eldoc-mode +1)
+                (when (configuration-layer/package-usedp 'company)
+                  (company-mode-on))))))
 
 (defun typescript/init-typescript-mode ()
   (use-package typescript-mode

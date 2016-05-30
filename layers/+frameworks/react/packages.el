@@ -22,12 +22,11 @@
         web-mode
         ))
 
-(when (configuration-layer/package-usedp 'company)
-  (defun react/post-init-company ()
-    (spacemacs|add-company-hook react-mode))
+(defun react/post-init-company ()
+  (spacemacs|add-company-hook react-mode))
 
-  (defun react/post-init-company-tern ()
-    (push 'company-tern company-backends-react-mode)))
+(defun react/post-init-company-tern ()
+  (push 'company-tern company-backends-react-mode))
 
 (defun react/post-init-evil-matchit ()
   (with-eval-after-load 'evil-matchit

@@ -14,7 +14,7 @@
   '(
     company
     flycheck
-    flycheck-purescript
+    (flycheck-purescript :toggle (configuration-layer/package-usedp 'flycheck))
     purescript-mode
     psci
     psc-ide
@@ -26,11 +26,10 @@
 (defun purescript/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'purescript-mode-hook))
 
-(when (configuration-layer/package-usedp 'flycheck)
-  (defun purescript/init-flycheck-purescript ()
-    (use-package flycheck-purescript
-      :commands flycheck-purescript-configure
-      :init (add-hook 'flycheck-mode-hook 'flycheck-purescript-configure))))
+(defun purescript/init-flycheck-purescript ()
+  (use-package flycheck-purescript
+    :commands flycheck-purescript-configure
+    :init (add-hook 'flycheck-mode-hook 'flycheck-purescript-configure)))
 
 (defun purescript/init-purescript-mode ()
   (use-package purescript-mode

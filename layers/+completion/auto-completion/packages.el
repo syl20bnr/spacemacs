@@ -15,8 +15,8 @@
         ac-ispell
         company
         company-statistics
-        helm-company
-        helm-c-yasnippet
+        (helm-company :toggle (configuration-layer/package-usedp 'helm))
+        (helm-c-yasnippet :toggle (configuration-layer/package-usedp 'helm))
         hippie-exp
         yasnippet
         auto-yasnippet
@@ -125,23 +125,21 @@
       (with-eval-after-load 'company
         (setq company-frontends (delq 'company-echo-metadata-frontend company-frontends))))))
 
-(when (configuration-layer/layer-usedp 'helm)
-  (defun auto-completion/init-helm-c-yasnippet ()
-    (use-package helm-c-yasnippet
-      :defer t
-      :init
-      (progn
-        (spacemacs/set-leader-keys "is" 'spacemacs/helm-yas)
-        (setq helm-c-yas-space-match-any-greedy t)))))
+(defun auto-completion/init-helm-c-yasnippet ()
+  (use-package helm-c-yasnippet
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys "is" 'spacemacs/helm-yas)
+      (setq helm-c-yas-space-match-any-greedy t))))
 
-(when (configuration-layer/layer-usedp 'helm)
-  (defun auto-completion/init-helm-company ()
-    (use-package helm-company
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init
-      (with-eval-after-load 'company
-        (define-key company-active-map (kbd "C-/") 'helm-company)))))
+(defun auto-completion/init-helm-company ()
+  (use-package helm-company
+    :if (configuration-layer/package-usedp 'company)
+    :defer t
+    :init
+    (with-eval-after-load 'company
+      (define-key company-active-map (kbd "C-/") 'helm-company))))
 
 (defun auto-completion/init-hippie-exp ()
   ;; replace dabbrev-expand

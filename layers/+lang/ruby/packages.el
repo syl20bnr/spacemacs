@@ -44,14 +44,12 @@
         "bx" 'bundle-exec
         "bo" 'bundle-open))))
 
-(when (configuration-layer/package-usedp 'company)
-  (defun ruby/post-init-company ()
-    (spacemacs|add-company-hook ruby-mode)
-    (spacemacs|add-company-hook enh-ruby-mode)
-
-    (with-eval-after-load 'company-dabbrev-code
-      (dolist (mode '(ruby-mode enh-ruby-mode))
-        (push mode company-dabbrev-code-modes)))))
+(defun ruby/post-init-company ()
+  (spacemacs|add-company-hook ruby-mode)
+  (spacemacs|add-company-hook enh-ruby-mode)
+  (with-eval-after-load 'company-dabbrev-code
+    (dolist (mode '(ruby-mode enh-ruby-mode))
+      (push mode company-dabbrev-code-modes))))
 
 (defun ruby/init-chruby ()
   (use-package chruby

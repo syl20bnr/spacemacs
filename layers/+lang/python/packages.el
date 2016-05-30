@@ -13,13 +13,13 @@
   '(
     anaconda-mode
     company
-    company-anaconda
+    (company-anaconda :toggle (configuration-layer/package-usedp 'company))
     cython-mode
     eldoc
     evil-matchit
     flycheck
     helm-cscope
-    helm-pydoc
+    (helm-pydoc :toggle (configuration-layer/package-usedp 'helm))
     hy-mode
     live-py-mode
     (nose :location local)
@@ -60,20 +60,19 @@
       (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
         (evil--jumps-push)))))
 
-(when (configuration-layer/package-usedp 'company)
-  (defun python/post-init-company ()
-    (spacemacs|add-company-hook python-mode)
-    (spacemacs|add-company-hook inferior-python-mode)
-    (push '(company-files company-capf) company-backends-inferior-python-mode)
-    (add-hook 'inferior-python-mode-hook (lambda ()
-                                           (setq-local company-minimum-prefix-length 0)
-                                           (setq-local company-idle-delay 0.5))))
+(defun python/post-init-company ()
+  (spacemacs|add-company-hook python-mode)
+  (spacemacs|add-company-hook inferior-python-mode)
+  (push '(company-files company-capf) company-backends-inferior-python-mode)
+  (add-hook 'inferior-python-mode-hook (lambda ()
+                                         (setq-local company-minimum-prefix-length 0)
+                                         (setq-local company-idle-delay 0.5))))
 
-  (defun python/init-company-anaconda ()
-    (use-package company-anaconda
-      :defer t
-      :init
-      (push 'company-anaconda company-backends-python-mode))))
+(defun python/init-company-anaconda ()
+  (use-package company-anaconda
+    :defer t
+    :init
+    (push 'company-anaconda company-backends-python-mode)))
 
 (defun python/init-cython-mode ()
   (use-package cython-mode
@@ -98,18 +97,16 @@
 (defun python/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'python-mode))
 
-(when (configuration-layer/layer-usedp 'helm)
-  (defun python/pre-init-helm-cscope ()
-    (spacemacs|use-package-add-hook xcscope
-      :post-init
-      (spacemacs/setup-helm-cscope 'python-mode))))
+(defun python/pre-init-helm-cscope ()
+  (spacemacs|use-package-add-hook xcscope
+    :post-init
+    (spacemacs/setup-helm-cscope 'python-mode)))
 
-(when (configuration-layer/layer-usedp 'helm)
-  (defun python/init-helm-pydoc ()
-    (use-package helm-pydoc
-      :defer t
-      :init
-      (spacemacs/set-leader-keys-for-major-mode 'python-mode "hd" 'helm-pydoc))))
+(defun python/init-helm-pydoc ()
+  (use-package helm-pydoc
+    :defer t
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode "hd" 'helm-pydoc)))
 
 (defun python/init-hy-mode ()
   (use-package hy-mode

@@ -235,13 +235,11 @@
   (unless (version< emacs-version "24.4")
     (add-hook 'cider-mode-hook 'subword-mode)))
 
-(when (configuration-layer/package-usedp 'company)
-  (defun clojure/post-init-company ()
-    (push 'company-capf company-backends-cider-mode)
-    (spacemacs|add-company-hook cider-mode)
-
-    (push 'company-capf company-backends-cider-repl-mode)
-    (spacemacs|add-company-hook cider-repl-mode)))
+(defun clojure/post-init-company ()
+  (push 'company-capf company-backends-cider-mode)
+  (spacemacs|add-company-hook cider-mode)
+  (push 'company-capf company-backends-cider-repl-mode)
+  (spacemacs|add-company-hook cider-repl-mode))
 
 (defun clojure/init-clojure-snippets ()
   (use-package clojure-snippets

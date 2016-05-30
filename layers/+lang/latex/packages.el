@@ -14,7 +14,7 @@
     auctex
     (auctex-latexmk :toggle (string= "LatexMk" latex-build-command))
     company
-    company-auctex
+    (company-auctex :toggle (configuration-layer/package-usedp 'company))
     evil-matchit
     (reftex :location built-in)
     flycheck
@@ -115,7 +115,6 @@
         "xfu" 'latex/font-upright)
       (spacemacs/declare-prefix-for-mode 'latex-mode "mp"  "preview"))))
 
-
 (defun latex/init-auctex-latexmk ()
   (use-package auctex-latexmk
     :defer t
@@ -125,6 +124,29 @@
       (spacemacs|use-package-add-hook tex
         :post-config
         (auctex-latexmk-setup)))))
+
+(defun latex/post-init-company ()
+  (spacemacs|add-company-hook LaTeX-mode))
+
+(defun latex/init-company-auctex ()
+  (use-package company-auctex
+    :defer t
+    :init
+    (progn
+      (push 'company-auctex-labels company-backends-LaTeX-mode)
+      (push 'company-auctex-bibs company-backends-LaTeX-mode)
+      (push '(company-auctex-macros
+              company-auctex-symbols
+              company-auctex-environments) company-backends-LaTeX-mode))))
+
+(defun latex/post-init-evil-matchit ()
+  (add-hook 'LaTeX-mode-hook 'evil-matchit-mode))
+
+(defun latex/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'LaTeX-mode))
+
+(defun latex/post-init-flyspell ()
+  (spell-checking/add-flyspell-hook 'LaTeX-mode-hook))
 
 (defun latex/init-reftex ()
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
@@ -145,30 +167,6 @@
     "rt"    'reftex-toc
     "rT"    'reftex-toc-recenter
     "rv"    'reftex-view-crossref))
-
-(when (configuration-layer/package-usedp 'company)
-  (defun latex/post-init-company ()
-    (spacemacs|add-company-hook LaTeX-mode))
-
-  (defun latex/init-company-auctex ()
-    (use-package company-auctex
-      :defer t
-      :init
-      (progn
-        (push 'company-auctex-labels company-backends-LaTeX-mode)
-        (push 'company-auctex-bibs company-backends-LaTeX-mode)
-        (push '(company-auctex-macros
-                company-auctex-symbols
-                company-auctex-environments) company-backends-LaTeX-mode)))))
-
-(defun latex/post-init-evil-matchit ()
-  (add-hook 'LaTeX-mode-hook 'evil-matchit-mode))
-
-(defun latex/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'LaTeX-mode))
-
-(defun latex/post-init-flyspell ()
-  (spell-checking/add-flyspell-hook 'LaTeX-mode-hook))
 
 (defun latex/post-init-smartparens ()
   (add-hook 'LaTeX-mode-hook 'smartparens-mode))

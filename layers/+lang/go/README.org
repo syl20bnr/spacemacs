@@ -9,7 +9,6 @@
    - [[#pre-requisites][Pre-requisites]]
    - [[#layer][Layer]]
  - [[#configuration][Configuration]]
-   - [[#formatting][Formatting]]
    - [[#indentation][Indentation]]
    - [[#tests][Tests]]
  - [[#working-with-go][Working with Go]]
@@ -38,7 +37,7 @@ You will need =gocode= and =godef=:
   go get -u -v golang.org/x/tools/cmd/goimports
 #+END_SRC
 
-If you wish to use =gometalinter= set the value of =go-use-gometalinter=:
+If you wish to use =gometalinter= set the value of =go-use-gometalinter= to t:
 
 #+begin_src emacs-lisp
   (go :variables go-use-gometalinter t)

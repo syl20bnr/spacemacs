@@ -19,11 +19,11 @@
     (company-ghci :toggle (and (configuration-layer/package-usedp 'company)
                                (not haskell-enable-ghc-mod-support)))
     flycheck
-    flycheck-haskell
+    (flycheck-haskell :toggle (configuration-layer/package-usedp 'flycheck))
     ghc
     haskell-mode
     haskell-snippets
-    helm-hoogle
+    (helm-hoogle :toggle (configuration-layer/package-usedp 'helm))
     hindent
     shm
     ))
@@ -56,22 +56,20 @@
     (push '(company-cabal)
           company-backends-haskell-cabal-mode)))
 
-(when (configuration-layer/layer-usedp 'helm)
-  (defun haskell/init-helm-hoogle ()
-    (use-package helm-hoogle
-      :defer t
-      :init
-      (dolist (mode haskell-modes)
-        (spacemacs/set-leader-keys-for-major-mode mode "hf" 'helm-hoogle)))))
+(defun haskell/init-helm-hoogle ()
+  (use-package helm-hoogle
+    :defer t
+    :init
+    (dolist (mode haskell-modes)
+      (spacemacs/set-leader-keys-for-major-mode mode "hf" 'helm-hoogle))))
 
 (defun haskell/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'haskell-mode))
 
-(when (configuration-layer/package-usedp 'flycheck)
-  (defun haskell/init-flycheck-haskell ()
-    (use-package flycheck-haskell
-      :commands flycheck-haskell-configure
-      :init (add-hook 'flycheck-mode-hook 'flycheck-haskell-configure))))
+(defun haskell/init-flycheck-haskell ()
+  (use-package flycheck-haskell
+    :commands flycheck-haskell-configure
+    :init (add-hook 'flycheck-mode-hook 'flycheck-haskell-configure)))
 
 (defun haskell/init-ghc ()
   (use-package ghc

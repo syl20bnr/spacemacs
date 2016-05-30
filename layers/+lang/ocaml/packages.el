@@ -11,10 +11,10 @@
 
 (setq ocaml-packages
   '(
-   ;; auto-complete
+    ;; auto-complete
     company
-   ;; flycheck
-   ;; flycheck-ocaml
+    ;; flycheck
+    ;; (flycheck-ocaml :toggle (configuration-layer/package-usedp 'flycheck))
     merlin
     ocp-indent
     smartparens
@@ -25,17 +25,17 @@
 (defun ocaml/post-init-company ()
   (spacemacs|add-company-hook merlin-mode))
 
-(when (configuration-layer/package-usedp 'flycheck)
-  (defun ocaml/post-init-flycheck ()
-    (spacemacs/add-flycheck-hook 'merlin-mode))
-  (defun ocaml/init-flycheck-ocaml ()
-    (use-package flycheck-ocaml
-      :defer t
-      :init
-      (progn
-        (with-eval-after-load 'merlin
-          (setq merlin-error-after-save nil)
-          (flycheck-ocaml-setup))))))
+(defun ocaml/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'merlin-mode))
+
+(defun ocaml/init-flycheck-ocaml ()
+  (use-package flycheck-ocaml
+    :defer t
+    :init
+    (progn
+      (with-eval-after-load 'merlin
+        (setq merlin-error-after-save nil)
+        (flycheck-ocaml-setup)))))
 
 (defun ocaml/init-merlin ()
   (use-package merlin

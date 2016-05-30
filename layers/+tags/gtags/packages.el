@@ -11,7 +11,7 @@
 
 (setq gtags-packages
   '(
-    helm-gtags
+    (helm-gtags :toggle (configuration-layer/package-usedp 'helm))
     ggtags
     ))
 
@@ -19,35 +19,34 @@
   (use-package ggtags
     :defer t))
 
-(when (configuration-layer/layer-usedp 'helm)
-  (defun gtags/init-helm-gtags ()
-    (use-package helm-gtags
-      :defer t
-      :diminish helm-gtags-mode
-      :init
-      (progn
-        (setq helm-gtags-ignore-case t
-              helm-gtags-auto-update t
-              helm-gtags-use-input-at-cursor t
-              helm-gtags-pulse-at-cursor t)
-        ;; modes that do not have a layer, define here
-        (spacemacs/helm-gtags-define-keys-for-mode 'tcl-mode)
-        (spacemacs/helm-gtags-define-keys-for-mode 'java-mode)
-        (spacemacs/helm-gtags-define-keys-for-mode 'vhdl-mode)
-        (spacemacs/helm-gtags-define-keys-for-mode 'shell-script-mode)
-        (spacemacs/helm-gtags-define-keys-for-mode 'awk-mode)
-        (spacemacs/helm-gtags-define-keys-for-mode 'asm-mode)
-        (spacemacs/helm-gtags-define-keys-for-mode 'dired-mode)
-        (spacemacs/helm-gtags-define-keys-for-mode 'compilation-mode)
-        (spacemacs/helm-gtags-define-keys-for-mode 'shell-mode)
+(defun gtags/init-helm-gtags ()
+  (use-package helm-gtags
+    :defer t
+    :diminish helm-gtags-mode
+    :init
+    (progn
+      (setq helm-gtags-ignore-case t
+            helm-gtags-auto-update t
+            helm-gtags-use-input-at-cursor t
+            helm-gtags-pulse-at-cursor t)
+      ;; modes that do not have a layer, define here
+      (spacemacs/helm-gtags-define-keys-for-mode 'tcl-mode)
+      (spacemacs/helm-gtags-define-keys-for-mode 'java-mode)
+      (spacemacs/helm-gtags-define-keys-for-mode 'vhdl-mode)
+      (spacemacs/helm-gtags-define-keys-for-mode 'shell-script-mode)
+      (spacemacs/helm-gtags-define-keys-for-mode 'awk-mode)
+      (spacemacs/helm-gtags-define-keys-for-mode 'asm-mode)
+      (spacemacs/helm-gtags-define-keys-for-mode 'dired-mode)
+      (spacemacs/helm-gtags-define-keys-for-mode 'compilation-mode)
+      (spacemacs/helm-gtags-define-keys-for-mode 'shell-mode)
 
-        (spacemacs/ggtags-enable-eldoc 'tcl-mode)
-        (spacemacs/ggtags-enable-eldoc 'java-mode)
-        (spacemacs/ggtags-enable-eldoc 'vhdl-mode))
-      :config
-      (progn
-        ;; if anyone uses helm-gtags, they would want to use these key bindings
-        (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
-        (define-key helm-gtags-mode-map (kbd "C-x 4 .") 'helm-gtags-find-tag-other-window)
-        (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
-        (define-key helm-gtags-mode-map (kbd "M-*") 'helm-gtags-pop-stack)))))
+      (spacemacs/ggtags-enable-eldoc 'tcl-mode)
+      (spacemacs/ggtags-enable-eldoc 'java-mode)
+      (spacemacs/ggtags-enable-eldoc 'vhdl-mode))
+    :config
+    (progn
+      ;; if anyone uses helm-gtags, they would want to use these key bindings
+      (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
+      (define-key helm-gtags-mode-map (kbd "C-x 4 .") 'helm-gtags-find-tag-other-window)
+      (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
+      (define-key helm-gtags-mode-map (kbd "M-*") 'helm-gtags-pop-stack))))

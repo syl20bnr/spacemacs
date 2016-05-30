@@ -14,6 +14,7 @@
    - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
      - [[#in-configel][In =config.el=]]
      - [[#in-packagesel][In =packages.el=]]
+   - [[#improved-faces][Improved faces]]
  - [[#key-bindings-1][Key Bindings]]
    - [[#company][Company]]
    - [[#auto-complete][Auto-complete]]
@@ -154,21 +155,18 @@ Here is an example to add =company= auto-completion to python buffer:
   (setq python-packages
     '(...
       company
-      company-anaconda
+      (company-anaconda :toggle (configuration-layer/package-usedp 'company'))
       ...))
 
-  ;; Configure the packages
-  (when (configuration-layer/package-usedp 'company)
+  ;; Hook company to python-mode
+  (defun python/post-init-company ()
+    (spacemacs|add-company-hook python-mode))
 
-    ;; Hook company to python-mode
-    (defun python/post-init-company ()
-      (spacemacs|add-company-hook python-mode))
-
-    ;; Add the backend to the major-mode specific backend list
-    (defun python/init-company-anaconda ()
-      (use-package company-anaconda
-        :defer t
-        :init (push 'company-anaconda company-backends-python-mode))))
+  ;; Add the backend to the major-mode specific backend list
+  (defun python/init-company-anaconda ()
+    (use-package company-anaconda
+      :defer t
+      :init (push 'company-anaconda company-backends-python-mode)))
 #+END_SRC
 
 ** Improved faces

@@ -12,7 +12,8 @@
 (setq games-packages
       '(
         2048-game
-        (helm-games :location local)
+        (helm-games :location local
+                    :toggle (configuration-layer/package-usedp 'helm))
         pacmacs
         (tetris :location built-in)
         typit
@@ -31,14 +32,13 @@
         "h" '2048-left
         "l" '2048-right))))
 
-(when (configuration-layer/layer-usedp 'helm)
-  (defun games/init-helm-games ()
-    (use-package helm-games
-      :commands helm-games
-      :init
-      (progn
-        (spacemacs/declare-prefix "aG" "games")
-        (spacemacs/set-leader-keys "aG" 'helm-games)))))
+(defun games/init-helm-games ()
+  (use-package helm-games
+    :commands helm-games
+    :init
+    (progn
+      (spacemacs/declare-prefix "aG" "games")
+      (spacemacs/set-leader-keys "aG" 'helm-games))))
 
 (defun games/init-pacmacs ()
   (use-package pacmacs

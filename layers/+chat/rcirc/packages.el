@@ -4,20 +4,20 @@
     company-emoji
     emoji-cheat-sheet-plus
     flyspell
-    (helm-rcirc :location local)
+    (helm-rcirc :location local
+                :toggle (configuration-layer/package-usedp 'helm))
     persp-mode
     rcirc
     rcirc-color
     rcirc-notify
     ))
 
-(when (configuration-layer/package-usedp 'company)
-  (defun rcirc/post-init-company ()
-    (spacemacs|add-company-hook rcirc-mode)
-    (push 'company-capf company-backends-rcirc-mode))
+(defun rcirc/post-init-company ()
+  (spacemacs|add-company-hook rcirc-mode)
+  (push 'company-capf company-backends-rcirc-mode))
 
-  (defun rcirc/post-init-company-emoji ()
-    (push 'company-emoji company-backends-rcirc-mode)))
+(defun rcirc/post-init-company-emoji ()
+  (push 'company-emoji company-backends-rcirc-mode))
 
 (defun rcirc/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'rcirc-mode-hook 'emoji-cheat-sheet-plus-display-mode))
@@ -25,12 +25,11 @@
 (defun rcirc/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'rcirc-mode-hook))
 
-(when (configuration-layer/layer-usedp 'helm)
-  (defun rcirc/init-helm-rcirc ()
-    (use-package helm-rcirc
-      :commands helm-rcirc-auto-join-channels
-      :init
-      (spacemacs/set-leader-keys "irc" 'helm-rcirc-auto-join-channels))))
+(defun rcirc/init-helm-rcirc ()
+  (use-package helm-rcirc
+    :commands helm-rcirc-auto-join-channels
+    :init
+    (spacemacs/set-leader-keys "irc" 'helm-rcirc-auto-join-channels)))
 
 (defun rcirc/post-init-persp-mode ()
   ;; do not save rcirc buffers

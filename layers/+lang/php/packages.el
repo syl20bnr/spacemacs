@@ -24,9 +24,8 @@
         phpunit
         ))
 
-(when (configuration-layer/package-usedp 'company)
-  (defun php/post-init-company ()
-    (spacemacs|add-company-hook php-mode)))
+(defun php/post-init-company ()
+  (spacemacs|add-company-hook php-mode))
 
 (defun php/init-drupal-mode ()
   (use-package drupal-mode
@@ -43,9 +42,8 @@
 (defun php/post-init-ggtags ()
   (add-hook 'php-mode-hook 'ggtags-mode))
 
-(when (configuration-layer/layer-usedp 'helm)
-  (defun php/post-init-helm-gtags ()
-    (spacemacs/helm-gtags-define-keys-for-mode 'php-mode)))
+(defun php/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'php-mode))
 
 (defun php/init-php-auto-yasnippets ()
   (use-package php-auto-yasnippets

@@ -186,34 +186,33 @@ is achieved by adding the relevant text properties."
     (with-eval-after-load 'eshell
       (require 'eshell-z))))
 
-(when (configuration-layer/layer-usedp 'helm)
-  (defun shell/pre-init-helm ()
-    (spacemacs|use-package-add-hook helm
-      :post-init
-      (progn
-        ;; eshell
-        (defun spacemacs/helm-eshell-history ()
-          "Correctly revert to insert state after selection."
-          (interactive)
-          (helm-eshell-history)
-          (evil-insert-state))
-        (defun spacemacs/helm-shell-history ()
-          "Correctly revert to insert state after selection."
-          (interactive)
-          (helm-comint-input-ring)
-          (evil-insert-state))
-        (defun spacemacs/init-helm-eshell ()
-          "Initialize helm-eshell."
-          ;; this is buggy for now
-          ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete)
-          (spacemacs/set-leader-keys-for-major-mode 'eshell-mode
-            "H" 'spacemacs/helm-eshell-history)
-          (define-key eshell-mode-map
-            (kbd "M-l") 'spacemacs/helm-eshell-history))
-        (add-hook 'eshell-mode-hook 'spacemacs/init-helm-eshell)
-        ;;shell
-        (spacemacs/set-leader-keys-for-major-mode 'shell-mode
-          "H" 'spacemacs/helm-shell-history)))))
+(defun shell/pre-init-helm ()
+  (spacemacs|use-package-add-hook helm
+    :post-init
+    (progn
+      ;; eshell
+      (defun spacemacs/helm-eshell-history ()
+        "Correctly revert to insert state after selection."
+        (interactive)
+        (helm-eshell-history)
+        (evil-insert-state))
+      (defun spacemacs/helm-shell-history ()
+        "Correctly revert to insert state after selection."
+        (interactive)
+        (helm-comint-input-ring)
+        (evil-insert-state))
+      (defun spacemacs/init-helm-eshell ()
+        "Initialize helm-eshell."
+        ;; this is buggy for now
+        ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete)
+        (spacemacs/set-leader-keys-for-major-mode 'eshell-mode
+          "H" 'spacemacs/helm-eshell-history)
+        (define-key eshell-mode-map
+          (kbd "M-l") 'spacemacs/helm-eshell-history))
+      (add-hook 'eshell-mode-hook 'spacemacs/init-helm-eshell)
+      ;;shell
+      (spacemacs/set-leader-keys-for-major-mode 'shell-mode
+        "H" 'spacemacs/helm-shell-history))))
 
 (defun shell/pre-init-magit ()
   (spacemacs|use-package-add-hook magit

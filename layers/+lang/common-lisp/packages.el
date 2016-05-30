@@ -11,7 +11,7 @@
 
 (setq common-lisp-packages
       '(auto-highlight-symbol
-        common-lisp-snippets
+        (common-lisp-snippets :toggle (configuration-layer/package-usedp 'yasnippet))
         helm
         slime))
 
@@ -19,8 +19,7 @@
   (with-eval-after-load 'auto-highlight-symbol
     (add-to-list 'ahs-plugin-bod-modes 'lisp-mode)))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun common-lisp/init-common-lisp-snippets ()))
+(defun common-lisp/init-common-lisp-snippets ())
 
 (defun common-lisp/post-init-helm ()
   (spacemacs/set-leader-keys-for-major-mode 'lisp-mode

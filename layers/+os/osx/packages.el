@@ -26,16 +26,15 @@
         (setq insert-directory-program gls
               dired-listing-switches "-aBhl --group-directories-first")))))
 
-(when (configuration-layer/layer-usedp 'helm)
-  (defun osx/pre-init-helm ()
-    ;; Use `mdfind' instead of `locate'.
-    (when (spacemacs/system-is-mac)
-      (spacemacs|use-package-add-hook helm
-        :post-config
-        ;; Disable fuzzy matchting to make mdfind work with helm-locate
-        ;; https://github.com/emacs-helm/helm/issues/799
-        (setq helm-locate-fuzzy-match nil)
-        (setq helm-locate-command "mdfind -name %s %s")))))
+(defun osx/pre-init-helm ()
+  ;; Use `mdfind' instead of `locate'.
+  (when (spacemacs/system-is-mac)
+    (spacemacs|use-package-add-hook helm
+      :post-config
+      ;; Disable fuzzy matchting to make mdfind work with helm-locate
+      ;; https://github.com/emacs-helm/helm/issues/799
+      (setq helm-locate-fuzzy-match nil)
+      (setq helm-locate-command "mdfind -name %s %s"))))
 
 (defun osx/init-launchctl ()
   (use-package launchctl

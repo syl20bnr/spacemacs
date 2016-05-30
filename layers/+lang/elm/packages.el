@@ -14,7 +14,7 @@
       company
       elm-mode
       flycheck
-      flycheck-elm
+      (flycheck-elm :toggle (configuration-layer/package-usedp 'flycheck))
       popwin
       smartparens
       ))
@@ -27,12 +27,11 @@
   (add-hook 'elm-mode-hook 'flycheck-mode)
   (add-hook 'elm-mode-hook 'spacemacs//elm-find-root))
 
-(when (configuration-layer/package-usedp 'flycheck)
-  (defun elm/init-flycheck-elm ()
-    "Initialize flycheck-elm"
-    (use-package flycheck-elm
-      :defer t
-      :init (add-hook 'flycheck-mode-hook 'flycheck-elm-setup t))))
+(defun elm/init-flycheck-elm ()
+  "Initialize flycheck-elm"
+  (use-package flycheck-elm
+    :defer t
+    :init (add-hook 'flycheck-mode-hook 'flycheck-elm-setup t)))
 
 (defun elm/init-elm-mode ()
   "Initialize elm-mode"
