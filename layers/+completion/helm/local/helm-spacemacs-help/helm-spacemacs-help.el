@@ -50,10 +50,6 @@
     (mapc (lambda (layer) (push (configuration-layer/make-layer layer)
                                 helm-spacemacs-help-all-layers))
           (configuration-layer/get-layers-list))
-    (dolist (layer helm-spacemacs-help-all-layers)
-      (unless (configuration-layer/layer-usedp (oref layer :name))
-        (configuration-layer//load-layer-files layer '("funcs.el"
-                                                       "config.el"))))
     (let (configuration-layer--packages)
       (configuration-layer/get-packages helm-spacemacs-help-all-layers)
       (setq helm-spacemacs-help-all-packages configuration-layer--packages))))
