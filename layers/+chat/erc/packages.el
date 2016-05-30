@@ -123,6 +123,7 @@
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-sasl
+      :defer t
       :if erc-enable-sasl-auth
       ;; Following http://www.emacswiki.org/emacs/ErcSASL
       ;; Maybe an advice would be better?
@@ -174,7 +175,7 @@
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-yt
-      :init (with-eval-after-load erc
+      :init (with-eval-after-load "erc"
               (add-to-list 'erc-modules 'youtube)))))
 
 (defun erc/init-erc-yank ()
