@@ -171,12 +171,13 @@ used as process type.
 
 **** ghc-mod users
 
-If you want to use ~SPC m h t~ from =ghc-mod= instead of =ghci-ng= - then you
-need to add following line in your =dotspacemacs/user-config=:
+If you want to use ~SPC m h t~ and ~SPC m h i~ from =ghc-mod= instead of =ghci-ng= - then you
+need to add following lines in your =dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
 (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
-        "mht"  'ghc-show-type)
+        "ht"  'ghc-show-type
+        "hi"  'ghc-show-info)
 #+END_SRC
 
 This might be useful, because =ghc-mod= doesn't require active REPL in order to
