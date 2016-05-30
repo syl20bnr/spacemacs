@@ -25,6 +25,7 @@
     haskell-snippets
     (helm-hoogle :toggle (configuration-layer/package-usedp 'helm))
     hindent
+    hlint-refactor
     shm
     ))
 
@@ -308,6 +309,16 @@
       (setq hindent-style haskell-enable-hindent-style)
       (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
         "F" 'hindent-reformat-decl))))
+
+(defun haskell/init-hlint-refactor ()
+  (use-package hlint-refactor
+    :defer t
+    :init
+    (progn
+      (spacemacs/declare-prefix-for-mode 'haskell-mode "mr" "haskell/refactor")
+      (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
+        "rb" 'hlint-refactor-refactor-buffer
+        "rr" 'hlint-refactor-refactor-at-point))))
 
 (defun haskell/init-shm ()
   (use-package shm

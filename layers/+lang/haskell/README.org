@@ -23,6 +23,7 @@
    - [[REPL][REPL]]
    - [[Cabal commands][Cabal commands]]
    - [[Cabal files][Cabal files]]
+   - [[Refactor][Refactor]]
    - [[Ghc-mod][Ghc-mod]]
      - [[Insert template][Insert template]]
  - [[Syntax checking][Syntax checking]]
@@ -65,6 +66,7 @@ file.
 
 ** Dependencies
 This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
+- =apply-refact=
 - =hlint=
 - =stylish-haskell=
 - =hasktags=
@@ -74,7 +76,7 @@ This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
 To install them, use following command (or the =stack= equivalent):
 
 #+BEGIN_SRC sh
-$ cabal install stylish-haskell hlint hasktags ghc-mod hoogle
+$ cabal install apply-refact stylish-haskell hlint hasktags ghc-mod hoogle
 #+END_SRC
 
 ** Setup PATH
@@ -326,6 +328,16 @@ This commands are available in a cabal file.
 | ~SPC m N~   | go to next section                          |
 | ~SPC m P~   | go to previous section                      |
 | ~SPC m f~   | find or create source-file under the cursor |
+
+** Refactor
+Refactor commands are prefixed by ~SPC m r~:
+
+| Key Binding | Description                                       |
+|-------------+---------------------------------------------------|
+| ~SPC m r b~ | apply all HLint suggestions in the current buffer |
+| ~SPC m r r~ | apply the HLint suggestion under the cursor       |
+
+Only some of the HLint suggestions can be applied.
 
 ** Ghc-mod
 These commands are only available when ghc-mod is enabled.
