@@ -26,17 +26,6 @@
        (should (eq 'spacemacs-bootstrap
                    (oref (first configuration-layer--layers) :name)))))))
 
-(ert-deftest test-declare-layers--bootstrap-layer-always-first-all ()
-  (let ((dotspacemacs-distribution 'spacemacs)
-        (dotspacemacs-configuration-layers 'all)
-        (mocker-mock-default-record-cls 'mocker-stub-record))
-    (mocker-let
-     ((load (f) ((:output nil))))
-     (let (configuration-layer--layers)
-       (configuration-layer//declare-layers)
-       (should (eq 'spacemacs-bootstrap
-                   (oref (first configuration-layer--layers) :name)))))))
-
 (ert-deftest test-declare-layers--distribution-layer-is-second ()
   (let ((dotspacemacs-distribution 'spacemacs-base)
         (dotspacemacs-configuration-layers '(emacs-lisp
@@ -45,14 +34,3 @@
       (configuration-layer//declare-layers)
       (should (eq 'spacemacs-base
                   (oref (second configuration-layer--layers) :name))))))
-
-(ert-deftest test-declare-layers--distribution-layer-position-with-all-layers ()
-  (let ((dotspacemacs-distribution 'spacemacs-base)
-        (dotspacemacs-configuration-layers 'all)
-        (mocker-mock-default-record-cls 'mocker-stub-record))
-    (mocker-let
-     ((load (f) ((:output nil))))
-     (let (configuration-layer--layers)
-       (configuration-layer//declare-layers)
-       (should (eq 'spacemacs-base
-                   (oref (second configuration-layer--layers) :name)))))))

@@ -885,9 +885,6 @@ path."
   (setq configuration-layer--layers nil)
   (setq configuration-layer-paths (configuration-layer//discover-layers))
   (unless configuration-layer-no-layer
-    (when (eq 'all dotspacemacs-configuration-layers)
-      (setq dotspacemacs-configuration-layers
-            (ht-keys configuration-layer-paths)))
     (dolist (layer dotspacemacs-configuration-layers)
       (let ((layer-name (if (listp layer) (car layer) layer)))
         (unless (string-match-p "+distribution"
