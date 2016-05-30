@@ -92,6 +92,8 @@
 
 (defun ocaml/init-tuareg ()
   (use-package tuareg
+    :mode (("\\.ml[ily]?$" . tuareg-mode)
+	          ("\\.topml$" . tuareg-mode))
     :defer t
     :init
     (progn
