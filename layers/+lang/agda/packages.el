@@ -13,14 +13,14 @@
       '((agda :location local)))
 
 (defun agda/init-agda ()
-  (unless (executable-find "agda-mode")
+  (unless (executable-find "agda")
     (spacemacs-buffer/warning
      (concat "Agda not detected, be sure that Agda binaries are "
              "available in your PATH or check the installation "
              "instructions in the README file.")))
 
   (use-package agda2-mode
-    :if (executable-find "agda-mode")
+    :if (executable-find "agda")
     :defer t
     :init (load-file (let ((coding-system-for-read 'utf-8))
                        (shell-command-to-string "agda-mode locate")))
