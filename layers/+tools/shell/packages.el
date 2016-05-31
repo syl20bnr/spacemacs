@@ -237,9 +237,10 @@ is achieved by adding the relevant text properties."
         (term-send-raw-string "\t"))
       (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab))
       ;; multi-term commands to create terminals and move through them.
-      (spacemacs/set-leader-keys-for-major-mode 'term-mode "c" 'multi-term)
-      (spacemacs/set-leader-keys-for-major-mode 'term-mode "p" 'multi-term-prev)
-      (spacemacs/set-leader-keys-for-major-mode 'term-mode "n" 'multi-term-next))))
+      (spacemacs/set-leader-keys-for-major-mode 'term-mode
+        "c" 'multi-term
+        "p" 'multi-term-prev
+        "n" 'multi-term-next))))
 
 (defun shell/pre-init-org ()
   (spacemacs|use-package-add-hook org
