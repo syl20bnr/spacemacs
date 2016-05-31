@@ -35,15 +35,11 @@
     :init
     (progn
       (spacemacs|add-toggle aggressive-indent
-        :status aggressive-indent-mode
-        :on (aggressive-indent-mode)
-        :off (aggressive-indent-mode -1)
+        :mode aggressive-indent-mode
         :documentation "Always keep code indented."
         :evil-leader "tI")
       (spacemacs|add-toggle aggressive-indent-globally
-        :status aggressive-indent-mode
-        :on (global-aggressive-indent-mode)
-        :off (global-aggressive-indent-mode -1)
+        :mode aggressive-indent-mode
         :documentation "Always keep code indented globally."
         :evil-leader "t C-I"))
     :config
@@ -161,9 +157,7 @@
     :defer t
     :init
     (spacemacs|add-toggle hungry-delete
-      :status hungry-delete-mode
-      :on (hungry-delete-mode)
-      :off (hungry-delete-mode -1)
+      :mode hungry-delete-mode
       :documentation "Delete consecutive horizontal whitespace with a single key."
       :evil-leader "td")
     :config
@@ -251,16 +245,12 @@
       (add-hook 'minibuffer-setup-hook 'conditionally-enable-smartparens-mode)
 
       (spacemacs|add-toggle smartparens
-        :status smartparens-mode
-        :on (smartparens-mode)
-        :off (smartparens-mode -1)
+        :mode smartparens-mode
         :documentation "Enable smartparens."
         :evil-leader "tp")
 
       (spacemacs|add-toggle smartparens-globally
-        :status smartparens-mode
-        :on (smartparens-global-mode)
-        :off (smartparens-global-mode -1)
+        :mode smartparens-mode
         :documentation "Enable smartparens globally."
         :evil-leader "t C-p")
 

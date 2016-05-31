@@ -94,16 +94,12 @@
     :init
     (progn
       (spacemacs|add-toggle centered-point
-        :status centered-cursor-mode
-        :on (centered-cursor-mode)
-        :off (centered-cursor-mode -1)
+        :mode centered-cursor-mode
         :documentation
         "Keep point at the center of the window."
         :evil-leader "t-")
       (spacemacs|add-toggle centered-point-globally
-        :status centered-cursor-mode
-        :on (global-centered-cursor-mode)
-        :off (global-centered-cursor-mode -1)
+        :mode global-centered-cursor-mode
         :documentation
         "Keep point at the center of the window globally."
         :evil-leader "t C--"))

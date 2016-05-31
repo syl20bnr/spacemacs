@@ -274,8 +274,6 @@
   (use-package livid-mode
     :defer t
     :init (spacemacs|add-toggle javascript-repl-live-evaluation
-            :status livid-mode
-            :on (livid-mode)
-            :off (livid-mode -1)
+            :mode livid-mode
             :documentation "Live evaluation of JS buffer change."
             :evil-leader-for-mode (js2-mode . "sa"))))

@@ -26,9 +26,7 @@
         (add-hook 'text-mode-hook 'nlinum-mode))
       (setq nlinum-format "%4d")
       (spacemacs|add-toggle line-numbers
-        :status nlinum-mode
-        :on (nlinum-mode)
-        :off (nlinum-mode -1)
+        :mode nlinum-mode
         :documentation "Show the line numbers."
         :evil-leader "tn"))))
 

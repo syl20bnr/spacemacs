@@ -241,9 +241,7 @@
   (require 'which-key)
 
   (spacemacs|add-toggle which-key
-    :status which-key-mode
-    :on (which-key-mode)
-    :off (which-key-mode -1)
+    :mode which-key-mode
     :documentation
     "Display a buffer with available key bindings."
     :evil-leader "tK")

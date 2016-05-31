@@ -25,9 +25,7 @@
             flycheck-global-modes nil)
 
       (spacemacs|add-toggle syntax-checking
-        :status flycheck-mode
-        :on (flycheck-mode)
-        :off (flycheck-mode -1)
+        :mode flycheck-mode
         :documentation "Enable error and syntax checking."
         :evil-leader "ts")
 

@@ -37,9 +37,7 @@
        (nyan-mode))
 
       (spacemacs|add-toggle nyan-cat-progress-bar
-        :status nyan-mode
-        :on (nyan-mode)
-        :off (nyan-mode -1)
+        :mode nyan-mode
         :documentation "Show a nyan cat progress bar in the mode-line."
         :evil-leader "tmn"))))
 
@@ -60,9 +58,7 @@
       (spacemacs/declare-prefix "Ci" "colors-identifiers")
 
       (spacemacs|add-toggle rainbow-identifier-globally
-        :status rainbow-identifiers-mode
-        :on (rainbow-identifiers-mode)
-        :off (rainbow-identifiers-mode -1)
+        :mode rainbow-identifiers-mode
         :documentation "Colorize identifiers globally."
         :evil-leader "tCi")
 

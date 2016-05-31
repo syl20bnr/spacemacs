@@ -274,9 +274,7 @@
         :documentation "Highlight the characters past the 80th column."
         :evil-leader "t8")
       (spacemacs|add-toggle highlight-long-lines-globally
-        :status global-column-enforce-mode
-        :on (global-column-enforce-mode)
-        :off (global-column-enforce-mode -1)
+        :mode global-column-enforce-mode
         :documentation "Globally Highlight the characters past the 80th column."
         :evil-leader "t C-8"))
     :config (spacemacs|diminish column-enforce-mode "⑧" "8")))
@@ -287,15 +285,11 @@
     :init
     (progn
       (spacemacs|add-toggle highlight-indentation
-        :status highlight-indentation-mode
-        :on (highlight-indentation-mode)
-        :off (highlight-indentation-mode -1)
+        :mode highlight-indentation-mode
         :documentation "Highlight indentation levels."
         :evil-leader "thi")
       (spacemacs|add-toggle highlight-indentation-current-column
-        :status highlight-indentation-current-column-mode
-        :on (highlight-indentation-current-column-mode)
-        :off (highlight-indentation-current-column-mode -1)
+        :mode highlight-indentation-current-column-mode
         :documentation "Highlight indentation level at point."
         :evil-leader "thc"))
     :config
@@ -353,16 +347,12 @@
     (progn
       (setq indent-guide-delay 0.3)
       (spacemacs|add-toggle indent-guide
-        :status indent-guide-mode
-        :on (indent-guide-mode)
-        :off (indent-guide-mode -1)
+        :mode indent-guide-mode
         :documentation
         "Highlight indentation level at point. (alternative to highlight-indentation)."
         :evil-leader "ti")
       (spacemacs|add-toggle indent-guide-globally
-        :status indent-guide-mode
-        :on (indent-guide-global-mode)
-        :off (indent-guide-global-mode -1)
+        :mode indent-guide-global-mode
         :documentation
         "Highlight indentation level at point globally. (alternative to highlight-indentation)."
         :evil-leader "t TAB"))

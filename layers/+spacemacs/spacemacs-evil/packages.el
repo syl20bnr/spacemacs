@@ -322,9 +322,7 @@
     :defer t
     :init
     (spacemacs|add-toggle evil-visual-mark-mode
-      :status evil-visual-mark-mode
-      :on (evil-visual-mark-mode)
-      :off (evil-visual-mark-mode -1)
+      :mode evil-visual-mark-mode
       :documentation "Enable evil visual marks mode."
       :evil-leader "t`")))
 
@@ -350,9 +348,7 @@
      (progn
        (global-vi-tilde-fringe-mode)
        (spacemacs|add-toggle vi-tilde-fringe
-         :status vi-tilde-fringe-mode
-         :on (global-vi-tilde-fringe-mode)
-         :off (global-vi-tilde-fringe-mode -1)
+         :mode global-vi-tilde-fringe-mode
          :documentation
          "Globally display a ~ on empty lines in the fringe."
          :evil-leader "T~")

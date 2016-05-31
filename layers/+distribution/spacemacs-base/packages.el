@@ -193,9 +193,7 @@
     (add-hook 'text-mode-hook 'linum-mode))
   (setq linum-format "%4d")
   (spacemacs|add-toggle line-numbers
-    :status linum-mode
-    :on (linum-mode)
-    :off (linum-mode -1)
+    :mode linum-mode
     :documentation "Show the line numbers."
     :evil-leader "tn"))
 
@@ -347,15 +345,11 @@
                   (default-value 'evil-cjk-word-separating-categories))))
         (add-hook 'subword-mode-hook 'spacemacs//subword-enable-camel-case)
         (spacemacs|add-toggle camel-case-motion
-          :status subword-mode
-          :on (subword-mode +1)
-          :off (subword-mode -1)
+          :mode subword-mode
           :documentation "Toggle CamelCase motions."
           :evil-leader "tc")
         (spacemacs|add-toggle camel-case-motion-globally
-          :status subword-mode
-          :on (global-subword-mode +1)
-          :off (global-subword-mode -1)
+          :mode global-subword-mode
           :documentation "Globally toggle CamelCase motions."
           :evil-leader "t C-c"))
       :config
@@ -394,15 +388,11 @@
       (add-hook 'prog-mode-hook 'spacemacs//show-trailing-whitespace)
 
       (spacemacs|add-toggle whitespace
-        :status whitespace-mode
-        :on (whitespace-mode)
-        :off (whitespace-mode -1)
+        :mode whitespace-mode
         :documentation "Display whitespace."
         :evil-leader "tw")
       (spacemacs|add-toggle whitespace-globally
-        :status global-whitespace-mode
-        :on (global-whitespace-mode)
-        :off (global-whitespace-mode -1)
+        :mode global-whitespace-mode
         :documentation "Display whitespace globally."
         :evil-leader "t C-w")
 
