@@ -901,10 +901,13 @@ path."
   (setq configuration-layer-paths (configuration-layer//discover-layers))
   (unless configuration-layer-no-layer
     (dolist (layer dotspacemacs-configuration-layers)
-      (let ((layer-name (if (listp layer) (car layer) layer)))
-        (unless (string-match-p "+distribution"
-                                (ht-get configuration-layer-paths layer-name))
-          (configuration-layer/declare-layer layer))))
+      (let* ((layer-name (if (listp layer) (car layer) layer))
+             (layer-path (ht-get configuration-layer-paths layer-name)))
+        (if (stringp layer-path)
+            (unless (string-match-p "+distribution" layer-path)
+              (configuration-layer/declare-layer layer))
+          (spacemacs-buffer/warning "Unknown layer %s declared in dotfile."
+                                    layer-name))))
     (setq configuration-layer--layers (reverse configuration-layer--layers)))
   ;; distribution and bootstrap layers are always first
   (let ((distribution (if configuration-layer-distribution
