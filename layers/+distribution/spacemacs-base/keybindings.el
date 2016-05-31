@@ -215,9 +215,7 @@
   "nw" 'widen)
 ;; toggle ---------------------------------------------------------------------
 (spacemacs|add-toggle highlight-current-line-globally
-  :status global-hl-line-mode
-  :on (global-hl-line-mode)
-  :off (global-hl-line-mode -1)
+  :mode global-hl-line-mode
   :documentation "Globally highlight the current line."
   :evil-leader "thh")
 (spacemacs|add-toggle truncate-lines
@@ -290,28 +288,20 @@
   :evil-leader "TT")
 (spacemacs|add-toggle tool-bar
   :if window-system
-  :status tool-bar-mode
-  :on (tool-bar-mode)
-  :off (tool-bar-mode -1)
+  :mode tool-bar-mode
   :documentation "Display the tool bar in GUI mode."
   :evil-leader "Tt")
 (spacemacs|add-toggle menu-bar
   :if (or window-system (version<= "24.3.1" emacs-version))
-  :status menu-bar-mode
-  :on (menu-bar-mode)
-  :off (menu-bar-mode -1)
+  :mode menu-bar-mode
   :documentation "Display the menu bar."
   :evil-leader "Tm")
 (spacemacs|add-toggle semantic-stickyfunc
-  :status semantic-stickyfunc-mode
-  :on (semantic-stickyfunc-mode)
-  :off (semantic-stickyfunc-mode -1)
+  :mode semantic-stickyfunc-mode
   :documentation "Enable semantic-stickyfunc."
   :evil-leader "TS")
 (spacemacs|add-toggle semantic-stickyfunc-globally
-  :status global-semantic-stickyfunc-mode
-  :on (global-semantic-stickyfunc-mode)
-  :off (global-semantic-stickyfunc-mode -1)
+  :mode global-semantic-stickyfunc-mode
   :documentation "Enable semantic-stickyfunc globally."
   :evil-leader "T C-S")
 ;; quit -----------------------------------------------------------------------

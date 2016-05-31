@@ -24,9 +24,7 @@
         (add-hook 'text-mode-hook 'typo-mode))
 
       (spacemacs|add-toggle typographic-substitutions
-        :status typo-mode
-        :on (typo-mode)
-        :off (typo-mode -1)
+        :mode typo-mode
         :documentation "Enable typographic substitutions"
         :evil-leader "tT")
       (spacemacs|diminish typo-mode " Ⓣ" " T"))
@@ -50,9 +48,7 @@
       (add-hook 'LaTeX-mode-hook 'typography/tildify-latex-space)
 
       (spacemacs|add-toggle tildify-space
-        :status tildify-mode
-        :on (tildify-mode)
-        :off (tildify-mode -1)
+        :mode tildify-mode
         :documentation "Enable electric non-breaking space"
         :evil-leader "t~")
       (spacemacs|diminish tildify-mode " ~" " ~"))))

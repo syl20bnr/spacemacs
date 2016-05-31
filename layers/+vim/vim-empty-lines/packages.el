@@ -17,9 +17,7 @@
     (progn
       (global-vim-empty-lines-mode)
       (spacemacs|add-toggle vim-empty-lines-mode
-        :status vim-empty-lines-mode
-        :on (global-vim-empty-lines-mode)
-        :off (global-vim-empty-lines-mode -1)
+        :mode global-vim-empty-lines-mode
         :documentation
         "Display an overlay of ~ on empty lines."
         :evil-leader "t~")

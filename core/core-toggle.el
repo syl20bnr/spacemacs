@@ -47,6 +47,9 @@ Avaiblabe PROPS:
 `:on-message EXPRESSION'
     EXPRESSION is evaluated and displayed when the \"on\" toggle is activated.
 
+`:mode SYMBOL'
+    If given, must be a minor mode. This overrides `:on', `:off' and `:status'.
+
 All properties supported by `spacemacs//create-key-binding-form' can be
 used."
   (declare (indent 1))
@@ -54,11 +57,12 @@ used."
                                        (symbol-name name))))
          (wrapper-func-on (intern (format "%s-on" wrapper-func)))
          (wrapper-func-off (intern (format "%s-off" wrapper-func)))
-         (status (plist-get props :status))
+         (mode (plist-get props :mode))
+         (status (or mode (plist-get props :status)))
          (condition (plist-get props :if))
          (doc (plist-get props :documentation))
-         (on-body (spacemacs/mplist-get props :on))
-         (off-body (spacemacs/mplist-get props :off))
+         (on-body (if mode `((,mode)) (spacemacs/mplist-get props :on)))
+         (off-body (if mode `((,mode -1)) (spacemacs/mplist-get props :off)))
          (prefix-arg-var (plist-get props :prefix))
          (on-message (plist-get props :on-message))
          (bindkeys (spacemacs//create-key-binding-form props wrapper-func))
