@@ -55,6 +55,7 @@ used."
   (declare (indent 1))
   (let* ((wrapper-func (intern (format "spacemacs/toggle-%s"
                                        (symbol-name name))))
+         (wrapper-func-status (intern (format "%s-p" wrapper-func)))
          (wrapper-func-on (intern (format "%s-on" wrapper-func)))
          (wrapper-func-off (intern (format "%s-off" wrapper-func)))
          (mode (plist-get props :mode))
@@ -72,7 +73,8 @@ used."
                                 (listp ',status))
                             ,status)))
     `(progn
-       (push (append '(,name) '(:function ,wrapper-func) ',props)
+       (push (append '(,name) '(:function ,wrapper-func
+                                          :predicate ,wrapper-func-status) ',props)
              spacemacs-toggles)
        ;; toggle function
        (defun ,wrapper-func ,(if prefix-arg-var (list prefix-arg-var) ())
@@ -82,24 +84,28 @@ used."
                  (and (or (and (symbolp ',condition) (boundp ',condition))
                           (listp ',condition))
                       ,condition))
-             (if ,status-eval
+             (if (,wrapper-func-status)
                  (progn ,@off-body
                         (message ,(format "%s disabled." name)))
                ,@on-body
                (message ,(or on-message (format "%s enabled." name))))
            (message "This toggle is not supported.")))
+       ;; predicate function
+       (defun ,wrapper-func-status ()
+         ,(format "Check if %s is on." (symbol-name name))
+         ,status-eval)
        ;; Only define on- or off-functions when status is available
        ,@(when status
            ;; on-function
            `((defun ,wrapper-func-on ()
                ,(format "Toggle %s on." (symbol-name name))
                (interactive)
-               (unless ,status-eval (,wrapper-func)))
+               (unless (,wrapper-func-status) (,wrapper-func)))
              ;; off-function
              (defun ,wrapper-func-off ()
                ,(format "Toggle %s off." (symbol-name name))
                (interactive)
-               (when ,status-eval (,wrapper-func)))))
+               (when (,wrapper-func-status) (,wrapper-func)))))
        ,@bindkeys)))
 
 (provide 'core-toggle)

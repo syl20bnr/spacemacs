@@ -242,8 +242,10 @@
   (let (result)
     (dolist (toggle spacemacs-toggles)
       (let* ((toggle-symbol (symbol-name (car toggle)))
+             (toggle-status (funcall (plist-get (cdr toggle) :predicate)))
              (toggle-name (capitalize (replace-regexp-in-string "-" " " toggle-symbol)))
-             (toggle-doc (format "%s: %s"
+             (toggle-doc (format "(%s) %s: %s"
+                                 (if toggle-status "+" "-")
                                  toggle-name
                                  (propertize
                                   (or (plist-get (cdr toggle) :documentation) "")
