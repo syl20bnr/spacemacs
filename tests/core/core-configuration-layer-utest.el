@@ -282,6 +282,56 @@
     (should (equal result expected))))
 
 ;; ---------------------------------------------------------------------------
+;; configuration-layer//get-distant-packages
+;; ---------------------------------------------------------------------------
+
+(defvar test-get-distant-packages--test-data
+  `(,(cfgl-package "pkg18" :name 'pkg18 :owner nil)
+    ,(cfgl-package "pkg17" :name 'pkg17 :owner nil :location 'elpa)
+    ,(cfgl-package "pkg16" :name 'pkg16 :owner nil :toggle nil)
+    ,(cfgl-package "pkg15" :name 'pkg15 :owner nil :toggle t)
+    ,(cfgl-package "pkg14" :name 'pkg14 :owner nil :location '(recipe))
+    ,(cfgl-package "pkg13" :name 'pkg13 :owner nil :location 'built-in)
+    ,(cfgl-package "pkg12" :name 'pkg12 :owner nil :location 'local)
+    ,(cfgl-package "pkg11" :name 'pkg11 :owner nil :location 'site)
+    ,(cfgl-package "pkg10" :name 'pkg10 :owner nil :location "/path")
+    ,(cfgl-package "pkg9" :name 'pkg9 :owner 'layer)
+    ,(cfgl-package "pkg8" :name 'pkg8 :owner 'layer :location 'elpa)
+    ,(cfgl-package "pkg7" :name 'pkg7 :owner 'layer :toggle nil)
+    ,(cfgl-package "pkg6" :name 'pkg6 :owner 'layer :toggle t)
+    ,(cfgl-package "pkg5" :name 'pkg5 :owner 'layer :location '(recipe))
+    ,(cfgl-package "pkg4" :name 'pkg4 :owner 'layer :location 'built-in)
+    ,(cfgl-package "pkg3" :name 'pkg3 :owner 'layer :location 'local)
+    ,(cfgl-package "pkg2" :name 'pkg2 :owner 'layer :location 'site)
+    ,(cfgl-package "pkg1" :name 'pkg1 :owner 'layer :location "/path")))
+
+(ert-deftest test-get-distant-packages--return-only-used-packages ()
+  (let ((packages test-get-distant-packages--test-data))
+    (should
+     (equal
+      `(,(cfgl-package "pkg9" :name 'pkg9 :owner 'layer)
+        ,(cfgl-package "pkg8" :name 'pkg8 :owner 'layer :location 'elpa)
+        ,(cfgl-package "pkg6" :name 'pkg6 :owner 'layer :toggle t)
+        ,(cfgl-package "pkg5" :name 'pkg5 :owner 'layer :location '(recipe)))
+      (configuration-layer//get-distant-packages packages t)))))
+
+(ert-deftest test-get-distant-packages--return-only-unused-packages ()
+  (let ((packages test-get-distant-packages--test-data))
+    (should
+     (equal
+      `(,(cfgl-package "pkg18" :name 'pkg18 :owner nil)
+        ,(cfgl-package "pkg17" :name 'pkg17 :owner nil :location 'elpa)
+        ,(cfgl-package "pkg16" :name 'pkg16 :owner nil :toggle nil)
+        ,(cfgl-package "pkg15" :name 'pkg15 :owner nil :toggle t)
+        ,(cfgl-package "pkg14" :name 'pkg14 :owner nil :location '(recipe))
+        ,(cfgl-package "pkg9" :name 'pkg9 :owner 'layer)
+        ,(cfgl-package "pkg8" :name 'pkg8 :owner 'layer :location 'elpa)
+        ,(cfgl-package "pkg7" :name 'pkg7 :owner 'layer :toggle nil)
+        ,(cfgl-package "pkg6" :name 'pkg6 :owner 'layer :toggle t)
+        ,(cfgl-package "pkg5" :name 'pkg5 :owner 'layer :location '(recipe)))
+      (configuration-layer//get-distant-packages packages nil)))))
+
+;; ---------------------------------------------------------------------------
 ;; configuration-layer/get-packages
 ;; ---------------------------------------------------------------------------
 
@@ -642,6 +692,48 @@
                                         :owner 'layer23
                                         :toggle '(bar-toggle)))
                       configuration-layer--packages))))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer/get-all-packages
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-get-all-packages ()
+  (let* ((configuration-layer-paths
+          #s(hash-table size 256
+                        test eql
+                        rehash-size 1.5
+                        rehash-threshold 0.8 data
+                        (layerall1 "/path/" layerall2 "/path/"
+                                   layerall3 "/path/" layerall4 "/path/"
+                                   layerall5 "/path/")))
+         (layerall1-packages '(pkg1))
+         (layerall2-packages '(pkg2 pkg6))
+         (layerall3-packages '(pkg3))
+         (layerall4-packages '(pkg4 pkg7 pkg8))
+         (layerall5-packages '(pkg5 pkg9))
+         (mocker-mock-default-record-cls 'mocker-stub-record))
+    (defun layerall1/init-pkg1 nil)
+    (defun layerall2/init-pkg2 nil)
+    (defun layerall2/init-pkg6 nil)
+    (defun layerall3/init-pkg3 nil)
+    (defun layerall4/init-pkg4 nil)
+    (defun layerall4/init-pkg7 nil)
+    (defun layerall4/init-pkg8 nil)
+    (defun layerall5/init-pkg5 nil)
+    (defun layerall5/init-pkg9 nil)
+    (mocker-let
+     ((file-exists-p (f) ((:output t)))
+      (load (f) ((:output nil))))
+     (should (equal (list (cfgl-package "pkg1" :name 'pkg1 :owner 'layerall1)
+                          (cfgl-package "pkg6" :name 'pkg6 :owner 'layerall2)
+                          (cfgl-package "pkg2" :name 'pkg2 :owner 'layerall2)
+                          (cfgl-package "pkg3" :name 'pkg3 :owner 'layerall3)
+                          (cfgl-package "pkg8" :name 'pkg8 :owner 'layerall4)
+                          (cfgl-package "pkg7" :name 'pkg7 :owner 'layerall4)
+                          (cfgl-package "pkg4" :name 'pkg4 :owner 'layerall4)
+                          (cfgl-package "pkg9" :name 'pkg9 :owner 'layerall5)
+                          (cfgl-package "pkg5" :name 'pkg5 :owner 'layerall5))
+                    (configuration-layer/get-all-packages))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//configure-package

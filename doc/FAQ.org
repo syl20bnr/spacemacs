@@ -58,9 +58,20 @@ may also just type ~SPC f e v~.
 As it is written, that is _space_ then _macs_.
 
 ** Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?
-To declare new packages you have to create a new configuration layer or add the
-package name to the variable =dotspacemacs-additonal-packages= of your dotfile,
-see the [[file:QUICK_START.org][quick start guide]] for more info.
+By default Spacemacs will keep only the packages that you use (i.e. the packages
+belonging to a layer explicitly listed in the variable
+=dotspacemacs-configuration-layers=).
+
+To install packages that does not belong to any Spacemacs layers, you can:
+
+- use the variable =dotspacemacs-additonal-packages=.
+- or create a configuration layer configuring the package and add this layer to
+  =dotspacemacs-configuration-layers=
+- or set the variable =dotspacemacs-download-packages= to =used-but-keep-unused=
+  which will prevent Spacemacs from removing the packages you installed
+  manually.
+
+To create a new configuration layer see the [[file:QUICK_START.org][quick start guide]] for more info.
 
 ** How to fix package download errors when installing Spacemacs ?
 Since 0.105.0 HTTPS protocol is used by default to download packages. If your

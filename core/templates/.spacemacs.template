@@ -57,10 +57,14 @@ values."
    dotspacemacs-additional-packages '()
    ;; A list of packages that will not be install and loaded.
    dotspacemacs-excluded-packages '()
-   ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
-   ;; are declared in a layer which is not a member of
-   ;; the list `dotspacemacs-configuration-layers'. (default t)
-   dotspacemacs-delete-orphan-packages t))
+   ;; Defines the behaviour of Spacemacs when downloading packages.
+   ;; Possible values are `used', `used-but-keep-unused' and `all'. `used' will
+   ;; download only explicitly used packages and remove any unused packages as
+   ;; well as their dependencies. `used-but-keep-unused' will download only the
+   ;; used packages but won't delete them if they become unused. `all' will
+   ;; download all the packages regardless if they are used or not and packages
+   ;; won't be deleted by Spacemacs. (default is `used')
+   dotspacemacs-download-packages 'used))
 
 (defun dotspacemacs/init ()
   "Initialization function.

@@ -320,20 +320,24 @@ If NO-INSTALL is non nil then install steps are skipped."
     (configuration-layer//configure-layers configuration-layer--layers)
     ;; pre-filter some packages to save some time later in the loading process
     (setq configuration-layer--used-distant-packages
-          (configuration-layer//get-distant-used-packages
-           configuration-layer--packages))
+          (configuration-layer//get-distant-packages
+           configuration-layer--packages t))
     ;; install/uninstall packages
     (configuration-layer/load-auto-layer-file)
     (unless no-install
-      (configuration-layer//install-packages
-       (configuration-layer/filter-objects
-        configuration-layer--used-distant-packages
-        (lambda (x)
-          (not (oref x :lazy-install)))))
+      (if (eq 'all dotspacemacs-download-packages)
+          (configuration-layer//install-packages
+           (configuration-layer//get-distant-packages
+            (configuration-layer/get-all-packages) nil))
+        (configuration-layer//install-packages
+         (configuration-layer/filter-objects
+          configuration-layer--used-distant-packages
+          (lambda (x)
+            (not (oref x :lazy-install))))))
       (configuration-layer//configure-packages configuration-layer--packages)
       (configuration-layer//load-layers-files
        configuration-layer--layers '("keybindings.el"))
-      (when (and dotspacemacs-delete-orphan-packages
+      (when (and (eq 'used-only dotspacemacs-download-packages)
                  (not configuration-layer-distribution)
                  (not configuration-layer-no-layer))
         (configuration-layer/delete-orphan-packages
@@ -699,6 +703,14 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
           (push obj configuration-layer--packages))
         (oset obj :excluded t)))))
 
+(defun configuration-layer/get-all-packages ()
+  "Return a list of _all_ packages."
+  (let (configuration-layer--packages)
+    (configuration-layer/get-packages
+     (mapcar 'configuration-layer/make-layer
+             (configuration-layer/get-layers-list)))
+    configuration-layer--packages))
+
 (defun configuration-layer//sort-packages (packages)
   "Return a sorted list of PACKAGES objects."
   (sort packages (lambda (x y) (string< (symbol-name (oref x :name))
@@ -721,8 +733,8 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
                                  (or (not (eq layer-name (oref p :owner)))
                                      (null (package-installed-p
                                             (oref p :name)))))
-                               (configuration-layer//get-distant-used-packages
-                                packages))
+                               (configuration-layer//get-distant-packages
+                                packages t))
                        :initial-value t)))
             (oset layer :lazy-install lazy)
             (dolist (pkg packages)
@@ -752,15 +764,18 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
                    objects
                    :initial-value nil)))
 
-(defun configuration-layer//get-distant-used-packages (packages)
-  "Return the distant packages (ie to be intalled) that are effectively used."
+(defun configuration-layer//get-distant-packages (packages usedp)
+  "Return the distant packages (ie to be intalled).
+If USEDP is not nil then only return only the used packages, if it is nil then
+return both used and unused packages."
   (configuration-layer/filter-objects
    packages (lambda (x)
-              (and (not (null (oref x :owner)))
-                   (not (memq (oref x :location) '(built-in site local)))
+              (and (not (memq (oref x :location) '(built-in site local)))
                    (not (stringp (oref x :location)))
-                   (cfgl-package-enabledp x)
-                   (not (oref x :excluded))))))
+                   (or (null usedp)
+                       (and (not (null (oref x :owner)))
+                            (cfgl-package-enabledp x)
+                            (not (oref x :excluded))))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path to the private configuration layer string NAME."
@@ -1022,7 +1037,7 @@ path."
      (format "--> installing %s: %s%s... [%s/%s]"
              (if layer "package" "dependency")
              pkg-name (if layer (format "@%S" layer) "")
-             installed-count noinst-count) t)
+             installed-count not-inst-count) t)
     (spacemacs//redisplay)
     (unless (package-installed-p pkg-name)
       (condition-case-unless-debug err
@@ -1088,23 +1103,23 @@ path."
   (interactive)
   ;; ensure we have quelpa available first
   (configuration-layer//install-quelpa)
-  (let* ((noinst-pkg-names
+  (let* ((not-inst-pkg-names
           (configuration-layer//get-uninstalled-packages
            (mapcar 'car (object-assoc-list :name packages))))
-         (noinst-count (length noinst-pkg-names))
+         (not-inst-count (length not-inst-pkg-names))
          installed-count)
     ;; installation
-    (when noinst-pkg-names
+    (when not-inst-pkg-names
       (spacemacs-buffer/append
        (format "Found %s new package(s) to install...\n"
-               noinst-count))
+               not-inst-count))
       (configuration-layer/retrieve-package-archives)
       (setq installed-count 0)
       (spacemacs//redisplay)
-      (dolist (pkg-name noinst-pkg-names)
+      (dolist (pkg-name not-inst-pkg-names)
         (setq installed-count (1+ installed-count))
         (configuration-layer//install-package
-         (object-assoc pkg-name :name configuration-layer--packages)))
+         (object-assoc pkg-name :name packages)))
       (spacemacs-buffer/append "\n"))))
 
 (defun configuration-layer//install-from-elpa (pkg-name)
