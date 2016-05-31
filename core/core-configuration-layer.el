@@ -463,7 +463,11 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
 (defun configuration-layer/describe-package (pkg-symbol
                                              &optional layer-list pkg-list)
   "Describe a package in the context of the configuration layer system."
-  (interactive)
+  (interactive (list (intern
+                      (completing-read
+                       "Package: "
+                       (mapcar (lambda (pkg) (symbol-name (oref pkg :name)))
+                               configuration-layer--packages)))))
   (let* ((pkg (object-assoc pkg-symbol
                             :name (or pkg-list configuration-layer--packages)))
          (owner (oref pkg :owner)))
@@ -505,17 +509,13 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
       (if (oref pkg :protected)
           (princ "\nThis package is protected and cannot be excluded.\n")
         (when (oref pkg :excluded)
-          (princ "\nThis packages is excluded and cannot be installed.\n")))
+          (princ "\nThis package is excluded and cannot be installed.\n")))
       ;; toggle
       (unless (or (oref pkg :excluded) (eq t (oref pkg :toggle)))
         (princ "\nA toggle is defined for this package, it is currently ")
-        (princ (if (cfgl-package-enabledp pkg)
-                   (princ "`on' ")
-                 (princ "`off' ")))
-        (princ "because the following expression evaluates to ")
-        (if (cfgl-package-enabledp pkg)
-            (princ "t:\n")
-          (princ "nil:\n"))
+        (princ (if (cfgl-package-enabledp pkg) "on" "off"))
+        (princ " because the following expression evaluates to ")
+        (princ (if (cfgl-package-enabledp pkg) "t:\n" "nil:\n"))
         (princ (oref pkg :toggle))
         (princ "\n"))
       (unless (oref pkg :excluded)
@@ -523,7 +523,8 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
         (if (not (configuration-layer/package-usedp pkg-symbol))
             (princ "\nYou are not using this package.\n")
           (princ "\nYou are using this package")
-          (if (memq (oref pkg :location) '(built-in local site))
+          (if (or (memq (oref pkg :location) '(built-in local site))
+                  (stringp (oref pkg :location)))
               (princ ".\n")
             (if (not (package-installed-p pkg-symbol))
                 (princ " but it is not yet installed.\n")

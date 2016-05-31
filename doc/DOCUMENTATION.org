@@ -1505,7 +1505,8 @@ thusly:
 | ~SPC h d K~ | describe a keymap                                         |
 | ~SPC h d l~ | copy last pressed keys that you can paste in gitter chat  |
 | ~SPC h d m~ | describe current modes                                    |
-| ~SPC h d p~ | describe a package                                        |
+| ~SPC h d p~ | describe a package (Emacs built-in function)              |
+| ~SPC h d P~ | describe a package (Spacemacs layer information)          |
 | ~SPC h d s~ | copy system information that you can paste in gitter chat |
 | ~SPC h d t~ | describe a theme                                          |
 | ~SPC h d v~ | describe a variable                                       |

@@ -169,6 +169,7 @@
   "hdk" 'describe-key
   "hdl" 'spacemacs/describe-last-keys
   "hdp" 'describe-package
+  "hdP" 'configuration-layer/describe-package
   "hds" 'spacemacs/describe-system-info
   "hdt" 'describe-theme
   "hdv" 'describe-variable
