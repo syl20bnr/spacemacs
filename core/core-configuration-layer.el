@@ -337,7 +337,7 @@ If NO-INSTALL is non nil then install steps are skipped."
       (configuration-layer//configure-packages configuration-layer--packages)
       (configuration-layer//load-layers-files
        configuration-layer--layers '("keybindings.el"))
-      (when (and (eq 'used-only dotspacemacs-download-packages)
+      (when (and (eq 'used dotspacemacs-download-packages)
                  (not configuration-layer-distribution)
                  (not configuration-layer-no-layer))
         (configuration-layer/delete-orphan-packages
