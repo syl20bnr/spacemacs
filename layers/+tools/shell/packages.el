@@ -239,21 +239,16 @@ is achieved by adding the relevant text properties."
       ;; multi-term commands to create terminals and move through them.
       (spacemacs/set-leader-keys-for-major-mode 'term-mode "c" 'multi-term)
       (spacemacs/set-leader-keys-for-major-mode 'term-mode "p" 'multi-term-prev)
-      (spacemacs/set-leader-keys-for-major-mode 'term-mode "n" 'multi-term-next)
-
-      (when (configuration-layer/package-usedp 'projectile)
-        (defun projectile-multi-term-in-root ()
-          "Invoke `multi-term' in the project's root."
-          (interactive)
-          (projectile-with-default-dir (projectile-project-root) (multi-term)))
-        (spacemacs/set-leader-keys "p$t" 'projectile-multi-term-in-root)))))
+      (spacemacs/set-leader-keys-for-major-mode 'term-mode "n" 'multi-term-next))))
 
 (defun shell/pre-init-org ()
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(shell . t))))
 
 (defun shell/post-init-projectile ()
-  (spacemacs/set-leader-keys "p'" 'spacemacs/projectile-shell-pop))
+  (spacemacs/set-leader-keys
+    "p'" 'spacemacs/projectile-shell-pop
+    "p$t" 'projectile-multi-term-in-root))
 
 (defun shell/init-shell ()
   (spacemacs/register-repl 'shell 'shell)
