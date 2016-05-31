@@ -112,17 +112,21 @@
   (spacemacs|add-company-hook alchemist-iex-mode))
 
 (defun elixir/post-init-smartparens ()
-  (sp-with-modes '(elixir-mode)
-    (sp-local-pair "->" "end"
-                   :when '(("RET"))
-                   :post-handlers '(:add spacemacs//elixir-do-end-close-action)
-                   :actions '(insert)))
-
-  (sp-with-modes '(elixir-mode)
-    (sp-local-pair "do" "end"
-                   :when '(("SPC" "RET"))
-                   :post-handlers '(:add spacemacs//elixir-do-end-close-action)
-                   :actions '(insert))))
+  (spacemacs|use-package-add-hook smartparens
+    :post-config
+    (progn
+      (sp-with-modes '(elixir-mode)
+        (sp-local-pair
+         "->" "end"
+         :when '(("RET"))
+         :post-handlers '(:add spacemacs//elixir-do-end-close-action)
+         :actions '(insert)))
+      (sp-with-modes '(elixir-mode)
+        (sp-local-pair
+         "do" "end"
+         :when '(("SPC" "RET"))
+         :post-handlers '(:add spacemacs//elixir-do-end-close-action)
+         :actions '(insert))))))
 
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
