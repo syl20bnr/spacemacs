@@ -12,12 +12,11 @@
 (setq ivy-packages
       '(auto-highlight-symbol
         counsel
-        counsel-projectile
+        (counsel-projectile :toggle (configuration-layer/package-usedp 'projectile))
         evil
         flx
         ivy
         (ivy-spacemacs-help :location local)
-        ;; Why do we need this ?
         projectile
         smex
         swiper
@@ -80,17 +79,16 @@
       (ivy-set-display-transformer 'spacemacs/counsel-search 'counsel-git-grep-transformer))))
 
 (defun ivy/init-counsel-projectile ()
-  (when (configuration-layer/package-usedp 'projectile)
-    (use-package counsel-projectile
-      :defer t
-      :init
-      (spacemacs/set-leader-keys
-        "pb" 'counsel-projectile-switch-to-buffer
-        "pd" 'counsel-projectile-find-dir
-        "pp" 'counsel-projectile
-        "pf" 'counsel-projectile-find-file
-        "pr" 'projectile-recentf
-        "ps" 'counsel-projectile))))
+  (use-package counsel-projectile
+    :defer t
+    :init
+    (spacemacs/set-leader-keys
+      "pb" 'counsel-projectile-switch-to-buffer
+      "pd" 'counsel-projectile-find-dir
+      "pp" 'counsel-projectile
+      "pf" 'counsel-projectile-find-file
+      "pr" 'projectile-recentf
+      "ps" 'counsel-projectile)))
 
 (defun ivy/post-init-auto-highlight-symbol ()
   (setq spacemacs-symbol-highlight-transient-state-remove-bindings
