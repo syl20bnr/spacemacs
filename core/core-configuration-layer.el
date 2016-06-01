@@ -463,11 +463,13 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
 (defun configuration-layer/describe-package (pkg-symbol
                                              &optional layer-list pkg-list)
   "Describe a package in the context of the configuration layer system."
-  (interactive (list (intern
-                      (completing-read
-                       "Package: "
-                       (mapcar (lambda (pkg) (symbol-name (oref pkg :name)))
-                               configuration-layer--packages)))))
+  (interactive
+   (list (intern
+          (completing-read
+           "Package: "
+           (mapcar (lambda (pkg) (symbol-name (oref pkg :name)))
+                   ;; TODO make it work with `configuration-layer/get-all-packages'
+                   configuration-layer--packages)))))
   (let* ((pkg (object-assoc pkg-symbol
                             :name (or pkg-list configuration-layer--packages)))
          (owner (oref pkg :owner)))
