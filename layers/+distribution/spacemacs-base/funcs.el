@@ -297,6 +297,9 @@ argument takes the kindows rotate backwards."
                (when (fboundp 'recentf-add-file)
                    (recentf-add-file new-name)
                    (recentf-remove-if-non-kept filename))
+               (when (and (configuration-layer/package-usedp 'projectile)
+                          (projectile-project-p))
+                 (call-interactively #'projectile-invalidate-cache))
                (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
 
 ;; from magnars
@@ -311,6 +314,9 @@ argument takes the kindows rotate backwards."
       (when (yes-or-no-p "Are you sure you want to delete this file? ")
         (delete-file filename t)
         (kill-buffer buffer)
+        (when (and (configuration-layer/package-usedp 'projectile)
+                   (projectile-project-p))
+          (call-interactively #'projectile-invalidate-cache))
         (message "File '%s' successfully removed" filename)))))
 
 ;; from magnars
