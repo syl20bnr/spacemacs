@@ -36,6 +36,16 @@ To enable the package =rainbow-identifiers= set the variable
     (colors :variables colors-enable-rainbow-identifiers t)))
 #+END_SRC
 
+You may also choose not to enable =rainbow-identifiers= by default
+by setting the =colors-rainbow-identifiers-add-hook= variable to =nil=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (colors :variables
+            colors-enable-rainbow-identifiers   t
+            colors-rainbow-identifiers-add-hook nil)))
+#+END_SRC
+
 Saturation and lightness of identifiers can be set per theme by adding
 an entry in the variable =colors-theme-identifiers-sat&light=. This
 is an alist where the key is a theme symbol and the value is a pair

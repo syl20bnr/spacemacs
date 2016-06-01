@@ -62,7 +62,8 @@
         :documentation "Colorize identifiers globally."
         :evil-leader "tCi")
 
-      (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
+      (when colors-rainbow-identifiers-add-hook
+        (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
 
       (defun colors//tweak-theme-colors (theme)
         "Tweak color themes by adjusting rainbow-identifiers."
