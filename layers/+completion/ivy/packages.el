@@ -16,12 +16,16 @@
         evil
         flx
         ivy
+        ivy-hydra
         (ivy-spacemacs-help :location local)
         persp-mode
         projectile
         smex
         swiper
         wgrep))
+
+(defun ivy/init-ivy-hydra ()
+  (use-package ivy-hydra))
 
 (defun ivy/init-counsel ()
   (use-package counsel
