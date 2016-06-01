@@ -36,7 +36,9 @@ than this amount.")
     ("w" find-file-other-window "other window")
     ("v" spacemacs/find-file-vsplit "in vertical split")
     ("s" spacemacs/find-file-split "in horizontal split")
-    ("l" find-file-literally "literally"))
+    ("l" find-file-literally "literally")
+    ("d" spacemacs/delete-file "delete file")
+    ("r" spacemacs/rename-file "rename file"))
   "Default ivy actions for files.")
 
 (defvar spacemacs--ivy-grep-actions
