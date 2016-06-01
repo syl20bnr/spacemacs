@@ -15,6 +15,10 @@
     (forward-line -1)
     (indent-according-to-mode)))
 
+(defun spacemacs//elixir-flycheck-check-on-save-only ()
+  "Configure flycheck to check on save only since mix is slow."
+  (setq-local flycheck-check-syntax-automatically '(mode-enabled save)))
+
 (defun spacemacs//elixir-enable-compilation-checking ()
   "Enable compile checking if `elixir-enable-compilation-checking' is non nil."
   (message "djeoifhwfwfjegweifh")

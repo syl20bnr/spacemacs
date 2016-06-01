@@ -14,10 +14,17 @@
     alchemist
     company
     (flycheck-elixir-credo
-     :location (recipe :fetcher github :repo "smeevil/flycheck-elixir-credo"))
+     :location (recipe :fetcher github
+                       :repo "smeevil/flycheck-elixir-credo"))
     (elixir-flycheck-mix-compile
      :location local
      :toggle (configuration-layer/package-usedp 'flycheck))
+    (flycheck-elixir-testresult
+     :location (recipe :fetcher github
+                       :repo "smeevil/flycheck-elixir-testresult"
+                       :files ("flycheck_formatter.exs"
+                               "mix_test_helper"
+                               "flycheck-elixir-testresult.el")))
     elixir-mode
     flycheck
     popwin
@@ -122,7 +129,7 @@
 (defun elixir/init-flycheck-elixir-credo ()
   (use-package flycheck-elixir-credo
     :defer t
-    :init (add-hook 'elixir-mode-hook 'flycheck-elixir-credo-setup)))
+    :init (add-hook 'flycheck-mode-hook 'flycheck-elixir-credo-setup)))
 
 (defun elixir/init-elixir-flycheck-mix-compile ()
   (use-package elixir-flycheck-mix-compile
@@ -133,7 +140,7 @@
                    (cons 'elixir-enable-compilation-checking nil))
       (add-to-list 'safe-local-variable-values
                    (cons 'elixir-enable-compilation-checking t))
-      (add-hook 'elixir-mode-hook
+      (add-hook 'flycheck-mode-hook
                 'spacemacs//elixir-enable-compilation-checking t))
     :config
     ;; enable mix_compile_helper executable
@@ -142,12 +149,22 @@
                    (concat layer-path
                            "elixir/local/elixir-flycheck-mix-compile")))))
 
+(defun elixir/init-flycheck-elixir-testresult ()
+  (use-package flycheck-elixir-testresult
+    :defer t
+    :init (add-hook 'flycheck-mode-hook 'flycheck-elixir-testresult-setup)
+    ;; enable mix_test_helper executable
+    :config (add-to-list 'exec-path (spacemacs//get-package-directory
+                                     'flycheck-elixir-testresult))))
+
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
     :defer t))
 
 (defun elixir/post-init-flycheck ()
-  (add-hook 'elixir-mode-hook 'flycheck-mode))
+  (spacemacs/add-flycheck-hook 'elixir-mode)
+  (add-hook 'flycheck-mode-hook
+            'spacemacs//elixir-flycheck-check-on-save-only))
 
 (defun elixir/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin

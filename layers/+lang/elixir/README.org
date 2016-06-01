@@ -37,6 +37,7 @@ features like:
 - Integration with [[http://company-mode.github.io/][company-mode]]
 - Flycheck support for mix compile
 - Flycheck support for [[https://github.com/rrrene/credo][credo]]
+- Flycheck support for test results
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
