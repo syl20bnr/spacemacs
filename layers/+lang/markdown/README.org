@@ -25,6 +25,7 @@ This layer adds markdown support to Spacemacs.
 
 ** Features:
 - markdown files support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
+- Fast Github-flavored live preview via [[https://github.com/blak3mill3r/vmd-mode][vmd-mode]]
 - TOC generation via [[https://github.com/ardumont/markdown-toc][markdown-toc]]
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
   using the =emoji= layer or having a proper font) :clap:
@@ -37,6 +38,9 @@ For more extensive support of references with BibTeX files, have a look at the
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =markdown= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+To enable Github-flavored live preview, you will need to install the executable
+with =npm install -g vmd=.
 
 * Usage
 To generate a table of contents type on top of the buffer:
@@ -117,6 +121,7 @@ To generate a table of contents type on top of the buffer:
 | ~SPC m c m~ | other window                            |
 | ~SPC m c p~ | preview                                 |
 | ~SPC m c P~ | live preview in Emacs' built-in browser |
+| ~SPC m c d~ | Github-flavored live preview            |
 | ~SPC m c e~ | export                                  |
 | ~SPC m c v~ | export and preview                      |
 | ~SPC m c o~ | open                                    |
