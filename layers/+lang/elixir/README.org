@@ -5,6 +5,8 @@
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
+ - [[#configuration][Configuration]]
+   - [[#flycheck-support-for-mix-compile][Flycheck support for mix compile]]
  - [[#key-bindings][Key bindings]]
    - [[#refcard][Refcard]]
    - [[#help][Help]]
@@ -18,7 +20,6 @@
    - [[#code-definition-jump][Code Definition Jump]]
 
 * Description
-
 This layer adds support for [[http://elixir-lang.org/][Elixir]] .
 
 [[https://github.com/tonini/alchemist.el][Alchemist]] brings the Elixir tooling to Emacs and comes with a bunch of
@@ -32,16 +33,38 @@ features like:
 - Smart code completion
 - Elixir project management
 - Integration with [[http://company-mode.github.io/][company-mode]]
+- Flycheck support for mix compile
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =elixir= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+* Configuration
+** Flycheck support for mix compile
+*Important:*
+Elixir compilation is based on macros and is unsafe since arbitrary code can
+be run during compilation. Therefore Spacemacs disable compilation flycheck
+support by default.
+
+To enable flycheck support for =mix compile= *globally* the variable
+=elixir-enable-compilation-checking= must be explicitly set to =t= in your
+dotfile.
+
+It is recommended to use directory local variables instead. These variables are
+stored in a file named =.dit-local.el= at the root of your project. Their values
+are applied only for the project and not outside. To easily add a directory
+local variable used ~SPC f v d~ and provide the mode =elixir-mode= then the
+variable name =elixir-enable-compilation-checking= and its value.
+
+Spacemacs marks the variable =elixir-enable-compilation-checking= as safe so
+Emacs won't ask you if the variable is safe whenever an elixir file is opened.
+
+Remember that you can check the flycheck checkers enabled with ~SPC e v~.
+
 * Key bindings
 
 ** Refcard
-
 You find and overview of all the key-bindings on the [[file:alchemist-refcard.pdf][Alchemist-Refcard]].
 
 ** Help
