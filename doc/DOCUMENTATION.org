@@ -2839,12 +2839,12 @@ To search in a project see [[Searching in a project][project searching]].
 | ~SPC p p~   | switch project                                          |
 | ~SPC p r~   | open a recent file                                      |
 | ~SPC p R~   | replace a string                                        |
-| ~SPC p s~   | see [[Searching in a project][search in project]]                                   |
 | ~SPC p t~   | open =NeoTree= in =projectile= root                     |
 | ~SPC p T~   | test project                                            |
 | ~SPC p v~   | open project root in =vc-dir= or =magit=                |
 | ~SPC p y~   | find tags                                               |
 | ~SPC /~     | search in project with the best search tool available   |
+| ~SPC s p~   | see [[Searching in a project][search in project]]                                   |
 | ~SPC s a p~ | run =ag=                                                |
 | ~SPC s g p~ | run =grep=                                              |
 | ~SPC s k p~ | run =ack=                                               |

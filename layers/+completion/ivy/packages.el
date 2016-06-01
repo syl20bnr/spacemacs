@@ -82,13 +82,17 @@
   (use-package counsel-projectile
     :defer t
     :init
-    (spacemacs/set-leader-keys
-      "pb" 'counsel-projectile-switch-to-buffer
-      "pd" 'counsel-projectile-find-dir
-      "pp" 'counsel-projectile
-      "pf" 'counsel-projectile-find-file
-      "pr" 'projectile-recentf
-      "ps" 'counsel-projectile)))
+    ;; overwrite projectile settings
+    (spacemacs|use-package-add-hook projectile
+      :post-init
+      (progn
+        (setq projectile-switch-project-action 'counsel-projectile)
+        (spacemacs/set-leader-keys
+          "pb" 'counsel-projectile-switch-to-buffer
+          "pd" 'counsel-projectile-find-dir
+          "pp" 'counsel-projectile
+          "pf" 'counsel-projectile-find-file
+          "pr" 'projectile-recentf)))))
 
 (defun ivy/post-init-auto-highlight-symbol ()
   (setq spacemacs-symbol-highlight-transient-state-remove-bindings

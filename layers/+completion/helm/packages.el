@@ -479,26 +479,25 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
                helm-projectile-switch-project)
     :init
     (progn
-      (setq projectile-switch-project-action 'helm-projectile)
-
-      (defconst spacemacs-use-helm-projectile t
-        "This variable is only defined if helm-projectile is used.")
-
       ;; needed for smart search if user's default tool is grep
       (defalias 'spacemacs/helm-project-do-grep 'helm-projectile-grep)
       (defalias
-        'spacemacs/helm-project-do-grep-region-or-symbol 'helm-projectile-grep)
-
-      (spacemacs/set-leader-keys
-        "pb"  'helm-projectile-switch-to-buffer
-        "pd"  'helm-projectile-find-dir
-        "pf"  'helm-projectile-find-file
-        "pF"  'helm-projectile-find-file-dwim
-        "ph"  'helm-projectile
-        "pp"  'helm-projectile-switch-project
-        "pr"  'helm-projectile-recentf
-        "pv"  'projectile-vc
-        "sgp" 'helm-projectile-grep))))
+        'spacemacs/helm-project-do-grep-region-or-symbol
+        'helm-projectile-grep)
+      ;; overwrite projectile settings
+      (spacemacs|use-package-add-hook projectile
+        :post-init
+        (progn
+          (setq projectile-switch-project-action 'helm-projectile)
+          (spacemacs/set-leader-keys
+            "pb"  'helm-projectile-switch-to-buffer
+            "pd"  'helm-projectile-find-dir
+            "pf"  'helm-projectile-find-file
+            "pF"  'helm-projectile-find-file-dwim
+            "ph"  'helm-projectile
+            "pp"  'helm-projectile-switch-project
+            "pr"  'helm-projectile-recentf
+            "sgp" 'helm-projectile-grep))))))
 
 (defun helm/init-helm-spacemacs-help ()
   (use-package helm-spacemacs-help

@@ -241,16 +241,15 @@
                                           "projectile.cache")
             projectile-known-projects-file (concat spacemacs-cache-directory
                                                    "projectile-bookmarks.eld"))
-      (unless (or (configuration-layer/package-usedp 'helm-projectile)
-                  (configuration-layer/package-usedp 'counsel-projectile))
-        (spacemacs/set-leader-keys
-          "pb" 'projectile-switch-to-buffer
-          "pd" 'projectile-find-dir
-          "pf" 'projectile-find-file
-          "pF" 'projectile-find-file-dwim
-          "ph" 'helm-projectile
-          "pr" 'projectile-recentf
-          "ps" 'projectile-switch-project))
+      (spacemacs/set-leader-keys
+        "pb" 'projectile-switch-to-buffer
+        "pd" 'projectile-find-dir
+        "pf" 'projectile-find-file
+        "pF" 'projectile-find-file-dwim
+        "ph" 'helm-projectile
+        "pr" 'projectile-recentf
+        "pp" 'projectile-switch-project
+        "pv" 'projectile-vc)
       (spacemacs/set-leader-keys
         "p!" 'projectile-run-shell-command-in-root
         "p&" 'projectile-run-async-shell-command-in-root
