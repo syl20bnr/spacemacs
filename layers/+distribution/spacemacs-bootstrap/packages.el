@@ -171,6 +171,28 @@
       "p" 'spacemacs/paste-transient-state/evil-paste-after)
     (define-key evil-normal-state-map
       "P" 'spacemacs/paste-transient-state/evil-paste-before))
+  ;; fold transient state
+  (when (eq 'evil dotspacemacs-folding-method)
+    (spacemacs|define-transient-state fold
+      :title "Code Fold Transient State"
+      :doc "
+ Close^^          Open^^              Toggle^^             Other^^
+ ───────^^──────  ─────^^───────────  ─────^^────────────  ─────^^───
+ [_c_] at point   [_o_] at point      [_a_] around point   [_q_] quit
+ ^^               [_O_] recursively   ^^
+ [_m_] all        [_r_] all"
+      :foreign-keys run
+      :bindings
+      ("a" evil-toggle-fold)
+      ("c" evil-close-fold)
+      ("o" evil-open-fold)
+      ("O" evil-open-fold-rec)
+      ("r" evil-open-folds)
+      ("m" evil-close-folds)
+      ("q" nil :exit t)
+      ("C-g" nil :exit t)
+      ("<SPC>" nil :exit t)))
+  (spacemacs/set-leader-keys "z." 'spacemacs/fold-transient-state/body)
 
   ;; define text objects
   (spacemacs|define-text-object "$" "dollar" "$" "$")
