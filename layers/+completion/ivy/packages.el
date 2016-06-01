@@ -17,7 +17,7 @@
         flx
         ivy
         (ivy-spacemacs-help :location local)
-        perspectives
+        persp-mode
         projectile
         smex
         swiper
@@ -144,18 +144,18 @@
       ;; Why do we do this ?
       (ido-mode -1))))
 
-(defun ivy/post-init-perspectives ()
+(defun ivy/post-init-persp-mode ()
   (ivy-set-actions
-   'spacemacs/ivy-perspectives
-   '(("c" persp-kill-without-buffers "Close perspective(s)")
-     ("k" persp-kill  "Kill perspective(s)")))
+   'spacemacs/ivy-spacemacs-layouts
+   '(("c" persp-kill-without-buffers "Close layout(s)")
+     ("k" persp-kill  "Kill layout(s)")))
   (setq spacemacs-layouts-transient-state-remove-bindings
         '("b" "l" "C" "X"))
   (setq spacemacs-layouts-transient-state-add-bindings
-        '(("b" spacemacs/ivy-persp-buffer)
-          ("l" spacemacs/ivy-perspectives)
-          ("C" spacemacs/ivy-persp-close-other :exit t)
-          ("X" spacemacs/ivy-persp-kill-other :exit t))))
+        '(("b" spacemacs/ivy-spacemacs-layout-buffer)
+          ("l" spacemacs/ivy-spacemacs-layouts)
+          ("C" spacemacs/ivy-spacemacs-layout-close-other :exit t)
+          ("X" spacemacs/ivy-spacemacs-layout-kill-other :exit t))))
 
 (defun ivy/post-init-projectile ()
   (setq projectile-completion-system 'ivy)
