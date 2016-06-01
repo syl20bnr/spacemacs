@@ -13,6 +13,8 @@
   '(
     alchemist
     company
+    (flycheck-elixir-credo
+     :location (recipe :fetcher github :repo "smeevil/flycheck-elixir-credo"))
     (elixir-flycheck-mix-compile
      :location local
      :toggle (configuration-layer/package-usedp 'flycheck))
@@ -116,6 +118,11 @@
                         alchemist-test-report-mode-map))
       (evil-define-key 'normal mode
         (kbd "q") 'quit-window))))
+
+(defun elixir/init-flycheck-elixir-credo ()
+  (use-package flycheck-elixir-credo
+    :defer t
+    :init (add-hook 'elixir-mode-hook 'flycheck-elixir-credo-setup)))
 
 (defun elixir/init-elixir-flycheck-mix-compile ()
   (use-package elixir-flycheck-mix-compile

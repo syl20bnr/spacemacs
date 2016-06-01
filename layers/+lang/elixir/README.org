@@ -6,7 +6,9 @@
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#configuration][Configuration]]
-   - [[#flycheck-support-for-mix-compile][Flycheck support for mix compile]]
+   - [[#flycheck][Flycheck]]
+     - [[#credo][Credo]]
+     - [[#mix-compile][mix compile]]
  - [[#key-bindings][Key bindings]]
    - [[#refcard][Refcard]]
    - [[#help][Help]]
@@ -34,6 +36,7 @@ features like:
 - Elixir project management
 - Integration with [[http://company-mode.github.io/][company-mode]]
 - Flycheck support for mix compile
+- Flycheck support for [[https://github.com/rrrene/credo][credo]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -41,7 +44,27 @@ add =elixir= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
-** Flycheck support for mix compile
+** Flycheck
+*** Credo
+A flycheck checker for [[https://github.com/rrrene/credo][credo]] is installed. The check needs both =bunt= and
+=credo= to be available, you can install them like this:
+
+#+BEGIN_SRC shell
+git clone https://github.com/rrrene/bunt
+cd bunt
+mix archive.build
+mix archive.install
+#+END_SRC
+
+#+BEGIN_SRC shell
+git clone https://github.com/rrrene/credo
+cd credo
+mix deps.get
+mix archive.build
+mix archive.install
+#+END_SRC
+
+*** mix compile
 *Important:*
 Elixir compilation is based on macros and is unsafe since arbitrary code can
 be run during compilation. Therefore Spacemacs disable compilation flycheck
@@ -63,7 +86,6 @@ Emacs won't ask you if the variable is safe whenever an elixir file is opened.
 Remember that you can check the flycheck checkers enabled with ~SPC e v~.
 
 * Key bindings
-
 ** Refcard
 You find and overview of all the key-bindings on the [[file:alchemist-refcard.pdf][Alchemist-Refcard]].
 
