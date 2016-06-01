@@ -121,6 +121,17 @@
   (sort (mapcar 'symbol-name (configuration-layer/get-layers-list))
         'string<))
 
+(defun ivy-spacemacs-help//layer-action-get-directory (candidate)
+  "Get directory of layer passed CANDIDATE."
+  (let ((path (if (equalp candidate "spacemacs")
+                  ;; Readme for spacemacs is in the project root
+                  (ht-get configuration-layer-paths (intern candidate))
+                (file-name-as-directory
+                 (concat (ht-get configuration-layer-paths
+                                 (intern candidate))
+                         candidate)))))
+    path))
+
 (defun ivy-spacemacs-help//layer-action-open-file (file candidate &optional edit)
   "Open FILE of the passed CANDIDATE.  If EDIT is false, open in view mode."
   (let ((path (if (and (equalp file "README.org") (equalp candidate "spacemacs"))
@@ -154,6 +165,11 @@
           (save-current-buffer)))
       (dotspacemacs/sync-configuration-layers))))
 
+(defun ivy-spacemacs-help//layer-action-open-dired (candidate)
+  "Open dired at the location of the passed layer CANDIDATE."
+  (dired
+   (ivy-spacemacs-help//layer-action-get-directory candidate)))
+
 (defun ivy-spacemacs-help//layer-action-open-readme-edit (candidate)
   "Open the `README.org' file of the passed CANDIDATE for editing."
   (ivy-spacemacs-help//layer-action-open-file "README.org" candidate t))
@@ -174,6 +190,7 @@
 (ivy-set-actions
  'ivy-spacemacs-help-layers
  '(("a" ivy-spacemacs-help//layer-action-add-layer "add layer")
+   ("d" ivy-spacemacs-help//layer-action-open-dired "open dired at layer location")
    ("e" ivy-spacemacs-help//layer-action-open-readme-edit "open readme for editing")
    ("p" ivy-spacemacs-help//layer-action-open-packages "open packages.el")
    ("r" ivy-spacemacs-help//layer-action-open-readme "open readme")))
@@ -254,6 +271,11 @@
     (let ((package-str (cadr args)))
       (configuration-layer/describe-package (intern package-str)))))
 
+(defun ivy-spacemacs-help//help-action-open-dired (args)
+  "Open the `packages.el' file of the passed `car' of ARGS."
+  (dired
+   (ivy-spacemacs-help//layer-action-get-directory (car args))))
+
 (defun ivy-spacemacs-help//help-action-open-packages (args)
   "Open the `packages.el' file of the passed CANDIDATE."
   (ivy-spacemacs-help//layer-action-open-file "packages.el" (car args)))
@@ -292,7 +314,8 @@
 (ivy-set-actions
  'ivy-spacemacs-help
  '(("a" ivy-spacemacs-help//help-action-add-layer "add layer")
-   ("d" ivy-spacemacs-help//help-action-describe-package "describe package")
+   ("d" ivy-spacemacs-help//help-action-open-dired "open dired at layer location")
+   ("D" ivy-spacemacs-help//help-action-describe-package "describe package")
    ("e" ivy-spacemacs-help//help-action-open-readme-edit "open readme for editing")
    ("p" ivy-spacemacs-help//help-action-open-packages "open packages.el")
    ("r" ivy-spacemacs-help//help-action-open-readme "open readme")))
