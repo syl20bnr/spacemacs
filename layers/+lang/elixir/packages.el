@@ -129,7 +129,7 @@
 (defun elixir/init-flycheck-elixir-credo ()
   (use-package flycheck-elixir-credo
     :defer t
-    :init (add-hook 'flycheck-mode-hook 'flycheck-elixir-credo-setup)))
+    :init (add-hook 'elixir-mode-hook 'flycheck-elixir-credo-setup t)))
 
 (defun elixir/init-elixir-flycheck-mix-compile ()
   (use-package elixir-flycheck-mix-compile
@@ -140,7 +140,7 @@
                    (cons 'elixir-enable-compilation-checking nil))
       (add-to-list 'safe-local-variable-values
                    (cons 'elixir-enable-compilation-checking t))
-      (add-hook 'flycheck-mode-hook
+      (add-hook 'elixir-mode-hook
                 'spacemacs//elixir-enable-compilation-checking t))
     :config
     ;; enable mix_compile_helper executable
@@ -152,7 +152,7 @@
 (defun elixir/init-flycheck-elixir-testresult ()
   (use-package flycheck-elixir-testresult
     :defer t
-    :init (add-hook 'flycheck-mode-hook 'flycheck-elixir-testresult-setup)
+    :init (add-hook 'elixir-mode-hook 'flycheck-elixir-testresult-setup t)
     ;; enable mix_test_helper executable
     :config (add-to-list 'exec-path (spacemacs//get-package-directory
                                      'flycheck-elixir-testresult))))
@@ -163,8 +163,8 @@
 
 (defun elixir/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'elixir-mode)
-  (add-hook 'flycheck-mode-hook
-            'spacemacs//elixir-flycheck-check-on-save-only))
+  (add-hook 'elixir-mode-hook
+            'spacemacs//elixir-flycheck-check-on-save-only t))
 
 (defun elixir/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
