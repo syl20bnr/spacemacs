@@ -25,7 +25,9 @@
     (progn
       (spacemacs/register-repl 'alchemist 'alchemist-iex-run "alchemist")
       (add-hook 'elixir-mode-hook 'alchemist-mode)
-      (setq alchemist-project-compile-when-needed t)
+      (setq alchemist-project-compile-when-needed t
+            alchemist-test-status-modeline nil)
+      ;; setup company backends
       (push 'alchemist-company company-backends-elixir-mode)
       (push 'alchemist-company company-backends-alchemist-iex-mode))
     :config
@@ -136,3 +138,4 @@
   (spacemacs|use-package-add-hook popwin
     :post-config
     (push '("*mix*" :tail t :noselect t) popwin:special-display-config)))
+
