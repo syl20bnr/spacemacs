@@ -97,7 +97,7 @@
     (spacemacs|use-package-add-hook projectile
       :post-init
       (progn
-        (setq projectile-switch-project-action 'counsel-projectile)
+        (setq projectile-switch-project-action 'counsel-projectile-find-file)
         (spacemacs/set-leader-keys
           "pb" 'counsel-projectile-switch-to-buffer
           "pd" 'counsel-projectile-find-dir
