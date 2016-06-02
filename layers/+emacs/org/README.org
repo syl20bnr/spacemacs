@@ -11,7 +11,7 @@
    - [[#layer][Layer]]
    - [[#github-support][Github support]]
    - [[#gnuplot-support][Gnuplot support]]
-   - [[#reveal.js support][reveal.js support]]
+   - [[#revealjs-support][Reveal.js support]]
    - [[#different-bullets][Different bullets]]
  - [[#key-bindings][Key bindings]]
    - [[#org][Org]]
@@ -78,8 +78,7 @@ flavored markdown set the variable =org-enable-github-support= to =t=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (org :variables
-         org-enable-github-support t)))
+    (org :variables org-enable-github-support t)))
 #+END_SRC
 
 ** Gnuplot support
@@ -90,14 +89,13 @@ as usual by adding the package =gnuplot= to your =dotspacemacs-excluded-packages
 variable.
 
 ** Reveal.js support
-
 To enable the export of your org file as a [[http://lab.hakim.se/reveal-js/][reveal.js]] presentation, set the
-variable =org-enable-reveal-js= to =t=. This will install the [[https://github.com/yjwen/org-reveal/][org-reveal]] extension.
+variable =org-enable-reveal-js-support= to =t=. This will install the [[https://github.com/yjwen/org-reveal/][org-reveal]]
+extension.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (org :variables
-         org-enable-reveal-js t)))
+    (org :variables org-enable-reveal-js-support t)))
 #+END_SRC
 
 In order to be able to use org-reveal, download =reveal.js= from its
