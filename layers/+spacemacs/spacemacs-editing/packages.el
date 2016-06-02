@@ -379,8 +379,9 @@
 
 (defun spacemacs-editing/init-ws-butler ()
   (use-package ws-butler
-    :if (eq 'changed dotspacemacs-whitespace-cleanup)
+    :defer t
+    :init
+    (when (eq 'change dotspacemacs-whitespace-cleanup)
+      (ws-butler-global-mode 1))
     :config
-    (progn
-      (ws-butler-global-mode 1)
-      (spacemacs|hide-lighter ws-butler-mode))))
+    (spacemacs|hide-lighter ws-butler-mode)))

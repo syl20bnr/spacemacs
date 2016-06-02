@@ -105,9 +105,42 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 (add-hook 'find-file-hook 'spacemacs/check-large-file)
 
 ;; whitespace-cleanup configuration
-(pcase dotspacemacs-whitespace-cleanup
-  (`all (add-hook 'before-save-hook 'whitespace-cleanup))
-  (`trailing (add-hook 'before-save-hook 'delete-trailing-whitespace)))
+;; This is a local toggle, so it makes `before-save-hook' buffer-local
+(spacemacs|add-toggle whitespace-cleanup
+  :documentation "Clean up whitespace automatically."
+  :if dotspacemacs-whitespace-cleanup
+  :evil-leader "tW"
+  :status
+  (pcase dotspacemacs-whitespace-cleanup
+    (`all (memq 'whitespace-cleanup before-save-hook))
+    (`trailing (memq 'delete-trailing-whitespace before-save-hook))
+    (`changed (bound-and-true-p ws-butler-mode)))
+  :on
+  (pcase dotspacemacs-whitespace-cleanup
+    (`all
+     (make-local-variable 'before-save-hook)
+     (add-hook 'before-save-hook 'whitespace-cleanup))
+    (`trailing
+     (make-local-variable 'before-save-hook)
+     (add-hook 'before-save-hook 'delete-trailing-whitespace))
+    (`changed (when (fboundp 'ws-butler-mode) (ws-butler-mode))))
+  :off
+  (pcase dotspacemacs-whitespace-cleanup
+    (`all
+     (make-local-variable 'before-save-hook)
+     (remove-hook 'before-save-hook 'whitespace-cleanup))
+    (`trailing
+     (make-local-variable 'before-save-hook)
+     (remove-hook 'before-save-hook 'delete-trailing-whitespace))
+    (`changed (when (fboundp 'ws-butler-mode) (ws-butler-mode -1))))
+  :on-message
+  (pcase dotspacemacs-whitespace-cleanup
+    (`all "whitespace-cleanup enabled (all whitespace)")
+    (`trailing "whitespace-cleanup enabled (trailing whitespace)")
+    (`changed "whitespace-cleanup enabled (changed lines)")))
+;; Turning on for `changed' is handled by the `ws-butler' package.
+(when (memq dotspacemacs-whitespace-cleanup '(all trailing))
+  (spacemacs/toggle-whitespace-cleanup-on))
 
 ;; ---------------------------------------------------------------------------
 ;; UI
