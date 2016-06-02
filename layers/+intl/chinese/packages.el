@@ -22,7 +22,7 @@
         ace-pinyin
         pangu-spacing
         org
-        (youdao-dictionary :toggle (configuration-layer/package-usedp 'chinese-enable-youdao-dict))
+        (youdao-dictionary :toggle (eq chinese-enable-youdao-dict t))
         ))
 
 (defun chinese/init-fcitx ()
