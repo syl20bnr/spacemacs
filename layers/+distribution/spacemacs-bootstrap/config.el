@@ -31,6 +31,7 @@
     (mustache-mode . mustache-basic-offset)
     (nxml-mode . nxml-child-indent)
     (perl-mode . perl-indent-level)
+    (powershell-mode . powershell-indent)
     (puppet-mode . puppet-indent-level)
     (ruby-mode . ruby-indent-level)
     (rust-mode . rust-indent-offset)
