@@ -385,11 +385,13 @@ removal."
 
 ;; check when opening large files - literal file open
 (defun spacemacs/check-large-file ()
-  (let ((size (nth 7 (file-attributes (buffer-file-name)))))
+  (let* ((filename (buffer-file-name))
+         (size (nth 7 (file-attributes filename))))
     (when (and
            (not (memq major-mode spacemacs-large-file-modes-list))
            size (> size (* 1024 1024 dotspacemacs-large-file-size))
-           (y-or-n-p "This is a large file, open literally to avoid performance issues?"))
+           (y-or-n-p (format "%s is a large file, open literally to avoid performance issues?"
+                             filename)))
       (setq buffer-read-only t)
       (buffer-disable-undo)
       (fundamental-mode))))
