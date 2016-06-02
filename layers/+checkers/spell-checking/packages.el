@@ -80,4 +80,5 @@
     :defer t
     :init
     (progn
+      (setq flyspell-popup-correct-delay 0.8)
       (add-hook 'flyspell-mode-hook 'flyspell-popup-auto-correct-mode))))
