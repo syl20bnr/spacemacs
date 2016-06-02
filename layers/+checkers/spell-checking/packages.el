@@ -14,6 +14,7 @@
     auto-dictionary
     flyspell
     flyspell-correct
+    (flyspell-popup :toggle enable-flyspell-auto-completion)
     ))
 
 (defun spell-checking/init-auto-dictionary ()
@@ -73,3 +74,10 @@
       (setq flyspell-correct-interface 'flyspell-correct-helm))
     (when (bound-and-true-p flyspell-correct-interface)
       (spacemacs/set-leader-keys "Sc" 'flyspell-correct-word-generic))))
+
+(defun spell-checking/init-flyspell-popup ()
+  (use-package flyspell-popup
+    :defer t
+    :init
+    (progn
+      (add-hook 'flyspell-mode-hook 'flyspell-popup-auto-correct-mode))))

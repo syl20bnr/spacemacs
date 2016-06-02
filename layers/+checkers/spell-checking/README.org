@@ -7,6 +7,7 @@
    - [[#spell-checker-configuration][Spell Checker Configuration]]
    - [[#disabling-by-default][Disabling by default]]
    - [[#enabling-auto-dictionary-mode][Enabling auto-dictionary-mode]]
+   - [[#enable-auto-completion-popup][Enable auto-completion popup]]
  - [[#key-bindings][Key Bindings]]
 
 * Description
@@ -78,12 +79,21 @@ currently supported language:
 | spanish           |
 | swedish           |
 
+** Enable auto-completion popup
+To enable auto-completion popup when the point is idle on a misspelled word
+set the layer variable =enable-flyspell-auto-completion= to t:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((spell-checking :variables =enable-flyspell-auto-completion= t)))
+#+END_SRC
+
 * Key Bindings
 
-| Key Binding | Description              |
-|-------------+--------------------------|
-| ~SPC S b~   | flyspell whole buffer    |
-| ~SPC S c~   | flyspell correct         |
-| ~SPC S d~   | change dictionary        |
-| ~SPC S n~   | flyspell goto next error |
-| ~SPC t S~   | toggle flyspell          |
+| Key Binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC S b~   | flyspell whole buffer          |
+| ~SPC S c~   | flyspell correct               |
+| ~SPC S d~   | change dictionary              |
+| ~SPC S n~   | flyspell goto next error       |
+| ~SPC t S~   | toggle flyspell                |
