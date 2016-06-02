@@ -29,8 +29,9 @@
     org-pomodoro
     org-present
     org-repo-todo
-    ;; installing this package from melpa is buggy, so we mak it local for now.
-    (ox-gfm :location local :toggle org-enable-github-support)
+    ;; use a for of ox-gfm to fix index generation
+    (ox-gfm :location (recipe :fetcher github :repo "syl20bnr/ox-gfm")
+            :toggle org-enable-github-support)
     (ox-reveal :toggle org-enable-reveal-js-support)
     persp-mode
     ))
@@ -516,39 +517,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
             '("* TODO %?\n%U\n\n%i" :empty-lines 1))))
 
 (defun org/init-ox-gfm ()
-  (spacemacs|use-package-add-hook org :post-config (require 'ox-gfm))
-  (autoload 'org-gfm-export-as-markdown "ox-gfm" "\
- Export current buffer to a Github Flavored Markdown buffer.
-
-If narrowing is active in the current buffer, only export its
-narrowed part.
-
-If a region is active, export that region.
-
-A non-nil optional argument ASYNC means the process should happen
-asynchronously.  The resulting buffer should be accessible
-through the `org-export-stack' interface.
-
-When optional argument SUBTREEP is non-nil, export the sub-tree
-at point, extracting information from the headline properties
-first.
-
-When optional argument VISIBLE-ONLY is non-nil, don't export
-contents of hidden elements.
-
-Export is done in a buffer named \"*Org GFM Export*\", which will
-be displayed when `org-export-show-temporary-export-buffer' is
-non-nil.
-
-\(fn &optional ASYNC SUBTREEP VISIBLE-ONLY)" t nil)
-
-  (autoload 'org-gfm-convert-region-to-md "ox-gfm" "\
-Assume the current region has org-mode syntax, and convert it
-to Github Flavored Markdown.  This can be used in any buffer.
-For example, you can write an itemized list in org-mode syntax in
-a Markdown buffer and use this command to convert it.
-
-\(fn)" t nil))
+  (spacemacs|use-package-add-hook org :post-config (require 'ox-gfm)))
 
 (defun org/init-ox-reveal ()
   (spacemacs|use-package-add-hook org :post-config (require 'ox-reveal)))
