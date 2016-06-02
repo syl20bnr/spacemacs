@@ -51,10 +51,20 @@
             rainbow-identifiers-cie-l*a*b*-saturation 100
             rainbow-identifiers-cie-l*a*b*-lightness 40
             ;; override theme faces
-            rainbow-identifiers-faces-to-override '(highlight-quoted-symbol
-                                                    font-lock-keyword-face
-                                                    font-lock-function-name-face
-                                                    font-lock-variable-name-face))
+            rainbow-identifiers-faces-to-override (if colors-enable-rainbow-identifiers-aggressive-coloring
+                                                      '(font-lock-builtin-face
+                                                        font-lock-constant-face
+                                                        font-lock-function-name-face
+                                                        font-lock-keyword-face
+                                                        font-lock-type-face
+                                                        font-lock-variable-name-face
+                                                        highlight-quoted-symbol
+                                                        js2-function-call
+                                                        js2-function-param)
+                                                    '(highlight-quoted-symbol
+                                                      font-lock-function-name-face
+                                                      font-lock-keyword-face
+                                                      font-lock-variable-name-face)))
       (spacemacs/declare-prefix "Ci" "colors-identifiers")
 
       (spacemacs|add-toggle rainbow-identifier-globally
@@ -67,13 +77,15 @@
       (defun colors//tweak-theme-colors (theme)
         "Tweak color themes by adjusting rainbow-identifiers."
         (interactive)
-        ;; tweak the saturation and lightness of identifier colors
-        (let ((sat&light (assq theme colors-theme-identifiers-sat&light)))
-          (if sat&light
-              (setq rainbow-identifiers-cie-l*a*b*-saturation (cadr sat&light)
-                    rainbow-identifiers-cie-l*a*b*-lightness (caddr sat&light))
-            (setq rainbow-identifiers-cie-l*a*b*-saturation 80
-                  rainbow-identifiers-cie-l*a*b*-lightness 45)))))
+        ;; tweak the saturation and lightness of identifier colors if the theme is not setting
+        (when (not (assq theme (get 'rainbow-identifiers-cie-l*a*b*-saturation 'theme-value)))
+          (let ((sat&light (assq theme colors-theme-identifiers-sat&light)))
+            (if sat&light
+                (setq rainbow-identifiers-cie-l*a*b*-saturation (cadr sat&light)
+                      rainbow-identifiers-cie-l*a*b*-lightness (caddr sat&light))
+              (setq rainbow-identifiers-cie-l*a*b*-saturation 80
+                    rainbow-identifiers-cie-l*a*b*-lightness 45))))))
+
     (colors//tweak-theme-colors spacemacs--cur-theme)
 
     (defadvice spacemacs/post-theme-init (after colors/post-theme-init activate)
