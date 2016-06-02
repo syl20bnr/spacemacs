@@ -13,18 +13,9 @@
   '(
     alchemist
     company
-    (flycheck-elixir-credo
-     :location (recipe :fetcher github
-                       :repo "smeevil/flycheck-elixir-credo"))
     (elixir-flycheck-mix-compile
      :location local
      :toggle (configuration-layer/package-usedp 'flycheck))
-    (flycheck-elixir-testresult
-     :location (recipe :fetcher github
-                       :repo "smeevil/flycheck-elixir-testresult"
-                       :files ("flycheck_formatter.exs"
-                               "mix_test_helper"
-                               "flycheck-elixir-testresult.el")))
     elixir-mode
     flycheck
     popwin
@@ -126,11 +117,6 @@
       (evil-define-key 'normal mode
         (kbd "q") 'quit-window))))
 
-(defun elixir/init-flycheck-elixir-credo ()
-  (use-package flycheck-elixir-credo
-    :defer t
-    :init (add-hook 'elixir-mode-hook 'flycheck-elixir-credo-setup t)))
-
 (defun elixir/init-elixir-flycheck-mix-compile ()
   (use-package elixir-flycheck-mix-compile
     :commands (elixir-flycheck-mix-compile-setup)
@@ -148,14 +134,6 @@
       (add-to-list 'exec-path
                    (concat layer-path
                            "elixir/local/elixir-flycheck-mix-compile")))))
-
-(defun elixir/init-flycheck-elixir-testresult ()
-  (use-package flycheck-elixir-testresult
-    :defer t
-    :init (add-hook 'elixir-mode-hook 'flycheck-elixir-testresult-setup t)
-    ;; enable mix_test_helper executable
-    :config (add-to-list 'exec-path (spacemacs//get-package-directory
-                                     'flycheck-elixir-testresult))))
 
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
