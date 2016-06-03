@@ -50,7 +50,7 @@
         :documentation "Display the fill column indicator."
         :evil-leader "tf"))
     :config
-    (spacemacs|hide-lighter fci-mode)))
+    (spacemacs|diminish fci-mode " ⓕ" " f")))
 
 (defun spacemacs-ui-visual/init-golden-ratio ()
   (use-package golden-ratio

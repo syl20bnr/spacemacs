@@ -421,7 +421,7 @@
       (set-face-attribute 'whitespace-indentation nil
                           :background nil)
       (spacemacs|diminish whitespace-mode " ⓦ" " w")
-      (spacemacs|diminish global-whitespace-mode " Ⓦ" " W"))))
+      (spacemacs|diminish global-whitespace-mode " ⓦ" " w"))))
 
 (defun spacemacs-base/init-winner ()
   (use-package winner
