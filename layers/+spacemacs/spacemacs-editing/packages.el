@@ -24,6 +24,7 @@
         (origami :toggle (eq 'origami dotspacemacs-folding-method))
         pcre2el
         smartparens
+        (spacemacs-whitespace-cleanup :location local)
         undo-tree
         uuidgen
         ws-butler))
@@ -355,7 +356,38 @@
            (t
             (insert-char ?\))))))
       (when dotspacemacs-smart-closing-parenthesis
-          (define-key evil-insert-state-map ")" 'spacemacs/smart-closing-parenthesis)))))
+        (define-key evil-insert-state-map ")"
+          'spacemacs/smart-closing-parenthesis)))))
+
+(defun spacemacs-editing/init-spacemacs-whitespace-cleanup ()
+  (use-package spacemacs-whitespace-cleanup
+    :commands (spacemacs-whitespace-cleanup-mode
+               global-spacemacs-whitespace-cleanup-mode)
+    :init
+    (progn
+      (spacemacs|add-toggle whitespace-cleanup
+        :mode spacemacs-whitespace-cleanup-mode
+        :documentation "Automatic whitespace clean up."
+        :on-message (spacemacs-whitespace-cleanup/on-message)
+        :evil-leader "tW")
+      (spacemacs|add-toggle global-whitespace-cleanup
+        :mode global-spacemacs-whitespace-cleanup-mode
+        :status spacemacs-whitespace-cleanup-mode
+        :on (let ((spacemacs-whitespace-cleanup-globally t))
+              (spacemacs-whitespace-cleanup-mode))
+        :off (let ((spacemacs-whitespace-cleanup-globally t))
+               (spacemacs-whitespace-cleanup-mode -1))
+        :on-message (spacemacs-whitespace-cleanup/on-message t)
+        :documentation "Global automatic whitespace clean up."
+        :evil-leader "t C-S-w")
+      (with-eval-after-load 'ws-butler
+        (when dotspacemacs-whitespace-cleanup
+          (spacemacs/toggle-global-whitespace-cleanup-on))))
+    :config
+    (progn
+      (spacemacs|diminish spacemacs-whitespace-cleanup-mode " Ⓦ" " W")
+      (spacemacs|diminish global-spacemacs-whitespace-cleanup-mode
+                          " Ⓦ" " W"))))
 
 (defun spacemacs-editing/init-undo-tree ()
   (use-package undo-tree
@@ -378,10 +410,7 @@
         "iUU" 'spacemacs/uuidgen-4))))
 
 (defun spacemacs-editing/init-ws-butler ()
+  ;; not deferred on purpose, init-spacemacs-whitespace-cleanup need
+  ;; it to be loaded.
   (use-package ws-butler
-    :defer t
-    :init
-    (when (eq 'change dotspacemacs-whitespace-cleanup)
-      (ws-butler-global-mode 1))
-    :config
-    (spacemacs|hide-lighter ws-butler-mode)))
+    :config (spacemacs|hide-lighter ws-butler-mode)))

@@ -1163,7 +1163,8 @@ can be reached using the =control= key.
 | ~SPC t S~   | =Ⓢ=     | S     | enabled in [[../layers/spell-checking][spell checking layer]] (flyspell)                           |
 | ~SPC t w~   | =ⓦ=     | w     | whitespace mode                                                      |
 | ~SPC t C-w~ | =ⓦ=     | w     | global whitespace                                                    |
-| ~SPC t W~   |          |       | automatic whitespace cleanup (see =dotspacemacs-whitespace-cleanup=) |
+| ~SPC t W~   | =Ⓦ=     | W     | automatic whitespace cleanup (see =dotspacemacs-whitespace-cleanup=) |
+| ~SPC t C-W~ | =Ⓦ=     | W     | automatic whitespace cleanup globally                                |
 | ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
 
 **** Customizing the mode-line
