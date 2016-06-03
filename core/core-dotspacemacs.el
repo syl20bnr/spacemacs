@@ -171,7 +171,7 @@ size to make separators look not too crappy.")
   "If non-nil, the shift mappings `<' and `>' retain visual state
 if used there.")
 
-(defvar dotspacemacs-visual-line-move-text t
+(defvar dotspacemacs-visual-line-move-text nil
   "If non-nil, J and K move lines up and down when in visual mode.")
 
 (defvar dotspacemacs-ex-substitute-global nil
