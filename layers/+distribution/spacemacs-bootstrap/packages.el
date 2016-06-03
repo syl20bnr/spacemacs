@@ -118,7 +118,7 @@
     (evil-map visual ">" ">gv"))
 
   ;; move selection up and down
-  (when dotspacemacs-visual-line-move
+  (when dotspacemacs-visual-line-move-text
     (define-key evil-visual-state-map "J" (concat ":m '>+1" (kbd "RET") "gv=gv"))
     (define-key evil-visual-state-map "K" (concat ":m '<-2" (kbd "RET") "gv=gv")))
 
