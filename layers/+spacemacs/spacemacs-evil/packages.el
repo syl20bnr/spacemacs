@@ -102,7 +102,14 @@
 
 (defun spacemacs-evil/init-evil-mc ()
   (use-package evil-mc
-    :defer t))
+    :defer t
+    :init
+    ;; remove emc prefix when there is not multiple cursors
+    (setq evil-mc-mode-line
+          `(:eval (when (> (evil-mc-get-cursor-count) 1)
+                    (format ,(propertize " %s:%d" 'face 'cursor)
+                            evil-mc-mode-line-prefix
+                            (evil-mc-get-cursor-count)))))))
 
 ;; other commenting functions in funcs.el with keybinds in keybindings.el
 (defun spacemacs-evil/init-evil-nerd-commenter ()
