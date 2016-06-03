@@ -94,7 +94,9 @@
                         ("mn" . "scala/ensime")
                         ("mr" . "scala/refactor")
                         ("mt" . "scala/test")
-                        ("ms" . "scala/repl")))
+                        ("mp" . "scala/print-type")
+                        ("ms" . "scala/repl")
+                        ("my" . "scala/yank")))
         (spacemacs/declare-prefix-for-mode 'scala-mode (car prefix) (cdr prefix)))
 
       (spacemacs/set-leader-keys-for-major-mode 'scala-mode
@@ -136,12 +138,10 @@
 
         "hh"     'ensime-show-doc-for-symbol-at-point
         "hu"     'ensime-show-uses-of-symbol-at-point
-        "ht"     'ensime-print-type-at-point
 
         "ii"     'ensime-inspect-type-at-point
         "iI"     'ensime-inspect-type-at-point-other-frame
         "ip"     'ensime-inspect-project-package
-        "iy"     'scala/yank-type-at-point
 
         "nF"     'ensime-reload-open-files
         "ns"     'ensime
@@ -157,6 +157,9 @@
         "rt"     'ensime-import-type-at-point
         "rv"     'ensime-refactor-diff-extract-local
 
+        "pf"     'ensime-type-at-point-full-name
+        "pt"     'ensime-type-at-point
+
         "ta"     'ensime-sbt-do-test-dwim
         "tr"     'ensime-sbt-do-test-quick-dwim
         "tt"     'ensime-sbt-do-test-only-dwim
@@ -167,6 +170,9 @@
         "si"     'ensime-inf-switch
         "sr"     'ensime-inf-eval-region
         "sR"     'ensime-inf-eval-region-switch
+
+        "yt"     'scala/yank-type-at-point
+        "yf"     'scala/yank-type-at-point-full-name
 
         "z"      'ensime-expand-selection-command
         )
