@@ -43,7 +43,6 @@
 
 (defun colors/init-rainbow-identifiers ()
   (use-package rainbow-identifiers
-    :if colors-enable-rainbow-identifiers
     :commands rainbow-identifiers-mode
     :init
     (progn
@@ -62,7 +61,8 @@
         :documentation "Colorize identifiers globally."
         :evil-leader "tCi")
 
-      (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
+      (when colors-enable-rainbow-identifiers-by-default
+        (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
 
       (defun colors//tweak-theme-colors (theme)
         "Tweak color themes by adjusting rainbow-identifiers."

@@ -11,7 +11,7 @@
 
 ;; Variables
 
-(defvar colors-enable-rainbow-identifiers nil
+(defvar colors-enable-rainbow-identifiers-by-default nil
   "If non nil the `rainbow-identifers' package is enabled.")
 
 (defvar colors-enable-nyan-cat-progress-bar nil
