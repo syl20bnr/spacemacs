@@ -28,22 +28,12 @@ file.
 
 ** Enable rainbow-identifiers
 
-To enable the package =rainbow-identifiers= set the variable
-=colors-enable-rainbow-identifiers= to =t=:
+To enable =rainbow-identifiers-mode= by default, set the variable
+=colors-enable-rainbow-identifiers-by-default= to =t=:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (colors :variables colors-enable-rainbow-identifiers t)))
-#+END_SRC
-
-You may also choose not to enable =rainbow-identifiers= by default
-by setting the =colors-rainbow-identifiers-add-hook= variable to =nil=:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (colors :variables
-            colors-enable-rainbow-identifiers   t
-            colors-rainbow-identifiers-add-hook nil)))
+    (colors :variables colors-enable-rainbow-identifiers-by-default t)))
 #+END_SRC
 
 Saturation and lightness of identifiers can be set per theme by adding

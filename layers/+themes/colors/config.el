@@ -11,11 +11,8 @@
 
 ;; Variables
 
-(defvar colors-enable-rainbow-identifiers nil
+(defvar colors-enable-rainbow-identifiers-by-default nil
   "If non nil the `rainbow-identifers' package is enabled.")
-
-(defvar colors-rainbow-identifiers-add-hook t
-  "If non nil then `rainbow-identifers-mode' is added to `prog-mode-hook'.")
 
 (defvar colors-enable-nyan-cat-progress-bar nil
   "If non nil all nyan cat packges are enabled (for now only `nyan-mode').")
