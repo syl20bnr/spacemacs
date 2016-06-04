@@ -106,7 +106,9 @@ the final step of executing code in `emacs-startup-hook'.")
    (unless (spacemacs/set-default-font dotspacemacs-default-font)
      (spacemacs-buffer/warning
       "Cannot find any of the specified fonts (%s)! Font settings may not be correct."
-      (mapconcat 'car dotspacemacs-default-font ", "))))
+      (if (listp (car dotspacemacs-default-font))
+          (mapconcat 'car dotspacemacs-default-font ", ")
+        (car dotspacemacs-default-font)))))
   ;; spacemacs init
   (setq inhibit-startup-screen t)
   (spacemacs-buffer/goto-buffer)
