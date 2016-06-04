@@ -247,7 +247,7 @@ To map ~<Leader>~ keybindings, use the =spacemacs/set-leader-keys= function.
 #+begin_src emacs-lisp
   (spacemacs/set-leader-keys key function) ; Syntax
   ;; Map killing a buffer to <Leader> b c
-  (spacemacs/set-leader-keys "bc" 'kill-this-buffer)
+  (spacemacs/set-leader-keys "bc" 'spacemacs/kill-this-buffer)
   ;; Map opening a link to <Leader> o l only in org-mode (works for any major-mode)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode
     "ol" 'org-open-at-point)

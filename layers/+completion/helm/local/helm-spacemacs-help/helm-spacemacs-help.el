@@ -176,7 +176,7 @@
            (condition-case-unless-debug nil
                (with-current-buffer (find-file-noselect file)
                  (gh-md-render-buffer)
-                 (kill-this-buffer))
+                 (spacemacs/kill-this-buffer))
              ;; if anything fails, fall back to simply open file
              (find-file file)))
           ((equal (file-name-extension file) "org")

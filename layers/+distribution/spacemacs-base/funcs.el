@@ -402,6 +402,14 @@ removal."
       (buffer-disable-undo)
       (fundamental-mode))))
 
+;; our own implementation of kill-this-buffer from menu-bar.el
+(defun spacemacs/kill-this-buffer ()
+  "Kill the current buffer."
+  (interactive)
+  (if (window-minibuffer-p)
+      (abort-recursive-edit)
+    (kill-buffer (current-buffer))))
+
 ;; found at http://emacswiki.org/emacs/KillingBuffers
 (defun spacemacs/kill-other-buffers ()
   "Kill all other buffers."

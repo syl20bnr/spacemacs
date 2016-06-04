@@ -117,7 +117,7 @@
   "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
 (spacemacs/set-leader-keys
-  "bd"  'kill-this-buffer
+  "bd"  'spacemacs/kill-this-buffer
   "TAB" 'spacemacs/alternate-buffer
   "bh"  'spacemacs/home
   "be"  'spacemacs/safe-erase-buffer
@@ -418,7 +418,7 @@
   ("n" spacemacs/next-useful-buffer "next")
   ("N" spacemacs/previous-useful-buffer "previous")
   ("p" spacemacs/previous-useful-buffer "previous")
-  ("K" kill-this-buffer "kill")
+  ("K" spacemacs/kill-this-buffer "kill")
   ("q" nil "quit" :exit t))
 (spacemacs/set-leader-keys "b." 'spacemacs/buffer-transient-state/body)
 
