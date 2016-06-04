@@ -300,48 +300,42 @@ refreshed during the current session."
   "Synchronize declared layers in dotfile with spacemacs.
 If NO-INSTALL is non nil then install steps are skipped."
   ;; Force the display of warning buffers at the bottom
-  (let ((display-buffer-alist
-         '(("\\(\\*Compile-Log\\*\\)\\|\\(\\*Warnings\\*\\)"
-            (display-buffer-in-side-window)
-            (inhibit-same-window . t)
-            (side . bottom)
-            (window-height . 0.2)))))
-    (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
-    (when (spacemacs-buffer//choose-banner)
-      (spacemacs-buffer//inject-version t))
-    ;; first, declare layer then package as soon as possible to
-    ;; resolve usage and ownership (in other words, get the list of used
-    ;; layers and packages as soon as possible)
-    (configuration-layer//declare-layers)
-    (configuration-layer//declare-packages configuration-layer--layers)
-    ;; then load the functions and finally configure the layers
-    (configuration-layer//load-layers-files configuration-layer--layers
-                                            '("funcs.el"))
-    (configuration-layer//configure-layers configuration-layer--layers)
-    ;; pre-filter some packages to save some time later in the loading process
-    (setq configuration-layer--used-distant-packages
-          (configuration-layer//get-distant-packages
-           configuration-layer--packages t))
-    ;; install/uninstall packages
-    (configuration-layer/load-auto-layer-file)
-    (unless no-install
-      (if (eq 'all dotspacemacs-download-packages)
-          (configuration-layer//install-packages
-           (configuration-layer//get-distant-packages
-            (configuration-layer/get-all-packages) nil))
+  (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
+  (when (spacemacs-buffer//choose-banner)
+    (spacemacs-buffer//inject-version t))
+  ;; first, declare layer then package as soon as possible to
+  ;; resolve usage and ownership (in other words, get the list of used
+  ;; layers and packages as soon as possible)
+  (configuration-layer//declare-layers)
+  (configuration-layer//declare-packages configuration-layer--layers)
+  ;; then load the functions and finally configure the layers
+  (configuration-layer//load-layers-files configuration-layer--layers
+                                          '("funcs.el"))
+  (configuration-layer//configure-layers configuration-layer--layers)
+  ;; pre-filter some packages to save some time later in the loading process
+  (setq configuration-layer--used-distant-packages
+        (configuration-layer//get-distant-packages
+         configuration-layer--packages t))
+  ;; install/uninstall packages
+  (configuration-layer/load-auto-layer-file)
+  (unless no-install
+    (if (eq 'all dotspacemacs-download-packages)
         (configuration-layer//install-packages
-         (configuration-layer/filter-objects
-          configuration-layer--used-distant-packages
-          (lambda (x)
-            (not (oref x :lazy-install))))))
-      (configuration-layer//configure-packages configuration-layer--packages)
-      (configuration-layer//load-layers-files
-       configuration-layer--layers '("keybindings.el"))
-      (when (and (eq 'used dotspacemacs-download-packages)
-                 (not configuration-layer-distribution)
-                 (not configuration-layer-no-layer))
-        (configuration-layer/delete-orphan-packages
-         configuration-layer--packages)))))
+         (configuration-layer//get-distant-packages
+          (configuration-layer/get-all-packages) nil))
+      (configuration-layer//install-packages
+       (configuration-layer/filter-objects
+        configuration-layer--used-distant-packages
+        (lambda (x)
+          (not (oref x :lazy-install))))))
+    (configuration-layer//configure-packages configuration-layer--packages)
+    (configuration-layer//load-layers-files
+     configuration-layer--layers '("keybindings.el"))
+    (when (and (eq 'used dotspacemacs-download-packages)
+               (not configuration-layer-distribution)
+               (not configuration-layer-no-layer))
+      (configuration-layer/delete-orphan-packages
+       configuration-layer--packages))))
 
 (defun configuration-layer/load-auto-layer-file ()
   "Load `auto-layer.el' file"
@@ -1108,25 +1102,31 @@ path."
   "Install PACKAGES which are not lazy installed."
   (interactive)
   ;; ensure we have quelpa available first
-  (configuration-layer//install-quelpa)
-  (let* ((not-inst-pkg-names
-          (configuration-layer//get-uninstalled-packages
-           (mapcar 'car (object-assoc-list :name packages))))
-         (not-inst-count (length not-inst-pkg-names))
-         installed-count)
-    ;; installation
-    (when not-inst-pkg-names
-      (spacemacs-buffer/append
-       (format "Found %s new package(s) to install...\n"
-               not-inst-count))
-      (configuration-layer/retrieve-package-archives)
-      (setq installed-count 0)
-      (spacemacs//redisplay)
-      (dolist (pkg-name not-inst-pkg-names)
-        (setq installed-count (1+ installed-count))
-        (configuration-layer//install-package
-         (object-assoc pkg-name :name packages)))
-      (spacemacs-buffer/append "\n"))))
+  (let ((display-buffer-alist
+         '(("\\(\\*Compile-Log\\*\\)\\|\\(\\*Warnings\\*\\)"
+            (display-buffer-in-side-window)
+            (inhibit-same-window . t)
+            (side . bottom)
+            (window-height . 0.2)))))
+    (configuration-layer//install-quelpa)
+    (let* ((not-inst-pkg-names
+            (configuration-layer//get-uninstalled-packages
+             (mapcar 'car (object-assoc-list :name packages))))
+           (not-inst-count (length not-inst-pkg-names))
+           installed-count)
+      ;; installation
+      (when not-inst-pkg-names
+        (spacemacs-buffer/append
+         (format "Found %s new package(s) to install...\n"
+                 not-inst-count))
+        (configuration-layer/retrieve-package-archives)
+        (setq installed-count 0)
+        (spacemacs//redisplay)
+        (dolist (pkg-name not-inst-pkg-names)
+          (setq installed-count (1+ installed-count))
+          (configuration-layer//install-package
+           (object-assoc pkg-name :name packages)))
+        (spacemacs-buffer/append "\n")))))
 
 (defun configuration-layer//install-from-elpa (pkg-name)
   "Install PKG from ELPA."
