@@ -27,9 +27,8 @@ add =colors= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Enable rainbow-identifiers
-
-To enable =rainbow-identifiers-mode= by default, set the variable
-=colors-enable-rainbow-identifiers-by-default= to =t=:
+To enable =rainbow-identifiers-mode= by default in programing language buffers,
+set the variable =colors-enable-rainbow-identifiers-by-default= to =t=:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
