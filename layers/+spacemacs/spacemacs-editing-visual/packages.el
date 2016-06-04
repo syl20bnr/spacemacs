@@ -234,10 +234,14 @@
         (cond
          ((and (not (eq dotspacemacs-editing-style 'emacs))
                (configuration-layer/package-usedp 'evil-iedit-state))
-          (evil-iedit-state/iedit-mode))
+          (evil-iedit-state/iedit-mode)
+          (iedit-restrict-region (ahs-current-plugin-prop 'start)
+                                 (ahs-current-plugin-prop 'end)))
          ((and (eq dotspacemacs-editing-style 'emacs)
                (configuration-layer/package-usedp 'iedit))
-          (iedit-mode))
+          (iedit-mode)
+          (iedit-restrict-region (ahs-current-plugin-prop 'start)
+                                 (ahs-current-plugin-prop 'end)))
          (t (ahs-edit-mode t))))
 
       (spacemacs|define-transient-state symbol-highlight
