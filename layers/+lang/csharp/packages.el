@@ -12,6 +12,7 @@
 (setq csharp-packages
   '(
     company
+    evil-matchit
     omnisharp
     ))
 
@@ -82,3 +83,9 @@
 
 (defun csharp/post-init-company ()
   (spacemacs|add-company-hook csharp-mode))
+
+(defun csharp/post-init-evil-matchit ()
+  (with-eval-after-load 'evil-matchit
+    (plist-put evilmi-plugins 'csharp-mode '((evilmi-simple-get-tag evilmi-simple-jump)
+                                             (evilmi-c-get-tag evilmi-c-jump))))
+  (add-hook 'csharp-mode-hook 'turn-on-evil-matchit-mode))
