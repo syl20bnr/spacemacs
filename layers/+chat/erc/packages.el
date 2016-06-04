@@ -27,6 +27,7 @@
         erc-view-log
         (erc-yank :location local :excluded t)
         erc-yt
+        linum
         persp-mode
         ))
 
@@ -48,21 +49,14 @@
   (use-package erc
     :defer t
     :init
-    (spacemacs/set-leader-keys
-      "aie" 'erc
-      "aiE" 'erc-tls
-      "aii" 'erc-track-switch-buffer
-      "aiD" 'erc/default-servers)
-    ;; utf-8 always and forever
-    (setq erc-server-coding-system '(utf-8 . utf-8))
-    ;; disable linum mode in erc
-    ;; check if this will not be efficient
-    (defun no-linum (&rest ignore)
-      (when (or 'linum-mode global-linum-mode)
-        (linum-mode 0)))
-    (spacemacs/add-to-hooks 'no-linum '(erc-hook
-                                        erc-mode-hook
-                                        erc-insert-pre-hook))
+    (progn
+      (spacemacs/set-leader-keys
+        "aie" 'erc
+        "aiE" 'erc-tls
+        "aii" 'erc-track-switch-buffer
+        "aiD" 'erc/default-servers)
+      ;; utf-8 always and forever
+      (setq erc-server-coding-system '(utf-8 . utf-8)))
     :config
     (progn
       (use-package erc-autoaway
@@ -229,6 +223,10 @@
 (defun erc/init-erc-terminal-notifier ()
   (use-package erc-terminal-notifier
     :if (executable-find "terminal-notifier")))
+
+(defun erc/post-init-linum ()
+  (spacemacs/add-to-hooks 'no-linum '(erc-mode-hook
+                                      erc-insert-pre-hook)))
 
 (defun erc/post-init-persp-mode ()
   ;; do not save erc buffers
