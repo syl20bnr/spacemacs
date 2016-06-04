@@ -13,19 +13,24 @@
 
 ;;; Code:
 
+;; TODO: Integrate company-emoji.
+
 (defconst slack-packages
   '(
-    slack
     alert
     company
     company-emoji
-    flyspell
     emoji-cheat-sheet-plus
+    flyspell
+    linum
     persp-mode
-    smooth-scrolling
+    slack
     ))
 
-;; TODO: Integrate company-emoji.
+(defun slack/init-alert ()
+  (use-package alert
+    :defer t
+    :init (setq alert-default-style 'notifier)))
 
 (defun slack/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'slack-mode-hook 'emoji-cheat-sheet-plus-display-mode))
@@ -33,54 +38,11 @@
 (defun slack/post-init-flyspell ()
   (add-hook 'lui-mode-hook 'flyspell-mode))
 
-(defun alert/init-alert ()
-  (use-package alert
-    :commands (alert)
-    :init
-    (setq alert-default-style 'notifier)
-    ))
-
-(defun slack/init-slack ()
-  "Initialize Slack"
-  (use-package slack
-    :commands (slack-start)
-    :defer t
-    :init
-    (spacemacs/set-leader-keys
-      "aCs" 'slack-start
-      "aCj" 'slack-channel-select
-      "aCd" 'slack-im-select
-      "aCq" 'slack-ws-close
-      )
-    (defun no-linum (&rest ignore)
-      (when (or 'linum-mode global-linum-mode)
-        (linum-mode 0)))
-    (spacemacs/add-to-hooks 'no-linum '(
-                                        slack-hook
-                                        slack-mode-hook
-                                        ))
-    (setq slack-enable-emoji t)
-    :config
-    (spacemacs/set-leader-keys-for-major-mode 'slack-mode
-      "j" 'slack-channel-select
-      "d" 'slack-im-select
-      "p" 'slack-room-load-prev-messages
-      "e" 'slack-message-edit
-      "q" 'slack-ws-close
-      "mm" 'slack-message-embed-mention
-      "mc" 'slack-message-embed-channel
-      "k" 'slack-channel-select
-      "@" 'slack-message-embed-mention
-      "#" 'slack-message-embed-channel
-      )
-    (evil-define-key 'insert slack-mode-map
-      (kbd "@") 'slack-message-embed-mention
-      (kbd "#") 'slack-message-embed-channel)
-    )
-  )
+(defun slack/post-init-linum ()
+  (add-hook 'slack-mode-hook 'no-linum))
 
 (defun slack/post-init-persp-mode ()
-  (spacemacs|define-custom-layout "@SLACK"
+  (spacemacs|define-custom-layout "@Slack"
     :binding "s"
     :body
     (progn
@@ -95,7 +57,34 @@
     (push (lambda (b) (with-current-buffer b (eq major-mode 'slack-mode)))
           persp-filter-save-buffers-functions)))
 
-(defun slack/post-init-smooth-scrolling ()
-  (add-hook 'slack-mode-hook 'spacemacs//unset-scroll-margin))
+(defun slack/init-slack ()
+  "Initialize Slack"
+  (use-package slack
+    :commands (slack-start)
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys
+        "aCs" 'slack-start
+        "aCj" 'slack-channel-select
+        "aCd" 'slack-im-select
+        "aCq" 'slack-ws-close)
+      (setq slack-enable-emoji t))
+    :config
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'slack-mode
+        "j" 'slack-channel-select
+        "d" 'slack-im-select
+        "p" 'slack-room-load-prev-messages
+        "e" 'slack-message-edit
+        "q" 'slack-ws-close
+        "mm" 'slack-message-embed-mention
+        "mc" 'slack-message-embed-channel
+        "k" 'slack-channel-select
+        "@" 'slack-message-embed-mention
+        "#" 'slack-message-embed-channel)
+      (evil-define-key 'insert slack-mode-map
+        (kbd "@") 'slack-message-embed-mention
+        (kbd "#") 'slack-message-embed-channel))))
 
 ;;; packages.el ends here

@@ -990,3 +990,8 @@ is nonempty."
   (interactive)
   (when compilation-last-buffer
     (delete-windows-on compilation-last-buffer)))
+
+(defun no-linum (&rest ignore)
+  "Disable linum if current buffer."
+  (when (or 'linum-mode global-linum-mode)
+    (linum-mode 0)))
