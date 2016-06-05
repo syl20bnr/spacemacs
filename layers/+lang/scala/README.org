@@ -194,17 +194,22 @@ disable it with
 | ~SPC m g i~ | go to implementation |
 | ~SPC m g t~ | go to test           |
 
+*** Print and yank types
+|-------------+--------------------------------|
+| ~SPC m p f~ | print full type name at point  |
+| ~SPC m p t~ | print short type name at point |
+| ~SPC m y f~ | yank full type name at point   |
+| ~SPC m y t~ | yank short type name at point  |
+
 *** Documentation, Inspect
 
 | Key Binding | Description                            |
 |-------------+----------------------------------------|
 | ~SPC m h h~ | show documentation for symbol at point |
 | ~SPC m h u~ | show uses for symbol at point          |
-| ~SPC m h t~ | print type at point                    |
 | ~SPC m i i~ | inspect type at point                  |
 | ~SPC m i I~ | inspect type in other frame            |
 | ~SPC m i p~ | inspect project package                |
-| ~SPC m i y~ | yank type at point                     |
 
 *** Server
 
