@@ -25,7 +25,7 @@
             helm-dash-common-docsets (helm-dash-installed-docsets))
       (message (format "activated %d docsets from: %s"
                        (length helm-dash-common-docsets) path)))
-    (dash//activate-package-docsets dash-helm-dash-docset-path)))
+    (dash//activate-package-docsets helm-dash-docset-newpath)))
 
 (defun dash/init-dash-at-point ()
   (use-package dash-at-point
