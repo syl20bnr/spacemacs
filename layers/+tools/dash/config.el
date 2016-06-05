@@ -9,5 +9,5 @@
 ;;
 ;;; License: GPLv3
 
-(defvar dash-helm-dash-docset-path ""
+(defvar helm-dash-docset-newpath "~/.docsets"
   "Path containing dash docsets.")
