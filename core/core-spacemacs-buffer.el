@@ -87,7 +87,7 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
         (if (image-type-available-p (intern (file-name-extension banner)))
             (spacemacs-buffer//insert-image-banner banner)
           (insert-file-contents banner))
-        (spacemacs-buffer//inject-version t))
+        (spacemacs-buffer//inject-version))
       (spacemacs-buffer//insert-buttons)
       (unless (bound-and-true-p spacemacs-initialized)
         (spacemacs-buffer/insert-page-break))
@@ -167,7 +167,7 @@ If ALL is non-nil then truly all banners can be selected."
            (width (car size))
            (left-margin (max 0 (floor (- spacemacs-buffer--banner-length width) 2))))
       (goto-char (point-min))
-      (spacemacs-buffer/insert-page-break)
+      (insert "\n")
       (insert (make-string left-margin ?\ ))
       (insert-image spec)
       (insert "\n\n")
@@ -175,25 +175,20 @@ If ALL is non-nil then truly all banners can be selected."
                                         (+ (length title) 1)) 2))) ?\ ))
       (insert (format "%s\n\n" title)))))
 
-(defun spacemacs-buffer//inject-version (&optional insert-distro)
+(defun spacemacs-buffer//inject-version ()
   "Inject the current version of spacemacs in the first line of the
 buffer, right justified."
   (with-current-buffer (get-buffer-create spacemacs-buffer-name)
     (save-excursion
-      (let* ((maxcol spacemacs-buffer--banner-length)
-             (lhs (format "(emacs-%s)" emacs-version))
-             (rhs (if insert-distro
-                           (format "(%s-%s)"
-                                   dotspacemacs-distribution
-                                   spacemacs-version)
-                         (format "(%s)" spacemacs-version)))
-             (len (- maxcol (length lhs)))
-             (buffer-read-only nil))
+      (let ((maxcol spacemacs-buffer--banner-length)
+            (version (format "%s@%s (%s)"
+                             spacemacs-version
+                             emacs-version
+                             dotspacemacs-distribution))
+            (buffer-read-only nil))
         (goto-char (point-min))
         (delete-region (point) (progn (end-of-line) (point)))
-        (insert (format
-                 (format "%%s%%%ds" len)
-                 lhs rhs))))))
+        (insert (format (format "%%%ds" maxcol) version))))))
 
 (defun spacemacs-buffer//insert-footer ()
   (save-excursion
@@ -214,6 +209,7 @@ buffer, right justified."
       (when (or badge heart)
         (goto-char (point-max))
         (spacemacs-buffer/insert-page-break)
+        (insert "\n")
         (when badge
           (insert (make-string (floor (/ (- maxcol badge-size) 2)) ?\ ))
           (insert-image badge))
@@ -374,7 +370,7 @@ The message is always displayed. "
 
 (defun spacemacs-buffer/insert-page-break ()
   "Insert a page break line in spacemacs buffer."
-  (spacemacs-buffer/append "\n\n\n"))
+  (spacemacs-buffer/append "\n\n"))
 
 (defun spacemacs-buffer/append (msg &optional messagebuf)
   "Append MSG to spacemacs buffer. If MESSAGEBUF is not nil then MSG is

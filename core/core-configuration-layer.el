@@ -301,7 +301,7 @@ refreshed during the current session."
 If NO-INSTALL is non nil then install steps are skipped."
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
   (when (spacemacs-buffer//choose-banner)
-    (spacemacs-buffer//inject-version t))
+    (spacemacs-buffer//inject-version))
   ;; first, declare layer then package as soon as possible to
   ;; resolve usage and ownership (in other words, get the list of used
   ;; layers and packages as soon as possible)
