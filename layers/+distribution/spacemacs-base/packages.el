@@ -28,6 +28,8 @@
         (hybrid-mode :location local :step pre)
         (linum :location built-in)
         (package-menu :location built-in)
+        ;; page-break-lines is shipped with spacemacs core
+        (page-break-lines :location built-in)
         (process-menu :location built-in)
         projectile
         (recentf :location built-in)
@@ -200,6 +202,11 @@
 (defun spacemacs-base/init-package-menu ()
   (evilified-state-evilify-map package-menu-mode-map
     :mode package-menu-mode))
+
+(defun spacemacs-base/init-page-break-lines ()
+  (require 'page-break-lines)
+  (global-page-break-lines-mode t)
+  (spacemacs|hide-lighter page-break-lines-mode))
 
 (defun spacemacs-base/init-process-menu ()
   (evilified-state-evilify process-menu-mode process-menu-mode-map))

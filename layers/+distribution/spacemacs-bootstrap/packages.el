@@ -17,7 +17,6 @@
         (diminish :step bootstrap)
         (evil :step bootstrap)
         (hydra :step bootstrap)
-        (page-break-lines :step bootstrap)
         (use-package :step bootstrap)
         (which-key :step bootstrap)
         ))
@@ -247,11 +246,6 @@
   (require 'hydra)
   (setq hydra-key-doc-function 'spacemacs//hydra-key-doc-function
         hydra-head-format "[%s] "))
-
-(defun spacemacs-bootstrap/init-page-break-lines ()
-  (require 'page-break-lines)
-  (global-page-break-lines-mode t)
-  (spacemacs|hide-lighter page-break-lines-mode))
 
 (defun spacemacs-bootstrap/init-use-package ()
   (require 'use-package)

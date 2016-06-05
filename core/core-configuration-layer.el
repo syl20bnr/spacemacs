@@ -299,7 +299,6 @@ refreshed during the current session."
 (defun configuration-layer/sync (&optional no-install)
   "Synchronize declared layers in dotfile with spacemacs.
 If NO-INSTALL is non nil then install steps are skipped."
-  ;; Force the display of warning buffers at the bottom
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
   (when (spacemacs-buffer//choose-banner)
     (spacemacs-buffer//inject-version t))
@@ -1101,13 +1100,14 @@ path."
 (defun configuration-layer//install-packages (packages)
   "Install PACKAGES which are not lazy installed."
   (interactive)
-  ;; ensure we have quelpa available first
+  ;; Force the display of warning buffers at the bottom
   (let ((display-buffer-alist
          '(("\\(\\*Compile-Log\\*\\)\\|\\(\\*Warnings\\*\\)"
             (display-buffer-in-side-window)
             (inhibit-same-window . t)
             (side . bottom)
             (window-height . 0.2)))))
+    ;; ensure we have quelpa available first
     (configuration-layer//install-quelpa)
     (let* ((not-inst-pkg-names
             (configuration-layer//get-uninstalled-packages

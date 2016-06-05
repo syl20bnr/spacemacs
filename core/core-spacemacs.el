@@ -12,6 +12,7 @@
 (defconst emacs-start-time (current-time))
 
 (require 'subr-x nil 'noerror)
+(require 'page-break-lines)
 (require 'core-debug)
 (require 'core-command-line)
 (require 'core-dotspacemacs)

@@ -26,6 +26,13 @@
 (defconst spacemacs-banner-official-png
   (expand-file-name (concat spacemacs-banner-directory "img/spacemacs.png"))
   "Spacemacs official banner image.")
+(defconst spacemacs-badge-official-png
+  (expand-file-name (concat spacemacs-banner-directory
+                            "img/spacemacs-badge.png"))
+  "Spacemacs official badge image.")
+(defconst spacemacs-purple-heart-png
+  (expand-file-name (concat spacemacs-banner-directory "img/heart.png"))
+  "Purple heart emoji.")
 (defconst spacemacs-cache-directory
   (expand-file-name (concat user-emacs-directory ".cache/"))
   "Spacemacs storage area for persistent files")
