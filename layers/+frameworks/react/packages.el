@@ -36,7 +36,8 @@
 
 (defun react/post-init-flycheck ()
   (with-eval-after-load 'flycheck
-    (flycheck-add-mode 'javascript-eslint 'react-mode))
+    (dolist (checker '(javascript-eslint javascript-standard))
+      (flycheck-add-mode checker 'react-mode)))
   (defun react/use-eslint-from-node-modules ()
     (let* ((root (locate-dominating-file
                   (or (buffer-file-name) default-directory)
