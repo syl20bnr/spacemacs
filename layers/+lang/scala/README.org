@@ -22,6 +22,7 @@
      - [[#debug][Debug]]
      - [[#errors][Errors]]
      - [[#goto][Goto]]
+     - [[#print-and-yank-types][Print and yank types]]
      - [[#documentation-inspect][Documentation, Inspect]]
      - [[#server][Server]]
      - [[#refactoring][Refactoring]]
@@ -196,9 +197,9 @@ disable it with
 
 *** Print and yank types
 |-------------+--------------------------------|
-| ~SPC m p f~ | print full type name at point  |
-| ~SPC m p t~ | print short type name at point |
-| ~SPC m y f~ | yank full type name at point   |
+| ~SPC m h T~ | print full type name at point  |
+| ~SPC m h t~ | print short type name at point |
+| ~SPC m y T~ | yank full type name at point   |
 | ~SPC m y t~ | yank short type name at point  |
 
 *** Documentation, Inspect
