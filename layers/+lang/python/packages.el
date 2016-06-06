@@ -163,9 +163,10 @@
     (progn
       (pcase python-auto-set-local-pyenv-version
        (`on-visit
-        (add-hook 'python-mode-hook 'pyenv-mode-set-local-version))
+        (add-hook 'python-mode-hook 'spacemacs//pyenv-mode-set-local-version))
        (`on-project-switch
-        (add-hook 'projectile-after-switch-project-hook 'pyenv-mode-set-local-version)))
+        (add-hook 'projectile-after-switch-project-hook
+                  'spacemacs//pyenv-mode-set-local-version)))
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "vu" 'pyenv-mode-unset
         "vs" 'pyenv-mode-set))))
@@ -205,9 +206,7 @@
                pytest-pdb-all
                pytest-module
                pytest-pdb-module)
-    :init
-    (progn
-      (spacemacs//bind-python-testing-keys))
+    :init (spacemacs//bind-python-testing-keys)
     :config (add-to-list 'pytest-project-root-files "setup.cfg")))
 
 (defun python/init-python ()
@@ -224,7 +223,7 @@
               ;; auto-indent on colon doesn't work well with if statement
               electric-indent-chars (delq ?: electric-indent-chars))
         (setq-local comment-inline-offset 2)
-        (annotate-pdb)
+        (spacemacs/python-annotate-pdb)
         ;; make C-j work the same way as RET
         (local-set-key (kbd "C-j") 'newline-and-indent))
 
@@ -319,8 +318,8 @@
         "'"  'python-start-or-switch-repl
         "cc" 'spacemacs/python-execute-file
         "cC" 'spacemacs/python-execute-file-focus
-        "db" 'python-toggle-breakpoint
-        "ri" 'python-remove-unused-imports
+        "db" 'spacemacs/python-toggle-breakpoint
+        "ri" 'spacemacs/python-remove-unused-imports
         "sB" 'python-shell-send-buffer-switch
         "sb" 'python-shell-send-buffer
         "sF" 'python-shell-send-defun-switch
