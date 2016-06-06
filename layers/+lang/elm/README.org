@@ -152,8 +152,6 @@ can be controlled by passing in these variables in your =~/.spacemacs=:
 | Key Binding | Description          |
 |-------------+----------------------|
 | ~g~         | elm-package-refresh  |
-| ~n~         | elm-package-next     |
-| ~p~         | elm-package-previous |
 | ~v~         | elm-package-view     |
 | ~m~         | elm-package-mark     |
 | ~u~         | elm-package-unmark   |
