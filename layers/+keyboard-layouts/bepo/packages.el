@@ -328,7 +328,7 @@
 (defun bepo/pre-init-mu4e ()
   (bepo|config mu4e
     :description
-    "Remap navigation keys in `mu4e' headers and view mode"
+    "Remap navigation keys in `mu4e' headers and view mode."
     :loader
     (spacemacs|use-package-add-hook mu4e :post-config BODY)
     :config
@@ -338,12 +338,10 @@
         "h"
         "j"
         "k"
-        "l"
-        )
+        "l")
       (evil-define-key 'evilified map
         "è" 'mu4e-headers-mark-subthread
-        "/" 'mu4e-headers-search
-        ))))
+        "/" 'mu4e-headers-search))))
 
 (defun bepo/pre-init-neotree ()
   (bepo|config neotree
