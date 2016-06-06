@@ -85,8 +85,7 @@ of the cleanup."
      (remove-hook 'before-save-hook 'delete-trailing-whitespace (not global)))
     (`changed
      (when (fboundp 'ws-butler-mode)
-       (when (fboundp 'ws-butler-mode)
-         (if global (ws-butler-global-mode -1) (ws-butler-mode -1)))))))
+       (if global (ws-butler-global-mode -1) (ws-butler-mode -1))))))
 
 (provide 'spacemacs-whitespace-cleanup)
 ;;; spacemacs-whitespace-cleanup.el ends here.
