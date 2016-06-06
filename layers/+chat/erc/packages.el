@@ -27,20 +27,19 @@
         erc-view-log
         (erc-yank :location local :excluded t)
         erc-yt
+        linum
         persp-mode
-        smooth-scrolling
         ))
 
 (when (spacemacs/system-is-mac)
   (push 'erc-terminal-notifier erc-packages))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun erc/post-init-company ()
-    (spacemacs|add-company-hook erc-mode)
-    (push 'company-capf company-backends-erc-mode))
+(defun erc/post-init-company ()
+  (spacemacs|add-company-hook erc-mode)
+  (push 'company-capf company-backends-erc-mode))
 
-  (defun erc/post-init-company-emoji ()
-    (push 'company-emoji company-backends-erc-mode)))
+(defun erc/post-init-company-emoji ()
+  (push 'company-emoji company-backends-erc-mode))
 
 (defun erc/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'erc-mode-hook 'emoji-cheat-sheet-plus-display-mode))
@@ -50,21 +49,14 @@
   (use-package erc
     :defer t
     :init
-    (spacemacs/set-leader-keys
-      "aie" 'erc
-      "aiE" 'erc-tls
-      "aii" 'erc-track-switch-buffer
-      "aiD" 'erc/default-servers)
-    ;; utf-8 always and forever
-    (setq erc-server-coding-system '(utf-8 . utf-8))
-    ;; disable linum mode in erc
-    ;; check if this will not be efficient
-    (defun no-linum (&rest ignore)
-      (when (or 'linum-mode global-linum-mode)
-        (linum-mode 0)))
-    (spacemacs/add-to-hooks 'no-linum '(erc-hook
-                                        erc-mode-hook
-                                        erc-insert-pre-hook))
+    (progn
+      (spacemacs/set-leader-keys
+        "aie" 'erc
+        "aiE" 'erc-tls
+        "aii" 'erc-track-switch-buffer
+        "aiD" 'erc/default-servers)
+      ;; utf-8 always and forever
+      (setq erc-server-coding-system '(utf-8 . utf-8)))
     :config
     (progn
       (use-package erc-autoaway
@@ -117,14 +109,15 @@
 
 
 (defun erc/init-erc-hl-nicks ()
-  (spacemacs|use-package-add-hook 'erc
+  (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-hl-nicks)))
 
 (defun erc/init-erc-sasl ()
-  (spacemacs|use-package-add-hook 'erc
+  (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-sasl
+      :defer t
       :if erc-enable-sasl-auth
       ;; Following http://www.emacswiki.org/emacs/ErcSASL
       ;; Maybe an advice would be better?
@@ -156,7 +149,7 @@
           (erc-update-mode-line))))))
 
 (defun erc/init-erc-social-graph ()
-  (spacemacs|use-package-add-hook 'erc
+  (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-social-graph
       :init
@@ -168,19 +161,19 @@
           "D" 'erc-social-graph-draw)))))
 
 (defun erc/init-erc-tex ()
-  (spacemacs|use-package-add-hook 'erc
+  (spacemacs|use-package-add-hook erc
     :post-config
     (require 'erc-tex)))
 
 (defun erc/init-erc-yt ()
-  (spacemacs|use-package-add-hook 'erc
+  (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-yt
       :init (with-eval-after-load 'erc
               (add-to-list 'erc-modules 'youtube)))))
 
 (defun erc/init-erc-yank ()
-  (spacemacs|use-package-add-hook 'erc
+  (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-yank
       :if (configuration-layer/package-usedp 'gist)
@@ -231,6 +224,10 @@
   (use-package erc-terminal-notifier
     :if (executable-find "terminal-notifier")))
 
+(defun erc/post-init-linum ()
+  (spacemacs/add-to-hooks 'no-linum '(erc-mode-hook
+                                      erc-insert-pre-hook)))
+
 (defun erc/post-init-persp-mode ()
   ;; do not save erc buffers
   (with-eval-after-load 'persp-mode
@@ -249,6 +246,3 @@
       (if erc-server-list
           (erc/default-servers)
         (call-interactively 'erc)))))
-
-(defun erc/post-init-smooth-scrolling ()
-  (add-hook 'erc-mode-hook 'spacemacs//unset-scroll-margin))

@@ -19,6 +19,7 @@
         flx-ido
         info+
         open-junk-file
+        restart-emacs
         window-numbering))
 
 ;; Paradox from MELPA is not compatible with 24.3, so we use
@@ -93,16 +94,12 @@
     :init
     (progn
       (spacemacs|add-toggle centered-point
-        :status centered-cursor-mode
-        :on (centered-cursor-mode)
-        :off (centered-cursor-mode -1)
+        :mode centered-cursor-mode
         :documentation
         "Keep point at the center of the window."
         :evil-leader "t-")
       (spacemacs|add-toggle centered-point-globally
-        :status centered-cursor-mode
-        :on (global-centered-cursor-mode)
-        :off (global-centered-cursor-mode -1)
+        :mode global-centered-cursor-mode
         :documentation
         "Keep point at the center of the window globally."
         :evil-leader "t C--"))
@@ -196,16 +193,16 @@
     (setq open-junk-file-format (concat spacemacs-cache-directory "junk/%Y/%m/%d-%H%M%S."))
     (defun spacemacs/open-junk-file (&optional arg)
       "Open junk file Open junk file using helm or ivy depending
-on whether the spacemacs-ivy layer is used or not, with
+on whether the `ivy' layer is used or not, with
 `prefix-arg' search in junk files"
       (interactive "P")
       (let* ((fname (format-time-string open-junk-file-format (current-time)))
              (rel-fname (file-name-nondirectory fname))
              (junk-dir (file-name-directory fname))
              (default-directory junk-dir))
-        (cond ((and arg (configuration-layer/layer-usedp 'spacemacs-ivy))
+        (cond ((and arg (configuration-layer/layer-usedp 'ivy))
                (spacemacs/counsel-search dotspacemacs-search-tools nil junk-dir))
-              ((configuration-layer/layer-usedp 'spacemacs-ivy)
+              ((configuration-layer/layer-usedp 'ivy)
                (require 'counsel)
                (counsel-find-file rel-fname))
               (arg
@@ -251,6 +248,51 @@ on whether the spacemacs-ivy layer is used or not, with
         "o" 'paradox-menu-visit-homepage)
       (spacemacs/set-leader-keys
         "ak" 'spacemacs/paradox-list-packages))))
+
+(defun spacemacs-ui/init-restart-emacs()
+  (use-package restart-emacs
+    :defer t
+    :init
+    (defun spacemacs/restart-emacs (&optional args)
+      "Restart emacs."
+      (interactive)
+      (setq spacemacs-really-kill-emacs t)
+      (restart-emacs args))
+    (defun spacemacs/restart-emacs-resume-layouts (&optional args)
+      "Restart emacs and resume layouts."
+      (interactive)
+      (spacemacs/restart-emacs (cons "--resume-layouts" args)))
+    (defun spacemacs/restart-emacs-debug-init (&optional args)
+      "Restart emacs and enable debug-init."
+      (interactive)
+      (spacemacs/restart-emacs (cons "--debug-init" args)))
+    (defun spacemacs/restart-stock-emacs-with-packages (packages &optional args)
+      "Restart emacs without the spacemacs configuration, enable
+debug-init and load the given list of packages."
+      (interactive
+       (progn
+         (unless package--initialized
+           (package-initialize t))
+         (let ((packages (append (mapcar 'car package-alist)
+                                 (mapcar 'car package-archive-contents)
+                                 (mapcar 'car package--builtins))))
+           (setq packages (mapcar 'symbol-name packages))
+           (let ((val (completing-read-multiple "Packages to load (comma separated): "
+                                                packages nil t)))
+             `(,val)))))
+      (let ((load-packages-string (mapconcat (lambda (pkg) (format "(use-package %s)" pkg))
+                                             packages " ")))
+        (spacemacs/restart-emacs-debug-init
+         (append (list "-q" "--execute"
+                       (concat "(progn (package-initialize) "
+                               "(require 'use-package)"
+                               load-packages-string ")"))
+                 args))))
+    (spacemacs/set-leader-keys
+      "qd" 'spacemacs/restart-emacs-debug-init
+      "qD" 'spacemacs/restart-stock-emacs-with-packages
+      "qr" 'spacemacs/restart-emacs-resume-layouts
+      "qR" 'spacemacs/restart-emacs)))
 
 (defun spacemacs-ui/init-window-numbering ()
   (use-package window-numbering

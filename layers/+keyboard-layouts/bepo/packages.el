@@ -14,7 +14,7 @@
     ace-window
     avy
     buffer-move
-    comint-mode
+    comint
     company
     elfeed
     evil
@@ -71,8 +71,8 @@
       "bmk"
       "bml")))
 
-(defun bepo/pre-init-comint-mode ()
-  (bepo|config comint-mode
+(defun bepo/pre-init-comint ()
+  (bepo|config comint
     :description
     "Remap `comint-mode' bindings."
     :loader

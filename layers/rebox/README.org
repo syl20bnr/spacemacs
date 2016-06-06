@@ -39,7 +39,7 @@ file.
 ** Configuration
 *** Styles cycling
 Box styles are identified by numbers, it is possible to cycle through a list
-of styles using ~SPC i b n~. This list can be customized by setting the variable
+of styles using ~SPC x b n~. This list can be customized by setting the variable
 =rebox-style-loop=.
 
 #+BEGIN_SRC emacs-lisp
@@ -330,13 +330,13 @@ These templates are added by the Spacemacs layer.
 
 * Key bindings
 *Note:* Use a numerical prefix argument to choose a specific style for instance
-~86 SPC i b b~ to use the style 86 above.
+~86 SPC x b b~ to use the style 86 above.
 
 | Keybinding  | Command                                                           |
 |-------------+-------------------------------------------------------------------|
-| ~SPC i b >~ | Move box to the right (point must be around left side of the box) |
-| ~SPC i b <~ | Move box to the left (point must be around left side of the box)  |
-| ~SPC i b b~ | Draw next box defined in =rebox-style-loop=                       |
-| ~SPC i b B~ | Draw previous box defined in =rebox-style-loop=                   |
-| ~SPC i b c~ | Center box (point must be around left side of the box)            |
+| ~SPC x b >~ | Move box to the right (point must be around left side of the box) |
+| ~SPC x b <~ | Move box to the left (point must be around left side of the box)  |
+| ~SPC x b b~ | Draw next box defined in =rebox-style-loop=                       |
+| ~SPC x b B~ | Draw previous box defined in =rebox-style-loop=                   |
+| ~SPC x b c~ | Center box (point must be around left side of the box)            |
 | ~S-return~  | rebox-indent-new-line                                             |

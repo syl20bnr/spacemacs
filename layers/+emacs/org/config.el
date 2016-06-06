@@ -14,4 +14,7 @@
 (defvar org-enable-github-support nil
   "If non-nil Github related packages are configured.")
 
+(defvar org-enable-reveal-js-support nil
+  "If non-nil, enable export to reveal.js.")
+
 (spacemacs|defvar-company-backends org-mode)

@@ -22,7 +22,6 @@
         ;; see https://github.com/syl20bnr/spacemacs/issues/2529
         (hl-anything :excluded t)
         indent-guide
-        linum-relative
         rainbow-delimiters
         volatile-highlights
         ))
@@ -235,10 +234,14 @@
         (cond
          ((and (not (eq dotspacemacs-editing-style 'emacs))
                (configuration-layer/package-usedp 'evil-iedit-state))
-          (evil-iedit-state/iedit-mode))
+          (evil-iedit-state/iedit-mode)
+          (iedit-restrict-region (ahs-current-plugin-prop 'start)
+                                 (ahs-current-plugin-prop 'end)))
          ((and (eq dotspacemacs-editing-style 'emacs)
                (configuration-layer/package-usedp 'iedit))
-          (iedit-mode))
+          (iedit-mode)
+          (iedit-restrict-region (ahs-current-plugin-prop 'start)
+                                 (ahs-current-plugin-prop 'end)))
          (t (ahs-edit-mode t))))
 
       (spacemacs|define-transient-state symbol-highlight
@@ -266,19 +269,16 @@
     :commands (column-enforce-mode global-column-enforce-mode)
     :init
     (progn
-      ;; TODO Ideally find a way to define the minimum length for long lines
-      ;; We may add support for the universal prefix argument in toggles to
-      ;; be able to do this.
       (spacemacs|add-toggle highlight-long-lines
         :status column-enforce-mode
-        :on (column-enforce-mode)
+        :prefix columns
+        :on (column-enforce-n (or columns column-enforce-column))
+        :on-message (format "long-lines enabled for %s columns." (or columns column-enforce-column))
         :off (column-enforce-mode -1)
         :documentation "Highlight the characters past the 80th column."
         :evil-leader "t8")
       (spacemacs|add-toggle highlight-long-lines-globally
-        :status global-column-enforce-mode
-        :on (global-column-enforce-mode)
-        :off (global-column-enforce-mode -1)
+        :mode global-column-enforce-mode
         :documentation "Globally Highlight the characters past the 80th column."
         :evil-leader "t C-8"))
     :config (spacemacs|diminish column-enforce-mode "⑧" "8")))
@@ -289,15 +289,11 @@
     :init
     (progn
       (spacemacs|add-toggle highlight-indentation
-        :status highlight-indentation-mode
-        :on (highlight-indentation-mode)
-        :off (highlight-indentation-mode -1)
+        :mode highlight-indentation-mode
         :documentation "Highlight indentation levels."
         :evil-leader "thi")
       (spacemacs|add-toggle highlight-indentation-current-column
-        :status highlight-indentation-current-column-mode
-        :on (highlight-indentation-current-column-mode)
-        :off (highlight-indentation-current-column-mode -1)
+        :mode highlight-indentation-current-column-mode
         :documentation "Highlight indentation level at point."
         :evil-leader "thc"))
     :config
@@ -355,33 +351,17 @@
     (progn
       (setq indent-guide-delay 0.3)
       (spacemacs|add-toggle indent-guide
-        :status indent-guide-mode
-        :on (indent-guide-mode)
-        :off (indent-guide-mode -1)
+        :mode indent-guide-mode
         :documentation
         "Highlight indentation level at point. (alternative to highlight-indentation)."
         :evil-leader "ti")
       (spacemacs|add-toggle indent-guide-globally
-        :status indent-guide-mode
-        :on (indent-guide-global-mode)
-        :off (indent-guide-global-mode -1)
+        :mode indent-guide-global-mode
         :documentation
         "Highlight indentation level at point globally. (alternative to highlight-indentation)."
         :evil-leader "t TAB"))
     :config
     (spacemacs|diminish indent-guide-mode " ⓘ" " i")))
-
-(defun spacemacs-editing-visual/init-linum-relative ()
-  (use-package linum-relative
-    :commands (linum-relative-toggle linum-relative-on)
-    :init
-    (progn
-      (when (eq dotspacemacs-line-numbers 'relative)
-        (linum-relative-on))
-      (spacemacs/set-leader-keys "tr" 'linum-relative-toggle))
-    :config
-    (progn
-      (setq linum-relative-current-symbol ""))))
 
 (defun spacemacs-editing-visual/init-rainbow-delimiters ()
   (use-package rainbow-delimiters

@@ -13,13 +13,13 @@
   '(
     anaconda-mode
     company
-    company-anaconda
+    (company-anaconda :toggle (configuration-layer/package-usedp 'company))
     cython-mode
     eldoc
     evil-matchit
     flycheck
     helm-cscope
-    helm-pydoc
+    (helm-pydoc :toggle (configuration-layer/package-usedp 'helm))
     hy-mode
     live-py-mode
     (nose :location local)
@@ -60,21 +60,19 @@
       (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
         (evil--jumps-push)))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun python/post-init-company ()
-    (spacemacs|add-company-hook python-mode)
-    (spacemacs|add-company-hook inferior-python-mode)
-    (push '(company-files company-capf) company-backends-inferior-python-mode)
-    (add-hook 'inferior-python-mode-hook (lambda ()
-                                           (setq-local company-minimum-prefix-length 0)
-                                           (setq-local company-idle-delay 0.5))))
+(defun python/post-init-company ()
+  (spacemacs|add-company-hook python-mode)
+  (spacemacs|add-company-hook inferior-python-mode)
+  (push '(company-files company-capf) company-backends-inferior-python-mode)
+  (add-hook 'inferior-python-mode-hook (lambda ()
+                                         (setq-local company-minimum-prefix-length 0)
+                                         (setq-local company-idle-delay 0.5))))
 
-  (defun python/init-company-anaconda ()
-    (use-package company-anaconda
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init
-      (push 'company-anaconda company-backends-python-mode))))
+(defun python/init-company-anaconda ()
+  (use-package company-anaconda
+    :defer t
+    :init
+    (push 'company-anaconda company-backends-python-mode)))
 
 (defun python/init-cython-mode ()
   (use-package cython-mode
@@ -99,18 +97,16 @@
 (defun python/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'python-mode))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun python/pre-init-helm-cscope ()
-    (spacemacs|use-package-add-hook xcscope
-      :post-init
-      (spacemacs/setup-helm-cscope 'python-mode))))
+(defun python/pre-init-helm-cscope ()
+  (spacemacs|use-package-add-hook xcscope
+    :post-init
+    (spacemacs/setup-helm-cscope 'python-mode)))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun python/init-helm-pydoc ()
-    (use-package helm-pydoc
-      :defer t
-      :init
-      (spacemacs/set-leader-keys-for-major-mode 'python-mode "hd" 'helm-pydoc))))
+(defun python/init-helm-pydoc ()
+  (use-package helm-pydoc
+    :defer t
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode "hd" 'helm-pydoc)))
 
 (defun python/init-hy-mode ()
   (use-package hy-mode
@@ -126,7 +122,7 @@
 
 (defun python/init-nose ()
   (use-package nose
-    :if (eq 'nose python-test-runner)
+    :if (or (eq 'nose python-test-runner) (member 'nose python-test-runner))
     :commands (nosetests-one
                nosetests-pdb-one
                nosetests-all
@@ -136,17 +132,11 @@
                nosetests-suite
                nosetests-pdb-suite)
     :init
-    (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "tA" 'nosetests-pdb-all
-      "ta" 'nosetests-all
-      "tB" 'nosetests-pdb-module
-      "tb" 'nosetests-module
-      "tT" 'nosetests-pdb-one
-      "tt" 'nosetests-one
-      "tM" 'nosetests-pdb-module
-      "tm" 'nosetests-module
-      "tS" 'nosetests-pdb-suite
-      "ts" 'nosetests-suite)
+    (progn
+      (spacemacs//bind-python-testing-keys)
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "tS" 'nosetests-pdb-suite
+        "ts" 'nosetests-suite))
     :config
     (progn
       (add-to-list 'nose-project-root-files "setup.cfg")
@@ -173,9 +163,10 @@
     (progn
       (pcase python-auto-set-local-pyenv-version
        (`on-visit
-        (add-hook 'python-mode-hook 'pyenv-mode-set-local-version))
+        (add-hook 'python-mode-hook 'spacemacs//pyenv-mode-set-local-version))
        (`on-project-switch
-        (add-hook 'projectile-after-switch-project-hook 'pyenv-mode-set-local-version)))
+        (add-hook 'projectile-after-switch-project-hook
+                  'spacemacs//pyenv-mode-set-local-version)))
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "vu" 'pyenv-mode-unset
         "vs" 'pyenv-mode-set))))
@@ -207,7 +198,7 @@
 
 (defun python/init-pytest ()
   (use-package pytest
-    :if (eq 'pytest python-test-runner)
+    :if (or (eq 'pytest python-test-runner) (member 'pytest python-test-runner))
     :defer t
     :commands (pytest-one
                pytest-pdb-one
@@ -215,15 +206,7 @@
                pytest-pdb-all
                pytest-module
                pytest-pdb-module)
-    :init (spacemacs/set-leader-keys-for-major-mode 'python-mode
-            "tA" 'pytest-pdb-all
-            "ta" 'pytest-all
-            "tB" 'pytest-pdb-module
-            "tb" 'pytest-module
-            "tT" 'pytest-pdb-one
-            "tt" 'pytest-one
-            "tM" 'pytest-pdb-module
-            "tm" 'pytest-module)
+    :init (spacemacs//bind-python-testing-keys)
     :config (add-to-list 'pytest-project-root-files "setup.cfg")))
 
 (defun python/init-python ()
@@ -240,7 +223,7 @@
               ;; auto-indent on colon doesn't work well with if statement
               electric-indent-chars (delq ?: electric-indent-chars))
         (setq-local comment-inline-offset 2)
-        (annotate-pdb)
+        (spacemacs/python-annotate-pdb)
         ;; make C-j work the same way as RET
         (local-set-key (kbd "C-j") 'newline-and-indent))
 
@@ -261,9 +244,9 @@
         (setq indent-tabs-mode t))
 
       (add-hook 'inferior-python-mode-hook #'inferior-python-setup-hook)
-      (spacemacs/add-all-to-hook 'python-mode-hook
-                                 'python-default
-                                 'python-setup-shell))
+      (add-hook 'python-mode-hook #'python-default)
+      ;; call `python-setup-shell' once, don't put it in a hook (see issue #5988)
+      (python-setup-shell))
     :config
     (progn
       ;; add support for `ahs-range-beginning-of-defun' for python-mode
@@ -327,7 +310,6 @@
       (spacemacs/declare-prefix-for-mode 'python-mode "md" "debug")
       (spacemacs/declare-prefix-for-mode 'python-mode "mh" "help")
       (spacemacs/declare-prefix-for-mode 'python-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'python-mode "mt" "test")
       (spacemacs/declare-prefix-for-mode 'python-mode "ms" "send to REPL")
       (spacemacs/declare-prefix-for-mode 'python-mode "mr" "refactor")
       (spacemacs/declare-prefix-for-mode 'python-mode "mv" "pyenv")
@@ -336,8 +318,8 @@
         "'"  'python-start-or-switch-repl
         "cc" 'spacemacs/python-execute-file
         "cC" 'spacemacs/python-execute-file-focus
-        "db" 'python-toggle-breakpoint
-        "ri" 'python-remove-unused-imports
+        "db" 'spacemacs/python-toggle-breakpoint
+        "ri" 'spacemacs/python-remove-unused-imports
         "sB" 'python-shell-send-buffer-switch
         "sb" 'python-shell-send-buffer
         "sF" 'python-shell-send-defun-switch

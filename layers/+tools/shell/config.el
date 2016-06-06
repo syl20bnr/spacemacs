@@ -45,3 +45,6 @@ commands, modify old commands or enter a new one.")
   "If non-nil then eshell's prompt is protected. This means that
 movement to the prompt is inhibited like for `comint-mode'
 prompts and the prompt is made read-only")
+
+(defvar shell-default-full-span t
+  "If non-nil, the `shell' buffer spans full width of a frame.")

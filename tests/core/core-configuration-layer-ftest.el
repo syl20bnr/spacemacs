@@ -17,27 +17,20 @@
 (ert-deftest test-declare-layers--bootstrap-layer-always-first ()
   (let ((dotspacemacs-distribution 'spacemacs)
         (dotspacemacs-configuration-layers '(emacs-lisp
-                                             (git :variables foo 'bar))))
-    (configuration-layer//declare-layers)
-    (should (eq 'spacemacs-bootstrap
-                (oref (first configuration-layer--layers) :name)))))
+                                             (git :variables foo 'bar)))
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (mocker-let
+     ((load (f) ((:output nil))))
+     (let (configuration-layer--layers)
+       (configuration-layer//declare-layers)
+       (should (eq 'spacemacs-bootstrap
+                   (oref (first configuration-layer--layers) :name)))))))
 
-(ert-deftest test-declare-layers--bootstrap-layer-always-first-all ()
-  (let ((dotspacemacs-distribution 'spacemacs)
-        (dotspacemacs-configuration-layers 'all))
-    (configuration-layer//declare-layers)
-    (should (eq 'spacemacs-bootstrap
-                (oref (first configuration-layer--layers) :name)))))
-
-(ert-deftest test-declare-layers--distribution-layer-always-second ()
-  (let ((dotspacemacs-distribution 'spacemacs)
+(ert-deftest test-declare-layers--distribution-layer-is-second ()
+  (let ((dotspacemacs-distribution 'spacemacs-base)
         (dotspacemacs-configuration-layers '(emacs-lisp
                                              (git :variables foo 'bar))))
-    (configuration-layer//declare-layers)
-    (should (eq 'spacemacs (oref (second configuration-layer--layers) :name)))))
-
-(ert-deftest test-declare-layers--distribution-layer-always-second-all ()
-  (let ((dotspacemacs-distribution 'spacemacs)
-        (dotspacemacs-configuration-layers 'all))
-    (configuration-layer//declare-layers)
-    (should (eq 'spacemacs (oref (second configuration-layer--layers) :name)))))
+    (let (configuration-layer--layers)
+      (configuration-layer//declare-layers)
+      (should (eq 'spacemacs-base
+                  (oref (second configuration-layer--layers) :name))))))

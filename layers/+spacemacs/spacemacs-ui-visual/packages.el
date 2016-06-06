@@ -11,12 +11,15 @@
 
 (setq spacemacs-ui-visual-packages
       '(fancy-battery
+        fill-column-indicator
         golden-ratio
+        hl-todo
         leuven-theme
         neotree
-        smooth-scrolling
+        popup
+        popwin
+        (smooth-scrolling :location built-in)
         spaceline
-        vi-tilde-fringe
         (zoom-frm :location local)))
 
 (defun spacemacs-ui-visual/init-fancy-battery ()
@@ -25,12 +28,29 @@
     :init
     (progn
       (spacemacs|add-toggle mode-line-battery
-        :status fancy-battery-mode
-        :on (fancy-battery-mode)
-        :off (fancy-battery-mode -1)
+        :mode fancy-battery-mode
         :documentation "Display battery info in mode-line."
         :evil-leader "tmb")
       (setq-default fancy-battery-show-percentage t))))
+
+(defun spacemacs-ui-visual/init-fill-column-indicator ()
+  (use-package fill-column-indicator
+    :defer t
+    :init
+    (progn
+      (setq fci-rule-width 1)
+      (setq fci-rule-color "#D0BF8F")
+      ;; manually register the minor mode since it does not define any
+      ;; lighter
+      (push '(fci-mode "") minor-mode-alist)
+      (spacemacs|add-toggle fill-column-indicator
+        :status fci-mode
+        :on (turn-on-fci-mode)
+        :off (turn-off-fci-mode)
+        :documentation "Display the fill column indicator."
+        :evil-leader "tf"))
+    :config
+    (spacemacs|diminish fci-mode " ⓕ" " f")))
 
 (defun spacemacs-ui-visual/init-golden-ratio ()
   (use-package golden-ratio
@@ -133,6 +153,12 @@
 
       (spacemacs|diminish golden-ratio-mode " ⓖ" " g"))))
 
+(defun spacemacs-ui-visual/init-hl-todo ()
+  (use-package hl-todo
+    :defer t
+    :init (spacemacs/add-to-hooks 'hl-todo-mode '(text-mode-hook
+                                                  prog-mode-hook))))
+
 (defun spacemacs-ui-visual/init-leuven-theme ()
   (use-package leuven-theme
     :defer t
@@ -156,54 +182,6 @@
             neo-auto-indent-point t
             neo-modern-sidebar t
             neo-vc-integration nil)
-
-      (defun spacemacs/neotree-expand-or-open ()
-        "Collapse a neotree node."
-        (interactive)
-        (let ((node (neo-buffer--get-filename-current-line)))
-          (when node
-            (if (file-directory-p node)
-                (progn
-                  (neo-buffer--set-expand node t)
-                  (neo-buffer--refresh t)
-                  (when neo-auto-indent-point
-                    (next-line)
-                    (neo-point-auto-indent)))
-              (call-interactively 'neotree-enter)))))
-
-      (defun spacemacs/neotree-collapse ()
-        "Collapse a neotree node."
-        (interactive)
-        (let ((node (neo-buffer--get-filename-current-line)))
-          (when node
-            (when (file-directory-p node)
-              (neo-buffer--set-expand node nil)
-              (neo-buffer--refresh t))
-            (when neo-auto-indent-point
-              (neo-point-auto-indent)))))
-
-      (defun spacemacs/neotree-collapse-or-up ()
-        "Collapse an expanded directory node or go to the parent node."
-        (interactive)
-        (let ((node (neo-buffer--get-filename-current-line)))
-          (when node
-            (if (file-directory-p node)
-                (if (neo-buffer--expanded-node-p node)
-                    (spacemacs/neotree-collapse)
-                  (neotree-select-up-node))
-              (neotree-select-up-node)))))
-
-      (defun neotree-find-project-root ()
-        (interactive)
-        (if (neo-global--window-exists-p)
-            (neotree-hide)
-          (let ((origin-buffer-file-name (buffer-file-name)))
-            (neotree-find (projectile-project-root))
-            (neotree-find origin-buffer-file-name))))
-
-      (defun spacemacs//neotree-maybe-attach-window ()
-        (when (get-buffer-window (neo-global--get-buffer))
-          (neo-global--attach)))
 
       (defun spacemacs//neotree-key-bindings ()
         "Set the key bindings for a neotree buffer."
@@ -232,51 +210,64 @@
       (spacemacs/set-leader-keys
         "ft" 'neotree-toggle
         "pt" 'neotree-find-project-root))
+    :config
+    (spacemacs//neotree-key-bindings)))
 
+(defun spacemacs-ui-visual/init-popup ())
+
+(defun spacemacs-ui-visual/init-popwin ()
+  (use-package popwin
     :config
     (progn
-      (spacemacs//neotree-key-bindings)
-      (add-hook 'persp-activated-hook #'spacemacs//neotree-maybe-attach-window)
-      (add-hook 'eyebrowse-post-window-switch-hook #'spacemacs//neotree-maybe-attach-window))))
+      (popwin-mode 1)
+      (spacemacs/set-leader-keys "wpm" 'popwin:messages)
+      (spacemacs/set-leader-keys "wpp" 'popwin:close-popup-window)
+
+      ;; don't use default value but manage it ourselves
+      (setq popwin:special-display-config nil)
+
+      ;; buffers that we manage
+      (push '("*Help*"                 :dedicated t :position bottom :stick t :noselect t   :height 0.4) popwin:special-display-config)
+      (push '("*compilation*"          :dedicated t :position bottom :stick t :noselect t   :height 0.4) popwin:special-display-config)
+      (push '("*Shell Command Output*" :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
+      (push '("*Async Shell Command*"  :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
+      (push '(" *undo-tree*"           :dedicated t :position bottom :stick t :noselect nil :height 0.4) popwin:special-display-config)
+      (push '("*ert*"                  :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
+      (push '("*grep*"                 :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
+      (push '("*nosetests*"            :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
+      (push '("^\*WoMan.+\*$" :regexp t             :position bottom                                   ) popwin:special-display-config)
+
+      (defun spacemacs/remove-popwin-display-config (str)
+        "Removes the popwin display configurations that matches the passed STR"
+        (setq popwin:special-display-config
+              (-remove (lambda (x) (if (and (listp x) (stringp (car x)))
+                                       (string-match str (car x))))
+                       popwin:special-display-config))))))
 
 (defun spacemacs-ui-visual/init-smooth-scrolling ()
-  (use-package smooth-scrolling
-    :init
-    (progn
-      (setq smooth-scroll-margin 5)
-      (spacemacs|add-toggle smooth-scrolling
-        :status smooth-scrolling-mode
-        :on (progn
-              (smooth-scrolling-mode)
-              (enable-smooth-scroll-for-function previous-line)
-              (enable-smooth-scroll-for-function next-line)
-              (enable-smooth-scroll-for-function isearch-repeat))
-        :off (progn
-               (smooth-scrolling-mode -1)
-               (disable-smooth-scroll-for-function previous-line)
-               (disable-smooth-scroll-for-function next-line)
-               (disable-smooth-scroll-for-function isearch-repeat))
-        :documentation "Smooth scrolling."
-        :evil-leader "tv")
-      (when dotspacemacs-smooth-scrolling
-        (spacemacs/toggle-smooth-scrolling-on))
-      ;; add hooks here only for emacs built-in packages that are not owned
-      ;; by a layer.
-      (defun spacemacs//unset-scroll-margin ()
-        "Set scroll-margin to zero."
-        (setq-local scroll-margin 0))
-      (spacemacs/add-to-hooks 'spacemacs//unset-scroll-margin
-                              '(messages-buffer-mode-hook)))))
+  (setq scroll-preserve-screen-position t
+        scroll-margin 0
+        scroll-conservatively (if dotspacemacs-smooth-scrolling 101 0))
+  (spacemacs|add-toggle smooth-scrolling
+    :status (= 101 scroll-conservatively)
+    :on (spacemacs/enable-smooth-scrolling)
+    :off (spacemacs/disable-smooth-scrolling)
+    :documentation "Smooth scrolling."
+    :evil-leader "tv"))
 
 (defun spacemacs-ui-visual/init-spaceline ()
   (use-package spaceline-config
-    ;; not possible for now, maybe we can add support for it in spaceline itself
-    ;; :defer 0.1
     :init
     (progn
+      (add-hook 'spacemacs-post-user-config-hook 'spaceline-compile)
+      (setq-default powerline-default-separator 'utf-8)
       (spacemacs|do-after-display-system-init
-       (setq-default powerline-default-separator
-                     (if (display-graphic-p) 'wave 'utf-8))))
+       (when (and (eq 'utf-8 powerline-default-separator))
+         (setq-default powerline-default-separator 'wave))
+       ;; seems to be needed to avoid weird graphical artefacts with the
+       ;; first graphical client
+       (require 'spaceline)
+       (spaceline-compile)))
     :config
     (progn
       (defun spacemacs/customize-powerline-faces ()
@@ -333,10 +324,10 @@
                       map)))
 
       (spaceline-define-segment new-version
-        (spacemacs-powerline-new-version
-         (spacemacs/get-new-version-lighter-face
-          spacemacs-version spacemacs-new-version))
-        :when spacemacs-new-version)
+        (when spacemacs-new-version
+          (spacemacs-powerline-new-version
+           (spacemacs/get-new-version-lighter-face
+            spacemacs-version spacemacs-new-version))))
 
       (spaceline-spacemacs-theme '(new-version :when active))
       (spaceline-helm-mode t)
@@ -374,36 +365,6 @@
                     (diminish mode dim))))))))
       (add-hook 'spaceline-pre-hook 'spacemacs//prepare-diminish)
       (spacemacs//set-powerline-for-startup-buffers))))
-
-(defun spacemacs-ui-visual/init-vi-tilde-fringe ()
-  (spacemacs|do-after-display-system-init
-   (use-package vi-tilde-fringe
-     :init
-     (progn
-       (global-vi-tilde-fringe-mode)
-       (spacemacs|add-toggle vi-tilde-fringe
-         :status vi-tilde-fringe-mode
-         :on (global-vi-tilde-fringe-mode)
-         :off (global-vi-tilde-fringe-mode -1)
-         :documentation
-         "Globally display a ~ on empty lines in the fringe."
-         :evil-leader "T~")
-       ;; don't enable it on spacemacs home buffer
-       (with-current-buffer spacemacs-buffer-name
-         (vi-tilde-fringe-mode -1))
-       ;; after a major mode is loaded, check if the buffer is read only
-       ;; if so, disable vi-tilde-fringe-mode
-       (add-hook 'after-change-major-mode-hook (lambda ()
-                                                 (when buffer-read-only
-                                                   (vi-tilde-fringe-mode -1))))
-       (spacemacs/add-to-hooks (lambda () (vi-tilde-fringe-mode -1))
-                               '(comint-mode-hook
-                                 eshell-mode-hook
-                                 eww-mode-hook
-                                 shell-mode-hook
-                                 term-mode-hook)))
-     :config
-     (spacemacs|hide-lighter vi-tilde-fringe-mode))))
 
 (defun spacemacs-ui-visual/init-zoom-frm ()
   (use-package zoom-frm

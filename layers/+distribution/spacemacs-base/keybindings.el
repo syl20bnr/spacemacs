@@ -117,7 +117,7 @@
   "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
 (spacemacs/set-leader-keys
-  "bd"  'kill-this-buffer
+  "bd"  'spacemacs/kill-this-buffer
   "TAB" 'spacemacs/alternate-buffer
   "bh"  'spacemacs/home
   "be"  'spacemacs/safe-erase-buffer
@@ -169,6 +169,7 @@
   "hdk" 'describe-key
   "hdl" 'spacemacs/describe-last-keys
   "hdp" 'describe-package
+  "hdP" 'configuration-layer/describe-package
   "hds" 'spacemacs/describe-system-info
   "hdt" 'describe-theme
   "hdv" 'describe-variable
@@ -202,7 +203,7 @@
   "cC" 'compile
   "ck" 'kill-compilation
   "cr" 'recompile
-  "cq" 'spacemacs/close-compilation-window)
+  "cd" 'spacemacs/close-compilation-window)
 (with-eval-after-load 'compile
   (define-key compilation-mode-map "r" 'recompile)
   (define-key compilation-mode-map "g" nil))
@@ -214,9 +215,7 @@
   "nw" 'widen)
 ;; toggle ---------------------------------------------------------------------
 (spacemacs|add-toggle highlight-current-line-globally
-  :status global-hl-line-mode
-  :on (global-hl-line-mode)
-  :off (global-hl-line-mode -1)
+  :mode global-hl-line-mode
   :documentation "Globally highlight the current line."
   :evil-leader "thh")
 (spacemacs|add-toggle truncate-lines
@@ -245,12 +244,6 @@
     (evil-normalize-keymaps))
   :documentation "Move point according to visual lines."
   :evil-leader "tL")
-(spacemacs|add-toggle line-numbers
-  :status linum-mode
-  :on (linum-mode)
-  :off (linum-mode -1)
-  :documentation "Show the line numbers."
-  :evil-leader "tn")
 (spacemacs|add-toggle auto-fill-mode
   :status auto-fill-function
   :on (auto-fill-mode)
@@ -295,28 +288,20 @@
   :evil-leader "TT")
 (spacemacs|add-toggle tool-bar
   :if window-system
-  :status tool-bar-mode
-  :on (tool-bar-mode)
-  :off (tool-bar-mode -1)
+  :mode tool-bar-mode
   :documentation "Display the tool bar in GUI mode."
   :evil-leader "Tt")
 (spacemacs|add-toggle menu-bar
   :if (or window-system (version<= "24.3.1" emacs-version))
-  :status menu-bar-mode
-  :on (menu-bar-mode)
-  :off (menu-bar-mode -1)
+  :mode menu-bar-mode
   :documentation "Display the menu bar."
   :evil-leader "Tm")
 (spacemacs|add-toggle semantic-stickyfunc
-  :status semantic-stickyfunc-mode
-  :on (semantic-stickyfunc-mode)
-  :off (semantic-stickyfunc-mode -1)
+  :mode semantic-stickyfunc-mode
   :documentation "Enable semantic-stickyfunc."
   :evil-leader "TS")
 (spacemacs|add-toggle semantic-stickyfunc-globally
-  :status global-semantic-stickyfunc-mode
-  :on (global-semantic-stickyfunc-mode)
-  :off (global-semantic-stickyfunc-mode -1)
+  :mode global-semantic-stickyfunc-mode
   :documentation "Enable semantic-stickyfunc globally."
   :evil-leader "T C-S")
 ;; quit -----------------------------------------------------------------------
@@ -351,6 +336,7 @@
   "wd"  'delete-window
   "wt"  'spacemacs/toggle-current-window-dedication
   "wf"  'follow-mode
+  "wF"  'make-frame
   "wH"  'evil-window-move-far-left
   "w <S-left>"  'evil-window-move-far-left
   "wh"  'evil-window-left
@@ -432,7 +418,7 @@
   ("n" spacemacs/next-useful-buffer "next")
   ("N" spacemacs/previous-useful-buffer "previous")
   ("p" spacemacs/previous-useful-buffer "previous")
-  ("K" kill-this-buffer "kill")
+  ("K" spacemacs/kill-this-buffer "kill")
   ("q" nil "quit" :exit t))
 (spacemacs/set-leader-keys "b." 'spacemacs/buffer-transient-state/body)
 

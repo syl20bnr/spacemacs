@@ -1,0 +1,77 @@
+#!/bin/bash
+# ----------------------------------------------------------------------
+#              Formatting/Migration tool for Spacemacs
+# ----------------------------------------------------------------------
+#
+# Authors: Eugene Yaremenko and Sylvain Benner
+#
+# Arguments:
+# $1: action name can be `all`, `doc`, `config`
+#     `doc` formats documentation files
+#     `config` format configuration files
+#     `all` performs all actions
+# $2: if equal to `test` then use test files as input
+
+# TODO a function to add headers to config.el, packages.el etc...
+
+if ! [ -d "./.git" ]
+then
+    echo "Should be executed from the repo root."
+    exit 1
+fi
+
+#Use "sed" or "gsed" if avaliable.
+seder="sed"
+if hash gsed 2>/dev/null; then
+    seder="gsed"
+fi
+
+#Use md5 or md5sum
+mdfive="md5sum"
+if hash md5 2>/dev/null; then
+    mdfive="md5"
+fi
+
+
+if [[ $2 = "test" ]]
+then
+    places=("./core/tools/spacefmt/tests")
+else
+    places=("./doc" "./layers")
+fi
+
+for place in "${places[@]}"
+do :
+   before_md5="foo"
+   after_md5="bar"
+   while ! [ "$before_md5" = "$after_md5" ]
+   do
+       # Calculate md5 of the files in $place before formating
+       before_md5=$(find $place -type f -exec $mdfive {} \; | sort -k 2 | $mdfive)
+
+       if [ $1 = "all" ] || [ $1 == "doc" ]
+       then
+          # Remove trailing delimiters in headlines
+          find $place -name "*.org" -type f -exec $seder -i 's/^\(*\+\s\+.*\)[;,.]$/\1/g' {} \;
+          # Remove trailing spaces
+          find $place -name "*.org" -type f -exec $seder -i 's/[ \t]*$//' {} \;
+          # Remove #+HTML_HEAD_EXTRA: ... readtheorg.css" />
+          find $place -name "*.org" -type f -exec $seder -i '/#+HTML_HEAD_EXTRA.*readtheorg.css.*/d' {} \;
+          # Replace multiply empty lines with a single empty line
+          find $place -name "*.org" -type f -exec $seder -i '/^$/N;/^\n$/D' {} \;
+          # Replace :TOC_4_org: with :TOC_4_gh:
+          find $place -name "*.org" -type f -exec $seder -i 's/:TOC_4_org:/:TOC_4_gh:/' {} \;
+          # apply toc-org
+          find $place -name "*.org" -type f -exec emacs -batch -l ./core/tools/spacefmt/spacefmt.el '{}' -f apply-all \;
+       fi
+
+       if [ $1 = "all" ] || [ $1 == "config" ]
+       then
+           # migrate packages lists to config.el
+           find $place -name "packages.el" -type f -exec emacs -batch -l ./core/tools/spacefmt/spacefmt.el '{}' -f move-packages-to-config \;
+       fi
+
+       # Calculate md5 of the files in $place after formating
+       after_md5=$(find $place -type f -exec $mdfive {} \; | sort -k 2 | $mdfive)
+   done
+done

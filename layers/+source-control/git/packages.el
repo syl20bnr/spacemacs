@@ -18,7 +18,7 @@
         git-commit
         git-messenger
         git-timemachine
-        helm-gitignore
+        (helm-gitignore :toggle (configuration-layer/package-usedp 'helm))
         magit
         magit-gitflow
         ;; not compatible with magit 2.1 at the time of release
@@ -33,11 +33,10 @@
     (evil-define-key 'motion magit-mode-map
       (kbd dotspacemacs-leader-key) spacemacs-default-map)))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun git/init-helm-gitignore ()
-    (use-package helm-gitignore
-      :defer t
-      :init (spacemacs/set-leader-keys "gI" 'helm-gitignore))))
+(defun git/init-helm-gitignore ()
+  (use-package helm-gitignore
+    :defer t
+    :init (spacemacs/set-leader-keys "gI" 'helm-gitignore)))
 
 (defun git/init-git-commit ()
   (use-package git-commit
@@ -106,11 +105,12 @@
                magit-pull-popup
                magit-push-popup
                magit-rebase-popup
-               magit-status)
+               magit-status
+               magit-submodule-popup)
     :init
     (progn
       (setq magit-completing-read-function
-            (if (configuration-layer/layer-usedp 'spacemacs-ivy)
+            (if (configuration-layer/layer-usedp 'ivy)
                 'ivy-completing-read
               'magit-builtin-completing-read))
       (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
@@ -127,6 +127,7 @@
 
       (spacemacs/declare-prefix "gd" "diff")
       (spacemacs/set-leader-keys
+        "g>" 'magit-submodule-popup
         "gA" 'magit-cherry-pick-popup
         "gb" 'spacemacs/git-blame-micro-state
         "gc" 'magit-commit-popup

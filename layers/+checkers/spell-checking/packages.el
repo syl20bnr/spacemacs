@@ -13,7 +13,8 @@
   '(
     auto-dictionary
     flyspell
-    helm-flyspell
+    flyspell-correct
+    (flyspell-popup :toggle enable-flyspell-auto-completion)
     ))
 
 (defun spell-checking/init-auto-dictionary ()
@@ -63,8 +64,21 @@
         "Sn" 'flyspell-goto-next-error))
     :config (spacemacs|diminish flyspell-mode " Ⓢ" " S")))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun spell-checking/init-helm-flyspell ()
-    (use-package helm-flyspell
-      :commands helm-flyspell-correct
-      :init (spacemacs/set-leader-keys "Sc" 'helm-flyspell-correct))))
+(defun spell-checking/init-flyspell-correct ()
+  (use-package flyspell-correct
+    :commands (flyspell-correct-word-generic)
+    :init
+    (when (configuration-layer/package-usedp 'ivy)
+      (setq flyspell-correct-interface 'flyspell-correct-ivy))
+    (when (configuration-layer/package-usedp 'helm)
+      (setq flyspell-correct-interface 'flyspell-correct-helm))
+    (when (bound-and-true-p flyspell-correct-interface)
+      (spacemacs/set-leader-keys "Sc" 'flyspell-correct-word-generic))))
+
+(defun spell-checking/init-flyspell-popup ()
+  (use-package flyspell-popup
+    :defer t
+    :init
+    (progn
+      (setq flyspell-popup-correct-delay 0.8)
+      (add-hook 'flyspell-mode-hook 'flyspell-popup-auto-correct-mode))))

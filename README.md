@@ -151,7 +151,7 @@ $ brew linkapps
 the start of this file. That will populate your `~/.emacs.d` directory, which
 is what transforms a regular Emacs into Spacemacs.
 
-*Note:* the proposed `emacs-plus` tap is indentical to the `emacs` formulae,
+*Note:* the proposed `emacs-plus` tap is identical to the `emacs` formulae,
 it just defines some additional options like `--with-spacemacs-icon`.
 
 *Note:* after you have completed the [install process below](#install), it is

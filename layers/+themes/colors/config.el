@@ -11,8 +11,9 @@
 
 ;; Variables
 
-(defvar colors-enable-rainbow-identifiers nil
-  "If non nil the `rainbow-identifers' package is enabled.")
+(defvar colors-colorize-identifiers nil
+  "If `variables' colorize variables, if `all' colorize all identifiers in
+programming language buffers.")
 
 (defvar colors-enable-nyan-cat-progress-bar nil
   "If non nil all nyan cat packges are enabled (for now only `nyan-mode').")

@@ -12,15 +12,14 @@
 (setq finance-packages
   '(
     company
-    flycheck-ledger
+    (flycheck-ledger :toggle (configuration-layer/package-usedp 'flycheck))
     ledger-mode
     ))
 
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
-  (defun finance/init-flycheck-ledger ()
-    (with-eval-after-load 'flycheck
-      (require 'flycheck-ledger))))
+(defun finance/init-flycheck-ledger ()
+  (with-eval-after-load 'flycheck
+    (require 'flycheck-ledger)))
 
 (defun finance/init-ledger-mode ()
   (use-package ledger-mode
@@ -50,6 +49,5 @@
       (add-hook 'ledger-mode-hook 'evil-normalize-keymaps)
       (evilified-state-evilify ledger-report-mode ledger-report-mode-map))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun finance/post-init-company ()
-    (spacemacs|add-company-hook ledger-mode)))
+(defun finance/post-init-company ()
+  (spacemacs|add-company-hook ledger-mode))

@@ -58,9 +58,3 @@ or the symbol `all'.")
     org-level-7
     org-level-8)
   "List of header faces.")
-
-;; Apply theme customizations after any call to load-theme
-(advice-add 'load-theme :after 'spacemacs//theming)
-
-;; Apply the initial customizations now, because load-theme has already been called
-(spacemacs//theming spacemacs--cur-theme)

@@ -10,7 +10,14 @@
 ;;; License: GPLv3
 
 (setq scheme-packages
-      '(geiser))
+      '(
+        company
+        geiser
+        ))
+
+(defun scheme/post-init-company ()
+  ;; Geiser provides completion as long as company mode is loaded.
+  (spacemacs|add-company-hook scheme-mode))
 
 (defun scheme/init-geiser ()
   (use-package geiser
@@ -65,8 +72,3 @@
         "sr" 'geiser-eval-region
         "sR" 'geiser-eval-region-and-go
         "ss" 'geiser-set-scheme))))
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun scheme/post-init-company ()
-    ;; Geiser provides completion as long as company mode is loaded.
-    (spacemacs|add-company-hook scheme-mode)))

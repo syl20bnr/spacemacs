@@ -11,10 +11,10 @@
 
 (setq ocaml-packages
   '(
-   ;; auto-complete
+    ;; auto-complete
     company
-   ;; flycheck
-   ;; flycheck-ocaml
+    ;; flycheck
+    ;; (flycheck-ocaml :toggle (configuration-layer/package-usedp 'flycheck))
     merlin
     ocp-indent
     smartparens
@@ -25,18 +25,17 @@
 (defun ocaml/post-init-company ()
   (spacemacs|add-company-hook merlin-mode))
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
-  (defun ocaml/post-init-flycheck ()
-    (spacemacs/add-flycheck-hook 'merlin-mode))
-  (defun ocaml/init-flycheck-ocaml ()
-    (use-package flycheck-ocaml
-      :if (configuration-layer/package-usedp 'flycheck)
-      :defer t
-      :init
-      (progn
-        (with-eval-after-load 'merlin
-          (setq merlin-error-after-save nil)
-          (flycheck-ocaml-setup))))))
+(defun ocaml/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'merlin-mode))
+
+(defun ocaml/init-flycheck-ocaml ()
+  (use-package flycheck-ocaml
+    :defer t
+    :init
+    (progn
+      (with-eval-after-load 'merlin
+        (setq merlin-error-after-save nil)
+        (flycheck-ocaml-setup)))))
 
 (defun ocaml/init-merlin ()
   (use-package merlin
@@ -70,13 +69,20 @@
         "hh" 'merlin-document
         "ht" 'merlin-type-enclosing
         "hT" 'merlin-type-expr
-        "rd" 'merlin-destruct))))
+        "rd" 'merlin-destruct)
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mc" "compile/check")
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "me" "errors")
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mh" "help")
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mf" "refactor"))))
 
 (defun ocaml/init-ocp-indent ()
   (use-package ocp-indent
     :defer t
     :init
-    (add-hook 'tuareg-mode-hook 'ocp-indent-caml-mode-setup)))
+    (add-hook 'tuareg-mode-hook 'ocp-indent-caml-mode-setup)
+    (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+      "=" 'ocp-indent-buffer)))
 
 (defun ocaml/post-init-smartparens ()
   (with-eval-after-load 'smartparens
@@ -86,6 +92,8 @@
 
 (defun ocaml/init-tuareg ()
   (use-package tuareg
+    :mode (("\\.ml[ily]?$" . tuareg-mode)
+           ("\\.topml$" . tuareg-mode))
     :defer t
     :init
     (progn
@@ -149,6 +157,7 @@
         "sp" 'utop-eval-phrase
         "sP" 'spacemacs/utop-eval-phrase-and-go
         "sr" 'utop-eval-region
-        "sR" 'spacemacs/utop-eval-region-and-go))
+        "sR" 'spacemacs/utop-eval-region-and-go)
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "ms" "send"))
     (define-key utop-mode-map (kbd "C-j") 'utop-history-goto-next)
     (define-key utop-mode-map (kbd "C-k") 'utop-history-goto-prev)))

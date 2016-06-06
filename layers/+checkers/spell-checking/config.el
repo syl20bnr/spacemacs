@@ -14,3 +14,6 @@
 
 (defvar spell-checking-enable-auto-dictionary nil
   "Specify if auto-dictionary should be enabled or not.")
+
+(defvar enable-flyspell-auto-completion nil
+  "If not nil, show speeling suggestions in popups.")

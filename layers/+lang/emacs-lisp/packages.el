@@ -71,6 +71,7 @@
   ;; Elisp go-to-definition with M-. and back again with M-,
   (use-package elisp-slime-nav
     :defer t
+    :diminish elisp-slime-nav-mode
     :init
     (progn
       (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
@@ -149,7 +150,7 @@
                srefactor-lisp-one-line)
     :init
     (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-      (spacemacs/declare-prefix-for-mode mode "=" "srefactor")
+      (spacemacs/declare-prefix-for-mode mode "m=" "srefactor")
       (spacemacs/set-leader-keys-for-major-mode mode
         "=b" 'srefactor-lisp-format-buffer
         "=d" 'srefactor-lisp-format-defun

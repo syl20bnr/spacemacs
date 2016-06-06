@@ -1,4 +1,4 @@
-;;; funcs.el --- Spacemacs Base Layer functions File
+;;; funcs.el --- Shell Layer functions File
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
@@ -69,3 +69,8 @@ SHELL is the SHELL function to use (i.e. when FUNC represents a terminal)."
                       ,(concat "*" name "*")
                       (lambda nil (,func ,shell)))))
          (shell-pop index)))))
+
+(defun projectile-multi-term-in-root ()
+  "Invoke `multi-term' in the project's root."
+  (interactive)
+  (projectile-with-default-dir (projectile-project-root) (multi-term)))

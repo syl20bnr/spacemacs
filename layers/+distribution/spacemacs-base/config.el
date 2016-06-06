@@ -104,29 +104,15 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Prompt to open file literally if large file.
 (add-hook 'find-file-hook 'spacemacs/check-large-file)
 
-;; whitespace-cleanup configuration
-(pcase dotspacemacs-whitespace-cleanup
-  (`all (add-hook 'before-save-hook 'whitespace-cleanup))
-  (`trailing (add-hook 'before-save-hook 'delete-trailing-whitespace)))
-
 ;; ---------------------------------------------------------------------------
 ;; UI
 ;; ---------------------------------------------------------------------------
 
 ;; important for golden-ratio to better work
 (setq window-combination-resize t)
-;; fringes
-(setq-default fringe-indicator-alist
-              '((truncation . nil) (continuation . nil)))
 ;; Show column number in mode line
 (setq column-number-mode t)
-;; Activate linum-mode in all prog-mode and text-mode buffers if the setting is
-;; enabled.
-(when dotspacemacs-line-numbers
-  (add-hook 'prog-mode-hook 'linum-mode)
-  (add-hook 'text-mode-hook 'linum-mode))
-;; line number
-(setq linum-format "%4d")
+
 ;; highlight current line
 (global-hl-line-mode t)
 ;; no blink
@@ -191,7 +177,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
       eval-expression-print-level nil)
 
 ;; cache files
-(setq tramp-persistency-file-name (concat spacemacs-cache-directory "tramp/"))
+(setq tramp-persistency-file-name (concat spacemacs-cache-directory "tramp"))
 
 ;; seems pointless to warn. There's always undo.
 (put 'narrow-to-region 'disabled nil)

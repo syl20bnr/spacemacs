@@ -11,7 +11,7 @@
 
 (setq semantic-packages
       '(
-        semantic
+        (semantic :location built-in)
         (srefactor :toggle (version<= "24.4" emacs-version))
         stickyfunc-enhance
         ))
@@ -19,14 +19,6 @@
 (defun semantic/init-semantic ()
   (use-package semantic
     :defer t
-    :init
-    (progn
-      (setq srecode-map-save-file (concat spacemacs-cache-directory
-                                          "srecode-map.el"))
-      (setq semanticdb-default-save-directory (concat spacemacs-cache-directory
-                                                      "semanticdb/"))
-      (unless (file-exists-p semanticdb-default-save-directory)
-        (make-directory semanticdb-default-save-directory)))
     :config
     (progn
       (add-to-list 'semantic-default-submodes

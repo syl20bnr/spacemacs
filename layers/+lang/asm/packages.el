@@ -13,6 +13,7 @@
       '(
         ;; package names go here
         asm-mode
+        electric-indent-mode
         nasm-mode
         x86-lookup
         ))
@@ -28,13 +29,17 @@
       (define-key asm-mode-map (kbd "C-j") 'newline)
       (add-hook 'asm-mode-hook #'asm-generic-setup))))
 
+(defun asm/post-init-electric-indent-mode ()
+  (spacemacs/add-to-hooks 'asm-electric-indent-local-mode-off
+                   '(asm-mode-hook nasm-mode-hook)))
+
 (defun asm/init-nasm-mode ()
   "Setup for built-in `nasm-mode', which could be thought as improved `asm-mode'"
   (use-package nasm-mode
     :init
     (progn
       (add-hook 'nasm-mode-hook #'asm-generic-setup)
-      (add-to-list 'auto-mode-alist '("\\.[n]*\\(asm\\|s\\)$" . nasm-mode))
+      (add-to-list 'auto-mode-alist '("\\.[n]*\\(asm\\|s\\)\\'" . nasm-mode))
       (spacemacs/set-leader-keys-for-major-mode 'nasm-mode "h" 'x86-lookup))
     :config
     (progn

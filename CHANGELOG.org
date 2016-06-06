@@ -1,4 +1,7 @@
 * Release 0.105.x
+** 0.105.20 (2016/05/10)
+*** Fixes
+- Update Spaceline configuration for new version
 ** 0.105.19 (2016/04/20)
 *** Fixes
 - Fix =dired-x= autoload (thanks to darkfeline)

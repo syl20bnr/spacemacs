@@ -56,21 +56,21 @@ More configuration options are available and are detailed in the =org-ref= and
 * Key bindings
 In a Bib(La)TeX file, the following key bindings are added:
 
-| Key Binding | Description                                |
-|-------------+--------------------------------------------|
-| ~SPC m j~   | Next entry                                 |
-| ~SPC m k~   | Previous entry                             |
-| ~SPC m p~   | Open PDF                                   |
-| ~SPC m n~   | Open notes                                 |
-| ~SPC m b~   | Open browser                               |
-| ~SPC m i~   | Insert new entry                           |
-| ~SPC m s~   | Sort entry                                 |
-| ~SPC m h~   | Various actions on entry                   |
-| ~SPC m l a~ | Lookup and add arXiv paper (don't get PDF) |
-| ~SPC m l A~ | Lookup and add arXiv paper (download PDF)  |
-| ~SPC m l d~ | Lookup and add paper by DOI                |
-| ~SPC m l i~ | Lookup and add book by ISBN                |
-| ~SPC m l p~ | Lookup and add paper by PMID               |
+| Key Binding               | Description                                |
+|---------------------------+--------------------------------------------|
+| ~SPC m j~ / ~g j~ / ~C-j~ | Next entry                                 |
+| ~SPC m k~ / ~g k~ / ~C-k~ | Previous entry                             |
+| ~SPC m p~                 | Open PDF                                   |
+| ~SPC m n~                 | Open notes                                 |
+| ~SPC m b~                 | Open browser                               |
+| ~SPC m i~                 | Insert new entry                           |
+| ~SPC m s~                 | Sort entry                                 |
+| ~SPC m h~                 | Various actions on entry                   |
+| ~SPC m l a~               | Lookup and add arXiv paper (don't get PDF) |
+| ~SPC m l A~               | Lookup and add arXiv paper (download PDF)  |
+| ~SPC m l d~               | Lookup and add paper by DOI                |
+| ~SPC m l i~               | Lookup and add book by ISBN                |
+| ~SPC m l p~               | Lookup and add paper by PMID               |
 
 In addition, =org-mode=, =latex-mode= and =markdown-mode= all have the following
 key binding added:

@@ -86,17 +86,12 @@ and its values are removed."
       (push (pop tail) result))
     (nreverse result)))
 
-;; From http://stackoverflow.com/questions/2321904/elisp-how-to-save-data-in-a-file
+;; Originally based on http://stackoverflow.com/questions/2321904/elisp-how-to-save-data-in-a-file
 (defun spacemacs/dump-vars-to-file (varlist filename)
   "simplistic dumping of variables in VARLIST to a file FILENAME"
-  (save-excursion
-    (let ((buf (find-file-noselect filename)))
-      (set-buffer buf)
-      (erase-buffer)
-      (spacemacs/dump varlist buf)
-      (make-directory (file-name-directory filename) t)
-      (save-buffer)
-      (kill-buffer))))
+  (with-temp-file filename
+    (spacemacs/dump varlist (current-buffer))
+    (make-directory (file-name-directory filename) t)))
 
 ;; From http://stackoverflow.com/questions/2321904/elisp-how-to-save-data-in-a-file
 (defun spacemacs/dump (varlist buffer)
@@ -156,11 +151,21 @@ The buffer's major mode should be `org-mode'."
   (interactive)
   (if (not (derived-mode-p 'org-mode))
       (user-error "org-mode should be enabled in the current buffer.")
-
-    (require 'space-doc)
     (org-indent-mode)
-    (view-mode)
-    (space-doc-mode)))
+    (view-mode))
+    ;; Make ~SPC ,~ work, reference:
+    ;; http://stackoverflow.com/questions/24169333/how-can-i-emphasize-or-verbatim-quote-a-comma-in-org-mode
+    (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\n")
+    (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
+    (setq-local org-emphasis-alist '(("*" bold)
+                                     ("/" italic)
+                                     ("_" underline)
+                                     ("=" org-verbatim verbatim)
+                                     ("~" org-kbd)
+                                     ("+"
+                                      (:strike-through t))))
+    (require 'space-doc)
+    (space-doc-mode))
 
 (defun spacemacs/view-org-file (file &optional anchor-text expand-scope)
   "Open org file and apply visual enchantments.
@@ -196,19 +201,7 @@ If EXPAND-SCOPE is `all' then run `outline-show-all' at the matched line."
     (outline-show-subtree))
    ((eq expand-scope 'all)
     (outline-show-all))
-   (t nil))
-  ;; Make ~SPC ,~ work, reference:
-  ;; http://stackoverflow.com/questions/24169333/how-can-i-emphasize-or-verbatim-quote-a-comma-in-org-mode
-  (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\n")
-  (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
-  (setq-local org-emphasis-alist '(("*" bold)
-                                   ("/" italic)
-                                   ("_" underline)
-                                   ("=" org-verbatim verbatim)
-                                   ("~" org-kbd)
-                                   ("+"
-                                    (:strike-through t))))
-  (setq-local org-hide-emphasis-markers t))
+   (t nil)))
 
 (defun spacemacs//test-var (pred var test-desc)
   "Test PRED against VAR and print test result, incrementing

@@ -14,20 +14,18 @@
     company
     racer
     flycheck
-    flycheck-rust
+    (flycheck-rust :toggle (configuration-layer/package-usedp 'flycheck))
     rust-mode
     toml-mode
     ))
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
-  (defun rust/post-init-flycheck ()
-    (spacemacs/add-flycheck-hook 'rust-mode))
+(defun rust/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'rust-mode))
 
-  (defun rust/init-flycheck-rust ()
-    (use-package flycheck-rust
-      :if (configuration-layer/package-usedp 'flycheck)
-      :defer t
-      :init (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))))
+(defun rust/init-flycheck-rust ()
+  (use-package flycheck-rust
+    :defer t
+    :init (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
 (defun rust/init-rust-mode ()
   (use-package rust-mode
@@ -48,13 +46,12 @@
   (use-package toml-mode
     :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'"))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun rust/post-init-company ()
-    (push 'company-capf company-backends-rust-mode)
-    (spacemacs|add-company-hook rust-mode)
-    (add-hook 'rust-mode-hook
-              (lambda ()
-                (setq-local company-tooltip-align-annotations t)))))
+(defun rust/post-init-company ()
+  (push 'company-capf company-backends-rust-mode)
+  (spacemacs|add-company-hook rust-mode)
+  (add-hook 'rust-mode-hook
+            (lambda ()
+              (setq-local company-tooltip-align-annotations t))))
 
 (defun rust/post-init-smartparens ()
   (with-eval-after-load 'smartparens

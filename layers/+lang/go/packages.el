@@ -1,13 +1,28 @@
 (setq go-packages
       '(
         company
-        company-go
+        (company-go :toggle (configuration-layer/package-usedp 'company))
         flycheck
+        (flycheck-gometalinter :toggle (and go-use-gometalinter
+                                            (configuration-layer/package-usedp
+                                             'flycheck)))
         go-eldoc
         go-mode
         (go-oracle :location site)
         (go-rename :location local)
         ))
+
+
+(defun go/post-init-company ()
+  (spacemacs|add-company-hook go-mode))
+
+(defun go/init-company-go ()
+  (use-package company-go
+    :defer t
+    :init
+    (progn
+      (setq company-go-show-annotation t)
+      (push 'company-go company-backends-go-mode))))
 
 (defun go/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'go-mode))
@@ -86,6 +101,7 @@
         "ed" 'go-download-play
         "xx" 'spacemacs/go-run-main
         "ga" 'ff-find-other-file
+        "gc" 'go-coverage
         "gg" 'godef-jump
         "tt" 'spacemacs/go-run-test-current-function
         "ts" 'spacemacs/go-run-test-current-suite
@@ -94,19 +110,6 @@
 
 (defun go/init-go-eldoc()
   (add-hook 'go-mode-hook 'go-eldoc-setup))
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun go/post-init-company ()
-    (spacemacs|add-company-hook go-mode))
-
-  (defun go/init-company-go ()
-    (use-package company-go
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init
-      (progn
-        (setq company-go-show-annotation t)
-        (push 'company-go company-backends-go-mode)))))
 
 (defun go/init-go-oracle()
   (let ((go-path (getenv "GOPATH")))
@@ -134,3 +137,9 @@
   (use-package go-rename
     :init
     (spacemacs/set-leader-keys-for-major-mode 'go-mode "rn" 'go-rename)))
+
+(defun go/init-flycheck-gometalinter()
+  (use-package flycheck-gometalinter
+    :defer t
+    :init
+    (add-hook 'go-mode-hook 'spacemacs//go-enable-gometalinter t)))

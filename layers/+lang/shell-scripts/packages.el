@@ -10,11 +10,25 @@
 ;;; License: GPLv3
 
 (setq shell-scripts-packages
-      '(company
-        company-shell
+      '(
+        company
+        (company-shell :toggle (configuration-layer/package-usedp 'company))
         fish-mode
         flycheck
-        (sh-script :location built-in)))
+        (sh-script :location built-in)
+        ))
+
+(defun shell-scripts/post-init-company ()
+  (spacemacs|add-company-hook sh-mode)
+  (spacemacs|add-company-hook fish-mode))
+
+(defun shell-scripts/init-company-shell ()
+  (use-package company-shell
+    :defer t
+    :init
+    (progn
+      (push 'company-shell company-backends-sh-mode)
+      (push '(company-shell company-fish-shell) company-backends-fish-mode))))
 
 (defun shell-scripts/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'sh-mode))
@@ -47,17 +61,3 @@
           (sh-set-shell "zsh")))
       (add-hook 'sh-mode-hook 'spacemacs//setup-shell))))
 
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun shell-scripts/post-init-company ()
-    (spacemacs|add-company-hook sh-mode)
-    (spacemacs|add-company-hook fish-mode))
-
-  (defun shell-scripts/init-company-shell ()
-    (use-package company-shell
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init
-      (progn
-        (push 'company-shell                      company-backends-sh-mode)
-        (push '(company-shell company-fish-shell) company-backends-fish-mode)))))

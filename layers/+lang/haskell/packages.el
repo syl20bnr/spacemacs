@@ -13,14 +13,17 @@
   '(
     cmm-mode
     company
-    company-cabal
-    company-ghc
+    (company-cabal :toggle (configuration-layer/package-usedp 'company))
+    (company-ghc :toggle (and (configuration-layer/package-usedp 'company)
+                              haskell-enable-ghc-mod-support))
+    (company-ghci :toggle (and (configuration-layer/package-usedp 'company)
+                               (not haskell-enable-ghc-mod-support)))
     flycheck
-    flycheck-haskell
+    (flycheck-haskell :toggle (configuration-layer/package-usedp 'flycheck))
     ghc
     haskell-mode
     haskell-snippets
-    helm-hoogle
+    (helm-hoogle :toggle (configuration-layer/package-usedp 'helm))
     hindent
     shm
     ))
@@ -29,25 +32,44 @@
   (use-package cmm-mode
     :defer t))
 
-(setq haskell-modes '(haskell-mode literate-haskell-mode))
+(defun haskell/post-init-company ()
+  (spacemacs|add-company-hook haskell-mode)
+  (spacemacs|add-company-hook haskell-cabal-mode))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun haskell/init-helm-hoogle ()
-    (use-package helm-hoogle
-      :defer t
-      :init
-      (dolist (mode haskell-modes)
-        (spacemacs/set-leader-keys-for-major-mode mode "hf" 'helm-hoogle)))))
+(defun haskell/init-company-ghc ()
+  (use-package company-ghc
+    :defer t
+    :init (push '(company-ghc company-dabbrev-code company-yasnippet)
+                company-backends-haskell-mode)))
+
+(defun haskell/init-company-ghci ()
+  (use-package company-ghc
+    :defer t
+    :init (push '(company-ghci company-dabbrev-code company-yasnippet)
+                company-backends-haskell-mode)))
+
+(defun haskell/init-company-cabal ()
+  (use-package company-cabal
+    :if (configuration-layer/package-usedp 'company)
+    :defer t
+    :init
+    (push '(company-cabal)
+          company-backends-haskell-cabal-mode)))
+
+(defun haskell/init-helm-hoogle ()
+  (use-package helm-hoogle
+    :defer t
+    :init
+    (dolist (mode haskell-modes)
+      (spacemacs/set-leader-keys-for-major-mode mode "hf" 'helm-hoogle))))
 
 (defun haskell/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'haskell-mode))
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
-  (defun haskell/init-flycheck-haskell ()
-    (use-package flycheck-haskell
-      :if (configuration-layer/package-usedp 'flycheck)
-      :commands flycheck-haskell-configure
-      :init (add-hook 'flycheck-mode-hook 'flycheck-haskell-configure))))
+(defun haskell/init-flycheck-haskell ()
+  (use-package flycheck-haskell
+    :commands flycheck-haskell-configure
+    :init (add-hook 'flycheck-mode-hook 'flycheck-haskell-configure)))
 
 (defun haskell/init-ghc ()
   (use-package ghc
@@ -66,8 +88,10 @@
           "me" 'ghc-expand-th
           "mn" 'ghc-goto-next-hole
           "mp" 'ghc-goto-prev-hole
-          "m>"  'ghc-make-indent-deeper
-          "m<"  'ghc-make-indent-shallower))
+          "m>" 'ghc-make-indent-deeper
+          "m<" 'ghc-make-indent-shallower
+          "hi" 'ghc-show-info
+          "ht" 'ghc-show-type))
       (when (configuration-layer/package-usedp 'flycheck)
         ;; remove overlays from ghc-check.el if flycheck is enabled
         (set-face-attribute 'ghc-face-error nil :underline nil)
@@ -207,7 +231,15 @@
       (evil-define-key 'normal haskell-interactive-mode-map
         (kbd "RET") 'haskell-interactive-mode-return)
 
-      ;;GHCi-ng
+      ;; interactive haskell mode
+      (unless (or haskell-enable-ghc-mod-support
+                  haskell-enable-ghci-ng-support)
+        (dolist (mode haskell-modes)
+          (spacemacs/set-leader-keys-for-major-mode mode
+            "hi" 'haskell-process-do-info
+            "ht" 'haskell-process-do-type)))
+
+      ;; GHCi-ng
       (when haskell-enable-ghci-ng-support
         ;; haskell-process-type is set to auto, so setup ghci-ng for either case
         ;; if haskell-process-type == cabal-repl
@@ -299,8 +331,7 @@
         (kbd "P") 'shm/yank
         (kbd "RET") 'shm/newline-indent
         (kbd "RET") 'shm/newline-indent
-        (kbd "M-RET") 'evil-ret
-        )
+        (kbd "M-RET") 'evil-ret)
 
       (evil-define-key 'operator shm-map
         (kbd ")") 'shm/forward-node
@@ -312,26 +343,3 @@
 
       (define-key shm-map (kbd "C-j") nil)
       (define-key shm-map (kbd "C-k") nil))))
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun haskell/post-init-company ()
-    (spacemacs|add-company-hook haskell-mode)
-    (spacemacs|add-company-hook haskell-cabal-mode))
-
-  (defun haskell/init-company-ghc ()
-    (use-package company-ghc
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init
-      (push (if haskell-enable-ghc-mod-support
-                '(company-ghc company-dabbrev-code company-yasnippet)
-              '(company-dabbrev-code company-yasnippet))
-              company-backends-haskell-mode)))
-
-  (defun haskell/init-company-cabal ()
-    (use-package company-cabal
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init
-      (push '(company-cabal)
-            company-backends-haskell-cabal-mode))))

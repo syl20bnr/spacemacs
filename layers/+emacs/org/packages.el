@@ -29,17 +29,19 @@
     org-pomodoro
     org-present
     org-repo-todo
-    (ox-gfm :location local)
+    ;; use a for of ox-gfm to fix index generation
+    (ox-gfm :location (recipe :fetcher github :repo "syl20bnr/ox-gfm")
+            :toggle org-enable-github-support)
+    (ox-reveal :toggle org-enable-reveal-js-support)
     persp-mode
-    (space-doc :location local)
     ))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun org/post-init-company ()
-    (spacemacs|add-company-hook org-mode)
-    (push 'company-capf company-backends-org-mode))
-  (defun org/post-init-company-emoji ()
-    (push 'company-emoji company-backends-org-mode)))
+(defun org/post-init-company ()
+  (spacemacs|add-company-hook org-mode)
+  (push 'company-capf company-backends-org-mode))
+
+(defun org/post-init-company-emoji ()
+  (push 'company-emoji company-backends-org-mode))
 
 (defun org/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'org-mode-hook 'spacemacs/delay-emoji-cheat-sheet-hook))
@@ -58,17 +60,19 @@
 
 (defun org/post-init-evil-surround ()
   (defun spacemacs/add-org-surrounds ()
-    (push '(?: . spacemacs//surround-drawer) evil-surround-pairs-alist))
-  (add-hook 'org-mode-hook 'spacemacs/add-org-surrounds)
-  (defun spacemacs//surround-drawer ()
-    (let ((dname (read-from-minibuffer "" "")))
-      (cons (format ":%s:\n" (or dname "")) "\n:END:"))))
+    (push '(?: . spacemacs//surround-drawer) evil-surround-pairs-alist)
+    (push '(?# . spacemacs//surround-code) evil-surround-pairs-alist))
+  (add-hook 'org-mode-hook 'spacemacs/add-org-surrounds))
 
 (defun org/init-gnuplot ()
   (use-package gnuplot
     :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'org-mode
             "tp" 'org-plot/gnuplot)))
+
+(defun org/init-htmlize ()
+  (use-package htmlize
+    :defer t))
 
 (defun org/pre-init-mu4e ()
   ;; Load org-mu4e when mu4e is actually loaded
@@ -84,11 +88,14 @@
         "Load all the languages declared in `org-babel-load-languages'."
         (org-babel-do-load-languages 'org-babel-load-languages
                                      org-babel-load-languages))
-      (add-hook 'org-mode-hook 'spacemacs//org-babel-do-load-languages))))
+      (add-hook 'org-mode-hook 'spacemacs//org-babel-do-load-languages)
+      ;; Fix redisplay of inline images after a code block evaluation.
+      (add-hook 'org-babel-after-execute-hook 'spacemacs/ob-fix-inline-images))))
 
 (defun org/init-org ()
   (use-package org
     :defer t
+    :commands (orgtbl-mode)
     :init
     (progn
       (setq org-clock-persist-file (concat spacemacs-cache-directory
@@ -148,6 +155,16 @@ Will work on both org-mode and any mode that accepts plain html."
                (format tag (help-key-description key nil)))
             (insert (format tag ""))
             (forward-char -8))))
+
+      (dolist (prefix '(("mx" . "text")
+                        ("mh" . "headings")
+                        ("mi" . "insert")
+                        ("mS" . "subtrees")
+                        ("mt" . "tables")
+                        ("mtd" . "delete")
+                        ("mti" . "insert")
+                        ("mtt" . "toggle")))
+        (spacemacs/declare-prefix-for-mode 'org-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "'" 'org-edit-special
         "c" 'org-capture
@@ -501,60 +518,13 @@ Headline^^            Visit entry^^               Filter^^                    Da
             '("* TODO %?\n%U\n\n%i" :empty-lines 1))))
 
 (defun org/init-ox-gfm ()
-  ;; installing this package from melpa is buggy,
-  ;; so we install it as an extension for now.
-  (use-package ox-gfm
-    :if org-enable-github-support
-    :defer t
-    :init
-    (progn
-      ;; seems to be required otherwise the extension is not
-      ;; loaded properly by org
-      (with-eval-after-load 'org (require 'ox-gfm))
-      (autoload 'org-gfm-export-as-markdown "ox-gfm" "\
- Export current buffer to a Github Flavored Markdown buffer.
+  (spacemacs|use-package-add-hook org :post-config (require 'ox-gfm)))
 
-If narrowing is active in the current buffer, only export its
-narrowed part.
-
-If a region is active, export that region.
-
-A non-nil optional argument ASYNC means the process should happen
-asynchronously.  The resulting buffer should be accessible
-through the `org-export-stack' interface.
-
-When optional argument SUBTREEP is non-nil, export the sub-tree
-at point, extracting information from the headline properties
-first.
-
-When optional argument VISIBLE-ONLY is non-nil, don't export
-contents of hidden elements.
-
-Export is done in a buffer named \"*Org GFM Export*\", which will
-be displayed when `org-export-show-temporary-export-buffer' is
-non-nil.
-
-\(fn &optional ASYNC SUBTREEP VISIBLE-ONLY)" t nil)
-
-      (autoload 'org-gfm-convert-region-to-md "ox-gfm" "\
-Assume the current region has org-mode syntax, and convert it
-to Github Flavored Markdown.  This can be used in any buffer.
-For example, you can write an itemized list in org-mode syntax in
-a Markdown buffer and use this command to convert it.
-
-\(fn)" t nil))))
+(defun org/init-ox-reveal ()
+  (spacemacs|use-package-add-hook org :post-config (require 'ox-reveal)))
 
 (defun org/post-init-persp-mode ()
   (spacemacs|define-custom-layout "@Org"
     :binding "o"
     :body
     (find-file (first (org-agenda-files)))))
-
-(defun org/init-htmlize ()
- (use-package htmlize
-   :defer t))
-
-(defun org/init-space-doc ()
-  (use-package space-doc
-    :commands space-doc-mode
-    :config (spacemacs|diminish space-doc-mode " ❤" " d")))

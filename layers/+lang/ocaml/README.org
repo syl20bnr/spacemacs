@@ -54,6 +54,7 @@ Make sure opam is initialized and configured.
 
 | Key Binding | Description                                              |
 |-------------+----------------------------------------------------------|
+| ~SPC m =~   | Indent buffer.                                           |
 | ~SPC m c c~ | Compile                                                  |
 | ~SPC m c p~ | Check .merlin for errors                                 |
 | ~SPC m c r~ | Refresh changed .cmis in merlin                          |

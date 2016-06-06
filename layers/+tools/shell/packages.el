@@ -24,9 +24,9 @@
         projectile
         (shell :location built-in)
         shell-pop
-        smooth-scrolling
         (term :location built-in)
         xterm-color
+        vi-tilde-fringe
         ))
 
 (defun shell/init-comint ()
@@ -186,34 +186,33 @@ is achieved by adding the relevant text properties."
     (with-eval-after-load 'eshell
       (require 'eshell-z))))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun shell/pre-init-helm ()
-    (spacemacs|use-package-add-hook helm
-      :post-init
-      (progn
-        ;; eshell
-        (defun spacemacs/helm-eshell-history ()
-          "Correctly revert to insert state after selection."
-          (interactive)
-          (helm-eshell-history)
-          (evil-insert-state))
-        (defun spacemacs/helm-shell-history ()
-          "Correctly revert to insert state after selection."
-          (interactive)
-          (helm-comint-input-ring)
-          (evil-insert-state))
-        (defun spacemacs/init-helm-eshell ()
-          "Initialize helm-eshell."
-          ;; this is buggy for now
-          ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete)
-          (spacemacs/set-leader-keys-for-major-mode 'eshell-mode
-            "H" 'spacemacs/helm-eshell-history)
-          (define-key eshell-mode-map
-            (kbd "M-l") 'spacemacs/helm-eshell-history))
-        (add-hook 'eshell-mode-hook 'spacemacs/init-helm-eshell)
-        ;;shell
-        (spacemacs/set-leader-keys-for-major-mode 'shell-mode
-          "H" 'spacemacs/helm-shell-history)))))
+(defun shell/pre-init-helm ()
+  (spacemacs|use-package-add-hook helm
+    :post-init
+    (progn
+      ;; eshell
+      (defun spacemacs/helm-eshell-history ()
+        "Correctly revert to insert state after selection."
+        (interactive)
+        (helm-eshell-history)
+        (evil-insert-state))
+      (defun spacemacs/helm-shell-history ()
+        "Correctly revert to insert state after selection."
+        (interactive)
+        (helm-comint-input-ring)
+        (evil-insert-state))
+      (defun spacemacs/init-helm-eshell ()
+        "Initialize helm-eshell."
+        ;; this is buggy for now
+        ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete)
+        (spacemacs/set-leader-keys-for-major-mode 'eshell-mode
+          "H" 'spacemacs/helm-eshell-history)
+        (define-key eshell-mode-map
+          (kbd "M-l") 'spacemacs/helm-eshell-history))
+      (add-hook 'eshell-mode-hook 'spacemacs/init-helm-eshell)
+      ;;shell
+      (spacemacs/set-leader-keys-for-major-mode 'shell-mode
+        "H" 'spacemacs/helm-shell-history))))
 
 (defun shell/pre-init-magit ()
   (spacemacs|use-package-add-hook magit
@@ -238,23 +237,19 @@ is achieved by adding the relevant text properties."
         (term-send-raw-string "\t"))
       (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab))
       ;; multi-term commands to create terminals and move through them.
-      (spacemacs/set-leader-keys-for-major-mode 'term-mode "c" 'multi-term)
-      (spacemacs/set-leader-keys-for-major-mode 'term-mode "p" 'multi-term-prev)
-      (spacemacs/set-leader-keys-for-major-mode 'term-mode "n" 'multi-term-next)
-
-      (when (configuration-layer/package-usedp 'projectile)
-        (defun projectile-multi-term-in-root ()
-          "Invoke `multi-term' in the project's root."
-          (interactive)
-          (projectile-with-default-dir (projectile-project-root) (multi-term)))
-        (spacemacs/set-leader-keys "p$t" 'projectile-multi-term-in-root)))))
+      (spacemacs/set-leader-keys-for-major-mode 'term-mode
+        "c" 'multi-term
+        "p" 'multi-term-prev
+        "n" 'multi-term-next))))
 
 (defun shell/pre-init-org ()
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(shell . t))))
 
 (defun shell/post-init-projectile ()
-  (spacemacs/set-leader-keys "p'" 'spacemacs/projectile-shell-pop))
+  (spacemacs/set-leader-keys
+    "p'" 'spacemacs/projectile-shell-pop
+    "p$t" 'projectile-multi-term-in-root))
 
 (defun shell/init-shell ()
   (spacemacs/register-repl 'shell 'shell)
@@ -289,7 +284,7 @@ is achieved by adding the relevant text properties."
       (setq shell-pop-window-position shell-default-position
             shell-pop-window-size     shell-default-height
             shell-pop-term-shell      shell-default-term-shell
-            shell-pop-full-span t)
+            shell-pop-full-span       shell-default-full-span)
       (make-shell-pop-command eshell)
       (make-shell-pop-command shell)
       (make-shell-pop-command term shell-pop-term-shell)
@@ -306,12 +301,6 @@ is achieved by adding the relevant text properties."
         "asm" 'spacemacs/shell-pop-multiterm
         "ast" 'spacemacs/shell-pop-ansi-term
         "asT" 'spacemacs/shell-pop-term))))
-
-(defun shell/post-init-smooth-scrolling ()
-  (spacemacs/add-to-hooks 'spacemacs//unset-scroll-margin
-                          '(eshell-mode-hook
-                            comint-mode-hook
-                            term-mode-hook)))
 
 (defun shell/init-term ()
   (spacemacs/register-repl 'term 'term)
@@ -347,3 +336,10 @@ is achieved by adding the relevant text properties."
             (remove 'ansi-color-process-output comint-output-filter-functions))
       (setq font-lock-unfontify-region-function 'xterm-color-unfontify-region)
       (add-hook 'eshell-mode-hook 'spacemacs/init-eshell-xterm-color))))
+
+(defun shell/post-init-vi-tilde-fringe ()
+  (spacemacs/add-to-hooks 'spacemacs/disable-vi-tilde-fringe
+                          '(comint-mode-hook
+                            eshell-mode-hook
+                            shell-mode-hook
+                            term-mode-hook)))

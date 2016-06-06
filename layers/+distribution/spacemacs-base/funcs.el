@@ -59,12 +59,12 @@
   (interactive)
   (call-interactively
    (cond
-    ((and (configuration-layer/layer-usedp 'spacemacs-helm)
+    ((and (configuration-layer/layer-usedp 'helm)
           (eq major-mode 'org-mode))
      'helm-org-in-buffer-headings)
-    ((configuration-layer/layer-usedp 'spacemacs-helm)
+    ((configuration-layer/layer-usedp 'helm)
      'helm-semantic-or-imenu)
-    ((configuration-layer/layer-usedp 'spacemacs-ivy)
+    ((configuration-layer/layer-usedp 'ivy)
      'counsel-imenu)
     (t 'imenu))))
 
@@ -131,6 +131,16 @@ the current state and point position."
   "Threshold (# chars) over which indentation does not automatically occur."
   :type 'number
   :group 'spacemacs)
+
+(defcustom spacemacs-large-file-modes-list
+  '(archive-mode tar-mode jka-compr git-commit-mode image-mode
+                 doc-view-mode doc-view-mode-maybe ebrowse-tree-mode
+                 pdf-view-mode)
+  "Major modes which `spacemacs/check-large-file' will not be
+automatically applied to."
+  :group 'spacemacs
+  :type '(list symbol))
+
 
 (defun spacemacs/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
@@ -265,6 +275,38 @@ argument takes the kindows rotate backwards."
                 (not (eq (current-buffer) start-buffer)))
       (previous-buffer))))
 
+(defun spacemacs/rename-file (filename &optional new-filename)
+  "Rename FILENAME to NEW-FILENAME.
+
+When NEW-FILENAME is not specified, asks user for a new name.
+
+Also renames associated buffer (if any exists), invalidates
+projectile cache when it's possible and update recentf list."
+  (interactive "f")
+  (when (and filename (file-exists-p filename))
+    (let* ((buffer (find-buffer-visiting filename))
+           (short-name (file-name-nondirectory filename))
+           (new-name (if new-filename new-filename
+                       (read-file-name
+                        (format "Rename %s to: " short-name)))))
+      (cond ((get-buffer new-name)
+             (error "A buffer named '%s' already exists!" new-name))
+            (t
+             (let ((dir (file-name-directory new-name)))
+               (when (and (not (file-exists-p dir)) (yes-or-no-p (format "Create directory '%s'?" dir)))
+                 (make-directory dir t)))
+             (rename-file filename new-name 1)
+             (when buffer
+               (kill-buffer buffer)
+               (find-file newfile))
+             (when (fboundp 'recentf-add-file)
+               (recentf-add-file new-name)
+               (recentf-remove-if-non-kept filename))
+             (when (and (configuration-layer/package-usedp 'projectile)
+                        (projectile-project-p))
+               (call-interactively #'projectile-invalidate-cache))
+             (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name)))))))
+
 ;; from magnars
 (defun spacemacs/rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."
@@ -287,7 +329,30 @@ argument takes the kindows rotate backwards."
                (when (fboundp 'recentf-add-file)
                    (recentf-add-file new-name)
                    (recentf-remove-if-non-kept filename))
+               (when (and (configuration-layer/package-usedp 'projectile)
+                          (projectile-project-p))
+                 (call-interactively #'projectile-invalidate-cache))
                (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
+
+(defun spacemacs/delete-file (filename &optional ask-user)
+  "Remove specified file or directory.
+
+Also kills associated buffer (if any exists) and invalidates
+projectile cache when it's possible.
+
+When ASK-USER is non-nil, user will be asked to confirm file
+removal."
+  (interactive "f")
+  (when (and filename (file-exists-p filename))
+    (let ((buffer (find-buffer-visiting filename)))
+      (when buffer
+        (kill-buffer buffer)))
+    (when (or (not ask-user)
+              (yes-or-no-p "Are you sure you want to delete this file? "))
+      (delete-file filename)
+      (when (and (configuration-layer/package-usedp 'projectile)
+                 (projectile-project-p))
+        (call-interactively #'projectile-invalidate-cache)))))
 
 ;; from magnars
 (defun spacemacs/delete-current-buffer-file ()
@@ -301,6 +366,9 @@ argument takes the kindows rotate backwards."
       (when (yes-or-no-p "Are you sure you want to delete this file? ")
         (delete-file filename t)
         (kill-buffer buffer)
+        (when (and (configuration-layer/package-usedp 'projectile)
+                   (projectile-project-p))
+          (call-interactively #'projectile-invalidate-cache))
         (message "File '%s' successfully removed" filename)))))
 
 ;; from magnars
@@ -323,12 +391,24 @@ argument takes the kindows rotate backwards."
 
 ;; check when opening large files - literal file open
 (defun spacemacs/check-large-file ()
-  (let ((size (nth 7 (file-attributes (buffer-file-name)))))
-    (when (and size (> size (* 1024 1024 dotspacemacs-large-file-size))
-               (y-or-n-p "This is a large file, open literally to avoid performance issues?"))
+  (let* ((filename (buffer-file-name))
+         (size (nth 7 (file-attributes filename))))
+    (when (and
+           (not (memq major-mode spacemacs-large-file-modes-list))
+           size (> size (* 1024 1024 dotspacemacs-large-file-size))
+           (y-or-n-p (format "%s is a large file, open literally to avoid performance issues?"
+                             filename)))
       (setq buffer-read-only t)
       (buffer-disable-undo)
       (fundamental-mode))))
+
+;; our own implementation of kill-this-buffer from menu-bar.el
+(defun spacemacs/kill-this-buffer ()
+  "Kill the current buffer."
+  (interactive)
+  (if (window-minibuffer-p)
+      (abort-recursive-edit)
+    (kill-buffer (current-buffer))))
 
 ;; found at http://emacswiki.org/emacs/KillingBuffers
 (defun spacemacs/kill-other-buffers ()
@@ -856,6 +936,28 @@ Compare them on count first,and in case of tie sort them alphabetically."
                                                (region-end))))
  (evil-end-undo-step))
 
+;; find file functions in split
+(defun spacemacs//display-in-split (buffer alist)
+  "Split selected window and display BUFFER in the new window.
+BUFFER and ALIST have the same form as in `display-buffer'. If ALIST contains
+a split-side entry, its value must be usable as the SIDE argument for
+`split-window'."
+  (let ((window (split-window nil nil (cdr (assq 'split-side alist)))))
+    (window--display-buffer buffer window 'window alist)
+    window))
+
+(defun spacemacs/find-file-vsplit (file)
+  "find file in vertical split"
+  (interactive "FFind file (vsplit): ")
+  (let ((buffer (find-file-noselect file)))
+    (pop-to-buffer buffer '(spacemacs//display-in-split (split-side . right)))))
+
+(defun spacemacs/find-file-split (file)
+  "find file in horizonatl split"
+  (interactive "FFind file (split): ")
+  (let ((buffer (find-file-noselect file)))
+    (pop-to-buffer buffer '(spacemacs//display-in-split (split-side . below)))))
+
 (defun spacemacs//intersperse (seq separator)
   "Returns a list with `SEPARATOR' added between each element
 of the list `SEQ'."
@@ -894,5 +996,10 @@ is nonempty."
 (defun spacemacs/close-compilation-window ()
   "Close the window containing the '*compilation*' buffer."
   (interactive)
-  (delete-windows-on "*compilation*"))
+  (when compilation-last-buffer
+    (delete-windows-on compilation-last-buffer)))
 
+(defun no-linum (&rest ignore)
+  "Disable linum if current buffer."
+  (when (or 'linum-mode global-linum-mode)
+    (linum-mode 0)))

@@ -321,7 +321,7 @@ and choosing a rollback slot (sorted by date). This button uses the command
 
 * Configuration layers
 This section is an overview of layers. A more extensive introduction to writing
-configuration layers can be found [[file:LAYERS.org][here]].
+configuration layers can be found [[file:LAYERS.org][here]] (recommended reading!).
 
 ** Purpose
 Layers help collect related packages together to provide features. For example,
@@ -340,24 +340,24 @@ Configuration is organized in layers. Each layer has the following structure:
       | |__ [package 1]
       | |     ...
       | |__ [package n]
-      |__ config.el
-      |__ funcs.el
-      |__ keybindings.el
+      |-- layers.el
       |__ packages.el
-      |__ packages-funcs.el
+      |__ funcs.el
+      |__ config.el
+      |__ keybindings.el
 
     [] = directory
 #+END_EXAMPLE
 
 Where:
 
-| File              | Usage                                                                                  |
-|-------------------+----------------------------------------------------------------------------------------|
-| config.el         | Layer configuration (not related to packages contained in this layer)                  |
-| funcs.el          | Various functions and macros (not related to packages contained in this layer)         |
-| keybindings.el    | Emacs built-in key bindings or mandatory key bindings                                  |
-| packages.el       | The list of packages to install and the configuration functions (init, post-init, ...) |
-| packages-funcs.el | Additional functions used in the packages.el                                           |
+| File           | Usage                                                                                            |
+|----------------+--------------------------------------------------------------------------------------------------|
+| layers.el      | The place to declare additional layers                                                           |
+| packages.el    | The list of packages and their configuration functions (init, post-init, etc...)                 |
+| funcs.el       | All functions defined in the layer (used in package configuration for instance)                  |
+| config.el      | Layer configuration (defines the layer variables default values and setup some config variables) |
+| keybindings.el | General key bindings no tied to a specific package configuration                                 |
 
 =Packages= can be:
 - =ELPA= packages installed from an =ELPA= compliant repository
@@ -1086,15 +1086,17 @@ Note the these colors may vary depending on your theme.
 
 **** Powerline separators
 It is possible to easily customize the =powerline separator= by setting the
-=powerline-default-separator= variable in your =~./spacemacs=. For instance if
-you want to set back the separator to the well-known =arrow= separator add the
-following snippet to your configuration file:
+=powerline-default-separator= variable in your =~./spacemacs= and then
+recompiling the modeline. For instance if you want to set back the separator to
+the well-known =arrow= separator add the following snippet to your configuration
+file:
 
 #+BEGIN_SRC emacs-lisp
 (defun dotspacemacs/user-config ()
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
-  (setq powerline-default-separator 'arrow))
+  (setq powerline-default-separator 'arrow)
+  (spaceline-compile))
 #+END_SRC
 
 To save you the time to try all the possible separators provided by the
@@ -1135,33 +1137,35 @@ toggle them.
 Some toggle have two flavors: local and global. The global version of the toggle
 can be reached using the =control= key.
 
-| Key Binding | Unicode | ASCII | Mode                                                 |
-|-------------+---------+-------+------------------------------------------------------|
-| ~SPC t -~   | =⊝=     | -     | [[http://emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]]  mode                                |
-| ~SPC t 8~   | =⑧=     | 8     | toggle highlight of characters for long lines        |
-| ~SPC t C-8~ | =⑧=     | 8     | global toggle highlight of characters for long lines |
-| ~SPC t C--~ | =⊝=     |       | global centered cursor                               |
-| ~SPC t a~   | =ⓐ=     | a     | auto-completion                                      |
-| ~SPC t c~   | =ⓒ=     | c     | camel case motion with subword mode                  |
-| =none=      | =ⓔ=     | e     | [[https://github.com/edwtjo/evil-org-mode][evil-org]] mode                                        |
-| ~SPC t E e~ | =Ⓔe=    | Ee    | emacs editing style (holy mode)                      |
-| ~SPC t E h~ | =Ⓔh=    | Eh    | hybrid editing style (hybrid mode)                   |
-| ~SPC t f~   |         |       | fill-column-indicator mode                           |
-| ~SPC t F~   | =Ⓕ=     | F     | auto-fill mode                                       |
-| ~SPC t g~   | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                                    |
-| ~SPC t h i~ | =ⓗi=    | hi    | toggle highlight indentation levels                  |
-| ~SPC t h c~ | =ⓗc=    | hc    | toggle highlight indentation current column          |
-| ~SPC t i~   | =ⓘ=     | i     | indentation guide                                    |
-| ~SPC t C-i~ | =ⓘ=     | i     | global indentation guide                             |
-| ~SPC t I~   | =Ⓘ=     | I     | aggressive indent mode                               |
-| ~SPC t K~   | =Ⓚ=     | K     | which-key mode                                       |
-| ~SPC t p~   | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                                     |
-| ~SPC t C-p~ | =ⓟ=     |       | global smartparens                                   |
-| ~SPC t s~   | =ⓢ=     | s     | syntax checking (flycheck)                           |
-| ~SPC t S~   | =Ⓢ=     | S     | enabled in [[../layers/spell-checking][spell checking layer]] (flyspell)           |
-| ~SPC t w~   | =ⓦ=     | w     | whitespace mode                                      |
-| ~SPC t C-w~ | =Ⓦ=     | W     | global whitespace                                    |
-| ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                       |
+| Key Binding | Unicode | ASCII | Mode                                                                 |
+|-------------+---------+-------+----------------------------------------------------------------------|
+| ~SPC t -~   | =⊝=     | -     | [[http://emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]]  mode                                                |
+| ~SPC t 8~   | =⑧=     | 8     | toggle highlight of characters for long lines                        |
+| ~SPC t C-8~ | =⑧=     | 8     | global toggle highlight of characters for long lines                 |
+| ~SPC t C--~ | =⊝=     | -     | global centered cursor                                               |
+| ~SPC t a~   | =ⓐ=     | a     | auto-completion                                                      |
+| ~SPC t c~   | =ⓒ=     | c     | camel case motion with subword mode                                  |
+| =none=      | =ⓔ=     | e     | [[https://github.com/edwtjo/evil-org-mode][evil-org]] mode                                                        |
+| ~SPC t E e~ | =Ⓔe=    | Ee    | emacs editing style (holy mode)                                      |
+| ~SPC t E h~ | =Ⓔh=    | Eh    | hybrid editing style (hybrid mode)                                   |
+| ~SPC t f~   | =ⓕ=     | f     | fill-column-indicator mode                                           |
+| ~SPC t F~   | =Ⓕ=     | F     | auto-fill mode                                                       |
+| ~SPC t g~   | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                                                    |
+| ~SPC t h i~ | =ⓗi=    | hi    | toggle highlight indentation levels                                  |
+| ~SPC t h c~ | =ⓗc=    | hc    | toggle highlight indentation current column                          |
+| ~SPC t i~   | =ⓘ=     | i     | indentation guide                                                    |
+| ~SPC t C-i~ | =ⓘ=     | i     | global indentation guide                                             |
+| ~SPC t I~   | =Ⓘ=     | I     | aggressive indent mode                                               |
+| ~SPC t K~   | =Ⓚ=     | K     | which-key mode                                                       |
+| ~SPC t p~   | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                                                     |
+| ~SPC t C-p~ | =ⓟ=     | p     | global smartparens                                                   |
+| ~SPC t s~   | =ⓢ=     | s     | syntax checking (flycheck)                                           |
+| ~SPC t S~   | =Ⓢ=     | S     | enabled in [[../layers/spell-checking][spell checking layer]] (flyspell)                           |
+| ~SPC t w~   | =ⓦ=     | w     | whitespace mode                                                      |
+| ~SPC t C-w~ | =ⓦ=     | w     | global whitespace                                                    |
+| ~SPC t W~   | =Ⓦ=     | W     | automatic whitespace cleanup (see =dotspacemacs-whitespace-cleanup=) |
+| ~SPC t C-W~ | =Ⓦ=     | W     | automatic whitespace cleanup globally                                |
+| ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
 
 **** Customizing the mode-line
 Spacemacs uses [[https://github.com/TheBB/spaceline][Spaceline]] to provide its mode-line. It consists of a number of
@@ -1503,7 +1507,8 @@ thusly:
 | ~SPC h d K~ | describe a keymap                                         |
 | ~SPC h d l~ | copy last pressed keys that you can paste in gitter chat  |
 | ~SPC h d m~ | describe current modes                                    |
-| ~SPC h d p~ | describe a package                                        |
+| ~SPC h d p~ | describe a package (Emacs built-in function)              |
+| ~SPC h d P~ | describe a package (Spacemacs layer information)          |
 | ~SPC h d s~ | copy system information that you can paste in gitter chat |
 | ~SPC h d t~ | describe a theme                                          |
 | ~SPC h d v~ | describe a variable                                       |
@@ -1749,6 +1754,7 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w D~              | delete another window using [[https://github.com/abo-abo/ace-window][ace-delete-window]]                               |
 | ~SPC w t~              | toggle window dedication (dedicated window cannot be reused by a mode)      |
 | ~SPC w f~              | toggle follow mode                                                          |
+| ~SPC w F~              | create new frame                                                            |
 | ~SPC w h~              | move to window on the left                                                  |
 | ~SPC w H~              | move window to the left                                                     |
 | ~SPC w j~              | move to window below                                                        |
@@ -2835,12 +2841,12 @@ To search in a project see [[Searching in a project][project searching]].
 | ~SPC p p~   | switch project                                          |
 | ~SPC p r~   | open a recent file                                      |
 | ~SPC p R~   | replace a string                                        |
-| ~SPC p s~   | see [[Searching in a project][search in project]]                                   |
 | ~SPC p t~   | open =NeoTree= in =projectile= root                     |
 | ~SPC p T~   | test project                                            |
 | ~SPC p v~   | open project root in =vc-dir= or =magit=                |
 | ~SPC p y~   | find tags                                               |
 | ~SPC /~     | search in project with the best search tool available   |
+| ~SPC s p~   | see [[Searching in a project][search in project]]                                   |
 | ~SPC s a p~ | run =ag=                                                |
 | ~SPC s g p~ | run =grep=                                              |
 | ~SPC s k p~ | run =ack=                                               |
@@ -2890,10 +2896,10 @@ Spacemacs binds a few commands to support compiling a project.
    |-------------+--------------------------------|
    | ~SPC c c~   | use =helm-make= via projectile |
    | ~SPC c C~   | compile                        |
+   | ~SPC c d~   | close compilation window       |
    | ~SPC c k~   | kill compilation               |
    | ~SPC c m~   | =helm-make=                    |
    | ~SPC c r~   | recompile                      |
-   | ~SPC c q~   | close compilation window       |
 
 ** Modes
 *** Major Mode leader key

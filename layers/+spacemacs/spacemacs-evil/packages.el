@@ -12,6 +12,7 @@
 (setq spacemacs-evil-packages
       '(evil-anzu
         evil-args
+        evil-ediff
         evil-exchange
         evil-iedit-state
         evil-indent-plus
@@ -24,12 +25,17 @@
         evil-matchit
         evil-numbers
         evil-search-highlight-persist
+        evil-surround
         ;; Temporarily disabled, pending the resolution of
         ;; https://github.com/7696122/evil-terminal-cursor-changer/issues/8
         (evil-terminal-cursor-changer :excluded t)
         evil-tutor
         (evil-unimpaired :location local)
-        evil-visual-mark-mode))
+        evil-visual-mark-mode
+        (hs-minor-mode :location built-in)
+        linum-relative
+        vi-tilde-fringe
+        ))
 
 (defun spacemacs-evil/init-evil-anzu ()
   (use-package evil-anzu
@@ -62,6 +68,11 @@
       (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
       (define-key evil-outer-text-objects-map "a" 'evil-outer-arg))))
 
+(defun spacemacs-evil/init-evil-ediff ()
+  (use-package evil-ediff
+    :after (ediff)
+    :if (memq dotspacemacs-editing-style '(hybrid vim))))
+
 (defun spacemacs-evil/init-evil-exchange ()
   (use-package evil-exchange
     :init (evil-exchange-install)))
@@ -91,7 +102,14 @@
 
 (defun spacemacs-evil/init-evil-mc ()
   (use-package evil-mc
-    :defer t))
+    :defer t
+    :init
+    ;; remove emc prefix when there is not multiple cursors
+    (setq evil-mc-mode-line
+          `(:eval (when (> (evil-mc-get-cursor-count) 1)
+                    (format ,(propertize " %s:%d" 'face 'cursor)
+                            evil-mc-mode-line-prefix
+                            (evil-mc-get-cursor-count)))))))
 
 ;; other commenting functions in funcs.el with keybinds in keybindings.el
 (defun spacemacs-evil/init-evil-nerd-commenter ()
@@ -199,6 +217,16 @@
                             :foreground nil))
       (spacemacs/adaptive-evil-highlight-persist-face))))
 
+(defun spacemacs-evil/init-evil-surround ()
+  (use-package evil-surround
+    :init
+    (progn
+      (global-evil-surround-mode 1)
+      ;; `s' for surround instead of `substitute'
+      ;; see motivation for this change in the documentation
+      (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region)
+      (evil-define-key 'visual evil-surround-mode-map "S" 'evil-substitute))))
+
 (defun spacemacs-evil/init-evil-terminal-cursor-changer ()
   (use-package evil-terminal-cursor-changer
     :if (not (display-graphic-p))
@@ -286,8 +314,6 @@
   (define-key evil-normal-state-map (kbd "[ l") 'spacemacs/previous-error)
   (define-key evil-normal-state-map (kbd "] q") 'spacemacs/next-error)
   (define-key evil-normal-state-map (kbd "[ q") 'spacemacs/previous-error)
-  (define-key evil-normal-state-map (kbd "[ h") 'diff-hl-previous-hunk)
-  (define-key evil-normal-state-map (kbd "] h") 'diff-hl-next-hunk)
   (define-key evil-normal-state-map (kbd "[ t") 'evil-unimpaired/previous-frame)
   (define-key evil-normal-state-map (kbd "] t") 'evil-unimpaired/next-frame)
   (define-key evil-normal-state-map (kbd "[ w") 'previous-multiframe-window)
@@ -303,8 +329,45 @@
     :defer t
     :init
     (spacemacs|add-toggle evil-visual-mark-mode
-      :status evil-visual-mark-mode
-      :on (evil-visual-mark-mode)
-      :off (evil-visual-mark-mode -1)
+      :mode evil-visual-mark-mode
       :documentation "Enable evil visual marks mode."
       :evil-leader "t`")))
+
+(defun spacemacs-evil/init-hs-minor-mode ()
+  (add-hook 'prog-mode-hook 'spacemacs//enable-hs-minor-mode))
+
+(defun spacemacs-evil/init-linum-relative ()
+  (use-package linum-relative
+    :commands (linum-relative-toggle linum-relative-on)
+    :init
+    (progn
+      (when (eq dotspacemacs-line-numbers 'relative)
+        (linum-relative-on))
+      (spacemacs/set-leader-keys "tr" 'linum-relative-toggle))
+    :config
+    (progn
+      (setq linum-relative-current-symbol ""))))
+
+(defun spacemacs-evil/init-vi-tilde-fringe ()
+  (spacemacs|do-after-display-system-init
+   (use-package vi-tilde-fringe
+     :init
+     (progn
+       (global-vi-tilde-fringe-mode)
+       (spacemacs|add-toggle vi-tilde-fringe
+         :mode global-vi-tilde-fringe-mode
+         :documentation
+         "Globally display a ~ on empty lines in the fringe."
+         :evil-leader "T~")
+       ;; don't enable it on spacemacs home buffer
+       (with-current-buffer spacemacs-buffer-name
+         (spacemacs/disable-vi-tilde-fringe))
+       ;; after a major mode is loaded, check if the buffer is read only
+       ;; if so, disable vi-tilde-fringe-mode
+       (add-hook 'after-change-major-mode-hook
+                 'spacemacs/disable-vi-tilde-fringe-read-only)
+       ;; TODO move this hook if/when we have a layer for eww
+       (spacemacs/add-to-hooks 'spacemacs/disable-vi-tilde-fringe
+                               '(eww-mode-hook)))
+     :config
+     (spacemacs|hide-lighter vi-tilde-fringe-mode))))

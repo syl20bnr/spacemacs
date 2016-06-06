@@ -14,7 +14,8 @@
    - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
      - [[#in-configel][In =config.el=]]
      - [[#in-packagesel][In =packages.el=]]
- - [[#key-bindings][Key Bindings]]
+   - [[#improved-faces][Improved faces]]
+ - [[#key-bindings-1][Key Bindings]]
    - [[#company][Company]]
    - [[#auto-complete][Auto-complete]]
    - [[#yasnippet][Yasnippet]]
@@ -154,24 +155,30 @@ Here is an example to add =company= auto-completion to python buffer:
   (setq python-packages
     '(...
       company
-      company-anaconda
+      (company-anaconda :toggle (configuration-layer/package-usedp 'company'))
       ...))
 
-  ;; Configure the packages
-  (when (configuration-layer/layer-usedp 'auto-completion)
+  ;; Hook company to python-mode
+  (defun python/post-init-company ()
+    (spacemacs|add-company-hook python-mode))
 
-    ;; Hook company to python-mode
-    (defun python/post-init-company ()
-      (spacemacs|add-company-hook python-mode))
-
-    ;; Add the backend to the major-mode specific backend list
-    (defun python/init-company-anaconda ()
-      (use-package company-anaconda
-        :if (configuration-layer/package-usedp 'company)
-        :defer t
-        :init (push 'company-anaconda company-backends-python-mode))))
+  ;; Add the backend to the major-mode specific backend list
+  (defun python/init-company-anaconda ()
+    (use-package company-anaconda
+      :defer t
+      :init (push 'company-anaconda company-backends-python-mode)))
 #+END_SRC
 
+** Improved faces
+For nicer-looking faces, try adding the following to `custom-set-faces` in your dotspacemacs file.
+
+#+BEGIN_SRC emacs-lisp
+(custom-set-faces
+ '(company-tooltip-common
+   ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection
+   ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+#+END_SRC
 * Key Bindings
 ** Company
 

@@ -15,8 +15,8 @@
         ac-ispell
         company
         company-statistics
-        helm-company
-        helm-c-yasnippet
+        (helm-company :toggle (configuration-layer/package-usedp 'helm))
+        (helm-c-yasnippet :toggle (configuration-layer/package-usedp 'helm))
         hippie-exp
         yasnippet
         auto-yasnippet
@@ -102,12 +102,6 @@
       ;; ensure that the correct bindings are set at startup
       (spacemacs//company-active-navigation dotspacemacs-editing-style)
 
-      ;; Nicer looking faces
-      (custom-set-faces
-       '(company-tooltip-common
-         ((t (:inherit company-tooltip :weight bold :underline nil))))
-       '(company-tooltip-common-selection
-         ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
       (setq company-transformers '(spacemacs//company-transformer-cancel
                                    company-sort-by-occurrence)))))
 
@@ -131,23 +125,21 @@
       (with-eval-after-load 'company
         (setq company-frontends (delq 'company-echo-metadata-frontend company-frontends))))))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun auto-completion/init-helm-c-yasnippet ()
-    (use-package helm-c-yasnippet
-      :defer t
-      :init
-      (progn
-        (spacemacs/set-leader-keys "is" 'spacemacs/helm-yas)
-        (setq helm-c-yas-space-match-any-greedy t)))))
+(defun auto-completion/init-helm-c-yasnippet ()
+  (use-package helm-c-yasnippet
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys "is" 'spacemacs/helm-yas)
+      (setq helm-c-yas-space-match-any-greedy t))))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun auto-completion/init-helm-company ()
-    (use-package helm-company
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init
-      (with-eval-after-load 'company
-        (define-key company-active-map (kbd "C-/") 'helm-company)))))
+(defun auto-completion/init-helm-company ()
+  (use-package helm-company
+    :if (configuration-layer/package-usedp 'company)
+    :defer t
+    :init
+    (with-eval-after-load 'company
+      (define-key company-active-map (kbd "C-/") 'helm-company))))
 
 (defun auto-completion/init-hippie-exp ()
   ;; replace dabbrev-expand
@@ -231,9 +223,7 @@
                                                           markdown-mode-hook
                                                           org-mode-hook))
       (spacemacs|add-toggle yasnippet
-        :status yas-minor-mode
-        :on (yas-minor-mode)
-        :off (yas-minor-mode -1)
+        :mode yas-minor-mode
         :documentation "Enable snippets."
         :evil-leader "ty")
 

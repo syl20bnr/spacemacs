@@ -207,7 +207,8 @@
     :init
     (progn
       (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
-      (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode)))
+      ;; This regexp matches shebang expressions like `#!/usr/bin/env boot'
+      (add-to-list 'magic-mode-alist '("#!.*boot\\s-*$" . clojure-mode)))
     :config
     (progn
       (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
@@ -234,13 +235,11 @@
   (unless (version< emacs-version "24.4")
     (add-hook 'cider-mode-hook 'subword-mode)))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun clojure/post-init-company ()
-    (push 'company-capf company-backends-cider-mode)
-    (spacemacs|add-company-hook cider-mode)
-
-    (push 'company-capf company-backends-cider-repl-mode)
-    (spacemacs|add-company-hook cider-repl-mode)))
+(defun clojure/post-init-company ()
+  (push 'company-capf company-backends-cider-mode)
+  (spacemacs|add-company-hook cider-mode)
+  (push 'company-capf company-backends-cider-repl-mode)
+  (spacemacs|add-company-hook cider-repl-mode))
 
 (defun clojure/init-clojure-snippets ()
   (use-package clojure-snippets

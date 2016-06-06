@@ -32,6 +32,7 @@
     dakrone-theme
     darkburn-theme
     darkmine-theme
+    darkokai-theme
     darktooth-theme
     django-theme
     dracula-theme
@@ -108,6 +109,9 @@
     zonokai-theme
     ))
 
-;; programmatically defin the init functions
+;; define programmatically the init functions
 (dolist (pkg themes-megapack-packages)
   (eval `(defun ,(intern (format "themes-megapack/init-%S" pkg)) nil)))
+
+(defun themes-megapack/init-darkokai-theme ()
+  (setq darkokai-mode-line-padding 1))

@@ -13,6 +13,7 @@
       '(
         diff-mode
         diff-hl
+        evil-unimpaired
         git-gutter
         git-gutter+
         git-gutter-fringe
@@ -39,9 +40,13 @@
           (setq diff-hl-side 'left)
           (diff-hl-margin-mode))))))
 
+(defun version-control/post-init-evil-unimpaired ()
+  (define-key evil-normal-state-map (kbd "[ h") 'version-control/previous-hunk)
+  (define-key evil-normal-state-map (kbd "] h") 'version-control/next-hunk))
+
 (defun version-control/init-git-gutter ()
   (use-package git-gutter
-    :commands global-git-gutter-mode
+    :commands (global-git-gutter-mode git-gutter-mode)
     :init
     (progn
       ;; If you enable global minor mode
@@ -100,7 +105,7 @@
 
 (defun version-control/init-git-gutter+ ()
   (use-package git-gutter+
-    :commands global-git-gutter+-mode
+    :commands (global-git-gutter+-mode git-gutter+-mode)
     :init
     (progn
       ;; If you enable global minor mode

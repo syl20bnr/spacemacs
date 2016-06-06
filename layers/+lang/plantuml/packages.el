@@ -20,7 +20,7 @@
 (defun plantuml/init-puml-mode ()
   (use-package puml-mode
     :defer t
-    :mode ("\\.pum$" . puml-mode)
+    :mode ("\\.pum\\'" . puml-mode)
     :config (spacemacs/set-leader-keys-for-major-mode 'puml-mode
               "cc" 'puml-preview
               "co" 'puml-set-output-type)))

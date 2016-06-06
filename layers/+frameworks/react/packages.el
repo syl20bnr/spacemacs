@@ -22,12 +22,11 @@
         web-mode
         ))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun react/post-init-company ()
-    (spacemacs|add-company-hook react-mode))
+(defun react/post-init-company ()
+  (spacemacs|add-company-hook react-mode))
 
-  (defun react/post-init-company-tern ()
-    (push 'company-tern company-backends-react-mode)))
+(defun react/post-init-company-tern ()
+  (push 'company-tern company-backends-react-mode))
 
 (defun react/post-init-evil-matchit ()
   (with-eval-after-load 'evil-matchit
@@ -37,7 +36,22 @@
 
 (defun react/post-init-flycheck ()
   (with-eval-after-load 'flycheck
-    (flycheck-add-mode 'javascript-eslint 'react-mode))
+    (dolist (checker '(javascript-eslint javascript-standard))
+      (flycheck-add-mode checker 'react-mode)))
+  (defun react/use-eslint-from-node-modules ()
+    (let* ((root (locate-dominating-file
+                  (or (buffer-file-name) default-directory)
+                  "node_modules"))
+           (global-eslint (executable-find "eslint"))
+           (local-eslint (expand-file-name "node_modules/.bin/eslint"
+                                           root))
+           (eslint (if (file-executable-p local-eslint)
+                       local-eslint
+                     global-eslint)))
+      (setq-local flycheck-javascript-eslint-executable eslint)))
+
+  (add-hook 'react-mode-hook #'react/use-eslint-from-node-modules)
+
   (spacemacs/add-flycheck-hook 'react-mode))
 
 (defun react/post-init-js-doc ()
@@ -49,7 +63,28 @@
       (add-hook 'react-mode-hook #'smartparens-strict-mode)
     (add-hook 'react-mode-hook #'smartparens-mode)))
 
-(defun react/post-init-tern ()
+(defun react/init-tern ()
+  (defun react//tern-detect ()
+    "Detect tern binary and warn if not found."
+    (let ((found (executable-find "tern")))
+      (unless found
+        (spacemacs-buffer/warning "tern binary not found!"))
+      found))
+  (use-package tern
+    :defer t
+    :if (react//tern-detect)
+    :init (add-hook 'react-mode-hook 'tern-mode)
+    :config
+    (progn
+      (when javascript-disable-tern-port-files
+        (add-to-list 'tern-command "--no-port-file" 'append))
+      (spacemacs/set-leader-keys-for-major-mode 'react-mode "rrV" 'tern-rename-variable)
+      (spacemacs/set-leader-keys-for-major-mode 'react-mode "hd" 'tern-get-docs)
+      (spacemacs/set-leader-keys-for-major-mode 'react-mode "ht" 'tern-get-type)
+      (spacemacs/set-leader-keys-for-major-mode 'react-mode "gg" 'tern-find-definition)
+      (spacemacs/set-leader-keys-for-major-mode 'react-mode "gG" 'tern-find-definition-by-name)
+      (spacemacs/set-leader-keys-for-major-mode 'react-mode (kbd " C-g") 'tern-pop-find-definition)
+      (spacemacs/set-leader-keys-for-major-mode 'react-mode "ht" 'tern-get-type)))
   (add-hook 'react-mode-hook 'tern-mode))
 
 (defun react/post-init-web-beautify ()
@@ -73,9 +108,5 @@
     ;; Force jsx content type
     (web-mode-set-content-type "jsx")
     ;; Don't auto-quote attribute values
-    (setq-local web-mode-enable-auto-quoting nil)
-    ;; Why do we do this ?
-    (defadvice web-mode-highlight-part (around tweak-jsx activate)
-      (let ((web-mode-enable-part-face nil))
-        ad-do-it)))
+    (setq-local web-mode-enable-auto-quoting nil))
   (add-hook 'react-mode-hook 'spacemacs//setup-react-mode))

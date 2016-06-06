@@ -136,7 +136,7 @@ is nil.
 | ~SPC m x f u~ | use upright font                           |
 
 ** Folding
-Available only when =latex-enable-auto-fill= is non nil.
+Available only when =latex-enable-folding= is non nil.
 
 | Key Binding | Description          |
 |-------------+----------------------|

@@ -8,11 +8,13 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
+
 (defun asm-generic-setup ()
   (setq indent-tabs-mode nil) ; use spaces to indent
-  (setq tab-stop-list (number-sequence 2 60 2)) ; 2 spaces per tab
-  (electric-indent-mode -1)
-  (company-mode 1))
+  (setq tab-stop-list (number-sequence 2 60 2))) ; 2 spaces per tab
+
+(defun asm-electric-indent-local-mode-off ()
+  (electric-indent-local-mode -1))
 
 ;; when we press ':' character, it runs `asm-colon' command in asm-mode.
 ;; The command automatically removes the indentation ofcurrent line, since

@@ -48,8 +48,10 @@ in =dotspacemacs/user-config=.
 | Key Binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC e c~   | clear errors                                                 |
+| ~SPC e h~   | describe flycheck checker                                    |
 | ~SPC e l~   | display a list of all the errors                             |
 | ~SPC e L~   | display a list of all the errors and focus the errors buffer |
 | ~SPC e s~   | set flycheck checker                                         |
 | ~SPC e S~   | set flycheck checker executable                              |
+| ~SPC e v~   | verify flycheck setup                                        |
 | ~SPC t s~   | toggle flycheck                                              |

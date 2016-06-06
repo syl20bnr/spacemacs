@@ -21,6 +21,7 @@
    - [[#typing-quickly-fd-takes-me-out-of-insert-state-what-is-going-on][Typing quickly =fd= takes me out of =insert state=. What is going on?]]
    - [[#why-do-i-get-files-starting-with-][Why do I get files starting with .#?]]
    - [[#why-do-i-get-4m-characters-inside-ansi-term][Why do I get '4m' characters inside ansi-term?]]
+   - [[#why-are-my-font-settings-not-being-respected][Why are my font settings not being respected?]]
  - [[#how-do-i][How do I:]]
    - [[#install-a-package-not-provided-by-a-layer][Install a package not provided by a layer?]]
    - [[#disable-a-package-completely][Disable a package completely?]]
@@ -55,9 +56,20 @@ may also just type ~SPC f e v~.
 As it is written, that is _space_ then _macs_.
 
 ** Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?
-To declare new packages you have to create a new configuration layer or add the
-package name to the variable =dotspacemacs-additonal-packages= of your dotfile,
-see the [[file:QUICK_START.org][quick start guide]] for more info.
+By default Spacemacs will keep only the packages that you use (i.e. the packages
+belonging to a layer explicitly listed in the variable
+=dotspacemacs-configuration-layers=).
+
+To install packages that does not belong to any Spacemacs layers, you can:
+
+- use the variable =dotspacemacs-additonal-packages=.
+- or create a configuration layer configuring the package and add this layer to
+  =dotspacemacs-configuration-layers=
+- or set the variable =dotspacemacs-download-packages= to =used-but-keep-unused=
+  which will prevent Spacemacs from removing the packages you installed
+  manually.
+
+To create a new configuration layer see the [[file:QUICK_START.org][quick start guide]] for more info.
 
 ** How to fix package download errors when installing Spacemacs ?
 Since 0.105.0 HTTPS protocol is used by default to download packages. If your
@@ -205,6 +217,12 @@ the =~/.terminfo= yourself.
 tic -o ~/.terminfo $TERMINFO/e/eterm-color.ti
 #+END_SRC
 
+** Why are my font settings not being respected?
+The settings of =dotspacemacs-default-font= (such as size, weight, etc.) will
+only be applied if the name of the font exists on your system. Check to make
+sure that this is the case. If Spacemacs can't find the font, there should be a
+warning to this effect in the =*Messages*= buffer.
+
 * How do I:
 ** Install a package not provided by a layer?
 Spacemacs provides a variable in the =dotspacemacs/layers= function in
@@ -259,7 +277,7 @@ Examples:
 #+END_SRC
 
 ** Enable navigation by visual lines?
-Add the following snippet to your =dostpacemacs/config= function:
+Add the following snippet to your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
 ;; Make evil-mode up/down operate in screen lines instead of logical lines
@@ -451,7 +469,7 @@ enable copying/pasting with the mouse. You need to add this line to your
 
 ** Use =helm-ag= to search only in files of a certain type?
 It is possible to restrict the scope of =helm-ag= to search only expressions in
-some specified file types. There is two way of doing this, both by appending
+some specified file types. There are two ways of doing this, both by appending
 some expressions to the search input:
 
 - By using a regexp with =-G=, for instance =-G\.el$= will look for all files

@@ -20,7 +20,5 @@
     (progn
       (setq evil-cleverparens-use-regular-insert t)
       (spacemacs|add-toggle evil-cleverparens
-        :status evil-cleverparens-mode
-        :on  (evil-cleverparens-mode)
-        :off (evil-cleverparens-mode -1)
+        :mode evil-cleverparens-mode
         :documentation "Enable evil-cleverparens."))))

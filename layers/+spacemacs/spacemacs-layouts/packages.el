@@ -82,7 +82,7 @@
                 #'spacemacs/update-eyebrowse-for-perspective)
       (add-hook 'eyebrowse-post-window-switch-hook
                 #'spacemacs/save-eyebrowse-for-perspective)
-      (add-hook 'persp-activated-hook
+      (add-hook 'persp-activated-functions
                 #'spacemacs/load-eyebrowse-for-perspective)
       ;; vim-style tab switching
       (define-key evil-motion-state-map "gt" 'eyebrowse-next-window-config)
@@ -108,9 +108,18 @@
             persp-reset-windows-on-nil-window-conf nil
             persp-set-last-persp-for-new-frames nil
             persp-save-dir spacemacs-layouts-directory)
-      ;; always activate persp-mode
-      (persp-mode)
+
+      (defun spacemacs//activate-persp-mode ()
+        "Always activate persp-mode, unless it is already active.
+ (e.g. don't re-activate during `dotspacemacs/sync-configuration-layers' -
+ see issues #5925 and #3875)"
+        (unless (bound-and-true-p persp-mode)
+          (persp-mode)))
+      (spacemacs/defer-until-after-user-config #'spacemacs//activate-persp-mode)
+
       ;; layouts transient state
+      ;; TODO move helm specific key bindings to helm layer
+      ;;      (see ivy for how to do it)
       (spacemacs|transient-state-format-hint layouts
         spacemacs--layouts-ts-full-hint
         "\n\n

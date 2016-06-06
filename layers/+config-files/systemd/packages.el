@@ -16,12 +16,10 @@
 (defun systemd/init-systemd ()
   (use-package systemd
     :defer t
-    :init
-    (when (configuration-layer/package-usedp 'company)
-      (setq systemd-use-company-p t))
-    :config
-    (spacemacs/set-leader-keys-for-major-mode 'systemd-mode
-      "hd" 'systemd-doc-directives
-      "ho" 'systemd-doc-open)))
+    :init (setq systemd-use-company-p
+                (configuration-layer/package-usedp 'company))
+    :config (spacemacs/set-leader-keys-for-major-mode 'systemd-mode
+              "hd" 'systemd-doc-directives
+              "ho" 'systemd-doc-open)))
 
 ;;; packages.el ends here

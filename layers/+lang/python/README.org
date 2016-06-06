@@ -51,12 +51,26 @@ Both =nose= and =pytest= are supported. By default =nose= is used.
 To choose your test runner set the layer variable =python-test-runner= to
 either =nose= or =pytest=.
 
-The root of the project is detected with a =.git= directory or a =setup.cfg= file.
-
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
   '((python :variables python-test-runner 'pytest)))
 #+END_SRC
+
+If you need both then you can set =python-test-runner= to a list like this:
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((python :variables python-test-runner '(pytest nose))))
+#+END_SRC
+
+This means that =pytest= is your primary test runner. To use the secondary test
+runner you can call the test functions with a prefix argument e.g. ~SPC u SPC m
+t t~ to run one test with =nose=.
+
+To set project specific test runners you can set =python-test-runner= in a
+directory local variable in your project root. ~SPC f v d~ in Spacemacs. See
+[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html][the official documentation]] for more information.
+
+The root of the project is detected with a =.git= directory or a =setup.cfg= file.
 
 ** Anaconda dependencies
 =anaconda-mode= tries to install the dependencies itself but sometimes
@@ -180,7 +194,8 @@ modules.
 compilation command.
 
 ** Testing
-Test commands start with ~m t~:
+Test commands start with ~m t~. To use the secondary test runner call the
+function with a prefix argument, for example ~SPC u SPC m t a~.
 
 | No Debug    | Description                                              |
 |-------------+----------------------------------------------------------|
