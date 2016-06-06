@@ -60,6 +60,9 @@
         ;; oracle
         "ht" 'elm-oracle-type-at-point
 
+        ;; refactoring
+        "ri" 'elm-sort-imports
+
         ;; repl
         "'"  'elm-repl-load
         "si" 'elm-repl-load
@@ -81,6 +84,7 @@
                    ("mc" . "compile")
                    ("mh" . "help")
                    ("mp" . "package")
+                   ("mr" . "refactor")
                    ("ms" . "repl")))
         (spacemacs/declare-prefix-for-mode 'elm-mode (car x) (cdr x)))
 
