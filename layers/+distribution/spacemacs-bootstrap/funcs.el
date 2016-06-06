@@ -34,6 +34,13 @@
                   evil-state)))
     (spacemacs/state-color-face state)))
 
+(defun spacemacs/set-state-faces ()
+  (cl-loop for (state color cursor) in spacemacs-evil-cursors
+           do
+           (set-face-attribute (intern (format "spacemacs-%s-face" state))
+                               nil
+                               :foreground (face-background 'mode-line))))
+
 (defun evil-insert-state-cursor-hide ()
   (setq evil-insert-state-cursor '((hbar . 0))))
 
