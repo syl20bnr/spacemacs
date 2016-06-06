@@ -20,7 +20,8 @@
    - [[#elm-reactor][elm-reactor]]
    - [[#elm-package][elm-package]]
      - [[#package-list-buffer][package list buffer]]
-   - [[#elm-oracle][elm-oracle]]
+   - [[#elm-oracle-1][elm-oracle]]
+   - [[#refactoring][Refactoring]]
 
 * Description
 This layer adds support for [[http://elm-lang.org][Elm]].
@@ -164,3 +165,8 @@ can be controlled by passing in these variables in your =~/.spacemacs=:
 |-------------+--------------------------|
 | ~SPC m h t~ | elm-oracle-type-at-point |
 
+** Refactoring
+
+| Key Binding | Description      |
+|-------------+------------------|
+| ~SPC m r i~ | elm-sort-imports |
