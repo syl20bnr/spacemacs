@@ -68,3 +68,71 @@ when this mode is enabled since the minibuffer is cleared all the time."
 (defun spacemacs//python-imenu-create-index-use-semantic ()
   "Use semantic if the layer is enabled."
   (setq imenu-create-index-function 'semantic-create-imenu-index))
+
+(defun python-get-main-testrunner ()
+  "Get the main test runner."
+  (if (listp python-test-runner) (car python-test-runner) python-test-runner))
+
+(defun python-get-secondary-testrunner ()
+  "Get the secondary test runner"
+  (cdr (assoc (python-get-main-testrunner) '((pytest . nose)
+                                             (nose . pytest)))))
+
+(defun python-call-correct-test-function (arg funcalist)
+  "Call a test function based on the chosen test framework.
+ARG is the universal-argument which chooses between the main and
+the secondary test runner. FUNCALIST is an alist of the function
+to be called for each testrunner. "
+  (let ((test-runner (if arg
+                         (python-get-secondary-testrunner)
+                       (python-get-main-testrunner))))
+    (funcall (cdr (assoc test-runner funcalist)))))
+
+(defun python-test-all (arg)
+  "Run all tests."
+  (interactive "P")
+  (python-call-correct-test-function arg '((pytest . pytest-all)
+                                           (nose . nosetests-all))))
+
+(defun python-test-pdb-all (arg)
+  "Run all tests in debug mode."
+  (interactive "P")
+  (python-call-correct-test-function arg '((pytest . pytest-pdb-all)
+                                           (nose . nosetests-pdb-all))))
+
+(defun python-test-module (arg)
+  "Run all tests in the current module."
+  (interactive "P")
+  (python-call-correct-test-function arg '((pytest . pytest-module)
+                                           (nose . nosetests-module))))
+
+(defun python-test-pdb-module (arg)
+  "Run all tests in the current module in debug mode."
+  (interactive "P")
+  (python-call-correct-test-function arg '((pytest . pytest-pdb-module)
+                                           (nose . nosetests-pdb-module))))
+
+(defun python-test-one (arg)
+  "Run current test."
+  (interactive "P")
+  (python-call-correct-test-function arg '((pytest . pytest-one)
+                                           (nose . nosetests-one))))
+
+(defun python-test-pdb-one (arg)
+  "Run current test in debug mode."
+  (interactive "P")
+  (python-call-correct-test-function arg '((pytest . pytest-pdb-one)
+                                           (nose . nosetests-pdb-one))))
+
+(defun spacemacs//bind-python-testing-keys ()
+  "Bind the keys for testing in Python."
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode
+    "tA" 'python-test-pdb-all
+    "ta" 'python-test-all
+    "tB" 'python-test-pdb-module
+    "tb" 'python-test-module
+    "tT" 'python-test-pdb-one
+    "tt" 'python-test-one
+    "tM" 'python-test-pdb-module
+    "tm" 'python-test-module)
+  (spacemacs/declare-prefix-for-mode 'python-mode "mt" "test"))
