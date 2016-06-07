@@ -25,4 +25,4 @@
   (let ((enabled (cdr (assq 'elixir-enable-compilation-checking
                             file-local-variables-alist))))
     (when (or enabled elixir-enable-compilation-checking)
-      (elixir-flycheck-mix-compile-setup))))
+      (flycheck-mix-setup))))
