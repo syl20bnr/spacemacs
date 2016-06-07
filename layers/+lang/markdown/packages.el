@@ -19,6 +19,7 @@
     markdown-toc
     mmm-mode
     smartparens
+    vmd-mode
     ))
 
 (defun markdown/post-init-company ()
@@ -216,3 +217,13 @@ Will work on both org-mode and any mode that accepts plain html."
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-javascript)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ess)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-rust))))
+
+(defun markdown/init-vmd-mode ()
+  (use-package vmd-mode
+    :if (executable-find "vmd")
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
+        ;; Github-flavored live preview in a separate window
+        "cd" 'vmd-mode))))
