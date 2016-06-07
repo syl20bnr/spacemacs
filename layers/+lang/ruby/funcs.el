@@ -11,6 +11,7 @@
 
 
 ;; rbenv
+
 (defun spacemacs//enable-rbenv ()
   "Enable rbenv, use .ruby-version if exists."
   (require 'rbenv)
@@ -27,6 +28,11 @@
 
 
 ;; rspec
+
+(defun spacemacs//ruby-enable-rspec-mode ()
+  "Conditionally enable `rspec-mode'"
+  (when (eq 'rspec ruby-test-runner)
+    (rspec-enable-appropriate-mode)))
 
 (defun ruby/rspec-verify-directory (dir)
   "Launch tests in DIR directory.

@@ -123,8 +123,16 @@
 (defun ruby/init-rspec-mode ()
   (use-package rspec-mode
     :defer t
-    ;; there is no :init block to add the hooks since rspec-mode
-    ;; setup the hook via an autoload
+    :init
+    (progn
+      (spacemacs/add-to-hooks
+       'spacemacs//ruby-enable-rspec-mode '(ruby-mode-hook
+                                            enh-ruby-mode-hook))
+      ;; remove hooks automatically added by rspec via autoload
+      ;; because we want to be able to control when rspec-mode is
+      ;; loaded based on the layer variable `ruby-test-runner'
+      (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+        (remove-hook hook 'rspec-enable-appropriate-mode)))
     :config
     (progn
       (add-hook 'rspec-compilation-mode-hook 'spacemacs//inf-ruby-auto-enter)
@@ -193,6 +201,10 @@
                                                     enh-ruby-mode-hook))
     :config
     (progn
+      ;; `ruby-test-mode' adds a hook to enable itself, this hack
+      ;; removes it to be sure that we control the loading of the
+      ;; mode
+      (remove-hook 'ruby-mode-hook 'ruby-test-enable)
       (spacemacs|hide-lighter ruby-test-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
