@@ -26,6 +26,7 @@
         (hi-lock :location built-in)
         (holy-mode :location local :step pre)
         (hybrid-mode :location local :step pre)
+        (image-mode :location built-in)
         (linum :location built-in)
         (package-menu :location built-in)
         ;; page-break-lines is shipped with spacemacs core
@@ -188,6 +189,11 @@
         :documentation "Globally toggle hybrid mode."
         :evil-leader "tEh")
       (spacemacs|diminish hybrid-mode " Ⓔh" " Eh"))))
+
+(defun spacemacs-base/init-image-mode ()
+  (use-package image-mode
+    :config (evilified-state-evilify-map image-mode-map
+              :mode image-mode)))
 
 (defun spacemacs-base/init-linum ()
   (when dotspacemacs-line-numbers
