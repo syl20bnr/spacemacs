@@ -13,11 +13,9 @@
   '(
     alchemist
     company
-    (elixir-flycheck-mix-compile
-     :location local
-     :toggle (configuration-layer/package-usedp 'flycheck))
     elixir-mode
     flycheck
+    flycheck-mix
     popwin
     smartparens
     ))
@@ -117,9 +115,9 @@
       (evil-define-key 'normal mode
         (kbd "q") 'quit-window))))
 
-(defun elixir/init-elixir-flycheck-mix-compile ()
-  (use-package elixir-flycheck-mix-compile
-    :commands (elixir-flycheck-mix-compile-setup)
+(defun elixir/init-flycheck-mix ()
+  (use-package flycheck-mix
+    :commands (flycheck-mix-setup)
     :init
     (progn
       (add-to-list 'safe-local-variable-values
@@ -127,13 +125,7 @@
       (add-to-list 'safe-local-variable-values
                    (cons 'elixir-enable-compilation-checking t))
       (add-hook 'elixir-mode-hook
-                'spacemacs//elixir-enable-compilation-checking t))
-    :config
-    ;; enable mix_compile_helper executable
-    (let ((layer-path (configuration-layer/get-layer-path 'elixir)))
-      (add-to-list 'exec-path
-                   (concat layer-path
-                           "elixir/local/elixir-flycheck-mix-compile")))))
+                'spacemacs//elixir-enable-compilation-checking t))))
 
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
