@@ -15,6 +15,7 @@
         (counsel-projectile :toggle (configuration-layer/package-usedp 'projectile))
         evil
         flx
+        helm-make
         ivy
         ivy-hydra
         (ivy-spacemacs-help :location local)
@@ -114,6 +115,16 @@
           ("f" spacemacs/search-auto-region-or-symbol :exit t))))
 
 (defun ivy/init-flx ())
+
+(defun ivy/init-helm-make ()
+  (use-package helm-make
+    :defer t
+    :init
+    (progn
+      (setq helm-make-completion-method 'ivy)
+      (spacemacs/set-leader-keys
+        "cc" 'helm-make-projectile
+        "cm" 'helm-make))))
 
 (defun ivy/init-ivy ()
   (use-package ivy
