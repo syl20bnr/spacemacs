@@ -33,3 +33,17 @@
       (evilified-state-evilify jabber-roster-mode jabber-roster-mode-map
         "j" 'jabber-go-to-next-roster-item
         "k" 'jabber-go-to-previous-roster-item))))
+
+(defun jabber/jabber-connect-hook (jc)
+  (jabber-send-presence "" "Online" 10)
+  (jabber-whitespace-ping-start)
+
+  ;; Disable the minibuffer getting jabber messages when active
+  ;; See http://www.emacswiki.org/JabberEl
+  (define-jabber-alert echo "Show a message in the echo area"
+    (lambda (msg)
+      (unless (minibuffer-prompt)
+        (message "%s" msg)))))
+
+(defun jabber/post-init-jabber ()
+  (add-hook 'jabber-post-connect-hooks 'jabber/jabber-connect-hook))
