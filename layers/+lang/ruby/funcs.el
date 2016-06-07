@@ -9,8 +9,35 @@
 ;;
 ;;; License: GPLv3
 
+
+;; rbenv
+(defun spacemacs//enable-rbenv ()
+  "Enable rbenv, use .ruby-version if exists."
+  (require 'rbenv)
+  (let ((version-file-path (rbenv--locate-file ".ruby-version")))
+    (global-rbenv-mode)
+    ;; try to use the ruby defined in .ruby-version
+    (if version-file-path
+        (progn
+          (rbenv-use (rbenv--read-version-from-file
+                      version-file-path))
+          (message (concat "[rbenv] Using ruby version "
+                           "from .ruby-version file.")))
+      (message "[rbenv] Using the currently activated ruby."))))
+
+
+;; rspec
+
 (defun ruby/rspec-verify-directory (dir)
   "Launch tests in DIR directory.
 Called interactively it prompts for a directory."
   (interactive "Drspec directory: ")
   (rspec-run-single-file dir (rspec-core-options)))
+
+
+;; ruby-test
+
+(defun spacemacs//ruby-enable-ruby-test-mode ()
+  "Conditionally enable `ruby-test-mode'"
+  (when (eq 'ruby-test ruby-test-runner)
+    (ruby-test-mode)))
