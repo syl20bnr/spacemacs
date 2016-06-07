@@ -127,9 +127,6 @@
     ;; setup the hook via an autoload
     :config
     (progn
-      (defun spacemacs//inf-ruby-auto-enter ()
-        "Automatically enters inf-ruby-mode in ruby modes' debugger breakpoints."
-        (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter nil t))
       (add-hook 'rspec-compilation-mode-hook 'spacemacs//inf-ruby-auto-enter)
       (spacemacs|hide-lighter rspec-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))

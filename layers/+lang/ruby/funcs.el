@@ -34,6 +34,10 @@ Called interactively it prompts for a directory."
   (interactive "Drspec directory: ")
   (rspec-run-single-file dir (rspec-core-options)))
 
+(defun spacemacs//inf-ruby-auto-enter ()
+  "Automatically enters inf-ruby-mode in ruby modes' debugger breakpoints."
+  (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter nil t))
+
 
 ;; ruby-test
 
