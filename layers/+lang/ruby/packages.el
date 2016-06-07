@@ -147,12 +147,16 @@
     ;; setup the hook via an autoload
     :config
     (progn
+      (defun ruby/rspec-verify-directory (dir)
+        (interactive "Drspec directory: ")
+        (rspec-run-single-file dir (rspec-core-options)))
       (spacemacs|hide-lighter rspec-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
           "ta"    'rspec-verify-all
           "tb"    'rspec-verify
           "tc"    'rspec-verify-continue
+          "td"    'ruby/rspec-verify-directory
           "te"    'rspec-toggle-example-pendingness
           "tf"    'rspec-verify-method
           "tl"    'rspec-run-last-failed
