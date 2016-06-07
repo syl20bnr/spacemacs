@@ -147,6 +147,7 @@ When =ruby-test-runner= equals =rspec=.
 | ~SPC m t a~   | run all specs                                          |
 | ~SPC m t b~   | run current spec file                                  |
 | ~SPC m t c~   | run the current spec file and subsequent ones          |
+| ~SPC m t d~   | run tests in a directory                               |
 | ~SPC m t e~   | mark example as pending                                |
 | ~SPC m t f~   | run method                                             |
 | ~SPC m t l~   | run last failed spec                                   |
