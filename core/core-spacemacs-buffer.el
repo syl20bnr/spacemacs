@@ -746,6 +746,13 @@ border."
                                    (cdr (assoc "text" el)))))
           list)))
 
+(defun spacemacs//subseq (seq start end)
+  "Use `cl-subseq`, but accounting for end points greater than the size of the
+list. Return entire list if `END' is omitted."
+  (let ((len (length seq)))
+    (cl-subseq seq start (and (number-or-marker-p end)
+                              (min len end)))))
+
 (defun spacemacs-buffer/insert-startupify-lists ()
   (interactive)
   (with-current-buffer (get-buffer spacemacs-buffer-name)
@@ -753,44 +760,50 @@ border."
           (list-separator "\n\n"))
       (goto-char (point-max))
       (spacemacs-buffer/insert-page-break)
-      (mapc (lambda (el)
-              (cond
-               ((eq el 'recents)
-                (recentf-mode)
-                (when (spacemacs-buffer//insert-file-list
-                       "Recent Files:"
-                       (recentf-elements dotspacemacs-startup-recent-list-size))
-                  (spacemacs//insert--shortcut "r" "Recent Files:")
-                  (insert list-separator)))
-               ((eq el 'todos)
-                (when (spacemacs-buffer//insert-todo-list
-                       "ToDo:"
-                       (spacemacs-buffer//todo-list))
-                  (spacemacs//insert--shortcut "d" "ToDo:")
-                  (insert list-separator)))
-               ((eq el 'agenda)
-                (when (spacemacs-buffer//insert-todo-list
-                       "Agenda:"
-                       (spacemacs-buffer//agenda-list))
-                  (spacemacs//insert--shortcut "c" "Agenda:")
-                  (insert list-separator)))
-               ((eq el 'bookmarks)
-                (when (configuration-layer/package-usedp 'helm)
-                  (helm-mode))
-                (require 'bookmark)
-                (when (spacemacs-buffer//insert-bookmark-list
-                       "Bookmarks:"
-                       (bookmark-all-names))
-                  (spacemacs//insert--shortcut "b" "Bookmarks:")
-                  (insert list-separator)))
-               ((and (eq el 'projects)
-                     (fboundp 'projectile-mode))
-                (projectile-mode)
-                (when (spacemacs-buffer//insert-file-list
-                       "Projects:"
-                       (projectile-relevant-known-projects))
-                  (spacemacs//insert--shortcut "p" "Projects:")
-                  (insert list-separator))))) dotspacemacs-startup-lists))))
+      (mapc (lambda (els)
+              (let ((el (or (car-safe els) els))
+                    (list-size (cdr-safe els)))
+                (cond
+                 ((eq el 'recents)
+                  (recentf-mode)
+                  (when (spacemacs-buffer//insert-file-list
+                         "Recent Files:"
+                         (spacemacs//subseq recentf-list 0 list-size))
+                    (spacemacs//insert--shortcut "r" "Recent Files:")
+                    (insert list-separator)))
+                 ((eq el 'todos)
+                  (when (spacemacs-buffer//insert-todo-list
+                         "ToDo:"
+                         (spacemacs//subseq (spacemacs-buffer//todo-list)
+                                     0 list-size))
+                    (spacemacs//insert--shortcut "d" "ToDo:")
+                    (insert list-separator)))
+                 ((eq el 'agenda)
+                  (when (spacemacs-buffer//insert-todo-list
+                         "Agenda:"
+                         (spacemacs//subseq (spacemacs-buffer//agenda-list)
+                                     0 list-size))
+                    (spacemacs//insert--shortcut "c" "Agenda:")
+                    (insert list-separator)))
+                 ((eq el 'bookmarks)
+                  (when (configuration-layer/layer-usedp 'spacemacs-helm)
+                    (helm-mode))
+                  (require 'bookmark)
+                  (when (spacemacs-buffer//insert-bookmark-list
+                         "Bookmarks:"
+                         (spacemacs//subseq (bookmark-all-names)
+                                     0 list-size))
+                    (spacemacs//insert--shortcut "b" "Bookmarks:")
+                    (insert list-separator)))
+                 ((and (eq el 'projects)
+                       (fboundp 'projectile-mode))
+                  (projectile-mode)
+                  (when (spacemacs-buffer//insert-file-list
+                         "Projects:"
+                         (spacemacs//subseq (projectile-relevant-known-projects)
+                                     0 list-size))
+                    (spacemacs//insert--shortcut "p" "Projects:")
+                    (insert list-separator)))))) dotspacemacs-startup-lists))))
 
 (defun spacemacs-buffer/goto-link-line ()
   "Set point to the beginning of the link line."
