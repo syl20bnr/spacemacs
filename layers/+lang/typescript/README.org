@@ -1,51 +1,107 @@
-#+TITLE: TypeScript contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: TypeScript layer
 
 [[file:img/TypeScript.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[Prerequisites][Prerequisites]]
- - [[Key bindings][Key bindings]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#pre-requisites][Pre-requisites]]
+   - [[#layer][Layer]]
+   - [[#notes][Notes]]
+ - [[#key-bindings][Key bindings]]
+   - [[#typescript-major-mode][Typescript Major Mode]]
+   - [[#reference-major-mode][Reference Major Mode]]
 
 * Description
 
-This layer adds support for TypeScript editing via [[https://github.com/clausreinke/typescript-tools][typescript-tools]] and
-[[https://github.com/aki2o/emacs-tss][emacs-tss]].
+This layer adds support for TypeScript and TSX editing.
 
 This layer provides:
-- syntax coloring
-- error highlighting
-- auto-completion via Flymake
-- jump-to-definition
+- Eldoc-mode
+- Documentation at point 
+- Auto complete
+- Flycheck with linter
+- Jump to definition, Jump to type definition
+- Find occurrences (Imenu-mode)
+- Rename symbol
+- tsx mode
+- formatting
+- TypeScript playground integration
 
 * Install
+** Pre-requisites
+You will need =node.js v0.12.0= or greater
+
+If you want linting run:  =npm install -g typescript=  =npm install -g tslint=
+
+If you want to use typescript-formatter for formatting run:  =npm install -g typescript-formatter=
+
+For best results, make sure that the =auto-completion= (company) and =html= layers are enabled.
 
 ** Layer
-
-To use this contribution add it to your =~/.spacemacs=
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =typescript= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(typescript))
 #+END_SRC
 
-** Prerequisites
+If you need formatting on save:
 
-You'll need [[https://github.com/clausreinke/typescript-tools][typescript-tools]] and fairly obviously also the TypeScript
-compiler:
-
-#+BEGIN_SRC sh
-  $ npm install typescript
-  $ git clone git://github.com/clausreinke/typescript-tools.git
-  $ cd typescript-tools/
-  $ npm install -g
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(
+  (typescript :variables
+              typescript-fmt-on-save t)))
 #+END_SRC
+
+You can choose formatting tool:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(
+  (typescript :variables
+              typescript-fmt-tool 'typescript-formatter)))
+#+END_SRC
+
+Default is 'tide .
+
+** Notes
+
+This layer uses:
+- [[https://github.com/ananthakumaran/tide][tide]]
+- [[https://github.com/Simplify/flycheck-typescript-tslint][flycheck-typescript-tslint]]
+- [[https://github.com/vvakame/typescript-formatter][typescript-formatter]] - optional.
+
+*The tools use configuration files. You can learn more in their documentation.*
+
+Make sure to add [[https://github.com/Microsoft/TypeScript/wiki/tsconfig.json][tsconfig.json]] in the project root folder.
+
+tsserver mangles output sometimes [[https://github.com/Microsoft/TypeScript/issues/2758][issue - #2758]], which will result in json parse error. Try node version 0.12.x if you get this error.
+
+Send to playground requires browser.
+
+Currently tsserver doesn't pickup tsconfig.json file changes. You might need to restart server after editing it.
 
 * Key bindings
 
-| Key Binding | Description                      |
-|-------------+----------------------------------|
-| ~SPC m g g~ | Jump to definition               |
-| ~SPC m h h~ | Show popup help (with type info) |
+** Typescript Major Mode
+
+| Key Binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC m =~   | reformat the buffer                                          |
+| ~SPC m g b~ | jump back                                                    |
+| ~SPC m g g~ | jump to entity's definition                                  |
+| ~SPC m g t~ | jump to entity's type definition                             |
+| ~SPC m g u~ | references                                                   |
+| ~SPC m h h~ | documentation at point                                       |
+| ~SPC m r r~ | rename symbol                                                |
+| ~SPC m s p~ | send selected region or current buffer to the web playground |
+| ~SPC m S r~ | restart server                                               |
+
+** Reference Major Mode
+
+| Key Binding | Description             |
+|-------------+-------------------------|
+| ~C-j~       | find previous reference |
+| ~C-k~       | find next reference     |
+| ~C-l~       | goto reference          |

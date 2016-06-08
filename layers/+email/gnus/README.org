@@ -1,23 +1,19 @@
-#+TITLE: Gnus contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: Gnus layer
 
 [[file:img/gnus.gif]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Install][Install]]
- - [[Basic Concepts][Basic Concepts]]
- - [[Adding news sources][Adding news sources]]
- - [[Configuring gmail][Configuring gmail]]
- - [[Org MIME in Org layer][Org MIME in Org layer]]
- - [[Keybindings][Keybindings]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#install][Install]]
+ - [[#basic-concepts][Basic Concepts]]
+ - [[#adding-news-sources][Adding news sources]]
+ - [[#configuring-gmail][Configuring gmail]]
+ - [[#org-mime-in-org-layer][Org MIME in Org layer]]
+ - [[#keybindings][Keybindings]]
 
 * Install
-
-To use this contribution layer add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(gnus))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =gnus= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Basic Concepts
 
@@ -27,7 +23,7 @@ new users so the basics are listed here:
 - Group :: A Newsgroup but can also be a RSS Feed or a mail directory
 - Topic :: Newsgroups can be assigned to topics which will be used to structure
      the Group Buffer if Topic Mode is enabled(default).
-  
+
 * Adding news sources
 
 Adding news sources can be done in your =.spacemacs= file by adding the
@@ -50,7 +46,7 @@ For adding RSS Feeds please see the [[Keybindings][keybindings section]].
 * Configuring gmail
 
 To configure Gnus with gmail support you can add the following to your
-=.spacemacs= file. 
+=.spacemacs= file.
 
 #+BEGIN_SRC emacs-lisp
 ;; Get email, and store in nnml

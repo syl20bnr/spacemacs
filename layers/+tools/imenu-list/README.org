@@ -1,0 +1,40 @@
+#+TITLE: imenu-list layer
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#screenshot][Screenshot]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+   - [[#from-any-buffer][From any buffer]]
+   - [[#from-imenu-list-buffer][From imenu-list buffer]]
+
+* Description
+This layer uses [[https://github.com/bmag/imenu-list][imenu-list]] to show the current buffer's index in a side bar.
+
+This is similar to `SPC j i` but displayed in a persistent sidebar instead of
+a completion buffer.
+
+* Screenshot
+
+[[file:img/imenu-list-example.png]]
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =imenu-list= to the existing =dotspacemacs-configuration-layers= list in
+this file.
+
+* Key bindings
+** From any buffer
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC b i~   | toggle imenu-list window |
+
+** From imenu-list buffer
+
+| Key Binding | Description                                            |
+|-------------+--------------------------------------------------------|
+| ~q~         | quit imenu-list window                                 |
+| ~RET~       | go to current entry                                    |
+| ~d~         | display current entry, keep focus on imenu-list window |
+| ~f~         | fold/unfold current section                            |

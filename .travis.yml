@@ -1,13 +1,25 @@
+language: generic
+sudo: false
+
 branches:
   only:
     - master
     - develop
 
 before_install:
-  sudo add-apt-repository -y ppa:ubuntu-elisp/ppa &&
-  sudo apt-get -qq update &&
-  sudo apt-get -qq -f install &&
-  sudo apt-get -qqy install emacs-snapshot;
+ - curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw > x.sh && source ./x.sh
+ - evm install $EVM_EMACS --use --skip
+
+env:
+ - EVM_EMACS=emacs-24.4-travis
+ - EVM_EMACS=emacs-24.5-travis
+ - EVM_EMACS=emacs-git-snapshot-travis
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    env:
+      - EVM_EMACS=emacs-git-snapshot-travis
 
 script:
-  ./travis/run_build.sh
+  - ./.travis-build.sh

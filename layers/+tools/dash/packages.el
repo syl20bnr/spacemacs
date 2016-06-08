@@ -1,9 +1,15 @@
  ;; see conditional package inclusion
-(setq dash-packages '(helm-dash))
+(setq dash-packages
+      '(
+        (helm-dash :toggle (configuration-layer/package-usedp 'helm))
+        ))
 
 (cond
- ((spacemacs/system-is-mac) (push 'dash-at-point dash-packages))
- ((spacemacs/system-is-linux) (push 'zeal-at-point dash-packages)))
+ ((spacemacs/system-is-mac)
+  (push 'dash-at-point dash-packages))
+ ((or (spacemacs/system-is-linux)
+      (spacemacs/system-is-mswindows))
+  (push 'zeal-at-point dash-packages)))
 
 (defun dash/init-helm-dash ()
   (use-package helm-dash
@@ -19,7 +25,7 @@
             helm-dash-common-docsets (helm-dash-installed-docsets))
       (message (format "activated %d docsets from: %s"
                        (length helm-dash-common-docsets) path)))
-    (dash//activate-package-docsets dash-helm-dash-docset-path)))
+    (dash//activate-package-docsets helm-dash-docset-newpath)))
 
 (defun dash/init-dash-at-point ()
   (use-package dash-at-point

@@ -1,29 +1,28 @@
-Press TAB to move to next button.
+Press [TAB] to move to next button.
 
-Press SHIFT-TAB to move to previous button.
+Press [Shift-TAB] to move to previous button.
 
-Press r to jump to recent file list.
+Press [r] to jump to recent file list if it is enabled.
 
-Press p to jump to project list.
+Press [p] to jump to project list if it is enabled.
 
-Press m to jump to the top menu.
+Press [b] to jump to bookmark list if it is enabled.
 
-Press o to jump to any link or button.
+Press [o] to jump to any link or button.
 
-Press SPC (in Vim mode) or Alt-m (in Emacs mode) to access Spacemacs commands.
+Press [m] to jump to the top menu.
 
-Press SPC f e d (Vim) or Alt-m f e d (Emacs) to access .spacemacs file.
+Press [SPC] (in Vim editing style) or [Alt-m] (in Emacs editing style) to access
+Spacemacs commands (will list only the Vim style ones for the rest of this
+help).
 
-Press SPC f e h (Vim) or Alt-m f e h (Emacs) to access a list of documentation
-and supported layers. You can type anything to narrow to a specific feature i.e.
-"python" for Python layer. There are five lists and you can press Ctrl-o to switch
-between them:
+Press [SPC f e d] (or [Alt-m f e d] in Emacs style) to access .spacemacs file.
 
-- Spacemacs documentation -> Layer documentation -> Package Source Code ->
-  Dotfile variables -> Spacemacs toggles
+Press [SPC h SPC] to access a list of documentation and supported layers. You
+can type anything to narrow to a specific feature i.e. "python" for Python
+layer. There are multiple lists and you can press [Ctrl-o] to switch between
+them.
 
-When reading a document, you can use SPC s l (Vim) or M-m s l (Emacs) to jump to
-a heading. The table of content is just for overview and for using with Github
-when you read the doc with a web browser.
+When reading a document, you can use [SPC s j] to jump to a heading.
 
-Please consult Spacemacs documentation from SPC f e h for more details.
+Please consult Spacemacs documentation from [SPC h SPC] for more details.

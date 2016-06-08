@@ -12,7 +12,7 @@
   (fasd-find-file 1))
 
 (defun fasd/init-fasd ()
-  "initializes fasd-emacs and adds a key binding to <SPC f z>"
+  "initializes fasd-emacs and adds a key binding to `SPC f z'"
   (use-package fasd
     :init
     (progn

@@ -1,23 +1,22 @@
+;;; layers.el --- Puppet layer packages File for Spacemacs
+;;
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;;
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
 (setq puppet-packages
   '(
-    puppet-mode
-    puppetfile-mode
     company
     flycheck
+    puppet-mode
     ))
 
-;; For each package, define a function puppet-mode/init-<package-puppet-mode>
-;;
-;; (defun puppet-mode/init-my-package ()
-;;   "Initialize my package"
-;;   )
-;;
-;; Often the body of an initialize function uses `use-package'
-;; For more info on `use-package', see readme:
-;; https://github.com/jwiegley/use-package
-
 (defun puppet/init-puppet-mode ()
-  "Initialize Puppet mode"
   (use-package puppet-mode
     :defer t
     :init
@@ -40,7 +39,3 @@
 
 (defun puppet/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'puppet-mode))
-
-(defun puppet/init-puppetfile-mode ()
-  (use-package puppetfile-mode
-    :defer t))

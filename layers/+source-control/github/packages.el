@@ -1,7 +1,6 @@
 ;;; packages.el --- Github Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -19,6 +18,11 @@
         ;; not up to date
         ;; helm-gist
         magit-gh-pulls
+        ;; this package does not exits, we need it to wrap
+        ;; the call to spacemacs/declare-prefix which cannot
+        ;; be place in `config.el' because `which-key' is not
+        ;; available when `config.el' is loaded.
+        (spacemacs-github :location built-in)
         ))
 
 (defun github/init-gist ()
@@ -30,6 +34,7 @@
         "f" 'gist-fetch-current
         "K" 'gist-kill-current
         "o" 'gist-browse-current-url)
+      (spacemacs/declare-prefix "gg" "github gist")
       (spacemacs/set-leader-keys
         "ggb" 'gist-buffer
         "ggB" 'gist-buffer-private
@@ -74,23 +79,10 @@
     :defer t
     :init
     (progn
-
-      (defun spacemacs/git-link-copy-url-only ()
-        "Only copy the generated link to the kill ring."
-        (interactive)
-        (let (git-link-open-in-browser)
-          (call-interactively 'git-link)))
-
-      (defun spacemacs/git-link-commit-copy-url-only ()
-        "Only copy the generated link to the kill ring."
-        (interactive)
-        (let (git-link-open-in-browser)
-          (call-interactively 'git-link-commit)))
-
       (spacemacs/set-leader-keys
-        "ghl" 'git-link
+        "ghl" 'spacemacs/git-link
         "ghL" 'spacemacs/git-link-copy-url-only
-        "ghc" 'git-link-commit
+        "ghc" 'spacemacs/git-link-commit
         "ghC" 'spacemacs/git-link-commit-copy-url-only)
       ;; default is to open the generated link
       (setq git-link-open-in-browser t))))
@@ -117,3 +109,6 @@
           (define-key magit-mode-map "#" 'spacemacs/load-gh-pulls-mode))
         :config
         (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))))
+
+(defun github/init-spacemacs-github ()
+  (spacemacs/declare-prefix "gh" "github"))

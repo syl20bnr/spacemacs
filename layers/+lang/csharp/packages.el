@@ -1,7 +1,6 @@
 ;;; packages.el --- csharp Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -13,6 +12,7 @@
 (setq csharp-packages
   '(
     company
+    evil-matchit
     omnisharp
     ))
 
@@ -51,18 +51,22 @@
         "gg"   'omnisharp-go-to-definition
         "gG"   'omnisharp-go-to-definition-other-window
         "gu"   'omnisharp-helm-find-usages
+        "gU"   'omnisharp-find-usages-with-ido
         "gs"   'omnisharp-helm-find-symbols
         "gi"   'omnisharp-find-implementations
+        "gI"   'omnisharp-find-implementations-with-ido
         "gr"   'omnisharp-navigate-to-region
         "gm"   'omnisharp-navigate-to-solution-member
         "gM"   'omnisharp-navigate-to-solution-member-other-window
         "gf"   'omnisharp-navigate-to-solution-file
         "gF"   'omnisharp-navigate-to-solution-file-then-file-member
+        "gc"   'omnisharp-navigate-to-current-file-member
         ;; Help, documentation, info
         "ht" 'omnisharp-current-type-information
         "hT" 'omnisharp-current-type-information-to-kill-ring
         ;; Refactoring
         "rm" 'omnisharp-rename
+        "rM" 'omnisharp-rename-interactively
         "rr" 'omnisharp-run-code-action-refactoring
         ;; Server manipulation, inspired spacemacs REPL bindings since C# does not provice a REPL
         "ss" 'omnisharp-start-omnisharp-server
@@ -77,6 +81,11 @@
         "i" 'omnisharp-fix-usings
         "=" 'omnisharp-code-format))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun csharp/post-init-company ()
-    (spacemacs|add-company-hook csharp-mode)))
+(defun csharp/post-init-company ()
+  (spacemacs|add-company-hook csharp-mode))
+
+(defun csharp/post-init-evil-matchit ()
+  (with-eval-after-load 'evil-matchit
+    (plist-put evilmi-plugins 'csharp-mode '((evilmi-simple-get-tag evilmi-simple-jump)
+                                             (evilmi-c-get-tag evilmi-c-jump))))
+  (add-hook 'csharp-mode-hook 'turn-on-evil-matchit-mode))

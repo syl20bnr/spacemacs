@@ -1,13 +1,12 @@
-#+TITLE: Autohotkey contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: Autohotkey layer
 
 [[file:img/ahk.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Features][Features]]
- - [[Install][Install]]
- - [[Key Bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
 
 * Description
 
@@ -29,16 +28,15 @@ Contributed and maintained by [[https://www.github.com/ralesi][Rich Alesi]].
 - Correct Indentation and Commenting
 
 * Install
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(autohotkey))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =autohotkey= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key Bindings
 
 | Key Binding | Description                        |
 |-------------+------------------------------------|
-| ~SPC m d~   | open documentation in =browser=    |
-| ~SPC m e~   | execute file with =autohotkey.exe= |
+| ~SPC m c b~ | block comment                      |
+| ~SPC m c c~ | line comment                       |
+| ~SPC m e b~ | execute file with =autohotkey.exe= |
+| ~SPC m h~   | open documentation in =browser=    |

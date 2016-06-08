@@ -1,0 +1,80 @@
+#+TITLE: Twitter contribution layer for Spacemacs
+
+[[file:img/twitter.png]]
+
+* Table of Contents                                                     :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#install][Install]]
+ - [[#configuration][Configuration]]
+ - [[#key-bindings][Key Bindings]]
+
+* Description
+This layer adds Twitter support to Spacemacs via the package [[https://github.com/hayamiz/twittering-mode][twittering-mode]].
+
+* Features
+- Activities on Twitter
+  - Viewing various timelines
+    - Home timeline
+    - Replies
+    - User's timeline
+    - Public timeline
+    - Favorites timeline
+    - Retweets timeline
+    - Merged timeline
+    - Timeline without tweets satisfying a condition
+  - Posting tweets
+    - Direct message
+    - ReTweet
+    - Hash tag
+    - Signature
+  - Following and removing users
+  - Marking tweets as favorites
+- HTTP Proxy support
+- Secure connection via HTTPS (cURL, GNU Wget, OpenSSL or GnuTLS is required)
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =twitter= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Configuration
+Exhaustive configuration documentation can be found on the README page of the
+package [[https://github.com/hayamiz/twittering-mode][here]].
+
+You can authenticate easily via a PIN number, or you can use GnuPG by setting
+the variable =twittering-use-master-password= to =t= in the =user-config=
+function of your dotfile.
+
+* Key Bindings
+
+| Key Binding | Description                              |
+|-------------+------------------------------------------|
+| ~?~         | Open/Quit transient state                |
+| ~/~         | Search                                   |
+| ~a~         | Toggle auto-refresh                      |
+| ~b~         | Heart                                    |
+| ~B~         | Unheart                                  |
+| ~d~         | Direct message to user around point      |
+| ~e~         | Edit tweet                               |
+| ~f~         | Follow user around point                 |
+| ~F~         | Unfollow user around point               |
+| ~g~         | First tweet                              |
+| ~G~         | Last tweet                               |
+| ~i~         | View user profile around point           |
+| ~I~         | toggle user icons                        |
+| ~q~         | Quit transient state                     |
+| ~Q~         | Quit twittering mode                     |
+| ~j~         | Next tweet                               |
+| ~J~         | Next tweet of same user around point     |
+| ~k~         | Previous tweet                           |
+| ~K~         | Previous tweet of same user around point |
+| ~n~         | New tweet                                |
+| ~o~         | Open URL                                 |
+| ~r~         | Retweet (native)                         |
+| ~R~         | Retweet (organic)                        |
+| ~t~         | View tweet replies                       |
+| ~u~         | Update timeline                          |
+| ~X~         | Delete tweet                             |
+| ~y~         | Copy tweet URI                           |
+| ~Y~         | Copy tweet content                       |

@@ -1,0 +1,42 @@
+#+TITLE: Restclient layer
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#configuration][Configuration]]
+ - [[#restclient][Restclient]]
+   - [[#keybindings][Keybindings]]
+ - [[#ob-http][ob-http]]
+
+* Description
+This is a package that lets you have a REPL-like interface for http requests
+using a [[http://pashky/restclient.el][restclient]] buffer or an =org= buffer.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =restclient= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Configuration
+By default the layer enables [[http://pashky/restclient.el][restclient]]. It is possible to use =org= via [[http://github.com/zweifisch/ob-http][ob-http]]
+by setting the layer variable =restclient-use-org= to =t=.
+
+* Restclient
+Any file with an =.http= extension is opened in a =restclient= buffer.
+Full documentation and examples can be found in the package's [[https://github.com/pashky/restclient.el][GitHub Page]].
+Also there is an [[http://emacsrocks.com/e15.html][Emacs Rocks!]] episode of it.
+
+** Keybindings
+
+| Key Binding | Description                                                 |
+|-------------+-------------------------------------------------------------|
+| ~SPC m s~   | Send and stay in window (pretty-print response if possible) |
+| ~SPC m S~   | Send and switch window (pretty-print response if possible)  |
+| ~SPC m r~   | Send and stay in window (do not attempt to pretty-print)    |
+| ~SPC m R~   | Send and switch window (do not attempt to pretty-print)     |
+| ~SPC m y~   | Copy query under the cursor as a curl command               |
+
+* ob-http
+Any file with an =.http= extension is opened in an =org= buffer with org babel
+configured to use =ob-http=.
+Full documentation and examples can be found in the package's [[http://github.com/zweifisch/ob-http][GitHub Page]].

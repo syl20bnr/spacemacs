@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 
 """
 Pylookup is to lookup entries from python documentation, especially within
@@ -224,8 +224,8 @@ def update(db, urls, append=False):
             success = False
             for index_url in potential_urls:
                 try:
-                    print "Wait for a few seconds..."
-                    print "Fetching index from '%s'" % index_url
+                    print("Wait for a few seconds...")
+                    print("Fetching index from '%s'" % index_url)
 
                     index = urllib.urlopen(index_url).read()
                     if not issubclass(type(index), str):
@@ -236,14 +236,14 @@ def update(db, urls, append=False):
                         parser.feed(index)
 
                     # success, we don't need to try other potential urls
-                    print "Loaded index from '%s'" % index_url
+                    print("Loaded index from '%s'" % index_url)
                     success = True
                     break
                 except IOError:
-                    print "Error: fetching file from '%s'" % index_url
+                    print("Error: fetching file from '%s'" % index_url)
 
             if not success:
-                print "Failed to load index for input '%s'" % url
+                print("Failed to load index for input '%s'" % url)
 
 
 def lookup(db, key, format_spec, out=sys.stdout, insensitive=True, desc=True):

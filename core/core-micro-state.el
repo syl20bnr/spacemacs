@@ -1,8 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 ;;; core-micro-state.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -10,7 +9,6 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(require 'corelv)
 
 (defun spacemacs/defface-micro-state-faces ()
   "Define faces for micro-states."
@@ -103,7 +101,7 @@ used."
          (disable-leader (plist-get props :disable-evil-leader))
          (msg-func (if (plist-get props :use-minibuffer)
                        'message
-                     'corelv-message))
+                     'lv-message))
          (exec-binding (plist-get props :execute-binding-on-enter))
          (on-enter (spacemacs/mplist-get props :on-enter))
          (on-exit (spacemacs/mplist-get props :on-exit))
@@ -116,13 +114,13 @@ used."
               ,(format "%S micro-state." name)
               (interactive)
               ,@on-enter
+              ,(when exec-binding
+                 (spacemacs//micro-state-auto-execute bindings))
               (let ((doc ,@doc))
                 (when doc
                   (spacemacs//micro-state-set-minibuffer-height doc)
                   (apply ',msg-func (list (spacemacs//micro-state-propertize-doc
                                            (format "%S: %s" ',name doc))))))
-              ,(when exec-binding
-                 (spacemacs//micro-state-auto-execute bindings))
               (,(if (version< emacs-version "24.4")
                     'set-temporary-overlay-map
                   'set-transient-map)
@@ -261,9 +259,9 @@ pressed)."
 
 (defun spacemacs//micro-state-close-window ()
   "Close micro-state help window."
-  (when (window-live-p corelv-wnd)
-    (let ((buf (window-buffer corelv-wnd)))
-      (delete-window corelv-wnd)
+  (when (window-live-p lv-wnd)
+    (let ((buf (window-buffer lv-wnd)))
+      (delete-window lv-wnd)
       (kill-buffer buf))))
 
 (provide 'core-micro-state)

@@ -1,15 +1,16 @@
-#+TITLE: Games contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: Games layer
 
 [[file:img/games.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
-   - [[2048][2048]]
-   - [[Pacmacs][Pacmacs]]
-   - [[Tetris][Tetris]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#games-instructions][Games instructions]]
+   - [[#2048][2048]]
+   - [[#pacmacs][Pacmacs]]
+   - [[#tetris][Tetris]]
+   - [[#typit][Typit]]
+     - [[#create-a-new-dictionary][Create a new dictionary]]
 
 * Description
 This layer allows you to play evilified games in spacemacs.
@@ -18,15 +19,14 @@ The games available now are:
 - 2048-game
 - Pacmacs (Pacman for Emacs)
 - Tetris
-  
+- Typit
+
 * Install
-To use this contribution add it to your =~/.spacemacs=
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =games= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(games))
-#+END_SRC
-
-* Key bindings
+* Games instructions
 To run a game:
 
 | Key Binding | Description                            |
@@ -37,7 +37,7 @@ Possible helm actions:
 - run (default)
 - quit
 - reset
-  
+
 ** 2048
 
 | Key Binding | Description          |
@@ -56,6 +56,7 @@ Possible helm actions:
 | ~k~         | Move up     |
 | ~l~         | Move right  |
 |             |             |
+
 ** Tetris
 
 | Key Binding | Description                    |
@@ -68,3 +69,28 @@ Possible helm actions:
 | ~n~         | Start a new game               |
 | ~p~         | Pause the game                 |
 | ~q~         | Quit the game                  |
+
+** Typit
+There is no specific key bindings for this game, just launch it and begin
+typing. Use ~C-g~ to exit the game at any time.
+
+There are two difficulties:
+- beginner: use 200 most common words
+- expert: use 1000 most common words
+
+By default a game duration is one minute.
+
+The game can be customized with the following variables:
+
+| Vsariable           | Description                                           |
+|---------------------+-------------------------------------------------------|
+| =typit-dict=        | Language dictionary to use (default is =english.txt=) |
+| =typit-dict-dir=    | A directory path where to find dictionaries           |
+| =typit-line-length= | Length of generated lines (default 80)                |
+| =typit-test-time=   | Duration of a game in seconds (default 60)            |
+
+*** Create a new dictionary
+To add a new dictionary, you need to create a text file named your-language.txt
+and put it under the dict directory. That file should contain 1000 most common
+words from the language, a word per line. Please make sure that it uses
+Unix-style (that is, LF) end-of-line sequence and the file ends with a newline.

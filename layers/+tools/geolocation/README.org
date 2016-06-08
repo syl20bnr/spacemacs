@@ -1,0 +1,119 @@
+#+TITLE: Geolocation layer
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#supported-packages-in-this-layer][Supported packages in this layer]]
+ - [[#install][Install]]
+ - [[#configuration][Configuration]]
+   - [[#location][Location]]
+   - [[#theme-changer][theme-changer]]
+   - [[#sunshine-weather-forecast][sunshine (weather forecast)]]
+   - [[#osx-location][osx-location]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#weather][Weather]]
+
+* Description
+This layer offers few location sensitive adjustment to Emacs, such as
+automatically switching between light (day) and dark (night) themes, weather
+forecast and on OS X, also automatic tracking of location, using OS X's
+CoreLocation services.
+
+** Supported packages in this layer
+- [[https://github.com/aaronbieber/sunshine.el/blob/master/sunshine.el][sunshine]]
+- [[https://github.com/purcell/osx-location][osx-location]]
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =geolocation= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+All services are disable by default. To enable all, or some of them, add instead
+something like this:
+
+#+BEGIN_SRC emacs-lisp
+  (geolocation :variables
+               geolocation-enable-automatic-theme-changer t
+               geolocation-enable-location-service t
+               geolocation-enable-weather-forecast t)
+#+END_SRC
+
+* Configuration
+** Location
+Set location manually by setting the following variables to the
+=dotspacemacs/user-config= function of your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq calendar-location-name "Barcelona, Spain"
+        calendar-latitude 41.23
+        calendar-longitude 1.80)
+#+END_SRC
+
+On OS X, all of these variables get setup automatically if the ~osx-location~
+service was enabled (Wifi must be turned on to make it work). In this case, if
+~calendar-location-name~ was omitted, it'll be stringed-up ~calendar-latitude~
+and ~calendar-longitude~ i.e. "41.23, 1.80".
+
+** theme-changer
+This layer implement a simple "theme changer" which, when enabled, will switch
+between first two themes the user has setup in ~dotspacemacs-themes~. First
+theme listed will be used as light variant, while the second as the the dark.
+Other themes will be ignored by this layer, though they are still available for
+cycling, etc.
+
+** sunshine (weather forecast)
+Sunshine display local weather forecast.
+
+Setup [[http://home.openweathermap.org/][OpenWeatherMap]] API key.
+Set ~sunshine-appid~ to some hash string from the openweathermap
+website. You need to sign up to the website to get a API key.
+
+#+BEGIN_SRC emacs-lisp
+  (setq sunshine-appid "your-apikey")
+#+END_SRC
+
+Configure your location by setting the variable sunshine-location. You
+can provide a string, like "New York, NY" or a ZIP code, like "90210".
+This variable is available through the Customize facility.
+  When specifying a ZIP code, you may receive results from a foreign
+country. This is due to weird behavior from OpenWeatherMap. To resolve
+this, append a comma and the country code after the ZIP code. Note the
+lack of a space in the example below.
+
+#+BEGIN_SRC emacs-lisp
+(setq sunshine-location "90210,USA")
+#+END_SRC
+
+It will use the imperial unit system by default. To switch to metric, add
+~sunshine-units 'metric~ to the variables list for this layer, or add this.
+
+#+BEGIN_SRC emacs-lisp
+  (setq sunshine-units 'metric)
+#+END_SRC
+
+Weather forecast icons are disabled by default, and can be toggled by pressing
+`i' within this mode's main buffer.
+
+To display weather forecast icons by default ("pretty mode"), add
+~sunshine-show-icons t~ to the variables list for this layer, or add this:
+
+#+BEGIN_SRC emacs-lisp
+  (setq sunshine-show-icons t)
+#+END_SRC
+
+[[file:img/emacs-sunshine.jpg]]
+
+** osx-location
+OS X users can take adavantage of automatic geogrphical discovery using the OS'
+CoreLocation system service, implemented as a long running background process. A
+helper script will need to be given proper access first time this layer is
+activated.
+
+[[file:img/emacs-location-helper.jpg]]
+
+* Key Bindings
+** Weather
+
+| Evil      | Holy | Command                                       |
+|-----------+------+-----------------------------------------------|
+| ~SPC a w~ |      | Display pretty weather forecast               |
+| ~SPC a W~ |      | Display quick weather forecast in mini buffer |

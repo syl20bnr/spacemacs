@@ -1,7 +1,6 @@
 ;;; core-load-paths.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -27,6 +26,13 @@
 (defconst spacemacs-banner-official-png
   (expand-file-name (concat spacemacs-banner-directory "img/spacemacs.png"))
   "Spacemacs official banner image.")
+(defconst spacemacs-badge-official-png
+  (expand-file-name (concat spacemacs-banner-directory
+                            "img/spacemacs-badge.png"))
+  "Spacemacs official badge image.")
+(defconst spacemacs-purple-heart-png
+  (expand-file-name (concat spacemacs-banner-directory "img/heart.png"))
+  "Purple heart emoji.")
 (defconst spacemacs-cache-directory
   (expand-file-name (concat user-emacs-directory ".cache/"))
   "Spacemacs storage area for persistent files")
@@ -47,7 +53,7 @@
   (expand-file-name "~/")
   "User home directory (~/).")
 (defconst pcache-directory
-  (concat spacemacs-cache-directory "pcache"))
+  (concat spacemacs-cache-directory "pcache/"))
 (unless (file-exists-p spacemacs-cache-directory)
     (make-directory spacemacs-cache-directory))
 
@@ -60,5 +66,6 @@
       `(
         ,(concat user-emacs-directory "core/")
         ,(concat user-emacs-directory "core/libs/")
+        ,(concat user-emacs-directory "core/aprilfool/")
         ,(concat user-dropbox-directory "emacs/")
         ))

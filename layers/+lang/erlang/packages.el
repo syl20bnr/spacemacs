@@ -1,7 +1,6 @@
 ;;; packages.el --- Erlang Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -27,7 +26,7 @@
     (progn
       ;; explicitly run prog-mode hooks since erlang mode does is not
       ;; derived from prog-mode major-mode
-      (add-hook 'erlang-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
+      (add-hook 'erlang-mode-hook 'spacemacs/run-prog-mode-hooks)
       ;; (setq erlang-root-dir "/usr/lib/erlang/erts-5.10.3")
       ;; (add-to-list 'exec-path "/usr/lib/erlang/erts-5.10.3/bin")
       ;; (setq erlang-man-root-dir "/usr/lib/erlang/erts-5.10.3/man")

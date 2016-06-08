@@ -1,7 +1,6 @@
 ;;; packages.el --- Elixir Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,17 +14,26 @@
     alchemist
     company
     elixir-mode
+    flycheck
+    flycheck-mix
     popwin
-    ruby-end
+    smartparens
     ))
+
+(defun elixir/post-init-company ()
+  (spacemacs|add-company-hook elixir-mode)
+  (spacemacs|add-company-hook alchemist-iex-mode))
 
 (defun elixir/init-alchemist ()
   (use-package alchemist
     :defer t
     :init
     (progn
+      (spacemacs/register-repl 'alchemist 'alchemist-iex-run "alchemist")
       (add-hook 'elixir-mode-hook 'alchemist-mode)
-      (setq alchemist-project-compile-when-needed t)
+      (setq alchemist-project-compile-when-needed t
+            alchemist-test-status-modeline nil)
+      ;; setup company backends
       (push 'alchemist-company company-backends-elixir-mode)
       (push 'alchemist-company company-backends-alchemist-iex-mode))
     :config
@@ -66,13 +74,15 @@
       "mx" 'alchemist-mix-run
       "mh" 'alchemist-mix-help
 
+      "'"  'alchemist-iex-run
+      "sc" 'alchemist-iex-compile-this-buffer
       "si" 'alchemist-iex-run
       "sI" 'alchemist-iex-project-run
       "sl" 'alchemist-iex-send-current-line
       "sL" 'alchemist-iex-send-current-line-and-go
+      "sm" 'alchemist-iex-reload-module
       "sr" 'alchemist-iex-send-region
       "sR" 'alchemist-iex-send-region-and-go
-      "sc" 'alchemist-iex-compile-this-buffer
 
       "ta" 'alchemist-mix-test
       "tb" 'alchemist-mix-test-this-buffer
@@ -80,6 +90,7 @@
       "tf" 'alchemist-test-file
       "tn" 'alchemist-test-jump-to-next-test
       "tp" 'alchemist-test-jump-to-previous-test
+      "tr" 'alchemist-mix-rerun-last-test
 
       "xb" 'alchemist-execute-this-buffer
       "xf" 'alchemist-execute-file
@@ -104,34 +115,45 @@
       (evil-define-key 'normal mode
         (kbd "q") 'quit-window))))
 
-(defun elixir/post-init-company ()
-  (spacemacs|add-company-hook elixir-mode)
-  (spacemacs|add-company-hook alchemist-iex-mode))
+(defun elixir/init-flycheck-mix ()
+  (use-package flycheck-mix
+    :commands (flycheck-mix-setup)
+    :init
+    (progn
+      (add-to-list 'safe-local-variable-values
+                   (cons 'elixir-enable-compilation-checking nil))
+      (add-to-list 'safe-local-variable-values
+                   (cons 'elixir-enable-compilation-checking t))
+      (add-hook 'elixir-mode-hook
+                'spacemacs//elixir-enable-compilation-checking t))))
 
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
     :defer t))
+
+(defun elixir/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'elixir-mode)
+  (add-hook 'elixir-mode-hook
+            'spacemacs//elixir-flycheck-check-on-save-only t))
 
 (defun elixir/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
     :post-config
     (push '("*mix*" :tail t :noselect t) popwin:special-display-config)))
 
-(defun elixir/init-ruby-end ()
-  (use-package ruby-end
-    :defer t
-    :init
+(defun elixir/post-init-smartparens ()
+  (spacemacs|use-package-add-hook smartparens
+    :post-config
     (progn
-      (defun spacemacs//ruby-end ()
-        (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
-             "\\(?:^\\|\\s-+\\)\\(?:do\\)")
-        (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers)
-             nil)
-        (ruby-end-mode +1))
-      (add-hook 'elixir-mode-hook 'spacemacs//ruby-end))
-    :config
-    (progn
-      (spacemacs|hide-lighter ruby-end-mode)
-      ;; hack to remove the autoloaded `add-hook' in `ruby-end'
-      (remove-hook 'ruby-mode-hook 'ruby-end-mode)
-      (remove-hook 'enh-ruby-mode-hook 'ruby-end-mode))))
+      (sp-with-modes '(elixir-mode)
+        (sp-local-pair
+         "->" "end"
+         :when '(("RET"))
+         :post-handlers '(:add spacemacs//elixir-do-end-close-action)
+         :actions '(insert)))
+      (sp-with-modes '(elixir-mode)
+        (sp-local-pair
+         "do" "end"
+         :when '(("SPC" "RET"))
+         :post-handlers '(:add spacemacs//elixir-do-end-close-action)
+         :actions '(insert))))))

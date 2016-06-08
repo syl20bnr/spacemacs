@@ -1,0 +1,16 @@
+#+TITLE: Themes Megapack layer
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#what-is-this][What is this?]]
+ - [[#install][Install]]
+
+* What is this?
+This simple contribution layer is an example. It installs around 100 themes
+for Emacs. You can try them easily by invoking helm-themes with: ~SPC T s~.
+
+You can see samples of all included themes in this [[http://themegallery.robdor.com][theme gallery]] from [[http://www.twitter.com/robmerrell][Rob Merrell]].
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =themes-megapack= to the existing =dotspacemacs-configuration-layers= list in this
+file.

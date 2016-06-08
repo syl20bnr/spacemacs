@@ -1,14 +1,13 @@
-#+TITLE: xkcd contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: xkcd layer
 
 [[file:img/xkcd.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key Bindings][Key Bindings]]
-   - [[Tell me how to spawn the xkcd greatness!!][Tell me how to spawn the xkcd greatness!!]]
-   - [[Okay, what now][Okay, what now]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#tell-me-how-to-spawn-the-xkcd-greatness][Tell me how to spawn the xkcd greatness!!]]
+   - [[#okay-what-now][Okay, what now]]
 
 * Description
 This layer adds a [[http://xkcd.com/][xkcd]] navigation mode using [[https://github.com/vibhavp/emacs-xkcd][emacs-xkcd]].
@@ -20,11 +19,9 @@ Features:
 - Cache the comics in =.cache/xkcd=
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(xkcd))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =xkcd= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key Bindings
 ** Tell me how to spawn the xkcd greatness!!

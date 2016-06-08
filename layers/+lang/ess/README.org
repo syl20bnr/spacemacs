@@ -1,21 +1,18 @@
-#+TITLE: R (ESS) contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: ESS (R) layer
 
 [[file:img/r.jpg]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Install][Install]]
- - [[Key Bindings][Key Bindings]]
-   - [[Inferior REPL process][Inferior REPL process]]
-   - [[Helpers][Helpers]]
- - [[Options][Options]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#inferior-repl-process][Inferior REPL process]]
+   - [[#helpers][Helpers]]
+ - [[#options][Options]]
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(ess))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =ess= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key Bindings
 
@@ -46,6 +43,7 @@ Send code to inferior process with these commands:
 
 ** Helpers
 Helpers for inspecting objects at point are available in R buffers only.
+
 | Key Binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
 | ~SPC m h d~ | view data under point using [ess-R-data-view][ess-R-data-view]      |

@@ -1,7 +1,6 @@
 ;;; packages.el --- Asciidoc Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2015 Mark Safronov, Torben Hoffmann & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Mark Safronov <hijarian@gmail.com>
 ;; Author: Torben Hoffmann <torben.lehoff@gmail.com>
@@ -17,7 +16,7 @@
   (use-package adoc-mode
     ;; We will NOT default `.txt' files to AsciiDoc mode,
     ;; and `.asciidoc' extension is just plain stupid.
-    :mode (("\\.adoc?$" . adoc-mode))
+    :mode (("\\.adoc?\\'" . adoc-mode))
 		:defer t
     :config
     (progn

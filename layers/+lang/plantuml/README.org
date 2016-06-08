@@ -1,0 +1,51 @@
+#+TITLE: plantuml layer
+[[file:img/logo.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#org-babel-integration][Org-Babel Integration]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer enables support for [[https://github.com/skuro/puml-mode][puml-mode]], which provides
+a major-mode for [[http://plantuml.com][plantuml]]. PlantUML is a tool to generate [[https://en.wikipedia.org/wiki/Unified_Modeling_Language][UML diagrams]] from plain-text.
+
+For help with how to use plantuml, see the [[http://plantuml.com][plantuml website]] and the [[http://plantuml.com/PlantUML_Language_Reference_Guide.pdf][reference guide]].
+
+The official file extension supported by this layer is =.pum=. If you want something else,
+set it in your =user-config= function of your =~/.spacemacs= file.
+
+For example, the following diagram can be defined as follows:
+
+#+BEGIN_SRC plantuml
+@startuml
+JAremko->robbyoconnor : I think the docs can benefit from some kind of illustration
+JAremko<-robbyoconnor : I'm too lazy -- I have actual work to do. I link to the docs. If you can write me a diagram in plantuml, I'll gladly compile and add it.
+JAremko->robbyoconnor : *gives ths diagram*
+robbyoconnor<-JAremko : *robbyoconnor adds it and JAremko is happy*
+...
+robbyoconnor->theOtherPerson : And they thinks it's funny? Yup, they definitely finds it funny. Right?
+@enduml
+#+END_SRC
+
+[[file:img/dia.png]]
+
+* Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(plantuml))
+#+end_src
+
+* Org-Babel Integration
+
+To enable the execution of embedded plantuml code blocks within [[http://orgmode.org/][Org-Mode]]
+documents, define a value for =org-plantuml-jar-path= in your =~/.spacemacs=.
+
+* Key bindings
+
+| Key Binding              | Description                                           |
+|--------------------------+-------------------------------------------------------|
+| ~SPC m c c~ or ~C-c C-c~ | Build diagram from the text in the current buffer     |
+| ~SPC m c o~              | Set the output type (~unicode text~, ~svg~, or ~png~) |
