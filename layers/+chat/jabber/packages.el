@@ -14,7 +14,10 @@
 (defun jabber/init-jabber ()
   (use-package jabber
     :defer t
-    :init (spacemacs/set-leader-keys "aj" 'jabber-connect-all)
+    :init
+    (progn
+      (add-hook 'jabber-post-connect-hooks 'spacemacs/jabber-connect-hook)
+      (spacemacs/set-leader-keys "aj" 'jabber-connect-all))
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'jabber-roster-mode
@@ -34,16 +37,3 @@
         "j" 'jabber-go-to-next-roster-item
         "k" 'jabber-go-to-previous-roster-item))))
 
-(defun jabber/jabber-connect-hook (jc)
-  (jabber-send-presence "" "Online" 10)
-  (jabber-whitespace-ping-start)
-
-  ;; Disable the minibuffer getting jabber messages when active
-  ;; See http://www.emacswiki.org/JabberEl
-  (define-jabber-alert echo "Show a message in the echo area"
-    (lambda (msg)
-      (unless (minibuffer-prompt)
-        (message "%s" msg)))))
-
-(defun jabber/post-init-jabber ()
-  (add-hook 'jabber-post-connect-hooks 'jabber/jabber-connect-hook))
