@@ -21,12 +21,15 @@
   "Tweak color themes by adjusting rainbow-identifiers."
   (interactive)
   ;; tweak the saturation and lightness of identifier colors
-  (let ((sat&light (assq theme colors-theme-identifiers-sat&light)))
-    (if sat&light
-        (setq rainbow-identifiers-cie-l*a*b*-saturation (cadr sat&light)
-              rainbow-identifiers-cie-l*a*b*-lightness (caddr sat&light))
-      (setq rainbow-identifiers-cie-l*a*b*-saturation 80
-            rainbow-identifiers-cie-l*a*b*-lightness 45))))
+  (when (not (assq theme (get 'rainbow-identifiers-cie-l*a*b*-saturation
+                              'theme-value)))
+    (let ((sat&light (assq theme colors-theme-identifiers-sat&light)))
+      (if sat&light
+          (setq rainbow-identifiers-cie-l*a*b*-saturation (cadr sat&light)
+                rainbow-identifiers-cie-l*a*b*-lightness (caddr sat&light))
+        ;; default
+        (setq rainbow-identifiers-cie-l*a*b*-saturation 80
+              rainbow-identifiers-cie-l*a*b*-lightness 45)))))
 
 (defun colors//change-color-mini-mode-doc (component)
   "Display a short documentation in the mini buffer."
