@@ -64,6 +64,10 @@
              :initform nil
              :type list
              :documentation "List of package symbols declared in this layer.")
+   (user-packages :initarg :user-packages
+             :initform nil
+             :type list
+             :documentation "List of package symbols declared by user.")
    (variables :initarg :variables
               :initform nil
               :type list
@@ -417,14 +421,18 @@ layer directory."
          (disabled (when (listp layer)
                      (spacemacs/mplist-get layer :disabled-for)))
          (variables (when (listp layer)
-                      (spacemacs/mplist-get layer :variables))))
+                      (spacemacs/mplist-get layer :variables)))
+         (user-packages (when (listp layer)
+                          (car-safe
+                           (spacemacs/mplist-get layer :packages)))))
     (if base-dir
         (let* ((dir (format "%s%s/" base-dir name-str)))
           (cfgl-layer name-str
                       :name name-sym
                       :dir dir
                       :disabled-for disabled
-                      :variables variables))
+                      :variables variables
+                      :user-packages user-packages))
       (configuration-layer//warning "Cannot find layer %S !" name-sym)
       nil)))
 
@@ -658,6 +666,14 @@ no-op."
   (dolist (layer layers)
     (let* ((layer-name (oref layer :name))
            (layer-dir (oref layer :dir))
+           (include-packages
+              (when (and (oref layer :user-packages)
+                         (not (eq 'not (car (oref layer :user-packages)))))
+                (oref layer :user-packages)))
+             (exclude-packages
+              (when (and (oref layer :user-packages)
+                         (eq 'not (car (oref layer :user-packages))))
+                (cdr (oref layer :user-packages))))
            (packages-file (concat layer-dir "packages.el")))
       ;; packages
       (when (file-exists-p packages-file)
@@ -676,11 +692,17 @@ no-op."
                                                  layer-name pkg-name)))
                  (ownerp (fboundp init-func))
                  (obj (object-assoc pkg-name
-                                    :name configuration-layer--packages)))
+                                    :name configuration-layer--packages))
+                 (excluded (or (and include-packages
+                                        (not (memq pkg-name include-packages)))
+                                   (and exclude-packages
+                                        (memq pkg-name exclude-packages)))))
             (cl-pushnew pkg-name (oref layer :packages))
             (if obj
                 (setq obj (configuration-layer/make-package pkg obj ownerp))
               (setq obj (configuration-layer/make-package pkg nil ownerp))
+              (when excluded
+                    (oset obj :excluded t))
               (push obj configuration-layer--packages))
             (when ownerp
               ;; last owner wins over the previous one,
