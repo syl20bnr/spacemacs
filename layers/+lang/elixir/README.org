@@ -70,24 +70,34 @@ mix archive.install
 
 *** mix compile
 *Important:*
-Elixir compilation is based on macros and is unsafe since arbitrary code can
-be run during compilation. Therefore Spacemacs disable compilation flycheck
-support by default.
+Elixir compiler is based on macros and can execute arbitrary during compilation.
+Therefore Spacemacs disable flycheck compilation checker by default.
 
-To enable flycheck support for =mix compile= *globally* the variable
-=elixir-enable-compilation-checking= must be explicitly set to =t= in your
-dotfile.
+To enable flycheck support for compilation errors  *globally* the variable
+=elixir-enable-compilation-checking= can be set explicitly to =t= in your
+dotfile but it is not recommended to do so because of the limitation described
+above.
 
-It is recommended to use directory local variables instead. These variables are
-stored in a file named =.dit-local.el= at the root of your project. Their values
-are applied only for the project and not outside. To easily add a directory
-local variable used ~SPC f v d~ and provide the mode =elixir-mode= then the
-variable name =elixir-enable-compilation-checking= and its value.
+Instead you should use directory local variables in order to enable the flycheck
+checker only for certain projects. Directory local variables are stored in a
+file named =.dir-local.el= usually at the root of a project. To easily add a
+directory local variable use the key binding ~SPC f v d~ then choose the
+=elixir-mode= and the variable name =elixir-enable-compilation-checking= with
+a value of t. The result is a new file =.dir-local.el= with the following
+contents:
+
+#+BEGIN_SRC elisp
+;;; Directory Local Variables
+;;; For more information see (info "(emacs) Directory Variables")
+
+((elixir-mode
+  (elixir-enable-compilation-checking . t)))
+#+END_SRC
 
 Spacemacs marks the variable =elixir-enable-compilation-checking= as safe so
 Emacs won't ask you if the variable is safe whenever an elixir file is opened.
 
-Remember that you can check the flycheck checkers enabled with ~SPC e v~.
+Remember that you can verify the flycheck checkers status with ~SPC e v~.
 
 * Key bindings
 ** Refcard
