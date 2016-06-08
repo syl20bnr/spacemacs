@@ -302,13 +302,12 @@ tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.")
 specified with an installed package.
 NOT USED FOR NOW :-)")
 
-(defvar dotspacemacs-startup-lists '(recents projects)
-  "List of items to show in the startup buffer. If nil it is disabled.
-Possible values are: `recents' `bookmarks' `projects' `agenda' `todos'.")
-
-(defvar dotspacemacs-startup-recent-list-size 5
-  "Number of recent files to show in the startup buffer. Ignored if
-`dotspacemacs-startup-lists' doesn't include `recents'.")
+(defvar dotspacemacs-startup-lists '((recents  . 5)
+                                    (projects . 7))
+  "Association list of items to show in the startup buffer of the form
+`(list-type . list-size)`. If nil it is disabled.
+Possible values for list-type are:
+`recents' `bookmarks' `projects' `agenda' `todos'.")
 
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages that will not be install and loaded.")
