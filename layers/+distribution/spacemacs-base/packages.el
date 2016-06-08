@@ -312,6 +312,7 @@
             enable-recursive-minibuffers t ; Allow commands in minibuffers
             history-length 1000
             savehist-additional-variables '(mark-ring
+                                            kill-ring
                                             global-mark-ring
                                             search-ring
                                             regexp-search-ring
