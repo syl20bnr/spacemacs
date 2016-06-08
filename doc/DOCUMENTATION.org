@@ -567,7 +567,23 @@ can be set directly in the =dotspacemacs-configuration-layers= like this:
                                                     smex)))
 #+END_SRC
 
-*** Excluding packages
+*** Selecting packages on a per layer basis
+The packages loaded within the layer can be selected on a per package basis with
+the =:packages= property. Following the =:packages= declaration in a layer
+declaration, the user can provide a list of packages to initialize which are
+defined in that layer. All other packages defined will not be loaded.
+Alternatively, when the =:packages= declaration list is preceeded with a =not=
+the included packages will not be excluded from loading.
+ 
+#+BEGIN_SRC emacs-lisp
+(defun dotspacemacs/layers ()
+  ;; List of configuration layers to load.
+  (setq-default dotspacemacs-configuration-layers '(auto-completion
+                                                    (spacemacs-ui-visual
+                                                      :packages (not neotree))))
+#+END_SRC
+
+*** Excluding packages globally
 You can exclude packages you don't want to install with the variable
 =dotspacemacs-excluded-packages= (see [[Configuration layers][Configuration layers]] for more info
 on packages).
