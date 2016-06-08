@@ -819,42 +819,67 @@ border."
     (force-mode-line-update)
     (spacemacs-buffer/goto-link-line)))
 
-(defun spacemacs-buffer/goto-buffer ()
+(defvar spacemacs-buffer--last-width nil
+  "Previous width of spacemacs-buffer")
+
+(defun spacemacs-buffer/goto-buffer (&optional refresh)
   "Create the special buffer for `spacemacs-buffer-mode' if it doesn't
 already exist, and switch to it."
   (interactive)
-  (unless (buffer-live-p (get-buffer spacemacs-buffer-name))
-    ;; revise banner length in GUI
-    (when (display-graphic-p)
-      (setq spacemacs-buffer--banner-length
-            (- (window-total-width) 2)))
-    (with-current-buffer (get-buffer-create spacemacs-buffer-name)
-      (page-break-lines-mode)
-      (save-excursion
-        (spacemacs-buffer/set-mode-line "")
-        ;; needed in case the buffer was deleted and we are recreating it
-        (setq spacemacs-buffer--note-widgets nil)
-        (spacemacs-buffer/insert-banner-and-buttons)
-        ;; non-nil if emacs-startup-hook was run
-        (if (bound-and-true-p spacemacs-initialized)
-            (progn
-              (when dotspacemacs-startup-lists
-                (spacemacs-buffer/insert-startupify-lists))
-              (spacemacs-buffer//insert-footer)
-              (spacemacs-buffer/set-mode-line spacemacs--default-mode-line)
-              (force-mode-line-update)
-              (spacemacs-buffer-mode))
-          (add-hook 'emacs-startup-hook 'spacemacs-buffer//startup-hook t)))))
-  (spacemacs-buffer/goto-link-line)
-  (switch-to-buffer spacemacs-buffer-name)
-  (spacemacs//redisplay))
+  (let ((buffer-exists (buffer-live-p (get-buffer spacemacs-buffer-name)))
+        ln)
+    (when (or refresh
+              (not buffer-exists))
+      ;; revise banner length in GUI
+      (when (display-graphic-p)
+        (setq spacemacs-buffer--banner-length
+              (window-width)))
+      (unless (eq spacemacs-buffer--last-width spacemacs-buffer--banner-length)
+        (setq spacemacs-buffer--last-width spacemacs-buffer--banner-length)
+        (with-current-buffer (get-buffer-create spacemacs-buffer-name)
+          (page-break-lines-mode)
+          (save-excursion
+            (when (> (buffer-size) 0)
+              (setq ln (line-number-at-pos))
+              (let ((inhibit-read-only t))
+                (erase-buffer)))
+            (spacemacs-buffer/set-mode-line "")
+            ;; needed in case the buffer was deleted and we are recreating it
+            (setq spacemacs-buffer--note-widgets nil)
+            (spacemacs-buffer/insert-banner-and-buttons)
+            ;; non-nil if emacs-startup-hook was run
+            (if (bound-and-true-p spacemacs-initialized)
+                (progn
+                  (when dotspacemacs-startup-lists
+                    (spacemacs-buffer/insert-startupify-lists))
+                  (spacemacs-buffer//insert-footer)
+                  (spacemacs-buffer/set-mode-line spacemacs--default-mode-line)
+                  (force-mode-line-update)
+                  (spacemacs-buffer-mode))
+              (add-hook 'emacs-startup-hook 'spacemacs-buffer//startup-hook t))))
+        (if ln
+            ;; return to previous line before refresh
+            (progn (goto-char (point-min))
+                   (forward-line (1- ln))
+                   (forward-to-indentation 0))
+          (spacemacs-buffer/goto-link-line))
+        (switch-to-buffer spacemacs-buffer-name)
+        (spacemacs//redisplay)))))
+
+(add-hook 'window-configuration-change-hook 'spacemacs-buffer//resize-on-hook)
+
+(defun spacemacs-buffer//resize-on-hook ()
+  (let ((space-win (get-buffer-window spacemacs-buffer-name))
+        (frame-win (frame-selected-window)))
+    (when (and space-win
+               (not (window-minibuffer-p frame-win)))
+      (with-selected-window space-win
+        (spacemacs-buffer/goto-buffer t)))))
 
 (defun spacemacs-buffer/refresh ()
-  "Recreate the spacemacs buffer."
+  "Force recreation of the spacemacs buffer."
   (interactive)
-  (let ((inhibit-redisplay t))
-    (when (buffer-live-p (get-buffer spacemacs-buffer-name))
-      (kill-buffer spacemacs-buffer-name))
-    (spacemacs-buffer/goto-buffer)))
+  (setq spacemacs-buffer--last-width nil)
+  (spacemacs-buffer/goto-buffer t))
 
 (provide 'core-spacemacs-buffer)
