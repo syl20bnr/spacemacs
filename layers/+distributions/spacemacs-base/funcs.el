@@ -678,24 +678,6 @@ current window."
                               (start-process "" nil "xdg-open" file-path))))
       (message "No file associated to this buffer."))))
 
-(defun spacemacs/next-error (&optional n reset)
-  "Dispatch to flycheck or standard emacs error."
-  (interactive "P")
-  (if (and (boundp 'flycheck-mode)
-           (symbol-value flycheck-mode)
-           (not (get-buffer-window "*compilation*")))
-      (call-interactively 'flycheck-next-error)
-    (call-interactively 'next-error)))
-
-(defun spacemacs/previous-error (&optional n reset)
-  "Dispatch to flycheck or standard emacs error."
-  (interactive "P")
-  (if (and (boundp 'flycheck-mode)
-           (symbol-value flycheck-mode)
-           (not (get-buffer-window "*compilation*")))
-      (call-interactively 'flycheck-previous-error)
-    (call-interactively 'previous-error)))
-
 (defun spacemacs/switch-to-minibuffer-window ()
   "switch to minibuffer window (if active)"
   (interactive)
@@ -1003,3 +985,34 @@ is nonempty."
   "Disable linum if current buffer."
   (when (or 'linum-mode global-linum-mode)
     (linum-mode 0)))
+
+
+;; Generalized next-error system ("gne")
+
+(defun spacemacs//error-delegate ()
+  "Decide which error API to delegate to.
+
+Delegates to flycheck if it is enabled and the next-error buffer
+is not visible. Otherwise delegates to regular Emacs next-error."
+  (if (and (bound-and-true-p flycheck-mode)
+           (let ((buf (or next-error-last-buffer
+                          (next-error-find-buffer))))
+             (not (and buf (get-buffer-window buf)))))
+      'flycheck
+    'emacs))
+
+(defun spacemacs/next-error (&optional n reset)
+  "Dispatch to flycheck or standard emacs error."
+  (interactive "P")
+  (let ((sys (spacemacs//error-delegate)))
+    (cond
+     ((eq 'flycheck sys) (call-interactively 'flycheck-next-error))
+     ((eq 'emacs sys) (call-interactively 'next-error)))))
+
+(defun spacemacs/previous-error (&optional n reset)
+  "Dispatch to flycheck or standard emacs error."
+  (interactive "P")
+  (let ((sys (spacemacs//error-delegate)))
+    (cond
+     ((eq 'flycheck sys) (call-interactively 'flycheck-previous-error))
+     ((eq 'emacs sys) (call-interactively 'previous-error)))))
