@@ -99,6 +99,7 @@
                       windmove-right
                       windmove-up
                       windmove-down
+                      quit-window
                       evil-window-delete
                       evil-window-split
                       evil-window-vsplit
