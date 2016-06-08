@@ -2216,13 +2216,17 @@ called =pt=.
 
 **** Useful key bindings
 
-| Key Binding            | Description                                                              |
-|------------------------+--------------------------------------------------------------------------|
-| ~F3~                   | in a =helm= buffer, convert a =helm= search buffer into a regular buffer |
-| ~SPC r l~              | resume the last =completion= buffer                                      |
-| ~SPC r s~ or ~SPC s l~ | resume search buffer (completion or converted search buffer)             |
-| ~SPC s `~              | go back to the previous place reached with =helm-ag=                     |
-| Prefix argument        | will ask for file extensions                                             |
+| Key Binding            | Description                                                   |
+|------------------------+---------------------------------------------------------------|
+| ~F3~                   | in a =helm= or =ivy= buffer, save results to a regular buffer |
+| ~SPC r l~              | resume the last =completion= buffer                           |
+| ~SPC r s~ or ~SPC s l~ | resume search buffer (completion or converted search buffer)  |
+| ~SPC s `~              | go back to the previous place reached with =helm-ag=          |
+| Prefix argument        | will ask for file extensions                                  |
+
+When results have been saved in a regular buffer with ~F3~, that buffer supports
+browsing through the matches with Spacemacs’ =next-error= and =previous-error=
+bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e~).
 
 **** Searching in current file
 
@@ -2904,6 +2908,12 @@ Errors management commands (start with ~e~):
 | ~SPC e n~   | go to the next error                                                  |
 | ~SPC e p~   | go to the previous error                                              |
 | ~SPC e v~   | verify flycheck setup (useful to debug 3rd party tools configuration) |
+| ~SPC e .~   | error transient state                                                 |
+
+The next/previous error bindings and the error transient state can be used to
+browse errors from flycheck as well as errors from compilation buffers, and
+indeed anything that supports Emacs’ =next-error= API. This includes for example
+search results that have been saved to a separate buffer.
 
 Custom fringe bitmaps:
 
