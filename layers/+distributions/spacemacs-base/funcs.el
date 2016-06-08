@@ -995,8 +995,7 @@ is nonempty."
 Delegates to flycheck if it is enabled and the next-error buffer
 is not visible. Otherwise delegates to regular Emacs next-error."
   (if (and (bound-and-true-p flycheck-mode)
-           (let ((buf (or next-error-last-buffer
-                          (next-error-find-buffer))))
+           (let ((buf (next-error-find-buffer)))
              (not (and buf (get-buffer-window buf)))))
       'flycheck
     'emacs))
@@ -1016,3 +1015,31 @@ is not visible. Otherwise delegates to regular Emacs next-error."
     (cond
      ((eq 'flycheck sys) (call-interactively 'flycheck-previous-error))
      ((eq 'emacs sys) (call-interactively 'previous-error)))))
+
+(defvar-local spacemacs--gne-min-line nil
+  "The first line in the buffer that is a valid result.")
+(defvar-local spacemacs--gne-max-line nil
+  "The last line in the buffer that is a valid result.")
+(defvar-local spacemacs--gne-cur-line 0
+  "The current line in the buffer. (It is problematic to use
+point for this.)")
+(defvar-local spacemacs--gne-line-func nil
+  "The function to call to visit the result on a line.")
+
+(defun spacemacs//gne-next (num reset)
+  "A generalized next-error function. This function can be used
+as `next-error-function' in any buffer that conforms to the
+Spacemacs generalized next-error API.
+
+The variables `spacemacs--gne-min-line',
+`spacemacs--gne-max-line', and `spacemacs--line-func' must be
+set."
+  (when reset (setq spacemacs--gne-cur-line
+                    spacemacs--gne-min-line))
+  (setq spacemacs--gne-cur-line
+        (min spacemacs--gne-max-line
+             (max spacemacs--gne-min-line
+                  (+ num spacemacs--gne-cur-line))))
+  (goto-line spacemacs--gne-cur-line)
+  (funcall spacemacs--gne-line-func
+           (buffer-substring (point-at-bol) (point-at-eol))))
