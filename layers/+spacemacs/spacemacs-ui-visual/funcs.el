@@ -100,8 +100,9 @@
 
 (defun spacemacs/customize-powerline-faces ()
   "Alter powerline face to make them work with more themes."
-  (set-face-attribute 'powerline-inactive2 nil
-                      :inherit 'font-lock-comment-face))
+  (when (boundp 'powerline-inactive2)
+    (set-face-attribute 'powerline-inactive2 nil
+                        :inherit 'font-lock-comment-face)))
 
 (defun spacemacs//evil-state-face ()
   (let ((state (if (eq 'operator evil-state) evil-previous-state evil-state)))
