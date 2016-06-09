@@ -1,4 +1,13 @@
 * Release 0.105.x
+** 0.105.21 (2016/06/08)
+*** Fixes
+- Fix hybrid state when escaping to normal state
+- Fix installation instructions on OS X (thanks to d12frosted)
+- Fix broken =vinegar= key bindings
+- Fix =tmux= layer (thanks to aaronjensen)
+- Fix =scala= layer
+  - Use =scala-mode= instead of =scala-mode2= (thanks to j-martin)
+  - Fix =sbt= command to generate =ensime= configuration (thanks to d1egoaz)
 ** 0.105.20 (2016/05/10)
 *** Fixes
 - Update Spaceline configuration for new version
