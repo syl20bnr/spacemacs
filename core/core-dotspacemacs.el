@@ -50,7 +50,7 @@ exists. Otherwise, fallback to ~/.spacemacs")
 
 (defvar dotspacemacs-distribution 'spacemacs
   "Base distribution to use. This is a layer contained in the directory
-`+distribution'. For now available distributions are `spacemacs-base'
+`+distributions'. For now available distributions are `spacemacs-base'
 or `spacemacs'.")
 
 (defvar dotspacemacs-elpa-https t

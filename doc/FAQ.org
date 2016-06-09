@@ -123,7 +123,7 @@ experience.
 
 Set the distribution with =dotspacemacs-distribution= variable. The default is
 =spacemacs=. For more information as to what is included, check out the
-=packages.el= file in the respective folders in the =+distribution= folder of
+=packages.el= file in the respective folders in the =+distributions= folder of
 the =layers/= directory.
 
 ** Should I place my settings in =user-init= or =user-config=?

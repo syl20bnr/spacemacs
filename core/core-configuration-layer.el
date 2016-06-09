@@ -900,7 +900,7 @@ path."
       (let* ((layer-name (if (listp layer) (car layer) layer))
              (layer-path (ht-get configuration-layer-paths layer-name)))
         (if (stringp layer-path)
-            (unless (string-match-p "+distribution" layer-path)
+            (unless (string-match-p "+distributions" layer-path)
               (configuration-layer/declare-layer layer))
           (spacemacs-buffer/warning "Unknown layer %s declared in dotfile."
                                     layer-name))))
