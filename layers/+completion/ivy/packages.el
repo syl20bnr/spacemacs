@@ -25,8 +25,13 @@
         swiper
         wgrep))
 
-(defun ivy/init-ivy-hydra ()
-  (use-package ivy-hydra))
+(defun ivy/post-init-auto-highlight-symbol ()
+  (setq spacemacs-symbol-highlight-transient-state-remove-bindings
+        '("/" "b" "f"))
+  (setq spacemacs-symbol-highlight-transient-state-add-bindings
+        '(("/" spacemacs/search-project-auto-region-or-symbol :exit t)
+          ("b" spacemacs/swiper-all-region-or-symbol :exit t)
+          ("f" spacemacs/search-auto-region-or-symbol :exit t))))
 
 (defun ivy/init-counsel ()
   (use-package counsel
@@ -106,13 +111,9 @@
           "pf" 'counsel-projectile-find-file
           "pr" 'projectile-recentf)))))
 
-(defun ivy/post-init-auto-highlight-symbol ()
-  (setq spacemacs-symbol-highlight-transient-state-remove-bindings
-        '("/" "b" "f"))
-  (setq spacemacs-symbol-highlight-transient-state-add-bindings
-        '(("/" spacemacs/search-project-auto-region-or-symbol :exit t)
-          ("b" spacemacs/swiper-all-region-or-symbol :exit t)
-          ("f" spacemacs/search-auto-region-or-symbol :exit t))))
+(defun ivy/post-init-evil ()
+  (spacemacs/set-leader-keys
+    "re" 'spacemacs/ivy-evil-registers))
 
 (defun ivy/init-flx ())
 
@@ -158,6 +159,9 @@
         "w" 'ivy-wgrep-change-to-wgrep-mode)
       ;; Why do we do this ?
       (ido-mode -1))))
+
+(defun ivy/init-ivy-hydra ()
+  (use-package ivy-hydra))
 
 (defun ivy/post-init-persp-mode ()
   (ivy-set-actions
