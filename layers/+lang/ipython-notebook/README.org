@@ -1,28 +1,27 @@
-#+TITLE: IPython Notebook contribution layer for Spacemacs (WIP)
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: IPython Notebook layer
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Features][Features]]
- - [[List of TODOS][List of TODOS]]
-   - [[Maybe it'd be better if there was a state for this][Maybe it'd be better if there was a state for this]]
-   - [[Make more keybinding to =connect= to a python buffer.][Make more keybinding to =connect= to a python buffer.]]
-   - [[Deleting visual regions don't work, find out why.][Deleting visual regions don't work, find out why.]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[Dependencies][Dependencies]]
-   - [[What needs to be run][What needs to be run]]
- - [[Using the IPython notebook][Using the IPython notebook]]
-   - [[Open Notebook List][Open Notebook List]]
-   - [[Key Bindings][Key Bindings]]
-     - [[Micro-state: =ipython-notebook=][Micro-state: =ipython-notebook=]]
-     - [[Normal mode][Normal mode]]
-     - [[Insert mode][Insert mode]]
-     - [[Traceback mode][Traceback mode]]
- - [[Screenshots][Screenshots]]
-   - [[Light][Light]]
-   - [[Dark][Dark]]
- - [[Bonus][Bonus]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#list-of-todos][List of TODOS]]
+   - [[#maybe-itd-be-better-if-there-was-a-state-for-this][Maybe it'd be better if there was a state for this]]
+   - [[#make-more-keybinding-to-connect-to-a-python-buffer][Make more keybinding to =connect= to a python buffer]]
+   - [[#deleting-visual-regions-dont-work-find-out-why][Deleting visual regions don't work, find out why]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#dependencies][Dependencies]]
+   - [[#what-needs-to-be-run][What needs to be run]]
+ - [[#using-the-ipython-notebook][Using the IPython notebook]]
+   - [[#open-notebook-list][Open Notebook List]]
+   - [[#key-bindings][Key Bindings]]
+     - [[#transient-state-ipython-notebook][Transient-state: =ipython-notebook=]]
+     - [[#normal-mode][Normal mode]]
+     - [[#insert-mode][Insert mode]]
+     - [[#traceback-mode][Traceback mode]]
+ - [[#screenshots][Screenshots]]
+   - [[#light][Light]]
+   - [[#dark][Dark]]
+ - [[#bonus][Bonus]]
 
 * Description
 This layer adds support for the package =emacs-ipython-notebook=.
@@ -31,25 +30,28 @@ Do not hesitate to check the original package README [[https://github.com/millej
 lots of informative stuff.
 
 * Features
-- Keybindings available through micro-State or leader key
+- Keybindings available through transient-state or leader key
 - Lazy-loading
 
 * List of TODOS
 This is a WIP, feel free to collaborate.
+
 ** TODO Maybe it'd be better if there was a state for this
-** TODO Make more keybinding to =connect= to a python buffer.
-** TODO Deleting visual regions don't work, find out why.
+** TODO Make more keybinding to =connect= to a python buffer
+** TODO Deleting visual regions don't work, find out why
 
 * Install
 ** Layer
-#+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(ipython-notebook))
-#+end_src
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =ipython-notebook= to the existing =dotspacemacs-configuration-layers= list
+in this file.
+
 ** Dependencies
 Install IPython > 3
 #+begin_src sh
   pip install ipython
 #+end_src
+
 ** What needs to be run
 Have an IPython notebook running
 #+begin_src sh
@@ -58,16 +60,17 @@ Have an IPython notebook running
 
 * Using the IPython notebook
 ** Open Notebook List
-This layer is lazy loaded so the micro-state will only work after you summon the
+This layer is lazy loaded so the transient-state will only work after you summon the
 command =ein:notebooklist-open= which is bound to ~SPC a i n~
-** Key Bindings
-The key bindings can be used through a micro state or the usual evil-leader.
 
-*** Micro-state: =ipython-notebook=
-Once you are in the ipython notebook you can activate the micro-state with
+** Key Bindings
+The key bindings can be used through a transient state or the usual evil-leader.
+
+*** Transient-state: =ipython-notebook=
+Once you are in the ipython notebook you can activate the transient-state with
 ~SPC e i n~
 
-The following table lists the keys. Use them as listed in the micro-state or
+The following table lists the keys. Use them as listed in the transient-state or
 prefix with ~SPC m~ to use with your evil-leader.
 
 | Key     | Function                                  |
@@ -142,6 +145,7 @@ In traceback mode the following key bindings are defined:
 * Screenshots
 ** Light
 [[file:img/light.png]]
+
 ** Dark
 [[file:img/dark.png]]
 

@@ -1,26 +1,23 @@
-#+TITLE: Ruby on Rails contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: Ruby on Rails layer
 
 [[file:img/ror.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
-   - [[Code Navigation][Code Navigation]]
-   - [[Refactoring][Refactoring]]
-   - [[RUN commands][RUN commands]]
-   - [[Ex-commands][Ex-commands]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+   - [[#code-navigation][Code Navigation]]
+   - [[#refactoring][Refactoring]]
+   - [[#run-commands][RUN commands]]
+   - [[#ex-commands][Ex-commands]]
 
 * Description
 This layer aims at providing support for the Ruby on Rails framework.
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(ruby-on-rails))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =ruby-on-rails= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key bindings
 ** Code Navigation
@@ -73,10 +70,10 @@ To use this contribution add it to your =~/.spacemacs=
 
 | Key binding   | Description          |
 |---------------+----------------------|
+| ~SPC m r :~   | run rake task        |
 | ~SPC m r c c~ | run rails generator  |
 | ~SPC m r i~   | start rails console  |
 | ~SPC m r s r~ | reload Rails project |
-| ~SPC m r r :~ | run rake task        |
 | ~SPC m r x s~ | start rails server   |
 
 ** Ex-commands

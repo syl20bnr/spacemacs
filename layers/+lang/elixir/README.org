@@ -1,25 +1,27 @@
-#+TITLE: Elixir contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: Elixir layer
 
 [[file:img/elixir.png]] with [[file:img/alchemist.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
-   - [[Refcard][Refcard]]
-   - [[Help][Help]]
-   - [[Mix][Mix]]
-   - [[Project][Project]]
-   - [[Evaluation in place][Evaluation in place]]
-   - [[REPL interactions][REPL interactions]]
-   - [[Tests][Tests]]
-   - [[Compile][Compile]]
-   - [[Execute][Execute]]
-   - [[Code Definition Jump][Code Definition Jump]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#configuration][Configuration]]
+   - [[#flycheck][Flycheck]]
+     - [[#credo][Credo]]
+     - [[#mix-compile][mix compile]]
+ - [[#key-bindings][Key bindings]]
+   - [[#refcard][Refcard]]
+   - [[#help][Help]]
+   - [[#mix][Mix]]
+   - [[#project][Project]]
+   - [[#evaluation-in-place][Evaluation in place]]
+   - [[#repl-interactions][REPL interactions]]
+   - [[#tests][Tests]]
+   - [[#compile][Compile]]
+   - [[#execute][Execute]]
+   - [[#code-definition-jump][Code Definition Jump]]
 
 * Description
-
 This layer adds support for [[http://elixir-lang.org/][Elixir]] .
 
 [[https://github.com/tonini/alchemist.el][Alchemist]] brings the Elixir tooling to Emacs and comes with a bunch of
@@ -33,19 +35,72 @@ features like:
 - Smart code completion
 - Elixir project management
 - Integration with [[http://company-mode.github.io/][company-mode]]
+- Flycheck support for mix compile
+- Flycheck support for [[https://github.com/rrrene/credo][credo]]
+- Flycheck support for test results
 
 * Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =elixir= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
-To use this contribution add it to your =~/.spacemacs=
+* Configuration
+** Flycheck
+*Note:* since flycheck checkers are slow, the checks are enabled only at save
+time.
 
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(elixir))
+*** Credo
+A flycheck checker for [[https://github.com/rrrene/credo][credo]] is installed. The check needs both =bunt= and
+=credo= to be available, you can install them like this:
+
+#+BEGIN_SRC shell
+git clone https://github.com/rrrene/bunt
+cd bunt
+mix archive.build
+mix archive.install
 #+END_SRC
 
+#+BEGIN_SRC shell
+git clone https://github.com/rrrene/credo
+cd credo
+mix deps.get
+mix archive.build
+mix archive.install
+#+END_SRC
+
+*** mix compile
+*Important:*
+Elixir compiler is based on macros and can execute arbitrary during compilation.
+Therefore Spacemacs disable flycheck compilation checker by default.
+
+To enable flycheck support for compilation errors  *globally* the variable
+=elixir-enable-compilation-checking= can be set explicitly to =t= in your
+dotfile but it is not recommended to do so because of the limitation described
+above.
+
+Instead you should use directory local variables in order to enable the flycheck
+checker only for certain projects. Directory local variables are stored in a
+file named =.dir-local.el= usually at the root of a project. To easily add a
+directory local variable use the key binding ~SPC f v d~ then choose the
+=elixir-mode= and the variable name =elixir-enable-compilation-checking= with
+a value of t. The result is a new file =.dir-local.el= with the following
+contents:
+
+#+BEGIN_SRC elisp
+;;; Directory Local Variables
+;;; For more information see (info "(emacs) Directory Variables")
+
+((elixir-mode
+  (elixir-enable-compilation-checking . t)))
+#+END_SRC
+
+Spacemacs marks the variable =elixir-enable-compilation-checking= as safe so
+Emacs won't ask you if the variable is safe whenever an elixir file is opened.
+
+Remember that you can verify the flycheck checkers status with ~SPC e v~.
+
 * Key bindings
-
 ** Refcard
-
 You find and overview of all the key-bindings on the [[file:alchemist-refcard.pdf][Alchemist-Refcard]].
 
 ** Help
@@ -89,13 +144,14 @@ You find and overview of all the key-bindings on the [[file:alchemist-refcard.pd
 
 | Key Binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
+| ~SPC m s c~ | Compiles the current buffer in the IEx process.                 |
 | ~SPC m s i~ | Start an =iex= inferior process                                 |
 | ~SPC m s I~ | Start an IEx process with mix (=iex -S mix=)                    |
 | ~SPC m s l~ | Send current line to REPL buffer                                |
 | ~SPC m s L~ | Send current line to REPL buffer and focus it in =insert state= |
+| ~SPC m s m~ | Reloads the module in the current buffer in your IEx process    |
 | ~SPC m s r~ | Send region to REPL buffer                                      |
 | ~SPC m s R~ | Send region to REPL buffer and focus it in =insert state=       |
-| ~SPC m s c~ | Compiles the current buffer in the IEx process.                 |
 
 ** Tests
 
@@ -104,6 +160,7 @@ You find and overview of all the key-bindings on the [[file:alchemist-refcard.pd
 | ~SPC m g t~ | Open the test file for current buffer |
 | ~SPC m t a~ | Run all the tests                     |
 | ~SPC m t b~ | Run all the tests from current buffer |
+| ~SPC m t r~ | Rerun the last test                   |
 | ~SPC m t t~ | Run test under point                  |
 
 ** Compile
@@ -113,7 +170,6 @@ You find and overview of all the key-bindings on the [[file:alchemist-refcard.pd
 | ~SPC m c :~ | Run a custom compile command with =elixirc=        |
 | ~SPC m c b~ | Compile the current buffer with elixirc. =elixirc= |
 | ~SPC m c f~ | Compile the given filename with =elixirc=          |
-
 
 ** Execute
 
@@ -128,4 +184,4 @@ You find and overview of all the key-bindings on the [[file:alchemist-refcard.pd
 | Key Binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC m g g~ | Jump to the elixir expression definition at point. |
-| ~SPC m ,~   | Pop back to where ~SPC m g g~ was last invoked.    |
+| ~SPC m ​,​~   | Pop back to where ~SPC m g g~ was last invoked.    |

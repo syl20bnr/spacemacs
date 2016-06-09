@@ -1,0 +1,32 @@
+#+TITLE: Floobits layer
+
+[[file:img/floobits.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+ - [[#key-bindings][Key Bindings]]
+
+* Description
+This layer adds support for peer programming tool [[https://github.com/Floobits/floobits-emacs][floobits]].
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =floobits= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key Bindings
+
+| Key Binding | Description                                                                              |
+|-------------+------------------------------------------------------------------------------------------|
+| ~SPC P c~   | Clears all mirrored highlights.                                                          |
+| ~SPC P d~   | Load the .floorc.json file for floobits configuration.                                   |
+| ~SPC P f~   | Follow a users changes. This also toggles follow mode.                                   |
+| ~SPC P j~   | Join an existing floobits workspace.                                                     |
+| ~SPC P l~   | Leave the current workspace.                                                             |
+| ~SPC P R~   | Create a workspace and populate it with the contents of the directory, DIR (or make it). |
+| ~SPC P s~   | Summon everyone in the workspace to your cursor position.                                |
+| ~SPC P t~   | Toggle following of recent changes.                                                      |
+| ~SPC P U~   | Create a workspace and populate it with the contents of the directory, DIR (or make it). |

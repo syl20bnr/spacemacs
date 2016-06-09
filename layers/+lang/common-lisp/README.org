@@ -1,20 +1,19 @@
-#+TITLE: Common Lisp contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: Common Lisp layer
 
 [[file:img/slime.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key Bindings][Key Bindings]]
-   - [[Working with lisp files (barfage, slurpage & more)][Working with lisp files (barfage, slurpage & more)]]
-   - [[Leader][Leader]]
-     - [[Help][Help]]
-     - [[Evaluation][Evaluation]]
-     - [[REPL][REPL]]
-     - [[Compile][Compile]]
-     - [[Navigation][Navigation]]
-     - [[Macroexpansion][Macroexpansion]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
+   - [[#leader][Leader]]
+     - [[#help][Help]]
+     - [[#evaluation][Evaluation]]
+     - [[#repl][REPL]]
+     - [[#compile][Compile]]
+     - [[#navigation][Navigation]]
+     - [[#macroexpansion][Macroexpansion]]
 
 * Description
 A Spacemacs contribution layer providing Common Lisp support via [[https://github.com/slime/slime][SLIME]].
@@ -25,11 +24,9 @@ you uninstall it before proceeding. You should clean up any config files tied to
 slime that are left behind as well. Linux users can just purge the slime package
 if it was a distribution install.
 
-To use this contribution, add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(common-lisp))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =common-lisp= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 This layer defaults to using [[http://www.sbcl.org/][sbcl]]. If you want to use a different implementation
 of Common Lisp, you can specify it in your =~/.spacemacs=
@@ -96,7 +93,6 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m c r~ | Compile region           |
 
 *** Navigation
-
 
 | Key Binding               | Description        |
 |---------------------------+--------------------|

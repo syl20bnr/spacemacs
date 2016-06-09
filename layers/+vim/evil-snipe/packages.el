@@ -2,6 +2,7 @@
       '(
         evil-snipe
         magit
+        ranger
         ))
 
 (defun evil-snipe/init-evil-snipe ()
@@ -29,3 +30,8 @@
         (add-hook 'git-rebase-mode-hook 'turn-off-evil-snipe-override-mode))
     (add-hook 'magit-mode-hook 'turn-off-evil-snipe-mode)
     (add-hook 'git-rebase-mode-hook 'turn-off-evil-snipe-mode)))
+
+(defun evil-snipe/post-init-ranger ()
+  (if evil-snipe-enable-alternate-f-and-t-behaviors
+      (add-hook 'ranger-mode-hook 'turn-off-evil-snipe-override-mode)
+    (add-hook 'ranger-mode-hook 'turn-off-evil-snipe-mode)))

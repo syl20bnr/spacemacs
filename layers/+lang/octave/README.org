@@ -1,0 +1,42 @@
+#+TITLE: Octave layer
+
+[[file:img/octave.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+   - [[#inferior-repl-process][Inferior REPL process]]
+   - [[#helpers][Helpers]]
+
+* Description
+This layer activates [[info:octave-mode][octave-mode]] for files with =.m=
+extensions and configures spacemacs-style key bindings.
+
+* Install
+Make sure that [[https://gnu.org/software/octave/][GNU Octave]] is installed and
+in your PATH. For information about setting up $PATH, check out the
+corresponding section in the FAQ (=SPC h SPC $PATH RET=).
+
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =octave= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+** Inferior REPL process
+Send code to inferior process with these commands:
+
+| Key         | Description                           |
+|-------------+---------------------------------------|
+| ~SPC m s b~ | send buffer                           |
+| ~SPC m s f~ | send function                         |
+| ~SPC m s i~ | start/switch to REPL inferior process |
+| ~SPC m s l~ | send line                             |
+| ~SPC m s r~ | send region                           |
+
+** Helpers
+
+| Key Binding | Description                              |
+|-------------+------------------------------------------|
+| ~SPC m h h~ | view documentation for function at point |
+| ~SPC m h i~ | read octave info documentation           |

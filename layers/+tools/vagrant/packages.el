@@ -1,7 +1,6 @@
-;;; packages.el --- Vagrant Layer extensions File for Spacemacs
+;;; packages.el --- Vagrant Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2015 Brian Hicks & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Brian Hicks <brian@brianthicks.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -24,6 +23,7 @@
         "VH" 'vagrant-halt
         "Vp" 'vagrant-provision
         "Vr" 'vagrant-resume
+        "VR" 'vagrant-reload
         "Vs" 'vagrant-status
         "VS" 'vagrant-suspend
         "VV" 'vagrant-up))))

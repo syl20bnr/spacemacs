@@ -1,7 +1,6 @@
 ;;; packages.el --- gnus Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -49,7 +48,6 @@
        gnus-sum-thread-tree-single-leaf "╰► "
        gnus-sum-thread-tree-vertical "│"
        gnus-article-browse-delete-temp t
-       gnus-fetch-old-headers t
        gnus-treat-strip-trailing-blank-lines 'last
        gnus-keep-backlog 'nil
        gnus-summary-display-arrow nil ; Don't show that annoying arrow:

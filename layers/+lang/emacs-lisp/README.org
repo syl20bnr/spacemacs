@@ -1,27 +1,24 @@
-#+TITLE: Emacs Lisp contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: Emacs Lisp layer
 
 [[file:img/emacs-lisp.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Auto-compile][Auto-compile]]
- - [[Key bindings][Key bindings]]
-   - [[Working with lisp files (barfage, slurpage & more)][Working with lisp files (barfage, slurpage & more)]]
-   - [[Leader][Leader]]
-   - [[srefactor][srefactor]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#auto-compile][Auto-compile]]
+ - [[#key-bindings][Key bindings]]
+   - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
+   - [[#leader][Leader]]
+   - [[#srefactor][srefactor]]
 
 * Description
 This layer gathers all the configuration related to emacs-lisp. This should
 always be in your dotfile, it is not recommended to uninstall it.
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(emacs-lisp))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =emacs-lisp= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Auto-compile
 This layer adds the [[https://github.com/tarsius/auto-compile][auto-compile]] package to automatically keep the byte-compiled
@@ -60,10 +57,10 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m e e~                | evaluate sexp before point                                 |
 | ~SPC m e r~                | evaluate current region                                    |
 | ~SPC m e f~                | evaluation current function                                |
-| ~SPC m ,~                  | toggle =lisp state=                                        |
+| ~SPC m ​,​~                  | toggle =lisp state=                                        |
 | ~SPC m t b~                | run tests of current buffer                                |
 | ~SPC m t q~                | run =ert=                                                  |
-| ~SPC m d m~                | open [[https://github.com/joddie/macrostep][macrostep]] micro-state                                 |
+| ~SPC m d m~                | open [[https://github.com/joddie/macrostep][macrostep]] transient-state                             |
 
 ** srefactor
 The [[file:../../semantic/README.org][semantic]] layer should be installed for these key bindings to become active.

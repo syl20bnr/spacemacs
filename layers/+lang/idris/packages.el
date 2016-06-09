@@ -1,7 +1,6 @@
 ;;; packages.el --- Idris Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2015 Timothy Jones
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Timothy Jones <git@zmthy.io>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -10,11 +9,18 @@
 ;;
 ;;; License: GPLv3
 
-(setq idris-packages '(idris-mode))
+(setq idris-packages '(idris-mode
+                       company
+                       popwin))
+
+(defun idris/post-init-company ()
+  (spacemacs|add-company-hook idris-mode)
+  (push 'company-capf company-backends-idris-mode))
 
 (defun idris/init-idris-mode ()
   (use-package idris-mode
     :defer t
+    :init (spacemacs/register-repl 'idris-mode 'idris-repl "idris")
     :config
     (progn
       (defun spacemacs/idris-load-file-and-focus (&optional set-line)
@@ -39,11 +45,19 @@
         (idris-pop-to-repl)
         (evil-insert-state))
 
+      ;; prefix
+      (spacemacs/declare-prefix-for-mode 'idris-mode "mb" "idris/build")
+      (spacemacs/declare-prefix-for-mode 'idris-mode "mi" "idris/editing")
+      (spacemacs/declare-prefix-for-mode 'idris-mode "mh" "idris/documentation")
+      (spacemacs/declare-prefix-for-mode 'idris-mode "ms" "idris/repl")
+      (spacemacs/declare-prefix-for-mode 'idris-mode "mm" "idris/term")
+
       (spacemacs/set-leader-keys-for-major-mode 'idris-mode
         ;; Shorthands: rebind the standard evil-mode combinations to the local
         ;; leader for the keys not used as a prefix below.
-        "c" 'idris-case-split
+        "c" 'idris-case-dwim
         "d" 'idris-add-clause
+        "l" 'idris-make-lemma
         "p" 'idris-proof-search
         "r" 'idris-load-file
         "t" 'idris-type-at-point
@@ -57,7 +71,7 @@
 
         ;; Interactive editing.
         "ia" 'idris-proof-search
-        "ic" 'idris-case-split
+        "ic" 'idris-case-dwim
         "ie" 'idris-make-lemma
         "im" 'idris-add-missing
         "ir" 'idris-refine
@@ -77,11 +91,27 @@
         "mc" 'idris-show-core-term
 
         ;; REPL
+        "'" 'idris-repl
         "sb" 'idris-load-file
         "sB" 'spacemacs/idris-load-file-and-focus
-        "si" 'idris-ensure-process-and-repl-buffer
+        "si" 'idris-repl
         "sn" 'idris-load-forward-line
         "sN" 'spacemacs/idris-load-forward-line-and-focus
         "sp" 'idris-load-backward-line
         "sP" 'spacemacs/idris-load-backward-line-and-focus
-        "ss" 'idris-pop-to-repl))))
+        "ss" 'idris-pop-to-repl)))
+
+  ;; open special buffers in motion state so they can be closed with ~q~
+  (evil-set-initial-state 'idris-compiler-notes-mode 'motion)
+  (evil-set-initial-state 'idris-hole-list-mode 'motion)
+  (evil-set-initial-state 'idris-info-mode 'motion))
+
+(defun idris/pre-init-popwin ()
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    (push '("*idris-notes*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
+          popwin:special-display-config)
+    (push '("*idris-holes*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
+          popwin:special-display-config)
+    (push '("*idris-info*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
+          popwin:special-display-config)))

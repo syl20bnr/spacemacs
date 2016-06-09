@@ -1,0 +1,21 @@
+<<REPLACE ALL UPPERCASE EXPRESSIONS AND DELETE THIS LINE, `C-C C-C` TO SUBMIT>>
+#### Description :octocat:
+<<DESCRIPTION OF THE PROBLEM>>
+
+#### Reproduction guide :beetle:
+- Start Emacs
+- <<REPRODUCTION STEPS>>
+
+*Observed behaviour:* :eyes:
+<<DESCRIPTION OF THE OBSERVED BEHAVIOUR>>
+
+*Expected behaviour:* :broken_heart:
+<<DESCRIPTION OF THE EXPECTED BEHAVIOUR>>
+
+(%LAST_KEYS%)
+%SYSTEM_INFO%
+
+#### Backtrace :paw_prints:
+```
+%BACKTRACE%
+```

@@ -7,6 +7,7 @@ eproject.lst
 \#*
 .places
 .cache
+/eww-bookmarks
 eshell/history
 .emacs.desktop
 .emacs.desktop.lock
@@ -33,6 +34,7 @@ tmp/
 /history
 .python-environments/
 server/
+/network-security.data
 *~
 *.elc
 *.pyc
@@ -42,7 +44,7 @@ python-*-docs-html
 /.cask/
 
 # Private directory
-private/*
+private/
 !private/README.md
 !private/snippets/README.md
 !private/local/README.md

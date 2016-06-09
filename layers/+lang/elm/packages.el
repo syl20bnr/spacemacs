@@ -1,7 +1,6 @@
 ;;; packages.el --- elm Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,7 +14,7 @@
       company
       elm-mode
       flycheck
-      flycheck-elm
+      (flycheck-elm :toggle (configuration-layer/package-usedp 'flycheck))
       popwin
       smartparens
       ))
@@ -25,15 +24,14 @@
   (add-hook 'elm-mode-hook 'elm-oracle-setup-completion))
 
 (defun elm/post-init-flycheck ()
-  (add-hook 'elm-mode-hook 'flycheck-mode))
+  (add-hook 'elm-mode-hook 'flycheck-mode)
+  (add-hook 'elm-mode-hook 'spacemacs//elm-find-root))
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
-  (defun elm/init-flycheck-elm ()
-    "Initialize flycheck-elm"
-    (use-package flycheck-elm
-      :if (configuration-layer/package-usedp 'flycheck)
-      :defer t
-      :init (add-hook 'flycheck-mode-hook 'flycheck-elm-setup t))))
+(defun elm/init-flycheck-elm ()
+  "Initialize flycheck-elm"
+  (use-package flycheck-elm
+    :defer t
+    :init (add-hook 'flycheck-mode-hook 'flycheck-elm-setup t)))
 
 (defun elm/init-elm-mode ()
   "Initialize elm-mode"
@@ -41,6 +39,8 @@
     :mode ("\\.elm\\'" . elm-mode)
     :init
     (progn
+      (spacemacs/register-repl 'elm-mode 'elm-repl-load "elm")
+
       (defun spacemacs/init-elm-mode ()
         "Disable electric-indent-mode and let indentation cycling feature work"
         (if (fboundp 'electric-indent-local-mode)
@@ -51,24 +51,6 @@
     (progn
       (push "\\*elm\\*" spacemacs-useful-buffers-regexp)
 
-      (defun spacemacs/elm-compile-buffer-output ()
-        (interactive)
-        (let* ((fname (format "%s.js" (downcase (file-name-base (buffer-file-name))))))
-          (elm-compile--file (elm--buffer-local-file-name) fname)))
-
-      (defun spacemacs/elm-repl-push-decl-focus ()
-        "Send current function to the REPL and focus it in insert state."
-        (interactive)
-        (elm-repl-push-decl)
-        (run-elm-interactive)
-        (evil-insert-state))
-
-      (defun spacemacs/elm-repl-push-focus ()
-        "Send current region to the REPL and focus it in insert state."
-        (elm-repl-push)
-        (run-elm-interactive)
-        (evil-insert-state))
-
       (spacemacs/set-leader-keys-for-major-mode 'elm-mode
         ;; make
         "cb" 'elm-compile-buffer
@@ -78,10 +60,14 @@
         ;; oracle
         "ht" 'elm-oracle-type-at-point
 
+        ;; refactoring
+        "ri" 'elm-sort-imports
+
         ;; repl
+        "'"  'elm-repl-load
         "si" 'elm-repl-load
         "sf" 'elm-repl-push-decl
-        "sF" 'spacemacs/elm-repl-push-decl
+        "sF" 'spacemacs/elm-repl-push-decl-focus
         "sr" 'elm-repl-push
         "sR" 'spacemacs/elm-repl-push-focus
 
@@ -98,13 +84,12 @@
                    ("mc" . "compile")
                    ("mh" . "help")
                    ("mp" . "package")
+                   ("mr" . "refactor")
                    ("ms" . "repl")))
         (spacemacs/declare-prefix-for-mode 'elm-mode (car x) (cdr x)))
 
       (evilified-state-evilify elm-package-mode elm-package-mode-map
         "g" 'elm-package-refresh
-        "n" 'elm-package-next
-        "p" 'elm-package-prev
         "v" 'elm-package-view
         "m" 'elm-package-mark
         "u" 'elm-package-unmark

@@ -1,7 +1,6 @@
 ;;; packages.el --- ESS (R) Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -17,7 +16,6 @@
     ess-R-data-view
     ess-R-object-popup
     ess-smart-equals
-    rainbow-delimiters
     ))
 
 (defun ess/init-ess ()
@@ -53,8 +51,15 @@
     :commands (R stata julia SAS)
     :init
     (progn
+      (spacemacs/register-repl 'ess-site 'julia)
+      (spacemacs/register-repl 'ess-site 'R)
+      (spacemacs/register-repl 'ess-site 'SAS)
+      (spacemacs/register-repl 'ess-site 'stata)
+      ;; Explicitly run prog-mode hooks since ess-mode does not derive from
+      ;; prog-mode major-mode
+      (add-hook 'ess-mode-hook 'spacemacs/run-prog-mode-hooks)
       (when (configuration-layer/package-usedp 'company)
-          (add-hook 'ess-mode-hook 'company-mode-on))))
+          (add-hook 'ess-mode-hook 'company-mode))))
 
   ;; R --------------------------------------------------------------------------
   (with-eval-after-load 'ess-site
@@ -74,8 +79,10 @@
        ((string= "SAS" ess-language) (call-interactively 'SAS))))
 
     (spacemacs/set-leader-keys-for-major-mode 'ess-julia-mode
+      "'"  'julia
       "si" 'julia)
     (spacemacs/set-leader-keys-for-major-mode 'ess-mode
+      "'"  'spacemacs/ess-start-repl
       "si" 'spacemacs/ess-start-repl
       ;; noweb
       "cC" 'ess-eval-chunk-and-go
@@ -107,9 +114,6 @@
 (defun ess/init-ess-R-data-view ())
 
 (defun ess/init-ess-R-object-popup ())
-
-(defun ess/post-init-rainbow-delimiters ()
-  (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
 
 (defun ess/init-ess-smart-equals ()
   (use-package ess-smart-equals

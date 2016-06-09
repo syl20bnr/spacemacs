@@ -1,11 +1,10 @@
-#+TITLE: Erlang contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: Erlang layer
 
 [[file:img/erlang.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
 
 * Description
 
@@ -13,9 +12,6 @@ Very basic layer for Erlang with support for basic =syntax-checking= and
 =auto-completion= with the corresponding layers.
 
 * Install
-
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(erlang))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =erlang= to the existing =dotspacemacs-configuration-layers= list in this
+file.

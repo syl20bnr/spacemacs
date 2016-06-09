@@ -1,22 +1,19 @@
-#+TITLE: Dockerfile contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: Dockerfile layer
 
 [[file:img/docker.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 This layer provides syntax highlighting and build functionality for Docker files.
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(dockerfile))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =dockerfile= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Key bindings
 

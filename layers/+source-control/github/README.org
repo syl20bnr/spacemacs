@@ -1,21 +1,20 @@
-#+TITLE: Github contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: Github layer
 
 [[file:img/github.png]]
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Features:][Features:]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
- - [[Key Bindings][Key Bindings]]
-   - [[magit-gh-pulls][magit-gh-pulls]]
-   - [[gist.el][gist.el]]
-   - [[Clone repositories][Clone repositories]]
-   - [[Browse files][Browse files]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features:]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#git-configuration][Git configuration]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#magit-gh-pulls][magit-gh-pulls]]
+   - [[#gistel][gist.el]]
+   - [[#clone-repositories][Clone repositories]]
+   - [[#browse-files][Browse files]]
 
 * Description
-
 This layers adds support for [[http://github.com][Github]].
 
 ** Features:
@@ -26,17 +25,21 @@ This layers adds support for [[http://github.com][Github]].
 - [[https://github.com/dgtized/github-clone.el][Github clone]] allows for easy cloning and forking of repositories.
 
 * Install
-
 ** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =github= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
-To use this contribution add it to your =~/.spacemacs=
+** Git configuration
+You will need to generate a [[https://github.com/settings/tokens][personal access token]] on GitHub. This token should
+have the =gist= and =repo= permissions. Once this token is created, it needs to
+be added to your =~/.gitconfig=
 
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(github))
+#+BEGIN_SRC sh
+  git config --global github.oauth-token <token>
 #+END_SRC
 
 * Key Bindings
-
 ** magit-gh-pulls
 
 In a =magit status= buffer (~SPC g s~):

@@ -1,41 +1,40 @@
 #+TITLE: Migrating from Vim
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
-* Migrating from vim                                        :TOC_4_org:noexport:
- - [[Purpose of this document][Purpose of this document]]
- - [[Philosophy][Philosophy]]
- - [[Basic orientation][Basic orientation]]
-   - [[Terms][Terms]]
-     - [[Modes vs. States][Modes vs. States]]
-     - [[Layers][Layers]]
-     - [[Micro-states][Micro-states]]
-   - [[Keybinding conventions][Keybinding conventions]]
-   - [[Running commands][Running commands]]
-   - [[Buffer and window management][Buffer and window management]]
-     - [[Buffers][Buffers]]
-       - [[Special buffers][Special buffers]]
-     - [[Windows][Windows]]
-   - [[Files][Files]]
-   - [[The Help System][The Help System]]
-   - [[Exploring][Exploring]]
- - [[Customization][Customization]]
-   - [[The .spacemacs file][The .spacemacs file]]
-   - [[Emacs Lisp][Emacs Lisp]]
-     - [[Variables][Variables]]
-     - [[Keybindings][Keybindings]]
-     - [[Functions][Functions]]
-   - [[Activating a Layer][Activating a Layer]]
-   - [[Creating a Layer][Creating a Layer]]
-   - [[Installing a single package][Installing a single package]]
-   - [[Loading packages][Loading packages]]
-   - [[Uninstalling a package][Uninstalling a package]]
-   - [[Common tweaks][Common tweaks]]
-     - [[Changing the escape key][Changing the escape key]]
-     - [[Changing the colorscheme][Changing the colorscheme]]
-     - [[Nohlsearch][Nohlsearch]]
-     - [[Sessions][Sessions]]
-     - [[Navigating using visual lines][Navigating using visual lines]]
- - [[Other useful links][Other useful links]]
+* Migrating from vim                                        :TOC_4_gh:noexport:
+ - [[#purpose-of-this-document][Purpose of this document]]
+ - [[#philosophy][Philosophy]]
+ - [[#basic-orientation][Basic orientation]]
+   - [[#terms][Terms]]
+     - [[#modes-vs-states][Modes vs. States]]
+     - [[#layers][Layers]]
+     - [[#transient-states][Transient-states]]
+   - [[#keybinding-conventions][Keybinding conventions]]
+   - [[#running-commands][Running commands]]
+   - [[#buffer-and-window-management][Buffer and window management]]
+     - [[#buffers][Buffers]]
+       - [[#special-buffers][Special buffers]]
+     - [[#windows][Windows]]
+   - [[#files][Files]]
+   - [[#the-help-system][The Help System]]
+   - [[#exploring][Exploring]]
+ - [[#customization][Customization]]
+   - [[#the-spacemacs-file][The .spacemacs file]]
+   - [[#emacs-lisp][Emacs Lisp]]
+     - [[#variables][Variables]]
+     - [[#keybindings][Keybindings]]
+     - [[#functions][Functions]]
+   - [[#activating-a-layer][Activating a Layer]]
+   - [[#creating-a-layer][Creating a Layer]]
+   - [[#installing-a-single-package][Installing a single package]]
+   - [[#loading-packages][Loading packages]]
+   - [[#uninstalling-a-package][Uninstalling a package]]
+   - [[#common-tweaks][Common tweaks]]
+     - [[#changing-the-escape-key][Changing the escape key]]
+     - [[#changing-the-colorscheme][Changing the colorscheme]]
+     - [[#nohlsearch][Nohlsearch]]
+     - [[#sessions][Sessions]]
+     - [[#navigating-using-visual-lines][Navigating using visual lines]]
+ - [[#other-useful-links][Other useful links]]
 
 * Purpose of this document
 This document is intended to supplement the Spacemacs documentation by bridging
@@ -83,17 +82,17 @@ about what packages to install, and instead worry about what features you want.
 More information on layers can be found in the [[./VIMUSERS.org#customization][customization]] section and in the
 [[./DOCUMENTATION.org#configuration-layers][documentation]]. There is also a more in-depth guide on writing layers [[file:LAYERS.org][here]].
 
-*** Micro-states
-Spacemacs provides a special functionality called micro-states. Micro-states
+*** Transient-states
+Spacemacs provides a special functionality called transient-states. Transient-states
 allow similar commands to be run in succession without repeatedly pressing the
-~<Leader>~ key. Micro-states are usually triggered by using a keybinding with the
+~<Leader>~ key. Transient-states are usually triggered by using a keybinding with the
 following pattern: ~<Leader> <group> .~ where group is the category the
-micro-state falls under. When in a micro-state you will see documentation at the
-bottom of your window. To exit a micro-state press ~q~.
+transient-state falls under. When in a transient-state you will see documentation at the
+bottom of your window. To exit a transient-state press ~q~.
 
-#+CAPTION: Micro-state documentation window
+#+CAPTION: Transient-state documentation window
 
-[[file:img/spacemacs-scale-micro-state.png]]
+[[file:img/spacemacs-scale-transient-state.png]]
 
 ** Keybinding conventions
 Spacemacs uses ~SPC~ as its ~<Leader>~ key. This document will use ~SPC~ to refer to
@@ -109,12 +108,12 @@ Spacemacs uses [[https://github.com/justbur/emacs-which-key][which-key]] to show
 [[file:img/which-key.png]]
 
 ** Running commands
-Emacs commands can be run using ~SPC :~. This will pop up a buffer using [[https://github.com/emacs-helm/helm][Helm]]
+Emacs commands can be run using ~SPC SPC~. This will pop up a buffer using [[https://github.com/emacs-helm/helm][Helm]]
 which can be used to run any Emacs command. You can also run many ex commands
 using ~:~, just like in vim.
 
 Note: You can run Emacs interactive commands using ~:~, but you cannot run ex
-commands using ~SPC :~.
+commands using ~SPC SPC~.
 
 ** Buffer and window management
 *** Buffers
@@ -130,7 +129,7 @@ are located under the ~SPC b~ prefix.
 | ~SPC b d~ or ~:bdelete~   | Kill current buffer.                                 |
 | ~SPC b k~                 | Search for a buffer to kill.                         |
 | ~SPC b K~                 | Kill all buffers except the current buffer.          |
-| ~SPC b .~                 | Buffer micro-state.                                  |
+| ~SPC b .~                 | Buffer transient-state.                              |
 
 **** Special buffers
 By default Emacs creates a lot of buffers that most people will never need, like
@@ -147,7 +146,7 @@ once. All window keybindings are under the ~SPC w~ prefix.
 | ~SPC w s~ or ~:split~  | Opens a horizontal split below.      |
 | ~SPC w h/j/k/l~        | Navigate among windows.              |
 | ~SPC w H/J/K/L~        | Move the current window.             |
-| ~SPC w .~              | Window micro-state.                  |
+| ~SPC w .~              | Window transient-state.              |
 
 ** Files
 All file commands in Spacemacs are available under the ~SPC f~ prefix.
@@ -184,7 +183,7 @@ explore:
 
 | Keybinding  | Function                                                      |
 |-------------+---------------------------------------------------------------|
-| ~SPC f e h~ | Lists all layers and allows you to view files from the layer. |
+| ~SPC h SPC~ | Lists all layers and allows you to view files from the layer. |
 | ~SPC ?~     | Lists all keybindings.                                        |
 
 * Customization
@@ -243,13 +242,13 @@ The map is the keymap you want to bind the key in. Most of the time you will use
 =evil-<state-name>-state-map=. These correspond to different =evil-mode= states.
 For example, using =evil-insert-state-map= maps the keybinding in insert mode.
 
-To map ~<Leader>~ keybindings, use the =evil-leader/set-key= function.
+To map ~<Leader>~ keybindings, use the =spacemacs/set-leader-keys= function.
 
 #+begin_src emacs-lisp
-  (evil-leader/set-key key function) ; Syntax
+  (spacemacs/set-leader-keys key function) ; Syntax
   ;; Map killing a buffer to <Leader> b c
-  (evil-leader/set-key "bc" 'kill-this-buffer)
-  ;; Map opening a link to <Leader> o l only in org-mode
+  (spacemacs/set-leader-keys "bc" 'spacemacs/kill-this-buffer)
+  ;; Map opening a link to <Leader> o l only in org-mode (works for any major-mode)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode
     "ol" 'org-open-at-point)
 #+end_src
@@ -310,13 +309,13 @@ this:
 You can uncomment these suggested layers by deleting the semi-colons for a nice
 out-of-the-box experience. To add a layer, add its name to the list and restart
 Emacs or press ~SPC f e R~ . To view all layers and their documentation use ~SPC
-f e h~.
+h SPC~.
 
 ** Creating a Layer
 To group configuration or when configuration doesn't fit well in your
 =.spacemacs= file, you can create a configuration layer. Spacemacs provides a
-builtin command to generate the layer boilerplate:
-~SPC :configuration-layer/create-layer~. This generates a folder that looks like this:
+builtin command to generate the layer boilerplate: ~SPC SPC
+configuration-layer/create-layer~. This generates a folder that looks like this:
 
 #+BEGIN_EXAMPLE
     [layer-name]
@@ -420,7 +419,7 @@ This section is for things many will want to change. All of these settings go in
 the =dotspacemacs/user-config= function in your =.spacemacs= unless otherwise noted.
 
 *** Changing the escape key
-Spacemacs uses =[[https://github.com/syl20bnr/evil-escape][evil-escape]]= to
+Spacemacs uses [[https://github.com/syl20bnr/evil-escape][evil-escape]] to
 allow escaping from many =major-modes= with one keybinding. You can customize
 the variable in your =dotspacemacs/user-config= like this:
 
@@ -450,7 +449,6 @@ that is loaded at startup. Here is an example:
                                           gotham)))
 #+end_src
 
-
 All installed themes can be listed and chosen using the ~SPC T h~ keybinding.
 
 *** Nohlsearch
@@ -463,12 +461,8 @@ you can [[Uninstalling a package][uninstall]] the =evil-search-highlight-persist
 
 *** Sessions
 Spacemacs does not automatically restore your windows and buffers when you
-reopen it. If you use vim sessions regularly you may want to add
-=(desktop-save-mode t)= to your =dotspacemacs/user-config= in your =.spacemacs=
-to get this functionality. You will then be able to load the saved session
-using ~SPC : desktop-read~. The location of the desktop file can be set with
-the variable =desktop-dirname=. To automatically load a session,
-add =(desktop-read)= to your =.spacemacs=.
+reopen it. If you use vim sessions regularly you may want to set
+=dotspacemacs-auto-resume-layouts= to =t= in your =.spacemacs=.
 
 *** Navigating using visual lines
 Spacemacs uses the vim default of navigating by actual lines, even if they are

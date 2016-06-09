@@ -1,0 +1,110 @@
+#+TITLE: Colors layer
+
+[[file:img/rainbow_dash.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#configuration][Configuration]]
+   - [[#colorize-identifiers][Colorize identifiers]]
+   - [[#enable-nyan-cat][Enable Nyan cat]]
+ - [[#key-bindings][Key bindings]]
+   - [[#colorize-identifiers-1][Colorize Identifiers]]
+   - [[#rainbow-mode][Rainbow Mode]]
+   - [[#nyan-mode][Nyan Mode]]
+
+* Description
+This layer colors your life with:
+- [[https://github.com/Fanael/rainbow-identifiers][rainbow identifiers]] mode will colorize all identifiers (christmas tree mode :-))
+  with an almost unique color.
+- [[https://github.com/ankurdave/color-identifiers-mode][color-identifiers]] mode will colorize only identifiers recognized as variables.
+- [[https://julien.danjou.info/projects/emacs-packages][rainbow mode]] displays strings representing colors with the color they
+  represent as background.
+- [[https://github.com/syl20bnr/nyan-mode][nyan mode]] display a Nyan cat progress bar in the mode-line.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =colors= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Configuration
+** Colorize identifiers
+To colorize some identifiers by default in programming language buffers, set
+the layer variables =colors-colorize-identifiers= to either =variables= or
+=all=. =variables= will colorize only words recognized as variables, =all=
+will colorize all the words.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (colors :variables colors-colorize-identifiers 'all)))
+#+END_SRC
+
+When using the value =all= the Saturation and lightness of can be set per theme
+by adding an entry in the variable =colors-theme-identifiers-sat&light=. This is
+an alist where the key is a theme symbol and the value is a pair =(saturation
+lightness)=.
+
+For now saturation and lightness are not supported with the =variables= value.
+
+Example:
+
+#+BEGIN_SRC emacs-lisp
+  (push '(mytheme . (50 50)) colors-theme-identifiers-sat&light)
+#+END_SRC
+
+** Enable Nyan cat
+To enable the package =nyan-mode= set the variable
+=colors-enable-nyan-cat-progress-bar= to =t=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (colors :variables colors-enable-nyan-cat-progress-bar t)))
+#+END_SRC
+
+It may be handy to enable it only in a GUI, you can do it by using
+a quasi-quoted list:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    =((colors :variables
+              colors-enable-nyan-cat-progress-bar ,(display-graphic-p))))
+#+END_SRC
+
+* Key bindings
+The prefix associated with colors is ~C~.
+
+** Colorize Identifiers
+
+| Key Binding | Description                                                     |
+|-------------+-----------------------------------------------------------------|
+| ~SPC C a~   | colorize all idendifiers in current buffer                      |
+| ~SPC C C-a~ | globally colorize all idendifiers and all subsequent buffers    |
+| ~SPC C v~   | colorize all variables only in current buffer                   |
+| ~SPC C C-v~ | globally colorize all variables only and all subsequent buffers |
+
+The =saturation= and =lightness= of identifier colors can be adjusted live
+when colorizing all the identifiers with the transient-state:
+
+| Key Binding     | Description                              |
+|-----------------+------------------------------------------|
+| ~SPC C i s~     | initiate change =saturation= mini-mode   |
+| ~SPC C i l~     | initiate change =lightness= mini-mode    |
+| ~+~             | increase the =saturation= or =lightness= |
+| ~-~             | decrease the =saturation= or =lightness= |
+| ~=~             | reset the =saturation= or =lightness=    |
+| ~Any other key~ | leave the change mini-mode               |
+
+** Rainbow Mode
+
+[[file:img/rainbow-mode.png]]
+
+=rainbow-mode= mode can be toggled on and off with:
+
+    ~SPC t C c~
+
+** Nyan Mode
+=nyan-mode= mode can be toggled on and off with:
+
+    ~SPC t m n~
+
+Note that the toggle is local to the current buffer.

@@ -1,0 +1,34 @@
+#+TITLE: NixOS layer
+
+[[file:img/nixos.jpg]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features:]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#nixos-options][NixOS Options]]
+
+* Description
+
+This layer adds tools for better integration of emacs in NixOS.
+
+** Features:
+- Nix-mode using  [[https://github.com/NixOS/nix/blob/master/misc/emacs/nix-mode.el][nix-mode]]
+- Auto-completion of NixOS Options using [[https://github.com/travisbhartwell/nix-emacs/blob/master/company-nixos-options.el][company-nixos-options]]
+- Helm Lookup for NixOS Options  [[https://github.com/travisbhartwell/nix-emacs/blob/master/helm-nixos-options.el][helm-nixos-options]]
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =nixos= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key Bindings
+
+** NixOS Options
+
+| Key Binding | Description             |
+|-------------+-------------------------|
+| ~SPC h >~   | Call helm-nixos-options |

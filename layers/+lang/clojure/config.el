@@ -1,7 +1,6 @@
 ;;; config.el --- Clojure Layer configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -21,29 +20,3 @@
 
 (defvar clojure-enable-fancify-symbols nil
   "If non nil the `fancify-symbols' function is enabled.")
-
-(setq clojure/key-binding-prefixes '(("md" . "debug")
-                                     ("me" . "evaluation")
-                                     ("mg" . "goto")
-                                     ("mh" . "documentation")
-                                     ("mr" . "refactor")
-                                     ("mra" . "add")
-                                     ("mrc" . "cycle/clean")
-                                     ("mrd" . "destructure")
-                                     ("mre" . "extract/expand")
-                                     ("mrf" . "find/function")
-                                     ("mrh" . "hotload")
-                                     ("mri" . "introduce/inline")
-                                     ("mrm" . "move")
-                                     ("mrp" . "project/promote")
-                                     ("mrr" . "remove/rename/replace")
-                                     ("mrs" . "show/sort/stop")
-                                     ("mrt" . "thread")
-                                     ("mru" . "unwind/update")
-                                     ("ms" . "repl")
-                                     ("mt" . "test")
-                                     ("mT" . "toggle")
-                                     ("mf" . "format")))
-(mapc (lambda (x) (spacemacs/declare-prefix-for-mode
-                   'clojure-mode (car x) (cdr x)))
-            clojure/key-binding-prefixes)

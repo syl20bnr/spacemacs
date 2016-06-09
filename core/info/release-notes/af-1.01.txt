@@ -1,0 +1,38 @@
+               The new version of Spacemacs has arrived!
+
+This version brings Emacs to a whole new level by embedding Zerovim technologies
+through a state of the art message passing interface, this is Emacs for the next
+next NEXT century.
+
+This is so powerful that we decided to rename Spacemacs!
+
+                       Zemacs: Emacs to THE MAX!
+
+- Zerovim ambitious refactor of the (-1)Vim code base directly improves the code
+quality of Emacs while still retaining its important [implementation tricks].
+
+- Elisp can now be transpiled to   Vimscript which can be transpiled to Lua which
+can be used to code plugins for Zerovim, so now Emacs can have true native Vim
+plugins in Lua code coded in Elisp.
+Note: For performance reasons native plugins are transpiled to Elisp before
+being executed.
+
+- You can now type in [Atom] in Emacs by sharing a Zerovim session. Zemacs is
+shipped with a groundbreaking new UI using the new VR headsets capabilities:
+by projecting the Atom web-based interface on the left eye and the Emacs
+text-based interface on the right eye (also available the `swap-the-eyes' major
+mode tailored for colour-blind people) we can create the perfect blend of Emacs
+and Atom, instantaneous context switching with the blink of an eye. Welcome
+to the definitive GUI:
+
+       Zemacstom, the editor for the next next NEXT millennium.
+
+              -------------------------------------------
+
+This text is a parody of Neovim whose only purpose is to be funny (the text, not
+Neovim!). Neovim is a popular fork of Vim, you can try it and contribute to it
+by visiting this [link] or maybe [this one].
+
+This prank will self-destruct the 2nd April 2016.
+
+Type ~SPC m aprilfool~ to start working :-)

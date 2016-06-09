@@ -1,36 +1,88 @@
-#+TITLE: Version-Control contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: Version-Control layer
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Features:][Features:]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
- - [[Key Bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+ - [[#configuration][Configuration]]
+   - [[#differences-between-margin-programs][Differences between margin programs]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#version-control-transient-state][Version Control Transient-state]]
 
 * Description
-
 This layers adds general configuration for [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html][Emacs VC]].
 It should work with all VC backends such as Git, Mercurial, Bazaar, SVN, etc...
 
-** Features:
-- highlights uncommitted changes in the fringe or margin with [[https://github.com/dgutov/diff-hl][diff-hl]]
+** Features
+- highlights uncommitted changes in the fringe or margin with [[https://github.com/dgutov/diff-hl][diff-hl]],
+git-gutter, or git-gutter+
+- adds vcs transient-state ~SPC g.~ to allow quick navigation and modification of
+buffer hunks.
 
 * Install
-
 ** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =version-control= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
-To use this contribution add it to your =~/.spacemacs=
+* Configuration
+You can choose the package to facilitate the diff transient-state and show margins
+by setting =version-control-diff-tool=
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(version-control))
+'(version-control :variables
+                  version-control-diff-tool 'diff-hl)
 #+END_SRC
+
+To automatically enable diff margins in all buffers, set
+=version-control-global-margin=
+
+#+BEGIN_SRC emacs-lisp
+'(version-control :variables
+                  version-control-global-margin t)
+#+END_SRC
+
+** Differences between margin programs
+This layer contains generalized mappings for three diff margin packages:
+diff-hl, git-gutter, and git-gutter+.
+
+There are some differences between packages that might have some people prefer
+one over the other:
+
+| Feature                             | diff-hl | git-gutter | git-gutter+ |
+|-------------------------------------+---------+------------+-------------|
+| Show in fringe                      | X       | X          | X           |
+| Extended VCS support (e.g. hg, svn) | X       | X          |             |
+| Stage hunks from buffer             |         | X          | X           |
+| Dired support                       | X       |            |             |
 
 * Key Bindings
 
-| Key Binding | Description   |
-|-------------+---------------|
-| ~SPC g d g~ | Go to hunk    |
-| ~SPC g d N~ | Previous hunk |
-| ~SPC g d n~ | Next hunk     |
-| ~SPC g d r~ | Revert hunk   |
+| Key Binding | Description                     |
+|-------------+---------------------------------|
+| ~SPC g .~   | version control transient-state |
+| ~SPC T d~   | toggle diff margins             |
+| ~SPC T C-d~ | toggle diff margins globally    |
+
+** Version Control Transient-state
+
+| Key Binding | Description                  |
+|-------------+------------------------------|
+| ~SPC g . h~ | Show diff of hunk            |
+| ~SPC g . n~ | Next hunk                    |
+| ~SPC g . N~ | Previous hunk                |
+| ~SPC g . p~ | Previous hunk                |
+| ~SPC g . r~ | Revert hunk                  |
+| ~SPC g . s~ | Stage hunk                   |
+| ~SPC g . t~ | Toggle margin indicators     |
+| ~SPC g . w~ | Stage file                   |
+| ~SPC g . u~ | Unstage file                 |
+| ~SPC g . d~ | Repo diff popup              |
+| ~SPC g . D~ | Show diffs of unstaged hunks |
+| ~SPC g . c~ | Commit with popup            |
+| ~SPC g . C~ | Commit                       |
+| ~SPC g . P~ | Push repo with popup         |
+| ~SPC g . f~ | Fetch for repo with popup    |
+| ~SPC g . F~ | Pull repo with popup         |
+| ~SPC g . l~ | Show repo log                |

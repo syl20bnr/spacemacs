@@ -1,7 +1,6 @@
 ;;; packages.el --- sml Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Keith Simmons & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Keith Simmons <keith@the-simmons.net>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -21,6 +20,7 @@
     :mode ("\\.\\(sml\\|sig\\)\\'" . sml-mode)
     :defer t
     :commands run-sml
+    :init (spacemacs/register-repl 'sml-mode 'run-sml "sml")
     :config
     (progn
       (defun spacemacs/sml-prog-proc-send-buffer-and-focus ()
@@ -43,6 +43,7 @@
 
       (spacemacs/set-leader-keys-for-major-mode 'sml-mode
         ;; REPL
+        "'"  'run-sml
         "sb" 'sml-prog-proc-send-buffer
         "sB" 'spacemacs/sml-prog-proc-send-buffer-and-focus
         "sf" 'sml-send-function
@@ -51,7 +52,7 @@
         "sr" 'sml-prog-proc-send-region
         "sR" 'spacemacs/sml-prog-proc-send-region-and-focus
         "ss" 'run-sml)
-      (define-key sml-mode-map (kbd "M-<SPC>") 'sml-electric-space)
+      (define-key sml-mode-map (kbd "M-SPC") 'sml-electric-space)
       (define-key sml-mode-map (kbd "|") 'sml-electric-pipe))))
 
 (defun sml/init-ob-sml ()

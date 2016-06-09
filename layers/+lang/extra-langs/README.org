@@ -1,8 +1,7 @@
 #+TITLE: Extra Languages
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
 
 * Description
 
@@ -15,4 +14,5 @@ These include:
 - QML
 - OpenScad
 - Stan
+- Thrift
 - Wolfram Language / Mathematica

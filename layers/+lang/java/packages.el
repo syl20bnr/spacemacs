@@ -1,18 +1,23 @@
 ;;; packages.el --- Java Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015 Lukasz Klich
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Lukasz Klich <klich.lukasz@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
 
-(defvar java-packages
-  '(
-    emacs-eclim
-    company
-    ))
+(setq java-packages
+      '(
+        company
+        emacs-eclim
+        (java-mode :location built-in)
+        ))
+
+(defun java/post-init-company ()
+  (spacemacs|add-company-hook java-mode))
 
 (defun java/init-emacs-eclim ()
   (use-package eclim
@@ -128,5 +133,16 @@
     :init
     (push 'company-emacs-eclim company-backends-java-mode)))
 
-(defun java/post-init-company ()
-  (spacemacs|add-company-hook java-mode))
+(defun java/init-java-mode ()
+  (setq java/key-binding-prefixes '(("me" . "errors")
+                                    ("mf" . "find")
+                                    ("mg" . "goto")
+                                    ("mr" . "refactor")
+                                    ("mh" . "documentation")
+                                    ("mm" . "maven")
+                                    ("ma" . "ant")
+                                    ("mp" . "project")
+                                    ("mt" . "test")))
+  (mapc (lambda(x) (spacemacs/declare-prefix-for-mode
+                    'java-mode (car x) (cdr x)))
+        java/key-binding-prefixes))

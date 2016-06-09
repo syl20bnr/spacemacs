@@ -1,7 +1,6 @@
 ;;; packages.el --- pandoc Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2015 Christoph Paulik & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Christoph Paulik <cpaulik@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

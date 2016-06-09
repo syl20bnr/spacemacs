@@ -1,0 +1,46 @@
+#+TITLE: Better Defaults layer
+
+[[file:img/emacs.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#functions][Functions]]
+   - [[#spacemacssmart-move-beginning-of-line][=spacemacs/smart-move-beginning-of-line=]]
+   - [[#spacemacsbackward-kill-word-or-region][=spacemacs/backward-kill-word-or-region=]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer enhances the default commands of Emacs and is primarily intended to
+be used with the =emacs= editing style as it does not change anything in the Vim
+key bindings.
+
+However the =emacs= editing style is not required, you can still use this layer
+while you are using the =vim= editing style if you have some kind of mixed
+style.
+
+The commands defined in this layer are taken from various sources like [[https://github.com/bbatsov/prelude][Prelude]].
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =better-defaults= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Functions
+** =spacemacs/smart-move-beginning-of-line=
+Pressed one time, go to the first non-whitespace character of the line, pressed
+again, go to the beginning of the line.
+
+** =spacemacs/backward-kill-word-or-region=
+A combination of =kill-region= and =backward-kill-word=, depending on whether
+there is an active region. If there's an active region kill that. If not kill
+the preceding word.
+
+* Key bindings
+
+| Key Binding | Description                                                                      |
+|-------------+----------------------------------------------------------------------------------|
+| ~C-a~       | smart beginning of line                                                          |
+| ~C-w~       | backward kill word or region                                                     |
+| ~C-y~       | Automatically indenting after pasting. With prefix argument, paste text as it is |
+

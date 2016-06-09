@@ -1,7 +1,6 @@
 ;;; config.el --- Python Layer Configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -24,3 +23,8 @@
 
 (defvar python-fill-column 79
   "Fill column value for python buffers")
+
+(defvar python-auto-set-local-pyenv-version 'on-visit
+  "Automatically set pyenv version from \".python-version\".
+
+Possible values are `on-visit', `on-project-switch' or `nil'.")

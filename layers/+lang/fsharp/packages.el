@@ -1,7 +1,6 @@
 ;;; packages.el --- F# Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -16,7 +15,9 @@
   (use-package fsharp-mode
     :defer t
     :init
-    (setq fsharp-doc-idle-delay .2)
+    (progn
+      (setq fsharp-doc-idle-delay .2)
+      (spacemacs/register-repl 'fsharp-mode 'fsharp-show-subshell "F#"))
     :config
     (progn
 
@@ -54,6 +55,7 @@
 
         "ht" 'fsharp-ac/show-tooltip-at-point
 
+        "'"  'fsharp-show-subshell
         "sb" 'fsharp-load-buffer-file
         "sB" 'spacemacs/fsharp-load-buffer-file-focus
         "si" 'fsharp-show-subshell

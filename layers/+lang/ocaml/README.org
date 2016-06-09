@@ -1,20 +1,19 @@
-#+TITLE: Ocaml contribution layer for Spacemacs
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+#+TITLE: Ocaml layer
 
 [[file:img/ocaml.png]]
 
-* Table of Content                                          :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Features:][Features:]]
- - [[Install][Install]]
-   - [[Layer][Layer]]
-   - [[OPAM packages][OPAM packages]]
- - [[Key Bindings][Key Bindings]]
-   - [[REPL (utop)][REPL (utop)]]
- - [[TODOS][TODOS]]
-   - [[Add more proper spacemacs key-bindings for basic merlin tasks][Add more proper spacemacs key-bindings for basic merlin tasks]]
-   - [[Add proper keybindings for ocamldebug][Add proper keybindings for ocamldebug]]
-   - [[Add more keybindings for tuareg-mode][Add more keybindings for tuareg-mode]]
+* Table of Content                                          :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features:]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#opam-packages][OPAM packages]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#repl-utop][REPL (utop)]]
+ - [[#todos][TODOS]]
+   - [[#add-more-proper-spacemacs-key-bindings-for-basic-merlin-tasks][Add more proper spacemacs key-bindings for basic merlin tasks]]
+   - [[#add-proper-keybindings-for-ocamldebug][Add proper keybindings for ocamldebug]]
+   - [[#add-more-keybindings-for-tuareg-mode][Add more keybindings for tuareg-mode]]
 
 * Description
 This is a very basic layer for editing ocaml files.
@@ -27,11 +26,9 @@ This is a very basic layer for editing ocaml files.
 
 * Install
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(ocaml))
-#+END_SRC
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =ocaml= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** OPAM packages
 This layer requires some [[http://opam.ocaml.org][opam]] packages:
@@ -40,7 +37,7 @@ This layer requires some [[http://opam.ocaml.org][opam]] packages:
 - =utop=
 - =ocp-indent=
 
-To install them, use the following command: 
+To install them, use the following command:
 
 #+BEGIN_SRC sh
   opam install merlin utop ocp-indent
@@ -57,6 +54,7 @@ Make sure opam is initialized and configured.
 
 | Key Binding | Description                                              |
 |-------------+----------------------------------------------------------|
+| ~SPC m =~   | Indent buffer.                                           |
 | ~SPC m c c~ | Compile                                                  |
 | ~SPC m c p~ | Check .merlin for errors                                 |
 | ~SPC m c r~ | Refresh changed .cmis in merlin                          |

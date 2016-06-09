@@ -1,7 +1,6 @@
 ;;; packages.el --- Latex Layer Configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -21,6 +20,9 @@
 (defvar latex-enable-auto-fill t
   "Whether to use auto-fill-mode or not in tex files.")
 
+(defvar latex-enable-folding nil
+  "Whether to use `TeX-fold-mode' or not in tex/latex buffers.")
+
 (defvar latex-nofill-env '("equation"
                            "equation*"
                            "align"
@@ -28,12 +30,3 @@
                            "tabular"
                            "tikzpicture")
   "List of environment names in which `auto-fill-mode' will be inhibited.")
-
-;; Command prefixes
-;; no supported
-;; (setq auctex/key-binding-prefixes '())
-;; (push (cons "mp" "LaTeX Preview") auctex/key-binding-prefixes)
-;; (push (cons "mr" "RefTeX") auctex/key-binding-prefixes)
-;; (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
-;;       auctex/key-binding-prefixes)
-
