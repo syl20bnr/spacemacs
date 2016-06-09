@@ -39,7 +39,7 @@
       (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
       )))
 
-(defun vinegar/post-init-dired ()
+(defun vinegar/init-dired ()
   (use-package dired
     :defer t
     :config
