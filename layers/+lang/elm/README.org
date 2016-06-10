@@ -21,7 +21,7 @@
    - [[#elm-reactor][elm-reactor]]
    - [[#elm-package][elm-package]]
      - [[#package-list-buffer][package list buffer]]
-   - [[#elm-oracle-1][elm-oracle]]
+   - [[#elm-oracle][elm-oracle]]
    - [[#refactoring][Refactoring]]
 
 * Description
@@ -159,14 +159,14 @@ every save.
 
 *** package list buffer
 
-| Key Binding | Description          |
-|-------------+----------------------|
-| ~g~         | elm-package-refresh  |
-| ~v~         | elm-package-view     |
-| ~m~         | elm-package-mark     |
-| ~u~         | elm-package-unmark   |
-| ~x~         | elm-package-install  |
-| ~q~         | quit-window          |
+| Key Binding | Description         |
+|-------------+---------------------|
+| ~g~         | elm-package-refresh |
+| ~v~         | elm-package-view    |
+| ~m~         | elm-package-mark    |
+| ~u~         | elm-package-unmark  |
+| ~x~         | elm-package-install |
+| ~q~         | quit-window         |
 
 ** elm-oracle
 

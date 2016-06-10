@@ -90,10 +90,10 @@ set the layer variable =enable-flyspell-auto-completion= to t:
 
 * Key Bindings
 
-| Key Binding | Description                    |
-|-------------+--------------------------------|
-| ~SPC S b~   | flyspell whole buffer          |
-| ~SPC S c~   | flyspell correct               |
-| ~SPC S d~   | change dictionary              |
-| ~SPC S n~   | flyspell goto next error       |
-| ~SPC t S~   | toggle flyspell                |
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC S b~   | flyspell whole buffer    |
+| ~SPC S c~   | flyspell correct         |
+| ~SPC S d~   | change dictionary        |
+| ~SPC S n~   | flyspell goto next error |
+| ~SPC t S~   | toggle flyspell          |

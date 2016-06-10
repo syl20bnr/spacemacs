@@ -18,7 +18,7 @@ This layer adds support for TypeScript and TSX editing.
 
 This layer provides:
 - Eldoc-mode
-- Documentation at point 
+- Documentation at point
 - Auto complete
 - Flycheck with linter
 - Jump to definition, Jump to type definition
