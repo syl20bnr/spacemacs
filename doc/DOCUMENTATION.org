@@ -281,7 +281,7 @@ Spacemacs. It is recommended to update the packages first; see the next section.
 
 *** Automatic Updates
 Spacemacs will automatically check for a new version every startup. When it
-detects that a new version is available a arrow will appear in the modeline.
+detects that a new version is available an arrow will appear in the modeline.
 Click it to update Spacemacs. You must restart Emacs after updating.
 
 Update Button:
