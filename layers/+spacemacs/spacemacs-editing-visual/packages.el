@@ -382,19 +382,22 @@
   (use-package volatile-highlights
     :config
     (progn
-      (volatile-highlights-mode t)
-      (spacemacs|hide-lighter volatile-highlights-mode)
+      ;; additional extensions
+      ;; evil
+      (vhl/define-extension 'evil
+                            'evil-move
+                            'evil-paste-after
+                            'evil-paste-before
+                            'evil-paste-pop)
       (with-eval-after-load 'evil
-        (vhl/define-extension 'evil
-                              'evil-move
-                              'evil-paste-after
-                              'evil-paste-before
-                              'evil-paste-pop)
         (vhl/install-extension 'evil)
         (vhl/load-extension 'evil))
+      ;; undo-tree
+      (vhl/define-extension 'undo-tree
+                            'undo-tree-move
+                            'undo-tree-yank)
       (with-eval-after-load 'undo-tree
-        (vhl/define-extension 'undo-tree
-                              'undo-tree-move
-                              'undo-tree-yank)
         (vhl/install-extension 'undo-tree)
-        (vhl/load-extension 'undo-tree)))))
+        (vhl/load-extension 'undo-tree))
+      (volatile-highlights-mode)
+      (spacemacs|hide-lighter volatile-highlights-mode))))
