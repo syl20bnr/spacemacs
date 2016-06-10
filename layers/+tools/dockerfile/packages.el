@@ -10,45 +10,44 @@
 ;;
 ;;; License: GPLv3
 
-(setq dockerfile-packages
+(defconst dockerfile-packages
   '(
-    dockerfile-mode
-    docker-tramp
     docker
+    docker-tramp
+    dockerfile-mode
     ))
 
-(defun dockerfile/init-dockerfile-mode ()
-  (use-package dockerfile-mode
+(defun dockerfile/init-docker ()
+  (use-package docker
     :defer t
+    :init
+    (progn
+      (spacemacs/declare-prefix "D" "Docker")
+      (evil-leader/set-key
+        "Dc" 'docker-containers
+        "Dd" 'docker-rmi
+        "De" 'docker-unpause
+        "DF" 'docker-pull
+        "Dk" 'docker-rm
+        "Di" 'docker-images
+        "Do" 'docker-stop
+        "DP" 'docker-push
+        "Dp" 'docker-pause
+        "Dr" 'docker-restart
+        "Ds" 'docker-start))
     :config
     (progn
-      (evil-leader/set-key-for-mode 'dockerfile-mode
-         "mcb" 'dockerfile-build-buffer
-       )))
- )
+      (evilified-state-evilify-map docker-container-mode-map
+        :mode docker-containers-mode)
+      (evilified-state-evilify-map docker-images-mode-map
+        :mode docker-images-mode))))
 
 (defun dockerfile/init-docker-tramp ()
   (use-package docker-tramp
     :defer t))
 
-(defun dockerfile/init-docker ()
-  (use-package docker
+(defun dockerfile/init-dockerfile-mode ()
+  (use-package dockerfile-mode
     :defer t
-    :commands docker-containers
-              docker-images
-    :init
-    (spacemacs/declare-prefix "D" "Docker")
-    (evil-leader/set-key
-      "Dc" 'docker-containers
-      "Dk" 'docker-rm
-      "Do" 'docker-stop
-      "Dp" 'docker-pause
-      "Dr" 'docker-restart
-      "Ds" 'docker-start
-      "De" 'docker-unpause
-      "Di" 'docker-images
-      "Dd" 'docker-rmi
-      "DF" 'docker-pull
-      "DP" 'docker-push)
-    (evilify docker-containers-mode docker-container-mode-map)
-    (evilify docker-images-mode docker-images-mode-map)))
+    :config (evil-leader/set-key-for-mode 'dockerfile-mode
+              "mcb" 'dockerfile-build-buffer)))
