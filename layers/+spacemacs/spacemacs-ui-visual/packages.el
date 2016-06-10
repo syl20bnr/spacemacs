@@ -256,7 +256,9 @@
     :config
     (progn
       (spacemacs/customize-powerline-faces)
-
+      (setq spaceline-org-clock-p nil
+            spaceline-highlight-face-func 'spacemacs//evil-state-face)
+      ;; Segment toggles
       (dolist (spec '((minor-modes "tmm")
                       (major-mode "tmM")
                       (version-control "tmv")
@@ -273,15 +275,13 @@
                                            (replace-regexp-in-string
                                             "-" " " (format "%S" segment)))
                    :evil-leader ,(cadr spec)))))
-      (setq spaceline-org-clock-p nil)
- 
-      (setq spaceline-highlight-face-func 'spacemacs//evil-state-face)
-
+      ;; unicode
       (let ((unicodep (dotspacemacs|symbol-value
                        dotspacemacs-mode-line-unicode-symbols)))
-        (setq spaceline-window-numbers-unicode unicodep)
-        (setq spaceline-workspace-numbers-unicode unicodep))
-
+        (setq spaceline-window-numbers-unicode unicodep
+              spaceline-workspace-numbers-unicode unicodep))
+      (add-hook 'spaceline-pre-hook 'spacemacs//prepare-diminish)
+      ;; New spacemacs version segment
       (defpowerline spacemacs-powerline-new-version
         (propertize
          spacemacs-version-check-lighter
@@ -294,25 +294,27 @@
                         (lambda (event)
                           (interactive "@e")
                           (if (yes-or-no-p
-                               (format (concat "Do you want to update to the newest "
-                                               "version %s ?") spacemacs-new-version))
+                               (format
+                                (concat "Do you want to update to the newest "
+                                        "version %s ?") spacemacs-new-version))
                               (progn
-                                (spacemacs/switch-to-version spacemacs-new-version))
+                                (spacemacs/switch-to-version
+                                 spacemacs-new-version))
                             (message "Update aborted."))))
                       map)))
-
       (spaceline-define-segment new-version
         (when spacemacs-new-version
           (spacemacs-powerline-new-version
            (spacemacs/get-new-version-lighter-face
             spacemacs-version spacemacs-new-version))))
-
       (spaceline-spacemacs-theme '(new-version :when active))
-      (spaceline-helm-mode t)
+      ;; Additional spacelines
+      (when (package-installed-p 'helm)
+        (spaceline-helm-mode t))
       (when (configuration-layer/package-usedp 'info+)
         (spaceline-info-mode t))
-
-      (add-hook 'spaceline-pre-hook 'spacemacs//prepare-diminish)
+      ;; Enable spaceline for buffers created before the configuration of
+      ;; spaceline
       (spacemacs//set-powerline-for-startup-buffers))))
 
 (defun spacemacs-ui-visual/init-zoom-frm ()
