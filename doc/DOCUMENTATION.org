@@ -246,7 +246,8 @@ and bugs are fixed quickly.
 
 * Screenshots
 
-/Python/ [[file:img/spacemacs-python.png]]
+[[file:img/spacemacs-python.png]]
+/Python/
 
 *Note*: Even though screenshots are updated frequently, Spacemacs is evolving
 quickly and the screenshots may not reflect exactly the current state of the
@@ -283,9 +284,8 @@ Spacemacs. It is recommended to update the packages first; see the next section.
 Spacemacs will automatically check for a new version every startup. When it
 detects that a new version is available a arrow will appear in the modeline.
 Click it to update Spacemacs. You must restart Emacs after updating.
-
-Update Button:
 [[file:img/powerline-update.png]]
+/Update Button/
 
 *Note*: If you use the =develop= branch of Spacemacs, automatic update is
 disabled---you have to update manually using git.
@@ -961,11 +961,8 @@ The special property =:powerline-scale= is Spacemacs specific and it is for
 quick tweaking of the mode-line height in order to avoid crappy rendering of the
 separators like on the following screenshot (default value is 1.1).
 
-/Ugly separators/
-
-#+CAPTION: ugly-separators
-
 [[file:img/crappy-powerline-separators.png]]
+/Ugly separators/
 
 ** GUI Toggles
 Some graphical UI indicators can be toggled on and off (toggles start with ~t~
@@ -1057,18 +1054,16 @@ separators render correctly.
 When [[https://github.com/flycheck/flycheck][Flycheck]] minor mode is enabled, a new element appears showing the number of
 errors, warnings and info.
 
-#+CAPTION: powerline-wave
-
 [[file:img/powerline-wave.png]]
+/Flycheck integration in mode-line/
 
 **** Anzu integration
 [[https://github.com/syohex/emacs-anzu][Anzu]] shows the number of occurrence when performing a search. Spacemacs
 integrates nicely the Anzu status by displaying it temporarily when ~n~ or ~N~
 are being pressed. See the =5/6= segment on the screenshot below.
 
-#+CAPTION: powerline-anzu
-
 [[file:img/powerline-anzu.png]]
+/Anzu integration in mode-line/
 
 **** Battery status integration
 [[https://github.com/lunaryorn/fancy-battery.el][fancy-battery]] displays the percentage of total charge of the battery as well as
