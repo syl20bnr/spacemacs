@@ -17,6 +17,7 @@
         (helm-mu :requires helm)
         org
         persp-mode
+        evil-mu4e
         ))
 
 (defun mu4e/post-init-persp-mode ()
@@ -53,39 +54,6 @@
 
     :config
     (progn
-      (evilified-state-evilify-map mu4e-main-mode-map
-        :mode mu4e-main-mode
-        :bindings
-        (kbd "j") 'mu4e~headers-jump-to-maildir)
-
-      (evilified-state-evilify-map
-       mu4e-headers-mode-map
-       :mode mu4e-headers-mode
-       :bindings
-       (kbd "C-j") 'mu4e-headers-next
-       (kbd "C-k") 'mu4e-headers-prev
-       (kbd "J") (lambda ()
-                   (interactive)
-                   (mu4e-headers-mark-thread nil '(read))))
-
-      (evilified-state-evilify-map
-       mu4e-view-mode-map
-       :mode mu4e-view-mode
-       :bindings
-       (kbd "C-j") 'mu4e-view-headers-next
-       (kbd "C-k") 'mu4e-view-headers-prev
-       (kbd "J") (lambda ()
-                   (interactive)
-                    (mu4e-view-mark-thread '(read))))
-
-      (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode
-        dotspacemacs-major-mode-leader-key 'message-send-and-exit
-        "c" 'message-send-and-exit
-        "k" 'message-kill-buffer
-        "a" 'message-kill-buffer
-        "s" 'message-dont-send         ; saves as draft
-        "f" 'mml-attach-file)
-
       (when mu4e-enable-async-operations
         (require 'smtpmail-async)
         (setq send-mail-function         'async-smtpmail-send-it
@@ -131,3 +99,7 @@ mu4e-use-maildirs-extension-load to be evaluated after mu4e has been loaded."
 (defun mu4e/pre-init-org ()
   ;; load org-mu4e when org is actually loaded
   (with-eval-after-load 'org (require 'org-mu4e nil 'noerror)))
+
+(defun mu4e/init-evil-mu4e()
+  (use-package evil-mu4e
+    :after mu4e))
