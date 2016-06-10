@@ -1,4 +1,4 @@
-;;; packages.el --- dockerfile Layer packages File for Spacemacs
+;;; packages.el --- docker Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2015 Sylvain Benner
 ;; Copyright (c) 2015 Alan Zimmerman & Contributors
@@ -10,14 +10,14 @@
 ;;
 ;;; License: GPLv3
 
-(defconst dockerfile-packages
+(defconst docker-packages
   '(
     docker
     docker-tramp
     dockerfile-mode
     ))
 
-(defun dockerfile/init-docker ()
+(defun docker/init-docker ()
   (use-package docker
     :defer t
     :init
@@ -42,12 +42,12 @@
       (evilified-state-evilify-map docker-images-mode-map
         :mode docker-images-mode))))
 
-(defun dockerfile/init-docker-tramp ()
+(defun docker/init-docker-tramp ()
   (use-package docker-tramp
     :defer t))
 
-(defun dockerfile/init-dockerfile-mode ()
-  (use-package dockerfile-mode
+(defun docker/init-dockerfile-mode ()
+  (use-package docker-mode
     :defer t
     :config (evil-leader/set-key-for-mode 'dockerfile-mode
               "mcb" 'dockerfile-build-buffer)))
