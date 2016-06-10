@@ -43,7 +43,7 @@ existing =dotspacemacs-configuration-layers= list in this file.
 
 | Keybinding | Command                                                     |
 |------------+-------------------------------------------------------------|
-| J          | Go to next unread thread marking other mail read on the way |
+| T          | Go to next unread thread marking other mail read on the way |
 | C-j        | Next header                                                 |
 | C-k        | Previous header                                             |
 
@@ -51,7 +51,7 @@ existing =dotspacemacs-configuration-layers= list in this file.
 
 | Keybinding | Command                                                     |
 |------------+-------------------------------------------------------------|
-| J          | Go to next unread thread marking other mail read on the way |
+| T          | Go to next unread thread marking other mail read on the way |
 | C-j        | Next header                                                 |
 | C-k        | Previous header                                             |
 

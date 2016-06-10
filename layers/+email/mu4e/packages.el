@@ -14,7 +14,7 @@
         (mu4e :location site)
         mu4e-alert
         mu4e-maildirs-extension
-        org
+        evil-mu4e
         ))
 
 (defun mu4e/init-mu4e ()
@@ -26,31 +26,6 @@
       (global-set-key (kbd "C-x m") 'mu4e-compose-new))
     :config
     (progn
-      (evilified-state-evilify-map mu4e-main-mode-map
-        :mode mu4e-main-mode
-        :bindings
-        (kbd "j") 'mu4e~headers-jump-to-maildir)
-
-      (evilified-state-evilify-map
-       mu4e-headers-mode-map
-       :mode mu4e-headers-mode
-       :bindings
-       (kbd "C-j") 'mu4e-headers-next
-       (kbd "C-k") 'mu4e-headers-prev
-       (kbd "J") (lambda ()
-                   (interactive)
-                   (mu4e-headers-mark-thread nil '(read))))
-
-      (evilified-state-evilify-map
-       mu4e-view-mode-map
-       :mode mu4e-view-mode
-       :bindings
-       (kbd "C-j") 'mu4e-view-headers-next
-       (kbd "C-k") 'mu4e-view-headers-prev
-       (kbd "J") (lambda ()
-                   (interactive)
-                    (mu4e-view-mark-thread '(read))))
-
       (setq mu4e-completing-read-function 'completing-read)
 
       (add-to-list 'mu4e-view-actions
@@ -79,3 +54,5 @@
   (with-eval-after-load 'org (require 'org-mu4e nil 'noerror)))
 
 
+(defun mu4e/init-evil-mu4e()
+  (use-package evil-mu4e))
