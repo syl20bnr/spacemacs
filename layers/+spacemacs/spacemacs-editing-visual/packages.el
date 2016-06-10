@@ -384,11 +384,17 @@
     (progn
       (volatile-highlights-mode t)
       (spacemacs|hide-lighter volatile-highlights-mode)
-      (vhl/define-extension 'evil 'evil-paste-after 'evil-paste-before 'evil-paste-pop 'evil-move)
-      (vhl/define-extension 'undo-tree 'undo-tree-yank 'undo-tree-move)
       (with-eval-after-load 'evil
+        (vhl/define-extension 'evil
+                              'evil-move
+                              'evil-paste-after
+                              'evil-paste-before
+                              'evil-paste-pop)
         (vhl/install-extension 'evil)
         (vhl/load-extension 'evil))
       (with-eval-after-load 'undo-tree
+        (vhl/define-extension 'undo-tree
+                              'undo-tree-move
+                              'undo-tree-yank)
         (vhl/install-extension 'undo-tree)
         (vhl/load-extension 'undo-tree)))))
