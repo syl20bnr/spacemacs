@@ -217,21 +217,22 @@
                (current-overlay (format "%s" ahs-current-overlay))
                (st (ahs-stat))
                (plighter (ahs-current-plugin-prop 'lighter))
-               (plugin (format " <%s> " (cond ((string= plighter "HS") "D")
-                                              ((string= plighter "HSA") "B")
-                                              ((string= plighter "HSD") "F"))))
-               (propplugin (propertize plugin 'face
-                                       `(:foreground "#ffffff"
-                                                     :background ,(face-attribute
-                                                                   'ahs-plugin-defalt-face :foreground)))))
+               (plugin (format "%s"
+                               (cond ((string= plighter "HS")  "Display")
+                                     ((string= plighter "HSA") "Buffer")
+                                     ((string= plighter "HSD") "Function"))))
+               (face (cond ((string= plighter "HS")  ahs-plugin-defalt-face)
+                           ((string= plighter "HSA") ahs-plugin-whole-buffer-face)
+                           ((string= plighter "HSD") ahs-plugin-bod-face))))
           (while (not (string= overlay current-overlay))
             (setq i (1+ i))
             (setq overlay (format "%s" (nth i ahs-overlay-list))))
-          (let* ((x/y (format "(%s/%s)" (- overlay-count i) overlay-count))
-                 (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
-                 (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
-                 (prophidden (propertize hidden 'face '(:weight bold))))
-            (format "%s %s%s" propplugin propx/y prophidden))))
+          (let* ((x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
+                 (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" "")))
+            (concat
+             (propertize (format " %s " plugin) 'face face)
+             (propertize (format " %s%s " x/y hidden) 'face
+                         `(:foreground "#ffffff" :background "#000000"))))))
 
       (defun ahs-to-iedit ()
         (interactive)
