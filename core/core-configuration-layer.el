@@ -236,6 +236,7 @@ The returned list has a `package-archives' compliant format."
            (if (string-match-p "http" (cdr x))
                (cdr x)
              (concat (if (and dotspacemacs-elpa-https
+                              (not spacemacs-insecure)
                               ;; for now org ELPA repository does
                               ;; not support HTTPS
                               ;; TODO when org ELPA repo support
