@@ -10,7 +10,9 @@
 ;;; License: GPLv3
 
 (setq helm-packages
-      '(ace-jump-helm-line
+      '(
+        ace-jump-helm-line
+        auto-highlight-symbol
         bookmark
         helm
         helm-ag
@@ -21,7 +23,8 @@
         helm-projectile
         helm-swoop
         helm-themes
-        (helm-spacemacs-help :location local)))
+        (helm-spacemacs-help :location local)
+        ))
 
 ;; Initialization of packages
 
@@ -31,6 +34,18 @@
     :init
     (with-eval-after-load 'helm
       (define-key helm-map (kbd "C-q") 'ace-jump-helm-line))))
+
+(defun helm/pre-init-auto-highlight-symbol ()
+  (spacemacs|use-package-add-hook auto-highlight-symbol
+    :post-init
+    ;; add some functions to ahs transient states
+    (setq spacemacs--symbol-highlight-transient-state-doc
+          (concat spacemacs--symbol-highlight-transient-state-doc
+                  "  [_b_] search buffers [_/_] search proj [_f_] search files")
+     spacemacs-symbol-highlight-transient-state-add-bindings
+     '(("/" spacemacs/helm-project-smart-do-search-region-or-symbol :exit t)
+       ("b" spacemacs/helm-buffers-smart-do-search-region-or-symbol :exit t)
+       ("f" spacemacs/helm-files-smart-do-search-region-or-symbol :exit t)))))
 
 (defun helm/post-init-bookmark ()
   (spacemacs/set-leader-keys "fb" 'helm-filtered-bookmarks))
