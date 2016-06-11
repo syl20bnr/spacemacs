@@ -50,7 +50,7 @@
     (mapc (lambda (layer) (push (configuration-layer/make-layer layer)
                                 helm-spacemacs-help-all-layers))
           (configuration-layer/get-layers-list))
-    (let ((configuration-layer--inhibit-warning t)
+    (let ((configuration-layer--inhibit-warnings t)
           configuration-layer--packages)
       (configuration-layer/get-packages helm-spacemacs-help-all-layers)
       (setq helm-spacemacs-help-all-packages configuration-layer--packages))))

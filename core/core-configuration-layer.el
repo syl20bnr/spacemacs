@@ -648,9 +648,9 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
 
 (defun configuration-layer//warning (msg &rest args)
   "Display MSG as a warning message in buffer `*Messages*'.
-If `configuration-layer--inhibit-warning' is non nil then this function is a
+If `configuration-layer--inhibit-warnings' is non nil then this function is a
 no-op."
-  (unless configuration-layer--inhibit-warning
+  (unless configuration-layer--inhibit-warnings
     (configuration-layer//warning msg args)))
 
 (defun configuration-layer/get-packages (layers &optional dotfile)
