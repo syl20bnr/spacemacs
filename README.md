@@ -308,6 +308,10 @@ branch, for instance to revert to the last `0.103`:
 
     «I feel that spacemacs is an aircraft carrier and I am playing table tennis on the deck as a freerider.»
 
+[Quote][quote02] by [patrick-motard](https://github.com/patrick-motard):
+
+    «I've no aversion to learning it [spacemacs]. Taking it in bits and pieces as I customize it. Like drinking from a fire hose.»
+
 # Contributions
 
 Spacemacs is a community-driven project, it needs _you_ to keep it up to
