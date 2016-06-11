@@ -10,7 +10,7 @@
 ;;; License: GPLv3
 (setq restclient-packages
       '(
-        golden-ratio-
+        golden-ratio
         ob-http
         restclient
         ))

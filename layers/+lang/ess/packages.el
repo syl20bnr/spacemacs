@@ -11,7 +11,6 @@
 
 (setq ess-packages
   '(
-    company
     ess
     ess-R-data-view
     ess-R-object-popup
