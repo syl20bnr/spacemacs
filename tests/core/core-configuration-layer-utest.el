@@ -240,7 +240,7 @@
                               :dir "/a/path/"
                               :variables '(var1 'bar var2)))))
     (mocker-let
-     ((spacemacs-buffer/warning
+     ((configuration-layer//warning
        (msg &rest args)
        ((:record-cls 'mocker-stub-record :output nil :occur 1))))
      (setq var1 'foo)
@@ -420,7 +420,7 @@
     (defun layer2/init-pkg3 nil)
     (mocker-let
      ((file-exists-p (f) ((:output t :occur 1)))
-      (spacemacs-buffer/warning (m) ((:output nil)))
+      (configuration-layer//warning (m) ((:output nil)))
       (load (f) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
@@ -493,7 +493,7 @@
     (mocker-let
      ((file-exists-p (f) ((:output t :occur 2)))
       (load (f) ((:output nil :occur 2)))
-      (spacemacs-buffer/warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -570,7 +570,7 @@
     (mocker-let
      ((file-exists-p (f) ((:output t :occur 2)))
       (load (f) ((:output nil :occur 2)))
-      (spacemacs-buffer/warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -591,7 +591,7 @@
     (mocker-let
      ((file-exists-p (f) ((:output t :occur 2)))
       (load (f) ((:output nil :occur 2)))
-      (spacemacs-buffer/warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -612,7 +612,7 @@
     (mocker-let
      ((file-exists-p (f) ((:output t :occur 2)))
       (load (f) ((:output nil :occur 2)))
-      (spacemacs-buffer/warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -633,7 +633,7 @@
     (mocker-let
      ((file-exists-p (f) ((:output t :occur 2)))
       (load (f) ((:output nil :occur 2)))
-      (spacemacs-buffer/warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -671,7 +671,7 @@
     (mocker-let
      ((file-exists-p (f) ((:output t :occur 2)))
       (load (f) ((:output nil :occur 2)))
-      (spacemacs-buffer/warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -693,7 +693,7 @@
     (mocker-let
      ((file-exists-p (f) ((:output t :occur 2)))
       (load (f) ((:output nil :occur 2)))
-      (spacemacs-buffer/warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -714,7 +714,7 @@
     (mocker-let
      ((file-exists-p (f) ((:output t :occur 2)))
       (load (f) ((:output nil :occur 2)))
-      (spacemacs-buffer/warning (msg &rest args) ((:output nil :occur 1))))
+      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -1003,7 +1003,7 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
      ((spacemacs-buffer/loading-animation nil ((:output nil)))
-      (spacemacs-buffer/warning
+      (configuration-layer//warning
        (msg &rest args)
        ((:record-cls 'mocker-stub-record :output nil :occur 1))))
      (configuration-layer//configure-packages-2 `(,pkg)))))
