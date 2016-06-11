@@ -124,6 +124,7 @@ Git commands (start with ~g~):
 | ~SPC g I~   | open =helm-gitignore=                               |
 | ~SPC g l~   | open a =magit= log                                  |
 | ~SPC g L~   | display the log for a file                          |
+| ~SPC g O~   | show reset prompt                                   |
 | ~SPC g r~   | show rebase prompt                                  |
 | ~SPC g P~   | show push prompt                                    |
 | ~SPC g s~   | open a =magit= status window                        |
