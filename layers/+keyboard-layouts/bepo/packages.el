@@ -31,6 +31,7 @@
     org
     org-agenda
     ranger
+    twittering-mode
     ))
 
 (defun bepo/pre-init-ace-window ()
@@ -450,3 +451,20 @@
       "K"
       "J"
       "L")))
+
+(defun bepo/pre-init-twittering-mode ()
+  (bepo|config twittering-mode
+    :description
+    "Remap navigation keys in `twittering-mode'."
+    :loader
+    (spacemacs|use-package-add-hook twittering-mode BODY)
+    :config
+      (bepo/correct-keys twittering-mode-map
+        "h"
+        "j"
+        "k"
+        "l"
+        ;;
+        "H"
+        "J"
+        "K")))
