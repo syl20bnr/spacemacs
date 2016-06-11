@@ -113,8 +113,6 @@
      ;; Use notify.el (if you have it installed) at the end of running
      ;; Cabal commands or generally things worth notifying.
      haskell-notify-p t
-     ;; To enable tags generation on save.
-     haskell-tags-on-save t
      ;; Remove annoying error popups
      haskell-interactive-popup-errors nil
      ;; Better import handling
