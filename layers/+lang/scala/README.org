@@ -50,7 +50,7 @@ Configure the ENSIME sbt plugin by adding the following to
 =~/.sbt/0.13/plugins/plugins.sbt=:
 
 #+BEGIN_SRC scala
-  addSbtPlugin("org.ensime" % "ensime-sbt" % "0.2.3")
+  addSbtPlugin("org.ensime" % "sbt-ensime" % "0.5.1")
 #+END_SRC
 
 Please go to [[https://github.com/ensime/ensime-sbt][ensime-sbt Github Page]] to check the latest version of =ensime-sbt= plugin.
