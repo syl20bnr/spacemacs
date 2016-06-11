@@ -85,7 +85,7 @@ LAYER has to be installed for this method to work properly."
   (delq nil (mapcar
              (lambda (x)
                (let ((pkg (object-assoc x :name configuration-layer--packages)))
-                 (when (and pkg (eq (oref layer :name) (oref pkg :owner)))
+                 (when (and pkg (eq (oref layer :name) (car (oref pkg :owners))))
                    pkg)))
              (oref layer :packages))))
 
@@ -97,10 +97,10 @@ LAYER has to be installed for this method to work properly."
   ((name :initarg :name
          :type symbol
          :documentation "Name of the package.")
-   (owner :initarg :owner
-          :initform nil
-          :type symbol
-          :documentation "The layer defining the init function.")
+   (owners :initarg :owners
+           :initform nil
+           :type list
+           :documentation "The layer defining the init function.")
    (pre-layers :initarg :pre-layers
                :initform '()
                :type list
@@ -466,7 +466,8 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
                    configuration-layer--packages)))))
   (let* ((pkg (object-assoc pkg-symbol
                             :name (or pkg-list configuration-layer--packages)))
-         (owner (oref pkg :owner)))
+         (owners (oref pkg :owners))
+         (owner (car owners)))
     (with-help-window (help-buffer)
       ;; declaration location
       (princ pkg-symbol)
@@ -656,14 +657,14 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
             (when ownerp
               ;; last owner wins over the previous one,
               ;; still warn about mutliple owners
-              (when (and (oref obj :owner)
-                         (not (eq layer-name (oref obj :owner))))
+              (when (and (oref obj :owners)
+                         (not (memq layer-name (oref obj :owners))))
                 (spacemacs-buffer/warning
                  (format (concat "More than one init function found for "
                                  "package %S. Previous owner was %S, "
                                  "replacing it with layer %S.")
-                         pkg-name (oref obj :owner) layer-name)))
-              (oset obj :owner layer-name))
+                         pkg-name (car (oref obj :owners)) layer-name)))
+              (push layer-name (oref obj :owners)))
             ;; if no function at all is found for the package, then check
             ;; again this layer later to resolve `package-usedp'  usage in
             ;; `packages.el' files
@@ -701,7 +702,7 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
             (setq obj (configuration-layer/make-package pkg obj t))
           (setq obj (configuration-layer/make-package pkg nil t))
           (push obj configuration-layer--packages)
-          (oset obj :owner 'dotfile))))
+          (push 'dotfile (oref obj :owners)))))
     (dolist (xpkg dotspacemacs-excluded-packages)
       (let ((obj (object-assoc xpkg :name configuration-layer--packages)))
         (unless obj
@@ -731,12 +732,12 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
         (let* ((layer (object-assoc layer-name
                                     :name configuration-layer--layers))
                (packages (when layer (cfgl-layer-owned-packages layer))))
-          ;; set lazy install flag for a layer if and only if all its owned
-          ;; distant packages are not already installed
+          ;; set lazy install flag for a layer if and only if its owned
+          ;; distant packages are all not already installed
           (let ((lazy (cl-reduce
                        (lambda (x y) (and x y))
                        (mapcar (lambda (p)
-                                 (or (not (eq layer-name (oref p :owner)))
+                                 (or (not (eq layer-name (car (oref p :owners))))
                                      (null (package-installed-p
                                             (oref p :name)))))
                                (configuration-layer//get-distant-packages
@@ -779,7 +780,7 @@ return both used and unused packages."
               (and (not (memq (oref x :location) '(built-in site local)))
                    (not (stringp (oref x :location)))
                    (or (null usedp)
-                       (and (not (null (oref x :owner)))
+                       (and (not (null (oref x :owners)))
                             (cfgl-package-enabledp x)
                             (not (oref x :excluded))))))))
 
@@ -984,7 +985,7 @@ path."
   "Return non-nil if NAME is the name of a used package."
   (let ((obj (object-assoc name :name configuration-layer--packages)))
     (when (and obj (not (oref obj :excluded)))
-      (not (null (oref obj :owner))))))
+      (not (null (oref obj :owners))))))
 
 (defun  configuration-layer/package-lazy-installp (name)
   "Return non-nil if NAME is the name of a package to be lazily installed."
@@ -1040,7 +1041,7 @@ path."
 
 (defun configuration-layer//install-package (pkg)
   "Unconditionally install the package PKG."
-  (let* ((layer (when pkg (oref pkg :owner)))
+  (let* ((layer (when pkg (car (oref pkg :owners))))
          (location (when pkg (oref pkg :location))))
     (spacemacs-buffer/replace-last-line
      (format "--> installing %s: %s%s... [%s/%s]"
@@ -1156,7 +1157,7 @@ path."
 (defun configuration-layer//install-from-recipe (pkg)
   "Install PKG from a recipe."
   (let* ((pkg-name (oref pkg :name))
-         (layer (oref pkg :owner))
+         (layer (car (oref pkg :owners)))
          (recipe (cons pkg-name (cdr (oref pkg :location)))))
     (if recipe
         (quelpa recipe)
@@ -1260,7 +1261,7 @@ path."
              (not (oref pkg :protected)))
         (spacemacs-buffer/message
          (format "%S ignored since it has been excluded." pkg-name)))
-       ((null (oref pkg :owner))
+       ((null (oref pkg :owners))
         (spacemacs-buffer/message
          (format "%S ignored since it has no owner layer." pkg-name)))
        ((not (cfgl-package-enabledp pkg))
@@ -1276,13 +1277,13 @@ path."
                "Location path for package %S does not exists (value: %s)."
                pkg location)))
            ((and (eq 'local location)
-                 (eq 'dotfile (oref pkg :owner)))
+                 (eq 'dotfile (car (oref pkg :owners))))
             (push (file-name-as-directory
                    (concat configuration-layer-private-directory "local/"
                            (symbol-name (oref pkg :name))))
                   load-path))
            ((eq 'local location)
-            (let* ((owner (object-assoc (oref pkg :owner)
+            (let* ((owner (object-assoc (car (oref pkg :owners))
                                         :name configuration-layer--layers))
                    (dir (when owner (oref owner :dir))))
               (push (format "%slocal/%S/" dir pkg-name) load-path)))))
@@ -1290,7 +1291,7 @@ path."
         (unless (memq (oref pkg :location) '(local site built-in))
           (configuration-layer//activate-package pkg-name))
         (cond
-         ((eq 'dotfile (oref pkg :owner))
+         ((eq 'dotfile (car (oref pkg :owners)))
           (spacemacs-buffer/message
            (format "%S is configured in the dotfile." pkg-name)))
          (t
@@ -1299,7 +1300,7 @@ path."
 (defun configuration-layer//configure-package (pkg)
   "Configure PKG."
   (let* ((pkg-name (oref pkg :name))
-         (owner (oref pkg :owner))
+         (owner (car (oref pkg :owners)))
          (owner-layer (object-assoc owner :name configuration-layer--layers))
          (disabled-for-layers (oref owner-layer :disabled-for)))
     (spacemacs-buffer/message (format "Configuring %S..." pkg-name))
