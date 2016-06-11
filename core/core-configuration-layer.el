@@ -199,6 +199,9 @@ LAYER has to be installed for this method to work properly."
 (defvar configuration-layer--lazy-mode-alist nil
   "Association list where the key is a mode and the value a regexp.")
 
+(defvar configuration-layer--inhibit-warnings nil
+  "If non-nil then warning message emitted by the layer system are ignored.")
+
 (defvar configuration-layer-error-count nil
   "Non nil indicates the number of errors occurred during the
 installation of initialization.")
@@ -422,7 +425,7 @@ layer directory."
                       :dir dir
                       :disabled-for disabled
                       :variables variables))
-      (spacemacs-buffer/warning "Cannot find layer %S !" name-sym)
+      (configuration-layer//warning "Cannot find layer %S !" name-sym)
       nil)))
 
 (defun configuration-layer//make-layers (symbols)
@@ -643,6 +646,13 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
           (re-search-backward "\\(\\[.+\\]\\)" nil t)
           (help-xref-button 1 'help-package pkg-symbol))))))
 
+(defun configuration-layer//warning (msg &rest args)
+  "Display MSG as a warning message in buffer `*Messages*'.
+If `configuration-layer--inhibit-warning' is non nil then this function is a
+no-op."
+  (unless configuration-layer--inhibit-warning
+    (configuration-layer//warning msg args)))
+
 (defun configuration-layer/get-packages (layers &optional dotfile)
   "Read the package lists of LAYERS and dotfile and return a list of packages."
   (dolist (layer layers)
@@ -677,7 +687,7 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
               ;; still warn about mutliple owners
               (when (and (oref obj :owners)
                          (not (memq layer-name (oref obj :owners))))
-                (spacemacs-buffer/warning
+                (configuration-layer//warning
                  (format (concat "More than one init function found for "
                                  "package %S. Previous owner was %S, "
                                  "replacing it with layer %S.")
@@ -692,7 +702,7 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
                         (oref obj :excluded))
               (unless (object-assoc layer-name :name
                                     configuration-layer--delayed-layers)
-                (spacemacs-buffer/warning
+                (configuration-layer//warning
                  (format (concat "package %s not initialized in layer %s, "
                                  "you may consider removing this package from "
                                  "the package list or use the :toggle keyword "
@@ -703,7 +713,7 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
             (when (and (not ownerp)
                        (listp pkg)
                        (spacemacs/mplist-get pkg :toggle))
-              (spacemacs-buffer/warning
+              (configuration-layer//warning
                (format (concat "Ignoring :toggle for package %s because "
                                "layer %S does not own it.")
                        pkg-name layer-name)))
@@ -912,7 +922,7 @@ path."
                 ;; the same layer may have been discovered twice,
                 ;; in which case we don't need a warning
                 (unless (string-equal (ht-get result (car l)) (cdr l))
-                  (spacemacs-buffer/warning
+                  (configuration-layer//warning
                    (concat "Duplicated layer %s detected in directory \"%s\", "
                            "keeping only the layer in directory \"%s\"")
                    (car l) (cdr l) (ht-get result (car l))))
@@ -931,7 +941,7 @@ path."
         (if (stringp layer-path)
             (unless (string-match-p "+distributions" layer-path)
               (configuration-layer/declare-layer layer))
-          (spacemacs-buffer/warning "Unknown layer %s declared in dotfile."
+          (configuration-layer//warning "Unknown layer %s declared in dotfile."
                                     layer-name))))
     (setq configuration-layer--layers (reverse configuration-layer--layers)))
   ;; distribution and bootstrap layers are always first
@@ -955,7 +965,7 @@ path."
             (push new-layer configuration-layer--layers)
             (configuration-layer//set-layer-variables new-layer)
             (configuration-layer//load-layer-files new-layer '("layers.el")))
-        (spacemacs-buffer/warning "Unknown layer %s declared in dotfile."
+        (configuration-layer//warning "Unknown layer %s declared in dotfile."
                                   layer-name)))))
 
 (defun configuration-layer/remove-layers (layer-names)
@@ -987,7 +997,7 @@ path."
                                 "variable %s "
                                 "(error: %s). Be sure to quote the value "
                                 "if needed.\n") var err))))
-          (spacemacs-buffer/warning "Missing value for variable %s !"
+          (configuration-layer//warning "Missing value for variable %s !"
                                     var))))))
 
 (defun configuration-layer/layer-usedp (name)
@@ -1076,7 +1086,7 @@ path."
            ((and (listp location) (eq 'recipe (car location)))
             (configuration-layer//install-from-recipe pkg)
             (oset pkg :lazy-install nil))
-           (t (spacemacs-buffer/warning "Cannot install package %S."
+           (t (configuration-layer//warning "Cannot install package %S."
                                         pkg-name)))
         ('error
          (configuration-layer//increment-error-count)
@@ -1179,7 +1189,7 @@ path."
          (recipe (cons pkg-name (cdr (oref pkg :location)))))
     (if recipe
         (quelpa recipe)
-      (spacemacs-buffer/warning
+      (configuration-layer//warning
        (concat "Cannot find any recipe for package %S! Be sure "
                "to add a recipe for it in alist %S.")
        pkg-name recipes-var))))
@@ -1291,7 +1301,7 @@ path."
            ((stringp location)
             (if (file-directory-p location)
                 (push (file-name-as-directory location) load-path)
-              (spacemacs-buffer/warning
+              (configuration-layer//warning
                "Location path for package %S does not exists (value: %s)."
                pkg location)))
            ((and (eq 'local location)
@@ -1648,7 +1658,8 @@ to select one."
 
 (defun configuration-layer//get-package-version (pkg-name)
   "Return the version list for package with name PKG-NAME."
-  (let ((version-string (configuration-layer//get-package-version-string pkg-name)))
+  (let ((version-string (configuration-layer//get-package-version-string
+                         pkg-name)))
     (unless (string-empty-p version-string)
       (version-to-list version-string))))
 
@@ -1820,7 +1831,8 @@ FILE-TO-LOAD is an explicit file to load after the installation."
 (defun configuration-layer//increment-error-count ()
   "Increment the error counter."
   (if configuration-layer-error-count
-      (setq configuration-layer-error-count (1+ configuration-layer-error-count))
+      (setq configuration-layer-error-count
+            (1+ configuration-layer-error-count))
     (setq configuration-layer-error-count 1)))
 
 (provide 'core-configuration-layer)
