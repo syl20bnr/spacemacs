@@ -669,8 +669,17 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
             ;; `packages.el' files
             (unless (or ownerp
                         (fboundp pre-init-func)
-                        (fboundp post-init-func))
-              (add-to-list 'configuration-layer--delayed-layers layer))
+                        (fboundp post-init-func)
+                        (oref obj :excluded))
+              (unless (object-assoc layer-name :name
+                                    configuration-layer--delayed-layers)
+                (spacemacs-buffer/warning
+                 (format (concat "package %s not initialized in layer %s, "
+                                 "you may consider removing this package from "
+                                 "the package list or use the :toggle keyword "
+                                 "instead of a `when' form.")
+                         pkg-name layer-name))
+                (push layer configuration-layer--delayed-layers)))
             ;; check if toggle can be applied
             (when (and (not ownerp)
                        (listp pkg)
