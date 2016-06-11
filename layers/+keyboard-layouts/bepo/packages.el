@@ -59,12 +59,10 @@
     :config
     (setq-default avy-keys '(?t ?e ?s ?i ?r ?u ?n ?a ?c ?,))))
 
-(defun bepo/pre-init-buffer-move ()
+(defun bepo/post-init-buffer-move ()
   (bepo|config buffer-move
     :description
     "Remap `buffer-move' bindings."
-    :loader
-    (with-eval-after-load 'buffer-move BODY)
     :config
     (bepo/leader-correct-keys
       "bmh"
