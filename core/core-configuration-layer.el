@@ -651,7 +651,7 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
 If `configuration-layer--inhibit-warnings' is non nil then this function is a
 no-op."
   (unless configuration-layer--inhibit-warnings
-    (configuration-layer//warning msg args)))
+    (spacemacs-buffer/warning msg args)))
 
 (defun configuration-layer/get-packages (layers &optional dotfile)
   "Read the package lists of LAYERS and dotfile and return a list of packages."
