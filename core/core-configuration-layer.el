@@ -145,6 +145,24 @@ LAYER has to be installed for this method to work properly."
   "Evaluate the `toggle' slot of passed PKG."
   (let ((toggle (oref pkg :toggle))) (eval toggle)))
 
+(defmethod cfgl-package-get-safe-owner ((pkg cfgl-package))
+  "Safe method to return the name of the layer which owns PKG."
+  ;; The owner of a package is the first *used* layer in `:owners' slot.
+  ;; Note: for packages in `configuration-layer--packages' the owner is always
+  ;;       the car of the `:owners' slot.
+  ;;       An example where it is not necessarily the case is in
+  ;;       `helm-spacemacs-help-all-packages' which we can find in the helm
+  ;;       layer.
+  ;; For performance reason `cfgl-package-get-safe-owner' is not used in the
+  ;; layer system itself. This functions should be only used outside of the
+  ;; system in order to safely get the true owner of a layer.
+  (let ((layers (oref pkg :owners)))
+    (while (and (consp layers)
+                (not (configuration-layer/layer-usedp (car layers))))
+      (pop layers))
+    (when (configuration-layer/layer-usedp (car layers))
+      (car layers))))
+
 (defvar configuration-layer--elpa-archives
   '(("melpa" . "melpa.org/packages/")
     ("org"   . "orgmode.org/elpa/")

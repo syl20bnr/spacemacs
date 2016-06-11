@@ -66,6 +66,20 @@
         (package-toggle 'other))
     (should (null (cfgl-package-enabledp pkg)))))
 
+;; method: cfgl-package-get-safe-owner
+
+(ert-deftest test-cfgl-package-get-safe-owner--return-car ()
+  (let ((pkg (cfgl-package "testpkg" :name 'testpkg :owners '(layer1 layer2)))
+        (configuration-layer--layers `(,(cfgl-layer "layer1" :name 'layer1)
+                                       ,(cfgl-layer "layer2" :name 'layer2))))
+    (should (eq 'layer1 (cfgl-package-get-safe-owner pkg)))))
+
+(ert-deftest test-cfgl-package-get-safe-owner--return-cadr ()
+  (let ((pkg (cfgl-package "testpkg" :name 'testpkg :owners '(layer1 layer2)))
+        ;; layer1 is not used so it cannot be the owner
+        (configuration-layer--layers `(,(cfgl-layer "layer2" :name 'layer2))))
+    (should (eq 'layer2 (cfgl-package-get-safe-owner pkg)))))
+
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//resolve-package-archives
 ;; ---------------------------------------------------------------------------
