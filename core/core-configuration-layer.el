@@ -923,9 +923,11 @@ path."
                 ;; in which case we don't need a warning
                 (unless (string-equal (ht-get result (car l)) (cdr l))
                   (configuration-layer//warning
-                   (concat "Duplicated layer %s detected in directory \"%s\", "
-                           "keeping only the layer in directory \"%s\"")
-                   (car l) (cdr l) (ht-get result (car l))))
+                   (format
+                    (concat "Duplicated layer %s detected in directory \"%s\""
+                            ", keeping only the layer in directory \"%s\"")
+                    (car l) (cdr l) (ht-get result (car l)))))
+
               (puthash (car l) (cdr l) result)))
           discovered)
     result))
