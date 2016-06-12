@@ -9,6 +9,6 @@
 ;;
 ;;; License: GPLv3
 
-(setq yatemplate-dir (concat configuration-layer-private-directory "templates"))
+(defvar yatemplate-dir (concat configuration-layer-private-directory "templates"))
 
 ;;; config.el ends here
