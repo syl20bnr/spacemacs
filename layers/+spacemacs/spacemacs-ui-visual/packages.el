@@ -14,7 +14,6 @@
         fill-column-indicator
         golden-ratio
         hl-todo
-        leuven-theme
         neotree
         popup
         popwin
@@ -150,11 +149,6 @@
     :defer t
     :init (spacemacs/add-to-hooks 'hl-todo-mode '(text-mode-hook
                                                   prog-mode-hook))))
-
-(defun spacemacs-ui-visual/init-leuven-theme ()
-  (use-package leuven-theme
-    :defer t
-    :init (setq org-fontify-whole-heading-line t)))
 
 (defun spacemacs-ui-visual/init-neotree ()
   (use-package neotree
