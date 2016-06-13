@@ -30,6 +30,7 @@ Also there is an [[http://emacsrocks.com/e15.html][Emacs Rocks!]] episode of it.
 
 | Key Binding | Description                                                 |
 |-------------+-------------------------------------------------------------|
+| ~SPC m j~   | Jump to a variable or request in current buffer             |
 | ~SPC m s~   | Send and stay in window (pretty-print response if possible) |
 | ~SPC m S~   | Send and switch window (pretty-print response if possible)  |
 | ~SPC m r~   | Send and stay in window (do not attempt to pretty-print)    |

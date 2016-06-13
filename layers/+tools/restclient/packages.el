@@ -13,6 +13,7 @@
         golden-ratio
         ob-http
         restclient
+        (restclient-helm :toggle (configuration-layer/package-usedp 'helm))
         ))
 
 (defun restclient/pre-init-golden-ratio ()
@@ -40,3 +41,10 @@
         "r" 'restclient-http-send-current-raw-stay-in-window
         "R" 'restclient-http-send-current-raw
         "y" 'restclient-copy-curl-command))))
+
+(defun restclient/init-restclient-helm ()
+  (use-package restclient-helm
+    :init
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'restclient-mode
+        "j" 'helm-restclient))))
