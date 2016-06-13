@@ -108,7 +108,7 @@
       (spacemacs||set-helm-key "swg" helm-google-suggest)
       (with-eval-after-load 'helm-files
         (define-key helm-find-files-map
-          (kbd "C-c C-e") 'helm/find-files-edit))
+          (kbd "C-c C-e") 'spacemacs/helm-find-files-edit))
       ;; Add minibuffer history with `helm-minibuffer-history'
       (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
       ;; define the key binding at the very end in order to allow the user
