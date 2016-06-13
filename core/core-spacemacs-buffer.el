@@ -493,10 +493,11 @@ border."
         (setq spacemacs-loading-counter 0)
         (setq spacemacs-loading-string
               (make-string
-               (- (* spacemacs-loading-dots-chunk-size
-                     (floor (/ spacemacs-loading-value
-                               spacemacs-loading-dots-chunk-threshold)))
-                  (length suffix))
+               (max 0
+                    (- (* spacemacs-loading-dots-chunk-size
+                          (floor (/ spacemacs-loading-value
+                                    spacemacs-loading-dots-chunk-threshold)))
+                       (length suffix)))
                spacemacs-loading-char))
         (spacemacs-buffer/set-mode-line (concat spacemacs-loading-string
                                                 suffix)))
