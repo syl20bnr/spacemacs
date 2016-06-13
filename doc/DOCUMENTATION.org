@@ -170,6 +170,7 @@
      - [[#replacing-text-in-several-files][Replacing text in several files]]
      - [[#renaming-files-in-a-directory][Renaming files in a directory]]
      - [[#commenting][Commenting]]
+     - [[#regular-expressions][Regular expressions]]
      - [[#deleting-files][Deleting files]]
      - [[#editing-lisp-code][Editing Lisp code]]
        - [[#lisp-key-bindings][Lisp Key Bindings]]
@@ -2697,6 +2698,34 @@ Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][ev
 | ~SPC c Y~   | invert comment and yank   |
 
 *Tips:* To comment efficiently a block of line use the combo ~SPC ; SPC y~
+
+*** Regular expressions
+Spacemacs uses the packages [[https://github.com/joddie/pcre2el][pcre2el]] to manipulate regular expressions. It is
+useful when working with =Emacs Lisp= buffers since it allows to easily converts
+=PCRE= (Perl Compatible RegExp) to Emacs RegExp or =rx=. It can also be used to
+"explain" a PCRE RegExp around point in =rx= form.
+
+The key bindings start with ~SPC x r~ and have the following mnemonic structure:
+
+- ~SPC x r <source> <target>~ convert from source to target
+- ~SPC x r~ do what I mean
+
+| Key Binding   | Function                                                                               |
+|---------------+----------------------------------------------------------------------------------------|
+| ~SPC x r /~   | Explain the regexp around point with =rx=                                              |
+| ~SPC x r '​~   | Generate strings given by a regexp given this list is finite                           |
+| ~SPC x r t~   | Replace regexp around point by the =rx= form or vice versa                             |
+| ~SPC x r x~   | Convert regexp around point in =rx= form  and display the result in the minibuffer     |
+| ~SPC x r c~   | Convert regexp around point to the other form and display the result in the minibuffer |
+| ~SPC x r e /~ | Explain Emacs Lisp regexp                                                              |
+| ~SPC x r e '​~ | Generate strings from Emacs Lisp regexp                                                |
+| ~SPC x r e p~ | Convert Emacs Lisp regexp to PCRE                                                      |
+| ~SPC x r e t~ | Replace Emacs Lisp regexp by =rx= form or vice versa                                   |
+| ~SPC x r e x~ | Convert Emacs Lisp regexp to =rx= form                                                 |
+| ~SPC x r p /~ | Explain PCRE regexp                                                                    |
+| ~SPC x r p '​~ | Generate strings from PCRE regexp                                                      |
+| ~SPC x r p e~ | Convert PCRE regexp to Emacs Lisp                                                      |
+| ~SPC x r p x~ | Convert PCRE to =rx= form                                                              |
 
 *** Deleting files
 Deletion is configured to send deleted files to system trash.
