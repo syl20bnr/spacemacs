@@ -15,6 +15,7 @@
         golden-ratio
         ob-http
         restclient
+        (restclient-helm :toggle (configuration-layer/package-usedp 'helm))
         ))
 
 (defun restclient/pre-init-golden-ratio ()
@@ -50,3 +51,10 @@
   (use-package company-restclient
     :defer t
     :init (push 'company-restclient company-backends-restclient-mode)))
+
+(defun restclient/init-restclient-helm ()
+  (use-package restclient-helm
+    :init
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'restclient-mode
+        "j" 'helm-restclient))))
