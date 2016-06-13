@@ -35,8 +35,14 @@
       (unless restclient-use-org
         (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode)))
       (spacemacs/set-leader-keys-for-major-mode 'restclient-mode
+        "n" 'restclient-jump-next
+        "p" 'restclient-jump-prev
         "s" 'restclient-http-send-current-stay-in-window
         "S" 'restclient-http-send-current
         "r" 'restclient-http-send-current-raw-stay-in-window
         "R" 'restclient-http-send-current-raw
-        "y" 'restclient-copy-curl-command))))
+        "y" 'restclient-copy-curl-command)
+
+      (evil-define-key 'normal restclient-mode-map
+        "gj" 'restclient-jump-next
+        "gk" 'restclient-jump-prev))))
