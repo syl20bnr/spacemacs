@@ -651,7 +651,7 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
 If `configuration-layer--inhibit-warnings' is non nil then this function is a
 no-op."
   (unless configuration-layer--inhibit-warnings
-    (spacemacs-buffer/warning msg args)))
+    (apply 'spacemacs-buffer/warning msg args)))
 
 (defun configuration-layer/get-packages (layers &optional dotfile)
   "Read the package lists of LAYERS and dotfile and return a list of packages."
@@ -923,10 +923,9 @@ path."
                 ;; in which case we don't need a warning
                 (unless (string-equal (ht-get result (car l)) (cdr l))
                   (configuration-layer//warning
-                   (format
-                    (concat "Duplicated layer %s detected in directory \"%s\""
-                            ", keeping only the layer in directory \"%s\"")
-                    (car l) (cdr l) (ht-get result (car l)))))
+                   (concat "Duplicated layer %s detected in directory \"%s\""
+                           ", keeping only the layer in directory \"%s\"")
+                   (car l) (cdr l) (ht-get result (car l))))
 
               (puthash (car l) (cdr l) result)))
           discovered)
