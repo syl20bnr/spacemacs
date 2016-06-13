@@ -486,13 +486,20 @@ border."
 `spacemacs--loading-dots-chunk-threshold'."
   (when dotspacemacs-loading-progress-bar
     (setq spacemacs-loading-counter (1+ spacemacs-loading-counter))
+    (setq spacemacs-loading-value (1+ spacemacs-loading-value))
     (when (>= spacemacs-loading-counter spacemacs-loading-dots-chunk-threshold)
-      (setq spacemacs-loading-counter 0)
-      (setq spacemacs-loading-string
-            (concat spacemacs-loading-string
-                    (make-string spacemacs-loading-dots-chunk-size
-                                 spacemacs-loading-char)))
-      (spacemacs-buffer/set-mode-line spacemacs-loading-string)
+      (let ((suffix (format "> %s/%s" spacemacs-loading-value
+                            (length configuration-layer--packages))))
+        (setq spacemacs-loading-counter 0)
+        (setq spacemacs-loading-string
+              (make-string
+               (- (* spacemacs-loading-dots-chunk-size
+                     (floor (/ spacemacs-loading-value
+                               spacemacs-loading-dots-chunk-threshold)))
+                  (length suffix))
+               spacemacs-loading-char))
+        (spacemacs-buffer/set-mode-line (concat spacemacs-loading-string
+                                                suffix)))
       (spacemacs//redisplay))))
 
 (defmacro spacemacs//insert--shortcut (shortcut-char search-label

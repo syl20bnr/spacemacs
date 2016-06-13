@@ -39,6 +39,7 @@
 (defvar spacemacs-loading-char ?█)
 (defvar spacemacs-loading-string "")
 (defvar spacemacs-loading-counter 0)
+(defvar spacemacs-loading-value 0)
 ;; (defvar spacemacs-loading-text "Loading")
 ;; (defvar spacemacs-loading-done-text "Ready!")
 (defvar spacemacs-loading-dots-chunk-count 3)
