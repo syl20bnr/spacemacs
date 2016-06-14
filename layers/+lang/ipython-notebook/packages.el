@@ -90,8 +90,6 @@
         "gj" 'ein:worksheet-goto-next-input
         "gk" 'ein:worksheet-goto-prev-input)
 
-      (define-key ein:notebooklist-mode-map "o" 'spacemacs/ace-buffer-links)
-
       ;; if this is not required then the following keygindings fail
       (require 'ein-multilang)
       (define-key ein:notebook-multilang-mode-map (kbd "M-j") 'ein:worksheet-move-cell-down)
@@ -152,4 +150,6 @@ Operations on Cells^^^^^^            On Worksheets^^^^              Other
         ("+" ein:notebook-worksheet-insert-next)
         ("-" ein:notebook-worksheet-delete)
         ("x" ein:notebook-close))
-      (spacemacs/set-leader-keys "ein" 'spacemacs/ipython-notebook-transient-state/body))))
+      (spacemacs/set-leader-keys "ein" 'spacemacs/ipython-notebook-transient-state/body)))
+  (with-eval-after-load 'ein-notebooklist
+    (define-key ein:notebooklist-mode-map "o" 'spacemacs/ace-buffer-links)))
