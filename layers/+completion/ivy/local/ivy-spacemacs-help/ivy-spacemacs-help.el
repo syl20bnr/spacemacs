@@ -207,18 +207,20 @@
            (lambda (a x) (max (length (symbol-name (oref x :name))) a))
            ivy-spacemacs-help-all-layers :initial-value 0)))
         (owners (cl-remove-duplicates
-                 (mapcar (lambda (pkg) (oref pkg :owner))
+                 (mapcar (lambda (pkg)
+                           (car (oref pkg :owners)))
                          ivy-spacemacs-help-all-packages))))
     (dolist (pkg ivy-spacemacs-help-all-packages)
       (push (list (format (concat "%-" left-column-width "S %s %s")
-                          (oref pkg :owner)
+                          (car (oref pkg :owners ))
                           (propertize (symbol-name (oref pkg :name))
                                       'face 'font-lock-type-face)
                           (propertize
                            (if (package-installed-p (oref pkg :name))
                                "[installed]" "")
                            'face 'font-lock-comment-face))
-                  (symbol-name (oref pkg :owner))
+                  (symbol-name
+                   (car (oref pkg :owners )))
                   (symbol-name (oref pkg :name)))
             result))
     (dolist (layer (delq nil
