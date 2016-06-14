@@ -22,8 +22,8 @@
     :commands (typescript/jump-to-type-def)
     :init (progn
             (evilified-state-evilify tide-references-mode tide-references-mode-map
-              (kbd "C-j") 'tide-find-previous-reference
-              (kbd "C-k") 'tide-find-next-reference
+              (kbd "C-k") 'tide-find-previous-reference
+              (kbd "C-j") 'tide-find-next-reference
               (kbd "C-l") 'tide-goto-reference)
 
             (add-hook 'typescript-mode-hook
