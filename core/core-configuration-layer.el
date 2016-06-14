@@ -490,7 +490,7 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
          (obj (if obj obj (cfgl-package name-str :name name-sym))))
     (when location (oset obj :location location))
     (when step (oset obj :step step))
-    (oset obj :excluded excluded)
+    (oset obj :excluded (or excluded (oref obj :excluded)))
     (when toggle (oset obj :toggle toggle))
     ;; cannot override protected packages
     (unless copyp
