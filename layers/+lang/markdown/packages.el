@@ -19,8 +19,7 @@
     markdown-toc
     mmm-mode
     smartparens
-    (vmd-mode :toggle (and (eq 'vmd markdown-live-preview-engine)
-                           (executable-find "vmd")))
+    (vmd-mode :toggle (eq 'vmd markdown-live-preview-engine))
     ))
 
 (defun markdown/post-init-company ()
