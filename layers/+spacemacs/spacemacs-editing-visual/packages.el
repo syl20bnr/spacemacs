@@ -45,7 +45,11 @@
             ;; current symbol can always be highlighted with `SPC s h'
             ahs-idle-timer 0
             ahs-idle-interval 0.25
-            ahs-inhibit-face-list nil)
+            ahs-inhibit-face-list nil
+            spacemacs--symbol-highlight-transient-state-doc
+            "
+ %s  [_n_] next  [_N_/_p_] previous        [_r_] change range   [_R_] reset       [_e_] iedit
+ %s  [_d_/_D_] next/previous definition")
 
       ;; since we are creating our own maps,
       ;; prevent the default keymap from getting created
@@ -213,21 +217,22 @@
                (current-overlay (format "%s" ahs-current-overlay))
                (st (ahs-stat))
                (plighter (ahs-current-plugin-prop 'lighter))
-               (plugin (format " <%s> " (cond ((string= plighter "HS") "D")
-                                              ((string= plighter "HSA") "B")
-                                              ((string= plighter "HSD") "F"))))
-               (propplugin (propertize plugin 'face
-                                       `(:foreground "#ffffff"
-                                                     :background ,(face-attribute
-                                                                   'ahs-plugin-defalt-face :foreground)))))
+               (plugin (format "%s"
+                               (cond ((string= plighter "HS")  "Display")
+                                     ((string= plighter "HSA") "Buffer")
+                                     ((string= plighter "HSD") "Function"))))
+               (face (cond ((string= plighter "HS")  ahs-plugin-defalt-face)
+                           ((string= plighter "HSA") ahs-plugin-whole-buffer-face)
+                           ((string= plighter "HSD") ahs-plugin-bod-face))))
           (while (not (string= overlay current-overlay))
             (setq i (1+ i))
             (setq overlay (format "%s" (nth i ahs-overlay-list))))
-          (let* ((x/y (format "(%s/%s)" (- overlay-count i) overlay-count))
-                 (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
-                 (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
-                 (prophidden (propertize hidden 'face '(:weight bold))))
-            (format "%s %s%s" propplugin propx/y prophidden))))
+          (let* ((x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
+                 (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" "")))
+            (concat
+             (propertize (format " %s " plugin) 'face face)
+             (propertize (format " %s%s " x/y hidden) 'face
+                         `(:foreground "#ffffff" :background "#000000"))))))
 
       (defun ahs-to-iedit ()
         (interactive)
@@ -243,12 +248,16 @@
           (iedit-restrict-region (ahs-current-plugin-prop 'start)
                                  (ahs-current-plugin-prop 'end)))
          (t (ahs-edit-mode t))))
-
+      ;; transient state
+      (defun spacemacs//symbol-highlight-ts-doc ()
+        (spacemacs//transient-state-make-doc
+         'symbol-highlight
+         (format spacemacs--symbol-highlight-transient-state-doc
+                 (symbol-highlight-doc)
+                 (make-string (length (symbol-highlight-doc)) 32))))
       (spacemacs|define-transient-state symbol-highlight
         :title "Symbol Highlight Transient State"
-        :doc "
-%s(symbol-highlight-doc)  [_n_/_N_/_p_] next/prev/prev   [_R_] restart      [_e_] iedit       [_b_] search buffers
-%s(make-string (length (symbol-highlight-doc)) 32)  [_d_/_D_]^^   next/prev def'n  [_r_] change range [_/_] search proj [_f_] search files"
+        :dynamic-hint (spacemacs//symbol-highlight-ts-doc)
         :before-exit (spacemacs//ahs-ms-on-exit)
         :bindings
         ("d" ahs-forward-definition)
@@ -259,9 +268,6 @@
         ("p" spacemacs/quick-ahs-backward)
         ("R" ahs-back-to-start)
         ("r" ahs-change-range)
-        ("/" spacemacs/helm-project-smart-do-search-region-or-symbol :exit t)
-        ("b" spacemacs/helm-buffers-smart-do-search-region-or-symbol :exit t)
-        ("f" spacemacs/helm-files-smart-do-search-region-or-symbol :exit t)
         ("q" nil :exit t)))))
 
 (defun spacemacs-editing-visual/init-column-enforce-mode ()
@@ -376,6 +382,22 @@
   (use-package volatile-highlights
     :config
     (progn
-      (volatile-highlights-mode t)
+      ;; additional extensions
+      ;; evil
+      (vhl/define-extension 'evil
+                            'evil-move
+                            'evil-paste-after
+                            'evil-paste-before
+                            'evil-paste-pop)
+      (with-eval-after-load 'evil
+        (vhl/install-extension 'evil)
+        (vhl/load-extension 'evil))
+      ;; undo-tree
+      (vhl/define-extension 'undo-tree
+                            'undo-tree-move
+                            'undo-tree-yank)
+      (with-eval-after-load 'undo-tree
+        (vhl/install-extension 'undo-tree)
+        (vhl/load-extension 'undo-tree))
+      (volatile-highlights-mode)
       (spacemacs|hide-lighter volatile-highlights-mode))))
-

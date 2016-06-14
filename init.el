@@ -15,7 +15,7 @@
 ;; increase gc-cons-threshold during init
 (setq gc-cons-threshold 100000000)
 
-(defconst spacemacs-version         "0.105.20" "Spacemacs version.")
+(defconst spacemacs-version         "0.105.21" "Spacemacs version.")
 (defconst spacemacs-emacs-min-version   "24.3" "Minimal version of Emacs.")
 
 (if (not (version<= spacemacs-emacs-min-version emacs-version))

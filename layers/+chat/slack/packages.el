@@ -18,8 +18,6 @@
 (defconst slack-packages
   '(
     alert
-    company
-    company-emoji
     emoji-cheat-sheet-plus
     flyspell
     linum

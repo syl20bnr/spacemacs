@@ -170,6 +170,7 @@
      - [[#replacing-text-in-several-files][Replacing text in several files]]
      - [[#renaming-files-in-a-directory][Renaming files in a directory]]
      - [[#commenting][Commenting]]
+     - [[#regular-expressions][Regular expressions]]
      - [[#deleting-files][Deleting files]]
      - [[#editing-lisp-code][Editing Lisp code]]
        - [[#lisp-key-bindings][Lisp Key Bindings]]
@@ -246,7 +247,8 @@ and bugs are fixed quickly.
 
 * Screenshots
 
-/Python/ [[file:img/spacemacs-python.png]]
+[[file:img/spacemacs-python.png]]
+/Python/
 
 *Note*: Even though screenshots are updated frequently, Spacemacs is evolving
 quickly and the screenshots may not reflect exactly the current state of the
@@ -281,11 +283,10 @@ Spacemacs. It is recommended to update the packages first; see the next section.
 
 *** Automatic Updates
 Spacemacs will automatically check for a new version every startup. When it
-detects that a new version is available a arrow will appear in the modeline.
+detects that a new version is available an arrow will appear in the modeline.
 Click it to update Spacemacs. You must restart Emacs after updating.
-
-Update Button:
 [[file:img/powerline-update.png]]
+/Update Button/
 
 *Note*: If you use the =develop= branch of Spacemacs, automatic update is
 disabled---you have to update manually using git.
@@ -873,11 +874,11 @@ in the function =dotspacemacs/user-init= of your =~/.spacemacs=:
   - the height of org section titles with =spacemacs-theme-org-height=
 
 It is possible to define your default themes in your =~/.spacemacs= with the
-variable =dotspacemacs-themes=. For instance, to specify =solarized-light=,
+variable =dotspacemacs-themes=. For instance, to specify =spacemacs-light=,
 =leuven= and =zenburn=:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-themes '(solarized-light leuven zenburn))
+(setq-default dotspacemacs-themes '(spacemacs-light leuven zenburn))
 #+END_SRC
 
 | Key Binding | Description                                           |
@@ -961,11 +962,8 @@ The special property =:powerline-scale= is Spacemacs specific and it is for
 quick tweaking of the mode-line height in order to avoid crappy rendering of the
 separators like on the following screenshot (default value is 1.1).
 
-/Ugly separators/
-
-#+CAPTION: ugly-separators
-
 [[file:img/crappy-powerline-separators.png]]
+/Ugly separators/
 
 ** GUI Toggles
 Some graphical UI indicators can be toggled on and off (toggles start with ~t~
@@ -1057,18 +1055,16 @@ separators render correctly.
 When [[https://github.com/flycheck/flycheck][Flycheck]] minor mode is enabled, a new element appears showing the number of
 errors, warnings and info.
 
-#+CAPTION: powerline-wave
-
 [[file:img/powerline-wave.png]]
+/Flycheck integration in mode-line/
 
 **** Anzu integration
 [[https://github.com/syohex/emacs-anzu][Anzu]] shows the number of occurrence when performing a search. Spacemacs
 integrates nicely the Anzu status by displaying it temporarily when ~n~ or ~N~
 are being pressed. See the =5/6= segment on the screenshot below.
 
-#+CAPTION: powerline-anzu
-
 [[file:img/powerline-anzu.png]]
+/Anzu integration in mode-line/
 
 **** Battery status integration
 [[https://github.com/lunaryorn/fancy-battery.el][fancy-battery]] displays the percentage of total charge of the battery as well as
@@ -2703,6 +2699,34 @@ Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][ev
 
 *Tips:* To comment efficiently a block of line use the combo ~SPC ; SPC y~
 
+*** Regular expressions
+Spacemacs uses the packages [[https://github.com/joddie/pcre2el][pcre2el]] to manipulate regular expressions. It is
+useful when working with =Emacs Lisp= buffers since it allows to easily converts
+=PCRE= (Perl Compatible RegExp) to Emacs RegExp or =rx=. It can also be used to
+"explain" a PCRE RegExp around point in =rx= form.
+
+The key bindings start with ~SPC x r~ and have the following mnemonic structure:
+
+- ~SPC x r <source> <target>~ convert from source to target
+- ~SPC x r~ do what I mean
+
+| Key Binding   | Function                                                                               |
+|---------------+----------------------------------------------------------------------------------------|
+| ~SPC x r /~   | Explain the regexp around point with =rx=                                              |
+| ~SPC x r '​~   | Generate strings given by a regexp given this list is finite                           |
+| ~SPC x r t~   | Replace regexp around point by the =rx= form or vice versa                             |
+| ~SPC x r x~   | Convert regexp around point in =rx= form  and display the result in the minibuffer     |
+| ~SPC x r c~   | Convert regexp around point to the other form and display the result in the minibuffer |
+| ~SPC x r e /~ | Explain Emacs Lisp regexp                                                              |
+| ~SPC x r e '​~ | Generate strings from Emacs Lisp regexp                                                |
+| ~SPC x r e p~ | Convert Emacs Lisp regexp to PCRE                                                      |
+| ~SPC x r e t~ | Replace Emacs Lisp regexp by =rx= form or vice versa                                   |
+| ~SPC x r e x~ | Convert Emacs Lisp regexp to =rx= form                                                 |
+| ~SPC x r p /~ | Explain PCRE regexp                                                                    |
+| ~SPC x r p '​~ | Generate strings from PCRE regexp                                                      |
+| ~SPC x r p e~ | Convert PCRE regexp to Emacs Lisp                                                      |
+| ~SPC x r p x~ | Convert PCRE to =rx= form                                                              |
+
 *** Deleting files
 Deletion is configured to send deleted files to system trash.
 
@@ -3025,6 +3049,7 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | 100th fork         | [[https://github.com/balajisivaraman][balajisivaraman]] |
 | 200th fork         | [[https://github.com/alcol80][alcol80]]         |
 | 300th fork         | [[https://github.com/mlopes][mlopes]]          |
+| 2000th fork        | [[https://github.com/Gameguykiler][Gameguykiler]]    |
 | 100th star         | [[https://github.com/Jackneill][Jackneill]]       |
 | 200th star         | [[https://github.com/jb55][jb55]]            |
 | 400th star         | [[https://github.com/dbohdan][dbohdan]]         |

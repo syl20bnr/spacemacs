@@ -1,0 +1,48 @@
+#+TITLE: Docker layer
+
+[[file:img/docker.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Usage][Usage]]
+   - [[TRAMP access to docker containers][TRAMP access to docker containers]]
+ - [[Key bindings][Key bindings]]
+
+* Description
+This layer provides syntax highlighting and build functionality for Docker files
+as well as TRAMP access to running docker containers.
+
+It also includes basic Docker container and image management provided by
+[[https://github.com/Silex/docker.el][docker.el.]]
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =docker= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Usage
+** TRAMP access to docker containers
+This relies on the [[https://github.com/emacs-pe/docker-tramp.el][docker-tramp]] package which uses ~docker exec~ available in
+docker versions > 1.3.
+
+=docker-tramp= adds a new prefix =/docker:= that you can use with ~SPC f f~,
+this prefix allows to acces your docker containers and also provides
+auto-completion of the running containers.
+
+* Key bindings
+
+| Key Binding | Description                                        |
+|-------------+----------------------------------------------------|
+| ~SPC m c b~ | build current buffer via =dockerfile-build-buffer= |
+| ~SPC D c~   | list docker containers                             |
+| ~SPC D d~   | delete image                                       |
+| ~SPC D e~   | unpause container                                  |
+| ~SPC D F~   | pull image                                         |
+| ~SPC D i~   | list docker images                                 |
+| ~SPC D k~   | delete container                                   |
+| ~SPC D o~   | stop container                                     |
+| ~SPC D p~   | pause container                                    |
+| ~SPC D P~   | push image                                         |
+| ~SPC D r~   | restart container                                  |
+| ~SPC D s~   | start container                                    |

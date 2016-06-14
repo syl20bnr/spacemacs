@@ -11,11 +11,11 @@
 
 (setq ess-packages
   '(
-    company
     ess
     ess-R-data-view
     ess-R-object-popup
     ess-smart-equals
+    golden-ratio
     ))
 
 (defun ess/init-ess ()
@@ -123,3 +123,11 @@
     (progn
       (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
       (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))))
+
+(defun ess/pre-init-golden-ratio ()
+  (spacemacs|use-package-add-hook golden-ratio
+    :post-config
+    (dolist (f '(ess-eval-buffer-and-go
+                 ess-eval-function-and-go
+                 ess-eval-line-and-go))
+      (add-to-list 'golden-ratio-extra-commands f))))

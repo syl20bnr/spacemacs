@@ -50,7 +50,7 @@ exists. Otherwise, fallback to ~/.spacemacs")
 
 (defvar dotspacemacs-distribution 'spacemacs
   "Base distribution to use. This is a layer contained in the directory
-`+distribution'. For now available distributions are `spacemacs-base'
+`+distributions'. For now available distributions are `spacemacs-base'
 or `spacemacs'.")
 
 (defvar dotspacemacs-elpa-https t
@@ -119,10 +119,7 @@ when the current branch is not `develop'")
   "List of configuration layers to load.")
 
 (defvar dotspacemacs-themes '(spacemacs-dark
-                              spacemacs-light
-                              solarized-dark
-                              solarized-light
-                              leuven)
+                              spacemacs-light)
   "List of themes, the first of the list is loaded when spacemacs starts.
 Press `SPC T n' to cycle to the next theme in the list (works great
 with 2 themes variants, one dark and one light")

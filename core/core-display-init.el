@@ -36,7 +36,8 @@ created."
                      ;; is initialized)
                      ((boundp 'w32-initialized) (font-family-list))
                      ((boundp 'x-initialized) x-initialized)
-                     (t 't))))           ; fallback to normal loading behavior
+                     ;; fallback to normal loading behavior only if in a GUI
+                     (t (display-graphic-p)))))
      (if init
          (progn
            ,@body)

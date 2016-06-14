@@ -15,7 +15,7 @@
      - [[#in-configel][In =config.el=]]
      - [[#in-packagesel][In =packages.el=]]
    - [[#improved-faces][Improved faces]]
- - [[#key-bindings-1][Key Bindings]]
+ - [[#key-bindings][Key Bindings]]
    - [[#company][Company]]
    - [[#auto-complete][Auto-complete]]
    - [[#yasnippet][Yasnippet]]
@@ -179,6 +179,7 @@ For nicer-looking faces, try adding the following to `custom-set-faces` in your 
  '(company-tooltip-common-selection
    ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
 #+END_SRC
+
 * Key Bindings
 ** Company
 

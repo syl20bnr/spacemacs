@@ -26,6 +26,7 @@
     helm
     ivy
     magit
+    mu4e
     neotree
     org
     org-agenda
@@ -323,6 +324,24 @@
       (magit-change-popup-key 'magit-dispatch-popup :actions ?t ?j)
       (magit-change-popup-key 'magit-dispatch-popup :actions ?s ?k)
       (magit-change-popup-key 'magit-dispatch-popup :actions ?S ?K))))
+
+(defun bepo/pre-init-mu4e ()
+  (bepo|config mu4e
+    :description
+    "Remap navigation keys in `mu4e' headers and view mode."
+    :loader
+    (spacemacs|use-package-add-hook mu4e :post-config BODY)
+    :config
+    (dolist (map (list mu4e-headers-mode-map
+                       mu4e-view-mode-map))
+      (bepo/evil-correct-keys 'evilified map
+        "h"
+        "j"
+        "k"
+        "l")
+      (evil-define-key 'evilified map
+        "è" 'mu4e-headers-mark-subthread
+        "/" 'mu4e-headers-search))))
 
 (defun bepo/pre-init-neotree ()
   (bepo|config neotree

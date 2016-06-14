@@ -2,11 +2,11 @@
 
 [[file:img/slack.png]]
 
-* Table of Contents                                        :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Configuration][Configuration]]
- - [[Key bindings][Key bindings]]
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#configuration][Configuration]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 This layer provides an interface to the Slack chat service via the emacs-slack

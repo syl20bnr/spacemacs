@@ -13,6 +13,9 @@
   "If non-nil force the current emacs instance to resume layouts
   at start time despite the value of `dotspacemacs-auto-resume-layouts'.")
 
+(defvar spacemacs-insecure nil
+  "If non-nil force Spacemacs to operate without secured protocols.")
+
 (defun spacemacs//parse-command-line (args)
   "Handle Spacemacs specific command line arguments.
 The reason why we don't use the Emacs hooks for processing user defined
@@ -42,7 +45,7 @@ arguments is that we want to process these arguments as soon as possible."
                    i (1+ 1)))
            (setq spacemacs-debugp t))
           ("--insecure"
-           (setq dotspacemacs-elpa-https nil))
+           (setq spacemacs-insecure t))
           ("--no-layer"
            (setq configuration-layer-no-layer t))
           ("--distribution"

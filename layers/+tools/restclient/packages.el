@@ -9,8 +9,15 @@
 ;;
 ;;; License: GPLv3
 (setq restclient-packages
-      '(ob-http
-        restclient))
+      '(
+        golden-ratio
+        ob-http
+        restclient
+        ))
+
+(defun restclient/pre-init-golden-ratio ()
+  (spacemacs|use-package-add-hook golden-ratio
+    :post-config (add-to-list 'golden-ratio-exclude-modes "restclient-mode")))
 
 (defun restclient/init-ob-http ()
   (when restclient-use-org

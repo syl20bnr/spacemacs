@@ -25,7 +25,7 @@
     haskell-snippets
     (helm-hoogle :toggle (configuration-layer/package-usedp 'helm))
     hindent
-    shm
+    hlint-refactor
     ))
 
 (defun haskell/init-cmm-mode ()
@@ -112,8 +112,6 @@
      ;; Use notify.el (if you have it installed) at the end of running
      ;; Cabal commands or generally things worth notifying.
      haskell-notify-p t
-     ;; To enable tags generation on save.
-     haskell-tags-on-save t
      ;; Remove annoying error popups
      haskell-interactive-popup-errors nil
      ;; Better import handling
@@ -128,10 +126,7 @@
       (defun spacemacs/init-haskell-mode ()
         ;; use only internal indentation system from haskell
         (if (fboundp 'electric-indent-local-mode)
-            (electric-indent-local-mode -1))
-        (when haskell-enable-shm-support
-          ;; in structured-haskell-mode line highlighting creates noise
-          (setq-local global-hl-line-mode nil)))
+            (electric-indent-local-mode -1)))
 
       (defun spacemacs/haskell-interactive-bring ()
         "Bring up the interactive mode for this session without
@@ -187,14 +182,30 @@
           "hT"  'spacemacs/haskell-process-do-type-on-prev-line
           "hy"  'hayoo
 
-          "dd"  'haskell-debug
+          "da"  'haskell-debug/abandon
           "db"  'haskell-debug/break-on-function
-          "dn"  'haskell-debug/next
-          "dN"  'haskell-debug/previous
           "dB"  'haskell-debug/delete
           "dc"  'haskell-debug/continue
-          "da"  'haskell-debug/abandon
-          "dr"  'haskell-debug/refresh))
+          "dd"  'haskell-debug
+          "dn"  'haskell-debug/next
+          "dN"  'haskell-debug/previous
+          "dp"  'haskell-debug/previous
+          "dr"  'haskell-debug/refresh
+          "ds"  'haskell-debug/step
+          "dt"  'haskell-debug/trace))
+
+      (evilified-state-evilify haskell-debug-mode haskell-debug-mode-map
+        "RET" 'haskell-debug/select
+        "a" 'haskell-debug/abandon
+        "b" 'haskell-debug/break-on-function
+        "c" 'haskell-debug/continue
+        "d" 'haskell-debug/delete
+        "n" 'haskell-debug/next
+        "N" 'haskell-debug/previous
+        "p" 'haskell-debug/previous
+        "r" 'haskell-debug/refresh
+        "s" 'haskell-debug/step
+        "t" 'haskell-debug/trace)
 
       ;; configure C-c C-l so it doesn't throw any errors
       (bind-key "C-c C-l" 'haskell-process-load-file haskell-mode-map)
@@ -309,37 +320,12 @@
       (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
         "F" 'hindent-reformat-decl))))
 
-(defun haskell/init-shm ()
-  (use-package shm
+(defun haskell/init-hlint-refactor ()
+  (use-package hlint-refactor
     :defer t
-    :if haskell-enable-shm-support
     :init
-    (add-hook 'haskell-mode-hook 'structured-haskell-mode)
-    :config
     (progn
-      (when (require 'shm-case-split nil 'noerror)
-        ;;TODO: Find some better bindings for case-splits
-        (define-key shm-map (kbd "C-c S") 'shm/case-split)
-        (define-key shm-map (kbd "C-c C-s") 'shm/do-case-split))
-
-      (evil-define-key 'normal shm-map
-        (kbd "RET") nil
-        (kbd "C-k") nil
-        (kbd "C-j") nil
-        (kbd "D") 'shm/kill-line
-        (kbd "R") 'shm/raise
-        (kbd "P") 'shm/yank
-        (kbd "RET") 'shm/newline-indent
-        (kbd "RET") 'shm/newline-indent
-        (kbd "M-RET") 'evil-ret)
-
-      (evil-define-key 'operator shm-map
-        (kbd ")") 'shm/forward-node
-        (kbd "(") 'shm/backward-node)
-
-      (evil-define-key 'motion shm-map
-        (kbd ")") 'shm/forward-node
-        (kbd "(") 'shm/backward-node)
-
-      (define-key shm-map (kbd "C-j") nil)
-      (define-key shm-map (kbd "C-k") nil))))
+      (spacemacs/declare-prefix-for-mode 'haskell-mode "mr" "haskell/refactor")
+      (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
+        "rb" 'hlint-refactor-refactor-buffer
+        "rr" 'hlint-refactor-refactor-at-point))))

@@ -20,9 +20,22 @@ add =ycmd= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** YCMD
-In order to use this layer you must have a local [[https://github.com/Valloric/ycmd#building][ycmd]] installation and must
-set the =ycmd-server-command= variable to reflect the path to that installation.
-See the [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]] readme for more instructions on this.
+1) Install the =ycm= server. Installation instructions can be found [[https://github.com/Valloric/ycmd#building][here]].
+2) Set the =ycmd-server-command= variable to reflect the path to the installation:
+  #+BEGIN_SRC emacs-lisp
+  (setq ycmd-server-command '("python" "/path/to/YouCompleteMe/third_party/ycmd/ycmd"))
+  #+END_SRC
+3) Instead of =.clang_complete= ycmd [[https://github.com/Valloric/YouCompleteMe/blob/master/README.md#c-family-semantic-completion][uses a .ycm_extra_conf.py file]].
+4) Whitelist the file by adding the following to =.spacemacs=:
+  #+BEGIN_SRC emacs-lisp
+  ;; In this example we whitelist everything in the Develop folder
+  (setq ycmd-extra-conf-whitelist '("~/Develop/*"))
+  #+END_SRC
+5) The completion is not going to work automatically until we actually force it:
+  #+BEGIN_SRC emacs-lisp
+  (setq ycmd-force-semantic-completion t)
+  #+END_SRC
+
 
 ** Other Requirements
 This package requires the =auto-completion= layer in order to get actual

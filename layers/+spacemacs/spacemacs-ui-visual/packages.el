@@ -14,7 +14,6 @@
         fill-column-indicator
         golden-ratio
         hl-todo
-        leuven-theme
         neotree
         popup
         popwin
@@ -64,92 +63,84 @@
       :evil-leader "tg")
     :config
     (progn
-      (setq golden-ratio-exclude-modes '("bs-mode"
-                                         "calc-mode"
-                                         "ediff-mode"
-                                         "dired-mode"
-                                         "gud-mode"
-                                         "gdb-locals-mode"
-                                         "gdb-registers-mode"
-                                         "gdb-breakpoints-mode"
-                                         "gdb-threads-mode"
-                                         "gdb-frames-mode"
-                                         "gdb-inferior-io-mode"
-                                         "gud-mode"
-                                         "gdb-inferior-io-mode"
-                                         "gdb-disassembly-mode"
-                                         "gdb-memory-mode"
-                                         "restclient-mode"
-                                         "speedbar-mode"
-                                         ))
+      ;; golden-ratio-exclude-modes
+      (dolist (m '("bs-mode"
+                   "calc-mode"
+                   "ediff-mode"
+                   "dired-mode"
+                   "gud-mode"
+                   "gdb-locals-mode"
+                   "gdb-registers-mode"
+                   "gdb-breakpoints-mode"
+                   "gdb-threads-mode"
+                   "gdb-frames-mode"
+                   "gdb-inferior-io-mode"
+                   "gdb-disassembly-mode"
+                   "gdb-memory-mode"
+                   "speedbar-mode"
+                   ))
+        (add-to-list 'golden-ratio-exclude-modes m))
 
       (add-to-list 'golden-ratio-exclude-buffer-regexp "^\\*[hH]elm.*")
 
-      (setq golden-ratio-extra-commands
-            (append golden-ratio-extra-commands
-                    '(ace-window
-                      ace-delete-window
-                      ace-select-window
-                      ace-swap-window
-                      ace-maximize-window
-                      avy-pop-mark
-                      evil-avy-goto-word-or-subword-1
-                      evil-avy-goto-line
-                      windmove-left
-                      windmove-right
-                      windmove-up
-                      windmove-down
-                      evil-window-delete
-                      evil-window-split
-                      evil-window-vsplit
-                      evil-window-left
-                      evil-window-right
-                      evil-window-up
-                      evil-window-down
-                      evil-window-bottom-right
-                      evil-window-top-left
-                      evil-window-mru
-                      evil-window-next
-                      evil-window-prev
-                      evil-window-new
-                      evil-window-vnew
-                      evil-window-rotate-upwards
-                      evil-window-rotate-downwards
-                      evil-window-move-very-top
-                      evil-window-move-far-left
-                      evil-window-move-far-right
-                      evil-window-move-very-bottom
-                      select-window-0
-                      select-window-1
-                      select-window-2
-                      select-window-3
-                      select-window-4
-                      select-window-5
-                      select-window-6
-                      select-window-7
-                      select-window-8
-                      select-window-9
-                      buf-move-left
-                      buf-move-right
-                      buf-move-up
-                      buf-move-down
-                      ess-eval-buffer-and-go
-                      ess-eval-function-and-go
-                      ess-eval-line-and-go)))
+      ;; golden-ratio-extra-commands
+      (dolist (f '(ace-window
+                   ace-delete-window
+                   ace-select-window
+                   ace-swap-window
+                   ace-maximize-window
+                   avy-pop-mark
+                   buf-move-left
+                   buf-move-right
+                   buf-move-up
+                   buf-move-down
+                   evil-avy-goto-word-or-subword-1
+                   evil-avy-goto-line
+                   evil-window-delete
+                   evil-window-split
+                   evil-window-vsplit
+                   evil-window-left
+                   evil-window-right
+                   evil-window-up
+                   evil-window-down
+                   evil-window-bottom-right
+                   evil-window-top-left
+                   evil-window-mru
+                   evil-window-next
+                   evil-window-prev
+                   evil-window-new
+                   evil-window-vnew
+                   evil-window-rotate-upwards
+                   evil-window-rotate-downwards
+                   evil-window-move-very-top
+                   evil-window-move-far-left
+                   evil-window-move-far-right
+                   evil-window-move-very-bottom
+                   quit-window
+                   select-window-0
+                   select-window-1
+                   select-window-2
+                   select-window-3
+                   select-window-4
+                   select-window-5
+                   select-window-6
+                   select-window-7
+                   select-window-8
+                   select-window-9
+                   windmove-left
+                   windmove-right
+                   windmove-up
+                   windmove-down))
+        (add-to-list 'golden-ratio-extra-commands f))
 
-      ;; Disable auto-resizing for some buffers
-      (defun spacemacs/no-golden-ratio-for-buffers (bufname)
-        "Disable golden-ratio if BUFNAME is the name of a visible buffer."
-        (and (get-buffer bufname) (get-buffer-window bufname 'visible)))
-      (defun spacemacs/no-golden-ratio-guide-key ()
-        "Disable golden-ratio for guide-key popwin buffer."
-        (or (spacemacs/no-golden-ratio-for-buffers " *guide-key*")
-            (spacemacs/no-golden-ratio-for-buffers " *popwin-dummy*")))
+      ;; golden-ratio-exclude-buffer-names
+      (dolist (n '(" *NeoTree*"
+                   "*LV*"
+                   " *which-key*"))
+        (add-to-list 'golden-ratio-exclude-buffer-names n))
+
       (add-to-list 'golden-ratio-inhibit-functions
                    'spacemacs/no-golden-ratio-guide-key)
-      (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
-      (add-to-list 'golden-ratio-exclude-buffer-names "*LV*")
-      (add-to-list 'golden-ratio-exclude-buffer-names " *which-key*")
 
       (spacemacs|diminish golden-ratio-mode " ⓖ" " g"))))
 
@@ -158,11 +149,6 @@
     :defer t
     :init (spacemacs/add-to-hooks 'hl-todo-mode '(text-mode-hook
                                                   prog-mode-hook))))
-
-(defun spacemacs-ui-visual/init-leuven-theme ()
-  (use-package leuven-theme
-    :defer t
-    :init (setq org-fontify-whole-heading-line t)))
 
 (defun spacemacs-ui-visual/init-neotree ()
   (use-package neotree
@@ -235,14 +221,7 @@
       (push '("*ert*"                  :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
       (push '("*grep*"                 :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
       (push '("*nosetests*"            :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
-      (push '("^\*WoMan.+\*$" :regexp t             :position bottom                                   ) popwin:special-display-config)
-
-      (defun spacemacs/remove-popwin-display-config (str)
-        "Removes the popwin display configurations that matches the passed STR"
-        (setq popwin:special-display-config
-              (-remove (lambda (x) (if (and (listp x) (stringp (car x)))
-                                       (string-match str (car x))))
-                       popwin:special-display-config))))))
+      (push '("^\*WoMan.+\*$" :regexp t             :position bottom                                   ) popwin:special-display-config))))
 
 (defun spacemacs-ui-visual/init-smooth-scrolling ()
   (setq scroll-preserve-screen-position t
@@ -270,12 +249,10 @@
        (spaceline-compile)))
     :config
     (progn
-      (defun spacemacs/customize-powerline-faces ()
-        "Alter powerline face to make them work with more themes."
-        (set-face-attribute 'powerline-inactive2 nil
-                            :inherit 'font-lock-comment-face))
       (spacemacs/customize-powerline-faces)
-
+      (setq spaceline-org-clock-p nil
+            spaceline-highlight-face-func 'spacemacs//evil-state-face)
+      ;; Segment toggles
       (dolist (spec '((minor-modes "tmm")
                       (major-mode "tmM")
                       (version-control "tmv")
@@ -292,18 +269,13 @@
                                            (replace-regexp-in-string
                                             "-" " " (format "%S" segment)))
                    :evil-leader ,(cadr spec)))))
-      (setq spaceline-org-clock-p nil)
-
-      (defun spacemacs//evil-state-face ()
-        (let ((state (if (eq 'operator evil-state) evil-previous-state evil-state)))
-          (intern (format "spacemacs-%S-face" state))))
-      (setq spaceline-highlight-face-func 'spacemacs//evil-state-face)
-
+      ;; unicode
       (let ((unicodep (dotspacemacs|symbol-value
                        dotspacemacs-mode-line-unicode-symbols)))
-        (setq spaceline-window-numbers-unicode unicodep)
-        (setq spaceline-workspace-numbers-unicode unicodep))
-
+        (setq spaceline-window-numbers-unicode unicodep
+              spaceline-workspace-numbers-unicode unicodep))
+      (add-hook 'spaceline-pre-hook 'spacemacs//prepare-diminish)
+      ;; New spacemacs version segment
       (defpowerline spacemacs-powerline-new-version
         (propertize
          spacemacs-version-check-lighter
@@ -316,54 +288,27 @@
                         (lambda (event)
                           (interactive "@e")
                           (if (yes-or-no-p
-                               (format (concat "Do you want to update to the newest "
-                                               "version %s ?") spacemacs-new-version))
+                               (format
+                                (concat "Do you want to update to the newest "
+                                        "version %s ?") spacemacs-new-version))
                               (progn
-                                (spacemacs/switch-to-version spacemacs-new-version))
+                                (spacemacs/switch-to-version
+                                 spacemacs-new-version))
                             (message "Update aborted."))))
                       map)))
-
       (spaceline-define-segment new-version
         (when spacemacs-new-version
           (spacemacs-powerline-new-version
            (spacemacs/get-new-version-lighter-face
             spacemacs-version spacemacs-new-version))))
-
       (spaceline-spacemacs-theme '(new-version :when active))
-      (spaceline-helm-mode t)
+      ;; Additional spacelines
+      (when (package-installed-p 'helm)
+        (spaceline-helm-mode t))
       (when (configuration-layer/package-usedp 'info+)
         (spaceline-info-mode t))
-
-      (defun spacemacs//restore-powerline (buffer)
-        "Restore the powerline in buffer"
-        (with-current-buffer buffer
-          (setq-local mode-line-format (default-value 'mode-line-format))
-          (powerline-set-selected-window)
-          (powerline-reset)))
-
-      (defun spacemacs//set-powerline-for-startup-buffers ()
-        "Set the powerline for buffers created when Emacs starts."
-        (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
-          (when (and (get-buffer buffer)
-                     (configuration-layer/package-usedp 'spaceline))
-            (spacemacs//restore-powerline buffer))))
-
-      (defun spacemacs//prepare-diminish ()
-        (when spaceline-minor-modes-p
-          (let ((unicodep (dotspacemacs|symbol-value
-                           dotspacemacs-mode-line-unicode-symbols)))
-            (setq spaceline-minor-modes-separator
-                  (if unicodep (if (display-graphic-p) "" " ") "|"))
-            (dolist (mm spacemacs--diminished-minor-modes)
-              (let ((mode (car mm)))
-                (when (and (boundp mode) (symbol-value mode))
-                  (let* ((unicode (cadr mm))
-                         (ascii (caddr mm))
-                         (dim (if unicodep
-                                  unicode
-                                (if ascii ascii unicode))))
-                    (diminish mode dim))))))))
-      (add-hook 'spaceline-pre-hook 'spacemacs//prepare-diminish)
+      ;; Enable spaceline for buffers created before the configuration of
+      ;; spaceline
       (spacemacs//set-powerline-for-startup-buffers))))
 
 (defun spacemacs-ui-visual/init-zoom-frm ()
@@ -384,44 +329,6 @@
         ("0" spacemacs/zoom-frm-unzoom)
         ("q" nil :exit t))
       (spacemacs/set-leader-keys "zf" 'spacemacs/zoom-frm-transient-state/body)
-
-      (defun spacemacs//zoom-frm-powerline-reset ()
-        (when (fboundp 'powerline-reset)
-          (setq-default powerline-height (spacemacs/compute-powerline-height))
-          (powerline-reset)))
-
-      (defun spacemacs//zoom-frm-do (arg)
-        "Perform a zoom action depending on ARG value."
-        (let ((zoom-action (cond ((eq arg 0) 'zoom-frm-unzoom)
-                                 ((< arg 0) 'zoom-frm-out)
-                                 ((> arg 0) 'zoom-frm-in)))
-              (fm (cdr (assoc 'fullscreen (frame-parameters))))
-              (fwp (* (frame-char-width) (frame-width)))
-              (fhp (* (frame-char-height) (frame-height))))
-          (when (equal fm 'maximized)
-            (toggle-frame-maximized))
-          (funcall zoom-action)
-          (set-frame-size nil fwp fhp t)
-          (when (equal fm 'maximized)
-            (toggle-frame-maximized))))
-
-      (defun spacemacs/zoom-frm-in ()
-        "zoom in frame, but keep the same pixel size"
-        (interactive)
-        (spacemacs//zoom-frm-do 1)
-        (spacemacs//zoom-frm-powerline-reset))
-
-      (defun spacemacs/zoom-frm-out ()
-        "zoom out frame, but keep the same pixel size"
-        (interactive)
-        (spacemacs//zoom-frm-do -1)
-        (spacemacs//zoom-frm-powerline-reset))
-
-      (defun spacemacs/zoom-frm-unzoom ()
-        "Unzoom current frame, keeping the same pixel size"
-        (interactive)
-        (spacemacs//zoom-frm-do 0)
-        (spacemacs//zoom-frm-powerline-reset))
 
       ;; Font size, either with ctrl + mouse wheel
       (global-set-key (kbd "<C-wheel-up>") 'spacemacs/zoom-frm-in)

@@ -106,6 +106,7 @@
                                                     ".org-timestamps/")
             org-log-done t
             org-startup-with-inline-images t
+            org-image-actual-width nil
             org-src-fontify-natively t
             ;; this is consistent with the value of
             ;; `helm-org-headings-max-depth'.

@@ -9,8 +9,8 @@
 * Description
 This layer is a port contribution layer for vim-vinegar for emacs.
 
-A port of tpope's vinegar.vim
-[vinegar][https://github.com/tpope/vim-vinegar], simplifying =dired=
+A port of tpope's
+[[https://github.com/tpope/vim-vinegar][vinegar.vim]], simplifying =dired=
 with a limited number of details and exposing the ~-~ command in all
 buffers to enter dired.
 

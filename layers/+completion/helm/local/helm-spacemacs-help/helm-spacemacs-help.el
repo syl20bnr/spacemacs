@@ -50,7 +50,8 @@
     (mapc (lambda (layer) (push (configuration-layer/make-layer layer)
                                 helm-spacemacs-help-all-layers))
           (configuration-layer/get-layers-list))
-    (let (configuration-layer--packages)
+    (let ((configuration-layer--inhibit-warnings t)
+          configuration-layer--packages)
       (configuration-layer/get-packages helm-spacemacs-help-all-layers)
       (setq helm-spacemacs-help-all-packages configuration-layer--packages))))
 
@@ -213,8 +214,8 @@
   `((name . "Packages")
     (candidates . ,(helm-spacemacs-help//package-candidates))
     (candidate-number-limit)
-    (action . (("Go to init function"
-                . helm-spacemacs-help//package-action-goto-init-func)
+    (action . (("Go to configuration function"
+                . helm-spacemacs-help//package-action-goto-config-func)
                ("Describe"
                 . helm-spacemacs-help//package-action-decribe)))))
 
@@ -222,11 +223,28 @@
   "Return the sorted candidates for package source."
   (let (result)
     (dolist (pkg helm-spacemacs-help-all-packages)
-      (push (format "%s (%S layer)"
-                    (propertize (symbol-name (oref pkg :name))
-                                'face 'font-lock-type-face)
-                    (oref pkg :owner))
-            result))
+      (let* ((owner (cfgl-package-get-safe-owner pkg))
+             ;; the notion of owner does not make sense if the layer is not used
+             (init-type (if (configuration-layer/layer-usedp owner)
+                            "owner" "init")))
+        (when owner
+          (push (format "%s (%s: %S layer)"
+                        (propertize (symbol-name (oref pkg :name))
+                                    'face 'font-lock-type-face)
+                        init-type
+                        owner)
+                result))
+        (dolist (initfuncs `((,(oref pkg :owners) "init")
+                             (,(oref pkg :pre-layers) "pre-init")
+                             (,(oref pkg :post-layers) "post-init")))
+          (dolist (layer (car initfuncs))
+            (unless (and owner (eq owner layer))
+              (push (format "%s (%s: %S layer)"
+                            (propertize (symbol-name (oref pkg :name))
+                                        'face 'font-lock-type-face)
+                            (cadr initfuncs)
+                            layer)
+                    result))))))
     (sort result 'string<)))
 
 (defun helm-spacemacs-help//toggle-source ()
@@ -315,20 +333,22 @@
     (let* ((package (match-string 1 candidate)))
       (configuration-layer/describe-package (intern package)))))
 
-(defun helm-spacemacs-help//package-action-goto-init-func (candidate)
+(defun helm-spacemacs-help//package-action-goto-config-func (candidate)
   "Open the file `packages.el' and go to the init function."
   (save-match-data
-    (string-match "^\\(.+\\)\s(\\(.+\\) layer)$" candidate)
-    ;; (string-match "^(\\(.+\\))\s\\(.+\\):\s\\(.+\\)$" candidate)
+    (string-match "^\\(.+\\)\s(\\(.*\\):\s\\(.+\\) layer.*)$" candidate)
     (let* ((package (match-string 1 candidate))
-           (layer (match-string 2 candidate))
+           (init-type (match-string 2 candidate))
+           (layer (match-string 3 candidate))
            (path (file-name-as-directory
                   (concat (ht-get configuration-layer-paths (intern layer))
                           layer)))
            (filename (concat path "packages.el")))
+      (when (string-match-p "owner" init-type)
+        (setq init-type "init"))
       (find-file filename)
       (goto-char (point-min))
-      (re-search-forward (format "init-%s" package))
+      (re-search-forward (format "%s-%s" init-type package))
       (beginning-of-line))))
 
 (defun helm-spacemacs-help//toggle (candidate)

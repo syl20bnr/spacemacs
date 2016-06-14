@@ -10,11 +10,13 @@
 ;;; License: GPLv3
 
 (setq ivy-packages
-      '(auto-highlight-symbol
+      '(
+        auto-highlight-symbol
         counsel
         (counsel-projectile :toggle (configuration-layer/package-usedp 'projectile))
         evil
         flx
+        helm-make
         ivy
         ivy-hydra
         (ivy-spacemacs-help :location local)
@@ -22,10 +24,20 @@
         projectile
         smex
         swiper
-        wgrep))
+        wgrep
+        ))
 
-(defun ivy/init-ivy-hydra ()
-  (use-package ivy-hydra))
+(defun ivy/pre-init-auto-highlight-symbol ()
+  (spacemacs|use-package-add-hook auto-highlight-symbol
+    :post-init
+    ;; add some functions to ahs transient states
+    (setq spacemacs--symbol-highlight-transient-state-doc
+          (concat spacemacs--symbol-highlight-transient-state-doc
+                  "  [_b_] search buffers [_/_] search proj [_f_] search files")
+          spacemacs-symbol-highlight-transient-state-add-bindings
+          '(("/" spacemacs/search-project-auto-region-or-symbol :exit t)
+            ("b" spacemacs/swiper-all-region-or-symbol :exit t)
+            ("f" spacemacs/search-auto-region-or-symbol :exit t)))))
 
 (defun ivy/init-counsel ()
   (use-package counsel
@@ -105,15 +117,21 @@
           "pf" 'counsel-projectile-find-file
           "pr" 'projectile-recentf)))))
 
-(defun ivy/post-init-auto-highlight-symbol ()
-  (setq spacemacs-symbol-highlight-transient-state-remove-bindings
-        '("/" "b" "f"))
-  (setq spacemacs-symbol-highlight-transient-state-add-bindings
-        '(("/" spacemacs/search-project-auto-region-or-symbol :exit t)
-          ("b" spacemacs/swiper-all-region-or-symbol :exit t)
-          ("f" spacemacs/search-auto-region-or-symbol :exit t))))
+(defun ivy/post-init-evil ()
+  (spacemacs/set-leader-keys
+    "re" 'spacemacs/ivy-evil-registers))
 
 (defun ivy/init-flx ())
+
+(defun ivy/init-helm-make ()
+  (use-package helm-make
+    :defer t
+    :init
+    (progn
+      (setq helm-make-completion-method 'ivy)
+      (spacemacs/set-leader-keys
+        "cc" 'helm-make-projectile
+        "cm" 'helm-make))))
 
 (defun ivy/init-ivy ()
   (use-package ivy
@@ -147,6 +165,9 @@
         "w" 'ivy-wgrep-change-to-wgrep-mode)
       ;; Why do we do this ?
       (ido-mode -1))))
+
+(defun ivy/init-ivy-hydra ()
+  (use-package ivy-hydra))
 
 (defun ivy/post-init-persp-mode ()
   (ivy-set-actions

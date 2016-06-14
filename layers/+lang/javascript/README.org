@@ -153,8 +153,8 @@ Bindings should match the plain emacs assignments.
 | ~SPC m r v t~ | changes local =var a= to be =this.a= instead                                                                   |
 | ~SPC m r w i~ | wraps the entire buffer in an immediately invoked function expression                                          |
 | ~SPC m r w l~ | wraps the region in a for-loop                                                                                 |
-| ~SPC m x m j~   | move line down, while keeping commas correctly placed                                                          |
-| ~SPC m x m k~   | move line up, while keeping commas correctly placed                                                            |
+| ~SPC m x m j~ | move line down, while keeping commas correctly placed                                                          |
+| ~SPC m x m k~ | move line up, while keeping commas correctly placed                                                            |
 
 ** Formatting (web-beautify)
 

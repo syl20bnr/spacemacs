@@ -60,6 +60,9 @@
         ;; oracle
         "ht" 'elm-oracle-type-at-point
 
+        ;; refactoring
+        "ri" 'elm-sort-imports
+
         ;; repl
         "'"  'elm-repl-load
         "si" 'elm-repl-load
@@ -81,13 +84,12 @@
                    ("mc" . "compile")
                    ("mh" . "help")
                    ("mp" . "package")
+                   ("mr" . "refactor")
                    ("ms" . "repl")))
         (spacemacs/declare-prefix-for-mode 'elm-mode (car x) (cdr x)))
 
       (evilified-state-evilify elm-package-mode elm-package-mode-map
         "g" 'elm-package-refresh
-        "n" 'elm-package-next
-        "p" 'elm-package-prev
         "v" 'elm-package-view
         "m" 'elm-package-mark
         "u" 'elm-package-unmark
