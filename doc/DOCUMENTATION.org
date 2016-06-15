@@ -2448,6 +2448,7 @@ Text related commands (start with ~x~):
 | ~SPC x U~   | set the selected text to upper case                           |
 | ~SPC x w c~ | count the number of occurrences per word in the select region |
 | ~SPC x w d~ | show dictionary entry of word from wordnik.com                |
+| ~SPC x TAB~ | indent or dedent a region rigidly                             |
 
 *** Text insertion commands
 Text insertion commands (start with ~i~):

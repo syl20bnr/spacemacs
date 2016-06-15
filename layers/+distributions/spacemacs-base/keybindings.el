@@ -400,7 +400,14 @@
   "xtw" 'transpose-words
   "xU"  'upcase-region
   "xu"  'downcase-region
-  "xwc" 'spacemacs/count-words-analysis)
+  "xwc" 'spacemacs/count-words-analysis
+  "x TAB" 'indent-rigidly)
+
+(define-key indent-rigidly-map "h" 'indent-rigidly-left)
+(define-key indent-rigidly-map "l" 'indent-rigidly-right)
+(define-key indent-rigidly-map "H" 'indent-rigidly-left-to-tab-stop)
+(define-key indent-rigidly-map "L" 'indent-rigidly-right-to-tab-stop)
+
 ;; shell ----------------------------------------------------------------------
 (with-eval-after-load 'shell
   (evil-define-key 'insert comint-mode-map [up] 'comint-previous-input)
