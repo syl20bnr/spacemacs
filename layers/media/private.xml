@@ -1,0 +1,84 @@
+<!--
+    ;;; packages.el  media layer packages file for Spacemacs.
+    ;;
+    ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+    ;;
+    ;; Author: Alejandro Erickson <alejandro.erickson@gmail.com>
+    ;; URL: https://github.com/syl20bnr/spacemacs
+    ;;
+    ;; This file is not part of GNU Emacs.
+    ;;
+    ;;; License: GPLv3
+-->
+
+<?xml version="1.0"?>
+<root>
+  <!-- Media keys for Emacs EMMS -->
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_SHELL_emms_play</name>
+    <url type="shell">
+      <![CDATA[
+               /opt/local/bin/emacsclient --eval "(emms-pause)" || \
+               /opt/local/bin/emacsclient  --eval  "(emms-playlist-mode-go)" --eval "(goto-line \
+               1)" --eval "(emms-playlist-mode-play-smart)" --eval \
+               "(emms-playlist-mode-bury-buffer)" ||\
+               /opt/local/bin/emacsclient --eval "(emms-browser)"  --eval "(emms-browse-by-album)"  --eval "(emms-browser-goto-random)"  --eval "(emms-browser-add-tracks-and-play)" ||  say Open and cue up an E M M S playlist in emacs. ]]>
+    </url>
+  </vkopenurldef>
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_SHELL_emms_next</name>
+    <url type="shell">
+      <![CDATA[
+               /opt/local/bin/emacsclient --eval "(emms-next)" || \
+               /opt/local/bin/emacsclient  --eval  "(emms-playlist-mode-go)" --eval "(goto-line \
+               1)" --eval "(emms-playlist-mode-play-smart)" --eval \
+               "(emms-playlist-mode-bury-buffer)" ||\
+               /opt/local/bin/emacsclient --eval "(emms-browser)"  --eval "(emms-browse-by-album)"  --eval "(emms-browser-goto-random)"  --eval "(emms-browser-add-tracks-and-play)" ||  say Open and cue up an E M M S playlist in emacs. ]]>
+    </url>
+  </vkopenurldef>
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_SHELL_emms_prev</name>
+    <url type="shell">
+      <![CDATA[
+               /opt/local/bin/emacsclient --eval "(emms-previous)" || \
+               /opt/local/bin/emacsclient  --eval  "(emms-playlist-mode-go)" --eval "(goto-line \
+               1)" --eval "(emms-playlist-mode-play-smart)" --eval \
+               "(emms-playlist-mode-bury-buffer)" ||\
+               /opt/local/bin/emacsclient --eval "(emms-browser)"  --eval "(emms-browse-by-album)"  --eval "(emms-browser-goto-random)"  --eval "(emms-browser-add-tracks-and-play)" ||  say Open and cue up an E M M S playlist in emacs. ]]>
+
+    </url>
+  </vkopenurldef>
+
+  <item>
+    <name>Emacs EMMS Play Button</name>
+    <identifier>private.emms_play</identifier>
+    <autogen>
+      __KeyToKey__
+      <!-- KeyCode::VK_CONSUMERKEY_MUSIC_PLAY, -->
+      ConsumerKeyCode::MUSIC_PLAY,
+      KeyCode::VK_OPEN_URL_SHELL_emms_play,
+    </autogen>
+  </item>
+
+  <item>
+    <name>Emacs EMMS Next Button</name>
+    <identifier>private.emms_next</identifier>
+    <autogen>
+      __KeyToKey__
+      <!-- KeyCode::VK_CONSUMERKEY_MUSIC_PLAY, -->
+      ConsumerKeyCode::MUSIC_NEXT,
+      KeyCode::VK_OPEN_URL_SHELL_emms_next,
+    </autogen>
+  </item>
+  <item>
+    <name>Emacs EMMS Prev Button</name>
+    <identifier>private.emms_prev</identifier>
+    <autogen>
+      __KeyToKey__
+      <!-- KeyCode::VK_CONSUMERKEY_MUSIC_PLAY, -->
+      ConsumerKeyCode::MUSIC_PREV,
+      KeyCode::VK_OPEN_URL_SHELL_emms_prev,
+    </autogen>
+  </item>
+</root>
+
