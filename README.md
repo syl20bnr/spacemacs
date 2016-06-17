@@ -217,10 +217,11 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    ```sh
    emacs --insecure
    ```
-   Or you may need to set the `dotspacemacs-elpa-https` to `nil` in dotfiles 
-   and restart Emacs. You may wish to clear out your `.emacs.d/elpa` directory 
-   before doing this, so that any corrupted packages you may have downloaded 
-   will be reinstalled.
+
+   Or you can set the `dotspacemacs-elpa-https` to `nil` in your dotfile to
+   remove the need to start Emacs with `--insecure` argument. You may wish to
+   clear out your `.emacs.d/elpa` directory before doing this, so that any
+   corrupted packages you may have downloaded will be reinstalled.
 
 4. Restart Emacs to complete the installation.
 
