@@ -110,7 +110,24 @@
 
 (defun python/init-hy-mode ()
   (use-package hy-mode
-    :defer t))
+    :defer t
+    :init
+    (progn
+      (add-hook 'hy-mode-hook 'paredit-mode)
+      (add-hook 'hy-mode-hook #'smartparens-strict-mode)
+      (let ((hy-path (executable-find "hy")))
+        (if hy-path
+            (progn
+              (setq hy-mode-inferior-lisp-command (concat hy-path " --spy"))
+              (spacemacs/set-leader-keys-for-major-mode 'hy-mode
+                "sr" 'inferior-lisp
+                "sb" 'switch-to-lisp
+                "sf" 'lisp-load-file
+
+                "ee" 'lisp-eval-last-sexp
+                "er" 'lisp-eval-region
+                "ef" 'lisp-eval-defun
+                )))))))
 
 (defun python/init-live-py-mode ()
   (use-package live-py-mode
@@ -163,6 +180,7 @@
     (progn
       (pcase python-auto-set-local-pyenv-version
        (`on-visit
+        (add-hook 'hy-mode-hook 'pyenv-mode-set-local-version)
         (add-hook 'python-mode-hook 'spacemacs//pyenv-mode-set-local-version))
        (`on-project-switch
         (add-hook 'projectile-after-switch-project-hook
@@ -175,10 +193,15 @@
   (use-package pyvenv
     :defer t
     :init
-    (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "Va" 'pyvenv-activate
-      "Vd" 'pyvenv-deactivate
-      "Vw" 'pyvenv-workon)))
+    (progn
+     (spacemacs/set-leader-keys-for-major-mode 'python-mode
+       "Va" 'pyvenv-activate
+       "Vd" 'pyvenv-deactivate
+       "Vw" 'pyvenv-workon)
+     (spacemacs/set-leader-keys-for-major-mode 'hy-mode
+       "Va" 'pyvenv-activate
+       "Vd" 'pyvenv-deactivate
+       "Vw" 'pyvenv-workon))))
 
 (defun python/init-pylookup ()
   (use-package pylookup
