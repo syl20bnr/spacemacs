@@ -78,7 +78,7 @@ Since 0.105.0 HTTPS protocol is used by default to download packages. If your
 environment does not allow HTTPS to reach ELPA repositories then you can start
 Emacs with the =--insecure= argument for force the usage of HTTP non secured
 protocol. You can set the variable =dotspacemacs-elpa-https= to =nil= in your
-dotfile to remove the need to start Emacs with =--insecure== argument.
+dotfile to remove the need to start Emacs with =--insecure= argument.
 
 ** How to fix =Symbol's value as variable is void= errors on startup?
 If Emacs reports an error that the symbol =closed= or =-= is unbound as a
