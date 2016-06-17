@@ -1840,6 +1840,7 @@ Buffer manipulation commands (start with ~b~):
 | ~SPC TAB~   | switch to alternate buffer in the current window (switch back and forth) |
 | ~SPC b b~   | switch to a buffer using =helm=                                          |
 | ~SPC b d~   | kill the current buffer (does not delete the visited file)               |
+| ~SPC b D~   | kill the current buffer and its window                                   |
 | ~SPC b e~   | erase the content of the buffer (ask for confirmation)                   |
 | ~SPC b h~   | open =*spacemacs*= home buffer                                           |
 | ~SPC b k~   | kill a buffer                                                            |
