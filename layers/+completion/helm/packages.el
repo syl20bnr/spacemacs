@@ -24,6 +24,7 @@
         helm-swoop
         helm-themes
         (helm-spacemacs-help :location local)
+        projectile
         ))
 
 ;; Initialization of packages
@@ -579,3 +580,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :init
     (spacemacs/set-leader-keys
       "Ts" 'helm-themes)))
+
+(defun helm/post-init-projectile ()
+  (setq projectile-completion-system 'helm))
