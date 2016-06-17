@@ -24,6 +24,7 @@
         helm-swoop
         helm-themes
         (helm-spacemacs-help :location local)
+        projectile
         ))
 
 ;; Initialization of packages
@@ -60,8 +61,6 @@
       (spacemacs/add-to-hook 'helm-cleanup-hook
                              '(spacemacs//restore-previous-display-config
                                spacemacs//helm-cleanup))
-      (when (configuration-layer/package-usedp 'projectile)
-        (setq projectile-completion-system 'helm))
       ;; key bindings
       ;; Use helm to provide :ls, unless ibuffer is used
       (unless (configuration-layer/package-usedp 'ibuffer)
@@ -583,3 +582,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :init
     (spacemacs/set-leader-keys
       "Ts" 'helm-themes)))
+
+(defun helm/post-init-projectile ()
+  (setq projectile-completion-system 'helm))
