@@ -298,14 +298,14 @@ projectile cache when it's possible and update recentf list."
              (rename-file filename new-name 1)
              (when buffer
                (kill-buffer buffer)
-               (find-file newfile))
+               (find-file new-name))
              (when (fboundp 'recentf-add-file)
                (recentf-add-file new-name)
                (recentf-remove-if-non-kept filename))
              (when (and (configuration-layer/package-usedp 'projectile)
                         (projectile-project-p))
                (call-interactively #'projectile-invalidate-cache))
-             (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name)))))))
+             (message "File '%s' successfully renamed to '%s'" short-name (file-name-nondirectory new-name)))))))
 
 ;; from magnars
 (defun spacemacs/rename-current-buffer-file ()
