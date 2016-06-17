@@ -46,14 +46,7 @@ ENSIME requires a configuration file at the root of each Scala project. It
 provides an SBT plugin to generate these files.
 
 ** Installation
-Configure the ENSIME sbt plugin by adding the following to
-=~/.sbt/0.13/plugins/plugins.sbt=:
-
-#+BEGIN_SRC scala
-  addSbtPlugin("org.ensime" % "ensime-sbt" % "0.2.3")
-#+END_SRC
-
-Please go to [[https://github.com/ensime/ensime-sbt][ensime-sbt Github Page]] to check the latest version of =ensime-sbt= plugin.
+Refer to the [[https://ensime.github.io/build_tools/sbt/][Ensime installation instructions]] to install the =ensime-sbt= plugin.
 
 Please note your projects' =project/build.properties= need to use a version
 newer that =0.13.5= of sbt.
