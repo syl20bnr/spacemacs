@@ -118,6 +118,7 @@
 ;; buffers --------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "bd"  'spacemacs/kill-this-buffer
+  "bD"  'kill-buffer-and-window
   "TAB" 'spacemacs/alternate-buffer
   "bh"  'spacemacs/home
   "be"  'spacemacs/safe-erase-buffer
