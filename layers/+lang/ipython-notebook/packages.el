@@ -98,15 +98,16 @@
       (spacemacs|define-transient-state ipython-notebook
         :title "iPython Notebook Transient State"
         :doc "
-Operations on Cells^^^^^^            On Worksheets^^^^              Other
-----------------------------^^^^^^   ------------------------^^^^   ----------------------------------^^^^
-[_k_/_j_]^^     select prev/next     [_h_/_l_]   select prev/next   [_t_]^^         toggle output
-[_K_/_J_]^^     move up/down         [_H_/_L_]   move left/right    [_C-l_/_C-S-l_] clear/clear all output
-[_C-k_/_C-j_]^^ merge above/below    [_1_.._9_]  open [1st..last]   [_C-o_]^^       open console
-[_O_/_o_]^^     insert above/below   [_+_/_-_]   create/delete      [_C-s_/_C-r_]   save/rename notebook
-[_y_/_p_/_d_]   copy/paste           ^^^^                           [_x_]^^         close notebook
-[_u_]^^^^       change type          ^^^^                           [_q_]^^         quit transient-state
-[_RET_]^^^^     execute"
+ Operations on Cells^^^^^^            On Worksheets^^^^              Other
+ ----------------------------^^^^^^   ------------------------^^^^   ----------------------------------^^^^
+ [_k_/_j_]^^     select prev/next     [_h_/_l_]   select prev/next   [_t_]^^         toggle output
+ [_K_/_J_]^^     move up/down         [_H_/_L_]   move left/right    [_C-l_/_C-S-l_] clear/clear all output
+ [_C-k_/_C-j_]^^ merge above/below    [_1_.._9_]  open [1st..last]   [_C-o_]^^       open console
+ [_O_/_o_]^^     insert above/below   [_+_/_-_]   create/delete      [_C-s_/_C-r_]   save/rename notebook
+ [_y_/_p_/_d_]   copy/paste           ^^^^                           [_x_]^^         close notebook
+ [_u_]^^^^       change type          ^^^^                           [_q_]^^         quit transient-state
+ [_RET_]^^^^     execute"
+        :evil-leader-for-mode (ein:notebook-multilang-mode . ".")
         :bindings
         ("q" nil :exit t)
         ("?" spacemacs//ipython-notebook-ms-toggle-doc)
@@ -149,7 +150,6 @@ Operations on Cells^^^^^^            On Worksheets^^^^              Other
         ("9" ein:notebook-worksheet-open-last)
         ("+" ein:notebook-worksheet-insert-next)
         ("-" ein:notebook-worksheet-delete)
-        ("x" ein:notebook-close))
-      (spacemacs/set-leader-keys "ein" 'spacemacs/ipython-notebook-transient-state/body)))
+        ("x" ein:notebook-close))))
   (with-eval-after-load 'ein-notebooklist
     (define-key ein:notebooklist-mode-map "o" 'spacemacs/ace-buffer-links)))

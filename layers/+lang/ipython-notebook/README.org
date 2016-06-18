@@ -68,7 +68,7 @@ The key bindings can be used through a transient state or the usual evil-leader.
 
 *** Transient-state: =ipython-notebook=
 Once you are in the ipython notebook you can activate the transient-state with
-~SPC e i n~
+~SPC m .~
 
 The following table lists the keys. Use them as listed in the transient-state or
 prefix with ~SPC m~ to use with your evil-leader.
