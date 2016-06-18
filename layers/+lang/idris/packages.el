@@ -15,7 +15,9 @@
 
 (defun idris/post-init-company ()
   (spacemacs|add-company-hook idris-mode)
-  (push 'company-capf company-backends-idris-mode))
+  (spacemacs|add-company-hook idris-repl-mode)
+  (push 'company-capf company-backends-idris-mode)
+  (push 'company-capf company-backends-idris-repl-mode))
 
 (defun idris/init-idris-mode ()
   (use-package idris-mode
@@ -91,7 +93,7 @@
         "mc" 'idris-show-core-term
 
         ;; REPL
-        "'" 'idris-repl
+        "'"  'idris-repl
         "sb" 'idris-load-file
         "sB" 'spacemacs/idris-load-file-and-focus
         "si" 'idris-repl
@@ -99,7 +101,8 @@
         "sN" 'spacemacs/idris-load-forward-line-and-focus
         "sp" 'idris-load-backward-line
         "sP" 'spacemacs/idris-load-backward-line-and-focus
-        "ss" 'idris-pop-to-repl)))
+        "ss" 'idris-pop-to-repl
+        "sq" 'idris-quit)))
 
   ;; open special buffers in motion state so they can be closed with ~q~
   (evil-set-initial-state 'idris-compiler-notes-mode 'motion)

@@ -10,3 +10,4 @@
 ;;; License: GPLv3
 
 (spacemacs|defvar-company-backends idris-mode)
+(spacemacs|defvar-company-backends idris-repl-mode)
