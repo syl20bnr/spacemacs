@@ -16,7 +16,14 @@
     :defer t
     :commands ein:notebooklist-open
     :init
-    (spacemacs/set-leader-keys "ain" 'ein:notebooklist-open)
+    (progn
+      (spacemacs/set-leader-keys "ain" 'ein:notebooklist-open)
+      (with-eval-after-load 'ein-notebooklist
+        (evilified-state-evilify-map ein:notebooklist-mode-map
+          :mode ein:notebooklist-mode
+          :bindings
+          (kbd "o") 'spacemacs/ace-buffer-links)
+        (define-key ein:notebooklist-mode-map "o" 'spacemacs/ace-buffer-links)))
     :config
     (progn
       (defun spacemacs/ein:worksheet-merge-cell-next ()
@@ -150,6 +157,4 @@
         ("9" ein:notebook-worksheet-open-last)
         ("+" ein:notebook-worksheet-insert-next)
         ("-" ein:notebook-worksheet-delete)
-        ("x" ein:notebook-close))))
-  (with-eval-after-load 'ein-notebooklist
-    (define-key ein:notebooklist-mode-map "o" 'spacemacs/ace-buffer-links)))
+        ("x" ein:notebook-close)))))
