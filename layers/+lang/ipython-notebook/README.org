@@ -144,9 +144,11 @@ In traceback mode the following key bindings are defined:
 
 * Screenshots
 ** Light
+#+attr_html: :width 400px
 [[file:img/light.png]]
 
 ** Dark
+#+attr_html: :width 400px
 [[file:img/dark.png]]
 
 * Bonus
