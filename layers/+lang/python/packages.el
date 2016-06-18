@@ -113,21 +113,19 @@
     :defer t
     :init
     (progn
-      (add-hook 'hy-mode-hook 'paredit-mode)
-      (add-hook 'hy-mode-hook #'smartparens-strict-mode)
       (let ((hy-path (executable-find "hy")))
-        (if hy-path
-            (progn
-              (setq hy-mode-inferior-lisp-command (concat hy-path " --spy"))
-              (spacemacs/set-leader-keys-for-major-mode 'hy-mode
-                "sr" 'inferior-lisp
-                "sb" 'switch-to-lisp
-                "sf" 'lisp-load-file
-
-                "ee" 'lisp-eval-last-sexp
-                "er" 'lisp-eval-region
-                "ef" 'lisp-eval-defun
-                )))))))
+        (when hy-path
+          (setq hy-mode-inferior-lisp-command (concat hy-path " --spy"))
+          (spacemacs/set-leader-keys-for-major-mode 'hy-mode
+            "si" 'inferior-lisp
+            "sb" 'lisp-load-file
+            "sB" 'switch-to-lisp
+            "se" 'lisp-eval-last-sexp
+            "sf" 'lisp-eval-defun
+            "sF" 'lisp-eval-defun-and-go
+            "sr" 'lisp-eval-region
+            "sR" 'lisp-eval-region-and-go
+            ))))))
 
 (defun python/init-live-py-mode ()
   (use-package live-py-mode
@@ -404,6 +402,7 @@ fix this issue."
 
 (defun python/post-init-smartparens ()
   (add-hook 'inferior-python-mode-hook 'smartparens-mode)
+  (add-hook 'hy-mode-hook 'smartparens-mode)
   (defadvice python-indent-dedent-line-backspace
       (around python/sp-backward-delete-char activate)
     (let ((pythonp (or (not smartparens-strict-mode)
