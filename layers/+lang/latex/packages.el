@@ -40,6 +40,9 @@
             LaTeX-fill-break-at-separators nil)
       (when latex-enable-auto-fill
         (add-hook 'LaTeX-mode-hook 'latex/auto-fill-mode))
+      (when (and (configuration-layer/layer-usedp 'pdf-tools)
+                 latex-view-with-pdf-tools)
+        (setq TeX-view-program-selection '((output-pdf "PDF Tools"))))
       (when latex-enable-folding
         (add-hook 'LaTeX-mode-hook 'TeX-fold-mode))
       (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)

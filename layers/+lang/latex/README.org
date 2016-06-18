@@ -10,11 +10,12 @@
    - [[#layer][Layer]]
    - [[#auto-completion][Auto-completion]]
    - [[#previewing][Previewing]]
+     - [[#combination-with-pdf-tools][Combination with pdf-tools]]
    - [[#build-command][Build command]]
    - [[#auto-fill][Auto-fill]]
    - [[#folding][Folding]]
  - [[#keybindings][Keybindings]]
-   - [[#folding][Folding]]
+   - [[#folding-1][Folding]]
    - [[#reftex][RefTeX]]
 
 * Description
@@ -51,6 +52,18 @@ under =dotspacemacs/user-config=:
 
 Then when you open up a compiled PDF, the preview will update automatically
 when you recompile.
+
+*** Combination with pdf-tools
+
+When the pdf-tools layer is installed you can use =pdf-tools= as the view
+program by setting the layer variable =latex-view-with-pdf-tools= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  dotspacemacs-configuration-layers '(
+    (latex :variables latex-view-with-pdf-tools t))
+#+END_SRC
+
+This also enables jumping to the part of the PDF under your cursor using ~SPC m v~.
 
 ** Build command
 A build command can be specified via the layer variable =latex-build-command=.

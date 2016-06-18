@@ -30,3 +30,6 @@
                            "tabular"
                            "tikzpicture")
   "List of environment names in which `auto-fill-mode' will be inhibited.")
+
+(defvar latex-view-with-pdf-tools nil
+  "Whether to use pdf-tools for viewing pdf output.")
