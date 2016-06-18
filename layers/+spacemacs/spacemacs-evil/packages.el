@@ -360,9 +360,8 @@
          "Globally display a ~ on empty lines in the fringe."
          :evil-leader "T~")
        ;; don't enable it on some special buffers
-       (dolist (x (list spacemacs-buffer-name
-                        which-key--buffer))
-         (with-current-buffer x (spacemacs/disable-vi-tilde-fringe)))
+       (with-current-buffer spacemacs-buffer-name (spacemacs/disable-vi-tilde-fringe))
+       (add-hook 'which-key-init-buffer-hook 'spacemacs/disable-vi-tilde-fringe)
        ;; after a major mode is loaded, check if the buffer is read only
        ;; if so, disable vi-tilde-fringe-mode
        (add-hook 'after-change-major-mode-hook

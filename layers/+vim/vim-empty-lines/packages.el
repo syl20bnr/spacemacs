@@ -23,9 +23,10 @@
         "Display an overlay of ~ on empty lines."
         :evil-leader "t~")
       ;; Don't enable it where it is detrimental.
-      (with-current-buffer "*spacemacs*" (vim-empty-lines-mode -1))
-      (with-current-buffer "*Messages*" (vim-empty-lines-mode -1))
-      (with-current-buffer which-key--buffer (vim-empty-lines-mode -1))
+      (dolist (x (list spacemacs-buffer-name
+                       "*Messages*"))
+        (with-current-buffer x (vim-empty-lines-mode -1)))
+      (add-hook 'which-key-init-buffer-hook (lambda () (vim-empty-lines-mode -1)))
       ;; after a major mode is loaded, check if the buffer is read only
       ;; if so, disable vim-empty-lines-mode
       (add-hook 'after-change-major-mode-hook (lambda ()
