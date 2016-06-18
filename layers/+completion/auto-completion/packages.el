@@ -21,6 +21,7 @@
         yasnippet
         auto-yasnippet
         smartparens
+        yatemplate
         ))
 
 ;; company-quickhelp from MELPA is not compatible with 24.3 anymore
@@ -262,3 +263,10 @@
               (lambda ()
                 (when smartparens-enabled-initially
                   (smartparens-mode 1))))))
+
+(defun auto-completion/init-yatemplate ()
+  (use-package yatemplate
+    :config
+    (yatemplate-fill-alist)
+    (auto-insert-mode t)
+    (setq auto-insert-query nil)))
