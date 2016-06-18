@@ -214,6 +214,7 @@
         :title "Web-mode Transient State"
         :columns 4
         :foreign-keys run
+        :evil-leader-for-mode (web-mode . ".")
         :bindings
         ("j" web-mode-element-next "next")
         ("J" web-mode-element-sibling-next "next sibling")
@@ -230,9 +231,7 @@
         ("w" web-mode-element-wrap "wrap")
         ("p" web-mode-dom-xpath "xpath")
         ("q" nil "quit" :exit t)
-        ("<escape>" nil nil :exit t))
-      (spacemacs/set-leader-keys-for-major-mode 'web-mode
-        "." 'spacemacs/web-mode-transient-state/body))
+        ("<escape>" nil nil :exit t)))
 
     :mode
     (("\\.phtml\\'"      . web-mode)
