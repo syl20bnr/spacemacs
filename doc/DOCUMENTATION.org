@@ -419,16 +419,21 @@ example is some niche language where you are only interested in syntax
 highlighting.
 
 You can install such packages by adding them to the variable
-=dotspacemacs-additional-packages= in your dotfile.
+=dotspacemacs-additional-packages= under the =dotspacemacs/layers= function in your dotfile.
+
+For example, to install =llvm-mode= and =dts-mode=:
+#+BEGIN_SRC emacs-lisp
+(defun dotspacemacs/layers ()
+  "Configuration Layers declaration..."
+  (setq-default
+   ;; ...
+   dotspacemacs-additional-packages '(llvm-mode dts-mode)
+   ;; ...
+   ))
+#+END_SRC
 
 If you want to add some configuration for them then put the configuration in
-the =dotspacemacs/user-config= function or consider to create a layer.
-
-Example to install =llvm-mode= and =dts-mode=:
-
-#+BEGIN_SRC emacs-lisp
-(setq dotspacemacs-additional-packages '(llvm-mode dts-mode)
-#+END_SRC
+the =dotspacemacs/user-config= function or consider creating a layer.
 
 ** Packages synchronization
 Spacemacs will only install the packages that are explicitly used by the user.
