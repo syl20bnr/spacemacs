@@ -15,6 +15,7 @@
         git-link
         github-browse-file
         github-clone
+        github-search
         ;; not up to date
         ;; helm-gist
         magit-gh-pulls
@@ -73,6 +74,12 @@
     :init
     (spacemacs/set-leader-keys
       "gh C-c" 'github-clone)))
+
+(defun github/init-github-search ()
+  (use-package github-search
+    :commands (github-search-clone-repo github-search-user-clone-repo)
+    (spacemacs/set-leader-keys
+     "ghs" 'github-search-clone-repo))
 
 (defun github/init-git-link ()
   (use-package git-link
