@@ -60,6 +60,9 @@
         ;; oracle
         "ht" 'elm-oracle-type-at-point
 
+        ;; format
+        "ff" 'elm-mode-format-buffer
+
         ;; refactoring
         "ri" 'elm-sort-imports
 
@@ -85,6 +88,7 @@
                    ("mh" . "help")
                    ("mp" . "package")
                    ("mr" . "refactor")
+                   ("mf" . "format")
                    ("ms" . "repl")))
         (spacemacs/declare-prefix-for-mode 'elm-mode (car x) (cdr x)))
 
