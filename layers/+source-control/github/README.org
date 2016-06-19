@@ -91,6 +91,7 @@ In the gist list buffer:
 | Key Binding   | Description                          |
 |---------------+--------------------------------------|
 | ~SPC g h C-c~ | clone and optionally fork repository |
+| ~SPC g h s~   | search for and clone repository      |
 
 ** Browse files
 
