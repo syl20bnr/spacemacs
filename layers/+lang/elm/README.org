@@ -23,6 +23,7 @@
    - [[#elm-package][elm-package]]
      - [[#package-list-buffer][package list buffer]]
    - [[#elm-oracle-1][elm-oracle]]
+   - [[#elm-format-][elm-format... ]]
    - [[#refactoring][Refactoring]]
 
 * Description
@@ -193,6 +194,10 @@ every save.
 | Key Binding | Description              |
 |-------------+--------------------------|
 | ~SPC m h t~ | elm-oracle-type-at-point |
+
+** elm-format... 
+| Key Binding | Description              |
+| ~SPC m f f~ | elm-mode-format-buffer   |
 
 ** Refactoring
 
