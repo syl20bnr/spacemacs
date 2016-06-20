@@ -310,6 +310,12 @@ branch, for instance to revert to the last `0.103`:
 
     «I feel that spacemacs is an aircraft carrier and I am playing table tennis on the deck as a freerider.»
 
+[Quote][quote02] by [deuill](https://github.com/deuill):
+
+    «I LOVE SPACEMACS AND MAGIT
+
+     That is all»
+
 # Contributions
 
 Spacemacs is a community-driven project, it needs _you_ to keep it up to
@@ -394,5 +400,6 @@ Thank you!
 [Stack Exchange]: http://emacs.stackexchange.com/questions/tagged/spacemacs
 [Reddit]: https://www.reddit.com/r/spacemacs
 [quote01]: https://gitter.im/syl20bnr/spacemacs?at=568e627a0cdaaa62045a7df6
+[quote02]: https://gitter.im/syl20bnr/spacemacs?at=5768456c6577f032450cfedb
 [build_source]: https://www.gnu.org/software/emacs/manual/html_node/efaq/Installing-Emacs.html
 [Bountysource]: https://salt.bountysource.com/teams/spacemacs
