@@ -15,6 +15,7 @@
         drupal-mode
         eldoc
         flycheck
+        geben
         ggtags
         helm-gtags
         php-auto-yasnippets
@@ -22,6 +23,7 @@
         php-mode
         phpcbf
         phpunit
+        popwin
         ))
 
 (defun php/post-init-company ()
@@ -38,6 +40,20 @@
 
 (defun php/post-init-flycheck ()
   (add-hook 'php-mode-hook 'flycheck-mode))
+
+(defun php/init-geben ()
+  (use-package geben
+    :defer t))
+
+(defun php/pre-init-popwin ()
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    (push
+     '(".*backtrace\*" :regexp t :position bottom)
+     popwin:special-display-config)
+    (push
+     '(".*context\*" :regexp t :position left :stick t :noselect t :width 80)
+     popwin:special-display-config)))
 
 (defun php/post-init-ggtags ()
   (add-hook 'php-mode-hook 'ggtags-mode))

@@ -17,6 +17,7 @@ This layer adds PHP language support to Spacemacs.
 - Edit Drupal files
 - Run tests with PHPUnit
 - Reformat code with PHP CBF
+- Debug with geben
 
 The =gtags= layer is recommended to benefit from better =eldoc= and
 =helm-gtags=.
