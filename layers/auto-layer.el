@@ -112,6 +112,8 @@
 
 (configuration-layer/lazy-install 'shell-scripts :extensions '("\\(\\.fish\\'\\|/fish_funced\\..*\\'\\)" fish-mode))
 
+(configuration-layer/lazy-install 'terraform :extensions '("\\.tf\\(vars\\)?\\'" terraform-mode))
+
 (configuration-layer/lazy-install 'typescript :extensions '("\\(\\.ts$\\)" typescript-mode))
 
 (configuration-layer/lazy-install 'vimscript :extensions '("\\(\\.vim\\'\\|[._]?g?vimrc\\'\\|\\.exrc\\'\\|_vimrc\\'\\|\\.vim[rc]?\\'\\)" vimrc-mode))
