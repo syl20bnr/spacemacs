@@ -13,4 +13,10 @@
 
 (defun terraform/init-terraform-mode ()
   (use-package terraform-mode
-    :defer t))
+    :defer t
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'terraform-mode
+      "=" 'terraform-format-buffer)
+    :config
+    (when terraform-enable-format-on-save
+      (add-hook 'terraform-mode-hook 'terraform-format-on-save-mode))))
