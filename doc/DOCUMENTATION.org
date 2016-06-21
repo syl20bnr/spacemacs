@@ -39,11 +39,13 @@
    - [[#synchronization-of-dotfile-changes][Synchronization of dotfile changes]]
    - [[#testing-the-dotfile][Testing the dotfile]]
    - [[#dotfile-contents][Dotfile Contents]]
-     - [[#using-configuration-layers][Using configuration layers]]
-     - [[#setting-configuration-layers-variables][Setting configuration layers variables]]
-     - [[#excluding-packages][Excluding packages]]
      - [[#configuration-functions][Configuration functions]]
      - [[#custom-variables][Custom variables]]
+   - [[#declaring-configuration-layers][Declaring Configuration layers]]
+     - [[#setting-configuration-layers-variables][Setting configuration layers variables]]
+     - [[#disabling-layer-services-in-other-layers][Disabling layer services in other layers]]
+     - [[#selectingignoring-packages-of-a-layer][Selecting/Ignoring packages of a layer]]
+     - [[#excluding-packages][Excluding packages]]
  - [[#concepts][Concepts]]
    - [[#editing-styles][Editing Styles]]
      - [[#vim][Vim]]
@@ -534,21 +536,54 @@ declared layers can be found and that the variables have sensible values. These
 tests are also run automatically when you synchronize with ~SPC f e R~.
 
 ** Dotfile Contents
-*** Using configuration layers
-To use a configuration layer, add it to the =dotspacemacs-configuration-layers=
-variable of your =~/.spacemacs=.
+*** Configuration functions
+Three special functions in the =~/.spacemacs= file can be used to perform
+configuration at the beginning and end of Spacemacs loading process:
+
+- =dotspacemacs/layers= is called at the very startup of Spacemacs initilialization,
+  this is where you set the Spacemacs distribution and declare layers to be used
+  in your configuration. You can also add or excluded packages of your choice
+  and tweak some behavior of Spacemacs loading.
+- =dotspacemacs/init= is called at the very startup of Spacemacs initialization
+  before layers configuration. *You should not put any user code* in there
+  besides modifying the Spacemacs variable values prefixed with =dotspacemacs-=.
+- =dotspacemacs/user-init= is called immediately after =dotspacemacs/init=,
+  before layer configuration. This function is mostly useful for variables
+  that need to be set before packages are loaded.
+- =dotspacemacs/user-config= is called at the very end of Spacemacs
+  initialization after layers configuration. This is the place where most of
+  your configurations should be done. Unless it is explicitly specified that a
+  variable should be set before a package is loaded, you should place your code
+  here.
+
+*** Custom variables
+Custom variables configuration from =M-x customize-group= built-in Emacs feature
+are automatically saved by Emacs at the end of your =~/.spacemacs= file.
+
+** Declaring Configuration layers
+To use a configuration layer, declare it in your dotfile by adding it to the
+=dotspacemacs-configuration-layers= variable of your =~/.spacemacs=.
+
+*Note:* In this documentation a =used layer= is equivalent to a =declared
+layer=.
 
 For instance, [[Thank you][RMS]] can add his private configuration layer like this:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(rms))
+(setq-default dotspacemacs-configuration-layers
+  '(
+    ;; other layers
+    ;; rms layer added at the end of the list
+    rms
+  ))
 #+END_SRC
 
-Configuration layers are expected to be stored in =~/.emacs.d/private= or
-=~/.emacs.d/layers=. But you are free to keep them somewhere else by declaring
-additional paths where Spacemacs can look for configuration layers. This is
-done by setting the list =dotspacemacs-configuration-layer-path= in your
-=~/.spacemacs=:
+Official layers shipped with Spacemacs are stored in =~/.emacs.d/layers=. The
+directory =~/.emacs.d/private= is a drop-in location for your private layers.
+It is possible to put layers at the location of your choice provided you tell
+Spacemacs where to look for them. This is done by setting the list
+=dotspacemacs-configuration-layer-path= in your =~/.spacemacs=. For instance
+to add some layers in =~/.myconfig=, set the variable like this:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layer-path '("~/.myconfig/"))
@@ -562,29 +597,70 @@ can be set directly in the =dotspacemacs-configuration-layers= like this:
 #+BEGIN_SRC emacs-lisp
 (defun dotspacemacs/layers ()
   ;; List of configuration layers to load.
-  (setq-default dotspacemacs-configuration-layers '(auto-completion
-                                                    (git :variables
-                                                         git-magit-status-fullscreen t)
-                                                    smex)))
+  (setq-default dotspacemacs-configuration-layers
+    '(auto-completion
+      (git :variables
+           git-magit-status-fullscreen t
+           git-variable-example nil)
+      smex)))
 #+END_SRC
 
-*** Selecting packages on a per layer basis
-The packages loaded within the layer can be selected on a per package basis with
-the =:packages= property. Following the =:packages= declaration in a layer
-declaration, the user can provide a list of packages to initialize which are
-defined in that layer. All other packages defined will not be loaded.
-Alternatively, when the =:packages= declaration list is preceeded with a =not=
-the included packages will not be excluded from loading.
- 
+The =:variables= keyword is a convenience to keep layer configuration close to
+their declaration. Setting layer variables in the =dotspacemacs/user-init=
+function of your dotfile is also a perfectly valid way to configure a layer.
+
+*** Disabling layer services in other layers
+Often layers enable services that other layers can use. For instance if you use
+the layer =auto-completion= then every other layers supporting =auto-completion=
+will have this feature enabled.
+
+Sometimes you may want to disable a service added by a layer in some specific
+layers. Say you want to disable =auto-completion= in =org= and =git= layers,
+you can do it with the following layer declaration.
+
 #+BEGIN_SRC emacs-lisp
 (defun dotspacemacs/layers ()
   ;; List of configuration layers to load.
-  (setq-default dotspacemacs-configuration-layers '(auto-completion
-                                                    (spacemacs-ui-visual
-                                                      :packages (not neotree))))
+  (setq-default dotspacemacs-configuration-layers
+    '(org
+      (auto-completion :disabled-for org git))))
 #+END_SRC
 
-*** Excluding packages globally
+*** Selecting/Ignoring packages of a layer
+By default a declared layer installs/configures all its associated packages. You
+may want to select only some of them or ignoring some of them. This is possible
+with the =:packages= keyword.
+
+For instance to ignore the =neotree= and =fancy-battery= packages from
+=spacemacs-ui-visual= layer:
+
+#+BEGIN_SRC emacs-lisp
+(defun dotspacemacs/layers ()
+  ;; List of configuration layers to load.
+  (setq-default dotspacemacs-configuration-layers
+    '(auto-completion
+      (spacemacs-ui-visual :packages (not neotree fancy-battery))))
+#+END_SRC
+
+The opposite would be to ignore all packages except =neotree= and
+=fancy-battery=:
+
+#+BEGIN_SRC emacs-lisp
+(defun dotspacemacs/layers ()
+  ;; List of configuration layers to load.
+  (setq-default dotspacemacs-configuration-layers
+    '(auto-completion
+      (spacemacs-ui-visual :packages neotree fancy-battery)))
+#+END_SRC
+
+*Note:* Ignoring a package from a layer is different than excluding a package.
+An excluded packages is completely removed from your configuration whereas an
+ignored package is ignored only for a given layer but it can remain on your
+system. It happens that if the given layer is the owner of the package then
+ignoring this package is the same as excluding it (because the package becomes
+orphan so it is considered unused by Spacemacs).
+
+*** Excluding packages
 You can exclude packages you don't want to install with the variable
 =dotspacemacs-excluded-packages= (see [[Configuration layers][Configuration layers]] for more info
 on packages).
@@ -596,28 +672,16 @@ For instance, to disable the =rainbow-delimiters= package:
 #+END_SRC
 
 When you exclude a package, Spacemacs will automatically delete it for you the
-next time you launch Emacs. All the orphan dependencies are also deleted
-automatically.
+next time you launch Emacs or at the next dotfile synchronization. All the
+orphan dependencies are also deleted automatically. Excluding a package
+effectively remove _all_ references to it in Spacemacs without breaking the rest
+of the configuration, this is a powerful feature which allows you to quickly
+remove any feature from Spacemacs.
 
-*** Configuration functions
-Three special functions in the =~/.spacemacs= file can be used to perform
-configuration at the beginning and end of Spacemacs loading process:
-
-- =dotspacemacs/init= is called at the very startup of Spacemacs initialization
-  before layers configuration. You should not put any user code in there
-  besides modifying the Spacemacs variable values.
-- =dotspacemacs/user-init= is called immediately after =dotspacemacs/init=,
-  before layer configuration executes. This function is mostly useful for
-  variables that need to be set before packages are loaded.
-- =dotspacemacs/user-config= is called at the very end of Spacemacs
-  initialization after layers configuration. This is the place where most of
-  your configurations should be done. Unless it is explicitly specified that a
-  variable should be set before a package is loaded, you should place you code
-  here.
-
-*** Custom variables
-Custom variables configuration from =M-x customize-group= which are
-automatically saved by Emacs are stored at the end of your =~/.spacemacs= file.
+*Note:* A few packages are essential for Spacemacs to correctly operate, those
+packages are protected and cannot be excluded or unsintalled even if they become
+orphans or are excluded. =use-package= is an example of a protected package that
+cannot be removed from Spacemacs.
 
 * Concepts
 ** Editing Styles

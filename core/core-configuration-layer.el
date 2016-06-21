@@ -64,10 +64,11 @@
              :initform nil
              :type list
              :documentation "List of package symbols declared in this layer.")
-   (user-packages :initarg :user-packages
-             :initform nil
-             :type list
-             :documentation "List of package symbols declared by user.")
+   (selected-packages :initarg :selected-packages
+             :initform 'all
+             :type (satisfies (lambda (x) (or (and (symbolp x) (eq 'all x))
+                                              (listp x))))
+             :documentation "List of selected package symbols.")
    (variables :initarg :variables
               :initform nil
               :type list
@@ -96,6 +97,16 @@ LAYER has to be installed for this method to work properly."
 (defmethod cfgl-layer-owned-packages ((layer nil))
   "Accept nil as argument and return nil."
   nil)
+
+(defmethod cfgl-layer-get-packages ((layer cfgl-layer))
+  "Return the list of packages for LAYER."
+  (if (eq 'all (oref layer :selected-packages))
+      (oref layer :packages)
+    (delq nil (mapcar
+               (lambda (x)
+                 (let ((pkg-name (if (listp x) (car x) x)))
+                   (when (memq pkg-name (oref layer :selected-packages)) x)))
+               (oref layer :packages)))))
 
 (defclass cfgl-package ()
   ((name :initarg :name
@@ -155,8 +166,7 @@ LAYER has to be installed for this method to work properly."
   ;; Note: for packages in `configuration-layer--packages' the owner is always
   ;;       the car of the `:owners' slot.
   ;;       An example where it is not necessarily the case is in
-  ;;       `helm-spacemacs-help-all-packages' which we can find in the helm
-  ;;       layer.
+  ;;       `helm-spacemacs-help-all-packages' in the helm layer.
   ;; For performance reason `cfgl-package-get-safe-owner' is not used in the
   ;; layer system itself. This functions should be only used outside of the
   ;; system in order to safely get the true owner of a layer.
@@ -413,6 +423,29 @@ layer directory."
         (configuration-layer//copy-template name "README.org" layer-dir))
       (message "Configuration layer \"%s\" successfully created." name)))))
 
+(defun configuration-layer//select-packages (layer packages)
+  "Return the selected packages for LAYER from given PACKAGES list."
+  (let* ((value (when (listp layer) (spacemacs/mplist-get layer :packages)))
+         (selected-packages (if (and (not (null (car value)))
+                                     (listp (car value)))
+                                (car value)
+                              value)))
+    (cond
+     ;; select packages
+     ((and selected-packages
+           (not (memq (car selected-packages) '(all not))))
+      selected-packages)
+     ;; unselect packages
+     ((and selected-packages
+           (eq 'not (car selected-packages)))
+      (delq nil (mapcar (lambda (x)
+                          (let ((pkg-name (if (listp x) (car x) x)))
+                            (unless (memq pkg-name selected-packages)
+                              pkg-name)))
+                        packages)))
+     ;; no package selections or all package selected
+     (t 'all))))
+
 (defun configuration-layer/make-layer (layer)
   "Return a `cfgl-layer' object based on LAYER."
   (let* ((name-sym (if (listp layer) (car layer) layer))
@@ -421,18 +454,23 @@ layer directory."
          (disabled (when (listp layer)
                      (spacemacs/mplist-get layer :disabled-for)))
          (variables (when (listp layer)
-                      (spacemacs/mplist-get layer :variables)))
-         (user-packages (when (listp layer)
-                          (car-safe
-                           (spacemacs/mplist-get layer :packages)))))
+                      (spacemacs/mplist-get layer :variables))))
     (if base-dir
-        (let* ((dir (format "%s%s/" base-dir name-str)))
+        (let* ((dir (format "%s%s/" base-dir name-str))
+               (packages-file (concat dir "packages.el"))
+               (packages
+                (when (file-exists-p packages-file)
+                  (load packages-file)
+                  (symbol-value (intern (format "%S-packages" name-sym)))))
+               (selected-packages (configuration-layer//select-packages
+                                   layer packages)))
           (cfgl-layer name-str
                       :name name-sym
                       :dir dir
                       :disabled-for disabled
                       :variables variables
-                      :user-packages user-packages))
+                      :packages packages
+                      :selected-packages selected-packages))
       (configuration-layer//warning "Cannot find layer %S !" name-sym)
       nil)))
 
@@ -664,85 +702,61 @@ no-op."
 (defun configuration-layer/get-packages (layers &optional dotfile)
   "Read the package lists of LAYERS and dotfile and return a list of packages."
   (dolist (layer layers)
-    (let* ((layer-name (oref layer :name))
-           (layer-dir (oref layer :dir))
-           (include-packages
-              (when (and (oref layer :user-packages)
-                         (not (eq 'not (car (oref layer :user-packages)))))
-                (oref layer :user-packages)))
-             (exclude-packages
-              (when (and (oref layer :user-packages)
-                         (eq 'not (car (oref layer :user-packages))))
-                (cdr (oref layer :user-packages))))
-           (packages-file (concat layer-dir "packages.el")))
-      ;; packages
-      (when (file-exists-p packages-file)
-        ;; required for lazy-loading of unused layers
-        ;; for instance for helm-spacemacs-help
-        (eval `(defvar ,(intern (format "%S-packages" layer-name)) nil))
-        (load packages-file)
-        (dolist (pkg (symbol-value (intern (format "%S-packages"
-                                                   layer-name))))
-          (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
-                 (init-func (intern (format "%S/init-%S"
-                                            layer-name pkg-name)))
-                 (pre-init-func (intern (format "%S/pre-init-%S"
-                                                layer-name pkg-name)))
-                 (post-init-func (intern (format "%S/post-init-%S"
-                                                 layer-name pkg-name)))
-                 (ownerp (fboundp init-func))
-                 (obj (object-assoc pkg-name
-                                    :name configuration-layer--packages))
-                 (excluded (or (and include-packages
-                                        (not (memq pkg-name include-packages)))
-                                   (and exclude-packages
-                                        (memq pkg-name exclude-packages)))))
-            (cl-pushnew pkg-name (oref layer :packages))
-            (if obj
-                (setq obj (configuration-layer/make-package pkg obj ownerp))
-              (setq obj (configuration-layer/make-package pkg nil ownerp))
-              (when excluded
-                    (oset obj :excluded t))
-              (push obj configuration-layer--packages))
-            (when ownerp
-              ;; last owner wins over the previous one,
-              ;; still warn about mutliple owners
-              (when (and (oref obj :owners)
-                         (not (memq layer-name (oref obj :owners))))
-                (configuration-layer//warning
-                 (format (concat "More than one init function found for "
-                                 "package %S. Previous owner was %S, "
-                                 "replacing it with layer %S.")
-                         pkg-name (car (oref obj :owners)) layer-name)))
-              (push layer-name (oref obj :owners)))
-            ;; if no function at all is found for the package, then check
-            ;; again this layer later to resolve `package-usedp'  usage in
-            ;; `packages.el' files
-            (unless (or ownerp
-                        (fboundp pre-init-func)
-                        (fboundp post-init-func)
-                        (oref obj :excluded))
-              (unless (object-assoc layer-name :name
-                                    configuration-layer--delayed-layers)
-                (configuration-layer//warning
-                 (format (concat "package %s not initialized in layer %s, "
-                                 "you may consider removing this package from "
-                                 "the package list or use the :toggle keyword "
-                                 "instead of a `when' form.")
-                         pkg-name layer-name))
-                (push layer configuration-layer--delayed-layers)))
-            ;; check if toggle can be applied
-            (when (and (not ownerp)
-                       (listp pkg)
-                       (spacemacs/mplist-get pkg :toggle))
+    (let ((layer-name (oref layer :name)))
+      (dolist (pkg (cfgl-layer-get-packages layer))
+        (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
+               (init-func (intern (format "%S/init-%S"
+                                          layer-name pkg-name)))
+               (pre-init-func (intern (format "%S/pre-init-%S"
+                                              layer-name pkg-name)))
+               (post-init-func (intern (format "%S/post-init-%S"
+                                               layer-name pkg-name)))
+               (ownerp (fboundp init-func))
+               (obj (object-assoc pkg-name
+                                  :name configuration-layer--packages)))
+          (if obj
+              (setq obj (configuration-layer/make-package pkg obj ownerp))
+            (setq obj (configuration-layer/make-package pkg nil ownerp))
+            (push obj configuration-layer--packages))
+          (when ownerp
+            ;; last owner wins over the previous one,
+            ;; still warn about mutliple owners
+            (when (and (oref obj :owners)
+                       (not (memq layer-name (oref obj :owners))))
               (configuration-layer//warning
-               (format (concat "Ignoring :toggle for package %s because "
-                               "layer %S does not own it.")
-                       pkg-name layer-name)))
-            (when (fboundp pre-init-func)
-              (push layer-name (oref obj :pre-layers)))
-            (when (fboundp post-init-func)
-              (push layer-name (oref obj :post-layers))))))))
+               (format (concat "More than one init function found for "
+                               "package %S. Previous owner was %S, "
+                               "replacing it with layer %S.")
+                       pkg-name (car (oref obj :owners)) layer-name)))
+            (push layer-name (oref obj :owners)))
+          ;; if no function at all is found for the package, then check
+          ;; again this layer later to resolve `package-usedp'  usage in
+          ;; `packages.el' files
+          (unless (or ownerp
+                      (fboundp pre-init-func)
+                      (fboundp post-init-func)
+                      (oref obj :excluded))
+            (unless (object-assoc layer-name :name
+                                  configuration-layer--delayed-layers)
+              (configuration-layer//warning
+               (format (concat "package %s not initialized in layer %s, "
+                               "you may consider removing this package from "
+                               "the package list or use the :toggle keyword "
+                               "instead of a `when' form.")
+                       pkg-name layer-name))
+              (push layer configuration-layer--delayed-layers)))
+          ;; check if toggle can be applied
+          (when (and (not ownerp)
+                     (listp pkg)
+                     (spacemacs/mplist-get pkg :toggle))
+            (configuration-layer//warning
+             (format (concat "Ignoring :toggle for package %s because "
+                             "layer %S does not own it.")
+                     pkg-name layer-name)))
+          (when (fboundp pre-init-func)
+            (push layer-name (oref obj :pre-layers)))
+          (when (fboundp post-init-func)
+            (push layer-name (oref obj :post-layers)))))))
   ;; additional and excluded packages from dotfile
   (when dotfile
     (dolist (pkg dotspacemacs-additional-packages)
