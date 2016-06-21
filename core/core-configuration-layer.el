@@ -156,9 +156,11 @@ LAYER has to be installed for this method to work properly."
              :documentation
              "If non-nil this package is excluded from all layers.")))
 
-(defmethod cfgl-package-enabledp ((pkg cfgl-package))
+(defmethod cfgl-package-enabledp ((pkg cfgl-package) &optional inhibit-messages)
   "Evaluate the `toggle' slot of passed PKG."
-  (let ((toggle (oref pkg :toggle))) (eval toggle)))
+  (let ((message-log-max (unless inhibit-messages message-log-max))
+        (toggle (oref pkg :toggle)))
+    (eval toggle)))
 
 (defmethod cfgl-package-get-safe-owner ((pkg cfgl-package))
   "Safe method to return the name of the layer which owns PKG."
@@ -570,9 +572,9 @@ If TOGGLEP is non nil then `:toggle' parameter is ignored."
       ;; toggle
       (unless (or (oref pkg :excluded) (eq t (oref pkg :toggle)))
         (princ "\nA toggle is defined for this package, it is currently ")
-        (princ (if (cfgl-package-enabledp pkg) "on" "off"))
+        (princ (if (cfgl-package-enabledp pkg t) "on" "off"))
         (princ " because the following expression evaluates to ")
-        (princ (if (cfgl-package-enabledp pkg) "t:\n" "nil:\n"))
+        (princ (if (cfgl-package-enabledp pkg t) "t:\n" "nil:\n"))
         (princ (oref pkg :toggle))
         (princ "\n"))
       (unless (oref pkg :excluded)
@@ -1322,7 +1324,7 @@ path."
        ((null (oref pkg :owners))
         (spacemacs-buffer/message
          (format "%S ignored since it has no owner layer." pkg-name)))
-       ((not (cfgl-package-enabledp pkg))
+       ((not (cfgl-package-enabledp pkg t))
         (spacemacs-buffer/message (format "%S is toggled off." pkg-name)))
        (t
         ;; load-path
