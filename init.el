@@ -16,7 +16,7 @@
 (setq gc-cons-threshold 100000000)
 
 (defconst spacemacs-version         "0.105.21" "Spacemacs version.")
-(defconst spacemacs-emacs-min-version   "24.3" "Minimal version of Emacs.")
+(defconst spacemacs-emacs-min-version   "24.4" "Minimal version of Emacs.")
 
 (if (not (version<= spacemacs-emacs-min-version emacs-version))
     (message (concat "Your version of Emacs (%s) is too old. "

@@ -14,6 +14,7 @@
         auto-complete
         ac-ispell
         company
+        company-quickhelp
         company-statistics
         (helm-company :toggle (configuration-layer/package-usedp 'helm))
         (helm-c-yasnippet :toggle (configuration-layer/package-usedp 'helm))
@@ -22,10 +23,6 @@
         auto-yasnippet
         smartparens
         ))
-
-;; company-quickhelp from MELPA is not compatible with 24.3 anymore
-(unless (version< emacs-version "24.4")
-  (push 'company-quickhelp auto-completion-packages))
 
 ;; TODO replace by company-ispell which comes with company
 ;; to be moved to spell-checking layer as well
