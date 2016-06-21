@@ -234,7 +234,7 @@ then cloning the new configuration:
 
 ```sh
 mkdir ~/spacemacs
-git clone git@github.com:syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
+git clone https://github.com/syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
 HOME=~/spacemacs emacs
 ```
 
