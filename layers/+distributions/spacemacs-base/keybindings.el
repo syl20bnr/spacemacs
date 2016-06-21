@@ -296,6 +296,7 @@
   :documentation "Display the current frame in full screen."
   :evil-leader "TF")
 (spacemacs|add-toggle maximize-frame
+  :if (version< "24.3.50" emacs-version)
   :status (eq (frame-parameter nil 'fullscreen) 'maximized)
   :on (toggle-frame-maximized)
   :off (toggle-frame-maximized)
@@ -318,7 +319,7 @@
   :documentation "Display the tool bar in GUI mode."
   :evil-leader "Tt")
 (spacemacs|add-toggle menu-bar
-  :if window-system
+  :if (or window-system (version<= "24.3.1" emacs-version))
   :mode menu-bar-mode
   :documentation "Display the menu bar."
   :evil-leader "Tm")

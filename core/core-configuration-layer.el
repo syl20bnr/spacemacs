@@ -240,7 +240,14 @@ cache folder.")
                             configuration-layer--elpa-archives))
     ;; optimization, no need to activate all the packages so early
     (setq package-enable-at-startup nil)
-    (package-initialize 'noactivate)))
+    (package-initialize 'noactivate)
+    ;; TODO remove the following hack when 24.3 support ends
+    ;; Emacs 24.3 and above ships with python.el but in some Emacs 24.3.1
+    ;; packages for Ubuntu, python.el seems to be missing.
+    ;; This hack adds marmalade repository for this case only.
+    (unless (or (package-installed-p 'python) (version< emacs-version "24.3"))
+      (add-to-list 'package-archives
+                   '("marmalade" . "https://marmalade-repo.org/packages/")))))
 
 (defun configuration-layer//install-quelpa ()
   "Install `quelpa'."
@@ -1572,8 +1579,11 @@ to select one."
 
 (defun configuration-layer//activate-package (pkg)
   "Activate PKG."
-  (unless (memq pkg package-activated-list)
-    (package-activate pkg)))
+  (if (version< emacs-version "24.3.50")
+      ;; fake version list to always activate the package
+      (package-activate pkg '(0 0 0 0))
+    (unless (memq pkg package-activated-list)
+      (package-activate pkg))))
 
 (defun configuration-layer/get-layers-list ()
   "Return a list of all discovered layer symbols."
@@ -1641,17 +1651,31 @@ to select one."
 (defun configuration-layer//get-package-directory (pkg-name)
   "Return the directory path for package with name PKG-NAME."
   (let ((pkg-desc (assq pkg-name package-alist)))
-    (package-desc-dir (cadr pkg-desc))))
+    (cond
+     ((version< emacs-version "24.3.50")
+      (let* ((version (aref (cdr pkg-desc) 0))
+             (elpa-dir (file-name-as-directory package-user-dir))
+             (pkg-dir-name (format "%s-%s.%s"
+                                   (symbol-name pkg-name)
+                                   (car version)
+                                   (cadr version))))
+        (expand-file-name (concat elpa-dir pkg-dir-name))))
+     (t (package-desc-dir (cadr pkg-desc))))))
 
 (defun configuration-layer//get-package-deps-from-alist (pkg-name)
   "Return the dependencies alist for package with name PKG-NAME."
   (let ((pkg-desc (assq pkg-name package-alist)))
-    (when pkg-desc (package-desc-reqs (cadr pkg-desc)))))
+    (when pkg-desc
+      (cond
+       ((version< emacs-version "24.3.50") (aref (cdr pkg-desc) 1))
+       (t (package-desc-reqs (cadr pkg-desc)))))))
 
 (defun configuration-layer//get-package-deps-from-archive (pkg-name)
   "Return the dependencies alist for a PKG-NAME from the archive data."
   (let* ((pkg-arch (assq pkg-name package-archive-contents))
-         (reqs (when pkg-arch (package-desc-reqs (cadr pkg-arch)))))
+         (reqs (when pkg-arch (if (version< emacs-version "24.3.50")
+                              (aref (cdr pkg-arch) 1)
+                            (package-desc-reqs (cadr pkg-arch))))))
     ;; recursively get the requirements of reqs
     (dolist (req reqs)
       (let* ((pkg-name2 (car req))
@@ -1664,7 +1688,10 @@ to select one."
   "Return the version string for package with name PKG-NAME."
   (let ((pkg-desc (assq pkg-name package-alist)))
     (when pkg-desc
-      (package-version-join (package-desc-version (cadr pkg-desc))))))
+      (cond
+       ((version< emacs-version "24.3.50") (package-version-join
+                                            (aref (cdr pkg-desc) 0)))
+       (t (package-version-join (package-desc-version (cadr pkg-desc))))))))
 
 (defun configuration-layer//get-package-version (pkg-name)
   "Return the version list for package with name PKG-NAME."
@@ -1677,7 +1704,10 @@ to select one."
   "Return the version string for package with name PKG-NAME."
   (let ((pkg-arch (assq pkg-name package-archive-contents)))
     (when pkg-arch
-      (package-version-join (package-desc-version (cadr pkg-arch))))))
+      (cond
+       ((version< emacs-version "24.3.50") (package-version-join
+                                            (aref (cdr pkg-arch) 0)))
+       (t (package-version-join (package-desc-version (cadr pkg-arch))))))))
 
 (defun configuration-layer//get-latest-package-version (pkg-name)
   "Return the versio list for package with name PKG-NAME."
@@ -1689,6 +1719,9 @@ to select one."
 (defun configuration-layer//package-delete (pkg-name)
   "Delete package with name PKG-NAME."
   (cond
+   ((version< emacs-version "24.3.50")
+    (let ((v (configuration-layer//get-package-version-string pkg-name)))
+      (when v (package-delete (symbol-name pkg-name) v))))
    ((version<= "25.0.50" emacs-version)
     (let ((p (cadr (assq pkg-name package-alist))))
       ;; add force flag to ignore dependency checks in Emacs25
