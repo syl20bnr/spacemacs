@@ -62,6 +62,9 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Scroll compilation to first error or end
 (setq compilation-scroll-output 'first-error)
 
+;; Don't try to ping things that look like domain names
+(setq ffap-machine-p-known 'reject)
+
 ;; ---------------------------------------------------------------------------
 ;; Edit
 ;; ---------------------------------------------------------------------------
