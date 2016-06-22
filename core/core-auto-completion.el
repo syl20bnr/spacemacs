@@ -11,12 +11,19 @@
 
 ;; Company -------------------------------------------------------------------
 
+(defvar spacemacs-default-company-backends
+  '((company-dabbrev-code company-gtags company-etags company-keywords)
+    company-files company-dabbrev)
+  "The list of default company backends used by spacemacs.
+This variable is used to configure mode-specific company backends in spacemacs.
+Backends in this list will always be active in these modes, as well as any
+backends added by individual spacemacs layers.")
+
 (defmacro spacemacs|defvar-company-backends (mode)
   "Define a MODE specific company backend variable with default backends.
 The variable name format is company-backends-MODE."
   `(defvar ,(intern (format "company-backends-%S" mode))
-     '((company-dabbrev-code company-gtags company-etags company-keywords)
-       company-files company-dabbrev)
+     ',spacemacs-default-company-backends
      ,(format "Company backend list for %S" mode)))
 
 (defmacro spacemacs|add-company-hook (mode)
