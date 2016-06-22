@@ -197,7 +197,10 @@ Available PROPS:
        (if ,already-defined?
            (unless (equal ,already-defined? ,name)
              (spacemacs-buffer/warning "Replacing existing binding \"%s\" for %s with %s"
-                                ,binding ,already-defined? ,name)
+                                       ,binding ,already-defined? ,name)
+             (setq spacemacs--custom-layout-alist
+                   (delete (assoc ,binding spacemacs--custom-layout-alist)
+                     spacemacs--custom-layout-alist))
              (push '(,binding . ,name) spacemacs--custom-layout-alist))
          (push '(,binding . ,name) spacemacs--custom-layout-alist)))))
 
