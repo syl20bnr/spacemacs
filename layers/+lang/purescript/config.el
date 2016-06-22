@@ -10,3 +10,9 @@
 ;;; License: GPLv3
 
 (spacemacs|defvar-company-backends purescript-mode)
+
+(defvar purescript-add-import-on-completion t
+  "If non-nil adds imports for completed identifiers")
+
+(defvar purescript-enable-rebuild-on-save nil
+  "If non-nil rebuild on save is enabled")

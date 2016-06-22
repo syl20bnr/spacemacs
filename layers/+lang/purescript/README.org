@@ -10,6 +10,9 @@
      - [[#imports][Imports]]
      - [[#psc-ide][psc-ide]]
    - [[#repl][REPL]]
+ - [[#layer-variables][Layer Variables]]
+   - [[#purescript-add-import-on-completion-default-t-][~purescript-add-import-on-completion (default t)~ ]]
+   - [[#purescript-enable-rebuild-on-save-default-nil][~purescript-enable-rebuild-on-save (default nil)~]]
 
 * Description
 
@@ -24,10 +27,12 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =purescript= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-If you want to get autocompletions and type information you have to install [[https://github.com/kRITZCREEK/psc-ide][psc-ide]].
+You'll also need to make sure the PureScript compiler and its associated
+binaries (psc-ide-server, psci,...) are on your path. Installation instructions
+can be found [[http://www.purescript.org/download/][here]].
 
 * Key bindings
-
+  
 ** Purescript
 
 *** Imports
@@ -41,11 +46,19 @@ If you want to get autocompletions and type information you have to install [[ht
 
 *** psc-ide
 
-| Key Binding | Description                                             |
-|-------------+---------------------------------------------------------|
-| ~SPC m h t~ | Show type at point                                      |
-| ~SPC m m l~ | Load a module with its dependencies into psc-ide-server |
-| ~SPC m m s~ | Start psc-ide-server                                    |
+| Key Binding   | Description                                                               |
+|---------------+---------------------------------------------------------------------------|
+| ~SPC m m s~   | Start psc-ide-server                                                      |
+| ~SPC m m l~   | Load definitions for the modules inside your project                      |
+| ~SPC m h t~   | Show type at point                                                        |
+| ~SPC m m b~   | Rebuilds the current file and displays any warnings or errors             |
+| ~SPC m m i a~ | Add an import for the identifier at the current cursor position           |
+| ~SPC m m i s~ | Inserts a suggestion for the warning/error at the current cursor position |
+| ~SPC m m t~   | Add a new clause for the function signature at point                      |
+| ~SPC m m c s~ | Casesplits on the identifier at the current cursor position               |
+| ~SPC m m q~   | Quit the current psc-ide-server                                           |
+| ~SPC m m L~   | Load a specific module (This is mostly used for troubleshooting)          |
+
 
 ** REPL
 
@@ -58,3 +71,12 @@ bindings are available:
 | ~SPC m s i~ | Launch a psci console buffer                                                     |
 | ~SPC m s m~ | Equivalent of =:i your.current.module.name= - Import <module> for use in PSCI    |
 | ~SPC m s p~ | Load or reload files defined in the project file .psci                           |
+* Layer Variables
+
+** ~purescript-add-import-on-completion (default t)~ 
+   If you set this to nil, psc-ide will stop adding imports on completion
+
+** ~purescript-enable-rebuild-on-save (default nil)~
+   If you set this to non-nil, you will get a popup buffer showing you your current
+   warnings/errors one at a time. This is primarily meant as an alternative to
+   using flycheck.
