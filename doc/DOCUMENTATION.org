@@ -2634,23 +2634,23 @@ Spacemacs adds another =Visual= mode via the [[https://github.com/magnars/expand
 | ~ESC~       | leave expand-region mode                 |
 
 **** Indent text object
-With [[https://github.com/cofi/evil-indent-textobject][evil-indent-textobject]] the following action can be performed in =normal
-state=:
-  - ~ii~ - Inner Indentation: the surrounding textblock with the same indentation
-  - ~ai~ - Above and Indentation: ~ii~ + the line above with a different indentation
-  - ~aI~ - Above and Indentation+: ~ai~ + the line below with a different indentation
+With [[https://github.com/TheBB/evil-indent-plus][evil-indent-plus]] the following text objects are available:
 
-Example (=|= indicates point):
+- ~ii~ - Inner Indentation: the surrounding textblock with the same indentation
+- ~iI~ - Above and Indentation: ~ii~ + the line above with a different indentation
+- ~iJ~ - Above and Indentation+: ~iJ~ + the line below with a different indentation
+
+There are also ~a~ variants that include whitespace. Example (=|= indicates point):
 
 #+BEGIN_SRC emacs-lisp
-(while (not done)
-  (messa|ge "All work and no play makes Jack a dull boy."))
+  (while (not done)
+    (messa|ge "All work and no play makes Jack a dull boy."))
   (1+ 41)
 #+END_SRC
 
 -  ~vii~ will select the line with message
--  ~vai~ will select the whole while loop
--  ~vaI~ will select the whole fragment
+-  ~viI~ will select the whole while loop
+-  ~viJ~ will select the whole fragment
 
 *** Region narrowing
 The displayed text of a buffer can be narrowed with the commands (start with
