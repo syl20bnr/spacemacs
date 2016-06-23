@@ -11,6 +11,9 @@
 (defun add-to-load-path (dir) (add-to-list 'load-path dir))
 
 ;; paths
+(defvar spacemacs-start-directory
+  user-emacs-directory
+  "Spacemacs start directory.")
 (defconst spacemacs-core-directory
   (expand-file-name (concat spacemacs-start-directory "core/"))
   "Spacemacs core directory.")
