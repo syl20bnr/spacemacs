@@ -2638,7 +2638,7 @@ With [[https://github.com/TheBB/evil-indent-plus][evil-indent-plus]] the followi
 
 - ~ii~ - Inner Indentation: the surrounding textblock with the same indentation
 - ~iI~ - Above and Indentation: ~ii~ + the line above with a different indentation
-- ~iJ~ - Above and Indentation+: ~iJ~ + the line below with a different indentation
+- ~iJ~ - Above, Below and Indentation+: ~iI~ + the line below with a different indentation
 
 There are also ~a~ variants that include whitespace. Example (=|= indicates point):
 
