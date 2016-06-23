@@ -17,13 +17,13 @@
 
 (defconst spacemacs-version         "0.105.21" "Spacemacs version.")
 (defconst spacemacs-emacs-min-version   "24.4" "Minimal version of Emacs.")
-(defconst spacemacs-start-directory user-emacs-directory)
 
 (if (not (version<= spacemacs-emacs-min-version emacs-version))
     (message (concat "Your version of Emacs (%s) is too old. "
                      "Spacemacs requires Emacs version %s or above.")
              emacs-version spacemacs-emacs-min-version)
-  (load-file (concat spacemacs-start-directory "core/core-load-paths.el"))
+  (load-file (concat (file-name-directory load-file-name)
+                     "core/core-load-paths.el"))
   (require 'core-spacemacs)
   (spacemacs/init)
   (spacemacs/maybe-install-dotfile)
