@@ -315,6 +315,9 @@
         "pk" 'projectile-kill-buffers
         "po" 'projectile-multi-occur
         "pR" 'projectile-replace
+        "pxe" 'projectile-run-eshell
+        "pxs" 'projectile-run-shell
+        "pxt" 'projectile-run-term
         "pT" 'projectile-test-project
         "py" 'projectile-find-tag))
     :config
