@@ -47,9 +47,9 @@ add =ipython-notebook= to the existing =dotspacemacs-configuration-layers= list
 in this file.
 
 ** Dependencies
-Install IPython > 3
+Install IPython Notebook > 3
 #+begin_src sh
-  pip install ipython
+  pip install ipython[notebook]
 #+end_src
 
 ** What needs to be run
