@@ -328,7 +328,7 @@ If TYPE is nil, just remove widgets."
                            :action
                            (lambda (&rest ignore)
                              (funcall 'spacemacs/view-org-file
-                                      (concat user-emacs-directory
+                                      (concat spacemacs-start-directory
                                               "CHANGELOG.org")
                                       (format "Release %s.x"
                                               spacemacs-buffer-version-info)
