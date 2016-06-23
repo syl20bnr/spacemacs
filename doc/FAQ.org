@@ -219,6 +219,13 @@ the =~/.terminfo= yourself.
 tic -o ~/.terminfo $TERMINFO/e/eterm-color.ti
 #+END_SRC
 
+Note that =eterm-color.ti= may be at a different location, to find out the exact
+location you may try to use =locate=:
+
+#+BEGIN_SRC fish
+locate eterm-color.ti
+#+END_SRC
+
 ** Why are my font settings not being respected?
 The settings of =dotspacemacs-default-font= (such as size, weight, etc.) will
 only be applied if the name of the font exists on your system. Check to make
