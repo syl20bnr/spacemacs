@@ -1,20 +1,18 @@
 #+TITLE: keyboard-layout layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
-
-#+CAPTION: logo
 
 [[file:img/keyboard-layout.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#installation][Installation]]
-   - [[#variables][Variables]]
-   - [[#customization][Customization]]
+ - [[#configuration][Configuration]]
+   - [[#enabledisable-package-configurations][Enable/Disable package configurations]]
+   - [[#addoverride-key-bindings][Add/Override key bindings]]
  - [[#concept][Concept]]
  - [[#keyboard-layouts][Keyboard layouts]]
    - [[#bepo][bepo]]
    - [[#dvorak][dvorak]]
- - [[#configurations][Configurations]]
+ - [[#package-configurations][Package Configurations]]
  - [[#keybindings][Keybindings]]
  - [[#sources][Sources]]
 
@@ -23,18 +21,18 @@ This layer configures some keybindings in spacemacs to make it compatible with
 keyboard layouts that differs from the traditional =en-us= keymap.
 
 * Installation
-To use this configuration layer, you will need to add =keyboard-layout= to the
-existing =dotspacemacs-configuration-layers= list in this file. You can then
-select the desired layout by specifying the ~kl-layout~ variable:
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =keyboard-layout= to the existing =dotspacemacs-configuration-layers= list
+in this file. You can then select the desired layout by specifying the
+=kl-layout= variable:
 
 #+begin_src emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(
   (keyboard-layout :variables kl-layout 'dvorak)))
 #+end_src
 
-It is possible to customize the layer via some variables.
-
-** Variables
+* Configuration
+** Enable/Disable package configurations
 This layer can be customized with two variables:
 - kl-enabled-configurations
 - kl-disabled-configurations
@@ -53,9 +51,9 @@ enabled list or not (empty by default).
                    kl-disabled-configurations '(org magit))))
 #+end_src
 
-** Customization
+** Add/Override key bindings
 It is possible to override or add bindings by defining functions named
-=kl/pre-config-<NAME>= and =kl/post-config-<NAME>= in ~dotspacemacs/user-init~.
+=kl/pre-config-<NAME>= and =kl/post-config-<NAME>= in =dotspacemacs/user-init=.
 They are respectively called just before and after the actual configuration of
 keybindings in this layer, so *you don't have to think about when to apply the
 configuration by yourself*. =<NAME>= is the name of the configuration you want
@@ -69,7 +67,7 @@ Example:
 #+end_src
 
 Note: If you define some of these functions in your own layer, be sure that the
-=keyboard-layout= layer is placed after it in the
+=keyboard-layout= layer is placed _after_ it in the
 =dotspacemacs-configuration-layers= list.
 
 * Concept
@@ -146,11 +144,11 @@ already a ~SPC w~ key binding for working with windows.
 =dvorak= is a keyboard layout optimized for the English language. [[http://www.kaufmann.no/roland/dvorak/][dvorak
 programmer]] is an optimized keyboard layout focused in programming and it's a
 variant of the more general =dvorak= (us) keyboard layout. This configuration
-will remap keybindings for the ~dvorak-programmer~ variant.
+will remap keybindings for the =dvorak-programmer= variant.
 
 [[file:img/dvorak-keymap.png]]
 
-* Configurations
+* Package Configurations
 The available configurations are:
 
 - ace-window
@@ -182,7 +180,7 @@ lot of modes, so it's difficult to list all changed keybindings. And
 
 - You chose to use a different keyboard layout.
 - You chose to be on the dark side by using evil (because they have :cookie: obviously).
-- You chose to use a layer, writen with :heart:, that try to solve the induced mess.
+- You chose to use a layer, written with :heart:, that try to solve the induced mess.
 
 So the price you have to pay is the absence of a keybindings list.
 
