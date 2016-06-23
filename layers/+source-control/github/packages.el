@@ -72,7 +72,10 @@
     :defer t
     :init
     (spacemacs/set-leader-keys
-      "gh C-c" 'github-clone)))
+      "gh C-c" 'github-clone
+      "ghr" 'github-clone-add-existing-remote
+      "ghf" 'github-clone-fork-remote
+      "ghu" 'github-clone-add-source-remote))
 
 (defun github/init-git-link ()
   (use-package git-link
