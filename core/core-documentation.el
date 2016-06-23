@@ -150,7 +150,7 @@ the `spacemacs//org-heading-annotate-custom-id' function."
              (error (format "Can't find #+TITLE: in %s"
                             (buffer-file-name))))
            (insert (concat head-css-extra-readtheorg-head
-                           (f-relative user-emacs-directory
+                           (f-relative spacemacs-start-directory
                                        (file-name-directory filename))
                            head-css-extra-readtheorg-tail)))))
 

@@ -347,7 +347,7 @@ Open all other links with `browse-url'."
          (concat "\\/\\/github\\.com\\/syl20bnr\\/spacemacs\\/blob"
                  "\\/[^/]+\\/\\(.*\\.org\\)\\(\\#.*\\)?")))
     (if (string-match git-url-root-regexp path)
-        (spacemacs/view-org-file (concat user-emacs-directory
+        (spacemacs/view-org-file (concat spacemacs-start-directory
                                          (match-string 1 path))
                                  (or (match-string 2 path)
                                      "^")

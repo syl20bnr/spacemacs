@@ -45,7 +45,9 @@
         - [Windows](#windows)
 - [Install](#install)
     - [Default installation](#default-installation)
-    - [Installation alongside another configuration](#installation-alongside-another-configuration)
+    - [Alternate installations](#alternate-installations)
+        - [Modify HOME environment variable](#modify-home-environment-variable)
+        - [Modify spacemacs-start-directory variable](#modify-spacemacs-start-directory-variable)
     - [Spacemacs logo](#spacemacs-logo)
 - [Update](#update)
     - [Automatic update (on master branch)](#automatic-update-on-master-branch)
@@ -220,17 +222,23 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    Or you can set the `dotspacemacs-elpa-https` to `nil` in your dotfile to
    remove the need to start Emacs with `--insecure` argument. You may wish to
    clear out your `.emacs.d/elpa` directory before doing this, so that any
-   corrupted packages you may have downloaded will be reinstalled.
+   corrupted packages you may have downloaded will be re-installed.
 
 4. Restart Emacs to complete the installation.
 
 If the mode-line turns red then be sure to consult the [FAQ][FAQ.org].
 
-## Installation alongside another configuration
+## Alternate installations
 
-To try out Spacemacs (or any other Emacs configuration you desire) without
-having to go through the trouble of backing up you `~/.emacs.d` directory and
-then cloning the new configuration:
+It may be useful to clone Spacemacs outside Emacs dotdirectory `~/.emacs.d` so
+you can try Spacemacs without replacing completely our own configuration.
+There is currently two possibilities to support alternative location for
+Spacemacs configuration.
+
+### Modify HOME environment variable
+
+This solution is ideal to quickly try Spacemacs without compromising your
+existing configuration.
 
 ```sh
 mkdir ~/spacemacs
@@ -240,6 +248,17 @@ HOME=~/spacemacs emacs
 
 Note: If you're on Fish shell, you will need to modify the last command to: `env
 HOME=$HOME/spacemacs emacs`
+
+### Modify spacemacs-start-directory variable
+
+This solution is better suited to "embed" Spacemacs into your own configuration.
+Say you cloned Spacemacs in `~/.emacs.d/spacemacs/` then drop these lines in
+`~/.emacs.d/init.el`:
+
+```elisp
+(setq spacemacs-start-directory "~/.emacs.d/spacemacs/")
+(load-file (concat spacemacs-start-directory "init.el"))
+```
 
 ## Spacemacs logo
 
