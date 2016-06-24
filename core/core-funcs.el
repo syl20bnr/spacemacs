@@ -164,8 +164,8 @@ The buffer's major mode should be `org-mode'."
                                      ("~" org-kbd)
                                      ("+"
                                       (:strike-through t))))
-    (require 'space-doc)
-    (space-doc-mode))
+    (when (require 'space-doc nil t)
+      (space-doc-mode)))
 
 (defun spacemacs/view-org-file (file &optional anchor-text expand-scope)
   "Open org file and apply visual enchantments.
