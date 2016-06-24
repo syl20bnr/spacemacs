@@ -86,9 +86,11 @@ used."
                       ,condition))
              (if (,wrapper-func-status)
                  (progn ,@off-body
-                        (message ,(format "%s disabled." name)))
+                        (when (called-interactively-p 'any)
+                          (message ,(format "%s disabled." name))))
                ,@on-body
-               (message ,(or on-message (format "%s enabled." name))))
+               (when (called-interactively-p 'any)
+                 (message ,(or on-message (format "%s enabled." name)))))
            (message "This toggle is not supported.")))
        ;; predicate function
        (defun ,wrapper-func-status ()
