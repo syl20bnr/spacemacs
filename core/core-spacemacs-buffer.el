@@ -196,14 +196,14 @@ buffer, right justified."
            (badge-path spacemacs-badge-official-png)
            (badge (when (and (display-graphic-p)
                              (image-type-available-p
-                              (intern (file-name-extension badge-path)))
-                             (create-image badge-path))))
+                              (intern (file-name-extension badge-path))))
+                    (create-image badge-path)))
            (badge-size (when badge (car (image-size badge))))
            (heart-path spacemacs-purple-heart-png)
            (heart (when (and (display-graphic-p)
                              (image-type-available-p
-                              (intern (file-name-extension badge-path)))
-                             (create-image heart-path))))
+                              (intern (file-name-extension badge-path))))
+                    (create-image heart-path)))
            (heart-size (when heart (car (image-size heart))))
            (build-lhs "Made with ")
            (build-rhs " by the community")
