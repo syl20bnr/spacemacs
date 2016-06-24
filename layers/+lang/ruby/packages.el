@@ -125,9 +125,8 @@
     :defer t
     :init
     (progn
-      (spacemacs/add-to-hooks
-       'spacemacs//ruby-enable-rspec-mode '(ruby-mode-hook
-                                            enh-ruby-mode-hook))
+      (spacemacs/add-to-local-vars-hook 'ruby-mode 'spacemacs//ruby-enable-rspec-mode)
+      (spacemacs/add-to-local-vars-hook 'enh-ruby-mode 'spacemacs//ruby-enable-rspec-mode)
       ;; remove hooks automatically added by rspec via autoload
       ;; because we want to be able to control when rspec-mode is
       ;; loaded based on the layer variable `ruby-test-runner'
@@ -196,9 +195,9 @@
   "Define keybindings for ruby test mode"
   (use-package ruby-test-mode)
     :defer t
-    :init (spacemacs/add-to-hooks
-           'spacemacs//ruby-enable-ruby-test-mode '(ruby-mode-hook
-                                                    enh-ruby-mode-hook))
+    :init
+    (spacemacs/add-to-local-vars-hook 'ruby-mode 'spacemacs//ruby-enable-ruby-test-mode)
+    (spacemacs/add-to-local-vars-hook 'enh-ruby-mode 'spacemacs//ruby-enable-ruby-test-mode)
     :config
     (progn
       ;; `ruby-test-mode' adds a hook to enable itself, this hack
