@@ -189,3 +189,11 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 (defun server-remove-kill-buffer-hook ()
   (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function))
 (add-hook 'server-visit-hook 'server-remove-kill-buffer-hook)
+
+;; ---------------------------------------------------------------------------
+;; Other
+;; ---------------------------------------------------------------------------
+
+;; hook into `hack-local-variables' in order to allow switching spacemacs
+;; configurations based on local variables
+(add-hook 'hack-local-variables-hook #'spacemacs//run-local-vars-mode-hook)
