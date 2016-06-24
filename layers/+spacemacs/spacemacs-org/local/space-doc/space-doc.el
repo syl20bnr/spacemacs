@@ -44,8 +44,10 @@ keeping their content visible.
                      (buffer-name)))
     (setq space-doc-mode nil)))
 
-(defconst spacemacs--space-doc-modificators
-  '(spacemacs//space-doc-set-space-doc-cache
+(defvar spacemacs--space-doc-modificators
+  '(spacemacs//space-doc-org-indent-mode
+    spacemacs//space-doc-view-mode
+    spacemacs//space-doc-set-space-doc-cache
     spacemacs//space-doc-hide-line-numbers
     spacemacs//space-doc-modf-emphasis-overlays
     spacemacs//space-doc-modf-meta-tags-overlays
@@ -61,6 +63,12 @@ keeping their content visible.
 The functions work with a current buffer and accept ENABLE(flag) argument.
 If the argument has non-nil value - enable the modifications introduced
 by the function. Otherwise - disable.")
+
+(defun spacemacs//space-doc-org-indent-mode (&optional flag)
+  (org-indent-mode (if flag 1 -1)))
+
+(defun spacemacs//space-doc-view-mode (&optional flag)
+  (view-mode (if flag 1 -1)))
 
 (cl-defstruct spacemacs//space-doc-cache
   marker-face
