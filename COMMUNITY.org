@@ -34,7 +34,7 @@ about our past moderation actions. So readers won't find any example or
 definition of what collaborators judge offending or outrageous, instead they
 will find at the end of this section a log of all major moderation actions taken
 by the collaborators since the beginning of the project which started officially
-in August 2014. It should allow you to decided whether or not you want to be
+in August 2014. It should allow you to decide whether or not you want to be
 part of this community. If you are not convinced then be assured that the only
 evil part in Spacemacs is the evil mode :-)
 ** Guidelines
