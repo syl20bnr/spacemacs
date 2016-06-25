@@ -33,7 +33,7 @@
 SPACEMACSDIR environment variable. If neither of these
 directories exist, this variable will be nil.")
 
-(defconst dotspacemacs-filepath
+(defvar dotspacemacs-filepath
   (let* ((default (concat user-home-directory ".spacemacs"))
          (spacemacs-dir-init (when dotspacemacs-directory
                                  (concat dotspacemacs-directory
