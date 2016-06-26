@@ -153,7 +153,6 @@ The available configurations are:
 
 - ace-window
 - avy
-- buffer-move
 - comint
 - company
 - elfeed

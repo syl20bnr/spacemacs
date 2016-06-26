@@ -12,6 +12,7 @@
 (setq spacemacs-base-packages
       '(
         (abbrev :location built-in)
+        ace-window
         (bookmark :location built-in)
         (dired :location built-in)
         (dired-x :location built-in)
@@ -51,6 +52,20 @@
 
 (defun spacemacs-base/init-abbrev ()
   (spacemacs|hide-lighter abbrev-mode))
+
+(defun spacemacs-base/init-ace-window ()
+  (use-package ace-window
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys
+        "bD" 'spacemacs/ace-kill-this-buffer
+        "wC" 'spacemacs/ace-center-window
+        "wD" 'spacemacs/ace-delete-window
+        "wM" 'ace-swap-window
+        "wW" 'ace-window)
+      ;; set ace-window keys to home-row
+      (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))))
 
 (defun spacemacs-base/init-bookmark ()
   (use-package bookmark

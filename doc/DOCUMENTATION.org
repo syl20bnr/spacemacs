@@ -1825,8 +1825,12 @@ Windows manipulation commands (start with ~w~):
 |------------------------+-----------------------------------------------------------------------------|
 | ~SPC w =~              | balance split windows                                                       |
 | ~SPC w b~              | force the focus back to the minibuffer (usefull with =helm= popups)         |
+| ~SPC w c~              | maximize/minimize a window and center it                                    |
+| ~SPC w C~              | maximize/minimize a window and center it using [[https://github.com/abo-abo/ace-window][ace-window]]                   |
 | ~SPC w d~              | delete a window                                                             |
-| ~SPC w D~              | delete another window using [[https://github.com/abo-abo/ace-window][ace-delete-window]]                               |
+| ~SPC u SPC w d~        | delete a window and its current buffer (does not delete the file)           |
+| ~SPC w D~              | delete another window using [[https://github.com/abo-abo/ace-window][ace-window]]                                      |
+| ~SPC u SPC w D~        | delete another window and its current buffer using [[https://github.com/abo-abo/ace-window][ace-window]]               |
 | ~SPC w t~              | toggle window dedication (dedicated window cannot be reused by a mode)      |
 | ~SPC w f~              | toggle follow mode                                                          |
 | ~SPC w F~              | create new frame                                                            |
@@ -1839,7 +1843,7 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w l~              | move to window on the right                                                 |
 | ~SPC w L~              | move window to the right                                                    |
 | ~SPC w m~              | maximize/minimize a window (maximize is equivalent to delete other windows) |
-| ~SPC w M~              | maximize/minimize a window, when maximized the buffer is centered           |
+| ~SPC w M~              | swap windows using [[https://github.com/abo-abo/ace-window][ace-window]]                                               |
 | ~SPC w o~              | cycle and focus between frames                                              |
 | ~SPC w p m~            | open messages buffer in a popup window                                      |
 | ~SPC w p p~            | close the current sticky popup window                                       |
@@ -1851,7 +1855,7 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w v~ or ~SPC w /~ | vertical split                                                              |
 | ~SPC w V~              | vertical split and focus new window                                         |
 | ~SPC w w~              | cycle and focus between windows                                             |
-| ~SPC w SPC~            | select window using [[https://github.com/abo-abo/ace-window][ace-window]]                                              |
+| ~SPC w W~              | select window using [[https://github.com/abo-abo/ace-window][ace-window]]                                              |
 
 **** Window manipulation transient state
 A convenient window manipulation transient state allows performing most of the
@@ -1914,30 +1918,27 @@ By default Spacemacs uses =helm= to open files.
 **** Buffers manipulation key bindings
 Buffer manipulation commands (start with ~b~):
 
-| Key Binding | Description                                                              |
-|-------------+--------------------------------------------------------------------------|
-| ~SPC TAB~   | switch to alternate buffer in the current window (switch back and forth) |
-| ~SPC b b~   | switch to a buffer using =helm=                                          |
-| ~SPC b d~   | kill the current buffer (does not delete the visited file)               |
-| ~SPC b D~   | kill the current buffer and its window                                   |
-| ~SPC b e~   | erase the content of the buffer (ask for confirmation)                   |
-| ~SPC b h~   | open =*spacemacs*= home buffer                                           |
-| ~SPC b k~   | kill a buffer                                                            |
-| ~SPC b K~   | kill all buffers except the current one                                  |
-| ~SPC b C-k~ | kill all buffers matching the regexp                                     |
-| ~SPC b m h~ | move a buffer to the left                                                |
-| ~SPC b m j~ | move a buffer to the bottom                                              |
-| ~SPC b m k~ | move a buffer to the top                                                 |
-| ~SPC b m l~ | move a buffer to the right                                               |
-| ~SPC b M~   | swap windows using [[https://github.com/abo-abo/ace-window][ace-swap-window]]                                       |
-| ~SPC b n~   | switch to next buffer avoiding special buffers                           |
-| ~SPC b p~   | switch to previous buffer avoiding special buffers                       |
-| ~SPC b P~   | copy clipboard and replace buffer (useful when pasting from a browser)   |
-| ~SPC b R~   | revert the current buffer (reload from disk)                             |
-| ~SPC b s~   | switch to the =*scratch*= buffer (create it if needed)                   |
-| ~SPC b w~   | toggle read-only (writable state)                                        |
-| ~SPC b Y~   | copy whole buffer to clipboard (useful when copying to a browser)        |
-| ~z f~       | Make current function or comments visible in buffer as much as possible  |
+| Key Binding     | Description                                                              |
+|-----------------+--------------------------------------------------------------------------|
+| ~SPC TAB~       | switch to alternate buffer in the current window (switch back and forth) |
+| ~SPC b b~       | switch to a buffer using [[https://github.com/emacs-helm/helm][helm]]                                            |
+| ~SPC b d~       | kill the current buffer (does not delete the visited file)               |
+| ~SPC u SPC b d~ | kill the current buffer and window (does not delete the visited file)    |
+| ~SPC b D~       | kill a visible buffer using [[https://github.com/abo-abo/ace-window][ace-window]]                                   |
+| ~SPC u SPC b D~ | kill a visible buffer and its window using [[https://github.com/abo-abo/ace-window][ace-window]]                    |
+| ~SPC b e~       | erase the content of the buffer (ask for confirmation)                   |
+| ~SPC b h~       | open =*spacemacs*= home buffer                                           |
+| ~SPC b n~       | switch to next buffer avoiding special buffers                           |
+| ~SPC b m~       | kill all buffers except the current one                                  |
+| ~SPC u SPC b m~ | kill all buffers and windows except the current one                      |
+| ~SPC b M~       | kill all buffers matching the regexp                                     |
+| ~SPC b p~       | switch to previous buffer avoiding special buffers                       |
+| ~SPC b P~       | copy clipboard and replace buffer (useful when pasting from a browser)   |
+| ~SPC b R~       | revert the current buffer (reload from disk)                             |
+| ~SPC b s~       | switch to the =*scratch*= buffer (create it if needed)                   |
+| ~SPC b w~       | toggle read-only (writable state)                                        |
+| ~SPC b Y~       | copy whole buffer to clipboard (useful when copying to a browser)        |
+| ~z f~           | Make current function or comments visible in buffer as much as possible  |
 
 **** Buffers manipulation transient state
 A convenient buffer manipulation transient state allows to quickly cycles through

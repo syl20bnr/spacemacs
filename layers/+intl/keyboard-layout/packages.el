@@ -13,7 +13,6 @@
   '(
     ace-window
     avy
-    buffer-move
     comint
     company
     elfeed
@@ -56,19 +55,6 @@
     (setq-default avy-keys '(?a ?u ?i ?e ?t ?s ?r ?n))
     :dvorak
     (setq-default avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s))))
-
-(defun keyboard-layout/pre-init-buffer-move ()
-  (kl|config buffer-move
-    :description
-    "Remap `buffer-move' bindings."
-    :loader
-    (spacemacs|use-package-add-hook buffer-move :post-init BODY)
-    :common
-    (kl/leader-correct-keys
-     "bmh"
-     "bmj"
-     "bmk"
-     "bml")))
 
 (defun keyboard-layout/pre-init-comint ()
   (kl|config comint-mode
