@@ -106,7 +106,8 @@
     :defer t
     :init
     (progn
-      (spacemacs/add-to-local-vars-hook 'haskell-mode #'spacemacs-haskell//setup-completion-backend)
+      (add-hook 'haskell-mode-local-vars-hook
+                #'spacemacs-haskell//setup-completion-backend)
 
       (defun spacemacs//force-haskell-mode-loading ()
         "Force `haskell-mode' loading when visiting cabal file."

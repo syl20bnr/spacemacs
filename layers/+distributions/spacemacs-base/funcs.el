@@ -51,13 +51,7 @@
 
 (defun spacemacs//run-local-vars-mode-hook ()
   "Run a hook for the major-mode after the local variables have been processed."
-  (run-hooks (intern (concat (symbol-name major-mode) "-local-vars-hook"))))
-
-;; http://stackoverflow.com/a/5148435/3086454
-(defun spacemacs/add-to-local-vars-hook (mode func)
-  "Add hook to mode--local-vars-hook which is executed after the
-local variables have been processed."
-  (add-hook (intern (concat (symbol-name mode) "-local-vars-hook")) func))
+  (run-hooks (intern (format "%S-local-vars-hook" major-mode))))
 
 (defun spacemacs/echo (msg &rest args)
   "Display MSG in echo-area without logging it in *Messages* buffer."
