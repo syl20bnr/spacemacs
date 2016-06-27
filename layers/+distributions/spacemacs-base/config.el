@@ -104,6 +104,10 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Prompt to open file literally if large file.
 (add-hook 'find-file-hook 'spacemacs/check-large-file)
 
+;; Define variable to ignore loading files in recentf
+(defvar spacemacs-recentf-ignore-open nil
+  "Have recentf ignore the opening of files when non-nil.")
+
 ;; ---------------------------------------------------------------------------
 ;; UI
 ;; ---------------------------------------------------------------------------

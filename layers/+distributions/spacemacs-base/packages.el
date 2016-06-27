@@ -327,6 +327,12 @@
     :defer t
     :init
     (progn
+
+      (defadvice recentf-track-opened-file (around spacemacs-recentf-ignore activate)
+        "Ignore files to be saved if `spacemacs-recentf-ignore-open'"
+        (unless spacemacs-recentf-ignore-open
+            ad-do-it))
+
       ;; lazy load recentf
       (add-hook 'find-file-hook (lambda () (unless recentf-mode
                                              (recentf-mode)
