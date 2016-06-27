@@ -24,30 +24,37 @@ The commands defined in this layer are taken from various sources like [[https:/
 
 * Features
 ** Smart line navigation
-Subsequent presses of ~C-a~ toggles between the beginning of the line and the first non-whitespace character.
-Similarly, subsequent presses of ~C-e~ will toggle between the end of the code and the end of the comments.
+Subsequent presses of ~C-a~ toggles between the beginning of the line and the
+first non-whitespace character.
+
+Similarly, subsequent presses of ~C-e~ will toggle between the end of the code and
+the end of the comments.
 
 ** =spacemacs/backward-kill-word-or-region=
-A combination of =kill-region= and =backward-kill-word=, depending on whether
-there is an active region. If there's an active region kill that. If not kill
-the preceding word.
+A combination of =kill-region= and =backward-kill-word=, depending on whether there
+is an active region. If there's an active region kill that. If not kill the
+preceding word.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =better-defaults= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+add =better-defaults= to the existing =dotspacemacs-configuration-layers= list in
+this file.
 
 * Configuration
-Choose if ~C-a~ first brings you to the beginning of the line or the beginning of the code (first non-whitespace character)
+Choose if ~C-a~ first brings you to the beginning of the line or the beginning of
+the code (first non-whitespace character).
+
 #+BEGIN_SRC emacs-lisp
-     (better-defaults :variables
-		      better-defaults-move-to-beginning-of-code-first t)
+  (better-defaults :variables
+                   better-defaults-move-to-beginning-of-code-first t)
 #+END_SRC
 
-Choose if ~C-e~ first brings you to the end of the line or the end of the code (before or after comments)
+Choose if ~C-e~ first brings you to the end of the line or the end of the code
+(before or after comments).
+
 #+BEGIN_SRC emacs-lisp
-     (better-defaults :variables
-		      better-defaults-move-to-end-of-code-first t)
+  (better-defaults :variables
+                   better-defaults-move-to-end-of-code-first nil)
 #+END_SRC
 
 

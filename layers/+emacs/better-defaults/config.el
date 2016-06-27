@@ -14,7 +14,7 @@
 When nil, first stroke will go to the beginning of line.
 Subsequent strokes will toggle between beginning of line and beginning of code.")
 
-(defvar better-defaults-move-to-end-of-code-first t
+(defvar better-defaults-move-to-end-of-code-first nil
   "when t, first stroke of C-e will move the cursor to the end of code (before comments).
 When nil, first stroke will go to the end of line (after comments).
 Subsequent strokes will toggle between end of line and end of code.")
