@@ -343,6 +343,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "f" 'org-agenda-set-effort
         "I" 'org-agenda-clock-in
         "O" 'org-agenda-clock-out
+        "p" 'org-pomodoro
         "P" 'org-agenda-set-property
         "q" 'org-agenda-refile
         "Q" 'org-agenda-clock-cancel
