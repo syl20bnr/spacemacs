@@ -20,7 +20,6 @@
 
 (defun scala/init-ensime ()
   (use-package ensime
-    :commands (ensime-mode)
     :init
     (progn
       (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime")
