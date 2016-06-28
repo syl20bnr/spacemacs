@@ -15,9 +15,9 @@
     (add-hook 'haskell-mode-hook 'interactive-haskell-mode))
   (when (configuration-layer/package-usedp 'company)
     (pcase haskell-completion-backend
-      ('ghci (spacemacs-haskell//setup-ghci))
-      ('ghc-mod (spacemacs-haskell//setup-ghc-mod))
-      ('intero (spacemacs-haskell//setup-intero)))))
+      (`ghci (spacemacs-haskell//setup-ghci))
+      (`ghc-mod (spacemacs-haskell//setup-ghc-mod))
+      (`intero (spacemacs-haskell//setup-intero)))))
 
 (defun spacemacs-haskell//setup-ghci ()
   (add-to-list 'company-backends-haskell-mode
