@@ -11,8 +11,11 @@
 (defun add-to-load-path (dir) (add-to-list 'load-path dir))
 
 ;; paths
+(defvar spacemacs-start-directory
+  user-emacs-directory
+  "Spacemacs start directory.")
 (defconst spacemacs-core-directory
-  (expand-file-name (concat user-emacs-directory "core/"))
+  (expand-file-name (concat spacemacs-start-directory "core/"))
   "Spacemacs core directory.")
 (defconst spacemacs-info-directory
   (expand-file-name (concat spacemacs-core-directory "info/"))
@@ -40,13 +43,13 @@
   (expand-file-name (concat spacemacs-cache-directory "auto-save/"))
   "Spacemacs auto-save directory")
 (defconst spacemacs-docs-directory
-  (expand-file-name (concat user-emacs-directory "doc/"))
+  (expand-file-name (concat spacemacs-start-directory "doc/"))
   "Spacemacs documentation directory.")
 (defconst spacemacs-assets-directory
-  (expand-file-name (concat user-emacs-directory "assets/"))
+  (expand-file-name (concat spacemacs-start-directory "assets/"))
   "Spacemacs assets directory.")
 (defconst spacemacs-test-directory
-  (expand-file-name (concat user-emacs-directory "tests/"))
+  (expand-file-name (concat spacemacs-start-directory "tests/"))
   "Spacemacs tests directory.")
 
 (defconst user-home-directory
@@ -64,8 +67,8 @@
 ;; load paths
 (mapc 'add-to-load-path
       `(
-        ,(concat user-emacs-directory "core/")
-        ,(concat user-emacs-directory "core/libs/")
-        ,(concat user-emacs-directory "core/aprilfool/")
+        ,(concat spacemacs-start-directory "core/")
+        ,(concat spacemacs-start-directory "core/libs/")
+        ,(concat spacemacs-start-directory "core/aprilfool/")
         ,(concat user-dropbox-directory "emacs/")
         ))

@@ -49,6 +49,10 @@
   (dolist (fun funs)
     (add-hook hook fun)))
 
+(defun spacemacs//run-local-vars-mode-hook ()
+  "Run a hook for the major-mode after the local variables have been processed."
+  (run-hooks (intern (format "%S-local-vars-hook" major-mode))))
+
 (defun spacemacs/echo (msg &rest args)
   "Display MSG in echo-area without logging it in *Messages* buffer."
   (interactive)
@@ -205,6 +209,16 @@ automatically applied to."
     (set-fringe-style nil)
     (when (assoc ?_ register-alist)
       (jump-to-register ?_))))
+
+(defun spacemacs/ace-center-window ()
+  "Ace center window."
+  (interactive)
+  (require 'ace-window)
+  (aw-select
+   " Ace - Center Window"
+   (lambda (window)
+     (aw-switch-to-window window)
+     (spacemacs-centered-buffer-mode))))
 
 (defun spacemacs/useless-buffer-p (buffer)
   "Determines if a buffer is useful."
@@ -374,7 +388,9 @@ removal."
 ;; from magnars
 (defun spacemacs/sudo-edit (&optional arg)
   (interactive "p")
-  (let ((fname (if (or arg (not buffer-file-name)) (read-file-name "File: ") buffer-file-name)))
+  (let ((fname (if (or arg (not buffer-file-name))
+                   (read-file-name "File: ")
+                 buffer-file-name)))
     (find-file
      (cond ((string-match-p "^/ssh:" fname)
             (with-temp-buffer
@@ -383,7 +399,8 @@ removal."
               (let ((last-match-end nil)
                     (last-ssh-hostname nil))
                 (while (string-match "@\\\([^:|]+\\\)" fname last-match-end)
-                  (setq last-ssh-hostname (or (match-string 1 fname) last-ssh-hostname))
+                  (setq last-ssh-hostname (or (match-string 1 fname)
+                                              last-ssh-hostname))
                   (setq last-match-end (match-end 0)))
                 (insert (format "|sudo:%s" (or last-ssh-hostname "localhost"))))
               (buffer-string)))
@@ -396,26 +413,66 @@ removal."
     (when (and
            (not (memq major-mode spacemacs-large-file-modes-list))
            size (> size (* 1024 1024 dotspacemacs-large-file-size))
-           (y-or-n-p (format "%s is a large file, open literally to avoid performance issues?"
+           (y-or-n-p (format (concat "%s is a large file, open literally to "
+                                     "avoid performance issues?")
                              filename)))
       (setq buffer-read-only t)
       (buffer-disable-undo)
       (fundamental-mode))))
 
+(defun spacemacs/delete-window (&optional arg)
+  "Delete the current window.
+If the universal prefix argument is used then kill the buffer too."
+  (interactive "P")
+  (if (equal '(4) arg)
+      (kill-buffer-and-window)
+    (delete-window)))
+
+(defun spacemacs/ace-delete-window (&optional arg)
+  "Ace delete window.
+If the universal prefix argument is used then kill the buffer too."
+  (interactive "P")
+  (require 'ace-window)
+  (aw-select
+   " Ace - Delete Window"
+   (lambda (window)
+     (when (equal '(4) arg)
+       (with-selected-window window
+         (spacemacs/kill-this-buffer arg)))
+     (aw-delete-window window))))
+
 ;; our own implementation of kill-this-buffer from menu-bar.el
-(defun spacemacs/kill-this-buffer ()
-  "Kill the current buffer."
-  (interactive)
+(defun spacemacs/kill-this-buffer (&optional arg)
+  "Kill the current buffer.
+If the universal prefix argument is used then kill also the window."
+  (interactive "P")
   (if (window-minibuffer-p)
       (abort-recursive-edit)
-    (kill-buffer (current-buffer))))
+    (if (equal '(4) arg)
+        (kill-buffer-and-window)
+      (kill-buffer))))
+
+(defun spacemacs/ace-kill-this-buffer (&optional arg)
+  "Ace kill visible buffer in a window.
+If the universal prefix argument is used then kill also the window."
+  (interactive "P")
+  (require 'ace-window)
+  (let (golden-ratio-mode)
+    (aw-select
+     " Ace - Kill buffer in Window"
+     (lambda (window)
+       (with-selected-window window
+         (spacemacs/kill-this-buffer arg))))))
 
 ;; found at http://emacswiki.org/emacs/KillingBuffers
-(defun spacemacs/kill-other-buffers ()
-  "Kill all other buffers."
-  (interactive)
-  (when (yes-or-no-p (format "Killing all buffers except \"%s\"? " (buffer-name)))
+(defun spacemacs/kill-other-buffers (&optional arg)
+  "Kill all other buffers.
+If the universal prefix argument is used then will the windows too."
+  (interactive "P")
+  (when (yes-or-no-p (format "Killing all buffers except \"%s\"? "
+                             (buffer-name)))
     (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
+    (when (equal '(4) arg) (delete-other-windows))
     (message "Buffers deleted!")))
 
 ;; from http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
@@ -677,24 +734,6 @@ current window."
          ((spacemacs/system-is-linux) (let ((process-connection-type nil))
                               (start-process "" nil "xdg-open" file-path))))
       (message "No file associated to this buffer."))))
-
-(defun spacemacs/next-error (&optional n reset)
-  "Dispatch to flycheck or standard emacs error."
-  (interactive "P")
-  (if (and (boundp 'flycheck-mode)
-           (symbol-value flycheck-mode)
-           (not (get-buffer-window "*compilation*")))
-      (call-interactively 'flycheck-next-error)
-    (call-interactively 'next-error)))
-
-(defun spacemacs/previous-error (&optional n reset)
-  "Dispatch to flycheck or standard emacs error."
-  (interactive "P")
-  (if (and (boundp 'flycheck-mode)
-           (symbol-value flycheck-mode)
-           (not (get-buffer-window "*compilation*")))
-      (call-interactively 'flycheck-previous-error)
-    (call-interactively 'previous-error)))
 
 (defun spacemacs/switch-to-minibuffer-window ()
   "switch to minibuffer window (if active)"
@@ -1003,3 +1042,61 @@ is nonempty."
   "Disable linum if current buffer."
   (when (or 'linum-mode global-linum-mode)
     (linum-mode 0)))
+
+
+;; Generalized next-error system ("gne")
+
+(defun spacemacs//error-delegate ()
+  "Decide which error API to delegate to.
+
+Delegates to flycheck if it is enabled and the next-error buffer
+is not visible. Otherwise delegates to regular Emacs next-error."
+  (if (and (bound-and-true-p flycheck-mode)
+           (let ((buf (next-error-find-buffer)))
+             (not (and buf (get-buffer-window buf)))))
+      'flycheck
+    'emacs))
+
+(defun spacemacs/next-error (&optional n reset)
+  "Dispatch to flycheck or standard emacs error."
+  (interactive "P")
+  (let ((sys (spacemacs//error-delegate)))
+    (cond
+     ((eq 'flycheck sys) (call-interactively 'flycheck-next-error))
+     ((eq 'emacs sys) (call-interactively 'next-error)))))
+
+(defun spacemacs/previous-error (&optional n reset)
+  "Dispatch to flycheck or standard emacs error."
+  (interactive "P")
+  (let ((sys (spacemacs//error-delegate)))
+    (cond
+     ((eq 'flycheck sys) (call-interactively 'flycheck-previous-error))
+     ((eq 'emacs sys) (call-interactively 'previous-error)))))
+
+(defvar-local spacemacs--gne-min-line nil
+  "The first line in the buffer that is a valid result.")
+(defvar-local spacemacs--gne-max-line nil
+  "The last line in the buffer that is a valid result.")
+(defvar-local spacemacs--gne-cur-line 0
+  "The current line in the buffer. (It is problematic to use
+point for this.)")
+(defvar-local spacemacs--gne-line-func nil
+  "The function to call to visit the result on a line.")
+
+(defun spacemacs//gne-next (num reset)
+  "A generalized next-error function. This function can be used
+as `next-error-function' in any buffer that conforms to the
+Spacemacs generalized next-error API.
+
+The variables `spacemacs--gne-min-line',
+`spacemacs--gne-max-line', and `spacemacs--line-func' must be
+set."
+  (when reset (setq spacemacs--gne-cur-line
+                    spacemacs--gne-min-line))
+  (setq spacemacs--gne-cur-line
+        (min spacemacs--gne-max-line
+             (max spacemacs--gne-min-line
+                  (+ num spacemacs--gne-cur-line))))
+  (goto-line spacemacs--gne-cur-line)
+  (funcall spacemacs--gne-line-func
+           (buffer-substring (point-at-bol) (point-at-eol))))

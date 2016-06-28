@@ -170,7 +170,7 @@
                   ;; CONTRIBUTING.org is a special case as it should be at the
                   ;; root of the repository to be linked as the contributing
                   ;; guide on Github.
-                  (concat user-emacs-directory candidate)
+                  (concat spacemacs-start-directory candidate)
                 (concat spacemacs-docs-directory candidate))))
     (cond ((and (equal (file-name-extension file) "md")
                 (not helm-current-prefix-arg))

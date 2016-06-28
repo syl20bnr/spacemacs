@@ -16,6 +16,8 @@
 ;; class cfgl-layer
 ;; ---------------------------------------------------------------------------
 
+;; method: cfgl-layer-owned-packages
+
 (ert-deftest test-cfgl-layer-owned-packages--owns-packages ()
   (let ((layer1 (cfgl-layer "layer1"
                             :name 'layer1
@@ -31,6 +33,60 @@
 
 (ert-deftest test-cfgl-layer-owned-packages--nil-layer-returns-nil ()
   (should (null (cfgl-layer-owned-packages nil))))
+
+;; method: cfgl-layer-get-packages
+
+(ert-deftest test-cfgl-layer-get-packages--all-packages-selected-default ()
+  (let ((layer (cfgl-layer "layer"
+                           :name 'layer
+                           :packages '((pkg1 :location local)
+                                       pkg2
+                                       (pkg3 :location built-in)))))
+    (should (equal '((pkg1 :location local) pkg2 (pkg3 :location built-in))
+                   (cfgl-layer-get-packages layer)))))
+
+(ert-deftest test-cfgl-layer-get-packages--all-packages-selected-explicitly ()
+  (let ((layer (cfgl-layer "layer"
+                           :name 'layer
+                           :packages '((pkg1 :location local)
+                                       pkg2
+                                       (pkg3 :location built-in))
+                           :selected-packages 'all)))
+    (should (equal '((pkg1 :location local) pkg2 (pkg3 :location built-in))
+                   (cfgl-layer-get-packages layer)))))
+
+(ert-deftest test-cfgl-layer-get-packages--selected-packages ()
+  (let ((layer (cfgl-layer "layer"
+                           :name 'layer
+                           :packages '((pkg1 :location local)
+                                       pkg2
+                                       (pkg3 :location built-in))
+                           :selected-packages '(pkg1 pkg2))))
+    (should (equal '((pkg1 :location local) pkg2)
+                   (cfgl-layer-get-packages layer)))))
+
+(ert-deftest test-cfgl-layer-get-packages--selected-packages-ignore-unknown ()
+  (let ((layer (cfgl-layer "layer"
+                           :name 'layer
+                           :packages '((pkg1 :location local)
+                                       pkg2
+                                       (pkg3 :location built-in))
+                           :selected-packages '(pkg1 pkg2 pkg-unknown))))
+    (should (equal '((pkg1 :location local) pkg2)
+                   (cfgl-layer-get-packages layer)))))
+
+(ert-deftest test-cfgl-layer-get-packages--nil-packages-return-nil ()
+  (let ((layer (cfgl-layer "layer"
+                           :name 'layer
+                           :packages '())))
+    (should (null (cfgl-layer-get-packages layer)))))
+
+(ert-deftest test-cfgl-layer-get-packages--nil-packages-with-unknown-selected-packages-return-nil ()
+  (let ((layer (cfgl-layer "layer"
+                           :name 'layer
+                           :packages '()
+                           :selected-packages '(pkg-unknown))))
+    (should (null (cfgl-layer-get-packages layer)))))
 
 ;; ---------------------------------------------------------------------------
 ;; class cfgl-package
@@ -147,6 +203,47 @@
                                        :nowait nil))))
               ((symbol-function 'message) 'ignore))
       (configuration-layer/retrieve-package-archives))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//select-packages
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-select-packages--all-is-default ()
+  (let ((layer '(layer :variables var1 t var2 t))
+        (packages '((pkg1 :location local) pkg2)))
+    (should (eq 'all (configuration-layer//select-packages layer packages)))))
+
+(ert-deftest test-select-packages--all-returns-all ()
+  (let ((layer '(layer :variables var1 t var2 t :packages all))
+        (packages '((pkg1 :location local) pkg2)))
+    (should (eq 'all (configuration-layer//select-packages layer packages)))))
+
+(ert-deftest test-select-packages--select-packages ()
+  (let ((layer '(layer :variables var1 t var2 t :packages pkg1 pkg3))
+        (packages '((pkg1 :location local)
+                    pkg2
+                    pkg3
+                    (pkg4 :location built-in))))
+    (should (equal '(pkg1 pkg3)
+                   (configuration-layer//select-packages layer packages)))))
+
+(ert-deftest test-select-packages--unselect-packages-with-a-list ()
+  (let ((layer '(layer :variables var1 t var2 t :packages (not pkg1 pkg3)))
+        (packages '((pkg1 :location local)
+                    pkg2
+                    pkg3
+                    (pkg4 :location built-in))))
+    (should (equal '(pkg2 pkg4)
+                   (configuration-layer//select-packages layer packages)))))
+
+(ert-deftest test-select-packages--unselect-packages-without-a-list ()
+  (let ((layer '(layer :variables var1 t var2 t :packages not pkg1 pkg3))
+        (packages '((pkg1 :location local)
+                    pkg2
+                    pkg3
+                    (pkg4 :location built-in))))
+    (should (equal '(pkg2 pkg4)
+                   (configuration-layer//select-packages layer packages)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//make-layers
@@ -351,77 +448,71 @@
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-get-packages--symbols-only ()
-  (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
-         (layers (list layer1))
-         (layer1-packages '(pkg1 pkg2 pkg3))
-         (mocker-mock-default-record-cls 'mocker-stub-record))
+  (let* ((layer1 (cfgl-layer "layer1"
+                             :name 'layer1
+                             :dir "/path/"
+                             :packages '(pkg1 pkg2 pkg3)))
+         (layers (list layer1)))
     (defun layer1/init-pkg1 nil)
     (defun layer1/init-pkg2 nil)
     (defun layer1/init-pkg3 nil)
-    (mocker-let
-     ((file-exists-p (f) ((:output t :occur 1)))
-      (load (f) ((:output nil :occur 1))))
-     (let (configuration-layer--packages)
-       (configuration-layer/get-packages layers)
-       (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1))
-                            (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1))
-                            (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1)))
-                      configuration-layer--packages))))))
+    (let (configuration-layer--packages)
+      (configuration-layer/get-packages layers)
+      (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1))
+                           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1))
+                           (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1)))
+                     configuration-layer--packages)))))
 
 (ert-deftest test-get-packages--lists-only ()
-  (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
-         (layers (list layer1))
-         (layer1-packages '((pkg1 :location elpa :excluded t)
-                            (pkg2 :location (recipe blahblah))
-                            (pkg3 :location local :step pre)))
-         (mocker-mock-default-record-cls 'mocker-stub-record))
+  (let* ((layer1 (cfgl-layer "layer1"
+                             :name 'layer1
+                             :dir "/path/"
+                             :packages '((pkg1 :location elpa :excluded t)
+                                         (pkg2 :location (recipe blahblah))
+                                         (pkg3 :location local :step pre))))
+         (layers (list layer1)))
     (defun layer1/init-pkg1 nil)
     (defun layer1/init-pkg2 nil)
     (defun layer1/init-pkg3 nil)
-    (mocker-let
-     ((file-exists-p (f) ((:output t :occur 1)))
-      (load (f) ((:output nil :occur 1))))
-     (let (configuration-layer--packages)
-       (configuration-layer/get-packages layers)
-       (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1) :location 'local :step 'pre)
-                            (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1) :location '(recipe blahblah))
-                            (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :excluded t))
-                      configuration-layer--packages))))))
+    (let (configuration-layer--packages)
+      (configuration-layer/get-packages layers)
+      (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1) :location 'local :step 'pre)
+                           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1) :location '(recipe blahblah))
+                           (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :excluded t))
+                     configuration-layer--packages)))))
 
 (ert-deftest test-get-packages--symbols-and-lists ()
-  (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
-         (layers (list layer1))
-         (layer1-packages '(pkg1
-                            (pkg2 :location (recipe blahblah))
-                            (pkg3 :location local :step pre)
-                            pkg4))
-         (mocker-mock-default-record-cls 'mocker-stub-record))
+  (let* ((layer1 (cfgl-layer "layer1"
+                             :name 'layer1
+                             :dir "/path/"
+                             :packages '(pkg1
+                                         (pkg2 :location (recipe blahblah))
+                                         (pkg3 :location local :step pre)
+                                         pkg4)))
+         (layers (list layer1)))
     (defun layer1/init-pkg1 nil)
     (defun layer1/init-pkg2 nil)
     (defun layer1/init-pkg3 nil)
     (defun layer1/init-pkg4 nil)
-    (mocker-let
-     ((file-exists-p (f) ((:output t :occur 1)))
-      (load (f) ((:output nil :occur 1))))
-     (let (configuration-layer--packages)
-       (configuration-layer/get-packages layers)
-       (should (equal (list (cfgl-package "pkg4" :name 'pkg4 :owners '(layer1))
-                            (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1) :location 'local :step 'pre)
-                            (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1) :location '(recipe blahblah))
-                            (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1)))
-                      configuration-layer--packages))))))
+    (let (configuration-layer--packages)
+      (configuration-layer/get-packages layers)
+      (should (equal (list (cfgl-package "pkg4" :name 'pkg4 :owners '(layer1))
+                           (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1) :location 'local :step 'pre)
+                           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1) :location '(recipe blahblah))
+                           (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1)))
+                     configuration-layer--packages)))))
 
 (ert-deftest test-get-packages--pkg2-has-no-owner-because-no-init-function ()
-  (let* ((layer2 (cfgl-layer "layer2" :name 'layer2 :dir "/path/"))
+  (let* ((layer2 (cfgl-layer "layer2"
+                             :name 'layer2
+                             :dir "/path/"
+                             :packages '(pkg1 pkg2 pkg3)))
          (layers (list layer2))
-         (layer2-packages '(pkg1 pkg2 pkg3))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (defun layer2/init-pkg1 nil)
     (defun layer2/init-pkg3 nil)
     (mocker-let
-     ((file-exists-p (f) ((:output t :occur 1)))
-      (configuration-layer//warning (m) ((:output nil)))
-      (load (f) ((:output nil :occur 1))))
+     ((configuration-layer//warning (m) ((:output nil))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owners '(layer2))
@@ -430,70 +521,76 @@
                       configuration-layer--packages))))))
 
 (ert-deftest test-get-packages--pre-init-function ()
-  (let* ((layer3 (cfgl-layer "layer3" :name 'layer3 :dir "/path/"))
-         (layer4 (cfgl-layer "layer4" :name 'layer4 :dir "/path/"))
-         (layers (list layer3 layer4))
-         (layer3-packages '(pkg1))
-         (layer4-packages '(pkg1))
-         (mocker-mock-default-record-cls 'mocker-stub-record))
+  (let* ((layer3 (cfgl-layer "layer3"
+                             :name 'layer3
+                             :dir "/path/"
+                             :packages '(pkg1)))
+         (layer4 (cfgl-layer "layer4"
+                             :name 'layer4
+                             :dir "/path/"
+                             :packages '(pkg1)))
+         (layers (list layer3 layer4)))
     (defun layer3/init-pkg1 nil)
     (defun layer4/pre-init-pkg1 nil)
-    (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 2))))
-     (let (configuration-layer--packages)
-       (configuration-layer/get-packages layers)
-       (should (equal (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer3) :pre-layers '(layer4)))
-                      configuration-layer--packages))))))
+    (let (configuration-layer--packages)
+      (configuration-layer/get-packages layers)
+      (should (equal (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer3) :pre-layers '(layer4)))
+                     configuration-layer--packages)))))
 
 (ert-deftest test-get-packages--post-init-function ()
-  (let* ((layer3 (cfgl-layer "layer3" :name 'layer3 :dir "/path/"))
-         (layer5 (cfgl-layer "layer5" :name 'layer5 :dir "/path/"))
-         (layers (list layer3 layer5))
-         (layer3-packages '(pkg1))
-         (layer5-packages '(pkg1))
-         (mocker-mock-default-record-cls 'mocker-stub-record))
+  (let* ((layer3 (cfgl-layer "layer3"
+                             :name 'layer3
+                             :dir "/path/"
+                             :packages '(pkg1)))
+         (layer5 (cfgl-layer "layer5"
+                             :name 'layer5
+                             :dir "/path/"
+                             :packages '(pkg1)))
+         (layers (list layer3 layer5)))
     (defun layer3/init-pkg1 nil)
     (defun layer5/post-init-pkg1 nil)
-    (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 2))))
-     (let (configuration-layer--packages)
-       (configuration-layer/get-packages layers)
-       (should (equal (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer3) :post-layers '(layer5)))
-                      configuration-layer--packages))))))
+    (let (configuration-layer--packages)
+      (configuration-layer/get-packages layers)
+      (should (equal (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer3) :post-layers '(layer5)))
+                     configuration-layer--packages)))))
 
 (ert-deftest test-get-packages--pre-and-post-init-functions ()
-  (let* ((layer3 (cfgl-layer "layer3" :name 'layer3 :dir "/path/"))
-         (layer6 (cfgl-layer "layer6" :name 'layer6 :dir "/path/"))
-         (layers (list layer3 layer6))
-         (layer3-packages '(pkg1))
-         (layer6-packages '(pkg1))
-         (mocker-mock-default-record-cls 'mocker-stub-record))
+  (let* ((layer3 (cfgl-layer "layer3"
+                             :name 'layer3
+                             :dir "/path/"
+                             :packages '(pkg1)))
+         (layer6 (cfgl-layer "layer6"
+                             :name 'layer6
+                             :dir "/path/"
+                             :packages '(pkg1)))
+         (layers (list layer3 layer6)))
     (defun layer3/init-pkg1 nil)
     (defun layer6/pre-init-pkg1 nil)
     (defun layer6/post-init-pkg1 nil)
-    (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 2))))
-     (let (configuration-layer--packages)
-       (configuration-layer/get-packages layers)
-       (should (equal (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer3) :pre-layers '(layer6) :post-layers '(layer6)))
-                      configuration-layer--packages))))))
+    (let (configuration-layer--packages)
+      (configuration-layer/get-packages layers)
+      (should (equal (list (cfgl-package "pkg1"
+                                         :name 'pkg1
+                                         :owners '(layer3)
+                                         :pre-layers '(layer6)
+                                         :post-layers '(layer6)))
+                     configuration-layer--packages)))))
 
 (ert-deftest test-get-packages--several-init-functions-last-one-is-the-owner ()
-  (let* ((layer7 (cfgl-layer "layer7" :name 'layer7 :dir "/path/"))
-         (layer8 (cfgl-layer "layer8" :name 'layer8 :dir "/path/"))
+  (let* ((layer7 (cfgl-layer "layer7"
+                             :name 'layer7
+                             :dir "/path/"
+                             :packages '(pkg1)))
+         (layer8 (cfgl-layer "layer8"
+                             :name 'layer8
+                             :dir "/path/"
+                             :packages '(pkg1)))
          (layers (list layer7 layer8))
-         (layer7-packages '(pkg1))
-         (layer8-packages '(pkg1))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (defun layer7/init-pkg1 nil)
     (defun layer8/init-pkg1 nil)
     (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 2)))
-      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -502,75 +599,74 @@
                       configuration-layer--packages))))))
 
 (ert-deftest test-get-packages--layer-10-excludes-pkg2-in-layer-9 ()
-  (let* ((layer9 (cfgl-layer "layer9" :name 'layer9 :dir "/path/"))
-         (layer10 (cfgl-layer "layer10" :name 'layer10 :dir "/path/"))
-         (layers (list layer9 layer10))
-         (layer9-packages '(pkg1 pkg2))
-         (layer10-packages '(pkg3 (pkg2 :excluded t)))
-         (mocker-mock-default-record-cls 'mocker-stub-record))
+  (let* ((layer9 (cfgl-layer "layer9"
+                             :name 'layer9
+                             :dir "/path/"
+                             :packages '(pkg1 pkg2)))
+         (layer10 (cfgl-layer "layer10"
+                              :name 'layer10
+                              :dir "/path/"
+                              :packages '(pkg3 (pkg2 :excluded t))))
+         (layers (list layer9 layer10)))
     (defun layer9/init-pkg1 nil)
     (defun layer9/init-pkg2 nil)
     (defun layer10/init-pkg3 nil)
-    (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 2))))
-     (let (configuration-layer--packages)
-       (configuration-layer/get-packages layers)
-       (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owners '(layer10))
-                            (cfgl-package "pkg2" :name 'pkg2 :owners '(layer9) :excluded t)
-                            (cfgl-package "pkg1" :name 'pkg1 :owners '(layer9)))
-                      configuration-layer--packages))))))
+    (let (configuration-layer--packages)
+      (configuration-layer/get-packages layers)
+      (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owners '(layer10))
+                           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer9) :excluded t)
+                           (cfgl-package "pkg1" :name 'pkg1 :owners '(layer9)))
+                     configuration-layer--packages)))))
 
 (ert-deftest test-get-packages--dotfile-excludes-pkg2-in-layer-11 ()
-  (let* ((layer11 (cfgl-layer "layer11" :name 'layer11 :dir "/path/"))
+  (let* ((layer11 (cfgl-layer "layer11"
+                              :name 'layer11
+                              :dir "/path/"
+                              :packages '(pkg1 pkg2 pkg3)))
          (layers (list layer11))
-         (layer11-packages '(pkg1 pkg2 pkg3))
          (dotspacemacs-excluded-packages '(pkg2))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (defun layer11/init-pkg1 nil)
     (defun layer11/init-pkg2 nil)
     (defun layer11/init-pkg3 nil)
-    (mocker-let
-     ((file-exists-p (f) ((:output t :occur 1)))
-      (load (f) ((:output nil :occur 1))))
-     (let (configuration-layer--packages)
-       (configuration-layer/get-packages layers t)
-       (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owners '(layer11))
-                            (cfgl-package "pkg2" :name 'pkg2 :owners '(layer11) :excluded t)
-                            (cfgl-package "pkg1" :name 'pkg1 :owners '(layer11)))
-                      configuration-layer--packages))))))
+    (let (configuration-layer--packages)
+      (configuration-layer/get-packages layers t)
+      (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owners '(layer11))
+                           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer11) :excluded t)
+                           (cfgl-package "pkg1" :name 'pkg1 :owners '(layer11)))
+                     configuration-layer--packages)))))
 
 (ert-deftest test-get-packages--dotfile-declares-and-owns-one-additional-package ()
-  (let* ((layer12 (cfgl-layer "layer12" :name 'layer12 :dir "/path/"))
+  (let* ((layer12 (cfgl-layer "layer12"
+                              :name 'layer12
+                              :dir "/path/"
+                              :packages '(pkg1 pkg2)))
          (layers (list layer12))
-         (layer12-packages '(pkg1 pkg2))
-         (dotspacemacs-additional-packages '(pkg3))
-         (mocker-mock-default-record-cls 'mocker-stub-record))
+         (dotspacemacs-additional-packages '(pkg3)))
     (defun layer12/init-pkg1 nil)
     (defun layer12/init-pkg2 nil)
-    (mocker-let
-     ((file-exists-p (f) ((:output t :occur 1)))
-      (load (f) ((:output nil :occur 1))))
-     (let (configuration-layer--packages)
-       (configuration-layer/get-packages layers t)
-       (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owners '(dotfile))
-                            (cfgl-package "pkg2" :name 'pkg2 :owners '(layer12))
-                            (cfgl-package "pkg1" :name 'pkg1 :owners '(layer12)))
-                      configuration-layer--packages))))))
+    (let (configuration-layer--packages)
+      (configuration-layer/get-packages layers t)
+      (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owners '(dotfile))
+                           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer12))
+                           (cfgl-package "pkg1" :name 'pkg1 :owners '(layer12)))
+                     configuration-layer--packages)))))
 
 (ert-deftest test-get-packages--last-owner-can-overwrite-location ()
-  (let* ((layer13 (cfgl-layer "layer13" :name 'layer13 :dir "/path/"))
-         (layer14 (cfgl-layer "layer14" :name 'layer14 :dir "/path/"))
+  (let* ((layer13 (cfgl-layer "layer13"
+                              :name 'layer13
+                              :dir "/path/"
+                              :packages '((pkg1 :location elpa))))
+         (layer14 (cfgl-layer "layer14"
+                              :name 'layer14
+                              :dir "/path/"
+                              :packages '((pkg1 :location local))))
          (layers (list layer13 layer14))
-         (layer13-packages '((pkg1 :location elpa)))
-         (layer14-packages '((pkg1 :location local)))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (defun layer13/init-pkg1 nil)
     (defun layer14/init-pkg1 nil)
     (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 2)))
-      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -580,18 +676,20 @@
                       configuration-layer--packages))))))
 
 (ert-deftest test-get-packages--last-owner-can-overwrite-step-nil-to-pre ()
-  (let* ((layer15 (cfgl-layer "layer15" :name 'layer15 :dir "/path/"))
-         (layer16 (cfgl-layer "layer16" :name 'layer16 :dir "/path/"))
+  (let* ((layer15 (cfgl-layer "layer15"
+                              :name 'layer15
+                              :dir "/path/"
+                              :packages '((pkg1 :step nil))))
+         (layer16 (cfgl-layer "layer16"
+                              :name 'layer16
+                              :dir "/path/"
+                              :packages '((pkg1 :step pre))))
          (layers (list layer15 layer16))
-         (layer15-packages '((pkg1 :step nil)))
-         (layer16-packages '((pkg1 :step pre)))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (defun layer15/init-pkg1 nil)
     (defun layer16/init-pkg1 nil)
     (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 2)))
-      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -601,18 +699,20 @@
                       configuration-layer--packages))))))
 
 (ert-deftest test-get-packages--last-owner-cannot-overwrite-step-pre-to-nil ()
-  (let* ((layer15 (cfgl-layer "layer15" :name 'layer15 :dir "/path/"))
-         (layer16 (cfgl-layer "layer16" :name 'layer16 :dir "/path/"))
+  (let* ((layer15 (cfgl-layer "layer15"
+                              :name 'layer15
+                              :dir "/path/"
+                              :packages '((pkg1 :step pre))))
+         (layer16 (cfgl-layer "layer16"
+                              :name 'layer16
+                              :dir "/path/"
+                              :packages '((pkg1 :step nil))))
          (layers (list layer15 layer16))
-         (layer15-packages '((pkg1 :step pre)))
-         (layer16-packages '((pkg1 :step nil)))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (defun layer15/init-pkg1 nil)
     (defun layer16/init-pkg1 nil)
     (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 2)))
-      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -622,18 +722,21 @@
                       configuration-layer--packages))))))
 
 (ert-deftest test-get-packages--last-owner-can-overwrite-exclude ()
-  (let* ((layer17 (cfgl-layer "layer17" :name 'layer17 :dir "/path/"))
-         (layer18 (cfgl-layer "layer18" :name 'layer18 :dir "/path/"))
+  (let* ((layer17 (cfgl-layer "layer17"
+                              :name 'layer17
+                              :dir "/path/"
+                              :packages '(pkg1)))
+         (layer18 (cfgl-layer "layer18"
+                              :name 'layer18
+                              :dir "/path/"
+                              :packages '((pkg1 :excluded t))
+                              ))
          (layers (list layer17 layer18))
-         (layer17-packages '(pkg1))
-         (layer18-packages '((pkg1 :excluded t)))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (defun layer17/init-pkg1 nil)
     (defun layer18/init-pkg1 nil)
     (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 2)))
-      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -643,35 +746,35 @@
                       configuration-layer--packages))))))
 
 (ert-deftest test-get-packages--owner-layer-can-define-toggle ()
-  (let* ((layer19 (cfgl-layer "layer19" :name 'layer19 :dir "/path/"))
-         (layers (list layer19))
-         (layer19-packages '((pkg1 :toggle (foo-toggle))))
-         (mocker-mock-default-record-cls 'mocker-stub-record))
+  (let* ((layer19 (cfgl-layer "layer19"
+                              :name 'layer19
+                              :dir "/path/"
+                              :packages '((pkg1 :toggle (foo-toggle)))))
+         (layers (list layer19)))
     (defun layer19/init-pkg1 nil)
-    (mocker-let
-     ((file-exists-p (f) ((:output t :occur 1)))
-      (load (f) ((:output nil :occur 1))))
-     (let (configuration-layer--packages)
-       (configuration-layer/get-packages layers)
-       (should (equal (list (cfgl-package "pkg1"
-                                          :name 'pkg1
-                                          :owners '(layer19)
-                                          :toggle '(foo-toggle)))
-                      configuration-layer--packages))))))
+    (let (configuration-layer--packages)
+      (configuration-layer/get-packages layers)
+      (should (equal (list (cfgl-package "pkg1"
+                                         :name 'pkg1
+                                         :owners '(layer19)
+                                         :toggle '(foo-toggle)))
+                     configuration-layer--packages)))))
 
 (ert-deftest test-get-packages--not-owner-layer-cannot-define-toggle ()
-  (let* ((layer20 (cfgl-layer "layer20" :name 'layer20 :dir "/path/"))
-         (layer21 (cfgl-layer "layer21" :name 'layer21 :dir "/path/"))
+  (let* ((layer20 (cfgl-layer "layer20"
+                              :name 'layer20
+                              :dir "/path/"
+                              :packages '(pkg1)))
+         (layer21 (cfgl-layer "layer21"
+                              :name 'layer21
+                              :dir "/path/"
+                              :packages '((pkg1 :toggle (foo-toggle)))))
          (layers (list layer20 layer21))
-         (layer20-packages '((pkg1)))
-         (layer21-packages '((pkg1 :toggle (foo-toggle))))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (defun layer20/init-pkg1 nil)
     (defun layer21/post-init-pkg1 nil)
     (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 2)))
-      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -682,18 +785,20 @@
                       configuration-layer--packages))))))
 
 (ert-deftest test-get-packages--new-owner-layer-can-override-toggle ()
-  (let* ((layer22 (cfgl-layer "layer22" :name 'layer22 :dir "/path/"))
-         (layer23 (cfgl-layer "layer23" :name 'layer23 :dir "/path/"))
+  (let* ((layer22 (cfgl-layer "layer22"
+                              :name 'layer22
+                              :dir "/path/"
+                              :packages '((pkg1 :toggle (foo-toggle)))))
+         (layer23 (cfgl-layer "layer23"
+                              :name 'layer23
+                              :dir "/path/"
+                              :packages '((pkg1 :toggle (bar-toggle)))))
          (layers (list layer22 layer23))
-         (layer22-packages '((pkg1 :toggle (foo-toggle))))
-         (layer23-packages '((pkg1 :toggle (bar-toggle))))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (defun layer22/init-pkg1 nil)
     (defun layer23/init-pkg1 nil)
     (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 2)))
-      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -703,18 +808,20 @@
                       configuration-layer--packages))))))
 
 (ert-deftest test-get-packages--dotfile-additional-pkg-can-override-toggle ()
-  (let* ((layer22 (cfgl-layer "layer22" :name 'layer22 :dir "/path/"))
-         (layer23 (cfgl-layer "layer23" :name 'layer23 :dir "/path/"))
+  (let* ((layer22 (cfgl-layer "layer22"
+                              :name 'layer22
+                              :dir "/path/"
+                              :packages '((pkg1 :toggle (foo-toggle)))))
+         (layer23 (cfgl-layer "layer23"
+                              :name 'layer23
+                              :dir "/path/"
+                              :packages '((pkg1 :toggle (bar-toggle)))))
          (layers (list layer22 layer23))
-         (layer22-packages '((pkg1 :toggle (foo-toggle))))
-         (layer23-packages '((pkg1 :toggle (bar-toggle))))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (defun layer22/init-pkg1 nil)
     (defun layer23/init-pkg1 nil)
     (mocker-let
-     ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 2)))
-      (configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
      (let (configuration-layer--packages)
        (configuration-layer/get-packages layers)
        (should (equal (list (cfgl-package "pkg1"
@@ -722,6 +829,63 @@
                                           :owners '(layer23 layer22)
                                           :toggle '(bar-toggle)))
                       configuration-layer--packages))))))
+
+(ert-deftest test-get-packages--not-selected-packages-are-not-excluded ()
+  (let* ((layer24 (cfgl-layer "layer24"
+                              :name 'layer24
+                              :dir "/path/"
+                              :packages '(pkg1 (pkg2 :location local))
+                              :selected-packages '(pkg2)))
+         (layer25 (cfgl-layer "layer25"
+                              :name 'layer25
+                              :dir "/path/"
+                              :packages '(pkg1 (pkg2 :location local))
+                              :selected-packages '(pkg1)))
+         (layers (list layer24 layer25)))
+    (defun layer24/post-init-pkg1 nil)
+    (defun layer24/init-pkg2 nil)
+    (defun layer25/init-pkg1 nil)
+    (defun layer25/post-init-pkg2 nil)
+    (let (configuration-layer--packages)
+      (configuration-layer/get-packages layers)
+      (should (equal (list (cfgl-package "pkg1"
+                                         :name 'pkg1
+                                         :owners '(layer25)
+                                         :excluded nil)
+                           (cfgl-package "pkg2"
+                                         :name 'pkg2
+                                         :owners '(layer24)
+                                         :location 'local
+                                         :excluded nil))
+                     configuration-layer--packages)))))
+
+(ert-deftest test-get-packages--not-selected-package-in-a-layer-can-still-be-created-with-no-owner ()
+  (let* ((layer26 (cfgl-layer "layer26"
+                              :name 'layer26
+                              :dir "/path/"
+                              :packages '(pkg1 (pkg2 :location local))
+                              :selected-packages '(pkg2)))
+         (layer27 (cfgl-layer "layer27"
+                              :name 'layer27
+                              :dir "/path/"
+                              :packages '(pkg1 pkg2)))
+         (layers (list layer26 layer27)))
+    (defun layer26/init-pkg1 nil)
+    (defun layer26/init-pkg2 nil)
+    (defun layer27/post-init-pkg1 nil)
+    (defun layer27/post-init-pkg2 nil)
+    (let (configuration-layer--packages)
+      (configuration-layer/get-packages layers)
+      (should (equal (list (cfgl-package "pkg1"
+                                         :name 'pkg1
+                                         :post-layers '(layer27)
+                                         :owners nil)
+                           (cfgl-package "pkg2"
+                                         :name 'pkg2
+                                         :owners '(layer26)
+                                         :post-layers '(layer27)
+                                         :location 'local))
+                     configuration-layer--packages)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer/get-all-packages

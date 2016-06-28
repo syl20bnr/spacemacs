@@ -124,8 +124,8 @@
                    (cons 'elixir-enable-compilation-checking nil))
       (add-to-list 'safe-local-variable-values
                    (cons 'elixir-enable-compilation-checking t))
-      (add-hook 'elixir-mode-hook
-                'spacemacs//elixir-enable-compilation-checking t))))
+      (add-hook 'elixir-mode-local-vars-hook
+                'spacemacs//elixir-enable-compilation-checking))))
 
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode

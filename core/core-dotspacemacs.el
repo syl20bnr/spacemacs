@@ -33,7 +33,7 @@
 SPACEMACSDIR environment variable. If neither of these
 directories exist, this variable will be nil.")
 
-(defconst dotspacemacs-filepath
+(defvar dotspacemacs-filepath
   (let* ((default (concat user-home-directory ".spacemacs"))
          (spacemacs-dir-init (when dotspacemacs-directory
                                  (concat dotspacemacs-directory
@@ -302,13 +302,12 @@ tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.")
 specified with an installed package.
 NOT USED FOR NOW :-)")
 
-(defvar dotspacemacs-startup-lists '(recents projects)
-  "List of items to show in the startup buffer. If nil it is disabled.
-Possible values are: `recents' `bookmarks' `projects' `agenda' `todos'.")
-
-(defvar dotspacemacs-startup-recent-list-size 5
-  "Number of recent files to show in the startup buffer. Ignored if
-`dotspacemacs-startup-lists' doesn't include `recents'.")
+(defvar dotspacemacs-startup-lists '((recents  . 5)
+                                    (projects . 7))
+  "Association list of items to show in the startup buffer of the form
+`(list-type . list-size)`. If nil it is disabled.
+Possible values for list-type are:
+`recents' `bookmarks' `projects' `agenda' `todos'.")
 
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages that will not be install and loaded.")
@@ -619,9 +618,19 @@ error recovery."
     (lambda (x) (member x '(all any current nil)))
     'dotspacemacs-highlight-delimiters "is one of \'all, \'any, \'current or nil")
    (spacemacs//test-list
-    (lambda (x) (member x '(recents bookmarks projects todos agenda)))
-    'dotspacemacs-startup-lists (concat "includes only \'recents, "
-                                        "\'bookmarks or \'projects"))
+    (lambda (x)
+      (let ((el (or (car-safe x) x))
+            (list-size (cdr-safe x)))
+      (member el '(recents bookmarks projects todos agenda))))
+    'dotspacemacs-startup-lists (concat "includes \'recents, "
+                              "\'bookmarks, \'todos, "
+                              "\'agenda or \'projects"))
+   (spacemacs//test-list
+    (lambda (x)
+      (let ((el (or (car-safe x) x))
+            (list-size (cdr-safe x)))
+        (or (null list-size)(numberp list-size))))
+    'dotspacemacs-startup-lists (concat "list size is a number"))
    (spacemacs//test-var 'stringp 'dotspacemacs-leader-key "is a string")
    (spacemacs//test-var 'stringp 'dotspacemacs-emacs-leader-key "is a string")
    (spacemacs//test-var

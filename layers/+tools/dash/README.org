@@ -12,9 +12,6 @@
    - [[#check-documentation-for-x-at-point][Check Documentation for x-at-point]]
  - [[#key-bindings][Key bindings]]
    - [[#helm-dash][helm-dash]]
- - [[#todos][TODOs]]
-   - [[#check-zeal][Check zeal]]
-   - [[#make-helm-dash-use-zeal-or-dash-docsets-by-default][Make helm-dash use zeal or dash docsets by default]]
 
 * Description
 +*This layer works only on OS X for the moment*+
@@ -71,11 +68,3 @@ open source.
 
 Or you can use [[https://github.com/areina/helm-dash][helm-dash]] instead, it requires no app. You can use
 =dash/helm-dash-docset-newpath= to set the location path of your docsets.
-
-* TODOs
-
-** DONE Check zeal
-CLOSED: [2015-06-12 Fri 16:30]
-[[http://zealdocs.org/][zeal]] is an open source alternative to dash with Emacs integration available.
-
-** TODO Make helm-dash use zeal or dash docsets by default

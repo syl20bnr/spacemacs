@@ -45,7 +45,9 @@
         - [Windows](#windows)
 - [Install](#install)
     - [Default installation](#default-installation)
-    - [Installation alongside another configuration](#installation-alongside-another-configuration)
+    - [Alternate installations](#alternate-installations)
+        - [Modify HOME environment variable](#modify-home-environment-variable)
+        - [Modify spacemacs-start-directory variable](#modify-spacemacs-start-directory-variable)
     - [Spacemacs logo](#spacemacs-logo)
 - [Update](#update)
     - [Automatic update (on master branch)](#automatic-update-on-master-branch)
@@ -115,8 +117,7 @@ If you prefer IRC, connect to the [Gitter Chat IRC server][] and join the
 
 ## Emacs
 
-Spacemacs is operational with Emacs 24.3, but Emacs 24.4 and above are highly
-recommended to enjoy a full experience. The next Emacs major release, Emacs 25,
+Spacemacs requires Emacs 24.4 or above. The next Emacs major release, Emacs 25,
 is not *officially* supported but is partially working (i.e. bugs should be
 expected).
 
@@ -132,9 +133,9 @@ XEmacs is an old fork of Emacs. The X in its name is unrelated to X11.
 Both Emacs and XEmacs have graphical support.
 
 **Note:** Ubuntu LTS 12.04 and 14.04 repositories have only Emacs 24.3
-available. You are advised to [build from source][build_source] Emacs 24.4 or
-greater, as most packages require this version. The same may be true for other
-distributions as well.
+available. You have to [build from source][build_source] Emacs 24.4 or greater,
+as Spacemacs won't work with 24.3. The same may be true for other distributions
+as well.
 
 ### OS X
 
@@ -221,26 +222,43 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    Or you can set the `dotspacemacs-elpa-https` to `nil` in your dotfile to
    remove the need to start Emacs with `--insecure` argument. You may wish to
    clear out your `.emacs.d/elpa` directory before doing this, so that any
-   corrupted packages you may have downloaded will be reinstalled.
+   corrupted packages you may have downloaded will be re-installed.
 
 4. Restart Emacs to complete the installation.
 
 If the mode-line turns red then be sure to consult the [FAQ][FAQ.org].
 
-## Installation alongside another configuration
+## Alternate installations
 
-To try out Spacemacs (or any other Emacs configuration you desire) without
-having to go through the trouble of backing up you `~/.emacs.d` directory and
-then cloning the new configuration:
+It may be useful to clone Spacemacs outside Emacs dotdirectory `~/.emacs.d` so
+you can try Spacemacs without replacing completely our own configuration.
+There is currently two possibilities to support alternative location for
+Spacemacs configuration.
+
+### Modify HOME environment variable
+
+This solution is ideal to quickly try Spacemacs without compromising your
+existing configuration.
 
 ```sh
 mkdir ~/spacemacs
-git clone git@github.com:syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
+git clone https://github.com/syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
 HOME=~/spacemacs emacs
 ```
 
 Note: If you're on Fish shell, you will need to modify the last command to: `env
 HOME=$HOME/spacemacs emacs`
+
+### Modify spacemacs-start-directory variable
+
+This solution is better suited to "embed" Spacemacs into your own configuration.
+Say you cloned Spacemacs in `~/.emacs.d/spacemacs/` then drop these lines in
+`~/.emacs.d/init.el`:
+
+```elisp
+(setq spacemacs-start-directory "~/.emacs.d/spacemacs/")
+(load-file (concat spacemacs-start-directory "init.el"))
+```
 
 ## Spacemacs logo
 
@@ -309,6 +327,12 @@ branch, for instance to revert to the last `0.103`:
 [Quote][quote01] by [ashnur](https://github.com/ashnur):
 
     «I feel that spacemacs is an aircraft carrier and I am playing table tennis on the deck as a freerider.»
+
+[Quote][quote02] by [deuill](https://github.com/deuill):
+
+    «I LOVE SPACEMACS AND MAGIT
+
+     That is all»
 
 # Contributions
 
@@ -394,5 +418,6 @@ Thank you!
 [Stack Exchange]: http://emacs.stackexchange.com/questions/tagged/spacemacs
 [Reddit]: https://www.reddit.com/r/spacemacs
 [quote01]: https://gitter.im/syl20bnr/spacemacs?at=568e627a0cdaaa62045a7df6
+[quote02]: https://gitter.im/syl20bnr/spacemacs?at=5768456c6577f032450cfedb
 [build_source]: https://www.gnu.org/software/emacs/manual/html_node/efaq/Installing-Emacs.html
 [Bountysource]: https://salt.bountysource.com/teams/spacemacs

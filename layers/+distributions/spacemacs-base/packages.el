@@ -12,6 +12,7 @@
 (setq spacemacs-base-packages
       '(
         (abbrev :location built-in)
+        ace-window
         (bookmark :location built-in)
         (dired :location built-in)
         (dired-x :location built-in)
@@ -51,6 +52,20 @@
 
 (defun spacemacs-base/init-abbrev ()
   (spacemacs|hide-lighter abbrev-mode))
+
+(defun spacemacs-base/init-ace-window ()
+  (use-package ace-window
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys
+        "bD" 'spacemacs/ace-kill-this-buffer
+        "wC" 'spacemacs/ace-center-window
+        "wD" 'spacemacs/ace-delete-window
+        "wM" 'ace-swap-window
+        "wW" 'ace-window)
+      ;; set ace-window keys to home-row
+      (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))))
 
 (defun spacemacs-base/init-bookmark ()
   (use-package bookmark
@@ -364,34 +379,33 @@
       (setq spacemacs-theme-org-height t))))
 
 (defun spacemacs-base/init-subword ()
-  (unless (version< emacs-version "24.4")
-    (use-package subword
-      :defer t
-      :init
-      (progn
-        (unless (category-docstring ?U)
-          (define-category ?U "Uppercase")
-          (define-category ?u "Lowercase"))
-        (modify-category-entry (cons ?A ?Z) ?U)
-        (modify-category-entry (cons ?a ?z) ?u)
-        (make-variable-buffer-local 'evil-cjk-word-separating-categories)
-        (defun spacemacs//subword-enable-camel-case ()
-          "Add support for camel case to subword."
-          (if subword-mode
-              (push '(?u . ?U) evil-cjk-word-separating-categories)
-            (setq evil-cjk-word-separating-categories
-                  (default-value 'evil-cjk-word-separating-categories))))
-        (add-hook 'subword-mode-hook 'spacemacs//subword-enable-camel-case)
-        (spacemacs|add-toggle camel-case-motion
-          :mode subword-mode
-          :documentation "Toggle CamelCase motions."
-          :evil-leader "tc")
-        (spacemacs|add-toggle camel-case-motion-globally
-          :mode global-subword-mode
-          :documentation "Globally toggle CamelCase motions."
-          :evil-leader "t C-c"))
-      :config
-      (spacemacs|diminish subword-mode " ⓒ" " c"))))
+  (use-package subword
+    :defer t
+    :init
+    (progn
+      (unless (category-docstring ?U)
+        (define-category ?U "Uppercase")
+        (define-category ?u "Lowercase"))
+      (modify-category-entry (cons ?A ?Z) ?U)
+      (modify-category-entry (cons ?a ?z) ?u)
+      (make-variable-buffer-local 'evil-cjk-word-separating-categories)
+      (defun spacemacs//subword-enable-camel-case ()
+        "Add support for camel case to subword."
+        (if subword-mode
+            (push '(?u . ?U) evil-cjk-word-separating-categories)
+          (setq evil-cjk-word-separating-categories
+                (default-value 'evil-cjk-word-separating-categories))))
+      (add-hook 'subword-mode-hook 'spacemacs//subword-enable-camel-case)
+      (spacemacs|add-toggle camel-case-motion
+        :mode subword-mode
+        :documentation "Toggle CamelCase motions."
+        :evil-leader "tc")
+      (spacemacs|add-toggle camel-case-motion-globally
+        :mode global-subword-mode
+        :documentation "Globally toggle CamelCase motions."
+        :evil-leader "t C-c"))
+    :config
+    (spacemacs|diminish subword-mode " ⓒ" " c")))
 
 (defun spacemacs-base/init-tar-mode ()
   (evilified-state-evilify-map tar-mode-map
