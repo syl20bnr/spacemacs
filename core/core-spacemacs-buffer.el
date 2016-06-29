@@ -148,10 +148,10 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
   "Return the full path of a banner chosen randomly.
 
 If ALL is non-nil then truly all banners can be selected."
-  (let* ((files (directory-files spacemacs-banner-directory t))
+  (let* ((files (directory-files spacemacs-banner-directory t ".*\.txt"))
          (count (length files))
-         ;; -2 then +2 to remove `.' and `..'
-         (choice (+ 2 (random (- count (if all 2 4))))))
+         ;; -2 to remove the two last ones (easter eggs)
+         (choice (random (- count (if all 0 2)))))
     (nth choice files)))
 
 (defun spacemacs-buffer//get-banner-path (index)
