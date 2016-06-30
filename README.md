@@ -211,7 +211,15 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    fork Spacemacs safely use the `develop` branch where you handle the update
    manually.
 
-3. Launch Emacs. Spacemacs will automatically install the packages it requires.
+3. (Optionally) Install
+   [Source Code Pro](https://github.com/adobe-fonts/source-code-pro):
+
+   If you wish to use default Spacemacs font you'll need to install
+   [Source Code Pro](https://github.com/adobe-fonts/source-code-pro). If you are
+   running in terminal you'll also need to change font settings of your
+   terminal.
+
+4. Launch Emacs. Spacemacs will automatically install the packages it requires.
    If you get an error regarding package downloads then you may try to disable
    the HTTPS protocol by starting Emacs with
 
@@ -224,7 +232,7 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    clear out your `.emacs.d/elpa` directory before doing this, so that any
    corrupted packages you may have downloaded will be re-installed.
 
-4. Restart Emacs to complete the installation.
+5. Restart Emacs to complete the installation.
 
 If the mode-line turns red then be sure to consult the [FAQ][FAQ.org].
 

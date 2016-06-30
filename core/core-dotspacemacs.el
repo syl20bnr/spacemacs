@@ -160,7 +160,9 @@ emacs.")
                                     :powerline-scale 1.1)
   "Default font, or prioritized list of fonts. `powerline-scale'
 allows to quickly tweak the mode-line size to make separators
-look not too crappy.")
+look not too crappy.
+
+Has no effect when running Emacs in terminal.")
 
 (defvar dotspacemacs-remap-Y-to-y$ nil
   "If non nil `Y' is remapped to `y$' in Evil states.")
