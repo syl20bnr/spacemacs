@@ -984,12 +984,10 @@ You can see samples of all included themes in this [[http://themegallery.robdor.
 
 ** Font
 The default font used by Spacemacs is [[https://github.com/adobe-fonts/source-code-pro][Source Code Pro]] by Adobe. It is
-recommended to install it on your system.
+recommended to install it on your system if you wish to use it.
 
 To change the default font set the variable =dotspacemacs-default-font= in your
-=.spacemacs= file.
-
-By default its value is:
+=.spacemacs= file. By default its value is:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-default-font '("Source Code Pro"
@@ -998,6 +996,10 @@ By default its value is:
                                           :width normal
                                           :powerline-scale 1.1))
 #+END_SRC
+
+If specified font can't found, the fallback one will be used (depends on your
+system). Also note that changing this value has no effect if you are running
+Emacs in terminal.
 
 The properties should be pretty straightforward, it is possible to set any valid
 property of a [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Low_002dLevel-Font.html][font-spec]]:
