@@ -1,6 +1,7 @@
 #+TITLE: Smart Tabs layer
 
-# TOC links should be GitHub style anchors.
+The best whitespace is neither spaces nor tabs, it's spaces /and/ tabs!
+
 * Table of Contents                                        :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
@@ -10,18 +11,20 @@
    - [[#respecting-evil-customizations][Respecting evil customizations]]
 
 * Description
-The best whitespace is neither spaces nor tabs, it's spaces *and* tabs!
-
-This layer brings =smart-tabs-mode= integration, a minor mode that intelligently
-indents your code with tabs, while preserving spaces for alignment and ASCII
-art. In this way, multiple team members can choose their preferred tab length
-without breaking alignment. To enable =smart-tabs-mode= for a given language,
-you *insinuate* it (see instructions below, under [[*configuration][Configuration]]).
+This layer installs =smart-tabs-mode=, a minor mode that intelligently indents
+your code with tabs, while preserving spaces for alignment and ASCII art. In
+this way, multiple team members can choose their preferred tab length without
+breaking alignment of other code elements. To enable =smart-tabs-mode= for a
+given language, you /insinuate/ it (see instructions below, under
+[[#configuration][Configuration]]).
 
 If =indent-tabs-mode= is set to nil, you'll always indent with spaces, even if
 =smart-tabs-mode= is on. Nevertheless, it is recommended that =indent-tabs-mode=
 is left =nil= by default; the layer will handle turning it on for the languages
-you insinuate. =smart-tabs-mode= will use =tab-width= as its indent offset.
+you insinuate.
+
+Note that =smart-tabs-mode= will use =tab-width= as its indent offset,
+overriding the normal indent offset for whatever major mode is active.
 
 Please see [[https://www.emacswiki.org/emacs/SmartTabs][Smart Tabs on the Emacs Wiki]] if you would like more information on
 the underlying mode.
@@ -53,19 +56,19 @@ By default, none of these will be insinuated. To use =smart-tabs-mode= with any
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (smart-tabs :variables
-                smart-tabs-default-insinuations '(c c++ cperl javascript java))
-   ))
+                smart-tabs-default-insinuations '(c c++ cperl javascript java))))
 #+END_SRC
 
 ** Adding support for additional languages
-You should use the new =smart-tabs-add-language-and-insinuate= macro to add
-support for additional language. You can call this in your
-=dotspacemacs/user-config= function to enable support for any other languages
-you use. The arguments are:
+You can use the =smart-tabs-add-language-and-insinuate= macro in your
+=dotspacemacs/user-config= to add support for additional languages. The
+arguments are:
 
- - A symbol to represent the language. This value is mostly unimportant; the
-   only rule is that you can't use the same symbol twice.
+ - A symbol to represent the language. It's recommended to use the name of the
+   language's major mode minus the =-mode= suffix, but the actual value is
+   unimportant; the only rule is that you can't use the same symbol twice.
  - The mode hook for the major mode you want to associate with this language.
+   Hooks will be installed to enable =smart-tabs-mode= and =indent-tabs-mode=.
  - An alist of indent rules. Each rule is a cons cell containing an indent
    function followed by the indent offset variable used by that function.
  - Optionally, any number of body parameters to be executed in the language's
@@ -76,21 +79,19 @@ Here's an example that adds support for Groovy via =groovy-mode=.
 #+BEGIN_SRC emacs-lisp
   (defun dotspacemacs/user-config ()
 
-  ;; ...
+    ;; ...
 
-    (smart-tabs-add-language-and-insinuate groovy groovy-mode-hook
-     ;; Note that Groovy mode, like many other C-like languages, simply reuses
-     ;; Emacs' core C indentation commands
+    (smart-tabs-add-language-and-insinuate
+     groovy
+     groovy-mode-hook
      ((c-indent-line . c-basic-offset)
       (c-indent-region . c-basic-offset))))
 #+END_SRC
 
 ** Respecting evil customizations
-Because =evil= uses its own indentation functions, by default =smart-tabs-mode=
-will not work with evil's indentation operator, ~=~. It's possible to work
-around this by making buffer-local changes to =evil-shift-width= and
-=evil-indent-convert-tabs=, two customizations provided by the evil package. By
-default, the layer will handle this for you; however, if you have customized
+Normally, the layer will make buffer-local changes to =evil-shift-width= and
+=evil-indent-convert-tabs=, two customizations provided by the evil package, in
+order to make evil's indentation operators play nice. If you have customized
 those values yourself and want the layer to respect your values, you can disable
 this behavior by setting the layer variable
 =smart-tabs-respect-evil-customizations= to =t=.
