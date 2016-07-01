@@ -508,7 +508,7 @@ You can modify the list of visual enhancements applied by the =space-doc-mode=:
         spacemacs//space-doc-org-block-line-face-remap
         spacemacs//space-doc-org-kbd-face-remap
         spacemacs//space-doc-resize-inline-images
-        spacemacs//space-doc-advice-org-do-emphasis-faces)
+        spacemacs//space-doc-advice-org-do-emphasis-faces))
 #+END_SRC
 It's the default value of the variable with all enhancements.
 Each function in the list represents some modification.

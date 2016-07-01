@@ -191,34 +191,30 @@ automatically applied to."
       (window-configuration-to-register ?_)
       (delete-other-windows))))
 
-;; A small minor mode to use a big fringe adapted from
-;; http://bzg.fr/emacs-strip-tease.html
-(define-minor-mode spacemacs-centered-buffer-mode
-  "Minor mode to use big fringe in the current buffer."
-  :global t
-  :init-value nil
-  :group 'editing-basics
-  (if spacemacs-centered-buffer-mode
-      (progn
-        (window-configuration-to-register ?_)
-        (delete-other-windows)
-        (set-fringe-mode
-         (/ (- (frame-pixel-width)
-               (* 100 (frame-char-width)))
-            2)))
-    (set-fringe-style nil)
-    (when (assoc ?_ register-alist)
-      (jump-to-register ?_))))
-
-(defun spacemacs/ace-center-window ()
-  "Ace center window."
+;; https://tsdh.wordpress.com/2007/03/28/deleting-windows-vertically-or-horizontally/
+(defun  spacemacs/maximize-horizontally ()
+  "Delete all windows left or right of the current window."
   (interactive)
-  (require 'ace-window)
-  (aw-select
-   " Ace - Center Window"
-   (lambda (window)
-     (aw-switch-to-window window)
-     (spacemacs-centered-buffer-mode))))
+  (require 'windmove)
+  (save-excursion
+    (while (condition-case nil (windmove-left) (error nil))
+      (delete-window))
+    (while (condition-case nil (windmove-right) (error nil))
+      (delete-window))))
+
+(defun spacemacs/toggle-centered-buffer-mode ()
+  "Toggle `spacemacs-centered-buffer-mode'."
+  (interactive)
+  (when (require 'centered-buffer-mode nil t)
+    (call-interactively 'spacemacs-centered-buffer-mode)))
+
+(defun spacemacs/centered-buffer-mode-full-width ()
+  "Toggle `spacemacs-centered-buffer-mode'."
+  (interactive)
+  (when (require 'centered-buffer-mode nil t)
+    (spacemacs/maximize-horizontally)
+    (call-interactively 'spacemacs-centered-buffer-mode)))
+
 
 (defun spacemacs/useless-buffer-p (buffer)
   "Determines if a buffer is useful."
