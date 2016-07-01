@@ -159,16 +159,16 @@ The character should be one of the markers from `org-emphasis-alist'."
           (make-overlay (1- end) end))
     (if (string= (buffer-substring-no-properties begin
                                                  (1+ begin))
-                 (spacemacs//space-doc-cache-kbd-marker
+                 (spacemacs-space-doc-cache-struct-kbd-marker
                   spacemacs--space-doc-cache))
         (progn
           (overlay-put beginning-marker-overlay
                        'face
-                       (spacemacs//space-doc-cache-btn-marker-face
+                       (spacemacs-space-doc-cache-struct-btn-marker-face
                         spacemacs--space-doc-cache))
           (overlay-put ending-marker-overlay
                        'face
-                       (spacemacs//space-doc-cache-btn-marker-face
+                       (spacemacs-space-doc-cache-struct-btn-marker-face
                         spacemacs--space-doc-cache)))
       ;; If inside table.
       (if (save-excursion
@@ -178,11 +178,11 @@ The character should be one of the markers from `org-emphasis-alist'."
           (progn
             (overlay-put beginning-marker-overlay
                          'face
-                         (spacemacs//space-doc-cache-marker-face
+                         (spacemacs-space-doc-cache-struct-marker-face
                           spacemacs--space-doc-cache))
             (overlay-put ending-marker-overlay
                          'face
-                         (spacemacs//space-doc-cache-marker-face
+                         (spacemacs-space-doc-cache-struct-marker-face
                           spacemacs--space-doc-cache)))
         (overlay-put beginning-marker-overlay
                      'invisible t)
