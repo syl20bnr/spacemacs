@@ -74,7 +74,7 @@ This functions is aimed to be used with `spacemacs--space-doc-modificators'."
 This functions is aimed to be used with `spacemacs--space-doc-modificators'."
   (view-mode (if flag 1 -1)))
 
-(cl-defstruct spacemacs-space-doc-cache-struct
+(cl-defstruct spacemacs--space-doc-cache-struct
   marker-face
   btn-marker-face
   kbd-marker)
@@ -106,7 +106,7 @@ This functions is aimed to be used with `spacemacs--space-doc-modificators'."
                       (when (member 'org-kbd el)
                         (return (car el))))))
 
-              (make-spacemacs-space-doc-cache-struct
+              (make-spacemacs--space-doc-cache-struct
                :marker-face     marker-face
                :btn-marker-face btn-marker-face
                :kbd-marker      kbd-marker)))))
@@ -127,10 +127,12 @@ appearances in the current buffer. The function uses
   ;; found a region to emphasize.
   (when (and found
              space-doc-mode
-             (not (string-empty-p
-                   (replace-regexp-in-string "\\*+"
-                                             ""
-                                             (match-string 4)))))
+             (not (and
+                   (match-string 4)
+                   (string-empty-p
+                    (replace-regexp-in-string "\\*+"
+                                              ""
+                                              (match-string 4))))))
     (spacemacs//space-doc-emphasis-region
      (match-beginning 2)
      (match-end 2)))
@@ -159,16 +161,16 @@ The character should be one of the markers from `org-emphasis-alist'."
           (make-overlay (1- end) end))
     (if (string= (buffer-substring-no-properties begin
                                                  (1+ begin))
-                 (spacemacs-space-doc-cache-struct-kbd-marker
+                 (spacemacs--space-doc-cache-struct-kbd-marker
                   spacemacs--space-doc-cache))
         (progn
           (overlay-put beginning-marker-overlay
                        'face
-                       (spacemacs-space-doc-cache-struct-btn-marker-face
+                       (spacemacs--space-doc-cache-struct-btn-marker-face
                         spacemacs--space-doc-cache))
           (overlay-put ending-marker-overlay
                        'face
-                       (spacemacs-space-doc-cache-struct-btn-marker-face
+                       (spacemacs--space-doc-cache-struct-btn-marker-face
                         spacemacs--space-doc-cache)))
       ;; If inside table.
       (if (save-excursion
@@ -178,11 +180,11 @@ The character should be one of the markers from `org-emphasis-alist'."
           (progn
             (overlay-put beginning-marker-overlay
                          'face
-                         (spacemacs-space-doc-cache-struct-marker-face
+                         (spacemacs--space-doc-cache-struct-marker-face
                           spacemacs--space-doc-cache))
             (overlay-put ending-marker-overlay
                          'face
-                         (spacemacs-space-doc-cache-struct-marker-face
+                         (spacemacs--space-doc-cache-struct-marker-face
                           spacemacs--space-doc-cache)))
         (overlay-put beginning-marker-overlay
                      'invisible t)
