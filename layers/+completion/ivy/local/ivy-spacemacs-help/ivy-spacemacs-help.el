@@ -153,22 +153,22 @@
 
 (defun ivy-spacemacs-help//layer-action-add-layer (candidate)
   "Adds layer to dotspacemacs file and reloads configuration"
-  (if (configuration-layer/layer-usedp (intern candidate))
+  (if (configuration-layer/layer-usedp (intern (cdr candidate)))
       (message "Layer already added.")
     (let ((dotspacemacs   (find-file-noselect (dotspacemacs/location))))
       (with-current-buffer dotspacemacs
         (beginning-of-buffer)
         (let ((insert-point (re-search-forward
                              "dotspacemacs-configuration-layers *\n?.*\\((\\)")))
-          (insert (format "\n%s\n" candidate))
-          (indent-region insert-point (+ insert-point (length candidate)))
+          (insert (format "\n%s\n" (cdr candidate)))
+          (indent-region insert-point (+ insert-point (length (cdr candidate))))
           (save-current-buffer)))
       (dotspacemacs/sync-configuration-layers))))
 
 (defun ivy-spacemacs-help//layer-action-open-dired (candidate)
   "Open dired at the location of the passed layer CANDIDATE."
   (dired
-   (ivy-spacemacs-help//layer-action-get-directory candidate)))
+   (ivy-spacemacs-help//layer-action-get-directory (cdr candidate))))
 
 (defun ivy-spacemacs-help//layer-action-open-readme-edit (candidate)
   "Open the `README.org' file of the passed CANDIDATE for editing."
@@ -176,7 +176,7 @@
 
 (defun ivy-spacemacs-help//layer-action-open-packages (candidate)
   "Open the `packages.el' file of the passed CANDIDATE."
-  (ivy-spacemacs-help//layer-action-open-file "packages.el" candidate))
+  (ivy-spacemacs-help//layer-action-open-file "packages.el" (cdr candidate)))
 
 ;;;###autoload
 (defun ivy-spacemacs-help-layers ()
@@ -239,11 +239,11 @@
 
 (defun ivy-spacemacs-help//help-action (args)
   "Open the file `packages.el' and go to the init function."
-  (if (null (cadr args))
+  (if (null (caddr args))
       (message "There are no packages associated with this layer.")
-    (let* ((layer-str (car args))
+    (let* ((layer-str (cadr args))
            (layer-sym (intern layer-str))
-           (package-str (cadr args))
+           (package-str (caddr args))
            (path (file-name-as-directory
                   (concat (ht-get configuration-layer-paths layer-sym)
                           layer-str)))
@@ -253,54 +253,41 @@
       (re-search-forward (format "init-%s" package-str))
       (beginning-of-line))))
 
-(defun ivy-spacemacs-help//help-action-add-layer (args)
-  (let* ((layer-str (car args))
-         (layer-sym (intern layer-str))
-         (package-str (cadr args))
-         (path (file-name-as-directory
-                (concat (ht-get configuration-layer-paths layer-sym)
-                        layer-str)))
-         (filename (concat path "packages.el")))
-    (find-file filename)
-    (goto-char (point-min))
-    (re-search-forward (format "init-%s" package-str))
-    (beginning-of-line)))
-
 (defun ivy-spacemacs-help//help-action-describe-package (args)
   "Describe the passed package using Spacemacs describe function."
-  (if (null (cadr args))
+  (if (null (caddr args))
       (message "There are no packages associated with this layer.")
-    (let ((package-str (cadr args)))
+    (let ((package-str (caddr args)))
       (configuration-layer/describe-package (intern package-str)))))
 
 (defun ivy-spacemacs-help//help-action-open-dired (args)
   "Open the `packages.el' file of the passed `car' of ARGS."
   (dired
-   (ivy-spacemacs-help//layer-action-get-directory (car args))))
+   (ivy-spacemacs-help//layer-action-get-directory (cadr args))))
 
 (defun ivy-spacemacs-help//help-action-open-packages (args)
   "Open the `packages.el' file of the passed CANDIDATE."
-  (ivy-spacemacs-help//layer-action-open-file "packages.el" (car args)))
+  (ivy-spacemacs-help//layer-action-open-file "packages.el" (cadr args)))
 
 (defun ivy-spacemacs-help//help-action-open-readme (args)
   "Open the `README.org' file of the passed CANDIDATE for reading."
-  (ivy-spacemacs-help//layer-action-open-file "README.org" (car args)))
+  (ivy-spacemacs-help//layer-action-open-file "README.org" (cadr args)))
 
 (defun ivy-spacemacs-help//help-action-open-readme-edit (args)
   "Open the `README.org' file of the passed CANDIDATE for editing."
-  (ivy-spacemacs-help//layer-action-open-file "README.org" (car args) t))
+  (ivy-spacemacs-help//layer-action-open-file "README.org" (cadr args) t))
 
 (defun ivy-spacemacs-help//help-action-add-layer (args)
   "Adds layer to dotspacemacs file and reloads configuration"
-  (if (configuration-layer/layer-usedp (intern (car args)))
+  (if (configuration-layer/layer-usedp (intern (cadr args)))
       (message "Layer already added.")
     (let ((dotspacemacs   (find-file-noselect (dotspacemacs/location))))
       (with-current-buffer dotspacemacs
         (beginning-of-buffer)
         (let ((insert-point (re-search-forward
                              "dotspacemacs-configuration-layers *\n?.*\\((\\)")))
-          (insert (format "\n%s\n" (car args)))
-          (indent-region insert-point (+ insert-point (length (car args))))
+          (insert (format "\n%s\n" (cadr args)))
+          (indent-region insert-point (+ insert-point (length (cadr args))))
           (save-current-buffer)))
       (dotspacemacs/sync-configuration-layers))))
 
