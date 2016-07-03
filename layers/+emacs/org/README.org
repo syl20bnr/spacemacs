@@ -322,6 +322,7 @@ The evilified org agenda supports the following bindings:
 | ~SPC m f~            | org-agenda-set-effort         |
 | ~SPC m I~            | org-agenda-clock-in           |
 | ~SPC m O~            | org-agenda-clock-out          |
+| ~SPC m p~            | org-pomodoro                  |
 | ~SPC m P~            | org-agenda-set-property       |
 | ~SPC m q~            | org-agenda-refile             |
 | ~SPC m Q~            | org-agenda-clock-cancel       |
