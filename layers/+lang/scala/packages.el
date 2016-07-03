@@ -13,8 +13,9 @@
   '(
     ensime
     noflet
-    sbt-mode
+    org
     scala-mode
+    sbt-mode
     ))
 
 (defun scala/init-ensime ()
@@ -190,6 +191,10 @@
 
 (defun scala/init-noflet ()
   (use-package noflet))
+
+(defun scala/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(scala . t))))
 
 (defun scala/init-sbt-mode ()
   (use-package sbt-mode
