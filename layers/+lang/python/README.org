@@ -12,6 +12,7 @@
    - [[#automatic-buffer-formatting-on-save][Automatic buffer formatting on save]]
    - [[#autoflake][autoflake]]
    - [[#pylookup][pylookup]]
+   - [[#hy-mode][Hy-mode]]
  - [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
    - [[#manage-virtual-environments-with-pyvenv][Manage virtual environments with pyvenv]]
    - [[#manage-multiple-python-versions-with-pyenv][Manage multiple Python versions with pyenv]]
@@ -22,6 +23,7 @@
    - [[#testing][Testing]]
    - [[#refactoring][Refactoring]]
    - [[#live-coding][Live coding]]
+   - [[#hy-repl-process][Hy REPL process]]
    - [[#other-python-commands][Other Python commands]]
  - [[#configuration][Configuration]]
    - [[#fill-column][Fill column]]
@@ -112,6 +114,14 @@ To be able to suppress unused imports easily, install [[https://github.com/myint
 ** pylookup
 To use =pylookup= on ~SPC m h H~, make sure you update the database first, using
 ~SPC SPC pylookup-update~.
+
+** Hy-mode
+To be able to connect to an inferior lisp repl in =hy-mode=, you need to make sure
+that hy is installed.
+
+#+BEGIN_SRC sh
+  pip install hy
+#+END_SRC
 
 * Management of Python versions and virtual environments
 
@@ -220,11 +230,31 @@ function with a prefix argument, for example ~SPC u SPC m t a~.
 | ~SPC m r i~ | remove unused imports with [[https://github.com/myint/autoflake][autoflake]] |
 
 ** Live coding
+
 Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][live-py-plugin.]]
 
 | Key Binding | Description         |
 |-------------+---------------------|
 | ~SPC m l~   | Toggle live-py-mode |
+
+** Hy REPL process
+Start a Hy inferior repel process with ~SPC m s i~. If =hy= is
+available in system executable search paths, =hy= will be used to
+launch the shell. You may change your system executable search path
+by activating a virtual enviornment.
+
+Send code to hy REPL commands:
+
+| Key Binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~SPC m s b~ | send buffer and keep code buffer focused                  |
+| ~SPC m s B~ | switch to REPL                                            |
+| ~SPC m s e~ | send sexp in front of the cursor to the REPL              |
+| ~SPC m s f~ | send function to REPL and stay in buffer                  |
+| ~SPC m s F~ | send function to REPL and switch to repl buffer           |
+| ~SPC m s i~ | start inferior hy repl                                    |
+| ~SPC m s r~ | send current region to the REPL and stay in buffer        |
+| ~SPC m s R~ | send current region to the REPL and switch to repl buffer |
 
 ** Other Python commands
 
