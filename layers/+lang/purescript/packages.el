@@ -11,25 +11,18 @@
 
 
 (setq purescript-packages
-  '(
-    company
+  '(company
     flycheck
-    (flycheck-purescript :toggle (configuration-layer/package-usedp 'flycheck))
     purescript-mode
     psci
     psc-ide
-    ))
+    popwin))
 
 (defun purescript/post-init-company ()
   (spacemacs|add-company-hook purescript-mode))
 
 (defun purescript/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'purescript-mode))
-
-(defun purescript/init-flycheck-purescript ()
-  (use-package flycheck-purescript
-    :commands flycheck-purescript-configure
-    :init (add-hook 'flycheck-mode-hook 'flycheck-purescript-configure)))
 
 (defun purescript/init-purescript-mode ()
   (use-package purescript-mode
@@ -63,8 +56,25 @@
     :init
     (progn
       (add-hook 'purescript-mode-hook 'psc-ide-mode)
+      (spacemacs/declare-prefix-for-mode 'purescript-mode "mm" "purescript/psc-ide")
       (push 'company-psc-ide-backend company-backends-purescript-mode)
+
+      (customize-set-variable 'psc-ide-add-import-on-completion purescript-add-import-on-completion)
+      (customize-set-variable 'psc-ide-rebuild-on-save purescript-enable-rebuild-on-save)
+
       (spacemacs/set-leader-keys-for-major-mode 'purescript-mode
-        "ms" 'psc-ide-server-start
-        "ml" 'psc-ide-load-module
-        "ht" 'psc-ide-show-type))))
+        "mt"  'psc-ide-add-clause
+        "mcs" 'psc-ide-case-split
+        "ms"  'psc-ide-server-start
+        "mb"  'psc-ide-rebuild
+        "mq"  'psc-ide-server-quit
+        "ml"  'psc-ide-load-all
+        "mL"  'psc-ide-load-module
+        "mia" 'psc-ide-add-import
+        "mis" 'psc-ide-flycheck-insert-suggestion
+        "ht"  'psc-ide-show-type))))
+
+(defun purescript/pre-init-popwin ()
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    (push '("*psc-ide-rebuild*" :tail t :noselect t) popwin:special-display-config)))
