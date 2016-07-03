@@ -24,21 +24,23 @@ Set this to t if you want to always respect those values.")
 
 ;;; Code:
 
-;;; Utility function that simply enables indent-tabs-mode
-;;; This is used as an argument to add-hook
-(defun smart-tabs/enable-tabs-mode ()
-  (setq indent-tabs-mode t))
-
 ;;; Macro that combines adding new language support, insinuating it, and hooking
 ;;; indent-tabs-mode in one place
-(defmacro smart-tabs-add-language-and-insinuate (lang mode-hook advice-list &rest body)
+(defmacro smart-tabs|add-language-and-insinuate (lang mode-hook advice-list &rest body)
   `(progn
      (smart-tabs-add-language-support ,lang ,mode-hook ,advice-list ,@body)
      (smart-tabs-insinuate ',lang)
-     (add-hook ',mode-hook 'smart-tabs/enable-tabs-mode)))
+     (add-hook ',mode-hook #'smart-tabs//enable-tabs-mode)))
 
-(defun smart-tabs/no-tabs-mode (orig-fun &rest args)
-  (let ((indent-tabs-mode nil))
-    (apply orig-fun args)))
+;;; Utility function that simply enables indent-tabs-mode
+;;; This is used as an argument to add-hook
+(defun smart-tabs//enable-tabs-mode ()
+  (setq indent-tabs-mode t))
+
+;; Set up evil-mode to play nice with smart-tabs-mode
+(defun smart-tabs//evil-setup ()
+  (unless smart-tabs-respect-evil-customizations
+    (setq-local evil-shift-width tab-width)
+    (setq-local evil-indent-convert-tabs nil)))
 
 ;;; config.el ends here

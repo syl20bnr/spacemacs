@@ -26,16 +26,11 @@
     :diminish smart-tabs-mode
     :config
     (progn
-      (add-hook 'smart-tabs-mode-hook
-                (lambda ()
-                  ;; Set up evil-mode to play nice with smart-tabs-mode
-                  (unless smart-tabs-respect-evil-customizations
-                    (setq-local evil-shift-width tab-width)
-                    (setq-local evil-indent-convert-tabs nil))))
+      (add-hook 'smart-tabs-mode-hook #'smart-tabs//evil-setup)
       ;; Run default insinuations
       (dolist (lang smart-tabs-default-insinuations)
         (smart-tabs-insinuate lang)
         (add-hook (car (smart-tabs-get-standard-language lang))
-                  'smart-tabs/enable-tabs-mode)))))
+                  #'smart-tabs//enable-tabs-mode)))))
 
 ;;; packages.el ends here

@@ -50,8 +50,8 @@ this file.
 | XML        | =nxml-mode=   | =nxml=       |
 
 By default, none of these will be insinuated. To use =smart-tabs-mode= with any
-   of these languages, set the layer variable =smart-tabs-default-insinuations=
-   to a list of any or all of the symbols listed above.
+of these languages, set the layer variable =smart-tabs-default-insinuations=
+to a list of any or all of the symbols listed above.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
@@ -60,7 +60,7 @@ By default, none of these will be insinuated. To use =smart-tabs-mode= with any
 #+END_SRC
 
 ** Adding support for additional languages
-You can use the =smart-tabs-add-language-and-insinuate= macro in your
+You can use the =smart-tabs|add-language-and-insinuate= macro in your
 =dotspacemacs/user-config= to add support for additional languages. The
 arguments are:
 
@@ -81,7 +81,7 @@ Here's an example that adds support for Groovy via =groovy-mode=.
 
     ;; ...
 
-    (smart-tabs-add-language-and-insinuate
+    (smart-tabs|add-language-and-insinuate
      groovy
      groovy-mode-hook
      ((c-indent-line . c-basic-offset)
