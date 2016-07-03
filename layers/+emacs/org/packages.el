@@ -506,6 +506,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :init
     (progn
       (spacemacs/set-leader-keys
+        "bt" 'ort/goto-todos
         "Ct" 'ort/capture-todo
         "CT" 'ort/capture-checkitem
         "aop" 'ort/list-project-todos)
