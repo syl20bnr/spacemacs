@@ -17,7 +17,7 @@
 (spacemacs|defvar-company-backends haskell-cabal-mode)
 (spacemacs|defvar-company-backends intero-repl-mode)
 
-(defvar haskell-completion-backend `ghci
+(defvar haskell-completion-backend 'ghci
   "Completion backend used by company.
 Available options are `ghci', `intero' and `ghc-mod'. Default is
 `ghci'.")
