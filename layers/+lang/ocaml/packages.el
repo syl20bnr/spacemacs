@@ -49,7 +49,6 @@
       (push 'merlin-company-backend company-backends-merlin-mode)
       (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
         "cp" 'merlin-project-check
-        "cr" 'merlin-refresh
         "cv" 'merlin-goto-project-file
         "eC" 'merlin-error-check
         "en" 'merlin-error-next
