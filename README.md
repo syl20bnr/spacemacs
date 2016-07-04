@@ -211,13 +211,10 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    fork Spacemacs safely use the `develop` branch where you handle the update
    manually.
 
-3. (Optionally) Install
-   [Source Code Pro](https://github.com/adobe-fonts/source-code-pro):
+3. (Optional) Install the [Source Code Pro][] font.
 
-   If you wish to use default Spacemacs font you'll need to install
-   [Source Code Pro](https://github.com/adobe-fonts/source-code-pro). If you are
-   running in terminal you'll also need to change font settings of your
-   terminal.
+   If you are running in terminal you'll also need to change font settings of
+   your terminal.
 
 4. Launch Emacs. Spacemacs will automatically install the packages it requires.
    If you get an error regarding package downloads then you may try to disable
@@ -429,3 +426,4 @@ Thank you!
 [quote02]: https://gitter.im/syl20bnr/spacemacs?at=5768456c6577f032450cfedb
 [build_source]: https://www.gnu.org/software/emacs/manual/html_node/efaq/Installing-Emacs.html
 [Bountysource]: https://salt.bountysource.com/teams/spacemacs
+[Source Code Pro]: https://github.com/adobe-fonts/source-code-pro
