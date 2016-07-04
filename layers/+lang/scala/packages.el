@@ -20,7 +20,10 @@
 
 (defun scala/init-ensime ()
   (use-package ensime
+    :defer t
     :init
+    ;; note ensime-mode is hooked to scala-mode-hook automatically by
+    ;; ensime-mode via an autoload
     (progn
       (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime")
       (when scala-enable-eldoc
