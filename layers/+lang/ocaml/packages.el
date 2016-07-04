@@ -13,8 +13,6 @@
   '(
     ;; auto-complete
     company
-    ;; flycheck
-    ;; (flycheck-ocaml :toggle (configuration-layer/package-usedp 'flycheck))
     merlin
     ocp-indent
     smartparens
@@ -25,31 +23,16 @@
 (defun ocaml/post-init-company ()
   (spacemacs|add-company-hook merlin-mode))
 
-(defun ocaml/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'merlin-mode))
-
-(defun ocaml/init-flycheck-ocaml ()
-  (use-package flycheck-ocaml
-    :defer t
-    :init
-    (progn
-      (with-eval-after-load 'merlin
-        (setq merlin-error-after-save nil)
-        (flycheck-ocaml-setup)))))
-
 (defun ocaml/init-merlin ()
   (use-package merlin
     :defer t
     :init
     (progn
       (add-hook 'tuareg-mode-hook 'merlin-mode)
-;;      (set-default 'merlin-use-auto-complete-mode t)
-      (set-default 'merlin-use-auto-complete-mode nil)
       (setq merlin-completion-with-doc t)
       (push 'merlin-company-backend company-backends-merlin-mode)
       (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
         "cp" 'merlin-project-check
-        "cr" 'merlin-refresh
         "cv" 'merlin-goto-project-file
         "eC" 'merlin-error-check
         "en" 'merlin-error-next
