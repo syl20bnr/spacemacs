@@ -376,20 +376,80 @@
          (result (configuration-layer/make-package input)))
     (should (equal result expected))))
 
-(ert-deftest test-make-package--copy-package-properties-to-passed-obj ()
+(ert-deftest test-make-package--can-override-toggle-if-togglep ()
   (let* ((obj (cfgl-package "testpkg"
                             :name 'testpkg
-                            :owners nil
-                            :location 'elpa
-                            :step nil
-                            :excluded t))
-         (pkg '(testpkg :location local :step pre :excluded nil))
+                            :toggle 'foo))
+         (pkg '(testpkg :toggle bar))
          (expected (cfgl-package "testpkg"
                                  :name 'testpkg
-                                 :owners nil
-                                 :location 'local
-                                 :step 'pre
-                                 :excluded nil))
+                                 :toggle 'bar))
+         (result (configuration-layer/make-package pkg obj t)))
+    (should (equal result expected))))
+
+(ert-deftest test-make-package--can-override-location ()
+  (let* ((obj (cfgl-package "testpkg"
+                            :name 'testpkg
+                            :location 'elpa))
+         (pkg '(testpkg :location local))
+         (expected (cfgl-package "testpkg"
+                                 :name 'testpkg
+                                 :location 'local))
+         (result (configuration-layer/make-package pkg obj)))
+    (should (equal result expected))))
+
+(ert-deftest test-make-package--can-override-step ()
+  (let* ((obj (cfgl-package "testpkg"
+                            :name 'testpkg
+                            :step nil))
+         (pkg '(testpkg :step pre))
+         (expected (cfgl-package "testpkg"
+                                 :name 'testpkg
+                                 :step 'pre))
+         (result (configuration-layer/make-package pkg obj)))
+    (should (equal result expected))))
+
+(ert-deftest test-make-package--can-override-toggle-if-not-togglep ()
+  (let* ((obj (cfgl-package "testpkg"
+                            :name 'testpkg
+                            :toggle 'foo))
+         (pkg '(testpkg :toggle bar))
+         (expected (cfgl-package "testpkg"
+                                 :name 'testpkg
+                                 :toggle 'foo))
+         (result (configuration-layer/make-package pkg obj)))
+    (should (equal result expected))))
+
+(ert-deftest test-make-package--cannot-override-owners ()
+  (let* ((obj (cfgl-package "testpkg"
+                            :name 'testpkg
+                            :owners nil))
+         (pkg '(testpkg :owners '(foo)))
+         (expected (cfgl-package "testpkg"
+                                 :name 'testpkg
+                                 :owners nil))
+         (result (configuration-layer/make-package pkg obj)))
+    (should (equal result expected))))
+
+(ert-deftest test-make-package--cannot-override-protected ()
+  (let* ((obj (cfgl-package "testpkg"
+                            :name 'testpkg
+                            :protected t))
+         (pkg '(testpkg :protected nil))
+         (expected (cfgl-package "testpkg"
+                                 :name 'testpkg
+                                 :protected t))
+         (result (configuration-layer/make-package pkg obj)))
+    (should (equal result expected))))
+
+(ert-deftest test-make-package--cannot-unexclude-excluded-package ()
+  (let* ((obj (cfgl-package "testpkg"
+                            :name 'testpkg
+                            :excluded t))
+         (pkg '(testpkg :excluded nil))
+         (expected (cfgl-package "testpkg"
+                                 :name 'testpkg
+                                 :excluded t))
          (result (configuration-layer/make-package pkg obj)))
     (should (equal result expected))))
 
