@@ -124,8 +124,7 @@
             "sf" 'lisp-eval-defun
             "sF" 'lisp-eval-defun-and-go
             "sr" 'lisp-eval-region
-            "sR" 'lisp-eval-region-and-go
-            ))))))
+            "sR" 'lisp-eval-region-and-go))))))
 
 (defun python/init-live-py-mode ()
   (use-package live-py-mode
@@ -178,8 +177,9 @@
     (progn
       (pcase python-auto-set-local-pyenv-version
        (`on-visit
-        (add-hook 'hy-mode-hook 'pyenv-mode-set-local-version)
-        (add-hook 'python-mode-hook 'spacemacs//pyenv-mode-set-local-version))
+        (spacemacs/add-to-hooks 'spacemacs//pyenv-mode-set-local-version
+                                '(python-mode-hook
+                                  hy-mode-hook)))
        (`on-project-switch
         (add-hook 'projectile-after-switch-project-hook
                   'spacemacs//pyenv-mode-set-local-version)))
@@ -192,14 +192,11 @@
     :defer t
     :init
     (progn
-     (spacemacs/set-leader-keys-for-major-mode 'python-mode
-       "Va" 'pyvenv-activate
-       "Vd" 'pyvenv-deactivate
-       "Vw" 'pyvenv-workon)
-     (spacemacs/set-leader-keys-for-major-mode 'hy-mode
-       "Va" 'pyvenv-activate
-       "Vd" 'pyvenv-deactivate
-       "Vw" 'pyvenv-workon))))
+      (dolist (mode '(python-mode hy-mode))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "Va" 'pyvenv-activate
+          "Vd" 'pyvenv-deactivate
+          "Vw" 'pyvenv-workon)))))
 
 (defun python/init-pylookup ()
   (use-package pylookup
@@ -379,9 +376,9 @@
   (when (configuration-layer/package-usedp 'anaconda-mode)
       (add-hook 'python-mode-hook
                 'spacemacs//disable-semantic-idle-summary-mode t))
-  (add-hook 'python-mode-hook 'semantic-mode)
-  (add-hook 'python-mode-hook 'spacemacs//python-imenu-create-index-use-semantic)
-
+  (spacemacs/add-to-hook 'python-mode-hook
+                         '(semantic-mode
+                           spacemacs//python-imenu-create-index-use-semantic))
   (defadvice semantic-python-get-system-include-path
       (around semantic-python-skip-error-advice activate)
     "Don't cause error when Semantic cannot retrieve include
@@ -393,8 +390,8 @@ fix this issue."
       (error nil))))
 
 (defun python/post-init-smartparens ()
-  (add-hook 'inferior-python-mode-hook 'smartparens-mode)
-  (add-hook 'hy-mode-hook 'smartparens-mode)
+  (spacemacs/add-to-hooks 'smartparens-mode '(inferior-python-mode-hook
+                                              hy-mode-hook))
   (defadvice python-indent-dedent-line-backspace
       (around python/sp-backward-delete-char activate)
     (let ((pythonp (or (not smartparens-strict-mode)
@@ -409,4 +406,5 @@ fix this issue."
 (defun python/pre-init-xcscope ()
   (spacemacs|use-package-add-hook xcscope
     :post-init
-    (spacemacs/set-leader-keys-for-major-mode 'python-mode "gi" 'cscope/run-pycscope)))
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode
+      "gi" 'cscope/run-pycscope)))
