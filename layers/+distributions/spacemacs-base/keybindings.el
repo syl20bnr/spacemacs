@@ -219,7 +219,6 @@
 (spacemacs/set-leader-keys
   "j0" 'spacemacs/push-mark-and-goto-beginning-of-line
   "j$" 'spacemacs/push-mark-and-goto-end-of-line
-  "jL" 'find-library
   "jF" 'find-function-at-point
   "jf" 'find-function
   "ji" 'spacemacs/jump-in-buffer
