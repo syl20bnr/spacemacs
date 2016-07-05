@@ -97,16 +97,9 @@
       (spacemacs/register-repl 'utop 'utop "ocaml"))
     :config
     (progn
-      ;; Setup environment variables using opam
       (if (executable-find "opam")
-          (let ((vars (car (read-from-string
-                            (shell-command-to-string "opam config env --sexp")))))
-            (dolist (var vars)
-              (setenv (car var) (cadr var))))
+          (setq utop-command "opam config exec -- utop -emacs")
         (spacemacs-buffer/warning "Cannot find \"opam\" executable."))
-      ;; Update the emacs path
-      (setq exec-path (append (parse-colon-path (getenv "PATH"))
-                              (list exec-directory)))
 
       (defun spacemacs/utop-eval-phrase-and-go ()
         "Send phrase to REPL and evaluate it and switch to the REPL in
