@@ -11,6 +11,7 @@
      - [[#universal-installer-using-npm][Universal installer using npm]]
      - [[#source-code][Source code]]
    - [[#elm-oracle][elm-oracle]]
+   - [[#elm-format][elm-format]]
  - [[#basic-usage-tips][Basic usage tips]]
    - [[#compilation][Compilation]]
    - [[#reactor][Reactor]]
@@ -22,6 +23,7 @@
    - [[#elm-package][elm-package]]
      - [[#package-list-buffer][package list buffer]]
    - [[#elm-oracle][elm-oracle]]
+   - [[#elm-format][elm-format... ]]
    - [[#refactoring][Refactoring]]
 
 * Description
@@ -85,6 +87,10 @@ run this command:
 #+BEGIN_SRC sh
   npm install -g elm-oracle
 #+END_SRC
+
+** elm-format
+[[https://github.com/avh4/elm-format][elm-format]] can be used to format your elm files. To install, follow the link
+and download the appropriate binary or build from source.
 
 * Basic usage tips
 ** Compilation
@@ -173,6 +179,10 @@ every save.
 | Key Binding | Description              |
 |-------------+--------------------------|
 | ~SPC m h t~ | elm-oracle-type-at-point |
+
+** elm-format... 
+| Key Binding | Description              |
+| ~SPC m f f~ | elm-mode-format-buffer   |
 
 ** Refactoring
 
