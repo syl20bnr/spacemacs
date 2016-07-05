@@ -5,14 +5,14 @@
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
+ - [[#configuration][Configuration]]
+   - [[#add-import-on-completion][Add import on completion]]
+   - [[#error-popup][Error popup]]
  - [[#key-bindings][Key bindings]]
    - [[#purescript][Purescript]]
      - [[#imports][Imports]]
      - [[#psc-ide][psc-ide]]
    - [[#repl][REPL]]
- - [[#layer-variables][Layer Variables]]
-   - [[#purescript-add-import-on-completion-default-t-][~purescript-add-import-on-completion (default t)~ ]]
-   - [[#purescript-enable-rebuild-on-save-default-nil][~purescript-enable-rebuild-on-save (default nil)~]]
 
 * Description
 
@@ -24,17 +24,25 @@ thanks to the following packages:
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =purescript= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+add =purescript= to the existing =dotspacemacs-configuration-layers= list in
+this file.
 
 You'll also need to make sure the PureScript compiler and its associated
 binaries (psc-ide-server, psci,...) are on your path. Installation instructions
 can be found [[http://www.purescript.org/download/][here]].
 
-* Key bindings
-  
-** Purescript
+* Configuration
+** Add import on completion
+Set =purescript-add-import-on-completion= to nil to make =psc-ide= stop adding
+imports on completion. Default value it =t=.
 
+** Error popup
+If you set =purescript-enable-rebuild-on-save= to non-nil, you will get a popup
+buffer showing you your current warnings/errors one at a time. This is primarily
+meant as an alternative to using flycheck. Default value is nil.
+
+* Key bindings
+** Purescript
 *** Imports
 
 | Key Binding | Description                                                   |
@@ -45,6 +53,7 @@ can be found [[http://www.purescript.org/download/][here]].
 | ~SPC m i n~ | Navigate to the imports                                       |
 
 *** psc-ide
+=psc-ide= command are available under ~SPC m m~:
 
 | Key Binding   | Description                                                               |
 |---------------+---------------------------------------------------------------------------|
@@ -59,9 +68,7 @@ can be found [[http://www.purescript.org/download/][here]].
 | ~SPC m m q~   | Quit the current psc-ide-server                                           |
 | ~SPC m m L~   | Load a specific module (This is mostly used for troubleshooting)          |
 
-
 ** REPL
-
 [[https://github.com/ardumont/emacs-psci][psci]] provides a very basic REPL for purescript. The following key
 bindings are available:
 
@@ -71,12 +78,3 @@ bindings are available:
 | ~SPC m s i~ | Launch a psci console buffer                                                     |
 | ~SPC m s m~ | Equivalent of =:i your.current.module.name= - Import <module> for use in PSCI    |
 | ~SPC m s p~ | Load or reload files defined in the project file .psci                           |
-* Layer Variables
-
-** ~purescript-add-import-on-completion (default t)~ 
-   If you set this to nil, psc-ide will stop adding imports on completion
-
-** ~purescript-enable-rebuild-on-save (default nil)~
-   If you set this to non-nil, you will get a popup buffer showing you your current
-   warnings/errors one at a time. This is primarily meant as an alternative to
-   using flycheck.
