@@ -23,4 +23,4 @@
       "cc" 'ahk-comment-dwim
       "eb" 'ahk-run-script
       "hh" 'ahk-lookup-web
-      "hr" 'ahk-lookup-chm)))
+      "hH" 'ahk-lookup-chm)))
