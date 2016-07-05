@@ -71,6 +71,23 @@ version the release note it displayed")
   ;; motion state since this is a special mode
   (evil-set-initial-state 'spacemacs-buffer-mode 'motion))
 
+(defun spacemacs-buffer/insert-ascii-banner-centered (file)
+  (insert-string
+   (with-temp-buffer
+     (insert-file-contents file)
+     (let ((banner-width 0))
+       (while (not (eobp))
+	 (let ((line-length (- (line-end-position) (line-beginning-position))))
+	   (if (< banner-width line-length)
+	       (setq banner-width line-length)))
+	 (forward-line 1))
+       (goto-char 0)
+       (let ((margin (max 0 (floor (/ (- spacemacs-buffer--banner-length banner-width) 2)))))
+	 (while (not (eobp))
+	   (insert (make-string margin ?\ ))
+	   (forward-line 1))))
+     (buffer-string))))
+
 (defun spacemacs-buffer/insert-banner-and-buttons ()
   "Choose a banner according to `dotspacemacs-startup-banner'and insert it
 in spacemacs buffer along with quick buttons underneath.
@@ -86,7 +103,7 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
         (spacemacs-buffer/message (format "Banner: %s" banner))
         (if (image-type-available-p (intern (file-name-extension banner)))
             (spacemacs-buffer//insert-image-banner banner)
-          (insert-file-contents banner))
+          (spacemacs-buffer/insert-ascii-banner-centered banner))
         (spacemacs-buffer//inject-version))
       (spacemacs-buffer//insert-buttons)
       (unless (bound-and-true-p spacemacs-initialized)
