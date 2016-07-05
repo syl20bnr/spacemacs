@@ -20,7 +20,7 @@
    - [[#commit-message-editing-buffer][Commit message editing buffer]]
    - [[#interactive-rebase-buffer][Interactive rebase buffer]]
    - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
-   - [[#git-flow][Git-Flow]]
+   - [[#git-flow-1][Git-Flow]]
    - [[#git-time-machine][Git time machine]]
 
 * Description
@@ -106,32 +106,17 @@ Git commands (start with ~g~):
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC g >~   | show submodule prompt                               |
-| ~SPC g A~   | show cherry-pick prompt                             |
 | ~SPC g b~   | open a =magit= blame                                |
-| ~SPC g B~   | quit =magit= blame                                  |
-| ~SPC g c~   | commit changes                                      |
-| ~SPC g C~   | checkout branches                                   |
-| ~SPC g d~   | show diff prompt                                    |
-| ~SPC g D~   | show diff against current head                      |
-| ~SPC g e~   | show ediff comparison                               |
-| ~SPC g E~   | show ediff against current head                     |
-| ~SPC g f~   | show fetch prompt                                   |
-| ~SPC g F~   | show pull prompt                                    |
 | ~SPC g H c~ | clear highlights                                    |
 | ~SPC g H h~ | highlight regions by age of commits                 |
 | ~SPC g H t~ | highlight regions by last updated time              |
-| ~SPC g i~   | git init a given directory                          |
 | ~SPC g I~   | open =helm-gitignore=                               |
-| ~SPC g l~   | open a =magit= log                                  |
-| ~SPC g L~   | display the log for a file                          |
-| ~SPC g r~   | show rebase prompt                                  |
-| ~SPC g P~   | show push prompt                                    |
 | ~SPC g s~   | open a =magit= status window                        |
 | ~SPC g S~   | stage current file                                  |
-| ~SPC g m~   | display the last commit message of the current line |
+| ~SPC g m~   | magit dispatch popup                                |
+| ~SPC g M~   | display the last commit message of the current line |
 | ~SPC g t~   | launch the git time machine                         |
 | ~SPC g U~   | unstage current file                                |
-| ~SPC g x~   | show reset prompt                                   |
 
 - Highlight by age of commit or last update time is provided by
  [[https://github.com/syohex/emacs-smeargle][smeargle]].
@@ -141,7 +126,8 @@ Git commands (start with ~g~):
 ** Magit
 Spacemacs uses [[http://magit.vc/][magit]] to manage Git repositories.
 
-To open a =status buffer=, type in a buffer of a Git repository: ~SPC g s~
+To open a =status buffer=, type in a buffer of a Git repository: ~SPC g s~.
+The central key binding hub of Magit is available on ~SPC g m~.
 
 Spacemacs uses [[https://github.com/justbur/evil-magit][evil-magit]] for key bindings in magit buffers (unless your editing
 style is set to emacs, in which case you get the default magit bindings), which
