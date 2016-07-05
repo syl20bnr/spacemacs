@@ -15,8 +15,6 @@
         github-browse-file
         github-clone
         github-search
-        ;; not up to date
-        ;; helm-gist
         magit-gh-pulls
         ;; this package does not exits, we need it to wrap
         ;; the call to spacemacs/declare-prefix.
@@ -39,24 +37,6 @@
         "ggl" 'gist-list
         "ggr" 'gist-region
         "ggR" 'gist-region-private))))
-
-;; this mode is not up to date
-;; any contributor to make it up to date is welcome:
-;; https://github.com/emacs-helm/helm-gist
-;;
-;; (defun github/init-helm-gist ()
-;;   (use-package helm-gist
-;;     :commands egist-mode
-;;     :init
-;;     (progn
-;;       (defun spacemacs/helm-gist-list ()
-;;         "List the gists using helm, ensure thath elgist-mode is enabled."
-;;         (interactive)
-;;         (egist-mode)
-;;         (helm-for-gist))
-
-;;       (spacemacs/set-leader-keys "ggh" 'spacemacs/helm-gist-list))
-;;     ))
 
 (defun github/init-github-browse-file ()
   (use-package github-browse-file
