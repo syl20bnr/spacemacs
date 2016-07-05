@@ -209,7 +209,7 @@ automatically applied to."
     (call-interactively 'spacemacs-centered-buffer-mode)))
 
 (defun spacemacs/centered-buffer-mode-full-width ()
-  "Toggle `spacemacs-centered-buffer-mode'."
+  "Center buffer in the frame."
   (interactive)
   (when (require 'centered-buffer-mode nil t)
     (spacemacs/maximize-horizontally)

@@ -27,6 +27,7 @@
 ;;; Code:
 (require 'face-remap)
 (require 'org)
+(require 'centered-buffer-mode)
 
 (define-minor-mode space-doc-mode
   "Buffer local minor mode for Spacemacs documentation files.
@@ -48,7 +49,8 @@ keeping their content visible.
 
 ;; NOTE: Dont forget to update Spacemacs FAQ if you modify this list!
 (defvar spacemacs-space-doc-modificators
-  '(spacemacs//space-doc-org-indent-mode
+  '(spacemacs//space-doc-center-buffer-mode
+    spacemacs//space-doc-org-indent-mode
     spacemacs//space-doc-view-mode
     spacemacs//space-doc-hide-line-numbers
     spacemacs//space-doc-emphasis-overlays
@@ -68,6 +70,36 @@ by the function. Otherwise - disable.")
   '()
   "Same as `spacemacs-space-doc-modificators' but the modificators will
 be run deferred.")
+
+(defun spacemacs//space-doc-center-buffer-mode (&optional flag)
+  "Enable `spacemacs-centered-buffer-mode' if flag is non nil, disable it otherwise.
+This functions is aimed to be used with `spacemacs-space-doc-modificators'."
+  ;;FIXME: Need to redesign this.. One day.
+  (if flag
+      (progn
+        ;; HACK: Hide the original buffer from `spacemacs/previous-useful-buffer'.
+        (unless (and (string-prefix-p "*" (buffer-name))
+                     (string-suffix-p "*" (buffer-name)))
+          (rename-buffer (format "*%s*" (buffer-name))))
+        (set (make-local-variable 'spacemacs--space-doc-origin-fringe-color)
+             (face-background 'fringe))
+        ;; HACK: Fix glitchy fringe color.
+        (face-remap-add-relative 'fringe :background
+                                 spacemacs-centered-buffer-mode-fringe-color)
+        ;; HACK: Needed to get proper content width.
+        (run-with-idle-timer 0 nil 'spacemacs-centered-buffer-mode +1))
+    (when spacemacs-centered-buffer-mode
+      (set-window-buffer
+       (selected-window)
+       spacemacs--centered-buffer-mode-origin-buffer)
+      (rename-buffer (substring (buffer-name) 1 (1- (length (buffer-name)))))
+      (kill-buffer spacemacs--centered-buffer-mode-indirect-buffer)
+      ;; HACK: Now we call it for the original buffer.
+      (space-doc-mode -1))
+    (when (bound-and-true-p spacemacs--space-doc-origin-fringe-color)
+      ;; HACK: Removing or reseting doesn't work.
+      (face-remap-add-relative 'fringe :background
+                               spacemacs--space-doc-origin-fringe-color))))
 
 (defun spacemacs//space-doc-org-indent-mode (&optional flag)
   "Enable `org-indent-mode' if flag is non nil, disable it otherwise.
@@ -228,8 +260,9 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
             'spacemacs--space-doc-org-kbd-face-remap-cookie)
            (face-remap-add-relative 'org-kbd
                                     `(:box nil)))
-    (face-remap-remove-relative
-     spacemacs--space-doc-org-kbd-face-remap-cookie)))
+    (when (bound-and-true-p spacemacs--space-doc-org-kbd-face-remap-cookie)
+      (face-remap-remove-relative
+       spacemacs--space-doc-org-kbd-face-remap-cookie))))
 
 (defun spacemacs//space-doc-resize-inline-images (&optional enable)
   "Resize inline images.
