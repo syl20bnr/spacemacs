@@ -47,16 +47,18 @@
   (use-package github-clone
     :defer t
     :init
-    (spacemacs/set-leader-keys
-      "gh C-c" 'github-clone
-      "ghr" 'github-clone-add-existing-remote
-      "ghf" 'github-clone-fork-remote
-      "ghu" 'github-clone-add-source-remote)))
+    (progn
+      (spacemacs/declare-prefix "ghc" "clone")
+      (spacemacs/set-leader-keys
+        "ghcc" 'github-clone
+        "ghcr" 'github-clone-add-existing-remote
+        "ghcf" 'github-clone-fork-remote
+        "ghcu" 'github-clone-add-source-remote))))
 
 (defun github/init-github-search ()
   (use-package github-search
     :commands (github-search-clone-repo github-search-user-clone-repo)
-    :init (spacemacs/set-leader-keys "ghs" 'github-search-clone-repo)))
+    :init (spacemacs/set-leader-keys "ghc/" 'github-search-clone-repo)))
 
 ;; magit-gh-pulls has to be loaded via a pre-config hook because the source code
 ;; makes assumptions about the status of the magit-mode keymaps that are
