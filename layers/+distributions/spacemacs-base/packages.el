@@ -61,7 +61,7 @@
     (progn
       (spacemacs/set-leader-keys
         "bD" 'spacemacs/ace-kill-this-buffer
-        ;; NOTE: Needs new binding.
+        ;; FIXME: Needs new binding.
         ;; "wC" 'spacemacs/ace-center-window
         "wD" 'spacemacs/ace-delete-window
         "wM" 'ace-swap-window
