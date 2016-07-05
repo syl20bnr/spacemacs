@@ -48,6 +48,7 @@
     :defer t
     :init
     (progn
+      (spacemacs/declare-prefix "gl" "links")
       (spacemacs/set-leader-keys
         "gll" 'spacemacs/git-link
         "glL" 'spacemacs/git-link-copy-url-only
