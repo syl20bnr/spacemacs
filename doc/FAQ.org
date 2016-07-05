@@ -499,7 +499,8 @@ arguments of the =ag= program.
 You can modify the list of visual enhancements applied by the =space-doc-mode=:
 #+BEGIN_SRC emacs-lisp
 (setq spacemacs-space-doc-modificators
-      '(spacemacs//space-doc-org-indent-mode
+      '(spacemacs//space-doc-center-buffer-mode
+        spacemacs//space-doc-org-indent-mode
         spacemacs//space-doc-view-mode
         spacemacs//space-doc-hide-line-numbers
         spacemacs//space-doc-emphasis-overlays
@@ -512,6 +513,7 @@ You can modify the list of visual enhancements applied by the =space-doc-mode=:
 #+END_SRC
 It's the default value of the variable with all enhancements.
 Each function in the list represents some modification.
+Some of them might be order dependant so don't shuffle the list!
 You can make a modification deferred by moving it to =spacemacs-space-doc-modificators-deferred= list.
 
 ** Remap paste key to be able to paste copied text multiple times
