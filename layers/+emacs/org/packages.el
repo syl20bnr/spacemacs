@@ -343,7 +343,6 @@ Will work on both org-mode and any mode that accepts plain html."
         "f" 'org-agenda-set-effort
         "I" 'org-agenda-clock-in
         "O" 'org-agenda-clock-out
-        "p" 'org-pomodoro
         "P" 'org-agenda-set-property
         "q" 'org-agenda-refile
         "Q" 'org-agenda-clock-cancel
@@ -473,6 +472,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (when (spacemacs/system-is-mac)
         (setq org-pomodoro-audio-player "/usr/bin/afplay"))
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "p" 'org-pomodoro)
+      (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
         "p" 'org-pomodoro))))
 
 (defun org/init-org-present ()
