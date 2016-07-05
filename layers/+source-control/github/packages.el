@@ -76,13 +76,12 @@
       "gh C-c" 'github-clone
       "ghr" 'github-clone-add-existing-remote
       "ghf" 'github-clone-fork-remote
-      "ghu" 'github-clone-add-source-remote))
+      "ghu" 'github-clone-add-source-remote)))
 
 (defun github/init-github-search ()
   (use-package github-search
     :commands (github-search-clone-repo github-search-user-clone-repo)
-    (spacemacs/set-leader-keys
-     "ghs" 'github-search-clone-repo))
+    :init (spacemacs/set-leader-keys "ghs" 'github-search-clone-repo)))
 
 (defun github/init-git-link ()
   (use-package git-link
