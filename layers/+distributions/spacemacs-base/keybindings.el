@@ -380,7 +380,8 @@
   "wl"  'evil-window-right
   "w <right>"  'evil-window-right
   "wm"  'spacemacs/toggle-maximize-buffer
-  "wc"  'spacemacs-centered-buffer-mode
+  "wc"  'spacemacs/toggle-centered-buffer-mode
+  "wC"  'spacemacs/centered-buffer-mode-full-width
   "wo"  'other-frame
   "wr"  'spacemacs/rotate-windows
   "wR"  'spacemacs/rotate-windows-backward
@@ -393,7 +394,8 @@
   "wV"  'split-window-right-and-focus
   "ww"  'other-window
   "w/"  'split-window-right
-  "w="  'balance-windows)
+  "w="  'balance-windows
+  "w_"  'spacemacs/maximize-horizontally)
 ;; text -----------------------------------------------------------------------
 (defalias 'count-region 'count-words-region)
 
