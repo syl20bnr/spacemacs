@@ -16,6 +16,7 @@
         gitconfig-mode
         gitignore-mode
         git-commit
+        git-link
         git-messenger
         git-timemachine
         (helm-gitignore :toggle (configuration-layer/package-usedp 'helm))
@@ -41,6 +42,19 @@
 (defun git/init-git-commit ()
   (use-package git-commit
     :defer t))
+
+(defun git/init-git-link ()
+  (use-package git-link
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys
+        "gll" 'spacemacs/git-link
+        "glL" 'spacemacs/git-link-copy-url-only
+        "glc" 'spacemacs/git-link-commit
+        "glC" 'spacemacs/git-link-commit-copy-url-only)
+      ;; default is to open the generated link
+      (setq git-link-open-in-browser t))))
 
 (defun git/init-git-messenger ()
   (use-package git-messenger

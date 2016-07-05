@@ -12,7 +12,6 @@
 (setq github-packages
       '(
         gist
-        git-link
         github-browse-file
         github-clone
         github-search
@@ -20,9 +19,7 @@
         ;; helm-gist
         magit-gh-pulls
         ;; this package does not exits, we need it to wrap
-        ;; the call to spacemacs/declare-prefix which cannot
-        ;; be place in `config.el' because `which-key' is not
-        ;; available when `config.el' is loaded.
+        ;; the call to spacemacs/declare-prefix.
         (spacemacs-github :location built-in)
         ))
 
@@ -64,9 +61,7 @@
 (defun github/init-github-browse-file ()
   (use-package github-browse-file
     :defer t
-    :init
-    (spacemacs/set-leader-keys
-      "gho" 'github-browse-file)))
+    :init (spacemacs/set-leader-keys "gho" 'github-browse-file)))
 
 (defun github/init-github-clone ()
   (use-package github-clone
@@ -82,19 +77,6 @@
   (use-package github-search
     :commands (github-search-clone-repo github-search-user-clone-repo)
     :init (spacemacs/set-leader-keys "ghs" 'github-search-clone-repo)))
-
-(defun github/init-git-link ()
-  (use-package git-link
-    :defer t
-    :init
-    (progn
-      (spacemacs/set-leader-keys
-        "ghl" 'spacemacs/git-link
-        "ghL" 'spacemacs/git-link-copy-url-only
-        "ghc" 'spacemacs/git-link-commit
-        "ghC" 'spacemacs/git-link-commit-copy-url-only)
-      ;; default is to open the generated link
-      (setq git-link-open-in-browser t))))
 
 ;; magit-gh-pulls has to be loaded via a pre-config hook because the source code
 ;; makes assumptions about the status of the magit-mode keymaps that are
