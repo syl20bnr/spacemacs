@@ -125,7 +125,8 @@
        ediff-split-window-function 'split-window-horizontally
        ediff-merge-split-window-function 'split-window-horizontally)
       ;; show org ediffs unfolded
-      (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)
+      (with-eval-after-load 'org
+       (add-hook 'ediff-prepare-buffer-hook #'outline-show-all))
       ;; restore window layout when done
       (add-hook 'ediff-quit-hook #'winner-undo))))
 
