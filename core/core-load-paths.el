@@ -10,6 +10,11 @@
 ;;; License: GPLv3
 (defun add-to-load-path (dir) (add-to-list 'load-path dir))
 
+(defun add-to-load-path-if-exists (dir)
+  "If DIR exists in the file system, add it to `load-path'."
+  (when (file-exists-p dir)
+      (add-to-load-path dir)))
+
 ;; paths
 (defvar spacemacs-start-directory
   user-emacs-directory
@@ -70,5 +75,6 @@
         ,(concat spacemacs-start-directory "core/")
         ,(concat spacemacs-start-directory "core/libs/")
         ,(concat spacemacs-start-directory "core/aprilfool/")
-        ,(concat user-dropbox-directory "emacs/")
         ))
+
+(add-to-load-path-if-exists (concat user-dropbox-directory "emacs/"))
