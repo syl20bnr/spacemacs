@@ -27,6 +27,7 @@
 ;;; Code:
 (require 'face-remap)
 (require 'org)
+(require 'centered-buffer-mode)
 
 (define-minor-mode space-doc-mode
   "Buffer local minor mode for Spacemacs documentation files.
@@ -77,7 +78,9 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   (if flag
       (progn
         ;; HACK: Hide the original buffer from `spacemacs/previous-useful-buffer'.
-        (rename-buffer (format "*%s*" (buffer-name)))
+        (unless (and (string-prefix-p "*" (buffer-name))
+                     (string-suffix-p "*" (buffer-name)))
+          (rename-buffer (format "*%s*" (buffer-name))))
         (set (make-local-variable 'spacemacs--space-doc-origin-fringe-color)
              (face-background 'fringe))
         ;; HACK: Fix glitchy fringe color.

@@ -40,7 +40,7 @@ that differed modifications won't cause an overflow."
 
 (defcustom spacemacs-centered-buffer-mode-fringe-color "black"
   "Color of the fringes."
-  :type 'string
+  :type 'color
   :group 'editing-basics)
 
 (defvar-local spacemacs--centered-buffer-mode-origin-buffer nil)
@@ -52,7 +52,6 @@ that differed modifications won't cause an overflow."
   "Minor mode to center buffer in its window."
   :init-value nil
   :group 'editing-basics
-  :lighter " -B-"
   (if spacemacs-centered-buffer-mode
       (let* ((window (selected-window))
              (origin-buffer (window-buffer window))
