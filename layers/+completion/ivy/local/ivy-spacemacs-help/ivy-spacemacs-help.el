@@ -88,12 +88,13 @@
 
 (defun ivy-spacemacs-help//documentation-action-open-file (candidate)
   "Open documentation FILE."
-  (let ((file (if (string= candidate "CONTRIBUTING.org")
-                  ;; CONTRIBUTING.org is a special case as it should be at the
-                  ;; root of the repository to be linked as the contributing
-                  ;; guide on Github.
-                  (concat spacemacs-start-directory candidate)
-                (concat spacemacs-docs-directory candidate))))
+  (let* ((candidate (cdr candidate))
+         (file (if (string= candidate "CONTRIBUTING.org")
+                   ;; CONTRIBUTING.org is a special case as it should be at the
+                   ;; root of the repository to be linked as the contributing
+                   ;; guide on Github.
+                   (concat spacemacs-start-directory candidate)
+                 (concat spacemacs-docs-directory candidate))))
     (cond ((equal (file-name-extension file) "md")
            (condition-case-unless-debug nil
                (with-current-buffer (find-file-noselect file)
