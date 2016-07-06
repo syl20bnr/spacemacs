@@ -15,9 +15,7 @@
       '(
         (chinese-pyim :toggle (eq chinese-default-input-method 'pinyin))
         (chinese-wbim :toggle (eq chinese-default-input-method 'wubi))
-        ;; disable in Windows
-        (fcitx :toggle (and chinese-enable-fcitx
-                            (not (spacemacs/system-is-mswindows))))
+        (fcitx :toggle chinese-enable-fcitx)
         find-by-pinyin-dired
         ace-pinyin
         pangu-spacing
