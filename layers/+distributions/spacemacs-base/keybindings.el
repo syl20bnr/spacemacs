@@ -430,6 +430,7 @@
   "xjl" 'set-justification-left
   "xjn" 'set-justification-none
   "xjr" 'set-justification-right
+  "xld" 'spacemacs/duplicate-line-or-region
   "xls" 'spacemacs/sort-lines
   "xlu" 'spacemacs/uniquify-lines
   "xtc" 'transpose-chars
