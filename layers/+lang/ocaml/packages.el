@@ -67,6 +67,7 @@
         "gl" 'merlin-locate-ident
         "gi" 'merlin-switch-to-ml
         "gI" 'merlin-switch-to-mli
+        "go" 'merlin-occurrences
         "hh" 'merlin-document
         "ht" 'merlin-type-enclosing
         "hT" 'merlin-type-expr
@@ -75,7 +76,7 @@
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "me" "errors")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mh" "help")
-      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mf" "refactor"))))
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mr" "refactor"))))
 
 (defun ocaml/init-ocp-indent ()
   (use-package ocp-indent
