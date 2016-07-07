@@ -35,9 +35,16 @@ This mode:
  - hides `org-mode' meta tags like #+TITLE: while
 keeping their content visible.
  - Improves emphasized region apparence.
- - enables buffer local link  opening with `spacemacs//space-doc-open'."
+ - enables buffer local link  opening with `spacemacs//space-doc-open'.
+=================================================
+= THE MODE IS CUSTOMIZABLE - read Spacemacs FAQ =
+================================================="
   :init-value nil
   :lighter " SD"
+  ;; Trans-buffer local minor mode...
+  (let ((old-flag space-doc-mode))
+    (spacemacs-centered-buffer-mode -1)
+    (setq space-doc-mode old-flag))
   (if (derived-mode-p 'org-mode)
       (dolist (modificator (append '(spacemacs//space-doc-set-cache
                                      spacemacs//space-doc-runs-deferred)
@@ -71,35 +78,32 @@ by the function. Otherwise - disable.")
   "Same as `spacemacs-space-doc-modificators' but the modificators will
 be run deferred.")
 
+(defun spacemacs//space-doc-centered-buffer-mode-hook ()
+  "Applies `spacemacs//space-doc-emphasis-overlays' to the
+indirect buffer (because overlays aren't copied for the original one)."
+  (when space-doc-mode
+    (spacemacs//space-doc-set-cache t)
+    (when (or (member 'spacemacs//space-doc-emphasis-overlays
+                      spacemacs-space-doc-modificators)
+              (member 'spacemacs//space-doc-emphasis-overlays
+                      spacemacs-space-doc-modificators-deferred))
+      (spacemacs//space-doc-emphasis-overlays t))))
+
+(when (member 'spacemacs//space-doc-center-buffer-mode
+              spacemacs-space-doc-modificators)
+  (add-hook 'spacemacs-centered-buffer-mode-hook
+            'spacemacs//space-doc-centered-buffer-mode-hook))
+
 (defun spacemacs//space-doc-center-buffer-mode (&optional flag)
   "Enable `spacemacs-centered-buffer-mode' if flag is non nil, disable it otherwise.
 This functions is aimed to be used with `spacemacs-space-doc-modificators'."
-  ;;FIXME: Need to redesign this.. One day.
-  (if flag
-      (progn
-        ;; HACK: Hide the original buffer from `spacemacs/useful-buffer-p'.
-        (unless (and (string-prefix-p "*" (buffer-name))
-                     (string-suffix-p "*" (buffer-name)))
-          (rename-buffer (format "*%s*" (buffer-name))))
-        (set (make-local-variable 'spacemacs--space-doc-origin-fringe-color)
-             (face-background 'fringe))
-        ;; HACK: Fix glitchy fringe color.
-        (face-remap-add-relative 'fringe :background
-                                 spacemacs-centered-buffer-mode-fringe-color)
-        ;; HACK: Needed to get proper content width.
-        (run-with-idle-timer 0 nil 'spacemacs-centered-buffer-mode +1))
-    (when spacemacs-centered-buffer-mode
-      (set-window-buffer
-       (selected-window)
-       spacemacs--centered-buffer-mode-origin-buffer)
-      (rename-buffer (substring (buffer-name) 1 (1- (length (buffer-name)))))
-      (kill-buffer spacemacs--centered-buffer-mode-indirect-buffer)
-      ;; HACK: Now we call it for the original buffer.
-      (space-doc-mode -1))
-    (when (bound-and-true-p spacemacs--space-doc-origin-fringe-color)
-      ;; HACK: Removing or reseting doesn't work.
-      (face-remap-add-relative 'fringe :background
-                               spacemacs--space-doc-origin-fringe-color))))
+  (when (and flag (not spacemacs-centered-buffer-mode))
+    (run-with-idle-timer 0
+                         nil
+                         (lambda ()
+                           (spacemacs-centered-buffer-mode +1)
+                           (spacemacs//space-doc-set-cache t)
+                           (spacemacs//space-doc-emphasis-overlays t)))))
 
 (defun spacemacs//space-doc-org-indent-mode (&optional flag)
   "Enable `org-indent-mode' if flag is non nil, disable it otherwise.
