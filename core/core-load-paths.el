@@ -65,10 +65,6 @@
 (unless (file-exists-p spacemacs-cache-directory)
     (make-directory spacemacs-cache-directory))
 
-(defconst user-dropbox-directory
-  (expand-file-name (concat user-home-directory "Dropbox/"))
-  "Dropbox directory.")
-
 ;; load paths
 (mapc 'add-to-load-path
       `(
@@ -76,5 +72,3 @@
         ,(concat spacemacs-start-directory "core/libs/")
         ,(concat spacemacs-start-directory "core/aprilfool/")
         ))
-
-(add-to-load-path-if-exists (concat user-dropbox-directory "emacs/"))
