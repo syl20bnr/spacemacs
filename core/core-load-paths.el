@@ -72,3 +72,5 @@
         ,(concat spacemacs-start-directory "core/libs/")
         ,(concat spacemacs-start-directory "core/aprilfool/")
         ))
+
+(add-to-load-path-if-exists (concat user-dropbox-directory "emacs/"))
