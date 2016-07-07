@@ -63,29 +63,9 @@
       (add-hook 'react-mode-hook #'smartparens-strict-mode)
     (add-hook 'react-mode-hook #'smartparens-mode)))
 
-(defun react/init-tern ()
-  (defun react//tern-detect ()
-    "Detect tern binary and warn if not found."
-    (let ((found (executable-find "tern")))
-      (unless found
-        (spacemacs-buffer/warning "tern binary not found!"))
-      found))
-  (use-package tern
-    :defer t
-    :if (react//tern-detect)
-    :init (add-hook 'react-mode-hook 'tern-mode)
-    :config
-    (progn
-      (when javascript-disable-tern-port-files
-        (add-to-list 'tern-command "--no-port-file" 'append))
-      (spacemacs/set-leader-keys-for-major-mode 'react-mode "rrV" 'tern-rename-variable)
-      (spacemacs/set-leader-keys-for-major-mode 'react-mode "hd" 'tern-get-docs)
-      (spacemacs/set-leader-keys-for-major-mode 'react-mode "ht" 'tern-get-type)
-      (spacemacs/set-leader-keys-for-major-mode 'react-mode "gg" 'tern-find-definition)
-      (spacemacs/set-leader-keys-for-major-mode 'react-mode "gG" 'tern-find-definition-by-name)
-      (spacemacs/set-leader-keys-for-major-mode 'react-mode (kbd " C-g") 'tern-pop-find-definition)
-      (spacemacs/set-leader-keys-for-major-mode 'react-mode "ht" 'tern-get-type)))
-  (add-hook 'react-mode-hook 'tern-mode))
+(defun react/post-init-tern ()
+  (add-hook 'react-mode-hook 'tern-mode)
+  (spacemacs//set-tern-key-bindings 'react-mode))
 
 (defun react/post-init-web-beautify ()
   (spacemacs/set-leader-keys-for-major-mode 'react-mode  "=" 'web-beautify-js))

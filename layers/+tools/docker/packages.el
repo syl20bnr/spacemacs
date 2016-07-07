@@ -34,13 +34,13 @@
         "DP" 'docker-push
         "Dp" 'docker-pause
         "Dr" 'docker-restart
-        "Ds" 'docker-start))
-    :config
-    (progn
-      (evilified-state-evilify-map docker-container-mode-map
-        :mode docker-containers-mode)
-      (evilified-state-evilify-map docker-images-mode-map
-        :mode docker-images-mode))))
+        "Ds" 'docker-start)))
+  (with-eval-after-load 'docker-containers
+    (evilified-state-evilify-map docker-containers-mode-map
+      :mode docker-containers-mode))
+  (with-eval-after-load 'docker-images
+    (evilified-state-evilify-map docker-images-mode-map
+      :mode docker-images-mode)))
 
 (defun docker/init-docker-tramp ()
   (use-package docker-tramp

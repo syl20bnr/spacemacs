@@ -47,9 +47,9 @@ add =ipython-notebook= to the existing =dotspacemacs-configuration-layers= list
 in this file.
 
 ** Dependencies
-Install IPython > 3
+Install IPython Notebook > 3
 #+begin_src sh
-  pip install ipython
+  pip install ipython[notebook]
 #+end_src
 
 ** What needs to be run
@@ -68,7 +68,7 @@ The key bindings can be used through a transient state or the usual evil-leader.
 
 *** Transient-state: =ipython-notebook=
 Once you are in the ipython notebook you can activate the transient-state with
-~SPC e i n~
+~SPC m .~
 
 The following table lists the keys. Use them as listed in the transient-state or
 prefix with ~SPC m~ to use with your evil-leader.
@@ -144,9 +144,11 @@ In traceback mode the following key bindings are defined:
 
 * Screenshots
 ** Light
+#+attr_html: :width 400px
 [[file:img/light.png]]
 
 ** Dark
+#+attr_html: :width 400px
 [[file:img/dark.png]]
 
 * Bonus

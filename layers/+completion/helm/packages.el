@@ -24,6 +24,7 @@
         helm-swoop
         helm-themes
         (helm-spacemacs-help :location local)
+        projectile
         ))
 
 ;; Initialization of packages
@@ -107,7 +108,7 @@
       (spacemacs||set-helm-key "swg" helm-google-suggest)
       (with-eval-after-load 'helm-files
         (define-key helm-find-files-map
-          (kbd "C-c C-e") 'helm/find-files-edit))
+          (kbd "C-c C-e") 'spacemacs/helm-find-files-edit))
       ;; Add minibuffer history with `helm-minibuffer-history'
       (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
       ;; define the key binding at the very end in order to allow the user
@@ -120,6 +121,7 @@
     :config
     (progn
       (helm-mode)
+      (advice-add 'helm-grep-save-results-1 :after 'spacemacs//gne-init-helm-grep)
       ;; helm-locate uses es (from everything on windows which doesnt like fuzzy)
       (helm-locate-set-command)
       (setq helm-locate-fuzzy-match (string-match "locate" helm-locate-command))
@@ -439,6 +441,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "stP" 'spacemacs/helm-project-do-pt-region-or-symbol))
     :config
     (progn
+      (advice-add 'helm-ag--save-results :after 'spacemacs//gne-init-helm-ag)
       (evil-define-key 'normal helm-ag-map "SPC" spacemacs-default-map)
       (evilified-state-evilify helm-ag-mode helm-ag-mode-map
         (kbd "RET") 'helm-ag-mode-jump-other-window
@@ -579,3 +582,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :init
     (spacemacs/set-leader-keys
       "Ts" 'helm-themes)))
+
+(defun helm/post-init-projectile ()
+  (setq projectile-completion-system 'helm))

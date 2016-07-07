@@ -16,6 +16,7 @@
         gitconfig-mode
         gitignore-mode
         git-commit
+        git-link
         git-messenger
         git-timemachine
         (helm-gitignore :toggle (configuration-layer/package-usedp 'helm))
@@ -42,15 +43,25 @@
   (use-package git-commit
     :defer t))
 
+(defun git/init-git-link ()
+  (use-package git-link
+    :defer t
+    :init
+    (progn
+      (spacemacs/declare-prefix "gl" "links")
+      (spacemacs/set-leader-keys
+        "gll" 'spacemacs/git-link
+        "glL" 'spacemacs/git-link-copy-url-only
+        "glc" 'spacemacs/git-link-commit
+        "glC" 'spacemacs/git-link-commit-copy-url-only)
+      ;; default is to open the generated link
+      (setq git-link-open-in-browser t))))
+
 (defun git/init-git-messenger ()
   (use-package git-messenger
     :defer t
-    :init
-     (spacemacs/set-leader-keys
-      "gm" 'git-messenger:popup-message)
-    :config
-    (define-key git-messenger-map [escape] 'git-messenger:popup-close)
-    ))
+    :init (spacemacs/set-leader-keys "gM" 'git-messenger:popup-message)
+    :config (define-key git-messenger-map [escape] 'git-messenger:popup-close)))
 
 (defun git/init-git-timemachine ()
   (use-package git-timemachine
@@ -59,10 +70,8 @@
     :init
     (spacemacs/set-leader-keys
       "gt" 'spacemacs/time-machine-transient-state/body)
-
     :config
     (progn
-
       (spacemacs|define-transient-state time-machine
         :title "Git Timemachine Transient State"
         :doc "
@@ -96,17 +105,7 @@
 
 (defun git/init-magit ()
   (use-package magit
-    :commands (magit-blame-mode
-               magit-cherry-pick-popup
-               magit-commit-popup
-               magit-diff-popup
-               magit-fetch-popup
-               magit-log-popup
-               magit-pull-popup
-               magit-push-popup
-               magit-rebase-popup
-               magit-status
-               magit-submodule-popup)
+    :defer t
     :init
     (progn
       (setq magit-completing-read-function
@@ -119,35 +118,18 @@
       ;; See: https://github.com/magit/magit/wiki/FAQ#windows-cannot-push-via-https
       (when (eq window-system 'w32)
         (setenv "GIT_ASKPASS" "git-gui--askpass"))
-
-      (defun spacemacs/magit-diff-head ()
-        "Execute `magit-diff' against current HEAD."
-        (interactive)
-        (magit-diff "HEAD"))
-
+      ;; key bindings
       (spacemacs/declare-prefix "gd" "diff")
       (spacemacs/set-leader-keys
-        "g>" 'magit-submodule-popup
-        "gA" 'magit-cherry-pick-popup
         "gb" 'spacemacs/git-blame-micro-state
-        "gc" 'magit-commit-popup
-        "gC" 'magit-checkout
-        "gd" 'magit-diff-popup
-        "gD" 'spacemacs/magit-diff-head
-        "ge" 'magit-ediff-compare
-        "gE" 'magit-ediff-show-working-tree
-        "gf" 'magit-fetch-popup
-        "gF" 'magit-pull-popup
-        "gi" 'magit-init
-        "gl" 'magit-log-popup
-        "gL" 'magit-log-buffer-file
-        "gr" 'magit-rebase-popup
-        "gP" 'magit-push-popup
+        "gm" 'magit-dispatch-popup
         "gs" 'magit-status
         "gS" 'magit-stage-file
-        "gU" 'magit-unstage-file
-        "gx" 'magit-reset-popup)
-
+        "gU" 'magit-unstage-file)
+      ;; transient state
+      ;; TODO use transient state instead of old micro-state, IIRC we continue
+      ;; to use micro-state because of the re-entry keyword :on-enter which is
+      ;; not available in transient state
       (spacemacs|define-micro-state git-blame
         :title "Git Blame Transient State"
         :doc "
@@ -359,35 +341,7 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
                    :bindings
                    ,refresh-key 'magit-refresh
                    ,refresh-all-key 'magit-refresh-all))))
-
-      ;; full screen magit-status
-      (when git-magit-status-fullscreen
-        (setq magit-display-buffer-function
-              (lambda (buffer)
-                (if (or
-                     ;; the original should stay alive, so we can't go fullscreen
-                     magit-display-buffer-noselect
-                     ;; don't go fullscreen for certain magit buffers if current
-                     ;; buffer is a magit buffer (we're conforming to
-                     ;; `magit-display-buffer-traditional')
-                     (and (derived-mode-p 'magit-mode)
-                          (not (memq (with-current-buffer buffer major-mode)
-                                     '(magit-process-mode
-                                       magit-revision-mode
-                                       magit-diff-mode
-                                       magit-stash-mode
-                                       magit-status-mode)))))
-                    ;; open buffer according to original magit rules
-                    (magit-display-buffer-traditional buffer)
-                  ;; open buffer in fullscreen
-                  (delete-other-windows)
-                  ;; make sure the window isn't dedicated, otherwise
-                  ;; `set-window-buffer' throws an error
-                  (set-window-dedicated-p nil nil)
-                  (set-window-buffer nil buffer)
-                  ;; return buffer's window
-                  (get-buffer-window buffer)))))
-
+      ;; confirm/abort
       (when dotspacemacs-major-mode-leader-key
         (add-hook 'with-editor-mode-hook 'evil-normalize-keymaps)
         (let ((mm-key dotspacemacs-major-mode-leader-key))
@@ -397,29 +351,12 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
               (concat mm-key "a")    'with-editor-cancel
               (concat mm-key "c")    'with-editor-finish
               (concat mm-key "k")    'with-editor-cancel))))
-
       ;; whitespace
-      (defun magit-toggle-whitespace ()
-        (interactive)
-        (if (member "-w" (if (derived-mode-p 'magit-diff-mode)
-			     magit-refresh-args
-			   magit-diff-section-arguments))
-            (magit-dont-ignore-whitespace)
-          (magit-ignore-whitespace)))
-      (defun magit-ignore-whitespace ()
-        (interactive)
-        (add-to-list (if (derived-mode-p 'magit-diff-mode)
-			 'magit-refresh-args 'magit-diff-section-arguments) "-w")
-        (magit-refresh))
-      (defun magit-dont-ignore-whitespace ()
-        (interactive)
-        (setq magit-diff-options
-              (remove "-w"
-                      (if (derived-mode-p 'magit-diff-mode)
-                          magit-refresh-args
-                        magit-diff-section-arguments))) (magit-refresh))
       (define-key magit-status-mode-map (kbd "C-S-w")
-        'magit-toggle-whitespace))))
+        'spacemacs/magit-toggle-whitespace)
+      ;; full screen magit-status
+      (when git-magit-status-fullscreen
+        (setq magit-display-buffer-function 'spacemacs//fullscreen-magit)))))
 
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow

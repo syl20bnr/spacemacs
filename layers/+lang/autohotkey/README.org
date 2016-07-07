@@ -39,4 +39,5 @@ file.
 | ~SPC m c b~ | block comment                      |
 | ~SPC m c c~ | line comment                       |
 | ~SPC m e b~ | execute file with =autohotkey.exe= |
-| ~SPC m h~   | open documentation in =browser=    |
+| ~SPC m h h~ | open documentation in =browser=    |
+| ~SPC m h H~ | open documentation in local =chm=  |

@@ -28,7 +28,7 @@
     (org-mime :location built-in)
     org-pomodoro
     org-present
-    org-repo-todo
+    (org-projectile :toggle (configuration-layer/package-usedp 'projectile))
     ;; use a for of ox-gfm to fix index generation
     (ox-gfm :location (recipe :fetcher github :repo "syl20bnr/ox-gfm")
             :toggle org-enable-github-support)
@@ -472,6 +472,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (when (spacemacs/system-is-mac)
         (setq org-pomodoro-audio-player "/usr/bin/afplay"))
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "p" 'org-pomodoro)
+      (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
         "p" 'org-pomodoro))))
 
 (defun org/init-org-present ()
@@ -500,23 +502,25 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (add-hook 'org-present-mode-hook 'spacemacs//org-present-start)
       (add-hook 'org-present-mode-quit-hook 'spacemacs//org-present-end))))
 
-(defun org/init-org-repo-todo ()
-  (use-package org-repo-todo
-    :commands (ort/todo-root ort/find-root ort/todo-file)
+(defun org/init-org-projectile ()
+  (use-package org-projectile
+    :commands (org-projectile:location-for-project)
     :init
     (progn
       (spacemacs/set-leader-keys
-        "Ct" 'ort/capture-todo
-        "CT" 'ort/capture-checkitem
-        "aop" 'ort/list-project-todos)
-      (when (configuration-layer/package-usedp 'projectile)
-        (spacemacs/set-leader-keys
-          "aoT" 'ort/list-all-todos
-          "aoP" 'ort/list-all-project-todos)))
+        "aop" 'org-projectile/capture
+        "aoP" 'org-projectile/goto-todos)
+      (with-eval-after-load 'org-capture
+        (require 'org-projectile)))
     :config
-    ;; Better default capture template
-    (setcdr (cdddr (assoc "ort/todo" org-capture-templates))
-            '("* TODO %?\n%U\n\n%i" :empty-lines 1))))
+    (if (file-name-absolute-p org-projectile-file)
+        (progn
+          (setq org-projectile:projects-file org-projectile-file)
+          (push (org-projectile:project-todo-entry
+                 nil nil nil :empty-lines 1)
+                org-capture-templates))
+      (org-projectile:per-repo)
+      (setq org-projectile:per-repo-filename org-projectile-file))))
 
 (defun org/init-ox-gfm ()
   (spacemacs|use-package-add-hook org :post-config (require 'ox-gfm)))

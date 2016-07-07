@@ -149,23 +149,22 @@ Supported properties:
   "Apply visual enchantments to the current buffer.
 The buffer's major mode should be `org-mode'."
   (interactive)
-  (if (not (derived-mode-p 'org-mode))
-      (user-error "org-mode should be enabled in the current buffer.")
-    (org-indent-mode)
-    (view-mode))
-    ;; Make ~SPC ,~ work, reference:
-    ;; http://stackoverflow.com/questions/24169333/how-can-i-emphasize-or-verbatim-quote-a-comma-in-org-mode
-    (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\n")
-    (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
-    (setq-local org-emphasis-alist '(("*" bold)
-                                     ("/" italic)
-                                     ("_" underline)
-                                     ("=" org-verbatim verbatim)
-                                     ("~" org-kbd)
-                                     ("+"
-                                      (:strike-through t))))
-    (require 'space-doc)
-    (space-doc-mode))
+  (unless (derived-mode-p 'org-mode)
+    (user-error "org-mode should be enabled in the current buffer."))
+
+  ;; Make ~SPC ,~ work, reference:
+  ;; http://stackoverflow.com/questions/24169333/how-can-i-emphasize-or-verbatim-quote-a-comma-in-org-mode
+  (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\n")
+  (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
+  (setq-local org-emphasis-alist '(("*" bold)
+                                   ("/" italic)
+                                   ("_" underline)
+                                   ("=" org-verbatim verbatim)
+                                   ("~" org-kbd)
+                                   ("+"
+                                    (:strike-through t))))
+  (when (require 'space-doc nil t)
+    (space-doc-mode)))
 
 (defun spacemacs/view-org-file (file &optional anchor-text expand-scope)
   "Open org file and apply visual enchantments.

@@ -34,6 +34,8 @@
     (progn
       (setq diff-hl-side 'right)
       (when (eq version-control-diff-tool 'diff-hl)
+        (when (configuration-layer/package-usedp 'magit)
+          (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
         (when version-control-global-margin
           (global-diff-hl-mode))
         (unless (display-graphic-p)
@@ -41,8 +43,8 @@
           (diff-hl-margin-mode))))))
 
 (defun version-control/post-init-evil-unimpaired ()
-  (define-key evil-normal-state-map (kbd "[ h") 'version-control/previous-hunk)
-  (define-key evil-normal-state-map (kbd "] h") 'version-control/next-hunk))
+  (define-key evil-normal-state-map (kbd "[ h") 'spacemacs/vcs-previous-hunk)
+  (define-key evil-normal-state-map (kbd "] h") 'spacemacs/vcs-next-hunk))
 
 (defun version-control/init-git-gutter ()
   (use-package git-gutter

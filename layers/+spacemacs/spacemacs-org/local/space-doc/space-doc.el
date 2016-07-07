@@ -27,6 +27,7 @@
 ;;; Code:
 (require 'face-remap)
 (require 'org)
+(require 'centered-buffer-mode)
 
 (define-minor-mode space-doc-mode
   "Buffer local minor mode for Spacemacs documentation files.
@@ -38,43 +39,90 @@ keeping their content visible.
   :init-value nil
   :lighter " SD"
   (if (derived-mode-p 'org-mode)
-      (dolist (modificator spacemacs--space-doc-modificators)
+      (dolist (modificator (append '(spacemacs//space-doc-set-cache
+                                     spacemacs//space-doc-runs-deferred)
+                                   spacemacs-space-doc-modificators))
         (funcall modificator space-doc-mode))
     (message (format "space-doc-mode error:%s isn't an org-mode buffer"
                      (buffer-name)))
     (setq space-doc-mode nil)))
 
-(defconst spacemacs--space-doc-modificators
-  '(spacemacs//space-doc-set-space-doc-cache
+;; NOTE: Dont forget to update Spacemacs FAQ if you modify this list!
+(defvar spacemacs-space-doc-modificators
+  '(spacemacs//space-doc-center-buffer-mode
+    spacemacs//space-doc-org-indent-mode
+    spacemacs//space-doc-view-mode
     spacemacs//space-doc-hide-line-numbers
-    spacemacs//space-doc-modf-emphasis-overlays
-    spacemacs//space-doc-modf-meta-tags-overlays
-    spacemacs//space-doc-modf-link-protocol
-    spacemacs//space-doc-modf-org-block-line-face-remap
-    spacemacs//space-doc-modf-org-kbd-face-remap
-    spacemacs//space-doc-modf-resize-inline-images
-    spacemacs//space-doc-modf-advice-org-do-emphasis-faces
-    (lambda (flag) (spacemacs//space-doc-run-modfs-deferred
-               '()
-               flag )))
-  "List of `space-doc' modificators for `org-mode' buffers.
+    spacemacs//space-doc-emphasis-overlays
+    spacemacs//space-doc-meta-tags-overlays
+    spacemacs//space-doc-link-protocol
+    spacemacs//space-doc-org-block-line-face-remap
+    spacemacs//space-doc-org-kbd-face-remap
+    spacemacs//space-doc-resize-inline-images
+    spacemacs//space-doc-advice-org-do-emphasis-faces)
+  "List of `space-doc' modificator functions for `org-mode' buffers.
 The functions work with a current buffer and accept ENABLE(flag) argument.
 If the argument has non-nil value - enable the modifications introduced
 by the function. Otherwise - disable.")
 
-(cl-defstruct spacemacs//space-doc-cache
+;; NOTE: Dont forget to update Spacemacs FAQ if you modify this list!
+(defvar spacemacs-space-doc-modificators-deferred
+  '()
+  "Same as `spacemacs-space-doc-modificators' but the modificators will
+be run deferred.")
+
+(defun spacemacs//space-doc-center-buffer-mode (&optional flag)
+  "Enable `spacemacs-centered-buffer-mode' if flag is non nil, disable it otherwise.
+This functions is aimed to be used with `spacemacs-space-doc-modificators'."
+  ;;FIXME: Need to redesign this.. One day.
+  (if flag
+      (progn
+        ;; HACK: Hide the original buffer from `spacemacs/previous-useful-buffer'.
+        (unless (and (string-prefix-p "*" (buffer-name))
+                     (string-suffix-p "*" (buffer-name)))
+          (rename-buffer (format "*%s*" (buffer-name))))
+        (set (make-local-variable 'spacemacs--space-doc-origin-fringe-color)
+             (face-background 'fringe))
+        ;; HACK: Fix glitchy fringe color.
+        (face-remap-add-relative 'fringe :background
+                                 spacemacs-centered-buffer-mode-fringe-color)
+        ;; HACK: Needed to get proper content width.
+        (run-with-idle-timer 0 nil 'spacemacs-centered-buffer-mode +1))
+    (when spacemacs-centered-buffer-mode
+      (set-window-buffer
+       (selected-window)
+       spacemacs--centered-buffer-mode-origin-buffer)
+      (rename-buffer (substring (buffer-name) 1 (1- (length (buffer-name)))))
+      (kill-buffer spacemacs--centered-buffer-mode-indirect-buffer)
+      ;; HACK: Now we call it for the original buffer.
+      (space-doc-mode -1))
+    (when (bound-and-true-p spacemacs--space-doc-origin-fringe-color)
+      ;; HACK: Removing or reseting doesn't work.
+      (face-remap-add-relative 'fringe :background
+                               spacemacs--space-doc-origin-fringe-color))))
+
+(defun spacemacs//space-doc-org-indent-mode (&optional flag)
+  "Enable `org-indent-mode' if flag is non nil, disable it otherwise.
+This functions is aimed to be used with `spacemacs-space-doc-modificators'."
+  (org-indent-mode (if flag 1 -1)))
+
+(defun spacemacs//space-doc-view-mode (&optional flag)
+  "Enable `view-mode' if flag is non nil, disable it otherwise.
+This functions is aimed to be used with `spacemacs-space-doc-modificators'."
+  (view-mode (if flag 1 -1)))
+
+(cl-defstruct spacemacs--space-doc-cache-struct
   marker-face
   btn-marker-face
   kbd-marker)
 
 (defvar-local spacemacs--space-doc-cache nil
-  "Global variable of struct `spacemacs//space-doc-cache'.
-It is set by `spacemacs//space-doc-set-space-doc-cache'.")
+  "Global variable of struct `spacemacs-space-doc-cache-struct'.
+It is set by `spacemacs//space-doc-set-cache'.")
 
-(defun spacemacs//space-doc-set-space-doc-cache (&optional flag)
-  "Set `spacemacs--space-doc-cache' to filled
-`spacemacs//space-doc-cache' structure."
-
+(defun spacemacs//space-doc-set-cache (&optional flag)
+  "Set `spacemacs--space-doc-cache'.
+This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   (setq spacemacs--space-doc-cache
         (if flag
             (let* ((kbd-bg (or (face-background 'org-kbd)
@@ -94,43 +142,45 @@ It is set by `spacemacs//space-doc-set-space-doc-cache'.")
                     (dolist (el org-emphasis-alist)
                       (when (member 'org-kbd el)
                         (return (car el))))))
-
-              (make-spacemacs//space-doc-cache
+              (make-spacemacs--space-doc-cache-struct
                :marker-face     marker-face
                :btn-marker-face btn-marker-face
                :kbd-marker      kbd-marker)))))
 
 (defun spacemacs//space-doc-hide-line-numbers (&optional enable)
-  "If ENABLE is non-nil then toggle off the line numbers."
+  "If ENABLE is non-nil then toggle off the line numbers.
+This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   (if enable
       (spacemacs/toggle-line-numbers-off)
     (when dotspacemacs-line-numbers
       (spacemacs/toggle-line-numbers-on))))
 
 (defun spacemacs//space-doc-org-do-emphasis-faces-advice (found)
-  "If FOUND has non-nil value - modify emphasized regions
+  "If FOUND has non-nil value then modify emphasized regions
 appearances in the current buffer. The function uses
 `match-data' set by `org-do-emphasis-faces' function."
-
   ;; `org-do-emphasis-faces' returns non-nil value when it
   ;; found a region to emphasize.
   (when (and found
              space-doc-mode
-             (not (string-empty-p
-                   (replace-regexp-in-string "\\*+"
-                                             ""
-                                             (match-string 4)))))
+             (not (and
+                   (match-string 4)
+                   (string-empty-p
+                    (replace-regexp-in-string "\\*+"
+                                              ""
+                                              (match-string 4))))))
     (spacemacs//space-doc-emphasis-region
      (match-beginning 2)
      (match-end 2)))
   found)
 
-(defun spacemacs//space-doc-modf-advice-org-do-emphasis-faces (&optional enable)
-  "If ENABLE has non-nil value - advice `org-do-emphasis-faces' function
-with `spacemacs//space-doc-org-do-emphasis-faces-advice'.
+(defun spacemacs//space-doc-advice-org-do-emphasis-faces (&optional enable)
+  "Advise org-do-emphasis-faces.
+If ENABLE is non-nil, add advice `org-do-emphasis-faces' function with
+`spacemacs//space-doc-org-do-emphasis-faces-advice'.
 NOTE: `org-do-emphasis-faces' is lazy and will emphasize only part of the
-current buffer so piggybacking it should be pretty performant solution."
-
+current buffer so piggybacking it should be pretty performant solution.
+This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   (when enable
     (advice-add 'org-do-emphasis-faces
                 :after
@@ -138,31 +188,26 @@ current buffer so piggybacking it should be pretty performant solution."
 
 (defun spacemacs//space-doc-emphasis-region (begin end)
   "Emphasis region based on its leading character.
-The character should be one of the markers
-from `org-emphasis-alist'."
-
+The character should be one of the markers from `org-emphasis-alist'."
   (let* ((beginning-marker-overlay nil)
          (ending-marker-overlay nil))
-
     (setq beginning-marker-overlay
           (make-overlay begin (1+ begin))
           ending-marker-overlay
           (make-overlay (1- end) end))
-
     (if (string= (buffer-substring-no-properties begin
                                                  (1+ begin))
-                 (spacemacs//space-doc-cache-kbd-marker
+                 (spacemacs--space-doc-cache-struct-kbd-marker
                   spacemacs--space-doc-cache))
         (progn
           (overlay-put beginning-marker-overlay
                        'face
-                       (spacemacs//space-doc-cache-btn-marker-face
+                       (spacemacs--space-doc-cache-struct-btn-marker-face
                         spacemacs--space-doc-cache))
           (overlay-put ending-marker-overlay
                        'face
-                       (spacemacs//space-doc-cache-btn-marker-face
+                       (spacemacs--space-doc-cache-struct-btn-marker-face
                         spacemacs--space-doc-cache)))
-
       ;; If inside table.
       (if (save-excursion
             (goto-char begin)
@@ -171,56 +216,58 @@ from `org-emphasis-alist'."
           (progn
             (overlay-put beginning-marker-overlay
                          'face
-                         (spacemacs//space-doc-cache-marker-face
+                         (spacemacs--space-doc-cache-struct-marker-face
                           spacemacs--space-doc-cache))
             (overlay-put ending-marker-overlay
                          'face
-                         (spacemacs//space-doc-cache-marker-face
+                         (spacemacs--space-doc-cache-struct-marker-face
                           spacemacs--space-doc-cache)))
-
         (overlay-put beginning-marker-overlay
                      'invisible t)
         (overlay-put ending-marker-overlay
                      'invisible t)))
-
     (overlay-put beginning-marker-overlay
                  'space-doc-emphasis-overlay t)
     (overlay-put ending-marker-overlay
                  'space-doc-emphasis-overlay t)))
 
-(defun spacemacs//space-doc-modf-emphasis-overlays (&optional enable)
-  "If ENABLE has non-nil value - overlay regions which have
-already been emphasized by `org-do-emphasis-faces'
-in the current buffer. Otherwise remove all overlays
-with property `space-doc-emphasis-overlay'."
-
+(defun spacemacs//space-doc-emphasis-overlays (&optional enable)
+  "Emphasis overlays.
+If ENABLE is non-nil, overlay regions which have already been emphasized by
+`org-do-emphasis-faces'in the current buffer.
+Otherwise remove all overlays with property `space-doc-emphasis-overlay'.
+This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   ;; Remove overlays.
   (dolist (overlay (overlays-in (point-min) (point-max)))
     (when (overlay-get overlay 'space-doc-emphasis-overlay)
       (delete-overlay overlay)))
-
   (when enable
-      (dolist (emphasized-region
-               (spacemacs//space-doc-find-regions-by-text-property
-                'org-emphasis t))
-        (spacemacs//space-doc-emphasis-region
-         (car  emphasized-region)
-         (cadr emphasized-region)))))
+    (dolist (emphasized-region
+             (spacemacs//space-doc-find-regions-by-text-property
+              'org-emphasis t))
+      (spacemacs//space-doc-emphasis-region
+       (car  emphasized-region)
+       (cadr emphasized-region)))))
 
-(defun spacemacs//space-doc-modf-org-kbd-face-remap (&optional enable)
-  "If ENABLE has non-nil value - removes boxes from the `org-kbd'
-face in the current `org-mode' buffer. Otherwise - reverts them to
-default."
+(defun spacemacs//space-doc-org-kbd-face-remap (&optional enable)
+  "Remove boxes from key bindings.
+If ENABLE is non-nil, removes boxes from the `org-kbd'face in the current
+`org-mode' buffer.
+Otherwise, reverts them to default.
+This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   (if enable
       (set (make-local-variable
             'spacemacs--space-doc-org-kbd-face-remap-cookie)
            (face-remap-add-relative 'org-kbd
                                     `(:box nil)))
-    (face-remap-remove-relative
-     spacemacs--space-doc-org-kbd-face-remap-cookie)))
+    (when (bound-and-true-p spacemacs--space-doc-org-kbd-face-remap-cookie)
+      (face-remap-remove-relative
+       spacemacs--space-doc-org-kbd-face-remap-cookie))))
 
-(defun spacemacs//space-doc-modf-resize-inline-images (&optional enable)
-  "If ENABLE is non nil then resize inline images."
+(defun spacemacs//space-doc-resize-inline-images (&optional enable)
+  "Resize inline images.
+If ENABLE is non nil then resize inline images.
+This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   ;; resizing is always performed even when the image is smaller
   ;; so we don't resize in README.org buffers for now
   (let ((org-image-actual-width
@@ -229,10 +276,12 @@ default."
               600)))
     (org-display-inline-images)))
 
-(defun spacemacs//space-doc-modf-meta-tags-overlays (&optional enable)
-  "If ENABLE has non-nil value - modify `org-mode' meta tags
-appearance in the current buffer. Otherwise - disable."
-
+(defun spacemacs//space-doc-meta-tags-overlays (&optional enable)
+  "Modify meta tag appearance.
+If ENABLE is non-nil, modify `org-mode' meta tags appearance in the current
+buffer.
+Otherwise, disable modifcations.
+This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   (if enable
       ;; TODO add more types of tags or meta-line if needed.
       (let* ((invisible-org-meta-tags-list
@@ -261,11 +310,9 @@ appearance in the current buffer. Otherwise - disable."
                 ,(unless (face-background 'org-block-end-line)
                    '("^[ \t]*\\#\\+end_src.*\n\\(\n\\)[^\\*]"
                      invisible t)))))
-
         ;; Remove nils.
         (setq invisible-org-meta-tags-list
               (remove nil invisible-org-meta-tags-list))
-
         ;; Make `org-mode' meta tags invisible.
         (dolist (tag invisible-org-meta-tags-list)
           (save-excursion
@@ -276,18 +323,18 @@ appearance in the current buffer. Otherwise - disable."
                                    (match-end 1))))
                 (overlay-put new-overlay  (cadr tag) (cddr tag))
                 (overlay-put new-overlay 'space-doc-tag-overlay t))))))
-
     ;; Remove overlays.
     (dolist (overlay (overlays-in (point-min) (point-max)))
       (when (overlay-get overlay 'space-doc-tag-overlay)
         (delete-overlay overlay)))))
 
-(defun spacemacs//space-doc-modf-org-block-line-face-remap (&optional enable)
-  "If ENABLE has non-nil value - hide text of the code block meta lines
-in the current buffer. If the blocks have background color text won't be
-masked because it makes them look ugly with some themes.
-If ENABLE has nil value - revert to the default."
-
+(defun spacemacs//space-doc-org-block-line-face-remap (&optional enable)
+  "Hide drawers.
+If ENABLE is non-nil, hide text of the code block meta lines in the current
+buffer. If the blocks have background color text won't be masked because it
+makes them look ugly with some themes.
+If ENABLE has nil, revert to the default.
+This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   (if enable
       (let* ((default-bg (or (face-background 'default)
                              'unspecified))
@@ -320,10 +367,12 @@ If ENABLE has nil value - revert to the default."
       (face-remap-remove-relative
        spacemacs--space-doc-org-block-end-line-face-remap-cookie))))
 
-(defun spacemacs//space-doc-modf-link-protocol (&optional enable)
-  "If ENABLE has non-nil value - use `spacemacs//space-doc-open' to
-open 'https' links in the current `org-mode' buffer. Otherwise open
-them in the browser(default behavior)."
+(defun spacemacs//space-doc-link-protocol (&optional enable)
+  "Open HTTPS links in the curren buffer.
+If ENABLE is non-nil, use `spacemacs//space-doc-open' to open HTTPS links
+in the current `org-mode' buffer.
+Otherwise open them in the browser(default behavior).
+This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   (if enable
       (progn
         ;; Make `space-doc' https link opener buffer local
@@ -331,7 +380,6 @@ them in the browser(default behavior)."
         (make-local-variable 'org-link-types)
         (make-local-variable 'org-link-protocols)
         (org-add-link-type "https" 'spacemacs//space-doc-open))
-
     (kill-local-variable 'org-link-types)
     (kill-local-variable 'org-link-protocols))
   ;; Trigger `org-mode' internal updates.
@@ -339,29 +387,31 @@ them in the browser(default behavior)."
   (org-add-link-type nil))
 
 (defun spacemacs//space-doc-open (path)
-  "If PATH argument is a link to an .org file that is located
-in the Spacemacs GitHub repository - Visit the local copy
-of the file with `spacemacs/view-org-file'.
+  "Open PATH link.
+If PATH argument is a link to an .org file that is located in the Spacemacs
+GitHub repository then visit the local copy of the file with
+`spacemacs/view-org-file'.
 Open all other links with `browse-url'."
   (let ((git-url-root-regexp
          (concat "\\/\\/github\\.com\\/syl20bnr\\/spacemacs\\/blob"
                  "\\/[^/]+\\/\\(.*\\.org\\)\\(\\#.*\\)?")))
     (if (string-match git-url-root-regexp path)
-        (spacemacs/view-org-file (concat user-emacs-directory
+        (spacemacs/view-org-file (concat spacemacs-start-directory
                                          (match-string 1 path))
                                  (or (match-string 2 path)
                                      "^")
                                  'subtree)
       (browse-url (concat "https://" path)))))
 
-(defun spacemacs//space-doc-run-modfs-deferred (modfs &optional flag)
-  "Run each modf function from the MODFS list in the `run-with-idle-timer'
-callback. This way heavy modfs won't affect document opening time.
-FLAG is passed through."
-  (run-with-idle-timer 0 nil (lambda (modfs flag)
-                               (dolist (modf modfs)
+(defun spacemacs//space-doc-runs-deferred (&optional flag)
+  "Run each modificator function from the
+`spacemacs-space-doc-modificators-deferred' list
+in the next command loop. This way heavy modificator functions
+won't affect document opening time. FLAG is passed through."
+  (run-with-idle-timer 0 nil (lambda (flag)
+                               (dolist (modf spacemacs-space-doc-modificators-deferred)
                                  (funcall modf flag)))
-                       modfs flag))
+                       flag))
 
 (defun spacemacs//space-doc-find-regions-by-text-property
     (property value &optional start end)
@@ -369,7 +419,6 @@ FLAG is passed through."
 the current buffer. If START or END has non-nil value - use them as
 boundaries.
 NOTE: It can find only fontified regions."
-
   (let ((p-min (or start (point-min)))
         (p-max (or end (point-max)))
         (r-end nil)

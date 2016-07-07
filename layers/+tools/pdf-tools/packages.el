@@ -24,6 +24,7 @@
         :title "PDF-tools transient state"
         :on-enter (setq which-key-inhibit t)
         :on-exit (setq which-key-inhibit nil)
+        :evil-leader-for-mode (pdf-view-mode . ".")
         :doc
         "
  Navigation^^^^                Scale/Fit^^                    Annotations^^       Actions^^           Other^^
@@ -73,7 +74,6 @@
       (spacemacs/declare-prefix-for-mode 'pdf-view-mode "mf" "fit")
       (spacemacs/declare-prefix-for-mode 'pdf-view-mode "ms" "slice/search")
       (spacemacs/set-leader-keys-for-major-mode 'pdf-view-mode
-        "." 'spacemacs/pdf-tools-transient-state/body
         ;; Slicing image
         "sm" 'pdf-view-set-slice-using-mouse
         "sb" 'pdf-view-set-slice-from-bounding-box

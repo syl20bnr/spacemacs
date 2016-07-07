@@ -17,4 +17,10 @@
 (defvar org-enable-reveal-js-support nil
   "If non-nil, enable export to reveal.js.")
 
+(defvar org-projectile-file "TODOs.org"
+  "The file to store project TODOs in. If this is a relative
+path, one file per project is used (and the path is relative to
+the project root). If it an absolute path, one global file is
+used.")
+
 (spacemacs|defvar-company-backends org-mode)

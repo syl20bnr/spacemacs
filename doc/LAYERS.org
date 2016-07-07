@@ -213,8 +213,6 @@ executed immediately.
 Since =with-eval-after-load= is a macro and not a function, its argument does
 not have to be quoted.
 
-**Note**: =with-eval-after-load= is backported for those still on Emacs 24.3
-
 ** Use-package
 For /end users/ who are trying to put together an efficient Emacs configuration,
 there is a very useful /package/ called =use-package= that provides a macro

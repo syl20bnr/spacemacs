@@ -206,12 +206,11 @@
       (spacemacs|define-transient-state erc-log
         :title "ERC Log Transient State"
         :doc "\n[_r_] reload the log file  [_>_/_<_] go to the next/prev mention"
+        :evil-leader-for-mode (erc-mode . ".")
         :bindings
         ("r" erc-view-log-reload-file)
         (">" erc-view-log-next-mention)
-        ("<" erc-view-log-previous-mention))
-      (spacemacs/set-leader-keys-for-major-mode 'erc-mode
-        "." 'spacemacs/erc-log-transient-state/body))))
+        ("<" erc-view-log-previous-mention)))))
 
 (defun erc/init-erc-image ()
   (use-package erc-image

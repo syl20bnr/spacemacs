@@ -13,6 +13,7 @@
    - [[#gnuplot-support][Gnuplot support]]
    - [[#revealjs-support][Reveal.js support]]
    - [[#different-bullets][Different bullets]]
+   - [[#project-support][Project support]]
  - [[#key-bindings][Key bindings]]
    - [[#org][Org]]
    - [[#org-with-evil-org-mode][Org with evil-org-mode]]
@@ -29,9 +30,9 @@
      - [[#org-agenda-transient-state][Org agenda transient state]]
    - [[#pomodoro][Pomodoro]]
    - [[#presentation][Presentation]]
-   - [[#org-repo-todo][Org-repo-todo]]
    - [[#org-mime][Org-MIME]]
    - [[#org-download][Org-download]]
+   - [[#org-projectile][Org-projectile]]
 
 * Description
 This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
@@ -40,9 +41,9 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 - Vim inspired key bindings are provided by [[https://github.com/edwtjo/evil-org-mode][evil-org-mode]]
 - Nicer bullet via [[https://github.com/sabof/org-bullets][org-bullets]]
 - A [[http://pomodorotechnique.com/][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
-- Project TODO capture via [[https://github.com/waymondo/org-repo-todo][org-repo-todo]]
-- presentation mode via [[https://github.com/rlister/org-present][org-present]]
+- Presentation mode via [[https://github.com/rlister/org-present][org-present]]
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
+- Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
 
 ** BibTeX
 For more extensive support of references through BibTeX files, have a look at
@@ -94,8 +95,8 @@ variable =org-enable-reveal-js-support= to =t=. This will install the [[https://
 extension.
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (org :variables org-enable-reveal-js-support t)))
+  (setq-default dotspacemacs-configuration-layers
+   '((org :variables org-enable-reveal-js-support t)))
 #+END_SRC
 
 In order to be able to use org-reveal, download =reveal.js= from its
@@ -114,6 +115,27 @@ You can tweak the bullets displayed in the org buffer in the function
 
 #+BEGIN_SRC emacs-lisp
   (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
+#+END_SRC
+
+** Project support
+Set the layer variable =org-projectile-file= to the filename where you want to
+store project-specific TODOs. If this is an absolute path, all todos will be
+stored in the same file (organized by project), whereas if it is just a single
+filename, todos will be stored in each project root.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((org :variables org-projectile-file "TODOs.org")))
+#+END_SRC
+
+The TODO files are not added to the agenda automatically. You can do this with
+the following snippet. Note that this may have unintended consequences until
+[[https://github.com/IvanMalison/org-projectile/issues/10][this bug]] is fixed.
+
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'org-agenda
+    (require 'org-projectile)
+    (push (org-projectile:todo-files) org-agenda-files))
 #+END_SRC
 
 * Key bindings
@@ -313,28 +335,29 @@ conventions.
 *** Keybindings
 The evilified org agenda supports the following bindings:
 
-| Key Binding          | Description                   |
-|----------------------+-------------------------------|
-| ~M-SPC~ or ~s-M-SPC~ | org-agenda transient state    |
-| ~SPC m :~            | org-agenda-set-tags           |
-| ~SPC m a~            | org-agenda                    |
-| ~SPC m d~            | org-agenda-deadline           |
-| ~SPC m f~            | org-agenda-set-effort         |
-| ~SPC m I~            | org-agenda-clock-in           |
-| ~SPC m O~            | org-agenda-clock-out          |
-| ~SPC m P~            | org-agenda-set-property       |
-| ~SPC m q~            | org-agenda-refile             |
-| ~SPC m Q~            | org-agenda-clock-cancel       |
-| ~SPC m s~            | org-agenda-schedule           |
-| ~M-j~                | next item                     |
-| ~M-k~                | previous item                 |
-| ~M-h~                | earlier view                  |
-| ~M-l~                | later view                    |
-| ~gr~                 | refresh                       |
-| ~gd~                 | toggle grid                   |
-| ~C-v~                | change view                   |
-| ~RET~                | org-agenda-goto               |
-| ~M-RET~              | org-agenda-show-and-scroll-up |
+| Key Binding          | Description                       |
+|----------------------+-----------------------------------|
+| ~M-SPC~ or ~s-M-SPC~ | org-agenda transient state        |
+| ~SPC m :~            | org-agenda-set-tags               |
+| ~SPC m a~            | org-agenda                        |
+| ~SPC m d~            | org-agenda-deadline               |
+| ~SPC m f~            | org-agenda-set-effort             |
+| ~SPC m I~            | org-agenda-clock-in               |
+| ~SPC m O~            | org-agenda-clock-out              |
+| ~SPC m p~            | org-pomodoro (if package is used) |
+| ~SPC m P~            | org-agenda-set-property           |
+| ~SPC m q~            | org-agenda-refile                 |
+| ~SPC m Q~            | org-agenda-clock-cancel           |
+| ~SPC m s~            | org-agenda-schedule               |
+| ~M-j~                | next item                         |
+| ~M-k~                | previous item                     |
+| ~M-h~                | earlier view                      |
+| ~M-l~                | later view                        |
+| ~gr~                 | refresh                           |
+| ~gd~                 | toggle grid                       |
+| ~C-v~                | change view                       |
+| ~RET~                | org-agenda-goto                   |
+| ~M-RET~              | org-agenda-show-and-scroll-up     |
 
 *** Org agenda transient state
 Use ~M-SPC~ or ~s-M-SPC~ in an org agenda buffer to activate its transient state.
@@ -424,16 +447,6 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 | ~l~         | next slide     |
 | ~q~         | quit           |
 
-** Org-repo-todo
-
-| Key Binding | Description                                                |
-|-------------+------------------------------------------------------------|
-| ~SPC C t~   | capture a TODO item for the current project                |
-| ~SPC C T~   | capture a checklist item for the current project           |
-| ~SPC a o p~ | show the TODO list for the current project                 |
-| ~SPC a o P~ | show the TODO list for all known projects                  |
-| ~SPC a o T~ | show the TODO list including those from all known projects |
-
 ** Org-MIME
 
 | Key Binding | Description                                       |
@@ -447,3 +460,11 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 |-------------+-----------------|
 | ~SPC m i s~ | Take screenshot |
 | ~SPC m i y~ | Yank image url  |
+
+** Org-projectile
+
+| Key Binding       | Description                                             |
+|-------------------+---------------------------------------------------------|
+| ~SPC a o p~       | Capture a TODO for the current project                  |
+| ~SPC u SPC a o p~ | Capture a TODO for any given project (choose from list) |
+| ~SPC a o P~       | Go to the TODOs for the current project                 |

@@ -39,11 +39,13 @@
    - [[#synchronization-of-dotfile-changes][Synchronization of dotfile changes]]
    - [[#testing-the-dotfile][Testing the dotfile]]
    - [[#dotfile-contents][Dotfile Contents]]
-     - [[#using-configuration-layers][Using configuration layers]]
-     - [[#setting-configuration-layers-variables][Setting configuration layers variables]]
-     - [[#excluding-packages][Excluding packages]]
      - [[#configuration-functions][Configuration functions]]
      - [[#custom-variables][Custom variables]]
+   - [[#declaring-configuration-layers][Declaring Configuration layers]]
+     - [[#setting-configuration-layers-variables][Setting configuration layers variables]]
+     - [[#disabling-layer-services-in-other-layers][Disabling layer services in other layers]]
+     - [[#selectingignoring-packages-of-a-layer][Selecting/Ignoring packages of a layer]]
+     - [[#excluding-packages][Excluding packages]]
  - [[#concepts][Concepts]]
    - [[#editing-styles][Editing Styles]]
      - [[#vim][Vim]]
@@ -419,16 +421,21 @@ example is some niche language where you are only interested in syntax
 highlighting.
 
 You can install such packages by adding them to the variable
-=dotspacemacs-additional-packages= in your dotfile.
+=dotspacemacs-additional-packages= under the =dotspacemacs/layers= function in your dotfile.
+
+For example, to install =llvm-mode= and =dts-mode=:
+#+BEGIN_SRC emacs-lisp
+(defun dotspacemacs/layers ()
+  "Configuration Layers declaration..."
+  (setq-default
+   ;; ...
+   dotspacemacs-additional-packages '(llvm-mode dts-mode)
+   ;; ...
+   ))
+#+END_SRC
 
 If you want to add some configuration for them then put the configuration in
-the =dotspacemacs/user-config= function or consider to create a layer.
-
-Example to install =llvm-mode= and =dts-mode=:
-
-#+BEGIN_SRC emacs-lisp
-(setq dotspacemacs-additional-packages '(llvm-mode dts-mode)
-#+END_SRC
+the =dotspacemacs/user-config= function or consider creating a layer.
 
 ** Packages synchronization
 Spacemacs will only install the packages that are explicitly used by the user.
@@ -534,21 +541,54 @@ declared layers can be found and that the variables have sensible values. These
 tests are also run automatically when you synchronize with ~SPC f e R~.
 
 ** Dotfile Contents
-*** Using configuration layers
-To use a configuration layer, add it to the =dotspacemacs-configuration-layers=
-variable of your =~/.spacemacs=.
+*** Configuration functions
+Three special functions in the =~/.spacemacs= file can be used to perform
+configuration at the beginning and end of Spacemacs loading process:
+
+- =dotspacemacs/layers= is called at the very startup of Spacemacs initilialization,
+  this is where you set the Spacemacs distribution and declare layers to be used
+  in your configuration. You can also add or excluded packages of your choice
+  and tweak some behavior of Spacemacs loading.
+- =dotspacemacs/init= is called at the very startup of Spacemacs initialization
+  before layers configuration. *You should not put any user code* in there
+  besides modifying the Spacemacs variable values prefixed with =dotspacemacs-=.
+- =dotspacemacs/user-init= is called immediately after =dotspacemacs/init=,
+  before layer configuration. This function is mostly useful for variables
+  that need to be set before packages are loaded.
+- =dotspacemacs/user-config= is called at the very end of Spacemacs
+  initialization after layers configuration. This is the place where most of
+  your configurations should be done. Unless it is explicitly specified that a
+  variable should be set before a package is loaded, you should place your code
+  here.
+
+*** Custom variables
+Custom variables configuration from =M-x customize-group= built-in Emacs feature
+are automatically saved by Emacs at the end of your =~/.spacemacs= file.
+
+** Declaring Configuration layers
+To use a configuration layer, declare it in your dotfile by adding it to the
+=dotspacemacs-configuration-layers= variable of your =~/.spacemacs=.
+
+*Note:* In this documentation a =used layer= is equivalent to a =declared
+layer=.
 
 For instance, [[Thank you][RMS]] can add his private configuration layer like this:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(rms))
+(setq-default dotspacemacs-configuration-layers
+  '(
+    ;; other layers
+    ;; rms layer added at the end of the list
+    rms
+  ))
 #+END_SRC
 
-Configuration layers are expected to be stored in =~/.emacs.d/private= or
-=~/.emacs.d/layers=. But you are free to keep them somewhere else by declaring
-additional paths where Spacemacs can look for configuration layers. This is
-done by setting the list =dotspacemacs-configuration-layer-path= in your
-=~/.spacemacs=:
+Official layers shipped with Spacemacs are stored in =~/.emacs.d/layers=. The
+directory =~/.emacs.d/private= is a drop-in location for your private layers.
+It is possible to put layers at the location of your choice provided you tell
+Spacemacs where to look for them. This is done by setting the list
+=dotspacemacs-configuration-layer-path= in your =~/.spacemacs=. For instance
+to add some layers in =~/.myconfig=, set the variable like this:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layer-path '("~/.myconfig/"))
@@ -562,11 +602,68 @@ can be set directly in the =dotspacemacs-configuration-layers= like this:
 #+BEGIN_SRC emacs-lisp
 (defun dotspacemacs/layers ()
   ;; List of configuration layers to load.
-  (setq-default dotspacemacs-configuration-layers '(auto-completion
-                                                    (git :variables
-                                                         git-magit-status-fullscreen t)
-                                                    smex)))
+  (setq-default dotspacemacs-configuration-layers
+    '(auto-completion
+      (git :variables
+           git-magit-status-fullscreen t
+           git-variable-example nil)
+      smex)))
 #+END_SRC
+
+The =:variables= keyword is a convenience to keep layer configuration close to
+their declaration. Setting layer variables in the =dotspacemacs/user-init=
+function of your dotfile is also a perfectly valid way to configure a layer.
+
+*** Disabling layer services in other layers
+Often layers enable services that other layers can use. For instance if you use
+the layer =auto-completion= then every other layers supporting =auto-completion=
+will have this feature enabled.
+
+Sometimes you may want to disable a service added by a layer in some specific
+layers. Say you want to disable =auto-completion= in =org= and =git= layers,
+you can do it with the following layer declaration.
+
+#+BEGIN_SRC emacs-lisp
+(defun dotspacemacs/layers ()
+  ;; List of configuration layers to load.
+  (setq-default dotspacemacs-configuration-layers
+    '(org
+      (auto-completion :disabled-for org git))))
+#+END_SRC
+
+*** Selecting/Ignoring packages of a layer
+By default a declared layer installs/configures all its associated packages. You
+may want to select only some of them or ignoring some of them. This is possible
+with the =:packages= keyword.
+
+For instance to ignore the =neotree= and =fancy-battery= packages from
+=spacemacs-ui-visual= layer:
+
+#+BEGIN_SRC emacs-lisp
+(defun dotspacemacs/layers ()
+  ;; List of configuration layers to load.
+  (setq-default dotspacemacs-configuration-layers
+    '(auto-completion
+      (spacemacs-ui-visual :packages (not neotree fancy-battery))))
+#+END_SRC
+
+The opposite would be to ignore all packages except =neotree= and
+=fancy-battery=:
+
+#+BEGIN_SRC emacs-lisp
+(defun dotspacemacs/layers ()
+  ;; List of configuration layers to load.
+  (setq-default dotspacemacs-configuration-layers
+    '(auto-completion
+      (spacemacs-ui-visual :packages neotree fancy-battery)))
+#+END_SRC
+
+*Note:* Ignoring a package from a layer is different than excluding a package.
+An excluded packages is completely removed from your configuration whereas an
+ignored package is ignored only for a given layer but it can remain on your
+system. It happens that if the given layer is the owner of the package then
+ignoring this package is the same as excluding it (because the package becomes
+orphan so it is considered unused by Spacemacs).
 
 *** Excluding packages
 You can exclude packages you don't want to install with the variable
@@ -580,28 +677,16 @@ For instance, to disable the =rainbow-delimiters= package:
 #+END_SRC
 
 When you exclude a package, Spacemacs will automatically delete it for you the
-next time you launch Emacs. All the orphan dependencies are also deleted
-automatically.
+next time you launch Emacs or at the next dotfile synchronization. All the
+orphan dependencies are also deleted automatically. Excluding a package
+effectively remove _all_ references to it in Spacemacs without breaking the rest
+of the configuration, this is a powerful feature which allows you to quickly
+remove any feature from Spacemacs.
 
-*** Configuration functions
-Three special functions in the =~/.spacemacs= file can be used to perform
-configuration at the beginning and end of Spacemacs loading process:
-
-- =dotspacemacs/init= is called at the very startup of Spacemacs initialization
-  before layers configuration. You should not put any user code in there
-  besides modifying the Spacemacs variable values.
-- =dotspacemacs/user-init= is called immediately after =dotspacemacs/init=,
-  before layer configuration executes. This function is mostly useful for
-  variables that need to be set before packages are loaded.
-- =dotspacemacs/user-config= is called at the very end of Spacemacs
-  initialization after layers configuration. This is the place where most of
-  your configurations should be done. Unless it is explicitly specified that a
-  variable should be set before a package is loaded, you should place you code
-  here.
-
-*** Custom variables
-Custom variables configuration from =M-x customize-group= which are
-automatically saved by Emacs are stored at the end of your =~/.spacemacs= file.
+*Note:* A few packages are essential for Spacemacs to correctly operate, those
+packages are protected and cannot be excluded or unsintalled even if they become
+orphans or are excluded. =use-package= is an example of a protected package that
+cannot be removed from Spacemacs.
 
 * Concepts
 ** Editing Styles
@@ -904,12 +989,10 @@ You can see samples of all included themes in this [[http://themegallery.robdor.
 
 ** Font
 The default font used by Spacemacs is [[https://github.com/adobe-fonts/source-code-pro][Source Code Pro]] by Adobe. It is
-recommended to install it on your system.
+recommended to install it on your system if you wish to use it.
 
 To change the default font set the variable =dotspacemacs-default-font= in your
-=.spacemacs= file.
-
-By default its value is:
+=.spacemacs= file. By default its value is:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-default-font '("Source Code Pro"
@@ -918,6 +1001,10 @@ By default its value is:
                                           :width normal
                                           :powerline-scale 1.1))
 #+END_SRC
+
+If the specified font is not found, the fallback one will be used (depends on
+your system). Also note that changing this value has no effect if you are
+running Emacs in terminal.
 
 The properties should be pretty straightforward, it is possible to set any valid
 property of a [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Low_002dLevel-Font.html][font-spec]]:
@@ -1091,8 +1178,7 @@ file:
 (defun dotspacemacs/user-config ()
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
-  (setq powerline-default-separator 'arrow)
-  (spaceline-compile))
+  (setq powerline-default-separator 'arrow))
 #+END_SRC
 
 To save you the time to try all the possible separators provided by the
@@ -1701,7 +1787,8 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | ~SPC j b~   | undo a jump (go back to previous location)                                        |
 | ~SPC j d~   | jump to a listing of the current directory                                        |
 | ~SPC j D~   | jump to a listing of the current directory (other window)                         |
-| ~SPC j f~   | jump to the definition of the function around point                               |
+| ~SPC j f~   | jump to the definition of a function                                              |
+| ~SPC j F~   | jump to the definition of the function around point                               |
 | ~SPC j i~   | jump to a definition in buffer (imenu)                                            |
 | ~SPC j I~   | jump to a definition in any buffer (imenu)                                        |
 | ~SPC j j~   | jump to a character in the buffer (works as an evil motion)                       |
@@ -1709,7 +1796,8 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | ~SPC j k~   | jump to next line and indent it using auto-indent rules                           |
 | ~SPC j l~   | jump to a line with avy (works as an evil motion)                                 |
 | ~SPC j u~   | jump to a URL in the current buffer                                               |
-| ~SPC j v~   | jump to the definition/declaration of the variable around point                   |
+| ~SPC j v~   | jump to the definition/declaration of a variable                                  |
+| ~SPC j V~   | jump to the definition/declaration of the variable around point                   |
 | ~SPC j w~   | jump to a word in the current buffer (works as an evil motion)                    |
 
 **** Joining and splitting
@@ -1746,8 +1834,12 @@ Windows manipulation commands (start with ~w~):
 |------------------------+-----------------------------------------------------------------------------|
 | ~SPC w =~              | balance split windows                                                       |
 | ~SPC w b~              | force the focus back to the minibuffer (usefull with =helm= popups)         |
+| ~SPC w c~              | maximize/minimize a window and center it                                    |
+| ~SPC w C~              | maximize/minimize a window and center it using [[https://github.com/abo-abo/ace-window][ace-window]]                   |
 | ~SPC w d~              | delete a window                                                             |
-| ~SPC w D~              | delete another window using [[https://github.com/abo-abo/ace-window][ace-delete-window]]                               |
+| ~SPC u SPC w d~        | delete a window and its current buffer (does not delete the file)           |
+| ~SPC w D~              | delete another window using [[https://github.com/abo-abo/ace-window][ace-window]]                                      |
+| ~SPC u SPC w D~        | delete another window and its current buffer using [[https://github.com/abo-abo/ace-window][ace-window]]               |
 | ~SPC w t~              | toggle window dedication (dedicated window cannot be reused by a mode)      |
 | ~SPC w f~              | toggle follow mode                                                          |
 | ~SPC w F~              | create new frame                                                            |
@@ -1760,7 +1852,7 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w l~              | move to window on the right                                                 |
 | ~SPC w L~              | move window to the right                                                    |
 | ~SPC w m~              | maximize/minimize a window (maximize is equivalent to delete other windows) |
-| ~SPC w M~              | maximize/minimize a window, when maximized the buffer is centered           |
+| ~SPC w M~              | swap windows using [[https://github.com/abo-abo/ace-window][ace-window]]                                               |
 | ~SPC w o~              | cycle and focus between frames                                              |
 | ~SPC w p m~            | open messages buffer in a popup window                                      |
 | ~SPC w p p~            | close the current sticky popup window                                       |
@@ -1772,7 +1864,7 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w v~ or ~SPC w /~ | vertical split                                                              |
 | ~SPC w V~              | vertical split and focus new window                                         |
 | ~SPC w w~              | cycle and focus between windows                                             |
-| ~SPC w SPC~            | select window using [[https://github.com/abo-abo/ace-window][ace-window]]                                              |
+| ~SPC w W~              | select window using [[https://github.com/abo-abo/ace-window][ace-window]]                                              |
 
 **** Window manipulation transient state
 A convenient window manipulation transient state allows performing most of the
@@ -1835,29 +1927,27 @@ By default Spacemacs uses =helm= to open files.
 **** Buffers manipulation key bindings
 Buffer manipulation commands (start with ~b~):
 
-| Key Binding | Description                                                              |
-|-------------+--------------------------------------------------------------------------|
-| ~SPC TAB~   | switch to alternate buffer in the current window (switch back and forth) |
-| ~SPC b b~   | switch to a buffer using =helm=                                          |
-| ~SPC b d~   | kill the current buffer (does not delete the visited file)               |
-| ~SPC b e~   | erase the content of the buffer (ask for confirmation)                   |
-| ~SPC b h~   | open =*spacemacs*= home buffer                                           |
-| ~SPC b k~   | kill a buffer                                                            |
-| ~SPC b K~   | kill all buffers except the current one                                  |
-| ~SPC b C-k~ | kill all buffers matching the regexp                                     |
-| ~SPC b m h~ | move a buffer to the left                                                |
-| ~SPC b m j~ | move a buffer to the bottom                                              |
-| ~SPC b m k~ | move a buffer to the top                                                 |
-| ~SPC b m l~ | move a buffer to the right                                               |
-| ~SPC b M~   | swap windows using [[https://github.com/abo-abo/ace-window][ace-swap-window]]                                       |
-| ~SPC b n~   | switch to next buffer avoiding special buffers                           |
-| ~SPC b p~   | switch to previous buffer avoiding special buffers                       |
-| ~SPC b P~   | copy clipboard and replace buffer (useful when pasting from a browser)   |
-| ~SPC b R~   | revert the current buffer (reload from disk)                             |
-| ~SPC b s~   | switch to the =*scratch*= buffer (create it if needed)                   |
-| ~SPC b w~   | toggle read-only (writable state)                                        |
-| ~SPC b Y~   | copy whole buffer to clipboard (useful when copying to a browser)        |
-| ~z f~       | Make current function or comments visible in buffer as much as possible  |
+| Key Binding     | Description                                                              |
+|-----------------+--------------------------------------------------------------------------|
+| ~SPC TAB~       | switch to alternate buffer in the current window (switch back and forth) |
+| ~SPC b b~       | switch to a buffer using [[https://github.com/emacs-helm/helm][helm]]                                            |
+| ~SPC b d~       | kill the current buffer (does not delete the visited file)               |
+| ~SPC u SPC b d~ | kill the current buffer and window (does not delete the visited file)    |
+| ~SPC b D~       | kill a visible buffer using [[https://github.com/abo-abo/ace-window][ace-window]]                                   |
+| ~SPC u SPC b D~ | kill a visible buffer and its window using [[https://github.com/abo-abo/ace-window][ace-window]]                    |
+| ~SPC b e~       | erase the content of the buffer (ask for confirmation)                   |
+| ~SPC b h~       | open =*spacemacs*= home buffer                                           |
+| ~SPC b n~       | switch to next buffer avoiding special buffers                           |
+| ~SPC b m~       | kill all buffers except the current one                                  |
+| ~SPC u SPC b m~ | kill all buffers and windows except the current one                      |
+| ~SPC b M~       | kill all buffers matching the regexp                                     |
+| ~SPC b p~       | switch to previous buffer avoiding special buffers                       |
+| ~SPC b P~       | copy clipboard and replace buffer (useful when pasting from a browser)   |
+| ~SPC b R~       | revert the current buffer (reload from disk)                             |
+| ~SPC b s~       | switch to the =*scratch*= buffer (create it if needed)                   |
+| ~SPC b w~       | toggle read-only (writable state)                                        |
+| ~SPC b Y~       | copy whole buffer to clipboard (useful when copying to a browser)        |
+| ~z f~           | Make current function or comments visible in buffer as much as possible  |
 
 **** Buffers manipulation transient state
 A convenient buffer manipulation transient state allows to quickly cycles through
@@ -2216,13 +2306,17 @@ called =pt=.
 
 **** Useful key bindings
 
-| Key Binding            | Description                                                              |
-|------------------------+--------------------------------------------------------------------------|
-| ~F3~                   | in a =helm= buffer, convert a =helm= search buffer into a regular buffer |
-| ~SPC r l~              | resume the last =completion= buffer                                      |
-| ~SPC r s~ or ~SPC s l~ | resume search buffer (completion or converted search buffer)             |
-| ~SPC s `~              | go back to the previous place reached with =helm-ag=                     |
-| Prefix argument        | will ask for file extensions                                             |
+| Key Binding            | Description                                                   |
+|------------------------+---------------------------------------------------------------|
+| ~F3~                   | in a =helm= or =ivy= buffer, save results to a regular buffer |
+| ~SPC r l~              | resume the last =completion= buffer                           |
+| ~SPC r s~ or ~SPC s l~ | resume search buffer (completion or converted search buffer)  |
+| ~SPC s `~              | go back to the previous place reached with =helm-ag=          |
+| Prefix argument        | will ask for file extensions                                  |
+
+When results have been saved in a regular buffer with ~F3~, that buffer supports
+browsing through the matches with Spacemacs’ =next-error= and =previous-error=
+bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e~).
 
 **** Searching in current file
 
@@ -2448,6 +2542,7 @@ Text related commands (start with ~x~):
 | ~SPC x U~   | set the selected text to upper case                           |
 | ~SPC x w c~ | count the number of occurrences per word in the select region |
 | ~SPC x w d~ | show dictionary entry of word from wordnik.com                |
+| ~SPC x TAB~ | indent or dedent a region rigidly                             |
 
 *** Text insertion commands
 Text insertion commands (start with ~i~):
@@ -2551,23 +2646,23 @@ Spacemacs adds another =Visual= mode via the [[https://github.com/magnars/expand
 | ~ESC~       | leave expand-region mode                 |
 
 **** Indent text object
-With [[https://github.com/cofi/evil-indent-textobject][evil-indent-textobject]] the following action can be performed in =normal
-state=:
-  - ~ii~ - Inner Indentation: the surrounding textblock with the same indentation
-  - ~ai~ - Above and Indentation: ~ii~ + the line above with a different indentation
-  - ~aI~ - Above and Indentation+: ~ai~ + the line below with a different indentation
+With [[https://github.com/TheBB/evil-indent-plus][evil-indent-plus]] the following text objects are available:
 
-Example (=|= indicates point):
+- ~ii~ - Inner Indentation: the surrounding textblock with the same indentation
+- ~iI~ - Above and Indentation: ~ii~ + the line above with a different indentation
+- ~iJ~ - Above, Below and Indentation+: ~iI~ + the line below with a different indentation
+
+There are also ~a~ variants that include whitespace. Example (=|= indicates point):
 
 #+BEGIN_SRC emacs-lisp
-(while (not done)
-  (messa|ge "All work and no play makes Jack a dull boy."))
+  (while (not done)
+    (messa|ge "All work and no play makes Jack a dull boy."))
   (1+ 41)
 #+END_SRC
 
 -  ~vii~ will select the line with message
--  ~vai~ will select the whole while loop
--  ~vaI~ will select the whole fragment
+-  ~viI~ will select the whole while loop
+-  ~viJ~ will select the whole fragment
 
 *** Region narrowing
 The displayed text of a buffer can be narrowed with the commands (start with
@@ -2904,6 +2999,12 @@ Errors management commands (start with ~e~):
 | ~SPC e n~   | go to the next error                                                  |
 | ~SPC e p~   | go to the previous error                                              |
 | ~SPC e v~   | verify flycheck setup (useful to debug 3rd party tools configuration) |
+| ~SPC e .~   | error transient state                                                 |
+
+The next/previous error bindings and the error transient state can be used to
+browse errors from flycheck as well as errors from compilation buffers, and
+indeed anything that supports Emacs’ =next-error= API. This includes for example
+search results that have been saved to a separate buffer.
 
 Custom fringe bitmaps:
 
@@ -3040,6 +3141,8 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | [[https://github.com/syl20bnr/spacemacs/pull/1205][600th pull request]]  | [[https://github.com/trishume][trishume]]       |
 | [[https://github.com/syl20bnr/spacemacs/pull/1995][1000th pull request]] | [[https://github.com/justbur][justbur]]        |
 | [[https://github.com/syl20bnr/spacemacs/pull/4089][2000th pull request]] | [[https://github.com/channingwalton][channingwalton]] |
+| [[https://github.com/syl20bnr/spacemacs/pull/6338][3000th pull request]] | [[https://github.com/darkfeline][darkfeline]]     |
+
 
 ** Stars, forks and watchers
 

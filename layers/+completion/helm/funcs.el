@@ -156,3 +156,30 @@ Ensure that helm is required before calling FUNC."
   "Exits helm, opens a dired buffer and immediately switches to editable mode."
   (interactive)
   (helm-exit-and-execute-action 'spacemacs//helm-find-files-edit))
+
+
+;; Generalized next-error interface
+
+(defun spacemacs//gne-init-helm-ag (&rest args)
+  (with-current-buffer "*helm ag results*"
+    (setq spacemacs--gne-min-line 5
+          spacemacs--gne-max-line (save-excursion
+            (goto-char (point-max))
+            (previous-line)
+            (line-number-at-pos))
+          spacemacs--gne-line-func
+          (lambda (c)
+            (helm-ag--find-file-action
+             c 'find-file helm-ag--search-this-file-p))
+          next-error-function 'spacemacs//gne-next)))
+
+(defun spacemacs//gne-init-helm-grep (&rest args)
+  (with-current-buffer "*hgrep*"
+    (setq spacemacs--gne-min-line 5
+          spacemacs--gne-max-line
+          (save-excursion
+            (goto-char (point-max))
+            (previous-line)
+            (line-number-at-pos))
+          spacemacs--gne-line-func 'helm-grep-action
+          next-error-function 'spacemacs//gne-next)))

@@ -21,7 +21,7 @@
     js2-refactor
     json-mode
     json-snatcher
-    tern
+    (tern :toggle (spacemacs//tern-detect))
     web-beautify
     skewer-mode
     livid-mode
@@ -191,19 +191,13 @@
 (defun javascript/init-tern ()
   (use-package tern
     :defer t
-    :if (javascript//tern-detect)
     :diminish tern-mode
     :init (add-hook 'js2-mode-hook 'tern-mode)
     :config
     (progn
       (when javascript-disable-tern-port-files
         (add-to-list 'tern-command "--no-port-file" 'append))
-      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "rrV" 'tern-rename-variable)
-      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "hd" 'tern-get-docs)
-      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "gg" 'tern-find-definition)
-      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "gG" 'tern-find-definition-by-name)
-      (spacemacs/set-leader-keys-for-major-mode 'js2-mode (kbd " C-g") 'tern-pop-find-definition)
-      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "ht" 'tern-get-type))))
+      (spacemacs//set-tern-key-bindings 'js2-mode))))
 
 (defun javascript/init-web-beautify ()
   (use-package web-beautify

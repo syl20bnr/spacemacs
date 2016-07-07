@@ -11,22 +11,15 @@
 
 (setq spacemacs-ui-packages
       '(ace-link
-        ace-window
-        buffer-move
         (centered-cursor :location local)
         desktop
         (doc-view :location built-in)
         flx-ido
         info+
         open-junk-file
+        paradox
         restart-emacs
         window-numbering))
-
-;; Paradox from MELPA is not compatible with 24.3, so we use
-;; a local paradox with 24.3
-(if  (version< emacs-version "24.4")
-    (push '(paradox :location local) spacemacs-ui-packages)
-  (push 'paradox spacemacs-ui-packages))
 
 ;; Initialization of packages
 
@@ -64,28 +57,6 @@
           (when res
             (goto-char (1+ res))
             (widget-button-press (point))))))))
-
-(defun spacemacs-ui/init-ace-window ()
-  (use-package ace-window
-    :defer t
-    :init
-    (progn
-      (spacemacs/set-leader-keys
-        "bM"    'ace-swap-window
-        "wD"    'ace-delete-window
-        "w SPC" 'ace-window)
-      ;; set ace-window keys to home-row
-      (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))))
-
-(defun spacemacs-ui/init-buffer-move ()
-  (use-package buffer-move
-    :defer t
-    :init
-    (spacemacs/set-leader-keys
-      "bmh" 'buf-move-left
-      "bmj" 'buf-move-down
-      "bmk" 'buf-move-up
-      "bml" 'buf-move-right)))
 
 (defun spacemacs-ui/init-centered-cursor ()
   (use-package centered-cursor-mode

@@ -12,7 +12,7 @@
                       yaml-mode))
 
 (defun yaml/post-init-company ()
-  (add-hook 'yaml-mode-hook 'company-mode))
+  (spacemacs|add-company-hook yaml-mode))
 
 (defun yaml/init-yaml-mode ()
   "Initialize YAML mode"

@@ -237,8 +237,7 @@
               #'smartparens-mode)))
 
 (defun clojure/post-init-subword ()
-  (unless (version< emacs-version "24.4")
-    (add-hook 'cider-mode-hook 'subword-mode)))
+  (add-hook 'cider-mode-hook 'subword-mode))
 
 (defun clojure/post-init-company ()
   (push 'company-capf company-backends-cider-mode)

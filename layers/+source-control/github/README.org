@@ -88,23 +88,16 @@ In the gist list buffer:
 
 ** Clone repositories
 
-| Key Binding   | Description                          |
-|---------------+--------------------------------------|
-| ~SPC g h C-c~ | clone and optionally fork repository |
+| Key Binding   | Description                                              |
+|---------------+----------------------------------------------------------|
+| ~SPC g h c /~ | search for a repository to clone it                      |
+| ~SPC g h c c~ | clone and optionally fork repository                     |
+| ~SPC g h c r~ | add a remote that is an existing fork of selected remote |
+| ~SPC g h c f~ | fork remote in current user namespace                    |
+| ~SPC g h c u~ | add upstream as remote                                   |
 
 ** Browse files
 
 | Key Binding | Description                                                        |
 |-------------+--------------------------------------------------------------------|
-| ~SPC g h c~ | browse to file on github/bitbucket/etc (on current line at commit) |
-| ~SPC g h C~ | only copy the generated link on the kill ring                      |
-| ~SPC g h l~ | browse to file on github/bitbucket/etc (on current line position)  |
-| ~SPC g h L~ | only copy the generated link on the kill ring                      |
 | ~SPC g h o~ | browse to file on github                                           |
-
-*Notes:*
-- You can use the universal argument ~SPC u~ to select a remote repository.
-- You can use =git-link= on a region.
-- When the link is opened, the URL is also copied in the kill ring, you can
-  override this behavior by setting the variable =git-link-open-in-browser= to
-  =nil=.

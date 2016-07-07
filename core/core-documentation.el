@@ -39,7 +39,7 @@
     (dolist (l layers)
       (let ((layer-name (file-name-nondirectory l))
             (target-path (concat (file-relative-name
-                                  l (concat user-emacs-directory "layers"))
+                                  l (concat spacemacs-start-directory "layers"))
                                  "/README.org")))
         (insert (format "- [[file:%s][%s]]\n" target-path layer-name))))
     (dolist (c categories)
@@ -66,7 +66,7 @@
     ;; uncomment this line if any new layer is added at the root level
     ;; (insert "* General layers\n")
     (spacemacs//generate-layers-from-path configuration-layer-directory "*")
-    (write-file (concat user-emacs-directory "layers/LAYERS.org"))))
+    (write-file (concat spacemacs-start-directory "layers/LAYERS.org"))))
 
 (defun spacemacs//format-toc (&rest r)
   (if (not (null (car r)))
@@ -150,7 +150,7 @@ the `spacemacs//org-heading-annotate-custom-id' function."
              (error (format "Can't find #+TITLE: in %s"
                             (buffer-file-name))))
            (insert (concat head-css-extra-readtheorg-head
-                           (f-relative user-emacs-directory
+                           (f-relative spacemacs-start-directory
                                        (file-name-directory filename))
                            head-css-extra-readtheorg-tail)))))
 
@@ -198,7 +198,7 @@ preprocessors for the exported .org files."
 
            ga('create', 'UA-28326243-2', 'auto'); ga('send', 'pageview');
           </script>")
-         (publish-target (concat user-emacs-directory "export/"))
+         (publish-target (concat spacemacs-start-directory "export/"))
          (org-html-htmlize-output-type 'css)
          (org-publish-project-alist
           `(("spacemacs"
@@ -214,7 +214,7 @@ preprocessors for the exported .org files."
              :headline-levels 4
              :html-head ,header)
             ("layers-doc"
-             :base-directory ,(concat user-emacs-directory "layers/")
+             :base-directory ,(concat spacemacs-start-directory "layers/")
              :base-extension "org"
              :recursive t
              :publishing-directory ,(concat publish-target "layers/")
@@ -229,7 +229,7 @@ preprocessors for the exported .org files."
              :publishing-directory ,(concat publish-target "doc/")
              :publishing-function org-publish-attachment)
             ("layers-doc-static"
-             :base-directory ,(concat user-emacs-directory "layers/")
+             :base-directory ,(concat spacemacs-start-directory "layers/")
              :base-extension "jpg\\|png\\|gif"
              :recursive t
              :publishing-directory ,(concat publish-target "layers/")

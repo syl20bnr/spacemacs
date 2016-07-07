@@ -121,6 +121,8 @@ is achieved by adding the relevant text properties."
           ;; Idea: maybe we could make auto-jump smarter and jump only if
           ;; point is not on a prompt line
           (add-hook 'evil-insert-state-entry-hook
+                    'spacemacs//eshell-auto-end nil t)
+          (add-hook 'evil-hybrid-state-entry-hook
                     'spacemacs//eshell-auto-end nil t))
         (when (configuration-layer/package-usedp 'semantic)
           (semantic-mode -1))

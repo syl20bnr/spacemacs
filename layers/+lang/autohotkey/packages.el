@@ -22,4 +22,5 @@
       "cb" 'ahk-comment-block-dwim
       "cc" 'ahk-comment-dwim
       "eb" 'ahk-run-script
-      "h" 'ahk-lookup-web)))
+      "hh" 'ahk-lookup-web
+      "hH" 'ahk-lookup-chm)))

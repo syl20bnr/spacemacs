@@ -21,8 +21,5 @@
 
 (defun spacemacs//elixir-enable-compilation-checking ()
   "Enable compile checking if `elixir-enable-compilation-checking' is non nil."
-  (hack-dir-local-variables)
-  (let ((enabled (cdr (assq 'elixir-enable-compilation-checking
-                            file-local-variables-alist))))
-    (when (or enabled elixir-enable-compilation-checking)
-      (flycheck-mix-setup))))
+  (when (or elixir-enable-compilation-checking)
+    (flycheck-mix-setup)))

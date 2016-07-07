@@ -85,8 +85,8 @@ found."
       (message "Start checking for new version...")
       (async-start
        `(lambda ()
-          ,(async-inject-variables "\\`user-emacs-directory\\'")
-          (load-file (concat user-emacs-directory "core/core-load-paths.el"))
+          ,(async-inject-variables "\\`spacemacs-start-directory\\'")
+          (load-file (concat spacemacs-start-directory "core/core-load-paths.el"))
           (require 'core-spacemacs)
           (spacemacs/get-last-version))
        (lambda (result)
@@ -144,7 +144,7 @@ version and the NEW version."
 (defun spacemacs/git-has-remote (remote)
   "Return non nil if REMOTE is declared."
   (let((proc-buffer "git-has-remote")
-       (default-directory (file-truename user-emacs-directory)))
+       (default-directory (file-truename spacemacs-start-directory)))
     (when (eq 0 (process-file "git" nil proc-buffer nil "remote"))
         (with-current-buffer proc-buffer
           (prog2
@@ -155,7 +155,7 @@ version and the NEW version."
 (defun spacemacs/git-add-remote (remote url)
   "Add a REMOTE with URL, return t if no error."
   (let((proc-buffer "git-add-remote")
-       (default-directory (file-truename user-emacs-directory)))
+       (default-directory (file-truename spacemacs-start-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "remote" "add" remote url))
@@ -164,7 +164,7 @@ version and the NEW version."
 (defun spacemacs/git-remove-remote (remote)
   "Remove a REMOTE, return t if no error."
   (let((proc-buffer "git-remove-remote")
-       (default-directory (file-truename user-emacs-directory)))
+       (default-directory (file-truename spacemacs-start-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "remote" "remove" remote))
@@ -173,7 +173,7 @@ version and the NEW version."
 (defun spacemacs/git-fetch-remote (remote)
   "Fetch last commits from REMOTE, return t if no error."
   (let((proc-buffer "git-remove-remote")
-       (default-directory (file-truename user-emacs-directory)))
+       (default-directory (file-truename spacemacs-start-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "fetch" remote))
@@ -182,7 +182,7 @@ version and the NEW version."
 (defun spacemacs/git-fetch-tags (remote branch)
   "Fetch the tags for BRANCH in REMOTE repository."
   (let((proc-buffer "git-fetch-tags")
-       (default-directory (file-truename user-emacs-directory)))
+       (default-directory (file-truename spacemacs-start-directory)))
     (prog2
         ;; seems necessary to fetch first
         (eq 0 (process-file "git" nil proc-buffer nil
@@ -195,7 +195,7 @@ version and the NEW version."
 (defun spacemacs/git-hard-reset-to-tag (tag)
   "Hard reset the current branch to specifed TAG."
   (let((proc-buffer "git-hard-reset")
-       (default-directory (file-truename user-emacs-directory)))
+       (default-directory (file-truename spacemacs-start-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "reset" "--hard" tag))
@@ -204,7 +204,7 @@ version and the NEW version."
 (defun spacemacs/git-latest-tag (remote branch)
   "Returns the latest tag on REMOTE/BRANCH."
   (let((proc-buffer "git-latest-tag")
-       (default-directory (file-truename user-emacs-directory))
+       (default-directory (file-truename spacemacs-start-directory))
        (where (format "%s/%s" remote branch)))
     (when (eq 0 (process-file "git" nil proc-buffer nil
                               "describe" "--tags" "--abbrev=0"
@@ -223,7 +223,7 @@ version and the NEW version."
 (defun spacemacs/git-checkout (branch)
   "Checkout the given BRANCH. Return t if there is no error."
   (let((proc-buffer "git-checkout")
-       (default-directory (file-truename user-emacs-directory)))
+       (default-directory (file-truename spacemacs-start-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "checkout" branch))
@@ -232,7 +232,7 @@ version and the NEW version."
 (defun spacemacs/git-get-current-branch ()
    "Return the current branch. Return nil if an error occurred."
    (let((proc-buffer "git-get-current-branch")
-        (default-directory (file-truename user-emacs-directory)))
+        (default-directory (file-truename spacemacs-start-directory)))
      (when (eq 0 (process-file "git" nil proc-buffer nil
                                "symbolic-ref" "--short" "-q" "HEAD"))
        (with-current-buffer proc-buffer
@@ -249,7 +249,7 @@ version and the NEW version."
   "Returns the hash of the head commit on the current branch.
 Returns nil if an error occurred."
   (let((proc-buffer "git-get-current-branch-head-hash")
-       (default-directory (file-truename user-emacs-directory)))
+       (default-directory (file-truename spacemacs-start-directory)))
     (when (eq 0 (process-file "git" nil proc-buffer nil
                               "rev-parse" "--short" "HEAD"))
       (with-current-buffer proc-buffer
@@ -266,7 +266,7 @@ Returns nil if an error occurred."
   "Non-nil if the user's emacs directory is not clean.
 Returns the output of git status --porcelain."
   (let((proc-buffer "git-working-directory-dirty")
-       (default-directory (file-truename user-emacs-directory)))
+       (default-directory (file-truename spacemacs-start-directory)))
     (when (eq 0 (process-file "git" nil proc-buffer nil
                               "status" "--porcelain"))
       (with-current-buffer proc-buffer

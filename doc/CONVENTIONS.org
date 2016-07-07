@@ -34,6 +34,7 @@
      - [[#language-specific][Language specific]]
    - [[#toggles][Toggles]]
    - [[#refactoring][Refactoring]]
+   - [[#code-formatting][Code Formatting]]
    - [[#help-or-documentation][Help or Documentation]]
  - [[#writing-documentation][Writing documentation]]
    - [[#spacing-in-documentation][Spacing in documentation]]
@@ -338,6 +339,15 @@ one or more bindings for the same thing
 
 ** Refactoring
 Refactoring prefix is ~SPC m r~.
+
+** Code Formatting
+Major-mode code formatting is under prefix ~SPC m =~.
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~m = =~     | format thing under point |
+| ~m = b~     | format current buffer    |
+| ~m = f~     | format current function  |
 
 ** Help or Documentation
 The base prefix for help commands is ~SPC h~. Documentation is considered
