@@ -13,7 +13,6 @@
   '(
     company
     company-emoji
-    ediff
     emoji-cheat-sheet-plus
     (evil-org :location local)
     evil-surround
@@ -43,10 +42,6 @@
 
 (defun org/post-init-company-emoji ()
   (push 'company-emoji company-backends-org-mode))
-
-(defun org/post-init-ediff ()
-  ;; show org ediffs unfolded
-  (add-hook 'ediff-prepare-buffer-hook #'outline-show-all))
 
 (defun org/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'org-mode-hook 'spacemacs/delay-emoji-cheat-sheet-hook))
