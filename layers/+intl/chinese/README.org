@@ -88,7 +88,7 @@ method support.
 #+END_EXAMPLE
 
 ***** Windows
-=fcitx.el= doesn't support Windows for now.
+In order to use =fcitx.el= in Windows, you should install [[https://github.com/cute-jumper/fcitx-remote-for-windows][fcitx-remote-for-windows]].
 
 *** Enable YouDao(有道) Dictionary(激活有道字典)
 The YouDao Dictionary is disabled by default, if you want enable it.
