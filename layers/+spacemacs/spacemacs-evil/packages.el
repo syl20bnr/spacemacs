@@ -28,7 +28,7 @@
         evil-surround
         ;; Temporarily disabled, pending the resolution of
         ;; https://github.com/7696122/evil-terminal-cursor-changer/issues/8
-        (evil-terminal-cursor-changer :excluded t)
+        ;; evil-terminal-cursor-changer
         evil-tutor
         (evil-unimpaired :location local)
         evil-visual-mark-mode
