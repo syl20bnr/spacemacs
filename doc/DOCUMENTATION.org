@@ -3141,6 +3141,8 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | [[https://github.com/syl20bnr/spacemacs/pull/1205][600th pull request]]  | [[https://github.com/trishume][trishume]]       |
 | [[https://github.com/syl20bnr/spacemacs/pull/1995][1000th pull request]] | [[https://github.com/justbur][justbur]]        |
 | [[https://github.com/syl20bnr/spacemacs/pull/4089][2000th pull request]] | [[https://github.com/channingwalton][channingwalton]] |
+| [[https://github.com/syl20bnr/spacemacs/pull/6338][3000th pull request]] | [[https://github.com/darkfeline][darkfeline]]     |
+
 
 ** Stars, forks and watchers
 
