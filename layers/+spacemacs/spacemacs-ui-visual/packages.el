@@ -10,8 +10,9 @@
 ;;; License: GPLv3
 
 (setq spacemacs-ui-visual-packages
-      '((ansi-colors :location built-in)
-	fancy-battery
+      '(
+        (ansi-colors :location built-in)
+        fancy-battery
         fill-column-indicator
         golden-ratio
         hl-todo
@@ -23,12 +24,8 @@
         (zoom-frm :location local)))
 
 (defun spacemacs-ui-visual/init-ansi-colors ()
-  :init
-  (progn
-    (defun spacemacs-ui-visual/compilation-buffer-apply-ansi-colors ()
-      (let ((inhibit-read-only t))
-	(ansi-color-apply-on-region compilation-filter-start (point-max))))
-    (add-hook 'compilation-filter-hook 'spacemacs-ui-visual/compilation-buffer-apply-ansi-colors)))
+  (add-hook 'compilation-filter-hook
+            'spacemacs-ui-visual//compilation-buffer-apply-ansi-colors))
 
 (defun spacemacs-ui-visual/init-fancy-battery ()
   (use-package fancy-battery
