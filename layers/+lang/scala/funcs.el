@@ -90,7 +90,8 @@ point to the position of the join."
                     (buffer-substring (line-beginning-position) (point)))
     (delete-horizontal-space t))
   (insert ".")
-  (company-complete))
+  (when (not (company-tooltip-visible-p))
+    company-complete))
 
 ;;; Flyspell
 
