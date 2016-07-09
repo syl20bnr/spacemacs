@@ -210,7 +210,7 @@ LAYER has to be installed for this method to work properly."
 (defvar configuration-layer--used-distant-packages '()
   "A list of all distant packages that are effectively used.")
 
-(defvar configuration-layer--skipped-packages nil
+(defvar configuration-layer--check-new-version-error-packages nil
   "A list of all packages that were skipped during last update attempt.")
 
 (defvar configuration-layer--protected-packages nil
@@ -1296,7 +1296,9 @@ path."
       ;; (message "%s: %s > %s ?" pkg-name cur-version new-version)
       (if new-version
           (version< cur-version new-version)
-        (cl-pushnew pkg-name configuration-layer--skipped-packages :test #'eq)
+        (cl-pushnew pkg-name
+                    configuration-layer--check-new-version-error-packages
+                    :test #'eq)
         nil))))
 
 (defun configuration-layer//get-packages-to-update (pkg-names)
@@ -1440,12 +1442,13 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
   (spacemacs-buffer/insert-page-break)
   (spacemacs-buffer/append "\nUpdating package archives, please wait...\n")
   (configuration-layer/retrieve-package-archives nil 'force)
-  (setq configuration-layer--skipped-packages nil)
+  (setq configuration-layer--check-new-version-error-packages nil)
   (let* ((update-packages
           (configuration-layer//get-packages-to-update
            (mapcar 'car (object-assoc-list
                          :name configuration-layer--used-distant-packages))))
-         (skipped-count (length configuration-layer--skipped-packages))
+         (skipped-count (length
+                         configuration-layer--check-new-version-error-packages))
          (date (format-time-string "%y-%m-%d_%H.%M.%S"))
          (rollback-dir (expand-file-name
                         (concat configuration-layer-rollback-directory
@@ -1453,13 +1456,13 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
          (upgrade-count (length update-packages))
          (upgraded-count 0)
          (update-packages-alist))
-    (when configuration-layer--skipped-packages
+    (when configuration-layer--check-new-version-error-packages
       (spacemacs-buffer/append
        (format (concat "--> Warning: cannot update %s package(s), possibly due"
                        " to a temporary network problem: %s\n")
                skipped-count
                (mapconcat #'symbol-name
-                          configuration-layer--skipped-packages
+                          configuration-layer--check-new-version-error-packages
                           " "))))
     ;; (message "packages to udpate: %s" update-packages)
     (when (> upgrade-count 0)
