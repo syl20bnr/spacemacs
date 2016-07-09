@@ -112,6 +112,10 @@ LAYER has to be installed for this method to work properly."
   ((name :initarg :name
          :type symbol
          :documentation "Name of the package.")
+   (min-version :initarg :min-version
+                :initform nil
+                :type list
+                :documentation "Minimum version to install as a version list.")
    (owners :initarg :owners
            :initform nil
            :type list
@@ -482,6 +486,7 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
   (let* ((name-sym (if (listp pkg) (car pkg) pkg))
          (name-str (symbol-name name-sym))
          (location (when (listp pkg) (plist-get (cdr pkg) :location)))
+         (min-version (when (listp pkg) (plist-get (cdr pkg) :min-version)))
          (step (when (listp pkg) (plist-get (cdr pkg) :step)))
          (excluded (when (listp pkg) (plist-get (cdr pkg) :excluded)))
          (toggle (when (and togglep (listp pkg)) (plist-get (cdr pkg) :toggle)))
@@ -489,6 +494,7 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
          (copyp (not (null obj)))
          (obj (if obj obj (cfgl-package name-str :name name-sym))))
     (when location (oset obj :location location))
+    (when min-version (oset obj :min-version (version-to-list min-version)))
     (when step (oset obj :step step))
     (oset obj :excluded (or excluded (oref obj :excluded)))
     (when toggle (oset obj :toggle toggle))
@@ -1102,14 +1108,15 @@ path."
 (defun configuration-layer//install-package (pkg)
   "Unconditionally install the package PKG."
   (let* ((layer (when pkg (car (oref pkg :owners))))
-         (location (when pkg (oref pkg :location))))
+         (location (when pkg (oref pkg :location)))
+         (min-version (when pkg (oref pkg :min-version))))
     (spacemacs-buffer/replace-last-line
      (format "--> installing %s: %s%s... [%s/%s]"
              (if layer "package" "dependency")
              pkg-name (if layer (format "@%S" layer) "")
              installed-count not-inst-count) t)
     (spacemacs//redisplay)
-    (unless (package-installed-p pkg-name)
+    (unless (package-installed-p pkg-name min-version)
       (condition-case-unless-debug err
           (cond
            ((or (null pkg) (eq 'elpa location))
@@ -1206,13 +1213,16 @@ path."
        (format (concat "\nPackage %s is unavailable. "
                        "Is the package name misspelled?\n")
                pkg-name))
-    (dolist
-        (dep (configuration-layer//get-package-deps-from-archive
-              pkg-name))
-      (if (package-installed-p (car dep))
-          (configuration-layer//activate-package (car dep))
-        (package-install (car dep))))
-    (package-install pkg-name)))
+    (let ((pkg-desc (assq pkg-name package-archive-contents)))
+      (dolist
+          (dep (configuration-layer//get-package-deps-from-archive
+                pkg-name))
+        (if (package-installed-p (car dep))
+            (configuration-layer//activate-package (car dep))
+          (package-install (car dep))))
+      (if pkg-desc
+          (package-install (cadr pkg-desc))
+        (package-install pkg-name)))))
 
 (defun configuration-layer//install-from-recipe (pkg)
   "Install PKG from a recipe."
@@ -1250,7 +1260,11 @@ path."
 (defun configuration-layer//get-uninstalled-packages (pkg-names)
   "Return a filtered list of PKG-NAMES to install."
   (configuration-layer//filter-packages-with-deps
-   pkg-names (lambda (x) (not (package-installed-p x)))))
+   pkg-names (lambda (x)
+               (let* ((pkg (object-assoc
+                            x :name configuration-layer--packages))
+                      (min-version (when pkg (oref pkg :min-version))))
+                 (not (package-installed-p x min-version))))))
 
 (defun configuration-layer//package-has-recipe-p (pkg-name)
   "Return non nil if PKG-NAME is the name of a package declared with a recipe."
