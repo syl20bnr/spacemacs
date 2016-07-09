@@ -1217,9 +1217,9 @@ path."
       (dolist
           (dep (configuration-layer//get-package-deps-from-archive
                 pkg-name))
-        (if (package-installed-p (car dep))
+        (if (package-installed-p (car dep) (cadr dep))
             (configuration-layer//activate-package (car dep))
-          (package-install (car dep))))
+          (configuration-layer//install-from-elpa (car dep))))
       (if pkg-desc
           (package-install (cadr pkg-desc))
         (package-install pkg-name)))))
