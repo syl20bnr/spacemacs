@@ -89,6 +89,7 @@ point to the position of the join."
   (when (s-matches? (rx (+ (not space)))
                     (buffer-substring (line-beginning-position) (point)))
     (delete-horizontal-space t))
+  (company-abort)
   (insert ".")
   (company-complete))
 
