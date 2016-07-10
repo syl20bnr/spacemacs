@@ -2405,7 +2405,7 @@ Navigation between the highlighted symbols can be done with the commands:
 
 | Key Binding | Description                                                                        |
 |-------------+------------------------------------------------------------------------------------|
-| ~/~         | initiate navigation transient state on current symbol and jump forwards            |
+| ~*~         | initiate navigation transient state on current symbol and jump forwards            |
 | ~#~         | initiate navigation transient state on current symbol and jump backwards           |
 | ~SPC s e~   | edit all occurrences of the current symbol(/)                                      |
 | ~SPC s h~   | highlight the current symbol and all its occurrence within the current range       |
