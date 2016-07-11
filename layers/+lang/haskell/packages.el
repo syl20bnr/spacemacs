@@ -63,26 +63,6 @@
     :config
     (progn
       (spacemacs|diminish intero-mode " λ" " \\")
-
-      (defun haskell-intero/insert-type ()
-        (interactive)
-        (intero-type-at :insert))
-
-      (defun haskell-intero/display-repl ()
-        (interactive)
-        (let ((buffer (intero-repl-buffer)))
-          (unless (get-buffer-window buffer 'visible)
-            (display-buffer (intero-repl-buffer)))))
-
-      (defun haskell-intero/pop-to-repl ()
-        (interactive)
-        (pop-to-buffer (intero-repl-buffer)))
-
-      (defun haskell-intero//preserve-focus (f)
-        (let ((buffer (current-buffer)))
-          (funcall f)
-          (pop-to-buffer buffer)))
-
       (advice-add 'intero-repl-load
                   :around #'haskell-intero//preserve-focus))))
 
