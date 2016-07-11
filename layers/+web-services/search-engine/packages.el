@@ -103,7 +103,7 @@
                                 (intern (format "engine/search-%S"
                                                 (car engine)))))
                         search-engine-alist)
-                :action (lambda (candidate) (call-interactively candidate))))
+                :action (lambda (candidate) (call-interactively (cdr candidate)))))
 
     (defun spacemacs/search-engine-select ()
       "Set search engine to use."
