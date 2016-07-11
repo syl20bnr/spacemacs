@@ -76,3 +76,25 @@
 
   (evil-define-key '(insert normal) intero-mode-map
     (kbd "M-.") 'intero-goto-definition))
+
+
+;; Intero functions
+
+(defun haskell-intero/insert-type ()
+  (interactive)
+  (intero-type-at :insert))
+
+(defun haskell-intero/display-repl (&optional prompt-options)
+  (interactive "P")
+  (let ((buffer (intero-repl-buffer prompt-options)))
+    (unless (get-buffer-window buffer 'visible)
+      (display-buffer buffer))))
+
+(defun haskell-intero/pop-to-repl (&optional prompt-options)
+  (interactive "P")
+  (pop-to-buffer (intero-repl-buffer prompt-options)))
+
+(defun haskell-intero//preserve-focus (f &rest args)
+  (let ((buffer (current-buffer)))
+    (apply f args)
+    (pop-to-buffer buffer)))
