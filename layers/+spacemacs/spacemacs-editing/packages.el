@@ -86,9 +86,7 @@
 
 (defun spacemacs-editing/init-clean-aindent-mode ()
   (use-package clean-aindent-mode
-    :defer t
-    :init
-    (add-hook 'prog-mode-hook 'clean-aindent-mode)))
+    :config (clean-aindent-mode)))
 
 (defun spacemacs-editing/init-eval-sexp-fu ()
   ;; ignore obsolete function warning generated on startup
