@@ -1,0 +1,19 @@
+#+TITLE: hoon layer
+
+[[img/urbit.jpg]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for the Hoon language used by Urbit. See the [[http://urbit.org/docs/hoon/][hoon documentation]] for further information on the language.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =hoon= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+At the moment there are no key bindings. They will be added when the upstream code supports some.
