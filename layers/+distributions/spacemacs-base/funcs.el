@@ -321,11 +321,12 @@ projectile cache when it's possible and update recentf list."
 (defun spacemacs/rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."
   (interactive)
-  (let ((name (buffer-name))
-        (filename (buffer-file-name)))
+  (let* ((name (buffer-name))
+        (filename (buffer-file-name))
+        (dir (file-name-directory filename)))
     (if (not (and filename (file-exists-p filename)))
         (error "Buffer '%s' is not visiting a file!" name)
-      (let ((new-name (read-file-name "New name: " filename)))
+      (let ((new-name (read-file-name "New name: " dir)))
         (cond ((get-buffer new-name)
                (error "A buffer named '%s' already exists!" new-name))
               (t
