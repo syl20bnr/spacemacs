@@ -3,6 +3,7 @@
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: evil, vim-unimpaired, spacemacs
 ;; Version: 0.1
+;; Package-Requires: ((dash "2.12.0") (f "0.18.0"))
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
