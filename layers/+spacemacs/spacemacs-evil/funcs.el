@@ -40,3 +40,19 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
                   spacemacs--evil-iedit-insert-states-default)))
     (evil-put-property 'evil-state-properties 'iedit-insert
                        :enable states)))
+
+
+;; evil-search-highlight-persist
+
+(defun spacemacs/evil-search-clear-highlight ()
+  "Clear evil-search or evil-ex-search persistent highlights."
+  (interactive)
+  (case evil-search-module
+    ('isearch (evil-search-highlight-persist-remove-all))
+    ('evil-search (evil-ex-nohighlight))))
+
+(defun spacemacs//adaptive-evil-highlight-persist-face ()
+  (set-face-attribute 'evil-search-highlight-persist-highlight-face nil
+                      :inherit 'lazy-highlight
+                      :background nil
+                      :foreground nil))

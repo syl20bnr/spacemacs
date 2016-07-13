@@ -314,6 +314,9 @@ Possible values for list-type are:
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages that will not be install and loaded.")
 
+(defvar dotspacemacs-frozen-packages '()
+  "A list of packages that cannot be updated.")
+
 ;; only for backward compatibility
 (defalias 'dotspacemacs-mode 'emacs-lisp-mode)
 

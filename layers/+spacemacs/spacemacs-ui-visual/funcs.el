@@ -91,7 +91,7 @@
   (setq scroll-conservatively 101))
 
 (defun spacemacs/disable-smooth-scrolling ()
-  "Enable smooth scrolling."
+  "Disable smooth scrolling."
   (interactive)
   (setq scroll-conservatively 0))
 

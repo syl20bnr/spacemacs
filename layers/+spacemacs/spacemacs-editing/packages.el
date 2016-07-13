@@ -259,34 +259,27 @@
     :commands (sp-split-sexp sp-newline sp-up-sexp)
     :init
     (progn
-      (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
-                                  'smartparens-strict-mode
-                                'smartparens-mode)
-                              '(prog-mode-hook comint-mode-hook))
-
-      ;; enable smartparens-mode in `eval-expression'
-      (defun conditionally-enable-smartparens-mode ()
-        "Enable `smartparens-mode' in the minibuffer, during `eval-expression'."
-        (if (eq this-command 'eval-expression)
-            (smartparens-mode)))
-
-      (add-hook 'minibuffer-setup-hook 'conditionally-enable-smartparens-mode)
-
-      (spacemacs|add-toggle smartparens
-        :mode smartparens-mode
-        :documentation "Enable smartparens."
-        :evil-leader "tp")
-
-      (spacemacs|add-toggle smartparens-globally
-        :mode smartparens-mode
-        :documentation "Enable smartparens globally."
-        :evil-leader "t C-p")
-
+      ;; settings
       (setq sp-show-pair-delay 0.2
             ;; fix paren highlighting in normal mode
             sp-show-pair-from-inside t
             sp-cancel-autoskip-on-backward-movement nil)
-
+      (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
+                                  'smartparens-strict-mode
+                                'smartparens-mode)
+                              '(prog-mode-hook comint-mode-hook))
+      ;; enable smartparens-mode in `eval-expression'
+      (add-hook 'minibuffer-setup-hook 'spacemacs//conditionally-enable-smartparens-mode)
+      ;; toggles
+      (spacemacs|add-toggle smartparens
+        :mode smartparens-mode
+        :documentation "Enable smartparens."
+        :evil-leader "tp")
+      (spacemacs|add-toggle smartparens-globally
+        :mode smartparens-mode
+        :documentation "Enable smartparens globally."
+        :evil-leader "t C-p")
+      ;; key bindings
       (spacemacs/set-leader-keys
         "js" 'sp-split-sexp
         "jn" 'sp-newline))
@@ -294,41 +287,14 @@
     (progn
       (require 'smartparens-config)
       (spacemacs|diminish smartparens-mode " ⓟ" " p")
-
+      (spacemacs//adaptive-smartparent-pair-overlay-face)
       (show-smartparens-global-mode +1)
-
-      (defun spacemacs/smartparens-pair-newline (id action context)
-        (save-excursion
-          (newline)
-          (indent-according-to-mode)))
-
-      (defun spacemacs/smartparens-pair-newline-and-indent (id action context)
-        (spacemacs/smartparens-pair-newline id action context)
-        (indent-according-to-mode))
-
       ;; don't create a pair with single quote in minibuffer
       (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
-
       (sp-pair "{" nil :post-handlers
                '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
       (sp-pair "[" nil :post-handlers
                '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
-
-      (defun spacemacs/smart-closing-parenthesis ()
-        (interactive)
-        (let* ((sp-navigate-close-if-unbalanced t)
-               (current-pos (point))
-               (current-line (line-number-at-pos current-pos))
-               (next-pos (save-excursion
-                           (sp-up-sexp)
-                           (point)))
-               (next-line (line-number-at-pos next-pos)))
-          (cond
-           ((and (= current-line next-line)
-                 (not (= current-pos next-pos)))
-            (sp-up-sexp))
-           (t
-            (insert-char ?\))))))
       (when dotspacemacs-smart-closing-parenthesis
         (define-key evil-insert-state-map ")"
           'spacemacs/smart-closing-parenthesis)))))

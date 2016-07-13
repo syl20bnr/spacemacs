@@ -112,6 +112,10 @@ LAYER has to be installed for this method to work properly."
   ((name :initarg :name
          :type symbol
          :documentation "Name of the package.")
+   (min-version :initarg :min-version
+                :initform nil
+                :type list
+                :documentation "Minimum version to install as a version list.")
    (owners :initarg :owners
            :initform nil
            :type list
@@ -206,7 +210,7 @@ LAYER has to be installed for this method to work properly."
 (defvar configuration-layer--used-distant-packages '()
   "A list of all distant packages that are effectively used.")
 
-(defvar configuration-layer--skipped-packages nil
+(defvar configuration-layer--check-new-version-error-packages nil
   "A list of all packages that were skipped during last update attempt.")
 
 (defvar configuration-layer--protected-packages nil
@@ -482,6 +486,7 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
   (let* ((name-sym (if (listp pkg) (car pkg) pkg))
          (name-str (symbol-name name-sym))
          (location (when (listp pkg) (plist-get (cdr pkg) :location)))
+         (min-version (when (listp pkg) (plist-get (cdr pkg) :min-version)))
          (step (when (listp pkg) (plist-get (cdr pkg) :step)))
          (excluded (when (listp pkg) (plist-get (cdr pkg) :excluded)))
          (toggle (when (and togglep (listp pkg)) (plist-get (cdr pkg) :toggle)))
@@ -489,6 +494,7 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
          (copyp (not (null obj)))
          (obj (if obj obj (cfgl-package name-str :name name-sym))))
     (when location (oset obj :location location))
+    (when min-version (oset obj :min-version (version-to-list min-version)))
     (when step (oset obj :step step))
     (oset obj :excluded (or excluded (oref obj :excluded)))
     (when toggle (oset obj :toggle toggle))
@@ -1102,14 +1108,15 @@ path."
 (defun configuration-layer//install-package (pkg)
   "Unconditionally install the package PKG."
   (let* ((layer (when pkg (car (oref pkg :owners))))
-         (location (when pkg (oref pkg :location))))
+         (location (when pkg (oref pkg :location)))
+         (min-version (when pkg (oref pkg :min-version))))
     (spacemacs-buffer/replace-last-line
      (format "--> installing %s: %s%s... [%s/%s]"
              (if layer "package" "dependency")
              pkg-name (if layer (format "@%S" layer) "")
              installed-count not-inst-count) t)
     (spacemacs//redisplay)
-    (unless (package-installed-p pkg-name)
+    (unless (package-installed-p pkg-name min-version)
       (condition-case-unless-debug err
           (cond
            ((or (null pkg) (eq 'elpa location))
@@ -1206,13 +1213,16 @@ path."
        (format (concat "\nPackage %s is unavailable. "
                        "Is the package name misspelled?\n")
                pkg-name))
-    (dolist
-        (dep (configuration-layer//get-package-deps-from-archive
-              pkg-name))
-      (if (package-installed-p (car dep))
-          (configuration-layer//activate-package (car dep))
-        (package-install (car dep))))
-    (package-install pkg-name)))
+    (let ((pkg-desc (assq pkg-name package-archive-contents)))
+      (dolist
+          (dep (configuration-layer//get-package-deps-from-archive
+                pkg-name))
+        (if (package-installed-p (car dep) (cadr dep))
+            (configuration-layer//activate-package (car dep))
+          (configuration-layer//install-from-elpa (car dep))))
+      (if pkg-desc
+          (package-install (cadr pkg-desc))
+        (package-install pkg-name)))))
 
 (defun configuration-layer//install-from-recipe (pkg)
   "Install PKG from a recipe."
@@ -1250,7 +1260,11 @@ path."
 (defun configuration-layer//get-uninstalled-packages (pkg-names)
   "Return a filtered list of PKG-NAMES to install."
   (configuration-layer//filter-packages-with-deps
-   pkg-names (lambda (x) (not (package-installed-p x)))))
+   pkg-names (lambda (x)
+               (let* ((pkg (object-assoc
+                            x :name configuration-layer--packages))
+                      (min-version (when pkg (oref pkg :min-version))))
+                 (not (package-installed-p x min-version))))))
 
 (defun configuration-layer//package-has-recipe-p (pkg-name)
   "Return non nil if PKG-NAME is the name of a package declared with a recipe."
@@ -1282,7 +1296,9 @@ path."
       ;; (message "%s: %s > %s ?" pkg-name cur-version new-version)
       (if new-version
           (version< cur-version new-version)
-        (cl-pushnew pkg-name configuration-layer--skipped-packages :test #'eq)
+        (cl-pushnew pkg-name
+                    configuration-layer--check-new-version-error-packages
+                    :test #'eq)
         nil))))
 
 (defun configuration-layer//get-packages-to-update (pkg-names)
@@ -1426,12 +1442,13 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
   (spacemacs-buffer/insert-page-break)
   (spacemacs-buffer/append "\nUpdating package archives, please wait...\n")
   (configuration-layer/retrieve-package-archives nil 'force)
-  (setq configuration-layer--skipped-packages nil)
+  (setq configuration-layer--check-new-version-error-packages nil)
   (let* ((update-packages
           (configuration-layer//get-packages-to-update
            (mapcar 'car (object-assoc-list
                          :name configuration-layer--used-distant-packages))))
-         (skipped-count (length configuration-layer--skipped-packages))
+         (skipped-count (length
+                         configuration-layer--check-new-version-error-packages))
          (date (format-time-string "%y-%m-%d_%H.%M.%S"))
          (rollback-dir (expand-file-name
                         (concat configuration-layer-rollback-directory
@@ -1439,13 +1456,13 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
          (upgrade-count (length update-packages))
          (upgraded-count 0)
          (update-packages-alist))
-    (when configuration-layer--skipped-packages
+    (when configuration-layer--check-new-version-error-packages
       (spacemacs-buffer/append
        (format (concat "--> Warning: cannot update %s package(s), possibly due"
                        " to a temporary network problem: %s\n")
                skipped-count
                (mapconcat #'symbol-name
-                          configuration-layer--skipped-packages
+                          configuration-layer--check-new-version-error-packages
                           " "))))
     ;; (message "packages to udpate: %s" update-packages)
     (when (> upgrade-count 0)
@@ -1456,7 +1473,10 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
                          ":\n"))
                upgrade-count) t)
       (mapc (lambda (x)
-              (spacemacs-buffer/append (format "%s\n" x) t))
+              (spacemacs-buffer/append
+               (format (if (memq (intern x) dotspacemacs-frozen-packages)
+                           "%s (won't be updated because package is frozen)\n"
+                         "%s\n") x) t))
             (sort (mapcar 'symbol-name update-packages) 'string<))
       (if (and (not always-update)
                (not (yes-or-no-p
@@ -1469,29 +1489,32 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
          "--> performing backup of package(s) to update...\n" t)
         (spacemacs//redisplay)
         (dolist (pkg update-packages)
-          (let* ((src-dir (configuration-layer//get-package-directory pkg))
-                 (dest-dir (expand-file-name
-                            (concat rollback-dir
-                                    (file-name-as-directory
-                                     (file-name-nondirectory src-dir))))))
-            (copy-directory src-dir dest-dir 'keeptime 'create 'copy-content)
-            (push (cons pkg (file-name-nondirectory src-dir))
-                  update-packages-alist)))
+          (unless (memq pkg dotspacemacs-frozen-packages)
+            (let* ((src-dir (configuration-layer//get-package-directory pkg))
+                   (dest-dir (expand-file-name
+                              (concat rollback-dir
+                                      (file-name-as-directory
+                                       (file-name-nondirectory src-dir))))))
+              (copy-directory src-dir dest-dir 'keeptime 'create 'copy-content)
+              (push (cons pkg (file-name-nondirectory src-dir))
+                    update-packages-alist))))
         (spacemacs/dump-vars-to-file
          '(update-packages-alist)
          (expand-file-name (concat rollback-dir
                                    configuration-layer-rollback-info)))
         (dolist (pkg update-packages)
-          (setq upgraded-count (1+ upgraded-count))
-          (spacemacs-buffer/replace-last-line
-           (format "--> preparing update of package %s... [%s/%s]"
-                   pkg upgraded-count upgrade-count) t)
-          (spacemacs//redisplay)
-          (configuration-layer//package-delete pkg))
+          (unless (memq pkg dotspacemacs-frozen-packages)
+            (setq upgraded-count (1+ upgraded-count))
+            (spacemacs-buffer/replace-last-line
+             (format "--> preparing update of package %s... [%s/%s]"
+                     pkg upgraded-count upgrade-count) t)
+            (spacemacs//redisplay)
+            (configuration-layer//package-delete pkg)))
         (spacemacs-buffer/append
          (format "\n--> %s package(s) to be updated.\n" upgraded-count))
         (spacemacs-buffer/append
-         "\nEmacs has to be restarted to actually install the new packages.\n")
+         (concat "\nEmacs has to be restarted to actually install the "
+                 "new version of the packages (SPC q r).\n"))
         (configuration-layer//cleanup-rollback-directory)
         (spacemacs//redisplay)))
     (when (eq upgrade-count 0)
@@ -1555,17 +1578,19 @@ to select one."
                  (dest-dir (expand-file-name
                             (concat elpa-dir (file-name-as-directory
                                               pkg-dir-name)))))
-            (setq rollbacked-count (1+ rollbacked-count))
-            (if (string-equal (format "%S-%s" pkg installed-ver) pkg-dir-name)
+            (unless (memq pkg dotspacemacs-frozen-packages)
+              (setq rollbacked-count (1+ rollbacked-count))
+              (if (string-equal (format "%S-%s" pkg installed-ver) pkg-dir-name)
+                  (spacemacs-buffer/replace-last-line
+                   (format "--> package %s already rolled back! [%s/%s]"
+                           pkg rollbacked-count rollback-count) t)
+                ;; rollback the package
                 (spacemacs-buffer/replace-last-line
-                 (format "--> package %s already rolled back! [%s/%s]"
+                 (format "--> rolling back package %s... [%s/%s]"
                          pkg rollbacked-count rollback-count) t)
-              ;; rollback the package
-              (spacemacs-buffer/replace-last-line
-               (format "--> rolling back package %s... [%s/%s]"
-                       pkg rollbacked-count rollback-count) t)
-              (configuration-layer//package-delete pkg)
-              (copy-directory src-dir dest-dir 'keeptime 'create 'copy-content))
+                (configuration-layer//package-delete pkg)
+                (copy-directory src-dir dest-dir
+                                'keeptime 'create 'copy-content)))
             (spacemacs//redisplay)))
         (spacemacs-buffer/append
          (format "\n--> %s packages rolled back.\n" rollbacked-count))
