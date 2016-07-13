@@ -271,7 +271,9 @@ changed to THEME."
     (spacemacs/customize-powerline-faces))
   (when (fboundp 'powerline-reset)
     (powerline-reset))
-  (when (fboundp 'spacemacs/adaptive-evil-highlight-persist-face)
-    (spacemacs/adaptive-evil-highlight-persist-face)))
+  (when (fboundp 'spacemacs//adaptive-evil-highlight-persist-face)
+    (spacemacs//adaptive-evil-highlight-persist-face))
+  (when (fboundp 'spacemacs//adaptive-smartparent-pair-overlay-face)
+    (spacemacs//adaptive-smartparent-pair-overlay-face)))
 
 (provide 'core-themes-support)
