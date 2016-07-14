@@ -185,7 +185,6 @@
 (defun ivy/post-init-projectile ()
   (setq projectile-completion-system 'ivy)
   (spacemacs/set-leader-keys
-    "pp"  'projectile-switch-project
     "pv"  'projectile-vc))
 
 (defun ivy/init-smex ()
