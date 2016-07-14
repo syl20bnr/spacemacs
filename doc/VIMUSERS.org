@@ -233,7 +233,7 @@ built-in =define-key= function is the best way to do that.
 #+begin_src emacs-lisp
   (define-key map new-keybinding function) ; Syntax
   ;; Map H to go to the previous buffer in normal mode
-  (define-key evil-normal-state-map (kbd "H") 'spacemacs/previous-useful-buffer)
+  (define-key evil-normal-state-map (kbd "H") 'previous-buffer)
   ;; Mapping keybinding to another keybinding
   (define-key evil-normal-state-map (kbd "H") (kbd "^")) ; H goes to beginning of the line
 #+end_src

@@ -121,11 +121,11 @@
   "be"  'spacemacs/safe-erase-buffer
   "bh"  'spacemacs/home
   "bk"  'spacemacs/kill-matching-buffers-rudely
-  "bn"  'spacemacs/next-useful-buffer
+  "bn"  'next-buffer
   "bm"  'spacemacs/kill-other-buffers
   "bN"  'spacemacs/new-empty-buffer
   "bP"  'spacemacs/copy-clipboard-to-whole-buffer
-  "bp"  'spacemacs/previous-useful-buffer
+  "bp"  'previous-buffer
   "bR"  'spacemacs/safe-revert-buffer
   "bs"  'spacemacs/switch-to-scratch-buffer
   "bY"  'spacemacs/copy-whole-buffer-to-clipboard
@@ -450,9 +450,9 @@
 (spacemacs|define-transient-state buffer
   :title "Buffer Selection Transient State"
   :bindings
-  ("n" spacemacs/next-useful-buffer "next")
-  ("N" spacemacs/previous-useful-buffer "previous")
-  ("p" spacemacs/previous-useful-buffer "previous")
+  ("n" next-buffer "next")
+  ("N" previous-buffer "previous")
+  ("p" previous-buffer "previous")
   ("K" spacemacs/kill-this-buffer "kill")
   ("q" nil "quit" :exit t))
 (spacemacs/set-leader-keys "b." 'spacemacs/buffer-transient-state/body)

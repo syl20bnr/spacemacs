@@ -77,7 +77,7 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   ;;FIXME: Need to redesign this.. One day.
   (if flag
       (progn
-        ;; HACK: Hide the original buffer from `spacemacs/previous-useful-buffer'.
+        ;; HACK: Hide the original buffer from `spacemacs/useful-buffer-p'.
         (unless (and (string-prefix-p "*" (buffer-name))
                      (string-suffix-p "*" (buffer-name)))
           (rename-buffer (format "*%s*" (buffer-name))))

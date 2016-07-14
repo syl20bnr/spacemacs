@@ -9,6 +9,8 @@
 ;;
 ;;; License: GPLv3
 
+(require 'cl-lib)
+
 ;; add emacs binary helper functions
 (defun spacemacs/emacsbin-path ()
   (interactive)
@@ -217,7 +219,7 @@ automatically applied to."
 
 
 (defun spacemacs/useless-buffer-p (buffer)
-  "Determines if a buffer is useful."
+  "Determines if a buffer is useless."
   (let ((buf-paren-major-mode (get (with-current-buffer buffer
                                      major-mode)
                                    'derived-mode-parent))
@@ -231,6 +233,10 @@ automatically applied to."
       (cl-loop for regexp in spacemacs-useless-buffers-regexp do
                (when (string-match regexp buf-name)
                  (return t))))))
+
+(defun spacemacs/useful-buffer-p (buffer)
+  "Determines if a buffer is useful."
+  (not (spacemacs/useless-buffer-p buffer)))
 
 ;; from magnars modified by ffevotte for dedicated windows support
 (defun spacemacs/rotate-windows (count)
@@ -266,24 +272,6 @@ argument takes the kindows rotate backwards."
   "Rotate your windows backward."
   (interactive "p")
   (spacemacs/rotate-windows (* -1 count)))
-
-(defun spacemacs/next-useful-buffer ()
-  "Switch to the next buffer and avoid special buffers."
-  (interactive)
-  (let ((start-buffer (current-buffer)))
-    (next-buffer)
-    (while (and (spacemacs/useless-buffer-p (current-buffer))
-                (not (eq (current-buffer) start-buffer)))
-      (next-buffer))))
-
-(defun spacemacs/previous-useful-buffer ()
-  "Switch to the previous buffer and avoid special buffers."
-  (interactive)
-  (let ((start-buffer (current-buffer)))
-    (previous-buffer)
-    (while (and (spacemacs/useless-buffer-p (current-buffer))
-                (not (eq (current-buffer) start-buffer)))
-      (previous-buffer))))
 
 (defun spacemacs/rename-file (filename &optional new-filename)
   "Rename FILENAME to NEW-FILENAME.
@@ -706,13 +694,23 @@ The body of the advice is in BODY."
   (load-file (buffer-file-name))
   (ert t))
 
-(defun spacemacs/alternate-buffer ()
+(defun spacemacs/alternate-buffer (&optional window)
   "Switch back and forth between current and last buffer in the
 current window."
   (interactive)
-  (if (evil-alternate-buffer)
-      (switch-to-buffer (car (evil-alternate-buffer)))
-    (switch-to-buffer (other-buffer (current-buffer) t))))
+  (let ((current-buffer (window-buffer window))
+        (buffer-predicate
+         (frame-parameter (window-frame window) 'buffer-predicate)))
+    ;; switch to first buffer previously shown in this window that matches
+    ;; frame-parameter `buffer-predicate'
+    (switch-to-buffer
+     (or (cl-find-if (lambda (buffer)
+                       (and (not (eq buffer current-buffer))
+                            (or (null buffer-predicate)
+                                (funcall buffer-predicate buffer))))
+                     (mapcar #'car (window-prev-buffers window)))
+         ;; `other-buffer' honors `buffer-predicate' so no need to filter
+         (other-buffer current-buffer t)))))
 
 (defun current-line ()
   "Return the line at point as a string."
