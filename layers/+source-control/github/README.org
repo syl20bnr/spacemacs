@@ -44,13 +44,14 @@ be added to your =~/.gitconfig=
 
 In a =magit status= buffer (~SPC g s~):
 
-| Key Binding | Description                                     |
-|-------------+-------------------------------------------------|
-| ~# c~       | create a pull request                           |
-| ~# g~       | get a list of all PRs in the current repository |
-| ~# f~       | fetch the commits associated to the current PR  |
-| ~# b~       | create a branch for the current PR              |
-| ~# m~       | merge the PR with current branch                |
+| Key Binding | Description                                                 |
+|-------------+-------------------------------------------------------------|
+| ~# c~       | create a pull request                                       |
+| ~# r~       | get a list of (or reload) all PRs in the current repository |
+| ~# f~       | fetch the commits associated to the current PR at point     |
+| ~# b~       | create a branch for the current PR at point                 |
+| ~# m~       | merge the PR with current branch at point                   |
+| ~# d~       | show a diff of the current pull request at point            |
 
 Note that =magit-gh-pulls= will try to fast-forward the PRs whenever it is
 possible.
