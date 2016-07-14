@@ -32,7 +32,7 @@
 ;;      M-x byte-compile-file
 ;; 3. Edit .emacs so that `dos-mode' is autoloaded and assigned to *.bat files:
 ;;      (autoload 'dos-mode "dos" "Edit Dos scripts." t)
-;;      (add-to-list 'auto-mode-alist '("\\.bat$" . dos-mode))
+;;      (add-to-list 'auto-mode-alist '("\\.bat\\'" . dos-mode))
 ;;
 ;; Customization:
 ;;
