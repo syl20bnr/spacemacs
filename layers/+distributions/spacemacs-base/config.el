@@ -140,6 +140,15 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 
 (setq ns-use-native-fullscreen (not dotspacemacs-fullscreen-use-non-native))
 
+;; make `next-buffer', `other-buffer', etc. ignore useless buffers (see
+;; `spacemacs/useless-buffer-p')
+(let ((buf-pred-entry (assq 'buffer-predicate default-frame-alist)))
+  (if buf-pred-entry
+      ;; `buffer-predicate' entry exists, modify it
+      (setcdr buf-pred-entry #'spacemacs/useful-buffer-p)
+    ;; `buffer-predicate' entry doesn't exist, create it
+    (push '(buffer-predicate . spacemacs/useful-buffer-p) default-frame-alist)))
+
 ;; ---------------------------------------------------------------------------
 ;; Session
 ;; ---------------------------------------------------------------------------
