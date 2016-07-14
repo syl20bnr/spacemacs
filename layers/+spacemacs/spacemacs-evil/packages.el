@@ -10,7 +10,7 @@
 ;;; License: GPLv3
 
 (setq spacemacs-evil-packages
-      '(evil-anzu
+      `(evil-anzu
         evil-args
         evil-ediff
         evil-exchange
@@ -30,7 +30,13 @@
         ;; https://github.com/7696122/evil-terminal-cursor-changer/issues/8
         ;; evil-terminal-cursor-changer
         evil-tutor
-        (evil-unimpaired :location local)
+        (evil-unimpaired
+         :location
+         (recipe
+          :fetcher url
+          :url ,(concat "file://"
+                        (file-name-directory load-file-name)
+                        "local/evil-unimpaired/evil-unimpaired.el")))
         evil-visual-mark-mode
         (hs-minor-mode :location built-in)
         linum-relative
