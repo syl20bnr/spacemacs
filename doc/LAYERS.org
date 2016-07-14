@@ -328,6 +328,9 @@ as follows:
                              :fetcher github
                              :repo "some/repo"))
 
+    ;; A pinned package
+    (some-package :archive melpa-stable)
+
     ;; An excluded package
     (some-package :excluded t)
     ))
@@ -337,6 +340,8 @@ The =:location= attribute specifies where the package may be found. Spacemacs
 currently supports packages on ELPA compliant repositories, local packages and
 MELPA recipes (through the Quelpa package). See the [[https://github.com/milkypostman/melpa#recipe-format][MELPA documentation]] for more
 information about recipes.
+
+By using =:archive= attribute one can pin specific package to specific archive.
 
 Packages may be /excluded/ by setting the =:excluded= property to true. This
 will prevent the package from being installed even if it is used by another

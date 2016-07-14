@@ -210,7 +210,8 @@ is not set for the given SLOT."
 (defvar configuration-layer--elpa-archives
   '(("melpa" . "melpa.org/packages/")
     ("org"   . "orgmode.org/elpa/")
-    ("gnu"   . "elpa.gnu.org/packages/"))
+    ("gnu"   . "elpa.gnu.org/packages/")
+    ("melpa-stable" . "stable.melpa.org/packages/"))
   "List of ELPA archives required by Spacemacs.")
 
 (defvar configuration-layer-exclude-all-layers nil
@@ -560,6 +561,7 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
          (pkg-name-str (symbol-name pkg-name))
          (layer (unless (eq 'dotfile layer-name)
                   (configuration-layer/get-layer layer-name)))
+         (archive (when (listp pkg) (plist-get (cdr pkg) :archive)))
          (min-version (when (listp pkg) (plist-get (cdr pkg) :min-version)))
          (step (when (listp pkg) (plist-get (cdr pkg) :step)))
          (toggle (when (listp pkg) (plist-get (cdr pkg) :toggle)))
@@ -584,6 +586,8 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
     (cfgl-package-set-property obj :excluded
                                (and (configuration-layer/layer-usedp layer-name)
                                     (or excluded (oref obj :excluded))))
+    (when archive
+      (configuration-layer/pin-package pkg-name archive))
     (when location
       (if (and (listp location)
                (eq (car location) 'recipe)
@@ -1965,8 +1969,8 @@ to select one."
              (cadr (assq 'built-in stats))))
     (with-current-buffer (get-buffer-create spacemacs-buffer-name)
       (let ((buffer-read-only nil))
-	(spacemacs-buffer//center-line)
-	(insert "\n")))))
+  (spacemacs-buffer//center-line)
+  (insert "\n")))))
 
 (defun configuration-layer/load-or-install-protected-package
     (pkg &optional log file-to-load)
@@ -2009,6 +2013,19 @@ FILE-TO-LOAD is an explicit file to load after the installation."
       (setq configuration-layer-error-count
             (1+ configuration-layer-error-count))
     (setq configuration-layer-error-count 1)))
+
+(defun configuration-layer/pin-package (package archive)
+  "Pin PACKAGE to ARCHIVE.
+
+When PACKAGE is pinned to specific ARCHIVE, it is installed
+exactly from that ARCHIVE.
+
+ARCHIVE must be one of the following symbols: melpa, org, gnu,
+melpa-stable."
+  (let ((archive-name (symbol-name archive)))
+    (unless (assoc archive-name package-archives)
+    (error "Archive '%s' is not supported." archive))
+  (push (cons package archive-name) package-pinned-packages)))
 
 (provide 'core-configuration-layer)
 
