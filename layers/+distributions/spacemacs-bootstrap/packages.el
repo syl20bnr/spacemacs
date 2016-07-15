@@ -73,6 +73,8 @@
                 (list (when dotspacemacs-colorize-cursor-according-to-state color)
                       cursor)))
 
+  (add-hook 'spacemacs-post-theme-change-hook 'spacemacs/set-state-faces)
+
   ;; put back refresh of the cursor on post-command-hook see status of:
   ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
   ;; (add-hook 'post-command-hook 'evil-refresh-cursor)

@@ -288,6 +288,8 @@
       (require 'smartparens-config)
       (spacemacs|diminish smartparens-mode " ⓟ" " p")
       (spacemacs//adaptive-smartparent-pair-overlay-face)
+      (add-hook 'spacemacs-post-theme-change-hook
+                'spacemacs//adaptive-smartparent-pair-overlay-face)
       (show-smartparens-global-mode +1)
       ;; don't create a pair with single quote in minibuffer
       (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
