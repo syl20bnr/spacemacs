@@ -67,13 +67,14 @@ markdown buffer in Chrome. Please refer to =chrome= layer documentation for more
 information.
 
 ** Automatic MMM-Mode Generation
-To generate MMM-Modes for languages where the language name directly relates to
-the Emacs mode name, set the value of the variable =markdown-mmm-auto-modes= to
-a list of the languages:
+To generate MMM-Modes for languages set the value of the variable
+=markdown-mmm-auto-modes= to a list of the languages. For languages where the
+mode name directly relates to the language name, use a string. Otherwise, use a
+list of `("language" "mode")`:
 
 #+BEGIN_SRC emacs-lisp
   dotspacemacs-configuration-layers '(
-    (markdown :variables markdown-mmm-auto-modes '("c" "c++" "python" "scala"))
+    (markdown :variables markdown-mmm-auto-modes '("c" "c++" "python" "scala" ("elisp" "emacs-lisp"))
 #+END_SRC
 
 * Usage
