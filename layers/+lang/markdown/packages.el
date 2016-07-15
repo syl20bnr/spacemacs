@@ -43,6 +43,7 @@
 (defun markdown/post-init-smartparens ()
   (add-hook 'markdown-mode-hook 'smartparens-mode))
 
+;; from Jason Blevins http://jblevins.org/log/mmm
 (defun markdown/mmm-auto-class (lang &optional submode)
   (let ((class (intern (concat "markdown-" lang)))
         (submode (or submode (intern (concat lang "-mode"))))
