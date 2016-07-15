@@ -62,9 +62,11 @@ that differed modifications won't cause an overflow."
     (spacemacs//centered-buffer-mode-disable-branch)))
 
 (defun spacemacs//centered-buffer-mode-enable-branch (interact)
-  "Assume to be called interactively when INTERACT has  non nil value."
+  "Used it `spacemacs-centered-buffer-mode'.
+Assume to be called interactively when INTERACT has non nil value."
   ;; Mode will be applied to the indirect buffer.
   (setq spacemacs-centered-buffer-mode nil)
+  ;; Don't run if the mode is enabled(we are in the indirect buffer).
   (unless spacemacs--centered-buffer-mode-origin-buffer
     (let* ((window (selected-window))
            (origin-buffer (window-buffer window))
@@ -131,10 +133,15 @@ that differed modifications won't cause an overflow."
               (message "Not enough space to center the buffer!"))))))))
 
 (defun spacemacs//centered-buffer-mode-prev-next-useful-buffer-advice ()
+  "Disables `spacemacs-centered-buffer-mode' when `spacemacs/previous-useful-buffer'
+or `spacemacs/next-useful-buffer' is called. It's better than flagging the original
+buffer as 'unuseful'."
   (when (bound-and-true-p spacemacs-centered-buffer-mode)
     (spacemacs-centered-buffer-mode -1)))
 
 (defun spacemacs//centered-buffer-mode-disable-branch ()
+  "Used in `spacemacs-centered-buffer-mode'."
+  ;; Don't run if the mode is disabled.
   (when spacemacs--centered-buffer-mode-origin-buffer
     (let* ((window (selected-window))
            (origin-buffer spacemacs--centered-buffer-mode-origin-buffer)
@@ -192,8 +199,9 @@ Uses text-pixel-size if provided, otherwise calculates it with `window-pixel-wid
 
 (defun spacemacs//centered-buffer-prune-indirect-buffer-list ()
   "Remove indirect buffer from the `spacemacs--centered-buffer-mode-indirect-buffers'
-if it not displayed. Disables `centered-buffer-mode' hooks
-if `spacemacs--centered-buffer-mode-indirect-buffers' has no elements left(nil)."
+if the buffer hasn't at least one live window. Disables `centered-buffer-mode' hooks
+and advices if `spacemacs--centered-buffer-mode-indirect-buffers' has no elements left to
+minimize the performance hit when the mode isn't used."
   (dolist (buffer spacemacs--centered-buffer-mode-indirect-buffers)
     (unless (and (buffer-live-p buffer)
                  (window-live-p (get-buffer-window buffer t)))

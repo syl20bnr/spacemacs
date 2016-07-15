@@ -46,8 +46,7 @@ keeping their content visible.
     (spacemacs-centered-buffer-mode -1)
     (setq space-doc-mode old-flag))
   (if (derived-mode-p 'org-mode)
-      (dolist (modificator (append '(spacemacs//space-doc-set-cache
-                                     spacemacs//space-doc-runs-deferred)
+      (dolist (modificator (append (list 'spacemacs//space-doc-set-cache)
                                    spacemacs-space-doc-modificators))
         (funcall modificator space-doc-mode))
     (message (format "space-doc-mode error:%s isn't an org-mode buffer"
@@ -72,21 +71,14 @@ The functions work with a current buffer and accept ENABLE(flag) argument.
 If the argument has non-nil value - enable the modifications introduced
 by the function. Otherwise - disable.")
 
-;; NOTE: Dont forget to update Spacemacs FAQ if you modify this list!
-(defvar spacemacs-space-doc-modificators-deferred
-  '()
-  "Same as `spacemacs-space-doc-modificators' but the modificators will
-be run deferred.")
-
 (defun spacemacs//space-doc-centered-buffer-mode-hook ()
   "Applies `spacemacs//space-doc-emphasis-overlays' to the
-indirect buffer (because overlays aren't copied for the original one)."
+indirect buffer (because overlays aren't copied from the original one).
+And calculates `spacemacs//space-doc-set-cache' (it's buffer local)."
   (when space-doc-mode
     (spacemacs//space-doc-set-cache t)
-    (when (or (member 'spacemacs//space-doc-emphasis-overlays
-                      spacemacs-space-doc-modificators)
-              (member 'spacemacs//space-doc-emphasis-overlays
-                      spacemacs-space-doc-modificators-deferred))
+    (when (member 'spacemacs//space-doc-emphasis-overlays
+                  spacemacs-space-doc-modificators)
       (spacemacs//space-doc-emphasis-overlays t))))
 
 (when (member 'spacemacs//space-doc-center-buffer-mode
@@ -98,12 +90,9 @@ indirect buffer (because overlays aren't copied for the original one)."
   "Enable `spacemacs-centered-buffer-mode' if flag is non nil, disable it otherwise.
 This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   (when (and flag (not spacemacs-centered-buffer-mode))
-    (run-with-idle-timer 0
-                         nil
-                         (lambda ()
-                           (spacemacs-centered-buffer-mode +1)
-                           (spacemacs//space-doc-set-cache t)
-                           (spacemacs//space-doc-emphasis-overlays t)))))
+    ;; `spacemacs-centered-buffer-mode' is heavy so it's better to make if deferred.
+    ;; Also it has to be run when the `window-body-width' is properly calculated.
+    (run-with-idle-timer 0 nil 'spacemacs-centered-buffer-mode)))
 
 (defun spacemacs//space-doc-org-indent-mode (&optional flag)
   "Enable `org-indent-mode' if flag is non nil, disable it otherwise.
@@ -406,16 +395,6 @@ Open all other links with `browse-url'."
                                      "^")
                                  'subtree)
       (browse-url (concat "https://" path)))))
-
-(defun spacemacs//space-doc-runs-deferred (&optional flag)
-  "Run each modificator function from the
-`spacemacs-space-doc-modificators-deferred' list
-in the next command loop. This way heavy modificator functions
-won't affect document opening time. FLAG is passed through."
-  (run-with-idle-timer 0 nil (lambda (flag)
-                               (dolist (modf spacemacs-space-doc-modificators-deferred)
-                                 (funcall modf flag)))
-                       flag))
 
 (defun spacemacs//space-doc-find-regions-by-text-property
     (property value &optional start end)
