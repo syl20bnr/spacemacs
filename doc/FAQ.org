@@ -532,7 +532,6 @@ You can modify the list of visual enhancements applied by the =space-doc-mode=:
 It's the default value of the variable with all enhancements.
 Each function in the list represents some modification.
 Some of them might be order dependant so don't shuffle the list!
-You can make a modification deferred by moving it to =spacemacs-space-doc-modificators-deferred= list.
 
 ** Remap paste key to be able to paste copied text multiple times
 In vim and evil, pasting over a text would cause it to be copied, hence making it impossible to paste
