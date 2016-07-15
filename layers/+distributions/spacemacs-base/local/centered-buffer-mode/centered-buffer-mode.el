@@ -27,21 +27,24 @@
 ;;; Code:
 (require 'face-remap)
 
+(defgroup spacemacs-centered-buffer-mode nil "Minor mode to center buffer in its window."
+  :group 'convenience)
+
 (defcustom spacemacs-centered-buffer-mode-min-fringe-width 50
   "Minimal fringe width."
   :type 'integer
-  :group 'editing-basics)
+  :group 'spacemacs-centered-buffer-mode)
 
 (defcustom spacemacs-centered-buffer-mode-safety-gap-width 20
   "Add extra width to the modified buffer to make sure
 that differed modifications won't cause an overflow."
   :type 'integer
-  :group 'editing-basics)
+  :group 'spacemacs-centered-buffer-mode)
 
 (defcustom spacemacs-centered-buffer-mode-fringe-color "black"
   "Color of the fringes."
   :type 'color
-  :group 'editing-basics)
+  :group 'spacemacs-centered-buffer-mode)
 
 (defvar-local spacemacs--centered-buffer-mode-origin-buffer nil)
 (defvar-local spacemacs--centered-buffer-mode-indirect-buffer nil)
@@ -52,7 +55,7 @@ that differed modifications won't cause an overflow."
 (define-minor-mode spacemacs-centered-buffer-mode
   "Minor mode to center buffer in its window."
   :init-value nil
-  :group 'editing-basics
+  :group 'spacemacs-centered-buffer-mode
   (if spacemacs-centered-buffer-mode
       (if (not (window-dedicated-p))
           (spacemacs//centered-buffer-mode-enable-branch (called-interactively-p 'any))
@@ -80,7 +83,10 @@ Assume to be called interactively when INTERACT has non nil value."
                                                   origin-buffer)
                                           t)))))
       (spacemacs//centered-buffer-mode-buffer-fringr-color-toggle origin-buffer t)
-      (setq  spacemacs--centered-buffer-mode-indirect-buffer indirect-buffer)
+      (setq  spacemacs--centered-buffer-mode-indirect-buffer
+             indirect-buffer
+             spacemacs-centered-buffer-mode-default-fringe-color
+             (face-background 'fringe))
       (when (derived-mode-p 'org-mode)
         (setq-local org-startup-folded nil)
         (outline-show-all))
@@ -203,17 +209,19 @@ if the buffer hasn't at least one live window. Disables `centered-buffer-mode' h
 and advices if `spacemacs--centered-buffer-mode-indirect-buffers' has no elements left to
 minimize the performance hit when the mode isn't used."
   (dolist (buffer spacemacs--centered-buffer-mode-indirect-buffers)
-    (unless (and (buffer-live-p buffer)
-                 (window-live-p (get-buffer-window buffer t)))
-      (delete buffer 'spacemacs--centered-buffer-mode-indirect-buffers)
+    (unless (or (and (buffer-live-p buffer)
+                     (window-live-p (get-buffer-window buffer t)))
+                (not spacemacs--centered-buffer-mode-indirect-buffers))
       (let ((origin-buffer (buffer-local-value
                             'spacemacs--centered-buffer-mode-origin-buffer
                             buffer)))
-        (when (buffer-live-p origin-buffer)
-          (spacemacs//centered-buffer-mode-buffer-fringr-color-toggle origin-buffer nil)
-          (with-current-buffer origin-buffer
-            (setq spacemacs--centered-buffer-mode-indirect-buffers nil))))
-      (kill-buffer buffer)))
+        (when (ignore-errors (kill-buffer buffer))
+          (delete buffer 'spacemacs--centered-buffer-mode-indirect-buffers)
+          (when (buffer-live-p origin-buffer)
+            (spacemacs//centered-buffer-mode-buffer-fringr-color-toggle origin-buffer nil)
+            (with-current-buffer origin-buffer
+              (setq spacemacs--centered-buffer-mode-indirect-buffers nil)))))))
+  ;; Remove hooks and advices when they are not needed anymore.
   (unless spacemacs--centered-buffer-mode-indirect-buffers
     (advice-remove 'spacemacs/previous-useful-buffer
                    #'spacemacs//centered-buffer-mode-prev-next-useful-buffer-advice)
