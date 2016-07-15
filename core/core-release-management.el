@@ -295,6 +295,8 @@ Returns the output of git status --porcelain."
   (mapcar 'spacemacs//deffaces-new-version-lighter
           '(error warning success)))
 (spacemacs/set-new-version-lighter-mode-line-faces)
+(add-hook 'spacemacs-post-theme-change-hook
+          'spacemacs/set-new-version-lighter-mode-line-faces)
 
 (defun spacemacs//compute-version-score (version)
   "Returns an integer from the version list.

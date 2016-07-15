@@ -34,6 +34,8 @@ Characters enclosed in `[]' will have this face applied to them."
                         :foreground err
                         :bold t)))
 (spacemacs/defface-micro-state-faces)
+(add-hook 'spacemacs-post-theme-change-hook
+          'spacemacs/defface-micro-state-faces)
 
 (defun spacemacs//micro-state-set-minibuffer-height (str)
   "Set the max mini windows size given a string STR."

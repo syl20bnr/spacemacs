@@ -175,6 +175,9 @@
   "alist matching a theme name with its package name, required when
 package name does not match theme name + `-theme' suffix.")
 
+(defvar spacemacs-post-theme-change-hook nil
+  "Hook run after theme has changed.")
+
 (defun spacemacs//get-theme-package (theme)
   "Returns the package theme for the given THEME name."
   (cond
@@ -256,24 +259,9 @@ package name does not match theme name + `-theme' suffix.")
     (spacemacs/post-theme-init theme)))
 
 (defun spacemacs/post-theme-init (theme)
-  " Some processing that needs to be done when the current theme has been
-changed to THEME."
+  "Some processing that needs to be done when the current theme
+has been changed to THEME."
   (interactive)
-  (when (fboundp 'spacemacs/set-state-faces)
-    (spacemacs/set-state-faces))
-  (when (fboundp 'spacemacs/set-flycheck-mode-line-faces)
-    (spacemacs/set-flycheck-mode-line-faces))
-  (when (fboundp 'spacemacs/set-new-version-lighter-mode-line-faces)
-    (spacemacs/set-new-version-lighter-mode-line-faces))
-  (when (fboundp 'spacemacs/defface-micro-state-faces)
-    (spacemacs/defface-micro-state-faces))
-  (when (fboundp 'spacemacs/customize-powerline-faces)
-    (spacemacs/customize-powerline-faces))
-  (when (fboundp 'powerline-reset)
-    (powerline-reset))
-  (when (fboundp 'spacemacs//adaptive-evil-highlight-persist-face)
-    (spacemacs//adaptive-evil-highlight-persist-face))
-  (when (fboundp 'spacemacs//adaptive-smartparent-pair-overlay-face)
-    (spacemacs//adaptive-smartparent-pair-overlay-face)))
+  (run-hooks 'spacemacs-post-theme-change-hook))
 
 (provide 'core-themes-support)

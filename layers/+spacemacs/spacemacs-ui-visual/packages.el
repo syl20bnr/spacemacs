@@ -245,6 +245,9 @@
     :init
     (progn
       (add-hook 'spacemacs-post-user-config-hook 'spaceline-compile)
+      (add-hook 'spacemacs-post-theme-change-hook
+                'spacemacs/customize-powerline-faces)
+      (add-hook 'spacemacs-post-theme-change-hook 'powerline-reset)
       (setq-default powerline-default-separator 'utf-8)
       (spacemacs|do-after-display-system-init
        (when (and (eq 'utf-8 powerline-default-separator))
