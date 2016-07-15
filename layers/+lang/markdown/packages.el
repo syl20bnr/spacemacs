@@ -44,11 +44,13 @@
   (add-hook 'markdown-mode-hook 'smartparens-mode))
 
 ;; from Jason Blevins http://jblevins.org/log/mmm
-(defun markdown/mmm-auto-class (lang &optional submode)
-  (let ((class (intern (concat "markdown-" lang)))
-        (submode (or submode (intern (concat lang "-mode"))))
-        (front (concat "^```" lang "[\n\r]+"))
-        (back "^```$"))
+(defun markdown/mmm-auto-class (lang)
+  (let* ((l (if (listp lang) (car lang) lang))
+         (s (if (listp lang) (cadr lang) lang))
+         (class (intern (concat "markdown-" l)))
+         (submode (intern (concat s "-mode")))
+         (front (concat "^```" l "[\n\r]+"))
+         (back "^```$"))
     (mmm-add-classes (list (list class
                                :submode submode
                                :front front
@@ -182,14 +184,8 @@ Will work on both org-mode and any mode that accepts plain html."
     :init (add-hook 'markdown-mode-hook 'spacemacs/activate-mmm-mode)
     :config
     (progn
-      ;; Automatically add mmm class for languages where its name and mode
-      ;; name are directly related
+      ;; Automatically add mmm class for languages
       (mapc 'markdown/mmm-auto-class markdown-mmm-auto-modes)
-
-      ;; Otherwise define these manually
-      (markdown/mmm-auto-class "html" 'web-mode)
-      (markdown/mmm-auto-class "elisp" 'emacs-lisp-mode)
-      (markdown/mmm-auto-class "ess" 'R-mode)
       (setq mmm-global-mode t))))
 
 (defun markdown/init-vmd-mode ()
