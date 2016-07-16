@@ -195,6 +195,8 @@
                 . helm-spacemacs-help//layer-action-open-readme)
                ("Open packages.el"
                 . helm-spacemacs-help//layer-action-open-packages)
+               ("Open config.el"
+                . helm-spacemacs-help//layer-action-open-config)
                ("Install Layer"
                 . helm-spacemacs-help//layer-action-install-layer)
                ("Open README.org (for editing)"
@@ -307,7 +309,10 @@
         (if edit
             (find-file (concat path file))
           (spacemacs/view-org-file (concat path file) "^" 'all))
-      (find-file (concat path file)))))
+      (let ((filepath (concat path file)))
+        (if (file-exists-p filepath)
+            (find-file filepath)
+          (message "%s does not have %s" candidate file))))))
 
 (defun helm-spacemacs-help//layer-action-open-readme (candidate)
   "Open the `README.org' file of the passed CANDIDATE for reading."
@@ -325,6 +330,10 @@
 (defun helm-spacemacs-help//layer-action-open-packages (candidate)
   "Open the `packages.el' file of the passed CANDIDATE."
   (helm-spacemacs-help//layer-action-open-file "packages.el" candidate))
+
+(defun helm-spacemacs-help//layer-action-open-config (candidate)
+  "Open the `config.el' file of the passed CANDIDATE."
+  (helm-spacemacs-help//layer-action-open-file "config.el" candidate))
 
 (defun helm-spacemacs-help//package-action-decribe (candidate)
   "Describe the passed package using Spacemacs describe function."
