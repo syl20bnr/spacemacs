@@ -154,15 +154,15 @@
 
 (defun ivy-spacemacs-help//layer-action-add-layer (candidate)
   "Adds layer to dotspacemacs file and reloads configuration"
-  (if (configuration-layer/layer-usedp (intern (cdr candidate)))
+  (if (configuration-layer/layer-usedp (intern candidate))
       (message "Layer already added.")
     (let ((dotspacemacs   (find-file-noselect (dotspacemacs/location))))
       (with-current-buffer dotspacemacs
         (beginning-of-buffer)
         (let ((insert-point (re-search-forward
                              "dotspacemacs-configuration-layers *\n?.*\\((\\)")))
-          (insert (format "\n%s\n" (cdr candidate)))
-          (indent-region insert-point (+ insert-point (length (cdr candidate))))
+          (insert (format "\n%s\n" candidate))
+          (indent-region insert-point (+ insert-point (length candidate)))
           (save-current-buffer)))
       (dotspacemacs/sync-configuration-layers))))
 
