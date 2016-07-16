@@ -1,7 +1,5 @@
 #+TITLE: Migrating from Vim
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
-
-* Migrating from vim                                        :TOC_4_org:noexport:
  - [[Purpose of this document][Purpose of this document]]
  - [[Philosophy][Philosophy]]
  - [[Basic orientation][Basic orientation]]
