@@ -146,7 +146,10 @@
         (if edit
             (find-file (concat path file))
           (spacemacs/view-org-file (concat path file) "^" 'all))
-      (find-file (concat path file)))))
+      (let ((filepath (concat path file)))
+        (if (file-exists-p filepath)
+            (find-file filepath)
+          (message "%s does not have %s" candidate file))))))
 
 (defun ivy-spacemacs-help//layer-action-open-readme (candidate)
   "Open the `README.org' file of the passed CANDIDATE for reading."
@@ -175,6 +178,10 @@
   "Open the `README.org' file of the passed CANDIDATE for editing."
   (ivy-spacemacs-help//layer-action-open-file "README.org" candidate t))
 
+(defun ivy-spacemacs-help//layer-action-open-config (candidate)
+  "Open the `config.el' file of the passed CANDIDATE."
+  (ivy-spacemacs-help//layer-action-open-file "config.el" candidate))
+
 (defun ivy-spacemacs-help//layer-action-open-packages (candidate)
   "Open the `packages.el' file of the passed CANDIDATE."
   (ivy-spacemacs-help//layer-action-open-file "packages.el" candidate))
@@ -193,6 +200,7 @@
  '(("a" ivy-spacemacs-help//layer-action-add-layer "add layer")
    ("d" ivy-spacemacs-help//layer-action-open-dired "open dired at layer location")
    ("e" ivy-spacemacs-help//layer-action-open-readme-edit "open readme for editing")
+   ("c" ivy-spacemacs-help//layer-action-open-config "open config.el")
    ("p" ivy-spacemacs-help//layer-action-open-packages "open packages.el")
    ("r" ivy-spacemacs-help//layer-action-open-readme "open readme")))
 
@@ -266,6 +274,10 @@
   (dired
    (ivy-spacemacs-help//layer-action-get-directory (cadr args))))
 
+(defun ivy-spacemacs-help//help-action-open-config (args)
+  "Open the `packages.el' file of the passed CANDIDATE."
+  (ivy-spacemacs-help//layer-action-open-file "config.el" (cadr args)))
+
 (defun ivy-spacemacs-help//help-action-open-packages (args)
   "Open the `packages.el' file of the passed CANDIDATE."
   (ivy-spacemacs-help//layer-action-open-file "packages.el" (cadr args)))
@@ -307,6 +319,7 @@
    ("d" ivy-spacemacs-help//help-action-open-dired "open dired at layer location")
    ("D" ivy-spacemacs-help//help-action-describe-package "describe package")
    ("e" ivy-spacemacs-help//help-action-open-readme-edit "open readme for editing")
+   ("c" ivy-spacemacs-help//help-action-open-config "open config.el")
    ("p" ivy-spacemacs-help//help-action-open-packages "open packages.el")
    ("r" ivy-spacemacs-help//help-action-open-readme "open readme")))
 
