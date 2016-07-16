@@ -35,7 +35,7 @@
   (add-hook 'php-mode-hook 'eldoc-mode))
 
 (defun php/post-init-flycheck ()
-  (add-hook 'php-mode-hook 'flycheck-mode))
+  (spacemacs/add-flycheck-hook 'php-mode))
 
 (defun php/post-init-ggtags ()
   (add-hook 'php-mode-hook #'spacemacs/ggtags-mode-enable))

@@ -12,6 +12,7 @@
 (setq scala-packages
   '(
     ensime
+    flycheck
     ggtags
     helm-gtags
     noflet
@@ -192,6 +193,9 @@
       ;; handle older Ensime versions gracefully.
       (when (configuration-layer/package-usedp 'expand-region)
         (require 'ensime-expand-region nil 'noerror)))))
+
+(defun scala/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'scala-mode))
 
 (defun scala/init-noflet ()
   (use-package noflet))
