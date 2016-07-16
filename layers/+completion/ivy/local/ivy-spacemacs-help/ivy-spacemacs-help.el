@@ -169,7 +169,7 @@
 (defun ivy-spacemacs-help//layer-action-open-dired (candidate)
   "Open dired at the location of the passed layer CANDIDATE."
   (dired
-   (ivy-spacemacs-help//layer-action-get-directory (cdr candidate))))
+   (ivy-spacemacs-help//layer-action-get-directory candidate)))
 
 (defun ivy-spacemacs-help//layer-action-open-readme-edit (candidate)
   "Open the `README.org' file of the passed CANDIDATE for editing."
@@ -177,7 +177,7 @@
 
 (defun ivy-spacemacs-help//layer-action-open-packages (candidate)
   "Open the `packages.el' file of the passed CANDIDATE."
-  (ivy-spacemacs-help//layer-action-open-file "packages.el" (cdr candidate)))
+  (ivy-spacemacs-help//layer-action-open-file "packages.el" candidate))
 
 ;;;###autoload
 (defun ivy-spacemacs-help-layers ()
