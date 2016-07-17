@@ -189,7 +189,7 @@
       (define-key yas-minor-mode-map (kbd "M-s-/") 'yas-next-field)
       ;; configure snippet directories
       (let* ((spacemacs--auto-completion-dir
-              (configuration-layer/get-layer-property 'auto-completion :dir))
+              (configuration-layer/get-layer-local-dir 'auto-completion))
              (private-yas-dir (if auto-completion-private-snippets-directory
                                   auto-completion-private-snippets-directory
                                 (concat

@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(html javascript))
+(configuration-layer/declare-used-layers '(html javascript))

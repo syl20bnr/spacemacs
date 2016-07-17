@@ -33,11 +33,8 @@
 (require 'helm-org)
 (require 'core-configuration-layer)
 
-(defvar helm-spacemacs-help-all-layers nil
-  "Alist of all configuration layers.")
-
-(defvar helm-spacemacs-help-all-packages nil
-  "Hash table of all packages in all layers.")
+(defvar helm-spacemacs--initialized nil
+  "Non nil if helm-spacemacs is initialized.")
 
 ;;;###autoload
 (define-minor-mode helm-spacemacs-help-mode
@@ -46,14 +43,13 @@
   :global t)
 
 (defun helm-spacemacs-help//init (&optional arg)
-  (when (or arg (null helm-spacemacs-help-all-packages))
-    (mapc (lambda (layer) (push (configuration-layer/make-layer layer)
-                                helm-spacemacs-help-all-layers))
-          (configuration-layer/get-layers-list))
-    (let ((configuration-layer--inhibit-warnings t)
-          configuration-layer--packages)
-      (configuration-layer/get-packages helm-spacemacs-help-all-layers)
-      (setq helm-spacemacs-help-all-packages configuration-layer--packages))))
+  (when (or arg (null helm-spacemacs--initialized))
+    (let ((configuration-layer--load-packages-files t)
+          (configuration-layer--inhibit-warnings t))
+      (configuration-layer/discover-layers)
+      (configuration-layer/declare-layers (configuration-layer/get-layers-list))
+      (configuration-layer/make-all-packages)
+      (setq helm-spacemacs--initialized t))))
 
 ;;;###autoload
 (defun helm-spacemacs-help (arg)
@@ -224,8 +220,9 @@
 (defun helm-spacemacs-help//package-candidates ()
   "Return the sorted candidates for package source."
   (let (result)
-    (dolist (pkg helm-spacemacs-help-all-packages)
-      (let* ((owner (cfgl-package-get-safe-owner pkg))
+    (dolist (pkg-name (configuration-layer/get-packages-list))
+      (let* ((pkg (configuration-layer/get-package pkg-name))
+             (owner (cfgl-package-get-safe-owner pkg))
              ;; the notion of owner does not make sense if the layer is not used
              (init-type (if (configuration-layer/layer-usedp owner)
                             "owner" "init")))
@@ -295,15 +292,10 @@
   "Return the sorted candidates for all the dospacemacs variables."
   (sort (dotspacemacs/get-variable-string-list) 'string<))
 
-(defun helm-spacemacs-help//layer-action-open-file (file candidate &optional edit)
+(defun helm-spacemacs-help//layer-action-open-file
+    (file candidate &optional edit)
   "Open FILE of the passed CANDIDATE.  If EDIT is false, open in view mode."
-  (let ((path (if (and (equalp file "README.org") (equalp candidate "spacemacs"))
-                  ;; Readme for spacemacs is in the project root
-                  (ht-get configuration-layer-paths (intern candidate))
-                (file-name-as-directory
-                 (concat (ht-get configuration-layer-paths
-                                 (intern candidate))
-                         candidate)))))
+  (let ((path (configuration-layer/get-layer-path (intern candidate))))
     (if (and (equal (file-name-extension file) "org")
              (not helm-current-prefix-arg))
         (if edit
@@ -350,8 +342,7 @@
            (init-type (match-string 2 candidate))
            (layer (match-string 3 candidate))
            (path (file-name-as-directory
-                  (concat (ht-get configuration-layer-paths (intern layer))
-                          layer)))
+                  (configuration-layer/get-layer-path (intern layer))))
            (filename (concat path "packages.el")))
       (when (string-match-p "owner" init-type)
         (setq init-type "init"))

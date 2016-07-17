@@ -47,9 +47,9 @@ arguments is that we want to process these arguments as soon as possible."
           ("--insecure"
            (setq spacemacs-insecure t))
           ("--no-layer"
-           (setq configuration-layer-no-layer t))
+           (setq configuration-layer-exclude-all-layers t))
           ("--distribution"
-           (setq configuration-layer-distribution (intern (nth (1+ i) args))
+           (setq configuration-layer-force-distribution (intern (nth (1+ i) args))
                  i (1+ i)))
           ("--resume-layouts"
            (setq spacemacs-force-resume-layouts t))

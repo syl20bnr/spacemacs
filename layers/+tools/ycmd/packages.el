@@ -24,5 +24,5 @@
     :defer t
     :init
     (unless (boundp 'ycmd-global-config)
-      (let ((dir (configuration-layer/get-layer-property 'ycmd :dir)))
+      (let ((dir (configuration-layer/get-layer-local-dir 'ycmd)))
         (setq-default ycmd-global-config (concat dir "global_conf.py"))))))

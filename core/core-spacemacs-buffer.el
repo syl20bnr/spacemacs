@@ -508,7 +508,7 @@ border."
     (setq spacemacs-loading-value (1+ spacemacs-loading-value))
     (when (>= spacemacs-loading-counter spacemacs-loading-dots-chunk-threshold)
       (let ((suffix (format "> %s/%s" spacemacs-loading-value
-                            (length configuration-layer--packages))))
+                            (length configuration-layer--used-packages))))
         (setq spacemacs-loading-counter 0)
         (setq spacemacs-loading-string
               (make-string

@@ -31,20 +31,23 @@
 (require 'ivy)
 (require 'core-configuration-layer)
 
-(defvar ivy-spacemacs-help-all-layers nil
-  "Alist of all configuration layers.")
+(defvar ivy-spacemacs--initialized nil
+  "Non nil if ivy-spacemacs is initialized.")
 
-(defvar ivy-spacemacs-help-all-packages nil
-  "Hash table of all packages in all layers.")
+;; (defvar ivy-spacemacs-help-all-layers nil
+;;   "Alist of all configuration layers.")
+
+;; (defvar ivy-spacemacs-help-all-packages nil
+;;   "Hash table of all packages in all layers.")
 
 (defun ivy-spacemacs-help//init (&optional arg)
-  (when (or arg (null ivy-spacemacs-help-all-packages))
-    (mapc (lambda (layer) (push (configuration-layer/make-layer layer)
-                                ivy-spacemacs-help-all-layers))
-          (configuration-layer/get-layers-list))
-    (let (configuration-layer--packages)
-      (configuration-layer/get-packages ivy-spacemacs-help-all-layers)
-      (setq ivy-spacemacs-help-all-packages configuration-layer--packages))))
+  (when (or arg (null ivy-spacemacs--initialized))
+    (let ((configuration-layer--load-packages-files t)
+          (configuration-layer--inhibit-warnings t))
+      (configuration-layer/discover-layers)
+      (configuration-layer/declare-layers (configuration-layer/get-layers-list))
+      (configuration-layer/make-all-packages)
+      (setq ivy-spacemacs--initialized t))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Docs
@@ -124,24 +127,11 @@
 
 (defun ivy-spacemacs-help//layer-action-get-directory (candidate)
   "Get directory of layer passed CANDIDATE."
-  (let ((path (if (equalp candidate "spacemacs")
-                  ;; Readme for spacemacs is in the project root
-                  (ht-get configuration-layer-paths (intern candidate))
-                (file-name-as-directory
-                 (concat (ht-get configuration-layer-paths
-                                 (intern candidate))
-                         candidate)))))
-    path))
+  (configuration-layer/get-layer-path (intern candidate)))
 
 (defun ivy-spacemacs-help//layer-action-open-file (file candidate &optional edit)
   "Open FILE of the passed CANDIDATE.  If EDIT is false, open in view mode."
-  (let ((path (if (and (equalp file "README.org") (equalp candidate "spacemacs"))
-                  ;; Readme for spacemacs is in the project root
-                  (ht-get configuration-layer-paths (intern candidate))
-                (file-name-as-directory
-                 (concat (ht-get configuration-layer-paths
-                                 (intern candidate))
-                         candidate)))))
+  (let ((path (configuration-layer/get-layer-path (intern candidate))))
     (if (equal (file-name-extension file) "org")
         (if edit
             (find-file (concat path file))
@@ -213,35 +203,36 @@
         (left-column-width
          (number-to-string
           (cl-reduce
-           (lambda (a x) (max (length (symbol-name (oref x :name))) a))
-           ivy-spacemacs-help-all-layers :initial-value 0)))
+           (lambda (a x) (max (length (symbol-name x)) a))
+           (configuration-layer/get-layers-list) :initial-value 0)))
         (owners (cl-remove-duplicates
                  (mapcar (lambda (pkg)
-                           (car (oref pkg :owners)))
-                         ivy-spacemacs-help-all-packages))))
-    (dolist (pkg ivy-spacemacs-help-all-packages)
-      (push (list (format (concat "%-" left-column-width "S %s %s")
-                          (car (oref pkg :owners ))
-                          (propertize (symbol-name (oref pkg :name))
-                                      'face 'font-lock-type-face)
-                          (propertize
-                           (if (package-installed-p (oref pkg :name))
-                               "[installed]" "")
-                           'face 'font-lock-comment-face))
-                  (symbol-name
-                   (car (oref pkg :owners )))
-                  (symbol-name (oref pkg :name)))
-            result))
+                           (let ((obj (configuration-layer/get-package pkg)))
+                             (car (oref obj :owners))))
+                         (configuration-layer/get-packages-list)))))
+    (dolist (pkg-name (configuration-layer/get-packages-list))
+      (let ((pkg (configuration-layer/get-package pkg-name)))
+        (push (list (format (concat "%-" left-column-width "S %s %s")
+                            (car (oref pkg :owners ))
+                            (propertize (symbol-name (oref pkg :name))
+                                        'face 'font-lock-type-face)
+                            (propertize
+                             (if (package-installed-p (oref pkg :name))
+                                 "[installed]" "")
+                             'face 'font-lock-comment-face))
+                    (symbol-name
+                     (car (oref pkg :owners )))
+                    (symbol-name (oref pkg :name)))
+              result)))
     (dolist (layer (delq nil
                          (cl-remove-if
-                          (lambda (layer)
-                            (memq (oref layer :name) owners))
-                          ivy-spacemacs-help-all-layers)))
+                          (lambda (x) (memq x owners))
+                          (configuration-layer/get-layers-list))))
       (push (list (format (concat "%-" left-column-width "S %s")
-                          (oref layer :name)
+                          layer
                           (propertize "no packages"
                                       'face 'warning))
-                  (oref layer :name)
+                  layer
                   nil)
             result))
     (sort result (lambda (a b) (string< (car a) (car b))))))
@@ -253,9 +244,7 @@
     (let* ((layer-str (cadr args))
            (layer-sym (intern layer-str))
            (package-str (caddr args))
-           (path (file-name-as-directory
-                  (concat (ht-get configuration-layer-paths layer-sym)
-                          layer-str)))
+           (path (configuration-layer/get-layer-path layer-sym))
            (filename (concat path "packages.el")))
       (find-file filename)
       (goto-char (point-min))

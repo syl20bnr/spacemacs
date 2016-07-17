@@ -114,7 +114,7 @@
 
       (with-eval-after-load 'org-indent
         (spacemacs|hide-lighter org-indent-mode))
-      (let ((dir (configuration-layer/get-layer-property 'org :dir)))
+      (let ((dir (configuration-layer/get-layer-local-dir 'org)))
         (setq org-export-async-init-file (concat dir "org-async-init.el")))
       (defmacro spacemacs|org-emphasize (fname char)
         "Make function for setting the emphasis in org mode"
@@ -137,7 +137,7 @@
           "a" 'org-edit-src-abort
           "k" 'org-edit-src-abort))
 
-      (let ((dir (configuration-layer/get-layer-property 'org :dir)))
+      (let ((dir (configuration-layer/get-layer-local-dir 'org)))
         (setq org-export-async-init-file (concat dir "org-async-init.el")))
       (defmacro spacemacs|org-emphasize (fname char)
         "Make function for setting the emphasis in org mode"
