@@ -498,11 +498,12 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
                (eq (plist-get (cdr location) :fetcher) 'local))
       (setq location
             `(recipe
-              :fetcher url
-              :url ,(format
-                     "file://%s%s/%s.el"
-                     (configuration-layer/get-layer-local-dir (oref layer :name))
-                     name-str name-str))))
+              :fetcher file
+              :path ,(expand-file-name
+                      (format
+                       "%s%s/%s.el"
+                       (configuration-layer/get-layer-local-dir (oref layer :name))
+                       name-str name-str)))))
     (when location (oset obj :location location))
     (when min-version (oset obj :min-version (version-to-list min-version)))
     (when step (oset obj :step step))
