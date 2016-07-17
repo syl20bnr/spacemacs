@@ -193,7 +193,7 @@ If you are reading this, you likely want to choose the vim style. A =.spacemacs=
 file will be created with the appropriate style selected. Most trivial
 configuration will go in this file.
 
-There are four top-level function in the file: =dotspacemacs/layers=,
+There are four top-level functions in the file: =dotspacemacs/layers=,
 =dotspacemacs/init=, =dotspacemacs/user-init= and =dotspacemacs/user-config=.
 The =dotspacemacs/layers= function exist only to enable and disable layers and
 packages. The =dotspacemacs/init= function is run before anything else during
