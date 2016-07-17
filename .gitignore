@@ -35,7 +35,6 @@ tmp/
 .python-environments/
 server/
 /network-security.data
-*~
 *.elc
 *.pyc
 /*.zip
