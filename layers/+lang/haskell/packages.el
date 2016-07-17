@@ -17,18 +17,16 @@
     company-ghci
     company-ghc
     flycheck
-    flycheck-haskell
+    (flycheck-haskell :toggle (configuration-layer/package-usedp 'flycheck))
     ggtags
     ghc
-    intero
-    flycheck
-    (flycheck-haskell :toggle (configuration-layer/package-usedp 'flycheck))
     haskell-mode
     haskell-snippets
     helm-gtags
     (helm-hoogle :toggle (configuration-layer/package-usedp 'helm))
     hindent
     hlint-refactor
+    intero
     ))
 
 (defun haskell/init-cmm-mode ()

@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq gtags-packages
+(defconst gtags-packages
   '(
     eldoc
     ggtags
