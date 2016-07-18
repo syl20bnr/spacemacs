@@ -47,8 +47,6 @@
    - [[#why-is-there-no-spacemacs-logo-in-the-startup-buffer][Why is there no Spacemacs logo in the startup buffer?]]
    - [[#why-are-all-packages-unavailable][Why are all packages unavailable?]]
    - [[#the-powerline-isnt-shown-correctly-when-spacemacs-is-used-within-putty][The powerline isn't shown correctly when Spacemacs is used within =PuTTY=]]
- - [[#os-x][OS X]]
-   - [[#why-are-the-powerline-colors-not-correct-on-os-x][Why are the powerline colors not correct on OS X?]]
 
 * Common
 ** Which version of Spacemacs am I running?
@@ -553,9 +551,3 @@ directory as Emacs. See [[https://www.gnu.org/software/emacs/manual/html_mono/em
 
 ** The powerline isn't shown correctly when Spacemacs is used within =PuTTY=
 You can follow [[http://mschulte.nl/posts/using-powerline-in-PuTTY.html][this explanation]] explaining how to correct this.
-
-* OS X
-** Why are the powerline colors not correct on OS X?
-This is a [[https://github.com/milkypostman/powerline/issues/54][known issue]] as of Emacs 24.4 due to =ns-use-srgb-colorspace=
-defaulting to true. It is recommended to use the [[http://github.com/railwaycat/homebrew-emacsmacport][emacs-mac-port]] build. See the
-install section in the [[file:../README.md][README]] for more details.
