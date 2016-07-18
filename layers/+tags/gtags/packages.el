@@ -23,10 +23,12 @@
     :init
     (progn
       ;; modes that do not have a layer, add here.
-      (add-hook 'awk-mode-hook #'spacemacs/ggtags-mode-enable)
-      (add-hook 'shell-mode-hook #'spacemacs/ggtags-mode-enable)
-      (add-hook 'tcl-mode-hook #'spacemacs/ggtags-mode-enable)
-      (add-hook 'vhdl-mode-hook #'spacemacs/ggtags-mode-enable))))
+      (add-hook 'awk-mode-hook #'spacemacs/ggtags-mode-enable 'append)
+      (add-hook 'shell-mode-hook #'spacemacs/ggtags-mode-enable 'append)
+      (add-hook 'tcl-mode-hook #'spacemacs/ggtags-mode-enable 'append)
+      (add-hook 'vhdl-mode-hook #'spacemacs/ggtags-mode-enable 'append))
+    :config
+    (spacemacs|diminish ggtags-mode)))
 
 (defun gtags/init-helm-gtags ()
   (use-package helm-gtags
@@ -46,6 +48,7 @@
       (spacemacs/helm-gtags-define-keys-for-mode 'shell-mode))
     :config
     (progn
+      (spacemacs|diminish helm-gtags-mode)
       ;; if anyone uses helm-gtags, they would want to use these key bindings
       (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
       (define-key helm-gtags-mode-map (kbd "C-x 4 .") 'helm-gtags-find-tag-other-window)

@@ -42,7 +42,7 @@
     :defer t))
 
 (defun vimscript/post-init-ggtags ()
-  (add-hook 'vimrc-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'vimrc-mode-hook #'spacemacs/ggtags-mode-enable 'append))
 
 (defun vimscript/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'vimrc-mode))

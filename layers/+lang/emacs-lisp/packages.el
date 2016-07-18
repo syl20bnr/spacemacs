@@ -139,10 +139,10 @@
   (setq flycheck-emacs-lisp-load-path 'inherit))
 
 (defun emacs-lisp/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'emacs-lisp-mode))
+  (spacemacs/helm-gtags-define-keys-for-mode 'emacs-lisp-mode 'no-gg))
 
 (defun emacs-lisp/post-init-ggtags ()
-  (add-hook 'emacs-lisp-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'emacs-lisp-mode-hook #'spacemacs/ggtags-mode-enable 'append))
 
 (defun emacs-lisp/post-init-semantic ()
   (add-hook 'emacs-lisp-mode-hook 'semantic-mode)

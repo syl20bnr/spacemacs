@@ -237,3 +237,16 @@ the gtags commands.
 | ~SPC m g s~ | select any tag in a project retrieved by gtags            |
 | ~SPC m g S~ | show stack of visited locations                           |
 | ~SPC m g u~ | manually update tag database                              |
+
+Note that the ~SPC m g g~ binding is not applied in modes with a pre-existing
+superior binding for that functionality. If you wish to use gtags in those modes
+you can do the following (for e.g. =python-mode=)
+
+#+begin_src emacs-lisp
+  (spacemacs/helm-gtags-define-keys-for-mode 'python-mode)
+#+end_src
+
+This applies to
+
+- Emacs Lisp
+- Python

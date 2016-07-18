@@ -23,7 +23,7 @@
                  (company-quickhelp-mode -1))) t))
 
 (defun racket/post-init-ggtags ()
-  (add-hook 'racket-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'racket-mode-hook #'spacemacs/ggtags-mode-enable 'append))
 
 (defun racket/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'racket-mode))
