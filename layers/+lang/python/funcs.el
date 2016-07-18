@@ -16,6 +16,25 @@
   (highlight-lines-matching-regexp "import i?pu?db")
   (highlight-lines-matching-regexp "i?pu?db.set_trace()"))
 
+(defun spacemacs/pyenv-executable-find (command)
+  "Find executable taking pyenv shims into account."
+  (if (executable-find "pyenv")
+      (progn
+        (let ((pyenv-string (shell-command-to-string (concat "pyenv which " command))))
+          (unless (string-match "not found" pyenv-string)
+            pyenv-string)))
+    (executable-find command)))
+
+(defun spacemacs/python-setup-shell (&rest args)
+  (if (spacemacs/pyenv-executable-find "ipython")
+      (progn (setq python-shell-interpreter "ipython")
+             (if (version< (replace-regexp-in-string "\n$" "" (shell-command-to-string "ipython --version")) "5")
+                 (setq python-shell-interpreter-args "-i")
+               (setq python-shell-interpreter-args "--simple-prompt -i")))
+    (progn
+      (setq python-shell-interpreter-args "-i")
+      (setq python-shell-interpreter "python"))))
+
 (defun spacemacs/python-toggle-breakpoint ()
   "Add a break point, highlight it."
   (interactive)
