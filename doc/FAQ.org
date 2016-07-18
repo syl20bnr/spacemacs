@@ -558,4 +558,4 @@ You can follow [[http://mschulte.nl/posts/using-powerline-in-PuTTY.html][this ex
 ** Why are the powerline colors not correct on OS X?
 This is a [[https://github.com/milkypostman/powerline/issues/54][known issue]] as of Emacs 24.4 due to =ns-use-srgb-colorspace=
 defaulting to true. It is recommended to use the [[http://github.com/railwaycat/homebrew-emacsmacport][emacs-mac-port]] build. See the
-install section in the [[file:../README.md][README]] for more details.
+install section in the [[file:../README.md#os-x][README]] for more details.
