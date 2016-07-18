@@ -57,10 +57,7 @@
     :commands (spacemacs/helm-find-files)
     :init
     (progn
-      ;;  Restore popwin-mode after a Helm session finishes.
-      (spacemacs/add-to-hook 'helm-cleanup-hook
-                             '(spacemacs//restore-previous-display-config
-                               spacemacs//helm-cleanup))
+      (add-hook 'helm-cleanup-hook #'spacemacs//helm-cleanup)
       ;; key bindings
       ;; Use helm to provide :ls, unless ibuffer is used
       (unless (configuration-layer/package-usedp 'ibuffer)
