@@ -76,8 +76,8 @@
     :commands git-gutter-mode
     :init
     (progn
-      (when (display-graphic-p)
-        (with-eval-after-load 'git-gutter
+      (with-eval-after-load 'git-gutter
+        (when (display-graphic-p)
           (require 'git-gutter-fringe)))
       (setq git-gutter-fr:side 'right-fringe))
     :config
@@ -137,8 +137,8 @@
     :commands git-gutter+-mode
     :init
     (progn
-      (when (display-graphic-p)
-        (with-eval-after-load 'git-gutter+
+      (with-eval-after-load 'git-gutter+
+        (when (display-graphic-p)
           (require 'git-gutter-fringe+)))
       (setq git-gutter-fr+-side 'right-fringe))
     :config
