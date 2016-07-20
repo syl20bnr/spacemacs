@@ -1049,7 +1049,7 @@ is nonempty."
 Delegates to flycheck if it is enabled and the next-error buffer
 is not visible. Otherwise delegates to regular Emacs next-error."
   (if (and (bound-and-true-p flycheck-mode)
-           (let ((buf (next-error-find-buffer)))
+           (let ((buf (ignore-errors (next-error-find-buffer))))
              (not (and buf (get-buffer-window buf)))))
       'flycheck
     'emacs))
