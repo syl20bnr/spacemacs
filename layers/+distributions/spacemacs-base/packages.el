@@ -23,7 +23,9 @@
         evil-escape
         (evil-evilified-state :location local :step pre :protected t)
         evil-visualstar
-        exec-path-from-shell
+        ;; some packages need to look for binaries,
+        ;; which means the path must be ready by then
+        (exec-path-from-shell :step pre)
         help-fns+
         (hi-lock :location built-in)
         (holy-mode :location local :step pre)
