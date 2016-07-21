@@ -72,7 +72,8 @@
         "mL"  'psc-ide-load-module
         "mia" 'psc-ide-add-import
         "mis" 'psc-ide-flycheck-insert-suggestion
-        "ht"  'psc-ide-show-type))))
+        "ht"  'psc-ide-show-type
+        "gg"  'psc-ide-goto-definition))))
 
 (defun purescript/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
