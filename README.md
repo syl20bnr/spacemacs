@@ -160,11 +160,25 @@ also recommended to add the [osx layer][] to your [dotfile][]. Install
 instructions are available in the [osx layer][] documentation.
 
 *Note:* if the powerline separators on the spaceline are a different (less
-saturated) color than the rest of the line, you can add
+saturated) color than the rest of the line, you can add following snippet to
+`dotspacemacs/user-config` in your `.spacemacs` file.
+
 ```elisp
 (setq ns-use-srgb-colorspace nil)
 ```
-to your dotspacemacs/user-config section of your dotfile to fix it.
+
+Keep in mind that this is not ideal solution as it affects all colours in Emacs.
+Another option is to use different powerline separator. For example, `alternate`
+and `bar` diminishes the difference. And using `utf-8` separator makes it go
+away completely without the need to change colour space. In order to change
+powerline separator put following snippet in `dotspacemacs/user-config`.
+
+```eslip
+(setq powerline-default-separator 'utf-8)
+```
+
+For more information about powerline separators, please refer to appropriate
+section in [Documentation][DOCUMENTATION.org].
 
 ### Windows
 
