@@ -162,6 +162,8 @@
     (junio    . sublime-themes)
     (mccarthy . sublime-themes)
     (odersky  . sublime-themes)
+    (omtose-darker . omtose-phellack-theme)
+    (omtose-softer . omtose-phellack-theme)
     (ritchie  . sublime-themes)
     (spolsky  . sublime-themes)
     (wilson   . sublime-themes)
