@@ -72,14 +72,17 @@ To use scalastyle,
 
 1. Download the [[http://www.scalastyle.org/#download][scalastyle jar]] and put it somewhere sensible
    - If you are a brew user in OSX you can do: =brew install scalastyle=
-2. Customise the =flycheck-scalastyle-jar= and =flycheck-scalastylerc= variables in your =dotspacemacs/user-config=
-   i.e.:
-#+BEGIN_SRC
-   (setq flycheck-scalastyle-jar "/usr/local/Cellar/scalastyle/0.8.0/libexec/scalastyle_2.11-0.8.0-batch.jar")
-   (setq flycheck-scalastylerc "/usr/local/etc/scalastyle_config.xml")
+2. Customise the =flycheck-scalastyle-jar= and =flycheck-scalastylerc= variables
+   in your =dotspacemacs/user-config= i.e.:
+#+BEGIN_SRC emacs-lisp
+   (setq flycheck-scalastyle-jar
+         "/usr/local/Cellar/scalastyle/0.8.0/libexec/scalastyle_2.11-0.8.0-batch.jar")
+   (setq flycheck-scalastylerc
+         "/usr/local/etc/scalastyle_config.xml")
 #+END_SRC
 
-See the [[http://www.flycheck.org/en/latest/languages.html?highlight=scala#syntax-checker-scala-scalastyle][flycheck documentation]] and [[http://www.scalastyle.org/configuration.html][scalastyle configuration]] for up-to-date configuration instructions.
+See the [[http://www.flycheck.org/en/latest/languages.html?highlight=scala#syntax-checker-scala-scalastyle][flycheck documentation]] and [[http://www.scalastyle.org/configuration.html][scalastyle configuration]] for up-to-date
+configuration instructions.
 
 ** Use Java doc-style
 To enable =java-doc-style=, set the variable =scala-indent:use-javadoc-style= to =t=
