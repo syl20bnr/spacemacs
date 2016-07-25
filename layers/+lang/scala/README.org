@@ -13,7 +13,7 @@
  - [[#automatically-show-the-type-of-the-symbol-under-the-cursor][Automatically show the type of the symbol under the cursor]]
  - [[#automatically-insert-asterisk-in-multiline-comments][Automatically insert asterisk in multiline comments]]
  - [[#automatically-replace-arrows-with-unicode-ones][Automatically replace arrows with unicode ones]]
- - [[#disable-auto-start][Disable auto-start]]
+ - [[#auto-start][Auto-start]]
  - [[#key-bindings][Key bindings]]
    - [[#ensime-key-bindings][Ensime key bindings]]
      - [[#search][Search]]
@@ -124,13 +124,13 @@ the ascii arrows back.
     (scala :variables scala-use-unicode-arrows t)))
 #+END_SRC
 
-* Disable auto-start
-If you prefer not to have Ensime start when you load a scala file, you can
-disable it with
+* Auto-start
+If you prefer to have Ensime start when you load a scala file, you can
+enable it with
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(
-    (scala :variables scala-auto-start-ensime nil)))
+    (scala :variables scala-auto-start-ensime t)))
 #+END_SRC
 
 * Key bindings
