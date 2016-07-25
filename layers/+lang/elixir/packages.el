@@ -143,7 +143,7 @@
     :post-config
     (push '("*mix*" :tail t :noselect t) popwin:special-display-config)))
 
-(defun elixir/post-init-smartparens ()
+(defun elixir/pre-init-smartparens ()
   (spacemacs|use-package-add-hook smartparens
     :post-config
     (progn
