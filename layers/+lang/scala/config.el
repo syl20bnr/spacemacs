@@ -18,5 +18,5 @@
 (defvar scala-use-unicode-arrows nil
   "If non-nil then `->`, `=>` and `<-` are replaced with unicode arrows.")
 
-(defvar scala-auto-start-ensime t
+(defvar scala-auto-start-ensime nil
   "If non nil then ensime will be started when a scala file is opened.")
