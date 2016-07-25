@@ -40,15 +40,15 @@ directories exist, this variable will be nil.")
                                  (concat dotspacemacs-directory
                                          "init.el"))))
       (cond
-       ((and env-init (file-exists-p env-init)) env-init)
+       (env-init)
        ((file-exists-p default-init) default-init)
        ((and dotspacemacs-directory (file-exists-p spacemacs-dir-init)) spacemacs-dir-init)
        (t default-init)))
-    "Filepath to the installed dotfile. If SPACEMACSDIR is used
-and contains an init.el file, then this file is ued. Otherwise,
-if ~/.spacemacs exists, then this is used. If ~/.spacemacs does
-not exist, then check for init.el in dotspacemacs-directory and
-use this if it exists. Otherwise, fallback to ~/.spacemacs"))
+    "Filepath to the installed dotfile. If SPACEMACSDIR is given
+then SPACEMACSDIR/init.el is used. Otherwise, if ~/.spacemacs
+exists, then this is used. If ~/.spacemacs does not exist, then
+check for init.el in dotspacemacs-directory and use this if it
+exists. Otherwise, fallback to ~/.spacemacs"))
 
 (defvar dotspacemacs-distribution 'spacemacs
   "Base distribution to use. This is a layer contained in the directory
