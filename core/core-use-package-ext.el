@@ -25,7 +25,7 @@ of a package.
 
 Usage:
 
-  (use-package-add-hook package-name
+  (spacemacs|use-package-add-hook package-name
      [:keyword [option]]...)
 
 :pre-init      Code to run before the default `:init' configuration.
