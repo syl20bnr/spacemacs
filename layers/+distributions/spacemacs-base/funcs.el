@@ -217,26 +217,19 @@ automatically applied to."
     (spacemacs/maximize-horizontally)
     (call-interactively 'spacemacs-centered-buffer-mode)))
 
+(defun spacemacs/useful-buffer-p (buffer)
+  "Determines if a buffer is useful."
+  (let ((buf-name (buffer-name buffer)))
+    (or (with-current-buffer buffer
+          (derived-mode-p 'comint-mode))
+        (cl-loop for useful-regexp in spacemacs-useful-buffers-regexp
+                 thereis (string-match-p useful-regexp buf-name))
+        (cl-loop for useless-regexp in spacemacs-useless-buffers-regexp
+                 never (string-match-p useless-regexp buf-name)))))
 
 (defun spacemacs/useless-buffer-p (buffer)
   "Determines if a buffer is useless."
-  (let ((buf-paren-major-mode (get (with-current-buffer buffer
-                                     major-mode)
-                                   'derived-mode-parent))
-        (buf-name (buffer-name buffer)))
-    ;; first find if useful buffer exists, if so returns nil and don't check for
-    ;; useless buffers. If no useful buffer is found, check for useless buffers.
-    (unless (cl-loop for regexp in spacemacs-useful-buffers-regexp do
-                     (when (or (eq buf-paren-major-mode 'comint-mode)
-                               (string-match regexp buf-name))
-                       (return t)))
-      (cl-loop for regexp in spacemacs-useless-buffers-regexp do
-               (when (string-match regexp buf-name)
-                 (return t))))))
-
-(defun spacemacs/useful-buffer-p (buffer)
-  "Determines if a buffer is useful."
-  (not (spacemacs/useless-buffer-p buffer)))
+  (not (spacemacs/useful-buffer-p buffer)))
 
 ;; from magnars modified by ffevotte for dedicated windows support
 (defun spacemacs/rotate-windows (count)
