@@ -150,7 +150,7 @@
         (spacemacs/set-leader-keys-for-major-mode mode
           "gg"  'haskell-mode-jump-to-def-or-tag
           "gi"  'haskell-navigate-imports
-          "f"   'haskell-mode-stylish-buffer
+          "F"   'haskell-mode-stylish-buffer
 
           "sb"  'haskell-process-load-file
           "sc"  'haskell-interactive-mode-clear
@@ -276,7 +276,7 @@
     (progn
       (setq hindent-style haskell-enable-hindent-style)
       (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
-        "F" 'hindent-reformat-decl))))
+        "f" 'hindent-reformat-decl))))
 
 (defun haskell/init-hlint-refactor ()
   (use-package hlint-refactor

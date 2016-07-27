@@ -173,8 +173,8 @@ Top-level commands are prefixed by ~SPC m~:
 |-------------+---------------------------------------------------------------------|
 | ~SPC m g g~ | go to definition or tag                                             |
 | ~SPC m g i~ | cycle the Haskell import lines or return to point (with prefix arg) |
-| ~SPC m f~   | format buffer using haskell-stylish                                 |
-| ~SPC m F~   | format declaration using hindent (if enabled)                       |
+| ~SPC m F~   | format buffer using haskell-stylish                                 |
+| ~SPC m f~   | format declaration using hindent (if enabled)                       |
 
 ** Documentation
 Documentation commands are prefixed by ~SPC m h~
