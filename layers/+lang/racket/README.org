@@ -19,7 +19,12 @@ Adds support for the [[http://racket-lang.org/][Racket]] programming language.
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =racket= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+file. You will also need DrRacket installed. Alternatively, one can use the
+"Minimal Racket" installation, and then run the following command.
+
+#+BEGIN_SRC Bash
+raco pkg install drracket
+#+END_SRC
 
 * Key Bindings
 
