@@ -797,8 +797,8 @@ variable as well."
                (obj (configuration-layer/get-package pkg-name)))
           (if obj
               (setq obj (configuration-layer/make-package pkg obj ownerp layer))
-            (setq obj (configuration-layer/make-package pkg nil ownerp layer))
-            (configuration-layer//add-package obj usedp))
+            (setq obj (configuration-layer/make-package pkg nil ownerp layer)))
+          (configuration-layer//add-package obj usedp)
           (when ownerp
             ;; last owner wins over the previous one,
             ;; still warn about mutliple owners
@@ -845,13 +845,13 @@ variable as well."
         (if obj
             (setq obj (configuration-layer/make-package pkg obj t))
           (setq obj (configuration-layer/make-package pkg nil t))
-          (configuration-layer//add-package obj usedp)
-          (push 'dotfile (oref obj :owners)))))
+          (push 'dotfile (oref obj :owners)))
+        (configuration-layer//add-package obj usedp)))
     (dolist (xpkg dotspacemacs-excluded-packages)
       (let ((obj (configuration-layer/get-package xpkg)))
         (unless obj
-          (setq obj (configuration-layer/make-package xpkg))
-          (configuration-layer//add-package obj usedp))
+          (setq obj (configuration-layer/make-package xpkg)))
+        (configuration-layer//add-package obj usedp)
         (oset obj :excluded t)))))
 
 (defun configuration-layer/lazy-install (layer-name &rest props)
@@ -984,6 +984,7 @@ Returns nil if the directory is not a category."
   ;; load private layers at the end on purpose we asume that the user layers
   ;; must have the final word on configuration choices. Let
   ;; `dotspacemacs-directory' override the private directory if it exists.
+  (setq  configuration-layer--indexed-layers (make-hash-table :size 1024))
   (let ((search-paths (append (list configuration-layer-directory)
                               dotspacemacs-configuration-layer-path
                               (list configuration-layer-private-layer-directory)
