@@ -106,6 +106,7 @@ Git commands (start with ~g~):
 |-------------+-----------------------------------------------------|
 | ~SPC g >~   | show submodule prompt                               |
 | ~SPC g b~   | open a =magit= blame                                |
+| ~SPC g f h~ | show file commits history                           |
 | ~SPC g H c~ | clear highlights                                    |
 | ~SPC g H h~ | highlight regions by age of commits                 |
 | ~SPC g H t~ | highlight regions by last updated time              |

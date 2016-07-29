@@ -120,12 +120,14 @@
         (setenv "GIT_ASKPASS" "git-gui--askpass"))
       ;; key bindings
       (spacemacs/declare-prefix "gd" "diff")
+      (spacemacs/declare-prefix "gf" "file")
       (spacemacs/set-leader-keys
-        "gb" 'spacemacs/git-blame-micro-state
-        "gm" 'magit-dispatch-popup
-        "gs" 'magit-status
-        "gS" 'magit-stage-file
-        "gU" 'magit-unstage-file)
+        "gb"  'spacemacs/git-blame-micro-state
+        "gfh" 'magit-log-buffer-file
+        "gm"  'magit-dispatch-popup
+        "gs"  'magit-status
+        "gS"  'magit-stage-file
+        "gU"  'magit-unstage-file)
       ;; transient state
       ;; TODO use transient state instead of old micro-state, IIRC we continue
       ;; to use micro-state because of the re-entry keyword :on-enter which is
