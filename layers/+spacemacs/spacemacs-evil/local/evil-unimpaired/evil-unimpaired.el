@@ -62,15 +62,13 @@
   (evil-insert-newline-below)
   (evil-paste-after 1))
 
-(defun evil-unimpaired/insert-space-above ()
-  (interactive)
-  (save-excursion
-    (evil-insert-newline-above)))
+(defun evil-unimpaired/insert-space-above (count)
+  (interactive "p")
+  (dotimes (_ count) (save-excursion (evil-insert-newline-above))))
 
-(defun evil-unimpaired/insert-space-below ()
-  (interactive)
-  (save-excursion
-    (evil-insert-newline-below)))
+(defun evil-unimpaired/insert-space-below (count)
+  (interactive "p")
+  (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
 
 (defun evil-unimpaired/next-frame ()
   (interactive)

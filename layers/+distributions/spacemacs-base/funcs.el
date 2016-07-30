@@ -96,16 +96,14 @@ auto-indent."
   "Insert one of several lines below the current point's line without changing
 the current state and point position."
   (interactive "p")
-  (save-excursion
-    (evil-save-state (evil-open-below count))))
+  (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
 
 ;; insert one or several line above without changing current evil state
 (defun spacemacs/evil-insert-line-above (count)
   "Insert one of several lines above the current point's line without changing
 the current state and point position."
   (interactive "p")
-  (save-excursion
-    (evil-save-state (evil-open-above count))))
+  (dotimes (_ count) (save-excursion (evil-insert-newline-above))))
 
 (defun spacemacs/evil-goto-next-line-and-indent (&optional count)
   (interactive "p")
