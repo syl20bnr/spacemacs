@@ -211,6 +211,12 @@ start.")
 (defvar dotspacemacs-helm-position 'bottom
   "Position in which to show the `helm' mini-buffer.")
 
+(defvar dotspacemacs-helm-use-fuzzy 'always
+  "Controls fuzzy matching in helm. If set to `always', force fuzzy matching
+  in all non-asynchronous sources. If set to `source', preserve individual
+  source settings. Else, disable fuzzy matching in all sources.
+  Default `always'.")
+
 (defvar dotspacemacs-large-file-size 1
   "Size (in MB) above which spacemacs will prompt to open the large file
 literally to avoid performance issues. Opening a file literally means that

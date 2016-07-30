@@ -47,7 +47,9 @@
     (add-hook 'spacemacs-editing-style-hook 'spacemacs//helm-hjkl-navigation)
     ;; setup advices
     ;; fuzzy matching for all the sourcess
-    (advice-add 'helm-make-source :around #'spacemacs//helm-make-source)
+    (unless (eq dotspacemacs-helm-use-fuzzy 'source)
+      (advice-add 'helm-make-source :around #'spacemacs//helm-make-source))
+
     (defadvice spacemacs/post-theme-init
         (after spacemacs/helm-header-line-adv activate)
       "Update defaults for `helm' header line whenever a new theme is loaded"
