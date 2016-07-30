@@ -1028,7 +1028,7 @@ Note the these colors may vary depending on your theme.
 
 **** Powerline separators
 It is possible to easily customize the =powerline separator= by setting the
-=powerline-default-separator= variable in your =~./spacemacs=. For instance if
+=powerline-default-separator= variable in your =~./spacemacs= and call =spaceline-compile= after that. For instance if
 you want to set back the separator to the well-known =arrow= separator add the
 following snippet to your configuration file:
 
@@ -1036,7 +1036,8 @@ following snippet to your configuration file:
 (defun dotspacemacs/user-config ()
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
-  (setq powerline-default-separator 'arrow))
+  (setq powerline-default-separator 'arrow)
+  (spaceline-compile))
 #+END_SRC
 
 To save you the time to try all the possible separators provided by the
