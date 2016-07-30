@@ -40,7 +40,7 @@
   (let ((source-type (cadr args))
         (props (cddr args)))
     (unless (eq source-type 'helm-source-async)
-      (plist-put props :fuzzy-match t)))
+      (plist-put props :fuzzy-match (eq 'always dotspacemacs-helm-use-fuzzy))))
   (apply f args))
 
 ;; Helm Header line
