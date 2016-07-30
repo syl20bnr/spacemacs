@@ -101,6 +101,30 @@ the popup, set the variable =auto-completion-enable-snippets-in-popup= to =t=.
                                    auto-completion-enable-snippets-in-popup t)))
 #+END_SRC
 
+** Templates
+Here is an example to add java template:
+- Add ~/.emacs.d/private/templates/00:.*.java
+#+BEGIN_SRC java
+class `(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`
+{
+public static void main(String args[])
+{
+$0
+}
+}
+#+END_SRC
+- Create new *.java file (e.g. Sample.java)
+    Template is inserted.
+#+BEGIN_SRC java
+class Sample
+{
+public static void main(String args[])
+{
+$0
+}
+}
+#+END_SRC
+
 ** Tooltips
 To enable docstring tooltips set =auto-completion-enable-help-tooltip= to =t=
 

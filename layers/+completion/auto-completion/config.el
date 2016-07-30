@@ -49,3 +49,6 @@ to complet without blocking common line endings.")
 
 (defvar auto-completion-private-snippets-directory nil
   "Configurable private snippets directory.")
+
+(defvar yatemplate-dir (concat configuration-layer-private-directory "templates")
+  "Path to yatemplate template directory")
