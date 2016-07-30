@@ -39,9 +39,8 @@
     :post-init
     (progn
       (push 'company-capf company-backends-eshell-mode)
-      (spacemacs|add-company-hook eshell-mode))
-    :post-config
-    (progn
+      (spacemacs|add-company-hook eshell-mode)
+
       (defun spacemacs//toggle-shell-auto-completion-based-on-path ()
         "Deactivates automatic completion on remote paths.
 Retrieving completions for Eshell blocks Emacs. Over remote
@@ -52,6 +51,7 @@ the user activate the completion manually."
           (setq-local company-idle-delay 0.2)))
       (add-hook 'eshell-directory-change-hook
                 'spacemacs//toggle-shell-auto-completion-based-on-path)
+
       ;; The default frontend screws everything up in short windows like
       ;; terminal often are
       (defun spacemacs//eshell-switch-company-frontend ()
