@@ -49,8 +49,11 @@ To use the formatting features, install =js-beautify=:
   $ npm install -g js-beautify
 #+END_SRC
 
-To activate error checking using flycheck install =JSHint=:
+To activate error checking using flycheck, install one of the
+[[http://www.flycheck.org/en/latest/languages.html#javascript][available formatters]] such as =ESLint= or =JSHint=:
 #+BEGIN_SRC sh
+  $ npm install -g eslint
+  # or
   $ npm install -g jshint
 #+END_SRC
 
