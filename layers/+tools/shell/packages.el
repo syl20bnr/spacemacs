@@ -186,7 +186,8 @@ is achieved by adding the relevant text properties."
     :defer t
     :init
     (with-eval-after-load 'eshell
-      (require 'eshell-z))))
+      (require 'eshell-z)
+      (setq eshell-z-freq-dir-hash-table-file-name (concat eshell-directory-name "/z")))))
 
 (defun shell/pre-init-helm ()
   (spacemacs|use-package-add-hook helm
