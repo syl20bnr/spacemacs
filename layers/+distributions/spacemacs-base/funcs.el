@@ -82,7 +82,7 @@ auto-indent."
   (sp-newline))
 
 (defun spacemacs/push-mark-and-goto-beginning-of-line ()
-  "Push a mark at current location and go to the beginnign of the line."
+  "Push a mark at current location and go to the beginning of the line."
   (interactive)
   (push-mark (point))
   (evil-beginning-of-line))
@@ -93,19 +93,17 @@ auto-indent."
   (push-mark (point))
   (evil-end-of-line))
 
-;; insert one or several line below without changing current evil state
-(defun spacemacs/evil-insert-line-below (count)
-  "Insert one of several lines below the current point's line without changing
-the current state and point position."
-  (interactive "p")
-  (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
-
-;; insert one or several line above without changing current evil state
 (defun spacemacs/evil-insert-line-above (count)
-  "Insert one of several lines above the current point's line without changing
+  "Insert one or several lines above the current point's line without changing
 the current state and point position."
   (interactive "p")
   (dotimes (_ count) (save-excursion (evil-insert-newline-above))))
+
+(defun spacemacs/evil-insert-line-below (count)
+  "Insert one or several lines below the current point's line without changing
+the current state and point position."
+  (interactive "p")
+  (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
 
 (defun spacemacs/evil-goto-next-line-and-indent (&optional count)
   (interactive "p")
@@ -531,6 +529,7 @@ Useful for making the home buffer the only visible buffer in the frame."
   (delete-other-windows))
 
 (defun spacemacs/insert-line-above-no-indent (count)
+  "Insert a new line above with no indentation."
   (interactive "p")
   (let ((p (+ (point) count)))
     (save-excursion
@@ -545,7 +544,7 @@ Useful for making the home buffer the only visible buffer in the frame."
     (goto-char p)))
 
 (defun spacemacs/insert-line-below-no-indent (count)
-  "Insert a new line below with no identation."
+  "Insert a new line below with no indentation."
   (interactive "p")
   (save-excursion
     (evil-move-end-of-line)
