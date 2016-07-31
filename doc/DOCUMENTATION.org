@@ -2607,7 +2607,7 @@ You can zoom in and out the whole content of the frame with the commands:
 | Any other key | leave the zoom frame transient state                                        |
 
 *** Increase/Decrease numbers
-Spacemacs uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or increase numbers.
+Spacemacs uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or decrease numbers.
 
 | Key Binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
@@ -2845,7 +2845,7 @@ When in =lisp state= the color of the mode-line changes to pink.
 
 Examples:
   - to slurp three times while in normal state: ~SPC k 3 s~
-  - to wrap a symbol in parenthesis then slurping two times: ~SPC k w 2 s~
+  - to wrap a symbol in parentheses then slurp two times: ~SPC k w 2 s~
 
 *Note*: The =lisp state= commands are available in /any/ modes! Try it out.
 
