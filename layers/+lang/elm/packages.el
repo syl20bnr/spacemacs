@@ -61,6 +61,7 @@
         "cm" 'elm-compile-main
         ;; oracle
         "ht" 'elm-oracle-type-at-point
+        "hd" 'elm-oracle-doc-at-point
         ;; refactoring
         "ri" 'elm-sort-imports
         ;; repl
