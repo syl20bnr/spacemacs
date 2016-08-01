@@ -61,6 +61,11 @@ environment, otherwise it is strongly recommended to let it set to t.")
 (defvar dotspacemacs-elpa-timeout 5
   "Maximum allowed time in seconds to contact an ELPA repository.")
 
+(defvar dotspacemacs-enable-multiple-emacs-version nil
+  "If non nil, different emacs versions have different package directories.
+e.g. for Emacs 24.5, packages are stored in elpa/24.5/. Rollback
+directories are also separated.")
+
 (defvar dotspacemacs-configuration-layer-path '()
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')")

@@ -46,8 +46,13 @@
       configuration-layer-private-directory))
   "Spacemacs default directory for private layers.")
 
-(defconst configuration-layer-rollback-directory
-  (expand-file-name (concat spacemacs-cache-directory ".rollback/"))
+(defun configuration-layer/emacs-version-dirname ()
+  "Directory name for current emacs version.
+Example output: \"24.5\"."
+  (format "%d%s%d" emacs-major-version version-separator emacs-minor-version))
+
+(defvar configuration-layer-rollback-directory
+  (concat spacemacs-cache-directory ".rollback/")
   "Spacemacs rollback directory.")
 
 (defconst configuration-layer-rollback-info "rollback-info"
@@ -244,6 +249,15 @@ cache folder.")
   "Initialize `package.el'."
   (setq configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout)
   (unless package--initialized
+    (when dotspacemacs-enable-multiple-emacs-version
+      (setq configuration-layer-rollback-directory
+            (file-name-as-directory
+             (expand-file-name (configuration-layer/emacs-version-dirname)
+                               configuration-layer-rollback-directory)))
+      (setq package-user-dir
+            (file-name-as-directory
+             (expand-file-name (configuration-layer/emacs-version-dirname)
+                               package-user-dir))))
     (setq package-archives (configuration-layer//resolve-package-archives
                             configuration-layer--elpa-archives))
     ;; optimization, no need to activate all the packages so early
