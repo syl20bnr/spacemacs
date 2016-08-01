@@ -33,14 +33,14 @@
    - [[#ghc-mod-2][ghc-mod]]
    - [[#interactive-haskell-mode][Interactive haskell-mode]]
    - [[#flymake][Flymake]]
-   - [[#troublesshooting][Troublesshooting]]
+   - [[#troubleshooting][Troubleshooting]]
  - [[#faq][FAQ]]
    - [[#the-repl-doesnt-work][The REPL doesn't work]]
    - [[#the-repl-is-stuck][The REPL is stuck]]
    - [[#i-am-using-stack-and-ghc-mod-but-ghc-mod-doesnt-work][I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work]]
    - [[#ghc-mod-doesnt-work][=ghc-mod= doesn't work]]
    - [[#indentation-doesnt-reset-when-pressing-return-after-an-empty-line][Indentation doesn't reset when pressing return after an empty line]]
-   - [[#flycheck-displays-hlint-warnings-but-not-errors][Flycheck displays HLInt warnings but not errors]]
+   - [[#flycheck-displays-hlint-warnings-but-not-errors][Flycheck displays HLint warnings but not errors]]
    - [[#i-can-see-highlighted-errors-but-they-dont-appear-in-the-error-list][I can see highlighted errors but they don't appear in the error list]]
    - [[#flycheck-doesnt-work][Flycheck doesn't work]]
    - [[#flycheck-doesnt-work-with-stack][Flycheck doesn't work with =stack=]]
@@ -331,7 +331,7 @@ This is the standard spacemacs way to do syntax checking and the most elaborate.
 You need the syntax-checking layer to enable this. Please the documentation for
 that layer on how to interact with flycheck.
 
-Flycheck has different Haskell checkers: =haskell-ghc=, =haskell-stackghc= and
+Flycheck has different Haskell checkers: =haskell-ghc=, =haskell-stack-ghc= and
 =haskell-hlint=. Normally it can automatically detect the best one to use, but
 if it doesn't work, you can change it using ~SPC e s~.
 
@@ -357,7 +357,7 @@ An alternative to syntax checking is to build your project using
 =flymake-compile=. It doesn't highlight error in the buffer but is more
 reliable. The error navigation is similar to interactive haskell-mode.
 
-** Troublesshooting
+** Troubleshooting
 Flycheck and ghc-mod can fail silently for miscellaneous reasons. See the [[FAQ]]
 for troubleshooting.
 
@@ -382,9 +382,9 @@ Available options are:
 
 ** The REPL is stuck
 Make sure that when you are typing anything in REPL there is a space between
-what you type and =λ>=. When there is no space - REPL will behave as it's stuck.
-Usually, when you enter normal state, cursor is moved back, so there is no
-required space when you switch to insert mode. There is possible workaround -
+what you type and =λ>=. When there is no space - REPL will behave as if it's
+stuck. Usually, when you enter normal state, cursor is moved back, so there is
+no required space when you switch to insert mode. There is possible workaround -
 just add following snippet to your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
@@ -445,7 +445,7 @@ snippet into your =dotspacemacs/user-config= function.
             :after 'haskell-indentation-advice)
 #+END_SRC
 
-** Flycheck displays HLInt warnings but not errors
+** Flycheck displays HLint warnings but not errors
 The HLint checker is called *after* normal flycheck checker even if the checker
 fails. Check the [[Flycheck doesn't work]] section.
 
