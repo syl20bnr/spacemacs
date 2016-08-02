@@ -39,10 +39,9 @@
               'spacemacs//helm-hide-minibuffer-maybe)
     (add-hook 'helm-before-initialize-hook 'helm-toggle-header-line)
     (spacemacs/add-to-hook 'helm-after-initialize-hook
-                           '(spacemacs//helm-prepare-display
+                           '(spacemacs//prevent-minibuffer-escape
                              spacemacs//hide-cursor-in-helm-buffer))
-    ;;  Restore popwin-mode after a Helm session finishes.
-    (add-hook 'helm-cleanup-hook #'spacemacs//restore-previous-display-config)
+    (add-hook 'helm-cleanup-hook #'spacemacs//unprevent-minibuffer-escape)
     (add-hook 'helm-find-files-before-init-hook
               'spacemacs//set-dotted-directory)
     (add-hook 'spacemacs-editing-style-hook 'spacemacs//helm-hjkl-navigation)

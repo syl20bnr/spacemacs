@@ -11,10 +11,32 @@
 
 
 
+(defvar helm--popwin-mode nil
+  "Temp variable to store `popwin-mode''s value.")
+
 (defun spacemacs//helm-cleanup ()
   "Cleanup some helm related states when quitting."
   ;; deactivate any running transient map (transient-state)
   (setq overriding-terminal-local-map nil))
+
+(defun spacemacs//helm-prepare-display ()
+  "Prepare necessary settings to make Helm display properly."
+  (setq spacemacs-display-buffer-alist display-buffer-alist)
+  ;; the only buffer to display is Helm, nothing else we must set this
+  ;; otherwise Helm cannot reuse its own windows for copyinng/deleting
+  ;; etc... because of existing popwin buffers in the alist
+  (setq display-buffer-alist nil)
+  (setq helm--popwin-mode popwin-mode)
+  (when popwin-mode
+    (popwin-mode -1)))
+
+(defun spacemacs//helm-restore-display ()
+  ;; we must enable popwin-mode first then restore `display-buffer-alist'
+  ;; Otherwise, popwin keeps adding up its own buffers to
+  ;; `display-buffer-alist' and could slow down Emacs as the list grows
+  (when helm--popwin-mode
+    (popwin-mode))
+  (setq display-buffer-alist spacemacs-display-buffer-alist))
 
 
 ;; REPLs integration
