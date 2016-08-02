@@ -13,6 +13,7 @@
   '(
     feature-mode
     projectile-rails
+    which-key
     ))
 
 (defun ruby-on-rails/init-projectile-rails ()
@@ -71,6 +72,11 @@
           "rxs" 'projectile-rails-server
           ;; Refactoring 'projectile-rails-mode
           "rRx" 'projectile-rails-extract-region))
+
+      (spacemacs/declare-prefix-for-mode 'ruby-mode "mr" "rails/rubocop")
+      (spacemacs/declare-prefix-for-mode 'ruby-mode "mrf" "file")
+      (spacemacs/declare-prefix-for-mode 'ruby-mode "mrg" "goto")
+
       ;; Ex-commands
       (evil-ex-define-cmd "A" 'projectile-toggle-between-implementation-and-test))))
 
@@ -78,3 +84,7 @@
   "Initialize Cucumber feature mode"
   (use-package feature-mode
     :mode (("\\.feature\\'" . feature-mode))))
+
+(defun ruby-on-rails/post-init-which-key ()
+  (push '("projectile-rails-\\(.+\\)" . "\\1")
+        which-key-description-replacement-alist))
