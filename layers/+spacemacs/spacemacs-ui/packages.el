@@ -87,10 +87,10 @@
 (defun spacemacs-ui/init-desktop ()
   (use-package desktop
     :defer t
+    :init
+    (setq desktop-dirname spacemacs-cache-directory)
     :config
-    (progn
-      (setq desktop-dirname spacemacs-cache-directory)
-      (push spacemacs-cache-directory desktop-path))))
+    (push spacemacs-cache-directory desktop-path)))
 
 (defun spacemacs-ui/init-doc-view ()
   (use-package doc-view
