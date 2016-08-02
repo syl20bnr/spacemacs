@@ -243,8 +243,8 @@ preprocessors for the exported .org files."
                  href=\"http://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>
           <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\"></script>
           <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
-          <script type=\"text/javascript\"
-                  src=\"http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js\"></script>
+          <script src=\"http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js\"></script>
+          <script src=\"http://spacemacs.org/js/permalinks.js\"></script>
           <script>
            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
