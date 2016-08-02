@@ -97,14 +97,17 @@ For information about setting up =$PATH=, check out the corresponding section in
 the FAQ (~SPC h SPC $PATH RET~).
 
 ** Completion support
-This layer provides several completion backends - =intero=, =ghci= and =ghc-mod=. By
-default =ghci= (=company-ghci=) is used as it requires no dependencies and works
-both with =stack= and pure =cabal= projects. In order to manually set completion
-backend set value of =haskell-completion-backend=.
+This layer provides several completion backends - =intero=, =ghci= and
+=ghc-mod=. By default =ghci= (=company-ghci=) is used as it requires no
+dependencies and works both with =stack= and pure =cabal= projects. In order to
+manually set completion backend set value of =haskell-completion-backend=. Note
+that in order to enable completion you have to enable =auto-completion= layer as
+well.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((haskell :variables haskell-completion-backend 'intero)))
+  (setq-default dotspacemacs-configuration-layers
+                '(auto-completion
+                  (haskell :variables haskell-completion-backend 'intero)))
 #+END_SRC
 
 *** =company-ghci=
