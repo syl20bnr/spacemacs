@@ -57,7 +57,7 @@ It is possible to override or add bindings by defining functions named
 They are respectively called just before and after the actual configuration of
 keybindings in this layer, so *you don't have to think about when to apply the
 configuration by yourself*. =<NAME>= is the name of the configuration you want
-to customize, they are listed under the [[#configurations][Configurations]] section.
+to customize, they are listed under the [[#configuration][Configuration]] section.
 
 Example:
 #+begin_src emacs-lisp
