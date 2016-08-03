@@ -60,10 +60,17 @@
 (defconst user-home-directory
   (expand-file-name "~/")
   "User home directory (~/).")
+
 (defconst pcache-directory
   (concat spacemacs-cache-directory "pcache/"))
 (unless (file-exists-p spacemacs-cache-directory)
-    (make-directory spacemacs-cache-directory))
+  (make-directory spacemacs-cache-directory))
+
+(setq custom-file
+      (concat spacemacs-cache-directory "custom.el"))
+(unless (file-exists-p custom-file)
+  (with-temp-buffer (write-file custom-file))
+  (custom-save-all))
 
 ;; load paths
 (mapc 'add-to-load-path
