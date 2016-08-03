@@ -3212,7 +3212,7 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | The Librarian (doc-fmt tool and space-doc mode) | [[https://github.com/JAremko][JAremko]]      |
 
 * Thank you
-[[Using configuration layers][Jokes aside]], thank you Richard for this great piece of software.
+Thank you Richard for this great piece of software.
 
 Thank you to all the contributors and the whole Emacs community from core
 developers to elisp hackers!
