@@ -55,10 +55,10 @@ You can also configure other options, shown below:
 #+END_SRC
 
 *** Usage
-To start the eclimd daemon, you can either invoke via =SPC d s= (or whatever
+To start the eclimd daemon, you can either invoke via =SPC m d s= (or whatever
 you've bound it to) or via =start-eclimd=. The process blocks for a while.
 
-To stop the daemon, you can either invoke via =SPC d k= or =stop-eclimd=.
+To stop the daemon, you can either invoke via =SPC m d k= or =stop-eclimd=.
 
 * Key bindings
 ** Java-mode
@@ -81,8 +81,8 @@ To stop the daemon, you can either invoke via =SPC d k= or =stop-eclimd=.
 
 | Key Binding | Description  |
 |-------------+--------------|
-| ~SPC d s~   | Start daemon |
-| ~SPC d k~   | Stop daemon  |
+| ~SPC m d s~   | Start daemon |
+| ~SPC m d k~   | Stop daemon  |
 
 *** Maven
 
