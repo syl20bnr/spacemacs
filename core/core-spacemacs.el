@@ -187,7 +187,7 @@ defer call using `spacemacs-post-user-config-hook'."
        (with-current-buffer "*scratch*"
          (funcall dotspacemacs-scratch-mode)))
      (configuration-layer/display-summary emacs-start-time)
-     (spacemacs/check-for-new-version spacemacs-version-check-interval)
+     (spacemacs/check-for-new-version nil spacemacs-version-check-interval)
      (setq spacemacs-initialized t))))
 
 (defun spacemacs//describe-system-info-string ()
