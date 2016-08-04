@@ -233,7 +233,7 @@ OWNER REPO."
   "Fetch the tags for BRANCH in REMOTE repository."
   (let ((proc-buffer "git-fetch-tags")
        (default-directory (file-truename spacemacs-start-directory)))
-    (prog2
+    (prog1
         ;;;; original comment: seems necessary to fetch first
         ;; but we remove this according to issue #6692 proposal
         ;; (eq 0 (process-file "git" nil proc-buffer nil
