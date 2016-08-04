@@ -140,6 +140,7 @@ found."
 
 (defun spacemacs/get-last-version ()
   "Return the last tagged version."
+  (interactive)
   (spacemacs//get-last-version spacemacs-repository
                                spacemacs-repository-owner
                                spacemacs-checkversion-remote
