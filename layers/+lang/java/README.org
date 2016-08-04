@@ -35,7 +35,7 @@ file.
 Eclim provides the ability to access Eclipse features such as code completion,
 searching, code validation, and many more.
 
-*** TODO Installation
+*** Installation
 For installation check the [[http://eclim.org/install.html#download][official page]].
 
 Then set the =Eclipse= and =Eclim= paths in =dotspacemacs/user-config=,
@@ -85,7 +85,6 @@ To stop the daemon, you can either invoke via =SPC d k= or =stop-eclimd=.
 | ~SPC d k~   | Stop daemon  |
 
 *** Maven
-
 
 | Key Binding | Description                    |
 |-------------+--------------------------------|
