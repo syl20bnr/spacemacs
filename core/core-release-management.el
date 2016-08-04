@@ -83,16 +83,20 @@ users on `develop' branch must manually pull last commits instead."
                         version))))
           (t (message "Update aborted.")))))
 
-(defun spacemacs/check-for-new-version (&optional interval)
+(defun spacemacs/check-for-new-version (force &optional interval)
   "Periodicly check for new for new Spacemacs version.
 Update `spacemacs-new-version' variable if any new version has been
 found."
+  (interactive "P")
   (cond
-   ((not dotspacemacs-check-for-update)
+   ((and (not force)
+         (not dotspacemacs-check-for-update))
     (message "Skipping check for new version (reason: dotfile)"))
-   ((string-equal "develop" (spacemacs/git-get-current-branch))
+   ((and (not force)
+         (string-equal "develop" (spacemacs/git-get-current-branch)))
     (message "Skipping check for new version (reason: develop branch)"))
-   ((not (spacemacs//can-check-for-new-version-at-startup))
+   ((and (not force)
+         (not (spacemacs//can-check-for-new-version-at-startup)))
     (message (concat "Skipping check for new version "
                      "(reason: last check is too recent)")))
    ((require 'async nil t)
