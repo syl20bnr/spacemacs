@@ -11,7 +11,9 @@
 
 (setq php-packages
       '(
+        ac-php
         company
+        feature-mode
         drupal-mode
         eldoc
         flycheck
@@ -28,20 +30,43 @@
   (defun php/post-init-company ()
     (spacemacs|add-company-hook php-mode)))
 
+(add-hook 'php-mode-hook
+         '(lambda ()
+            (require 'company-php)
+            (company-mode t)
+            (add-to-list 'company-backends 'company-ac-php-backend )))
+
+(defun php/post-init-php-extras ()
+    (push 'php-extras-company company-backends-php-mode))
+
+(defun php/post-init-ac-php ()
+    (push 'company-ac-php-backend company-backends-php-mode))
+
+(defun php/init-feature-mode ()
+  "Initialize feature mode for Behat"
+  (use-package feature-mode
+    :mode (("\\.feature\\'" . feature-mode))))
+
+(defun php/init-ac-php ()
+  (use-package ac-php
+    :defer t
+    :init (progn
+            (use-package ac-php-company
+              :defer t)
+            )))
+
 (defun php/init-drupal-mode ()
   (use-package drupal-mode
     :defer t))
 
 (defun php/post-init-eldoc ()
-  (add-hook 'php-mode-hook 'eldoc-mode)
-  (when (configuration-layer/package-usedp 'ggtags)
-    (spacemacs/ggtags-enable-eldoc 'php-mode)))
+  (add-hook 'php-mode-hook 'eldoc-mode))
 
 (defun php/post-init-flycheck ()
-  (add-hook 'php-mode-hook 'flycheck-mode))
+  (spacemacs/add-flycheck-hook 'php-mode))
 
 (defun php/post-init-ggtags ()
-  (add-hook 'php-mode-hook 'ggtags-mode))
+  (add-hook 'php-mode-hook #'spacemacs/ggtags-mode-enable))
 
 (defun php/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'php-mode))
