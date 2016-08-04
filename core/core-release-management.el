@@ -24,7 +24,8 @@
   "If non-nil a new Spacemacs version is available.")
 (defvar spacemacs-version-check-timer nil
   "The current timer for new version check.")
-(defvar spacemacs-version-check-interval "6 hours"
+;; used to be "6 hours" but we now check for new versions only at startup
+(defvar spacemacs-version-check-interval nil
   "Time between two version checks.")
 (defvar spacemacs-version-check-lighter "[+]"
   "Text displayed in the mode-line when a new version is available.")
