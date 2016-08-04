@@ -29,6 +29,13 @@
   "Time between two version checks.")
 (defvar spacemacs-version-check-lighter "[+]"
   "Text displayed in the mode-line when a new version is available.")
+(defvar spacemacs-version-last-startup-check-file
+  (expand-file-name (concat spacemacs-cache-directory "last-version-check"))
+  "File where the last startup version check time is stored.")
+(defvar spacemacs-version-last-startup-check-time nil
+  "Time of last version check.")
+(defvar spacemacs-version-startup-check-interval (* 3600 24)
+  "Minimum number of seconds between two version checks at startup.")
 
 (defun spacemacs/switch-to-version (&optional version)
   "Switch spacemacs to VERSION.
@@ -85,31 +92,47 @@ found."
     (message "Skipping check for new version (reason: dotfile)"))
    ((string-equal "develop" (spacemacs/git-get-current-branch))
     (message "Skipping check for new version (reason: develop branch)"))
+   ((not (spacemacs//can-check-for-new-version-at-startup))
+    (message (concat "Skipping check for new version "
+                     "(reason: last check is too recent)")))
    ((require 'async nil t)
-    (progn
-      (message "Start checking for new version...")
-      (async-start
-       `(lambda ()
-          ,(async-inject-variables "\\`spacemacs-start-directory\\'")
-          (load-file (concat spacemacs-start-directory
-                             "core/core-load-paths.el"))
-          (require 'core-spacemacs)
-          (spacemacs/get-last-version))
-       (lambda (result)
-         (if result
-             (if (or (version< result spacemacs-version)
-                     (string= result spacemacs-version)
-                     (if spacemacs-new-version
-                         (string= result spacemacs-new-version)))
-                 (message "Spacemacs is up to date.")
-               (message "New version of Spacemacs available: %s" result)
-               (setq spacemacs-new-version result))
-           (message "Unable to check for new version.")))))
+    (message "Start checking for new version...")
+    (async-start
+     `(lambda ()
+        ,(async-inject-variables "\\`spacemacs-start-directory\\'")
+        (load-file (concat spacemacs-start-directory
+                           "core/core-load-paths.el"))
+        (require 'core-spacemacs)
+        (spacemacs/get-last-version))
+     (lambda (result)
+       (if result
+           (if (or (version< result spacemacs-version)
+                   (string= result spacemacs-version)
+                   (if spacemacs-new-version
+                       (string= result spacemacs-new-version)))
+               (message "Spacemacs is up to date.")
+             (message "New version of Spacemacs available: %s" result)
+             (setq spacemacs-new-version result))
+         (message "Unable to check for new version."))))
     (when interval
       (setq spacemacs-version-check-timer
             (run-at-time t (timer-duration interval)
                          'spacemacs/check-for-new-version))))
    (t (message "Skipping check for new version (reason: async not loaded)"))))
+
+(defun spacemacs//can-check-for-new-version-at-startup ()
+  "Return non-nil if the version check at startup can be performed."
+  (when (file-exists-p spacemacs-version-last-startup-check-file)
+    (load spacemacs-version-last-startup-check-file))
+  (let ((result
+         (or (null spacemacs-version-last-startup-check-time)
+             (> (- (float-time) spacemacs-version-last-startup-check-time)
+                spacemacs-version-startup-check-interval))))
+    (when result
+      (setq spacemacs-version-last-startup-check-time (float-time))
+      (spacemacs/dump-vars-to-file '(spacemacs-version-last-startup-check-time)
+                                   spacemacs-version-last-startup-check-file))
+    result))
 
 (defun spacemacs/get-last-version ()
   "Return the last tagged version."
