@@ -26,8 +26,9 @@
         phpunit
         ))
 
-(defun php/post-init-company ()
-  (spacemacs|add-company-hook php-mode))
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun php/post-init-company ()
+    (spacemacs|add-company-hook php-mode)))
 
 (add-hook 'php-mode-hook
          '(lambda ()
