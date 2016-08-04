@@ -120,7 +120,8 @@ OWNER REPO."
   (let ((url (format "https://github.com/%s/%s" owner repo)))
     (spacemacs/git-remove-remote remote)
     (spacemacs/git-add-remote remote url)
-    (spacemacs/git-fetch-remote remote)
+    ;; removing this call according to issue #6692 proposal
+    ;; (spacemacs/git-fetch-remote remote)
     (spacemacs/git-fetch-tags remote branch))
   (let ((version (spacemacs/git-latest-tag remote branch)))
     (when version
@@ -172,7 +173,7 @@ version and the NEW version."
 
 (defun spacemacs/git-fetch-remote (remote)
   "Fetch last commits from REMOTE, return t if no error."
-  (let((proc-buffer "git-remove-remote")
+  (let((proc-buffer "git-fetch-remote")
        (default-directory (file-truename spacemacs-start-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
@@ -184,9 +185,10 @@ version and the NEW version."
   (let((proc-buffer "git-fetch-tags")
        (default-directory (file-truename spacemacs-start-directory)))
     (prog2
-        ;; seems necessary to fetch first
-        (eq 0 (process-file "git" nil proc-buffer nil
-                            "fetch" remote branch))
+        ;;;; original comment: seems necessary to fetch first
+        ;; but we remove this according to issue #6692 proposal
+        ;; (eq 0 (process-file "git" nil proc-buffer nil
+        ;;                     "fetch" remote branch))
         ;; explicitly fetch the new tags
         (eq 0 (process-file "git" nil proc-buffer nil
                             "fetch" "--tags" remote branch))
