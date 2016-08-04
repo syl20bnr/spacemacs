@@ -111,9 +111,11 @@ If the value is nil then no banner is displayed.")
 (defvar dotspacemacs-scratch-mode 'text-mode
   "Default major mode of the scratch buffer.")
 
-(defvar dotspacemacs-check-for-update t
+(defvar dotspacemacs-check-for-update nil
   "If non nil then spacemacs will check for updates at startup
-when the current branch is not `develop'")
+when the current branch is not `develop'. Note that checking for
+new versions works via git commands, thus it calls GitHub services
+whenever you start Emacs.")
 
 (defvar dotspacemacs-configuration-layers '(emacs-lisp)
   "List of configuration layers to load.")
