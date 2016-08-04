@@ -130,8 +130,7 @@ the final step of executing code in `emacs-startup-hook'.")
                                       "with this build.")))
   ;; check for new version
   (if dotspacemacs-mode-line-unicode-symbols
-      (setq-default spacemacs-version-check-lighter "[⇪]"))
-  (spacemacs/set-new-version-lighter-mode-line-faces))
+      (setq-default spacemacs-version-check-lighter "[⇪]")))
 
 (defun spacemacs//removes-gui-elements ()
   "Remove the menu bar, tool bar and scroll bars."
@@ -206,7 +205,7 @@ defer call using `spacemacs-post-user-config-hook'."
    system-type
    emacs-version
    spacemacs-version
-   (spacemacs/git-get-current-branch)
+   (spacemacs//git-get-current-branch)
    (spacemacs/git-get-current-branch-rev)
    (display-graphic-p)
    dotspacemacs-distribution
