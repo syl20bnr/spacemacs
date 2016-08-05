@@ -42,23 +42,25 @@ Then set the =Eclipse= and =Eclim= paths in =dotspacemacs/user-config=,
 for instance:
 
 #+BEGIN_SRC elisp
-(setq eclim-eclipse-dirs "~/opt/eclipse"
-      eclim-executable "~/opt/eclipse/eclim")
+  (setq eclim-eclipse-dirs "~/opt/eclipse"
+        eclim-executable "~/opt/eclipse/eclim")
 #+END_SRC
 
-You can also configure other options, shown below:
+You can also configure other options, as shown below:
 
 #+BEGIN_SRC elisp
-(setq eclimd-executable "/path/to/another/executable" ;; Use another eclimd executable
-      eclimd-default-workspace "/path/to/default/eclipse/workspace" ;; Specify the workspace to use by default
-      eclimd-wait-for-process t) ;; Whether or not to block emacs until eclimd is ready
+  (setq
+   ;; Use another eclimd executable
+   eclimd-executable "/path/to/another/executable"
+   ;; Specify the workspace to use by default
+   eclimd-default-workspace "/path/to/default/eclipse/workspace"
+   ;; Whether or not to block emacs until eclimd is ready
+   eclimd-wait-for-process t)
 #+END_SRC
 
 *** Usage
-To start the eclimd daemon, you can either invoke via =SPC m d s= (or whatever
-you've bound it to) or via =start-eclimd=. The process blocks for a while.
-
-To stop the daemon, you can either invoke via =SPC m d k= or =stop-eclimd=.
+Start the eclim daemon with ~SPC m d s~ and stop it with ~SPC m d k~. (See
+below.)
 
 * Key bindings
 ** Java-mode
@@ -81,8 +83,8 @@ To stop the daemon, you can either invoke via =SPC m d k= or =stop-eclimd=.
 
 | Key Binding | Description  |
 |-------------+--------------|
-| ~SPC m d s~   | Start daemon |
-| ~SPC m d k~   | Stop daemon  |
+| ~SPC m d s~ | Start daemon |
+| ~SPC m d k~ | Stop daemon  |
 
 *** Maven
 
