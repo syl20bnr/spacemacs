@@ -111,23 +111,6 @@
     (window-height . 0.4)))
 (defvar spacemacs-display-buffer-alist nil)
 
-(defun spacemacs//helm-prepare-display ()
-  "Prepare necessary settings to make Helm display properly."
-  ;; avoid Helm buffer being diplaye twice when user
-  ;; sets this variable to some function that pop buffer to
-  ;; a window. See https://github.com/syl20bnr/spacemacs/issues/1396
-  (let ((display-buffer-base-action '(nil)))
-    (setq spacemacs-display-buffer-alist display-buffer-alist)
-    ;; the only buffer to display is Helm, nothing else we must set this
-    ;; otherwise Helm cannot reuse its own windows for copyinng/deleting
-    ;; etc... because of existing popwin buffers in the alist
-    (setq display-buffer-alist nil)
-    (popwin-mode -1)
-    ;; workaround for a helm-evil incompatibility
-    ;; see https://github.com/syl20bnr/spacemacs/issues/3700
-    (when helm-prevent-escaping-from-minibuffer
-      (define-key evil-motion-state-map [down-mouse-1] nil))))
-
 (defun spacemacs//display-helm-window (buffer)
   "Display the Helm window respecting `dotspacemacs-helm-position'."
   (let ((display-buffer-alist
@@ -143,17 +126,18 @@
                spacemacs-helm-display-buffer-regexp)))
     (helm-default-display-buffer buffer)))
 
-(defun spacemacs//restore-previous-display-config ()
-  "Workaround for a helm-evil incompatibility
- see https://github.com/syl20bnr/spacemacs/issues/3700"
+(defun spacemacs//unprevent-minibuffer-escape ()
+  "Workaround for a helm-evil incompatibility.
+See https://github.com/syl20bnr/spacemacs/issues/3700"
   (when helm-prevent-escaping-from-minibuffer
     (define-key evil-motion-state-map
-      [down-mouse-1] 'evil-mouse-drag-region))
-  (popwin-mode 1)
-  ;; we must enable popwin-mode first then restore `display-buffer-alist'
-  ;; Otherwise, popwin keeps adding up its own buffers to
-  ;; `display-buffer-alist' and could slow down Emacs as the list grows
-  (setq display-buffer-alist spacemacs-display-buffer-alist))
+      [down-mouse-1] 'evil-mouse-drag-region)))
+
+(defun spacemacs//prevent-minibuffer-escape ()
+  "Workaround for a helm-evil incompatibility.
+See https://github.com/syl20bnr/spacemacs/issues/3700"
+  (when helm-prevent-escaping-from-minibuffer
+    (define-key evil-motion-state-map [down-mouse-1] nil)))
 
 ;; Helm Transient state
 
