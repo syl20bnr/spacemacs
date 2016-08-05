@@ -11,7 +11,7 @@
 
 
 
-(defvar helm--popwin-mode nil
+(defvar spacemacs--helm-popwin-mode nil
   "Temp variable to store `popwin-mode''s value.")
 
 (defun spacemacs//helm-cleanup ()
@@ -26,7 +26,7 @@
   ;; otherwise Helm cannot reuse its own windows for copyinng/deleting
   ;; etc... because of existing popwin buffers in the alist
   (setq display-buffer-alist nil)
-  (setq helm--popwin-mode popwin-mode)
+  (setq spacemacs--helm-popwin-mode popwin-mode)
   (when popwin-mode
     (popwin-mode -1)))
 
@@ -34,7 +34,7 @@
   ;; we must enable popwin-mode first then restore `display-buffer-alist'
   ;; Otherwise, popwin keeps adding up its own buffers to
   ;; `display-buffer-alist' and could slow down Emacs as the list grows
-  (when helm--popwin-mode
+  (when spacemacs--helm-popwin-mode
     (popwin-mode))
   (setq display-buffer-alist spacemacs-display-buffer-alist))
 
