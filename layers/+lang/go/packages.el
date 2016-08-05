@@ -10,7 +10,7 @@
         helm-gtags
         go-eldoc
         go-mode
-        (go-oracle :location site)
+        (go-guru :location site)
         (go-rename :location local)
         ))
 
@@ -112,31 +112,32 @@
 (defun go/init-go-eldoc()
   (add-hook 'go-mode-hook 'go-eldoc-setup))
 
-(defun go/init-go-oracle()
+(defun go/init-go-guru()
   (let ((go-path (getenv "GOPATH")))
     (if (not go-path)
         (spacemacs-buffer/warning
-         "GOPATH variable not found, go-oracle configuration skipped.")
+         "GOPATH variable not found, go-guru configuration skipped.")
       (when (load-gopath-file
-             go-path "/src/golang.org/x/tools/cmd/oracle/oracle.el")
-        (spacemacs/declare-prefix-for-mode 'go-mode "mr" "rename")
+             go-path "/src/golang.org/x/tools/cmd/guru/go-guru.el")
+        (spacemacs/declare-prefix-for-mode 'go-mode "mf" "guru")
         (spacemacs/set-leader-keys-for-major-mode 'go-mode
-          "ro" 'go-oracle-set-scope
-          "r<" 'go-oracle-callers
-          "r>" 'go-oracle-callees
-          "rc" 'go-oracle-peers
-          "rd" 'go-oracle-definition
-          "rf" 'go-oracle-freevars
-          "rg" 'go-oracle-callgraph
-          "ri" 'go-oracle-implements
-          "rp" 'go-oracle-pointsto
-          "rr" 'go-oracle-referrers
-          "rs" 'go-oracle-callstack
-          "rt" 'go-oracle-describe)))))
+          "fd" 'go-guru-describe
+          "ff" 'go-guru-freevars
+          "fi" 'go-guru-implements
+          "fc" 'go-guru-peers
+          "fr" 'go-guru-referrers
+          "fj" 'go-guru-definition
+          "fp" 'go-guru-pointsto
+          "fs" 'go-guru-callstack
+          "fe" 'go-guru-whicherrs
+          "f<" 'go-guru-callers
+          "f>" 'go-guru-callees
+          "fo" 'go-guru-set-scope)))))
 
 (defun go/init-go-rename()
   (use-package go-rename
     :init
+    (spacemacs/declare-prefix-for-mode 'go-mode "mr" "rename")
     (spacemacs/set-leader-keys-for-major-mode 'go-mode "rn" 'go-rename)))
 
 (defun go/init-flycheck-gometalinter()
