@@ -28,6 +28,7 @@
     :init (add-hook 'java-mode-hook 'eclim-mode)
     :config
     (progn
+      (require 'eclimd)
       (setq help-at-pt-display-when-idle t
             help-at-pt-timer-delay 0.1)
       (help-at-pt-set-timer)
@@ -87,6 +88,9 @@
         "ep" 'eclim-problems-previous-same-window
         "ew" 'eclim-problems-show-warnings
 
+        "ds" 'start-eclimd
+        "dk" 'stop-eclimd
+
         "ff" 'eclim-java-find-generic
 
         "gg" 'eclim-java-find-declaration
@@ -143,6 +147,7 @@
 
 (defun java/init-java-mode ()
   (setq java/key-binding-prefixes '(("me" . "errors")
+                                    ("md" . "eclimd")
                                     ("mf" . "find")
                                     ("mg" . "goto")
                                     ("mr" . "refactor")
