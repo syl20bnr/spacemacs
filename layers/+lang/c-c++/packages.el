@@ -124,6 +124,10 @@
   (add-hook 'c++-mode-hook 'ycmd-mode)
   (spacemacs/set-leader-keys-for-major-mode 'c++-mode
     "gg" 'ycmd-goto
+    "gG" 'ycmd-goto-imprecise)
+  (add-hook 'c-mode-hook 'ycmd-mode)
+  (spacemacs/set-leader-keys-for-major-mode 'c-mode
+    "gg" 'ycmd-goto
     "gG" 'ycmd-goto-imprecise))
 
 (defun c-c++/post-init-company-ycmd ()
