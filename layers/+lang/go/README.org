@@ -13,7 +13,7 @@
    - [[#tests][Tests]]
  - [[#working-with-go][Working with Go]]
    - [[#go-commands-start-with-m][Go commands (start with =m=):]]
-   - [[#go-oracle][Go Oracle]]
+   - [[#go-guru][Go Guru]]
 
 * Description
 This layer adds extensive support for go.
@@ -21,7 +21,7 @@ This layer adds extensive support for go.
 ** Features:
 - gofmt/goimports on file save
 - Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]] (with the =auto-completion= layer)
-- Source analysis using [[http://golang.org/s/oracle-user-manual][go-oracle]]
+- Source analysis using [[https://godoc.org/golang.org/x/tools/cmd/guru][go-guru]]
 - Linting with flycheck's built-in checkers or flycheck-gometalinter
 - Coverage profile visualization
 
@@ -32,7 +32,7 @@ You will need =gocode= and =godef=:
 #+BEGIN_SRC sh
   go get -u -v github.com/nsf/gocode
   go get -u -v github.com/rogpeppe/godef
-  go get -u -v golang.org/x/tools/cmd/oracle
+  go get -u -v golang.org/x/tools/cmd/guru
   go get -u -v golang.org/x/tools/cmd/gorename
   go get -u -v golang.org/x/tools/cmd/goimports
 #+END_SRC
@@ -119,19 +119,19 @@ The default value is =display-buffer-reuse-window=.
 | ~SPC m t t~ | run "go test" for the function you're currently in (while you're in a _.test.go file) |
 | ~SPC m t s~ | run "go test" for the suite you're currently in (requires gocheck)                    |
 
-** Go Oracle
+** Go Guru
 
-| Key Binding | Description                                                |
-|-------------+------------------------------------------------------------|
-| ~SPC m r o~ | go-oracle set analysis scope                               |
-| ~SPC m r <~ | go-oracle show possible callers                            |
-| ~SPC m r >~ | go-oracle show call targets                                |
-| ~SPC m r c~ | go-oracle show channel sends/receives                      |
-| ~SPC m r d~ | go-oracle show definition                                  |
-| ~SPC m r f~ | go-oracle show free variables                              |
-| ~SPC m r g~ | go-oracle show callgraph                                   |
-| ~SPC m r i~ | go-oracle show implements relation                         |
-| ~SPC m r p~ | go-oracle show what the select expression points to        |
-| ~SPC m r r~ | go-oracle show all references to object                    |
-| ~SPC m r s~ | go-oracle show callstack                                   |
-| ~SPC m r t~ | go-oracle describe selected syntax, kind, type and methods |
+| Key Binding | Description                                          |
+|-------------+------------------------------------------------------|
+| ~SPC m f d~ | go-guru describe symbol at point                     |
+| ~SPC m f f~ | go-guru show free variables                          |
+| ~SPC m f i~ | go-guru show implements relation                     |
+| ~SPC m f c~ | go-guru show channel sends/receives                  |
+| ~SPC m f r~ | go-guru show referrers                               |
+| ~SPC m f j~ | go-guru jump to symbol definition                    |
+| ~SPC m f p~ | go-guru show what the select expression points to    |
+| ~SPC m f s~ | go-guru show callstack                               |
+| ~SPC m f e~ | go-guru show possible contants/types for error value |
+| ~SPC m f <~ | go-guru show possible callers                        |
+| ~SPC m f >~ | go-guru show call targets                            |
+| ~SPC m f o~ | go-guru set analysis scope                           |
