@@ -178,7 +178,7 @@
   "fg" 'rgrep
   "fl" 'find-file-literally
   "fE" 'spacemacs/sudo-edit
-  "fo" 'spacemacs/open-in-external-app
+  "fo" 'spacemacs/open-file-or-directory-in-external-app
   "fR" 'spacemacs/rename-current-buffer-file
   "fS" 'evil-write-all
   "fs" 'save-buffer
