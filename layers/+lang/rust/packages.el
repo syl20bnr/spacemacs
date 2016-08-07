@@ -11,6 +11,7 @@
 
 (setq rust-packages
   '(
+    cargo
     company
     racer
     flycheck
@@ -43,12 +44,21 @@
       (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "="  'rust-format-buffer
-        "cC" 'spacemacs/rust-cargo-clean
-        "cc" 'spacemacs/rust-cargo-build
-        "cd" 'spacemacs/rust-cargo-doc
-        "cf" 'spacemacs/rust-cargo-fmt
-        "ct" 'spacemacs/rust-cargo-test
-        "cx" 'spacemacs/rust-cargo-run))))
+        "c." 'cargo-process-repeat
+        "cc" 'cargo-process-build
+        "cd" 'cargo-process-doc
+        "ce" 'cargo-process-bench
+        "cf" 'cargo-process-current-test
+        "ci" 'cargo-process-init
+        "cC" 'cargo-process-clean
+        "cn" 'cargo-process-new
+        "co" 'cargo-process-current-file-tests
+        "cx" 'cargo-process-run
+        "cs" 'cargo-process-search
+        "ct" 'cargo-process-test
+        "cu" 'cargo-process-update
+        "cX" 'cargo-process-run-example
+        "cf" 'spacemacs/rust-cargo-fmt))))
 
 (defun rust/init-toml-mode ()
   (use-package toml-mode
