@@ -45,20 +45,20 @@
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "="  'rust-format-buffer
         "c." 'cargo-process-repeat
+        "cC" 'cargo-process-clean
+        "cX" 'cargo-process-run-example
         "cc" 'cargo-process-build
         "cd" 'cargo-process-doc
         "ce" 'cargo-process-bench
         "cf" 'cargo-process-current-test
+        "cf" 'spacemacs/rust-cargo-fmt
         "ci" 'cargo-process-init
-        "cC" 'cargo-process-clean
         "cn" 'cargo-process-new
         "co" 'cargo-process-current-file-tests
-        "cx" 'cargo-process-run
         "cs" 'cargo-process-search
-        "ct" 'cargo-process-test
         "cu" 'cargo-process-update
-        "cX" 'cargo-process-run-example
-        "cf" 'spacemacs/rust-cargo-fmt))))
+        "cx" 'cargo-process-run
+        "t" 'cargo-process-test))))
 
 (defun rust/init-toml-mode ()
   (use-package toml-mode
