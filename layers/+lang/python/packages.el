@@ -374,15 +374,6 @@
       (define-key inferior-python-mode-map
         (kbd "C-c M-l") 'spacemacs/comint-clear-buffer))))
 
-(defun python/init-yapfify ()
-  (use-package yapfify
-    :commands yapfify-buffer
-    :init (spacemacs/set-leader-keys-for-major-mode 'python-mode
-            "=" 'yapfify-buffer
-            "y" 'yapf-mode)
-    :config (when python-enable-yapf-format-on-save
-              (add-hook 'python-mode-hook 'yapf-mode))))
-
 (defun python/post-init-semantic ()
   (when (configuration-layer/package-usedp 'anaconda-mode)
       (add-hook 'python-mode-hook
@@ -419,3 +410,11 @@ fix this issue."
     :post-init
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
       "gi" 'cscope/run-pycscope)))
+
+(defun python/init-yapfify ()
+  (use-package yapfify
+    :defer t
+    :init (spacemacs/set-leader-keys-for-major-mode 'python-mode
+            "=" 'yapfify-buffer)
+    :config (when python-enable-yapf-format-on-save
+              (add-hook 'python-mode-hook 'yapf-mode))))
