@@ -532,4 +532,6 @@ Headline^^            Visit entry^^               Filter^^                    Da
   (spacemacs|define-custom-layout "@Org"
     :binding "o"
     :body
-    (find-file (first (org-agenda-files)))))
+    (let ((agenda-files (org-agenda-files)))
+      (when agenda-files
+        (find-file (first agenda-files))))))
