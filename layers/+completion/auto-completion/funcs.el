@@ -220,3 +220,39 @@
   (interactive)
   (call-interactively 'aya-expand)
   (unless holy-mode (evil-insert-state)))
+
+
+;; Yasnippet and Smartparens
+
+;; If enabled, smartparens will mess snippets expanded by `hippie-expand`.
+;; We want to temporarily disable Smartparens during the snippet expansion and
+;; switch it back to the initial state when done.
+;;
+;; However, there is an asymmetry in Yasnippet's hooks:
+;; * `yas-before-expand-snippet-hook' is called for all snippet expansions,
+;; including the nested ones.
+;; * `yas-after-exit-snippet-hook' is called only for the top level snippet,
+;; but NOT for the nested ones.
+;;
+;; That's why we introduce `spacemacs--yasnippet-expanding' below.
+
+(defvar spacemacs--smartparens-enabled-initially t
+  "Stored whether smartparens is originally enabled or not.")
+(defvar spacemacs--yasnippet-expanding nil
+  "Whether the snippet expansion is in progress.")
+
+(defun spacemacs//smartparens-disable-before-expand-snippet ()
+  "Handler for `yas-before-expand-snippet-hook'.
+Disable smartparens and remember its initial state."
+  ;; Remember the initial smartparens state only once, when expanding a top-level snippet.
+  (unless spacemacs--yasnippet-expanding
+    (setq spacemacs--yasnippet-expanding t
+          spacemacs--smartparens-enabled-initially smartparens-mode))
+  (smartparens-mode -1))
+
+(defun spacemacs//smartparens-restore-after-exit-snippet ()
+  "Handler for `yas-after-exit-snippet-hook'.
+ Restore the initial state of smartparens."
+  (setq spacemacs--yasnippet-expanding nil)
+  (when spacemacs--smartparens-enabled-initially
+    (smartparens-mode 1)))
