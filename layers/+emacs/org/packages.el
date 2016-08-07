@@ -533,5 +533,6 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :binding "o"
     :body
     (let ((agenda-files (org-agenda-files)))
-      (when agenda-files
-        (find-file (first agenda-files))))))
+      (if agenda-files
+          (find-file (first agenda-files))
+        (user-error "Error: No agenda files configured, nothing to display.")))))
