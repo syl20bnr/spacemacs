@@ -66,6 +66,14 @@
         (call-interactively binding)
       (evil-goto-definition))))
 
+;; Set the `:jump' property manually instead of just using `evil-define-motion'
+;; in an `eval-after-load' macro invocation because doing that prevents
+;; `describe-function' from correctly finding the source.
+;;
+;; See discussion on https://github.com/syl20bnr/spacemacs/pull/6771
+(with-eval-after-load 'evil
+  (evil-set-command-property 'spacemacs/evil-smart-goto-definition :jump t))
+
 (defun spacemacs//set-evil-shift-width ()
   "Set the value of `evil-shift-width' based on the indentation settings of the
 current major mode."
