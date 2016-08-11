@@ -41,6 +41,8 @@ server/
 *.db
 python-*-docs-html
 /.cask/
+geben/
+!layers/+tools/geben/
 
 # Private directory
 private/
