@@ -68,7 +68,7 @@
 ;; load paths
 (mapc 'add-to-load-path
       `(
-        ,(concat spacemacs-start-directory "core/")
-        ,(concat spacemacs-start-directory "core/libs/")
-        ,(concat spacemacs-start-directory "core/aprilfool/")
+        ,spacemacs-core-directory
+        ,(concat spacemacs-core-directory "libs/")
+        ,(concat spacemacs-core-directory "aprilfool/")
         ))
