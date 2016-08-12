@@ -39,14 +39,8 @@
   "Return the directory of PKG. Return nil if not found."
   (let ((elpa-dir (file-name-as-directory package-user-dir)))
     (when (file-exists-p elpa-dir)
-      (let ((dir (cl-reduce (lambda (x y) (if x x y))
-                         (mapcar (lambda (x)
-                                   (when (string-match
-                                          (concat "/"
-                                                  (symbol-name pkg)
-                                                  "-[0-9]+") x) x))
-                                 (directory-files elpa-dir 'full))
-                         :initial-value nil)))
+      (let* ((pkg-match (concat (symbol-name pkg) "-[0-9]+"))
+             (dir (car (directory-files elpa-dir 'full pkg-match))))
         (when dir (file-name-as-directory dir))))))
 
 (defun spacemacs/mplist-get (plist prop)
