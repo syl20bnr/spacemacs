@@ -48,6 +48,7 @@ As this state works the same for all files, the documentation is in global
 | Key Binding                | Description                                                |
 |----------------------------+------------------------------------------------------------|
 | ~SPC m g g~                | go to definition of symbol under point                     |
+| ~SPC m g b~                | go back to previous location (before jump)                 |
 | ~SPC m h h~                | describe symbol at point                                   |
 | ~SPC m c c~                | byte compile the current file                              |
 | ~SPC m c l~                | popup compile-log buffer                                   |

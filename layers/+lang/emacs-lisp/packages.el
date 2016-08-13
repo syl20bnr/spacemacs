@@ -82,6 +82,7 @@
         (spacemacs/declare-prefix-for-mode mode "mh" "help")
         (spacemacs/set-leader-keys-for-major-mode mode
           "gg" 'elisp-slime-nav-find-elisp-thing-at-point
+          "gb" 'pop-tag-mark
           "hh" 'elisp-slime-nav-describe-elisp-thing-at-point)))))
 
 (defun emacs-lisp/init-emacs-lisp ()
