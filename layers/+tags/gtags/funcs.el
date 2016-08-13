@@ -21,14 +21,19 @@
 (defun spacemacs/helm-gtags-define-keys-for-mode (mode)
   "Define key bindings for the specific MODE."
   (when (fboundp mode)
-    (let ((hook (intern (concat (symbol-name mode) "-hook"))))
+    (let ((hook (intern (format "%S-hook" mode))))
       (add-hook hook 'helm-gtags-mode))
+    ;; `helm-gtags-dwim' is added to the end of the mode-specific jump handlers
+    ;; Some modes have more sophisticated jump handlers that go to the beginning
+    ;; It might be possible to add `helm-gtags-dwim' instead to the default
+    ;; handlers, if it does a reasonable job in ALL modes.
+    (let ((hook (intern (format "spacemacs-jump-handlers-%S" mode))))
+      (add-hook hook 'helm-gtags-dwim 'append))
     (spacemacs/set-leader-keys-for-major-mode mode
       "gc" 'helm-gtags-create-tags
       "gd" 'helm-gtags-find-tag
       "gD" 'helm-gtags-find-tag-other-window
       "gf" 'helm-gtags-select-path
-      "gg" 'helm-gtags-dwim
       "gG" 'helm-gtags-dwim-other-window
       "gi" 'helm-gtags-tags-in-this-function
       "gl" 'helm-gtags-parse-file

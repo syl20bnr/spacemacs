@@ -37,7 +37,9 @@
             alchemist-test-status-modeline nil)
       ;; setup company backends
       (push 'alchemist-company company-backends-elixir-mode)
-      (push 'alchemist-company company-backends-alchemist-iex-mode))
+      (push 'alchemist-company company-backends-alchemist-iex-mode)
+      (add-hook 'spacemacs-jump-handlers-elixir-mode
+                'alchemist-goto-definition-at-point))
     :config
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mc" "compile")
     (spacemacs/declare-prefix-for-mode 'elixir-mode "me" "eval")
@@ -102,7 +104,6 @@
       "cf" 'alchemist-compile-file
       "c:" 'alchemist-compile
 
-      "gg" 'alchemist-goto-definition-at-point
       "," 'alchemist-goto-jump-back)
 
     (dolist (mode (list alchemist-compile-mode-map
@@ -131,7 +132,9 @@
 
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
-    :defer t))
+    :defer t
+    :init
+    (spacemacs|define-jump-handlers elixir-mode)))
 
 (defun elixir/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'elixir-mode)

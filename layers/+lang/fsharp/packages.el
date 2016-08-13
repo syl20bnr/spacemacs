@@ -22,7 +22,8 @@
     :init
     (progn
       (setq fsharp-doc-idle-delay .2)
-      (spacemacs/register-repl 'fsharp-mode 'fsharp-show-subshell "F#"))
+      (spacemacs/register-repl 'fsharp-mode 'fsharp-show-subshell "F#")
+      (spacemacs|define-jump-handlers fsharp-mode fsharp-ac/gotodefn-at-point))
     :config
     (progn
 
@@ -55,8 +56,6 @@
         "cc" 'compile
 
         "fa" 'fsharp-find-alternate-file
-
-        "gg" 'fsharp-ac/gotodefn-at-point
 
         "ht" 'fsharp-ac/show-tooltip-at-point
 

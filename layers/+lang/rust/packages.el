@@ -63,8 +63,10 @@
   (use-package rust-mode
     :defer t
     :init
-    (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-      "=" 'rust-format-buffer)))
+    (progn
+      (spacemacs|define-jump-handlers rust-mode)
+      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+        "=" 'rust-format-buffer))))
 
 (defun rust/init-toml-mode ()
   (use-package toml-mode
@@ -93,5 +95,4 @@
     (progn
       (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode eldoc-mode))
       (spacemacs/declare-prefix-for-mode 'rust-mode "mg" "goto")
-      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "gg" 'racer-find-definition))))
+      (add-hook 'spacemacs-jump-handlers-rust-mode 'racer-find-definition))))

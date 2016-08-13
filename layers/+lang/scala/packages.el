@@ -34,7 +34,8 @@
       (add-hook 'scala-mode-hook 'scala/configure-flyspell)
       (add-hook 'scala-mode-hook 'scala/configure-ensime)
       (when scala-auto-start-ensime
-        (add-hook 'scala-mode-hook 'scala/maybe-start-ensime)))
+        (add-hook 'scala-mode-hook 'scala/maybe-start-ensime))
+      (add-hook 'spacemacs-jump-handlers-scala-mode 'ensime-edit-definition))
     :config
     (progn
       (setq user-emacs-ensime-directory ".cache/ensime")
@@ -136,7 +137,6 @@
         "el"     'ensime-show-all-errors-and-warnings
         "es"     'ensime-stacktrace-switch
 
-        "gg"     'ensime-edit-definition
         "gp"     'ensime-pop-find-definition-stack
         "gi"     'ensime-goto-impl
         "gt"     'ensime-goto-test
@@ -214,8 +214,10 @@
   (use-package scala-mode
     :defer t
     :init
-    (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
-      (add-to-list 'completion-ignored-extensions ext))
+    (progn
+      (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
+        (add-to-list 'completion-ignored-extensions ext))
+      (spacemacs|define-jump-handlers scala-mode))
     :config
     (progn
       ;; Automatically insert asterisk in a comment when enabled

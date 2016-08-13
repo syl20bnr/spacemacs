@@ -51,6 +51,8 @@
     :defer t
     :init
     (progn
+      (add-hook 'spacemacs-jump-handlers-tuareg-mode
+                'spacemacs/merlin-locate)
       (add-hook 'tuareg-mode-hook 'merlin-mode)
       (setq merlin-completion-with-doc t)
       (push 'merlin-company-backend company-backends-merlin-mode)
@@ -61,14 +63,7 @@
         "en" 'merlin-error-next
         "eN" 'merlin-error-prev
         "gb" 'merlin-pop-stack
-        "gg" #'(lambda ()
-                (interactive)
-                (let ((merlin-locate-in-new-window 'never))
-                  (merlin-locate)))
-        "gG" #'(lambda ()
-                (interactive)
-                (let ((merlin-locate-in-new-window 'always))
-                  (merlin-locate)))
+        "gG" 'spacemacs/merlin-locate-other-window
         "gl" 'merlin-locate-ident
         "gi" 'merlin-switch-to-ml
         "gI" 'merlin-switch-to-mli
@@ -103,6 +98,7 @@
     :defer t
     :init
     (progn
+      (spacemacs|define-jump-handlers tuareg-mode)
       (spacemacs//init-ocaml-opam)
       (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
         "ga" 'tuareg-find-alternate-file

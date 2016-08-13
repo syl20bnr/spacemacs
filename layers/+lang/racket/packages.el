@@ -31,7 +31,10 @@
 (defun racket/init-racket-mode ()
   (use-package racket-mode
     :defer t
-    :init (spacemacs/register-repl 'racket-mode 'racket-repl "racket")
+    :init
+    (progn
+      (spacemacs/register-repl 'racket-mode 'racket-repl "racket")
+      (spacemacs|define-jump-handlers racket-mode racket-visit-definition))
     :config
     (progn
       ;; smartparens configuration
@@ -87,7 +90,6 @@
       (spacemacs/set-leader-keys-for-major-mode 'racket-mode
         ;; navigation
         "g`" 'racket-unvisit
-        "gg" 'racket-visit-definition
         "gm" 'racket-visit-module
         "gr" 'racket-open-require-path
         ;; doc
