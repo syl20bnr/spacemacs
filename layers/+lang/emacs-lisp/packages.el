@@ -24,8 +24,7 @@
         macrostep
         semantic
         smartparens
-        srefactor
-        ))
+        srefactor))
 
 (defun emacs-lisp/init-ielm ()
   (use-package ielm
@@ -76,15 +75,19 @@
     :diminish elisp-slime-nav-mode
     :init
     (progn
+      (spacemacs/add-to-hooks
+       'elisp-slime-nav-find-elisp-thing-at-point
+       '(spacemacs-jump-handlers-emacs-lisp-mode
+         spacemacs-jump-handlers-lisp-interaction-mode))
       (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
       (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
         (spacemacs/declare-prefix-for-mode mode "mg" "find-symbol")
         (spacemacs/declare-prefix-for-mode mode "mh" "help")
         (spacemacs/set-leader-keys-for-major-mode mode
-          "gg" 'elisp-slime-nav-find-elisp-thing-at-point
           "hh" 'elisp-slime-nav-describe-elisp-thing-at-point)))))
 
 (defun emacs-lisp/init-emacs-lisp ()
+  (spacemacs|define-jump-handlers emacs-lisp-mode)
   (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
     (spacemacs/declare-prefix-for-mode mode "mc" "compile")
     (spacemacs/declare-prefix-for-mode mode "me" "eval")

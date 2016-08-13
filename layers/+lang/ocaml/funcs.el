@@ -22,3 +22,13 @@
     (spacemacs-buffer/warning
      (concat "Cannot find \"opam\" executable. "
              "The ocaml layer won't work properly."))))
+
+(defun spacemacs/merlin-locate ()
+  (interactive)
+  (let ((merlin-locate-in-new-window 'never))
+    (merlin-locate)))
+
+(defun spacemacs/merlin-locate-other-window ()
+  (interactive)
+  (let ((merlin-locate-in-new-window 'always))
+    (merlin-locate)))

@@ -47,12 +47,13 @@
     (progn
       (setq anaconda-mode-installation-directory
             (concat spacemacs-cache-directory "anaconda-mode"))
-      (add-hook 'python-mode-hook 'anaconda-mode))
+      (add-hook 'python-mode-hook 'anaconda-mode)
+      (add-hook 'spacemacs-jump-handlers-python-mode
+                'anaconda-mode-find-definitions))
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "hh" 'anaconda-mode-show-doc
-        "gg" 'anaconda-mode-find-definitions
         "ga" 'anaconda-mode-find-assignments
         "gb" 'anaconda-mode-go-back
         "gu" 'anaconda-mode-find-references)
@@ -82,9 +83,9 @@
     :defer t
     :init
     (progn
+      (spacemacs|define-jump-handlers cython-mode anaconda-mode-goto)
       (spacemacs/set-leader-keys-for-major-mode 'cython-mode
         "hh" 'anaconda-mode-view-doc
-        "gg" 'anaconda-mode-goto
         "gu" 'anaconda-mode-usages))))
 
 (defun python/post-init-eldoc ()
@@ -259,6 +260,8 @@
     :init
     (progn
       (spacemacs/register-repl 'python 'python-start-or-switch-repl "python")
+
+      (spacemacs|define-jump-handlers python-mode)
 
       (defun python-default ()
         (setq mode-name "Python"

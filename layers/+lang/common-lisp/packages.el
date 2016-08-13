@@ -38,6 +38,7 @@
     :commands slime-mode
     :init
     (progn
+      (spacemacs|define-jump-handlers lisp-mode slime-inspect-definition)
       (spacemacs/register-repl 'slime 'slime)
       (setq slime-contribs '(slime-fancy
                              slime-indentation
@@ -74,7 +75,6 @@
         "ee" 'slime-eval-last-expression
         "er" 'slime-eval-region
 
-        "gg" 'slime-inspect-definition
         "gb" 'slime-pop-find-definition-stack
         "gn" 'slime-next-note
         "gN" 'slime-previous-note

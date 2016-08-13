@@ -66,8 +66,11 @@
            ("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . enh-ruby-mode)
            ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))
     :interpreter "ruby"
-    :init (setq enh-ruby-deep-indent-paren nil
-                enh-ruby-hanging-paren-deep-indent-level 2)))
+    :init
+    (progn
+      (spacemacs|define-jump-handlers enh-ruby-mode)
+      (setq enh-ruby-deep-indent-paren nil
+            enh-ruby-hanging-paren-deep-indent-level 2))))
 
 (defun ruby/post-init-evil-matchit ()
   (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
@@ -106,7 +109,10 @@
         (add-hook hook 'robe-mode))
       (when (configuration-layer/package-usedp 'company)
         (push 'company-robe company-backends-enh-ruby-mode)
-        (push 'company-robe company-backends-ruby-mode)))
+        (push 'company-robe company-backends-ruby-mode))
+      (spacemacs/add-to-hooks 'robe-jump
+                       '(spacemacs-jump-handlers-ruby-mode
+                         spacemacs-jump-handlers-enh-ruby-mode)))
     :config
     (progn
       (spacemacs|hide-lighter robe-mode)
@@ -117,7 +123,6 @@
         (spacemacs/set-leader-keys-for-major-mode mode
           "'" 'robe-start
           ;; robe mode specific
-          "gg" 'robe-jump
           "hd" 'robe-doc
           "rsr" 'robe-rails-refresh
           ;; inf-enh-ruby-mode
@@ -180,7 +185,10 @@
     :defer t
     :mode (("Appraisals\\'" . ruby-mode)
            ("Puppetfile" . ruby-mode))
-    :init (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "ruby/test")
+    :init
+    (progn
+      (spacemacs|define-jump-handlers ruby-mode)
+      (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "ruby/test"))
     :config (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
               "'" 'ruby-toggle-string-quotes
               "{" 'ruby-toggle-block)))

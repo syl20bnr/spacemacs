@@ -111,7 +111,9 @@
        haskell-process-auto-import-loaded-modules t
        ;; Disable haskell-stylish-on-save, as it breaks flycheck highlighting.
        ;; NOTE: May not be true anymore - taksuyu 2015-10-06
-       haskell-stylish-on-save nil))
+       haskell-stylish-on-save nil)
+      (spacemacs|define-jump-handlers haskell-mode
+                               haskell-mode-jump-to-def-or-tag))
     :config
     (progn
       ;; Haskell main editing mode key bindings.
@@ -148,7 +150,6 @@
 
       (dolist (mode haskell-modes)
         (spacemacs/set-leader-keys-for-major-mode mode
-          "gg"  'haskell-mode-jump-to-def-or-tag
           "gi"  'haskell-navigate-imports
           "F"   'haskell-mode-stylish-buffer
 

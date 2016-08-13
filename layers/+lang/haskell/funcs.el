@@ -49,10 +49,10 @@
 (defun spacemacs-haskell//setup-intero ()
   (add-to-list 'company-backends-haskell-mode
                '(company-intero company-dabbrev-code company-yasnippet))
+  (push 'intero-goto-definition spacemacs-jump-handlers)
   (intero-mode)
   (dolist (mode haskell-modes)
     (spacemacs/set-leader-keys-for-major-mode mode
-      "gg" 'intero-goto-definition
       "hi" 'intero-info
       "ht" 'intero-type-at
       "hT" 'haskell-intero/insert-type

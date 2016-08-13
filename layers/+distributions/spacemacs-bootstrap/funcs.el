@@ -61,18 +61,9 @@
         i.e. `SPC m g g`, to lookup the source of the definition,
         while falling back to `evil-goto-definition'"
   (interactive)
-  (let ((binding (key-binding (kbd (concat dotspacemacs-leader-key " mgg")))))
-    (if (commandp binding)
-        (call-interactively binding)
-      (evil-goto-definition))))
-
-;; Set the `:jump' property manually instead of just using `evil-define-motion'
-;; in an `eval-after-load' macro invocation because doing that prevents
-;; `describe-function' from correctly finding the source.
-;;
-;; See discussion on https://github.com/syl20bnr/spacemacs/pull/6771
-(with-eval-after-load 'evil
-  (evil-set-command-property 'spacemacs/evil-smart-goto-definition :jump t))
+  (if spacemacs-jump-handlers
+      (call-interactively 'spacemacs/jump-to-definition)
+    (call-interactively 'evil-goto-definition)))
 
 (defun spacemacs//set-evil-shift-width ()
   "Set the value of `evil-shift-width' based on the indentation settings of the
