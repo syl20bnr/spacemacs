@@ -17,5 +17,8 @@
 (defvar syntax-checking-enable-by-default t
   "Enable syntax-checking by default.")
 
+(defvar syntax-checking-use-original-bitmaps nil
+  "If non-nil, use the original bitmaps from flycheck.")
+
 ;; Command Prefixes
 
