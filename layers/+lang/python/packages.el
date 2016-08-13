@@ -46,15 +46,15 @@
     (progn
       (setq anaconda-mode-installation-directory
             (concat spacemacs-cache-directory "anaconda-mode"))
-      (add-hook 'python-mode-hook 'anaconda-mode))
-    :config
-    (progn
+      (add-hook 'python-mode-hook 'anaconda-mode)
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "hh" 'anaconda-mode-show-doc
         "gg" 'anaconda-mode-find-definitions
         "ga" 'anaconda-mode-find-assignments
         "gb" 'anaconda-mode-go-back
-        "gu" 'anaconda-mode-find-references)
+        "gu" 'anaconda-mode-find-references))
+    :config
+    (progn
       (evilified-state-evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
         (kbd "q") 'quit-window)
       (spacemacs|hide-lighter anaconda-mode)
@@ -105,10 +105,10 @@
     (spacemacs/setup-helm-cscope 'python-mode)))
 
 (defun python/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'python-mode))
+  (spacemacs/helm-gtags-define-keys-for-mode 'python-mode 'no-gg))
 
 (defun python/post-init-ggtags ()
-  (add-hook 'python-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'python-mode-hook #'spacemacs/ggtags-mode-enable 'append))
 
 (defun python/init-helm-pydoc ()
   (use-package helm-pydoc
