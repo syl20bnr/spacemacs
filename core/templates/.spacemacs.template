@@ -91,10 +91,10 @@ values."
    ;; new versions works via git commands, thus it calls GitHub services
    ;; whenever you start Emacs. (default nil)
    dotspacemacs-check-for-update nil
-   ;; If non nil, different emacs versions have different package directories.
-   ;; e.g. for Emacs 24.5, packages are stored in elpa/24.5/. Rollback
-   ;; directories are also separated.
-   dotspacemacs-enable-multiple-emacs-version nil
+   ;; If non-nil, a form that evaluates to a package directory. For example, to
+   ;; use different package directories for different Emacs versions, set this
+   ;; to `emacs-version'.
+   dotspacemacs-elpa-subdirectory nil
    ;; One of `vim', `emacs' or `hybrid'.
    ;; `hybrid' is like `vim' except that `insert state' is replaced by the
    ;; `hybrid state' with `emacs' key bindings. The value can also be a list

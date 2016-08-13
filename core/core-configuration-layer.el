@@ -46,10 +46,20 @@
       configuration-layer-private-directory))
   "Spacemacs default directory for private layers.")
 
-(defun configuration-layer/emacs-version-dirname ()
-  "Directory name for current emacs version.
-Example output: \"24.5\"."
-  (format "%d%s%d" emacs-major-version version-separator emacs-minor-version))
+(defun configuration-layer/elpa-directory (root)
+  "Evaluate the correct package subdirectory of ROOT. This is
+done according to the value of `dotspacemacs-elpa-subdirectory'.
+If it is nil, then ROOT is returned. Otherwise a subdirectory of
+ROOT is returned."
+  (if (not dotspacemacs-elpa-subdirectory)
+      root
+    (let ((subdir (if (eq 'emacs-version dotspacemacs-elpa-subdirectory)
+                      (format "%d%s%d"
+                              emacs-major-version
+                              version-separator
+                              emacs-minor-version)
+                    (eval dotspacemacs-elpa-subdirectory))))
+      (file-name-as-directory (expand-file-name subdir root)))))
 
 (defvar configuration-layer-rollback-directory
   (concat spacemacs-cache-directory ".rollback/")
@@ -249,15 +259,10 @@ cache folder.")
   "Initialize `package.el'."
   (setq configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout)
   (unless package--initialized
-    (when dotspacemacs-enable-multiple-emacs-version
-      (setq configuration-layer-rollback-directory
-            (file-name-as-directory
-             (expand-file-name (configuration-layer/emacs-version-dirname)
-                               configuration-layer-rollback-directory)))
-      (setq package-user-dir
-            (file-name-as-directory
-             (expand-file-name (configuration-layer/emacs-version-dirname)
-                               package-user-dir))))
+    (setq configuration-layer-rollback-directory
+          (configuration-layer/elpa-directory configuration-layer-rollback-directory))
+    (setq package-user-dir
+          (configuration-layer/elpa-directory package-user-dir))
     (setq package-archives (configuration-layer//resolve-package-archives
                             configuration-layer--elpa-archives))
     ;; optimization, no need to activate all the packages so early
