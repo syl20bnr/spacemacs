@@ -47,8 +47,8 @@
         ("K"  pdf-view-previous-page)
         ("u"  pdf-view-scroll-down-or-previous-page)
         ("d"  pdf-view-scroll-up-or-next-page)
-        ("0"  scroll-right)
-        ("$"  scroll-left)
+        ("0"  image-bol)
+        ("$"  image-eol)
         ;; Scale/Fit
         ("W"  pdf-view-fit-width-to-window)
         ("H"  pdf-view-fit-height-to-window)
@@ -106,8 +106,8 @@
       ;; TODO: Make `/', `?' and `n' work like in Evil
       (evilified-state-evilify pdf-view-mode pdf-view-mode-map
         ;; Navigation
-        "0"  'scroll-right
-        "$"  'scroll-left
+        "0"  'image-bol
+        "$"  'image-eol
         "j"  'pdf-view-next-line-or-next-page
         "k"  'pdf-view-previous-line-or-previous-page
         "l"  'image-forward-hscroll
