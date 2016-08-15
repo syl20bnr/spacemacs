@@ -197,15 +197,6 @@
 ;; configuration-layer/retrieve-package-archives
 ;; ---------------------------------------------------------------------------
 
-(ert-deftest test-retrieve-package-archives--catch-time-out-error ()
-  (let ((package-archives '(("gnu" . "https://elpa.gnu.org/packages/")))
-        (configuration-layer--package-archives-refreshed nil)
-        (dotspacemacs-elpa-timeout -1))
-    (mocker-let
-        ((message (format-string &rest args)
-                  ((:record-cls 'mocker-stub-record :output nil))))
-      (configuration-layer/retrieve-package-archives))))
-
 (ert-deftest test-retrieve-package-archives--catch-connection-errors ()
   (let ((package-archives '(("gnu" . "https://elpa.gnu.org/packages/")))
         (configuration-layer--package-archives-refreshed nil))
@@ -219,7 +210,9 @@
                                        :service 443
                                        :nowait nil))))
               ((symbol-function 'message) 'ignore))
-      (configuration-layer/retrieve-package-archives))))
+      (should-error
+       (configuration-layer/retrieve-package-archives)
+       :type 'error))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//select-packages

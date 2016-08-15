@@ -60,9 +60,6 @@ or `spacemacs'.")
 possible. Set it to nil if you have no way to use HTTPS in your
 environment, otherwise it is strongly recommended to let it set to t.")
 
-(defvar dotspacemacs-elpa-timeout 5
-  "Maximum allowed time in seconds to contact an ELPA repository.")
-
 (defvar dotspacemacs-elpa-subdirectory nil
   "If non-nil, a form that evaluates to a package directory. For
 example, to use different package directories for different Emacs

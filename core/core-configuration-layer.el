@@ -20,9 +20,6 @@
 (require 'core-funcs)
 (require 'core-spacemacs-buffer)
 
-(defvar configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout
-  "Timeout in seconds to reach a package archive page.")
-
 (defconst configuration-layer-template-directory
   (expand-file-name (concat spacemacs-core-directory "templates/"))
   "Configuration layer templates directory.")
@@ -213,6 +210,12 @@ is not set for the given SLOT."
     ("gnu"   . "elpa.gnu.org/packages/"))
   "List of ELPA archives required by Spacemacs.")
 
+(defvar configuration-layer--elpa-archives-status
+  '(("melpa" . unknown)
+    ("org" . unknown)
+    ("gnu" . unknown))
+  "Status of ELPA archives.")
+
 (defvar configuration-layer-exclude-all-layers nil
   "If non nil then only the distribution layer is loaded.")
 
@@ -273,7 +276,6 @@ cache folder.")
 
 (defun configuration-layer/initialize ()
   "Initialize `package.el'."
-  (setq configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout)
   (unless package--initialized
     (setq configuration-layer-rollback-directory
           (configuration-layer/elpa-directory configuration-layer-rollback-directory))
@@ -324,12 +326,7 @@ The returned list has a `package-archives' compliant format."
 (defun configuration-layer/retrieve-package-archives (&optional quiet force)
   "Retrieve all archives declared in current `package-archives'.
 
-This function first performs a simple GET request with a timeout in order to
-fix very long refresh time when an archive is not reachable.
-
-Note that this simple GET is a heuristic to determine the availability
-likelihood of an archive, so it can gives false positive if the archive
-page is served but the archive is not.
+This function first checks that all archives are available.
 
 If QUIET is non nil then the function does not print message in the Spacemacs
 home buffer.
@@ -348,24 +345,11 @@ refreshed during the current session."
                    (car archive) i count) t))
         (spacemacs//redisplay)
         (setq i (1+ i))
-        (unless (eq 'error
-                    (with-timeout
-                        (dotspacemacs-elpa-timeout
-                         (progn
-                           (display-warning
-                            'spacemacs
-                            (format
-                             "\nError connection time out for %s repository!"
-                             (car archive)) :warning)
-                           'error))
-                      (condition-case err
-                          (url-retrieve-synchronously (cdr archive))
-                        ('error
-                         (display-warning 'spacemacs
-                          (format
-                           "\nError while contacting %s repository!"
-                           (car archive)) :warning)
-                         'error))))
+        (if (eq 'unavailable
+                (configuration-layer-check-archive-status (car archive)))
+            (error "Archive '%s' is not available. Please verify
+that you have internet connection and you are able to connect to
+%s." (car archive) (cdr archive))
           (let ((package-archives (list archive)))
             (package-refresh-contents))))
       (package-read-all-archive-contents)
@@ -2015,6 +1999,25 @@ FILE-TO-LOAD is an explicit file to load after the installation."
       (setq configuration-layer-error-count
             (1+ configuration-layer-error-count))
     (setq configuration-layer-error-count 1)))
+
+(defun configuration-layer-check-archive-status (archive &optional recheck)
+  "Check ARCHIVE status.
+
+By default status is checked only when current status of ARCHIVE
+is `unknown'. Check is forced when RECHECK is non-nil."
+  (let* ((obj (assoc archive configuration-layer--elpa-archives-status))
+         (state (cdr obj))
+         (url (cdr (assoc archive package-archives))))
+    (message "archive %s state %s url %s" archive state url)
+    (when (and (or (eq state 'unknown) recheck)
+               url)
+      (condition-case nil
+          (if (url-http-file-exists-p url)
+              (setq state 'available)
+            (setq state 'unavailable))
+        ((error) (setq state 'unavailable)))
+      (setcdr (assoc archive configuration-layer--elpa-archives-status) state))
+    state))
 
 (provide 'core-configuration-layer)
 
