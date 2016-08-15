@@ -28,7 +28,7 @@
     "sI" 'spacemacs/helm-slime))
 
 (defun common-lisp/post-init-ggtags ()
-  (add-hook 'common-lisp-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'common-lisp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun common-lisp/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'common-lisp-mode))

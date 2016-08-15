@@ -34,7 +34,7 @@
               "sr" 'octave-send-region)))
 
 (defun octave/post-init-ggtags ()
-  (add-hook 'octave-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'octave-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun octave/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'octave-mode))

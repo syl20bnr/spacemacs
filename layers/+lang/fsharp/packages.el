@@ -73,7 +73,7 @@
         "xf" 'fsharp-run-executable-file))))
 
 (defun fsharp/post-init-ggtags ()
-  (add-hook 'fsharp-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'fsharp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun fsharp/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'fsharp-mode))

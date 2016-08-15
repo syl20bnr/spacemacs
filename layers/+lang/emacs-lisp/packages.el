@@ -142,7 +142,7 @@
   (spacemacs/helm-gtags-define-keys-for-mode 'emacs-lisp-mode))
 
 (defun emacs-lisp/post-init-ggtags ()
-  (add-hook 'emacs-lisp-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'emacs-lisp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun emacs-lisp/post-init-semantic ()
   (add-hook 'emacs-lisp-mode-hook 'semantic-mode)

@@ -47,7 +47,7 @@
       "z"  'windows-scripts/dos-outline)))
 
 (defun windows-scripts/post-init-ggtags ()
-  (add-hook 'dos-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'dos-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun windows-scripts/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'dos-mode))
