@@ -142,7 +142,7 @@
     (push 'company-emacs-eclim company-backends-java-mode)))
 
 (defun java/post-init-ggtags ()
-  (add-hook 'java-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'java-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun java/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'java-mode))

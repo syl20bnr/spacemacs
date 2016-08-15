@@ -164,7 +164,7 @@
          :actions '(insert))))))
 
 (defun elixir/post-init-ggtags ()
-  (add-hook 'elixir-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'elixir-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun elixir/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'elixir-mode))

@@ -277,7 +277,7 @@ replace it with the unicode arrow."
             scala-indent:default-run-on-strategy scala-indent:operator-strategy))))
 
 (defun scala/post-init-ggtags ()
-  (add-hook 'scala-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'scala-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun scala/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'scala-mode))

@@ -147,7 +147,7 @@
     (add-hook 'go-mode-hook 'spacemacs//go-enable-gometalinter t)))
 
 (defun go/post-init-ggtags ()
-  (add-hook 'go-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun go/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'go-mode))

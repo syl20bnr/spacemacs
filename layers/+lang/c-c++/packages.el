@@ -95,8 +95,8 @@
     (spacemacs/add-to-hooks 'c-c++/load-clang-args '(c-mode-hook c++-mode-hook))))
 
 (defun c-c++/post-init-ggtags ()
-  (add-hook 'c-mode-hook #'spacemacs/ggtags-mode-enable)
-  (add-hook 'c++-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'c-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
+  (add-hook 'c++-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun c-c++/init-gdb-mi ()
   (use-package gdb-mi

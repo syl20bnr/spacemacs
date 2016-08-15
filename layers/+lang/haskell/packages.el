@@ -56,7 +56,7 @@
     :defer t))
 
 (defun haskell/post-init-ggtags ()
-  (add-hook 'haskell-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun haskell/init-ghc ()
   (use-package ghc

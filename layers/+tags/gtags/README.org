@@ -11,6 +11,7 @@
        - [[#install-with-recommended-features][Install with recommended features]]
        - [[#configure-your-environment-to-use-pygments-and-ctags][Configure your environment to use pygments and ctags]]
    - [[#emacs-configuration][Emacs Configuration]]
+     - [[#disabling-by-default][Disabling by default]]
  - [[#usage][Usage]]
      - [[#language-support][Language Support]]
        - [[#built-in-languages][Built-in languages]]
@@ -117,6 +118,18 @@ will need to add =gtags= to the existing =dotspacemacs-configuration-layers=.
            ;; ...
           ))
 #+end_src
+
+*** Disabling by default
+If =ggtags-mode= is too intrusive you can disable it by default, by setting the
+layer variable =gtags-enable-by-default= to =nil=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((gtags :variables gtags-enable-by-default t)))
+#+END_SRC
+
+This variable can also be set as a file-local or directory-local variable for
+additional control per project.
 
 * Usage
 
