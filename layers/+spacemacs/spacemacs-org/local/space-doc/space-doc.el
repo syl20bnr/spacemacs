@@ -63,25 +63,32 @@ keeping their content visible.
     org-indent-mode
     view-mode
     hide-line-numbers
-    emphasis-overlays
-    meta-tags-overlays
+    alternative-emphasis
+    alternative-tags-look
     link-protocol
     org-block-line-face-remap
     org-kbd-face-remap
-    resize-inline-images
-    advice-org-do-emphasis-faces)
+    resize-inline-images)
   "List of `space-doc' modificators."
   :type '(set (const center-buffer-mode)
               (const org-indent-mode)
               (const view-mode)
               (const hide-line-numbers)
-              (const emphasis-overlays)
-              (const meta-tags-overlays)
+              (const alternative-emphasis)
+              (const alternative-tags-look)
               (const link-protocol)
               (const org-block-line-face-remap)
               (const org-kbd-face-remap)
-              (const resize-inline-images)
-              (const advice-org-do-emphasis-faces))
+              (const resize-inline-images))
+  :group 'space-doc)
+
+(defcustom spacemacs-space-doc-center-buffer-mode-min-aspect-ratio
+  1.7
+  "Minimal `frame' aspect ration (`frame-pixel-width' divided by `frame-pixel-height')
+for `spacemacs-centered-buffer-mode' to be automatically enabled.
+NOTE: If `center-buffer-mode' isn't a member of `spacemacs-space-doc-modificators'
+list `spacemacs-centered-buffer-mode' will not be enabled."
+  :type 'number
   :group 'space-doc)
 
 (defvar spacemacs-space-doc-modificators-functions
@@ -89,13 +96,12 @@ keeping their content visible.
     (org-indent-mode              . spacemacs//space-doc-org-indent-mode)
     (view-mode                    . spacemacs//space-doc-view-mode)
     (hide-line-numbers            . spacemacs//space-doc-hide-line-numbers)
-    (emphasis-overlays            . spacemacs//space-doc-emphasis-overlays)
-    (meta-tags-overlays           . spacemacs//space-doc-meta-tags-overlays)
+    (alternative-emphasis            . spacemacs//space-doc-alternative-emphasis)
+    (alternative-tags-look           . spacemacs//space-doc-alternative-tags-look)
     (link-protocol                . spacemacs//space-doc-link-protocol)
     (org-block-line-face-remap    . spacemacs//space-doc-org-block-line-face-remap)
     (org-kbd-face-remap           . spacemacs//space-doc-org-kbd-face-remap)
-    (resize-inline-images         . spacemacs//space-doc-resize-inline-images)
-    (advice-org-do-emphasis-faces . spacemacs//space-doc-advice-org-do-emphasis-faces))
+    (resize-inline-images         . spacemacs//space-doc-resize-inline-images))
   "alist of `space-doc' modificator (tag . function) for `org-mode' buffers.
 The functions work with a current buffer and accept ENABLE(flag) argument.
 If the argument has non-nil value - enable the modifications introduced
@@ -110,29 +116,33 @@ buffer to FLAG."
       (spacemacs-centered-buffer-mode -1)
       (setq space-doc-mode old-flag))))
 
-(defun spacemacs//space-doc-centered-buffer-mode-hook ()
-  "Apply `spacemacs//space-doc-emphasis-overlays' to the
-indirect buffer (because overlays aren't copied from the original one).
-And calculates `spacemacs//space-doc-set-cache' (it's buffer local)."
-  (when space-doc-mode
-    (spacemacs//space-doc-set-cache t)
-    (when (member 'spacemacs//space-doc-emphasis-overlays
-                  spacemacs-space-doc-modificators)
-      (spacemacs//space-doc-emphasis-overlays t))))
-
-(when (member 'spacemacs//space-doc-center-buffer-mode
-              spacemacs-space-doc-modificators)
-  (add-hook 'spacemacs-centered-buffer-mode-hook
-            'spacemacs//space-doc-centered-buffer-mode-hook))
-
 (defun spacemacs//space-doc-center-buffer-mode (&optional flag)
   "Enable `spacemacs-centered-buffer-mode' if flag is non nil, disable it otherwise.
 This functions is aimed to be used with `spacemacs-space-doc-modificators'."
-  (if (and flag (not spacemacs-centered-buffer-mode))
-      ;; `spacemacs-centered-buffer-mode' is heavy so it's better to make if deferred.
-      ;; Also it has to be run when the `window-body-width' is properly calculated.
-      (run-with-idle-timer 0 nil 'spacemacs-centered-buffer-mode))
+  (when (and flag
+             (not spacemacs-centered-buffer-mode)
+             (>= (/ (* (frame-pixel-width) 1.0) (frame-pixel-height))
+                 spacemacs-space-doc-center-buffer-mode-min-aspect-ratio))
+    ;; `spacemacs-centered-buffer-mode' is heavy so it's better to make if deferred.
+    ;; Also it has to be run when the `window-body-width' is properly calculated.
+    (run-with-idle-timer 0 nil 'spacemacs-centered-buffer-mode))
   (spacemacs-centered-buffer-mode -1))
+
+(defun spacemacs//space-doc-centered-buffer-mode-hook ()
+  "Apply `spacemacs//space-doc-alternative-emphasis' to the `current-buffer'
+if `space-doc-mode' is enabled."
+  (when space-doc-mode
+    (when (member 'alternative-emphasis
+                  spacemacs-space-doc-modificators)
+      (spacemacs//space-doc-alternative-emphasis t))
+    (when (member 'alternative-tags-look
+                  spacemacs-space-doc-modificators)
+      (spacemacs//space-doc-alternative-tags-look t))))
+
+(when (member 'center-buffer-mode
+              spacemacs-space-doc-modificators)
+  (add-hook 'spacemacs-centered-buffer-mode-hook
+            'spacemacs//space-doc-centered-buffer-mode-hook))
 
 (defun spacemacs//space-doc-org-indent-mode (&optional flag)
   "Enable `org-indent-mode' if flag is non nil, disable it otherwise.
@@ -194,8 +204,8 @@ appearances in the current buffer. The function uses
 `match-data' set by `org-do-emphasis-faces' function."
   ;; `org-do-emphasis-faces' returns non-nil value when it
   ;; found a region to emphasize.
-  (when (and found
-             space-doc-mode
+  (when (and space-doc-mode
+             found
              (not (and
                    (match-string 4)
                    (string-empty-p
@@ -212,8 +222,7 @@ appearances in the current buffer. The function uses
 If ENABLE is non-nil, add advice `org-do-emphasis-faces' function with
 `spacemacs//space-doc-org-do-emphasis-faces-advice'.
 NOTE: `org-do-emphasis-faces' is lazy and will emphasize only part of the
-current buffer so piggybacking it should be pretty performant solution.
-This functions is aimed to be used with `spacemacs-space-doc-modificators'."
+current buffer so piggybacking it should be pretty performant solution."
   (when enable
     (advice-add 'org-do-emphasis-faces
                 :after
@@ -264,13 +273,14 @@ The character should be one of the markers from `org-emphasis-alist'."
     (overlay-put ending-marker-overlay
                  'space-doc-emphasis-overlay t)))
 
-(defun spacemacs//space-doc-emphasis-overlays (&optional enable)
+(defun spacemacs//space-doc-alternative-emphasis (&optional enable)
   "Emphasis overlays.
 If ENABLE is non-nil, overlay regions which have already been emphasized by
 `org-do-emphasis-faces'in the current buffer.
 Otherwise remove all overlays with property `space-doc-emphasis-overlay'.
 This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   ;; Remove overlays.
+  (spacemacs//space-doc-advice-org-do-emphasis-faces enable)
   (dolist (overlay (overlays-in (point-min) (point-max)))
     (when (overlay-get overlay 'space-doc-emphasis-overlay)
       (delete-overlay overlay)))
@@ -309,7 +319,7 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
               600)))
     (org-display-inline-images)))
 
-(defun spacemacs//space-doc-meta-tags-overlays (&optional enable)
+(defun spacemacs//space-doc-alternative-tags-look (&optional enable)
   "Modify meta tag appearance.
 If ENABLE is non-nil, modify `org-mode' meta tags appearance in the current
 buffer.
