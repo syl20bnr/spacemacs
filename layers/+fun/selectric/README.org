@@ -8,9 +8,9 @@
  - [[#key-bindings][Key Bindings]]
 
 * Description
-This layer makes your Emacs sound like a typewriter, for those moments when your
-loud, clicky mechanical keyboard is not at hand, yet, you'd still wish to enjoy
-the sound.
+This layer makes your Emacs sound like an IBM Selectric typewriter, for those
+moments when your loud, clicky mechanical keyboard is not at hand, yet, you'd
+still wish to enjoy the sound.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -22,3 +22,7 @@ file.
 | Key Binding | Description              |
 |-------------+--------------------------|
 | ~SPC C-t t~ | Toggle clicky key sounds |
+
+* Notes
+
+IBM Selectric image by Oliver Kurmis
