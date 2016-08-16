@@ -120,12 +120,12 @@ Assume to be called interactively when INTERACT has non nil value."
                 (face-remap-add-relative 'fringe :background
                                          spacemacs-centered-buffer-mode-fringe-color)
                 (set-window-buffer window indirect-buffer)
-                (advice-add 'spacemacs/previous-useful-buffer
+                (advice-add 'previous-buffer
                             :before
-                            #'spacemacs//centered-buffer-mode-prev-next-useful-buffer-advice)
-                (advice-add 'spacemacs/next-useful-buffer
+                            #'spacemacs//centered-buffer-mode-prev-next-buffer-advice)
+                (advice-add 'next-buffer
                             :before
-                            #'spacemacs//centered-buffer-mode-prev-next-useful-buffer-advice)
+                            #'spacemacs//centered-buffer-mode-prev-next-buffer-advice)
                 (add-hook 'buffer-list-update-hook
                           'spacemacs//centered-buffer-buffer-list-update-fringes)
                 (add-hook 'window-configuration-change-hook
@@ -138,16 +138,15 @@ Assume to be called interactively when INTERACT has non nil value."
             (when interact
               (message "Not enough space to center the buffer!"))))))))
 
-(defun spacemacs//centered-buffer-mode-prev-next-useful-buffer-advice ()
-  "Disables `spacemacs-centered-buffer-mode' when `spacemacs/previous-useful-buffer'
-or `spacemacs/next-useful-buffer' is called. It's better than flagging the original
-buffer as 'unuseful'."
+(defun spacemacs//centered-buffer-mode-prev-next-buffer-advice ()
+  "Disables `spacemacs-centered-buffer-mode' when `spacemacs/previous-buffer'
+or `spacemacs/next-buffer' is called."
   (when (bound-and-true-p spacemacs-centered-buffer-mode)
     (spacemacs-centered-buffer-mode -1)))
 
 (defun spacemacs//centered-buffer-mode-disable-branch ()
   "Used in `spacemacs-centered-buffer-mode'."
-  ;; Don't run if the mode is disabled.
+  ;; Don't run if the mode is disabled(we are not in the indirect buffer).
   (when spacemacs--centered-buffer-mode-origin-buffer
     (let* ((window (selected-window))
            (origin-buffer spacemacs--centered-buffer-mode-origin-buffer)
@@ -223,10 +222,10 @@ minimize the performance hit when the mode isn't used."
               (setq spacemacs--centered-buffer-mode-indirect-buffers nil)))))))
   ;; Remove hooks and advices when they are not needed anymore.
   (unless spacemacs--centered-buffer-mode-indirect-buffers
-    (advice-remove 'spacemacs/previous-useful-buffer
-                   #'spacemacs//centered-buffer-mode-prev-next-useful-buffer-advice)
-    (advice-remove 'spacemacs/next-useful-buffer
-                   #'spacemacs//centered-buffer-mode-prev-next-useful-buffer-advice)
+    (advice-remove 'previous-buffer
+                   #'spacemacs//centered-buffer-mode-prev-next-buffer-advice)
+    (advice-remove 'next-buffer
+                   #'spacemacs//centered-buffer-mode-prev-next-buffer-advice)
     (remove-hook 'buffer-list-update-hook
                  'spacemacs//centered-buffer-buffer-list-update-fringes)
     (remove-hook 'window-configuration-change-hook

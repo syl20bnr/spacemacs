@@ -501,13 +501,12 @@ You can modify the list of visual enhancements applied by the =space-doc-mode=:
         org-indent-mode
         view-mode
         hide-line-numbers
-        emphasis-overlays
-        meta-tags-overlays
+        alternative-emphasis
+        alternative-tags-look
         link-protocol
         org-block-line-face-remap
         org-kbd-face-remap
-        resize-inline-images
-        advice-org-do-emphasis-faces))
+        resize-inline-images))
 #+END_SRC
 It's the default value of the variable with all enhancements.
 
