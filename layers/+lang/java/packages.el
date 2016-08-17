@@ -12,7 +12,7 @@
 (setq java-packages
       '(
         company
-        emacs-eclim
+        eclim
         ggtags
         helm-gtags
         (java-mode :location built-in)
@@ -21,7 +21,7 @@
 (defun java/post-init-company ()
   (spacemacs|add-company-hook java-mode))
 
-(defun java/init-emacs-eclim ()
+(defun java/init-eclim ()
   (use-package eclim
     :defer t
     :diminish eclim-mode
