@@ -136,6 +136,7 @@
 
           "Tf" 'spacemacs/cider-toggle-repl-font-locking
           "Tp" 'spacemacs/cider-toggle-repl-pretty-printing
+          "Tt" 'cider-auto-test-mode
 
           "ta" 'spacemacs/cider-test-run-all-tests
           "tb" 'cider-test-show-report

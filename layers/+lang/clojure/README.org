@@ -132,12 +132,15 @@ As this state works the same for all files, the documentation is in global
 
 *** Goto
 
-| Key Binding | Description   |
-|-------------+---------------|
-| ~SPC m g b~ | go back       |
-| ~SPC m g g~ | goto var      |
-| ~SPC m g e~ | goto error    |
-| ~SPC m g r~ | goto resource |
+| Key Binding | Description           |
+|-------------+-----------------------|
+| ~SPC m g b~ | go back               |
+| ~SPC m g C~ | browse classpath      |
+| ~SPC m g g~ | goto var              |
+| ~SPC m g e~ | goto error            |
+| ~SPC m g r~ | goto resource         |
+| ~SPC m g n~ | browse namespaces     |
+| ~SPC m g N~ | browse all namespaces |
 
 *** REPL
 
@@ -175,6 +178,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m T f~ | toggle REPL font-locking    |
 | ~SPC m T p~ | toggle REPL pretty-printing |
 | ~SPC m T i~ | toggle indentation style    |
+| ~SPC m T t~ | toggle auto test mode       |
 
 *** Debugging
 
@@ -183,6 +187,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m d r~ | reload namepspaces             |
 | ~SPC m d b~ | instrument expression at point |
 | ~SPC m d e~ | display last stacktrace        |
+| ~SPC m d E~ | toggle englighten mode         |
 | ~SPC m d i~ | inspect expression at point    |
 
 *** Refactoring
