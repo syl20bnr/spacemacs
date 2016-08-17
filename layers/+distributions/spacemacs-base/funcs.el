@@ -706,19 +706,27 @@ current window."
   "Return the line at point as a string."
   (buffer-substring (line-beginning-position) (line-end-position)))
 
-(defun spacemacs/open-in-external-app ()
-  "Open current file in external application."
-  (interactive)
-  (let ((file-path (if (eq major-mode 'dired-mode)
-                       (dired-get-file-for-visit)
-                     (buffer-file-name))))
-    (if file-path
-        (cond
-         ((spacemacs/system-is-mswindows) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\\\" file-path)))
-         ((spacemacs/system-is-mac) (shell-command (format "open \"%s\"" file-path)))
-         ((spacemacs/system-is-linux) (let ((process-connection-type nil))
-                              (start-process "" nil "xdg-open" file-path))))
-      (message "No file associated to this buffer."))))
+(defun spacemacs//open-in-external-app (file-path)
+  "Open `file-path' in external application."
+  (cond
+   ((spacemacs/system-is-mswindows) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\\\" file-path)))
+   ((spacemacs/system-is-mac) (shell-command (format "open \"%s\"" file-path)))
+   ((spacemacs/system-is-linux) (let ((process-connection-type nil))
+                                  (start-process "" nil "xdg-open" file-path)))))
+
+(defun spacemacs/open-file-or-directory-in-external-app (arg)
+  "Open current file in external application.
+If the universal prefix argument is used then open the folder
+containing the current file by the default explorer."
+  (interactive "P")
+  (if arg
+      (spacemacs//open-in-external-app (expand-file-name default-directory))
+    (let ((file-path (if (eq major-mode 'dired-mode)
+                         (dired-get-file-for-visit)
+                       buffer-file-name)))
+      (if file-path
+          (spacemacs//open-in-external-app file-path)
+        (message "No file associated to this buffer.")))))
 
 (defun spacemacs/switch-to-minibuffer-window ()
   "switch to minibuffer window (if active)"
