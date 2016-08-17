@@ -9,6 +9,18 @@
 ;;
 ;;; License: GPLv3
 
+(defcustom spacemacs-spaceline-additional-segments
+  '((new-version :when active))
+  "Additional segments for the Spacemacs modeline.
+
+They are inserted in the modeline between `global' and
+`buffer-position'.
+
+Must be a list of valid segments; see `spaceline-install' for
+more information on what constitutes a valid segment."
+  :type '(repeat sexp)
+  :group 'spacemacs)
+
 (setq spacemacs-packages
       '(
         ;; default
@@ -1803,7 +1815,8 @@ Open junk file using helm, with `prefix-arg' search in junk files"
            (spacemacs/get-new-version-lighter-face
             spacemacs-version spacemacs-new-version))))
 
-      (spaceline-spacemacs-theme '(new-version :when active))
+      (apply #'spaceline-spacemacs-theme
+             spacemacs-spaceline-additional-segments)
       (spaceline-helm-mode t)
       (when (configuration-layer/package-usedp 'info+)
         (spaceline-info-mode t))
