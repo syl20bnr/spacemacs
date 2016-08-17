@@ -1803,7 +1803,8 @@ Open junk file using helm, with `prefix-arg' search in junk files"
            (spacemacs/get-new-version-lighter-face
             spacemacs-version spacemacs-new-version))))
 
-      (spaceline-spacemacs-theme '(new-version :when active))
+      (apply #'spaceline-spacemacs-theme
+             spacemacs-spaceline-additional-segments)
       (spaceline-helm-mode t)
       (when (configuration-layer/package-usedp 'info+)
         (spaceline-info-mode t))
