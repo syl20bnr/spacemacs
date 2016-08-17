@@ -13,13 +13,16 @@
       '((agda :location local)))
 
 (defun agda/init-agda ()
-  (if (and (eq agda-mode-path 'use-helper) (not (executable-find "agda-mode")))
-    (spacemacs-buffer/warning
-      (concat "Couldn't find `agda-mode', make sure it is "
-              "available in your PATH or check the installation "
-              "instructions in the README file."))
+  (if (and (eq 'use-helper agda-mode-path)
+           (not (executable-find "agda-mode")))
+      (spacemacs-buffer/warning
+       (concat "Couldn't find `agda-mode', make sure it is "
+               "available in your PATH or check the installation "
+               "instructions in the README file."))
 
-    (when (eq agda-mode-path 'use-helper) (setq agda-mode-path (let ((coding-system-for-read 'utf-8)) (shell-command-to-string "agda-mode locate"))))
+    (when (eq 'use-helper agda-mode-path)
+      (setq agda-mode-path (let ((coding-system-for-read 'utf-8))
+                             (shell-command-to-string "agda-mode locate"))))
 
     (use-package agda2-mode
       :defer t
@@ -76,4 +79,4 @@
 
         (with-eval-after-load 'golden-ratio
           (add-to-list 'golden-ratio-exclude-buffer-names
-                      "*Agda information*"))))))
+                       "*Agda information*"))))))
