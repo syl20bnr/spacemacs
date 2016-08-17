@@ -111,9 +111,12 @@
           "fb" 'cider-format-buffer
 
           "gb" 'cider-pop-back
+          "gC" 'cider-classpath
           "ge" 'cider-jump-to-compilation-error
           "gg" 'cider-find-var
           "gr" 'cider-jump-to-resource
+          "gn" 'cider-browse-ns
+          "gN" 'cider-browse-ns-all
 
           "'"  'cider-jack-in
           "sb" 'cider-load-buffer
@@ -134,8 +137,10 @@
           "ss" 'cider-switch-to-repl-buffer
           "sx" 'cider-refresh
 
+          "Te" 'cider-enlighten-mode
           "Tf" 'spacemacs/cider-toggle-repl-font-locking
           "Tp" 'spacemacs/cider-toggle-repl-pretty-printing
+          "Tt" 'cider-auto-test-mode
 
           "ta" 'spacemacs/cider-test-run-all-tests
           "tb" 'cider-test-show-report
