@@ -721,7 +721,7 @@ containing the current file by the default explorer."
   (interactive "P")
   (if arg
       (spacemacs//open-in-external-app (expand-file-name default-directory))
-    (let ((file-path (if (eq major-mode 'dired-mode)
+    (let ((file-path (if (derived-mode-p 'dired-mode)
                          (dired-get-file-for-visit)
                        buffer-file-name)))
       (if file-path
