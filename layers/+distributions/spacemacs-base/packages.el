@@ -44,6 +44,7 @@
         spacemacs-theme
         (subword :location built-in)
         (tar-mode :location built-in)
+        (archive-mode :location built-in)
         (uniquify :location built-in)
         (url :location built-in)
         (visual-line-mode :location built-in)
@@ -418,6 +419,11 @@
   (evilified-state-evilify-map tar-mode-map
     :mode tar-mode
     :eval-after-load tar-mode))
+
+(defun spacemacs-base/init-archive-mode ()
+  (evilified-state-evilify-map archive-mode-map
+    :mode archive-mode
+    :eval-after-load archive-mode))
 
 (defun spacemacs-base/init-uniquify ()
   (require 'uniquify)
