@@ -175,6 +175,7 @@ As this state works the same for all files, the documentation is in global
 
 | Key Binding | Description                 |
 |-------------+-----------------------------|
+| ~SPC m T e~ | toggle englighten mode      |
 | ~SPC m T f~ | toggle REPL font-locking    |
 | ~SPC m T p~ | toggle REPL pretty-printing |
 | ~SPC m T i~ | toggle indentation style    |
@@ -187,7 +188,6 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m d r~ | reload namepspaces             |
 | ~SPC m d b~ | instrument expression at point |
 | ~SPC m d e~ | display last stacktrace        |
-| ~SPC m d E~ | toggle englighten mode         |
 | ~SPC m d i~ | inspect expression at point    |
 
 *** Refactoring

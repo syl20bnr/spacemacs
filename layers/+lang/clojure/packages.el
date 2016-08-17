@@ -137,6 +137,7 @@
           "ss" 'cider-switch-to-repl-buffer
           "sx" 'cider-refresh
 
+          "Te" 'cider-enlighten-mode
           "Tf" 'spacemacs/cider-toggle-repl-font-locking
           "Tp" 'spacemacs/cider-toggle-repl-pretty-printing
           "Tt" 'cider-auto-test-mode
@@ -151,7 +152,6 @@
 
           "db" 'cider-debug-defun-at-point
           "de" 'spacemacs/cider-display-error-buffer
-          "dE" 'cider-enlighten-mode
           "di" 'cider-inspect))
 
       (evil-define-key 'normal cider-repl-mode-map
