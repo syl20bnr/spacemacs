@@ -310,7 +310,8 @@
           (spacemacs-powerline-new-version
            (spacemacs/get-new-version-lighter-face
             spacemacs-version spacemacs-new-version))))
-      (spaceline-spacemacs-theme '(new-version :when active))
+      (apply #'spaceline-spacemacs-theme
+             spacemacs-spaceline-additional-segments)
       ;; Additional spacelines
       (when (package-installed-p 'helm)
         (spaceline-helm-mode t))
