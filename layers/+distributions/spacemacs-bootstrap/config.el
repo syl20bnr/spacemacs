@@ -37,6 +37,7 @@
     (scala-mode . scala-indent:step)
     (sgml-mode . sgml-basic-offset)
     (sh-mode . sh-basic-offset)
+    (typescript-mode . typescript-indent-level)
     (web-mode . web-mode-markup-indent-offset)
     (yaml-mode . yaml-indent-offset))
   "An alist where each key is either a symbol corresponding
