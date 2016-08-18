@@ -10,7 +10,8 @@
 ;;; License: GPLv3
 
 (setq agda-packages
-      '((agda :location local)))
+      '((agda :location local)
+        golden-ratio))
 
 (defun agda/init-agda ()
   (if (and (eq 'use-helper agda-mode-path)
@@ -75,8 +76,10 @@
           "xd"  'agda2-remove-annotations
           "xh"  'agda2-display-implicit-arguments
           "xq"  'agda2-quit
-          "xr"  'agda2-restart)
+          "xr"  'agda2-restart)))))
 
-        (with-eval-after-load 'golden-ratio
-          (add-to-list 'golden-ratio-exclude-buffer-names
-                       "*Agda information*"))))))
+(defun idris/pre-init-golden-ratio ()
+  (spacemacs|use-package-add-hook golden-ratio
+    :post-config
+    (add-to-list 'golden-ratio-exclude-buffer-names
+                 "*Agda information*")))
