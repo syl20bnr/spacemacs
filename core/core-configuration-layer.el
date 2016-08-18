@@ -216,6 +216,13 @@ is not set for the given SLOT."
     ("gnu" . unknown))
   "Status of ELPA archives.")
 
+(defvar configuration-layer-fallback-package-archive
+  "elpa.zilongshanren.com"
+  "URL of fallback package archive.
+
+This archive is used when one of archives is down for any
+reason.")
+
 (defvar configuration-layer-exclude-all-layers nil
   "If non nil then only the distribution layer is loaded.")
 
@@ -297,31 +304,33 @@ cache folder.")
   (configuration-layer/load-or-install-protected-package 'package-build)
   (configuration-layer/load-or-install-protected-package 'quelpa))
 
+(defun configuration-layer//resolve-package-archive (archive)
+  "Resolve HTTP handlers for ARCHIVE.
+If the address of an ARCHIVE already contains the protocol then this address is
+left untouched."
+  (cons (car archive)
+        (if (or (string-match-p "http" (cdr x))
+                (string-prefix-p "/" (cdr x)))
+            (cdr archive)
+          (concat (if (and dotspacemacs-elpa-https
+                           (not spacemacs-insecure)
+                           ;; for now org ELPA repository does
+                           ;; not support HTTPS
+                           ;; TODO when org ELPA repo support
+                           ;; HTTPS remove the check
+                           ;; `(not (equal "org" (car archive)))'
+                           (not (equal "org" (car archive))))
+                      "https://"
+                    "http://")
+                  (cdr archive)))))
+
 (defun configuration-layer//resolve-package-archives (archives)
   "Resolve HTTP handlers for each archive in ARCHIVES and return a list
 of all reachable ones.
 If the address of an archive already contains the protocol then this address is
 left untouched.
 The returned list has a `package-archives' compliant format."
-  (mapcar
-   (lambda (x)
-     (cons (car x)
-           (if (or (string-match-p "http" (cdr x))
-                   (string-prefix-p "/" (cdr x)))
-               (cdr x)
-             (concat
-              (if (and dotspacemacs-elpa-https
-                       (not spacemacs-insecure)
-                       ;; for now org ELPA repository does
-                       ;; not support HTTPS
-                       ;; TODO when org ELPA repo support
-                       ;; HTTPS remove the check
-                       ;; `(not (equal "org" (car x)))'
-                       (not (equal "org" (car x))))
-                  "https://"
-                "http://")
-              (cdr x)))))
-   archives))
+  (mapcar 'configuration-layer//resolve-package-archive archives))
 
 (defun configuration-layer/retrieve-package-archives (&optional quiet force)
   "Retrieve all archives declared in current `package-archives'.
@@ -347,9 +356,14 @@ refreshed during the current session."
         (setq i (1+ i))
         (if (eq 'unavailable
                 (configuration-layer-check-archive-status (car archive)))
-            (error "Archive '%s' is not available. Please verify
-that you have internet connection and you are able to connect to
-%s." (car archive) (cdr archive))
+            (setcdr
+               (assoc (car archive) package-archives)
+               (cdr
+                (configuration-layer//resolve-package-archive
+                 (cons (car archive)
+                       (format "%s/%s/"
+                               configuration-layer-fallback-package-archive
+                               (car archive))))))
           (let ((package-archives (list archive)))
             (package-refresh-contents))))
       (package-read-all-archive-contents)
@@ -1955,8 +1969,8 @@ to select one."
              (cadr (assq 'built-in stats))))
     (with-current-buffer (get-buffer-create spacemacs-buffer-name)
       (let ((buffer-read-only nil))
-	(spacemacs-buffer//center-line)
-	(insert "\n")))))
+  (spacemacs-buffer//center-line)
+  (insert "\n")))))
 
 (defun configuration-layer/load-or-install-protected-package
     (pkg &optional log file-to-load)
