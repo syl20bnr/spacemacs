@@ -362,6 +362,11 @@ If NO-INSTALL is non nil then install steps are skipped."
   ;; usage and ownership
   (configuration-layer/discover-layers)
   (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
+  ;; also declare all other layers if all packages are downloaded
+  (when (eq 'all dotspacemacs-download-packages)
+    (dolist (layer (configuration-layer/get-layers-list))
+      (unless (configuration-layer/layer-usedp layer)
+        (configuration-layer/declare-used-layer layer))))
   (configuration-layer//declare-packages configuration-layer--used-layers)
   ;; then load the functions and finally configure the layers
   (configuration-layer//load-layers-files configuration-layer--used-layers
@@ -374,16 +379,12 @@ If NO-INSTALL is non nil then install steps are skipped."
   ;; install/uninstall packages
   (configuration-layer/load-auto-layer-file)
   (unless no-install
-    (if (eq 'all dotspacemacs-download-packages)
-        (configuration-layer//install-packages
-         (configuration-layer//get-distant-packages
-          (configuration-layer/make-all-packages 'used) nil))
-      (configuration-layer//install-packages
-       (configuration-layer/filter-objects
-        configuration-layer--used-distant-packages
-        (lambda (x)
-          (let ((pkg (configuration-layer/get-package x)))
-            (not (oref pkg :lazy-install)))))))
+    (configuration-layer//install-packages
+     (configuration-layer/filter-objects
+      configuration-layer--used-distant-packages
+      (lambda (x)
+        (let ((pkg (configuration-layer/get-package x)))
+          (not (oref pkg :lazy-install))))))
     (configuration-layer//configure-packages configuration-layer--used-packages)
     (configuration-layer//load-layers-files configuration-layer--used-layers
                                             '("keybindings.el"))
