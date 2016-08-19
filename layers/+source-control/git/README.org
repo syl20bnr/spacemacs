@@ -195,9 +195,9 @@ will discard the commit message.
 | ~e~         | edit           |
 | ~f~         | fixup          |
 | ~j~         | go down        |
-| ~gj~        | move line down |
+| ~M-j~       | move line down |
 | ~k~         | go up          |
-| ~gk~        | move line up   |
+| ~M-k~       | move line up   |
 | ~d~ or ~x~  | kill line      |
 | ~r~         | reword         |
 | ~s~         | squash         |
