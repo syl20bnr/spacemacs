@@ -1,4 +1,7 @@
 * Release 0.105.x
+** 0.105.22 (2016/08/19)
+*** Fixes
+- Rename the =emacs-eclim= package to =eclim= (thanks to CestDiego)
 ** 0.105.21 (2016/06/08)
 *** Fixes
 - Fix hybrid state when escaping to normal state
