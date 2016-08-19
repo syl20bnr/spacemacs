@@ -214,8 +214,7 @@ start.")
 (defvar dotspacemacs-helm-use-fuzzy 'always
   "Controls fuzzy matching in helm. If set to `always', force fuzzy matching
   in all non-asynchronous sources. If set to `source', preserve individual
-  source settings. Else, disable fuzzy matching in all sources.
-  Default `always'.")
+  source settings. Else, disable fuzzy matching in all sources.")
 
 (defvar dotspacemacs-large-file-size 1
   "Size (in MB) above which spacemacs will prompt to open the large file
