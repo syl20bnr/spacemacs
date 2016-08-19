@@ -178,7 +178,7 @@ to successively recenter to")
     (define-key ccm-map [(control meta +)]  'ccm-vpos-down)
     (define-key ccm-map [(control meta =)]  'ccm-vpos-down)
     (define-key ccm-map [(control meta ?0)] 'ccm-vpos-recenter)
-    (when mouse-wheel-mode
+    (when (bound-and-true-p mouse-wheel-mode)
       (mapc (lambda (key)
               (define-key ccm-map key 'ccm-mwheel-scroll))
             (list (vector mouse-wheel-up-event)
