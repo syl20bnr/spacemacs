@@ -11,6 +11,7 @@
 
 (setq spacemacs-editing-packages
       '(aggressive-indent
+        (artist :location built-in)
         avy
         (bracketed-paste :toggle (version<= emacs-version "25.0.92"))
         clean-aindent-mode
@@ -47,6 +48,12 @@
     (progn
       (add-hook 'diff-auto-refine-mode-hook 'spacemacs/toggle-aggressive-indent-off)
       (spacemacs|diminish aggressive-indent-mode " Ⓘ" " I"))))
+
+(defun spacemacs-editing/init-artist ()
+  ;; `artist-mode' utilizes the mouse, and works better in emacs state, so we
+  ;; automatically toggle emacs state on/off together with artist-mode (unless
+  ;; the editing style is emacs)
+  (add-hook 'artist-mode-hook #'spacemacs/artist-mode-toggle-emacs-state))
 
 (defun spacemacs-editing/init-avy ()
   (use-package avy

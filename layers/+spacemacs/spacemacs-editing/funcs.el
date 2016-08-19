@@ -10,6 +10,17 @@
 ;;; License: GPLv3
 
 
+;; artist-mode
+
+(defun spacemacs/artist-mode-toggle-emacs-state ()
+  "Toggle emacs-state when `artist-mode' is toggled."
+  (unless (eq dotspacemacs-editing-style 'emacs)
+    (if artist-mode
+        (unless (evil-emacs-state-p)
+          (evil-emacs-state))
+      (evil-exit-emacs-state))))
+
+
 ;; smartparens
 
 (defun spacemacs/smartparens-pair-newline (id action context)
