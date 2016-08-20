@@ -107,7 +107,8 @@
             persp-nil-name dotspacemacs-default-layout-name
             persp-reset-windows-on-nil-window-conf nil
             persp-set-last-persp-for-new-frames nil
-            persp-save-dir spacemacs-layouts-directory)
+            persp-save-dir spacemacs-layouts-directory
+            persp-hook-up-emacs-buffer-completion t)
 
       (defun spacemacs//activate-persp-mode ()
         "Always activate persp-mode, unless it is already active.

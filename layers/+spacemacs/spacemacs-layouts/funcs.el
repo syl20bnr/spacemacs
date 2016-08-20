@@ -51,9 +51,8 @@ current perspective."
 
 (defun spacemacs-layouts/non-restricted-buffer-list ()
   (interactive)
-  (remove-hook 'ido-make-buffer-list-hook  #'persp-restrict-ido-buffers)
-  (helm-mini)
-  (add-hook 'ido-make-buffer-list-hook  #'persp-restrict-ido-buffers))
+  (let ((ido-make-buffer-list-hook (remove #'persp-restrict-ido-buffers ido-make-buffer-list-hook)))
+    (helm-mini)))
 
 
 ;; Persp transient-state
