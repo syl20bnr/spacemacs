@@ -124,6 +124,12 @@ when the current branch is not `develop'. Note that checking for
 new versions works via git commands, thus it calls GitHub services
 whenever you start Emacs.")
 
+(defvar dotspacemacs-use-shared-packages nil
+  "If non-`nil', then look in all directories of `package-directory-list' when
+looking for the installed directory of a package which was not found under
+`package-user-dir'. Site administrators can install packages in one of
+these system-wide directories so that all users at the site can benefit.")
+
 (defvar dotspacemacs-configuration-layers '(emacs-lisp)
   "List of configuration layers to load.")
 
