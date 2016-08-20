@@ -1856,7 +1856,8 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w o~              | cycle and focus between frames                                              |
 | ~SPC w p m~            | open messages buffer in a popup window                                      |
 | ~SPC w p p~            | close the current sticky popup window                                       |
-| ~SPC w R~              | rotate windows clockwise                                                    |
+| ~SPC w r~              | rotate windows forward                                                      |
+| ~SPC w R~              | rotate windows backward                                                     |
 | ~SPC w s~ or ~SPC w -~ | horizontal split                                                            |
 | ~SPC w S~              | horizontal split and focus new window                                       |
 | ~SPC w u~              | undo window layout (used to effectively undo a closed window)               |
@@ -1903,7 +1904,8 @@ window resizing.
 | ~K~           | move bottom to the top                                        |
 | ~L~           | move window to the right                                      |
 | ~o~           | focus other frame                                             |
-| ~R~           | rotate windows                                                |
+| ~r~           | rotate windows forward                                        |
+| ~R~           | rotate windows backward                                       |
 | ~s~           | horizontal split                                              |
 | ~S~           | horizontal split and focus new window                         |
 | ~u~           | undo window layout (used to effectively undo a closed window) |
