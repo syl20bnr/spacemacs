@@ -216,8 +216,15 @@ is not set for the given SLOT."
     ("gnu" . unknown))
   "Status of ELPA archives.")
 
-(defvar configuration-layer-fallback-package-archive
-  "elpa.zilongshanren.com"
+(defvar configuration-layer-fallback-package-archives
+  '(("melpa" . "raw.githubusercontent.com/syl20bnr/spacemacs-elpa-mirror/master/melpa/")
+    ("melpa" . "elpa.zilongshanren.com/melpa/")
+
+    ("org" . "raw.githubusercontent.com/syl20bnr/spacemacs-elpa-mirror/master/org/")
+    ("org" . "elpa.zilongshanren.com/org/")
+
+    ("gnu" . "raw.githubusercontent.com/syl20bnr/spacemacs-elpa-mirror/master/gnu/")
+    ("gnu" . "elpa.zilongshanren.com/gnu/"))
   "URL of fallback package archive.
 
 This archive is used when one of archives is down for any
@@ -309,8 +316,8 @@ cache folder.")
 If the address of an ARCHIVE already contains the protocol then this address is
 left untouched."
   (cons (car archive)
-        (if (or (string-match-p "http" (cdr x))
-                (string-prefix-p "/" (cdr x)))
+        (if (or (string-match-p "http" (cdr archive))
+                (string-prefix-p "/" (cdr archive)))
             (cdr archive)
           (concat (if (and dotspacemacs-elpa-https
                            (not spacemacs-insecure)
@@ -331,6 +338,37 @@ If the address of an archive already contains the protocol then this address is
 left untouched.
 The returned list has a `package-archives' compliant format."
   (mapcar 'configuration-layer//resolve-package-archive archives))
+
+(defun configuration-layer//check-archive-status (archive &optional recheck)
+  "Check ARCHIVE status.
+
+By default status is checked only when current status of ARCHIVE
+is `unknown'. Check is forced when RECHECK is non-nil."
+  (let* ((obj (assoc archive configuration-layer--elpa-archives-status))
+         (state (cdr obj))
+         (url (format "%sarchive-contents" (cdr (assoc archive package-archives)))))
+    (when (and (or (eq state 'unknown) recheck)
+               url)
+      (condition-case nil
+          (if (url-http-file-exists-p url)
+              (setq state 'available)
+            (setq state 'unavailable))
+        ((error) (setq state 'unavailable)))
+      (setcdr (assoc archive configuration-layer--elpa-archives-status) state))
+    (message "archive '%s' at %s is %s" archive url state)
+    state))
+
+(defun configuration-layer//get-available-archive-url (archive)
+  (if (eq 'available (configuration-layer//check-archive-status archive t))
+      (cdr (assoc archive package-archives))
+    (let ((obj (assoc archive configuration-layer-fallback-package-archives)))
+      (when obj
+        (setcdr
+       (assoc archive package-archives)
+       (cdr (configuration-layer//resolve-package-archive obj)))
+      (setq configuration-layer-fallback-package-archives
+            (delq obj configuration-layer-fallback-package-archives))
+      (configuration-layer//get-available-archive-url archive)))))
 
 (defun configuration-layer/retrieve-package-archives (&optional quiet force)
   "Retrieve all archives declared in current `package-archives'.
@@ -354,18 +392,28 @@ refreshed during the current session."
                    (car archive) i count) t))
         (spacemacs//redisplay)
         (setq i (1+ i))
-        (if (eq 'unavailable
-                (configuration-layer-check-archive-status (car archive)))
-            (setcdr
-               (assoc (car archive) package-archives)
-               (cdr
-                (configuration-layer//resolve-package-archive
-                 (cons (car archive)
-                       (format "%s/%s/"
-                               configuration-layer-fallback-package-archive
-                               (car archive))))))
-          (let ((package-archives (list archive)))
-            (package-refresh-contents))))
+        (setcdr archive
+                (configuration-layer//get-available-archive-url (car archive)))
+        (unless (cdr archive)
+          (error "Archive '%s' and all it's mirrors are not
+ available. Please verify that you have internet connection and
+ you are able to connect to %s.
+
+If this is your first launch of Spacemacs you have to be
+connected to internet as Spacemacs must install some third-party
+packages in order to function properly. If it's not your first
+launch of Spacemacs most probably you asked Spacemacs to install
+new third-party packages (e. g. by editing
+`dotspacemacs-additional-packages', editing list of packages of
+any layer or enabling new layer). In such case you also must be
+connected to internet. In case you can't, please revert your
+changes that forced Spacemacs to install new packages."
+                 (car archive)
+                 (cdr
+                  (configuration-layer//resolve-package-archive
+                   (assoc (car archive) configuration-layer--elpa-archives)))))
+        (let ((package-archives (list archive)))
+          (package-refresh-contents)))
       (package-read-all-archive-contents)
       (unless quiet (spacemacs-buffer/append "\n")))))
 
@@ -2013,25 +2061,6 @@ FILE-TO-LOAD is an explicit file to load after the installation."
       (setq configuration-layer-error-count
             (1+ configuration-layer-error-count))
     (setq configuration-layer-error-count 1)))
-
-(defun configuration-layer-check-archive-status (archive &optional recheck)
-  "Check ARCHIVE status.
-
-By default status is checked only when current status of ARCHIVE
-is `unknown'. Check is forced when RECHECK is non-nil."
-  (let* ((obj (assoc archive configuration-layer--elpa-archives-status))
-         (state (cdr obj))
-         (url (cdr (assoc archive package-archives))))
-    (message "archive %s state %s url %s" archive state url)
-    (when (and (or (eq state 'unknown) recheck)
-               url)
-      (condition-case nil
-          (if (url-http-file-exists-p url)
-              (setq state 'available)
-            (setq state 'unavailable))
-        ((error) (setq state 'unavailable)))
-      (setcdr (assoc archive configuration-layer--elpa-archives-status) state))
-    state))
 
 (provide 'core-configuration-layer)
 

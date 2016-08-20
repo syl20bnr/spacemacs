@@ -199,7 +199,8 @@
 
 (ert-deftest test-retrieve-package-archives--catch-connection-errors ()
   (let ((package-archives '(("gnu" . "https://elpa.gnu.org/packages/")))
-        (configuration-layer--package-archives-refreshed nil))
+        (configuration-layer--package-archives-refreshed nil)
+        (configuration-layer-fallback-package-archives nil))
     (cl-letf (((symbol-function 'url-retrieve-synchronously)
                (lambda (x)
                  (signal 'file-error '("make client process failed"
