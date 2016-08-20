@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-used-layers '(spacemacs-base
+(configuration-layer/declare-layers '(spacemacs-base
                                       spacemacs-completion
                                       spacemacs-layouts
                                       spacemacs-editing
@@ -25,4 +25,4 @@
 ;; want `helm' completion.
 (unless (or (configuration-layer/layer-usedp 'ivy)
             (configuration-layer/layer-usedp 'helm))
-  (configuration-layer/declare-used-layers '(helm)))
+  (configuration-layer/declare-layers '(helm)))

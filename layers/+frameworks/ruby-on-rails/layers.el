@@ -11,4 +11,4 @@
 
 ;; Prerequisites
 
-(configuration-layer/declare-used-layer 'ruby)
+(configuration-layer/declare-layer 'ruby)

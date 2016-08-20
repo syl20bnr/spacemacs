@@ -243,6 +243,9 @@ LAYER has to be installed for this method to work properly."
 (defvar configuration-layer--inhibit-warnings nil
   "If non-nil then warning message emitted by the layer system are ignored.")
 
+(defvar configuration-layer--declared-layers-usedp nil
+  "If non-nil then declared layers are considered to be used.")
+
 (defvar configuration-layer-error-count nil
   "Non nil indicates the number of errors occurred during the
 installation of initialization.")
@@ -358,16 +361,11 @@ If NO-INSTALL is non nil then install steps are skipped."
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
   (when (spacemacs-buffer//choose-banner)
     (spacemacs-buffer//inject-version))
-  ;; first, declare used layers then packages as soon as possible to resolve
+  ;; declare used layers then packages as soon as possible to resolve
   ;; usage and ownership
   (configuration-layer/discover-layers)
   (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
-  ;; also declare all other layers if all packages are downloaded
-  (when (eq 'all dotspacemacs-download-packages)
-    (dolist (layer (configuration-layer/get-layers-list))
-      (unless (configuration-layer/layer-usedp layer)
-        (configuration-layer/declare-used-layer layer))))
-  (configuration-layer//declare-packages configuration-layer--used-layers)
+  (configuration-layer//declare-used-packages configuration-layer--used-layers)
   ;; then load the functions and finally configure the layers
   (configuration-layer//load-layers-files configuration-layer--used-layers
                                           '("funcs.el"))
@@ -376,23 +374,42 @@ If NO-INSTALL is non nil then install steps are skipped."
   (setq configuration-layer--used-distant-packages
         (configuration-layer//get-distant-packages
          configuration-layer--used-packages t))
-  ;; install/uninstall packages
+  ;; load layers lazy settings
   (configuration-layer/load-auto-layer-file)
+  ;; install and/or uninstall packages
   (unless no-install
-    (configuration-layer//install-packages
-     (configuration-layer/filter-objects
-      configuration-layer--used-distant-packages
-      (lambda (x)
-        (let ((pkg (configuration-layer/get-package x)))
-          (not (oref pkg :lazy-install))))))
-    (configuration-layer//configure-packages configuration-layer--used-packages)
-    (configuration-layer//load-layers-files configuration-layer--used-layers
-                                            '("keybindings.el"))
-    (when (and (eq 'used dotspacemacs-download-packages)
-               (not configuration-layer-force-distribution)
-               (not configuration-layer-exclude-all-layers))
-      (configuration-layer/delete-orphan-packages
-       configuration-layer--used-distant-packages))))
+    (let ((packages
+           (append
+            ;; install used packages
+            (configuration-layer/filter-objects
+             configuration-layer--used-distant-packages
+             (lambda (x)
+               (let ((pkg (configuration-layer/get-package x)))
+                 (not (oref pkg :lazy-install)))))
+            ;; also install all other packages if requested
+            (when (eq 'all dotspacemacs-download-packages)
+              (let (all-other-packages)
+                (dolist (layer (configuration-layer/get-layers-list))
+                  (let ((configuration-layer--declared-layers-usedp nil)
+                        (configuration-layer--load-packages-files t))
+                    (configuration-layer/declare-layer layer)
+                    (let* ((obj (configuration-layer/get-layer layer))
+                           (pkgs (when obj (oref obj :packages))))
+                      (configuration-layer/make-packages (list layer))
+                      (dolist (pkg pkgs)
+                        (let ((pkg-name (if (listp pkg) (car pkg) pkg)))
+                          (add-to-list 'all-other-packages pkg-name))))))
+                (configuration-layer//get-distant-packages
+                 all-other-packages nil))))))
+      (configuration-layer//install-packages packages)
+      (when (and (eq 'used dotspacemacs-download-packages)
+                 (not configuration-layer-force-distribution)
+                 (not configuration-layer-exclude-all-layers))
+        (configuration-layer/delete-orphan-packages packages))))
+  ;; configure used packages
+  (configuration-layer//configure-packages configuration-layer--used-packages)
+  (configuration-layer//load-layers-files configuration-layer--used-layers
+                                          '("keybindings.el")))
 
 (defun configuration-layer/load-auto-layer-file ()
   "Load `auto-layer.el' file"
@@ -818,7 +835,7 @@ variable as well."
           (if obj
               (setq obj (configuration-layer/make-package pkg obj ownerp layer))
             (setq obj (configuration-layer/make-package pkg nil ownerp layer)))
-          (configuration-layer//add-package obj usedp)
+          (configuration-layer//add-package obj (and ownerp usedp))
           (when ownerp
             ;; last owner wins over the previous one,
             ;; still warn about mutliple owners
@@ -1052,24 +1069,17 @@ Returns nil if the directory is not a category."
                 ;; layer not found, add it to search path
                 (setq search-paths (cons sub search-paths)))))))))))
 
-(defun configuration-layer/declare-used-layers (layers-specs)
-  "Declare used layers with LAYERS-SPECS."
-  (configuration-layer/declare-layers layers-specs 'used))
-
-(defun configuration-layer/declare-layers (layers-specs &optional usedp)
+(defun configuration-layer/declare-layers (layers-specs)
   "Declare layers with LAYERS-SPECS."
-  (mapc (lambda (x)
-          (configuration-layer/declare-layer x usedp))
-        layers-specs))
+  (mapc 'configuration-layer/declare-layer layers-specs))
 
-(defun configuration-layer/declare-used-layer (layer-specs)
-  "Declare used layer with LAYER-SPECS."
-  (configuration-layer/declare-layer layer-specs 'used))
-
-(defun configuration-layer/declare-layer (layer-specs &optional usedp)
-  "Declare a single layer with spec LAYER-SPECS."
+(defun configuration-layer/declare-layer (layer-specs)
+  "Declare a single layer with spec LAYER-SPECS.
+Set the variable `configuration-layer--declared-layers-usedp' to control
+wether the declared layer is an used one or not."
   (let* ((layer-name (if (listp layer-specs) (car layer-specs) layer-specs))
-         (layer (configuration-layer/get-layer layer-name)))
+         (layer (configuration-layer/get-layer layer-name))
+         (usedp configuration-layer--declared-layers-usedp))
     (if layer
         (let ((obj (configuration-layer/make-layer
                     layer-specs
@@ -1077,36 +1087,36 @@ Returns nil if the directory is not a category."
                     usedp)))
           (configuration-layer//add-layer obj usedp)
           (configuration-layer//set-layer-variables obj)
-          (when usedp
+          (when (or usedp configuration-layer--load-packages-files)
             (configuration-layer//load-layer-files layer-name '("layers.el"))))
       (configuration-layer//warning "Unknown layer %s declared in dotfile."
                                     layer-name))))
 
-(defun configuration-layer//declare-used-layers (&optional layers-specs)
-  "Declare used layers from LAYERS-SPECS list.
-If LAYERS-SPECS is nil then read variable `dotspacemacs-configuration-layers'."
+(defun configuration-layer//declare-used-layers (layers-specs)
+  "Declare used layers from LAYERS-SPECS list."
   (setq configuration-layer--used-layers nil)
-  (unless layers-specs
-    (setq layers-specs dotspacemacs-configuration-layers))
-  (unless configuration-layer-exclude-all-layers
-    (dolist (layer-specs layers-specs)
-      (let* ((layer-name (if (listp layer-specs) (car layer-specs) layer-specs))
-             (layer (configuration-layer/get-layer layer-name)))
-        (if layer
-            (let ((layer-path (oref layer :dir)))
-              (unless (string-match-p "+distributions" layer-path)
-                (configuration-layer/declare-used-layer layer-specs)))
-          (configuration-layer//warning "Unknown layer %s declared in dotfile."
-                                        layer-name))))
-    (setq configuration-layer--used-layers
-          (reverse configuration-layer--used-layers)))
-  ;; distribution and bootstrap layers are always first
-  (let ((distribution (if configuration-layer-force-distribution
-                          configuration-layer-force-distribution
-                        dotspacemacs-distribution)))
-    (unless (eq 'spacemacs-bootstrap distribution)
-      (configuration-layer/declare-used-layer distribution)))
-  (configuration-layer/declare-used-layer 'spacemacs-bootstrap))
+  (let ((configuration-layer--declared-layers-usedp t))
+    (unless configuration-layer-exclude-all-layers
+      (dolist (layer-specs layers-specs)
+        (let* ((layer-name (if (listp layer-specs)
+                               (car layer-specs)
+                             layer-specs))
+               (layer (configuration-layer/get-layer layer-name)))
+          (if layer
+              (let ((layer-path (oref layer :dir)))
+                (unless (string-match-p "+distributions" layer-path)
+                  (configuration-layer/declare-layer layer-specs)))
+            (configuration-layer//warning
+             "Unknown layer %s declared in dotfile." layer-name))))
+      (setq configuration-layer--used-layers
+            (reverse configuration-layer--used-layers)))
+    ;; distribution and bootstrap layers are always first
+    (let ((distribution (if configuration-layer-force-distribution
+                            configuration-layer-force-distribution
+                          dotspacemacs-distribution)))
+      (unless (eq 'spacemacs-bootstrap distribution)
+        (configuration-layer/declare-layer distribution)))
+    (configuration-layer/declare-layer 'spacemacs-bootstrap)))
 
 (defun configuration-layer//set-layers-variables (layers)
   "Set the configuration variables for the passed LAYERS."
@@ -1157,8 +1167,8 @@ If LAYERS-SPECS is nil then read variable `dotspacemacs-configuration-layers'."
     (dolist (layer-name layer-names)
       (configuration-layer//load-layer-files layer-name '("config.el")))))
 
-(defun configuration-layer//declare-packages (layers)
-  "Declare packages contained in LAYERS."
+(defun configuration-layer//declare-used-packages (layers)
+  "Declare used packages contained in LAYERS."
   (setq configuration-layer--used-packages nil)
   (let* ((warning-minimum-level :error))
     ;; first pass
@@ -1487,41 +1497,45 @@ If LAYERS-SPECS is nil then read variable `dotspacemacs-configuration-layers'."
          (disabled-for-layers (oref owner-layer :disabled-for)))
     (spacemacs-buffer/message (format "Configuring %S..." pkg-name))
     ;; pre-init
-    (mapc (lambda (layer)
-            (if (memq layer disabled-for-layers)
-                (spacemacs-buffer/message
-                 (format "  -> ignored pre-init (%S)..." layer))
-              (spacemacs-buffer/message
-               (format "  -> pre-init (%S)..." layer))
-              (condition-case-unless-debug err
-                  (funcall (intern (format "%S/pre-init-%S" layer pkg-name)))
-                ('error
-                 (configuration-layer//increment-error-count)
-                 (spacemacs-buffer/append
-                  (format
-                   (concat "\nAn error occurred while pre-configuring %S "
-                           "in layer %S (error: %s)\n")
-                   pkg-name layer err))))))
+    (mapc
+     (lambda (layer)
+       (when (configuration-layer/layer-usedp layer)
+         (if (memq layer disabled-for-layers)
+             (spacemacs-buffer/message
+              (format "  -> ignored pre-init (%S)..." layer))
+           (spacemacs-buffer/message
+            (format "  -> pre-init (%S)..." layer))
+           (condition-case-unless-debug err
+               (funcall (intern (format "%S/pre-init-%S" layer pkg-name)))
+             ('error
+              (configuration-layer//increment-error-count)
+              (spacemacs-buffer/append
+               (format
+                (concat "\nAn error occurred while pre-configuring %S "
+                        "in layer %S (error: %s)\n")
+                pkg-name layer err)))))))
           (oref pkg :pre-layers))
     ;; init
     (spacemacs-buffer/message (format "  -> init (%S)..." owner))
     (funcall (intern (format "%S/init-%S" owner pkg-name)))
     ;; post-init
-    (mapc (lambda (layer)
-            (if (memq layer disabled-for-layers)
-                (spacemacs-buffer/message
-                 (format "  -> ignored post-init (%S)..." layer))
-              (spacemacs-buffer/message
-               (format "  -> post-init (%S)..." layer))
-              (condition-case-unless-debug err
-                  (funcall (intern (format "%S/post-init-%S" layer pkg-name)))
-                ('error
-                 (configuration-layer//increment-error-count)
-                 (spacemacs-buffer/append
-                  (format
-                   (concat "\nAn error occurred while post-configuring %S "
-                           "in layer %S (error: %s)\n")
-                   pkg-name layer err))))))
+    (mapc
+     (lambda (layer)
+       (when (configuration-layer/layer-usedp layer)
+         (if (memq layer disabled-for-layers)
+             (spacemacs-buffer/message
+              (format "  -> ignored post-init (%S)..." layer))
+           (spacemacs-buffer/message
+            (format "  -> post-init (%S)..." layer))
+           (condition-case-unless-debug err
+               (funcall (intern (format "%S/post-init-%S" layer pkg-name)))
+             ('error
+              (configuration-layer//increment-error-count)
+              (spacemacs-buffer/append
+               (format
+                (concat "\nAn error occurred while post-configuring %S "
+                        "in layer %S (error: %s)\n")
+                pkg-name layer err)))))))
           (oref pkg :post-layers))))
 
 (defun configuration-layer//cleanup-rollback-directory ()

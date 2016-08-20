@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-used-layers '(yaml))
+(configuration-layer/declare-layers '(yaml))
