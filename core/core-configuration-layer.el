@@ -387,7 +387,7 @@ If NO-INSTALL is non nil then install steps are skipped."
                (let ((pkg (configuration-layer/get-package x)))
                  (not (oref pkg :lazy-install)))))
             ;; also install all other packages if requested
-            (when (eq 'all dotspacemacs-download-packages)
+            (when (eq 'all dotspacemacs-install-packages)
               (let (all-other-packages)
                 (dolist (layer (configuration-layer/get-layers-list))
                   (let ((configuration-layer--declared-layers-usedp nil)
@@ -402,7 +402,8 @@ If NO-INSTALL is non nil then install steps are skipped."
                 (configuration-layer//get-distant-packages
                  all-other-packages nil))))))
       (configuration-layer//install-packages packages)
-      (when (and (eq 'used dotspacemacs-download-packages)
+      (when (and (or (eq 'used dotspacemacs-install-packages)
+                     (eq 'used-only dotspacemacs-install-packages))
                  (not configuration-layer-force-distribution)
                  (not configuration-layer-exclude-all-layers))
         (configuration-layer/delete-orphan-packages packages))))

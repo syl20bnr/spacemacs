@@ -66,7 +66,7 @@ To install packages that does not belong to any Spacemacs layers, you can:
 - use the variable =dotspacemacs-additonal-packages=.
 - or create a configuration layer configuring the package and add this layer to
   =dotspacemacs-configuration-layers=
-- or set the variable =dotspacemacs-download-packages= to =used-but-keep-unused=
+- or set the variable =dotspacemacs-install-packages= to =used-but-keep-unused=
   which will prevent Spacemacs from removing the packages you installed
   manually.
 

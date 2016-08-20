@@ -72,17 +72,16 @@ versions, set this to `emacs-version'.")
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')")
 
-(defvar dotspacemacs-download-packages 'used
-  "Defines the behaviour of Spacemacs when downloading packages.
-Possible values are `used', `used-but-keep-unused' and `all'. `used' will
-download only explicitly used packages and remove any unused packages as well as
-their dependencies. `used-but-keep-unused' will download only the used packages
-but won't delete them if they become unused. `all' will download all the
-packages regardless if they are used or not and packages won't be deleted by
-Spacemacs.")
+(defvar dotspacemacs-install-packages 'used-only
+  "Defines the behaviour of Spacemacs when installing packages.
+Possible values are `used-only', `used-but-keep-unused' and `all'. `used-only'
+installs only explicitly used packages and uninstall any unused packages as well
+as their unused dependencies. `used-but-keep-unused' installs only the used
+packages but won't uninstall them if they become unused. `all' installs *all*
+packages supported by Spacemacs and never uninstall them.")
 
 (defvar dotspacemacs-enable-lazy-installation 'unused
-  " Lazy installation of layers (i.e. layers are installed only when a file
+  "Lazy installation of layers (i.e. layers are installed only when a file
 with a supported type is opened). Possible values are `all', `unused' and `nil'.
 `unused' will lazy install only unused layers (i.e. layers not listed in
 variable `dotspacemacs-configuration-layers'), `all' will lazy install any layer
@@ -549,7 +548,7 @@ error recovery."
   (defadvice dotspacemacs/layers
       (after error-recover-preserve-packages activate)
     (progn
-      (setq-default dotspacemacs-download-packages 'used-but-keep-unused)
+      (setq-default dotspacemacs-install-packages 'used-but-keep-unused)
       (ad-disable-advice 'dotspacemacs/layers 'after
                          'error-recover-preserve-packages)
       (ad-activate 'dotspacemacs/layers)))
@@ -583,7 +582,7 @@ error recovery."
   ;; protect global values of these variables
   (let (dotspacemacs-configuration-layer-path dotspacemacs-configuration-layers
         dotspacemacs-additional-packages dotspacemacs-excluded-packages
-        dotspacemacs-download-packages
+        dotspacemacs-install-packages
         (passed-tests 0) (total-tests 0))
     (load dotspacemacs-filepath)
     (dotspacemacs/layers)
