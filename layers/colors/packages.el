@@ -144,6 +144,13 @@ Press any other key to exit." component (eval var) component component)))
 
 (defun colors/init-rainbow-mode ()
   (use-package rainbow-mode
+    :if colors-enable-rainbow-mode
     :commands rainbow-mode
-    :init (spacemacs/set-leader-keys "tCc" 'rainbow-mode)
-    :config (spacemacs|hide-lighter rainbow-mode)))
+    :config (spacemacs|hide-lighter rainbow-mode)
+    :init
+    (progn
+      (spacemacs/set-leader-keys "tCc" 'rainbow-mode)
+      (dolist (hook '(css-mode-hook
+                      scss-mode-hook
+                      html-mode-hook))
+        (add-hook hook (lambda () (rainbow-mode t)))))))
