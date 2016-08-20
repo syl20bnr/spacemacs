@@ -7,6 +7,7 @@
  - [[Description][Description]]
  - [[Install][Install]]
    - [[Enable rainbow-identifiers][Enable rainbow-identifiers]]
+   - [[Enable rainbow-mode][Enable rainbow-mode]]
    - [[Enable Nyan cat][Enable Nyan cat]]
  - [[Key bindings][Key bindings]]
    - [[Rainbow Identifiers][Rainbow Identifiers]]
@@ -46,6 +47,16 @@ Example:
 
 #+BEGIN_SRC emacs-lisp
   (push '(mytheme . (50 50)) colors-theme-identifiers-sat&light)
+#+END_SRC
+
+** Enable rainbow-mode
+
+To enable the package =rainbow-mode= set the variable
+=colors-enable-rainbow-mode= to =t=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (colors :variables colors-enable-rainbow-mode t)))
 #+END_SRC
 
 ** Enable Nyan cat
