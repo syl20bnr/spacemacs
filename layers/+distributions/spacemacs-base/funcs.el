@@ -229,9 +229,9 @@ automatically applied to."
 
 ;; from magnars modified by ffevotte for dedicated windows support
 (defun spacemacs/rotate-windows (count)
-  "Rotate your windows.
-Dedicated windows are left untouched. Giving a negative prefix
-argument takes the kindows rotate backwards."
+  "Rotate each window forwards.
+A negative prefix argument rotates each window backwards.
+Dedicated (locked) windows are left untouched."
   (interactive "p")
   (let* ((non-dedicated-windows (remove-if 'window-dedicated-p (window-list)))
          (num-windows (length non-dedicated-windows))
@@ -258,7 +258,8 @@ argument takes the kindows rotate backwards."
                (setq i next-i)))))))
 
 (defun spacemacs/rotate-windows-backward (count)
-  "Rotate your windows backward."
+  "Rotate each window backwards.
+Dedicated (locked) windows are left untouched."
   (interactive "p")
   (spacemacs/rotate-windows (* -1 count)))
 
