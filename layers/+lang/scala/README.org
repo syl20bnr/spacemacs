@@ -48,7 +48,7 @@ provides an SBT plugin to generate these files.
 ** Installation
 Refer to the [[https://ensime.github.io/build_tools/sbt/][Ensime installation instructions]] to install the =sbt-ensime= plugin.
 
-Please note you have to use a version newer that =0.13.5= of =sbt= in your project's
+Please note you have to use a version newer than =0.13.5= of =sbt= in your project's
 =project/build.properties=. For example,
 
 #+BEGIN_SRC scala
