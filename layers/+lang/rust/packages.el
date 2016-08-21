@@ -54,7 +54,7 @@
     :init (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
 (defun rust/post-init-ggtags ()
-  (add-hook 'rust-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'rust-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun rust/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'rust-mode))

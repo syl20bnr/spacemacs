@@ -177,7 +177,7 @@
   (spacemacs/helm-gtags-define-keys-for-mode 'latex-mode))
 
 (defun latex/post-init-ggtags ()
-  (add-hook 'latex-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'latex-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun latex/post-init-smartparens ()
   (add-hook 'LaTeX-mode-hook 'smartparens-mode))

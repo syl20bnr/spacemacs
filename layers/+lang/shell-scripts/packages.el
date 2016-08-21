@@ -64,7 +64,7 @@
       (add-hook 'sh-mode-hook 'spacemacs//setup-shell))))
 
 (defun shell-scripts/post-init-ggtags ()
-  (add-hook 'sh-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'sh-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun shell-scripts/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'sh-mode))

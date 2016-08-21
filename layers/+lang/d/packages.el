@@ -37,7 +37,7 @@
     :init (add-hook 'd-mode-hook 'flycheck-dmd-dub-set-include-path)))
 
 (defun d/post-init-ggtags ()
-  (add-hook 'd-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'd-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun d/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'd-mode))

@@ -65,7 +65,7 @@
   (spacemacs|add-company-hook nasm-mode))
 
 (defun asm/post-init-ggtags ()
-  (add-hook 'asm-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'asm-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun asm/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'asm-mode))

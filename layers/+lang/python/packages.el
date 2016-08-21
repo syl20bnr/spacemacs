@@ -108,7 +108,7 @@
   (spacemacs/helm-gtags-define-keys-for-mode 'python-mode))
 
 (defun python/post-init-ggtags ()
-  (add-hook 'python-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'python-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun python/init-helm-pydoc ()
   (use-package helm-pydoc

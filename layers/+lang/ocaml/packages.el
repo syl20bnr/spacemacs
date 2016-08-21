@@ -41,7 +41,7 @@
           (flycheck-ocaml-setup))))))
 
 (defun ocaml/post-init-ggtags ()
-  (add-hook 'ocaml-mode-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'ocaml-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun ocaml/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'ocaml-mode))
