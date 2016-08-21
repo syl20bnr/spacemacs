@@ -163,7 +163,7 @@
     :init
     (setq open-junk-file-format (concat spacemacs-cache-directory "junk/%Y/%m/%d-%H%M%S."))
     (defun spacemacs/open-junk-file (&optional arg)
-      "Open junk file Open junk file using helm or ivy depending
+      "Open junk file using helm or ivy depending
 on whether the `ivy' layer is used or not, with
 `prefix-arg' search in junk files"
       (interactive "P")
