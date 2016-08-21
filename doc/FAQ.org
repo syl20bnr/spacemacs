@@ -22,6 +22,7 @@
    - [[#why-do-i-get-files-starting-with-][Why do I get files starting with .#?]]
    - [[#why-do-i-get-4m-characters-inside-ansi-term][Why do I get '4m' characters inside ansi-term?]]
    - [[#why-are-my-font-settings-not-being-respected][Why are my font settings not being respected?]]
+   - [[#why-am-i-getting-a-message-about-environment-variables-on-startup][Why am I getting a message about environment variables on startup?]]
  - [[#how-do-i][How do I:]]
    - [[#install-a-package-not-provided-by-a-layer][Install a package not provided by a layer?]]
    - [[#disable-a-package-completely][Disable a package completely?]]
@@ -230,6 +231,25 @@ The settings of =dotspacemacs-default-font= (such as size, weight, etc.) will
 only be applied if the name of the font exists on your system. Check to make
 sure that this is the case. If Spacemacs can't find the font, there should be a
 warning to this effect in the =*Messages*= buffer.
+
+** Why am I getting a message about environment variables on startup?
+Spacemacs uses the =exec-path-from-shell= package to set the executable path
+when Emacs starts up. This is done by launching a shell and reading the values
+of variables such as =PATH= and =MANPATH= from it. If your shell configuration
+sets the values of these variables inconsistently, this could be problematic. It
+is recommended to set such variables in shell configuration files that are
+sourced unconditionally, such as =.profile=, =.bash_profile= or =.zshenv=, as
+opposed to files that are sourced only for interactive shells, such as =.bashrc=
+or =.zshrc=. If you are willing to neglect this advice, you may disable the
+warning, e.g. from =dotspacemacs/user-init=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq exec-path-from-shell-check-startup-files nil)
+#+END_SRC
+
+You can also disable this feature entirely by adding =exec-path-from-shell= to
+the list =dotspacemacs-excluded-packages= if you prefer setting =exec-path=
+yourself.
 
 * How do I:
 ** Install a package not provided by a layer?
