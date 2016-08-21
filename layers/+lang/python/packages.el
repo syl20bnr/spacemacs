@@ -144,7 +144,8 @@
 
 (defun python/init-nose ()
   (use-package nose
-    :if (or (eq 'nose python-test-runner) (member 'nose python-test-runner))
+    :if (or (eq 'nose python-test-runner)
+            (if (listp python-test-runner) (member 'nose python-test-runner)))
     :commands (nosetests-one
                nosetests-pdb-one
                nosetests-all
@@ -230,7 +231,8 @@
 
 (defun python/init-pytest ()
   (use-package pytest
-    :if (or (eq 'pytest python-test-runner) (member 'pytest python-test-runner))
+    :if (or (eq 'pytest python-test-runner)
+            (if (listp python-test-runner) (member 'pytest python-test-runner)))
     :defer t
     :commands (pytest-one
                pytest-pdb-one
