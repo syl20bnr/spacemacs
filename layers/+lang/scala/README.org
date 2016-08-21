@@ -39,17 +39,18 @@ add =scala= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Ensime
-[[http://ensime.github.io/][ENSIME]] provides IDE-like features, such as refactoring, incremental
-compilation and project-wide type-checking.
+[[http://ensime.github.io/][ENSIME]] provides IDE-like features, such as refactoring, incremental compilation
+and project-wide type-checking.
 
 ENSIME requires a configuration file at the root of each Scala project. It
 provides an SBT plugin to generate these files.
 
 ** Installation
-Refer to the [[https://ensime.github.io/build_tools/sbt/][Ensime installation instructions]] to install the =sbt-ensime= plugin.
+Refer to the [[https://ensime.github.io/build_tools/sbt/][Ensime installation instructions]] to install the =sbt-ensime=
+plugin.
 
-Please note you have to use a version newer than =0.13.5= of =sbt= in your project's
-=project/build.properties=. For example,
+Please note you have to use a version newer than =0.13.5= of =sbt= in your
+project's =project/build.properties=. For example,
 
 #+BEGIN_SRC scala
   sbt.version=0.13.11
@@ -85,7 +86,8 @@ See the [[http://www.flycheck.org/en/latest/languages.html?highlight=scala#synta
 configuration instructions.
 
 ** Use Java doc-style
-To enable =java-doc-style=, set the variable =scala-indent:use-javadoc-style= to =t=
+To enable =java-doc-style=, set the variable =scala-indent:use-javadoc-style= to
+=t=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
@@ -104,7 +106,8 @@ variable =scala-enable-eldoc= to =t=.
 Enabling this option can cause slow editor performance.
 
 * Automatically insert asterisk in multiline comments
-To insert a leading asterisk in multiline comments automatically, set the variable =scala-auto-insert-asterisk-in-comments= to =t=.
+To insert a leading asterisk in multiline comments automatically, set the
+variable =scala-auto-insert-asterisk-in-comments= to =t=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
@@ -125,8 +128,8 @@ the ascii arrows back.
 #+END_SRC
 
 * Auto-start
-If you prefer to have Ensime start when you load a scala file, you can
-enable it with
+If you prefer to have Ensime start when you load a scala file, you can enable it
+with
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(
