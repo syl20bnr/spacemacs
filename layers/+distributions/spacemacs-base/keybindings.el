@@ -488,8 +488,8 @@
  ──────^^^^───────────── ────^^^^───────────── ─────^^─────────────── ──────^^──────────────────── ─────^^──────────────────────────────
  [_j_/_k_] down/up       [_J_/_K_] down/up     [_s_] vertical         [_[_] shrink horizontally    [_q_] quit
  [_h_/_l_] left/right    [_H_/_L_] left/right  [_S_] vert & follow    [_]_] enlarge horizontally   [_u_] restore prev layout
- [_0_-_9_] window N      [_R_]^^   rotate      [_v_] horizontal       [_{_] shrink vertically      [_U_] restore next layout
- [_w_]^^   other window  ^^^^                  [_V_] horiz & follow   [_}_] enlarge vertically     [_d_] close current
+ [_0_-_9_] window N      [_r_]^^   rotate fwd  [_v_] horizontal       [_{_] shrink vertically      [_U_] restore next layout
+ [_w_]^^   other window  [_R_]^^   rotate bwd  [_V_] horiz & follow   [_}_] enlarge vertically     [_d_] close current
  [_o_]^^   other frame   ^^^^                  ^^                     ^^                           [_D_] close other
  ^^^^                    ^^^^                  ^^                     ^^                           [_g_] golden-ratio %`golden-ratio-mode"
   :bindings
@@ -530,7 +530,8 @@
   ("L" evil-window-move-far-right)
   ("<S-right>" evil-window-move-far-right)
   ("o" other-frame)
-  ("R" spacemacs/rotate-windows)
+  ("r" spacemacs/rotate-windows)
+  ("R" spacemacs/rotate-windows-backward)
   ("s" split-window-below)
   ("S" split-window-below-and-focus)
   ("u" winner-undo)
