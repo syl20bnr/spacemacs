@@ -1,24 +1,24 @@
 #+TITLE: Helm Gtags layer
 
-* Table of Contents                                         :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Features][Features]]
- - [[Install][Install]]
-   - [[GNU Global (gtags)][GNU Global (gtags)]]
-     - [[Install on OSX using Homebrew][Install on OSX using Homebrew]]
-     - [[Install on *nix from source][Install on *nix from source]]
-       - [[Install recommended dependencies][Install recommended dependencies]]
-       - [[Install with recommended features][Install with recommended features]]
-       - [[Configure your environment to use pygments and ctags][Configure your environment to use pygments and ctags]]
-   - [[Emacs Configuration][Emacs Configuration]]
- - [[Usage][Usage]]
-     - [[Language Support][Language Support]]
-       - [[Built-in languages][Built-in languages]]
-       - [[Exuberant ctags languages][Exuberant ctags languages]]
-       - [[Universal ctags languages][Universal ctags languages]]
-       - [[Pygments languages (plus symbol and reference tags)][Pygments languages (plus symbol and reference tags)]]
-   - [[Eldoc integration][Eldoc integration]]
- - [[Key bindings][Key bindings]]
+* Table of Contents                                          :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#install][Install]]
+   - [[#gnu-global-gtags][GNU Global (gtags)]]
+     - [[#install-on-osx-using-homebrew][Install on OSX using Homebrew]]
+     - [[#install-on-nix-from-source][Install on *nix from source]]
+       - [[#install-recommended-dependencies][Install recommended dependencies]]
+       - [[#install-with-recommended-features][Install with recommended features]]
+       - [[#configure-your-environment-to-use-pygments-and-ctags][Configure your environment to use pygments and ctags]]
+   - [[#emacs-configuration][Emacs Configuration]]
+ - [[#usage][Usage]]
+     - [[#language-support][Language Support]]
+       - [[#built-in-languages][Built-in languages]]
+       - [[#exuberant-ctags-languages][Exuberant ctags languages]]
+       - [[#universal-ctags-languages][Universal ctags languages]]
+       - [[#pygments-languages-plus-symbol-and-reference-tags][Pygments languages (plus symbol and reference tags)]]
+   - [[#eldoc-integration][Eldoc integration]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 =helm-gtags= and =ggtags= are clients for GNU Global. GNU Global is a source
