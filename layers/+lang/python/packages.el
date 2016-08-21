@@ -181,9 +181,12 @@
 
 (defun python/init-py-isort ()
   (use-package py-isort
-    :if python-enable-sort-imports-on-save
     :defer t
-    :init (add-hook 'before-save-hook 'py-isort-before-save)))
+    :init
+    (progn
+      (add-hook 'before-save-hook 'spacemacs//python-sort-imports)
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "rI" 'py-isort-buffer))))
 
 (defun python/init-pyenv-mode ()
   (use-package pyenv-mode

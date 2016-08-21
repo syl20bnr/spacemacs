@@ -29,5 +29,5 @@
 
 Possible values are `on-visit', `on-project-switch' or `nil'.")
 
-(defvar python-enable-sort-imports-on-save nil
+(defvar python-sort-imports-on-save nil
   "If non-nil, automatically sort imports on save.")

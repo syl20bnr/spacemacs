@@ -161,3 +161,10 @@ to be called for each testrunner. "
     "tt" 'spacemacs/python-test-one
     "tM" 'spacemacs/python-test-pdb-module
     "tm" 'spacemacs/python-test-module))
+
+(defun spacemacs//python-sort-imports ()
+  ;; py-isort-before-save checks the major mode as well, however we can prevent
+  ;; it from loading the package unnecessarily by doing our own check
+  (when (and python-sort-imports-on-save
+             (derived-mode-p 'python-mode))
+    (py-isort-before-save)))
