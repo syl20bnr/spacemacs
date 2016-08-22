@@ -9,7 +9,8 @@
  - [[#optional-configuration][Optional Configuration]]
  - [[#key-bindings][Key Bindings]]
    - [[#formatting-web-beautify][Formatting (web-beautify)]]
-     - [[#documentation-js-doc][Documentation (js-doc)]]
+   - [[#documentation-js-doc][Documentation (js-doc)]]
+   - [[#jump-to-definition-][Jump to Definition ]]
    - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
 
 * Description
@@ -37,6 +38,9 @@ documentation features:
 #+BEGIN_SRC sh
   $ npm install -g tern
 #+END_SRC
+
+To enable fast project-wide jump to definition you need to install ag - the silver searcher, 
+please refer to [[https://github.com/ggreer/the_silver_searcher#installing][install instructions]].
 
 To use the on-the-fly syntax checking, install =eslint= with babel and react support:
 #+BEGIN_SRC sh
@@ -112,7 +116,7 @@ And if you want to have 2 space indent also for element's attributes, concatenat
 |-------------+--------------------------------------------------------------|
 | ~SPC m =~   | beautify code in js2-mode, json-mode, web-mode, and css-mode |
 
-*** Documentation (js-doc)
+** Documentation (js-doc)
 
 You can check more [[https://github.com/mooz/js-doc/][here]]
 
@@ -123,12 +127,19 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m r d t~ | insert tag to comment                 |
 | ~SPC m r d h~ | show list of available jsdoc tags     |
 
+** Jump to Definition 
+
+| Key Binding | Description                                                        |
+|-------------+--------------------------------------------------------------------|
+| ~SPC m j~   | jump to the definition of the thing under the cursor (project wide |
+| ~SPC m J~   | come back from the last jump                                       |
+
 ** Auto-complete and documentation (tern)
 
 | Key Binding   | Description                                                                              |
 |---------------+------------------------------------------------------------------------------------------|
 | ~SPC m C-g~   | brings you back to last place you were when you pressed M-..                             |
-| ~SPC m g g~   | jump to the definition of the thing under the cursor                                     |
+| ~SPC m g g~   | jump to the definition of the thing under the cursor (same buffer)                       |
 | ~SPC m g G~   | jump to definition for the given name                                                    |
 | ~SPC m h d~   | find docs of the thing under the cursor. Press again to open the associated URL (if any) |
 | ~SPC m h t~   | find the type of the thing under the cursor                                              |
