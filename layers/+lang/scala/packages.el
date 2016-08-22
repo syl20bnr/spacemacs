@@ -175,8 +175,6 @@
         "sr"     'ensime-inf-eval-region
         "sR"     'ensime-inf-eval-region-switch
 
-        "x"      'sbt-hydra
-
         "yT"     'scala/yank-type-at-point-full-name
         "yt"     'scala/yank-type-at-point
 
@@ -210,7 +208,8 @@
   (use-package sbt-mode
     :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'scala-mode
-            "bb" 'sbt-command)))
+            "bb" 'sbt-command
+            "bh" 'sbt-hydra)))
 
 (defun scala/init-scala-mode ()
   (use-package scala-mode
