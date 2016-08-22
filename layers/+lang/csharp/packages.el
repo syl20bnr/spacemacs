@@ -12,6 +12,7 @@
 (setq csharp-packages
   '(
     company
+    csharp-mode
     evil-matchit
     ggtags
     helm-gtags
@@ -30,7 +31,9 @@
         ;; Note: if you are using a roslyn based omnisharp server you can
         ;; set back this variable to t.
         (setq omnisharp-auto-complete-want-documentation nil))
-      (push 'company-omnisharp company-backends-csharp-mode))
+      (push 'company-omnisharp company-backends-csharp-mode)
+      (add-hook 'spacemacs-jump-handlers-csharp-mode
+                'omnisharp-go-to-definition))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'csharp-mode "mc" "csharp/compile")
@@ -50,7 +53,6 @@
         "fR" 'omnisharp-remove-from-project-dired-selected-files
         "pl" 'omnisharp-add-reference
         ;; Navigation
-        "gg"   'omnisharp-go-to-definition
         "gG"   'omnisharp-go-to-definition-other-window
         "gu"   'omnisharp-helm-find-usages
         "gU"   'omnisharp-find-usages-with-ido
@@ -85,6 +87,12 @@
 
 (defun csharp/post-init-company ()
   (spacemacs|add-company-hook csharp-mode))
+
+(defun csharp/init-csharp-mode ()
+  (use-package csharp-mode
+    :defer t
+    :init
+    (spacemacs|define-jump-handlers csharp-mode)))
 
 (defun csharp/post-init-evil-matchit ()
   (with-eval-after-load 'evil-matchit

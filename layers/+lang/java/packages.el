@@ -25,7 +25,10 @@
   (use-package eclim
     :defer t
     :diminish eclim-mode
-    :init (add-hook 'java-mode-hook 'eclim-mode)
+    :init
+    (progn
+      (add-hook 'java-mode-hook 'eclim-mode)
+      (add-hook 'spacemacs-jump-handlers-java-mode 'eclim-java-find-declaration))
     :config
     (progn
       (require 'eclimd)
@@ -93,7 +96,6 @@
 
         "ff" 'eclim-java-find-generic
 
-        "gg" 'eclim-java-find-declaration
         "gt" 'eclim-java-find-type
 
         "rc" 'eclim-java-constructor
@@ -146,6 +148,7 @@
   (spacemacs/helm-gtags-define-keys-for-mode 'java-mode))
 
 (defun java/init-java-mode ()
+  (spacemacs|define-jump-handlers java-mode)
   (setq java/key-binding-prefixes '(("me" . "errors")
                                     ("md" . "eclimd")
                                     ("mf" . "find")

@@ -24,7 +24,10 @@
 (defun scheme/init-geiser ()
   (use-package geiser
     :commands run-geiser
-    :init (spacemacs/register-repl 'geiser 'geiser-mode-switch-to-repl "geiser")
+    :init
+    (progn
+      (spacemacs|define-jump-handlers scheme-mode geiser-edit-symbol-at-point)
+      (spacemacs/register-repl 'geiser 'geiser-mode-switch-to-repl "geiser"))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'scheme-mode "mc" "compiling")
@@ -47,7 +50,6 @@
         "el" 'lisp-state-eval-sexp-end-of-line
         "er" 'geiser-eval-region
 
-        "gg" 'geiser-edit-symbol-at-point
         "gb" 'geiser-pop-symbol-stack
         "gm" 'geiser-edit-module
         "gn" 'next-error

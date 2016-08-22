@@ -25,7 +25,13 @@
             cider-prompt-save-file-on-load nil
             cider-repl-use-clojure-font-lock t)
       (push "\\*cider-repl\.\+\\*" spacemacs-useful-buffers-regexp)
-      (add-hook 'clojure-mode-hook 'cider-mode))
+      (add-hook 'clojure-mode-hook 'cider-mode)
+      (dolist (hook '(spacemacs-jump-handlers-clojure-mode
+                      spacemacs-jump-handlers-clojurec-mode
+                      spacemacs-jump-handlers-clojurescript-mode
+                      spacemacs-jump-handlers-clojurex-mode
+                      spacemacs-jump-handlers-cider-repl-mode))
+        (add-hook hook 'cider-find-var)))
     :config
     (progn
       ;; add support for golden-ratio
@@ -113,7 +119,6 @@
           "gb" 'cider-pop-back
           "gC" 'cider-classpath
           "ge" 'cider-jump-to-compilation-error
-          "gg" 'cider-find-var
           "gr" 'cider-jump-to-resource
           "gn" 'cider-browse-ns
           "gN" 'cider-browse-ns-all
@@ -214,7 +219,12 @@
     (progn
       (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
       ;; This regexp matches shebang expressions like `#!/usr/bin/env boot'
-      (add-to-list 'magic-mode-alist '("#!.*boot\\s-*$" . clojure-mode)))
+      (add-to-list 'magic-mode-alist '("#!.*boot\\s-*$" . clojure-mode))
+      (spacemacs|define-jump-handlers clojure-mode)
+      (spacemacs|define-jump-handlers clojurec-mode)
+      (spacemacs|define-jump-handlers clojurescript-mode)
+      (spacemacs|define-jump-handlers clojurex-mode)
+      (spacemacs|define-jump-handlers cider-repl-mode))
     :config
     (progn
       (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
