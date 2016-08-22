@@ -64,7 +64,7 @@ npm install -g vmd
 * Usage
 ** Generate a TOC
 To generate a table of contents type on top of the buffer:
-~SPC SPC markdown-toc/generate-toc RET~
+~SPC ： markdown-toc-generate-toc RET~
 
 * Key bindings
 ** Element insertion
