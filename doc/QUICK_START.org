@@ -16,6 +16,11 @@
  - [[How-To's][How-To's]]
 
 * Configuration layers
+
+When you install Spacemacs, what you are really installing is an `emacs.d`
+directory, configured so that Emacs runs as Spacemacs. To run Spacemacs,
+just run `emacs` as you normally would.
+
 Spacemacs divides its configuration into self-contained units called
 =configuration layers=. These layers are stacked on top of each other
 to achieve a custom configuration.
