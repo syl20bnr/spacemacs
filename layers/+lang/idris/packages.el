@@ -113,8 +113,9 @@
 (defun idris/pre-init-golden-ratio ()
   (spacemacs|use-package-add-hook golden-ratio
     :post-config
-    (add-to-list 'golden-ratio-exclude-buffer-names
-                 "*idris-notes*")))
+    (setq golden-ratio-exclude-buffer-names
+          (append golden-ratio-exclude-buffer-names
+            '("*idris-notes*" "*idris-holes*" "*idris-info*")))))
 
 (defun idris/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
