@@ -748,7 +748,7 @@ Send a PR to add the differences you found in this section.
 
 ** The vim-surround case
 There is one obvious visible difference though. It is not between =Evil= and
-=Vim= but between Spacemacs and [[https://github.com/tpope/vim-surround][vim-surround]]: the =surround= command is on ~S~
+=Vim= but between Spacemacs and [[https://github.com/tpope/vim-surround][vim-surround]]: in visual mode the =surround= command is on ~S~
 in =vim-surround= whereas it is on ~s~ in Spacemacs.
 
 This is something that can surprise some Vim users so let me explain why this is
@@ -784,7 +784,6 @@ Spacemacs ships with the following evil plugins:
 | [[https://github.com/juanjux/evil-search-highlight-persist][evil-search-highlight-persist]] | emulation of hlsearch behavior                           |
 | [[https://github.com/cofi/evil-numbers][evil-numbers]]                  | like ~C-a~ and ~C-x~ in vim                              |
 | [[https://github.com/wcsmith/evil-args][evil-args]]                     | motions and text objects for arguments                   |
-| [[https://github.com/bling/evil-jumper][evil-jumper]]                   | jump list emulation                                      |
 | [[https://github.com/jaypei/emacs-neotree][NeoTree]]                       | mimic [[https://github.com/scrooloose/nerdtree][NERD Tree]]                                          |
 
 * Spacemacs UI

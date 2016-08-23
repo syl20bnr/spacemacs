@@ -420,7 +420,7 @@ This section is for things many will want to change. All of these settings go in
 the =dotspacemacs/user-config= function in your =.spacemacs= unless otherwise noted.
 
 *** Changing the escape key
-Spacemacs uses =[[https://github.com/syl20bnr/evil-escape][evil-escape]]= to
+Spacemacs uses [[https://github.com/syl20bnr/evil-escape][evil-escape]] to
 allow escaping from many =major-modes= with one keybinding. You can customize
 the variable in your =dotspacemacs/user-config= like this:
 

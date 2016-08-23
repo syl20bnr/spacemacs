@@ -11,11 +11,11 @@
 
 (defvar java-packages
   '(
-    emacs-eclim
+    eclim
     company
     ))
 
-(defun java/init-emacs-eclim ()
+(defun java/init-eclim ()
   (use-package eclim
     :defer t
     :diminish eclim-mode

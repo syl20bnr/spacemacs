@@ -5,11 +5,11 @@
     clj-refactor
     clojure-mode
     company
+    eldoc
     popwin
     rainbow-delimiters
     subword
    ))
-
 
 (defun clojure/init-cider ()
   (use-package cider
@@ -22,7 +22,6 @@
             cider-repl-use-clojure-font-lock t)
       (push "\\*cider-repl\.\+\\*" spacemacs-useful-buffers-regexp)
       (add-hook 'clojure-mode-hook 'cider-mode)
-      (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
       (if dotspacemacs-smartparens-strict-mode
           (add-hook 'cider-repl-mode-hook #'smartparens-strict-mode)))
     :config
@@ -278,9 +277,8 @@ If called with a prefix argument, uses the other-window instead."
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)))
 
-    (when (configuration-layer/package-usedp 'evil-jumper)
-      (defadvice cider-jump-to-var (before add-evil-jump activate)
-        (evil-set-jump)))))
+    (defadvice cider-jump-to-var (before add-evil-jump activate)
+      (evil-set-jump))))
 
 (defun clojure/init-cider-eval-sexp-fu ()
   (with-eval-after-load 'eval-sexp-fu
@@ -372,6 +370,10 @@ If called with a prefix argument, uses the other-window instead."
         (s/defrecord 2)
         ;; test.check
         (for-all 'defun)))))
+
+(defun clojure/post-init-eldoc ()
+  (add-hook 'cider-mode-hook 'eldoc-mode)
+  (add-hook 'cider-repl-mode-hook 'eldoc-mode))
 
 (defun clojure/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin

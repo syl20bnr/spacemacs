@@ -9,11 +9,8 @@
 ;;
 ;;; License: GPLv3
 (setq spacemacs-layouts-packages
-      '(;; temporary switch on a fork to fix
-        ;; https://github.com/syl20bnr/spacemacs/issues/4120
-        (persp-mode :location (recipe :fetcher github
-                                      :repo "syl20bnr/persp-mode.el"
-                                      :branch "fix-emacsclient-crash"))
+      '(
+        persp-mode
         spaceline
         eyebrowse))
 
@@ -22,7 +19,9 @@
     :diminish persp-mode
     :init
     (progn
-      (setq persp-auto-resume-time (if dotspacemacs-auto-resume-layouts 1 -1)
+      (setq persp-auto-resume-time (if (or dotspacemacs-auto-resume-layouts
+                                           spacemacs-force-resume-layouts)
+                                       1 -1)
             persp-nil-name dotspacemacs-default-layout-name
             persp-reset-windows-on-nil-window-conf nil
             persp-set-last-persp-for-new-frames nil

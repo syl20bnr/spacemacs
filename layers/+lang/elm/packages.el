@@ -23,12 +23,9 @@
   (spacemacs|add-company-hook elm-mode)
   (add-hook 'elm-mode-hook 'elm-oracle-setup-completion))
 
-(defun spacemacs//elm-find-root ()
-  (setq default-directory (elm--find-dependency-file-path)))
-
 (defun elm/post-init-flycheck ()
   (add-hook 'elm-mode-hook 'flycheck-mode)
-  (add-hook 'elm-mode-hook '#'spacemacs//elm-find-root))
+  (add-hook 'elm-mode-hook 'spacemacs//elm-find-root))
 
 (when (configuration-layer/layer-usedp 'syntax-checking)
   (defun elm/init-flycheck-elm ()
@@ -48,29 +45,10 @@
         "Disable electric-indent-mode and let indentation cycling feature work"
         (if (fboundp 'electric-indent-local-mode)
             (electric-indent-local-mode -1)))
-
       (add-hook 'elm-mode-hook 'spacemacs/init-elm-mode))
     :config
     (progn
       (push "\\*elm\\*" spacemacs-useful-buffers-regexp)
-
-      (defun spacemacs/elm-compile-buffer-output ()
-        (interactive)
-        (let* ((fname (format "%s.js" (downcase (file-name-base (buffer-file-name))))))
-          (elm-compile--file (elm--buffer-local-file-name) fname)))
-
-      (defun spacemacs/elm-repl-push-decl-focus ()
-        "Send current function to the REPL and focus it in insert state."
-        (interactive)
-        (elm-repl-push-decl)
-        (run-elm-interactive)
-        (evil-insert-state))
-
-      (defun spacemacs/elm-repl-push-focus ()
-        "Send current region to the REPL and focus it in insert state."
-        (elm-repl-push)
-        (run-elm-interactive)
-        (evil-insert-state))
 
       (spacemacs/set-leader-keys-for-major-mode 'elm-mode
         ;; make
@@ -82,6 +60,7 @@
         "ht" 'elm-oracle-type-at-point
 
         ;; repl
+        "'"  'elm-repl-load
         "si" 'elm-repl-load
         "sf" 'elm-repl-push-decl
         "sF" 'spacemacs/elm-repl-push-decl-focus

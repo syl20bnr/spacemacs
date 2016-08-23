@@ -16,7 +16,6 @@
     company-anaconda
     cython-mode
     eldoc
-    evil-jumper
     evil-matchit
     flycheck
     helm-cscope
@@ -27,6 +26,7 @@
     pytest
     python
     pyvenv
+    py-yapf
     semantic
     smartparens
     stickyfunc-enhance
@@ -50,7 +50,10 @@
         "gu" 'anaconda-mode-find-references)
       (evilified-state-evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
         (kbd "q") 'quit-window)
-      (spacemacs|hide-lighter anaconda-mode))))
+      (spacemacs|hide-lighter anaconda-mode)
+
+      (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
+        (evil--jumps-push)))))
 
 (defun python/init-cython-mode ()
   (use-package cython-mode
@@ -69,9 +72,41 @@
       (anaconda-eldoc-mode)))
   (add-hook 'python-mode-hook 'spacemacs//init-eldoc-python-mode))
 
-(defun python/post-init-evil-jumper ()
-  (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
-    (evil-jumper--push)))
+(defun python/init-live-py-mode ()
+  (use-package live-py-mode
+    :defer t
+    :commands live-py-mode
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode
+      "l" 'live-py-mode)))
+
+(defun python/init-nose ()
+  (use-package nose
+    :if (eq 'nose python-test-runner)
+    :commands (nosetests-one
+               nosetests-pdb-one
+               nosetests-all
+               nosetests-pdb-all
+               nosetests-module
+               nosetests-pdb-module
+               nosetests-suite
+               nosetests-pdb-suite)
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode
+      "tA" 'nosetests-pdb-all
+      "ta" 'nosetests-all
+      "tB" 'nosetests-pdb-module
+      "tb" 'nosetests-module
+      "tT" 'nosetests-pdb-one
+      "tt" 'nosetests-one
+      "tM" 'nosetests-pdb-module
+      "tm" 'nosetests-module
+      "tS" 'nosetests-pdb-suite
+      "ts" 'nosetests-suite)
+    :config
+    (progn
+      (add-to-list 'nose-project-root-files "setup.cfg")
+      (setq nose-use-verbose nil))))
 
 (defun python/init-pip-requirements ()
   (use-package pip-requirements
@@ -260,20 +295,8 @@
         (define-key inferior-python-mode-map (kbd "C-l") 'spacemacs/comint-clear-buffer))
 
       ;; add this optional key binding for Emacs user, since it is unbound
-      (define-key inferior-python-mode-map (kbd "C-c M-l") 'spacemacs/comint-clear-buffer)
-
-      ;; fix for issue #2569 (https://github.com/syl20bnr/spacemacs/issues/2569)
-      ;; use `semantic-create-imenu-index' only when `semantic-mode' is enabled,
-      ;; otherwise use `python-imenu-create-index'
-      (defun spacemacs/python-imenu-create-index-python-or-semantic ()
-        (if (bound-and-true-p semantic-mode)
-            (semantic-create-imenu-index)
-          (python-imenu-create-index)))
-
-      (defadvice wisent-python-default-setup
-          (after spacemacs/python-set-imenu-create-index-function activate)
-        (setq imenu-create-index-function
-              #'spacemacs/python-imenu-create-index-python-or-semantic)))))
+      (define-key inferior-python-mode-map
+        (kbd "C-c M-l") 'spacemacs/comint-clear-buffer))))
 
 (defun python/post-init-evil-matchit ()
     (add-hook `python-mode-hook `turn-on-evil-matchit-mode))
@@ -325,13 +348,19 @@
       (add-hook 'python-mode-hook 'py-yapf-enable-on-save))))
 
 (defun python/post-init-semantic ()
-  (semantic/enable-semantic-mode 'python-mode)
-  (defadvice semantic-python-get-system-include-path (around semantic-python-skip-error-advice activate)
+  (when (configuration-layer/package-usedp 'anaconda-mode)
+      (add-hook 'python-mode-hook
+                'spacemacs//disable-semantic-idle-summary-mode t))
+  (add-hook 'python-mode-hook 'semantic-mode)
+  (add-hook 'python-mode-hook 'spacemacs//python-imenu-create-index-use-semantic)
+
+  (defadvice semantic-python-get-system-include-path
+      (around semantic-python-skip-error-advice activate)
     "Don't cause error when Semantic cannot retrieve include
 paths for Python then prevent the buffer to be switched. This
 issue might be fixed in Emacs 25. Until then, we need it here to
 fix this issue."
-    (condition-case nil
+    (condition-case-unless-debug nil
         ad-do-it
       (error nil))))
 

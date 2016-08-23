@@ -20,3 +20,6 @@
 (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
                    'js2-mode (car x) (cdr x)))
       javascript/key-binding-prefixes)
+
+(defvar javascript-disable-tern-port-files t
+  "Stops tern from creating tern port files.")

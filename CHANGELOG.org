@@ -1,4 +1,91 @@
 * Release 0.105.x
+** 0.105.22 (2016/08/19)
+*** Fixes
+- Rename the =emacs-eclim= package to =eclim= (thanks to CestDiego)
+** 0.105.21 (2016/06/08)
+*** Fixes
+- Fix hybrid state when escaping to normal state
+- Fix installation instructions on OS X (thanks to d12frosted)
+- Fix broken =vinegar= key bindings
+- Fix =tmux= layer (thanks to aaronjensen)
+- Fix =scala= layer
+  - Use =scala-mode= instead of =scala-mode2= (thanks to j-martin)
+  - Fix =sbt= command to generate =ensime= configuration (thanks to d1egoaz)
+** 0.105.20 (2016/05/10)
+*** Fixes
+- Update Spaceline configuration for new version
+** 0.105.19 (2016/04/20)
+*** Fixes
+- Fix =dired-x= autoload (thanks to darkfeline)
+- Fix ~SPC f y~ in =dired= buffers (thanks to dcluna)
+- Fix ~C-i~ key binding for =evil-jump-forward=.
+- Fix ~SPC q r~ to restart Emacs and restore Spacemacs layouts.
+- Fix go to next/previous error when a compilation buffer is opened
+  (thanks to dennishamester)
+- Fix error when opening =spacemacs-helm= with unknown org documentation
+  files (thanks to kuangdash)
+- Fix wrong states when exiting =evil-lisp-state= and =evil-iedit-state=
+  while using the =emacs= editing style.
+- Fix ASCII banners first line being overwritten by the version numbers
+- Use MELPA version of =persp-mode=, the package may need to be deleted
+  manually from the =elpa= directory and a restart of Emacs may be
+  required.
+- Discover layers before running dotfile tests when reloading the
+  configuration, prevents false negatives (thanks to TheBB)
+- Remove duplicated configuration for =eldoc= (thanks to zilongshanren)
+*** Layer changes
+**** Clojure
+- Fix usage of deprecated =cider-turn-on-eldoc-mode=, using =eldoc-mode=
+  instead (thanks to tekacs and sooheon)
+**** Elm
+- Fix text copy/paste
+- Fix auto-completion
+**** Javascript
+- Improve detection of =tern= binary, if =tern= is not found a message
+  is displayed in the =*Messages*= buffer (thanks to nixmaniack)
+**** Go
+- Fix execution of tests with function names containing underscores
+  (thanks to jaffee)
+**** Python
+- Use MELPA version of =py-yapf= package (thanks to cpaulik)
+- Fix =makefile= of =pylookup= (thanks to hemcsec)
+- Disable =semantic-idle-summary= which obfuscates =anaconda= information
+  in the minibuffer (thanks to cpaulik)
+**** Scala
+- Fix =ensime-typecheck-current-file=, rename it to
+  =ensime-typecheck-current-buffer=
+- Fix =scala-enable-eldoc-mode=, rename it to =scala-enable-eldoc=
+  (thanks to channingwalton)
+**** Shell
+- Fix error when attempting to delete the last shell window
+  (thanks to joelmccracken)
+**** Tmux
+- Fix loading of package (thanks to aaronjensen)
+**** Vinegar
+- Correct =dired= configuration (thanks to StreakyCobra)
+*** Improvements
+- Various documentation improvements (thanks to d12frosted, gilch, ksrb,
+  nixmaniack, StreakyCobra, TheBB, The-Compiler, xiaohanyu)
+** 0.105.18 (2016/04/10)
+- Revert hotfix for =Yasnippet=, the bug has been fixed upstream and is now
+  available in MELPA (thanks to TheBB)
+- Remove oboslete package =evil-jumper= which is now part of =evil=
+  (thanks to justbur)
+** 0.105.17 (2016/04/09)
+- Hotfix for Yasnippet, using stable version until resolution of
+ https://github.com/capitaomorte/yasnippet/issues/673
+** 0.105.16 (2016/04/01)
+- Add FAQ entry about HTTPS issues (thanks to TheBB)
+- Add startup list to Zemacs home buffer.
+** 0.105.15 (2016/04/01)
+*** Improvements
+- Emacs to THE MAX! Release of Zemacs!
+*** Layer changes
+**** Javascript
+- New layer variable =javascript-disable-tern-port-files=, when non nil
+  tern port files are not created. Default value is nil. (thanks to mijoharas)
+**** Swift
+- Fix all =swift= major-mode key bindings (thanks to xinranmsn)
 ** 0.105.14 (2016/03/09)
 *** Fixes
 - Fix bad window index for =neotree= buffer (thanks to bmag)

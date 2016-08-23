@@ -14,7 +14,7 @@
     ensime
     noflet
     sbt-mode
-    scala-mode2
+    scala-mode
     ))
 
 (defun scala/init-ensime ()
@@ -64,7 +64,7 @@
         "Regenerate `.ensime' file and restart the ensime server."
         (interactive)
         (progn
-          (sbt-command "gen-ensime")
+          (sbt-command ";ensimeConfig;ensimeConfigProject")
           (ensime-shutdown)
           (ensime)))
 
@@ -104,7 +104,7 @@
         "bp"     'ensime-sbt-do-package
         "br"     'ensime-sbt-do-run
 
-        "ct"     'ensime-typecheck-current-file
+        "ct"     'ensime-typecheck-current-buffer
         "cT"     'ensime-typecheck-all
 
         "dA"     'ensime-db-attach
@@ -189,8 +189,8 @@
       (spacemacs/set-leader-keys-for-major-mode 'scala-mode
         "bb" 'sbt-command))))
 
-(defun scala/init-scala-mode2 ()
-  (use-package scala-mode2
+(defun scala/init-scala-mode ()
+  (use-package scala-mode
     :defer t
     :init
     (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))

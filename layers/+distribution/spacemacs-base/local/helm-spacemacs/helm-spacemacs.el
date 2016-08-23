@@ -124,7 +124,7 @@
                ((string-equal r "VIMUSERS.org")
                 `("Vim users migration guide" . ,r))
                (t
-                `(r . ,r))))
+                `(,r . ,r))))
             result)))
 
 (defun helm-spacemacs//documentation-action-open-file (candidate)

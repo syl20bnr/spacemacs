@@ -9,15 +9,8 @@
 ;;
 ;;; License: GPLv3
 
-(setq cscope-packages '(evil-jumper
-                        helm-cscope
+(setq cscope-packages '(helm-cscope
                         xcscope))
-
-(setq cscope-excluded-packages '())
-
-(defun cscope/post-init-evil-jump ()
-  (defadvice helm-cscope-find-this-symbol (before cscope/goto activate)
-    (evil-jumper--push)))
 
 (defun cscope/init-xcscope ()
   (use-package xcscope
@@ -58,4 +51,7 @@
         "gf" 'helm-cscope-find-this-file
         "gF" 'helm-cscope-find-files-including-file
         "gr" 'helm-cscope-find-this-symbol
-        "gx" 'helm-cscope-find-this-text-string))))
+        "gx" 'helm-cscope-find-this-text-string))
+    :config
+    (defadvice helm-cscope-find-this-symbol (before cscope/goto activate)
+      (evil--jumps-push))))

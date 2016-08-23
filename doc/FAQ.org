@@ -7,6 +7,8 @@
    - [[What is the official pronunciation of Spacemacs?][What is the official pronunciation of Spacemacs?]]
    - [[Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?][Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?]]
    - [[How to fix package download errors when installing Spacemacs ?][How to fix package download errors when installing Spacemacs ?]]
+   - [[How to fix =Symbol's value as variable is void= errors on startup?][How to fix =Symbol's value as variable is void= errors on startup?]]
+   - [[How to fix =(wrong-type-argument arrayp nil)= errors on startup?][How to fix =(wrong-type-argument arrayp nil)= errors on startup?]]
    - [[The Spacemacs banner is ugly, what should I do?][The Spacemacs banner is ugly, what should I do?]]
    - [[The powerline separators are ugly, how can I fix them?][The powerline separators are ugly, how can I fix them?]]
    - [[The powerline separators have no anti-aliasing, what can I do?][The powerline separators have no anti-aliasing, what can I do?]]
@@ -17,7 +19,6 @@
    - [[Why is Spacemacs hanging on startup?][Why is Spacemacs hanging on startup?]]
    - [[Why does =helm-M-x= (~SPC SPC~) not accept the prefix argument?][Why does =helm-M-x= (~SPC SPC~) not accept the prefix argument?]]
    - [[Why does my color theme not render correctly in terminal mode?][Why does my color theme not render correctly in terminal mode?]]
-   - [[Why do I get =(wrong-type-argument arrayp nil)= errors on startup?][Why do I get =(wrong-type-argument arrayp nil)= errors on startup?]]
    - [[Typing quickly =fd= takes me out of =insert state=. What is going on?][Typing quickly =fd= takes me out of =insert state=. What is going on?]]
    - [[Why do I get files starting with .#?][Why do I get files starting with .#?]]
  - [[How do I...][How do I...]]
@@ -65,6 +66,22 @@ environment does not allow HTTPS to reach ELPA repositories then you can start
 Emacs with the =--insecure= argument for force the usage of HTTP non secured
 protocol. You can set the variable =dotspacemacs-elpa-https= to =nil= in your
 dotfile to remove the need to start Emacs with =--insecure== argument.
+
+** How to fix =Symbol's value as variable is void= errors on startup?
+If Emacs reports an error that the symbol =closed= or =-= is unbound as a
+variable, it is probably because you are using HTTPS to download packages, but
+you shouldn't be. Try deleting your packages (the =.emacs.d/elpa= folder), and
+restart Emacs without HTTPS to download the packages again. There are two ways
+to do this:
+
+- Run Emacs with the =--insecure= command line argument: =emacs --insecure=. You
+  will have to do this again the next time you update your packages.
+- Set the variable =dotspacemacs-elpa-https= to =nil= in your dotfile. This has
+  the same effect as =--insecure=, but is persistent.
+
+** How to fix =(wrong-type-argument arrayp nil)= errors on startup?
+This is most likely caused by a corrupted package archive. Try deleting your
+=~/.emacs.d/elpa/archives/= folder and restart Emacs.
 
 ** The Spacemacs banner is ugly, what should I do?
 Install the default font supported by Spacemacs or choose a fixed width font.
@@ -160,10 +177,6 @@ In the terminal version of Emacs, color themes will not render correctly as
 colors are rendered by the terminal and not by emacs. You will probably have to
 change your terminal color palette. More explanations can be found on
 [[https://github.com/sellout/emacs-color-theme-solarized#important-note-for-terminal-users][emacs-color-theme-solarized webpage]].
-
-** Why do I get =(wrong-type-argument arrayp nil)= errors on startup?
-This is most likely caused by a corrupted package archive. Try deleting your
-=~/.emacs.d/elpa/archives/= folder and restart Emacs.
 
 ** Typing quickly =fd= takes me out of =insert state=. What is going on?
 This is a feature of Spacemacs, enabling you to easily escape from a lot of
