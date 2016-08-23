@@ -392,7 +392,7 @@
   "wc"  'spacemacs/toggle-centered-buffer-mode
   "wC"  'spacemacs/centered-buffer-mode-full-width
   "wo"  'other-frame
-  "wr"  'spacemacs/rotate-windows
+  "wr"  'spacemacs/rotate-windows-forward
   "wR"  'spacemacs/rotate-windows-backward
   "ws"  'split-window-below
   "wS"  'split-window-below-and-focus
@@ -541,7 +541,7 @@
   ("L" evil-window-move-far-right)
   ("<S-right>" evil-window-move-far-right)
   ("o" other-frame)
-  ("r" spacemacs/rotate-windows)
+  ("r" spacemacs/rotate-windows-forward)
   ("R" spacemacs/rotate-windows-backward)
   ("s" split-window-below)
   ("S" split-window-below-and-focus)
