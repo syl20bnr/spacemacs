@@ -762,10 +762,14 @@ If JUSTIFY-RIGHT is non nil justify to the right instead of the
 left. If AFTER is non-nil, add whitespace to the left instead of
 the right."
   (interactive "r\nsAlign regexp: ")
-  (let ((complete-regexp (if after
-                             (concat regexp "\\([ \t]*\\)")
-                           (concat "\\([ \t]*\\)" regexp)))
-        (group (if justify-right -1 1)))
+  (let* ((ws-regexp (if (string-empty-p regexp)
+                        "\\(\\s-+\\)"
+                      "\\(\\s-*\\)"))
+         (complete-regexp (if after
+                              (concat regexp ws-regexp)
+                            (concat ws-regexp regexp)))
+         (group (if justify-right -1 1)))
+    (message "%S" complete-regexp)
     (align-regexp start end complete-regexp group 1 t)))
 
 ;; Modified answer from http://emacs.stackexchange.com/questions/47/align-vertical-columns-of-numbers-on-the-decimal-point
