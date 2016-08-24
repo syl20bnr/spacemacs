@@ -2091,17 +2091,17 @@ current state. With default =spacemacs-dark= theme:
 Navigation is centered on the ~hjkl~ keys with the hope of providing a fast
 navigation experience like in [[http://ranger.nongnu.org/][ranger]]:
 
-| Key Binding  | Description                                                            |
-|--------------+------------------------------------------------------------------------|
-| ~h~          | collapse expanded directory or go to parent node                       |
-| ~H~          | previous sibling                                                       |
-| ~j~          | next file or directory                                                 |
-| ~J~          | next expanded directory on level down                                  |
-| ~k~          | previous file or directory                                             |
-| ~K~          | parent directory, when reaching the root change it to parent directory |
-| ~l~ or ~RET~ | expand directory                                                       |
-| ~L~          | next sibling                                                           |
-| ~R~          | make a directory the root directory                                    |
+| Key Binding  | Description                                                                   |
+|--------------+-------------------------------------------------------------------------------|
+| ~h~          | collapse expanded directory or go to parent node                              |
+| ~H~          | select previous sibling                                                       |
+| ~j~          | select next file or directory                                                 |
+| ~J~          | select next expanded directory on level down                                  |
+| ~k~          | select previous file or directory                                             |
+| ~K~          | select parent directory, when reaching the root change it to parent directory |
+| ~l~ or ~RET~ | expand directory                                                              |
+| ~L~          | select next sibling                                                           |
+| ~R~          | make a directory the root directory                                           |
 
 *Note*: Point is automatically set to the first letter of a node for a smoother
 experience.
@@ -2130,6 +2130,7 @@ open the file in a split window with ~|~ and ~-~:
 | ~s~         | toggle showing of hidden files  |
 | ~q~ or ~fd~ | hide =NeoTree= buffer           |
 | ~r~         | rename a node                   |
+| ~?~         | show help                       |
 
 **** NeoTree mode-line
 The mode-line has the following format =[x/y] d (D:a, F:b)= where:
