@@ -164,7 +164,7 @@
     (progn
       (setq neo-window-width 32
             neo-create-file-auto-open t
-            neo-banner-message nil
+            neo-banner-message "Press ? for neotree help"
             neo-show-updir-line nil
             neo-mode-line-type 'neotree
             neo-smart-open t
@@ -220,7 +220,6 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
           (kbd "RET") 'neotree-enter
           (kbd "|") 'neotree-enter-vertical-split
           (kbd "-") 'neotree-enter-horizontal-split
-          (kbd "?") 'evil-search-backward
           (kbd "c") 'neotree-create-node
           (kbd "d") 'neotree-delete-node
           (kbd "gr") 'neotree-refresh
