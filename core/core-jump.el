@@ -42,12 +42,16 @@ sets `spacemacs-jump-handlers' in buffers of that mode."
   (catch 'done
     (let ((old-buffer (current-buffer))
           (old-point (point)))
-      (dolist (handler spacemacs-jump-handlers)
-        (ignore-errors
-          (call-interactively handler))
-        (unless (and (eq old-point (point))
-                     (equal old-buffer (current-buffer)))
-          (throw 'done t))))
+      (dolist (-handler spacemacs-jump-handlers)
+        (let ((handler (if (listp -handler) (car -handler) -handler))
+              (async (when (listp -handler)
+                       (plist-get (cdr -handler) :async))))
+          (ignore-errors
+            (call-interactively handler))
+          (when (or async
+                    (not (eq old-point (point)))
+                    (not (equal old-buffer (current-buffer))))
+            (throw 'done t)))))
     (message "No jump handler was able to find this symbol.")))
 
 ;; Set the `:jump' property manually instead of just using `evil-define-motion'
