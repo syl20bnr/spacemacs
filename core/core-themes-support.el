@@ -120,7 +120,7 @@
     (base16-solarized-light . base16-theme)
     (base16-summerfruit-dark . base16-theme)
     (base16-summerfruit-light . base16-theme)
-    (base16-tomorrow-dark . base16-theme)
+    (base16-tomorrow-night . base16-theme)
     (base16-tomorrow-light . base16-theme)
     (base16-twilight-dark . base16-theme)
     (base16-twilight-light . base16-theme)
