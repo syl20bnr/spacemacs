@@ -140,10 +140,8 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
            (if (and (display-graphic-p) (image-type-available-p 'png))
                spacemacs-banner-official-png
              (spacemacs-buffer//get-banner-path 1)))
-          ((eq 'random dotspacemacs-startup-banner)
-           (spacemacs-buffer//choose-random-text-banner))
-          ((eq 'random* dotspacemacs-startup-banner)
-           (spacemacs-buffer//choose-random-text-banner t))
+          ((or (eq 'random dotspacemacs-startup-banner) (eq 'random* dotspacemacs-startup-banner))
+           spacemacs-buffer//current-random-text-banner-path)
           ((eq 'doge dotspacemacs-startup-banner)
            (spacemacs-buffer//get-banner-path 999))
           ((eq 'cat dotspacemacs-startup-banner)
@@ -170,6 +168,11 @@ If ALL is non-nil then truly all banners can be selected."
          ;; -2 to remove the two last ones (easter eggs)
          (choice (random (- count (if all 0 2)))))
     (nth choice files)))
+
+(defvar spacemacs-buffer//current-random-text-banner-path (if (eq 'random* dotspacemacs-startup-banner)
+                                                              (spacemacs-buffer//choose-random-text-banner t)
+                                                            (spacemacs-buffer//choose-random-text-banner nil))
+  "The currently chosen random ascii banner.")
 
 (defun spacemacs-buffer//get-banner-path (index)
   "Return the full path to banner with index INDEX."
@@ -912,6 +915,9 @@ already exist, and switch to it."
   "Force recreation of the spacemacs buffer."
   (interactive)
   (setq spacemacs-buffer--last-width nil)
+  (setq spacemacs-buffer//current-random-text-banner-path (if (eq 'random* dotspacemacs-startup-banner)
+                                                              (spacemacs-buffer//choose-random-text-banner t)
+                                                            (spacemacs-buffer//choose-random-text-banner nil)))
   (spacemacs-buffer/goto-buffer t))
 
 (provide 'core-spacemacs-buffer)
