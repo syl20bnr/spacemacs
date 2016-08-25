@@ -106,8 +106,6 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
           (spacemacs-buffer/insert-ascii-banner-centered banner))
         (spacemacs-buffer//inject-version))
       (spacemacs-buffer//insert-buttons)
-      (unless (bound-and-true-p spacemacs-initialized)
-        (spacemacs-buffer/insert-page-break))
       (spacemacs//redisplay))))
 
 (defun spacemacs-buffer/display-info-box ()
@@ -887,6 +885,7 @@ already exist, and switch to it."
             ;; non-nil if emacs-startup-hook was run
             (if (bound-and-true-p spacemacs-initialized)
                 (progn
+                  (configuration-layer/display-summary emacs-start-time)
                   (when dotspacemacs-startup-lists
                     (spacemacs-buffer/insert-startupify-lists))
                   (spacemacs-buffer//insert-footer)

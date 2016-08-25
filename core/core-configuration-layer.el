@@ -1914,15 +1914,21 @@ to select one."
         (configuration-layer//insert-lazy-install-form
          layer-name (car x) (cdr x))))))
 
+(defvar configuration-layer--spacemacs-startup-time nil
+  "Spacemacs full startup duration.")
+
 (defun configuration-layer/display-summary (start-time)
   "Display a summary of loading time."
-  (let ((elapsed (float-time (time-subtract (current-time) emacs-start-time)))
-        (stats (configuration-layer/configured-packages-stats
+  (unless configuration-layer--spacemacs-startup-time
+    (setq configuration-layer--spacemacs-startup-time
+          (float-time (time-subtract (current-time) emacs-start-time))))
+  (let ((stats (configuration-layer/configured-packages-stats
                 configuration-layer--used-packages)))
+    (spacemacs-buffer/insert-page-break)
     (spacemacs-buffer/append
      (format "\n%s packages loaded in %.3fs (e:%s r:%s l:%s b:%s)\n"
              (cadr (assq 'total stats))
-             elapsed
+             configuration-layer--spacemacs-startup-time
              (cadr (assq 'elpa stats))
              (cadr (assq 'recipe stats))
              (cadr (assq 'local stats))
