@@ -465,7 +465,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
 
 (defun spacemacs-base/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
-    :init (when (memq window-system '(mac ns x))
+    :init (when (memq window-system '(mac ns))
             (exec-path-from-shell-initialize))))
 
 (defun spacemacs-base/init-fill-column-indicator ()
