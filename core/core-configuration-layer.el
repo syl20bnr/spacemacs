@@ -1926,13 +1926,17 @@ to select one."
                 configuration-layer--used-packages)))
     (spacemacs-buffer/insert-page-break)
     (spacemacs-buffer/append
-     (format "\n%s packages loaded in %.3fs (e:%s r:%s l:%s b:%s)\n"
+     (format "\n%s packages loaded in %.3fs (e:%s r:%s l:%s b:%s)"
              (cadr (assq 'total stats))
              configuration-layer--spacemacs-startup-time
              (cadr (assq 'elpa stats))
              (cadr (assq 'recipe stats))
              (cadr (assq 'local stats))
-             (cadr (assq 'built-in stats))))))
+             (cadr (assq 'built-in stats))))
+    (with-current-buffer (get-buffer-create spacemacs-buffer-name)
+      (let ((buffer-read-only nil))
+	(spacemacs-buffer//center-line)
+	(insert "\n")))))
 
 (defun configuration-layer/load-or-install-protected-package
     (pkg &optional log file-to-load)
