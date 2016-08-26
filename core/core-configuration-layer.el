@@ -851,6 +851,7 @@ variable as well."
           ;; if no function at all is found for the package, then check
           ;; again this layer later to resolve `package-usedp'  usage in
           ;; `packages.el' files
+          ;; TODO remove this hack in version 0.201
           (unless (or ownerp
                       (fboundp pre-init-func)
                       (fboundp post-init-func)
