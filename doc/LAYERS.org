@@ -297,7 +297,7 @@ For instance is layer A depends on some functionality of layer B then in the
 file =layers.el= of layer A we can add:
 
 #+begin_src emacs-lisp
-(configuration-layer/declare-used-layer 'B)
+(configuration-layer/declare-layer 'B)
 #+end_src
 
 The effect is that B is considered a used layer and will be loaded as if it
@@ -476,7 +476,7 @@ These are useful in some cases, but usually you can get the desired result just
 by using =post-init= functions.
 
 For layers that require another layers to be enabled, use the functions
-=configuration-layer/declare-used-layer= and =configuration-layer/declare-used-layers= to
+=configuration-layer/declare-layer= and =configuration-layer/declare-layers= to
 ensure that layers are enabled even if the user has not enabled them explicitly.
 Calls to these functions must go in the =config.el= file.
 
