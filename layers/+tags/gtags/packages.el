@@ -12,7 +12,6 @@
 
 (defconst gtags-packages
   '(
-    eldoc
     ggtags
     (helm-gtags :toggle (configuration-layer/package-usedp 'helm))
     ))
