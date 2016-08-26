@@ -32,6 +32,7 @@
         (holy-mode :location local :step pre)
         (hybrid-mode :location local :step pre)
         (image-mode :location built-in)
+        (imenu :location built-in)
         (linum :location built-in)
         (occur-mode :location built-in)
         (package-menu :location built-in)
@@ -224,6 +225,11 @@
   (use-package image-mode
     :config (evilified-state-evilify-map image-mode-map
               :mode image-mode)))
+
+(defun spacemacs-base/init-imenu ()
+  (use-package imenu
+    :defer t
+    :init (spacemacs/set-leader-keys "ji" 'imenu)))
 
 (defun spacemacs-base/init-linum ()
   (when dotspacemacs-line-numbers

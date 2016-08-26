@@ -61,19 +61,6 @@
   (let ((message-log-max nil))
     (apply 'message msg args)))
 
-(defun spacemacs/jump-in-buffer ()
-  (interactive)
-  (call-interactively
-   (cond
-    ((and (configuration-layer/layer-usedp 'helm)
-          (eq major-mode 'org-mode))
-     'helm-org-in-buffer-headings)
-    ((configuration-layer/layer-usedp 'helm)
-     'helm-semantic-or-imenu)
-    ((configuration-layer/layer-usedp 'ivy)
-     'counsel-imenu)
-    (t 'imenu))))
-
 (defun spacemacs/split-and-new-line ()
   "Split a quoted string or s-expression and insert a new line with
 auto-indent."

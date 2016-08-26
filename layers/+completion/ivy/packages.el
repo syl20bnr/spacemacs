@@ -17,6 +17,7 @@
         evil
         flx
         helm-make
+        imenu
         ivy
         ivy-hydra
         (ivy-spacemacs-help :location local)
@@ -132,6 +133,9 @@
       (spacemacs/set-leader-keys
         "cc" 'helm-make-projectile
         "cm" 'helm-make))))
+
+(defun ivy/post-init-imenu ()
+  (spacemacs/set-leader-keys "ji" 'counsel-imenu))
 
 (defun ivy/init-ivy ()
   (use-package ivy

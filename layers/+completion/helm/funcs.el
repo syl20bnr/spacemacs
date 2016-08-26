@@ -179,6 +179,14 @@ Ensure that helm is required before calling FUNC."
   (interactive)
   (helm-exit-and-execute-action 'spacemacs//helm-find-files-edit))
 
+(defun spacemacs/helm-jump-in-buffer ()
+  "Jump in buffer using `imenu' facilities and helm."
+  (interactive)
+  (call-interactively
+   (cond
+    ((eq major-mode 'org-mode) 'helm-org-in-buffer-headings)
+    (t 'helm-semantic-or-imenu))))
+
 
 ;; Generalized next-error interface
 

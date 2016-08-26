@@ -24,6 +24,7 @@
         helm-swoop
         helm-themes
         (helm-spacemacs-help :location local)
+        imenu
         popwin
         projectile
         ))
@@ -580,6 +581,9 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :init
     (spacemacs/set-leader-keys
       "Ts" 'helm-themes)))
+
+(defun helm/post-init-imenu ()
+  (spacemacs/set-leader-keys "ji" 'spacemacs/helm-jump-in-buffer))
 
 (defun helm/post-init-popwin ()
   ;; disable popwin-mode while Helm session is running

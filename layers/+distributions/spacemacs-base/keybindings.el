@@ -221,7 +221,6 @@
   "j$" 'spacemacs/push-mark-and-goto-end-of-line
   "jF" 'find-function-at-point
   "jf" 'find-function
-  "ji" 'spacemacs/jump-in-buffer
   "jv" 'find-variable
   "jV" 'find-variable-at-point)
 
