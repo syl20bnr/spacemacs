@@ -515,6 +515,7 @@ arguments of the =ag= program.
 
 ** Modify spacemacs documentation look (space-doc-mode)
 You can modify the list of visual enhancements applied by the =space-doc-mode=:
+
 #+BEGIN_SRC emacs-lisp
 (setq spacemacs-space-doc-modificators
       '(center-buffer-mode
@@ -528,7 +529,10 @@ You can modify the list of visual enhancements applied by the =space-doc-mode=:
         org-kbd-face-remap
         resize-inline-images))
 #+END_SRC
+
 It's the default value of the variable with all enhancements.
+Note that =center-buffer-mode= will not be enabled if current frame(Emacs window) aspect ration
+is less than specified by =spacemacs-space-doc-center-buffer-mode-min-aspect-ratio= variable.
 
 ** Remap paste key to be able to paste copied text multiple times
 In vim and evil, pasting over a text would cause it to be copied, hence making it impossible to paste
