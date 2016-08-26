@@ -102,12 +102,22 @@ the popup, set the variable =auto-completion-enable-snippets-in-popup= to =t=.
 #+END_SRC
 
 ** Tooltips
-To enable docstring tooltips set =auto-completion-enable-help-tooltip= to =t=
+To enable automatic docstring tooltips set =auto-completion-enable-help-tooltip=
+to =t=.
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
   '((auto-completion :variables
                     auto-completion-enable-help-tooltip t)))
+#+END_SRC
+
+To enable manual non-automatic invocation of docstring tooltips, set it to
+=manual=. The tooltip can be invoked manually by pressing ~M-h~.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((auto-completion :variables
+                    auto-completion-enable-help-tooltip 'manual)))
 #+END_SRC
 
 ** Sort results by usage
@@ -197,11 +207,12 @@ For nicer-looking faces, try adding the following to `custom-set-faces` in your 
 * Key Bindings
 ** Company
 
-| Key Binding | Description                                                              |
-|-------------+--------------------------------------------------------------------------|
-| ~C-d~       | open minibuffer with documentation of thing at point in company dropdown |
-| ~C-/~       | show candidates in Helm (for fuzzy searching)                            |
-| ~C-M-/~     | filter the company dropdown menu                                         |
+| Key Binding | Description                                                                                          |
+|-------------+------------------------------------------------------------------------------------------------------|
+| ~C-d~       | open minibuffer with documentation of thing at point in company dropdown                             |
+| ~C-/~       | show candidates in Helm (for fuzzy searching)                                                        |
+| ~C-M-/~     | filter the company dropdown menu                                                                     |
+| ~M-h~       | show current candidate's documentation in a tooltip (requires =auto-completion-enable-help-tooltip=) |
 
 Vim Style:
 
