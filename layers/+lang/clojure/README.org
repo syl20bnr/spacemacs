@@ -64,6 +64,12 @@ Or set this variable when loading the configuration layer:
 #+END_SRC
 
 ** CIDER and clj-refactor
+Note that recent versions of CIDER automatically inject the required
+dependencies into your boot or leiningen configuration when you connect to the
+REPL. Thus, the configuration instructions below only apply to CIDER 0.10 and
+older. Most users should be able to just run ~SPC m s i~ to connect to the CIDER
+REPL and skip the rest of this section.
+
 *** Quick Start with boot
 - Install =boot= (see https://github.com/boot-clj/boot#install)
 - Create a file =~/.boot/profile.boot= with the following content:
