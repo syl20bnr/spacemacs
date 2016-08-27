@@ -2964,6 +2964,9 @@ To search in a project see [[Searching in a project][project searching]].
 | ~SPC p t~   | open =NeoTree= in =projectile= root                     |
 | ~SPC p T~   | test project                                            |
 | ~SPC p v~   | open project root in =vc-dir= or =magit=                |
+| ~SPC p x e~ | Run eshell in project root. (projectile-run-eshell)     |
+| ~SPC p x s~ | Run shell in project root. (projectile-run-shell)       |
+| ~SPC p x t~ | Run term in project root. (projectile-run-term)         |
 | ~SPC p y~   | find tags                                               |
 | ~SPC /~     | search in project with the best search tool available   |
 | ~SPC s p~   | see [[Searching in a project][search in project]]                                   |
