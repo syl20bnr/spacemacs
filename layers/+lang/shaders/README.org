@@ -1,0 +1,20 @@
+#+TITLE: Shaders layer
+
+* Table of Contents
+- [[Desscription][Description]]
+- [[Install][Install]]
+
+* Description
+This layer provides syntax highlighting for shader files. By default it will
+provide highlighting for files ending in:
+- =.fsh=
+- =.vsh=
+- =.glsl=
+- =.vert=
+- =.frag=
+- =.geom=
+
+* Install
+To use this configuration layer, add it to your =~.spacemacs=. You will need to
+add =shaders= to the existing =dotspacemacs-configuration-layers= list in this
+file.
