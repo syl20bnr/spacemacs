@@ -156,7 +156,7 @@ Here is an example to add =company= auto-completion to python buffer:
   (setq python-packages
     '(...
       company
-      (company-anaconda :toggle (configuration-layer/package-usedp 'company'))
+      (company-anaconda :toggle (configuration-layer/package-usedp 'company))
       ...))
 
   ;; Hook company to python-mode
