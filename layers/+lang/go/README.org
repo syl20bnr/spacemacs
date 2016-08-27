@@ -32,7 +32,7 @@ You will need =gocode= and =godef=:
 #+BEGIN_SRC sh
   go get -u -v github.com/nsf/gocode
   go get -u -v github.com/rogpeppe/godef
-  go get -u -v golang.org/x/tools/cmd/oracle
+  go get -u -v golang.org/x/tools/cmd/guru
   go get -u -v golang.org/x/tools/cmd/gorename
   go get -u -v golang.org/x/tools/cmd/goimports
 #+END_SRC
