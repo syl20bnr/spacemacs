@@ -12,7 +12,6 @@
 (setq rust-packages
   '(
     company
-    company-racer
     racer
     flycheck
     flycheck-rust
