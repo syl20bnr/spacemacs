@@ -10,7 +10,7 @@
 ;;; License: GPLv3
 
 (setq spacemacs-language-packages
-      '(define-word
+      '(define-word :toggle (not osx-use-dictionary-app)
         google-translate))
 
 (defun spacemacs-language/init-define-word ()

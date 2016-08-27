@@ -3,6 +3,7 @@
         exec-path-from-shell
         helm
         launchctl
+        (osx-dictionary :toggle osx-use-dictionary-app)
         osx-trash
         pbcopy
         reveal-in-osx-finder
@@ -67,6 +68,20 @@
         (kbd "=") 'launchctl-setenv
         (kbd "#") 'launchctl-unsetenv
         (kbd "h") 'launchctl-help))))
+
+(defun osx/init-osx-dictionary ()
+  (use-package osx-dictionary
+    :if osx-use-dictionary-app
+    :init (spacemacs/set-leader-keys "xwd" 'osx-dictionary-search-pointer)
+    :config
+    (progn
+      (evilified-state-evilify-map osx-dictionary-mode-map
+        :mode osx-dictionary-mode
+        :bindings
+        "q" 'osx-dictionary-quit
+        "r" 'osx-dictionary-read-word
+        "s" 'osx-dictionary-search-input
+        "o" 'osx-dictionary-open-dictionary.app))))
 
 (defun osx/init-osx-trash ()
   (use-package osx-trash

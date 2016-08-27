@@ -8,6 +8,7 @@
  - [[#install][Install]]
    - [[#layer][Layer]]
      - [[#use-with-non-us-keyboard-layouts][Use with non-US keyboard layouts]]
+     - [[#define-words-using-os-x-dictionary][Define words using OS X Dictionary]]
    - [[#coreutils][Coreutils]]
  - [[#key-bindings][Key Bindings]]
  - [[#future-work][Future Work]]
@@ -48,6 +49,16 @@ key.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default mac-right-option-modifier nil)
+#+END_SRC
+
+*** Define words using OS X Dictionary
+
+This layer by default enables defining words under point ~SPC x w d~ using OS X Dictionary.
+You can disable it by setting =osx-use-dictionary-app= variable to =nil=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+     (osx :variables osx-use-dictionary-app nil)))
 #+END_SRC
 
 ** Coreutils
