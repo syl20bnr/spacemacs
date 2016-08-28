@@ -10,7 +10,7 @@
         helm-gtags
         go-eldoc
         go-mode
-        (go-oracle :location site)
+        (go-guru :location site)
         (go-rename :location local)
         ))
 
@@ -113,27 +113,27 @@
 (defun go/init-go-eldoc()
   (add-hook 'go-mode-hook 'go-eldoc-setup))
 
-(defun go/init-go-oracle()
+(defun go/init-go-guru()
   (let ((go-path (getenv "GOPATH")))
     (if (not go-path)
         (spacemacs-buffer/warning
-         "GOPATH variable not found, go-oracle configuration skipped.")
+         "GOPATH variable not found, go-guru configuration skipped.")
       (when (load-gopath-file
-             go-path "/src/golang.org/x/tools/cmd/oracle/oracle.el")
+             go-path "/src/golang.org/x/tools/cmd/guru/go-guru.el")
         (spacemacs/declare-prefix-for-mode 'go-mode "mr" "rename")
         (spacemacs/set-leader-keys-for-major-mode 'go-mode
-          "ro" 'go-oracle-set-scope
-          "r<" 'go-oracle-callers
-          "r>" 'go-oracle-callees
-          "rc" 'go-oracle-peers
-          "rd" 'go-oracle-definition
-          "rf" 'go-oracle-freevars
-          "rg" 'go-oracle-callgraph
-          "ri" 'go-oracle-implements
-          "rp" 'go-oracle-pointsto
-          "rr" 'go-oracle-referrers
-          "rs" 'go-oracle-callstack
-          "rt" 'go-oracle-describe)))))
+          "ro" 'go-guru-set-scope
+          "r<" 'go-guru-callers
+          "r>" 'go-guru-callees
+          "rc" 'go-guru-peers
+          "rd" 'go-guru-definition
+          "rf" 'go-guru-freevars
+          "rg" 'go-guru-callgraph
+          "ri" 'go-guru-implements
+          "rp" 'go-guru-pointsto
+          "rr" 'go-guru-referrers
+          "rs" 'go-guru-callstack
+          "rt" 'go-guru-describe)))))
 
 (defun go/init-go-rename()
   (use-package go-rename
