@@ -84,6 +84,9 @@
   (use-package osx-dictionary
     :if osx-use-dictionary-app
     :init (spacemacs/set-leader-keys "xwd" 'osx-dictionary-search-pointer)
+    :commands (osx-dictionary-search-pointer
+               osx-dictionary-search-input
+               osx-dictionary-cli-find-or-recompile)
     :config
     (progn
       (evilified-state-evilify-map osx-dictionary-mode-map
