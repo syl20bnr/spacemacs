@@ -115,12 +115,14 @@
 (defun auto-completion/init-company-quickhelp ()
   (use-package company-quickhelp
     :if (and auto-completion-enable-help-tooltip (display-graphic-p))
+    :commands company-quickhelp-manual-begin
     :defer t
     :init
-    (progn
-      (add-hook 'company-mode-hook 'company-quickhelp-mode)
-      (with-eval-after-load 'company
-        (setq company-frontends (delq 'company-echo-metadata-frontend company-frontends))))))
+    (with-eval-after-load 'company
+      (setq company-frontends (delq 'company-echo-metadata-frontend company-frontends))
+      (define-key company-active-map (kbd "M-h") #'company-quickhelp-manual-begin)
+      (unless (eq auto-completion-enable-help-tooltip 'manual)
+        (company-quickhelp-mode)))))
 
 (defun auto-completion/init-helm-c-yasnippet ()
   (use-package helm-c-yasnippet

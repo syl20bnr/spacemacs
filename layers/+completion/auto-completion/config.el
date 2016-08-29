@@ -37,7 +37,9 @@ selection.")
   "If non nil suggestions are sorted by how often they are used.")
 
 (defvar auto-completion-enable-help-tooltip nil
-  "If non nil the docstring appears in a tooltip.")
+  "If non nil the docstring appears in a tooltip.
+If set to `manual', help tooltip appears only when invoked
+manually.")
 
 (defvar company-mode-completion-cancel-keywords
   '("do"
