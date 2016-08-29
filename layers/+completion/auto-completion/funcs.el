@@ -163,7 +163,9 @@
     (let ((map company-active-map))
       (define-key map (kbd "C-j") 'company-select-next)
       (define-key map (kbd "C-k") 'company-select-previous)
-      (define-key map (kbd "C-l") 'company-complete-selection)))
+      (define-key map (kbd "C-l") 'company-complete-selection))
+    (when (require 'company-quickhelp nil 'noerror)
+      (evil-define-key 'insert company-quickhelp-mode-map (kbd "C-k") 'company-select-previous)))
    (t
     (let ((map company-active-map))
       (define-key map (kbd "C-n") 'company-select-next)
