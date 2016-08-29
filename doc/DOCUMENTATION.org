@@ -89,10 +89,11 @@
      - [[#leader-key][Leader key]]
      - [[#additional-text-objects][Additional text objects]]
    - [[#reserved-prefix-command-for-user][Reserved prefix command for user]]
-   - [[#helm][Helm]]
-     - [[#c-z-and-tab-switch][C-z and Tab switch]]
-     - [[#helm-focus][Helm focus]]
-     - [[#helm-transient-state][Helm transient state]]
+   - [[#completion][Completion]]
+     - [[#helm][Helm]]
+       - [[#c-z-and-tab-switch][C-z and Tab switch]]
+       - [[#helm-focus][Helm focus]]
+       - [[#helm-transient-state][Helm transient state]]
    - [[#discovering][Discovering]]
      - [[#key-bindings][Key bindings]]
        - [[#which-key][Which-key]]
@@ -690,7 +691,7 @@ cannot be removed from Spacemacs.
 
 * Concepts
 ** Editing Styles
-   Spacemacs comes with several editing styles which can be switched dynamically
+Spacemacs comes with several editing styles which can be switched dynamically
 providing an easier way to do pair programming, for instance between a Vim user
 and an Emacs user.
 
@@ -950,7 +951,6 @@ Spacemacs has a minimalistic and distraction free graphical UI:
   - [[Errors handling][custom fringe bitmaps]] and error feedbacks for [[https://github.com/flycheck/flycheck][Flycheck]]
 
 ** Color themes
-
 The official Spacemacs theme is [[https://github.com/nashamri/spacemacs-theme][spacemacs-dark]] and it is the default theme
 installed when you first started Spacemacs. There are two variants of the
 theme, a dark one and a light one. Some aspect of these themes can be customized
@@ -1506,25 +1506,31 @@ these is *guaranteed* to never conflict with Spacemacs default key bindings.
 =dotspacemacs/user-config= in your =~/.spacemacs= file, to be able to use ~SPC o
 c~ to run org mode capture.
 
-** Helm
-Spacemacs is powered by [[https://github.com/emacs-helm/helm][Helm]] which is an incremental completion and selection
-narrowing framework.
+** Completion
+Spacemacs is powered by one of two incrementatal completion and selection
+narrowing frameworks: [[https://github.com/emacs-helm/helm][Helm]] (default) or [[https://github.com/abo-abo/swiper][Ivy]]. To use Ivy, add the =ivy= layer to
+your list of enabled layers. If the =ivy= layer is not enabled, Helm will be
+enabled automatically. (Please note that, as Helm is the more mature of the two,
+some functions may be unavailable if you choose Ivy.)
 
-=Helm= is the central control tower of Spacemacs, it is used to manage
-buffers, projects, search results, configuration layers, toggles and more...
+These completion systems are the central control towers of Spacemacs, they are
+used to manage buffers, projects, search results, configuration layers, toggles
+and more...
 
-Mastering =Helm= will make you a Spacemacs power user. Do not hesitate to read
-the [[https://github.com/emacs-helm/helm/wiki][Helm documentation wiki]].
+Mastering your choice of completion system will make you a Spacemacs power user.
 
-*** C-z and Tab switch
+*** Helm
+Do not hesitate to read the [[https://github.com/emacs-helm/helm/wiki][Helm documentation wiki]].
+
+**** C-z and Tab switch
 The command bound to ~C-z~ is much more useful than the one bound to Tab, so it
 makes sense to swap them. It's also recommended [[http://tuhdo.github.io/helm-intro.html][here]].
 
-*** Helm focus
+**** Helm focus
 If you find yourself unable to return focus to Helm (after a careless
 mouse-click for example), use ~SPC w b~ to return focus to the minibuffer.
 
-*** Helm transient state
+**** Helm transient state
 Spacemacs defines a [[Transient-states][transient state]] for =Helm= to make it work like [[https://github.com/Shougo/unite.vim][Vim's Unite]]
 plugin.
 
