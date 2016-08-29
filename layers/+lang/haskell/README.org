@@ -283,8 +283,12 @@ Refactor commands are prefixed by ~SPC m r~:
 |-------------+---------------------------------------------------|
 | ~SPC m r b~ | apply all HLint suggestions in the current buffer |
 | ~SPC m r r~ | apply the HLint suggestion under the cursor       |
+| ~SPC m r s~ | list all Intero suggestions                       |
 
 Only some of the HLint suggestions can be applied.
+
+To apply the intero suggestions, press `C-c C-c` when the window is open, which
+is also shown in the window that appears.
 
 ** Ghc-mod
 These commands are only available when ghc-mod is enabled.
