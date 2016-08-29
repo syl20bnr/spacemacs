@@ -215,7 +215,8 @@ minimize the performance hit when the mode isn't used."
                             'spacemacs--centered-buffer-mode-origin-buffer
                             buffer)))
         (when (ignore-errors (kill-buffer buffer))
-          (delete buffer 'spacemacs--centered-buffer-mode-indirect-buffers)
+          (setq spacemacs--centered-buffer-mode-indirect-buffers
+                (delete buffer spacemacs--centered-buffer-mode-indirect-buffers))
           (when (buffer-live-p origin-buffer)
             (spacemacs//centered-buffer-mode-buffer-fringr-color-toggle origin-buffer nil)
             (with-current-buffer origin-buffer

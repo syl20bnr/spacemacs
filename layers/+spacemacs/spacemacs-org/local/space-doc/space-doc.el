@@ -59,8 +59,7 @@ keeping their content visible.
 
 ;; NOTE: Dont forget to update Spacemacs FAQ if you modify this list!
 (defcustom spacemacs-space-doc-modificators
-  '(center-buffer-mode
-    org-indent-mode
+  '(org-indent-mode
     view-mode
     hide-line-numbers
     alternative-emphasis

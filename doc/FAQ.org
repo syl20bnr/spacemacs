@@ -528,7 +528,9 @@ You can modify the list of visual enhancements applied by the =space-doc-mode=:
         org-kbd-face-remap
         resize-inline-images))
 #+END_SRC
-It's the default value of the variable with all enhancements.
+By default only =center-buffer-mode= is disabled.
+Both =space-doc-mode= and =center-buffer-mode= can be customized
+with "Easy Customization Interface".
 
 ** Remap paste key to be able to paste copied text multiple times
 In vim and evil, pasting over a text would cause it to be copied, hence making it impossible to paste
