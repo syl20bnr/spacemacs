@@ -12,6 +12,7 @@
 (setq java-packages
       '(
         company
+        (company-emacs-eclim :toggle (configuration-layer/package-usedp 'company))
         eclim
         ggtags
         helm-gtags
@@ -20,6 +21,11 @@
 
 (defun java/post-init-company ()
   (spacemacs|add-company-hook java-mode))
+
+(defun java/init-company-emacs-eclim ()
+  (use-package company-emacs-eclim
+    :defer t
+    :init (push 'company-emacs-eclim company-backends-java-mode)))
 
 (defun java/init-eclim ()
   (use-package eclim
@@ -133,13 +139,7 @@
         "pp" 'eclim-project-mode
         "pu" 'eclim-project-update
 
-        "tt" 'eclim-run-junit)))
-
-  (use-package company-emacs-eclim
-    :if (configuration-layer/package-usedp 'company)
-    :defer t
-    :init
-    (push 'company-emacs-eclim company-backends-java-mode)))
+        "tt" 'eclim-run-junit))))
 
 (defun java/post-init-ggtags ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
