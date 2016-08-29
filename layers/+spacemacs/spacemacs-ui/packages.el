@@ -293,9 +293,12 @@ debug-init and load the given list of packages."
     (defun spacemacs//window-numbering-assign ()
       "Custom number assignment for neotree."
       (when (and (boundp 'neo-buffer-name)
-                 (string= (buffer-name) neo-buffer-name))
+                 (string= (buffer-name) neo-buffer-name)
+                 ;; in case there are two neotree windows. Example: when
+                 ;; invoking a transient state from neotree window, the new
+                 ;; window will show neotree briefly before displaying the TS,
+                 ;; causing an error message. the error is eliminated by
+                 ;; assigning 0 only to the top-left window
+                 (eq (selected-window) (window-at 0 0)))
         0))
-    ;; using lambda to work-around a bug in window-numbering, see
-    ;; https://github.com/nschum/window-numbering.el/issues/10
-    (setq window-numbering-assign-func
-          (lambda () (spacemacs//window-numbering-assign)))))
+    (setq window-numbering-assign-func #'spacemacs//window-numbering-assign)))
