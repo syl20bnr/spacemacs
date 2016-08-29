@@ -56,6 +56,7 @@
       "hi" 'intero-info
       "ht" 'intero-type-at
       "hT" 'haskell-intero/insert-type
+      "rs" 'intero-apply-suggestions
       "sb" 'intero-repl-load))
 
   (dolist (mode (cons 'haskell-cabal-mode haskell-modes))
