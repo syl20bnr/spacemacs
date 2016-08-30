@@ -149,13 +149,13 @@
       ;; Key bindings
       (spacemacs/set-leader-keys
         "a'" 'spacemacs/ivy-available-repls
-        "fr" 'ivy-recentf
+        "fr" 'counsel-recentf
         "rl" 'ivy-resume
         "bb" 'ivy-switch-buffer)
 
       ;; custom actions for recentf
       (ivy-set-actions
-       'ivy-recentf
+       'counsel-recentf
        spacemacs--ivy-file-actions)
 
       (ivy-mode 1)
