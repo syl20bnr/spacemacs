@@ -126,6 +126,10 @@ Assume to be called interactively when INTERACT has non nil value."
                 (advice-add 'next-buffer
                             :before
                             #'spacemacs//centered-buffer-mode-prev-next-buffer-advice)
+                (add-hook 'after-change-functions
+                          #'spacemacs//centered-buffer-after-change-function
+                          nil
+                          t)
                 (add-hook 'buffer-list-update-hook
                           'spacemacs//centered-buffer-buffer-list-update-fringes)
                 (add-hook 'window-configuration-change-hook
@@ -182,25 +186,42 @@ Uses text-pixel-size if provided, otherwise calculates it with `window-pixel-wid
     (if (bound-and-true-p org-indent-mode) 40
       spacemacs-centered-buffer-mode-safety-gap-width)))
 
+(defun spacemacs//centered-buffer-buffer-update-window-fringes (window)
+  "Update fringe width of WINDOW if it displays `centered-buffer-mode' buffer."
+  (when (and (buffer-local-value 'spacemacs--centered-buffer-mode-origin-buffer
+                                 (window-buffer window))
+             ;; Might be needed because
+             ;; (spacemacs-centered-buffer-mode -1) kills buffers.
+             (buffer-live-p (window-buffer window)))
+    (let ((fringe-w (spacemacs//centered-buffer-calc-fringe
+                     window
+                     spacemacs--centered-buffer-mode-text-pixel-size)))
+      (if (> fringe-w spacemacs-centered-buffer-mode-min-fringe-width)
+          (set-window-fringes window fringe-w fringe-w t)
+        (spacemacs-centered-buffer-mode -1)
+        (when spacemacs--centered-buffer-mode-indirect-buffers
+          (spacemacs//centered-buffer-prune-indirect-buffer-list))))))
+
 (defun spacemacs//centered-buffer-buffer-list-update-fringes ()
-  "Used in `buffer-list-update-hook' and `window-configuration-change-hook'."
+  "Update fringe width of all `centered-buffer-mode' fringes."
   (dolist (frame (frame-list))
     (when (frame-live-p frame)
       (dolist (window (window-list frame 2))
-        (when (and (buffer-local-value 'spacemacs--centered-buffer-mode-origin-buffer
-                                       (window-buffer window))
-                   ;; Might be needed because
-                   ;; (spacemacs-centered-buffer-mode -1) kills buffers.
-                   (buffer-live-p (window-buffer window)))
-          (let ((fringe-w (spacemacs//centered-buffer-calc-fringe
-                           window
-                           spacemacs--centered-buffer-mode-text-pixel-size)))
-            (if (> fringe-w spacemacs-centered-buffer-mode-min-fringe-width)
-                (set-window-fringes window fringe-w fringe-w t)
-              (spacemacs-centered-buffer-mode -1)))))))
-  ;; Prevent premature evaluation.
-  (when spacemacs--centered-buffer-mode-indirect-buffers
-    (spacemacs//centered-buffer-prune-indirect-buffer-list)))
+        (spacemacs//centered-buffer-buffer-update-window-fringes window)))))
+
+(defun spacemacs//centered-buffer-after-change-function (begin end length)
+  "Reduce `centered-buffer-mode' fringe width in case of buffer content overflow."
+  (dolist (window (get-buffer-window-list (current-buffer) 2 t))
+    (save-excursion
+      (let* ((min-pos (progn (goto-char begin)
+                             (point-at-bol)))
+             (max-pos (progn (goto-char end)
+                             (point-at-eol)))
+             (updated-segment-max-width (car (window-text-pixel-size window min-pos max-pos))))
+        (when (> updated-segment-max-width
+                 spacemacs--centered-buffer-mode-text-pixel-size)
+          (setq spacemacs--centered-buffer-mode-text-pixel-size updated-segment-max-width)
+          (spacemacs//centered-buffer-buffer-update-window-fringes window))))))
 
 (defun spacemacs//centered-buffer-prune-indirect-buffer-list ()
   "Remove indirect buffer from the `spacemacs--centered-buffer-mode-indirect-buffers'
@@ -227,6 +248,8 @@ minimize the performance hit when the mode isn't used."
                    #'spacemacs//centered-buffer-mode-prev-next-buffer-advice)
     (advice-remove 'next-buffer
                    #'spacemacs//centered-buffer-mode-prev-next-buffer-advice)
+    (remove-hook 'after-change-functions
+                 #'spacemacs//centered-buffer-after-change-function)
     (remove-hook 'buffer-list-update-hook
                  'spacemacs//centered-buffer-buffer-list-update-fringes)
     (remove-hook 'window-configuration-change-hook
