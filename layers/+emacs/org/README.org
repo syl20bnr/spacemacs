@@ -467,4 +467,4 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 |-------------------+---------------------------------------------------------|
 | ~SPC a o p~       | Capture a TODO for the current project                  |
 | ~SPC u SPC a o p~ | Capture a TODO for any given project (choose from list) |
-| ~SPC a o P~       | Go to the TODOs for the current project                 |
+| ~SPC b t~         | Go to the TODOs for the current project                 |
