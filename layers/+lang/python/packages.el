@@ -327,9 +327,9 @@
         (setq universal-argument t)
         (if arg
             (call-interactively 'compile)
-
-          (setq compile-command (format "python %s" (file-name-nondirectory
-                                                     buffer-file-name)))
+          (setq compile-command (format "%s %s" python-shell-interpreter
+                                        (file-name-nondirectory
+                                         buffer-file-name)))
           (compile compile-command t)
           (with-current-buffer (get-buffer "*compilation*")
             (inferior-python-mode))))
