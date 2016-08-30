@@ -628,9 +628,32 @@ you can do it with the following layer declaration.
 (defun dotspacemacs/layers ()
   ;; List of configuration layers to load.
   (setq-default dotspacemacs-configuration-layers
-    '(org
+    '(org git
       (auto-completion :disabled-for org git))))
 #+END_SRC
+
+You can also use the =:enabled-for= construct to disable it for /all/ layers
+/except/ those explicitly identified.
+
+#+BEGIN_SRC emacs-lisp
+(defun dotspacemacs/layers ()
+  ;; List of configuration layers to load.
+  (setq-default dotspacemacs-configuration-layers
+    '(java python c-c++
+      (auto-completion :enabled-for java python))))
+#+END_SRC
+
+Note that =:enabled-for= may be an empty list.
+
+#+BEGIN_SRC emacs-lisp
+(defun dotspacemacs/layers ()
+  ;; List of configuration layers to load.
+  (setq-default dotspacemacs-configuration-layers
+    '(java python c-c++
+      (auto-completion :enabled-for))))
+#+END_SRC
+
+=:enabled-for= takes precedence over =:disabled-for= if both are present.
 
 *** Selecting/Ignoring packages of a layer
 By default a declared layer installs/configures all its associated packages. You

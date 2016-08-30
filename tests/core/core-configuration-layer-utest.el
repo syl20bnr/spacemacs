@@ -1328,6 +1328,66 @@
      (configuration-layer//configure-package pkg)
      (should (equal '(init) witness)))))
 
+(ert-deftest test-configure-package--enabled-for-unspecified-does-call-pre-post-init ()
+  (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1)
+                           :pre-layers '(layer2)
+                           :post-layers '(layer3)))
+        configuration-layer--used-layers
+        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (witness nil)
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (helper--set-layers
+     `(,(cfgl-layer "layer1" :name 'layer1 :enabled-for 'unspecified)
+       ,(cfgl-layer "layer2" :name 'layer2)
+       ,(cfgl-layer "layer2" :name 'layer3)) t)
+    (defun layer1/init-pkg () (push 'init witness))
+    (defun layer2/pre-init-pkg () (push 'pre-init witness))
+    (defun layer3/post-init-pkg () (push 'post-init witness))
+    (mocker-let
+     ((spacemacs-buffer/message (m) ((:output nil))))
+     (configuration-layer//configure-package pkg)
+     (should (equal '(post-init init pre-init) witness)))))
+
+(ert-deftest test-configure-package--enabled-for-nil-does-not-call-pre-post-init ()
+  (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1)
+                           :pre-layers '(layer2)
+                           :post-layers '(layer3)))
+        configuration-layer--used-layers
+        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (witness nil)
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (helper--set-layers
+     `(,(cfgl-layer "layer1" :name 'layer1 :enabled-for nil)
+       ,(cfgl-layer "layer2" :name 'layer2)
+       ,(cfgl-layer "layer2" :name 'layer3)) t)
+    (defun layer1/init-pkg () (push 'init witness))
+    (defun layer2/pre-init-pkg () (push 'pre-init witness))
+    (defun layer3/post-init-pkg () (push 'post-init witness))
+    (mocker-let
+        ((spacemacs-buffer/message (m) ((:output nil))))
+      (configuration-layer//configure-package pkg)
+      (should (equal '(init) witness)))))
+
+(ert-deftest test-configure-package--enabled-for-partial ()
+  (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1)
+                           :pre-layers '(layer2)
+                           :post-layers '(layer3)))
+        configuration-layer--used-layers
+        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (witness nil)
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (helper--set-layers
+     `(,(cfgl-layer "layer1" :name 'layer1 :enabled-for '(layer2))
+       ,(cfgl-layer "layer2" :name 'layer2)
+       ,(cfgl-layer "layer2" :name 'layer3)) t)
+    (defun layer1/init-pkg () (push 'init witness))
+    (defun layer2/pre-init-pkg () (push 'pre-init witness))
+    (defun layer3/post-init-pkg () (push 'post-init witness))
+    (mocker-let
+        ((spacemacs-buffer/message (m) ((:output nil))))
+      (configuration-layer//configure-package pkg)
+      (should (equal '(init pre-init) witness)))))
+
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//configure-packages-2
 ;; ---------------------------------------------------------------------------
