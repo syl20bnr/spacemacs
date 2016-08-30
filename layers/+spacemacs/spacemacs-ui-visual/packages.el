@@ -180,32 +180,36 @@
         :doc "
 Navigation^^^^             Actions^^         Visual actions/config^^^
 ───────^^^^─────────────── ───────^^──────── ───────^^^────────────────
-[_J_]   goto child^^       [_c_] create      [_TAB_] shrink/enlarge
-[_K_]   goto parent^^      [_d_] delete      [_|_]   vertical split
-[_L_]   next sibling^^     [_r_] rename      [_-_]   horizonatal split
-[_H_]   previous sibling^^ [_R_] change root [_gr_]  refresh^
+[_L_]   next sibling^^     [_c_] create      [_TAB_] shrink/enlarge
+[_H_]   previous sibling^^ [_d_] delete      [_|_]   vertical split
+[_J_]   goto child^^       [_r_] rename      [_-_]   horizonatal split
+[_K_]   goto parent^^      [_R_] change root [_gr_]  refresh^
 [_l_]   open/expand^^      ^^                [_s_]   hidden:^^^ %s(if neo-buffer--show-hidden-file-p \"on\" \"off\")
 [_h_]   up/collapse^^      ^^                ^^^
+[_j_]   line down^^        ^^                ^^^
+[_k_]   line up^^          ^^                ^^
 [_RET_] open               ^^^^              [_?_]   close hints
 "
         :bindings
-        ("RET" 'neotree-enter)
-        ("TAB" 'neotree-stretch-toggle)
-        ("|" 'neotree-enter-vertical-split)
-        ("-" 'neotree-enter-horizontal-split)
+        ("RET" neotree-enter)
+        ("TAB" neotree-stretch-toggle)
+        ("|" neotree-enter-vertical-split)
+        ("-" neotree-enter-horizontal-split)
         ("?" nil :exit t)
-        ("c" 'neotree-create-node)
-        ("d" 'neotree-delete-node)
-        ("gr" 'neotree-refresh)
-        ("h" 'spacemacs/neotree-collapse-or-up)
-        ("H" 'neotree-select-previous-sibling-node)
-        ("J" 'neotree-select-down-node)
-        ("K" 'neotree-select-up-node)
-        ("l" 'spacemacs/neotree-expand-or-open)
-        ("L" 'neotree-select-next-sibling-node)
-        ("r" 'neotree-rename-node)
-        ("R" 'neotree-change-root)
-        ("s" 'neotree-hidden-file-toggle))
+        ("c" neotree-create-node)
+        ("d" neotree-delete-node)
+        ("gr" neotree-refresh)
+        ("h" spacemacs/neotree-collapse-or-up)
+        ("H" neotree-select-previous-sibling-node)
+        ("j" neotree-next-line)
+        ("J" neotree-select-down-node)
+        ("k" neotree-previous-line)
+        ("K" neotree-select-up-node)
+        ("l" spacemacs/neotree-expand-or-open)
+        ("L" neotree-select-next-sibling-node)
+        ("r" neotree-rename-node)
+        ("R" neotree-change-root)
+        ("s" neotree-hidden-file-toggle))
 
       (defun spacemacs//neotree-key-bindings ()
         "Set the key bindings for a neotree buffer."
@@ -222,7 +226,9 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
           (kbd "gr") 'neotree-refresh
           (kbd "h") 'spacemacs/neotree-collapse-or-up
           (kbd "H") 'neotree-select-previous-sibling-node
+          (kbd "j") 'neotree-next-line
           (kbd "J") 'neotree-select-down-node
+          (kbd "k") 'neotree-previous-line
           (kbd "K") 'neotree-select-up-node
           (kbd "l") 'spacemacs/neotree-expand-or-open
           (kbd "L") 'neotree-select-next-sibling-node
