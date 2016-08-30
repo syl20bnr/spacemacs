@@ -97,7 +97,12 @@ ROOT is returned."
    (disabled :initarg :disabled-for
              :initform nil
              :type list
-             :documentation "A list of layer where this layer is disabled."))
+             :documentation "A list of layers where this layer is disabled.")
+   (enabled :initarg :enabled-for
+            :initform 'unspecified
+            :type (satisfies (lambda (x) (or (listp x) (eq 'unspecified x))))
+            :documentation (concat "A list of layers where this layer is enabled. "
+                                   "(Takes precedence over `:disabled-for'.)")))
   "A configuration layer.")
 
 (defmethod cfgl-layer-owned-packages ((layer cfgl-layer))
@@ -504,6 +509,10 @@ indexed layers for the path."
       (let* ((dir (file-name-as-directory dir))
              (disabled (when (listp layer-specs)
                          (spacemacs/mplist-get layer-specs :disabled-for)))
+             (enabled (if (and (listp layer-specs)
+                               (memq :enabled-for layer-specs))
+                          (spacemacs/mplist-get layer-specs :enabled-for)
+                        'unspecified))
              (variables (when (listp layer-specs)
                           (spacemacs/mplist-get layer-specs :variables)))
              (packages-file (concat dir "packages.el"))
@@ -522,6 +531,7 @@ indexed layers for the path."
         (oset obj :dir dir)
         (when usedp
           (oset obj :disabled-for disabled)
+          (oset obj :enabled-for enabled)
           (oset obj :variables variables))
         (when packages
           (oset obj :packages packages)
@@ -1491,18 +1501,26 @@ wether the declared layer is an used one or not."
          (t
           (configuration-layer//configure-package pkg))))))))
 
+(defun configuration-layer//package-enabled-p (pkg layer)
+  "Returns true if PKG should be configured for LAYER.
+LAYER must not be the owner of PKG."
+  (let* ((owner (configuration-layer/get-layer (car (oref pkg :owners))))
+         (disabled (oref owner :disabled-for))
+         (enabled (oref owner :enabled-for)))
+    (if (not (eq 'unspecified enabled))
+        (memq layer enabled)
+      (not (memq layer disabled)))))
+
 (defun configuration-layer//configure-package (pkg)
   "Configure PKG object."
   (let* ((pkg-name (oref pkg :name))
-         (owner (car (oref pkg :owners)))
-         (owner-layer (configuration-layer/get-layer owner))
-         (disabled-for-layers (oref owner-layer :disabled-for)))
+         (owner (car (oref pkg :owners))))
     (spacemacs-buffer/message (format "Configuring %S..." pkg-name))
     ;; pre-init
     (mapc
      (lambda (layer)
        (when (configuration-layer/layer-usedp layer)
-         (if (memq layer disabled-for-layers)
+         (if (not (configuration-layer//package-enabled-p pkg layer))
              (spacemacs-buffer/message
               (format "  -> ignored pre-init (%S)..." layer))
            (spacemacs-buffer/message
@@ -1524,7 +1542,7 @@ wether the declared layer is an used one or not."
     (mapc
      (lambda (layer)
        (when (configuration-layer/layer-usedp layer)
-         (if (memq layer disabled-for-layers)
+         (if (not (configuration-layer//package-enabled-p pkg layer))
              (spacemacs-buffer/message
               (format "  -> ignored post-init (%S)..." layer))
            (spacemacs-buffer/message
