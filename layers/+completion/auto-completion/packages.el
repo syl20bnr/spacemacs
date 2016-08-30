@@ -14,7 +14,7 @@
         auto-complete
         ac-ispell
         company
-        company-quickhelp
+        (company-quickhelp :toggle auto-completion-enable-help-tooltip)
         company-statistics
         (helm-company :toggle (configuration-layer/package-usedp 'helm))
         (helm-c-yasnippet :toggle (configuration-layer/package-usedp 'helm))
@@ -114,13 +114,12 @@
 
 (defun auto-completion/init-company-quickhelp ()
   (use-package company-quickhelp
-    :if (and auto-completion-enable-help-tooltip (display-graphic-p))
     :defer t
     :init
-    (progn
-      (add-hook 'company-mode-hook 'company-quickhelp-mode)
-      (with-eval-after-load 'company
-        (setq company-frontends (delq 'company-echo-metadata-frontend company-frontends))))))
+    (spacemacs|do-after-display-system-init
+     (add-hook 'company-mode-hook 'company-quickhelp-mode)
+     (with-eval-after-load 'company
+       (setq company-frontends (delq 'company-echo-metadata-frontend company-frontends))))))
 
 (defun auto-completion/init-helm-c-yasnippet ()
   (use-package helm-c-yasnippet

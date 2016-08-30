@@ -32,15 +32,16 @@
   (use-package diff-hl
     :init
     (progn
-      (setq diff-hl-side 'right)
+      (setq diff-hl-side 'left)
       (when (eq version-control-diff-tool 'diff-hl)
         (when (configuration-layer/package-usedp 'magit)
           (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
         (when version-control-global-margin
           (global-diff-hl-mode))
-        (unless (display-graphic-p)
-          (setq diff-hl-side 'left)
-          (diff-hl-margin-mode))))))
+        (diff-hl-margin-mode)
+        (spacemacs|do-after-display-system-init
+         (setq diff-hl-side 'right)
+         (diff-hl-margin-mode -1))))))
 
 (defun version-control/post-init-evil-unimpaired ()
   (define-key evil-normal-state-map (kbd "[ h") 'spacemacs/vcs-previous-hunk)
@@ -76,9 +77,9 @@
     :commands git-gutter-mode
     :init
     (progn
-      (when (display-graphic-p)
-        (with-eval-after-load 'git-gutter
-          (require 'git-gutter-fringe)))
+      (spacemacs|do-after-display-system-init
+       (with-eval-after-load 'git-gutter
+         (require 'git-gutter-fringe)))
       (setq git-gutter-fr:side 'right-fringe))
     :config
     (progn
@@ -137,9 +138,9 @@
     :commands git-gutter+-mode
     :init
     (progn
-      (when (display-graphic-p)
-        (with-eval-after-load 'git-gutter+
-          (require 'git-gutter-fringe+)))
+      (spacemacs|do-after-display-system-init
+       (with-eval-after-load 'git-gutter+
+         (require 'git-gutter-fringe+)))
       (setq git-gutter-fr+-side 'right-fringe))
     :config
     (progn
