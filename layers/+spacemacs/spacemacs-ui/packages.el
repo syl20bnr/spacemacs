@@ -301,4 +301,8 @@ debug-init and load the given list of packages."
                  ;; assigning 0 only to the top-left window
                  (eq (selected-window) (window-at 0 0)))
         0))
-    (setq window-numbering-assign-func #'spacemacs//window-numbering-assign)))
+
+    ;; using lambda to work-around a bug in window-numbering, see
+    ;; https://github.com/nschum/window-numbering.el/issues/10
+    (setq window-numbering-assign-func
+          (lambda () (spacemacs//window-numbering-assign)))))
