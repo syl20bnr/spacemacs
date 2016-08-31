@@ -506,7 +506,7 @@ If the universal prefix argument is used then will the windows too."
   (delete-other-windows)
   (split-window-right))
 
-(defalias 'spacemacs/home 'spacemacs-buffer/goto-buffer
+(defalias 'spacemacs/home 'spacemacs-buffer/refresh
   "Go to home Spacemacs buffer")
 
 (defun spacemacs/home-delete-other-windows ()
