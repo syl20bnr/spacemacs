@@ -780,6 +780,7 @@ list. Return entire list if `END' is omitted."
           (list-separator "\n\n"))
       (goto-char (point-max))
       (spacemacs-buffer/insert-page-break)
+      (insert "\n")
       (mapc (lambda (els)
               (let ((el (or (car-safe els) els))
                     (list-size (cdr-safe els)))
