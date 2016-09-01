@@ -49,7 +49,7 @@
             (concat spacemacs-cache-directory "anaconda-mode"))
       (add-hook 'python-mode-hook 'anaconda-mode)
       (add-hook 'spacemacs-jump-handlers-python-mode
-                'anaconda-mode-find-definitions))
+                '(anaconda-mode-find-definitions :async t)))
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
