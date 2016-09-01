@@ -458,7 +458,7 @@
     :description
     "Remap navigation keys in `ranger'."
     :loader
-    (with-eval-after-load 'ranger BODY)
+    (spacemacs|use-package-add-hook ranger :post-config BODY)
     :common
     (kl/correct-keys ranger-mode-map
       "h"
