@@ -337,7 +337,6 @@
         "pG" 'projectile-regenerate-tags
         "pI" 'projectile-invalidate-cache
         "pk" 'projectile-kill-buffers
-        "po" 'projectile-multi-occur
         "pR" 'projectile-replace
         "pT" 'projectile-test-project
         "py" 'projectile-find-tag))

@@ -509,7 +509,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
     (progn
       (spacemacs/set-leader-keys
         "aop" 'org-projectile/capture
-        "bt" 'org-projectile/goto-todos)
+        "po" 'org-projectile/goto-todos)
       (with-eval-after-load 'org-capture
         (require 'org-projectile)))
     :config
