@@ -137,9 +137,7 @@
     (spacemacs|define-jump-handlers elixir-mode)))
 
 (defun elixir/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'elixir-mode)
-  (add-hook 'elixir-mode-hook
-            'spacemacs//elixir-flycheck-check-on-save-only t))
+  (spacemacs/add-flycheck-hook 'elixir-mode))
 
 (defun elixir/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
