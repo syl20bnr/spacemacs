@@ -1530,7 +1530,7 @@ these is *guaranteed* to never conflict with Spacemacs default key bindings.
 c~ to run org mode capture.
 
 ** Completion
-Spacemacs is powered by one of two incrementatal completion and selection
+Spacemacs is powered by one of two incremental completion and selection
 narrowing frameworks: [[https://github.com/emacs-helm/helm][Helm]] (default) or [[https://github.com/abo-abo/swiper][Ivy]]. To use Ivy, add the =ivy= layer to
 your list of enabled layers. If the =ivy= layer is not enabled, Helm will be
 enabled automatically. (Please note that, as Helm is the more mature of the two,
