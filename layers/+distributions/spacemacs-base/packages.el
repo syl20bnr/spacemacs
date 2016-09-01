@@ -335,7 +335,7 @@
         "pc" 'projectile-compile-project
         "pD" 'projectile-dired
         "pg" 'projectile-find-tag
-        "pG" 'projectile-regenerate-tags
+        "p C-g" 'projectile-regenerate-tags
         "pI" 'projectile-invalidate-cache
         "pk" 'projectile-kill-buffers
         "pR" 'projectile-replace
