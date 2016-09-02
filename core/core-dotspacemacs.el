@@ -322,7 +322,13 @@ NOT USED FOR NOW :-)")
   "Association list of items to show in the startup buffer of the form
 `(list-type . list-size)`. If nil it is disabled.
 Possible values for list-type are:
-`recents' `bookmarks' `projects' `agenda' `todos'.")
+`recents' `bookmarks' `projects' `agenda' `todos'.
+List sizes may be nil, in which case
+`spacemacs--buffer-startup-lists-length' takes effect.
+")
+
+(defvar dotspacemacs-startup-buffer-responsive t
+  "True if the home buffer should respond to resize events.")
 
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages that will not be install and loaded.")

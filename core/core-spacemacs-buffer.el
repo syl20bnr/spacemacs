@@ -24,6 +24,10 @@
   (expand-file-name (concat spacemacs-cache-directory "spacemacs-buffer.el"))
   "Cache file for various persistent data for the spacemacs startup buffer")
 
+(defvar spacemacs-buffer--startup-lists-length 20
+  "Length used for startup lists with otherwise unspecified bounds.
+Set to nil for unbounded.")
+
 (defvar spacemacs-buffer--release-note-version nil
   "If nil the release note is displayed. If non nil it contains
 a version number, if the version number is lesser than the current
@@ -783,7 +787,9 @@ list. Return entire list if `END' is omitted."
       (insert "\n")
       (mapc (lambda (els)
               (let ((el (or (car-safe els) els))
-                    (list-size (cdr-safe els)))
+                    (list-size
+                     (or (cdr-safe els)
+                         spacemacs-buffer--startup-lists-length)))
                 (cond
                  ((eq el 'recents)
                   (recentf-mode)
@@ -903,12 +909,16 @@ already exist, and switch to it."
         (switch-to-buffer spacemacs-buffer-name)
         (spacemacs//redisplay)))))
 
-(add-hook 'window-configuration-change-hook 'spacemacs-buffer//resize-on-hook)
+(add-hook 'window-setup-hook
+          (lambda ()
+            (add-hook 'window-configuration-change-hook 'spacemacs-buffer//resize-on-hook)
+            (spacemacs-buffer//resize-on-hook)))
 
 (defun spacemacs-buffer//resize-on-hook ()
   (let ((space-win (get-buffer-window spacemacs-buffer-name))
         (frame-win (frame-selected-window)))
-    (when (and space-win
+    (when (and dotspacemacs-startup-buffer-responsive
+               space-win
                (not (window-minibuffer-p frame-win)))
       (with-selected-window space-win
         (spacemacs-buffer/goto-buffer t)))))
