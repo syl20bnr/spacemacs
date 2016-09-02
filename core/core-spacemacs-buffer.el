@@ -909,7 +909,10 @@ already exist, and switch to it."
         (switch-to-buffer spacemacs-buffer-name)
         (spacemacs//redisplay)))))
 
-(add-hook 'window-configuration-change-hook 'spacemacs-buffer//resize-on-hook)
+(add-hook 'window-setup-hook
+          (lambda ()
+            (add-hook 'window-configuration-change-hook 'spacemacs-buffer//resize-on-hook)
+            (spacemacs-buffer//resize-on-hook)))
 
 (defun spacemacs-buffer//resize-on-hook ()
   (let ((space-win (get-buffer-window spacemacs-buffer-name))
