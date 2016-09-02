@@ -327,6 +327,9 @@ List sizes may be nil, in which case
 `spacemacs--buffer-startup-lists-length' takes effect.
 ")
 
+(defvar dotspacemacs-startup-buffer-responsive t
+  "True if the home buffer should respond to resize events.")
+
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages that will not be install and loaded.")
 

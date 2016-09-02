@@ -914,7 +914,8 @@ already exist, and switch to it."
 (defun spacemacs-buffer//resize-on-hook ()
   (let ((space-win (get-buffer-window spacemacs-buffer-name))
         (frame-win (frame-selected-window)))
-    (when (and space-win
+    (when (and dotspacemacs-startup-buffer-responsive
+               space-win
                (not (window-minibuffer-p frame-win)))
       (with-selected-window space-win
         (spacemacs-buffer/goto-buffer t)))))
