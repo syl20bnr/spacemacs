@@ -296,7 +296,7 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
     (org-display-inline-images)))
 
 (defun spacemacs//space-doc-tags-fontify (startish endish &optional verbose)
-  "Fontify `org-mode' tags in the fuzzy region that might start
+  "Fontify `org-mode' tags in the fuzzy region that starts
  before STARTISH and end after ENDISH. VERBOSE ignored."
   ;; TODO add more types of tags or meta-line if needed.
   (let ((invisible-org-meta-tags-list
@@ -320,10 +320,12 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
            ;;an org headline.
            ,(unless (face-background 'org-block-end-line)
               "^[ \t]*\\#\\+end_src.*\n\\(\n\\)[^\\*]")))
-        (start (save-excursion (goto-char startish)
-                               (point-at-bol -15)))
-        (end   (save-excursion (goto-char endish)
-                               (point-at-eol 15))))
+        (start (save-excursion (goto-char (or startish
+                                              (point-min)))
+                               (point-at-bol -2)))
+        (end   (save-excursion (goto-char (or endish
+                                              (point-max)))
+                               (point-at-eol 2))))
     ;; Remove nils.
     (setq invisible-org-meta-tags-list
           (remove nil invisible-org-meta-tags-list))
