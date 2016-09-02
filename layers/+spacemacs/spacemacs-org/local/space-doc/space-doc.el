@@ -49,7 +49,7 @@ keeping their content visible.
   (spacemacs//space-doc-centered-buffer-mode-goto-origin space-doc-mode)
   (if (derived-mode-p 'org-mode)
       (let ((inhibit-read-only t))
-        (spacemacs//space-doc-set-cache space-doc-mode)
+        (spacemacs//space-doc-set-cache +1)
         (dolist (modificator spacemacs-space-doc-modificators-functions)
           (when (member (car modificator)
                         spacemacs-space-doc-modificators)
