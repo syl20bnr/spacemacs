@@ -27,6 +27,7 @@
 ;;; Code:
 (require 'face-remap)
 (require 'org)
+(require 'org-compat)
 (require 'centered-buffer-mode)
 
 (defgroup space-doc nil "Minor mode for viewing Spacemacs documentation files."
@@ -47,12 +48,14 @@ keeping their content visible.
   :group 'space-doc
   (spacemacs//space-doc-centered-buffer-mode-goto-origin space-doc-mode)
   (if (derived-mode-p 'org-mode)
-      (progn
+      (let ((inhibit-read-only t))
         (spacemacs//space-doc-set-cache space-doc-mode)
         (dolist (modificator spacemacs-space-doc-modificators-functions)
           (when (member (car modificator)
                         spacemacs-space-doc-modificators)
             (funcall (cdr modificator) space-doc-mode))))
+    ;; Force `org-mode' to replace font text properties with the default ones.
+    (unless space-doc-mode (org-font-lock-ensure))
     (message (format "space-doc-mode error:%s isn't an org-mode buffer"
                      (buffer-name)))
     (setq space-doc-mode nil)))
@@ -95,8 +98,8 @@ list `spacemacs-centered-buffer-mode' will not be enabled."
     (org-indent-mode              . spacemacs//space-doc-org-indent-mode)
     (view-mode                    . spacemacs//space-doc-view-mode)
     (hide-line-numbers            . spacemacs//space-doc-hide-line-numbers)
-    (alternative-emphasis            . spacemacs//space-doc-alternative-emphasis)
-    (alternative-tags-look           . spacemacs//space-doc-alternative-tags-look)
+    (alternative-emphasis         . spacemacs//space-doc-alternative-emphasis)
+    (alternative-tags-look        . spacemacs//space-doc-alternative-tags-look)
     (link-protocol                . spacemacs//space-doc-link-protocol)
     (org-block-line-face-remap    . spacemacs//space-doc-org-block-line-face-remap)
     (org-kbd-face-remap           . spacemacs//space-doc-org-kbd-face-remap)
@@ -126,22 +129,6 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
     ;; Also it has to be run when the `window-body-width' is properly calculated.
     (run-with-idle-timer 0 nil 'spacemacs-centered-buffer-mode))
   (spacemacs-centered-buffer-mode -1))
-
-(defun spacemacs//space-doc-centered-buffer-mode-hook ()
-  "Apply `spacemacs//space-doc-alternative-emphasis' to the `current-buffer'
-if `space-doc-mode' is enabled."
-  (when space-doc-mode
-    (when (member 'alternative-emphasis
-                  spacemacs-space-doc-modificators)
-      (spacemacs//space-doc-alternative-emphasis t))
-    (when (member 'alternative-tags-look
-                  spacemacs-space-doc-modificators)
-      (spacemacs//space-doc-alternative-tags-look t))))
-
-(when (member 'center-buffer-mode
-              spacemacs-space-doc-modificators)
-  (add-hook 'spacemacs-centered-buffer-mode-hook
-            'spacemacs//space-doc-centered-buffer-mode-hook))
 
 (defun spacemacs//space-doc-org-indent-mode (&optional flag)
   "Enable `org-indent-mode' if flag is non nil, disable it otherwise.
@@ -227,69 +214,59 @@ current buffer so piggybacking it should be pretty performant solution."
                 :after
                 #'spacemacs//space-doc-org-do-emphasis-faces-advice)))
 
+(defun spacemacs//space-doc-add-region-edge-text-property (begin end property &optional face)
+  "Add text PROPERTY to the first and last character of the BEGIN END text region
+with `add-text-properties' or if FACE has non-nil value `add-face-text-property'."
+  (let ((edge-sub-regs (list (list (1+ begin) begin)
+                             (list (1- end)   end))))
+    (dolist (edge-sub-reg edge-sub-regs)
+      (funcall (if face
+                   'add-face-text-property
+                 'add-text-properties)
+               (car edge-sub-reg)
+               (cadr edge-sub-reg)
+               property))))
+
 (defun spacemacs//space-doc-emphasis-region (begin end)
   "Emphasis region based on its leading character.
 The character should be one of the markers from `org-emphasis-alist'."
-  (let* ((beginning-marker-overlay nil)
-         (ending-marker-overlay nil))
-    (setq beginning-marker-overlay
-          (make-overlay begin (1+ begin))
-          ending-marker-overlay
-          (make-overlay (1- end) end))
+  (let ((kbd-face (spacemacs--space-doc-cache-struct-btn-marker-face
+                   spacemacs--space-doc-cache))
+        (marker-face (spacemacs--space-doc-cache-struct-marker-face
+                      spacemacs--space-doc-cache)))
     (if (string= (buffer-substring-no-properties begin
                                                  (1+ begin))
                  (spacemacs--space-doc-cache-struct-kbd-marker
                   spacemacs--space-doc-cache))
-        (progn
-          (overlay-put beginning-marker-overlay
-                       'face
-                       (spacemacs--space-doc-cache-struct-btn-marker-face
-                        spacemacs--space-doc-cache))
-          (overlay-put ending-marker-overlay
-                       'face
-                       (spacemacs--space-doc-cache-struct-btn-marker-face
-                        spacemacs--space-doc-cache)))
-      ;; If inside table.
+        (spacemacs//space-doc-add-region-edge-text-property begin end kbd-face t)
       (if (save-excursion
             (goto-char begin)
             (beginning-of-line)
             (looking-at-p org-table-any-line-regexp))
-          (progn
-            (overlay-put beginning-marker-overlay
-                         'face
-                         (spacemacs--space-doc-cache-struct-marker-face
-                          spacemacs--space-doc-cache))
-            (overlay-put ending-marker-overlay
-                         'face
-                         (spacemacs--space-doc-cache-struct-marker-face
-                          spacemacs--space-doc-cache)))
-        (overlay-put beginning-marker-overlay
-                     'invisible t)
-        (overlay-put ending-marker-overlay
-                     'invisible t)))
-    (overlay-put beginning-marker-overlay
-                 'space-doc-emphasis-overlay t)
-    (overlay-put ending-marker-overlay
-                 'space-doc-emphasis-overlay t)))
+          ;; If inside table.
+          (spacemacs//space-doc-add-region-edge-text-property begin end marker-face t)
+        (spacemacs//space-doc-add-region-edge-text-property
+         begin
+         end
+         '(invisible spacemacs--space-doc-invisible-marker))))))
 
 (defun spacemacs//space-doc-alternative-emphasis (&optional enable)
   "Emphasis overlays.
-If ENABLE is non-nil, overlay regions which have already been emphasized by
-`org-do-emphasis-faces'in the current buffer.
-Otherwise remove all overlays with property `space-doc-emphasis-overlay'.
+If ENABLE is non-nil, change the look of regions which have already
+been emphasized by `org-do-emphasis-faces' in the current buffer.
+Otherwise revert to the normal look.
 This functions is aimed to be used with `spacemacs-space-doc-modificators'."
-  ;; Remove overlays.
-  (spacemacs//space-doc-advice-org-do-emphasis-faces enable)
-  (dolist (overlay (overlays-in (point-min) (point-max)))
-    (when (overlay-get overlay 'space-doc-emphasis-overlay)
-      (delete-overlay overlay)))
-  (when enable
-    (dolist (emphasized-region
-             (spacemacs//space-doc-find-regions-by-text-property
-              'org-emphasis t))
-      (spacemacs//space-doc-emphasis-region
-       (car  emphasized-region)
-       (cadr emphasized-region)))))
+  (if enable
+      (progn
+        (spacemacs//space-doc-advice-org-do-emphasis-faces enable)
+        (add-to-invisibility-spec 'spacemacs--space-doc-invisible-marker)
+        (dolist (emphasized-region
+                 (spacemacs//space-doc-find-regions-by-text-property
+                  'org-emphasis t))
+          (spacemacs//space-doc-emphasis-region
+           (car  emphasized-region)
+           (cadr emphasized-region))))
+    (remove-from-invisibility-spec 'spacemacs--space-doc-invisible-marker)))
 
 (defun spacemacs//space-doc-org-kbd-face-remap (&optional enable)
   "Remove boxes from key bindings.
@@ -318,57 +295,65 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
               600)))
     (org-display-inline-images)))
 
+(defun spacemacs//space-doc-tags-fontify (startish endish &optional verbose)
+  "Fontify `org-mode' tags in the fuzzy region that might start
+ before STARTISH and end after ENDISH. VERBOSE ignored."
+  ;; TODO add more types of tags or meta-line if needed.
+  (let ((invisible-org-meta-tags-list
+         `(;; Hide TITLE tag.
+           "\\([ \t]*\\#\\+TITLE\\:\[ \t]*\\)"
+           ;; Hide CAPTION logo meta line.
+           "\\(\n.*\\#\\+CAPTION\\:.*\\)"
+           ;; Hide TOC-ORG tag and spaces before it.
+           ;; Use modified `toc-org-toc-org-regexp' because
+           ;; the original one matches whole string.
+           ,(concat "\\([ \t]*:toc\\([@_][0-9]\\|\\([@_][0-9]"
+                    "[@_][a-zA-Z]+\\)\\)?:\\($\\|[^ ]*:$\\)\\)")
+           ;; Hide empty line before #+BEGIN_SRC tag if
+           ;; background color of the `org-block-begin-line'
+           ;; face is unspecified.
+           ,(unless (face-background 'org-block-begin-line)
+              "\n\\(\n\\)[ \t]*\\#\\+begin_src.*$")
+           ;; Hide empty line after #+END_SRC tag if
+           ;; background color of the `org-block-end-line'
+           ;; face is unspecified and the next line isn't
+           ;;an org headline.
+           ,(unless (face-background 'org-block-end-line)
+              "^[ \t]*\\#\\+end_src.*\n\\(\n\\)[^\\*]")))
+        (start (save-excursion (goto-char startish)
+                               (point-at-bol -15)))
+        (end   (save-excursion (goto-char endish)
+                               (point-at-eol 15))))
+    ;; Remove nils.
+    (setq invisible-org-meta-tags-list
+          (remove nil invisible-org-meta-tags-list))
+    ;; Make `org-mode' meta tags invisible.
+    (dolist (tag invisible-org-meta-tags-list)
+      (save-excursion
+        (goto-char start)
+        (while (re-search-forward tag end t)
+          (add-text-properties (match-beginning 1)
+                               (match-end 1)
+                               (list 'invisible 'spacemacs--space-doc-invisible-marker)))))))
+
+(defun spacemacs//space-doc-font-lock-fontify-region-function (start end &optional verbose)
+  "Wrapper around `font-lock-default-fontify-region' function for the buffer local value of
+`font-lock-fontify-region-function'. Makes sure that `font-lock-default-fontify-region'
+text property persist after `org-mode' shenanigans.
+NOTE: Not using `advice-add' because it is global modification.
+FIXME: Find cleaner solution."
+  (font-lock-default-fontify-region  start end verbose)
+  (spacemacs//space-doc-tags-fontify start end verbose))
+
 (defun spacemacs//space-doc-alternative-tags-look (&optional enable)
   "Modify meta tag appearance.
 If ENABLE is non-nil, modify `org-mode' meta tags appearance in the current
 buffer.
-Otherwise, disable modifcations.
 This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   (if enable
-      ;; TODO add more types of tags or meta-line if needed.
-      (let* ((invisible-org-meta-tags-list
-              `(;; Hide TITLE tag.
-                ("\\([ \t]*\\#\\+TITLE\\:\[ \t]*\\)"
-                 invisible t)
-                ;; Hide CAPTION logo meta line.
-                ("\\(\n.*\\#\\+CAPTION\\:.*\\)"
-                 invisible t)
-                ;; Hide TOC-ORG tag and spaces before it.
-                ;; Use modified `toc-org-toc-org-regexp' because
-                ;; the original one matches whole string.
-                (,(concat "\\([ \t]*:toc\\([@_][0-9]\\|\\([@_][0-9]"
-                          "[@_][a-zA-Z]+\\)\\)?:\\($\\|[^ ]*:$\\)\\)")
-                 invisible t)
-                ;; Hide empty line before #+BEGIN_SRC tag if
-                ;; background color of the `org-block-begin-line'
-                ;; face is unspecified.
-                ,(unless (face-background 'org-block-begin-line)
-                   '("\n\\(\n\\)[ \t]*\\#\\+begin_src.*$"
-                     invisible t))
-                ;; Hide empty line after #+END_SRC tag if
-                ;; background color of the `org-block-end-line'
-                ;; face is unspecified and the next line isn't
-                ;;an org headline.
-                ,(unless (face-background 'org-block-end-line)
-                   '("^[ \t]*\\#\\+end_src.*\n\\(\n\\)[^\\*]"
-                     invisible t)))))
-        ;; Remove nils.
-        (setq invisible-org-meta-tags-list
-              (remove nil invisible-org-meta-tags-list))
-        ;; Make `org-mode' meta tags invisible.
-        (dolist (tag invisible-org-meta-tags-list)
-          (save-excursion
-            (goto-char (point-min))
-            (while (re-search-forward (car tag) nil t)
-              (let ((new-overlay
-                     (make-overlay (match-beginning 1)
-                                   (match-end 1))))
-                (overlay-put new-overlay  (cadr tag) (cddr tag))
-                (overlay-put new-overlay 'space-doc-tag-overlay t))))))
-    ;; Remove overlays.
-    (dolist (overlay (overlays-in (point-min) (point-max)))
-      (when (overlay-get overlay 'space-doc-tag-overlay)
-        (delete-overlay overlay)))))
+      (setq-local font-lock-fontify-region-function
+                  'spacemacs//space-doc-font-lock-fontify-region-function)
+    (kill-local-variable 'font-lock-fontify-region-function)))
 
 (defun spacemacs//space-doc-org-block-line-face-remap (&optional enable)
   "Hide drawers.
