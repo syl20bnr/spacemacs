@@ -26,6 +26,14 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =html= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+SCSS linting requires SCSS-Lint version >= 0.43.0. You can get it from GitHub:
+
+#+BEGIN_SRC command-line
+gem install specific_install
+gem specific_install https://github.com/brigade/scss-lint.git
+gem specific_install https://github.com/Sweetchuck/scss_lint_reporter_checkstyle.git
+#+END_SRC
+
 * Key Bindings
 ** Web mode
 
