@@ -16,6 +16,7 @@
         (archive-mode :location built-in)
         (bookmark :location built-in)
         (centered-buffer-mode :location local)
+        (conf-mode :location built-in)
         (dired :location built-in)
         (dired-x :location built-in)
         (electric-indent-mode :location built-in)
@@ -88,6 +89,11 @@
             ;; autosave each change
             bookmark-save-flag 1)
       (spacemacs/set-leader-keys "fb" 'bookmark-jump))))
+
+(defun spacemacs-base/init-conf-mode ()
+  :init
+  ;; explicitly derive conf-mode from text-mode major-mode
+  (add-hook 'conf-mode-hook 'spacemacs/run-text-mode-hooks))
 
 (defun spacemacs-base/init-dired ()
   (spacemacs/set-leader-keys
