@@ -23,6 +23,7 @@
     (ob :location built-in)
     (org :location built-in)
     (org-agenda :location built-in)
+    (org-expiry :location built-in)
     org-download
     ;; org-mime is installed by `org-plus-contrib'
     (org-mime :location built-in)
@@ -443,6 +444,17 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (kbd "M-RET") 'org-agenda-show-and-scroll-up
       (kbd "M-SPC") 'spacemacs/org-agenda-transient-state/body
       (kbd "s-M-SPC") 'spacemacs/org-agenda-transient-state/body)))
+
+(defun org/init-org-expiry ()
+  (use-package org-expiry
+    :commands (org-expiry-insinuate
+               org-expiry-deinsinuate
+               org-expiry-insert-created
+               org-expiry-insert-expiry
+               org-expiry-add-keyword
+               org-expiry-archive-subtree
+               org-expiry-process-entry
+               org-expiry-process-entries)))
 
 (defun org/init-org-download ()
   (use-package org-download
