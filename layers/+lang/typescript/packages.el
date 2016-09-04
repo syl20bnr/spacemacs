@@ -37,7 +37,7 @@
                   (when (configuration-layer/package-usedp 'company)
                     (company-mode-on))))
 
-      (add-hook 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition))
+      (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'typescript-mode "mg" "goto")

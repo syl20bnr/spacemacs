@@ -38,7 +38,7 @@
       ;; setup company backends
       (push 'alchemist-company company-backends-elixir-mode)
       (push 'alchemist-company company-backends-alchemist-iex-mode)
-      (add-hook 'spacemacs-jump-handlers-elixir-mode
+      (add-to-list 'spacemacs-jump-handlers-elixir-mode
                 'alchemist-goto-definition-at-point))
     :config
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mc" "compile")

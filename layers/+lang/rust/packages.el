@@ -95,4 +95,4 @@
     (progn
       (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode eldoc-mode))
       (spacemacs/declare-prefix-for-mode 'rust-mode "mg" "goto")
-      (add-hook 'spacemacs-jump-handlers-rust-mode 'racer-find-definition))))
+      (add-to-list 'spacemacs-jump-handlers-rust-mode 'racer-find-definition))))

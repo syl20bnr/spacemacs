@@ -75,16 +75,14 @@
     :diminish elisp-slime-nav-mode
     :init
     (progn
-      (spacemacs/add-to-hooks
-       'elisp-slime-nav-find-elisp-thing-at-point
-       '(spacemacs-jump-handlers-emacs-lisp-mode
-         spacemacs-jump-handlers-lisp-interaction-mode))
       (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
       (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
         (spacemacs/declare-prefix-for-mode mode "mg" "find-symbol")
         (spacemacs/declare-prefix-for-mode mode "mh" "help")
         (spacemacs/set-leader-keys-for-major-mode mode
-          "hh" 'elisp-slime-nav-describe-elisp-thing-at-point)))))
+          "hh" 'elisp-slime-nav-describe-elisp-thing-at-point)
+        (let ((jumpl (intern (format "spacemacs-jump-handlers-%S" mode))))
+          (add-to-list jumpl 'elisp-slime-nav-find-elisp-thing-at-point))))))
 
 (defun emacs-lisp/init-emacs-lisp ()
   (spacemacs|define-jump-handlers emacs-lisp-mode)

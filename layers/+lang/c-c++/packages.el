@@ -126,8 +126,8 @@
 (defun c-c++/post-init-ycmd ()
   (add-hook 'c++-mode-hook 'ycmd-mode)
   (add-hook 'c-mode-hook 'ycmd-mode)
-  (add-hook 'spacemacs-jump-handlers-c++-mode '(ycmd-goto :async t))
-  (add-hook 'spacemacs-jump-handlers-c-mode '(ycmd-goto :async t))
+  (add-to-list 'spacemacs-jump-handlers-c++-mode '(ycmd-goto :async t))
+  (add-to-list 'spacemacs-jump-handlers-c-mode '(ycmd-goto :async t))
   (dolist (mode '(c++-mode c-mode))
     (spacemacs/set-leader-keys-for-major-mode mode
       "gG" 'ycmd-goto-imprecise)))

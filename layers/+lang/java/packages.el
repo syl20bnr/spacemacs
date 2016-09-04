@@ -34,7 +34,7 @@
     :init
     (progn
       (add-hook 'java-mode-hook 'eclim-mode)
-      (add-hook 'spacemacs-jump-handlers-java-mode 'eclim-java-find-declaration))
+      (add-to-list 'spacemacs-jump-handlers-java-mode 'eclim-java-find-declaration))
     :config
     (progn
       (require 'eclimd)

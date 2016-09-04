@@ -48,7 +48,7 @@
       (setq anaconda-mode-installation-directory
             (concat spacemacs-cache-directory "anaconda-mode"))
       (add-hook 'python-mode-hook 'anaconda-mode)
-      (add-hook 'spacemacs-jump-handlers-python-mode
+      (add-to-list 'spacemacs-jump-handlers-python-mode
                 '(anaconda-mode-find-definitions :async t)))
     :config
     (progn

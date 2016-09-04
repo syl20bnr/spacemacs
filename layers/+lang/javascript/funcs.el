@@ -14,7 +14,7 @@
 
 (defun spacemacs//set-tern-key-bindings (mode)
   "Set the key bindings for tern and the given MODE."
-  (add-hook (intern (format "spacemacs-jump-handlers-%S" mode))
+  (add-to-list (intern (format "spacemacs-jump-handlers-%S" mode))
             'tern-find-definition)
   (spacemacs/set-leader-keys-for-major-mode mode
     "rrV" 'tern-rename-variable

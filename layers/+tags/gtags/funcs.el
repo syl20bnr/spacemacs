@@ -36,8 +36,8 @@ Otherwise does nothing."
     ;; Some modes have more sophisticated jump handlers that go to the beginning
     ;; It might be possible to add `helm-gtags-dwim' instead to the default
     ;; handlers, if it does a reasonable job in ALL modes.
-    (let ((hook (intern (format "spacemacs-jump-handlers-%S" mode))))
-      (add-hook hook 'spacemacs/helm-gtags-maybe-dwim 'append))
+    (let ((jumpl (intern (format "spacemacs-jump-handlers-%S" mode))))
+      (add-to-list jumpl 'spacemacs/helm-gtags-maybe-dwim 'append))
 
     (spacemacs/set-leader-keys-for-major-mode mode
       "gc" 'helm-gtags-create-tags

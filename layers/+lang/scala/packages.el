@@ -35,7 +35,7 @@
       (add-hook 'scala-mode-hook 'scala/configure-ensime)
       (when scala-auto-start-ensime
         (add-hook 'scala-mode-hook 'scala/maybe-start-ensime))
-      (add-hook 'spacemacs-jump-handlers-scala-mode 'ensime-edit-definition))
+      (add-to-list 'spacemacs-jump-handlers-scala-mode 'ensime-edit-definition))
     :config
     (progn
       (setq user-emacs-ensime-directory ".cache/ensime")

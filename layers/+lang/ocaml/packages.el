@@ -51,7 +51,7 @@
     :defer t
     :init
     (progn
-      (add-hook 'spacemacs-jump-handlers-tuareg-mode
+      (add-to-list 'spacemacs-jump-handlers-tuareg-mode
                 'spacemacs/merlin-locate)
       (add-hook 'tuareg-mode-hook 'merlin-mode)
       (setq merlin-completion-with-doc t)

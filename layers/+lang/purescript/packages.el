@@ -63,7 +63,7 @@
       (customize-set-variable 'psc-ide-add-import-on-completion purescript-add-import-on-completion)
       (customize-set-variable 'psc-ide-rebuild-on-save purescript-enable-rebuild-on-save)
 
-      (add-hook 'spacemacs-jump-handlers-purescript-mode 'psc-ide-goto-definition)
+      (add-to-list 'spacemacs-jump-handlers-purescript-mode 'psc-ide-goto-definition)
       (spacemacs/set-leader-keys-for-major-mode 'purescript-mode
         "mt"  'psc-ide-add-clause
         "mcs" 'psc-ide-case-split
