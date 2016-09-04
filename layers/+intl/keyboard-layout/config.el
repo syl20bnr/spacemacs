@@ -58,7 +58,16 @@ any case.")
                ("h" . "h")
                ("j" . "t")
                ("k" . "n")
-               ("l" . "s"))))
+               ("l" . "s")))
+    (colemak . (("h" . "h")
+                ("n" . "j")
+                ("e" . "k")
+                ("i" . "l")
+                ;;
+                ("h" . "h")
+                ("j" . "n")
+                ("k" . "e")
+                ("l" . "i"))))
   "The base rebinding map. Dots should be read as `will behave
   as'. It should be a bidirectional mapping, i.e. all present
   keys should be once in each column.")
