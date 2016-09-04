@@ -1873,7 +1873,7 @@ to select one."
                      orphan
                      deleted-count
                      orphans-count) t)
-            ;; (configuration-layer//package-delete orphan)
+            (configuration-layer//package-delete orphan)
             (spacemacs//redisplay))
           (spacemacs-buffer/append "\n"))
       (spacemacs-buffer/message "No orphan package to delete."))))
