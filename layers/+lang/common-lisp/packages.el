@@ -15,7 +15,8 @@
         ggtags
         helm
         helm-gtags
-        slime))
+        slime
+        slime-company))
 
 (defun common-lisp/post-init-auto-highlight-symbol ()
   (with-eval-after-load 'auto-highlight-symbol
@@ -33,6 +34,9 @@
 (defun common-lisp/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'common-lisp-mode))
 
+(defun common-lisp/init-slime-company ()
+  (setq slime-company-completion 'fuzzy))
+
 (defun common-lisp/init-slime ()
   (use-package slime
     :commands slime-mode
@@ -44,6 +48,8 @@
                              slime-sbcl-exts
                              slime-scratch)
             inferior-lisp-program "sbcl")
+      (when (configuration-layer/package-usedp 'slime-company)
+        (push 'slime-company slime-contribs))
       ;; enable fuzzy matching in code buffer and SLIME REPL
       (setq slime-complete-symbol*-fancy t)
       (setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
