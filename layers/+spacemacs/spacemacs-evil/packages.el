@@ -187,11 +187,12 @@
     (progn
       (spacemacs|define-transient-state evil-numbers
         :title "Evil Numbers Transient State"
-        :doc "\n[_+_/_=_] increase number [_-_] decrease"
+        :doc "\n[_+_/_=_] increase number  [_-_] decrease  [0..9] prefix  [_q_] quit"
         :bindings
         ("+" evil-numbers/inc-at-pt)
         ("=" evil-numbers/inc-at-pt)
-        ("-" evil-numbers/dec-at-pt))
+        ("-" evil-numbers/dec-at-pt)
+        ("q" nil :exit t)) 
       (spacemacs/set-leader-keys
         "n+" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
         "n=" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
