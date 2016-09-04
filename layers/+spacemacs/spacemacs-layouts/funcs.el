@@ -468,7 +468,7 @@ STATE is a window-state object as returned by `window-state-get'."
   (spacemacs/workspaces-transient-state/body))
 
 (defun spacemacs//workspace-format-name (workspace)
-  "Return a porpertized string given a WORKSPACE name."
+  "Return a propertized string given a WORKSPACE name."
   (let* ((current (eq (eyebrowse--get 'current-slot) (car workspace)))
          (name (nth 2 workspace))
          (number (car workspace))
@@ -510,7 +510,7 @@ defaults to the current frame."
 
 (defun spacemacs//set-persp-workspace (workspace-params &optional persp frame)
   "Set workspace parameters for perspective.
-WORKSPACE-PARAMS should be a list containg 3 elements in this order:
+WORKSPACE-PARAMS should be a list containing 3 elements in this order:
 - window-configs, as returned by (eyebrowse--get 'window-configs)
 - current-slot, as returned by (eyebrowse--get 'current-slot)
 - last-slot, as returned by (eyebrowse--get 'last-slot)
