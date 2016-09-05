@@ -15,6 +15,9 @@
 (spacemacs|defvar-company-backends inferior-python-mode)
 (spacemacs|defvar-company-backends pip-requirements-mode)
 
+(spacemacs|define-jump-handlers python-mode)
+(spacemacs|define-jump-handlers cython-mode anaconda-mode-goto)
+
 (defvar python-enable-yapf-format-on-save nil
   "If non-nil, automatically format code with YAPF on save.")
 

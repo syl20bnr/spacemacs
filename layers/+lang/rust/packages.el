@@ -64,7 +64,6 @@
     :defer t
     :init
     (progn
-      (spacemacs|define-jump-handlers rust-mode)
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "=" 'rust-format-buffer))))
 

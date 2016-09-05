@@ -219,12 +219,7 @@
     (progn
       (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
       ;; This regexp matches shebang expressions like `#!/usr/bin/env boot'
-      (add-to-list 'magic-mode-alist '("#!.*boot\\s-*$" . clojure-mode))
-      (spacemacs|define-jump-handlers clojure-mode)
-      (spacemacs|define-jump-handlers clojurec-mode)
-      (spacemacs|define-jump-handlers clojurescript-mode)
-      (spacemacs|define-jump-handlers clojurex-mode)
-      (spacemacs|define-jump-handlers cider-repl-mode))
+      (add-to-list 'magic-mode-alist '("#!.*boot\\s-*$" . clojure-mode)))
     :config
     (progn
       (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))

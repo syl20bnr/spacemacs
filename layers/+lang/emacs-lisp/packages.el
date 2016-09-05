@@ -85,7 +85,6 @@
           (add-to-list jumpl 'elisp-slime-nav-find-elisp-thing-at-point))))))
 
 (defun emacs-lisp/init-emacs-lisp ()
-  (spacemacs|define-jump-handlers emacs-lisp-mode)
   (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
     (spacemacs/declare-prefix-for-mode mode "mc" "compile")
     (spacemacs/declare-prefix-for-mode mode "me" "eval")

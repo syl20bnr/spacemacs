@@ -26,7 +26,6 @@
     :commands run-geiser
     :init
     (progn
-      (spacemacs|define-jump-handlers scheme-mode geiser-edit-symbol-at-point)
       (spacemacs/register-repl 'geiser 'geiser-mode-switch-to-repl "geiser"))
     :config
     (progn

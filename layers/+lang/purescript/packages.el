@@ -29,7 +29,6 @@
     :defer t
     :init
     (progn
-      (spacemacs|define-jump-handlers purescript-mode)
       (add-hook 'purescript-mode-hook 'turn-on-purescript-indentation)
       (spacemacs/set-leader-keys-for-major-mode 'purescript-mode
         "i="  'purescript-mode-format-imports

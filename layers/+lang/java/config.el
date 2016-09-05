@@ -8,5 +8,6 @@
 ;;
 ;;; License: GPLv3
 
-;; Define the buffer local company backend variable
 (spacemacs|defvar-company-backends java-mode)
+
+(spacemacs|define-jump-handlers java-mode)

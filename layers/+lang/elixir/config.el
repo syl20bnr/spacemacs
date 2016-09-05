@@ -19,3 +19,5 @@ directory variable is recommended.")
 
 (spacemacs|defvar-company-backends elixir-mode)
 (spacemacs|defvar-company-backends alchemist-iex-mode)
+
+(spacemacs|define-jump-handlers elixir-mode)

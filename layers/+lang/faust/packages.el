@@ -25,7 +25,6 @@
     :mode "\\.\\(dsp\\|lib\\)\\'"
     :init
     (progn
-      (spacemacs|define-jump-handlers faust-mode)
       (spacemacs/set-leader-keys-for-major-mode 'faust-mode
         "cf" 'spacemacs/faust-to-firefox
         "cg" 'spacemacs/faust-to-jack-gtk

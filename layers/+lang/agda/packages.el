@@ -29,7 +29,6 @@
       :defer t
       :init (when agda-mode-path (load-file agda-mode-path))
       (progn
-        (spacemacs|define-jump-handlers agda2-mode agda2-goto-definition-keyboard)
         (mapc
          (lambda (x) (add-to-list 'face-remapping-alist x))
          '((agda2-highlight-datatype-face              . font-lock-type-face)

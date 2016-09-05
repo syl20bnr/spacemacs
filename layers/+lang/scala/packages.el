@@ -217,8 +217,7 @@
     :init
     (progn
       (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
-        (add-to-list 'completion-ignored-extensions ext))
-      (spacemacs|define-jump-handlers scala-mode))
+        (add-to-list 'completion-ignored-extensions ext)))
     :config
     (progn
       ;; Automatically insert asterisk in a comment when enabled

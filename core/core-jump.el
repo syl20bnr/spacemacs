@@ -34,8 +34,9 @@ sets `spacemacs-jump-handlers' in buffers of that mode."
                (append ,handlers-list
                        spacemacs-default-jump-handlers)))
        (add-hook ',mode-hook ',func)
-       (spacemacs/set-leader-keys-for-major-mode ',mode
-         "gg" 'spacemacs/jump-to-definition))))
+       (with-eval-after-load 'bind-map
+         (spacemacs/set-leader-keys-for-major-mode ',mode
+           "gg" 'spacemacs/jump-to-definition)))))
 
 (defun spacemacs/jump-to-definition ()
   (interactive)

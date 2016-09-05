@@ -42,8 +42,7 @@
       (defun spacemacs//go-set-tab-width ()
         "Set the tab width."
         (setq-local tab-width go-tab-width))
-      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width)
-      (spacemacs|define-jump-handlers go-mode godef-jump))
+      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width))
     :config
     (progn
       (add-hook 'before-save-hook 'gofmt-before-save)

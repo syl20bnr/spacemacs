@@ -10,5 +10,9 @@
 ;;; License: GPLv3
 
 ;; Variables
+
 (spacemacs|defvar-company-backends emacs-lisp-mode)
 (spacemacs|defvar-company-backends ielm-mode)
+
+(spacemacs|define-jump-handlers emacs-lisp-mode)
+(spacemacs|define-jump-handlers lisp-interaction-mode)

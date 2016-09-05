@@ -22,8 +22,7 @@
     :init
     (progn
       (setq fsharp-doc-idle-delay .2)
-      (spacemacs/register-repl 'fsharp-mode 'fsharp-show-subshell "F#")
-      (spacemacs|define-jump-handlers fsharp-mode fsharp-ac/gotodefn-at-point))
+      (spacemacs/register-repl 'fsharp-mode 'fsharp-show-subshell "F#"))
     :config
     (progn
 

@@ -132,9 +132,7 @@
 
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
-    :defer t
-    :init
-    (spacemacs|define-jump-handlers elixir-mode)))
+    :defer t))
 
 (defun elixir/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'elixir-mode)

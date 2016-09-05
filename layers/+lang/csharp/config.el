@@ -12,3 +12,5 @@
 ;; variables
 
 (spacemacs|defvar-company-backends csharp-mode)
+
+(spacemacs|define-jump-handlers csharp-mode)

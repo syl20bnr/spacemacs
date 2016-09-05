@@ -33,8 +33,7 @@
     :defer t
     :init
     (progn
-      (spacemacs/register-repl 'racket-mode 'racket-repl "racket")
-      (spacemacs|define-jump-handlers racket-mode racket-visit-definition))
+      (spacemacs/register-repl 'racket-mode 'racket-repl "racket"))
     :config
     (progn
       ;; smartparens configuration

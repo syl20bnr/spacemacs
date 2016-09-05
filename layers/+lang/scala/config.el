@@ -9,6 +9,8 @@
 ;;
 ;;; License: GPLv3
 
+(spacemacs|define-jump-handlers scala-mode)
+
 (defvar scala-enable-eldoc nil
   "If non nil then eldoc-mode is enabled in the scala layer.")
 

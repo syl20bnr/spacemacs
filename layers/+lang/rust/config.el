@@ -2,7 +2,6 @@
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
-
 ;; Author: Chris Hoeppner <me@mkaito.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
@@ -12,5 +11,6 @@
 
 ;; Variables
 
-;; Define the buffer local company backend variable
 (spacemacs|defvar-company-backends rust-mode)
+
+(spacemacs|define-jump-handlers rust-mode)

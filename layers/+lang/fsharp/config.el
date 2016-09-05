@@ -1,4 +1,4 @@
-;;; config.el --- ocaml Layer Configuration File for Spacemacs
+;;; config.el --- fsharp Layer config File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
@@ -9,6 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(spacemacs|defvar-company-backends merlin-mode)
-
-(spacemacs|define-jump-handlers tuareg-mode)
+(spacemacs|define-jump-handlers fsharp-mode fsharp-ac/gotodefn-at-point)

@@ -14,3 +14,5 @@
 `agda2.el') If `nil', it is assumed to be already available by
 Emacs. If `use-helper', the `agda-mode' executable is used to
 find its location.")
+
+(spacemacs|define-jump-handlers agda2-mode agda2-goto-definition-keyboard)

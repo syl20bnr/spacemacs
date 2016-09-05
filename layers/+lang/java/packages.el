@@ -148,7 +148,6 @@
   (spacemacs/helm-gtags-define-keys-for-mode 'java-mode))
 
 (defun java/init-java-mode ()
-  (spacemacs|define-jump-handlers java-mode)
   (setq java/key-binding-prefixes '(("me" . "errors")
                                     ("md" . "eclimd")
                                     ("mf" . "find")

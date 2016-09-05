@@ -11,6 +11,8 @@
 
 (spacemacs|defvar-company-backends purescript-mode)
 
+(spacemacs|define-jump-handlers purescript-mode)
+
 (defvar purescript-add-import-on-completion t
   "If non-nil adds imports for completed identifiers")
 

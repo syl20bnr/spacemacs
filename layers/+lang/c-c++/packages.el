@@ -35,9 +35,8 @@
     :defer t
     :init
     (progn
-      (add-to-list 'auto-mode-alist `("\\.h\\'" . ,c-c++-default-mode-for-headers))
-      (spacemacs|define-jump-handlers c++-mode)
-      (spacemacs|define-jump-handlers c-mode))
+      (add-to-list 'auto-mode-alist
+                   `("\\.h\\'" . ,c-c++-default-mode-for-headers)))
     :config
     (progn
       (require 'compile)

@@ -75,8 +75,6 @@
 (defun typescript/init-typescript-mode ()
   (use-package typescript-mode
     :defer t
-    :init
-    (spacemacs|define-jump-handlers typescript-mode)
     :config
     (progn
       (when typescript-fmt-on-save

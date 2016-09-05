@@ -38,7 +38,6 @@
     :commands slime-mode
     :init
     (progn
-      (spacemacs|define-jump-handlers lisp-mode slime-inspect-definition)
       (spacemacs/register-repl 'slime 'slime)
       (setq slime-contribs '(slime-fancy
                              slime-indentation

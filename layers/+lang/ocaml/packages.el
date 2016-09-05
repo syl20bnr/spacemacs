@@ -99,7 +99,6 @@
     :defer t
     :init
     (progn
-      (spacemacs|define-jump-handlers tuareg-mode)
       (spacemacs//init-ocaml-opam)
       (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
         "ga" 'tuareg-find-alternate-file

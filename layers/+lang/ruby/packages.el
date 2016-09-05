@@ -68,7 +68,6 @@
     :interpreter "ruby"
     :init
     (progn
-      (spacemacs|define-jump-handlers enh-ruby-mode)
       (setq enh-ruby-deep-indent-paren nil
             enh-ruby-hanging-paren-deep-indent-level 2))))
 
@@ -187,7 +186,6 @@
            ("Puppetfile" . ruby-mode))
     :init
     (progn
-      (spacemacs|define-jump-handlers ruby-mode)
       (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "ruby/test"))
     :config (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
               "'" 'ruby-toggle-string-quotes
