@@ -397,7 +397,8 @@ If NO-INSTALL is non nil then install steps are skipped."
                     (configuration-layer/declare-layer layer)
                     (let* ((obj (configuration-layer/get-layer layer))
                            (pkgs (when obj (oref obj :packages))))
-                      (configuration-layer/make-packages-from-layers (list layer))
+                      (configuration-layer/make-packages-from-layers
+                       (list layer))
                       (dolist (pkg pkgs)
                         (let ((pkg-name (if (listp pkg) (car pkg) pkg)))
                           (add-to-list 'all-other-packages pkg-name))))))
@@ -557,10 +558,11 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
                                         layer-name pkg-name)))
          (post-init-func (intern (format "%S/post-init-%S"
                                          layer-name pkg-name)))
-         (ownerp (or (eq 'dotfile layer-name)
-                     (fboundp init-func)))
          (copyp (not (null obj)))
-         (obj (if obj obj (cfgl-package pkg-name-str :name pkg-name))))
+         (obj (if obj obj (cfgl-package pkg-name-str :name pkg-name)))
+         (ownerp (or (and (eq 'dotfile layer-name)
+                          (null (oref obj :owners)))
+                     (fboundp init-func))))
     (when min-version (oset obj :min-version (version-to-list min-version)))
     (when step (oset obj :step step))
     (when toggle (oset obj :toggle toggle))
@@ -869,8 +871,8 @@ USEDP if non-nil indicates that made packages are used packages."
   (configuration-layer/make-packages-from-layers
    (configuration-layer/get-layers-list) usedp))
 
-(defun configuration-layer/make-packages-from-layers (layer-names
-                                                      &optional usedp dotfile)
+(defun configuration-layer/make-packages-from-layers
+    (layer-names &optional usedp)
   "Read the package lists of layers with name LAYER-NAMES and create packages.
 USEDP if non-nil indicates that made packages are used packages.
 DOTFILE if non-nil will process the dotfile `dotspacemacs-additional-packages'
@@ -884,22 +886,24 @@ variable as well."
               (setq obj (configuration-layer/make-package pkg layer-name obj))
             (setq obj (configuration-layer/make-package pkg layer-name)))
           (configuration-layer//add-package obj (and (oref obj :owners)
-                                                     usedp))))))
-  ;; additional and excluded packages from dotfile
-  (when dotfile
-    (dolist (pkg dotspacemacs-additional-packages)
-      (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
-             (obj (configuration-layer/get-package pkg-name)))
-        (if obj
-            (setq obj (configuration-layer/make-package pkg 'dotfile obj))
-          (setq obj (configuration-layer/make-package pkg 'dotfile)))
-        (configuration-layer//add-package obj usedp)))
-    (dolist (xpkg dotspacemacs-excluded-packages)
-      (let ((obj (configuration-layer/get-package xpkg)))
-        (unless obj
-          (setq obj (configuration-layer/make-package xpkg 'dotfile)))
-        (configuration-layer//add-package obj usedp)
-        (oset obj :excluded t)))))
+                                                     usedp)))))))
+
+(defun configuration-layer/make-packages-from-dotfile (&optional usedp)
+  "Read the additonal packages declared in the dotfile and create packages.
+USEDP if non-nil indicates that made packages are used packages."
+  (dolist (pkg dotspacemacs-additional-packages)
+    (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
+           (obj (configuration-layer/get-package pkg-name)))
+      (if obj
+          (setq obj (configuration-layer/make-package pkg 'dotfile obj))
+        (setq obj (configuration-layer/make-package pkg 'dotfile)))
+      (configuration-layer//add-package obj usedp)))
+  (dolist (xpkg dotspacemacs-excluded-packages)
+    (let ((obj (configuration-layer/get-package xpkg)))
+      (unless obj
+        (setq obj (configuration-layer/make-package xpkg 'dotfile)))
+      (configuration-layer//add-package obj usedp)
+      (oset obj :excluded t))))
 
 (defun configuration-layer/lazy-install (layer-name &rest props)
   "Configure auto-installation of layer with name LAYER-NAME."
@@ -1181,8 +1185,8 @@ wether the declared layer is an used one or not."
   "Declare used packages contained in LAYERS."
   (setq configuration-layer--used-packages nil)
   (let* ((warning-minimum-level :error))
-    ;; first pass
-    (configuration-layer/make-packages-from-layers layers t t)
+    (configuration-layer/make-packages-from-layers layers t)
+    (configuration-layer/make-packages-from-dotfile t)
     (setq configuration-layer--used-packages
           (configuration-layer//sort-packages
            configuration-layer--used-packages))))

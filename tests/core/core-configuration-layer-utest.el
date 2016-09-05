@@ -611,6 +611,24 @@
     (should (equal expected
                    (configuration-layer/make-package pkg 'layer1 obj)))))
 
+(ert-deftest test-make-package--bootstrap-package-are-protected ()
+  (let* (configuration-layer--used-layers
+         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (pkg '(testpkg :step bootstrap))
+         (expected (cfgl-package "testpkg"
+                                 :name 'testpkg
+                                 :owners '(layer-bootstrap-protected-1)
+                                 :step 'bootstrap
+                                 :protected t)))
+    (defun layer-bootstrap-protected-1/init-testpkg nil)
+    (helper--set-layers
+     `(,(cfgl-layer "layer-bootstrap-protected-1"
+                    :name 'layer-bootstrap-protected-1)) t)
+    (should
+     (equal
+      expected
+      (configuration-layer/make-package pkg 'layer-bootstrap-protected-1)))))
+
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//get-distant-packages
 ;; ---------------------------------------------------------------------------
@@ -893,52 +911,6 @@
           (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer9))
                  (ht-get configuration-layer--indexed-packages 'pkg1))))))
 
-(ert-deftest test-make-packages-from-layers--dotfile-excludes-pkg2-in-layer-11 ()
-  (let* ((layer11 (cfgl-layer "layer11"
-                              :name 'layer11
-                              :dir "/path/"
-                              :packages '(pkg1 pkg2 pkg3)))
-         (dotspacemacs-excluded-packages '(pkg2))
-         configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
-         configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
-         (mocker-mock-default-record-cls 'mocker-stub-record))
-    (helper--set-layers (list layer11) t)
-    (defun layer11/init-pkg1 nil)
-    (defun layer11/init-pkg2 nil)
-    (defun layer11/init-pkg3 nil)
-    (configuration-layer/make-packages-from-layers '(layer11) 'used 'dotfile)
-    (should
-     (and (equal (cfgl-package "pkg3" :name 'pkg3 :owners '(layer11))
-                 (ht-get configuration-layer--indexed-packages 'pkg3))
-          (equal (cfgl-package "pkg2" :name 'pkg2 :owners '(layer11) :excluded t)
-                 (ht-get configuration-layer--indexed-packages 'pkg2))
-          (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer11))
-                 (ht-get configuration-layer--indexed-packages 'pkg1))))))
-
-(ert-deftest test-make-packages-from-layers--dotfile-declares-and-owns-one-additional-package ()
-  (let* ((layer12 (cfgl-layer "layer12"
-                              :name 'layer12
-                              :dir "/path/"
-                              :packages '(pkg1 pkg2)))
-         configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
-         configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
-         (dotspacemacs-additional-packages '(pkg3)))
-    (helper--set-layers (list layer12) t)
-    (defun layer12/init-pkg1 nil)
-    (defun layer12/init-pkg2 nil)
-    (configuration-layer/make-packages-from-layers '(layer12) 'used 'dotfile)
-    (should
-     (and (equal (cfgl-package "pkg3" :name 'pkg3 :owners '(dotfile))
-                 (ht-get configuration-layer--indexed-packages 'pkg3))
-          (equal (cfgl-package "pkg2" :name 'pkg2 :owners '(layer12))
-                 (ht-get configuration-layer--indexed-packages 'pkg2))
-          (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer12))
-                 (ht-get configuration-layer--indexed-packages 'pkg1))))))
-
 (ert-deftest test-make-packages-from-layers--last-owner-can-overwrite-location ()
   (let* ((layer13 (cfgl-layer "layer13"
                               :name 'layer13
@@ -1082,31 +1054,7 @@
                                   :toggle '(foo-toggle))
                     (ht-get configuration-layer--indexed-packages 'pkg1))))))
 
-(ert-deftest test-make-packages-from-layers--new-owner-layer-can-override-toggle ()
-  (let* ((layer22 (cfgl-layer "layer22"
-                              :name 'layer22
-                              :dir "/path/"
-                              :packages '((pkg1 :toggle (foo-toggle)))))
-         (layer23 (cfgl-layer "layer23"
-                              :name 'layer23
-                              :dir "/path/"
-                              :packages '((pkg1 :toggle (bar-toggle)))))
-         configuration-layer--used-layers
-         (configuration-layer--indexed-layers (make-hash-table :size 1024))
-         configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
-         (mocker-mock-default-record-cls 'mocker-stub-record))
-    (helper--set-layers (list layer22 layer23) t)
-    (defun layer22/init-pkg1 nil)
-    (defun layer23/init-pkg1 nil)
-    (configuration-layer/make-packages-from-layers '(layer22 layer23))
-    (should (equal (cfgl-package "pkg1"
-                                 :name 'pkg1
-                                 :owners '(layer23 layer22)
-                                 :toggle '(bar-toggle))
-                   (ht-get configuration-layer--indexed-packages 'pkg1)))))
-
-(ert-deftest test-make-packages-from-layers--dotfile-additional-pkg-can-override-toggle ()
+(ert-deftest test-make-packages-from-layers--layer-can-override-toggle ()
   (let* ((layer22 (cfgl-layer "layer22"
                               :name 'layer22
                               :dir "/path/"
@@ -1196,6 +1144,76 @@
                                :post-layers '(layer27)
                                :location 'local)
                  (ht-get configuration-layer--indexed-packages 'pkg2))))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer/make-packages-from-dotfile
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-make-packages-from-dotfile--dotfile-declares-and-owns-one-additional-package ()
+  (let* ((layer-dotfile-1 (cfgl-layer "layer-dotfile-1"
+                              :name 'layer-dotfile-1
+                              :dir "/path/"
+                              :packages '(pkg1 pkg2)))
+         (dotspacemacs-additional-packages '(pkg3))
+         configuration-layer--used-layers
+         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         configuration-layer--used-packages
+         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (defun layer-dotfile-1/init-pkg1 nil)
+    (defun layer-dotfile-1/init-pkg2 nil)
+    (helper--set-layers (list layer-dotfile-1) t)
+    (configuration-layer/make-packages-from-layers '(layer-dotfile-1) 'used)
+    (configuration-layer/make-packages-from-dotfile 'used)
+    (should
+     (and (equal (cfgl-package "pkg3" :name 'pkg3 :owners '(dotfile))
+                 (ht-get configuration-layer--indexed-packages 'pkg3))
+          (equal (cfgl-package "pkg2" :name 'pkg2 :owners '(layer-dotfile-1))
+                 (ht-get configuration-layer--indexed-packages 'pkg2))
+          (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer-dotfile-1))
+                 (ht-get configuration-layer--indexed-packages 'pkg1))))))
+
+(ert-deftest test-make-packages-from-dotfile--dotfile-cannot-own-package-owned-by-layer ()
+  (let* ((layer-dotfile-2 (cfgl-layer "layer-dotfile-2"
+                                      :name 'layer-dotfile-2
+                                      :dir "/path/"
+                                      :packages '(pkg1)))
+         (dotspacemacs-additional-packages '(pkg1))
+         configuration-layer--used-layers
+         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         configuration-layer--used-packages
+         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (defun layer-dotfile-2/init-pkg1 nil)
+    (helper--set-layers (list layer-dotfile-2) t)
+    (configuration-layer/make-packages-from-layers '(layer-dotfile-2) 'used)
+    (configuration-layer/make-packages-from-dotfile 'used)
+    (should
+     (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer-dotfile-2))
+            (ht-get configuration-layer--indexed-packages 'pkg1)))))
+
+(ert-deftest test-make-packages-from-dotfile--dotfile-excludes-pkg2-in-layer-11 ()
+  (let* ((layer-dotfile-3 (cfgl-layer "layer-dotfile-3"
+                              :name 'layer-dotfile-3
+                              :dir "/path/"
+                              :packages '(pkg1 pkg2 pkg3)))
+         (dotspacemacs-excluded-packages '(pkg2))
+         configuration-layer--used-layers
+         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         configuration-layer--used-packages
+         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (mocker-mock-default-record-cls 'mocker-stub-record))
+    (defun layer-dotfile-3/init-pkg1 nil)
+    (defun layer-dotfile-3/init-pkg2 nil)
+    (defun layer-dotfile-3/init-pkg3 nil)
+    (helper--set-layers (list layer-dotfile-3) t)
+    (configuration-layer/make-packages-from-layers '(layer-dotfile-3) 'used)
+    (configuration-layer/make-packages-from-dotfile 'used)
+    (should
+     (and (equal (cfgl-package "pkg3" :name 'pkg3 :owners '(layer-dotfile-3))
+                 (ht-get configuration-layer--indexed-packages 'pkg3))
+          (equal (cfgl-package "pkg2" :name 'pkg2 :owners '(layer-dotfile-3) :excluded t)
+                 (ht-get configuration-layer--indexed-packages 'pkg2))
+          (equal (cfgl-package "pkg1" :name 'pkg1 :owners '(layer-dotfile-3))
+                 (ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer/make-all-packages
