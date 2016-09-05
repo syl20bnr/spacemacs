@@ -224,9 +224,6 @@ LAYER has to be installed for this method to work properly."
 (defvar configuration-layer--indexed-layers (make-hash-table :size 1024)
   "Hash map to index `cfgl-layer' objects by their names.")
 
-(defvar configuration-layer--delayed-layers '()
-  "A list of layer names to check again after first pass of package loading.")
-
 (defvar configuration-layer--used-packages '()
   "An alphabetically sorted list of used package names.")
 
@@ -400,7 +397,7 @@ If NO-INSTALL is non nil then install steps are skipped."
                     (configuration-layer/declare-layer layer)
                     (let* ((obj (configuration-layer/get-layer layer))
                            (pkgs (when obj (oref obj :packages))))
-                      (configuration-layer/make-packages (list layer))
+                      (configuration-layer/make-packages-from-layers (list layer))
                       (dolist (pkg pkgs)
                         (let ((pkg-name (if (listp pkg) (car pkg) pkg)))
                           (add-to-list 'all-other-packages pkg-name))))))
@@ -538,45 +535,91 @@ indexed layers for the path."
           (oset obj :selected-packages selected-packages))
         obj))))
 
-(defun configuration-layer/make-package (pkg &optional obj togglep layer)
+(defun configuration-layer/make-package (pkg layer-name &optional obj)
   "Return a `cfgl-package' object based on PKG.
 If OBJ is non nil then copy PKG properties into OBJ, otherwise create
 a new object.
 Properties that can be copied are `:location', `:step' and `:excluded'.
 If TOGGLEP is nil then `:toggle' parameter is ignored."
-  (let* ((name-sym (if (listp pkg) (car pkg) pkg))
-         (name-str (symbol-name name-sym))
-         (location (when (listp pkg) (plist-get (cdr pkg) :location)))
+  (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
+         (pkg-name-str (symbol-name pkg-name))
+         (layer (unless (eq 'dotfile layer-name)
+                  (configuration-layer/get-layer layer-name)))
          (min-version (when (listp pkg) (plist-get (cdr pkg) :min-version)))
          (step (when (listp pkg) (plist-get (cdr pkg) :step)))
+         (toggle (when (listp pkg) (plist-get (cdr pkg) :toggle)))
          (excluded (when (listp pkg) (plist-get (cdr pkg) :excluded)))
-         (toggle (when (and togglep (listp pkg)) (plist-get (cdr pkg) :toggle)))
+         (location (when (listp pkg) (plist-get (cdr pkg) :location)))
          (protected (when (listp pkg) (plist-get (cdr pkg) :protected)))
+         (init-func (intern (format "%S/init-%S"
+                                    layer-name pkg-name)))
+         (pre-init-func (intern (format "%S/pre-init-%S"
+                                        layer-name pkg-name)))
+         (post-init-func (intern (format "%S/post-init-%S"
+                                         layer-name pkg-name)))
+         (ownerp (or (eq 'dotfile layer-name)
+                     (fboundp init-func)))
          (copyp (not (null obj)))
-         (obj (if obj obj (cfgl-package name-str :name name-sym))))
-    (when (and (listp location)
-               (eq (car location) 'recipe)
-               (eq (plist-get (cdr location) :fetcher) 'local))
-      (setq location
-            `(recipe
-              :fetcher file
-              :path ,(expand-file-name
-                      (format
-                       "%s%s/%s.el"
-                       (configuration-layer/get-layer-local-dir
-                        (oref layer :name))
-                       name-str name-str)))))
-    (when location (oset obj :location location))
+         (obj (if obj obj (cfgl-package pkg-name-str :name pkg-name))))
     (when min-version (oset obj :min-version (version-to-list min-version)))
     (when step (oset obj :step step))
-    (oset obj :excluded (or excluded (oref obj :excluded)))
     (when toggle (oset obj :toggle toggle))
+    (oset obj :excluded (or excluded (oref obj :excluded)))
+    (when location
+      (if (and (listp location)
+               (eq (car location) 'recipe)
+               (eq (plist-get (cdr location) :fetcher) 'local))
+          (cond
+           (layer (let ((path (expand-file-name
+                               (format "%s%s/%s.el"
+                                       (configuration-layer/get-layer-local-dir
+                                        layer-name)
+                                       pkg-name-str pkg-name-str))))
+                    (oset obj :location `(recipe :fetcher file :path ,path))))
+           ((eq 'dotfile layer-name)
+            ;; TODO what is the local path for a packages owned by the dotfile?
+            nil))
+        (oset obj :location location)))
     ;; cannot override protected packages
     (unless copyp
       ;; a bootstrap package is protected
       (oset obj :protected (or protected (eq 'bootstrap step)))
       (when protected
-        (push name-sym configuration-layer--protected-packages)))
+        (push pkg-name configuration-layer--protected-packages)))
+    (when ownerp
+      ;; warn about mutliple owners
+      (when (and (oref obj :owners)
+                 (not (memq layer-name (oref obj :owners))))
+        (configuration-layer//warning
+         (format (concat "More than one init function found for "
+                         "package %S. Previous owner was %S, "
+                         "replacing it with layer %S.")
+                 pkg-name (car (oref obj :owners)) layer-name)))
+      ;; last owner wins over the previous one
+      (push layer-name (oref obj :owners)))
+    ;; check consistency betwween package and defined init functions
+    (unless (or ownerp
+                (fboundp pre-init-func)
+                (fboundp post-init-func)
+                (oref obj :excluded))
+      (configuration-layer//warning
+       (format (concat "package %s not initialized in layer %s, "
+                       "you may consider removing this package from "
+                       "the package list or use the :toggle keyword "
+                       "instead of a `when' form.")
+               pkg-name layer-name)))
+    ;; check if toggle can be applied
+    (when (and (not ownerp)
+               (and (not (eq 'unspecified toggle))
+                    toggle))
+      (configuration-layer//warning
+       (format (concat "Ignoring :toggle for package %s because "
+                       "layer %S does not own it.")
+               pkg-name layer-name)))
+    (when (fboundp pre-init-func)
+      (push layer-name (oref obj :pre-layers)))
+    (when (fboundp post-init-func)
+      (push layer-name (oref obj :post-layers)))
     obj))
 
 (define-button-type 'help-dotfile-variable
@@ -823,10 +866,11 @@ Return nil if package object is not found."
 (defun configuration-layer/make-all-packages (&optional usedp)
   "Create objects for _all_ packages.
 USEDP if non-nil indicates that made packages are used packages."
-  (configuration-layer/make-packages (configuration-layer/get-layers-list)
-                                     usedp))
+  (configuration-layer/make-packages-from-layers
+   (configuration-layer/get-layers-list) usedp))
 
-(defun configuration-layer/make-packages (layer-names &optional usedp dotfile)
+(defun configuration-layer/make-packages-from-layers (layer-names
+                                                      &optional usedp dotfile)
   "Read the package lists of layers with name LAYER-NAMES and create packages.
 USEDP if non-nil indicates that made packages are used packages.
 DOTFILE if non-nil will process the dotfile `dotspacemacs-additional-packages'
@@ -835,71 +879,25 @@ variable as well."
     (let ((layer (configuration-layer/get-layer layer-name)))
       (dolist (pkg (cfgl-layer-get-packages layer))
         (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
-               (init-func (intern (format "%S/init-%S"
-                                          layer-name pkg-name)))
-               (pre-init-func (intern (format "%S/pre-init-%S"
-                                              layer-name pkg-name)))
-               (post-init-func (intern (format "%S/post-init-%S"
-                                               layer-name pkg-name)))
-               (ownerp (fboundp init-func))
                (obj (configuration-layer/get-package pkg-name)))
           (if obj
-              (setq obj (configuration-layer/make-package pkg obj ownerp layer))
-            (setq obj (configuration-layer/make-package pkg nil ownerp layer)))
-          (configuration-layer//add-package obj (and ownerp usedp))
-          (when ownerp
-            ;; last owner wins over the previous one,
-            ;; still warn about mutliple owners
-            (when (and (oref obj :owners)
-                       (not (memq layer-name (oref obj :owners))))
-              (configuration-layer//warning
-               (format (concat "More than one init function found for "
-                               "package %S. Previous owner was %S, "
-                               "replacing it with layer %S.")
-                       pkg-name (car (oref obj :owners)) layer-name)))
-            (push layer-name (oref obj :owners)))
-          ;; if no function at all is found for the package, then check
-          ;; again this layer later to resolve `package-usedp'  usage in
-          ;; `packages.el' files
-          ;; TODO remove this hack in version 0.201
-          (unless (or ownerp
-                      (fboundp pre-init-func)
-                      (fboundp post-init-func)
-                      (oref obj :excluded))
-            (unless (memq layer-name configuration-layer--delayed-layers)
-              (configuration-layer//warning
-               (format (concat "package %s not initialized in layer %s, "
-                               "you may consider removing this package from "
-                               "the package list or use the :toggle keyword "
-                               "instead of a `when' form.")
-                       pkg-name layer-name))
-              (push layer-name configuration-layer--delayed-layers)))
-          ;; check if toggle can be applied
-          (when (and (not ownerp)
-                     (listp pkg)
-                     (spacemacs/mplist-get pkg :toggle))
-            (configuration-layer//warning
-             (format (concat "Ignoring :toggle for package %s because "
-                             "layer %S does not own it.")
-                     pkg-name layer-name)))
-          (when (fboundp pre-init-func)
-            (push layer-name (oref obj :pre-layers)))
-          (when (fboundp post-init-func)
-            (push layer-name (oref obj :post-layers)))))))
+              (setq obj (configuration-layer/make-package pkg layer-name obj))
+            (setq obj (configuration-layer/make-package pkg layer-name)))
+          (configuration-layer//add-package obj (and (oref obj :owners)
+                                                     usedp))))))
   ;; additional and excluded packages from dotfile
   (when dotfile
     (dolist (pkg dotspacemacs-additional-packages)
       (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
              (obj (configuration-layer/get-package pkg-name)))
         (if obj
-            (setq obj (configuration-layer/make-package pkg obj t))
-          (setq obj (configuration-layer/make-package pkg nil t))
-          (push 'dotfile (oref obj :owners)))
+            (setq obj (configuration-layer/make-package pkg 'dotfile obj))
+          (setq obj (configuration-layer/make-package pkg 'dotfile)))
         (configuration-layer//add-package obj usedp)))
     (dolist (xpkg dotspacemacs-excluded-packages)
       (let ((obj (configuration-layer/get-package xpkg)))
         (unless obj
-          (setq obj (configuration-layer/make-package xpkg)))
+          (setq obj (configuration-layer/make-package xpkg 'dotfile)))
         (configuration-layer//add-package obj usedp)
         (oset obj :excluded t)))))
 
@@ -1184,9 +1182,7 @@ wether the declared layer is an used one or not."
   (setq configuration-layer--used-packages nil)
   (let* ((warning-minimum-level :error))
     ;; first pass
-    (configuration-layer/make-packages layers t t)
-    ;; second pass to resolve package-usedp calls
-    (configuration-layer/make-packages configuration-layer--delayed-layers t)
+    (configuration-layer/make-packages-from-layers layers t t)
     (setq configuration-layer--used-packages
           (configuration-layer//sort-packages
            configuration-layer--used-packages))))
