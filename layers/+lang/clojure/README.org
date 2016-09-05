@@ -85,7 +85,9 @@ REPL and skip the rest of this section.
        'refactor-nrepl.middleware/wrap-refactor)
 #+END_SRC
 
-- Run ~SPC m s i~ in any of the clojure source files to connect to the CIDER REPL.
+- Run ~SPC m s i~ in any of the clojure source files to connect to the CIDER
+  REPL. Note that a build.boot file must be present in your working directory
+  for Cider to recognize the presence of boot.
 
 *** Quick Start with lein
 - Install =lein= version 2.5.2 or newer (see http://leiningen.org/#install)
