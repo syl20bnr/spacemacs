@@ -78,7 +78,7 @@ users on `develop' branch must manually pull last commits instead."
              (if (spacemacs//git-hard-reset-to-tag tag)
                  (progn
                    (setq spacemacs-version version)
-                   (message "Succesfully switched to version %s" version))
+                   (message "Successfully switched to version %s" version))
                (message "An error occurred while switching to version %s"
                         version))))
           (t (message "Update aborted.")))))
