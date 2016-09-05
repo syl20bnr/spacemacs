@@ -12,3 +12,5 @@
 ;; variables
 (spacemacs|defvar-company-backends sh-mode)
 (spacemacs|defvar-company-backends fish-mode)
+
+(spacemacs|define-jump-handlers sh-mode)

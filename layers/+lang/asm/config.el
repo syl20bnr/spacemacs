@@ -12,3 +12,5 @@
 ;; variables
 (spacemacs|defvar-company-backends asm-mode)
 (spacemacs|defvar-company-backends nasm-mode)
+
+(spacemacs|define-jump-handlers asm-mode)

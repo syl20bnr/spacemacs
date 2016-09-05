@@ -11,3 +11,10 @@
 
 (defvar gtags-enable-by-default t
   "Whether or not to enable ggtags-mode.")
+
+(spacemacs|define-jump-handlers 'tcl-mode)
+(spacemacs|define-jump-handlers 'vhdl-mode)
+(spacemacs|define-jump-handlers 'awk-mode)
+(spacemacs|define-jump-handlers 'dired-mode)
+(spacemacs|define-jump-handlers 'compilation-mode)
+(spacemacs|define-jump-handlers 'shell-mode)

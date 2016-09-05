@@ -12,3 +12,5 @@
 ;; variables
 
 (spacemacs|defvar-company-backends php-mode)
+
+(spacemacs|define-jump-handlers php-mode)

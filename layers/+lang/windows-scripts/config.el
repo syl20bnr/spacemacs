@@ -1,4 +1,4 @@
-;;; config.el --- d Layer configuration File for Spacemacs
+;;; packages.el --- Windows Scripts Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
@@ -9,8 +9,6 @@
 ;;
 ;;; License: GPLv3
 
-;; Variables
+;; variables
 
-(spacemacs|defvar-company-backends d-mode)
-
-(spacemacs|define-jump-handlers d-mode)
+(spacemacs|define-jump-handlers dos-mode)

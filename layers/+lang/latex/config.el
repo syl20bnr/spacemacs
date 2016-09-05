@@ -11,8 +11,9 @@
 
 ;; variables
 
-;; Company-mode LaTeX-backend
 (spacemacs|defvar-company-backends LaTeX-mode)
+
+(spacemacs|define-jump-handlers LaTeX-mode)
 
 (defvar latex-build-command (if (executable-find "latexmk") "LatexMk" "LaTeX")
   "The default command to use with `SPC m b'")
