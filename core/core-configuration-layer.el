@@ -549,6 +549,10 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
          (min-version (when (listp pkg) (plist-get (cdr pkg) :min-version)))
          (step (when (listp pkg) (plist-get (cdr pkg) :step)))
          (toggle (when (listp pkg) (plist-get (cdr pkg) :toggle)))
+         ;; (excluded (when (listp pkg)
+         ;;             (if (memq :excluded (cdr pkg))
+         ;;                 (plist-get (cdr pkg) :excluded)
+         ;;               'unspecified)))
          (excluded (when (listp pkg) (plist-get (cdr pkg) :excluded)))
          (location (when (listp pkg) (plist-get (cdr pkg) :location)))
          (protected (when (listp pkg) (plist-get (cdr pkg) :protected)))
@@ -567,6 +571,7 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
     (when step (oset obj :step step))
     (when toggle (oset obj :toggle toggle))
     (oset obj :excluded (or excluded (oref obj :excluded)))
+    ;; (unless (eq 'unspecified excluded) (oset obj :excluded excluded))
     (when location
       (if (and (listp location)
                (eq (car location) 'recipe)
@@ -598,9 +603,10 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
                          "replacing it with layer %S.")
                  pkg-name (car (oref obj :owners)) layer-name)))
       ;; last owner wins over the previous one
-      (push layer-name (oref obj :owners)))
+      (object-add-to-list obj :owners layer-name))
     ;; check consistency betwween package and defined init functions
     (unless (or ownerp
+                (eq 'dotfile layer-name)
                 (fboundp pre-init-func)
                 (fboundp post-init-func)
                 (oref obj :excluded))
@@ -619,9 +625,9 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
                        "layer %S does not own it.")
                pkg-name layer-name)))
     (when (fboundp pre-init-func)
-      (push layer-name (oref obj :pre-layers)))
+      (object-add-to-list obj :pre-layers layer-name))
     (when (fboundp post-init-func)
-      (push layer-name (oref obj :post-layers)))
+      (object-add-to-list obj :post-layers layer-name))
     obj))
 
 (define-button-type 'help-dotfile-variable
