@@ -52,12 +52,14 @@
            "<" (if window-configs
                    (concat
                     (mapconcat 'spacemacs//workspaces-ms-get-slot-name
-                               window-configs "> <") ">")
-                 (when eyebrowse-display-help
-                   (concat
-                    "\n[0-9] to create/switch to a workspace, "
-                    "[n] next, [p/N] previous, [TAB] back and forth, [c] close, "
-                    "[r] rename"))))))
+                               window-configs "> <"))
+                 current-slot)
+           ">"
+           (when eyebrowse-display-help
+             (concat
+              "\n[0-9] to create/switch to a workspace, "
+              "[n] next, [p/N] previous, [TAB] back and forth, [c] close, "
+              "[r] rename")))))
 
       (spacemacs|define-micro-state workspaces
         :doc (spacemacs//workspaces-ms-documentation)
