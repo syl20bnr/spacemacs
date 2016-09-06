@@ -12,3 +12,5 @@
 ;; Variables
 
 (spacemacs|defvar-company-backends react-mode)
+
+(spacemacs|define-jump-handlers react-mode)
