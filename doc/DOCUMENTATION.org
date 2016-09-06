@@ -3159,6 +3159,9 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | [[https://github.com/syl20bnr/spacemacs/pull/2000][2000th issue (PR)]]         | [[https://github.com/IvanMalison][IvanMalison]]  |
 | [[https://github.com/syl20bnr/spacemacs/pull/3000][3000th issue (issue)]]      | [[https://github.com/malchmih][malchmih]]     |
 | [[https://github.com/syl20bnr/spacemacs/pull/4000][4000th issue (issue)]]      | [[https://github.com/icymist][icymist]]      |
+| [[https://github.com/syl20bnr/spacemacs/pull/5000][5000th issue (issue)]]      | [[https://github.com/justbur][justbur]]      |
+| [[https://github.com/syl20bnr/spacemacs/pull/6000][6000th issue (issue)]]      | [[https://github.com/d12frosted][d12frosted]]   |
+| [[https://github.com/syl20bnr/spacemacs/pull/7000][7000th issue (issue)]]      | [[https://github.com/deb0ch][deb0ch]]       |
 
 ** Merged Pull Requests
 
@@ -3177,27 +3180,28 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 
 ** Stars, forks and watchers
 
-| Achievements       | Account         |
-|--------------------+-----------------|
-| 100th watcher      | [[https://github.com/adouzzy][adouzzy]]         |
-| 100th fork         | [[https://github.com/balajisivaraman][balajisivaraman]] |
-| 200th fork         | [[https://github.com/alcol80][alcol80]]         |
-| 300th fork         | [[https://github.com/mlopes][mlopes]]          |
-| 2000th fork        | [[https://github.com/Gameguykiler][Gameguykiler]]    |
-| 100th star         | [[https://github.com/Jackneill][Jackneill]]       |
-| 200th star         | [[https://github.com/jb55][jb55]]            |
-| 400th star         | [[https://github.com/dbohdan][dbohdan]]         |
-| 600th star         | [[https://github.com/laat][laat]]            |
-| 700th star         | [[https://github.com/kendall][kendall]]         |
-| 800th star         | [[https://github.com/urso][urso]]            |
-| 900th star         | [[https://github.com/luisgerhorst][luisgerhorst]]    |
-| 1000th star!       | [[https://github.com/rashly][rashly]]          |
-| 2000th star!!      | [[https://github.com/stshine][stshine]]         |
-| 3000th star!!!     | [[https://github.com/TheBB][TheBB]]           |
-| 4000th star!!!!    | [[https://github.com/nixmaniack][nixmaniack]]      |
-| 5000th star!!!!!   | [[https://github.com/StreakyCobra][StreakyCobra]]    |
-| 6000th star!!!!!!  | [[https://github.com/NJBS][NJBS]]            |
-| 7000th star!!!!!!! | [[https://github.com/mukhali][mukhali]]         |
+| Achievements        | Account         |
+|---------------------+-----------------|
+| 100th watcher       | [[https://github.com/adouzzy][adouzzy]]         |
+| 100th fork          | [[https://github.com/balajisivaraman][balajisivaraman]] |
+| 200th fork          | [[https://github.com/alcol80][alcol80]]         |
+| 300th fork          | [[https://github.com/mlopes][mlopes]]          |
+| 2000th fork         | [[https://github.com/Gameguykiler][Gameguykiler]]    |
+| 100th star          | [[https://github.com/Jackneill][Jackneill]]       |
+| 200th star          | [[https://github.com/jb55][jb55]]            |
+| 400th star          | [[https://github.com/dbohdan][dbohdan]]         |
+| 600th star          | [[https://github.com/laat][laat]]            |
+| 700th star          | [[https://github.com/kendall][kendall]]         |
+| 800th star          | [[https://github.com/urso][urso]]            |
+| 900th star          | [[https://github.com/luisgerhorst][luisgerhorst]]    |
+| 1000th star!        | [[https://github.com/rashly][rashly]]          |
+| 2000th star!!       | [[https://github.com/stshine][stshine]]         |
+| 3000th star!!!      | [[https://github.com/TheBB][TheBB]]           |
+| 4000th star!!!!     | [[https://github.com/nixmaniack][nixmaniack]]      |
+| 5000th star!!!!!    | [[https://github.com/StreakyCobra][StreakyCobra]]    |
+| 6000th star!!!!!!   | [[https://github.com/NJBS][NJBS]]            |
+| 7000th star!!!!!!!  | [[https://github.com/mukhali][mukhali]]         |
+| 8000th star!!!!!!!! | [[https://github.com/shsteven][shsteven]]        |
 
 ** Gitter chat
 
@@ -3217,14 +3221,17 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 
 ** Special Mentions
 
-| Reason                       | Account      |
-|------------------------------+--------------|
-| Autumnal Cleanup 2015 ([[https://github.com/syl20bnr/spacemacs/wiki/Autumnal-Cleanup-2015][wiki]]) | [[https://github.com/StreakyCobra][StreakyCobra]] |
-| Test and debug tools         | [[https://github.com/justbur][justbur]]      |
-| Integration of Ivy           | [[https://github.com/justbur][justbur]]      |
-| Transient States             | [[https://github.com/justbur][justbur]]      |
-| Integration of Persp-mode    | [[https://github.com/CestDiego][CestDiego]]    |
-| Cleanest PR ([[https://github.com/syl20bnr/spacemacs/pull/5545][PR #5545]])       | [[https://github.com/JAremko][JAremko]]      |
+| Reason                                                              | Account         |
+|---------------------------------------------------------------------+-----------------|
+| Autumnal Cleanup 2015 ([[https://github.com/syl20bnr/spacemacs/wiki/Autumnal-Cleanup-2015][wiki]])                                        | [[https://github.com/StreakyCobra][StreakyCobra]]    |
+| Test and debug tools                                                | [[https://github.com/justbur][justbur]]         |
+| Integration of Ivy                                                  | [[https://github.com/justbur][justbur]]         |
+| Transient States                                                    | [[https://github.com/justbur][justbur]]         |
+| Integration of Persp-mode                                           | [[https://github.com/CestDiego][CestDiego]]       |
+| Cleanest PR ([[https://github.com/syl20bnr/spacemacs/pull/5545][PR #5545]])                                              | [[https://github.com/JAremko][JAremko]]         |
+| Documentation tools and GitHub support                              | [[https://github.com/JAremko][JAremko]]         |
+| Code navigation improvement (jump handlers, generalized next error) | [[https://github.com/TheBB][TheBB]]           |
+| Better support for GUI using an Emacs daemon (after-display macro)  | [[https://github.com/travisbhartwell][travisbhartwell]] |
 
 ** Special Titles
 
