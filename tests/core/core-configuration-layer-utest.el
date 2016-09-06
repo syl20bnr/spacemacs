@@ -559,16 +559,16 @@
         (pkg '(testpkg :toggle bar))
         (expected (cfgl-package "testpkg"
                                 :name 'testpkg
-                                :owners '(layer-override-toggle-1)
+                                :owners '(layer-make-pkg-6)
                                 :toggle 'bar)))
-    (defun layer-override-toggle-1/init-testpkg nil)
+    (defun layer-make-pkg-6/init-testpkg nil)
     (helper--set-layers
-     `(,(cfgl-layer "layer-override-toggle-1" :name 'layer-override-toggle-1))
+     `(,(cfgl-layer "layer-make-pkg-6" :name 'layer-make-pkg-6))
      t)
     (should
      (equal
       expected
-      (configuration-layer/make-package pkg 'layer-override-toggle-1 obj)))))
+      (configuration-layer/make-package pkg 'layer-make-pkg-6 obj)))))
 
 (ert-deftest test-make-package--can-override-location ()
   (let* (configuration-layer--used-layers
@@ -579,14 +579,14 @@
          (pkg '(testpkg :location local))
          (expected (cfgl-package "testpkg"
                                  :name 'testpkg
-                                 :owners '(layer-override-loc-1)
+                                 :owners '(layer-make-pkg-7)
                                  :location 'local)))
-    (defun layer-override-loc-1/init-testpkg nil)
+    (defun layer-make-pkg-7/init-testpkg nil)
     (helper--set-layers
-     `(,(cfgl-layer "layer-override-loc-1" :name 'layer-override-loc-1)) t)
+     `(,(cfgl-layer "layer-make-pkg-7" :name 'layer-make-pkg-7)) t)
     (should
      (equal expected
-            (configuration-layer/make-package pkg 'layer-override-loc-1 obj)))))
+            (configuration-layer/make-package pkg 'layer-make-pkg-7 obj)))))
 
 (ert-deftest test-make-package--can-override-step ()
   (let* (configuration-layer--used-layers
@@ -597,15 +597,15 @@
          (pkg '(testpkg :step pre))
          (expected (cfgl-package "testpkg"
                                  :name 'testpkg
-                                 :owners '(layer-override-step-1)
+                                 :owners '(layer-make-pkg-8)
                                  :step 'pre)))
-    (defun layer-override-step-1/init-testpkg nil)
+    (defun layer-make-pkg-8/init-testpkg nil)
     (helper--set-layers
-     `(,(cfgl-layer "layer-override-step-1" :name 'layer-override-step-1)) t)
+     `(,(cfgl-layer "layer-make-pkg-8" :name 'layer-make-pkg-8)) t)
     (should
      (equal
       expected
-      (configuration-layer/make-package pkg 'layer-override-step-1 obj)))))
+      (configuration-layer/make-package pkg 'layer-make-pkg-8 obj)))))
 
 (ert-deftest test-make-package--cannot-override-protected ()
   (let* (configuration-layer--used-layers
@@ -616,16 +616,16 @@
          (pkg '(testpkg :protected nil))
          (expected (cfgl-package "testpkg"
                                  :name 'testpkg
-                                 :owners '(layer-override-protected-1)
+                                 :owners '(layer-make-pkg-9)
                                  :protected t)))
-    (defun layer-override-protected-1/init-testpkg nil)
+    (defun layer-make-pkg-9/init-testpkg nil)
     (helper--set-layers
-     `(,(cfgl-layer "layer-override-protected-1"
-                    :name 'layer-override-protected-1)) t)
+     `(,(cfgl-layer "layer-make-pkg-9"
+                    :name 'layer-make-pkg-9)) t)
     (should
      (equal
       expected
-      (configuration-layer/make-package pkg 'layer-override-protected-1 obj)))))
+      (configuration-layer/make-package pkg 'layer-make-pkg-9 obj)))))
 
 (ert-deftest test-make-package--cannot-unexclude-excluded-package ()
   (let* (configuration-layer--used-layers
@@ -637,9 +637,11 @@
          (expected (cfgl-package "testpkg"
                                  :name 'testpkg
                                  :excluded t)))
-    (helper--set-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
-    (should (equal expected
-                   (configuration-layer/make-package pkg 'layer1 obj)))))
+    (helper--set-layers
+     `(,(cfgl-layer "layer-make-pkg-10" :name 'layer-make-pkg-10)) t)
+    (should
+     (equal expected
+            (configuration-layer/make-package pkg 'layer-make-pkg-10 obj)))))
 
 (ert-deftest test-make-package--bootstrap-package-are-protected ()
   (let* (configuration-layer--used-layers
@@ -647,17 +649,16 @@
          (pkg '(testpkg :step bootstrap))
          (expected (cfgl-package "testpkg"
                                  :name 'testpkg
-                                 :owners '(layer-bootstrap-protected-1)
+                                 :owners '(layer-make-pkg-11)
                                  :step 'bootstrap
                                  :protected t)))
-    (defun layer-bootstrap-protected-1/init-testpkg nil)
+    (defun layer-make-pkg-11/init-testpkg nil)
     (helper--set-layers
-     `(,(cfgl-layer "layer-bootstrap-protected-1"
-                    :name 'layer-bootstrap-protected-1)) t)
+     `(,(cfgl-layer "layer-make-pkg-11" :name 'layer-make-pkg-11)) t)
     (should
      (equal
       expected
-      (configuration-layer/make-package pkg 'layer-bootstrap-protected-1)))))
+      (configuration-layer/make-package pkg 'layer-make-pkg-11)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//get-distant-packages
@@ -1184,6 +1185,32 @@
                                :post-layers '(layer27)
                                :location 'local)
                  (ht-get configuration-layer--indexed-packages 'pkg2))))))
+
+(ert-deftest test-make-packages-from-layers--package-properties-read-only ()
+  ;; we expect that :excluded is still nil
+  (let* (configuration-layer--used-layers
+         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (layer28 (cfgl-layer "layer28"
+                              :name 'layer28
+                              :packages '((pkg1 :excluded nil))))
+         (layer29 (cfgl-layer "layer29"
+                              :name 'layer29
+                              :packages '((pkg1 :excluded t))))
+         (expected (cfgl-package "pkg1"
+                                 :name 'pkg1
+                                 :owners '(layer28)
+                                 :excluded nil))
+         (mocker-mock-default-record-cls 'mocker-stub-record))
+    (defun layer28/init-pkg1 nil)
+    (helper--set-layers (list layer28) t)
+    (helper--set-layers (list layer29))
+    (mocker-let
+     ((configuration-layer//warning (msg &rest args) ((:output nil :occur 1))))
+     (configuration-layer/make-packages-from-layers '(layer28) t)
+     (let ((configuration-layer--package-properties-read-onlyp t))
+       (configuration-layer/make-packages-from-layers '(layer28 layer29)))
+     (should
+      (equal expected (ht-get configuration-layer--indexed-packages 'pkg1))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer/make-packages-from-dotfile

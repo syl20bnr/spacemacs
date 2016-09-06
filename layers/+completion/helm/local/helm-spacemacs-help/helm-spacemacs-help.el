@@ -45,6 +45,7 @@
 (defun helm-spacemacs-help//init (&optional arg)
   (when (or arg (null helm-spacemacs--initialized))
     (let ((configuration-layer--load-packages-files t)
+          (configuration-layer--package-properties-read-onlyp t)
           (configuration-layer--inhibit-warnings t))
       (configuration-layer/discover-layers)
       (configuration-layer/declare-layers (configuration-layer/get-layers-list))

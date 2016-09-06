@@ -200,6 +200,13 @@ LAYER has to be installed for this method to work properly."
     (when (configuration-layer/layer-usedp (car layers))
       (car layers))))
 
+(defmethod cfgl-package-set-property ((pkg cfgl-package) slot value)
+  "Set SLOT to the given VALUE for the package PKG.
+If `configuration-layer--package-properties-read-onlyp' is non-nil then VALUE
+is not set for the given SLOT."
+  (unless configuration-layer--package-properties-read-onlyp
+    (eval `(oset pkg ,slot value))))
+
 (defvar configuration-layer--elpa-archives
   '(("melpa" . "melpa.org/packages/")
     ("org"   . "orgmode.org/elpa/")
@@ -244,6 +251,10 @@ LAYER has to be installed for this method to work properly."
 
 (defvar configuration-layer--inhibit-warnings nil
   "If non-nil then warning message emitted by the layer system are ignored.")
+
+(defvar configuration-layer--package-properties-read-onlyp nil
+  "If non-nil then package properties are read only and cannot be overriden by
+`configuration-layer/make-package'.")
 
 (defvar configuration-layer--declared-layers-usedp nil
   "If non-nil then declared layers are considered to be used.")
@@ -549,10 +560,6 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
          (min-version (when (listp pkg) (plist-get (cdr pkg) :min-version)))
          (step (when (listp pkg) (plist-get (cdr pkg) :step)))
          (toggle (when (listp pkg) (plist-get (cdr pkg) :toggle)))
-         ;; (excluded (when (listp pkg)
-         ;;             (if (memq :excluded (cdr pkg))
-         ;;                 (plist-get (cdr pkg) :excluded)
-         ;;               'unspecified)))
          (excluded (when (listp pkg) (plist-get (cdr pkg) :excluded)))
          (location (when (listp pkg) (plist-get (cdr pkg) :location)))
          (protected (when (listp pkg) (plist-get (cdr pkg) :protected)))
@@ -567,11 +574,11 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
          (ownerp (or (and (eq 'dotfile layer-name)
                           (null (oref obj :owners)))
                      (fboundp init-func))))
-    (when min-version (oset obj :min-version (version-to-list min-version)))
-    (when step (oset obj :step step))
-    (when toggle (oset obj :toggle toggle))
-    (oset obj :excluded (or excluded (oref obj :excluded)))
-    ;; (unless (eq 'unspecified excluded) (oset obj :excluded excluded))
+    (when min-version
+      (cfgl-package-set-property obj :min-version (version-to-list min-version)))
+    (when step (cfgl-package-set-property obj :step step))
+    (when toggle (cfgl-package-set-property obj :toggle toggle))
+    (cfgl-package-set-property obj :excluded (or excluded (oref obj :excluded)))
     (when location
       (if (and (listp location)
                (eq (car location) 'recipe)
@@ -582,15 +589,17 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
                                        (configuration-layer/get-layer-local-dir
                                         layer-name)
                                        pkg-name-str pkg-name-str))))
-                    (oset obj :location `(recipe :fetcher file :path ,path))))
+                    (cfgl-package-set-property
+                     obj :location `(recipe :fetcher file :path ,path))))
            ((eq 'dotfile layer-name)
             ;; TODO what is the local path for a packages owned by the dotfile?
             nil))
-        (oset obj :location location)))
+        (cfgl-package-set-property obj :location location)))
     ;; cannot override protected packages
     (unless copyp
       ;; a bootstrap package is protected
-      (oset obj :protected (or protected (eq 'bootstrap step)))
+      (cfgl-package-set-property
+       obj :protected (or protected (eq 'bootstrap step)))
       (when protected
         (push pkg-name configuration-layer--protected-packages)))
     (when ownerp
@@ -891,8 +900,8 @@ variable as well."
           (if obj
               (setq obj (configuration-layer/make-package pkg layer-name obj))
             (setq obj (configuration-layer/make-package pkg layer-name)))
-          (configuration-layer//add-package obj (and (oref obj :owners)
-                                                     usedp)))))))
+          (configuration-layer//add-package
+           obj (and (cfgl-package-get-safe-owner obj) usedp)))))))
 
 (defun configuration-layer/make-packages-from-dotfile (&optional usedp)
   "Read the additonal packages declared in the dotfile and create packages.
@@ -909,7 +918,7 @@ USEDP if non-nil indicates that made packages are used packages."
       (unless obj
         (setq obj (configuration-layer/make-package xpkg 'dotfile)))
       (configuration-layer//add-package obj usedp)
-      (oset obj :excluded t))))
+      (cfgl-package-set-property obj :excluded t))))
 
 (defun configuration-layer/lazy-install (layer-name &rest props)
   "Configure auto-installation of layer with name LAYER-NAME."
@@ -932,7 +941,7 @@ USEDP if non-nil indicates that made packages are used packages."
                        :initial-value t)))
             (oset layer :lazy-install lazy)
             (dolist (pkg packages)
-              (oset pkg :lazy-install lazy)))))
+              (cfgl-package-set-property pkg :lazy-install lazy)))))
       (dolist (x extensions)
         (let ((ext (car x))
               (mode (cadr x)))
@@ -1252,10 +1261,10 @@ wether the declared layer is an used one or not."
           (cond
            ((or (null pkg) (eq 'elpa location))
             (configuration-layer//install-from-elpa pkg-name)
-            (when pkg (oset pkg :lazy-install nil)))
+            (when pkg (cfgl-package-set-property pkg :lazy-install nil)))
            ((and (listp location) (eq 'recipe (car location)))
             (configuration-layer//install-from-recipe pkg)
-            (oset pkg :lazy-install nil))
+            (cfgl-package-set-property pkg :lazy-install nil))
            (t (configuration-layer//warning "Cannot install package %S."
                                         pkg-name)))
         ('error
@@ -1292,7 +1301,7 @@ wether the declared layer is an used one or not."
             (delq nil (mapcar
                        (lambda (x)
                          (let ((pkg (configuration-layer/get-package x)))
-                           (oset pkg :lazy-install nil)
+                           (cfgl-package-set-property pkg :lazy-install nil)
                            pkg))
                        (oref layer :packages)))))
       (let ((last-buffer (current-buffer))
