@@ -15,7 +15,16 @@
         ggtags
         helm
         helm-gtags
-        slime))
+        slime
+        auto-completion
+        (company :toogle lisp-mode-enable-slime-company)
+        (slime-company :toogle (configuration-layer/package-usedp 'company))))
+
+;; Hook company to common-lisp-mode
+(defun common-lisp/post-init-company ())
+
+;; Add the backend to the major mode specific backend list
+(defun common-lisp/init-slime-company ())
 
 (defun common-lisp/post-init-auto-highlight-symbol ()
   (with-eval-after-load 'auto-highlight-symbol
@@ -44,6 +53,8 @@
                              slime-sbcl-exts
                              slime-scratch)
             inferior-lisp-program "sbcl")
+      (when enable-slime-company
+        (push 'slime-company slime-contribs))
       ;; enable fuzzy matching in code buffer and SLIME REPL
       (setq slime-complete-symbol*-fancy t)
       (setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)

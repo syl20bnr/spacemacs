@@ -10,3 +10,8 @@
 ;;; License: GPLv3
 
 (spacemacs|define-jump-handlers lisp-mode slime-inspect-definition)
+
+;; Company integration
+(spacemacs|defvar-company-backends lisp-mode)
+(defcustom enable-slime-company t
+  "If non nil enables the slime-company package. DEFAULT: t")
