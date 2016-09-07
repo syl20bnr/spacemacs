@@ -1,0 +1,86 @@
+#+TITLE: Japanese layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+   - [[Configuration][Configuration]]
+     - [[evil-tutor-ja][evil-tutor-ja]]
+     - [[migemo][migemo]]
+     - [[helm-with-migemo][helm-with-migemo]]
+     - [[avy-migemo][avy-migemo]]
+     - [[ddskk][ddskk]]
+     - [[pangu-spacing][pangu-spacing]]
+ - [[Key Bindings][Key Bindings]]
+
+* Description
+This Layer adds Japanese related packages:
+- [[https://github.com/kenjimyzk/evil-tutor-ja][evil-tutor-ja]]: Japanese Vimtutor adapted to Emacs+Evil and wrapped in a major mode
+- [[https://github.com/emacs-jp/migemo][migemo]]: Japanese incremental search through dynamic pattern expansion
+- [[https://github.com/emacs-helm/helm/wiki/Migemo][helm-migemo-mode]]: helm with migemo
+- [[https://github.com/momomo5717/avy-migemo/blob/master/README.jp.org][avy-migemo]]: avy with migemo
+- [[https://github.com/hsaito/ddskk][ddskk]]: Simple Kana to Kanji conversion program (SKK)
+- [[https://github.com/emacs-jp/japanese-holidays][japanese-holidays]]: calendar functions for the Japanese calendar
+- [[https://github.com/coldnew/pangu-spacing][pangu-spacing]]: emacs minor-mode to add space between Japanese and English
+  characters.
+- Join consecutive Japanese lines into a single long line without unwanted space
+  when exporting org-mode to html.
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =japanese= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+** Configuration
+   For a basic configuration, add this to your =~/.spacemacs= inside
+   ~dotspacemacs/user-config~:
+*** evil-tutor-ja
+By default, the variable ~evil-tutor-working-ja-directory~ is assigned =~.emacs.d/.tutor-ja=.
+*** migemo
+By default, the variable ~migemo-dictionary~ is assigned
+~/usr/local/share/migemo/utf-8/migemo-dict~. If you want it to be another
+directory, you must re-set the variable. For example, if you install ~cmigemo~
+using
+#+BEGIN_SRC bash
+sudo apt-get install cmigemo
+#+END_SRC
+in ubuntu, you should add:
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load "migemo"
+    (setq migemo-dictionary "/usr/share/migemo/utf-8/migemo-dict"))
+#+END_SRC
+inside ~dotspacemacs/user-config~.
+*** helm-with-migemo
+If you want to use helm with migemo, you should add:
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load "helm"
+    (helm-migemo-mode 1))
+#+END_SRC
+inside ~dotspacemacs/user-config~. Note that you may find in a package called
+~helm-migemo.el~ in MELPA. However, this package is deprecated and not supported
+by helm.
+*** avy-migemo
+By default, you can use ~migemo~ for ~avy.el~. For ~ivy.el~, you should add:
+#+BEGIN_SRC emacs-lisp
+(require 'avy-migemo-e.g.ivy)
+#+END_SRC
+inside ~dotspacemacs/user-config~. For ~swiper.el~, you should add:
+#+BEGIN_SRC emacs-lisp
+(require 'avy-migemo-e.g.swiper)
+#+END_SRC
+inside ~dotspacemacs/user-config~. For ~counsel.el~, you should add:
+#+BEGIN_SRC emacs-lisp
+(require 'avy-migemo-e.g.counsel)
+#+END_SRC
+inside ~dotspacemacs/user-config~.
+*** ddskk
+You can write a configuration file ~​~/.skk~. For detailed configuration, see
+some [[http://openlab.ring.gr.jp/skk/doc.html][documents]].
+*** pangu-spacing
+By default, ~pangu-spacing-mode~ is applied to ~text-mode~. If you prefer the
+mode globally, add:
+#+BEGIN_SRC emacs-lisp
+(global-pangu-spacing-mode 1)
+#+END_SRC
+inside ~dotspacemacs/user-config~.
+* Key Bindings
+By default, ~C-x j~ toggles ~skk-mode~.
