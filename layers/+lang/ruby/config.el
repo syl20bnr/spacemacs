@@ -25,4 +25,4 @@
 Possible values are `rbenv', `rvm' or `chruby'.)")
 
 (defvar ruby-test-runner 'ruby-test
-  "Test runner to use. Possible values are `ruby-test' or `rspec'.")
+  "Test runner to use. Possible values are `ruby-test', `minitest' or `rspec'.")

@@ -51,3 +51,11 @@ Called interactively it prompts for a directory."
   "Conditionally enable `ruby-test-mode'"
   (when (eq 'ruby-test ruby-test-runner)
     (ruby-test-mode)))
+
+
+;; minitest
+
+(defun spacemacs//ruby-enable-minitest-mode ()
+  "Conditionally enable `minitest-mode'"
+  (when (eq 'minitest ruby-test-runner)
+    (minitest-enable-appropriate-mode)))
