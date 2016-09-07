@@ -91,7 +91,7 @@
         "rs"   'spacemacs/resume-last-search-buffer
         "ry"   'helm-show-kill-ring
         "sl"   'spacemacs/resume-last-search-buffer
-        "sj"   'spacemacs/jump-in-buffer)
+        "sj"   'spacemacs/helm-jump-in-buffer)
       ;; search with grep
       (spacemacs/set-leader-keys
         "sgb"  'spacemacs/helm-buffers-do-grep
