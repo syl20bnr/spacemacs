@@ -869,45 +869,41 @@ list. Return entire list if `END' is omitted."
 already exist, and switch to it."
   (interactive)
   (let ((buffer-exists (buffer-live-p (get-buffer spacemacs-buffer-name)))
-        ln)
-    (when (or refresh
-              (not buffer-exists))
-      ;; revise banner length in GUI
-      (when (display-graphic-p)
-        (setq spacemacs-buffer--banner-length
-              (window-width)))
-      (unless (eq spacemacs-buffer--last-width spacemacs-buffer--banner-length)
-        (setq spacemacs-buffer--last-width spacemacs-buffer--banner-length)
-        (with-current-buffer (get-buffer-create spacemacs-buffer-name)
-          (page-break-lines-mode)
-          (save-excursion
-            (when (> (buffer-size) 0)
-              (setq ln (line-number-at-pos))
-              (let ((inhibit-read-only t))
-                (erase-buffer)))
-            (spacemacs-buffer/set-mode-line "")
-            ;; needed in case the buffer was deleted and we are recreating it
-            (setq spacemacs-buffer--note-widgets nil)
-            (spacemacs-buffer/insert-banner-and-buttons)
-            ;; non-nil if emacs-startup-hook was run
-            (if (bound-and-true-p spacemacs-initialized)
-                (progn
-                  (configuration-layer/display-summary emacs-start-time)
-                  (when dotspacemacs-startup-lists
-                    (spacemacs-buffer/insert-startupify-lists))
-                  (spacemacs-buffer//insert-footer)
-                  (spacemacs-buffer/set-mode-line spacemacs--default-mode-line)
-                  (force-mode-line-update)
-                  (spacemacs-buffer-mode))
-              (add-hook 'emacs-startup-hook 'spacemacs-buffer//startup-hook t))))
-        (if ln
-            ;; return to previous line before refresh
-            (progn (goto-char (point-min))
-                   (forward-line (1- ln))
-                   (forward-to-indentation 0))
-          (spacemacs-buffer/goto-link-line))
-        (switch-to-buffer spacemacs-buffer-name)
-        (spacemacs//redisplay)))))
+        (save-line nil))
+    (when (or (not (eq spacemacs-buffer--last-width spacemacs-buffer--banner-length))
+              (not buffer-exists)
+              refresh)
+      (setq spacemacs-buffer--banner-length (window-width)
+            spacemacs-buffer--last-width spacemacs-buffer--banner-length)
+      (with-current-buffer (get-buffer-create spacemacs-buffer-name)
+        (page-break-lines-mode)
+        (save-excursion
+          (when (> (buffer-size) 0)
+            (set 'save-line (line-number-at-pos))
+            (let ((inhibit-read-only t))
+              (erase-buffer)))
+          (spacemacs-buffer/set-mode-line "")
+          ;; needed in case the buffer was deleted and we are recreating it
+          (setq spacemacs-buffer--note-widgets nil)
+          (spacemacs-buffer/insert-banner-and-buttons)
+          ;; non-nil if emacs-startup-hook was run
+          (if (bound-and-true-p spacemacs-initialized)
+              (progn
+                (configuration-layer/display-summary emacs-start-time)
+                (when dotspacemacs-startup-lists
+                  (spacemacs-buffer/insert-startupify-lists))
+                (spacemacs-buffer//insert-footer)
+                (spacemacs-buffer/set-mode-line spacemacs--default-mode-line)
+                (force-mode-line-update)
+                (spacemacs-buffer-mode))
+            (add-hook 'emacs-startup-hook 'spacemacs-buffer//startup-hook t))))
+      (if save-line
+          (progn (goto-char (point-min))
+                 (forward-line (1- save-line))
+                 (forward-to-indentation 0))
+        (spacemacs-buffer/goto-link-line))))
+  (switch-to-buffer spacemacs-buffer-name)
+  (spacemacs//redisplay))
 
 (add-hook 'window-setup-hook
           (lambda ()
