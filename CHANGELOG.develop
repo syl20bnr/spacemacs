@@ -535,7 +535,7 @@ This file containes the change log for the next major version of Spacemacs.
   - ~SPC g l L~ on a region, create a link to the file highlighting the
     selected lines
 + New key binding ~SPC g f h~ to get the commit history of the current file
-**** Github
+**** GitHub
 - Add support for =git-link= in =git-timemachine=, this allow to copy
   the SHA-1 or selected lines links for the current commit (thanks to dcluna)
 - Move clone commands under ~SPC g h c~:
