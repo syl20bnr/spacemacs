@@ -73,7 +73,7 @@ accept code without a proper header file.
 
 *** Conventions
 Spacemacs is based on conventions, mainly for naming functions, keybindings
-definition and writing documentation. Please read the [[doc/CONVENTIONS.org][CONVENTIONS.org]] file
+definition and writing documentation. Please read the [[file:doc/CONVENTIONS.org][CONVENTIONS.org]] file
 before your first contribution to get to know them.
 
 *** Pull-Request
