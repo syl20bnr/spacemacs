@@ -614,7 +614,7 @@ This file containes the change log for the next major version of Spacemacs.
   - ~SPC m d s~ to start daemon
   - ~SPC m d k~ to stop daemon
  (thanks to elken)
-**** Javascript
+**** JavaScript
 - Add REPL via =skewer-mode= and =livid-mode= (thanks to dcluna)
 - Fix offset detection in js2-mode (thans to TheBB)
 - Diminish =tern= and =skewer= modes (thanks to cpaulik)
@@ -677,7 +677,7 @@ This file containes the change log for the next major version of Spacemacs.
   - ~SPC m O~ for =org-agenda-clock-out=
   - ~SPC m q~ for =org-agenda-clock-cancel=
   - ~SPC m q~ for =org-agenda-refile=
-- New key for bindings for =org-calendar=:
+- New key bindings for =org-calendar=:
   - ~M-l~ One day forward
   - ~M-h~ One day backward
   - ~M-j~ One week forward
@@ -686,7 +686,7 @@ This file containes the change log for the next major version of Spacemacs.
   - ~M-H~ One month backward
   - ~M-J~ One year forward
   - ~M-K~ One year backward
-- New key binding ~SPC h s~ for =org-insert-subheading= (thanks to jgertm)
+- New key binding ~SPC m h s~ for =org-insert-subheading= (thanks to jgertm)
 - =org-indent= is now turned off by default because of the numerous glitches
  (thanks to TheBB)
 - Add code blocks support for =evil-surround= using ~:~ and ~#~
