@@ -1,4 +1,4 @@
-#+TITLE: Github layer
+#+TITLE: GitHub layer
 
 [[file:img/github.png]]
 
@@ -15,14 +15,14 @@
    - [[#browse-files][Browse files]]
 
 * Description
-This layers adds support for [[http://github.com][Github]].
+This layers adds support for [[http://github.com][GitHub]].
 
 ** Features:
-- [[https://github.com/sigma/magit-gh-pulls][magit-gh-pulls]]: handy =magit= add-on to manage Github pull requests.
-- [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post Github gists.
-- [[https://github.com/osener/github-browse-file][github-browse-file]] and [[https://github.com/sshaw/git-link][git-link]]: quickly browse github URL in your
+- [[https://github.com/sigma/magit-gh-pulls][magit-gh-pulls]]: handy =magit= add-on to manage GitHub pull requests.
+- [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post GitHub gists.
+- [[https://github.com/osener/github-browse-file][github-browse-file]] and [[https://github.com/sshaw/git-link][git-link]]: quickly browse GitHub URL in your
   browser.
-- [[https://github.com/dgtized/github-clone.el][Github clone]] allows for easy cloning and forking of repositories.
+- [[https://github.com/dgtized/github-clone.el][github-clone]] allows for easy cloning and forking of repositories.
 
 * Install
 ** Layer
@@ -102,4 +102,4 @@ In the gist list buffer:
 
 | Key Binding | Description                                                        |
 |-------------+--------------------------------------------------------------------|
-| ~SPC g h o~ | browse to file on github                                           |
+| ~SPC g h o~ | browse to file on GitHub                                           |
