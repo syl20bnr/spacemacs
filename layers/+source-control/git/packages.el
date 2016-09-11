@@ -361,7 +361,7 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
         'spacemacs/magit-toggle-whitespace)
       ;; full screen magit-status
       (when git-magit-status-fullscreen
-        (setq magit-display-buffer-function 'spacemacs//fullscreen-magit)))))
+        (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)))))
 
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow
