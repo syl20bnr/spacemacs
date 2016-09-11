@@ -19,8 +19,8 @@
     flycheck
     haml-mode
     (helm-css-scss :toggle (configuration-layer/package-usedp 'helm))
-    jade-mode
     less-css-mode
+    pug-mode
     sass-mode
     scss-mode
     slim-mode
@@ -104,8 +104,8 @@
 
 (defun html/post-init-flycheck ()
   (dolist (mode '(haml-mode
-                  jade-mode
                   less-mode
+                  pug-mode
                   sass-mode
                   scss-mode
                   slim-mode
@@ -123,19 +123,15 @@
     (dolist (mode '(css-mode scss-mode))
       (spacemacs/set-leader-keys-for-major-mode mode "gh" 'helm-css-scss))))
 
-(defun html/init-jade-mode ()
-  (use-package jade-mode
-    :defer t
-    :mode ("\\.pug$" . jade-mode)
-    :init
-    ;; Explicitly run prog-mode hooks since jade-mode does not derivate from
-    ;; prog-mode major-mode
-    (add-hook 'jade-mode-hook 'spacemacs/run-prog-mode-hooks)))
-
 (defun html/init-less-css-mode ()
   (use-package less-css-mode
     :defer t
     :mode ("\\.less\\'" . less-css-mode)))
+
+(defun html/init-pug-mode ()
+  (use-package pug-mode
+    :defer t
+    :mode ("\\.pug$" . pug-mode)))
 
 (defun html/init-sass-mode ()
   (use-package sass-mode
