@@ -46,6 +46,10 @@
   ;; work properly sometimes.
   (require 'evil)
   (evil-mode 1)
+
+  ;; Use evil as a default jump handler
+  (push 'evil-goto-definition spacemacs-default-jump-handlers)
+
   (require 'cl)
   ;; State cursors
   (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
