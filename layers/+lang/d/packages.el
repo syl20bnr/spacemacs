@@ -14,6 +14,7 @@
 (setq d-packages
       '(
         company
+        (company-dcd :toggle (configuration-layer/package-usedp 'company))
         d-mode
         flycheck
         (flycheck-dmd-dub :toggle (configuration-layer/package-usedp 'flycheck))
@@ -25,6 +26,19 @@
   ;; Need to convince company that this C-derived mode is a code mode.
   (with-eval-after-load 'company-dabbrev-code (push 'd-mode company-dabbrev-code-modes))
   (spacemacs|add-company-hook d-mode))
+
+(defun d/init-company-dcd ()
+  (use-package company-dcd
+    :defer t
+    :init
+    (progn
+      (add-hook 'd-mode-hook 'company-dcd-mode)
+      (push 'company-dcd company-backends-d-mode)
+      (spacemacs/set-leader-keys-for-major-mode 'd-mode
+        "gg" 'company-dcd-goto-definition
+        "gb" 'company-dcd-goto-def-pop-marker
+        "hh" 'company-dcd-show-ddoc-with-buffer
+        "gr" 'company-dcd-ivy-search-symbol))))
 
 (defun d/init-d-mode ()
   (use-package d-mode :defer t))
