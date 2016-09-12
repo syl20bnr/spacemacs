@@ -124,6 +124,7 @@
       (spacemacs/set-leader-keys
         "gb"  'spacemacs/git-blame-micro-state
         "gfh" 'magit-log-buffer-file
+        "gL"  'magit-list-repositories
         "gm"  'magit-dispatch-popup
         "gs"  'magit-status
         "gS"  'magit-stage-file
@@ -154,6 +155,11 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
       (require 'git-rebase)
       ;; bind function keys
       ;; (define-key magit-mode-map (kbd "<tab>") 'magit-section-toggle)
+      (evilified-state-evilify-map magit-repolist-mode-map
+          :mode magit-repolist-mode
+          :bindings
+          (kbd "g") 'magit-list-repositories
+          (kbd "RET") 'magit-repolist-status)
       (unless (configuration-layer/package-usedp 'evil-magit)
         ;; use auto evilification if `evil-magit' is not used
         (evilified-state-evilify-map magit-mode-map
