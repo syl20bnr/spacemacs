@@ -205,6 +205,9 @@
     (define-key map (kbd "<S-return>") '(lambda () (interactive)
                                           ;; Add Layer
                                           (helm-select-nth-action 3)))
+    (define-key map (kbd "<M-return>") '(lambda () (interactive)
+                                          ;; Open packages.el
+                                          (helm-select-nth-action 1)))
     map)
   "Keymap for Spacemacs Layers sources")
 
