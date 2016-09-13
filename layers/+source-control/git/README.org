@@ -284,4 +284,4 @@ stanza insert the following with the directories of your choice:
 |-------------+------------------------------------------------------------------------|
 | ~gL~        | start git repo list                                                    |
 | ~RETURN~    | show the git status window for the selected project                    |
-| ~g~         | refresh the project list                                               |
+| ~gr~        | refresh the project list                                               |
