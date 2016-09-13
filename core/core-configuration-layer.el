@@ -304,18 +304,21 @@ The returned list has a `package-archives' compliant format."
   (mapcar
    (lambda (x)
      (cons (car x)
-           (if (string-match-p "http" (cdr x))
+           (if (or (string-match-p "http" (cdr x))
+                   (string-prefix-p "/" (cdr x)))
                (cdr x)
-             (concat (if (and dotspacemacs-elpa-https
-                              (not spacemacs-insecure)
-                              ;; for now org ELPA repository does
-                              ;; not support HTTPS
-                              ;; TODO when org ELPA repo support
-                              ;; HTTPS remove the check
-                              ;; `(not (equal "org" (car x)))'
-                              (not (equal "org" (car x))))
-                         "https://"
-                       "http://") (cdr x)))))
+             (concat
+              (if (and dotspacemacs-elpa-https
+                       (not spacemacs-insecure)
+                       ;; for now org ELPA repository does
+                       ;; not support HTTPS
+                       ;; TODO when org ELPA repo support
+                       ;; HTTPS remove the check
+                       ;; `(not (equal "org" (car x)))'
+                       (not (equal "org" (car x))))
+                  "https://"
+                "http://")
+              (cdr x)))))
    archives))
 
 (defun configuration-layer/retrieve-package-archives (&optional quiet force)
