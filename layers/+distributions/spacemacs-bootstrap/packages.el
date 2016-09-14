@@ -130,7 +130,7 @@
   (evil-ex-define-cmd "enew" 'spacemacs/new-empty-buffer)
 
   (define-key evil-normal-state-map (kbd "K") 'spacemacs/evil-smart-doc-lookup)
-  (define-key evil-normal-state-map (kbd "gd") 'spacemacs/evil-smart-goto-definition)
+  (define-key evil-normal-state-map (kbd "gd") 'spacemacs/jump-to-definition)
 
   ;; scrolling transient state
   (spacemacs|define-transient-state scroll
