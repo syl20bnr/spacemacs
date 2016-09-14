@@ -477,8 +477,8 @@ The vertical spacing is always one line."
        "╭─"
        (if caption
            (concat caption
-                   (make-string (+ (- fill-column caption-len 1)
-                                   hpadding) ?─))
+                   (make-string (max 0 (+ (- fill-column caption-len 1)
+                                   hpadding)) ?─))
          (make-string fill-column ?─))
        (make-string hpadding ?─) "╮\n"
        ;; content
