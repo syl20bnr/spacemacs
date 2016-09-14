@@ -120,6 +120,8 @@ the final step of executing code in `emacs-startup-hook'.")
     (spacemacs|do-after-display-system-init
      (kill-buffer (get-buffer spacemacs-buffer-name))
      (spacemacs-buffer/goto-buffer)))
+  ;; This is set to nil during startup to allow Spacemacs to show buffers opened
+  ;; as command line arguments.
   (setq initial-buffer-choice nil)
   (setq inhibit-startup-screen t)
   (require 'core-keybindings)
@@ -177,6 +179,11 @@ defer call using `spacemacs-post-user-config-hook'."
   (add-hook
    'emacs-startup-hook
    (lambda ()
+     ;; This is set here so that emacsclient will show the startup buffer (and
+     ;; so that it can be changed in user-config if necessary). It was set to
+     ;; nil earlier in the startup process to properly handle command line
+     ;; arguments.
+     (setq initial-buffer-choice (lambda () (get-buffer spacemacs-buffer-name)))
      ;; Ultimate configuration decisions are given to the user who can defined
      ;; them in his/her ~/.spacemacs file
      (dotspacemacs|call-func dotspacemacs/user-config
