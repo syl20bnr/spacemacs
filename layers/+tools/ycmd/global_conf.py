@@ -81,23 +81,23 @@ def FlagsFromClangComplete(root, filename):
 
 def FlagsFromCompilationDatabase(root, filename):
     try:
-        compilation_db_path = FindNearest(root, 'compile_commands.json', filename)
-        database = ycm_core.CompilationDatabase(os.path.dirname(compilation_db_path))
+        database_path = FindNearest(root, 'compile_commands.json', filename)
+        database = ycm_core.CompilationDatabase(os.path.dirname(database_path))
         if not database:
             logging.info("%s: Compilation database file found but unable to load"
                          % os.path.basename(filename))
             return None
         extension = os.path.splitext(filename)[1]
         if extension in HEADER_EXTENSIONS:
-            compilation_info = GetFlagsForHeader(compilation_db_path, database, filename)
+            flags = GetFlagsForHeader(database_path, database, filename)
         else:
-            compilation_info = GetFlagsForSourceFile(database, filename)
-        if not compilation_info:
+            flags = GetFlagsForSourceFile(database_path, database, filename)
+        if not flags:
             logging.info("%s: No compilation info for %s in compilation database"
                          % (os.path.basename(filename), filename))
             return None
-        return MakeRelativePathsInFlagsAbsolute(compilation_info.compiler_flags_,
-                                                compilation_info.compiler_working_dir_)
+        return MakeRelativePathsInFlagsAbsolute(flags.compiler_flags_,
+                                                flags.compiler_working_dir_)
     except Exception as e:
         logging.info("%s: Could not get compilation flags from db: %s"
                      % (os.path.basename(filename), e))
@@ -116,13 +116,13 @@ def GetFlagsForHeader(database_path, database, filename):
                                                       filename)
     if flags:
         return flags
-    return FindNearestSourceFileInDb(database, os.path.dirname(filename), filename)
+    return FindNearestSourceFileInDb(database_path, database, filename)
 
-def GetFlagsForSourceFile (database, filename):
+def GetFlagsForSourceFile (database_path, database, filename):
     flags = FindFileInDb(database, filename)
     if flags:
         return flags
-    return FindNearestSourceFileInDb(database, os.path.dirname(filename), filename)
+    return FindNearestSourceFileInDb(database_path, database, filename)
 
 def FindNearest(path, target, filename):
     candidate = os.path.join(path, target)
@@ -155,32 +155,41 @@ def FindSiblingFileForHeader(database, filename):
     for extension in SOURCE_EXTENSIONS:
         replacement_file = basename + extension
         if os.path.exists(replacement_file):
-            compilation_info = database.GetCompilationInfoForFile(replacement_file)
-            if compilation_info.compiler_flags_:
+            flags = database.GetCompilationInfoForFile(replacement_file)
+            if flags.compiler_flags_:
                 logging.info("%s: Found sibling source file: %s"
                              % (os.path.basename(filename), replacement_file))
-                return compilation_info
+                return flags
     logging.info("%s: Did not find sibling source file."
                  % (os.path.basename(filename)))
     return None
 
-# Todo: search children directories AND parent directories
-# Todo: we don't need dirname
-def FindNearestSourceFileInDb(database, dirname, refFile):
+def FindNearestSourceFileInDb(database_path, database, srcfile):
     logging.info("%s: Trying to find nearest source file in database..."
-                 % (os.path.basename(refFile)))
-    refFile = os.path.split(refFile)[1]
-    for root, dirnames, filenames in os.walk(dirname):
+                 % (srcfile))
+    filename, flags = DoFindNearestSourceFileInDb(database_path, database, srcfile, None)
+    if flags:
+        logging.info("%s: Found nearest source file from %s: %s"
+                     % (os.path.basename(srcfile), srcfile, filename))
+        return flags
+    logging.info("%s: Could not find nearest source file from %s in compilation db."
+                % (srcfile, srcfile))
+    return None
+
+# Search subdirectories recursively, then do the same recursively for parent
+# directories until a file was found or we have searched the database's directory
+def DoFindNearestSourceFileInDb(database_path, database, directory, skip):
+    for root, dirnames, filenames in os.walk(directory):
+        if os.path.basename(skip) in dirnames:
+            dirnames.remove(os.path.basename(skip))
         for filename in filenames:
             if filename.endswith(tuple(SOURCE_EXTENSIONS)):
-                if str(filename) != str(refFile):
-                    compilation_info = database.GetCompilationInfoForFile(str(os.path.join(root, filename)))
-                    if compilation_info.compiler_flags_:
-                        logging.info("%s: Found nearest source file from %s: %s"
-                                     % (refFile, refFile, str(os.path.join(root, filename))))
-                        return compilation_info
-    logging.info("%s: Could not find nearest source file from %s in compilation db." % (refFile, refFile))
-    return None
+                flags = database.GetCompilationInfoForFile(os.path.join(root, filename))
+                if flags.compiler_flags_:
+                    return os.path.join(root, filename), flags
+    if database_path == directory or os.path.dirname(directory) == directory:
+        return None, None
+    return DoFindNearestSourceFileInDb(database_path, database, os.path.dirname(directory), directory)
 
 def Pairwise(iterable):
     "s -> (s0,s1), (s1,s2), (s2, s3), ..."
