@@ -100,10 +100,8 @@ organised in configuration layers following a set of
 Comprehensive documentation is available for each layer by pressing
 <kbd>SPC h SPC</kbd>.
 
-To go to the general documentation [click here][DOCUMENTATION.org].
-
-You can also check the [Quick Start guide][QUICK_START.org] and the
-[FAQ][FAQ.org].
+You can also check the [general documentation][DOCUMENTATION.org],
+[quick start guide][QUICK_START.org] and the [FAQ][FAQ.org].
 
 # Getting Help
 
@@ -155,7 +153,7 @@ is what transforms a regular Emacs into Spacemacs.
 *Note:* the proposed `emacs-plus` tap is identical to the `emacs` formulae,
 it just defines some additional options like `--with-spacemacs-icon`.
 
-*Note:* after you have completed the [install process below](#install), it is
+*Note:* after you have completed the [install process](#install) below, it is
 also recommended to add the [osx layer][] to your [dotfile][]. Install
 instructions are available in the [osx layer][] documentation.
 
@@ -182,8 +180,8 @@ section in [Documentation][DOCUMENTATION.org].
 
 ### Windows
 
-Good quality builds can be found [on this page][emacs-for-windows]. It is
-recommended to install the most stable build.
+You can download good quality builds from the [emacs-w64 project][emacs-for-windows].
+It is recommended to install the most recent [stable build][emacs-for-windows-stable].
 
 Be sure to declare a environment variable named `HOME` pointing to your user
 directory `C:\Users\<username>`. Then you can clone Spacemacs in this directory.
@@ -200,7 +198,7 @@ To fix it change the owner of the directory `~/.emacs.d/server`:
   - select the Tab “Owner”
   - change the owner to your account name
 
-Source: [Stackoverflow][so-server-unsafe]
+Source: [Stack Overflow][so-server-unsafe]
 
 For efficient searches we recommend to install `pt` ([the platinum searcher][]).
 `pt` version 1.7.7 or higher is required.
@@ -288,12 +286,11 @@ Say you cloned Spacemacs in `~/.emacs.d/spacemacs/` then drop these lines in
 
 ## Spacemacs logo
 
-If you are using Ubuntu and Unity then you can add the Spacemacs logo by
-following the instructions [here][cpaulik-unity-icon].
+For Ubuntu users, follow this guide to
+[change the logo in Unity][cpaulik-unity-icon].
 
-If you're on a mac follow [these instructions][icon-mac-instructions]. You can
-find an .icns version of the logo by [Nasser Alshammari](http://www.nass3r.com)
-in [his repository][icon-repository].
+For Mac users, you need to [download the .icns version of the logo][icon-repository],
+then [change the logo on Dock][icon-mac-instructions].
 
 # Update
 
@@ -433,6 +430,7 @@ Thank you!
 [Gitter Chat IRC server]: https://irc.gitter.im/
 [homebrew]: http://brew.sh
 [emacs-for-windows]: http://emacsbinw64.sourceforge.net/
+[emacs-for-windows-stable]: https://sourceforge.net/projects/emacsbinw64/files/release/
 [the platinum searcher]: https://github.com/monochromegane/the_platinum_searcher
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
 [Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
