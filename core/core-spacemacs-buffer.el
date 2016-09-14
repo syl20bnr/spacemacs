@@ -870,7 +870,7 @@ already exist, and switch to it."
   (interactive)
   (let ((buffer-exists (buffer-live-p (get-buffer spacemacs-buffer-name)))
         (save-line nil))
-    (when (or (not (eq spacemacs-buffer--last-width spacemacs-buffer--banner-length))
+    (when (or (not (eq spacemacs-buffer--last-width (window-width)))
               (not buffer-exists)
               refresh)
       (setq spacemacs-buffer--banner-length (window-width)
@@ -901,9 +901,9 @@ already exist, and switch to it."
           (progn (goto-char (point-min))
                  (forward-line (1- save-line))
                  (forward-to-indentation 0))
-        (spacemacs-buffer/goto-link-line))))
-  (switch-to-buffer spacemacs-buffer-name)
-  (spacemacs//redisplay))
+        (spacemacs-buffer/goto-link-line))
+      (switch-to-buffer spacemacs-buffer-name)
+      (spacemacs//redisplay))))
 
 (add-hook 'window-setup-hook
           (lambda ()
@@ -917,7 +917,7 @@ already exist, and switch to it."
                space-win
                (not (window-minibuffer-p frame-win)))
       (with-selected-window space-win
-        (spacemacs-buffer/goto-buffer t)))))
+        (spacemacs-buffer/goto-buffer)))))
 
 (defun spacemacs-buffer/refresh ()
   "Force recreation of the spacemacs buffer."
