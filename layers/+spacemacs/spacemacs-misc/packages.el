@@ -20,11 +20,15 @@
     :defer t
     :init
     (progn
+      ;; not activating `dumb-jump-mode' because it only adds key bindings, and
+      ;; they conflict with existing bindings (see
+      ;; https://github.com/syl20bnr/spacemacs/issues/7107)
+
+      (spacemacs/set-leader-keys "jq" #'dumb-jump-quick-look)
       ;; Since it's dumb, we add it to the end of the default jump handlers. At
       ;; the time of writing it is the only default jump handler. (gtags remains
       ;; mode-local)
-      (add-to-list 'spacemacs-default-jump-handlers 'dumb-jump-go 'append)
-      (add-hook 'prog-mode-hook 'dumb-jump-mode))))
+      (add-to-list 'spacemacs-default-jump-handlers 'dumb-jump-go 'append))))
 
 (defun spacemacs-misc/init-request ()
   (setq request-storage-directory
