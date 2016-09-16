@@ -3,11 +3,16 @@
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
+ - [[#syntax-checking-with-flycheck][Syntax checking with flycheck]]
 
 * Description
-This layer provides syntax highlighting for YAML files.
+This layer provides syntax highlighting and syntax checking via [[http://www.flycheck.org/en/latest/languages.html#yaml][flycheck]] for YAML files.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =yaml= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+* Syntax checking with flycheck
+Flycheck checks YAML with yaml-jsyaml or yaml-ruby. The flycheck YAML
+documentation can be found at the [[http://www.flycheck.org/en/latest/languages.html#yaml][flycheck website]].
