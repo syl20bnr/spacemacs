@@ -1,4 +1,4 @@
-;;; config.el --- YAML Layer packages File for Spacemacs
+;;; config.el --- YAML Layer configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
