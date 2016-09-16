@@ -17,6 +17,7 @@
         flycheck
         ggtags
         helm-gtags
+        insert-shebang
         (sh-script :location built-in)
         ))
 
@@ -68,3 +69,13 @@
 
 (defun shell-scripts/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'sh-mode))
+
+(defun shell-scripts/init-insert-shebang ()
+  (use-package insert-shebang
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys "i!" 'spacemacs/insert-shebang)
+      ;; we don't want to insert shebang lines automatically
+      (remove-hook 'find-file-hook 'insert-shebang))))
+
