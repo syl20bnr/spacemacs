@@ -333,11 +333,12 @@ The returned list has a `package-archives' compliant format."
 Available return values are available and unavailable."
   (let ((url (format "%sarchive-contents"
                      (cdr (assoc archive package-archives))))
-        state)
+        (state 'unavailable))
     (condition-case nil
-        (if (url-http-file-exists-p url)
-            (setq state 'available)
-          (setq state 'unavailable))
+        (when (or (and (string-prefix-p "/" url)
+                       (file-readable-p url))
+                  (url-http-file-exists-p url))
+          (setq state 'available))
       ((error) (setq state 'unavailable)))
     state))
 
