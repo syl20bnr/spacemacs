@@ -133,6 +133,7 @@
           "sF" 'spacemacs/cider-send-function-to-repl-focus
           "si" 'cider-jack-in
           "sI" 'cider-jack-in-clojurescript
+          "sk" 'cider-find-and-clear-repl-output
           "sn" 'spacemacs/cider-send-ns-form-to-repl
           "sN" 'spacemacs/cider-send-ns-form-to-repl-focus
           "so" 'cider-repl-switch-to-other
