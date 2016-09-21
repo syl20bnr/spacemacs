@@ -335,8 +335,7 @@ as follows:
 
 The =:location= attribute specifies where the package may be found. Spacemacs
 currently supports packages on ELPA compliant repositories, local packages and
-MELPA recipes (through the Quelpa package). See the [[https://github.com/milkypostman/melpa#recipe-format][MELPA documentation]] for more
-information about recipes.
+MELPA recipes (through the Quelpa package). Local packages should reside at =<layer>/local/<package>/=. For information about recipes see the [[https://github.com/milkypostman/melpa#recipe-format][MELPA documentation]].
 
 Packages may be /excluded/ by setting the =:excluded= property to true. This
 will prevent the package from being installed even if it is used by another
