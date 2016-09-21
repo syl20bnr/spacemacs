@@ -112,11 +112,12 @@
       (progn
         (setq projectile-switch-project-action 'counsel-projectile-find-file)
         (spacemacs/set-leader-keys
-          "pb" 'counsel-projectile-switch-to-buffer
-          "pd" 'counsel-projectile-find-dir
-          "pp" 'counsel-projectile
-          "pf" 'counsel-projectile-find-file
-          "pr" 'projectile-recentf)))))
+          "p SPC" 'counsel-projectile
+          "pb"    'counsel-projectile-switch-to-buffer
+          "pd"    'counsel-projectile-find-dir
+          "pp"    'counsel-projectile-switch-project
+          "pf"    'counsel-projectile-find-file
+          "pr"    'projectile-recentf)))))
 
 (defun ivy/post-init-evil ()
   (spacemacs/set-leader-keys
