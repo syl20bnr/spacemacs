@@ -64,7 +64,7 @@ belonging to a layer explicitly listed in the variable
 
 To install packages that does not belong to any Spacemacs layers, you can:
 
-- use the variable =dotspacemacs-additonal-packages=.
+- use the variable =dotspacemacs-additional-packages=.
 - or create a configuration layer configuring the package and add this layer to
   =dotspacemacs-configuration-layers=
 - or set the variable =dotspacemacs-install-packages= to =used-but-keep-unused=
