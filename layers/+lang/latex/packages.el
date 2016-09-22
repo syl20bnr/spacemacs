@@ -126,6 +126,7 @@
     :init
     (progn
       (setq auctex-latexmk-inherit-TeX-PDF-mode t)
+      (require 'auctex-latexmk)
       (spacemacs|use-package-add-hook tex
         :post-config
         (auctex-latexmk-setup)))))
