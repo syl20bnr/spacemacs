@@ -14,7 +14,8 @@
 ;;------------------------------------------------------------------------------
 
 (defvar kl-layout 'dvorak
-  "The keyboard-layout to use. Possible values are `colemak', `dvorak' and `bepo'.")
+  "The keyboard-layout to use. Possible values are
+`dvorak',`bepo', `colemak' and `colemak-jkhl'.")
 
 (defvar kl-enabled-configurations nil
   "If non nil, `keyboard-layout' will enable configurations only
@@ -24,8 +25,8 @@ for the passed list of symbols. Configurations that are also in
 (defvar kl-disabled-configurations nil
   "If non nil, `keyboard-layout' will disable configurations for
 the passed list of symbols. This list takes priority over
-`kl-enabled-configurations', so they will not be loaded in
-any case.")
+`kl-enabled-configurations', so they will not be loaded in any
+case.")
 
 ;;------------------------------------------------------------------------------
 ;; PRIVATE VARIABLES
@@ -67,10 +68,19 @@ any case.")
                 ("h" . "h")
                 ("j" . "n")
                 ("k" . "e")
-                ("l" . "i"))))
+                ("l" . "i")))
+    (colemak-jkhl . (("j" . "h")
+                     ("k" . "j")
+                     ("h" . "k")
+                     ("l" . "l")
+                     ;;
+                     ("h" . "j")
+                     ("j" . "k")
+                     ("k" . "h")
+                     ("l" . "l"))))
   "The base rebinding map. Dots should be read as `will behave
-  as'. It should be a bidirectional mapping, i.e. all present
-  keys should be once in each column.")
+as'. It should be a bidirectional mapping, i.e. all present keys
+should be once in each column.")
 
 (defvar kl--rebinding-maps
   (mapcar (lambda (map) `(,(car map) . ,(kl//generate-full-rebinding-map (cdr map))))
