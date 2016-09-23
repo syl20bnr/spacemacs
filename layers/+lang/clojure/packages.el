@@ -98,19 +98,24 @@
                    clojurec-mode
                    clojurescript-mode
                    clojurex-mode
-                   cider-repl-mode))
+                   cider-repl-mode
+                   cider-clojure-interaction-mode))
         (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
                            m (car x) (cdr x)))
               cider--key-binding-prefixes)
+
         (spacemacs/set-leader-keys-for-major-mode m
           "ha" 'cider-apropos
           "hh" 'cider-doc
           "hg" 'cider-grimoire
           "hj" 'cider-javadoc
+          "hn" 'cider-browse-ns
 
           "eb" 'cider-eval-buffer
           "ee" 'cider-eval-last-sexp
           "ef" 'cider-eval-defun-at-point
+          "em" 'cider-macroexpand-1
+          "eM" 'cider-macroexpand-all
           "er" 'cider-eval-region
           "ew" 'cider-eval-last-sexp-and-replace
 
@@ -124,9 +129,12 @@
           "gN" 'cider-browse-ns-all
 
           "'"  'cider-jack-in
+          "\""  'cider-jack-in-clojurescript
           "sb" 'cider-load-buffer
           "sB" 'spacemacs/cider-send-buffer-in-repl-and-focus
-          "sc" 'cider-connect
+          "sc" (if (eq m 'cider-repl-mode)
+                   'cider-repl-clear-buffer
+                 'cider-connect)
           "se" 'spacemacs/cider-send-last-sexp-to-repl
           "sE" 'spacemacs/cider-send-last-sexp-to-repl-focus
           "sf" 'spacemacs/cider-send-function-to-repl
@@ -140,7 +148,9 @@
           "sq" 'cider-quit
           "sr" 'spacemacs/cider-send-region-to-repl
           "sR" 'spacemacs/cider-send-region-to-repl-focus
-          "ss" 'cider-switch-to-repl-buffer
+          "ss" (if (eq m 'cider-repl-mode)
+                   'cider-switch-to-last-clojure-buffer
+                 'cider-switch-to-repl-buffer)
           "sx" 'cider-refresh
 
           "Te" 'cider-enlighten-mode
@@ -160,12 +170,21 @@
           "de" 'spacemacs/cider-display-error-buffer
           "di" 'cider-inspect))
 
+      ;; cider-repl-mode only
+      (spacemacs/set-leader-keys-for-major-mode 'cider-repl-mode
+        "," 'cider-repl-handle-shortcut)
+
+      (spacemacs/set-leader-keys-for-major-mode 'cider-clojure-interaction-mode
+        "ep" 'cider-eval-print-last-sexp)
+
+
       (evil-define-key 'normal cider-repl-mode-map
         "C-j" 'cider-repl-next-input
         "C-k" 'cider-repl-previous-input)
 
       (when clojure-enable-fancify-symbols
-        (clojure/fancify-symbols 'cider-repl-mode)))
+        (clojure/fancify-symbols 'cider-repl-mode)
+        (clojure/fancify-symbols 'cider-clojure-interaction-mode)))
 
     (defadvice cider-jump-to-var (before add-evil-jump activate)
       (evil-set-jump))))
@@ -202,7 +221,8 @@
                    clojurec-mode
                    clojurescript-mode
                    clojurex-mode
-                   cider-repl-mode))
+                   cider-repl-mode
+                   cider-clojure-interaction-mode))
         (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
                            m (car x) (cdr x)))
               clj-refactor--key-binding-prefixes)
@@ -233,7 +253,8 @@
 
 (defun clojure/post-init-eldoc ()
   (add-hook 'cider-mode-hook 'eldoc-mode)
-  (add-hook 'cider-repl-mode-hook 'eldoc-mode))
+  (add-hook 'cider-repl-mode-hook 'eldoc-mode)
+  (add-hook 'cider-clojure-interaction-mode-hook 'eldoc-mode))
 
 (defun clojure/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
