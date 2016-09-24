@@ -177,7 +177,9 @@
 
 (defun spacemacs-base/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
-    :init (when (memq window-system '(mac ns x))
+    :init (when (or (spacemacs/system-is-mac)
+                    (spacemacs/system-is-linux)
+                    (memq window-system '(x)))
             (exec-path-from-shell-initialize))))
 
 (defun spacemacs-base/init-help-fns+ ()
