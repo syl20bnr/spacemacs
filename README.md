@@ -41,7 +41,7 @@
 - [Prerequisites](#prerequisites)
     - [Emacs](#emacs)
         - [Linux distros](#linux-distros)
-        - [OS X](#os-x)
+        - [macOS](#macos)
         - [Windows](#windows)
 - [Install](#install)
     - [Default installation](#default-installation)
@@ -135,23 +135,26 @@ available. You have to [build from source][build_source] Emacs 24.4 or greater,
 as Spacemacs won't work with 24.3. The same may be true for other distributions
 as well.
 
-### OS X
+### macOS
 
-The recommended way of installing Emacs on OS X is using [homebrew][]:
+The recommended way of installing Emacs on macOS is using [homebrew][]:
 
 ```sh
 $ brew tap d12frosted/emacs-plus
-$ brew install emacs-plus --with-cocoa --with-gnutls --with-librsvg --with-imagemagick --with-spacemacs-icon
+$ brew install emacs-plus
 $ brew linkapps emacs-plus
 ```
 
-*Note:* these homebrew commands will install Emacs, and link it to your
+*Note:* these homebrew commands will install GNU Emacs, and link it to your
 `/Applications` directory. You still need to run the `git clone` mentioned at
-the start of this file. That will populate your `~/.emacs.d` directory, which
-is what transforms a regular Emacs into Spacemacs.
+the start of this file. That will populate your `~/.emacs.d` directory, which is
+what transforms a regular GNU Emacs into Spacemacs.
 
-*Note:* the proposed `emacs-plus` tap is identical to the `emacs` formulae,
-it just defines some additional options like `--with-spacemacs-icon`.
+*Note:* the proposed `emacs-plus` tap is identical to the `emacs` formulae, it
+just builds GNU Emacs with support of several features by default along with
+providing Spacemacs icon.
+See [emacs-plus](https://github.com/d12frosted/homebrew-emacs-plus) for more
+information.
 
 *Note:* after you have completed the [install process](#install) below, it is
 also recommended to add the [osx layer][] to your [dotfile][]. Install
