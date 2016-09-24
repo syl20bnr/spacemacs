@@ -104,7 +104,7 @@
         "ga" 'tuareg-find-alternate-file
         "cc" 'compile)
       ;; Make OCaml-generated files invisible to filename completion
-      (dolist (ext '(".cmo" ".cmx" ".cma" ".cmxa" ".cmi" ".cmxs" ".cmt" ".annot"))
+      (dolist (ext '(".cmo" ".cmx" ".cma" ".cmxa" ".cmi" ".cmxs" ".cmt" ".cmti" ".annot"))
         (add-to-list 'completion-ignored-extensions ext)))))
 
 (defun ocaml/init-utop ()
