@@ -11,6 +11,9 @@
 
 ;; Variables
 
+(defvar org-enable-bootstrap-support nil
+  "If non-nil Twitter Bootstrap related packages are configured.")
+
 (defvar org-enable-github-support nil
   "If non-nil Github related packages are configured.")
 
