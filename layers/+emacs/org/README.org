@@ -10,6 +10,7 @@
  - [[#install][Install]]
    - [[#layer][Layer]]
    - [[#github-support][Github support]]
+   - [[#twitter-bootstrap-support][Twitter Bootstrap support]]
    - [[#gnuplot-support][Gnuplot support]]
    - [[#revealjs-support][Reveal.js support]]
    - [[#different-bullets][Different bullets]]
@@ -81,6 +82,17 @@ flavored markdown set the variable =org-enable-github-support= to =t=.
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (org :variables org-enable-github-support t)))
+#+END_SRC
+
+** Twitter Bootstrap support
+To install the Twitter Boostrap extension (from [[https://github.com/marsmining/ox-twbs][ox-twbs]]), which enables twitter
+bootstrap formatted html, then set the variable =org-enable-bootstrap-support=
+to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (org :variables
+         org-enable-bootstrap-support t)))
 #+END_SRC
 
 ** Gnuplot support

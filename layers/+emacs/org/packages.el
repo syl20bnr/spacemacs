@@ -29,6 +29,7 @@
     org-pomodoro
     org-present
     (org-projectile :toggle (configuration-layer/package-usedp 'projectile))
+    (ox-twbs :toggle org-enable-bootstrap-support)
     ;; use a for of ox-gfm to fix index generation
     (ox-gfm :location (recipe :fetcher github :repo "syl20bnr/ox-gfm")
             :toggle org-enable-github-support)
@@ -521,6 +522,9 @@ Headline^^            Visit entry^^               Filter^^                    Da
                 org-capture-templates))
       (org-projectile:per-repo)
       (setq org-projectile:per-repo-filename org-projectile-file))))
+
+(defun org/init-ox-twbs ()
+  (spacemacs|use-package-add-hook org :post-config (require 'ox-twbs)))
 
 (defun org/init-ox-gfm ()
   (spacemacs|use-package-add-hook org :post-config (require 'ox-gfm)))
