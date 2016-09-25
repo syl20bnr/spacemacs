@@ -78,6 +78,7 @@
 - [[file:+lang/asciidoc/README.org][asciidoc]]
 - [[file:+lang/asm/README.org][asm]]
 - [[file:+lang/autohotkey/README.org][autohotkey]]
+- [[file:+lang/bibtex/README.org][bibtex]]
 - [[file:+lang/c-c++/README.org][c-c++]]
 - [[file:+lang/clojure/README.org][clojure]]
 - [[file:+lang/common-lisp/README.org][common-lisp]]
