@@ -1,0 +1,29 @@
+#+TITLE: phoenix layer
+
+[[file:img/phoenix.png]] with [[file:img/alchemist.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds keybindings for [[https://github.com/tonini/alchemist.el][Alchemist]]'s already built in phoenix mode.
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =phoenix= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding   | Description        |
+|---------------+--------------------|
+| ~SPC m p r~   | Shows routes       |
+| ~SPC m p f w~ | Find in web folder |
+| ~SPC m p f v~ | Find view          |
+| ~SPC m p f c~ | Find controller    |
+| ~SPC m p f C~ | Find channel       |
+| ~SPC m p f t~ | Find template      |
+| ~SPC m p f m~ | Find model         |
+| ~SPC m p f s~ | Find static        |
+| ~SPC m p f r~ | Find router        |
