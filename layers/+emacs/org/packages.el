@@ -125,10 +125,10 @@
       (with-eval-after-load 'org-capture
         (spacemacs/set-leader-keys-for-minor-mode 'org-capture-mode
           dotspacemacs-major-mode-leader-key 'org-capture-finalize
+          "a" 'org-capture-kill
           "c" 'org-capture-finalize
           "k" 'org-capture-kill
-          "a" 'org-capture-kill
-          "r" 'org-capture-refile))
+          "R" 'org-capture-refile))
 
       (with-eval-after-load 'org-src
         (spacemacs/set-leader-keys-for-minor-mode 'org-src-mode
@@ -344,8 +344,8 @@ Will work on both org-mode and any mode that accepts plain html."
         "I" 'org-agenda-clock-in
         "O" 'org-agenda-clock-out
         "P" 'org-agenda-set-property
-        "q" 'org-agenda-refile
-        "Q" 'org-agenda-clock-cancel
+        "q" 'org-agenda-clock-cancel
+        "R" 'org-agenda-refile
         "s" 'org-agenda-schedule)
       (spacemacs|define-transient-state org-agenda
       :title "Org-agenda transient state"
@@ -356,11 +356,11 @@ Will work on both org-mode and any mode that accepts plain html."
       "
 Headline^^            Visit entry^^               Filter^^                    Date^^               Toggle mode^^        View^^             Clock^^        Other^^
 --------^^---------   -----------^^------------   ------^^-----------------   ----^^-------------  -----------^^------  ----^^---------    -----^^------  -----^^-----------
-[_ht_] set status     [_SPC_] in other window     [_ft_] by tag               [_ds_] schedule      [_tf_] follow        [_vd_] day         [_ci_] in      [_gr_] reload
-[_hk_] kill           [_TAB_] & go to location    [_fr_] refine by tag        [_dd_] set deadline  [_tl_] log           [_vw_] week        [_co_] out     [_._]  go to today
-[_hr_] refile         [_RET_] & del other windows [_fc_] by category          [_dt_] timestamp     [_ta_] archive       [_vt_] fortnight   [_ck_] cancel  [_gd_] go to date
+[_ht_] set status     [_SPC_] in other window     [_ft_] by tag               [_ds_] schedule      [_tf_] follow        [_vd_] day         [_cI_] in      [_gr_] reload
+[_hk_] kill           [_TAB_] & go to location    [_fr_] refine by tag        [_dd_] set deadline  [_tl_] log           [_vw_] week        [_cO_] out     [_._]  go to today
+[_hR_] refile         [_RET_] & del other windows [_fc_] by category          [_dt_] timestamp     [_ta_] archive       [_vt_] fortnight   [_cq_] cancel  [_gd_] go to date
 [_hA_] archive        [_o_]   link                [_fh_] by top headline      [_+_]  do later      [_tr_] clock report  [_vm_] month       [_cj_] jump    ^^
-[_hT_] set tags       ^^                          [_fx_] by regexp            [_-_]  do earlier    [_td_] diaries       [_vy_] year        ^^             ^^
+[_h:_] set tags       ^^                          [_fx_] by regexp            [_-_]  do earlier    [_td_] diaries       [_vy_] year        ^^             ^^
 [_hp_] set priority   ^^                          [_fd_] delete all filters   ^^                   ^^                   [_vn_] next span   ^^             ^^
 ^^                    ^^                          ^^                          ^^                   ^^                   [_vp_] prev span   ^^             ^^
 ^^                    ^^                          ^^                          ^^                   ^^                   [_vr_] reset       ^^             ^^
@@ -368,12 +368,12 @@ Headline^^            Visit entry^^               Filter^^                    Da
 "
       :bindings
       ;; Entry
-      ("ht" org-agenda-todo)
-      ("hk" org-agenda-kill)
-      ("hr" org-agenda-refile)
+      ("h:" org-agenda-set-tags)
       ("hA" org-agenda-archive-default)
-      ("hT" org-agenda-set-tags)
+      ("hk" org-agenda-kill)
       ("hp" org-agenda-priority)
+      ("hR" org-agenda-refile)
+      ("ht" org-agenda-todo)
 
       ;; Visit entry
       ("SPC" org-agenda-show-and-scroll-up)
@@ -415,10 +415,10 @@ Headline^^            Visit entry^^               Filter^^                    Da
       ("fd" org-agenda-filter-remove-all)
 
       ;; Clock
-      ("ci" org-agenda-clock-in :exit t)
-      ("co" org-agenda-clock-out)
-      ("ck" org-agenda-clock-cancel)
+      ("cI" org-agenda-clock-in :exit t)
       ("cj" org-agenda-clock-goto :exit t)
+      ("cO" org-agenda-clock-out)
+      ("cq" org-agenda-clock-cancel)
 
       ;; Other
       ("q" nil :exit t)
