@@ -341,7 +341,7 @@ conventions.
 | ~SPC m c~                                    | confirm                                |
 | ~SPC m a~                                    | abort                                  |
 | ~SPC m k~                                    | abort                                  |
-| ~SPC m r~                                    | org-capture-refile in org-capture-mode |
+| ~SPC m R~                                    | org-capture-refile in org-capture-mode |
 
 ** Org agenda
 
@@ -359,8 +359,8 @@ The evilified org agenda supports the following bindings:
 | ~SPC m O~            | org-agenda-clock-out              |
 | ~SPC m p~            | org-pomodoro (if package is used) |
 | ~SPC m P~            | org-agenda-set-property           |
-| ~SPC m q~            | org-agenda-refile                 |
-| ~SPC m Q~            | org-agenda-clock-cancel           |
+| ~SPC m R~            | org-agenda-refile                 |
+| ~SPC m q~            | org-agenda-clock-cancel           |
 | ~SPC m s~            | org-agenda-schedule               |
 | ~M-j~                | next item                         |
 | ~M-k~                | previous item                     |
@@ -384,9 +384,9 @@ are listed bellow.
 |-------------+---------------------+-----------------------------------|
 | ~ht~        | set status          | org-agenda-todo                   |
 | ~hk~        | kill                | org-agenda-kill                   |
-| ~hr~        | refile              | org-agenda-refile                 |
+| ~hR~       | refile              | org-agenda-refile                 |
 | ~hA~        | archive             | org-agenda-archive-default        |
-| ~hT~        | set tags            | org-agenda-set-tags               |
+| ~h:~        | set tags            | org-agenda-set-tags               |
 | ~hp~        | set priority        | org-agenda-priority               |
 |-------------+---------------------+-----------------------------------|
 | Visit entry |                     |                                   |
@@ -434,9 +434,9 @@ are listed bellow.
 |-------------+---------------------+-----------------------------------|
 | Clock       |                     |                                   |
 |-------------+---------------------+-----------------------------------|
-| ~ci~        | in                  | org-agenda-clock-in               |
-| ~co~        | out                 | org-agenda-clock-out              |
-| ~ck~        | cancel              | org-agenda-clock-cancel           |
+| ~cI~        | in                  | org-agenda-clock-in               |
+| ~cO~        | out                 | org-agenda-clock-out              |
+| ~cq~        | cancel              | org-agenda-clock-cancel           |
 | ~cj~        | jump                | org-agenda-clock-goto             |
 |-------------+---------------------+-----------------------------------|
 | Other       |                     |                                   |
