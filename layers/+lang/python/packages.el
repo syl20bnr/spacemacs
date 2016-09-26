@@ -311,8 +311,18 @@
       (defun python-start-or-switch-repl ()
         "Start and/or switch to the REPL."
         (interactive)
-        (python-shell-switch-to-shell)
-        (evil-insert-state))
+        (if (python-shell-get-process)
+            (progn
+              (python-shell-switch-to-shell)
+              (evil-insert-state)
+              )
+            (progn
+              (run-python)
+              (python-shell-switch-to-shell)
+              (evil-insert-state)
+            )
+          )
+        )
 
       ;; reset compile-command (by default it is `make -k')
       (setq compile-command nil)
