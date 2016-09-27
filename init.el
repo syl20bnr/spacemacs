@@ -29,6 +29,7 @@
   (spacemacs/maybe-install-dotfile)
   (configuration-layer/sync)
   (spacemacs-buffer/display-info-box)
+  (spacemacs/setup-after-init-hook)
   (spacemacs/setup-startup-hook)
   (require 'server)
   (unless (server-running-p) (server-start)))

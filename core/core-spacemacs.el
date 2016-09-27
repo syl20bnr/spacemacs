@@ -174,8 +174,27 @@ defer call using `spacemacs-post-user-config-hook'."
       (funcall func)
     (add-hook 'spacemacs-post-user-config-hook func)))
 
+(defun spacemacs/setup-after-init-hook ()
+   "Add post init processing (before command line arguments are being processed)."
+  (add-hook
+   'after-init-hook
+   (lambda ()
+     ;; Ultimate configuration decisions are given to the user who can defined
+     ;; them in his/her ~/.spacemacs file
+     ;;
+     ;; This needs to be called in `after-init-hook' to make sure that command
+     ;; line arguments are not yet processed (as with `emacs-startup-hook').
+     ;; Otherwise if Emacs is run with file arguments, the respective major mode
+     ;; will already be initialized when the function is executed. Variables set
+     ;; and code defined in user-config will not have the desired effect in that
+     ;; particular scenario.
+     (dotspacemacs|call-func dotspacemacs/user-config
+                             "Calling dotfile user config...")
+     (run-hooks 'spacemacs-post-user-config-hook)
+     (setq spacemacs-post-user-config-hook-run t))))
+
 (defun spacemacs/setup-startup-hook ()
-  "Add post init processing."
+  "Add post init processing (after command line arguments are being processed)."
   (add-hook
    'emacs-startup-hook
    (lambda ()
@@ -184,12 +203,6 @@ defer call using `spacemacs-post-user-config-hook'."
      ;; nil earlier in the startup process to properly handle command line
      ;; arguments.
      (setq initial-buffer-choice (lambda () (get-buffer spacemacs-buffer-name)))
-     ;; Ultimate configuration decisions are given to the user who can defined
-     ;; them in his/her ~/.spacemacs file
-     (dotspacemacs|call-func dotspacemacs/user-config
-                             "Calling dotfile user config...")
-     (run-hooks 'spacemacs-post-user-config-hook)
-     (setq spacemacs-post-user-config-hook-run t)
      (when (fboundp dotspacemacs-scratch-mode)
        (with-current-buffer "*scratch*"
          (funcall dotspacemacs-scratch-mode)))
