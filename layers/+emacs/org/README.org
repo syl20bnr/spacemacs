@@ -14,6 +14,7 @@
    - [[#revealjs-support][Reveal.js support]]
    - [[#different-bullets][Different bullets]]
    - [[#project-support][Project support]]
+   - [[#mode-line-support][Mode line support]]
  - [[#key-bindings][Key bindings]]
    - [[#org][Org]]
    - [[#org-with-evil-org-mode][Org with evil-org-mode]]
@@ -136,6 +137,16 @@ the following snippet. Note that this may have unintended consequences until
   (with-eval-after-load 'org-agenda
     (require 'org-projectile)
     (push (org-projectile:todo-files) org-agenda-files))
+#+END_SRC
+
+** Mode line support
+To temporarily enable mode line display of org clock, press ~SPC t m c~.
+
+To permanently enable mode line display of org clock, add this snippet to your
+=dotspacemacs/user-config= function:
+
+#+BEGIN_SRC elisp
+  (setq spaceline-org-clock-p t)
 #+END_SRC
 
 * Key bindings
