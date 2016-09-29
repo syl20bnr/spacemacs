@@ -19,7 +19,7 @@
    - [[#rake][Rake]]
 
 * Description
-This layer provides support for the Ruby language with the following feature:
+This layer provides support for the Ruby language with the following features:
 - version manager (rbenv, rvm or chruby)
 - integration with bundler
 - test runner (ruby-test and rspec)
