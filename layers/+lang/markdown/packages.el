@@ -48,6 +48,17 @@
     :defer t
     :config
     (progn
+      ;; stolen from http://stackoverflow.com/a/26297700
+      ;; makes markdown tables saner via orgtbl-mode
+      (require 'org-table)
+      (defun cleanup-org-tables ()
+        (save-excursion
+          (goto-char (point-min))
+          (while (search-forward "-+-" nil t) (replace-match "-|-"))))
+      (add-hook 'markdown-mode-hook 'orgtbl-mode)
+      (add-hook 'markdown-mode-hook
+                (lambda()
+                  (add-hook 'after-save-hook 'cleanup-org-tables  nil 'make-it-local)))
       ;; Insert key for org-mode and markdown a la C-h k
       ;; from SE endless http://emacs.stackexchange.com/questions/2206/i-want-to-have-the-kbd-tags-for-my-blog-written-in-org-mode/2208#2208
       (defun spacemacs/insert-keybinding-markdown (key)
