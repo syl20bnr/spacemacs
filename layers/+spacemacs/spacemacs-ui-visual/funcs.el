@@ -139,18 +139,6 @@
               (diminish mode dim))))))))
 
 
-;; vi-tilde-fringe
-
-(defun spacemacs/disable-vi-tilde-fringe ()
-  "Disable `vi-tilde-fringe' in the current buffer."
-  (vi-tilde-fringe-mode -1))
-
-(defun spacemacs/disable-vi-tilde-fringe-read-only ()
-  "Disable `vi-tilde-fringe' in the current buffer if it is read only."
-  (when buffer-read-only
-    (spacemacs/disable-vi-tilde-fringe)))
-
-
 ;; zoom
 
 (defun spacemacs//zoom-frm-powerline-reset ()
