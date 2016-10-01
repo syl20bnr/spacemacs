@@ -1419,18 +1419,18 @@ wether the declared layer is an used one or not."
     (when pkg
       (let ((location (oref pkg :location)))
         (when (and (listp location) (eq 'recipe (car location)))
-          location)))))
+          (cons pkg-name (cdr location)))))))
 
 (defun configuration-layer//new-version-available-p (pkg-name)
   "Return non nil if there is a new version available for PKG-NAME."
   (let ((recipe (configuration-layer//get-package-recipe pkg-name))
         (cur-version (configuration-layer//get-package-version-string pkg-name))
+        (quelpa-upgrade-p t)
         new-version)
     (when cur-version
       (setq new-version
             (if recipe
-                (quelpa-checkout recipe (expand-file-name (symbol-name pkg-name)
-                                                          quelpa-build-dir))
+                (or (quelpa-checkout recipe (expand-file-name (symbol-name pkg-name) quelpa-build-dir)) cur-version)
               (configuration-layer//get-latest-package-version-string
                pkg-name)))
       ;; (message "%s: %s > %s ?" pkg-name cur-version new-version)

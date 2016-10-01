@@ -1746,7 +1746,7 @@
                                           'layer-no-recipe-1)
        ,(configuration-layer/make-package '(pkg2 :location elpa)
                                           'layer-no-recipe-1)) t)
-    (should (eq 'recipe
+    (should (eq 'pkg1
                 (car (configuration-layer//get-package-recipe 'pkg1))))))
 
 (ert-deftest test-get-package-recipe--return-nil-if-package-has-no-recipe ()
