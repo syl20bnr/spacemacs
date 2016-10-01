@@ -550,10 +550,22 @@ graphical frames, and one set for terminal frames."
         (eyebrowse-init frame)
         (spacemacs/save-eyebrowse-for-perspective frame)))))
 
-(defun spacemacs/update-eyebrowse-for-perspective (_new-persp-name _frame)
-  "Update and save current frame's eyebrowse workspace to its perspective.
-Parameters _NEW-PERSP-NAME and _FRAME are ignored, and exists only for
- compatibility with `persp-before-switch-functions'."
+(defun spacemacs/load-eyebrowse-after-loading-layout (_state-file _phash persp-names)
+  "Bridge between `persp-after-load-state-functions' and
+`spacemacs/load-eyebrowse-for-perspective'.
+
+_PHASH is the hash were the loaded perspectives were placed, and
+PERSP-NAMES are the names of these perspectives."
+  (let ((cur-persp (get-current-persp)))
+    ;; load eyebrowse for current perspective only if it was one of the loaded
+    ;; perspectives
+    (when (member (or (and cur-persp (persp-name cur-persp))
+                      persp-nil-name)
+                  persp-names)
+      (spacemacs/load-eyebrowse-for-perspective 'frame))))
+
+(defun spacemacs/update-eyebrowse-for-perspective (&rest _args)
+  "Update and save current frame's eyebrowse workspace to its perspective."
   (let* ((current-slot (eyebrowse--get 'current-slot))
          (current-tag (nth 2 (assoc current-slot (eyebrowse--get 'window-configs)))))
     (eyebrowse--update-window-config-element
