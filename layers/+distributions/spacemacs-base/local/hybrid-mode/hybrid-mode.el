@@ -119,11 +119,15 @@
   :input-method t
   (cond
    ((evil-hybrid-state-p)
+    (add-hook 'post-command-hook #'evil-maybe-remove-spaces)
     (add-hook 'pre-command-hook #'evil-insert-repeat-hook)
+    (setq evil-maybe-remove-spaces t)
     (unless (eq evil-want-fine-undo t)
       (evil-start-undo-step)))
    (t
+    (remove-hook 'post-command-hook #'evil-maybe-remove-spaces)
     (remove-hook 'pre-command-hook #'evil-insert-repeat-hook)
+    (evil-maybe-remove-spaces t)
     (setq evil-insert-repeat-info evil-repeat-info)
     (evil-set-marker ?^ nil t)
     (unless (eq evil-want-fine-undo t)
