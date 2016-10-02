@@ -61,12 +61,15 @@
   (use-package golden-ratio
     :defer t
     :init
-    (spacemacs|add-toggle golden-ratio
-      :status golden-ratio-mode
-      :on (golden-ratio-mode) (golden-ratio)
-      :off (golden-ratio-mode -1) (balance-windows)
-      :documentation "Resize the focused window using the golden ratio."
-      :evil-leader "tg")
+    (progn
+      (setq spacemacs-window-manipulation-transient-state-add-bindings
+            '(("g" spacemacs/toggle-golden-ratio)))
+      (spacemacs|add-toggle golden-ratio
+        :status golden-ratio-mode
+        :on (golden-ratio-mode) (golden-ratio)
+        :off (golden-ratio-mode -1) (balance-windows)
+        :documentation "Resize the focused window using the golden ratio."
+        :evil-leader "tg"))
     :config
     (progn
       ;; golden-ratio-exclude-modes
