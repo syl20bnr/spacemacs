@@ -12,6 +12,7 @@
 (setq spacemacs-layouts-packages
       '(eyebrowse
         helm
+        ivy
         persp-mode
         spaceline
         swiper))
@@ -94,7 +95,14 @@
 
 (defun spacemacs-layouts/post-init-helm ()
   (spacemacs/set-leader-keys
+    "Bb" 'spacemacs-layouts/non-restricted-buffer-list-helm
     "pl" 'spacemacs/helm-persp-switch-project))
+
+
+
+(defun spacemacs-layouts/post-init-ivy ()
+  (spacemacs/set-leader-keys
+    "Bb" 'spacemacs-layouts/non-restricted-buffer-list-ivy))
 
  
 
@@ -208,8 +216,7 @@
       (spacemacs/set-leader-keys
         "TAB"  'spacemacs/alternate-buffer-in-persp
         "ba"   'persp-add-buffer
-        "br"   'persp-remove-buffer
-        "Bb"   'spacemacs-layouts/non-restricted-buffer-list))))
+        "br"   'persp-remove-buffer))))
 
 
 
