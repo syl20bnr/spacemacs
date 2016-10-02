@@ -12,6 +12,7 @@
 (setq git-packages
       '(
         evil-magit
+        fill-column-indicator
         gitattributes-mode
         gitconfig-mode
         gitignore-mode
@@ -33,6 +34,9 @@
     (require 'evil-magit)
     (evil-define-key 'motion magit-mode-map
       (kbd dotspacemacs-leader-key) spacemacs-default-map)))
+
+(defun git/post-init-fill-column-indicator ()
+  (add-hook 'git-commit-mode-hook 'fci-mode))
 
 (defun git/init-helm-gitignore ()
   (use-package helm-gitignore
@@ -113,7 +117,6 @@
                 'ivy-completing-read
               'magit-builtin-completing-read))
       (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
-      (add-hook 'git-commit-mode-hook 'fci-mode)
       ;; On Windows, we must use Git GUI to enter username and password
       ;; See: https://github.com/magit/magit/wiki/FAQ#windows-cannot-push-via-https
       (when (eq window-system 'w32)
