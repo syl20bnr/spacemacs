@@ -1,8 +1,10 @@
 #+TITLE: Shaders layer
 
-* Table of Contents
-- [[Desscription][Description]]
-- [[Install][Install]]
+[[file:img/shaders.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
 
 * Description
 This layer provides syntax highlighting for shader files. By default it will
