@@ -116,20 +116,20 @@
   "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
 (spacemacs/set-leader-keys
-  "TAB" 'spacemacs/alternate-buffer
-  "bd"  'spacemacs/kill-this-buffer
-  "be"  'spacemacs/safe-erase-buffer
-  "bh"  'spacemacs/home
-  "bk"  'spacemacs/kill-matching-buffers-rudely
-  "bn"  'next-buffer
-  "bm"  'spacemacs/kill-other-buffers
-  "bN"  'spacemacs/new-empty-buffer
-  "bP"  'spacemacs/copy-clipboard-to-whole-buffer
-  "bp"  'previous-buffer
-  "bR"  'spacemacs/safe-revert-buffer
-  "bs"  'spacemacs/switch-to-scratch-buffer
-  "bY"  'spacemacs/copy-whole-buffer-to-clipboard
-  "bw"  'read-only-mode)
+  "TAB"   'spacemacs/alternate-buffer
+  "bd"    'spacemacs/kill-this-buffer
+  "be"    'spacemacs/safe-erase-buffer
+  "bh"    'spacemacs/home
+  "b C-d" 'spacemacs/kill-matching-buffers-rudely
+  "bn"    'next-buffer
+  "bm"    'spacemacs/kill-other-buffers
+  "bN"    'spacemacs/new-empty-buffer
+  "bP"    'spacemacs/copy-clipboard-to-whole-buffer
+  "bp"    'previous-buffer
+  "bR"    'spacemacs/safe-revert-buffer
+  "bs"    'spacemacs/switch-to-scratch-buffer
+  "bY"    'spacemacs/copy-whole-buffer-to-clipboard
+  "bw"    'read-only-mode)
 ;; Cycling settings -----------------------------------------------------------
 (spacemacs/set-leader-keys "Tn" 'spacemacs/cycle-spacemacs-theme)
 ;; errors ---------------------------------------------------------------------
