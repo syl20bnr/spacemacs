@@ -119,6 +119,7 @@
           "er" 'cider-eval-region
           "ew" 'cider-eval-last-sexp-and-replace
 
+          "="  'cider-format-buffer
           "fb" 'cider-format-buffer
 
           "gb" 'cider-pop-back

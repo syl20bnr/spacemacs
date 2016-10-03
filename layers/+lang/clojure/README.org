@@ -251,10 +251,10 @@ As this state works the same for all files, the documentation is in global
 
 *** Reformatting
 
-| Key Binding | Description             |
-|-------------+-------------------------|
-| ~SPC m f l~ | realign current form    |
-| ~SPC m f b~ | reformat current buffer |
+| Key Binding               | Description             |
+|---------------------------+-------------------------|
+| ~SPC m f l~               | realign current form    |
+| ~SPC m f b~ or  ~SPC m =~ | reformat current buffer |
 
 ** CIDER Buffers
 In general, ~q~ should always quit the popped up buffer.
