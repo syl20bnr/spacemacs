@@ -428,7 +428,7 @@ Thank you!
 [FAQ.org]: http://spacemacs.org/doc/FAQ
 [VIMUSERS.org]: http://spacemacs.org/doc/VIMUSERS
 [dotfile]: http://spacemacs.org/doc/DOCUMENTATION#orgheadline45
-[osx layer]: http://spacemacs.org/layers/osx/README
+[osx layer]: http://spacemacs.org/layers/+os/osx/README.html
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
 [Gitter Chat IRC server]: https://irc.gitter.im/
 [homebrew]: http://brew.sh
