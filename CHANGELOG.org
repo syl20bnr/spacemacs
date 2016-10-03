@@ -109,7 +109,7 @@
 - rebox in =+tools= (thanks to choppsv1)
 - shaders in =+lang= (thanks to Ell)
 - slack in =+chat= (thanks to kostajh)
-- systemd in =+config-files= (thanks to StreakyCobra)
+- systemd in =+tools= (thanks to StreakyCobra)
 *** Dotfile changes
 **** Changes for variable values and keywords
 - Add new keyword =:packages= for the list of layers in variable
