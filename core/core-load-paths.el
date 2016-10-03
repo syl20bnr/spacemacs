@@ -50,6 +50,9 @@
 (defconst spacemacs-docs-directory
   (expand-file-name (concat spacemacs-start-directory "doc/"))
   "Spacemacs documentation directory.")
+(defconst spacemacs-news-directory
+  (expand-file-name (concat spacemacs-start-directory "news/"))
+  "Spacemacs News directory.")
 (defconst spacemacs-assets-directory
   (expand-file-name (concat spacemacs-start-directory "assets/"))
   "Spacemacs assets directory.")

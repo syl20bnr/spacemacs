@@ -202,10 +202,18 @@ preprocessors for the exported .org files."
          (org-html-htmlize-output-type 'css)
          (org-publish-project-alist
           `(("spacemacs"
-             :components ("spacemacs-doc"
+             :components ("spacemacs-news"
+                          "spacemacs-doc"
                           "spacemacs-doc-static"
                           "layers-doc"
                           "layers-doc-static"))
+            ("spacemacs-news"
+             :base-directory ,spacemacs-news-directory
+             :base-extension "org"
+             :publishing-directory ,(concat publish-target "news/")
+             :publishing-function org-html-publish-to-html
+             :headline-levels 4
+             :html-head ,header)
             ("spacemacs-doc"
              :base-directory ,spacemacs-docs-directory
              :base-extension "org"
