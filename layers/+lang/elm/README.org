@@ -193,8 +193,8 @@ every save.
 
 | Key Binding | Description              |
 |-------------+--------------------------|
+| ~SPC m h h~ | elm-oracle-doc-at-point  |
 | ~SPC m h t~ | elm-oracle-type-at-point |
-| ~SPC m h d~ | elm-oracle-doc-at-point  |
 
 ** elm-format
 
