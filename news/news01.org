@@ -1,6 +1,7 @@
 #+TITLE: Newsletter #01: About the 0.200 release
 
 * Newsletter #01: About the 0.200 release                 :TOC_4_gh:noexport:
+ - [[#introduction][Introduction]]
  - [[#breaking-changes][Breaking changes]]
    - [[#support-for-emacs-243-has-been-dropped][Support for Emacs 24.3 has been dropped]]
    - [[#some-modifications-in-the-layer-format][Some modifications in the layer format]]
@@ -27,6 +28,21 @@
    - [[#more-consistent-window-behaviour][More consistent window behaviour]]
    - [[#new-layers][New layers]]
  - [[#a-few-thanks][A few thanks]]
+
+* Introduction
+0.200 is a huge release with more than 1700 commits since the last major version
+released in January 2016. Actually it is so big that we jumped directly from
+version 0.105 to version 0.200, so don't panic if you think you missed all the
+versions since 0.105 :-)
+
+This first newsletter describes with details the main changes introduced in the
+new version and gives some explanation about the various choices made during the
+last months.
+
+The (boring) complete list of changes can be found in the file =CHANGELOG.org=
+at the root of the Git repository.
+
+Let's start with the hottest section: breaking changes!
 
 * Breaking changes
 Before starting with the breaking changes let me begin with a few words about
