@@ -1034,6 +1034,15 @@ is nonempty."
   (when (or 'linum-mode global-linum-mode)
     (linum-mode 0)))
 
+(defun linum-update-window-scale-fix (win)
+  "Fix linum for scaled text in the window WIN."
+  (set-window-margins win
+                      (ceiling (* (if (boundp 'text-scale-mode-step)
+                                      (expt text-scale-mode-step
+                                            text-scale-mode-amount) 1)
+                                  (if (car (window-margins))
+                                      (car (window-margins)) 1)))))
+
 
 ;; Generalized next-error system ("gne")
 
