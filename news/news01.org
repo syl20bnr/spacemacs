@@ -11,6 +11,7 @@
    - [[#improved-composability][Improved composability]]
    - [[#improved-stability][Improved stability]]
    - [[#lazy-installation-of-layers][Lazy installation of layers]]
+   - [[#a-better-hybrid-editing-style][A better hybrid editing style]]
    - [[#support-for-ivy][Support for Ivy]]
    - [[#better-transient-states][Better transient-states]]
    - [[#more-debugging-tools][More debugging tools]]
@@ -24,6 +25,7 @@
  - [[#whats-next-][What's next ?]]
    - [[#even-more-stability][Even more stability]]
    - [[#more-consistent-window-behaviour][More consistent window behaviour]]
+   - [[#new-layers][New layers]]
  - [[#a-few-thanks][A few thanks]]
 
 * Breaking changes
@@ -241,6 +243,23 @@ For people wanting an even more bare Emacs experience try the distribution
 layer =spacemacs-bootstrap= which installs only essential packages like
 =use-package=, =which-key=, etc...
 
+Also it is easier to select or exclude a sub-list of packages in a layer with
+the new keyword =:packages=. For instance here is an example to select only the
+packages =fill-column-indicator= and =golden-ratio= in the layer
+=spacemacs-ui-visual=:
+
+#+BEGIN_SRC  emacs-lisp
+(setq dotspacemacs-configuration-layers
+  (spacemacs-ui-visual :packages fill-column-indicator golden-ratio))
+#+END_SRC
+
+Another example to select all the packages except =fancy-battery=:
+
+#+BEGIN_SRC  emacs-lisp
+(setq dotspacemacs-configuration-layers
+  (spacemacs-ui-visual :packages (not fancy-battery))
+#+END_SRC
+
 ** Improved stability
 This is one of the Achilles' heel of Spacemacs. We rely on bleeding edge version
 of packages from =melpa= repository to install a fresh version of Spacemacs. If
@@ -250,6 +269,17 @@ With 0.200 we introduce [[https://github.com/syl20bnr/spacemacs-elpa-mirror][mir
 If one of them is down then Spacemacs falls back on the mirror hosted on GitHub.
 Obviously the fall-back repository should not be used as a primary repository
 and should only be used when official =elpa= repositories are down.
+
+It is also possible to freeze packages by adding their name to the new variable
+=dotspacemacs-frozen-packages=. Frozen packages cannot be updated or rollbacked.
+This is useful if a package upstream needs a fix, the package can be frozen
+until the fix is released.
+
+Packages can be stored in different =elpa= directories, the most useful setting
+is maybe to define a different directory per Emacs version. You can do it by
+setting the new variable =dotspacemacs-elpa-subdirectory= to the value
+=emacs-version=. By default the value of this variable is =nil= which means that
+all packages are installed in the same =elpa= directory.
 
 ** Lazy installation of layers
 A feature borrowed to [[https://github.com/bbatsov/prelude][Prelude]] distribution and adapted to the layers, it
@@ -268,6 +298,24 @@ values:
 - =all= to lazy install any layer supporting lazy installation (i.e. even the
   used layers won't be installed at startup until you open a file with a
   supported extension).
+
+** A better hybrid editing style
+The Hybrid state wanders between the Emacs style and the Evil style, three
+new variables allow to fine tune the Hybrid style experience:
+- =hybrid-mode-enable-evilified-state=, if non nil then buffers are evilified,
+- =hybrid-mode-enable-hjkl-bindings=, if non nil navigation on ~hjkl~ keys is
+  enabled (for instance in =helm= or =ivy= buffers),
+- =hybrid-mode-default-state=, the default state when opening a new buffer,
+  by default it is =normal=.
+
+To define these new variables use the =:variables= keyword. For example:
+
+#+BEGIN_SRC emacs-lisp
+(setq dotspacemacs-editing-style '(hybrid :variables
+                                   hybrid-mode-enable-evilified-state t
+                                   hybrid-mode-enable-hjkl-bindings t
+                                   hybrid-mode-default-state 'normal))
+#+END_SRC
 
 ** Support for Ivy
 The community has made a wonderful work to bring [[https://github.com/abo-abo/swiper][ivy]] support to Spacemacs.
@@ -354,7 +402,9 @@ All supported REPLs are now registered in a list and you can run any registered
 REPL with ~SPC a '~.
 
 ** New welcome screen
-The contents of the welcome screen is now centered with a new footer.
+The contents of the welcome screen are now centered and it has a new footer.
+The contents are recentered when the window is resized, to disable this
+behaviour set the variable =dotspacemacs-startup-buffer-responsive= to =nil=.
 
 Sizes of lists in the welcome screen can be customized independently for each
 list with the variable =dotspacemacs-startup-list=, for instance the following
@@ -365,6 +415,10 @@ of 7 items for the projects list:
 (setq dotspacemacs-startup-lists '((recents  . 5)
                                    (projects . 7)))
 #+END_SRC
+
+There are two new list of items which can be displayed on the welcome screen:
+- agenda
+- todos
 
 ** About Spacemacs update notifications
 In previous versions Spacemacs checked for a new version at every startup of
@@ -393,6 +447,9 @@ If you want automatic check of new version you have now to opt-in by setting
 You can now show your support for Spacemacs by buying tee-shirts and goodies
 in the new [[https://shop.spreadshirt.com/spacemacs-shop][Spacemacs shop]]!
 
+There is a limited number of models for women but all the men tee-shirts
+will be available for women as well in the coming weeks!
+
 * What's next ?
 ** Even more stability
 =Elpa= mirrors are a good start but it does not fix the bleeding edge packages
@@ -408,6 +465,12 @@ previous stable state if required.
 One of the main focus for 0.201 will be to integrate =emacs-purpose=. It is a
 package to display buffer in the same windows. The current pull request is very
 popular and I'm sure you'll like what it will bring to the Spacemacs experience.
+
+** New layers
+Pull requests with new layers are low on the priority list because reviewing
+them is more time consuming. For 0.201 I'll focus on all the pull requests with
+new layers in order to speed up the merge so you can expect more new layers for
+0.201 than 0.200.
 
 * A few thanks
 This first newsletter is a great opportunity to thanks the Emacs community and
