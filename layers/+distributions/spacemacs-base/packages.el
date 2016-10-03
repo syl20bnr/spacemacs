@@ -239,7 +239,8 @@
   (spacemacs|add-toggle line-numbers
     :mode linum-mode
     :documentation "Show the line numbers."
-    :evil-leader "tn"))
+    :evil-leader "tn")
+  (advice-add #'linum-update-window :after #'linum-update-window-scale-fix))
 
 (defun spacemacs-base/init-occur-mode ()
   (evilified-state-evilify-map occur-mode-map
