@@ -208,8 +208,8 @@
   (use-package sbt-mode
     :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'scala-mode
-            "bb" 'sbt-command
-            "bh" 'sbt-hydra)))
+            "b." 'sbt-hydra
+            "bb" 'sbt-command)))
 
 (defun scala/init-scala-mode ()
   (use-package scala-mode

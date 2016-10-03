@@ -149,7 +149,9 @@ with
 
 | Key Binding | Description         |
 |-------------+---------------------|
-| ~SPC m b c~ | compile command     |
+| ~SPC m b .~ | sbt transient state |
+| ~SPC m b b~ | sbt command         |
+| ~SPC m b c~ | compile             |
 | ~SPC m b C~ | clean command       |
 | ~SPC m b i~ | switch to sbt shell |
 | ~SPC m b p~ | package command     |
