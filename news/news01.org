@@ -48,13 +48,12 @@ Let's start with the hottest section: breaking changes!
 Before starting with the breaking changes let me begin with a few words about
 the motivation behind those changes. Spacemacs moves at an incredible pace
 thanks to a big and active community, the project already counts more than 400
-contributors! As such a lot of new ideas are proposed to constantly evolve and
-improve the project, some of them make a lot of sense and we give them priority
-over backward compatibility, this is especially true with key bindings. In this
-release a lot of changes has been done to the key bindings, a few of them are
-deep changes and anyone using the develop branch had to adapt themselves to
-these changes at some point, be it users, contributors or collaborators so you
-are not alone.
+contributors! With such a high number of contributors lots of new ideas are
+proposed to constantly evolve and improve the project, some of them make a lot
+of sense and we give them priority over backward compatibility, this is
+especially true with key bindings. In this release quite a few changes have been
+made to the key bindings, some of them are deep changes and anyone using the
+develop branch had to adapt to them at some point, the result seems to worth it.
 
 ** Support for Emacs 24.3 has been dropped
 The packages ecosystem moves even faster than Spacemacs and a lot of packages
@@ -63,7 +62,7 @@ in 2013. Supporting this version in Spacemacs is more and more work for
 maintainers so we decided to drop all the 24.3 related code in Spacemacs
 effectively raising the minimum Emacs version required to 24.4. We believe that
 users are able to switch to a newer version of Emacs, if you need help in this
-process you can try the Gitter chat, I'm sure you'll find solutions there.
+process you can try the [[https://gitter.im/syl20bnr/spacemacs][Gitter chat]], I'm sure you'll find solutions there.
 
 ** Some modifications in the layer format
 We renamed =extensions= directories in layers to =local= and the file
@@ -198,7 +197,7 @@ windows and buffers. The result is detailed here:
 
 =Helm= has a new friend in this release, it is called =ivy= and it has more and
 more adopters. Since we have now a new package capable of doing =helm= commands
-we decided to move all =helm= related command from the prefix ~SPC h~. ~SPC h~
+we decided to remove all =helm= related command from the prefix ~SPC h~. ~SPC h~
 is now exclusively for _help_ commands and the following =helm= commands has
 been moved:
 - ~SPC h b~ for =helm-filetered-bookmarks~is now ~SPC f b~
@@ -224,8 +223,8 @@ Spacemacs layouts now restrict the scope of the buffer list opened with
 
 To conclude this section about key binding changes and breaking changes the
 =micro-states= in Spacemacs are dead, say hi to the =transient-states=. We took
-advantage of the =micro-states= refactoring to change the name to the more
-accurate new name =transient-states=, indeed thoses states leverage the notion
+advantage of the =micro-states= refactoring to change the name to a more
+accurate new name =transient-states=, indeed these states leverage the notion
 of transient maps in Emacs. The refactoring replaces the custom back-end by
 =hydra= a powerful and very popular package to define transient maps. In effect
 the macro =spacemacs|define-micro-state= is deprecated and is replaced by the
@@ -304,7 +303,8 @@ supported extension.
 
 For instance, when opening an Elixir file with extension =.ex= Spacemacs will
 ask to install the =elixir= layer if it is not already used. The =elixir= layer
-is automatically added to the dofile so it won't be uninstalled after a restart.
+is automatically added to the dotfile so it won't be uninstalled after a
+restart.
 
 By default this feature is _disabled_, you have to opt-in for it by setting
 the variable =dotspacemacs-enable-lazy-installation= to one of the following
@@ -364,25 +364,25 @@ configuration:
   =--debug-init= fed in for you
 - press ~SPC q D~ to restart Emacs with a selected list of packages to load,
   in this mode Spacemacs is completely disabled so you get the perfect way
-  to test wether a bug comes from Spacemacs configuration or not.
+  to test wether a bug comes from Spacemacs configuration or not
 - press ~SPC h I~ to open an org buffer with an issue template, fill it then
   press ~C-c C-c~ to submit it with your default internet browser.
 
 Along with these new key bindings, new Spacemacs specific command line
 parameters are available to help you change the scope of an issue investigation:
 - =--no-layer= deactivates all the layers _except_ the distribution layer
-- =--distribution= allows to change temporarily the distribution
+- =--distribution x= allows to change temporarily the distribution to =x=.
 
 This is a good time to remind you about the other useful Spacemacs specific
 command line parameters:
 - =--profile== will display profiling information on startup
 - =--timed-requires= will display the time taken by each =require= commands
-- =--adv-timers n= will display any load time greater than =n=
+- =--adv-timers n= will display any load time greater than =n=.
 
 ** New keyboard layouts
 A new layer =keyboard-layout= aims to provide the tools to define more easily
-new keyboard layouts. The =0.200= release ships with support for =bépo= and
-=dvorak= layouts.
+new keyboard layouts. This release ships with support for =bépo= and =dvorak=
+layouts.
 
 Be sure to follow the =README.org= of the =keyboard-layout= layer for more
 information about layout definition.
@@ -406,7 +406,7 @@ requirements.
 
 ** More useful abstraction
 We have even more abstraction of useful concepts in 0.200 like jumping to the
-definition of a variable or opening a REPL.
+definition of a symbol or opening a REPL.
 
 Like text searching tools, there is now the concept of jump handlers, each mode
 can set a list of jump handlers and Spacemacs will try them in order to get you
@@ -418,7 +418,8 @@ All supported REPLs are now registered in a list and you can run any registered
 REPL with ~SPC a '~.
 
 ** New welcome screen
-The contents of the welcome screen are now centered and it has a new footer.
+The contents of the welcome screen are now centered, there is also a nice new
+footer.
 The contents are recentered when the window is resized, to disable this
 behaviour set the variable =dotspacemacs-startup-buffer-responsive= to =nil=.
 
@@ -432,7 +433,7 @@ of 7 items for the projects list:
                                    (projects . 7)))
 #+END_SRC
 
-There are two new list of items which can be displayed on the welcome screen:
+There are two new lists of items which can be displayed on the welcome screen:
 - agenda
 - todos
 
@@ -451,13 +452,13 @@ to reduce the =git= commands monitored by GitHub:
 - make function =spacemacs/check-for-new-version= interactive so checking
   for a new version can be done on demand.
 
+If you want automatic check of new version you have now to opt-in by setting
+=dotspacemacs-check-for-update= to =t=.
+
 ** A new community document
 At the root of the project directory the new file =COMMUNITY.org= describes
 the values of the project and the moderation rules. There is also an exhaustive
 list of the moderation actions taken by collaborators.
-
-If you want automatic check of new version you have now to opt-in by setting
-=dotspacemacs-check-for-update= to =t=.
 
 ** The Spacemacs shop
 You can now show your support for Spacemacs by buying tee-shirts and goodies
@@ -474,11 +475,11 @@ issue, especially when installing a fresh version of Spacemacs.
 For 0.201 we plan to introduce stable snapshots of =elpa= repositories, a new
 installation of Spacemacs will always install packages from this stable source.
 Users will then be able to manually trigger an upgrade of packages if they
-want the bleeding edge versions but they always be able to rollback to the
+want the bleeding edge versions but they will always be able to rollback to the
 previous stable state if required.
 
 ** More consistent window behaviour
-One of the main focus for 0.201 will be to integrate =emacs-purpose=. It is a
+One of the main focus for 0.201 will be to integrate [[https://github.com/bmag/emacs-purpose][emacs-purpose]]. It is a
 package to display buffer in the same windows. The current pull request is very
 popular and I'm sure you'll like what it will bring to the Spacemacs experience.
 
@@ -511,4 +512,4 @@ more specifically:
   =Eugene Yaremenko= (aka [[https://github.com/JAremko][JAremko]]), [[https://github.com/travisbhartwell][Travis B. Hartwell]], =Tristan Hume=
   (aka [[https://github.com/trishume][trishume]])
 
-- All the Spacemacs community, you are the heart of Spacemacs.
+- All the Spacemacs community, you are the heart of Spacemacs!
