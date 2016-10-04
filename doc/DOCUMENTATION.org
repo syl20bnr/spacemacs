@@ -2520,9 +2520,8 @@ be pasted, pressing ~p~ again will replace =bar= with =foo=.
 | Key Binding   | Description                                                                   |
 |---------------+-------------------------------------------------------------------------------|
 | ~p~ or ~P~    | paste the text before or after point and initiate the =paste= transient state |
-| ~p~           | in transient state: replace paste text with the previously copied one         |
-| ~P~           | in transient state: replace paste text with the next copied one               |
-| ~.~           | paste the same text and leave the transient state                             |
+| ~C-j~         | in transient state: replace paste text with the previously copied one         |
+| ~C-k~         | in transient state: replace paste text with the next copied one               |
 | Any other key | leave the transient state                                                     |
 
 **** Auto-indent pasted text
