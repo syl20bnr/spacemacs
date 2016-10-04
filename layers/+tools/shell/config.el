@@ -15,7 +15,8 @@
 (setq comint-move-point-for-output t)
 
 ;; Add shell buffers to useful buffers list
-(push "\\*\\(ansi-term\\|eshell\\|shell\\|terminal\.\+\\)\\*" spacemacs-useful-buffers-regexp)
+(push "\\*\\(ansi-term\\|eshell\\|shell\\|terminal\.\+\\)\\(-[0-9]+\\)?\\*"
+      spacemacs-useful-buffers-regexp)
 
 ;; Variables
 
