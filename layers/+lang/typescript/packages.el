@@ -11,10 +11,18 @@
 
 (setq typescript-packages
       '(
+        company
+        flycheck
         tide
         typescript-mode
         web-mode
         ))
+
+(defun typescript/post-init-company ()
+  (spacemacs|add-company-hook typescript-mode))
+
+(defun typescript/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'typescript-mode))
 
 (defun typescript/init-tide ()
   (use-package tide
@@ -27,15 +35,8 @@
         (kbd "C-j") 'tide-find-next-reference
         (kbd "C-l") 'tide-goto-reference)
 
-      ;; FIXME -- this is not good!
-      (add-hook 'typescript-mode-hook
-                (lambda ()
-                  (tide-setup)
-                  (flycheck-mode t)
-                  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-                  (eldoc-mode t)
-                  (when (configuration-layer/package-usedp 'company)
-                    (company-mode-on))))
+      (add-hook 'typescript-mode-hook 'tide-setup)
+      (add-hook 'typescript-mode-hook 'eldoc-mode)
 
       (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition))
     :config
@@ -68,7 +69,6 @@
                          (string-equal "tsx" (file-name-extension (buffer-file-name))))
                 (tide-setup)
                 (flycheck-mode +1)
-                (setq flycheck-check-syntax-automatically '(save mode-enabled))
                 (eldoc-mode +1)
                 (when (configuration-layer/package-usedp 'company)
                   (company-mode-on))))))
