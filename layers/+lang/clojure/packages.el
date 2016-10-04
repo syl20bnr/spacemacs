@@ -12,6 +12,7 @@
     popwin
     smartparens
     subword
+    org
     ))
 
 (defun clojure/init-cider ()
@@ -288,3 +289,8 @@
 (defun clojure/init-clojure-snippets ()
   (use-package clojure-snippets
     :defer t))
+
+(defun clojure/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(clojure . t))
+    (setq org-babel-clojure-backend 'cider)))
