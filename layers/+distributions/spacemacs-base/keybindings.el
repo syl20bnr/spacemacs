@@ -584,11 +584,11 @@ otherwise it is scaled down."
 
 ;; Transparency transient-state
 
-(defun spacemacs/toggle-transparency ()
-  "Toggle between transparent or opaque display."
+(defun spacemacs/toggle-transparency (&optional frame)
+  "Toggle between transparent and opaque state for FRAME.
+If FRAME is nil, it defaults to the selected frame."
   (interactive)
-  (let* ((frame (selected-frame))
-         (alpha (frame-parameter frame 'alpha))
+  (let* ((alpha (frame-parameter frame 'alpha))
          (dotfile-setting (cons dotspacemacs-active-transparency
                                 dotspacemacs-inactive-transparency)))
     (set-frame-parameter
@@ -597,22 +597,24 @@ otherwise it is scaled down."
          dotfile-setting
        '(100 . 100)))))
 
-(defun spacemacs/increase-transparency ()
-  "Increase transparency of current frame."
+(defun spacemacs/increase-transparency (&optional frame)
+  "Increase transparency for FRAME.
+If FRAME is nil, it defaults to the selected frame."
   (interactive)
-  (let* ((current-alpha (car (frame-parameter (selected-frame) 'alpha)))
+  (let* ((current-alpha (car (frame-parameter frame 'alpha)))
          (increased-alpha (- current-alpha 5)))
     (when (>= increased-alpha frame-alpha-lower-limit)
-      (set-frame-parameter (selected-frame) 'alpha
+      (set-frame-parameter frame 'alpha
                            (cons increased-alpha increased-alpha)))))
 
-(defun spacemacs/decrease-transparency ()
-  "Decrease transparency of current frame."
+(defun spacemacs/decrease-transparency (&optional frame)
+  "Decrease transparency for FRAME.
+If FRAME is nil, it defaults to the selected frame."
   (interactive)
-  (let* ((current-alpha (car (frame-parameter (selected-frame) 'alpha)))
+  (let* ((current-alpha (car (frame-parameter frame 'alpha)))
          (decreased-alpha (+ current-alpha 5)))
     (when (<= decreased-alpha 100)
-      (set-frame-parameter (selected-frame) 'alpha
+      (set-frame-parameter frame 'alpha
                            (cons decreased-alpha decreased-alpha)))))
 
 (spacemacs|define-transient-state scale-transparency
