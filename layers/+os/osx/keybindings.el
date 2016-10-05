@@ -15,8 +15,11 @@
   ;; this is only applicable to GUI mode
   (when (display-graphic-p)
     ;; Treat command as super
-    (setq mac-command-key-is-meta nil)
-    (setq mac-command-modifier 'super)
+    (setq mac-command-key-is-meta t)
+    (setq mac-command-modifier 'meta)
+    (setq mac-right-command-modifier 'meta)
+    (setq mac-option-modifier nil)
+    (setq ns-function-modifier 'super)
 
     (when osx-use-option-as-meta
       ;; Treat option as meta
@@ -24,6 +27,7 @@
     (setq mac-option-modifier (if osx-use-option-as-meta 'meta nil))
 
     ;; Keybindings
+    (global-set-key [kp-delete] 'delete-char)
     (global-set-key (kbd "s-=") 'spacemacs/scale-up-font)
     (global-set-key (kbd "s--") 'spacemacs/scale-down-font)
     (global-set-key (kbd "s-0") 'spacemacs/reset-font-size)
@@ -34,6 +38,10 @@
     (global-set-key (kbd "s-x") 'kill-region)
     (global-set-key (kbd "s-w") 'delete-window)
     (global-set-key (kbd "s-W") 'delete-frame)
+    (global-set-key (kbd "s-]") 'other-window)
+    (global-set-key (kbd "s-[") (lambda () (interactive) (other-window -1)))
+    (global-set-key (kbd "s-}") 'other-frame)
+    (global-set-key (kbd "s-{") (lambda () (interactive) (other-frame -1) ))
     (global-set-key (kbd "s-n") 'make-frame)
     (global-set-key (kbd "s-z") 'undo-tree-undo)
     (global-set-key (kbd "s-s")
