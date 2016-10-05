@@ -27,6 +27,11 @@ file.
   #+BEGIN_SRC emacs-lisp
   (setq ycmd-server-command '("python" "/path/to/YouCompleteMe/third_party/ycmd/ycmd"))
   #+END_SRC
+  Note that no filename expansions are done, so =~=-paths will not work out of the box.
+  If you need expansions, you can use Emacs's =file-truename= like this:
+  #+BEGIN_SRC emacs-lisp
+  (setq ycmd-server-command (list "python" (file-truename "~/some/path")))
+  #+END_SRC
 3) By default, spacemacs configures ycmd for getting the compilation flags from either
    a compile_commands.json or a .clang_complete file and get additionnal flags from a
    .ycm_extra_flags file. If you do not like this behaviour, you can write your own
