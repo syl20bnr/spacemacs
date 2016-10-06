@@ -23,6 +23,9 @@
   (use-package ycmd
     :defer t
     :init
-    (unless (boundp 'ycmd-global-config)
-      (let ((dir (configuration-layer/get-layer-path 'ycmd)))
-        (setq-default ycmd-global-config (concat dir "global_conf.py"))))))
+    (progn
+      (unless (boundp 'ycmd-global-config)
+        (setq-default ycmd-global-config
+                      (concat (configuration-layer/get-layer-path 'ycmd)
+                              "global_conf.py")))
+      (setq-default ycmd-parse-conditions '(save mode-enabled)))))
