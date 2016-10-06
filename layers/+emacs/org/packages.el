@@ -284,6 +284,8 @@ Will work on both org-mode and any mode that accepts plain html."
         ;; other
         "aoO" 'org-clock-out
         "aoc" 'org-capture
+        "aoi" 'org-clock-in-last
+        "aoj" 'org-clock-jump-to-current-clock
         "aol" 'org-store-link)
 
       (define-key global-map "\C-cl" 'org-store-link)

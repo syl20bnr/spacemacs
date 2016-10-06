@@ -148,6 +148,8 @@ the following snippet. Note that this may have unintended consequences until
 | ~SPC a o a~ | org agenda list                |
 | ~SPC a o c~ | org capture                    |
 | ~SPC a o e~ | org store agenda views         |
+| ~SPC a o i~ | org clock in last              |
+| ~SPC a o j~ | org jump to current clock      |
 | ~SPC a o l~ | org store link                 |
 | ~SPC a o m~ | org tags view                  |
 | ~SPC a o o~ | org agenda                     |
