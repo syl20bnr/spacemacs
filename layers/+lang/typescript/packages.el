@@ -64,7 +64,8 @@
   ;; FIXME -- this is not good!
   (add-hook 'web-mode-hook
             (lambda ()
-              (when (string-equal "tsx" (file-name-extension buffer-file-name))
+              (when (and (buffer-file-name)
+                         (string-equal "tsx" (file-name-extension (buffer-file-name))))
                 (tide-setup)
                 (flycheck-mode +1)
                 (setq flycheck-check-syntax-automatically '(save mode-enabled))
