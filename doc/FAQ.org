@@ -4,6 +4,7 @@
  - [[#common][Common]]
    - [[#which-version-of-spacemacs-am-i-running][Which version of Spacemacs am I running?]]
    - [[#what-is-the-official-pronunciation-of-spacemacs][What is the official pronunciation of Spacemacs?]]
+   - [[#why-do-you-call-this-a-distribution-i-dont-see-any-spacemacs-executable][Why do you call this a "distribution", I don't see any "Spacemacs" executable?]]
    - [[#why-are-packages-installed-with-package-install-automatically-deleted-by-spacemacs-when-it-boots][Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?]]
    - [[#how-to-fix-package-download-errors-when-installing-spacemacs-][How to fix package download errors when installing Spacemacs ?]]
    - [[#how-to-fix-symbols-value-as-variable-is-void-errors-on-startup][How to fix =Symbol's value as variable is void= errors on startup?]]
@@ -56,6 +57,16 @@ may also just type ~SPC f e v~.
 
 ** What is the official pronunciation of Spacemacs?
 As it is written, that is _space_ then _macs_.
+
+** Why do you call this a "distribution", I don't see any "Spacemacs" executable?
+Although we could do it we don't package Emacs with Spacemacs. We allow users to
+choose whatever build of Emacs they want that works with their OS, this is more
+flexible and it saves use tons of issues. Spacemacs is more than a configuration
+of Emacs it comes with advanced feature, concepts and tooling. Roughly, think of
+it as a Linux distribution where we would ask people to install the kernel first
+and then fetch somehow the actual code to get the distribution.
+Note that some Linux distributions may start to create packages for Spacemacs,
+they are unofficial packages, we will never package Emacs with Spacemacs.
 
 ** Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?
 By default Spacemacs will keep only the packages that you use (i.e. the packages
