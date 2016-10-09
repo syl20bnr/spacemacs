@@ -108,7 +108,7 @@
           (lambda (c)
             (let ((counsel--git-grep-dir default-directory))
               (counsel-git-grep-action c)))
-          next-error-function 'spacemacs//gne-next)))
+          next-error-function 'spacemacs/gne-next)))
 
 (defvar spacemacs--counsel-map
   (let ((map (make-sparse-keymap)))

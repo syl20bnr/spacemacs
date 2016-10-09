@@ -141,7 +141,7 @@
   :title "Error transient state"
   :hint-is-doc t
   :dynamic-hint
-  (let ((sys (spacemacs//error-delegate)))
+  (let ((sys (spacemacs/error-delegate)))
     (cond
      ((eq 'flycheck sys)
       "\nBrowsing flycheck errors from this buffer.")
