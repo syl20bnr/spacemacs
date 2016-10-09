@@ -53,15 +53,18 @@ version the release note it displayed")
 
 (defvar spacemacs-buffer-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map [tab] 'widget-forward)
-    (define-key map (kbd "j") 'widget-forward)
-    (define-key map (kbd "C-i") 'widget-forward)
-    (define-key map [backtab] 'widget-backward)
-    (define-key map (kbd "k") 'widget-backward)
-    (define-key map (kbd "RET") 'widget-button-press)
     (define-key map [down-mouse-1] 'widget-button-click)
-    (define-key map "q" 'quit-window)
+    (define-key map (kbd "RET") 'widget-button-press)
+
+    (define-key map [tab] 'widget-forward)
+    (define-key map (kbd "J") 'widget-forward)
+    (define-key map (kbd "C-i") 'widget-forward)
+
+    (define-key map [backtab] 'widget-backward)
+    (define-key map (kbd "K") 'widget-backward)
+
     (define-key map (kbd "C-r") 'spacemacs-buffer/refresh)
+    (define-key map "q" 'quit-window)
     map)
   "Keymap for spacemacs buffer mode.")
 
