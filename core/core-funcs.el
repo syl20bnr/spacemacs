@@ -272,4 +272,114 @@ buffer."
           . (,feature . ,repl-func))
         spacemacs-repl-list))
 
+;; http://stackoverflow.com/questions/11847547/emacs-regexp-count-occurrences
+(defun spacemacs/how-many-str (regexp str)
+  (loop with start = 0
+        for count from 0
+        while (string-match regexp str start)
+        do (setq start (match-end 0))
+        finally return count))
+
+;; from https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-util.el#L38
+(defun spacemacs/add-to-hooks (fun hooks)
+  "Add function to hooks"
+  (dolist (hook hooks)
+    (add-hook hook fun)))
+
+(defun spacemacs/add-all-to-hook (hook &rest funs)
+  "Add functions to hook."
+  (spacemacs/add-to-hook hook funs))
+
+(defun spacemacs/add-to-hook (hook funs)
+  "Add list of functions to hook."
+  (dolist (fun funs)
+    (add-hook hook fun)))
+
+(defun spacemacs/echo (msg &rest args)
+  "Display MSG in echo-area without logging it in *Messages* buffer."
+  (interactive)
+  (let ((message-log-max nil))
+    (apply 'message msg args)))
+
+(defun spacemacs/alternate-buffer (&optional window)
+  "Switch back and forth between current and last buffer in the
+current window."
+  (interactive)
+  (let ((current-buffer (window-buffer window))
+        (buffer-predicate
+         (frame-parameter (window-frame window) 'buffer-predicate)))
+    ;; switch to first buffer previously shown in this window that matches
+    ;; frame-parameter `buffer-predicate'
+    (switch-to-buffer
+     (or (cl-find-if (lambda (buffer)
+                       (and (not (eq buffer current-buffer))
+                            (or (null buffer-predicate)
+                                (funcall buffer-predicate buffer))))
+                     (mapcar #'car (window-prev-buffers window)))
+         ;; `other-buffer' honors `buffer-predicate' so no need to filter
+         (other-buffer current-buffer t)))))
+
+(defun spacemacs/comint-clear-buffer ()
+  (interactive)
+  (let ((comint-buffer-maximum-size 0))
+    (comint-truncate-buffer)))
+
+
+;; Generalized next-error system ("gne")
+
+(defun spacemacs/error-delegate ()
+  "Decide which error API to delegate to.
+
+Delegates to flycheck if it is enabled and the next-error buffer
+is not visible. Otherwise delegates to regular Emacs next-error."
+  (if (and (bound-and-true-p flycheck-mode)
+           (let ((buf (ignore-errors (next-error-find-buffer))))
+             (not (and buf (get-buffer-window buf)))))
+      'flycheck
+    'emacs))
+
+(defun spacemacs/next-error (&optional n reset)
+  "Dispatch to flycheck or standard emacs error."
+  (interactive "P")
+  (let ((sys (spacemacs/error-delegate)))
+    (cond
+     ((eq 'flycheck sys) (call-interactively 'flycheck-next-error))
+     ((eq 'emacs sys) (call-interactively 'next-error)))))
+
+(defun spacemacs/previous-error (&optional n reset)
+  "Dispatch to flycheck or standard emacs error."
+  (interactive "P")
+  (let ((sys (spacemacs/error-delegate)))
+    (cond
+     ((eq 'flycheck sys) (call-interactively 'flycheck-previous-error))
+     ((eq 'emacs sys) (call-interactively 'previous-error)))))
+
+(defvar-local spacemacs--gne-min-line nil
+  "The first line in the buffer that is a valid result.")
+(defvar-local spacemacs--gne-max-line nil
+  "The last line in the buffer that is a valid result.")
+(defvar-local spacemacs--gne-cur-line 0
+  "The current line in the buffer. (It is problematic to use
+point for this.)")
+(defvar-local spacemacs--gne-line-func nil
+  "The function to call to visit the result on a line.")
+
+(defun spacemacs/gne-next (num reset)
+  "A generalized next-error function. This function can be used
+as `next-error-function' in any buffer that conforms to the
+Spacemacs generalized next-error API.
+
+The variables `spacemacs--gne-min-line',
+`spacemacs--gne-max-line', and `spacemacs--line-func' must be
+set."
+  (when reset (setq spacemacs--gne-cur-line
+                    spacemacs--gne-min-line))
+  (setq spacemacs--gne-cur-line
+        (min spacemacs--gne-max-line
+             (max spacemacs--gne-min-line
+                  (+ num spacemacs--gne-cur-line))))
+  (goto-line spacemacs--gne-cur-line)
+  (funcall spacemacs--gne-line-func
+           (buffer-substring (point-at-bol) (point-at-eol))))
+
 (provide 'core-funcs)

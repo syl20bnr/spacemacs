@@ -224,8 +224,8 @@
     :if (executable-find "terminal-notifier")))
 
 (defun erc/post-init-linum ()
-  (spacemacs/add-to-hooks 'no-linum '(erc-mode-hook
-                                      erc-insert-pre-hook)))
+  (spacemacs/add-to-hooks 'spacemacs/no-linum '(erc-mode-hook
+                                                erc-insert-pre-hook)))
 
 (defun erc/post-init-persp-mode ()
   ;; do not save erc buffers

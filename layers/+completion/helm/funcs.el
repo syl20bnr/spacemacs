@@ -201,7 +201,7 @@ Ensure that helm is required before calling FUNC."
           (lambda (c)
             (helm-ag--find-file-action
              c 'find-file helm-ag--search-this-file-p))
-          next-error-function 'spacemacs//gne-next)))
+          next-error-function 'spacemacs/gne-next)))
 
 (defun spacemacs//gne-init-helm-grep (&rest args)
   (with-current-buffer "*hgrep*"
@@ -212,4 +212,4 @@ Ensure that helm is required before calling FUNC."
             (previous-line)
             (line-number-at-pos))
           spacemacs--gne-line-func 'helm-grep-action
-          next-error-function 'spacemacs//gne-next)))
+          next-error-function 'spacemacs/gne-next)))

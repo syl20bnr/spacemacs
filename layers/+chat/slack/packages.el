@@ -37,7 +37,7 @@
   (add-hook 'lui-mode-hook 'flyspell-mode))
 
 (defun slack/post-init-linum ()
-  (add-hook 'slack-mode-hook 'no-linum))
+  (add-hook 'slack-mode-hook 'spacemacs/no-linum))
 
 (defun slack/post-init-persp-mode ()
   (spacemacs|define-custom-layout "@Slack"

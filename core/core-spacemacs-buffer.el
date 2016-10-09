@@ -973,4 +973,14 @@ already exist, and switch to it."
   (setq spacemacs-buffer--last-width nil)
   (spacemacs-buffer/goto-buffer t))
 
+(defalias 'spacemacs/home 'spacemacs-buffer/refresh
+  "Go to home Spacemacs buffer")
+
+(defun spacemacs/home-delete-other-windows ()
+  "Open home Spacemacs buffer and delete other windows.
+Useful for making the home buffer the only visible buffer in the frame."
+  (interactive)
+  (spacemacs/home)
+  (delete-other-windows))
+
 (provide 'core-spacemacs-buffer)
