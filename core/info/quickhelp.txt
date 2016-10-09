@@ -1,6 +1,6 @@
-Press [TAB] to move to next button.
+Press [TAB] or [J] to move to next button.
 
-Press [Shift-TAB] to move to previous button.
+Press [Shift-TAB] or [K] to move to previous button.
 
 Press [r] to jump to recent file list if it is enabled.
 
