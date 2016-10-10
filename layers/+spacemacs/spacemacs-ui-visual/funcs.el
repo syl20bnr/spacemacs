@@ -25,7 +25,7 @@
 ;; neotree
 
 (defun spacemacs/neotree-expand-or-open ()
-  "Collapse a neotree node."
+  "Expand or open a neotree node."
   (interactive)
   (let ((node (neo-buffer--get-filename-current-line)))
     (when node
