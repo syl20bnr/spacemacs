@@ -2,5 +2,10 @@
 
 This file containes the change log for the next major version of Spacemacs.
 
-* Release 0.200.x
-** 0.200.1
+* Release 0.201.x
+** 0.201.0
+*** Layer changes
+**** Org
+- Move clock related key bindings to ~SPC a o k~
+- Add key bindings ~SPC a o k i~ to clock in last and ~SPC a o k j~
+  to jump to current clock (thanks to darkfeline)
