@@ -930,17 +930,20 @@ USEDP if non-nil indicates that made packages are used packages."
     (let ((extensions (spacemacs/mplist-get props :extensions)))
       (when (configuration-layer/layer-usedp layer-name)
         (let* ((layer (configuration-layer/get-layer layer-name))
-               (packages (when layer (cfgl-layer-owned-packages layer))))
+               (packages (when layer (cfgl-layer-owned-packages layer)))
+               (package-names (mapcar (lambda (x) (oref x :name)) packages)))
           ;; set lazy install flag for a layer if and only if its owned
           ;; distant packages are all not already installed
           (let ((lazy (cl-reduce
                        (lambda (x y) (and x y))
-                       (mapcar (lambda (p)
-                                 (or (not (eq layer-name (car (oref p :owners))))
-                                     (null (package-installed-p
-                                            (oref p :name)))))
-                               (configuration-layer//get-distant-packages
-                                packages t))
+                       (mapcar
+                        (lambda (p)
+                          (let ((pkg (configuration-layer/get-package p)))
+                            (or (not (eq layer-name (car (oref pkg :owners))))
+                                (null (package-installed-p
+                                       (oref pkg :name))))))
+                        (configuration-layer//get-distant-packages
+                         package-names t))
                        :initial-value t)))
             (oset layer :lazy-install lazy)
             (dolist (pkg packages)
@@ -958,31 +961,31 @@ USEDP if non-nil indicates that made packages are used packages."
 (defun configuration-layer//auto-mode (layer-name mode)
   "Auto mode support of lazily installed layers."
   (let ((layer (configuration-layer/get-layer layer-name)))
-    (when (or (null layer)
-              (oref layer :lazy-install))
+    (when (or (oref layer :lazy-install)
+              (not (configuration-layer/layer-usedp layer-name)))
       (configuration-layer//lazy-install-packages layer-name mode)))
   (when (fboundp mode) (funcall mode)))
 
 (defun configuration-layer/filter-objects (objects ffunc)
   "Return a filtered OBJECTS list where each element satisfies FFUNC."
-  (reverse (cl-reduce (lambda (acc x)
-                     (if (funcall ffunc x) (push x acc) acc))
-                   objects
-                   :initial-value nil)))
+  (reverse (cl-reduce (lambda (acc x) (if (funcall ffunc x) (push x acc) acc))
+                      objects
+                      :initial-value nil)))
 
 (defun configuration-layer//get-distant-packages (packages usedp)
   "Return the distant packages (ie to be intalled).
 If USEDP is non nil then returns only the used packages; if it is nil then
 return both used and unused packages."
   (configuration-layer/filter-objects
-   packages (lambda (x)
-              (let ((pkg (configuration-layer/get-package x)))
-                (and (not (memq (oref pkg :location) '(built-in site local)))
-                     (not (stringp (oref pkg :location)))
-                     (or (null usedp)
-                         (and (not (null (oref pkg :owners)))
-                              (cfgl-package-enabledp pkg)
-                              (not (oref pkg :excluded)))))))))
+   packages
+   (lambda (x)
+     (let ((pkg (configuration-layer/get-package x)))
+       (and (not (memq (oref pkg :location) '(built-in site local)))
+            (not (stringp (oref pkg :location)))
+            (or (null usedp)
+                (and (not (null (oref pkg :owners)))
+                     (cfgl-package-enabledp pkg)
+                     (not (oref pkg :excluded)))))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path to the private configuration layer string NAME."
@@ -1177,11 +1180,6 @@ wether the declared layer is an used one or not."
   (let ((obj (configuration-layer/get-layer layer-name)))
     (when obj (memq layer-name configuration-layer--used-layers))))
 
-(defun  configuration-layer/layer-lazy-installp (layer-name)
-  "Return non-nil if LAYER-NAME is the name of a layer to be lazily installed."
-  (let ((obj (configuration-layer/get-layer layer-name)))
-    (when obj (oref obj :lazy-install))))
-
 (defun configuration-layer/package-usedp (name)
   "Return non-nil if NAME is the name of a used package."
   (let ((obj (configuration-layer/get-package name)))
@@ -1297,25 +1295,21 @@ wether the declared layer is an used one or not."
             (delq nil
                   (mapcar
                    (lambda (x)
-                     (and (memq x configuration-layer--used-distant-packages)
-                          (configuration-layer/get-package x)))
-                   (oref layer :packages))))
-           (config-pkgs
-            (delq nil (mapcar
-                       (lambda (x)
-                         (let ((pkg (configuration-layer/get-package x)))
-                           (cfgl-package-set-property pkg :lazy-install nil)
-                           pkg))
-                       (oref layer :packages)))))
+                     (let* ((pkg-name (if (listp x) (car x) x))
+                            (pkg (configuration-layer/get-package pkg-name)))
+                       (cfgl-package-set-property pkg :lazy-install nil)
+                       (when (memq pkg-name
+                                   configuration-layer--used-distant-packages)
+                         pkg-name)))
+                   (oref layer :packages)))))
       (let ((last-buffer (current-buffer))
-            (sorted-inst (configuration-layer//sort-packages inst-pkgs))
-            (sorted-config (configuration-layer//sort-packages config-pkgs)))
+            (sorted-pkg (configuration-layer//sort-packages inst-pkgs)))
         (spacemacs-buffer/goto-buffer)
         (goto-char (point-max))
-        (oset layer :lazy-install nil)
-        (configuration-layer//install-packages sorted-inst)
-        (configuration-layer//configure-packages sorted-config)
+        (configuration-layer//install-packages sorted-pkg)
+        (configuration-layer//configure-packages sorted-pkg)
         (configuration-layer//load-layer-files layer '("keybindings.el"))
+        (oset layer :lazy-install nil)
         (switch-to-buffer last-buffer)))))
 
 (defun configuration-layer//install-packages (packages)
