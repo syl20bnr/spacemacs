@@ -225,7 +225,7 @@ defer call using `spacemacs-post-user-config-hook'."
          ((configuration-layer/layer-usedp 'ivy)
           'ivy)
          (t 'helm))
-   (pp-to-string dotspacemacs-configuration-layers)
+   (pp-to-string dotspacemacs--configuration-layers-saved)
    (bound-and-true-p system-configuration-features)))
 
 (defun spacemacs/describe-system-info ()
