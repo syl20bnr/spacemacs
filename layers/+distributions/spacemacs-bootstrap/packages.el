@@ -83,6 +83,10 @@
   ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
   ;; (add-hook 'post-command-hook 'evil-refresh-cursor)
 
+  ;; evil ex-command
+  (define-key evil-normal-state-map (kbd dotspacemacs-ex-command-key) 'evil-ex)
+  (define-key evil-visual-state-map (kbd dotspacemacs-ex-command-key) 'evil-ex)
+  (define-key evil-motion-state-map (kbd dotspacemacs-ex-command-key) 'evil-ex)
   (setq evil-ex-substitute-global dotspacemacs-ex-substitute-global)
 
   ;; evil-want-Y-yank-to-eol must be set via customize to have an effect
