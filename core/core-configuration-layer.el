@@ -984,8 +984,8 @@ return both used and unused packages."
             (not (stringp (oref pkg :location)))
             (or (null usedp)
                 (and (not (null (oref pkg :owners)))
-                     (cfgl-package-enabledp pkg)
-                     (not (oref pkg :excluded)))))))))
+                     (not (oref pkg :excluded))
+                     (cfgl-package-enabledp pkg))))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path to the private configuration layer string NAME."
