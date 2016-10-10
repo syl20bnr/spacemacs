@@ -581,7 +581,9 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
       (cfgl-package-set-property obj :min-version (version-to-list min-version)))
     (when step (cfgl-package-set-property obj :step step))
     (when toggle (cfgl-package-set-property obj :toggle toggle))
-    (cfgl-package-set-property obj :excluded (or excluded (oref obj :excluded)))
+    (cfgl-package-set-property obj :excluded
+                               (and (configuration-layer/layer-usedp layer-name)
+                                    (or excluded (oref obj :excluded))))
     (when location
       (if (and (listp location)
                (eq (car location) 'recipe)
