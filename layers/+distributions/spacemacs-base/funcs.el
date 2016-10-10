@@ -11,55 +11,9 @@
 
 (require 'cl-lib)
 
-;; add emacs binary helper functions
-(defun spacemacs/emacsbin-path ()
-  (interactive)
-  (concat exec-directory (if (spacemacs/system-is-mswindows) "bin/") "emacs"))
-
-(defun spacemacs/emacs-start ()
-  (interactive)
-  (call-process (spacemacs/emacsbin-path) nil 0 nil)
-  (message "Started 'emacs' - it will be ready soon ..."))
-
-(defun spacemacs/emacs-debug-init ()
-  (interactive)
-  (call-process (spacemacs/emacsbin-path) nil 0 nil "--debug-init")
-  (message "Started 'emacs --debug-init' - it will be ready soon ..."))
-
-(defun spacemacs/emacs-reload ()
-  (interactive)
-  (load-file user-init-file)
-  (message ".emacs reloaded successfully"))
-
-(defun spacemacs/emacs-Q ()
-  (interactive)
-  (call-process (spacemacs/emacsbin-path) nil 0 nil "-Q")
-  (message "Started 'emacs -Q' - it will be ready soon ..."))
-
-;; from https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-util.el#L38
-(defun spacemacs/add-to-hooks (fun hooks)
-  "Add function to hooks"
-  (dolist (hook hooks)
-    (add-hook hook fun)))
-
-(defun spacemacs/add-all-to-hook (hook &rest funs)
-  "Add functions to hook."
-  (spacemacs/add-to-hook hook funs))
-
-(defun spacemacs/add-to-hook (hook funs)
-  "Add list of functions to hook."
-  (dolist (fun funs)
-    (add-hook hook fun)))
-
 (defun spacemacs//run-local-vars-mode-hook ()
   "Run a hook for the major-mode after the local variables have been processed."
   (run-hooks (intern (format "%S-local-vars-hook" major-mode))))
-
-(defun spacemacs/echo (msg &rest args)
-  "Display MSG in echo-area without logging it in *Messages* buffer."
-  (interactive)
-  (let ((message-log-max nil))
-    (apply 'message msg args)))
 
 (defun spacemacs/split-and-new-line ()
   "Split a quoted string or s-expression and insert a new line with
@@ -145,26 +99,6 @@ automatically applied to."
           (message "Indented buffer.")))
       (whitespace-cleanup))))
 
-;; idea from http://www.reddit.com/r/emacs/comments/312ge1/i_created_this_function_because_i_was_tired_of/
-(defun spacemacs/eval-current-form ()
-  "Looks for the current def* or set* command then evaluates, unlike `eval-defun', does not go to topmost function"
-  (interactive)
-  (save-excursion
-    (search-backward-regexp "(def\\|(set")
-    (forward-list)
-    (call-interactively 'eval-last-sexp)))
-
-;; from magnars
-(defun spacemacs/eval-and-replace ()
-  "Replace the preceding sexp with its value."
-  (interactive)
-  (backward-kill-sexp)
-  (condition-case-unless-debug nil
-      (prin1 (eval (read (current-kill 0)))
-             (current-buffer))
-    (error (message "Invalid expression")
-           (insert (current-kill 0)))))
-
 ;; from https://gist.github.com/3402786
 (defun spacemacs/toggle-maximize-buffer ()
   "Maximize buffer"
@@ -177,7 +111,7 @@ automatically applied to."
       (delete-other-windows))))
 
 ;; https://tsdh.wordpress.com/2007/03/28/deleting-windows-vertically-or-horizontally/
-(defun  spacemacs/maximize-horizontally ()
+(defun spacemacs/maximize-horizontally ()
   "Delete all windows left or right of the current window."
   (interactive)
   (require 'windmove)
@@ -506,16 +440,6 @@ If the universal prefix argument is used then will the windows too."
   (delete-other-windows)
   (split-window-right))
 
-(defalias 'spacemacs/home 'spacemacs-buffer/refresh
-  "Go to home Spacemacs buffer")
-
-(defun spacemacs/home-delete-other-windows ()
-  "Open home Spacemacs buffer and delete other windows.
-Useful for making the home buffer the only visible buffer in the frame."
-  (interactive)
-  (spacemacs/home)
-  (delete-other-windows))
-
 (defun spacemacs/insert-line-above-no-indent (count)
   "Insert a new line above with no indentation."
   (interactive "p")
@@ -559,7 +483,7 @@ kill internal buffers too."
 (defvar spacemacs-really-kill-emacs nil
   "prevent window manager close from closing instance.")
 
-(defun spacemacs/persistent-server-running-p ()
+(defun spacemacs//persistent-server-running-p ()
   "Requires spacemacs-really-kill-emacs to be toggled and
 dotspacemacs-persistent-server to be t"
   (and (fboundp 'server-running-p)
@@ -569,7 +493,7 @@ dotspacemacs-persistent-server to be t"
 (defadvice kill-emacs (around spacemacs-really-exit activate)
   "Only kill emacs if a prefix is set"
   (if (and (not spacemacs-really-kill-emacs)
-           (spacemacs/persistent-server-running-p))
+           (spacemacs//persistent-server-running-p))
       (spacemacs/frame-killer)
     ad-do-it))
 
@@ -665,34 +589,18 @@ The body of the advice is in BODY."
   (if (y-or-n-p (format "Erase content of buffer %s ? " (current-buffer)))
       (erase-buffer)))
 
+(defun spacemacs//find-ert-test-buffer (ert-test)
+  "Return the buffer where ERT-TEST is defined."
+  (car (find-definition-noselect (ert-test-name ert-test) 'ert-deftest)))
+
 (defun spacemacs/ert-run-tests-buffer ()
   "Run all the tests in the current buffer."
   (interactive)
   (save-buffer)
   (load-file (buffer-file-name))
-  (ert t))
-
-(defun spacemacs/alternate-buffer (&optional window)
-  "Switch back and forth between current and last buffer in the
-current window."
-  (interactive)
-  (let ((current-buffer (window-buffer window))
-        (buffer-predicate
-         (frame-parameter (window-frame window) 'buffer-predicate)))
-    ;; switch to first buffer previously shown in this window that matches
-    ;; frame-parameter `buffer-predicate'
-    (switch-to-buffer
-     (or (cl-find-if (lambda (buffer)
-                       (and (not (eq buffer current-buffer))
-                            (or (null buffer-predicate)
-                                (funcall buffer-predicate buffer))))
-                     (mapcar #'car (window-prev-buffers window)))
-         ;; `other-buffer' honors `buffer-predicate' so no need to filter
-         (other-buffer current-buffer t)))))
-
-(defun current-line ()
-  "Return the line at point as a string."
-  (buffer-substring (line-beginning-position) (line-end-position)))
+  (let ((cbuf (current-buffer)))
+    (ert '(satisfies (lambda (test)
+                       (eq cbuf (spacemacs//find-ert-test-buffer test)))))))
 
 (defun spacemacs//open-in-external-app (file-path)
   "Open `file-path' in external application."
@@ -721,11 +629,6 @@ containing the current file by the default explorer."
   (interactive)
   (when (active-minibuffer-window)
     (select-window (active-minibuffer-window))))
-
-(defun spacemacs/comint-clear-buffer ()
-  (interactive)
-  (let ((comint-buffer-maximum-size 0))
-    (comint-truncate-buffer)))
 
 ;; http://stackoverflow.com/a/10216338/4869
 (defun spacemacs/copy-whole-buffer-to-clipboard ()
@@ -807,13 +710,6 @@ the right."
   (interactive)
   (call-interactively 'write-file))
 
-(defun spacemacs//imagep (object)
-  "Tests whether the given object is an image (a list whose
-first element is the symbol `image')."
-  (and (listp object)
-       object
-       (eq 'image (car object))))
-
 (defun spacemacs/uniquify-lines ()
   "Remove duplicate adjacent lines in region or current buffer"
   (interactive)
@@ -837,7 +733,7 @@ first element is the symbol `image')."
 (defvar spacemacs-linum-mdown-line nil
   "Define persistent variable for linum selection")
 
-(defun spacemacs/line-at-click ()
+(defun spacemacs//line-at-click ()
   "Determine the visual line at click"
   (save-excursion
     (let ((click-y (cddr (mouse-position)))
@@ -852,7 +748,7 @@ first element is the symbol `image')."
   "Set point as spacemacs-linum-mdown-line"
   (interactive "e")
   (mouse-select-window event)
-  (goto-line (spacemacs/line-at-click))
+  (goto-line (spacemacs//line-at-click))
   (set-mark (point))
   (setq spacemacs-linum-mdown-line
         (line-number-at-pos)))
@@ -862,7 +758,7 @@ first element is the symbol `image')."
   (interactive)
   (when spacemacs-linum-mdown-line
     (let (mu-line)
-      (setq mu-line (spacemacs/line-at-click))
+      (setq mu-line (spacemacs//line-at-click))
       (goto-line (max spacemacs-linum-mdown-line mu-line))
       (set-mark (line-end-position))
       (goto-line (min spacemacs-linum-mdown-line mu-line))
@@ -982,23 +878,6 @@ a split-side entry, its value must be usable as the SIDE argument for
   (let ((buffer (find-file-noselect file)))
     (pop-to-buffer buffer '(spacemacs//display-in-split (split-side . below)))))
 
-(defun spacemacs//intersperse (seq separator)
-  "Returns a list with `SEPARATOR' added between each element
-of the list `SEQ'."
-  (cond
-   ((not seq) nil)
-   ((not (cdr seq)) seq)
-   (t (append (list (car seq) separator)
-              (spacemacs//intersperse (cdr seq) separator)))))
-
-(defun spacemacs//mode-line-nonempty (seg)
-  "Checks whether a modeline segment (classical Emacs style)
-is nonempty."
-  (let ((val (format-mode-line seg)))
-    (cond ((listp val) val)
-          ((stringp val) (< 0 (length val)))
-          (t))))
-
 (defun spacemacs/switch-to-scratch-buffer ()
   "Switch to the `*scratch*' buffer. Create it first if needed."
   (interactive)
@@ -1009,79 +888,23 @@ is nonempty."
                (fboundp dotspacemacs-scratch-mode))
       (funcall dotspacemacs-scratch-mode))))
 
-;; http://stackoverflow.com/questions/11847547/emacs-regexp-count-occurrences
-(defun how-many-str (regexp str)
-  (loop with start = 0
-        for count from 0
-        while (string-match regexp str start)
-        do (setq start (match-end 0))
-        finally return count))
-
 (defun spacemacs/close-compilation-window ()
   "Close the window containing the '*compilation*' buffer."
   (interactive)
   (when compilation-last-buffer
     (delete-windows-on compilation-last-buffer)))
 
-(defun no-linum (&rest ignore)
+(defun spacemacs/no-linum (&rest ignore)
   "Disable linum if current buffer."
   (when (or 'linum-mode global-linum-mode)
     (linum-mode 0)))
 
-
-;; Generalized next-error system ("gne")
+(defun spacemacs/linum-update-window-scale-fix (win)
+  "Fix linum for scaled text in the window WIN."
+  (set-window-margins win
+                      (ceiling (* (if (boundp 'text-scale-mode-step)
+                                      (expt text-scale-mode-step
+                                            text-scale-mode-amount) 1)
+                                  (if (car (window-margins))
+                                      (car (window-margins)) 1)))))
 
-(defun spacemacs//error-delegate ()
-  "Decide which error API to delegate to.
-
-Delegates to flycheck if it is enabled and the next-error buffer
-is not visible. Otherwise delegates to regular Emacs next-error."
-  (if (and (bound-and-true-p flycheck-mode)
-           (let ((buf (ignore-errors (next-error-find-buffer))))
-             (not (and buf (get-buffer-window buf)))))
-      'flycheck
-    'emacs))
-
-(defun spacemacs/next-error (&optional n reset)
-  "Dispatch to flycheck or standard emacs error."
-  (interactive "P")
-  (let ((sys (spacemacs//error-delegate)))
-    (cond
-     ((eq 'flycheck sys) (call-interactively 'flycheck-next-error))
-     ((eq 'emacs sys) (call-interactively 'next-error)))))
-
-(defun spacemacs/previous-error (&optional n reset)
-  "Dispatch to flycheck or standard emacs error."
-  (interactive "P")
-  (let ((sys (spacemacs//error-delegate)))
-    (cond
-     ((eq 'flycheck sys) (call-interactively 'flycheck-previous-error))
-     ((eq 'emacs sys) (call-interactively 'previous-error)))))
-
-(defvar-local spacemacs--gne-min-line nil
-  "The first line in the buffer that is a valid result.")
-(defvar-local spacemacs--gne-max-line nil
-  "The last line in the buffer that is a valid result.")
-(defvar-local spacemacs--gne-cur-line 0
-  "The current line in the buffer. (It is problematic to use
-point for this.)")
-(defvar-local spacemacs--gne-line-func nil
-  "The function to call to visit the result on a line.")
-
-(defun spacemacs//gne-next (num reset)
-  "A generalized next-error function. This function can be used
-as `next-error-function' in any buffer that conforms to the
-Spacemacs generalized next-error API.
-
-The variables `spacemacs--gne-min-line',
-`spacemacs--gne-max-line', and `spacemacs--line-func' must be
-set."
-  (when reset (setq spacemacs--gne-cur-line
-                    spacemacs--gne-min-line))
-  (setq spacemacs--gne-cur-line
-        (min spacemacs--gne-max-line
-             (max spacemacs--gne-min-line
-                  (+ num spacemacs--gne-cur-line))))
-  (goto-line spacemacs--gne-cur-line)
-  (funcall spacemacs--gne-line-func
-           (buffer-substring (point-at-bol) (point-at-eol))))

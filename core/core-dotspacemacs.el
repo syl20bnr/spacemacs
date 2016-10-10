@@ -148,6 +148,9 @@ pressing `<leader> m`. Set it to `nil` to disable it.")
 (defvar dotspacemacs-major-mode-emacs-leader-key "C-M-m"
   "Major mode leader key accessible in `emacs state' and `insert state'")
 
+(defvar dotspacemacs-ex-command-key ":"
+  "The key used for Vim Ex commands.")
+
 (defvar dotspacemacs-command-key "SPC"
   "The key used for Emacs commands (M-x) (after pressing on the leader key).")
 (defvaralias 'dotspacemacs-emacs-command-key 'dotspacemacs-command-key
@@ -321,8 +324,7 @@ tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.")
 specified with an installed package.
 NOT USED FOR NOW :-)")
 
-(defvar dotspacemacs-startup-lists '((recents  . 5)
-                                    (projects . 7))
+(defvar dotspacemacs-startup-lists '()
   "Association list of items to show in the startup buffer of the form
 `(list-type . list-size)`. If nil it is disabled.
 Possible values for list-type are:

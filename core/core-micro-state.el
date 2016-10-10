@@ -39,7 +39,7 @@ Characters enclosed in `[]' will have this face applied to them."
 
 (defun spacemacs//micro-state-set-minibuffer-height (str)
   "Set the max mini windows size given a string STR."
-  (let ((line-count (1+ (how-many-str "\n" str))))
+  (let ((line-count (1+ (spacemacs/how-many-str "\n" str))))
     (when (and (> line-count max-mini-window-height)
                (> line-count 10))
       (setq max-mini-window-height line-count))))

@@ -16,3 +16,4 @@ Emacs. If `use-helper', the `agda-mode' executable is used to
 find its location.")
 
 (spacemacs|define-jump-handlers agda2-mode agda2-goto-definition-keyboard)
+(spacemacs|defvar-company-backends agda2-mode)

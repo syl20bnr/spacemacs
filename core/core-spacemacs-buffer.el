@@ -53,13 +53,18 @@ version the release note it displayed")
 
 (defvar spacemacs-buffer-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map [tab] 'widget-forward)
-    (define-key map (kbd "C-i") 'widget-forward)
-    (define-key map [backtab] 'widget-backward)
-    (define-key map (kbd "RET") 'widget-button-press)
     (define-key map [down-mouse-1] 'widget-button-click)
-    (define-key map "q" 'quit-window)
+    (define-key map (kbd "RET") 'widget-button-press)
+
+    (define-key map [tab] 'widget-forward)
+    (define-key map (kbd "J") 'widget-forward)
+    (define-key map (kbd "C-i") 'widget-forward)
+
+    (define-key map [backtab] 'widget-backward)
+    (define-key map (kbd "K") 'widget-backward)
+
     (define-key map (kbd "C-r") 'spacemacs-buffer/refresh)
+    (define-key map "q" 'quit-window)
     map)
   "Keymap for spacemacs buffer mode.")
 
@@ -272,6 +277,14 @@ HELP-STRING is the help message of the button for additional action."
     (let* ((note (concat "\n" (spacemacs//render-framed-text
                                file spacemacs-buffer--banner-length caption))))
       (add-to-list 'spacemacs-buffer--note-widgets (widget-create 'text note))
+      (save-excursion
+        (while (re-search-backward "\\[\\[\\(.*\\)\\]\\]" nil t)
+          (let ((buffer-read-only nil))
+            (make-text-button
+             (match-beginning 1)
+             (match-end 1)
+             'type 'help-url
+             'help-args (list (match-string 1))))))
       (funcall additional-widgets))))
 
 (defun spacemacs-buffer//insert-note-p (type)
@@ -967,5 +980,15 @@ already exist, and switch to it."
   (interactive)
   (setq spacemacs-buffer--last-width nil)
   (spacemacs-buffer/goto-buffer t))
+
+(defalias 'spacemacs/home 'spacemacs-buffer/refresh
+  "Go to home Spacemacs buffer")
+
+(defun spacemacs/home-delete-other-windows ()
+  "Open home Spacemacs buffer and delete other windows.
+Useful for making the home buffer the only visible buffer in the frame."
+  (interactive)
+  (spacemacs/home)
+  (delete-other-windows))
 
 (provide 'core-spacemacs-buffer)

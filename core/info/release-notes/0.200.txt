@@ -1,1 +1,20 @@
-See newsletter #01 at http://spacemacs.org/news/news01.html
+─=≡Σ((( つ◕ل͜◕)つ AUTUMNAL CLEANUP 2016 HAS BEGUN !!
+
+
+Every year during fall we review all the issues to do some cleanup.
+
+❤ ❤ ❤   WE NEED YOU!  ❤ ❤ ❤
+
+Anyone can contribute by asking @d12frosted on the Gitter channel
+to send you a list of issues to check, for instance:
+
+ > @d12frosted can you send me 10 issues ?
+
+The top cleaners of 2016 will get their name in the achievement
+section of the documentation! ᕦ(∩◡∩)ᕤ
+
+More info on the wiki page:
+[[https://github.com/syl20bnr/spacemacs/wiki/Autumnal-Cleanup-2016]]
+
+For more info on release 0.200.x see the newsletter #01 at
+[[http://spacemacs.org/news/news01.html]]

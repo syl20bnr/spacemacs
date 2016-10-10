@@ -271,20 +271,22 @@ Will work on both org-mode and any mode that accepts plain html."
       ;; Add global evil-leader mappings. Used to access org-agenda
       ;; functionalities – and a few others commands – from any other mode.
       (spacemacs/declare-prefix "ao" "org")
+      (spacemacs/declare-prefix "aok" "clock")
       (spacemacs/set-leader-keys
         ;; org-agenda
         "ao#" 'org-agenda-list-stuck-projects
         "ao/" 'org-occur-in-agenda-files
         "aoa" 'org-agenda-list
+        "aoc" 'org-capture
         "aoe" 'org-store-agenda-views
+        "aoki" 'org-clock-in-last
+        "aokj" 'org-clock-jump-to-current-clock
+        "aoko" 'org-clock-out
+        "aol" 'org-store-link
         "aom" 'org-tags-view
         "aoo" 'org-agenda
         "aos" 'org-search-view
-        "aot" 'org-todo-list
-        ;; other
-        "aoO" 'org-clock-out
-        "aoc" 'org-capture
-        "aol" 'org-store-link)
+        "aot" 'org-todo-list)
 
       (define-key global-map "\C-cl" 'org-store-link)
       (define-key global-map "\C-ca" 'org-agenda)
