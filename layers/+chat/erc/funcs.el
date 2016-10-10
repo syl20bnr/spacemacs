@@ -11,6 +11,7 @@
 
 (defun erc//servers (server-list)
   (dolist (s server-list)
+    (setq s (copy-list s))
     (apply (if
                (plist-get (cdr s) :ssl)
                (progn
