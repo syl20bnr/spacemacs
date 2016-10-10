@@ -1,10 +1,18 @@
 * Release 0.200.x
 ** 0.200.1 (2016/10/09)
 *** Fixes
-- Fix =spacemacs/ert-run-tests-buffer= to run only the tests in current buffer
-  (thanks to bmag)
+- Restore missing support for custom Evil ex command key via the new
+  =dotspacemacs-ex-command-key= variable (thanks to Dietr1ch)
+- core: Fix lazy installation of layers
+- core: Fix Quelpa recipes construction (thanks to ynilu)
+- core: Fix unwanted exclusion of packages when setting
+  =dotspacemacs-install-packages= to =all=
+- core: Fix =spacemacs/ert-run-tests-buffer= to run only the tests in current
+  buffer (thanks to bmag)
 *** Dotfile changes
-- Change default value of =dotspacemacs-startup-lists= to nil
+- New variable =dotspacemacs-ex-command-key= to define the key to press
+  to enter an Evil ex commands, default is ~:~ (thanks to Dietr1ch)
+- Change default value of =dotspacemacs-startup-lists= to =nil=
 *** Layer changes
 **** Agda
 - Enable auto-completion (thanks to bixuanzju)
@@ -12,10 +20,11 @@
 - Add support for =org-babel= (thanks to drewokane)
 **** Git
 - Adjust linum gutter to accomodate text-size changes (thanks to nspaeth)
-**** Org
-- Move clock related key bindings to ~SPC a o k~
-- Add key bindings ~SPC a o k i~ to clock in last and ~SPC a o k j~
-  to jump to current clock (thanks to darkfeline)
+**** Html
+- Replace =jade-mode= by =pug-mode= (Jade is now Pug) (thanks to robbyoconnor)
+**** Markdown
+- Enable =orgtbl-mode=, this makes working with tables much nicer
+  (thanks to robbyoconnor)
 **** React
 - Enable =emmet= (thanks to kaipr)
 **** Shell
@@ -28,7 +37,8 @@
 - Add support for transparency in multiple frames (thansk to TGThorax)
 - Add ~J~ and ~K~ key bindings on the home buffer to navigate between widgets
   (thanks to tobimensch)
-- Various documentation improvements (thanks to andschwa, bmag, duianto, jazzpi)
+- Various documentation improvements (thanks to andschwa, bmag, duianto, jazzpi,
+  Tritlo, vigilancer)
 ** 0.200.0 (2016/10/02)
 *** IMPORTANT: Breaking changes
 - The support for Emacs 24.3 has been dropped, Spacemacs needs at least Emacs
