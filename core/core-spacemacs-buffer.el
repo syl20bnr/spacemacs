@@ -277,6 +277,14 @@ HELP-STRING is the help message of the button for additional action."
     (let* ((note (concat "\n" (spacemacs//render-framed-text
                                file spacemacs-buffer--banner-length caption))))
       (add-to-list 'spacemacs-buffer--note-widgets (widget-create 'text note))
+      (save-excursion
+        (while (re-search-backward "\\[\\[\\(.*\\)\\]\\]" nil t)
+          (let ((buffer-read-only nil))
+            (make-text-button
+             (match-beginning 1)
+             (match-end 1)
+             'type 'help-url
+             'help-args (list (match-string 1))))))
       (funcall additional-widgets))))
 
 (defun spacemacs-buffer//insert-note-p (type)
