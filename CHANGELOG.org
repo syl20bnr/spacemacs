@@ -11,7 +11,7 @@
   buffer (thanks to bmag)
 *** Dotfile changes
 - New variable =dotspacemacs-ex-command-key= to define the key to press
-  to enter an Evil ex commands, default is ~:~ (thanks to Dietr1ch)
+  to enter an Evil ex command, default is ~:~ (thanks to Dietr1ch)
 - Change default value of =dotspacemacs-startup-lists= to =nil=
 *** Layer changes
 **** Agda
@@ -26,7 +26,7 @@
 - Enable =orgtbl-mode=, this makes working with tables much nicer
   (thanks to robbyoconnor)
 **** React
-- Enable =emmet= (thanks to kaipr)
+- Enable =emmet-mode= (thanks to kaipr)
 **** Shell
 - Fix shell regular expression to add shell buffers to useful buffers
   (thanks to TheBB)
@@ -34,7 +34,7 @@
 - Improve performance on large projects by removing buffer parsing on newline
   insertion (thanks to deb0ch)
 *** Improvements
-- Add support for transparency in multiple frames (thansk to TGThorax)
+- Add support for transparency in multiple frames (thanks to TGThorax)
 - Add ~J~ and ~K~ key bindings on the home buffer to navigate between widgets
   (thanks to tobimensch)
 - Various documentation improvements (thanks to andschwa, bmag, duianto, jazzpi,
