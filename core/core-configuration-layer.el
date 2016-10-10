@@ -900,9 +900,7 @@ variable as well."
       (dolist (pkg (cfgl-layer-get-packages layer))
         (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
                (obj (configuration-layer/get-package pkg-name)))
-          (if obj
-              (setq obj (configuration-layer/make-package pkg layer-name obj))
-            (setq obj (configuration-layer/make-package pkg layer-name)))
+          (setq obj (configuration-layer/make-package pkg layer-name obj))
           (configuration-layer//add-package
            obj (and (cfgl-package-get-safe-owner obj) usedp)))))))
 
