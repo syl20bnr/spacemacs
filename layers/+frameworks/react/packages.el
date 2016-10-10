@@ -13,7 +13,7 @@
       '(
         company
         company-tern
-        emmet
+        emmet-mode
         evil-matchit
         flycheck
         js-doc
@@ -29,7 +29,7 @@
 (defun react/post-init-company-tern ()
   (push 'company-tern company-backends-react-mode))
 
-(defun react/post-init-emmet ()
+(defun react/post-init-emmet-mode ()
   (add-hook 'react-mode-hook 'emmet-mode))
 
 (defun react/post-init-evil-matchit ()
