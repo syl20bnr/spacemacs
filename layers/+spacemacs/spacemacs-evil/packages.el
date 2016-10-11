@@ -260,7 +260,7 @@
     (progn
       (when (eq dotspacemacs-line-numbers 'relative)
         (linum-relative-on))
-      (spacemacs/set-leader-keys "tr" 'linum-relative-toggle))
+      (spacemacs/set-leader-keys "tr" 'spacemacs/linum-relative-toggle))
     :config
     (progn
       (setq linum-relative-current-symbol ""))))
