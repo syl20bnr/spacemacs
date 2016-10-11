@@ -314,22 +314,19 @@
         (python-shell-switch-to-shell)
         (evil-insert-state))
 
-      ;; reset compile-command (by default it is `make -k')
-      (setq compile-command nil)
       (defun spacemacs/python-execute-file (arg)
         "Execute a python script in a shell."
         (interactive "P")
         ;; set compile command to buffer-file-name
         ;; universal argument put compile buffer in comint mode
-        (setq universal-argument t)
-        (if arg
-            (call-interactively 'compile)
-
-          (setq compile-command (format "python %s" (file-name-nondirectory
-                                                     buffer-file-name)))
-          (compile compile-command t)
-          (with-current-buffer (get-buffer "*compilation*")
-            (inferior-python-mode))))
+        (let ((universal-argument t)
+              (compile-command (format "python %s" (file-name-nondirectory
+                                                    buffer-file-name))))
+          (if arg
+              (call-interactively 'compile)
+            (compile compile-command t)
+            (with-current-buffer (get-buffer "*compilation*")
+              (inferior-python-mode)))))
 
       (defun spacemacs/python-execute-file-focus (arg)
         "Execute a python script in a shell and switch to the shell buffer in
