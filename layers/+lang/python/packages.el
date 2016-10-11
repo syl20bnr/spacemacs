@@ -262,7 +262,7 @@
 
       (defun python-default ()
         (setq mode-name "Python"
-              tab-width 4
+              tab-width python-tab-width
               fill-column python-fill-column)
         (when (version< emacs-version "24.5")
           ;; auto-indent on colon doesn't work well with if statement
