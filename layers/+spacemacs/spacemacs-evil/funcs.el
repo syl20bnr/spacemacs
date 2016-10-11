@@ -57,6 +57,12 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
                       :background nil
                       :foreground nil))
 
+(defun spacemacs/linum-relative-toggle ()
+  (interactive)
+  (if (not (bound-and-true-p linum-relative-mode))
+      (linum-mode))
+  (linum-relative-toggle))
+
 
 ;; vi-tilde-fringe
 
