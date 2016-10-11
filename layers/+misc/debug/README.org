@@ -37,9 +37,7 @@ As example in the =c-c++= layer the packages.el is using:
 #+BEGIN_SRC emacs-lisp
   (defun c-c++/post-init-gdb-mi ()
     (setq debug-mode 'gdb)
-    (if c-c++-debugger-prog
-        (setq debug-prog c-c++-debugger-prog)
-      (setq debug-prog "gdb -i=mi")))
+    (setq debug-prog c-c++-debugger-prog))
 #+END_SRC
 
 * Key bindings
