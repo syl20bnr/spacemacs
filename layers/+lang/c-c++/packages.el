@@ -138,6 +138,4 @@
 
 (defun c-c++/post-init-gdb-mi ()
   (setq debug-mode 'gdb)
-  (if c-c++-debugger-prog
-      (setq debug-prog c-c++-debugger-prog)
-    (setq debug-prog "gdb -i=mi")))
+  (setq debug-prog c-c++-debugger-prog))

@@ -14,7 +14,7 @@
 (defvar c-c++-enable-clang-support nil
   "If non nil Clang related packages and configuration are enabled.")
 
-(defvar c-c++-debugger-prog nil
+(defvar c-c++-debugger-prog "gdb -i=mi"
   "Override default c-c++ debugger 'gdb'. A.e. use full path to executable on windows systems.")
 
 (spacemacs|defvar-company-backends c-mode-common)
