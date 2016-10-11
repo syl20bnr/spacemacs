@@ -390,7 +390,7 @@
   "wv"  'split-window-right
   "wV"  'split-window-right-and-focus
   "ww"  'other-window
-  "w/"  'split-window-right
+  "w|"  'split-window-right
   "w="  'balance-windows
   "w_"  'spacemacs/maximize-horizontally)
 ;; text -----------------------------------------------------------------------
