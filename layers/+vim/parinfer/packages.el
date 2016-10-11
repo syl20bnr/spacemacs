@@ -30,6 +30,6 @@
         :status (eq parinfer--mode 'indent)
         :on (parinfer-toggle-mode)
         :off (parinfer-toggle-mode))
-      (setq parinfer-extensions '(company pretty-parens evil smart-yank)))))
+      (setq parinfer-extensions '(defaults pretty-parens evil smart-yank)))))
 
 ;;; packages.el ends here
