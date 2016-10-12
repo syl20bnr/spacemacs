@@ -19,6 +19,7 @@
         flycheck
         ggtags
         helm-gtags
+        minitest
         popwin
         rbenv
         robe
@@ -84,6 +85,27 @@
 
 (defun ruby/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'ruby-mode))
+
+(defun ruby/init-minitest ()
+  (use-package minitest
+    :defer t
+    :init
+    (progn
+      (spacemacs/add-to-hooks 'spacemacs//ruby-enable-minitest-mode
+                              '(ruby-mode-local-vars-hook
+                                enh-ruby-mode-local-vars-hook))
+      ;; remove hooks added by minitest mode
+      (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+        (remove-hook hook 'minitest-enable-appropriate-mode)))
+    :config
+    (progn
+      (spacemacs|hide-lighter minitest-mode)
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "ta" 'minitest-verify-all
+          "tb" 'minitest-verify
+          "tr" 'minitest-rerun
+          "ts" 'minitest-verify-single)))))
 
 (defun ruby/post-init-popwin ()
   (push '("*rspec-compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
