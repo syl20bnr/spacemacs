@@ -15,6 +15,7 @@
    - [[#tests][Tests]]
      - [[#rspec-mode][RSpec-mode]]
      - [[#ruby-test-mode][Ruby-test-mode]]
+   - [[#seeing-is-believing][seeing-is-believing]]
    - [[#rake][Rake]]
 
 * Description
@@ -48,6 +49,7 @@ based on your version manager):
 - =pry= and =pry-doc= are required for *jump to definition* and *code documentation* (=robe-mode=)
 - =ruby_parser= is required for *goto-step_definition* in =feature-mode=
 - =rubocop= is required for rubocop integration
+- =seeing_is_believing= helps you evaluate code inline
 
 You can install the gems in the context of your current project by
 adding them to the =Gemfile=, e.g.:
@@ -164,6 +166,13 @@ When =ruby-test-runner= equals =ruby-test=.
 |-------------+---------------------|
 | ~SPC m t b~ | run test file       |
 | ~SPC m t t~ | run test at pointer |
+
+** seeing-is-believing
+
+| Key Binding     | Description                      |
+|-----------------+----------------------------------|
+| ~<SPC> m s b~   | Run seeing is believing          |
+| ~<SPC> m s c~   | Clear seeing is believing output |
 
 ** Rake
 

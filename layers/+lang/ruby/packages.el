@@ -28,6 +28,7 @@
         (ruby-mode :location built-in :toggle (not ruby-enable-enh-ruby-mode))
         ruby-test-mode
         ruby-tools
+        seeing-is-believing
         rvm
         smartparens
         rake
@@ -52,6 +53,20 @@
   (with-eval-after-load 'company-dabbrev-code
     (dolist (mode '(ruby-mode enh-ruby-mode))
       (push mode company-dabbrev-code-modes))))
+
+(defun seeing-is-believing/init-seeing-is-believing ()
+  (use-package seeing-is-believing
+    :defer t
+    :commands (seeing-is-believing seeing-is-believing-run seeing-is-believing-clear)
+    :if (executable-find "seeing_is_believing")
+    :init
+    (progn
+      (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+        (add-hook hook 'seeing-is-believing))
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "sb" 'seeing-is-believing-run
+          "sc" 'seeing-is-believing-clear)))))
 
 (defun ruby/init-chruby ()
   (use-package chruby
