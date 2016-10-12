@@ -96,6 +96,8 @@
     (sanityinc-tomorrow-day      . color-theme-sanityinc-tomorrow)
     (sanityinc-tomorrow-eighties . color-theme-sanityinc-tomorrow)
     (sanityinc-tomorrow-night    . color-theme-sanityinc-tomorrow)
+    (doom-one     . doom-themes)
+    (doom-molokai . doom-themes)
     (solarized-light . solarized-theme)
     (solarized-dark . solarized-theme)
     (spacemacs-light . spacemacs-theme)
