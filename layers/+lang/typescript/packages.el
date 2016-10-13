@@ -38,7 +38,9 @@
       (add-hook 'typescript-mode-hook 'tide-setup)
       (add-hook 'typescript-mode-hook 'eldoc-mode)
 
-      (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition))
+      (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition)
+
+      (push 'company-tide company-backends-typescript-mode))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'typescript-mode "mg" "goto")
