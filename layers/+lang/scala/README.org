@@ -173,9 +173,7 @@ with
 | ~SPC m d B~ | clear breakpoint            |
 | ~SPC m d C~ | clear all breakpoints       |
 | ~SPC m d c~ | continue                    |
-| ~SPC m d d~ | start a debug session       |
 | ~SPC m d i~ | inspect value at point      |
-| ~SPC m d l~ | list local variables        |
 | ~SPC m d n~ | next                        |
 | ~SPC m d o~ | step out                    |
 | ~SPC m d q~ | quit                        |
