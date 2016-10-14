@@ -103,7 +103,7 @@ The default value is =display-buffer-reuse-window=.
 Go Oracle has been deprecated as of October 1, 2016, it's replacement is =go-guru=.
 
 If you would like to use the =goguru= bindings in your work, you will need to
-install it, and in your project you will need to set the scope with =SPC m f o=.
+install it, and in your project you will need to set the scope with ~SPC m f o~.
 The scope is a comma separated set of packages, and =go='s recursive operator is
 supported. In addition, you can prefix with =-= to exclude a package from
 searching.
