@@ -166,5 +166,17 @@ FUN function callback"
           ))
       '(normal insert))
 
+;; vim-like confirm/abort for capture and src
+(with-eval-after-load 'org-capture
+  (define-key org-capture-mode-map [remap evil-save-and-close]          'org-capture-finalize)
+  (define-key org-capture-mode-map [remap evil-save-modified-and-close] 'org-capture-finalize)
+  (define-key org-capture-mode-map [remap evil-quit]                    'org-capture-kill))
+
+(with-eval-after-load 'org-src
+  (define-key org-src-mode-map [remap evil-save-and-close]          'org-edit-src-exit)
+  (define-key org-src-mode-map [remap evil-save-modified-and-close] 'org-edit-src-exit)
+  (define-key org-src-mode-map [remap evil-quit]                    'org-edit-src-abort))
+
+
 (provide 'evil-org)
 ;;; evil-org.el ends here
