@@ -1,4 +1,7 @@
 * Release 0.200.x
+** 0.200.2 (2016/10/14)
+*** Fixes
+-  Fix compatibility with the =xterm-color= package (thanks to bixuanzju)
 ** 0.200.1 (2016/10/09)
 *** Fixes
 - Restore missing support for custom Evil ex command key via the new
