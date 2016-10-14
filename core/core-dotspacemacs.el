@@ -304,6 +304,10 @@ derivatives. If set to `relative', also turns on relative line numbers.")
   over any automatically added closing parenthesis, bracket, quote, etc…
   This can be temporary disabled by pressing `C-q' before `)'. (default nil)")
 
+(defvar dotspacemacs-sp-show-pair-delay 0.2
+  "Sets the global value for `sp-show-pair-delay'. Which in turn sets the
+  time in seconds to delay before showing a matching pair with smartparens.")
+
 (defvar dotspacemacs-highlight-delimiters 'all
   "Select a scope to highlight delimiters. Possible values are `any',
 `current', `all' or `nil'. Default is `all' (highlight any scope and
