@@ -340,6 +340,11 @@
         (end-of-buffer)
         (evil-insert-state))
 
+      ;; fix for issue #2569 (https://github.com/syl20bnr/spacemacs/issues/2569)
+      (when (version< emacs-version "25")
+        (advice-add 'wisent-python-default-setup :after
+                    #'spacemacs//python-imenu-create-index-use-semantic-maybe))
+
       (spacemacs/declare-prefix-for-mode 'python-mode "mc" "execute")
       (spacemacs/declare-prefix-for-mode 'python-mode "md" "debug")
       (spacemacs/declare-prefix-for-mode 'python-mode "mh" "help")
@@ -392,7 +397,7 @@
                 'spacemacs//disable-semantic-idle-summary-mode t))
   (spacemacs/add-to-hook 'python-mode-hook
                          '(semantic-mode
-                           spacemacs//python-imenu-create-index-use-semantic))
+                           spacemacs//python-imenu-create-index-use-semantic-maybe))
   (defadvice semantic-python-get-system-include-path
       (around semantic-python-skip-error-advice activate)
     "Don't cause error when Semantic cannot retrieve include
