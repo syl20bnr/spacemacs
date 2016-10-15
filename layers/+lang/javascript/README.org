@@ -57,6 +57,11 @@ such as =ESLint= or =JSHint=:
   $ npm install -g jshint
 #+END_SRC
 
+If you install these in non-standard locations, then add the following to your =dotspacemacs/user-init= function:
+#+BEGIN_SRC elisp
+  (add-to-list 'exec-path "/path/to/node/bins" t)
+#+END_SRC
+
 * Configuration
 ** Tern
 To make tern re-use the server across multiple different editing sessions (thus

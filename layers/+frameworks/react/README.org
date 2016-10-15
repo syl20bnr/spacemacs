@@ -51,6 +51,11 @@ In order to use automatic code formatting you need to install ~js-beautify~ with
   $ npm install -g js-beautify
 #+END_SRC
 
+If you install these in non-standard locations, then add the following to your =dotspacemacs/user-init= function:
+#+BEGIN_SRC elisp
+  (add-to-list 'exec-path "/path/to/node/bins" t)
+#+END_SRC
+
 Be sure to have the ~e4x~ option set to ~true~ on your ~.jsbeautifyrc~ here it is my configuration as an example:
 #+BEGIN_SRC json
   {
