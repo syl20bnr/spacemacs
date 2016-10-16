@@ -8,7 +8,7 @@
  - [[#key-bindings][Key bindings]]
 
 * Description
-This layer enables support for [[https://github.com/skuro/puml-mode][puml-mode]], which provides
+This layer enables support for [[https://github.com/skuro/plantuml-mode][plantuml-mode]], which provides
 a major-mode for [[http://plantuml.com][plantuml]]. PlantUML is a tool to generate [[https://en.wikipedia.org/wiki/Unified_Modeling_Language][UML diagrams]] from plain-text.
 
 For help with how to use plantuml, see the [[http://plantuml.com][plantuml website]] and the [[http://plantuml.com/PlantUML_Language_Reference_Guide.pdf][reference guide]].
