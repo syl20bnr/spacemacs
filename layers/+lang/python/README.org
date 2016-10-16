@@ -275,7 +275,7 @@ Send code to hy REPL commands:
 | Key Binding | Description                                                                  |
 |-------------+------------------------------------------------------------------------------|
 | ~SPC m =~   | Reformat the buffer according to PEP8 using  [[https://github.com/google/yapf][YAPF]]                            |
-| ~SPC m d b~ | toggle a breakpoint                                                          |
+| ~SPC m d b~ | toggle a breakpoint using =wdb=, =ipdb=, =pudb= or =pdb=                     |
 | ~SPC m g g~ | go to definition using =anaconda-mode-find-definitions= (~C-o~ to jump back) |
 | ~SPC m g a~ | go to assignment using =anaconda-mode-find-assignments= (~C-o~ to jump back) |
 | ~SPC m g b~ | jump back                                                                    |
