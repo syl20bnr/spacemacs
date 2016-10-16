@@ -75,7 +75,7 @@
     - ~SPC J~ to split a string or sexp has been moved to ~SPC j s~
 - All helm related key bindings under ~SPC h~ that are not about help have
   been moved to different key bindings:
-  - ~SPC h b~ for =helm-filtered-bookmarks~is now ~SPC f b~
+  - ~SPC h b~ for =helm-filtered-bookmarks= is now ~SPC f b~
   - ~SPC h l~ for =helm-resume= is now ~SPC r l~
   - ~SPC h L~ for =helm-locate-library= is now ~SPC f e l~
 - Git key bindings under ~SPC g~ have been reorganised to free up some keys
@@ -112,7 +112,7 @@
   micro states (thanks to justbur)
 - New =jump to definition= abstraction to handle multiple jump backends like
   tags, dumb-jump etc... (thanks to TheBB)
-- Global access to all available REPLs with ~SPC a '~ and `SPC m '~ (thanks to
+- Global access to all available REPLs with ~SPC a '~ and ~SPC m '~ (thanks to
   AlejandroCatalina and TheBB)
 - New debugging tools:
   - press ~SPC q d~ to restart Emacs in debug mode with command line parameter
