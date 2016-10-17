@@ -19,9 +19,11 @@
   (use-package nim-mode
     :defer t
     :init
-    (when (configuration-layer/package-usedp 'company)
-      (push 'company-capf company-backends-nim-mode))
-    (add-hook 'nim-mode-hook 'nimsuggest-mode)
+    (progn
+      (when (configuration-layer/package-usedp 'company)
+        (push 'company-capf company-backends-nim-mode))
+      (add-hook 'nim-mode-hook 'nimsuggest-mode)
+      (push 'nimsuggest-find-definition spacemacs-jump-handlers-nim-mode))
     :config
     (progn
       (defun spacemacs/nim-compile-run ()
@@ -30,5 +32,4 @@
 
       (spacemacs/set-leader-keys-for-major-mode 'nim-mode
         "cr" 'spacemacs/nim-compile-run
-        "gg" 'nimsuggest-find-definition
         "gb" 'pop-tag-mark))))
