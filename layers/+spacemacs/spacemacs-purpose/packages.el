@@ -14,7 +14,9 @@
         (helm-purpose :toggle (configuration-layer/layer-usedp 'helm))
         (ivy-purpose :toggle (configuration-layer/layer-usedp 'ivy))
         popwin
-        (spacemacs-purpose-popwin :location local)
+        (spacemacs-purpose-popwin
+         :location local
+         :toggle (configuration-layer/package-usedp 'popwin))
         window-purpose))
 
 (defun spacemacs-purpose/post-init-eyebrowse ()
@@ -81,9 +83,6 @@
   (use-package spacemacs-purpose-popwin
     ;; don't load spacemacs-purpose-popwin if popwin is excluded.
     ;; can't wrap `spacemacs-purpose/init-purpose-popwin' in a top-level `when'
-    ;; because popwin isn't yet marked as used then. the condition won't work in
-    ;; top-level, only here
-    :if (configuration-layer/package-usedp 'popwin)
     ;; spacemacs-purpose-popwin needs to be configured after popwin and
     ;; window-purpose. popwin is guaranteed to run before
     ;; spacemacs-purpose-popwin due to alphabetic order, but for window-purpose
