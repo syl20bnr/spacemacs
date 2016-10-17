@@ -23,6 +23,7 @@
    - [[#git-flow-1][Git-Flow]]
    - [[#git-time-machine][Git time machine]]
    - [[#git-links-to-web-services][Git links to web services]]
+   - [[#git-magit-repolist][Repo List]]
 
 * Description
 This layers adds extensive support for [[http://git-scm.com/][git]].
@@ -111,6 +112,7 @@ Git commands (start with ~g~):
 | ~SPC g H h~ | highlight regions by age of commits                 |
 | ~SPC g H t~ | highlight regions by last updated time              |
 | ~SPC g I~   | open =helm-gitignore=                               |
+| ~SPC g L~   | open magit-repolist                                 |
 | ~SPC g s~   | open a =magit= status window                        |
 | ~SPC g S~   | stage current file                                  |
 | ~SPC g m~   | magit dispatch popup                                |
@@ -266,3 +268,20 @@ or lines in a file hosted on Git web services like GitHub, GitLab, Bitbucket...
 - When the link is opened, the URL is also copied in the kill ring, you can
   override this behavior by setting the variable =git-link-open-in-browser= to
   =nil=.
+
+** Repo List
+
+This feature will show a list of git directories. The feature needs slight
+configuration within your `.spacemacs` config. In the `dotspacemacs/user-config()` 
+stanza insert the following with the directories of your choice:
+
+```
+ (setq magit-repository-directories 
+      '( "~/Development" ))
+```
+
+| Key Binding | Description                                                            |
+|-------------+------------------------------------------------------------------------|
+| ~gL~        | start git repo list                                                    |
+| ~RETURN~    | show the git status window for the selected project                    |
+| ~gr~        | refresh the project list                                               |
