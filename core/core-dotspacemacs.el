@@ -324,7 +324,8 @@ tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.")
 specified with an installed package.
 NOT USED FOR NOW :-)")
 
-(defvar dotspacemacs-startup-lists '()
+(defvar dotspacemacs-startup-lists '((recents  . 5)
+                                    (projects . 7))
   "Association list of items to show in the startup buffer of the form
 `(list-type . list-size)`. If nil it is disabled.
 Possible values for list-type are:
