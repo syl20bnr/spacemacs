@@ -26,14 +26,17 @@
     (spacemacs/window-purpose-sync-eyebrowse)))
 
 (defun spacemacs-purpose/init-helm-purpose ()
-  (setq purpose-preferred-prompt 'helm)
-  ;; remap bindings defined with `spacemacs/set-leader-keys'
-  (global-set-key [remap purpose-switch-buffer-with-purpose]
-                  #'helm-purpose-switch-buffer-with-purpose)
-  (global-set-key [remap switch-buffer-without-purpose]
-                  #'helm-purpose-mini-ignore-purpose)
-  (global-set-key [remap purpose-switch-buffer-with-some-purpose]
-                  #'helm-purpose-switch-buffer-with-some-purpose))
+  (use-package helm-purpose
+    :init
+    (progn
+      (setq purpose-preferred-prompt 'helm)
+      ;; remap bindings defined with `spacemacs/set-leader-keys'
+      (global-set-key [remap purpose-switch-buffer-with-purpose]
+                      #'helm-purpose-switch-buffer-with-purpose)
+      (global-set-key [remap switch-buffer-without-purpose]
+                      #'helm-purpose-mini-ignore-purpose)
+      (global-set-key [remap purpose-switch-buffer-with-some-purpose]
+                      #'helm-purpose-switch-buffer-with-some-purpose))))
 
 (defun spacemacs-purpose/init-ivy-purpose ()
   ;; vanilla lets `ivy' take over
