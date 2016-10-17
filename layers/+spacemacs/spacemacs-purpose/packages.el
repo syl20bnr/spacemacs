@@ -39,9 +39,6 @@
   ;; vanilla lets `ivy' take over
   (use-package ivy-purpose
     :defer t
-    :commands (ivy-purpose-switch-buffer-with-purpose
-               ivy-purpose-switch-buffer-without-purpose
-               ivy-purpose-switch-buffer-with-some-purpose)
     :init
     (progn
       (setq purpose-preferred-prompt 'vanilla)
