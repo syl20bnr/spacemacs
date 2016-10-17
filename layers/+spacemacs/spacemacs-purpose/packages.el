@@ -97,10 +97,6 @@
   (use-package window-purpose
     :init
     (progn
-      ;; overriding `purpose-mode-map' with empty keymap, so it doesn't conflict
-      ;; with original `C-x C-f', `C-x b', etc. and `semantic' key bindings.
-      ;; must be done before `window-purpose' is loaded
-      (setq purpose-mode-map (make-sparse-keymap))
       ;; 'r' is for "puRpose" ('w', 'p' are crowded, 'W', 'P' aren't
       ;; comfortable)
       (spacemacs/set-leader-keys
@@ -113,6 +109,9 @@
       (purpose-mode))
     :config
     (progn
+      ;; overriding `purpose-mode-map' with empty keymap, so it doesn't conflict
+      ;; with original `C-x C-f', `C-x b', etc. and `semantic' key bindings.
+      (setcdr purpose-mode-map nil)
       (spacemacs|diminish purpose-mode)
       (purpose-x-golden-ratio-setup)
       ;; when killing a purpose-dedicated buffer that is displayed in a window,
