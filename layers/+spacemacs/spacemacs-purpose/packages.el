@@ -113,6 +113,7 @@
       (purpose-mode))
     :config
     (progn
+      (spacemacs|diminish purpose-mode)
       (purpose-x-golden-ratio-setup)
       ;; when killing a purpose-dedicated buffer that is displayed in a window,
       ;; ensure that the buffer is replaced by a buffer with the same purpose
