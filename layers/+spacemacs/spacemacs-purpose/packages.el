@@ -85,8 +85,6 @@
 
 (defun spacemacs-purpose/init-spacemacs-purpose-popwin ()
   (use-package spacemacs-purpose-popwin
-    ;; don't load spacemacs-purpose-popwin if popwin is excluded.
-    ;; can't wrap `spacemacs-purpose/init-purpose-popwin' in a top-level `when'
     :config
     (progn
       (pupo-mode)
