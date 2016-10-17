@@ -83,12 +83,7 @@
   (use-package spacemacs-purpose-popwin
     ;; don't load spacemacs-purpose-popwin if popwin is excluded.
     ;; can't wrap `spacemacs-purpose/init-purpose-popwin' in a top-level `when'
-    ;; spacemacs-purpose-popwin needs to be configured after popwin and
-    ;; window-purpose. popwin is guaranteed to run before
-    ;; spacemacs-purpose-popwin due to alphabetic order, but for window-purpose
-    ;; we need to use :after
-    :after window-purpose
-    :config
+    :init
     (progn
       (pupo-mode)
       ;; override popwin commands with pupo commands

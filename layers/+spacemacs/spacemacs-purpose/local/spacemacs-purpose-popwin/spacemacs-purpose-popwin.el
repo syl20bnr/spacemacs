@@ -4,6 +4,8 @@
 
 ;;; Code:
 
+(require 'window-purpose)
+
 (defconst pupo--direction-to-purpose '((left . popl)
                                        (right . popr)
                                        (top . popt)
