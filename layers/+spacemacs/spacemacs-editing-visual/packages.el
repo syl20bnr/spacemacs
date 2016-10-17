@@ -15,6 +15,7 @@
         adaptive-wrap
         auto-highlight-symbol
         column-enforce-mode
+        hide-comnt
         highlight-indentation
         highlight-numbers
         highlight-parentheses
@@ -288,6 +289,11 @@
         :documentation "Globally Highlight the characters past the 80th column."
         :evil-leader "t C-8"))
     :config (spacemacs|diminish column-enforce-mode "⑧" "8")))
+
+(defun spacemacs-editing-visual/init-hide-comnt ()
+  (use-package hide-comnt
+    :commands hide/show-comments-toggle
+    :init (spacemacs/set-leader-keys "ch" 'hide/show-comments-toggle)))
 
 (defun spacemacs-editing-visual/init-highlight-indentation ()
   (use-package highlight-indentation
