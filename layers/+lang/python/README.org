@@ -7,8 +7,10 @@
    - [[#features][Features]]
  - [[#install][Install]]
    - [[#layer][Layer]]
+   - [[#dependencies][Dependencies]]
+     - [[#auto-completion-anaconda-dependencies][Auto-completion: Anaconda dependencies]]
+     - [[#syntax-checking][Syntax checking]]
    - [[#test-runner][Test runner]]
-   - [[#anaconda-dependencies][Anaconda dependencies]]
    - [[#automatic-buffer-formatting-on-save][Automatic buffer formatting on save]]
    - [[#autoflake][autoflake]]
    - [[#pylookup][pylookup]]
@@ -51,6 +53,35 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =python= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+** Dependencies
+*** Auto-completion: Anaconda dependencies
+=anaconda-mode= tries to install the dependencies itself but sometimes
+it does not work and you may encounter the following message when
+opening a python buffer:
+
+#+begin_example
+    Blocking call to accept-process-output with quit inhibited!!
+#+end_example
+
+To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anaconda-mode/blob/master/requirements.txt][anaconda-deps]] by hand:
+
+#+begin_src sh
+    pip install --upgrade "jedi>=0.9.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
+#+end_src
+
+Source: https://github.com/proofit404/anaconda-mode#issues
+
+If you are facing errors such as "Unable to run anaconda-mode server", try
+setting your ~PYTHONPATH~ as explained at
+https://github.com/proofit404/anaconda-mode#pythonpath
+
+*** Syntax checking
+Syntax checking uses `flake8` package:
+
+#+begin_src sh
+    pip install flake8
+#+end_src
+
 ** Test runner
 Both =nose= and =pytest= are supported. By default =nose= is used.
 To choose your test runner set the layer variable =python-test-runner= to
@@ -76,27 +107,6 @@ directory local variable in your project root. ~SPC f v d~ in Spacemacs. See
 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html][the official documentation]] for more information.
 
 The root of the project is detected with a =.git= directory or a =setup.cfg= file.
-
-** Anaconda dependencies
-=anaconda-mode= tries to install the dependencies itself but sometimes
-it does not work and you may encounter the following message when
-opening a python buffer:
-
-#+begin_example
-    Blocking call to accept-process-output with quit inhibited!!
-#+end_example
-
-To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anaconda-mode/blob/master/requirements.txt][anaconda-deps]] by hand:
-
-#+begin_src sh
-    pip install  jedi==0.8.1 json-rpc==1.8.1 service_factory==0.1.2
-#+end_src
-
-Source: https://github.com/proofit404/anaconda-mode#issues
-
-If you are facing errors such as "Unable to run anaconda-mode server", try
-setting your ~PYTHONPATH~ as explained at
-https://github.com/proofit404/anaconda-mode#pythonpath
 
 ** Automatic buffer formatting on save
 To enable automatic buffer formatting on save with  [[https://github.com/google/yapf][YAPF]] set the variable
