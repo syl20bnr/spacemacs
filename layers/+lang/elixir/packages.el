@@ -142,7 +142,7 @@
 
 (defun elixir/pre-init-org ()
   (spacemacs|use-package-add-hook org
-    :post-config (add-to-list 'org-babel-load-languages '(python . t))))
+    :post-config (add-to-list 'org-babel-load-languages '(elixir . t))))
 
 (defun elixir/init-ob-elixir ()
   (spacemacs|use-package-add-hook org
