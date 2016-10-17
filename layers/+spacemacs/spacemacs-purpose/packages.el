@@ -52,7 +52,7 @@
       (global-set-key [remap purpose-switch-buffer-with-some-purpose]
                       #'ivy-purpose-switch-buffer-with-some-purpose))))
 
-(defun spacemacs-purpose/post-init-popwin ()
+(defun spacemacs-purpose/pre-init-popwin ()
   ;; when popwin creates a popup window, it removes the `purpose-dedicated'
   ;; window parameter from all windows, so we must save and restore it
   ;; ourselves. this works well as long as no buffer is displayed in more than
@@ -62,22 +62,24 @@
   ;; there is no problem if the local spacemacs-purpose-popwin package is used,
   ;; as long as the user doesn't call `popwin:create-popup-window' directly
   ;; (e.g. <f2> from `helm-mini')
-  (defvar window-purpose--dedicated-windows nil)
-  (defadvice popwin:create-popup-window
-      (before window-purpose/save-dedicated-windows)
-    (setq window-purpose--dedicated-windows
-          (cl-loop for window in (window-list)
-                   if (purpose-window-purpose-dedicated-p window)
-                   collect (window-buffer window))))
-  (defadvice popwin:create-popup-window
-      (after window-purpose/restore-dedicated-windows)
-    (cl-loop for buffer in window-purpose--dedicated-windows
-             do (cl-loop for window in (get-buffer-window-list buffer)
-                         do (purpose-set-window-purpose-dedicated-p window t))))
-  (add-hook 'purpose-mode-hook #'spacemacs/window-purpose-sync-popwin)
-  (when (boundp 'purpose-mode)
-    ;; sync with popwin now if window-purpose was already loaded
-    (spacemacs/window-purpose-sync-popwin)))
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    (progn
+      (defvar window-purpose--dedicated-windows nil)
+      (defadvice popwin:create-popup-window
+          (before window-purpose/save-dedicated-windows)
+        (setq window-purpose--dedicated-windows
+              (cl-loop for window in (window-list)
+                       if (purpose-window-purpose-dedicated-p window)
+                       collect (window-buffer window))))
+      (defadvice popwin:create-popup-window
+          (after window-purpose/restore-dedicated-windows)
+        (cl-loop for buffer in window-purpose--dedicated-windows
+                 do (cl-loop for window in (get-buffer-window-list buffer)
+                             do (purpose-set-window-purpose-dedicated-p
+                                 window t))))
+      (add-hook 'purpose-mode-hook #'spacemacs/window-purpose-sync-popwin)
+      (spacemacs/window-purpose-sync-popwin))))
 
 (defun spacemacs-purpose/init-purpose-popwin ()
   (use-package spacemacs-purpose-popwin
