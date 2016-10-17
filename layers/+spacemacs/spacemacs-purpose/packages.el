@@ -19,11 +19,13 @@
          :toggle (configuration-layer/package-usedp 'popwin))
         window-purpose))
 
-(defun spacemacs-purpose/post-init-eyebrowse ()
-  (add-hook 'purpose-mode-hook #'spacemacs/window-purpose-sync-eyebrowse)
-  (when (boundp 'purpose-mode)
-    ;; sync with eyebrowse now if window-purpose was already loaded
-    (spacemacs/window-purpose-sync-eyebrowse)))
+(defun spacemacs-purpose/pre-init-eyebrowse ()
+  (spacemacs|use-package-add-hook eyebrowse
+    :post-config
+    (progn
+      (add-hook 'purpose-mode-hook #'spacemacs/window-purpose-sync-eyebrowse)
+      ;; sync with eyebrowse now
+      (spacemacs/window-purpose-sync-eyebrowse))))
 
 (defun spacemacs-purpose/init-helm-purpose ()
   (use-package helm-purpose
