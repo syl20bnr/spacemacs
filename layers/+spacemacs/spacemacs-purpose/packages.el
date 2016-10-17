@@ -96,13 +96,13 @@
 (defun spacemacs-purpose/init-window-purpose ()
   (use-package window-purpose
     :init
-    ;; overriding `purpose-mode-map' with empty keymap, so it doesn't conflict
-    ;; with original `C-x C-f', `C-x b', etc. and `semantic' key bindings. must
-    ;; be done before `window-purpose' is loaded
-    (setq purpose-mode-map (make-sparse-keymap))
-    :config
     (progn
-      ;; 'r' is for "puRpose" ('w', 'p' are crowded, 'W', 'P' aren't comfortable)
+      ;; overriding `purpose-mode-map' with empty keymap, so it doesn't conflict
+      ;; with original `C-x C-f', `C-x b', etc. and `semantic' key bindings.
+      ;; must be done before `window-purpose' is loaded
+      (setq purpose-mode-map (make-sparse-keymap))
+      ;; 'r' is for "puRpose" ('w', 'p' are crowded, 'W', 'P' aren't
+      ;; comfortable)
       (spacemacs/set-leader-keys
         "rb" 'purpose-switch-buffer-with-purpose
         "rB" 'switch-buffer-without-purpose
@@ -110,7 +110,9 @@
         "rD" 'purpose-delete-non-dedicated-windows
         "rp" 'purpose-switch-buffer-with-some-purpose
         "rP" 'purpose-set-window-purpose)
-      (purpose-mode)
+      (purpose-mode))
+    :config
+    (progn
       (purpose-x-golden-ratio-setup)
       ;; when killing a purpose-dedicated buffer that is displayed in a window,
       ;; ensure that the buffer is replaced by a buffer with the same purpose
