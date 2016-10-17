@@ -2814,6 +2814,7 @@ Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][ev
 | Key Binding | Description               |
 |-------------+---------------------------|
 | ~SPC ;~     | comment operator          |
+| ~SPC c h~   | hide/show comments        |
 | ~SPC c l~   | comment lines             |
 | ~SPC c L~   | invert comment lines      |
 | ~SPC c p~   | comment paragraphs        |
