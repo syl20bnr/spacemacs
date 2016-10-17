@@ -5,24 +5,33 @@
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
-   - [[#layer][Layer]]
  - [[#working-with-nim][Working with Nim]]
    - [[#nim-commands-start-with-m][Nim commands (start with =m=):]]
 
 * Description
+This layer provides the following features for Nim:
 
-This layer adds support for nim (nimrod).
+- Code completion.
+- Jump to definition.
+- Syntax checking.
 
 * Install
-** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =nim= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+For syntax checking, the =syntax-checking= layer must also be added.
+
+For all the features to work properly, =nimsuggest= must be installed properly
+and =nimsuggest= binary must be in $PATH.
 
 * Working with Nim
 
 ** Nim commands (start with =m=):
 
-| Key Binding | Description                |
-|-------------+----------------------------|
-| ~SPC m c r~ | nim compile --run main.nim |
+| Key Binding        | Description                |
+|--------------------+----------------------------|
+| ~SPC m c r~        | nim compile --run main.nim |
+| ~SPC g g~ or ~M-.~ | Jump to definition         |
+| ~SPC g b~ or ~M-,~ | Jump back                  |
+|--------------------+----------------------------|
