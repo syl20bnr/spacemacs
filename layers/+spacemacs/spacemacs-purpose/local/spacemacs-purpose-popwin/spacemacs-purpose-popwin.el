@@ -240,5 +240,5 @@ variables are updated instead."
     (ad-update 'popwin:create-popup-window)))
 (add-hook 'pupo-mode-hook #'pupo/sync-advices)
 
-(provide 'purpose-popwin)
+(provide 'spacemacs-purpose-popwin)
 ;;; purpose-popwin.el ends here

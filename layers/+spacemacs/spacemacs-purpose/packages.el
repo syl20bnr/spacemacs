@@ -83,11 +83,11 @@
       (add-hook 'purpose-mode-hook #'spacemacs/window-purpose-sync-popwin)
       (spacemacs/window-purpose-sync-popwin))))
 
-(defun spacemacs-purpose/init-purpose-popwin ()
+(defun spacemacs-purpose/init-spacemacs-purpose-popwin ()
   (use-package spacemacs-purpose-popwin
     ;; don't load spacemacs-purpose-popwin if popwin is excluded.
     ;; can't wrap `spacemacs-purpose/init-purpose-popwin' in a top-level `when'
-    :init
+    :config
     (progn
       (pupo-mode)
       ;; override popwin commands with pupo commands
