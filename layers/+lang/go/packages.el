@@ -113,26 +113,20 @@
   (add-hook 'go-mode-hook 'go-eldoc-setup))
 
 (defun go/init-go-guru()
-  (let ((go-path (getenv "GOPATH")))
-    (if (not go-path)
-        (spacemacs-buffer/warning
-         "GOPATH variable not found, go-guru configuration skipped.")
-      (when (load-gopath-file
-             go-path "/src/golang.org/x/tools/cmd/guru/go-guru.el")
-        (spacemacs/declare-prefix-for-mode 'go-mode "mf" "guru")
-        (spacemacs/set-leader-keys-for-major-mode 'go-mode
-          "fd" 'go-guru-describe
-          "ff" 'go-guru-freevars
-          "fi" 'go-guru-implements
-          "fc" 'go-guru-peers
-          "fr" 'go-guru-referrers
-          "fj" 'go-guru-definition
-          "fp" 'go-guru-pointsto
-          "fs" 'go-guru-callstack
-          "fe" 'go-guru-whicherrs
-          "f<" 'go-guru-callers
-          "f>" 'go-guru-callees
-          "fo" 'go-guru-set-scope)))))
+  (spacemacs/declare-prefix-for-mode 'go-mode "mf" "guru")
+  (spacemacs/set-leader-keys-for-major-mode 'go-mode
+    "fd" 'go-guru-describe
+    "ff" 'go-guru-freevars
+    "fi" 'go-guru-implements
+    "fc" 'go-guru-peers
+    "fr" 'go-guru-referrers
+    "fj" 'go-guru-definition
+    "fp" 'go-guru-pointsto
+    "fs" 'go-guru-callstack
+    "fe" 'go-guru-whicherrs
+    "f<" 'go-guru-callers
+    "f>" 'go-guru-callees
+    "fo" 'go-guru-set-scope))
 
 (defun go/init-go-rename()
   (use-package go-rename
