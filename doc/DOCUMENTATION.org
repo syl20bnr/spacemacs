@@ -94,6 +94,7 @@
        - [[#c-z-and-tab-switch][C-z and Tab switch]]
        - [[#helm-focus][Helm focus]]
        - [[#helm-transient-state][Helm transient state]]
+     - [[#ivy][Ivy]]
    - [[#discovering][Discovering]]
      - [[#key-bindings][Key bindings]]
        - [[#which-key][Which-key]]
@@ -1586,6 +1587,19 @@ Initiate the transient state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
 | ~t~                  | mark current candidate                               |
 | ~T~                  | mark all candidates                                  |
 | ~v~                  | execute persistent action                            |
+
+*** Ivy
+If you choose =ivy= as completion system, make sure to read [[http://oremacs.com/swiper/][official manual]]. In
+case you don't want to read everything, at least familiarise with [[http://oremacs.com/swiper/#minibuffer-key-bindings][minibuffer key
+bindings]]. Some useful key bindings are presented in following table.
+
+| Key Binding    | Description                                                                                          |
+|----------------+------------------------------------------------------------------------------------------------------|
+| ~C-m~ or ~RET~ | call default action on current candidate                                                             |
+| ~M-o~          | show the list of valid actions on current candidate (then press any of described keys to execute it) |
+| ~C-M-m~        | the same as ~RET~ but doesn't close completion minibuffer                                            |
+| ~C-M-o~        | the same as ~M-o~ but doesn't close completion minibuffer                                            |
+| ~C-'~          | use avy to quickly select completion on current page (sometimes faster than using arrows)            |
 
 ** Discovering
 *** Key bindings
