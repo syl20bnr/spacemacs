@@ -113,8 +113,4 @@
       ;; with original `C-x C-f', `C-x b', etc. and `semantic' key bindings.
       (setcdr purpose-mode-map nil)
       (spacemacs|diminish purpose-mode)
-      (purpose-x-golden-ratio-setup)
-      ;; when killing a purpose-dedicated buffer that is displayed in a window,
-      ;; ensure that the buffer is replaced by a buffer with the same purpose
-      ;; (or the window deleted, if no such buffer)
-      (purpose-x-kill-setup))))
+      (purpose-x-golden-ratio-setup))))
