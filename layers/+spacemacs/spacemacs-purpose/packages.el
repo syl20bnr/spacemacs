@@ -109,6 +109,25 @@
       (purpose-mode))
     :config
     (progn
+      ;; change `switch-to-buffer' display preferences according to
+      ;; `dotspacemacs-switch-to-buffer-prefers-purpose'. This affects actions
+      ;; like `spacemacs/alternate-buffer', and opening buffers from Dired
+      (setcdr (assq 'switch-to-buffer purpose-action-sequences)
+              (if dotspacemacs-switch-to-buffer-prefers-purpose
+                  '(purpose-display-reuse-window-buffer
+                    purpose-display-reuse-window-purpose
+                    purpose-display-maybe-same-window
+                    purpose-display-maybe-other-window
+                    purpose-display-maybe-other-frame
+                    purpose-display-maybe-pop-up-window
+                    purpose-display-maybe-pop-up-frame)
+                '(purpose-display-maybe-same-window
+                  purpose-display-reuse-window-buffer
+                  purpose-display-reuse-window-purpose
+                  purpose-display-maybe-other-window
+                  purpose-display-maybe-other-frame
+                  purpose-display-maybe-pop-up-window
+                  purpose-display-maybe-pop-up-frame)))
       ;; overriding `purpose-mode-map' with empty keymap, so it doesn't conflict
       ;; with original `C-x C-f', `C-x b', etc. and `semantic' key bindings.
       (setcdr purpose-mode-map nil)
