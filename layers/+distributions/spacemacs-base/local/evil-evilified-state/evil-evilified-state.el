@@ -275,7 +275,7 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
                          (evilified-state--find-new-event event) nil
                          processed pending-funcs)))
     (when pending-funcs
-      (spacemacs-buffer/warning
+      (message
        (concat (format (concat "Auto-evilication could not remap these "
                                "functions in map `%s':\n")
                        map-symbol)
