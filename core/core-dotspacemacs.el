@@ -251,6 +251,14 @@ key sequence. Setting this variable is equivalent to setting
 right, and right-then-bottom. The last one will display on the
 right if possible and fallback to bottom if not.")
 
+(defvar dotspacemacs-switch-to-buffer-prefers-purpose nil
+  "Control where `switch-to-buffer' displays the buffer.
+If nil, `switch-to-buffer' displays the buffer in the current
+window even if another same-purpose window is available. If non
+nil, `switch-to-buffer' displays the buffer in a same-purpose
+window even if the buffer can be displayed in the current
+window.")
+
 (defvar dotspacemacs-loading-progress-bar t
   "If non nil a progress bar is displayed when spacemacs is loading. This
 may increase the boot time on some systems and emacs builds, set it to nil
