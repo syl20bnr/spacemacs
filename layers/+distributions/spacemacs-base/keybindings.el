@@ -304,6 +304,12 @@
   :off (hidden-mode-line-mode)
   :documentation "Toggle the visibility of modeline."
   :evil-leader "tmt")
+(spacemacs|add-toggle display-time
+  :status display-time-mode
+  :on (display-time-mode)
+  :off (display-time-mode -1)
+  :documentation "Display time in modeline."
+  :evil-leader "tmT")
 (spacemacs|add-toggle transparent-frame
   :status nil
   :on (spacemacs/toggle-transparency)
