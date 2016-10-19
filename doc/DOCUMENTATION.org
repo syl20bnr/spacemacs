@@ -1086,6 +1086,7 @@ and ~T~):
 | ~SPC t h h~ | toggle highlight of the current line                              |
 | ~SPC t h i~ | toggle highlight indentation levels                               |
 | ~SPC t h c~ | toggle highlight indentation current column                       |
+| ~SPC t H~   | toggle syntax highlighting                                        |
 | ~SPC t i~   | toggle indentation guide at point                                 |
 | ~SPC t l~   | toggle truncate lines                                             |
 | ~SPC t L~   | toggle visual lines                                               |
