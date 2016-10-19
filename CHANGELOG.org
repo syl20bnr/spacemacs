@@ -1,4 +1,123 @@
 * Release 0.200.x
+** 0.200.3 (2016/10/18)
+*** Fixes
+- Fix broken macOS paths for homebrew service (thanks to mgiles)
+*** Improvements
+- Add =system-configuration-features= to system description (~SPC h d s~)
+  for Emacs 25 and later (thanks to JAremko)
+- Add support for =doom= themes (thanks to TheBB)
+- Revert back default value for =dotspacemacs-startup-lists= (was previously
+  changed to be nil)
+- Warn if layers changed outside =dotspacemacs/layers= function
+  (thanks to TheBB)
+- Show a list of Spacemacs warnings in home buffer (thanks to TheBB)
+- Prevent =:toggle= expression from being evaluated for excluded packages
+  (thanks to TheBB)
+- Various documentation improvements (thanks to arronmabrey, carbohydratesn,
+  d12frosted, d1egoaz, deb0ch, duianto, eagleflo, JAremko, jredville, lunik1,
+  mineo, nixmaniack, philtothetop, roryokane, swaroopch, TheBB, Tritlo, tudho,
+  xificurC)
+*** Layer changes
+**** Spacemacs distribution
+- Add =golden-ratio= toggle key in window transient-state only when
+  =golden-ratio= package is used (thanks to bmag)
+- Enable line numbers for =conf-mode= (by deriving =conf-mode= from
+  =text-mode=) (thanks to valentjedi)
+- New key binding ~SPC c h~ to hide/show comments in a file using the package
+  =hide-comnt=
+- Add ~q~ key binding to quit the =evil-number= transient-state (thanks to duianto)
+- Activating =linum-relative= now correctly activates =linum= (thanks to deb0ch)
+**** C/C++
+- Match entire path after -I when reading cc-file (function
+  =company-mode/load-clang-complete-file=) (thanks to jlewallen)
+**** Common-lisp
+- Enable fuzzy matching for auto-completion (thanks to tuhdo)
+**** D
+- Add support for auto-completion via =DCD= (thanks to tuhdo)
+- Add new key bindings for code navigation:
+  - ~SPC m g g~ to go to definition
+  - ~SPC m g b~ to jump back (after go to definition with above command)
+  - ~SPC m g r~ to find references to all symbol at point
+  (thanks to tuhdo)
+**** IPython-notebook
+- Fix deprecated =axes.color_cycle= in =matplotlibrc= (thanks to Retorz)
+**** Ivy
+- Fix spacemacs layout transient-state to correctly exit when selecting a layout
+  (thanks to gilbertw1)
+- Make =ivy= restrict buffers to current spacemacs layout (thanks to bmag)
+**** Elixir
+- Add support for =org-babel= (thanks to usharf)
+- Enable =flycheck= on idle since recent changes to =flycheck-mix= make it safe
+  (thanks to aaronjensen)
+**** ERC
+- Fix connecting to default servers with TLS more than once with ERC
+  (thanks to Hoot215)
+**** Git
+- Use =fill-column-indicator= only when the package is effectively used
+  (thanks to bmag)
+- Use =magit= 2.8 built-in fullscreen display function (update your
+  packages) (thanks to houli)
+**** Go
+- Replace deprecated =go-oracle= by =go-guru= (thanks to edrex)
+- Remove check for =GOPATH= when initializing =go-guru= (thanks to goofansu)
+- Fix usage of =go-rename= on symlinked projects (thanks to grncdr)
+**** Helm
+- Add key binding ~M-RET~ (meta-return) to open the file =packages.el=
+  of a layer in =helm-spacemacs-help= under ~SPC h SPC~ (thansk to CestDiego)
+**** Html
+- Fix hooks for CSS-mode since it now derives from =prog-mode= in Emacs 25
+  (thanks to TheBB)
+**** Javascript
+- Add missing command prefix names (thanks to shanavas786)
+**** Ocaml
+- Add =cmti= extension to list of ignored completion extensions
+  (thanks to rgrinberg)
+**** Org
+- Fix location of =org-async-init.el= (thanks to fintelkai)
+- Add support for =:q= and =:wq= ex commands for abort and finalize in
+  =org-capture= and =org-src-edit= (thanks to mwillsey)
+- Add support for =Twitter Bootstrap= for export to html.
+  To enable the support for =bootstrap= set the new layer variable
+  =org-enable-bootstrap-support= to =t= (thanks to kalhauge)
+**** Nim
+- Add support =nimsuggest= for better completion using Nim's IDE tool
+  (thanks to tuhdo)
+- Add support for =eldoc= via =nimsuggest= (thanks to tuhdo)
+- New key bindings for code navigation:
+  - ~SPC m g g~ to jump to definition
+  - ~SPC m g b~ to jump back
+  (thanks to tuhdo)
+**** Plantuml
+- Replace deprecated =puml-mode= by =plantuml-mode= (thanks to skuro)
+**** Python
+- Fix start of REPL for Emacs 25.1 (thanks to bmag)
+- Make =python-tab-width= configurable (thanks to TheBB)
+- Add support for =wdb= debugger when inserting breakpoints using ~SPC m d b~
+  (thanks to koterpillar)
+- Use =semantic= for =imenu= only when =semantic-mode= is enabled
+  (thanks to bmag)
+- Improve =spacemacs/python-execute-file= on ~SPC m c c~ to pre-fill
+  "python <filename>" as the compile command when using the universal prefix
+  argument ~SPC u SPC m c c~ (thanks to bmag)
+**** Ruby
+- Add support for =minitest= test runner (thanks to pawandubey)
+**** Ruby on rails
+- Declare prefix command for =ruby-mode= and =enh-ruby-mode= (thanks to selmanj)
+**** Scala
+- Remove =ensime= obsolete commands =ensime-db-start= and
+  =ensime-db-list-locals= (thanks to atreeyang)
+**** Shell-scripts
+- New key binding ~SPC i !~ to insert shebang line in script files using
+  package =insert-shebang=
+**** Syntax checking
+- Add support for new =flycheck= feature =flycheck-explain-error= on ~SPC e e~
+  (thanks to fmdkdd)
+**** Typescript
+- Add support for auto-completion (thanks to TheBB)
+**** Yaml
+- Add support for syntax checking (thanks to rski)
+**** Ycmd
+- Improve search of nearest file in compilation database (thanks to deb0ch)
 ** 0.200.2 (2016/10/14)
 *** Fixes
 -  Fix compatibility with the =xterm-color= package (thanks to bixuanzju)
@@ -75,7 +194,7 @@
     - ~SPC J~ to split a string or sexp has been moved to ~SPC j s~
 - All helm related key bindings under ~SPC h~ that are not about help have
   been moved to different key bindings:
-  - ~SPC h b~ for =helm-filtered-bookmarks= is now ~SPC f b~
+  - ~SPC h b~ for =helm-filtered-bookmarks~is now ~SPC f b~
   - ~SPC h l~ for =helm-resume= is now ~SPC r l~
   - ~SPC h L~ for =helm-locate-library= is now ~SPC f e l~
 - Git key bindings under ~SPC g~ have been reorganised to free up some keys
@@ -112,7 +231,7 @@
   micro states (thanks to justbur)
 - New =jump to definition= abstraction to handle multiple jump backends like
   tags, dumb-jump etc... (thanks to TheBB)
-- Global access to all available REPLs with ~SPC a '~ and ~SPC m '~ (thanks to
+- Global access to all available REPLs with ~SPC a '~ and `SPC m '~ (thanks to
   AlejandroCatalina and TheBB)
 - New debugging tools:
   - press ~SPC q d~ to restart Emacs in debug mode with command line parameter
