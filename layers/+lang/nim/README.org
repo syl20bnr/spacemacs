@@ -29,9 +29,9 @@ and =nimsuggest= binary must be in $PATH.
 
 ** Nim commands (start with =m=):
 
-| Key Binding        | Description                |
-|--------------------+----------------------------|
-| ~SPC m c r~        | nim compile --run main.nim |
-| ~SPC g g~ or ~M-.~ | Jump to definition         |
-| ~SPC g b~ or ~M-,~ | Jump back                  |
-|--------------------+----------------------------|
+| Key Binding          | Description                |
+|----------------------+----------------------------|
+| ~SPC m c r~          | nim compile --run main.nim |
+| ~SPC m g g~ or ~M-.~ | Jump to definition         |
+| ~SPC m g b~ or ~M-,~ | Jump back                  |
+|----------------------+----------------------------|
