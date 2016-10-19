@@ -4,6 +4,14 @@ This file containes the change log for the next major version of Spacemacs.
 
 * Release 0.201.x
 ** 0.201.0
+*** Hot new feature
+- Introduction of =spacemacs-purpose= layer in charge of handling Emacs windows
+  assignation for actions opening new buffers. This layer brings more
+  consistency to windows creation by giving them a purpose (i.e. =edit=,
+  =help=, etc...)
+  (thanks to bmag)
+*** New layers
+- =spacemacs-purpose= in =+spacemacs= directory (thanks to bmag)
 *** Layer changes
 **** Org
 - Move clock related key bindings to ~SPC a o k~
