@@ -85,6 +85,7 @@
     soft-morning-theme
     soft-stone-theme
     soothe-theme
+    sourcerer-theme
     spacegray-theme
     stekene-theme
     subatomic-theme
