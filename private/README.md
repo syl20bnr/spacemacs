@@ -5,7 +5,7 @@ where to store your private configuration layers.
 
 To create a new configuration layer:
 
-    <SPC> : configuration-layer/create-layer RET
+    SPC SPC configuration-layer/create-layer RET
 
 Then enter the name of your configuration in the prompt.
 

@@ -260,6 +260,8 @@
         (skewer-repl)
         (evil-insert-state))
 
+      (spacemacs/declare-prefix-for-mode 'js2-mode "ms" "skewer")
+      (spacemacs/declare-prefix-for-mode 'js2-mode "me" "eval")
       (spacemacs/set-leader-keys-for-major-mode 'js2-mode
         "'" 'spacemacs/skewer-start-repl
         "ee" 'skewer-eval-last-expression

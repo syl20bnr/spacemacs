@@ -38,7 +38,8 @@
 (defun spacemacs/python-toggle-breakpoint ()
   "Add a break point, highlight it."
   (interactive)
-  (let ((trace (cond ((spacemacs/pyenv-executable-find "ipdb") "import ipdb; ipdb.set_trace()")
+  (let ((trace (cond ((spacemacs/pyenv-executable-find "wdb") "import wdb; wdb.set_trace()")
+                     ((spacemacs/pyenv-executable-find "ipdb") "import ipdb; ipdb.set_trace()")
                      ((spacemacs/pyenv-executable-find "pudb") "import pudb; pudb.set_trace()")
                      (t "import pdb; pdb.set_trace()")))
         (line (thing-at-point 'line)))
@@ -88,9 +89,17 @@ Anaconda provides more useful information but can not do it properly
 when this mode is enabled since the minibuffer is cleared all the time."
   (semantic-idle-summary-mode 0))
 
-(defun spacemacs//python-imenu-create-index-use-semantic ()
+(defun spacemacs//python-imenu-create-index-use-semantic-maybe ()
   "Use semantic if the layer is enabled."
-  (setq imenu-create-index-function 'semantic-create-imenu-index))
+  (setq imenu-create-index-function 'spacemacs/python-imenu-create-index))
+
+;; fix for issue #2569 (https://github.com/syl20bnr/spacemacs/issues/2569) and
+;; Emacs 24.5 and older. use `semantic-create-imenu-index' only when
+;; `semantic-mode' is enabled, otherwise use `python-imenu-create-index'
+(defun spacemacs/python-imenu-create-index ()
+  (if (bound-and-true-p semantic-mode)
+      (semantic-create-imenu-index)
+    (python-imenu-create-index)))
 
 (defun spacemacs//python-get-main-testrunner ()
   "Get the main test runner."

@@ -9,10 +9,14 @@
 ;;
 ;;; License: GPLv3
 (setq yaml-packages '(company
+                      flycheck
                       yaml-mode))
 
 (defun yaml/post-init-company ()
   (spacemacs|add-company-hook yaml-mode))
+
+(defun yaml/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'yaml-mode))
 
 (defun yaml/init-yaml-mode ()
   "Initialize YAML mode"

@@ -12,6 +12,7 @@
 (setq git-packages
       '(
         evil-magit
+        fill-column-indicator
         gitattributes-mode
         gitconfig-mode
         gitignore-mode
@@ -33,6 +34,9 @@
     (require 'evil-magit)
     (evil-define-key 'motion magit-mode-map
       (kbd dotspacemacs-leader-key) spacemacs-default-map)))
+
+(defun git/post-init-fill-column-indicator ()
+  (add-hook 'git-commit-mode-hook 'fci-mode))
 
 (defun git/init-helm-gitignore ()
   (use-package helm-gitignore
@@ -113,7 +117,6 @@
                 'ivy-completing-read
               'magit-builtin-completing-read))
       (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
-      (add-hook 'git-commit-mode-hook 'fci-mode)
       ;; On Windows, we must use Git GUI to enter username and password
       ;; See: https://github.com/magit/magit/wiki/FAQ#windows-cannot-push-via-https
       (when (eq window-system 'w32)
@@ -124,6 +127,7 @@
       (spacemacs/set-leader-keys
         "gb"  'spacemacs/git-blame-micro-state
         "gfh" 'magit-log-buffer-file
+        "gL"  'magit-list-repositories
         "gm"  'magit-dispatch-popup
         "gs"  'magit-status
         "gS"  'magit-stage-file
@@ -154,6 +158,11 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
       (require 'git-rebase)
       ;; bind function keys
       ;; (define-key magit-mode-map (kbd "<tab>") 'magit-section-toggle)
+      (evilified-state-evilify-map magit-repolist-mode-map
+          :mode magit-repolist-mode
+          :bindings
+          (kbd "gr") 'magit-list-repositories
+          (kbd "RET") 'magit-repolist-status)
       (unless (configuration-layer/package-usedp 'evil-magit)
         ;; use auto evilification if `evil-magit' is not used
         (evilified-state-evilify-map magit-mode-map
@@ -358,7 +367,7 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
         'spacemacs/magit-toggle-whitespace)
       ;; full screen magit-status
       (when git-magit-status-fullscreen
-        (setq magit-display-buffer-function 'spacemacs//fullscreen-magit)))))
+        (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)))))
 
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow

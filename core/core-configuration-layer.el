@@ -375,6 +375,8 @@ refreshed during the current session."
   "Synchronize declared layers in dotfile with spacemacs.
 If NO-INSTALL is non nil then install steps are skipped."
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
+  (setq dotspacemacs--configuration-layers-saved
+        dotspacemacs-configuration-layers)
   (when (spacemacs-buffer//choose-banner)
     (spacemacs-buffer//inject-version))
   ;; declare used layers then packages as soon as possible to resolve
@@ -984,8 +986,8 @@ return both used and unused packages."
             (not (stringp (oref pkg :location)))
             (or (null usedp)
                 (and (not (null (oref pkg :owners)))
-                     (cfgl-package-enabledp pkg)
-                     (not (oref pkg :excluded)))))))))
+                     (not (oref pkg :excluded))
+                     (cfgl-package-enabledp pkg))))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path to the private configuration layer string NAME."

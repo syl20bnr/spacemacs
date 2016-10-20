@@ -17,6 +17,7 @@
                                       spacemacs-evil
                                       spacemacs-language
                                       spacemacs-misc
+                                      spacemacs-purpose
                                       spacemacs-ui
                                       spacemacs-ui-visual
                                       spacemacs-org))

@@ -126,6 +126,9 @@ whenever you start Emacs.")
 (defvar dotspacemacs-configuration-layers '(emacs-lisp)
   "List of configuration layers to load.")
 
+(defvar dotspacemacs--configuration-layers-saved nil
+  "Saved value of `dotspacemacs-configuration-layers' after sync.")
+
 (defvar dotspacemacs-themes '(spacemacs-dark
                               spacemacs-light)
   "List of themes, the first of the list is loaded when spacemacs starts.
@@ -324,7 +327,8 @@ tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.")
 specified with an installed package.
 NOT USED FOR NOW :-)")
 
-(defvar dotspacemacs-startup-lists '()
+(defvar dotspacemacs-startup-lists '((recents  . 5)
+                                    (projects . 7))
   "Association list of items to show in the startup buffer of the form
 `(list-type . list-size)`. If nil it is disabled.
 Possible values for list-type are:
@@ -360,6 +364,16 @@ are caught and signalled to user in spacemacs buffer."
                                            ',(symbol-name func)
                                            (error-message-string err))
                                    t))))))
+
+(defun dotspacemacs//check-layers-changed ()
+  "Check if the value of `dotspacemacs-configuration-layers'
+changed, and issue a warning if it did."
+  (unless (eq dotspacemacs-configuration-layers
+              dotspacemacs--configuration-layers-saved)
+    (spacemacs-buffer/warning
+     "`dotspacemacs-configuration-layers' was changed outside of `dotspacemacs/layers'.")))
+(add-hook 'spacemacs-post-user-config-hook
+          'dotspacemacs//check-layers-changed)
 
 (defun dotspacemacs//read-editing-style-config (config)
   "Read editing style CONFIG: apply variables and return the editing style.
@@ -465,7 +479,7 @@ before copying the file if the destination already exists."
   (interactive)
   (let* ((copy? (if (file-exists-p dotspacemacs-filepath)
                     (y-or-n-p
-                     (format "%s already exists. Do you want to overwite it ? "
+                     (format "%s already exists. Do you want to overwrite it ? "
                              dotspacemacs-filepath)) t)))
     (when copy?
       (copy-file (concat dotspacemacs-template-directory
@@ -528,7 +542,7 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
       (let ((install
              (if (file-exists-p dotspacemacs-filepath)
                  (y-or-n-p
-                  (format "%s already exists. Do you want to overwite it ? "
+                  (format "%s already exists. Do you want to overwrite it ? "
                           dotspacemacs-filepath)) t)))
         (when install
           (write-file dotspacemacs-filepath)

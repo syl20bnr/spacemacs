@@ -34,6 +34,10 @@ Cancels autosave on exiting perspectives mode."
       (cancel-timer spacemacs--layouts-autosave-timer)
       (setq spacemacs--layouts-autosave-timer nil))))
 
+(defun spacemacs//layout-not-contains-buffer-p (buffer)
+  "Return non-nil if current layout doesn't contain BUFFER."
+  (not (persp-contain-buffer-p buffer)))
+
 (defun spacemacs/jump-to-last-layout ()
   "Open the previously selected layout, if it exists."
   (interactive)
@@ -49,10 +53,15 @@ current perspective."
   (with-persp-buffer-list ()
                           (switch-to-buffer (other-buffer (current-buffer) t))))
 
-(defun spacemacs-layouts/non-restricted-buffer-list ()
+(defun spacemacs-layouts/non-restricted-buffer-list-helm ()
   (interactive)
   (let ((ido-make-buffer-list-hook (remove #'persp-restrict-ido-buffers ido-make-buffer-list-hook)))
     (helm-mini)))
+
+(defun spacemacs-layouts/non-restricted-buffer-list-ivy ()
+  (interactive)
+  (let ((ivy-ignore-buffers (remove #'spacemacs//layout-not-contains-buffer-p ivy-ignore-buffers)))
+    (ivy-switch-buffer)))
 
 
 ;; Persp transient-state
