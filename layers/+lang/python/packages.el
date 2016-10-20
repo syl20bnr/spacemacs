@@ -145,8 +145,6 @@
 
 (defun python/init-nose ()
   (use-package nose
-    :if (or (eq 'nose python-test-runner)
-            (if (listp python-test-runner) (member 'nose python-test-runner)))
     :commands (nosetests-one
                nosetests-pdb-one
                nosetests-all
@@ -155,12 +153,7 @@
                nosetests-pdb-module
                nosetests-suite
                nosetests-pdb-suite)
-    :init
-    (progn
-      (spacemacs//bind-python-testing-keys)
-      (spacemacs/set-leader-keys-for-major-mode 'python-mode
-        "tS" 'nosetests-pdb-suite
-        "ts" 'nosetests-suite))
+    :init (spacemacs//bind-python-testing-keys)
     :config
     (progn
       (add-to-list 'nose-project-root-files "setup.cfg")
@@ -241,9 +234,6 @@
 
 (defun python/init-pytest ()
   (use-package pytest
-    :if (or (eq 'pytest python-test-runner)
-            (if (listp python-test-runner) (member 'pytest python-test-runner)))
-    :defer t
     :commands (pytest-one
                pytest-pdb-one
                pytest-all
