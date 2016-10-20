@@ -80,6 +80,9 @@ the final step of executing code in `emacs-startup-hook'.")
   (dotspacemacs/load-file)
   (require 'core-configuration-layer)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
+  (when dotspacemacs-maximized-at-startup
+    (toggle-frame-maximized)
+    (add-to-list 'default-frame-alist '(fullscreen . maximized)))
   (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
   (setq dotspacemacs-editing-style (dotspacemacs//read-editing-style-config
                                     dotspacemacs-editing-style))
