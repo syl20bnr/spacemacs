@@ -326,9 +326,9 @@ to aggressively delete empty lines and long sequences of whitespace, `trailing'
 to delete only the whitespace at end of lines, `changed' to delete only
 whitespace for changed lines or `nil' to disable cleanup.")
 
-(defvar dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
+(defvar dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
   "List of search tool executable names. Spacemacs uses the first installed
-tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.")
+tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.")
 
 (defvar dotspacemacs-default-package-repository 'melpa-stable
   "The default package repository used if no explicit repository has been
