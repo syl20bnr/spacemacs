@@ -76,10 +76,6 @@
         "saF" 'spacemacs/search-ag-region-or-symbol
         "sap" 'spacemacs/search-project-ag
         "saP" 'spacemacs/search-project-ag-region-or-symbol
-        "stf" 'spacemacs/search-pt
-        "stF" 'spacemacs/search-pt-region-or-symbol
-        "stp" 'spacemacs/search-project-pt
-        "stP" 'spacemacs/search-project-pt-region-or-symbol
         "sgf" 'spacemacs/search-grep
         "sgF" 'spacemacs/search-grep-region-or-symbol
         "sgp" 'counsel-git-grep
@@ -87,7 +83,15 @@
         "skf" 'spacemacs/search-ack
         "skF" 'spacemacs/search-ack-region-or-symbol
         "skp" 'spacemacs/search-project-ack
-        "skP" 'spacemacs/search-project-ack-region-or-symbol)
+        "skP" 'spacemacs/search-project-ack-region-or-symbol
+        "srf" 'spacemacs/search-rg
+        "srF" 'spacemacs/search-rg-region-or-symbol
+        "srp" 'spacemacs/search-project-rg
+        "srP" 'spacemacs/search-project-rg-region-or-symbol
+        "stf" 'spacemacs/search-pt
+        "stF" 'spacemacs/search-pt-region-or-symbol
+        "stp" 'spacemacs/search-project-pt
+        "stP" 'spacemacs/search-project-pt-region-or-symbol)
 
       ;; set additional ivy actions
       (ivy-set-actions
