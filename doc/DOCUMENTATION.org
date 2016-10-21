@@ -1153,6 +1153,7 @@ Some elements can be dynamically toggled:
 | ~SPC t m n~ | toggle the cat! (if =colors= layer is declared in your dotfile) |
 | ~SPC t m p~ | toggle the point character position                             |
 | ~SPC t m t~ | toggle the mode line itself                                     |
+| ~SPC t m T~ | toggle the time                                                 |
 | ~SPC t m v~ | toggle the version control info                                 |
 | ~SPC t m V~ | toggle the new version lighter                                  |
 
