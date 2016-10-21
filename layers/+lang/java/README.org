@@ -42,7 +42,7 @@ Then set the =Eclipse= and =Eclim= paths in =dotspacemacs/user-config=,
 for instance:
 
 #+BEGIN_SRC elisp
-  (setq eclim-eclipse-dirs "~/opt/eclipse"
+  (setq eclim-eclipse-dirs '("~/opt/eclipse")
         eclim-executable "~/opt/eclipse/eclim")
 #+END_SRC
 
