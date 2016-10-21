@@ -457,7 +457,7 @@ guidelines first in [[file:../CONTRIBUTING.org][CONTRIBUTING]].
 
 ** Example: Themes Megapack example
 This is a simple configuration layer listing a bunch of themes which you can
-find [[../layers/themes-megapack/README.org][here]].
+find [[../layers/%2Bthemes/themes-megapack/README.org][here]].
 
 To install it, just add =themes-megapack= to your =~/.spacemacs= like so:
 
@@ -1265,7 +1265,7 @@ can be reached using the =control= key.
 | ~SPC t p~   | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                                                     |
 | ~SPC t C-p~ | =ⓟ=     | p     | global smartparens                                                   |
 | ~SPC t s~   | =ⓢ=     | s     | syntax checking (flycheck)                                           |
-| ~SPC t S~   | =Ⓢ=     | S     | enabled in [[../layers/spell-checking][spell checking layer]] (flyspell)                           |
+| ~SPC t S~   | =Ⓢ=     | S     | enabled in [[../layers/%2Bcheckers/spell-checking][spell checking layer]] (flyspell)                           |
 | ~SPC t w~   | =ⓦ=     | w     | whitespace mode                                                      |
 | ~SPC t C-w~ | =ⓦ=     | w     | global whitespace                                                    |
 | ~SPC t W~   | =Ⓦ=     | W     | automatic whitespace cleanup (see =dotspacemacs-whitespace-cleanup=) |
@@ -2657,7 +2657,7 @@ In transient state:
 argument (ie. ~10 SPC n +~ will add 10 to the number under point).
 
 *** Spell checking
-Spell checking is enabled by including the [[../layers/spell-checking][spell
+Spell checking is enabled by including the [[../layers/%2Bcheckers/spell-checking][spell
 checking]] layer in your dotfile.
 
 Keybindings are listed in the layer documentation.
