@@ -311,7 +311,7 @@
 (spacemacs|add-toggle syntax-highlighting
   :mode font-lock-mode
   :documentation "Toggle syntax highlighting."
-  :evil-leader "tH")
+  :evil-leader "ths")
 (spacemacs|add-toggle transparent-frame
   :status nil
   :on (spacemacs/toggle-transparency)
