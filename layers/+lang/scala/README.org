@@ -107,7 +107,7 @@ variable =scala-enable-eldoc= to =t=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (scala :variables scala-use-java-doc-style t)))
+    (scala :variables scala-enable-eldoc t)))
 #+END_SRC
 
 Enabling this option can cause slow editor performance.
