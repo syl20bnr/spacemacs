@@ -9,7 +9,7 @@ axes.facecolor      : 383838   # axes background color
 axes.edgecolor      : bcbcbc   # axes edge color
 axes.grid           : True     # display grid or not
 axes.labelcolor     : dcdccc
-axes.prop_cycle     : 8cd0d3, 7f9f7f, cc9393, 93e0e3, dc8cc3, f0dfaf, dcdccc
+axes.prop_cycle     : cycler('color', ['8cd0d3', '7f9f7f', 'cc9393', '93e0e3', 'dc8cc3', 'f0dfaf', 'dcdccc'])
 # (system default)    blue,   green,  red,    cyan,  magenta, yellow, black
 
 xtick.color          : dcdccc      # color of the tick labels
