@@ -41,7 +41,7 @@ that differed modifications won't cause an overflow."
   :type 'integer
   :group 'spacemacs-centered-buffer-mode)
 
-(defcustom spacemacs-centered-buffer-mode-fringe-color "black"
+(defcustom spacemacs-centered-buffer-mode-fringe-color (face-background 'default)
   "Color of the fringes."
   :type 'color
   :group 'spacemacs-centered-buffer-mode)
