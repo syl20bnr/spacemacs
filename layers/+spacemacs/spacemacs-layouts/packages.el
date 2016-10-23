@@ -129,8 +129,6 @@
       (spacemacs/defer-until-after-user-config #'spacemacs//activate-persp-mode)
 
       ;; layouts transient state
-      ;; TODO move helm specific key bindings to helm layer
-      ;;      (see ivy for how to do it)
       (spacemacs|transient-state-format-hint layouts
         spacemacs--layouts-ts-full-hint
         "\n\n
@@ -181,11 +179,9 @@
         ("C-l" persp-next)
         ("a" persp-add-buffer :exit t)
         ("A" persp-import-buffers :exit t)
-        ("b" spacemacs/persp-helm-mini :exit t)
         ("d" spacemacs/layouts-ts-close)
         ("D" spacemacs/layouts-ts-close-other :exit t)
         ("h" spacemacs/layout-goto-default :exit t)
-        ("l" spacemacs/helm-perspectives :exit t)
         ("L" persp-load-state-from-file :exit t)
         ("n" persp-next)
         ("N" persp-prev)

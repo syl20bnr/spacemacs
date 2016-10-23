@@ -191,7 +191,7 @@
    '(("c" persp-kill-without-buffers "Close layout(s)")
      ("k" persp-kill  "Kill layout(s)")))
   (setq spacemacs-layouts-transient-state-remove-bindings
-        '("b" "l" "C" "X"))
+        '("C" "X"))
   (setq spacemacs-layouts-transient-state-add-bindings
         '(("b" spacemacs/ivy-spacemacs-layout-buffer :exit t)
           ("l" spacemacs/ivy-spacemacs-layouts :exit t)
