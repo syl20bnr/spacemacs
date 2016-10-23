@@ -25,6 +25,7 @@
         helm-themes
         (helm-spacemacs-help :location local)
         imenu
+        persp-mode
         popwin
         projectile
         ))
@@ -593,3 +594,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
 (defun helm/post-init-projectile ()
   (setq projectile-completion-system 'helm))
+
+(defun helm/post-init-persp-mode ()
+   (setq spacemacs-layouts-transient-state-add-bindings
+           '(("b" spacemacs/persp-helm-mini :exit t)
+             ("l" spacemacs/helm-perspectives :exit t))))
