@@ -231,7 +231,14 @@ Dedicated (locked) windows are left untouched."
               (interactive "P")
               (if arg
                   (spacemacs/swap-buffers-to-window ,n t)
-                (spacemacs/move-buffer-to-window ,n t))))))
+                (spacemacs/move-buffer-to-window ,n t))))
+    (eval `(defun ,(intern (format "move-buffer-window-no-follow-%s" n)) ()
+             (interactive)
+             (spacemacs/move-buffer-to-window ,n nil)))
+    (eval `(defun ,(intern (format "swap-buffer-window-no-follow-%s" n)) ()
+             (interactive)
+             (spacemacs/swap-buffers-to-window ,n nil)))
+    ))
 
 (defun spacemacs/rename-file (filename &optional new-filename)
   "Rename FILENAME to NEW-FILENAME.
