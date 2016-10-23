@@ -462,12 +462,44 @@
 
 (spacemacs|define-transient-state buffer
   :title "Buffer Selection Transient State"
+  :doc (concat "
+ [_C-1_,_C-9_]^^  goto nth window              [_n_]^^     next buffer
+ [_1_,_9_]^^      move buffer to nth window    [_N_/_p_]   previous buffer
+ [_M-1_,_M-9_]^^  swap buffer w/ nth window    [_d_]^^     kill buffer
+              ^^^^^^                           [_q_]^^     quit")
   :bindings
-  ("n" next-buffer "next")
-  ("N" previous-buffer "previous")
-  ("p" previous-buffer "previous")
-  ("K" spacemacs/kill-this-buffer "kill")
-  ("q" nil "quit" :exit t))
+  ("n" next-buffer)
+  ("N" previous-buffer)
+  ("p" previous-buffer)
+  ("d" spacemacs/kill-this-buffer)
+  ("q" nil :exit t)
+  ("1" move-buffer-window-no-follow-1)
+  ("2" move-buffer-window-no-follow-2)
+  ("3" move-buffer-window-no-follow-3)
+  ("4" move-buffer-window-no-follow-4)
+  ("5" move-buffer-window-no-follow-5)
+  ("6" move-buffer-window-no-follow-6)
+  ("7" move-buffer-window-no-follow-7)
+  ("8" move-buffer-window-no-follow-8)
+  ("9" move-buffer-window-no-follow-9)
+  ("M-1" swap-buffer-window-no-follow-1)
+  ("M-2" swap-buffer-window-no-follow-2)
+  ("M-3" swap-buffer-window-no-follow-3)
+  ("M-4" swap-buffer-window-no-follow-4)
+  ("M-5" swap-buffer-window-no-follow-5)
+  ("M-6" swap-buffer-window-no-follow-6)
+  ("M-7" swap-buffer-window-no-follow-7)
+  ("M-8" swap-buffer-window-no-follow-8)
+  ("M-9" swap-buffer-window-no-follow-9)
+  ("C-1" select-window-1)
+  ("C-2" select-window-2)
+  ("C-3" select-window-3)
+  ("C-4" select-window-4)
+  ("C-5" select-window-5)
+  ("C-6" select-window-6)
+  ("C-7" select-window-7)
+  ("C-8" select-window-8)
+  ("C-9" select-window-9))
 (spacemacs/set-leader-keys "b." 'spacemacs/buffer-transient-state/body)
 
 ;; end of Buffer transient state
