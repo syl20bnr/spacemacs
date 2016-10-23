@@ -193,7 +193,7 @@
   (setq spacemacs-layouts-transient-state-remove-bindings
         '("b" "l" "C" "X"))
   (setq spacemacs-layouts-transient-state-add-bindings
-        '(("b" spacemacs/ivy-spacemacs-layout-buffer)
+        '(("b" spacemacs/ivy-spacemacs-layout-buffer :exit t)
           ("l" spacemacs/ivy-spacemacs-layouts :exit t)
           ("C" spacemacs/ivy-spacemacs-layout-close-other :exit t)
           ("X" spacemacs/ivy-spacemacs-layout-kill-other :exit t))))
