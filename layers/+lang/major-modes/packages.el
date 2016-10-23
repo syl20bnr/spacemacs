@@ -10,6 +10,8 @@
         scad-mode
         stan-mode
         thrift
+        vala-mode
+        (vala-snippets :toggle (configuration-layer/package-usedp 'yasnippet))
         wolfram-mode
         ))
 
@@ -64,6 +66,16 @@
 (defun major-modes/init-stan-mode ())
 
 (defun major-modes/init-thrift ())
+
+(defun major-modes/init-vala-mode ()
+  (use-package vala
+    :defer t
+    :init
+    ;; Explicitly run prog-mode hooks since vala-mode does not derive from
+    ;; prog-mode major-mode
+    (add-hook 'vala-mode-hook 'spacemacs/run-prog-mode-hooks)))
+
+(defun major-modes/init-vala-snippets ())
 
 ;; .m files are not associated because conflict with more common Objective-C and
 ;; MATLAB/Octave, manually invoke for .m files.
