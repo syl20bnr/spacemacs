@@ -20,6 +20,7 @@ These include:
 - OpenScad
 - Stan
 - Thrift
+- Vala
 - Wolfram Language / Mathematica
 
 * Key bindings
