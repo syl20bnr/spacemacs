@@ -19,9 +19,7 @@
 (defun ruby-on-rails/init-projectile-rails ()
   (use-package projectile-rails
     :defer t
-    :init
-    (progn
-      (add-hook 'projectile-mode-hook 'projectile-rails-on))
+    :init (projectile-rails-global-mode)
     :config
     (progn
       (spacemacs|diminish projectile-rails-mode " ⇋" " RoR")
