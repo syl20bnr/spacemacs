@@ -81,9 +81,9 @@ particular mode or all modes in your =dotspacemacs/user-config= (within your
   ;; Bind clang-format-region to C-M-tab in all modes:
   (global-set-key [C-M-tab] 'clang-format-region)
   ;; Bind clang-format-buffer to tab on the c++-mode only:
-  (add-hook 'c++-mode-hook 'clang-format-bindings)
-    (defun clang-format-bindings ()
-      (define-key c++-mode-map [tab] 'clang-format-buffer))
+  (add-hook 'c++-mode-hook 'clang-format-bindings
+            (defun clang-format-bindings ()
+              (define-key c++-mode-map [tab] 'clang-format-buffer)))
 #+END_SRC
 
 To enable automatic buffer formatting on save, set the variable
