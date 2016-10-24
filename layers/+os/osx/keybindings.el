@@ -95,7 +95,9 @@ other than the three sane values listed above."
 
     (global-set-key (kbd-mac-command "Z") 'undo-tree-redo)
     (global-set-key (kbd-mac-command "C-f") 'spacemacs/toggle-frame-fullscreen)
+    (global-set-key (kbd "M-s-h") 'ns-do-hide-others)
 
     ;; Emacs sometimes registers C-s-f as this weird keycode
     ;; (global-set-key (kbd "<C-s-268632070>") 'spacemacs/toggle-frame-fullscreen)
+    ;; (global-set-key [142607065] 'ns-do-hide-others)
     ))
