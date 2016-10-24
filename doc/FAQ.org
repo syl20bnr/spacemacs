@@ -490,7 +490,7 @@ the new configuration. This can be achieved easily using the following steps:
 
 #+BEGIN_SRC sh
 mkdir ~/spacemacs
-git clone git@github.com:syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
+git clone https://github.com/syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
 HOME=~/spacemacs emacs
 #+END_SRC
 
