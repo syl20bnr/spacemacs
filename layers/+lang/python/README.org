@@ -76,7 +76,7 @@ setting your ~PYTHONPATH~ as explained at
 https://github.com/proofit404/anaconda-mode#pythonpath
 
 *** Syntax checking
-Syntax checking uses `flake8` package:
+Syntax checking uses =flake8= package:
 
 #+begin_src sh
     pip install flake8
