@@ -207,6 +207,14 @@
     :defer t
     :init
     (progn
+      (pcase python-auto-set-local-pyvenv-virtualenv
+        (`on-visit
+         (spacemacs/add-to-hooks 'spacemacs//pyvenv-mode-set-local-virtualenv
+                                 '(python-mode-hook
+                                   hy-mode-hook)))
+        (`on-project-switch
+         (add-hook 'projectile-after-switch-project-hook
+                   'spacemacs//pyvenv-mode-set-local-virtualenv)))
       (dolist (mode '(python-mode hy-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
           "Va" 'pyvenv-activate

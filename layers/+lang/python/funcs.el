@@ -82,6 +82,20 @@
           (message "pyenv: version `%s' is not installed (set by %s)"
                    version file-path))))))
 
+(defun spacemacs//pyvenv-mode-set-local-virtualenv ()
+  "Set pyvenv virtualenv from \".venv\" by looking in parent directories."
+  (interactive)
+  (let ((root-path (locate-dominating-file default-directory
+                                           ".venv")))
+    (when root-path
+      (let* ((file-path (expand-file-name ".venv" root-path))
+             (virtualenv
+              (with-temp-buffer
+                (insert-file-contents-literally file-path)
+                (buffer-substring-no-properties (line-beginning-position)
+                                                (line-end-position)))))
+            (pyvenv-workon virtualenv)))))
+
 
 ;; Tests
 
