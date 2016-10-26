@@ -1,4 +1,7 @@
 * Release 0.200.x
+** 0.200.4 (2016/10/26)
+*** Fixes
+- Update go-guru package reflecting MELPA changes
 ** 0.200.3 (2016/10/18)
 *** Fixes
 - Fix broken macOS paths for homebrew service (thanks to mgiles)
