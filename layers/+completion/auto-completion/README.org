@@ -142,7 +142,7 @@ for a given mode.
 You may want to enable company globally to get auto-completion
 everywhere even in the modes which are not configured by Spacemacs. To do
 so, you just have to add =(global-company-mode)= in the
-=dotspacemacs/user -config= function of your dotfile.
+=dotspacemacs/user-config= function of your dotfile.
 
 Note that if you want to enable =auto-complete= globally you will have to
 disable =company= first, see the next section to do so.
