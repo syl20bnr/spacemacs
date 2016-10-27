@@ -40,8 +40,8 @@ version the release note it displayed")
 (defvar spacemacs-buffer--note-widgets nil
   "List of widgets used to display the release note.")
 
-(defvar spacemacs-buffer--previous-insert-type nil
-  "Previous type of note inserted.")
+(defvar spacemacs-buffer--current-note-type nil
+  "Type of note currently displayed.")
 
 (defvar spacemacs-buffer--fresh-install
   (not (file-exists-p dotspacemacs-filepath))
@@ -132,9 +132,7 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
   (cond
    (spacemacs-buffer--fresh-install
     ;; we assume the user is  new to spacemacs and open the quickhelp
-    (spacemacs-buffer/toggle-note
-     (concat spacemacs-info-directory "quickhelp.txt")
-     (spacemacs-buffer//insert-note-p 'quickhelp))
+    (spacemacs-buffer/toggle-note 'quickhelp)
     (setq spacemacs-buffer--release-note-version spacemacs-version)
     (spacemacs/dump-vars-to-file '(spacemacs-buffer--release-note-version)
                                    spacemacs-buffer--cache-file))
@@ -143,9 +141,7 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
                   spacemacs-version))
     ;; check the variable ;; spacemacs-buffer--release-note-version
     ;; to decide whether ;; we show the release note
-    (spacemacs-buffer/toggle-note
-     (concat spacemacs-release-notes-directory
-             spacemacs-buffer-version-info ".txt") 'release-note)))
+    (spacemacs-buffer/toggle-note 'release-note)))
   (spacemacs//redisplay))
 
 (defun spacemacs-buffer//choose-banner ()
@@ -263,39 +259,13 @@ buffer, right justified."
           (insert build-rhs)
           (insert "\n"))))))
 
-
-(defun spacemacs-buffer//insert-note-p (type)
-  "Decicde if whether to insert note widget or not based on current note TYPE.
-
-If note TYPE is `quickhelp' or `release-note' and is equal to
-previous insert type in `spacemacs-buffer--previous-insert-type',
-which means previous note widget of the same type already
-inserted. In this case, we simply delete the widgets but don't insert.
-
-Otherwise, delete and allow insert note of TYPE."
-  (if (not (eq spacemacs-buffer--previous-insert-type type))
-      type
-    (setq spacemacs-buffer--previous-insert-type nil)))
-
-(defun spacemacs-buffer/toggle-note (file type)
-  "Toggle the note in FILE for the buffer based on TYPE.
-
-If TYPE is nil, just remove widgets."
-  (interactive)
-  (spacemacs-buffer//remove-existing-widget-if-exist)
-  (cond
-   ((eq type 'quickhelp)
-    (spacemacs-buffer//insert-quickhelp-widget file))
-   ((eq type 'release-note)
-    (spacemacs-buffer//insert-release-note-widget file))
-   (t)))
-
 (defun spacemacs-buffer//insert-note
     (file topcaption botcaption &optional additional-widgets)
   "Insert the release note just under the banner.
 
 FILE is the file that contains the content to show.
-CAPTION is the title of the note.
+TOPCAPTION is the title of the note.
+BOTCAPTION is a text to be encrusted at the bottom of the frame.
 ADDITIONAL-WIDGETS is a function for inserting a widget under the frame."
   (save-excursion
     (goto-char (point-min))
@@ -332,14 +302,42 @@ ADDITIONAL-WIDGETS is a function for inserting a widget under the frame."
         (delete-trailing-whitespace (line-beginning-position)
                                     (line-end-position))))))
 
-(defun spacemacs-buffer//remove-existing-widget-if-exist ()
+(defun spacemacs-buffer/toggle-note (type)
+  "Toggle the displayed note based on TYPE.
+If TYPE is nil or unknown, just remove the currently displayed note.  Currently
+allowed types are `quickhelp' and `release-note'"
+  (spacemacs-buffer//clear-notes-and-widgets)
+  (if (or (eq spacemacs-buffer--current-note-type nil)
+          (not (eq spacemacs-buffer--current-note-type type)))
+      (progn
+        (setq spacemacs-buffer--current-note-type type)
+        (cond
+         ((eq type 'quickhelp) (spacemacs-buffer//notes-insert-quickhelp))
+         ((eq type 'release-note) (spacemacs-buffer//notes-insert-release-note))
+         (t (setq spacemacs-buffer--current-note-type nil)
+            (message "Unknown note type: %s" 'type))))
+    (setq spacemacs-buffer--current-note-type nil)))
+
+(defun spacemacs-buffer//redisplay-note ()
+  "Delete and rediplay the currently displayed note."
+  (spacemacs-buffer//clear-notes-and-widgets)
+  (let ((type spacemacs-buffer--current-note-type))
+    (cond
+    ((eq type 'quickhelp) (spacemacs-buffer//notes-insert-quickhelp))
+    ((eq type 'release-note) (spacemacs-buffer//notes-insert-release-note))
+    (t))))
+
+(defun spacemacs-buffer//clear-notes-and-widgets ()
   "Remove existing note widgets if exists."
   (when spacemacs-buffer--note-widgets
-    (spacemacs-buffer//remove-note-widgets)))
+    (mapc 'widget-delete spacemacs-buffer--note-widgets)
+    (setq spacemacs-buffer--note-widgets nil)
+    (setq spacemacs-buffer--release-note-version spacemacs-version)
+    (spacemacs/dump-vars-to-file
+     '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file)))
 
-(defun spacemacs-buffer//insert-quickhelp-widget (file)
-  "Insert quickhelp with content from FILE."
-  (spacemacs-buffer//remove-existing-widget-if-exist)
+(defun spacemacs-buffer//notes-insert-quickhelp ()
+  "Insert quickhelp."
   (let ((widget-func
          (lambda ()
            (add-to-list
@@ -381,12 +379,10 @@ ADDITIONAL-WIDGETS is a function for inserting a widget under the frame."
                                            "quickhelp.txt")
                                    "Quick Help"
                                    nil
-                                   widget-func))
-  (setq spacemacs-buffer--previous-insert-type 'quickhelp))
+                                   widget-func)))
 
-(defun spacemacs-buffer//insert-release-note-widget (file)
-  "Insert release note with content from FILE."
-  (spacemacs-buffer//remove-existing-widget-if-exist)
+(defun spacemacs-buffer//notes-insert-release-note ()
+  "Insert release note."
   (let ((widget-func
          (lambda ()
            (add-to-list
@@ -413,18 +409,9 @@ ADDITIONAL-WIDGETS is a function for inserting a widget under the frame."
                                    "Update your dotfile (SPC f e D) and\
  packages after every update"
                                    widget-func))
-
   (setq spacemacs-buffer--release-note-version nil)
-  (spacemacs/dump-vars-to-file
-   '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file)
-  (setq spacemacs-buffer--previous-insert-type 'release-note))
-
-(defun spacemacs-buffer//remove-note-widgets ()
-  (mapc 'widget-delete spacemacs-buffer--note-widgets)
-  (setq spacemacs-buffer--note-widgets nil)
-  (setq spacemacs-buffer--release-note-version spacemacs-version)
-  (spacemacs/dump-vars-to-file
-   '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file))
+  (spacemacs/dump-vars-to-file '(spacemacs-buffer--release-note-version)
+                               spacemacs-buffer--cache-file))
 
 (defun spacemacs-buffer/set-mode-line (format)
   "Set mode-line format for spacemacs buffer."
@@ -480,8 +467,8 @@ satisfy MAX-WIDTH or MIN-WIDTH.  Note that MAX-WIDTH can be limited by the
 window's width.
 
 CONTENT can be a text or a filepath.
-TOPCAPTION is a text to be included at the top of the frame.
-BOTCAPTION is a text to be included at the bottom of the frame.
+TOPCAPTION is a text to be encrusted at the top of the frame.
+BOTCAPTION is a text to be encrusted at the bottom of the frame.
 HPADDING is the horizontal spacing between the text and the frame.  The vertical
          spacing is always one line.
 MAX-WIDTH is the maximum width of the frame,  frame included.  When
@@ -608,11 +595,7 @@ with width WIDTH. LINE should be shorter than WIDTH."
                    :tag (propertize "?" 'face 'font-lock-doc-face)
                    :help-echo "Open the quickhelp."
                    :action (lambda (&rest ignore)
-                             (spacemacs-buffer/toggle-note
-                              (concat spacemacs-info-directory "quickhelp.txt")
-                              ;; if nil is returned,
-                              ;; just delete the current note widgets
-                              (spacemacs-buffer//insert-note-p 'quickhelp)))
+                             (spacemacs-buffer/toggle-note 'quickhelp))
                    :mouse-face 'highlight
                    :follow-link "\C-m")
     (insert " ")
@@ -675,13 +658,7 @@ with width WIDTH. LINE should be shorter than WIDTH."
                                     'face 'font-lock-preprocessor-face)
                    :help-echo "Hide or show the Changelog"
                    :action (lambda (&rest ignore)
-                             (spacemacs-buffer/toggle-note
-                              (concat spacemacs-release-notes-directory
-                                      spacemacs-buffer-version-info
-                                      ".txt")
-                              ;; if nil is returned,
-                              ;; just delete the current note widgets
-                              (spacemacs-buffer//insert-note-p 'release-note)))
+                             (spacemacs-buffer/toggle-note 'release-note))
                    :mouse-face 'highlight
                    :follow-link "\C-m")
     (insert " ")
@@ -984,6 +961,8 @@ already exist, and switch to it."
   (interactive)
   (let ((buffer-exists (buffer-live-p (get-buffer spacemacs-buffer-name)))
         (save-line nil))
+    (when (not buffer-exists)
+      (setq spacemacs-buffer--note-widgets nil))
     (when (or (not (eq spacemacs-buffer--last-width (window-width)))
               (not buffer-exists)
               refresh)
@@ -997,12 +976,10 @@ already exist, and switch to it."
             (let ((inhibit-read-only t))
               (erase-buffer)))
           (spacemacs-buffer/set-mode-line "")
-          ;; needed in case the buffer was deleted and we are recreating it
-          (setq spacemacs-buffer--note-widgets nil)
           (spacemacs-buffer/insert-banner-and-buttons)
-          ;; non-nil if emacs-startup-hook was run
           (if (bound-and-true-p spacemacs-initialized)
               (progn
+                (spacemacs-buffer//redisplay-note)
                 (configuration-layer/display-summary emacs-start-time)
                 (when dotspacemacs-startup-lists
                   (spacemacs-buffer/insert-startupify-lists))
