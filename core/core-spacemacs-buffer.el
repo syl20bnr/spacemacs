@@ -263,29 +263,6 @@ buffer, right justified."
           (insert build-rhs)
           (insert "\n"))))))
 
-(defun spacemacs-buffer//insert-note (file caption &optional additional-widgets)
-  "Insert the release note just under the banner.
-
-FILE is the file that contains the content to show.
-CAPTION is the title of the note.
-TAG-STRING is the label of the button for additional action.
-HELP-STRING is the help message of the button for additional action."
-  (save-excursion
-    (goto-char (point-min))
-    (search-forward "Search in Spacemacs\]")
-    (forward-line)
-    (let* ((note (concat "\n" (spacemacs//render-framed-text
-                               file spacemacs-buffer--banner-length caption))))
-      (add-to-list 'spacemacs-buffer--note-widgets (widget-create 'text note))
-      (save-excursion
-        (while (re-search-backward "\\[\\[\\(.*\\)\\]\\]" nil t)
-          (let ((buffer-read-only nil))
-            (make-text-button
-             (match-beginning 1)
-             (match-end 1)
-             'type 'help-url
-             'help-args (list (match-string 1))))))
-      (funcall additional-widgets))))
 
 (defun spacemacs-buffer//insert-note-p (type)
   "Decicde if whether to insert note widget or not based on current note TYPE.
@@ -312,6 +289,48 @@ If TYPE is nil, just remove widgets."
    ((eq type 'release-note)
     (spacemacs-buffer//insert-release-note-widget file))
    (t)))
+
+(defun spacemacs-buffer//insert-note
+    (file topcaption botcaption &optional additional-widgets)
+  "Insert the release note just under the banner.
+
+FILE is the file that contains the content to show.
+CAPTION is the title of the note.
+ADDITIONAL-WIDGETS is a function for inserting a widget under the frame."
+  (save-excursion
+    (goto-char (point-min))
+    (search-forward "Search in Spacemacs\]") ; TODO: this is dirty
+    (forward-line)
+    (let* ((buffer-read-only nil)
+           (note (concat "\n" (spacemacs-buffer//render-framed-text file
+                                                                    topcaption
+                                                                    botcaption
+                                                                    2
+                                                                    nil
+                                                                    80))))
+      (save-restriction
+        (narrow-to-region (point) (point))
+        (add-to-list 'spacemacs-buffer--note-widgets (widget-create 'text note))
+        (when dotspacemacs-startup-buffer-responsive
+          (let* ((width (spacemacs-buffer//get-buffer-width))
+                 (padding (max 0 (floor (/ (- spacemacs-buffer--banner-length
+                                              width) 2)))))
+            (goto-char (point-min))
+            (while (not (eobp))
+              (beginning-of-line)
+              (insert (make-string padding ?\s))
+              (forward-line)))))
+      (save-excursion
+        (while (re-search-backward "\\[\\[\\(.*\\)\\]\\]" nil t)
+          (make-text-button (match-beginning 1)
+                            (match-end 1)
+                            'type 'help-url
+                            'help-args (list (match-string 1)))))
+      (funcall additional-widgets)
+      (when dotspacemacs-startup-buffer-responsive
+        (spacemacs-buffer//center-line)
+        (delete-trailing-whitespace (line-beginning-position)
+                                    (line-end-position))))))
 
 (defun spacemacs-buffer//remove-existing-widget-if-exist ()
   "Remove existing note widgets if exists."
@@ -358,7 +377,11 @@ If TYPE is nil, just remove widgets."
                                               "VIMUSERS.org") "^" 'all))
                            :mouse-face 'highlight
                            :follow-link "\C-m")))))
-    (spacemacs-buffer//insert-note file "Quick Help" widget-func))
+    (spacemacs-buffer//insert-note (concat spacemacs-info-directory
+                                           "quickhelp.txt")
+                                   "Quick Help"
+                                   nil
+                                   widget-func))
   (setq spacemacs-buffer--previous-insert-type 'quickhelp))
 
 (defun spacemacs-buffer//insert-release-note-widget (file)
@@ -382,9 +405,13 @@ If TYPE is nil, just remove widgets."
                                       'subtree))
                            :mouse-face 'highlight
                            :follow-link "\C-m")))))
-    (spacemacs-buffer//insert-note file
-                                   (format " Important Notes (Release %s.x) "
+    (spacemacs-buffer//insert-note (concat spacemacs-release-notes-directory
+                                           spacemacs-buffer-version-info
+                                           ".txt")
+                                   (format "Important Notes (Release %s.x)"
                                            spacemacs-buffer-version-info)
+                                   "Update your dotfile (SPC f e D) and\
+ packages after every update"
                                    widget-func))
 
   (setq spacemacs-buffer--release-note-version nil)
@@ -445,93 +472,94 @@ The message is displayed only if `init-file-debug' is non nil."
       (if messagebuf (message "(Spacemacs) %s" msg)))
     (spacemacs-buffer/set-mode-line "")))
 
-(defun spacemacs-buffer/insert-framed-text
-    (msg &optional caption hpadding)
-  "Insert MSG in spacemacs buffer within a frame of width FILL-COLUMN.
-
-See `spacemacs//render-framed-text' for documentation of the other
-parameters."
-  (with-current-buffer (get-buffer-create spacemacs-buffer-name)
-    (let ((buffer-read-only nil))
-      (insert (spacemacs//render-framed-text msg spacemacs-buffer--banner-length
-                                             caption hpadding)))))
-
-(defun spacemacs-buffer/insert-framed-text-from-file
-    (filepath &optional caption hpadding)
-  "Insert at point the content of FILENAME file in spacemacs buffer in a
-frame.
-
-If FILEPATH does not exists the function returns nil.
-
-See `spacemacs//render-framed-text' for documentation of the other
-parameters."
-  (when (file-exists-p filepath)
-    (with-current-buffer (get-buffer-create spacemacs-buffer-name)
-      (let ((buffer-read-only nil))
-        (insert (spacemacs//render-framed-text
-                 filepath spacemacs-buffer--banner-length caption hpadding))))))
-
-(defun spacemacs//render-framed-text (content &optional width caption hpadding)
-  "Return a formated string framed with plained lines of width FILL-COLUMN.
+(defun spacemacs-buffer//render-framed-text
+    (content &optional topcaption botcaption hpadding max-width min-width)
+  "Return a formated string framed with plained lines.
+The width of the created frame is the width of the content, unless it does not
+satisfy MAX-WIDTH or MIN-WIDTH.  Note that MAX-WIDTH can be limited by the
+window's width.
 
 CONTENT can be a text or a filepath.
-
-WIDTH set the `fill-column' variable.
-
-If CAPTION is non nil string then it is included in at the top of the frame.
-If CAPTION length is greater than FILL-COLUMN minus 5 the function returns
-nil.
-
-HPADDING is the horizontal spacing between the text and the frame.
-The vertical spacing is always one line."
+TOPCAPTION is a text to be included at the top of the frame.
+BOTCAPTION is a text to be included at the bottom of the frame.
+HPADDING is the horizontal spacing between the text and the frame.  The vertical
+         spacing is always one line.
+MAX-WIDTH is the maximum width of the frame,  frame included.  When
+          `dotspacemacs-startup-buffer-responsive' is t, MAX-WIDTH will be
+          limited to the window's width.  MAX-WIDTH takes precedence over
+          MIN-WIDTH.
+MIN-WIDTH is the minimal width of the frame, frame included.  The frame will not
+          shrink any thinner than MIN-WIDTH characters unless MAX-WIDTH says
+          otherwise."
   (with-temp-buffer
     (if (not (file-exists-p content))
         (insert content)
       (insert-file-contents content)
-      ;; remove additional newline at eof
       (goto-char (point-max))
-      (delete-char -1))
-    (let* ((hpadding (or hpadding 1))
-           (fill-column (if width
-                            (- width (+ 2 (* 2 hpadding)))
-                          fill-column))
-           (sentence-end-double-space nil)
-           (caption-len (length caption)))
-      (fill-region (point-min) (point-max) 'justify 'nosqueeze)
+      (when (eq ?\n (char-before))    ;; remove additional newline at eof
+        (delete-char -1)))
+    (let* ((hpadding (if hpadding hpadding 1))
+	   (text-width (spacemacs-buffer//get-buffer-width))
+	   (width (+ 2 (* 2 hpadding) text-width))
+           (fill-column text-width)
+           (sentence-end-double-space nil)    ; needed by fill-region
+           (topcaption-length (if topcaption (length topcaption) 0))
+           (botcaption-length (if botcaption (length botcaption) 0)))
+      (setq max-width (or max-width width)
+            min-width (or min-width 1)
+            max-width (if (< max-width min-width) min-width max-width)
+            max-width (if dotspacemacs-startup-buffer-responsive
+                          (if (> max-width spacemacs-buffer--banner-length)
+                              spacemacs-buffer--banner-length
+                            max-width)
+                        max-width))
+      (when (< width min-width)
+        (setq width min-width
+              fill-column (max 0 (- min-width 2 (* hpadding 2)))))
+      (when (> width max-width)
+        (setq width max-width
+              fill-column (max 0 (- max-width 2 (* hpadding 2)))))
+      (spacemacs-buffer||note-adapt-caption-to-width topcaption
+                                                     topcaption-length
+                                                     width)
+      (spacemacs-buffer||note-adapt-caption-to-width botcaption
+                                                     botcaption-length
+                                                     width)
+      (fill-region (point-min) (point-max) nil nil)
       (concat
-       ;; top
-       "╭─"
-       (if caption
-           (concat caption
-                   (make-string (max 0 (+ (- fill-column caption-len 1)
-                                          hpadding)) ?─))
-         (make-string fill-column ?─))
-       (make-string hpadding ?─) "╮\n"
-       ;; content
-       (spacemacs//render-framed-line "" hpadding)
-       (mapconcat (lambda (x)
-                    (spacemacs//render-framed-line x hpadding))
+       "╭─" (when topcaption (propertize (concat " " topcaption " ")
+                                         'face
+                                         '(:weight bold)))
+       (make-string (max 0 (- width (if topcaption 6 4) topcaption-length)) ?─) "─╮\n"
+       (spacemacs-buffer//render-framed-line "" width hpadding)
+       (mapconcat (lambda (line)
+                    (spacemacs-buffer//render-framed-line line width hpadding))
                   (split-string (buffer-string) "\n" nil) "")
-       (spacemacs//render-framed-line "" hpadding)
-       ;; bottom
-       "╰" (make-string hpadding ?─)
-       (make-string fill-column ?─)
-       (make-string hpadding ?─) "╯"))))
+       (spacemacs-buffer//render-framed-line "" width hpadding)
+       "╰─" (when botcaption (propertize (concat " " botcaption " ")
+                                         'face '(:weight bold)))
+       (make-string (max 0 (- width (if botcaption 6 4) botcaption-length)) ?─)
+       "─╯" (when botcaption "\n")))))
 
-(defun spacemacs//render-framed-line (line hpadding)
+(defmacro spacemacs-buffer||note-adapt-caption-to-width (caption
+                                                         caption-length
+                                                         width)
+  `(when (> ,caption-length (- ,width 6)) ; minimum 6 chars around the caption
+     (if (> ,width 8)
+         (setq ,caption (concat (substring ,caption
+                                           0
+                                           (min -3 (- (- ,width 6 3)
+                                                      ,caption-length)))
+                                "..."))
+       (setq ,caption nil
+             ,caption-length 0))))
+
+(defun spacemacs-buffer//render-framed-line (line width hpadding)
   "Return a formated LINE with borders of a frame on each side and
-with width FILL-COLUMN.
-
-If length of LINE is bigger than FILL-COLUMN it returns nil.
-
-HPADDING is the horizontal spacing betwee the content line and the frame
-border."
-  (let* ((len (length line))
-         (fill (- fill-column len)))
-    (when (>= fill 0)
-      (concat "│" (make-string hpadding ?\s)
-              line (make-string fill ?\s)
-              (make-string hpadding ?\s) "│\n"))))
+with width WIDTH. LINE should be shorter than WIDTH."
+  (let ((fill (max 0 (- width 2 hpadding (length line)))))
+    (concat "│" (make-string hpadding ?\s) line (make-string fill ?\s)
+            "│\n")))
 
 (defun spacemacs-buffer/loading-animation ()
   "Display the progress bar by chunk of size
