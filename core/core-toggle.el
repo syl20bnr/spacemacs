@@ -71,7 +71,11 @@ used."
          ;; a bound symbol
          (status-eval `(and (or (and (symbolp ',status) (boundp ',status))
                                 (listp ',status))
-                            ,status)))
+                            ,status))
+         (condition-eval `(or (null ',condition)
+                              (and (or (and (symbolp ',condition) (boundp ',condition))
+                                       (listp ',condition))
+                                   ,condition))))
     `(progn
        (push (append '(,name) '(:function ,wrapper-func
                                           :predicate ,wrapper-func-status) ',props)
@@ -80,10 +84,7 @@ used."
        (defun ,wrapper-func ,(if prefix-arg-var (list prefix-arg-var) ())
          ,(format "Toggle %s on and off." (symbol-name name))
          ,(if prefix-arg-var '(interactive "P") '(interactive))
-         (if (or (null ',condition)
-                 (and (or (and (symbolp ',condition) (boundp ',condition))
-                          (listp ',condition))
-                      ,condition))
+         (if ,condition-eval
              (if (,wrapper-func-status)
                  (progn ,@off-body
                         (when (called-interactively-p 'any)
@@ -95,7 +96,7 @@ used."
        ;; predicate function
        (defun ,wrapper-func-status ()
          ,(format "Check if %s is on." (symbol-name name))
-         ,status-eval)
+         (and ,condition-eval ,status-eval))
        ;; Only define on- or off-functions when status is available
        ,@(when status
            ;; on-function
