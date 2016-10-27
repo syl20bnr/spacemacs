@@ -285,7 +285,7 @@
   :documentation "Toggle display of backtrace when an error happens."
   :evil-leader "tD")
 (spacemacs|add-toggle fringe
-  :status (not (equal fringe-mode 0))
+  :status (not (equal (if (fboundp 'fringe-mode) fringe-mode 0) 0))
   :on (call-interactively 'fringe-mode)
   :off (fringe-mode 0)
   :documentation "Display the fringe in GUI mode."
