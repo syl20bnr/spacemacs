@@ -16,12 +16,12 @@
    - [[#packages-that-do-display-management][Packages that do display management]]
 
 * Description
-This layer enables [[https://github.com/bmag/window-purpose][window-purpose]], which provides an alternative, purpose-based
+This layer enables [[https://github.com/bmag/emacs-purpose][window-purpose]], which provides an alternative, purpose-based
 window manager for Emacs. With this layer, your window layout should be robust
 and shouldn't change too much when opening all sorts of buffers.
 
-Regular [[https://github.com/m2ym/popwin-el][popwin]] is not triggered when emacsawindow-purpose is enabled. However,
-the emacsawindow-purpose layer provides a =purpose-popwin= extension, which
+Regular [[https://github.com/m2ym/popwin-el][popwin]] is not triggered when window-purpose is enabled. However,
+the window-purpose layer provides a =purpose-popwin= extension, which
 brings popwin's behavior towindows-purpose and solves that problem.
 
 ** Purposes
@@ -81,7 +81,7 @@ If you change =popwin:special-display-config= in your =dotspacemacs/config=, you
 should call =pupo/update-purpose-config= to update purpose-popwin with those
 changes.
 
-See [[https://github.com/bmag/window-purpose/wiki][window-purpose wiki]] to learn more about windows-purpose.
+See [[https://github.com/bmag/emacs-purpose/wiki][window-purpose wiki]] to learn more about windows-purpose.
 
 * Key Bindings
 
