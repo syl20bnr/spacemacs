@@ -10,7 +10,7 @@
         helm-gtags
         go-eldoc
         go-mode
-        (go-guru :location site)
+        go-guru
         (go-rename :location local)
         ))
 

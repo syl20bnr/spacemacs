@@ -41,6 +41,8 @@
   (let ((trace (cond ((spacemacs/pyenv-executable-find "wdb") "import wdb; wdb.set_trace()")
                      ((spacemacs/pyenv-executable-find "ipdb") "import ipdb; ipdb.set_trace()")
                      ((spacemacs/pyenv-executable-find "pudb") "import pudb; pudb.set_trace()")
+                     ((spacemacs/pyenv-executable-find "ipdb3") "import ipdb; ipdb.set_trace()")
+                     ((spacemacs/pyenv-executable-find "pudb3") "import pudb; pudb.set_trace()")
                      (t "import pdb; pdb.set_trace()")))
         (line (thing-at-point 'line)))
     (if (and line (string-match trace line))
@@ -115,10 +117,14 @@ when this mode is enabled since the minibuffer is cleared all the time."
 ARG is the universal-argument which chooses between the main and
 the secondary test runner. FUNCALIST is an alist of the function
 to be called for each testrunner. "
-  (let ((test-runner (if arg
-                         (spacemacs//python-get-secondary-testrunner)
-                       (spacemacs//python-get-main-testrunner))))
-    (funcall (cdr (assoc test-runner funcalist)))))
+  (let* ((test-runner (if arg
+                          (spacemacs//python-get-secondary-testrunner)
+                        (spacemacs//python-get-main-testrunner)))
+         (test-function (assq test-runner funcalist)))
+    (if test-function
+        (funcall (cdr (assoc test-runner funcalist)))
+      (user-error "This test function is not available with the `%S' runner."
+                  test-runner))))
 
 (defun spacemacs/python-test-all (arg)
   "Run all tests."
@@ -146,6 +152,16 @@ to be called for each testrunner. "
    '((pytest . pytest-pdb-module)
      (nose . nosetests-pdb-module))))
 
+(defun spacemacs/python-test-suite (arg)
+  "Run all tests in the current suite."
+  (interactive "P")
+  (spacemacs//python-call-correct-test-function arg '((nose . nosetests-suite))))
+
+(defun spacemacs/python-test-pdb-suite (arg)
+  "Run all tests in the current suite in debug mode."
+  (interactive "P")
+  (spacemacs//python-call-correct-test-function arg '((nose . nosetests-pdb-suite))))
+
 (defun spacemacs/python-test-one (arg)
   "Run current test."
   (interactive "P")
@@ -169,7 +185,9 @@ to be called for each testrunner. "
     "tT" 'spacemacs/python-test-pdb-one
     "tt" 'spacemacs/python-test-one
     "tM" 'spacemacs/python-test-pdb-module
-    "tm" 'spacemacs/python-test-module))
+    "tm" 'spacemacs/python-test-module
+    "tS" 'spacemacs/python-test-pdb-suite
+    "ts" 'spacemacs/python-test-suite))
 
 (defun spacemacs//python-sort-imports ()
   ;; py-isort-before-save checks the major mode as well, however we can prevent
