@@ -2988,7 +2988,7 @@ To search in a project see [[Searching in a project][project searching]].
 | ~SPC p f~   | find file                                               |
 | ~SPC p F~   | find file based on path around point                    |
 | ~SPC p g~   | find tags                                               |
-| ~SPC p C-g~ | regenerate the project's =etags= / =gtags=              |
+| ~SPC p G~   | regenerate the project's =etags= / =gtags=              |
 | ~SPC p h~   | find file using =helm=                                  |
 | ~SPC p I~   | invalidate the projectile cache                         |
 | ~SPC p k~   | kill all project buffers                                |
