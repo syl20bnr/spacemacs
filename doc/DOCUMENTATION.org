@@ -1863,7 +1863,7 @@ Windows manipulation commands (start with ~w~):
 | Key Binding            | Description                                                                 |
 |------------------------+-----------------------------------------------------------------------------|
 | ~SPC w =~              | balance split windows                                                       |
-| ~SPC w b~              | force the focus back to the minibuffer (usefull with =helm= popups)         |
+| ~SPC w b~              | force the focus back to the minibuffer (useful with =helm= popups)         |
 | ~SPC w c~              | maximize/minimize a window and center it                                    |
 | ~SPC w C~              | maximize/minimize a window and center it using [[https://github.com/abo-abo/ace-window][ace-window]]                   |
 | ~SPC w d~              | delete a window                                                             |
@@ -2265,7 +2265,7 @@ OpenDocument, and Microsoft Office documents.
 *** Frequency of auto-saving
 By default auto-saving of files is performed every 300 characters and
 every 30 seconds of idle time which can be changed by setting to a
-new value the variables =auto-save-inteval= and =auto-save-timeout=
+new value the variables =auto-save-interval= and =auto-save-timeout=
 respectively.
 
 *** Location of auto-saved files
@@ -2548,7 +2548,7 @@ Text related commands (start with ~x~):
 | ~SPC x a ;~ | align region at ;                                             |
 | ~SPC x a =~ | align region at =                                             |
 | ~SPC x a a~ | align region (or guessed section) using default rules         |
-| ~SPC x a c~ | align current intendation region using default rules          |
+| ~SPC x a c~ | align current indentation region using default rules          |
 | ~SPC x a r~ | align region using user-specified regexp                      |
 | ~SPC x a m~ | align region at arithmetic operators (+-*/)                   |
 | ~SPC x a ¦~ | align region at ¦                                             |
