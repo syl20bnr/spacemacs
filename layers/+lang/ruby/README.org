@@ -17,6 +17,7 @@
     - [[#ruby-test-mode][Ruby-test-mode]]
     - [[#minitest-mode][minitest-mode]]
   - [[#rake][Rake]]
+  - [[#refactor][Refactor]]
 - [[#layer-options][Layer options]]
 
 * Description
@@ -185,6 +186,15 @@ When =ruby-test-runner= equals =minitest=.
 | ~SPC m k r~ | Re-runs the last rake task      |
 | ~SPC m k R~ | Regenerates the rake cache      |
 | ~SPC m k f~ | Finds definition of a rake task |
+
+** Refactor
+
+| Key binding   | Description            |
+|---------------+------------------------|
+| ~SPC m r R m~ | Extract to method      |
+| ~SPC m r R v~ | Extract local variable |
+| ~SPC m r R c~ | Extract constant       |
+| ~SPC m r R l~ | Extract to let (rspec) |
 
 * Layer options
 
