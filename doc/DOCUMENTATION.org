@@ -708,7 +708,7 @@ of the configuration, this is a powerful feature which allows you to quickly
 remove any feature from Spacemacs.
 
 *Note:* A few packages are essential for Spacemacs to correctly operate, those
-packages are protected and cannot be excluded or unsintalled even if they become
+packages are protected and cannot be excluded or uninstalled even if they become
 orphans or are excluded. =use-package= is an example of a protected package that
 cannot be removed from Spacemacs.
 
@@ -761,7 +761,7 @@ To bind keys in Hybrid editing style (=hybrid state=):
 #+END_SRC
 
 This style can be tweaked to be more like Emacs or more like Vim depending
-on the user preferences. The following variable are available to change the
+on the user preferences. The following variables are available to change the
 style configuration:
 
 - =hybrid-mode-default-state= The default state when opening a new buffer,
@@ -844,7 +844,7 @@ are in =normal= mode by pressing the ~SPC~ leader key, here are a few examples:
 The universal argument ~C-u~ is an important command in Emacs but it is also a
 very handy Vim key binding to scroll up.
 
-Spacemacs binds ~C-u~ to =scroll-up= and change the universal argument binding
+Spacemacs binds ~C-u~ to =scroll-up= and changes the universal argument binding
 to ~SPC u~.
 
 *Note*: ~SPC u~ is not working before =helm-M-x= (~SPC SPC~). Instead, call
@@ -976,7 +976,7 @@ Spacemacs has a minimalistic and distraction free graphical UI:
 ** Color themes
 The official Spacemacs theme is [[https://github.com/nashamri/spacemacs-theme][spacemacs-dark]] and it is the default theme
 installed when you first started Spacemacs. There are two variants of the
-theme, a dark one and a light one. Some aspect of these themes can be customized
+theme, a dark one and a light one. Some aspects of these themes can be customized
 in the function =dotspacemacs/user-init= of your =~/.spacemacs=:
   - the comment background with the boolean =spacemacs-theme-comment-bg=
   - the height of org section titles with =spacemacs-theme-org-height=
@@ -2548,7 +2548,7 @@ Text related commands (start with ~x~):
 | ~SPC x a ;~ | align region at ;                                             |
 | ~SPC x a =~ | align region at =                                             |
 | ~SPC x a a~ | align region (or guessed section) using default rules         |
-| ~SPC x a c~ | align current intendation region using default rules          |
+| ~SPC x a c~ | align current indentation region using default rules          |
 | ~SPC x a r~ | align region using user-specified regexp                      |
 | ~SPC x a m~ | align region at arithmetic operators (+-*/)                   |
 | ~SPC x a ¦~ | align region at ¦                                             |
@@ -2656,7 +2656,7 @@ In transient state:
 | Any other key | leave the transient state              |
 
 *Tips:* you can increase or decrease a value by more that once by using a prefix
-argument (ie. ~10 SPC n +~ will add 10 to the number under point).
+argument (i.e. ~10 SPC n +~ will add 10 to the number under point).
 
 *** Spell checking
 Spell checking is enabled by including the [[../layers/+checkers/spell-checking][spell
@@ -2701,12 +2701,12 @@ There are also ~a~ variants that include whitespace. Example (=|= indicates poin
 The displayed text of a buffer can be narrowed with the commands (start with
 ~n~):
 
-| Key Binding | Description                               |
-|-------------+-------------------------------------------|
-| ~SPC n f~   | narrow the buffer to the current function |
-| ~SPC n p~   | narrow the buffer to the visible page     |
-| ~SPC n r~   | narrow the buffer to the selected text    |
-| ~SPC n w~   | widen, i.e show the whole buffer again    |
+| Key Binding | Description                                |
+|-------------+--------------------------------------------|
+| ~SPC n f~   | narrow the buffer to the current function  |
+| ~SPC n p~   | narrow the buffer to the visible page      |
+| ~SPC n r~   | narrow the buffer to the selected text     |
+| ~SPC n w~   | widen, i.e. show the whole buffer again    |
 
 *** Replacing text with iedit
 Spacemacs uses the powerful [[https://github.com/tsdh/iedit][iedit]] mode through [[https://github.com/syl20bnr/evil-iedit-state][evil-iedit-state]] to quickly
