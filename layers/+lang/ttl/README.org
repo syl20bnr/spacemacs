@@ -1,0 +1,25 @@
+#+TITLE: ttl layer
+
+# TOC links should be GitHub style anchors.
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+  This layer makes editing ttl and n3 files in Spacemacs more fun!
+  It includes:
+- syntax highlighting
+- auto-indent
+- clickable URIs
+  The layer is almost entirely comprised of the fantastic https://bitbucket.org/nxg/ttl-mode. Great work, nxg.
+
+* Install
+  To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+  add =ttl= to the existing =dotspacemacs-configuration-layers= list in this
+  file.
+  Then, open a .ttl file of your choosing!
+
+* Key bindings
+
+  This layer doesn't expose any key bindings.
