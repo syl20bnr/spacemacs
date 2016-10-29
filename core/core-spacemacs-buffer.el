@@ -266,6 +266,100 @@ Insert it in the first line of the buffer, right justified."
           (insert build-rhs)
           (insert "\n"))))))
 
+(defun spacemacs-buffer//notes-render-framed-text
+    (content &optional topcaption botcaption hpadding max-width min-width)
+  "Return a formated string framed with plained lines.
+The width of the created frame is the width of the content, unless it does not
+satisfy max-width or min-width.  Note that max-width can be limited by the
+window's width.
+CONTENT can be a text or a filepath.
+TOPCAPTION is a text to be encrusted at the top of the frame.
+BOTCAPTION is a text to be encrusted at the bottom of the frame.
+HPADDING is the horizontal spacing between the text and the frame.  The vertical
+         spacing is always one line.
+MAX-WIDTH is the maximum width of the frame,  frame included.  When
+          `dotspacemacs-startup-buffer-responsive' is t, MAX-WIDTH will be
+          limited to the window's width.  MAX-WIDTH takes precedence over
+          MIN-WIDTH.
+MIN-WIDTH is the minimal width of the frame, frame included.  The frame will not
+          shrink any thinner than MIN-WIDTH characters unless MAX-WIDTH says
+          otherwise."
+  (with-temp-buffer
+    (if (not (file-exists-p content))
+        (insert content)
+      (insert-file-contents content)
+      (goto-char (point-max))
+      (when (eq ?\n (char-before))    ;; remove additional newline at eof
+        (delete-char -1)))
+    (let* ((hpadding (if hpadding hpadding 1))
+           (text-width (spacemacs-buffer//get-buffer-width))
+           (width (+ 2 (* 2 hpadding) text-width))
+           (fill-column text-width)
+           (sentence-end-double-space nil)    ; needed by fill-region
+           (topcaption-length (if topcaption (length topcaption) 0))
+           (botcaption-length (if botcaption (length botcaption) 0)))
+      (setq max-width (or max-width width)
+            min-width (or min-width 1)
+            max-width (if (< max-width min-width) min-width max-width)
+            max-width (if dotspacemacs-startup-buffer-responsive
+                          (if (> max-width spacemacs-buffer--banner-length)
+                              spacemacs-buffer--banner-length
+                            max-width)
+                        max-width))
+      (when (< width min-width)
+        (setq width min-width
+              fill-column (max 0 (- min-width 2 (* hpadding 2)))))
+      (when (> width max-width)
+        (setq width max-width
+              fill-column (max 0 (- max-width 2 (* hpadding 2)))))
+      (spacemacs-buffer||notes-adapt-caption-to-width topcaption
+                                                      topcaption-length
+                                                      width)
+      (spacemacs-buffer||notes-adapt-caption-to-width botcaption
+                                                      botcaption-length
+                                                      width)
+      (fill-region (point-min) (point-max) nil nil)
+      (concat
+       "╭─" (when topcaption (propertize (concat " " topcaption " ")
+                                         'face
+                                         '(:weight bold)))
+       (make-string (max 0 (- width (if topcaption 6 4) topcaption-length)) ?─) "─╮\n"
+       (spacemacs-buffer//notes-render-framed-line "" width hpadding)
+       (mapconcat (lambda (line)
+                    (spacemacs-buffer//notes-render-framed-line line width hpadding))
+                  (split-string (buffer-string) "\n" nil) "")
+       (spacemacs-buffer//notes-render-framed-line "" width hpadding)
+       "╰─" (when botcaption (propertize (concat " " botcaption " ")
+                                         'face '(:weight bold)))
+       (make-string (max 0 (- width (if botcaption 6 4) botcaption-length)) ?─)
+       "─╯" (when botcaption "\n")))))
+
+(defmacro spacemacs-buffer||notes-adapt-caption-to-width (caption
+                                                          caption-length
+                                                          width)
+  "Adapt caption string's length to the note's frame current width.
+For internal use in `spacemacs-buffer//notes-render-framed-text'.
+CAPTION: string to be encrusted onto the note's frame
+CAPTION-LENGTH: length of the caption
+WIDTH: current external width of the note's frame."
+  `(when (> ,caption-length (- ,width 6)) ; minimum frame width is 6
+     (if (> ,width 8)
+         (setq ,caption (concat (substring ,caption
+                                           0
+                                           (min -3 (- (- ,width 6 3)
+                                                      ,caption-length)))
+                                "..."))
+       (setq ,caption nil
+             ,caption-length 0))))
+
+(defun spacemacs-buffer//notes-render-framed-line (line width hpadding)
+  "Return a formated LINE with borders of a frame on each side.
+WIDTH: external width of the frame.  LINE should be shorter than WIDTH.
+HPADDING: horizontal padding on both sides of the framed string."
+  (let ((fill (max 0 (- width 2 hpadding (length line)))))
+    (concat "│" (make-string hpadding ?\s) line (make-string fill ?\s)
+            "│\n")))
+
 (defun spacemacs-buffer//notes-insert-note
     (file topcaption botcaption &optional additional-widgets)
   "Insert the release note just under the banner.
@@ -308,40 +402,6 @@ ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
         (spacemacs-buffer//center-line)
         (delete-trailing-whitespace (line-beginning-position)
                                     (line-end-position))))))
-
-(defun spacemacs-buffer/toggle-note (type)
-  "Toggle the displayed note based on TYPE.
-If TYPE is nil or unknown, just remove the currently displayed note.  Currently
-allowed types are `quickhelp' and `release-note'"
-  (spacemacs-buffer//notes-clear-notes-and-widgets)
-  (if (or (eq spacemacs-buffer--current-note-type nil)
-          (not (eq spacemacs-buffer--current-note-type type)))
-      (progn
-        (setq spacemacs-buffer--current-note-type type)
-        (cond
-         ((eq type 'quickhelp) (spacemacs-buffer//notes-insert-quickhelp))
-         ((eq type 'release-note) (spacemacs-buffer//notes-insert-release-note))
-         (t (setq spacemacs-buffer--current-note-type nil)
-            (message "Unknown note type: %s" 'type))))
-    (setq spacemacs-buffer--current-note-type nil)))
-
-(defun spacemacs-buffer//notes-redisplay-note ()
-  "Delete and rediplay the currently displayed note."
-  (spacemacs-buffer//notes-clear-notes-and-widgets)
-  (let ((type spacemacs-buffer--current-note-type))
-    (cond
-     ((eq type 'quickhelp) (spacemacs-buffer//notes-insert-quickhelp))
-     ((eq type 'release-note) (spacemacs-buffer//notes-insert-release-note))
-     (t))))
-
-(defun spacemacs-buffer//notes-clear-notes-and-widgets ()
-  "Remove existing note widgets if exists."
-  (when spacemacs-buffer--note-widgets
-    (mapc 'widget-delete spacemacs-buffer--note-widgets)
-    (setq spacemacs-buffer--note-widgets nil)
-    (setq spacemacs-buffer--release-note-version spacemacs-version)
-    (spacemacs/dump-vars-to-file
-     '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file)))
 
 (defun spacemacs-buffer//notes-insert-quickhelp ()
   "Insert quickhelp."
@@ -420,6 +480,40 @@ allowed types are `quickhelp' and `release-note'"
   (spacemacs/dump-vars-to-file '(spacemacs-buffer--release-note-version)
                                spacemacs-buffer--cache-file))
 
+(defun spacemacs-buffer//notes-clear-notes-and-widgets ()
+  "Remove existing note widgets if exists."
+  (when spacemacs-buffer--note-widgets
+    (mapc 'widget-delete spacemacs-buffer--note-widgets)
+    (setq spacemacs-buffer--note-widgets nil)
+    (setq spacemacs-buffer--release-note-version spacemacs-version)
+    (spacemacs/dump-vars-to-file
+     '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file)))
+
+(defun spacemacs-buffer//notes-redisplay-current-note ()
+  "Delete and rediplay the currently displayed note."
+  (spacemacs-buffer//notes-clear-notes-and-widgets)
+  (let ((type spacemacs-buffer--current-note-type))
+    (cond
+     ((eq type 'quickhelp) (spacemacs-buffer//notes-insert-quickhelp))
+     ((eq type 'release-note) (spacemacs-buffer//notes-insert-release-note))
+     (t))))
+
+(defun spacemacs-buffer/toggle-note (type)
+  "Toggle the displayed note based on TYPE.
+If TYPE is nil or unknown, just remove the currently displayed note.  Currently
+allowed types are `quickhelp' and `release-note'"
+  (spacemacs-buffer//notes-clear-notes-and-widgets)
+  (if (or (eq spacemacs-buffer--current-note-type nil)
+          (not (eq spacemacs-buffer--current-note-type type)))
+      (progn
+        (setq spacemacs-buffer--current-note-type type)
+        (cond
+         ((eq type 'quickhelp) (spacemacs-buffer//notes-insert-quickhelp))
+         ((eq type 'release-note) (spacemacs-buffer//notes-insert-release-note))
+         (t (setq spacemacs-buffer--current-note-type nil)
+            (message "Unknown note type: %s" 'type))))
+    (setq spacemacs-buffer--current-note-type nil)))
+
 (defun spacemacs-buffer/set-mode-line (format)
   "Set mode-line format for spacemacs buffer.
 FORMAT: the `mode-line-format' variable Emacs will use to build the mode-line."
@@ -468,100 +562,6 @@ If MESSAGEBUF is not nil then MSG is also written in message buffer."
       (insert msg)
       (if messagebuf (message "(Spacemacs) %s" msg)))
     (spacemacs-buffer/set-mode-line "")))
-
-(defun spacemacs-buffer//notes-render-framed-text
-    (content &optional topcaption botcaption hpadding max-width min-width)
-  "Return a formated string framed with plained lines.
-The width of the created frame is the width of the content, unless it does not
-satisfy max-width or min-width.  Note that max-width can be limited by the
-window's width.
-CONTENT can be a text or a filepath.
-TOPCAPTION is a text to be encrusted at the top of the frame.
-BOTCAPTION is a text to be encrusted at the bottom of the frame.
-HPADDING is the horizontal spacing between the text and the frame.  The vertical
-         spacing is always one line.
-MAX-WIDTH is the maximum width of the frame,  frame included.  When
-          `dotspacemacs-startup-buffer-responsive' is t, MAX-WIDTH will be
-          limited to the window's width.  MAX-WIDTH takes precedence over
-          MIN-WIDTH.
-MIN-WIDTH is the minimal width of the frame, frame included.  The frame will not
-          shrink any thinner than MIN-WIDTH characters unless MAX-WIDTH says
-          otherwise."
-  (with-temp-buffer
-    (if (not (file-exists-p content))
-        (insert content)
-      (insert-file-contents content)
-      (goto-char (point-max))
-      (when (eq ?\n (char-before))    ;; remove additional newline at eof
-        (delete-char -1)))
-    (let* ((hpadding (if hpadding hpadding 1))
-	   (text-width (spacemacs-buffer//get-buffer-width))
-	   (width (+ 2 (* 2 hpadding) text-width))
-           (fill-column text-width)
-           (sentence-end-double-space nil)    ; needed by fill-region
-           (topcaption-length (if topcaption (length topcaption) 0))
-           (botcaption-length (if botcaption (length botcaption) 0)))
-      (setq max-width (or max-width width)
-            min-width (or min-width 1)
-            max-width (if (< max-width min-width) min-width max-width)
-            max-width (if dotspacemacs-startup-buffer-responsive
-                          (if (> max-width spacemacs-buffer--banner-length)
-                              spacemacs-buffer--banner-length
-                            max-width)
-                        max-width))
-      (when (< width min-width)
-        (setq width min-width
-              fill-column (max 0 (- min-width 2 (* hpadding 2)))))
-      (when (> width max-width)
-        (setq width max-width
-              fill-column (max 0 (- max-width 2 (* hpadding 2)))))
-      (spacemacs-buffer||notes-adapt-caption-to-width topcaption
-                                                      topcaption-length
-                                                      width)
-      (spacemacs-buffer||notes-adapt-caption-to-width botcaption
-                                                      botcaption-length
-                                                      width)
-      (fill-region (point-min) (point-max) nil nil)
-      (concat
-       "╭─" (when topcaption (propertize (concat " " topcaption " ")
-                                         'face
-                                         '(:weight bold)))
-       (make-string (max 0 (- width (if topcaption 6 4) topcaption-length)) ?─) "─╮\n"
-       (spacemacs-buffer//notes-render-framed-line "" width hpadding)
-       (mapconcat (lambda (line)
-                    (spacemacs-buffer//notes-render-framed-line line width hpadding))
-                  (split-string (buffer-string) "\n" nil) "")
-       (spacemacs-buffer//notes-render-framed-line "" width hpadding)
-       "╰─" (when botcaption (propertize (concat " " botcaption " ")
-                                         'face '(:weight bold)))
-       (make-string (max 0 (- width (if botcaption 6 4) botcaption-length)) ?─)
-       "─╯" (when botcaption "\n")))))
-
-(defmacro spacemacs-buffer||notes-adapt-caption-to-width (caption
-                                                          caption-length
-                                                          width)
-  "Adapt caption string's length to the note's frame current width.
-For internal use in `spacemacs-buffer//notes-render-framed-text'.
-CAPTION: string to be encrusted onto the note's frame
-CAPTION-LENGTH: length of the caption
-WIDTH: current external width of the note's frame."
-  `(when (> ,caption-length (- ,width 6)) ; minimum frame width is 6
-     (if (> ,width 8)
-         (setq ,caption (concat (substring ,caption
-                                           0
-                                           (min -3 (- (- ,width 6 3)
-                                                      ,caption-length)))
-                                "..."))
-       (setq ,caption nil
-             ,caption-length 0))))
-
-(defun spacemacs-buffer//notes-render-framed-line (line width hpadding)
-  "Return a formated LINE with borders of a frame on each side.
-WIDTH: external width of the frame.  LINE should be shorter than WIDTH.
-HPADDING: horizontal padding on both sides of the framed string."
-  (let ((fill (max 0 (- width 2 hpadding (length line)))))
-    (concat "│" (make-string hpadding ?\s) line (make-string fill ?\s)
-            "│\n")))
 
 (defun spacemacs-buffer/loading-animation ()
   "Display the progress bar by chunks of size `spacemacs--loading-dots-chunk-threshold'."
@@ -1030,7 +1030,7 @@ REFRESH if the buffer should be redrawn."
           (spacemacs-buffer/insert-banner-and-buttons)
           (if (bound-and-true-p spacemacs-initialized)
               (progn
-                (spacemacs-buffer//notes-redisplay-note)
+                (spacemacs-buffer//notes-redisplay-current-note)
                 (configuration-layer/display-summary emacs-start-time)
                 (when dotspacemacs-startup-lists
                   (spacemacs-buffer/insert-startup-lists))
