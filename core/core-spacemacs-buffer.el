@@ -25,8 +25,9 @@
 (defconst spacemacs-buffer-buttons-startup-lists-offset 25
   "Relative position between the home buffer buttons and startup lists.")
 
-(defconst spacemacs-buffer--banner-length 75
-  "Width of a banner.")
+(defconst spacemacs-buffer--window-width 80
+  "Current width of the home buffer if responsive, 80 otherwise.
+See `dotspacemacs-startup-buffer-responsive'.")
 
 (defconst spacemacs-buffer--cache-file
   (expand-file-name (concat spacemacs-cache-directory "spacemacs-buffer.el"))
@@ -105,7 +106,7 @@ FILE: the path to the file containing the banner."
                (setq banner-width line-length)))
          (forward-line 1))
        (goto-char 0)
-       (let ((margin (max 0 (floor (/ (- spacemacs-buffer--banner-length
+       (let ((margin (max 0 (floor (/ (- spacemacs-buffer--window-width
                                          banner-width) 2)))))
          (while (not (eobp))
            (insert (make-string margin ?\ ))
@@ -204,13 +205,13 @@ BANNER: the path to an ascii banner file."
            (spec (create-image banner))
            (size (image-size spec))
            (width (car size))
-           (left-margin (max 0 (floor (- spacemacs-buffer--banner-length width) 2))))
+           (left-margin (max 0 (floor (- spacemacs-buffer--window-width width) 2))))
       (goto-char (point-min))
       (insert "\n")
       (insert (make-string left-margin ?\ ))
       (insert-image spec)
       (insert "\n\n")
-      (insert (make-string (max 0 (floor (/ (- spacemacs-buffer--banner-length
+      (insert (make-string (max 0 (floor (/ (- spacemacs-buffer--window-width
                                                (+ (length title) 1)) 2))) ?\ ))
       (insert (format "%s\n\n" title)))))
 
@@ -219,7 +220,7 @@ BANNER: the path to an ascii banner file."
 Insert it in the first line of the buffer, right justified."
   (with-current-buffer (get-buffer-create spacemacs-buffer-name)
     (save-excursion
-      (let ((maxcol spacemacs-buffer--banner-length)
+      (let ((maxcol spacemacs-buffer--window-width)
             (version (format "%s@%s (%s)"
                              spacemacs-version
                              emacs-version
@@ -232,7 +233,7 @@ Insert it in the first line of the buffer, right justified."
 (defun spacemacs-buffer//insert-footer ()
   "Insert the footer of the home buffer."
   (save-excursion
-    (let* ((maxcol spacemacs-buffer--banner-length)
+    (let* ((maxcol spacemacs-buffer--window-width)
            (badge-path spacemacs-badge-official-png)
            (badge (when (and (display-graphic-p)
                              (image-type-available-p
@@ -302,11 +303,9 @@ MIN-WIDTH is the minimal width of the frame, frame included.  The frame will not
       (setq max-width (or max-width width)
             min-width (or min-width 1)
             max-width (if (< max-width min-width) min-width max-width)
-            max-width (if dotspacemacs-startup-buffer-responsive
-                          (if (> max-width spacemacs-buffer--banner-length)
-                              spacemacs-buffer--banner-length
-                            max-width)
-                        max-width))
+            max-width (if (> max-width spacemacs-buffer--window-width)
+                              spacemacs-buffer--window-width
+                            max-width))
       (when (< width min-width)
         (setq width min-width
               fill-column (max 0 (- min-width 2 (* hpadding 2)))))
@@ -383,26 +382,24 @@ ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
       (save-restriction
         (narrow-to-region (point) (point))
         (add-to-list 'spacemacs-buffer--note-widgets (widget-create 'text note))
-        (when dotspacemacs-startup-buffer-responsive
-          (let* ((width (spacemacs-buffer//get-buffer-width))
-                 (padding (max 0 (floor (/ (- spacemacs-buffer--banner-length
-                                              width) 2)))))
-            (goto-char (point-min))
-            (while (not (eobp))
-              (beginning-of-line)
-              (insert (make-string padding ?\s))
-              (forward-line)))))
-      (save-excursion
+        (let* ((width (spacemacs-buffer//get-buffer-width))
+               (padding (max 0 (floor (/ (- spacemacs-buffer--window-width
+                                            width) 2)))))
+          (goto-char (point-min))
+          (while (not (eobp))
+            (beginning-of-line)
+            (insert (make-string padding ?\s))
+            (forward-line))))
+     (save-excursion
         (while (re-search-backward "\\[\\[\\(.*\\)\\]\\]" nil t)
           (make-text-button (match-beginning 1)
                             (match-end 1)
                             'type 'help-url
                             'help-args (list (match-string 1)))))
       (funcall additional-widgets)
-      (when dotspacemacs-startup-buffer-responsive
-        (spacemacs-buffer//center-line)
-        (delete-trailing-whitespace (line-beginning-position)
-                                    (line-end-position))))))
+      (spacemacs-buffer//center-line)
+      (delete-trailing-whitespace (line-beginning-position)
+                                  (line-end-position)))))
 
 (defun spacemacs-buffer//notes-insert-quickhelp ()
   "Insert quickhelp."
@@ -605,7 +602,7 @@ NO-NEXT-LINE: if nil the cursor is brought under the searched word."
 (defun spacemacs-buffer//center-line ()
   "When point is at the end of a line, center it."
   (let* ((width (current-column))
-         (margin (max 0 (floor (/ (- spacemacs-buffer--banner-length width)
+         (margin (max 0 (floor (/ (- spacemacs-buffer--window-width width)
                                   2)))))
     (beginning-of-line)
     (insert (make-string margin ?\ ))
@@ -950,9 +947,9 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
   (let* ((lists-width (spacemacs-buffer//get-buffer-width))
          (margin (max 0 (- spacemacs-buffer--buttons-position
                            spacemacs-buffer-buttons-startup-lists-offset)))
-         (final-padding (if (< spacemacs-buffer--banner-length
+         (final-padding (if (< spacemacs-buffer--window-width
                                (+ margin lists-width))
-                            (max 0 (floor (/ (- spacemacs-buffer--banner-length
+                            (max 0 (floor (/ (- spacemacs-buffer--window-width
                                                 lists-width)
                                              2)))
                           margin)))
@@ -1018,8 +1015,11 @@ REFRESH if the buffer should be redrawn."
     (when (or (not (eq spacemacs-buffer--last-width (window-width)))
               (not buffer-exists)
               refresh)
-      (setq spacemacs-buffer--banner-length (window-width)
-            spacemacs-buffer--last-width spacemacs-buffer--banner-length)
+      (setq spacemacs-buffer--window-width
+            (if (bound-and-true-p dotspacemacs-startup-buffer-responsive)
+		(window-width)
+              80)
+            spacemacs-buffer--last-width spacemacs-buffer--window-width)
       (with-current-buffer (get-buffer-create spacemacs-buffer-name)
         (page-break-lines-mode)
         (save-excursion
