@@ -232,7 +232,7 @@
   "Call `yas-expand' and switch to `insert state'"
   (interactive)
   (call-interactively 'aya-expand)
-  (unless holy-mode (evil-insert-state)))
+  (evil-insert-state))
 
 
 ;; Yasnippet and Smartparens
