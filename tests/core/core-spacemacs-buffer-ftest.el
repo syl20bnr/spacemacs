@@ -9,7 +9,8 @@
 ;;
 (require 'core-spacemacs-buffer)
 
-(setq-default fill-column 80)
+(setq-default fill-column 80
+	      spacemacs-buffer--window-width 75)
 
 ;; ---------------------------------------------------------------------------
 ;; spacemacs-buffer//notes-render-framed-text
