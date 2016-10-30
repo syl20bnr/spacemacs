@@ -460,8 +460,10 @@
   :title "Buffer Selection Transient State"
   :bindings
   ("n" next-buffer "next")
+  ("j" next-buffer "next")
   ("N" previous-buffer "previous")
   ("p" previous-buffer "previous")
+  ("k" previous-buffer "previous")
   ("K" spacemacs/kill-this-buffer "kill")
   ("q" nil "quit" :exit t))
 (spacemacs/set-leader-keys "b." 'spacemacs/buffer-transient-state/body)
