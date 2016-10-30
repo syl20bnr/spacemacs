@@ -81,3 +81,5 @@ ONBUILD USER ${UNAME}
 ONBUILD RUN ($ "sudo chown ${UID}:${GID} ${UHOME}/.spacemacs" \
                "emacs -batch -u ${UNAME} -kill"               \
                "sdruntests")
+
+RUN ($ `("echo SPACEMACS REVISION: \"%s\"" , (getenv "GIT_REV")))
