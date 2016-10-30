@@ -1,0 +1,12 @@
+#+TITLE: pdf-tools layer dependency installation script
+
+* Table of Contents                 :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#list-of-installed-software][List of installed software:]]
+
+* Description
+Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+tools/pdf-tools/README.org][pdf-tools layer.]]
+
+* List of installed software:
+1. [[https://www.imagemagick.org/script/index.php][imagemagick]]
+2. [[https://github.com/politza/pdf-tools][pdf-tools]]

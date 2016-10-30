@@ -1,0 +1,13 @@
+#+TITLE: gtags layer dependency installation script
+
+* Table of Contents                 :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#list-of-installed-software][List of installed software:]]
+
+* Description
+Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Btags/gtags/README.org][gtags layer.]]
+
+* List of installed software:
+1. [[http://packages.ubuntu.com/en/xenial/python-pygments][python-pygments]]
+2. [[https://github.com/universal-ctags/ctags][universal-ctags]]
+3. [[https://www.tamacom.com/global.html][global]]
