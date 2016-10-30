@@ -1,0 +1,17 @@
+#+TITLE: javascript layer dependency installation script
+
+* Table of Contents                 :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#list-of-installed-software][List of installed software:]]
+
+* Description
+Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/master/layers/%2Blang/javascript/README.org][JavaScript layer.]]
+
+* List of installed software:
+1. [[https://www.npmjs.com][npm]]
+2. [[https://github.com/CSSLint/csslint][csslint]]
+3. [[https://github.com/bernardmcmanus/httpd-node][httpd-node]]
+4. [[https://ternjs.net/][tern]]
+5. [[https://github.com/beautify-web/js-beautify][js-beautify]]
+6. [[https://github.com/eslint/eslint][eslint]]
+7. [[https://github.com/jshint/jshint][jshint]]
