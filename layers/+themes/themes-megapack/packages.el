@@ -27,7 +27,6 @@
     clues-theme
     color-theme-sanityinc-solarized
     color-theme-sanityinc-tomorrow
-    colorsarenice-theme
     cyberpunk-theme
     dakrone-theme
     darkburn-theme
@@ -86,7 +85,6 @@
     soft-stone-theme
     soothe-theme
     spacegray-theme
-    stekene-theme
     subatomic-theme
     subatomic256-theme
     sublime-themes
