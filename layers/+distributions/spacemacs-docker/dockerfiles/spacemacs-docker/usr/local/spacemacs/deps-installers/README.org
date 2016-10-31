@@ -6,24 +6,28 @@
  - [[#how-it-works][How it works]]
 
 * Description
-Dependency installation scripts for [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs/README.org][spacemacs-docker distribution.]]
+Dependency installation scripts for [[../../../../../../README.org][spacemacs-docker distribution.]]
 
 * Supported layers
-1. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/deps-installers/clojure/README.org][Clojure]]
-2. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/deps-installers/dash/README.org][Dash]]
-3. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/deps-installers/fasd/README.org][fasd]]
-4. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/deps-installers/go/README.org][Go]]
-5. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/deps-installers/gtags/README.org][gtags]]
-6. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/deps-installers/html/README.org][html]]
-7. [[https://github.com/syl20bnr/spacemacs/blob/master/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/deps-installers/javascript/README.org][JavaScript]]
-8. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/deps-installers/pandoc/README.org][pandoc]]
-9. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/deps-installers/pdf-tools/README.org][pdf-tools]]
-10. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/deps-installers/spell-checking/README.org][spell-checking]]
+1. [[./clojure/README.org][Clojure]]
+2. [[./dash/README.org][Dash]]
+3. [[./fasd/README.org][fasd]]
+4. [[./go/README.org][Go]]
+5. [[./gtags/README.org][gtags]]
+6. [[./html/README.org][html]]
+7. [[./javascript/README.org][JavaScript]]
+8. [[./pandoc/README.org][pandoc]]
+9. [[./pdf-tools/README.org][pdf-tools]]
+10. [[./spell-checking/README.org][spell-checking]]
 
 * How it works
-[[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/Dockerfile][onbuild Dockerfile]] has [[https://docs.docker.com/engine/reference/builder/#/onbuild][ONBUILD instructions]] that copy users .spacemacs file, test and scan it.
-If the .spacemacs file contains one of supported layers and its installation
-isn't disabled, Docker builder will install the layers requirements (dependencies)
-taking into account layer's configuration. For example, it will install [[https://github.com/alecthomas/gometalinter][gometalinter]]
-only if =go-use-gometalinter= is =t=.
-*See* [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/lib/README.org][README.org of the spacemacs-docker libraries]] *for more details.*
+If user's .spacemacs file contains one of supported layers and its installation
+isn't disabled, it will be used to satisfy the layer's requirements, taking
+into account its configurations. For example, [[https://github.com/alecthomas/gometalinter][gometalinter]] will be installed
+only if the variable =go-use-gometalinter= is =t=.
+Set  =<LAYER_NAME>-docker-spacemacs-disable-dependencies-installer= to =t=
+if you want to disable dependency installation for the =<LAYER_NAME>= layer.
+Example:
+#+BEGIN_SRC emacs-lisp
+  (pandoc :variables pandoc-docker-spacemacs-disable-dependencies-installer t) 
+#+END_SRC

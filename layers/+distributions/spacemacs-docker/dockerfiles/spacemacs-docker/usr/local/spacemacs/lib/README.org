@@ -8,13 +8,13 @@
    - [[#how-to-test-them][How to test them]]
 
 * Description
-Dependency installation libraries for [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs/README.org][spacemacs-docker distribution.]]
+Dependency installation libraries for [[../../../../../../README.org][spacemacs-docker distribution.]]
 
 * library list
-1. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/lib/init.el][init.el]] - Installs packages used in the libs.
-2. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/lib/dockerfile-dsl.el][dockerfile-dsl.el]] - Elisp Dockerfile DSL (also used in =deps-dsl.el=).
-3. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/lib/deps-dsl.el][deps-dsl.el]] - layers dependencies installation helpers.
-[[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/deps-installers/README.org][Usage examples.]]
+1. [[./init.el][init.el]] - Installs packages used in the libs
+2. [[./dockerfile-dsl.el][dockerfile-dsl.el]] - Elisp Dockerfile DSL (also used in =deps-dsl.el=)
+3. [[./deps-dsl.el][deps-dsl.el]] - layers dependencies installation helpers
+[[../deps-installers/README.org][Usage examples]]
 
 * Workflow
 ** TODO How to write scripts
