@@ -10,9 +10,9 @@ This directory contains layers installation scripts and their dependencies
  that will be executed by Dockerfiles.
 
 * Subdirectories
-1. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/deps-installers/README.org][deps-installers]]
-2. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+distributions/spacemacs-docker/dockerfiles/onbuild/usr/local/spacemacs/lib/README.org][lib]]
-
+1. [[./deps-installers/README.org][deps-installers]]
+2. [[./lib/README.org][lib]]
+   
 * Note
 Dockerfiles actually use a copy of this directory
 located at =/usr/local/spacemacs=

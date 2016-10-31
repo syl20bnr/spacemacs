@@ -1,1 +1,224 @@
-WIP
+#+TITLE: spacemacs-docker distribution
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#features][Features:]]
+ - [[#drawbacks][Drawbacks:]]
+ - [[#getting-startedafter-this-pr-is-merged][Getting started(AFTER THIS PR IS MERGED)]]
+   - [[#for-all-platform][For all platform]]
+     - [[#how-to-build][How to build:]]
+     - [[#how-to-usewith-the-default-settings][How to use(with the default settings)]]
+       - [[#xpra-over-sshgui][Xpra over SSH(GUI):]]
+       - [[#in-webbrowser][In webbrowser:]]
+       - [[#moshsshterminal][Mosh/SSH(terminal):]]
+   - [[#optimizations][Optimizations]]
+     - [[#data-transfer-via-mmapgnulinux][Data transfer via mmap(GNU/Linux)]]
+     - [[#use-hosts-network][Use host's network]]
+     - [[#use-hosts-file-system][Use host's file system]]
+     - [[#use-hosts-x11-session-instead-of-sshxpragnulinux][Use host's X11 session instead of SSH/Xpra(GNU/Linux)]]
+ - [[#faq][FAQ]]
+   - [[#how-to-set-localtimezone][How to set localtime/zone?]]
+   - [[#what-layers-supportcurrently-automatic-dependency-installation][What layers support(currently) automatic dependency installation?]]
+   - [[#how-to-contribute][How to contribute?]]
+   - [[#whats-up-with-the-dockerfile-formatting][What's up with the Dockerfile formatting?]]
+   - [[#how-to-update][How to update?]]
+   - [[#how-to-get-an-older-buildbackup-of-my-spacemacs][How to get an older build(backup) of my Spacemacs?]]
+   - [[#add-answers-to-the-questions-from-the-pr][Add answers to the questions from the PR]]
+ - [[#troubleshooting][Troubleshooting]]
+   - [[#font-sizescreen-is-messed-up-help][Font size/screen is messed-up. Help!]]
+   - [[#mosh-fontsspace-line-doesnt-look-right][Mosh fonts/space-line doesn't look right]]
+   - [[#i-have-a-lagpicture-is-blurryclipboard-sharing-doesnt-work][I have a lag/picture is blurry/clipboard sharing doesn't work...]]
+   - [[#ranger-sometimes-lags-with-the-message--process--something-][Ranger sometimes lags with the message "... process ... something ..."]]
+     - [[#localize-the-bug-current-status-heisenbug---but-at-least-it][localize the bug. Current status: heisenbug :(  But at least it]]
+   - [[#sometimesrarely-i-have-strange-emacs-slowdowns][Sometimes(rarely) I have strange Emacs slowdowns]]
+     - [[#find-out-whats-going-one][Find out what's going one.]]
+
+* Description
+Cross-platform, cross-device persistent emacs distribution with
+automatic dependency management and free cloud builds/backups.
+
+* Features:
+1) automatic dependency(SDK, tools) installation for Spacemacs layers. Instead
+   of everyone figuring out how to install/build a layer dependencies, we can
+   write an installation script once and everyone will automatically get them.
+2) Run the same Spacemacs installation across all platforms and devices
+   separately or shared (useful for mentoring, collaborative editing etc.)
+   [[https://i.imgur.com/ijdSuX6.gifv][DEMO]] - same Spacemacs instance shared between Win 10 Notebook and Ubuntu PC.
+   On the both systems Spacemacs window(frame) behaves like if it was a native
+   app it even has proper taskbar icon :) Copy-pasta and full-screen also work.
+   You can even use Spacemacs in a web-browser! ([[https://i.imgur.com/wDLDMZN.gifv][DEMO]])
+   It us useful, for example, if you want to showcase Spacemacs or your personal
+   setup with the zero install requirements.
+3) Client can disconnect and reconnect(from the same or another machine) to
+   a Spacemacs instance without disturbing its execution. [[https://i.imgur.com/3FLISud.gifv][DEMO]].
+   It means that you can start Spacemacs at work and simply connect to it from
+   a handheld devices on the way back home to check rss feed/email and then
+   from a home machine and Spacemacs will be in the exact same state as you
+   left it.
+4) You can run multiply Spacemacs instances on the same host. [[https://i.imgur.com/v6xeBtW.gifv][DEMO]].
+   They can be fully isolated or share only what you want them to share.
+   Bandwidth, CPU, disk space quota also supported. It may be really useful
+   for education. Imagine a classroom with a bunch of cheap Raspberry PI
+   clients and one Spacemacs host(local or cloud based).
+5) Pausing(freezing).
+6) Snapshots for host migration and potentially the fastest way to start
+   Spacemacs based development environment, especially if you use stuff like
+   JVM that needs time to "heat up" [[https://i.imgur.com/plTjTXL.gifv][DEMO]]. For GNU/Linux it uses native
+   "snapshoter" [[https://criu.org/Main_Page][CRIU]]
+7) Disposable sandboxed development environment. Its much harder to damager
+   your actual OS and if your experiment gone wrong you can drop all changes.
+8) Free cloud builds and storage - especially handy if your internet upload is
+   much slower or expensive than download. 
+9) Since spacemacs-docker distribution uses common base (Emacs version, OS, 
+   packages) it is much easer to reproduce and fix bugs.
+10) Docker uses [[https://docs.docker.com/engine/userguide/storagedriver/imagesandcontainers/][layered filesystem]] so for updates you'll need to download only
+    the changed layer. Also you can make multiply images that share the most of
+    data so they require less disk space.
+ 
+* Drawbacks: 
+1) While performance with the GNU/Linux host seems to be equal(perceptually)
+   to a locally installed Spacemacs, even with a Windows 10 client on a fairly
+   ancient laptop(first gen. mobile i3). It's actual better, if you take into
+   account code linter, compiler etc.). But if you host both client and server
+   on such laptop you'll experience noticeable keyboard lag (probably due to
+   low specs and a poor Hyper-V support).
+2) You will need Docker on the server machine and(for the most cases) Xpra
+   at the client + ssh. But if you don't mind some hacks and want to use Linux
+   and run spacemacs-docker locally, then you only need Docker. As a bonus
+   you'll get max speed.
+
+* Getting started(AFTER THIS PR IS MERGED)
+** For all platform
+*** How to build:
+- Install docker like [[https://docker.github.io/engine/installation/][normal ppl do]] or
+  [[https://get.docker.com/][like if there is no tomorrow(don't forget sudo)]]. 
+  Also you'll need [[https://xpra.org][Xpra]] (optionally).
+- Fork [[https://github.com/JAremko/spacemacs-docker-seed][the seed repo]], read its [[https://github.com/JAremko/spacemacs-docker-seed/blob/master/README.md][README.org]]
+- Register at [[https://hub.docker.com/][DockeHub]] and create an [[https://docs.docker.com/docker-hub/builds/][automated builds]] from the fork.
+  Also you may want to link it to =spacemacs/onbuild= repository - this way
+  your Spacemacs will automatically rebuild each time =spacemacs/onbuild= is
+  updated.
+*** How to use(with the default settings)
+**** Xpra over SSH(GUI):
+- =docker run -ti --rm -p 22:22 <YOU_NAME>/spacemacs= it will attach Xpra
+  output to the console, it you detach it Docker will kill and delete the
+  container (and all changes). So to make it useful you need to mount your
+  workspace. To do so add =-v <...>/workspace:/mnt/workspace= where =<...>=
+  is the absolute path to your local workspace. Also you probably would like
+  to make your layouts and recent files persistent: 
+  First create a folder on the host's file system where you want to store
+  those files. For example =/tmp/spacemacs-cache= then =docker run= with 
+  =-v /tmp/spacemacs-cache:/home/spacemacs/.emacs.d/.cache= (Linux example)
+- Then you can attach to it via Xpra:
+  #+BEGIN_SRC bash
+    xpra attach --encoding=rgb --pulseaudio=no --compress=0\
+    ssh:<NAME_FROM_/hooks/build>@localhost:14 
+  #+END_SRC
+  on Windows executable is called =Xpra_cmd= also you can use Xpra's GUI app
+  but it's a good idea to fist run it with log/console output, it will tell
+  you if your client misses python libraries.
+- You can share your Spacemacs by adding =--sharing=yes= for each Xpra
+  client =xpra attach ... --sharing=yes ...=
+- Read [[https://docs.docker.com/engine/reference/run/][Docker run reference]] and [[https://www.xpra.org/trac/wiki/FAQ][Xpra FAQ]].
+**** In webbrowser:
+- Same as with Xpra over SSH =docker run -ti --rm <YOU_NAME>/spacemacs= but
+  instead of =-p 22:22= bind =-p 10000:10000= and add set container's
+  environment variable =SDMODE= to =webbrowser_insecure= i.e:
+  =docker run ... -e SDMODE=webbrowser_insecure ...= Also you'll need to
+  set a password =... -e XPRA_PASSWORD=<YOUR_PASSWORD> ...= 
+  Now you can use Spacemacs via webbrowser. URL:
+  http://localhost:10000/index.html?encoding=png&password=<YOUR_PASSWORD>
+  or use http://localhost:10000/connect.html if you want to configure
+  keyboard layout, encoding, full-screen mode etc. To get proper full-screen
+  you need to fist enter browser full-screen at this page and then connect
+  to the Spacemacs.
+  The mode is called *"webbrowser_insecure"* because it uses http protocol.
+  So you should use it *only for local network*  behind system firewall or
+  Docker's one i.e don't bind container's port =10000= to the host's port.
+  Find out local IP of the container and use it instead of =localhost=.
+  For the remote use you can add [[https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion][TLS proxy]] and may be wrap
+  your setup into [[https://docs.docker.com/compose][Docker compose]] for the convenience.
+**** Mosh/SSH(terminal):
+- Use [[#xpra-over-sshgui][Xpra over SSH(GUI)]] method to launch a new Spacemacs instance
+  (or use existing one). Set container's environment variable =SDMODE= to
+  =ssh= i.e: =docker run ... -e SDMODE=ssh ...= if you don't need Xpra.
+- Then use ssh to connect =ssh <NAME_FROM_/hooks/build>@localhost=
+- To use Mosh (which is much better way than ssh) you'll also need to bind
+  an UDP port =docker run ... -p 60001:60001/udp ...= then to connect:
+  =mosh -p 60001 <NAME_FROM_/hooks/build>@localhost emacs=
+** Optimizations
+*** Data transfer via mmap(GNU/Linux)
+You can use Xpra mmap protocol to greatly reduce CPU usage, but only
+if the host and the client are on the same machine(file system).
+For this first create a folder on the host's file system where the
+mmap will be created. For example =spacemacs-mmap= (it should
+be owned by user) then same as with [[#xpra-over-sshgui][Xpra over SSH(GUI)]] but also mount
+the folder =-v /tmp/spacemacs-mmap/:/tmp/spacemacs-mmap/= to attach run:
+#+BEGIN_SRC bash
+  TMPDIR=/tmp/spacemacs-mmap/ xpra attach --mmap=yes ...
+#+END_SRC
+the mmap option only works for GNU/Linux See [[https://www.xpra.org/trac/changeset/10846/xpra][change-log]].
+*** Use host's network
+Instead of using =-p= to map individual ports, you can add
+=--network=host= to the =docker run...= it's not only more convenient
+way to run stuff, but also more efficient (and less secure). If you use
+docker for Mac/Windows you'll may need to figure out your docker machine
+IP and use it instead of localhost.
+*** Use host's file system
+Docker's file system is somewhat slower. If you have "hot" folders you
+can mount them to the host's filesystem. See [[https://docs.docker.com/engine/tutorials/dockervolumes/][Docker volumes]].
+*** Use host's X11 session instead of SSH/Xpra(GNU/Linux)
+This is a hacky way to get absolute best performance. For it to work
+host's X11 session owner should have same UID as the spacemacs-docker
+user (both are 1000 be the default). Simply mount
+=/tmp/.X11-unix= and run Emacs directly without ssh and Xpra: 
+#+BEGIN_SRC bash
+  docker run -ti --rm -v /tmp/.X11-unix:/tmp/.X11-unix\
+   -e DISPLAY=$DISPLAY\
+   --entrypoint=/usr/bin/emacs\
+   -e NO_AT_BRIDGE=1\
+   -e SHELL=/bin/bash\
+   <YOUR_NAME>/spacemacs
+#+END_SRC
+
+* FAQ
+** How to set localtime/zone?
+Try =docker run ... -v /etc/localtime:/etc/localtime:ro ...=
+or =docker run ... -e TZ=UTC  ...= - Replace =UTC= with your time zone.
+** What layers support(currently) automatic dependency installation? 
+See [[./dockerfiles/spacemacs-docker/usr/local/spacemacs/deps-installers/README.org][deps-installers/README.org]]
+** How to contribute?
+You can contribute a dependency installation script for a
+currently unsupported layer or  fix/extend existing one.
+See [[./dockerfiles/spacemacs-docker/usr/local/spacemacs/lib/README.org][lib/README.org]]. Also you can improve libraries, docs.
+** What's up with the Dockerfile formatting?
+Docker build logs are ugly anyway. At least we can keep Dockerfiles
+as readable as possible. Also Emacs-Lisp DSL prints out executed
+command and its output (if any) so we don't need to dig into usual
+ docker builder's wall of text.
+** How to update?
+- First get a new version =docker pull <YOUR_NAME>/spacemacs=
+- Then run it. And if it is fine, remove the old one:
+  1) Get image list =docker images=.
+  2) Remove an image =docker rmi <IMAGE>=.
+** How to get an older build(backup) of my Spacemacs?
+You can [[https://docs.docker.com/engine/reference/commandline/pull/#/pull-an-image-by-digest-immutable-identifier][pull by the digest]]. Also you can use digest in the =FROM=
+Dockerfile instruction.
+** TODO Add answers to the questions from the PR
+
+* Troubleshooting
+** Font size/screen is messed-up. Help!
+If you have more than one display/projector or other displaying
+device connected, Xpra may use DPI from the wrong device. You can
+specify DPI at the client with =xpra attach --dpi=<DPI> ...= and/or
+at the server side. [[https://github.com/JAremko/spacemacs-docker-seed/blob/master/Dockerfile#L33][See Seed project's Dockerfile]].
+** Mosh fonts/space-line doesn't look right
+You probably need to install =NanumGothic= and =source-code-pro= fonts
+** I have a lag/picture is blurry/clipboard sharing doesn't work...
+Xpra has many setting that can be changed on the fly(some of them have
+hot-keys). While attached, click Xpra logo near the system clock on the
+taskbar(Windows) and make sure that the configs are right.
+** Ranger sometimes lags with the message "... process ... something ..."
+*** TODO localize the bug. Current status: heisenbug :(
+** Sometimes(rarely) I have strange Emacs slowdowns
+*** TODO Find out what's going one.
