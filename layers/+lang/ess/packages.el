@@ -9,14 +9,18 @@
 ;;
 ;;; License: GPLv3
 
+;; TODO evilify mode resulting from ess-execute and thus
+;; ess-execute-objects/search/... ess-execute-search, ess-execute
+
 (setq ess-packages
       '(
-        company
+        ;; company
         ess
         ess-R-data-view
         ess-R-object-popup
         ess-smart-equals
         rainbow-delimiters
+        org
         ))
 
 (defun ess/init-ess ()
@@ -63,20 +67,84 @@
                 'spacemacs//ess-fix-read-only-inferior-ess-mode)
       (when (configuration-layer/package-usedp 'company)
         (add-hook 'ess-mode-hook 'company-mode))
+
       (with-eval-after-load 'ess-site
+        ;; set user variables
         (if ess-user-style-def
             (add-to-list 'ess-style-alist ess-user-style-def))
         (if ess-user-roxy-template
             (setq ess-roxy-template-alist ess-user-roxy-template))
 
-        ;; instead of setting style vars directly, set style with ess-set-style
+        ;; instead of setting style var directly, set style with ess-set-style
         (add-hook 'ess-mode-hook (lambda () (ess-set-style ess-user-style)))
 
-        (spacemacs/set-leader-keys-for-major-mode 'ess-julia-mode
-                                                  "'"  'julia
-          "si" 'julia)
+        ;; evilify ess- rdired and watch modes
+        (evilified-state-evilify ess-rdired-mode ess-rdired-mode-map
+          "v" 'ess-rdired-view
+          "V" 'ess-rdired-View
+          "g" 'revert-buffer)
+        (evilified-state-evilify ess-watch-mode ess-watch-mode-map
+          "g" 'revert-buffer
+          ;; movement bindings.
+          "j" 'ess-watch-next-block
+          "k" 'ess-watch-previous-bloc
+          "l" 'ess-watch-next-block
+          "h" 'ess-watch-previous-bloc
+          "n" 'ess-watch-next-block
+          "p" 'ess-watch-previous-bloc
+
+          ;; add edit binding. Otherwise, the default evilified bindings
+          ;; make sense.
+          "c" 'ess-watch-edit-expression
+          "D" 'ess-watch-kill
+
+          ;; bind this as otherwise it doesn't work, looks like the individual
+          ;; watches act like their own buffers
+          "G" 'end-of-buffer
+
+          ;; TODO figure out how to rebind this one...
+          ;;"gg" 'beginning-of-buffer
+          )
+
+        ;; evilify our shim state to get q working in evil and emacs mode
+        (evilified-state-evilify
+          ess-fundamental-mode ess-fundamental-mode-map
+          "q" 'ess-fundamental-kill-return)
+
+        ;; Need to do this, for some reason the state doesn't start evilified...
+        (add-hook 'ess-fundamental-mode-hook 'evil-evilified-state)
+
+        ;; advise ess-execute to cover most ess use cases
+        ;; (advice-add 'ess-execute :before #'ess-fundamental-set-source-buffer)
+        (advice-add
+         'ess-execute :around
+         (lambda (orig-fun command &optional invert buff message)
+           (ess-fundamental-set-source-buffer)
+           (let ((res (orig-fun command invert buff message)))
+             (with-current-buffer (concat "*" (or buff "ess-output") "*")
+               (ess-fundamental-mode))
+             res)))
+
+        ;; ess-show-traceback is a special case
+        (advice-add
+         'ess-show-traceback :before  #'ess-fundamental-set-source-buffer)
+        (advice-add
+         'ess-show-traceback :after
+         (lambda ()
+           (with-current-buffer (get-buffer "*ess-traceback*")
+             (ess-fundamental-mode))))
+
+        ;; keybindings
+        (spacemacs/declare-prefix-for-mode 'ess-mode "mc" "noweb")
+        (spacemacs/declare-prefix-for-mode 'ess-mode "ms" "repl-interaction")
+        (spacemacs/declare-prefix-for-mode 'ess-mode "mh" "help")
+        (spacemacs/declare-prefix-for-mode 'ess-mode "md" "developer")
+        (spacemacs/declare-prefix-for-mode 'ess-mode "mb" "debugging")
+        (spacemacs/declare-prefix-for-mode 'ess-mode "mv" "views")
+        (spacemacs/declare-prefix-for-mode 'ess-mode "mr" "roxygen")
+
         (spacemacs/set-leader-keys-for-major-mode 'ess-mode
-                                                  "'"  'spacemacs/ess-start-repl
+          "'"  'spacemacs/ess-start-repl
           "si" 'spacemacs/ess-start-repl
           ;; noweb
           "cC" 'ess-eval-chunk-and-go
@@ -102,29 +170,47 @@
           "s:" 'ess-execute
           "sw" 'ess-set-working-directory
           ;; R helpers
-          "hd" 'ess-R-dv-pprint
-          "hi" 'ess-R-object-popup
-          "ht" 'ess-R-dv-ctable
           "hh" 'ess-display-help-on-object
+          "hH" 'ess-describe-object-at-point
           "ha" 'ess-display-help-apropos
           "hp" 'ess-display-package-index
           "hv" 'ess-display-vignettes
+          "hw" 'ess-help-web-search
+
+          ;; These two aren't applicable to / implemented in R, but might be
+          ;; utilizted in other dialects
+          "hm" 'ess-manual-lookup
+          "hr" 'ess-reference-lookup
+
           ;; Developer bindings
-          "dl" 'ess-developer-load-package
-          "de" 'ess-debug-toggle-error-action
-          "dt" 'ess-build-tags-for-directory
-          "dw" 'ess-watch
+          "dT" 'ess-build-tags-for-directory
           "ds" 'ess-set-style
+          "dg" 'ess-dump-object-into-edit-buffer
+          ;; TODO only show these bindings if we're in R-mode.
+          "dl" 'ess-r-devtools-load-package
+          "dp" 'ess-r-devtools-set-pacakge
+          "dt" 'ess-r-devtools-test-pacakge
+          "dc" 'ess-r-devtools-check-pacakge
+          "dr" 'ess-r-devtools-document-package
+          "du" 'ess-r-devtools-unload-package
+          "di" 'ess-r-devtools-install-package
+
+          ;; debug bindings
+          "bT" 'ess-show-traceback
+          ;; "b~" 'ess-show-callstack
+          ;; "bC" 'ess-show-callstack
           "bs" 'ess-bp-set
+          "be" 'ess-debug-toggle-error-action
           "bc" 'ess-bp-set-conditional
           "bl" 'ess-bp-set-logger
           "bt" 'ess-bp-toggle-state
-          "bk" 'ess-bp-kill
-          "bK" 'ess-bp-kill-all
+          "bd" 'ess-bp-kill
+          "bD" 'ess-bp-kill-all
           "bn" 'ess-bp-next
           "bp" 'ess-bp-previous
           "bm" 'ess-debug-flag-for-debugging
           "bM" 'ess-debug-unflag-for-debugging
+          "bw" 'ess-watch
           ;; roxygen
           "rh" 'ess-roxy-hide-all
           "rr" 'ess-roxy-update-entry
@@ -133,12 +219,118 @@
           "rP" 'ess-roxy-preview-text
           "rt" 'ess-roxy-toggle-hiding
           ;; other views
-          "vd"  'ess-rdired)
+          "vp" 'ess-R-dv-pprint
+          "vi" 'ess-R-object-popup
+          "vt" 'ess-R-dv-ctable
+          "vd" 'ess-rdired)
+        (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
+
+        ;; define the applicable subset of the above keys for the inferior mode
+        ;; as well
+        (spacemacs/declare-prefix-for-mode 'inferior-ess-mode "ms" "repl-interaction")
+        (spacemacs/declare-prefix-for-mode 'inferior-ess-mode "mh" "help")
+        (spacemacs/declare-prefix-for-mode 'inferior-ess-mode "md" "developer")
+        (spacemacs/declare-prefix-for-mode 'inferior-ess-mode "mb" "debugging")
+        (spacemacs/declare-prefix-for-mode 'inferior-ess-mode "mv" "views")
+        (spacemacs/declare-prefix-for-mode 'inferior-ess-mode "mr" "roxygen")
+        (spacemacs/set-leader-keys-for-major-mode 'inferior-ess-mode
+          "sP" 'ess-install-library
+          "sp" 'ess-load-library
+          "s:" 'ess-execute
+          "sw" 'ess-set-working-directory
+          ;; R helpers
+          "hh" 'ess-display-help-on-object
+          "hH" 'ess-describe-object-at-point
+          "ha" 'ess-display-help-apropos
+          "hp" 'ess-display-package-index
+          "hv" 'ess-display-vignettes
+          "hw" 'ess-help-web-search
+
+          ;; These two aren't applicable to / implemented in R, but might be
+          ;; utilizted in other dialects
+          "hm" 'ess-manual-lookup
+          "hr" 'ess-reference-lookup
+
+          ;; Developer bindings
+          "dg" 'ess-dump-object-into-edit-buffer
+
+          ;; TODO only show these bindings if we're in R-mode.
+          "dl" 'ess-r-devtools-load-package
+          "dp" 'ess-r-devtools-set-pacakge
+          "dt" 'ess-r-devtools-test-pacakge
+          "dc" 'ess-r-devtools-check-pacakge
+          "dr" 'ess-r-devtools-document-package
+          "du" 'ess-r-devtools-unload-package
+          "di" 'ess-r-devtools-install-package
+
+          ;; debug bindings
+          "bT" 'ess-show-traceback
+          "be" 'ess-debug-toggle-error-action
+          "bw" 'ess-watch
+          ;; other views
+          "vp" 'ess-R-dv-pprint
+          "vi" 'ess-R-object-popup
+          "vt" 'ess-R-dv-ctable
+          "vd" 'ess-rdired)
+        (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
+        (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input))
+
+      ;; ess-mode-julia derives from julia-mode, not ess-mode, but otherwise
+      ;; functions the same as e.g. R-mode. Unfortunately, that means we have to
+      ;; duplicate a lot of the above logic for ess-julia here...
+      (add-hook 'ess-julia-mode-hook 'spacemacs/run-prog-mode-hooks)
+      (when (configuration-layer/package-usedp 'company)
+        (add-hook 'ess-julia-mode-hook 'company-mode))
+      (with-eval-after-load 'ess-julia
+        (spacemacs/declare-prefix-for-mode 'ess-julia-mode "ms" "repl-interaction")
+        (spacemacs/declare-prefix-for-mode 'ess-julia-mode "mh" "help")
+        (spacemacs/set-leader-keys-for-major-mode 'ess-julia-mode
+          "'"  'spacemacs/ess-start-repl
+          "si" 'spacemacs/ess-start-repl
+          ;; REPL
+          "sa" 'ess-switch-process
+          "sB" 'ess-eval-buffer-and-go
+          "sb" 'ess-eval-buffer
+          "sD" 'ess-eval-function-or-paragraph-and-step
+          "sd" 'ess-eval-region-or-line-and-step
+          "sL" 'ess-eval-line-and-go
+          "sl" 'ess-eval-line
+          "sR" 'ess-eval-region-and-go
+          "sr" 'ess-eval-region
+          "sT" 'ess-eval-function-and-go
+          "st" 'ess-eval-function
+          ;; "sP" 'ess-install-library
+          ;; "sp" 'ess-load-library
+          ;; "s:" 'ess-execute
+          "sw" 'ess-set-working-directory
+          "hh" 'ess-display-help-on-object
+          "hw" 'ess-help-web-search
+          "hm" 'ess-manual-lookup)
         (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
         (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
         (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input)))))
 
-(defun ess/init-ess-R-data-view ())
+(defun ess/init-ess-R-data-view ()
+  (use-package ess-R-data-view
+    :defer t
+    :after 'ess-site
+    :config
+    (progn
+      (advice-add
+       'ess-R-dv-pprint :around
+       (lambda (orig-fun &rest args)
+         (let ((buf (apply orig-fun args)))
+           (with-current-buffer (get-buffer buf)
+             (ess-fundamental-mode))))
+       )
+      (advice-add 'ess-R-dv-pprint :before #'ess-fundamental-set-source-buffer)
+      (advice-add 'ess-R-dv-ctable :before #'ess-fundamental-set-source-buffer)
+
+      ;; bind q in ess-R-dv-ctable modes as well
+      (with-eval-after-load 'ctable
+        (define-key ctbl:table-mode-map (kbd "q") 'ess-fundamental-kill-return)
+        (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map
+          "q" 'ess-fundamental-kill-return)))))
 
 (defun ess/init-ess-R-object-popup ())
 

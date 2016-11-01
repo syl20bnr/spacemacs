@@ -3,57 +3,63 @@
 [[file:img/r.jpg]]
 
 * Table of Contents                                         :TOC_4_org:noexport:
- - [[#install][Install]]
- - [[#options][Options]]
-   - [[#style][Style]]
-   - [[#roxygen][Roxygen]]
- - [[#key-bindings][Key Bindings]]
-   - [[#inferior-ess-processes][Inferior ESS Processes]]
-   - [[#evaluation-commands][Evaluation Commands]]
-   - [[#Developer][Developer]]
-   - [[#debugging][Debugging]]
-   - [[#help][Help]]
+ - [[Install][Install]]
+ - [[Options][Options]]
+   - [[Style][Style]]
+   - [[Roxygen][Roxygen]]
+ - [[Key Bindings][Key Bindings]]
+   - [[Process Interaction][Process Interaction]]
+   - [[Evaluation Commands][Evaluation Commands]]
+   - [[Developer][Developer]]
+   - [[Documentation][Documentation]]
+   - [[Debugging][Debugging]]
+   - [[Views][Views]]
+   - [[ESS Key Bindings][ESS Key Bindings]]
+     - [[Inferior ESS Process Keybindings][Inferior ESS Process Keybindings]]
+     - [[ESS Watch][ESS Watch]]
+     - [[ESS Rdired][ESS Rdired]]
+     - [[ESS Data View][ESS Data View]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =ess= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+  To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+  add =ess= to the existing =dotspacemacs-configuration-layers= list in this
+  file.
 
 * Options
-=ess-smart-equals= is disabled by default. In order to enable it, set in your
-=~/.spacemacs=
+  =ess-smart-equals= is disabled by default. In order to enable it, set in your
+  =~/.spacemacs=
 
-#+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((ess :variables
                                                          ess-enable-smart-equals t)))
-#+END_SRC
+  #+END_SRC
 
-To turn off the automatic replacement of underscores by =<-=, add the following
-hook:
+  To turn off the automatic replacement of underscores by =<-=, add the following
+  hook:
 
-#+begin_src emacs-lisp
+  #+begin_src emacs-lisp
   (add-hook 'ess-mode-hook
             (lambda ()
               (ess-toggle-underscore nil)))
-#+end_src
+  #+end_src
 
 ** Style
-ESS offers good support for various indentation styles.  This layer offers two
-variables to control the style =ess-user-style= and =ess-user-style-def=.  Set
-the former to the symbol of the style you want to use e.g.
-#+BEGIN_SRC emacs-lisp
+   ESS offers good support for various indentation styles.  This layer offers two
+   variables to control the style =ess-user-style= and =ess-user-style-def=.  Set
+   the former to the symbol of the style you want to use e.g.
+   #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers '((ess :variables
                                                          ess-user-style 'GNU)))
-#+END_SRC
+   #+END_SRC
 
-ESS defines styles for (at time of writing) RStudio, GNU, RRR, BSD, C++, CLB,
-RRR+, and K&R
+   ESS defines styles for (at time of writing) RStudio, GNU, RRR, BSD, C++, CLB,
+   RRR+, and K&R
 
-If you want to define your own style, set the =ess-user-style-def= variable to
-the style specification; the layer will put it on =ess-style-alist=.  For
-example:
+   If you want to define your own style, set the =ess-user-style-def= variable to
+   the style specification; the layer will put it on =ess-style-alist=.  For
+   example:
 
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
  '((ess :variables
          ess-user-style-def '(my-RStudio
@@ -69,100 +75,147 @@ example:
                               (ess-indent-prev-call-lhs . t)
                               (ess-indent-prev-call-chains . t)
                               (ess-indent-with-fancy-comments . nil)))))
-#+END_SRC
+   #+END_SRC
 
 ** Roxygen
-ESS' fills in Roxygen templates from an internal variable.  Some users may wish
-to overwrite this variable with an alternative value e.g. so that the author
-field is specified.  For example:
+   ESS' fills in Roxygen templates from an internal variable.  Some users may wish
+   to overwrite this variable with an alternative value e.g. so that the author
+   field is specified.  For example:
 
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
  '((ess :variables
         ess-user-roxy-template '(("description" . " headline ")
                                  ("details" . " details ")
                                  ("param" . "")
                                  ("author" . "Your Name")))))
-#+END_SRC
+   #+END_SRC
 
 * Key Bindings
-
-** Inferior ESS Processes
-Manage inferior ESS processes.
-
-| Key Binding | Description                                                                |
-|-------------+----------------------------------------------------------------------------|
-| ~SPC m s i~ | start an inferior REPL process                                             |
-| ~SPC m s a~ | pick an inferior process to attach the current buffer to                   |
-| ~SPC m s w~ | set the working directory for the REPL                                     |
-| ~SPC m s p~ | load the specified library into the REPL                                   |
-| ~SPC m s P~ | install the specified library                                              |
+** Process Interaction
+   | Key Binding | Description                                                                |
+   |-------------+----------------------------------------------------------------------------|
+   | ~SPC m s '~ | start an inferior REPL process                                             |
+   | ~SPC m s i~ | start an inferior REPL process                                             |
+   | ~SPC m s a~ | start or pick an inferior process to attach the current buffer to          |
+   | ~SPC m s w~ | set the working directory for the REPL                                     |
+   | ~SPC m s p~ | load the specified library into the REPL                                   |
+   | ~SPC m s P~ | install the specified library                                              |
 
 ** Evaluation Commands
-Send code to inferior process with these commands:
 
-| Key Binding | Description                                                                      |
-|-------------+----------------------------------------------------------------------------------|
-| ~SPC m c c~ | send knitr/sweave chunk and keep buffer focused                                  |
-| ~SPC m c C~ | send knitr/sweave chunk and switch to REPL in insert mode                        |
-| ~SPC m c d~ | send knitr/sweave chunk and step to next chunk                                   |
-| ~SPC m c m~ | mark knitr/sweave chunk around point                                             |
-| ~SPC m c n~ | next knitr/sweave chunk                                                          |
-| ~SPC m c N~ | previous knitr/sweave chunk                                                      |
-| ~SPC m s b~ | send buffer and keep code buffer focused                                         |
-| ~SPC m s B~ | send buffer and switch to REPL in insert mode                                    |
-| ~SPC m s d~ | send region or line and step (debug)                                             |
-| ~SPC m s D~ | send function or paragraph and step (debug)                                      |
-| ~SPC m s l~ | send line and keep code buffer focused                                           |
-| ~SPC m s L~ | send line and switch to REPL in insert mode                                      |
-| ~SPC m s r~ | send region and keep code buffer focused                                         |
-| ~SPC m s R~ | send region and switch to REPL in insert mode                                    |
-| ~SPC m s t~ | send thing at point (function) and keep code buffer focused                      |
-| ~SPC m s T~ | send thing at point (function) and switch to REPL in insert mode                 |
-| ~SPC m s :~ | execute a command in the REPL, displaying the results in a separate buffer       |
-| ~SPC m v d~ | display a dired-like buffer browsing the objects in the inferior session buffer. |
-| ~CTRL+j~    | next item in REPL history                                                        |
-| ~CTRL+k~    | previous item in REPL history                                                    |
+   Send code to inferior process with these commands:
+   | Key Binding | Description                                                                |
+   |-------------+----------------------------------------------------------------------------|
+   | ~SPC m s b~ | send buffer and keep code buffer focused                                   |
+   | ~SPC m s B~ | send buffer and switch to REPL in insert mode                              |
+   | ~SPC m s d~ | send region or line and step                                               |
+   | ~SPC m s D~ | send function or paragraph and step                                        |
+   | ~SPC m s l~ | send current line and keep code buffer focused                             |
+   | ~SPC m s L~ | send line and switch to REPL in insert mode                                |
+   | ~SPC m s r~ | send region and keep code buffer focused                                   |
+   | ~SPC m s R~ | send region and switch to REPL in insert mode                              |
+   | ~SPC m s t~ | send function at point and keep code buffer focused                        |
+   | ~SPC m s T~ | send function at point and switch to REPL in insert mode                   |
+   | ~SPC m s :~ | execute a command in the REPL, displaying the results in a separate buffer |
+   | ~C-RET~     | send currect line or region and keep code buffer focused                   |
+   | ~C-j~       | next item in REPL history                                                  |
+   | ~C-k~       | previous item in REPL history                                              |
 
+   Additional keybindings in noweb modes
+   | Key Binding | Description                                                                      |
+   |-------------+----------------------------------------------------------------------------------|
+   | ~SPC m c c~ | send knitr/sweave chunk and keep buffer focused                                  |
+   | ~SPC m c C~ | send knitr/sweave chunk and switch to REPL in insert mode                        |
+   | ~SPC m c d~ | send knitr/sweave chunk and step to next chunk                                   |
+   | ~SPC m c m~ | mark knitr/sweave chunk around point                                             |
+   | ~SPC m c n~ | next knitr/sweave chunk                                                          |
+   | ~SPC m c N~ | previous knitr/sweave chunk                                                      |
 ** Developer
-Useful, IDE like functions.
-| Key Binding | Description                                                                                |
-|-------------+--------------------------------------------------------------------------------------------|
-| ~SPC m d l~ | ~(ess-developer-load-package)~ load a specified directory with ~devtools::load_all~        |
-| ~SPC m d s~ | ~(ess-set-style)~ set the indenting style from the available specifications.               |
-| ~SPC m d t~ | ~(ess-build-tags-for-directory)~ build a RTAGS file for the specified directory            |
-| ~SPC m r r~ | ~(ess-roxy-update-entry)~ insert or update the roxygen string for the function under point |
-| ~SPC m r h~ | ~(ess-roxy-hide-all)~ hide all roxygen strings in the buffer                               |
-| ~SPC m r t~ | ~(ess-roxy-toggle-hiding)~ toggle hiding of the roxygen strings                            |
-| ~SPC m r n~ | ~(ess-roxy-next-entry)~ go to the next roxygen entry                                       |
-| ~SPC m r p~ | ~(ess-roxy-previous-entry)~ go to the previous roxygen entry                               |
-| ~SPC m r P~ | ~(ess-roxy-preview-text)~ preview the rendered help text                                   |
+   Useful, IDE like functions.
+   | Key Binding | Description                                                                                                                                                                      |
+   |-------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+   | ~SPC m d l~ | load a package into the linked R session.  Uses ~devtools::load_all~ internally, so the package can be reloaded without restarting your R session ~(ess-developer-load-package)~ |
+   | ~SPC m d s~ | set the indenting style from the available specifications.                                                                                                                       |
+   | ~SPC m d t~ | build a RTAGS file for the specified directory                                                                                                                                   |
+   | ~SPC m r r~ | insert or update the roxygen string for the function under point                                                                                                                 |
+   | ~SPC m r h~ | hide all roxygen strings in the buffer                                                                                                                                           |
+   | ~SPC m r t~ | toggle hiding of the roxygen strings                                                                                                                                             |
+   | ~SPC m r n~ | go to the next roxygen entry                                                                                                                                                     |
+   | ~SPC m r p~ | go to the previous roxygen entry                                                                                                                                                 |
+   | ~SPC m r P~ | Preview the rendered help text                                                                                                                                                   |
 
+** Documentation
+   | Key Binding | Description                                                                                       |
+   |-------------+---------------------------------------------------------------------------------------------------|
+   | ~SPC m h a~ | display help apropos the search string                                                            |
+   | ~SPC m h h~ | display help on the object under point (or as specified)                                          |
+   | ~SPC m h H~ | describe the object under point.  E.g. in R, this uses ~str~ to print the structure of the object |
+   | ~SPC m h p~ | display the package index for the attached process                                                |
+   | ~SPC m h v~ | display vignettes for the selected package                                                        |
+   | ~SPC m h m~ | look up information in the manual for the attached process.
+   | ~SPC m h r~ | look up information in the reference for the attached process
+   | ~SPC m h m~ | search web resources for the specified term.  A web-apropos.
 ** Debugging
-Bindings for interacting with the debugger.
-| Key Binding | Description                                                                                                      |
-|-------------+------------------------------------------------------------------------------------------------------------------|
-| ~SPC m d e~ | ~(ess-debug-toggle-error-action)~ cycle the error action for the buffer's inferior process                       |
-| ~SPC m d w~ | ~(ess-watch)~ set an ess-watch                                                                                   |
-| ~SPC m b s~ | ~(ess-bp-set)~ set a breakpoint at the point                                                                     |
-| ~SPC m b c~ | ~(ess-bp-set-condition)~ set a conditional breakpoint at the point                                               |
-| ~SPC m b l~ | ~(ess-bp-set-logger)~ set a logger at the point                                                                  |
-| ~SPC m b t~ | ~(ess-bp-toggle-state)~ toggle the state of the breakpoint under point                                           |
-| ~SPC m b k~ | ~(ess-bp-kill)~ kill the breakpoint under the point                                                              |
-| ~SPC m b K~ | ~(ess-bp-kill-all)~ kill all of the breakpoints                                                                  |
-| ~SPC m b n~ | ~(ess-bp-next)~ go to the next breakpoint                                                                        |
-| ~SPC m b p~ | ~(ess-bp-next)~ go to the previous breakpoint                                                                    |
-| ~SPC m b m~ | ~(ess-debug-flag-for-debugging)~ flag the specified function for debugging, as though you called debug(function) |
-| ~SPC m b M~ | ~(ess-debug-unflag-for-debugging)~ unset the debug flag for the specified function.                              |
+   Bindings for interacting with the debugger.
+   | Key Binding | Description                                                                     |
+   |-------------+---------------------------------------------------------------------------------|
+   | ~SPC m d e~ | cycle the error action for the buffer's inferior process                        |
+   | ~SPC m d w~ | set an ess-watch                                                                |
+   | ~SPC m b s~ | set a breakpoint at the point                                                   |
+   | ~SPC m b c~ | set a conditional breakpoint at the point                                       |
+   | ~SPC m b l~ | set a logger at the point                                                       |
+   | ~SPC m b t~ | toggle the state of the breakpoint under point                                  |
+   | ~SPC m b k~ | kill the breakpoint under the point                                             |
+   | ~SPC m b K~ | kill all of the breakpoints                                                     |
+   | ~SPC m b n~ | go to the next breakpoint                                                       |
+   | ~SPC m b p~ | go to the previous breakpoint                                                   |
+   | ~SPC m b m~ | flag the specified function for debugging, as though you called debug(function) |
+   | ~SPC m b M~ | unset the debug flag for the specified function.                                |
 
-** Help
-Helpers for inspecting objects at point are available in R buffers only.
-| Key Binding | Description                                                         |
-|-------------+---------------------------------------------------------------------|
-| ~SPC m h d~ | view data under point using [ess-R-data-view][ess-R-data-view]      |
-| ~SPC m h i~ | object introspection popup [ess-R-object-popup][ess-R-object-popup] |
-| ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]                 |
-| ~SPC m h h~ | display help on the object under point (or as specified)            |
-| ~SPC m h a~ | display help apropos the search string                              |
-| ~SPC m h p~ | display the package index for the attached process                  |
-| ~SPC m h v~ | display vignettes for the selected package                          |
+** Views
+   | Key Binding | Description                                                                         |
+   |-------------+-------------------------------------------------------------------------------------|
+   | ~SPC m v d~ | show ess-rdired, a dired-like view of objects in the currently attached ESS process |
+   | ~SPC m v i~ | object introspection popup [ess-R-object-popup][ess-R-object-popup]                 |
+   | ~SPC m v p~ | view data under point using [ess-R-data-view][ess-R-data-view]                      |
+   | ~SPC m v t~ | view table using [ess-R-data-view][ess-R-data-view]                                 |
+
+** ESS Key Bindings
+*** Inferior ESS Process Keybindings
+    | Key Binding | Description                                             |
+    |-------------+---------------------------------------------------------|
+    | ~C-c C-v~   | Display help on an object                               |
+    | ~C-c C-s~   | Dump the search path to a separate buffer               |
+    | ~C-c C-x~   | list all of objects in the session to a separate buffer |
+    | ~C-c C-\~   | abort the current process
+    |-------------+---------------------------------------------------------|
+*** ESS Watch
+    ESS' built in watch function has its own keybindings:
+    | Key     | action                       |
+    |---------+------------------------------|
+    | ~a~     | append  new  expression      |
+    | ~i~     | insert  new  expression      |
+    | ~k~     | kill                         |
+    | ~e~     | edit the  expression         |
+    | ~r~     | rename                       |
+    | ~n/p~   | navigate                     |
+    | ~u,d/U~ | move the  expression up/down |
+    | ~q~     | kill the  buffer             |
+*** ESS Rdired
+    | Key Binding | Description                                          |
+    |-------------+------------------------------------------------------|
+    | ~g~         | update to reflect changes in the attached process    |
+    | ~p~         | plot the object under point                          |
+    | ~q~         | close the rdired buffer                              |
+    | ~d/u~       | mark/unmark object for deletion                      |
+    | ~x~         | actually delete objects marked for deletion          |
+    | ~s~         | sort by the column under point                       |
+    | ~v/V~       | view the R object under point in a separate buffer   |
+    | ~C-c C-y~   | switch to the process assoicated with rdired         |
+    | ~C-c C-s~   | change which process is associated with the rdired buffer |
+
+*** ESS Data View
+    | Key Binding | Description     |
+    |-------------+-----------------|
+    | ~q~         | Kill the buffer |
