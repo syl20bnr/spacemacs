@@ -442,10 +442,13 @@ Returns non nil if the layer has been effectively inserted."
     (with-current-buffer (find-file-noselect (dotspacemacs/location))
       (beginning-of-buffer)
       (let ((insert-point (re-search-forward
-                           "dotspacemacs-configuration-layers *\n?.*\\((\\)")))
-        (insert (format "\n%S" layer-name))
-        (indent-region insert-point (+ insert-point
-                                       (length (symbol-name layer-name))))
+                           "dotspacemacs-configuration-layers\\s-*\n?[^(]*\\((\\)")))
+        (insert (format "%S" layer-name))
+        (unless (equal (point) (point-at-eol))
+          (insert "\n"))
+        (indent-region insert-point (min (point-max)
+                                         (+ insert-point 2
+                                            (length (symbol-name layer-name)))))
         (save-buffer)))
     (load-file (dotspacemacs/location))
     t))
