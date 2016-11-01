@@ -12,6 +12,7 @@
         go-mode
         go-guru
         (go-rename :location local)
+        godoctor
         ))
 
 
@@ -145,3 +146,15 @@
 
 (defun go/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'go-mode))
+
+(defun go/init-godoctor ()
+  (use-package godoctor
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'go-mode
+      "dr" 'godoctor-rename
+      "de" 'godoctor-extract
+      "dt" 'godoctor-toggle
+      "dd" 'godoctor-godoc
+      )
+    )
+  )
