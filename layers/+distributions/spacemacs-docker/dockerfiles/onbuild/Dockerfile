@@ -57,7 +57,8 @@ ONBUILD RUN ($ ["echo"                                                    \
                "rm ~/.emacs.d/.cache/recentf"                             \
                `("mv ~/.emacs.d %s" ,(dir $UHOME))                        \
                `("mv ~/.spacemacs %s" ,(dir $UHOME))                      \
-               "chown ${UID}:${GID} -R \"${UHOME}\" \"${WORKSPACE}\"")
+               "chown ${UID}:${GID} -R \"${UHOME}\" \"${WORKSPACE}\""     \
+               "chown ${UID}:${GID} -R /usr/local/spacemacs/")
 
 ONBUILD COPY .spacemacs "${UHOME}/.spacemacs"
 ONBUILD COPY pub-keys /etc/pub-keys
