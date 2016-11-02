@@ -36,7 +36,8 @@
  [_<tab>_]^^^^    last workspace     [_?_] toggle help\n
  [_l_]^^^^        layouts
  [_n_/_C-l_]^^    next workspace
- [_N_/_p_/_C-h_]  prev workspace\n")
+ [_N_/_p_/_C-h_]  prev workspace\n
+ [_w_]^^^^       workspace w/helm/ivy\n")
 
       (spacemacs|define-transient-state workspaces
         :title "Workspaces Transient State"
@@ -65,8 +66,10 @@
         ("C-8" eyebrowse-switch-to-window-config-8)
         ("C-9" eyebrowse-switch-to-window-config-9)
         ("<tab>" eyebrowse-last-window-config)
+        ("<return>" nil :exit t)
+        ("TAB" eyebrowse-last-window-config)
+        ("RET" nil :exit t)
         ("C-h" eyebrowse-prev-window-config)
-        ("C-i" eyebrowse-last-window-config)
         ("C-l" eyebrowse-next-window-config)
         ("d" eyebrowse-close-window-config)
         ("l" spacemacs/layouts-transient-state/body :exit t)
@@ -176,6 +179,8 @@
         ("C-0" spacemacs/persp-switch-to-0)
         ("<tab>" spacemacs/jump-to-last-layout)
         ("<return>" nil :exit t)
+        ("TAB" spacemacs/jump-to-last-layout)
+        ("RET" nil :exit t)
         ("C-h" persp-prev)
         ("C-l" persp-next)
         ("a" persp-add-buffer :exit t)
