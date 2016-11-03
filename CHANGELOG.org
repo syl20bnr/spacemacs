@@ -1,4 +1,7 @@
 * Release 0.200.x
+** 0.200.5 (2016/11/03)
+*** Fixes
+- Removed themes missing from MELPA (=colorsarenice-theme= and =stekene-theme=)
 ** 0.200.4 (2016/10/26)
 *** Fixes
 - Update go-guru package reflecting MELPA changes
