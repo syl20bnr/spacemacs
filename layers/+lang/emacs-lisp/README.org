@@ -1,6 +1,6 @@
 #+TITLE: Emacs Lisp layer
 
-[[file:img/emacs-lisp.png]]
+[[file:img/emacs.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]

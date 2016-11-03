@@ -31,7 +31,7 @@
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =dash= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+file. 
 
 ** Dash (OS X)
 
@@ -39,6 +39,9 @@ You have to install [[http://kapeli.com/dash][dash]] on your machine.
 
 It is recommended to set the =HUD mode= in your Dash application preferences
 when using this layer.
+
+** Sqlite3
+Helm Dash [[https://github.com/areina/helm-dash#requirements][requires]] sqlite3 to be installed to function properly.
 
 ** Zeal (Linux & Windows)
 

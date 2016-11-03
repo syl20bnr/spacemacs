@@ -17,6 +17,7 @@
                                       spacemacs-evil
                                       spacemacs-language
                                       spacemacs-misc
+                                      spacemacs-purpose
                                       spacemacs-ui
                                       spacemacs-ui-visual
                                       spacemacs-org))
@@ -26,3 +27,8 @@
 (unless (or (configuration-layer/layer-usedp 'ivy)
             (configuration-layer/layer-usedp 'helm))
   (configuration-layer/declare-layers '(helm)))
+
+(when (and (configuration-layer/layer-usedp 'ivy)
+           (configuration-layer/layer-usedp 'helm))
+  (spacemacs-buffer/warning (concat "Both the `helm' and `ivy' layers are enabled. "
+                             "This may lead to unexpected behaviour.")))

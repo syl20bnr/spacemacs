@@ -69,17 +69,24 @@ will automatically use ENSIME for the remainder of your editing session.
 [[http://www.scalastyle.org/][Scalastyle]] provides style-checking and linting. The Emacs functionality is
 provided by Flycheck.
 
-To use scalastyle,
+To use scalastyle, it must be present as an executable in your =PATH=.
 
-1. Download the [[http://www.scalastyle.org/#download][scalastyle jar]] and put it somewhere sensible
-   - If you are a brew user in OSX you can do: =brew install scalastyle=
-2. Customise the =flycheck-scalastyle-jar= and =flycheck-scalastylerc= variables
-   in your =dotspacemacs/user-config= i.e.:
+- OSX users: =brew install scalastyle=
+- Linux, please see http://www.scalastyle.org/command-line.html
+
+To test if =scalastyle= executable is in your path, run =scalastyle= in a new
+terminal, it should output something like:
+#+BEGIN_SRC bash
+$ scalastyle
+scalastyle 0.8.0
+Usage: scalastyle [options] <source directory>
+...
+#+END_SRC
+
+Finally, enable the =syntax-checking= layer and set the =flycheck-scalastylerc=
+variable to a valid location.
 #+BEGIN_SRC emacs-lisp
-   (setq flycheck-scalastyle-jar
-         "/usr/local/Cellar/scalastyle/0.8.0/libexec/scalastyle_2.11-0.8.0-batch.jar")
-   (setq flycheck-scalastylerc
-         "/usr/local/etc/scalastyle_config.xml")
+  (setq-default flycheck-scalastylerc "/usr/local/etc/scalastyle_config.xml")
 #+END_SRC
 
 See the [[http://www.flycheck.org/en/latest/languages.html?highlight=scala#syntax-checker-scala-scalastyle][flycheck documentation]] and [[http://www.scalastyle.org/configuration.html][scalastyle configuration]] for up-to-date
@@ -100,7 +107,7 @@ variable =scala-enable-eldoc= to =t=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (scala :variables scala-use-java-doc-style t)))
+    (scala :variables scala-enable-eldoc t)))
 #+END_SRC
 
 Enabling this option can cause slow editor performance.
@@ -173,9 +180,7 @@ with
 | ~SPC m d B~ | clear breakpoint            |
 | ~SPC m d C~ | clear all breakpoints       |
 | ~SPC m d c~ | continue                    |
-| ~SPC m d d~ | start a debug session       |
 | ~SPC m d i~ | inspect value at point      |
-| ~SPC m d l~ | list local variables        |
 | ~SPC m d n~ | next                        |
 | ~SPC m d o~ | step out                    |
 | ~SPC m d q~ | quit                        |

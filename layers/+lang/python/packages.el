@@ -145,8 +145,6 @@
 
 (defun python/init-nose ()
   (use-package nose
-    :if (or (eq 'nose python-test-runner)
-            (if (listp python-test-runner) (member 'nose python-test-runner)))
     :commands (nosetests-one
                nosetests-pdb-one
                nosetests-all
@@ -155,12 +153,7 @@
                nosetests-pdb-module
                nosetests-suite
                nosetests-pdb-suite)
-    :init
-    (progn
-      (spacemacs//bind-python-testing-keys)
-      (spacemacs/set-leader-keys-for-major-mode 'python-mode
-        "tS" 'nosetests-pdb-suite
-        "ts" 'nosetests-suite))
+    :init (spacemacs//bind-python-testing-keys)
     :config
     (progn
       (add-to-list 'nose-project-root-files "setup.cfg")
@@ -241,9 +234,6 @@
 
 (defun python/init-pytest ()
   (use-package pytest
-    :if (or (eq 'pytest python-test-runner)
-            (if (listp python-test-runner) (member 'pytest python-test-runner)))
-    :defer t
     :commands (pytest-one
                pytest-pdb-one
                pytest-all
@@ -311,25 +301,36 @@
       (defun python-start-or-switch-repl ()
         "Start and/or switch to the REPL."
         (interactive)
-        (python-shell-switch-to-shell)
-        (evil-insert-state))
+        (let ((shell-process
+               (or (python-shell-get-process)
+                   ;; `run-python' has different return values and different
+                   ;; errors in different emacs versions. In 24.4, it throws an
+                   ;; error when the process didn't start, but in 25.1 it
+                   ;; doesn't throw an error, so we demote errors here and
+                   ;; check the process later
+                   (with-demoted-errors "Error: %S"
+                     ;; in Emacs 24.5 and 24.4, `run-python' doesn't return the
+                     ;; shell process
+                     (call-interactively #'run-python)
+                     (python-shell-get-process)))))
+          (unless shell-process
+            (error "Failed to start python shell properly"))
+          (pop-to-buffer (process-buffer shell-process))
+          (evil-insert-state)))
 
-      ;; reset compile-command (by default it is `make -k')
-      (setq compile-command nil)
       (defun spacemacs/python-execute-file (arg)
         "Execute a python script in a shell."
         (interactive "P")
         ;; set compile command to buffer-file-name
         ;; universal argument put compile buffer in comint mode
-        (setq universal-argument t)
-        (if arg
-            (call-interactively 'compile)
-
-          (setq compile-command (format "python %s" (file-name-nondirectory
-                                                     buffer-file-name)))
-          (compile compile-command t)
-          (with-current-buffer (get-buffer "*compilation*")
-            (inferior-python-mode))))
+        (let ((universal-argument t)
+              (compile-command (format "python %s" (file-name-nondirectory
+                                                    buffer-file-name))))
+          (if arg
+              (call-interactively 'compile)
+            (compile compile-command t)
+            (with-current-buffer (get-buffer "*compilation*")
+              (inferior-python-mode)))))
 
       (defun spacemacs/python-execute-file-focus (arg)
         "Execute a python script in a shell and switch to the shell buffer in
@@ -339,6 +340,11 @@
         (switch-to-buffer-other-window "*compilation*")
         (end-of-buffer)
         (evil-insert-state))
+
+      ;; fix for issue #2569 (https://github.com/syl20bnr/spacemacs/issues/2569)
+      (when (version< emacs-version "25")
+        (advice-add 'wisent-python-default-setup :after
+                    #'spacemacs//python-imenu-create-index-use-semantic-maybe))
 
       (spacemacs/declare-prefix-for-mode 'python-mode "mc" "execute")
       (spacemacs/declare-prefix-for-mode 'python-mode "md" "debug")
@@ -392,7 +398,7 @@
                 'spacemacs//disable-semantic-idle-summary-mode t))
   (spacemacs/add-to-hook 'python-mode-hook
                          '(semantic-mode
-                           spacemacs//python-imenu-create-index-use-semantic))
+                           spacemacs//python-imenu-create-index-use-semantic-maybe))
   (defadvice semantic-python-get-system-include-path
       (around semantic-python-skip-error-advice activate)
     "Don't cause error when Semantic cannot retrieve include

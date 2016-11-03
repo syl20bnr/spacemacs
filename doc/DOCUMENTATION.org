@@ -457,7 +457,7 @@ guidelines first in [[file:../CONTRIBUTING.org][CONTRIBUTING]].
 
 ** Example: Themes Megapack example
 This is a simple configuration layer listing a bunch of themes which you can
-find [[../layers/themes-megapack/README.org][here]].
+find [[../layers/+themes/themes-megapack/README.org][here]].
 
 To install it, just add =themes-megapack= to your =~/.spacemacs= like so:
 
@@ -708,7 +708,7 @@ of the configuration, this is a powerful feature which allows you to quickly
 remove any feature from Spacemacs.
 
 *Note:* A few packages are essential for Spacemacs to correctly operate, those
-packages are protected and cannot be excluded or unsintalled even if they become
+packages are protected and cannot be excluded or uninstalled even if they become
 orphans or are excluded. =use-package= is an example of a protected package that
 cannot be removed from Spacemacs.
 
@@ -761,7 +761,7 @@ To bind keys in Hybrid editing style (=hybrid state=):
 #+END_SRC
 
 This style can be tweaked to be more like Emacs or more like Vim depending
-on the user preferences. The following variable are available to change the
+on the user preferences. The following variables are available to change the
 style configuration:
 
 - =hybrid-mode-default-state= The default state when opening a new buffer,
@@ -844,7 +844,7 @@ are in =normal= mode by pressing the ~SPC~ leader key, here are a few examples:
 The universal argument ~C-u~ is an important command in Emacs but it is also a
 very handy Vim key binding to scroll up.
 
-Spacemacs binds ~C-u~ to =scroll-up= and change the universal argument binding
+Spacemacs binds ~C-u~ to =scroll-up= and changes the universal argument binding
 to ~SPC u~.
 
 *Note*: ~SPC u~ is not working before =helm-M-x= (~SPC SPC~). Instead, call
@@ -976,7 +976,7 @@ Spacemacs has a minimalistic and distraction free graphical UI:
 ** Color themes
 The official Spacemacs theme is [[https://github.com/nashamri/spacemacs-theme][spacemacs-dark]] and it is the default theme
 installed when you first started Spacemacs. There are two variants of the
-theme, a dark one and a light one. Some aspect of these themes can be customized
+theme, a dark one and a light one. Some aspects of these themes can be customized
 in the function =dotspacemacs/user-init= of your =~/.spacemacs=:
   - the comment background with the boolean =spacemacs-theme-comment-bg=
   - the height of org section titles with =spacemacs-theme-org-height=
@@ -1086,6 +1086,7 @@ and ~T~):
 | ~SPC t h h~ | toggle highlight of the current line                              |
 | ~SPC t h i~ | toggle highlight indentation levels                               |
 | ~SPC t h c~ | toggle highlight indentation current column                       |
+| ~SPC t h s~ | toggle syntax highlighting                                        |
 | ~SPC t i~   | toggle indentation guide at point                                 |
 | ~SPC t l~   | toggle truncate lines                                             |
 | ~SPC t L~   | toggle visual lines                                               |
@@ -1152,7 +1153,8 @@ Some elements can be dynamically toggled:
 | ~SPC t m M~ | toggle the major mode                                           |
 | ~SPC t m n~ | toggle the cat! (if =colors= layer is declared in your dotfile) |
 | ~SPC t m p~ | toggle the point character position                             |
-| ~SPC t m t~ | toggle the mode line itself                                     |
+| ~SPC t m t~ | toggle the time                                                 |
+| ~SPC t m T~ | toggle the mode line itself                                     |
 | ~SPC t m v~ | toggle the version control info                                 |
 | ~SPC t m V~ | toggle the new version lighter                                  |
 
@@ -1265,7 +1267,7 @@ can be reached using the =control= key.
 | ~SPC t p~   | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                                                     |
 | ~SPC t C-p~ | =ⓟ=     | p     | global smartparens                                                   |
 | ~SPC t s~   | =ⓢ=     | s     | syntax checking (flycheck)                                           |
-| ~SPC t S~   | =Ⓢ=     | S     | enabled in [[../layers/spell-checking][spell checking layer]] (flyspell)                           |
+| ~SPC t S~   | =Ⓢ=     | S     | enabled in [[../layers/+checkers/spell-checking][spell checking layer]] (flyspell)                           |
 | ~SPC t w~   | =ⓦ=     | w     | whitespace mode                                                      |
 | ~SPC t C-w~ | =ⓦ=     | w     | global whitespace                                                    |
 | ~SPC t W~   | =Ⓦ=     | W     | automatic whitespace cleanup (see =dotspacemacs-whitespace-cleanup=) |
@@ -1861,7 +1863,7 @@ Windows manipulation commands (start with ~w~):
 | Key Binding            | Description                                                                 |
 |------------------------+-----------------------------------------------------------------------------|
 | ~SPC w =~              | balance split windows                                                       |
-| ~SPC w b~              | force the focus back to the minibuffer (usefull with =helm= popups)         |
+| ~SPC w b~              | force the focus back to the minibuffer (useful with =helm= popups)         |
 | ~SPC w c~              | maximize/minimize a window and center it                                    |
 | ~SPC w C~              | maximize/minimize a window and center it using [[https://github.com/abo-abo/ace-window][ace-window]]                   |
 | ~SPC w d~              | delete a window                                                             |
@@ -2263,7 +2265,7 @@ OpenDocument, and Microsoft Office documents.
 *** Frequency of auto-saving
 By default auto-saving of files is performed every 300 characters and
 every 30 seconds of idle time which can be changed by setting to a
-new value the variables =auto-save-inteval= and =auto-save-timeout=
+new value the variables =auto-save-interval= and =auto-save-timeout=
 respectively.
 
 *** Location of auto-saved files
@@ -2546,7 +2548,7 @@ Text related commands (start with ~x~):
 | ~SPC x a ;~ | align region at ;                                             |
 | ~SPC x a =~ | align region at =                                             |
 | ~SPC x a a~ | align region (or guessed section) using default rules         |
-| ~SPC x a c~ | align current intendation region using default rules          |
+| ~SPC x a c~ | align current indentation region using default rules          |
 | ~SPC x a r~ | align region using user-specified regexp                      |
 | ~SPC x a m~ | align region at arithmetic operators (+-*/)                   |
 | ~SPC x a ¦~ | align region at ¦                                             |
@@ -2562,6 +2564,7 @@ Text related commands (start with ~x~):
 | ~SPC x j r~ | set the justification to right                                |
 | ~SPC x J~   | move down a line of text (enter transient state)              |
 | ~SPC x K~   | move up a line of text (enter transient state)                |
+| ~SPC x l d~ | duplicate line or region                                      |
 | ~SPC x l s~ | sort lines                                                    |
 | ~SPC x l u~ | uniquify lines                                                |
 | ~SPC x o~   | use avy to select a link in the frame and open it             |
@@ -2654,10 +2657,10 @@ In transient state:
 | Any other key | leave the transient state              |
 
 *Tips:* you can increase or decrease a value by more that once by using a prefix
-argument (ie. ~10 SPC n +~ will add 10 to the number under point).
+argument (i.e. ~10 SPC n +~ will add 10 to the number under point).
 
 *** Spell checking
-Spell checking is enabled by including the [[../layers/spell-checking][spell
+Spell checking is enabled by including the [[../layers/+checkers/spell-checking][spell
 checking]] layer in your dotfile.
 
 Keybindings are listed in the layer documentation.
@@ -2699,12 +2702,12 @@ There are also ~a~ variants that include whitespace. Example (=|= indicates poin
 The displayed text of a buffer can be narrowed with the commands (start with
 ~n~):
 
-| Key Binding | Description                               |
-|-------------+-------------------------------------------|
-| ~SPC n f~   | narrow the buffer to the current function |
-| ~SPC n p~   | narrow the buffer to the visible page     |
-| ~SPC n r~   | narrow the buffer to the selected text    |
-| ~SPC n w~   | widen, i.e show the whole buffer again    |
+| Key Binding | Description                                |
+|-------------+--------------------------------------------|
+| ~SPC n f~   | narrow the buffer to the current function  |
+| ~SPC n p~   | narrow the buffer to the visible page      |
+| ~SPC n r~   | narrow the buffer to the selected text     |
+| ~SPC n w~   | widen, i.e. show the whole buffer again    |
 
 *** Replacing text with iedit
 Spacemacs uses the powerful [[https://github.com/tsdh/iedit][iedit]] mode through [[https://github.com/syl20bnr/evil-iedit-state][evil-iedit-state]] to quickly
@@ -2814,6 +2817,7 @@ Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][ev
 | Key Binding | Description               |
 |-------------+---------------------------|
 | ~SPC ;~     | comment operator          |
+| ~SPC c h~   | hide/show comments        |
 | ~SPC c l~   | comment lines             |
 | ~SPC c L~   | invert comment lines      |
 | ~SPC c p~   | comment paragraphs        |
@@ -2985,7 +2989,7 @@ To search in a project see [[Searching in a project][project searching]].
 | ~SPC p f~   | find file                                               |
 | ~SPC p F~   | find file based on path around point                    |
 | ~SPC p g~   | find tags                                               |
-| ~SPC p C-g~ | regenerate the project's =etags= / =gtags=              |
+| ~SPC p G~   | regenerate the project's =etags= / =gtags=              |
 | ~SPC p h~   | find file using =helm=                                  |
 | ~SPC p I~   | invalidate the projectile cache                         |
 | ~SPC p k~   | kill all project buffers                                |
@@ -3178,31 +3182,31 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | [[https://github.com/syl20bnr/spacemacs/pull/4089][2000th pull request]] | [[https://github.com/channingwalton][channingwalton]] |
 | [[https://github.com/syl20bnr/spacemacs/pull/6338][3000th pull request]] | [[https://github.com/darkfeline][darkfeline]]     |
 
-
 ** Stars, forks and watchers
 
-| Achievements        | Account         |
-|---------------------+-----------------|
-| 100th watcher       | [[https://github.com/adouzzy][adouzzy]]         |
-| 100th fork          | [[https://github.com/balajisivaraman][balajisivaraman]] |
-| 200th fork          | [[https://github.com/alcol80][alcol80]]         |
-| 300th fork          | [[https://github.com/mlopes][mlopes]]          |
-| 2000th fork         | [[https://github.com/Gameguykiler][Gameguykiler]]    |
-| 100th star          | [[https://github.com/Jackneill][Jackneill]]       |
-| 200th star          | [[https://github.com/jb55][jb55]]            |
-| 400th star          | [[https://github.com/dbohdan][dbohdan]]         |
-| 600th star          | [[https://github.com/laat][laat]]            |
-| 700th star          | [[https://github.com/kendall][kendall]]         |
-| 800th star          | [[https://github.com/urso][urso]]            |
-| 900th star          | [[https://github.com/luisgerhorst][luisgerhorst]]    |
-| 1000th star!        | [[https://github.com/rashly][rashly]]          |
-| 2000th star!!       | [[https://github.com/stshine][stshine]]         |
-| 3000th star!!!      | [[https://github.com/TheBB][TheBB]]           |
-| 4000th star!!!!     | [[https://github.com/nixmaniack][nixmaniack]]      |
-| 5000th star!!!!!    | [[https://github.com/StreakyCobra][StreakyCobra]]    |
-| 6000th star!!!!!!   | [[https://github.com/NJBS][NJBS]]            |
-| 7000th star!!!!!!!  | [[https://github.com/mukhali][mukhali]]         |
-| 8000th star!!!!!!!! | [[https://github.com/shsteven][shsteven]]        |
+| Achievements         | Account         |
+|----------------------+-----------------|
+| 100th watcher        | [[https://github.com/adouzzy][adouzzy]]         |
+| 100th fork           | [[https://github.com/balajisivaraman][balajisivaraman]] |
+| 200th fork           | [[https://github.com/alcol80][alcol80]]         |
+| 300th fork           | [[https://github.com/mlopes][mlopes]]          |
+| 2000th fork          | [[https://github.com/Gameguykiler][Gameguykiler]]    |
+| 100th star           | [[https://github.com/Jackneill][Jackneill]]       |
+| 200th star           | [[https://github.com/jb55][jb55]]            |
+| 400th star           | [[https://github.com/dbohdan][dbohdan]]         |
+| 600th star           | [[https://github.com/laat][laat]]            |
+| 700th star           | [[https://github.com/kendall][kendall]]         |
+| 800th star           | [[https://github.com/urso][urso]]            |
+| 900th star           | [[https://github.com/luisgerhorst][luisgerhorst]]    |
+| 1000th star!         | [[https://github.com/rashly][rashly]]          |
+| 2000th star!!        | [[https://github.com/stshine][stshine]]         |
+| 3000th star!!!       | [[https://github.com/TheBB][TheBB]]           |
+| 4000th star!!!!      | [[https://github.com/nixmaniack][nixmaniack]]      |
+| 5000th star!!!!!     | [[https://github.com/StreakyCobra][StreakyCobra]]    |
+| 6000th star!!!!!!    | [[https://github.com/NJBS][NJBS]]            |
+| 7000th star!!!!!!!   | [[https://github.com/mukhali][mukhali]]         |
+| 8000th star!!!!!!!!  | [[https://github.com/shsteven][shsteven]]        |
+| 9000th star!!!!!!!!! | [[https://github.com/deb0ch][deb0ch]]          |
 
 ** Gitter chat
 

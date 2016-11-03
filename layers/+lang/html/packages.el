@@ -51,8 +51,9 @@
       (put 'css-indent-offset 'safe-local-variable #'integerp)
 
       ;; Explicitly run prog-mode hooks since css-mode does not derive from
-      ;; prog-mode major-mode
-      (add-hook 'css-mode-hook 'spacemacs/run-prog-mode-hooks)
+      ;; prog-mode major-mode in Emacs 24 and below.
+      (when (version< emacs-version "25")
+        (add-hook 'css-mode-hook 'spacemacs/run-prog-mode-hooks))
 
       (defun css-expand-statement ()
         "Expand CSS block"

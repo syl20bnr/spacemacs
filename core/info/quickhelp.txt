@@ -2,11 +2,17 @@ Press [TAB] or [J] to move to next button.
 
 Press [Shift-TAB] or [K] to move to previous button.
 
+Press [w] to jump to warning list.
+
 Press [r] to jump to recent file list if it is enabled.
 
 Press [p] to jump to project list if it is enabled.
 
 Press [b] to jump to bookmark list if it is enabled.
+
+Press [c] to jump to org-agenda list if it is enabled.
+
+Press [d] to jump to org-todo list if it is enabled.
 
 Press [o] to jump to any link or button.
 

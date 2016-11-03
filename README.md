@@ -13,7 +13,7 @@
 |
 <b><a href="CONTRIBUTING.org">contribute</a></b>
 |
-<b><a href="http://spacemacs.org/doc/DOCUMENTATION#orgheadline187">achievements</a></b>
+<b><a href="http://spacemacs.org/doc/DOCUMENTATION#achievements">achievements</a></b>
 |
 <b><a href="http://spacemacs.org/doc/FAQ">FAQ</a></b>
 </p>
@@ -23,6 +23,7 @@
 <a href="https://travis-ci.org/syl20bnr/spacemacs"><img src="https://travis-ci.org/syl20bnr/spacemacs.svg" alt="Build Status"></a>
 <a href="https://waffle.io/syl20bnr/spacemacs"><img src="https://badge.waffle.io/syl20bnr/spacemacs.png?label=Merging...&title=Merging" alt="PR being merged"></a>
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ESFVNPKP4Y742"><img src="https://img.shields.io/badge/Paypal-Donate-blue.svg" alt="Donate"></a>
+<a href="https://shop.spreadshirt.com/spacemacs-shop"><img src="https://img.shields.io/badge/Shop-T--Shirts-blue.svg" alt="Donate"></a>
 <a href="http://www.slant.co/topics/12/~what-are-the-best-programming-text-editors"><img src="https://img.shields.io/badge/Slant-Recommend-ff69b4.svg" alt="Recommend it"></a>
 </p>
 ***
@@ -394,6 +395,9 @@ For the packages shipped in this repository you can refer to the files header.
 The best way to support Spacemacs is to contribute to it either by reporting
 bugs, helping the community on the [Gitter Chat][] or sending pull requests.
 
+You can show your love for the project by getting cool Spacemacs t-shirts, mugs
+and more in the [Spacemacs Shop][].
+
 If you want to show your support financially you can contribute to [Bountysource][] or buy a drink for the
 maintainer by clicking on the [Paypal badge](#top).
 
@@ -448,3 +452,4 @@ Thank you!
 [build_source]: https://www.gnu.org/software/emacs/manual/html_node/efaq/Installing-Emacs.html
 [Bountysource]: https://salt.bountysource.com/teams/spacemacs
 [Source Code Pro]: https://github.com/adobe-fonts/source-code-pro
+[Spacemacs Shop]: https://shop.spreadshirt.com/spacemacs-shop

@@ -126,6 +126,9 @@ whenever you start Emacs.")
 (defvar dotspacemacs-configuration-layers '(emacs-lisp)
   "List of configuration layers to load.")
 
+(defvar dotspacemacs--configuration-layers-saved nil
+  "Saved value of `dotspacemacs-configuration-layers' after sync.")
+
 (defvar dotspacemacs-themes '(spacemacs-dark
                               spacemacs-light)
   "List of themes, the first of the list is loaded when spacemacs starts.
@@ -248,6 +251,14 @@ key sequence. Setting this variable is equivalent to setting
 right, and right-then-bottom. The last one will display on the
 right if possible and fallback to bottom if not.")
 
+(defvar dotspacemacs-switch-to-buffer-prefers-purpose nil
+  "Control where `switch-to-buffer' displays the buffer.
+If nil, `switch-to-buffer' displays the buffer in the current
+window even if another same-purpose window is available. If non
+nil, `switch-to-buffer' displays the buffer in a same-purpose
+window even if the buffer can be displayed in the current
+window.")
+
 (defvar dotspacemacs-loading-progress-bar t
   "If non nil a progress bar is displayed when spacemacs is loading. This
 may increase the boot time on some systems and emacs builds, set it to nil
@@ -324,7 +335,8 @@ tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.")
 specified with an installed package.
 NOT USED FOR NOW :-)")
 
-(defvar dotspacemacs-startup-lists '()
+(defvar dotspacemacs-startup-lists '((recents  . 5)
+                                    (projects . 7))
   "Association list of items to show in the startup buffer of the form
 `(list-type . list-size)`. If nil it is disabled.
 Possible values for list-type are:
@@ -360,6 +372,16 @@ are caught and signalled to user in spacemacs buffer."
                                            ',(symbol-name func)
                                            (error-message-string err))
                                    t))))))
+
+(defun dotspacemacs//check-layers-changed ()
+  "Check if the value of `dotspacemacs-configuration-layers'
+changed, and issue a warning if it did."
+  (unless (eq dotspacemacs-configuration-layers
+              dotspacemacs--configuration-layers-saved)
+    (spacemacs-buffer/warning
+     "`dotspacemacs-configuration-layers' was changed outside of `dotspacemacs/layers'.")))
+(add-hook 'spacemacs-post-user-config-hook
+          'dotspacemacs//check-layers-changed)
 
 (defun dotspacemacs//read-editing-style-config (config)
   "Read editing style CONFIG: apply variables and return the editing style.
@@ -465,7 +487,7 @@ before copying the file if the destination already exists."
   (interactive)
   (let* ((copy? (if (file-exists-p dotspacemacs-filepath)
                     (y-or-n-p
-                     (format "%s already exists. Do you want to overwite it ? "
+                     (format "%s already exists. Do you want to overwrite it ? "
                              dotspacemacs-filepath)) t)))
     (when copy?
       (copy-file (concat dotspacemacs-template-directory
@@ -528,7 +550,7 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
       (let ((install
              (if (file-exists-p dotspacemacs-filepath)
                  (y-or-n-p
-                  (format "%s already exists. Do you want to overwite it ? "
+                  (format "%s already exists. Do you want to overwrite it ? "
                           dotspacemacs-filepath)) t)))
         (when install
           (write-file dotspacemacs-filepath)

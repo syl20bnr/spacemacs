@@ -183,7 +183,9 @@ LAYER has to be installed for this method to work properly."
              "If non-nil this package is excluded from all layers.")))
 
 (defmethod cfgl-package-enabledp ((pkg cfgl-package) &optional inhibit-messages)
-  "Evaluate the `toggle' slot of passed PKG."
+  "Evaluate the `toggle' slot of passed PKG.
+If INHIBIT-MESSAGES is non nil then any message emitted by the toggle evaluation
+is ignored."
   (let ((message-log-max (unless inhibit-messages message-log-max))
         (toggle (oref pkg :toggle)))
     (eval toggle)))
@@ -375,6 +377,8 @@ refreshed during the current session."
   "Synchronize declared layers in dotfile with spacemacs.
 If NO-INSTALL is non nil then install steps are skipped."
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
+  (setq dotspacemacs--configuration-layers-saved
+        dotspacemacs-configuration-layers)
   (when (spacemacs-buffer//choose-banner)
     (spacemacs-buffer//inject-version))
   ;; declare used layers then packages as soon as possible to resolve
@@ -984,8 +988,8 @@ return both used and unused packages."
             (not (stringp (oref pkg :location)))
             (or (null usedp)
                 (and (not (null (oref pkg :owners)))
-                     (cfgl-package-enabledp pkg)
-                     (not (oref pkg :excluded)))))))))
+                     (not (oref pkg :excluded))
+                     (cfgl-package-enabledp pkg t))))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path to the private configuration layer string NAME."
@@ -1089,7 +1093,7 @@ Returns nil if the directory is not a category."
                   (if indexed-layer
                       ;; the same layer may have been discovered twice,
                       ;; in which case we don't need a warning
-                      (unless (string-equal (oref indexed-layer :dir) sub)
+                      (unless (string-equal (directory-file-name (oref indexed-layer :dir)) (directory-file-name sub))
                         (configuration-layer//warning
                          (concat
                           "Duplicated layer %s detected in directory \"%s\", "
@@ -1480,7 +1484,7 @@ wether the declared layer is an used one or not."
        ((null (oref pkg :owners))
         (spacemacs-buffer/message
          (format "%S ignored since it has no owner layer." pkg-name)))
-       ((not (cfgl-package-enabledp pkg t))
+       ((not (cfgl-package-enabledp pkg))
         (spacemacs-buffer/message (format "%S is toggled off." pkg-name)))
        (t
         ;; load-path
