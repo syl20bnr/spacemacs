@@ -9,7 +9,8 @@ who helped keep the issue tracker clean. In particular
 
 as well as bleggett, jredville, lazywithclass, rgrinberg,
 kdelwat, cmr, bmag, ksjogo, ekmecic, cro, inirudebwoy,
-mwillsey, robbyoconnor and alimoeeny.
+mwillsey, robbyoconnor and alimoeeny. And of course, last but
+not least, the hard working organizer d12frosted!
 
 For more info on release 0.200.x see the newsletter #01 at
 [[http://spacemacs.org/news/news01.html]]
