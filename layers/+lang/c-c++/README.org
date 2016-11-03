@@ -69,20 +69,8 @@ to =t= in the dotfile:
 (=clang-format-region=) or a whole buffer (=clang-format-buffer=) to make it
 conform to a style defined in a =.clang-format= file. This file is either
 located in the same directory as the file being edited, or in any of its parent
-directories (otherwise a default style will be used).
-
-You can add snippets similar to the following to bind clang-format to either a
-particular mode or all modes in your =dotspacemacs/user-config= (within your
-=~/.spacemacs=):
-
-#+BEGIN_SRC emacs-lisp
-  ;; Bind clang-format-region to C-M-tab in all modes:
-  (global-set-key [C-M-tab] 'clang-format-region)
-  ;; Bind clang-format-buffer to tab on the c++-mode only:
-  (add-hook 'c++-mode-hook 'clang-format-bindings)
-    (defun clang-format-bindings ()
-      (define-key c++-mode-map [tab] 'clang-format-buffer))
-#+END_SRC
+directories (otherwise a default style will be used). ~SPC m =~ formats buffer
+or a selected region using =clang-format=.
 
 *** Company-clang and flycheck
 This layer adds some fancy improvements to =company-clang=.
@@ -102,5 +90,6 @@ doesn't complain about missing header files.
 | ~SPC m g A~ | open matching file in another window (e.g. switch between .cpp and .h) |
 | ~SPC m D~   | disaster: disassemble c/c++ code                                       |
 | ~SPC m r~   | srefactor: refactor thing at point.                                    |
+| ~SPC m =~   | format buffer or a selected region                                     |
 
 *Note:*  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+

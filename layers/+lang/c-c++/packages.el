@@ -61,7 +61,13 @@
 
 (defun c-c++/init-clang-format ()
   (use-package clang-format
-    :if c-c++-enable-clang-support))
+    :if c-c++-enable-clang-support
+    :init
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'c-mode
+        "=" 'c-c++/format-region-or-buffer)
+      (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+        "=" 'c-c++/format-region-or-buffer))))
 
 (defun c-c++/init-cmake-mode ()
   (use-package cmake-mode
