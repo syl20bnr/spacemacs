@@ -1034,3 +1034,25 @@ a split-side entry, its value must be usable as the SIDE argument for
                                             text-scale-mode-amount) 1)
                                   (if (car (window-margins))
                                       (car (window-margins)) 1)))))
+
+(defun spacemacs/enable-line-numbers-p ()
+  "Return non-nil if line numbers should be enabled for current buffer.
+Decision is based on `dotspacemacs-line-numbers'."
+  (and dotspacemacs-line-numbers
+       (not (string-match-p "\\*.*\\*" (buffer-name)))
+       (not (and (spacemacs/mplist-get dotspacemacs-line-numbers
+                                       :size-limit-kb)
+                 (> (buffer-size)
+                    (* 1000 (car (spacemacs/mplist-get dotspacemacs-line-numbers
+                                                       :size-limit-kb))))))
+       (or (and (spacemacs/mplist-get dotspacemacs-line-numbers
+                                      :enabled-for-modes)
+                (memq major-mode (spacemacs/mplist-get dotspacemacs-line-numbers
+                                                       :enabled-for-modes)))
+           (and (not (spacemacs/mplist-get dotspacemacs-line-numbers
+                                           :enabled-for-modes))
+                (spacemacs/mplist-get dotspacemacs-line-numbers
+                                      :disabled-for-modes)
+                (not (memq major-mode
+                           (spacemacs/mplist-get dotspacemacs-line-numbers
+                                                 :disabled-for-modes)))))))
