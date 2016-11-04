@@ -240,9 +240,20 @@
     :init (spacemacs/set-leader-keys "ji" 'imenu)))
 
 (defun spacemacs-base/init-linum ()
-  (when dotspacemacs-line-numbers
-    (add-hook 'prog-mode-hook 'linum-mode)
-    (add-hook 'text-mode-hook 'linum-mode))
+  (use-package linum
+    :config
+    (progn
+      (if (or (eq dotspacemacs-line-numbers t)
+              (eq dotspacemacs-line-numbers 'relative))
+          (progn
+            (add-hook 'prog-mode-hook 'linum-mode)
+            (add-hook 'text-mode-hook 'linum-mode)))
+      (defun linum-on ()
+        "Overwrite the original `linum-on' function with a more selective one."
+        (when (spacemacs/enable-line-numbers-p)
+          (linum-mode)))
+      (when dotspacemacs-line-numbers
+        (global-linum-mode))))
   (setq linum-format "%4d")
   (spacemacs|add-toggle line-numbers
     :mode linum-mode
