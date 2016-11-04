@@ -12,6 +12,7 @@
 (setq ivy-packages
       '(
         auto-highlight-symbol
+        bookmark
         counsel
         (counsel-projectile :toggle (configuration-layer/package-usedp 'projectile))
         evil
@@ -202,6 +203,9 @@
   (setq projectile-completion-system 'ivy)
   (spacemacs/set-leader-keys
     "pv"  'projectile-vc))
+
+(defun ivy/post-init-bookmark ()
+  (spacemacs/set-leader-keys "fb" 'counsel-bookmark))
 
 (defun ivy/init-smex ()
   (use-package smex
