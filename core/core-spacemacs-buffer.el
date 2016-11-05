@@ -296,6 +296,7 @@ MIN-WIDTH is the minimal width of the frame, frame included.  The frame will not
            (width (+ 2 (* 2 hpadding) text-width))
            (fill-column text-width)
            (sentence-end-double-space nil)    ; needed by fill-region
+           (paragraph-start "\f\\|[ \t]*$\\|[ \t]*[-+*] \\|[ \t]*[0-9]+[.)] ")
            (topcaption-length (if topcaption (length topcaption) 0))
            (botcaption-length (if botcaption (length botcaption) 0)))
       (setq max-width (or max-width width)
