@@ -40,7 +40,7 @@
           (global-diff-hl-mode))
         (diff-hl-margin-mode)
         (spacemacs|do-after-display-system-init
-         (setq diff-hl-side (if (eq version-control-side 'left)
+         (setq diff-hl-side (if (eq version-control-diff-side 'left)
                                 'left 'right))
          (diff-hl-margin-mode -1))))))
 
@@ -81,7 +81,7 @@
       (spacemacs|do-after-display-system-init
        (with-eval-after-load 'git-gutter
          (require 'git-gutter-fringe)))
-      (setq git-gutter-fr:side (if (eq version-control-side 'left)
+      (setq git-gutter-fr:side (if (eq version-control-diff-side 'left)
                                    'left-fringe 'right-fringe)))
     :config
     (progn
@@ -143,7 +143,7 @@
       (spacemacs|do-after-display-system-init
        (with-eval-after-load 'git-gutter+
          (require 'git-gutter-fringe+)))
-      (setq git-gutter-fr+-side (if (eq version-control-side 'left)
+      (setq git-gutter-fr+-side (if (eq version-control-diff-side 'left)
                                     'left-fringe 'right-fringe)))
     :config
     (progn
