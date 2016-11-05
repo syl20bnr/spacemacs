@@ -155,10 +155,7 @@ the final step of executing code in `emacs-startup-hook'.")
 (defun spacemacs/maybe-install-dotfile ()
   "Install the dotfile if it does not exist."
   (unless (file-exists-p dotspacemacs-filepath)
-    (spacemacs-buffer/set-mode-line "Dotfile wizard installer")
-    (spacemacs//redisplay)
-    (when (dotspacemacs/install 'with-wizard)
-      (configuration-layer/sync))))
+    (dotspacemacs/install 'with-wizard)))
 
 (defun spacemacs/display-and-copy-version ()
   "Echo the current spacemacs version and copy it."
