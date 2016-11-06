@@ -69,7 +69,7 @@ Default is 'tide .
 
 This layer uses:
 - [[https://github.com/ananthakumaran/tide][tide]]
-- [[https://github.com/Simplify/flycheck-typescript-tslint][flycheck-typescript-tslint]]
+- [[https://github.com/flycheck/flycheck][flycheck]]
 - [[https://github.com/vvakame/typescript-formatter][typescript-formatter]] - optional.
 
 *The tools use configuration files. You can learn more in their documentation.*

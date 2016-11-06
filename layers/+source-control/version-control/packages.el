@@ -40,7 +40,8 @@
           (global-diff-hl-mode))
         (diff-hl-margin-mode)
         (spacemacs|do-after-display-system-init
-         (setq diff-hl-side 'right)
+         (setq diff-hl-side (if (eq version-control-diff-side 'left)
+                                'left 'right))
          (diff-hl-margin-mode -1))))))
 
 (defun version-control/post-init-evil-unimpaired ()
@@ -80,7 +81,8 @@
       (spacemacs|do-after-display-system-init
        (with-eval-after-load 'git-gutter
          (require 'git-gutter-fringe)))
-      (setq git-gutter-fr:side 'right-fringe))
+      (setq git-gutter-fr:side (if (eq version-control-diff-side 'left)
+                                   'left-fringe 'right-fringe)))
     :config
     (progn
       ;; custom graphics that works nice with half-width fringes
@@ -141,7 +143,8 @@
       (spacemacs|do-after-display-system-init
        (with-eval-after-load 'git-gutter+
          (require 'git-gutter-fringe+)))
-      (setq git-gutter-fr+-side 'right-fringe))
+      (setq git-gutter-fr+-side (if (eq version-control-diff-side 'left)
+                                    'left-fringe 'right-fringe)))
     :config
     (progn
       ;; custom graphics that works nice with half-width fringes

@@ -148,41 +148,48 @@ automatically applied to."
   "Determines if a buffer is useless."
   (not (spacemacs/useful-buffer-p buffer)))
 
-;; from magnars modified by ffevotte for dedicated windows support
-(defun spacemacs/rotate-windows (count)
+
+(defun spacemacs/swap-windows (window1 window2)
+  "Swap two windows.
+WINDOW1 and WINDOW2 must be valid windows. They may contain child
+windows."
+  (let ((state1 (window-state-get window1))
+        (state2 (window-state-get window2)))
+    ;; to put state into dedicated windows, we must undedicate them first (not
+    ;; needed with Emacs 25.1)
+    (dolist (win (list window1 window2))
+      (if (window-live-p win)
+          (set-window-dedicated-p win nil)
+        ;; win has sub-windows, undedicate all of them
+        (walk-window-subtree (lambda (leaf-window)
+                               (set-window-dedicated-p leaf-window nil))
+                             win)))
+    (window-state-put state1 window2)
+    (window-state-put state2 window1)))
+
+;; originally from magnars and modified by ffevotte for dedicated windows
+;; support, it has quite diverged by now
+(defun spacemacs/rotate-windows-forward (count)
   "Rotate each window forwards.
 A negative prefix argument rotates each window backwards.
 Dedicated (locked) windows are left untouched."
   (interactive "p")
-  (let* ((non-dedicated-windows (remove-if 'window-dedicated-p (window-list)))
+  (let* ((non-dedicated-windows (cl-remove-if 'window-dedicated-p (window-list)))
+         (states (mapcar #'window-state-get non-dedicated-windows))
          (num-windows (length non-dedicated-windows))
-         (i 0)
          (step (+ num-windows count)))
-    (cond ((not (> num-windows 1))
-           (message "You can't rotate a single window!"))
-          (t
-           (dotimes (counter (- num-windows 1))
-             (let* ((next-i (% (+ step i) num-windows))
-
-                    (w1 (elt non-dedicated-windows i))
-                    (w2 (elt non-dedicated-windows next-i))
-
-                    (b1 (window-buffer w1))
-                    (b2 (window-buffer w2))
-
-                    (s1 (window-start w1))
-                    (s2 (window-start w2)))
-               (set-window-buffer w1 b2)
-               (set-window-buffer w2 b1)
-               (set-window-start w1 s2)
-               (set-window-start w2 s1)
-               (setq i next-i)))))))
+    (if (< num-windows 2)
+        (error "You can't rotate a single window!")
+      (dotimes (i num-windows)
+        (window-state-put
+         (elt states i)
+         (elt non-dedicated-windows (% (+ step i) num-windows)))))))
 
 (defun spacemacs/rotate-windows-backward (count)
   "Rotate each window backwards.
 Dedicated (locked) windows are left untouched."
   (interactive "p")
-  (spacemacs/rotate-windows (* -1 count)))
+  (spacemacs/rotate-windows-forward (* -1 count)))
 
 ;; Note that this duplicates code from select-window-by-number, ideally should
 ;; upstream this function into windows.el
@@ -758,6 +765,29 @@ the right."
   "Write the file under new name."
   (interactive)
   (call-interactively 'write-file))
+
+;; from https://www.emacswiki.org/emacs/CopyingWholeLines
+(defun spacemacs/duplicate-line-or-region (&optional n)
+  "Duplicate current line, or region if active.
+With argument N, make N copies.
+With negative N, comment out original line and use the absolute value."
+  (interactive "*p")
+  (let ((use-region (use-region-p)))
+    (save-excursion
+      (let ((text (if use-region        ; Get region if active, otherwise line
+                      (buffer-substring (region-beginning) (region-end))
+                    (prog1 (thing-at-point 'line)
+                      (end-of-line)
+                      (if (< 0 (forward-line 1)) ; Go to beginning of next line, or make a new one
+                          (newline))))))
+        (dotimes (i (abs (or n 1)))     ; Insert N times, or once if not specified
+          (insert text))))
+    (if use-region nil                  ; Only if we're working with a line (not a region)
+      (let ((pos (- (point) (line-beginning-position)))) ; Save column
+        (if (> 0 n)                             ; Comment out original with negative arg
+            (comment-region (line-beginning-position) (line-end-position)))
+        (forward-line 1)
+        (forward-char pos)))))
 
 (defun spacemacs/uniquify-lines ()
   "Remove duplicate adjacent lines in region or current buffer"

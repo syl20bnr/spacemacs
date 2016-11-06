@@ -1863,7 +1863,7 @@ Windows manipulation commands (start with ~w~):
 | Key Binding            | Description                                                                 |
 |------------------------+-----------------------------------------------------------------------------|
 | ~SPC w =~              | balance split windows                                                       |
-| ~SPC w b~              | force the focus back to the minibuffer (usefull with =helm= popups)         |
+| ~SPC w b~              | force the focus back to the minibuffer (useful with =helm= popups)         |
 | ~SPC w c~              | maximize/minimize a window and center it                                    |
 | ~SPC w C~              | maximize/minimize a window and center it using [[https://github.com/abo-abo/ace-window][ace-window]]                   |
 | ~SPC w d~              | delete a window                                                             |
@@ -2265,7 +2265,7 @@ OpenDocument, and Microsoft Office documents.
 *** Frequency of auto-saving
 By default auto-saving of files is performed every 300 characters and
 every 30 seconds of idle time which can be changed by setting to a
-new value the variables =auto-save-inteval= and =auto-save-timeout=
+new value the variables =auto-save-interval= and =auto-save-timeout=
 respectively.
 
 *** Location of auto-saved files
@@ -2564,6 +2564,7 @@ Text related commands (start with ~x~):
 | ~SPC x j r~ | set the justification to right                                |
 | ~SPC x J~   | move down a line of text (enter transient state)              |
 | ~SPC x K~   | move up a line of text (enter transient state)                |
+| ~SPC x l d~ | duplicate line or region                                      |
 | ~SPC x l s~ | sort lines                                                    |
 | ~SPC x l u~ | uniquify lines                                                |
 | ~SPC x o~   | use avy to select a link in the frame and open it             |
