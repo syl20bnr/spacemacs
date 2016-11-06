@@ -222,7 +222,8 @@
           "Vw" 'pyvenv-workon))
       ;; setup shell correctly on environment switch
       (dolist (func '(pyvenv-activate pyvenv-deactivate pyvenv-workon))
-        (advice-add func :after 'spacemacs/python-setup-shell)))))
+        (advice-add func :after 'spacemacs/python-setup-shell)
+        (advice-add func :after 'spacemacs/python-setup-checkers)))))
 
 (defun python/init-pylookup ()
   (use-package pylookup

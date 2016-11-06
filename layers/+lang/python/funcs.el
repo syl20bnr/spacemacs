@@ -35,6 +35,15 @@
       (setq python-shell-interpreter-args "-i")
       (setq python-shell-interpreter "python"))))
 
+(defun spacemacs/python-setup-checkers (&rest args)
+  (let ((pylint (spacemacs/pyenv-executable-find "pylint"))
+        (flake8 (spacemacs/pyenv-executable-find "flake8")))
+    (when pylint
+      (flycheck-set-checker-executable "python-pylint" pylint))
+    (when flake8
+      (flycheck-set-checker-executable "python-flake8" flake8))
+    ))
+
 (defun spacemacs/python-toggle-breakpoint ()
   "Add a break point, highlight it."
   (interactive)
