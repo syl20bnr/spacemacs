@@ -13,8 +13,8 @@
 (defun spacemacs/python-annotate-pdb ()
   "Highlight break point lines."
   (interactive)
-  (highlight-lines-matching-regexp "import i?pu?db")
-  (highlight-lines-matching-regexp "i?pu?db.set_trace()"))
+  (highlight-lines-matching-regexp "import \\(pdb\\|ipdb\\|pudb\\|wdb\\)")
+  (highlight-lines-matching-regexp "\\(pdb\\|ipdb\\|pudb\\|wdb\\).set_trace()"))
 
 (defun spacemacs/pyenv-executable-find (command)
   "Find executable taking pyenv shims into account."
