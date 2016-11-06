@@ -12,3 +12,9 @@
 (defun spacemacs/nlinum-maybe-on ()
   (when (spacemacs/enable-line-numbers-p)
     (nlinum-mode)))
+
+(defun spacemacs/nlinum-relative-toggle ()
+  (interactive)
+  (if (not (bound-and-true-p nlinum-relative-mode))
+      (nlinum-mode))
+  (nlinum-relative-toggle))
