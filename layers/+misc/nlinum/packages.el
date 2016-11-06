@@ -46,4 +46,4 @@
                 (eq dotspacemacs-line-numbers 'relative))
         (nlinum-relative-setup-evil)
         (add-hook 'nlinum-mode-hook 'nlinum-relative-on))
-      (spacemacs/set-leader-keys "tr" 'nlinum-relative-toggle))))
+      (spacemacs/set-leader-keys "tr" 'spacemacs/nlinum-relative-toggle))))
