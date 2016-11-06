@@ -21,6 +21,8 @@
    - [[#what-layers-supportcurrently-automatic-dependency-installation][What layers support(currently) automatic dependency installation?]]
    - [[#how-to-contribute][How to contribute?]]
    - [[#whats-up-with-the-dockerfile-formatting][What's up with the Dockerfile formatting?]]
+   - [[#why-not-use-docker-compose][Why not use Docker compose?]]
+   - [[#why-xpra][Why Xpra?]]
    - [[#how-to-update][How to update?]]
    - [[#how-to-get-an-older-buildbackup-of-my-spacemacs][How to get an older build(backup) of my Spacemacs?]]
    - [[#add-answers-to-the-questions-from-the-pr][Add answers to the questions from the PR]]
@@ -29,7 +31,7 @@
    - [[#mosh-fontsspace-line-doesnt-look-right][Mosh fonts/space-line doesn't look right]]
    - [[#i-have-a-lagpicture-is-blurryclipboard-sharing-doesnt-work][I have a lag/picture is blurry/clipboard sharing doesn't work...]]
    - [[#ranger-sometimes-lags-with-the-message--process--something-][Ranger sometimes lags with the message "... process ... something ..."]]
-     - [[#localize-the-bug-current-status-heisenbug---but-at-least-it][localize the bug. Current status: heisenbug :(  But at least it]]
+     - [[#localize-the-bug-current-status-heisenbug-][localize the bug. Current status: heisenbug :(]]
    - [[#sometimesrarely-i-have-strange-emacs-slowdowns][Sometimes(rarely) I have strange Emacs slowdowns]]
      - [[#find-out-whats-going-one][Find out what's going one.]]
 
@@ -60,7 +62,8 @@ automatic dependency management and free cloud builds/backups.
    Bandwidth, CPU, disk space quota also supported. It may be really useful
    for education. Imagine a classroom with a bunch of cheap Raspberry PI
    clients and one Spacemacs host(local or cloud based).
-5) Pausing(freezing).
+5) Pausing(freezing) - may be handy if you want to temporary free CPU
+   resources, but don't want to kill your development environment.
 6) Snapshots for host migration and potentially the fastest way to start
    Spacemacs based development environment, especially if you use stuff like
    JVM that needs time to "heat up" [[https://i.imgur.com/plTjTXL.gifv][DEMO]]. For GNU/Linux it uses native
@@ -122,7 +125,7 @@ automatic dependency management and free cloud builds/backups.
 - Read [[https://docs.docker.com/engine/reference/run/][Docker run reference]] and [[https://www.xpra.org/trac/wiki/FAQ][Xpra FAQ]].
 **** In webbrowser:
 - Same as with Xpra over SSH =docker run -ti --rm <YOU_NAME>/spacemacs= but
-  instead of =-p 22:22= bind =-p 10000:10000= and add set container's
+  instead of =-p 22:22= map =-p 10000:10000= and add set container's
   environment variable =SDMODE= to =webbrowser_insecure= i.e:
   =docker run ... -e SDMODE=webbrowser_insecure ...= Also you'll need to
   set a password =... -e XPRA_PASSWORD=<YOUR_PASSWORD> ...= 
@@ -134,7 +137,7 @@ automatic dependency management and free cloud builds/backups.
   to the Spacemacs.
   The mode is called *"webbrowser_insecure"* because it uses http protocol.
   So you should use it *only for local network*  behind system firewall or
-  Docker's one i.e don't bind container's port =10000= to the host's port.
+  Docker's one i.e don't map container's port =10000= to the host's port.
   Find out local IP of the container and use it instead of =localhost=.
   For the remote use you can add [[https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion][TLS proxy]] and may be wrap
   your setup into [[https://docs.docker.com/compose][Docker compose]] for the convenience.
@@ -143,7 +146,7 @@ automatic dependency management and free cloud builds/backups.
   (or use existing one). Set container's environment variable =SDMODE= to
   =ssh= i.e: =docker run ... -e SDMODE=ssh ...= if you don't need Xpra.
 - Then use ssh to connect =ssh <NAME_FROM_/hooks/build>@localhost=
-- To use Mosh (which is much better way than ssh) you'll also need to bind
+- To use Mosh (which is much better way than ssh) you'll also need to map
   an UDP port =docker run ... -p 60001:60001/udp ...= then to connect:
   =mosh -p 60001 <NAME_FROM_/hooks/build>@localhost emacs=
 ** Optimizations
@@ -195,7 +198,20 @@ See [[./dockerfiles/spacemacs-docker/usr/local/spacemacs/lib/README.org][lib/REA
 Docker build logs are ugly anyway. At least we can keep Dockerfiles
 as readable as possible. Also Emacs-Lisp DSL prints out executed
 command and its output (if any) so we don't need to dig into usual
- docker builder's wall of text.
+docker builder's wall of text.
+** Why not use Docker compose?
+It will make =spacemacs-docker= setup much less "beginner friendly".
+Currently user's .spacemacs file serves similar role. During the
+build process(at DockerHub) builder reads .spacemacs file and reads
+layer related variables from Spacemacs to configures the installation
+or even modify the .spacemacs file.
+If will be impossible to do with the modular design. Also modularity
+may increase the maintenance cost of the distribution.
+** Why Xpra?
+- Besides all the Xpra features outlined in the [[#features][Features]] section.
+  It also has a client for all major platforms (even Android) and
+  due to its implementation it is likely to work in the same way
+  with all the client variations, so it should be easier to maintain.
 ** How to update?
 - First get a new version =docker pull <YOUR_NAME>/spacemacs=
 - Then run it. And if it is fine, remove the old one:
