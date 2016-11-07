@@ -49,8 +49,8 @@
         (kill-whole-line)
       (progn
         (back-to-indentation)
-        (insert-string trace)
-        (insert-string "\n")
+        (insert trace)
+        (insert "\n")
         (python-indent-line)))))
 
 ;; from https://www.snip2code.com/Snippet/127022/Emacs-auto-remove-unused-import-statemen
