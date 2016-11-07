@@ -60,6 +60,7 @@ command =cscope/run-pycscope= for Python projects, bound to ~SPC m g i~.
 
 | Key Binding | Description                                   |
 |-------------+-----------------------------------------------|
+| ~SPC m g =~ | Find assignments to a symbol              |
 | ~SPC m g c~ | find which functions are called by a function |
 | ~SPC m g C~ | find where a function is called               |
 | ~SPC m g d~ | find global definition of a symbol            |
