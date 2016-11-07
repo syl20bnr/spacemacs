@@ -72,7 +72,7 @@
     (while (re-search-backward org-heading-regexp nil t))
     (open-line 3)
     (forward-line 1)
-    (insert-string toc-headline)))
+    (insert toc-headline)))
 
 (defun remove-empty-lines-after-headlines()
   "Remove empty liners after each headline."
