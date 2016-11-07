@@ -26,7 +26,6 @@
   (load-file (concat (file-name-directory load-file-name)
                      "core/core-load-paths.el"))
   (require 'core-spacemacs)
-  (spacemacs/maybe-install-dotfile)
   (spacemacs/init)
   (configuration-layer/sync)
   (spacemacs-buffer/display-startup-note)
