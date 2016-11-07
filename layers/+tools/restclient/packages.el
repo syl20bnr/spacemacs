@@ -14,6 +14,7 @@
         (company-restclient :toggle (configuration-layer/package-usedp 'company))
         golden-ratio
         ob-http
+        ob-restclient
         restclient
         (restclient-helm :toggle (configuration-layer/package-usedp 'helm))
         ))
@@ -29,6 +30,12 @@
     :post-config
     (use-package ob-http
       :init (add-to-list 'org-babel-load-languages '(http . t)))))
+
+(defun restclient/init-ob-restclient ()
+  (spacemacs|use-package-add-hook org
+    :post-config
+    (use-package ob-restclient
+      :init (add-to-list 'org-babel-load-languages '(restclient . t)))))
 
 (defun restclient/init-restclient ()
   (use-package restclient
