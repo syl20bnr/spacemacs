@@ -47,6 +47,7 @@
     (defun spacemacs/setup-helm-cscope (mode)
       "Setup `helm-cscope' for MODE"
       (spacemacs/set-leader-keys-for-major-mode mode
+        "g=" 'helm-cscope-find-assignments-to-this-symbol
         "gc" 'helm-cscope-find-called-function
         "gC" 'helm-cscope-find-calling-this-funtcion
         "gd" 'helm-cscope-find-global-definition
