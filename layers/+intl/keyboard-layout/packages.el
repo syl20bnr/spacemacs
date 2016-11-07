@@ -466,7 +466,7 @@
       "k"
       "l")))
 
-(defun kl/pre-init-twittering-mode ()
+(defun keyboard-layout/pre-init-twittering-mode ()
   (kl|config twittering-mode
     :description
     "Remap navigation keys in `twittering-mode'."
