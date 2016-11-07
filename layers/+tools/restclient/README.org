@@ -9,8 +9,8 @@
  - [[#ob-http][ob-http]]
 
 * Description
-This is a package that lets you have a REPL-like interface for http requests
-using a [[http://pashky/restclient.el][restclient]] buffer or an =org= buffer.
+This layer lets you have a REPL-like interface for http requests using a
+[[http://pashky/restclient.el][restclient]] buffer or an =org= buffer.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -18,18 +18,31 @@ add =restclient= to the existing =dotspacemacs-configuration-layers= list in thi
 file.
 
 * Configuration
-By default the layer enables [[http://pashky/restclient.el][restclient]]. It is possible to use =org= via [[http://github.com/zweifisch/ob-http][ob-http]]
-by setting the layer variable =restclient-use-org= to =t=.
+By default the layer uses [[http://pashky/restclient.el][restclient]]. To use =org= via [[http://github.com/zweifisch/ob-http][ob-http]] by default set
+the layer variable =restclient-use-org= to =t=.
+
+Note that both =restclient= and =ob-http= are always installed so you can
+choose the mode at any time.
 
 * Restclient
 Any file with an =.http= extension is opened in a =restclient= buffer.
 Full documentation and examples can be found in the package's [[https://github.com/pashky/restclient.el][GitHub Page]].
 Also there is an [[http://emacsrocks.com/e15.html][Emacs Rocks!]] episode of it.
 
+There is support for =org-babel= and =restclient= code blocks, for instance:
+
+#+BEGIN_EXAMPLE
+#+BEGIN_SRC restclient
+  GET http://example.com
+#+END_SRC
+#+END_EXAMPLE
+
 ** Keybindings
 
 | Key Binding | Description                                                 |
 |-------------+-------------------------------------------------------------|
+| ~SPC m n~   | Jump to next request                                        |
+| ~SPC m p~   | Jump to previous request                                    |
 | ~SPC m s~   | Send and stay in window (pretty-print response if possible) |
 | ~SPC m S~   | Send and switch window (pretty-print response if possible)  |
 | ~SPC m r~   | Send and stay in window (do not attempt to pretty-print)    |

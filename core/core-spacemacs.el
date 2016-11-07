@@ -136,7 +136,9 @@ the final step of executing code in `emacs-startup-hook'.")
                                       "with this build.")))
   ;; check for new version
   (if dotspacemacs-mode-line-unicode-symbols
-      (setq-default spacemacs-version-check-lighter "[⇪]")))
+      (setq-default spacemacs-version-check-lighter "[⇪]"))
+  ;; install the dotfile if required
+  (spacemacs/maybe-install-dotfile))
 
 (defun spacemacs//removes-gui-elements ()
   "Remove the menu bar, tool bar and scroll bars."
