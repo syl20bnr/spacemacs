@@ -13,6 +13,8 @@
         golden-ratio
         ob-http
         restclient
+        company
+        company-restclient
         ))
 
 (defun restclient/pre-init-golden-ratio ()
@@ -26,6 +28,15 @@
     :post-config
     (use-package ob-http
       :init (add-to-list 'org-babel-load-languages '(http . t)))))
+
+(defun restclient/init-company-restclient ()
+  (use-package company-restclient))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun restclient/post-init-company ()
+    (spacemacs|add-company-hook restclient-mode))
+  (defun restclient/post-init-company-restclient ()
+    (push 'company-restclient company-backends-restclient-mode)))
 
 (defun restclient/init-restclient ()
   (use-package restclient
