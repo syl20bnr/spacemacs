@@ -89,7 +89,7 @@ the layer variable =go-tab-width=, e.g.
   (go :variables go-tab-width 4)
 #+end_src
 
-Or add this in =dotspacemacs/user-config ()= in your =.spacemacs= file
+or add this in =dotspacemacs/user-config ()= in your =.spacemacs= file
 
 #+begin_src emacs-lisp
   (setq go-tab-width 4)
