@@ -89,6 +89,12 @@ the layer variable =go-tab-width=, e.g.
   (go :variables go-tab-width 4)
 #+end_src
 
+Or add this in =dotspacemacs/user-config ()= in your =.spacemacs= file
+
+#+begin_src emacs-lisp
+  (setq go-tab-width 4)
+#+end_src
+
 ** Tests
 If you're using =gocheck= in your project you can use the
 =go-use-gocheck-for-testing= variable to enable suite testing and to get single
