@@ -31,7 +31,7 @@ RUN git clone "${GIT_REPO}" -b "${GIT_BRANCH}" "${UHOME}/.emacs.d"       && \
 dockerfiles/spacemacs-docker/usr/local/spacemacs" /usr/local/spacemacs   && \
     emacs -Q -batch -l /usr/local/spacemacs/lib/init.el > /dev/null 2>&1
 
-SHELL ["/usr/bin/emacs", "-l", "/usr/local/spacemacs/lib/dockerfile-dsl.el", \
+SHELL ["/usr/bin/emacs", "-l", "/usr/local/spacemacs/lib/build-helpers.el", \
        "-Q", "-batch", "--eval"]
 
 # Build and test spacemacs (with all packages downloaded)

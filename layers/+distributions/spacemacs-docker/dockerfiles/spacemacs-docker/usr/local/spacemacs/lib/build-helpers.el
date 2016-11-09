@@ -1,4 +1,4 @@
-;;; dockerfile-dsl.el --- Spacemacs layers dependencies installation DSL File
+;;; build-helpers.el --- spacemacs-docker Dockerfile build helpers file
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
