@@ -95,14 +95,14 @@
 
 (defun spacemacs-layouts/post-init-helm ()
   (spacemacs/set-leader-keys
-    "Bb" 'spacemacs-layouts/non-restricted-buffer-list-helm
+    "bB" 'spacemacs-layouts/non-restricted-buffer-list-helm
     "pl" 'spacemacs/helm-persp-switch-project))
 
 
 
 (defun spacemacs-layouts/post-init-ivy ()
   (spacemacs/set-leader-keys
-    "Bb" 'spacemacs-layouts/non-restricted-buffer-list-ivy))
+    "bB" 'spacemacs-layouts/non-restricted-buffer-list-ivy))
 
  
 
@@ -207,7 +207,6 @@
         (setq spacemacs--last-selected-layout persp-last-persp-name))
       (add-hook 'persp-mode-hook 'spacemacs//layout-autosave)
       (spacemacs/declare-prefix "b" "persp-buffers")
-      (spacemacs/declare-prefix "B" "global-buffers")
       ;; Override SPC TAB to only change buffers in perspective
       (spacemacs/set-leader-keys
         "TAB"  'spacemacs/alternate-buffer-in-persp
