@@ -196,9 +196,9 @@ currently unsupported layer or  fix/extend existing one.
 See [[./dockerfiles/spacemacs-docker/usr/local/spacemacs/lib/README.org][lib/README.org]]. Also you can improve libraries, docs.
 ** What's up with the Dockerfile formatting?
 Docker build logs are ugly anyway. At least we can keep Dockerfiles
-as readable as possible. Also Emacs-Lisp DSL prints out executed
-command and its output (if any) so we don't need to dig into usual
-docker builder's wall of text.
+as readable as possible. Also Emacs-Lisp build helpers prints out
+executed command and its output (if any) so we don't need to dig
+into usual docker builder's wall of text.
 ** Why not use Docker compose?
 It will make =spacemacs-docker= setup much less "beginner friendly".
 Currently user's .spacemacs file serves similar role. During the

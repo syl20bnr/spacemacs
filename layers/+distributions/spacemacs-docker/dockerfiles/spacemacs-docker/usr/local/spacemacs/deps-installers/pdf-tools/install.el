@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(load "/usr/local/spacemacs/lib/deps-dsl.el" nil t)
+(load "/usr/local/spacemacs/lib/deps-install-helpers.el" nil t)
 
 (checkpoint
   (install libpng-dev libz-dev libpoppler-glib-dev

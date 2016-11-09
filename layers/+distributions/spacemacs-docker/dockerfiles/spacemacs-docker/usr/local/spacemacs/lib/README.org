@@ -12,8 +12,8 @@ Dependency installation libraries for [[../../../../../../README.org][spacemacs-
 
 * library list
 1. [[./init.el][init.el]] - Installs packages used in the libs
-2. [[./dockerfile-dsl.el][dockerfile-dsl.el]] - Elisp Dockerfile DSL (also used in =deps-dsl.el=)
-3. [[./deps-dsl.el][deps-dsl.el]] - layers dependencies installation helpers
+2. [[./build-helpers.el][build-helpers.el]] - Elisp Dockerfile build helpers (also used in =deps-dsl.el=)
+3. [[./deps-install-helpers.el][deps-install-helpers.el]] - layers dependencies installation helpers
 [[../deps-installers/README.org][Usage examples]]
 
 * Workflow

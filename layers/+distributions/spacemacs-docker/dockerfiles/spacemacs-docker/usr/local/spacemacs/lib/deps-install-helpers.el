@@ -1,4 +1,4 @@
-;;; deps-dsl.el --- Spacemacs layers dependencies installation DSL File
+;;; deps-install-helpers.el --- Spacemacs layers deps. install helpers  File
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(load (expand-file-name "dockerfile-dsl.el"
+(load (expand-file-name "build-helpers.el"
                         (file-name-directory (or load-file-name
                                                  (buffer-file-name))))
       nil
