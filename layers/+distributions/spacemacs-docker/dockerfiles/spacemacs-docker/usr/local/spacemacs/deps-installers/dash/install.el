@@ -51,6 +51,10 @@
     (unless (dotfile-has-symbol-p 'helm-dash-browser-func)
       (append-to-user-config "Open helm-dash in eww."
                              "(setq helm-dash-browser-func 'eww)"))
+    (append-to-user-config
+     "Temp fix for https://github.com/jinzhu/zeal-at-point/issues/28"
+     (concat "(advice-add 'zeal-at-point :before (lambda (x) (add-to-list "
+             "'zeal-at-point-mode-alist '(emacs-lisp-mode . \"elisp\"))))"))
     (dolist (docset docsets)
       (when (and (layer-used-p (car docset))
                  (layer-installer-not-excluded-p (car docset)))
