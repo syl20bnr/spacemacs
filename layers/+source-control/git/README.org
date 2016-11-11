@@ -105,7 +105,6 @@ Git commands (start with ~g~):
 
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
-| ~SPC g >~   | show submodule prompt                               |
 | ~SPC g b~   | open a =magit= blame                                |
 | ~SPC g f f~ | view a file at a specific branch or commit          |
 | ~SPC g f h~ | show file commits history                           |
