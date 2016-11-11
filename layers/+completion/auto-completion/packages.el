@@ -195,11 +195,9 @@
       ;; configure snippet directories
       (let* ((spacemacs--auto-completion-dir
               (configuration-layer/get-layer-local-dir 'auto-completion))
-             (private-yas-dir (if auto-completion-private-snippets-directory
-                                  auto-completion-private-snippets-directory
-                                (concat
-                                 configuration-layer-private-directory
-                                 "snippets/")))
+             (emacs-directory-snippets-dir (concat
+                                          configuration-layer-private-directory
+                                          "snippets/"))
              (spacemacs-layer-snippets-dir (expand-file-name
                                       "snippets"
                                       spacemacs--auto-completion-dir))
@@ -212,14 +210,16 @@
         (push spacemacs-layer-snippets-dir yas-snippet-dirs)
         ;; ~/.emacs.d/elpa/yasnippet-xxxxx/snippets
         (push 'yas-installed-snippets-dir yas-snippet-dirs)
+        ;; ~/.emacs.d/private/snippets
+        (push emacs-directory-snippets-dir yas-snippet-dirs)
         ;; ~/.spacemacs.d/snippets
         (when dotspacemacs-directory-snippets-dir
           (push dotspacemacs-directory-snippets-dir yas-snippet-dirs))
         ;; arbitrary directories in `auto-completion-private-snippets-directory'
-        (when private-yas-dir
-          (if (listp private-yas-dir)
-              (setq yas-snippet-dirs (append yas-snippet-dirs private-yas-dir))
-            (push private-yas-dir yas-snippet-dirs))))
+        (when auto-completion-private-snippets-directory
+          (if (listp auto-completion-private-snippets-directory)
+              (setq yas-snippet-dirs (append yas-snippet-dirs auto-completion-private-snippets-directory))
+            (push auto-completion-private-snippets-directory yas-snippet-dirs))))
 
       (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                           markdown-mode-hook
