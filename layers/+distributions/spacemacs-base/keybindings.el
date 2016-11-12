@@ -45,6 +45,7 @@
                                        ("sa"  "ag")
                                        ("sg"  "grep")
                                        ("sk"  "ack")
+                                       ("sr"  "ripgrep")
                                        ("st"  "pt")
                                        ("sw"  "web")
                                        ("t"   "toggles")
