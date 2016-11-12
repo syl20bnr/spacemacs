@@ -404,6 +404,7 @@
   "ww"  'other-window
   "w/"  'split-window-right
   "w="  'balance-windows
+  "w+"  'spacemacs/window-layout-toggle
   "w_"  'spacemacs/maximize-horizontally)
 ;; text -----------------------------------------------------------------------
 (defalias 'count-region 'count-words-region)
