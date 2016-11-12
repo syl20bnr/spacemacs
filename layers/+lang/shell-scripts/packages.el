@@ -15,6 +15,7 @@
         (company-shell :toggle (configuration-layer/package-usedp 'company))
         fish-mode
         flycheck
+        flycheck-bashate
         ggtags
         helm-gtags
         insert-shebang
@@ -35,6 +36,11 @@
 
 (defun shell-scripts/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'sh-mode))
+
+(defun shell-scripts/init-flycheck-bashate ()
+  (use-package flycheck-bashate
+  :defer t
+  :init (add-hook 'sh-mode-hook 'flycheck-bashate-setup)))
 
 (defun shell-scripts/init-fish-mode ()
   (use-package fish-mode
