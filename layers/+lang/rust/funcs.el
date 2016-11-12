@@ -10,7 +10,9 @@
 ;;; License: GPLv3
 
 (defun spacemacs/racer-describe ()
-  "Show a *Racer Help* buffer for the function or type at point and switch to
-it."
+  "Show a *Racer Help* buffer for the function or type at point.
+If `help-window-select' is non-nil, also select the help window."
   (interactive)
-  (select-window (racer-describe)))
+  (let ((window (racer-describe)))
+    (when help-window-select
+      (select-window window))))
