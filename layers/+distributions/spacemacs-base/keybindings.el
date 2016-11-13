@@ -234,6 +234,7 @@
   "cr" 'recompile
   "cd" 'spacemacs/close-compilation-window)
 (with-eval-after-load 'compile
+  (evil-define-key 'motion compilation-mode-map (kbd "gf") 'find-file-at-point)
   (define-key compilation-mode-map "r" 'recompile)
   (define-key compilation-mode-map "g" nil))
 ;; narrow & widen -------------------------------------------------------------
