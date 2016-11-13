@@ -36,7 +36,7 @@ This layers adds extensive support for [[http://git-scm.com/][git]].
 - gitignore generator with [[https://github.com/jupl/helm-gitignore][helm-gitignore]]
 - org integration with magit via [[https://github.com/magit/orgit][orgit]]
 
-New to Magit? Checkout the [[http://magit.vc/about.html][official intro]].
+New to Magit? Checkout the [[https://magit.vc/about/][official intro]].
 
 * Install
 ** Layer
