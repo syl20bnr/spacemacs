@@ -123,7 +123,7 @@
   "bh"    'spacemacs/home
   "b C-d" 'spacemacs/kill-matching-buffers-rudely
   "bn"    'next-buffer
-  "bm"    'spacemacs/kill-other-buffers
+  "bm"    'spacemacs/switch-to-messages-buffer
   "bN"    'spacemacs/new-empty-buffer
   "bP"    'spacemacs/copy-clipboard-to-whole-buffer
   "bp"    'previous-buffer
