@@ -27,15 +27,7 @@
     :init
     ;; note ensime-mode is hooked to scala-mode-hook automatically by
     ;; ensime-mode via an autoload
-    (progn
-      (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime")
-      (when scala-enable-eldoc
-        (add-hook 'ensime-mode-hook 'ensime/enable-eldoc))
-      (add-hook 'scala-mode-hook 'ensime/configure-flyspell)
-      (add-hook 'scala-mode-hook 'ensime/configure)
-      (when scala-auto-start-ensime
-        (add-hook 'scala-mode-hook 'ensime/maybe-start))
-      (add-to-list 'spacemacs-jump-handlers-scala-mode 'ensime-edit-definition))
+    (ensime/init 'scala-mode scala-enable-eldoc scala-auto-start-ensime)
     :config
     (progn
       (ensime/configure-keybindings 'scala-mode)

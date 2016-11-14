@@ -15,6 +15,18 @@
 (autoload 'ensime-config-find "ensime-config")
 (autoload 'projectile-project-p "projectile")
 
+(defun ensime/init (mode &optional enable-eldoc auto-start)
+  (let ((hook (intern (format "%S-hook" mode)))
+        (jump-handlers (intern (format "spacemacs-jump-handlers-%S" mode))))
+    (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime")
+    (when enable-eldoc
+      (add-hook 'ensime-mode-hook 'ensime/enable-eldoc))
+    (add-hook hook 'ensime/configure-flyspell)
+    (add-hook hook 'ensime/configure)
+    (when auto-start
+      (add-hook mode 'ensime/maybe-start))
+    (add-to-list jump-handlers 'ensime-edit-definition)))
+
 (defun ensime/configure ()
   "Ensure the file exists before starting `ensime-mode'."
   (cond
