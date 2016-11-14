@@ -9,6 +9,10 @@
    - [[#eclim][Eclim]]
      - [[#installation][Installation]]
      - [[#usage][Usage]]
+   - [[#ensime][Ensime]]
+     - [[#installation-1][Installation]]
+     - [[#usage-1][Usage]]
+     - [[#issues][Issues]]
  - [[#key-bindings][Key bindings]]
    - [[#java-mode][Java-mode]]
      - [[#project-management][Project management]]
@@ -23,13 +27,17 @@
    - [[#projects-buffer][Projects buffer]]
 
 * Description
-This layer adds support for the Java language using the [[http://eclim.org][Eclim]] client/server.
+This layer adds support for the Java language using the [[http://eclim.org][Eclim]] client/server by
+default, or alternatively the [[https://ensime.github.io/][Ensime]] client/server.
 
 * Layer Installation
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =java= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+file. To choose a backend explicitly,
+#+BEGIN_SRC elips
+java :variables java-backend 'eclim
+#+END_SRC
 
 ** Eclim
 Eclim provides the ability to access Eclipse features such as code completion,
@@ -61,6 +69,33 @@ You can also configure other options, as shown below:
 *** Usage
 Start the eclim daemon with ~SPC m d s~ and stop it with ~SPC m d k~. (See
 below.)
+
+** Ensime
+Another backend option is the Ensime server, which is a lot more responsive than
+Eclim. It uses the same keybinding setup as the scala layer.
+
+*** Installation
+Find it with your favourite package manager, eg:
+#+BEGIN_SRC shell
+  nix-env --install sbt
+#+END_SRC
+or refer to [[http://www.scala-sbt.org/download.html][the sbt installation instructions]].
+
+You also need to follow [[https://ensime.github.io/build_tools/sbt/][the Ensime configuration
+instructions]] to run Ensime.
+
+To use the build functions under ~SPC m b~ you need to use version =0.13.5= or
+newer of =sbt=, and specify that in your project's =project/build.properties=.
+For example,
+#+BEGIN_SRC scala
+  sbt.version=0.13.11
+#+END_SRC
+
+*** Usage
+Start the ensime server by running ~SPC SPC ensime~ or ~M-x ensime~.
+*** Issues
+Ensime is originally built for Scala, so support for java is not complete, in
+particular refactoring doesn't work.
 
 * Key bindings
 ** Java-mode
