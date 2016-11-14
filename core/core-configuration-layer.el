@@ -1093,7 +1093,10 @@ Returns nil if the directory is not a category."
                   (if indexed-layer
                       ;; the same layer may have been discovered twice,
                       ;; in which case we don't need a warning
-                      (unless (string-equal (directory-file-name (oref indexed-layer :dir)) (directory-file-name sub))
+                      (unless (string-equal (file-truename
+                                             (directory-file-name (oref indexed-layer :dir)))
+                                            (file-truename
+                                             (directory-file-name sub)))
                         (configuration-layer//warning
                          (concat
                           "Duplicated layer %s detected in directory \"%s\", "
