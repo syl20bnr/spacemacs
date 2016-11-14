@@ -1,4 +1,4 @@
-;;; funcs.el --- Scala Layer functions File for Spacemacs
+;;; funcs.el --- Ensime Layer functions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
