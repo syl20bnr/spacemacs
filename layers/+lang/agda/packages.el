@@ -83,7 +83,7 @@
           "xq"  'agda2-quit
           "xr"  'agda2-restart)))))
 
-(defun idris/pre-init-golden-ratio ()
+(defun agda/pre-init-golden-ratio ()
   (spacemacs|use-package-add-hook golden-ratio
     :post-config
     (add-to-list 'golden-ratio-exclude-buffer-names
