@@ -8,6 +8,7 @@
  - [[#games-instructions][Games instructions]]
    - [[#2048][2048]]
    - [[#pacmacs][Pacmacs]]
+   - [[#sudoku][Sudoku]]
    - [[#tetris][Tetris]]
    - [[#typit][Typit]]
      - [[#create-a-new-dictionary][Create a new dictionary]]
@@ -18,6 +19,7 @@ This layer allows you to play evilified games in spacemacs.
 The games available now are:
 - 2048-game
 - Pacmacs (Pacman for Emacs)
+- Sudoku
 - Tetris
 - Typit
 
@@ -56,6 +58,20 @@ Possible helm actions:
 | ~k~         | Move up     |
 | ~l~         | Move right  |
 |             |             |
+
+** Sudoku
+
+| Key Bindings | Description  |
+| ~h~          | Move left    |
+| ~j~          | Move down    |
+| ~k~          | Move up      |
+| ~l~          | Move right   |
+| ~1 ... 9~    | Insert value |
+| ~0~          | Remove value |
+| ~N~          | New puzzle   |
+| ~, h~        | Hint         |
+| ~, s~        | Save puzzle  |
+| ~, l~        | Load puzzle  |
 
 ** Tetris
 
