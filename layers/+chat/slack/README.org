@@ -23,7 +23,7 @@ file.
 Follow the instructions in the [[https://github.com/yuya373/emacs-slack/blob/master/README.md][emacs-slack]] package for obtaining your client ID,
 client secret, and token.
 
-To test that eveyrthing is alright put the following snippet in your
+To test that everything is alright put the following snippet in your
 =dotspacemacs/user-config()= replacing =client-id=, =client-secret= and =token=
 with your info.
 
