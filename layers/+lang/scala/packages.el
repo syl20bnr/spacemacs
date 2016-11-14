@@ -30,11 +30,11 @@
     (progn
       (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime")
       (when scala-enable-eldoc
-        (add-hook 'ensime-mode-hook 'scala/enable-eldoc))
-      (add-hook 'scala-mode-hook 'scala/configure-flyspell)
-      (add-hook 'scala-mode-hook 'scala/configure-ensime)
+        (add-hook 'ensime-mode-hook 'ensime/enable-eldoc))
+      (add-hook 'scala-mode-hook 'ensime/configure-flyspell)
+      (add-hook 'scala-mode-hook 'ensime/configure)
       (when scala-auto-start-ensime
-        (add-hook 'scala-mode-hook 'scala/maybe-start-ensime))
+        (add-hook 'scala-mode-hook 'ensime/maybe-start))
       (add-to-list 'spacemacs-jump-handlers-scala-mode 'ensime-edit-definition))
     :config
     (progn
@@ -120,8 +120,8 @@
         "sr"     'ensime-inf-eval-region
         "sR"     'ensime-inf-eval-region-switch
 
-        "yT"     'scala/yank-type-at-point-full-name
-        "yt"     'scala/yank-type-at-point
+        "yT"     'ensime/yank-type-at-point-full-name
+        "yt"     'ensime/yank-type-at-point
 
         "z"      'ensime-expand-selection-command
         )
