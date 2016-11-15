@@ -27,7 +27,7 @@
       (spacemacs|diminish projectile-rails-mode " ⇋" " RoR")
 
       ;; Find files
-      (dolist (mode '(ruby-mode enh-ruby-mode))
+      (dolist (mode '(ruby-mode enh-ruby-mode slim-mode haml-mode coffee-mode web-mode js-mode yaml-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
           "rfa" 'projectile-rails-find-locale
           "rfc" 'projectile-rails-find-controller
