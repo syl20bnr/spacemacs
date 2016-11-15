@@ -967,11 +967,6 @@ a split-side entry, its value must be usable as the SIDE argument for
                (fboundp dotspacemacs-scratch-mode))
       (funcall dotspacemacs-scratch-mode))))
 
-(defun spacemacs/switch-to-messages-buffer ()
-  "Switch to the `*Messages*' buffer."
-  (interactive)
-  (switch-to-buffer (messages-buffer)))
-
 (defun spacemacs/close-compilation-window ()
   "Close the window containing the '*compilation*' buffer."
   (interactive)
