@@ -132,8 +132,8 @@
 (defun go/init-go-rename()
   (use-package go-rename
     :init
-    (spacemacs/declare-prefix-for-mode 'go-mode "mr" "rename")
-    (spacemacs/set-leader-keys-for-major-mode 'go-mode "rn" 'go-rename)))
+    (spacemacs/declare-prefix-for-mode 'go-mode "mR" "rename")
+    (spacemacs/set-leader-keys-for-major-mode 'go-mode "Rn" 'go-rename)))
 
 (defun go/init-flycheck-gometalinter()
   (use-package flycheck-gometalinter
