@@ -171,7 +171,7 @@ windows."
 (defun spacemacs/window-layout-toggle ()
   "Toggle between horizontal and vertical layout of two windows."
   (interactive)
-  (when (= (count-windows) 2)
+  (if (= (count-windows) 2)
     (let* ((window-tree (car (window-tree)))
            (current-split-vertical-p (car window-tree))
            (first-window (nth 2 window-tree))
@@ -183,7 +183,8 @@ windows."
       (delete-other-windows first-window)
       ;; `window-state-put' also re-selects the window if needed, so we don't
       ;; need to call `select-window'
-      (window-state-put second-window-state (funcall splitter)))))
+      (window-state-put second-window-state (funcall splitter)))
+    (error "Can't toggle window layout when the number of windows isn't two.")))
 
 ;; originally from magnars and modified by ffevotte for dedicated windows
 ;; support, it has quite diverged by now
