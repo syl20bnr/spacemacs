@@ -2827,7 +2827,7 @@ Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][ev
 | ~SPC c y~   | comment and yank          |
 | ~SPC c Y~   | invert comment and yank   |
 
-*Tips:* To comment efficiently a block of line use the combo ~SPC ; SPC y~
+*Tips:* To comment efficiently a block of line use the combo ~SPC ; SPC j l~
 
 *** Regular expressions
 Spacemacs uses the packages [[https://github.com/joddie/pcre2el][pcre2el]] to manipulate regular expressions. It is
