@@ -180,6 +180,7 @@ Current Action: %s(ivy-action-name)
       ("f" ivy-toggle-case-fold)
       ("o" ivy-occur :exit t))
     (define-key ivy-minibuffer-map "\C-o" 'spacemacs/ivy-transient-state/body)
+    (define-key ivy-minibuffer-map (kbd "C-<return>") 'ivy-immediate-done)
     ))
 
 (defun spacemacs-completion/init-ido ()
