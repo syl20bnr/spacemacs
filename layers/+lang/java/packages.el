@@ -35,11 +35,12 @@
     (use-package ensime
       :defer t
       :init
-      (ensime/init 'java-mode t nil)
+      (progn
+        (ensime/init 'java-mode t nil)
+        (when (configuration-layer/package-usedp 'company)
+          (push 'ensime-company company-backends-java-mode)))
       :config
       (progn
-        (when (configuration-layer/package-usedp 'company)
-          (ensime-company-enable))
         (ensime/configure-keybindings 'java-mode)))))
 
 (defun java/init-eclim ()
