@@ -65,7 +65,8 @@
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "=" 'rust-format-buffer))))
+        "=" 'rust-format-buffer
+        "q" 'spacemacs/rust-quick-run))))
 
 (defun rust/init-toml-mode ()
   (use-package toml-mode
