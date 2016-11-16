@@ -62,13 +62,20 @@
         (interactive)
         (tide-jump-to-definition t))
 
-      (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-        "gb" 'tide-jump-back
-        "gt" 'typescript/jump-to-type-def
-        "gu" 'tide-references
-        "hh" 'tide-documentation-at-point
-        "rr" 'tide-rename-symbol
-        "Sr" 'tide-restart-server))))
+      (setq keybindingList '(
+                             "gb" tide-jump-back
+                             "gt" typescript/jump-to-type-def
+                             "gu" tide-references
+                             "hh" tide-documentation-at-point
+                             "rr" tide-rename-symbol
+                             "sr" tide-restart-server
+                             )
+            typescriptList (cons 'typescript-mode keybindingList)
+            webList (cons 'web-mode (cons "gg" (cons 'tide-jump-to-definition keybindingList )))
+            )
+
+      (apply 'spacemacs/set-leader-keys-for-major-mode typescriptList)
+      (apply 'spacemacs/set-leader-keys-for-major-mode webList))))
 
 (defun typescript/post-init-web-mode ()
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
