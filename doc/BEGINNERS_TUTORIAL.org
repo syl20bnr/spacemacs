@@ -145,7 +145,7 @@ you typically have to use your weakest fingers (pinkies) extensively and bend
 your wrists in unergonomic positions, which is uncomfortable for many and risks
 developing carpal tunnel syndrome in the long run.
 
-By contrast, Spacemacs uses modal editing. Modal editing means that differend
+By contrast, Spacemacs uses modal editing. Modal editing means that different
 modes are used for editing and writing text. While this can sound complicated at
 first, in practice it can be learned quickly and once learned is unparallelled
 in speed and ergonomy. Our earlier example of deleting a certain line of text (a
