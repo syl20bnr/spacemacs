@@ -10,7 +10,7 @@
 
 * Description
 This layer lets you have a REPL-like interface for http requests using a
-[[http://pashky/restclient.el][restclient]] buffer or an =org= buffer.
+[[https://github.com/pashky/restclient.el][restclient]] buffer or an =org= buffer.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -18,7 +18,7 @@ add =restclient= to the existing =dotspacemacs-configuration-layers= list in thi
 file.
 
 * Configuration
-By default the layer uses [[http://pashky/restclient.el][restclient]]. To use =org= via [[http://github.com/zweifisch/ob-http][ob-http]] by default set
+By default the layer uses [[https://github.com/pashky/restclient.el][restclient]]. To use =org= via [[http://github.com/zweifisch/ob-http][ob-http]] by default set
 the layer variable =restclient-use-org= to =t=.
 
 Note that both =restclient= and =ob-http= are always installed so you can
