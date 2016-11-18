@@ -180,8 +180,8 @@
         "ep" 'cider-eval-print-last-sexp)
 
       (evil-define-key 'normal cider-repl-mode-map
-        "C-j" 'cider-repl-next-input
-        "C-k" 'cider-repl-previous-input)
+        (kbd "C-j") 'cider-repl-next-input
+        (kbd "C-k") 'cider-repl-previous-input)
 
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)

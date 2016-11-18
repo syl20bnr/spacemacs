@@ -28,6 +28,7 @@
      - [[#stacktrace-mode][stacktrace-mode]]
      - [[#inspector-mode][inspector-mode]]
      - [[#test-report-mode][test-report-mode]]
+     - [[#cider-repl-mode][cider-repl-mode]]
  - [[#development-notes][Development Notes]]
    - [[#indentation][Indentation]]
 
@@ -306,6 +307,13 @@ In general, ~q~ should always quit the popped up buffer.
 | ~r~         | rerun tests       |
 | ~t~         | run test          |
 | ~T~         | run tests         |
+
+*** cider-repl-mode
+
+| Key Binding | Description    |
+|-------------+----------------|
+| ~C-j~       | next input     |
+| ~C-k~       | previous input |
 
 * Development Notes
 ** Indentation
