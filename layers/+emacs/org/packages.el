@@ -159,7 +159,8 @@ Will work on both org-mode and any mode that accepts plain html."
             (insert (format tag ""))
             (forward-char -8))))
 
-      (dolist (prefix '(("mx" . "text")
+      (dolist (prefix '(("me" . "export")
+                        ("mx" . "text")
                         ("mh" . "headings")
                         ("mi" . "insert")
                         ("mS" . "subtrees")
@@ -173,7 +174,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "c" 'org-capture
         "d" 'org-deadline
         "D" 'org-insert-drawer
-        "e" 'org-export-dispatch
+        "ee" 'org-export-dispatch
         "f" 'org-set-effort
         "P" 'org-set-property
         ":" 'org-set-tags

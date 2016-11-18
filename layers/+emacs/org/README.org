@@ -199,7 +199,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC m C~                                    | evil-org-recompute-clocks                    |
 | ~SPC m d~                                    | org-deadline                                 |
 | ~SPC m D~                                    | org-insert-drawer                            |
-| ~SPC m e~                                    | org-export-dispatch                          |
+| ~SPC m e e~                                  | org-export-dispatch                          |
 | ~SPC m f~                                    | org-set-effort                               |
 | ~SPC m I~                                    | org-clock-in                                 |
 | ~SPC m l~                                    | org-open-at-point                            |
