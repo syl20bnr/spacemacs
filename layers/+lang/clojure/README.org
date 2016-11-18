@@ -32,6 +32,7 @@
     - [[#sayid-mode][sayid-mode]]
     - [[#sayid-traced-mode][sayid-traced-mode]]
     - [[#sayid-pprint][sayid-pprint]]
+    - [[#cider-repl-mode][cider-repl-mode]]
 - [[#development-notes][Development Notes]]
   - [[#indentation][Indentation]]
 
@@ -389,6 +390,13 @@ In general, ~q~ should always quit the popped up buffer.
 | ~o~         | enter parent node           |
 | ~n~         | enter next sibling node     |
 | ~p~         | enter previous sibling node |
+
+*** cider-repl-mode
+
+| Key Binding | Description    |
+|-------------+----------------|
+| ~C-j~       | next input     |
+| ~C-k~       | previous input |
 
 * Development Notes
 ** Indentation
