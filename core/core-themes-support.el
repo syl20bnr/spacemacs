@@ -157,12 +157,12 @@ package name does not match theme name + `-theme' suffix.")
   ;; Required dependencies for some themes
   (condition-case-unless-debug err
       (progn
-        (when (or (eq 'zonokai-blue theme)
-                  (eq 'zonokai-red theme)
-                  (eq 'solarized-light theme)
-                  (eq 'solarized-dark theme)
-                  (eq 'doom-one theme)
-                  (eq 'doom-molokai theme))
+        (when (or (memq theme '(zonokai-blue
+                                zonokai-red
+                                solarized-light
+                                solarized-dark
+                                doom-one
+                                doom-molokai)))
           (configuration-layer/load-or-install-package 'dash))
         ;; Unless Emacs stock themes
         (unless (or (memq theme (custom-available-themes))
