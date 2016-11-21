@@ -1,4 +1,4 @@
-#+TITLE: spacemacs-docker distribution installers 
+#+TITLE: spacemacs-docker distribution installers
 
 * Table of Contents                 :TOC_4_gh:noexport:
  - [[#description][Description]]
@@ -12,7 +12,7 @@ This directory contains layers installation scripts and their dependencies
 * Subdirectories
 1. [[./deps-installers/README.org][deps-installers]]
 2. [[./lib/README.org][lib]]
-   
+
 * Note
 Dockerfiles actually use a copy of this directory
 located at =/usr/local/spacemacs=

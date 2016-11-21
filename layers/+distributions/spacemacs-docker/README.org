@@ -71,14 +71,14 @@ automatic dependency management and free cloud builds/backups.
 7) Disposable sandboxed development environment. Its much harder to damager
    your actual OS and if your experiment gone wrong you can drop all changes.
 8) Free cloud builds and storage - especially handy if your internet upload is
-   much slower or expensive than download. 
-9) Since spacemacs-docker distribution uses common base (Emacs version, OS, 
+   much slower or expensive than download.
+9) Since spacemacs-docker distribution uses common base (Emacs version, OS,
    packages) it is much easer to reproduce and fix bugs.
 10) Docker uses [[https://docs.docker.com/engine/userguide/storagedriver/imagesandcontainers/][layered filesystem]] so for updates you'll need to download only
     the changed layer. Also you can make multiply images that share the most of
     data so they require less disk space.
- 
-* Drawbacks: 
+
+* Drawbacks:
 1) While performance with the GNU/Linux host seems to be equal(perceptually)
    to a locally installed Spacemacs, even with a Windows 10 client on a fairly
    ancient laptop(first gen. mobile i3). It's actual better, if you take into
@@ -94,7 +94,7 @@ automatic dependency management and free cloud builds/backups.
 ** For all platform
 *** How to build:
 - Install docker like [[https://docker.github.io/engine/installation/][normal ppl do]] or
-  [[https://get.docker.com/][like if there is no tomorrow(don't forget sudo)]]. 
+  [[https://get.docker.com/][like if there is no tomorrow(don't forget sudo)]].
   Also you'll need [[https://xpra.org][Xpra]] (optionally).
 - Fork [[https://github.com/JAremko/spacemacs-docker-seed][the seed repo]], read its [[https://github.com/JAremko/spacemacs-docker-seed/blob/master/README.md][README.org]]
 - Register at [[https://hub.docker.com/][DockeHub]] and create an [[https://docs.docker.com/docker-hub/builds/][automated builds]] from the fork.
@@ -108,14 +108,14 @@ automatic dependency management and free cloud builds/backups.
   container (and all changes). So to make it useful you need to mount your
   workspace. To do so add =-v <...>/workspace:/mnt/workspace= where =<...>=
   is the absolute path to your local workspace. Also you probably would like
-  to make your layouts and recent files persistent: 
+  to make your layouts and recent files persistent:
   First create a folder on the host's file system where you want to store
-  those files. For example =/tmp/spacemacs-cache= then =docker run= with 
+  those files. For example =/tmp/spacemacs-cache= then =docker run= with
   =-v /tmp/spacemacs-cache:/home/spacemacs/.emacs.d/.cache= (Linux example)
 - Then you can attach to it via Xpra:
   #+BEGIN_SRC bash
     xpra attach --encoding=rgb --pulseaudio=no --compress=0\
-    ssh:<NAME_FROM_/hooks/build>@localhost:14 
+    ssh:<NAME_FROM_/hooks/build>@localhost:14
   #+END_SRC
   on Windows executable is called =Xpra_cmd= also you can use Xpra's GUI app
   but it's a good idea to fist run it with log/console output, it will tell
@@ -128,7 +128,7 @@ automatic dependency management and free cloud builds/backups.
   instead of =-p 22:22= map =-p 10000:10000= and add set container's
   environment variable =SDMODE= to =webbrowser_insecure= i.e:
   =docker run ... -e SDMODE=webbrowser_insecure ...= Also you'll need to
-  set a password =... -e XPRA_PASSWORD=<YOUR_PASSWORD> ...= 
+  set a password =... -e XPRA_PASSWORD=<YOUR_PASSWORD> ...=
   Now you can use Spacemacs via webbrowser. URL:
   http://localhost:10000/index.html?encoding=png&password=<YOUR_PASSWORD>
   or use http://localhost:10000/connect.html if you want to configure
@@ -174,7 +174,7 @@ can mount them to the host's filesystem. See [[https://docs.docker.com/engine/tu
 This is a hacky way to get absolute best performance. For it to work
 host's X11 session owner should have same UID as the spacemacs-docker
 user (both are 1000 be the default). Simply mount
-=/tmp/.X11-unix= and run Emacs directly without ssh and Xpra: 
+=/tmp/.X11-unix= and run Emacs directly without ssh and Xpra:
 #+BEGIN_SRC bash
   docker run -ti --rm -v /tmp/.X11-unix:/tmp/.X11-unix\
    -e DISPLAY=$DISPLAY\
@@ -188,7 +188,7 @@ user (both are 1000 be the default). Simply mount
 ** How to set localtime/zone?
 Try =docker run ... -v /etc/localtime:/etc/localtime:ro ...=
 or =docker run ... -e TZ=UTC  ...= - Replace =UTC= with your time zone.
-** What layers support(currently) automatic dependency installation? 
+** What layers support(currently) automatic dependency installation?
 See [[./dockerfiles/spacemacs-docker/usr/local/spacemacs/deps-installers/README.org][deps-installers/README.org]]
 ** How to contribute?
 You can contribute a dependency installation script for a

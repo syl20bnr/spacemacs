@@ -8,13 +8,13 @@
 
 # README
 
- Pylookup stole idea from 'http://furius.ca/haddoc', one of my favorite 
- emacs mode for python documentation lookup. I reimplemented python code and 
- elisp code not just to support new version of python 2.7 but also to extend 
- it for other documentation lookup interfaces with easy. Importantly, pylookup 
+ Pylookup stole idea from 'http://furius.ca/haddoc', one of my favorite
+ emacs mode for python documentation lookup. I reimplemented python code and
+ elisp code not just to support new version of python 2.7 but also to extend
+ it for other documentation lookup interfaces with easy. Importantly, pylookup
  mode is much faster and supports fancy highlighting.
 
- Please check, 
+ Please check,
     Web  : http://taesoo.org/proj/pylookup.html
     Repo : https://github.com/tsgates/pylookup
 
@@ -24,9 +24,9 @@
 
  You can browse python documents from either online or offline. Since I prefer
  offline, here is an easy step:
- 
+
      make download
-     
+
  It will download python document, and construct database for you. If you get in
  any trouble, follow the below steps manually:
 
@@ -37,11 +37,11 @@
  4. Test : './pylookup.py -l ljust'
 
  (see updateing database section for more options)
- 
+
 ## Elisp
 
  Here is lisp part for emacs.
- 
+
  - [PATH] parameter depends on your environment (i.e. "~/.emacs.d/pylookup")
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.cl}
@@ -63,7 +63,7 @@
 (autoload 'pylookup-lookup "pylookup"
   "Lookup SEARCH-TERM in the Python HTML indexes." t)
 
-(autoload 'pylookup-update "pylookup" 
+(autoload 'pylookup-update "pylookup"
   "Run pylookup-update and create the database at `pylookup-db-file'." t)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -71,18 +71,18 @@
 
  You can easily accumulate many sources into single database. For example, you
  can index python and scipy at the same time. Here are the examples:
- 
+
  - Single source
   ./pylookup.py -u http://docs.python.org
  - Multiple sources, remote and local
   ./pylookup.py -u http://docs.python.org -u ~/doc/python2.7
  - Adding local source to existing database (duplicate entries are not checked)
   ./pylookup.py -a -u ~/doc/python
- - Example online documents of python, scipy, numpy, and matplotlib 
+ - Example online documents of python, scipy, numpy, and matplotlib
   (you can append new indexes into the current db with '-a' option)
   ./pylookup.py -u http://docs.python.org
   ./pylookup.py -u http://docs.scipy.org/doc/numpy/genindex.html
   ./pylookup.py -u http://docs.scipy.org/doc/scipy/reference/genindex.html
   ./pylookup.py -u http://matplotlib.sourceforge.net/genindex.html
-  
+
  You probably like to type './pylookup.py -h' to see more options.

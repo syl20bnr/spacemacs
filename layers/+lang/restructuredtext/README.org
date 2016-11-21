@@ -17,7 +17,7 @@ Note: to add =Sphinx= specific support use the layer =sphinx=.
 
 ** Features
 - =rst= files are supported via Emacs built-in =rst.el=.
-- Lists are inserted by new functions. 
+- Lists are inserted by new functions.
 - Directives can be inserted easily.
 - auto-completion for directives and options via =auto-complete-rst=.
 - snippet support via =yasnippet=.

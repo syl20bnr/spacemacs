@@ -39,7 +39,7 @@
 ;; desired feature. Defaults to "powerline-FEATURE-normal"
 (defun pl/get-vim-face (face)
   "Find whether or not FACE is a valid face,
-and if not, try to get the corresponding 
+and if not, try to get the corresponding
 '-normal' face "
   (let* ((face (replace-regexp-in-string "iedit-insert" "iedit" face))
          (split-face-name nil) (concat-face-name nil) ; some variables we'll use later on
@@ -47,14 +47,14 @@ and if not, try to get the corresponding
           (lambda () (let ((prefix (subseq (or split-face-name (split-string face "-")) 0 2)))
                        (error "There's no vim face with the prefix: %s"
                               (mapconcat 'identity prefix "-"))))))
-    
+
     (cond ((facep face)                 ; If our face is a FACE (even if it's not a powerline face)
            (intern face))               ; just intern the string and send it back
 
           ;; Otherwise.
-          ;; Are we a list of only three items?  
-          ;; Is the first item a string that is 'powerline'?  
-          ;; Is the last element not 'normal'? (If it was valid, it would have already passed)          
+          ;; Are we a list of only three items?
+          ;; Is the first item a string that is 'powerline'?
+          ;; Is the last element not 'normal'? (If it was valid, it would have already passed)
           ((and (setf split-face-name (split-string face "-"))
                 (string-equal (cl-first split-face-name) "powerline")
                 (not (string-equal (cl-third split-face-name) "normal")))
@@ -84,7 +84,7 @@ and if not, try to get the corresponding
 (require 'vim-colors)
 (defun powerline-vimish-theme ()
   "Setup the default mode-line."
-  ;; Populate our faces 
+  ;; Populate our faces
   (mapcar 'eval  (powerline--generate-facedefs powerline-vim-colors-alist))
   (set-face-attribute 'mode-line-inactive nil
                       :background (face-background (pl/vim-face "SPLIT" "inactive")) :underline nil
@@ -125,11 +125,11 @@ and if not, try to get the corresponding
 
                           (scrollpercent-face   (pl/vim-face "scrollpercent" editor-state))
                           (lineinfo-face        (pl/vim-face "lineinfo" editor-state))
-                          
+
                           (input (split-string (symbol-name buffer-file-coding-system) "-"))
                           (platform (check-in-list input '("mac" "unix" "dos")))
                           (encoding (mapconcat 'identity (delete platform input) "-"))
-                          
+
                           ;; Left hand side
                           (lhs (list
                                 (powerline-raw (format " %s " (upcase editor-state)) state-indicator-face)

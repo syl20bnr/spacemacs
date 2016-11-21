@@ -9,7 +9,7 @@ available in the dotfile.
 and `(defvar <layer>-excluded-packages ...)` by `(setq ...)`. This will
 allow to install newly added packages to a layer without restarting spacemacs
 by pressing `SPC f e R`. Be sure to remove the docstring when replacing the
-`defvar` since `setq` does not take a third argument. 
+`defvar` since `setq` does not take a third argument.
 
 `:variables` keyword now behaves like a regular `setq` so you'll have to
 quote any value appropriately.

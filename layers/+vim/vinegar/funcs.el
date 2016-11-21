@@ -95,7 +95,7 @@
   (dired-omit-mode t)
 
   ;; allow selection with mouse
-  (make-local-variable 'mouse-1-click-follows-link) 
+  (make-local-variable 'mouse-1-click-follows-link)
   (setq mouse-1-click-follows-link nil)
 
   (local-set-key (kbd  "<mouse-1>") 'vinegar/dired-mouse-click)
