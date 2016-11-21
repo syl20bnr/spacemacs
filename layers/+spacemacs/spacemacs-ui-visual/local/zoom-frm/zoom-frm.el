@@ -336,7 +336,7 @@ Buffer zooming uses command `text-scale-decrease'."
 
   (when (or (fboundp 'set-transient-map) ; Emacs 24.4+
             (fboundp 'set-temporary-overlay-map)) ; Emacs 24.3
-            
+
     (defun zoom-in/out (arg)
       "Zoom current frame or buffer in or out.
 A prefix arg determines the behavior, as follows:
@@ -366,7 +366,7 @@ plain `C-u' with this command then it acts like `text-scale-adjust'."
         (setq zoom-frame/buffer  (if (eq zoom-frame/buffer 'frame) 'buffer 'frame)
               arg                1)
         (message "Zooming %sS from now on" (upcase (symbol-name zoom-frame/buffer)))
-        (sit-for 1))    
+        (sit-for 1))
       (let* ((ev               last-command-event)
              (echo-keystrokes  nil)
              (base             (event-basic-type ev))

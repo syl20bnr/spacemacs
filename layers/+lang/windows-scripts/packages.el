@@ -71,5 +71,5 @@
     ;; TODO
     ;; - split out powershell
     ;; - get help output with mgg (Get-Help) or Get-Help -online
-    ;; - 
+    ;; -
     )))

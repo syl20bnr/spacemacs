@@ -440,7 +440,7 @@ fix this issue."
 (defun python/init-yapfify ()
   (use-package yapfify
     :defer t
-    :init 
+    :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "=" 'yapfify-buffer)
