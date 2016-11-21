@@ -1483,7 +1483,7 @@ Improve loading robustness:
 - Improve =describe-system-info= function with completion engine info
   (ivy completion engine will be available in 0.106) (thanks to StreakyCobra)
 - Add link to =BountySource= page to =README.md= (thanks to houli)
-- Move =request= storage folder to =.cache= directory 
+- Move =request= storage folder to =.cache= directory
 *** Layer changes
 **** Markdown
 - Add support for javascript code blocks syntax highlighting
@@ -1532,9 +1532,9 @@ Improve loading robustness:
 *** Fixes
 **** Core
 - Fix home buffer obfuscating opened file when Emacs starts (thanks to justbur)
-**** Ruby layer 
+**** Ruby layer
 - Fix =rbenv= loading (thanks to TheBB)
-**** Spacemacs layouts 
+**** Spacemacs layouts
 - Fix jumping to last layout when the last layout is the default layout
   (thanks to TheBB)
 **** Yasnippet
@@ -2268,7 +2268,7 @@ Improve loading robustness:
 **** Markdown
 - Fix ~SPC m c r~ binding (thanks to tko)
 *** Core
-- Silence =ad-handle-definition= about advised functions getting redefined  
+- Silence =ad-handle-definition= about advised functions getting redefined
 - Improve evilification rules, now ~:~ is rebound to ~|~, ~/~ is rebound to ~\~
   and ~SPC~ is rebound to ~​'​~
 *** Other fixes and improvements
@@ -2653,7 +2653,7 @@ Improve loading robustness:
   prefix (thanks to katshinka)
 + Add more cycling options for time-stamps, headlines, items, properties with
   ~SPC m L~, ~SPC m K~, etc... (thanks to katshinka)
-+ Add key bindings ~SPC m .~ to insert time-stamps (thanks to katshinka) 
++ Add key bindings ~SPC m .~ to insert time-stamps (thanks to katshinka)
 + Set =toc-org-max-depth= to 10.
 + Move ~SPC m o~ to ~SPC m l~ since ~SPC m o~ is now reserved for users
   (thanks to TheBB)
@@ -2836,7 +2836,7 @@ Improve loading robustness:
 **** Git
 - Fix ~F~ in Vim style in =Magit= status buffer, now ~F~ is correctly
   bound to =pull= popup menu
-- Fix intermittent erroneous ~k~ key binding in =Magit= status buffer. 
+- Fix intermittent erroneous ~k~ key binding in =Magit= status buffer.
 *** Core
 - Fix mandatory dependency on =evil-escape=
 - Fix evilification of =evil-escape= starter key
@@ -3006,7 +3006,7 @@ Improve loading robustness:
 - Add font-locking for code blocks (thanks to kennethlove)
 - Add support for a bunch of languages for code blocks (thanks to dexafree)
 **** Ocaml
-- Don't auto-close backticks (thanks to edwintorok) 
+- Don't auto-close backticks (thanks to edwintorok)
 **** Org
 - Fontify code blocks (thanks to tuhdo)
 - Add =toc-org= package (thanks to CestDiego)
@@ -3605,7 +3605,7 @@ a batch of packages.
 - Fix =flycheck= loading
 - Move ~SPC m t~ to ~SPC m h t~ according to Spacemacs conventions (thanks
   to jeremyjh)
-- Add C-- =cmm-mode= (thanks to bgamari) 
+- Add C-- =cmm-mode= (thanks to bgamari)
 *** Helm
 - Add =helm-colors= key binding on ~SPC C l~ (thanks to tuhdo)
 - Make =helm-ff-doted-directory= consistent (thanks to tuhdo)
