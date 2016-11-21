@@ -30,14 +30,14 @@
 
 ;; The shadowed original mode key bindings are automatically reassigned
 ;; following a set of rules:
-;; Keys such as 
-;; /,:,h,j,k,l,n,N,v,V,gg,G,C-f,C-b,C-d,C-e,C-u,C-y and C-z 
+;; Keys such as
+;; /,:,h,j,k,l,n,N,v,V,gg,G,C-f,C-b,C-d,C-e,C-u,C-y and C-z
 ;; are working as in Evil.
 ;; Other keys will be moved according to this pattern:
 ;; a -> A -> C-a -> C-A
-;; The first unreserved key will be used. 
+;; The first unreserved key will be used.
 ;; There is an exception for g, which will be directly
-;; bound to C-G, since G and C-g (latest being an important escape key in Emacs) 
+;; bound to C-G, since G and C-g (latest being an important escape key in Emacs)
 ;; are already being used.
 
 ;;; Code:

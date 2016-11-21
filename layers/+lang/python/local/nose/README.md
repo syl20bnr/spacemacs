@@ -65,7 +65,7 @@ For instance (typical example to make `PyDev` *and* `nose.el` happy):
 
     import unittest
 
-    ALL_TESTS = unittest.TestSuite([my_suites_go_here]) 
+    ALL_TESTS = unittest.TestSuite([my_suites_go_here])
 
     def load_tests(loader=None, tests=None, pattern=None):
         return ALL_TESTS

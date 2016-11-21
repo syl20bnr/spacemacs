@@ -18,7 +18,7 @@
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
-;; 
+;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -69,13 +69,13 @@
     (define-key map "<"        'beginning-of-buffer)
     (define-key map ">"        'end-of-buffer)
     (define-key map "v"        'scroll-down)
-    
+
     map)
   "Keymap for `pylookup-mode-mode'.")
 
 (put 'pylookup-mode 'mode-class 'special)
 
-(defvar pylookup-completing-read 
+(defvar pylookup-completing-read
   (if (null ido-mode) 'completing-read 'ido-completing-read)
   "Ido support with convenience")
 
@@ -93,7 +93,7 @@
 (defun pylookup-mode ()
   "Major mode for output from \\[pylookup-lookup]."
   (interactive)
-  
+
   (kill-all-local-variables)
   (use-local-map pylookup-mode-map)
   (setq major-mode 'pylookup-mode)
@@ -104,14 +104,14 @@
 (defun pylookup-move-prev-line ()
   "Move to previous entry"
   (interactive)
-  
+
   (when (< 3 (line-number-at-pos))
     (call-interactively 'previous-line)))
 
 (defun pylookup-mode-next-line ()
   "Move to next entry"
   (interactive)
-  
+
   (when (< (line-number-at-pos)
            (- (line-number-at-pos (point-max)) 1))
     (call-interactively 'next-line)))
@@ -119,14 +119,14 @@
 (defun pylookup-mode-lookup-and-leave ()
   "Lookup the current line in a browser and leave the completions window."
   (interactive)
-  
+
   (call-interactively 'pylookup-mode-lookup)
   (pylookup-mode-quit-window))
 
 (defun pylookup-mode-lookup ()
   "Lookup the current line in a browser."
   (interactive)
-  
+
   (let ((url (get-text-property (point) 'pylookup-target-url)))
     (if url
         (progn
@@ -150,7 +150,7 @@
 
   (split-string
    (with-output-to-string
-     (call-process pylookup-program nil standard-output nil 
+     (call-process pylookup-program nil standard-output nil
            "-d" (expand-file-name pylookup-db-file)
            "-c"))))
 
@@ -176,12 +176,12 @@
 (defun pylookup-lookup (search-term)
   "Lookup SEARCH-TERM in the Python HTML indexes."
   (interactive
-   (list 
+   (list
     (let ((initial (thing-at-point 'word)))
       (funcall pylookup-completing-read
                "Search: "
-               (if pylookup-cache 
-                   pylookup-cache 
+               (if pylookup-cache
+                   pylookup-cache
                  (setq pylookup-cache (pylookup-exec-get-cache)))
                nil nil initial 'pylookup-history))
     ))
@@ -194,7 +194,7 @@
        (message "No matches for \"%s\"." search-term))
 
       ;; 1. A single result.
-      ((= (length matches) 1)  
+      ((= (length matches) 1)
        ;; Point the browser at the unique result and get rid of the buffer
        (let ((data (car matches)))
          (message "Browsing: \"%s\"" (car data))
@@ -207,7 +207,7 @@
        (let* ((cur-window-conf (current-window-configuration))
               (tmpbuf (get-buffer-create pylookup-temp-buffer-name))
               (index 0))
-    
+
          (display-buffer tmpbuf)
          (pop-to-buffer tmpbuf)
 
@@ -236,8 +236,8 @@
                 (setq iter (cdr iter)))
 
               (incf index)
-              (insert (format " %03d) %-25s %-30s %10s" 
-                  index 
+              (insert (format " %03d) %-25s %-30s %10s"
+                  index
                   (pylookup-trim api 25)
                   (pylookup-trim module 30)
                   (pylookup-trim type 10))))
@@ -254,8 +254,8 @@
          (pylookup-mode)
 
          ;; highlighting
-         (font-lock-add-keywords nil `((,(format "\\(%s\\|%s\\|%s\\)" 
-                         search-term 
+         (font-lock-add-keywords nil `((,(format "\\(%s\\|%s\\|%s\\)"
+                         search-term
                          (upcase search-term)
                          (upcase-initials search-term))
                                          1
@@ -286,11 +286,11 @@
 ;;;###autoload
 (defun pylookup-update (src &optional append)
   "Run pylookup-update and create the database at `pylookup-db-file'."
-  (interactive 
+  (interactive
    (list (funcall pylookup-completing-read
                   "Python Html Documentation source: "
                   pylookup-html-locations)))
-  
+
   ;; pylookup.py -d /home/myuser/.pylookup/pylookup.db -l <URL>
   (message (with-output-to-string
              (call-process pylookup-program nil standard-output nil
