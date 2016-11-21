@@ -167,7 +167,7 @@ tags for the following languages:
 
 **** Exuberant ctags languages
 If you have enabled =exuberant ctags= and use that as the backend (i.e.,
-GTAGSLABEL=ctags or --gtagslabel=ctags) the following additional languages
+=GTAGSLABEL=ctags= or =--gtagslabel=ctags=) the following additional languages
 will have tags created for them:
 
 - c#
@@ -200,7 +200,7 @@ actually uses both ctags and pygments to find the definitions and uses of
 functions and variables as well as "other symbols".
 
 If you enabled pygments (the best choice) and use that as the backend (i.e.,
-GTAGSLABEL=pygments or --gtagslabel=pygments) the following additional
+=GTAGSLABEL=pygments= or =--gtagslabel=pygments=) the following additional
 languages will have tags created for them:
 
 - elixir

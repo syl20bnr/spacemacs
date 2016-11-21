@@ -21,7 +21,7 @@ mu4e will be bundled with mu (this is the case on many Linux distributions).
 
 If you're on OS X and install mu using Homebrew, you must specify the
 location of your Emacs binary at install time using the EMACS environment
-variable, as well as passing the --with-emacs option:
+variable, as well as passing the =--with-emacs= option:
 
 #+begin_src shell
 brew install mu --with-emacs
