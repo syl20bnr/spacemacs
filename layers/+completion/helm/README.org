@@ -14,6 +14,7 @@
    - [[#helm-swoop][Helm-swoop]]
    - [[#universal-argument][Universal argument]]
    - [[#replacing-text-in-several-files][Replacing text in several files]]
+   - [[#resume-last-session][Resume last session]]
  - [[#external-resources][External resources]]
 
 * Description
@@ -132,6 +133,10 @@ project:
 
 *Note*: In Spacemacs, =helm-ag= despite its name works with =rg=, =pt= and =ack=
 as well (but not with =grep=).
+
+** Resume last session
+Use ~SPC r l~ to resume the last helm session. For instance it is handy to
+quickly toggle on and off a toggle using ~SPC h t~.
 
 * External resources
 - [[https://github.com/emacs-helm/helm/wiki][The Helm wiki]]
