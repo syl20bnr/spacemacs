@@ -23,6 +23,13 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =scala= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+Then, you should modify your =~/.spacemacs= to use the recommended Ensime
+version (Stable). Please add the following lines to =dotspacemacs/user-init=:
+#+BEGIN_SRC emacs-lisp
+  (push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer--elpa-archives)
+  (push '(ensime . "melpa-stable") package-pinned-packages)
+#+END_SRC
+
 * Ensime
 [[http://ensime.org/][ENSIME]] provides IDE-like features, such as refactoring, incremental compilation
 and project-wide type-checking.
