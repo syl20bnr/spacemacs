@@ -36,9 +36,11 @@ sets `spacemacs-jump-handlers' in buffers of that mode."
        (add-hook ',mode-hook ',func)
        (with-eval-after-load 'bind-map
          (spacemacs/set-leader-keys-for-major-mode ',mode
-           "gg" 'spacemacs/jump-to-definition)))))
+           "gg" 'spacemacs/jump-to-definition
+           "gG" 'spacemacs/jump-to-definition-other-window)))))
 
 (defun spacemacs/jump-to-definition ()
+  "Jump to definition around point using the best tool for this action."
   (interactive)
   (catch 'done
     (let ((old-buffer (current-buffer))
@@ -54,6 +56,16 @@ sets `spacemacs-jump-handlers' in buffers of that mode."
                     (not (equal old-buffer (current-buffer))))
             (throw 'done t)))))
     (message "No jump handler was able to find this symbol.")))
+
+(defun spacemacs/jump-to-definition-other-window ()
+  "Jump to definition around point in other window."
+  (interactive)
+  (let ((pos (point)))
+    ;; since `spacemacs/jump-to-definition' can be asynchronous we cannot use
+    ;; `save-excursion' here, so we have to bear with the jumpy behavior.
+    (switch-to-buffer-other-window (current-buffer))
+    (goto-char pos)
+    (spacemacs/jump-to-definition)))
 
 ;; Set the `:jump' property manually instead of just using `evil-define-motion'
 ;; in an `eval-after-load' macro invocation because doing that prevents
