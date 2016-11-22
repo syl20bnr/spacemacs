@@ -89,6 +89,14 @@ Backend can be chosen on a per project basis using directory local variables
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
 
+If you want to use the Ensime backend, you should modify your =~/.spacemacs= to
+use the recommended Ensime version (Stable). Please add the following lines to
+=dotspacemacs/user-init=:
+#+BEGIN_SRC emacs-lisp
+  (push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer--elpa-archives)
+  (push '(ensime . "melpa-stable") package-pinned-packages)
+#+END_SRC
+
 * Backends
 ** Meghanada
 Meghanada is composed of a lightweight server and an Emacs minor mode. It
