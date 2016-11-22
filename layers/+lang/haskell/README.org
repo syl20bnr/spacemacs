@@ -302,8 +302,8 @@ ghc-mod commands are prefixed by ~SPC m m~:
 |-------------+-------------------------------------------|
 | ~SPC t~     | insert template                           |
 | ~SPC m m u~ | insert template with holes                |
-| ~SPC m m a~ | select one of possible cases (~ghc-auto~) |
-| ~SPC m m f~ | replace a hole (~ghc-refine~)             |
+| ~SPC m m a~ | select one of possible cases (=ghc-auto=) |
+| ~SPC m m f~ | replace a hole (=ghc-refine=)             |
 | ~SPC m m e~ | expand template haskell                   |
 | ~SPC m m n~ | go to next type hole                      |
 | ~SPC m m p~ | go to previous type hole                  |
