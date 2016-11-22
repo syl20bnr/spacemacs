@@ -142,8 +142,6 @@ Needed to bypass keymaps set as text properties."
 
 (add-hook 'evil-evilified-state-entry-hook
           'evilified-state--evilified-state-on-entry)
-(add-hook 'evil-evilified-state-exit-hook
-          'evilified-state--restore-normal-state-keymap)
 
 ;; default key bindings for all evilified buffers
 (define-key evil-evilified-state-map "/" 'evil-search-forward)
