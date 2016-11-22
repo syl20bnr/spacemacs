@@ -275,6 +275,8 @@
 
   (spacemacs/set-leader-keys "hk" 'which-key-show-top-level)
 
+  ;; Needed to avoid nil variable error before update to recent which-key
+  (defvar which-key-replacement-alist nil)
   ;; Replace rules for better naming of functions
   (let ((new-descriptions
          ;; being higher in this list means the replacement is applied later
@@ -304,8 +306,8 @@
            ("\\(.+\\)-transient-state/body" . "\\1-transient-state"))))
     (dolist (nd new-descriptions)
       ;; ensure the target matches the whole string
-      (push (cons (concat "\\`" (car nd) "\\'") (cdr nd))
-            which-key-description-replacement-alist)))
+      (push (cons (cons nil (concat "\\`" (car nd) "\\'")) (cons nil (cdr nd)))
+            which-key-replacement-alist)))
 
   (dolist (leader-key `(,dotspacemacs-leader-key ,dotspacemacs-emacs-leader-key))
     (which-key-add-key-based-replacements
