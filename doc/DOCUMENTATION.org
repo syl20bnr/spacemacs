@@ -1817,9 +1817,6 @@ To display only the toggles source press ~C-l~.
 The following actions are available on selected toggle:
   - default: toggle on/off
 
-*Tips* Use ~SPC h l~ to resume the last session. It is handy to quickly toggle
- on and off a toggle.
-
 ** Navigating
 *** Point/Cursor
 Navigation is performed using the Vi key bindings ~hjkl~.
