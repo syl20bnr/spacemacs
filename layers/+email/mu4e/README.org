@@ -151,7 +151,7 @@ instead (see [[http://www.djcbsoftware.nl/code/mu/mu4e/Contexts.html#Contexts][m
 #+END_SRC
 
 ** Notifications
-~mu4e-alert~ is an extension that provides desktop notifications and adds the
+=mu4e-alert= is an extension that provides desktop notifications and adds the
 count of unread messages to the modeline.
 
 [[https://raw.githubusercontent.com/iqbalansari/mu4e-alert/master/screenshots/mu4e-alert-in-action.png]]
@@ -161,7 +161,7 @@ For an extended documentation of the available customizations please refer to
 
 *** OS notifications
 To enable notifications about new messages, add the following line to your
-~dotspacemacs/user-config~:
+=dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
   (setq mu4e-enable-notifications t)
@@ -174,9 +174,9 @@ or use layer variables when you add the layer to
   (mu4e :variables mu4e-enable-notifications t)
 #+END_SRC
 
-By default, notifications will be shown in the ~*Messages*~ buffer. To enable
+By default, notifications will be shown in the =*Messages*= buffer. To enable
 desktop notifications about new messages, add the following lines to
-your ~dotspacemacs/user-config~, according to your operating system and the
+your =dotspacemacs/user-config=, according to your operating system and the
 installed libraries:
 
 #+BEGIN_SRC emacs-lisp
@@ -191,7 +191,7 @@ installed libraries:
 
 *** Mode-line notifications
 To enable mode-line display about new messages, add the following line to
-your ~dotspacemacs/user-config~:
+your =dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
   (setq mu4e-enable-mode-line t)
