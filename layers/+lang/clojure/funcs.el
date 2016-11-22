@@ -130,7 +130,7 @@ the focus."
   "Run project tests."
   (interactive)
   (cider-load-buffer)
-  (cider-test-run-project-tests nil))
+  (cider-test-run-project-tests))
 
 (defun spacemacs/cider-test-rerun-tests ()
   "Run previous tests again."
