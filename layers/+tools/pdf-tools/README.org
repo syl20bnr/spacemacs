@@ -43,7 +43,7 @@ the documentation states.
 
 If you use a Debian based system such as Ubuntu, you can skip this step, as
 =pdf-tools= installation asks whether you want it to try to download
-automatically all dependencies using ~apt-get~.
+automatically all dependencies using =apt-get=.
 
 ** Dotfile
 After installing the dependencies, add this to your =~/.spacemacs=.
@@ -60,11 +60,11 @@ be able to see /PDFView/ (instead of /DocView/) on the spaceline after opening a
 pdf file.
 
 If the compilation run successfully but you get
-~Error (use-package): pdf-tools :config: No executable `epdfinfo' found~,
+=Error (use-package): pdf-tools :config: No executable `epdfinfo' found=,
 try restarting Spacemacs ([[https://github.com/politza/pdf-tools/issues/31][issue]]).
 
 If the compilation does not run successfully, you should confirm whether all
-dependencies are properly installed and run the command ~pdf-tools-install~.
+dependencies are properly installed and run the command =pdf-tools-install=.
 
 * Usage
 Use ~SPC m .~ to activate the pdf-tools transient state.

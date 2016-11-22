@@ -37,7 +37,7 @@ feature use this line in your =dotspacemacs/user-config= function.
 You can also exclude the =auto-compile= package.
 
 * Working with lisp files (barfage, slurpage & more)
-Spacemacs comes with a special ~lisp-state~ for working with lisp code that
+Spacemacs comes with a special =lisp-state= for working with lisp code that
 supports slurpage, barfage and more tools you'll likely want when working with
 lisp.
 
