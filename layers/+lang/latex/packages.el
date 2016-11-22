@@ -192,5 +192,5 @@
   (add-hook 'LaTeX-mode-hook 'spacemacs/load-yasnippet))
 
 (defun latex/post-init-which-key ()
-  (push '("\\`latex/font-\\(.+\\)\\'" . "\\1")
-        which-key-description-replacement-alist))
+  (push '((nil . "\\`latex/font-\\(.+\\)\\'") . (nil . "\\1"))
+        which-key-replacement-alist))
