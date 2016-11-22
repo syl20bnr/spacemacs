@@ -8,6 +8,7 @@
     stan-mode
     thrift
     wolfram-mode
+    protobuf-mode
     ))
 
 (defun extra-langs/init-arduino-mode ()
@@ -35,6 +36,9 @@
 
 (defun extra-langs/init-thrift ()
   (use-package thrift :defer t))
+
+(defun extra-langs/init-protobuf-mode ()
+  (use-package protobuf-mode :defer t))
 
 ;; no associated extension because conflicts with more common Objective-C, manually invoke for .m files.
 (defun extra-langs/init-wolfram-mode ()
