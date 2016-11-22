@@ -398,8 +398,8 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
                  ("smeargle-clear" . "clear"))))
           (dolist (nd descr)
             ;; ensure the target matches the whole string
-            (push (cons (concat "\\`" (car nd) "\\'") (cdr nd))
-                  which-key-description-replacement-alist))))
+            (push (cons (cons nil (concat "\\`" (car nd) "\\'")) (cons nil (cdr nd)))
+                  which-key-replacement-alist))))
       (spacemacs/set-leader-keys
         "gHc" 'smeargle-clear
         "gHh" 'smeargle-commits
