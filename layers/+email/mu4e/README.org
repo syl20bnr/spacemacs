@@ -45,23 +45,23 @@ existing =dotspacemacs-configuration-layers= list in this file.
 
 | Keybinding | Command    |
 |------------+------------|
-| SPC a M    | Start mu4e |
+| ~SPC a M~  | Start mu4e |
 
 ** Headers mode
 
 | Keybinding | Command                                                     |
 |------------+-------------------------------------------------------------|
-| J          | Go to next unread thread marking other mail read on the way |
-| C-j        | Next header                                                 |
-| C-k        | Previous header                                             |
+| ~J~        | Go to next unread thread marking other mail read on the way |
+| ~C-j~      | Next header                                                 |
+| ~C-k~      | Previous header                                             |
 
 ** View mode
 
 | Keybinding | Command                                                     |
 |------------+-------------------------------------------------------------|
-| J          | Go to next unread thread marking other mail read on the way |
-| C-j        | Next header                                                 |
-| C-k        | Previous header                                             |
+| ~J~        | Go to next unread thread marking other mail read on the way |
+| ~C-j~      | Next header                                                 |
+| ~C-k~      | Previous header                                             |
 
 * Configuration
 Configuration varies too much to give precise instructions.  What follows is one
