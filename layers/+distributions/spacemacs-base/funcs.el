@@ -540,12 +540,12 @@ If the universal prefix argument is used then will the windows too."
       (setq count (1- count)))))
 
 ;; from https://github.com/gempesaw/dotemacs/blob/emacs/dg-elisp/dg-defun.el
-(defun spacemacs/kill-matching-buffers-rudely (regexp &optional internal-too)
-  "Kill buffers whose name matches the specified REGEXP. This
-function, unlike the built-in `kill-matching-buffers` does so
-WITHOUT ASKING. The optional second argument indicates whether to
-kill internal buffers too. Returns count of killed buffers"
-  (interactive "sKill buffers matching this regular expression: \nP")
+(defun spacemacs/rudekill-matching-buffers (regexp &optional internal-too)
+  "Kill buffers whose name matches the specified REGEXP. This function, unlike
+the built-in `kill-matching-buffers` does so WITHOUT ASKING. The optional second
+argument indicates whether to kill internal buffers too.
+
+Returns the count of killed buffers."
   (let* ((buffers (remove-if-not
                    (lambda (buffer)
                      (let ((name (buffer-name buffer)))
@@ -555,6 +555,17 @@ kill internal buffers too. Returns count of killed buffers"
                    (buffer-list))))
     (mapc 'kill-buffer buffers)
     (length buffers)))
+
+(defun spacemacs/kill-matching-buffers-rudely (regexp &optional internal-too)
+  "Kill buffers whose name matches the specified REGEXP. This function, unlike
+the built-in `kill-matching-buffers` does so WITHOUT ASKING. The optional second
+argument indicates whether to kill internal buffers too.
+
+Returns a message with the count of killed buffers."
+  (interactive "sKill buffers matching this regular expression: \nP")
+  (message
+   (format "%d buffer(s) killed."
+           (spacemacs/rudekill-matching-buffers regexp internal-too))))
 
 ;; advise to prevent server from closing
 
