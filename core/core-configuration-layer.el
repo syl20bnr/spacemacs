@@ -379,6 +379,8 @@ If NO-INSTALL is non nil then install steps are skipped."
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
   (setq dotspacemacs--configuration-layers-saved
         dotspacemacs-configuration-layers)
+  (when (and custom-file (file-exists-p custom-file))
+    (load-file custom-file))
   (when (spacemacs-buffer//choose-banner)
     (spacemacs-buffer//inject-version))
   ;; declare used layers then packages as soon as possible to resolve

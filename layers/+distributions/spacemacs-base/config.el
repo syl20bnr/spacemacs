@@ -151,9 +151,13 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Session
 ;; ---------------------------------------------------------------------------
 
-;; save custom variables in ~/.spacemacs
+;; save custom variables in ~/.emacs.d/private/custom.el or
+;; ~/.spacemacs.d/custom.el by default
 (unless (bound-and-true-p custom-file)
-  (setq custom-file (dotspacemacs/location)))
+  (setq custom-file
+        (concat (or dotspacemacs-directory
+                    configuration-layer-private-directory)
+                "custom.el")))
 ;; scratch buffer empty
 (setq initial-scratch-message nil)
 ;; don't create backup~ files
