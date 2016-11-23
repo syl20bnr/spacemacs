@@ -580,19 +580,33 @@ in a split window to the right."
       (insert "\n")
       (setq count (1- count)))))
 
-;; from https://github.com/gempesaw/dotemacs/blob/emacs/dg-defun.el
+;; see https://github.com/gempesaw/dotemacs/blob/emacs/dg-elisp/dg-defun.el
+(defun spacemacs/rudekill-matching-buffers (regexp &optional internal-too)
+  "Kill - WITHOUT ASKING - buffers whose name matches the specified REGEXP. See
+the `kill-matching-buffers` for grateful killing. The optional 2nd argument
+indicates whether to kill internal buffers too.
+
+Returns the count of killed buffers."
+  (let* ((buffers (remove-if-not
+                   (lambda (buffer)
+                     (let ((name (buffer-name buffer)))
+                       (and name (not (string-equal name ""))
+                            (or internal-too (/= (aref name 0) ?\s))
+                            (string-match regexp name))))
+                   (buffer-list))))
+    (mapc 'kill-buffer buffers)
+    (length buffers)))
+
 (defun spacemacs/kill-matching-buffers-rudely (regexp &optional internal-too)
-  "Kill buffers whose name matches the specified REGEXP. This
-function, unlike the built-in `kill-matching-buffers` does so
-WITHOUT ASKING. The optional second argument indicates whether to
-kill internal buffers too."
+  "Kill - WITHOUT ASKING - buffers whose name matches the specified REGEXP. See
+the `kill-matching-buffers` for grateful killing. The optional 2nd argument
+indicates whether to kill internal buffers too.
+
+Returns a message with the count of killed buffers."
   (interactive "sKill buffers matching this regular expression: \nP")
-  (dolist (buffer (buffer-list))
-    (let ((name (buffer-name buffer)))
-      (when (and name (not (string-equal name ""))
-                 (or internal-too (/= (aref name 0) ?\s))
-                 (string-match regexp name))
-        (kill-buffer buffer)))))
+  (message
+   (format "%d buffer(s) killed."
+           (spacemacs/rudekill-matching-buffers regexp internal-too))))
 
 ;; advise to prevent server from closing
 
