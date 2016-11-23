@@ -16,6 +16,7 @@
 (require 'core-debug)
 (require 'core-command-line)
 (require 'core-dotspacemacs)
+(require 'core-custom-settings)
 (require 'core-release-management)
 (require 'core-auto-completion)
 (require 'core-jump)
@@ -77,6 +78,7 @@ the final step of executing code in `emacs-startup-hook'.")
                 ;; overlapped in terminal mode. The GUI specific `<C-i>' is used
                 ;; instead.
                 evil-want-C-i-jump nil)
+  (spacemacs/write-custom-settings-to-dotfile)
   (dotspacemacs/load-file)
   (require 'core-configuration-layer)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
@@ -194,6 +196,8 @@ defer call using `spacemacs-post-user-config-hook'."
      ;; them in his/her ~/.spacemacs file
      (dotspacemacs|call-func dotspacemacs/user-config
                              "Calling dotfile user config...")
+     (dotspacemacs|call-func dotspacemacs/emacs-custom-settings
+                             "Calling dotfile Emacs custom settings...")
      (run-hooks 'spacemacs-post-user-config-hook)
      (setq spacemacs-post-user-config-hook-run t)
      (when (fboundp dotspacemacs-scratch-mode)

@@ -359,8 +359,8 @@ List sizes may be nil, in which case
 
 (defmacro dotspacemacs|call-func (func &optional msg)
   "Call the function from the dotfile only if it is bound.
-If MSG is not nil then display a message in `*Messages'. Errors
-are caught and signalled to user in spacemacs buffer."
+If MSG is not nil then display a message in `*Messages*'. Errors
+are caught and signaled to user in spacemacs buffer."
   `(progn
      (when ,msg (spacemacs-buffer/message ,msg))
      (when (fboundp ',func)
