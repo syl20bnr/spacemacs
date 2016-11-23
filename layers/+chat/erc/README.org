@@ -18,7 +18,7 @@ Layer for [[http://www.emacswiki.org/emacs/ERC][ERC IRC chat]].
 * Features
 - Highlight nicks (using [[https://github.com/leathekd/erc-hl-nicks][erc-hl-nicks]])
 - Image inline support (using [[https://github.com/kidd/erc-image.el][erc-image]])
-- Logging to ~/.emacs.d/.cache/erc-logs and ViewLogMode for viewing logs
+- Logging to =~/.emacs.d/.cache/erc-logs= and =ViewLogMode= for viewing logs
   (using [[https://github.com/Niluge-KiWi/erc-view-log][erc-view-log]])
 - YouTube videos Thumbnails inline (using [[https://github.com/yhvh/erc-yt][erc-yt]])
 - Social Graph for ERC messages (using [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]])
