@@ -92,4 +92,6 @@ This function is called at the very end of Spacemacs initialization.\"\n")
       (save-buffer)
       (kill-buffer (current-buffer)))))
 
+(advice-add 'custom-save-all :after #'spacemacs/write-custom-settings-to-dotfile)
+
 (provide 'core-custom-settings)
