@@ -78,7 +78,6 @@ the final step of executing code in `emacs-startup-hook'.")
                 ;; overlapped in terminal mode. The GUI specific `<C-i>' is used
                 ;; instead.
                 evil-want-C-i-jump nil)
-  (spacemacs/write-custom-settings-to-dotfile)
   (dotspacemacs/load-file)
   (require 'core-configuration-layer)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
