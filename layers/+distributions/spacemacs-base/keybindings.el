@@ -122,7 +122,7 @@
   "be"    'spacemacs/safe-erase-buffer
   "bh"    'spacemacs/home
   "b C-d" 'spacemacs/kill-other-buffers
-  "b C-D" 'spacemacs/kill-matching-buffers-rudely
+  "b C-S-d" 'spacemacs/kill-matching-buffers-rudely
   "bn"    'next-buffer
   "bm"    'view-echo-area-messages
   "bN"    'spacemacs/new-empty-buffer
