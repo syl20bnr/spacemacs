@@ -2078,8 +2078,8 @@ Basic =ido= operations can be done with ~Ctrl~ key:
 
 | Key Binding        | Description                                       |
 |--------------------+---------------------------------------------------|
-| ~C-<return>~       | open a =dired buffer=                             |
-| ~M-<return>~       | open a =dired buffer= in terminal                 |
+| ~C-RET~            | open a =dired buffer=                             |
+| ~M-RET~            | select the buffer or file named by the prompt     |
 | ~C-d~              | delete selected file (ask for confirmation)       |
 | ~C-h~              | go to parent directory                            |
 | ~C-j~              | select next file or directory                     |
@@ -3111,7 +3111,7 @@ Spacemacs add =hjkl= navigation to =helm= buffers:
     | ~C-H~       | describe key (replace ~C-h~) |
     | ~C-j~       | go to previous candidate     |
     | ~C-k~       | go to next candidate         |
-    | ~C-l~       | same as ~return~             |
+    | ~C-l~       | same as ~RET~                |
 
 ** Emacs Server
 Spacemacs starts a server at launch. This server is killed whenever you close

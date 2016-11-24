@@ -238,7 +238,7 @@ Emacs style:
 | ~C-k~       | select previous candidate                                            |
 | ~TAB~       | expand selection or select next candidate                            |
 | ~S-TAB~     | select previous candidate                                            |
-| ~return~    | complete word, if word is already completed insert a carriage return |
+| ~RET~       | complete word, if word is already completed insert a carriage return |
 
 ** Yasnippet
 
