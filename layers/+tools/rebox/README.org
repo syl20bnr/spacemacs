@@ -26,7 +26,7 @@ A nice video demonstration by the package author can be found [[https://www.yout
 - Auto-wrap correctly in comments,
 - Auto-fill correctly in comments,
 - Boxes auto-adapt as text is inserted or deleted,
-- ~S-return~ to continue a comment on the next line,
+- ~S-RET~ to continue a comment on the next line,
 - Kill/yank within the box,
 - Apparently works well with ancient ~filladpt-mode~ (see authors video).
 
@@ -339,4 +339,4 @@ These templates are added by the Spacemacs layer.
 | ~SPC x b b~ | Draw next box defined in =rebox-style-loop=                       |
 | ~SPC x b B~ | Draw previous box defined in =rebox-style-loop=                   |
 | ~SPC x b c~ | Center box (point must be around left side of the box)            |
-| ~S-return~  | rebox-indent-new-line                                             |
+| ~S-RET~     | rebox-indent-new-line                                             |
