@@ -43,9 +43,10 @@ existing =dotspacemacs-configuration-layers= list in this file.
 
 ** Global bindings
 
-| Keybinding | Command    |
-|------------+------------|
-| SPC a M    | Start mu4e |
+| Keybinding | Command             |
+|------------+---------------------|
+| SPC a M    | Start mu4e          |
+| C-x m      | Compose new message |
 
 ** Headers mode
 
@@ -118,6 +119,26 @@ the given account variables.
 
 If you have mu 0.9.16 or later, you can use mu4e's built-in contexts feature
 instead (see [[http://www.djcbsoftware.nl/code/mu/mu4e/Contexts.html#Contexts][mu4e's manual]]).
+
+** Async mode
+mu4e can send mails in async mode, which speeds up sending as you do not have
+to wait for the email to be sent. This is off by default but you can enable
+it by setting the ~mu4e-enable-async-operations~ variable when including the
+layer.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((mu4e :variables
+                        mu4e-enable-async-operations t)))
+#+END_SRC
+
+** Attachment directory
+By default mu4e will save attachment files to $HOME, but this layer changes
+that to $HOME/Downloads if it exists. You can override this in your user-config:
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-attachment-dir "~/files")
+#+END_SRC
 
 ** Example configuration
 #+BEGIN_SRC emacs-lisp
