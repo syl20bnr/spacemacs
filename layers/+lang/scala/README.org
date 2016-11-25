@@ -56,6 +56,8 @@ project's =project/build.properties=. For example,
   sbt.version=0.13.11
 #+END_SRC
 
+Note [[https://ensime.github.io//editors/emacs/install/#spacemacs][these caveats for spacemacs]].
+
 ** Usage
 1. Create a =.ensime= file at the root of your Scala project using =sbt
    ensimeConfig= and =sbt ensimeConfigProject= at the shell.
