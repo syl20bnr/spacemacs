@@ -39,5 +39,5 @@
       (define-key spray-mode-map (kbd "q") 'spray-quit))))
 
 (defun speed-reading/post-init-which-key ()
-  (push '(nil . "\\`speed-reading/\\(.+\\)\\'") . (nil . "\\1")
+  (push '((nil . "\\`speed-reading/\\(.+\\)\\'") . (nil . "\\1"))
         which-key-replacement-alist))
