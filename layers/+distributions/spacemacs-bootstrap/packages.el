@@ -301,8 +301,8 @@
            ("spacemacs/toggle-hybrid-mode" . "hybrid (hybrid-mode)")
            ("spacemacs/toggle-holy-mode" . "emacs (holy-mode)")
            ("evil-lisp-state-\\(.+\\)" . "\\1")
-           ("\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
-           ("\\(.+\\)-transient-state/body" . "\\1-transient-state"))))
+           ("spacemacs/\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
+           ("spacemacs/\\(.+\\)-transient-state/body" . "\\1-transient-state"))))
     (dolist (nd new-descriptions)
       ;; ensure the target matches the whole string
       (push (cons (cons nil (concat "\\`" (car nd) "\\'")) (cons nil (cdr nd)))
