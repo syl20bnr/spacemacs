@@ -70,14 +70,15 @@ entries you may have added there. To use the regular =AucTeX= command set
 #+END_SRC
 
 ** Auto-fill
-To enable auto-fill set the variable =latex-enable-auto-fill= to =t=.
+To disable auto-fill (which is on by default) set the variable
+=latex-enable-auto-fill= to =nil=.
 
 The variable =latex-nofill-env= provide the list of environment names where
 =auto-fill-mode= will be inhibited.
 
 #+BEGIN_SRC emacs-lisp
   dotspacemacs-configuration-layers '(
-    (latex :variables latex-enable-auto-fill t))
+    (latex :variables latex-enable-auto-fill nil))
 #+END_SRC
 
 ** Folding

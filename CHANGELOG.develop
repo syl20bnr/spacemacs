@@ -2188,6 +2188,7 @@ Other:
   - ~SPC m n~ goto next error
   - ~SPC m N~ goto previous error
     (thanks to Olivier Verdier)
+- Fixed README to say auto-fill on by default. (thanks to Max Willsey)
 **** Lua
 - Added support for auto-completion with =company= (thanks to halfcrazy)
 - Added support for =LSP= (EmmyLua-LS-all) (thanks to Lin.Sun)
