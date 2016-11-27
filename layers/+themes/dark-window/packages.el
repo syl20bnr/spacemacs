@@ -8,9 +8,6 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-;;
-;; Thanks to Nicolas Petton for his work on which this code is based.
-;; URL: http://nicolas.petton.fr/blog/emacs-dark-window-decoration.html
 
 (defconst dark-window-packages
   '(frame-cmds))
@@ -18,6 +15,7 @@
 (defun dark-window/init-frame-cmds ()
   (use-package frame-cmds
     :config
+    ;; Nicolas Petton http://nicolas.petton.fr/blog/emacs-dark-window-decoration.html
     (progn
       (defun set-selected-frame-dark ()
         (interactive)
