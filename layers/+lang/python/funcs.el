@@ -219,3 +219,11 @@ to be called for each testrunner. "
   (when (and python-sort-imports-on-save
              (derived-mode-p 'python-mode))
     (py-isort-before-save)))
+
+
+;;* Anaconda
+(defun spacemacs/anaconda-view-forward-and-push ()
+  "Find next button and hit RET"
+  (interactive)
+  (forward-button 1)
+  (call-interactively #'push-button))
