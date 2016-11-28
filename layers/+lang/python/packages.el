@@ -57,8 +57,15 @@
         "ga" 'anaconda-mode-find-assignments
         "gb" 'anaconda-mode-go-back
         "gu" 'anaconda-mode-find-references)
-      (evilified-state-evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
-        (kbd "q") 'quit-window)
+
+      (evilified-state-evilify-map anaconda-mode-view-mode-map
+        :mode anaconda-mode-view-mode
+        :bindings
+        (kbd "q") 'quit-window
+        (kbd "C-j") 'next-error-no-select
+        (kbd "C-k") 'previous-error-no-select
+        (kbd "RET") 'spacemacs/anaconda-view-forward-and-push)
+
       (spacemacs|hide-lighter anaconda-mode)
 
       (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
