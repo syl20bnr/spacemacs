@@ -12,6 +12,7 @@
    - [[#indentation][Indentation]]
    - [[#tests][Tests]]
    - [[#guru][Guru]]
+   - [[#autocomplete][Autocomplete]]
  - [[#working-with-go][Working with Go]]
    - [[#go-commands-start-with-m][Go commands (start with =m=):]]
    - [[#go-guru][Go Guru]]
@@ -109,6 +110,14 @@ supported. In addition, you can prefix with =-= to exclude a package from
 searching.
 
 In addition, =GOPATH= must be set prior to =go-guru= initialization.
+
+** Autocomplete
+=gocode= uses the output from installed binary files to provide its suggestions. You have a few options to ensure you always get up to date suggestions:
+
+- Run =go install ./...= in your package directory when you make a file change.
+- Run =gocode set autobuild true= to have gocode attempt to run =go install ./...= for you.
+- You can configure your task runner to run =go install ./...= command on every file change.
+
 
 * Working with Go
 ** Go commands (start with =m=):
