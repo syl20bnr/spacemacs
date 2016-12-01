@@ -302,6 +302,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC m h s~ | org-insert-subheading            |
 | ~SPC m i f~ | org-insert-footnote              |
 | ~SPC m i l~ | org-insert-link                  |
+| ~SPC m i a~ | org-attach                       |
 
 *** Links
 

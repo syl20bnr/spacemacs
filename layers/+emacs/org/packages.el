@@ -255,6 +255,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "s" 'org-schedule
 
         ;; insertion of common elements
+        "ia" 'org-attach
         "il" 'org-insert-link
         "if" 'org-footnote-new
         "ik" 'spacemacs/insert-keybinding-org
