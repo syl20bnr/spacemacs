@@ -63,7 +63,7 @@ opening a python buffer:
     Blocking call to accept-process-output with quit inhibited!!
 #+end_example
 
-To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anaconda-mode/blob/master/requirements.txt][anaconda-deps]] by hand:
+To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anaconda-mode/wiki][anaconda-deps]] by hand:
 
 #+begin_src sh
     pip install --upgrade "jedi>=0.9.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
