@@ -78,9 +78,9 @@ Press any other key to exit." component (eval var) component component)))
   (colors//change-color-component-func "saturation" -5))
 
 (defun colors/change-color-saturation-reset ()
-  "Reset the saturation to 100."
+  "Reset the saturation to default."
   (interactive)
-  (colors//change-color-component-func "saturation" 100 t))
+  (colors//change-color-component-func "saturation" colors-default-rainbow-identifiers-sat t))
 
 (defun colors/start-change-color-lightness ()
   "Initiate the overlay map to change the lightness."
@@ -98,9 +98,9 @@ Press any other key to exit." component (eval var) component component)))
   (colors//change-color-component-func "lightness" -5))
 
 (defun colors/change-color-lightness-reset ()
-  "Reset the lightness to 40."
+  "Reset the lightness to default."
   (interactive)
-  (colors//change-color-component-func "lightness" 40 t))
+  (colors//change-color-component-func "lightness" colors-default-rainbow-identifiers-light t))
 
 (defun colors//change-color-component-func
     (component inc &optional reset)
