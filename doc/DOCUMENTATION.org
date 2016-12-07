@@ -2172,6 +2172,7 @@ open the file in a split window with ~|~ and ~-~:
 |-------------+---------------------------------|
 | ~TAB~       | toggle stretching of the buffer |
 | ~c~         | create a node                   |
+| ~C~         | copy a node                     |
 | ~d~         | delete a node                   |
 | ~gr~        | refresh                         |
 | ~s~         | toggle showing of hidden files  |
