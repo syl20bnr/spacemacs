@@ -71,19 +71,17 @@ a quasi-quoted list:
 #+END_SRC
 
 * Key bindings
-The prefix associated with colors is ~C~.
-
 ** Colorize Identifiers
 
-| Key Binding | Description                                                     |
-|-------------+-----------------------------------------------------------------|
-| ~SPC C a~   | colorize all idendifiers in current buffer                      |
-| ~SPC C C-a~ | globally colorize all idendifiers and all subsequent buffers    |
-| ~SPC C v~   | colorize all variables only in current buffer                   |
-| ~SPC C C-v~ | globally colorize all variables only and all subsequent buffers |
+| Key Binding   | Description                                                  |
+|---------------+--------------------------------------------------------------|
+| ~SPC t C a~   | colorize all identifiers in current buffer                   |
+| ~SPC t C C-a~ | globally colorize all identifiers and all subsequent buffers |
+| ~SPC t C v~   | colorize only variables in current buffer                    |
+| ~SPC t C C-v~ | globally colorize only variables and all subsequent buffers  |
 
-The =saturation= and =lightness= of identifier colors can be adjusted live
-when colorizing all the identifiers with the transient-state:
+The =saturation= and =lightness= of rainbow identifier mode's colors
+can be adjusted live via the transient-state:
 
 | Key Binding     | Description                              |
 |-----------------+------------------------------------------|
