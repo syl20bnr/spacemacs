@@ -27,9 +27,9 @@
       (if sat&light
           (setq rainbow-identifiers-cie-l*a*b*-saturation (cadr sat&light)
                 rainbow-identifiers-cie-l*a*b*-lightness (caddr sat&light))
-        ;; default
-        (setq rainbow-identifiers-cie-l*a*b*-saturation 80
-              rainbow-identifiers-cie-l*a*b*-lightness 45)))))
+        ;; fall back to our defaults if there are no per-theme settings
+        (setq rainbow-identifiers-cie-l*a*b*-saturation colors-default-rainbow-identifiers-sat
+              rainbow-identifiers-cie-l*a*b*-lightness colors-default-rainbow-identifiers-light)))))
 
 (defun colors//change-color-mini-mode-doc (component)
   "Display a short documentation in the mini buffer."
