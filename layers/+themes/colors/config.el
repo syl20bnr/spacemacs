@@ -18,6 +18,12 @@ programming language buffers.")
 (defvar colors-enable-nyan-cat-progress-bar nil
   "If non nil all nyan cat packages are enabled (for now only `nyan-mode').")
 
+(defvar colors-default-rainbow-identifiers-sat 80
+  "The rainbow-identifiers saturation value to use for themes that lack per-theme settings.")
+
+(defvar colors-default-rainbow-identifiers-light 45
+  "The rainbow-identifiers lightness value to use for themes that lack per-theme settings.")
+
 (defvar colors-theme-identifiers-sat&light
   '((jazz . (50 55))
     (gotham . (45 60))

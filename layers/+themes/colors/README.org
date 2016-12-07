@@ -60,6 +60,19 @@ Example:
     )
 #+END_SRC
 
+For all themes that lack per-theme overrides, it uses default saturation and lightness.
+You can configure your own defaults via =colors-default-rainbow-identifiers-sat=
+and =colors-default-rainbow-identifiers-light=, which can be set via =variables=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (colors :variables
+      colors-colorize-identifiers 'all
+      colors-default-rainbow-identifiers-sat 42
+      colors-default-rainbow-identifiers-light 86)
+    )
+#+END_SRC
+
 ** Enable Nyan cat
 To enable the package =nyan-mode= just set the variable
 =colors-enable-nyan-cat-progress-bar= to =t=:
