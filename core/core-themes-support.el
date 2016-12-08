@@ -112,6 +112,8 @@
     (minimal-light . minimal-theme)
     (moe-dark  . moe-theme)
     (moe-light . moe-theme)
+    (omtose-darker . omtose-phellack-theme)
+    (omtose-softer . omtose-phellack-theme)
     (stekene-dark  . stekene-theme)
     (stekene-light . stekene-theme)
     (brin     . sublime-themes)
