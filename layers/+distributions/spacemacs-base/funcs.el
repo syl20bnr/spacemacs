@@ -367,7 +367,7 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
 
 ;; from magnars
 (defun spacemacs/sudo-edit (&optional arg)
-  (interactive "p")
+  (interactive "P")
   (let ((fname (if (or arg (not buffer-file-name))
                    (read-file-name "File: ")
                  buffer-file-name)))
