@@ -113,6 +113,8 @@
     (moe-dark  . moe-theme)
     (moe-light . moe-theme)
     (stekene-dark  . stekene-theme)
+    (omtose-darker . omtose-phellack-theme)
+    (omtose-softer . omtose-phellack-theme)
     (stekene-light . stekene-theme)
     (brin     . sublime-themes)
     (dorsey   . sublime-themes)
