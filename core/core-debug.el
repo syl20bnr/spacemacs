@@ -25,6 +25,7 @@
 seconds to load")
 
 (defvar spacemacs-debugp nil)
+(defvar spacemacs-debug-use-package nil)
 (defvar spacemacs-debug-with-profile nil)
 (defvar spacemacs-debug-with-timed-requires nil)
 (defvar spacemacs-debug-with-adv-timers nil)
@@ -83,6 +84,31 @@ seconds to load")
                                              (profiler-stop))))))
 
   (when spacemacs-debug-with-timed-requires
+  (when spacemacs-debug-use-package
+    (defvar use-package-times nil)
+
+    (with-current-buffer (get-buffer-create "*use-package-loads*")
+      (insert "| name | init | config | defered | \n")
+      (insert "|------+------+--------+---------|\n")
+      (setq-local use-package-times (make-hash-table))
+      (put 'use-package-times 'permanent-local t))
+
+    (defadvice use-package (around use-package-advice activate)
+      (let ((start (current-time))
+            elapsed)
+        ad-do-it
+        (setq elapsed (float-time (time-subtract (current-time) start)))
+        (with-current-buffer "*use-package-loads*"
+          (let ((match (gethash name use-package-times)))
+            (unless match
+              (goto-char (point-max))
+              (insert (format "| %s | %s | %s | %s |\n"
+                              name
+                              (not (null (plist-member args :init)))
+                              (not (null (plist-member args :config)))
+                              (plist-get args :defer)))
+              (puthash name t use-package-times)))))))
+
     (with-current-buffer (get-buffer-create "*load-times*")
       (insert (format "Threshold set at %.3f seconds\n\n"
                       spacemacs-debug-timer-threshold)))

@@ -44,6 +44,9 @@ arguments is that we want to process these arguments as soon as possible."
              (setq spacemacs-debug-timer-threshold next-arg-digit
                    i (1+ 1)))
            (setq spacemacs-debugp t))
+          ("--use-package-loads"
+           (setq spacemacs-debug-use-package t)
+           (setq spacemacs-debugp t))
           ("--insecure"
            (setq spacemacs-insecure t))
           ("--no-layer"
