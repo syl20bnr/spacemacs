@@ -141,7 +141,11 @@ LAYER has to be installed for this method to work properly."
    (owners :initarg :owners
            :initform nil
            :type list
-           :documentation "The layer defining the init function.")
+           :documentation "The loaded layers defining the init function.")
+   (layers :initarg :layers
+           :initform nil
+           :type list
+           :documentation "All layers defining the init function.")
    (pre-layers :initarg :pre-layers
                :initform '()
                :type list
@@ -611,7 +615,12 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
        obj :protected (or protected (eq 'bootstrap step)))
       (when protected
         (push pkg-name configuration-layer--protected-packages)))
-    (when ownerp
+    ;; include all layers in :layers
+    (object-add-to-list obj :layers layer-name)
+    ;; only include used layers in :owners
+    (when (and ownerp
+               (or (eq 'dotfile layer-name)
+                (configuration-layer/layer-usedp layer-name)))
       ;; warn about mutliple owners
       (when (and (oref obj :owners)
                  (not (memq layer-name (oref obj :owners))))
@@ -627,7 +636,7 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
                 (eq 'dotfile layer-name)
                 (fboundp pre-init-func)
                 (fboundp post-init-func)
-                (oref obj :excluded))
+                (or excluded (oref obj :excluded)))
       (configuration-layer//warning
        (format (concat "package %s not initialized in layer %s, "
                        "you may consider removing this package from "

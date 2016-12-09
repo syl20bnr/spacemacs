@@ -214,15 +214,23 @@
     (dolist (pkg-name (configuration-layer/get-packages-list))
       (let ((pkg (configuration-layer/get-package pkg-name)))
         (push (list (format (concat "%-" left-column-width "S %s %s")
-                            (car (oref pkg :owners ))
+                            (or (car (oref pkg :owners ))
+                                (car (oref pkg :layers )))
                             (propertize (symbol-name (oref pkg :name))
                                         'face 'font-lock-type-face)
                             (propertize
-                             (if (package-installed-p (oref pkg :name))
-                                 "[installed]" "")
+                             (cond
+                              ((configuration-layer/layer-usedp
+                                (car (oref pkg :layers)))
+                               "[loaded]")
+                              ((package-installed-p (oref pkg :name))
+                               "[installed]")
+                              (t 
+                               ""))
                              'face 'font-lock-comment-face))
                     (symbol-name
-                     (car (oref pkg :owners )))
+                     (or (car (oref pkg :owners ))
+                         (car (oref pkg :layers ))))
                     (symbol-name (oref pkg :name)))
               result)))
     (dolist (layer (delq nil
@@ -231,7 +239,7 @@
                           (configuration-layer/get-layers-list))))
       (push (list (format (concat "%-" left-column-width "S %s")
                           layer
-                          (propertize "no packages"
+                          (propertize "[layer]"
                                       'face 'warning))
                   layer
                   nil)

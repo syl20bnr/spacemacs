@@ -226,28 +226,26 @@
   (let (result)
     (dolist (pkg-name (configuration-layer/get-packages-list))
       (let* ((pkg (configuration-layer/get-package pkg-name))
-             (owner (cfgl-package-get-safe-owner pkg))
+             (owner (car (oref pkg :owners)))
              ;; the notion of owner does not make sense if the layer is not used
-             (init-type (if (configuration-layer/layer-usedp owner)
+             (init-type (if (configuration-layer/layer-usedp pkg-name)
                             "owner" "init")))
-        (when owner
-          (push (format "%s (%s: %S layer)"
-                        (propertize (symbol-name (oref pkg :name))
-                                    'face 'font-lock-type-face)
-                        init-type
-                        owner)
-                result))
+        (push (format "%s (%s: %S layer)"
+                      (propertize (symbol-name (oref pkg :name))
+                                  'face 'font-lock-type-face)
+                      init-type
+                      (or owner (car (oref pkg :layers))))
+              result)
         (dolist (initfuncs `((,(oref pkg :owners) "init")
                              (,(oref pkg :pre-layers) "pre-init")
                              (,(oref pkg :post-layers) "post-init")))
           (dolist (layer (car initfuncs))
-            (unless (and owner (eq owner layer))
-              (push (format "%s (%s: %S layer)"
-                            (propertize (symbol-name (oref pkg :name))
-                                        'face 'font-lock-type-face)
-                            (cadr initfuncs)
-                            layer)
-                    result))))))
+            (push (format "%s (%s: %S layer)"
+                          (propertize (symbol-name (oref pkg :name))
+                                      'face 'font-lock-type-face)
+                          (cadr initfuncs)
+                          layer)
+                  result)))))
     (sort result 'string<)))
 
 (defun helm-spacemacs-help//toggle-source ()
