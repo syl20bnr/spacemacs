@@ -191,6 +191,7 @@
    - [[#keeping-the-server-alive][Keeping the server alive]]
    - [[#troubleshoot][Troubleshoot]]
      - [[#loading-fails][Loading fails]]
+     - [[#debugging-load-times][Debugging load times]]
      - [[#upgradingdowngrading-emacs-version][Upgrading/Downgrading Emacs version]]
  - [[#achievements][Achievements]]
    - [[#issues][Issues]]
@@ -3167,6 +3168,11 @@ If any errors happen during the loading the mode-line will turn red and the
 errors should appear inline in the startup buffer. Spacemacs should still be
 usable; if it is not then restart Emacs with =emacs --debug-init= and open a
 [[https://github.com/syl20bnr/spacemacs/issues][Github issue]] with the backtrace.
+
+*** Debugging load times
+If Spacemacs is taking an inordinate amount of time to load, restart Emacs with
+=emacs --with-timed-requires= or =emacs --adv-timers= to time the loading of
+Spacemacs components.
 
 *** Upgrading/Downgrading Emacs version
 To ensure that packages are correctly compiled for the new Emacs version you
