@@ -78,7 +78,8 @@
   (use-package flyspell-correct-ivy))
 
 (defun spell-checking/init-flyspell-correct-helm ()
-  (use-package flyspell-correct-helm))
+  (use-package flyspell-correct-helm
+    :defer t))
 
 (defun spell-checking/init-flyspell-correct-popup ()
   (use-package flyspell-correct-popup))
