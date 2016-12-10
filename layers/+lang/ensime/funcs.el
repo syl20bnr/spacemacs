@@ -1,4 +1,4 @@
-;;; funcs.el --- Scala Layer functions File for Spacemacs
+;;; funcs.el --- Ensime Layer functions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
@@ -15,7 +15,19 @@
 (autoload 'ensime-config-find "ensime-config")
 (autoload 'projectile-project-p "projectile")
 
-(defun scala/configure-ensime ()
+(defun ensime/init (mode &optional enable-eldoc auto-start)
+  (let ((hook (intern (format "%S-hook" mode)))
+        (jump-handlers (intern (format "spacemacs-jump-handlers-%S" mode))))
+    (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime")
+    (when enable-eldoc
+      (add-hook 'ensime-mode-hook 'ensime/enable-eldoc))
+    (add-hook hook 'ensime/configure-flyspell)
+    (add-hook hook 'ensime/configure)
+    (when auto-start
+      (add-hook mode 'ensime/maybe-start))
+    (add-to-list jump-handlers 'ensime-edit-definition)))
+
+(defun ensime/configure ()
   "Ensure the file exists before starting `ensime-mode'."
   (cond
    ((and (buffer-file-name) (file-exists-p (buffer-file-name)))
@@ -23,9 +35,9 @@
    ((buffer-file-name)
     (add-hook 'after-save-hook (lambda () (ensime-mode +1)) nil t))))
 
-(defun scala/maybe-start-ensime ()
+(defun ensime/maybe-start ()
   (when (buffer-file-name)
-    (let ((ensime-buffer (scala/ensime-buffer-for-file (buffer-file-name)))
+    (let ((ensime-buffer (ensime/buffer-for-file (buffer-file-name)))
           (file (ensime-config-find-file (buffer-file-name)))
           (is-source-file (s-matches? (rx (or "/src/" "/test/")) (buffer-file-name))))
 
@@ -34,7 +46,7 @@
           (save-window-excursion
             (ensime)))))))
 
-(defun scala/ensime-buffer-for-file (file)
+(defun ensime/buffer-for-file (file)
   "Find the Ensime server buffer corresponding to FILE."
   (let ((default-directory (file-name-directory file)))
     (-when-let (project-name (projectile-project-p))
@@ -43,7 +55,7 @@
                       (s-contains? (file-name-nondirectory project-name) bufname)))
                (buffer-list)))))
 
-(defun scala/enable-eldoc ()
+(defun ensime/enable-eldoc ()
   (setq-local eldoc-documentation-function
               (lambda ()
                 (when (ensime-connected-p)
@@ -83,7 +95,7 @@ point to the position of the join."
     (when join-pos
       (goto-char join-pos))))
 
-(defun scala/completing-dot ()
+(defun ensime/completing-dot ()
   "Insert a period and show company completions."
   (interactive "*")
   (when (s-matches? (rx (+ (not space)))
@@ -95,20 +107,20 @@ point to the position of the join."
 
 ;;; Flyspell
 
-(defun scala/flyspell-verify ()
+(defun ensime/flyspell-verify ()
   "Prevent common flyspell false positives in scala-mode."
   (and (flyspell-generic-progmode-verify)
        (not (s-matches? (rx bol (* space) "package") (current-line)))))
 
-(defun scala/configure-flyspell ()
-  (setq-local flyspell-generic-check-word-predicate 'scala/flyspell-verify))
+(defun ensime/configure-flyspell ()
+  (setq-local flyspell-generic-check-word-predicate 'ensime/flyspell-verify))
 
-(defun scala/yank-type-at-point ()
+(defun ensime/yank-type-at-point ()
   "Yank to kill ring and print short type name at point to the minibuffer."
   (interactive)
   (ensime-type-at-point t nil))
 
-(defun scala/yank-type-at-point-full-name ()
+(defun ensime/yank-type-at-point-full-name ()
   "Yank to kill ring and print full type name at point to the minibuffer."
   (interactive)
   (ensime-type-at-point t t))

@@ -12,12 +12,15 @@
 (setq java-packages
       '(
         company
-        (company-emacs-eclim :toggle (configuration-layer/package-usedp 'company))
-        eclim
+        (company-emacs-eclim :toggle (and (eq 'eclim java-backend)
+                                          (configuration-layer/package-usedp 'company)))
+        ;; Only use one backend
+        (eclim :toggle (eq 'eclim java-backend))
+        (ensime :toggle (or (eq 'ensime java-backend)
+                            (configuration-layer/layer-usedp 'ensime)))
         ggtags
         helm-gtags
-        (java-mode :location built-in)
-        ))
+        (java-mode :location built-in)))
 
 (defun java/post-init-company ()
   (spacemacs|add-company-hook java-mode))
@@ -26,6 +29,19 @@
   (use-package company-emacs-eclim
     :defer t
     :init (push 'company-emacs-eclim company-backends-java-mode)))
+
+(defun java/post-init-ensime ()
+  (when (eq 'ensime java-backend)
+    (use-package ensime
+      :defer t
+      :init
+      (progn
+        (ensime/init 'java-mode t nil)
+        (when (configuration-layer/package-usedp 'company)
+          (push 'ensime-company company-backends-java-mode)))
+      :config
+      (progn
+        (ensime/configure-keybindings 'java-mode)))))
 
 (defun java/init-eclim ()
   (use-package eclim
