@@ -96,7 +96,9 @@
 (defun spacemacs-editing/init-expand-region ()
   (use-package expand-region
     :defer t
-    :init (spacemacs/set-leader-keys "v" 'er/expand-region)
+    :init (progn
+	    (spacemacs/set-leader-keys "v" 'er/expand-region)
+	    (spacemacs/set-leader-keys "V" 'er/contract-region))
     :config
     (progn
       ;; add search capability to expand-region
