@@ -212,16 +212,6 @@ Dedicated (locked) windows are left untouched."
   (interactive "p")
   (spacemacs/rotate-windows-forward (* -1 count)))
 
-;; Note that this duplicates code from select-window-by-number, ideally should
-;; upstream this function into windows.el
-(defun spacemacs/get-window-by-number (i)
-  (let ((windows (car (gethash (selected-frame) window-numbering-table)))
-        window)
-    (if (and (>= i 0) (< i 10)
-             (setq window (aref windows i)))
-        window
-      (error "No window numbered %s" i))))
-
 (defun spacemacs/move-buffer-to-window (windownum follow-focus-p)
   "Moves a buffer to a window, using the spacemacs numbering. follow-focus-p
    controls whether focus moves to new window (with buffer), or stays on
@@ -229,12 +219,12 @@ Dedicated (locked) windows are left untouched."
   (interactive)
   (let ((b (current-buffer))
         (w1 (selected-window))
-        (w2 (spacemacs/get-window-by-number windownum)))
+        (w2 (winum-get-window-by-number windownum)))
     (unless (eq w1 w2)
       (set-window-buffer w2 b)
       (switch-to-prev-buffer)
       (unrecord-window-buffer w1 b)))
-  (when follow-focus-p (select-window (spacemacs/get-window-by-number windownum))))
+  (when follow-focus-p (select-window (winum-get-window-by-number windownum))))
 
 (defun spacemacs/swap-buffers-to-window (windownum follow-focus-p)
   "Swaps visible buffers between active window and selected window.
@@ -243,7 +233,7 @@ Dedicated (locked) windows are left untouched."
   (interactive)
   (let* ((b1 (current-buffer))
          (w1 (selected-window))
-         (w2 (spacemacs/get-window-by-number windownum))
+         (w2 (winum-get-window-by-number windownum))
          (b2 (window-buffer w2)))
     (unless (eq w1 w2)
       (set-window-buffer w1 b2)
