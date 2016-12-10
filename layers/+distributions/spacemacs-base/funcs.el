@@ -988,11 +988,13 @@ a split-side entry, its value must be usable as the SIDE argument for
   (let ((buffer (find-file-noselect file)))
     (pop-to-buffer buffer '(spacemacs//display-in-split (split-side . below)))))
 
-(defun spacemacs/switch-to-scratch-buffer ()
+(defun spacemacs/switch-to-scratch-buffer (&optional arg)
   "Switch to the `*scratch*' buffer. Create it first if needed."
-  (interactive)
+  (interactive "P")
   (let ((exists (get-buffer "*scratch*")))
-    (switch-to-buffer (get-buffer-create "*scratch*"))
+    (if arg
+        (switch-to-buffer-other-window (get-buffer-create "*scratch*"))
+      (switch-to-buffer (get-buffer-create "*scratch*")))
     (when (and (not exists)
                (not (eq major-mode dotspacemacs-scratch-mode))
                (fboundp dotspacemacs-scratch-mode))
