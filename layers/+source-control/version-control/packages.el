@@ -114,17 +114,18 @@
     :init
     (progn
       ;; If you enable global minor mode
-      (when (and (eq version-control-diff-tool 'git-gutter+)
-                 version-control-global-margin)
-        (add-hook 'magit-pre-refresh-hook 'git-gutter+-refresh)
-        (global-git-gutter+-mode t))
+      (when (eq version-control-diff-tool 'git-gutter+)
+        (when version-control-global-margin
+          (global-git-gutter+-mode t))
+        ;; identify magit changes
+        (when (configuration-layer/package-usedp 'magit)
+          (add-hook 'magit-pre-refresh-hook 'git-gutter+-refresh))
       (setq
        git-gutter+-modified-sign " "
        git-gutter+-added-sign "+"
        git-gutter+-deleted-sign "-"
        git-gutter+-diff-option "-w"
-       git-gutter+-hide-gutter t))
-    ;; identify magit changes
+       git-gutter+-hide-gutter t)))
     :config
     (spacemacs|hide-lighter git-gutter+-mode)
     ;; (set-face-foreground 'git-gutter+-modified "black")
