@@ -10,6 +10,7 @@
    - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
    - [[#leader][Leader]]
    - [[#srefactor][srefactor]]
+   - [[#hl-defined][hl-defined]]
 
 * Description
 This layer gathers all the configuration related to emacs-lisp. This should
@@ -71,3 +72,11 @@ The [[file:../../semantic/README.org][semantic]] layer should be installed for t
 | ~SPC m = f~ | format current function |
 | ~SPC m = o~ | format all on one line  |
 | ~SPC m = s~ | format current sexp     |
+
+
+** hl-defined
+    hl-defined is added to syntax highlight all known sexps. 
+
+    | Key Binding | Description       |
+    |-------------+-------------------|
+    | ~SPC t h d~ | toggle hl-defined |

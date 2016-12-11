@@ -21,6 +21,7 @@
         ggtags
         helm-gtags
         (ielm :location built-in)
+        hl-defined
         macrostep
         semantic
         smartparens
@@ -104,6 +105,25 @@
   ;; company support
   (push 'company-capf company-backends-emacs-lisp-mode)
   (spacemacs|add-company-hook emacs-lisp-mode))
+
+(defun emacs-lisp/init-hl-defined ()
+  (use-package hl-defined
+    :commands hdefd-highlight-mode
+    :init
+    ;; (add-hook 'emacs-lisp-mode-hook 'hdefd-highlight-mode)
+    (spacemacs|add-toggle hdl-defined
+      :mode hdefd-highlight-mode
+      :documentation "Syntax highlight known defuns and variables."
+      :evil-leader "thd")
+    :config
+    (progn
+      ;; match hdefd theming to current theme
+      (setq hdefd-highlight-type 'fns-and-vars)
+      (custom-set-faces
+       `(hdefd-functions ((t (:inherit font-lock-function-name-face))))
+       `(hdefd-undefined ((t (:inherit font-lock-warning-face))))
+       `(hdefd-variables ((t (:inherit font-lock-variable-name-face))))) 
+      )))
 
 (defun emacs-lisp/init-macrostep ()
   (use-package macrostep
