@@ -506,6 +506,14 @@ When ARG is non-nil search in junk files."
       "Restart emacs and enable debug-init."
       (interactive)
       (spacemacs/restart-emacs (cons "--debug-init" args)))
+    (defun spacemacs/restart-emacs-timed-requires (&optional args)
+      "Restart emacs and time loads / requires."
+      (interactive)
+      (spacemacs/restart-emacs (cons "--timed-requires" args)))
+    (defun spacemacs/restart-emacs-adv-timers (&optional args)
+      "Restart emacs and time loads / requires and spacemacs configuration."
+      (interactive)
+      (spacemacs/restart-emacs (cons "--adv-timers" args)))
     (defun spacemacs/restart-stock-emacs-with-packages (packages &optional args)
       "Restart emacs without the spacemacs configuration, enable
 debug-init and load the given list of packages."
@@ -532,7 +540,9 @@ debug-init and load the given list of packages."
       "qd" 'spacemacs/restart-emacs-debug-init
       "qD" 'spacemacs/restart-stock-emacs-with-packages
       "qr" 'spacemacs/restart-emacs-resume-layouts
-      "qR" 'spacemacs/restart-emacs)))
+      "qR" 'spacemacs/restart-emacs
+      "qt" 'spacemacs/restart-emacs-timed-requires
+      "qt" 'spacemacs/restart-emacs-adv-timers)))
 
 (defun spacemacs-navigation/init-smooth-scrolling ()
   (setq scroll-preserve-screen-position t
