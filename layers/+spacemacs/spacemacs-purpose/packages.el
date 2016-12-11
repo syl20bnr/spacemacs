@@ -29,6 +29,7 @@
 
 (defun spacemacs-purpose/init-helm-purpose ()
   (use-package helm-purpose
+    :defer t
     :init
     (progn
       (setq purpose-preferred-prompt 'helm)
