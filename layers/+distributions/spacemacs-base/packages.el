@@ -32,6 +32,9 @@
         (hi-lock :location built-in)
         (holy-mode :location local :step pre)
         (hybrid-mode :location local :step pre)
+        (ido-mode :location built-in
+                  :toggle (not (or (configuration-layer/layer-usedp 'helm)
+                              (configuration-layer/layer-usedp 'ivy))))
         (image-mode :location built-in)
         (imenu :location built-in)
         (linum :location built-in)
@@ -228,6 +231,10 @@
         :documentation "Globally toggle hybrid mode."
         :evil-leader "tEh")
       (spacemacs|diminish hybrid-mode " Ⓔh" " Eh"))))
+
+(defun spacemacs-base/init-ido-mode ()
+  ;; Start up ido-mode if nothing else is used
+  (ido-mode))
 
 (defun spacemacs-base/init-image-mode ()
   (use-package image-mode
