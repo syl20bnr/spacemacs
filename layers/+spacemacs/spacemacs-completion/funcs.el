@@ -213,6 +213,9 @@ See https://github.com/syl20bnr/spacemacs/issues/3700"
     (define-key ivy-minibuffer-map (kbd "C-h") nil)
     (define-key ivy-minibuffer-map (kbd "C-l") nil))))
 
+(defun spacemacs//ivy-matcher-desc ()
+  (replace-regexp-in-string "ivy--" "" (format "%s" ivy--regex-function)))
+
 
 ;; Ido
 
