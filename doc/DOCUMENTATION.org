@@ -1593,8 +1593,11 @@ If you choose =ivy= as completion system, make sure to read [[http://oremacs.com
 case you don't want to read everything, at least familiarise with [[http://oremacs.com/swiper/#minibuffer-key-bindings][minibuffer key
 bindings]]. Some useful key bindings are presented in following table.
 
+Initiate the transient state with ~M-SPC~ while in a =ivy= buffer.
+
 | Key Binding    | Description                                                                                          |
 |----------------+------------------------------------------------------------------------------------------------------|
+| ~M-SPC~        | initiate the transient state                                                                         |
 | ~C-m~ or ~RET~ | call default action on current candidate                                                             |
 | ~M-o~          | show the list of valid actions on current candidate (then press any of described keys to execute it) |
 | ~C-M-m~        | the same as ~RET~ but doesn't close completion minibuffer                                            |
