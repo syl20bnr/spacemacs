@@ -25,8 +25,9 @@
       (setq edit-server-default-major-mode 'markdown-mode))
     ))
 
-(defun chrome/init-gmail-message-mode ( )
-  (use-package gmail-message-mode))
+(defun chrome/init-gmail-message-mode ()
+  (use-package gmail-message-mode
+    :defer t))
 
 (defun chrome/init-flymd ()
   (use-package flymd
@@ -48,5 +49,4 @@
                 ((executable-find "google-chrome-stable") (start-browser (executable-find "google-chrome-stable") url))
                 (t (message "no useful browser"))))
 
-      (setq flymd-browser-open-function 'my-flymd-browser-function)
-      )))
+      (setq flymd-browser-open-function 'my-flymd-browser-function))))
