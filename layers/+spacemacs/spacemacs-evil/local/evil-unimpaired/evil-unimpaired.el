@@ -1,6 +1,6 @@
 ;;; evil-unimpaired.el --- Pairs of handy bracket mappings.
 
-;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; Author: Rich Alesi <https://github.com/ralesi>
 ;; Keywords: evil, vim-unimpaired, spacemacs
 ;; Version: 0.1
 ;; Package-Requires: ((dash "2.12.0") (f "0.18.0"))
