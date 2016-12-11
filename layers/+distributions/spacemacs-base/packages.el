@@ -372,8 +372,8 @@
     :config
     (progn
       (add-to-list 'recentf-exclude
-                   (expand-file-name spacemacs-cache-directory))
-      (add-to-list 'recentf-exclude (expand-file-name package-user-dir))
+                   (file-truename spacemacs-cache-directory))
+      (add-to-list 'recentf-exclude (file-truename package-user-dir))
       (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'"))))
 
 (defun spacemacs-base/init-savehist ()
