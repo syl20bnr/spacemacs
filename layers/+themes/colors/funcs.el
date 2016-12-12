@@ -29,7 +29,19 @@
                 rainbow-identifiers-cie-l*a*b*-lightness (caddr sat&light))
         ;; fall back to our defaults if there are no per-theme settings
         (setq rainbow-identifiers-cie-l*a*b*-saturation colors-default-rainbow-identifiers-sat
-              rainbow-identifiers-cie-l*a*b*-lightness colors-default-rainbow-identifiers-light)))))
+              rainbow-identifiers-cie-l*a*b*-lightness colors-default-rainbow-identifiers-light))))
+  ;; it isn't enough to just update the variables! we must now refresh the "font
+  ;; locking" (syntax highlighting) in all buffers that have rainbow-identifiers-mode
+  ;; currently active, so that they instantly re-paint with their per-theme values.
+  ;; this loops through all buffers and marks matching ones for re-painting,
+  ;; starting with the current buffer first so that the user sees quick results!
+  (when (featurep 'rainbow-identifiers)
+    (dolist ($buf (buffer-list (current-buffer)))
+      (with-current-buffer $buf
+        (when (and rainbow-identifiers-mode font-lock-mode)
+          (if (fboundp 'font-lock-flush)
+              (font-lock-flush) ; use flush if available
+            (with-no-warnings (font-lock-fontify-buffer))))))))
 
 (defun colors//change-color-mini-mode-doc (component)
   "Display a short documentation in the mini buffer."
