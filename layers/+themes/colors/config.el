@@ -18,11 +18,22 @@ programming language buffers.")
 (defvar colors-enable-nyan-cat-progress-bar nil
   "If non nil all nyan cat packages are enabled (for now only `nyan-mode').")
 
-(defvar colors-default-rainbow-identifiers-sat 80
+;; IMPORTANT INFORMATION FOR CONTRIBUTORS:
+;; Do not edit these defaults. Let the user change them if they really want to.
+;; These defaults are carefully balanced statistical averages of all colors suitable
+;; for both light and dark themes, and perfected to work for 90% of all themes.
+;; It's the BEST out-of-the-box experience we can offer without forcing all users
+;; to write their own individual per-theme optimizations for ALL of their themes...
+
+(defvar colors-default-rainbow-identifiers-sat 50
   "The rainbow-identifiers saturation value to use for themes that lack per-theme settings.")
 
-(defvar colors-default-rainbow-identifiers-light 45
+(defvar colors-default-rainbow-identifiers-light 65
   "The rainbow-identifiers lightness value to use for themes that lack per-theme settings.")
+
+;; PER-THEME CONTRIBUTIONS WELCOME:
+;; Guideline: Aim at a saturation and lightness level that matches the average
+;; look of the theme, so that it looks balanced against the theme's own colors.
 
 (defvar colors-theme-identifiers-sat&light
   '(
