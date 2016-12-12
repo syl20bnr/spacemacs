@@ -127,5 +127,7 @@ Press any other key to exit." component (eval var) component component)))
         (if (< new-value 0)
             (setq new-value 0))
         (set var new-value)))
-    (font-lock-fontify-buffer)
+    (if (fboundp 'font-lock-flush)
+        (font-lock-flush) ; use flush if available
+      (with-no-warnings (font-lock-fontify-buffer)))
     (colors/change-color-component-overlay-map component)))
