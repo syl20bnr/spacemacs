@@ -38,7 +38,14 @@
   (spacemacs|add-company-hook web-mode))
 
 (defun html/init-company-web ()
-  (use-package company-web))
+  (use-package company-web
+    :defer t
+    :init
+    (progn
+      (with-eval-after-load 'company-mode
+        (add-to-list 'company-backends 'company-web-html)
+        (add-to-list 'company-backends 'company-web-jade)
+        (add-to-list 'company-backends 'company-web-slim)))))
 
 (defun html/init-css-mode ()
   (use-package css-mode
