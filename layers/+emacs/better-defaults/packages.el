@@ -10,7 +10,8 @@
 ;;; License: GPLv3
 
 (defconst better-defaults-packages
-  '(mwim)
+  '(mwim
+    unfill)
   "The list of Lisp packages required by the mwim layer.")
 
 (defun better-defaults/init-mwim ()
@@ -25,3 +26,10 @@
       (if better-defaults-move-to-end-of-code-first
 	  (global-set-key (kbd "C-e") 'mwim-end-of-code-or-line)
 	(global-set-key (kbd "C-e") 'mwim-end-of-line-or-code)))))
+
+(defun better-defaults/init-unfill ()
+  (use-package unfill
+    :defer t
+    :commands (unfill-region unfill-paragraph unfill-toggle)
+    :init
+    (global-set-key [remap fill-paragraph] #'unfill-toggle)))
