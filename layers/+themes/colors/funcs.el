@@ -131,3 +131,23 @@ Press any other key to exit." component (eval var) component component)))
         (font-lock-flush) ; use flush if available
       (with-no-warnings (font-lock-fontify-buffer)))
     (colors/change-color-component-overlay-map component)))
+
+(defun colors/add-theme-sat&light (theme_name sat_light)
+  "Easily add personal per-theme rainbow-identifiers
+saturation & lightness settings. Your new values will
+override any previous definitions for that theme.
+
+Remember to always refresh the look of your theme after
+you've added any new settings!
+
+Example usage:
+    (colors/add-theme-sat&light 'leuven '(30 50))
+    (colors/add-theme-sat&light 'anothertheme '(90 20))
+    (colors/refresh-theme-look)"
+  (push (cons theme_name sat_light) colors-theme-identifiers-sat&light))
+
+(defun colors/refresh-theme-look ()
+  "Refresh and re-apply the look of your current theme.
+Always run this after adding new per-theme settings!"
+  (interactive)
+  (colors//tweak-theme-colors spacemacs--cur-theme))
