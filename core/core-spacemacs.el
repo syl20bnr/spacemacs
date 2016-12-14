@@ -340,8 +340,10 @@ Markdown syntax is supported in this buffer.
   (interactive)
   (let ((url "http://github.com/syl20bnr/spacemacs/issues/new?body="))
     (setq url (url-encode-url (concat url (buffer-string))))
-    ;; HACK: Needed because the first `#' is not encoded
+    ;; HACK: encode some characters according to HTML URL Encoding Reference
+    ;; http://www.w3schools.com/tags/ref_urlencode.asp
     (setq url (replace-regexp-in-string "#" "%23" url))
+    (setq url (replace-regexp-in-string ";" "%3B" url))
     (browse-url url)))
 
 (provide 'core-spacemacs)
