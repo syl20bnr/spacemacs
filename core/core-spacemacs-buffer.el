@@ -873,7 +873,8 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
 
 (defun spacemacs-buffer//do-insert-startupify-lists ()
   "Insert the startup lists in the current buffer."
-  (let ((list-separator "\n\n"))
+  (let ((list-separator "\n\n")
+        (spacemacs-recentf-ignore t))
     (mapc (lambda (els)
             (let ((el (or (car-safe els) els))
                   (list-size

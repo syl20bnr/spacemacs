@@ -360,6 +360,16 @@
     :defer t
     :init
     (progn
+      ;; Define variable to ignore loading files in recentf
+      (defvar spacemacs-recentf-ignore nil
+        "Have recentf ignore the opening of files when non-nil.")
+
+      ;; advise recentf to ignore when spacemacs-recentf-ignore is non-nil.
+      (defadvice recentf-track-opened-file (around spacemacs-recentf-ignore activate)
+        "Ignore files to be saved if `spacemacs-recentf-ignore'"
+        (unless spacemacs-recentf-ignore
+            ad-do-it))
+
       ;; lazy load recentf
       (add-hook 'find-file-hook (lambda () (unless recentf-mode
                                              (recentf-mode)
