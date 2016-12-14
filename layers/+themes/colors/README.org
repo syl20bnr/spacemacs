@@ -49,14 +49,16 @@ For now, saturation and lightness are not supported via a =variables= value!
 Instead, you must push themes into the alist in your =dotspacemacs/user-config= section,
 and then refresh the values to ensure your overrides are applied to your current theme.
 
+Two handy built-in functions makes both of those steps very easy.
+
 Example:
 
 #+BEGIN_SRC emacs-lisp
   (defun dotspacemacs/user-config ()
     ;; add per-theme sat&light overrides and refresh values for your current theme
-    (push '(mytheme . (50 50)) colors-theme-identifiers-sat&light)
-    (push '(anothertheme . (90 40)) colors-theme-identifiers-sat&light)
-    (colors//tweak-theme-colors spacemacs--cur-theme)
+    (colors/add-theme-sat&light 'mytheme '(50 50))
+    (colors/add-theme-sat&light 'anothertheme '(90 40))
+    (colors/refresh-theme-look)
     )
 #+END_SRC
 
