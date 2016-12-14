@@ -63,4 +63,4 @@
 
 (defun restclient/init-restclient-helm ()
   (use-package restclient-helm
-    :init (spacemacs/set-leader-keys "ji" 'helm-restclient)))
+    :init (spacemacs/set-leader-keys-for-major-mode 'restclient-mode "ji" 'helm-restclient)))
