@@ -24,6 +24,7 @@
     (org :location built-in)
     (org-agenda :location built-in)
     (org-expiry :location built-in)
+    (org-journal :toggle org-enable-org-journal-support)
     org-download
     ;; org-mime is installed by `org-plus-contrib'
     (org-mime :location built-in)
@@ -556,3 +557,30 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (if agenda-files
           (find-file (first agenda-files))
         (user-error "Error: No agenda files configured, nothing to display.")))))
+
+(defun org/init-org-journal ()
+  (use-package org-journal
+    :defer t
+    :init
+    (progn
+     (spacemacs/declare-prefix "aoj" "org-journal")
+     (spacemacs/set-leader-keys
+       "aojj" 'org-journal-new-entry
+       "aojs" 'org-journal-search-forever)
+
+      (spacemacs/set-leader-keys-for-major-mode 'calendar-mode
+        "r" 'org-journal-read-entry
+        "i" 'org-journal-new-date-entry
+	      "n" 'org-journal-next-entry
+	      "p" 'org-journal-previous-entry
+	      "s" 'org-journal-search-forever
+	      "w" 'org-journal-search-calendar-week
+	      "m" 'org-journal-search-calendar-month
+	      "y" 'org-journal-search-calendar-year)
+
+      (spacemacs/set-leader-keys-for-major-mode 'org-journal-mode
+        "j" 'org-journal-new-entry
+        "n" 'org-journal-open-next-entry
+        "p" 'org-journal-open-previous-entry))))
+
+

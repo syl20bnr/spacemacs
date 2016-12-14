@@ -26,4 +26,7 @@ path, one file per project is used (and the path is relative to
 the project root). If it an absolute path, one global file is
 used.")
 
+(defvar org-enable-org-journal-support nil
+  "If non-nil org-journal is configured.")
+
 (spacemacs|defvar-company-backends org-mode)
