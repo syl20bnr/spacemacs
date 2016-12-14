@@ -381,11 +381,30 @@
 (defun spacemacs-editing/init-undo-tree ()
   (use-package undo-tree
     :init
-    (global-undo-tree-mode)
-    (setq undo-tree-visualizer-timestamps t)
-    (setq undo-tree-visualizer-diff t)
+    (progn
+      (global-undo-tree-mode)
+      (setq undo-tree-visualizer-timestamps t
+            undo-tree-visualizer-diff t))
     :config
-    (spacemacs|hide-lighter undo-tree-mode)))
+    (progn
+      ;; restore diff window after quit.  TODO fix upstream
+      (defun spacemacs/undo-tree-restore-default ()
+        (setq undo-tree-visualizer-diff t))
+      (advice-add 'undo-tree-visualizer-quit :after #'spacemacs/undo-tree-restore-default)
+
+      (spacemacs|hide-lighter undo-tree-mode)
+      (evil-define-key 'motion undo-tree-visualizer-mode-map
+        "k" 'undo-tree-visualize-undo
+        "j" 'undo-tree-visualize-redo
+        "t" 'undo-tree-visualizer-toggle-timestamps
+        "l" 'undo-tree-visualize-switch-branch-right
+        "h" 'undo-tree-visualize-switch-branch-left)
+      (evil-define-key 'motion undo-tree-visualizer-selection-mode-map
+        "k "'undo-tree-visualizer-select-previous
+        "j" 'undo-tree-visualizer-select-next
+        "t" 'undo-tree-visualizer-toggle-timestamps
+        "l" 'undo-tree-visualizer-select-right
+        "h" 'undo-tree-visualizer-select-left))))
 
 (defun spacemacs-editing/init-uuidgen ()
   (use-package uuidgen
