@@ -27,4 +27,5 @@
       "L" 'prodigy-start
       "d" 'prodigy-jump-dired
       "g" 'prodigy-jump-magit
-      "Y" 'prodigy-copy-cmd)))
+      "Y" 'prodigy-copy-cmd
+      "R" 'revert-buffer)))
