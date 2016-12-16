@@ -9,7 +9,14 @@
 ;;
 ;;; License: GPLv3
 
+;; variables
+
+(defvar ansible-auto-encrypt-descrypt t
+  "Set it to non-nil to seamlessly edit `ansible-vault' encrypted files.
+If non-nil then encrypted files are automatically decrypted when opened and
+ encrypted when saved.")
+
 ;; detect filenames compatible with Ansible's recommended layout.
 ;; http://docs.ansible.com/playbooks_best_practices.html#directory-layout
-(setq ansible/ansible-filename-re
-      "\\(site\.yml\\|roles/.+\.yml\\|group_vars/.+\\|host_vars/.+\\)")
+(setq spacemacs--ansible-filename-re
+      ".*\\(main\.yml\\|site\.yml\\|encrypted\.yml\\|roles/.+\.yml\\|group_vars/.+\\|host_vars/.+\\)")
