@@ -49,7 +49,7 @@
         "p" 'restclient-jump-prev
         "s" 'restclient-http-send-current-stay-in-window
         "S" 'restclient-http-send-current
-        "r" 'restclient-http-send-current-raw-stay-in-window
+        "r" 'spacemacs/restclient-http-send-current-raw-stay-in-window
         "R" 'restclient-http-send-current-raw
         "y" 'restclient-copy-curl-command))))
 
@@ -63,4 +63,5 @@
 
 (defun restclient/init-restclient-helm ()
   (use-package restclient-helm
-    :init (spacemacs/set-leader-keys "ji" 'helm-restclient)))
+    :init (spacemacs/set-leader-keys-for-major-mode 'restclient-mode
+            "ji" 'helm-restclient)))
