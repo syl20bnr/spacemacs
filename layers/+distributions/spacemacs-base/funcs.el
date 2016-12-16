@@ -47,6 +47,8 @@ the current state and point position."
   (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
 
 (defun spacemacs/evil-goto-next-line-and-indent (&optional count)
+  "Match the current lines indentation to the next line.
+A COUNT argument matches the indentation to the next COUNT lines."
   (interactive "p")
   (let ((counter (or count 1)))
     (while (> counter 0)
