@@ -13,6 +13,7 @@
    - [[#twitter-bootstrap-support][Twitter Bootstrap support]]
    - [[#gnuplot-support][Gnuplot support]]
    - [[#revealjs-support][Reveal.js support]]
+   - [[#org-journal-support][Org-journal support]]
    - [[#different-bullets][Different bullets]]
    - [[#project-support][Project support]]
    - [[#mode-line-support][Mode line support]]
@@ -35,6 +36,7 @@
    - [[#org-mime][Org-MIME]]
    - [[#org-download][Org-download]]
    - [[#org-projectile][Org-projectile]]
+   - [[#org-journal][Org-journal]]
 
 * Description
 This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
@@ -121,6 +123,85 @@ to each =.org= file you want to process:
 #+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
 #+END_EXAMPLE
 
+** Org-journal support
+
+[[https://github.com/bastibe/org-journal][org-journal]] is a simple journal management system for keeping a seperate journal
+file for each day inside a directory.
+
+To install org-journal set the variable =org-enable-org-journal-support= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (org :variables
+         org-enable-org-journal-support t)))
+#+END_SRC
+
+By default journal files are stored in =~/Documents/journal/=. You can override
+this by setting =org-journal-dir= in =dotspacemacs/user-config=
+
+#+BEGIN_SRC emacs-lisp
+    (setq org-journal-dir "~/org/journal/")
+#+END_SRC
+
+You can change the journal file name format by altering
+=org-journal-file-format=.
+
+#+BEGIN_SRC emacs-lisp
+    (setq org-journal-file-format "%Y-%m-%d")
+#+END_SRC
+
+*Warning:* setting =org-journal-file-format= to include a file extension like
+=%Y-%m-%d.org= breaks calender search functionality.
+
+By default journal files are started with a first level heading (=*=) followed
+by the date formatted for the locale. If you prefer that your journal files are
+formatted differently you can alter =org-journal-date-prefix= and
+=org-journal-date-format=.
+
+For example, to have your new journal files created with this header:
+
+#+BEGIN_EXAMPLE
+#+TITLE: Tuesday, September 06 2016
+#+END_EXAMPLE
+
+Simply define the following in =dotspacemacs/user-config=
+
+#+BEGIN_SRC emacs-lisp
+    (setq org-journal-date-prefix "#+TITLE: ")
+    (setq org-journal-date-format "%A, %B %d %Y")
+#+END_SRC
+
+The default entry is a second level heading (=** =) followed by a timestamp. If
+you start your journal files with a Title as shown above you may want to adjust
+entries to start at the first level heading and you may want to change or omit
+the timestamp.
+
+#+BEGIN_SRC emacs-lisp
+    (setq org-journal-time-prefix "* ")
+    (setq org-journal-time-format "")
+#+END_SRC
+
+Any of the org-journal settings can be configured in =dotspacemacs/user-config=
+or defined along side the layer itself.
+
+For example:
+
+#+Caption: Configure org-journal with the layer
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+                                                    (org :variables
+                                                         org-enable-org-journal-support t
+                                                         org-journal-dir "~/org/journal/"
+                                                         org-journal-file-format "%Y-%m-%d"
+                                                         org-journal-date-prefix "#+TITLE: "
+                                                         org-journal-date-format "%A, %B %d %Y"
+                                                         org-journal-time-prefix "* "
+                                                         org-journal-time-format "")
+                                                    )
+#+END_SRC
+
+
+
 ** Different bullets
 You can tweak the bullets displayed in the org buffer in the function
 =dotspacemacs/user-config= of your dotfile by setting the variable
@@ -201,7 +282,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC m C~                                    | evil-org-recompute-clocks                    |
 | ~SPC m d~                                    | org-deadline                                 |
 | ~SPC m D~                                    | org-insert-drawer                            |
-| ~SPC m e~                                    | org-export-dispatch                          |
+| ~SPC m e e~                                  | org-export-dispatch                          |
 | ~SPC m f~                                    | org-set-effort                               |
 | ~SPC m I~                                    | org-clock-in                                 |
 | ~SPC m l~                                    | org-open-at-point                            |
@@ -493,3 +574,33 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 | ~SPC a o p~       | Capture a TODO for the current project                  |
 | ~SPC u SPC a o p~ | Capture a TODO for any given project (choose from list) |
 | ~SPC p o~         | Go to the TODOs for the current project                 |
+
+** Org-journal
+
+| Key Binding   | Description            |
+|---------------+------------------------|
+| ~SPC a o j j~ | New journal entry      |
+| ~SPC a o j s~ | Search journal entries |
+
+Journal entries are highlighted in the calander. The following key bindings are
+available for =calander-mode= for navigating and manipulating the journal.
+
+| Key Binding | Description                           |
+|-------------+---------------------------------------|
+| ~SPC m r~   | Read journal entry                    |
+| ~SPC m i~   | Insert journal entry for date         |
+| ~SPC m n~   | Next journal entry                    |
+| ~SPC m p~   | Previous journal entry                |
+| ~SPC m s~   | Search all journal entries            |
+| ~SPC m w~   | Search calendar week journal entries  |
+| ~SPC m m~   | Search calendar month journal entries |
+| ~SPC m y~   | Search calendar year journal entries  |
+
+While viewing a journal entry in =org-journal-mode= the following key bindings
+are available.
+
+| Key Binding | Description            |
+|-------------+------------------------|
+| ~SPC m j~   | New journal entry      |
+| ~SPC m p~   | Previous journal entry |
+| ~SPC m n~   | Next journal entry     |

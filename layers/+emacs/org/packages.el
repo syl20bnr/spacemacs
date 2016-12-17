@@ -24,6 +24,7 @@
     (org :location built-in)
     (org-agenda :location built-in)
     (org-expiry :location built-in)
+    (org-journal :toggle org-enable-org-journal-support)
     org-download
     ;; org-mime is installed by `org-plus-contrib'
     (org-mime :location built-in)
@@ -134,7 +135,7 @@
 
       (with-eval-after-load 'org-src
         (spacemacs/set-leader-keys-for-minor-mode 'org-src-mode
-          "'" 'org-edit-src-exit
+          dotspacemacs-major-mode-leader-key 'org-edit-src-exit
           "c" 'org-edit-src-exit
           "a" 'org-edit-src-abort
           "k" 'org-edit-src-abort))
@@ -159,7 +160,8 @@ Will work on both org-mode and any mode that accepts plain html."
             (insert (format tag ""))
             (forward-char -8))))
 
-      (dolist (prefix '(("mx" . "text")
+      (dolist (prefix '(("me" . "export")
+                        ("mx" . "text")
                         ("mh" . "headings")
                         ("mi" . "insert")
                         ("mS" . "subtrees")
@@ -173,7 +175,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "c" 'org-capture
         "d" 'org-deadline
         "D" 'org-insert-drawer
-        "e" 'org-export-dispatch
+        "ee" 'org-export-dispatch
         "f" 'org-set-effort
         "P" 'org-set-property
         ":" 'org-set-tags
@@ -554,3 +556,29 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (if agenda-files
           (find-file (first agenda-files))
         (user-error "Error: No agenda files configured, nothing to display.")))))
+
+(defun org/init-org-journal ()
+  (use-package org-journal
+    :defer t
+    :commands (org-journal-new-entry org-journal-search-forever)
+    :init
+    (progn
+      (spacemacs/declare-prefix "aoj" "org-journal")
+      (spacemacs/set-leader-keys
+        "aojj" 'org-journal-new-entry
+        "aojs" 'org-journal-search-forever)
+
+      (spacemacs/set-leader-keys-for-major-mode 'calendar-mode
+        "r" 'org-journal-read-entry
+        "i" 'org-journal-new-date-entry
+        "n" 'org-journal-next-entry
+        "p" 'org-journal-previous-entry
+        "s" 'org-journal-search-forever
+        "w" 'org-journal-search-calendar-week
+        "m" 'org-journal-search-calendar-month
+        "y" 'org-journal-search-calendar-year)
+
+      (spacemacs/set-leader-keys-for-major-mode 'org-journal-mode
+        "j" 'org-journal-new-entry
+        "n" 'org-journal-open-next-entry
+        "p" 'org-journal-open-previous-entry))))

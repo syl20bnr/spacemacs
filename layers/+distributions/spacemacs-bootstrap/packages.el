@@ -275,13 +275,14 @@
 
   (spacemacs/set-leader-keys "hk" 'which-key-show-top-level)
 
+  ;; Needed to avoid nil variable error before update to recent which-key
+  (defvar which-key-replacement-alist nil)
   ;; Replace rules for better naming of functions
   (let ((new-descriptions
          ;; being higher in this list means the replacement is applied later
          '(
            ("spacemacs/\\(.+\\)" . "\\1")
            ("spacemacs/toggle-\\(.+\\)" . "\\1")
-           ("select-window-\\([0-9]\\)" . "window \\1")
            ("spacemacs/alternate-buffer" . "last buffer")
            ("spacemacs/toggle-mode-line-\\(.+\\)" . "\\1")
            ("avy-goto-word-or-subword-1" . "avy word")
@@ -300,12 +301,16 @@
            ("spacemacs/toggle-hybrid-mode" . "hybrid (hybrid-mode)")
            ("spacemacs/toggle-holy-mode" . "emacs (holy-mode)")
            ("evil-lisp-state-\\(.+\\)" . "\\1")
-           ("\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
-           ("\\(.+\\)-transient-state/body" . "\\1-transient-state"))))
+           ("spacemacs/\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
+           ("spacemacs/\\(.+\\)-transient-state/body" . "\\1-transient-state"))))
     (dolist (nd new-descriptions)
       ;; ensure the target matches the whole string
-      (push (cons (concat "\\`" (car nd) "\\'") (cdr nd))
-            which-key-description-replacement-alist)))
+      (push (cons (cons nil (concat "\\`" (car nd) "\\'")) (cons nil (cdr nd)))
+            which-key-replacement-alist)))
+
+  (push '(("\\(.*\\) 0" . "select-window-0") . ("\\1 0..9" . "window 0..9"))
+        which-key-replacement-alist)
+  (push '((nil . "select-window-[1-9]") . t) which-key-replacement-alist)
 
   (dolist (leader-key `(,dotspacemacs-leader-key ,dotspacemacs-emacs-leader-key))
     (which-key-add-key-based-replacements

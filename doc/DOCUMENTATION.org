@@ -94,6 +94,7 @@
        - [[#c-z-and-tab-switch][C-z and Tab switch]]
        - [[#helm-focus][Helm focus]]
        - [[#helm-transient-state][Helm transient state]]
+     - [[#ivy][Ivy]]
    - [[#discovering][Discovering]]
      - [[#key-bindings][Key bindings]]
        - [[#which-key][Which-key]]
@@ -1587,6 +1588,19 @@ Initiate the transient state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
 | ~T~                  | mark all candidates                                  |
 | ~v~                  | execute persistent action                            |
 
+*** Ivy
+If you choose =ivy= as completion system, make sure to read [[http://oremacs.com/swiper/][official manual]]. In
+case you don't want to read everything, at least familiarise with [[http://oremacs.com/swiper/#minibuffer-key-bindings][minibuffer key
+bindings]]. Some useful key bindings are presented in following table.
+
+| Key Binding    | Description                                                                                          |
+|----------------+------------------------------------------------------------------------------------------------------|
+| ~C-m~ or ~RET~ | call default action on current candidate                                                             |
+| ~M-o~          | show the list of valid actions on current candidate (then press any of described keys to execute it) |
+| ~C-M-m~        | the same as ~RET~ but doesn't close completion minibuffer                                            |
+| ~C-M-o~        | the same as ~M-o~ but doesn't close completion minibuffer                                            |
+| ~C-'~          | use avy to quickly select completion on current page (sometimes faster than using arrows)            |
+
 ** Discovering
 *** Key bindings
 **** Which-key
@@ -1967,11 +1981,12 @@ Buffer manipulation commands (start with ~b~):
 | ~SPC u SPC b d~ | kill the current buffer and window (does not delete the visited file)    |
 | ~SPC b D~       | kill a visible buffer using [[https://github.com/abo-abo/ace-window][ace-window]]                                   |
 | ~SPC u SPC b D~ | kill a visible buffer and its window using [[https://github.com/abo-abo/ace-window][ace-window]]                    |
-| ~SPC b C-d~     | kill buffers using a regular expression                                  |
+| ~SPC b C-d~     | kill other buffers                                                       |
+| ~SPC b C-D~     | kill buffers using a regular expression                                  |
 | ~SPC b e~       | erase the content of the buffer (ask for confirmation)                   |
 | ~SPC b h~       | open =*spacemacs*= home buffer                                           |
 | ~SPC b n~       | switch to next buffer avoiding special buffers                           |
-| ~SPC b m~       | kill all buffers except the current one                                  |
+| ~SPC b m~       | open =*Messages*= buffer                                                 |
 | ~SPC u SPC b m~ | kill all buffers and windows except the current one                      |
 | ~SPC b M~       | kill all buffers matching the regexp                                     |
 | ~SPC b p~       | switch to previous buffer avoiding special buffers                       |
@@ -2158,6 +2173,7 @@ open the file in a split window with ~|~ and ~-~:
 |-------------+---------------------------------|
 | ~TAB~       | toggle stretching of the buffer |
 | ~c~         | create a node                   |
+| ~C~         | copy a node                     |
 | ~d~         | delete a node                   |
 | ~gr~        | refresh                         |
 | ~s~         | toggle showing of hidden files  |
@@ -2289,10 +2305,11 @@ You can toggle auto-save in a buffer by calling the command =auto-save-mode=.
 ** Searching
 *** With an external tool
 Spacemacs can be interfaced with different search utilities like:
-  - ack
-  - grep
+  - [[https://github.com/BurntSushi/ripgrep][rg]]
   - [[https://github.com/ggreer/the_silver_searcher][ag]]
   - [[https://github.com/monochromegane/the_platinum_searcher][pt]]
+  - [[http://beyondgrep.com/][ack]]
+  - grep
 
 The search commands in Spacemacs are organized under the ~SPC s~ prefix with the
 next key is the tool to use and the last key is the scope. For instance ~SPC s a
@@ -2304,9 +2321,9 @@ a B~ will search with symbol under point (if there is no active region).
 
 If the tool key is omitted then a default tool will be automatically selected
 for the search. This tool corresponds to the first tool found on the system of
-the list =dotspacemacs-search-tools=, the default order is =ag=, =pt=, =ack=
-then =grep=. For instance ~SPC s b~ will search in the opened buffers using =pt=
-if =ag= has not been found on the system.
+the list =dotspacemacs-search-tools=, the default order is =rg=, =ag=, =pt=,
+=ack= then =grep=. For instance ~SPC s b~ will search in the opened buffers
+using =pt= if =rg= and =ag= have not been found on the system.
 
 The tool keys are:
 
@@ -2315,6 +2332,7 @@ The tool keys are:
 | ag   | a   |
 | grep | g   |
 | ack  | k   |
+| rg   | r   |
 | pt   | t   |
 
 The available scopes and corresponding keys are:
@@ -2330,7 +2348,7 @@ of the sequence, for instance ~SPC s a a~ will search in the current
 file with =ag=.
 
 *Notes*:
-- =ag= and =pt= are optimized to be used in a source control repository but
+- =rg=, =ag= and =pt= are optimized to be used in a source control repository but
   they can be used in an arbitrary directory as well.
 - It is also possible to search in several directories at once by marking
   them in the helm buffer.
@@ -2362,6 +2380,8 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e~
 | ~SPC s a A~ | =ag= with default input                             |
 | ~SPC s g g~ | =grep=                                              |
 | ~SPC s g G~ | =grep= with default input                           |
+| ~SPC s r r~ | =rg=                                                |
+| ~SPC s r R~ | =rg= with default input                             |
 
 **** Searching in all open buffers visiting files
 
@@ -2375,6 +2395,8 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e~
 | ~SPC s g B~ | =grep= with default text                            |
 | ~SPC s k b~ | =ack=                                               |
 | ~SPC s k B~ | =ack= with default text                             |
+| ~SPC s r b~ | =rg=                                                |
+| ~SPC s r B~ | =rg= with default text                              |
 | ~SPC s t b~ | =pt=                                                |
 | ~SPC s t B~ | =pt= with default text                              |
 
@@ -2390,6 +2412,8 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e~
 | ~SPC s g F~ | =grep= with default text                            |
 | ~SPC s k f~ | =ack=                                               |
 | ~SPC s k F~ | =ack= with default text                             |
+| ~SPC s r f~ | =rg=                                                |
+| ~SPC s r F~ | =rg= with default text                              |
 | ~SPC s t f~ | =pt=                                                |
 | ~SPC s t F~ | =pt= with default text                              |
 
@@ -2406,6 +2430,8 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e~
 | ~SPC s k P~           | =ack= with default text                             |
 | ~SPC s t p~           | =pt=                                                |
 | ~SPC s t P~           | =pt= with default text                              |
+| ~SPC s r p~           | =rg=                                                |
+| ~SPC s r P~           | =rg= with default text                              |
 
 *Hint*: It is also possible to search in a project without needing to open a
 file beforehand. To do so use ~SPC p p~ and then ~C-s~ on a given project to
@@ -2789,8 +2815,8 @@ an ~occurrence~.
    e p ESC ESC~
 
 *** Replacing text in several files
-If you have =ag=, =pt= or =ack= installed, replacing an occurrence of text in
-several files can be performed via [[https://github.com/syohex/emacs-helm-ag][helm-ag]].
+If you have =rg=, =ag=, =pt= or =ack= installed, replacing an occurrence of text
+in several files can be performed via [[https://github.com/syohex/emacs-helm-ag][helm-ag]].
 
 Say you want to replace all =foo= occurrences by =bar= in your current
 project:
@@ -2800,8 +2826,8 @@ project:
   - edit the occurrences then leave the =iedit state=
   - press ~C-c C-c~
 
-*Note*: In Spacemacs, =helm-ag= despite its name works with =ack= and =pt= as
-well (but not with =grep=).
+*Note*: In Spacemacs, =helm-ag= despite its name works with =rg=, =pt= and =ack=
+as well (but not with =grep=).
 
 *** Renaming files in a directory
 It is possible to batch rename files in a directory using =wdired= from an
@@ -2827,7 +2853,7 @@ Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][ev
 | ~SPC c y~   | comment and yank          |
 | ~SPC c Y~   | invert comment and yank   |
 
-*Tips:* To comment efficiently a block of line use the combo ~SPC ; SPC y~
+*Tips:* To comment efficiently a block of line use the combo ~SPC ; SPC j l~
 
 *** Regular expressions
 Spacemacs uses the packages [[https://github.com/joddie/pcre2el][pcre2el]] to manipulate regular expressions. It is
@@ -3006,6 +3032,7 @@ To search in a project see [[Searching in a project][project searching]].
 | ~SPC s g p~ | run =grep=                                              |
 | ~SPC s k p~ | run =ack=                                               |
 | ~SPC s t p~ | run =pt=                                                |
+| ~SPC s r p~ | run =rg=                                                |
 
 *Note for Windows Users*: To enable fast indexing the GNU ~find~ or
 Cygwin ~find~ must be in your ~PATH~.

@@ -16,6 +16,7 @@
 (require 'core-debug)
 (require 'core-command-line)
 (require 'core-dotspacemacs)
+(require 'core-custom-settings)
 (require 'core-release-management)
 (require 'core-auto-completion)
 (require 'core-jump)
@@ -81,7 +82,8 @@ the final step of executing code in `emacs-startup-hook'.")
   (require 'core-configuration-layer)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
   (when dotspacemacs-maximized-at-startup
-    (toggle-frame-maximized)
+    (unless (frame-parameter nil 'fullscreen)
+      (toggle-frame-maximized))
     (add-to-list 'default-frame-alist '(fullscreen . maximized)))
   (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
   (setq dotspacemacs-editing-style (dotspacemacs//read-editing-style-config
@@ -136,7 +138,9 @@ the final step of executing code in `emacs-startup-hook'.")
                                       "with this build.")))
   ;; check for new version
   (if dotspacemacs-mode-line-unicode-symbols
-      (setq-default spacemacs-version-check-lighter "[⇪]")))
+      (setq-default spacemacs-version-check-lighter "[⇪]"))
+  ;; install the dotfile if required
+  (spacemacs/maybe-install-dotfile))
 
 (defun spacemacs//removes-gui-elements ()
   "Remove the menu bar, tool bar and scroll bars."
@@ -191,6 +195,8 @@ defer call using `spacemacs-post-user-config-hook'."
      ;; them in his/her ~/.spacemacs file
      (dotspacemacs|call-func dotspacemacs/user-config
                              "Calling dotfile user config...")
+     (dotspacemacs|call-func dotspacemacs/emacs-custom-settings
+                             "Calling dotfile Emacs custom settings...")
      (run-hooks 'spacemacs-post-user-config-hook)
      (setq spacemacs-post-user-config-hook-run t)
      (when (fboundp dotspacemacs-scratch-mode)
@@ -337,8 +343,10 @@ Markdown syntax is supported in this buffer.
   (interactive)
   (let ((url "http://github.com/syl20bnr/spacemacs/issues/new?body="))
     (setq url (url-encode-url (concat url (buffer-string))))
-    ;; HACK: Needed because the first `#' is not encoded
+    ;; HACK: encode some characters according to HTML URL Encoding Reference
+    ;; http://www.w3schools.com/tags/ref_urlencode.asp
     (setq url (replace-regexp-in-string "#" "%23" url))
+    (setq url (replace-regexp-in-string ";" "%3B" url))
     (browse-url url)))
 
 (provide 'core-spacemacs)

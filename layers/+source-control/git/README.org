@@ -37,7 +37,7 @@ This layers adds extensive support for [[http://git-scm.com/][git]].
 - gitignore generator with [[https://github.com/jupl/helm-gitignore][helm-gitignore]]
 - org integration with magit via [[https://github.com/magit/orgit][orgit]]
 
-New to Magit? Checkout the [[http://magit.vc/about.html][official intro]].
+New to Magit? Checkout the [[https://magit.vc/about/][official intro]].
 
 * Install
 ** Layer
@@ -178,8 +178,8 @@ intended. To work around this, you can use =v= instead (since Magit only stages
 whole lines, in any case).
 
 ** Commit message editing buffer
-In a commit message buffer press ~,c~ (if =dotspacemacs-major-mode-leader-key= is ~​,​~)
-or ~C-c C-c~ to commit the changes with the entered message. Pressing ~,a~ or ~C-c C-k~
+In a commit message buffer press ~​,​c~ (if =dotspacemacs-major-mode-leader-key= is ~​,​~)
+or ~C-c C-c~ to commit the changes with the entered message. Pressing ~​,​a~ or ~C-c C-k~
 will discard the commit message.
 
 | Key Binding | Description |
@@ -211,14 +211,14 @@ will discard the commit message.
 - Amend a commit:
   - ~l l~ to open =log buffer=
   - ~c a~ on the commit you want to amend
-  - ~,c~ or ~C-c C-c~ to submit the changes
+  - ~​,​c~ or ~C-c C-c~ to submit the changes
 - Squash last commit:
   - ~l l~ to open =log buffer=
   - ~r e~ on the second to last commit, it opens the =rebase buffer=
   - ~j~ to put point on last commit
   - ~s~ to squash it
-  - ~,c~ or ~C-c C-c~ to continue to the =commit message buffer=
-  - ~,c~ or ~C-c C-c~ again when you have finished to edit the commit message
+  - ~​,​c~ or ~C-c C-c~ to continue to the =commit message buffer=
+  - ~​,​c~ or ~C-c C-c~ again when you have finished to edit the commit message
 - Force push a squashed commit:
   - in the =status buffer= you should see the new commit unpushed and the old
     commit unpulled

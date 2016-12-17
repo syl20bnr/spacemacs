@@ -65,7 +65,8 @@
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "=" 'rust-format-buffer))))
+        "=" 'rust-format-buffer
+        "q" 'spacemacs/rust-quick-run))))
 
 (defun rust/init-toml-mode ()
   (use-package toml-mode
@@ -94,4 +95,10 @@
     (progn
       (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode eldoc-mode))
       (spacemacs/declare-prefix-for-mode 'rust-mode "mg" "goto")
-      (add-to-list 'spacemacs-jump-handlers-rust-mode 'racer-find-definition))))
+      (add-to-list 'spacemacs-jump-handlers-rust-mode 'racer-find-definition)
+      (spacemacs/declare-prefix-for-mode 'rust-mode "mh" "help")
+      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+        "hh" 'spacemacs/racer-describe))
+    :config
+    (evilified-state-evilify-map racer-help-mode-map
+      :mode racer-help-mode)))

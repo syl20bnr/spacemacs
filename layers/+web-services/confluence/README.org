@@ -1,0 +1,63 @@
+#+TITLE: Confluence layer
+
+[[file:img/confluence.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+ - [[#configuration][Configuration]]
+ - [[#about-xlm-and-wiki-formats][About xlm and wiki formats]]
+ - [[#key-bindings][Key bindings]]
+   - [[#confluence-page][Confluence page]]
+   - [[#org][Org]]
+
+* Description
+This layer add support for Atlassian [[https://www.atlassian.com/software/confluence][Confluence]] to create/edit Confluence pages
+and export org buffers to Confluence =wiki= format.
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =confluence= to the existing =dotspacemacs-configuration-layers= list in
+this file.
+
+* Configuration
+Define the variable =confluence-url= to point on your Confluence server
+=xmlrpc= endpoint.
+
+#+BEGIN_SRC emacs-lisp
+(setq confluence-url "https://<host>/confluence/rpc/xmlrpc")
+#+END_SRC
+
+To be able to convert from =xml= format to the =wiki= format you need to
+install the tool =xsltproc=.
+
+* About xlm and wiki formats
+In confluence version 4.0, Atlassian decided to change the wiki format. They did
+away with the =wiki= format and changed the internal document format to =xml=.
+
+By default the new =xml= format is used to edit the files. You can convert a
+Confluence page buffer to =wiki= format with ~SPC m TAB~, it will be
+automatically converted back to =xml= before sending it to the server.
+
+Note that =xml= to =wiki= conversion is not 100% accurate.
+
+Although it is not recommended you can set the variable
+=confluence-xml-convert-to-wiki-on-load= to t in order to automatically
+convert =xml= content to =wiki= content on page load.
+
+* Key bindings
+** Confluence page
+
+| Key Binding | Description                                              |
+|-------------+----------------------------------------------------------|
+| ~SPC m TAB~ | toggle the content type to =wiki= format or =xml= format |
+| ~SPC m s~   | save the buffer on the confluence server as a minor edit |
+| ~SPC m S~   | save the buffer on the confluence server as a major edit |
+
+** Org
+
+| Key Binding | Description                                                    |
+|-------------+----------------------------------------------------------------|
+| ~SPC m e c~ | in a org buffer, export the buffer to Confluence =wiki= format |

@@ -13,7 +13,8 @@
 ;; Variables
 
 (defvar spacemacs--counsel-commands
-  '(("ag" . "ag --nocolor --nogroup %s %S .")
+  '(("rg" . "rg --smart-case --no-heading --vimgrep %s %S .")
+    ("ag" . "ag --nocolor --nogroup %s %S .")
     ("pt" . "pt -e --nocolor --nogroup %s %S .")
     ("ack" . "ack --nocolor --nogroup %s %S .")
     ("grep" . "grep -nrP %s %S ."))

@@ -9,113 +9,117 @@
 ;;
 (require 'core-spacemacs-buffer)
 
-(setq-default fill-column 80)
+(setq-default fill-column 80
+	      spacemacs-buffer--window-width 75)
 
 ;; ---------------------------------------------------------------------------
-;; spacemacs//render-framed-text
+;; spacemacs-buffer//notes-render-framed-text
 ;; ---------------------------------------------------------------------------
 
 (defvar test-text
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
 
 (ert-deftest test-render-framed-text--msg-width-caption-and-padding ()
-  (should (equal (spacemacs//render-framed-text test-text 32 "Caption" 4)
-                 "╭─Caption──────────────────────╮
+  (should (equal (spacemacs-buffer//notes-render-framed-text test-text "Caption" "Botcaption" 4 32 32)
+		 "╭─ Caption ────────────────────╮
 │                              │
-│    Lorem ipsum  dolor sit    │
-│    amet,      consectetur    │
-│    adipiscing  elit,  sed    │
-│    do    eiusmod   tempor    │
-│    incididunt  ut  labore    │
-│    et     dolore    magna    │
+│    Lorem ipsum dolor sit     │
+│    amet, consectetur         │
+│    adipiscing elit, sed      │
+│    do eiusmod tempor         │
+│    incididunt ut labore      │
+│    et dolore magna           │
 │    aliqua.                   │
 │                              │
-╰──────────────────────────────╯"
+╰─ Botcaption ─────────────────╯
+"
                  )))
 
 (ert-deftest test-render-framed-text--msg-width-caption-no-padding ()
-  (should (equal (spacemacs//render-framed-text test-text 32 "Caption")
-                 "╭─Caption──────────────────────╮
+  (should (equal (spacemacs-buffer//notes-render-framed-text test-text "Caption" "Botcaption" nil 32 32)
+		 "╭─ Caption ────────────────────╮
 │                              │
-│ Lorem ipsum  dolor sit amet, │
+│ Lorem ipsum dolor sit amet,  │
 │ consectetur adipiscing elit, │
-│ sed   do    eiusmod   tempor │
-│ incididunt   ut  labore   et │
+│ sed do eiusmod tempor        │
+│ incididunt ut labore et      │
 │ dolore magna aliqua.         │
 │                              │
-╰──────────────────────────────╯"
+╰─ Botcaption ─────────────────╯
+"
                  )))
 
 (ert-deftest test-render-framed-text--msg-width-no-caption-no-padding ()
-  (should (equal (spacemacs//render-framed-text test-text 32)
+  (should (equal (spacemacs-buffer//notes-render-framed-text test-text nil nil nil 32 32)
                  "╭──────────────────────────────╮
 │                              │
-│ Lorem ipsum  dolor sit amet, │
+│ Lorem ipsum dolor sit amet,  │
 │ consectetur adipiscing elit, │
-│ sed   do    eiusmod   tempor │
-│ incididunt   ut  labore   et │
+│ sed do eiusmod tempor        │
+│ incididunt ut labore et      │
 │ dolore magna aliqua.         │
 │                              │
 ╰──────────────────────────────╯"
                  )))
 
 (ert-deftest test-render-framed-text--msg-no-width-no-caption-no-padding ()
-  (should (equal (spacemacs//render-framed-text test-text)
-                 "╭──────────────────────────────────────────────────────────────────────────────────╮
-│                                                                                  │
-│ Lorem ipsum dolor  sit amet, consectetur adipiscing elit, sed  do eiusmod tempor │
-│ incididunt ut labore et dolore magna aliqua.                                     │
-│                                                                                  │
-╰──────────────────────────────────────────────────────────────────────────────────╯"
+  (should (equal (spacemacs-buffer//notes-render-framed-text test-text)
+		 "╭─────────────────────────────────────────────────────────────────────────╮
+│                                                                         │
+│ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod │
+│ tempor incididunt ut labore et dolore magna aliqua.                     │
+│                                                                         │
+╰─────────────────────────────────────────────────────────────────────────╯"
                  )))
 
 (ert-deftest test-render-framed-text--msg-short-text ()
-  (should (equal (spacemacs//render-framed-text "Short content.")
-                 "╭──────────────────────────────────────────────────────────────────────────────────╮
-│                                                                                  │
-│ Short content.                                                                   │
-│                                                                                  │
-╰──────────────────────────────────────────────────────────────────────────────────╯"
+  (should (equal (spacemacs-buffer//notes-render-framed-text "Short content.")
+		 "╭────────────────╮
+│                │
+│ Short content. │
+│                │
+╰────────────────╯"
                  )))
 
 (ert-deftest test-render-framed-text--msg-several-paragraphs ()
-  (should (equal (spacemacs//render-framed-text
+  (should (equal (spacemacs-buffer//notes-render-framed-text
                   (concat "\n"
                           test-text "\n\n\n"
                           test-text "\n\n"
-                          test-text "\n"))
-                 "╭──────────────────────────────────────────────────────────────────────────────────╮
-│                                                                                  │
-│                                                                                  │
-│ Lorem ipsum dolor  sit amet, consectetur adipiscing elit, sed  do eiusmod tempor │
-│ incididunt ut labore et dolore magna aliqua.                                     │
-│                                                                                  │
-│                                                                                  │
-│ Lorem ipsum dolor  sit amet, consectetur adipiscing elit, sed  do eiusmod tempor │
-│ incididunt ut labore et dolore magna aliqua.                                     │
-│                                                                                  │
-│ Lorem ipsum dolor  sit amet, consectetur adipiscing elit, sed  do eiusmod tempor │
-│ incididunt ut labore et dolore magna aliqua.                                     │
-│                                                                                  │
-│                                                                                  │
-╰──────────────────────────────────────────────────────────────────────────────────╯"
+			  test-text "\n"))
+		 "╭─────────────────────────────────────────────────────────────────────────╮
+│                                                                         │
+│                                                                         │
+│ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod │
+│ tempor incididunt ut labore et dolore magna aliqua.                     │
+│                                                                         │
+│                                                                         │
+│ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod │
+│ tempor incididunt ut labore et dolore magna aliqua.                     │
+│                                                                         │
+│ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod │
+│ tempor incididunt ut labore et dolore magna aliqua.                     │
+│                                                                         │
+│                                                                         │
+╰─────────────────────────────────────────────────────────────────────────╯"
                  )))
 
 (ert-deftest test-render-framed-text--file-caption-and-padding ()
-  (should (equal (spacemacs//render-framed-text
+  (should (equal (spacemacs-buffer//notes-render-framed-text
                   (concat spacemacs-test-directory "core/data/framed-text.txt")
-                  62 "Caption" 4)
-                 "╭─Caption────────────────────────────────────────────────────╮
+		  "Caption" "Botcaption" 4 62 62)
+		 "╭─ Caption ──────────────────────────────────────────────────╮
 │                                                            │
-│    Lorem ipsum  dolor sit amet,  consectetur adipiscing    │
-│    elit, sed do eiusmod  tempor incididunt ut labore et    │
-│    dolore magna  aliqua. Ut enim ad  minim veniam, quis    │
+│    Lorem ipsum dolor sit amet, consectetur adipiscing      │
+│    elit, sed do eiusmod tempor incididunt ut labore et     │
+│    dolore magna aliqua. Ut enim ad minim veniam, quis      │
 │    nostrud exercitation ullamco laboris nisi ut aliquip    │
-│    ex ea  commodo consequat.  Duis aute irure  dolor in    │
-│    reprehenderit in voluptate  velit esse cillum dolore    │
-│    eu  fugiat nulla  pariatur. Excepteur  sint occaecat    │
-│    cupidatat non  proident, sunt  in culpa  qui officia    │
+│    ex ea commodo consequat. Duis aute irure dolor in       │
+│    reprehenderit in voluptate velit esse cillum dolore     │
+│    eu fugiat nulla pariatur. Excepteur sint occaecat       │
+│    cupidatat non proident, sunt in culpa qui officia       │
 │    deserunt mollit anim id est laborum.                    │
 │                                                            │
-╰────────────────────────────────────────────────────────────╯"
+╰─ Botcaption ───────────────────────────────────────────────╯
+"
                  )))
