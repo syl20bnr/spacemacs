@@ -25,6 +25,7 @@
         evil-matchit
         evil-numbers
         evil-search-highlight-persist
+        evil-smartparens
         evil-surround
         ;; Temporarily disabled, pending the resolution of
         ;; https://github.com/7696122/evil-terminal-cursor-changer/issues/8
@@ -210,6 +211,11 @@
                           'evil-search-highlight-persist-remove-all)
       (spacemacs//adaptive-evil-highlight-persist-face)
       (add-hook 'spacemacs-post-theme-change-hook 'spacemacs//adaptive-evil-highlight-persist-face))))
+
+(defun spacemacs-evil/init-evil-smartparens ()
+  (use-package evil-smartparens
+    :defer t
+    :init (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)))
 
 (defun spacemacs-evil/init-evil-surround ()
   (use-package evil-surround
