@@ -86,6 +86,10 @@ the final step of executing code in `emacs-startup-hook'.")
       (toggle-frame-maximized))
     (add-to-list 'default-frame-alist '(fullscreen . maximized)))
   (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
+  ;; we must ensure that Emacs custom settings are defined before any call
+  ;; to customize save functions
+  (dotspacemacs|call-func dotspacemacs/emacs-custom-settings
+                          "Calling dotfile Emacs custom settings...")
   (setq dotspacemacs-editing-style (dotspacemacs//read-editing-style-config
                                     dotspacemacs-editing-style))
   (configuration-layer/initialize)
