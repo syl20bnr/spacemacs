@@ -15,3 +15,7 @@
 
 (defvar markdown-live-preview-engine 'eww
   "Possibe values are `eww' (built-in browser) or `vmd' (installed with `npm').")
+
+(defvar markdown-mmm-auto-modes
+  '("c" "c++" "css" "java" "javascript" "python" "ruby" "rust" "scala" ("html" "web") ("elisp" "emacs-lisp") ("ess" "R"))
+  "List of language names or lists of language and mode names for which to generate mmm classes.")

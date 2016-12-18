@@ -9,6 +9,7 @@
  - [[#install][Install]]
  - [[#configuration][Configuration]]
    - [[#live-preview][Live preview]]
+   - [[#automatic-mmm-mode-generation][Automatic MMM-Mode Generation]]
  - [[#usage][Usage]]
    - [[#generate-a-toc][Generate a TOC]]
  - [[#key-bindings][Key bindings]]
@@ -59,6 +60,17 @@ And install the executable with:
 
 #+BEGIN_SRC shell
 npm install -g vmd
+#+END_SRC
+
+** Automatic MMM-Mode Generation
+To generate MMM-Modes for languages set the value of the variable
+=markdown-mmm-auto-modes= to a list of the languages. For languages where the
+mode name directly relates to the language name, use a string. Otherwise, use a
+list of `("language" "mode")`:
+
+#+BEGIN_SRC emacs-lisp
+  dotspacemacs-configuration-layers '(
+    (markdown :variables markdown-mmm-auto-modes '("c" "c++" "python" "scala" ("elisp" "emacs-lisp"))
 #+END_SRC
 
 * Usage

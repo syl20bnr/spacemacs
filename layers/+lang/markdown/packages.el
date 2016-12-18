@@ -42,6 +42,20 @@
 (defun markdown/post-init-smartparens ()
   (add-hook 'markdown-mode-hook 'smartparens-mode))
 
+;; from Jason Blevins http://jblevins.org/log/mmm
+(defun markdown/mmm-auto-class (lang)
+  (let* ((l (if (listp lang) (car lang) lang))
+         (s (if (listp lang) (cadr lang) lang))
+         (class (intern (concat "markdown-" l)))
+         (submode (intern (concat s "-mode")))
+         (front (concat "^```" l "[\n\r]+"))
+         (back "^```$"))
+    (mmm-add-classes (list (list class
+                               :submode submode
+                               :front front
+                               :back back)))
+    (mmm-add-mode-ext-class 'markdown-mode nil class)))
+
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode
     :mode ("\\.m[k]d" . markdown-mode)
@@ -167,67 +181,10 @@ Will work on both org-mode and any mode that accepts plain html."
       "cs"   'mmm-parse-buffer)
     :config
     (progn
-      (mmm-add-classes '((markdown-python
-                          :submode python-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```python[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-html
-                          :submode web-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```html[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-java
-                          :submode java-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```java[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-ruby
-                          :submode ruby-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```ruby[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-c
-                          :submode c-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```c[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-c++
-                          :submode c++-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```c\+\+[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-elisp
-                          :submode emacs-lisp-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```elisp[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-javascript
-                          :submode javascript-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```javascript[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-ess
-                          :submode R-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```{?r.*}?[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-rust
-                          :submode rust-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```rust[\n\r]+"
-                          :back "^```$")))
-      (setq mmm-global-mode t)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-python)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-java)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ruby)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-c)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-c++)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-elisp)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-html)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-javascript)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ess)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-rust))))
+      ;; Automatically add mmm class for languages
+      (mapc 'markdown/mmm-auto-class markdown-mmm-auto-modes)
+
+      (setq mmm-global-mode t))))
 
 (defun markdown/init-vmd-mode ()
   (use-package vmd-mode
