@@ -544,7 +544,7 @@ tests are also run automatically when you synchronize with ~SPC f e R~.
 
 ** Dotfile Contents
 *** Configuration functions
-Three special functions in the =~/.spacemacs= file can be used to perform
+Five special functions in the =~/.spacemacs= file can be used to perform
 configuration at the beginning and end of Spacemacs loading process:
 
 - =dotspacemacs/layers= is called at the very startup of Spacemacs initialization,
@@ -610,7 +610,7 @@ to add some layers in =~/.myconfig=, set the variable like this:
 
 *** Setting configuration layers variables
 Some configuration layers have configuration variables to enable specific
-feature. For instance the [[file:../layers/+source-control/git/README.org][git layer]] has several configuration variables, they
+features. For instance the [[../layers/%2Bsource-control/git][git layer]] has several configuration variables, they
 can be set directly in the =dotspacemacs-configuration-layers= like this:
 
 #+BEGIN_SRC emacs-lisp
@@ -630,7 +630,7 @@ function of your dotfile is also a perfectly valid way to configure a layer.
 
 *** Disabling layer services in other layers
 Often layers enable services that other layers can use. For instance if you use
-the layer =auto-completion= then every other layers supporting =auto-completion=
+the layer =auto-completion= then all other layers supporting =auto-completion=
 will have this feature enabled.
 
 Sometimes you may want to disable a service added by a layer in some specific
@@ -737,9 +737,9 @@ Three styles are available:
 - Hybrid (a mix between Vim and Emacs).
 
 *** Vim
-Spacemacs behaves like in Vim using [[https://github.com/emacs-evil/evil][Evil]] mode package to emulate Vim key bindings.
-This is the default style of Spacemacs; it can be set explicitly by setting
-the =dotspacemacs-editing-style= variable to =vim= in the dotfile.
+Spacemacs behaves like in Vim using the [[https://gitorious.org/evil/pages/Home][Evil]] mode package to emulate Vim key
+bindings. This is the default style of Spacemacs; it can be set explicitly by
+setting the =dotspacemacs-editing-style= variable to =vim= in the dotfile.
 
 To bind keys in Vim editing style (=insert state=):
 
