@@ -86,8 +86,18 @@ the final step of executing code in `emacs-startup-hook'.")
       (toggle-frame-maximized))
     (add-to-list 'default-frame-alist '(fullscreen . maximized)))
   (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
-  ;; we must ensure that Emacs custom settings are defined before any call
-  ;; to customize save functions
+  ;; Given the loading process of Spacemacs we have no choice but to set the
+  ;; custom settings twice:
+  ;; - once at the very beginning of startup (here)
+  ;; - once at the very end of loading (in `spacemacs/setup-startup-hook')
+  ;; The first application of custom settings is to be sure that Emacs knows all
+  ;; the defined settings before saving them to a file (otherwise we loose all
+  ;; the settings that Emacs does not know of).
+  ;; The second application is to override any setting set in dotfile functions
+  ;; like `dotspacemacs/user-config`, users expect the custom settings to be the
+  ;; effective ones.
+  ;; Note: Loading custom-settings twice is not ideal since they can have side
+  ;; effects! Maybe an inhibit variable in Emacs can supress these side effects?
   (dotspacemacs|call-func dotspacemacs/emacs-custom-settings
                           "Calling dotfile Emacs custom settings...")
   (setq dotspacemacs-editing-style (dotspacemacs//read-editing-style-config
