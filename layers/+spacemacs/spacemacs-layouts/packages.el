@@ -118,7 +118,9 @@
             persp-reset-windows-on-nil-window-conf nil
             persp-set-last-persp-for-new-frames nil
             persp-save-dir spacemacs-layouts-directory
-            persp-set-ido-hooks t)
+            persp-set-ido-hooks t
+            persp-add-buffer-on-after-change-major-mode 'free
+            persp-kill-foreign-buffer-indirect-behaviour-override 'as-base-buffer)
 
       (defun spacemacs//activate-persp-mode ()
         "Always activate persp-mode, unless it is already active.
