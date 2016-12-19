@@ -164,6 +164,7 @@ Will work on both org-mode and any mode that accepts plain html."
     :init (add-hook 'markdown-mode-hook 'spacemacs/activate-mmm-mode)
     :config
     (progn
+      (spacemacs|hide-lighter mmm-mode)
       (mmm-add-classes '((markdown-ini
                           :submode conf-unix-mode
                           :face mmm-declaration-submode-face
