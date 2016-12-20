@@ -807,7 +807,7 @@ Spacemacs has 10 states:
 | visual       | gray          | like the =visual mode of Vim=, used to make text selection                                                 |
 | motion       | purple        | exclusive to =Evil=, used to navigate read only buffers                                                    |
 | emacs        | blue          | exclusive to =Evil=, using this state is like using a regular Emacs without Vim                            |
-| replace      | chocolate     | exclusive to =Evil=, overwrites the character under point instead of inserting a new one                   |
+| replace      | chocolate     | like =replace mode of Vim=, overwrites the character under point instead of inserting a new one            |
 | hybrid       | blue          | exclusive to Spacemacs, this is like the insert state except that all the emacs key bindings are available |
 | evilified    | light brown   | exclusive to Spacemacs, this is an =emacs state= modified to bring Vim navigation, selection and search.   |
 | lisp         | pink          | exclusive to Spacemacs, used to navigate Lisp code and modify it (more [[#editing-lisp-code][info]])                               |
