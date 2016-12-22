@@ -117,7 +117,17 @@
                 (lambda ()
                   (unless (configuration-layer/package-usedp 'smex)
                     (spacemacs/set-leader-keys
-                      dotspacemacs-emacs-command-key 'helm-M-x)))))
+                      dotspacemacs-emacs-command-key 'helm-M-x))))
+
+      ;; In follow mode, follow on keystrokes as well as up/down
+      (setq helm-follow-follow-on-update t)
+      ;; Run any search with follow mode on
+      (defun spacemacs//helm-do-search-with-follow (helm-source helm-command)
+        (let ((prev-follow-val (helm-attr 'follow (symbol-value helm-source))))
+          (helm-attrset 'follow 1 (symbol-value helm-source))
+          (call-interactively helm-command)
+          (helm-attrset 'follow prev-follow-val (symbol-value helm-source)))))
+
     :config
     (progn
       (helm-mode)
@@ -183,7 +193,7 @@
       (defun spacemacs/helm-file-do-ag (&optional _)
         "Wrapper to execute `helm-ag-this-file.'"
         (interactive)
-        (helm-ag-this-file))
+        (spacemacs//helm-do-search-with-follow 'helm-source-do-ag 'helm-do-ag-this-file))
 
       (defun spacemacs/helm-file-do-ag-region-or-symbol ()
         "Search in current file with `ag' using a default input."
@@ -276,7 +286,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (defun spacemacs/helm-buffers-do-ag (&optional _)
         "Wrapper to execute `helm-ag-buffers.'"
         (interactive)
-        (helm-do-ag-buffers))
+        (spacemacs//helm-do-search-with-follow 'helm-source-do-ag 'helm-do-ag-buffers))
 
       (defun spacemacs/helm-buffers-do-ag-region-or-symbol ()
         "Search in opened buffers with `ag' with a default input."
@@ -458,7 +468,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         ;; current file scope
         "ss"  'spacemacs/helm-file-smart-do-search
         "sS"  'spacemacs/helm-file-smart-do-search-region-or-symbol
-        "saa" 'helm-ag-this-file
+        "saa" 'spacemacs/helm-file-do-ag
         "saA" 'spacemacs/helm-file-do-ag-region-or-symbol
         ;; files scope
         "sf"  'spacemacs/helm-files-smart-do-search
@@ -593,6 +603,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
 (defun helm/init-helm-swoop ()
   (use-package helm-swoop
+    :if helm-use-swoop
     :defer t
     :init
     (progn
