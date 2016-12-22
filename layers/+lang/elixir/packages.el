@@ -160,8 +160,11 @@
     (progn
       (sp-with-modes '(elixir-mode)
         (sp-local-pair
-         "->" "end"
-         :when '(("RET"))
+         "(" ")"
+         :unless '(:add spacemacs//elixir-point-after-fn-p))
+        (sp-local-pair
+         "fn" "end"
+         :when '(("SPC" "RET" "-" "("))
          :post-handlers '(:add spacemacs//elixir-do-end-close-action)
          :actions '(insert)))
       (sp-with-modes '(elixir-mode)
