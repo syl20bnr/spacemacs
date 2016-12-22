@@ -75,14 +75,22 @@
     (spacemacs/set-leader-keys "Sc" 'flyspell-correct-previous-word-generic)))
 
 (defun spell-checking/init-flyspell-correct-ivy ()
-  (use-package flyspell-correct-ivy))
+  (use-package flyspell-correct-ivy
+    :commands (flyspell-correct-ivy)
+    :init
+    (setq flyspell-correct-interface #'flyspell-correct-ivy)))
 
 (defun spell-checking/init-flyspell-correct-helm ()
   (use-package flyspell-correct-helm
-    :defer t))
+    :commands (flyspell-correct-helm)
+    :init
+    (setq flyspell-correct-interface #'flyspell-correct-helm)))
 
 (defun spell-checking/init-flyspell-correct-popup ()
-  (use-package flyspell-correct-popup))
+  (use-package flyspell-correct-popup
+    :commands (flyspell-correct-popup)
+    :init
+    (setq flyspell-correct-interface #'flyspell-correct-popup)))
 
 (defun spell-checking/init-flyspell-popup ()
   (use-package flyspell-popup
