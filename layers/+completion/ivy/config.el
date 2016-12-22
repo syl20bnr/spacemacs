@@ -33,7 +33,8 @@ than this amount.")
     ("v" spacemacs/find-file-vsplit "in vertical split")
     ("s" spacemacs/find-file-split "in horizontal split")
     ("l" find-file-literally "literally")
-    ("d" spacemacs/delete-file "delete file")
+    ;; this is to invasive, maybe have prompt?
+    ;; ("d" spacemacs/delete-file "delete file")
     ("r" spacemacs/rename-file "rename file"))
   "Default ivy actions for files.")
 
