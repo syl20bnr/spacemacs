@@ -312,6 +312,10 @@
         which-key-replacement-alist)
   (push '((nil . "select-window-[1-9]") . t) which-key-replacement-alist)
 
+  (push '(("\\(.*\\) 1" . "buffer-to-window-1") . ("\\1 1..9" . "buffer to window 1..9"))
+        which-key-replacement-alist)
+  (push '((nil . "buffer-to-window-[2-9]") . t) which-key-replacement-alist)
+
   (dolist (leader-key `(,dotspacemacs-leader-key ,dotspacemacs-emacs-leader-key))
     (which-key-add-key-based-replacements
       (concat leader-key " m")    "major mode commands"
