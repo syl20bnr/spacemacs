@@ -99,5 +99,5 @@ read that in =:password=.
 
 * Spacemacs Layout Support
 ERC buffers are added automatically to the default layout for ERC controlled by
-the variable ~erc-spacemacs-layout-name~ (defaults to "@ERC") and the default
-binding ("E") is controlled by ~erc-spacemacs-layout-binding~
+the variable =erc-spacemacs-layout-name= (defaults to "@ERC") and the default
+binding ("E") is controlled by =erc-spacemacs-layout-binding=

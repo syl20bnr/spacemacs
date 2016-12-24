@@ -72,7 +72,7 @@ To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anacond
 Source: https://github.com/proofit404/anaconda-mode#issues
 
 If you are facing errors such as "Unable to run anaconda-mode server", try
-setting your ~PYTHONPATH~ as explained at
+setting your =PYTHONPATH= as explained at
 https://github.com/proofit404/anaconda-mode#pythonpath
 
 *** Syntax checking
@@ -142,7 +142,7 @@ that hy is installed.
 A virtual environment provides isolation of your Python package versions. For a
 general overview see [[http://docs.python-guide.org/en/latest/dev/virtualenvs/][this site]]. [[http://virtualenvwrapper.readthedocs.org/en/latest/index.html][Virtualenvwrapper]] which is also explained in the
 previous link, is a program which manages your virtual environments in a central
-location set by the ~WORKON_HOME~ environment variable.
+location set by the =WORKON_HOME= environment variable.
 
 Spacemacs integration of virtual environments and virtualenvwrapper is provided
 by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides the following keybindings:
@@ -151,7 +151,7 @@ by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides
 |-------------+-------------------------------------------------|
 | ~SPC m V a~ | activate a virtual environment in any directory |
 | ~SPC m V d~ | deactivate active virtual environment           |
-| ~SPC m V w~ | work on virtual environment in ~WORKON_HOME~    |
+| ~SPC m V w~ | work on virtual environment in =WORKON_HOME=    |
 
 ** Manage multiple Python versions with pyenv
 If you need multiple Python versions (e.g. Python 2 and Python 3) then take a
@@ -285,14 +285,14 @@ Send code to hy REPL commands:
 | ~SPC m h H~ | open documentation in =firefox= using [[https://github.com/tsgates/pylookup][pylookup]]                               |
 | ~SPC m v s~ | set a pyenv environment with [[https://github.com/yyuu/pyenv][pyenv]]                                           |
 | ~SPC m v u~ | unset a pyenv environment with [[https://github.com/yyuu/pyenv][pyenv]]                                         |
-| ~SPC m V w~ | work on virtual environment in ~WORKON_HOME~                                 |
+| ~SPC m V w~ | work on virtual environment in =WORKON_HOME=                                 |
 | ~SPC m V a~ | activate a virtual environment in any directory                              |
 | ~SPC m V d~ | deactivate active virtual environment                                        |
 
 * Configuration
 ** Fill column
 If you want to customize the fill column value, use something like this inside
-the ~user-init~ function in your ~.spacemacs~:
+the =user-init= function in your =.spacemacs=:
 
 #+BEGIN_SRC elisp
 (setq-default dotspacemacs-configuration-layers '(

@@ -15,5 +15,5 @@ Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/
 5. [[https://godoc.org/golang.org/x/tools/cmd/guru][go-guru]]
 6. [[https://godoc.org/golang.org/x/tools/cmd/gorename][gorename]]
 7. [[https://godoc.org/golang.org/x/tools/cmd/goimports][goimports]]
-8. if ~go-use-gometalinter~ is ~t~:
+8. if =go-use-gometalinter= is =t=:
   a. [[https://github.com/alecthomas/gometalinter][gometalinter]]
