@@ -463,12 +463,13 @@
 
 (spacemacs|define-transient-state buffer
   :title "Buffer Selection Transient State"
+  :doc "\n[_n_] next  [_N_/_p_] previous  [_K_] kill  [_q_] quit"
   :bindings
-  ("n" next-buffer "next")
-  ("N" previous-buffer "previous")
-  ("p" previous-buffer "previous")
-  ("K" spacemacs/kill-this-buffer "kill")
-  ("q" nil "quit" :exit t))
+  ("n" next-buffer)
+  ("N" previous-buffer)
+  ("p" previous-buffer)
+  ("K" spacemacs/kill-this-buffer)
+  ("q" nil :exit t))
 (spacemacs/set-leader-keys "b." 'spacemacs/buffer-transient-state/body)
 
 ;; end of Buffer transient state
