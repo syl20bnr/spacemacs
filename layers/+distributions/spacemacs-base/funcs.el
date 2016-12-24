@@ -815,12 +815,13 @@ With negative N, comment out original line and use the absolute value."
         (forward-char pos)))))
 
 (defun spacemacs/uniquify-lines ()
-  "Remove duplicate adjacent lines in region or current buffer"
+  "Remove duplicate adjacent lines in a region or the current buffer"
   (interactive)
   (save-excursion
     (save-restriction
-      (let ((beg (if (region-active-p) (region-beginning) (point-min)))
-            (end (if (region-active-p) (region-end) (point-max))))
+      (let* ((region-active (or (region-active-p) (evil-visual-state-p)))
+             (beg (if region-active (region-beginning) (point-min)))
+             (end (if region-active (region-end) (point-max))))
         (goto-char beg)
         (while (re-search-forward "^\\(.*\n\\)\\1+" end t)
           (replace-match "\\1"))))))
