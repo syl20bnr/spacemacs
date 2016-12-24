@@ -34,4 +34,6 @@
 (defun spacemacs//elixir-enable-compilation-checking ()
   "Enable compile checking if `elixir-enable-compilation-checking' is non nil."
   (when (or elixir-enable-compilation-checking)
-    (flycheck-mix-setup)))
+    (flycheck-mix-setup)
+    ;; enable credo only if there are no compilation errors
+    (flycheck-add-next-checker 'elixir-mix '(warning . elixir-credo))))
