@@ -436,6 +436,7 @@
   "xjr" 'set-justification-right
   "xld" 'spacemacs/duplicate-line-or-region
   "xls" 'spacemacs/sort-lines
+  "xlS" 'spacemacs/sort-lines-reverse
   "xlu" 'spacemacs/uniquify-lines
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
