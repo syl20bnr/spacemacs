@@ -433,6 +433,8 @@
   "xjl" 'set-justification-left
   "xjn" 'set-justification-none
   "xjr" 'set-justification-right
+  "xlc" 'spacemacs/sort-lines-by-column
+  "xlC" 'spacemacs/sort-lines-by-column-reverse
   "xld" 'spacemacs/duplicate-line-or-region
   "xls" 'spacemacs/sort-lines
   "xlS" 'spacemacs/sort-lines-reverse
