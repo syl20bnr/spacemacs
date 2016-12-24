@@ -50,22 +50,16 @@ file.
 time.
 
 *** Credo
-A flycheck checker for [[https://github.com/rrrene/credo][credo]] is installed. The check needs both =bunt= and
-=credo= to be available, you can install them like this:
-
+You need to install [[https://github.com/rrrene/credo][credo]] into your project. Fort this,
+add ={:credo, "~> 0.5", only: [:dev, :test]}= to dependencies of your project (in file mix.exs) and
+run:
 #+BEGIN_SRC shell
-git clone https://github.com/rrrene/bunt
-cd bunt
-mix archive.build
-mix archive.install
-#+END_SRC
-
-#+BEGIN_SRC shell
-git clone https://github.com/rrrene/credo
-cd credo
 mix deps.get
-mix archive.build
-mix archive.install
+#+END_SRC
+For more info about mix [[http://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html][see]].
+You can tell flycheck-credo to call credo with the '--strict' argument.
+#+BEGIN_SRC elisp
+(setq flycheck-elixir-credo-strict t)
 #+END_SRC
 
 *** mix compile
