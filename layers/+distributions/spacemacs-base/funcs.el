@@ -835,6 +835,20 @@ With negative N, comment out original line and use the absolute value."
         (end (if (region-active-p) (region-end) (point-max))))
     (sort-lines nil beg end)))
 
+(defun spacemacs/sort-lines-by-column (&optional reverse)
+  "Sort lines by the selected column.
+A non-nil argument sorts in reverse order."
+  (interactive "P")
+  (let* ((region-active (or (region-active-p) (evil-visual-state-p)))
+         (beg (if region-active (region-beginning) (point-min)))
+         (end (if region-active (region-end) (point-max))))
+    (sort-columns reverse beg end)))
+
+(defun spacemacs/sort-lines-by-column-reverse ()
+  "Sort lines by the selected column in reverse order."
+  (interactive)
+  (spacemacs/sort-columns -1))
+
 ;; BEGIN linum mouse helpers
 
 (defvar spacemacs-linum-mdown-line nil
