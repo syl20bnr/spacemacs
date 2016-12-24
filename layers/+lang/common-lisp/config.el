@@ -9,5 +9,5 @@
 ;;
 ;;; License: GPLv3
 
-(spacemacs|define-jump-handlers lisp-mode slime-inspect-definition)
+(spacemacs|define-jump-handlers lisp-mode slime-edit-definition)
 (spacemacs|define-jump-handlers common-lisp-mode)
