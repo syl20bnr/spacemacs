@@ -6,9 +6,9 @@
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#auto-compile][Auto-compile]]
+ - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
  - [[#key-bindings][Key bindings]]
-   - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
-   - [[#leader][Leader]]
+   - [[#smartparens][smartparens]]
    - [[#srefactor][srefactor]]
 
 * Description
@@ -34,8 +34,7 @@ feature use this line in your =dotspacemacs/user-config= function.
 
 You can also exclude the =auto-compile= package.
 
-* Key bindings
-** Working with lisp files (barfage, slurpage & more)
+* Working with lisp files (barfage, slurpage & more)
 Spacemacs comes with a special ~lisp-state~ for working with lisp code that
 supports slurpage, barfage and more tools you'll likely want when working with
 lisp.
@@ -43,24 +42,32 @@ lisp.
 As this state works the same for all files, the documentation is in global
 [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
 
-** Leader
+* Key bindings
 
-| Key Binding                | Description                                                |
-|----------------------------+------------------------------------------------------------|
-| ~SPC m g g~                | go to definition of symbol under point                     |
-| ~SPC m h h~                | describe symbol at point                                   |
-| ~SPC m c c~                | byte compile the current file                              |
-| ~SPC m c l~                | popup compile-log buffer                                   |
-| ~SPC m e $~ or ~SPC m e l~ | go to end of current line and evaluate                     |
-| ~SPC m e b~                | evaluate current buffer                                    |
-| ~SPC m e c~                | evaluate current form (start with =defun=, =setq=, etc...) |
-| ~SPC m e e~                | evaluate sexp before point                                 |
-| ~SPC m e r~                | evaluate current region                                    |
-| ~SPC m e f~                | evaluation current function                                |
-| ~SPC m ​,​~                  | toggle =lisp state=                                        |
-| ~SPC m t b~                | run tests of current buffer                                |
-| ~SPC m t q~                | run =ert=                                                  |
-| ~SPC m d m~                | open [[https://github.com/joddie/macrostep][macrostep]] transient-state                             |
+| Key Binding                | Description                            |
+|----------------------------+----------------------------------------|
+| ~SPC m g g~                | go to definition of symbol under point |
+| ~SPC m h h~                | describe symbol at point               |
+| ~SPC m c c~                | byte compile the current file          |
+| ~SPC m c l~                | popup compile-log buffer               |
+| ~SPC m e $~ or ~SPC m e l~ | go to end of current line and evaluate |
+| ~SPC m e b~                | evaluate current buffer                |
+| ~SPC m e C~                | evaluate current =defun= or =setq=     |
+| ~SPC m e e~                | evaluate sexp before point             |
+| ~SPC m e f~                | evaluation current function            |
+| ~SPC m e r~                | evaluate current region                |
+| ~SPC m ​,​~                  | toggle =lisp state=                    |
+| ~SPC m t b~                | run tests of current buffer            |
+| ~SPC m t q~                | run =ert=                              |
+| ~SPC m d m~                | open [[https://github.com/joddie/macrostep][macrostep]] transient-state         |
+
+** smartparens
+If =smartparens= is used the following additional key bindings are available:
+
+| Key Binding | Description                  |
+|-------------+------------------------------|
+| ~SPC m e c~ | evaluate sexp around point   |
+| ~SPC m e s~ | evaluate symbol around point |
 
 ** srefactor
 The [[file:../../semantic/README.org][semantic]] layer should be installed for these key bindings to become active.

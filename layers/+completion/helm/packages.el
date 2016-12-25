@@ -183,7 +183,7 @@
       (defun spacemacs/helm-file-do-ag (&optional _)
         "Wrapper to execute `helm-ag-this-file.'"
         (interactive)
-        (helm-ag-this-file))
+        (helm-do-ag-this-file))
 
       (defun spacemacs/helm-file-do-ag-region-or-symbol ()
         "Search in current file with `ag' using a default input."
