@@ -254,7 +254,7 @@ Press ~M-k~ or ~M-j~ in normal mode and see how you can quickly move parts of
 the document around.
 
 This is not even scratching the surface of Org mode, so you should look into
-https://github.com/syl20bnr/spacemacs/tree/master/layers/org for more
+[[../layers/%2Bemacs/org][org layer]] for more
 information. Googling for Org mode tutorials is also very helpful in finding out
 the most useful features of it!
 
