@@ -124,7 +124,7 @@
   "b C-d" 'spacemacs/kill-other-buffers
   "b C-S-d" 'spacemacs/kill-matching-buffers-rudely
   "bn"    'next-buffer
-  "bm"    'view-echo-area-messages
+  "bm"    'spacemacs/switch-to-messages-buffer
   "bN"    'spacemacs/new-empty-buffer
   "bP"    'spacemacs/copy-clipboard-to-whole-buffer
   "bp"    'previous-buffer

@@ -986,7 +986,8 @@ a split-side entry, its value must be usable as the SIDE argument for
     (pop-to-buffer buffer '(spacemacs//display-in-split (split-side . below)))))
 
 (defun spacemacs/switch-to-scratch-buffer (&optional arg)
-  "Switch to the `*scratch*' buffer. Create it first if needed."
+  "Switch to the `*scratch*' buffer, creating it first if needed.
+if prefix argument ARG is given, switch to it in an other, possibly new window."
   (interactive "P")
   (let ((exists (get-buffer "*scratch*")))
     (if arg
@@ -996,6 +997,16 @@ a split-side entry, its value must be usable as the SIDE argument for
                (not (eq major-mode dotspacemacs-scratch-mode))
                (fboundp dotspacemacs-scratch-mode))
       (funcall dotspacemacs-scratch-mode))))
+
+(defun spacemacs/switch-to-messages-buffer (&optional arg)
+  "Switch to the `*Messages*' buffer.
+if prefix argument ARG is given, switch to it in an other, possibly new window."
+  (interactive "P")
+  (with-current-buffer (messages-buffer)
+    (goto-char (point-max))
+    (if arg
+        (switch-to-buffer-other-window (current-buffer))
+      (switch-to-buffer (current-buffer)))))
 
 (defun spacemacs/close-compilation-window ()
   "Close the window containing the '*compilation*' buffer."
