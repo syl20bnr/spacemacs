@@ -299,7 +299,7 @@ debug-init and load the given list of packages."
                  ;; window will show neotree briefly before displaying the TS,
                  ;; causing an error message. the error is eliminated by
                  ;; assigning 0 only to the top-left window
-                 (eq (selected-window) (window-at 0 0)))
+                 (eq (selected-window) (frame-first-window)))
         0))
 
     ;; using lambda to work-around a bug in window-numbering, see
