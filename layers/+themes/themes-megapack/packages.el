@@ -77,6 +77,7 @@
     professional-theme
     purple-haze-theme
     railscasts-theme
+    rebecca-theme
     reverse-theme
     seti-theme
     smyx-theme
