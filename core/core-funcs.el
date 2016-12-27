@@ -326,7 +326,7 @@ current frame."
   (let (;; switch to first window previously shown in this frame
         (prev-window (get-mru-window nil t t)))
     ;; Check window was not found successfully
-    (unless prev-window (error "Last window not found."))
+    (unless prev-window (user-error "Last window not found."))
     (select-window prev-window)))
 
 (defun spacemacs/comint-clear-buffer ()
