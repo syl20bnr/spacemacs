@@ -25,8 +25,7 @@
   (push 'company-elm company-backends-elm-mode))
 
 (defun elm/post-init-flycheck ()
-  (add-hook 'elm-mode-hook 'flycheck-mode)
-  (add-hook 'elm-mode-hook 'spacemacs//elm-find-root))
+  (add-hook 'elm-mode-hook 'flycheck-mode))
 
 (defun elm/init-flycheck-elm ()
   "Initialize flycheck-elm"
