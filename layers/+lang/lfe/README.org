@@ -1,0 +1,16 @@
+#+TITLE: LFE layer
+
+[[file:img/lfe.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+
+* Description
+A very thin wrapper around lfe-mod providin LFE support for basic =syntax-checking= and
+=auto-completion= with the corresponding layers.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =lfe= to the existing =dotspacemacs-configuration-layers= list in this
+file.
