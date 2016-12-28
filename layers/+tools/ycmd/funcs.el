@@ -1,0 +1,7 @@
+(when (configuration-layer/package-usedp 'company-ycmd)
+  (defun spacemacs/company-ycmd-manual-semantic-complete ()
+    (interactive)
+    (company-cancel)
+    (let ((ycmd-force-semantic-completion (not (company-ycmd--in-include))))
+      (setq company-backend 'company-ycmd)
+      (company-manual-begin))))
