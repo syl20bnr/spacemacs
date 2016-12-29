@@ -1,0 +1,67 @@
+#+TITLE: debug layer
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+ - [[#configuration][Configuration]]
+ - [[#key-bindings][Key bindings]]
+   - [[#debug-transient-state][Debug transient-state]]
+
+* Description
+This layer acts as an interface to gud. It uses gdb-mi for c/c++ debugging at the moment.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =debug= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =debug= to the existing =dotspacemacs-configuration-layers= list in this file.
+
+* Configuration
+To be able to debug an executable the variable =debug-target= has to be set. Best practice is
+to use a .dir-locals.el file:
+
+#+BEGIN_SRC emacs-lisp
+  ((nil .
+    ((debug-target . "~/Projects/hello"))))
+#+END_SRC
+
+If this layer is used inside another layer (the usual way to use) you've to set the variables
+=debug-prog= and =debug-mode= to the appropriate values:
+
+As example in the =c-c++= layer the packages.el is using:
+ 
+#+BEGIN_SRC emacs-lisp
+  (defun c-c++/post-init-gdb-mi ()
+    (setq debug-mode 'gdb)
+    (setq debug-prog c-c++-debugger-prog))
+#+END_SRC
+
+* Key bindings
+
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC d d~   | activate debugger using gdb |
+| ~SPC d n~   | gud-next                    |
+| ~SPC d i~   | gud-nexti                   |
+| ~SPC d b~   | gud-break                   |
+| ~SPC d x~   | gud-remove                  |
+| ~SPC d c~   | gud-cont                    |
+| ~SPC d r~   | gud-run                     |
+| ~SPC d w~   | gud-watch                   |
+| ~SPC d .~   | debug transient-state       |
+
+** Debug transient-state
+
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC d . n~ | gud-next                    |
+| ~SPC d . i~ | gud-nexti                   |
+| ~SPC d . b~ | gud-break                   |
+| ~SPC d . x~ | gud-remove                  |
+| ~SPC d . c~ | gud-cont                    |
+| ~SPC d . r~ | gud-run                     |
+| ~SPC d . w~ | gud-watch                   |

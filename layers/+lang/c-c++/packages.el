@@ -19,7 +19,6 @@
     (company-c-headers :toggle (configuration-layer/package-usedp 'company))
     company-ycmd
     flycheck
-    gdb-mi
     ggtags
     helm-cscope
     helm-gtags
@@ -28,6 +27,7 @@
     stickyfunc-enhance
     ycmd
     xcscope
+    gdb-mi
     ))
 
 (defun c-c++/init-cc-mode ()
@@ -97,16 +97,6 @@
   (add-hook 'c-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
   (add-hook 'c++-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
-(defun c-c++/init-gdb-mi ()
-  (use-package gdb-mi
-    :defer t
-    :init
-    (setq
-     ;; use gdb-many-windows by default when `M-x gdb'
-     gdb-many-windows t
-     ;; Non-nil means display source file containing the main routine at startup
-     gdb-show-main t)))
-
 (defun c-c++/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'c-mode)
   (spacemacs/helm-gtags-define-keys-for-mode 'c++-mode))
@@ -145,3 +135,7 @@
     :post-init
     (dolist (mode '(c-mode c++-mode))
       (spacemacs/setup-helm-cscope mode))))
+
+(defun c-c++/post-init-gdb-mi ()
+  (setq debug-mode 'gdb)
+  (setq debug-prog c-c++-debugger-prog))

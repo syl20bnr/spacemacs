@@ -12,6 +12,7 @@
    - [[#enable-clang-support][Enable Clang support]]
      - [[#clang-format][clang-format]]
      - [[#company-clang-and-flycheck][Company-clang and flycheck]]
+   - [[#configure-debug-layer][Configure debug layer]]
  - [[#key-bindings][Key Bindings]]
 
 * Description
@@ -93,6 +94,15 @@ other text editor clang plugins.
 Not only does this allow proper autocomplete on projects with extra
 includes and flags, but there is also support for flycheck so that it
 doesn't complain about missing header files.
+
+** Configure debug layer
+Normally the default is ok for the debug layer. But if you want to override the gdb debugger
+you can use the variable =c-c++-debugger-prog= to the full path of the executable in the dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((c-c++ :variables c-c++-debugger-prog "/usr/local/bin/gdb -i=mi")))
+#+END_SRC
 
 * Key Bindings
 
