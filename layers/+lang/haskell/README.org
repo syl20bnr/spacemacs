@@ -105,9 +105,27 @@ that in order to enable completion you have to enable =auto-completion= layer as
 well.
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-                '(auto-completion
-                  (haskell :variables haskell-completion-backend 'intero)))
+   dotspacemacs-configuration-layers
+   '(
+     ;;------------------------------------------------------------------
+     ;; adding the haskell layer
+     ;;------------------------------------------------------------------
+     haskell
+     ;;------------------------------------------------------------------
+     ;; auto-completion should be enabled in order for intero to work
+     ;;------------------------------------------------------------------
+     auto-completion
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-sort-by-usage t
+                      )
+     ;;------------------------------------------------------------------
+     ;; set the auto-completion backend to intero
+     ;;------------------------------------------------------------------
+     (auto-completion
+     (haskell :variables haskell-completion-backend 'intero))
+     )
+
 #+END_SRC
 
 *** =company-ghci=
