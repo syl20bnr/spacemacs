@@ -42,6 +42,14 @@
   (with-eval-after-load 'flycheck
     (dolist (checker '(javascript-eslint javascript-standard))
       (flycheck-add-mode checker 'react-mode)))
+  (defun react/use-eslintrc-from-project-root ()
+    (let ((rc-path (if (projectile-project-p)
+                       (concat (projectile-project-root) ".eslintrc"))))
+      (if (file-exists-p rc-path)
+          (progn
+            (message rc-path)
+          (setq flycheck-eslintrc rc-path)))))
+
   (defun react/use-eslint-from-node-modules ()
     (let* ((root (locate-dominating-file
                   (or (buffer-file-name) default-directory)
@@ -55,7 +63,7 @@
       (setq-local flycheck-javascript-eslint-executable eslint)))
 
   (add-hook 'react-mode-hook #'react/use-eslint-from-node-modules)
-
+  (add-hook 'react-mode-hook #'react/use-eslintrc-from-project-root)
   (spacemacs/add-flycheck-hook 'react-mode))
 
 (defun react/post-init-js-doc ()
