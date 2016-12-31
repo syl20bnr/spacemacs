@@ -175,7 +175,9 @@
   (use-package web-mode
     :defer t
     :init
-    (push '(company-web-html company-css) company-backends-web-mode)
+    (progn
+      (push '(company-web-html company-css) company-backends-web-mode)
+      (add-hook 'web-mode-hook 'spacemacs//company-web-minimum-prefix-length))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'web-mode "me" "errors")
