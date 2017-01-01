@@ -33,7 +33,7 @@
         ;; set back this variable to t.
         (setq omnisharp-auto-complete-want-documentation nil))
       (add-to-list 'spacemacs-jump-handlers-csharp-mode
-                'omnisharp-go-to-definition))
+                   '(omnisharp-go-to-definition :async t)))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'csharp-mode "mc" "csharp/compile")
