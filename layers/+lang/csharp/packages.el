@@ -33,7 +33,7 @@
         (setq omnisharp-auto-complete-want-documentation nil))
       (push 'company-omnisharp company-backends-csharp-mode)
       (add-to-list 'spacemacs-jump-handlers-csharp-mode
-                'omnisharp-go-to-definition))
+                   '(omnisharp-go-to-definition :async t)))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'csharp-mode "mc" "csharp/compile")
