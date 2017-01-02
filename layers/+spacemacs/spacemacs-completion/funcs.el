@@ -39,8 +39,8 @@
   "Function to be used as advice to activate fuzzy matching for all sources."
   (let ((source-type (cadr args))
         (props (cddr args)))
-    (unless (memq source-type '(helm-source-async
-                                helm-locate-source))
+    ;; fuzzy matching is not supported in async sources
+    (unless (child-of-class-p source-type helm-source-async)
       (plist-put props :fuzzy-match (eq 'always dotspacemacs-helm-use-fuzzy))))
   (apply f args))
 
