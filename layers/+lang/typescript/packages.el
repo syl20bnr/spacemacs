@@ -25,7 +25,7 @@
       :backends company-tide
       :modes typescript-mode)))
 
-(defun php/post-init-eldoc ()
+(defun typescript/post-init-eldoc ()
   (add-hook 'typescript-mode-hook 'eldoc-mode))
 
 (defun typescript/post-init-flycheck ()
