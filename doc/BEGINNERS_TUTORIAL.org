@@ -15,6 +15,7 @@
    - [[#start-the-vim-tutorial][Start the Vim tutorial]]
    - [[#using-the-spacebar-to-launch-commands][Using the spacebar to launch commands]]
    - [[#buffers-windows-and-frames][Buffers, windows and frames]]
+   - [[#accessing-files][Accessing files]]
  - [[#configuring-spacemacs][Configuring Spacemacs]]
    - [[#adding-language-support-and-other-features-using-layers][Adding language support and other features: using layers]]
    - [[#changing-the-colour-theme][Changing the colour theme]]
@@ -168,6 +169,12 @@ keyboard and is pressed by the strongest fingers (the thumbs), it is a natural
 choice for launching commands. You can think of it as the start menu of
 Spacemacs.
 
+A short instant after the spacebar is pressed a menu pops up. This interactive
+menu shows you what submenus and commands can be accessed by subsequent
+keypresses. Browsing around this menu is a great way of finding new features in
+Spacemacs, so keep on eye on the different options! ~ESC~ usually breaks the
+combination you don't want to use.
+
 ** Buffers, windows and frames
 Because Emacs (the extension of which Spacemacs is) was developed in the 80's
 before the advent of modern graphical user interfaces, Emacs has
@@ -205,6 +212,12 @@ a couple of times to switch between the tutorial and the scratch buffer. ~SPC b~
 has more options for switching between buffers, for example ~SPC b b~ opens a
 searchable list of all currently open buffers and ~SPC b d~ closes the current
 buffer.
+
+** Accessing files
+Files can be accessed under the ~SPC f~ mnemonic. You can navigate to any file
+with ~SPC f f~ and open it by pressing enter. Accessing recently opened files is
+a very common task and is done with ~SPC f r~. An edited file is saved with
+~SPC f s~.
 
 * Configuring Spacemacs
 ** Adding language support and other features: using layers
@@ -293,13 +306,14 @@ more about the daemon and how to set it to launch automatically on startup.
 This is useful outside of Spacemacs as well!
 
 ** Troubleshooting and further info
-For troubleshooting, please refer to the FAQ by pressing ~SPC f e f~ or [[https://github.com/syl20bnr/spacemacs/blob/master/doc/FAQ.org][online]].
-More help is found under ~SPC h~, and with ~SPC h ~SPC~ you can access the
-comprehensive Spacemacs documentation, including this tutorial and the layer
-documents. The [[https://gitter.im/syl20bnr/spacemacs][Gitter chat]] can be used to ask questions if the answer cannot be
-found in the documentation.
+~SPC ?~ shows you the keybindings in the current major mode, which is often
+helpful. For troubleshooting, please refer to the FAQ by pressing ~SPC f e f~ or
+[[https://github.com/syl20bnr/spacemacs/blob/master/doc/FAQ.org][online]]. More help is found under ~SPC h~, and with ~SPC h ~SPC~ you can access
+the comprehensive Spacemacs documentation, including this tutorial and the layer
+documents.
 
-For a detailed review of Spacemacs' features one can also watch the
-[[https://www.youtube.com/playlist?list=PLrJ2YN5y27KLhd3yNs2dR8_inqtEiEweE][Spacemacs ABC series]] by Eivind Fonn on Youtube. Some of the keybindings have
-changed since the videos were uploaded but seeing someone in action helps spot
-helpful tricks that would otherwise be missed.
+The [[https://gitter.im/syl20bnr/spacemacs][Gitter chat]] can be used to ask questions if the answer cannot be found in
+the documentation. For a detailed review of Spacemacs' features one can also
+watch the [[https://www.youtube.com/playlist?list=PLrJ2YN5y27KLhd3yNs2dR8_inqtEiEweE][Spacemacs ABC series]] by Eivind Fonn on Youtube. Some of the
+keybindings have changed since the videos were uploaded but seeing someone in
+action helps spot helpful tricks that would otherwise be missed.
