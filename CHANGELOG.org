@@ -1,4 +1,7 @@
 * Release 0.200.x
+** 0.200.7 (2017/01/02)
+*** Fixes
+- More robust fix for error helm :config: ‘fuzzy-match’ not supported in async sources
 ** 0.200.6 (2017/01/01)
 *** Fixes
 - Fix error helm :config: ‘fuzzy-match’ not supported in async sources
