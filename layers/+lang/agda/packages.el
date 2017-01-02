@@ -15,8 +15,7 @@
         golden-ratio))
 
 (defun agda/post-init-company ()
-  (spacemacs|add-company-hook agda2-mode)
-  (push 'company-capf company-backends-agda2-mode))
+  (spacemacs|add-company-backends :backends company-capf :modes agda2-mode))
 
 (defun agda/init-agda ()
   (if (and (eq 'use-helper agda-mode-path)

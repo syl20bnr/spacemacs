@@ -29,8 +29,6 @@
      - [[#load-ordering][Load ordering]]
      - [[#no-require][No require]]
      - [[#auto-load-everything][Auto-load everything]]
- - [[#how-do-i--idiomatically][How do I ... idiomatically?]]
-   - [[#setup-auto-completion-for-a-major-mode][Setup auto-completion for a major mode]]
 
 * Introduction
 This document is intended as a tutorial for users who are interested in writing
@@ -463,7 +461,6 @@ would have been installed even if the =auto-completion= layer had been disabled,
 which is not what we want.
 
 * Layer tips and tricks
-
 ** Cross-dependencies
 Spacemacs provides a couple of additional useful functions you can use to check
 whether other layers or packages are included.
@@ -570,54 +567,3 @@ missing appropriate auto-loads.
 Defer everything. You should have a very good reason not to defer the loading
 of a package.
 
-* How do I ... idiomatically?
-
-** Setup auto-completion for a major mode
-In your layer's =config.el=, call =spacemacs|defvar-company-backends=.
-
-#+begin_src emacs-lisp
-(spacemacs|defvar-company-backends yoyo-mode)
-#+end_src
-
-This creates a variable called =company-backends-yoyo-mode=. In the package
-=init= functions, you should push backends to this variable. But of course, only
-if the =auto-completion= layer is enabled.
-
-#+begin_src emacs-lisp
-(defconst yoyo-packages '(
-                          ;; ...
-                          some-weird-package
-                          ;; ...
-                          )
-
-  (when (configuration-layer/package-usedp 'company)
-    (defun yoyo/init-some-weird-package ()
-      (use-package some-weird-package
-        :defer t
-        ;; This has to be in init because it's a package entry point
-        :init
-        (push 'some-weird-backend company-backends-yoyo-mode))))
-#+end_src
-
-Finally, we must make sure company is started when we enter =yoyo-mode=, but
-again only if the =auto-completion= layer is enabled.
-
-#+begin_src emacs-lisp
-(defconst yoyo-packages '(
-                          ;; ...
-                          yoyo-mode
-                          ;; ...
-                          ))
-
-(defun yoyo/init-yoyo-mode ()
-  (use-package yoyo-mode
-    ;; Some configuration goes here, however nothing relating to company
-    ;; since this function may be called even if company is not installed!
-    ))
-
-(when (configuration-layer/package-usedp 'company)
-  (defun yoyo/post-init-yoyo-mode ()
-    ;; This makes no reference to `some-weird-package', which may have
-    ;; been excluded by the user
-    (spacemacs|add-company-hook yoyo-mode)))
-#+end_src

@@ -38,8 +38,7 @@
   (spacemacs|use-package-add-hook eshell
     :post-init
     (progn
-      (push 'company-capf company-backends-eshell-mode)
-      (spacemacs|add-company-hook eshell-mode)
+      (spacemacs|add-company-backends :backends company-capf :modes eshell-mode)
       (add-hook 'eshell-directory-change-hook
                 'spacemacs//toggle-shell-auto-completion-based-on-path)
       ;; The default frontend screws everything up in short windows like

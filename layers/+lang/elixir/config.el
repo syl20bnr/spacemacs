@@ -17,7 +17,4 @@ Default is nil because Elixir compilation is based on macros and thus it
 is unsafe. Activate this option only for trusted code, usage of a
 directory variable is recommended.")
 
-(spacemacs|defvar-company-backends elixir-mode)
-(spacemacs|defvar-company-backends alchemist-iex-mode)
-
 (spacemacs|define-jump-handlers elixir-mode)

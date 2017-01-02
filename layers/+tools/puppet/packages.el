@@ -35,7 +35,7 @@
       ))))
 
 (defun puppet/post-init-company ()
-  (spacemacs|add-company-hook puppet-mode))
+  (spacemacs|add-company-backends :modes puppet-mode))
 
 (defun puppet/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'puppet-mode))

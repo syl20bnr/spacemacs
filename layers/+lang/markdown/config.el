@@ -11,7 +11,5 @@
 
 ;; variables
 
-(spacemacs|defvar-company-backends markdown-mode)
-
 (defvar markdown-live-preview-engine 'eww
   "Possibe values are `eww' (built-in browser) or `vmd' (installed with `npm').")

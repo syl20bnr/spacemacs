@@ -66,26 +66,26 @@
 (defun c-c++/init-cmake-mode ()
   (use-package cmake-mode
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))
-    :init (push 'company-cmake company-backends-cmake-mode)))
+    :init (spacemacs|add-company-backends
+            :backends company-cmake
+            :modes cmake-mode)))
 
 (defun c-c++/post-init-company ()
-  (spacemacs|add-company-hook c-mode-common)
-  (spacemacs|add-company-hook cmake-mode)
-
+  (when (configuration-layer/package-usedp 'cmake-mode)
+    (spacemacs|add-company-backends :backends company-cmake :modes cmake-mode))
   (when c-c++-enable-clang-support
-    (push 'company-clang company-backends-c-mode-common)
-
-    (defun company-mode/more-than-prefix-guesser ()
-      (c-c++/load-clang-args)
-      (company-clang-guess-prefix))
-
+    (spacemacs|add-company-backends :backends company-clang
+      :modes c-mode-common)
     (setq company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser)
-    (spacemacs/add-to-hooks 'c-c++/load-clang-args '(c-mode-hook c++-mode-hook))))
+    (spacemacs/add-to-hooks 'c-c++/load-clang-args
+                            '(c-mode-hook c++-mode-hook))))
 
 (defun c-c++/init-company-c-headers ()
   (use-package company-c-headers
     :defer t
-    :init (push 'company-c-headers company-backends-c-mode-common)))
+    :init (spacemacs|add-company-backends
+            :backends company-c-headers
+            :modes c-mode-common)))
 
 (defun c-c++/post-init-flycheck ()
   (dolist (mode '(c-mode c++-mode))
@@ -132,7 +132,7 @@
       "gG" 'ycmd-goto-imprecise)))
 
 (defun c-c++/post-init-company-ycmd ()
-  (push 'company-ycmd company-backends-c-mode-common))
+  (spacemacs|add-company-backends :backends company-ycmd :modes c-mode-common))
 
 (defun c-c++/pre-init-xcscope ()
   (spacemacs|use-package-add-hook xcscope

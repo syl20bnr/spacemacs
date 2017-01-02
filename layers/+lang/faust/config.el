@@ -11,6 +11,4 @@
 
 ;; Variables
 
-(spacemacs|defvar-company-backends faust-mode)
-
 (spacemacs|define-jump-handlers faust-mode)
