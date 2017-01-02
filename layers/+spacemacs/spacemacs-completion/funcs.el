@@ -41,7 +41,6 @@
         (props (cddr args)))
     ;; fuzzy matching is not supported in async sources
     (unless (child-of-class-p source-type helm-source-async)
-      (message "fuzzy enabled for source type: %s" source-type)
       (plist-put props :fuzzy-match (eq 'always dotspacemacs-helm-use-fuzzy))))
   (apply f args))
 
