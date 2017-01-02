@@ -25,7 +25,7 @@
    - [[#version-control---the-intelligent-way][Version control - the intelligent way]]
    - [[#daemon-mode-and-instant-startup-linux][Daemon mode and instant startup (Linux)]]
    - [[#swap-caps-lock-and-esc-keys-on-your-keyboard][Swap caps lock and esc keys on your keyboard]]
-   - [[#faq-and-troubleshooting][FAQ and troubleshooting]]
+   - [[#troubleshooting-and-further-info][Troubleshooting and further info]]
 
 * Why Spacemacs?
 - Unparallelled text and structure editing for all types of writing tasks:
@@ -292,7 +292,14 @@ more about the daemon and how to set it to launch automatically on startup.
 ** Swap caps lock and esc keys on your keyboard
 This is useful outside of Spacemacs as well!
 
-** FAQ and troubleshooting
+** Troubleshooting and further info
 For troubleshooting, please refer to the FAQ by pressing ~SPC f e f~ or [[https://github.com/syl20bnr/spacemacs/blob/master/doc/FAQ.org][online]].
 More help is found under ~SPC h~, and with ~SPC h ~SPC~ you can access the
-complete Spacemacs documentation, including this tutorial.
+comprehensive Spacemacs documentation, including this tutorial and the layer
+documents. The [[https://gitter.im/syl20bnr/spacemacs][Gitter chat]] can be used to ask questions if the answer cannot be
+found in the documentation.
+
+For a detailed review of Spacemacs' features one can also watch the
+[[https://www.youtube.com/playlist?list=PLrJ2YN5y27KLhd3yNs2dR8_inqtEiEweE][Spacemacs ABC series]] by Eivind Fonn on Youtube. Some of the keybindings have
+changed since the videos were uploaded but seeing someone in action helps spot
+helpful tricks that would otherwise be missed.
