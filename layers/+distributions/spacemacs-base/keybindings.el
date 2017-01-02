@@ -531,18 +531,19 @@
 (spacemacs|define-transient-state window-manipulation
   :title "Window Manipulation Transient State"
   :doc (concat "
- Select^^^^              Move^^^^              Split^^                Resize^^                     Other^^
- ──────^^^^───────────── ────^^^^───────────── ─────^^─────────────── ──────^^──────────────────── ─────^^──────────────────────────────
- [_j_/_k_] down/up       [_J_/_K_] down/up     [_s_] vertical         [_[_] shrink horizontally    [_q_] quit
- [_h_/_l_] left/right    [_H_/_L_] left/right  [_S_] vert & follow    [_]_] enlarge horizontally   [_u_] restore prev layout
- [_0_-_9_] window N      [_r_]^^   rotate fwd  [_v_] horizontal       [_{_] shrink vertically      [_U_] restore next layout
- [_w_]^^   other window  [_R_]^^   rotate bwd  [_V_] horiz & follow   [_}_] enlarge vertically     [_d_] close current
- [_o_]^^   other frame   ^^^^                  ^^                     ^^                           [_D_] close other"
+ Select^^^^^^                 Move^^^^              Split^^                Resize^^                     Other^^
+ ──────^^^^^^──────────────── ────^^^^───────────── ─────^^─────────────── ──────^^──────────────────── ─────^^──────────────────────────────
+ [_j_/_k_]^^    down/up       [_J_/_K_] down/up     [_s_] vertical         [_[_] shrink horizontally    [_q_] quit
+ [_h_/_l_]^^    left/right    [_H_/_L_] left/right  [_S_] vert & follow    [_]_] enlarge horizontally   [_u_] restore prev layout
+ [_`_,_0_.._9_] window 0..9   [_r_]^^   rotate fwd  [_v_] horizontal       [_{_] shrink vertically      [_U_] restore next layout
+ [_w_]^^^^      other window  [_R_]^^   rotate bwd  [_V_] horiz & follow   [_}_] enlarge vertically     [_d_] close current
+ [_o_]^^^^      other frame   ^^^^                  ^^                     ^^                           [_D_] close other"
                (if (configuration-layer/package-usedp 'golden-ratio)
-                   "\n ^^^^                    ^^^^                  ^^                     ^^                           [_g_] golden-ratio %`golden-ratio-mode"
+                   "\n ^^^^^^                       ^^^^                  ^^                     ^^                           [_g_] golden-ratio %`golden-ratio-mode"
                  ""))
   :bindings
   ("q" nil :exit t)
+  ("`" select-window-0)
   ("0" select-window-0)
   ("1" select-window-1)
   ("2" select-window-2)
