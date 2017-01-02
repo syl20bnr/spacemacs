@@ -12,6 +12,7 @@
 (setq typescript-packages
       '(
         company
+        eldoc
         flycheck
         tide
         typescript-mode
@@ -20,6 +21,9 @@
 
 (defun typescript/post-init-company ()
   (spacemacs|add-company-hook typescript-mode))
+
+(defun php/post-init-eldoc ()
+  (add-hook 'typescript-mode-hook 'eldoc-mode))
 
 (defun typescript/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'typescript-mode))
@@ -34,12 +38,7 @@
         (kbd "C-k") 'tide-find-previous-reference
         (kbd "C-j") 'tide-find-next-reference
         (kbd "C-l") 'tide-goto-reference)
-
       (add-hook 'typescript-mode-hook 'tide-setup)
-      (add-hook 'typescript-mode-hook 'eldoc-mode)
-
-      (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition)
-
       (push 'company-tide company-backends-typescript-mode))
     :config
     (progn
