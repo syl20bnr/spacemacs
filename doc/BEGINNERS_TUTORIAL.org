@@ -19,7 +19,7 @@
    - [[#adding-language-support-and-other-features-using-layers][Adding language support and other features: using layers]]
    - [[#changing-the-colour-theme][Changing the colour theme]]
    - [[#starting-maximized][Starting maximized]]
-   - [[#quitting-restarting][Quitting (restarting)]]
+   - [[#quitting][Quitting]]
  - [[#additional-features-tips-and-troubleshooting][Additional features, tips and troubleshooting]]
    - [[#org-mode][Org mode]]
    - [[#version-control---the-intelligent-way][Version control - the intelligent way]]
@@ -36,14 +36,12 @@
 * Install
  Spacemacs is a beginner-friendly and powerful extension of a popular text
  editor called Emacs. To install Spacemacs you need to first install base Emacs
- and then download and install the Spacemacs extension files, which is easiest
- done by using a program called Git. The steps are easy and outlined below.
+ and then download the Spacemacs extension files, which is most easily done by
+ using a program called Git. The steps are easy and outlined below.
 
-** 1. Install Emacs
-Follow the instructions in https://github.com/syl20bnr/spacemacs#prerequisites.
+** 1. [[https://github.com/syl20bnr/spacemacs#prerequisites][Install Emacs]]
 
-** 2. Install Git
-Go to https://git-scm.com/downloads and install Git on your platform.
+** 2. [[https://git-scm.com/downloads][Install Git]]
 
 ** 3. Install Spacemacs
 Open a terminal or command prompt, paste the following code to it:
@@ -205,7 +203,8 @@ not the scratch buffer, so the buffer is still open beneath the surface. You can
 quickly switch between the current buffer and the last with ~SPC TAB~: use this
 a couple of times to switch between the tutorial and the scratch buffer. ~SPC b~
 has more options for switching between buffers, for example ~SPC b b~ opens a
-searchable list of all currently open buffers.
+searchable list of all currently open buffers and ~SPC b d~ closes the current
+buffer.
 
 * Configuring Spacemacs
 ** Adding language support and other features: using layers
@@ -219,8 +218,9 @@ the window vertically to view both this tutorial and the dotfile simultaneously
 (~SPC w /~). Open the dotfile by pressing ~SPC f e d~. Navigate to the line
 starting with "dotspacemacs-configuration-layers". The following lines have
 further instructions: uncomment org and git layers if you want to be
-familiarized with them. More languages and layers can be found at
-https://github.com/syl20bnr/spacemacs/tree/master/layers.
+familiarized with them. More layers for different languages and tools can be
+found on [[https://github.com/syl20bnr/spacemacs/tree/master/layers][github]] or by pressing ~SPC h SPC~. The added layers will be installed
+upon restart of Spacemacs.
 
 Mac users: add the osx layer to use the OS X keybindings!
 
@@ -233,19 +233,18 @@ activate them by writing their names in the dotspacemacs-themes list.
 Editing the dotspacemacs-maximized-at-startup variable from nil to t will start
 Spacemacs maximized.
 
-** Quitting (restarting)
+** Quitting
 Save the changes you've made to the dotfile with ~SPC f s~ and then quit emacs
 by ~SPC q q~. You can return to this tutorial by clicking it on the home screen!
 
 * Additional features, tips and troubleshooting
 ** Org mode
 Org mode is one of the best features of Spacemacs and enough reason to warrant
-its use. Org mode's official description tells that it is "for
-keeping notes, maintaining todo lists, planning projects, and authoring
-documents with a fast and effective plain-text system", but this gives only a
-small inkling of its versatility. If you do any kind of writing at all, chances
-are that Org mode will make it easier and more fun. This tutorial was written in
-Org mode.
+its use. Org mode's official description tells that it is "for keeping notes,
+maintaining todo lists, planning projects, and authoring documents with a fast
+and effective plain-text system", but this gives only a small inkling of its
+versatility. If you do any kind of writing at all, chances are that Org mode
+will make it easier and more fun. This tutorial was written in Org mode.
 
 Install the Org layer and open this tutorial. Press ~S-TAB~ repeatedly and
 observe that this cycles the visibility of the contents of different headlines.
@@ -253,10 +252,9 @@ Press t in normal mode and observe that you can add TODO tags on headlines.
 Press ~M-k~ or ~M-j~ in normal mode and see how you can quickly move parts of
 the document around.
 
-This is not even scratching the surface of Org mode, so you should look into
-https://github.com/syl20bnr/spacemacs/tree/master/layers/org for more
-information. Googling for Org mode tutorials is also very helpful in finding out
-the most useful features of it!
+This is not even scratching the surface of Org mode, so you should look into its
+[[https://github.com/syl20bnr/spacemacs/blob/master/layers/%252Bemacs/org/README.org][documentation]] for more information. Googling for Org mode tutorials is also very
+helpful in finding out the most useful features of it!
 
 ** Version control - the intelligent way
 Version control means keeping track of the changes and edits you have made to
@@ -288,14 +286,13 @@ make further commits the same way.
 
 ** Daemon mode and instant startup (Linux) 
 Emacs can be used in daemon mode: a daemon runs in the background and launches
-clients. This way new frames launch instantly without delay.
-https://www.emacswiki.org/emacs/EmacsAsDaemon tells more about the daemon
-and how to set it to launch automatically on startup.
+clients. This way new frames launch instantly without delay. [[https://www.emacswiki.org/emacs/EmacsAsDaemon][Emacswiki]] tells
+more about the daemon and how to set it to launch automatically on startup.
 
 ** Swap caps lock and esc keys on your keyboard
 This is useful outside of Spacemacs as well!
 
 ** FAQ and troubleshooting
 For troubleshooting, please refer to the FAQ by pressing ~SPC f e f~ or [[https://github.com/syl20bnr/spacemacs/blob/master/doc/FAQ.org][online]].
-More help is found under ~SPC h~, and with ~SPC h ~SPC~ you can access Spacemacs
-documentation, including this tutorial.
+More help is found under ~SPC h~, and with ~SPC h ~SPC~ you can access the
+complete Spacemacs documentation, including this tutorial.
