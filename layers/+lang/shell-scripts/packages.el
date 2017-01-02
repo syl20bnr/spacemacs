@@ -11,7 +11,6 @@
 
 (setq shell-scripts-packages
       '(
-        company
         (company-shell :toggle (configuration-layer/package-usedp 'company))
         fish-mode
         flycheck
@@ -21,17 +20,17 @@
         (sh-script :location built-in)
         ))
 
-(defun shell-scripts/post-init-company ()
-  (spacemacs|add-company-hook sh-mode)
-  (spacemacs|add-company-hook fish-mode))
-
 (defun shell-scripts/init-company-shell ()
   (use-package company-shell
     :defer t
     :init
     (progn
-      (push 'company-shell company-backends-sh-mode)
-      (push '(company-shell company-fish-shell) company-backends-fish-mode))))
+      (spacemacs|add-company-backends
+        :backends company-shell
+        :modes sh-mode)
+      (spacemacs|add-company-backends
+        :backends (company-shell company-fish-shell)
+        :modes fish-mode))))
 
 (defun shell-scripts/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'sh-mode))

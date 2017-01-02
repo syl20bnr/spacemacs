@@ -47,8 +47,10 @@
               "bo" 'bundle-open))))
 
 (defun ruby/post-init-company ()
-  (spacemacs|add-company-hook ruby-mode)
-  (spacemacs|add-company-hook enh-ruby-mode)
+  (when (configuration-layer/package-usedp 'robe)
+    (spacemacs|add-company-backends
+      :backends company-robe
+      :modes ruby-mode enh-ruby-mode))
   (with-eval-after-load 'company-dabbrev-code
     (dolist (mode '(ruby-mode enh-ruby-mode))
       (push mode company-dabbrev-code-modes))))
@@ -128,9 +130,6 @@
       (spacemacs/register-repl 'robe 'robe-start "robe")
       (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
         (add-hook hook 'robe-mode))
-      (when (configuration-layer/package-usedp 'company)
-        (push 'company-robe company-backends-enh-ruby-mode)
-        (push 'company-robe company-backends-ruby-mode))
       (spacemacs/add-to-hooks 'robe-jump
                        '(spacemacs-jump-handlers-ruby-mode
                          spacemacs-jump-handlers-enh-ruby-mode)))

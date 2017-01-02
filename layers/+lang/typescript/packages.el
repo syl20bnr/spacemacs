@@ -20,7 +20,10 @@
         ))
 
 (defun typescript/post-init-company ()
-  (spacemacs|add-company-hook typescript-mode))
+  (when (configuration-layer/package-usedp 'tide)
+    (spacemacs|add-company-backends
+      :backends company-tide
+      :modes typescript-mode)))
 
 (defun php/post-init-eldoc ()
   (add-hook 'typescript-mode-hook 'eldoc-mode))
@@ -39,7 +42,7 @@
         (kbd "C-j") 'tide-find-next-reference
         (kbd "C-l") 'tide-goto-reference)
       (add-hook 'typescript-mode-hook 'tide-setup)
-      (push 'company-tide company-backends-typescript-mode))
+      (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'typescript-mode "mg" "goto")

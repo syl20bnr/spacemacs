@@ -19,23 +19,22 @@
 
 (defun scheme/post-init-company ()
   ;; Geiser provides completion as long as company mode is loaded.
-  (spacemacs|add-company-hook scheme-mode))
+  (spacemacs|add-company-backends :modes scheme-mode))
 
 (defun scheme/init-geiser ()
   (use-package geiser
     :commands run-geiser
-    :init
-    (progn
-      (spacemacs/register-repl 'geiser 'geiser-mode-switch-to-repl "geiser"))
+    :init (spacemacs/register-repl 'geiser 'geiser-mode-switch-to-repl "geiser")
     :config
     (progn
+      ;; prefixes
       (spacemacs/declare-prefix-for-mode 'scheme-mode "mc" "compiling")
       (spacemacs/declare-prefix-for-mode 'scheme-mode "mg" "navigation")
       (spacemacs/declare-prefix-for-mode 'scheme-mode "mh" "documentation")
       (spacemacs/declare-prefix-for-mode 'scheme-mode "mi" "insertion")
       (spacemacs/declare-prefix-for-mode 'scheme-mode "mm" "macroexpansion")
       (spacemacs/declare-prefix-for-mode 'scheme-mode "ms" "repl")
-
+      ;; key bindings
       (spacemacs/set-leader-keys-for-major-mode 'scheme-mode
         "'"  'geiser-mode-switch-to-repl
         ","  'lisp-state-toggle-lisp-state

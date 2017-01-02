@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(spacemacs|defvar-company-backends purescript-mode)
+;; variables
 
 (spacemacs|define-jump-handlers purescript-mode)
 

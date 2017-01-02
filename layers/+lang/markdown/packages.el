@@ -23,11 +23,12 @@
     ))
 
 (defun markdown/post-init-company ()
-  (spacemacs|add-company-hook markdown-mode)
-  (push 'company-capf company-backends-markdown-mode))
+  (spacemacs|add-company-backends :backends company-capf :modes markdown-mode))
 
 (defun markdown/post-init-company-emoji ()
-  (push 'company-emoji company-backends-markdown-mode))
+  (spacemacs|add-company-backends
+    :backends company-emoji
+    :modes markdown-mode))
 
 (defun markdown/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'markdown-mode-hook 'emoji-cheat-sheet-plus-display-mode))

@@ -20,12 +20,14 @@
       (`intero (spacemacs-haskell//setup-intero)))))
 
 (defun spacemacs-haskell//setup-ghci ()
-  (add-to-list 'company-backends-haskell-mode
-               '(company-ghci company-dabbrev-code company-yasnippet)))
+  (spacemacs|add-company-backends
+    :backends (company-ghci company-dabbrev-code company-yasnippet)
+    :modes haskell-mode))
 
 (defun spacemacs-haskell//setup-ghc-mod ()
-  (add-to-list 'company-backends-haskell-mode
-               '(company-ghc company-dabbrev-code company-yasnippet))
+  (spacemacs|add-company-backends
+    :backends (company-ghc company-dabbrev-code company-yasnippet)
+    :modes haskell-mode)
   (ghc-init)
   (dolist (mode haskell-modes)
     (spacemacs/declare-prefix-for-mode mode "mm" "haskell/ghc-mod")
@@ -47,8 +49,9 @@
     (set-face-attribute 'ghc-face-warn nil :underline nil)))
 
 (defun spacemacs-haskell//setup-intero ()
-  (add-to-list 'company-backends-haskell-mode
-               '(company-intero company-dabbrev-code company-yasnippet))
+  (spacemacs|add-company-backends
+    :backends (company-intero company-dabbrev-code company-yasnippet)
+    :modes haskell-mode)
   (push 'intero-goto-definition spacemacs-jump-handlers)
   (intero-mode)
   (dolist (mode haskell-modes)

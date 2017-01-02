@@ -11,7 +11,6 @@
 
 (setq react-packages
       '(
-        company
         company-tern
         emmet-mode
         evil-matchit
@@ -23,11 +22,8 @@
         web-mode
         ))
 
-(defun react/post-init-company ()
-  (spacemacs|add-company-hook react-mode))
-
 (defun react/post-init-company-tern ()
-  (push 'company-tern company-backends-react-mode))
+  (spacemacs|add-company-backends :backends company-tern :modes react-mode))
 
 (defun react/post-init-emmet-mode ()
   (add-hook 'react-mode-hook 'emmet-mode))

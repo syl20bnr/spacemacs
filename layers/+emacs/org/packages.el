@@ -40,11 +40,10 @@
     ))
 
 (defun org/post-init-company ()
-  (spacemacs|add-company-hook org-mode)
-  (push 'company-capf company-backends-org-mode))
+  (spacemacs|add-company-backends :backends company-capf :modes org-mode))
 
 (defun org/post-init-company-emoji ()
-  (push 'company-emoji company-backends-org-mode))
+  (spacemacs|add-company-backends :backends company-emoji :modes org-mode))
 
 (defun org/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'org-mode-hook 'spacemacs/delay-emoji-cheat-sheet-hook))

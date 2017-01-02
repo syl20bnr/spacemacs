@@ -18,7 +18,6 @@
 (require 'core-dotspacemacs)
 (require 'core-custom-settings)
 (require 'core-release-management)
-(require 'core-auto-completion)
 (require 'core-jump)
 (require 'core-display-init)
 (require 'core-themes-support)

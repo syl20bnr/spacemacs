@@ -12,7 +12,6 @@
 (setq javascript-packages
   '(
     coffee-mode
-    company
     (company-tern :toggle (configuration-layer/package-usedp 'company))
     evil-matchit
     flycheck
@@ -35,20 +34,19 @@
     :init
     (progn
       ;; indent to right position after `evil-open-below' and `evil-open-above'
-      (add-hook 'coffee-mode-hook '(lambda ()
-                                     (setq indent-line-function 'javascript/coffee-indent
-                                           evil-shift-width coffee-tab-width))))))
-
-(defun javascript/post-init-company ()
-  (spacemacs|add-company-hook js2-mode))
+      (add-hook 'coffee-mode-hook
+                '(lambda ()
+                   (setq indent-line-function 'javascript/coffee-indent
+                         evil-shift-width coffee-tab-width))))))
 
 (defun javascript/init-company-tern ()
   (use-package company-tern
     :if (and (configuration-layer/package-usedp 'company)
              (configuration-layer/package-usedp 'tern))
     :defer t
-    :init
-    (push 'company-tern company-backends-js2-mode)))
+    :init (spacemacs|add-company-backends
+            :backends company-tern
+            :modes js2-mode)))
 
 (defun javascript/post-init-flycheck ()
   (dolist (mode '(coffee-mode js2-mode json-mode))

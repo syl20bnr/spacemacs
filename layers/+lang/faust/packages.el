@@ -17,7 +17,7 @@
     yasnippet))
 
 (defun faust/post-init-company ()
-  (spacemacs|add-company-hook faust-mode))
+  (spacemacs|add-company-backends :modes faust-mode))
 
 (defun faust/init-faust-mode ()
   (use-package faust-mode

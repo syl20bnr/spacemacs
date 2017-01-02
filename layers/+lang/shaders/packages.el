@@ -10,23 +10,18 @@
 ;;; License: GLPv3
 (setq shaders-packages
       '(glsl-mode
-        company
-        (company-glsl
-         :location (recipe
-                    :fetcher github
-                    :repo "Kaali/company-glsl")
-         :toggle (and (configuration-layer/package-usedp 'company)
-                      (executable-find "glslangValidator")))))
-
-(defun shaders/post-init-company ()
-  (spacemacs|add-company-hook glsl-mode))
+        (company-glsl :location (recipe
+                                 :fetcher github
+                                 :repo "Kaali/company-glsl")
+                      :toggle (and (configuration-layer/package-usedp 'company)
+                                   (executable-find "glslangValidator")))))
 
 (defun shaders/init-company-glsl ()
   (use-package company-glsl
     :defer t
-    :init
-    (push 'company-glsl
-          company-backends-glsl-mode)))
+    :init (spacemacs|add-company-backends
+            :backends company-glsl
+            :modes glsl-mode)))
 
 (defun shaders/init-glsl-mode ()
   "Initialize GLSL mode"

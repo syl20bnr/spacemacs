@@ -9,6 +9,6 @@
 ;;
 ;;; License: GPLv3
 
-(spacemacs|define-jump-handlers scheme-mode geiser-edit-symbol-at-point)
+;; variables
 
-(spacemacs|defvar-company-backends scheme-mode)
+(spacemacs|define-jump-handlers scheme-mode geiser-edit-symbol-at-point)
