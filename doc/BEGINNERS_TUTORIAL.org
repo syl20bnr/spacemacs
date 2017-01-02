@@ -66,7 +66,7 @@ git clone https://github.com/syl20bnr/spacemacs /path/to/your/.emacs.d
 
 ** 4. Install the default font
 The default font used by Spacemacs is Source Code Pro by Adobe. It is
-recommended to [[https://github.com/adobe-fonts/source-code-pro][install]] it on your system to ensure correct visual
+recommended to [[https://github.com/adobe-fonts/source-code-pro#font-installation-instructions][install]] it on your system to ensure correct visual
 representation.
 
 ** 5. Open Spacemacs and choose default editing style
