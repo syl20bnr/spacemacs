@@ -44,6 +44,7 @@ python-*-docs-html
 /session.*
 /srecode-map.el
 /recentf
+/emojis
 
 # Private directory
 private/
