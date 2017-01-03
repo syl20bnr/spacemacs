@@ -277,6 +277,7 @@ debug-init and load the given list of packages."
           "Do nothing, the display is handled by the powerline."))
       (setq window-numbering-auto-assign-0-to-minibuffer nil)
       (spacemacs/set-leader-keys
+        "`" 'select-window-0
         "0" 'select-window-0
         "1" 'select-window-1
         "2" 'select-window-2

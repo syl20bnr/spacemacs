@@ -308,7 +308,10 @@
       (push (cons (cons nil (concat "\\`" (car nd) "\\'")) (cons nil (cdr nd)))
             which-key-replacement-alist)))
 
-  (push '(("\\(.*\\) 0" . "select-window-0") . ("\\1 0..9" . "window 0..9"))
+  ;; hide the "` -> select-window-0" entry in the spacemacs root which-key panel
+  (push '((nil . "select-window-0") . t) which-key-replacement-alist)
+
+  (push '(("\\(.*\\) 0" . "select-window-0") . ("\\1 `,0..9" . "window 0..9"))
         which-key-replacement-alist)
   (push '((nil . "select-window-[1-9]") . t) which-key-replacement-alist)
 
