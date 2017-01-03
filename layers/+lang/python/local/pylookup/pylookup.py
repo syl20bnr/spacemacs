@@ -11,26 +11,32 @@ Blais.
 
 """
 
-from __future__ import with_statement
+from __future__ import with_statement, print_function
 
-import os
 import sys
 import re
 try:
     import cPickle as pickle
-except:
+except ImportError:
     import pickle
-import formatter
 
 from os.path import join, dirname, exists, abspath, expanduser
 from contextlib import closing
 
-if sys.version_info[0] == 3:
-    import html.parser    as htmllib
-    import urllib.parse   as urlparse
-    import urllib.request as urllib
-else:
-    import htmllib, urllib, urlparse
+try:
+    from HTMLParser import HTMLParser
+except ImportError:
+    from html.parser import HTMLParser
+
+try:
+    from urllib2 import urlopen
+except ImportError:
+    from urllib.request import urlopen
+
+try:
+    from urlparse import urlparse
+except ImportError:
+    from urllib.parse import urlparse
 
 VERBOSE = False
 FORMATS = {
@@ -120,13 +126,13 @@ def get_matcher(insensitive=True, desc=True):
     return getattr(Element, "match{0}{1}".format(_in_entry, _sensitive))
 
 
-class IndexProcessor( htmllib.HTMLParser ):
+class IndexProcessor( HTMLParser ):
     """
     Extract the index links from a Python HTML documentation index.
     """
 
     def __init__( self, writer, dirn):
-        htmllib.HTMLParser.__init__( self, formatter.NullFormatter() )
+        HTMLParser.__init__( self )
 
         self.writer     = writer
         self.dirn       = dirn
@@ -138,55 +144,57 @@ class IndexProcessor( htmllib.HTMLParser ):
         self.num_of_a   = 0
         self.desc_cnt   = 0
 
-    def start_dd( self, att ):
-        self.list_entry = True
 
-    def end_dd( self ):
-        self.list_entry = False
+    def handle_starttag(self, tag, attr):
+        if tag == "dd":
+            self.list_entry = True
+        elif tag == "dt":
+            self.one_entry = True
+            self.num_of_a  = 0
+        elif tag == "a":
+            if self.one_entry:
+                self.url = join( self.dirn, dict( attr )[ 'href' ] )
 
-    def start_dt( self, att ):
-        self.one_entry = True
-        self.num_of_a  = 0
 
-    def end_dt( self ):
-        self.do_entry = False
+    def handle_endtag(self, tag):
+        if tag == "dd":
+            self.list_entry = False
+        elif tag == "dt":
+            self.do_entry = False
+        elif tag == "a":
+            global VERBOSE
+            if self.one_entry:
+                if self.num_of_a == 0 :
+                    if VERBOSE:
+                        self.desc_cnt += 1
+                        if self.desc_cnt % 100 == 0:
+                            sys.stdout.write("%04d %s\r" \
+                                                 % (self.desc_cnt, self.desc.ljust(80)))
 
-    def start_a( self, att ):
-        if self.one_entry:
-            self.url = join( self.dirn, dict( att )[ 'href' ] )
-            self.save_bgn()
+                    # extract fist element
+                    #  ex) __and__() (in module operator)
+                    if not self.list_entry :
+                        self.entry = re.sub( "\([^)]+\)", "", self.desc )
 
-    def end_a( self ):
-        global VERBOSE
-        if self.one_entry:
-            if self.num_of_a == 0 :
-                self.desc = self.save_end()
+                        # clean up PEP
+                        self.entry = trim(self.entry)
 
-                if VERBOSE:
-                    self.desc_cnt += 1
-                    if self.desc_cnt % 100 == 0:
-                        sys.stdout.write("%04d %s\r" \
-                                             % (self.desc_cnt, self.desc.ljust(80)))
+                        match = re.search( "\([^)]+\)", self.desc )
+                        if match :
+                            self.desc = match.group(0)
 
-                # extract fist element
-                #  ex) __and__() (in module operator)
-                if not self.list_entry :
-                    self.entry = re.sub( "\([^)]+\)", "", self.desc )
+                    self.desc = trim(re.sub( "[()]", "", self.desc ))
 
-                    # clean up PEP
-                    self.entry = trim(self.entry)
+                self.num_of_a += 1
+                book = build_book(self.url, self.num_of_a)
+                e = Element(self.entry, self.desc, book, self.url)
 
-                    match = re.search( "\([^)]+\)", self.desc )
-                    if match :
-                        self.desc = match.group(0)
+                self.writer(e)
 
-                self.desc = trim(re.sub( "[()]", "", self.desc ))
 
-            self.num_of_a += 1
-            book = build_book(self.url, self.num_of_a)
-            e = Element(self.entry, self.desc, book, self.url)
-
-            self.writer(e)
+    def handle_data(self, data):
+        if self.one_entry and self.num_of_a == 0:
+            self.desc = data
 
 def update(db, urls, append=False):
     """Update database with entries from urls.
@@ -200,10 +208,10 @@ def update(db, urls, append=False):
         writer = lambda e: pickle.dump(e, f)
         for url in urls:
             # detech 'file' or 'url' schemes
-            parsed = urlparse.urlparse(url)
+            parsed = urlparse(url)
             if not parsed.scheme or parsed.scheme == "file":
                 dst = abspath(expanduser(parsed.path))
-                if not os.path.exists(dst):
+                if not exists(dst):
                     print("Error: %s doesn't exist" % dst)
                     exit(1)
                 url = "file://%s" % dst
@@ -227,7 +235,7 @@ def update(db, urls, append=False):
                     print("Wait for a few seconds...")
                     print("Fetching index from '%s'" % index_url)
 
-                    index = urllib.urlopen(index_url).read()
+                    index = urlopen(index_url).read()
                     if not issubclass(type(index), str):
                         index = index.decode()
 
