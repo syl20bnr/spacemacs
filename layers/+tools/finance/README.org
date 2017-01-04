@@ -62,4 +62,5 @@ your =dotspacemacs/user-config=.  The default value, set in the layer, is =62=.
 | ~SPC m ,~   | toggle the current transaction pending                                    |
 | ~SPC m a~   | quickly add a transaction, without exiting the reconciliation buffer      |
 | ~SPC m t~   | change the target amount for the selected account                         |
+| ~SPC m q~   | quit reconciliation                                                       |
 | ~SPC m RET~ | finalize the reconciliation, changing all pending transactions to cleared |

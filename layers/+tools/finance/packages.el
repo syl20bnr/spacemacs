@@ -46,6 +46,7 @@
       (spacemacs/set-leader-keys-for-major-mode 'ledger-reconcile-mode
         "," 'ledger-reconcile-toggle
         "a" 'ledger-reconcile-add
+        "q" 'ledger-reconcile-quit
         "t" 'ledger-reconcile-change-target
         "RET" 'ledger-reconcile-finish)
       ;; temporary hack to work-around an issue with evil-define-key
