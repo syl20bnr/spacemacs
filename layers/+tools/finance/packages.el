@@ -46,6 +46,12 @@
          "t" 'ledger-insert-effective-date
          "y" 'ledger-set-year
          "RET" 'ledger-set-month)
+      (spacemacs/set-leader-keys-for-major-mode 'ledger-reconcile-mode
+        "," 'ledger-reconcile-toggle
+        "a" 'ledger-reconcile-add
+        "q" 'ledger-reconcile-quit
+        "t" 'ledger-reconcile-change-target
+        "RET" 'ledger-reconcile-finish)
       ;; temporary hack to work-around an issue with evil-define-key
       ;; more info: https://bitbucket.org/lyro/evil/issues/301/evil-define-key-for-minor-mode-does-not
       ;; TODO remove this hack if the limitation is removed upstream
