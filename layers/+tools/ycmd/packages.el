@@ -28,4 +28,13 @@
         (setq-default ycmd-global-config
                       (concat (configuration-layer/get-layer-path 'ycmd)
                               "global_conf.py")))
-      (setq-default ycmd-parse-conditions '(save mode-enabled)))))
+      (setq-default ycmd-parse-conditions '(save mode-enabled)))
+    :config
+    (progn
+      (require 'ycmd-eldoc)
+      (add-hook 'ycmd-mode-hook 'ycmd-eldoc-setup))))
+
+(defun ycmd/init-ycmd-eldoc ()
+  (use-package ycmd-eldoc
+    :defer t
+    :init (add-hook 'ycmd-mode-hook 'ycmd-eldoc-setup)))

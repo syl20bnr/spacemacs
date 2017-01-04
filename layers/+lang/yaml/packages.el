@@ -13,7 +13,7 @@
                       yaml-mode))
 
 (defun yaml/post-init-company ()
-  (spacemacs|add-company-hook yaml-mode))
+  (spacemacs|add-company-backends :modes yaml-mode))
 
 (defun yaml/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'yaml-mode))

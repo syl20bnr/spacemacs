@@ -28,5 +28,3 @@ used.")
 
 (defvar org-enable-org-journal-support nil
   "If non-nil org-journal is configured.")
-
-(spacemacs|defvar-company-backends org-mode)

@@ -9,6 +9,10 @@
 ;;
 ;;; License: GPLv3
 
+(defun company-mode/more-than-prefix-guesser ()
+  (c-c++/load-clang-args)
+  (company-clang-guess-prefix))
+
 ;; Based on the Sarcasm/irony-mode compilation database code.
 (defun company-mode/find-clang-complete-file ()
   (when buffer-file-name

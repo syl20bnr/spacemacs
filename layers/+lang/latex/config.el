@@ -11,8 +11,6 @@
 
 ;; variables
 
-(spacemacs|defvar-company-backends LaTeX-mode)
-
 (spacemacs|define-jump-handlers latex-mode)
 
 (defvar latex-build-command (if (executable-find "latexmk") "LatexMk" "LaTeX")

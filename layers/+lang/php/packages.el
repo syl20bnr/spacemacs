@@ -25,7 +25,7 @@
         ))
 
 (defun php/post-init-company ()
-  (spacemacs|add-company-hook php-mode))
+  (spacemacs|add-company-backends :modes php-mode))
 
 (defun php/init-drupal-mode ()
   (use-package drupal-mode

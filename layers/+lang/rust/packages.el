@@ -73,11 +73,10 @@
     :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'"))
 
 (defun rust/post-init-company ()
-  (push 'company-capf company-backends-rust-mode)
-  (spacemacs|add-company-hook rust-mode)
-  (add-hook 'rust-mode-hook
-            (lambda ()
-              (setq-local company-tooltip-align-annotations t))))
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes rust-mode
+    :variables company-tooltip-align-annotations t))
 
 (defun rust/post-init-smartparens ()
   (with-eval-after-load 'smartparens

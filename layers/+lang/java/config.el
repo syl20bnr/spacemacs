@@ -8,6 +8,6 @@
 ;;
 ;;; License: GPLv3
 
-(spacemacs|defvar-company-backends java-mode)
+;; variables
 
 (spacemacs|define-jump-handlers java-mode)

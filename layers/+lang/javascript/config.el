@@ -11,8 +11,6 @@
 
 ;; Variables
 
-(spacemacs|defvar-company-backends js2-mode)
-
 (spacemacs|define-jump-handlers js2-mode)
 
 (defvar javascript-disable-tern-port-files t

@@ -46,8 +46,10 @@
           (lisp-indent-line))))))
 
 (defun emacs-lisp/post-init-company ()
-  (spacemacs|add-company-hook ielm-mode)
-  (push '(company-files company-capf) company-backends-ielm-mode))
+  (spacemacs|add-company-backends :backends company-capf
+                                  :modes emacs-lisp-mode)
+  (spacemacs|add-company-backends :backends (company-files company-capf)
+                                  :modes ielm-mode))
 
 (defun emacs-lisp/post-init-eldoc ()
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
@@ -101,10 +103,7 @@
       "gG" 'spacemacs/nav-find-elisp-thing-at-point-other-window
       ","  'lisp-state-toggle-lisp-state
       "tb" 'spacemacs/ert-run-tests-buffer
-      "tq" 'ert))
-  ;; company support
-  (push 'company-capf company-backends-emacs-lisp-mode)
-  (spacemacs|add-company-hook emacs-lisp-mode))
+      "tq" 'ert)))
 
 (defun emacs-lisp/init-macrostep ()
   (use-package macrostep

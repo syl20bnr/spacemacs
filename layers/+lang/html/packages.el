@@ -30,23 +30,34 @@
     yasnippet
     ))
 
-;;TODO: whenever company-web makes a backend for haml-mode it should be added here. -- @robbyoconnor
 (defun html/post-init-company ()
-  (spacemacs|add-company-hook css-mode)
-  (spacemacs|add-company-hook jade-mode)
-  (spacemacs|add-company-hook slim-mode)
-  (spacemacs|add-company-hook web-mode))
+  (spacemacs|add-company-backends
+    :backends company-css
+    :modes css-mode))
 
 (defun html/init-company-web ()
-  (use-package company-web))
+  (use-package company-web
+    :defer t
+    :init
+    (progn
+      (spacemacs|add-company-backends
+        :backends (company-web-html company-css)
+        :modes web-mode
+        :variables
+        ;; see https://github.com/osv/company-web/issues/4
+        company-minimum-prefix-length 0)
+      (spacemacs|add-company-backends
+        :backends company-web-jade
+        :modes pug-mode)
+      (spacemacs|add-company-backends
+        :backends company-web-slim
+        :modes slim-mode))))
 
 (defun html/init-css-mode ()
   (use-package css-mode
     :defer t
     :init
     (progn
-      (push 'company-css company-backends-css-mode)
-
       ;; Mark `css-indent-offset' as safe-local variable
       (put 'css-indent-offset 'safe-local-variable #'integerp)
 
@@ -169,8 +180,6 @@
 (defun html/init-web-mode ()
   (use-package web-mode
     :defer t
-    :init
-    (push '(company-web-html company-css) company-backends-web-mode)
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'web-mode "me" "errors")
