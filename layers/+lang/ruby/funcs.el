@@ -59,3 +59,12 @@ Called interactively it prompts for a directory."
   "Conditionally enable `minitest-mode'"
   (when (eq 'minitest ruby-test-runner)
     (minitest-enable-appropriate-mode)))
+
+
+;; highlight debugger keywords
+(defun spacemacs/ruby-highlight-debugger-keywords ()
+  "Highlight break point lines."
+  (interactive)
+  (highlight-lines-matching-regexp "byebug")
+  (highlight-lines-matching-regexp "binding.irb")
+  (highlight-lines-matching-regexp "binding.pry"))

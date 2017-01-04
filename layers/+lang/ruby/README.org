@@ -17,6 +17,7 @@
      - [[#ruby-test-mode][Ruby-test-mode]]
      - [[#minitest-mode][minitest-mode]]
    - [[#rake][Rake]]
+ - [[#layer-options][Layer options]]
 
 * Description
 This layer provides support for the Ruby language with the following features:
@@ -184,3 +185,12 @@ When =ruby-test-runner= equals =minitest=.
 | ~SPC m k r~ | Re-runs the last rake task      |
 | ~SPC m k R~ | Regenerates the rake cache      |
 | ~SPC m k f~ | Finds definition of a rake task |
+
+* Layer options
+
+| Variable                           | Default value | Description                                                                                  |
+|------------------------------------+---------------+----------------------------------------------------------------------------------------------|
+| ~ruby-enable-enh-ruby-mode~        | ~nil~         | If non-nil, use `enh-ruby-mode' package instead of the built-in Ruby Mode.                   |
+| ~ruby-version-manager~             | ~nil~         | If non nil, defines the Ruby version manager.Possible values are `rbenv', `rvm' or `chruby'. |
+| ~ruby-test-runner~                 | ~ruby-test~  | Test runner to use. Possible values are `ruby-test', `minitest' or `rspec'.                   |
+| ~ruby-highlight-debugger-keywords~ | ~t~           | If non-nil, enable highlight for debugger keywords.                                          |
