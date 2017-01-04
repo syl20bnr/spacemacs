@@ -6,6 +6,7 @@
    - [[#global-bindings][Global bindings]]
    - [[#headers-mode][Headers mode]]
    - [[#view-mode][View mode]]
+   - [[#dired-by-name-mode][Dired by name mode]]
  - [[#configuration][Configuration]]
    - [[#maildirs-extension][Maildirs extension]]
    - [[#multiple-accounts][Multiple Accounts]]
@@ -62,6 +63,12 @@ existing =dotspacemacs-configuration-layers= list in this file.
 | ~J~        | Go to next unread thread marking other mail read on the way |
 | ~C-j~      | Next header                                                 |
 | ~C-k~      | Previous header                                             |
+
+** Dired by name mode
+
+| Keybinding    | Command                       |
+|---------------+-------------------------------|
+| ~C-c C-m C-a~ | Attach files from a directory |
 
 * Configuration
 Configuration varies too much to give precise instructions.  What follows is one
