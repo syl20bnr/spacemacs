@@ -168,7 +168,7 @@ In the file =packages.el= of the python layer:
       :defer t
       :init
       (spacemacs|add-company-backends
-         :backends 'company-anaconda
+         :backends company-anaconda
          :modes python-mode)))
 #+END_SRC
 

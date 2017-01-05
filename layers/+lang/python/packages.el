@@ -80,7 +80,7 @@
   (use-package company-anaconda
     :defer t
     :init (spacemacs|add-company-backends
-            :backends 'company-anaconda
+            :backends company-anaconda
             :modes python-mode)))
 
 (defun python/init-cython-mode ()
