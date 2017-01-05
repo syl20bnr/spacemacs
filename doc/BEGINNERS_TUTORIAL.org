@@ -51,8 +51,8 @@ Open a terminal or command prompt, paste the following code to it:
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 #+END_SRC
 
-Press enter to execute the code and the program you installed in the previous
-step, Git, will download the Spacemacs extension files.
+Press ~RET~ (return / enter) to execute the code and the program you installed
+in the previous step, Git, will download the Spacemacs extension files.
 
 *** Note for Windows users
 If you use windows, you have to modify the git command by inserting the correct
@@ -84,7 +84,7 @@ time Spacemacs launches, it will load and install packages and prompt you for
 your preferred editing style. You have two options: Vim ("Among the stars aboard
 the Evil flagship") and Emacs. If you haven't used Emacs before or are unsure
 about the differences of the editing styles, we recommend selecting the default,
-Vim, by pressing enter. Using this configuration is introduced more thoroughly
+Vim, by pressing ~RET~. Using this configuration is introduced more thoroughly
 in the next section. If you are already familiar with Emacs or do not plan to
 switch into modal editing style, select Emacs with the left and right arrow
 keys. There is also a third option, "Hybrid", for more advanced users willing to
@@ -94,7 +94,7 @@ so if modal editing does not sweep you away, you can switch to the Emacs style
 later.
 
 Next, you will be prompted for the distribution you would like to start with.
-The standard distribution is recommended, press enter to select it.
+The standard distribution is recommended, press ~RET~ to select it.
 
 Now Spacemacs will download and install required packages. This will take some
 minutes depending on your connection. After everything is installed (you will
@@ -111,6 +111,7 @@ Emacs, we will use Emacs conventions for keybinding notation. The most important
 modifier keys are:
 
 ~SPC~ = ~Space~, used as the leader key in Vim editing style.
+~RET~ = ~Return~ (also known as ~Enter~)
 ~C-~ = ~Ctrl~
 ~M-~ (for "meta") = ~Alt~
 ~S-~ = ~Shift~
@@ -223,7 +224,7 @@ buffer.
 
 ** Accessing files
 Files can be accessed under the ~SPC f~ mnemonic. You can navigate to any file
-with ~SPC f f~ and open it by pressing enter. Accessing recently opened files is
+with ~SPC f f~ and open it by pressing ~RET~. Accessing recently opened files is
 a very common task and is done with ~SPC f r~. An edited file is saved with
 ~SPC f s~.
 
@@ -239,9 +240,9 @@ the window vertically to view both this tutorial and the dotfile simultaneously
 (~SPC w /~). Open the dotfile by pressing ~SPC f e d~. Navigate to the line
 starting with "dotspacemacs-configuration-layers". The following lines have
 further instructions: uncomment org and git layers if you want to be
-familiarized with them. More layers for different languages and tools can be
-found on [[https://github.com/syl20bnr/spacemacs/tree/master/layers][github]] or by pressing ~SPC h SPC~. The added layers will be installed
-upon restart of Spacemacs.
+familiarized with them. More [[file:../layers/LAYERS.org][layers]] for different languages and tools can be
+found by pressing ~SPC h SPC~. The added layers will be installed upon restart
+of Spacemacs.
 
 Mac users: add the osx layer to use the OS X keybindings!
 
@@ -267,15 +268,18 @@ and effective plain-text system", but this gives only a small inkling of its
 versatility. If you do any kind of writing at all, chances are that Org mode
 will make it easier and more fun. This tutorial was written in Org mode.
 
-Install the Org layer and open this tutorial. Press ~S-TAB~ repeatedly and
-observe that this cycles the visibility of the contents of different headlines.
-Press t in normal mode and observe that you can add TODO tags on headlines.
-Press ~M-k~ or ~M-j~ in normal mode and see how you can quickly move parts of
-the document around.
+Install the Org layer and open this tutorial. Make a copy named test.org with ~SPC f c~
+somewhere outside of the .emacs.d directory. Write ~SPC SPC org-mode RET~ to
+switch to org mode from the write-only documentation mode.
 
-This is not even scratching the surface of Org mode, so you should look into its
-[[https://github.com/syl20bnr/spacemacs/blob/master/layers/%252Bemacs/org/README.org][documentation]] for more information. Googling for Org mode tutorials is also very
-helpful in finding out the most useful features of it!
+Press ~S-TAB~ repeatedly and observe that this cycles the visibility of the
+contents of different headlines. Press ~t~ in normal mode and observe that you
+can add TODO tags on headlines. Press ~M-k~ or ~M-j~ in normal mode and see how
+you can quickly move parts of the document around.
+
+This is not even scratching the surface of Org mode, so you should look into
+[[../layers/+emacs/org/README.org][org layer]] with ~SPC h SPC org~ for more information. Googling for Org mode
+tutorials is also very helpful in finding out the most useful features of it!
 
 ** Version control - the intelligent way
 Version control means keeping track of the changes and edits you have made to
@@ -315,9 +319,9 @@ This is useful outside of Spacemacs as well!
 
 ** Troubleshooting and further info
 ~SPC ?~ shows you the keybindings in the current major mode, which is often
-helpful. For troubleshooting, please refer to the FAQ by pressing ~SPC f e f~ or
-[[https://github.com/syl20bnr/spacemacs/blob/master/doc/FAQ.org][online]]. More help is found under ~SPC h~, and with ~SPC h ~SPC~ you can access
-the comprehensive Spacemacs documentation, including this tutorial and the layer
+helpful. For troubleshooting, please refer to the [[file:FAQ.org][FAQ]] by pressing ~SPC f e f~.
+More help is found under ~SPC h~, and with ~SPC h ~SPC~ you can access the
+comprehensive Spacemacs documentation, including this tutorial and the layer
 documents.
 
 The [[https://gitter.im/syl20bnr/spacemacs][Gitter chat]] can be used to ask questions if the answer cannot be found in
