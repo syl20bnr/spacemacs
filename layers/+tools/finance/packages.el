@@ -44,7 +44,7 @@
          "y" 'ledger-set-year
          "RET" 'ledger-set-month)
       (spacemacs/set-leader-keys-for-major-mode 'ledger-reconcile-mode
-        "," 'ledger-reconcile-toggle
+        (or dotspacemacs-major-mode-leader-key ",") 'ledger-reconcile-toggle
         "a" 'ledger-reconcile-add
         "q" 'ledger-reconcile-quit
         "t" 'ledger-reconcile-change-target
