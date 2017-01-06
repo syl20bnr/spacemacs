@@ -1,6 +1,6 @@
 ;;; packages.el --- pdf-tools Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
+;; Copyright (c) 2012-2017 Sylvain Benner
 ;; Copyright (c) 2014-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: André Peric Tavares <andre.peric.tavares@gmail.com>
