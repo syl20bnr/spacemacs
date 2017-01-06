@@ -65,10 +65,7 @@
 
 (defun c-c++/init-cmake-mode ()
   (use-package cmake-mode
-    :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))
-    :init (spacemacs|add-company-backends
-            :backends company-cmake
-            :modes cmake-mode)))
+    :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))))
 
 (defun c-c++/post-init-company ()
   (when (configuration-layer/package-usedp 'cmake-mode)
