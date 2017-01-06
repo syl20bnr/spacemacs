@@ -1,6 +1,6 @@
 ;;; packages.el --- Salt Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Ben Hayden <hayden767@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

@@ -1,6 +1,6 @@
 ;;; packages.el --- rebox layer function file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Christian E. Hopps <chopps@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
