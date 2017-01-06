@@ -772,6 +772,10 @@ the right."
 (spacemacs|create-align-repeat-x "bar" "|")
 (spacemacs|create-align-repeat-x "left-paren" "(")
 (spacemacs|create-align-repeat-x "right-paren" ")" t)
+(spacemacs|create-align-repeat-x "left-curly-brace" "{")
+(spacemacs|create-align-repeat-x "right-curly-brace" "}" t)
+(spacemacs|create-align-repeat-x "left-square-brace" "\\[")
+(spacemacs|create-align-repeat-x "right-square-brace" "\\]" t)
 (spacemacs|create-align-repeat-x "backslash" "\\\\")
 
 ;; END align functions
