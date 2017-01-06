@@ -422,6 +422,10 @@
   "xa&" 'spacemacs/align-repeat-ampersand
   "xa(" 'spacemacs/align-repeat-left-paren
   "xa)" 'spacemacs/align-repeat-right-paren
+  "xa{" 'spacemacs/align-repeat-left-curly-brace
+  "xa}" 'spacemacs/align-repeat-right-curly-brace
+  "xa[" 'spacemacs/align-repeat-left-square-brace
+  "xa]" 'spacemacs/align-repeat-right-square-brace
   "xa," 'spacemacs/align-repeat-comma
   "xa." 'spacemacs/align-repeat-decimal
   "xa:" 'spacemacs/align-repeat-colon
