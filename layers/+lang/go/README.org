@@ -98,6 +98,12 @@ function testing to work.
 the coverage buffer. See [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html][=display-buffer=]] for a list of possible functions.
 The default value is =display-buffer-reuse-window=.
 
+
+To provide additional arguments to go test, specify =go-use-test-args=
+#+begin_src emac-lisp
+  (go :variables go-use-test-args "-race -timeout 10s"
+#-end_src
+
 ** Guru
 
 Go Oracle has been deprecated as of October 1, 2016, it's replacement is =go-guru=.

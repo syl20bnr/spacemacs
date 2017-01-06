@@ -21,3 +21,6 @@
 
 (defvar go-use-gometalinter nil
   "Use gometalinter if the variable has non-nil value.")
+
+(defvar go-use-test-args ""
+  "Additional arguments to be supplied to `go test` during runtime.")
