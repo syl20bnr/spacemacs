@@ -1,6 +1,6 @@
 ;;; packages.el --- shaders layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Alan Love <alan@cattes.us>
 ;; URL: https://github.com/ell

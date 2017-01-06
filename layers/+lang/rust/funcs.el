@@ -1,6 +1,6 @@
 ;;; funcs.el --- rust Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: NJBS <DoNotTrackMeUsingThis@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
