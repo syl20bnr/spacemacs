@@ -278,8 +278,8 @@
   (spacemacs|add-company-backends
     :backends company-capf
     :modes
-    company-backends-cider-mode
-    company-backends-cider-repl-mode))
+    cider-mode
+    cider-repl-mode))
 
 (defun clojure/post-init-ggtags ()
   (add-hook 'clojure-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
