@@ -35,6 +35,7 @@
         "cX" 'cargo-process-run-example
         "cc" 'cargo-process-build
         "cd" 'cargo-process-doc
+        "cD" 'cargo-process-doc-open
         "ce" 'cargo-process-bench
         "cf" 'cargo-process-current-test
         "cf" 'cargo-process-fmt
