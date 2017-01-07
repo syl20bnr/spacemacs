@@ -2998,7 +2998,7 @@ are defined implicitly, for instance the root of a project is found when a
 
 =Helm= is used whenever it is possible.
 
-To search in a project see [[Searching in a project][project searching]].
+To search in a project see [[#searching-in-a-project][project searching]].
 
 =projectile= commands start with p:
 
@@ -3028,7 +3028,7 @@ To search in a project see [[Searching in a project][project searching]].
 | ~SPC p T~   | test project                                            |
 | ~SPC p v~   | open project root in =vc-dir= or =magit=                |
 | ~SPC /~     | search in project with the best search tool available   |
-| ~SPC s p~   | see [[Searching in a project][search in project]]                                   |
+| ~SPC s p~   | see [[#searching-in-a-project][search in project]]                                   |
 | ~SPC s a p~ | run =ag=                                                |
 | ~SPC s g p~ | run =grep=                                              |
 | ~SPC s k p~ | run =ack=                                               |
