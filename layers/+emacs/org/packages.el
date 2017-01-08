@@ -254,6 +254,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "q" 'org-clock-cancel
         "R" 'org-refile
         "s" 'org-schedule
+        "v" 'space-doc-mode
 
         ;; insertion of common elements
         "ia" 'org-attach

@@ -303,6 +303,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC m C-S-j~                                | org-shiftcontroldown                         |
 | ~SPC m C-S-k~                                | org-shiftcontrolup                           |
 | ~SPC s j~                                    | spacemacs/jump-in-buffer (jump to a heading) |
+| ~SPC v~                                      | space-doc-mode (toggle a read-only view mode)|
 
 *** Tables
 
