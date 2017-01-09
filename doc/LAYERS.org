@@ -273,6 +273,9 @@ Use-package supports heaps of useful keywords. Look at the [[https://github.com/
 more.
 
 * Anatomy of a layer
+:PROPERTIES:
+:CUSTOM_ID: anatomy-of-a-layer
+:END:
 A layer is simply a folder somewhere in Spacemacs' layer search path that
 usually contains these files (listed in loading order).
 
@@ -495,6 +498,9 @@ hooks, if the package should be loaded upon some event. It is not unusual to
 have both!
 
 ** Use-package hooks
+:PROPERTIES:
+:CUSTOM_ID: use-package-hooks
+:END:
 Spacemacs includes a macro for adding more code to the =:init= or =:config=
 blocks of a call to =use-package=, after the fact. This is useful for =pre-init=
 or =post-init= functions to "inject" code into the =use-package= call of the
