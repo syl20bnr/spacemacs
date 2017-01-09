@@ -80,8 +80,8 @@ dotspacemacs-configuration-layers '(auto-completion
 At anytime you can apply the changes made to the dotfile or layers
 _without restarting_ Spacemacs by pressing ~SPC f e R~.
 
-The [[file:../core/templates/.spacemacs.template][dotfile template]] contain further information about how to customize
-Spacemacs. See the dotfile configuration section of the [[file:DOCUMENTATION.org][documentation]] for
+The [[https://github.com/syl20bnr/spacemacs/blob/master/core/templates/.spacemacs.template][dotfile template]] contains further information about how to customize
+Spacemacs. See the dotfile configuration section of the [[file:DOCUMENTATION.org::#dotfile-configuration][documentation]] for
 more details.
 
 * Dotdirectory (~/.spacemacs.d)
@@ -174,4 +174,4 @@ about functions, variables, modes etc. These commands are bound thusly:
 | ~SPC h d v~ | describe-variable |
 
 * How-To's
-Some quick =how-to's= are compiled in the [[file:FAQ.org::How%20do%20I...][FAQ.org]] file.
+Some quick =how-to's= are compiled in the [[file:FAQ.org::#how-do-i][FAQ.]]
