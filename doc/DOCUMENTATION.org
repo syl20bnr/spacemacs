@@ -362,7 +362,7 @@ Where:
 | packages.el    | The list of packages and their configuration functions (init, post-init, etc...)                 |
 | funcs.el       | All functions defined in the layer (used in package configuration for instance)                  |
 | config.el      | Layer configuration (defines the layer variables default values and setup some config variables) |
-| keybindings.el | General key bindings no tied to a specific package configuration                                 |
+| keybindings.el | General key bindings not tied to a specific package configuration                                |
 
 =Packages= can be:
 - =ELPA= packages installed from an =ELPA= compliant repository
@@ -544,7 +544,7 @@ tests are also run automatically when you synchronize with ~SPC f e R~.
 
 ** Dotfile Contents
 *** Configuration functions
-Three special functions in the =~/.spacemacs= file can be used to perform
+Four special functions in the =~/.spacemacs= file can be used to perform
 configuration at the beginning and end of Spacemacs loading process:
 
 - =dotspacemacs/layers= is called at the very startup of Spacemacs initilialization,
@@ -598,7 +598,7 @@ to add some layers in =~/.myconfig=, set the variable like this:
 
 *** Setting configuration layers variables
 Some configuration layers have configuration variables to enable specific
-feature. For instance the [[../layers/%2Bsource-control/git][git layer]] has several configuration variables, they
+features. For instance the [[../layers/%2Bsource-control/git][git layer]] has several configuration variables, they
 can be set directly in the =dotspacemacs-configuration-layers= like this:
 
 #+BEGIN_SRC emacs-lisp
@@ -618,7 +618,7 @@ function of your dotfile is also a perfectly valid way to configure a layer.
 
 *** Disabling layer services in other layers
 Often layers enable services that other layers can use. For instance if you use
-the layer =auto-completion= then every other layers supporting =auto-completion=
+the layer =auto-completion= then all other layers supporting =auto-completion=
 will have this feature enabled.
 
 Sometimes you may want to disable a service added by a layer in some specific
@@ -725,7 +725,7 @@ Three styles are available:
 - Hybrid (a mix between Vim and Emacs).
 
 *** Vim
-Spacemacs behaves like in Vim using [[https://gitorious.org/evil/pages/Home][Evil]] mode package to emulate Vim key bindings.
+Spacemacs behaves like in Vim using the [[https://gitorious.org/evil/pages/Home][Evil]] mode package to emulate Vim key bindings.
 This is the default style of Spacemacs; it can be set explicitly by setting
 the =dotspacemacs-editing-style= variable to =vim= in the dotfile.
 
