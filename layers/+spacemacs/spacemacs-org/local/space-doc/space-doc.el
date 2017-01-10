@@ -304,6 +304,10 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
            "\\([ \t]*\\#\\+TITLE\\:\[ \t]*\\)"
            ;; Hide CAPTION logo meta line.
            "\\(\n.*\\#\\+CAPTION\\:.*\\)"
+           ;; Hide PROPERTIES lines.
+           "\\(\n.*\\:PROPERTIES\\:.*\\)"
+           "\\(\n.*\\:CUSTOM_ID\\:.*\\)"
+           "\\(\n.*\\:END\\:.*\\)"
            ;; Hide TOC-ORG tag and spaces before it.
            ;; Use modified `toc-org-toc-org-regexp' because
            ;; the original one matches whole string.
