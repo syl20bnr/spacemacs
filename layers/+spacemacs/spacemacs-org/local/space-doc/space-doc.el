@@ -401,10 +401,10 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
        spacemacs--space-doc-org-block-end-line-face-remap-cookie))))
 
 (defun spacemacs//space-doc-link-protocol (&optional enable)
-  "Open HTTPS links in the curren buffer.
+  "Open HTTPS links in the current buffer.
 If ENABLE is non-nil, use `spacemacs//space-doc-open' to open HTTPS links
 in the current `org-mode' buffer.
-Otherwise open them in the browser(default behavior).
+Otherwise open them in the browser (default behavior).
 This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   (if enable
       (progn
