@@ -95,7 +95,9 @@ For more details: http://pswinkels.blogspot.ca/2010/04/debugging-python-code-fro
 (defun nosetests-nose-command ()
   (let ((nose "python -u -c \"import nose; nose.run()\""))
     (if python-shell-virtualenv-path
-        (format "%s/bin/%s" python-shell-virtualenv-path nose)
+        (if (spacemacs/system-is-mswindows)
+            (format "%s/Scripts/%s" python-shell-virtualenv-path nose)
+         (format "%s/bin/%s" python-shell-virtualenv-path nose))
       nose)))
 
 (defun nosetests-all (&optional debug failed)

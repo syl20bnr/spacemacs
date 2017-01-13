@@ -1,6 +1,6 @@
 ;;; packages.el --- typescript Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Chris Bowdon <c.bowdon@bath.edu>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,6 +12,7 @@
 (setq typescript-packages
       '(
         company
+        eldoc
         flycheck
         tide
         typescript-mode
@@ -19,7 +20,13 @@
         ))
 
 (defun typescript/post-init-company ()
-  (spacemacs|add-company-hook typescript-mode))
+  (when (configuration-layer/package-usedp 'tide)
+    (spacemacs|add-company-backends
+      :backends company-tide
+      :modes typescript-mode)))
+
+(defun typescript/post-init-eldoc ()
+  (add-hook 'typescript-mode-hook 'eldoc-mode))
 
 (defun typescript/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'typescript-mode))
@@ -34,13 +41,8 @@
         (kbd "C-k") 'tide-find-previous-reference
         (kbd "C-j") 'tide-find-next-reference
         (kbd "C-l") 'tide-goto-reference)
-
       (add-hook 'typescript-mode-hook 'tide-setup)
-      (add-hook 'typescript-mode-hook 'eldoc-mode)
-
-      (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition)
-
-      (push 'company-tide company-backends-typescript-mode))
+      (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'typescript-mode "mg" "goto")

@@ -1,6 +1,6 @@
 ;;; packages.el --- elm Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,9 +20,8 @@
       ))
 
 (defun elm/post-init-company ()
-  (spacemacs|add-company-hook elm-mode)
-  (add-hook 'elm-mode-hook 'elm-oracle-setup-completion)
-  (push 'company-elm company-backends-elm-mode))
+  (spacemacs|add-company-backends :backends company-elm :modes elm-mode)
+  (add-hook 'elm-mode-hook 'elm-oracle-setup-completion))
 
 (defun elm/post-init-flycheck ()
   (add-hook 'elm-mode-hook 'flycheck-mode)

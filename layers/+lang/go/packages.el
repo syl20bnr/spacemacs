@@ -1,6 +1,5 @@
 (setq go-packages
       '(
-        company
         (company-go :toggle (configuration-layer/package-usedp 'company))
         flycheck
         (flycheck-gometalinter :toggle (and go-use-gometalinter
@@ -15,16 +14,14 @@
         ))
 
 
-(defun go/post-init-company ()
-  (spacemacs|add-company-hook go-mode))
-
 (defun go/init-company-go ()
   (use-package company-go
     :defer t
     :init
-    (progn
-      (setq company-go-show-annotation t)
-      (push 'company-go company-backends-go-mode))))
+    (spacemacs|add-company-backends
+      :backends company-go
+      :modes go-mode
+      :variables company-go-show-annotation t)))
 
 (defun go/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'go-mode))

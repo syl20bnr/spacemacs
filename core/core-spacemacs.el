@@ -1,6 +1,6 @@
 ;;; core-spacemacs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -18,7 +18,6 @@
 (require 'core-dotspacemacs)
 (require 'core-custom-settings)
 (require 'core-release-management)
-(require 'core-auto-completion)
 (require 'core-jump)
 (require 'core-display-init)
 (require 'core-themes-support)

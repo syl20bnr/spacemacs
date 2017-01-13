@@ -1,6 +1,6 @@
 ;;; space-doc.el --- Spacemacs documentation minor mode.
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -304,6 +304,10 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
            "\\([ \t]*\\#\\+TITLE\\:\[ \t]*\\)"
            ;; Hide CAPTION logo meta line.
            "\\(\n.*\\#\\+CAPTION\\:.*\\)"
+           ;; Hide PROPERTIES lines.
+           "\\(\n.*\\:PROPERTIES\\:.*\\)"
+           "\\(\n.*\\:CUSTOM_ID\\:.*\\)"
+           "\\(\n.*\\:END\\:.*\\)"
            ;; Hide TOC-ORG tag and spaces before it.
            ;; Use modified `toc-org-toc-org-regexp' because
            ;; the original one matches whole string.

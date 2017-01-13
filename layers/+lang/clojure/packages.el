@@ -275,10 +275,11 @@
   (add-hook 'cider-mode-hook 'subword-mode))
 
 (defun clojure/post-init-company ()
-  (push 'company-capf company-backends-cider-mode)
-  (spacemacs|add-company-hook cider-mode)
-  (push 'company-capf company-backends-cider-repl-mode)
-  (spacemacs|add-company-hook cider-repl-mode))
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes
+    cider-mode
+    cider-repl-mode))
 
 (defun clojure/post-init-ggtags ()
   (add-hook 'clojure-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

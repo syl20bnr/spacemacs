@@ -1,6 +1,6 @@
 ;;; funcs.el --- Better Emacs Defaults Layer functions File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -19,14 +19,3 @@
       ;; correctly (see https://github.com/syl20bnr/spacemacs/issues/3278)
       (call-interactively #'kill-region)
     (backward-kill-word arg)))
-
-;; http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html
-(defun spacemacs/fill-or-unfill ()
-  "Like `fill-paragraph', but unfill if used twice."
-  (interactive)
-  (let ((fill-column
-         (if (eq last-command 'spacemacs/fill-or-unfill)
-             (progn (setq this-command nil)
-                    (point-max))
-           fill-column)))
-    (call-interactively #'fill-paragraph)))

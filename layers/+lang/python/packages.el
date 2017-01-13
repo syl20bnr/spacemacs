@@ -1,6 +1,6 @@
 ;;; packages.el --- Python Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -65,18 +65,23 @@
         (evil--jumps-push)))))
 
 (defun python/post-init-company ()
-  (spacemacs|add-company-hook python-mode)
-  (spacemacs|add-company-hook inferior-python-mode)
-  (push '(company-files company-capf) company-backends-inferior-python-mode)
-  (add-hook 'inferior-python-mode-hook (lambda ()
-                                         (setq-local company-minimum-prefix-length 0)
-                                         (setq-local company-idle-delay 0.5))))
+  (spacemacs|add-company-backends
+    :backends (company-files company-capf)
+    :modes inferior-python-mode
+    :variables
+    company-minimum-prefix-length 0
+    company-idle-delay 0.5)
+  (when (configuration-layer/package-usedp 'pip-requirements)
+    (spacemacs|add-company-backends
+      :backends company-capf
+      :modes pip-requirements-mode)))
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
     :defer t
-    :init
-    (push 'company-anaconda company-backends-python-mode)))
+    :init (spacemacs|add-company-backends
+            :backends company-anaconda
+            :modes python-mode)))
 
 (defun python/init-cython-mode ()
   (use-package cython-mode
@@ -165,12 +170,7 @@
 
 (defun python/init-pip-requirements ()
   (use-package pip-requirements
-    :defer t
-    :init
-    (progn
-      ;; company support
-      (push 'company-capf company-backends-pip-requirements-mode)
-      (spacemacs|add-company-hook pip-requirements-mode))))
+    :defer t))
 
 (defun python/init-py-isort ()
   (use-package py-isort
@@ -207,6 +207,14 @@
     :defer t
     :init
     (progn
+      (pcase python-auto-set-local-pyvenv-virtualenv
+        (`on-visit
+         (spacemacs/add-to-hooks 'spacemacs//pyvenv-mode-set-local-virtualenv
+                                 '(python-mode-hook
+                                   hy-mode-hook)))
+        (`on-project-switch
+         (add-hook 'projectile-after-switch-project-hook
+                   'spacemacs//pyvenv-mode-set-local-virtualenv)))
       (dolist (mode '(python-mode hy-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
           "Va" 'pyvenv-activate

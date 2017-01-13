@@ -1,6 +1,6 @@
 ;;; funcs.el --- Python Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -81,6 +81,20 @@
             (pyenv-mode-set version)
           (message "pyenv: version `%s' is not installed (set by %s)"
                    version file-path))))))
+
+(defun spacemacs//pyvenv-mode-set-local-virtualenv ()
+  "Set pyvenv virtualenv from \".venv\" by looking in parent directories."
+  (interactive)
+  (let ((root-path (locate-dominating-file default-directory
+                                           ".venv")))
+    (when root-path
+      (let* ((file-path (expand-file-name ".venv" root-path))
+             (virtualenv
+              (with-temp-buffer
+                (insert-file-contents-literally file-path)
+                (buffer-substring-no-properties (line-beginning-position)
+                                                (line-end-position)))))
+            (pyvenv-workon virtualenv)))))
 
 
 ;; Tests

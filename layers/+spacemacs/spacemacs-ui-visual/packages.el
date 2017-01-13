@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs UI Visual Layer packages File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -126,16 +126,16 @@
                    evil-window-move-far-right
                    evil-window-move-very-bottom
                    quit-window
-                   select-window-0
-                   select-window-1
-                   select-window-2
-                   select-window-3
-                   select-window-4
-                   select-window-5
-                   select-window-6
-                   select-window-7
-                   select-window-8
-                   select-window-9
+                   winum-select-window-0-or-10
+                   winum-select-window-1
+                   winum-select-window-2
+                   winum-select-window-3
+                   winum-select-window-4
+                   winum-select-window-5
+                   winum-select-window-6
+                   winum-select-window-7
+                   winum-select-window-8
+                   winum-select-window-9
                    windmove-left
                    windmove-right
                    windmove-up

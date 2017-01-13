@@ -1,6 +1,6 @@
 ;;; packages.el --- Agda2 Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Oliver Charles <ollie@ocharles.org.uk>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,8 +15,7 @@
         golden-ratio))
 
 (defun agda/post-init-company ()
-  (spacemacs|add-company-hook agda2-mode)
-  (push 'company-capf company-backends-agda2-mode))
+  (spacemacs|add-company-backends :backends company-capf :modes agda2-mode))
 
 (defun agda/init-agda ()
   (if (and (eq 'use-helper agda-mode-path)

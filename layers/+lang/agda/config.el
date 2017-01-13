@@ -1,6 +1,6 @@
 ;;; config.el --- Agda2 Layer config File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: FreeSalad <freesalad@noreply.git>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -16,4 +16,3 @@ Emacs. If `use-helper', the `agda-mode' executable is used to
 find its location.")
 
 (spacemacs|define-jump-handlers agda2-mode agda2-goto-definition-keyboard)
-(spacemacs|defvar-company-backends agda2-mode)

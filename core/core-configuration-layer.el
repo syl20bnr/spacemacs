@@ -1,6 +1,6 @@
 ;;; core-configuration-layer.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -1061,12 +1061,28 @@ Returns nil if the directory is not a category."
   ;; must have the final word on configuration choices. Let
   ;; `dotspacemacs-directory' override the private directory if it exists.
   (setq  configuration-layer--indexed-layers (make-hash-table :size 1024))
-  (let ((search-paths (append (list configuration-layer-directory)
-                              dotspacemacs-configuration-layer-path
-                              (list configuration-layer-private-layer-directory)
-                              (when dotspacemacs-directory
-                                (list dotspacemacs-directory))))
+  (let ((search-paths (append
+                       ;; layers shipped with spacemacs
+                       (list configuration-layer-directory)
+                       ;; layers in private folder ~/.emacs.d/private
+                       (list configuration-layer-private-directory)
+                       ;; layers in dotdirectory
+                       (when dotspacemacs-directory
+                         (list (expand-file-name (concat dotspacemacs-directory
+                                                         "layers/"))))
+                       ;; additional layer directories provided by the user
+                       dotspacemacs-configuration-layer-path))
         (discovered '()))
+    ;; filter out directories that don't exist
+    (setq search-paths (configuration-layer/filter-objects
+                        search-paths
+                        (lambda (x)
+                          (let ((exists (file-exists-p x)))
+                            (unless exists
+                              (configuration-layer//warning
+                               "Layer directory \"%s\" not found. Ignoring it."
+                               x))
+                            exists))))
     ;; depth-first search of subdirectories
     (while search-paths
       (let ((current-path (car search-paths)))
@@ -1093,7 +1109,9 @@ Returns nil if the directory is not a category."
                   (if indexed-layer
                       ;; the same layer may have been discovered twice,
                       ;; in which case we don't need a warning
-                      (unless (string-equal (directory-file-name (oref indexed-layer :dir)) (directory-file-name sub))
+                      (unless (string-equal
+                               (directory-file-name (oref indexed-layer :dir))
+                               (directory-file-name sub))
                         (configuration-layer//warning
                          (concat
                           "Duplicated layer %s detected in directory \"%s\", "

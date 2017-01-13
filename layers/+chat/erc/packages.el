@@ -1,6 +1,6 @@
 ;;; packages.el --- erc Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -35,11 +35,10 @@
   (push 'erc-terminal-notifier erc-packages))
 
 (defun erc/post-init-company ()
-  (spacemacs|add-company-hook erc-mode)
-  (push 'company-capf company-backends-erc-mode))
+  (spacemacs|add-company-backends :backends company-capf :modes erc-mode))
 
 (defun erc/post-init-company-emoji ()
-  (push 'company-emoji company-backends-erc-mode))
+  (spacemacs|add-company-backends :backends company-emoji :modes erc-mode))
 
 (defun erc/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'erc-mode-hook 'emoji-cheat-sheet-plus-display-mode))

@@ -1,6 +1,6 @@
 ;;; core-debug.el --- Spacemacs Core File  -*- lexical-binding: t; -*-
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -250,13 +250,13 @@ seconds to load")
      (concat configuration-layer-template-directory "REPORTING.template"))
     (loop
      for (placeholder replacement)
-     in '(("%SYSTEM_INFO%" system-info)
-          ("%BACKTRACE%" backtrace)
-          ("(%LAST_KEYS%)\n" last-keys))
+     in `(("%SYSTEM_INFO%" ,system-info)
+          ("%BACKTRACE%" ,backtrace)
+          ("(%LAST_KEYS%)\n" ,last-keys))
      do (save-excursion
           (goto-char (point-min))
           (search-forward placeholder)
-          (replace-match (symbol-value replacement) [keep-case] [literal])))
+          (replace-match replacement [keep-case] [literal])))
     (spacemacs/report-issue-mode)))
 
 (define-derived-mode spacemacs/report-issue-mode markdown-mode "Report-Issue"

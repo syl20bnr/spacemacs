@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs UI Layer packages File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -19,9 +19,7 @@
         open-junk-file
         paradox
         restart-emacs
-        window-numbering))
-
-;; Initialization of packages
+        winum))
 
 (defun spacemacs-ui/init-ace-link ()
   (use-package ace-link
@@ -268,41 +266,36 @@ debug-init and load the given list of packages."
       "qr" 'spacemacs/restart-emacs-resume-layouts
       "qR" 'spacemacs/restart-emacs)))
 
-(defun spacemacs-ui/init-window-numbering ()
-  (use-package window-numbering
+(defun spacemacs-ui/init-winum ()
+  (use-package winum
     :config
     (progn
-      (when (configuration-layer/package-usedp 'spaceline)
-        (defun window-numbering-install-mode-line (&optional position)
-          "Do nothing, the display is handled by the powerline."))
-      (setq window-numbering-auto-assign-0-to-minibuffer nil)
+      (defun spacemacs//winum-assign-func ()
+        "Custom number assignment for neotree."
+        (when (and (boundp 'neo-buffer-name)
+                   (string= (buffer-name) neo-buffer-name)
+                   ;; in case there are two neotree windows. Example: when
+                   ;; invoking a transient state from neotree window, the new
+                   ;; window will show neotree briefly before displaying the TS,
+                   ;; causing an error message. the error is eliminated by
+                   ;; assigning 0 only to the top-left window
+                   (eq (selected-window) (frame-first-window)))
+          0))
+      (setq winum-auto-assign-0-to-minibuffer nil
+            winum-assign-func 'spacemacs//winum-assign-func
+            winum-auto-setup-mode-line nil
+            winum-ignored-buffers '(" *which-key*"))
       (spacemacs/set-leader-keys
-        "0" 'select-window-0
-        "1" 'select-window-1
-        "2" 'select-window-2
-        "3" 'select-window-3
-        "4" 'select-window-4
-        "5" 'select-window-5
-        "6" 'select-window-6
-        "7" 'select-window-7
-        "8" 'select-window-8
-        "9" 'select-window-9)
-      (window-numbering-mode 1))
-
-    ;; make sure neotree is always 0
-    (defun spacemacs//window-numbering-assign ()
-      "Custom number assignment for neotree."
-      (when (and (boundp 'neo-buffer-name)
-                 (string= (buffer-name) neo-buffer-name)
-                 ;; in case there are two neotree windows. Example: when
-                 ;; invoking a transient state from neotree window, the new
-                 ;; window will show neotree briefly before displaying the TS,
-                 ;; causing an error message. the error is eliminated by
-                 ;; assigning 0 only to the top-left window
-                 (eq (selected-window) (window-at 0 0)))
-        0))
-
-    ;; using lambda to work-around a bug in window-numbering, see
-    ;; https://github.com/nschum/window-numbering.el/issues/10
-    (setq window-numbering-assign-func
-          (lambda () (spacemacs//window-numbering-assign)))))
+        "`" 'winum-select-window-by-number
+        "²" 'winum-select-window-by-number
+        "0" 'winum-select-window-0-or-10
+        "1" 'winum-select-window-1
+        "2" 'winum-select-window-2
+        "3" 'winum-select-window-3
+        "4" 'winum-select-window-4
+        "5" 'winum-select-window-5
+        "6" 'winum-select-window-6
+        "7" 'winum-select-window-7
+        "8" 'winum-select-window-8
+        "9" 'winum-select-window-9)
+      (winum-mode))))

@@ -1,6 +1,6 @@
 ;;; packages.el --- Elixir Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -24,8 +24,10 @@
     ))
 
 (defun elixir/post-init-company ()
-  (spacemacs|add-company-hook elixir-mode)
-  (spacemacs|add-company-hook alchemist-iex-mode))
+  (when (configuration-layer/package-usedp 'alchemist)
+    (spacemacs|add-company-backends
+      :backends alchemist-company
+      :modes elixir-mode alchemist-iex-mode)))
 
 (defun elixir/init-alchemist ()
   (use-package alchemist
@@ -36,9 +38,6 @@
       (add-hook 'elixir-mode-hook 'alchemist-mode)
       (setq alchemist-project-compile-when-needed t
             alchemist-test-status-modeline nil)
-      ;; setup company backends
-      (push 'alchemist-company company-backends-elixir-mode)
-      (push 'alchemist-company company-backends-alchemist-iex-mode)
       (add-to-list 'spacemacs-jump-handlers-elixir-mode
                 'alchemist-goto-definition-at-point))
     :config

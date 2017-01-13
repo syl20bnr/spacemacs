@@ -1,6 +1,6 @@
 ;;; funcs.el --- Ivy Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -96,6 +96,12 @@
        (spacemacs//gne-init-counsel))
      (pop-to-buffer buf))))
 
+(defun spacemacs//counsel-edit ()
+  "Edit the current search results in a buffer using wgrep."
+  (interactive)
+  (run-with-idle-timer 0 nil 'ivy-wgrep-change-to-wgrep-mode)
+  (ivy-occur))
+
 (defun spacemacs//gne-init-counsel ()
   (with-current-buffer "*ivy results*"
     (setq spacemacs--gne-min-line 1
@@ -113,6 +119,7 @@
 (defvar spacemacs--counsel-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "<f3>") 'spacemacs//counsel-save-in-buffer)
+    (define-key map (kbd "C-c C-e") 'spacemacs//counsel-edit)
     map))
 
 ;; see `counsel-ag'
