@@ -165,7 +165,7 @@
           "tl" 'spacemacs/cider-test-run-loaded-tests
           "tp" 'spacemacs/cider-test-run-project-tests
           "tn" 'spacemacs/cider-test-run-ns-tests
-          "tr" 'spacemacs/cider-test-rerun-tests
+          "tr" 'spacemacs/cider-test-rerun-failed-tests
           "tt" 'spacemacs/cider-test-run-focused-test
 
           "db" 'cider-debug-defun-at-point
