@@ -3268,6 +3268,7 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | 7000th star!!!!!!!   | [[https://github.com/mukhali][mukhali]]         |
 | 8000th star!!!!!!!!  | [[https://github.com/shsteven][shsteven]]        |
 | 9000th star!!!!!!!!! | [[https://github.com/deb0ch][deb0ch]]          |
+| 10000th star :star:  | [[https://github.com/colt365][colt365]]         |
 
 ** Gitter chat
 
