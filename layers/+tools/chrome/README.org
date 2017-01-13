@@ -9,12 +9,15 @@
    - [[#layer][Layer]]
    - [[#chrome-extension][Chrome extension]]
  - [[#configuration][Configuration]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 This layer provides some integration with the Google Chrome browser.
 
 ** Features
 - Edit text boxes with Emacs using [[http://melpa.org/#/edit-server][edit-server]]
+- Write markdown in Emacs and realtime show in chrome using [[https://github.com/mola-T/flymd][flymd]]
+
 
 * Install
 ** Layer
@@ -56,3 +59,10 @@ The following example works on OS X:
 #+BEGIN_SRC emacs-lisp
   (add-hook 'edit-server-done-hook (lambda () (shell-command "open -a \"Google Chrome\"")))
 #+END_SRC
+
+* Key bindings
+
+| Key Binding | Description |
+| ~SPC a F~   | flymd-flyit |
+
+*Note:* You need to kill all google chrome process before using flymd-flyit

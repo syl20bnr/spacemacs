@@ -12,6 +12,7 @@
 (setq chrome-packages '(
                         edit-server
                         gmail-message-mode
+                        flymd
                         ))
 
 (defun chrome/init-edit-server ()
@@ -26,3 +27,17 @@
 
 (defun chrome/init-gmail-message-mode ( )
   (use-package gmail-message-mode))
+
+(defun chrome/init-flymd ()
+  (use-package flymd
+    :defer t
+    :init
+    (progn
+      (defun my-flymd-browser-function (url)
+        (let ((process-environment (browse-url-process-environment)))
+          (apply 'start-process
+                 (concat "google-chrome " url) nil
+                 chrome-exec-path
+                 (list "--allow-file-access-from-files" url))))
+      (setq flymd-browser-open-function 'my-flymd-browser-function)
+      )))
