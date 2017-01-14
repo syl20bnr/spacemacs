@@ -15,6 +15,7 @@ This layer adds PHP language support to Spacemacs.
 ** Features:
 - Edit PHP files using [[https://github.com/ejmr/php-mode][php-mode]]
 - Edit Drupal files
+- Complete and jump to define with [[https://github.com/xcwen/ac-php][company-php]]
 - Run tests with PHPUnit
 - Reformat code with PHP CBF
 
@@ -28,4 +29,7 @@ file.
 
 * Key bindings
 
-TODO ! :-)
+| Key Binding | Description    |
+|-------------+----------------|
+| ~SPC m g g~ | jump to define at point |
+| ~C-t~       | jump back |
