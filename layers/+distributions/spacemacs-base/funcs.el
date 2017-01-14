@@ -852,7 +852,7 @@ A non-nil argument sorts in reverse order."
 (defun spacemacs/sort-lines-by-column-reverse ()
   "Sort lines by the selected column in reverse order."
   (interactive)
-  (spacemacs/sort-columns -1))
+  (spacemacs/sort-lines-by-column -1))
 
 ;; BEGIN linum mouse helpers
 
