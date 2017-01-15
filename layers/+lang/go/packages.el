@@ -11,8 +11,13 @@
         go-mode
         go-guru
         (go-rename :location local)
+        popwin
         ))
 
+
+(defun go/post-init-popwin ()
+  (push (cons go-test-buffer-name '(:dedicated t :position bottom :stick t :noselect t :height 0.4))
+        popwin:special-display-config))
 
 (defun go/init-company-go ()
   (use-package company-go
@@ -46,8 +51,7 @@
 
       (defun spacemacs/go-run-tests (args)
         (interactive)
-        (save-selected-window
-          (async-shell-command (concat "go test " args))))
+        (compilation-start (concat "go test " args) nil (lambda (n) go-test-buffer-name) nil))
 
       (defun spacemacs/go-run-package-tests ()
         (interactive)

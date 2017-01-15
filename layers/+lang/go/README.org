@@ -98,6 +98,10 @@ function testing to work.
 the coverage buffer. See [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html][=display-buffer=]] for a list of possible functions.
 The default value is =display-buffer-reuse-window=.
 
+Tests are run in a compilation buffer displayed in a popup window that can be
+closed by pressing ~C-g~ from any other window. The variable
+=go-test-buffer-name= can be customized to set the output buffer name.
+
 ** Guru
 
 Go Oracle has been deprecated as of October 1, 2016, it's replacement is =go-guru=.
