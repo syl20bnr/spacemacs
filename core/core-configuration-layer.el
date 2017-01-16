@@ -1124,8 +1124,10 @@ Returns nil if the directory is not a category."
                         (oset indexed-layer :dir sub))
                     (spacemacs-buffer/message
                      "-> Discovered configuration layer: %s" layer-name-str)
-                    (configuration-layer//add-layer
-                     (configuration-layer/make-layer layer-name nil nil sub)))))
+                    (let ((configuration-layer--load-packages-files nil))
+                      (configuration-layer//add-layer
+                       (configuration-layer/make-layer layer-name
+                                                       nil nil sub))))))
                (t
                 ;; layer not found, add it to search path
                 (setq search-paths (cons sub search-paths)))))))))))
