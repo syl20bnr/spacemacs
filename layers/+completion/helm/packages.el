@@ -24,6 +24,7 @@
         helm-swoop
         helm-themes
         (helm-spacemacs-help :location local)
+        (helm-spacemacs-faq :location local)
         imenu
         persp-mode
         popwin
@@ -534,6 +535,11 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
             "h p"   'helm-spacemacs-help-packages
             "h r"   'helm-spacemacs-help-docs
             "h t"   'helm-spacemacs-help-toggles)))
+
+(defun helm/init-helm-spacemacs-faq ()
+  (use-package helm-spacemacs-faq
+    :commands helm-spacemacs-help-faq
+    :init (spacemacs/set-leader-keys "h f" 'helm-spacemacs-help-faq)))
 
 (defun helm/init-helm-swoop ()
   (use-package helm-swoop
