@@ -30,7 +30,6 @@
 (require 'ht)
 (require 'helm)
 (require 'helm-command)
-(require 'helm-org)
 (require 'core-configuration-layer)
 
 (defvar helm-spacemacs--initialized nil
@@ -58,8 +57,7 @@
                    ,(helm-spacemacs-help//layer-source)
                    ,(helm-spacemacs-help//package-source)
                    ,(helm-spacemacs-help//dotspacemacs-source)
-                   ,(helm-spacemacs-help//toggle-source)
-                   ,(helm-spacemacs-help//faq-source))))
+                   ,(helm-spacemacs-help//toggle-source))))
 
 ;;;###autoload
 (defun helm-spacemacs-help-dotspacemacs ()
@@ -101,14 +99,6 @@
   (helm-spacemacs-help-mode)
   (helm :buffer "*helm: spacemacs*"
         :sources `(,(helm-spacemacs-help//toggle-source))))
-
-;;;###autoload
-(defun helm-spacemacs-help-faq ()
-  "Helm session to search for the FAQ."
-  (interactive)
-  (helm-spacemacs-help-mode)
-  (helm :buffer "*helm: spacemacs*"
-        :sources `(,(helm-spacemacs-help//faq-source))))
 
 (defun helm-spacemacs-help//documentation-source ()
   "Construct the helm source for the documentation section."
@@ -365,47 +355,6 @@
   ;; try to exclude comments
   (re-search-forward (format "^[a-z\s\\(\\-]*%s" candidate))
   (beginning-of-line))
-
-(defvar helm-spacemacs-help--faq-filename
-  (concat spacemacs-docs-directory "FAQ.org")
-  "Location of the FAQ file.")
-
-(defun helm-spacemacs-help//faq-source ()
-  "Construct the helm source for the FAQ."
-  `((name . "FAQ")
-    (candidates . ,(helm-spacemacs-help//faq-candidates))
-    (candidate-number-limit)
-    (action . (("Go to question" . helm-spacemacs-help//faq-goto-marker)))))
-
-(defun helm-spacemacs-help//faq-candidate (cand)
-  (let ((str (substring-no-properties (car cand))))
-    (when (string-match "\\`.*/\\([^/]*\\)/\\(.*\\)\\'" str)
-      (cons (concat (propertize
-                     (match-string 1 str)
-                     'face 'font-lock-type-face)
-                    ": " (match-string 2 str))
-            (cdr cand)))))
-
-(defun helm-spacemacs-help//faq-candidates ()
-  (let* ((helm-org-format-outline-path nil)
-         (cands (helm-org-get-candidates (list helm-spacemacs-help--faq-filename)))
-         section result)
-    (dolist (c cands)
-      (let ((str (substring-no-properties (car c))))
-        (when (string-match "\\`\\* \\(.*\\)\\'" str)
-          (setq section (match-string 1 str)))
-        (when (string-match "\\`\\*\\* \\(.*\\)\\'" str)
-          (push (cons (concat (propertize section 'face 'font-lock-type-face)
-                              ": " (match-string 1 str))
-                      (cdr c))
-                result))))
-    result))
-
-(defun helm-spacemacs-help//faq-goto-marker (marker)
-  (find-file helm-spacemacs-help--faq-filename)
-  (goto-char marker)
-  (org-show-context)
-  (org-show-entry))
 
 (provide 'helm-spacemacs-help)
 
