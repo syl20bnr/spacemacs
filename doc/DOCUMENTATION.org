@@ -367,7 +367,7 @@ Where:
 | packages.el    | The list of packages and their configuration functions (init, post-init, etc...)                 |
 | funcs.el       | All functions defined in the layer (used in package configuration for instance)                  |
 | config.el      | Layer configuration (defines the layer variables default values and setup some config variables) |
-| keybindings.el | General key bindings no tied to a specific package configuration                                 |
+| keybindings.el | General key bindings not tied to a specific package configuration                                |
 
 =Packages= can be:
 - =ELPA= packages installed from an =ELPA= compliant repository
