@@ -526,25 +526,14 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
                helm-spacemacs-help-packages
                helm-spacemacs-help-docs
                helm-spacemacs-help-toggles)
-    :init
-    (progn
-      (defun spacemacs-base/helm-spacemacs-deprecated (arg)
-        "Provide helm-spacemacs with a binding's depreciation message."
-        (interactive "P")
-        (warn (concat "The 'SPC f e h' (or 'M-m f e h') binding is now "
-                      "deprecated and will be remove in the next release. "
-                      "Please use 'SPC h SPC' (or 'M-m h SPC') instead."))
-        (helm-spacemacs arg))
-      (spacemacs/set-leader-keys "feh" 'spacemacs-base/helm-spacemacs-deprecated)
-      (spacemacs/set-leader-keys "fef" 'helm-spacemacs-help-faq)
-      (spacemacs/set-leader-keys
-        "h ."   'helm-spacemacs-help-dotspacemacs
-        "h SPC" 'helm-spacemacs-help
-        "h f"   'helm-spacemacs-help-faq
-        "h l"   'helm-spacemacs-help-layers
-        "h p"   'helm-spacemacs-help-packages
-        "h r"   'helm-spacemacs-help-docs
-        "h t"   'helm-spacemacs-help-toggles))))
+    :init (spacemacs/set-leader-keys
+            "h ."   'helm-spacemacs-help-dotspacemacs
+            "h SPC" 'helm-spacemacs-help
+            "h f"   'helm-spacemacs-help-faq
+            "h l"   'helm-spacemacs-help-layers
+            "h p"   'helm-spacemacs-help-packages
+            "h r"   'helm-spacemacs-help-docs
+            "h t"   'helm-spacemacs-help-toggles)))
 
 (defun helm/init-helm-swoop ()
   (use-package helm-swoop
