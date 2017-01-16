@@ -1291,7 +1291,8 @@
   (let* (configuration-layer--used-layers
          (configuration-layer--indexed-layers (make-hash-table :size 1024))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--set-layers
      `(,(cfgl-layer "layerall1"
                     :name 'layerall1
@@ -1322,18 +1323,24 @@
     (defun layerall4/init-pkg8 nil)
     (defun layerall5/init-pkg5 nil)
     (defun layerall5/init-pkg9 nil)
-    (configuration-layer/make-all-packages)
-    (should (null configuration-layer--used-packages))
-    (should (equal '(pkg1
-                     pkg6
-                     pkg2
-                     pkg3
-                     pkg8
-                     pkg7
-                     pkg4
-                     pkg9
-                     pkg5)
-                   (ht-keys configuration-layer--indexed-packages)))))
+    (mocker-let
+     ;; skip layer declaration since we manually set
+     ;; the variable `configuration-layer--indexed-layers'
+     ;; Moreover `configuration-layer/declare-layers' requires a valid
+     ;; path on disk etc...
+     ((configuration-layer/declare-layers (layers-specs) ((:output nil))))
+     (configuration-layer/make-all-packages 'no-discovery)
+     (should (null configuration-layer--used-packages))
+     (should (equal '(pkg1
+                      pkg6
+                      pkg2
+                      pkg3
+                      pkg8
+                      pkg7
+                      pkg4
+                      pkg9
+                      pkg5)
+                    (ht-keys configuration-layer--indexed-packages))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//configure-package
