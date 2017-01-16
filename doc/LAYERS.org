@@ -399,9 +399,10 @@ More on this in the next section.
 The Spacemacs loading process can be summarized as follows:
 
 1. Spacemacs goes through all the enabled layers and evaluates their files.
-   First =packages.el= and =funcs.el= are loaded, but nothing happens from them
-   since these files only define functions and variables, then the changes
-   introduced by =config.el= are applied.
+   First =layers.el= is loaded to declare layer dependencies. Then =packages.el=
+   and =funcs.el= are loaded, but nothing happens from them since these files
+   only define functions and variables, then the changes introduced by
+   =config.el= are applied.
 2. Spacemacs checks which packages should be downloaded and installed. To be
    installed, a package must be
    - included by a layer that the user has enabled,
