@@ -889,13 +889,15 @@ Return nil if package object is not found."
   "Return a sorted list of PACKAGES objects."
   (sort packages (lambda (x y) (string< (symbol-name x) (symbol-name y)))))
 
-(defun configuration-layer/make-all-packages ()
-  "Create objects for _all_ packages supported by Spacemacs."
+(defun configuration-layer/make-all-packages (&optional skip-layer-discovery)
+  "Create objects for _all_ packages supported by Spacemacs.
+If SKIP-LAYER-DISCOVERY is non-nil then do not check for new layers."
   (let ((all-layers (configuration-layer/get-layers-list))
         (configuration-layer--load-packages-files t)
         (configuration-layer--package-properties-read-onlyp t)
         (configuration-layer--inhibit-warnings t))
-    (configuration-layer/discover-layers)
+    (unless skip-layer-discovery
+      (configuration-layer/discover-layers))
     (configuration-layer/declare-layers all-layers)
     (configuration-layer/make-packages-from-layers all-layers)))
 
