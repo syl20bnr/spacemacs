@@ -16,6 +16,7 @@
    - [[#compilation][Compilation]]
    - [[#reactor][Reactor]]
    - [[#sort-imports-on-save][Sort imports on save]]
+   - [[#indentation][Indentation]]
  - [[#key-bindings][Key bindings]]
    - [[#elm-make][elm-make]]
    - [[#elm-repl][elm-repl]]
@@ -143,6 +144,14 @@ every save.
 #+BEGIN_SRC emacs-lisp
   (elm :variables elm-sort-imports-on-save t)
 #+END_SRC
+
+** Indentation
+elm-mode indentation is based on cycling: every time you insert a new line there
+will be one or more indentation levels available for you to choose from. The
+exact number is printed in the minibuffer either as Sole indentation or Indent
+cycle (n)... where n is the number of available indentations to choose from. If
+the automatic indentation level was not the one you expected simply hit TAB to
+cycle through the list (note that hitting any other key will cancel the cycle).
 
 * Key bindings
 ** elm-make
