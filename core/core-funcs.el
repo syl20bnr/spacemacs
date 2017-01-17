@@ -35,14 +35,6 @@
 `text-mode' but should."
   (run-hooks 'text-mode-hook))
 
-(defun spacemacs//get-package-directory (pkg)
-  "Return the directory of PKG. Return nil if not found."
-  (let ((elpa-dir (file-name-as-directory package-user-dir)))
-    (when (file-exists-p elpa-dir)
-      (let* ((pkg-match (concat "\\`" (symbol-name pkg) "-[0-9]+"))
-             (dir (car (directory-files elpa-dir 'full pkg-match))))
-        (when dir (file-name-as-directory dir))))))
-
 (defun spacemacs/mplist-get (plist prop)
   "Get the values associated to PROP in PLIST, a modified plist.
 
