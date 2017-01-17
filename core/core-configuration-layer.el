@@ -61,6 +61,14 @@ ROOT is returned."
                     (eval dotspacemacs-elpa-subdirectory))))
       (file-name-as-directory (expand-file-name subdir root)))))
 
+(defun configuration-layer/get-elpa-package-install-directory (pkg)
+  "Return the install directory of elpa PKG. Return nil if it is not found."
+  (let ((elpa-dir package-user-dir))
+    (when (file-exists-p elpa-dir)
+      (let* ((pkg-match (concat "\\`" (symbol-name pkg) "-[0-9]+"))
+             (dir (car (directory-files elpa-dir 'full pkg-match))))
+        (when dir (file-name-as-directory dir))))))
+
 (defvar configuration-layer-rollback-directory
   (concat spacemacs-cache-directory ".rollback/")
   "Spacemacs rollback directory.")
@@ -2017,7 +2025,8 @@ FILE-TO-LOAD is an explicit file to load after the installation."
       ;; not installed, we try to initialize package.el only if required to
       ;; precious seconds during boot time
       (require 'cl)
-      (let ((pkg-elpa-dir (spacemacs//get-package-directory pkg)))
+      (let ((pkg-elpa-dir
+             (configuration-layer/get-elpa-package-install-directory pkg)))
         (if pkg-elpa-dir
             (add-to-list 'load-path pkg-elpa-dir)
           ;; install the package
@@ -2027,7 +2036,8 @@ FILE-TO-LOAD is an explicit file to load after the installation."
             (spacemacs//redisplay))
           (configuration-layer/retrieve-package-archives 'quiet)
           (package-install pkg)
-          (setq pkg-elpa-dir (spacemacs//get-package-directory pkg)))
+          (setq pkg-elpa-dir
+                (configuration-layer/get-elpa-package-install-directory pkg)))
         (require pkg nil 'noerror)
         (when file-to-load
           (load-file (concat pkg-elpa-dir file-to-load)))

@@ -252,8 +252,9 @@
 (defun haskell/init-haskell-snippets ()
   ;; manually load the package since the current implementation is not lazy
   ;; loading friendly (funny coming from the haskell mode :-))
-  (setq haskell-snippets-dir (spacemacs//get-package-directory
-                              'haskell-snippets))
+  (setq haskell-snippets-dir
+        (configuration-layer/get-elpa-package-install-directory
+         'haskell-snippets))
 
   (defun haskell-snippets-initialize ()
     (let ((snip-dir (expand-file-name "snippets" haskell-snippets-dir)))
