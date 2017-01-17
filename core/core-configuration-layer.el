@@ -1791,9 +1791,11 @@ to select one."
   (unless (memq pkg package-activated-list)
     (package-activate pkg)))
 
-(defun configuration-layer//get-packages-dependencies ()
-  "Returns dependencies hash map for all packages in `package-alist'."
-  (let ((result (make-hash-table :size 512)))
+(defun configuration-layer//get-packages-upstream-dependencies-from-alist ()
+  "Returns upsteam dependencies hash map for all packages in `package-alist'.
+The keys are package names and the values are lists of package names that
+depends on it."
+  (let ((result (make-hash-table :size 1024)))
     (dolist (pkg package-alist)
       (let* ((pkg-sym (car pkg))
              (deps (configuration-layer//get-package-deps-from-alist pkg-sym)))
@@ -1805,7 +1807,7 @@ to select one."
                      result)))))
     result))
 
-(defun configuration-layer//get-implicit-packages (packages)
+(defun configuration-layer//get-implicit-packages-from-alist (packages)
   "Returns packages in `packages-alist' which are not found in PACKAGES."
   (let (imp-pkgs)
     (dolist (pkg package-alist)
@@ -1898,9 +1900,11 @@ to select one."
 (defun configuration-layer/delete-orphan-packages (packages)
   "Delete PACKAGES if they are orphan."
   (interactive)
-  (let* ((dependencies (configuration-layer//get-packages-dependencies))
-         (implicit-packages (configuration-layer//get-implicit-packages
-                             packages))
+  (let* ((dependencies
+          (configuration-layer//get-packages-upstream-dependencies-from-alist))
+         (implicit-packages
+          (configuration-layer//get-implicit-packages-from-alist
+           packages))
          (orphans (configuration-layer//get-orphan-packages
                    packages
                    implicit-packages
