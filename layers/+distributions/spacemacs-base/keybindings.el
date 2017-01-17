@@ -35,6 +35,7 @@
                                        ("kD"  "delete-backward")
                                        ("k`"  "hybrid")
                                        ("n"   "narrow/numbers")
+                                       ("N"   "navigation")
                                        ("p"   "projects")
                                        ("p$"  "projects/shell")
                                        ("q"   "quit")
@@ -435,8 +436,11 @@
   "xjl" 'set-justification-left
   "xjn" 'set-justification-none
   "xjr" 'set-justification-right
+  "xlc" 'spacemacs/sort-lines-by-column
+  "xlC" 'spacemacs/sort-lines-by-column-reverse
   "xld" 'spacemacs/duplicate-line-or-region
   "xls" 'spacemacs/sort-lines
+  "xlS" 'spacemacs/sort-lines-reverse
   "xlu" 'spacemacs/uniquify-lines
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
@@ -493,15 +497,15 @@
   ("M-7" swap-buffer-window-no-follow-7)
   ("M-8" swap-buffer-window-no-follow-8)
   ("M-9" swap-buffer-window-no-follow-9)
-  ("C-1" select-window-1)
-  ("C-2" select-window-2)
-  ("C-3" select-window-3)
-  ("C-4" select-window-4)
-  ("C-5" select-window-5)
-  ("C-6" select-window-6)
-  ("C-7" select-window-7)
-  ("C-8" select-window-8)
-  ("C-9" select-window-9))
+  ("C-1" winum-select-window-1)
+  ("C-2" winum-select-window-2)
+  ("C-3" winum-select-window-3)
+  ("C-4" winum-select-window-4)
+  ("C-5" winum-select-window-5)
+  ("C-6" winum-select-window-6)
+  ("C-7" winum-select-window-7)
+  ("C-8" winum-select-window-8)
+  ("C-9" winum-select-window-9))
 (spacemacs/set-leader-keys "b." 'spacemacs/buffer-transient-state/body)
 
 ;; end of Buffer transient state
@@ -543,16 +547,16 @@
                  ""))
   :bindings
   ("q" nil :exit t)
-  ("0" select-window-0)
-  ("1" select-window-1)
-  ("2" select-window-2)
-  ("3" select-window-3)
-  ("4" select-window-4)
-  ("5" select-window-5)
-  ("6" select-window-6)
-  ("7" select-window-7)
-  ("8" select-window-8)
-  ("9" select-window-9)
+  ("0" winum-select-window-0)
+  ("1" winum-select-window-1)
+  ("2" winum-select-window-2)
+  ("3" winum-select-window-3)
+  ("4" winum-select-window-4)
+  ("5" winum-select-window-5)
+  ("6" winum-select-window-6)
+  ("7" winum-select-window-7)
+  ("8" winum-select-window-8)
+  ("9" winum-select-window-9)
   ("-" split-window-below-and-focus)
   ("/" split-window-right-and-focus)
   ("[" spacemacs/shrink-window-horizontally)
