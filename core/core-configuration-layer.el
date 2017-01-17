@@ -2047,6 +2047,49 @@ FILE-TO-LOAD is an explicit file to load after the installation."
           (load-file (concat pkg-elpa-dir file-to-load)))
         pkg-elpa-dir))))
 
+
+(defun configuration-layer//get-elpa-packages ()
+  "Return a list of all ELPA packages in indexed packages and dependencies."
+  (let (result)
+    (dolist (pkg-sym (configuration-layer//get-distant-packages
+                      (ht-keys configuration-layer--indexed-packages) nil))
+      (when (assq pkg-sym package-archive-contents)
+        (let* ((deps (mapcar 'car
+                             (configuration-layer//get-package-deps-from-archive
+                              pkg-sym)))
+               (elpa-deps (configuration-layer/filter-objects
+                           deps (lambda (x)
+                                  (assq x package-archive-contents)))))
+          (dolist (pkg (cons pkg-sym elpa-deps))
+            ;; avoid duplicates
+            (add-to-list 'result pkg)))))
+    result))
+
+(defun configuration-layer//create-archive-contents-item (pkg-name)
+  "Return an item with an ELPA archive-contents compliant format."
+  (let ((obj (cadr (assq pkg-name package-archive-contents))))
+    (cons pkg-name `[,(package-desc-version obj)
+                     ,(package-desc-reqs obj)
+                     ,(package-desc-summary obj)
+                     ,(package-desc-kind obj)
+                     ,(package-desc-extras obj)])))
+
+(defun configuration-layer/create-spacelpa-repository (output-dir)
+  "Create an ELPA repository containing an exhaustive list of packages."
+  (configuration-layer/make-all-packages 'no-discover)
+  (let* ((packages (configuration-layer//get-elpa-packages))
+         (spacelpa-archive-contents
+          (mapcar 'configuration-layer//create-archive-contents-item
+                  packages)))
+    (push 1 spacelpa-archive-contents)
+    (unless (file-exists-p output-dir)
+      (make-directory output-dir t))
+    (with-current-buffer (find-file-noselect
+                          (concat output-dir "archive-contents"))
+      (erase-buffer)
+      (prin1 spacelpa-archive-contents (current-buffer))
+      (save-buffer))))
+
 (defun configuration-layer//increment-error-count ()
   "Increment the error counter."
   (if configuration-layer-error-count
