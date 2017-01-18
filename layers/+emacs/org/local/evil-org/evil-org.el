@@ -53,7 +53,7 @@
 (defun evil-org-eol-call (fun)
   "Go to end of line and call provided function.
 FUN function callback"
-  (end-of-line)
+  (end-of-visible-line)
   (funcall fun)
   (evil-append nil)
   )
