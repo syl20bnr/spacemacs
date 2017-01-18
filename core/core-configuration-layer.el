@@ -2049,8 +2049,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
           (load-file (concat pkg-elpa-dir file-to-load)))
         pkg-elpa-dir))))
 
-
-(defun configuration-layer//get-elpa-packages ()
+(defun configuration-layer//get-indexed-elpa-package-names ()
   "Return a list of all ELPA packages in indexed packages and dependencies."
   (let (result)
     (dolist (pkg-sym (configuration-layer//get-distant-packages
@@ -2076,20 +2075,69 @@ FILE-TO-LOAD is an explicit file to load after the installation."
                      ,(package-desc-kind obj)
                      ,(package-desc-extras obj)])))
 
-(defun configuration-layer/create-spacelpa-repository (output-dir)
-  "Create an ELPA repository containing an exhaustive list of packages."
+(defun configuration-layer//download-elpa-file
+    (pkg-name filename archive-url output-dir
+              &optional signaturep readmep)
+  "Download FILENAME from distant ELPA repository to OUTPUT-DIR.
+
+Original code from dochang at https://github.com/dochang/elpa-clone"
+  (let ((source (concat archive-url filename))
+        (target (expand-file-name filename output-dir)))
+    (unless (file-exists-p target)
+      (let* ((readme-filename (format "%S-readme.txt" pkg-name))
+             (source-readme (concat archive-url readme-filename)))
+        (when (and readmep (url-http-file-exists-p source-readme))
+          (url-copy-file source-readme
+                         (expand-file-name readme-filename output-dir)
+                         'ok-if-already-exists)))
+      (when signaturep
+        (let* ((sig-filename (concat filename ".sig"))
+               (source-sig (concat archive-url sig-filename))
+               (target-sig (expand-file-name sig-filename output-dir)))
+          (url-copy-file source-sig target-sig 'ok-if-already-exists)))
+      (url-copy-file source target))))
+
+(defun configuration-layer//sync-elpa-packages-files (packages output-dir)
+  "Synchronize PACKAGES files from remote ELPA directory to OUTPUT-DIR"
+  (message "Synchronizing files in ELPA repository at %s..." output-dir)
+  (let (filenames
+        (output-filenames (directory-files
+                           output-dir nil "\\.\\(el\\|tar\\)$"))
+        (pkg-count (length packages))
+        (i 1))
+    (dolist (pkg-name packages)
+      (let* ((obj (cadr (assq pkg-name package-archive-contents)))
+             (filename (concat (package-desc-full-name obj)
+                               (package-desc-suffix obj)))
+             (archive-url (cdr (assq (package-desc-archive obj)
+                                     package-archives))))
+        (push filename filenames)
+        (if (member filename output-filenames)
+            (message "[%s/%s] Skip %s..." i pkg-count filename)
+          (message "[%s/%s] Download %s..." i pkg-count filename)
+          (configuration-layer//download-elpa-file
+           pkg-name filename archive-url output-dir))
+        (setq i (1+ i))))
+    (dolist (ofilename output-filenames)
+      (unless (member ofilename filenames)
+        (message "Remove outdated %s..." ofilename)
+        (delete-file (concat output-dir ofilename))))))
+
+(defun configuration-layer/create-elpa-repository (name output-dir)
+  "Create an ELPA repository containing all packages supported by Spacemacs."
   (configuration-layer/make-all-packages 'no-discover)
-  (let* ((packages (configuration-layer//get-elpa-packages))
-         (spacelpa-archive-contents
+  (let* ((packages (configuration-layer//get-indexed-elpa-package-names))
+         (archive-contents
           (mapcar 'configuration-layer//create-archive-contents-item
-                  packages)))
-    (push 1 spacelpa-archive-contents)
-    (unless (file-exists-p output-dir)
-      (make-directory output-dir t))
+                  packages))
+         (path (file-name-as-directory (concat output-dir name))))
+    (unless (file-exists-p path) (make-directory path 'create-parents))
+    (configuration-layer//sync-elpa-packages-files packages path)
+    (push 1 archive-contents)
     (with-current-buffer (find-file-noselect
-                          (concat output-dir "archive-contents"))
+                          (concat path "archive-contents"))
       (erase-buffer)
-      (prin1 spacelpa-archive-contents (current-buffer))
+      (prin1 archive-contents (current-buffer))
       (save-buffer))))
 
 (defun configuration-layer//increment-error-count ()
