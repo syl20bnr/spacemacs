@@ -924,7 +924,10 @@ A non-nil argument sorts in reverse order."
   "Count how many times each word is used in the region.
  Punctuation is ignored."
   (interactive "r")
-  (let (words alist_words_compare (formated ""))
+  (let (words
+        alist_words_compare
+        (formated "")
+        (overview (call-interactively 'count-words)))
     (save-excursion
       (goto-char start)
       (while (re-search-forward "\\w+" end t)
@@ -951,7 +954,9 @@ Compare them on count first,and in case of tie sort them alphabetically."
         (setq formated (concat formated (format "[%s: %d], " name count)))))
     (when (interactive-p)
       (if (> (length formated) 2)
-          (message (substring formated 0 -2))
+          (message (format "%s\nWord count: %s"
+                           overview
+                           (substring formated 0 -2)))
         (message "No words.")))
     words))
 
