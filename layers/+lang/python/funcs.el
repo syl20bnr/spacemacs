@@ -28,7 +28,7 @@
 (defun spacemacs/python-setup-shell (&rest args)
   (if (spacemacs/pyenv-executable-find "ipython")
       (progn (setq python-shell-interpreter "ipython")
-             (if (version< (replace-regexp-in-string "\n$" "" (shell-command-to-string "ipython --version")) "5")
+             (if (version< (replace-regexp-in-string "\n$" "" (shell-command-to-string "unset TERM; ipython --version")) "5")
                  (setq python-shell-interpreter-args "-i")
                (setq python-shell-interpreter-args "--simple-prompt -i")))
     (progn
