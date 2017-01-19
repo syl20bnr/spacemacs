@@ -105,6 +105,7 @@ to not have to set these variables manually when enabling this layer."
   "Initialize theme-changer"
   (use-package theme-changer
     :if geolocation-enable-automatic-theme-changer
+    :defer 1
     :config
     (progn
       (when (> (length dotspacemacs-themes) 1)
