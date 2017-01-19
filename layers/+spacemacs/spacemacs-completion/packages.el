@@ -200,16 +200,16 @@ Current Action: %s(ivy-action-name)
         ;; iteration setup a whole new minibuffer, we have to keep
         ;; track of any activated ido navigation transient-state and force
         ;; the reactivation at each iteration.
-        (when spacemacs--ido-navigation-ms-enabled
-          (spacemacs/ido-navigation-micro-state)))
+        (when spacemacs--ido-navigation-ts-enabled
+          (spacemacs/ido-navigation-transient-state/body)))
       (add-hook 'ido-minibuffer-setup-hook 'spacemacs//ido-minibuffer-setup)
 
       (defun spacemacs//ido-setup ()
-        (when spacemacs--ido-navigation-ms-face-cookie-minibuffer
+        (when spacemacs--ido-navigation-ts-face-cookie-minibuffer
           (face-remap-remove-relative
-           spacemacs--ido-navigation-ms-face-cookie-minibuffer))
+           spacemacs--ido-navigation-ts-face-cookie-minibuffer))
         ;; be sure to wipe any previous transient-state flag
-        (setq spacemacs--ido-navigation-ms-enabled nil)
+        (setq spacemacs--ido-navigation-ts-enabled nil)
         ;; overwrite the key bindings for ido vertical mode only
         (define-key ido-completion-map (kbd "C-<return>") 'ido-select-text)
         ;; use M-RET in terminal
@@ -239,8 +239,8 @@ Current Action: %s(ivy-action-name)
         (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
         (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)
         ;; initiate transient-state
-        (define-key ido-completion-map (kbd "M-SPC") 'spacemacs/ido-navigation-micro-state)
-        (define-key ido-completion-map (kbd "s-M-SPC") 'spacemacs/ido-navigation-micro-state)
+        (define-key ido-completion-map (kbd "M-SPC") 'spacemacs/ido-navigation-transient-state/body)
+        (define-key ido-completion-map (kbd "s-M-SPC") 'spacemacs/ido-navigation-transient-state/body)
         )
       (add-hook 'ido-setup-hook 'spacemacs//ido-setup)
 
@@ -290,37 +290,37 @@ Current Action: %s(ivy-action-name)
           (switch-to-buffer this-buffer)
           result))
 
-      (defvar spacemacs--ido-navigation-ms-enabled nil
+      (defvar spacemacs--ido-navigation-ts-enabled nil
         "Flag which is non nil when ido navigation transient-state is enabled.")
 
-      (defvar spacemacs--ido-navigation-ms-face-cookie-minibuffer nil
+      (defvar spacemacs--ido-navigation-ts-face-cookie-minibuffer nil
         "Cookie pointing to the local face remapping.")
 
-      (defface spacemacs-ido-navigation-ms-face
+      (defface spacemacs-ido-navigation-ts-face
         `((t :background ,(face-attribute 'error :foreground)
              :foreground "black"
              :weight bold))
         "Face for ido minibuffer prompt when ido transient-state is activated."
         :group 'spacemacs)
 
-      (defun spacemacs//ido-navigation-ms-set-face ()
+      (defun spacemacs//ido-navigation-ts-set-face ()
         "Set faces for ido navigation transient-state."
-        (setq spacemacs--ido-navigation-ms-face-cookie-minibuffer
+        (setq spacemacs--ido-navigation-ts-face-cookie-minibuffer
               (face-remap-add-relative
                'minibuffer-prompt
-               'spacemacs-ido-navigation-ms-face)))
+               'spacemacs-ido-navigation-ts-face)))
 
-      (defun spacemacs//ido-navigation-ms-on-enter ()
+      (defun spacemacs//ido-navigation-ts-on-enter ()
         "Initialization of ido transient-state."
-        (setq spacemacs--ido-navigation-ms-enabled t)
-        (spacemacs//ido-navigation-ms-set-face))
+        (setq spacemacs--ido-navigation-ts-enabled t)
+        (spacemacs//ido-navigation-ts-set-face))
 
-      (defun spacemacs//ido-navigation-ms-on-exit ()
+      (defun spacemacs//ido-navigation-ts-on-exit ()
         "Action to perform when exiting ido transient-state."
         (face-remap-remove-relative
-         spacemacs--ido-navigation-ms-face-cookie-minibuffer))
+         spacemacs--ido-navigation-ts-face-cookie-minibuffer))
 
-      (defun spacemacs//ido-navigation-ms-full-doc ()
+      (defun spacemacs//ido-navigation-ts-full-doc ()
         "Full documentation for ido navigation transient-state."
         "
   [?]          display this help
@@ -339,10 +339,10 @@ Current Action: %s(ivy-action-name)
       (spacemacs|define-transient-state ido-navigation
         :title "ido Transient State"
         :foreign-keys run
-        :on-enter (spacemacs//ido-navigation-ms-on-enter)
-        :on-exit  (spacemacs//ido-navigation-ms-on-exit)
+        :on-enter (spacemacs//ido-navigation-ts-on-enter)
+        :on-exit  (spacemacs//ido-navigation-ts-on-exit)
         :bindings
-        ;;("?" nil (spacemacs//ido-navigation-ms-full-doc))
+        ;;("?" nil (spacemacs//ido-navigation-ts-full-doc))
         ("<RET>" ido-exit-minibuffer :exit t)
         ("<escape>" nil :exit t)
         ("e" ido-select-text :exit t)
@@ -358,4 +358,5 @@ Current Action: %s(ivy-action-name)
         ("q" nil :exit t)
         ("s" spacemacs/ido-invoke-in-vertical-split :exit t)
         ("t" spacemacs/ido-invoke-in-new-frame :exit t)
-        ("v" spacemacs/ido-invoke-in-horizontal-split :exit t)))))
+        ("v" spacemacs/ido-invoke-in-horizontal-split :exit t))
+      )))
