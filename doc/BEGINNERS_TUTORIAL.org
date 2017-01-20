@@ -3,12 +3,19 @@
 * Beginners tutorial                                      :TOC_4_gh:noexport:
  - [[#why-spacemacs][Why Spacemacs?]]
  - [[#install][Install]]
-   - [[#1-install-emacs][1. Install Emacs]]
-   - [[#2-install-git][2. Install Git]]
-   - [[#3-install-spacemacs][3. Install Spacemacs]]
+   - [[#install-emacs][Install Emacs]]
+     - [[#gnulinux-distributions][GNU/Linux distributions]]
+     - [[#macos][macOS]]
+     - [[#windows][Windows]]
+   - [[#install-git][Install Git]]
+   - [[#install-spacemacs][Install Spacemacs]]
      - [[#note-for-windows-users][Note for Windows users]]
-   - [[#4-install-the-default-font][4. Install the default font]]
-   - [[#5-open-spacemacs-and-choose-default-editing-style][5. Open Spacemacs and choose default editing style]]
+     - [[#alternate-installations-for-advanced-users][Alternate installations for advanced users]]
+       - [[#modify-home-environment-variable][Modify HOME environment variable]]
+       - [[#modify-spacemacs-start-directory-variable][Modify spacemacs-start-directory variable]]
+   - [[#install-the-default-fonts][Install the default fonts]]
+   - [[#open-spacemacs-and-choose-the-default-editing-style][Open Spacemacs and choose the default editing style]]
+   - [[#optional-change-emacs-icon-to-spacemacs-logo][Optional: change Emacs icon to Spacemacs logo]]
  - [[#getting-started][Getting started]]
    - [[#keybinding-notation][Keybinding notation]]
    - [[#modal-text-editing---why-and-how][Modal text editing - why and how?]]
@@ -38,14 +45,103 @@
  Spacemacs is a beginner-friendly and powerful extension of a popular text
  editor called Emacs. To install Spacemacs you need to first install base Emacs
  and then download the Spacemacs extension files, which is most easily done by
- using a program called Git. The steps are easy and outlined below.
+ using a program called Git. The steps are easy and explained in detail below.
 
-** 1. [[https://github.com/syl20bnr/spacemacs#prerequisites][Install Emacs]]
+** Install Emacs
+Spacemacs requires Emacs 24.4 or above. The development version of Emacs
+(at the time of writing, this is 25.2) is not /officially/ supported,
+but should nevertheless be expected to work.
 
-** 2. [[https://git-scm.com/downloads][Install Git]]
+If you have an existing Emacs configuration, back it up first by pasting the
+following commands line at a time to a terminal:
 
-** 3. Install Spacemacs
-Open a terminal or command prompt, paste the following code to it:
+#+BEGIN_SRC sh
+cd ~
+mv .emacs.d .emacs.d.bak
+mv .emacs .emacs.bak
+#+END_SRC
+
+Don't forget to backup and /remove/ the =~/.emacs= file, otherwise Spacemacs
+*WILL NOT* load since that file prevents Emacs from loading the proper
+initialization file.
+
+*** GNU/Linux distributions
+Install Emacs from the package manager of your Linux distribution.
+
+You should install the "emacs" package, not the "xemacs" package. XEmacs is an
+old fork of Emacs. The X in its name is unrelated to X11. Both Emacs and XEmacs
+have graphical support.
+
+*Note:* Ubuntu LTS 12.04 and 14.04 repositories have only Emacs 24.3 available.
+You have to [[https://www.gnu.org/software/emacs/manual/html_node/efaq/Installing-Emacs.html][build from source]] Emacs 24.4 or greater, as Spacemacs won't work
+with 24.3. The same may be true for other distributions as well.
+
+*** macOS
+The recommended way of installing Emacs on macOS is using [[http://brew.sh][homebrew]], a package
+manager for macOS. Once installed, run the following commands in terminal to install
+both emacs and the default Source Code Pro font:
+
+#+BEGIN_SRC sh
+brew tap d12frosted/emacs-plus
+brew install emacs-plus
+brew linkapps emacs-plus
+brew tap caskroom/fonts
+brew cask install font-source-code-pro
+#+END_SRC
+
+/Note:/ the proposed =emacs-plus= tap is identical to the =emacs= formulae, it
+just builds GNU Emacs with support of several features by default along with
+providing Spacemacs icon. See [[https://github.com/d12frosted/homebrew-emacs-plus][emacs-plus]] for more information.
+
+/Note:/ after you have completed all the steps of the install process, it is
+also recommended to [[#using-layers][add]] the [[file:../layers/+os/osx/README.org][osx layer]] to your dotfile.
+
+/Note:/ if the powerline separators on the spaceline are a different (less
+saturated) color than the rest of the line, you can add following snippet to
+=dotspacemacs/user-config= in your =.spacemacs= file.
+
+#+BEGIN_SRC emacs-lisp
+(setq ns-use-srgb-colorspace nil)
+#+END_SRC
+
+Keep in mind that this is not ideal solution as it affects all colours in Emacs.
+Another option is to use different powerline separator. For example, =alternate=
+and =bar= diminishes the difference. And using =utf-8= separator makes it go
+away completely without the need to change colour space. In order to change
+powerline separator put following snippet in =dotspacemacs/user-config=.
+
+#+BEGIN_SRC emacs-lisp
+(setq powerline-default-separator 'utf-8)
+#+END_SRC
+
+For more information about powerline separators, please refer to appropriate
+section in [[file:DOCUMENTATION.org][Documentation]].
+
+*** Windows
+You can download good quality builds from the [[http://emacsbinw64.sourceforge.net/][emacs-w64 project]]. It is
+recommended to install the most recent [[https://sourceforge.net/projects/emacsbinw64/files/release/][stable build]].
+
+Be sure to declare a environment variable named =HOME= pointing to your user
+directory =C:\Users\<username>=. You can then can clone Spacemacs in this directory.
+
+Sometimes you'll get the following error when you first start Emacs:
+
+#+BEGIN_SRC
+The directory ~/.emacs.d/server is unsafe
+#+END_SRC
+
+To fix this change the owner of the directory =~/.emacs.d/server=: - from
+Properties select the Tab “Security”, - select the button “Advanced”, - select
+the Tab “Owner” - change the owner to your account name. (Source: [[http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start][Stack
+Overflow]])
+
+For efficient searches we recommend installing =pt= ([[https://github.com/monochromegane/the_platinum_searcher][the platinum searcher]]).
+=pt= version 1.7.7 or higher is required.
+
+** [[https://git-scm.com/downloads][Install Git]]
+
+** Install Spacemacs
+Open a terminal or command prompt and paste the following code to it:
 
 #+BEGIN_SRC sh
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
@@ -65,20 +161,52 @@ code would look something like this:
 git clone https://github.com/syl20bnr/spacemacs /path/to/your/.emacs.d
 #+END_SRC
 
-** 4. Install the default font
-The default font used by Spacemacs is Source Code Pro by Adobe. It is
+*** Alternate installations for advanced users
+It may be useful to clone Spacemacs outside Emacs dotdirectory =~/.emacs.d= so
+you can try Spacemacs without replacing completely our own configuration. There
+is currently two possibilities to support alternative location for Spacemacs
+configuration.
+
+**** Modify HOME environment variable
+This solution is ideal to quickly try Spacemacs without compromising your
+existing configuration.
+
+#+BEGIN_SRC sh
+mkdir ~/spacemacs
+git clone https://github.com/syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
+HOME=~/spacemacs emacs
+#+END_SRC
+
+Note: If you're on Fish shell, you will need to modify the last command to:
+=env HOME=$HOME/spacemacs emacs=
+
+**** Modify spacemacs-start-directory variable
+This solution is better suited to "embed" Spacemacs into your own configuration.
+Say you cloned Spacemacs in =~/.emacs.d/spacemacs/= then drop these lines in
+=~/.emacs.d/init.el=:
+
+#+BEGIN_SRC emacs-lisp
+(setq spacemacs-start-directory "~/.emacs.d/spacemacs/")
+(load-file (concat spacemacs-start-directory "init.el"))
+#+END_SRC
+
+** Install the default fonts
+:PROPERTIES:
+:CUSTOM_ID: install-the-default-fonts
+:END:
+The default font used by Spacemacs is =Source Code Pro= by Adobe. It is
 recommended to [[https://github.com/adobe-fonts/source-code-pro#font-installation-instructions][install]] it on your system to ensure correct visual
 representation. Also a "Fallback font" for nicer-looking symbols in the modeline
 (bottom bar) is recommended. These depend on the system:
 
-- gnu/linux: Nanum
-- MacOS: Arial Unicode MS
-- Windows: MS Gothic or Lucida Sans Unicode
+- GNU/Linux: =NanumGothic= (package named =fonts-nanum= on Debian, for example)
+- macOS: =Arial Unicode MS=
+- Windows: =MS Gothic= or =Lucida Sans Unicode=
 
 If the modeline doesn't look as great as in the pictures, make sure you have the
 correct fallback font installed on your system.
 
-** 5. Open Spacemacs and choose default editing style
+** Open Spacemacs and choose the default editing style
 Open Spacemacs by clicking the Emacs icon in your applications menu. The first
 time Spacemacs launches, it will load and install packages and prompt you for
 your preferred editing style. You have two options: Vim ("Among the stars aboard
@@ -101,8 +229,26 @@ minutes depending on your connection. After everything is installed (you will
 see the text "n packages loaded in x s" appear in the list under the Spacemacs
 logo), restart Spacemacs.
 
+If you get an error regarding package downloads then you may try to disable the
+HTTPS protocol by starting Emacs with
+
+#+BEGIN_SRC sh
+emacs --insecure
+#+END_SRC
+
+Or you can set the =dotspacemacs-elpa-https= to =nil= in your [[#using-layers][dotfile]] to
+remove the need to start Emacs with =--insecure= argument. You may wish
+to clear out your =.emacs.d/elpa= directory before doing this, so that
+any corrupted packages you may have downloaded will be re-installed.
+
 Now your installation process is complete, congratulations! For troubleshooting,
 see the last section.
+
+** Optional: change Emacs icon to Spacemacs logo
+For Ubuntu users, follow this guide to [[http://splendidabacus.com/posts/2015/03/spacemacs-unity-icon/][change the logo in Unity]].
+
+For Mac users, you need to [[https://github.com/nashamri/spacemacs-logo][download the .icns version of the logo]], then [[http://www.idownloadblog.com/2014/07/16/how-to-change-app-icon-mac/][change
+the logo on Dock]].
 
 * Getting started
 ** Keybinding notation
@@ -232,6 +378,9 @@ a very common task and is done with ~SPC f r~. An edited file is saved with
 :CUSTOM_ID: configuring-spacemacs
 :END:
 ** Adding language support and other features: using layers
+:PROPERTIES:
+:CUSTOM_ID: using-layers
+:END:
 Spacemacs divides its configuration into self-contained units called
 configuration layers. These layers are stacked on top of each other to achieve a
 custom configuration.
@@ -241,12 +390,13 @@ to load. Within this file you can also configure certain features. First, split
 the window vertically to view both this tutorial and the dotfile simultaneously
 (~SPC w /~). Open the dotfile by pressing ~SPC f e d~. Navigate to the line
 starting with "dotspacemacs-configuration-layers". The following lines have
-further instructions: uncomment org and git layers if you want to be
+further instructions: uncomment =org= and =git= layers if you want to be
 familiarized with them. More layers for different languages and tools can be
 found on [[https://github.com/syl20bnr/spacemacs/tree/master/layers][github]] or by pressing ~SPC h SPC~. The added layers will be installed
 upon restart of Spacemacs.
 
-Mac users: add the osx layer to use the OS X keybindings!
+Some layers require third-party tools that you'll have to install via your
+favorite package manager. The layer readme will tell if this is the case.
 
 ** Changing the colour theme
 You can toggle the theme by ~SPC T n~. This cycles between currently
