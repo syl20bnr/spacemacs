@@ -5,6 +5,7 @@
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
    - [[#features][Features]]
+   - [[#bibtex][BibTeX]]
  - [[#install][Install]]
    - [[#layer][Layer]]
    - [[#auto-completion][Auto-completion]]
@@ -24,6 +25,10 @@ This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects
 - Auto-completion with [[https://github.com/alexeyr/company-auctex][company-auctex]]
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
+
+** BibTeX
+For more extensive support of BibTeX files than RefTeX provides, have a look at
+the [[../bibtex][BibTeX layer]].
 
 * Install
 ** Layer
@@ -96,7 +101,7 @@ is nil.
 | ~SPC m b~     | build                                      |
 | ~SPC m c~     | close LaTeX environment                    |
 | ~SPC m e~     | insert LaTeX environment                   |
-| ~SPC m i~     | insert =\item=                             |
+| ~SPC m i i~   | insert =\item=                             |
 | ~SPC m k~     | kill TeX job                               |
 | ~SPC m l~     | recenter output buffer                     |
 | ~SPC m m~     | insert LaTeX macro                         |
@@ -131,7 +136,7 @@ is nil.
 | ~SPC m x f u~ | use upright font                           |
 
 ** Folding
-Available only when =latex-enable-auto-fill= is non nil.
+Available only when =latex-enable-folding= is non nil.
 
 | Key Binding | Description          |
 |-------------+----------------------|

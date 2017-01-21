@@ -1,6 +1,6 @@
 ;;; packages.el --- cscope Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,8 +9,11 @@
 ;;
 ;;; License: GPLv3
 
-(setq cscope-packages '(helm-cscope
-                        xcscope))
+(setq cscope-packages
+      '(
+        (helm-cscope :toggle (configuration-layer/package-usedp 'helm))
+        xcscope
+        ))
 
 (defun cscope/init-xcscope ()
   (use-package xcscope
@@ -37,22 +40,21 @@
            (format "pycscope -R -f '%s'"
                    (expand-file-name "cscope.out" directory))))))))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun cscope/init-helm-cscope ()
-    (use-package helm-cscope
-      :defer t
-      :init
-      (defun spacemacs/setup-helm-cscope (mode)
-        "Setup `helm-cscope' for MODE"
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "gc" 'helm-cscope-find-called-function
-          "gC" 'helm-cscope-find-calling-this-funtcion
-          "gd" 'helm-cscope-find-global-definition
-          "ge" 'helm-cscope-find-egrep-pattern
-          "gf" 'helm-cscope-find-this-file
-          "gF" 'helm-cscope-find-files-including-file
-          "gr" 'helm-cscope-find-this-symbol
-          "gx" 'helm-cscope-find-this-text-string))
-      :config
-      (defadvice helm-cscope-find-this-symbol (before cscope/goto activate)
-        (evil--jumps-push)))))
+(defun cscope/init-helm-cscope ()
+  (use-package helm-cscope
+    :defer t
+    :init
+    (defun spacemacs/setup-helm-cscope (mode)
+      "Setup `helm-cscope' for MODE"
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "gc" 'helm-cscope-find-called-function
+        "gC" 'helm-cscope-find-calling-this-funtcion
+        "gd" 'helm-cscope-find-global-definition
+        "ge" 'helm-cscope-find-egrep-pattern
+        "gf" 'helm-cscope-find-this-file
+        "gF" 'helm-cscope-find-files-including-file
+        "gr" 'helm-cscope-find-this-symbol
+        "gx" 'helm-cscope-find-this-text-string))
+    :config
+    (defadvice helm-cscope-find-this-symbol (before cscope/goto activate)
+      (evil--jumps-push))))

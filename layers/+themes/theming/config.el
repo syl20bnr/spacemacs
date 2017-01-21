@@ -1,6 +1,6 @@
 ;;; config.el --- Theming Layer configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -58,9 +58,3 @@ or the symbol `all'.")
     org-level-7
     org-level-8)
   "List of header faces.")
-
-;; Apply theme customizations after any call to load-theme
-(advice-add 'load-theme :after 'spacemacs//theming)
-
-;; Apply the initial customizations now, because load-theme has already been called
-(spacemacs//theming spacemacs--cur-theme)

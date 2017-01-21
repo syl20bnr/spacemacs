@@ -7,8 +7,12 @@
     (clojure-snippets :toggle (configuration-layer/layer-usedp 'auto-completion))
     company
     eldoc
+    ggtags
+    helm-gtags
     popwin
+    smartparens
     subword
+    org
     ))
 
 (defun clojure/init-cider ()
@@ -23,8 +27,12 @@
             cider-repl-use-clojure-font-lock t)
       (push "\\*cider-repl\.\+\\*" spacemacs-useful-buffers-regexp)
       (add-hook 'clojure-mode-hook 'cider-mode)
-      (if dotspacemacs-smartparens-strict-mode
-          (add-hook 'cider-repl-mode-hook #'smartparens-strict-mode)))
+      (dolist (x '(spacemacs-jump-handlers-clojure-mode
+                   spacemacs-jump-handlers-clojurec-mode
+                   spacemacs-jump-handlers-clojurescript-mode
+                   spacemacs-jump-handlers-clojurex-mode
+                   spacemacs-jump-handlers-cider-repl-mode))
+        (add-to-list x 'cider-find-var)))
     :config
     (progn
       ;; add support for golden-ratio
@@ -33,125 +41,6 @@
       ;; add support for evil
       (evil-set-initial-state 'cider-stacktrace-mode 'motion)
       (evil-set-initial-state 'cider-popup-buffer-mode 'motion)
-
-      (defun spacemacs//cider-eval-in-repl-no-focus (form)
-        "Insert FORM in the REPL buffer and eval it."
-        (while (string-match "\\`[ \t\n\r]+\\|[ \t\n\r]+\\'" form)
-          (setq form (replace-match "" t t form)))
-        (with-current-buffer (cider-current-repl-buffer)
-          (let ((pt-max (point-max)))
-            (goto-char pt-max)
-            (insert form)
-            (indent-region pt-max (point))
-            (cider-repl-return))))
-
-      (defun spacemacs/cider-send-last-sexp-to-repl ()
-        "Send last sexp to REPL and evaluate it without changing
-the focus."
-        (interactive)
-        (spacemacs//cider-eval-in-repl-no-focus (cider-last-sexp)))
-
-      (defun spacemacs/cider-send-last-sexp-to-repl-focus ()
-        "Send last sexp to REPL and evaluate it and switch to the REPL in
-`insert state'."
-        (interactive)
-        (cider-insert-last-sexp-in-repl t)
-        (evil-insert-state))
-
-      (defun spacemacs/cider-send-region-to-repl (start end)
-        "Send region to REPL and evaluate it without changing
-the focus."
-        (interactive "r")
-        (spacemacs//cider-eval-in-repl-no-focus
-         (buffer-substring-no-properties start end)))
-
-      (defun spacemacs/cider-send-region-to-repl-focus (start end)
-        "Send region to REPL and evaluate it and switch to the REPL in
-`insert state'."
-        (interactive "r")
-        (cider-insert-in-repl
-         (buffer-substring-no-properties start end) t)
-        (evil-insert-state))
-
-      (defun spacemacs/cider-send-function-to-repl ()
-        "Send current function to REPL and evaluate it without changing
-the focus."
-        (interactive)
-        (spacemacs//cider-eval-in-repl-no-focus (cider-defun-at-point)))
-
-      (defun spacemacs/cider-send-function-to-repl-focus ()
-        "Send current function to REPL and evaluate it and switch to the REPL in
-`insert state'."
-        (interactive)
-        (cider-insert-defun-in-repl t)
-        (evil-insert-state))
-
-      (defun spacemacs/cider-send-ns-form-to-repl ()
-        "Send buffer's ns form to REPL and evaluate it without changing
-the focus."
-        (interactive)
-        (spacemacs//cider-eval-in-repl-no-focus (cider-ns-form)))
-
-      (defun spacemacs/cider-send-ns-form-to-repl-focus ()
-        "Send ns form to REPL and evaluate it and switch to the REPL in
-`insert state'."
-        (interactive)
-        (cider-insert-ns-form-in-repl t)
-        (evil-insert-state))
-
-      (defun spacemacs/cider-send-buffer-in-repl-and-focus ()
-        "Send the current buffer in the REPL and switch to the REPL in
-`insert state'."
-        (interactive)
-        (cider-load-buffer)
-        (cider-switch-to-repl-buffer)
-        (evil-insert-state))
-
-      (defun spacemacs/cider-test-run-focused-test ()
-        (interactive)
-        (cider-load-buffer)
-        (spacemacs//cider-eval-in-repl-no-focus (cider-test-run-test)))
-
-      (defun spacemacs/cider-test-run-all-tests ()
-        (interactive)
-        (cider-load-buffer)
-        (spacemacs//cider-eval-in-repl-no-focus (cider-test-run-ns-tests nil)))
-
-      (defun spacemacs/cider-test-rerun-tests ()
-        (interactive)
-        (cider-load-buffer)
-        (spacemacs//cider-eval-in-repl-no-focus (cider-test-rerun-tests)))
-
-      (defun spacemacs/cider-display-error-buffer (&optional arg)
-        "Displays the *cider-error* buffer in the current window.
-If called with a prefix argument, uses the other-window instead."
-        (interactive "P")
-        (let ((buffer (get-buffer cider-error-buffer)))
-          (when buffer
-            (funcall (if (equal arg '(4))
-                         'switch-to-buffer-other-window
-                       'switch-to-buffer)
-                     buffer))))
-
-      (defun spacemacs/cider-toggle-repl-pretty-printing ()
-        (interactive)
-        (setq cider-repl-use-pretty-printing
-              (if cider-repl-use-pretty-printing nil t))
-        (message "Cider REPL pretty printing: %s"
-                 (if cider-repl-use-pretty-printing "ON" "OFF")))
-
-      (defun spacemacs/cider-toggle-repl-font-locking ()
-        (interactive)
-        (setq cider-repl-use-clojure-font-lock
-              (if cider-repl-use-pretty-printing nil t))
-        (message "Cider REPL clojure-mode font-lock: %s"
-                 (if cider-repl-use-clojure-font-lock "ON" "OFF")))
-
-      (defun spacemacs/cider-debug-setup ()
-        (when (eq dotspacemacs-editing-style 'vim)
-          (evil-make-overriding-map cider--debug-mode-map 'normal)
-          (evil-normalize-keymaps)))
-
       (add-hook 'cider--debug-mode-hook 'spacemacs/cider-debug-setup)
 
       (evilified-state-evilify cider-stacktrace-mode cider-stacktrace-mode-map
@@ -210,33 +99,45 @@ If called with a prefix argument, uses the other-window instead."
                    clojurec-mode
                    clojurescript-mode
                    clojurex-mode
-                   cider-repl-mode))
+                   cider-repl-mode
+                   cider-clojure-interaction-mode))
         (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
                            m (car x) (cdr x)))
               cider--key-binding-prefixes)
+
         (spacemacs/set-leader-keys-for-major-mode m
           "ha" 'cider-apropos
           "hh" 'cider-doc
           "hg" 'cider-grimoire
           "hj" 'cider-javadoc
+          "hn" 'cider-browse-ns
 
           "eb" 'cider-eval-buffer
           "ee" 'cider-eval-last-sexp
           "ef" 'cider-eval-defun-at-point
+          "em" 'cider-macroexpand-1
+          "eM" 'cider-macroexpand-all
           "er" 'cider-eval-region
           "ew" 'cider-eval-last-sexp-and-replace
 
+          "="  'cider-format-buffer
           "fb" 'cider-format-buffer
 
           "gb" 'cider-pop-back
+          "gC" 'cider-classpath
           "ge" 'cider-jump-to-compilation-error
-          "gg" 'cider-find-var
           "gr" 'cider-jump-to-resource
+          "gn" 'cider-browse-ns
+          "gN" 'cider-browse-ns-all
 
           "'"  'cider-jack-in
+          "\""  'cider-jack-in-clojurescript
           "sb" 'cider-load-buffer
           "sB" 'spacemacs/cider-send-buffer-in-repl-and-focus
-          "sc" 'cider-connect
+          "sc" (if (eq m 'cider-repl-mode)
+                   'cider-repl-clear-buffer
+                 'cider-connect)
+          "sC" 'cider-find-and-clear-repl-output
           "se" 'spacemacs/cider-send-last-sexp-to-repl
           "sE" 'spacemacs/cider-send-last-sexp-to-repl-focus
           "sf" 'spacemacs/cider-send-function-to-repl
@@ -249,13 +150,21 @@ If called with a prefix argument, uses the other-window instead."
           "sq" 'cider-quit
           "sr" 'spacemacs/cider-send-region-to-repl
           "sR" 'spacemacs/cider-send-region-to-repl-focus
-          "ss" 'cider-switch-to-repl-buffer
+          "ss" (if (eq m 'cider-repl-mode)
+                   'cider-switch-to-last-clojure-buffer
+                 'cider-switch-to-repl-buffer)
           "sx" 'cider-refresh
 
+          "Te" 'cider-enlighten-mode
           "Tf" 'spacemacs/cider-toggle-repl-font-locking
           "Tp" 'spacemacs/cider-toggle-repl-pretty-printing
+          "Tt" 'cider-auto-test-mode
 
           "ta" 'spacemacs/cider-test-run-all-tests
+          "tb" 'cider-test-show-report
+          "tl" 'spacemacs/cider-test-run-loaded-tests
+          "tp" 'spacemacs/cider-test-run-project-tests
+          "tn" 'spacemacs/cider-test-run-ns-tests
           "tr" 'spacemacs/cider-test-rerun-tests
           "tt" 'spacemacs/cider-test-run-focused-test
 
@@ -263,12 +172,20 @@ If called with a prefix argument, uses the other-window instead."
           "de" 'spacemacs/cider-display-error-buffer
           "di" 'cider-inspect))
 
+      ;; cider-repl-mode only
+      (spacemacs/set-leader-keys-for-major-mode 'cider-repl-mode
+        "," 'cider-repl-handle-shortcut)
+
+      (spacemacs/set-leader-keys-for-major-mode 'cider-clojure-interaction-mode
+        "ep" 'cider-eval-print-last-sexp)
+
       (evil-define-key 'normal cider-repl-mode-map
         "C-j" 'cider-repl-next-input
         "C-k" 'cider-repl-previous-input)
 
       (when clojure-enable-fancify-symbols
-        (clojure/fancify-symbols 'cider-repl-mode)))
+        (clojure/fancify-symbols 'cider-repl-mode)
+        (clojure/fancify-symbols 'cider-clojure-interaction-mode)))
 
     (defadvice cider-jump-to-var (before add-evil-jump activate)
       (evil-set-jump))))
@@ -305,7 +222,8 @@ If called with a prefix argument, uses the other-window instead."
                    clojurec-mode
                    clojurescript-mode
                    clojurex-mode
-                   cider-repl-mode))
+                   cider-repl-mode
+                   cider-clojure-interaction-mode))
         (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
                            m (car x) (cdr x)))
               clj-refactor--key-binding-prefixes)
@@ -322,20 +240,12 @@ If called with a prefix argument, uses the other-window instead."
     :init
     (progn
       (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
-      (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode)))
+      ;; This regexp matches shebang expressions like `#!/usr/bin/env boot'
+      (add-to-list 'magic-mode-alist '("#!.*boot\\s-*$" . clojure-mode)))
     :config
     (progn
-
-      (defun spacemacs/clojure-mode-toggle-default-indent-style ()
-        (interactive)
-        (setq clojure-defun-style-default-indent
-              (if clojure-defun-style-default-indent nil t))
-        (message "Clojure-mode default indent style: %s"
-                 (if clojure-defun-style-default-indent "ON" "OFF")))
-
       (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
         (spacemacs/set-leader-keys-for-major-mode m
-          "Ti" 'spacemacs/clojure-mode-toggle-default-indent-style
           "fl" 'clojure-align))
 
       (when clojure-enable-fancify-symbols
@@ -344,7 +254,8 @@ If called with a prefix argument, uses the other-window instead."
 
 (defun clojure/post-init-eldoc ()
   (add-hook 'cider-mode-hook 'eldoc-mode)
-  (add-hook 'cider-repl-mode-hook 'eldoc-mode))
+  (add-hook 'cider-repl-mode-hook 'eldoc-mode)
+  (add-hook 'cider-clojure-interaction-mode-hook 'eldoc-mode))
 
 (defun clojure/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
@@ -354,18 +265,33 @@ If called with a prefix argument, uses the other-window instead."
     (push '("*cider-doc*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
           popwin:special-display-config)))
 
+(defun clojure/post-init-smartparens ()
+  (add-hook 'cider-repl-mode-hook
+            (if dotspacemacs-smartparens-strict-mode
+                #'smartparens-strict-mode
+              #'smartparens-mode)))
+
 (defun clojure/post-init-subword ()
-  (unless (version< emacs-version "24.4")
-    (add-hook 'cider-mode-hook 'subword-mode)))
+  (add-hook 'cider-mode-hook 'subword-mode))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun clojure/post-init-company ()
-    (push 'company-capf company-backends-cider-mode)
-    (spacemacs|add-company-hook cider-mode)
+(defun clojure/post-init-company ()
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes
+    cider-mode
+    cider-repl-mode))
 
-    (push 'company-capf company-backends-cider-repl-mode)
-    (spacemacs|add-company-hook cider-repl-mode)))
+(defun clojure/post-init-ggtags ()
+  (add-hook 'clojure-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun clojure/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'clojure-mode))
 
 (defun clojure/init-clojure-snippets ()
   (use-package clojure-snippets
     :defer t))
+
+(defun clojure/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(clojure . t))
+    (setq org-babel-clojure-backend 'cider)))

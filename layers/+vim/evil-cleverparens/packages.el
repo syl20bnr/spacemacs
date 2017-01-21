@@ -1,6 +1,6 @@
 ;;; packages.el --- evil-cleverparens Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,7 +20,5 @@
     (progn
       (setq evil-cleverparens-use-regular-insert t)
       (spacemacs|add-toggle evil-cleverparens
-        :status evil-cleverparens-mode
-        :on  (evil-cleverparens-mode)
-        :off (evil-cleverparens-mode -1)
+        :mode evil-cleverparens-mode
         :documentation "Enable evil-cleverparens."))))

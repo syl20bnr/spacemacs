@@ -36,7 +36,7 @@ the `gorename' tool."
                              (and (buffer-file-name)
                                   (string= (file-name-extension (buffer-file-name)) ".go"))))
   (let* ((posflag (format "-offset=%s:#%d"
-                          buffer-file-name
+                          (expand-file-name buffer-file-truename)
                           (1- (go--position-bytes (point)))))
          (env-vars (go-root-and-paths))
          (goroot-env (concat "GOROOT=" (car env-vars)))

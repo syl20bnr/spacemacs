@@ -1,6 +1,6 @@
 ;;; funcs.el --- Go Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,3 +20,13 @@
           (load-file file)
           (setq found t)
           finally return found)))
+
+(defun spacemacs//go-enable-gometalinter ()
+   "Enable `flycheck-gometalinter' and disable overlapping `flycheck' linters."
+   (setq flycheck-disabled-checkers '(go-gofmt
+                                      go-golint
+                                      go-vet
+                                      go-build
+                                      go-test
+                                      go-errcheck))
+   (flycheck-gometalinter-setup))

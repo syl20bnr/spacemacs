@@ -44,13 +44,22 @@ To enable automatic buffer formatting on save, set the variable =rust-format-on-
 
 * Key bindings
 
-| Key Binding | Description                           |
-|-------------+---------------------------------------|
-| ~SPC m =~   | reformat the buffer                   |
-| ~SPC m c C~ | remove build artifacts with Cargo     |
-| ~SPC m c c~ | compile project with Cargo            |
-| ~SPC m c d~ | generate documentation with Cargo     |
-| ~SPC m c f~ | format all project files with rustfmt |
-| ~SPC m c t~ | run tests with Cargo                  |
-| ~SPC m c x~ | execute the project with Cargo        |
-| ~SPC m g g~ | jump to definition                    |
+| Key Binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~SPC m =~   | reformat the buffer                         |
+| ~SPC m c .~ | repeat the last Cargo command               |
+| ~SPC m c C~ | remove build artifacts with Cargo           |
+| ~SPC m c X~ | execute a project example with Cargo        |
+| ~SPC m c c~ | compile project with Cargo                  |
+| ~SPC m c d~ | generate documentation with Cargo           |
+| ~SPC m c e~ | run benchmarks with Cargo                   |
+| ~SPC m c f~ | run the current test with Cargo             |
+| ~SPC m c i~ | create a new project with Cargo (init)      |
+| ~SPC m c n~ | create a new project with Cargo (new)       |
+| ~SPC m c o~ | run all tests in current file with Cargo    |
+| ~SPC m c s~ | search for packages on crates.io with Cargo |
+| ~SPC m c u~ | update dependencies with Cargo              |
+| ~SPC m c x~ | execute a project with Cargo                |
+| ~SPC m g g~ | jump to definition                          |
+| ~SPC m h h~ | describe symbol at point                    |
+| ~SPC m t~   | run tests with Cargo                        |

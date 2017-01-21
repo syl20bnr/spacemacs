@@ -1,6 +1,6 @@
 ;;; packages.el --- YAML Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,10 +9,14 @@
 ;;
 ;;; License: GPLv3
 (setq yaml-packages '(company
+                      flycheck
                       yaml-mode))
 
 (defun yaml/post-init-company ()
-  (add-hook 'yaml-mode-hook 'company-mode))
+  (spacemacs|add-company-backends :modes yaml-mode))
+
+(defun yaml/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'yaml-mode))
 
 (defun yaml/init-yaml-mode ()
   "Initialize YAML mode"

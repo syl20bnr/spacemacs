@@ -12,10 +12,10 @@
 * Description
 
 This layer adds support for the [[https://github.com/rejeep/prodigy.el][prodigy]] package to manage external services from
-within Emacs, check the package's documentation for more details
+within Emacs, check the package's documentation for more details.
 
-It is recommended to put to put your prodigy services in the
-=dotspacemacs/user-config= part of your =~/.spacemacs= file.
+It is recommended to put your prodigy services in the =dotspacemacs/user-config=
+part of your =~/.spacemacs= file.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -46,6 +46,7 @@ You start prodigy with this:
 | ~L~         | Start prodigy                   |
 | ~S~         | Stop prodigy                    |
 | ~r~         | restart prodigy                 |
+| ~R~         | revert buffer  (refresh list)   |
 | ~d~         | Jump to the dired of service    |
 | ~g~         | Jump to magit-status of service |
 | ~Y~         | Copy prodigy command            |

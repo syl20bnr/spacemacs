@@ -7,10 +7,11 @@
    - [[#spell-checker-configuration][Spell Checker Configuration]]
    - [[#disabling-by-default][Disabling by default]]
    - [[#enabling-auto-dictionary-mode][Enabling auto-dictionary-mode]]
+   - [[#enable-auto-completion-popup][Enable auto-completion popup]]
  - [[#key-bindings][Key Bindings]]
 
 * Description
-This layer provides spell checking using [[http://www-sop.inria.fr/members/Manuel.Serrano/flyspell/flyspell.html][Flyspell]] and =[[https://github.com/nschum/auto-dictionary-mode][auto-dictionary-mode]]=.
+This layer provides spell checking using [[http://www-sop.inria.fr/members/Manuel.Serrano/flyspell/flyspell.html][Flyspell]] and [[https://github.com/nschum/auto-dictionary-mode][auto-dictionary-mode]].
 
 * Install
 ** Layer
@@ -77,6 +78,15 @@ currently supported language:
 | slovene           |
 | spanish           |
 | swedish           |
+
+** Enable auto-completion popup
+To enable auto-completion popup when the point is idle on a misspelled word
+set the layer variable =enable-flyspell-auto-completion= to t:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((spell-checking :variables =enable-flyspell-auto-completion= t)))
+#+END_SRC
 
 * Key Bindings
 

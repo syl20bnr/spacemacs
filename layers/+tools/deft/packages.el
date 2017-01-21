@@ -1,6 +1,6 @@
 ;;; packages.el --- deft Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -19,7 +19,8 @@
     (progn
       (setq deft-extensions '("org" "md" "txt")
             deft-text-mode 'org-mode
-            deft-use-filename-as-title t)
+            deft-use-filename-as-title t
+            deft-use-filter-string-for-filename t)
       (spacemacs/set-leader-keys "an" 'spacemacs/deft)
 
       (defun spacemacs/deft ()
@@ -31,10 +32,8 @@
           (hungry-delete-mode -1))
         ;; When opening it you always want to filter right away
         (evil-insert-state nil)))
-    :config
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'deft-mode
-        "d" 'deft-delete-file
-        "i" 'deft-toggle-incremental-search
-        "n" 'deft-new-file
-        "r" 'deft-rename-file))))
+    :config (spacemacs/set-leader-keys-for-major-mode 'deft-mode
+              "d" 'deft-delete-file
+              "i" 'deft-toggle-incremental-search
+              "n" 'deft-new-file
+              "r" 'deft-rename-file)))

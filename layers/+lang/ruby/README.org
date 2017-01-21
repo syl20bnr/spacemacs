@@ -15,10 +15,11 @@
    - [[#tests][Tests]]
      - [[#rspec-mode][RSpec-mode]]
      - [[#ruby-test-mode][Ruby-test-mode]]
+     - [[#minitest-mode][minitest-mode]]
    - [[#rake][Rake]]
 
 * Description
-This layer provides support for the Ruby language with the following feature:
+This layer provides support for the Ruby language with the following features:
 - version manager (rbenv, rvm or chruby)
 - integration with bundler
 - test runner (ruby-test and rspec)
@@ -82,9 +83,9 @@ this file is used.
 Note: Only one version manager at a time can be enabled.
 
 ** Test runner
-This layer supports both =RSpec= and =ruby-test= test runners (frameworks).
-By default =ruby-test= is used, to change to another frameworks set
-the layer variable =ruby-test-runner=.
+This layer supports =RSpec=, =ruby-test= and =minitest= test runners
+(frameworks). By default =ruby-test= is used, to change to another frameworks
+set the layer variable =ruby-test-runner=.
 
 Example to set the test runner to =RSpec=:
 
@@ -147,6 +148,7 @@ When =ruby-test-runner= equals =rspec=.
 | ~SPC m t a~   | run all specs                                          |
 | ~SPC m t b~   | run current spec file                                  |
 | ~SPC m t c~   | run the current spec file and subsequent ones          |
+| ~SPC m t d~   | run tests in a directory                               |
 | ~SPC m t e~   | mark example as pending                                |
 | ~SPC m t f~   | run method                                             |
 | ~SPC m t l~   | run last failed spec                                   |
@@ -163,6 +165,16 @@ When =ruby-test-runner= equals =ruby-test=.
 |-------------+---------------------|
 | ~SPC m t b~ | run test file       |
 | ~SPC m t t~ | run test at pointer |
+
+*** minitest-mode
+When =ruby-test-runner= equals =minitest=.
+
+| Key binding | Description               |
+|-------------+---------------------------|
+| ~SPC m t a~ | run all tests             |
+| ~SPC m t b~ | run current file          |
+| ~SPC m t r~ | repeat last test command  |
+| ~SPC m t s~ | run test for current file |
 
 ** Rake
 

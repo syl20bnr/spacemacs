@@ -1,6 +1,6 @@
 ;;; packages.el --- ranger Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Rich Alesi
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
@@ -24,6 +24,7 @@
 (defun ranger/init-ranger ()
   (use-package ranger
     :defer t
+    :commands (ranger deer ranger-override-dired-fn)
     :init
     (progn
       (ranger//set-leader-keys)
@@ -36,4 +37,8 @@
 
 (defun ranger/post-init-dired ()
   ;; Be sure to override dired bindings
-  (ranger//set-leader-keys))
+  (ranger//set-leader-keys)
+  ;; need to apply this to compensate for defer
+  (spacemacs|use-package-add-hook ranger
+    :post-init (when ranger-override-dired
+                 (add-hook 'dired-mode-hook #'ranger-override-dired-fn))))

@@ -5,18 +5,19 @@
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
-   - [[#enable-rainbow-identifiers][Enable rainbow-identifiers]]
+ - [[#configuration][Configuration]]
+   - [[#colorize-identifiers][Colorize identifiers]]
    - [[#enable-nyan-cat][Enable Nyan cat]]
  - [[#key-bindings][Key bindings]]
-   - [[#rainbow-identifiers][Rainbow Identifiers]]
+   - [[#colorize-identifiers-1][Colorize Identifiers]]
    - [[#rainbow-mode][Rainbow Mode]]
    - [[#nyan-mode][Nyan Mode]]
 
 * Description
 This layer colors your life with:
-- [[https://github.com/Fanael/rainbow-identifiers][rainbow identifiers]] mode will colorize each variables and functions with an
-  almost unique color. The keywords and the declaration of function colors are
-  disabled in order to make the colorized variables and functions stand out.
+- [[https://github.com/Fanael/rainbow-identifiers][rainbow identifiers]] mode will colorize all identifiers (christmas tree mode :-))
+  with an almost unique color.
+- [[https://github.com/ankurdave/color-identifiers-mode][color-identifiers]] mode will colorize only identifiers recognized as variables.
 - [[https://julien.danjou.info/projects/emacs-packages][rainbow mode]] displays strings representing colors with the color they
   represent as background.
 - [[https://github.com/syl20bnr/nyan-mode][nyan mode]] display a Nyan cat progress bar in the mode-line.
@@ -26,20 +27,24 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =colors= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** Enable rainbow-identifiers
-
-To enable the package =rainbow-identifiers= set the variable
-=colors-enable-rainbow-identifiers= to =t=:
+* Configuration
+** Colorize identifiers
+To colorize some identifiers by default in programming language buffers, set
+the layer variables =colors-colorize-identifiers= to either =variables= or
+=all=. =variables= will colorize only words recognized as variables, =all=
+will colorize all the words.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (colors :variables colors-enable-rainbow-identifiers t)))
+    (colors :variables colors-colorize-identifiers 'all)))
 #+END_SRC
 
-Saturation and lightness of identifiers can be set per theme by adding
-an entry in the variable =colors-theme-identifiers-sat&light=. This
-is an alist where the key is a theme symbol and the value is a pair
-=(saturation lightness)=.
+When using the value =all= the Saturation and lightness of can be set per theme
+by adding an entry in the variable =colors-theme-identifiers-sat&light=. This is
+an alist where the key is a theme symbol and the value is a pair =(saturation
+lightness)=.
+
+For now saturation and lightness are not supported with the =variables= value.
 
 Example:
 
@@ -48,7 +53,6 @@ Example:
 #+END_SRC
 
 ** Enable Nyan cat
-
 To enable the package =nyan-mode= set the variable
 =colors-enable-nyan-cat-progress-bar= to =t=:
 
@@ -69,18 +73,17 @@ a quasi-quoted list:
 * Key bindings
 The prefix associated with colors is ~C~.
 
-** Rainbow Identifiers
+** Colorize Identifiers
 
-[[file:img/theme-tweaks-python.png]]
-
-=rainbow-identifiers= mode can be toggled on and off with:
-
-    ~SPC t C i~
-
-Note that the toggle is local to the current buffer.
+| Key Binding | Description                                                     |
+|-------------+-----------------------------------------------------------------|
+| ~SPC C a~   | colorize all idendifiers in current buffer                      |
+| ~SPC C C-a~ | globally colorize all idendifiers and all subsequent buffers    |
+| ~SPC C v~   | colorize all variables only in current buffer                   |
+| ~SPC C C-v~ | globally colorize all variables only and all subsequent buffers |
 
 The =saturation= and =lightness= of identifier colors can be adjusted live
-with the transient-state:
+when colorizing all the identifiers with the transient-state:
 
 | Key Binding     | Description                              |
 |-----------------+------------------------------------------|

@@ -1,4 +1,4 @@
-#+TITLE: Github layer
+#+TITLE: GitHub layer
 
 [[file:img/github.png]]
 
@@ -15,14 +15,14 @@
    - [[#browse-files][Browse files]]
 
 * Description
-This layers adds support for [[http://github.com][Github]].
+This layers adds support for [[http://github.com][GitHub]].
 
 ** Features:
-- [[https://github.com/sigma/magit-gh-pulls][magit-gh-pulls]]: handy =magit= add-on to manage Github pull requests.
-- [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post Github gists.
-- [[https://github.com/osener/github-browse-file][github-browse-file]] and [[https://github.com/sshaw/git-link][git-link]]: quickly browse github URL in your
+- [[https://github.com/sigma/magit-gh-pulls][magit-gh-pulls]]: handy =magit= add-on to manage GitHub pull requests.
+- [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post GitHub gists.
+- [[https://github.com/osener/github-browse-file][github-browse-file]] and [[https://github.com/sshaw/git-link][git-link]]: quickly browse GitHub URL in your
   browser.
-- [[https://github.com/dgtized/github-clone.el][Github clone]] allows for easy cloning and forking of repositories.
+- [[https://github.com/dgtized/github-clone.el][github-clone]] allows for easy cloning and forking of repositories.
 
 * Install
 ** Layer
@@ -44,13 +44,15 @@ be added to your =~/.gitconfig=
 
 In a =magit status= buffer (~SPC g s~):
 
-| Key Binding | Description                                     |
-|-------------+-------------------------------------------------|
-| ~# c~       | create a pull request                           |
-| ~# g~       | get a list of all PRs in the current repository |
-| ~# f~       | fetch the commits associated to the current PR  |
-| ~# b~       | create a branch for the current PR              |
-| ~# m~       | merge the PR with current branch                |
+| Key Binding | Description                                                 |
+|-------------+-------------------------------------------------------------|
+| ~# c~       | create a pull request                                       |
+| ~# g~       | get a list of (or reload) all PRs in the current repository |
+| ~# f~       | fetch the commits associated with the current PR at point   |
+| ~# b~       | create a branch for the current PR at point                 |
+| ~# m~       | merge the PR with current branch at point                   |
+| ~# d~       | show a diff of the current pull request at point            |
+| ~# o~       | open PR at point in browser                                 |
 
 Note that =magit-gh-pulls= will try to fast-forward the PRs whenever it is
 possible.
@@ -88,23 +90,16 @@ In the gist list buffer:
 
 ** Clone repositories
 
-| Key Binding   | Description                          |
-|---------------+--------------------------------------|
-| ~SPC g h C-c~ | clone and optionally fork repository |
+| Key Binding   | Description                                              |
+|---------------+----------------------------------------------------------|
+| ~SPC g h c /~ | search for a repository to clone it                      |
+| ~SPC g h c c~ | clone and optionally fork repository                     |
+| ~SPC g h c r~ | add a remote that is an existing fork of selected remote |
+| ~SPC g h c f~ | fork remote in current user namespace                    |
+| ~SPC g h c u~ | add upstream as remote                                   |
 
 ** Browse files
 
 | Key Binding | Description                                                        |
 |-------------+--------------------------------------------------------------------|
-| ~SPC g h c~ | browse to file on github/bitbucket/etc (on current line at commit) |
-| ~SPC g h C~ | only copy the generated link on the kill ring                      |
-| ~SPC g h l~ | browse to file on github/bitbucket/etc (on current line position)  |
-| ~SPC g h L~ | only copy the generated link on the kill ring                      |
-| ~SPC g h o~ | browse to file on github                                           |
-
-*Notes:*
-- You can use the universal argument ~SPC u~ to select a remote repository.
-- You can use =git-link= on a region.
-- When the link is opened, the URL is also copied in the kill ring, you can
-  override this behavior by setting the variable =git-link-open-in-browser= to
-  =nil=.
+| ~SPC g h o~ | browse to file on GitHub                                           |

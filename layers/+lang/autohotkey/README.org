@@ -36,5 +36,8 @@ file.
 
 | Key Binding | Description                        |
 |-------------+------------------------------------|
-| ~SPC m d~   | open documentation in =browser=    |
-| ~SPC m e~   | execute file with =autohotkey.exe= |
+| ~SPC m c b~ | block comment                      |
+| ~SPC m c c~ | line comment                       |
+| ~SPC m e b~ | execute file with =autohotkey.exe= |
+| ~SPC m h h~ | open documentation in =browser=    |
+| ~SPC m h H~ | open documentation in local =chm=  |

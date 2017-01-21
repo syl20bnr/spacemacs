@@ -1,0 +1,107 @@
+#+TITLE:Spacemacs-purpose layer
+
+* Table of Contents                                                   :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#purposes][Purposes]]
+   - [[#switch-to-buffer-and-display-buffer][switch-to-buffer and display-buffer]]
+ - [[#features][Features]]
+   - [[#windows-purpose-purpose-mode][windows-purpose (purpose-mode)]]
+   - [[#purpose-popwinel-pupo-mode][purpose-popwin.el (pupo-mode)]]
+   - [[#misc][misc]]
+ - [[#install][Install]]
+ - [[#usage][Usage]]
+ - [[#key-bindings][Key Bindings]]
+ - [[#caveats][Caveats]]
+   - [[#popwin-and-guide-key][Popwin and guide-key]]
+   - [[#packages-that-do-display-management][Packages that do display management]]
+
+* Description
+This layer enables [[https://github.com/bmag/emacs-purpose][window-purpose]], which provides an alternative, purpose-based
+window manager for Emacs. With this layer, your window layout should be robust
+and shouldn't change too much when opening all sorts of buffers.
+
+Regular [[https://github.com/m2ym/popwin-el][popwin]] is not triggered when window-purpose is enabled. However,
+the window-purpose layer provides a =purpose-popwin= extension, which
+brings popwin's behavior towindows-purpose and solves that problem.
+
+** Purposes
+windows-purpose contains a configuration which assigns a purpose for each
+buffer. Later, when Emacs needs to display a buffer in a window, its purpose
+helps make a better decision of which window to use.
+
+For example, consider the following case: Emacs frame shows three windows - one
+for code, one for a terminal and one general-purpose window. The general window
+is selected and you want to open a code file. How do you ensure that the code
+file will be displayed in the code window? With windows-purpose you don't
+need to worry about it - you open the file and windows-purpose places it in
+the correct
+window.
+
+Additionally, you can dedicate a window to a purpose - so that window is
+reserved only for buffers that share that purpose.
+
+** switch-to-buffer and display-buffer
+In regular Emacs, =switch-to-buffer= follows different rules than the other
+switching and popping commands, because it doesn't use =display-buffer= (which
+the other commands do). With windows-purpose, this behavior is fixed. The
+result is a better control over how buffers are displayed, since
+=switch-to-buffer= doesn't ignore the user's customizations anymore.
+
+* Features
+** windows-purpose (purpose-mode)
+- window layout is more robust and less likely to change unintentionally
+- dedicate window to a purpose
+- user-defined purposes
+- extensible window display behavior
+- empty =purpose-mode-map=, to avoid conflicts with other key maps
+
+** purpose-popwin.el (pupo-mode)
+- replicate popwin behavior for purpose-mode - almost no regression in popup
+  behavior from using windows-purpose.
+- reuses popwin's settings: =popwin:special-display-config=,
+  =popwin:popup-window-height= and =popwin:popup-window-width=.
+- difference from popwin: when several windows are open, popup window is
+  sometimes bigger than with regular popwin in the same situation.
+
+** misc
+- specialized helm source similar to =helm-source-buffers-list=
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add spacemacs-purpose= to the existing =dotspacemacs-configuration-layers= list in
+this file.
+
+* Usage
+With windows-purpose layer installed, =purpose-mode= and =pupo-mode= are enabled.
+You can toggle =purpose-mode= (~SPC : purpose-mode~) at any time to return to
+purpose-less behavior. You can toggle =pupo-mode= (~SPC : pupo-mode~) to turn
+off only the purpose-popwin integration.
+
+If you change =popwin:special-display-config= in your =dotspacemacs/config=, you
+should call =pupo/update-purpose-config= to update purpose-popwin with those
+changes.
+
+See [[https://github.com/bmag/emacs-purpose/wiki][window-purpose wiki]] to learn more about windows-purpose.
+
+* Key Bindings
+
+| Key Binding | Description                                                                         |
+|-------------+-------------------------------------------------------------------------------------|
+| ~SPC r b~   | Open a buffer. Only buffers with the same purpose as the current buffer are listed. |
+| ~SPC r B~   | Open any buffer and ignore windows-purpose when displaying the buffer.              |
+| ~SPC r d~   | Toggle dedication of selected window to its current purpose.                        |
+| ~SPC r D~   | Delete all non-dedicated windows.                                                   |
+| ~SPC r p~   | Choose a purpose and open a buffer with that purpose.                               |
+| ~SPC r P~   | Change the purpose of the selected window. Changes the window's buffer accordingly. |
+
+* Caveats
+** Popwin and guide-key
+If a buffer is displayed in two different windows, and only one of those windows
+is purpose-dedicated, then invoking guide-key will cause both windows to become
+purpose-dedicated.
+
+** Packages that do display management
+Some packages that manage how windows are displayed, such as =gdb= with
+=gdb-many-windows=, might not play nicely with =window-purpose=. However, it is
+usually possible to find a solution. After all, even =helm= and =popwin= work
+with =window-purpose=.

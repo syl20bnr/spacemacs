@@ -1,6 +1,6 @@
 ;;; packages.el --- Ruby on Rails Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -13,6 +13,7 @@
   '(
     feature-mode
     projectile-rails
+    which-key
     ))
 
 (defun ruby-on-rails/init-projectile-rails ()
@@ -70,7 +71,11 @@
           "ri" 'projectile-rails-console
           "rxs" 'projectile-rails-server
           ;; Refactoring 'projectile-rails-mode
-          "rRx" 'projectile-rails-extract-region))
+          "rRx" 'projectile-rails-extract-region)
+        (spacemacs/declare-prefix-for-mode mode "mr" "rails/rubocop")
+        (spacemacs/declare-prefix-for-mode mode "mrf" "file")
+        (spacemacs/declare-prefix-for-mode mode "mrg" "goto"))
+
       ;; Ex-commands
       (evil-ex-define-cmd "A" 'projectile-toggle-between-implementation-and-test))))
 
@@ -78,3 +83,7 @@
   "Initialize Cucumber feature mode"
   (use-package feature-mode
     :mode (("\\.feature\\'" . feature-mode))))
+
+(defun ruby-on-rails/post-init-which-key ()
+  (push '((nil . "projectile-rails-\\(.+\\)") . (nil . "\\1"))
+        which-key-replacement-alist))

@@ -1,0 +1,16 @@
+#+TITLE: Clojure layer dependency installation script
+
+* Table of Contents                 :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#list-of-installed-software][List of installed software:]]
+
+* Description
+Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/clojure/README.org][Clojure layer.]]
+
+* List of installed software:
+1. [[http://packages.ubuntu.com/en/xenial/default-jre-headless][default-jre-headless]]
+2. [[https://leiningen.org/][Leiningen]]
+3. [[http://boot-clj.com/][Boot]]
+4. [[https://github.com/clojure-emacs/refactor-nrepl][refactor-nrepl]]
+5. [[https://github.com/clojure-emacs/cider-nrepl][cider-nrepl]]
+6. [[https://github.com/weavejester/cljfmt][lein-cljfmt]]

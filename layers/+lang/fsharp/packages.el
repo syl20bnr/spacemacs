@@ -1,6 +1,6 @@
 ;;; packages.el --- F# Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,7 +9,12 @@
 ;;
 ;;; License: GPLv3
 
-(setq fsharp-packages '(fsharp-mode))
+(setq fsharp-packages
+      '(
+        fsharp-mode
+        ggtags
+        helm-gtags
+        ))
 
 (defun fsharp/init-fsharp-mode ()
   (use-package fsharp-mode
@@ -51,8 +56,6 @@
 
         "fa" 'fsharp-find-alternate-file
 
-        "gg" 'fsharp-ac/gotodefn-at-point
-
         "ht" 'fsharp-ac/show-tooltip-at-point
 
         "'"  'fsharp-show-subshell
@@ -66,3 +69,9 @@
         "ss" 'fsharp-show-subshell
 
         "xf" 'fsharp-run-executable-file))))
+
+(defun fsharp/post-init-ggtags ()
+  (add-hook 'fsharp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun fsharp/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'fsharp-mode))

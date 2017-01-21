@@ -1,6 +1,6 @@
 ;;; packages.el --- Windows Scripts Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,13 +12,16 @@
 (setq windows-scripts-packages
   '(
     (dos :location local)
+    ggtags
+    helm-gtags
     powershell
     ))
 
 (defun windows-scripts/init-dos ()
   (use-package dos
     :commands dos-mode
-    :mode ("\\.bat$" . dos-mode)
+    :mode (("\\.bat\\'" . dos-mode)
+           ("\\.cmd\\'" . dos-mode))
     :init
     (progn
       (defun windows-scripts/dos-outline-hook ()
@@ -43,9 +46,16 @@
       "T"  'dos-template
       "z"  'windows-scripts/dos-outline)))
 
+(defun windows-scripts/post-init-ggtags ()
+  (add-hook 'dos-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun windows-scripts/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'dos-mode))
+
 (defun windows-scripts/init-powershell ()
   (use-package powershell
-    :mode ("\\.ps1$" . powershell-mode)
+    :mode (("\\.ps1\\'"  . powershell-mode)
+           ("\\.psm1\\'" . powershell-mode))
     :defer t
     :init
     (progn

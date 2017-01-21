@@ -1,6 +1,6 @@
 ;;; packages.el --- smex Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -19,19 +19,6 @@
       (setq-default smex-history-length 32
                     smex-save-file (concat spacemacs-cache-directory
                                            ".smex-items"))
-
-      (defun spacemacs/smex ()
-        "Execute smex with a better prompt."
-        (interactive)
-        (let ((smex-prompt-string "Emacs commands: "))
-          (smex)))
-
-      (defun spacemacs/smex-major-mode-commands ()
-        "Reexecute smex with major mode commands only."
-        (interactive)
-        (let ((smex-prompt-string (format "%s commands: " major-mode)))
-          (smex-major-mode-commands)))
-
       ;; define the key binding at the very end in order to allow the user
       ;; to overwrite any key binding
       (add-hook 'emacs-startup-hook

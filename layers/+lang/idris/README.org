@@ -85,6 +85,7 @@ are reproduced under the local leader.
 | ~SPC m s p~ | Contract the region to be loaded one line at a time                                    |
 | ~SPC m s P~ | Contract the region to be loaded one line at a time and switch to REPL in insert state |
 | ~SPC m s s~ | Switch to REPL buffer                                                                  |
+| ~SPC m s q~ | Quit the Idris process                                                                 |
 
 ** Active term manipulations
 

@@ -1,0 +1,22 @@
+#+TITLE: Saltstack layer
+
+[[file:img/saltstack.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer provides syntax highlighting for Saltstack files.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =salt= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description                                  |
+|-------------+----------------------------------------------|
+| ~SPC m p b~ | mmm-mode parse buffer via =mmm-parse-buffer= |

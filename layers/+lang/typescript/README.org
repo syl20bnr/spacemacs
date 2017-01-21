@@ -17,16 +17,16 @@
 This layer adds support for TypeScript and TSX editing.
 
 This layer provides:
-- ElDoc
+- Eldoc-mode
+- Documentation at point
 - Auto complete
-- Flycheck
+- Flycheck with linter
 - Jump to definition, Jump to type definition
-- Find occurrences
+- Find occurrences (Imenu-mode)
 - Rename symbol
-- Imenu
-- linting
 - tsx mode
 - formatting
+- TypeScript playground integration
 
 * Install
 ** Pre-requisites
@@ -34,7 +34,7 @@ You will need =node.js v0.12.0= or greater
 
 If you want linting run:  =npm install -g typescript=  =npm install -g tslint=
 
-If you want formatting run:  =npm install -g typescript-formatter=
+If you want to use typescript-formatter for formatting run:  =npm install -g typescript-formatter=
 
 For best results, make sure that the =auto-completion= (company) and =html= layers are enabled.
 
@@ -47,36 +47,38 @@ file.
 (setq-default dotspacemacs-configuration-layers '(typescript))
 #+END_SRC
 
-If you don't need linting, you can use:
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (typescript :variables
-              typescript-use-tslint  nil)))
-
-#+END_SRC
-
 If you need formatting on save:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(
   (typescript :variables
               typescript-fmt-on-save t)))
-
 #+END_SRC
+
+You can choose formatting tool:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(
+  (typescript :variables
+              typescript-fmt-tool 'typescript-formatter)))
+#+END_SRC
+
+Default is 'tide .
 
 ** Notes
 
 This layer uses:
 - [[https://github.com/ananthakumaran/tide][tide]]
-- [[https://github.com/Simplify/flycheck-typescript-tslint][flycheck-typescript-tslint]]
-- [[https://github.com/vvakame/typescript-formatter][typescript-formatter]]
+- [[https://github.com/flycheck/flycheck][flycheck]]
+- [[https://github.com/vvakame/typescript-formatter][typescript-formatter]] - optional.
 
-*Those tools use configuration files. You can learn more in their documentations.*
+*The tools use configuration files. You can learn more in their documentation.*
 
 Make sure to add [[https://github.com/Microsoft/TypeScript/wiki/tsconfig.json][tsconfig.json]] in the project root folder.
 
-tsserver mangles output sometimes [[https://github.com/Microsoft/TypeScript/issues/2758][issue - #2758]], which will result in json parse error. Try node version 0.12.x if you get this error
+tsserver mangles output sometimes [[https://github.com/Microsoft/TypeScript/issues/2758][issue - #2758]], which will result in json parse error. Try node version 0.12.x if you get this error.
+
+Send to playground requires browser.
 
 Currently tsserver doesn't pickup tsconfig.json file changes. You might need to restart server after editing it.
 
@@ -84,16 +86,17 @@ Currently tsserver doesn't pickup tsconfig.json file changes. You might need to 
 
 ** Typescript Major Mode
 
-| Key Binding | Description                      |
-|-------------+----------------------------------|
-| ~SPC m =~   | Reformat the buffer              |
-| ~SPC m g b~ | jump back                        |
-| ~SPC m g g~ | jump to entity's definition      |
-| ~SPC m g t~ | jump to entity's type definition |
-| ~SPC m g u~ | references                       |
-| ~SPC m h h~ | documentation at point           |
-| ~SPC m r r~ | rename symbol                    |
-| ~SPC m s r~ | restart server                   |
+| Key Binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC m =~   | reformat the buffer                                          |
+| ~SPC m g b~ | jump back                                                    |
+| ~SPC m g g~ | jump to entity's definition                                  |
+| ~SPC m g t~ | jump to entity's type definition                             |
+| ~SPC m g u~ | references                                                   |
+| ~SPC m h h~ | documentation at point                                       |
+| ~SPC m r r~ | rename symbol                                                |
+| ~SPC m s p~ | send selected region or current buffer to the web playground |
+| ~SPC m S r~ | restart server                                               |
 
 ** Reference Major Mode
 

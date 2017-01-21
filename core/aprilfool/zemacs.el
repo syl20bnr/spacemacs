@@ -1,6 +1,6 @@
 ;;; zemacs.el --- Spacemacs 2016 April Fools File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -31,7 +31,7 @@
     (ad-disable-advice 'spacemacs-buffer/insert-banner-and-buttons
                        'after 'zemacs/insert-banner-and-buttons)
     (ad-activate 'spacemacs-buffer/insert-banner-and-buttons)
-    (load-file (concat user-emacs-directory "core/core-spacemacs-buffer.el"))
+    (load-file (concat spacemacs-start-directory "core/core-spacemacs-buffer.el"))
     (setq dotspacemacs-startup-banner 'official)
     (kill-buffer)
     (insert "

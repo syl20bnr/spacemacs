@@ -54,6 +54,7 @@ Make sure opam is initialized and configured.
 
 | Key Binding | Description                                              |
 |-------------+----------------------------------------------------------|
+| ~SPC m =~   | Indent buffer.                                           |
 | ~SPC m c c~ | Compile                                                  |
 | ~SPC m c p~ | Check .merlin for errors                                 |
 | ~SPC m c r~ | Refresh changed .cmis in merlin                          |
@@ -64,6 +65,7 @@ Make sure opam is initialized and configured.
 | ~SPC m g b~ | Go back to the last position where the user did a locate |
 | ~SPC m g g~ | Locate the identifier under point (same window)          |
 | ~SPC m g G~ | Locate the identifier under point (different window)     |
+| ~SPC m g o~ | List occurrences for identifier under point              |
 | ~SPC m g l~ | Prompt for identifier and locate                         |
 | ~SPC m g i~ | Prompt for module name and switch to ML file             |
 | ~SPC m g I~ | Prompt for module name and switch to MLI file            |

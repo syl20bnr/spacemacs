@@ -1,6 +1,6 @@
 ;;; packages.el --- ocaml Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -11,10 +11,12 @@
 
 (setq ocaml-packages
   '(
-   ;; auto-complete
+    ;; auto-complete
     company
    ;; flycheck
    ;; flycheck-ocaml
+    ggtags
+    helm-gtags
     merlin
     ocp-indent
     smartparens
@@ -23,7 +25,11 @@
     ))
 
 (defun ocaml/post-init-company ()
-  (spacemacs|add-company-hook merlin-mode))
+  (when (configuration-layer/layer-usedp 'merlin)
+    (spacemacs|add-company-backends
+      :backends merlin-company-backend
+      :modes merlin-mode
+      :variables merlin-completion-with-doc t)))
 
 (when (configuration-layer/layer-usedp 'syntax-checking)
   (defun ocaml/post-init-flycheck ()
@@ -38,45 +44,49 @@
           (setq merlin-error-after-save nil)
           (flycheck-ocaml-setup))))))
 
+(defun ocaml/post-init-ggtags ()
+  (add-hook 'ocaml-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun ocaml/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'ocaml-mode))
+
 (defun ocaml/init-merlin ()
   (use-package merlin
     :defer t
     :init
     (progn
+      (add-to-list 'spacemacs-jump-handlers-tuareg-mode
+                'spacemacs/merlin-locate)
       (add-hook 'tuareg-mode-hook 'merlin-mode)
-;;      (set-default 'merlin-use-auto-complete-mode t)
-      (set-default 'merlin-use-auto-complete-mode nil)
-      (setq merlin-completion-with-doc t)
-      (push 'merlin-company-backend company-backends-merlin-mode)
       (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
         "cp" 'merlin-project-check
-        "cr" 'merlin-refresh
         "cv" 'merlin-goto-project-file
         "eC" 'merlin-error-check
         "en" 'merlin-error-next
         "eN" 'merlin-error-prev
         "gb" 'merlin-pop-stack
-        "gg" #'(lambda ()
-                (interactive)
-                (let ((merlin-locate-in-new-window 'never))
-                  (merlin-locate)))
-        "gG" #'(lambda ()
-                (interactive)
-                (let ((merlin-locate-in-new-window 'always))
-                  (merlin-locate)))
+        "gG" 'spacemacs/merlin-locate-other-window
         "gl" 'merlin-locate-ident
         "gi" 'merlin-switch-to-ml
         "gI" 'merlin-switch-to-mli
+        "go" 'merlin-occurrences
         "hh" 'merlin-document
         "ht" 'merlin-type-enclosing
         "hT" 'merlin-type-expr
-        "rd" 'merlin-destruct))))
+        "rd" 'merlin-destruct)
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mc" "compile/check")
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "me" "errors")
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mh" "help")
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mr" "refactor"))))
 
 (defun ocaml/init-ocp-indent ()
   (use-package ocp-indent
     :defer t
     :init
-    (add-hook 'tuareg-mode-hook 'ocp-indent-caml-mode-setup)))
+    (add-hook 'tuareg-mode-hook 'ocp-indent-caml-mode-setup)
+    (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+      "=" 'ocp-indent-buffer)))
 
 (defun ocaml/post-init-smartparens ()
   (with-eval-after-load 'smartparens
@@ -86,6 +96,8 @@
 
 (defun ocaml/init-tuareg ()
   (use-package tuareg
+    :mode (("\\.ml[ily]?$" . tuareg-mode)
+           ("\\.topml$" . tuareg-mode))
     :defer t
     :init
     (progn
@@ -94,7 +106,7 @@
         "ga" 'tuareg-find-alternate-file
         "cc" 'compile)
       ;; Make OCaml-generated files invisible to filename completion
-      (dolist (ext '(".cmo" ".cmx" ".cma" ".cmxa" ".cmi" ".cmxs" ".cmt" ".annot"))
+      (dolist (ext '(".cmo" ".cmx" ".cma" ".cmxa" ".cmi" ".cmxs" ".cmt" ".cmti" ".annot"))
         (add-to-list 'completion-ignored-extensions ext)))))
 
 (defun ocaml/init-utop ()
@@ -106,16 +118,9 @@
       (spacemacs/register-repl 'utop 'utop "ocaml"))
     :config
     (progn
-      ;; Setup environment variables using opam
       (if (executable-find "opam")
-          (let ((vars (car (read-from-string
-                            (shell-command-to-string "opam config env --sexp")))))
-            (dolist (var vars)
-              (setenv (car var) (cadr var))))
+          (setq utop-command "opam config exec -- utop -emacs")
         (spacemacs-buffer/warning "Cannot find \"opam\" executable."))
-      ;; Update the emacs path
-      (setq exec-path (append (parse-colon-path (getenv "PATH"))
-                              (list exec-directory)))
 
       (defun spacemacs/utop-eval-phrase-and-go ()
         "Send phrase to REPL and evaluate it and switch to the REPL in
@@ -149,6 +154,7 @@
         "sp" 'utop-eval-phrase
         "sP" 'spacemacs/utop-eval-phrase-and-go
         "sr" 'utop-eval-region
-        "sR" 'spacemacs/utop-eval-region-and-go))
+        "sR" 'spacemacs/utop-eval-region-and-go)
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "ms" "send"))
     (define-key utop-mode-map (kbd "C-j") 'utop-history-goto-next)
     (define-key utop-mode-map (kbd "C-k") 'utop-history-goto-prev)))

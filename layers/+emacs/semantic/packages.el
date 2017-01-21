@@ -1,6 +1,6 @@
 ;;; packages.el --- semantic Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -11,22 +11,14 @@
 
 (setq semantic-packages
       '(
-        semantic
-        (srefactor :toggle (version<= "24.4" emacs-version))
+        (semantic :location built-in)
+        srefactor
         stickyfunc-enhance
         ))
 
 (defun semantic/init-semantic ()
   (use-package semantic
     :defer t
-    :init
-    (progn
-      (setq srecode-map-save-file (concat spacemacs-cache-directory
-                                          "srecode-map.el"))
-      (setq semanticdb-default-save-directory (concat spacemacs-cache-directory
-                                                      "semanticdb/"))
-      (unless (file-exists-p semanticdb-default-save-directory)
-        (make-directory semanticdb-default-save-directory)))
     :config
     (progn
       (add-to-list 'semantic-default-submodes

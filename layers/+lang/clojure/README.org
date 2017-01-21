@@ -64,6 +64,12 @@ Or set this variable when loading the configuration layer:
 #+END_SRC
 
 ** CIDER and clj-refactor
+Note that recent versions of CIDER automatically inject the required
+dependencies into your boot or leiningen configuration when you connect to the
+REPL. Thus, the configuration instructions below only apply to CIDER 0.10 and
+older. Most users should be able to just run ~SPC m s i~ to connect to the CIDER
+REPL and skip the rest of this section.
+
 *** Quick Start with boot
 - Install =boot= (see https://github.com/boot-clj/boot#install)
 - Create a file =~/.boot/profile.boot= with the following content:
@@ -79,7 +85,9 @@ Or set this variable when loading the configuration layer:
        'refactor-nrepl.middleware/wrap-refactor)
 #+END_SRC
 
-- Run ~SPC m s i~ in any of the clojure source files to connect to the CIDER REPL.
+- Run ~SPC m s i~ in any of the clojure source files to connect to the CIDER
+  REPL. Note that a build.boot file must be present in your working directory
+  for Cider to recognize the presence of boot.
 
 *** Quick Start with lein
 - Install =lein= version 2.5.2 or newer (see http://leiningen.org/#install)
@@ -113,52 +121,61 @@ As this state works the same for all files, the documentation is in global
 ** Leader
 *** Documentation
 
-| Key Binding | Description    |
-|-------------+----------------|
-| ~SPC m h a~ | cider apropos  |
-| ~SPC m h g~ | cider grimoire |
-| ~SPC m h h~ | cider doc      |
-| ~SPC m h j~ | cider javadoc  |
+| Key Binding | Description     |
+|-------------+-----------------|
+| ~SPC m h a~ | cider apropos   |
+| ~SPC m h g~ | cider grimoire  |
+| ~SPC m h h~ | cider doc       |
+| ~SPC m h j~ | cider javadoc   |
+| ~SPC m h n~ | cider browse ns |
 
 *** Evaluation
 
-| Key Binding | Description                            |
-|-------------+----------------------------------------|
-| ~SPC m e b~ | eval buffer                            |
-| ~SPC m e e~ | eval last sexp                         |
-| ~SPC m e f~ | eval function at point                 |
-| ~SPC m e r~ | eval region                            |
-| ~SPC m e w~ | eval last sexp and replace with result |
+| Key Binding | Description                                     |
+|-------------+-------------------------------------------------|
+| ~SPC m e b~ | eval buffer                                     |
+| ~SPC m e e~ | eval last sexp                                  |
+| ~SPC m e f~ | eval function at point                          |
+| ~SPC m e r~ | eval region                                     |
+| ~SPC m e m~ | cider macroexpand 1                             |
+| ~SPC m e M~ | cider macroexpand all                           |
+| ~SPC m e p~ | print last sexp (clojure interaction mode only) |
+| ~SPC m e w~ | eval last sexp and replace with result          |
 
 *** Goto
 
-| Key Binding | Description   |
-|-------------+---------------|
-| ~SPC m g b~ | go back       |
-| ~SPC m g g~ | goto var      |
-| ~SPC m g e~ | goto error    |
-| ~SPC m g r~ | goto resource |
+| Key Binding | Description           |
+|-------------+-----------------------|
+| ~SPC m g b~ | go back               |
+| ~SPC m g C~ | browse classpath      |
+| ~SPC m g g~ | goto var              |
+| ~SPC m g e~ | goto error            |
+| ~SPC m g r~ | goto resource         |
+| ~SPC m g n~ | browse namespaces     |
+| ~SPC m g N~ | browse all namespaces |
 
 *** REPL
 
-| Key Binding | Description                                                  |
-|-------------+--------------------------------------------------------------|
-| ~SPC m s b~ | send and eval buffer in REPL                                 |
-| ~SPC m s B~ | send and eval buffer and switch to REPL in =insert state=    |
-| ~SPC m s c~ | connect to REPL (cider-connect)                              |
-| ~SPC m s e~ | send and eval last sexp in REPL                              |
-| ~SPC m s E~ | send and eval last sexp and switch to REPL in =insert state= |
-| ~SPC m s f~ | send and eval function in REPL                               |
-| ~SPC m s F~ | send and eval function and switch to REPL in =insert state=  |
-| ~SPC m s i~ | start REPL (cider-jack-in)                                   |
-| ~SPC m s I~ | start clojurescript REPL (cider-jack-in-clojurescript)       |
-| ~SPC m s n~ | send and eval ns form in REPL                                |
-| ~SPC m s N~ | send and eval ns form and switch to REPL in =insert state=   |
-| ~SPC m s q~ | kill REPL (cider-quit)                                       |
-| ~SPC m s o~ | switch to other repl instance (cider-repl-switch-to-other)   |
-| ~SPC m s r~ | send and eval region in REPL                                 |
-| ~SPC m s R~ | send and eval region and switch to REPL in =insert state=    |
-| ~SPC m s s~ | switch to REPL                                               |
+| Key Binding | Description                                                                    |
+|-------------+--------------------------------------------------------------------------------|
+| ~SPC m ,~   | handle shortcut (cider-repl-handle-shortcut)                                   |
+| ~SPC m s b~ | send and eval buffer in REPL                                                   |
+| ~SPC m s B~ | send and eval buffer and switch to REPL in =insert state=                      |
+| ~SPC m s c~ | connect to REPL (cider-connect) or clear repl buffer (cider-repl-clear-buffer) |
+| ~SPC m s C~ | clear REPL (cider-find-and-clear-repl-output)                                  |
+| ~SPC m s e~ | send and eval last sexp in REPL                                                |
+| ~SPC m s E~ | send and eval last sexp and switch to REPL in =insert state=                   |
+| ~SPC m s f~ | send and eval function in REPL                                                 |
+| ~SPC m s F~ | send and eval function and switch to REPL in =insert state=                    |
+| ~SPC m s i~ | start REPL (cider-jack-in)                                                     |
+| ~SPC m s I~ | start clojurescript REPL (cider-jack-in-clojurescript)                         |
+| ~SPC m s n~ | send and eval ns form in REPL                                                  |
+| ~SPC m s N~ | send and eval ns form and switch to REPL in =insert state=                     |
+| ~SPC m s q~ | kill REPL (cider-quit)                                                         |
+| ~SPC m s o~ | switch to other repl instance (cider-repl-switch-to-other)                     |
+| ~SPC m s r~ | send and eval region in REPL                                                   |
+| ~SPC m s R~ | send and eval region and switch to REPL in =insert state=                      |
+| ~SPC m s s~ | switch to REPL or jump to last file or last clj buffer from repl (cider-repl)  |
 
 *** Tests
 
@@ -172,9 +189,12 @@ As this state works the same for all files, the documentation is in global
 
 | Key Binding | Description                 |
 |-------------+-----------------------------|
+| ~SPC m T e~ | toggle englighten mode      |
 | ~SPC m T f~ | toggle REPL font-locking    |
+| ~SPC m T e~ | toggle cider-enlighten-mode |
 | ~SPC m T p~ | toggle REPL pretty-printing |
 | ~SPC m T i~ | toggle indentation style    |
+| ~SPC m T t~ | toggle auto test mode       |
 
 *** Debugging
 
@@ -233,10 +253,10 @@ As this state works the same for all files, the documentation is in global
 
 *** Reformatting
 
-| Key Binding | Description             |
-|-------------+-------------------------|
-| ~SPC m f l~ | realign current form    |
-| ~SPC m f b~ | reformat current buffer |
+| Key Binding               | Description             |
+|---------------------------+-------------------------|
+| ~SPC m f l~               | realign current form    |
+| ~SPC m f b~ or  ~SPC m =~ | reformat current buffer |
 
 ** CIDER Buffers
 In general, ~q~ should always quit the popped up buffer.

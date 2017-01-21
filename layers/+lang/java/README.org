@@ -12,6 +12,7 @@
  - [[#key-bindings][Key bindings]]
    - [[#java-mode][Java-mode]]
      - [[#project-management][Project management]]
+     - [[#eclimd][Eclimd]]
      - [[#maven][Maven]]
      - [[#goto][Goto]]
      - [[#refactoring][Refactoring]]
@@ -41,14 +42,25 @@ Then set the =Eclipse= and =Eclim= paths in =dotspacemacs/user-config=,
 for instance:
 
 #+BEGIN_SRC elisp
-(setq eclim-eclipse-dirs "~/opt/eclipse"
-      eclim-executable "~/opt/eclipse/eclim")
+  (setq eclim-eclipse-dirs '("~/opt/eclipse")
+        eclim-executable "~/opt/eclipse/eclim")
+#+END_SRC
+
+You can also configure other options, as shown below:
+
+#+BEGIN_SRC elisp
+  (setq
+   ;; Use another eclimd executable
+   eclimd-executable "/path/to/another/executable"
+   ;; Specify the workspace to use by default
+   eclimd-default-workspace "/path/to/default/eclipse/workspace"
+   ;; Whether or not to block emacs until eclimd is ready
+   eclimd-wait-for-process t)
 #+END_SRC
 
 *** Usage
-Currently you have to have =eclimd= already started.
-This layer doesn't try to control =eclimd= in no way although there's that
-option in =emacs-eclim= itself.
+Start the eclim daemon with ~SPC m d s~ and stop it with ~SPC m d k~. (See
+below.)
 
 * Key bindings
 ** Java-mode
@@ -66,6 +78,13 @@ option in =emacs-eclim= itself.
 | ~SPC m p o~ | Open project                   |
 | ~SPC m p p~ | Open project management buffer |
 | ~SPC m p u~ | Update project                 |
+
+*** Eclimd
+
+| Key Binding | Description  |
+|-------------+--------------|
+| ~SPC m d s~ | Start daemon |
+| ~SPC m d k~ | Stop daemon  |
 
 *** Maven
 

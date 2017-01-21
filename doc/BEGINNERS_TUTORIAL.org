@@ -1,0 +1,330 @@
+#+TITLE: Beginners tutorial
+
+* Beginners tutorial                                      :TOC_4_gh:noexport:
+ - [[#why-spacemacs][Why Spacemacs?]]
+ - [[#install][Install]]
+   - [[#1-install-emacs][1. Install Emacs]]
+   - [[#2-install-git][2. Install Git]]
+   - [[#3-install-spacemacs][3. Install Spacemacs]]
+     - [[#note-for-windows-users][Note for Windows users]]
+   - [[#4-install-the-default-font][4. Install the default font]]
+   - [[#5-open-spacemacs-and-choose-default-editing-style][5. Open Spacemacs and choose default editing style]]
+ - [[#getting-started][Getting started]]
+   - [[#keybinding-notation][Keybinding notation]]
+   - [[#modal-text-editing---why-and-how][Modal text editing - why and how?]]
+   - [[#start-the-vim-tutorial][Start the Vim tutorial]]
+   - [[#using-the-spacebar-to-launch-commands][Using the spacebar to launch commands]]
+   - [[#buffers-windows-and-frames][Buffers, windows and frames]]
+   - [[#accessing-files][Accessing files]]
+ - [[#configuring-spacemacs][Configuring Spacemacs]]
+   - [[#adding-language-support-and-other-features-using-layers][Adding language support and other features: using layers]]
+   - [[#changing-the-colour-theme][Changing the colour theme]]
+   - [[#starting-maximized][Starting maximized]]
+   - [[#quitting][Quitting]]
+ - [[#additional-features-tips-and-troubleshooting][Additional features, tips and troubleshooting]]
+   - [[#org-mode][Org mode]]
+   - [[#version-control---the-intelligent-way][Version control - the intelligent way]]
+   - [[#daemon-mode-and-instant-startup-linux][Daemon mode and instant startup (Linux)]]
+   - [[#swap-caps-lock-and-esc-keys-on-your-keyboard][Swap caps lock and esc keys on your keyboard]]
+   - [[#troubleshooting-and-further-info][Troubleshooting and further info]]
+
+* Why Spacemacs?
+- Unparallelled text and structure editing for all types of writing tasks:
+  creative writing, blogging, note-taking, todo-lists, scientific papers...
+- Powerful modes for programming in dozens of programming languages
+- Deeply customizable yet beginner-friendly
+
+* Install
+ Spacemacs is a beginner-friendly and powerful extension of a popular text
+ editor called Emacs. To install Spacemacs you need to first install base Emacs
+ and then download the Spacemacs extension files, which is most easily done by
+ using a program called Git. The steps are easy and outlined below.
+
+** 1. [[https://github.com/syl20bnr/spacemacs#prerequisites][Install Emacs]]
+
+** 2. [[https://git-scm.com/downloads][Install Git]]
+
+** 3. Install Spacemacs
+Open a terminal or command prompt, paste the following code to it:
+
+#+BEGIN_SRC sh
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+#+END_SRC
+
+Press enter to execute the code and the program you installed in the previous
+step, Git, will download the Spacemacs extension files.
+
+*** Note for Windows users
+If you use windows, you have to modify the git command by inserting the correct
+path to your .emacs.d folder. The dot before the folder means that it is hidden,
+so you'll have to search for hidden files to find the folder. When you have
+found the folder, substitute the original path with the correct one. The proper
+code would look something like this:
+
+#+BEGIN_SRC sh
+git clone https://github.com/syl20bnr/spacemacs /path/to/your/.emacs.d
+#+END_SRC
+
+** 4. Install the default font
+The default font used by Spacemacs is Source Code Pro by Adobe. It is
+recommended to [[https://github.com/adobe-fonts/source-code-pro#font-installation-instructions][install]] it on your system to ensure correct visual
+representation. Also a "Fallback font" for nicer-looking symbols in the modeline
+(bottom bar) is recommended. These depend on the system:
+
+- gnu/linux: Nanum
+- MacOS: Arial Unicode MS
+- Windows: MS Gothic or Lucida Sans Unicode
+
+If the modeline doesn't look as great as in the pictures, make sure you have the
+correct fallback font installed on your system.
+
+** 5. Open Spacemacs and choose default editing style
+Open Spacemacs by clicking the Emacs icon in your applications menu. The first
+time Spacemacs launches, it will load and install packages and prompt you for
+your preferred editing style. You have two options: Vim ("Among the stars aboard
+the Evil flagship") and Emacs. If you haven't used Emacs before or are unsure
+about the differences of the editing styles, we recommend selecting the default,
+Vim, by pressing enter. Using this configuration is introduced more thoroughly
+in the next section. If you are already familiar with Emacs or do not plan to
+switch into modal editing style, select Emacs with the left and right arrow
+keys. There is also a third option, "Hybrid", for more advanced users willing to
+use both styles. All of these choices can be easily changed later by editing the
+dotspacemacs-editing-style variable in the dotfile (see [[#configuring-spacemacs][Configuring Spacemacs]]),
+so if modal editing does not sweep you away, you can switch to the Emacs style
+later.
+
+Next, you will be prompted for the distribution you would like to start with.
+The standard distribution is recommended, press enter to select it.
+
+Now Spacemacs will download and install required packages. This will take some
+minutes depending on your connection. After everything is installed (you will
+see the text "n packages loaded in x s" appear in the list under the Spacemacs
+logo), restart Spacemacs.
+
+Now your installation process is complete, congratulations! For troubleshooting,
+see the last section.
+
+* Getting started
+** Keybinding notation
+The power of Spacemacs lies in its efficient keybindings. Because it is built on
+Emacs, we will use Emacs conventions for keybinding notation. The most important
+modifier keys are:
+
+~SPC~ = ~Space~, used as the leader key in Vim editing style.
+~C-~ = ~Ctrl~
+~M-~ (for "meta") = ~Alt~
+~S-~ = ~Shift~
+
+The modifier keys can be used either in a sequence or as key chords by pressing
+two keys at the same time. ~SPC 1~ is notation for a key sequence and means
+pressing ~Space~ first and pressing ~1~ after it. Key chords are notated by
+writing a ~-~ between the keys. Thus ~C-c~ means pressing ~Ctrl~ and the letter
+~c~ simultaneously. Key chords and sequences can also be combined: ~C-c a~ means
+"First press ~Ctrl~ and ~c~ simultaneously, then press ~a~". ~C-c C-a~ means
+"First press ~Ctrl~ and ~c~ simultaneously, then press ~Ctrl~ and ~a~
+simultaneously".
+
+This document assumes you chose the "Vim" editing style and notates accordingly.
+If you chose the Emacs editing style, just substitute ~SPC~ with ~M-m~ in all
+the commands that begin with ~SPC~.
+
+(Note: Other modifier keys such as ~Super~, notated with a small-case ~s-~, can
+be set up but this is rarely necessary in Spacemacs).
+
+** Modal text editing - why and how?
+Writing (or programming) is typically not a simple linear process of adding
+words and lines until finished. At least as important part of the work consists
+of editing the text: deleting and rewriting parts, moving sentences around or
+jumping to an earlier point to fix a discrepancy.
+
+The crudest way to, for example, delete a certain line is moving the mouse to
+the line in question, clicking on the line and then deleting it by pressing
+backspace repeatedly. This is slow and inefficient, both because you have to
+take your hands from your keyboard and because repeatedly pressing backspace
+takes time. The more time you spend pressing keys, the more time and energy is
+wasted.
+
+To speed up editing, many editors use key chords for common editing tasks:
+~Control-c~ for copying and so on. However, these types of shortcuts tend to
+have two problems. First, you have to press two keys at the same time, which is
+harder to coordinate and thus slower than pressing keys in a sequence. Second,
+you typically have to use your weakest fingers (pinkies) extensively and bend
+your wrists in unergonomic positions, which is uncomfortable for many and risks
+developing carpal tunnel syndrome in the long run.
+
+By contrast, Spacemacs uses modal editing. Modal editing means that different
+modes are used for editing and writing text. While this can sound complicated at
+first, in practice it can be learned quickly and once learned is unparallelled
+in speed and ergonomy. Our earlier example of deleting a certain line of text (a
+very common edit task) can be achieved in Spacemacs by simply navigating to the
+line in question with the keys ~j~ and ~k~ (navigation keys) and pressing ~d~
+(for "delete") two times!
+
+You might have noticed that this was achieved entirely without moving your
+fingers from your home row (the row where your fingers lie in rest when
+touch-typing) and without using modifier keys.
+
+** Start the Vim tutorial
+The modal editing features of Spacemacs originate from a text editor called Vi,
+and thus the modal editing tutorial is called eVIl tutor. Press ~SPC h T~ (that
+is, the spacebar followed by ~h~ and ~T~) to familiarize yourself with
+modal editig.
+
+** Using the spacebar to launch commands
+Now that you are familiar with writing and editing text it is time to put the
+"Space" into Spacemacs. Because the spacebar is the most accessible key on the
+keyboard and is pressed by the strongest fingers (the thumbs), it is a natural
+choice for launching commands. You can think of it as the start menu of
+Spacemacs.
+
+A short instant after the spacebar is pressed a menu pops up. This interactive
+menu shows you what submenus and commands can be accessed by subsequent
+keypresses. Browsing around this menu is a great way of finding new features in
+Spacemacs, so keep on eye on the different options! ~ESC~ usually breaks the
+combination you don't want to use.
+
+** Buffers, windows and frames
+Because Emacs (the extension of which Spacemacs is) was developed in the 80's
+before the advent of modern graphical user interfaces, Emacs has
+a different name of what we normally call "windows": in Emacs these are
+called "frames". A frame is what pops up when you launch Spacemacs from your
+desktop shortcut. A frame contains windows and buffers.
+
+Windows are the visual spaces a frame is divided into. The default
+is one, but windows can be split to allow editing multiple files in one frame.
+Let's try this. Press ~SPC~ to bring up the menu. You can see different letters
+having different submenus associated with them, usually with a mnemonic for
+easier recall. The letter w is assigned for "windows": press it. A new menu
+opens with further options. Write the character / to split the currently active
+window vertically into two.
+
+Now you should see two windows of this tutorial, and the one on the left should
+be active, as can be seen from the modeline in the bottom or by moving the
+cursor around using the navigation keys. This isn't very useful, as we
+would probably want to see a different file on the right.
+
+First, activate the window on the right with ~SPC 2~. Now that the window on the
+right is active, we can open a different buffer for a different file. We'll use
+the scratch buffer, which can be used like a notepad. Be warned, unlike other
+buffers it doesn't prompt you whether you want to save the changes you've made
+when quitting the program! Press ~SPC b~ to open the buffers menu and then
+switch to the scratch buffer by pressing s. Now you have two different buffers
+in two different windows open, great! You can write something on the scratch
+buffer, and when you're done, make sure that the scratch window is active and
+close it by pressing ~SPC w d~.
+
+Now the tutorial window fills the whole frame. But you only closed the window,
+not the scratch buffer, so the buffer is still open beneath the surface. You can
+quickly switch between the current buffer and the last with ~SPC TAB~: use this
+a couple of times to switch between the tutorial and the scratch buffer. ~SPC b~
+has more options for switching between buffers, for example ~SPC b b~ opens a
+searchable list of all currently open buffers and ~SPC b d~ closes the current
+buffer.
+
+** Accessing files
+Files can be accessed under the ~SPC f~ mnemonic. You can navigate to any file
+with ~SPC f f~ and open it by pressing enter. Accessing recently opened files is
+a very common task and is done with ~SPC f r~. An edited file is saved with
+~SPC f s~.
+
+* Configuring Spacemacs
+:PROPERTIES:
+:CUSTOM_ID: configuring-spacemacs
+:END:
+** Adding language support and other features: using layers
+Spacemacs divides its configuration into self-contained units called
+configuration layers. These layers are stacked on top of each other to achieve a
+custom configuration.
+
+By default Spacemacs uses a dotfile called ~/.spacemacs to control which layers
+to load. Within this file you can also configure certain features. First, split
+the window vertically to view both this tutorial and the dotfile simultaneously
+(~SPC w /~). Open the dotfile by pressing ~SPC f e d~. Navigate to the line
+starting with "dotspacemacs-configuration-layers". The following lines have
+further instructions: uncomment org and git layers if you want to be
+familiarized with them. More layers for different languages and tools can be
+found on [[https://github.com/syl20bnr/spacemacs/tree/master/layers][github]] or by pressing ~SPC h SPC~. The added layers will be installed
+upon restart of Spacemacs.
+
+Mac users: add the osx layer to use the OS X keybindings!
+
+** Changing the colour theme
+You can toggle the theme by ~SPC T n~. This cycles between currently
+activated themes. You can find more by adding the themes-megapack layer and
+activate them by writing their names in the dotspacemacs-themes list.
+
+** Starting maximized
+Editing the dotspacemacs-maximized-at-startup variable from nil to t will start
+Spacemacs maximized.
+
+** Quitting
+Save the changes you've made to the dotfile with ~SPC f s~ and then quit emacs
+by ~SPC q q~. You can return to this tutorial by clicking it on the home screen!
+
+* Additional features, tips and troubleshooting
+** Org mode
+Org mode is one of the best features of Spacemacs and enough reason to warrant
+its use. Org mode's official description tells that it is "for keeping notes,
+maintaining todo lists, planning projects, and authoring documents with a fast
+and effective plain-text system", but this gives only a small inkling of its
+versatility. If you do any kind of writing at all, chances are that Org mode
+will make it easier and more fun. This tutorial was written in Org mode.
+
+Install the Org layer and open this tutorial. Press ~S-TAB~ repeatedly and
+observe that this cycles the visibility of the contents of different headlines.
+Press t in normal mode and observe that you can add TODO tags on headlines.
+Press ~M-k~ or ~M-j~ in normal mode and see how you can quickly move parts of
+the document around.
+
+This is not even scratching the surface of Org mode, so you should look into its
+[[https://github.com/syl20bnr/spacemacs/blob/master/layers/%252Bemacs/org/README.org][documentation]] for more information. Googling for Org mode tutorials is also very
+helpful in finding out the most useful features of it!
+
+** Version control - the intelligent way
+Version control means keeping track of the changes and edits you have made to
+your document. Often version control is done by saving different versions of the
+document with different names, such as "document version 13" and so on. This is
+crude in many ways: if you want to, for example, re-add something you deleted,
+you have to manually open several past versions of the document to find the one
+with the deleted part, and then copy-paste it to the most recent file. More
+complicated edits will be harder still. Fortunately, there is a much better way.
+Git is the most popular version control system for programmers, but it can be as
+useful for people that are writing school or scientific papers, fiction or blog
+posts as well.
+
+Install the git layer, restart Spacemacs and open a file you want to version
+control. You can check the status of your file by pressing ~SPC g s~. Select the
+folder your file is in. You will be prompted whether you want to create a
+repository in the folder. Select yes. You will see a list of "Untracked files":
+navigate to the file you want to track and press s to "stage changes". You might
+be prompted to save the file: save it if necessary. Now the new file needs to be
+commited: press c and c again. Two windows pop up: one showing the changes
+you've made since the last edit (in this case, the whole document) and another
+prompting for a commit message. Write "Initial commit", press ESC to exit back
+to normal mode and press ~, c~ confirm and quit the commit
+message. To abort, press ~, a~.
+
+Now you know how to make a commit. The commits are saved in
+the (hidden) .git folder in the same folder the tracked file(s) are in. You can
+make further commits the same way.
+
+** Daemon mode and instant startup (Linux)
+Emacs can be used in daemon mode: a daemon runs in the background and launches
+clients. This way new frames launch instantly without delay. [[https://www.emacswiki.org/emacs/EmacsAsDaemon][Emacswiki]] tells
+more about the daemon and how to set it to launch automatically on startup.
+
+** Swap caps lock and esc keys on your keyboard
+This is useful outside of Spacemacs as well!
+
+** Troubleshooting and further info
+~SPC ?~ shows you the keybindings in the current major mode, which is often
+helpful. For troubleshooting, please refer to the FAQ by pressing ~SPC f e f~ or
+[[https://github.com/syl20bnr/spacemacs/blob/master/doc/FAQ.org][online]]. More help is found under ~SPC h~, and with ~SPC h ~SPC~ you can access
+the comprehensive Spacemacs documentation, including this tutorial and the layer
+documents.
+
+The [[https://gitter.im/syl20bnr/spacemacs][Gitter chat]] can be used to ask questions if the answer cannot be found in
+the documentation. For a detailed review of Spacemacs' features one can also
+watch the [[https://www.youtube.com/playlist?list=PLrJ2YN5y27KLhd3yNs2dR8_inqtEiEweE][Spacemacs ABC series]] by Eivind Fonn on Youtube. Some of the
+keybindings have changed since the videos were uploaded but seeing someone in
+action helps spot helpful tricks that would otherwise be missed.

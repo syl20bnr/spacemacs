@@ -1,6 +1,6 @@
 ;;; packages.el --- Themes Mega-Pack Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -27,11 +27,11 @@
     clues-theme
     color-theme-sanityinc-solarized
     color-theme-sanityinc-tomorrow
-    colorsarenice-theme
     cyberpunk-theme
     dakrone-theme
     darkburn-theme
     darkmine-theme
+    darkokai-theme
     darktooth-theme
     django-theme
     dracula-theme
@@ -84,8 +84,8 @@
     soft-morning-theme
     soft-stone-theme
     soothe-theme
+    sourcerer-theme
     spacegray-theme
-    stekene-theme
     subatomic-theme
     subatomic256-theme
     sublime-themes
@@ -108,6 +108,9 @@
     zonokai-theme
     ))
 
-;; programmatically defin the init functions
+;; define programmatically the init functions
 (dolist (pkg themes-megapack-packages)
   (eval `(defun ,(intern (format "themes-megapack/init-%S" pkg)) nil)))
+
+(defun themes-megapack/init-darkokai-theme ()
+  (setq darkokai-mode-line-padding 1))

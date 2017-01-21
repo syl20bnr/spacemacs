@@ -8,6 +8,7 @@
    - [[#layer][Layer]]
    - [[#enablingdisabling-tooltips][Enabling/Disabling tooltips]]
    - [[#disabling-by-default][Disabling by default]]
+   - [[#bitmaps][Bitmaps]]
  - [[#key-bindings][Key Bindings]]
 
 * Description
@@ -43,13 +44,25 @@ If you want more fine-grained control, you can configure the variable
 =flycheck-global-modes= instead. Note that this variable should be manipulated
 in =dotspacemacs/user-config=.
 
+** Bitmaps
+If the original flycheck fringe bitmaps are more to your liking, you can set the
+variable =syntax-checking-use-original-bitmaps= to =t=:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((syntax-checking :variables syntax-checking-use-original-bitmaps t)))
+#+END_SRC
+
 * Key Bindings
 
 | Key Binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC e c~   | clear errors                                                 |
+| ~SPC e h~   | describe flycheck checker                                    |
 | ~SPC e l~   | display a list of all the errors                             |
 | ~SPC e L~   | display a list of all the errors and focus the errors buffer |
+| ~SPC e e~   | explain the error at point                                   |
 | ~SPC e s~   | set flycheck checker                                         |
 | ~SPC e S~   | set flycheck checker executable                              |
+| ~SPC e v~   | verify flycheck setup                                        |
 | ~SPC t s~   | toggle flycheck                                              |

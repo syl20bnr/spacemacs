@@ -1,0 +1,16 @@
+The Autumnal Cleanup 2016 is complete! Thank you to everyone
+who helped keep the issue tracker clean. In particular
+
+1. gilbertw1 (230 issues, 27.09%)
+2. NJBS (98 issues, 11.54%)
+3. mahinshaw (90 issues, 10.60%)
+4. smile13241324 (75 issues, 8.83%)
+5. deb0ch (66 issues, 7.77%)
+
+as well as bleggett, jredville, lazywithclass, rgrinberg,
+kdelwat, cmr, bmag, ksjogo, ekmecic, cro, inirudebwoy,
+mwillsey, robbyoconnor and alimoeeny. And of course, last but
+not least, the hard working organizer d12frosted!
+
+For more info on release 0.200.x see the newsletter #01 at
+[[http://spacemacs.org/news/news01.html]]

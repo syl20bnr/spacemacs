@@ -1,6 +1,6 @@
 ;;; packages.el --- xkcd Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -25,4 +25,5 @@
         "h" 'xkcd-prev
         "j" 'xkcd-next
         "k" 'xkcd-prev
-        "l" 'xkcd-next))))
+        "l" 'xkcd-next)
+      (push "*xkcd*" spacemacs-useful-buffers-regexp))))

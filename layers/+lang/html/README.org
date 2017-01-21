@@ -18,13 +18,21 @@ This layer adds support for editing HTML and CSS.
 - Support for Sass/Scss and Less files
 - Generate HTML and CSS coding using [[https://github.com/smihica/emmet-mode][emmet-mode]]
 - Tags navigation on key ~%~ using [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
-- Support for editing Slim and Jade templates using [[https://github.com/slim-template/emacs-slim][slim-mode]]
-  and [[https://github.com/brianc/jade-mode][jade-mode]]
+- Support for editing Slim and Pug templates using [[https://github.com/slim-template/emacs-slim][slim-mode]]
+  and [[https://github.com/hlissner/emacs-pug-mode][pug-mode]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =html= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+SCSS linting requires SCSS-Lint version >= 0.43.0. You can get it from GitHub:
+
+#+BEGIN_SRC command-line
+gem install specific_install
+gem specific_install https://github.com/brigade/scss-lint.git
+gem specific_install https://github.com/Sweetchuck/scss_lint_reporter_checkstyle.git
+#+END_SRC
 
 * Key Bindings
 ** Web mode

@@ -1,6 +1,6 @@
 ;;; core-spacemacs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,12 +12,13 @@
 (defconst emacs-start-time (current-time))
 
 (require 'subr-x nil 'noerror)
+(require 'page-break-lines)
 (require 'core-debug)
 (require 'core-command-line)
 (require 'core-dotspacemacs)
-(require 'core-emacs-backports)
+(require 'core-custom-settings)
 (require 'core-release-management)
-(require 'core-auto-completion)
+(require 'core-jump)
 (require 'core-display-init)
 (require 'core-themes-support)
 (require 'core-fonts-support)
@@ -38,6 +39,7 @@
 (defvar spacemacs-loading-char ?█)
 (defvar spacemacs-loading-string "")
 (defvar spacemacs-loading-counter 0)
+(defvar spacemacs-loading-value 0)
 ;; (defvar spacemacs-loading-text "Loading")
 ;; (defvar spacemacs-loading-done-text "Ready!")
 (defvar spacemacs-loading-dots-chunk-count 3)
@@ -78,7 +80,25 @@ the final step of executing code in `emacs-startup-hook'.")
   (dotspacemacs/load-file)
   (require 'core-configuration-layer)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
+  (when dotspacemacs-maximized-at-startup
+    (unless (frame-parameter nil 'fullscreen)
+      (toggle-frame-maximized))
+    (add-to-list 'default-frame-alist '(fullscreen . maximized)))
   (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
+  ;; Given the loading process of Spacemacs we have no choice but to set the
+  ;; custom settings twice:
+  ;; - once at the very beginning of startup (here)
+  ;; - once at the very end of loading (in `spacemacs/setup-startup-hook')
+  ;; The first application of custom settings is to be sure that Emacs knows all
+  ;; the defined settings before saving them to a file (otherwise we loose all
+  ;; the settings that Emacs does not know of).
+  ;; The second application is to override any setting set in dotfile functions
+  ;; like `dotspacemacs/user-config`, users expect the custom settings to be the
+  ;; effective ones.
+  ;; Note: Loading custom-settings twice is not ideal since they can have side
+  ;; effects! Maybe an inhibit variable in Emacs can supress these side effects?
+  (dotspacemacs|call-func dotspacemacs/emacs-custom-settings
+                          "Calling dotfile Emacs custom settings...")
   (setq dotspacemacs-editing-style (dotspacemacs//read-editing-style-config
                                     dotspacemacs-editing-style))
   (configuration-layer/initialize)
@@ -95,10 +115,20 @@ the final step of executing code in `emacs-startup-hook'.")
     (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
   ;; font
   (spacemacs|do-after-display-system-init
-   (if (find-font (font-spec :name (car dotspacemacs-default-font)))
-       (spacemacs/set-default-font dotspacemacs-default-font)
-     (spacemacs-buffer/warning "Cannot find font \"%s\"!"
-                               (car dotspacemacs-default-font))))
+   ;; If you are thinking to remove this call to `message', think twice. You'll
+   ;; break the life of several Spacemacser using Emacs in daemon mode. Without
+   ;; this, their chosen font will not be set on the *first* instance of
+   ;; emacsclient, at least if different than their system font. You don't
+   ;; believe me? Go ahead, try it. After you'll have notice that this was true,
+   ;; increase the counter bellow so next people will give it more confidence.
+   ;; Counter = 1
+   (message "Setting the font...")
+   (unless (spacemacs/set-default-font dotspacemacs-default-font)
+     (spacemacs-buffer/warning
+      "Cannot find any of the specified fonts (%s)! Font settings may not be correct."
+      (if (listp (car dotspacemacs-default-font))
+          (mapconcat 'car dotspacemacs-default-font ", ")
+        (car dotspacemacs-default-font)))))
   ;; spacemacs init
   (setq inhibit-startup-screen t)
   (spacemacs-buffer/goto-buffer)
@@ -108,6 +138,8 @@ the final step of executing code in `emacs-startup-hook'.")
     (spacemacs|do-after-display-system-init
      (kill-buffer (get-buffer spacemacs-buffer-name))
      (spacemacs-buffer/goto-buffer)))
+  ;; This is set to nil during startup to allow Spacemacs to show buffers opened
+  ;; as command line arguments.
   (setq initial-buffer-choice nil)
   (setq inhibit-startup-screen t)
   (require 'core-keybindings)
@@ -120,7 +152,8 @@ the final step of executing code in `emacs-startup-hook'.")
   ;; check for new version
   (if dotspacemacs-mode-line-unicode-symbols
       (setq-default spacemacs-version-check-lighter "[⇪]"))
-  (spacemacs/set-new-version-lighter-mode-line-faces))
+  ;; install the dotfile if required
+  (dotspacemacs/maybe-install-dotfile))
 
 (defun spacemacs//removes-gui-elements ()
   "Remove the menu bar, tool bar and scroll bars."
@@ -135,20 +168,6 @@ the final step of executing code in `emacs-startup-hook'.")
   ;; tooltips in echo-aera
   (when (and (fboundp 'tooltip-mode) (not (eq tooltip-mode -1)))
     (tooltip-mode -1)))
-
-(defun spacemacs/maybe-install-dotfile ()
-  "Install the dotfile if it does not exist."
-  (unless (file-exists-p dotspacemacs-filepath)
-    (spacemacs-buffer/set-mode-line "Dotfile wizard installer")
-    (spacemacs//redisplay)
-    (when (dotspacemacs/install 'with-wizard)
-      (configuration-layer/sync))))
-
-(defun spacemacs/display-and-copy-version ()
-  "Echo the current spacemacs version and copy it."
-  (interactive)
-  (let ((msg (format "Spacemacs v.%s" spacemacs-version)))
-    (message msg) (kill-new msg)))
 
 (defun display-startup-echo-area-message ()
   "Change the default welcome message of minibuffer to another one."
@@ -166,121 +185,24 @@ defer call using `spacemacs-post-user-config-hook'."
   (add-hook
    'emacs-startup-hook
    (lambda ()
+     ;; This is set here so that emacsclient will show the startup buffer (and
+     ;; so that it can be changed in user-config if necessary). It was set to
+     ;; nil earlier in the startup process to properly handle command line
+     ;; arguments.
+     (setq initial-buffer-choice (lambda () (get-buffer spacemacs-buffer-name)))
      ;; Ultimate configuration decisions are given to the user who can defined
      ;; them in his/her ~/.spacemacs file
      (dotspacemacs|call-func dotspacemacs/user-config
                              "Calling dotfile user config...")
+     (dotspacemacs|call-func dotspacemacs/emacs-custom-settings
+                             "Calling dotfile Emacs custom settings...")
      (run-hooks 'spacemacs-post-user-config-hook)
      (setq spacemacs-post-user-config-hook-run t)
      (when (fboundp dotspacemacs-scratch-mode)
        (with-current-buffer "*scratch*"
          (funcall dotspacemacs-scratch-mode)))
      (configuration-layer/display-summary emacs-start-time)
-     (spacemacs/check-for-new-version spacemacs-version-check-interval)
+     (spacemacs/check-for-new-version nil spacemacs-version-check-interval)
      (setq spacemacs-initialized t))))
-
-(defun spacemacs//describe-system-info-string ()
-  "Gathers info about your Spacemacs setup and returns it as a string."
-  (format
-   (concat "#### System Info\n"
-           "- OS: %s\n"
-           "- Emacs: %s\n"
-           "- Spacemacs: %s\n"
-           "- Spacemacs branch: %s (rev. %s)\n"
-           "- Graphic display: %s\n"
-           "- Distribution: %s\n"
-           "- Editing style: %s\n"
-           "- Completion: %s\n"
-           "- Layers:\n```elisp\n%s```\n")
-   system-type
-   emacs-version
-   spacemacs-version
-   (spacemacs/git-get-current-branch)
-   (spacemacs/git-get-current-branch-rev)
-   (display-graphic-p)
-   dotspacemacs-distribution
-   dotspacemacs-editing-style
-   (cond ((configuration-layer/layer-usedp 'spacemacs-helm)
-          'helm)
-         ((configuration-layer/layer-usedp 'spacemacs-ivy)
-          'ivy)
-         (t 'helm))
-   (pp-to-string dotspacemacs-configuration-layers)))
-
-(defun spacemacs/describe-system-info ()
-  "Gathers info about your Spacemacs setup and copies to clipboard."
-  (interactive)
-  (let ((sysinfo (spacemacs//describe-system-info-string)))
-    (kill-new sysinfo)
-    (message sysinfo)
-    (message (concat "Information has been copied to clipboard.\n"
-                     "You can paste it in the gitter chat.\n"
-                     "Check the *Messages* buffer if you need to review it"))))
-
-(defun spacemacs//describe-last-keys-string ()
-  "Gathers info about your Emacs last keys and returns it as a string."
-  (view-lossage)
-  (let* ((lossage-buffer "*Help*")
-         (last-keys (format "#### Emacs last keys\n```text\n%s```\n"
-                            (with-current-buffer lossage-buffer
-                              (buffer-string)))))
-    (kill-buffer lossage-buffer)
-    last-keys))
-
-(defun spacemacs/describe-last-keys ()
-  "Gathers info about your Emacs last keys and copies to clipboard."
-  (interactive)
-  (let ((lossage (spacemacs//describe-last-keys-string)))
-    (kill-new lossage)
-    (message lossage)
-    (message (concat "Information has been copied to clipboard.\n"
-                     (propertize
-                      "PLEASE REVIEW THE DATA BEFORE GOING FURTHER AS IT CAN CONTAIN SENSITIVE DATA (PASSWORD, ...)\n"
-                      'face 'font-lock-warning-face)
-                     "You can paste it in the gitter chat.\n"
-                     "Check the *Messages* buffer if you need to review it"))))
-
-(defun spacemacs/report-issue (arg)
-  "Browse the page for creating a new Spacemacs issue on GitHub,
-with the message pre-filled with template and information."
-  (interactive "P")
-  (let* ((url "http://github.com/syl20bnr/spacemacs/issues/new?body=")
-         (template (with-temp-buffer
-                     (insert-file-contents-literally
-                      (concat configuration-layer-template-directory "REPORTING.template"))
-                     (buffer-string))))
-    ;; Include the system info description directly into the template
-    (setq template (replace-regexp-in-string
-                    "%SYSTEM_INFO%"
-                    (spacemacs//describe-system-info-string)
-                    template [keep-case]))
-    ;; Include the backtrace directly in the template, if it exists
-    (setq template (replace-regexp-in-string
-                    "%BACKTRACE%"
-                    (if (get-buffer "*Backtrace*")
-                        (with-current-buffer "*Backtrace*"
-                           (buffer-substring-no-properties
-                            (point-min) (min (point-max) 1000)))
-                      "BACKTRACE IF RELEVANT")
-                    template [keep-case]))
-    ;; Include the last keys description directly into the template, if
-    ;; prefix argument has been passed
-    (setq template (replace-regexp-in-string
-                    "(%LAST_KEYS%)\n"
-                    (if (and arg (y-or-n-p (concat "Do you really want to "
-                                                   "include your last pressed keys? It "
-                                                   "may include some sensitive data.")))
-                        (concat (spacemacs//describe-last-keys-string) "\n")
-                      "")
-                    template [keep-case]))
-    ;; Create the encoded url
-    (setq url (url-encode-url (concat url template)))
-    ;; HACK: Needed because the first `#' is not encoded
-    (setq url (replace-regexp-in-string "#" "%23" url))
-    (browse-url url)))
-
-(when (and (display-graphic-p)
-           (string-equal "04/01/16" (format-time-string "%D")))
-  (require 'zemacs))
 
 (provide 'core-spacemacs)

@@ -1,6 +1,6 @@
 ;;; core-load-paths.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -10,9 +10,17 @@
 ;;; License: GPLv3
 (defun add-to-load-path (dir) (add-to-list 'load-path dir))
 
+(defun add-to-load-path-if-exists (dir)
+  "If DIR exists in the file system, add it to `load-path'."
+  (when (file-exists-p dir)
+      (add-to-load-path dir)))
+
 ;; paths
+(defvar spacemacs-start-directory
+  user-emacs-directory
+  "Spacemacs start directory.")
 (defconst spacemacs-core-directory
-  (expand-file-name (concat user-emacs-directory "core/"))
+  (expand-file-name (concat spacemacs-start-directory "core/"))
   "Spacemacs core directory.")
 (defconst spacemacs-info-directory
   (expand-file-name (concat spacemacs-core-directory "info/"))
@@ -26,6 +34,13 @@
 (defconst spacemacs-banner-official-png
   (expand-file-name (concat spacemacs-banner-directory "img/spacemacs.png"))
   "Spacemacs official banner image.")
+(defconst spacemacs-badge-official-png
+  (expand-file-name (concat spacemacs-banner-directory
+                            "img/spacemacs-badge.png"))
+  "Spacemacs official badge image.")
+(defconst spacemacs-purple-heart-png
+  (expand-file-name (concat spacemacs-banner-directory "img/heart.png"))
+  "Purple heart emoji.")
 (defconst spacemacs-cache-directory
   (expand-file-name (concat user-emacs-directory ".cache/"))
   "Spacemacs storage area for persistent files")
@@ -33,13 +48,16 @@
   (expand-file-name (concat spacemacs-cache-directory "auto-save/"))
   "Spacemacs auto-save directory")
 (defconst spacemacs-docs-directory
-  (expand-file-name (concat user-emacs-directory "doc/"))
+  (expand-file-name (concat spacemacs-start-directory "doc/"))
   "Spacemacs documentation directory.")
+(defconst spacemacs-news-directory
+  (expand-file-name (concat spacemacs-start-directory "news/"))
+  "Spacemacs News directory.")
 (defconst spacemacs-assets-directory
-  (expand-file-name (concat user-emacs-directory "assets/"))
+  (expand-file-name (concat spacemacs-start-directory "assets/"))
   "Spacemacs assets directory.")
 (defconst spacemacs-test-directory
-  (expand-file-name (concat user-emacs-directory "tests/"))
+  (expand-file-name (concat spacemacs-start-directory "tests/"))
   "Spacemacs tests directory.")
 
 (defconst user-home-directory
@@ -50,15 +68,10 @@
 (unless (file-exists-p spacemacs-cache-directory)
     (make-directory spacemacs-cache-directory))
 
-(defconst user-dropbox-directory
-  (expand-file-name (concat user-home-directory "Dropbox/"))
-  "Dropbox directory.")
-
 ;; load paths
 (mapc 'add-to-load-path
       `(
-        ,(concat user-emacs-directory "core/")
-        ,(concat user-emacs-directory "core/libs/")
-        ,(concat user-emacs-directory "core/aprilfool/")
-        ,(concat user-dropbox-directory "emacs/")
+        ,spacemacs-core-directory
+        ,(concat spacemacs-core-directory "libs/")
+        ,(concat spacemacs-core-directory "aprilfool/")
         ))

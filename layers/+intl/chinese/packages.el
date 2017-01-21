@@ -1,6 +1,6 @@
 ;;; packages.el --- Chinese Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -13,20 +13,15 @@
 ;; which require an initialization must be listed explicitly in the list.
 (setq chinese-packages
       '(
+        (chinese-pyim :toggle (eq chinese-default-input-method 'pinyin))
+        (chinese-wbim :toggle (eq chinese-default-input-method 'wubi))
+        (fcitx :toggle chinese-enable-fcitx)
         find-by-pinyin-dired
         ace-pinyin
         pangu-spacing
-        org))
-
-(if chinese-enable-youdao-dict
-  (push 'youdao-dictionary chinese-packages))
-
-(if (eq chinese-default-input-method 'wubi)
-    (push 'chinese-wbim chinese-packages)
-  (push 'chinese-pyim chinese-packages))
-
-(if (and chinese-enable-fcitx (not (spacemacs/system-is-mswindows))) ;; disable in Windows
-    (push 'fcitx chinese-packages))
+        org
+        (youdao-dictionary :toggle chinese-enable-youdao-dict)
+        ))
 
 (defun chinese/init-fcitx ()
   (use-package fcitx

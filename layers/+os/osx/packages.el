@@ -1,8 +1,20 @@
+;;; config.el --- OSX Layer packages File for Spacemacs
+;;
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;;
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
 (setq osx-packages
       '(
         exec-path-from-shell
         helm
         launchctl
+        (osx-dictionary :toggle osx-use-dictionary-app)
         osx-trash
         pbcopy
         reveal-in-osx-finder
@@ -26,16 +38,15 @@
         (setq insert-directory-program gls
               dired-listing-switches "-aBhl --group-directories-first")))))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun osx/pre-init-helm ()
-    ;; Use `mdfind' instead of `locate'.
-    (when (spacemacs/system-is-mac)
-      (spacemacs|use-package-add-hook helm
-        :post-config
-        ;; Disable fuzzy matchting to make mdfind work with helm-locate
-        ;; https://github.com/emacs-helm/helm/issues/799
-        (setq helm-locate-fuzzy-match nil)
-        (setq helm-locate-command "mdfind -name %s %s")))))
+(defun osx/pre-init-helm ()
+  ;; Use `mdfind' instead of `locate'.
+  (when (spacemacs/system-is-mac)
+    (spacemacs|use-package-add-hook helm
+      :post-config
+      ;; Disable fuzzy matchting to make mdfind work with helm-locate
+      ;; https://github.com/emacs-helm/helm/issues/799
+      (setq helm-locate-fuzzy-match nil)
+      (setq helm-locate-command "mdfind -name %s %s"))))
 
 (defun osx/init-launchctl ()
   (use-package launchctl
@@ -43,7 +54,7 @@
     :defer t
     :init
     (progn
-      (add-to-list 'auto-mode-alist '("\\.plist$" . nxml-mode))
+      (add-to-list 'auto-mode-alist '("\\.plist\\'" . nxml-mode))
       (spacemacs/set-leader-keys "al" 'launchctl))
     :config
     (progn
@@ -68,6 +79,23 @@
         (kbd "=") 'launchctl-setenv
         (kbd "#") 'launchctl-unsetenv
         (kbd "h") 'launchctl-help))))
+
+(defun osx/init-osx-dictionary ()
+  (use-package osx-dictionary
+    :if osx-use-dictionary-app
+    :init (spacemacs/set-leader-keys "xwd" 'osx-dictionary-search-pointer)
+    :commands (osx-dictionary-search-pointer
+               osx-dictionary-search-input
+               osx-dictionary-cli-find-or-recompile)
+    :config
+    (progn
+      (evilified-state-evilify-map osx-dictionary-mode-map
+        :mode osx-dictionary-mode
+        :bindings
+        "q" 'osx-dictionary-quit
+        "r" 'osx-dictionary-read-word
+        "s" 'osx-dictionary-search-input
+        "o" 'osx-dictionary-open-dictionary.app))))
 
 (defun osx/init-osx-trash ()
   (use-package osx-trash

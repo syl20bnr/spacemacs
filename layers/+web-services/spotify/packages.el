@@ -1,6 +1,6 @@
 ;;; packages.el --- spotify Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Brian Hicks <brian@brianthicks.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,7 +9,11 @@
 ;;
 ;;; License: GPLv3
 
-(setq spotify-packages '(spotify helm-spotify))
+(setq spotify-packages
+      '(
+        spotify
+        (helm-spotify :toggle (configuration-layer/package-usedp 'helm))
+        ))
 
 (defun spotify/init-spotify ()
   (use-package spotify
@@ -24,8 +28,7 @@
         "amsN" 'spotify-previous
         "amsQ" 'spotify-quit))))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun spotify/init-helm-spotify ()
-    (use-package helm-spotify
-      :defer t
-      :init (spacemacs/set-leader-keys "amsg" 'helm-spotify))))
+(defun spotify/init-helm-spotify ()
+  (use-package helm-spotify
+    :defer t
+    :init (spacemacs/set-leader-keys "amsg" 'helm-spotify)))

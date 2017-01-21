@@ -1,6 +1,6 @@
 ;;; config.el --- Colors Layer configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -11,11 +11,12 @@
 
 ;; Variables
 
-(defvar colors-enable-rainbow-identifiers nil
-  "If non nil the `rainbow-identifers' package is enabled.")
+(defvar colors-colorize-identifiers nil
+  "If `variables' colorize variables, if `all' colorize all identifiers in
+programming language buffers.")
 
 (defvar colors-enable-nyan-cat-progress-bar nil
-  "If non nil all nyan cat packges are enabled (for now only `nyan-mode').")
+  "If non nil all nyan cat packages are enabled (for now only `nyan-mode').")
 
 (defvar colors-theme-identifiers-sat&light
   '((jazz . (50 55))

@@ -1,6 +1,6 @@
 ;;; packages.el --- Latex Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,13 +12,14 @@
 (setq latex-packages
   '(
     auctex
-    auctex-latexmk
-    company
-    company-auctex
+    (auctex-latexmk :toggle (string= "LatexMk" latex-build-command))
+    (company-auctex :toggle (configuration-layer/package-usedp 'company))
     evil-matchit
     (reftex :location built-in)
     flycheck
     flyspell
+    ggtags
+    helm-gtags
     smartparens
     typo
     yasnippet
@@ -85,8 +86,9 @@
             "ze" 'TeX-fold-env
             "zm" 'TeX-fold-macro
             "zr" 'TeX-fold-region))
-        (spacemacs/declare-prefix-for-mode mode "mx"  "text/fonts")
-        (spacemacs/declare-prefix-for-mode mode "mz"  "fold"))
+        (spacemacs/declare-prefix-for-mode mode "mh" "help")
+        (spacemacs/declare-prefix-for-mode mode "mx" "text/fonts")
+        (spacemacs/declare-prefix-for-mode mode "mz" "fold"))
 
       ;; Key bindings specific to LaTeX
       (spacemacs/set-leader-keys-for-major-mode 'latex-mode
@@ -94,7 +96,7 @@
         "."   'LaTeX-mark-environment  ;; C-c .
         "c"   'LaTeX-close-environment ;; C-c ]
         "e"   'LaTeX-environment       ;; C-c C-e
-        "i"   'LaTeX-insert-item       ;; C-c C-j
+        "ii"   'LaTeX-insert-item       ;; C-c C-j
         "s"   'LaTeX-section           ;; C-c C-s
         "fe"  'LaTeX-fill-environment  ;; C-c C-q C-e
         "fp"  'LaTeX-fill-paragraph    ;; C-c C-q C-p
@@ -113,25 +115,46 @@
         "xfa" 'latex/font-calligraphic
         "xfn" 'latex/font-normal
         "xfu" 'latex/font-upright)
-      (spacemacs/declare-prefix-for-mode 'latex-mode "mp"  "preview"))))
+      (spacemacs/declare-prefix-for-mode 'latex-mode "mi" "insert")
+      (spacemacs/declare-prefix-for-mode 'latex-mode "mp" "preview")
+      (spacemacs/declare-prefix-for-mode 'latex-mode "mf" "fill"))))
 
+(defun latex/init-auctex-latexmk ()
+  (use-package auctex-latexmk
+    :defer t
+    :init
+    (progn
+      (setq auctex-latexmk-inherit-TeX-PDF-mode t)
+      (spacemacs|use-package-add-hook tex
+        :post-config
+        (auctex-latexmk-setup)))))
 
-(when (string= latex-build-command "LatexMk")
-  (defun latex/init-auctex-latexmk ()
-    (use-package auctex-latexmk
-      :defer t
-      :init
-      (progn
-        (setq auctex-latexmk-inherit-TeX-PDF-mode t)
-        (spacemacs|use-package-add-hook tex
-          :post-config
-          (auctex-latexmk-setup))))))
+(defun latex/init-company-auctex ()
+  (use-package company-auctex
+    :defer t
+    :init (spacemacs|add-company-backends
+            :backends
+            company-auctex-labels
+            company-auctex-bibs
+            (company-auctex-macros
+             company-auctex-symbols
+             company-auctex-environments)
+            :modes LaTeX-mode)))
+
+(defun latex/post-init-evil-matchit ()
+  (add-hook 'LaTeX-mode-hook 'evil-matchit-mode))
+
+(defun latex/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'LaTeX-mode))
+
+(defun latex/post-init-flyspell ()
+  (spell-checking/add-flyspell-hook 'LaTeX-mode-hook))
 
 (defun latex/init-reftex ()
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
   (setq reftex-plug-into-AUCTeX '(nil nil t t t)
         reftex-use-fonts t)
-  (spacemacs/declare-prefix-for-mode 'latex-mode "mr"  "reftex")
+  (spacemacs/declare-prefix-for-mode 'latex-mode "mr" "reftex")
   (spacemacs/set-leader-keys-for-major-mode 'latex-mode
     "rc"    'reftex-citation
     "rg"    'reftex-grep-document
@@ -147,30 +170,11 @@
     "rT"    'reftex-toc-recenter
     "rv"    'reftex-view-crossref))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun latex/post-init-company ()
-    (spacemacs|add-company-hook LaTeX-mode))
+(defun latex/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'latex-mode))
 
-  (defun latex/init-company-auctex ()
-    (use-package company-auctex
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init
-      (progn
-        (push 'company-auctex-labels company-backends-LaTeX-mode)
-        (push 'company-auctex-bibs company-backends-LaTeX-mode)
-        (push '(company-auctex-macros
-                company-auctex-symbols
-                company-auctex-environments) company-backends-LaTeX-mode)))))
-
-(defun latex/post-init-evil-matchit ()
-  (add-hook 'LaTeX-mode-hook 'evil-matchit-mode))
-
-(defun latex/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'LaTeX-mode))
-
-(defun latex/post-init-flyspell ()
-  (spell-checking/add-flyspell-hook 'LaTeX-mode-hook))
+(defun latex/post-init-ggtags ()
+  (add-hook 'latex-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun latex/post-init-smartparens ()
   (add-hook 'LaTeX-mode-hook 'smartparens-mode))
@@ -185,5 +189,5 @@
   (add-hook 'LaTeX-mode-hook 'spacemacs/load-yasnippet))
 
 (defun latex/post-init-which-key ()
-  (push '("\\`latex/font-\\(.+\\)\\'" . "\\1")
-        which-key-description-replacement-alist))
+  (push '((nil . "\\`latex/font-\\(.+\\)\\'") . (nil . "\\1"))
+        which-key-replacement-alist))

@@ -1,13 +1,27 @@
 (setq go-packages
       '(
-        company
-        company-go
+        (company-go :toggle (configuration-layer/package-usedp 'company))
         flycheck
+        (flycheck-gometalinter :toggle (and go-use-gometalinter
+                                            (configuration-layer/package-usedp
+                                             'flycheck)))
+        ggtags
+        helm-gtags
         go-eldoc
         go-mode
-        (go-oracle :location site)
+        go-guru
         (go-rename :location local)
         ))
+
+
+(defun go/init-company-go ()
+  (use-package company-go
+    :defer t
+    :init
+    (spacemacs|add-company-backends
+      :backends company-go
+      :modes go-mode
+      :variables company-go-show-annotation t)))
 
 (defun go/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'go-mode))
@@ -50,7 +64,7 @@
                                    "-check.f"
                                  "-run")))
               (save-excursion
-                  (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?[[:alnum:]]+)[ ]+\\)?\\(Test[[:alnum:]]+\\)(.*)")
+                  (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?[[:alnum:]]+)[ ]+\\)?\\(Test[[:alnum:]_]+\\)(.*)")
                   (spacemacs/go-run-tests (concat test-method "='" (match-string-no-properties 2) "'"))))
           (message "Must be in a _test.go file to run go-run-test-current-function")))
 
@@ -59,7 +73,7 @@
         (if (string-match "_test\.go" buffer-file-name)
             (if go-use-gocheck-for-testing
                 (save-excursion
-                    (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?\\([[:alnum:]]+\\))[ ]+\\)?Test[[:alnum:]]+(.*)")
+                    (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?\\([[:alnum:]]+\\))[ ]+\\)?Test[[:alnum:]_]+(.*)")
                     (spacemacs/go-run-tests (concat "-check.f='" (match-string-no-properties 2) "'")))
               (message "Gocheck is needed to test the current suite"))
           (message "Must be in a _test.go file to run go-test-current-suite")))
@@ -86,7 +100,7 @@
         "ed" 'go-download-play
         "xx" 'spacemacs/go-run-main
         "ga" 'ff-find-other-file
-        "gg" 'godef-jump
+        "gc" 'go-coverage
         "tt" 'spacemacs/go-run-test-current-function
         "ts" 'spacemacs/go-run-test-current-suite
         "tp" 'spacemacs/go-run-package-tests
@@ -95,42 +109,36 @@
 (defun go/init-go-eldoc()
   (add-hook 'go-mode-hook 'go-eldoc-setup))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun go/post-init-company ()
-    (spacemacs|add-company-hook go-mode))
-
-  (defun go/init-company-go ()
-    (use-package company-go
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init
-      (progn
-        (setq company-go-show-annotation t)
-        (push 'company-go company-backends-go-mode)))))
-
-(defun go/init-go-oracle()
-  (let ((go-path (getenv "GOPATH")))
-    (if (not go-path)
-        (spacemacs-buffer/warning
-         "GOPATH variable not found, go-oracle configuration skipped.")
-      (when (load-gopath-file
-             go-path "/src/golang.org/x/tools/cmd/oracle/oracle.el")
-        (spacemacs/declare-prefix-for-mode 'go-mode "mr" "rename")
-        (spacemacs/set-leader-keys-for-major-mode 'go-mode
-          "ro" 'go-oracle-set-scope
-          "r<" 'go-oracle-callers
-          "r>" 'go-oracle-callees
-          "rc" 'go-oracle-peers
-          "rd" 'go-oracle-definition
-          "rf" 'go-oracle-freevars
-          "rg" 'go-oracle-callgraph
-          "ri" 'go-oracle-implements
-          "rp" 'go-oracle-pointsto
-          "rr" 'go-oracle-referrers
-          "rs" 'go-oracle-callstack
-          "rt" 'go-oracle-describe)))))
+(defun go/init-go-guru()
+  (spacemacs/declare-prefix-for-mode 'go-mode "mf" "guru")
+  (spacemacs/set-leader-keys-for-major-mode 'go-mode
+    "fd" 'go-guru-describe
+    "ff" 'go-guru-freevars
+    "fi" 'go-guru-implements
+    "fc" 'go-guru-peers
+    "fr" 'go-guru-referrers
+    "fj" 'go-guru-definition
+    "fp" 'go-guru-pointsto
+    "fs" 'go-guru-callstack
+    "fe" 'go-guru-whicherrs
+    "f<" 'go-guru-callers
+    "f>" 'go-guru-callees
+    "fo" 'go-guru-set-scope))
 
 (defun go/init-go-rename()
   (use-package go-rename
     :init
+    (spacemacs/declare-prefix-for-mode 'go-mode "mr" "rename")
     (spacemacs/set-leader-keys-for-major-mode 'go-mode "rn" 'go-rename)))
+
+(defun go/init-flycheck-gometalinter()
+  (use-package flycheck-gometalinter
+    :defer t
+    :init
+    (add-hook 'go-mode-hook 'spacemacs//go-enable-gometalinter t)))
+
+(defun go/post-init-ggtags ()
+  (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun go/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'go-mode))

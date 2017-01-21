@@ -1,0 +1,69 @@
+#+TITLE: Slack layer
+
+[[file:img/slack.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#configuration][Configuration]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer provides an interface to the Slack chat service via the emacs-slack
+package. Where possible, this layer aims to reuse keybindings from the IRC
+packages in Spacemacs.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =slack= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Configuration
+
+Follow the instructions in the [[https://github.com/yuya373/emacs-slack/blob/master/README.md][emacs-slack]] package for obtaining your client ID,
+client secret, and token.
+
+To test that everything is alright put the following snippet in your
+=dotspacemacs/user-config()= replacing =client-id=, =client-secret= and =token=
+with your info.
+
+*Important* Do not keep private data in your dotfile. You can put your private
+stuff elsewhere (like Dropbox for instance) and load the file in your dotfile.
+
+#+begin_src emacs-lisp
+(slack-register-team
+  :name "emacs-slack"
+  :default t
+  :client-id "my@email.address"
+  :client-secret "mypassword"
+  :token "token"
+  :subscribed-channels '(general slackbot))
+#+end_src
+
+* Key bindings
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC a C s~ | (Re)connects to Slack    |
+| ~SPC a C j~ | Join a channel           |
+| ~SPC a C d~ | Direct message someone   |
+| ~SPC a C q~ | Close connection         |
+| ~SPC m j~   | Join a channel           |
+| ~SPC m d~   | Direct message someone   |
+| ~SPC m p~   | Load previous messages   |
+| ~SPC m e~   | Edit message at point    |
+| ~SPC m q~   | Quit Slack               |
+| ~SPC m m~   | Embed mention of user    |
+| ~SPC m c~   | Embed mention of channel |
+
+The following bindings are provided to mimic bindings in the official Slack
+client.
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~<SPC> m k~ | Join a channel           |
+| ~<SPC> m @~ | Embed mention of user    |
+| ~<SPC> m #~ | Embed mention of channel |
+
+In insert state, one can also use ~@~ and ~#~ directly without the leader key
+prefix.

@@ -4,9 +4,13 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
-   - [[#features][Features:]]
+   - [[#features][Features]]
+   - [[#bibtex][BibTeX]]
  - [[#install][Install]]
+ - [[#configuration][Configuration]]
+   - [[#live-preview][Live preview]]
  - [[#usage][Usage]]
+   - [[#generate-a-toc][Generate a TOC]]
  - [[#key-bindings][Key bindings]]
    - [[#element-insertion][Element insertion]]
    - [[#element-removal][Element removal]]
@@ -20,27 +24,49 @@
    - [[#promotion-demotion][Promotion, Demotion]]
 
 * Description
-
 This layer adds markdown support to Spacemacs.
 
-** Features:
+** Features
 - markdown files support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
+- Fast Github-flavored live preview via [[https://github.com/blak3mill3r/vmd-mode][vmd-mode]]
 - TOC generation via [[https://github.com/ardumont/markdown-toc][markdown-toc]]
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
   using the =emoji= layer or having a proper font) :clap:
+
+** BibTeX
+For more extensive support of references with BibTeX files, have a look at the
+[[../bibtex][BibTeX layer]].
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =markdown= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Usage
+* Configuration
+** Live preview
+By default the built-in Emacs web browser is used to live preview a markdown
+buffer.
 
+To use =vmd= (Github-flavored live preview) instead set the value of the
+variable =markdown-live-preview-engine= to =vmd=:
+
+#+BEGIN_SRC emacs-lisp
+  dotspacemacs-configuration-layers '(
+    (markdown :variables markdown-live-preview-engine 'vmd))
+#+END_SRC
+
+And install the executable with:
+
+#+BEGIN_SRC shell
+npm install -g vmd
+#+END_SRC
+
+* Usage
+** Generate a TOC
 To generate a table of contents type on top of the buffer:
-~SPC SPC markdown-toc/generate-toc RET~
+~SPC SPC markdown-toc-generate-toc RET~
 
 * Key bindings
-
 ** Element insertion
 
 | Key Binding | Description                                                       |
@@ -109,19 +135,19 @@ To generate a table of contents type on top of the buffer:
 
 ** Buffer-wide commands
 
-| Key Binding | Description                             |
-|-------------+-----------------------------------------|
-| ~SPC m c ]~ | complete buffer                         |
-| ~SPC m c m~ | other window                            |
-| ~SPC m c p~ | preview                                 |
-| ~SPC m c P~ | live preview in Emacs' built-in browser |
-| ~SPC m c e~ | export                                  |
-| ~SPC m c v~ | export and preview                      |
-| ~SPC m c o~ | open                                    |
-| ~SPC m c w~ | kill ring save                          |
-| ~SPC m c c~ | check refs                              |
-| ~SPC m c n~ | cleanup list numbers                    |
-| ~SPC m c r~ | render buffer                           |
+| Key Binding | Description                                                                          |
+|-------------+--------------------------------------------------------------------------------------|
+| ~SPC m c ]~ | complete buffer                                                                      |
+| ~SPC m c m~ | other window                                                                         |
+| ~SPC m c p~ | preview                                                                              |
+| ~SPC m c P~ | live preview using engine defined with layer variable =markdown-live-preview-engine= |
+| ~SPC m c e~ | export                                                                               |
+| ~SPC m c v~ | export and preview                                                                   |
+| ~SPC m c o~ | open                                                                                 |
+| ~SPC m c w~ | kill ring save                                                                       |
+| ~SPC m c c~ | check refs                                                                           |
+| ~SPC m c n~ | cleanup list numbers                                                                 |
+| ~SPC m c r~ | render buffer                                                                        |
 
 ** List editing
 

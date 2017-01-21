@@ -1,6 +1,6 @@
 ;;; packages.el --- vinegar Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -54,7 +54,7 @@
       (kbd "RET") (if vinegar-reuse-dired-buffer
                       'dired-find-alternate-file
                     'dired-find-file)
-      "f"         (if (configuration-layer/layer-usedp 'spacemacs-ivy)
+      "f"         (if (configuration-layer/layer-usedp 'ivy)
                       'counsel-find-file
                     'helm-find-files)
       "J"         'dired-goto-file

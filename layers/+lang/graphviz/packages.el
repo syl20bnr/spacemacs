@@ -1,6 +1,6 @@
 ;;; packages.el --- graphviz layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: luxbock <opieppo@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,6 +12,7 @@
 (defconst graphviz-packages
   '((graphviz-dot-mode :location (recipe :fetcher github
                                          :repo "luxbock/graphviz-dot-mode"))
+    org
     smartparens))
 
 (defun graphviz/init-graphviz-dot-mode ()
@@ -47,3 +48,13 @@
       ;; allow smartparens to work properly
       (define-key graphviz-dot-mode-map "{" nil)
       (define-key graphviz-dot-mode-map "}" nil))))
+
+(defun graphviz/post-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config
+    (progn
+      (add-to-list 'org-babel-load-languages '(dot . t))
+      ;; replace fundamental mode by graphiz one
+      (setq org-src-lang-modes
+            (append '(("dot" . graphviz-dot))
+                    (delete '("dot" . fundamental) org-src-lang-modes))))))

@@ -1,6 +1,6 @@
 ;;; core-display-init.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -29,11 +29,16 @@ the display system initialized."
   "If the display-system is initialized, run `BODY', otherwise,
 add it to a queue of actions to perform after the first graphical frame is
 created."
-  `(let ((init (cond ((boundp 'ns-initialized) 'ns-initialized)
-                     ((boundp 'w32-initialized) 'w32-initialized)
-                     ((boundp 'x-initialized) 'x-initialized)
-                     (t 't))))           ; fallback to normal loading behavior
-     (if (symbol-value init)
+  `(let ((init (cond ((boundp 'ns-initialized) ns-initialized)
+                     ;; w32-initialized gets set too early, so
+                     ;; if we're on Windows, check the list of fonts
+                     ;; instead (this is nil until the graphics system
+                     ;; is initialized)
+                     ((boundp 'w32-initialized) (font-family-list))
+                     ((boundp 'x-initialized) x-initialized)
+                     ;; fallback to normal loading behavior only if in a GUI
+                     (t (display-graphic-p)))))
+     (if init
          (progn
            ,@body)
        (push (lambda () ,@body) spacemacs--after-display-system-init-list))))

@@ -35,8 +35,8 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =javascript= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+add =javascript= to the existing =dotspacemacs-configuration-layers= list in
+this file.
 
 You will also need to install =tern= to use the auto-completion and
 documentation features:
@@ -49,8 +49,11 @@ To use the formatting features, install =js-beautify=:
   $ npm install -g js-beautify
 #+END_SRC
 
-To activate error checking using flycheck install =JSHint=:
+To activate error checking using flycheck, install one of the [[http://www.flycheck.org/en/latest/languages.html#javascript][available linters]]
+such as =ESLint= or =JSHint=:
 #+BEGIN_SRC sh
+  $ npm install -g eslint
+  # or
   $ npm install -g jshint
 #+END_SRC
 
@@ -60,15 +63,25 @@ To make tern re-use the server across multiple different editing sessions (thus
 creating multiple =.tern-port= files for each document you have open [[http://ternjs.net/doc/manual.html][see here
 for more details]]):
 
-The variables provided below can be set when adding the =javascript= configuration
-layer, as detailed in [[file:../../../doc/DOCUMENTATION.org::Setting%20configuration%20layers%20variables][this]] section of the documentation.
+The variables provided below can be set when adding the =javascript=
+configuration layer, as detailed in [[file:../../../doc/DOCUMENTATION.org::Setting%20configuration%20layers%20variables][this]] section of the documentation.
 
 #+BEGIN_SRC emacs-lisp
   (javascript :variables javascript-disable-tern-port-files nil)
 #+END_SRC
 
+Windows users may need to set the variable =tern-command= in order for emacs to
+locate and launch tern server successfully. See [[https://github.com/syl20bnr/spacemacs/issues/5733][this open issue for more
+details]]. The variable can be set when adding the =javascript= configuration
+layer:
+
+#+BEGIN_SRC emacs-lisp
+  (javascript :variables tern-command '("node" "/path/to/tern/bin/tern"))
+#+END_SRC
+
 ** Indentation
-To change how js2-mode indents code, set the variable =js2-basic-offset=, as such:
+To change how js2-mode indents code, set the variable =js2-basic-offset=, as
+such:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default js2-basic-offset 2)
@@ -82,13 +95,11 @@ Similarly, to change how js-mode indents JSON files, set the variable
 #+END_SRC
 
 ** REPL
-To use the available JS repl, you need a running httpd server and a page
-loaded with skewer. If a blank page serves your needs, just use the
-run-skewer command in your javascript buffer. If you want to inject it
-in your own page, follow the instructions in
-https://github.com/skeeto/skewer-mode#skewering-with-cors (install the
-Greasemonkey script and then click the triangle in the top-right
-corner - if it turns green, you're good to go).
+To use the available JS repl, you need a running httpd server and a page loaded
+with skewer. If a blank page serves your needs, just use the run-skewer command
+in your javascript buffer. If you want to inject it in your own page, follow
+[[https://github.com/skeeto/skewer-mode#skewering-with-cors][these instructions]] (install the Greasemonkey script and then click the triangle
+in the top-right corner - if it turns green, you're good to go).
 
 * Key Bindings
 
@@ -116,8 +127,6 @@ Bindings should match the plain emacs assignments.
 
 | Key Binding   | Description                                                                                                    |
 |---------------+----------------------------------------------------------------------------------------------------------------|
-| ~SPC x m j~   | move line down, while keeping commas correctly placed                                                          |
-| ~SPC x m k~   | move line up, while keeping commas correctly placed                                                            |
 | ~SPC m k~     | deletes to the end of the line, but does not cross semantic boundaries                                         |
 | ~SPC m r 3 i~ | converts ternary operator to if-statement                                                                      |
 | ~SPC m r a g~ | creates a =/* global */= annotation if it is missing, and adds var to point to it                              |
@@ -146,6 +155,8 @@ Bindings should match the plain emacs assignments.
 | ~SPC m r v t~ | changes local =var a= to be =this.a= instead                                                                   |
 | ~SPC m r w i~ | wraps the entire buffer in an immediately invoked function expression                                          |
 | ~SPC m r w l~ | wraps the region in a for-loop                                                                                 |
+| ~SPC m x m j~ | move line down, while keeping commas correctly placed                                                          |
+| ~SPC m x m k~ | move line up, while keeping commas correctly placed                                                            |
 
 ** Formatting (web-beautify)
 

@@ -1,6 +1,6 @@
 ;;; packages.el --- sml Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Keith Simmons <keith@the-simmons.net>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -13,6 +13,7 @@
   '(
     sml-mode
     ob-sml
+    smartparens
     ))
 
 (defun sml/init-sml-mode ()
@@ -52,8 +53,15 @@
         "sr" 'sml-prog-proc-send-region
         "sR" 'spacemacs/sml-prog-proc-send-region-and-focus
         "ss" 'run-sml)
+      (define-key sml-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
       (define-key sml-mode-map (kbd "M-SPC") 'sml-electric-space)
       (define-key sml-mode-map (kbd "|") 'sml-electric-pipe))))
+
+(defun sml/post-init-smartparens ()
+  (with-eval-after-load 'smartparens
+    ;; don't auto-close apostrophes (type 'a = foo) and backticks (`Foo)
+    (sp-local-pair 'sml-mode "'" nil :actions nil)
+    (sp-local-pair 'sml-mode "`" nil :actions nil)))
 
 (defun sml/init-ob-sml ()
   (use-package ob-sml

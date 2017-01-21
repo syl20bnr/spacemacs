@@ -1,0 +1,59 @@
+#+TITLE: CFEngine layer
+
+[[file:./img/agent.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#configuration][Configuration]]
+   - [[#set-file-permission-on-save][Set file permission on save]]
+   - [[#indendation][Indendation]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer makes working with CFEngine policy easier:
+- Syntax highlighting
+- On the fly syntax checks (via =syntax-checking= layer)
+- Auto completion (via =auto-completion= layer)
+
+* Install
+Add =cfengine= to the =dotspacemacs-configuration-layers= in your =~/.spacemacs=
+to use this layer.
+
+* Configuration
+** Set file permission on save
+Here is a function to set permissions to 600 on save, this can help avoid
+errors like:
+
+=File ./example.cf (owner 1000) is writable by others (security exception)=
+
+#+BEGIN_SRC elisp
+(defun cfengine-permissions-policy-owner-only ()
+  "If file starts with a shebang, make `buffer-file-name' executable"
+  (save-excursion
+    (set-file-modes buffer-file-name #o600)
+    (message (concat "Made " buffer-file-name " accessibly only by the owner (600)."))))
+
+(add-hook 'after-save-hook 'cfengine-permissions-policy-owner-only nil 'make-it-local)
+#+END_SRC
+
+** Indendation
+If you like attributes to be intended from the promiser set =Indentation amount
+from anchor= to =2=. For example:
+
+#+begin_src cfengine3
+  bundle agent main
+  {
+    vars:
+
+        "promiser"
+          string => "value",
+          comment => "Indented 2 spaces from promiser";
+  }
+#+end_src
+
+* Key bindings
+
+| Key Binding | Description           |
+|-------------+-----------------------|
+| ~<SPC> m j~ | Reformats JSON string |

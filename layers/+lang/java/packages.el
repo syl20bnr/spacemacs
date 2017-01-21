@@ -1,6 +1,6 @@
 ;;; packages.el --- Java Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Lukasz Klich <klich.lukasz@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -11,21 +11,34 @@
 
 (setq java-packages
       '(
-        company
-        emacs-eclim
+        (company-emacs-eclim :toggle
+                             (configuration-layer/package-usedp 'company))
+        eclim
+        ggtags
+        helm-gtags
         (java-mode :location built-in)
         ))
 
-(defun java/post-init-company ()
-  (spacemacs|add-company-hook java-mode))
+(defun java/init-company-emacs-eclim ()
+  (use-package company-emacs-eclim
+    :defer t
+    :init
+    (spacemacs|add-company-backends
+      :backends company-emacs-eclim
+      :modes java-mode)))
 
-(defun java/init-emacs-eclim ()
+(defun java/init-eclim ()
   (use-package eclim
     :defer t
     :diminish eclim-mode
-    :init (add-hook 'java-mode-hook 'eclim-mode)
+    :init
+    (progn
+      (add-hook 'java-mode-hook 'eclim-mode)
+      (add-to-list 'spacemacs-jump-handlers-java-mode
+                   'eclim-java-find-declaration))
     :config
     (progn
+      (require 'eclimd)
       (setq help-at-pt-display-when-idle t
             help-at-pt-timer-delay 0.1)
       (help-at-pt-set-timer)
@@ -85,9 +98,11 @@
         "ep" 'eclim-problems-previous-same-window
         "ew" 'eclim-problems-show-warnings
 
+        "ds" 'start-eclimd
+        "dk" 'stop-eclimd
+
         "ff" 'eclim-java-find-generic
 
-        "gg" 'eclim-java-find-declaration
         "gt" 'eclim-java-find-type
 
         "rc" 'eclim-java-constructor
@@ -125,16 +140,17 @@
         "pp" 'eclim-project-mode
         "pu" 'eclim-project-update
 
-        "tt" 'eclim-run-junit)))
+        "tt" 'eclim-run-junit))))
 
-  (use-package company-emacs-eclim
-    :if (configuration-layer/package-usedp 'company)
-    :defer t
-    :init
-    (push 'company-emacs-eclim company-backends-java-mode)))
+(defun java/post-init-ggtags ()
+  (add-hook 'java-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun java/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'java-mode))
 
 (defun java/init-java-mode ()
   (setq java/key-binding-prefixes '(("me" . "errors")
+                                    ("md" . "eclimd")
                                     ("mf" . "find")
                                     ("mg" . "goto")
                                     ("mr" . "refactor")

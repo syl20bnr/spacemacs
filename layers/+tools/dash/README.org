@@ -11,13 +11,9 @@
    - [[#zeal-linux--windows][Zeal (Linux & Windows)]]
    - [[#check-documentation-for-x-at-point][Check Documentation for x-at-point]]
  - [[#key-bindings][Key bindings]]
-   - [[#helm-dash][helm-dash]]
- - [[#todos][TODOs]]
-   - [[#check-zeal][Check zeal]]
-   - [[#make-helm-dash-use-zeal-or-dash-docsets-by-default][Make helm-dash use zeal or dash docsets by default]]
+   - [[#helm-dash-and-counsel-dash][helm-dash and counsel-dash]]
 
 * Description
-+*This layer works only on OS X for the moment*+
 - [[http://kapeli.com/dash][dash]] :: Is a great tool for quick access to various sets of documentation,
           only available in OS X.
 
@@ -35,7 +31,7 @@
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =dash= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+file. 
 
 ** Dash (OS X)
 
@@ -43,6 +39,9 @@ You have to install [[http://kapeli.com/dash][dash]] on your machine.
 
 It is recommended to set the =HUD mode= in your Dash application preferences
 when using this layer.
+
+** Sqlite3
+Helm Dash [[https://github.com/areina/helm-dash#requirements][requires]] sqlite3 to be installed to function properly.
 
 ** Zeal (Linux & Windows)
 
@@ -61,21 +60,14 @@ information on customizing specific docsets for modes.
 |-------------+-----------------------------------------------------------------|
 | ~SPC d d~   | Lookup thing at point in Dash or Zeal                           |
 | ~SPC d D~   | Lookup thing at point in Dash or Zeal within a specified Docset |
-| ~SPC d h~   | Lookup thing at point in helm-dash                              |
-| ~SPC d H~   | Lookup thing at point in helm-dash within a specified Docset    |
+| ~SPC d h~   | Lookup thing at point in helm-dash or counsel-dash              |
+| ~SPC d H~   | Lookup in helm-dash or counsel-dash within a specified Docset   |
 
-** helm-dash
+** helm-dash and counsel-dash
 =dash-at-point= is linked to the GUI app and is only available for OSX. On
 linux, you can use =zeal-at-point= which is linked to the GUI app too, but it's
 open source.
 
-Or you can use [[https://github.com/areina/helm-dash][helm-dash]] instead, it requires no app. You can use
+Or you can use [[https://github.com/areina/helm-dash][helm-dash]] when using =helm= and [[https://github.com/nathankot/counsel-dash][counsel-dash]] when using =ivy=,
+which requires no additional application. You can use
 =dash/helm-dash-docset-newpath= to set the location path of your docsets.
-
-* TODOs
-
-** DONE Check zeal
-CLOSED: [2015-06-12 Fri 16:30]
-[[http://zealdocs.org/][zeal]] is an open source alternative to dash with Emacs integration available.
-
-** TODO Make helm-dash use zeal or dash docsets by default

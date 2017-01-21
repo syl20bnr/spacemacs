@@ -1,6 +1,6 @@
 ;;; packages.el --- Spell Checking Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -13,8 +13,12 @@
   '(
     auto-dictionary
     flyspell
-    helm-flyspell
-    ))
+    flyspell-correct
+    (flyspell-correct-ivy :toggle (configuration-layer/layer-usedp 'ivy))
+    (flyspell-correct-helm :toggle (configuration-layer/layer-usedp 'helm))
+    (flyspell-correct-popup :toggle (and (not (configuration-layer/layer-usedp 'ivy))
+                                         (not (configuration-layer/layer-usedp 'helm))))
+    (flyspell-popup :toggle enable-flyspell-auto-completion)))
 
 (defun spell-checking/init-auto-dictionary ()
   (use-package auto-dictionary
@@ -63,8 +67,35 @@
         "Sn" 'flyspell-goto-next-error))
     :config (spacemacs|diminish flyspell-mode " Ⓢ" " S")))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun spell-checking/init-helm-flyspell ()
-    (use-package helm-flyspell
-      :commands helm-flyspell-correct
-      :init (spacemacs/set-leader-keys "Sc" 'helm-flyspell-correct))))
+(defun spell-checking/init-flyspell-correct ()
+  (use-package flyspell-correct
+    :commands (flyspell-correct-word-generic
+               flyspell-correct-previous-word-generic)
+    :init
+    (spacemacs/set-leader-keys "Sc" 'flyspell-correct-previous-word-generic)))
+
+(defun spell-checking/init-flyspell-correct-ivy ()
+  (use-package flyspell-correct-ivy
+    :commands (flyspell-correct-ivy)
+    :init
+    (setq flyspell-correct-interface #'flyspell-correct-ivy)))
+
+(defun spell-checking/init-flyspell-correct-helm ()
+  (use-package flyspell-correct-helm
+    :commands (flyspell-correct-helm)
+    :init
+    (setq flyspell-correct-interface #'flyspell-correct-helm)))
+
+(defun spell-checking/init-flyspell-correct-popup ()
+  (use-package flyspell-correct-popup
+    :commands (flyspell-correct-popup)
+    :init
+    (setq flyspell-correct-interface #'flyspell-correct-popup)))
+
+(defun spell-checking/init-flyspell-popup ()
+  (use-package flyspell-popup
+    :defer t
+    :init
+    (progn
+      (setq flyspell-popup-correct-delay 0.8)
+      (add-hook 'flyspell-mode-hook 'flyspell-popup-auto-correct-mode))))

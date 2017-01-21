@@ -1,6 +1,6 @@
 ;;; packages.el --- games Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,9 +12,11 @@
 (setq games-packages
       '(
         2048-game
-        (helm-games :location local)
+        (helm-games :location local
+                    :toggle (configuration-layer/package-usedp 'helm))
         pacmacs
         (tetris :location built-in)
+        sudoku
         typit
         ))
 
@@ -31,14 +33,13 @@
         "h" '2048-left
         "l" '2048-right))))
 
-(when (configuration-layer/layer-usedp 'spacemacs-helm)
-  (defun games/init-helm-games ()
-    (use-package helm-games
-      :commands helm-games
-      :init
-      (progn
-        (spacemacs/declare-prefix "aG" "games")
-        (spacemacs/set-leader-keys "aG" 'helm-games)))))
+(defun games/init-helm-games ()
+  (use-package helm-games
+    :commands helm-games
+    :init
+    (progn
+      (spacemacs/declare-prefix "aG" "games")
+      (spacemacs/set-leader-keys "aG" 'helm-games))))
 
 (defun games/init-pacmacs ()
   (use-package pacmacs
@@ -71,6 +72,52 @@
         "k" 'tetris-rotate-next
         "l" 'tetris-move-right
         "q" 'spacemacs/tetris-quit-game))))
+
+(defun games/init-sudoku ()
+  (use-package sudoku
+    :defer t
+    :init
+    (progn
+      (push '("sudoku" . (sudoku :quit (kill-buffer-ask (get-buffer "*Sudoku*"))
+                                 :reset sudoku-restart)) helm-games-list)
+      (evilified-state-evilify sudoku-mode sudoku-mode-map
+        ;; Movement
+        "j" 'sudoku-move-point-down
+        "J" 'sudoku-move-point-downmost
+        "k" 'sudoku-move-point-up
+        "K" 'sudoku-move-point-upmost
+        "h" 'sudoku-move-point-left
+        "H" 'sudoku-move-point-leftmost
+        "l" 'sudoku-move-point-right
+        "L" 'sudoku-move-point-rightmost
+
+        ;; Start/quit/print game
+        "N" 'sudoku
+        "q" 'sudoku-quit
+        "Q" 'sudoku-quit-immediately
+        "P" 'sudoku-print
+
+        ;; Undo/redo
+        "u"    'sudoku-undo
+        "\C-r" 'sudoku-redo
+
+        ;; Inserting values
+        "1" 'sudoku-change-point
+        "2" 'sudoku-change-point
+        "3" 'sudoku-change-point
+        "4" 'sudoku-change-point
+        "5" 'sudoku-change-point
+        "6" 'sudoku-change-point
+        "7" 'sudoku-change-point
+        "8" 'sudoku-change-point
+        "9" 'sudoku-change-point)
+
+      (spacemacs/set-leader-keys-for-major-mode 'sudoku-mode
+        "c" 'sudoku-comment-puzzle
+        "h" 'sudoku-hint
+        "l" 'sudoku-load-puzzle
+        "L" 'sudoku-load-puzzle-collection
+        "s" 'sudoku-save-puzzle))))
 
 (defun games/init-typit ()
   (use-package typit

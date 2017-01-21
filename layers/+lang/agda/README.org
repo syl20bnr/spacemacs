@@ -34,6 +34,17 @@ Then check that =agda= is available on your =$PATH= and seen by Emacs. For
 information about setting up =$PATH=, check out the corresponding section in the
 FAQ (~SPC h SPC $PATH RET~).
 
+By default the =agda-mode= executable bundled with most agda installations is
+used to locate the agda-mode package. If you don't have it and want to use a
+local agda-mode package, you can customize the layer variable =agda-mode-path=
+to your needs. Set it to =nil= if =agda2.el= is already discoverable in Emacs’
+load path, otherwise set it to the path at which =agda2.el= can be found. For
+example,
+
+#+BEGIN_SRC emacs-lisp
+  (agda2 :variables agda-mode-path "/some/path/to/agda2.el")
+#+END_SRC
+
 * Key bindings
 The key bindings of this layer don't follow the Spacemacs conventions,
 we opted to a simple transcription of stock Agda mode key bindings to

@@ -8,24 +8,25 @@
   (use-package vim-empty-lines-mode
     :diminish vim-empty-lines-mode
     :init
-    (spacemacs/add-to-hooks (lambda () (vim-empty-lines-mode -1)) '(comint-mode-hook
-                                                                    eshell-mode-hook
-                                                                    eww-mode-hook
-                                                                    shell-mode-hook
-                                                                    term-mode-hook))
+    (spacemacs/add-to-hooks (lambda () (vim-empty-lines-mode -1))
+                            '(comint-mode-hook
+                              eshell-mode-hook
+                              eww-mode-hook
+                              shell-mode-hook
+                              term-mode-hook))
     :config
     (progn
       (global-vim-empty-lines-mode)
       (spacemacs|add-toggle vim-empty-lines-mode
-        :status vim-empty-lines-mode
-        :on (global-vim-empty-lines-mode)
-        :off (global-vim-empty-lines-mode -1)
+        :mode global-vim-empty-lines-mode
         :documentation
         "Display an overlay of ~ on empty lines."
         :evil-leader "t~")
-      ;; don't enable it on spacemacs home buffer
-      (with-current-buffer  "*spacemacs*"
-        (vim-empty-lines-mode -1))
+      ;; Don't enable it where it is detrimental.
+      (dolist (x (list spacemacs-buffer-name
+                       "*Messages*"))
+        (with-current-buffer x (vim-empty-lines-mode -1)))
+      (add-hook 'which-key-init-buffer-hook (lambda () (vim-empty-lines-mode -1)))
       ;; after a major mode is loaded, check if the buffer is read only
       ;; if so, disable vim-empty-lines-mode
       (add-hook 'after-change-major-mode-hook (lambda ()

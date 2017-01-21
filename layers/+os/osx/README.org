@@ -8,28 +8,27 @@
  - [[#install][Install]]
    - [[#layer][Layer]]
      - [[#use-with-non-us-keyboard-layouts][Use with non-US keyboard layouts]]
+     - [[#define-words-using-os-x-dictionary][Define words using OS X Dictionary]]
    - [[#coreutils][Coreutils]]
  - [[#key-bindings][Key Bindings]]
  - [[#future-work][Future Work]]
 
 * Description
-Spacemacs is not just emacs+vim. It can have OSX keybindings too!
-This layer globally defines common OSX keybindings. ~⌘~ is set to
-~super~ and ~⌥~ is set to ~meta~. Aside from that, there's nothing
-much, really.
+Spacemacs is not just emacs+vim. It can have OSX keybindings too! This layer
+globally defines common OSX keybindings. ~⌘~ is set to ~super~ and ~⌥~ is set to
+~meta~. Aside from that, there's nothing much, really.
 
 While in =dired= this layer will try to use =gls= instead of =ls=.
 
 * Philosophy
-While this layer enables common OSX bindings, it does not implement
-OSX navigation keybindings. Spacemacs is meant to be used with evil,
-and we encourage you to do so :)
+While this layer enables common OSX bindings, it does not implement OSX
+navigation keybindings. Spacemacs is meant to be used with evil, and we
+encourage you to do so :)
 
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =osx= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+add =osx= to the existing =dotspacemacs-configuration-layers= list in this file.
 
 *** Use with non-US keyboard layouts
 If you need the ~⌥~ key to type common characters such as ={[]}~= which is usual
@@ -50,6 +49,27 @@ key.
   (setq-default mac-right-option-modifier nil)
 #+END_SRC
 
+*** Define words using OS X Dictionary
+
+This layer by default enables defining words under point ~SPC x w d~ using OS X
+Dictionary. In some cases you might want to manually setup dictionary to use.
+For example,
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+     (osx :variables osx-dictionary-dictionary-choice "English")))
+#+END_SRC
+
+To get the list of available dictionaries call =osx/list-available-dictionaries=
+function.
+
+You can disable it by setting =osx-use-dictionary-app= variable to =nil=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+     (osx :variables osx-use-dictionary-app nil)))
+#+END_SRC
+
 ** Coreutils
 To get =gls= install coreutils homebrew:
 
@@ -59,21 +79,22 @@ To get =gls= install coreutils homebrew:
 
 * Key Bindings
 
-| Key Binding | Description       |
-|-------------+-------------------|
-| ~⌘ =~       | Scale up text     |
-| ~⌘ -~       | Scale down text   |
-| ~⌘ q~       | Quit              |
-| ~⌘ v~       | Paste             |
-| ~⌘ c~       | Copy              |
-| ~⌘ x~       | Cut               |
-| ~⌘ a~       | Select all        |
-| ~⌘ w~       | Close window      |
-| ~⌘ W~       | Close frame       |
-| ~⌘ n~       | New frame         |
-| ~⌘ z~       | Undo              |
-| ~⌘ Z~       | Redo              |
-| ~⌃ ⌘ f~     | Toggle fullscreen |
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~⌘ =~       | Scale up text               |
+| ~⌘ -~       | Scale down text             |
+| ~⌘ q~       | Quit                        |
+| ~⌘ v~       | Paste                       |
+| ~⌘ c~       | Copy                        |
+| ~⌘ x~       | Cut                         |
+| ~⌘ a~       | Select all                  |
+| ~⌘ w~       | Close window                |
+| ~⌘ W~       | Close frame                 |
+| ~⌘ n~       | New frame                   |
+| ~⌘ z~       | Undo                        |
+| ~⌘ Z~       | Redo                        |
+| ~⌃ ⌘ f~     | Toggle fullscreen           |
+| ~SPC x w d~ | Define word under the point |
 
 * Future Work
 - Allow user to choose from either ~hyper~ or ~super~ as ~⌘~. This is an option

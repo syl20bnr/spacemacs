@@ -7,7 +7,8 @@
  - [[#configuration][Configuration]]
    - [[#ledger][Ledger]]
  - [[#key-bindings][Key bindings]]
-   - [[#ledger][Ledger]]
+   - [[#ledger-1][Ledger]]
+   - [[#ledger-reconcile][Ledger-Reconcile]]
 
 * Description
 
@@ -53,3 +54,13 @@ your =dotspacemacs/user-config=.  The default value, set in the layer, is =62=.
 | ~SPC m t~   | append an effective date to a post            |
 | ~SPC m y~   | set the year for quicker entry                |
 | ~SPC m RET~ | set the month for quicker entry               |
+
+** Ledger-Reconcile
+
+| Key Binding | Description                                                               |
+|-------------+---------------------------------------------------------------------------|
+| ~SPC m ,~   | toggle the current transaction pending                                    |
+| ~SPC m a~   | quickly add a transaction, without exiting the reconciliation buffer      |
+| ~SPC m t~   | change the target amount for the selected account                         |
+| ~SPC m q~   | quit reconciliation                                                       |
+| ~SPC m RET~ | finalize the reconciliation, changing all pending transactions to cleared |

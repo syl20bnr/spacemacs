@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs Editing Visual Layer packages File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,6 +15,7 @@
         adaptive-wrap
         auto-highlight-symbol
         column-enforce-mode
+        hide-comnt
         highlight-indentation
         highlight-numbers
         highlight-parentheses
@@ -22,7 +23,6 @@
         ;; see https://github.com/syl20bnr/spacemacs/issues/2529
         (hl-anything :excluded t)
         indent-guide
-        linum-relative
         rainbow-delimiters
         volatile-highlights
         ))
@@ -46,7 +46,11 @@
             ;; current symbol can always be highlighted with `SPC s h'
             ahs-idle-timer 0
             ahs-idle-interval 0.25
-            ahs-inhibit-face-list nil)
+            ahs-inhibit-face-list nil
+            spacemacs--symbol-highlight-transient-state-doc
+            "
+ %s  [_n_] next  [_N_/_p_] previous        [_r_] change range   [_R_] reset       [_e_] iedit
+ %s  [_d_/_D_] next/previous definition")
 
       ;; since we are creating our own maps,
       ;; prevent the default keymap from getting created
@@ -87,10 +91,11 @@
       (defun spacemacs/integrate-evil-search (forward)
         ;; isearch-string is last searched item.  Next time
         ;; "n" is hit we will use this.
-        (setq isearch-string
-              (concat "\\<" (evil-find-thing forward 'symbol) "\\>")
-              isearch-regexp
-              (concat "\\<" (evil-find-thing forward 'symbol) "\\>"))
+        (let* ((symbol (evil-find-thing forward 'symbol))
+               (regexp (concat "\\<" symbol "\\>")))
+          (setq isearch-string regexp
+                isearch-regexp regexp
+                evil-ex-search-pattern (evil-ex-make-search-pattern regexp)))
         ;; Next time "n" is hit, go the correct direction.
         (setq isearch-forward forward)
         ;; ahs does a case sensitive search.  We could set
@@ -214,38 +219,47 @@
                (current-overlay (format "%s" ahs-current-overlay))
                (st (ahs-stat))
                (plighter (ahs-current-plugin-prop 'lighter))
-               (plugin (format " <%s> " (cond ((string= plighter "HS") "D")
-                                              ((string= plighter "HSA") "B")
-                                              ((string= plighter "HSD") "F"))))
-               (propplugin (propertize plugin 'face
-                                       `(:foreground "#ffffff"
-                                                     :background ,(face-attribute
-                                                                   'ahs-plugin-defalt-face :foreground)))))
+               (plugin (format "%s"
+                               (cond ((string= plighter "HS")  "Display")
+                                     ((string= plighter "HSA") "Buffer")
+                                     ((string= plighter "HSD") "Function"))))
+               (face (cond ((string= plighter "HS")  ahs-plugin-defalt-face)
+                           ((string= plighter "HSA") ahs-plugin-whole-buffer-face)
+                           ((string= plighter "HSD") ahs-plugin-bod-face))))
           (while (not (string= overlay current-overlay))
             (setq i (1+ i))
             (setq overlay (format "%s" (nth i ahs-overlay-list))))
-          (let* ((x/y (format "(%s/%s)" (- overlay-count i) overlay-count))
-                 (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
-                 (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
-                 (prophidden (propertize hidden 'face '(:weight bold))))
-            (format "%s %s%s" propplugin propx/y prophidden))))
+          (let* ((x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
+                 (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" "")))
+            (concat
+             (propertize (format " %s " plugin) 'face face)
+             (propertize (format " %s%s " x/y hidden) 'face
+                         `(:foreground "#ffffff" :background "#000000"))))))
 
       (defun ahs-to-iedit ()
         (interactive)
         (cond
          ((and (not (eq dotspacemacs-editing-style 'emacs))
                (configuration-layer/package-usedp 'evil-iedit-state))
-          (evil-iedit-state/iedit-mode))
+          (evil-iedit-state/iedit-mode)
+          (iedit-restrict-region (ahs-current-plugin-prop 'start)
+                                 (ahs-current-plugin-prop 'end)))
          ((and (eq dotspacemacs-editing-style 'emacs)
                (configuration-layer/package-usedp 'iedit))
-          (iedit-mode))
+          (iedit-mode)
+          (iedit-restrict-region (ahs-current-plugin-prop 'start)
+                                 (ahs-current-plugin-prop 'end)))
          (t (ahs-edit-mode t))))
-
+      ;; transient state
+      (defun spacemacs//symbol-highlight-ts-doc ()
+        (spacemacs//transient-state-make-doc
+         'symbol-highlight
+         (format spacemacs--symbol-highlight-transient-state-doc
+                 (symbol-highlight-doc)
+                 (make-string (length (symbol-highlight-doc)) 32))))
       (spacemacs|define-transient-state symbol-highlight
         :title "Symbol Highlight Transient State"
-        :doc "
-%s(symbol-highlight-doc)  [_n_/_N_/_p_] next/prev/prev   [_R_] restart      [_e_] iedit       [_b_] search buffers
-%s(make-string (length (symbol-highlight-doc)) 32)  [_d_/_D_]^^   next/prev def'n  [_r_] change range [_/_] search proj [_f_] search files"
+        :dynamic-hint (spacemacs//symbol-highlight-ts-doc)
         :before-exit (spacemacs//ahs-ms-on-exit)
         :bindings
         ("d" ahs-forward-definition)
@@ -256,40 +270,31 @@
         ("p" spacemacs/quick-ahs-backward)
         ("R" ahs-back-to-start)
         ("r" ahs-change-range)
-        ("/" spacemacs/helm-project-smart-do-search-region-or-symbol :exit t)
-        ("b" spacemacs/helm-buffers-smart-do-search-region-or-symbol :exit t)
-        ("f" spacemacs/helm-files-smart-do-search-region-or-symbol :exit t)
-        ("q" nil :exit t))
-
-      (defun spacemacs/symbol-highlight ()
-        "Highlight the symbol under point with `auto-highlight-symbol'."
-        (interactive)
-        (spacemacs/ahs-highlight-now-wrapper)
-        (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
-        (spacemacs/symbol-highlight-transient-state/body)
-        (spacemacs/integrate-evil-search nil)))))
+        ("q" nil :exit t)))))
 
 (defun spacemacs-editing-visual/init-column-enforce-mode ()
   (use-package column-enforce-mode
     :commands (column-enforce-mode global-column-enforce-mode)
     :init
     (progn
-      ;; TODO Ideally find a way to define the minimum length for long lines
-      ;; We may add support for the universal prefix argument in toggles to
-      ;; be able to do this.
       (spacemacs|add-toggle highlight-long-lines
         :status column-enforce-mode
-        :on (column-enforce-mode)
+        :prefix columns
+        :on (column-enforce-n (or columns column-enforce-column))
+        :on-message (format "long-lines enabled for %s columns." (or columns column-enforce-column))
         :off (column-enforce-mode -1)
         :documentation "Highlight the characters past the 80th column."
         :evil-leader "t8")
       (spacemacs|add-toggle highlight-long-lines-globally
-        :status global-column-enforce-mode
-        :on (global-column-enforce-mode)
-        :off (global-column-enforce-mode -1)
+        :mode global-column-enforce-mode
         :documentation "Globally Highlight the characters past the 80th column."
         :evil-leader "t C-8"))
     :config (spacemacs|diminish column-enforce-mode "⑧" "8")))
+
+(defun spacemacs-editing-visual/init-hide-comnt ()
+  (use-package hide-comnt
+    :commands hide/show-comments-toggle
+    :init (spacemacs/set-leader-keys "ch" 'hide/show-comments-toggle)))
 
 (defun spacemacs-editing-visual/init-highlight-indentation ()
   (use-package highlight-indentation
@@ -297,15 +302,11 @@
     :init
     (progn
       (spacemacs|add-toggle highlight-indentation
-        :status highlight-indentation-mode
-        :on (highlight-indentation-mode)
-        :off (highlight-indentation-mode -1)
+        :mode highlight-indentation-mode
         :documentation "Highlight indentation levels."
         :evil-leader "thi")
       (spacemacs|add-toggle highlight-indentation-current-column
-        :status highlight-indentation-current-column-mode
-        :on (highlight-indentation-current-column-mode)
-        :off (highlight-indentation-current-column-mode -1)
+        :mode highlight-indentation-current-column-mode
         :documentation "Highlight indentation level at point."
         :evil-leader "thc"))
     :config
@@ -363,33 +364,17 @@
     (progn
       (setq indent-guide-delay 0.3)
       (spacemacs|add-toggle indent-guide
-        :status indent-guide-mode
-        :on (indent-guide-mode)
-        :off (indent-guide-mode -1)
+        :mode indent-guide-mode
         :documentation
         "Highlight indentation level at point. (alternative to highlight-indentation)."
         :evil-leader "ti")
       (spacemacs|add-toggle indent-guide-globally
-        :status indent-guide-mode
-        :on (indent-guide-global-mode)
-        :off (indent-guide-global-mode -1)
+        :mode indent-guide-global-mode
         :documentation
         "Highlight indentation level at point globally. (alternative to highlight-indentation)."
         :evil-leader "t TAB"))
     :config
     (spacemacs|diminish indent-guide-mode " ⓘ" " i")))
-
-(defun spacemacs-editing-visual/init-linum-relative ()
-  (use-package linum-relative
-    :commands (linum-relative-toggle linum-relative-on)
-    :init
-    (progn
-      (when (eq dotspacemacs-line-numbers 'relative)
-        (linum-relative-on))
-      (spacemacs/set-leader-keys "tr" 'linum-relative-toggle))
-    :config
-    (progn
-      (setq linum-relative-current-symbol ""))))
 
 (defun spacemacs-editing-visual/init-rainbow-delimiters ()
   (use-package rainbow-delimiters
@@ -404,6 +389,22 @@
   (use-package volatile-highlights
     :config
     (progn
-      (volatile-highlights-mode t)
+      ;; additional extensions
+      ;; evil
+      (vhl/define-extension 'evil
+                            'evil-move
+                            'evil-paste-after
+                            'evil-paste-before
+                            'evil-paste-pop)
+      (with-eval-after-load 'evil
+        (vhl/install-extension 'evil)
+        (vhl/load-extension 'evil))
+      ;; undo-tree
+      (vhl/define-extension 'undo-tree
+                            'undo-tree-move
+                            'undo-tree-yank)
+      (with-eval-after-load 'undo-tree
+        (vhl/install-extension 'undo-tree)
+        (vhl/load-extension 'undo-tree))
+      (volatile-highlights-mode)
       (spacemacs|hide-lighter volatile-highlights-mode))))
-

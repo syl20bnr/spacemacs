@@ -32,7 +32,7 @@ own layer.
 The following command creates a layer in the =private= directory:
 
 #+BEGIN_EXAMPLE
-    SPC : configuration-layer/create-layer RET
+    SPC SPC configuration-layer/create-layer RET
 #+END_EXAMPLE
 
 Any configuration layers you create must be explicitly loaded in =~/.spacemacs=.
@@ -48,7 +48,7 @@ is also a means to customizing Spacemacs.
 The following command will create a =.spacemacs= file in your home directory:
 
 #+BEGIN_EXAMPLE
-    SPC : dotspacemacs/install RET
+    SPC SPC dotspacemacs/install RET
 #+END_EXAMPLE
 
 To open the installed dotfile:
@@ -80,14 +80,28 @@ dotspacemacs-configuration-layers '(auto-completion
 At anytime you can apply the changes made to the dotfile or layers
 _without restarting_ Spacemacs by pressing ~SPC f e R~.
 
-The [[file:../core/templates/.spacemacs.template][dotfile template]] contain further information about how to customize
-Spacemacs. See the dotfile configuration section of the [[file:DOCUMENTATION.org][documentation]] for
+The [[https://github.com/syl20bnr/spacemacs/blob/master/core/templates/.spacemacs.template][dotfile template]] contains further information about how to customize
+Spacemacs. See the dotfile configuration section of the [[file:DOCUMENTATION.org::#dotfile-configuration][documentation]] for
 more details.
 
 * Dotdirectory (~/.spacemacs.d)
 Like =Emacs=, Spacemacs initialization can also be contained in an =init.el= file
 in a special directory =~/.spacemacs.d=. The contents of the dotfile should be
 then copied in the =init.el= file.
+
+The Emacs dotfile or dotdirectory is not replaced but rather
+complemented by the Spacemacs dotfile or dotdirectory. During startup,
+Emacs still uses =~/.emacs.d/init.el= (or =~/.emacs=) for its
+initialization, and variable =user-emacs-directory= will still point
+to =~/.emacs.d/=, even if =~/.spacemacs.d= or =~/.spacemacs= are
+present. Only now =~/.emacs.d/init.el= is provided by Spacemacs
+(e.g. after cloning the Spacemacs git repo into an empty
+=~/.emacs.d/=), and your own personnal configurations go into
+=~/.spacemacs.d/init.el= (or =~/.spacemacs=).
+
+Have a look into the FAQ for an easy workaround to maintain (your
+former) vanilla Emacs and (your new) Spacemacs configurations
+side-by-side without the need to rename and backup =~/.emacs.d/=.
 
 * Learning Spacemacs
 ** Editing Styles
@@ -160,4 +174,4 @@ about functions, variables, modes etc. These commands are bound thusly:
 | ~SPC h d v~ | describe-variable |
 
 * How-To's
-Some quick =how-to's= are compiled in the [[file:FAQ.org::How%20do%20I...][FAQ.org]] file.
+Some quick =how-to's= are compiled in the [[file:FAQ.org::#how-do-i][FAQ.]]

@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs Layouts Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,6 +12,7 @@
 (setq spacemacs-layouts-packages
       '(eyebrowse
         helm
+        ivy
         persp-mode
         spaceline
         swiper))
@@ -82,8 +83,10 @@
                 #'spacemacs/update-eyebrowse-for-perspective)
       (add-hook 'eyebrowse-post-window-switch-hook
                 #'spacemacs/save-eyebrowse-for-perspective)
-      (add-hook 'persp-activated-hook
+      (add-hook 'persp-activated-functions
                 #'spacemacs/load-eyebrowse-for-perspective)
+      (add-hook 'persp-before-save-state-to-file-functions #'spacemacs/update-eyebrowse-for-perspective)
+      (add-hook 'persp-after-load-state-functions #'spacemacs/load-eyebrowse-after-loading-layout)
       ;; vim-style tab switching
       (define-key evil-motion-state-map "gt" 'eyebrowse-next-window-config)
       (define-key evil-motion-state-map "gT" 'eyebrowse-prev-window-config))))
@@ -92,7 +95,14 @@
 
 (defun spacemacs-layouts/post-init-helm ()
   (spacemacs/set-leader-keys
+    "Bb" 'spacemacs-layouts/non-restricted-buffer-list-helm
     "pl" 'spacemacs/helm-persp-switch-project))
+
+
+
+(defun spacemacs-layouts/post-init-ivy ()
+  (spacemacs/set-leader-keys
+    "Bb" 'spacemacs-layouts/non-restricted-buffer-list-ivy))
 
  
 
@@ -107,9 +117,17 @@
             persp-nil-name dotspacemacs-default-layout-name
             persp-reset-windows-on-nil-window-conf nil
             persp-set-last-persp-for-new-frames nil
-            persp-save-dir spacemacs-layouts-directory)
-      ;; always activate persp-mode
-      (persp-mode)
+            persp-save-dir spacemacs-layouts-directory
+            persp-set-ido-hooks t)
+
+      (defun spacemacs//activate-persp-mode ()
+        "Always activate persp-mode, unless it is already active.
+ (e.g. don't re-activate during `dotspacemacs/sync-configuration-layers' -
+ see issues #5925 and #3875)"
+        (unless (bound-and-true-p persp-mode)
+          (persp-mode)))
+      (spacemacs/defer-until-after-user-config #'spacemacs//activate-persp-mode)
+
       ;; layouts transient state
       (spacemacs|transient-state-format-hint layouts
         spacemacs--layouts-ts-full-hint
@@ -161,11 +179,9 @@
         ("C-l" persp-next)
         ("a" persp-add-buffer :exit t)
         ("A" persp-import-buffers :exit t)
-        ("b" spacemacs/persp-helm-mini :exit t)
         ("d" spacemacs/layouts-ts-close)
         ("D" spacemacs/layouts-ts-close-other :exit t)
         ("h" spacemacs/layout-goto-default :exit t)
-        ("l" spacemacs/helm-perspectives :exit t)
         ("L" persp-load-state-from-file :exit t)
         ("n" persp-next)
         ("N" persp-prev)
@@ -196,8 +212,7 @@
       (spacemacs/set-leader-keys
         "TAB"  'spacemacs/alternate-buffer-in-persp
         "ba"   'persp-add-buffer
-        "br"   'persp-remove-buffer
-        "Bb"   'spacemacs-layouts/non-restricted-buffer-list))))
+        "br"   'persp-remove-buffer))))
 
 
 
