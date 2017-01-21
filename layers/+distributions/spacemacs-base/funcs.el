@@ -59,7 +59,8 @@ A COUNT argument matches the indentation to the next COUNT lines."
 ;; from Prelude
 ;; TODO: dispatch these in the layers
 (defvar spacemacs-indent-sensitive-modes
-  '(coffee-mode
+  '(asm-mode
+    coffee-mode
     elm-mode
     haml-mode
     haskell-mode
