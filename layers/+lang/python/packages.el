@@ -299,6 +299,23 @@
         (python-shell-switch-to-shell)
         (evil-insert-state))
 
+      (defun python-select-cell ()
+        (interactive "r")
+        (search-backward-regexp "^##\\($\\|[^#]\\)" nil 'noerror)
+        (push-mark)
+        (end-of-line)
+        (search-forward-regexp "^##\\($\\|[^#]\\)" nil 'noerror)
+        (beginning-of-line)
+        (activate-mark)
+        )
+
+      (defun python-shell-send-cell ()
+        "Send cell content to shell."
+        (interactive)
+        (python-select-cell)
+        (python-shell-send-region (region-beginning) (region-end))
+        )
+
       (defun python-shell-send-region-switch (start end)
         "Send region content to shell and switch to it in insert mode."
         (interactive "r")
@@ -370,6 +387,7 @@
         "ri" 'spacemacs/python-remove-unused-imports
         "sB" 'python-shell-send-buffer-switch
         "sb" 'python-shell-send-buffer
+        "sc" 'python-shell-send-cell
         "sF" 'python-shell-send-defun-switch
         "sf" 'python-shell-send-defun
         "si" 'python-start-or-switch-repl
