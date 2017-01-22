@@ -315,6 +315,7 @@ The returned list has a `package-archives' compliant format."
    (lambda (x)
      (cons (car x)
            (if (or (string-match-p "http" (cdr x))
+                   (string-prefix-p "~" (cdr x))
                    (string-prefix-p "/" (cdr x)))
                (cdr x)
              (concat
