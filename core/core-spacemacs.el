@@ -170,7 +170,7 @@ defer call using `spacemacs-post-user-config-hook'."
   "Add post init processing."
   (add-hook
    'emacs-startup-hook
-   (lambda ()
+   (defun spacemacs/startup-hook ()
      ;; This is set here so that emacsclient will show the startup buffer (and
      ;; so that it can be changed in user-config if necessary). It was set to
      ;; nil earlier in the startup process to properly handle command line
@@ -186,6 +186,7 @@ defer call using `spacemacs-post-user-config-hook'."
        (with-current-buffer "*scratch*"
          (funcall dotspacemacs-scratch-mode)))
      (configuration-layer/display-summary emacs-start-time)
+     (spacemacs-buffer//startup-hook)
      (spacemacs/check-for-new-version nil spacemacs-version-check-interval)
      (setq spacemacs-initialized t))))
 

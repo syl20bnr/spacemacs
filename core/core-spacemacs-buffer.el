@@ -1031,17 +1031,15 @@ REFRESH if the buffer should be redrawn."
               (erase-buffer)))
           (spacemacs-buffer/set-mode-line "")
           (spacemacs-buffer/insert-banner-and-buttons)
-          (if (bound-and-true-p spacemacs-initialized)
-              (progn
-                (spacemacs-buffer//notes-redisplay-current-note)
-                (configuration-layer/display-summary emacs-start-time)
-                (when dotspacemacs-startup-lists
-                  (spacemacs-buffer/insert-startup-lists))
-                (spacemacs-buffer//insert-footer)
-                (spacemacs-buffer/set-mode-line spacemacs--default-mode-line)
-                (force-mode-line-update)
-                (spacemacs-buffer-mode))
-            (add-hook 'emacs-startup-hook 'spacemacs-buffer//startup-hook t))))
+          (when (bound-and-true-p spacemacs-initialized)
+            (spacemacs-buffer//notes-redisplay-current-note)
+            (configuration-layer/display-summary emacs-start-time)
+            (when dotspacemacs-startup-lists
+              (spacemacs-buffer/insert-startup-lists))
+            (spacemacs-buffer//insert-footer)
+            (spacemacs-buffer/set-mode-line spacemacs--default-mode-line)
+            (force-mode-line-update)
+            (spacemacs-buffer-mode))))
       (if save-line
           (progn (goto-char (point-min))
                  (forward-line (1- save-line))
