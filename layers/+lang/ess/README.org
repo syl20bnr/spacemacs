@@ -36,8 +36,8 @@ Send code to inferior process with these commands:
 | ~SPC m s L~ | send line and switch to REPL in insert mode                      |
 | ~SPC m s r~ | send region and keep code buffer focused                         |
 | ~SPC m s R~ | send region and switch to REPL in insert mode                    |
-| ~SPC m s t~ | send thing at point (function) and keep code buffer focused      |
-| ~SPC m s T~ | send thing at point (function) and switch to REPL in insert mode |
+| ~SPC m s f~ | send thing at point (function) and keep code buffer focused      |
+| ~SPC m s F~ | send thing at point (function) and switch to REPL in insert mode |
 | ~CTRL+j~    | next item in REPL history                                        |
 | ~CTRL+k~    | previous item in REPL history                                    |
 
