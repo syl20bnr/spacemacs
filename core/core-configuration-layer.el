@@ -307,6 +307,20 @@ cache folder.")
   (configuration-layer/load-or-install-protected-package 'package-build)
   (configuration-layer/load-or-install-protected-package 'quelpa))
 
+(defun configuration-layer//package-archive-absolute-pathp (archive)
+  "Return t if ARCHIVE has an absolute path defined."
+  (let ((path (cdr archive)))
+    (or (string-match-p "http" path)
+        (string-prefix-p "~" path)
+        (string-prefix-p "/" path))))
+
+(defun configuration-layer//package-archive-local-pathp (archive)
+  "Return t if ARCHIVE has a local path."
+  (let ((path (cdr archive)))
+    (or (string-prefix-p "~" path)
+        (string-prefix-p "/" path)
+        (string-prefix-p "\." path))))
+
 (defun configuration-layer//resolve-package-archives (archives)
   "Resolve HTTP handlers for each archive in ARCHIVES and return a list
 of all reachable ones.
@@ -315,23 +329,23 @@ left untouched.
 The returned list has a `package-archives' compliant format."
   (mapcar
    (lambda (x)
-     (cons (car x)
-           (if (or (string-match-p "http" (cdr x))
-                   (string-prefix-p "~" (cdr x))
-                   (string-prefix-p "/" (cdr x)))
-               (cdr x)
-             (concat
-              (if (and dotspacemacs-elpa-https
-                       (not spacemacs-insecure)
-                       ;; for now org ELPA repository does
-                       ;; not support HTTPS
-                       ;; TODO when org ELPA repo support
-                       ;; HTTPS remove the check
-                       ;; `(not (equal "org" (car x)))'
-                       (not (equal "org" (car x))))
-                  "https://"
-                "http://")
-              (cdr x)))))
+     (let ((aname (car x))
+           (apath (cdr x)))
+       (cons aname
+             (if (configuration-layer//package-archive-absolute-pathp x)
+                 apath
+               (concat
+                (if (and dotspacemacs-elpa-https
+                         (not spacemacs-insecure)
+                         ;; for now org ELPA repository does
+                         ;; not support HTTPS
+                         ;; TODO when org ELPA repo support
+                         ;; HTTPS remove the check
+                         ;; `(not (equal "org" aname))'
+                         (not (equal "org" aname)))
+                    "https://"
+                  "http://")
+                apath)))))
    archives))
 
 (defun configuration-layer/retrieve-package-archives (&optional quiet force)
@@ -355,32 +369,38 @@ refreshed during the current session."
     (let ((count (length package-archives))
           (i 1))
       (dolist (archive package-archives)
-        (unless quiet
-          (spacemacs-buffer/replace-last-line
-           (format "--> refreshing package archive: %s... [%s/%s]"
-                   (car archive) i count) t))
-        (spacemacs//redisplay)
-        (setq i (1+ i))
-        (unless (eq 'error
-                    (with-timeout
-                        (dotspacemacs-elpa-timeout
-                         (progn
-                           (display-warning
-                            'spacemacs
-                            (format
-                             "\nError connection time out for %s repository!"
-                             (car archive)) :warning)
-                           'error))
-                      (condition-case err
-                          (url-retrieve-synchronously (cdr archive))
-                        ('error
-                         (display-warning 'spacemacs
-                          (format
-                           "\nError while contacting %s repository!"
-                           (car archive)) :warning)
-                         'error))))
-          (let ((package-archives (list archive)))
-            (package-refresh-contents))))
+        (let ((aname (car archive))
+              (apath (cdr archive)))
+          (unless quiet
+            (spacemacs-buffer/replace-last-line
+             (format "--> refreshing package archive: %s... [%s/%s]"
+                     aname i count) t))
+          (spacemacs//redisplay)
+          (setq i (1+ i))
+          (unless
+              (and (not (configuration-layer//package-archive-local-pathp
+                         archive))
+                   (eq 'error
+                       (with-timeout
+                           (dotspacemacs-elpa-timeout
+                            (progn
+                              (display-warning
+                               'spacemacs
+                               (format
+                                "\nError connection time out for %s repository!"
+                                aname) :warning)
+                              'error))
+                         (condition-case err
+                             (url-retrieve-synchronously apath)
+                           ('error
+                            (display-warning
+                             'spacemacs
+                             (format
+                              "\nError while contacting %s repository!"
+                              aname) :warning)
+                            'error)))))
+            (let ((package-archives (list archive)))
+              (package-refresh-contents)))))
       (package-read-all-archive-contents)
       (unless quiet (spacemacs-buffer/append "\n")))))
 
