@@ -1369,17 +1369,22 @@ wether the declared layer is an used one or not."
            installed-count)
       ;; installation
       (when upkg-names
-        (spacemacs-buffer/append
-         (format "Found %s new package(s) to install...\n"
-                 not-inst-count))
-        (configuration-layer/retrieve-package-archives)
-        (setq installed-count 0)
-        (spacemacs//redisplay)
-        (dolist (pkg-name upkg-names)
-          (setq installed-count (1+ installed-count))
-          (configuration-layer//install-package
-           (configuration-layer/get-package pkg-name)))
-        (spacemacs-buffer/append "\n")))))
+        (let ((delayed-warnings-backup delayed-warnings-list))
+          (spacemacs-buffer/append
+           (format "Found %s new package(s) to install...\n"
+                   not-inst-count))
+          (configuration-layer/retrieve-package-archives)
+          (setq installed-count 0)
+          (spacemacs//redisplay)
+          (dolist (pkg-name upkg-names)
+            (setq installed-count (1+ installed-count))
+            (configuration-layer//install-package
+             (configuration-layer/get-package pkg-name)))
+          (spacemacs-buffer/append "\n")
+          (unless init-file-debug
+            ;; get rid of all delayed warnings when byte-compiling packages
+            ;; unless --debug-init was passed on the command line
+            (setq delayed-warnings-list delayed-warnings-backup)))))))
 
 (defun configuration-layer//install-from-elpa (pkg-name)
   "Install PKG from ELPA."
@@ -2041,7 +2046,10 @@ FILE-TO-LOAD is an explicit file to load after the installation."
              (format "(Bootstrap) Installing %s...\n" pkg))
             (spacemacs//redisplay))
           (configuration-layer/retrieve-package-archives 'quiet)
-          (package-install pkg)
+          (let ((delayed-warnings-backup delayed-warnings-list))
+            (package-install pkg)
+            (unless init-file-debug
+              (setq delayed-warnings-list delayed-warnings-backup)))
           (setq pkg-elpa-dir
                 (configuration-layer/get-elpa-package-install-directory pkg)))
         (unless (configuration-layer/get-package pkg)
