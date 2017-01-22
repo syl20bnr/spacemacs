@@ -2137,19 +2137,25 @@ Original code from dochang at https://github.com/dochang/elpa-clone"
 (defun configuration-layer/create-elpa-repository (name output-dir)
   "Create an ELPA repository containing all packages supported by Spacemacs."
   (configuration-layer/make-all-packages 'no-discover)
-  (let* ((packages (configuration-layer//get-indexed-elpa-package-names))
-         (archive-contents
-          (mapcar 'configuration-layer//create-archive-contents-item
-                  packages))
-         (path (file-name-as-directory (concat output-dir name))))
-    (unless (file-exists-p path) (make-directory path 'create-parents))
-    (configuration-layer//sync-elpa-packages-files packages path)
-    (push 1 archive-contents)
-    (with-current-buffer (find-file-noselect
-                          (concat path "archive-contents"))
-      (erase-buffer)
-      (prin1 archive-contents (current-buffer))
-      (save-buffer))))
+  (let (package-archive-contents
+        (package-archives '(("melpa" . "https://melpa.org/packages/")
+                            ("org"   . "http://orgmode.org/elpa/")
+                            ("gnu"   . "https://elpa.gnu.org/packages/"))))
+    (package-refresh-contents)
+    (package-read-all-archive-contents)
+    (let* ((packages (configuration-layer//get-indexed-elpa-package-names))
+           (archive-contents
+            (mapcar 'configuration-layer//create-archive-contents-item
+                    packages))
+           (path (file-name-as-directory (concat output-dir name))))
+      (unless (file-exists-p path) (make-directory path 'create-parents))
+      (configuration-layer//sync-elpa-packages-files packages path)
+      (push 1 archive-contents)
+      (with-current-buffer (find-file-noselect
+                            (concat path "archive-contents"))
+        (erase-buffer)
+        (prin1 archive-contents (current-buffer))
+        (save-buffer)))))
 
 (defun configuration-layer//increment-error-count ()
   "Increment the error counter."
