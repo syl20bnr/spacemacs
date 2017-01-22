@@ -218,6 +218,62 @@
     (should (eq 'layer2 (cfgl-package-get-safe-owner pkg)))))
 
 ;; ---------------------------------------------------------------------------
+;; configuration-layer//package-archive-absolute-pathp
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-package-archive-absolute-pathp--http-absolute-path ()
+  (let ((input '("melpa" . "http://melpa.org/packages/")))
+    (should (configuration-layer//package-archive-absolute-pathp input))))
+
+(ert-deftest test-package-archive-absolute-pathp--https-absolute-path ()
+  (let ((input '("melpa" . "https://melpa.org/packages/")))
+    (should (configuration-layer//package-archive-absolute-pathp input))))
+
+(ert-deftest test-package-archive-absolute-pathp--user-home-tilde-absolute-path ()
+  (let ((input '("spacelpa" . "~/.elpa/spacelpa")))
+    (should (configuration-layer//package-archive-absolute-pathp input))))
+
+(ert-deftest test-package-archive-absolute-pathp--user-home-slash-absolute-path ()
+  (let ((input '("spacelpa" . "/home/rms/.elpa/spacelpa")))
+    (should (configuration-layer//package-archive-absolute-pathp input))))
+
+(ert-deftest test-package-archive-absolute-pathp--relative-path-local ()
+  (let ((input '("melpa" . "../.elpa/spacelpa")))
+    (should (not (configuration-layer//package-archive-absolute-pathp input)))))
+
+(ert-deftest test-package-archive-absolute-pathp--not-absolute-path-remote ()
+  (let ((input '("melpa" . "melpa.org/spacelpa")))
+    (should (not (configuration-layer//package-archive-absolute-pathp input)))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//package-archive-local-pathp
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-package-archive-local-pathp--http-not-local-path ()
+  (let ((input '("melpa" . "http://melpa.org/packages/")))
+    (should (not (configuration-layer//package-archive-local-pathp input)))))
+
+(ert-deftest test-package-archive-local-pathp--https-not-local-path ()
+  (let ((input '("melpa" . "https://melpa.org/packages/")))
+    (should (not (configuration-layer//package-archive-local-pathp input)))))
+
+(ert-deftest test-package-archive-local-pathp--user-home-tilde-local-path ()
+  (let ((input '("spacelpa" . "~/.elpa/spacelpa")))
+    (should (configuration-layer//package-archive-local-pathp input))))
+
+(ert-deftest test-package-archive-local-pathp--user-home-slash-local-path ()
+  (let ((input '("spacelpa" . "/home/rms/.elpa/spacelpa")))
+    (should (configuration-layer//package-archive-local-pathp input))))
+
+(ert-deftest test-package-archive-local-pathp--relative-local-path-local ()
+  (let ((input '("melpa" . "../.elpa/spacelpa")))
+    (should (configuration-layer//package-archive-local-pathp input))))
+
+(ert-deftest test-package-archive-local-pathp--default-not-local-path-remote ()
+  (let ((input '("melpa" . "melpa.org/spacelpa")))
+    (should (not (configuration-layer//package-archive-local-pathp input)))))
+
+;; ---------------------------------------------------------------------------
 ;; configuration-layer//resolve-package-archives
 ;; ---------------------------------------------------------------------------
 
