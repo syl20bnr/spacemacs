@@ -949,7 +949,8 @@ USEDP if non-nil indicates that made packages are used packages."
   "Configure auto-installation of layer with name LAYER-NAME."
   (declare (indent 1))
   (when (configuration-layer//lazy-install-p layer-name)
-    (let ((extensions (spacemacs/mplist-get props :extensions)))
+    (let ((extensions (spacemacs/mplist-get props :extensions))
+          (interpreter (plist-get props :interpreter)))
       (when (configuration-layer/layer-usedp layer-name)
         (let* ((layer (configuration-layer/get-layer layer-name))
                (package-names (when layer (cfgl-layer-owned-packages layer))))
@@ -980,7 +981,16 @@ USEDP if non-nil indicates that made packages are used packages."
            'auto-mode-alist
            `(,ext . (lambda ()
                       (configuration-layer//auto-mode
-                       ',layer-name ',mode)))))))))
+                       ',layer-name ',mode))))
+          ))
+      ;; configure `interpreter-mode-alist'
+      (when interpreter
+        (let ((regex (car interpreter))
+              (mode (cadr interpreter)))
+          (add-to-list
+           'interpreter-mode-alist
+           `(,regex . (lambda () (configuration-layer//auto-mode
+                               ',layer-name ',mode)))))))))
 
 (defun configuration-layer//auto-mode (layer-name mode)
   "Auto mode support of lazily installed layers."
