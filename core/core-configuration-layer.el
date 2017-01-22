@@ -631,9 +631,10 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
                  pkg-name (car (oref obj :owners)) layer-name)))
       ;; last owner wins over the previous one
       (object-add-to-list obj :owners layer-name))
-    ;; check consistency betwween package and defined init functions
+    ;; check consistency between package and defined init functions
     (unless (or ownerp
                 (eq 'dotfile layer-name)
+                (eq 'system layer-name)
                 (fboundp pre-init-func)
                 (fboundp post-init-func)
                 (oref obj :excluded))
@@ -2045,6 +2046,9 @@ FILE-TO-LOAD is an explicit file to load after the installation."
           (package-install pkg)
           (setq pkg-elpa-dir
                 (configuration-layer/get-elpa-package-install-directory pkg)))
+        (unless (configuration-layer/get-package pkg)
+          (let ((obj (configuration-layer/make-package pkg 'system)))
+                (configuration-layer//add-package obj)))
         (require pkg nil 'noerror)
         (when file-to-load
           (load-file (concat pkg-elpa-dir file-to-load)))
