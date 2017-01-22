@@ -28,10 +28,13 @@
 
 ;; method: cfgl-layer-owned-packages
 
-(ert-deftest test-cfgl-layer-owned-packages--owns-packages ()
+(ert-deftest test-cfgl-layer-owned-packages--owns-packages-without-props ()
   (let ((layer1 (cfgl-layer "layer1"
                             :name 'layer1
-                            :packages '(pkg1 pkg2 pkg3 pkg4)))
+                            :packages '(pkg1
+                                        (pkg2 :location foo)
+                                        (pkg3 :toggle (eq 1 2))
+                                        (pkg4 :toggle (eq 1 1)))))
         configuration-layer--used-packages
         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
     (helper--set-packages
@@ -39,12 +42,34 @@
            (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1))
            (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1))
            (cfgl-package "pkg4" :name 'pkg4 :owners '(layer2))) t)
-    (should (equal (list (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1))
-                         (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1)))
+    (should (equal '(pkg2 pkg3)
                    (cfgl-layer-owned-packages layer1)))))
+
+(ert-deftest test-cfgl-layer-owned-packages--owns-packages-with-props ()
+  (let ((layer1 (cfgl-layer "layer1"
+                            :name 'layer1
+                            :packages '(pkg1
+                                        (pkg2 :location foo)
+                                        (pkg3 :toggle (eq 1 2))
+                                        (pkg4 :toggle (eq 1 1))
+                                        pkg5)))
+        configuration-layer--used-packages
+        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (helper--set-packages
+     (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))
+           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1))
+           (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1))
+           (cfgl-package "pkg4" :name 'pkg4 :owners '(layer2))
+           (cfgl-package "pkg5" :name 'pkg5 :owners '(layer2))) t)
+    (should (equal '(pkg1 (pkg2 :location foo)
+                          (pkg3 :toggle (eq 1 2)))
+                   (cfgl-layer-owned-packages layer1 'with-props)))))
 
 (ert-deftest test-cfgl-layer-owned-packages--nil-layer-returns-nil ()
   (should (null (cfgl-layer-owned-packages nil))))
+
+(ert-deftest test-cfgl-layer-owned-packages--nil-layer-returns-nil-with-props ()
+  (should (null (cfgl-layer-owned-packages nil 'with-props))))
 
 ;; method: cfgl-layer-get-packages
 
@@ -54,8 +79,17 @@
                            :packages '((pkg1 :location local)
                                        pkg2
                                        (pkg3 :location built-in)))))
-    (should (equal '((pkg1 :location local) pkg2 (pkg3 :location built-in))
+    (should (equal '(pkg1 pkg2 pkg3)
                    (cfgl-layer-get-packages layer)))))
+
+(ert-deftest test-cfgl-layer-get-packages--all-packages-selected-default-with-props ()
+  (let ((layer (cfgl-layer "layer"
+                           :name 'layer
+                           :packages '((pkg1 :location local)
+                                       pkg2
+                                       (pkg3 :location built-in)))))
+    (should (equal '((pkg1 :location local) pkg2 (pkg3 :location built-in))
+                   (cfgl-layer-get-packages layer 'with-props)))))
 
 (ert-deftest test-cfgl-layer-get-packages--all-packages-selected-explicitly ()
   (let ((layer (cfgl-layer "layer"
@@ -64,8 +98,18 @@
                                        pkg2
                                        (pkg3 :location built-in))
                            :selected-packages 'all)))
-    (should (equal '((pkg1 :location local) pkg2 (pkg3 :location built-in))
+    (should (equal '(pkg1 pkg2 pkg3)
                    (cfgl-layer-get-packages layer)))))
+
+(ert-deftest test-cfgl-layer-get-packages--all-packages-selected-explicitly-with-props ()
+  (let ((layer (cfgl-layer "layer"
+                           :name 'layer
+                           :packages '((pkg1 :location local)
+                                       pkg2
+                                       (pkg3 :location built-in))
+                           :selected-packages 'all)))
+    (should (equal '((pkg1 :location local) pkg2 (pkg3 :location built-in))
+                   (cfgl-layer-get-packages layer 'with-props)))))
 
 (ert-deftest test-cfgl-layer-get-packages--selected-packages ()
   (let ((layer (cfgl-layer "layer"
@@ -74,8 +118,18 @@
                                        pkg2
                                        (pkg3 :location built-in))
                            :selected-packages '(pkg1 pkg2))))
-    (should (equal '((pkg1 :location local) pkg2)
+    (should (equal '(pkg1 pkg2)
                    (cfgl-layer-get-packages layer)))))
+
+(ert-deftest test-cfgl-layer-get-packages--selected-packages-with-props ()
+  (let ((layer (cfgl-layer "layer"
+                           :name 'layer
+                           :packages '((pkg1 :location local)
+                                       pkg2
+                                       (pkg3 :location built-in))
+                           :selected-packages '(pkg1 pkg2))))
+    (should (equal '((pkg1 :location local) pkg2)
+                   (cfgl-layer-get-packages layer 'with-props)))))
 
 (ert-deftest test-cfgl-layer-get-packages--selected-packages-ignore-unknown ()
   (let ((layer (cfgl-layer "layer"
@@ -84,8 +138,18 @@
                                        pkg2
                                        (pkg3 :location built-in))
                            :selected-packages '(pkg1 pkg2 pkg-unknown))))
-    (should (equal '((pkg1 :location local) pkg2)
+    (should (equal '(pkg1 pkg2)
                    (cfgl-layer-get-packages layer)))))
+
+(ert-deftest test-cfgl-layer-get-packages--selected-packages-ignore-unknown-with-props ()
+  (let ((layer (cfgl-layer "layer"
+                           :name 'layer
+                           :packages '((pkg1 :location local)
+                                       pkg2
+                                       (pkg3 :location built-in))
+                           :selected-packages '(pkg1 pkg2 pkg-unknown))))
+    (should (equal '((pkg1 :location local) pkg2)
+                   (cfgl-layer-get-packages layer 'with-props)))))
 
 (ert-deftest test-cfgl-layer-get-packages--nil-packages-return-nil ()
   (let ((layer (cfgl-layer "layer"
