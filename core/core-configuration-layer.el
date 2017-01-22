@@ -113,29 +113,31 @@ ROOT is returned."
                                    "(Takes precedence over `:disabled-for'.)")))
   "A configuration layer.")
 
-(defmethod cfgl-layer-owned-packages ((layer cfgl-layer))
+(defmethod cfgl-layer-owned-packages ((layer cfgl-layer) &optional props)
   "Return the list of owned packages by LAYER.
+If PROPS is non-nil then return packages as lists with their properties.
 LAYER has to be installed for this method to work properly."
   (delq nil (mapcar
              (lambda (x)
-               (let ((pkg (configuration-layer/get-package x)))
-                 (when (and pkg (eq (oref layer :name)
-                                    (car (oref pkg :owners))))
-                   pkg)))
-             (oref layer :packages))))
+               (let* ((pkg-name (if (listp x) (car x) x))
+                      (pkg (configuration-layer/get-package pkg-name)))
+                 (when (eq (oref layer :name) (car (oref pkg :owners))) x)))
+             (cfgl-layer-get-packages layer props))))
 
-(defmethod cfgl-layer-owned-packages ((layer nil))
+(defmethod cfgl-layer-owned-packages ((layer nil) &optional props)
   "Accept nil as argument and return nil."
   nil)
 
-(defmethod cfgl-layer-get-packages ((layer cfgl-layer))
-  "Return the list of packages for LAYER."
-  (if (eq 'all (oref layer :selected-packages))
-      (oref layer :packages)
+(defmethod cfgl-layer-get-packages ((layer cfgl-layer) &optional props)
+  "Return the list of packages for LAYER.
+If PROPS is non-nil then return packages as lists with their properties"
+  (let ((all (eq 'all (oref layer :selected-packages))))
     (delq nil (mapcar
                (lambda (x)
                  (let ((pkg-name (if (listp x) (car x) x)))
-                   (when (memq pkg-name (oref layer :selected-packages)) x)))
+                   (when (or all (memq pkg-name
+                                       (oref layer :selected-packages)))
+                     (if props x pkg-name))))
                (oref layer :packages)))))
 
 (defclass cfgl-package ()
@@ -919,7 +921,7 @@ DOTFILE if non-nil will process the dotfile `dotspacemacs-additional-packages'
 variable as well."
   (dolist (layer-name layer-names)
     (let ((layer (configuration-layer/get-layer layer-name)))
-      (dolist (pkg (cfgl-layer-get-packages layer))
+      (dolist (pkg (cfgl-layer-get-packages layer 'with-props))
         (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
                (obj (configuration-layer/get-package pkg-name)))
           (setq obj (configuration-layer/make-package pkg layer-name obj))
@@ -950,24 +952,26 @@ USEDP if non-nil indicates that made packages are used packages."
     (let ((extensions (spacemacs/mplist-get props :extensions)))
       (when (configuration-layer/layer-usedp layer-name)
         (let* ((layer (configuration-layer/get-layer layer-name))
-               (packages (when layer (cfgl-layer-owned-packages layer)))
-               (package-names (mapcar (lambda (x) (oref x :name)) packages)))
+               (package-names (when layer (cfgl-layer-owned-packages layer))))
           ;; set lazy install flag for a layer if and only if its owned
           ;; distant packages are all not already installed
-          (let ((lazy (cl-reduce
-                       (lambda (x y) (and x y))
-                       (mapcar
-                        (lambda (p)
-                          (let ((pkg (configuration-layer/get-package p)))
-                            (or (not (eq layer-name (car (oref pkg :owners))))
-                                (null (package-installed-p
-                                       (oref pkg :name))))))
-                        (configuration-layer//get-distant-packages
-                         package-names t))
-                       :initial-value t)))
+          (let ((lazy
+                 (or (eq 'all dotspacemacs-enable-lazy-installation)
+                     (cl-reduce
+                      (lambda (x y) (and x y))
+                      (mapcar
+                       (lambda (p)
+                         (let ((pkg (configuration-layer/get-package p)))
+                           (or (not (eq layer-name (car (oref pkg :owners))))
+                               (null (package-installed-p
+                                      (oref pkg :name))))))
+                       package-names)
+                      :initial-value t))))
             (oset layer :lazy-install lazy)
-            (dolist (pkg packages)
-              (cfgl-package-set-property pkg :lazy-install lazy)))))
+            (dolist (pkg-name package-names)
+              (let ((pkg (configuration-layer/get-package pkg-name)))
+                (cfgl-package-set-property pkg :lazy-install lazy))))))
+      ;; configure `auto-mode-alist'
       (dolist (x extensions)
         (let ((ext (car x))
               (mode (cadr x)))
@@ -1959,13 +1963,12 @@ depends on it."
 (defun configuration-layer//lazy-install-extensions-for-layer (layer-name)
   "Return an alist of owned modes and extensions for the passed layer."
   (let* ((layer (configuration-layer/get-layer layer-name))
-         (packages (cfgl-layer-owned-packages layer))
+         (package-names (cfgl-layer-owned-packages layer))
          result)
-    (dolist (pkg packages)
-      (let ((pkg-sym (oref pkg :name)))
-        (dolist (mode (list pkg-sym (intern (format "%S-mode" pkg-sym))))
-          (let ((ext (configuration-layer//gather-auto-mode-extensions mode)))
-            (when ext (push (cons mode ext) result))))))
+    (dolist (pkg-name package-names)
+      (dolist (mode (list pkg-name (intern (format "%S-mode" pkg-name))))
+        (let ((ext (configuration-layer//gather-auto-mode-extensions mode)))
+          (when ext (push (cons mode ext) result)))))
     result))
 
 (defun configuration-layer//insert-lazy-install-form (layer-name mode ext)
