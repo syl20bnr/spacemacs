@@ -296,16 +296,16 @@ In general, ~q~ should always quit the popped up buffer.
 
 *** test-report-mode
 
-| Key Binding | Description       |
-|-------------+-------------------|
-| ~C-j~       | next result       |
-| ~C-k~       | previous result   |
-| ~RET~       | jump to test      |
-| ~d~         | ediff test result |
-| ~e~         | show stacktrace   |
-| ~r~         | rerun tests       |
-| ~t~         | run test          |
-| ~T~         | run tests         |
+| Key Binding | Description        |
+|-------------+--------------------|
+| ~C-j~       | next result        |
+| ~C-k~       | previous result    |
+| ~RET~       | jump to test       |
+| ~d~         | ediff test result  |
+| ~e~         | show stacktrace    |
+| ~r~         | rerun failed tests |
+| ~t~         | run test           |
+| ~T~         | run tests          |
 
 * Development Notes
 ** Indentation
