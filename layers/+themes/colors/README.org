@@ -65,9 +65,9 @@ It may be handy to enable it only in a GUI, you can do it by using
 a quasi-quoted list:
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-    =((colors :variables
-              colors-enable-nyan-cat-progress-bar ,(display-graphic-p))))
+  (setq-default dotspacemacs-configuration-layers '(
+    (colors :variables
+            colors-enable-nyan-cat-progress-bar (display-graphic-p))))
 #+END_SRC
 
 * Key bindings
