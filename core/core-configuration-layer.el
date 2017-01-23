@@ -2190,6 +2190,40 @@ Original code from dochang at https://github.com/dochang/elpa-clone"
         (prin1 archive-contents (current-buffer))
         (save-buffer)))))
 
+(defun configuration-layer//package-install-org (func &rest args)
+  "Advice around `package-install' to patch package name and dependencies at
+install time in order to replace all `org' package installation by
+`org-plus-contrib'. We avoid installing unecessarily both `org' and
+`org-plus-contrib' at the same time (i.e. we always install `org-plus-contrib')"
+  (let* ((pkg (car args))
+         (patched
+          (cond
+           ;; patch symbol name
+           ((and (symbolp pkg) (eq 'org pkg))
+            (setcar args 'org-plus-contrib)
+            t)
+           ;; patch name in package-desc object
+           ((and (package-desc-p pkg)
+                 (eq 'org (package-desc-name pkg)))
+            (setf (package-desc-name pkg) 'org-plus-contrib)
+            t)
+           ;; patch dependencies in package-desc object
+           ((and (package-desc-p pkg)
+                 (assq 'org (package-desc-reqs pkg)))
+            (setf (car (assq 'org (package-desc-reqs pkg))) 'org-plus-contrib)
+            t))))
+    (let ((name (if (package-desc-p pkg)
+                    (package-desc-name pkg)
+                  pkg)))
+      ;; check manually if `org-plus-contrib' is already installed since
+      ;; package.el may install `org-plus-contrib' more than once.
+      ;; Maybe we could hook somewhere else (at transaction computation time?)
+      (if (or patched (eq 'org-plus-contrib name))
+          (unless (package-installed-p name)
+            (apply func args))
+        (apply func args)))))
+(advice-add 'package-install :around #'configuration-layer//package-install-org)
+
 (defun configuration-layer//increment-error-count ()
   "Increment the error counter."
   (if configuration-layer-error-count
