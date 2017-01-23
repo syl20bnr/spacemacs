@@ -99,6 +99,7 @@
         ("k" helm-previous-line)
         ("l" helm-next-source)
         ("q" nil :exit t)
+        ("M-SPC" nil :exit t)
         ("t" helm-toggle-visible-mark)
         ("T" helm-toggle-all-marks)
         ("v" helm-execute-persistent-action))
@@ -139,7 +140,7 @@
  Move/Resize^^^^      | Select Action^^^^   |  Call^^          |  Cancel^^    | Toggles
 --^-^-^-^-------------|--^-^-^-^------------|--^---^-----------|--^-^---------|---------------------
  [_j_/_k_] by line    | [_s_/_w_] next/prev | [_RET_] & done   | [_i_] & ins  | [_C_] calling: %s(if ivy-calling \"on\" \"off\")
- [_g_/_G_] first/last | [_a_]^ ^  list all  | [_TAB_] alt done | [_q_] & quit | [_m_] matcher: %s(ivy--matcher-desc)
+ [_g_/_G_] first/last | [_a_]^ ^  list all  | [_TAB_] alt done | [_q_] & quit | [_m_] matcher: %s(spacemacs//ivy-matcher-desc)
  [_d_/_u_] pg down/up |  ^ ^ ^ ^            | [_c_]   & cont   |  ^ ^         | [_f_] case-fold: %`ivy-case-fold-search
  [_<_/_>_] resize     |  ^ ^ ^ ^            | [_o_]   occur    |  ^ ^         | [_t_] truncate: %`truncate-lines
  [_h_/_l_] out/in dir |  ^ ^ ^ ^            |  ^ ^             |  ^ ^         |  ^ ^
@@ -163,6 +164,7 @@ Current Action: %s(ivy-action-name)
       ("<escape>" keyboard-escape-quit :exit t)
       ("i" nil)
       ("C-o" nil)
+      ("M-SPC" nil)
       ("TAB" ivy-alt-done :exit nil)
       ;; ("C-j" ivy-alt-done :exit nil)
       ;; ("d" ivy-done :exit t)
@@ -180,6 +182,10 @@ Current Action: %s(ivy-action-name)
       ("f" ivy-toggle-case-fold)
       ("o" ivy-occur :exit t))
     (define-key ivy-minibuffer-map "\C-o" 'spacemacs/ivy-transient-state/body)
+    (define-key ivy-minibuffer-map (kbd "M-SPC")
+      'spacemacs/ivy-transient-state/body)
+    (define-key ivy-minibuffer-map (kbd "s-M-SPC")
+      'spacemacs/ivy-transient-state/body)
     ))
 
 (defun spacemacs-completion/init-ido ()
