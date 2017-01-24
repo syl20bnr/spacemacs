@@ -67,6 +67,7 @@ the final step of executing code in `emacs-startup-hook'.")
   ;; this is for a smoother UX at startup (i.e. less graphical glitches)
   (hidden-mode-line-mode)
   (spacemacs//removes-gui-elements)
+  (spacemacs//setup-ido-vertical-mode)
   ;; explicitly set the prefered coding systems to avoid annoying prompt
   ;; from emacs (especially on Microsoft Windows)
   (prefer-coding-system 'utf-8)
@@ -154,6 +155,22 @@ the final step of executing code in `emacs-startup-hook'.")
   ;; tooltips in echo-aera
   (when (and (fboundp 'tooltip-mode) (not (eq tooltip-mode -1)))
     (tooltip-mode -1)))
+
+(defun spacemacs//setup-ido-vertical-mode ()
+  "Setup `ido-vertical-mode'."
+  (require 'ido-vertical-mode)
+  (ido-vertical-mode t)
+  (add-hook
+   'ido-setup-hook
+   ;; think about hacking directly `ido-vertical-mode' source in libs instead.
+   (defun spacemacs//ido-vertical-natural-navigation ()
+     ;; more natural navigation keys: up, down to change current item
+     ;; left to go up dir
+     ;; right to open the selected item
+     (define-key ido-completion-map (kbd "<up>") 'ido-prev-match)
+     (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
+     (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
+     (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer))))
 
 (defun display-startup-echo-area-message ()
   "Change the default welcome message of minibuffer to another one."
