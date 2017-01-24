@@ -165,7 +165,7 @@
           "tl" 'spacemacs/cider-test-run-loaded-tests
           "tp" 'spacemacs/cider-test-run-project-tests
           "tn" 'spacemacs/cider-test-run-ns-tests
-          "tr" 'spacemacs/cider-test-rerun-tests
+          "tr" 'spacemacs/cider-test-rerun-failed-tests
           "tt" 'spacemacs/cider-test-run-focused-test
 
           "db" 'cider-debug-defun-at-point
@@ -278,8 +278,8 @@
   (spacemacs|add-company-backends
     :backends company-capf
     :modes
-    company-backends-cider-mode
-    company-backends-cider-repl-mode))
+    cider-mode
+    cider-repl-mode))
 
 (defun clojure/post-init-ggtags ()
   (add-hook 'clojure-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

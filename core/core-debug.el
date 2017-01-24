@@ -250,13 +250,13 @@ seconds to load")
      (concat configuration-layer-template-directory "REPORTING.template"))
     (loop
      for (placeholder replacement)
-     in '(("%SYSTEM_INFO%" system-info)
-          ("%BACKTRACE%" backtrace)
-          ("(%LAST_KEYS%)\n" last-keys))
+     in `(("%SYSTEM_INFO%" ,system-info)
+          ("%BACKTRACE%" ,backtrace)
+          ("(%LAST_KEYS%)\n" ,last-keys))
      do (save-excursion
           (goto-char (point-min))
           (search-forward placeholder)
-          (replace-match (symbol-value replacement) [keep-case] [literal])))
+          (replace-match replacement [keep-case] [literal])))
     (spacemacs/report-issue-mode)))
 
 (define-derived-mode spacemacs/report-issue-mode markdown-mode "Report-Issue"

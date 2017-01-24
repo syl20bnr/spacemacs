@@ -273,6 +273,9 @@ Use-package supports heaps of useful keywords. Look at the [[https://github.com/
 more.
 
 * Anatomy of a layer
+:PROPERTIES:
+:CUSTOM_ID: anatomy-of-a-layer
+:END:
 A layer is simply a folder somewhere in Spacemacs' layer search path that
 usually contains these files (listed in loading order).
 
@@ -395,10 +398,11 @@ More on this in the next section.
 * The Spacemacs loading process
 The Spacemacs loading process can be summarized as follows:
 
-1. Spacemacs goes through all the enabled layers and evaluates their files. The
-   changes introduced by =config.el= are thus applied, then =funcs.el= and
-   =packages.el= are loaded, but nothing happens from =packages.el=, since these
-   files only define functions and variables.
+1. Spacemacs goes through all the enabled layers and evaluates their files.
+   First =layers.el= is loaded to declare layer dependencies. Then =packages.el=
+   and =funcs.el= are loaded, but nothing happens from them since these files
+   only define functions and variables, then the changes introduced by
+   =config.el= are applied.
 2. Spacemacs checks which packages should be downloaded and installed. To be
    installed, a package must be
    - included by a layer that the user has enabled,
@@ -474,7 +478,7 @@ by using =post-init= functions.
 For layers that require another layers to be enabled, use the functions
 =configuration-layer/declare-layer= and =configuration-layer/declare-layers= to
 ensure that layers are enabled even if the user has not enabled them explicitly.
-Calls to these functions must go in the =config.el= file.
+Calls to these functions must go in the =layers.el= file.
 
 ** Use-package
 In the vast majority of cases, a package =init= function should do nothing but
@@ -495,6 +499,9 @@ hooks, if the package should be loaded upon some event. It is not unusual to
 have both!
 
 ** Use-package hooks
+:PROPERTIES:
+:CUSTOM_ID: use-package-hooks
+:END:
 Spacemacs includes a macro for adding more code to the =:init= or =:config=
 blocks of a call to =use-package=, after the fact. This is useful for =pre-init=
 or =post-init= functions to "inject" code into the =use-package= call of the

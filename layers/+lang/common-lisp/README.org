@@ -53,6 +53,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m h a~ | SLIME apropos                                           |
 | ~SPC m h d~ | Disassemble symbol at point                             |
 | ~SPC m h h~ | Describe symbol at point                                |
+| ~SPC m h i~ | Inspect definition                                      |
 | ~SPC m h H~ | Hyperspec lookup symbol at point                        |
 | ~SPC m h p~ | Browse apropos results for a package's exported symbols |
 | ~SPC m h t~ | Toggle tracing of the function at point                 |
@@ -96,7 +97,7 @@ As this state works the same for all files, the documentation is in global
 
 | Key Binding               | Description        |
 |---------------------------+--------------------|
-| ~SPC m g g~               | Inspect definition |
+| ~SPC m g g~               | Go to definition   |
 | ~SPC m g b~               | Go back            |
 | ~SPC m g n~               | Next note          |
 | ~SPC m g N~ or ~SPC m g p | Previous note      |

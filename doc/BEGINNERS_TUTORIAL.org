@@ -228,6 +228,9 @@ a very common task and is done with ~SPC f r~. An edited file is saved with
 ~SPC f s~.
 
 * Configuring Spacemacs
+:PROPERTIES:
+:CUSTOM_ID: configuring-spacemacs
+:END:
 ** Adding language support and other features: using layers
 Spacemacs divides its configuration into self-contained units called
 configuration layers. These layers are stacked on top of each other to achieve a

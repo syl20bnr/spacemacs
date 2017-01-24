@@ -87,7 +87,7 @@
 (configuration-layer/lazy-install 'python :extensions '("\\(\\.pyx\\'\\|\\.pxd\\'\\|\\.pxi\\'\\)" cython-mode))
 (configuration-layer/lazy-install 'python :extensions '("\\(\\.hy\\'\\)" hy-mode))
 (configuration-layer/lazy-install 'python :extensions '("\\(\\.pip\\'\\|requirements\\(?:.\\|\n\\)*\\.txt\\'\\)" pip-requirements-mode))
-(configuration-layer/lazy-install 'python :extensions '("\\(\\.py\\'\\)" python-mode))
+(configuration-layer/lazy-install 'python :extensions '("\\(\\.py\\'\\)" python-mode) :interpreter '("python[0-9.]*" python-mode))
 
 (configuration-layer/lazy-install 'racket :extensions '("\\(\\.rkt[dl]?\\'\\)" racket-mode))
 

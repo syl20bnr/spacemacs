@@ -28,10 +28,13 @@
 
 ;; method: cfgl-layer-owned-packages
 
-(ert-deftest test-cfgl-layer-owned-packages--owns-packages ()
+(ert-deftest test-cfgl-layer-owned-packages--owns-packages-without-props ()
   (let ((layer1 (cfgl-layer "layer1"
                             :name 'layer1
-                            :packages '(pkg1 pkg2 pkg3 pkg4)))
+                            :packages '(pkg1
+                                        (pkg2 :location foo)
+                                        (pkg3 :toggle (eq 1 2))
+                                        (pkg4 :toggle (eq 1 1)))))
         configuration-layer--used-packages
         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
     (helper--set-packages
@@ -39,12 +42,34 @@
            (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1))
            (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1))
            (cfgl-package "pkg4" :name 'pkg4 :owners '(layer2))) t)
-    (should (equal (list (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1))
-                         (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1)))
+    (should (equal '(pkg2 pkg3)
                    (cfgl-layer-owned-packages layer1)))))
+
+(ert-deftest test-cfgl-layer-owned-packages--owns-packages-with-props ()
+  (let ((layer1 (cfgl-layer "layer1"
+                            :name 'layer1
+                            :packages '(pkg1
+                                        (pkg2 :location foo)
+                                        (pkg3 :toggle (eq 1 2))
+                                        (pkg4 :toggle (eq 1 1))
+                                        pkg5)))
+        configuration-layer--used-packages
+        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (helper--set-packages
+     (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))
+           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1))
+           (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1))
+           (cfgl-package "pkg4" :name 'pkg4 :owners '(layer2))
+           (cfgl-package "pkg5" :name 'pkg5 :owners '(layer2))) t)
+    (should (equal '(pkg1 (pkg2 :location foo)
+                          (pkg3 :toggle (eq 1 2)))
+                   (cfgl-layer-owned-packages layer1 'with-props)))))
 
 (ert-deftest test-cfgl-layer-owned-packages--nil-layer-returns-nil ()
   (should (null (cfgl-layer-owned-packages nil))))
+
+(ert-deftest test-cfgl-layer-owned-packages--nil-layer-returns-nil-with-props ()
+  (should (null (cfgl-layer-owned-packages nil 'with-props))))
 
 ;; method: cfgl-layer-get-packages
 
@@ -54,8 +79,17 @@
                            :packages '((pkg1 :location local)
                                        pkg2
                                        (pkg3 :location built-in)))))
-    (should (equal '((pkg1 :location local) pkg2 (pkg3 :location built-in))
+    (should (equal '(pkg1 pkg2 pkg3)
                    (cfgl-layer-get-packages layer)))))
+
+(ert-deftest test-cfgl-layer-get-packages--all-packages-selected-default-with-props ()
+  (let ((layer (cfgl-layer "layer"
+                           :name 'layer
+                           :packages '((pkg1 :location local)
+                                       pkg2
+                                       (pkg3 :location built-in)))))
+    (should (equal '((pkg1 :location local) pkg2 (pkg3 :location built-in))
+                   (cfgl-layer-get-packages layer 'with-props)))))
 
 (ert-deftest test-cfgl-layer-get-packages--all-packages-selected-explicitly ()
   (let ((layer (cfgl-layer "layer"
@@ -64,8 +98,18 @@
                                        pkg2
                                        (pkg3 :location built-in))
                            :selected-packages 'all)))
-    (should (equal '((pkg1 :location local) pkg2 (pkg3 :location built-in))
+    (should (equal '(pkg1 pkg2 pkg3)
                    (cfgl-layer-get-packages layer)))))
+
+(ert-deftest test-cfgl-layer-get-packages--all-packages-selected-explicitly-with-props ()
+  (let ((layer (cfgl-layer "layer"
+                           :name 'layer
+                           :packages '((pkg1 :location local)
+                                       pkg2
+                                       (pkg3 :location built-in))
+                           :selected-packages 'all)))
+    (should (equal '((pkg1 :location local) pkg2 (pkg3 :location built-in))
+                   (cfgl-layer-get-packages layer 'with-props)))))
 
 (ert-deftest test-cfgl-layer-get-packages--selected-packages ()
   (let ((layer (cfgl-layer "layer"
@@ -74,8 +118,18 @@
                                        pkg2
                                        (pkg3 :location built-in))
                            :selected-packages '(pkg1 pkg2))))
-    (should (equal '((pkg1 :location local) pkg2)
+    (should (equal '(pkg1 pkg2)
                    (cfgl-layer-get-packages layer)))))
+
+(ert-deftest test-cfgl-layer-get-packages--selected-packages-with-props ()
+  (let ((layer (cfgl-layer "layer"
+                           :name 'layer
+                           :packages '((pkg1 :location local)
+                                       pkg2
+                                       (pkg3 :location built-in))
+                           :selected-packages '(pkg1 pkg2))))
+    (should (equal '((pkg1 :location local) pkg2)
+                   (cfgl-layer-get-packages layer 'with-props)))))
 
 (ert-deftest test-cfgl-layer-get-packages--selected-packages-ignore-unknown ()
   (let ((layer (cfgl-layer "layer"
@@ -84,8 +138,18 @@
                                        pkg2
                                        (pkg3 :location built-in))
                            :selected-packages '(pkg1 pkg2 pkg-unknown))))
-    (should (equal '((pkg1 :location local) pkg2)
+    (should (equal '(pkg1 pkg2)
                    (cfgl-layer-get-packages layer)))))
+
+(ert-deftest test-cfgl-layer-get-packages--selected-packages-ignore-unknown-with-props ()
+  (let ((layer (cfgl-layer "layer"
+                           :name 'layer
+                           :packages '((pkg1 :location local)
+                                       pkg2
+                                       (pkg3 :location built-in))
+                           :selected-packages '(pkg1 pkg2 pkg-unknown))))
+    (should (equal '((pkg1 :location local) pkg2)
+                   (cfgl-layer-get-packages layer 'with-props)))))
 
 (ert-deftest test-cfgl-layer-get-packages--nil-packages-return-nil ()
   (let ((layer (cfgl-layer "layer"
@@ -152,6 +216,62 @@
     (helper--set-layers `(,(cfgl-layer "layer1" :name 'layer1)))
     (helper--set-layers `(,(cfgl-layer "layer2" :name 'layer2)) t)
     (should (eq 'layer2 (cfgl-package-get-safe-owner pkg)))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//package-archive-absolute-pathp
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-package-archive-absolute-pathp--http-absolute-path ()
+  (let ((input '("melpa" . "http://melpa.org/packages/")))
+    (should (configuration-layer//package-archive-absolute-pathp input))))
+
+(ert-deftest test-package-archive-absolute-pathp--https-absolute-path ()
+  (let ((input '("melpa" . "https://melpa.org/packages/")))
+    (should (configuration-layer//package-archive-absolute-pathp input))))
+
+(ert-deftest test-package-archive-absolute-pathp--user-home-tilde-absolute-path ()
+  (let ((input '("spacelpa" . "~/.elpa/spacelpa")))
+    (should (configuration-layer//package-archive-absolute-pathp input))))
+
+(ert-deftest test-package-archive-absolute-pathp--user-home-slash-absolute-path ()
+  (let ((input '("spacelpa" . "/home/rms/.elpa/spacelpa")))
+    (should (configuration-layer//package-archive-absolute-pathp input))))
+
+(ert-deftest test-package-archive-absolute-pathp--relative-path-local ()
+  (let ((input '("melpa" . "../.elpa/spacelpa")))
+    (should (not (configuration-layer//package-archive-absolute-pathp input)))))
+
+(ert-deftest test-package-archive-absolute-pathp--not-absolute-path-remote ()
+  (let ((input '("melpa" . "melpa.org/spacelpa")))
+    (should (not (configuration-layer//package-archive-absolute-pathp input)))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//package-archive-local-pathp
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-package-archive-local-pathp--http-not-local-path ()
+  (let ((input '("melpa" . "http://melpa.org/packages/")))
+    (should (not (configuration-layer//package-archive-local-pathp input)))))
+
+(ert-deftest test-package-archive-local-pathp--https-not-local-path ()
+  (let ((input '("melpa" . "https://melpa.org/packages/")))
+    (should (not (configuration-layer//package-archive-local-pathp input)))))
+
+(ert-deftest test-package-archive-local-pathp--user-home-tilde-local-path ()
+  (let ((input '("spacelpa" . "~/.elpa/spacelpa")))
+    (should (configuration-layer//package-archive-local-pathp input))))
+
+(ert-deftest test-package-archive-local-pathp--user-home-slash-local-path ()
+  (let ((input '("spacelpa" . "/home/rms/.elpa/spacelpa")))
+    (should (configuration-layer//package-archive-local-pathp input))))
+
+(ert-deftest test-package-archive-local-pathp--relative-local-path-local ()
+  (let ((input '("melpa" . "../.elpa/spacelpa")))
+    (should (configuration-layer//package-archive-local-pathp input))))
+
+(ert-deftest test-package-archive-local-pathp--default-not-local-path-remote ()
+  (let ((input '("melpa" . "melpa.org/spacelpa")))
+    (should (not (configuration-layer//package-archive-local-pathp input)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//resolve-package-archives
@@ -1291,7 +1411,8 @@
   (let* (configuration-layer--used-layers
          (configuration-layer--indexed-layers (make-hash-table :size 1024))
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--set-layers
      `(,(cfgl-layer "layerall1"
                     :name 'layerall1
@@ -1322,18 +1443,24 @@
     (defun layerall4/init-pkg8 nil)
     (defun layerall5/init-pkg5 nil)
     (defun layerall5/init-pkg9 nil)
-    (configuration-layer/make-all-packages)
-    (should (null configuration-layer--used-packages))
-    (should (equal '(pkg1
-                     pkg6
-                     pkg2
-                     pkg3
-                     pkg8
-                     pkg7
-                     pkg4
-                     pkg9
-                     pkg5)
-                   (ht-keys configuration-layer--indexed-packages)))))
+    (mocker-let
+     ;; skip layer declaration since we manually set
+     ;; the variable `configuration-layer--indexed-layers'
+     ;; Moreover `configuration-layer/declare-layers' requires a valid
+     ;; path on disk etc...
+     ((configuration-layer/declare-layers (layers-specs) ((:output nil))))
+     (configuration-layer/make-all-packages 'no-discovery)
+     (should (null configuration-layer--used-packages))
+     (should (equal '(pkg1
+                      pkg6
+                      pkg2
+                      pkg3
+                      pkg8
+                      pkg7
+                      pkg4
+                      pkg9
+                      pkg5)
+                    (ht-keys configuration-layer--indexed-packages))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//configure-package
@@ -2192,3 +2319,123 @@
                         (cadr (assq 'recipe stats))
                         (cadr (assq 'local stats))
                         (cadr (assq 'built-in stats)))))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//package-install-org
+;; ---------------------------------------------------------------------------
+
+(defun --test-package-install-org--symbol-name (pkg-name)
+  (mocker-let
+   ((package-installed-p (org-plus-contrib)
+                         ((:record-cls 'mocker-stub-record
+                                       :output nil :occur 1)))
+    (identity (x) ((:input '(org-plus-contrib) :output nil :occur 1))))
+   (configuration-layer//package-install-org 'identity pkg-name)))
+
+(defun --package-install-org--symbol-name-already-installed (pkg-name)
+  (mocker-let
+   ((package-installed-p (org-plus-contrib)
+                         ((:record-cls 'mocker-stub-record
+                                       :output t :occur 1))))
+   (configuration-layer//package-install-org 'identity pkg-name)))
+
+(defun --test-package-install-org--package-desc-name (pkg-desc)
+  (mocker-let
+   ((package-installed-p (org-plus-contrib)
+                         ((:record-cls 'mocker-stub-record
+                                       :output nil :occur 1)))
+    (identity (x) ((:input `(,pkg-desc) :output nil :occur 1))))
+   (configuration-layer//package-install-org 'identity pkg-desc)))
+
+(defun --package-install-org--package-desc-name-already-installed (pkg-desc)
+  (mocker-let
+   ((package-installed-p (org-plus-contrib)
+                         ((:record-cls 'mocker-stub-record
+                                       :output t :occur 1))))
+   (configuration-layer//package-install-org 'identity pkg-desc)))
+
+(defun --test-package-install-org--package-desc-reqs (pkg-desc)
+  (mocker-let
+   ((package-installed-p (x) ((:record-cls 'mocker-stub-record
+                                           :output nil :occur 1))))
+   (configuration-layer//package-install-org 'identity pkg-desc)))
+
+(ert-deftest test-package-install-org--symbol-name-org ()
+  (--test-package-install-org--symbol-name 'org))
+
+(ert-deftest test-package-install-org--symbol-name-org-plus-contrib ()
+  (--test-package-install-org--symbol-name 'org-plus-contrib))
+
+(ert-deftest test-package-install-org--symbol-name-org-already-installed ()
+  (should (null (--package-install-org--symbol-name-already-installed 'org))))
+
+(ert-deftest
+    test-package-install-org--symbol-name-org-plus-contrib-already-installed ()
+  (should (null (--package-install-org--symbol-name-already-installed
+                 'org-plus-contrib))))
+
+(ert-deftest test-package-install-org--no-effect-on-symbol-name-other-packages ()
+  (let ((pkg (configuration-layer//package-install-org 'identity 'foo)))
+    (should (eq 'foo pkg ))))
+
+(ert-deftest test-package-install-org--package-desc-name-org ()
+  (let ((pkg (package-desc-create :name 'org
+                                  :version '(7)
+                                  :summary "Dummy Org package desc"
+                                  :reqs nil)))
+    (--test-package-install-org--package-desc-name pkg)))
+
+(ert-deftest test-package-install-org--package-desc-name-org-already-installed ()
+  (let ((pkg (package-desc-create :name 'org
+                                  :version '(7)
+                                  :summary "Dummy Org package desc"
+                                  :reqs nil)))
+    (--package-install-org--package-desc-name-already-installed pkg)))
+
+(ert-deftest test-package-install-org--package-desc-name-org-plus-contrib ()
+  (let ((pkg (package-desc-create :name 'org-plus-contrib
+                                  :version '(7)
+                                  :summary "Dummy org-plus-contrib package desc"
+                                  :reqs nil)))
+    (--test-package-install-org--package-desc-name pkg)))
+
+(ert-deftest
+    test-package-install-org--package-desc-name-org-plus-contrib-already-installed ()
+  (let ((pkg (package-desc-create :name 'org-plus-contrib
+                                  :version '(7)
+                                  :summary "Dummy org-plus-contrib package desc"
+                                  :reqs nil)))
+    (--package-install-org--package-desc-name-already-installed pkg)))
+
+(ert-deftest test-package-install-org--package-desc-reqs-org ()
+  (let ((pkg (package-desc-create :name 'dummy
+                                  :version '(7)
+                                  :summary "Dummy package desc"
+                                  :reqs '((org 7)))))
+    (mocker-let
+     ((package-installed-p (x) ((:record-cls 'mocker-stub-record
+                                             :output nil :occur 1))))
+     (let ((patched-pkg (configuration-layer//package-install-org
+                         'identity pkg)))
+       (should (equal
+                (package-desc-create :name 'dummy
+                                     :version '(7)
+                                     :summary "Dummy package desc"
+                                     :reqs '((org-plus-contrib 7)))
+                patched-pkg))))))
+
+(ert-deftest test-package-install-org--package-desc-reqs-org-contrib-plus ()
+  (let ((pkg (package-desc-create :name 'dummy
+                                  :version '(7)
+                                  :summary "Dummy package desc"
+                                  :reqs '((org-plus-contrib 7)))))
+    (let ((patched-pkg (configuration-layer//package-install-org 'identity pkg)))
+      (should (equal pkg patched-pkg)))))
+
+(ert-deftest test-package-install-org--no-effect-on-package-desc-other-packages ()
+  (let ((pkg (package-desc-create :name 'dummy
+                                  :version '(7)
+                                  :summary "Dummy package desc"
+                                  :reqs '((foo 7)))))
+    (let ((patched-pkg (configuration-layer//package-install-org 'identity pkg)))
+      (should (equal pkg patched-pkg)))))

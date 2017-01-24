@@ -1,7 +1,7 @@
 #+TITLE: Configuration layers
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
-* Table of Contents                                      :TOC_4_org:noexport:
+* Table of Contents :TOC_4_org:noexport:
  - [[Chat][Chat]]
  - [[Checkers][Checkers]]
  - [[Completion][Completion]]
@@ -42,6 +42,7 @@
 - [[file:+distributions/spacemacs/README.org][spacemacs]]
 - [[file:+distributions/spacemacs-base/README.org][spacemacs-base]]
 - [[file:+distributions/spacemacs-bootstrap/README.org][spacemacs-bootstrap]]
+- [[file:+distributions/spacemacs-docker/README.org][spacemacs-docker]]
 
 * Emacs
 - [[file:+emacs/better-defaults/README.org][better-defaults]]
@@ -89,6 +90,7 @@
 - [[file:+lang/ess/README.org][ess]]
 - [[file:+lang/extra-langs/README.org][extra-langs]]
 - [[file:+lang/faust/README.org][faust]]
+- [[file:+lang/forth/README.org][forth]]
 - [[file:+lang/fsharp/README.org][fsharp]]
 - [[file:+lang/go/README.org][go]]
 - [[file:+lang/graphviz/README.org][graphviz]]
@@ -148,6 +150,7 @@
 - [[file:+spacemacs/spacemacs-layouts/README.org][spacemacs-layouts]]
 - [[file:+spacemacs/spacemacs-misc/README.org][spacemacs-misc]]
 - [[file:+spacemacs/spacemacs-org/README.org][spacemacs-org]]
+- [[file:+spacemacs/spacemacs-purpose/README.org][spacemacs-purpose]]
 - [[file:+spacemacs/spacemacs-ui/README.org][spacemacs-ui]]
 - [[file:+spacemacs/spacemacs-ui-visual/README.org][spacemacs-ui-visual]]
 
@@ -178,6 +181,7 @@
 - [[file:+tools/prodigy/README.org][prodigy]]
 - [[file:+tools/puppet/README.org][puppet]]
 - [[file:+tools/ranger/README.org][ranger]]
+- [[file:+tools/rebox/README.org][rebox]]
 - [[file:+tools/restclient/README.org][restclient]]
 - [[file:+tools/salt/README.org][salt]]
 - [[file:+tools/shell/README.org][shell]]
@@ -197,6 +201,7 @@
 - [[file:+vim/vinegar/README.org][vinegar]]
 
 * Web services
+- [[file:+web-services/confluence/README.org][confluence]]
 - [[file:+web-services/elfeed/README.org][elfeed]]
 - [[file:+web-services/evernote/README.org][evernote]]
 - [[file:+web-services/search-engine/README.org][search-engine]]

@@ -263,6 +263,9 @@ the list =dotspacemacs-excluded-packages= if you prefer setting =exec-path=
 yourself.
 
 * How do I:
+:PROPERTIES:
+:CUSTOM_ID: how-do-i
+:END:
 ** Install a package not provided by a layer?
 Spacemacs provides a variable in the =dotspacemacs/layers= function in
 =.spacemacs= called =dotspacemacs-additional-packages=. Just add a package name
@@ -301,6 +304,9 @@ dotfile. The following snippet disables company for =python-mode=:
 #+END_SRC
 
 ** Change special buffer rules?
+   :PROPERTIES:
+   :CUSTOM_ID: change-special-buffer-rules
+   :END:
 To change the way spacemacs marks buffers as useless, you can customize
 =spacemacs-useless-buffers-regexp= which marks buffers matching the regexp as
 useless. The variable =spacemacs-useful-buffers-regexp= marks buffers matching
