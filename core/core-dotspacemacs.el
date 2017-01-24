@@ -135,6 +135,10 @@ whenever you start Emacs.")
 Press `SPC T n' to cycle to the next theme in the list (works great
 with 2 themes variants, one dark and one light")
 
+(defvar dotspacemacs-frame-title-format nil
+  "Default format string for a frame title bar, using the
+  original format spec, and additional customizations.")
+
 (defvar dotspacemacs-colorize-cursor-according-to-state t
   "If non nil the cursor color matches the state color in GUI Emacs.")
 
@@ -575,6 +579,51 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
         (unless (with-demoted-errors "Error loading .spacemacs: %S"
                   (load dotspacemacs))
           (dotspacemacs/safe-load)))))
+
+(defun spacemacs/frame-title-prepare ()
+  "A string is printed verbatim except for %-constructs.
+  %a -- prints the `abbreviated-file-name', or `buffer-name'
+  %t -- prints `projectile-project-name'
+  %I -- prints `invocation-name'
+  %S -- prints `system-name'
+  %U -- prints contents of $USER
+  %b -- prints buffer name
+  %f -- prints visited file name
+  %F -- prints frame name
+  %s -- prints process status
+  %p -- prints percent of buffer above top of window, or Top, Bot or All
+  %P -- prints percent of buffer above bottom of window, perhaps plus Top, or
+  print Bottom or All
+  %m -- prints mode name
+  %n -- prints Narrow if appropriate
+  %z -- prints mnemonics of buffer, terminal, and keyboard coding systems
+  %Z -- like %z, but including the end-of-line format"
+  (let* ((fs (format-spec-make
+              ?a (abbreviate-file-name (or (buffer-file-name) (buffer-name))) 
+              ?t (if (boundp 'projectile-mode) (projectile-project-name) "-")
+              ?S system-name
+              ?I invocation-name
+              ?U (or (getenv "USER") "")
+              ?b "%b"
+              ?f "%f"
+              ?F "%F"
+              ?* "%*"
+              ?+ "%+"
+              ?s "%s"
+              ?l "%l"
+              ?c "%c"
+              ?p "%p"
+              ?P "%P"
+              ?m "%m"
+              ?n "%n"
+              ?z "%z"
+              ?Z "%Z"
+              ?[ "%["
+              ?] "%]"
+              ?% "%%"
+              ?- "%-"
+              )))
+    (format-spec dotspacemacs-frame-title-format fs)))
 
 (defun dotspacemacs/safe-load ()
   "Error recovery from malformed .spacemacs.
