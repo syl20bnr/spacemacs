@@ -212,3 +212,103 @@ See https://github.com/syl20bnr/spacemacs/issues/3700"
     (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-kill-line)
     (define-key ivy-minibuffer-map (kbd "C-h") nil)
     (define-key ivy-minibuffer-map (kbd "C-l") nil))))
+
+
+;; Ido
+
+(defun spacemacs//ido-minibuffer-setup ()
+  "Setup the minibuffer."
+  ;; Since ido is implemented in a while loop where each
+  ;; iteration setup a whole new minibuffer, we have to keep
+  ;; track of any activated ido navigation transient-state and force
+  ;; the reactivation at each iteration.
+  (when spacemacs--ido-navigation-ms-enabled
+    (spacemacs/ido-navigation-micro-state)))
+
+(defun spacemacs//ido-setup ()
+  (when spacemacs--ido-navigation-ms-face-cookie-minibuffer
+    (face-remap-remove-relative
+     spacemacs--ido-navigation-ms-face-cookie-minibuffer))
+  ;; be sure to wipe any previous transient-state flag
+  (setq spacemacs--ido-navigation-ms-enabled nil)
+  ;; overwrite the key bindings for ido vertical mode only
+  (define-key ido-completion-map (kbd "C-<return>") 'ido-select-text)
+  ;; use M-RET in terminal
+  (define-key ido-completion-map "\M-\r" 'ido-select-text)
+  (define-key ido-completion-map (kbd "C-h") 'ido-delete-backward-updir)
+  (define-key ido-completion-map (kbd "C-j") 'ido-next-match)
+  (define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
+  (define-key ido-completion-map (kbd "C-l") 'ido-exit-minibuffer)
+  (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+  (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
+  (define-key ido-completion-map (kbd "C-S-h") 'ido-prev-match-dir)
+  (define-key ido-completion-map (kbd "C-S-j") 'next-history-element)
+  (define-key ido-completion-map (kbd "C-S-k") 'previous-history-element)
+  (define-key ido-completion-map (kbd "C-S-l") 'ido-next-match-dir)
+  (define-key ido-completion-map (kbd "C-S-n") 'next-history-element)
+  (define-key ido-completion-map (kbd "C-S-p") 'previous-history-element)
+  ;; ido-other window maps
+  (define-key ido-completion-map (kbd "C-o") 'spacemacs/ido-invoke-in-other-window)
+  (define-key ido-completion-map (kbd "C-s") 'spacemacs/ido-invoke-in-vertical-split)
+  (define-key ido-completion-map (kbd "C-t") 'spacemacs/ido-invoke-in-new-frame)
+  (define-key ido-completion-map (kbd "C-v") 'spacemacs/ido-invoke-in-horizontal-split)
+  ;; initiate transient-state
+  (define-key ido-completion-map (kbd "M-SPC") 'spacemacs/ido-navigation-micro-state)
+  (define-key ido-completion-map (kbd "s-M-SPC") 'spacemacs/ido-navigation-micro-state))
+
+(defun spacemacs/ido-invoke-in-other-window ()
+  "signals ido mode to switch to (or create) another window after exiting"
+  (interactive)
+  (setq ido-exit-minibuffer-target-window 'other)
+  (ido-exit-minibuffer))
+
+(defun spacemacs/ido-invoke-in-horizontal-split ()
+  "signals ido mode to split horizontally and switch after exiting"
+  (interactive)
+  (setq ido-exit-minibuffer-target-window 'horizontal)
+  (ido-exit-minibuffer))
+
+(defun spacemacs/ido-invoke-in-vertical-split ()
+  "signals ido mode to split vertically and switch after exiting"
+  (interactive)
+  (setq ido-exit-minibuffer-target-window 'vertical)
+  (ido-exit-minibuffer))
+
+(defun spacemacs/ido-invoke-in-new-frame ()
+  "signals ido mode to create a new frame after exiting"
+  (interactive)
+  (setq ido-exit-minibuffer-target-window 'frame)
+  (ido-exit-minibuffer))
+
+(defun spacemacs//ido-navigation-ms-set-face ()
+  "Set faces for ido navigation transient-state."
+  (setq spacemacs--ido-navigation-ms-face-cookie-minibuffer
+        (face-remap-add-relative
+         'minibuffer-prompt
+         'spacemacs-ido-navigation-ms-face)))
+
+(defun spacemacs//ido-navigation-ms-on-enter ()
+  "Initialization of ido transient-state."
+  (setq spacemacs--ido-navigation-ms-enabled t)
+  (spacemacs//ido-navigation-ms-set-face))
+
+(defun spacemacs//ido-navigation-ms-on-exit ()
+  "Action to perform when exiting ido transient-state."
+  (face-remap-remove-relative
+   spacemacs--ido-navigation-ms-face-cookie-minibuffer))
+
+(defun spacemacs//ido-navigation-ms-full-doc ()
+  "Full documentation for ido navigation transient-state."
+  "
+ [?]          display this help
+ [e]          enter dired
+ [j] [k]      next/previous match
+ [J] [K]      sub/parent directory
+ [h]          delete backward or parent directory
+ [l]          select match
+ [n] [p]      next/previous directory in history
+ [o]          open in other window
+ [s]          open in a new horizontal split
+ [t]          open in other frame
+ [v]          open in a new vertical split
+ [q]          quit")
