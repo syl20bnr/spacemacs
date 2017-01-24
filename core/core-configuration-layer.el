@@ -297,15 +297,14 @@ cache folder.")
     (setq package-enable-at-startup nil)
     (package-initialize 'noactivate)))
 
-(defun configuration-layer//install-quelpa ()
-  "Install `quelpa'."
+(defun configuration-layer//configure-quelpa ()
+  "Configure `quelpa' package."
   (setq quelpa-verbose init-file-debug
         quelpa-dir (concat spacemacs-cache-directory "quelpa/")
         quelpa-build-dir (expand-file-name "build" quelpa-dir)
         quelpa-persistent-cache-file (expand-file-name "cache" quelpa-dir)
         quelpa-update-melpa-p nil)
-  (configuration-layer/load-or-install-protected-package 'package-build)
-  (configuration-layer/load-or-install-protected-package 'quelpa))
+  (require 'quelpa))
 
 (defun configuration-layer//package-archive-absolute-pathp (archive)
   "Return t if ARCHIVE has an absolute path defined."
@@ -1397,7 +1396,7 @@ wether the declared layer is an used one or not."
             (side . bottom)
             (window-height . 0.2)))))
     ;; ensure we have quelpa available first
-    (configuration-layer//install-quelpa)
+    (configuration-layer//configure-quelpa)
     (let* ((upkg-names (configuration-layer//get-uninstalled-packages packages))
            (not-inst-count (length upkg-names))
            installed-count)
