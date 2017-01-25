@@ -45,7 +45,7 @@
         (recentf :location built-in)
         (savehist :location built-in)
         (saveplace :location built-in)
-        spacemacs-theme
+        (spacemacs-theme :location built-in)
         (subword :location built-in)
         (tar-mode :location built-in)
         (uniquify :location built-in)
