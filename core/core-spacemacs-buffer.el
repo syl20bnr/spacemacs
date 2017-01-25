@@ -144,8 +144,8 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
    ((or (not spacemacs-buffer--release-note-version)
         (version< spacemacs-buffer--release-note-version
                   spacemacs-version))
-    ;; check the variable ;; spacemacs-buffer--release-note-version
-    ;; to decide whether ;; we show the release note
+    ;; check the variable spacemacs-buffer--release-note-version
+    ;; to decide whether we show the release note
     (spacemacs-buffer/toggle-note 'release-note)))
   (spacemacs//redisplay))
 
