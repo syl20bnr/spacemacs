@@ -34,3 +34,7 @@
     (configuration-layer/discover-layers)
     (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
     (should (eq 'spacemacs-base (second configuration-layer--used-layers)))))
+
+;; ---------------------------------------------------------------------------
+;; Lazy installation of layers
+;; ---------------------------------------------------------------------------
