@@ -89,9 +89,18 @@ the final step of executing code in `emacs-startup-hook'.")
   (setq dotspacemacs-editing-style (dotspacemacs//read-editing-style-config
                                     dotspacemacs-editing-style))
   (configuration-layer/initialize)
-  ;; default theme
+  ;; Apply theme
   (let ((default-theme (car dotspacemacs-themes)))
-    (spacemacs/load-theme default-theme)
+    (condition-case err
+        (spacemacs/load-theme default-theme nil)
+      ('error
+       ;; fallback on Spacemacs default theme
+       (setq spacemacs--default-user-theme default-theme)
+       (setq dotspacemacs-themes (delq spacemacs--fallback-theme
+                                       dotspacemacs-themes))
+       (add-to-list 'dotspacemacs-themes spacemacs--fallback-theme)
+       (setq default-theme spacemacs--fallback-theme)
+       (load-theme spacemacs--fallback-theme t)))
     ;; protect used themes from deletion as orphans
     (setq configuration-layer--protected-packages
           (append
@@ -140,7 +149,10 @@ the final step of executing code in `emacs-startup-hook'.")
   (if dotspacemacs-mode-line-unicode-symbols
       (setq-default spacemacs-version-check-lighter "[⇪]"))
   ;; install the dotfile if required
-  (dotspacemacs/maybe-install-dotfile))
+  (dotspacemacs/maybe-install-dotfile)
+  ;; install user default theme if required
+  (when spacemacs--default-user-theme
+    (spacemacs/load-theme spacemacs--default-user-theme 'install)))
 
 (defun spacemacs//removes-gui-elements ()
   "Remove the menu bar, tool bar and scroll bars."
