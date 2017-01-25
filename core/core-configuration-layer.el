@@ -220,10 +220,10 @@ is not set for the given SLOT."
     (eval `(oset pkg ,slot value))))
 
 (defvar configuration-layer--elpa-archives
-  ;; '(("melpa" . "melpa.org/packages/")
-    ;; ("org"   . "orgmode.org/elpa/")
-    ;; ("gnu"   . "elpa.gnu.org/packages/"))
-  '(("spacelpa" . "~/.emacs.d/.cache/spacelpa/"))
+  '(("melpa" . "melpa.org/packages/")
+    ("org"   . "orgmode.org/elpa/")
+    ("gnu"   . "elpa.gnu.org/packages/"))
+  ;; '(("spacelpa" . "~/.emacs.d/.cache/spacelpa/"))
   "List of ELPA archives required by Spacemacs.")
 
 (defvar configuration-layer-exclude-all-layers nil
