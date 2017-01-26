@@ -2858,7 +2858,7 @@ project:
   - edit the occurrences then leave the =iedit state=
   - press ~C-c C-c~
 
-*Note*: In older versions of helm, you might instead use ~C-c C-e~
+*Note*: In older versions of helm, you might use ~C-c C-e~
 instead of ~C-z~ and selecting ~[f4] Edit search results~ after initiating a search.
 
 *Note*: In Spacemacs, =helm-ag= despite its name works with =rg=, =pt= and =ack=
