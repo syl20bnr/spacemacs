@@ -216,7 +216,11 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m r a p~ | add project dependency      |
 | ~SPC m r a r~ | add require to ns           |
 | ~SPC m r a u~ | add use to ns               |
-| ~SPC m r c c~ | cycle coll                  |
+| ~SPC m r c (~ | convert coll to list        |
+| ~SPC m r c '~ | convert coll to quoted list |
+| ~SPC m r c {~ | convert coll to map         |
+| ~SPC m r c #~ | convert coll to set         |
+| ~SPC m r c [~ | convert coll to vector      |
 | ~SPC m r c i~ | cycle if                    |
 | ~SPC m r c n~ | clean ns                    |
 | ~SPC m r c p~ | cycle privacy               |
