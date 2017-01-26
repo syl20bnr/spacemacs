@@ -25,4 +25,5 @@
     ))
 
 (defun chrome/init-gmail-message-mode ( )
-  (use-package gmail-message-mode))
+  (use-package gmail-message-mode
+    :defer t))
