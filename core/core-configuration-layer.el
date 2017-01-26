@@ -951,7 +951,8 @@ variable as well."
 (defun configuration-layer/make-packages-from-dotfile (&optional usedp)
   "Read the additonal packages declared in the dotfile and create packages.
 USEDP if non-nil indicates that made packages are used packages."
-  (dolist (pkg dotspacemacs-additional-packages)
+  (dolist (pkg (append dotspacemacs-additional-packages
+                       dotspacemacs--additional-packages))
     (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
            (obj (configuration-layer/get-package pkg-name)))
       (if obj

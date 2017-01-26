@@ -103,26 +103,9 @@ the final step of executing code in `emacs-startup-hook'.")
   (setq dotspacemacs-editing-style (dotspacemacs//read-editing-style-config
                                     dotspacemacs-editing-style))
   (configuration-layer/initialize)
-  ;; Apply theme
-  (let ((default-theme (car dotspacemacs-themes)))
-    (condition-case err
-        (spacemacs/load-theme default-theme nil)
-      ('error
-       ;; fallback on Spacemacs default theme
-       (setq spacemacs--default-user-theme default-theme)
-       (setq dotspacemacs-themes (delq spacemacs--fallback-theme
-                                       dotspacemacs-themes))
-       (add-to-list 'dotspacemacs-themes spacemacs--fallback-theme)
-       (setq default-theme spacemacs--fallback-theme)
-       (load-theme spacemacs--fallback-theme t)))
-    ;; protect used themes from deletion as orphans
-    (setq configuration-layer--protected-packages
-          (append
-           (delq nil (mapcar 'spacemacs//get-theme-package
-                             dotspacemacs-themes))
-           configuration-layer--protected-packages))
-    (setq-default spacemacs--cur-theme default-theme)
-    (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
+  ;; theme
+  (spacemacs/load-theme (car dotspacemacs-themes)
+                             spacemacs--fallback-theme)
   ;; font
   (spacemacs|do-after-display-system-init
    ;; If you are thinking to remove this call to `message', think twice. You'll
@@ -163,10 +146,7 @@ the final step of executing code in `emacs-startup-hook'.")
   (if dotspacemacs-mode-line-unicode-symbols
       (setq-default spacemacs-version-check-lighter "[⇪]"))
   ;; install the dotfile if required
-  (dotspacemacs/maybe-install-dotfile)
-  ;; install user default theme if required
-  (when spacemacs--default-user-theme
-    (spacemacs/load-theme spacemacs--default-user-theme 'install)))
+  (dotspacemacs/maybe-install-dotfile))
 
 (defun spacemacs//removes-gui-elements ()
   "Remove the menu bar, tool bar and scroll bars."
@@ -230,6 +210,8 @@ defer call using `spacemacs-post-user-config-hook'."
      (when (fboundp dotspacemacs-scratch-mode)
        (with-current-buffer "*scratch*"
          (funcall dotspacemacs-scratch-mode)))
+     (when spacemacs--delayed-user-theme
+       (spacemacs/load-theme spacemacs--delayed-user-theme))
      (configuration-layer/display-summary emacs-start-time)
      (spacemacs-buffer//startup-hook)
      (spacemacs/check-for-new-version nil spacemacs-version-check-interval)
