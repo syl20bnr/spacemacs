@@ -544,8 +544,7 @@ If MESSAGEBUF is not nil then MSG is also written in message buffer."
     (goto-char (point-max))
     (let ((buffer-read-only nil))
       (insert msg)
-      (if messagebuf (message "(Spacemacs) %s" msg)))
-    (spacemacs-buffer/set-mode-line "")))
+      (if messagebuf (message "(Spacemacs) %s" msg)))))
 
 (defun spacemacs-buffer/replace-last-line (msg &optional messagebuf)
   "Replace the last line of the spacemacs buffer with MSG.
@@ -555,8 +554,7 @@ If MESSAGEBUF is not nil then MSG is also written in message buffer."
     (let ((buffer-read-only nil))
       (delete-region (line-beginning-position) (point-max))
       (insert msg)
-      (if messagebuf (message "(Spacemacs) %s" msg)))
-    (spacemacs-buffer/set-mode-line "")))
+      (if messagebuf (message "(Spacemacs) %s" msg)))))
 
 (defun spacemacs-buffer/loading-animation ()
   "Display the progress bar by chunks of size `spacemacs--loading-dots-chunk-threshold'."
