@@ -2792,7 +2792,8 @@ several files can be performed via [[https://github.com/syohex/emacs-helm-ag][he
 Say you want to replace all =foo= occurrences by =bar= in your current
 project:
   - initiate a search with ~SPC /~
-  - enter in edit mode with ~C-c C-e~
+  - show helm actions list with ~C-z~
+  - enter in edit mode by selecting ~[f4] Edit search results~
   - go to the occurrence and enter in =iedit state= with ~SPC s e~
   - edit the occurrences then leave the =iedit state=
   - press ~C-c C-c~
