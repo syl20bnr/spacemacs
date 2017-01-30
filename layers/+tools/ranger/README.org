@@ -47,7 +47,7 @@ dired buffer.
 
 You can choose to show dotfiles at ranger startup, toggled by =zh=
 #+BEGIN_SRC elisp
-(setq ranger-show-dotfiles t)
+(setq ranger-show-hidden t)
 #+END_SRC
 
 Define custom function used to output header of primary ranger window. Must
@@ -84,7 +84,7 @@ frame size to prevent filling up entire frame with parents.
 
 You can choose to show previews literally, or through find-file, toggled by =zi=
 #+BEGIN_SRC elisp
-(setq ranger-show-dotfiles t)
+(setq ranger-show-literal t)
 #+END_SRC
 
 You can set the size of the preview windows as a fraction of the frame size
