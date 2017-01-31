@@ -1,2 +1,2 @@
-(defvar chrome-exec-path "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+(defvar chrome-exec-path nil
   "The chrome browser installation directory")

@@ -36,17 +36,17 @@
       (defun start-browser(browser url)
         (let ((process-environment (browse-url-process-environment)))
           (apply 'start-process
-                 (concat "flymd" url) nil
+                 "flymd" nil
                  browser
-                 (list "--allow-file-access-from-files" url))))
+                 (list "--new-window" "--allow-file-access-from-files" url))))
+
       (defun my-flymd-browser-function (url)
-        (let ((browser-path
                (cond
-                ((executable-find "chromium") (executable-find "chromium"))
-                ((executable-find "google-chrome") (executable-find "goolge-chrome"))
-                ((executable-find "goolge-chrome-stable") (executable-find "goolge-chrome-stable"))
-                (chrome-exec-path chrome-exec-path)
-                (t (message "no useful browser")))))
-          (start-browser browser-path url)))
+                ((executable-find "chromium") (start-browser (executable-find "chromium") url))
+                ((executable-find "google-chrome") (start-browser (executable-find "goolge-chrome") url))
+                ((executable-find "google-chrome-stable") (start-browser (executable-find "goolge-chrome-stable") url))
+                (chrome-exec-path (start-browser chrome-exec-path url))
+                (t (message "no useful browser"))))
+
       (setq flymd-browser-open-function 'my-flymd-browser-function)
       )))
