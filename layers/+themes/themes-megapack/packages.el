@@ -1,6 +1,6 @@
 ;;; packages.el --- Themes Mega-Pack Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -54,6 +54,7 @@
     jbeans-theme
     light-soap-theme
     lush-theme
+    madhat2r-theme
     majapahit-theme
     material-theme
     minimal-theme
@@ -84,7 +85,6 @@
     soft-morning-theme
     soft-stone-theme
     soothe-theme
-    sourcerer-theme
     spacegray-theme
     subatomic-theme
     subatomic256-theme
