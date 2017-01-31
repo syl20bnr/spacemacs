@@ -31,12 +31,12 @@
         "\n\n
  Go to^^^^^^                         Actions^^
  ─────^^^^^^───────────────────────  ───────^^──────────────────────
- [_0_,_9_]^^     nth/new workspace   [_d_] close current workspace
- [_C-0_,_C-9_]^^ nth/new workspace   [_R_] rename current workspace
- [_<tab>_]^^^^   last workspace      [_?_] toggle help\n
- [_l_]^^^^       layouts
- [_n_/_C-l_]^^   next workspace
- [_N_/_p_/_C-h_] prev workspace\n")
+ [_0_.._9_]^^     nth/new workspace  [_d_] close current workspace
+ [_C-0_.._C-9_]^^ nth/new workspace  [_R_] rename current workspace
+ [_<tab>_]^^^^    last workspace     [_?_] toggle help\n
+ [_l_]^^^^        layouts
+ [_n_/_C-l_]^^    next workspace
+ [_N_/_p_/_C-h_]  prev workspace\n")
 
       (spacemacs|define-transient-state workspaces
         :title "Workspaces Transient State"
@@ -133,18 +133,18 @@
         spacemacs--layouts-ts-full-hint
         "\n\n
  Go to^^^^^^                                  Actions^^
- ─────^^^^^^──────────────────────────────    ───────^^──────────────────────────────────────────────────
- [_0_,_9_]^^     nth/new layout               [_a_]^^   add buffer
- [_C-0_,_C-9_]^^ nth/new layout               [_A_]^^   add all from layout
- [_<tab>_]^^^^   last layout                  [_d_]^^   close current layout
- [_b_]^^^^       buffer in layout             [_D_]^^   close other layout
- [_h_]^^^^       default layout               [_r_]^^   remove current buffer
- [_l_]^^^^       layout w/helm/ivy            [_R_]^^   rename current layout
- [_L_]^^^^       layouts in file              [_s_/_S_] save all layouts/save by names
- [_n_/_C-l_]^^   next layout                  [_t_]^^   show a buffer without adding it to current layout
- [_N_/_p_/_C-h_] prev layout                  [_x_]^^   kill current w/buffers
- [_o_]^^^^       custom layout                [_X_]^^   kill other w/buffers
- [_w_]^^^^       workspaces transient state   [_?_]^^   toggle help\n")
+ ─────^^^^^^────────────────────────────────  ───────^^──────────────────────────────────────────────────
+ [_0_.._9_]^^     nth/new layout              [_a_]^^   add buffer
+ [_C-0_.._C-9_]^^ nth/new layout              [_A_]^^   add all from layout
+ [_<tab>_]^^^^    last layout                 [_d_]^^   close current layout
+ [_b_]^^^^        buffer in layout            [_D_]^^   close other layout
+ [_h_]^^^^        default layout              [_r_]^^   remove current buffer
+ [_l_]^^^^        layout w/helm/ivy           [_R_]^^   rename current layout
+ [_L_]^^^^        layouts in file             [_s_/_S_] save all layouts/save by names
+ [_n_/_C-l_]^^    next layout                 [_t_]^^   show a buffer without adding it to current layout
+ [_N_/_p_/_C-h_]  prev layout                 [_x_]^^   kill current w/buffers
+ [_o_]^^^^        custom layout               [_X_]^^   kill other w/buffers
+ [_w_]^^^^        workspaces transient state  [_?_]^^   toggle help\n")
 
       (spacemacs|define-transient-state layouts
         :title "Layouts Transient State"
