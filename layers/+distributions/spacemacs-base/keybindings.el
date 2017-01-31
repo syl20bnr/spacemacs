@@ -466,10 +466,10 @@
 (spacemacs|define-transient-state buffer
   :title "Buffer Selection Transient State"
   :doc (concat "
- [_C-1_,_C-9_] goto nth window            [_n_]^^   next buffer
- [_1_,_9_]     move buffer to nth window  [_N_/_p_] previous buffer
- [_M-1_,_M-9_] swap buffer w/ nth window  [_d_]^^   kill buffer
- ^^^^                                     [_q_]^^   quit")
+ [_C-1_.._C-9_] goto nth window            [_n_]^^   next buffer
+ [_1_.._9_]     move buffer to nth window  [_N_/_p_] previous buffer
+ [_M-1_.._M-9_] swap buffer w/ nth window  [_d_]^^   kill buffer
+ ^^^^                                      [_q_]^^   quit")
   :bindings
   ("n" next-buffer)
   ("N" previous-buffer)
