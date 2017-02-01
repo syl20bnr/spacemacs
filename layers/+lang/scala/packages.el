@@ -173,6 +173,8 @@
         "sr"     'ensime-inf-eval-region
         "sR"     'ensime-inf-eval-region-switch
 
+        "x"      'sbt-hydra
+
         "yT"     'scala/yank-type-at-point-full-name
         "yt"     'scala/yank-type-at-point
 
