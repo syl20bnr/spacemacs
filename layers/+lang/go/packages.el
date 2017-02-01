@@ -22,7 +22,7 @@
         go-eldoc
         go-mode
         go-guru
-        (go-rename :location local)
+        go-rename
         ))
 
 
