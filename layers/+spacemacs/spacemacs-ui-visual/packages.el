@@ -185,7 +185,7 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
 ───────^^^^─────────────── ───────^^──────── ───────^^^────────────────
 [_L_]   next sibling^^     [_c_] create      [_TAB_] shrink/enlarge
 [_H_]   previous sibling^^ [_C_] copy        [_|_]   vertical split
-[_J_]   goto child^^       [_d_] delete      [_-_]   horizonatal split
+[_J_]   goto child^^       [_d_] delete      [_-_]   horizontal split
 [_K_]   goto parent^^      [_r_] rename      [_gr_]  refresh^
 [_l_]   open/expand^^      [_R_] change root [_s_]   hidden:^^^ %s(if neo-buffer--show-hidden-file-p \"on\" \"off\")
 [_h_]   up/collapse^^      ^^                ^^^
