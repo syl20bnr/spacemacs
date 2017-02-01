@@ -44,8 +44,8 @@
                (cond
                 (chrome-exec-path (start-browser chrome-exec-path url))
                 ((executable-find "chromium") (start-browser (executable-find "chromium") url))
-                ((executable-find "google-chrome") (start-browser (executable-find "goolge-chrome") url))
-                ((executable-find "google-chrome-stable") (start-browser (executable-find "goolge-chrome-stable") url))
+                ((executable-find "google-chrome") (start-browser (executable-find "google-chrome") url))
+                ((executable-find "google-chrome-stable") (start-browser (executable-find "google-chrome-stable") url))
                 (t (message "no useful browser"))))
 
       (setq flymd-browser-open-function 'my-flymd-browser-function)
