@@ -1390,8 +1390,8 @@ Press ~?~ to toggle the full help.
 |-------------------+------------------------------------------------------------|
 | ~SPC l~           | activate the transient- state                              |
 | ~?~               | toggle the documentation                                   |
-| ~[1..9, 0]~       | switch to nth layout                                       |
-| ~[C-1..C-9, C-0]~ | switch to nth layout and keep the transient state active   |
+| ~[0..9]~          | switch to nth layout                                       |
+| ~[C-0..C-9]~      | switch to nth layout and keep the transient state active   |
 | ~<tab>~           | switch to the latest layout                                |
 | ~a~               | add a buffer to the current layout                         |
 | ~A~               | add all the buffers from another layout in the current one |
@@ -1445,8 +1445,8 @@ Press ~?~ to toggle the full help.
 |-------------------+-------------------------------------------------------------|
 | ~SPC l w~         | activate the transient state                                |
 | ~?~               | toggle the documentation                                    |
-| ~[1..9, 0]~       | switch to nth workspace                                     |
-| ~[C-1..C-9, C-0]~ | switch to nth workspace and keep the transient state active |
+| ~[0..9]~          | switch to nth workspace                                     |
+| ~[C-0..C-9]~      | switch to nth workspace and keep the transient state active |
 | ~TAB~             | switch to last active workspace                             |
 | ~d~               | close current workspace                                     |
 | ~n~ or ~l~        | switch to next workspace                                    |
