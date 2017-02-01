@@ -30,6 +30,7 @@ file.
 Google Chrome extension [[https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh][Edit with Emacs]]. You have to install this extension.
 
 More information can be found on [[http://www.emacswiki.org/emacs/Edit_with_Emacs][Emacs Wiki]].
+
 The edit server is configured to start automatically when Spacemacs starts.
 
 * Configuration
@@ -52,8 +53,12 @@ To change frame defaults (width, height, etc. use =edit-server-new-frame-alist=)
   (add-to-list 'edit-server-new-frame-alist '(height . 60))
 #+END_SRC
 
-If you want Emacs to switch focus to Chrome after done editing, you can utilize =edit-server-done-hook=.
-Emacs cannot control focus of windows for external apps, so you need to use some sort of command line window manager like =wmctrl=.
+If you want Emacs to switch focus to Chrome after done editing, you can utilize
+=edit-server-done-hook=.
+
+Emacs cannot control focus of windows for external apps, so you need to use some
+sort of command line window manager like =wmctrl=.
+
 The following example works on OS X:
 
 #+BEGIN_SRC emacs-lisp
@@ -63,6 +68,7 @@ The following example works on OS X:
 * Key bindings
 
 | Key Binding | Description |
+|-------------+-------------|
 | ~SPC a F~   | flymd-flyit |
 
-*Note:* You need to kill all google chrome process before using flymd-flyit
+*Note:* You need to kill all google chrome process before using =flymd-flyit=.
