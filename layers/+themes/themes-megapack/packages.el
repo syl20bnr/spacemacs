@@ -84,6 +84,7 @@
     soft-charcoal-theme
     soft-morning-theme
     soft-stone-theme
+    solarized-theme
     soothe-theme
     spacegray-theme
     subatomic-theme
