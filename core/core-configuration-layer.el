@@ -223,6 +223,7 @@ is not set for the given SLOT."
   '(("melpa" . "melpa.org/packages/")
     ("org"   . "orgmode.org/elpa/")
     ("gnu"   . "elpa.gnu.org/packages/"))
+  ;; '(("spacelpa" . "~/.emacs.d/.cache/spacelpa/"))
   "List of ELPA archives required by Spacemacs.")
 
 (defvar configuration-layer-exclude-all-layers nil
@@ -950,7 +951,8 @@ variable as well."
 (defun configuration-layer/make-packages-from-dotfile (&optional usedp)
   "Read the additonal packages declared in the dotfile and create packages.
 USEDP if non-nil indicates that made packages are used packages."
-  (dolist (pkg dotspacemacs-additional-packages)
+  (dolist (pkg (append dotspacemacs-additional-packages
+                       dotspacemacs--additional-packages))
     (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
            (obj (configuration-layer/get-package pkg-name)))
       (if obj
@@ -1110,6 +1112,8 @@ Returns nil if the directory is not a category."
   ;; must have the final word on configuration choices. Let
   ;; `dotspacemacs-directory' override the private directory if it exists.
   (setq  configuration-layer--indexed-layers (make-hash-table :size 1024))
+  (spacemacs-buffer/set-mode-line "Indexing layers...")
+  (spacemacs//redisplay)
   (let ((search-paths (append
                        ;; layers shipped with spacemacs
                        (list configuration-layer-directory)
@@ -1402,6 +1406,8 @@ wether the declared layer is an used one or not."
            installed-count)
       ;; installation
       (when upkg-names
+        (spacemacs-buffer/set-mode-line "Installing packages...")
+        (spacemacs//redisplay)
         (let ((delayed-warnings-backup delayed-warnings-list))
           (spacemacs-buffer/append
            (format "Found %s new package(s) to install...\n"
@@ -2052,17 +2058,18 @@ depends on it."
 	(insert "\n")))))
 
 (defun configuration-layer/load-or-install-protected-package
-    (pkg &optional log file-to-load)
+    (pkg &optional install log file-to-load)
   "Load PKG package, and protect it against being deleted as an orphan.
 See `configuration-layer/load-or-install-package' for more information."
   (push pkg configuration-layer--protected-packages)
   (configuration-layer/load-or-install-package pkg log file-to-load))
 
 (defun configuration-layer/load-or-install-package
-    (pkg &optional log file-to-load)
+    (pkg &optional install log file-to-load)
   "Load PKG package. PKG will be installed if it is not already installed.
 Whenever the initial require fails the absolute path to the package
 directory is returned.
+If INSTALL is non-nil then try to install the package if needed.
 If LOG is non-nil a message is displayed in spacemacs-buffer-mode buffer.
 FILE-TO-LOAD is an explicit file to load after the installation."
   (let ((warning-minimum-level :error))
@@ -2075,17 +2082,18 @@ FILE-TO-LOAD is an explicit file to load after the installation."
         (if pkg-elpa-dir
             (add-to-list 'load-path pkg-elpa-dir)
           ;; install the package
-          (when log
-            (spacemacs-buffer/append
-             (format "(Bootstrap) Installing %s...\n" pkg))
-            (spacemacs//redisplay))
-          (configuration-layer/retrieve-package-archives 'quiet)
-          (let ((delayed-warnings-backup delayed-warnings-list))
-            (package-install pkg)
-            (unless init-file-debug
-              (setq delayed-warnings-list delayed-warnings-backup)))
-          (setq pkg-elpa-dir
-                (configuration-layer/get-elpa-package-install-directory pkg)))
+          (when install
+            (when log
+              (spacemacs-buffer/append
+               (format "Installing package: %s...\n" pkg))
+              (spacemacs//redisplay))
+            (configuration-layer/retrieve-package-archives 'quiet)
+            (let ((delayed-warnings-backup delayed-warnings-list))
+              (package-install pkg)
+              (unless init-file-debug
+                (setq delayed-warnings-list delayed-warnings-backup)))
+            (setq pkg-elpa-dir
+                  (configuration-layer/get-elpa-package-install-directory pkg))))
         (unless (configuration-layer/get-package pkg)
           (let ((obj (configuration-layer/make-package pkg 'system)))
                 (configuration-layer//add-package obj)))

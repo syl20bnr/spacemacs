@@ -144,8 +144,8 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
    ((or (not spacemacs-buffer--release-note-version)
         (version< spacemacs-buffer--release-note-version
                   spacemacs-version))
-    ;; check the variable ;; spacemacs-buffer--release-note-version
-    ;; to decide whether ;; we show the release note
+    ;; check the variable spacemacs-buffer--release-note-version
+    ;; to decide whether we show the release note
     (spacemacs-buffer/toggle-note 'release-note)))
   (spacemacs//redisplay))
 
@@ -544,8 +544,8 @@ If MESSAGEBUF is not nil then MSG is also written in message buffer."
     (goto-char (point-max))
     (let ((buffer-read-only nil))
       (insert msg)
-      (if messagebuf (message "(Spacemacs) %s" msg)))
-    (spacemacs-buffer/set-mode-line "")))
+      (when messagebuf
+        (message "(Spacemacs) %s" msg)))))
 
 (defun spacemacs-buffer/replace-last-line (msg &optional messagebuf)
   "Replace the last line of the spacemacs buffer with MSG.
@@ -555,8 +555,8 @@ If MESSAGEBUF is not nil then MSG is also written in message buffer."
     (let ((buffer-read-only nil))
       (delete-region (line-beginning-position) (point-max))
       (insert msg)
-      (if messagebuf (message "(Spacemacs) %s" msg)))
-    (spacemacs-buffer/set-mode-line "")))
+      (when messagebuf
+        (message "(Spacemacs) %s" msg)))))
 
 (defun spacemacs-buffer/loading-animation ()
   "Display the progress bar by chunks of size `spacemacs--loading-dots-chunk-threshold'."

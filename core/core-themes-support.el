@@ -12,6 +12,12 @@
 (defconst emacs-built-in-themes (cons 'default (custom-available-themes))
   "List of emacs built-in themes")
 
+(defvar spacemacs--fallback-theme 'spacemacs-dark
+  "Fallback theme if user theme cannot be applied.")
+
+(defvar spacemacs--delayed-user-theme nil
+  "Internal variable storing user theme to be installed.")
+
 (defface org-kbd
   '((t (:background "LemonChiffon1" :foreground "black" :box
                     (:line-width 2 :color nil :style released-button))))
@@ -161,7 +167,7 @@ package name does not match theme name + `-theme' suffix.")
 (defvar spacemacs-post-theme-change-hook nil
   "Hook run after theme has changed.")
 
-(defun spacemacs//get-theme-package (theme)
+(defun spacemacs/get-theme-package (theme)
   "Returns the package theme for the given THEME name."
   (cond
    ;; built-in
@@ -172,54 +178,63 @@ package name does not match theme name + `-theme' suffix.")
    ;; fallback to <name>-theme
    (t (intern (format "%S-theme" theme)))))
 
-(defun spacemacs/load-theme (theme)
-  "Load THEME."
-  ;; Required dependencies for some themes
-  (condition-case-unless-debug err
+(defun spacemacs/load-theme (theme &optional fallback-theme disable)
+  "Apply user theme.
+If FALLBACK-THEME is non-nil it must be a package name which will be loaded if
+THEME cannot be applied.
+If DISABLE is non-nil then disable all previously applied themes before applying
+THEME."
+  (spacemacs//add-themes-to-additional-packages dotspacemacs-themes)
+  (condition-case err
       (progn
-        (when (or (memq theme '(zonokai-blue
-                                zonokai-red
-                                solarized-light
-                                solarized-dark
-                                doom-one
-                                doom-molokai)))
-          (configuration-layer/load-or-install-package 'dash))
-        ;; Unless Emacs stock themes
+        ;; Load theme
         (unless (or (memq theme (custom-available-themes))
                     (eq 'default theme))
-          (cond
-           ;; themes with explicitly declared package names
-           ((assq theme spacemacs-theme-name-to-package)
-            (let* ((pkg (spacemacs//get-theme-package theme))
-                   (pkg-dir (configuration-layer/load-or-install-package pkg)))
+          (let* ((pkg (spacemacs/get-theme-package theme))
+               (pkg-dir
+                (when pkg
+                  (configuration-layer/get-elpa-package-install-directory
+                   pkg))))
+            (when pkg-dir
+              (add-to-list 'custom-theme-load-path pkg-dir)
               (when (or (eq 'moe-light theme)
                         (eq 'moe-dark theme))
                 (load-file (concat pkg-dir "moe-light-theme.el"))
-                (load-file (concat pkg-dir "moe-dark-theme.el")))
-              (add-to-list 'custom-theme-load-path pkg-dir)))
-           (t
-            ;; other themes
-            ;; we assume that the package name is suffixed with `-theme'
-            ;; if not we will handle the special themes as we get issues
-            ;; in the tracker.
-            (let ((pkg (spacemacs//get-theme-package theme)))
-              (configuration-layer/load-or-install-package pkg))))))
+                (load-file (concat pkg-dir "moe-dark-theme.el"))))))
+        (when disable
+          (mapc 'disable-theme custom-enabled-themes))
+        (eval `(spacemacs|do-after-display-system-init
+                (load-theme ',theme t)))
+        (setq-default spacemacs--cur-theme theme)
+        (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
     ('error
-     (setq theme 'default)
-     (display-warning 'spacemacs
-                      (format (concat "An error occurred while retrieving the "
-                                      "theme, using default theme. (error: %s)")
-                              err)
-                      :warning)))
-  (mapc 'disable-theme custom-enabled-themes)
-  (if (eq 'default theme)
-      (progn
-        (setq spacemacs--cur-theme 'default)
-        (spacemacs/post-theme-init 'default))
-    (load-theme theme t)
-    ;; explicitly reload the theme for the first GUI client
-    (eval `(spacemacs|do-after-display-system-init
-            (load-theme ',theme t)))))
+     (if fallback-theme
+         ;; fallback to Spacemacs default theme
+         (progn
+           (setq spacemacs--delayed-user-theme theme)
+           (spacemacs/load-fallback-theme fallback-theme disable))
+       ;; no fallback theme was specified, so we log explicit warning
+       (spacemacs-buffer/warning
+        (concat "An error occurred while applying "
+                "the theme \"%s\", fallback on theme \"%s\". \n"
+                "Error was: %s") theme spacemacs--fallback-theme err)
+       (spacemacs-buffer/warning
+        (concat "Please check the value of \"dotspacemacs-themes\" in your "
+                "dotfile or open an issue \n"
+                "so we can add support for the theme \"%s\".") theme)))))
+
+(defun spacemacs/load-fallback-theme (theme &optional disable)
+  "Apply the fallback theme.
+If DISABLE is non-nil then disable all previously applied themes before applying
+THEME."
+  ;; pop up fallback theme to the top of the list
+  (setq spacemacs--cur-theme theme)
+  (setq dotspacemacs-themes (delq theme dotspacemacs-themes))
+  (add-to-list 'dotspacemacs-themes theme)
+  (when disable
+    (mapc 'disable-theme custom-enabled-themes))
+  (eval `(spacemacs|do-after-display-system-init
+          (load-theme ',theme t))))
 
 (defun spacemacs/cycle-spacemacs-theme ()
   "Cycle through themes defined in `dotspacemacs-themes.'"
@@ -251,5 +266,12 @@ package name does not match theme name + `-theme' suffix.")
 has been changed to THEME."
   (interactive)
   (run-hooks 'spacemacs-post-theme-change-hook))
+
+(defun spacemacs//add-themes-to-additional-packages (themes)
+  "Add the THEMES packages to `dotspacemacs-additional-packages'."
+  (dolist (theme themes)
+    (let ((pkg (spacemacs/get-theme-package theme)))
+      (when pkg
+        (add-to-list 'dotspacemacs--additional-packages pkg)))))
 
 (provide 'core-themes-support)

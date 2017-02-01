@@ -1,4 +1,4 @@
-;;; packages.el --- Go Layer packages File for Spacemacs
+;;; config.el --- Go Layer config File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;

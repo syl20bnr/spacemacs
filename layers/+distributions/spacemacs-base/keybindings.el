@@ -469,10 +469,10 @@
 (spacemacs|define-transient-state buffer
   :title "Buffer Selection Transient State"
   :doc (concat "
- [_C-1_,_C-9_]^^  goto nth window              [_n_]^^     next buffer
- [_1_,_9_]^^      move buffer to nth window    [_N_/_p_]   previous buffer
- [_M-1_,_M-9_]^^  swap buffer w/ nth window    [_d_]^^     kill buffer
-              ^^^^^^                           [_q_]^^     quit")
+ [_C-1_.._C-9_] goto nth window            [_n_]^^   next buffer
+ [_1_.._9_]     move buffer to nth window  [_N_/_p_] previous buffer
+ [_M-1_.._M-9_] swap buffer w/ nth window  [_d_]^^   kill buffer
+ ^^^^                                      [_q_]^^   quit")
   :bindings
   ("n" next-buffer)
   ("N" previous-buffer)
@@ -535,16 +535,17 @@
 (spacemacs|define-transient-state window-manipulation
   :title "Window Manipulation Transient State"
   :doc (concat "
- Select^^^^              Move^^^^              Split^^                Resize^^                     Other^^
- ──────^^^^───────────── ────^^^^───────────── ─────^^─────────────── ──────^^──────────────────── ─────^^──────────────────────────────
- [_j_/_k_] down/up       [_J_/_K_] down/up     [_s_] vertical         [_[_] shrink horizontally    [_q_] quit
- [_h_/_l_] left/right    [_H_/_L_] left/right  [_S_] vert & follow    [_]_] enlarge horizontally   [_u_] restore prev layout
- [_0_-_9_] window N      [_r_]^^   rotate fwd  [_v_] horizontal       [_{_] shrink vertically      [_U_] restore next layout
- [_w_]^^   other window  [_R_]^^   rotate bwd  [_V_] horiz & follow   [_}_] enlarge vertically     [_d_] close current
- [_o_]^^   other frame   ^^^^                  ^^                     ^^                           [_D_] close other"
+ Select^^^^               Move^^^^              Split^^               Resize^^             Other^^
+ ──────^^^^─────────────  ────^^^^────────────  ─────^^─────────────  ──────^^───────────  ─────^^──────────────────
+ [_j_/_k_]  down/up       [_J_/_K_] down/up     [_s_] vertical        [_[_] shrink horiz   [_u_] restore prev layout
+ [_h_/_l_]  left/right    [_H_/_L_] left/right  [_S_] verti & follow  [_]_] enlarge horiz  [_U_] restore next layout
+ [_0_.._9_] window 0..9   [_r_]^^   rotate fwd  [_v_] horizontal      [_{_] shrink verti   [_d_] close current
+ [_w_]^^    other window  [_R_]^^   rotate bwd  [_V_] horiz & follow  [_}_] enlarge verti  [_D_] close other
+ [_o_]^^    other frame   ^^^^                  ^^                    ^^                   "
                (if (configuration-layer/package-usedp 'golden-ratio)
-                   "\n ^^^^                    ^^^^                  ^^                     ^^                           [_g_] golden-ratio %`golden-ratio-mode"
-                 ""))
+                   "[_g_] golden-ratio %`golden-ratio-mode"
+                 "")
+               "\n ^^^^                     ^^^^                  ^^                    ^^                   [_q_] quit")
   :bindings
   ("q" nil :exit t)
   ("0" winum-select-window-0)
