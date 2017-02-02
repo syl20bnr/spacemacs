@@ -62,6 +62,10 @@
  - [[#binding-keys][Binding keys]]
  - [[#gui-elements][GUI Elements]]
    - [[#color-themes][Color themes]]
+     - [[#default-theme][Default theme]]
+     - [[#choosing-themes][Choosing themes]]
+     - [[#browsing-themes][Browsing themes]]
+     - [[#notes][Notes]]
    - [[#font][Font]]
    - [[#gui-toggles][GUI Toggles]]
        - [[#global-line-numbers][Global line numbers]]
@@ -987,6 +991,7 @@ Spacemacs has a minimalistic and distraction free graphical UI:
   - [[Errors handling][custom fringe bitmaps]] and error feedbacks for [[https://github.com/flycheck/flycheck][Flycheck]]
 
 ** Color themes
+*** Default theme
 The official Spacemacs theme is [[https://github.com/nashamri/spacemacs-theme][spacemacs-dark]] and it is the default theme
 installed when you first started Spacemacs. There are two variants of the
 theme, a dark one and a light one. Some aspects of these themes can be customized
@@ -994,6 +999,7 @@ in the function =dotspacemacs/user-init= of your =~/.spacemacs=:
   - the comment background with the boolean =spacemacs-theme-comment-bg=
   - the height of org section titles with =spacemacs-theme-org-height=
 
+*** Choosing themes
 It is possible to define your default themes in your =~/.spacemacs= with the
 variable =dotspacemacs-themes=. For instance, to specify =spacemacs-light=,
 =leuven= and =zenburn=:
@@ -1002,26 +1008,44 @@ variable =dotspacemacs-themes=. For instance, to specify =spacemacs-light=,
 (setq-default dotspacemacs-themes '(spacemacs-light leuven zenburn))
 #+END_SRC
 
+=dotspacemacs-themes= entries accept the same properties as packages listed
+in layers package lists or in =dotspacemacs-addtional-packages=. So it is
+possible to fetch a package from a specific location. For example, you could
+fetch =zenburn= theme directly from the GitHub repository with the following
+declaration:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-themes
+              '(spacemacs-light
+              leuven
+              (zenburn :location (recipe :fetcher github
+                                         :repo "bbatsov/zenburn-emacs"))
+              ))
+#+END_SRC
+
+You can cycle between the themes declared in =dotspacemacs-themes= with
+~SPC T n~ and select an installed theme with ~SPC T s~.
+
 | Key Binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC T n~   | switch to next theme listed in =dotspacemacs-themes=. |
 | ~SPC T s~   | select a theme using a =helm= buffer.                 |
 
-You can see samples of all included themes in this [[http://themegallery.robdor.com][theme gallery]] from [[http://www.twitter.com/robmerrell][Rob Merrell]].
+*** Browsing themes
+You can see samples of all themes included in the =themes-megapack= layer
+in this [[http://themegallery.robdor.com][theme gallery]] from [[http://www.twitter.com/robmerrell][Rob Merrell]].
 
-*Note*:
-  - You don't need to explicitly list in a layer the theme packages you are
-    defining in =dotspacemacs-themes=, Spacemacs is smart enough to remove those
-    packages from the list of orphans.
-  - Due to the inner working of themes in Emacs, switching theme during the same
-    session may have some weird side effects. Although these side effects should
-    be pretty rare.
-  - In the terminal version of Emacs, color themes will not render correctly as
-    colors are rendered by the terminal and not by emacs. You will probably have
-    to change your terminal color palette. More explanations can be found on
-    [[https://github.com/sellout/emacs-color-theme-solarized#important-note-for-terminal-users][emacs-color-theme-solarized webpage]].
-
-*Hint*: If you are an =Org= user, [[https://github.com/fniessen/emacs-leuven-theme][leuven-theme]] is amazing ;-)
+*** Notes
+- You don't need to explicitly list in a layer the theme packages you are
+  defining in =dotspacemacs-themes=, Spacemacs is smart enough to remove those
+  packages from the list of orphans.
+- Due to the inner working of themes in Emacs, switching theme during the same
+  session may have some weird side effects. Although these side effects should
+  be pretty rare.
+- In the terminal version of Emacs, color themes will not render correctly as
+  colors are rendered by the terminal and not by emacs. You will probably have
+  to change your terminal color palette. More explanations can be found on
+  [[https://github.com/sellout/emacs-color-theme-solarized#important-note-for-terminal-users][emacs-color-theme-solarized webpage]].
 
 ** Font
 The default font used by Spacemacs is [[https://github.com/adobe-fonts/source-code-pro][Source Code Pro]] by Adobe. It is
