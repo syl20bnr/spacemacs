@@ -13,6 +13,7 @@
   '(
     auto-complete
     (auto-complete-rst :toggle (configuration-layer/package-usedp 'auto-complete))
+    linum
     (rst :location built-in)
     (rst-directives :location local)
     (rst-lists :location local)
@@ -31,6 +32,11 @@
     :init (spacemacs/add-to-hook 'rst-mode-hook '(auto-complete-rst-init
                                                   auto-complete-rst-add-sources))))
 
+(defun restructuredtext/init-post-linum ()
+  ;; important auto-complete work-around to be applied to make both linum
+  ;; and auto-complete to work together
+  (when (configuration-layer/package-usedp 'auto-complete)
+    (add-hook 'rst-mode-hook 'ac-linum-workaround t)))
 
 (defun restructuredtext/init-rst-directives ()
   (use-package rst-directives))
@@ -47,11 +53,11 @@
     :config (add-hook 'rst-adjust-hook 'rst-toc-update)))
 
 (defun restructuredtext/post-init-flyspell ()
-  (spell-checking/add-flyspell-hook 'rst-mode-hook))
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun restructuredtext/post-init-yasnippet ()
-    (add-hook 'rst-mode-hook 'spacemacs/load-yasnippet)))
+  (spell-checking/add-flyspell-hook 'rst-mode-hook)
+  ;; important auto-complete work-around to be applied to make both flyspell
+  ;; and auto-complete to work together
+  (when (configuration-layer/package-usedp 'auto-complete)
+    (add-hook 'rst-mode-hook 'ac-flyspell-workaround t)))
 
 (defun restructuredtext/post-init-yasnippet ()
   (add-hook 'rst-mode-hook 'spacemacs/load-yasnippet))
