@@ -108,7 +108,7 @@
 
 ;; This code is from evil insert state definition, any change upstream
 ;; should be reflected here
-;; see https://bitbucket.org/lyro/evil/src/a25b848c90c7942fe89d9ec283c6bb44fb7b3cf4/evil-states.el?fileviewer=file-view-default#evil-states.el-74
+;; see https://github.com/emacs-evil/evil/blob/56e92f7cb4e04e665670460093b41f58446b7a2b/evil-states.el#L108
 (evil-define-state hybrid
   "Hybrid state for hybrid mode."
   :tag " <H> "
