@@ -81,6 +81,12 @@
   (evil-define-key '(insert normal) intero-mode-map
     (kbd "M-.") 'intero-goto-definition))
 
+(defun spacemacs-haskell//disable-electric-indent ()
+  "Disable electric indent mode if available"
+  ;; use only internal indentation system from haskell
+  (if (fboundp 'electric-indent-local-mode)
+      (electric-indent-local-mode -1)))
+
 
 ;; Intero functions
 
