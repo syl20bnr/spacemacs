@@ -62,7 +62,7 @@ document with \\[rst-sphinx]."
     ;; Move up in the dir hierarchy till we find a change log file.
     (while (or (not (file-exists-p (concat dir file-name))))
       ;; Move up to the parent dir and try again.
-      (setq buffer-file (directory-file-name 
+      (setq buffer-file (directory-file-name
                          (file-name-directory buffer-file)))
       (setq dir (file-name-directory buffer-file)))
     (setq dir (directory-file-name
@@ -70,9 +70,9 @@ document with \\[rst-sphinx]."
     (setq rst-sphinx-source dir)
     (setq rst-sphinx-project (file-name-nondirectory dir))
     ;; not depend on local variables, put here just for convience.
-    (setq rst-sphinx-target 
-                            (expand-file-name  
-                             (nth 2 (assoc rst-sphinx-project 
+    (setq rst-sphinx-target
+                            (expand-file-name
+                             (nth 2 (assoc rst-sphinx-project
                                            rst-sphinx-target-projects))
                              rst-sphinx-target-parent))
     (setq rst-sphinx-source-buffer (current-buffer)
@@ -89,13 +89,13 @@ document with \\[rst-sphinx]."
       (print "Not a ReStructerdText file.")
     (progn
       (rst-sphinx-find-conf)
-      (let ((builder (nth 1 (assoc rst-sphinx-project 
+      (let ((builder (nth 1 (assoc rst-sphinx-project
                                    rst-sphinx-target-projects))))
-        (compile (mapconcat 'identity 
+        (compile (mapconcat 'identity
                             (list rst-sphinx-command
                                   (cdr (assoc builder rst-sphinx-builder))
                                   rst-sphinx-source
-                                  rst-sphinx-target) 
+                                  rst-sphinx-target)
                             " "))
         ))))
 
@@ -106,15 +106,15 @@ document with \\[rst-sphinx]."
       (print "Not a ReStructerdText file.")
     (progn
       (rst-sphinx-find-conf)
-      (let ((builder (nth 1 (assoc rst-sphinx-project 
+      (let ((builder (nth 1 (assoc rst-sphinx-project
                                    rst-sphinx-target-projects)))
             (buffer-file (nth 1 (split-string
                                  (file-name-sans-extension rst-sphinx-source-file)
                                  rst-sphinx-source))))
         (if (eq builder 'html)
-            (start-process-shell-command 
+            (start-process-shell-command
              "Sphinx HTML project viewing" nil
-             (mapconcat 'identity 
+             (mapconcat 'identity
                         (list rst-slides-program
                               (concat rst-sphinx-target buffer-file ".html"))
                         " ")))
@@ -123,17 +123,17 @@ document with \\[rst-sphinx]."
               (setq type (completing-read "Which file? (TeX, PDF): " '("tex" "pdf")))
               (if (string= "tex" type)
                   (progn
-                    (setq rst-sphinx-tex-file 
+                    (setq rst-sphinx-tex-file
                           (car (directory-files rst-sphinx-target nil ".tex")))
                     (find-file (expand-file-name rst-sphinx-tex-file rst-sphinx-target))))
               (if (string= "pdf" type)
                   (if (directory-files rst-sphinx-target nil ".pdf")
-                      (start-process-shell-command 
+                      (start-process-shell-command
                        "Sphinx PDF project viewing" nil
-                       (mapconcat 'identity 
+                       (mapconcat 'identity
                                   (list rst-pdf-program
-                                        (expand-file-name 
-                                         (car (directory-files 
+                                        (expand-file-name
+                                         (car (directory-files
                                                rst-sphinx-target nil ".pdf"))
                                          rst-sphinx-target))
                                   " "))

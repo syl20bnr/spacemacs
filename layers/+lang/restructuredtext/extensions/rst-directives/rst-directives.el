@@ -51,12 +51,12 @@
     (setq option (completing-read "Providing option: " optlist))
     (setq type (car (cdr (assoc option optalist))))
     (setq value
-          (cond 
+          (cond
            ((equal type "flag") nil)
-           ((equal type "option") (completing-read 
-                                   "Providing optional value: " 
+           ((equal type "option") (completing-read
+                                   "Providing optional value: "
                                    (cadr (cdr (assoc option optalist)))))
-           ((equal type "number") (number-to-string 
+           ((equal type "number") (number-to-string
                                    (read-number "Providing numeric value: ")))
            ((equal type "string") (read-string "Providing value: "))))
     (rst-directive-option-format option value)
@@ -97,9 +97,9 @@
 
 Use the following way to add directive type.
 
-  (rst-directive-add-type \"definition\" 
+  (rst-directive-add-type \"definition\"
                           'rst-directive-insert-definition
-                          'rst-directive-options 
+                          'rst-directive-options
                           'content-presence-boolean)
 "
   (add-to-list 'rst-directive-types type)
@@ -107,11 +107,11 @@ Use the following way to add directive type.
   (add-to-list 'rst-directive-option-list (list type optalist content)))
 
 (defun rst-directive-append (directlist)
-  "Meta function of add directives. 
+  "Meta function of add directives.
 
-Elements of directives should arranged as 
+Elements of directives should arranged as
 
-   (type funciton option-list content-boolean). 
+   (type funciton option-list content-boolean).
 "
   (dolist (direct directlist)
     (eval (cons 'rst-directive-add-type direct))))
@@ -122,70 +122,70 @@ Elements of directives should arranged as
 ;;;;====================================
 
 (defvar rst-directive-types
-  '("definition" "field" "admonition" "image" "figure" "topic" 
-    "sidebar" "line-block" "parsed-literal" "math" "rubric" 
-    "epigraph" "highlights" "pull-quote" "compound" "container" 
-    "table" "csv-table" "list-table" "contents" "sectnum" 
+  '("definition" "field" "admonition" "image" "figure" "topic"
+    "sidebar" "line-block" "parsed-literal" "math" "rubric"
+    "epigraph" "highlights" "pull-quote" "compound" "container"
+    "table" "csv-table" "list-table" "contents" "sectnum"
     "replace" "unicode" "date" "include" "index" "raw")
   "List of directive types")
 
 (defvar rst-directive-type-alist
-  '(("definition" . rst-directive-insert-definition) 
-    ("field" . rst-directive-insert-field) 
+  '(("definition" . rst-directive-insert-definition)
+    ("field" . rst-directive-insert-field)
     ("admonition" . rst-directive-insert-admonition)
-    ("image" . rst-directive-insert-image) 
+    ("image" . rst-directive-insert-image)
     ("figure" . rst-directive-insert-figure)
-    ("topic" . rst-directive-insert-topic) 
-    ("sidebar" . rst-directive-insert-sidebar) 
-    ("line-block" . rst-directive-insert-line-block) 
-    ("parsed-literal" . rst-directive-insert-parsed-literal) 
+    ("topic" . rst-directive-insert-topic)
+    ("sidebar" . rst-directive-insert-sidebar)
+    ("line-block" . rst-directive-insert-line-block)
+    ("parsed-literal" . rst-directive-insert-parsed-literal)
     ("math" . rst-directive-insert-math)
-    ("rubric" . rst-directive-insert-rubric) 
-    ("epigraph" . rst-directive-insert-epigraph) 
-    ("highlights" . rst-directive-insert-highlights) 
-    ("pull-quote" . rst-directive-insert-pull-quote) 
-    ("compound" . rst-directive-insert-compound) 
-    ("container" . rst-directive-insert-container) 
-    ("table" . rst-directive-insert-table) 
+    ("rubric" . rst-directive-insert-rubric)
+    ("epigraph" . rst-directive-insert-epigraph)
+    ("highlights" . rst-directive-insert-highlights)
+    ("pull-quote" . rst-directive-insert-pull-quote)
+    ("compound" . rst-directive-insert-compound)
+    ("container" . rst-directive-insert-container)
+    ("table" . rst-directive-insert-table)
     ("csv-table" . rst-directive-insert-csv-table)
     ("list-table" . rst-directive-insert-list-table)
-    ("contents" . rst-directive-insert-contents) 
-    ("sectnum" . rst-directive-insert-sectnum) 
-    ("replace" . rst-directive-insert-replace) 
-    ("unicode" . rst-directive-insert-unicode) 
-    ("date" . rst-directive-insert-date) 
-    ("include" . rst-directive-insert-include) 
-    ("index" . rst-directive-insert-index) 
+    ("contents" . rst-directive-insert-contents)
+    ("sectnum" . rst-directive-insert-sectnum)
+    ("replace" . rst-directive-insert-replace)
+    ("unicode" . rst-directive-insert-unicode)
+    ("date" . rst-directive-insert-date)
+    ("include" . rst-directive-insert-include)
+    ("index" . rst-directive-insert-index)
     ("raw" . rst-directive-insert-raw))
   "List of directive inserting functions of directive types.")
 
 (defvar rst-directive-option-list
-  '(("definition" rst-directive-option-definition t) 
-    ("field" rst-directive-option-field t) 
+  '(("definition" rst-directive-option-definition t)
+    ("field" rst-directive-option-field t)
     ("admonition" rst-directive-option-admonition nil)
-    ("image" rst-directive-option-image nil) 
+    ("image" rst-directive-option-image nil)
     ("figure" rst-directive-option-figure t)
-    ("topic" nil t) 
+    ("topic" nil t)
     ("sidebar" rst-directive-option-sidebar t)
-    ("line-block" nil t) 
-    ("parsed-literal" nil t) 
+    ("line-block" nil t)
+    ("parsed-literal" nil t)
     ("math" rst-directive-option-math t)
-    ("rubric" nil nil) 
-    ("epigraph" nil t) 
-    ("highlights" nil t) 
-    ("pull-quote" nil t) 
-    ("compound" nil t) 
-    ("container" nil t) 
-    ("table" nil t) 
+    ("rubric" nil nil)
+    ("epigraph" nil t)
+    ("highlights" nil t)
+    ("pull-quote" nil t)
+    ("compound" nil t)
+    ("container" nil t)
+    ("table" nil t)
     ("csv-table" rst-directive-option-csv-table t)
     ("list-table" rst-directive-option-list-table t)
-    ("contents" rst-contents-option nil) 
-    ("sectnum" rst-sectnum-option nil) 
-    ("replace" nil nil) 
-    ("unicode" rst-directive-option-unicode nil) 
-    ("date" nil nil) 
-    ("include" rst-include-option nil) 
-    ("index" rst-directive-option-index nil) 
+    ("contents" rst-contents-option nil)
+    ("sectnum" rst-sectnum-option nil)
+    ("replace" nil nil)
+    ("unicode" rst-directive-option-unicode nil)
+    ("date" nil nil)
+    ("include" rst-include-option nil)
+    ("index" rst-directive-option-index nil)
     ("raw" rst-directive-option-raw t))
   "List of option functions of directive types.")
 
@@ -387,9 +387,9 @@ Elements of directives should arranged as
   (let (type value)
     (setq type (completing-read "Insert date or time? " '("date" "time")))
     (cond
-     ((equal type "date") 
+     ((equal type "date")
       (setq value (read-string "Providing date format: " nil nil "%Y-%m-%d")))
-     ((equal type "time") 
+     ((equal type "time")
       (setq value (read-string "Providing time format: " nil nil "%H:%M"))))
     (rst-directive-direct-format (concat "|" type "| date") value)))
 
