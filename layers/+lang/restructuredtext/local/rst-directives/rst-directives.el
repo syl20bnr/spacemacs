@@ -11,7 +11,7 @@
 ;;
 ;;; Commentary:
 
-;; This file provides funcationalities for Emacs rst-mode.
+;; This file provides functionalities for Emacs rst-mode.
 
 
 (defgroup rst-directive nil
