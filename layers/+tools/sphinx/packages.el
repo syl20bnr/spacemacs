@@ -1,0 +1,26 @@
+;;; packages.el --- Sphinx layer packages file for Spacemacs.
+;;
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;;
+;; Author:  <wwguo@hiGDP>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
+(defconst sphinx-packages
+  '(
+    rst
+    (rst-sphinx :location local)
+    ))
+
+(defun sphinx/init-rst-sphinx ()
+  (use-package rst-sphinx))
+
+(defun sphinx/post-init-rst ()
+  (spacemacs|use-package-add-hook rst
+    :post-config (spacemacs/set-leader-keys-for-major-mode 'rst-mode
+                   "c" 'rst-sphinx-compile
+                   "f" 'rst-sphinx-target-open)))
+
