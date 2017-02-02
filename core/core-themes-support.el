@@ -208,8 +208,11 @@ THEME."
                     (when pkg-name
                       (configuration-layer/get-elpa-package-install-directory
                        pkg-name))))
+              ;; add theme package directory to load-path since `package.el' may
+              ;; not be initialized when theme is applied
               (when pkg-dir
                 (add-to-list 'custom-theme-load-path pkg-dir)
+                (add-to-list 'load-path pkg-dir)
                 (when (or (eq 'moe-light theme-name)
                           (eq 'moe-dark theme-name))
                   (load-file (concat pkg-dir "moe-light-theme.el"))
