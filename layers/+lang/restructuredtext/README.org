@@ -2,14 +2,14 @@
 
 [[file:img/restructuredtext.png]]
 
-* Table of Contents                                        :TOC_4_org:noexport:
- - [[Description][Description]]
-   - [[Features][Features]]
- - [[Install][Install]]
- - [[Configuration][Configuration]]
-   - [[Sphinx target][Sphinx target]]
-   - [[Web browser][Web browser]]
- - [[Key bindings][Key bindings]]
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features]]
+ - [[#install][Install]]
+ - [[#configuration][Configuration]]
+   - [[#sphinx-target][Sphinx target]]
+   - [[#web-browser][Web browser]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 The layer adds ReStructuredText (ReST) support to Spacemacs and adds some
