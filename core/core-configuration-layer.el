@@ -69,6 +69,12 @@ ROOT is returned."
              (dir (car (directory-files elpa-dir 'full pkg-match))))
         (when dir (file-name-as-directory dir))))))
 
+(defvar configuration-layer-pre-sync-hook nil
+  "Hook executed at the beginning of configuration synchronization.")
+
+(defvar configuration-layer-post-sync-hook nil
+  "Hook executed at the end of configuration synchronization.")
+
 (defvar configuration-layer-rollback-directory
   (concat spacemacs-cache-directory ".rollback/")
   "Spacemacs rollback directory.")
@@ -407,6 +413,7 @@ refreshed during the current session."
 (defun configuration-layer/sync (&optional no-install)
   "Synchronize declared layers in dotfile with spacemacs.
 If NO-INSTALL is non nil then install steps are skipped."
+  (run-hooks 'configuration-layer-pre-sync-hook)
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
   (setq dotspacemacs--configuration-layers-saved
         dotspacemacs-configuration-layers)
@@ -462,7 +469,8 @@ If NO-INSTALL is non nil then install steps are skipped."
   ;; configure used packages
   (configuration-layer//configure-packages configuration-layer--used-packages)
   (configuration-layer//load-layers-files configuration-layer--used-layers
-                                          '("keybindings.el")))
+                                          '("keybindings.el"))
+  (run-hooks 'configuration-layer-post-sync-hook))
 
 (defun configuration-layer/load-auto-layer-file ()
   "Load `auto-layer.el' file"
@@ -952,7 +960,7 @@ variable as well."
   "Read the additonal packages declared in the dotfile and create packages.
 USEDP if non-nil indicates that made packages are used packages."
   (dolist (pkg (append dotspacemacs-additional-packages
-                       dotspacemacs--additional-packages))
+                       dotspacemacs--additional-theme-packages))
     (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
            (obj (configuration-layer/get-package pkg-name)))
       (if obj

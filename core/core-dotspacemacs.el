@@ -100,9 +100,9 @@ wrapped in a layer. If you need some configuration for these
 packages then consider to create a layer, you can also put the
 configuration in `dotspacemacs/user-config'.")
 
-(defvar dotspacemacs--additional-packages '()
-  "Same as `dotspacemacs-additonal-packages' but reserved for Spacemacs
-internals.")
+(defvar dotspacemacs--additional-theme-packages '()
+  "Same as `dotspacemacs-additonal-packages' but reserved for themes declared
+in `dotspacemacs-themes'.")
 
 (defvar dotspacemacs-editing-style 'vim
   "One of `vim', `emacs' or `hybrid'.
