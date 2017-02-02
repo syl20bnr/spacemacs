@@ -216,8 +216,10 @@ THEME."
                   (load-file (concat pkg-dir "moe-dark-theme.el"))))))
           (when disable
             (mapc 'disable-theme custom-enabled-themes))
-          (eval `(spacemacs|do-after-display-system-init
-                  (load-theme ',theme-name t)))
+          (load-theme theme-name t)
+          (unless (display-graphic-p)
+            (eval `(spacemacs|do-after-display-system-init
+                    (load-theme ',theme-name t))))
           (setq-default spacemacs--cur-theme theme-name)
           (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
       ('error
@@ -249,8 +251,10 @@ THEME."
     (add-to-list 'dotspacemacs-themes theme-name)
     (when disable
       (mapc 'disable-theme custom-enabled-themes))
-    (eval `(spacemacs|do-after-display-system-init
-            (load-theme ',theme-name t)))))
+    (load-theme theme-name t)
+    (unless (display-graphic-p)
+      (eval `(spacemacs|do-after-display-system-init
+              (load-theme ',theme-name t))))))
 
 (defun spacemacs/cycle-spacemacs-theme ()
   "Cycle through themes defined in `dotspacemacs-themes.'"
