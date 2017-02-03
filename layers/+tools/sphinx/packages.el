@@ -21,6 +21,9 @@
 (defun sphinx/post-init-rst ()
   (spacemacs|use-package-add-hook rst
     :post-config (spacemacs/set-leader-keys-for-major-mode 'rst-mode
-                   "c" 'rst-sphinx-compile
-                   "f" 'rst-sphinx-target-open)))
+                   "cc" 'rst-sphinx-compile
+                   "cC" ' rst-sphinx-clean
+                   "cr" ' rst-sphinx-rebuild
+                   "gc" 'rst-sphinx-open-conf
+                   "o"  'rst-sphinx-target-open)))
 
