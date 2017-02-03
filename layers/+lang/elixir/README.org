@@ -7,7 +7,6 @@
  - [[#install][Install]]
  - [[#configuration][Configuration]]
    - [[#flycheck][Flycheck]]
-     - [[#credo][Credo]]
      - [[#mix-compile][mix compile]]
  - [[#key-bindings][Key bindings]]
    - [[#refcard][Refcard]]
@@ -36,8 +35,6 @@ features like:
 - Elixir project management
 - Integration with [[http://company-mode.github.io/][company-mode]]
 - Flycheck support for mix compile
-- Flycheck support for [[https://github.com/rrrene/credo][credo]]
-- Flycheck support for test results
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -48,25 +45,6 @@ file.
 ** Flycheck
 *Note:* since flycheck checkers are slow, the checks are enabled only at save
 time.
-
-*** Credo
-A flycheck checker for [[https://github.com/rrrene/credo][credo]] is installed. The check needs both =bunt= and
-=credo= to be available, you can install them like this:
-
-#+BEGIN_SRC shell
-git clone https://github.com/rrrene/bunt
-cd bunt
-mix archive.build
-mix archive.install
-#+END_SRC
-
-#+BEGIN_SRC shell
-git clone https://github.com/rrrene/credo
-cd credo
-mix deps.get
-mix archive.build
-mix archive.install
-#+END_SRC
 
 *** mix compile
 *Important:*
