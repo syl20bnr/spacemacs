@@ -209,6 +209,7 @@ The base prefix for major mode specific compilation is ~SPC m c~.
     |-------------+-------------------|
     | ~m c b~     | compile buffer    |
     | ~m c c~     | compile           |
+    | ~m c C~     | clean             |
     | ~m c r~     | clean and compile |
 
 Note: we don't distinguish between the file and the buffer. We can
