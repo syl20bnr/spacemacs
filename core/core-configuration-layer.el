@@ -1961,6 +1961,8 @@ depends on it."
     ;; (message "orphans: %s" orphans)
     (if orphans
         (progn
+          (spacemacs-buffer/set-mode-line "Uninstalling not used packages...")
+          (spacemacs//redisplay)
           (spacemacs-buffer/append
            (format "Found %s orphan package(s) to delete...\n"
                    orphans-count))
