@@ -15,6 +15,8 @@
 
 ;;; Code:
 
+(require 'compile)
+
 (defgroup rst-sphinx nil
   "Settings for support of conversion of reStructuredText
 document with \\[rst-sphinx]."
@@ -53,42 +55,60 @@ document with \\[rst-sphinx]."
   "The Sphinx project target project directories."
   :group 'rst-builders)
 
-(defun rst-sphinx-find-conf ()
-  "Look for the configuration file in the parents of the current path."
+(defun rst-sphinx-set-variables ()
+  "Set global variables used py `rst-sphinx'."
+  (let ((conf (rst-sphinx-find-conf-py-path)))
+    (when conf
+      (setq dir (directory-file-name (file-name-directory conf)))
+      (setq rst-sphinx-source dir)
+      (setq rst-sphinx-project (file-name-nondirectory dir))
+      ;; not depend on local variables, put here just for convenience.
+      (setq rst-sphinx-target
+            (expand-file-name
+             (nth 2 (assoc rst-sphinx-project
+                           rst-sphinx-target-projects))
+             rst-sphinx-target-parent))
+      (setq rst-sphinx-source-buffer (current-buffer)
+            rst-sphinx-source-file (buffer-file-name)))))
+
+(defun rst-sphinx-find-conf-py-path ()
+  "Return path to conf.py or nil if not found."
   ;; (interactive)
   (let* ((file-name "conf.py")
         (buffer-file (buffer-file-name))
-        (dir (file-name-directory buffer-file)))
-    ;; Move up in the dir hierarchy till we find a change log file.
-    (while (or (not (file-exists-p (concat dir file-name))))
+        (dir (file-name-directory buffer-file))
+        (conf-py (concat dir file-name)))
+    ;; Move up in the dir hierarchy to find conf.py
+    (while (or (not buffer-file)
+               (not (file-exists-p conf-py)))
       ;; Move up to the parent dir and try again.
       (setq buffer-file (directory-file-name
                          (file-name-directory buffer-file)))
-      (setq dir (file-name-directory buffer-file)))
-    (setq dir (directory-file-name
-               (file-name-directory buffer-file)))
-    (setq rst-sphinx-source dir)
-    (setq rst-sphinx-project (file-name-nondirectory dir))
-    ;; not depend on local variables, put here just for convience.
-    (setq rst-sphinx-target
-                            (expand-file-name
-                             (nth 2 (assoc rst-sphinx-project
-                                           rst-sphinx-target-projects))
-                             rst-sphinx-target-parent))
-    (setq rst-sphinx-source-buffer (current-buffer)
-          rst-sphinx-source-file (buffer-file-name))
-  ))
+      (setq dir (file-name-directory buffer-file))
+      (setq conf-py (concat dir file-name)))
+    (if buffer-file
+        conf-py
+      (message "Cannot find conf.py file.")
+      nil)))
 
-
-(require 'compile)
-
-(defun rst-sphinx-compile ()
-  "Compile Sphinx project."
+(defun rst-sphinx-open-conf ()
+  "Open conf.py file."
   (interactive)
+  (let ((conf (rst-sphinx-find-conf-py-path)))
+    (if (file-exists-p conf)
+        (find-file-existing conf)
+      (message "Cannot find conf.py file."))))
+
+(defun rst-sphinx-compile (&optional clean)
+  "Compile Sphinx project.
+If CLEAN is non-nil then clean the project before compiling."
+  (interactive "P")
+  (when clean
+    (rst-sphinx-clean))
   (if (not (string= (file-name-extension (buffer-file-name)) "rst"))
       (print "Not a ReStructerdText file.")
     (progn
-      (rst-sphinx-find-conf)
+      (rst-sphinx-set-variables)
       (let ((builder (nth 1 (assoc rst-sphinx-project
                                    rst-sphinx-target-projects))))
         (compile (mapconcat 'identity
@@ -96,8 +116,25 @@ document with \\[rst-sphinx]."
                                   (cdr (assoc builder rst-sphinx-builder))
                                   rst-sphinx-source
                                   rst-sphinx-target)
-                            " "))
-        ))))
+                            " "))))))
+
+(defun rst-sphinx-clean ()
+  "Clean Sphinx project."
+  (interactive)
+  (let* ((conf (rst-sphinx-find-conf-py-path))
+         (build (when conf (concat (file-name-directory conf)
+                                   rst-sphinx-target-parent))))
+    (if (file-exists-p build)
+        (progn
+          (delete-directory build t)
+          (message "Project cleaned successfully."))
+      (message "Cannot find build directory \"%s\"" rst-sphinx-target-parent))))
+
+
+(defun rst-sphinx-rebuild ()
+  "Clean and compile Sphinx project."
+  (interactive)
+  (rst-sphinx-compile 'clean))
 
 (defun rst-sphinx-target-open ()
   "Open builded Sphinx project file."
@@ -105,7 +142,7 @@ document with \\[rst-sphinx]."
   (if (not (string= (file-name-extension (buffer-file-name)) "rst"))
       (print "Not a ReStructerdText file.")
     (progn
-      (rst-sphinx-find-conf)
+      (rst-sphinx-set-variables)
       (let ((builder (nth 1 (assoc rst-sphinx-project
                                    rst-sphinx-target-projects)))
             (buffer-file (nth 1 (split-string
