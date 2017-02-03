@@ -48,7 +48,10 @@ is optional. If not set, the default browser will be used.
 
 * Key bindings
 
-| Key Binding | Description                             |
-|-------------+-----------------------------------------|
-| ~<SPC> m c~ | compile projects                        |
-| ~<SPC> m f~ | open compiled HTML page of current page |
+| Key Binding   | Description                             |
+|---------------+-----------------------------------------|
+| ~<SPC> m c c~ | compile projects                        |
+| ~<SPC> m c C~ | clean projects                          |
+| ~<SPC> m c r~ | rebuild projects                        |
+| ~<SPC> m g c~ | open =conf.py= of current project       |
+| ~<SPC> m o~   | open compiled HTML page of current page |
