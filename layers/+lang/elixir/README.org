@@ -24,8 +24,9 @@
 * Description
 This layer adds support for [[http://elixir-lang.org/][Elixir]] .
 
-[[https://github.com/tonini/alchemist.el][Alchemist]] brings the Elixir tooling to Emacs and comes with a bunch of
-features like:
+[[https://github.com/tonini/alchemist.el][Alchemist]] brings the Elixir tooling to Emacs and comes with a bunch of features
+like:
+
 - Powerful IEx integration
 - Mix integration
 - Compile & Execution of Elixir code
@@ -50,24 +51,29 @@ file.
 time.
 
 *** Credo
-You need to install [[https://github.com/rrrene/credo][credo]] into your project. Fort this,
-add ={:credo, "~> 0.5", only: [:dev, :test]}= to dependencies of your project (in file mix.exs) and
+You need to install [[https://github.com/rrrene/credo][credo]] into your project. Fort this, add ={:credo, "~> 0.5",
+only: [:dev, :test]}= to dependencies of your project (in file =mix.exs=) and
 run:
+
 #+BEGIN_SRC shell
-mix deps.get
+$ mix deps.get
 #+END_SRC
+
 For more info about mix [[http://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html][see]].
+
 You can tell flycheck-credo to call credo with the '--strict' argument.
+
 #+BEGIN_SRC elisp
 (setq flycheck-elixir-credo-strict t)
 #+END_SRC
 
 *** mix compile
 *Important:*
+
 Elixir compiler is based on macros and can execute arbitrary during compilation.
 Therefore Spacemacs disable flycheck compilation checker by default.
 
-To enable flycheck support for compilation errors  *globally* the variable
+To enable flycheck support for compilation errors *globally* the variable
 =elixir-enable-compilation-checking= can be set explicitly to =t= in your
 dotfile but it is not recommended to do so because of the limitation described
 above.
@@ -76,8 +82,8 @@ Instead you should use directory local variables in order to enable the flycheck
 checker only for certain projects. Directory local variables are stored in a
 file named =.dir-local.el= usually at the root of a project. To easily add a
 directory local variable use the key binding ~SPC f v d~ then choose the
-=elixir-mode= and the variable name =elixir-enable-compilation-checking= with
-a value of t. The result is a new file =.dir-local.el= with the following
+=elixir-mode= and the variable name =elixir-enable-compilation-checking= with a
+value of t. The result is a new file =.dir-local.el= with the following
 contents:
 
 #+BEGIN_SRC elisp
