@@ -68,6 +68,14 @@
                    (interactive)
                     (mu4e-view-mark-thread '(read))))
 
+      (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode
+        "," 'message-send-and-exit
+        "c" 'message-send-and-exit
+        "k" 'message-kill-buffer
+        "a" 'message-kill-buffer
+        "s" 'message-dont-send         ; saves as draft
+        "f" 'mml-attach-file)
+
       (setq mu4e-completing-read-function 'completing-read)
 
       (add-to-list 'mu4e-view-actions
