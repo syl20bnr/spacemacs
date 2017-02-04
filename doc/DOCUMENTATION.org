@@ -777,10 +777,12 @@ style configuration:
 
 - =hybrid-mode-default-state= The default state when opening a new buffer,
   default is =normal=. Set it to =emacs= for a more emacsy style.
-- =hybrid-mode-enable-hjkl-bindings= If non nil then packages will configure
+- =hybrid-mode-enable-hjkl-bindings= If non-nil then packages will configure
   =h j k l= key bindings for navigation.
-- =hybrid-mode-enable-evilified-state= If non nil buffer are =evilified= when
+- =hybrid-mode-enable-evilified-state= If non-nil buffer are =evilified= when
   supported, if nil then =emacs= state is enabled in those buffers instead.
+- =hybrid-mode-use-evil-search-module= If non-nil then use evil own search
+  module which is closer to Vim search behavior.
 
 Default configuration is:
 
@@ -788,6 +790,7 @@ Default configuration is:
 (setq-default dotspacemacs-editing-style '(hybrid :variables
                                            hybrid-mode-enable-evilified-state t
                                            hybrid-mode-enable-hjkl-bindings nil
+                                           hybrid-mode-use-evil-search-module nil
                                            hybrid-mode-default-state 'normal)
 #+END_SRC
 
