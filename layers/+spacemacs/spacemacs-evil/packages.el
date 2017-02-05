@@ -260,8 +260,9 @@
     :init
     (progn
       (when (or (eq dotspacemacs-line-numbers 'relative)
-                (car (spacemacs/mplist-get dotspacemacs-line-numbers
-                                           :relative)))
+                (and (listp dotspacemacs-line-numbers)
+                     (car (spacemacs/mplist-get dotspacemacs-line-numbers
+                                                :relative))))
         (add-hook 'spacemacs-post-user-config-hook 'linum-relative-on))
       (spacemacs/set-leader-keys "tr" 'spacemacs/linum-relative-toggle))
     :config
