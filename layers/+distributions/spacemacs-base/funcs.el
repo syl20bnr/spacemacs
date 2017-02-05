@@ -1021,12 +1021,32 @@ a split-side entry, its value must be usable as the SIDE argument for
   (when compilation-last-buffer
     (delete-windows-on compilation-last-buffer)))
 
+
+;; Line number
+
 (defun spacemacs/no-linum (&rest ignore)
   "Disable linum if current buffer."
   (when (or 'linum-mode global-linum-mode)
     (linum-mode 0)))
 
-(defun spacemacs/linum-update-window-scale-fix (win)
+(defun spacemacs/enable-line-numbers-p ()
+  "Return non-nil if line numbers should be enabled for current buffer.
+Decision is based on `dotspacemacs-line-numbers'."
+  (and dotspacemacs-line-numbers
+       (spacemacs//linum-current-buffer-is-not-special)
+       (or (spacemacs//linum-backward-compabitility)
+           (spacemacs//linum-curent-buffer-is-not-too-big)
+           ;; explicitly enabled buffers take priority over explicitly disabled
+           ;; ones
+           (or (spacemacs//linum-enabled-for-current-major-mode)
+               (not (spacemacs//linum-disabled-for-current-major-mode))))))
+
+(defun spacemacs//linum-on (origfunc &rest args)
+  "Advice function to improve `linum-on' function."
+  (when (spacemacs/enable-line-numbers-p)
+    (apply origfunc args)))
+
+(defun spacemacs//linum-update-window-scale-fix (win)
   "Fix linum for scaled text in the window WIN."
   (set-window-margins win
                       (ceiling (* (if (boundp 'text-scale-mode-step)
@@ -1034,6 +1054,14 @@ a split-side entry, its value must be usable as the SIDE argument for
                                             text-scale-mode-amount) 1)
                                   (if (car (window-margins))
                                       (car (window-margins)) 1)))))
+
+(defun spacemacs//linum-backward-compabitility ()
+  "Return non-nil if `dotspacemacs-line-numbers' has an old format and if
+`linum' should be enabled."
+  (and dotspacemacs-line-numbers
+       (not (listp dotspacemacs-line-numbers))
+       (or (eq dotspacemacs-line-numbers t)
+           (eq dotspacemacs-line-numbers 'relative))))
 
 (defun spacemacs//linum-current-buffer-is-not-special ()
   "Return non-nil if current buffer is not a special buffer."
@@ -1057,14 +1085,3 @@ a split-side entry, its value must be usable as the SIDE argument for
   (and (spacemacs/mplist-get dotspacemacs-line-numbers :disabled-for-modes)
        (memq major-mode (spacemacs/mplist-get dotspacemacs-line-numbers
                                               :disabled-for-modes))))
-
-(defun spacemacs/enable-line-numbers-p ()
-  "Return non-nil if line numbers should be enabled for current buffer.
-Decision is based on `dotspacemacs-line-numbers'."
-  (and dotspacemacs-line-numbers
-       (spacemacs//linum-current-buffer-is-not-special)
-       (spacemacs//linum-curent-buffer-is-not-too-big)
-       ;; explicitly enabled buffers take priority over explicitly disabled
-       ;; ones
-       (or (spacemacs//linum-enabled-for-current-major-mode)
-           (not (spacemacs//linum-disabled-for-current-major-mode)))))
