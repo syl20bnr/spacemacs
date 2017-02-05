@@ -241,26 +241,24 @@
 
 (defun spacemacs-base/init-linum ()
   (use-package linum
+    :init
+    (progn
+      (setq linum-format "%4d")
+      (spacemacs|add-toggle line-numbers
+        :mode linum-mode
+        :documentation "Show the line numbers."
+        :evil-leader "tn")
+      (advice-add #'linum-update-window
+                  :after #'spacemacs//linum-update-window-scale-fix)
+      (advice-add #'linum-on
+                  :around #'spacemacs//linum-on))
     :config
     (progn
-      (if (or (eq dotspacemacs-line-numbers t)
-              (eq dotspacemacs-line-numbers 'relative))
-          (progn
-            (add-hook 'prog-mode-hook 'linum-mode)
-            (add-hook 'text-mode-hook 'linum-mode)))
-      (defun linum-on ()
-        "Overwrite the original `linum-on' function with a more selective one."
-        (when (spacemacs/enable-line-numbers-p)
-          (linum-mode)))
+      (when (spacemacs//linum-backward-compabitility)
+        (add-hook 'prog-mode-hook 'linum-mode)
+        (add-hook 'text-mode-hook 'linum-mode))
       (when dotspacemacs-line-numbers
-        (global-linum-mode))))
-  (setq linum-format "%4d")
-  (spacemacs|add-toggle line-numbers
-    :mode linum-mode
-    :documentation "Show the line numbers."
-    :evil-leader "tn")
-  (advice-add #'linum-update-window
-              :after #'spacemacs/linum-update-window-scale-fix))
+        (global-linum-mode)))))
 
 (defun spacemacs-base/init-occur-mode ()
   (evilified-state-evilify-map occur-mode-map
