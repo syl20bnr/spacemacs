@@ -1035,24 +1035,36 @@ a split-side entry, its value must be usable as the SIDE argument for
                                   (if (car (window-margins))
                                       (car (window-margins)) 1)))))
 
+(defun spacemacs//linum-current-buffer-is-not-special ()
+  "Return non-nil if current buffer is not a special buffer."
+  (not (string-match-p "\\*.*\\*" (buffer-name))))
+
+(defun spacemacs//linum-curent-buffer-is-not-too-big ()
+  "Return non-nil if buffer size is not too big."
+  (not (and (spacemacs/mplist-get dotspacemacs-line-numbers :size-limit-kb)
+            (> (buffer-size)
+               (* 1000 (car (spacemacs/mplist-get dotspacemacs-line-numbers
+                                                  :size-limit-kb)))))))
+
+(defun spacemacs//linum-enabled-for-current-major-mode ()
+  "Return non-nil if line number is enabled for current major-mode."
+  (and (spacemacs/mplist-get dotspacemacs-line-numbers :enabled-for-modes)
+       (memq major-mode (spacemacs/mplist-get dotspacemacs-line-numbers
+                                              :enabled-for-modes))))
+
+(defun spacemacs//linum-disabled-for-current-major-mode ()
+  "Return non-nil if line number is disabled for current major-mode."
+  (and (spacemacs/mplist-get dotspacemacs-line-numbers :disabled-for-modes)
+       (memq major-mode (spacemacs/mplist-get dotspacemacs-line-numbers
+                                              :disabled-for-modes))))
+
 (defun spacemacs/enable-line-numbers-p ()
   "Return non-nil if line numbers should be enabled for current buffer.
 Decision is based on `dotspacemacs-line-numbers'."
   (and dotspacemacs-line-numbers
-       (not (string-match-p "\\*.*\\*" (buffer-name)))
-       (not (and (spacemacs/mplist-get dotspacemacs-line-numbers
-                                       :size-limit-kb)
-                 (> (buffer-size)
-                    (* 1000 (car (spacemacs/mplist-get dotspacemacs-line-numbers
-                                                       :size-limit-kb))))))
-       (or (and (spacemacs/mplist-get dotspacemacs-line-numbers
-                                      :enabled-for-modes)
-                (memq major-mode (spacemacs/mplist-get dotspacemacs-line-numbers
-                                                       :enabled-for-modes)))
-           (and (not (spacemacs/mplist-get dotspacemacs-line-numbers
-                                           :enabled-for-modes))
-                (spacemacs/mplist-get dotspacemacs-line-numbers
-                                      :disabled-for-modes)
-                (not (memq major-mode
-                           (spacemacs/mplist-get dotspacemacs-line-numbers
-                                                 :disabled-for-modes)))))))
+       (spacemacs//linum-current-buffer-is-not-special)
+       (spacemacs//linum-curent-buffer-is-not-too-big)
+       ;; explicitly enabled buffers take priority over explicitly disabled
+       ;; ones
+       (or (spacemacs//linum-enabled-for-current-major-mode)
+           (not (spacemacs//linum-disabled-for-current-major-mode)))))
