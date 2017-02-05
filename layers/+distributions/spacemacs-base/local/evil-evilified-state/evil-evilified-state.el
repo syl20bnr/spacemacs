@@ -276,7 +276,7 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
                          processed pending-funcs)))
     (when pending-funcs
       (message
-       (concat (format (concat "Auto-evilication could not remap these "
+       (concat (format (concat "Auto-evilification could not remap these "
                                "functions in map `%s':\n")
                        map-symbol)
                (mapconcat (lambda (x)
