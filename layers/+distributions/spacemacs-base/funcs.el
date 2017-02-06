@@ -1082,7 +1082,8 @@ Decision is based on `dotspacemacs-line-numbers'."
 
 (defun spacemacs//linum-curent-buffer-is-not-too-big ()
   "Return non-nil if buffer size is not too big."
-  (not (and (spacemacs/mplist-get dotspacemacs-line-numbers :size-limit-kb)
+  (not (and (listp dotspacemacs-line-numbers)
+            (spacemacs/mplist-get dotspacemacs-line-numbers :size-limit-kb)
             (> (buffer-size)
                (* 1000 (car (spacemacs/mplist-get dotspacemacs-line-numbers
                                                   :size-limit-kb)))))))
@@ -1091,10 +1092,10 @@ Decision is based on `dotspacemacs-line-numbers'."
   "Return non-nil if line number is enabled for current major-mode."
   (let ((modes (spacemacs/mplist-get dotspacemacs-line-numbers
                                      :enabled-for-modes)))
-    (when modes (memq major-mode modes))))
+    (memq major-mode modes)))
 
 (defun spacemacs//linum-disabled-for-current-major-mode ()
   "Return non-nil if line number is disabled for current major-mode."
   (let ((modes (spacemacs/mplist-get dotspacemacs-line-numbers
                                      :disabled-for-modes)))
-    (when modes (memq major-mode modes))))
+    (memq major-mode modes)))
