@@ -1576,25 +1576,12 @@ wether the declared layer is an used one or not."
         (spacemacs-buffer/message (format "%S is toggled off." pkg-name)))
        (t
         ;; load-path
-        (let ((location (oref pkg :location)))
-          (cond
-           ((stringp location)
-            (if (file-directory-p location)
-                (push (file-name-as-directory location) load-path)
-              (configuration-layer//warning
-               "Location path for package %S does not exists (value: %s)."
-               pkg location)))
-           ((and (eq 'local location)
-                 (eq 'dotfile (car (oref pkg :owners))))
-            (push (file-name-as-directory
-                   (concat configuration-layer-private-directory "local/"
-                           (symbol-name (oref pkg :name))))
-                  load-path))
-           ((eq 'local location)
-            (let* ((owner (configuration-layer/get-layer
-                           (car (oref pkg :owners))))
-                   (dir (when owner (oref owner :dir))))
-              (push (format "%slocal/%S/" dir pkg-name) load-path)))))
+        (let ((dir (configuration-layer/get-location-directory
+                    pkg-name
+                    (oref pkg :location)
+                    (car (oref pkg :owners)))))
+          (when dir
+            (add-to-list 'load-path dir)))
         ;; configuration
         (unless (memq (oref pkg :location) '(local site built-in))
           (configuration-layer//activate-package pkg-name))
@@ -1604,6 +1591,27 @@ wether the declared layer is an used one or not."
            (format "%S is configured in the dotfile." pkg-name)))
          (t
           (configuration-layer//configure-package pkg))))))))
+
+(defun configuration-layer/get-location-directory (pkg-name location owner)
+  "Return the location on disk for PKG."
+  (cond
+   ((stringp location)
+    (if (file-directory-p location)
+        (file-name-as-directory location)
+      (configuration-layer//warning
+       "Location path for package %S does not exists (value: %s)."
+       pkg-name location)
+      nil))
+   ((eq 'local location)
+    (let ((dir (if (eq 'dotfile owner)
+                   configuration-layer-private-directory
+                 (let* ((owner (configuration-layer/get-layer owner)))
+                   (when owner (oref owner :dir))))))
+      (if dir
+          (file-name-as-directory (format "%slocal/%S/" dir pkg-name))
+        (configuration-layer//warning
+         "Cannot find path location path for package %S." pkg-name)
+        nil)))))
 
 (defun configuration-layer//package-enabled-p (pkg layer)
   "Returns true if PKG should be configured for LAYER.
