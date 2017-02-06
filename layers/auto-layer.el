@@ -82,6 +82,8 @@
 
 (configuration-layer/lazy-install 'php :extensions '("\\(\\.amk\\'\\|/Amkfile\\'\\|\\.phtml\\'\\|\\.php[s345t]?\\'\\|[^/]\\.\\(module\\|test\\|install\\|profile\\|tpl\\.php\\|theme\\|inc\\)\\'\\|\\.php\\'\\)" php-mode))
 
+(configuration-layer/lazy-install 'makepkg :extensions '("/PKGBUILD\\'" pkgbuild-mode))
+
 (configuration-layer/lazy-install 'purescript :extensions '("\\(\\.purs\\'\\)" purescript-mode))
 
 (configuration-layer/lazy-install 'python :extensions '("\\(\\.pyx\\'\\|\\.pxd\\'\\|\\.pxi\\'\\)" cython-mode))

@@ -1,0 +1,28 @@
+#+TITLE: Makepkg(PKGBUILD) layer
+
+[[file:img/archlinux.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer provides syntax highlighting and a couple of functions for [[https://wiki.archlinux.org/index.php/PKGBUILD][PKGBUILD]]
+files used my =makepkg= on [[https://www.archlinux.org][Arch Linux]].
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =makepkg= to the existing =dotspacemacs-configuration-layers= list in this
+file. Lazy loading on opening of =PKBUILD= files is supported, too.
+
+* Key bindings
+
+| Key Binding | Description                |
+|-------------+----------------------------|
+| ~SPC m b~   | Run makepkg                |
+| ~SPC m r~   | Increase the pkgrel number |
+| ~SPC m u~   | Browse URL                 |
+| ~SPC m m~   | Update package sums        |
+| ~SPC m e~   | Build ETAGS file           |
+| ~SPC m a~   | Make a source tarball      |
