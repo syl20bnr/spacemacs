@@ -184,6 +184,20 @@ package name does not match theme name + `-theme' suffix.")
       (car theme)
     theme))
 
+(defun spacemacs//get-theme-package-directory (theme)
+  "Return the THEME location on disk."
+  (let* ((theme-name (spacemacs//get-theme-name theme))
+         (pkg-name (spacemacs/get-theme-package-name theme-name))
+         (dir (configuration-layer/get-location-directory
+               pkg-name
+               (plist-get (cdr theme) :location)
+               'dotfile)))
+    (unless dir
+      ;; fallback to elpa directory
+      (setq dir (configuration-layer/get-elpa-package-install-directory
+                 pkg-name)))
+    dir))
+
 (defun spacemacs/load-default-theme (&optional fallback-theme)
   "Load default theme.
 Default theme is the car of `dotspacemacs-themes'.
@@ -203,16 +217,11 @@ THEME."
           ;; Load theme
           (unless (or (memq theme-name (custom-available-themes))
                       (eq 'default theme-name))
-            (let* ((pkg-name (spacemacs/get-theme-package-name theme-name))
-                   (pkg-dir
-                    (when pkg-name
-                      (configuration-layer/get-elpa-package-install-directory
-                       pkg-name))))
-              ;; add theme package directory to load-path since `package.el' may
-              ;; not be initialized when theme is applied
+            (let ((pkg-dir (spacemacs//get-theme-package-directory theme)))
               (when pkg-dir
                 (add-to-list 'custom-theme-load-path pkg-dir)
                 (add-to-list 'load-path pkg-dir)
+                ;; do we still need this particual case for moe theme?
                 (when (or (eq 'moe-light theme-name)
                           (eq 'moe-dark theme-name))
                   (load-file (concat pkg-dir "moe-light-theme.el"))

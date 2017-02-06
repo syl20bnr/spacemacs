@@ -1026,6 +1026,13 @@ declaration:
               ))
 #+END_SRC
 
+*Important note:* If you use =:location local= then you have to put your theme
+in the directory =private/local/<theme-package-name>/= with =theme-package-name=
+being the name of your package suffixed with =-theme= as mentioned in the Emacs
+conventions.
+ For instance if your theme is =foo= then you have to put our theme
+files in the directory =private/local/foo-theme=.
+
 You can cycle between the themes declared in =dotspacemacs-themes= with
 ~SPC T n~ and select an installed theme with ~SPC T s~.
 
