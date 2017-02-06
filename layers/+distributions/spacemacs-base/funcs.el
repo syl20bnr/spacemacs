@@ -1034,8 +1034,8 @@ a split-side entry, its value must be usable as the SIDE argument for
 Decision is based on `dotspacemacs-line-numbers'."
   (and dotspacemacs-line-numbers
        (spacemacs//linum-current-buffer-is-not-special)
+       (spacemacs//linum-curent-buffer-is-not-too-big)
        (or (spacemacs//linum-backward-compabitility)
-           (spacemacs//linum-curent-buffer-is-not-too-big)
            ;; explicitly enabled buffers take priority over explicitly disabled
            ;; ones
            (or (spacemacs//linum-enabled-for-current-major-mode)
@@ -1076,12 +1076,12 @@ Decision is based on `dotspacemacs-line-numbers'."
 
 (defun spacemacs//linum-enabled-for-current-major-mode ()
   "Return non-nil if line number is enabled for current major-mode."
-  (and (spacemacs/mplist-get dotspacemacs-line-numbers :enabled-for-modes)
-       (memq major-mode (spacemacs/mplist-get dotspacemacs-line-numbers
-                                              :enabled-for-modes))))
+  (let ((modes (spacemacs/mplist-get dotspacemacs-line-numbers
+                                     :enabled-for-modes)))
+    (when modes (memq major-mode modes))))
 
 (defun spacemacs//linum-disabled-for-current-major-mode ()
   "Return non-nil if line number is disabled for current major-mode."
-  (and (spacemacs/mplist-get dotspacemacs-line-numbers :disabled-for-modes)
-       (memq major-mode (spacemacs/mplist-get dotspacemacs-line-numbers
-                                              :disabled-for-modes))))
+  (let ((modes (spacemacs/mplist-get dotspacemacs-line-numbers
+                                     :disabled-for-modes)))
+    (when modes (memq major-mode modes))))
