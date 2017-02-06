@@ -480,8 +480,9 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
                    (lambda (x)
                      (and (boundp x)
                           (not (keywordp x))
-                          (string-prefix-p "dotspacemacs"
-                                           (symbol-name x))))))
+                          ;; avoid private variables to show up
+                          (not (string-match-p "--" (symbol-name x)))
+                          (string-prefix-p "dotspacemacs" (symbol-name x))))))
 
 (defun dotspacemacs/get-variable-list ()
   "Return a list of all dotspacemacs variable symbols."
