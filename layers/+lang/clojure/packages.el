@@ -25,7 +25,8 @@
       (setq cider-stacktrace-default-filters '(tooling dup)
             cider-repl-pop-to-buffer-on-connect nil
             cider-prompt-save-file-on-load nil
-            cider-repl-use-clojure-font-lock t)
+            cider-repl-use-clojure-font-lock t
+            cider-repl-history-file (concat spacemacs-cache-directory "cider-repl-history"))
       (push "\\*cider-repl\.\+\\*" spacemacs-useful-buffers-regexp)
       (add-hook 'clojure-mode-hook 'cider-mode)
       (dolist (x '(spacemacs-jump-handlers-clojure-mode
