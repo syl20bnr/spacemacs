@@ -91,7 +91,8 @@ point to the position of the join."
     (delete-horizontal-space t))
   (company-abort)
   (insert ".")
-  (company-complete))
+  (when (not (company-tooltip-visible-p))
+    company-complete))
 
 ;;; Flyspell
 
