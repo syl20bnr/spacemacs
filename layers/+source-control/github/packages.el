@@ -16,6 +16,7 @@
         github-clone
         github-search
         magit-gh-pulls
+        magithub
         ;; this package does not exits, we need it to wrap
         ;; the call to spacemacs/declare-prefix.
         (spacemacs-github :location built-in)
@@ -82,6 +83,15 @@
           (define-key magit-mode-map "#" 'spacemacs/load-gh-pulls-mode))
         :config
         (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))))
+
+(defun github/init-magithub ()
+  (use-package magithub
+    :defer t
+    :after magit
+    :config
+    (progn
+      (magithub-feature-autoinject t)
+      (define-key magit-status-mode-map "@" #'magithub-dispatch-popup))))
 
 (defun github/init-spacemacs-github ()
   (spacemacs/declare-prefix "gh" "github"))
