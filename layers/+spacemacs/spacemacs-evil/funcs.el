@@ -23,9 +23,9 @@
       (let ((sp-navigate-consider-symbols nil))
         (if (char-equal (char-after) ?\() (forward-char))
         (sp-up-sexp)
-        (evil-lisp-insert-state
-         (sp-newline)
-         (sp-insert-pair "("))))
+        (evil-lisp-insert-state)
+        (sp-newline)
+        (sp-insert-pair "(")))
 
     (defun lisp-state-insert-sexp-before ()
       "Insert sexp before the current one."
