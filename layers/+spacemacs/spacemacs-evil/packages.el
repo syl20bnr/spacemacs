@@ -94,14 +94,19 @@
     (add-hook 'spacemacs-editing-style-hook
               #'spacemacs//iedit-insert-state-hybrid)))
 
+(defun spacemacs-evil/init-evil-lisp-state ()
+  (use-package evil-lisp-state
+    :init
+    (progn  (setq evil-lisp-state-global t)
+            )
+    :config
+    (progn
+      (spacemacs/set-leader-keys "k" evil-lisp-state-map)
+      (spacemacs//evil-lisp-more-keys))))
+
 (defun spacemacs-evil/init-evil-indent-plus ()
   (use-package evil-indent-plus
     :init (evil-indent-plus-default-bindings)))
-
-(defun spacemacs-evil/init-evil-lisp-state ()
-  (use-package evil-lisp-state
-    :init (setq evil-lisp-state-global t)
-    :config (spacemacs/set-leader-keys "k" evil-lisp-state-map)))
 
 (defun spacemacs-evil/init-evil-mc ()
   (use-package evil-mc
