@@ -52,7 +52,6 @@ behavior (for instance it support C-r pasting)."
   :group 'spacemacs
   :type 'boolean)
 
-
 (defvar hybrid-mode-default-state-backup evil-default-state
   "Backup of `evil-default-state'.")
 
