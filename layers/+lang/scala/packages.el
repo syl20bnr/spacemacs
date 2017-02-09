@@ -27,10 +27,10 @@
     :init
     ;; note ensime-mode is hooked to scala-mode-hook automatically by
     ;; ensime-mode via an autoload
-    (ensime/init 'scala-mode scala-enable-eldoc scala-auto-start-ensime)
+    (spacemacs//ensime-init 'scala-mode scala-enable-eldoc scala-auto-start-ensime)
     :config
     (progn
-      (ensime/configure-keybindings 'scala-mode)
+      (spacemacs/ensime-configure-keybindings 'scala-mode)
       ;; Don't use scala checker if ensime mode is active, since it provides
       ;; better error checking.
       (with-eval-after-load 'flycheck

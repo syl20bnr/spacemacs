@@ -1,8 +1,0 @@
-#+TITLE: Ensime layer
-
-* Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
-
-* Description
-Dependency layer for scala and java Ensime support. You shouldn't need to enable
-this layer manually.
