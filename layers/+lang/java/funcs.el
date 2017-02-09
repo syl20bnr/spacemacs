@@ -9,6 +9,21 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//java-define-command-prefixes ()
+  "Define command prefixes for java-mode."
+  (setq java/key-binding-prefixes '(("me" . "errors")
+                                    ("md" . "eclimd")
+                                    ("mf" . "find")
+                                    ("mg" . "goto")
+                                    ("mr" . "refactor")
+                                    ("mh" . "documentation")
+                                    ("mm" . "maven")
+                                    ("ma" . "ant")
+                                    ("mp" . "project")
+                                    ("mt" . "test")))
+  (mapc (lambda(x) (spacemacs/declare-prefix-for-mode
+                    'java-mode (car x) (cdr x)))
+        java/key-binding-prefixes))
 
 ;; ensime
 
