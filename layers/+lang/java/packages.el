@@ -16,6 +16,9 @@
         eclim
         ensime
         ggtags
+        gradle-mode
+        groovy-imports
+        groovy-mode
         helm-gtags
         (java-mode :location built-in)
         ))
@@ -191,6 +194,21 @@
 
 (defun java/post-init-ggtags ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun java/init-gradle-mode ()
+  (use-package gradle-mode
+    :defer t
+    ))
+
+(defun java/init-groovy-imports ()
+  (use-package groovy-imports
+    :defer t
+    ))
+
+(defun java/init-groovy-mode ()
+  (use-package groovy-mode
+    :defer t
+    ))
 
 (defun java/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'java-mode))
