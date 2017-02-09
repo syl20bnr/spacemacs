@@ -55,8 +55,9 @@
         "," 'message-send-and-exit
         "c" 'message-send-and-exit
         "k" 'message-kill-buffer
+        "a" 'message-kill-buffer
         "s" 'message-dont-send         ; saves as draft
-        "a" 'mml-attach-file)
+        "f" 'mml-attach-file)
 
       (setq mu4e-completing-read-function 'completing-read)
 
