@@ -9,6 +9,13 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//scala-setup-ensime ()
+  "Setup ENSIME for Scala."
+  (spacemacs//java-setup-ensime))
+
+(defun spacemacs//scala-disable-flycheck-scala ()
+  (push 'scala flycheck-disabled-checkers))
+
 (defun spacemacs/scala-join-line ()
   "Adapt `scala-indent:join-line' to behave more like evil's line join.
 

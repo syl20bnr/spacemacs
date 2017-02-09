@@ -24,6 +24,41 @@
   (mapc (lambda(x) (spacemacs/declare-prefix-for-mode
                     'java-mode (car x) (cdr x)))
         java/key-binding-prefixes))
+
+(defun spacemacs//java-setup-backend ()
+  "Conditionally setup java backend."
+  (pcase java-backend
+    (`eclim (spacemacs//java-setup-eclim))
+    (`ensime (spacemacs//java-setup-ensime))
+    (`meghanada (spacemacs//java-setup-meghanada))))
+
+(defun spacemacs//java-setup-company ()
+  "Conditionally setup company based on backend."
+  (pcase java-backend
+    (`eclim (spacemacs//java-setup-eclim-company))
+    (`ensime (spacemacs//java-setup-ensime-company))
+    (`meghanada (spacemacs//java-setup-meghanada-company))))
+
+(defun spacemacs//java-setup-flycheck ()
+  "Conditionally setup flycheck based on backend."
+  (pcase java-backend
+    (`eclim (spacemacs//java-setup-eclim-flycheck))
+    (`ensime (spacemacs//java-setup-ensime-flycheck))
+    (`meghanada (spacemacs//java-setup-meghanada-flycheck))))
+
+(defun spacemacs//java-setup-flyspell ()
+  "Conditionally setup flyspell based on backend."
+  (pcase java-backend
+    (`ensime (spacemacs//java-setup-ensime-flyspell))
+    (`meghanada (spacemacs//java-setup-meghanada-flyspell))))
+
+(defun spacemacs//java-setup-eldoc ()
+  "Conditionally setup eldoc based on backend."
+  (pcase java-backend
+    (`ensime (spacemacs//java-setup-ensime-eldoc))
+    (`meghanada (spacemacs//java-setup-meghanada-eldoc))))
+
+
 
 ;; ensime
 
@@ -31,31 +66,43 @@
 (autoload 'ensime-config-find "ensime-config")
 (autoload 'projectile-project-p "projectile")
 
-(defun spacemacs//ensime-init (mode &optional enable-eldoc auto-start)
-  (let ((hook (intern (format "%S-hook" mode)))
-        (jump-handlers (intern (format "spacemacs-jump-handlers-%S" mode))))
-    (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime")
-    (when enable-eldoc
-      (add-hook 'ensime-mode-hook 'spacemacs//ensime-enable-eldoc))
-    (add-hook hook 'spacemacs//ensime-configure-flyspell)
-    (add-hook hook 'spacemacs//ensime-configure)
-    (when auto-start
-      (add-hook mode 'spacemacs//ensime-maybe-start))
-    (add-to-list jump-handlers 'ensime-edit-definition)))
-
-(defun spacemacs//ensime-configure ()
-  "Ensure the file exists before starting `ensime-mode'."
+(defun spacemacs//java-setup-ensime ()
+  "Setup ENSIME."
+  ;; jump handler
+  (add-to-list 'spacemacs-jump-handlers 'ensime-edit-definition)
+  ;; ensure the file exists before starting `ensime-mode'
   (cond
    ((and (buffer-file-name) (file-exists-p (buffer-file-name)))
-    (ensime-mode +1))
+    (ensime-mode))
    ((buffer-file-name)
-    (add-hook 'after-save-hook (lambda () (ensime-mode +1)) nil t))))
+    (add-hook 'after-save-hook 'ensime-mode nil t))))
+
+(defun spacemacs//java-setup-ensime-company ()
+  "Setup ENSIME auto-completion.")
+
+(defun spacemacs//java-setup-ensime-flycheck ()
+  "Setup ENSIME syntax checking.")
+
+(defun spacemacs//java-setup-ensime-flyspell ()
+  "Setup ENSIME spell checking."
+  (flyspell-mode)
+  (setq-local flyspell-generic-check-word-predicate
+              'spacemacs//ensime-flyspell-verify))
+
+(defun spacemacs//java-setup-ensime-eldoc ()
+  "Setup ENSIME eldoc."
+  (setq-local eldoc-documentation-function
+              (lambda ()
+                (when (ensime-connected-p)
+                  (ensime-print-type-at-point))))
+  (eldoc-mode))
 
 (defun spacemacs//ensime-maybe-start ()
   (when (buffer-file-name)
     (let ((ensime-buffer (spacemacs//ensime-buffer-for-file (buffer-file-name)))
           (file (ensime-config-find-file (buffer-file-name)))
-          (is-source-file (s-matches? (rx (or "/src/" "/test/")) (buffer-file-name))))
+          (is-source-file (s-matches? (rx (or "/src/" "/test/"))
+                                      (buffer-file-name))))
 
       (when (and is-source-file (null ensime-buffer))
         (noflet ((ensime-config-find (&rest _) file))
@@ -68,114 +115,14 @@
     (-when-let (project-name (projectile-project-p))
       (--first (-when-let (bufname (buffer-name it))
                  (and (s-contains? "inferior-ensime-server" bufname)
-                      (s-contains? (file-name-nondirectory project-name) bufname)))
+                      (s-contains? (file-name-nondirectory project-name)
+                                   bufname)))
                (buffer-list)))))
-
-(defun spacemacs//ensime-enable-eldoc ()
-  (setq-local eldoc-documentation-function
-              (lambda ()
-                (when (ensime-connected-p)
-                  (ensime-print-type-at-point))))
-  (eldoc-mode +1))
 
 (defun spacemacs//ensime-flyspell-verify ()
   "Prevent common flyspell false positives in scala-mode."
   (and (flyspell-generic-progmode-verify)
        (not (s-matches? (rx bol (* space) "package") (current-line)))))
-
-(defun spacemacs//ensime-configure-flyspell ()
-  (setq-local flyspell-generic-check-word-predicate 'spacemacs//ensime-flyspell-verify))
-
-;; key bindings
-
-(defun spacemacs/ensime-configure-keybindings (mode)
-  "Define Ensime key bindings for MODE."
-  (dolist (prefix '(("mb" . "build")
-                    ("mc" . "check")
-                    ("md" . "debug")
-                    ("me" . "errors")
-                    ("mg" . "goto")
-                    ("mh" . "docs")
-                    ("mi" . "inspect")
-                    ("mn" . "ensime")
-                    ("mr" . "refactor")
-                    ("mt" . "test")
-                    ("ms" . "repl")
-                    ("my" . "yank")))
-    (spacemacs/declare-prefix-for-mode mode (car prefix) (cdr prefix)))
-
-  (spacemacs/set-leader-keys-for-major-mode mode
-    "/"      'ensime-search
-    "'"      'ensime-inf-switch
-
-    "bc"     'ensime-sbt-do-compile
-    "bC"     'ensime-sbt-do-clean
-    "bi"     'ensime-sbt-switch
-    "bp"     'ensime-sbt-do-package
-    "br"     'ensime-sbt-do-run
-
-    "ct"     'ensime-typecheck-current-buffer
-    "cT"     'ensime-typecheck-all
-
-    "dA"     'ensime-db-attach
-    "db"     'ensime-db-set-break
-    "dB"     'ensime-db-clear-break
-    "dC"     'ensime-db-clear-all-breaks
-    "dc"     'ensime-db-continue
-    "di"     'ensime-db-inspect-value-at-point
-    "dn"     'ensime-db-next
-    "do"     'ensime-db-step-out
-    "dq"     'ensime-db-quit
-    "dr"     'ensime-db-run
-    "ds"     'ensime-db-step
-    "dt"     'ensime-db-backtrace
-
-    "ee"     'ensime-print-errors-at-point
-    "el"     'ensime-show-all-errors-and-warnings
-    "es"     'ensime-stacktrace-switch
-
-    "gp"     'ensime-pop-find-definition-stack
-    "gi"     'ensime-goto-impl
-    "gt"     'ensime-goto-test
-
-    "hh"     'ensime-show-doc-for-symbol-at-point
-    "hT"     'ensime-type-at-point-full-name
-    "ht"     'ensime-type-at-point
-    "hu"     'ensime-show-uses-of-symbol-at-point
-
-    "ii"     'ensime-inspect-type-at-point
-    "iI"     'ensime-inspect-type-at-point-other-frame
-    "ip"     'ensime-inspect-project-package
-
-    "nF"     'ensime-reload-open-files
-    "ns"     'ensime
-    "nS"     'spacemacs/ensime-gen-and-restart
-
-    "ra"     'ensime-refactor-add-type-annotation
-    "rd"     'ensime-refactor-diff-inline-local
-    "rD"     'ensime-undo-peek
-    "rf"     'ensime-format-source
-    "ri"     'ensime-refactor-diff-organize-imports
-    "rm"     'ensime-refactor-diff-extract-method
-    "rr"     'ensime-refactor-diff-rename
-    "rt"     'ensime-import-type-at-point
-    "rv"     'ensime-refactor-diff-extract-local
-
-    "ta"     'ensime-sbt-do-test-dwim
-    "tr"     'ensime-sbt-do-test-quick-dwim
-    "tt"     'ensime-sbt-do-test-only-dwim
-
-    "sa"     'ensime-inf-load-file
-    "sb"     'ensime-inf-eval-buffer
-    "sB"     'spacemacs/ensime-inf-eval-buffer-switch
-    "si"     'ensime-inf-switch
-    "sr"     'ensime-inf-eval-region
-    "sR"     'spacemacs/ensime-inf-eval-region-switch
-
-    "yT"     'spacemacs/ensime-yank-type-at-point-full-name
-    "yt"     'spacemacs/ensime-yank-type-at-point
-
-    "z"      'ensime-expand-selection-command))
 
 ;; interactive functions
 
@@ -231,18 +178,53 @@
   (interactive)
   (ensime-type-at-point t t))
 
-
 
-;; Completion
+;; eclim
 
-(defun spacemacs/java-completing-dot ()
+(defun spacemacs//java-setup-eclim ()
+  "Setup Eclim."
+  ;; jump handler
+  (add-to-list 'spacemacs-jump-handlers '(eclim-java-find-declaration :async t))
+  ;; enable eclim
+  (eclim-mode))
+
+(defun spacemacs//java-setup-eclim-company ()
+  "Setup Eclim auto-completion."
+  (spacemacs|add-company-backends
+    :backends company-emacs-eclim
+    :modes eclim-mode
+    :hooks nil)
+  ;; call manualy generated functions by the macro
+  (spacemacs//init-company-eclim-mode)
+  (set (make-variable-buffer-local 'company-idle-delay) 0.5)
+  (set (make-variable-buffer-local 'company-minimum-prefix-length) 1)
+  (company-mode))
+
+(defun spacemacs//java-setup-eclim-flycheck ()
+  "Setup Eclim syntax checking."
+  (flycheck-eclim-setup)
+  (setq eclim-autoupdate-problems nil)
+  ;; check syntax only when save
+  (set (make-local-variable 'flycheck-check-syntax-automatically)
+       '(save))
+  (flycheck-mode))
+
+(defun spacemacs//java-eclim-save-buffer-no-flycheck (&rest args)
+  "Save buffer without triggering flycheck."
+  (when (buffer-modified-p)
+    (let ((backup-inhibited t)
+          flycheck-check-syntax-automatically
+          auto-save-default)
+      (save-buffer 0))))
+
+(defun spacemacs/java-eclim-completing-dot ()
   "Insert a period and show company completions."
   (interactive "*")
   (spacemacs//java-delete-horizontal-space)
   (insert ".")
   (company-emacs-eclim 'interactive))
 
-(defun spacemacs/java-completing-double-colon ()
+(defun spacemacs/java-eclim-completing-double-colon ()
   "Insert double colon and show company completions."
   (interactive "*")
   (spacemacs//java-delete-horizontal-space)
@@ -250,6 +232,44 @@
   (let ((curr (point)))
     (when (s-matches? (buffer-substring (- curr 2) (- curr 1)) ":")
       (company-emacs-eclim 'interactive))))
+
+
+;; meghanada
+
+(defun spacemacs//java-setup-meghanada ()
+  "Setup Meghanada."
+  (require 'meghanada)
+  ;; jump handler
+  (add-to-list 'spacemacs-jump-handlers
+               '(meghanada-jump-declaration
+                 :async spacemacs//java-meghanada-server-livep))
+  ;; auto-install meghanada server
+  (let ((dest-jar (meghanada--locate-server-jar)))
+    (unless dest-jar
+      (meghanada-install-server)))
+  ;; enable meghanada
+  (meghanada-mode))
+
+(defun spacemacs//java-setup-meghanada-company ()
+  "Setup Meghanada auto-completion."
+  (meghanada-company-enable))
+
+(defun spacemacs//java-setup-meghanada-flycheck ()
+  "Setup Meghanada syntax checking."
+  (spacemacs/add-flycheck-hook 'java-mode)
+  (require 'flycheck-meghanada)
+  (add-to-list 'flycheck-checkers 'meghanada)
+  (flycheck-mode))
+
+(defun spacemacs//java-setup-meghanada-flyspell ()
+  "Setup Meghanada spell checking.")
+
+(defun spacemacs//java-setup-meghanada-eldoc ()
+  "Setup Meghanada eldoc.")
+
+(defun spacemacs//java-meghanada-server-livep ()
+  "Return non-nil if the Meghanada server is up."
+  (and meghanada--client-process (process-live-p meghanada--client-process)))
 
 
 ;; Maven
