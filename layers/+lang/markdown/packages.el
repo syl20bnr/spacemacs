@@ -156,7 +156,9 @@ Will work on both org-mode and any mode that accepts plain html."
 
 (defun markdown/init-markdown-toc ()
   (use-package markdown-toc
-    :defer t))
+    :defer t
+    :init (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
+            "it"  'markdown-toc-generate-toc)))
 
 (defun markdown/init-mmm-mode ()
   (use-package mmm-mode
