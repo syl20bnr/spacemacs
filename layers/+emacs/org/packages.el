@@ -257,6 +257,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "*" 'org-ctrl-c-star
         "RET" 'org-ctrl-c-ret
         "-" 'org-ctrl-c-minus
+        "#" 'org-update-statistics-cookies
         ;; insertion
         "ia" 'org-attach
         "id" 'org-insert-drawer
