@@ -13,5 +13,5 @@
 (spacemacs|define-jump-handlers java-mode)
 
 (defvar java-backend 'eclim
-  "The backend to use for IDE features. Possibly values are `eclim' and
-  `ensime'.")
+  "The backend to use for IDE features. Possible values are `eclim' and
+ `ensime'.")
