@@ -71,15 +71,7 @@
     :pre-config
     (progn
       (use-package magit-gh-pulls
-        :init
-        (progn
-          (defun spacemacs/load-gh-pulls-mode ()
-            "Start `magit-gh-pulls-mode' only after a manual request."
-            (interactive)
-            (magit-gh-pulls-mode)
-            (magit-gh-pulls-popup))
-
-          (define-key magit-mode-map "#" 'spacemacs/load-gh-pulls-mode))
+        :init (define-key magit-mode-map "#" 'spacemacs/load-gh-pulls-mode)
         :config
         (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))))
 
