@@ -104,8 +104,7 @@ the final step of executing code in `emacs-startup-hook'.")
                                     dotspacemacs-editing-style))
   (configuration-layer/initialize)
   ;; theme
-  (spacemacs/load-theme (car dotspacemacs-themes)
-                             spacemacs--fallback-theme)
+  (spacemacs/load-default-theme spacemacs--fallback-theme)
   ;; font
   (spacemacs|do-after-display-system-init
    ;; If you are thinking to remove this call to `message', think twice. You'll

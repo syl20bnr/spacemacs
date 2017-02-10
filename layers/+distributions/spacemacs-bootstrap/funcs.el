@@ -44,6 +44,17 @@
 (defun evil-insert-state-cursor-hide ()
   (setq evil-insert-state-cursor '((hbar . 0))))
 
+(defun spacemacs/set-evil-search-module (style)
+  "Set the evil search module depending on STYLE."
+  (cond
+   ((or (eq 'vim style)
+        (and (eq 'hybrid style)
+             (or (not (boundp 'hybrid-mode-use-evil-search-module))
+                 hybrid-mode-use-evil-search-module)))
+    (setq-default evil-search-module 'evil-search))
+   (t
+    (setq-default evil-search-module 'isearch))))
+
 (defun spacemacs/evil-smart-doc-lookup ()
   "Version of `evil-lookup' that attempts to use
         the mode specific goto-definition binding,

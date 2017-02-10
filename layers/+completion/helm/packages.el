@@ -621,7 +621,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :defer t
     :init
     (spacemacs/set-leader-keys
-      "Ts" 'helm-themes)))
+      "Ts" 'spacemacs/helm-themes)))
 
 (defun helm/post-init-imenu ()
   (spacemacs/set-leader-keys "ji" 'spacemacs/helm-jump-in-buffer))

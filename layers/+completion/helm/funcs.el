@@ -213,3 +213,12 @@ Ensure that helm is required before calling FUNC."
             (line-number-at-pos))
           spacemacs--gne-line-func 'helm-grep-action
           next-error-function 'spacemacs/gne-next)))
+
+
+;; theme
+
+(defun spacemacs/helm-themes ()
+  "Remove limit on number of candidates on `helm-themes'"
+  (interactive)
+  (let (helm-candidate-number-limit)
+    (helm-themes)))
