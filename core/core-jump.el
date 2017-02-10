@@ -51,7 +51,8 @@ sets `spacemacs-jump-handlers' in buffers of that mode."
                        (plist-get (cdr -handler) :async))))
           (ignore-errors
             (call-interactively handler))
-          (when (or async
+          (when (or (eq async t)
+                    (and (fboundp async) (funcall async))
                     (not (eq old-point (point)))
                     (not (equal old-buffer (current-buffer))))
             (throw 'done t)))))
