@@ -1,0 +1,15 @@
+#+TITLE: JR Concurrent Programming Language layer
+
+[[file:img/jr.png]]
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+
+* Description
+This layer adds syntax highlighting for the [[http://web.cs.ucdavis.edu/~olsson/research/jr/][JR Concurrent Programming Language]].
+JR is the implementation of the [[https://www2.cs.arizona.edu/sr/][SR]] language for Java.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =jr= to the existing =dotspacemacs-configuration-layers= list in this file.
