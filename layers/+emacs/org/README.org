@@ -265,8 +265,7 @@ filename, todos will be stored in each project root.
 #+END_SRC
 
 The TODO files are not added to the agenda automatically. You can do this with
-the following snippet. Note that this may have unintended consequences until
-[[https://github.com/IvanMalison/org-projectile/issues/10][this bug]] is fixed.
+the following snippet.
 
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'org-agenda
