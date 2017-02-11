@@ -907,17 +907,18 @@ A non-nil argument sorts in reverse order."
 (setq compilation-finish-function
       (lambda (buf str)
 
-        (if (or (string-match "exited abnormally" str)
-                (string-match "FAILED" (buffer-string)))
+        (let ((case-fold-search nil))
+          (if (or (string-match "exited abnormally" str)
+                  (string-match "FAILED" (buffer-string)))
 
-            ;; there were errors
-            (message "There were errors. SPC-e-n to visit.")
-          (unless (or (string-match "Grep finished" (buffer-string))
-                      (string-match "Ag finished" (buffer-string))
-                      (string-match "nosetests" (buffer-name)))
+              ;; there were errors
+              (message "There were errors. SPC-e-n to visit.")
+            (unless (or (string-match "Grep finished" (buffer-string))
+                        (string-match "Ag finished" (buffer-string))
+                        (string-match "nosetests" (buffer-name)))
 
-            ;; no errors
-            (message "compilation ok.")))))
+              ;; no errors
+              (message "compilation ok."))))))
 
 ;; from http://www.emacswiki.org/emacs/WordCount
 (defun spacemacs/count-words-analysis (start end)
