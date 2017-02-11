@@ -8,8 +8,9 @@
  - [[#auto-compile][Auto-compile]]
  - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
  - [[#key-bindings][Key bindings]]
-   - [[#smartparens][smartparens]]
-   - [[#srefactor][srefactor]]
+   - [[#additional-evualation-functions][Additional evualation functions]]
+   - [[#format-code][Format code]]
+   - [[#debugging][Debugging]]
 
 * Description
 This layer gathers all the configuration related to emacs-lisp. This should
@@ -61,7 +62,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m t q~                | run =ert=                              |
 | ~SPC m d m~                | open [[https://github.com/joddie/macrostep][macrostep]] transient-state         |
 
-** smartparens
+** Additional evualation functions
 If =smartparens= is used the following additional key bindings are available:
 
 | Key Binding | Description                  |
@@ -69,7 +70,7 @@ If =smartparens= is used the following additional key bindings are available:
 | ~SPC m e c~ | evaluate sexp around point   |
 | ~SPC m e s~ | evaluate symbol around point |
 
-** srefactor
+** Format code
 The [[file:../../semantic/README.org][semantic]] layer should be installed for these key bindings to become active.
 
 | Key Binding | Description             |
@@ -78,3 +79,11 @@ The [[file:../../semantic/README.org][semantic]] layer should be installed for t
 | ~SPC m = f~ | format current function |
 | ~SPC m = o~ | format all on one line  |
 | ~SPC m = s~ | format current sexp     |
+
+** Debugging
+
+| Key Binding | Description                                                            |
+|-------------+------------------------------------------------------------------------|
+| ~SPC m d f~ | on a =defun= symbol toggle on the instrumentalisation of the function  |
+| ~SPC m d F~ | on a =defun= symbol toggle off the instrumentalisation of the function |
+| ~SPC m d t~ | insert =(debug)= to print the stack trace and re-evaluate the function |
