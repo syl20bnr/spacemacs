@@ -167,16 +167,16 @@ package name does not match theme name + `-theme' suffix.")
 (defvar spacemacs-post-theme-change-hook nil
   "Hook run after theme has changed.")
 
-(defun spacemacs/get-theme-package-name (theme)
+(defun spacemacs/get-theme-package-name (theme-name)
   "Returns the package theme for the given THEME name."
   (cond
    ;; built-in
-   ((memq theme emacs-built-in-themes) nil)
+   ((memq theme-name emacs-built-in-themes) nil)
    ;; from explicit alist
-   ((assq theme spacemacs-theme-name-to-package)
-    (cdr (assq theme spacemacs-theme-name-to-package)))
+   ((assq theme-name spacemacs-theme-name-to-package)
+    (cdr (assq theme-name spacemacs-theme-name-to-package)))
    ;; fallback to <name>-theme
-   (t (intern (format "%S-theme" theme)))))
+   (t (intern (format "%S-theme" theme-name)))))
 
 (defun spacemacs//get-theme-name (theme)
   "Return the name of THEME."
@@ -188,10 +188,11 @@ package name does not match theme name + `-theme' suffix.")
   "Return the THEME location on disk."
   (let* ((theme-name (spacemacs//get-theme-name theme))
          (pkg-name (spacemacs/get-theme-package-name theme-name))
-         (dir (configuration-layer/get-location-directory
-               pkg-name
-               (plist-get (cdr theme) :location)
-               'dotfile)))
+         (dir (when (listp theme)
+                (configuration-layer/get-location-directory
+                 pkg-name
+                 (plist-get (cdr theme) :location)
+                 'dotfile))))
     (unless dir
       ;; fallback to elpa directory
       (setq dir (configuration-layer/get-elpa-package-install-directory
@@ -235,6 +236,7 @@ THEME."
           (setq-default spacemacs--cur-theme theme-name)
           (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
       ('error
+       (message "error: %s" err)
        (if fallback-theme
            ;; fallback to Spacemacs default theme
            (progn
