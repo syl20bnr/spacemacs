@@ -18,10 +18,9 @@
 
 (defun ruby-on-rails/init-projectile-rails ()
   (use-package projectile-rails
-    :defer t
-    :init (projectile-rails-global-mode)
     :config
     (progn
+      (projectile-rails-global-mode)
       (spacemacs|diminish projectile-rails-mode " ⇋" " RoR")
 
       ;; Find files
