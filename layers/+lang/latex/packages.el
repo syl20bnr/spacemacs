@@ -84,9 +84,15 @@
           (spacemacs/set-leader-keys-for-major-mode mode
             "z=" 'TeX-fold-math
             "zb" 'TeX-fold-buffer
+            "zB" 'TeX-fold-clearout-buffer
             "ze" 'TeX-fold-env
+            "zI" 'TeX-fold-clearout-item
             "zm" 'TeX-fold-macro
-            "zr" 'TeX-fold-region))
+            "zp" 'TeX-fold-paragraph
+            "zP" 'TeX-fold-clearout-paragraph
+            "zr" 'TeX-fold-region
+            "zR" 'TeX-fold-clearout-region
+            "zz" 'TeX-fold-dwim))
         (spacemacs/declare-prefix-for-mode mode "mh" "help")
         (spacemacs/declare-prefix-for-mode mode "mx" "text/fonts")
         (spacemacs/declare-prefix-for-mode mode "mz" "fold"))
