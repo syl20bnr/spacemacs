@@ -88,7 +88,6 @@ function or press ~o~ to go out of it.
 
 | Key Binding                | Description                                            |
 |----------------------------+--------------------------------------------------------|
-| ~SPC m g f~                | select a known function and go to its definition       |
 | ~SPC m g g~                | go to definition of symbol under point                 |
 | ~SPC m g G~                | go to definition of symbol under point in other window |
 | ~SPC m h h~                | describe symbol at point                               |

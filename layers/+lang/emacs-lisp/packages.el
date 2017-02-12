@@ -142,7 +142,6 @@
       "er" 'eval-region
       "ef" 'eval-defun
       "el" 'lisp-state-eval-sexp-end-of-line
-      "gf" 'find-function
       "gG" 'spacemacs/nav-find-elisp-thing-at-point-other-window
       ","  'lisp-state-toggle-lisp-state
       "tb" 'spacemacs/ert-run-tests-buffer
