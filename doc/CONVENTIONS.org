@@ -225,11 +225,12 @@ The base prefix for debugging commands is ~SPC d~.
 | ~m d B~     | clear all breakpoints   |
 | ~m d c~     | continue                |
 | ~m d d~     | start debug session     |
-| ~m d i~     | inspect value at point  |
+| ~m d i~     | step in                 |
 | ~m d l~     | local variables         |
-| ~m d n~     | next                    |
+| ~m d o~     | step out                |
 | ~m d r~     | run                     |
-| ~m d s~     | step                    |
+| ~m d s~     | next step               |
+| ~m d v~     | inspect value at point  |
 
 Notes:
   - Ideally a transient-state for breakpoint navigation should be provided.
