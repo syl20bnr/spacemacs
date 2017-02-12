@@ -79,8 +79,18 @@
        '(evil-intercept-maps
          (delq (assq 'edebug-mode-map evil-intercept-maps)
                evil-intercept-maps)))
-      (evilified-state-evilify-map edebug-mode-map :eval-after-load edebug)
-      (evilified-state-evilify-map edebug-eval-mode-map :eval-after-load edebug)
+      (evilified-state-evilify-map edebug-mode-map
+        :eval-after-load edebug
+        :bindings
+        "a" 'edebug-stop
+        "s" 'edebug-step-mode
+        "S" 'edebug-next-mode)
+      (evilified-state-evilify-map edebug-eval-mode-map
+        :eval-after-load edebug
+        :bindings
+        "a" 'edebug-stop
+        "s" 'edebug-step-mode
+        "S" 'edebug-next-mode)
       (advice-add 'edebug-mode :after 'spacemacs//edebug-mode))))
 
 (defun emacs-lisp/post-init-eldoc ()
