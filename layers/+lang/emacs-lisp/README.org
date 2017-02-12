@@ -7,6 +7,7 @@
  - [[#install][Install]]
  - [[#auto-compile][Auto-compile]]
  - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
+ - [[#debugging-elisp][Debugging Elisp]]
  - [[#key-bindings][Key bindings]]
    - [[#additional-evaluation-functions][Additional evaluation functions]]
    - [[#format-code][Format code]]
@@ -42,6 +43,46 @@ lisp.
 
 As this state works the same for all files, the documentation is in global
 [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
+
+* Debugging Elisp
+Here is an interactive quick start to debug Emacs Lisp.
+
+First you need to read this file in Emacs in order to have the following code
+block to be interactively opened as Emacs Lisp.
+
+#+BEGIN_SRC elisp
+(defun helloworld (name)
+  (let ((n (subroutine name)))
+    (message (format "Hello world, %s!" name))))
+
+(defun subroutine (s)
+  (concat "my dear " s))
+
+(helloworld "Spacemacs")
+#+END_SRC
+
+1) To start the tutorial put your point in the source block above and press ~, '~
+it will open a new buffer in =emacs-lisp-mode=.
+
+2) Evaluate each sexp by putting your point in each of them and press ~, e f~.
+
+3) To debug the =helloworld= function, put your cursor on the =defun= keyword and
+press ~SPC m d f~ (or ~, d f~), it will put a breakpoint on the function (we say
+that we instrumentalise this function) so whenever the Lisp interpreter
+encounters this function it will start the debugger.
+
+4) Then go to the closing parenthesis of =(helloworld "Spacemacs")= and press
+~, e e~ to evaluate it, if you are using =vim= editing style you end up in
+evilified state otherwise you end up in emacs state and =*Debugging*= is
+displayed in the mode line.
+
+5) Press ~s~ to go to next step up to the opening parenthesis of
+   =(subroutine name)=,
+
+6) Press ~i~ to go into the =subroutine= where you can press ~s~ to step in
+function or press ~o~ to go out of it.
+
+7) Press ~a~ to stop debugging.
 
 * Key bindings
 
@@ -83,9 +124,20 @@ The [[file:../../semantic/README.org][semantic]] layer should be installed for t
 | ~SPC m = s~ | format current sexp     |
 
 ** Debugging
+To start debugging:
 
 | Key Binding | Description                                                            |
 |-------------+------------------------------------------------------------------------|
 | ~SPC m d f~ | on a =defun= symbol toggle on the instrumentalisation of the function  |
 | ~SPC m d F~ | on a =defun= symbol toggle off the instrumentalisation of the function |
 | ~SPC m d t~ | insert =(debug)= to print the stack trace and re-evaluate the function |
+
+In =edebug-mode= (=*Debugging*= is displayed in the minor modes segment of the
+mode line)
+
+TODO
+
+In =debugger-mode= (=Debugger= is displayed in major mode segment of the mode
+line)
+
+TODO
