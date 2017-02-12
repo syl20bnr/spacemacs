@@ -8,7 +8,7 @@
  - [[#auto-compile][Auto-compile]]
  - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
  - [[#key-bindings][Key bindings]]
-   - [[#additional-evualation-functions][Additional evualation functions]]
+   - [[#additional-evaluation-functions][Additional evaluation functions]]
    - [[#format-code][Format code]]
    - [[#debugging][Debugging]]
 
@@ -64,7 +64,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m t q~                | run =ert=                                              |
 | ~SPC m d m~                | open [[https://github.com/joddie/macrostep][macrostep]] transient-state                         |
 
-** Additional evualation functions
+** Additional evaluation functions
 If =smartparens= is used the following additional key bindings are available:
 
 | Key Binding | Description                  |
