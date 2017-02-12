@@ -218,10 +218,10 @@ Debug commands are prefixed by ~SPC m d~:
 | ~b~         | break on function                           |
 | ~c~         | continue the current computation            |
 | ~d~         | delete object at the point                  |
-| ~n~         | go to next step to inspect bindings         |
-| ~N~ or ~p~  | go to previous step to inspect the bindings |
+| ~i~         | step into the next function                 |
 | ~r~         | refresh the debugger buffer                 |
-| ~s~         | step into the next function                 |
+| ~s~         | go to next step to inspect bindings         |
+| ~S~         | go to previous step to inspect the bindings |
 | ~t~         | trace the expression                        |
 
 ** REPL

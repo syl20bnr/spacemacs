@@ -170,7 +170,7 @@
 
           "db" 'cider-debug-defun-at-point
           "de" 'spacemacs/cider-display-error-buffer
-          "di" 'cider-inspect
+          "dv" 'cider-inspect
 
           ;; refactorings from clojure-mode
           "rc{" 'clojure-convert-collection-to-map
