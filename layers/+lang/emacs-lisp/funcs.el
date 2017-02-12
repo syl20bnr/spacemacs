@@ -57,12 +57,20 @@
   (eval-defun nil)
   (save-buffer))
 
-(defun spacemacs//edebug-hook ()
-  "Hook for `edebug-mode'."
-  (evil-normalize-keymaps)
-  (when (and (fboundp 'golden-ratio-mode)
-             golden-ratio-mode)
-    (golden-ratio)))
+(defun spacemacs//edebug-mode (&rest args)
+  "Additional processing when `edebug-mode' is activated or deactivated."
+  (let ((evilified (or (eq 'vim dotspacemacs-editing-style)
+                       (and (eq 'hybrid dotspacemacs-editing-style)
+                            hybrid-mode-enable-evilified-state))))
+    (if (not edebug-mode)
+        ;; disable edebug-mode
+        (when evilified (evil-normal-state))
+      ;; enable edebug-mode
+      (when evilified (evil-evilified-state))
+      (evil-normalize-keymaps)
+      (when (and (fboundp 'golden-ratio-mode)
+                 golden-ratio-mode)
+        (golden-ratio)))))
 
 
 ;; smartparens integration
