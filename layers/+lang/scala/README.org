@@ -180,13 +180,13 @@ with
 | ~SPC m d B~ | clear breakpoint            |
 | ~SPC m d C~ | clear all breakpoints       |
 | ~SPC m d c~ | continue                    |
-| ~SPC m d i~ | inspect value at point      |
+| ~SPC m d i~ | step                        |
 | ~SPC m d n~ | next                        |
 | ~SPC m d o~ | step out                    |
 | ~SPC m d q~ | quit                        |
 | ~SPC m d r~ | run                         |
-| ~SPC m d s~ | step                        |
 | ~SPC m d t~ | backtrace                   |
+| ~SPC m d v~ | inspect value at point      |
 
 *Note:* These key bindings need a transient-state, PR welcome :-)
 

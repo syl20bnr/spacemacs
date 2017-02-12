@@ -123,13 +123,13 @@
         "dB"     'ensime-db-clear-break
         "dC"     'ensime-db-clear-all-breaks
         "dc"     'ensime-db-continue
-        "di"     'ensime-db-inspect-value-at-point
+        "di"     'ensime-db-step
         "dn"     'ensime-db-next
         "do"     'ensime-db-step-out
         "dq"     'ensime-db-quit
         "dr"     'ensime-db-run
-        "ds"     'ensime-db-step
         "dt"     'ensime-db-backtrace
+        "dv"     'ensime-db-inspect-value-at-point
 
         "ee"     'ensime-print-errors-at-point
         "el"     'ensime-show-all-errors-and-warnings
