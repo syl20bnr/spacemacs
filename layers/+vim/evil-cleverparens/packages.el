@@ -15,10 +15,10 @@
 (defun evil-cleverparens/init-evil-cleverparens ()
   (use-package evil-cleverparens
     :defer t
-    :diminish evil-cleverparens-mode
     :init
     (progn
       (setq evil-cleverparens-use-regular-insert t)
       (spacemacs|add-toggle evil-cleverparens
         :mode evil-cleverparens-mode
-        :documentation "Enable evil-cleverparens."))))
+        :documentation "Enable evil-cleverparens."))
+    :config (spacemacs|hide-lighter evil-cleverparens-mode)))

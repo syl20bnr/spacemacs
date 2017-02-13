@@ -16,8 +16,8 @@
 
 (defun evil-commentary/init-evil-commentary ()
   (use-package evil-commentary
-    :diminish evil-commentary-mode
     :init
     (progn
       (evil-commentary-mode)
-      (spacemacs/set-leader-keys ";" 'evil-commentary))))
+      (spacemacs/set-leader-keys ";" 'evil-commentary))
+    :config (spacemacs|hide-lighter evil-commentary-mode)))
