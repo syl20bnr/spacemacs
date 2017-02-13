@@ -9,8 +9,6 @@
 ;;
 ;;; License: GPLv3
 
-;;; Code:
-
 (setq coq-packages
       '(
         (company-coq :toggle (configuration-layer/package-usedp 'company))
@@ -29,12 +27,13 @@
     (progn
       (add-hook 'coq-mode-hook #'company-coq-mode)
       (add-to-list 'spacemacs-jump-handlers-coq-mode
-                   'company-coq-jump-to-definition))
+                   'company-coq-jump-to-definition)
+      (setq company-coq-disabled-features '(hello)))
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode
-       'coq-mode
-       "mi" "coq/insert")
+      (spacemacs|hide-lighter company-coq-mode)
+      (spacemacs/declare-prefix-for-mode 'coq-mode
+        "mi" "coq/insert")
       (spacemacs/set-leader-keys-for-major-mode 'coq-mode
         "il" 'company-coq-lemma-from-goal
         "im" 'company-coq-insert-match-construct
@@ -48,33 +47,24 @@
     (progn
       (setq coq/proof-general-load-path
             (concat (configuration-layer/get-elpa-package-install-directory
-                     'proof-general) "generic"))
-      (add-to-list 'load-path coq/proof-general-load-path))
-    :config
-    (progn
-      (spacemacs|diminish company-coq-mode)
-      (spacemacs|diminish holes-mode)
-      (spacemacs|diminish hs-minor-mode)
-      (spacemacs|diminish outline-minor-mode)
-      (spacemacs|diminish proof-active-buffer-fake-minor-mode)
-      (spacemacs|diminish yas-minor-mode " ⓨ" " y")
-
-      (setq company-coq-disabled-features '(hello)
+                     'proof-general) "generic")
             proof-three-window-mode-policy 'hybrid
             proof-script-fly-past-comments t
             proof-splash-seen t)
-
+      (add-to-list 'load-path coq/proof-general-load-path))
+    :config
+    (progn
+      (spacemacs|hide-lighter holes-mode)
+      (spacemacs|hide-lighter proof-active-buffer-fake-minor-mode)
+      ;; key bindings
       (dolist (prefix '(("ml" . "pg/layout")
                         ("mp" . "pg/prover")
                         ("ma" . "pg/ask-prover")
                         ("mai" . "show-implicits")
-                        ("man" . "show-all") ; n is for notation
                         ("mg" . "pg/goto")))
         (spacemacs/declare-prefix-for-mode
          'coq-mode
          (car prefix) (cdr prefix)))
-
-      ;; key bindings
       (spacemacs/set-leader-keys-for-major-mode 'coq-mode
         ;; Basic proof management
         "]" 'proof-assert-next-command-interactive
@@ -108,16 +98,12 @@
         "ie" 'coq-end-Section))))
 
 (defun coq/post-init-smartparens ()
-  (spacemacs/add-to-hooks
-   (if dotspacemacs-smartparens-strict-mode
-       'smartparens-strict-mode
-     'smartparens-mode)
-   '(coq-mode-hook)))
+  (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
+                              'smartparens-strict-mode
+                            'smartparens-mode)
+                          '(coq-mode-hook)))
 
 (defun coq/post-init-vi-tilde-fringe ()
   (spacemacs/add-to-hooks 'spacemacs/disable-vi-tilde-fringe
                           '(coq-response-mode-hook
                             coq-goals-mode-hook)))
-
-
-;;; packages.el ends here
