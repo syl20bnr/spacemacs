@@ -108,7 +108,6 @@
 
 (defun spacemacs-layouts/init-persp-mode ()
   (use-package persp-mode
-    :diminish persp-mode
     :init
     (progn
       (setq persp-auto-resume-time (if (or dotspacemacs-auto-resume-layouts
@@ -203,6 +202,7 @@
         (spacemacs/find-dotfile)))
     :config
     (progn
+      (spacemacs|hide-lighter persp-mode)
       (defadvice persp-activate (before spacemacs//save-toggle-layout activate)
         (setq spacemacs--last-selected-layout persp-last-persp-name))
       (add-hook 'persp-mode-hook 'spacemacs//layout-autosave)

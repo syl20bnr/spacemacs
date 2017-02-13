@@ -89,7 +89,6 @@
     (exec-path-from-shell-copy-env "RUST_SRC_PATH"))
 
   (use-package racer
-    :diminish racer-mode
     :defer t
     :init
     (progn
@@ -100,5 +99,7 @@
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "hh" 'spacemacs/racer-describe))
     :config
-    (evilified-state-evilify-map racer-help-mode-map
-      :mode racer-help-mode)))
+    (progn
+      (spacemacs|hide-lighter racer-mode)
+      (evilified-state-evilify-map racer-help-mode-map
+        :mode racer-help-mode))))

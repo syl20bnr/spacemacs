@@ -100,7 +100,6 @@
 (defun emacs-lisp/init-auto-compile ()
   (use-package auto-compile
     :defer t
-    :diminish (auto-compile-mode . "")
     :init
     (progn
       (setq auto-compile-display-buffer nil
@@ -110,6 +109,7 @@
       (add-hook 'emacs-lisp-mode-hook 'auto-compile-mode))
     :config
     (progn
+      (spacemacs|hide-lighter auto-compile-mode)
       (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
         "cl" 'auto-compile-display-log))))
 
@@ -117,7 +117,6 @@
   ;; Elisp go-to-definition with M-. and back again with M-,
   (use-package elisp-slime-nav
     :defer t
-    :diminish elisp-slime-nav-mode
     :init
     (progn
       (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
@@ -127,7 +126,10 @@
         (spacemacs/set-leader-keys-for-major-mode mode
           "hh" 'elisp-slime-nav-describe-elisp-thing-at-point)
         (let ((jumpl (intern (format "spacemacs-jump-handlers-%S" mode))))
-          (add-to-list jumpl 'elisp-slime-nav-find-elisp-thing-at-point))))))
+          (add-to-list jumpl 'elisp-slime-nav-find-elisp-thing-at-point))))
+    :config (spacemacs|hide-lighter elisp-slime-nav-mode)
+
+    ))
 
 (defun emacs-lisp/init-emacs-lisp ()
   (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))

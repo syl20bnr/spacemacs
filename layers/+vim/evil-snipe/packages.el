@@ -7,7 +7,6 @@
 
 (defun evil-snipe/init-evil-snipe ()
   (use-package evil-snipe
-    :diminish evil-snipe-local-mode
     :init
     (setq evil-snipe-scope 'whole-buffer
           evil-snipe-enable-highlight t
@@ -17,6 +16,7 @@
           evil-snipe-smart-case t)
     :config
     (progn
+      (spacemacs|hide-lighter evil-snipe-local-mode)
       (if evil-snipe-enable-alternate-f-and-t-behaviors
           (progn
             (setq evil-snipe-repeat-scope 'whole-buffer)

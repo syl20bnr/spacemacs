@@ -30,13 +30,13 @@
 (defun java/init-eclim ()
   (use-package eclim
     :defer t
-    :diminish eclim-mode
     :init
     (progn
       (add-hook 'java-mode-hook 'eclim-mode)
       (add-to-list 'spacemacs-jump-handlers-java-mode 'eclim-java-find-declaration))
     :config
     (progn
+      (spacemacs|hide-lighter eclim-mode)
       (require 'eclimd)
       (setq help-at-pt-display-when-idle t
             help-at-pt-timer-delay 0.1)
