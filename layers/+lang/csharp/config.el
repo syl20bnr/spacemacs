@@ -1,4 +1,4 @@
-;;; packages.el --- C# Layer packages File for Spacemacs
+;;; packages.el --- C# Layer configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
