@@ -42,8 +42,9 @@
       (setq nlinum-relative-current-symbol ""
             nlinum-relative-redisplay-delay 0)
       (when (or (eq dotspacemacs-line-numbers 'relative)
-                (car (spacemacs/mplist-get dotspacemacs-line-numbers
-                                           :relative)))
+                (and (listp dotspacemacs-line-numbers)
+                     (car (spacemacs/mplist-get dotspacemacs-line-numbers
+                                                :relative))))
         (nlinum-relative-setup-evil)
         (add-hook 'nlinum-mode-hook 'nlinum-relative-on))
       (spacemacs/set-leader-keys "tr" 'spacemacs/nlinum-relative-toggle))))
