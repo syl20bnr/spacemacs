@@ -14,6 +14,7 @@
    - [[#help][Help]]
    - [[#mix][Mix]]
    - [[#project][Project]]
+   - [[#alchemist-phoenix][Alchemist Phoenix]]
    - [[#evaluation-in-place][Evaluation in place]]
    - [[#repl-interactions][REPL interactions]]
    - [[#tests][Tests]]
@@ -128,6 +129,20 @@ You find and overview of all the key-bindings on the [[file:alchemist-refcard.pd
 | ~SPC m p t~ | Open project test directory and list all test files.       |
 | ~SPC m g t~ | Toggle between a file and its tests in the current window. |
 | ~SPC m g T~ | Toggle between a file and its tests in other window.       |
+
+** Alchemist Phoenix
+
+| Key Binding | Description                                          |
+|-------------+------------------------------------------------------|
+| ~SPC m n w~ | List all files available in the =web= directory.     |
+| ~SPC m n c~ | List all controllers in =web/controllers= directory. |
+| ~SPC m n l~ | List all channels in =web/channels= directory.       |
+| ~SPC m n t~ | List all templates in =web/templates= directory.     |
+| ~SPC m n m~ | List all models in =web/models= directory.           |
+| ~SPC m n v~ | List all views in =web/views= directory.             |
+| ~SPC m n s~ | List all files in =web/static= directory.            |
+| ~SPC m n r~ | Open the =router.ex= file from the =web= directory.  |
+| ~SPC m n R~ | Run the Mix task =phoenix.routes=.                   |
 
 ** Evaluation in place
 
