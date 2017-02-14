@@ -256,7 +256,7 @@
 
 (defun spacemacs//java-setup-meghanada-flycheck ()
   "Setup Meghanada syntax checking."
-  (spacemacs/add-flycheck-hook 'java-mode)
+  (spacemacs/enable-flycheck 'java-mode)
   (require 'flycheck-meghanada)
   (add-to-list 'flycheck-checkers 'meghanada)
   (flycheck-mode))

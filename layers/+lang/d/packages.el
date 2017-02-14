@@ -43,7 +43,7 @@
   (use-package d-mode :defer t))
 
 (defun d/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'd-mode))
+  (spacemacs/enable-flycheck 'd-mode))
 
 (defun d/init-flycheck-dmd-dub ()
   (use-package flycheck-dmd-dub :defer t

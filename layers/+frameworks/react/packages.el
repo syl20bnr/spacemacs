@@ -40,7 +40,7 @@
     (dolist (checker '(javascript-eslint javascript-standard))
       (flycheck-add-mode checker 'react-mode)))
   (add-hook 'react-mode-hook #'spacemacs//react-use-eslint-from-node-modules)
-  (spacemacs/add-flycheck-hook 'react-mode))
+  (spacemacs/enable-flycheck 'react-mode))
 
 (defun react/post-init-js-doc ()
   (add-hook 'react-mode-hook 'spacemacs/js-doc-require)

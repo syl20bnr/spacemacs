@@ -19,7 +19,7 @@
         ))
 
 (defun lua/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'lua-mode))
+  (spacemacs/enable-flycheck 'lua-mode))
 
 (defun lua/init-lua-mode ()
   (use-package lua-mode

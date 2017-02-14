@@ -46,7 +46,7 @@
         (require 'ensime-expand-region nil 'noerror)))))
 
 (defun scala/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'scala-mode)
+  (spacemacs/enable-flycheck 'scala-mode)
   ;; Don't use scala checker if ensime mode is active, since it provides
   ;; better error checking.
   (with-eval-after-load 'flycheck
