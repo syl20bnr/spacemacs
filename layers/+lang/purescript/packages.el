@@ -25,7 +25,7 @@
       :modes purescript-mode)))
 
 (defun purescript/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'purescript-mode))
+  (spacemacs/enable-flycheck 'purescript-mode))
 
 (defun purescript/init-purescript-mode ()
   (use-package purescript-mode

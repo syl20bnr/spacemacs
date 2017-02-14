@@ -10,7 +10,7 @@
     :modes nim-mode nimscript-mode))
 
 (defun nim/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'nim-mode))
+  (spacemacs/enable-flycheck 'nim-mode))
 
 (defun nim/init-flycheck-nim ()
   (use-package flycheck-nim

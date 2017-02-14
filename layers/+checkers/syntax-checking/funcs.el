@@ -9,10 +9,10 @@
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs/add-flycheck-hook (mode)
+(defun spacemacs/enable-flycheck (mode)
   "Use flycheck in MODE by default, if `syntax-checking-enable-by-default' is
 true."
   (when (and syntax-checking-enable-by-default
              (listp flycheck-global-modes)
              (not (eq 'not (car flycheck-global-modes))))
-    (push mode flycheck-global-modes)))
+    (add-to-list 'flycheck-global-modes mode)))

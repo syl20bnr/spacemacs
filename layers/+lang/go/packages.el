@@ -35,7 +35,7 @@
       :variables company-go-show-annotation t)))
 
 (defun go/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'go-mode))
+  (spacemacs/enable-flycheck 'go-mode))
 
 (defun go/init-go-mode()
   (when (memq window-system '(mac ns x))

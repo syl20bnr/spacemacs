@@ -29,7 +29,7 @@
   (add-hook 'typescript-mode-hook 'eldoc-mode))
 
 (defun typescript/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'typescript-mode))
+  (spacemacs/enable-flycheck 'typescript-mode))
 
 (defun typescript/init-tide ()
   (use-package tide

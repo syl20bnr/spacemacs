@@ -43,7 +43,7 @@
     (require 'erlang-start)))
 
 (defun erlang/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'erlang-mode))
+  (spacemacs/enable-flycheck 'erlang-mode))
 
 (defun erlang/post-init-ggtags ()
   (add-hook 'erlang-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

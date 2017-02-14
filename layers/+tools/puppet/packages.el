@@ -38,4 +38,4 @@
   (spacemacs|add-company-backends :modes puppet-mode))
 
 (defun puppet/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'puppet-mode))
+  (spacemacs/enable-flycheck 'puppet-mode))

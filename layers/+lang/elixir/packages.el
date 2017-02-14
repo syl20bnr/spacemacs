@@ -141,7 +141,7 @@
     :defer t))
 
 (defun elixir/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'elixir-mode))
+  (spacemacs/enable-flycheck 'elixir-mode))
 
 (defun elixir/pre-init-org ()
   (spacemacs|use-package-add-hook org

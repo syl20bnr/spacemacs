@@ -16,7 +16,7 @@
   (spacemacs|add-company-backends :modes yaml-mode))
 
 (defun yaml/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'yaml-mode))
+  (spacemacs/enable-flycheck 'yaml-mode))
 
 (defun yaml/init-yaml-mode ()
   "Initialize YAML mode"

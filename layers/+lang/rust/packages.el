@@ -46,7 +46,7 @@
         "t" 'cargo-process-test))))
 
 (defun rust/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'rust-mode))
+  (spacemacs/enable-flycheck 'rust-mode))
 
 (defun rust/init-flycheck-rust ()
   (use-package flycheck-rust

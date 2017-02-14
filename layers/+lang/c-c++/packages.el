@@ -86,7 +86,7 @@
 
 (defun c-c++/post-init-flycheck ()
   (dolist (mode '(c-mode c++-mode))
-    (spacemacs/add-flycheck-hook mode))
+    (spacemacs/enable-flycheck mode))
   (when c-c++-enable-clang-support
     (spacemacs/add-to-hooks 'c-c++/load-clang-args '(c-mode-hook c++-mode-hook))))
 
