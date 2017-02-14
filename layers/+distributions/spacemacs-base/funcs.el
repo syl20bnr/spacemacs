@@ -740,7 +740,22 @@ the right."
                               (concat regexp ws-regexp)
                             (concat ws-regexp regexp)))
          (group (if justify-right -1 1)))
+
     (message "%S" complete-regexp)
+
+    (if (equalp start end)
+        (progn
+          (save-excursion
+            (while (and
+                    (string-match-p complete-regexp (thing-at-point 'line))
+                    (equalp 0 (forward-line -1)))
+              (setq start (point))))
+          (save-excursion
+            (while (and
+                    (string-match-p complete-regexp (thing-at-point 'line))
+                    (equalp 0 (forward-line 1)))
+              (setq end (point))))))
+
     (align-regexp start end complete-regexp group 1 t)))
 
 ;; Modified answer from http://emacs.stackexchange.com/questions/47/align-vertical-columns-of-numbers-on-the-decimal-point
