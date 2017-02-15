@@ -246,20 +246,25 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    If you are running in terminal you'll also need to change font settings of
    your terminal.
 
-4. Launch Emacs. Spacemacs will automatically install the packages it requires.
-   If you get an error regarding package downloads then you may try to disable
-   the HTTPS protocol by starting Emacs with
+4. Launch Emacs. Spacemacs will automatically install the packages it requires. Finally, restart Emacs to complete the installation.
 
+**Note:** If you get an error regarding package downloads then you may try to disable
+   the HTTPS protocol by starting Emacs with
+   
    ```sh
    emacs --insecure
    ```
-
-   Or you can set the `dotspacemacs-elpa-https` to `nil` in your dotfile to
+   
+   Or you can set the `dotspacemacs-elpa-https` to `nil` in your dotfile `~/.spacemacs` to
    remove the need to start Emacs with `--insecure` argument. You may wish to
    clear out your `.emacs.d/elpa` directory before doing this, so that any
    corrupted packages you may have downloaded will be re-installed.
 
-5. Restart Emacs to complete the installation.
+**Note:** `error: Package 'package-build-' is unavailable` may occur due to heavy network taffic.
+   You can fix it by setting the `dotspacemacs-elpa-timeout` to `70` in your dotfile. 
+   
+**Note:** `Warning (bytecomp)` and other compilation warnings are perfectly normal. If curious,
+   you can find out why these occur [here](https://github.com/quelpa/quelpa/issues/90#issuecomment-137982713).
 
 If the mode-line turns red then be sure to consult the [FAQ][FAQ.org].
 
