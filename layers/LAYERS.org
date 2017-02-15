@@ -164,6 +164,7 @@
 - [[file:+tools/fasd/README.org][fasd]]
 - [[file:+tools/finance/README.org][finance]]
 - [[file:+tools/geolocation/README.org][geolocation]]
+- [[file:+tools/google-calendar/README.org][google-calendar]]
 - [[file:+tools/imenu-list/README.org][imenu-list]]
 - [[file:+tools/nginx/README.org][nginx]]
 - [[file:+tools/pandoc/README.org][pandoc]]
