@@ -13,7 +13,7 @@
 |
 <b><a href="CONTRIBUTING.org">contribute</a></b>
 |
-<b><a href="http://spacemacs.org/doc/DOCUMENTATION#achievements">achievements</a></b>
+<b><a href="http://spacemacs.org/doc/DOCUMENTATION#orgheadline187">achievements</a></b>
 |
 <b><a href="http://spacemacs.org/doc/FAQ">FAQ</a></b>
 </p>
