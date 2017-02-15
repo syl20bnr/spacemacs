@@ -59,7 +59,7 @@
       (add-hook 'markdown-mode-hook 'orgtbl-mode)
       (add-hook 'markdown-mode-hook
                 (lambda()
-                  (add-hook 'after-save-hook 'cleanup-org-tables  nil 'make-it-local)))
+                  (add-hook 'before-save-hook 'cleanup-org-tables  nil 'make-it-local)))
       ;; Insert key for org-mode and markdown a la C-h k
       ;; from SE endless http://emacs.stackexchange.com/questions/2206/i-want-to-have-the-kbd-tags-for-my-blog-written-in-org-mode/2208#2208
       (defun spacemacs/insert-keybinding-markdown (key)
