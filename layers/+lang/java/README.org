@@ -91,9 +91,6 @@ Eclim provides the ability to access Eclipse features such as code completion,
 searching, code validation, and many more. This is the default value for the
 layer variable =java-backend=.
 
-This layers integrates =flycheck= with Eclim and try to be a good compromise
-between reactivity and performance.
-
 *** Installation
 **** Eclipse
 First you need the last version of Eclispe from the [[https://www.eclipse.org/downloads/eclipse-packages/][official Eclipse site]].
@@ -142,8 +139,11 @@ Eclim workspace (default value is =~/workspace=), as shown below:
 Start the eclim daemon with ~SPC m D s~ and stop it with ~SPC m D k~. (See
 below.)
 
-Syntax checking is performed only on save or on demande with ~SPC e e~ to
-preserve perfomance.
+Syntax checking is performed only on demande with ~SPC e e~ to preserve
+perfomance.
+
+Auto-save feature may freeze Emacs sometimes, use ~C-g~ to unfreeze Emacs or
+atlernatively you can set =dotspacemacs-auto-save-file-location= to nil.
 
 ** ENSIME
   :PROPERTIES:
@@ -258,18 +258,13 @@ from the server then run =mvn install= at the root of your project first.
 
 **** Errors (problems)
 
- | Key Binding | Description                                |
- |-------------+--------------------------------------------|
- | ~SPC e e~   | Force an error check                       |
- | ~SPC m e a~ | set all problems for next/prev action      |
- | ~SPC m e b~ | open buffer with problems                  |
- | ~SPC m e c~ | show options with problem corrections      |
- | ~SPC m e e~ | set only errors for next/prev action       |
- | ~SPC m e f~ | set only current file for next/prev action |
- | ~SPC m e n~ | go to next problem                         |
- | ~SPC m e o~ | open buffer with problems                  |
- | ~SPC m e p~ | go to previous problem                     |
- | ~SPC m e w~ | set warnings for next/prev action          |
+ | Key Binding | Description                |
+ |-------------+----------------------------|
+ | ~SPC e e~   | Force an error check       |
+ | ~SPC e l~   | List errors                |
+ | ~SPC e n~   | Next error                 |
+ | ~SPC e p~   | Previous error             |
+ | ~SPC m e e~ | Correct error around point |
 
 **** Tests
 

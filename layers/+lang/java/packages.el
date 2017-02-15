@@ -39,15 +39,12 @@
     :init
     (setq company-emacs-eclim-ignore-case nil)
     ;; see `spacemacs//java-setup-eclim-company'
-    :config
-    (advice-add
-     'company-emacs-eclim
-     :before 'spacemacs//java-eclim-save-buffer-no-flycheck)))
+    ))
 
 (defun java/init-eclim ()
   (use-package eclim
     :defer t
-    :init (setq eclim-auto-save nil)
+    ;; :init (setq eclim-auto-save nil)
     :config
     (progn
       (spacemacs|hide-lighter eclim-mode)
@@ -85,15 +82,7 @@
         "Dk" 'stop-eclimd
         "Ds" 'start-eclimd
         ;; errors (problems)
-        "ea" 'eclim-problems-show-all
-        "eb" 'eclim-problems
-        "ec" 'eclim-problems-correct
-        "ee" 'eclim-problems-show-errors
-        "ef" 'eclim-problems-toggle-filefilter
-        "en" 'eclim-problems-next-same-window
-        "eo" 'eclim-problems-open
-        "ep" 'eclim-problems-previous-same-window
-        "ew" 'eclim-problems-show-warnings
+        "ee" 'eclim-problems-correct
         ;; find
         "ff" 'eclim-java-find-generic
         ;; goto

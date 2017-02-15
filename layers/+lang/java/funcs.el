@@ -203,19 +203,10 @@
 (defun spacemacs//java-setup-eclim-flycheck ()
   "Setup Eclim syntax checking."
   (flycheck-eclim-setup)
+  ;; disable auto check, use `SPC e e'
   (setq eclim-autoupdate-problems nil)
-  ;; check syntax only when save
-  (set (make-local-variable 'flycheck-check-syntax-automatically)
-       '(save))
+  (set (make-local-variable 'flycheck-check-syntax-automatically) nil)
   (flycheck-mode))
-
-(defun spacemacs//java-eclim-save-buffer-no-flycheck (&rest args)
-  "Save buffer without triggering flycheck."
-  (when (buffer-modified-p)
-    (let ((backup-inhibited t)
-          flycheck-check-syntax-automatically
-          auto-save-default)
-      (save-buffer 0))))
 
 (defun spacemacs/java-eclim-completing-dot ()
   "Insert a period and show company completions."
