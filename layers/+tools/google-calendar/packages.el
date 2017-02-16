@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
-;; Author: Markus Johansson markus.johansson@me.com
+;; Author: Markus Johansson <markus.johansson@me.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -13,9 +13,7 @@
 
 (defconst google-calendar-packages
   '(org-gcal
-    calfw
-    alert
-    f))
+    calfw))
 
 (defun google-calendar/init-org-gcal ()
   "Initializes org-gcal and adds keybindings for it's exposed functions"
@@ -39,10 +37,10 @@
   (use-package calfw
     :init
     (evil-set-initial-state 'cfw:calendar-mode 'normal)
-    (defvar google-calendar-agenda-view "a"
+    (defvar calfw-org-agenda-view "a"
       "Key for opening the current week or day view in org-agenda.")
 
-    (defvar wconf nil
+    (defvar calfw-window-conf nil
       "Current window config")
 
     (defcustom calfw-restore-windows-after-quit 't
@@ -69,15 +67,5 @@ When the view is exited and this option is set the previous layout is restored."
 
     :commands
     (cfw:open-org-calendar)))
-
-(defun google-calendar/init-alert ()
-  "Initialize alert"
-  (use-package alert
-    :init
-    (setq alert-default-style 'notifications)))
-
-(defun google-calendar/init-f ()
-  "Initialize f"
-  (use-package f))
 
 ;;; packages.el ends here

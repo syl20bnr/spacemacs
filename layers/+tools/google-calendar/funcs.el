@@ -34,18 +34,19 @@ The function can be run automatically with the 'org-capture-after-finalize-hook'
     (google-calendar/calfw-prepare-window)
     (org-agenda nil google-calendar-agenda-view)
     (cfw:open-org-calendar))
+      (org-agenda nil calfw-org-agenda-view)
 
   (defun google-calendar/calfw-prepare-window ()
     "Store current window layout in before opening calfw."
     (when-let ((is-not-cal-buffer (not (member (buffer-name) '("*cfw-calendar*" "*Org Agenda*"))))
-               (is-not-conf (not (equal wconf '(current-window-configuration)))))
-      (setq wconf (current-window-configuration))))
+               (is-not-conf (not (equal calfw-window-conf '(current-window-configuration)))))
+      (setq calfw-window-conf (current-window-configuration))))
 
   (defun google-calendar/calfw-restore-windows ()
     "Bury current buffer and restore window layout."
     (interactive)
     (bury-buffer)
-    (if (and (not (eq wconf nil))
+    (if (and (not (eq calfw-window-conf nil))
              (eq calfw-restore-windows-after-quit 't))
-        (progn (set-window-configuration wconf)
-               (setq wconf nil)))))
+        (progn (set-window-configuration calfw-window-conf)
+               (setq calfw-window-conf nil)))))
