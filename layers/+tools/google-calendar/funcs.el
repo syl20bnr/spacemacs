@@ -31,10 +31,11 @@ The function can be run automatically with the 'org-capture-after-finalize-hook'
   (defun google-calendar/calfw-view ()
     "Open calfw calendar view."
     (interactive)
-    (google-calendar/calfw-prepare-window)
-    (org-agenda nil google-calendar-agenda-view)
-    (cfw:open-org-calendar))
+    (let ((org-agenda-window-setup calfw-calendar-window-setup))
+      (google-calendar/calfw-prepare-window)
+      ;;; If non nil, overload agenda window setup with the desired setup for calfw
       (org-agenda nil calfw-org-agenda-view)
+      (cfw:open-org-calendar)))
 
   (defun google-calendar/calfw-prepare-window ()
     "Store current window layout in before opening calfw."

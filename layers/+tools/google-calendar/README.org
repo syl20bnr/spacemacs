@@ -64,7 +64,7 @@ You need to include the calendar event files in =org-agenda=, do so by adding th
 You can create new calendar events from any Emacs buffer with =org-capture=. This layer provides convenient accessory functions that automatically synchronize the new event to Google calendar, [[*Schedule events with org-capture][see below]].
 
 ** Configure calfw
-When you close the calendar view this layer tries to restore the previous window configuration, if you would like to disable this behavior set =calfw-restore-windows-after-quit= to nil.
+You can configure how the calfw calendar buffer should be displayed by altering the variable =calfw-calendar-window-setup=. When you close the calendar view this layer tries to restore the previous window configuration, if you would like to disable this behavior set =calfw-restore-windows-after-quit= to nil.
 
 Calfw lets you customize the name of the months and days by altering the following arrays.
 #+BEGIN_SRC emacs-lisp

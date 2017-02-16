@@ -49,6 +49,24 @@ The window configuration is stored when entering calendar view.
 When the view is exited and this option is set the previous layout is restored."
       :type 'boolean)
 
+    (defcustom calfw-calendar-window-setup 'only-window
+      "How the calfw calendar buffer should be displayed. This variable overrides org-agenda-window-setup.
+Possible values for this option are:
+
+current-window              Show calendar in the current window, keeping all other windows.
+other-window                Use `switch-to-buffer-other-window' to display calendar.
+only-window                 Show calendar, deleting all other windows.
+reorganize-frame            Show only two windows on the current frame, the current
+                            window and the calendar.
+other-frame                 Use `switch-to-buffer-other-frame' to display calendar.
+                            Also, when exiting the calendar, kill that frame. "
+      :type '(choice
+              (const current-window)
+              (const other-frame)
+              (const other-window)
+              (const only-window)
+              (const reorganize-frame)))
+
     :config
     (evil-make-overriding-map cfw:calendar-mode-map)
     (define-key cfw:calendar-mode-map "N" 'cfw:navi-next-month-command)
