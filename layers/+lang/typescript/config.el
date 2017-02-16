@@ -20,4 +20,5 @@ for TypeScript source code formatting.
 Currently avaliable 'tide (default)
 and 'typescript-formatter .")
 
-(spacemacs|define-jump-handlers typescript-mode)
+(defvar typescript-use-web-mode-for-ts nil
+  "Non nil if web-mode shall also be used for ts files, instead of tsx only.")
