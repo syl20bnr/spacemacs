@@ -210,7 +210,8 @@ defer call using `spacemacs-post-user-config-hook'."
        (with-current-buffer "*scratch*"
          (funcall dotspacemacs-scratch-mode)))
      (when spacemacs--delayed-user-theme
-       (spacemacs/load-theme spacemacs--delayed-user-theme))
+       (spacemacs/load-theme spacemacs--delayed-user-theme
+                             spacemacs--fallback-theme t))
      (configuration-layer/display-summary emacs-start-time)
      (spacemacs-buffer//startup-hook)
      (spacemacs/check-for-new-version nil spacemacs-version-check-interval)

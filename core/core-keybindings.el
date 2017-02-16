@@ -57,6 +57,7 @@ LONG-NAME if given is stored in `spacemacs/prefix-titles'."
     (which-key-declare-prefixes
       full-prefix-emacs (cons name long-name)
       full-prefix (cons name long-name))))
+(put 'spacemacs/declare-prefix 'lisp-indent-function 'defun)
 
 (defun spacemacs/declare-prefix-for-mode (mode prefix name &optional long-name)
   "Declare a prefix PREFIX. MODE is the mode in which this prefix command should
@@ -81,6 +82,7 @@ used as the prefix command."
       (when (and is-major-mode-prefix dotspacemacs-major-mode-emacs-leader-key)
         (which-key-declare-prefixes-for-mode
           mode major-mode-prefix-emacs prefix-name)))))
+(put 'spacemacs/declare-prefix-for-mode 'lisp-indent-function 'defun)
 
 (defun spacemacs/set-leader-keys (key def &rest bindings)
   "Add KEY and DEF as key bindings under
