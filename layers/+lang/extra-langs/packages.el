@@ -36,8 +36,8 @@
 (defun extra-langs/init-thrift ()
   (use-package thrift :defer t))
 
-;; no associated extension because conflicts with more common Objective-C, manually invoke for .m files.
 (defun extra-langs/init-wolfram-mode ()
   (use-package wolfram-mode
     :defer t
-    :interpreter "\\(Wolfram\\|Mathematica\\)Script\\( -script\\)?"))
+    :interpreter "\\(Wolfram\\|Mathematica\\)Script\\( -script\\)?"
+    :mode "\\.wl\\'"))
