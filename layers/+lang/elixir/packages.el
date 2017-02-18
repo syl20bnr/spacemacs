@@ -1,6 +1,6 @@
 ;;; packages.el --- Elixir Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -16,13 +16,19 @@
     elixir-mode
     flycheck
     flycheck-mix
+    flycheck-credo
+    ggtags
+    helm-gtags
+    ob-elixir
     popwin
     smartparens
     ))
 
 (defun elixir/post-init-company ()
-  (spacemacs|add-company-hook elixir-mode)
-  (spacemacs|add-company-hook alchemist-iex-mode))
+  (when (configuration-layer/package-usedp 'alchemist)
+    (spacemacs|add-company-backends
+      :backends alchemist-company
+      :modes elixir-mode alchemist-iex-mode)))
 
 (defun elixir/init-alchemist ()
   (use-package alchemist
@@ -33,9 +39,8 @@
       (add-hook 'elixir-mode-hook 'alchemist-mode)
       (setq alchemist-project-compile-when-needed t
             alchemist-test-status-modeline nil)
-      ;; setup company backends
-      (push 'alchemist-company company-backends-elixir-mode)
-      (push 'alchemist-company company-backends-alchemist-iex-mode))
+      (add-to-list 'spacemacs-jump-handlers-elixir-mode
+                'alchemist-goto-definition-at-point))
     :config
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mc" "compile")
     (spacemacs/declare-prefix-for-mode 'elixir-mode "me" "eval")
@@ -100,7 +105,6 @@
       "cf" 'alchemist-compile-file
       "c:" 'alchemist-compile
 
-      "gg" 'alchemist-goto-definition-at-point
       "," 'alchemist-goto-jump-back)
 
     (dolist (mode (list alchemist-compile-mode-map
@@ -124,31 +128,48 @@
                    (cons 'elixir-enable-compilation-checking nil))
       (add-to-list 'safe-local-variable-values
                    (cons 'elixir-enable-compilation-checking t))
-      (add-hook 'elixir-mode-hook
-                'spacemacs//elixir-enable-compilation-checking t))))
+      (add-hook 'elixir-mode-local-vars-hook
+                'spacemacs//elixir-enable-compilation-checking))))
+
+(defun elixir/init-flycheck-credo ()
+  (use-package flycheck-credo
+    :defer t
+    :init (add-hook 'flycheck-mode-hook #'flycheck-credo-setup)))
 
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
     :defer t))
 
 (defun elixir/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'elixir-mode)
-  (add-hook 'elixir-mode-hook
-            'spacemacs//elixir-flycheck-check-on-save-only t))
+  (spacemacs/add-flycheck-hook 'elixir-mode))
+
+(defun elixir/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(elixir . t))))
+
+(defun elixir/init-ob-elixir ()
+  (spacemacs|use-package-add-hook org
+    :post-config
+    (use-package ob-elixir
+      :init (add-to-list 'org-babel-load-languages '(elixir . t)))))
+
 
 (defun elixir/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
     :post-config
     (push '("*mix*" :tail t :noselect t) popwin:special-display-config)))
 
-(defun elixir/post-init-smartparens ()
+(defun elixir/pre-init-smartparens ()
   (spacemacs|use-package-add-hook smartparens
     :post-config
     (progn
       (sp-with-modes '(elixir-mode)
         (sp-local-pair
-         "->" "end"
-         :when '(("RET"))
+         "(" ")"
+         :unless '(:add spacemacs//elixir-point-after-fn-p))
+        (sp-local-pair
+         "fn" "end"
+         :when '(("SPC" "RET" "-" "("))
          :post-handlers '(:add spacemacs//elixir-do-end-close-action)
          :actions '(insert)))
       (sp-with-modes '(elixir-mode)
@@ -157,3 +178,9 @@
          :when '(("SPC" "RET"))
          :post-handlers '(:add spacemacs//elixir-do-end-close-action)
          :actions '(insert))))))
+
+(defun elixir/post-init-ggtags ()
+  (add-hook 'elixir-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun elixir/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'elixir-mode))

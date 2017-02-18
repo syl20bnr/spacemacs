@@ -9,12 +9,11 @@
    - [[#layer][Layer]]
    - [[#dependencies][Dependencies]]
    - [[#setup-path][Setup PATH]]
-   - [[#ghc-mod-support][ghc-mod support]]
-     - [[#stack-users][Stack users]]
+   - [[#completion-support][Completion support]]
+     - [[#company-ghci][=company-ghci=]]
+     - [[#intero][=intero=]]
+     - [[#ghc-mod][=ghc-mod=]]
    - [[#optional-extras][Optional extras]]
-     - [[#ghci-ng-support][GHCi-ng support]]
-       - [[#stack-users][Stack users]]
-       - [[#ghc-mod-users][ghc-mod users]]
      - [[#structured-haskell-mode][structured-haskell-mode]]
      - [[#hindent][hindent]]
  - [[#key-bindings][Key bindings]]
@@ -22,25 +21,26 @@
    - [[#debug][Debug]]
    - [[#debug-buffer][Debug Buffer]]
    - [[#repl][REPL]]
+   - [[#intero-repl][Intero REPL]]
    - [[#cabal-commands][Cabal commands]]
    - [[#cabal-files][Cabal files]]
    - [[#refactor][Refactor]]
-   - [[#ghc-mod][Ghc-mod]]
+   - [[#ghc-mod-1][Ghc-mod]]
      - [[#insert-template][Insert template]]
  - [[#syntax-checking][Syntax checking]]
    - [[#flycheck][Flycheck]]
    - [[#hlint][HLint]]
-   - [[#ghc-mod][ghc-mod]]
+   - [[#ghc-mod-2][ghc-mod]]
    - [[#interactive-haskell-mode][Interactive haskell-mode]]
    - [[#flymake][Flymake]]
-   - [[#troublesshooting][Troublesshooting]]
+   - [[#troubleshooting][Troubleshooting]]
  - [[#faq][FAQ]]
    - [[#the-repl-doesnt-work][The REPL doesn't work]]
    - [[#the-repl-is-stuck][The REPL is stuck]]
    - [[#i-am-using-stack-and-ghc-mod-but-ghc-mod-doesnt-work][I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work]]
    - [[#ghc-mod-doesnt-work][=ghc-mod= doesn't work]]
    - [[#indentation-doesnt-reset-when-pressing-return-after-an-empty-line][Indentation doesn't reset when pressing return after an empty line]]
-   - [[#flycheck-displays-hlint-warnings-but-not-errors][Flycheck displays HLInt warnings but not errors]]
+   - [[#flycheck-displays-hlint-warnings-but-not-errors][Flycheck displays HLint warnings but not errors]]
    - [[#i-can-see-highlighted-errors-but-they-dont-appear-in-the-error-list][I can see highlighted errors but they don't appear in the error list]]
    - [[#flycheck-doesnt-work][Flycheck doesn't work]]
    - [[#flycheck-doesnt-work-with-stack][Flycheck doesn't work with =stack=]]
@@ -55,7 +55,7 @@ This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
 
 ** Features:
 - syntax highlighting for [[https://github.com/haskell/haskell-mode][haskell source]], [[https://github.com/haskell/haskell-mode][cabal files]], [[https://github.com/bgamari/cmm-mode][C-- source]],
-- auto-completion with [[https://github.com/iquiw/company-ghc][company-ghc]].
+- auto-completion with one of selected backends (=intero=, =ghci= or =ghc-mod=).
 
 *This layer is in construction, it needs your contributions and bug reports.*
 
@@ -67,17 +67,18 @@ file.
 
 ** Dependencies
 This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
-- =apply-refact=
-- =hlint=
-- =stylish-haskell=
-- =hasktags=
-- =ghc-mod=
-- =hoogle=
+- =apply-refact= (required by =hlint-refactor=)
+- =hlint= (required by =hlint-refactor=)
+- =stylish-haskell= (optional for =haskell-mode=)
+- =hasktags= (optional)
+- =hoogle= (optional for =haskell-mode= and =helm-hoogle=)
+- =ghc-mod= (optional for completion)
+- =intero= (optional for completion)
 
 To install them, use following command (or the =stack= equivalent):
 
 #+BEGIN_SRC sh
-$ cabal install apply-refact stylish-haskell hlint hasktags ghc-mod hoogle
+$ cabal install apply-refact hlint stylish-haskell hasktags hoogle
 #+END_SRC
 
 ** Setup PATH
@@ -95,109 +96,44 @@ are using =stack= then it should be =~/.local/bin=.
 For information about setting up =$PATH=, check out the corresponding section in
 the FAQ (~SPC h SPC $PATH RET~).
 
-** ghc-mod support
-[[http://www.mew.org/~kazu/proj/ghc-mod/][ghc-mod]] enhances =haskell-mode= with for example code completion, templates,
-case-splitting and much more. In order to use it you need to install the
-executable with =cabal install ghc-mod= (or =stack= equivalent). Note that
-=ghc-mod= support is enabled by default, so if you want to disable it, you must
-do it explicitly in your =.spacemacs= file.
+** Completion support
+This layer provides several completion backends - =intero=, =ghci= and
+=ghc-mod=. By default =ghci= (=company-ghci=) is used as it requires no
+dependencies and works both with =stack= and pure =cabal= projects. In order to
+manually set completion backend set value of =haskell-completion-backend=. Note
+that in order to enable completion you have to enable =auto-completion= layer as
+well.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((haskell :variables haskell-enable-ghc-mod-support nil)))
+  (setq-default dotspacemacs-configuration-layers
+                '(auto-completion
+                  (haskell :variables haskell-completion-backend 'intero)))
 #+END_SRC
 
-=Stack= users also should make sure that =dist/setup-config= doesn't exist in
-the project root. As it will confuse =ghc-mod=. For more troubleshooting,
-checkout this [[https://github.com/kazu-yamamoto/ghc-mod/wiki#known-issues-related-to-stack][document]].
+*** =company-ghci=
+[[https://github.com/juiko/company-ghci][company-ghci]] communicates directly with =ghci= in order to provide completion. In
+order to use it you have to call =haskell-process-load-or-reload= (=SPC s b=).
 
-*** Stack users
-From time to time =ghc-mod= is not available via latest Stackage LTS version. So
-if you have problems with calling =stack install ghc-mod=, try to use =stack
-install ghc-mod --resolver lts-3.1= (the last known LTS version that had
-=ghc-mod=). But even if it doesn't work, don't panic, it's easy to install it
-from sources.
+*** =intero=
+=Intero= works only for =stack= users. You can manually install =intero= executable by
+calling =stack install intero=, but this step is optional as =Intero= installs
+itself.
 
-#+BEGIN_SRC sh
-# clone cabal-helper
-$ git clone https://github.com/DanielG/cabal-helper.git
-# cd into cloned repository
-$ cd cabal-helper
-# init stack, so cabal-helper can be installed using stack
-$ stack init
-# now install it
-$ stack install
-# go back where you was
-$ cd ..
-# and remove cabal-helper repository since you don't need it
-$ rm -rf cabal-helper
-# now clone ghc-mod
-$ git clone https://github.com/kazu-yamamoto/ghc-mod.git
-# and cd into it
-$ cd ghc-mod
-# again, let's init stack
-$ stack init
-# now install it
-$ stack install
-# go back
-$ cd ..
-# and remove ghc-mod since you don't need it
-$ rm -rf ghc-mod
-#+END_SRC
+*** =ghc-mod=
+[[http://www.mew.org/~kazu/proj/ghc-mod/][ghc-mod]] enhances =haskell-mode= with for example code completion, templates,
+case-splitting and much more. In order to use it you need to install the
+executable with =cabal install ghc-mod= (or =stack= equivalent).
+
+=Stack= users also should make sure that =dist/setup-config= doesn't exist in the
+project root. As it will confuse =ghc-mod=. For more troubleshooting, checkout
+this [[https://github.com/kazu-yamamoto/ghc-mod/wiki#known-issues-related-to-stack][document]].
+
+Also note that =ghc-mod= works only with =GHC= version that was used to build
+=ghc-mod=. You can check which version was used by calling =ghc-mod --version=.
 
 ** Optional extras
 The Haskell layer supports some extra features that can be enabled through layer
 variables.
-
-*** GHCi-ng support
-[[https://github.com/chrisdone/ghci-ng][ghci-ng]] adds some nice features to =haskell-mode=, and is supported in Spacemacs
-by a layer variable:
-
-Follow the instructions to install [[https://github.com/chrisdone/ghci-ng][ghci-ng]] (remember to add =:set +c= in
-=~/.ghci=), next set the layer variable:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-    '((haskell :variables haskell-enable-ghci-ng-support t)))
-#+END_SRC
-
-Once ghci-ng is enabled, two of the old keybindings are overriden with improved
-versions from ghci-ng, and a new keybinding available:
-
-| Key Binding | Description                                                               |
-|-------------+---------------------------------------------------------------------------|
-| ~SPC m h t~   | gets the type of the identifier under the cursor or for the active region |
-| ~SPC m g g~   | go to definition                                                          |
-| ~SPC m u~     | finds uses of identifier                                                  |
-
-**** Stack users
-=Stack= and =ghci-ng= doesn't play well with each other, so the general advice
-is to avoid mixing them. But, if you want mix them anyway, you'll need to set
-=haskell-process-type= explicitly:
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((haskell :variables haskell-process-type 'ghci)))
-;; or
-(setq-default dotspacemacs-configuration-layers
-  '((haskell :variables haskell-process-type cabal-repl)))
-#+END_SRC
-
-This is needed, because by default =haskell-process-type= is set to =auto= and
-if you have =stack.yaml= file in the root of your project, =stack-ghci= will be
-used as process type.
-
-**** ghc-mod users
-If you want to use ~SPC m h t~ from =ghc-mod= instead of =ghci-ng=, then you need to
-add following line in your =dotspacemacs/user-config=:
-
-#+BEGIN_SRC emacs-lisp
-(spacemacs/set-leader-keys-for-major-mode 'haskell-mode
-        "ht"  'ghc-show-type)
-#+END_SRC
-
-This might be useful, because =ghc-mod= doesn't require active REPL in order to
-get type of symbol.
 
 *** structured-haskell-mode
 Currently there is no support for [[https://github.com/chrisdone/structured-haskell-mode][structured-haskell-mode]], since it doesn't play
@@ -238,106 +174,121 @@ Top-level commands are prefixed by ~SPC m~:
 
 | Key Binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
-| ~SPC m g g~   | go to definition or tag                                             |
-| ~SPC m g i~   | cycle the Haskell import lines or return to point (with prefix arg) |
-| ~SPC m f~     | format buffer using haskell-stylish                                 |
-| ~SPC m F~     | format declaration using hindent (if enabled)                       |
+| ~SPC m g g~ | go to definition or tag                                             |
+| ~SPC m g i~ | cycle the Haskell import lines or return to point (with prefix arg) |
+| ~SPC m F~   | format buffer using haskell-stylish                                 |
+| ~SPC m f~   | format declaration using hindent (if enabled)                       |
 
 ** Documentation
 Documentation commands are prefixed by ~SPC m h~
 
 | Key Binding | Description                                                                |
 |-------------+----------------------------------------------------------------------------|
-| ~SPC m h d~   | find or generate Haddock documentation for the identifier under the cursor |
-| ~SPC m h f~   | do a helm-hoogle lookup                                                    |
-| ~SPC m h h~   | do a Hoogle lookup                                                         |
-| ~SPC m h H~   | do a local Hoogle lookup                                                   |
-| ~SPC m h i~   | gets information for the identifier under the cursor                       |
-| ~SPC m h t~   | gets the type of the identifier under the cursor                           |
-| ~SPC m h y~   | do a Hayoo lookup                                                          |
+| ~SPC m h d~ | find or generate Haddock documentation for the identifier under the cursor |
+| ~SPC m h f~ | do a helm-hoogle lookup                                                    |
+| ~SPC m h h~ | do a Hoogle lookup                                                         |
+| ~SPC m h H~ | do a local Hoogle lookup                                                   |
+| ~SPC m h i~ | gets information for the identifier under the cursor                       |
+| ~SPC m h t~ | gets the type of the identifier under the cursor                           |
+| ~SPC m h y~ | do a Hayoo lookup                                                          |
 
 ** Debug
 Debug commands are prefixed by ~SPC m d~:
 
 | Key Binding | Description                                |
 |-------------+--------------------------------------------|
-| ~SPC m d a~   | abandon current process                    |
-| ~SPC m d b~   | insert breakpoint at function              |
-| ~SPC m d B~   | delete breakpoint                          |
-| ~SPC m d c~   | continue current process                   |
-| ~SPC m d d~   | start debug process, needs to be run first |
-| ~SPC m d n~   | next breakpoint                            |
-| ~SPC m d N~   | previous breakpoint                        |
-| ~SPC m d p~   | previous breakpoint                        |
-| ~SPC m d r~   | refresh process buffer                     |
-| ~SPC m d s~   | step into the next function                |
-| ~SPC m d t~   | trace the expression                       |
+| ~SPC m d a~ | abandon current process                    |
+| ~SPC m d b~ | insert breakpoint at function              |
+| ~SPC m d B~ | delete breakpoint                          |
+| ~SPC m d c~ | continue current process                   |
+| ~SPC m d d~ | start debug process, needs to be run first |
+| ~SPC m d n~ | next breakpoint                            |
+| ~SPC m d N~ | previous breakpoint                        |
+| ~SPC m d p~ | previous breakpoint                        |
+| ~SPC m d r~ | refresh process buffer                     |
+| ~SPC m d s~ | step into the next function                |
+| ~SPC m d t~ | trace the expression                       |
 
 ** Debug Buffer
 
 | Key Binding | Description                                 |
 |-------------+---------------------------------------------|
-| ~RET~         | select object at the point                  |
-| ~a~           | abandon current computation                 |
-| ~b~           | break on function                           |
-| ~c~           | continue the current computation            |
-| ~d~           | delete object at the point                  |
-| ~n~           | go to next step to inspect bindings         |
-| ~N~ or ~p~      | go to previous step to inspect the bindings |
-| ~r~           | refresh the debugger buffer                 |
-| ~s~           | step into the next function                 |
-| ~t~           | trace the expression                        |
+| ~RET~       | select object at the point                  |
+| ~a~         | abandon current computation                 |
+| ~b~         | break on function                           |
+| ~c~         | continue the current computation            |
+| ~d~         | delete object at the point                  |
+| ~i~         | step into the next function                 |
+| ~r~         | refresh the debugger buffer                 |
+| ~s~         | go to next step to inspect bindings         |
+| ~S~         | go to previous step to inspect the bindings |
+| ~t~         | trace the expression                        |
 
 ** REPL
 REPL commands are prefixed by ~SPC m s~:
 
 | Key Binding | Description                                     |
 |-------------+-------------------------------------------------|
-| ~SPC m s b~   | load or reload the current buffer into the REPL |
-| ~SPC m s c~   | clear the REPL                                  |
-| ~SPC m s s~   | show the REPL without switching to it           |
-| ~SPC m s S~   | show and switch to the REPL                     |
+| ~SPC m s b~ | load or reload the current buffer into the REPL |
+| ~SPC m s c~ | clear the REPL                                  |
+| ~SPC m s s~ | show the REPL without switching to it           |
+| ~SPC m s S~ | show and switch to the REPL                     |
+
+** Intero REPL
+Intero REPL commands are prefixed by ~SPC m i~:
+
+| Key Binding | Description                                                   |
+|-------------+---------------------------------------------------------------|
+| ~SPC m i c~ | change directory in the backend process                       |
+| ~SPC m i d~ | reload the module =DevelMain= and then run =DevelMain.update= |
+| ~SPC m i k~ | stop the current worker process and kill its associated       |
+| ~SPC m i l~ | list hidden process buffers created by =intero=               |
+| ~SPC m i r~ | restart the process with the same configuration as before     |
+| ~SPC m i t~ | set the targets to use for stack =ghci=                       |
 
 ** Cabal commands
-
 Cabal commands are prefixed by ~SPC m c~:
 
-| Key Binding | Description                                              |
-|-------------+----------------------------------------------------------|
-| ~SPC m c a~   | cabal actions                                            |
-| ~SPC m c b~   | build the current cabal project, i.e. invoke =cabal build= |
-| ~SPC m c c~   | compile the current project, i.e. invoke =ghc=             |
-| ~SPC m c v~   | visit the cabal file                                     |
+| Key Binding | Description                                                |
+|-------------+------------------------------------------------------------|
+| ~SPC m c a~ | cabal actions                                              |
+| ~SPC m c b~ | build the current cabal project, i.e. invoke =cabal build= |
+| ~SPC m c c~ | compile the current project, i.e. invoke =ghc=             |
+| ~SPC m c v~ | visit the cabal file                                       |
 
 ** Cabal files
 This commands are available in a cabal file.
 
 | Key Binding | Description                                 |
 |-------------+---------------------------------------------|
-| ~SPC m d~     | add a dependency to the project             |
-| ~SPC m b~     | go to benchmark section                     |
-| ~SPC m e~     | go to executable section                    |
-| ~SPC m t~     | go to test-suite section                    |
-| ~SPC m m~     | go to exposed modules                       |
-| ~SPC m l~     | go to libary section                        |
-| ~SPC m n~     | go to next subsection                       |
-| ~SPC m p~     | go to previous subsection                   |
-| ~SPC m s c~   | clear the REPL                              |
-| ~SPC m s s~   | show the REPL without switching to it       |
-| ~SPC m s S~   | show and switch to the REPL                 |
-| ~SPC m N~     | go to next section                          |
-| ~SPC m P~     | go to previous section                      |
-| ~SPC m f~     | find or create source-file under the cursor |
+| ~SPC m d~   | add a dependency to the project             |
+| ~SPC m b~   | go to benchmark section                     |
+| ~SPC m e~   | go to executable section                    |
+| ~SPC m t~   | go to test-suite section                    |
+| ~SPC m m~   | go to exposed modules                       |
+| ~SPC m l~   | go to libary section                        |
+| ~SPC m n~   | go to next subsection                       |
+| ~SPC m p~   | go to previous subsection                   |
+| ~SPC m s c~ | clear the REPL                              |
+| ~SPC m s s~ | show the REPL without switching to it       |
+| ~SPC m s S~ | show and switch to the REPL                 |
+| ~SPC m N~   | go to next section                          |
+| ~SPC m P~   | go to previous section                      |
+| ~SPC m f~   | find or create source-file under the cursor |
 
 ** Refactor
 Refactor commands are prefixed by ~SPC m r~:
 
 | Key Binding | Description                                       |
 |-------------+---------------------------------------------------|
-| ~SPC m r b~   | apply all HLint suggestions in the current buffer |
-| ~SPC m r r~   | apply the HLint suggestion under the cursor       |
+| ~SPC m r b~ | apply all HLint suggestions in the current buffer |
+| ~SPC m r r~ | apply the HLint suggestion under the cursor       |
+| ~SPC m r s~ | list all Intero suggestions                       |
 
 Only some of the HLint suggestions can be applied.
+
+To apply the intero suggestions, press `C-c C-c` when the window is open, which
+is also shown in the window that appears.
 
 ** Ghc-mod
 These commands are only available when ghc-mod is enabled.
@@ -347,17 +298,17 @@ http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html
 
 ghc-mod commands are prefixed by ~SPC m m~:
 
-| Key Binding | Description                             |
-|-------------+-----------------------------------------|
-| ~SPC m m t~   | insert template                         |
-| ~SPC m m u~   | insert template with holes              |
-| ~SPC m m a~   | select one of possible cases (~ghc-auto~) |
-| ~SPC m m f~   | replace a hole (~ghc-refine~)             |
-| ~SPC m m e~   | expand template haskell                 |
-| ~SPC m m n~   | go to next type hole                    |
-| ~SPC m m p~   | go to previous type hole                |
-| ~SPC m m >~   | make indent deeper                      |
-| ~SPC m m <~   | make indent shallower                   |
+| Key Binding | Description                               |
+|-------------+-------------------------------------------|
+| ~SPC t~     | insert template                           |
+| ~SPC m m u~ | insert template with holes                |
+| ~SPC m m a~ | select one of possible cases (~ghc-auto~) |
+| ~SPC m m f~ | replace a hole (~ghc-refine~)             |
+| ~SPC m m e~ | expand template haskell                   |
+| ~SPC m m n~ | go to next type hole                      |
+| ~SPC m m p~ | go to previous type hole                  |
+| ~SPC m m >~ | make indent deeper                        |
+| ~SPC m m <~ | make indent shallower                     |
 
 *** Insert template
 ~SPC m m t~ inserts a template. What this means is that in the beginning of a
@@ -387,7 +338,7 @@ This is the standard spacemacs way to do syntax checking and the most elaborate.
 You need the syntax-checking layer to enable this. Please the documentation for
 that layer on how to interact with flycheck.
 
-Flycheck has different Haskell checkers: =haskell-ghc=, =haskell-stackghc= and
+Flycheck has different Haskell checkers: =haskell-ghc=, =haskell-stack-ghc= and
 =haskell-hlint=. Normally it can automatically detect the best one to use, but
 if it doesn't work, you can change it using ~SPC e s~.
 
@@ -413,7 +364,7 @@ An alternative to syntax checking is to build your project using
 =flymake-compile=. It doesn't highlight error in the buffer but is more
 reliable. The error navigation is similar to interactive haskell-mode.
 
-** Troublesshooting
+** Troubleshooting
 Flycheck and ghc-mod can fail silently for miscellaneous reasons. See the [[FAQ]]
 for troubleshooting.
 
@@ -438,9 +389,9 @@ Available options are:
 
 ** The REPL is stuck
 Make sure that when you are typing anything in REPL there is a space between
-what you type and =λ>=. When there is no space - REPL will behave as it's stuck.
-Usually, when you enter normal state, cursor is moved back, so there is no
-required space when you switch to insert mode. There is possible workaround -
+what you type and =λ>=. When there is no space - REPL will behave as if it's
+stuck. Usually, when you enter normal state, cursor is moved back, so there is
+no required space when you switch to insert mode. There is possible workaround -
 just add following snippet to your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
@@ -501,7 +452,7 @@ snippet into your =dotspacemacs/user-config= function.
             :after 'haskell-indentation-advice)
 #+END_SRC
 
-** Flycheck displays HLInt warnings but not errors
+** Flycheck displays HLint warnings but not errors
 The HLint checker is called *after* normal flycheck checker even if the checker
 fails. Check the [[Flycheck doesn't work]] section.
 

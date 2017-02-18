@@ -4,6 +4,7 @@
  - [[#common][Common]]
    - [[#which-version-of-spacemacs-am-i-running][Which version of Spacemacs am I running?]]
    - [[#what-is-the-official-pronunciation-of-spacemacs][What is the official pronunciation of Spacemacs?]]
+   - [[#why-do-you-call-this-a-distribution-i-dont-see-any-spacemacs-executable][Why do you call this a "distribution", I don't see any "Spacemacs" executable?]]
    - [[#why-are-packages-installed-with-package-install-automatically-deleted-by-spacemacs-when-it-boots][Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?]]
    - [[#how-to-fix-package-download-errors-when-installing-spacemacs-][How to fix package download errors when installing Spacemacs ?]]
    - [[#how-to-fix-symbols-value-as-variable-is-void-errors-on-startup][How to fix =Symbol's value as variable is void= errors on startup?]]
@@ -22,6 +23,7 @@
    - [[#why-do-i-get-files-starting-with-][Why do I get files starting with .#?]]
    - [[#why-do-i-get-4m-characters-inside-ansi-term][Why do I get '4m' characters inside ansi-term?]]
    - [[#why-are-my-font-settings-not-being-respected][Why are my font settings not being respected?]]
+   - [[#why-am-i-getting-a-message-about-environment-variables-on-startup][Why am I getting a message about environment variables on startup?]]
  - [[#how-do-i][How do I:]]
    - [[#install-a-package-not-provided-by-a-layer][Install a package not provided by a layer?]]
    - [[#disable-a-package-completely][Disable a package completely?]]
@@ -40,14 +42,13 @@
    - [[#try-spacemacs-without-modifying-my-existing-emacs-configuration][Try Spacemacs without modifying my existing Emacs configuration?]]
    - [[#make-copypaste-working-with-the-mouse-in-x11-terminals][Make copy/paste working with the mouse in X11 terminals?]]
    - [[#use-helm-ag-to-search-only-in-files-of-a-certain-type][Use =helm-ag= to search only in files of a certain type?]]
+   - [[#modify-spacemacs-documentation-look-space-doc-mode][Modify spacemacs documentation look (space-doc-mode)]]
    - [[#remap-paste-key-to-be-able-to-paste-copied-text-multiple-times][Remap paste key to be able to paste copied text multiple times]]
  - [[#windows][Windows]]
    - [[#why-do-the-fonts-look-crappy-on-windows][Why do the fonts look crappy on Windows?]]
    - [[#why-is-there-no-spacemacs-logo-in-the-startup-buffer][Why is there no Spacemacs logo in the startup buffer?]]
    - [[#why-are-all-packages-unavailable][Why are all packages unavailable?]]
    - [[#the-powerline-isnt-shown-correctly-when-spacemacs-is-used-within-putty][The powerline isn't shown correctly when Spacemacs is used within =PuTTY=]]
- - [[#os-x][OS X]]
-   - [[#why-are-the-powerline-colors-not-correct-on-os-x][Why are the powerline colors not correct on OS X?]]
 
 * Common
 ** Which version of Spacemacs am I running?
@@ -57,6 +58,16 @@ may also just type ~SPC f e v~.
 ** What is the official pronunciation of Spacemacs?
 As it is written, that is _space_ then _macs_.
 
+** Why do you call this a "distribution", I don't see any "Spacemacs" executable?
+Although we could do it we don't package Emacs with Spacemacs. We allow users to
+choose whatever build of Emacs they want that works with their OS, this is more
+flexible and it saves use tons of issues. Spacemacs is more than a configuration
+of Emacs it comes with advanced feature, concepts and tooling. Roughly, think of
+it as a Linux distribution where we would ask people to install the kernel first
+and then fetch somehow the actual code to get the distribution.
+Note that some Linux distributions may start to create packages for Spacemacs,
+they are unofficial packages, we will never package Emacs with Spacemacs.
+
 ** Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?
 By default Spacemacs will keep only the packages that you use (i.e. the packages
 belonging to a layer explicitly listed in the variable
@@ -64,10 +75,10 @@ belonging to a layer explicitly listed in the variable
 
 To install packages that does not belong to any Spacemacs layers, you can:
 
-- use the variable =dotspacemacs-additonal-packages=.
+- use the variable =dotspacemacs-additional-packages=.
 - or create a configuration layer configuring the package and add this layer to
   =dotspacemacs-configuration-layers=
-- or set the variable =dotspacemacs-download-packages= to =used-but-keep-unused=
+- or set the variable =dotspacemacs-install-packages= to =used-but-keep-unused=
   which will prevent Spacemacs from removing the packages you installed
   manually.
 
@@ -78,7 +89,7 @@ Since 0.105.0 HTTPS protocol is used by default to download packages. If your
 environment does not allow HTTPS to reach ELPA repositories then you can start
 Emacs with the =--insecure= argument for force the usage of HTTP non secured
 protocol. You can set the variable =dotspacemacs-elpa-https= to =nil= in your
-dotfile to remove the need to start Emacs with =--insecure== argument.
+dotfile to remove the need to start Emacs with =--insecure= argument.
 
 ** How to fix =Symbol's value as variable is void= errors on startup?
 If Emacs reports an error that the symbol =closed= or =-= is unbound as a
@@ -195,7 +206,7 @@ change your terminal color palette. More explanations can be found on
 This is a feature of Spacemacs, enabling you to easily escape from a lot of
 situations, like escaping from =insert state= to =normal state=.
 
-The sequence of characters used can be customized. See the [[http://spacemacs.org/doc/DOCUMENTATION.html#orgheadline78][documentation]] for
+The sequence of characters used can be customized. See the [[http://spacemacs.org/doc/DOCUMENTATION.html#escaping][documentation]] for
 more information.
 
 If you don't like this feature, you can deactivate it by adding =evil-escape= to
@@ -219,13 +230,42 @@ the =~/.terminfo= yourself.
 tic -o ~/.terminfo $TERMINFO/e/eterm-color.ti
 #+END_SRC
 
+Note that =eterm-color.ti= may be at a different location, to find out the exact
+location you may try to use =locate=:
+
+#+BEGIN_SRC fish
+locate eterm-color.ti
+#+END_SRC
+
 ** Why are my font settings not being respected?
 The settings of =dotspacemacs-default-font= (such as size, weight, etc.) will
 only be applied if the name of the font exists on your system. Check to make
 sure that this is the case. If Spacemacs can't find the font, there should be a
 warning to this effect in the =*Messages*= buffer.
 
+** Why am I getting a message about environment variables on startup?
+Spacemacs uses the =exec-path-from-shell= package to set the executable path
+when Emacs starts up. This is done by launching a shell and reading the values
+of variables such as =PATH= and =MANPATH= from it. If your shell configuration
+sets the values of these variables inconsistently, this could be problematic. It
+is recommended to set such variables in shell configuration files that are
+sourced unconditionally, such as =.profile=, =.bash_profile= or =.zshenv=, as
+opposed to files that are sourced only for interactive shells, such as =.bashrc=
+or =.zshrc=. If you are willing to neglect this advice, you may disable the
+warning, e.g. from =dotspacemacs/user-init=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq exec-path-from-shell-check-startup-files nil)
+#+END_SRC
+
+You can also disable this feature entirely by adding =exec-path-from-shell= to
+the list =dotspacemacs-excluded-packages= if you prefer setting =exec-path=
+yourself.
+
 * How do I:
+:PROPERTIES:
+:CUSTOM_ID: how-do-i
+:END:
 ** Install a package not provided by a layer?
 Spacemacs provides a variable in the =dotspacemacs/layers= function in
 =.spacemacs= called =dotspacemacs-additional-packages=. Just add a package name
@@ -264,6 +304,9 @@ dotfile. The following snippet disables company for =python-mode=:
 #+END_SRC
 
 ** Change special buffer rules?
+   :PROPERTIES:
+   :CUSTOM_ID: change-special-buffer-rules
+   :END:
 To change the way spacemacs marks buffers as useless, you can customize
 =spacemacs-useless-buffers-regexp= which marks buffers matching the regexp as
 useless. The variable =spacemacs-useful-buffers-regexp= marks buffers matching
@@ -487,6 +530,25 @@ some expressions to the search input:
 This is possible because =helm-ag= is treating the search input as command-line
 arguments of the =ag= program.
 
+** Modify spacemacs documentation look (space-doc-mode)
+You can modify the list of visual enhancements applied by the =space-doc-mode=:
+#+BEGIN_SRC emacs-lisp
+(setq spacemacs-space-doc-modificators
+      '(center-buffer-mode
+        org-indent-mode
+        view-mode
+        hide-line-numbers
+        alternative-emphasis
+        alternative-tags-look
+        link-protocol
+        org-block-line-face-remap
+        org-kbd-face-remap
+        resize-inline-images))
+#+END_SRC
+By default only =center-buffer-mode= is disabled.
+Both =space-doc-mode= and =center-buffer-mode= can be customized
+with "Easy Customization Interface".
+
 ** Remap paste key to be able to paste copied text multiple times
 In vim and evil, pasting over a text would cause it to be copied, hence making it impossible to paste
 the same text multiple times.
@@ -524,9 +586,3 @@ directory as Emacs. See [[https://www.gnu.org/software/emacs/manual/html_mono/em
 
 ** The powerline isn't shown correctly when Spacemacs is used within =PuTTY=
 You can follow [[http://mschulte.nl/posts/using-powerline-in-PuTTY.html][this explanation]] explaining how to correct this.
-
-* OS X
-** Why are the powerline colors not correct on OS X?
-This is a [[https://github.com/milkypostman/powerline/issues/54][known issue]] as of Emacs 24.4 due to =ns-use-srgb-colorspace=
-defaulting to true. It is recommended to use the [[http://github.com/railwaycat/homebrew-emacsmacport][emacs-mac-port]] build. See the
-install section in the [[file:../README.md][README]] for more details.

@@ -2,6 +2,7 @@
 (setq dash-packages
       '(
         (helm-dash :toggle (configuration-layer/package-usedp 'helm))
+        (counsel-dash :toggle (configuration-layer/package-usedp 'ivy))
         ))
 
 (cond
@@ -19,12 +20,23 @@
       "dh" 'helm-dash-at-point
       "dH" 'helm-dash)
     :config
-    (defun dash//activate-package-docsets (path)
-      "Add dash docsets from specified PATH."
-      (setq helm-dash-docsets-path path
-            helm-dash-common-docsets (helm-dash-installed-docsets))
-      (message (format "activated %d docsets from: %s"
-                       (length helm-dash-common-docsets) path)))
+    (dash//activate-package-docsets helm-dash-docset-newpath)))
+
+(defun dash/init-counsel-dash ()
+  (use-package counsel-dash
+    :defer t
+    :init
+    (spacemacs/set-leader-keys
+      "dh" 'counsel-dash-at-point
+      "dH" 'counsel-dash)
+    (defun counsel-dash-at-point ()
+      "Counsel dash with selected point"
+      (interactive)
+      (counsel-dash
+       (if (use-region-p)
+           (buffer-substring-no-properties (region-beginning) (region-end))
+         (substring-no-properties (or (thing-at-point 'symbol) "")))))
+    :config
     (dash//activate-package-docsets helm-dash-docset-newpath)))
 
 (defun dash/init-dash-at-point ()

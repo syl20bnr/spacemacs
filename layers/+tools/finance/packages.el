@@ -1,6 +1,6 @@
 ;;; packages.el --- Finance Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -16,6 +16,10 @@
     ledger-mode
     ))
 
+(defun finance/post-init-company ()
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes ledger-mode))
 
 (defun finance/init-flycheck-ledger ()
   (with-eval-after-load 'flycheck
@@ -28,7 +32,6 @@
     :init
     (progn
       (setq ledger-post-amount-alignment-column 62)
-      (push 'company-capf company-backends-ledger-mode)
       (spacemacs/set-leader-keys-for-major-mode 'ledger-mode
          "hd" 'ledger-delete-current-transaction
          "a" 'ledger-add-transaction
@@ -43,11 +46,14 @@
          "t" 'ledger-insert-effective-date
          "y" 'ledger-set-year
          "RET" 'ledger-set-month)
+      (spacemacs/set-leader-keys-for-major-mode 'ledger-reconcile-mode
+        (or dotspacemacs-major-mode-leader-key ",") 'ledger-reconcile-toggle
+        "a" 'ledger-reconcile-add
+        "q" 'ledger-reconcile-quit
+        "t" 'ledger-reconcile-change-target
+        "RET" 'ledger-reconcile-finish)
       ;; temporary hack to work-around an issue with evil-define-key
       ;; more info: https://bitbucket.org/lyro/evil/issues/301/evil-define-key-for-minor-mode-does-not
       ;; TODO remove this hack if the limitation is removed upstream
       (add-hook 'ledger-mode-hook 'evil-normalize-keymaps)
       (evilified-state-evilify ledger-report-mode ledger-report-mode-map))))
-
-(defun finance/post-init-company ()
-  (spacemacs|add-company-hook ledger-mode))

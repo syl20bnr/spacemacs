@@ -41,5 +41,5 @@ file.
 | Key Binding | Description         |
 |-------------+---------------------|
 | ~M-h~       | Promote title level |
-| ~M-l~       | Denote title level  |
+| ~M-l~       | Demote title level  |
 

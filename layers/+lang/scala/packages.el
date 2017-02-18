@@ -1,6 +1,6 @@
 ;;; packages.el --- Scala Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,15 +12,21 @@
 (setq scala-packages
   '(
     ensime
+    flycheck
+    ggtags
+    helm-gtags
     noflet
-    sbt-mode
+    org
     scala-mode
+    sbt-mode
     ))
 
 (defun scala/init-ensime ()
   (use-package ensime
-    :commands (ensime-mode)
+    :defer t
     :init
+    ;; note ensime-mode is hooked to scala-mode-hook automatically by
+    ;; ensime-mode via an autoload
     (progn
       (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime")
       (when scala-enable-eldoc
@@ -28,10 +34,11 @@
       (add-hook 'scala-mode-hook 'scala/configure-flyspell)
       (add-hook 'scala-mode-hook 'scala/configure-ensime)
       (when scala-auto-start-ensime
-        (add-hook 'scala-mode-hook 'scala/maybe-start-ensime)))
+        (add-hook 'scala-mode-hook 'scala/maybe-start-ensime))
+      (add-to-list 'spacemacs-jump-handlers-scala-mode 'ensime-edit-definition))
     :config
     (progn
-      (setq user-emacs-ensime-directory ".cache/ensime")
+      (setq ensime-startup-dirname (expand-file-name "ensime" spacemacs-cache-directory))
 
       (evil-define-key 'insert ensime-mode-map
         (kbd ".") 'scala/completing-dot
@@ -116,21 +123,18 @@
         "dB"     'ensime-db-clear-break
         "dC"     'ensime-db-clear-all-breaks
         "dc"     'ensime-db-continue
-        "dd"     'ensime-db-start
-        "di"     'ensime-db-inspect-value-at-point
-        "dl"     'ensime-db-list-locals
+        "di"     'ensime-db-step
         "dn"     'ensime-db-next
         "do"     'ensime-db-step-out
         "dq"     'ensime-db-quit
         "dr"     'ensime-db-run
-        "ds"     'ensime-db-step
         "dt"     'ensime-db-backtrace
+        "dv"     'ensime-db-inspect-value-at-point
 
         "ee"     'ensime-print-errors-at-point
         "el"     'ensime-show-all-errors-and-warnings
         "es"     'ensime-stacktrace-switch
 
-        "gg"     'ensime-edit-definition
         "gp"     'ensime-pop-find-definition-stack
         "gi"     'ensime-goto-impl
         "gt"     'ensime-goto-test
@@ -188,21 +192,30 @@
       (when (configuration-layer/package-usedp 'expand-region)
         (require 'ensime-expand-region nil 'noerror)))))
 
+(defun scala/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'scala-mode))
+
 (defun scala/init-noflet ()
   (use-package noflet))
+
+(defun scala/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(scala . t))))
 
 (defun scala/init-sbt-mode ()
   (use-package sbt-mode
     :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'scala-mode
+            "b." 'sbt-hydra
             "bb" 'sbt-command)))
 
 (defun scala/init-scala-mode ()
   (use-package scala-mode
     :defer t
     :init
-    (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
-      (add-to-list 'completion-ignored-extensions ext))
+    (progn
+      (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
+        (add-to-list 'completion-ignored-extensions ext)))
     :config
     (progn
       ;; Automatically insert asterisk in a comment when enabled
@@ -260,3 +273,9 @@ replace it with the unicode arrow."
       (setq scala-indent:align-forms t
             scala-indent:align-parameters t
             scala-indent:default-run-on-strategy scala-indent:operator-strategy))))
+
+(defun scala/post-init-ggtags ()
+  (add-hook 'scala-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun scala/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'scala-mode))

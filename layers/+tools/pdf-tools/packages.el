@@ -1,6 +1,6 @@
 ;;; packages.el --- pdf-tools Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2014 Sylvain Benner
+;; Copyright (c) 2012-2017 Sylvain Benner
 ;; Copyright (c) 2014-2016 Sylvain Benner & Contributors
 ;;
 ;; Author: André Peric Tavares <andre.peric.tavares@gmail.com>
@@ -24,6 +24,7 @@
         :title "PDF-tools transient state"
         :on-enter (setq which-key-inhibit t)
         :on-exit (setq which-key-inhibit nil)
+        :evil-leader-for-mode (pdf-view-mode . ".")
         :doc
         "
  Navigation^^^^                Scale/Fit^^                    Annotations^^       Actions^^           Other^^
@@ -32,9 +33,9 @@
  [_h_/_l_] scroll left/right   [_H_] fit to height            [_at_] text         [_O_] outline
  [_d_/_u_] pg down/up          [_P_] fit to page              [_aD_] delete       [_p_] print
  [_J_/_K_] next/prev pg        [_m_] slice using mouse        [_am_] markup       [_o_] open link
- ^^^^                          [_b_] slice from bounding box  ^^                  [_r_] revert
+ [_0_/_$_] full scroll l/r     [_b_] slice from bounding box  ^^                  [_r_] revert
  ^^^^                          [_R_] reset slice              ^^                  [_t_] attachments
- ^^^^                          ^^                             ^^                  [_n_] night mode
+ ^^^^                          [_zr_] reset zoom              ^^                  [_n_] night mode
  "
         :bindings
         ;; Navigation
@@ -46,13 +47,16 @@
         ("K"  pdf-view-previous-page)
         ("u"  pdf-view-scroll-down-or-previous-page)
         ("d"  pdf-view-scroll-up-or-next-page)
+        ("0"  image-bol)
+        ("$"  image-eol)
         ;; Scale/Fit
-        ("W" pdf-view-fit-width-to-window)
-        ("H" pdf-view-fit-height-to-window)
-        ("P" pdf-view-fit-page-to-window)
-        ("m" pdf-view-set-slice-using-mouse)
-        ("b" pdf-view-set-slice-from-bounding-box)
-        ("R" pdf-view-reset-slice)
+        ("W"  pdf-view-fit-width-to-window)
+        ("H"  pdf-view-fit-height-to-window)
+        ("P"  pdf-view-fit-page-to-window)
+        ("m"  pdf-view-set-slice-using-mouse)
+        ("b"  pdf-view-set-slice-from-bounding-box)
+        ("R"  pdf-view-reset-slice)
+        ("zr" pdf-view-scale-reset)
         ;; Annotations
         ("aD" pdf-annot-delete)
         ("at" pdf-annot-attachment-dired :exit t)
@@ -73,7 +77,6 @@
       (spacemacs/declare-prefix-for-mode 'pdf-view-mode "mf" "fit")
       (spacemacs/declare-prefix-for-mode 'pdf-view-mode "ms" "slice/search")
       (spacemacs/set-leader-keys-for-major-mode 'pdf-view-mode
-        "." 'spacemacs/pdf-tools-transient-state/body
         ;; Slicing image
         "sm" 'pdf-view-set-slice-using-mouse
         "sb" 'pdf-view-set-slice-from-bounding-box
@@ -103,6 +106,8 @@
       ;; TODO: Make `/', `?' and `n' work like in Evil
       (evilified-state-evilify pdf-view-mode pdf-view-mode-map
         ;; Navigation
+        "0"  'image-bol
+        "$"  'image-eol
         "j"  'pdf-view-next-line-or-next-page
         "k"  'pdf-view-previous-line-or-previous-page
         "l"  'image-forward-hscroll
@@ -124,7 +129,8 @@
         ;; Actions
         "r"   'pdf-view-revert-buffer
         "o"   'pdf-links-action-perform
-        "O"   'pdf-outline)
+        "O"   'pdf-outline
+        "zr"  'pdf-view-scale-reset)
       (evilified-state-evilify pdf-outline-buffer-mode pdf-outline-buffer-mode-map
         "-"                'negative-argument
         "j"                'next-line

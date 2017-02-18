@@ -18,17 +18,12 @@ Layer for [[http://www.emacswiki.org/emacs/ERC][ERC IRC chat]].
 * Features
 - Highlight nicks (using [[https://github.com/leathekd/erc-hl-nicks][erc-hl-nicks]])
 - Image inline support (using [[https://github.com/kidd/erc-image.el][erc-image]])
-- Logging to ~/.emacs.d/.cache/erc-logs and ViewLogMode for viewing logs
+- Logging to =~/.emacs.d/.cache/erc-logs= and =ViewLogMode= for viewing logs
   (using [[https://github.com/Niluge-KiWi/erc-view-log][erc-view-log]])
 - YouTube videos Thumbnails inline (using [[https://github.com/yhvh/erc-yt][erc-yt]])
 - Social Graph for ERC messages (using [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]])
-- ERC yank, if pasting more than 5 lines, create a gist for it. (needs to have
-  =github= layer enabled, or using =gist= package)
 - Optional SASL authentication via the variable =erc-enable-sasl-auth=
   (using [[http://emacswiki.org/emacs/ErcSASL][erc-sasl]])
-- Gitter support! This includes clickable issue numbers, inline markdown
-  highlighting, and more (check package doc). Go to irc.gitter.im to get
-  credentials and use erc-tls to connect ( ~SPC a i E~ ).
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
   using the =emoji= layer or having a proper font) :clap:
 

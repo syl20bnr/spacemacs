@@ -1,7 +1,19 @@
+;;; packages.el --- Ycmd Layer packages File for Spacemacs
+;;
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;;
+;; Author: Brian Hicks <brian@brianthicks.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
 (setq ycmd-packages
   '(
     (company-ycmd :toggle (configuration-layer/package-usedp 'company))
     (flycheck-ycmd :toggle (configuration-layer/package-usedp 'flycheck))
+    eldoc
     ycmd
     ))
 
@@ -19,10 +31,16 @@
     :defer t
     :init (add-hook 'ycmd-mode-hook 'flycheck-ycmd-setup)))
 
+(defun ycmd/post-init-eldoc ()
+  (add-hook 'ycmd-mode-hook 'ycmd-eldoc-setup))
+
 (defun ycmd/init-ycmd ()
   (use-package ycmd
     :defer t
     :init
-    (unless (boundp 'ycmd-global-config)
-      (let ((dir (configuration-layer/get-layer-property 'ycmd :dir)))
-        (setq-default ycmd-global-config (concat dir "global_conf.py"))))))
+    (progn
+      (unless (boundp 'ycmd-global-config)
+        (setq-default ycmd-global-config
+                      (concat (configuration-layer/get-layer-path 'ycmd)
+                              "global_conf.py")))
+      (setq-default ycmd-parse-conditions '(save mode-enabled)))))

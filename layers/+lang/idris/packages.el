@@ -1,6 +1,6 @@
 ;;; packages.el --- Idris Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Timothy Jones <git@zmthy.io>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,13 +9,18 @@
 ;;
 ;;; License: GPLv3
 
-(setq idris-packages '(idris-mode
-                       company
-                       popwin))
+(setq idris-packages
+      '(
+        company
+        idris-mode
+        golden-ratio
+        popwin
+        ))
 
 (defun idris/post-init-company ()
-  (spacemacs|add-company-hook idris-mode)
-  (push 'company-capf company-backends-idris-mode))
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes idris-mode idris-repl-mode))
 
 (defun idris/init-idris-mode ()
   (use-package idris-mode
@@ -91,7 +96,7 @@
         "mc" 'idris-show-core-term
 
         ;; REPL
-        "'" 'idris-repl
+        "'"  'idris-repl
         "sb" 'idris-load-file
         "sB" 'spacemacs/idris-load-file-and-focus
         "si" 'idris-repl
@@ -99,12 +104,19 @@
         "sN" 'spacemacs/idris-load-forward-line-and-focus
         "sp" 'idris-load-backward-line
         "sP" 'spacemacs/idris-load-backward-line-and-focus
-        "ss" 'idris-pop-to-repl)))
+        "ss" 'idris-pop-to-repl
+        "sq" 'idris-quit)))
 
   ;; open special buffers in motion state so they can be closed with ~q~
   (evil-set-initial-state 'idris-compiler-notes-mode 'motion)
   (evil-set-initial-state 'idris-hole-list-mode 'motion)
   (evil-set-initial-state 'idris-info-mode 'motion))
+
+(defun idris/pre-init-golden-ratio ()
+  (spacemacs|use-package-add-hook golden-ratio
+    :post-config
+    (dolist (x '("*idris-notes*" "*idris-holes*" "*idris-info*"))
+      (add-to-list 'golden-ratio-exclude-buffer-names x))))
 
 (defun idris/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin

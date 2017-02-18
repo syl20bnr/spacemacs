@@ -1,6 +1,6 @@
 ;;; fmt.el --- .org file formatter.
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -72,7 +72,7 @@
     (while (re-search-backward org-heading-regexp nil t))
     (open-line 3)
     (forward-line 1)
-    (insert-string toc-headline)))
+    (insert toc-headline)))
 
 (defun remove-empty-lines-after-headlines()
   "Remove empty liners after each headline."

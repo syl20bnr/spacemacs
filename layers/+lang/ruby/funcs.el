@@ -1,6 +1,6 @@
 ;;; funcs.el --- Ruby Layer functions File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -51,3 +51,11 @@ Called interactively it prompts for a directory."
   "Conditionally enable `ruby-test-mode'"
   (when (eq 'ruby-test ruby-test-runner)
     (ruby-test-mode)))
+
+
+;; minitest
+
+(defun spacemacs//ruby-enable-minitest-mode ()
+  "Conditionally enable `minitest-mode'"
+  (when (eq 'minitest ruby-test-runner)
+    (minitest-enable-appropriate-mode)))

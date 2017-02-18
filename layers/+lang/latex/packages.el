@@ -1,6 +1,6 @@
 ;;; packages.el --- Latex Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -13,12 +13,13 @@
   '(
     auctex
     (auctex-latexmk :toggle (string= "LatexMk" latex-build-command))
-    company
     (company-auctex :toggle (configuration-layer/package-usedp 'company))
     evil-matchit
     (reftex :location built-in)
     flycheck
     flyspell
+    ggtags
+    helm-gtags
     smartparens
     typo
     yasnippet
@@ -128,19 +129,17 @@
         :post-config
         (auctex-latexmk-setup)))))
 
-(defun latex/post-init-company ()
-  (spacemacs|add-company-hook LaTeX-mode))
-
 (defun latex/init-company-auctex ()
   (use-package company-auctex
     :defer t
-    :init
-    (progn
-      (push 'company-auctex-labels company-backends-LaTeX-mode)
-      (push 'company-auctex-bibs company-backends-LaTeX-mode)
-      (push '(company-auctex-macros
-              company-auctex-symbols
-              company-auctex-environments) company-backends-LaTeX-mode))))
+    :init (spacemacs|add-company-backends
+            :backends
+            company-auctex-labels
+            company-auctex-bibs
+            (company-auctex-macros
+             company-auctex-symbols
+             company-auctex-environments)
+            :modes LaTeX-mode)))
 
 (defun latex/post-init-evil-matchit ()
   (add-hook 'LaTeX-mode-hook 'evil-matchit-mode))
@@ -171,6 +170,12 @@
     "rT"    'reftex-toc-recenter
     "rv"    'reftex-view-crossref))
 
+(defun latex/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'latex-mode))
+
+(defun latex/post-init-ggtags ()
+  (add-hook 'latex-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
 (defun latex/post-init-smartparens ()
   (add-hook 'LaTeX-mode-hook 'smartparens-mode))
 
@@ -184,5 +189,5 @@
   (add-hook 'LaTeX-mode-hook 'spacemacs/load-yasnippet))
 
 (defun latex/post-init-which-key ()
-  (push '("\\`latex/font-\\(.+\\)\\'" . "\\1")
-        which-key-description-replacement-alist))
+  (push '((nil . "\\`latex/font-\\(.+\\)\\'") . (nil . "\\1"))
+        which-key-replacement-alist))

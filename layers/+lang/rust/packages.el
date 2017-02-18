@@ -1,6 +1,6 @@
 ;;; packages.el --- Rust Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Chris Hoeppner <me@mkaito.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -11,13 +11,39 @@
 
 (setq rust-packages
   '(
+    cargo
     company
     racer
     flycheck
     (flycheck-rust :toggle (configuration-layer/package-usedp 'flycheck))
+    ggtags
+    helm-gtags
     rust-mode
     toml-mode
     ))
+
+(defun rust/init-cargo ()
+  (use-package cargo
+    :defer t
+    :init
+    (progn
+      (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
+      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+        "c." 'cargo-process-repeat
+        "cC" 'cargo-process-clean
+        "cX" 'cargo-process-run-example
+        "cc" 'cargo-process-build
+        "cd" 'cargo-process-doc
+        "ce" 'cargo-process-bench
+        "cf" 'cargo-process-current-test
+        "cf" 'cargo-process-fmt
+        "ci" 'cargo-process-init
+        "cn" 'cargo-process-new
+        "co" 'cargo-process-current-file-tests
+        "cs" 'cargo-process-search
+        "cu" 'cargo-process-update
+        "cx" 'cargo-process-run
+        "t" 'cargo-process-test))))
 
 (defun rust/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'rust-mode))
@@ -27,31 +53,30 @@
     :defer t
     :init (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
+(defun rust/post-init-ggtags ()
+  (add-hook 'rust-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun rust/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'rust-mode))
+
 (defun rust/init-rust-mode ()
   (use-package rust-mode
     :defer t
-    :config
+    :init
     (progn
-      (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "="  'rust-format-buffer
-        "cC" 'spacemacs/rust-cargo-clean
-        "cc" 'spacemacs/rust-cargo-build
-        "cd" 'spacemacs/rust-cargo-doc
-        "cf" 'spacemacs/rust-cargo-fmt
-        "ct" 'spacemacs/rust-cargo-test
-        "cx" 'spacemacs/rust-cargo-run))))
+        "=" 'rust-format-buffer
+        "q" 'spacemacs/rust-quick-run))))
 
 (defun rust/init-toml-mode ()
   (use-package toml-mode
     :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'"))
 
 (defun rust/post-init-company ()
-  (push 'company-capf company-backends-rust-mode)
-  (spacemacs|add-company-hook rust-mode)
-  (add-hook 'rust-mode-hook
-            (lambda ()
-              (setq-local company-tooltip-align-annotations t))))
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes rust-mode
+    :variables company-tooltip-align-annotations t))
 
 (defun rust/post-init-smartparens ()
   (with-eval-after-load 'smartparens
@@ -63,11 +88,17 @@
     (exec-path-from-shell-copy-env "RUST_SRC_PATH"))
 
   (use-package racer
-    :diminish racer-mode
     :defer t
     :init
     (progn
       (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode eldoc-mode))
       (spacemacs/declare-prefix-for-mode 'rust-mode "mg" "goto")
+      (add-to-list 'spacemacs-jump-handlers-rust-mode 'racer-find-definition)
+      (spacemacs/declare-prefix-for-mode 'rust-mode "mh" "help")
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "gg" 'racer-find-definition))))
+        "hh" 'spacemacs/racer-describe))
+    :config
+    (progn
+      (spacemacs|hide-lighter racer-mode)
+      (evilified-state-evilify-map racer-help-mode-map
+        :mode racer-help-mode))))

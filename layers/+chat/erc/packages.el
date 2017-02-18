@@ -1,6 +1,6 @@
 ;;; packages.el --- erc Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -35,11 +35,10 @@
   (push 'erc-terminal-notifier erc-packages))
 
 (defun erc/post-init-company ()
-  (spacemacs|add-company-hook erc-mode)
-  (push 'company-capf company-backends-erc-mode))
+  (spacemacs|add-company-backends :backends company-capf :modes erc-mode))
 
 (defun erc/post-init-company-emoji ()
-  (push 'company-emoji company-backends-erc-mode))
+  (spacemacs|add-company-backends :backends company-emoji :modes erc-mode))
 
 (defun erc/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'erc-mode-hook 'emoji-cheat-sheet-plus-display-mode))
@@ -206,12 +205,11 @@
       (spacemacs|define-transient-state erc-log
         :title "ERC Log Transient State"
         :doc "\n[_r_] reload the log file  [_>_/_<_] go to the next/prev mention"
+        :evil-leader-for-mode (erc-mode . ".")
         :bindings
         ("r" erc-view-log-reload-file)
         (">" erc-view-log-next-mention)
-        ("<" erc-view-log-previous-mention))
-      (spacemacs/set-leader-keys-for-major-mode 'erc-mode
-        "." 'spacemacs/erc-log-transient-state/body))))
+        ("<" erc-view-log-previous-mention)))))
 
 (defun erc/init-erc-image ()
   (use-package erc-image
@@ -225,8 +223,8 @@
     :if (executable-find "terminal-notifier")))
 
 (defun erc/post-init-linum ()
-  (spacemacs/add-to-hooks 'no-linum '(erc-mode-hook
-                                      erc-insert-pre-hook)))
+  (spacemacs/add-to-hooks 'spacemacs/no-linum '(erc-mode-hook
+                                                erc-insert-pre-hook)))
 
 (defun erc/post-init-persp-mode ()
   ;; do not save erc buffers

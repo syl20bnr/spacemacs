@@ -19,6 +19,14 @@
 In order to use this layer you must install mu and mu4e separately. Typically
 mu4e will be bundled with mu (this is the case on many Linux distributions).
 
+If you're on OS X and install mu using Homebrew, you must specify the
+location of your Emacs binary at install time using the EMACS environment
+variable, as well as passing the --with-emacs option:
+
+#+begin_src shell
+brew install mu --with-emacs
+#+end_src
+
 If the installation directory of mu4e is not in Emacs’ load path, you can set
 the layer variable =mu4e-installation-path=, for example:
 
@@ -37,15 +45,16 @@ existing =dotspacemacs-configuration-layers= list in this file.
 
 | Keybinding | Command    |
 |------------+------------|
-| SPC a M    | Start mu4e |
+| ~SPC a M~  | Start mu4e |
 
 ** Headers mode
 
 | Keybinding | Command                                                     |
 |------------+-------------------------------------------------------------|
-| T          | Go to next unread thread marking other mail read on the way |
-| C-j        | Next header                                                 |
-| C-k        | Previous header                                             |
+| ~J~        | Go to next unread thread marking other mail read on the way |
+| ~C-j~      | Next header                                                 |
+| ~C-k~      | Previous header                                             |
+
 
 ** View mode
 
@@ -54,6 +63,9 @@ existing =dotspacemacs-configuration-layers= list in this file.
 | T          | Go to next unread thread marking other mail read on the way |
 | C-j        | Next header                                                 |
 | C-k        | Previous header                                             |
+| ~J~        | Go to next unread thread marking other mail read on the way |
+| ~C-j~      | Next header                                                 |
+| ~C-k~      | Previous header                                             |
 
 * Configuration
 Configuration varies too much to give precise instructions.  What follows is one

@@ -13,11 +13,10 @@
     ))
 
 (defun rcirc/post-init-company ()
-  (spacemacs|add-company-hook rcirc-mode)
-  (push 'company-capf company-backends-rcirc-mode))
+  (spacemacs|add-company-backends :backends company-capf :modes rcirc-mode))
 
 (defun rcirc/post-init-company-emoji ()
-  (push 'company-emoji company-backends-rcirc-mode))
+  (spacemacs|add-company-backends :backends company-emoji :modes rcirc-mode))
 
 (defun rcirc/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'rcirc-mode-hook 'emoji-cheat-sheet-plus-display-mode))
@@ -164,7 +163,7 @@
       (defun spacemacs/rcirc-notify-beep (msg)
         "Beep when notifying."
         (let ((player "mplayer")
-              (sound (concat user-emacs-directory "site-misc/startup.ogg")))
+              (sound (concat spacemacs-start-directory "site-misc/startup.ogg")))
           (when (and (executable-find player)
                      (file-exists-p sound)))
           (start-process "beep-process" nil player sound)))

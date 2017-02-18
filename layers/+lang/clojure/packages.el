@@ -7,9 +7,12 @@
     (clojure-snippets :toggle (configuration-layer/layer-usedp 'auto-completion))
     company
     eldoc
+    ggtags
+    helm-gtags
     popwin
     smartparens
     subword
+    org
     ))
 
 (defun clojure/init-cider ()
@@ -23,7 +26,13 @@
             cider-prompt-save-file-on-load nil
             cider-repl-use-clojure-font-lock t)
       (push "\\*cider-repl\.\+\\*" spacemacs-useful-buffers-regexp)
-      (add-hook 'clojure-mode-hook 'cider-mode))
+      (add-hook 'clojure-mode-hook 'cider-mode)
+      (dolist (x '(spacemacs-jump-handlers-clojure-mode
+                   spacemacs-jump-handlers-clojurec-mode
+                   spacemacs-jump-handlers-clojurescript-mode
+                   spacemacs-jump-handlers-clojurex-mode
+                   spacemacs-jump-handlers-cider-repl-mode))
+        (add-to-list x 'cider-find-var)))
     :config
     (progn
       ;; add support for golden-ratio
@@ -90,33 +99,45 @@
                    clojurec-mode
                    clojurescript-mode
                    clojurex-mode
-                   cider-repl-mode))
+                   cider-repl-mode
+                   cider-clojure-interaction-mode))
         (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
                            m (car x) (cdr x)))
               cider--key-binding-prefixes)
+
         (spacemacs/set-leader-keys-for-major-mode m
           "ha" 'cider-apropos
           "hh" 'cider-doc
           "hg" 'cider-grimoire
           "hj" 'cider-javadoc
+          "hn" 'cider-browse-ns
 
           "eb" 'cider-eval-buffer
           "ee" 'cider-eval-last-sexp
           "ef" 'cider-eval-defun-at-point
+          "em" 'cider-macroexpand-1
+          "eM" 'cider-macroexpand-all
           "er" 'cider-eval-region
           "ew" 'cider-eval-last-sexp-and-replace
 
+          "="  'cider-format-buffer
           "fb" 'cider-format-buffer
 
           "gb" 'cider-pop-back
+          "gC" 'cider-classpath
           "ge" 'cider-jump-to-compilation-error
-          "gg" 'cider-find-var
           "gr" 'cider-jump-to-resource
+          "gn" 'cider-browse-ns
+          "gN" 'cider-browse-ns-all
 
           "'"  'cider-jack-in
+          "\""  'cider-jack-in-clojurescript
           "sb" 'cider-load-buffer
           "sB" 'spacemacs/cider-send-buffer-in-repl-and-focus
-          "sc" 'cider-connect
+          "sc" (if (eq m 'cider-repl-mode)
+                   'cider-repl-clear-buffer
+                 'cider-connect)
+          "sC" 'cider-find-and-clear-repl-output
           "se" 'spacemacs/cider-send-last-sexp-to-repl
           "sE" 'spacemacs/cider-send-last-sexp-to-repl-focus
           "sf" 'spacemacs/cider-send-function-to-repl
@@ -129,30 +150,49 @@
           "sq" 'cider-quit
           "sr" 'spacemacs/cider-send-region-to-repl
           "sR" 'spacemacs/cider-send-region-to-repl-focus
-          "ss" 'cider-switch-to-repl-buffer
+          "ss" (if (eq m 'cider-repl-mode)
+                   'cider-switch-to-last-clojure-buffer
+                 'cider-switch-to-repl-buffer)
           "sx" 'cider-refresh
 
+          "Te" 'cider-enlighten-mode
           "Tf" 'spacemacs/cider-toggle-repl-font-locking
           "Tp" 'spacemacs/cider-toggle-repl-pretty-printing
+          "Tt" 'cider-auto-test-mode
 
           "ta" 'spacemacs/cider-test-run-all-tests
           "tb" 'cider-test-show-report
           "tl" 'spacemacs/cider-test-run-loaded-tests
           "tp" 'spacemacs/cider-test-run-project-tests
           "tn" 'spacemacs/cider-test-run-ns-tests
-          "tr" 'spacemacs/cider-test-rerun-tests
+          "tr" 'spacemacs/cider-test-rerun-failed-tests
           "tt" 'spacemacs/cider-test-run-focused-test
 
           "db" 'cider-debug-defun-at-point
           "de" 'spacemacs/cider-display-error-buffer
-          "di" 'cider-inspect))
+          "dv" 'cider-inspect
+
+          ;; refactorings from clojure-mode
+          "rc{" 'clojure-convert-collection-to-map
+          "rc(" 'clojure-convert-collection-to-list
+          "rc'" 'clojure-convert-collection-to-quoted-list
+          "rc#" 'clojure-convert-collection-to-set
+          "rc[" 'clojure-convert-collection-to-vector))
+
+      ;; cider-repl-mode only
+      (spacemacs/set-leader-keys-for-major-mode 'cider-repl-mode
+        "," 'cider-repl-handle-shortcut)
+
+      (spacemacs/set-leader-keys-for-major-mode 'cider-clojure-interaction-mode
+        "ep" 'cider-eval-print-last-sexp)
 
       (evil-define-key 'normal cider-repl-mode-map
         "C-j" 'cider-repl-next-input
         "C-k" 'cider-repl-previous-input)
 
       (when clojure-enable-fancify-symbols
-        (clojure/fancify-symbols 'cider-repl-mode)))
+        (clojure/fancify-symbols 'cider-repl-mode)
+        (clojure/fancify-symbols 'cider-clojure-interaction-mode)))
 
     (defadvice cider-jump-to-var (before add-evil-jump activate)
       (evil-set-jump))))
@@ -173,7 +213,7 @@
       (setq clj-refactor--key-binding-prefixes
             '(("mr" . "refactor")
               ("mra" . "add")
-              ("mrc" . "cycle/clean")
+              ("mrc" . "cycle/clean/convert")
               ("mrd" . "destructure")
               ("mre" . "extract/expand")
               ("mrf" . "find/function")
@@ -189,7 +229,8 @@
                    clojurec-mode
                    clojurescript-mode
                    clojurex-mode
-                   cider-repl-mode))
+                   cider-repl-mode
+                   cider-clojure-interaction-mode))
         (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
                            m (car x) (cdr x)))
               clj-refactor--key-binding-prefixes)
@@ -220,7 +261,8 @@
 
 (defun clojure/post-init-eldoc ()
   (add-hook 'cider-mode-hook 'eldoc-mode)
-  (add-hook 'cider-repl-mode-hook 'eldoc-mode))
+  (add-hook 'cider-repl-mode-hook 'eldoc-mode)
+  (add-hook 'cider-clojure-interaction-mode-hook 'eldoc-mode))
 
 (defun clojure/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
@@ -237,15 +279,26 @@
               #'smartparens-mode)))
 
 (defun clojure/post-init-subword ()
-  (unless (version< emacs-version "24.4")
-    (add-hook 'cider-mode-hook 'subword-mode)))
+  (add-hook 'cider-mode-hook 'subword-mode))
 
 (defun clojure/post-init-company ()
-  (push 'company-capf company-backends-cider-mode)
-  (spacemacs|add-company-hook cider-mode)
-  (push 'company-capf company-backends-cider-repl-mode)
-  (spacemacs|add-company-hook cider-repl-mode))
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes
+    cider-mode
+    cider-repl-mode))
+
+(defun clojure/post-init-ggtags ()
+  (add-hook 'clojure-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun clojure/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'clojure-mode))
 
 (defun clojure/init-clojure-snippets ()
   (use-package clojure-snippets
     :defer t))
+
+(defun clojure/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(clojure . t))
+    (setq org-babel-clojure-backend 'cider)))

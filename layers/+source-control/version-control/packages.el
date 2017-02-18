@@ -1,6 +1,6 @@
 ;;; packages.el --- Source Control Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -32,17 +32,21 @@
   (use-package diff-hl
     :init
     (progn
-      (setq diff-hl-side 'right)
+      (setq diff-hl-side 'left)
       (when (eq version-control-diff-tool 'diff-hl)
+        (when (configuration-layer/package-usedp 'magit)
+          (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
         (when version-control-global-margin
           (global-diff-hl-mode))
-        (unless (display-graphic-p)
-          (setq diff-hl-side 'left)
-          (diff-hl-margin-mode))))))
+        (diff-hl-margin-mode)
+        (spacemacs|do-after-display-system-init
+         (setq diff-hl-side (if (eq version-control-diff-side 'left)
+                                'left 'right))
+         (diff-hl-margin-mode -1))))))
 
 (defun version-control/post-init-evil-unimpaired ()
-  (define-key evil-normal-state-map (kbd "[ h") 'version-control/previous-hunk)
-  (define-key evil-normal-state-map (kbd "] h") 'version-control/next-hunk))
+  (define-key evil-normal-state-map (kbd "[ h") 'spacemacs/vcs-previous-hunk)
+  (define-key evil-normal-state-map (kbd "] h") 'spacemacs/vcs-next-hunk))
 
 (defun version-control/init-git-gutter ()
   (use-package git-gutter
@@ -74,10 +78,11 @@
     :commands git-gutter-mode
     :init
     (progn
-      (when (display-graphic-p)
-        (with-eval-after-load 'git-gutter
-          (require 'git-gutter-fringe)))
-      (setq git-gutter-fr:side 'right-fringe))
+      (spacemacs|do-after-display-system-init
+       (with-eval-after-load 'git-gutter
+         (require 'git-gutter-fringe)))
+      (setq git-gutter-fr:side (if (eq version-control-diff-side 'left)
+                                   'left-fringe 'right-fringe)))
     :config
     (progn
       ;; custom graphics that works nice with half-width fringes
@@ -135,10 +140,11 @@
     :commands git-gutter+-mode
     :init
     (progn
-      (when (display-graphic-p)
-        (with-eval-after-load 'git-gutter+
-          (require 'git-gutter-fringe+)))
-      (setq git-gutter-fr+-side 'right-fringe))
+      (spacemacs|do-after-display-system-init
+       (with-eval-after-load 'git-gutter+
+         (require 'git-gutter-fringe+)))
+      (setq git-gutter-fr+-side (if (eq version-control-diff-side 'left)
+                                    'left-fringe 'right-fringe)))
     :config
     (progn
       ;; custom graphics that works nice with half-width fringes

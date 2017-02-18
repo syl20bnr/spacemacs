@@ -5,13 +5,14 @@
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
-   - [[#layer][Layer]]
+ - [[#configuration][Configuration]]
    - [[#default-shell][Default shell]]
    - [[#default-shell-position-and-height][Default shell position and height]]
    - [[#set-shell-for-term-and-ansi-term][Set shell for term and ansi-term]]
    - [[#width-of-the-shell-popup-buffers][Width of the shell popup buffers]]
    - [[#enable-em-smart-in-eshell][Enable em-smart in Eshell]]
    - [[#protect-your-eshell-prompt][Protect your Eshell prompt]]
+   - [[#fish-shell-and-ansi-term][Fish shell and ansi-term]]
  - [[#eshell][Eshell]]
  - [[#key-bindings][Key bindings]]
    - [[#multi-term][Multi-term]]
@@ -21,11 +22,11 @@
 This layer configures the various shells available in Emacs.
 
 * Install
-** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =shell= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+* Configuration
 ** Default shell
 Emacs supports three types of shell:
 - the Emacs shell
@@ -119,6 +120,43 @@ to nil.
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
     '((shell :variables shell-protect-eshell-prompt nil)))
+#+END_SRC
+
+** Fish shell and ansi-term
+Making =fish= shell to work with =ansi-term= may be a challenge, here are
+some pointers to save you time to setup your environment correctly.
+
+First be sure =~/.terminfo= is setup correctly by running:
+
+#+BEGIN_SRC fish
+tic -o ~/.terminfo $TERMINFO/e/eterm-color.ti
+#+END_SRC
+
+You can locate the =eterm-colors.ti= file with:
+
+#+BEGIN_SRC fish
+locate eterm-color.ti
+#+END_SRC
+
+Then setup your fish configuration file (usually at =~/.config/fish/config.fish=)
+
+#+BEGIN_SRC fish
+# emacs ansi-term support
+if test -n "$EMACS"
+  set -x TERM eterm-color
+end
+
+# this function may be required
+function fish_title
+  true
+end
+#+END_SRC
+
+Finally you may need to toggle truncated lines for some prompts to work
+correctly, in the function =dotspacemacs/user-config= of your dotfile add:
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'term-mode-hook 'toggle-truncate-lines)
 #+END_SRC
 
 * Eshell

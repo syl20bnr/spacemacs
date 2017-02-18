@@ -31,20 +31,24 @@
 
 (require 'evil)
 
-(defvar hybrid-mode-enable-hjkl-bindings)
-
 (defcustom hybrid-mode-default-state 'normal
   "Value of `evil-default-state' for hybrid-mode."
   :group 'spacemacs
   :type 'symbol)
 
 (defcustom hybrid-mode-enable-hjkl-bindings nil
-  "If non nil then packages configuration should enable hjkl navigation."
+  "If non-nil then packages configuration should enable hjkl navigation."
   :group 'spacemacs
   :type 'boolean)
 
 (defcustom hybrid-mode-enable-evilified-state t
-  "If non nil then evilified states is enabled in buffer supporting it."
+  "If non-nil then evilified states is enabled in buffer supporting it."
+  :group 'spacemacs
+  :type 'boolean)
+
+(defcustom hybrid-mode-use-evil-search-module nil
+  "If non-nil then use evil own search module which is closer to Vim search
+behavior (for instance it support C-r pasting)."
   :group 'spacemacs
   :type 'boolean)
 
@@ -119,11 +123,15 @@
   :input-method t
   (cond
    ((evil-hybrid-state-p)
+    (add-hook 'post-command-hook #'evil-maybe-remove-spaces)
     (add-hook 'pre-command-hook #'evil-insert-repeat-hook)
+    (setq evil-maybe-remove-spaces t)
     (unless (eq evil-want-fine-undo t)
       (evil-start-undo-step)))
    (t
+    (remove-hook 'post-command-hook #'evil-maybe-remove-spaces)
     (remove-hook 'pre-command-hook #'evil-insert-repeat-hook)
+    (evil-maybe-remove-spaces t)
     (setq evil-insert-repeat-info evil-repeat-info)
     (evil-set-marker ?^ nil t)
     (unless (eq evil-want-fine-undo t)

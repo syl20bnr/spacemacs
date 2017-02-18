@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs UI Visual Layer packages File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -10,7 +10,9 @@
 ;;; License: GPLv3
 
 (setq spacemacs-ui-visual-packages
-      '(fancy-battery
+      '(
+        (ansi-colors :location built-in)
+        fancy-battery
         fill-column-indicator
         golden-ratio
         hl-todo
@@ -20,6 +22,10 @@
         (smooth-scrolling :location built-in)
         spaceline
         (zoom-frm :location local)))
+
+(defun spacemacs-ui-visual/init-ansi-colors ()
+  (add-hook 'compilation-filter-hook
+            'spacemacs-ui-visual//compilation-buffer-apply-ansi-colors))
 
 (defun spacemacs-ui-visual/init-fancy-battery ()
   (use-package fancy-battery
@@ -55,12 +61,15 @@
   (use-package golden-ratio
     :defer t
     :init
-    (spacemacs|add-toggle golden-ratio
-      :status golden-ratio-mode
-      :on (golden-ratio-mode) (golden-ratio)
-      :off (golden-ratio-mode -1) (balance-windows)
-      :documentation "Resize the focused window using the golden ratio."
-      :evil-leader "tg")
+    (progn
+      (setq spacemacs-window-manipulation-transient-state-add-bindings
+            '(("g" spacemacs/toggle-golden-ratio)))
+      (spacemacs|add-toggle golden-ratio
+        :status golden-ratio-mode
+        :on (golden-ratio-mode) (golden-ratio)
+        :off (golden-ratio-mode -1) (balance-windows)
+        :documentation "Resize the focused window using the golden ratio."
+        :evil-leader "tg"))
     :config
     (progn
       ;; golden-ratio-exclude-modes
@@ -117,16 +126,16 @@
                    evil-window-move-far-right
                    evil-window-move-very-bottom
                    quit-window
-                   select-window-0
-                   select-window-1
-                   select-window-2
-                   select-window-3
-                   select-window-4
-                   select-window-5
-                   select-window-6
-                   select-window-7
-                   select-window-8
-                   select-window-9
+                   winum-select-window-0-or-10
+                   winum-select-window-1
+                   winum-select-window-2
+                   winum-select-window-3
+                   winum-select-window-4
+                   winum-select-window-5
+                   winum-select-window-6
+                   winum-select-window-7
+                   winum-select-window-8
+                   winum-select-window-9
                    windmove-left
                    windmove-right
                    windmove-up
@@ -158,7 +167,7 @@
     (progn
       (setq neo-window-width 32
             neo-create-file-auto-open t
-            neo-banner-message nil
+            neo-banner-message "Press ? for neotree help"
             neo-show-updir-line nil
             neo-mode-line-type 'neotree
             neo-smart-open t
@@ -169,6 +178,43 @@
             neo-modern-sidebar t
             neo-vc-integration nil)
 
+      (spacemacs|define-transient-state neotree
+        :title "NeoTree Key Hints"
+        :doc "
+Navigation^^^^             Actions^^         Visual actions/config^^^
+───────^^^^─────────────── ───────^^──────── ───────^^^────────────────
+[_L_]   next sibling^^     [_c_] create      [_TAB_] shrink/enlarge
+[_H_]   previous sibling^^ [_C_] copy        [_|_]   vertical split
+[_J_]   goto child^^       [_d_] delete      [_-_]   horizonatal split
+[_K_]   goto parent^^      [_r_] rename      [_gr_]  refresh^
+[_l_]   open/expand^^      [_R_] change root [_s_]   hidden:^^^ %s(if neo-buffer--show-hidden-file-p \"on\" \"off\")
+[_h_]   up/collapse^^      ^^                ^^^
+[_j_]   line down^^        ^^                ^^^
+[_k_]   line up^^          ^^                ^^
+[_RET_] open               ^^^^              [_?_]   close hints
+"
+        :bindings
+        ("RET" neotree-enter)
+        ("TAB" neotree-stretch-toggle)
+        ("|" neotree-enter-vertical-split)
+        ("-" neotree-enter-horizontal-split)
+        ("?" nil :exit t)
+        ("c" neotree-create-node)
+        ("C" neotree-copy-node)
+        ("d" neotree-delete-node)
+        ("gr" neotree-refresh)
+        ("h" spacemacs/neotree-collapse-or-up)
+        ("H" neotree-select-previous-sibling-node)
+        ("j" neotree-next-line)
+        ("J" neotree-select-down-node)
+        ("k" neotree-previous-line)
+        ("K" neotree-select-up-node)
+        ("l" spacemacs/neotree-expand-or-open)
+        ("L" neotree-select-next-sibling-node)
+        ("r" neotree-rename-node)
+        ("R" neotree-change-root)
+        ("s" neotree-hidden-file-toggle))
+
       (defun spacemacs//neotree-key-bindings ()
         "Set the key bindings for a neotree buffer."
         (evilified-state-evilify-map neotree-mode-map
@@ -178,19 +224,22 @@
           (kbd "RET") 'neotree-enter
           (kbd "|") 'neotree-enter-vertical-split
           (kbd "-") 'neotree-enter-horizontal-split
-          (kbd "?") 'evil-search-backward
           (kbd "c") 'neotree-create-node
+          (kbd "C") 'neotree-copy-node
           (kbd "d") 'neotree-delete-node
           (kbd "gr") 'neotree-refresh
           (kbd "h") 'spacemacs/neotree-collapse-or-up
           (kbd "H") 'neotree-select-previous-sibling-node
+          (kbd "j") 'neotree-next-line
           (kbd "J") 'neotree-select-down-node
+          (kbd "k") 'neotree-previous-line
           (kbd "K") 'neotree-select-up-node
           (kbd "l") 'spacemacs/neotree-expand-or-open
           (kbd "L") 'neotree-select-next-sibling-node
           (kbd "q") 'neotree-hide
           (kbd "r") 'neotree-rename-node
           (kbd "R") 'neotree-change-root
+          (kbd "?") 'spacemacs/neotree-transient-state/body
           (kbd "s") 'neotree-hidden-file-toggle))
 
       (spacemacs/set-leader-keys
@@ -239,6 +288,9 @@
     :init
     (progn
       (add-hook 'spacemacs-post-user-config-hook 'spaceline-compile)
+      (add-hook 'spacemacs-post-theme-change-hook
+                'spacemacs/customize-powerline-faces)
+      (add-hook 'spacemacs-post-theme-change-hook 'powerline-reset)
       (setq-default powerline-default-separator 'utf-8)
       (spacemacs|do-after-display-system-init
        (when (and (eq 'utf-8 powerline-default-separator))
@@ -301,7 +353,8 @@
           (spacemacs-powerline-new-version
            (spacemacs/get-new-version-lighter-face
             spacemacs-version spacemacs-new-version))))
-      (spaceline-spacemacs-theme '(new-version :when active))
+      (apply #'spaceline-spacemacs-theme
+             spacemacs-spaceline-additional-segments)
       ;; Additional spacelines
       (when (package-installed-p 'helm)
         (spaceline-helm-mode t))

@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs Editing Visual Layer packages File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,6 +15,7 @@
         adaptive-wrap
         auto-highlight-symbol
         column-enforce-mode
+        hide-comnt
         highlight-indentation
         highlight-numbers
         highlight-parentheses
@@ -90,10 +91,11 @@
       (defun spacemacs/integrate-evil-search (forward)
         ;; isearch-string is last searched item.  Next time
         ;; "n" is hit we will use this.
-        (setq isearch-string
-              (concat "\\<" (evil-find-thing forward 'symbol) "\\>")
-              isearch-regexp
-              (concat "\\<" (evil-find-thing forward 'symbol) "\\>"))
+        (let* ((symbol (evil-find-thing forward 'symbol))
+               (regexp (concat "\\<" symbol "\\>")))
+          (setq isearch-string regexp
+                isearch-regexp regexp
+                evil-ex-search-pattern (evil-ex-make-search-pattern regexp)))
         ;; Next time "n" is hit, go the correct direction.
         (setq isearch-forward forward)
         ;; ahs does a case sensitive search.  We could set
@@ -288,6 +290,11 @@
         :documentation "Globally Highlight the characters past the 80th column."
         :evil-leader "t C-8"))
     :config (spacemacs|diminish column-enforce-mode "⑧" "8")))
+
+(defun spacemacs-editing-visual/init-hide-comnt ()
+  (use-package hide-comnt
+    :commands hide/show-comments-toggle
+    :init (spacemacs/set-leader-keys "ch" 'hide/show-comments-toggle)))
 
 (defun spacemacs-editing-visual/init-highlight-indentation ()
   (use-package highlight-indentation

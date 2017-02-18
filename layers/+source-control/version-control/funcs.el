@@ -1,6 +1,6 @@
 ;;; funcs.el --- Version control functions File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(defun version-control/next-hunk ()
+(defun spacemacs/vcs-next-hunk ()
   (interactive)
   (let ((current-prefix-arg t))
     (call-interactively
@@ -18,7 +18,7 @@
        (git-gutter  'git-gutter:next-hunk)
        (git-gutter+ 'git-gutter+-next-hunk)))))
 
-(defun version-control/previous-hunk ()
+(defun spacemacs/vcs-previous-hunk ()
   (interactive)
   (let ((current-prefix-arg t))
     (call-interactively
@@ -27,7 +27,7 @@
        (git-gutter  'git-gutter:previous-hunk)
        (git-gutter+ 'git-gutter+-previous-hunk)))))
 
-(defun version-control/revert-hunk ()
+(defun spacemacs/vcs-revert-hunk ()
   (interactive)
   (let ((current-prefix-arg t))
     (call-interactively
@@ -36,7 +36,7 @@
        (git-gutter  'git-gutter:revert-hunk)
        (git-gutter+ 'git-gutter+-revert-hunks)))))
 
-(defun version-control/stage-hunk ()
+(defun spacemacs/vcs-stage-hunk ()
   (interactive)
   (if (eq 'diff-hl version-control-diff-tool)
       (message "Staging not available")
@@ -46,7 +46,7 @@
          (git-gutter  'git-gutter:stage-hunk)
          (git-gutter+ 'git-gutter+-stage-hunks))))))
 
-(defun version-control/show-hunk ()
+(defun spacemacs/vcs-show-hunk ()
   (interactive)
   (let ((current-prefix-arg t))
     (call-interactively
@@ -55,7 +55,7 @@
        (git-gutter  'git-gutter:popup-hunk)
        (git-gutter+ 'git-gutter+-show-hunk-inline-at-point)))))
 
-(defun version-control/enable-margin ()
+(defun spacemacs/vcs-enable-margin ()
   (interactive)
   (let ((current-prefix-arg t))
     (call-interactively
@@ -64,7 +64,7 @@
        (git-gutter  'git-gutter-mode)
        (git-gutter+ 'git-gutter+-mode)))))
 
-(defun version-control/disable-margin ()
+(defun spacemacs/vcs-disable-margin ()
   (interactive)
   (let ((current-prefix-arg nil))
     (call-interactively
@@ -73,7 +73,7 @@
        (git-gutter  'git-gutter-mode)
        (git-gutter+ 'git-gutter+-mode)))))
 
-(defun version-control/enable-margin-globally ()
+(defun spacemacs/vcs-enable-margin-globally ()
   (interactive)
   (let ((current-prefix-arg t))
     (call-interactively
@@ -82,7 +82,7 @@
        (git-gutter  'global-git-gutter-mode)
        (git-gutter+ 'global-git-gutter+-mode)))))
 
-(defun version-control/disable-margin-globally ()
+(defun spacemacs/vcs-disable-margin-globally ()
   (interactive)
   (let ((current-prefix-arg nil))
     (call-interactively
@@ -91,19 +91,19 @@
        (git-gutter  'global-git-gutter-mode)
        (git-gutter+ 'global-git-gutter+-mode)))))
 
-(defun version-control/show-help ()
+(defun spacemacs/vcs-show-help ()
   (interactive)
   (setq version-control--ms-doc-toggle
         (logxor version-control--ms-doc-toggle 1)))
 
-(defun version-control/margin-p ()
+(defun spacemacs/vcs-margin-p ()
   (interactive)
   (cl-case version-control-diff-tool
     (diff-hl     diff-hl-mode)
     (git-gutter  (bound-and-true-p git-gutter-mode))
     (git-gutter+ (bound-and-true-p git-gutter+-mode))))
 
-(defun version-control/margin-global-p ()
+(defun spacemacs/vcs-margin-global-p ()
   (interactive)
   (cl-case version-control-diff-tool
     (diff-hl     global-diff-hl-mode)
@@ -111,15 +111,15 @@
     (git-gutter+ global-git-gutter+-mode)))
 
 (spacemacs|add-toggle version-control-margin
-  :status (version-control/margin-p)
-  :on (version-control/enable-margin)
-  :off (version-control/disable-margin)
+  :status (spacemacs/vcs-margin-p)
+  :on (spacemacs/vcs-enable-margin)
+  :off (spacemacs/vcs-disable-margin)
   :documentation "Enable diff margins."
   :evil-leader "Td")
 
 (spacemacs|add-toggle version-control-margin-globally
-  :status (version-control/margin-global-p)
-  :on (version-control/enable-margin-globally)
-  :off (version-control/disable-margin-globally)
+  :status (spacemacs/vcs-margin-global-p)
+  :on (spacemacs/vcs-enable-margin-globally)
+  :off (spacemacs/vcs-disable-margin-globally)
   :documentation "Enable diff margins globally."
   :evil-leader "T C-d")

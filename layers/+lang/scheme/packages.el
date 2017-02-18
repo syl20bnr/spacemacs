@@ -1,6 +1,6 @@
 ;;; packages.el --- Scheme Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -13,11 +13,13 @@
       '(
         company
         geiser
+        ggtags
+        helm-gtags
         ))
 
 (defun scheme/post-init-company ()
   ;; Geiser provides completion as long as company mode is loaded.
-  (spacemacs|add-company-hook scheme-mode))
+  (spacemacs|add-company-backends :modes scheme-mode))
 
 (defun scheme/init-geiser ()
   (use-package geiser
@@ -25,13 +27,14 @@
     :init (spacemacs/register-repl 'geiser 'geiser-mode-switch-to-repl "geiser")
     :config
     (progn
+      ;; prefixes
       (spacemacs/declare-prefix-for-mode 'scheme-mode "mc" "compiling")
       (spacemacs/declare-prefix-for-mode 'scheme-mode "mg" "navigation")
       (spacemacs/declare-prefix-for-mode 'scheme-mode "mh" "documentation")
       (spacemacs/declare-prefix-for-mode 'scheme-mode "mi" "insertion")
       (spacemacs/declare-prefix-for-mode 'scheme-mode "mm" "macroexpansion")
       (spacemacs/declare-prefix-for-mode 'scheme-mode "ms" "repl")
-
+      ;; key bindings
       (spacemacs/set-leader-keys-for-major-mode 'scheme-mode
         "'"  'geiser-mode-switch-to-repl
         ","  'lisp-state-toggle-lisp-state
@@ -45,7 +48,6 @@
         "el" 'lisp-state-eval-sexp-end-of-line
         "er" 'geiser-eval-region
 
-        "gg" 'geiser-edit-symbol-at-point
         "gb" 'geiser-pop-symbol-stack
         "gm" 'geiser-edit-module
         "gn" 'next-error
@@ -72,3 +74,9 @@
         "sr" 'geiser-eval-region
         "sR" 'geiser-eval-region-and-go
         "ss" 'geiser-set-scheme))))
+
+(defun scheme/post-init-ggtags ()
+  (add-hook 'scheme-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun scheme/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'scheme-mode))

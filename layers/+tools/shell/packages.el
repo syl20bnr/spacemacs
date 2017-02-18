@@ -1,6 +1,6 @@
 ;;; packages.el --- shell packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -38,25 +38,11 @@
   (spacemacs|use-package-add-hook eshell
     :post-init
     (progn
-      (push 'company-capf company-backends-eshell-mode)
-      (spacemacs|add-company-hook eshell-mode))
-    :post-config
-    (progn
-      (defun spacemacs//toggle-shell-auto-completion-based-on-path ()
-        "Deactivates automatic completion on remote paths.
-Retrieving completions for Eshell blocks Emacs. Over remote
-connections the delay is often annoying, so it's better to let
-the user activate the completion manually."
-        (if (file-remote-p default-directory)
-            (setq-local company-idle-delay nil)
-          (setq-local company-idle-delay 0.2)))
+      (spacemacs|add-company-backends :backends company-capf :modes eshell-mode)
       (add-hook 'eshell-directory-change-hook
                 'spacemacs//toggle-shell-auto-completion-based-on-path)
       ;; The default frontend screws everything up in short windows like
       ;; terminal often are
-      (defun spacemacs//eshell-switch-company-frontend ()
-        "Sets the company frontend to `company-preview-frontend' in e-shell mode."
-        (setq-local company-frontends '(company-preview-frontend)))
       (add-hook 'eshell-mode-hook
                 'spacemacs//eshell-switch-company-frontend))))
 
@@ -88,55 +74,10 @@ the user activate the completion manually."
             ;; cache directory
             eshell-directory-name (concat spacemacs-cache-directory "eshell/"))
 
-      (defun spacemacs//eshell-auto-end ()
-        "Move point to end of current prompt when switching to insert state."
-        (when (and (eq major-mode 'eshell-mode)
-                   ;; Not on last line, we might want to edit within it.
-                   (not (eq (line-end-position) (point-max))))
-          (end-of-buffer)))
-
       (when shell-protect-eshell-prompt
-        (defun spacemacs//protect-eshell-prompt ()
-          "Protect Eshell's prompt like Comint's prompts.
-
-E.g. `evil-change-whole-line' won't wipe the prompt. This
-is achieved by adding the relevant text properties."
-          (let ((inhibit-field-text-motion t))
-            (add-text-properties
-             (point-at-bol)
-             (point)
-             '(rear-nonsticky t
-               inhibit-line-move-field-capture t
-               field output
-               read-only t
-               front-sticky (field inhibit-line-move-field-capture)))))
         (add-hook 'eshell-after-prompt-hook 'spacemacs//protect-eshell-prompt))
 
-      (defun spacemacs//init-eshell ()
-        "Stuff to do when enabling eshell."
-        (setq pcomplete-cycle-completions nil)
-        (if (bound-and-true-p linum-mode) (linum-mode -1))
-        (unless shell-enable-smart-eshell
-          ;; we don't want auto-jump to prompt when smart eshell is enabled.
-          ;; Idea: maybe we could make auto-jump smarter and jump only if
-          ;; point is not on a prompt line
-          (add-hook 'evil-insert-state-entry-hook
-                    'spacemacs//eshell-auto-end nil t))
-        (when (configuration-layer/package-usedp 'semantic)
-          (semantic-mode -1))
-        ;; Caution! this will erase buffer's content at C-l
-        (define-key eshell-mode-map (kbd "C-l") 'eshell/clear)
-        (define-key eshell-mode-map (kbd "C-d") 'eshell-delchar-or-maybe-eof))
-
       (autoload 'eshell-delchar-or-maybe-eof "em-rebind")
-
-      ;; Defining a function like this makes it possible to type 'clear'
-      ;; in eshell and have it work
-      (defun eshell/clear ()
-        (interactive)
-        (let ((inhibit-read-only t))
-          (erase-buffer))
-        (eshell-send-input))
 
       (add-hook 'eshell-mode-hook 'spacemacs//init-eshell)
       (add-hook 'eshell-mode-hook 'spacemacs/disable-hl-line-mode))
@@ -191,24 +132,6 @@ is achieved by adding the relevant text properties."
     :post-init
     (progn
       ;; eshell
-      (defun spacemacs/helm-eshell-history ()
-        "Correctly revert to insert state after selection."
-        (interactive)
-        (helm-eshell-history)
-        (evil-insert-state))
-      (defun spacemacs/helm-shell-history ()
-        "Correctly revert to insert state after selection."
-        (interactive)
-        (helm-comint-input-ring)
-        (evil-insert-state))
-      (defun spacemacs/init-helm-eshell ()
-        "Initialize helm-eshell."
-        ;; this is buggy for now
-        ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete)
-        (spacemacs/set-leader-keys-for-major-mode 'eshell-mode
-          "H" 'spacemacs/helm-eshell-history)
-        (define-key eshell-mode-map
-          (kbd "M-l") 'spacemacs/helm-eshell-history))
       (add-hook 'eshell-mode-hook 'spacemacs/init-helm-eshell)
       ;;shell
       (spacemacs/set-leader-keys-for-major-mode 'shell-mode
@@ -224,17 +147,9 @@ is achieved by adding the relevant text properties."
     :defer t
     :init
     (progn
-      (spacemacs/register-repl 'multi-term 'multi-term)
-      (defun multiterm (_)
-        "Wrapper to be able to call multi-term from shell-pop"
-        (interactive)
-        (multi-term)))
+      (spacemacs/register-repl 'multi-term 'multi-term))
     :config
     (progn
-      (defun term-send-tab ()
-        "Send tab in term mode."
-        (interactive)
-        (term-send-raw-string "\t"))
       (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab))
       ;; multi-term commands to create terminals and move through them.
       (spacemacs/set-leader-keys-for-major-mode 'term-mode
@@ -334,7 +249,6 @@ is achieved by adding the relevant text properties."
       (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter)
       (setq comint-output-filter-functions
             (remove 'ansi-color-process-output comint-output-filter-functions))
-      (setq font-lock-unfontify-region-function 'xterm-color-unfontify-region)
       (add-hook 'eshell-mode-hook 'spacemacs/init-eshell-xterm-color))))
 
 (defun shell/post-init-vi-tilde-fringe ()

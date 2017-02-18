@@ -1,6 +1,6 @@
 ;;; packages.el --- Auto-completion Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -14,7 +14,9 @@
         auto-complete
         ac-ispell
         company
+        (company-quickhelp :toggle auto-completion-enable-help-tooltip)
         company-statistics
+        fuzzy
         (helm-company :toggle (configuration-layer/package-usedp 'helm))
         (helm-c-yasnippet :toggle (configuration-layer/package-usedp 'helm))
         hippie-exp
@@ -22,10 +24,6 @@
         auto-yasnippet
         smartparens
         ))
-
-;; company-quickhelp from MELPA is not compatible with 24.3 anymore
-(unless (version< emacs-version "24.4")
-  (push 'company-quickhelp auto-completion-packages))
 
 ;; TODO replace by company-ispell which comes with company
 ;; to be moved to spell-checking layer as well
@@ -115,15 +113,19 @@
                                             "company-statistics-cache.el"))
       (add-hook 'company-mode-hook 'company-statistics-mode))))
 
+(defun auto-completion/init-fuzzy ()
+  (use-package fuzzy :defer t))
+
 (defun auto-completion/init-company-quickhelp ()
   (use-package company-quickhelp
-    :if (and auto-completion-enable-help-tooltip (display-graphic-p))
-    :defer t
+    :commands company-quickhelp-manual-begin
     :init
-    (progn
-      (add-hook 'company-mode-hook 'company-quickhelp-mode)
-      (with-eval-after-load 'company
-        (setq company-frontends (delq 'company-echo-metadata-frontend company-frontends))))))
+    (spacemacs|do-after-display-system-init
+     (with-eval-after-load 'company
+       (setq company-frontends (delq 'company-echo-metadata-frontend company-frontends))
+       (define-key company-active-map (kbd "M-h") #'company-quickhelp-manual-begin)
+       (unless (eq auto-completion-enable-help-tooltip 'manual)
+         (company-quickhelp-mode))))))
 
 (defun auto-completion/init-helm-c-yasnippet ()
   (use-package helm-c-yasnippet
@@ -192,7 +194,7 @@
       (define-key yas-minor-mode-map (kbd "M-s-/") 'yas-next-field)
       ;; configure snippet directories
       (let* ((spacemacs--auto-completion-dir
-              (configuration-layer/get-layer-property 'auto-completion :dir))
+              (configuration-layer/get-layer-local-dir 'auto-completion))
              (private-yas-dir (if auto-completion-private-snippets-directory
                                   auto-completion-private-snippets-directory
                                 (concat
@@ -249,16 +251,7 @@
 
 (defun auto-completion/post-init-smartparens ()
   (with-eval-after-load 'smartparens
-    ;;  We need to know whether the smartparens was enabled, see
-    ;; `yas-before-expand-snippet-hook' below.
-    (defvar smartparens-enabled-initially t
-      "Stored whether smartparens is originally enabled or not.")
     (add-hook 'yas-before-expand-snippet-hook
-              (lambda ()
-                ;; If enabled, smartparens will mess snippets expanded by `hippie-expand`
-                (setq smartparens-enabled-initially smartparens-mode)
-                (smartparens-mode -1)))
+              #'spacemacs//smartparens-disable-before-expand-snippet)
     (add-hook 'yas-after-exit-snippet-hook
-              (lambda ()
-                (when smartparens-enabled-initially
-                  (smartparens-mode 1))))))
+              #'spacemacs//smartparens-restore-after-exit-snippet)))

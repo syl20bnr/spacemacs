@@ -1,6 +1,6 @@
 ;;; packages.el --- PHP Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -25,22 +25,20 @@
         ))
 
 (defun php/post-init-company ()
-  (spacemacs|add-company-hook php-mode))
+  (spacemacs|add-company-backends :modes php-mode))
 
 (defun php/init-drupal-mode ()
   (use-package drupal-mode
     :defer t))
 
 (defun php/post-init-eldoc ()
-  (add-hook 'php-mode-hook 'eldoc-mode)
-  (when (configuration-layer/package-usedp 'ggtags)
-    (spacemacs/ggtags-enable-eldoc 'php-mode)))
+  (add-hook 'php-mode-hook 'eldoc-mode))
 
 (defun php/post-init-flycheck ()
-  (add-hook 'php-mode-hook 'flycheck-mode))
+  (spacemacs/add-flycheck-hook 'php-mode))
 
 (defun php/post-init-ggtags ()
-  (add-hook 'php-mode-hook 'ggtags-mode))
+  (add-hook 'php-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun php/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'php-mode))

@@ -1,6 +1,6 @@
 ;;; config.el --- semantic Layer configuration
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sebastian Wiesner <swiesner@lunaryorn.com
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -13,5 +13,6 @@
                                     "srecode-map.el"))
 (setq semanticdb-default-save-directory (concat spacemacs-cache-directory
                                                 "semanticdb/"))
+(setq semanticdb-find-default-throttle '(file local project))
 (unless (file-exists-p semanticdb-default-save-directory)
   (make-directory semanticdb-default-save-directory))

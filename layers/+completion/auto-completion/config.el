@@ -1,6 +1,6 @@
 ;;; config.el --- Auto-completion configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -10,6 +10,14 @@
 ;;; License: GPLv3
 
 ;; Company -------------------------------------------------------------------
+
+(defvar spacemacs-default-company-backends
+  '((company-dabbrev-code company-gtags company-etags company-keywords)
+    company-files company-dabbrev)
+  "The list of default company backends used by spacemacs.
+This variable is used to configure mode-specific company backends in spacemacs.
+Backends in this list will always be active in these modes, as well as any
+backends added by individual spacemacs layers.")
 
 (defvar-local auto-completion-front-end 'company
   "Which auto-completion front end to use.")
@@ -37,7 +45,9 @@ selection.")
   "If non nil suggestions are sorted by how often they are used.")
 
 (defvar auto-completion-enable-help-tooltip nil
-  "If non nil the docstring appears in a tooltip.")
+  "If non nil the docstring appears in a tooltip.
+If set to `manual', help tooltip appears only when invoked
+manually.")
 
 (defvar company-mode-completion-cancel-keywords
   '("do"

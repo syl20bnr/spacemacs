@@ -1,6 +1,6 @@
 ;;; packages.el --- Mandatory Bootstrap Layer packages File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -41,11 +41,20 @@
     :override-mode-name spacemacs-leader-override-mode))
 
 (defun spacemacs-bootstrap/init-evil ()
+  ;; ensure that the search module is set at startup
+  ;; must be called before evil is required to really take effect.
+  (spacemacs/set-evil-search-module dotspacemacs-editing-style)
+  (add-hook 'spacemacs-editing-style-hook 'spacemacs/set-evil-search-module)
+
   ;; evil-mode is mandatory for Spacemacs to work properly
   ;; evil must be require explicitly, the autoload seems to not
   ;; work properly sometimes.
   (require 'evil)
   (evil-mode 1)
+
+  ;; Use evil as a default jump handler
+  (push 'evil-goto-definition spacemacs-default-jump-handlers)
+
   (require 'cl)
   ;; State cursors
   (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
@@ -72,11 +81,12 @@
            (set (intern (format "evil-%s-state-cursor" state))
                 (list (when dotspacemacs-colorize-cursor-according-to-state color)
                       cursor)))
+  (add-hook 'spacemacs-post-theme-change-hook 'spacemacs/set-state-faces)
 
-  ;; put back refresh of the cursor on post-command-hook see status of:
-  ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
-  ;; (add-hook 'post-command-hook 'evil-refresh-cursor)
-
+  ;; evil ex-command
+  (define-key evil-normal-state-map (kbd dotspacemacs-ex-command-key) 'evil-ex)
+  (define-key evil-visual-state-map (kbd dotspacemacs-ex-command-key) 'evil-ex)
+  (define-key evil-motion-state-map (kbd dotspacemacs-ex-command-key) 'evil-ex)
   (setq evil-ex-substitute-global dotspacemacs-ex-substitute-global)
 
   ;; evil-want-Y-yank-to-eol must be set via customize to have an effect
@@ -124,22 +134,56 @@
   (evil-ex-define-cmd "enew" 'spacemacs/new-empty-buffer)
 
   (define-key evil-normal-state-map (kbd "K") 'spacemacs/evil-smart-doc-lookup)
-  (define-key evil-normal-state-map (kbd "gd") 'spacemacs/evil-smart-goto-definition)
+  (define-key evil-normal-state-map (kbd "gd") 'spacemacs/jump-to-definition)
+  (define-key evil-normal-state-map (kbd "gD") 'spacemacs/jump-to-definition-other-window)
 
   ;; scrolling transient state
   (spacemacs|define-transient-state scroll
     :title "Scrolling Transient State"
+    :doc "
+ Buffer^^^^              Full page^^^^     Half page^^^^        Line/column^^^^
+ ──────^^^^───────────── ─────────^^^^──── ─────────^^^^─────── ───────────^^^^─────
+ [_<_/_>_] beginning/end [_f_/_b_] down/up [_J_/_K_] down/up    [_j_/_k_] down/up
+  ^ ^ ^ ^                 ^ ^ ^ ^          [_H_/_L_] left/right [_h_/_l_] left/right
+  ^ ^ ^ ^                 ^ ^ ^ ^          [_d_/_u_] down/up     ^ ^ ^ ^"
     :bindings
-    ("," evil-scroll-page-up "page up")
-    ("." evil-scroll-page-down "page down")
+    ;; buffer
+    ("<" evil-goto-first-line)
+    (">" evil-goto-line)
+    ;; full page
+    ("f" evil-scroll-page-down)
+    ("b" evil-scroll-page-up)
     ;; half page
-    ("<" evil-scroll-up "half page up")
-    (">" evil-scroll-down "half page down"))
+    ("d" evil-scroll-down)
+    ("u" evil-scroll-up)
+    ("J" evil-scroll-down)
+    ("K" evil-scroll-up)
+    ("H" evil-scroll-left)
+    ("L" evil-scroll-right)
+    ;; lines and columns
+    ("j" evil-scroll-line-down)
+    ("k" evil-scroll-line-up)
+    ("h" evil-scroll-column-left)
+    ("l" evil-scroll-column-right))
   (spacemacs/set-leader-keys
-    "n," 'spacemacs/scroll-transient-state/evil-scroll-page-up
-    "n." 'spacemacs/scroll-transient-state/evil-scroll-page-down
-    "n<" 'spacemacs/scroll-transient-state/evil-scroll-up
-    "n>" 'spacemacs/scroll-transient-state/evil-scroll-down)
+    ;; buffer
+    "N<" 'spacemacs/scroll-transient-state/evil-goto-first-line
+    "N>" 'spacemacs/scroll-transient-state/evil-goto-line
+    ;; full page
+    "Nf" 'spacemacs/scroll-transient-state/evil-scroll-page-down
+    "Nb" 'spacemacs/scroll-transient-state/evil-scroll-page-up
+    ;; half page
+    "Nd" 'spacemacs/scroll-transient-state/evil-scroll-down
+    "Nu" 'spacemacs/scroll-transient-state/evil-scroll-up
+    "NJ" 'spacemacs/scroll-transient-state/evil-scroll-down
+    "NK" 'spacemacs/scroll-transient-state/evil-scroll-up
+    "NH" 'spacemacs/scroll-transient-state/evil-scroll-left
+    "NL" 'spacemacs/scroll-transient-state/evil-scroll-right
+    ;; lines and columns
+    "Nj" 'spacemacs/scroll-transient-state/evil-scroll-line-down
+    "Nk" 'spacemacs/scroll-transient-state/evil-scroll-line-up
+    "Nh" 'spacemacs/scroll-transient-state/evil-scroll-column-left
+    "Nl" 'spacemacs/scroll-transient-state/evil-scroll-column-right)
 
   ;; pasting transient-state
   (evil-define-command spacemacs//transient-state-0 ()
@@ -265,13 +309,14 @@
 
   (spacemacs/set-leader-keys "hk" 'which-key-show-top-level)
 
+  ;; Needed to avoid nil variable error before update to recent which-key
+  (defvar which-key-replacement-alist nil)
   ;; Replace rules for better naming of functions
   (let ((new-descriptions
          ;; being higher in this list means the replacement is applied later
          '(
            ("spacemacs/\\(.+\\)" . "\\1")
            ("spacemacs/toggle-\\(.+\\)" . "\\1")
-           ("select-window-\\([0-9]\\)" . "window \\1")
            ("spacemacs/alternate-buffer" . "last buffer")
            ("spacemacs/toggle-mode-line-\\(.+\\)" . "\\1")
            ("avy-goto-word-or-subword-1" . "avy word")
@@ -290,12 +335,20 @@
            ("spacemacs/toggle-hybrid-mode" . "hybrid (hybrid-mode)")
            ("spacemacs/toggle-holy-mode" . "emacs (holy-mode)")
            ("evil-lisp-state-\\(.+\\)" . "\\1")
-           ("\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
-           ("\\(.+\\)-transient-state/body" . "\\1-transient-state"))))
+           ("spacemacs/\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
+           ("spacemacs/\\(.+\\)-transient-state/body" . "\\1-transient-state"))))
     (dolist (nd new-descriptions)
       ;; ensure the target matches the whole string
-      (push (cons (concat "\\`" (car nd) "\\'") (cdr nd))
-            which-key-description-replacement-alist)))
+      (push (cons (cons nil (concat "\\`" (car nd) "\\'")) (cons nil (cdr nd)))
+            which-key-replacement-alist)))
+
+  (push '(("\\(.*\\) 0" . "select-window-0") . ("\\1 0..9" . "window 0..9"))
+        which-key-replacement-alist)
+  (push '((nil . "select-window-[1-9]") . t) which-key-replacement-alist)
+
+  (push '(("\\(.*\\) 1" . "buffer-to-window-1") . ("\\1 1..9" . "buffer to window 1..9"))
+        which-key-replacement-alist)
+  (push '((nil . "buffer-to-window-[2-9]") . t) which-key-replacement-alist)
 
   (dolist (leader-key `(,dotspacemacs-leader-key ,dotspacemacs-emacs-leader-key))
     (which-key-add-key-based-replacements

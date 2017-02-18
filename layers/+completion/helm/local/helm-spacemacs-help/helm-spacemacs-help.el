@@ -30,14 +30,10 @@
 (require 'ht)
 (require 'helm)
 (require 'helm-command)
-(require 'helm-org)
 (require 'core-configuration-layer)
 
-(defvar helm-spacemacs-help-all-layers nil
-  "Alist of all configuration layers.")
-
-(defvar helm-spacemacs-help-all-packages nil
-  "Hash table of all packages in all layers.")
+(defvar helm-spacemacs--initialized nil
+  "Non nil if helm-spacemacs is initialized.")
 
 ;;;###autoload
 (define-minor-mode helm-spacemacs-help-mode
@@ -46,14 +42,9 @@
   :global t)
 
 (defun helm-spacemacs-help//init (&optional arg)
-  (when (or arg (null helm-spacemacs-help-all-packages))
-    (mapc (lambda (layer) (push (configuration-layer/make-layer layer)
-                                helm-spacemacs-help-all-layers))
-          (configuration-layer/get-layers-list))
-    (let ((configuration-layer--inhibit-warnings t)
-          configuration-layer--packages)
-      (configuration-layer/get-packages helm-spacemacs-help-all-layers)
-      (setq helm-spacemacs-help-all-packages configuration-layer--packages))))
+  (when (or arg (null helm-spacemacs--initialized))
+    (configuration-layer/make-all-packages)
+    (setq helm-spacemacs--initialized t)))
 
 ;;;###autoload
 (defun helm-spacemacs-help (arg)
@@ -66,8 +57,7 @@
                    ,(helm-spacemacs-help//layer-source)
                    ,(helm-spacemacs-help//package-source)
                    ,(helm-spacemacs-help//dotspacemacs-source)
-                   ,(helm-spacemacs-help//toggle-source)
-                   ,(helm-spacemacs-help//faq-source))))
+                   ,(helm-spacemacs-help//toggle-source))))
 
 ;;;###autoload
 (defun helm-spacemacs-help-dotspacemacs ()
@@ -110,14 +100,6 @@
   (helm :buffer "*helm: spacemacs*"
         :sources `(,(helm-spacemacs-help//toggle-source))))
 
-;;;###autoload
-(defun helm-spacemacs-help-faq ()
-  "Helm session to search for the FAQ."
-  (interactive)
-  (helm-spacemacs-help-mode)
-  (helm :buffer "*helm: spacemacs*"
-        :sources `(,(helm-spacemacs-help//faq-source))))
-
 (defun helm-spacemacs-help//documentation-source ()
   "Construct the helm source for the documentation section."
   (helm-build-sync-source "Spacemacs Documentation"
@@ -146,6 +128,8 @@
     ;; give each document an appropriate title
     (mapcar (lambda (r)
               (cond
+               ((string-equal r "BEGINNERS_TUTORIAL.org")
+                `("Beginners tutorial" . ,r))
                ((string-equal r "CONTRIBUTING.org")
                 `("How to contribute to Spacemacs" . ,r))
                ((string-equal r "CONVENTIONS.org")
@@ -170,7 +154,7 @@
                   ;; CONTRIBUTING.org is a special case as it should be at the
                   ;; root of the repository to be linked as the contributing
                   ;; guide on Github.
-                  (concat user-emacs-directory candidate)
+                  (concat spacemacs-start-directory candidate)
                 (concat spacemacs-docs-directory candidate))))
     (cond ((and (equal (file-name-extension file) "md")
                 (not helm-current-prefix-arg))
@@ -195,6 +179,8 @@
                 . helm-spacemacs-help//layer-action-open-readme)
                ("Open packages.el"
                 . helm-spacemacs-help//layer-action-open-packages)
+               ("Open config.el"
+                . helm-spacemacs-help//layer-action-open-config)
                ("Install Layer"
                 . helm-spacemacs-help//layer-action-install-layer)
                ("Open README.org (for editing)"
@@ -206,6 +192,9 @@
     (define-key map (kbd "<S-return>") '(lambda () (interactive)
                                           ;; Add Layer
                                           (helm-select-nth-action 3)))
+    (define-key map (kbd "<M-return>") '(lambda () (interactive)
+                                          ;; Open packages.el
+                                          (helm-select-nth-action 1)))
     map)
   "Keymap for Spacemacs Layers sources")
 
@@ -222,8 +211,9 @@
 (defun helm-spacemacs-help//package-candidates ()
   "Return the sorted candidates for package source."
   (let (result)
-    (dolist (pkg helm-spacemacs-help-all-packages)
-      (let* ((owner (cfgl-package-get-safe-owner pkg))
+    (dolist (pkg-name (configuration-layer/get-packages-list))
+      (let* ((pkg (configuration-layer/get-package pkg-name))
+             (owner (cfgl-package-get-safe-owner pkg))
              ;; the notion of owner does not make sense if the layer is not used
              (init-type (if (configuration-layer/layer-usedp owner)
                             "owner" "init")))
@@ -293,21 +283,19 @@
   "Return the sorted candidates for all the dospacemacs variables."
   (sort (dotspacemacs/get-variable-string-list) 'string<))
 
-(defun helm-spacemacs-help//layer-action-open-file (file candidate &optional edit)
+(defun helm-spacemacs-help//layer-action-open-file
+    (file candidate &optional edit)
   "Open FILE of the passed CANDIDATE.  If EDIT is false, open in view mode."
-  (let ((path (if (and (equalp file "README.org") (equalp candidate "spacemacs"))
-                  ;; Readme for spacemacs is in the project root
-                  (ht-get configuration-layer-paths (intern candidate))
-                (file-name-as-directory
-                 (concat (ht-get configuration-layer-paths
-                                 (intern candidate))
-                         candidate)))))
+  (let ((path (configuration-layer/get-layer-path (intern candidate))))
     (if (and (equal (file-name-extension file) "org")
              (not helm-current-prefix-arg))
         (if edit
             (find-file (concat path file))
           (spacemacs/view-org-file (concat path file) "^" 'all))
-      (find-file (concat path file)))))
+      (let ((filepath (concat path file)))
+        (if (file-exists-p filepath)
+            (find-file filepath)
+          (message "%s does not have %s" candidate file))))))
 
 (defun helm-spacemacs-help//layer-action-open-readme (candidate)
   "Open the `README.org' file of the passed CANDIDATE for reading."
@@ -326,6 +314,10 @@
   "Open the `packages.el' file of the passed CANDIDATE."
   (helm-spacemacs-help//layer-action-open-file "packages.el" candidate))
 
+(defun helm-spacemacs-help//layer-action-open-config (candidate)
+  "Open the `config.el' file of the passed CANDIDATE."
+  (helm-spacemacs-help//layer-action-open-file "config.el" candidate))
+
 (defun helm-spacemacs-help//package-action-decribe (candidate)
   "Describe the passed package using Spacemacs describe function."
   (save-match-data
@@ -341,8 +333,7 @@
            (init-type (match-string 2 candidate))
            (layer (match-string 3 candidate))
            (path (file-name-as-directory
-                  (concat (ht-get configuration-layer-paths (intern layer))
-                          layer)))
+                  (configuration-layer/get-layer-path (intern layer))))
            (filename (concat path "packages.el")))
       (when (string-match-p "owner" init-type)
         (setq init-type "init"))
@@ -364,47 +355,6 @@
   ;; try to exclude comments
   (re-search-forward (format "^[a-z\s\\(\\-]*%s" candidate))
   (beginning-of-line))
-
-(defvar helm-spacemacs-help--faq-filename
-  (concat spacemacs-docs-directory "FAQ.org")
-  "Location of the FAQ file.")
-
-(defun helm-spacemacs-help//faq-source ()
-  "Construct the helm source for the FAQ."
-  `((name . "FAQ")
-    (candidates . ,(helm-spacemacs-help//faq-candidates))
-    (candidate-number-limit)
-    (action . (("Go to question" . helm-spacemacs-help//faq-goto-marker)))))
-
-(defun helm-spacemacs-help//faq-candidate (cand)
-  (let ((str (substring-no-properties (car cand))))
-    (when (string-match "\\`.*/\\([^/]*\\)/\\(.*\\)\\'" str)
-      (cons (concat (propertize
-                     (match-string 1 str)
-                     'face 'font-lock-type-face)
-                    ": " (match-string 2 str))
-            (cdr cand)))))
-
-(defun helm-spacemacs-help//faq-candidates ()
-  (let* ((helm-org-format-outline-path nil)
-         (cands (helm-org-get-candidates (list helm-spacemacs-help--faq-filename)))
-         section result)
-    (dolist (c cands)
-      (let ((str (substring-no-properties (car c))))
-        (when (string-match "\\`\\* \\(.*\\)\\'" str)
-          (setq section (match-string 1 str)))
-        (when (string-match "\\`\\*\\* \\(.*\\)\\'" str)
-          (push (cons (concat (propertize section 'face 'font-lock-type-face)
-                              ": " (match-string 1 str))
-                      (cdr c))
-                result))))
-    result))
-
-(defun helm-spacemacs-help//faq-goto-marker (marker)
-  (find-file helm-spacemacs-help--faq-filename)
-  (goto-char marker)
-  (org-show-context)
-  (org-show-entry))
 
 (provide 'helm-spacemacs-help)
 

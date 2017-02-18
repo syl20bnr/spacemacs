@@ -1,6 +1,6 @@
 ;;; config.el --- Spacemacs Base Layer configuration File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -61,6 +61,9 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 
 ;; Scroll compilation to first error or end
 (setq compilation-scroll-output 'first-error)
+
+;; Don't try to ping things that look like domain names
+(setq ffap-machine-p-known 'reject)
 
 ;; ---------------------------------------------------------------------------
 ;; Edit
@@ -125,26 +128,29 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Tip taken from Xah Lee: http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
 (setq minibuffer-prompt-properties
       '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
-;; Emacs 24.4 new features
-(unless (version< emacs-version "24.4")
-  (if dotspacemacs-fullscreen-at-startup
-      ;; spacemacs/toggle-fullscreen-frame-on is NOT available during the startup,
-      ;; but IS available during the subsequent config reloads
-      (if (fboundp 'spacemacs/toggle-fullscreen-frame-on)
-          (spacemacs/toggle-fullscreen-frame-on)
-        (spacemacs/toggle-frame-fullscreen))
-    (if dotspacemacs-maximized-at-startup
-        (add-hook 'window-setup-hook 'toggle-frame-maximized))))
+;; Fullscreen/maximize frame on startup
+(if dotspacemacs-fullscreen-at-startup
+    ;; spacemacs/toggle-fullscreen-frame-on is NOT available during the startup,
+    ;; but IS available during the subsequent config reloads
+    (if (fboundp 'spacemacs/toggle-fullscreen-frame-on)
+        (spacemacs/toggle-fullscreen-frame-on)
+      (spacemacs/toggle-frame-fullscreen)))
 
 (setq ns-use-native-fullscreen (not dotspacemacs-fullscreen-use-non-native))
+
+;; make `next-buffer', `other-buffer', etc. ignore useless buffers (see
+;; `spacemacs/useless-buffer-p')
+(let ((buf-pred-entry (assq 'buffer-predicate default-frame-alist)))
+  (if buf-pred-entry
+      ;; `buffer-predicate' entry exists, modify it
+      (setcdr buf-pred-entry #'spacemacs/useful-buffer-p)
+    ;; `buffer-predicate' entry doesn't exist, create it
+    (push '(buffer-predicate . spacemacs/useful-buffer-p) default-frame-alist)))
 
 ;; ---------------------------------------------------------------------------
 ;; Session
 ;; ---------------------------------------------------------------------------
 
-;; save custom variables in ~/.spacemacs
-(unless (bound-and-true-p custom-file)
-  (setq custom-file (dotspacemacs/location)))
 ;; scratch buffer empty
 (setq initial-scratch-message nil)
 ;; don't create backup~ files
@@ -190,3 +196,11 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 (defun server-remove-kill-buffer-hook ()
   (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function))
 (add-hook 'server-visit-hook 'server-remove-kill-buffer-hook)
+
+;; ---------------------------------------------------------------------------
+;; Other
+;; ---------------------------------------------------------------------------
+
+;; hook into `hack-local-variables' in order to allow switching spacemacs
+;; configurations based on local variables
+(add-hook 'hack-local-variables-hook #'spacemacs//run-local-vars-mode-hook)

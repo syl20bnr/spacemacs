@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs Completion Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -39,8 +39,9 @@
   "Function to be used as advice to activate fuzzy matching for all sources."
   (let ((source-type (cadr args))
         (props (cddr args)))
-    (unless (eq source-type 'helm-source-async)
-      (plist-put props :fuzzy-match t)))
+    ;; fuzzy matching is not supported in async sources
+    (unless (child-of-class-p source-type helm-source-async)
+      (plist-put props :fuzzy-match (eq 'always dotspacemacs-helm-use-fuzzy))))
   (apply f args))
 
 ;; Helm Header line
@@ -111,23 +112,6 @@
     (window-height . 0.4)))
 (defvar spacemacs-display-buffer-alist nil)
 
-(defun spacemacs//helm-prepare-display ()
-  "Prepare necessary settings to make Helm display properly."
-  ;; avoid Helm buffer being diplaye twice when user
-  ;; sets this variable to some function that pop buffer to
-  ;; a window. See https://github.com/syl20bnr/spacemacs/issues/1396
-  (let ((display-buffer-base-action '(nil)))
-    (setq spacemacs-display-buffer-alist display-buffer-alist)
-    ;; the only buffer to display is Helm, nothing else we must set this
-    ;; otherwise Helm cannot reuse its own windows for copyinng/deleting
-    ;; etc... because of existing popwin buffers in the alist
-    (setq display-buffer-alist nil)
-    (popwin-mode -1)
-    ;; workaround for a helm-evil incompatibility
-    ;; see https://github.com/syl20bnr/spacemacs/issues/3700
-    (when helm-prevent-escaping-from-minibuffer
-      (define-key evil-motion-state-map [down-mouse-1] nil))))
-
 (defun spacemacs//display-helm-window (buffer)
   "Display the Helm window respecting `dotspacemacs-helm-position'."
   (let ((display-buffer-alist
@@ -143,17 +127,18 @@
                spacemacs-helm-display-buffer-regexp)))
     (helm-default-display-buffer buffer)))
 
-(defun spacemacs//restore-previous-display-config ()
-  "Workaround for a helm-evil incompatibility
- see https://github.com/syl20bnr/spacemacs/issues/3700"
+(defun spacemacs//unprevent-minibuffer-escape ()
+  "Workaround for a helm-evil incompatibility.
+See https://github.com/syl20bnr/spacemacs/issues/3700"
   (when helm-prevent-escaping-from-minibuffer
     (define-key evil-motion-state-map
-      [down-mouse-1] 'evil-mouse-drag-region))
-  (popwin-mode 1)
-  ;; we must enable popwin-mode first then restore `display-buffer-alist'
-  ;; Otherwise, popwin keeps adding up its own buffers to
-  ;; `display-buffer-alist' and could slow down Emacs as the list grows
-  (setq display-buffer-alist spacemacs-display-buffer-alist))
+      [down-mouse-1] 'evil-mouse-drag-region)))
+
+(defun spacemacs//prevent-minibuffer-escape ()
+  "Workaround for a helm-evil incompatibility.
+See https://github.com/syl20bnr/spacemacs/issues/3700"
+  (when helm-prevent-escaping-from-minibuffer
+    (define-key evil-motion-state-map [down-mouse-1] nil)))
 
 ;; Helm Transient state
 
@@ -227,3 +212,103 @@
     (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-kill-line)
     (define-key ivy-minibuffer-map (kbd "C-h") nil)
     (define-key ivy-minibuffer-map (kbd "C-l") nil))))
+
+
+;; Ido
+
+(defun spacemacs//ido-minibuffer-setup ()
+  "Setup the minibuffer."
+  ;; Since ido is implemented in a while loop where each
+  ;; iteration setup a whole new minibuffer, we have to keep
+  ;; track of any activated ido navigation transient-state and force
+  ;; the reactivation at each iteration.
+  (when spacemacs--ido-navigation-ms-enabled
+    (spacemacs/ido-navigation-micro-state)))
+
+(defun spacemacs//ido-setup ()
+  (when spacemacs--ido-navigation-ms-face-cookie-minibuffer
+    (face-remap-remove-relative
+     spacemacs--ido-navigation-ms-face-cookie-minibuffer))
+  ;; be sure to wipe any previous transient-state flag
+  (setq spacemacs--ido-navigation-ms-enabled nil)
+  ;; overwrite the key bindings for ido vertical mode only
+  (define-key ido-completion-map (kbd "C-<return>") 'ido-select-text)
+  ;; use M-RET in terminal
+  (define-key ido-completion-map "\M-\r" 'ido-select-text)
+  (define-key ido-completion-map (kbd "C-h") 'ido-delete-backward-updir)
+  (define-key ido-completion-map (kbd "C-j") 'ido-next-match)
+  (define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
+  (define-key ido-completion-map (kbd "C-l") 'ido-exit-minibuffer)
+  (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+  (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
+  (define-key ido-completion-map (kbd "C-S-h") 'ido-prev-match-dir)
+  (define-key ido-completion-map (kbd "C-S-j") 'next-history-element)
+  (define-key ido-completion-map (kbd "C-S-k") 'previous-history-element)
+  (define-key ido-completion-map (kbd "C-S-l") 'ido-next-match-dir)
+  (define-key ido-completion-map (kbd "C-S-n") 'next-history-element)
+  (define-key ido-completion-map (kbd "C-S-p") 'previous-history-element)
+  ;; ido-other window maps
+  (define-key ido-completion-map (kbd "C-o") 'spacemacs/ido-invoke-in-other-window)
+  (define-key ido-completion-map (kbd "C-s") 'spacemacs/ido-invoke-in-vertical-split)
+  (define-key ido-completion-map (kbd "C-t") 'spacemacs/ido-invoke-in-new-frame)
+  (define-key ido-completion-map (kbd "C-v") 'spacemacs/ido-invoke-in-horizontal-split)
+  ;; initiate transient-state
+  (define-key ido-completion-map (kbd "M-SPC") 'spacemacs/ido-navigation-micro-state)
+  (define-key ido-completion-map (kbd "s-M-SPC") 'spacemacs/ido-navigation-micro-state))
+
+(defun spacemacs/ido-invoke-in-other-window ()
+  "signals ido mode to switch to (or create) another window after exiting"
+  (interactive)
+  (setq ido-exit-minibuffer-target-window 'other)
+  (ido-exit-minibuffer))
+
+(defun spacemacs/ido-invoke-in-horizontal-split ()
+  "signals ido mode to split horizontally and switch after exiting"
+  (interactive)
+  (setq ido-exit-minibuffer-target-window 'horizontal)
+  (ido-exit-minibuffer))
+
+(defun spacemacs/ido-invoke-in-vertical-split ()
+  "signals ido mode to split vertically and switch after exiting"
+  (interactive)
+  (setq ido-exit-minibuffer-target-window 'vertical)
+  (ido-exit-minibuffer))
+
+(defun spacemacs/ido-invoke-in-new-frame ()
+  "signals ido mode to create a new frame after exiting"
+  (interactive)
+  (setq ido-exit-minibuffer-target-window 'frame)
+  (ido-exit-minibuffer))
+
+(defun spacemacs//ido-navigation-ms-set-face ()
+  "Set faces for ido navigation transient-state."
+  (setq spacemacs--ido-navigation-ms-face-cookie-minibuffer
+        (face-remap-add-relative
+         'minibuffer-prompt
+         'spacemacs-ido-navigation-ms-face)))
+
+(defun spacemacs//ido-navigation-ms-on-enter ()
+  "Initialization of ido transient-state."
+  (setq spacemacs--ido-navigation-ms-enabled t)
+  (spacemacs//ido-navigation-ms-set-face))
+
+(defun spacemacs//ido-navigation-ms-on-exit ()
+  "Action to perform when exiting ido transient-state."
+  (face-remap-remove-relative
+   spacemacs--ido-navigation-ms-face-cookie-minibuffer))
+
+(defun spacemacs//ido-navigation-ms-full-doc ()
+  "Full documentation for ido navigation transient-state."
+  "
+ [?]          display this help
+ [e]          enter dired
+ [j] [k]      next/previous match
+ [J] [K]      sub/parent directory
+ [h]          delete backward or parent directory
+ [l]          select match
+ [n] [p]      next/previous directory in history
+ [o]          open in other window
+ [s]          open in a new horizontal split
+ [t]          open in other frame
+ [v]          open in a new vertical split
+ [q]          quit")

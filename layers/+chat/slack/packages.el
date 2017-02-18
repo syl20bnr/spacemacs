@@ -1,6 +1,6 @@
 ;;; packages.el --- slack layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Kosta Harlan <kosta@kostaharlan.net>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -37,7 +37,7 @@
   (add-hook 'lui-mode-hook 'flyspell-mode))
 
 (defun slack/post-init-linum ()
-  (add-hook 'slack-mode-hook 'no-linum))
+  (add-hook 'slack-mode-hook 'spacemacs/no-linum))
 
 (defun slack/post-init-persp-mode ()
   (spacemacs|define-custom-layout "@Slack"

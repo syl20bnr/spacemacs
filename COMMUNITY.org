@@ -1,11 +1,25 @@
-/This document is under construction, the final version will be released in the
-version 0.106.0 of Spacemacs/
+#+TITLE: Spacemacs Community
+
+* Spacemacs Community                                     :TOC_4_gh:noexport:
+ - [[#philosophy][Philosophy]]
+   - [[#for-contributors][For Contributors]]
+   - [[#for-users][For Users]]
+ - [[#moderation][Moderation]]
+   - [[#guidelines][Guidelines]]
+     - [[#people][People]]
+     - [[#issues][Issues]]
+     - [[#pull-requests-and-commmits][Pull requests and Commmits]]
+     - [[#messages][Messages]]
+   - [[#interpretation][Interpretation]]
+   - [[#collaborators-privacy][Collaborators privacy]]
+   - [[#maintainer][Maintainer]]
+   - [[#log][Log]]
 
 * Philosophy
 ** For Contributors
-- This community is a community of hackers based on meritocracy and volunteering.
-  Hackers strive for excellence to make the world a better place, so does the
-  Spacemacs community.
+- This community is a community of hackers based on meritocracy and
+  volunteering. Hackers strive for excellence to make the world a better place,
+  so does the Spacemacs community.
 - Be good in what you bring to the project be it code, documentation, typo
   fixes, art, humor, ideas, project management, web design, assurance quality,
   mentorship, you name it! We like to award achievements to people making a
@@ -34,20 +48,21 @@ about our past moderation actions. So readers won't find any example or
 definition of what collaborators judge offending or outrageous, instead they
 will find at the end of this section a log of all major moderation actions taken
 by the collaborators since the beginning of the project which started officially
-in August 2014. It should allow you to decided whether or not you want to be
-part of this community. If you are not convinced then be assured that the only
-evil part in Spacemacs is the evil mode :-)
+in August 2014. It should allow you to decide whether or not you want to be part
+of this community. If you are not convinced then be assured that the only evil
+part in Spacemacs is the evil mode :-)
 ** Guidelines
 These guidelines apply to all collaborators of the project, namely @syl20bnr,
-@TheBB and @StreakyCobra.
+@TheBB, @d12frosted and @bmag.
 *** People
 - Collaborators cannot ban any GitHub user from the repository but they can ban
   users from the official Gitter channel.
 - A user can be banned if and only if all the collaborators agree to do so.
-- The reasons of the ban are mentioned in the moderation actions log (see below).
+- The reasons of the ban are mentioned in the moderation actions log (see
+  below).
 *** Issues
 - Issues can be locked if their contents are judged _inappropriate_, _offending_
-  or if they deviate _dangerously_ from the focus which is the project.
+  or if they deviate _dangerously_ from the project.
 *** Pull requests and Commmits
 - Collaborators can push to the repository without making a PR.
 - PR can be rejected. Rejected PR always go with a reason explicitly written
@@ -69,11 +84,10 @@ These guidelines apply to all collaborators of the project, namely @syl20bnr,
 - The reason is added only when needed (for instance we won't add a reason for
   formatting edits)
 ** Interpretation
-Words used in these guidelines like _inappropriate_, _offending_, _dangerously_
-and _outrageous_ are used without any explanation on purpose, their meanings and
-interpretations are left solely to the discretion of the collaborators who are
-educated persons and highly trusted members of the community happy to help it to
-grow in a sane manner.
+Words used in these guidelines like _good_, _inappropriate_, _offending_,
+_dangerously_ and _outrageous_ are used without any explanation, their meanings
+and interpretations are left solely to the discretion of the collaborators who
+are educated persons working in the interest of the community.
 ** Collaborators privacy
 Life and actions of collaborators outside of the project (i.e. outside of the
 Spacemacs GitHub repository, official Spacemacs Gitter channels and Twitter
@@ -89,7 +103,7 @@ good intentions.
   view on the subject.
 ** Log
 For transparency and future reference any major moderation actions are recorded
-here. As of Sunday, April 10th 2016, 5747 issues have been opened and 2 major
+here. As of Sunday, April 10th 2016, 7200 issues have been opened and 2 major
 moderation actions have been taken:
 | Date       | Moderator | Action | Issue | Reason                                                          |
 |------------+-----------+--------+-------+-----------------------------------------------------------------|

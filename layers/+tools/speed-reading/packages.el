@@ -1,6 +1,6 @@
 ;;; packages.el --- speed-reading Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -39,5 +39,5 @@
       (define-key spray-mode-map (kbd "q") 'spray-quit))))
 
 (defun speed-reading/post-init-which-key ()
-  (push '("\\`speed-reading/\\(.+\\)\\'" . "\\1")
-        which-key-description-replacement-alist))
+  (push '((nil . "\\`speed-reading/\\(.+\\)\\'") . (nil . "\\1"))
+        which-key-replacement-alist))

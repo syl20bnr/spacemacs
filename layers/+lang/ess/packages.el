@@ -1,6 +1,6 @@
 ;;; packages.el --- ESS (R) Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -16,7 +16,7 @@
     ess-R-object-popup
     ess-smart-equals
     golden-ratio
-    ))
+    org))
 
 (defun ess/init-ess ()
   (use-package ess-site
@@ -131,3 +131,7 @@
                  ess-eval-function-and-go
                  ess-eval-line-and-go))
       (add-to-list 'golden-ratio-extra-commands f))))
+
+(defun ess/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(R . t))))

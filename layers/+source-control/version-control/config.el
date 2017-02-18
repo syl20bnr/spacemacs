@@ -1,6 +1,6 @@
 ;;; config.el --- Version Control configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,6 +15,10 @@
 (defvar version-control-diff-tool 'git-gutter+
   "Options are `git-gutter', `git-gutter+', and `diff-hl' to show
 version-control markers.")
+
+(defvar version-control-diff-side 'right
+  "Side on which to show version-control markers.
+Options are `left' and `right'.")
 
 ;; unchanged face
 (defface git-gutter+-unchanged

@@ -12,10 +12,9 @@
    - [[#enable-company-or-auto-complete-globally][Enable company or auto-complete globally]]
    - [[#replacing-company-by-auto-complete][Replacing company by auto-complete]]
    - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
-     - [[#in-configel][In =config.el=]]
-     - [[#in-packagesel][In =packages.el=]]
+   - [[#completion-back-ends][Completion back ends]]
    - [[#improved-faces][Improved faces]]
- - [[#key-bindings][Key Bindings]]
+ - [[#key-bindings-1][Key Bindings]]
    - [[#company][Company]]
    - [[#auto-complete][Auto-complete]]
    - [[#yasnippet][Yasnippet]]
@@ -80,10 +79,10 @@ you don't use it already.
 
 ** Snippets directories
 The following directories are added by default:
-- ~/.emacs.d/elpa/yasnippet-xxxxx/snippets
-- ~/.emacs.d/layers/auto-completion/snippets
-- ~/.emacs.d/private/snippets (conditional to the value of =auto-completion-private-snippets-directory=)
-- ~/.spacemacs.d/snippets (conditional to the existence of =~/.spacemacs.d= directory)
+- =~/.emacs.d/elpa/yasnippet-xxxxx/snippets=
+- =~/.emacs.d/layers/auto-completion/snippets=
+- =~/.emacs.d/private/snippets= (conditional to the value of =auto-completion-private-snippets-directory=)
+- =~/.spacemacs.d/snippets= (conditional to the existence of =~/.spacemacs.d= directory)
 
 You can provide additional directories by setting the variable
 =auto-completion-private-snippets-directory= which can take a string in case of
@@ -101,12 +100,22 @@ the popup, set the variable =auto-completion-enable-snippets-in-popup= to =t=.
 #+END_SRC
 
 ** Tooltips
-To enable docstring tooltips set =auto-completion-enable-help-tooltip= to =t=
+To enable automatic docstring tooltips set =auto-completion-enable-help-tooltip=
+to =t=.
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
   '((auto-completion :variables
                     auto-completion-enable-help-tooltip t)))
+#+END_SRC
+
+To enable manual non-automatic invocation of docstring tooltips, set it to
+=manual=. The tooltip can be invoked manually by pressing ~M-h~.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((auto-completion :variables
+                    auto-completion-enable-help-tooltip 'manual)))
 #+END_SRC
 
 ** Sort results by usage
@@ -131,7 +140,7 @@ for a given mode.
 You may want to enable company globally to get auto-completion
 everywhere even in the modes which are not configured by Spacemacs. To do
 so, you just have to add =(global-company-mode)= in the
-=dotspacemacs/user -config= function of your dotfile.
+=dotspacemacs/user-config= function of your dotfile.
 
 Note that if you want to enable =auto-complete= globally you will have to
 disable =company= first, see the next section to do so.
@@ -141,34 +150,41 @@ You can disable =company= by adding it to the =dotspacemacs-excluded-packages=
 variable, then you are free to enable =auto-complete= globally.
 
 ** Add auto-completion in a layer
-Here is an example to add =company= auto-completion to python buffer:
+Here is an example to add =company= auto-completion to python buffers via the
+package =company-anaconda=.
 
-*** In =config.el=
-#+BEGIN_SRC emacs-lisp
-  ;; Define the buffer local company backend variable
-  (spacemacs|defvar-company-backends python-mode)
-#+END_SRC
+In the file =packages.el= of the python layer:
 
-*** In =packages.el=
 #+BEGIN_SRC emacs-lisp
   ;; Add the relevant packages to the layer
+  ;; here it is `company-anaconda'
   (setq python-packages
     '(...
-      company
-      (company-anaconda :toggle (configuration-layer/package-usedp 'company'))
+      (company-anaconda :toggle (configuration-layer/package-usedp 'company))
       ...))
 
-  ;; Hook company to python-mode
-  (defun python/post-init-company ()
-    (spacemacs|add-company-hook python-mode))
-
-  ;; Add the backend to the major-mode specific backend list
   (defun python/init-company-anaconda ()
     (use-package company-anaconda
       :defer t
-      :init (push 'company-anaconda company-backends-python-mode)))
+      :init
+      (spacemacs|add-company-backends
+         :backends company-anaconda
+         :modes python-mode)))
 #+END_SRC
 
+** Completion back ends
+Many spacemacs layers (e.g., python, html, haskell) configure company mode
+backends to provide mode-specific completion. These modes will include
+completion backends specified in the `spacemacs-default-company-backends`
+variable. The defaults should work well, but you can configure this variable in
+your ~.spacemacs~ file with (e.g.)
+#+BEGIN_SRC emacs-lisp
+  (setq-default
+   dotspacemacs-configuration-layers
+   '((auto-completion :variables
+                      spacemacs-default-company-backends '(company-files company-capf))))
+#+END_SRC
+ 
 ** Improved faces
 For nicer-looking faces, try adding the following to `custom-set-faces` in your dotspacemacs file.
 
@@ -183,11 +199,12 @@ For nicer-looking faces, try adding the following to `custom-set-faces` in your 
 * Key Bindings
 ** Company
 
-| Key Binding | Description                                                              |
-|-------------+--------------------------------------------------------------------------|
-| ~C-d~       | open minibuffer with documentation of thing at point in company dropdown |
-| ~C-/~       | show candidates in Helm (for fuzzy searching)                            |
-| ~C-M-/~     | filter the company dropdown menu                                         |
+| Key Binding | Description                                                                                          |
+|-------------+------------------------------------------------------------------------------------------------------|
+| ~C-d~       | open minibuffer with documentation of thing at point in company dropdown                             |
+| ~C-/~       | show candidates in Helm (for fuzzy searching)                                                        |
+| ~C-M-/~     | filter the company dropdown menu                                                                     |
+| ~M-h~       | show current candidate's documentation in a tooltip (requires =auto-completion-enable-help-tooltip=) |
 
 Vim Style:
 

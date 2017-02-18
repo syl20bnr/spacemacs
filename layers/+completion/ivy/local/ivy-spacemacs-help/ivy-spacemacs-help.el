@@ -31,20 +31,19 @@
 (require 'ivy)
 (require 'core-configuration-layer)
 
-(defvar ivy-spacemacs-help-all-layers nil
-  "Alist of all configuration layers.")
+(defvar ivy-spacemacs--initialized nil
+  "Non nil if ivy-spacemacs is initialized.")
 
-(defvar ivy-spacemacs-help-all-packages nil
-  "Hash table of all packages in all layers.")
+;; (defvar ivy-spacemacs-help-all-layers nil
+;;   "Alist of all configuration layers.")
+
+;; (defvar ivy-spacemacs-help-all-packages nil
+;;   "Hash table of all packages in all layers.")
 
 (defun ivy-spacemacs-help//init (&optional arg)
-  (when (or arg (null ivy-spacemacs-help-all-packages))
-    (mapc (lambda (layer) (push (configuration-layer/make-layer layer)
-                                ivy-spacemacs-help-all-layers))
-          (configuration-layer/get-layers-list))
-    (let (configuration-layer--packages)
-      (configuration-layer/get-packages ivy-spacemacs-help-all-layers)
-      (setq ivy-spacemacs-help-all-packages configuration-layer--packages))))
+  (when (or arg (null ivy-spacemacs--initialized))
+    (configuration-layer/make-all-packages)
+    (setq ivy-spacemacs--initialized t)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Docs
@@ -88,12 +87,13 @@
 
 (defun ivy-spacemacs-help//documentation-action-open-file (candidate)
   "Open documentation FILE."
-  (let ((file (if (string= candidate "CONTRIBUTING.org")
-                  ;; CONTRIBUTING.org is a special case as it should be at the
-                  ;; root of the repository to be linked as the contributing
-                  ;; guide on Github.
-                  (concat user-emacs-directory candidate)
-                (concat spacemacs-docs-directory candidate))))
+  (let* ((candidate (cdr candidate))
+         (file (if (string= candidate "CONTRIBUTING.org")
+                   ;; CONTRIBUTING.org is a special case as it should be at the
+                   ;; root of the repository to be linked as the contributing
+                   ;; guide on Github.
+                   (concat spacemacs-start-directory candidate)
+                 (concat spacemacs-docs-directory candidate))))
     (cond ((equal (file-name-extension file) "md")
            (condition-case-unless-debug nil
                (with-current-buffer (find-file-noselect file)
@@ -123,29 +123,19 @@
 
 (defun ivy-spacemacs-help//layer-action-get-directory (candidate)
   "Get directory of layer passed CANDIDATE."
-  (let ((path (if (equalp candidate "spacemacs")
-                  ;; Readme for spacemacs is in the project root
-                  (ht-get configuration-layer-paths (intern candidate))
-                (file-name-as-directory
-                 (concat (ht-get configuration-layer-paths
-                                 (intern candidate))
-                         candidate)))))
-    path))
+  (configuration-layer/get-layer-path (intern candidate)))
 
 (defun ivy-spacemacs-help//layer-action-open-file (file candidate &optional edit)
   "Open FILE of the passed CANDIDATE.  If EDIT is false, open in view mode."
-  (let ((path (if (and (equalp file "README.org") (equalp candidate "spacemacs"))
-                  ;; Readme for spacemacs is in the project root
-                  (ht-get configuration-layer-paths (intern candidate))
-                (file-name-as-directory
-                 (concat (ht-get configuration-layer-paths
-                                 (intern candidate))
-                         candidate)))))
+  (let ((path (configuration-layer/get-layer-path (intern candidate))))
     (if (equal (file-name-extension file) "org")
         (if edit
             (find-file (concat path file))
           (spacemacs/view-org-file (concat path file) "^" 'all))
-      (find-file (concat path file)))))
+      (let ((filepath (concat path file)))
+        (if (file-exists-p filepath)
+            (find-file filepath)
+          (message "%s does not have %s" candidate file))))))
 
 (defun ivy-spacemacs-help//layer-action-open-readme (candidate)
   "Open the `README.org' file of the passed CANDIDATE for reading."
@@ -174,6 +164,10 @@
   "Open the `README.org' file of the passed CANDIDATE for editing."
   (ivy-spacemacs-help//layer-action-open-file "README.org" candidate t))
 
+(defun ivy-spacemacs-help//layer-action-open-config (candidate)
+  "Open the `config.el' file of the passed CANDIDATE."
+  (ivy-spacemacs-help//layer-action-open-file "config.el" candidate))
+
 (defun ivy-spacemacs-help//layer-action-open-packages (candidate)
   "Open the `packages.el' file of the passed CANDIDATE."
   (ivy-spacemacs-help//layer-action-open-file "packages.el" candidate))
@@ -192,6 +186,7 @@
  '(("a" ivy-spacemacs-help//layer-action-add-layer "add layer")
    ("d" ivy-spacemacs-help//layer-action-open-dired "open dired at layer location")
    ("e" ivy-spacemacs-help//layer-action-open-readme-edit "open readme for editing")
+   ("c" ivy-spacemacs-help//layer-action-open-config "open config.el")
    ("p" ivy-spacemacs-help//layer-action-open-packages "open packages.el")
    ("r" ivy-spacemacs-help//layer-action-open-readme "open readme")))
 
@@ -204,101 +199,93 @@
         (left-column-width
          (number-to-string
           (cl-reduce
-           (lambda (a x) (max (length (symbol-name (oref x :name))) a))
-           ivy-spacemacs-help-all-layers :initial-value 0)))
+           (lambda (a x) (max (length (symbol-name x)) a))
+           (configuration-layer/get-layers-list) :initial-value 0)))
         (owners (cl-remove-duplicates
-                 (mapcar (lambda (pkg) (oref pkg :owner))
-                         ivy-spacemacs-help-all-packages))))
-    (dolist (pkg ivy-spacemacs-help-all-packages)
-      (push (list (format (concat "%-" left-column-width "S %s %s")
-                          (oref pkg :owner)
-                          (propertize (symbol-name (oref pkg :name))
-                                      'face 'font-lock-type-face)
-                          (propertize
-                           (if (package-installed-p (oref pkg :name))
-                               "[installed]" "")
-                           'face 'font-lock-comment-face))
-                  (symbol-name (oref pkg :owner))
-                  (symbol-name (oref pkg :name)))
-            result))
+                 (mapcar (lambda (pkg)
+                           (let ((obj (configuration-layer/get-package pkg)))
+                             (car (oref obj :owners))))
+                         (configuration-layer/get-packages-list)))))
+    (dolist (pkg-name (configuration-layer/get-packages-list))
+      (let ((pkg (configuration-layer/get-package pkg-name)))
+        (push (list (format (concat "%-" left-column-width "S %s %s")
+                            (car (oref pkg :owners ))
+                            (propertize (symbol-name (oref pkg :name))
+                                        'face 'font-lock-type-face)
+                            (propertize
+                             (if (package-installed-p (oref pkg :name))
+                                 "[installed]" "")
+                             'face 'font-lock-comment-face))
+                    (symbol-name
+                     (car (oref pkg :owners )))
+                    (symbol-name (oref pkg :name)))
+              result)))
     (dolist (layer (delq nil
                          (cl-remove-if
-                          (lambda (layer)
-                            (memq (oref layer :name) owners))
-                          ivy-spacemacs-help-all-layers)))
+                          (lambda (x) (memq x owners))
+                          (configuration-layer/get-layers-list))))
       (push (list (format (concat "%-" left-column-width "S %s")
-                          (oref layer :name)
+                          layer
                           (propertize "no packages"
                                       'face 'warning))
-                  (oref layer :name)
+                  layer
                   nil)
             result))
     (sort result (lambda (a b) (string< (car a) (car b))))))
 
 (defun ivy-spacemacs-help//help-action (args)
   "Open the file `packages.el' and go to the init function."
-  (if (null (cadr args))
+  (if (null (caddr args))
       (message "There are no packages associated with this layer.")
-    (let* ((layer-str (car args))
+    (let* ((layer-str (cadr args))
            (layer-sym (intern layer-str))
-           (package-str (cadr args))
-           (path (file-name-as-directory
-                  (concat (ht-get configuration-layer-paths layer-sym)
-                          layer-str)))
+           (package-str (caddr args))
+           (path (configuration-layer/get-layer-path layer-sym))
            (filename (concat path "packages.el")))
       (find-file filename)
       (goto-char (point-min))
       (re-search-forward (format "init-%s" package-str))
       (beginning-of-line))))
 
-(defun ivy-spacemacs-help//help-action-add-layer (args)
-  (let* ((layer-str (car args))
-         (layer-sym (intern layer-str))
-         (package-str (cadr args))
-         (path (file-name-as-directory
-                (concat (ht-get configuration-layer-paths layer-sym)
-                        layer-str)))
-         (filename (concat path "packages.el")))
-    (find-file filename)
-    (goto-char (point-min))
-    (re-search-forward (format "init-%s" package-str))
-    (beginning-of-line)))
-
 (defun ivy-spacemacs-help//help-action-describe-package (args)
   "Describe the passed package using Spacemacs describe function."
-  (if (null (cadr args))
+  (if (null (caddr args))
       (message "There are no packages associated with this layer.")
-    (let ((package-str (cadr args)))
+    (let ((package-str (caddr args)))
       (configuration-layer/describe-package (intern package-str)))))
 
 (defun ivy-spacemacs-help//help-action-open-dired (args)
   "Open the `packages.el' file of the passed `car' of ARGS."
   (dired
-   (ivy-spacemacs-help//layer-action-get-directory (car args))))
+   (ivy-spacemacs-help//layer-action-get-directory (cadr args))))
+
+(defun ivy-spacemacs-help//help-action-open-config (args)
+  "Open the `packages.el' file of the passed CANDIDATE."
+  (ivy-spacemacs-help//layer-action-open-file "config.el" (cadr args)))
 
 (defun ivy-spacemacs-help//help-action-open-packages (args)
   "Open the `packages.el' file of the passed CANDIDATE."
-  (ivy-spacemacs-help//layer-action-open-file "packages.el" (car args)))
+  (ivy-spacemacs-help//layer-action-open-file "packages.el" (cadr args)))
 
 (defun ivy-spacemacs-help//help-action-open-readme (args)
   "Open the `README.org' file of the passed CANDIDATE for reading."
-  (ivy-spacemacs-help//layer-action-open-file "README.org" (car args)))
+  (ivy-spacemacs-help//layer-action-open-file "README.org" (cadr args)))
 
 (defun ivy-spacemacs-help//help-action-open-readme-edit (args)
   "Open the `README.org' file of the passed CANDIDATE for editing."
-  (ivy-spacemacs-help//layer-action-open-file "README.org" (car args) t))
+  (ivy-spacemacs-help//layer-action-open-file "README.org" (cadr args) t))
 
 (defun ivy-spacemacs-help//help-action-add-layer (args)
   "Adds layer to dotspacemacs file and reloads configuration"
-  (if (configuration-layer/layer-usedp (intern (car args)))
+  (if (configuration-layer/layer-usedp (intern (cadr args)))
       (message "Layer already added.")
     (let ((dotspacemacs   (find-file-noselect (dotspacemacs/location))))
       (with-current-buffer dotspacemacs
         (beginning-of-buffer)
         (let ((insert-point (re-search-forward
                              "dotspacemacs-configuration-layers *\n?.*\\((\\)")))
-          (insert (format "\n%s\n" (car args)))
-          (indent-region insert-point (+ insert-point (length (car args))))
+          (insert (format "\n%s\n" (cadr args)))
+          (indent-region insert-point (+ insert-point (length (cadr args))))
           (save-current-buffer)))
       (dotspacemacs/sync-configuration-layers))))
 
@@ -317,6 +304,7 @@
    ("d" ivy-spacemacs-help//help-action-open-dired "open dired at layer location")
    ("D" ivy-spacemacs-help//help-action-describe-package "describe package")
    ("e" ivy-spacemacs-help//help-action-open-readme-edit "open readme for editing")
+   ("c" ivy-spacemacs-help//help-action-open-config "open config.el")
    ("p" ivy-spacemacs-help//help-action-open-packages "open packages.el")
    ("r" ivy-spacemacs-help//help-action-open-readme "open readme")))
 

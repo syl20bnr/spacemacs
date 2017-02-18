@@ -11,6 +11,7 @@
      - [[#universal-installer-using-npm][Universal installer using npm]]
      - [[#source-code][Source code]]
    - [[#elm-oracle][elm-oracle]]
+   - [[#elm-format][elm-format]]
  - [[#basic-usage-tips][Basic usage tips]]
    - [[#compilation][Compilation]]
    - [[#reactor][Reactor]]
@@ -21,7 +22,8 @@
    - [[#elm-reactor][elm-reactor]]
    - [[#elm-package][elm-package]]
      - [[#package-list-buffer][package list buffer]]
-   - [[#elm-oracle][elm-oracle]]
+   - [[#elm-oracle-1][elm-oracle]]
+   - [[#elm-format-1][elm-format]]
    - [[#refactoring][Refactoring]]
 
 * Description
@@ -45,8 +47,8 @@ add =elm= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Elm Platform
-The ~elm-platform~ is a bundle of tools, including the ~elm-compiler~, ~elm-make~,
-~elm-reactor~, ~elm-repl~ and ~elm-package~.
+The ~elm-platform~ is a bundle of tools, including the ~elm-compiler~,
+~elm-make~, ~elm-reactor~, ~elm-repl~ and ~elm-package~.
 
 Depending on the method of installation, the ~elm-mode~ package would need to be
 able to access commands such as ~elm-reactor~ or ~elm-make~.
@@ -64,6 +66,9 @@ certain operating system and architectures.
 Also, note that you might need to set the ~ELM_HOME~ environment variables to
 the corresponding directory created by the installer.
 
+If you are facing problems with previewing a buffer with ~elm-reactor~ ensure
+that the absolute path of the npm global bin file is on your path within emacs
+
 OS X Users facing problems with ~elm-reactor~ failing to properly install or
 run, see this issue [[https://github.com/kevva/elm-bin/issues/28][https://github.com/kevva/elm-bin/issues/28]].
 
@@ -73,8 +78,8 @@ To build from source, see instructions here:
 
 ** elm-oracle
 ~elm-oracle~ can be used to show type signatures and docs for tokens under the
-cursor and provide support for auto-completion, but it is not part of the standard
-elm-platform.
+cursor and provide support for auto-completion, but it is not part of the
+standard elm-platform.
 
 Both the "company" and "auto-complete" backends are supported, but this layer
 is configured with company.
@@ -84,6 +89,22 @@ run this command:
 
 #+BEGIN_SRC sh
   npm install -g elm-oracle
+#+END_SRC
+
+** elm-format
+~elm-format~ can be used to format elm code according to a standard set of
+rules.
+
+To install ~elm-format~ follow the the instructions for the version of elm
+installed: https://github.com/avh4/elm-format
+
+Also, note that if you use homebrew to install ~elm-format~ the installed exe
+has a version suffix, the installed command name can be set in your
+=~/spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+  (elm :variables
+       elm-format-command "elm-format-0.17")
 #+END_SRC
 
 * Basic usage tips
@@ -172,7 +193,13 @@ every save.
 
 | Key Binding | Description              |
 |-------------+--------------------------|
+| ~SPC m h h~ | elm-oracle-doc-at-point  |
 | ~SPC m h t~ | elm-oracle-type-at-point |
+
+** elm-format
+
+| Key Binding | Description              |
+| ~SPC m = b~ | elm-mode-format-buffer   |
 
 ** Refactoring
 

@@ -1,6 +1,6 @@
 ;;; core-spacemacs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -32,28 +32,29 @@
          (layers (-filter (lambda (p)
                             (eq 'layer (configuration-layer//directory-type p)))
                           all-subs))
-         (categories (-filter (lambda (p)
-                                (eq 'category (configuration-layer//directory-type p)))
+         (categories (-filter
+                      (lambda (p)
+                        (eq 'category (configuration-layer//directory-type p)))
                               all-subs)))
     (message "%S" layers)
     (dolist (l layers)
       (let ((layer-name (file-name-nondirectory l))
             (target-path (concat (file-relative-name
-                                  l (concat user-emacs-directory "layers"))
+                                  l (concat spacemacs-start-directory "layers"))
                                  "/README.org")))
         (insert (format "- [[file:%s][%s]]\n" target-path layer-name))))
     (dolist (c categories)
       (let* ((category-name (substring (file-name-nondirectory c) 1))
-             (pretty-name (or (cdr (assoc category-name spacemacs--category-names))
-                              (s-capitalize (replace-regexp-in-string
-                                             "-" " " category-name)))))
+             (pretty-name
+              (or (cdr (assoc category-name spacemacs--category-names))
+                  (s-capitalize (replace-regexp-in-string
+                                 "-" " " category-name)))))
         (message "%S" category-name)
         (unless (string= "distribution" category-name)
           (insert (format "\n%s %s\n" level pretty-name))
-          (spacemacs//generate-layers-from-path c (concat level "*"))
-          )))))
+          (spacemacs//generate-layers-from-path c (concat level "*")))))))
 
-(defun spacemacs//generate-layers-file ()
+(defun spacemacs/generate-layers-file (project-plist)
   "Generate the layers list file."
   (interactive)
   (with-temp-buffer
@@ -66,7 +67,7 @@
     ;; uncomment this line if any new layer is added at the root level
     ;; (insert "* General layers\n")
     (spacemacs//generate-layers-from-path configuration-layer-directory "*")
-    (write-file (concat user-emacs-directory "layers/LAYERS.org"))))
+    (write-file (concat spacemacs-start-directory "layers/LAYERS.org"))))
 
 (defun spacemacs//format-toc (&rest r)
   (if (not (null (car r)))
@@ -76,7 +77,8 @@
             (let* ((end-of-heading-pos (+ (length "Contents") heading-pos))
                    (beginning-of-heading (substring toc 0 end-of-heading-pos))
                    (rest-of-toc (substring toc end-of-heading-pos)))
-              (format "%s<a href=\"#\">Close</a>%s" beginning-of-heading rest-of-toc))
+              (format "%s<a href=\"#\">Close</a>%s"
+                      beginning-of-heading rest-of-toc))
           toc))
     (car r)))
 
@@ -85,8 +87,10 @@
          (div-string "<div id=\"content\">")
          (toc-string "<div id=\"toggle-sidebar\"><a href=\"#table-of-contents\"><h2>Table of Contents</h2></a></div>")
          (has-toc (s-index-of "Table of Contents" content))
-         (beginning-of-content-div-pos (+ (length div-string) (s-index-of div-string content)))
-         (beginning-of-content (substring content 0 beginning-of-content-div-pos))
+         (beginning-of-content-div-pos (+ (length div-string)
+                                          (s-index-of div-string content)))
+         (beginning-of-content (substring content
+                                          0 beginning-of-content-div-pos))
          (rest-of-content (substring content beginning-of-content-div-pos)))
     (if (not (null has-toc))
         (format "%s\n%s%s" beginning-of-content toc-string rest-of-content)
@@ -100,7 +104,8 @@
 (defun spacemacs//org-heading-annotate-custom-id ()
   "Annotate headings with the indexes that GitHub uses for linking.
 `org-html-publish-to-html' will use them instead of the default #orgheadline{N}.
-This way the GitHub links and the http://spacemacs.org/ links will be compatible."
+This way the GitHub links and the http://spacemacs.org/ links will be
+compatible."
   (progn (goto-char (point-min))
          (goto-char (point-min))
          (while (re-search-forward "^[\\*]+\s\\(.*\\).*$" nil t)
@@ -116,14 +121,16 @@ This way the GitHub links and the http://spacemacs.org/ links will be compatible
                                                  toc-org-tags-regexp
                                                  ""
                                                  heading))
-                                               ;; Remove # prefix added by `toc-org-hrefify-gh'.
+                                               ;; Remove # prefix added by
+                                               ;; `toc-org-hrefify-gh'.
                                                1))))))))
 
 (defun spacemacs//reroot-links ()
   "Find the links that start with https://github.com/syl20bnr/spacemacs/blob/
-and end with .org{#an-optional-heading-link} (i.e the links between the local org files).
-Change their root to http://spacemacs.org/ so the links will point at files located on the site.
-For the file to file links to work properly the exported org files should be processed with
+and end with .org{#an-optional-heading-link} (i.e the links between the local
+org files). Change their root to http://spacemacs.org/ so the links will point
+at files located on the site. For the file to file links to work properly the
+exported org files should be processed with
 the `spacemacs//org-heading-annotate-custom-id' function."
   (let ((git-url-root-regexp
          (concat "\\[\\[[\\s]*\\(https\\:\\/\\/github\\.com\\/syl20bnr"
@@ -143,14 +150,15 @@ the `spacemacs//org-heading-annotate-custom-id' function."
                                           "href=\""))
          (head-css-extra-readtheorg-tail "css/readtheorg.css\" />\n"))
     (progn (goto-char (point-min))
-           (delete-matching-lines "\\+HTML_HEAD_EXTRA\\:.*\\/css\\/readtheorg\\.css")
+           (delete-matching-lines
+            "\\+HTML_HEAD_EXTRA\\:.*\\/css\\/readtheorg\\.css")
            (goto-char (point-min))
            (if (search-forward "#+TITLE:" nil t nil)
                (beginning-of-line 2)
              (error (format "Can't find #+TITLE: in %s"
                             (buffer-file-name))))
            (insert (concat head-css-extra-readtheorg-head
-                           (f-relative user-emacs-directory
+                           (f-relative spacemacs-start-directory
                                        (file-name-directory filename))
                            head-css-extra-readtheorg-tail)))))
 
@@ -162,7 +170,8 @@ preprocessors for the exported .org files."
       (let* ((filename (car (nthcdr 1 args)))
              (visitingp (find-buffer-visiting filename)))
         ;; Temporary "unvisit" the visited org files.
-        (when visitingp (with-current-buffer visitingp (setq buffer-file-name nil)))
+        (when visitingp (with-current-buffer visitingp
+                          (setq buffer-file-name nil)))
         (with-temp-buffer
           (save-match-data
             (insert-file-contents filename t)
@@ -173,8 +182,10 @@ preprocessors for the exported .org files."
             (spacemacs//org-heading-annotate-custom-id)
             (apply origfunc args)
             (not-modified)))
-        ;; Restore `buffer-file-name' for the buffers that previously visited the org files.
-        (when visitingp (with-current-buffer visitingp (setq buffer-file-name filename)))))))
+        ;; Restore `buffer-file-name' for the buffers that previously visited
+        ;; the org files.
+        (when visitingp (with-current-buffer visitingp
+                          (setq buffer-file-name filename)))))))
 
 (defun spacemacs/publish-doc ()
   "Publish the documentation to doc/export/."
@@ -198,14 +209,22 @@ preprocessors for the exported .org files."
 
            ga('create', 'UA-28326243-2', 'auto'); ga('send', 'pageview');
           </script>")
-         (publish-target (concat user-emacs-directory "export/"))
+         (publish-target (concat spacemacs-start-directory "export/"))
          (org-html-htmlize-output-type 'css)
          (org-publish-project-alist
           `(("spacemacs"
-             :components ("spacemacs-doc"
+             :components ("spacemacs-news"
+                          "spacemacs-doc"
                           "spacemacs-doc-static"
                           "layers-doc"
                           "layers-doc-static"))
+            ("spacemacs-news"
+             :base-directory ,spacemacs-news-directory
+             :base-extension "org"
+             :publishing-directory ,(concat publish-target "news/")
+             :publishing-function org-html-publish-to-html
+             :headline-levels 4
+             :html-head ,header)
             ("spacemacs-doc"
              :base-directory ,spacemacs-docs-directory
              :base-extension "org"
@@ -214,13 +233,13 @@ preprocessors for the exported .org files."
              :headline-levels 4
              :html-head ,header)
             ("layers-doc"
-             :base-directory ,(concat user-emacs-directory "layers/")
+             :base-directory ,(concat spacemacs-start-directory "layers/")
              :base-extension "org"
              :recursive t
              :publishing-directory ,(concat publish-target "layers/")
              :publishing-function org-html-publish-to-html
-             :preparation-function spacemacs//generate-layers-file
-             :exclude "local"
+             :preparation-function spacemacs/generate-layers-file
+             :exclude "local\\|dockerfiles"
              :html-head ,header)
             ("spacemacs-doc-static"
              :base-directory ,spacemacs-docs-directory
@@ -229,7 +248,7 @@ preprocessors for the exported .org files."
              :publishing-directory ,(concat publish-target "doc/")
              :publishing-function org-publish-attachment)
             ("layers-doc-static"
-             :base-directory ,(concat user-emacs-directory "layers/")
+             :base-directory ,(concat spacemacs-start-directory "layers/")
              :base-extension "jpg\\|png\\|gif"
              :recursive t
              :publishing-directory ,(concat publish-target "layers/")

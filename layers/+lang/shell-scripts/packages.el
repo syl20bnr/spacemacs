@@ -1,6 +1,6 @@
 ;;; packages.el --- Shell Scripts Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -11,24 +11,26 @@
 
 (setq shell-scripts-packages
       '(
-        company
         (company-shell :toggle (configuration-layer/package-usedp 'company))
         fish-mode
         flycheck
+        ggtags
+        helm-gtags
+        insert-shebang
         (sh-script :location built-in)
         ))
-
-(defun shell-scripts/post-init-company ()
-  (spacemacs|add-company-hook sh-mode)
-  (spacemacs|add-company-hook fish-mode))
 
 (defun shell-scripts/init-company-shell ()
   (use-package company-shell
     :defer t
     :init
     (progn
-      (push 'company-shell company-backends-sh-mode)
-      (push '(company-shell company-fish-shell) company-backends-fish-mode))))
+      (spacemacs|add-company-backends
+        :backends company-shell
+        :modes sh-mode)
+      (spacemacs|add-company-backends
+        :backends (company-shell company-fish-shell)
+        :modes fish-mode))))
 
 (defun shell-scripts/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'sh-mode))
@@ -60,4 +62,19 @@
                    (string-match-p "\\.zsh\\'" buffer-file-name))
           (sh-set-shell "zsh")))
       (add-hook 'sh-mode-hook 'spacemacs//setup-shell))))
+
+(defun shell-scripts/post-init-ggtags ()
+  (add-hook 'sh-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun shell-scripts/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'sh-mode))
+
+(defun shell-scripts/init-insert-shebang ()
+  (use-package insert-shebang
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys "i!" 'spacemacs/insert-shebang)
+      ;; we don't want to insert shebang lines automatically
+      (remove-hook 'find-file-hook 'insert-shebang))))
 

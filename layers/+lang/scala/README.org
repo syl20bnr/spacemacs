@@ -13,7 +13,7 @@
  - [[#automatically-show-the-type-of-the-symbol-under-the-cursor][Automatically show the type of the symbol under the cursor]]
  - [[#automatically-insert-asterisk-in-multiline-comments][Automatically insert asterisk in multiline comments]]
  - [[#automatically-replace-arrows-with-unicode-ones][Automatically replace arrows with unicode ones]]
- - [[#disable-auto-start][Disable auto-start]]
+ - [[#auto-start][Auto-start]]
  - [[#key-bindings][Key bindings]]
    - [[#ensime-key-bindings][Ensime key bindings]]
      - [[#search][Search]]
@@ -30,7 +30,7 @@
      - [[#repl][REPL]]
 
 * Description
-This layer adds support for the Scala language using the excellent [[https://github.com/ensime][ENSIME]]
+This layer adds support for the Scala language using the excellent [[http://ensime.github.io/][ENSIME]]
 client/server.
 
 * Layer Installation
@@ -39,26 +39,21 @@ add =scala= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Ensime
-[[https://github.com/ensime][ENSIME]] provides IDE-like features, such as refactoring, incremental
-compilation and project-wide type-checking.
+[[http://ensime.github.io/][ENSIME]] provides IDE-like features, such as refactoring, incremental compilation
+and project-wide type-checking.
 
 ENSIME requires a configuration file at the root of each Scala project. It
 provides an SBT plugin to generate these files.
 
 ** Installation
-Configure the ENSIME sbt plugin by adding the following to
-=~/.sbt/0.13/plugins/plugins.sbt=:
+Refer to the [[https://ensime.github.io/build_tools/sbt/][Ensime installation instructions]] to install the =sbt-ensime=
+plugin.
+
+Please note you have to use a version newer than =0.13.5= of =sbt= in your
+project's =project/build.properties=. For example,
 
 #+BEGIN_SRC scala
-  addSbtPlugin("org.ensime" % "ensime-sbt" % "0.2.3")
-#+END_SRC
-
-Please go to [[https://github.com/ensime/ensime-sbt][ensime-sbt Github Page]] to check the latest version of =ensime-sbt= plugin.
-
-Please note your projects' =project/build.properties= need to use a version
-newer that =0.13.5= of sbt.
-#+BEGIN_SRC scala
-  sbt.version=0.13.9
+  sbt.version=0.13.11
 #+END_SRC
 
 ** Usage
@@ -71,19 +66,35 @@ ensime= once per project. Any Scala files you create or visit within the project
 will automatically use ENSIME for the remainder of your editing session.
 
 * Scalastyle
-[[http://flycheck.readthedocs.org/en/latest/guide/languages.html#el.flycheck-checker.scala-scalastyle][Scalastyle]] provides style-checking and linting. The Emacs functionality is
+[[http://www.scalastyle.org/][Scalastyle]] provides style-checking and linting. The Emacs functionality is
 provided by Flycheck.
 
-To use scalastyle,
+To use scalastyle, it must be present as an executable in your =PATH=.
 
-1. Download the [[https://oss.sonatype.org/content/repositories/releases/org/scalastyle/scalastyle_2.11/0.6.0/][scalastyle jar]] and put it somewhere sensible
-2. Customise the =flycheck-scalastyle-jar= variable and set it to the path of
-   the jar.
+- OSX users: =brew install scalastyle=
+- Linux, please see http://www.scalastyle.org/command-line.html
 
-See the [[http://flycheck.readthedocs.org/en/latest/guide/languages.html#el.flycheck-checker.scala-scalastyle][flycheck documentation]] for up-to-date configuration instructions.
+To test if =scalastyle= executable is in your path, run =scalastyle= in a new
+terminal, it should output something like:
+#+BEGIN_SRC bash
+$ scalastyle
+scalastyle 0.8.0
+Usage: scalastyle [options] <source directory>
+...
+#+END_SRC
+
+Finally, enable the =syntax-checking= layer and set the =flycheck-scalastylerc=
+variable to a valid location.
+#+BEGIN_SRC emacs-lisp
+  (setq-default flycheck-scalastylerc "/usr/local/etc/scalastyle_config.xml")
+#+END_SRC
+
+See the [[http://www.flycheck.org/en/latest/languages.html?highlight=scala#syntax-checker-scala-scalastyle][flycheck documentation]] and [[http://www.scalastyle.org/configuration.html][scalastyle configuration]] for up-to-date
+configuration instructions.
 
 ** Use Java doc-style
-To enable =java-doc-style=, set the variable =scala-indent:use-javadoc-style= to =t=
+To enable =java-doc-style=, set the variable =scala-indent:use-javadoc-style= to
+=t=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
@@ -96,13 +107,14 @@ variable =scala-enable-eldoc= to =t=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (scala :variables scala-use-java-doc-style t)))
+    (scala :variables scala-enable-eldoc t)))
 #+END_SRC
 
 Enabling this option can cause slow editor performance.
 
 * Automatically insert asterisk in multiline comments
-To insert a leading asterisk in multiline comments automatically, set the variable =scala-auto-insert-asterisk-in-comments= to =t=.
+To insert a leading asterisk in multiline comments automatically, set the
+variable =scala-auto-insert-asterisk-in-comments= to =t=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
@@ -122,13 +134,13 @@ the ascii arrows back.
     (scala :variables scala-use-unicode-arrows t)))
 #+END_SRC
 
-* Disable auto-start
-If you prefer not to have Ensime start when you load a scala file, you can
-disable it with
+* Auto-start
+If you prefer to have Ensime start when you load a scala file, you can enable it
+with
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(
-    (scala :variables scala-auto-start-ensime nil)))
+    (scala :variables scala-auto-start-ensime t)))
 #+END_SRC
 
 * Key bindings
@@ -144,7 +156,9 @@ disable it with
 
 | Key Binding | Description         |
 |-------------+---------------------|
-| ~SPC m b c~ | compile command     |
+| ~SPC m b .~ | sbt transient state |
+| ~SPC m b b~ | sbt command         |
+| ~SPC m b c~ | compile             |
 | ~SPC m b C~ | clean command       |
 | ~SPC m b i~ | switch to sbt shell |
 | ~SPC m b p~ | package command     |
@@ -166,15 +180,13 @@ disable it with
 | ~SPC m d B~ | clear breakpoint            |
 | ~SPC m d C~ | clear all breakpoints       |
 | ~SPC m d c~ | continue                    |
-| ~SPC m d d~ | start a debug session       |
-| ~SPC m d i~ | inspect value at point      |
-| ~SPC m d l~ | list local variables        |
+| ~SPC m d i~ | step                        |
 | ~SPC m d n~ | next                        |
 | ~SPC m d o~ | step out                    |
 | ~SPC m d q~ | quit                        |
 | ~SPC m d r~ | run                         |
-| ~SPC m d s~ | step                        |
 | ~SPC m d t~ | backtrace                   |
+| ~SPC m d v~ | inspect value at point      |
 
 *Note:* These key bindings need a transient-state, PR welcome :-)
 

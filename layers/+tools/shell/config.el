@@ -1,6 +1,6 @@
 ;;; config.el --- shell configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,11 +15,10 @@
 (setq comint-move-point-for-output t)
 
 ;; Add shell buffers to useful buffers list
-(push "\\*\\(ansi-term\\|eshell\\|shell\\|terminal\.\+\\)\\*" spacemacs-useful-buffers-regexp)
+(push "\\*\\(ansi-term\\|eshell\\|shell\\|terminal\.\+\\)\\(-[0-9]+\\)?\\*"
+      spacemacs-useful-buffers-regexp)
 
 ;; Variables
-
-(spacemacs|defvar-company-backends eshell-mode)
 
 (defvar shell-default-shell (if (eq window-system 'w32)
                                 'eshell

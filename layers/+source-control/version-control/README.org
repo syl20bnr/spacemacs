@@ -35,6 +35,13 @@ by setting =version-control-diff-tool=
                   version-control-diff-tool 'diff-hl)
 #+END_SRC
 
+You can choose the side on which the diff appears (by default it's the right side)
+
+#+BEGIN_SRC emacs-lisp
+'(version-control :variables
+                  version-control-diff-side 'left)
+#+END_SRC
+
 To automatically enable diff margins in all buffers, set
 =version-control-global-margin=
 

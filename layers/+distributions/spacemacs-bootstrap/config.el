@@ -1,6 +1,6 @@
 ;;; config.el --- Spacemacs Bootstrap Layer configuration File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -37,6 +37,7 @@
     (scala-mode . scala-indent:step)
     (sgml-mode . sgml-basic-offset)
     (sh-mode . sh-basic-offset)
+    (typescript-mode . typescript-indent-level)
     (web-mode . web-mode-markup-indent-offset)
     (yaml-mode . yaml-indent-offset))
   "An alist where each key is either a symbol corresponding

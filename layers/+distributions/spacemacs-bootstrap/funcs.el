@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs Bootstrap Layer functions File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -44,6 +44,17 @@
 (defun evil-insert-state-cursor-hide ()
   (setq evil-insert-state-cursor '((hbar . 0))))
 
+(defun spacemacs/set-evil-search-module (style)
+  "Set the evil search module depending on STYLE."
+  (cond
+   ((or (eq 'vim style)
+        (and (eq 'hybrid style)
+             (or (not (boundp 'hybrid-mode-use-evil-search-module))
+                 hybrid-mode-use-evil-search-module)))
+    (setq-default evil-search-module 'evil-search))
+   (t
+    (setq-default evil-search-module 'isearch))))
+
 (defun spacemacs/evil-smart-doc-lookup ()
   "Version of `evil-lookup' that attempts to use
         the mode specific goto-definition binding,
@@ -54,17 +65,6 @@
     (if (commandp binding)
         (call-interactively binding)
       (evil-lookup))))
-
-(defun spacemacs/evil-smart-goto-definition ()
-  "Version of `evil-goto-definition' that attempts to use
-        the mode specific goto-definition binding,
-        i.e. `SPC m g g`, to lookup the source of the definition,
-        while falling back to `evil-goto-definition'"
-  (interactive)
-  (let ((binding (key-binding (kbd (concat dotspacemacs-leader-key " mgg")))))
-    (if (commandp binding)
-        (call-interactively binding)
-      (evil-goto-definition))))
 
 (defun spacemacs//set-evil-shift-width ()
   "Set the value of `evil-shift-width' based on the indentation settings of the
@@ -90,23 +90,32 @@ current major mode."
       (setq-local evil-shift-width shift-width))))
 
 (defmacro spacemacs|define-text-object (key name start end)
+  "Define a text object and a surround pair.
+START and END are strings (not regular expressions) that define
+the boundaries of the text object."
+  `(progn
+     (spacemacs|define-text-object-regexp ,key ,name
+                                          ,(regexp-quote start)
+                                          ,(regexp-quote end))
+     (with-eval-after-load 'evil-surround
+       (push (cons (string-to-char ,key)
+                   (if ,end
+                       (cons ,start ,end)
+                     ,start))
+             evil-surround-pairs-alist))))
+
+(defmacro spacemacs|define-text-object-regexp (key name start-regexp end-regexp)
+  "Define a text object.
+START-REGEXP and END-REGEXP are the boundaries of the text object."
   (let ((inner-name (make-symbol (concat "evil-inner-" name)))
-        (outer-name (make-symbol (concat "evil-outer-" name)))
-        (start-regex (regexp-opt (list start)))
-        (end-regex (regexp-opt (list end))))
+        (outer-name (make-symbol (concat "evil-outer-" name))))
     `(progn
        (evil-define-text-object ,inner-name (count &optional beg end type)
-         (evil-select-paren ,start-regex ,end-regex beg end type count nil))
+         (evil-select-paren ,start-regexp ,end-regexp beg end type count nil))
        (evil-define-text-object ,outer-name (count &optional beg end type)
-         (evil-select-paren ,start-regex ,end-regex beg end type count t))
+         (evil-select-paren ,start-regexp ,end-regexp beg end type count t))
        (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
-       (define-key evil-outer-text-objects-map ,key (quote ,outer-name))
-       (with-eval-after-load 'evil-surround
-         (push (cons (string-to-char ,key)
-                     (if ,end
-                         (cons ,start ,end)
-                       ,start))
-               evil-surround-pairs-alist)))))
+       (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
 
 ;; need to delay this macro since it relies on evil key maps to be defined
 (with-eval-after-load 'evil

@@ -1,6 +1,6 @@
 ;;; packages.el --- Ivy Layer packages File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,11 +12,13 @@
 (setq ivy-packages
       '(
         auto-highlight-symbol
+        bookmark
         counsel
         (counsel-projectile :toggle (configuration-layer/package-usedp 'projectile))
         evil
         flx
         helm-make
+        imenu
         ivy
         ivy-hydra
         (ivy-spacemacs-help :location local)
@@ -75,10 +77,6 @@
         "saF" 'spacemacs/search-ag-region-or-symbol
         "sap" 'spacemacs/search-project-ag
         "saP" 'spacemacs/search-project-ag-region-or-symbol
-        "stf" 'spacemacs/search-pt
-        "stF" 'spacemacs/search-pt-region-or-symbol
-        "stp" 'spacemacs/search-project-pt
-        "stP" 'spacemacs/search-project-pt-region-or-symbol
         "sgf" 'spacemacs/search-grep
         "sgF" 'spacemacs/search-grep-region-or-symbol
         "sgp" 'counsel-git-grep
@@ -86,7 +84,15 @@
         "skf" 'spacemacs/search-ack
         "skF" 'spacemacs/search-ack-region-or-symbol
         "skp" 'spacemacs/search-project-ack
-        "skP" 'spacemacs/search-project-ack-region-or-symbol)
+        "skP" 'spacemacs/search-project-ack-region-or-symbol
+        "srf" 'spacemacs/search-rg
+        "srF" 'spacemacs/search-rg-region-or-symbol
+        "srp" 'spacemacs/search-project-rg
+        "srP" 'spacemacs/search-project-rg-region-or-symbol
+        "stf" 'spacemacs/search-pt
+        "stF" 'spacemacs/search-pt-region-or-symbol
+        "stp" 'spacemacs/search-project-pt
+        "stP" 'spacemacs/search-project-pt-region-or-symbol)
 
       ;; set additional ivy actions
       (ivy-set-actions
@@ -111,11 +117,12 @@
       (progn
         (setq projectile-switch-project-action 'counsel-projectile-find-file)
         (spacemacs/set-leader-keys
-          "pb" 'counsel-projectile-switch-to-buffer
-          "pd" 'counsel-projectile-find-dir
-          "pp" 'counsel-projectile
-          "pf" 'counsel-projectile-find-file
-          "pr" 'projectile-recentf)))))
+          "p SPC" 'counsel-projectile
+          "pb"    'counsel-projectile-switch-to-buffer
+          "pd"    'counsel-projectile-find-dir
+          "pp"    'counsel-projectile-switch-project
+          "pf"    'counsel-projectile-find-file
+          "pr"    'projectile-recentf)))))
 
 (defun ivy/post-init-evil ()
   (spacemacs/set-leader-keys
@@ -133,6 +140,9 @@
         "cc" 'helm-make-projectile
         "cm" 'helm-make))))
 
+(defun ivy/post-init-imenu ()
+  (spacemacs/set-leader-keys "ji" 'counsel-imenu))
+
 (defun ivy/init-ivy ()
   (use-package ivy
     :config
@@ -145,13 +155,13 @@
       ;; Key bindings
       (spacemacs/set-leader-keys
         "a'" 'spacemacs/ivy-available-repls
-        "fr" 'ivy-recentf
+        "fr" 'counsel-recentf
         "rl" 'ivy-resume
         "bb" 'ivy-switch-buffer)
 
       ;; custom actions for recentf
       (ivy-set-actions
-       'ivy-recentf
+       'counsel-recentf
        spacemacs--ivy-file-actions)
 
       (ivy-mode 1)
@@ -170,23 +180,36 @@
   (use-package ivy-hydra))
 
 (defun ivy/post-init-persp-mode ()
+  ;; based on https://gist.github.com/Bad-ptr/1aca1ec54c3bdb2ee80996eb2b68ad2d#file-persp-ivy-el
+  (add-hook 'ivy-ignore-buffers #'spacemacs//layout-not-contains-buffer-p)
+  (setq ivy-sort-functions-alist
+        (append ivy-sort-functions-alist
+                '((persp-kill-buffer . nil)
+                  (persp-remove-buffer . nil)
+                  (persp-add-buffer . nil)
+                  (persp-switch . nil)
+                  (persp-window-switch . nil)
+                  (persp-frame-switch . nil))))
+
   (ivy-set-actions
    'spacemacs/ivy-spacemacs-layouts
    '(("c" persp-kill-without-buffers "Close layout(s)")
      ("k" persp-kill  "Kill layout(s)")))
   (setq spacemacs-layouts-transient-state-remove-bindings
-        '("b" "l" "C" "X"))
+        '("C" "X"))
   (setq spacemacs-layouts-transient-state-add-bindings
-        '(("b" spacemacs/ivy-spacemacs-layout-buffer)
-          ("l" spacemacs/ivy-spacemacs-layouts)
+        '(("b" spacemacs/ivy-spacemacs-layout-buffer :exit t)
+          ("l" spacemacs/ivy-spacemacs-layouts :exit t)
           ("C" spacemacs/ivy-spacemacs-layout-close-other :exit t)
           ("X" spacemacs/ivy-spacemacs-layout-kill-other :exit t))))
 
 (defun ivy/post-init-projectile ()
   (setq projectile-completion-system 'ivy)
   (spacemacs/set-leader-keys
-    "pp"  'projectile-switch-project
     "pv"  'projectile-vc))
+
+(defun ivy/post-init-bookmark ()
+  (spacemacs/set-leader-keys "fb" 'counsel-bookmark))
 
 (defun ivy/init-smex ()
   (use-package smex

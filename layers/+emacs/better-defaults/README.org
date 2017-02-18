@@ -4,10 +4,12 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
- - [[#install][Install]]
- - [[#functions][Functions]]
-   - [[#spacemacssmart-move-beginning-of-line][=spacemacs/smart-move-beginning-of-line=]]
+ - [[#features][Features]]
+   - [[#smart-line-navigation][Smart line navigation]]
    - [[#spacemacsbackward-kill-word-or-region][=spacemacs/backward-kill-word-or-region=]]
+   - [[#fill-or-unfill-paragraph][Fill or unfill paragraph]]
+ - [[#install][Install]]
+ - [[#configuration][Configuration]]
  - [[#key-bindings][Key bindings]]
 
 * Description
@@ -21,26 +23,53 @@ style.
 
 The commands defined in this layer are taken from various sources like [[https://github.com/bbatsov/prelude][Prelude]].
 
-* Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =better-defaults= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+* Features
+** Smart line navigation
+Subsequent presses of ~C-a~ toggles between the beginning of the line and the
+first non-whitespace character.
 
-* Functions
-** =spacemacs/smart-move-beginning-of-line=
-Pressed one time, go to the first non-whitespace character of the line, pressed
-again, go to the beginning of the line.
+Similarly, subsequent presses of ~C-e~ will toggle between the end of the code
+and the end of the comments.
 
 ** =spacemacs/backward-kill-word-or-region=
 A combination of =kill-region= and =backward-kill-word=, depending on whether
 there is an active region. If there's an active region kill that. If not kill
 the preceding word.
 
+** Fill or unfill paragraph
+Pressing ~M-q~ for the first time fills current paragraph and pressing ~M-q~ for
+the second time unfills it. Note that some modes override this key binding so
+it's not available everywhere. Due to implementation details unfilling doesn't
+work when called twice via ~M-x~.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =better-defaults= to the existing =dotspacemacs-configuration-layers= list in
+this file.
+
+* Configuration
+Choose if ~C-a~ first brings you to the beginning of the line or the beginning of
+the code (first non-whitespace character).
+
+#+BEGIN_SRC emacs-lisp
+  (better-defaults :variables
+                   better-defaults-move-to-beginning-of-code-first t)
+#+END_SRC
+
+Choose if ~C-e~ first brings you to the end of the line or the end of the code
+(before or after comments).
+
+#+BEGIN_SRC emacs-lisp
+  (better-defaults :variables
+                   better-defaults-move-to-end-of-code-first nil)
+#+END_SRC
+
 * Key bindings
 
 | Key Binding | Description                                                                      |
 |-------------+----------------------------------------------------------------------------------|
-| ~C-a~       | smart beginning of line                                                          |
+| ~C-a~       | move to beginning of line or code                                                |
+| ~C-e~       | move to end of line or code                                                      |
 | ~C-w~       | backward kill word or region                                                     |
 | ~C-y~       | Automatically indenting after pasting. With prefix argument, paste text as it is |
-
+| ~M-q~       | fill or unfill current paragraph                                                 |

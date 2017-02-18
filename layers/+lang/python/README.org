@@ -7,11 +7,14 @@
    - [[#features][Features]]
  - [[#install][Install]]
    - [[#layer][Layer]]
+   - [[#dependencies][Dependencies]]
+     - [[#auto-completion-anaconda-dependencies][Auto-completion: Anaconda dependencies]]
+     - [[#syntax-checking][Syntax checking]]
    - [[#test-runner][Test runner]]
-   - [[#anaconda-dependencies][Anaconda dependencies]]
    - [[#automatic-buffer-formatting-on-save][Automatic buffer formatting on save]]
    - [[#autoflake][autoflake]]
    - [[#pylookup][pylookup]]
+   - [[#hy-mode][Hy-mode]]
  - [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
    - [[#manage-virtual-environments-with-pyvenv][Manage virtual environments with pyvenv]]
    - [[#manage-multiple-python-versions-with-pyenv][Manage multiple Python versions with pyenv]]
@@ -22,9 +25,11 @@
    - [[#testing][Testing]]
    - [[#refactoring][Refactoring]]
    - [[#live-coding][Live coding]]
+   - [[#hy-repl-process][Hy REPL process]]
    - [[#other-python-commands][Other Python commands]]
  - [[#configuration][Configuration]]
    - [[#fill-column][Fill column]]
+   - [[#sort-imports][Sort imports]]
 
 * Description
 This layer adds support for the Python language.
@@ -37,14 +42,45 @@ This layer adds support for the Python language.
 - Virtual Environment using  [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]]
 - semantic mode is enabled
 - PEP8 compliant formatting via [[https://github.com/google/yapf][YAPF]]
+- PEP8 checks with [[https://pypi.python.org/pypi/flake8][flake8]] or [[https://pypi.python.org/pypi/pylint/1.6.4][pylint]]
 - Suppression of unused import with [[https://github.com/myint/autoflake][autoflake]]
 - Use the ~%~ key to jump between blocks with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
+- Sort imports with [[https://pypi.python.org/pypi/isort][isort]]
 
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =python= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+** Dependencies
+*** Auto-completion: Anaconda dependencies
+=anaconda-mode= tries to install the dependencies itself but sometimes
+it does not work and you may encounter the following message when
+opening a python buffer:
+
+#+begin_example
+    Blocking call to accept-process-output with quit inhibited!!
+#+end_example
+
+To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anaconda-mode/blob/master/requirements.txt][anaconda-deps]] by hand:
+
+#+begin_src sh
+    pip install --upgrade "jedi>=0.9.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
+#+end_src
+
+Source: https://github.com/proofit404/anaconda-mode#issues
+
+If you are facing errors such as "Unable to run anaconda-mode server", try
+setting your ~PYTHONPATH~ as explained at
+https://github.com/proofit404/anaconda-mode#pythonpath
+
+*** Syntax checking
+Syntax checking uses `flake8` package:
+
+#+begin_src sh
+    pip install flake8
+#+end_src
 
 ** Test runner
 Both =nose= and =pytest= are supported. By default =nose= is used.
@@ -72,27 +108,6 @@ directory local variable in your project root. ~SPC f v d~ in Spacemacs. See
 
 The root of the project is detected with a =.git= directory or a =setup.cfg= file.
 
-** Anaconda dependencies
-=anaconda-mode= tries to install the dependencies itself but sometimes
-it does not work and you may encounter the following message when
-opening a python buffer:
-
-#+begin_example
-    Blocking call to accept-process-output with quit inhibited!!
-#+end_example
-
-To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anaconda-mode/blob/master/requirements.txt][anaconda-deps]] by hand:
-
-#+begin_src sh
-    pip install  jedi==0.8.1 json-rpc==1.8.1 service_factory==0.1.2
-#+end_src
-
-Source: https://github.com/proofit404/anaconda-mode#issues
-
-If you are facing errors such as "Unable to run anaconda-mode server", try
-setting your ~PYTHONPATH~ as explained at
-https://github.com/proofit404/anaconda-mode#pythonpath
-
 ** Automatic buffer formatting on save
 To enable automatic buffer formatting on save with  [[https://github.com/google/yapf][YAPF]] set the variable
 =python-enable-yapf-format-on-save= to =t=.
@@ -112,6 +127,14 @@ To be able to suppress unused imports easily, install [[https://github.com/myint
 ** pylookup
 To use =pylookup= on ~SPC m h H~, make sure you update the database first, using
 ~SPC SPC pylookup-update~.
+
+** Hy-mode
+To be able to connect to an inferior lisp repl in =hy-mode=, you need to make sure
+that hy is installed.
+
+#+BEGIN_SRC sh
+  pip install hy
+#+END_SRC
 
 * Management of Python versions and virtual environments
 
@@ -134,7 +157,7 @@ by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides
 If you need multiple Python versions (e.g. Python 2 and Python 3) then take a
 look at [[https://github.com/yyuu/pyenv][pyenv]]. It enables the installation and managment of multiple
 Python versions.
-[[https://www.brianthicks.com/2015/04/10/pyenv-your-python-environment-automated/][This blogpost]] gives a good overview on how to use the tool. Spacemacs
+[[https://www.brianthicks.com/post/2015/04/15/automate-your-python-environment-with-pyenv/][This blogpost]] gives a good overview on how to use the tool. Spacemacs
 integration is provided by [[https://github.com/proofit404/pyenv-mode][pyenv mode]] which has the following keybindings.
 
 | Key Binding | Description                          |
@@ -154,6 +177,12 @@ the pyenv version. The behavior can be set with the variable
 =python-auto-set-local-pyenv-version= to:
 - =on-visit= (default) set the version when you visit a python buffer,
 - =on-project-switch= set the version when you switch projects,
+- =nil= to disable.
+
+The same is also possible on pyvenv with a file called =.venv=. The behavior
+can be set with the variable =python-auto-set-local-pyvenv-virtualenv== to:
+- =on-visit= (default) set the virtualenv when you visit a python buffer,
+- =on-project-switch= set the virtualenv when you switch projects,
 - =nil= to disable.
 
 * Key Bindings
@@ -218,20 +247,41 @@ function with a prefix argument, for example ~SPC u SPC m t a~.
 | Key Binding | Description                          |
 |-------------+--------------------------------------|
 | ~SPC m r i~ | remove unused imports with [[https://github.com/myint/autoflake][autoflake]] |
+| ~SPC m r I~ | sort imports with [[https://pypi.python.org/pypi/isort][isort]]              |
 
 ** Live coding
+
 Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][live-py-plugin.]]
 
 | Key Binding | Description         |
 |-------------+---------------------|
 | ~SPC m l~   | Toggle live-py-mode |
 
+** Hy REPL process
+Start a Hy inferior repel process with ~SPC m s i~. If =hy= is
+available in system executable search paths, =hy= will be used to
+launch the shell. You may change your system executable search path
+by activating a virtual enviornment.
+
+Send code to hy REPL commands:
+
+| Key Binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~SPC m s b~ | send buffer and keep code buffer focused                  |
+| ~SPC m s B~ | switch to REPL                                            |
+| ~SPC m s e~ | send sexp in front of the cursor to the REPL              |
+| ~SPC m s f~ | send function to REPL and stay in buffer                  |
+| ~SPC m s F~ | send function to REPL and switch to repl buffer           |
+| ~SPC m s i~ | start inferior hy repl                                    |
+| ~SPC m s r~ | send current region to the REPL and stay in buffer        |
+| ~SPC m s R~ | send current region to the REPL and switch to repl buffer |
+
 ** Other Python commands
 
 | Key Binding | Description                                                                  |
 |-------------+------------------------------------------------------------------------------|
 | ~SPC m =~   | Reformat the buffer according to PEP8 using  [[https://github.com/google/yapf][YAPF]]                            |
-| ~SPC m d b~ | toggle a breakpoint                                                          |
+| ~SPC m d b~ | toggle a breakpoint using =wdb=, =ipdb=, =pudb= or =pdb=                     |
 | ~SPC m g g~ | go to definition using =anaconda-mode-find-definitions= (~C-o~ to jump back) |
 | ~SPC m g a~ | go to assignment using =anaconda-mode-find-assignments= (~C-o~ to jump back) |
 | ~SPC m g b~ | jump back                                                                    |
@@ -251,5 +301,18 @@ If you want to customize the fill column value, use something like this inside
 the ~user-init~ function in your ~.spacemacs~:
 
 #+BEGIN_SRC elisp
-(setq python-fill-column 99)
+(setq-default dotspacemacs-configuration-layers '(
+    (python :variables python-fill-column 99)))
 #+END_SRC
+
+** Sort imports
+If you want imports to be automatically sorted when you save a file (using
+[[https://pypi.python.org/pypi/isort][isort]]), set the =python-sort-imports-on-save= variable in the python layer
+config section:
+
+#+BEGIN_SRC elisp
+(setq-default dotspacemacs-configuration-layers
+  '((python :variables python-sort-imports-on-save t)))
+#+END_SRC
+
+or as a directory-local variable (for per-project settings).

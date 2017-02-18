@@ -1,6 +1,6 @@
 ;;; evil-evilified-state.el --- A minimalistic evil state
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil spacemacs
@@ -30,6 +30,15 @@
 
 ;; The shadowed original mode key bindings are automatically reassigned
 ;; following a set of rules:
+;; Keys such as 
+;; /,:,h,j,k,l,n,N,v,V,gg,G,C-f,C-b,C-d,C-e,C-u,C-y and C-z 
+;; are working as in Evil.
+;; Other keys will be moved according to this pattern:
+;; a -> A -> C-a -> C-A
+;; The first unreserved key will be used. 
+;; There is an exception for g, which will be directly
+;; bound to C-G, since G and C-g (latest being an important escape key in Emacs) 
+;; are already being used.
 
 ;;; Code:
 
@@ -266,8 +275,8 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
                          (evilified-state--find-new-event event) nil
                          processed pending-funcs)))
     (when pending-funcs
-      (spacemacs-buffer/warning
-       (concat (format (concat "Auto-evilication could not remap these "
+      (message
+       (concat (format (concat "Auto-evilification could not remap these "
                                "functions in map `%s':\n")
                        map-symbol)
                (mapconcat (lambda (x)

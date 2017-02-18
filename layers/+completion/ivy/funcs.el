@@ -1,6 +1,6 @@
 ;;; funcs.el --- Ivy Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -85,6 +85,43 @@
             (spacemacs//counsel-async-command spacemacs--counsel-search-cmd)
             nil)))))
 
+(defun spacemacs//counsel-save-in-buffer ()
+  (interactive)
+  (ivy-quit-and-run
+   (let ((buf "*ivy results*"))
+     (with-current-buffer (get-buffer-create buf)
+       (erase-buffer)
+       (dolist (c ivy--all-candidates)
+         (insert c "\n"))
+       (spacemacs//gne-init-counsel))
+     (pop-to-buffer buf))))
+
+(defun spacemacs//counsel-edit ()
+  "Edit the current search results in a buffer using wgrep."
+  (interactive)
+  (run-with-idle-timer 0 nil 'ivy-wgrep-change-to-wgrep-mode)
+  (ivy-occur))
+
+(defun spacemacs//gne-init-counsel ()
+  (with-current-buffer "*ivy results*"
+    (setq spacemacs--gne-min-line 1
+          spacemacs--gne-max-line
+          (save-excursion
+            (goto-char (point-max))
+            (previous-line)
+            (line-number-at-pos))
+          spacemacs--gne-line-func
+          (lambda (c)
+            (let ((counsel--git-grep-dir default-directory))
+              (counsel-git-grep-action c)))
+          next-error-function 'spacemacs/gne-next)))
+
+(defvar spacemacs--counsel-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "<f3>") 'spacemacs//counsel-save-in-buffer)
+    (define-key map (kbd "C-c C-e") 'spacemacs//counsel-edit)
+    map))
+
 ;; see `counsel-ag'
 (defun spacemacs/counsel-search
       (&optional tools use-initial-input initial-directory)
@@ -127,6 +164,7 @@ that directory."
        :history 'counsel-git-grep-history
        :action #'counsel-git-grep-action
        :caller 'spacemacs/counsel-search
+       :keymap spacemacs--counsel-map
        :unwind (lambda ()
                  (counsel-delete-process)
                  (swiper--cleanup)))))
@@ -134,6 +172,7 @@ that directory."
 ;; Define search functions for each tool
 (cl-loop
    for (tools tool-name) in '((dotspacemacs-search-tools "auto")
+                              ((list "rg") "rg")
                               ((list "ag") "ag")
                               ((list "pt") "pt")
                               ((list "ack") "ack")

@@ -1,6 +1,6 @@
 ;;; packages.el --- C/C++ Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,6 +20,7 @@
     company-ycmd
     flycheck
     gdb-mi
+    ggtags
     helm-cscope
     helm-gtags
     semantic
@@ -33,7 +34,9 @@
   (use-package cc-mode
     :defer t
     :init
-    (add-to-list 'auto-mode-alist `("\\.h\\'" . ,c-c++-default-mode-for-headers))
+    (progn
+      (add-to-list 'auto-mode-alist
+                   `("\\.h\\'" . ,c-c++-default-mode-for-headers)))
     :config
     (progn
       (require 'compile)
@@ -62,33 +65,34 @@
 
 (defun c-c++/init-cmake-mode ()
   (use-package cmake-mode
-    :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))
-    :init (push 'company-cmake company-backends-cmake-mode)))
+    :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))))
 
 (defun c-c++/post-init-company ()
-  (spacemacs|add-company-hook c-mode-common)
-  (spacemacs|add-company-hook cmake-mode)
-
+  (when (configuration-layer/package-usedp 'cmake-mode)
+    (spacemacs|add-company-backends :backends company-cmake :modes cmake-mode))
   (when c-c++-enable-clang-support
-    (push 'company-clang company-backends-c-mode-common)
-
-    (defun company-mode/more-than-prefix-guesser ()
-      (c-c++/load-clang-args)
-      (company-clang-guess-prefix))
-
+    (spacemacs|add-company-backends :backends company-clang
+      :modes c-mode-common)
     (setq company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser)
-    (spacemacs/add-to-hooks 'c-c++/load-clang-args '(c-mode-hook c++-mode-hook))))
+    (spacemacs/add-to-hooks 'c-c++/load-clang-args
+                            '(c-mode-hook c++-mode-hook))))
 
 (defun c-c++/init-company-c-headers ()
   (use-package company-c-headers
     :defer t
-    :init (push 'company-c-headers company-backends-c-mode-common)))
+    :init (spacemacs|add-company-backends
+            :backends company-c-headers
+            :modes c-mode-common)))
 
 (defun c-c++/post-init-flycheck ()
   (dolist (mode '(c-mode c++-mode))
     (spacemacs/add-flycheck-hook mode))
   (when c-c++-enable-clang-support
     (spacemacs/add-to-hooks 'c-c++/load-clang-args '(c-mode-hook c++-mode-hook))))
+
+(defun c-c++/post-init-ggtags ()
+  (add-hook 'c-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
+  (add-hook 'c++-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun c-c++/init-gdb-mi ()
   (use-package gdb-mi
@@ -117,12 +121,15 @@
 
 (defun c-c++/post-init-ycmd ()
   (add-hook 'c++-mode-hook 'ycmd-mode)
-  (spacemacs/set-leader-keys-for-major-mode 'c++-mode
-    "gg" 'ycmd-goto
-    "gG" 'ycmd-goto-imprecise))
+  (add-hook 'c-mode-hook 'ycmd-mode)
+  (add-to-list 'spacemacs-jump-handlers-c++-mode '(ycmd-goto :async t))
+  (add-to-list 'spacemacs-jump-handlers-c-mode '(ycmd-goto :async t))
+  (dolist (mode '(c++-mode c-mode))
+    (spacemacs/set-leader-keys-for-major-mode mode
+      "gG" 'ycmd-goto-imprecise)))
 
 (defun c-c++/post-init-company-ycmd ()
-  (push 'company-ycmd company-backends-c-mode-common))
+  (spacemacs|add-company-backends :backends company-ycmd :modes c-mode-common))
 
 (defun c-c++/pre-init-xcscope ()
   (spacemacs|use-package-add-hook xcscope

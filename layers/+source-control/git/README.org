@@ -20,8 +20,10 @@
    - [[#commit-message-editing-buffer][Commit message editing buffer]]
    - [[#interactive-rebase-buffer][Interactive rebase buffer]]
    - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
-   - [[#git-flow][Git-Flow]]
+   - [[#git-flow-1][Git-Flow]]
    - [[#git-time-machine][Git time machine]]
+   - [[#git-links-to-web-services][Git links to web services]]
+   - [[#repository-list][Repository list]]
 
 * Description
 This layers adds extensive support for [[http://git-scm.com/][git]].
@@ -35,7 +37,7 @@ This layers adds extensive support for [[http://git-scm.com/][git]].
 - gitignore generator with [[https://github.com/jupl/helm-gitignore][helm-gitignore]]
 - org integration with magit via [[https://github.com/magit/orgit][orgit]]
 
-New to Magit? Checkout the [[http://magit.vc/about.html][official intro]].
+New to Magit? Checkout the [[https://magit.vc/about/][official intro]].
 
 * Install
 ** Layer
@@ -49,8 +51,7 @@ To display the =magit status= buffer in fullscreen set the variable
 
 #+BEGIN_SRC emacs-lisp
   (defun dotspacemacs/user-init ()
-    (setq-default git-magit-status-fullscreen t)
-  )
+    (setq-default git-magit-status-fullscreen t))
 #+END_SRC
 
 ** Magit auto-complete
@@ -71,8 +72,7 @@ layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
 
 #+BEGIN_SRC emacs-lisp
   (defun dotspacemacs/user-init ()
-    (setq-default git-enable-magit-svn-plugin t)
-  )
+    (setq-default git-enable-magit-svn-plugin t))
 #+END_SRC
 
 ** Global git commit mode
@@ -106,32 +106,19 @@ Git commands (start with ~g~):
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC g >~   | show submodule prompt                               |
-| ~SPC g A~   | show cherry-pick prompt                             |
 | ~SPC g b~   | open a =magit= blame                                |
-| ~SPC g B~   | quit =magit= blame                                  |
-| ~SPC g c~   | commit changes                                      |
-| ~SPC g C~   | checkout branches                                   |
-| ~SPC g d~   | show diff prompt                                    |
-| ~SPC g D~   | show diff against current head                      |
-| ~SPC g e~   | show ediff comparison                               |
-| ~SPC g E~   | show ediff against current head                     |
-| ~SPC g f~   | show fetch prompt                                   |
-| ~SPC g F~   | show pull prompt                                    |
+| ~SPC g f h~ | show file commits history                           |
 | ~SPC g H c~ | clear highlights                                    |
 | ~SPC g H h~ | highlight regions by age of commits                 |
 | ~SPC g H t~ | highlight regions by last updated time              |
-| ~SPC g i~   | git init a given directory                          |
 | ~SPC g I~   | open =helm-gitignore=                               |
-| ~SPC g l~   | open a =magit= log                                  |
-| ~SPC g L~   | display the log for a file                          |
-| ~SPC g r~   | show rebase prompt                                  |
-| ~SPC g P~   | show push prompt                                    |
+| ~SPC g L~   | open magit-repolist                                 |
 | ~SPC g s~   | open a =magit= status window                        |
 | ~SPC g S~   | stage current file                                  |
-| ~SPC g m~   | display the last commit message of the current line |
+| ~SPC g m~   | magit dispatch popup                                |
+| ~SPC g M~   | display the last commit message of the current line |
 | ~SPC g t~   | launch the git time machine                         |
 | ~SPC g U~   | unstage current file                                |
-| ~SPC g x~   | show reset prompt                                   |
 
 - Highlight by age of commit or last update time is provided by
  [[https://github.com/syohex/emacs-smeargle][smeargle]].
@@ -141,7 +128,8 @@ Git commands (start with ~g~):
 ** Magit
 Spacemacs uses [[http://magit.vc/][magit]] to manage Git repositories.
 
-To open a =status buffer=, type in a buffer of a Git repository: ~SPC g s~
+To open a =status buffer=, type in a buffer of a Git repository: ~SPC g s~.
+The central key binding hub of Magit is available on ~SPC g m~.
 
 Spacemacs uses [[https://github.com/justbur/evil-magit][evil-magit]] for key bindings in magit buffers (unless your editing
 style is set to emacs, in which case you get the default magit bindings), which
@@ -190,8 +178,8 @@ intended. To work around this, you can use =v= instead (since Magit only stages
 whole lines, in any case).
 
 ** Commit message editing buffer
-In a commit message buffer press ~,c~ (if =dotspacemacs-major-mode-leader-key= is ~​,​~)
-or ~C-c C-c~ to commit the changes with the entered message. Pressing ~,a~ or ~C-c C-k~
+In a commit message buffer press ~​,​c~ (if =dotspacemacs-major-mode-leader-key= is ~​,​~)
+or ~C-c C-c~ to commit the changes with the entered message. Pressing ~​,​a~ or ~C-c C-k~
 will discard the commit message.
 
 | Key Binding | Description |
@@ -209,9 +197,9 @@ will discard the commit message.
 | ~e~         | edit           |
 | ~f~         | fixup          |
 | ~j~         | go down        |
-| ~gj~        | move line down |
+| ~M-j~       | move line down |
 | ~k~         | go up          |
-| ~gk~        | move line up   |
+| ~M-k~       | move line up   |
 | ~d~ or ~x~  | kill line      |
 | ~r~         | reword         |
 | ~s~         | squash         |
@@ -220,18 +208,17 @@ will discard the commit message.
 | ~!~         | execute        |
 
 ** Quick guide for recurring use cases in Magit
-
 - Amend a commit:
   - ~l l~ to open =log buffer=
   - ~c a~ on the commit you want to amend
-  - ~,c~ or ~C-c C-c~ to submit the changes
+  - ~​,​c~ or ~C-c C-c~ to submit the changes
 - Squash last commit:
   - ~l l~ to open =log buffer=
   - ~r e~ on the second to last commit, it opens the =rebase buffer=
   - ~j~ to put point on last commit
   - ~s~ to squash it
-  - ~,c~ or ~C-c C-c~ to continue to the =commit message buffer=
-  - ~,c~ or ~C-c C-c~ again when you have finished to edit the commit message
+  - ~​,​c~ or ~C-c C-c~ to continue to the =commit message buffer=
+  - ~​,​c~ or ~C-c C-c~ again when you have finished to edit the commit message
 - Force push a squashed commit:
   - in the =status buffer= you should see the new commit unpushed and the old
     commit unpulled
@@ -246,7 +233,6 @@ will discard the commit message.
   - ~P P~ to push the commit to =origin=
 
 ** Git-Flow
-
 [[https://github.com/jtatarik/magit-gitflow][magit-gitflow]] provides git-flow commands in its own magit menu.
 
 | Key Binding | Description             |
@@ -254,7 +240,6 @@ will discard the commit message.
 | ~%~         | open magit-gitflow menu |
 
 ** Git time machine
-
 [[https://github.com/pidu/git-timemachine][git-timemachine]] allows to quickly browse the commits of the current buffer.
 
 | Key Binding | Description                                        |
@@ -267,4 +252,36 @@ will discard the commit message.
 | ~q~         | leave transient-state and git timemachine          |
 | ~Y~         | copy current commit hash                           |
 
-#  LocalWords:  unpulled
+** Git links to web services
+These key bindings allow to quickly construct URLs pointing to a given commit
+or lines in a file hosted on Git web services like GitHub, GitLab, Bitbucket...
+
+| Key Binding | Description                                                            |
+|-------------+------------------------------------------------------------------------|
+| ~SPC g l c~ | on a commit hash, browse to the current file at this commit            |
+| ~SPC g l C~ | on a commit hash, create link to the file at this commit and copy it   |
+| ~SPC g l l~ | on a region, browse to file at current lines position                  |
+| ~SPC g l L~ | on a region, create a link to the file highlighting the selected lines |
+
+*Notes:*
+- You can use the universal argument ~SPC u~ to select a remote repository.
+- When the link is opened, the URL is also copied in the kill ring, you can
+  override this behavior by setting the variable =git-link-open-in-browser= to
+  =nil=.
+
+** Repository list
+
+This feature will show a list of git directories. The feature needs slight
+configuration within your `.spacemacs` config. In the `dotspacemacs/user-config()` 
+stanza insert the following with the directories of your choice:
+
+#+BEGIN_SRC emacs-lisp
+(setq magit-repository-directories
+      '("~/Development"))
+#+END_SRC
+
+| Key Binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~SPC g L~   | start git repo list                                 |
+| ~RET~       | show the git status window for the selected project |
+| ~gr~        | refresh the project list                            |

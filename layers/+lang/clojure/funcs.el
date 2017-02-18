@@ -1,6 +1,6 @@
 ;;; funcs.el --- Clojure Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -124,19 +124,19 @@ the focus."
   "Run loaded tests."
   (interactive)
   (cider-load-buffer)
-  (cider-test-run-loaded-tests nil))
+  (cider-test-run-loaded-tests))
 
 (defun spacemacs/cider-test-run-project-tests ()
   "Run project tests."
   (interactive)
   (cider-load-buffer)
-  (cider-test-run-project-tests nil))
+  (cider-test-run-project-tests))
 
-(defun spacemacs/cider-test-rerun-tests ()
-  "Run previous tests again."
+(defun spacemacs/cider-test-rerun-failed-tests ()
+  "Rerun failed tests."
   (interactive)
   (cider-load-buffer)
-  (cider-test-rerun-tests))
+  (cider-test-rerun-failed-tests))
 
 (defun spacemacs/cider-display-error-buffer (&optional arg)
   "Displays the *cider-error* buffer in the current window.

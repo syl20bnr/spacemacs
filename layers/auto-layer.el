@@ -1,6 +1,6 @@
 ;;; auto-layer.el --- auto-mode-alist entries for layer installation
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -87,7 +87,7 @@
 (configuration-layer/lazy-install 'python :extensions '("\\(\\.pyx\\'\\|\\.pxd\\'\\|\\.pxi\\'\\)" cython-mode))
 (configuration-layer/lazy-install 'python :extensions '("\\(\\.hy\\'\\)" hy-mode))
 (configuration-layer/lazy-install 'python :extensions '("\\(\\.pip\\'\\|requirements\\(?:.\\|\n\\)*\\.txt\\'\\)" pip-requirements-mode))
-(configuration-layer/lazy-install 'python :extensions '("\\(\\.py\\'\\)" python-mode))
+(configuration-layer/lazy-install 'python :extensions '("\\(\\.py\\'\\)" python-mode) :interpreter '("python[0-9.]*" python-mode))
 
 (configuration-layer/lazy-install 'racket :extensions '("\\(\\.rkt[dl]?\\'\\)" racket-mode))
 

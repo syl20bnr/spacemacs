@@ -1,6 +1,6 @@
 ;;; packages.el --- elm Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,7 +20,7 @@
       ))
 
 (defun elm/post-init-company ()
-  (spacemacs|add-company-hook elm-mode)
+  (spacemacs|add-company-backends :backends company-elm :modes elm-mode)
   (add-hook 'elm-mode-hook 'elm-oracle-setup-completion))
 
 (defun elm/post-init-flycheck ()
@@ -52,17 +52,17 @@
       (push "\\*elm\\*" spacemacs-useful-buffers-regexp)
 
       (spacemacs/set-leader-keys-for-major-mode 'elm-mode
+        ;; format
+        "=b" 'elm-mode-format-buffer
         ;; make
         "cb" 'elm-compile-buffer
         "cB" 'spacemacs/elm-compile-buffer-output
         "cm" 'elm-compile-main
-
         ;; oracle
+        "hh" 'elm-oracle-doc-at-point
         "ht" 'elm-oracle-type-at-point
-
         ;; refactoring
         "ri" 'elm-sort-imports
-
         ;; repl
         "'"  'elm-repl-load
         "si" 'elm-repl-load
@@ -70,20 +70,19 @@
         "sF" 'spacemacs/elm-repl-push-decl-focus
         "sr" 'elm-repl-push
         "sR" 'spacemacs/elm-repl-push-focus
-
         ;; reactor
         "Rn" 'elm-preview-buffer
         "Rm" 'elm-preview-main
-
         ;; package
         "pi" 'elm-import
         "pc" 'elm-package-catalog
         "pd" 'elm-documentation-lookup)
 
-      (dolist (x '(("mR" . "reactor")
+      (dolist (x '(("m=" . "format")
                    ("mc" . "compile")
                    ("mh" . "help")
                    ("mp" . "package")
+                   ("mR" . "reactor")
                    ("mr" . "refactor")
                    ("ms" . "repl")))
         (spacemacs/declare-prefix-for-mode 'elm-mode (car x) (cdr x)))

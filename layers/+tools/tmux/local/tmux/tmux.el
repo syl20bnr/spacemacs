@@ -32,7 +32,7 @@
   (let
     ((cmd (concat "windmove-" direction)))
       (condition-case nil
-          (funcall (read cmd))
+          (funcall (intern cmd))
         (error
           (tmux-command direction)))))
 
@@ -45,71 +45,38 @@
   (upcase
     (substring direction 0 1)))
 
-(define-key evil-normal-state-map
-            (kbd "C-h")
-            (lambda ()
-              (interactive)
-              (tmux-navigate "left")))
-(define-key evil-normal-state-map
-            (kbd "C-j")
-            (lambda ()
-              (interactive)
-              (tmux-navigate "down")))
-(define-key evil-normal-state-map
-            (kbd "C-k")
-            (lambda ()
-              (interactive)
-              (tmux-navigate "up")))
-(define-key evil-normal-state-map
-            (kbd "C-l")
-            (lambda ()
-              (interactive)
-              (tmux-navigate "right")))
+(defun tmux-nav-left ()
+  (interactive)
+  (tmux-navigate "left"))
 
-(define-key evil-motion-state-map
-            (kbd "C-h")
-            (lambda ()
-              (interactive)
-              (tmux-navigate "left")))
-(define-key evil-motion-state-map
-            (kbd "C-j")
-            (lambda ()
-              (interactive)
-              (tmux-navigate "down")))
-(define-key evil-motion-state-map
-            (kbd "C-k")
-            (lambda ()
-              (interactive)
-              (tmux-navigate "up")))
-(define-key evil-motion-state-map
-            (kbd "C-l")
-            (lambda ()
-              (interactive)
-              (tmux-navigate "right")))
+(defun tmux-nav-right ()
+  (interactive)
+  (tmux-navigate "right"))
+
+(defun tmux-nav-up ()
+  (interactive)
+  (tmux-navigate "up"))
+
+(defun tmux-nav-down ()
+  (interactive)
+  (tmux-navigate "down"))
+
+(define-key evil-normal-state-map (kbd "C-h") #'tmux-nav-left)
+(define-key evil-normal-state-map (kbd "C-j") #'tmux-nav-down)
+(define-key evil-normal-state-map (kbd "C-k") #'tmux-nav-up)
+(define-key evil-normal-state-map (kbd "C-l") #'tmux-nav-right)
+(define-key evil-motion-state-map (kbd "C-h") #'tmux-nav-left)
+(define-key evil-motion-state-map (kbd "C-j") #'tmux-nav-down)
+(define-key evil-motion-state-map (kbd "C-k") #'tmux-nav-up)
+(define-key evil-motion-state-map (kbd "C-l") #'tmux-nav-right)
 
 ;; Modify `evil-evilified-state-map-original' because `evil-evilified-state-map'
 ;; is reset to this value each time the evilify macro is run.
 (when (boundp 'evil-evilified-state-map-original)
-  (define-key evil-evilified-state-map-original
-    (kbd "C-h")
-    (lambda ()
-      (interactive)
-      (tmux-navigate "left")))
-  (define-key evil-evilified-state-map-original
-    (kbd "C-j")
-    (lambda ()
-      (interactive)
-      (tmux-navigate "down")))
-  (define-key evil-evilified-state-map-original
-    (kbd "C-k")
-    (lambda ()
-      (interactive)
-      (tmux-navigate "up")))
-  (define-key evil-evilified-state-map-original
-    (kbd "C-l")
-    (lambda ()
-      (interactive)
-      (tmux-navigate "right"))))
+  (define-key evil-evilified-state-map-original (kbd "C-h") #'tmux-nav-left)
+  (define-key evil-evilified-state-map-original (kbd "C-j") #'tmux-nav-down)
+  (define-key evil-evilified-state-map-original (kbd "C-k") #'tmux-nav-up)
+  (define-key evil-evilified-state-map-original (kbd "C-l") #'tmux-nav-right))
 
 (provide 'tmux)
 

@@ -1,6 +1,6 @@
 ;;; packages.el --- Chinese Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,9 +15,7 @@
       '(
         (chinese-pyim :toggle (eq chinese-default-input-method 'pinyin))
         (chinese-wbim :toggle (eq chinese-default-input-method 'wubi))
-        ;; disable in Windows
-        (fcitx :toggle (and chinese-enable-fcitx
-                            (not (spacemacs/system-is-mswindows))))
+        (fcitx :toggle chinese-enable-fcitx)
         find-by-pinyin-dired
         ace-pinyin
         pangu-spacing

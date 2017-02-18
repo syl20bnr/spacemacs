@@ -1,6 +1,6 @@
 ;;; config.el --- Ivy Layer Configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -13,7 +13,8 @@
 ;; Variables
 
 (defvar spacemacs--counsel-commands
-  '(("ag" . "ag --nocolor --nogroup %s %S .")
+  '(("rg" . "rg --smart-case --no-heading --vimgrep %s %S .")
+    ("ag" . "ag --nocolor --nogroup %s %S .")
     ("pt" . "pt -e --nocolor --nogroup %s %S .")
     ("ack" . "ack --nocolor --nogroup %s %S .")
     ("grep" . "grep -nrP %s %S ."))
@@ -32,7 +33,7 @@ than this amount.")
     ("v" spacemacs/find-file-vsplit "in vertical split")
     ("s" spacemacs/find-file-split "in horizontal split")
     ("l" find-file-literally "literally")
-    ("d" spacemacs/delete-file "delete file")
+    ("d" spacemacs/delete-file-confirm "delete file")
     ("r" spacemacs/rename-file "rename file"))
   "Default ivy actions for files.")
 

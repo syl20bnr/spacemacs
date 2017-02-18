@@ -1,22 +1,35 @@
 #+TITLE: Helm Gtags layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                                          :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#features][Features]]
  - [[#install][Install]]
-   - [[#gnu-global][GNU Global]]
+   - [[#gnu-global-gtags][GNU Global (gtags)]]
+     - [[#install-on-osx-using-homebrew][Install on OSX using Homebrew]]
+     - [[#install-on-nix-from-source][Install on *nix from source]]
+       - [[#install-recommended-dependencies][Install recommended dependencies]]
+       - [[#install-with-recommended-features][Install with recommended features]]
+       - [[#configure-your-environment-to-use-pygments-and-ctags][Configure your environment to use pygments and ctags]]
+   - [[#emacs-configuration][Emacs Configuration]]
+     - [[#disabling-by-default][Disabling by default]]
  - [[#usage][Usage]]
+     - [[#language-support][Language Support]]
+       - [[#built-in-languages][Built-in languages]]
+       - [[#exuberant-ctags-languages][Exuberant ctags languages]]
+       - [[#universal-ctags-languages][Universal ctags languages]]
+       - [[#pygments-languages-plus-symbol-and-reference-tags][Pygments languages (plus symbol and reference tags)]]
    - [[#eldoc-integration][Eldoc integration]]
  - [[#key-bindings][Key bindings]]
 
 * Description
 =helm-gtags= and =ggtags= are clients for GNU Global. GNU Global is a source
 code tagging system that allows querying symbol locations in source code, such
-as definitions or references.
+as definitions or references. Adding the =gtags= layer enables both of these
+modes.
 
 * Features
 
-- Select any tag in a project retrieves by gtags
+- Select any tag in a project retrieved by gtags
 - Resume previous helm-gtags session
 - Jump to a location based on context
 - Find definitions
@@ -29,46 +42,103 @@ as definitions or references.
 - Jump to next location in context stack
 - Jump to previous location in context stack
 - Jump to a file in tag database
+- Enables =eldoc= in modes that otherwise might not support it.
+- Enables =company complete= in modes that otherwise might not support it.
 
 * Install
-** GNU Global
 
-You can install =helm-gtags= from the software repository of your OS. For example, in Ubuntu:
+** GNU Global (gtags)
+To use gtags, you first have to install [[https://www.gnu.org/software/global/download.html][GNU Global]].
+
+You can install =global= from the software repository of your OS; however, many
+OS distributions are out of date, and you will probably be missing support for
+=pygments= and =exuberant ctags=, and thus support for many languages. We
+recommend installing from source. If not for example to install on Ubuntu:
+
+#+begin_src sh
+  sudo apt-get install global
+#+end_src
+
+*** Install on OSX using Homebrew
+
+#+begin_src sh options
+  brew install global --with-pygments --with-ctags
+#+end_src
+
+*** Install on *nix from source
+**** Install recommended dependencies
+To take full advantage of global you should install 2 extra packages in
+addition to global: pygments and ctags (exuberant). You can do this using
+your normal OS package manager, e.g., on Ubuntu
 
 #+BEGIN_SRC sh
-  sudo apt-get install global
+  sudo apt-get install exuberant-ctags python-pygments
 #+END_SRC
 
-To use =helm-gtags=, you first have to install [[https://www.gnu.org/software/global/download.html][GNU Global]].
+or e.g., Archlinux:
 
+#+BEGIN_SRC sh
+  sudo pacman -S ctags python-pygments
+#+END_SRC
+
+**** Install with recommended features
 Download the latest tar.gz archive, then run these commands:
 
 #+BEGIN_SRC sh
-  tar xvf global-6.4.tar.gz
-  cd global-6.4
-  ./configure
+  tar xvf global-6.5.3.tar.gz
+  cd global-6.5.3
+  ./configure --with-exuberant-ctags=/usr/bin/ctags
   make
   sudo make install
 #+END_SRC
 
-To be able to use =ctags= and other backends, you need to copy the sample
+**** Configure your environment to use pygments and ctags
+To be able to use =pygments= and =ctags=, you need to copy the sample
 =gtags.conf= either to =/etc/gtags.conf= or =$HOME/.globalrc=. For example:
 
 #+begin_src sh
   cp gtags.conf ~/.globalrc
 #+end_src
 
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =gtags= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+Additionally you should define GTAGSLABEL in your shell startup file e.g.
+with sh/ksh:
+
+#+begin_src sh
+  echo export GTAGSLABEL=pygments >> .profile
+#+end_src
+
+** Emacs Configuration
+To use this configuration layer, add it to your =~/.spacemacs=. You
+will need to add =gtags= to the existing =dotspacemacs-configuration-layers=.
+
+#+begin_src emacs-lisp
+  (setq dotspacemacs-configuration-layers
+        '( ;; ...
+          gtags
+           ;; ...
+          ))
+#+end_src
+
+*** Disabling by default
+If =ggtags-mode= is too intrusive you can disable it by default, by setting the
+layer variable =gtags-enable-by-default= to =nil=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((gtags :variables gtags-enable-by-default t)))
+#+END_SRC
+
+This variable can also be set as a file-local or directory-local variable for
+additional control per project.
 
 * Usage
 
-Before using the helm-gtags, remember to create a GTAGS database by the following methods:
+Before using the =gtags=, remember to create a GTAGS database by the following
+methods:
 
 - From within Emacs, runs the command =helm-gtags-create-tags=, which is bound
   to ~SPC m g c~. If the language is not directly supported by GNU Global, you
-  can choose =ctags= or =pygment= as a backend to generate tag database.
+  can choose =ctags= or =pygments= as a backend to generate tag database.
 
 - From inside terminal, runs gtags at your project root in terminal:
 
@@ -77,32 +147,90 @@ Before using the helm-gtags, remember to create a GTAGS database by the followin
   gtags
 #+END_SRC
 
-If the language is not directly supported by =gtags= but =ctags=, use this command instead:
+If the language is not directly supported by =gtags=, and you have not set the
+GTAGSLABEL environment variable, use this command instead:
 
 #+BEGIN_SRC sh
-  gtags --gtagslabel=ctags
+  gtags --gtagslabel=pygments
 #+END_SRC
 
-** Eldoc integration
+*** Language Support
+**** Built-in languages
+If you do not have =ctags= or =pygments= enabled gtags will only produce
+tags for the following languages:
 
+- asm
+- c/c++
+- java
+- php
+- yacc
+
+**** Exuberant ctags languages
+If you have enabled =exuberant ctags= and use that as the backend (i.e.,
+GTAGSLABEL=ctags or --gtagslabel=ctags) the following additional languages
+will have tags created for them:
+
+- c#
+- erlang
+- javascript
+- common-lisp
+- emacs-lisp
+- lua
+- ocaml
+- python
+- ruby
+- scheme
+- vimscript
+- windows-scripts (.bat .cmd files)
+
+**** Universal ctags languages
+If instead you installed you the newer/beta =universal ctags= and use that
+as the backend (i.e., GTAGSLABEL=ctags or --gtagslabel=ctags) the following
+additional languages will have tags created for them:
+
+- clojure
+- d
+- go
+- rust
+
+**** Pygments languages (plus symbol and reference tags)
+In order to look up symbol references for any language not in the built in
+parser you must use the pygments backend. When this backend is used global
+actually uses both ctags and pygments to find the definitions and uses of
+functions and variables as well as "other symbols".
+
+If you enabled pygments (the best choice) and use that as the backend (i.e.,
+GTAGSLABEL=pygments or --gtagslabel=pygments) the following additional
+languages will have tags created for them:
+
+- elixir
+- fsharp
+- haskell
+- octave
+- racket
+- scala
+- shell-scripts
+- tex
+
+** Eldoc integration
 This layer also integrates =ggtags= for its Eldoc feature. That means, when
 writing code, you can look at the minibuffer (at the bottom) and see variable
 and function definition of the symbol the cursor is on. However, this feature is
 only activated for programming modes that are not one of these languages:
 
-- C mode
-- C++ mode
+- C
+- C++
 - Common Lisp
 - Emacs Lisp
 - Python
-- Ruby-mode
+- Ruby
+
+Since these modes have better Eldoc integration already.
 
 In addition, if output from =compile= (bound to ~SPC c C~), =shell-command=
 (bound to ~SPC !~ and ~M-!~) or =async-shell-command= (bound to ~M-&~) commands
 contains symbol in your project, you move cursor on such symbol and use any of
 the gtags commands.
-
-Since these modes have better Eldoc integration already.
 
 * Key bindings
 
@@ -113,7 +241,6 @@ Since these modes have better Eldoc integration already.
 | ~SPC m g g~ | jump to a location based on context                       |
 | ~SPC m g G~ | jump to a location based on context (open another window) |
 | ~SPC m g d~ | find definitions                                          |
-| ~SPC m g D~ | find definitions (open another window)                    |
 | ~SPC m g i~ | present tags in current function only                     |
 | ~SPC m g l~ | jump to definitions in file                               |
 | ~SPC m g n~ | jump to next location in context stack                    |
