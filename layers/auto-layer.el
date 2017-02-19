@@ -46,6 +46,8 @@
 
 (configuration-layer/lazy-install 'go :extensions '("\\(\\.go\\'\\)" go-mode))
 
+(configuration-layer/lazy-install 'dart :extensions '("\\(\\.dart\\'\\)" dart-mode))
+
 (configuration-layer/lazy-install 'graphviz :extensions '("\\(\\.dot\\'\\|\\.gv\\'\\|\\.diag\\'\\|\\.blockdiag\\'\\|\\.nwdiag\\'\\|\\.rackdiag\\'\\)" graphviz-dot-mode))
 
 (configuration-layer/lazy-install 'haskell :extensions '("\\(\\.cmm\\'\\)" cmm-mode))

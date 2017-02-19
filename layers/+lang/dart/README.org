@@ -1,0 +1,14 @@
+#+TITLE: Dart layer
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+
+* Description
+This layer provides syntax highlighting and syntax checking via [[http://www.flycheck.org/en/latest/languages.html#yaml][flycheck]] for Dart files.
+Also its add autocomplete via company provider
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =dart= to the existing =dotspacemacs-configuration-layers= list in this
+file.
