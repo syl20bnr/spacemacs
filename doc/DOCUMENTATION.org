@@ -1496,7 +1496,7 @@ There are also some handy globally available key bindings related to workspaces:
 | Key Binding | Description                          |
 |-------------+--------------------------------------|
 | ~gt~        | go to next workspace                 |
-| ~gT~        | got to previous workspace            |
+| ~gT~        | go to previous workspace             |
 | ~SPC b W~   | go to workspace and window by buffer |
 
 * Commands
