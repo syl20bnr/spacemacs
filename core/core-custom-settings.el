@@ -12,11 +12,18 @@
 
 (defvar spacemacs--custom-file (concat spacemacs-cache-directory
                                        ".custom-settings"))
-(setq custom-file spacemacs--custom-file)
 
-(defun spacemacs//initialize-custom-file ()
+(defun spacemacs/initialize-custom-file ()
   "Initialize the custom file."
-  (unless (file-exists-p spacemacs--custom-file)
+  ;; setup auto-rewrite of custom settings only if custom-file
+  ;; has not been set by the user
+  (when (null custom-file)
+    (setq custom-file spacemacs--custom-file)
+    (advice-add 'custom-save-all :after
+                #'spacemacs/write-custom-settings-to-dotfile))
+  ;; initialize the cache file contents
+  (unless (or (not (string-equal custom-file spacemacs--custom-file))
+              (file-exists-p spacemacs--custom-file))
     (with-temp-file spacemacs--custom-file
       (let ((standard-output (current-buffer)))
         (princ ";; -*- mode: emacs-lisp -*-\n")
@@ -90,8 +97,5 @@ This function is called at the very end of Spacemacs initialization.\"\n")
       (princ ")")
       (save-buffer)
       (kill-buffer (current-buffer)))))
-
-(spacemacs//initialize-custom-file)
-(advice-add 'custom-save-all :after #'spacemacs/write-custom-settings-to-dotfile)
 
 (provide 'core-custom-settings)
