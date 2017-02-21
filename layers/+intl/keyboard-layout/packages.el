@@ -42,6 +42,8 @@
     (spacemacs|use-package-add-hook ace-window :post-init BODY)
     :bepo
     (setq aw-keys '(?a ?u ?i ?e ?t ?s ?r ?n))
+    :colemak
+    (setq aw-keys '(?a ?r ?s ?t ?n ?e ?i ?o))
     :dvorak
     (setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s))))
 
@@ -53,6 +55,8 @@
     (spacemacs|use-package-add-hook avy :post-init BODY)
     :bepo
     (setq-default avy-keys '(?a ?u ?i ?e ?t ?s ?r ?n))
+    :colemak
+    (setq-default avy-keys '(?a ?r ?s ?t ?n ?e ?i ?o))
     :dvorak
     (setq-default avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s))))
 
@@ -171,7 +175,9 @@
     :loader
     (spacemacs|use-package-add-hook evil-escape :post-init BODY)
     :bepo
-    (setq-default evil-escape-key-sequence "gq")))
+    (setq-default evil-escape-key-sequence "gq")
+    :colemak
+    (setq-default evil-escape-key-sequence "tn")))
 
 (defun keyboard-layout/pre-init-evil-evilified-state ()
   (kl|config evil-evilified-state
