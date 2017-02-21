@@ -14,7 +14,7 @@
 ;;------------------------------------------------------------------------------
 
 (defvar kl-layout 'dvorak
-  "The keyboard-layout to use. Possible values are `dvorak' and `bepo'.")
+  "The keyboard-layout to use. Possible values are `colemak', `dvorak' and `bepo'.")
 
 (defvar kl-enabled-configurations nil
   "If non nil, `keyboard-layout' will enable configurations only
@@ -41,6 +41,15 @@ any case.")
              ("j" . "t")
              ("k" . "s")
              ("l" . "c")))
+    (colemak . (("n" . "h")
+                ("e" . "j")
+                ("i" . "k")
+                ("o" . "l")
+                ;;
+                ("h" . "n")
+                ("j" . "e")
+                ("k" . "i")
+                ("l" . "o")))
     (dvorak . (("h" . "h")
                ("t" . "j")
                ("n" . "k")

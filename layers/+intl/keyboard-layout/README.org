@@ -12,6 +12,8 @@
  - [[#keyboard-layouts][Keyboard layouts]]
    - [[#bepo][bepo]]
    - [[#dvorak][dvorak]]
+   - [[#colemak][colemak]]
+     - [[#remapped-keys][Remapped Keys]]
  - [[#package-configurations][Package Configurations]]
  - [[#keybindings][Keybindings]]
  - [[#sources][Sources]]
@@ -147,6 +149,16 @@ variant of the more general =dvorak= (us) keyboard layout. This configuration
 will remap keybindings for the =dvorak-programmer= variant.
 
 [[file:img/dvorak-keymap.png]]
+
+** colemak
+   =colemak= is a keyboard layout designed for touch typing in English.
+
+   [[file:img/colemak-layout.png]]
+
+*** Remapped Keys
+
+    - ~avy~ and ~ace-window~ keys are remapped to the ~colemak~ home row
+    - ~evil-leader~ is also remapped to ~tn~
 
 * Package Configurations
 The available configurations are:
