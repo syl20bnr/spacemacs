@@ -27,6 +27,16 @@
 holds the key bindings."
   (intern (format "spacemacs/%S-transient-state/heads" name)))
 
+(defun spacemacs//transient-state-add-bindings-name (name)
+  "Return the name of the transient state add-bindings variable which
+may hold the additional key bindings. The variable may be unbound."
+  (intern (format "spacemacs-%s-transient-state-add-bindings" name)))
+
+(defun spacemacs//transient-state-remove-bindings-name (name)
+  "Return the name of the transient state remove-bindings variable which
+may hold the keys to be removed. The variable may be unbound."
+  (intern (format "spacemacs-%s-transient-state-remove-bindings" name)))
+
 (defun spacemacs//transient-state-adjust-bindings (bindings to-remove to-add)
   (append
    (cl-remove-if
@@ -46,6 +56,34 @@ holds the key bindings."
     (setq body (if body body '(nil nil :hint nil :foreign-keys nil)))
     (eval
      (hydra--format nil body docstring (symbol-value heads)))))
+
+(defun spacemacs/transient-state-register-add-bindings (name bindings)
+  "Register additional BINDINGS for the transient state NAME.
+
+BINDINGS should be a list of Hydra head definitions. See `defhydra'.
+
+Since a transient state initializes its Hydra right after
+the `dotspacemacs/user-config', this function will have no
+effect if called after that point."
+  (declare (indent defun))
+  (let ((var-name (spacemacs//transient-state-add-bindings-name name)))
+    (or (boundp var-name)
+        (set var-name '()))
+    (set var-name (append (symbol-value var-name) bindings))))
+
+(defun spacemacs/transient-state-register-remove-bindings (name keys)
+  "Register KEYS to be removed from the transient state NAME.
+
+KEYS should be a list of strings.
+
+Since a transient state initializes its Hydra right after
+the `dotspacemacs/user-config', this function will have no
+effect if called after that point."
+  (declare (indent defun))
+  (let ((var-name (spacemacs//transient-state-remove-bindings-name name)))
+    (or (boundp var-name)
+        (set var-name '()))
+    (set var-name (append (symbol-value var-name) keys))))
 
 (defmacro spacemacs|transient-state-format-hint (name var hint)
   "Format HINT and store the result in VAR for transient state NAME."
@@ -126,10 +164,8 @@ used."
   (let* ((func (spacemacs//transient-state-func-name name))
          (props-var (spacemacs//transient-state-props-var-name name))
          (body-func (spacemacs//transient-state-body-func-name name))
-         (add-bindings
-          (intern (format "spacemacs-%s-transient-state-add-bindings" name)))
-         (remove-bindings
-          (intern (format "spacemacs-%s-transient-state-remove-bindings" name)))
+         (add-bindings (spacemacs//transient-state-add-bindings-name name))
+         (remove-bindings (spacemacs//transient-state-remove-bindings-name name))
          (bindings (spacemacs/mplist-get props :bindings))
          (doc (or (plist-get props :doc) "\n"))
          (title (plist-get props :title))
