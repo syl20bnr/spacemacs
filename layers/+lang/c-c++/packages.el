@@ -17,7 +17,6 @@
     cmake-mode
     company
     (company-c-headers :toggle (configuration-layer/package-usedp 'company))
-    company-ycmd
     flycheck
     gdb-mi
     ggtags
@@ -68,6 +67,10 @@
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))))
 
 (defun c-c++/post-init-company ()
+  (when (configuration-layer/package-usedp 'company-ycmd)
+    (spacemacs|add-company-backends :backends company-ycmd :modes c-mode-common))
+  (when (configuration-layer/package-usedp 'company-c-headers)
+    (spacemacs|add-company-backends :backends company-c-headers :modes c-mode-common))
   (when (configuration-layer/package-usedp 'cmake-mode)
     (spacemacs|add-company-backends :backends company-cmake :modes cmake-mode))
   (when c-c++-enable-clang-support
@@ -79,10 +82,7 @@
 
 (defun c-c++/init-company-c-headers ()
   (use-package company-c-headers
-    :defer t
-    :init (spacemacs|add-company-backends
-            :backends company-c-headers
-            :modes c-mode-common)))
+    :defer t))
 
 (defun c-c++/post-init-flycheck ()
   (dolist (mode '(c-mode c++-mode))
@@ -127,9 +127,6 @@
   (dolist (mode '(c++-mode c-mode))
     (spacemacs/set-leader-keys-for-major-mode mode
       "gG" 'ycmd-goto-imprecise)))
-
-(defun c-c++/post-init-company-ycmd ()
-  (spacemacs|add-company-backends :backends company-ycmd :modes c-mode-common))
 
 (defun c-c++/pre-init-xcscope ()
   (spacemacs|use-package-add-hook xcscope
