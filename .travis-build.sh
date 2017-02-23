@@ -11,7 +11,7 @@
 ##
 ## License: GPLv3
 
-tests=("core")
+tests=("core" "layers/+org/html-export")
 
 if [ $USER != "travis" ]; then
     echo "This script is not designed to run locally."
@@ -20,16 +20,16 @@ if [ $USER != "travis" ]; then
 fi
 
 if  [ $TRAVIS_SECURE_ENV_VARS = false ] &&
-    [ $TRAVIS_PULL_REQUEST != false ] &&
-    [ $TRAVIS_BRANCH = "master" ]; then
+        [ $TRAVIS_PULL_REQUEST != false ] &&
+        [ $TRAVIS_BRANCH = "master" ]; then
 
-    	printf '=%.0s' {1..70}
-    	printf "\n       し(*･∀･)／   Thanks for the contribution!  ＼(･∀･*)ノ\n"
-    	printf '=%.0s' {1..70}
-    	printf "\n( ＾◡＾)っ Please submit your pull request against the develop branch.\n"
-    	echo   "You can read the contribution guidelines at:"
-    	echo   "https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org"
-    	exit 1
+    printf '=%.0s' {1..70}
+    printf "\n       し(*･∀･)／   Thanks for the contribution!  ＼(･∀･*)ノ\n"
+    printf '=%.0s' {1..70}
+    printf "\n( ＾◡＾)っ Please submit your pull request against the develop branch.\n"
+    echo   "You can read the contribution guidelines at:"
+    echo   "https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org"
+    exit 1
 fi
 
 echo "Pwd $(pwd)"
