@@ -14,10 +14,12 @@
 (defun ipython-notebook/init-ein ()
   (use-package ein
     :defer t
-    :commands ein:notebooklist-open
+    :commands (ein:notebooklist-open ein:notebooklist-login)
     :init
     (progn
-      (spacemacs/set-leader-keys "ain" 'ein:notebooklist-open)
+      (spacemacs/set-leader-keys
+        "ail" 'ein:notebooklist-login
+        "aio" 'ein:notebooklist-open)
       (with-eval-after-load 'ein-notebooklist
         (evilified-state-evilify-map ein:notebooklist-mode-map
           :mode ein:notebooklist-mode
