@@ -314,11 +314,14 @@
     (spacemacs|use-package-add-hook magit :post-config BODY)
     :common
     (progn
-      (kl/evil-correct-keys evil-magit-state magit-mode-map
-        "j"
-        "k"
-        "C-j"
-        "C-k")
+      (dolist (state (if evil-magit-use-y-for-yank
+                         (list evil-magit-state 'visual)
+                       (list evil-magit-state)))
+        (kl/evil-correct-keys state magit-mode-map
+          "j"
+          "k"
+          "C-j"
+          "C-k"))
       (kl/evil-correct-keys 'normal evil-magit-toggle-text-minor-mode-map
         "C-j")
       (dolist (map (list magit-branch-section-map
