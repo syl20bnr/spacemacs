@@ -27,7 +27,7 @@
                (mapcar
                 (lambda (modifier)
                   (cons (concat modifier key1) (concat modifier key2)))
-                '("" "C-" "M-" "C-S-")))))
+                '("C-" "M-" "C-S-")))))
           basemap))
 
 (defun kl//define-key (maps key def bindings)
