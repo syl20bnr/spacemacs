@@ -442,7 +442,18 @@
         "gk" nil
         ;; additional
         (kbd "«") 'org-metaleft
-        (kbd "»") 'org-metaright))))
+        (kbd "»") 'org-metaright))
+    :colemak
+    (progn
+      (spacemacs|use-package-add-hook evil-org
+        :post-config
+        (progn
+          (evil-define-key 'normal evil-org-mode-map
+            "O" 'org-forward-heading-same-level
+            "o" 'evil-forward-char
+            "E" 'org-forward-element
+            "I" 'org-backward-element
+            "N" 'org-backward-heading-same-level))))))
 
 (defun keyboard-layout/pre-init-org-agenda ()
   (kl|config org-agenda
