@@ -81,7 +81,8 @@ key."
     (let* ((key2 (cdr (assoc key1 rebinding-map)))
            (bind1 (assoc key1 rebinding-map))
            (bind2 (assoc key2 rebinding-map)))
-      (when prefix
+      (when (and prefix
+                 (not (string-empty-p prefix)))
         (defun kl//guess-prefixit (bind)
           `(,(concat prefix (car bind)) . ,(concat prefix (cdr bind))))
         (setq bind1 (kl//guess-prefixit bind1))
