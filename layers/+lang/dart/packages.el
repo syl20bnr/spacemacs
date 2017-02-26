@@ -2,8 +2,8 @@
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
-;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; Author: Alexey Nabrodov <Averrin@gmail.com>
+;; URL: https://github.com/averrin/dart-layer
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -12,15 +12,23 @@
 (setq dart-packages
   '(
     flycheck
+    helm
     (dart-mode :location (recipe
       :fetcher github
-      :repo "averrin/dart-mode")
+      :repo "sid-kurias/dart-mode"
+      )
+    )
+    (helm-dart :location (recipe
+      :fetcher github
+      :repo "sid-kurias/dart-mode"
+      :files ("helm-dart.el")
+      )
     )
     (company-dart
      :toggle (configuration-layer/package-usedp 'company)
      :location (recipe
       :fetcher github
-      :repo "averrin/company-dart"
+      :repo "sid-kurias/company-dart"
       )
     )
   )
@@ -42,18 +50,24 @@
     :defer t
     :init
     (progn
-      (add-hook 'dart-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-      )
+      (add-hook 'dart-mode-hook #'(lambda () (modify-syntax-entry ?_ "w"))))
     :config
     (progn
         (spacemacs/set-leader-keys
         ;; (spacemacs/set-leader-keys-for-major-mode 'dart-mode
           "mj" 'dart-jump-to-defn
-          "mq" 'dart-quick-fix
-          "md" 'dart-jump-to-defn
           "mf" 'dartfmt
           "mi" 'dart-imports
           "ms" 'dart-sort-members
+          )
+
+        (use-package helm-dart
+          :config
+          (progn
+            (spacemacs/set-leader-keys
+              "mq" 'helm-dart-quick-fix
+              )
+            )
           )
     )
 ))
