@@ -9,6 +9,8 @@
 ;;
 ;;; License: GPLv3
 
+;;; Code:
+
 ;; Modified version of `org-wiki-asset-insert-file'
 (defun spacemacs/orgwiki-insert-asset-link ()
   "Insert link [[file:<page>/<file>]] to asset file of current page at point.

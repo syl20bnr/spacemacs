@@ -13,4 +13,6 @@
 
 ;; Declare which layers are required by orgwiki layer.
 
+;;; Code:
+
 (configuration-layer/declare-layer 'org)
