@@ -1,8 +1,5 @@
 #+TITLE: orgwiki layer
 
-# The maximum height of the logo should be 200 pixels.
-[[img/orgwiki.png]]
-
 # TOC links should be GitHub style anchors.
 * Table of Contents                                        :TOC_4_gh:noexport:
  - [[#description][Description]]
@@ -12,7 +9,8 @@
 * Description
 Make a personal wiki using OrgMode!
 
-Configure =org-wiki-location= in your =user-config= to your choice of directory. By default, =~/org/wiki= is used.
+Configure =org-wiki-location= in your =user-config= to your choice of directory.
+By default, =~/org/wiki= is used.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
