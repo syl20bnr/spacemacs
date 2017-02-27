@@ -26,7 +26,9 @@
 
 (defun bibtex/post-init-org ()
   (spacemacs/set-leader-keys-for-major-mode 'org-mode
-    "ic" 'org-ref-helm-insert-cite-link))
+    "ic" 'org-ref-helm-insert-cite-link
+    "ir" 'org-ref-helm-insert-ref-link
+    "ib" 'org-ref-helm-insert-label-link))
 
 (defun bibtex/init-org-ref ()
   (use-package org-ref

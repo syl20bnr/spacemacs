@@ -78,3 +78,11 @@ key binding added:
 | Key Binding | Description     |
 |-------------+-----------------|
 | ~SPC m i c~ | Insert citation |
+
+Besides that, =org-mode= has some extra key bindings:
+
+| Key Binding | Description      |
+|-------------+------------------|
+| ~SPC m i b~ | Insert label     |
+| ~SPC m i r~ | Insert reference |
+
