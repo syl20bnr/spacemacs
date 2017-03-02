@@ -202,7 +202,7 @@ As this state works the same for all files, the documentation is in global
 |-------------+--------------------------------|
 | ~SPC m d b~ | instrument expression at point |
 | ~SPC m d e~ | display last stacktrace        |
-| ~SPC m d r~ | reload namepspaces             |
+| ~SPC m d r~ | reload namespaces             |
 | ~SPC m d v~ | inspect expression at point    |
 
 *** Refactoring
