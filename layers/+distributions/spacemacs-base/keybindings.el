@@ -653,6 +653,20 @@ If FRAME is nil, it defaults to the selected frame."
          dotfile-setting
        '(100 . 100)))))
 
+(defun spacemacs/enable-transparency (&optional frame)
+  "Enable transparent and opaque state for FRAME.
+If FRAME is nil, it defaults to the selected frame."
+  (interactive)
+  (let* ((dotfile-setting (cons dotspacemacs-active-transparency
+                                dotspacemacs-inactive-transparency)))
+    (set-frame-parameter frame 'alpha dotfile-setting)))
+
+(defun spacemacs/disable-transparency (&optional frame)
+  "Disable transparent and opaque state for FRAME.
+If FRAME is nil, it defaults to the selected frame."
+  (interactive)
+  (set-frame-parameter frame 'alpha '(100 . 100)))
+
 (defun spacemacs/increase-transparency (&optional frame)
   "Increase transparency for FRAME.
 If FRAME is nil, it defaults to the selected frame."
