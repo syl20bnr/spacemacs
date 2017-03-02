@@ -653,11 +653,26 @@ If FRAME is nil, it defaults to the selected frame."
          dotfile-setting
        '(100 . 100)))))
 
+(defun spacemacs/enable-transparency (&optional frame)
+  "Enable transparent and opaque state for FRAME.
+If FRAME is nil, it defaults to the selected frame."
+  (interactive)
+  (let* ((dotfile-setting (cons dotspacemacs-active-transparency
+                                dotspacemacs-inactive-transparency)))
+    (set-frame-parameter frame 'alpha dotfile-setting)))
+
+(defun spacemacs/disable-transparency (&optional frame)
+  "Disable transparent and opaque state for FRAME.
+If FRAME is nil, it defaults to the selected frame."
+  (interactive)
+  (set-frame-parameter frame 'alpha '(100 . 100)))
+
 (defun spacemacs/increase-transparency (&optional frame)
   "Increase transparency for FRAME.
 If FRAME is nil, it defaults to the selected frame."
   (interactive)
-  (let* ((current-alpha (car (frame-parameter frame 'alpha)))
+  (let* ((frame-alpha-pair (frame-parameter frame 'alpha))
+         (current-alpha (if frame-alpha-pair (car frame-alpha-pair) 100))
          (increased-alpha (- current-alpha 5)))
     (when (>= increased-alpha frame-alpha-lower-limit)
       (set-frame-parameter frame 'alpha
@@ -667,7 +682,8 @@ If FRAME is nil, it defaults to the selected frame."
   "Decrease transparency for FRAME.
 If FRAME is nil, it defaults to the selected frame."
   (interactive)
-  (let* ((current-alpha (car (frame-parameter frame 'alpha)))
+  (let* ((frame-alpha-pair (frame-parameter frame 'alpha))
+         (current-alpha (if frame-alpha-pair (car frame-alpha-pair) 100))
          (decreased-alpha (+ current-alpha 5)))
     (when (<= decreased-alpha 100)
       (set-frame-parameter frame 'alpha
