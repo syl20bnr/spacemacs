@@ -671,7 +671,8 @@ If FRAME is nil, it defaults to the selected frame."
   "Increase transparency for FRAME.
 If FRAME is nil, it defaults to the selected frame."
   (interactive)
-  (let* ((current-alpha (car (frame-parameter frame 'alpha)))
+  (let* ((frame-alpha-pair (frame-parameter frame 'alpha))
+         (current-alpha (if frame-alpha-pair (car frame-alpha-pair) 100))
          (increased-alpha (- current-alpha 5)))
     (when (>= increased-alpha frame-alpha-lower-limit)
       (set-frame-parameter frame 'alpha
@@ -681,7 +682,8 @@ If FRAME is nil, it defaults to the selected frame."
   "Decrease transparency for FRAME.
 If FRAME is nil, it defaults to the selected frame."
   (interactive)
-  (let* ((current-alpha (car (frame-parameter frame 'alpha)))
+  (let* ((frame-alpha-pair (frame-parameter frame 'alpha))
+         (current-alpha (if frame-alpha-pair (car frame-alpha-pair) 100))
          (decreased-alpha (+ current-alpha 5)))
     (when (<= decreased-alpha 100)
       (set-frame-parameter frame 'alpha
