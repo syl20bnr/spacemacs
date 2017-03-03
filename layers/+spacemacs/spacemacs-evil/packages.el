@@ -192,7 +192,7 @@
         ("+" evil-numbers/inc-at-pt)
         ("=" evil-numbers/inc-at-pt)
         ("-" evil-numbers/dec-at-pt)
-        ("q" nil :exit t)) 
+        ("q" nil :exit t))
       (spacemacs/set-leader-keys
         "n+" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
         "n=" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
