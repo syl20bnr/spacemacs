@@ -25,9 +25,6 @@ Thanks! :heart: :heart: :heart:
  - [[#credits][Credits]]
 
 * Asking for help
-  :PROPERTIES:
-:CUSTOM_ID: asking-for-help
-:END:
 If you want to ask an usage question, be sure to look first into some places as
 it may hold the answer:
 
@@ -40,9 +37,6 @@ discuss it with us :relaxed:. We will direct you to a solution, or ask you to
 open an issue if it is needed.
 
 * Reporting issues
-:PROPERTIES:
-:CUSTOM_ID: reporting-issues
-:END:
 Issues have to be reported on our [[https://github.com/syl20bnr/spacemacs/issues][issues tracker]]. Please:
 
 - Check that the issue has not already been reported.
@@ -62,9 +56,6 @@ Issues have to be reported on our [[https://github.com/syl20bnr/spacemacs/issues
     step guide.
 
 * Contributing code
-:PROPERTIES:
-:CUSTOM_ID: contributing-code
-:END:
 Code contributions are welcome. Please read the following sections carefully. In
 any case, feel free to join us on the [[https://gitter.im/syl20bnr/spacemacs][gitter chat]] to ask questions about
 contributing!
