@@ -11,6 +11,7 @@
 
 (setq protobuf-packages
       '(
+        flycheck
         protobuf-mode
         ))
 
@@ -22,3 +23,6 @@
               (setq imenu-generic-expression '((nil "^[[:space:]]*\\(message\\|service\\|enum\\)[[:space:]]+\\([[:alnum:]]+\\)"
                                                     2))))
             (add-hook 'protobuf-mode-hook 'spacemacs//setup-protobuf-imenu))))
+
+(defun protobuf/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'protobuf-mode))
