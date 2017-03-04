@@ -322,9 +322,6 @@ and choosing a rollback slot (sorted by date). This button uses the command
 =configuration-layer/rollback=.
 
 * Configuration layers
-  :PROPERTIES:
-  :CUSTOM_ID: configuration-layers
-  :END:
 This section is an overview of layers. A more extensive introduction to writing
 configuration layers can be found [[file:LAYERS.org][here]] (recommended reading!).
 
@@ -501,9 +498,6 @@ Please refer to [[file:LAYERS.org][this]] introduction for some tips on writing 
 best make them fit with the Spacemacs philosophy and loading strategy.
 
 * Dotfile Configuration
-:PROPERTIES:
-:CUSTOM_ID: dotfile-configuration
-:END:
 User configuration can be stored in your =~/.spacemacs= file.
 
 ** Dotfile Installation
@@ -803,9 +797,6 @@ To toggle the hybrid style on and off use ~SPC t E h~ and ~M-m t E h~. When
 off the =vim= style is enabled.
 
 ** States
-:PROPERTIES:
-:CUSTOM_ID: states
-:END:
 Spacemacs has 10 states:
 
 | State        | Default Color | Description                                                                                                |
@@ -870,9 +861,6 @@ Spacemacs binds ~C-u~ to =scroll-up= and changes the universal argument binding
 to ~SPC u~.
 
 ** Transient-states
-   :PROPERTIES:
-   :CUSTOM_ID: transient-states
-   :END:
 Spacemacs defines a wide variety of =transient states= (temporary overlay maps)
 where it makes sense. This prevents one from doing repetitive and tedious
 presses on the ~SPC~ key.
@@ -1932,7 +1920,7 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | ~SPC j J~   | jump to a suite of two characters in the buffer (works as an evil motion)         |
 | ~SPC j k~   | jump to next line and indent it using auto-indent rules                           |
 | ~SPC j l~   | jump to a line with avy (works as an evil motion)                                 |
-| ~SPC j q~   | show the dumb-jump quick look tooltip                                              |
+| ~SPC j q~   | show the dumb-jump quick look tooltip                                             |
 | ~SPC j u~   | jump to a URL in the current buffer                                               |
 | ~SPC j v~   | jump to the definition/declaration of an Emacs Lisp variable                      |
 | ~SPC j w~   | jump to a word in the current buffer (works as an evil motion)                    |
@@ -2102,9 +2090,6 @@ the opened buffer and kill them.
 | Any other key | leave the transient state                     |
 
 **** Special Buffers
-:PROPERTIES:
-:CUSTOM_ID: special-buffers
-:END:
 Unlike vim, emacs creates many buffers that most people do not need to see. Some
 examples are =*Messages*= and =*Compile-Log*=. Spacemacs tries to automatically
 ignore buffers that are not useful. However, you may want to change the way
@@ -2510,10 +2495,6 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e~
 | ~SPC s t F~ | =pt= with default text                              |
 
 **** Searching in a project
-:PROPERTIES:
-:CUSTOM_ID: searching-in-a-project
-:END:
-
 | Key Binding           | Description                                         |
 |-----------------------+-----------------------------------------------------|
 | ~SPC /~  or ~SPC s p~ | search with the first found tool                    |
@@ -2712,9 +2693,6 @@ It is possible to enable it easily for /all programming modes/ with the variable
 
 *** Zooming
 **** Text
-     :PROPERTIES:
-     :CUSTOM_ID: text
-     :END:
 The font size of the current buffer can be adjusted with the commands:
 
 | Key Binding   | Description                                                                    |
@@ -2777,9 +2755,6 @@ Keybindings are listed in the layer documentation.
 Vi =Visual= modes are all supported by =evil=.
 
 **** Expand-region
-:PROPERTIES:
-:CUSTOM_ID: expand-region
-:END:
 Spacemacs adds another =Visual= mode via the [[https://github.com/magnars/expand-region.el][expand-region]] mode.
 
 | Key Binding | Description                              |
@@ -2813,17 +2788,14 @@ There are also ~a~ variants that include whitespace. Example (=|= indicates poin
 The displayed text of a buffer can be narrowed with the commands (start with
 ~n~):
 
-| Key Binding | Description                                |
-|-------------+--------------------------------------------|
-| ~SPC n f~   | narrow the buffer to the current function  |
-| ~SPC n p~   | narrow the buffer to the visible page      |
-| ~SPC n r~   | narrow the buffer to the selected text     |
-| ~SPC n w~   | widen, i.e. show the whole buffer again    |
+| Key Binding | Description                               |
+|-------------+-------------------------------------------|
+| ~SPC n f~   | narrow the buffer to the current function |
+| ~SPC n p~   | narrow the buffer to the visible page     |
+| ~SPC n r~   | narrow the buffer to the selected text    |
+| ~SPC n w~   | widen, i.e. show the whole buffer again   |
 
 *** Replacing text with iedit
-    :PROPERTIES:
-    :CUSTOM_ID: replacing-text-with-iedit
-    :END:
 Spacemacs uses the powerful [[https://github.com/tsdh/iedit][iedit]] mode through [[https://github.com/syl20bnr/evil-iedit-state][evil-iedit-state]] to quickly
 edit multiple occurrences of a symbol or selection.
 
@@ -2985,9 +2957,6 @@ To disable the trash you can set the variable =delete-by-moving-to-trash= to
 =nil= in your =~/.spacemacs=.
 
 *** Editing Lisp code
-    :PROPERTIES:
-    :CUSTOM_ID: editing-lisp-code
-    :END:
 Editing of lisp code is provided by [[https://github.com/syl20bnr/evil-lisp-state][evil-lisp-state]].
 
 Commands will set the current state to =lisp state= where different commands
