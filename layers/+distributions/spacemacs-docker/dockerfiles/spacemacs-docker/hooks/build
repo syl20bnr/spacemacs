@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-docker build                                                 \
-  --build-arg GIT_REPO=$(git config --get remote.origin.url) \
-  --build-arg GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)  \
-  --build-arg GIT_REV=$(git rev-parse --verify HEAD)         \
-  -t $IMAGE_NAME .
