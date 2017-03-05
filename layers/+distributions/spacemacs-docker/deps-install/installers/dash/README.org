@@ -1,0 +1,25 @@
+#+TITLE: dash layer dependency installation script
+
+* Table of Contents                 :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#list-of-installed-software][List of installed software:]]
+ - [[#notes][Notes:]]
+
+* Description
+Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Btools/dash/README.org][Dash layer.]]
+
+* List of installed software:
+1. [[http://packages.ubuntu.com/en/xenial/zeal][zeal]] - documentation browser.
+2. Docsets for layers (if the are used in .spacemacs):
+ - [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/clojure/README.org][clojure]]
+ - [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/go/README.org][go]]
+ - [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/html/README.org][html]]
+ - [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/emacs-lisp/README.org][emacs-lisp]]
+ - [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/javascript/README.org][javascript]]
+ - [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Btools/docker/README.org][docker]]
+ - [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/markdown/README.org][markdown]]
+ - [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/python/README.org][python]]
+
+* Notes:
+  - You can get more docsets at https://kapeli.com/docset_links
+  - Please open a PR/Issue if you want them added.

@@ -1,2 +1,0 @@
-* TODO add tools images:
-- spacemacs.org site builder/docs formatter
