@@ -9,14 +9,36 @@
 ;;
 ;;; License: GPLv3
 
-;; Export global environment variables.
-(shell-command-to-string "eval $(cat /etc/environment | sed 's/^/export /')")
+(defconst spacemacs-docker-env-fp
+  "/etc/environment")
 
-(defconst docker-spacemacs--default-dump-layer-data-file-path
-  "/tmp/docker-spacemacs-layer-data.el")
+;; Export global configs.
+(with-temp-buffer
+  (insert-file-contents spacemacs-docker-env-fp)
+  (goto-char (point-min))
+  (while (re-search-forward "\\(.*\\)=\"\\(.*\\)\"" nil t)
+    (setenv (match-string 1) (match-string 2))))
 
-;; fix Xpra + Emacs compatibility http://xpra.org/trac/ticket/1327
-(setq frame-resize-pixelwise t)
+(defconst spacemacs-docker-temp-deps-dir
+  (format "%sspacemacs-deps-tmp/"
+          temporary-file-directory))
 
-;; Start spacemacs in the workspace
-(setq default-directory (concat (getenv "WORKSPACE") "/"))
+(defconst spacemacs-docker-deps-installers-dir
+  (format (concat "%s/.emacs.d/layers/+distributions/"
+                  "spacemacs-docker/deps-install/installers")
+          (getenv "UHOME")))
+
+(defconst spacemacs-docker-temp-deps-elpa-dir
+  (format "%selpa"
+          spacemacs-docker-temp-deps-dir))
+
+(defconst spacemacs-docker-dotfile-fp
+  (format "%s/.spacemacs" (getenv "UHOME")))
+
+(defconst spacemacs-docker-dump-layer-data-fp
+  (format "%sspacemacs-docker-layer-data.el"
+          spacemacs-docker-temp-deps-dir))
+
+;; Start spacemacs in the workspace.
+(setq default-directory
+      (concat (getenv "WORKSPACE") "/"))
