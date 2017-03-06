@@ -35,13 +35,8 @@
 
 * Completion
 - [[file:+completion/auto-completion/README.org][auto-completion]]
-- [[file:+completion/helm/README.org][helm]]
-- [[file:+completion/ivy/README.org][ivy]]
 
 * Distributions
-- [[file:+distributions/spacemacs/README.org][spacemacs]]
-- [[file:+distributions/spacemacs-base/README.org][spacemacs-base]]
-- [[file:+distributions/spacemacs-bootstrap/README.org][spacemacs-bootstrap]]
 - [[file:+distributions/spacemacs-docker/README.org][spacemacs-docker]]
 
 * Emacs
@@ -129,7 +124,6 @@
 - [[file:+lang/yaml/README.org][yaml]]
 
 * Misc
-- [[file:+misc/nlinum/README.org][nlinum]]
 
 * Operating systems
 - [[file:+os/nixos/README.org][nixos]]
@@ -145,17 +139,7 @@
 - [[file:+source-control/version-control/README.org][version-control]]
 
 * Spacemacs distribution layers
-- [[file:+spacemacs/spacemacs-completion/README.org][spacemacs-completion]]
-- [[file:+spacemacs/spacemacs-editing/README.org][spacemacs-editing]]
-- [[file:+spacemacs/spacemacs-editing-visual/README.org][spacemacs-editing-visual]]
-- [[file:+spacemacs/spacemacs-evil/README.org][spacemacs-evil]]
-- [[file:+spacemacs/spacemacs-language/README.org][spacemacs-language]]
-- [[file:+spacemacs/spacemacs-layouts/README.org][spacemacs-layouts]]
-- [[file:+spacemacs/spacemacs-misc/README.org][spacemacs-misc]]
-- [[file:+spacemacs/spacemacs-org/README.org][spacemacs-org]]
 - [[file:+spacemacs/spacemacs-purpose/README.org][spacemacs-purpose]]
-- [[file:+spacemacs/spacemacs-ui/README.org][spacemacs-ui]]
-- [[file:+spacemacs/spacemacs-ui-visual/README.org][spacemacs-ui-visual]]
 
 * Tags
 - [[file:+tags/cscope/README.org][cscope]]
