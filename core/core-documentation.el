@@ -35,14 +35,16 @@
          (categories (-filter
                       (lambda (p)
                         (eq 'category (configuration-layer//directory-type p)))
-                              all-subs)))
+                      all-subs)))
     (message "%S" layers)
     (dolist (l layers)
       (let ((layer-name (file-name-nondirectory l))
-            (target-path (concat (file-relative-name
-                                  l (concat spacemacs-start-directory "layers"))
-                                 "/README.org")))
-        (insert (format "- [[file:%s][%s]]\n" target-path layer-name))))
+            (layer-readme (concat l "/README.org")))
+        (if (file-exists-p layer-readme)
+            (insert (format "- [[file:%s][%s]]\n" (file-relative-name
+                                                   layer-readme
+                                                   (concat spacemacs-start-directory "layers"))
+                            layer-name)))))
     (dolist (c categories)
       (let* ((category-name (substring (file-name-nondirectory c) 1))
              (pretty-name
@@ -50,9 +52,8 @@
                   (s-capitalize (replace-regexp-in-string
                                  "-" " " category-name)))))
         (message "%S" category-name)
-        (unless (string= "distribution" category-name)
-          (insert (format "\n%s %s\n" level pretty-name))
-          (spacemacs//generate-layers-from-path c (concat level "*")))))))
+        (insert (format "\n%s %s\n" level pretty-name))
+        (spacemacs//generate-layers-from-path c (concat level "*"))))))
 
 (defun spacemacs/generate-layers-file (project-plist)
   "Generate the layers list file."
