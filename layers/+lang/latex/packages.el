@@ -82,6 +82,8 @@
             dotspacemacs-major-mode-leader-key 'TeX-command-master))
         (when latex-enable-folding
           (spacemacs/set-leader-keys-for-major-mode mode
+            ;; the following commands are mostly not autoloaded, but that's fine
+            ;; because `TeX-fold-mode' is added to `LaTeX-mode-hook'
             "z=" 'TeX-fold-math
             "zb" 'TeX-fold-buffer
             "zB" 'TeX-fold-clearout-buffer
