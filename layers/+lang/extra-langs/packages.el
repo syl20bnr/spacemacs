@@ -36,7 +36,8 @@
 (defun extra-langs/init-thrift ()
   (use-package thrift :defer t))
 
-;; .m files are not associated because conflict with more common Objective-C and MATLAB/Octave, manually invoke for .m files.
+;; .m files are not associated because conflict with more common Objective-C and
+;; MATLAB/Octave, manually invoke for .m files.
 (defun extra-langs/init-wolfram-mode ()
   (use-package wolfram-mode
     :defer t
