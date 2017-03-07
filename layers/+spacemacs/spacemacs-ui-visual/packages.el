@@ -244,7 +244,7 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
 
       (spacemacs/set-leader-keys
         "ft" 'neotree-toggle
-        "fn" 'neotree-show
+        "fT" 'neotree-show
         "pt" 'neotree-find-project-root))
     :config
     (spacemacs//neotree-key-bindings)))
