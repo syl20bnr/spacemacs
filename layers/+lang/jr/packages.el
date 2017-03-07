@@ -1,4 +1,4 @@
-;;; packages.el --- C# Layer configuration File for Spacemacs
+;;; packages.el --- JR Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
@@ -9,6 +9,12 @@
 ;;
 ;;; License: GPLv3
 
-;; variables
+(defconst jr-packages
+  '(
+    (jr-mode :location local)
+    ))
 
-(spacemacs|define-jump-handlers csharp-mode)
+(defun jr/init-jr-mode ()
+  (use-package jr-mode
+    :commands jr-mode
+    :mode "\\.jr\\'"))

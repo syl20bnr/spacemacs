@@ -1,4 +1,4 @@
-;;; packages.el --- C# Layer configuration File for Spacemacs
+;;; funcs.el --- GitHub layer functions File
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
@@ -9,6 +9,8 @@
 ;;
 ;;; License: GPLv3
 
-;; variables
-
-(spacemacs|define-jump-handlers csharp-mode)
+(defun spacemacs/load-gh-pulls-mode ()
+  "Start `magit-gh-pulls-mode'."
+  (interactive)
+  (magit-gh-pulls-mode)
+  (magit-gh-pulls-popup))

@@ -49,7 +49,8 @@
   (cond
    ((or (eq 'vim style)
         (and (eq 'hybrid style)
-             hybrid-mode-use-evil-search-module))
+             (or (not (boundp 'hybrid-mode-use-evil-search-module))
+                 hybrid-mode-use-evil-search-module)))
     (setq-default evil-search-module 'evil-search))
    (t
     (setq-default evil-search-module 'isearch))))

@@ -6,7 +6,6 @@
 
 (defun vim-empty-lines/init-vim-empty-lines-mode ()
   (use-package vim-empty-lines-mode
-    :diminish vim-empty-lines-mode
     :init
     (spacemacs/add-to-hooks (lambda () (vim-empty-lines-mode -1))
                             '(comint-mode-hook
@@ -16,6 +15,7 @@
                               term-mode-hook))
     :config
     (progn
+      (spacemacs|hide-lighter vim-empty-lines-mode)
       (global-vim-empty-lines-mode)
       (spacemacs|add-toggle vim-empty-lines-mode
         :mode global-vim-empty-lines-mode

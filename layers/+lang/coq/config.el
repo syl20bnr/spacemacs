@@ -1,4 +1,4 @@
-;;; packages.el --- C# Layer configuration File for Spacemacs
+;;; packages.el --- Coq Layer configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
@@ -11,4 +11,4 @@
 
 ;; variables
 
-(spacemacs|define-jump-handlers csharp-mode)
+(spacemacs|define-jump-handlers coq-mode)
