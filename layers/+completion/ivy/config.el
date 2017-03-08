@@ -13,12 +13,15 @@
 ;; Variables
 
 (defvar spacemacs--counsel-commands
-  '(("rg" . "rg --smart-case --no-heading --color never %s %S .")
+  '(;; --line-number forces line numbers (disabled by default on windows)
+    ;; no --vimgrep because it adds column numbers that wgrep can't handle
+    ;; (see https://github.com/syl20bnr/spacemacs/pull/8065)
+    ("rg" . "rg --smart-case --no-heading --color never --line-number %s %S .")
     ("ag" . "ag --nocolor --nogroup %s %S .")
     ("pt" . "pt -e --nocolor --nogroup %s %S .")
     ("ack" . "ack --nocolor --nogroup %s %S .")
     ("grep" . "grep -nrP %s %S ."))
-  "Alist of search commands and their corresponding commands
+  "An alist of search commands and their corresponding commands
 with options to run in the shell.")
 
 (defvar spacemacs--counsel-search-max-path-length 30
