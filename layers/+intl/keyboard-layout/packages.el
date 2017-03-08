@@ -466,13 +466,13 @@
       "k"
       "l")))
 
-(defun kl/pre-init-twittering-mode ()
+(defun keyboard-layout/pre-init-twittering-mode ()
   (kl|config twittering-mode
     :description
     "Remap navigation keys in `twittering-mode'."
     :loader
-    (spacemacs|use-package-add-hook twittering-mode :post-init BODY)
-    :config
+    (spacemacs|use-package-add-hook twittering-mode :post-config BODY)
+    :common
     (kl/correct-keys twittering-mode-map
       "h"
       "j"
