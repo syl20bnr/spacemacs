@@ -79,7 +79,7 @@
                                  "-run")))
               (save-excursion
                   (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?[[:alnum:]]+)[ ]+\\)?\\(Test[[:alnum:]_]+\\)(.*)")
-                  (spacemacs/go-run-tests (concat test-method "='" (match-string-no-properties 2) "'"))))
+                  (spacemacs/go-run-tests (concat test-method "='" (match-string-no-properties 2) "$'"))))
           (message "Must be in a _test.go file to run go-run-test-current-function")))
 
       (defun spacemacs/go-run-test-current-suite ()
