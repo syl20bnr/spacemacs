@@ -1155,8 +1155,7 @@ and ~T~):
 
 **** Global line numbers
 Line numbers can be toggled on in all =prog-mode= and =text-mode= buffers by
-setting the =dotspacemacs-line-numbers= variable in your =~/.spacemacs=
-to something different than =nil=.
+setting the =dotspacemacs-line-numbers= variable in your =~/.spacemacs= to =t=.
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-line-numbers t)
@@ -1180,7 +1179,7 @@ Available properties:
 | =:relative=           | if non-nil, line numbers are relative to the position of the cursor                          |
 | =:size-limit-kb=      | size limit in kilobytes after which line numbers are not activated                           |
 
-Example:
+Examples:
 
 Disable line numbers in dired-mode, doc-view-mode, markdown-mode, org-mode,
 pdf-view-mode, text-mode as well as buffers over 1Mb:
@@ -1203,6 +1202,22 @@ Relative line numbers only in c-mode and c++ mode with a size limit of =dotspace
                                            :enabled-for-modes c-mode
                                                               c++-mode
                                            :size-limit-kb (* dotspacemacs-large-file-size 1000))
+#+END_SRC
+
+Enable line numbers everywhere, except for buffers over 1Mb:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-lines-numbers '(:relative nil
+                                             :size-limit-kb 1000))
+#+END_SRC
+
+Enable line numbers only in programming modes, except for c-mode and c++ mode:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-lines-numbers '(:relative nil
+                                             :enabled-for-modes prog-mode
+                                             :disabled-for-modes c-mode c++-mode
+                                             :size-limit-kb (* dotspacemacs-large-file-size 1000))
 #+END_SRC
 
 ** Mode-line
