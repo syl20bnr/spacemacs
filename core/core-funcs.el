@@ -293,6 +293,15 @@ buffer."
   (let ((message-log-max nil))
     (apply 'message msg args)))
 
+(defun spacemacs/derived-mode-p (mode &rest modes)
+  "Non-nil if MODE is derived from one of MODES."
+  ;; We could have copied the built-in `derived-mode-p' and modified it a bit so
+  ;; it works on arbitrary modes instead of only the current major-mode. We
+  ;; don't do that because then we will need to modify the function if
+  ;; `derived-mode-p' changes.
+  (let ((major-mode mode))
+    (apply #'derived-mode-p modes)))
+
 (defun spacemacs/alternate-buffer (&optional window)
   "Switch back and forth between current and last buffer in the
 current window."

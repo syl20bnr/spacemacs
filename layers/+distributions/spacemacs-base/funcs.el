@@ -1036,10 +1036,7 @@ Decision is based on `dotspacemacs-line-numbers'."
        (spacemacs//linum-current-buffer-is-not-special)
        (spacemacs//linum-curent-buffer-is-not-too-big)
        (or (spacemacs//linum-backward-compabitility)
-           ;; explicitly enabled buffers take priority over explicitly disabled
-           ;; ones
-           (or (spacemacs//linum-enabled-for-current-major-mode)
-               (not (spacemacs//linum-disabled-for-current-major-mode))))))
+           (spacemacs//linum-enabled-for-current-major-mode))))
 
 (defun spacemacs//linum-on (origfunc &rest args)
   "Advice function to improve `linum-on' function."
@@ -1075,14 +1072,31 @@ Decision is based on `dotspacemacs-line-numbers'."
                (* 1000 (car (spacemacs/mplist-get dotspacemacs-line-numbers
                                                   :size-limit-kb)))))))
 
+;; mode in :enabled, not in :disabled ==> t
+;; mode not in :enabled, in :disabled ==> nil
+;; mode in :enabled, parent in :disabled ==> t
+;; parent in :enabled, mode in :disabled ==> nil
+;; not in :enabled, not in :disabled, :enabled is empty ==> t
+;; not in :enabled, not in :disabled, :enabled is not empty ==> nil
+;; both :enabled and :disabled are empty ==> t
 (defun spacemacs//linum-enabled-for-current-major-mode ()
   "Return non-nil if line number is enabled for current major-mode."
-  (let ((modes (spacemacs/mplist-get dotspacemacs-line-numbers
-                                     :enabled-for-modes)))
-    (memq major-mode modes)))
-
-(defun spacemacs//linum-disabled-for-current-major-mode ()
-  "Return non-nil if line number is disabled for current major-mode."
-  (let ((modes (spacemacs/mplist-get dotspacemacs-line-numbers
-                                     :disabled-for-modes)))
-    (memq major-mode modes)))
+  (let* ((enabled-for-modes (spacemacs/mplist-get dotspacemacs-line-numbers
+                                                  :enabled-for-modes))
+         (disabled-for-modes (spacemacs/mplist-get dotspacemacs-line-numbers
+                                                   :disabled-for-modes))
+         (enabled-for-parent (apply #'derived-mode-p enabled-for-modes))
+         (disabled-for-parent (apply #'derived-mode-p disabled-for-modes)))
+    (or
+     ;; current mode or a parent is in :enabled-for-modes, and there isn't a
+     ;; more specific parent (or the mode itself) in :disabled-for-modes
+     (and enabled-for-parent
+          ;; handles the case where current major-mode has a parent both in
+          ;; :enabled-for-modes and in :disabled-for-modes. Return non-nil if
+          ;; enabled-for-parent is the more specific parent (IOW doesn't derive
+          ;; from disabled-for-parent)
+          (not (spacemacs/derived-mode-p enabled-for-parent disabled-for-parent)))
+     ;; current mode (or parent) not explicitly disabled, and :enabled-for-modes
+     ;; not explicitly specified by user (meaning if it isn't explicitly
+     ;; disabled then it's enabled)
+     (and (null enabled-for-modes) (not disabled-for-parent)))))
