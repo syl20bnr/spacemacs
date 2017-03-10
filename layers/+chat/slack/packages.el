@@ -65,6 +65,8 @@
       (spacemacs/set-leader-keys
         "aCs" 'slack-start
         "aCj" 'slack-channel-select
+        "aCg" 'slack-group-select
+        "aCr" 'slack-select-rooms
         "aCd" 'slack-im-select
         "aCq" 'slack-ws-close)
       (setq slack-enable-emoji t))
