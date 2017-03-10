@@ -65,9 +65,10 @@
     :init
     (progn
       (setq pyim-use-tooltip t
-            pyim-dicts-directory spacemacs-cache-directory
-            pyim-personal-file (concat spacemacs-cache-directory
-                                       "pyim-personal.txt")
+            pyim-directory (expand-file-name "pyim/" spacemacs-cache-directory)
+            pyim-dicts-directory (expand-file-name "dicts/" pyim-directory)
+            pyim-dcache-directory (expand-file-name "dcache/" pyim-directory)
+            pyim-personal-file (expand-file-name "pyim-personal.txt" pyim-directory)
             default-input-method "chinese-pyim")
       (evilified-state-evilify pyim-dicts-manager-mode pyim-dicts-manager-mode-map))))
 
