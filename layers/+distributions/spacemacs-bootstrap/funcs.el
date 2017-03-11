@@ -49,11 +49,17 @@
   (cond
    ((or (eq 'vim style)
         (and (eq 'hybrid style)
-             (or (not (boundp 'hybrid-mode-use-evil-search-module))
-                 hybrid-mode-use-evil-search-module)))
-    (setq-default evil-search-module 'evil-search))
+             (bound-and-true-p hybrid-mode-use-evil-search-module)))
+    ;; if Evil is loaded already, just setting `evil-search-module' isn't
+    ;; enough, we need to call `evil-select-search-module' as well (this is done
+    ;; automatically when `evil-search-module' is changed via customize)
+    (if (featurep 'evil-search)
+        (evil-select-search-module 'evil-search-module 'evil-search)
+      (setq-default evil-search-module 'evil-search)))
    (t
-    (setq-default evil-search-module 'isearch))))
+    (if (featurep 'evil-search)
+        (evil-select-search-module 'evil-search-module 'isearch)
+      (setq-default evil-search-module 'isearch)))))
 
 (defun spacemacs/evil-smart-doc-lookup ()
   "Version of `evil-lookup' that attempts to use
