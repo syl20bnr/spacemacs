@@ -31,20 +31,24 @@
 
 (require 'evil)
 
-(defvar hybrid-mode-enable-hjkl-bindings)
-
 (defcustom hybrid-mode-default-state 'normal
   "Value of `evil-default-state' for hybrid-mode."
   :group 'spacemacs
   :type 'symbol)
 
 (defcustom hybrid-mode-enable-hjkl-bindings nil
-  "If non nil then packages configuration should enable hjkl navigation."
+  "If non-nil then packages configuration should enable hjkl navigation."
   :group 'spacemacs
   :type 'boolean)
 
 (defcustom hybrid-mode-enable-evilified-state t
-  "If non nil then evilified states is enabled in buffer supporting it."
+  "If non-nil then evilified states is enabled in buffer supporting it."
+  :group 'spacemacs
+  :type 'boolean)
+
+(defcustom hybrid-mode-use-evil-search-module nil
+  "If non-nil then use evil own search module which is closer to Vim search
+behavior (for instance it support C-r pasting)."
   :group 'spacemacs
   :type 'boolean)
 
@@ -108,7 +112,7 @@
 
 ;; This code is from evil insert state definition, any change upstream
 ;; should be reflected here
-;; see https://bitbucket.org/lyro/evil/src/a25b848c90c7942fe89d9ec283c6bb44fb7b3cf4/evil-states.el?fileviewer=file-view-default#evil-states.el-74
+;; see https://github.com/emacs-evil/evil/blob/56e92f7cb4e04e665670460093b41f58446b7a2b/evil-states.el#L108
 (evil-define-state hybrid
   "Hybrid state for hybrid mode."
   :tag " <H> "

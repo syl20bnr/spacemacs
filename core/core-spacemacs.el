@@ -67,6 +67,7 @@ the final step of executing code in `emacs-startup-hook'.")
   ;; this is for a smoother UX at startup (i.e. less graphical glitches)
   (hidden-mode-line-mode)
   (spacemacs//removes-gui-elements)
+  (spacemacs//setup-ido-vertical-mode)
   ;; explicitly set the prefered coding systems to avoid annoying prompt
   ;; from emacs (especially on Microsoft Windows)
   (prefer-coding-system 'utf-8)
@@ -102,17 +103,8 @@ the final step of executing code in `emacs-startup-hook'.")
   (setq dotspacemacs-editing-style (dotspacemacs//read-editing-style-config
                                     dotspacemacs-editing-style))
   (configuration-layer/initialize)
-  ;; default theme
-  (let ((default-theme (car dotspacemacs-themes)))
-    (spacemacs/load-theme default-theme)
-    ;; protect used themes from deletion as orphans
-    (setq configuration-layer--protected-packages
-          (append
-           (delq nil (mapcar 'spacemacs//get-theme-package
-                             dotspacemacs-themes))
-           configuration-layer--protected-packages))
-    (setq-default spacemacs--cur-theme default-theme)
-    (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
+  ;; theme
+  (spacemacs/load-default-theme spacemacs--fallback-theme)
   ;; font
   (spacemacs|do-after-display-system-init
    ;; If you are thinking to remove this call to `message', think twice. You'll
@@ -158,16 +150,32 @@ the final step of executing code in `emacs-startup-hook'.")
 (defun spacemacs//removes-gui-elements ()
   "Remove the menu bar, tool bar and scroll bars."
   ;; removes the GUI elements
+  (when (and (fboundp 'tool-bar-mode) (not (eq tool-bar-mode -1)))
+    (tool-bar-mode -1))
   (unless (spacemacs/window-system-is-mac)
     (when (and (fboundp 'menu-bar-mode) (not (eq menu-bar-mode -1)))
       (menu-bar-mode -1)))
   (when (and (fboundp 'scroll-bar-mode) (not (eq scroll-bar-mode -1)))
     (scroll-bar-mode -1))
-  (when (and (fboundp 'tool-bar-mode) (not (eq tool-bar-mode -1)))
-    (tool-bar-mode -1))
   ;; tooltips in echo-aera
   (when (and (fboundp 'tooltip-mode) (not (eq tooltip-mode -1)))
     (tooltip-mode -1)))
+
+(defun spacemacs//setup-ido-vertical-mode ()
+  "Setup `ido-vertical-mode'."
+  (require 'ido-vertical-mode)
+  (ido-vertical-mode t)
+  (add-hook
+   'ido-setup-hook
+   ;; think about hacking directly `ido-vertical-mode' source in libs instead.
+   (defun spacemacs//ido-vertical-natural-navigation ()
+     ;; more natural navigation keys: up, down to change current item
+     ;; left to go up dir
+     ;; right to open the selected item
+     (define-key ido-completion-map (kbd "<up>") 'ido-prev-match)
+     (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
+     (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
+     (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer))))
 
 (defun display-startup-echo-area-message ()
   "Change the default welcome message of minibuffer to another one."
@@ -184,7 +192,7 @@ defer call using `spacemacs-post-user-config-hook'."
   "Add post init processing."
   (add-hook
    'emacs-startup-hook
-   (lambda ()
+   (defun spacemacs/startup-hook ()
      ;; This is set here so that emacsclient will show the startup buffer (and
      ;; so that it can be changed in user-config if necessary). It was set to
      ;; nil earlier in the startup process to properly handle command line
@@ -201,7 +209,11 @@ defer call using `spacemacs-post-user-config-hook'."
      (when (fboundp dotspacemacs-scratch-mode)
        (with-current-buffer "*scratch*"
          (funcall dotspacemacs-scratch-mode)))
+     (when spacemacs--delayed-user-theme
+       (spacemacs/load-theme spacemacs--delayed-user-theme
+                             spacemacs--fallback-theme t))
      (configuration-layer/display-summary emacs-start-time)
+     (spacemacs-buffer//startup-hook)
      (spacemacs/check-for-new-version nil spacemacs-version-check-interval)
      (setq spacemacs-initialized t))))
 

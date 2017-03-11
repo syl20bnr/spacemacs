@@ -144,8 +144,8 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
    ((or (not spacemacs-buffer--release-note-version)
         (version< spacemacs-buffer--release-note-version
                   spacemacs-version))
-    ;; check the variable ;; spacemacs-buffer--release-note-version
-    ;; to decide whether ;; we show the release note
+    ;; check the variable spacemacs-buffer--release-note-version
+    ;; to decide whether we show the release note
     (spacemacs-buffer/toggle-note 'release-note)))
   (spacemacs//redisplay))
 
@@ -544,8 +544,8 @@ If MESSAGEBUF is not nil then MSG is also written in message buffer."
     (goto-char (point-max))
     (let ((buffer-read-only nil))
       (insert msg)
-      (if messagebuf (message "(Spacemacs) %s" msg)))
-    (spacemacs-buffer/set-mode-line "")))
+      (when messagebuf
+        (message "(Spacemacs) %s" msg)))))
 
 (defun spacemacs-buffer/replace-last-line (msg &optional messagebuf)
   "Replace the last line of the spacemacs buffer with MSG.
@@ -555,8 +555,8 @@ If MESSAGEBUF is not nil then MSG is also written in message buffer."
     (let ((buffer-read-only nil))
       (delete-region (line-beginning-position) (point-max))
       (insert msg)
-      (if messagebuf (message "(Spacemacs) %s" msg)))
-    (spacemacs-buffer/set-mode-line "")))
+      (when messagebuf
+        (message "(Spacemacs) %s" msg)))))
 
 (defun spacemacs-buffer/loading-animation ()
   "Display the progress bar by chunks of size `spacemacs--loading-dots-chunk-threshold'."
@@ -1031,17 +1031,15 @@ REFRESH if the buffer should be redrawn."
               (erase-buffer)))
           (spacemacs-buffer/set-mode-line "")
           (spacemacs-buffer/insert-banner-and-buttons)
-          (if (bound-and-true-p spacemacs-initialized)
-              (progn
-                (spacemacs-buffer//notes-redisplay-current-note)
-                (configuration-layer/display-summary emacs-start-time)
-                (when dotspacemacs-startup-lists
-                  (spacemacs-buffer/insert-startup-lists))
-                (spacemacs-buffer//insert-footer)
-                (spacemacs-buffer/set-mode-line spacemacs--default-mode-line)
-                (force-mode-line-update)
-                (spacemacs-buffer-mode))
-            (add-hook 'emacs-startup-hook 'spacemacs-buffer//startup-hook t))))
+          (when (bound-and-true-p spacemacs-initialized)
+            (spacemacs-buffer//notes-redisplay-current-note)
+            (configuration-layer/display-summary emacs-start-time)
+            (when dotspacemacs-startup-lists
+              (spacemacs-buffer/insert-startup-lists))
+            (spacemacs-buffer//insert-footer)
+            (spacemacs-buffer/set-mode-line spacemacs--default-mode-line)
+            (force-mode-line-update)
+            (spacemacs-buffer-mode))))
       (if save-line
           (progn (goto-char (point-min))
                  (forward-line (1- save-line))

@@ -200,10 +200,10 @@ As this state works the same for all files, the documentation is in global
 
 | Key Binding | Description                    |
 |-------------+--------------------------------|
-| ~SPC m d r~ | reload namepspaces             |
 | ~SPC m d b~ | instrument expression at point |
 | ~SPC m d e~ | display last stacktrace        |
-| ~SPC m d i~ | inspect expression at point    |
+| ~SPC m d r~ | reload namespaces             |
+| ~SPC m d v~ | inspect expression at point    |
 
 *** Refactoring
 
@@ -216,7 +216,11 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m r a p~ | add project dependency      |
 | ~SPC m r a r~ | add require to ns           |
 | ~SPC m r a u~ | add use to ns               |
-| ~SPC m r c c~ | cycle coll                  |
+| ~SPC m r c (~ | convert coll to list        |
+| ~SPC m r c '~ | convert coll to quoted list |
+| ~SPC m r c {~ | convert coll to map         |
+| ~SPC m r c #~ | convert coll to set         |
+| ~SPC m r c [~ | convert coll to vector      |
 | ~SPC m r c i~ | cycle if                    |
 | ~SPC m r c n~ | clean ns                    |
 | ~SPC m r c p~ | cycle privacy               |
@@ -296,16 +300,16 @@ In general, ~q~ should always quit the popped up buffer.
 
 *** test-report-mode
 
-| Key Binding | Description       |
-|-------------+-------------------|
-| ~C-j~       | next result       |
-| ~C-k~       | previous result   |
-| ~RET~       | jump to test      |
-| ~d~         | ediff test result |
-| ~e~         | show stacktrace   |
-| ~r~         | rerun tests       |
-| ~t~         | run test          |
-| ~T~         | run tests         |
+| Key Binding | Description        |
+|-------------+--------------------|
+| ~C-j~       | next result        |
+| ~C-k~       | previous result    |
+| ~RET~       | jump to test       |
+| ~d~         | ediff test result  |
+| ~e~         | show stacktrace    |
+| ~r~         | rerun failed tests |
+| ~t~         | run test           |
+| ~T~         | run tests          |
 
 * Development Notes
 ** Indentation

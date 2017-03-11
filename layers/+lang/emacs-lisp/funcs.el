@@ -31,6 +31,48 @@
       (find-function-at-point))))
 
 
+;; edebug
+
+(defun spacemacs/edebug-instrument-defun-on ()
+  "Toggle on instrumentalisation for the function under `defun'."
+  (interactive)
+  (eval-defun 'edebugit))
+
+(defun spacemacs/edebug-instrument-defun-off ()
+  "Toggle on instrumentalisation for the function under `defun'."
+  (interactive)
+  (eval-defun))
+
+(defun spacemacs/elisp-toggle-debug-expr-and-eval-func ()
+  "Insert or remove debug expression, evaluate function and save buffer."
+  (interactive)
+  (let ((trace "(debug)")
+        (line (thing-at-point 'line)))
+    (if (and line (string-match trace line))
+        (kill-whole-line)
+      (progn
+        (back-to-indentation)
+        (insert trace)
+        (newline-and-indent))))
+  (eval-defun nil)
+  (save-buffer))
+
+(defun spacemacs//edebug-mode (&rest args)
+  "Additional processing when `edebug-mode' is activated or deactivated."
+  (let ((evilified (or (eq 'vim dotspacemacs-editing-style)
+                       (and (eq 'hybrid dotspacemacs-editing-style)
+                            hybrid-mode-enable-evilified-state))))
+    (if (not edebug-mode)
+        ;; disable edebug-mode
+        (when evilified (evil-normal-state))
+      ;; enable edebug-mode
+      (when evilified (evil-evilified-state))
+      (evil-normalize-keymaps)
+      (when (and (fboundp 'golden-ratio-mode)
+                 golden-ratio-mode)
+        (golden-ratio)))))
+
+
 ;; smartparens integration
 
 (defun spacemacs/eval-current-form-sp (&optional arg)

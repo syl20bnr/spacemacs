@@ -1,0 +1,104 @@
+#+TITLE: Coq layer
+
+[[file:img/coq.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#coq][Coq]]
+ - [[#key-bindings][Key bindings]]
+   - [[#laying-out-windows][Laying out windows]]
+   - [[#managing-prover-process][Managing prover process]]
+   - [[#prover-queries][Prover queries]]
+   - [[#moving-the-point][Moving the point]]
+   - [[#inserting][Inserting]]
+ - [[#faq][FAQ]]
+   - [[#there-are-empty-square-boxes-in-place-of-math-operators][There are empty square boxes in place of math operators]]
+
+* Description
+This layer adds support for the [[https://coq.inria.fr/][Coq]] proof assistant (adapted from
+[[https://github.com/tchajed/spacemacs-coq]]).
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =coq= to the existing =dotspacemacs-configuration-layers= list in this file.
+
+** Coq
+Official installers for MacOS and Windows are available from:
+[[https://coq.inria.fr/download]].
+
+Linux users can build from source or consult with their own package managers.
+
+* Key bindings
+** Laying out windows
+
+| Key Binding | Description           |
+|-------------+-----------------------|
+| ~SPC m l c~ | Clear response buffer |
+| ~SPC m l l~ | Re-layout windows     |
+| ~SPC m l p~ | Show current proof    |
+
+** Managing prover process
+
+| Key Binding | Description                                                     |
+|-------------+-----------------------------------------------------------------|
+| ~SPC m p i~ | Interrupt prover                                                |
+| ~SPC m p p~ | Process buffer - processes and moves point to end of buffer     |
+| ~SPC m p q~ | Quit prover                                                     |
+| ~SPC m p r~ | Retract buffer - rewinds and moves point to beginning of buffer |
+
+** Prover queries
+The mnemonic for =a= is "ask".
+
+| Key Binding   | Description                                 |
+|---------------+---------------------------------------------|
+| ~SPC m a a~   | Print                                       |
+| ~SPC m a A~   | Print (showing all)                         |
+| ~SPC m a b~   | About                                       |
+| ~SPC m a B~   | About (showing all)                         |
+| ~SPC m a c~   | Check                                       |
+| ~SPC m a C~   | Check (showing all)                         |
+| ~SPC m a f~   | Search (mnemonic: "find theorems")          |
+| ~SPC m a i b~ | About (showing implicits)                   |
+| ~SPC m a i c~ | Check (showing implicits)                   |
+| ~SPC m a i i~ | Print (showing implicits)                   |
+| ~SPC m a o~   | Show an outline of the current proof script |
+
+** Moving the point
+
+| Key Binding | Description                     |
+|-------------+---------------------------------|
+| ~SPC m g e~ | Go to end of command at point   |
+| ~SPC m g g~ | Go to definition at point       |
+| ~SPC m g l~ | Go to last processed command    |
+| ~SPC m g s~ | Go to start of command at point |
+
+** Inserting
+
+| Key Binding     | Description                                                     |
+|-----------------+-----------------------------------------------------------------|
+| ~SPC m M-RET~   | Insert regular match branch                                     |
+| ~SPC m M-S-RET~ | Insert =match goal with= branch                                 |
+| ~SPC m i e~     | Insert =End <section-name>=                                     |
+| ~SPC m i l~     | Extract lemma from current goal - exit with ~C-RET~ (not ~C-j~) |
+| ~SPC m i m~     | Insert =match= on a type                                        |
+
+Note the last two are regular =company-coq= bindings, left alone since they are
+most useful in insert mode. The full =company-coq= tutorial showcasing all
+available =company-coq= keybindings can be accessed at any time using =SPC SPC
+company-coq-tutorial=.
+
+* FAQ
+** There are empty square boxes in place of math operators
+Math symbols present in your buffer (e.g. forall exists) will attempt to be
+prettified, if you are seeing empty square boxes this means an appropriate math
+symbol cannot be found in your *font*. You can either install a appropriate math
+font, or disable the feature by adding the following snippet to the your
+=dotspacemacs/user-config=.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'company-coq
+  (add-to-list 'company-coq-disabled-features 'prettify-symbols))
+#+END_SRC

@@ -9,12 +9,15 @@
    - [[#layer][Layer]]
    - [[#chrome-extension][Chrome extension]]
  - [[#configuration][Configuration]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 This layer provides some integration with the Google Chrome browser.
 
 ** Features
 - Edit text boxes with Emacs using [[http://melpa.org/#/edit-server][edit-server]]
+- Write markdown in Emacs and realtime show in chrome using [[https://github.com/mola-T/flymd][flymd]]
+
 
 * Install
 ** Layer
@@ -27,6 +30,7 @@ file.
 Google Chrome extension [[https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh][Edit with Emacs]]. You have to install this extension.
 
 More information can be found on [[http://www.emacswiki.org/emacs/Edit_with_Emacs][Emacs Wiki]].
+
 The edit server is configured to start automatically when Spacemacs starts.
 
 * Configuration
@@ -49,10 +53,22 @@ To change frame defaults (width, height, etc. use =edit-server-new-frame-alist=)
   (add-to-list 'edit-server-new-frame-alist '(height . 60))
 #+END_SRC
 
-If you want Emacs to switch focus to Chrome after done editing, you can utilize =edit-server-done-hook=.
-Emacs cannot control focus of windows for external apps, so you need to use some sort of command line window manager like =wmctrl=.
+If you want Emacs to switch focus to Chrome after done editing, you can utilize
+=edit-server-done-hook=.
+
+Emacs cannot control focus of windows for external apps, so you need to use some
+sort of command line window manager like =wmctrl=.
+
 The following example works on OS X:
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'edit-server-done-hook (lambda () (shell-command "open -a \"Google Chrome\"")))
 #+END_SRC
+
+* Key bindings
+
+| Key Binding | Description |
+|-------------+-------------|
+| ~SPC a F~   | flymd-flyit |
+
+*Note:* You need to kill all google chrome process before using =flymd-flyit=.

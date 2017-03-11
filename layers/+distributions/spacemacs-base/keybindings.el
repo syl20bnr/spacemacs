@@ -469,10 +469,10 @@
 (spacemacs|define-transient-state buffer
   :title "Buffer Selection Transient State"
   :doc (concat "
- [_C-1_,_C-9_]^^  goto nth window              [_n_]^^     next buffer
- [_1_,_9_]^^      move buffer to nth window    [_N_/_p_]   previous buffer
- [_M-1_,_M-9_]^^  swap buffer w/ nth window    [_d_]^^     kill buffer
-              ^^^^^^                           [_q_]^^     quit")
+ [_C-1_.._C-9_] goto nth window            [_n_]^^   next buffer
+ [_1_.._9_]     move buffer to nth window  [_N_/_p_] previous buffer
+ [_M-1_.._M-9_] swap buffer w/ nth window  [_d_]^^   kill buffer
+ ^^^^                                      [_q_]^^   quit")
   :bindings
   ("n" next-buffer)
   ("N" previous-buffer)
@@ -535,16 +535,17 @@
 (spacemacs|define-transient-state window-manipulation
   :title "Window Manipulation Transient State"
   :doc (concat "
- Select^^^^              Move^^^^              Split^^                Resize^^                     Other^^
- ──────^^^^───────────── ────^^^^───────────── ─────^^─────────────── ──────^^──────────────────── ─────^^──────────────────────────────
- [_j_/_k_] down/up       [_J_/_K_] down/up     [_s_] vertical         [_[_] shrink horizontally    [_q_] quit
- [_h_/_l_] left/right    [_H_/_L_] left/right  [_S_] vert & follow    [_]_] enlarge horizontally   [_u_] restore prev layout
- [_0_-_9_] window N      [_r_]^^   rotate fwd  [_v_] horizontal       [_{_] shrink vertically      [_U_] restore next layout
- [_w_]^^   other window  [_R_]^^   rotate bwd  [_V_] horiz & follow   [_}_] enlarge vertically     [_d_] close current
- [_o_]^^   other frame   ^^^^                  ^^                     ^^                           [_D_] close other"
+ Select^^^^               Move^^^^              Split^^               Resize^^             Other^^
+ ──────^^^^─────────────  ────^^^^────────────  ─────^^─────────────  ──────^^───────────  ─────^^──────────────────
+ [_j_/_k_]  down/up       [_J_/_K_] down/up     [_s_] vertical        [_[_] shrink horiz   [_u_] restore prev layout
+ [_h_/_l_]  left/right    [_H_/_L_] left/right  [_S_] verti & follow  [_]_] enlarge horiz  [_U_] restore next layout
+ [_0_.._9_] window 0..9   [_r_]^^   rotate fwd  [_v_] horizontal      [_{_] shrink verti   [_d_] close current
+ [_w_]^^    other window  [_R_]^^   rotate bwd  [_V_] horiz & follow  [_}_] enlarge verti  [_D_] close other
+ [_o_]^^    other frame   ^^^^                  ^^                    ^^                   "
                (if (configuration-layer/package-usedp 'golden-ratio)
-                   "\n ^^^^                    ^^^^                  ^^                     ^^                           [_g_] golden-ratio %`golden-ratio-mode"
-                 ""))
+                   "[_g_] golden-ratio %`golden-ratio-mode"
+                 "")
+               "\n ^^^^                     ^^^^                  ^^                    ^^                   [_q_] quit")
   :bindings
   ("q" nil :exit t)
   ("0" winum-select-window-0)
@@ -643,20 +644,37 @@ otherwise it is scaled down."
   "Toggle between transparent and opaque state for FRAME.
 If FRAME is nil, it defaults to the selected frame."
   (interactive)
-  (let* ((alpha (frame-parameter frame 'alpha))
-         (dotfile-setting (cons dotspacemacs-active-transparency
-                                dotspacemacs-inactive-transparency)))
-    (set-frame-parameter
-     frame 'alpha
-     (if (not (equal alpha dotfile-setting))
-         dotfile-setting
-       '(100 . 100)))))
+  (let ((alpha (frame-parameter frame 'alpha))
+        (dotfile-setting (cons dotspacemacs-active-transparency
+                               dotspacemacs-inactive-transparency)))
+    (if (equal alpha dotfile-setting)
+        (spacemacs/disable-transparency frame)
+      (spacemacs/enable-transparency frame dotfile-setting))))
+
+(defun spacemacs/enable-transparency (&optional frame alpha)
+  "Enable transparency for FRAME.
+If FRAME is nil, it defaults to the selected frame.
+ALPHA is a pair of active and inactive transparency values. The
+default value for ALPHA is based on
+`dotspacemacs-active-transparency' and
+`dotspacemacs-inactive-transparency'."
+  (interactive)
+  (let ((alpha-setting (or alpha
+                           (cons dotspacemacs-active-transparency
+                                 dotspacemacs-inactive-transparency))))
+    (set-frame-parameter frame 'alpha alpha-setting)))
+
+(defun spacemacs/disable-transparency (&optional frame)
+  "Disable transparency for FRAME.
+If FRAME is nil, it defaults to the selected frame."
+  (interactive)
+  (set-frame-parameter frame 'alpha '(100 . 100)))
 
 (defun spacemacs/increase-transparency (&optional frame)
   "Increase transparency for FRAME.
 If FRAME is nil, it defaults to the selected frame."
   (interactive)
-  (let* ((current-alpha (car (frame-parameter frame 'alpha)))
+  (let* ((current-alpha (or (car (frame-parameter frame 'alpha)) 100))
          (increased-alpha (- current-alpha 5)))
     (when (>= increased-alpha frame-alpha-lower-limit)
       (set-frame-parameter frame 'alpha
@@ -666,7 +684,7 @@ If FRAME is nil, it defaults to the selected frame."
   "Decrease transparency for FRAME.
 If FRAME is nil, it defaults to the selected frame."
   (interactive)
-  (let* ((current-alpha (car (frame-parameter frame 'alpha)))
+  (let* ((current-alpha (or (car (frame-parameter frame 'alpha)) 100))
          (decreased-alpha (+ current-alpha 5)))
     (when (<= decreased-alpha 100)
       (set-frame-parameter frame 'alpha

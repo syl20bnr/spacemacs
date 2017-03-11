@@ -296,11 +296,11 @@ projectile cache when it's possible and update recentf list."
   "Renames current buffer and file it is visiting."
   (interactive)
   (let* ((name (buffer-name))
-        (filename (buffer-file-name))
-        (dir (file-name-directory filename)))
+        (filename (buffer-file-name)))
     (if (not (and filename (file-exists-p filename)))
         (error "Buffer '%s' is not visiting a file!" name)
-      (let ((new-name (read-file-name "New name: " dir)))
+      (let* ((dir (file-name-directory filename))
+             (new-name (read-file-name "New name: " dir)))
         (cond ((get-buffer new-name)
                (error "A buffer named '%s' already exists!" new-name))
               (t
@@ -925,7 +925,10 @@ A non-nil argument sorts in reverse order."
   "Count how many times each word is used in the region.
  Punctuation is ignored."
   (interactive "r")
-  (let (words alist_words_compare (formated ""))
+  (let (words
+        alist_words_compare
+        (formated "")
+        (overview (call-interactively 'count-words)))
     (save-excursion
       (goto-char start)
       (while (re-search-forward "\\w+" end t)
@@ -952,7 +955,9 @@ Compare them on count first,and in case of tie sort them alphabetically."
         (setq formated (concat formated (format "[%s: %d], " name count)))))
     (when (interactive-p)
       (if (> (length formated) 2)
-          (message (substring formated 0 -2))
+          (message (format "%s\nWord count: %s"
+                           overview
+                           (substring formated 0 -2)))
         (message "No words.")))
     words))
 
@@ -1030,12 +1035,32 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
   (when compilation-last-buffer
     (delete-windows-on compilation-last-buffer)))
 
+
+;; Line number
+
 (defun spacemacs/no-linum (&rest ignore)
   "Disable linum if current buffer."
   (when (or 'linum-mode global-linum-mode)
     (linum-mode 0)))
 
-(defun spacemacs/linum-update-window-scale-fix (win)
+(defun spacemacs/enable-line-numbers-p ()
+  "Return non-nil if line numbers should be enabled for current buffer.
+Decision is based on `dotspacemacs-line-numbers'."
+  (and dotspacemacs-line-numbers
+       (spacemacs//linum-current-buffer-is-not-special)
+       (spacemacs//linum-curent-buffer-is-not-too-big)
+       (or (spacemacs//linum-backward-compabitility)
+           ;; explicitly enabled buffers take priority over explicitly disabled
+           ;; ones
+           (or (spacemacs//linum-enabled-for-current-major-mode)
+               (not (spacemacs//linum-disabled-for-current-major-mode))))))
+
+(defun spacemacs//linum-on (origfunc &rest args)
+  "Advice function to improve `linum-on' function."
+  (when (spacemacs/enable-line-numbers-p)
+    (apply origfunc args)))
+
+(defun spacemacs//linum-update-window-scale-fix (win)
   "Fix linum for scaled text in the window WIN."
   (set-window-margins win
                       (ceiling (* (if (boundp 'text-scale-mode-step)
@@ -1043,3 +1068,35 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
                                             text-scale-mode-amount) 1)
                                   (if (car (window-margins))
                                       (car (window-margins)) 1)))))
+
+(defun spacemacs//linum-backward-compabitility ()
+  "Return non-nil if `dotspacemacs-line-numbers' has an old format and if
+`linum' should be enabled."
+  (and dotspacemacs-line-numbers
+       (not (listp dotspacemacs-line-numbers))
+       (or (eq dotspacemacs-line-numbers t)
+           (eq dotspacemacs-line-numbers 'relative))))
+
+(defun spacemacs//linum-current-buffer-is-not-special ()
+  "Return non-nil if current buffer is not a special buffer."
+  (not (string-match-p "\\*.*\\*" (buffer-name))))
+
+(defun spacemacs//linum-curent-buffer-is-not-too-big ()
+  "Return non-nil if buffer size is not too big."
+  (not (and (listp dotspacemacs-line-numbers)
+            (spacemacs/mplist-get dotspacemacs-line-numbers :size-limit-kb)
+            (> (buffer-size)
+               (* 1000 (car (spacemacs/mplist-get dotspacemacs-line-numbers
+                                                  :size-limit-kb)))))))
+
+(defun spacemacs//linum-enabled-for-current-major-mode ()
+  "Return non-nil if line number is enabled for current major-mode."
+  (let ((modes (spacemacs/mplist-get dotspacemacs-line-numbers
+                                     :enabled-for-modes)))
+    (memq major-mode modes)))
+
+(defun spacemacs//linum-disabled-for-current-major-mode ()
+  "Return non-nil if line number is disabled for current major-mode."
+  (let ((modes (spacemacs/mplist-get dotspacemacs-line-numbers
+                                     :disabled-for-modes)))
+    (memq major-mode modes)))

@@ -246,7 +246,10 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (defun spacemacs/helm-files-do-rg (&optional dir)
         "Search in files with `rg'."
         (interactive)
-        (let ((helm-ag-base-command "rg --smart-case --no-heading --vimgrep"))
+        ;; --line-number forces line numbers (disabled by default on windows)
+        ;; no --vimgrep because it adds column numbers that wgrep can't handle
+        ;; (see https://github.com/syl20bnr/spacemacs/pull/8065)
+        (let ((helm-ag-base-command "rg --smart-case --no-heading --color never --line-number"))
           (helm-do-ag dir)))
 
       (defun spacemacs/helm-files-do-rg-region-or-symbol ()
@@ -309,7 +312,10 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (defun spacemacs/helm-buffers-do-rg (&optional _)
         "Search in opened buffers with `rg'."
         (interactive)
-        (let ((helm-ag-base-command "rg --smart-case --no-heading --vimgrep"))
+        ;; --line-number forces line numbers (disabled by default on windows)
+        ;; no --vimgrep because it adds column numbers that wgrep can't handle
+        ;; (see https://github.com/syl20bnr/spacemacs/pull/8065)
+        (let ((helm-ag-base-command "rg --smart-case --no-heading --color never --line-number"))
           (helm-do-ag-buffers)))
 
       (defun spacemacs/helm-buffers-do-rg-region-or-symbol ()
@@ -621,7 +627,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :defer t
     :init
     (spacemacs/set-leader-keys
-      "Ts" 'helm-themes)))
+      "Ts" 'spacemacs/helm-themes)))
 
 (defun helm/post-init-imenu ()
   (spacemacs/set-leader-keys "ji" 'spacemacs/helm-jump-in-buffer))

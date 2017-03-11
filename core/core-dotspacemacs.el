@@ -100,6 +100,10 @@ wrapped in a layer. If you need some configuration for these
 packages then consider to create a layer, you can also put the
 configuration in `dotspacemacs/user-config'.")
 
+(defvar dotspacemacs--additional-theme-packages '()
+  "Same as `dotspacemacs-additonal-packages' but reserved for themes declared
+in `dotspacemacs-themes'.")
+
 (defvar dotspacemacs-editing-style 'vim
   "One of `vim', `emacs' or `hybrid'.
 `hybrid' is like `vim' except that `insert state' is replaced by the
@@ -301,8 +305,20 @@ recenters point when it reaches the top or bottom of the
 screen.")
 
 (defvar dotspacemacs-line-numbers nil
-  "If non nil line numbers are turned on in all `prog-mode' and `text-mode'
-derivatives. If set to `relative', also turns on relative line numbers.")
+  "Control line numbers activation.
+If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
+`text-mode' derivatives. If set to `relative', line numbers are relative.
+This variable can also be set to a property list for finer control:
+'(:relative nil
+  :disabled-for-modes dired-mode
+                      doc-view-mode
+                      markdown-mode
+                      org-mode
+                      pdf-view-mode
+                      text-mode
+  :size-limit-kb 1000)
+The property `:enabled-for-modes' takes priority over `:disabled-for-modes' and
+restricts line-number to the specified list of major-mode.")
 
 (defvar dotspacemacs-persistent-server nil
   "If non nil advises quit functions to keep server open when quitting.")
@@ -464,8 +480,9 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
                    (lambda (x)
                      (and (boundp x)
                           (not (keywordp x))
-                          (string-prefix-p "dotspacemacs"
-                                           (symbol-name x))))))
+                          ;; avoid private variables to show up
+                          (not (string-match-p "--" (symbol-name x)))
+                          (string-prefix-p "dotspacemacs" (symbol-name x))))))
 
 (defun dotspacemacs/get-variable-list ()
   "Return a list of all dotspacemacs variable symbols."

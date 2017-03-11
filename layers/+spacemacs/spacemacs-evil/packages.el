@@ -192,7 +192,7 @@
         ("+" evil-numbers/inc-at-pt)
         ("=" evil-numbers/inc-at-pt)
         ("-" evil-numbers/dec-at-pt)
-        ("q" nil :exit t)) 
+        ("q" nil :exit t))
       (spacemacs/set-leader-keys
         "n+" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
         "n=" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
@@ -259,12 +259,14 @@
     :commands (linum-relative-toggle linum-relative-on)
     :init
     (progn
-      (when (eq dotspacemacs-line-numbers 'relative)
-        (linum-relative-on))
+      (when (or (eq dotspacemacs-line-numbers 'relative)
+                (and (listp dotspacemacs-line-numbers)
+                     (car (spacemacs/mplist-get dotspacemacs-line-numbers
+                                                :relative))))
+        (add-hook 'spacemacs-post-user-config-hook 'linum-relative-on))
       (spacemacs/set-leader-keys "tr" 'spacemacs/linum-relative-toggle))
     :config
-    (progn
-      (setq linum-relative-current-symbol ""))))
+    (setq linum-relative-current-symbol "")))
 
 (defun spacemacs-evil/init-vi-tilde-fringe ()
   (spacemacs|do-after-display-system-init

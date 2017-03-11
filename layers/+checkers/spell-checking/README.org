@@ -85,7 +85,7 @@ set the layer variable =enable-flyspell-auto-completion= to t:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
-  '((spell-checking :variables =enable-flyspell-auto-completion= t)))
+  '((spell-checking :variables enable-flyspell-auto-completion t)))
 #+END_SRC
 
 * Key Bindings

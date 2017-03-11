@@ -31,9 +31,9 @@ to =nil=:
 #+END_SRC
 
 ** Disabling by default
-By default, syntax-checking is enabled in all available major modes and may be
-toggled off with ~SPC t s~. You can default this to off by setting the variable
-=syntax-checking-enable-by-default= to =nil=:
+By default, syntax-checking is enabled in all available major modes (except for
+=emacs-lisp-mode=) and may be toggled off with ~SPC t s~. You can default this to off
+by setting the variable =syntax-checking-enable-by-default= to =nil=:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers

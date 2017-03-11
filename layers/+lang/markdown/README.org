@@ -61,6 +61,10 @@ And install the executable with:
 npm install -g vmd
 #+END_SRC
 
+Additionally there is =flymd= package in =chrome= layer that allows to preview
+markdown buffer in Chrome. Please refer to =chrome= layer documentation for more
+information.
+
 * Usage
 ** Generate a TOC
 To generate a table of contents type on top of the buffer:
@@ -89,6 +93,7 @@ To generate a table of contents type on top of the buffer:
 | ~SPC m i w~ | insert wiki link                                                  |
 | ~SPC m i i~ | insert image                                                      |
 | ~SPC m i I~ | insert reference image                                            |
+| ~SPC m i t~ | insert Table of Contents (toc)                                    |
 | ~SPC m x b~ | make region bold or insert bold                                   |
 | ~SPC m x i~ | make region italic or insert italic                               |
 | ~SPC m x c~ | make region code or insert code                                   |

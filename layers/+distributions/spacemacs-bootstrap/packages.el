@@ -41,6 +41,11 @@
     :override-mode-name spacemacs-leader-override-mode))
 
 (defun spacemacs-bootstrap/init-evil ()
+  ;; ensure that the search module is set at startup
+  ;; must be called before evil is required to really take effect.
+  (spacemacs/set-evil-search-module dotspacemacs-editing-style)
+  (add-hook 'spacemacs-editing-style-hook 'spacemacs/set-evil-search-module)
+
   ;; evil-mode is mandatory for Spacemacs to work properly
   ;; evil must be require explicitly, the autoload seems to not
   ;; work properly sometimes.
@@ -76,12 +81,7 @@
            (set (intern (format "evil-%s-state-cursor" state))
                 (list (when dotspacemacs-colorize-cursor-according-to-state color)
                       cursor)))
-
   (add-hook 'spacemacs-post-theme-change-hook 'spacemacs/set-state-faces)
-
-  ;; put back refresh of the cursor on post-command-hook see status of:
-  ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
-  ;; (add-hook 'post-command-hook 'evil-refresh-cursor)
 
   ;; evil ex-command
   (define-key evil-normal-state-map (kbd dotspacemacs-ex-command-key) 'evil-ex)

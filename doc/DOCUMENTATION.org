@@ -62,6 +62,10 @@
  - [[#binding-keys][Binding keys]]
  - [[#gui-elements][GUI Elements]]
    - [[#color-themes][Color themes]]
+     - [[#default-theme][Default theme]]
+     - [[#choosing-themes][Choosing themes]]
+     - [[#browsing-themes][Browsing themes]]
+     - [[#notes][Notes]]
    - [[#font][Font]]
    - [[#gui-toggles][GUI Toggles]]
        - [[#global-line-numbers][Global line numbers]]
@@ -773,10 +777,12 @@ style configuration:
 
 - =hybrid-mode-default-state= The default state when opening a new buffer,
   default is =normal=. Set it to =emacs= for a more emacsy style.
-- =hybrid-mode-enable-hjkl-bindings= If non nil then packages will configure
+- =hybrid-mode-enable-hjkl-bindings= If non-nil then packages will configure
   =h j k l= key bindings for navigation.
-- =hybrid-mode-enable-evilified-state= If non nil buffer are =evilified= when
+- =hybrid-mode-enable-evilified-state= If non-nil buffer are =evilified= when
   supported, if nil then =emacs= state is enabled in those buffers instead.
+- =hybrid-mode-use-evil-search-module= If non-nil then use evil own search
+  module which is closer to Vim search behavior.
 
 Default configuration is:
 
@@ -784,6 +790,7 @@ Default configuration is:
 (setq-default dotspacemacs-editing-style '(hybrid :variables
                                            hybrid-mode-enable-evilified-state t
                                            hybrid-mode-enable-hjkl-bindings nil
+                                           hybrid-mode-use-evil-search-module nil
                                            hybrid-mode-default-state 'normal)
 #+END_SRC
 
@@ -987,6 +994,7 @@ Spacemacs has a minimalistic and distraction free graphical UI:
   - [[Errors handling][custom fringe bitmaps]] and error feedbacks for [[https://github.com/flycheck/flycheck][Flycheck]]
 
 ** Color themes
+*** Default theme
 The official Spacemacs theme is [[https://github.com/nashamri/spacemacs-theme][spacemacs-dark]] and it is the default theme
 installed when you first started Spacemacs. There are two variants of the
 theme, a dark one and a light one. Some aspects of these themes can be customized
@@ -994,6 +1002,7 @@ in the function =dotspacemacs/user-init= of your =~/.spacemacs=:
   - the comment background with the boolean =spacemacs-theme-comment-bg=
   - the height of org section titles with =spacemacs-theme-org-height=
 
+*** Choosing themes
 It is possible to define your default themes in your =~/.spacemacs= with the
 variable =dotspacemacs-themes=. For instance, to specify =spacemacs-light=,
 =leuven= and =zenburn=:
@@ -1002,26 +1011,51 @@ variable =dotspacemacs-themes=. For instance, to specify =spacemacs-light=,
 (setq-default dotspacemacs-themes '(spacemacs-light leuven zenburn))
 #+END_SRC
 
+=dotspacemacs-themes= entries accept the same properties as packages listed
+in layers package lists or in =dotspacemacs-addtional-packages=. So it is
+possible to fetch a package from a specific location. For example, you could
+fetch =zenburn= theme directly from the GitHub repository with the following
+declaration:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-themes
+              '(spacemacs-light
+              leuven
+              (zenburn :location (recipe :fetcher github
+                                         :repo "bbatsov/zenburn-emacs"))
+              ))
+#+END_SRC
+
+*Important note:* If you use =:location local= then you have to put your theme
+in the directory =private/local/<theme-package-name>/= with =theme-package-name=
+being the name of your package suffixed with =-theme= as mentioned in the Emacs
+conventions.
+ For instance if your theme is =foo= then you have to put our theme
+files in the directory =private/local/foo-theme=.
+
+You can cycle between the themes declared in =dotspacemacs-themes= with
+~SPC T n~ and select an installed theme with ~SPC T s~.
+
 | Key Binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC T n~   | switch to next theme listed in =dotspacemacs-themes=. |
 | ~SPC T s~   | select a theme using a =helm= buffer.                 |
 
-You can see samples of all included themes in this [[http://themegallery.robdor.com][theme gallery]] from [[http://www.twitter.com/robmerrell][Rob Merrell]].
+*** Browsing themes
+You can see samples of all themes included in the =themes-megapack= layer
+in this [[http://themegallery.robdor.com][theme gallery]] from [[http://www.twitter.com/robmerrell][Rob Merrell]].
 
-*Note*:
-  - You don't need to explicitly list in a layer the theme packages you are
-    defining in =dotspacemacs-themes=, Spacemacs is smart enough to remove those
-    packages from the list of orphans.
-  - Due to the inner working of themes in Emacs, switching theme during the same
-    session may have some weird side effects. Although these side effects should
-    be pretty rare.
-  - In the terminal version of Emacs, color themes will not render correctly as
-    colors are rendered by the terminal and not by emacs. You will probably have
-    to change your terminal color palette. More explanations can be found on
-    [[https://github.com/sellout/emacs-color-theme-solarized#important-note-for-terminal-users][emacs-color-theme-solarized webpage]].
-
-*Hint*: If you are an =Org= user, [[https://github.com/fniessen/emacs-leuven-theme][leuven-theme]] is amazing ;-)
+*** Notes
+- You don't need to explicitly list in a layer the theme packages you are
+  defining in =dotspacemacs-themes=, Spacemacs is smart enough to remove those
+  packages from the list of orphans.
+- Due to the inner working of themes in Emacs, switching theme during the same
+  session may have some weird side effects. Although these side effects should
+  be pretty rare.
+- In the terminal version of Emacs, color themes will not render correctly as
+  colors are rendered by the terminal and not by emacs. You will probably have
+  to change your terminal color palette. More explanations can be found on
+  [[https://github.com/sellout/emacs-color-theme-solarized#important-note-for-terminal-users][emacs-color-theme-solarized webpage]].
 
 ** Font
 The default font used by Spacemacs is [[https://github.com/adobe-fonts/source-code-pro][Source Code Pro]] by Adobe. It is
@@ -1132,6 +1166,43 @@ If it is set to =relative=, line numbers are show in a relative way:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-line-numbers 'relative)
+#+END_SRC
+
+=dotspacemacs-line-numbers= can also be set to a property list for finer control
+over line numbers activation.
+
+Available properties:
+
+| Property              | Description                                                                                  |
+|-----------------------+----------------------------------------------------------------------------------------------|
+| =:disabled-for-modes= | list of major modes where line numbering is inhibited                                        |
+| =:enabled-for-modes=  | disable for all major modes except those listed. Takes precedence over =:disabled-for-modes= |
+| =:relative=           | if non-nil, line numbers are relative to the position of the cursor                          |
+| =:size-limit-kb=      | size limit in kilobytes after which line numbers are not activated                           |
+
+Example:
+
+Disable line numbers in dired-mode, doc-view-mode, markdown-mode, org-mode,
+pdf-view-mode, text-mode as well as buffers over 1Mb:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-lines-numbers '(:relative nil
+                                           :disabled-for-modes dired-mode
+                                                               doc-view-mode
+                                                               markdown-mode
+                                                               org-mode
+                                                               pdf-view-mode
+                                                               text-mode
+                                           :size-limit-kb 1000))
+#+END_SRC
+
+Relative line numbers only in c-mode and c++ mode with a size limit of =dotspacemacs-large-file-size=:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-lines-numbers '(:relative t
+                                           :enabled-for-modes c-mode
+                                                              c++-mode
+                                           :size-limit-kb (* dotspacemacs-large-file-size 1000))
 #+END_SRC
 
 ** Mode-line
@@ -1390,8 +1461,8 @@ Press ~?~ to toggle the full help.
 |-------------------+------------------------------------------------------------|
 | ~SPC l~           | activate the transient- state                              |
 | ~?~               | toggle the documentation                                   |
-| ~[1..9, 0]~       | switch to nth layout                                       |
-| ~[C-1..C-9, C-0]~ | switch to nth layout and keep the transient state active   |
+| ~[0..9]~          | switch to nth layout                                       |
+| ~[C-0..C-9]~      | switch to nth layout and keep the transient state active   |
 | ~<tab>~           | switch to the latest layout                                |
 | ~a~               | add a buffer to the current layout                         |
 | ~A~               | add all the buffers from another layout in the current one |
@@ -1445,8 +1516,8 @@ Press ~?~ to toggle the full help.
 |-------------------+-------------------------------------------------------------|
 | ~SPC l w~         | activate the transient state                                |
 | ~?~               | toggle the documentation                                    |
-| ~[1..9, 0]~       | switch to nth workspace                                     |
-| ~[C-1..C-9, C-0]~ | switch to nth workspace and keep the transient state active |
+| ~[0..9]~          | switch to nth workspace                                     |
+| ~[C-0..C-9]~      | switch to nth workspace and keep the transient state active |
 | ~TAB~             | switch to last active workspace                             |
 | ~d~               | close current workspace                                     |
 | ~n~ or ~l~        | switch to next workspace                                    |
@@ -1459,7 +1530,7 @@ There are also some handy globally available key bindings related to workspaces:
 | Key Binding | Description                          |
 |-------------+--------------------------------------|
 | ~gt~        | go to next workspace                 |
-| ~gT~        | got to previous workspace            |
+| ~gT~        | go to previous workspace             |
 | ~SPC b W~   | go to workspace and window by buffer |
 
 * Commands

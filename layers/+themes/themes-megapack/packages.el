@@ -54,6 +54,7 @@
     jbeans-theme
     light-soap-theme
     lush-theme
+    madhat2r-theme
     majapahit-theme
     material-theme
     minimal-theme
@@ -83,8 +84,8 @@
     soft-charcoal-theme
     soft-morning-theme
     soft-stone-theme
+    solarized-theme
     soothe-theme
-    sourcerer-theme
     spacegray-theme
     subatomic-theme
     subatomic256-theme
