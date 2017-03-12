@@ -111,7 +111,10 @@
       ;; due to evil/emacs cursor incompatibility
       (evil-define-key 'insert eshell-mode-map
         (kbd "C-k") 'eshell-previous-matching-input-from-input
-        (kbd "C-j") 'eshell-next-matching-input-from-input))))
+        (kbd "C-j") 'eshell-next-matching-input-from-input
+        (kbd "<tab>") 'helm-esh-pcomplete
+        ))))
+
 
 (defun shell/init-eshell-prompt-extras ()
   (use-package eshell-prompt-extras
