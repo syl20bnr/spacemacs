@@ -9,6 +9,7 @@
    - [[#differences-between-margin-programs][Differences between margin programs]]
  - [[#key-bindings][Key Bindings]]
    - [[#version-control-transient-state][Version Control Transient-state]]
+   - [[#smerge-mode-transient-state][Smerge Mode Transient-state]]
 
 * Description
 This layers adds general configuration for [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html][Emacs VC]].
@@ -69,6 +70,7 @@ one over the other:
 | Key Binding | Description                     |
 |-------------+---------------------------------|
 | ~SPC g .~   | version control transient-state |
+| ~SPC g r~   | smerge mode transient-state     |
 | ~SPC T d~   | toggle diff margins             |
 | ~SPC T C-d~ | toggle diff margins globally    |
 
@@ -93,3 +95,23 @@ one over the other:
 | ~SPC g . f~ | Fetch for repo with popup    |
 | ~SPC g . F~ | Pull repo with popup         |
 | ~SPC g . l~ | Show repo log                |
+
+
+** Smerge Mode Transient-state
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC g r n~ | Next hunk                |
+| ~SPC g r N~ | Previous hunk            |
+| ~SPC g r p~ | Previous hunk            |
+| ~SPC g r j~ | Go to next line          |
+| ~SPC g r k~ | Go to previous line      |
+| ~SPC g r b~ | Smerge keep base         |
+| ~SPC g r m~ | Smerge keep mine         |
+| ~SPC g r a~ | Smerge keep all          |
+| ~SPC g r o~ | Smerge keep other        |
+| ~SPC g r c~ | Smerge keep current      |
+| ~SPC g r C~ | Smerge combine with next |
+| ~SPC g r u~ | Undo                     |
+| ~SPC g r r~ | Smerge refine            |
+| ~SPC g r q~ | Quit transient state     |
