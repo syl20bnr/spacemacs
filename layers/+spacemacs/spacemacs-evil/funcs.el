@@ -40,8 +40,12 @@
         (insert " ")
         (sp-insert-pair "(")
         (indent-for-tab-command)))
+    (setq spacemacs-noleader-map (copy-keymap spacemacs-default-map))
+    (define-key spacemacs-noleader-map (kbd dotspacemacs-leader-key) nil)
     (define-key evil-lisp-state-map
-      (kbd dotspacemacs-leader-key) spacemacs-default-map)
+      (kbd dotspacemacs-leader-key) spacemacs-noleader-map)
+    ;; fix bug where [SPC k SPC k ...] is infinitely recursive
+    (define-key spacemacs-noleader-map (kbd "k") nil)
     (define-key evil-lisp-state-map "i"   'evil-lisp-insert-state)
     (define-key evil-lisp-state-map (kbd "C-g") 'evil-lisp-state/quit)
     (define-key evil-lisp-insert-state-map (kbd "C-g") 'evil-lisp-state/quit)
