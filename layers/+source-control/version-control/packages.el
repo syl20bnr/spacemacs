@@ -18,6 +18,7 @@
         git-gutter+
         git-gutter-fringe
         git-gutter-fringe+
+        (smerge-mode :location built-in)
         ))
 
 (defun version-control/init-diff-mode ()
@@ -169,3 +170,41 @@
         ".XXX..."
         "..X...."
         ))))
+
+
+(defun version-control/init-smerge-mode ()
+  (use-package smerge-mode
+    :defer t
+    :diminish smerge-mode
+    :commands spacemacs/smerge-transient-state/body
+    :init
+    (spacemacs/set-leader-keys
+      "gr" 'spacemacs/smerge-transient-state/body)
+    :config
+    (progn
+      (spacemacs|define-transient-state smerge
+        :title "smerge transient state"
+        :doc "
+ movement^^^^               merge action^^           other
+ ---------------------^^^^  -------------------^^    -----------
+ [_n_]^^    next hunk       [_b_] keep base          [_u_] undo
+ [_N_/_p_]  prev hunk       [_m_] keep mine          [_r_] refine
+ [_j_/_k_]  move up/down    [_a_] keep all           [_q_] quit
+ ^^^^                       [_o_] keep other
+ ^^^^                       [_c_] keep current
+ ^^^^                       [_C_] combine with next"
+        :bindings
+        ("n" smerge-next)
+        ("p" smerge-prev)
+        ("N" smerge-prev)
+        ("j" evil-next-line)
+        ("k" evil-previous-line)
+        ("a" smerge-keep-all)
+        ("b" smerge-keep-base)
+        ("m" smerge-keep-mine)
+        ("o" smerge-keep-other)
+        ("c" smerge-keep-current)
+        ("C" smerge-combine-with-next)
+        ("r" smerge-refine)
+        ("u" undo-tree-undo)
+        ("q" nil :exit t)))))
