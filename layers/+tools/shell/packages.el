@@ -112,7 +112,6 @@
       (evil-define-key 'insert eshell-mode-map
         (kbd "C-k") 'eshell-previous-matching-input-from-input
         (kbd "C-j") 'eshell-next-matching-input-from-input
-        (kbd "<tab>") 'helm-esh-pcomplete
         ))))
 
 
