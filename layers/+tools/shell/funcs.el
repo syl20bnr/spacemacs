@@ -125,15 +125,21 @@ is achieved by adding the relevant text properties."
   (when (configuration-layer/package-usedp 'semantic)
     (semantic-mode -1))
   ;; Caution! this will erase buffer's content at C-l
-  (define-key eshell-mode-map (kbd "C-l") 'eshell/clear)
+  (define-key eshell-mode-map (kbd "C-l") (funcall 'eshell-clear-keystroke))
   (define-key eshell-mode-map (kbd "C-d") 'eshell-delchar-or-maybe-eof))
 
-;; This is an eshell alias
-(defun eshell/clear ()
-  (interactive)
-  (let ((inhibit-read-only t))
-    (erase-buffer))
-  (eshell-send-input))
+(eval-after-load 'eshell
+  '(progn
+     ;; This is an eshell alias
+     (defun eshell/clear ()
+       (let ((inhibit-read-only t))
+         (erase-buffer)))
+     ;; This is a key-command
+     (defun eshell-clear-keystroke ()
+       (lambda ()
+         (interactive)
+         (eshell/clear)
+         (eshell-send-input)))))
 
 (defun spacemacs/helm-eshell-history ()
   "Correctly revert to insert state after selection."
