@@ -87,13 +87,15 @@
         :bindings
         "a" 'edebug-stop
         "s" 'edebug-step-mode
-        "S" 'edebug-next-mode)
+        "S" 'edebug-next-mode
+        "g" 'edebug-go-mode)
       (evilified-state-evilify-map edebug-eval-mode-map
         :eval-after-load edebug
         :bindings
         "a" 'edebug-stop
         "s" 'edebug-step-mode
-        "S" 'edebug-next-mode)
+        "S" 'edebug-next-mode
+        "g" 'edebug-go-mode)
       (advice-add 'edebug-mode :after 'spacemacs//edebug-mode))))
 
 (defun emacs-lisp/post-init-eldoc ()
