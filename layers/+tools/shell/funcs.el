@@ -130,6 +130,7 @@ is achieved by adding the relevant text properties."
       (erase-buffer)))
   ;; This is a key-command
   (defun spacemacs/eshell-clear-keystroke ()
+    "Allow for keystrokes to invoke eshell/clear"
     (interactive)
     (let ()
       (eshell/clear)
