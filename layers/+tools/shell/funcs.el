@@ -132,9 +132,8 @@ is achieved by adding the relevant text properties."
   (defun spacemacs/eshell-clear-keystroke ()
     "Allow for keystrokes to invoke eshell/clear"
     (interactive)
-    (let ()
-      (eshell/clear)
-      (eshell-send-input)))
+    (eshell/clear)
+    (eshell-send-input))
  ;; Caution! this will erase buffer's content at C-l
   (define-key eshell-mode-map (kbd "C-l") 'spacemacs/eshell-clear-keystroke)
   (define-key eshell-mode-map (kbd "C-d") 'eshell-delchar-or-maybe-eof))
