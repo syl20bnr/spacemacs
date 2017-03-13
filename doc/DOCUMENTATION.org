@@ -2091,7 +2091,7 @@ window resizing.
 | ~u~           | undo window layout (used to effectively undo a closed window) |
 | ~U~           | redo window layout                                            |
 | ~v~           | vertical split                                                |
-| ~V~           | horizontal split and focus new window                         |
+| ~V~           | vertical split and focus new window                           |
 | ~w~           | focus other window                                            |
 | Any other key | leave the transient state                                     |
 
