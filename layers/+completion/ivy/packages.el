@@ -121,8 +121,7 @@
           "pb"    'counsel-projectile-switch-to-buffer
           "pd"    'counsel-projectile-find-dir
           "pp"    'counsel-projectile-switch-project
-          "pf"    'counsel-projectile-find-file
-          "pr"    'projectile-recentf)))))
+          "pf"    'counsel-projectile-find-file)))))
 
 (defun ivy/post-init-evil ()
   (spacemacs/set-leader-keys
