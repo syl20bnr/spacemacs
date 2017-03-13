@@ -248,7 +248,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (interactive)
         ;; --line-number forces line numbers (disabled by default on windows)
         ;; no --vimgrep because it adds column numbers that wgrep can't handle
-        ;; (see https://github.com/syl20bnr/spacemacs/pull/8065)
+        ;; (see https://github.com/syl20bnr/spacemacs/pull/8065 )
         (let ((helm-ag-base-command "rg --smart-case --no-heading --color never --line-number"))
           (helm-do-ag dir)))
 
@@ -314,7 +314,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (interactive)
         ;; --line-number forces line numbers (disabled by default on windows)
         ;; no --vimgrep because it adds column numbers that wgrep can't handle
-        ;; (see https://github.com/syl20bnr/spacemacs/pull/8065)
+        ;; (see https://github.com/syl20bnr/spacemacs/pull/8065 )
         (let ((helm-ag-base-command "rg --smart-case --no-heading --color never --line-number"))
           (helm-do-ag-buffers)))
 
