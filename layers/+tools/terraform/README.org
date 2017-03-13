@@ -5,6 +5,7 @@
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
+ - [[#configuration][Configuration]]
 
 * Description
 This layer provides syntax support for Terraform =.tf= files using
@@ -14,3 +15,17 @@ This layer provides syntax support for Terraform =.tf= files using
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =terraform= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+* Configuration
+By default, `terraform fmt` is applied to the terraform buffers before saving.
+If you wish to turn off this feature you may override this setting in your .spacemacs file.
+
+In .spacemacs user-init:
+#+begin_src emacs-lisp
+  (setq terraform-fmt-on-save nil)
+#+end_src
+
+In .spacemacs layers declaration:
+#+begin_src emacs-lisp
+  (terraform :variables terraform-fmt-on-save nil)
+#+end_src
