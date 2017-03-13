@@ -43,6 +43,8 @@
       (unless (getenv var)
         (exec-path-from-shell-copy-env var))))
 
+  (add-hook 'go-mode-hook (lambda () (setq-local tab-width 8)))
+
   (use-package go-mode
     :defer t
     :init
