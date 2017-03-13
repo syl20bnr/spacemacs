@@ -344,7 +344,6 @@
         "pd" 'projectile-find-dir
         "pf" 'projectile-find-file
         "pF" 'projectile-find-file-dwim
-        "ph" 'helm-projectile
         "pr" 'projectile-recentf
         "pp" 'projectile-switch-project
         "pv" 'projectile-vc)
