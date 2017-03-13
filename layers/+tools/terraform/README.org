@@ -5,6 +5,7 @@
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
 
 * Description
 This layer provides syntax support for Terraform =.tf= files using
@@ -14,3 +15,12 @@ This layer provides syntax support for Terraform =.tf= files using
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =terraform= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+To enable canonical buffer formatting on save with =terraform fmt= set the
+variable =terraform-enable-format-on-save= to =t=.
+
+* Key Bindings
+
+| Key Binding | Description         |
+|-------------+---------------------|
+| ~SPC m =~   | reformat the buffer |
