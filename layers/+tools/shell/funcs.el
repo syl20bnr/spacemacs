@@ -129,12 +129,13 @@ is achieved by adding the relevant text properties."
     (let ((inhibit-read-only t))
       (erase-buffer)))
   ;; This is a key-command
-  (defun spacemacs/eshell-clear-keystroke () (lambda ()
-                                               (interactive)
-                                               (eshell/clear)
-                                               (eshell-send-input)))
+  (defun spacemacs/eshell-clear-keystroke ()
+    (interactive)
+    (let ()
+      (eshell/clear)
+      (eshell-send-input)))
  ;; Caution! this will erase buffer's content at C-l
-  (define-key eshell-mode-map (kbd "C-l") (funcall 'spacemacs/eshell-clear-keystroke))
+  (define-key eshell-mode-map (kbd "C-l") 'spacemacs/eshell-clear-keystroke)
   (define-key eshell-mode-map (kbd "C-d") 'eshell-delchar-or-maybe-eof))
 
 
