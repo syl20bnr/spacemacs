@@ -134,7 +134,7 @@ is achieved by adding the relevant text properties."
     (interactive)
     (eshell/clear)
     (eshell-send-input))
- ;; Caution! this will erase buffer's content at C-l
+  ;; Caution! this will erase buffer's content at C-l
   (define-key eshell-mode-map (kbd "C-l") 'spacemacs/eshell-clear-keystroke)
   (define-key eshell-mode-map (kbd "C-d") 'eshell-delchar-or-maybe-eof))
 
