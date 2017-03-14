@@ -38,6 +38,14 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =scala= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+Then, you'll need to modify your =~/.spacemacs= to use the recommended
+Ensime version (Stable). Please add the following lines to =dotspacemacs/user-init=:
+#+BEGIN_SRC emacs-lisp
+(defun dotspacemacs/user-init ()
+  (push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer--elpa-archives)
+  (push '(ensime . "melpa-stable") package-pinned-packages)
+#+END_SRC
+
 * Ensime
 [[http://ensime.github.io/][ENSIME]] provides IDE-like features, such as refactoring, incremental compilation
 and project-wide type-checking.
@@ -61,8 +69,8 @@ project's =project/build.properties=. For example,
    ensimeConfig= and =sbt ensimeConfigProject= at the shell.
 2. Run =M-x ensime= within Emacs to start an ENSIME session.
 
-Each Scala project uses a dedicated ENSIME session, so you only need to run =M-x
-ensime= once per project. Any Scala files you create or visit within the project
+Each Scala project uses a dedicated ENSIME session, so you only need to
+run ~SPC SPC ensime~ once per project. Any Scala files you create or visit within the project
 will automatically use ENSIME for the remainder of your editing session.
 
 * Scalastyle
