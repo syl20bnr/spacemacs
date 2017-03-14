@@ -1641,7 +1641,11 @@ LAYER must not be the owner of PKG."
            (spacemacs-buffer/message
             (format "  -> pre-init (%S)..." layer))
            (condition-case-unless-debug err
-               (funcall (intern (format "%S/pre-init-%S" layer pkg-name)))
+               (let* ((f-name (format "%S/pre-init-%S"
+                                      layer
+                                      pkg-name))
+                      (spacemacs--config-scope f-name))
+                 (funcall (intern f-name)))
              ('error
               (configuration-layer//increment-error-count)
               (spacemacs-buffer/append
@@ -1649,10 +1653,14 @@ LAYER must not be the owner of PKG."
                 (concat "\nAn error occurred while pre-configuring %S "
                         "in layer %S (error: %s)\n")
                 pkg-name layer err)))))))
-          (oref pkg :pre-layers))
+     (oref pkg :pre-layers))
     ;; init
     (spacemacs-buffer/message (format "  -> init (%S)..." owner))
-    (funcall (intern (format "%S/init-%S" owner pkg-name)))
+    (let* ((f-name (format "%S/init-%S"
+                           owner
+                           pkg-name))
+           (spacemacs--config-scope f-name))
+      (funcall (intern f-name)))
     ;; post-init
     (mapc
      (lambda (layer)
@@ -1663,7 +1671,11 @@ LAYER must not be the owner of PKG."
            (spacemacs-buffer/message
             (format "  -> post-init (%S)..." layer))
            (condition-case-unless-debug err
-               (funcall (intern (format "%S/post-init-%S" layer pkg-name)))
+               (let* ((f-name (format "%S/post-init-%S"
+                                      layer
+                                      pkg-name))
+                      (spacemacs--config-scope f-name))
+                 (funcall (intern f-name)))
              ('error
               (configuration-layer//increment-error-count)
               (spacemacs-buffer/append
@@ -1671,7 +1683,7 @@ LAYER must not be the owner of PKG."
                 (concat "\nAn error occurred while post-configuring %S "
                         "in layer %S (error: %s)\n")
                 pkg-name layer err)))))))
-          (oref pkg :post-layers))))
+     (oref pkg :post-layers))))
 
 (defun configuration-layer//cleanup-rollback-directory ()
   "Clean up the rollback directory."

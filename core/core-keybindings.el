@@ -17,6 +17,63 @@
 (defvar spacemacs-default-map (make-sparse-keymap)
   "Base keymap for all spacemacs leader key commands.")
 
+(defvar spacemacs--keybinding-mode-prefix-ht (make-hash-table :test 'equal)
+  "hash table of prefixes declared with `spacemacs/declare-prefix-for-mode'.
+KEY is string made by `spacemacs//make-keybinding-prefix-key'.
+VALUE is a plist and has format:
+(:prefix <prefix> :mode <mode> :name <name> :scope <scope> :file <file>)
+prefix, name and mode are from `spacemacs/declare-prefix-for-mode'.
+scope documented in `spacemacs--config-scope'.")
+
+(defvar spacemacs--keybinding-global-from-mode-prefix-ht
+  (make-hash-table :test 'equal)
+  "hash table of prefixes declared with `spacemacs/declare-prefix-for-mode'.
+KEY is PREFIX from `spacemacs/declare-prefix-for-mode'.
+VALUE is a plist and has format:
+(:prefix <prefix> :mode <mode> :name <name> :scope <scope> :file <file>)
+scope documented in `spacemacs--config-scope'.
+NOTE: this hash table used to detect collision between global and mode
+dependent prefixes.")
+
+(defvar spacemacs--keybinding-global-prefix-ht (make-hash-table :test 'equal)
+  "Hash table where KEY is PREFIX from `spacemacs/declare-prefix'
+VALUE is a plist and has format:
+(:prefix <PREFIX> :mode nil :name <NAME> :scope <SCOPE> :file <FILE>)
+PREFIX and NAME are from `spacemacs/declare-prefix'.
+SCOPE documented in `spacemacs--config-scope'.")
+
+(defvar spacemacs--keybinding-prefix-collision-list nil
+  "List of collisions in prefixes declared with `spacemacs/declare-prefix'
+and `spacemacs/declare-prefix-for-mode' functions.
+The value is a plist and has format:
+((:from <OLD_BINDING> :to <NEW_BINDING>) ...)
+<OLD_BINDING> and <NEW_BINDING> are old and new values from
+`spacemacs--keybinding-global-prefix-ht'.
+NOTE: See `dotspecemacs-keybindings-collision-report' for collision
+reporting levels.")
+
+(defvar spacemacs--keybinding-sequences-collision-list nil
+  "FIXME: NOT IMPLEMENTED")
+
+(defvar spacemacs--report-keybindings-collisions-timer nil
+  "Timer used in `spacemacs/report-keybindings-collisions'.")
+
+(defun spacemacs//schedule-report-keybindings-collisions ()
+  "Schedule `spacemacs/report-keybindings-collisions' run.
+NOTE: We use `run-with-idle-timer' to be asynchronous and
+less intrusive. Calls do not stack."
+  (when spacemacs--report-keybindings-collisions-timer
+    (cancel-timer spacemacs--report-keybindings-collisions-timer))
+  (setq spacemacs--report-keybindings-collisions-timer
+        (run-with-idle-timer 0 nil 'spacemacs/report-keybindings-collisions)))
+
+(defun spacemacs//make-keybinding-prefix-key (prefix &optional mode)
+  "Make key for the `spacemacs--keybinding-global-prefix-ht' hash table.)
+PREFIX - prefix used in `spacemacs/declare-prefix-for-mode' or
+`spacemacs/declare-prefix'.
+MODE - major mode used in `spacemacs/declare-prefix-for-mode'."
+  (format "%s:%s" mode prefix))
+
 (defun spacemacs/translate-C-i (_)
   "If `dotspacemacs-distinguish-gui-tab' is non nil, the raw key
 sequence does not include <tab> or <kp-tab>, and we are in the
@@ -42,27 +99,66 @@ gui, translate to [C-i]. Otherwise, [9] (TAB)."
 ;;     [C-m] [?\C-m]))
 ;; (define-key key-translation-map [?\C-m] 'spacemacs/translate-C-m)
 
-(defun spacemacs/declare-prefix (prefix name &optional long-name)
+(defun spacemacs/declare-prefix (prefix name &optional long-name redeclare)
   "Declare a prefix PREFIX. PREFIX is a string describing a key
 sequence. NAME is a string used as the prefix command.
-LONG-NAME if given is stored in `spacemacs/prefix-titles'."
+LONG-NAME if given is stored in `spacemacs/prefix-titles'.
+REDECLARE is a string of NAME that should be replaced or a list of string.
+NOTE: See `dotspecemacs-keybindings-collision-report' for collision
+reporting levels."
   (let* ((command name)
          (full-prefix (concat dotspacemacs-leader-key " " prefix))
          (full-prefix-emacs (concat dotspacemacs-emacs-leader-key " " prefix))
          (full-prefix-lst (listify-key-sequence (kbd full-prefix)))
          (full-prefix-emacs-lst (listify-key-sequence
                                  (kbd full-prefix-emacs))))
-    ;; define the prefix command only if it does not already exist
     (unless long-name (setq long-name name))
+    (let* ((old-binding
+            (gethash prefix spacemacs--keybinding-global-prefix-ht))
+           (old-binding-from-mode
+            (gethash prefix spacemacs--keybinding-global-from-mode-prefix-ht))
+           (new-binding
+            (puthash prefix
+                     `(:prefix ,prefix
+                       :mode    nil
+                       :name   ,long-name
+                       :scope  ,spacemacs--config-scope
+                       :file   ,load-file-name)
+                     spacemacs--keybinding-global-prefix-ht))
+           (check? (or (eq dotspecemacs-keybindings-collision-report 'all)
+                       (and (eq dotspecemacs-keybindings-collision-report
+                                'internal)
+                            load-file-name
+                            (string-prefix-p
+                             (expand-file-name
+                              spacemacs-start-directory)
+                             (expand-file-name
+                              (file-name-directory load-file-name)))))))
+      (when check?
+        (dolist (binding (list old-binding old-binding-from-mode))
+          (when (and binding
+                     new-binding
+                     (not (let ((old-name (plist-get binding :name)))
+                            (or (and (stringp redeclare)
+                                     (string= old-name redeclare))
+                                (and (listp redeclare)
+                                     (member old-name redeclare))))))
+            (push `(:from ,binding
+                    :to   ,new-binding)
+                  spacemacs--keybinding-prefix-collision-list)
+            (spacemacs//schedule-report-keybindings-collisions)))))
     (which-key-add-key-based-replacements
       full-prefix-emacs (cons name long-name)
       full-prefix (cons name long-name))))
 (put 'spacemacs/declare-prefix 'lisp-indent-function 'defun)
 
-(defun spacemacs/declare-prefix-for-mode (mode prefix name &optional long-name)
+(defun spacemacs/declare-prefix-for-mode (mode prefix name &optional long-name redeclare)
   "Declare a prefix PREFIX. MODE is the mode in which this prefix command should
 be added. PREFIX is a string describing a key sequence. NAME is a symbol name
-used as the prefix command."
+used as the prefix command.
+REDECLARE is a string of NAME that should be replaced or a list of string.
+NOTE: See `dotspecemacs-keybindings-collision-report' for collision
+reporting levels."
   (let  ((command (intern (concat (symbol-name mode) name)))
          (full-prefix (concat dotspacemacs-leader-key " " prefix))
          (full-prefix-emacs (concat dotspacemacs-emacs-leader-key " " prefix))
@@ -73,6 +169,45 @@ used as the prefix command."
           (concat dotspacemacs-major-mode-emacs-leader-key
                   " " (substring prefix 1))))
     (unless long-name (setq long-name name))
+    (let* ((kbpl-key (spacemacs//make-keybinding-prefix-key prefix mode))
+           (old-binding (gethash kbpl-key
+                                 spacemacs--keybinding-mode-prefix-ht))
+           (old-global-binding (gethash prefix
+                                spacemacs--keybinding-global-prefix-ht))
+           (new-binding
+            (puthash kbpl-key
+                     `(:prefix ,prefix
+                       :mode   ,mode
+                       :name   ,long-name
+                       :scope  ,spacemacs--config-scope
+                       :file   ,load-file-name)
+                     spacemacs--keybinding-mode-prefix-ht))
+           (check? (or (eq dotspecemacs-keybindings-collision-report 'all)
+                       (and (eq dotspecemacs-keybindings-collision-report
+                                'internal)
+                            load-file-name
+                            (string-prefix-p
+                             (expand-file-name
+                              spacemacs-start-directory)
+                             (expand-file-name
+                              (file-name-directory load-file-name)))))))
+
+      (puthash prefix
+               new-binding
+               spacemacs--keybinding-global-from-mode-prefix-ht)
+      (when check?
+        (dolist (binding (list old-binding old-global-binding))
+          (when (and binding
+                     new-binding
+                     (not (let ((old-name (plist-get binding :name)))
+                            (or (and (stringp redeclare)
+                                     (string= old-name redeclare))
+                                (and (listp redeclare)
+                                     (member old-name redeclare))))))
+            (push `(:from ,binding
+                    :to   ,new-binding)
+                  spacemacs--keybinding-prefix-collision-list)
+            (spacemacs//schedule-report-keybindings-collisions)))))
     (let ((prefix-name (cons name long-name)))
       (which-key-add-major-mode-key-based-replacements mode
         full-prefix-emacs prefix-name

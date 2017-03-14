@@ -321,6 +321,13 @@ It should only modify the values of Spacemacs settings."
    ;; Either nil or a number of seconds. If non-nil zone out after the specified
    ;; number of seconds. (default nil)
    dotspacemacs-zone-out-when-idle nil
+   ;; 'all - Report all keybinding collisions.
+   ;; 'internal -  Report only collisions in files inside
+   ;; `spacemacs-start-directory'.
+   ;; nil - don't report any collisions.
+   ;; NOTE: Buffer evaluations are ignored.
+   ;; (default 'internal)
+   dotspecemacs-keybindings-collision-report 'internal
    ))
 
 (defun dotspacemacs/user-init ()

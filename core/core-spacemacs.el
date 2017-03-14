@@ -59,6 +59,9 @@
   "Whether or not spacemacs has finished initializing by completing
 the final step of executing code in `emacs-startup-hook'.")
 
+(defvar spacemacs--config-scope nil
+  "Scope of Spacemacs configurations.")
+
 (defun spacemacs/init ()
   "Perform startup initialization."
   (when spacemacs-debugp (spacemacs/init-debug))
