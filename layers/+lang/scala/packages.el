@@ -69,6 +69,13 @@
         (kbd "n") 'forward-button
         (kbd "N") 'backward-button)
 
+      (evil-define-key 'insert ensime-search-mode-map
+        (kbd "C-q") 'ensime-search-quit
+        (kbd "C-j") 'ensime-search-next-match
+        (kbd "C-k") 'ensime-search-prev-match
+        (kbd "RET") 'ensime-search-choose-current-result
+        (kbd "C-i") 'ensime-search-insert-import-of-current-result)
+
       (defun ensime-gen-and-restart()
         "Regenerate `.ensime' file and restart the ensime server."
         (interactive)

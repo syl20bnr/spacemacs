@@ -17,6 +17,7 @@
  - [[#key-bindings][Key bindings]]
    - [[#ensime-key-bindings][Ensime key bindings]]
      - [[#search][Search]]
+     - [[#ensime-search-mode][Ensime Search Mode]]
      - [[#sbt][sbt]]
      - [[#typecheck][Typecheck]]
      - [[#debug][Debug]]
@@ -151,6 +152,18 @@ with
 |-------------+-----------------------------------------------------|
 | ~SPC m /~   | incremental search using =ensime-scalex= major mode |
 | ~SPC m ?~   | incremental search in all live buffers              |
+
+*** Ensime Search Mode
+
+    Works only in evil insert mode)
+
+| Key Binding | Description                                                       |
+|-------------+-------------------------------------------------------------------|
+| ~C-j~       | Move to next match                                                |
+| ~C-k~       | Move to previous match                                            |
+| ~C-i~       | Insert import of current result                                   |
+| ~RET~       | Jump to the target of the currently selected ensime-search-result |
+| ~C-q~       | Quit ensime search                                                |
 
 *** sbt
 
