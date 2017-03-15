@@ -210,7 +210,6 @@
       (spacemacs/declare-prefix "B" "global-buffers")
       ;; Override SPC TAB to only change buffers in perspective
       (spacemacs/set-leader-keys
-        "TAB"  'spacemacs/alternate-buffer-in-persp
         "ba"   'persp-add-buffer
         "br"   'persp-remove-buffer))))
 
