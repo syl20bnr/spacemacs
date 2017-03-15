@@ -192,7 +192,11 @@
         ("+" evil-numbers/inc-at-pt)
         ("=" evil-numbers/inc-at-pt)
         ("-" evil-numbers/dec-at-pt)
-        ("q" nil :exit t)) 
+        ("_" evil-numbers/dec-at-pt)
+        ("b" evil-backward-word-begin)
+        ("w" evil-forward-word-begin)
+        ;; ^ best would be to move point to the next/prev number in buffer
+        ("q" nil :exit t))
       (spacemacs/set-leader-keys
         "n+" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
         "n=" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
