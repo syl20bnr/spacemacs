@@ -187,11 +187,17 @@
     (progn
       (spacemacs|define-transient-state evil-numbers
         :title "Evil Numbers Transient State"
-        :doc "\n[_+_/_=_] increase number  [_-_] decrease  [0..9] prefix  [_q_] quit"
+        :doc "\n[_+_/_=_] increase number  [_-_] decrease  [0..9] prefix  [_w_/_b_] move forward/backwards  [_j_/_k_] go line up/down  [_q_] quit"
         :bindings
         ("+" evil-numbers/inc-at-pt)
         ("=" evil-numbers/inc-at-pt)
         ("-" evil-numbers/dec-at-pt)
+        ("_" evil-numbers/dec-at-pt)
+        ("b" evil-backward-word-begin)
+        ("w" evil-forward-word-begin)
+        ;; ^ best would be to move point to the next/prev number in buffer
+        ("j" evil-next-line)
+        ("k" evil-previous-line)
         ("q" nil :exit t))
       (spacemacs/set-leader-keys
         "n+" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
