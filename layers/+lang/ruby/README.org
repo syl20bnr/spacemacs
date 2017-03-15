@@ -121,12 +121,12 @@ directory local variables.
 
 | Key binding | Description        |
 |-------------+--------------------|
-| ~SPC b c~   | run bundle check   |
-| ~SPC b i~   | run bundle install |
-| ~SPC b s~   | run bundle console |
-| ~SPC b u~   | run bundle update  |
-| ~SPC b x~   | run bundle exec    |
-| ~SPC b o~   | run bundle open    |
+| ~SPC m b c~ | run bundle check   |
+| ~SPC m b i~ | run bundle install |
+| ~SPC m b s~ | run bundle console |
+| ~SPC m b u~ | run bundle update  |
+| ~SPC m b x~ | run bundle exec    |
+| ~SPC m b o~ | run bundle open    |
 
 ** RuboCop
 
