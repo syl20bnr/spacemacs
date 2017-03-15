@@ -14,14 +14,39 @@
 
   ;; this is only applicable to GUI mode
   (when (display-graphic-p)
-    ;; Treat command as super
-    (setq mac-command-key-is-meta nil)
-    (setq mac-command-modifier 'super)
 
-    (when osx-use-option-as-meta
-      ;; Treat option as meta
-      (setq mac-option-key-is-meta t))
-    (setq mac-option-modifier (if osx-use-option-as-meta 'meta nil))
+    ;; `Command' key is by default bound to SUPER (s-*).
+    ;; `Option' key is by default bound to META (M-*).
+    ;; `Function' key is by default not rebound.
+    ;; `Control' key is by default not rebound.
+    ;; The right variations of the above keys can
+    ;; also be modified but are not rebound by
+    ;; default.
+
+    ;; `Alist' linking the layer config variables to
+    ;; the internal Emacs variables for the modifier keys.
+    (setq modifier-keys '((osx-command-as       . mac-command-modifier)
+                          (osx-option-as        . mac-option-modifier)
+                          (osx-function-as      . mac-function-modifier)
+                          (osx-control-as       . mac-control-modifier)
+                          (osx-right-command-as . mac-right-command-modifier)
+                          (osx-right-option-as  . mac-right-option-modifier)
+                          (osx-right-control-as . mac-right-control-modifier)))
+
+    ;; The allowed non-nil values for the config variables.
+    (setq allowed-values '(super meta hyper control alt none left))
+
+    ;; Backwards compatibility
+    (case osx-use-option-as-meta
+      ('nil (setf osx-option-as 'none))
+      (deprecated nil)
+      (t (setf osx-option-as 'meta)))
+
+    ;; Set internal variables according to the given config variables
+    (cl-loop for (key-var . internal-var) in modifier-keys do
+             (let ((key-value (symbol-value key-var)))
+               (when (member key-value allowed-values)
+                 (setf (symbol-value internal-var) key-value))))
 
     ;; Keybindings
     (global-set-key (kbd "s-=") 'spacemacs/scale-up-font)
