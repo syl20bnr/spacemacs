@@ -55,7 +55,7 @@ For more information read [[https://github.com/alecthomas/gometalinter/blob/mast
 and [[https://github.com/favadi/flycheck-gometalinter/blob/master/README.md][flycheck-gometalinter README.md]]
 
 Make sure that =gocode= executable is in your PATH. For information about
-setting up =$PATH=, check out the corresponding section in the FAQ (~SPC h SPC
+setting up =$PATH=, check out the corresponding section in the FAQ (~SPC h f
 $PATH RET~).
 
 For best results, make sure that the =auto-completion= and =syntax-checking=
