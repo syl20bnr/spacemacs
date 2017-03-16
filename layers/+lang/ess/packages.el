@@ -20,7 +20,7 @@
         ess-R-object-popup
         ess-smart-equals
         rainbow-delimiters
-        org
+        ;;org
         ))
 
 (defun ess/init-ess ()
@@ -351,6 +351,6 @@
                  ess-eval-line-and-go))
       (add-to-list 'golden-ratio-extra-commands f))))
 
-(defun ess/pre-init-org ()
-  (spacemacs|use-package-add-hook org
-    :post-config (add-to-list 'org-babel-load-languages '(R . t))))
+;;(defun ess/pre-init-org ()
+;;  (spacemacs|use-package-add-hook org
+;;    :post-config (add-to-list 'org-babel-load-languages '(R . t))))
