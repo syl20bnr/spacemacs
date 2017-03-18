@@ -44,7 +44,7 @@ override lazy-loaded settings."
           (let ((hook (intern (format "use-package--%S--%s-hook"
                                       name-symbol
                                       (substring (format "%s" keyword) 1)))))
-            (push `(add-hook ',hook (lambda nil ,@body)) expanded-forms)))))
+            (push `(add-hook ',hook (lambda nil ,@body t)) expanded-forms)))))
     `(progn ,@expanded-forms)))
 
 (provide 'core-use-package-ext)
