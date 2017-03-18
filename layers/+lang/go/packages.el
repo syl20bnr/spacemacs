@@ -18,6 +18,7 @@
                                              'flycheck)))
         ggtags
         helm-gtags
+        exec-path-from-shell
         go-eldoc
         go-mode
         go-guru
@@ -37,12 +38,14 @@
 (defun go/post-init-flycheck ()
   (spacemacs/enable-flycheck 'go-mode))
 
-(defun go/init-go-mode()
-  (when (memq window-system '(mac ns x))
-    (dolist (var '("GOPATH" "GO15VENDOREXPERIMENT"))
-      (unless (getenv var)
-        (exec-path-from-shell-copy-env var))))
+(defun go/pre-init-exec-path-from-shell ()
+  (spacemacs|use-package-add-hook exec-path-from-shell
+    :pre-config
+    (dolist (var '("GOPATH" "GO15VENDOREXPERIMENT") exec-path-from-shell-variables)
+      (unless (or (member var exec-path-from-shell-variables) (getenv var))
+        (push var exec-path-from-shell-variables)))))
 
+(defun go/init-go-mode()
   (use-package go-mode
     :defer t
     :init
