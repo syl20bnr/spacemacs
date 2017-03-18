@@ -17,6 +17,8 @@
         spaceline
         swiper))
 
+(setq persp-is-ibc-as-f-supported nil)
+
 
 
 (defun spacemacs-layouts/init-eyebrowse ()
