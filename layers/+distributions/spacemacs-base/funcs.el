@@ -773,6 +773,7 @@ the right."
 (spacemacs|create-align-repeat-x "left-paren" "(")
 (spacemacs|create-align-repeat-x "right-paren" ")" t)
 (spacemacs|create-align-repeat-x "backslash" "\\\\")
+(spacemacs|create-align-repeat-x "brackets" "\\(\\s-*\\){" nil t)
 
 ;; END align functions
 
