@@ -13,6 +13,7 @@
       '(
         ;; default
         adaptive-wrap
+        anzu
         auto-highlight-symbol
         column-enforce-mode
         hide-comnt
@@ -34,6 +35,32 @@
     :config
     (progn
       (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode))))
+
+(defun spacemacs-editing-visual/init-anzu ()
+  (use-package anzu
+    :init
+    (progn
+      (global-anzu-mode t)
+      (global-set-key [remap query-replace] 'anzu-query-replace)
+      (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp))
+    :config
+    (progn
+      (spacemacs|hide-lighter anzu-mode)
+      (setq anzu-search-threshold 1000
+            anzu-cons-mode-line-p nil)
+      ;; powerline integration
+      (when (configuration-layer/package-usedp 'spaceline)
+        (defun spacemacs/anzu-update-mode-line (here total)
+          "Custom update function which does not propertize the status."
+          (when anzu--state
+            (let ((status (cl-case anzu--state
+                            (search (format "(%s/%d%s)"
+                                            (anzu--format-here-position here total)
+                                            total (if anzu--overflow-p "+" "")))
+                            (replace-query (format "(%d replace)" total))
+                            (replace (format "(%d/%d)" here total)))))
+              status)))
+        (setq anzu-mode-line-update-function 'spacemacs/anzu-update-mode-line)))))
 
 (defun spacemacs-editing-visual/init-auto-highlight-symbol ()
   (use-package auto-highlight-symbol

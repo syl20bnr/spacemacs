@@ -38,27 +38,8 @@
         ))
 
 (defun spacemacs-evil/init-evil-anzu ()
-  (use-package evil-anzu
-    :init
-    (global-anzu-mode t)
-    :config
-    (progn
-      (spacemacs|hide-lighter anzu-mode)
-      (setq anzu-search-threshold 1000
-            anzu-cons-mode-line-p nil)
-      ;; powerline integration
-      (when (configuration-layer/package-usedp 'spaceline)
-        (defun spacemacs/anzu-update-mode-line (here total)
-          "Custom update function which does not propertize the status."
-          (when anzu--state
-            (let ((status (cl-case anzu--state
-                            (search (format "(%s/%d%s)"
-                                            (anzu--format-here-position here total)
-                                            total (if anzu--overflow-p "+" "")))
-                            (replace-query (format "(%d replace)" total))
-                            (replace (format "(%d/%d)" here total)))))
-              status)))
-        (setq anzu-mode-line-update-function 'spacemacs/anzu-update-mode-line)))))
+  ;; configuration done for anzu package
+  (use-package evil-anzu))
 
 (defun spacemacs-evil/init-evil-args ()
   (use-package evil-args
