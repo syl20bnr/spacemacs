@@ -80,7 +80,7 @@ Available PROPS:
             (mode-hook-name (intern (format "%S-hook" mode))))
         ;; declare buffer local company-backends variable
         (push `(defvar ,backends-var-name
-                 ',spacemacs-default-company-backends
+                 spacemacs-default-company-backends
                  ,(format "Company backend list for %S." mode)) result)
         ;; add backends
         (dolist (backend backends)
