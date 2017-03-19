@@ -27,6 +27,7 @@
     (nose :location local)
     org
     pip-requirements
+    pippel
     py-isort
     pyenv-mode
     (pylookup :location local)
@@ -171,6 +172,15 @@
 (defun python/init-pip-requirements ()
   (use-package pip-requirements
     :defer t))
+
+(defun python/init-pippel ()
+  (use-package pippel
+    :defer t
+    :init
+    (spacemacs/set-leader-keys "al" 'pippel-list-packages)
+    :config
+    (evilified-state-evilify-map pippel-package-menu-mode-map
+      :mode pippel-package-menu-mode)))
 
 (defun python/init-py-isort ()
   (use-package py-isort
