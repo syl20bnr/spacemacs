@@ -80,7 +80,10 @@
                                    widget-button-click
                                    scroll-bar-toolkit-scroll
                                    evil-mouse-drag-region))
-      (spacemacs|diminish centered-cursor-mode " ⊝" " -"))))
+      (spacemacs|diminish centered-cursor-mode " ⊝" " -")
+      (evil-make-overriding-map ccm-map 'normal)
+      (add-hook 'centered-cursor-mode-hook #'evil-normalize-keymaps)
+      )))
 
 (defun spacemacs-ui/init-desktop ()
   (use-package desktop
