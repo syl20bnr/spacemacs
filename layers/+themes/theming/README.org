@@ -4,6 +4,7 @@
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#usage][Usage]]
+ - [[#example-based-on-thebbs-much-more-broad-gist][Example based on TheBB's (much more broad) gist]]
  - [[#attributes][Attributes]]
  - [[#faces][Faces]]
  - [[#headers][Headers]]
@@ -28,6 +29,30 @@ of the following form:
            (face2 attributes...)
            ...)
    ...)
+
+
+   https://gist.github.com/TheBB/f25a607b9bda4d5861f2#file-init-el-L274
+#+end_src
+
+* Example based on TheBB's (much more broad) [[https://gist.github.com/TheBB/f25a607b9bda4d5861f2#file-init-el-L274][gist]]
+#+begin_src lisp
+  ;; ~/.spacemacs
+  ;;...
+  (defun dotspacemacs/user-init ()
+  ;;...
+   (setq-default
+     ;;... other vars maybe
+     theming-modifications
+      '((monokai
+          ;; Font locking
+          (font-lock-comment-face :slant italic)
+          (web-mode-html-attr-name-face
+           :inherit font-lock-variable-name-face :foreground nil)
+
+          ;; Modeline
+          (powerline-active1 :box (:color "#999999" :line-width 1 :style released-button)
+                             :background "#5a5a5a"))))
+  )
 #+end_src
 
 This will apply the given attributes to the relevant faces whenever the
