@@ -6,28 +6,36 @@
  - [[#description][Description]]
  - [[#layer-installation][Layer Installation]]
    - [[#layer][Layer]]
+   - [[#choosing-a-backend][Choosing a backend]]
  - [[#backends][Backends]]
-   - [[#eclim][Eclim]]
+   - [[#meghanada][Meghanada]]
      - [[#installation][Installation]]
+     - [[#about-maven][About Maven]]
+   - [[#eclim][Eclim]]
+     - [[#installation-1][Installation]]
        - [[#eclipse][Eclipse]]
        - [[#eclim-1][Eclim]]
      - [[#configuration][Configuration]]
      - [[#usage][Usage]]
    - [[#ensime][ENSIME]]
-     - [[#installation-1][Installation]]
+     - [[#installation-2][Installation]]
      - [[#usage-1][Usage]]
      - [[#issues][Issues]]
-   - [[#meghanada][Meghanada]]
-     - [[#installation-2][Installation]]
-     - [[#about-maven][About Maven]]
  - [[#key-bindings][Key bindings]]
+   - [[#meghanada-1][Meghanada]]
+     - [[#server][Server]]
+     - [[#navigation][Navigation]]
+     - [[#compilation][Compilation]]
+     - [[#tests-junit][Tests (junit)]]
+     - [[#refactoring][Refactoring]]
+     - [[#tasks][Tasks]]
    - [[#eclim-2][Eclim]]
      - [[#java-mode][Java-mode]]
        - [[#project-management][Project management]]
        - [[#eclim-daemon][Eclim daemon]]
        - [[#maven][Maven]]
        - [[#goto][Goto]]
-       - [[#refactoring][Refactoring]]
+       - [[#refactoring-1][Refactoring]]
        - [[#documentation-find][Documentation, Find]]
        - [[#errors-problems][Errors (problems)]]
        - [[#tests][Tests]]
@@ -42,22 +50,15 @@
      - [[#goto-1][Goto]]
      - [[#print-and-yank-types][Print and yank types]]
      - [[#documentation-inspect][Documentation, Inspect]]
-     - [[#server][Server]]
-     - [[#refactoring-1][Refactoring]]
+     - [[#server-1][Server]]
+     - [[#refactoring-2][Refactoring]]
      - [[#tests-1][Tests]]
      - [[#repl][REPL]]
-   - [[#meghanada-1][Meghanada]]
-     - [[#server-1][Server]]
-     - [[#navigation][Navigation]]
-     - [[#compilation][Compilation]]
-     - [[#tests-junit][Tests (junit)]]
-     - [[#refactoring-2][Refactoring]]
-     - [[#tasks][Tasks]]
 
 * Description
 This layer adds support for the Java language, it supports multiple backends:
-- the [[http://eclim.org][Eclim]] client/server (default),
-- the [[https://github.com/mopemope/meghanada-emacs][Meghanada]] client/server,
+- the [[https://github.com/mopemope/meghanada-emacs][Meghanada]] client/server (default),
+- the [[http://eclim.org][Eclim]] client/server,
 - the [[https://ensime.github.io/][ENSIME]] client/server.
 
 * Layer Installation
@@ -66,7 +67,7 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =java= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Backends
+** Choosing a backend
 To choose a default backend set the layer variable =java-backend=:
 
 #+BEGIN_SRC elisp
@@ -75,16 +76,42 @@ To choose a default backend set the layer variable =java-backend=:
 
 Backend can be chosen on a per project basis using directory local variables
 (files named =.dir-locals.el= at the root of a project), an example to use the
-=meghanada= backend:
+=eclim= backend:
 
 #+BEGIN_SRC elisp
 ;;; Directory Local Variables
 ;;; For more information see (info "(emacs) Directory Variables")
 
-((java-mode (java-backend . meghanada)))
+((java-mode (java-backend . eclim)))
 #+END_SRC
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
+
+
+* Backends
+** Meghanada
+Meghanada is composed of a lightweight server and an Emacs minor mode. It
+is unintrusive and integrates with =company= and =flycheck=.
+
+Both =Gradle= and =Maven= projects are compatible with Meghanada.
+
+Meghanada is the default backend used by this layer, see [[#choosing-a-backend][Choosing a backend]] in
+order to lean how to select a different backend.
+
+*** Installation
+The Meghanada server will be installed automatically whenever a Java file
+is opened.
+
+If you get issues with the auto-installation you can either download the last
+version of the server manually [[https://dl.bintray.com/mopemope/meghanada/][there]] or build from source hosted on [[https://github.com/mopemope/meghanada-server][the GitHub
+repository]] and copy the =jar= file to =.emacs.d/.cache/meghanada= folder.
+
+No additional configuration is necessary!
+
+*** About Maven
+Maven is not fully supported by Meghanada (but should still work fine for most
+projects). If you encounter disconnection from the server then run =mvn install=
+at the root of your project first.
 
 ** Eclim
 Eclim provides the ability to access Eclipse features such as code completion,
@@ -176,27 +203,60 @@ Start the ensime server by running ~SPC SPC ensime~ or ~M-x ensime~.
 ENSIME is originally built for Scala, so support for java is not complete, in
 particular refactoring doesn't work.
 
-** Meghanada
-Meghanada is composed of a lightweight server and an Emacs minor mode. It
-is unintrusive and integrates with =company= and =flycheck=.
-
-Both =Gradle= and =Maven= projects are compatible with Meghanada.
-
-*** Installation
-The Meghanada server will be installed automatically whenever a Java file
-is opened.
-
-If you get issues with the auto-installation you can either download the
-server manually [[https://dl.bintray.com/mopemope/meghanada/][there]] or build from source hosted on [[https://github.com/mopemope/meghanada-server][the GitHub repository]]
-and copie the =jar= file to =.emacs.d/.cache/meghanada= folder.
-
-No additional configuration is necessary!
-
-*** About Maven
-Maven is not fully supported by Meghanada, if you encounter disconnection
-from the server then run =mvn install= at the root of your project first.
-
 * Key bindings
+** Meghanada
+*** Server
+
+ | Key Binding | Description                                  |
+ |-------------+----------------------------------------------|
+ | ~SPC m D c~ | Connect to server                            |
+ | ~SPC m D d~ | Disconnect from server                       |
+ | ~SPC m D i~ | Install server (should be done automatically |
+ | ~SPC m D k~ | Kill server                                  |
+ | ~SPC m D l~ | Clear server cache                           |
+ | ~SPC m D p~ | Ping server                                  |
+ | ~SPC m D r~ | Restarrt server                              |
+ | ~SPC m D s~ | Start server                                 |
+ | ~SPC m D u~ | Update server                                |
+ | ~SPC m D v~ | Print version of the server                  |
+
+*** Navigation
+
+ | Key Binding | Description                    |
+ |-------------+--------------------------------|
+ | ~SPC m g b~ | Jump back to previous location |
+ | ~SPC m g g~ | Jump to declaration            |
+
+*** Compilation
+
+ | Key Binding | Description           |
+ |-------------+-----------------------|
+ | ~SPC m c b~ | Compile file (buffer) |
+ | ~SPC m c c~ | Compile project       |
+
+*** Tests (junit)
+
+ | Key Binding | Description                 |
+ |-------------+-----------------------------|
+ | ~SPC m t a~ | Run all tests               |
+ | ~SPC m t c~ | Run test class around point |
+ | ~SPC m t l~ | Run last tests              |
+ | ~SPC m t t~ | Run test cause around point |
+
+*** Refactoring
+
+ | Key Binding | Description                                  |
+ |-------------+----------------------------------------------|
+ | ~SPC m =~   | Beautify code                                |
+ | ~SPC m r i~ | Optimize imports                             |
+ | ~SPC m r I~ | Import all                                   |
+
+*** Tasks
+
+ | Key Binding | Description |
+ |-------------+-------------|
+ | ~SPC m x :~ | Run task    |
+
 ** Eclim
 *** Java-mode
 **** Project management
@@ -428,55 +488,3 @@ from the server then run =mvn install= at the root of your project first.
 | ~SPC m s r~ | send region to the REPL                                             |
 | ~SPC m s R~ | send region to the REPL and focus the REPL buffer in =insert state= |
 
-** Meghanada
-*** Server
-
- | Key Binding | Description                                  |
- |-------------+----------------------------------------------|
- | ~SPC m D c~ | Connect to server                            |
- | ~SPC m D d~ | Disconnect from server                       |
- | ~SPC m D i~ | Install server (should be done automatically |
- | ~SPC m D k~ | Kill server                                  |
- | ~SPC m D l~ | Clear server cache                           |
- | ~SPC m D p~ | Ping server                                  |
- | ~SPC m D r~ | Restarrt server                              |
- | ~SPC m D s~ | Start server                                 |
- | ~SPC m D u~ | Update server                                |
- | ~SPC m D v~ | Print version of the server                  |
-
-*** Navigation
-
- | Key Binding | Description                    |
- |-------------+--------------------------------|
- | ~SPC m g b~ | Jump back to previous location |
- | ~SPC m g g~ | Jump to declaration            |
-
-*** Compilation
-
- | Key Binding | Description           |
- |-------------+-----------------------|
- | ~SPC m c b~ | Compile file (buffer) |
- | ~SPC m c c~ | Compile project       |
-
-*** Tests (junit)
-
- | Key Binding | Description                 |
- |-------------+-----------------------------|
- | ~SPC m t a~ | Run all tests               |
- | ~SPC m t c~ | Run test class around point |
- | ~SPC m t l~ | Run last tests              |
- | ~SPC m t t~ | Run test cause around point |
-
-*** Refactoring
-
- | Key Binding | Description                                  |
- |-------------+----------------------------------------------|
- | ~SPC m =~   | Beautify code                                |
- | ~SPC m r i~ | Optimize imports                             |
- | ~SPC m r I~ | Import all                                   |
-
-*** Tasks
-
- | Key Binding | Description |
- |-------------+-------------|
- | ~SPC m x :~ | Run task    |
