@@ -28,35 +28,34 @@
 (defun spacemacs//java-setup-backend ()
   "Conditionally setup java backend."
   (pcase java-backend
+    (`meghanada (spacemacs//java-setup-meghanada))
     (`eclim (spacemacs//java-setup-eclim))
-    (`ensime (spacemacs//java-setup-ensime))
-    (`meghanada (spacemacs//java-setup-meghanada))))
+    (`ensime (spacemacs//java-setup-ensime))))
 
 (defun spacemacs//java-setup-company ()
   "Conditionally setup company based on backend."
   (pcase java-backend
+    (`meghanada (spacemacs//java-setup-meghanada-company))
     (`eclim (spacemacs//java-setup-eclim-company))
-    (`ensime (spacemacs//java-setup-ensime-company))
-    (`meghanada (spacemacs//java-setup-meghanada-company))))
+    (`ensime (spacemacs//java-setup-ensime-company))))
 
 (defun spacemacs//java-setup-flycheck ()
   "Conditionally setup flycheck based on backend."
   (pcase java-backend
+    (`meghanada (spacemacs//java-setup-meghanada-flycheck))
     (`eclim (spacemacs//java-setup-eclim-flycheck))
-    (`ensime (spacemacs//java-setup-ensime-flycheck))
-    (`meghanada (spacemacs//java-setup-meghanada-flycheck))))
+    (`ensime (spacemacs//java-setup-ensime-flycheck))))
 
 (defun spacemacs//java-setup-flyspell ()
   "Conditionally setup flyspell based on backend."
   (pcase java-backend
-    (`ensime (spacemacs//java-setup-ensime-flyspell))
-    (`meghanada (spacemacs//java-setup-meghanada-flyspell))))
+    (`ensime (spacemacs//java-setup-ensime-flyspell))))
 
 (defun spacemacs//java-setup-eldoc ()
   "Conditionally setup eldoc based on backend."
   (pcase java-backend
-    (`ensime (spacemacs//java-setup-ensime-eldoc))
-    (`meghanada (spacemacs//java-setup-meghanada-eldoc))))
+    ;; meghanada setup eldoc on its own
+    (`ensime (spacemacs//java-setup-ensime-eldoc))))
 
 
 
@@ -251,12 +250,6 @@
   (require 'flycheck-meghanada)
   (add-to-list 'flycheck-checkers 'meghanada)
   (flycheck-mode))
-
-(defun spacemacs//java-setup-meghanada-flyspell ()
-  "Setup Meghanada spell checking.")
-
-(defun spacemacs//java-setup-meghanada-eldoc ()
-  "Setup Meghanada eldoc.")
 
 (defun spacemacs//java-meghanada-server-livep ()
   "Return non-nil if the Meghanada server is up."
