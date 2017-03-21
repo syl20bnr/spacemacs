@@ -178,7 +178,7 @@ atlernatively you can set =dotspacemacs-auto-save-file-location= to nil.
   :END:
 Another backend option is the ENSIME server, which is a lot more responsive than
 Eclim. ENSIME is originally made to work with Scala but it now works with plain
-Java projects as well, some calls it ENJIME.
+Java projects as well.
 
 *** Installation
 Find it with your favourite package manager, eg:
@@ -187,7 +187,9 @@ Find it with your favourite package manager, eg:
 #+END_SRC
 or refer to [[http://www.scala-sbt.org/download.html][the sbt installation instructions]].
 
-You also need to follow [[https://ensime.github.io/build_tools/sbt/][the ENSIME configuration instructions]] to run ENSIME.
+*** Configuration
+Follow [[https://ensime.github.io/build_tools/sbt/][the ENSIME configuration instructions]]. Spacemacs uses
+the development version of Ensime so follow the appropriate steps.
 
 To use the build functions under ~SPC m b~ you need to use version =0.13.5= or
 newer of =sbt=, and specify that in your project's =project/build.properties=.
@@ -197,7 +199,9 @@ For example,
 #+END_SRC
 
 *** Usage
-Start the ensime server by running ~SPC SPC ensime~ or ~M-x ensime~.
+~SPC SPC spacemacs/ensime-gen-and-restart~ or ~SPC m D r~ generates a new config
+for a project and starts the server. Afterwards ~SPC SPC ensime~ or ~SPC m D s~
+will suffice do the trick.
 
 *** Issues
 ENSIME is originally built for Scala, so support for java is not complete, in
