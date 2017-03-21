@@ -16,6 +16,7 @@
         evil-exchange
         evil-iedit-state
         evil-indent-plus
+        evil-lion
         evil-lisp-state
         ;; for testing purpose, contribute by reporting bugs and sending PRs
         ;; to https://github.com/gabesoft/evil-mc
@@ -97,6 +98,10 @@
 (defun spacemacs-evil/init-evil-indent-plus ()
   (use-package evil-indent-plus
     :init (evil-indent-plus-default-bindings)))
+
+(defun spacemacs-evil/init-evil-lion ()
+  (use-package evil-lion
+    :init (evil-lion-mode)))
 
 (defun spacemacs-evil/init-evil-lisp-state ()
   (use-package evil-lisp-state
