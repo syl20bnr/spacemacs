@@ -22,6 +22,7 @@
         go-mode
         go-guru
         (go-rename :location local)
+        godoctor
         ))
 
 
@@ -75,8 +76,8 @@
                                    "-check.f"
                                  "-run")))
               (save-excursion
-                  (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?[[:alnum:]]+)[ ]+\\)?\\(Test[[:alnum:]_]+\\)(.*)")
-                  (spacemacs/go-run-tests (concat test-method "='" (match-string-no-properties 2) "'"))))
+                (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?[[:alnum:]]+)[ ]+\\)?\\(Test[[:alnum:]_]+\\)(.*)")
+                (spacemacs/go-run-tests (concat test-method "='" (match-string-no-properties 2) "'"))))
           (message "Must be in a _test.go file to run go-run-test-current-function")))
 
       (defun spacemacs/go-run-test-current-suite ()
@@ -84,16 +85,16 @@
         (if (string-match "_test\.go" buffer-file-name)
             (if go-use-gocheck-for-testing
                 (save-excursion
-                    (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?\\([[:alnum:]]+\\))[ ]+\\)?Test[[:alnum:]_]+(.*)")
-                    (spacemacs/go-run-tests (concat "-check.f='" (match-string-no-properties 2) "'")))
+                  (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?\\([[:alnum:]]+\\))[ ]+\\)?Test[[:alnum:]_]+(.*)")
+                  (spacemacs/go-run-tests (concat "-check.f='" (match-string-no-properties 2) "'")))
               (message "Gocheck is needed to test the current suite"))
           (message "Must be in a _test.go file to run go-test-current-suite")))
 
       (defun spacemacs/go-run-main ()
         (interactive)
         (shell-command
-          (format "go run %s"
-                  (shell-quote-argument (buffer-file-name)))))
+         (format "go run %s"
+                 (shell-quote-argument (buffer-file-name)))))
 
       (spacemacs/declare-prefix-for-mode 'go-mode "me" "playground")
       (spacemacs/declare-prefix-for-mode 'go-mode "mg" "goto")
@@ -153,3 +154,12 @@
 
 (defun go/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'go-mode))
+
+(defun go/init-godoctor ()
+  (use-package godoctor
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'go-mode
+      "dr" 'godoctor-rename
+      "de" 'godoctor-extract
+      "dt" 'godoctor-toggle
+      "dd" 'godoctor-godoc)))
