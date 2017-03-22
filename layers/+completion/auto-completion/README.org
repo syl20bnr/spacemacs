@@ -27,7 +27,7 @@ This layer provides auto-completion to Spacemacs.
 
 The following completion engines are supported:
 - [[http://company-mode.github.io/][company]]
-- [[http://auto-complete.org/][auto-complete]]
+- [[https://github.com/auto-complete/auto-complete][auto-complete]]
 
 Snippets are supported via [[https://github.com/capitaomorte/yasnippet][yasnippet]] and [[https://github.com/abo-abo/auto-yasnippet][auto-yasnippet]].
 
