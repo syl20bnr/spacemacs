@@ -1,6 +1,7 @@
 (setq major-modes-packages
       '(
         arduino-mode
+        (ebuild-mode :location (recipe :fetcher github :repo "emacsmirror/ebuild-mode"))
         julia-mode
         (logcat :location (recipe :fetcher github :repo "dcolascione/logcat-mode"))
         matlab-mode
@@ -13,6 +14,17 @@
         ))
 
 (defun major-modes/init-arduino-mode ())
+
+(defun major-modes/init-ebuild-mode ()
+  (use-package ebuild-mode
+    :mode ("\\.\\(ebuild\\|eclass\\)" . ebuild-mode)
+    :init
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'ebuild-mode
+        "n" 'ebuild-mode-insert-skeleton
+        "k" 'ebuild-mode-keyword
+        "e" 'ebuild-run-command
+        "a" 'ebuild-run-echangelog))))
 
 (defun major-modes/init-logcat ()
   (use-package logcat
