@@ -1,0 +1,25 @@
+#+TITLE: Ebuild contribution layer for Spacemacs
+
+[[file:img/gentoo.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer supports [[https://gentoo.org][Gentoo]] [[https://devmanual.gentoo.org/ebuild-writing/index.html][ebuild]] and [[https://devmanual.gentoo.org/eclass-writing/index.html][eclass]] development in Spacemacs.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =ebuild= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description            |
+|-------------+------------------------|
+| ~SPC m n~   | Insert skeleton ebuild |
+| ~SPC m k~   | Edit keywords          |
+| ~SPC m e~   | Run ebuild command     |
+| ~SPC m a~   | Add ChangeLog entry    |
