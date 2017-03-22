@@ -37,6 +37,7 @@
         "es" 'flycheck-select-checker
         "eS" 'flycheck-set-checker-executable
         "ev" 'flycheck-verify-setup
+        "ey" 'flycheck-copy-errors-as-kill
         "ex" 'flycheck-explain-error-at-point)
       (spacemacs|add-toggle syntax-checking
         :mode flycheck-mode
