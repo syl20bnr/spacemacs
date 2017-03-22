@@ -191,6 +191,7 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
 [_h_]   up/collapse^^      ^^                ^^^
 [_j_]   line down^^        ^^                ^^^
 [_k_]   line up^^          ^^                ^^
+[_'_]   quick look         ^^                ^^
 [_RET_] open               ^^^^              [_?_]   close hints
 "
         :bindings
@@ -199,6 +200,7 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
         ("|" neotree-enter-vertical-split)
         ("-" neotree-enter-horizontal-split)
         ("?" nil :exit t)
+        ("'" neotree-quick-look)
         ("c" neotree-create-node)
         ("C" neotree-copy-node)
         ("d" neotree-delete-node)
@@ -224,6 +226,7 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
           (kbd "RET") 'neotree-enter
           (kbd "|") 'neotree-enter-vertical-split
           (kbd "-") 'neotree-enter-horizontal-split
+          (kbd "'") 'neotree-quick-look
           (kbd "c") 'neotree-create-node
           (kbd "C") 'neotree-copy-node
           (kbd "d") 'neotree-delete-node
