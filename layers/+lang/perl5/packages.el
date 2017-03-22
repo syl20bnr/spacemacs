@@ -9,25 +9,32 @@
 ;;
 ;;; License: GPLv3
 
-(setq perl5-packages
-  '(
-    company
-    (company-anaconda :toggle (configuration-layer/package-usedp 'company))
-    cperl
-    eldoc
-    evil-matchit
-    flycheck
-    ggtags
-    helm-cscope
-    helm-gtags
-    org
-    (template :location local)
-    (perlnow :location local)
-    semantic
-    smartparens
-    stickyfunc-enhance
-    xcscope
-    ))
+(setq perl5-packages '(
+  anything
+  company
+  (company-anaconda :toggle (configuration-layer/package-usedp 'company))
+  cperl
+  eldoc
+  evil-matchit
+  flycheck
+  ggtags
+  helm-cscope
+  helm-gtags
+  mmm-mode
+  org
+  (perlnow :location local)
+  ;;perl-completion
+  semantic
+  smartparens
+  stickyfunc-enhance
+  (template :location local)
+  xcscope
+  ))
+
+(defun perl5/init-cperl ()
+  (interactive)
+  (use-package cperl)
+  (setq cperl-hairy t))
 
 (defun perl5/init-perlnow ()
   (interactive)
@@ -44,4 +51,14 @@
         (concat (configuration-layer/get-layer-local-dir 'perl5)
                                            "perlnow/templates"))
   (use-package perlnow)
+  (require 'mmm-mode)
+  (add-to-list 'auto-mode-alist '("\\.mhtml\\'" . html-mode))
+  (mmm-add-mode-ext-class 'html-mode "\\.mhtml\\'" 'mason)
   )
+
+;(defun perl5/init-perl-completion
+;  (use-package perl-completion)
+;  (require 'perl-completion)
+;  (auto-complete-mode t)
+;  (make-variable-buffer-local 'ac-sources)
+;  (setq ac-sources '(ac-source-perl-completion)))

@@ -11,6 +11,8 @@
 
 ;; variables
 
+(defalias 'perl-mode 'cperl-mode)
+
 (spacemacs|defvar-company-backends cperl-mode)
 
 (spacemacs|define-jump-handlers cperl-mode)
