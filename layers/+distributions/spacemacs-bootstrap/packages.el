@@ -331,6 +331,7 @@
            ("avy-goto-line" . "avy line")
            ("universal-argument" . "universal arg")
            ("er/expand-region" . "expand region")
+           ("er/contract-region" . "contract region")
            ("helm-apropos" . "apropos")
            ("spacemacs/toggle-hybrid-mode" . "hybrid (hybrid-mode)")
            ("spacemacs/toggle-holy-mode" . "emacs (holy-mode)")

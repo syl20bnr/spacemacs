@@ -18,15 +18,15 @@
     (progn
       (spacemacs/declare-prefix "V" "vagrant")
       (spacemacs/set-leader-keys
-        "VD" 'vagrant-destroy
-        "Ve" 'vagrant-edit
-        "VH" 'vagrant-halt
-        "Vp" 'vagrant-provision
-        "Vr" 'vagrant-resume
-        "VR" 'vagrant-reload
-        "Vs" 'vagrant-status
-        "VS" 'vagrant-suspend
-        "VV" 'vagrant-up))))
+        "avD" 'vagrant-destroy
+        "ave" 'vagrant-edit
+        "avH" 'vagrant-halt
+        "avp" 'vagrant-provision
+        "avr" 'vagrant-resume
+        "avR" 'vagrant-reload
+        "avs" 'vagrant-status
+        "avS" 'vagrant-suspend
+        "avV" 'vagrant-up))))
 
 (defun vagrant/init-vagrant-tramp ()
   (use-package vagrant-tramp
