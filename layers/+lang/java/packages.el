@@ -31,7 +31,9 @@
         ))
 
 (defun java/post-init-company ()
-  (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-company))
+  ;; (when java-enable-backend-company
+  ;;   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-company))
+  )
 
 (defun java/init-company-emacs-eclim ()
   (use-package company-emacs-eclim
@@ -44,7 +46,24 @@
 (defun java/init-eclim ()
   (use-package eclim
     :defer t
-    ;; :init (setq eclim-auto-save nil)
+    :init
+    (progn
+      ;; (setq eclim-auto-save nil)
+
+      ;; Add company backend.
+      (when java-enable-backend-company
+        (spacemacs|add-company-backends
+          :backends (company-emacs-eclim :with company-dabbrev-code)
+          :modes eclim-mode
+          :hooks nil)
+        (add-hook 'eclim-mode-hook #'spacemacs//java-setup-company))
+
+      ;; Add autostart hook.
+      ;; FIXME: The company backend is not properly loaded
+      ;;        when the mode is autoloaded. Disabling and enabling is
+      ;;        required.
+      (when (and java-autoenable-backend (eq java-backend 'eclim))
+        (add-hook 'java-mode-hook #'eclim-mode)))
     :config
     (progn
       (spacemacs|hide-lighter eclim-mode)
@@ -168,7 +187,29 @@
     :init
     (progn
       (setq ensime-startup-dirname (concat spacemacs-cache-directory "ensime/"))
-      (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime"))
+      (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime")
+
+      (if java-enable-backend-company
+        (spacemacs|add-company-backends
+          :backends (ensime-company :with company-dabbrev-code)
+          :modes ensime-mode)
+        (spacemacs|add-company-backends
+          :modes ensime-mode))
+
+      ;; FIXME:
+      ;; This does not work for ensime because of a couple of
+      ;; problems.
+      ;; First reloading a buffer still starts an additional ensime process.
+      ;; Second the company backend is not properly loaded though this is true
+      ;; for all backends when they are autoenabled.
+
+      ;; Add autostart hook.
+      ;; (when (and java-autoenable-backend (eq java-backend 'ensime))
+      ;;   (add-hook 'java-mode-hook (lambda ()
+      ;;                               (let ((existing (comint-check-proc (current-buffer))))
+      ;;                                 (unless existing
+      ;;                                   (ensime))))))
+      )
     :config
     (progn
       ;; key bindings
@@ -331,6 +372,10 @@
     :defer t
     :init
     (progn
+      ;; Add generic company backends.
+      (spacemacs|add-company-backends
+        :modes java-mode)
+
       (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-backend)
       (put 'java-backend 'safe-local-variable 'symbolp)
       (spacemacs//java-define-command-prefixes))))
@@ -345,7 +390,23 @@
             company-meghanada-prefix-length 1
             ;; let spacemacs handle company and flycheck itself
             meghanada-use-company nil
-            meghanada-use-flycheck nil))
+            meghanada-use-flycheck nil)
+
+      ;; Setup company backend.
+      (when java-enable-backend-company
+        (spacemacs|add-company-backends
+          :backends (company-meghanada :with company-dabbrev-code)
+          :modes meghanada-mode)
+        (add-hook 'meghanada-mode-hook #'spacemacs//java-setup-company))
+
+      ;; FIXME: The company backend is not properly loaded
+      ;;        when the mode is autoloaded. Disabling and enabling is
+      ;;        required.
+
+      ;; Add autostart hook.
+      (when (and java-autoenable-backend (eq java-backend 'meghanada))
+        (add-hook 'java-mode-hook (lambda ()
+                                    (meghanada-mode)))))
     :config
     (progn
       ;; key bindings
