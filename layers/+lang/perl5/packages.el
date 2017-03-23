@@ -11,23 +11,23 @@
 
 (setq perl5-packages
       '((bioperl-mode :location local)
-        company
-        (company-anaconda :toggle (configuration-layer/package-usedp 'company))
-        cperl
+        ;;company
+        ;;(company-anaconda :toggle (configuration-layer/package-usedp 'company))
+        cperl-mode
         eldoc
-        evil-matchit
+        ;;evil-matchit
         flycheck
-        ggtags
-        helm-cscope
-        helm-gtags
-        org
+        ;;ggtags
+        ;;helm-cscope
+        ;;helm-gtags
+        ;;org
         (template :location local)
         (perlnow :location local)
-        semantic
+        ;;semantic
         mmm-mode
         smartparens
-        stickyfunc-enhance
-        xcscope
+        ;;stickyfunc-enhance
+        ;;xcscope
         ))
 
 (defun perl5/init-perlnow ()
@@ -66,7 +66,7 @@
     :commands (template-initialize))
 )
 
-(defun perl5/init-mmm-mode ()
+(defun perl5/post-init-mmm-mode ()
   (interactive)
   (use-package mmm-mode
     :defer t
@@ -114,3 +114,19 @@
                bioperl-find-module-at-point
                )
     ))
+
+
+(defun perl5/init-cperl-mode ()
+  (use-package cperl-mode))
+
+(defun perl5/post-init-eldoc ()
+  (use-package eldoc))
+
+(defun perl5/post-init-flycheck ()
+  (use-package flycheck))
+
+(defun perl5/init-template ()
+  (use-package template))
+
+(defun perl5/post-init-smartparens ()
+  (use-package smartparens))
