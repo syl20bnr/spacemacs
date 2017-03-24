@@ -7,20 +7,20 @@ branches:
     - develop
 
 before_install:
- - curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw > x.sh && source ./x.sh
- - evm install $EVM_EMACS --use --skip
+ - if [ ! -z "$EVM_EMACS" ]; then curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw > x.sh && source ./x.sh; fi
+ - if [ ! -z "$EVM_EMACS" ]; then evm install $EVM_EMACS --use --skip; fi
 
 env:
  - EVM_EMACS=emacs-24.4-travis
  - EVM_EMACS=emacs-24.5-travis
  - EVM_EMACS=emacs-25.1-travis
  - EVM_EMACS=emacs-git-snapshot-travis
+ - FORMATTING=space-test
 
 matrix:
   fast_finish: true
   allow_failures:
-    env:
-      - EVM_EMACS=emacs-git-snapshot-travis
+    - env: EVM_EMACS=emacs-git-snapshot-travis
 
 script:
   - ./.travis-build.sh
