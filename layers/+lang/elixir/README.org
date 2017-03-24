@@ -8,6 +8,7 @@
  - [[#configuration][Configuration]]
    - [[#flycheck][Flycheck]]
      - [[#credo][Credo]]
+     - [[#dogma][Dogma]]
      - [[#mix-compile][mix compile]]
  - [[#key-bindings][Key bindings]]
    - [[#refcard][Refcard]]
@@ -51,7 +52,7 @@ file.
 time.
 
 *** Credo
-You need to install [[https://github.com/rrrene/credo][credo]] into your project. Fort this, add ={:credo, "~> 0.5",
+You need to install [[https://github.com/rrrene/credo][credo]] into your project. For this, add ={:credo, "~> 0.5",
 only: [:dev, :test]}= to dependencies of your project (in file =mix.exs=) and
 run:
 
@@ -65,6 +66,15 @@ You can tell flycheck-credo to call credo with the '--strict' argument.
 
 #+BEGIN_SRC elisp
 (setq flycheck-elixir-credo-strict t)
+#+END_SRC
+
+*** Dogma
+In order to lint your code, you also need to install [[https://github.com/lpil/dogma][dogma]] into your project. 
+For this, add ={:dogma, "~> 0.1", only: [:dev]}= to the dependencies in your =mix.exs= file
+and run:
+
+#+BEGIN_SRC shell
+$ mix deps.get
 #+END_SRC
 
 *** mix compile
