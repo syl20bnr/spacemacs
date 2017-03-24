@@ -151,6 +151,13 @@ $ brew linkapps emacs-plus
 the start of this file. That will populate your `~/.emacs.d` directory, which is
 what transforms a regular GNU Emacs into Spacemacs.
 
+If your are willing your custom theme to match the title bar, please consider using instead:
+    ```sh
+    brew install emacs-plus --with-natural-title-bar
+    `````
+see https://github.com/d12frosted/homebrew-emacs-plus/pull/21
+and https://github.com/d12frosted/homebrew-emacs-plus/pull/23
+
 *Note:* the proposed `emacs-plus` tap is identical to the `emacs` formulae, it
 just builds GNU Emacs with support of several features by default along with
 providing Spacemacs icon.
