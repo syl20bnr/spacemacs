@@ -79,8 +79,8 @@
     (add-hook hook `turn-on-evil-matchit-mode)))
 
 (defun ruby/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'ruby-mode)
-  (spacemacs/add-flycheck-hook 'enh-ruby-mode))
+  (spacemacs/enable-flycheck 'ruby-mode)
+  (spacemacs/enable-flycheck 'enh-ruby-mode))
 
 (defun ruby/post-init-ggtags ()
   (add-hook 'ruby-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

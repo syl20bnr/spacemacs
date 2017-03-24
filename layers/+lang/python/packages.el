@@ -103,7 +103,7 @@
   (add-hook `python-mode-hook `turn-on-evil-matchit-mode))
 
 (defun python/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'python-mode))
+  (spacemacs/enable-flycheck 'python-mode))
 
 (defun python/pre-init-helm-cscope ()
   (spacemacs|use-package-add-hook xcscope
@@ -440,7 +440,9 @@ fix this issue."
 (defun python/init-yapfify ()
   (use-package yapfify
     :defer t
-    :init (spacemacs/set-leader-keys-for-major-mode 'python-mode
-            "=" 'yapfify-buffer)
-    :config (when python-enable-yapf-format-on-save
-              (add-hook 'python-mode-hook 'yapf-mode))))
+    :init 
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "=" 'yapfify-buffer)
+      (when python-enable-yapf-format-on-save
+        (add-hook 'python-mode-hook 'yapf-mode)))))

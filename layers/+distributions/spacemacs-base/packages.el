@@ -27,7 +27,10 @@
         evil-visualstar
         ;; some packages need to look for binaries,
         ;; which means the path must be ready by then
-        (exec-path-from-shell :step pre)
+        (exec-path-from-shell :step pre
+                              :toggle (or (spacemacs/system-is-mac)
+                                          (spacemacs/system-is-linux)
+                                          (eq window-system 'x)))
         help-fns+
         (hi-lock :location built-in)
         (holy-mode :location local :step pre)
@@ -183,10 +186,8 @@
 
 (defun spacemacs-base/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
-    :init (when (or (spacemacs/system-is-mac)
-                    (spacemacs/system-is-linux)
-                    (memq window-system '(x)))
-            (exec-path-from-shell-initialize))))
+    :demand t
+    :config (exec-path-from-shell-initialize)))
 
 (defun spacemacs-base/init-help-fns+ ()
   (use-package help-fns+

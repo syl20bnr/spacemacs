@@ -98,6 +98,7 @@ the final step of executing code in `emacs-startup-hook'.")
   ;; effective ones.
   ;; Note: Loading custom-settings twice is not ideal since they can have side
   ;; effects! Maybe an inhibit variable in Emacs can supress these side effects?
+  (spacemacs/initialize-custom-file)
   (dotspacemacs|call-func dotspacemacs/emacs-custom-settings
                           "Calling dotfile Emacs custom settings...")
   (setq dotspacemacs-editing-style (dotspacemacs//read-editing-style-config

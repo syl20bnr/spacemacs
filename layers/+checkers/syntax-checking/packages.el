@@ -75,22 +75,6 @@
           :fringe-bitmap bitmap
           :fringe-face 'flycheck-fringe-info))
 
-      ;; toggle flycheck window
-      (defun spacemacs/toggle-flycheck-error-list ()
-        "Toggle flycheck's error list window.
-If the error list is visible, hide it.  Otherwise, show it."
-        (interactive)
-        (-if-let (window (flycheck-get-error-list-window))
-            (quit-window nil window)
-          (flycheck-list-errors)))
-
-      (defun spacemacs/goto-flycheck-error-list ()
-        "Open and go to the error list buffer."
-        (interactive)
-        (unless (get-buffer-window (get-buffer flycheck-error-list-buffer))
-          (flycheck-list-errors)
-          (switch-to-buffer-other-window flycheck-error-list-buffer)))
-
       (evilified-state-evilify-map flycheck-error-list-mode-map
         :mode flycheck-error-list-mode
         :bindings
@@ -101,13 +85,14 @@ If the error list is visible, hide it.  Otherwise, show it."
       ;; key bindings
       (spacemacs/set-leader-keys
         "ec" 'flycheck-clear
+        "ee" 'flycheck-buffer
         "eh" 'flycheck-describe-checker
         "el" 'spacemacs/toggle-flycheck-error-list
         "eL" 'spacemacs/goto-flycheck-error-list
-        "ee" 'flycheck-explain-error-at-point
         "es" 'flycheck-select-checker
         "eS" 'flycheck-set-checker-executable
-        "ev" 'flycheck-verify-setup))))
+        "ev" 'flycheck-verify-setup
+        "ex" 'flycheck-explain-error-at-point))))
 
 (defun syntax-checking/init-flycheck-pos-tip ()
   (use-package flycheck-pos-tip

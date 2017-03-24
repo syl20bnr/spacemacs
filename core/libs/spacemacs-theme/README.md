@@ -155,3 +155,7 @@ If you are using [spacemacs](https://github.com/syl20bnr/spacemacs), you can put
 ```
 
 This will override `act1`, `act1` and `base` to use the specified colors.
+
+# Like the theme and want to use it in other places?
+
+Then check out this project [base16-builder](https://github.com/auduchinok/base16-builder).

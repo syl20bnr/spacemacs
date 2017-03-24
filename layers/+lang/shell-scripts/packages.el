@@ -33,7 +33,7 @@
         :modes fish-mode))))
 
 (defun shell-scripts/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'sh-mode))
+  (spacemacs/enable-flycheck 'sh-mode))
 
 (defun shell-scripts/init-fish-mode ()
   (use-package fish-mode

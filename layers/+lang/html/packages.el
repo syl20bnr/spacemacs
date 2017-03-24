@@ -122,7 +122,7 @@
                   scss-mode
                   slim-mode
                   web-mode))
-    (spacemacs/add-flycheck-hook mode)))
+    (spacemacs/enable-flycheck mode)))
 
 (defun html/init-haml-mode ()
   (use-package haml-mode

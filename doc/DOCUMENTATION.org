@@ -572,10 +572,22 @@ configuration at the beginning and end of Spacemacs loading process:
   your configurations should be done. Unless it is explicitly specified that a
   variable should be set before a package is loaded, you should place your code
   here.
+- =dotspacemacs/emacs-custom-settings= is a generated function where all Emacs
+  custom settings are written. You should not edit this function. See
+  =Custom variables= section for more information.
 
 *** Custom variables
-Custom variables configuration from =M-x customize-group= built-in Emacs feature
-are automatically saved by Emacs at the end of your =~/.spacemacs= file.
+By default custom variables from =M-x customize-group= are automatically saved
+at the end of your =~/.spacemacs= file in the function
+=dotspacemacs/emacs-custom-settings== unless you declare a custom =custom-file=
+in the =dotspacemacs/user-init= function, in this case custom variables will be
+written to the user defined =custom-file= and the function
+=dotspacemacs/emacs-custom-settings= will remain empty.
+
+*Note:* if you set a custom =custom-file= value then it is your responsibility
+to load this file at the appropriate time. Often the best time to load it is
+just after setting the value for =custom-file= in the =dotspacemacs/user-init=
+function.
 
 ** Declaring Configuration layers
 To use a configuration layer, declare it in your dotfile by adding it to the
@@ -1155,8 +1167,7 @@ and ~T~):
 
 **** Global line numbers
 Line numbers can be toggled on in all =prog-mode= and =text-mode= buffers by
-setting the =dotspacemacs-line-numbers= variable in your =~/.spacemacs=
-to something different than =nil=.
+setting the =dotspacemacs-line-numbers= variable in your =~/.spacemacs= to =t=.
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-line-numbers t)
@@ -1180,7 +1191,7 @@ Available properties:
 | =:relative=           | if non-nil, line numbers are relative to the position of the cursor                          |
 | =:size-limit-kb=      | size limit in kilobytes after which line numbers are not activated                           |
 
-Example:
+Examples:
 
 Disable line numbers in dired-mode, doc-view-mode, markdown-mode, org-mode,
 pdf-view-mode, text-mode as well as buffers over 1Mb:
@@ -1203,6 +1214,22 @@ Relative line numbers only in c-mode and c++ mode with a size limit of =dotspace
                                            :enabled-for-modes c-mode
                                                               c++-mode
                                            :size-limit-kb (* dotspacemacs-large-file-size 1000))
+#+END_SRC
+
+Enable line numbers everywhere, except for buffers over 1Mb:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-lines-numbers '(:relative nil
+                                             :size-limit-kb 1000))
+#+END_SRC
+
+Enable line numbers only in programming modes, except for c-mode and c++ mode:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-lines-numbers '(:relative nil
+                                             :enabled-for-modes prog-mode
+                                             :disabled-for-modes c-mode c++-mode
+                                             :size-limit-kb (* dotspacemacs-large-file-size 1000))
 #+END_SRC
 
 ** Mode-line
