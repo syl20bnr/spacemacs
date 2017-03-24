@@ -263,3 +263,4 @@ To add tests for a layer, do the following:
 
 This =CONTRIBUTING.org= file is partially based on the [[https://github.com/rails/rails/blob/master/CONTRIBUTING.md][Rails Contribution
 guidelines]] and [[https://github.com/flycheck/flycheck/blob/master/CONTRIBUTING.md][Flycheck Contribution guidelines]].
+		   			 :shipit:     		 	 	
