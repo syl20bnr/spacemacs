@@ -17,7 +17,7 @@ This layer adds support for working with Vagrant using [[https://github.com/ottb
 [[https://github.com/dougm/vagrant-tramp][vagrant-tramp]].
 
 ** Features:
- - Manage boxes (under the ~SPC V~ prefix)
+ - Manage boxes (under the ~SPC a V~ prefix)
  - Remote editing on Vagrant boxes via Tramp
 
 * Install
@@ -42,13 +42,13 @@ in this directory.
 
 | Key Binding | Description                                                                                    |
 |-------------+------------------------------------------------------------------------------------------------|
-| ~SPC V D~   | destroy a box                                                                                  |
-| ~SPC V e~   | edit the =Vagrantfile=                                                                         |
-| ~SPC V H~   | halt (shut down) a box                                                                         |
-| ~SPC V p~   | (re)provision a box that is already up                                                         |
-| ~SPC V r~   | resume a suspended box (you can also use =SPC V V= for this)                                   |
-| ~SPC V R~   | reload a box                                                                                   |
-| ~SPC V s~   | view the status of running boxes in the current project                                        |
-| ~SPC V S~   | suspend a box                                                                                  |
-| ~SPC V t~   | start a =vagrant-tramp-term= session - after start, edit files at =/vagrant:box_name:filename= |
-| ~SPC V V~   | bring up a Vagrant box                                                                         |
+| ~SPC a V D~   | destroy a box                                                                                  |
+| ~SPC a V e~   | edit the =Vagrantfile=                                                                         |
+| ~SPC a V H~   | halt (shut down) a box                                                                         |
+| ~SPC a V p~   | (re)provision a box that is already up                                                         |
+| ~SPC a V r~   | resume a suspended box (you can also use =SPC V V= for this)                                   |
+| ~SPC a V R~   | reload a box                                                                                   |
+| ~SPC a V s~   | view the status of running boxes in the current project                                        |
+| ~SPC a V S~   | suspend a box                                                                                  |
+| ~SPC a V t~   | start a =vagrant-tramp-term= session - after start, edit files at =/vagrant:box_name:filename= |
+| ~SPC a V V~   | bring up a Vagrant box                                                                         |
