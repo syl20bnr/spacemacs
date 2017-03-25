@@ -1084,8 +1084,8 @@ To change the default font set the variable =dotspacemacs-default-font= in your
                                           :powerline-scale 1.1))
 #+END_SRC
 
-If the specified font is not found, the fallback one will be used (depends on
-your system). Also note that changing this value has no effect if you are
+If the specified font is not found, the fallback one will be used ([[file:BEGINNERS_TUTORIAL.org::#install-the-default-fonts][depends on
+your system]]). Also note that changing this value has no effect if you are
 running Emacs in terminal.
 
 The properties should be pretty straightforward, it is possible to set any valid
