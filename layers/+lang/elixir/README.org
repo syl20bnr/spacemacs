@@ -52,9 +52,14 @@ file.
 time.
 
 *** Credo
-You need to install [[https://github.com/rrrene/credo][credo]] into your project. For this, add ={:credo, "~> 0.5",
-only: [:dev, :test]}= to dependencies of your project (in file =mix.exs=) and
-run:
+You need to install [[https://github.com/rrrene/credo][credo]] into your project. For this, add the following snippet
+to dependencies of your project (in file =mix.exs=):
+
+#+BEGIN_SRC
+{:credo, "~> 0.5", only: [:dev, :test]}
+#+END_SRC
+
+Then run in your shell:
 
 #+BEGIN_SRC shell
 $ mix deps.get
@@ -69,9 +74,14 @@ You can tell flycheck-credo to call credo with the '--strict' argument.
 #+END_SRC
 
 *** Dogma
-In order to lint your code, you also need to install [[https://github.com/lpil/dogma][dogma]] into your project. 
-For this, add ={:dogma, "~> 0.1", only: [:dev]}= to the dependencies in your =mix.exs= file
-and run:
+In order to lint your code, you also need to install [[https://github.com/lpil/dogma][dogma]] into your project.
+For this, add the following snippet to the dependencies in your =mix.exs= file:
+
+#+BEGIN_SRC
+{:dogma, "~> 0.1", only: [:dev]}
+#+END_SRC
+
+Then run in your shell:
 
 #+BEGIN_SRC shell
 $ mix deps.get
