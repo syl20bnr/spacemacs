@@ -400,23 +400,31 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
 ;; from magnars
 (defun spacemacs/sudo-edit (&optional arg)
   (interactive "P")
+  (eval-when-compile
+    (require 'tramp))
   (let ((fname (if (or arg (not buffer-file-name))
                    (read-file-name "File: ")
                  buffer-file-name)))
     (find-file
-     (cond ((string-match-p "^/ssh:" fname)
-            (with-temp-buffer
-              (insert fname)
-              (search-backward ":")
-              (let ((last-match-end nil)
-                    (last-ssh-hostname nil))
-                (while (string-match "@\\\([^:|]+\\\)" fname last-match-end)
-                  (setq last-ssh-hostname (or (match-string 1 fname)
-                                              last-ssh-hostname))
-                  (setq last-match-end (match-end 0)))
-                (insert (format "|sudo:%s" (or last-ssh-hostname "localhost"))))
-              (buffer-string)))
-           (t (concat "/sudo:root@localhost:" fname))))))
+     (if (not (tramp-tramp-file-p fname))
+         (concat "/sudo:root@localhost:" fname)
+       (with-parsed-tramp-file-name fname parsed
+         (when (equal parsed-user "root")
+           (error "Already root!"))
+         (let* ((new-hop (tramp-make-tramp-file-name parsed-method
+                                                     parsed-user
+                                                     parsed-host
+                                                     nil
+                                                     parsed-hop
+                                                     ))
+                (new-hop (substring new-hop 1 -1))
+                (new-hop (concat new-hop "|"))
+                (new-fname (tramp-make-tramp-file-name "sudo"
+                                                       "root"
+                                                       parsed-host
+                                                       parsed-localname
+                                                       new-hop)))
+           new-fname))))))
 
 ;; check when opening large files - literal file open
 (defun spacemacs/check-large-file ()
