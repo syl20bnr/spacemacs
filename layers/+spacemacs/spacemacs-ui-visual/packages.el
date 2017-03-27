@@ -217,6 +217,10 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
         ("R" neotree-change-root)
         ("s" neotree-hidden-file-toggle))
 
+      (defun spacemacs//neotree-maybe-attach-window ()
+        (when (get-buffer-window (neo-global--get-buffer))
+          (neo-global--attach)))
+
       (defun spacemacs//neotree-key-bindings ()
         "Set the key bindings for a neotree buffer."
         (evilified-state-evilify-map neotree-mode-map
@@ -250,7 +254,10 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
         "fT" 'neotree-show
         "pt" 'neotree-find-project-root))
     :config
-    (spacemacs//neotree-key-bindings)))
+    (progn
+      (spacemacs//neotree-key-bindings)
+      (add-hook 'persp-activated-hook #'spacemacs//neotree-maybe-attach-window)
+      (add-hook 'eyebrowse-post-window-switch-hook #'spacemacs//neotree-maybe-attach-window))))
 
 (defun spacemacs-ui-visual/init-popup ())
 
