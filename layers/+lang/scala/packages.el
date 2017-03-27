@@ -54,7 +54,7 @@
 
 (defun scala/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'scala-mode)
-  (add-hook 'scala-mode-hook #'spacemacs//java-setup-ensime-spell-checking))
+  (add-hook 'scala-mode-hook #'spacemacs//java-setup-ensime-flyspell))
 
 (defun scala/init-noflet ()
   (use-package noflet))
