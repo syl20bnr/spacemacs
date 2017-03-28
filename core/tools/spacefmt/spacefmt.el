@@ -18,6 +18,7 @@
 (require 'thingatpt)
 
 (defconst empty-line-regexp "^[ \t]*$")
+(defconst tree-trunk-regexp "^[ 	]*|_")
 
 (defconst toc-heading-head "* Table of Contents")
 (defconst toc-heading-tail ":TOC_4_gh:noexport:")
@@ -130,11 +131,16 @@
   "Goto next org table.
 Returns nil if no more tables left."
   ;; Skip current table.
+  (beginning-of-line)
   (while (looking-at-p org-table-any-line-regexp)
+    (beginning-of-line)
     (forward-line))
   ;; Skip to the next table.
-  (when (re-search-forward org-table-hline-regexp nil t)
-    (forward-line -1 )))
+  (re-search-forward org-table-any-line-regexp nil t)
+  (beginning-of-line)
+  (when (looking-at-p tree-trunk-regexp)
+    (goto-next-table))
+  (looking-at-p org-table-any-line-regexp))
 
 (defun move-packages-to-config ()
   "Move xxx-packages list to config.el."
