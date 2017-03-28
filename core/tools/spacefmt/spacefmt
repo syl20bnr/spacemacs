@@ -14,6 +14,11 @@
 
 # TODO a function to add headers to config.el, packages.el etc...
 
+if [ $# -eq 0 ]; then
+    echo "No arguments provided!"
+    exit 1
+fi
+
 if ! [ -d "./.git" ]
 then
     echo "Should be executed from the repo root."
