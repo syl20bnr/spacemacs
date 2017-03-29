@@ -38,8 +38,7 @@ if [ "${FORMATTING}" = "space-test" ]; then
 	echo "TRAVIS_COMMIT_RANGE: ${TRAVIS_COMMIT_RANGE}"
 	first_commit=`echo ${TRAVIS_COMMIT_RANGE} | sed -r 's/\..*//'`
 	git reset -q "${first_commit}"
-##	git reset -q HEAD~1
-	git diff --check > space_test_result
+	git diff --check --color > space_test_result
 	if [[ -s space_test_result ]]; then
 		cat space_test_result
 		exit 1
