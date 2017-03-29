@@ -13,7 +13,8 @@
 
 (defun symon/init-symon ()
   (use-package symon
-    :config
+    :defer t
+    :init
     (spacemacs|add-toggle minibuffer-system-monitor
       :mode symon-mode
       :evil-leader "tM")))
