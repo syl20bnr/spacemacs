@@ -73,6 +73,7 @@ one over the other:
 | ~SPC g r~   | smerge mode transient-state     |
 | ~SPC T d~   | toggle diff margins             |
 | ~SPC T C-d~ | toggle diff margins globally    |
+| ~SPC g h o~ | browser at remote               |
 
 ** Version Control Transient-state
 
