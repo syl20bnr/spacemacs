@@ -39,7 +39,7 @@ buffers to enter dired.
 | ~0~         | (Dired) Move to the beginning of the file in dired |
 | ~=~         | (Dired) Diff between selected files                |
 | ~C-j~       | (Dired) Move to next subdirectory                  |
-| ~C-k~       | (Dired) Move to previous sbdirectory               |
+| ~C-k~       | (Dired) Move to previous subdirectory              |
 | ~I~         | (Dired) Toggle showing dotfiles                    |
 | ~~~         | (Dired) Navigate to home directory                 |
 | ~f~         | (Dired) Helm find file                             |
