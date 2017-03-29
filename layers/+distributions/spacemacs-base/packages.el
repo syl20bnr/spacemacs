@@ -56,6 +56,7 @@
         (visual-line-mode :location built-in)
         (whitespace :location built-in)
         (winner :location built-in)
+        zone
         ))
 
 ;; Initialization of packages
@@ -537,5 +538,10 @@
       (setq winner-boring-buffers
             (append winner-boring-buffers spacemacs/winner-boring-buffers))
       (winner-mode t))))
+
+(defun spacemacs-base/init-zone ()
+  (when dotspacemacs-zone-when-idle-for
+    (zone-when-idle dotspacemacs-zone-when-idle-for))
+  (spacemacs/set-leader-keys "Z" 'zone))
 
 (defun spacemacs-base/init-centered-buffer-mode ())
