@@ -42,7 +42,7 @@
 (defun github/init-github-browse-file ()
   (use-package github-browse-file
     :defer t
-    :init (spacemacs/set-leader-keys "gho" 'github-browse-file)))
+    :init (spacemacs/set-leader-keys "ghO" 'github-browse-file)))
 
 (defun github/init-github-clone ()
   (use-package github-clone
