@@ -39,7 +39,6 @@
   (with-eval-after-load 'flycheck
     (dolist (checker '(javascript-eslint javascript-standard))
       (flycheck-add-mode checker 'react-mode)))
-  (add-hook 'react-mode-hook #'spacemacs//react-use-eslint-from-node-modules)
   (spacemacs/enable-flycheck 'react-mode))
 
 (defun react/post-init-js-doc ()
