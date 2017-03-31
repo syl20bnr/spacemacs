@@ -11,6 +11,7 @@
 
 (setq html-packages
   '(
+    add-node-modules-path
     company
     (company-web :toggle (configuration-layer/package-usedp 'company))
     css-mode
@@ -29,6 +30,15 @@
     web-mode
     yasnippet
     ))
+
+(defun html/post-init-add-node-modules-path ()
+  (add-hook 'css-mode-hook #'add-node-modules-path)
+  (add-hook 'less-css-mode-hook #'add-node-modules-path)
+  (add-hook 'pug-mode-hook #'add-node-modules-path)
+  (add-hook 'sass-mode-hook #'add-node-modules-path)
+  (add-hook 'scss-mode-hook #'add-node-modules-path)
+  (add-hook 'slim-mode-hook #'add-node-modules-path)
+  (add-hook 'web-mode-hook #'add-node-modules-path))
 
 (defun html/post-init-company ()
   (spacemacs|add-company-backends
