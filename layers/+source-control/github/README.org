@@ -14,7 +14,6 @@
    - [[#magithub][magithub]]
    - [[#gistel][gist.el]]
    - [[#clone-repositories][Clone repositories]]
-   - [[#browse-files][Browse files]]
 
 * Description
 This layers adds support for [[http://github.com][GitHub]].
@@ -23,8 +22,7 @@ This layers adds support for [[http://github.com][GitHub]].
 - [[https://github.com/sigma/magit-gh-pulls][magit-gh-pulls]]: handy =magit= add-on to manage GitHub pull requests.
 - [[https://github.com/vermiculus/magithub][magithub]]: magit integrated interface to [[https://hub.github.com/][hub]] command line
 - [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post GitHub gists.
-- [[https://github.com/osener/github-browse-file][github-browse-file]] and [[https://github.com/sshaw/git-link][git-link]]: quickly browse GitHub URL in your
-  browser.
+- [[https://github.com/sshaw/git-link][git-link]]: quickly generate URLs for commits or files.
 - [[https://github.com/dgtized/github-clone.el][github-clone]] allows for easy cloning and forking of repositories.
 
 * Install
@@ -65,6 +63,7 @@ Note that =magit-gh-pulls= will try to fast-forward the PRs whenever it is
 possible.
 
 ** magithub
+
 | Key Binding | Description                                                 |
 |-------------+-------------------------------------------------------------|
 | ~@ H~       | opens the current repository in the browser                 |
@@ -113,9 +112,3 @@ In the gist list buffer:
 | ~SPC g h c r~ | add a remote that is an existing fork of selected remote |
 | ~SPC g h c f~ | fork remote in current user namespace                    |
 | ~SPC g h c u~ | add upstream as remote                                   |
-
-** Browse files
-
-| Key Binding | Description                                                        |
-|-------------+--------------------------------------------------------------------|
-| ~SPC g h O~ | browse to file on GitHub                                           |
