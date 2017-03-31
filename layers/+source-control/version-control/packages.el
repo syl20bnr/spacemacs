@@ -11,6 +11,7 @@
 
 (setq version-control-packages
       '(
+        browse-at-remote
         diff-mode
         diff-hl
         evil-unimpaired
@@ -208,3 +209,8 @@
         ("r" smerge-refine)
         ("u" undo-tree-undo)
         ("q" nil :exit t)))))
+
+(defun version-control/init-browse-at-remote ()
+  (use-package browse-at-remote
+    :defer t
+    :init (spacemacs/set-leader-keys "gho" 'browse-at-remote)))

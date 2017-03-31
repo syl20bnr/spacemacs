@@ -118,4 +118,4 @@ In the gist list buffer:
 
 | Key Binding | Description                                                        |
 |-------------+--------------------------------------------------------------------|
-| ~SPC g h o~ | browse to file on GitHub                                           |
+| ~SPC g h O~ | browse to file on GitHub                                           |
