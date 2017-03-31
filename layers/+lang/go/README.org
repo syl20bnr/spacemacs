@@ -124,7 +124,7 @@ In addition, =GOPATH= must be set prior to =go-guru= initialization.
 | ~SPC m e d~ | download go-play snippet                                                              |
 | ~SPC m x x~ | run "go run" for the current 'main' package                                           |
 | ~SPC m g a~ | jump to matching test file or back from test to code file                             |
-| ~SPC m g С~ | open a clone of the current buffer with a coverage info (=go tool cover -h= for help) |
+| ~SPC m g c~ | open a clone of the current buffer with a coverage info (=go tool cover -h= for help) |
 | ~SPC m g g~ | go jump to definition                                                                 |
 | ~SPC m r n~ | go rename                                                                             |
 | ~SPC m t p~ | run "go test" for the current package                                                 |

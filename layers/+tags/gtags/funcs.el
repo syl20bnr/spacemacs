@@ -40,7 +40,7 @@ Otherwise does nothing."
       (add-to-list jumpl 'spacemacs/helm-gtags-maybe-dwim 'append))
 
     (spacemacs/set-leader-keys-for-major-mode mode
-      "gc" 'helm-gtags-create-tags
+      "gC" 'helm-gtags-create-tags
       "gd" 'helm-gtags-find-tag
       "gD" 'helm-gtags-find-tag-other-window
       "gf" 'helm-gtags-select-path

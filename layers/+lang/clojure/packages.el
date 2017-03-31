@@ -124,7 +124,7 @@
           "fb" 'cider-format-buffer
 
           "gb" 'cider-pop-back
-          "gC" 'cider-classpath
+          "gc" 'cider-classpath
           "ge" 'cider-jump-to-compilation-error
           "gr" 'cider-jump-to-resource
           "gn" 'cider-browse-ns

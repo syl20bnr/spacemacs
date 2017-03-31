@@ -236,7 +236,7 @@ the gtags commands.
 
 | Key Binding | Description                                               |
 |-------------+-----------------------------------------------------------|
-| ~SPC m g c~ | create a tag database                                     |
+| ~SPC m g C~ | create a tag database                                     |
 | ~SPC m g f~ | jump to a file in tag database                            |
 | ~SPC m g g~ | jump to a location based on context                       |
 | ~SPC m g G~ | jump to a location based on context (open another window) |
