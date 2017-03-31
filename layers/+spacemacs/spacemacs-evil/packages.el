@@ -107,12 +107,26 @@
   (use-package evil-mc
     :defer t
     :init
-    ;; remove emc prefix when there is not multiple cursors
-    (setq evil-mc-mode-line
-          `(:eval (when (> (evil-mc-get-cursor-count) 1)
-                    (format ,(propertize " %s:%d" 'face 'cursor)
-                            evil-mc-mode-line-prefix
-                            (evil-mc-get-cursor-count)))))))
+    (progn
+      (defun spacemacs-evil/evil-mc-set-paste (enable-paste-transient-state)
+        (if (and enable-paste-transient-state dotspacemacs-enable-paste-transient-state)
+          (progn
+            (define-key evil-normal-state-map "p" 'spacemacs/paste-transient-state/evil-paste-after)
+            (define-key evil-normal-state-map "P" 'spacemacs/paste-transient-state/evil-paste-before))
+          (progn
+            (define-key evil-normal-state-map "p" 'evil-paste-after)
+            (define-key evil-normal-state-map "P" 'evil-paste-before))))
+
+      ;; disable transient paste state during multicursor mode
+      (when dotspacemacs-enable-paste-transient-state
+        (add-hook 'evil-mc-before-cursors-created (lambda () (spacemacs-evil/evil-mc-set-paste nil)))
+        (add-hook 'evil-mc-after-cursors-deleted (lambda () (spacemacs-evil/evil-mc-set-paste t))))
+      ;; remove emc prefix when there is not multiple cursors
+      (setq evil-mc-mode-line
+            `(:eval (when (> (evil-mc-get-cursor-count) 1)
+                      (format ,(propertize " %s:%d" 'face 'cursor)
+                              evil-mc-mode-line-prefix
+                              (evil-mc-get-cursor-count))))))))
 
 ;; other commenting functions in funcs.el with keybinds in keybindings.el
 (defun spacemacs-evil/init-evil-nerd-commenter ()
