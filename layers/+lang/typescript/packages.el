@@ -11,6 +11,7 @@
 
 (setq typescript-packages
       '(
+        add-node-modules-path
         company
         eldoc
         flycheck
@@ -18,6 +19,10 @@
         typescript-mode
         web-mode
         ))
+
+(defun typescript/post-init-add-node-modules-path ()
+  (add-hook 'typescript-mode-hook #'add-node-modules-path)
+  (add-hook 'web-mode-hook #'add-node-modules-path))
 
 (defun typescript/post-init-company ()
   (when (configuration-layer/package-usedp 'tide)
