@@ -211,6 +211,12 @@ You can tweak the bullets displayed in the org buffer in the function
   (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
 #+END_SRC
 
+You can disable the fancy bullets entirely by adding =org-bullets= to =dotspacemacs-excluded-packages=.
+
+#+BEGIN_SRC emacs-lisp
+  (dotspacemacs-excluded-packages '(org-bullets))
+#+END_SRC
+
 ** Project support
 Set the layer variable =org-projectile-file= to the filename where you want to
 store project-specific TODOs. If this is an absolute path, all todos will be
