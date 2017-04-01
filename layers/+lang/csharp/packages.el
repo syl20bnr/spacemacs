@@ -17,6 +17,7 @@
     ggtags
     helm-gtags
     omnisharp
+    flycheck
     ))
 
 (defun csharp/init-omnisharp ()
@@ -110,3 +111,6 @@
 
 (defun csharp/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'csharp-mode))
+
+(defun csharp/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'csharp-mode))
