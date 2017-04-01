@@ -43,7 +43,8 @@
     :init
     (progn
       (spacemacs/register-repl 'slime 'slime)
-      (setq slime-contribs '(slime-fancy
+      (setq slime-contribs '(slime-asdf
+                             slime-fancy
                              slime-indentation
                              slime-sbcl-exts
                              slime-scratch)
