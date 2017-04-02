@@ -2,18 +2,106 @@
 
 This file containes the change log for the next major version of Spacemacs.
 
-* Release 0.201.x
-** 0.201.0
+* Release 0.300.x
+** 0.300.0
+*** Breaking Changes
+- ~SPC b m~ now opens the =*Messages*= buffer. The old ~SPC b m~ to kill other
+  buffers has been moved to ~SPC b C-d~. Killing other buffers using a regular
+  expression is now under ~SPC b C-D~.
+- Scrolling key bindings are now under ~SPC N~.
+- Key binding ~SPC e e~ is now for triggering a syntax check, the old action
+  (explain error around point) has been moved to ~SPC e x~.
+- Vagrant key bindings prefix is now ~SPC a V~.
+- Regenerate tags are now under ~SPC m g C~ instead of ~SPC m g c~.
+- All custom settings are now encapsulated in a function called
+  =dotspacemacs/emacs-custom-settings=. While it should not break your custom
+  settings you should check that they are all applied correctly once you reboot
+  Emacs. Also you may have to clean up your dotfile if some custom settings are
+  still present in your dotfile outside of the function
+  =dotspacemacs/emacs-custom-settings=.
+- Company backends declaration has been revamped to be less verbose and easier
+  to use. For more info see the section =Add auto-completion in a layer= of the
+  README.org file of the =auto-completion= layer, also you can read
+  [[https://github.com/syl20bnr/spacemacs/commit/74fdbb6][commit message of commit 74fdbb6]].
+- The function =add-flycheck-hook= has been renamed to =enable-flycheck=.
 *** Hot new feature
+- Improve themes support. Support are now handled like regular packages. The
+  list of themes now supports =:location= keyword like in layer list. More
+  information in the =Themes= section of the documentation.
 - Introduction of =spacemacs-purpose= layer in charge of handling Emacs windows
   assignation for actions opening new buffers. This layer brings more
   consistency to windows creation by giving them a purpose (i.e. =edit=,
-  =help=, etc...)
-  (thanks to bmag)
+  =help=, etc...) (thanks to bmag)
+- New distribution =spacemacs-docker= used to build the official docker image
+  for the Spacemacs container (thanks to JAremko)
+- Add support for =ripgrep=. To enable it add =rg= to
+  =dotspacemacs-search-tools=. =ripgrep= key bindings are under ~SPC s r~
+  prefix. (Aron Griffis)
+- Improve support of custom settings file. All custom settings are now
+  encapsulated in a function called =dotspacemacs/emacs-custom-settings= in the
+  dotfile if the user does not specify a custom location for the custom settings
+  file by modifying the variable =custom-file=. This allows Spacemacs to
+  correctly loads custom settings at the end of the loading process, fixing
+  unwanted overriden custom settings by layers.
+- Simplify declaration of company backends, see the section
+  =Add auto-completion in a layer= of the README.org file of the
+  =auto-completion= layer.
 *** New layers
+- =confluence= in =+web-services= directory
+- =coq= in =+lang= directory
+- =forth= in =+lang= directory (Tim Jaeger)
+- =jr= in =+lang= directory (Philippe Baron)
+- =restructuredtext= in =+lang= directory (Wei-Wei Guo)
 - =spacemacs-purpose= in =+spacemacs= directory (thanks to bmag)
+- =sphinx= in =+tools= directory (Wei-Wei Guo)
+*** Dotfile changes
+- New variable =dotspacemacs-switch-to-buffer-prefers-purpose= which
+  controls where =switch-to-buffer= displays the buffer. If nil,
+  =switch-to-buffer= displays the buffer in the current window even if another
+  same-purpose window is available. If non nil, =switch-to-buffer= displays the
+  buffer in a same-purpose window even if the buffer can be displayed in the
+  current window. (thanks to bmag)
+- Can use the univeral prefix argument to open both the =*scratch*= buffer and
+  the =*Messages*= buffer in another window (thanks to deb0ch)
+*** Core changes
+- 39667d3 | * Don't suggest `SPC q r` if restart-emacs is missing (Keshav Kini)
+*** Distribution changes
+- Enable =evil-search= search module in evil state.
+- Partially tame =exec-path-from-shell= (Steven Allen):
+  - Make it possible to exclude the package (fix the go and rust layers).
+  - Import variables all at once (avoid spawning multiple login shells).
+  - Import variables early (during the "pre" package loading stage).
+  - Centralize the platform check by using a package toggle in the
+    `spacemacs-base`.
+  - Avoid importing already defined variables (except `PATH`/`MANPATH`).
+- Move all scrolling key bindings from ~SPC n~ to ~SPC N~ (Somelauw)
+- Overhaul the scroll transient state on ~SPC N~ prefix (Somelauw)
 *** Layer changes
+**** GitHub
+- Add new package =magithub=
+- Remove package =github-browse-file= which has been replaced by
+  =browse-at-remote= in =version-control= layer
+**** Gtags
+- Move key binding ~SPC m g c~ to ~SPC m g C~ (regenerate tags)
+**** Java
+- Add support for multiple backends. Supported backends are: =megahnada=,
+  =eclim= and =ensime=. The default backend is =meghanada=.
+- ~SPC m e e~ is now to fix error around point. Use ~SPC e~ prefix to navigate
+  between errorsl
 **** Org
+- Add package =org-journal= (Nick Anderson)
 - Move clock related key bindings to ~SPC a o k~
 - Add key bindings ~SPC a o k i~ to clock in last and ~SPC a o k j~
   to jump to current clock (thanks to darkfeline)
+**** Scala
+- Move =ensime= to the =java= layer (Tor Hedin Bronner)
+**** Syntax-checking
+- Key binding ~SPC e e~ is now for triggering a syntax check, the old action
+  (explain error around point) has been moved to ~SPC e x~.
+- Rename function =add-flycheck-hook= to =enable-flycheck=
+**** Vagrant
+- Move key bindings prefix to ~SPC a V~ (deb0ch)
+**** Version-control
+- Add package =browse-at-remote= which replaces =github-browse-file= (thanks JAremko)
+*** Various improvements
+- Various documentation improvements (thanks Carl Lange, Diego Berrocal, Wieland Hoffmann)
