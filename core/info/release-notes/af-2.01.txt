@@ -1,13 +1,13 @@
              Spacemacs at your fingertips... in your browser!
 
-You are not dreaming, this is not an alien technology coming from the futur.
+You are not dreaming, this is not an alien technology coming from the future.
 
                  Spacemacs has been ported to the WEB!
 
 Better than that, our technology flawlessly compiles Emacs Lisp on the fly to
 Javascript thanks to the last version of our transpiler. Yes! This very same
 transpiler which was capable to transpile Emacs Lisp to Vimscript, except Java
-is better than Vim so we decided to go nuts and support the supperior
+is better than Vim so we decided to go nuts and support the superior
 Javascript.
 
 Spacemacs can benefit from all the candies provided by a WEB browser like being
