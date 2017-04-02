@@ -24,11 +24,7 @@
 
 (defun version-control/init-diff-mode ()
   (use-package diff-mode
-    :defer t
-    :config
-    (evilified-state-evilify diff-mode diff-mode-map
-      "j" 'diff-hunk-next
-      "k" 'diff-hunk-prev)))
+    :defer t))
 
 (defun version-control/init-diff-hl ()
   (use-package diff-hl
