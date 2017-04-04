@@ -40,7 +40,7 @@ seconds to load")
       (when (> delta spacemacs-debug-timer-threshold)
         (with-current-buffer "*load-times*"
           (goto-char (point-max))
-          (insert (format "[%.3f] (%.3f) Load or require\n    Feature: %s\n    In file: %s\n\n"
+          (insert (format "| %.3f | %.3f | Load / Require | %s | File: %s |\n"
                           (float-time (time-since emacs-start-time))
                           delta required load-file-name)))))))
 
@@ -55,9 +55,33 @@ seconds to load")
          (when (> delta spacemacs-debug-timer-threshold)
            (with-current-buffer "*load-times*"
              (goto-char (point-max))
-             (insert (format "[%.3f] (%.3f) Function call\n    Function: %s\n    Args: %s\n\n"
+             (insert (format "| %.3f | %.3f | Function | %s | Args: %s |\n"
                              (float-time (time-since emacs-start-time))
                              delta ',func args))))))))
+
+(defmacro spacemacs||make-configuration-timer (func)
+  "Used to time call to FUNC."
+  `(lambda (origfunc &rest args)
+     (let ((start (current-time))
+           (arg-obj (car args))
+           delta)
+       (prog1
+           (apply origfunc args)
+         (setq delta (float-time (time-since start)))
+         (when (> delta spacemacs-debug-timer-threshold)
+           (with-current-buffer "*spacemacs-times*"
+             (goto-char (point-max))
+             (insert (format "| %.3f | %.3f | %s | %s | %s | %s | %s | %s | %s |\n"
+                             (float-time (time-since emacs-start-time))
+                             delta
+                             ',func
+                             (slot-value arg-obj 'name)
+                             (slot-value arg-obj 'owners)
+                             (slot-value arg-obj 'location)
+                             (slot-value arg-obj 'lazy-install)
+                             (slot-value arg-obj 'pre-layers)
+                             (slot-value arg-obj 'post-layers)
+                             ))))))))
 
 (defmacro spacemacs||make-function-profiler (func)
   `(lambda (origfunc &rest args)
@@ -66,7 +90,7 @@ seconds to load")
        (profiler-start 'cpu))
      (prog1
          (apply origfunc args)
-       (with-current-buffer "*load-times*"
+       (with-current-buffer (get-buffer-create "*profile-times*")
          (goto-char (point-max))
          (insert (format "[%.3f] Done profiling function: %s\n\n"
                          (float-time (time-since emacs-start-time)) ',func)))
@@ -82,69 +106,58 @@ seconds to load")
                                              (profiler-report)
                                              (profiler-stop))))))
 
-  (when spacemacs-debug-with-timed-requires
+  (when (or spacemacs-debug-with-timed-requires
+            spacemacs-debug-with-adv-timers)
+
     (with-current-buffer (get-buffer-create "*load-times*")
       (insert (format "Threshold set at %.3f seconds\n\n"
-                      spacemacs-debug-timer-threshold)))
-
-    (defadvice package-initialize (around spacemacs//timed-initialize activate)
-      (let ((start (current-time)) res delta)
-        (setq res ad-do-it
-              delta (float-time (time-since start)))
-        (when (> delta spacemacs-debug-timer-threshold)
-          (with-current-buffer "*load-times*"
-            (goto-char (point-max))
-            (insert (format "package-initialize took %.3f sec\n" delta))))
-        res))
-
-    (defadvice require (around spacemacs//timed-require activate)
-      (let ((start (current-time)) res delta)
-        (setq res ad-do-it
-              delta (float-time (time-since start)))
-        (when (> delta spacemacs-debug-timer-threshold)
-          (with-current-buffer "*load-times*"
-            (goto-char (point-max))
-            (insert (format "File %s: Required %s: %.3f sec\n"
-                            load-file-name (ad-get-arg 0) delta))))
-        res))
-
-    (defadvice load (around spacemacs//timed-load activate)
-      (let ((start (current-time)) res delta)
-        (setq res ad-do-it
-              delta (float-time (time-since start)))
-        (when (> delta spacemacs-debug-timer-threshold)
-          (with-current-buffer "*load-times*"
-            (goto-char (point-max))
-            (insert (format "File %s: Loaded %s: %.3f sec\n"
-                            load-file-name (ad-get-arg 0) delta))))
-        res)))
-
-  (when spacemacs-debug-with-adv-timers
-    (with-current-buffer (get-buffer-create "*load-times*")
-      (insert (format "Measured times greater than %.3f sec:\n\n"
-                      spacemacs-debug-timer-threshold)))
-
-    (add-hook 'after-init-hook
-              (lambda ()
-                (with-current-buffer "*load-times*"
-                  (goto-char (point-max))
-                  (insert (format "[%.3f] Spacemacs finished initializing\n\n"
-                                  (float-time (time-since emacs-start-time)) )))))
+                      spacemacs-debug-timer-threshold))
+      (insert "| timestamp | elapsed | type | feature  | file |\n")
+      (insert "|-----------+---------+------+----------+------|\n"))
 
     (advice-add 'load :around #'spacemacs//load-timer)
     (advice-add 'require :around #'spacemacs//load-timer)
     (advice-add 'package-initialize
                 :around
                 (spacemacs||make-function-timer package-intialize))
-    (advice-add 'configuration-layer/sync
-                :around
-                (spacemacs||make-function-timer configuration-layer/sync))
     ;; (advice-add 'configuration-layer/sync
     ;;             :around
     ;;             (spacemacs||make-function-profiler configuration-layer/sync))
+
+    (add-hook 'after-init-hook
+              (lambda ()
+                (with-current-buffer "*load-times*"
+                  (goto-char (point-min))
+                  (newline)
+                  (goto-char (point-min))
+                  (insert (format "[%.3f] Spacemacs finished initializing\n\n"
+                                  (float-time (time-since emacs-start-time)) )))))
+
+    (when spacemacs-debug-with-adv-timers
+
+      (with-current-buffer (get-buffer-create "*spacemacs-times*")
+        (insert (format "Threshold set at %.3f seconds\n\n"
+                        spacemacs-debug-timer-threshold))
+        (insert "| timestamp | elapsed | call | package | layer  | location | lazy | pre-layers | post-layers |\n")
+        (insert "|-----------+---------+------+------+----------+------+-|\n"))
+
+      ;; overall time
+      (advice-add 'spacemacs/init
+                :around
+                  (spacemacs||make-function-timer spacemacs/init))
+    (advice-add 'configuration-layer/sync
+                :around
+                (spacemacs||make-function-timer configuration-layer/sync))
+      (advice-add 'spacemacs/setup-startup-hook
+                  :around
+                  (spacemacs||make-function-timer spacemacs/setup-startup-hook))
+      (advice-add 'configuration-layer/discover-layers
+                  :around
+                  (spacemacs||make-function-timer configuration-layer/discover-layers))
+
     (advice-add 'configuration-layer//configure-package
                 :around
-                (spacemacs||make-function-timer configuration-layer//configure-package)))
+                  (spacemacs||make-configuration-timer configuration-layer//configure-package))))
 
   ;; Keep debug-on-error on for stuff that is lazily loaded
   (add-hook 'after-init-hook (lambda () (setq debug-on-error t))))
