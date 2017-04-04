@@ -94,7 +94,7 @@
 ;; This file is *NOT* part of GNU Emacs.
 
 ;;; Code:
- 
+
 (defgroup centered-cursor nil
   "Makes the cursor stay vertically in a defined position (usually centered).
 Instead the cursor the text moves around the cursor."
@@ -194,7 +194,7 @@ to successively recenter to")
    ccm-map)
   "Keymap used in centered-cursor-mode.")
 
- 
+
 (defun ccm-mwheel-scroll (event)
   "Very similar to `mwheel-scroll', but does not use `scroll-down'
 and `scroll-up' but `previous-line' and `next-line', that is, the
@@ -251,7 +251,7 @@ the movement appears as page up."
                         next-screen-context-lines))))
     (forward-line amt)))
 
- 
+
 (defun ccm-vpos-down (arg)
   "Adjust the value of the screen line (where the cursor stays) by arg.
 Negative values for arg are possible. Just the variable ccm-vpos
@@ -413,9 +413,9 @@ position (usually centered)."
 ;; (info "(elisp)Hooks")
 ;; (info "(elisp)Customization")
 ;; (find-function 'mwheel-scroll)
- 
+
 ;; Local Variables:
 ;; coding: utf-8
 ;; End:
- 
+
 ;;; centered-cursor-mode.el ends here

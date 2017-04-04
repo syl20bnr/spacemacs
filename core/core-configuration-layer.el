@@ -69,12 +69,15 @@ ROOT is returned."
              (dir (car (directory-files elpa-dir 'full pkg-match))))
         (when dir (file-name-as-directory dir))))))
 
+<<<<<<< HEAD
 (defvar configuration-layer-pre-sync-hook nil
   "Hook executed at the beginning of configuration synchronization.")
 
 (defvar configuration-layer-post-sync-hook nil
   "Hook executed at the end of configuration synchronization.")
 
+=======
+>>>>>>> bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3
 (defvar configuration-layer-rollback-directory
   (concat spacemacs-cache-directory ".rollback/")
   "Spacemacs rollback directory.")

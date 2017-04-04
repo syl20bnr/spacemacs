@@ -28,6 +28,9 @@
 (defun react/post-init-emmet-mode ()
   (add-hook 'react-mode-hook 'emmet-mode))
 
+(defun react/post-init-emmet-mode ()
+  (add-hook 'react-mode-hook 'emmet-mode))
+
 (defun react/post-init-evil-matchit ()
   (with-eval-after-load 'evil-matchit
     (plist-put evilmi-plugins 'react-mode
@@ -40,7 +43,11 @@
     (dolist (checker '(javascript-eslint javascript-standard))
       (flycheck-add-mode checker 'react-mode)))
   (add-hook 'react-mode-hook #'spacemacs//react-use-eslint-from-node-modules)
+<<<<<<< HEAD
   (spacemacs/enable-flycheck 'react-mode))
+=======
+  (spacemacs/add-flycheck-hook 'react-mode))
+>>>>>>> bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3
 
 (defun react/post-init-js-doc ()
   (add-hook 'react-mode-hook 'spacemacs/js-doc-require)

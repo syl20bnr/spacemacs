@@ -104,8 +104,31 @@ the final step of executing code in `emacs-startup-hook'.")
   (setq dotspacemacs-editing-style (dotspacemacs//read-editing-style-config
                                     dotspacemacs-editing-style))
   (configuration-layer/initialize)
+<<<<<<< HEAD
   ;; theme
   (spacemacs/load-default-theme spacemacs--fallback-theme)
+=======
+  ;; Apply theme
+  (let ((default-theme (car dotspacemacs-themes)))
+    (condition-case err
+        (spacemacs/load-theme default-theme nil)
+      ('error
+       ;; fallback on Spacemacs default theme
+       (setq spacemacs--default-user-theme default-theme)
+       (setq dotspacemacs-themes (delq spacemacs--fallback-theme
+                                       dotspacemacs-themes))
+       (add-to-list 'dotspacemacs-themes spacemacs--fallback-theme)
+       (setq default-theme spacemacs--fallback-theme)
+       (load-theme spacemacs--fallback-theme t)))
+    ;; protect used themes from deletion as orphans
+    (setq configuration-layer--protected-packages
+          (append
+           (delq nil (mapcar 'spacemacs//get-theme-package
+                             dotspacemacs-themes))
+           configuration-layer--protected-packages))
+    (setq-default spacemacs--cur-theme default-theme)
+    (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
+>>>>>>> bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3
   ;; font
   (spacemacs|do-after-display-system-init
    ;; If you are thinking to remove this call to `message', think twice. You'll
@@ -146,7 +169,14 @@ the final step of executing code in `emacs-startup-hook'.")
   (if dotspacemacs-mode-line-unicode-symbols
       (setq-default spacemacs-version-check-lighter "[⇪]"))
   ;; install the dotfile if required
+<<<<<<< HEAD
   (dotspacemacs/maybe-install-dotfile))
+=======
+  (dotspacemacs/maybe-install-dotfile)
+  ;; install user default theme if required
+  (when spacemacs--default-user-theme
+    (spacemacs/load-theme spacemacs--default-user-theme 'install)))
+>>>>>>> bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3
 
 (defun spacemacs//removes-gui-elements ()
   "Remove the menu bar, tool bar and scroll bars."

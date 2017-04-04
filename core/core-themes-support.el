@@ -15,7 +15,11 @@
 (defvar spacemacs--fallback-theme 'spacemacs-dark
   "Fallback theme if user theme cannot be applied.")
 
+<<<<<<< HEAD
 (defvar spacemacs--delayed-user-theme nil
+=======
+(defvar spacemacs--default-user-theme nil
+>>>>>>> bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3
   "Internal variable storing user theme to be installed.")
 
 (defface org-kbd
@@ -176,6 +180,7 @@ package name does not match theme name + `-theme' suffix.")
    ((assq theme-name spacemacs-theme-name-to-package)
     (cdr (assq theme-name spacemacs-theme-name-to-package)))
    ;; fallback to <name>-theme
+<<<<<<< HEAD
    (t (intern (format "%S-theme" theme-name)))))
 
 (defun spacemacs//get-theme-name (theme)
@@ -269,6 +274,77 @@ THEME."
     (unless (display-graphic-p)
       (eval `(spacemacs|do-after-display-system-init
               (load-theme ',theme-name t))))))
+=======
+   (t (intern (format "%S-theme" theme)))))
+
+(defun spacemacs/load-theme (theme &optional install)
+  "Load THEME.
+ If INSTALL is non-nil then attempt to install the theme."
+  ;; Required dependencies for some themes
+  (condition-case err
+      (progn
+        (when install
+          (spacemacs-buffer/append
+           (format "--> Installing user theme: %s..."
+                   spacemacs--default-user-theme))
+          (redisplay))
+        ;; Load theme
+        (when (or (memq theme '(zonokai-blue
+                                zonokai-red
+                                solarized-light
+                                solarized-dark
+                                doom-one
+                                doom-molokai)))
+          (configuration-layer/load-or-install-package 'dash install))
+        ;; Unless Emacs stock themes
+        (unless (or (memq theme (custom-available-themes))
+                    (eq 'default theme))
+          (cond
+           ;; themes with explicitly declared package names
+           ((assq theme spacemacs-theme-name-to-package)
+            (let* ((pkg (spacemacs//get-theme-package theme))
+                   (pkg-dir (configuration-layer/load-or-install-package
+                             pkg install)))
+              (when (or (eq 'moe-light theme)
+                        (eq 'moe-dark theme))
+                (load-file (concat pkg-dir "moe-light-theme.el"))
+                (load-file (concat pkg-dir "moe-dark-theme.el")))
+              (when pkg-dir
+                (add-to-list 'custom-theme-load-path pkg-dir))))
+           (t
+            ;; other themes
+            ;; we assume that the package name is suffixed with `-theme'
+            ;; if not we will handle the special themes as we get issues
+            ;; in the tracker.
+            (let ((pkg (spacemacs//get-theme-package theme)))
+              (configuration-layer/load-or-install-package pkg install)))))
+        ;; Apply theme
+        (mapc 'disable-theme custom-enabled-themes)
+        ;; explicitly reload the theme for the first GUI client
+        (eval `(spacemacs|do-after-display-system-init
+                (load-theme ',theme t)))
+        (when install
+          (spacemacs-buffer/replace-last-line
+           (format (concat "--> User theme \"%s\" has been applied, you may "
+                           "have to restart Emacs.\n")
+                   spacemacs--default-user-theme))
+          (redisplay)))
+    ('error
+     (if install
+         (progn
+           (spacemacs-buffer/warning
+            (concat "An error occurred while applying "
+                    "the theme \"%s\", fallback on theme \"%s\". \n"
+                    "Error was: %s") theme spacemacs--fallback-theme err)
+           (spacemacs-buffer/warning
+            (concat "Please check the value of \"dotspacemacs-themes\" in your "
+                    "dotfile or open an issue \n"
+                    "so we can add support for the theme \"%s\".") theme)
+           (unless (display-graphic-p)
+             (eval `(spacemacs|do-after-display-system-init
+                     (load-theme ',spacemacs--fallback-theme t)))))
+       (throw 'error)))))
+>>>>>>> bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3
 
 (defun spacemacs/cycle-spacemacs-theme ()
   "Cycle through themes defined in `dotspacemacs-themes.'"

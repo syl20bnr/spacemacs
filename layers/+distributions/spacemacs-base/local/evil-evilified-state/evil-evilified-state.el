@@ -30,6 +30,7 @@
 
 ;; The shadowed original mode key bindings are automatically reassigned
 ;; following a set of rules:
+<<<<<<< HEAD
 ;; Keys such as 
 ;; /,:,h,j,k,l,n,N,v,V,gg,G,C-f,C-b,C-d,C-e,C-u,C-y and C-z 
 ;; are working as in Evil.
@@ -38,6 +39,16 @@
 ;; The first unreserved key will be used. 
 ;; There is an exception for g, which will be directly
 ;; bound to C-G, since G and C-g (latest being an important escape key in Emacs) 
+=======
+;; Keys such as
+;; /,:,h,j,k,l,n,N,v,V,gg,G,C-f,C-b,C-d,C-e,C-u,C-y and C-z
+;; are working as in Evil.
+;; Other keys will be moved according to this pattern:
+;; a -> A -> C-a -> C-A
+;; The first unreserved key will be used.
+;; There is an exception for g, which will be directly
+;; bound to C-G, since G and C-g (latest being an important escape key in Emacs)
+>>>>>>> bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3
 ;; are already being used.
 
 ;;; Code:

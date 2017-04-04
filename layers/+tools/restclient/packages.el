@@ -10,6 +10,10 @@
 ;;; License: GPLv3
 (setq restclient-packages
       '(
+<<<<<<< HEAD
+=======
+        company
+>>>>>>> bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3
         (company-restclient :toggle (configuration-layer/package-usedp 'company))
         golden-ratio
         ob-http
@@ -52,12 +56,22 @@
         "R" 'restclient-http-send-current-raw
         "y" 'restclient-copy-curl-command))))
 
+<<<<<<< HEAD
 (defun restclient/init-company-restclient ()
   (use-package company-restclient
     :defer t
     :init (spacemacs|add-company-backends
             :backends company-restclient
             :modes restclient-mode)))
+=======
+(defun restclient/post-init-company ()
+  (spacemacs|add-company-hook restclient-mode))
+
+(defun restclient/init-company-restclient ()
+  (use-package company-restclient
+    :defer t
+    :init (push 'company-restclient company-backends-restclient-mode)))
+>>>>>>> bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3
 
 (defun restclient/init-restclient-helm ()
   (use-package restclient-helm

@@ -1,4 +1,8 @@
+<<<<<<< HEAD:layers/+lang/perl5/config.el
 ;;; config.el --- Perl5 Layer Configuration File for Spacemacs
+=======
+;;; config.el --- YAML Layer configuration File for Spacemacs
+>>>>>>> bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3:layers/+lang/yaml/config.el
 ;;
 ;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
 ;;

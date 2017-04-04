@@ -75,7 +75,7 @@ Errors if LIST doesn't contain an even number of elements."
       ;; take the head of LIST and push onto SUBLIST
       (setq sublist (cons (car list) sublist))
       (setq list (cdr list))
-      
+
       (setq len (1+ len))
 
       (when (= len 2)
@@ -83,7 +83,7 @@ Errors if LIST doesn't contain an even number of elements."
         (setq result (cons (nreverse sublist) result))
         (setq sublist nil)
         (setq len 0)))
-    
+
     (when sublist (error "Expected an even number of elements"))
     (nreverse result)))
 

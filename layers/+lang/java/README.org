@@ -128,6 +128,7 @@ installer wizard. The recommended way to install Eclipse on MacOS is by using
 =homebrew= or by get the =tar.gz= compressed file instead. With homebrew
 the command line to install Eclipse is =brew cask install eclipse-jee=.
 
+<<<<<<< HEAD
 **** Eclim
 For installation of Eclim check the [[http://eclim.org/install.html#download][official page]] to download the installer
 then double click on it or launch it in the command line with the following
@@ -136,6 +137,11 @@ your correct location as well as the current version of eclim):
 
 #+BEGIN_SRC shell
 $ java -Dvim.skip=true -Declipse.home=/Applications/Eclipse.app/Contents/Eclipse -jar eclim_2.6.0.jar install
+=======
+#+BEGIN_SRC elisp
+  (setq eclim-eclipse-dirs '("~/opt/eclipse")
+        eclim-executable "~/opt/eclipse/eclim")
+>>>>>>> bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3
 #+END_SRC
 
 *** Configuration

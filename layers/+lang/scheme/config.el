@@ -12,3 +12,5 @@
 ;; variables
 
 (spacemacs|define-jump-handlers scheme-mode geiser-edit-symbol-at-point)
+
+(spacemacs|defvar-company-backends scheme-mode)

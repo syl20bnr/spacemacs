@@ -16,7 +16,11 @@
 ;; lower value in your dotfile (function `dotspacemacs/user-config')
 (setq gc-cons-threshold 100000000)
 
+<<<<<<< HEAD
 (defconst spacemacs-version          "0.200.7" "Spacemacs version.")
+=======
+(defconst spacemacs-version          "0.200.8" "Spacemacs version.")
+>>>>>>> bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3
 (defconst spacemacs-emacs-min-version   "24.4" "Minimal version of Emacs.")
 
 (if (not (version<= spacemacs-emacs-min-version emacs-version))

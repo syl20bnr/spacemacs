@@ -1005,10 +1005,16 @@ a split-side entry, its value must be usable as the SIDE argument for
   (let ((buffer (find-file-noselect file)))
     (pop-to-buffer buffer '(spacemacs//display-in-split (split-side . below)))))
 
+<<<<<<< HEAD
 (defun spacemacs/switch-to-scratch-buffer (&optional arg)
   "Switch to the `*scratch*' buffer, creating it first if needed.
 if prefix argument ARG is given, switch to it in an other, possibly new window."
   (interactive "P")
+=======
+(defun spacemacs/switch-to-scratch-buffer ()
+  "Switch to the `*scratch*' buffer. Create it first if needed."
+  (interactive)
+>>>>>>> bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3
   (let ((exists (get-buffer "*scratch*")))
     (if arg
         (switch-to-buffer-other-window (get-buffer-create "*scratch*"))
@@ -1018,6 +1024,7 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
                (fboundp dotspacemacs-scratch-mode))
       (funcall dotspacemacs-scratch-mode))))
 
+<<<<<<< HEAD
 (defun spacemacs/switch-to-messages-buffer (&optional arg)
   "Switch to the `*Messages*' buffer.
 if prefix argument ARG is given, switch to it in an other, possibly new window."
@@ -1028,6 +1035,8 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
         (switch-to-buffer-other-window (current-buffer))
       (switch-to-buffer (current-buffer)))))
 
+=======
+>>>>>>> bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3
 (defun spacemacs/close-compilation-window ()
   "Close the window containing the '*compilation*' buffer."
   (interactive)

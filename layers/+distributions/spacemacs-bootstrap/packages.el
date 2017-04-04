@@ -83,6 +83,13 @@
                       cursor)))
   (add-hook 'spacemacs-post-theme-change-hook 'spacemacs/set-state-faces)
 
+<<<<<<< HEAD
+=======
+  ;; put back refresh of the cursor on post-command-hook see status of:
+  ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
+  ;; (add-hook 'post-command-hook 'evil-refresh-cursor)
+
+>>>>>>> bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3
   ;; evil ex-command
   (define-key evil-normal-state-map (kbd dotspacemacs-ex-command-key) 'evil-ex)
   (define-key evil-visual-state-map (kbd dotspacemacs-ex-command-key) 'evil-ex)

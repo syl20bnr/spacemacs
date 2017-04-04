@@ -39,6 +39,19 @@
         "hh" 'company-dcd-show-ddoc-with-buffer
         "gr" 'company-dcd-ivy-search-symbol))))
 
+(defun d/init-company-dcd ()
+  (use-package company-dcd
+    :defer t
+    :init
+    (progn
+      (add-hook 'd-mode-hook 'company-dcd-mode)
+      (push 'company-dcd company-backends-d-mode)
+      (spacemacs/set-leader-keys-for-major-mode 'd-mode
+        "gg" 'company-dcd-goto-definition
+        "gb" 'company-dcd-goto-def-pop-marker
+        "hh" 'company-dcd-show-ddoc-with-buffer
+        "gr" 'company-dcd-ivy-search-symbol))))
+
 (defun d/init-d-mode ()
   (use-package d-mode :defer t))
 
