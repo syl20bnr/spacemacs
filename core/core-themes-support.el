@@ -222,8 +222,10 @@ package name does not match theme name + `-theme' suffix.")
         ;; Apply theme
         (mapc 'disable-theme custom-enabled-themes)
         ;; explicitly reload the theme for the first GUI client
-        (eval `(spacemacs|do-after-display-system-init
-                (load-theme ',theme t)))
+        (if (display-graphic-p)
+            (eval `(spacemacs|do-after-display-system-init
+                    (load-theme ',theme t)))
+          (load-theme theme t))
         (when install
           (spacemacs-buffer/replace-last-line
            (format (concat "--> User theme \"%s\" has been applied, you may "
