@@ -38,7 +38,8 @@
         (spacemacs/declare-prefix-for-mode mode "ms" "ielm")
         (spacemacs/set-leader-keys-for-major-mode mode
           "'" 'ielm
-          "si" 'ielm)))
+          "si" 'ielm))
+      (add-to-list 'evil-insert-state-modes 'ielm))
     :config
     (defun ielm-indent-line ()
       (interactive)
