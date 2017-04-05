@@ -258,6 +258,8 @@
      ("\\.hbs\\'"        . web-mode)
      ("\\.eco\\'"        . web-mode)
      ("\\.ejs\\'"        . web-mode)
+     ("\\.ftl\\'"        . web-mode)
+     ("\\.atom\\'"        . web-mode)
      ("\\.djhtml\\'"     . web-mode))))
 
 (defun html/post-init-yasnippet ()
