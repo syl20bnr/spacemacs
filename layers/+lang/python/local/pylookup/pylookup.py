@@ -128,11 +128,10 @@ class IndexProcessor(htmllib.HTMLParser):
     """
 
     def __init__(self, writer, dirn):
-        if sys.version_info[0] == 3:
+        try:
             htmllib.HTMLParser.__init__(self)
-        else:
+        except TypeError:
             htmllib.HTMLParser.__init__(self, formatter.NullFormatter())
-
         self.writer = writer
         self.dirn = dirn
         self.entry = ""
