@@ -144,7 +144,11 @@ class IndexProcessor(htmllib.HTMLParser):
         self.desc_cnt = 0
         self.tag = None
 
-    def handle_starttag(self, tag, _, attrs):
+    def handle_starttag(self, tag, *args):
+        if sys.version_info[0] == 3:
+            attrs = args[0]
+        else:
+            attrs = args[1]
         self.tag = tag
         attrs = dict(attrs)
         if self.tag == 'dd':
