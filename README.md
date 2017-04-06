@@ -161,7 +161,7 @@ information.
 consider using instead:
 
 ``` sh
-$ brew install emacs-plus --HEAD --with-natural-title-bars
+$ brew install emacs-plus --HEAD --with-natural-title-bar
 ```
 
 *Note:* after you have completed the [install process](#install) below, it is
