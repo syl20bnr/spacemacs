@@ -1,0 +1,12 @@
+             Spacemacs at your fingertips... in your browser!
+
+Thanks to @JAremko's wonderful work, it is now possible to try out Spacemacs in
+the browser.
+
+Try it on your phone and be amazed that even without any modifier you can still
+use Emacs thanks to the 'spacebar' and 'fd' available on any touch keyboard.
+
+We are looking into useful applications of this feature, if you want to share some
+ideas you can post on https://github.com/syl20bnr/spacemacs/issues/8634 :heart:
+
+                Go to http://spacemacs.org to test it now!

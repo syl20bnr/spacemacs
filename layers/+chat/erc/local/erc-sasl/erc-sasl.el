@@ -75,7 +75,7 @@ current session"
                    (base64-encode-string
                     (concat "\0" (erc-current-nick)
                             "\0" erc-session-password) t)))))
-    (progn 
+    (progn
       (erc-display-message
        parsed 'error
        (if erc-server-connected 'active proc)

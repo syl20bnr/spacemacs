@@ -272,7 +272,7 @@ or lines in a file hosted on Git web services like GitHub, GitLab, Bitbucket...
 ** Repository list
 
 This feature will show a list of git directories. The feature needs slight
-configuration within your `.spacemacs` config. In the `dotspacemacs/user-config()` 
+configuration within your `.spacemacs` config. In the `dotspacemacs/user-config()`
 stanza insert the following with the directories of your choice:
 
 #+BEGIN_SRC emacs-lisp

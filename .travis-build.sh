@@ -21,7 +21,7 @@ fi
 
 if  [ $TRAVIS_SECURE_ENV_VARS = false ] &&
     [ $TRAVIS_PULL_REQUEST != false ] &&
-    [ $TRAVIS_BRANCH = "master" ]; then
+    [ "$TRAVIS_BRANCH" = "master" ]; then
 
     	printf '=%.0s' {1..70}
     	printf "\n       し(*･∀･)／   Thanks for the contribution!  ＼(･∀･*)ノ\n"
@@ -32,6 +32,23 @@ if  [ $TRAVIS_SECURE_ENV_VARS = false ] &&
     	exit 1
 fi
 
+if [ "${FORMATTING}" = "space-test" ]; then
+	cd "${TRAVIS_BUILD_DIR}"
+	echo "Testing for trailing and all sorts of broken white spaces"
+	echo "TRAVIS_COMMIT_RANGE: ${TRAVIS_COMMIT_RANGE}"
+	first_commit=`echo ${TRAVIS_COMMIT_RANGE} | sed -r 's/\..*//'`
+	git reset -q "${first_commit}"
+##	git reset -q HEAD~1
+	git diff --check > space_test_result
+	if [[ -s space_test_result ]]; then
+		cat space_test_result
+		exit 1
+	fi
+	echo "No bad spaces detected"
+	exit 0
+fi
+
+# Emacs tests
 echo "Pwd $(pwd)"
 rm -rf ~/.emacs.d
 ln -sf `pwd` ~/.emacs.d
