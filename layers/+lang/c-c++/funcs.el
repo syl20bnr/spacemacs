@@ -54,3 +54,16 @@ and the arguments for flyckeck-clang based on a project-specific text file."
       (setq-local company-clang-arguments flags)
       (setq-local company-c-headers-path-system (append '("/usr/include" "/usr/local/include") dirs))
       (setq-local flycheck-clang-args flags))))
+
+(defun c-c++/format-region-or-buffer ()
+  "Indent a region if selected, otherwise the whole buffer."
+  (interactive)
+  (save-excursion
+    (if (region-active-p)
+        (progn
+          (clang-format-region (region-beginning) (region-end))
+          (message "Formatted selected region."))
+      (progn
+        (clang-format-buffer)
+        (message "Formatted buffer.")))
+    (whitespace-cleanup)))
