@@ -1,4 +1,7 @@
 * Release 0.200.x
+** 0.200.9 (2017/04/06)
+*** Fixes
+- Fix theme loading with terminal Emacs (thanks to wang0z)
 ** 0.200.8 (2017/04/01)
 *** Convention changes
 - Update debug conventions
