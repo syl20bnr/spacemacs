@@ -13,12 +13,6 @@
 (defun extra-langs/init-arduino-mode ()
   (use-package arduino-mode :defer t))
 
-(defun extra-langs/init-scad-mode ()
-  (use-package scad-mode :defer t))
-
-(defun extra-langs/init-qml-mode ()
-  (use-package qml-mode :defer t :mode "\\.qml\\'"))
-
 (defun extra-langs/init-julia-mode ()
   (use-package julia-mode :defer t))
 
@@ -29,6 +23,12 @@
     ;; Explicitly run prog-mode hooks since matlab-mode does not derive from
     ;; prog-mode major-mode
     (add-hook 'matlab-mode-hook 'spacemacs/run-prog-mode-hooks)))
+
+(defun extra-langs/init-qml-mode ()
+  (use-package qml-mode :defer t :mode "\\.qml\\'"))
+
+(defun extra-langs/init-scad-mode ()
+  (use-package scad-mode :defer t))
 
 (defun extra-langs/init-stan-mode ()
   (use-package stan-mode :defer t))
