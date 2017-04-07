@@ -178,7 +178,7 @@ saturated) color than the rest of the line, you can add following snippet to
 
 Keep in mind that this is not ideal solution as it affects all colours in Emacs.
 Another option is to use different powerline separator. For example, `alternate`
-and `bar` diminishes the difference. And using `utf-8` separator makes it go
+and `bar` diminish the difference. And using `utf-8` separator makes it go
 away completely without the need to change colour space. In order to change
 powerline separator put following snippet in `dotspacemacs/user-config`.
 
@@ -194,7 +194,7 @@ section in [Documentation][DOCUMENTATION.org].
 You can download good quality builds from the [emacs-w64 project][emacs-for-windows].
 It is recommended to install the most recent [stable build][emacs-for-windows-stable].
 
-Be sure to declare a environment variable named `HOME` pointing to your user
+Be sure to declare an environment variable named `HOME` pointing to your user
 directory `C:\Users\<username>`. Then you can clone Spacemacs in this directory.
 
 Sometimes you'll get the following error when you first start Emacs:
@@ -393,7 +393,7 @@ The license is GPLv3 for all parts specific to Spacemacs, this includes:
 - all the layer files
 - the documentation
 
-For the packages shipped in this repository you can refer to the files header.
+For the packages shipped in this repository, you can refer to the files header.
 
 [Spacemacs logo][] by [Nasser Alshammari][] released under a [Creative Commons Attribution-ShareAlike 4.0 International License.](http://creativecommons.org/licenses/by-sa/4.0/)
 
