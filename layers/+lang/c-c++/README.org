@@ -84,6 +84,14 @@ particular mode or all modes in your =dotspacemacs/user-config= (within your
       (define-key c++-mode-map [tab] 'clang-format-buffer))
 #+END_SRC
 
+To enable automatic buffer formatting on save, set the variable
+=c-c++-enable-clang-format-on-save= to =t=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (c-c++ :variables c-c++-enable-clang-format-on-save t)))
+#+END_SRC
+
 *** Company-clang and flycheck
 This layer adds some fancy improvements to =company-clang=.
 It includes a hook to load a projects =.clang_complete= file, which is

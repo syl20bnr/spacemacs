@@ -61,7 +61,11 @@
 
 (defun c-c++/init-clang-format ()
   (use-package clang-format
-    :if c-c++-enable-clang-support))
+    :if c-c++-enable-clang-support
+    :init
+    (when c-c++-enable-clang-format-on-save
+      (spacemacs/add-to-hooks 'clang-format/format-on-save
+                              '(c-mode-hook c++-mode-hook)))))
 
 (defun c-c++/init-cmake-mode ()
   (use-package cmake-mode
