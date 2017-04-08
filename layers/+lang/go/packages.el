@@ -96,7 +96,7 @@
         (interactive)
         (shell-command
           (format "go run %s"
-                  (shell-quote-argument (buffer-file-name)))))
+                  (shell-quote-argument (buffer-file-name (buffer-base-buffer))))))
 
       (spacemacs/declare-prefix-for-mode 'go-mode "me" "playground")
       (spacemacs/declare-prefix-for-mode 'go-mode "mg" "goto")
