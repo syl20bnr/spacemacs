@@ -9,11 +9,34 @@
 ;;
 ;;; License: GPLv3
 (setq gpu-packages
-      '(cuda-mode
-        opencl-mode))
+      '(
+        (company-glsl :location (recipe
+                                 :fetcher github
+                                 :repo "Kaali/company-glsl")
+                      :toggle (and (configuration-layer/package-usedp 'company)
+                                   (executable-find "glslangValidator")))
+        cuda-mode
+        glsl-mode
+        opencl-mode
+        ))
+
+
+(defun gpu/init-company-glsl ()
+  (use-package company-glsl
+    :defer t
+    :init (spacemacs|add-company-backends
+            :backends company-glsl
+            :modes glsl-mode)))
 
 (defun gpu/init-cuda-mode ()
   (use-package cuda-mode :defer t))
+
+(defun gpu/init-glsl-mode ()
+  "Initialize GLSL mode"
+  (use-package glsl-mode
+    :defer t
+    :mode (("\\.fsh\\'" . glsl-mode)
+           ("\\.vsh\\'" . glsl-mode))))
 
 (defun gpu/init-opencl-mode ()
   (use-package opencl-mode
