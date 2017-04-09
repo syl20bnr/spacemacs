@@ -7,7 +7,7 @@
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; License: GLPv3
+;;; License: GPLv3
 (setq shaders-packages
       '(glsl-mode
         (company-glsl :location (recipe
