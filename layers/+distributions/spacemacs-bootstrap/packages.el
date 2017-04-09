@@ -288,7 +288,11 @@
       (kbd "C-j") 'comint-next-input))
   (evil-define-key 'normal comint-mode-map
     (kbd "C-k") 'comint-previous-input
-    (kbd "C-j") 'comint-next-input))
+    (kbd "C-j") 'comint-next-input)
+
+  ;; ignore repeat
+  (evil-declare-ignore-repeat 'spacemacs/next-error)
+  (evil-declare-ignore-repeat 'spacemacs/previous-error))
 
 (defun spacemacs-bootstrap/init-hydra ()
   (require 'hydra)
