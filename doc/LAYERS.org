@@ -128,8 +128,8 @@ simply push to this list, e.g.
 Calling =require= is nothing more than a glorified way of calling =load-file=.
 It solves the problem of ensuring that files are loaded in the correct order,
 and to some degree it solved the problem of where to find the files on disk but
-a long list of calls to =require= at startup would still cause Emacs to take for
-ever to load.
+a long list of calls to =require= at startup would still cause Emacs to take
+forever to load.
 
 Emacs uses auto-loading to solve this problem. When a function is registered as
 auto-loading, an "empty" definition is provided. When that function is called,
