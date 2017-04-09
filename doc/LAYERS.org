@@ -362,7 +362,7 @@ discuss later.
 ** funcs.el
 It contains all the defined functions used in the layer.
 
-This file is loaded after  =packages.el= and before =config.el=.
+This file is loaded after =packages.el= and before =config.el=.
 
 It is good practice to guard the definition of functions to make sure a package
 is actually used. For instance:
