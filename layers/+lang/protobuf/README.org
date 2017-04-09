@@ -1,21 +1,20 @@
 #+TITLE: Protocol Buffers layer
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
-* Table of Contents                                        :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Features][Features]]
- - [[Install][Install]]
+[[file:img/protobuf.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#install][Install]]
 
 * Description
 Highlighting and syntax checking for [[https://developers.google.com/protocol-buffers/][Protocol Buffer]] files.
 
-Uses Google's [[https://github.com/google/protobuf/blob/master/editors/protobuf-mode.el][protobuf-mode]] with [[https://github.com/edvorg/flycheck-protobuf][flycheck-protobuf]].
-
 * Features
-+ Syntax Highlighting
-+ Syntax checking using Flycheck (=protoc= compiler must be available)
-+ Correct Indentation and commenting
-+ Quickly browse file contents using =M-x helm-imenu= and =M-x imenu=.
+- Syntax highlighting
+- Syntax checking using Flycheck (=protoc= compiler must be available)
+- Correct indentation and commenting
+- Quickly browse file contents using imenu (default key binding ~SPC j i~).
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
