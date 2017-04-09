@@ -1,0 +1,20 @@
+#+TITLE: GPU Compute layer
+
+[[file:img/opencl.png]]
+[[file:img/cuda.jpg]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+
+* Description
+This layer provides syntax highlighting for GPU computing languages, including
+OpenCL and CUDA. This includes files ending in:
+- =.cl= (OpenCL)
+- =.cu= (CUDA)
+- =.cuh= (CUDA)
+
+* Install
+To use this configuration layer, add it to your =~.spacemacs=. You will need to
+add =gpu= to the existing =dotspacemacs-configuration-layers= list in this
+file.
