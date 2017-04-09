@@ -373,12 +373,12 @@ is actually used. For instance:
   (defun spacemacs/my-package-disable () ...))
 #+end_src
 
-By guarding these functions we avoid to define them in case the package
-`my-package` is not used.
+By guarding these functions we avoid defining them when the package =my-package=
+is not used.
 
 ** config.el
-This file configure the layer like declaring layer variables default values
-and setup some other variables related to the layer.
+This file configures the layer by declaring layer variables' default values and
+setting up some other variables related to the layer.
 
 This file is loaded after =funcs.el=.
 
