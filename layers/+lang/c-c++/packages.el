@@ -64,7 +64,7 @@
     :if c-c++-enable-clang-support
     :init
     (when c-c++-enable-clang-format-on-save
-      (spacemacs/add-to-hooks 'clang-format/format-on-save
+      (spacemacs/add-to-hooks 'spacemacs/clang-format-on-save
                               '(c-mode-hook c++-mode-hook)))))
 
 (defun c-c++/init-cmake-mode ()
@@ -77,8 +77,8 @@
   (when c-c++-enable-clang-support
     (spacemacs|add-company-backends :backends company-clang
       :modes c-mode-common)
-    (setq company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser)
-    (spacemacs/add-to-hooks 'c-c++/load-clang-args
+    (setq company-clang-prefix-guesser 'spacemacs/company-more-than-prefix-guesser)
+    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args
                             '(c-mode-hook c++-mode-hook))))
 
 (defun c-c++/init-company-c-headers ()
@@ -92,7 +92,7 @@
   (dolist (mode '(c-mode c++-mode))
     (spacemacs/enable-flycheck mode))
   (when c-c++-enable-clang-support
-    (spacemacs/add-to-hooks 'c-c++/load-clang-args '(c-mode-hook c++-mode-hook))))
+    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args '(c-mode-hook c++-mode-hook))))
 
 (defun c-c++/post-init-ggtags ()
   (add-hook 'c-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)

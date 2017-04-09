@@ -253,7 +253,7 @@
 - Activating =linum-relative= now correctly activates =linum= (thanks to deb0ch)
 **** C/C++
 - Match entire path after -I when reading cc-file (function
-  =company-mode/load-clang-complete-file=) (thanks to jlewallen)
+  =spacemacs/company-load-clang-complete-file=) (thanks to jlewallen)
 **** Common-lisp
 - Enable fuzzy matching for auto-completion (thanks to tuhdo)
 **** D
