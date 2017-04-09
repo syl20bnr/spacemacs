@@ -83,6 +83,13 @@
       (add-hook 'eshell-mode-hook 'spacemacs/disable-hl-line-mode))
     :config
     (progn
+      (define-advice eshell-output-filter (:around (fn process string) with-buffer)
+        (let ((proc-buf (if process (process-buffer process)
+                          (current-buffer))))
+          (when proc-buf
+            (with-current-buffer proc-buf
+              (funcall fn process string)))))
+
       (require 'esh-opt)
 
       ;; quick commands
