@@ -46,11 +46,12 @@
     ;; add some functions to ahs transient states
     (setq spacemacs--symbol-highlight-transient-state-doc
           (concat spacemacs--symbol-highlight-transient-state-doc
-                  "  [_b_] search buffers [_/_] search proj [_f_] search files")
+                  "  [_b_] search buffers [_/_] search proj [_f_] search files [_s_] swoop")
      spacemacs-symbol-highlight-transient-state-add-bindings
      '(("/" spacemacs/helm-project-smart-do-search-region-or-symbol :exit t)
        ("b" spacemacs/helm-buffers-smart-do-search-region-or-symbol :exit t)
-       ("f" spacemacs/helm-files-smart-do-search-region-or-symbol :exit t)))))
+       ("f" spacemacs/helm-files-smart-do-search-region-or-symbol :exit t)
+       ("s" spacemacs/helm-swoop-region-or-symbol :exit t)))))
 
 (defun helm/post-init-bookmark ()
   (spacemacs/set-leader-keys "fb" 'helm-filtered-bookmarks))

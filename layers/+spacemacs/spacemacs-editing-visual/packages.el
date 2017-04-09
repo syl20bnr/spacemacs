@@ -49,7 +49,7 @@
             ahs-inhibit-face-list nil
             spacemacs--symbol-highlight-transient-state-doc
             "
- %s  [_n_] next  [_N_/_p_] previous        [_r_] change range   [_R_] reset       [_e_] iedit
+ %s  [_n_] next  [_N_/_p_] previous        [_r_] change range   [_R_] reset       [_e_] iedit        [_h_] highlight
  %s  [_d_/_D_] next/previous definition")
 
       ;; since we are creating our own maps,
@@ -250,6 +250,7 @@
           (iedit-restrict-region (ahs-current-plugin-prop 'start)
                                  (ahs-current-plugin-prop 'end)))
          (t (ahs-edit-mode t))))
+
       ;; transient state
       (defun spacemacs//symbol-highlight-ts-doc ()
         (spacemacs//transient-state-make-doc
@@ -257,6 +258,7 @@
          (format spacemacs--symbol-highlight-transient-state-doc
                  (symbol-highlight-doc)
                  (make-string (length (symbol-highlight-doc)) 32))))
+
       (spacemacs|define-transient-state symbol-highlight
         :title "Symbol Highlight Transient State"
         :dynamic-hint (spacemacs//symbol-highlight-ts-doc)
@@ -265,12 +267,19 @@
         ("d" ahs-forward-definition)
         ("D" ahs-backward-definition)
         ("e" ahs-to-iedit :exit t)
+        ("h" spacemacs/symbol-highlight-permanent)
         ("n" spacemacs/quick-ahs-forward)
         ("N" spacemacs/quick-ahs-backward)
         ("p" spacemacs/quick-ahs-backward)
         ("R" ahs-back-to-start)
         ("r" ahs-change-range)
         ("q" nil :exit t)))))
+
+(defun spacemacs/symbol-highlight-permanent ()
+  "Highlight the symbol under point with `highlight-symbol-at-point'."
+  (interactive)
+  (highlight-symbol-at-point)
+  (spacemacs/ahs-highlight-now-wrapper))
 
 (defun spacemacs-editing-visual/init-column-enforce-mode ()
   (use-package column-enforce-mode
