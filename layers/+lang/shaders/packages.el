@@ -26,5 +26,6 @@
 (defun shaders/init-glsl-mode ()
   "Initialize GLSL mode"
   (use-package glsl-mode
-    :mode (("\\.fsh\\'"  . glsl-mode)
-           ("\\.vsh\\'"  . glsl-mode))))
+    :defer t
+    :mode (("\\.fsh\\'" . glsl-mode)
+           ("\\.vsh\\'" . glsl-mode))))
