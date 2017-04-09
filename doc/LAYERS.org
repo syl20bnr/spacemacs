@@ -128,8 +128,8 @@ simply push to this list, e.g.
 Calling =require= is nothing more than a glorified way of calling =load-file=.
 It solves the problem of ensuring that files are loaded in the correct order,
 and to some degree it solved the problem of where to find the files on disk but
-a long list of calls to =require= at startup would still cause Emacs to take for
-ever to load.
+a long list of calls to =require= at startup would still cause Emacs to take
+forever to load.
 
 Emacs uses auto-loading to solve this problem. When a function is registered as
 auto-loading, an "empty" definition is provided. When that function is called,
@@ -362,7 +362,7 @@ discuss later.
 ** funcs.el
 It contains all the defined functions used in the layer.
 
-This file is loaded after  =packages.el= and before =config.el=.
+This file is loaded after =packages.el= and before =config.el=.
 
 It is good practice to guard the definition of functions to make sure a package
 is actually used. For instance:
@@ -373,12 +373,12 @@ is actually used. For instance:
   (defun spacemacs/my-package-disable () ...))
 #+end_src
 
-By guarding these functions we avoid to define them in case the package
-`my-package` is not used.
+By guarding these functions we avoid defining them when the package =my-package=
+is not used.
 
 ** config.el
-This file configure the layer like declaring layer variables default values
-and setup some other variables related to the layer.
+This file configures the layer by declaring layer variables' default values and
+setting up some other variables related to the layer.
 
 This file is loaded after =funcs.el=.
 
