@@ -9,9 +9,14 @@
 ;;
 ;;; License: GPLv3
 
-(defun clang-format/format-on-save ()
+(defun clang-format//format-on-save ()
   "Format buffers with ClangFormat when they get saved."
-  (add-hook 'before-save-hook 'clang-format-buffer nil t))
+  (when c-c++-enable-clang-format-on-save
+    (clang-format-buffer)))
+
+(defun clang-format/format-on-save ()
+  "Add auto-save hook for ClangFormat."
+  (add-hook 'before-save-hook 'clang-format//format-on-save nil t))
 
 (defun company-mode/more-than-prefix-guesser ()
   (c-c++/load-clang-args)
