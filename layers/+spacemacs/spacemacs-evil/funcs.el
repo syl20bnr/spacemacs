@@ -74,3 +74,22 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
   "Disable `vi-tilde-fringe' in the current buffer if it is read only."
   (when buffer-read-only
     (spacemacs/disable-vi-tilde-fringe)))
+
+
+;; multiple-cursors
+
+(defun spacemacs/evil-mc-paste-after (&optional count &optional register)
+  "Disable paste transient state if there is more that 1 cursor."
+  (interactive "p")
+  (if (and (eq (evil-mc-get-cursor-count) 1)
+           dotspacemacs-enable-paste-transient-state)
+      (spacemacs/paste-transient-state/evil-paste-after)
+    (evil-paste-after count register)))
+
+(defun spacemacs/evil-mc-paste-before (&optional count &optional register)
+  "Disable paste transient state if there is more that 1 cursor."
+  (interactive "p")
+  (if (and (eq (evil-mc-get-cursor-count) 1)
+           dotspacemacs-enable-paste-transient-state)
+      (spacemacs/paste-transient-state/evil-paste-before)
+    (evil-paste-before count register)))

@@ -108,21 +108,9 @@
     :defer t
     :init
     (progn
-      (defun spacemacs-evil/evil-mc-paste-after (&optional count &optional register)
-        (interactive "p")
-        (if (and (eq (evil-mc-get-cursor-count) 1) dotspacemacs-enable-paste-transient-state)
-            (spacemacs/paste-transient-state/evil-paste-after)
-            (evil-paste-after count register)))
-
-      (defun spacemacs-evil/evil-mc-paste-before (&optional count &optional register)
-        (interactive "p")
-        (if (and (eq (evil-mc-get-cursor-count) 1) dotspacemacs-enable-paste-transient-state)
-            (spacemacs/paste-transient-state/evil-paste-before)
-            (evil-paste-before count register)))
-
-      (define-key evil-normal-state-map "p" 'spacemacs-evil/evil-mc-paste-after)
-      (define-key evil-normal-state-map "P" 'spacemacs-evil/evil-mc-paste-before)
-
+      ;; evil-mc is not compatible with the paste transient state
+      (define-key evil-normal-state-map "p" 'spacemacs/evil-mc-paste-after)
+      (define-key evil-normal-state-map "P" 'spacemacs/evil-mc-paste-before)
       ;; remove emc prefix when there is not multiple cursors
       (setq evil-mc-mode-line
             `(:eval (when (> (evil-mc-get-cursor-count) 1)
