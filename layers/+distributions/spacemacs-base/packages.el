@@ -56,7 +56,7 @@
         (visual-line-mode :location built-in)
         (whitespace :location built-in)
         (winner :location built-in)
-        zone
+        (zone :location built-in)
         ))
 
 ;; Initialization of packages
@@ -540,8 +540,32 @@
       (winner-mode t))))
 
 (defun spacemacs-base/init-zone ()
-  (when dotspacemacs-zone-when-idle-for
-    (zone-when-idle dotspacemacs-zone-when-idle-for))
-  (spacemacs/set-leader-keys "Z" 'zone))
+  (require 'zone)
+  (when (and dotspacemacs-zone-out-when-idle
+             (numberp dotspacemacs-zone-out-when-idle))
+    (zone-when-idle dotspacemacs-zone-out-when-idle))
+  ;; remove not interesting programs
+  (setq zone-programs [
+                       ;; zone-pgm-jitter
+                       zone-pgm-putz-with-case
+                       zone-pgm-dissolve
+                       ;; zone-pgm-explode
+                       zone-pgm-whack-chars
+                       zone-pgm-rotate
+                       zone-pgm-rotate-LR-lockstep
+                       zone-pgm-rotate-RL-lockstep
+                       zone-pgm-rotate-LR-variable
+                       zone-pgm-rotate-RL-variable
+                       zone-pgm-drip
+                       ;; zone-pgm-drip-fretfully
+                       ;; zone-pgm-five-oclock-swan-dive
+                       ;; zone-pgm-martini-swan-dive
+                       zone-pgm-rat-race
+                       zone-pgm-paragraph-spaz
+                       ;; zone-pgm-stress
+                       ;; zone-pgm-stress-destress
+                       ;; zone-pgm-random-life
+                       ])
+  (spacemacs/set-leader-keys "TZ" 'zone))
 
 (defun spacemacs-base/init-centered-buffer-mode ())
