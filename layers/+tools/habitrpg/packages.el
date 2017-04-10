@@ -20,13 +20,10 @@
   '(
     (habitrpg :location (recipe
                          :fetcher github
-                         :repo "ryjm/habitrpg.el"))
-    ))
-
+                         :repo "ryjm/habitrpg.el"))))
 
 (defun habitrpg/init-habitrpg ()
-  (require 'habitrpg)
-  (add-hook 'org-after-todo-state-change-hook 'habitrpg-add 'append)
-  )
+  (require 'org-habit)
+  (require 'habitrpg))
 
 ;;; packages.el ends here
