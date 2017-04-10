@@ -359,6 +359,17 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
             spacemacs-version spacemacs-new-version))))
       (apply #'spaceline-spacemacs-theme
              spacemacs-spaceline-additional-segments)
+      ;; Company backend segment
+      (spaceline-define-segment current-company-backend
+        (when (bound-and-true-p company-candidates)
+          (if (consp company-backend)
+              (company--group-lighter (nth company-selection
+                                           company-candidates)
+                                      company-lighter-base)
+            (symbol-name company-backend))))
+      (add-to-list 'spacemacs-spaceline-additional-segments 'current-company-backend)
+      (apply #'spaceline-spacemacs-theme spacemacs-spaceline-additional-segments)
+
       ;; Additional spacelines
       (when (package-installed-p 'helm)
         (spaceline-helm-mode t))
