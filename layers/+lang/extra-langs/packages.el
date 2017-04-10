@@ -3,6 +3,7 @@
     arduino-mode
     julia-mode
     matlab-mode
+    opencl-mode
     qml-mode
     scad-mode
     stan-mode
@@ -29,6 +30,11 @@
     ;; Explicitly run prog-mode hooks since matlab-mode does not derive from
     ;; prog-mode major-mode
     (add-hook 'matlab-mode-hook 'spacemacs/run-prog-mode-hooks)))
+
+(defun extra-langes/init-opencl-mode ()
+  (use-package opencl-mode
+    :defer t
+    :mode (("\\.cl\\'" . opencl-mode))))
 
 (defun extra-langs/init-stan-mode ()
   (use-package stan-mode :defer t))
