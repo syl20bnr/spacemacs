@@ -1,0 +1,35 @@
+#+TITLE: habitrpg layer
+
+# The maximum height of the logo should be 200 pixels.
+[[img/habitica_logo.png]]
+
+# TOC links should be GitHub style anchors.
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#keybindings][Keybindings]]
+
+* Description
+This layer adds support for ryjm's habitrpg.el Habitica integration. 
+This package :
+ - Adds an item to habitica when marked as a TODO in org
+ - Marks a habitica todo as complete when marked DONE in org-mode
+ - As a nifty TUI in lisp for habitica if you want to use it
+
+More information on habitica can be found at https://habitica.com.
+More information on habitrpg.el can be found at https://github.com/ryjm/habitrpg.el
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =habitrpg= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+After that, you will need to add the following to your =spacemacs/user-config= section
+
+ (setq habitrpg-api-user "ID-HERE")
+ (setq habitrpg-api-token "TOKEN-HERE")
+
+* Keybindings
+- The hook to =org-after-todo-state-change-hook= is transparent to the user.
+- To bring up the habitrpg.el habitica status view, use SPC-a-H 
+- =habitrpg-add= as a standalone function is currently unmapped
