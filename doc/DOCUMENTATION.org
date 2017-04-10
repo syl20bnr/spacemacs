@@ -91,6 +91,7 @@
      - [[#escaping][Escaping]]
      - [[#executing-vim-and-emacs-exm-x-commands][Executing Vim and Emacs ex/M-x commands]]
      - [[#leader-key][Leader key]]
+     - [[#major-mode-leader-key][Major Mode leader key]]
      - [[#additional-text-objects][Additional text objects]]
    - [[#reserved-prefix-command-for-user][Reserved prefix command for user]]
    - [[#completion][Completion]]
@@ -187,15 +188,12 @@
    - [[#registers][Registers]]
    - [[#errors-handling][Errors handling]]
    - [[#compiling][Compiling]]
-   - [[#modes][Modes]]
-     - [[#major-mode-leader-key][Major Mode leader key]]
-     - [[#helm-1][Helm]]
-   - [[#emacs-server][Emacs Server]]
-     - [[#connecting-to-the-emacs-server][Connecting to the Emacs server]]
+ - [[#emacs-server][Emacs Server]]
+   - [[#connecting-to-the-emacs-server][Connecting to the Emacs server]]
    - [[#keeping-the-server-alive][Keeping the server alive]]
-   - [[#troubleshoot][Troubleshoot]]
-     - [[#loading-fails][Loading fails]]
-     - [[#upgradingdowngrading-emacs-version][Upgrading/Downgrading Emacs version]]
+ - [[#troubleshoot][Troubleshoot]]
+   - [[#loading-fails][Loading fails]]
+   - [[#upgradingdowngrading-emacs-version][Upgrading/Downgrading Emacs version]]
  - [[#achievements][Achievements]]
    - [[#issues][Issues]]
    - [[#merged-pull-requests][Merged Pull Requests]]
@@ -1621,6 +1619,19 @@ special key called the leader key which once pressed gives a whole new keyboard
 layer. The leader key is by default ~SPC~ (space). It is possible to change this
 key with the variable =dotspacemacs-leader-key=.
 
+*** Major Mode leader key
+Key bindings specific to the current =major mode= start with ~SPC m~. For
+convenience a shortcut key called the major mode leader key is set by default on
+~​,​~ which saves one precious keystroke.
+
+It is possible to change the major mode leader key by defining the variable
+=dotspacemacs-major-mode-leader-key= in your =~/.spacemacs=. For example to
+setup the key on tabulation:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-major-mode-leader-key "<tab>")
+#+END_SRC
+
 *** Additional text objects
 Additional text objects are defined in Spacemacs:
 
@@ -1657,6 +1668,16 @@ Mastering your choice of completion system will make you a Spacemacs power user.
 
 *** Helm
 Do not hesitate to read the [[https://github.com/emacs-helm/helm/wiki][Helm documentation wiki]].
+
+Spacemacs add =hjkl= navigation to =helm= buffers:
+
+| Key Binding | Description                  |
+|-------------+------------------------------|
+| ~C-h~       | go to next source            |
+| ~C-H~       | describe key (replace ~C-h~) |
+| ~C-j~       | go to previous candidate     |
+| ~C-k~       | go to next candidate         |
+| ~C-l~       | same as ~return~             |
 
 **** C-z and Tab switch
 The command bound to ~C-z~ is much more useful than the one bound to Tab, so it
@@ -3221,36 +3242,11 @@ Spacemacs binds a few commands to support compiling a project.
    | ~SPC c m~   | =helm-make=                    |
    | ~SPC c r~   | recompile                      |
 
-** Modes
-*** Major Mode leader key
-Key bindings specific to the current =major mode= start with ~SPC m~. For
-convenience a shortcut key called the major mode leader key is set by default on
-~​,​~ which saves one precious keystroke.
-
-It is possible to change the major mode leader key by defining the variable
-=dotspacemacs-major-mode-leader-key= in your =~/.spacemacs=. For example to
-setup the key on tabulation:
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-major-mode-leader-key "<tab>")
-#+END_SRC
-
-*** Helm
-Spacemacs add =hjkl= navigation to =helm= buffers:
-
-    | Key Binding | Description                  |
-    |-------------+------------------------------|
-    | ~C-h~       | go to next source            |
-    | ~C-H~       | describe key (replace ~C-h~) |
-    | ~C-j~       | go to previous candidate     |
-    | ~C-k~       | go to next candidate         |
-    | ~C-l~       | same as ~return~             |
-
-** Emacs Server
+* Emacs Server
 Spacemacs starts a server at launch. This server is killed whenever you close
 your Emacs windows.
 
-*** Connecting to the Emacs server
+** Connecting to the Emacs server
 You can open a file in Emacs from the terminal using =emacsclient=. Use
 =emacsclient -c= to open the file in Emacs GUI. Use =emacsclient -t= to open the
 file in Emacs within the terminal.
@@ -3293,14 +3289,14 @@ server is to use the following bindings:
 | ~SPC q s~  | Save the buffers, quit Emacs and kill the server                         |
 | ~SPC q z~  | Kill the current frame                                                   |
 
-** Troubleshoot
-*** Loading fails
+* Troubleshoot
+** Loading fails
 If any errors happen during the loading the mode-line will turn red and the
 errors should appear inline in the startup buffer. Spacemacs should still be
 usable; if it is not then restart Emacs with =emacs --debug-init= and open a
 [[https://github.com/syl20bnr/spacemacs/issues][Github issue]] with the backtrace.
 
-*** Upgrading/Downgrading Emacs version
+** Upgrading/Downgrading Emacs version
 To ensure that packages are correctly compiled for the new Emacs version you
 installed, be sure to run the interactive command =spacemacs/recompile-elpa=
 with ~SPC SPC spacemacs/recompile-elpa~.
