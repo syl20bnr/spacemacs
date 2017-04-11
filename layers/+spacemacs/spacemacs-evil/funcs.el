@@ -78,18 +78,22 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
 
 ;; multiple-cursors
 
+(defun spacemacs//paste-transient-state-p ()
+  "Return non-nil if the paste transient state is enabled."
+  (and dotspacemacs-enable-paste-transient-state
+       (or (not (fboundp 'evil-mc-get-cursor-count))
+           (eq (evil-mc-get-cursor-count) 1))))
+
 (defun spacemacs/evil-mc-paste-after (&optional count &optional register)
   "Disable paste transient state if there is more that 1 cursor."
   (interactive "p")
-  (if (and (eq (evil-mc-get-cursor-count) 1)
-           dotspacemacs-enable-paste-transient-state)
+  (if (spacemacs//paste-transient-state-p)
       (spacemacs/paste-transient-state/evil-paste-after)
     (evil-paste-after count register)))
 
 (defun spacemacs/evil-mc-paste-before (&optional count &optional register)
   "Disable paste transient state if there is more that 1 cursor."
   (interactive "p")
-  (if (and (eq (evil-mc-get-cursor-count) 1)
-           dotspacemacs-enable-paste-transient-state)
+  (if (spacemacs//paste-transient-state-p)
       (spacemacs/paste-transient-state/evil-paste-before)
     (evil-paste-before count register)))
