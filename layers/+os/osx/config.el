@@ -16,10 +16,19 @@
    option key to type common characters.
    Default: `deprecated'")
 
-(defvar osx-command-as 'super
+(defvar osx-command-as 'hyper
   "Sets the key binding of the `COMMAND' key on OSX.
    Possible values are `super' `meta' `hyper' `alt' `none'.
-   Default: `super'.")
+   Default: `hyper'.")
+;; There are problems setting osx-command-as to `alt' and `super',
+;; so we use `hyper' as a default instead because, for example:
+;;   - Using `alt':   Command-x or Command-m inserts, respectively: × µ
+;;   - Using `super': Control-Command-f produces keycode: <C-s-268632078>
+;; Setting to `hyper' seems to avoid both types of the above problems.
+;; Also, while it is possible, it is not recommended to set to `meta'
+;; since standard OSX shortcuts would overshadow important keys such
+;; as M-x.
+
 (defvar osx-option-as 'meta
   "Sets the key binding of the `OPTION' key on OSX.
    Possible values are `super' `meta' `hyper' `alt' `none'.
