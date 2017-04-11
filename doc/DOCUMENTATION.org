@@ -3287,6 +3287,8 @@ server is to use the following bindings:
 | ~SPC q Q~  | Quit Emacs and kill the server, lose all unsaved changes.                |
 | ~SPC q r~  | Restart both Emacs and the server, prompting to save any changed buffers |
 | ~SPC q s~  | Save the buffers, quit Emacs and kill the server                         |
+| ~SPC q t~  | Restart Emacs and debug with --with-timed-requires                       |
+| ~SPC q T~  | Restart Emacs and debug with --adv-timers                                |
 | ~SPC q z~  | Kill the current frame                                                   |
 
 * Troubleshoot
