@@ -46,11 +46,11 @@
     ;; add some functions to ahs transient states
     (setq spacemacs--symbol-highlight-transient-state-doc
           (concat spacemacs--symbol-highlight-transient-state-doc
-                  "  [_b_] search buffers [_/_] search proj [_f_] search files")
-     spacemacs-symbol-highlight-transient-state-add-bindings
-     '(("/" spacemacs/helm-project-smart-do-search-region-or-symbol :exit t)
-       ("b" spacemacs/helm-buffers-smart-do-search-region-or-symbol :exit t)
-       ("f" spacemacs/helm-files-smart-do-search-region-or-symbol :exit t)))))
+                  "  [_b_] search buffers [_/_] search proj [_f_] search files"))
+    (spacemacs/transient-state-register-add-bindings "symbol-highlight"
+      '(("/" spacemacs/helm-project-smart-do-search-region-or-symbol :exit t)
+        ("b" spacemacs/helm-buffers-smart-do-search-region-or-symbol :exit t)
+        ("f" spacemacs/helm-files-smart-do-search-region-or-symbol :exit t)))))
 
 (defun helm/post-init-bookmark ()
   (spacemacs/set-leader-keys "fb" 'helm-filtered-bookmarks))
@@ -642,6 +642,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
   (setq projectile-completion-system 'helm))
 
 (defun helm/post-init-persp-mode ()
-   (setq spacemacs-layouts-transient-state-add-bindings
-           '(("b" spacemacs/persp-helm-mini :exit t)
-             ("l" spacemacs/helm-perspectives :exit t))))
+  (spacemacs/transient-state-register-add-bindings "layouts"
+    '(("b" spacemacs/persp-helm-mini :exit t)
+      ("l" spacemacs/helm-perspectives :exit t))))

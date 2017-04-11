@@ -195,13 +195,13 @@
    'spacemacs/ivy-spacemacs-layouts
    '(("c" persp-kill-without-buffers "Close layout(s)")
      ("k" persp-kill  "Kill layout(s)")))
-  (setq spacemacs-layouts-transient-state-remove-bindings
-        '("C" "X"))
-  (setq spacemacs-layouts-transient-state-add-bindings
-        '(("b" spacemacs/ivy-spacemacs-layout-buffer :exit t)
-          ("l" spacemacs/ivy-spacemacs-layouts :exit t)
-          ("C" spacemacs/ivy-spacemacs-layout-close-other :exit t)
-          ("X" spacemacs/ivy-spacemacs-layout-kill-other :exit t))))
+  (spacemacs/transient-state-register-remove-bindings "layouts"
+    '("C" "X"))
+  (spacemacs/transient-state-register-add-bindings "layouts"
+    '(("b" spacemacs/ivy-spacemacs-layout-buffer :exit t)
+      ("l" spacemacs/ivy-spacemacs-layouts :exit t)
+      ("C" spacemacs/ivy-spacemacs-layout-close-other :exit t)
+      ("X" spacemacs/ivy-spacemacs-layout-kill-other :exit t))))
 
 (defun ivy/post-init-projectile ()
   (setq projectile-completion-system 'ivy)
