@@ -164,6 +164,11 @@
        'counsel-recentf
        spacemacs--ivy-file-actions)
 
+      ;; mappings to quit minibuffer or enter transient state
+      (define-key ivy-minibuffer-map [escape] 'minibuffer-keyboard-quit)
+      (define-key ivy-minibuffer-map (kbd "M-SPC") 'hydra-ivy/body)
+      (define-key hydra-ivy/keymap [escape] 'hydra-ivy/keyboard-escape-quit-and-exit)
+
       (ivy-mode 1)
       (global-set-key (kbd "C-c C-r") 'ivy-resume)
       (global-set-key (kbd "<f6>") 'ivy-resume)
