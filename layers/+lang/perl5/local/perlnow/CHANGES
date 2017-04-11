@@ -1,0 +1,69 @@
+Sun Jun 13 15:07:25 2010
+
+Bug fixes with script creation from different contexts (e.g. man page,
+woman page, etc).  Pushing out as version 0.43.
+
+===
+Thu Apr 15 16:07:10 2010
+
+Added a user feature to display the current default @INC in an emacs buffer:
+
+   perlnow-display-inc-array
+
+Examining @INC in a readable format is something I often want, so why not?
+
+===
+
+Sun Aug 23 23:04:05 2009
+
+ o  Added features that use module-starter to create Module::Build
+    based projects.
+
+ o  Defined additional template expansions:
+
+    (>>>FULL_DATE<<<)        August 23, 2009
+    (>>>AMERICAN_DATE<<<)    8/23/09
+
+ o  Re-wrote perlnow-get-inc-spot-classic: fixes the generation of relative
+    paths between a script and a module it uses.
+
+Smaller changes:
+
+ o  perlnow-check now turns on strict as well as warnings during the
+    check phase.
+
+ o  Added feature to silently ignore redundant ".pm" extensions fed
+    to perlnow-module. Entering "/tmp/dev/Module::Stuff.pm" to
+    longer creates "/tmp/dev/Module/Stuff.pm.pm".
+
+ o  Fixed bug with perlnow-h2xs, which would crash when trying to
+    find a string in the generated test file which no longer exists:
+    now just moves point to bottom of test file.
+
+===
+Sun Sep  6 16:09:35 2009
+
+The function perlnow-define-standard-keymappings now allows
+you to override the "C-c/" prefix with a different choice, for
+example:
+
+  (perlnow-define-standard-keymappings "\C-'")
+
+===
+===
+Smaller changes:
+
+Fri Mar  7 02:40:20 2008
+
+Modified perlnow-perlversion-old-to-new to pass
+through newer style versions such as "5.8.0" unchanged.
+
+===
+Sat Sep  5 15:04:15 2009
+
+Removed dependancy of perlnow-edit-test-file on the marker
+(>>>9<<<) in the test file template: now it searches for the "use"
+(or "use_ok") line for the module, via the new perlnow-jump-to-use
+function.
+
+===

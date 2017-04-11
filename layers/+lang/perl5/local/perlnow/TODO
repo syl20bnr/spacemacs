@@ -1,0 +1,757 @@
+                                                        February 8, 2006
+                                            Last rev:   April   16, 2010
+
+Master list of known bugs and feature requests
+
+===
+FEATURE
+Doing a perlnow code creation command while inside a dired buffer
+should use that location by default, rather than the fixed default.
+===
+BUG
+  module man pages don't regard '::' as part of a word.
+  Something like this improves things:
+  (modify-syntax-entry ?: "w" man-mode-syntax-table)
+  Further: might like to exclude "-" (so that '->' doesn't get sucked in).
+===
+BUG
+  Doesn't play nice with tramp.el or ange-ftp, not even a perl check.
+  if a remote buffer, make/find a local copy of it and run perl -cw on it?
+  (Verify this is still a problem.  --  Apr 15, 2010 )
+
+===
+BUG
+Doesn't work with
+  xemacs
+  windows
+===
+BUG
+
+Sometimes, an existing buffer local value for a run command gets zapped
+when you would rather it didn't:
+
+E.g. if you do a "C-c / t" as a convienient way to get back to a *.t file,
+the run-string for the *.t file can get changed on you.
+
+Possibly: if a run-string has been set manually, it should be less
+emphemeral than if it's an automatic guess.
+
+Sometimes perlnow's attempts at magically setting the run string correctly
+get in the way: When you've set it to something else manually, it should
+remember that, and avoid over-writing a manual setting.   An "attribute"
+to the string, to tell it hands-off?
+
+===
+BUG                  Tue Dec 29 15:10:54 2009
+
+C-c / R
+  let's you set the run-string, but it  always (often?)
+  zeroes it out to the original guess value: this makes
+  it hard to do repeated edits of the run-string.
+
+===
+BUG
+
+If the *compilation* buffer is already displayed in some other frame,
+that can cause problems.  Possible fix: always kill *compilation*
+before a perlnow-run.  (verify still a problem -- Thu Apr 15 12:46:59 2010)
+
+===
+FEATURE
+Built-in support for perltidy (alternative to C-M-\)
+  Experimental (Sun May 30 10:06:20 2010):
+  perlnow-run-perltidy-on-region
+
+  o maybe: automatically generate standard elisp wrappers
+    around some frequently used shell commands.
+    (begun compiling a "cookbook" of types of wrappers)
+
+  In particular, could use some good ways to run "at point"
+  without defining a region.
+
+
+===
+FEATURE
+sub awareness
+  o narrow to current sub (Q: include adjacent pod?)
+      like narrow-to-defun
+  o select sub (Q: include adjacent pod?)
+  o move sub (both code and pod, if any, adjacent or not).
+       i.e. "refactoring" tools.
+  o display current sub in status bar.
+
+                                     Thu Apr 15 12:49:52 2010
+  Maybe: come up with a style of two-window display for subs.
+  When working on a sub, you see the code in one, and the
+  documentation in the other, irrespective of whether it's
+  actually adjacent to the code, or buried down at the bottom.
+
+===
+Want to run ispell on pod only.
+Alternately: run ispell on pod and comments only.
+(How?)
+
+   perlnow-ispell-next-chunk-of-pod
+
+Then interate over all of them with:
+
+   perlnow-ispell-pod
+
+Also useful:
+
+   perlnow-ispell-this-chunk-of-pod
+
+===
+
+Beyond etags: better indexing of perl code.  Swish-E?  A distro feature?
+Maybe use B:* modules to report on all subs: definitions *and* where called
+   B::Xref - Generates cross reference reports for Perl programs
+Note: look into glimpse and "glimpse-mode" (Tom Lane likes glimpse).
+
+                                       Thu Apr 15 12:52:29 2010
+(1) perlnow-ack is an excellent stop-gap for this kind of thing.
+(2) need to review what other people have got (sepia, etc).
+
+===
+
+Support for other templating systems (template-i.el, "template independant")
+   tempo.el
+   Template::Toolkit
+   Mason
+
+Possibly: a translator to create tempo.el files from template.el templates.
+
+Another "policy" feature: default types of template for
+(1) file creation
+(2) insertion of method framework (skeleton?)
+
+===
+C-M-f and C-M-b, when used in the middle of an expression, should skip
+you to the beginning or end of that expression (currently, it just
+errors).
+===
+run-string
+  o  need additional ones, e.g. a 'debug' as well as a 'run' and 'test'?
+  o  manipulation commands, e.g. perlnow-save-run-string-to-alt-run-string
+===
+Select an active set of templates based on various settings.
+For example, need to support various OOP styles:
+  o Inside-Out,  (Class::Std, Class::InsideOut, Object::InsideOut)
+  o Moose
+  o Simple href-based (with seperation of new and _init) ala Class::Base
+===
+Support different podstyles
+  o  additional templates for interspersed pod style
+  o  defcustom to define a preference?
+  o  skeleton.el: for subs/methods/constructors/accessors...
+===
+
+Better help command:
+
+Currently the "C-c / 1" command just looks up built-ins in "perlfunc".
+
+Could be extended to look up the perldoc for a sub, so that
+it works on built-ins *and* extensions.
+===
+
+Investigate supporting use of "use diagnostics;", e.g. use a C-u
+prefix to "C-c / c" to add a -Mdiagnostics to the run line.
+
+===
+
+Settable option:
+  (defcustom perlnow-maximum-sleaziness t)
+
+  (The fourth virtue: sleaziness.)
+
+  Identify all variables used, and create "my" declarations
+  for them if needed.
+  If usage is inside a sub, put the my also inside that sub.
+  Note: if globals are in use, this can break.
+
+===
+                                    Sat May 29, 2004  7:43 PM
+shift-R (and A) let's you change the run-string:
+implement shift-C and shift-D (change check command
+and debug command).
+
+===
+How about Mason code?   Any special template.el templates
+for that?  Any peculiarities with "multimode"?
+
+===
+
+I often create run-strings that can't be handed to the
+debugger, e.g.
+
+   'cd ~/dev/h2xs-stuff/Hack-To-Excess-Module/; make test'
+
+It would be better if you could *always* switch to running
+with "C-c'd" without worrying about changing the run-string
+manually.
+
+Approaches:
+(1) Avoid prefix commands: "cd blah;"  Instead, set
+default-directory before doing the compile.  Possibly,
+the run-string should have some "properties" assigned to it,
+one of which would be the location that the command expects
+to be run.
+
+(2) Make perlnow-perldb smarter.  Have it examine the
+run-string and do something a little different if it seems
+adviseable, e.g. pick out "cd blah;" and translate it into
+a default-directory change, possibly translate "make test"
+into something the debugger can use
+
+(3) add yet another buffer-local run-string, one solely for
+debugger use.  (least painful, no? -- Thu Apr 15 13:00:02 2010)
+
+===
+
+The script-using-this-module command could get
+"$self->current_method_name" pushed into the kill-ring,
+instead of just "current_sub_name".
+
+===
+
+Write code that goes backwards from
+   testfile + policy => code under test
+on general principle that it'll be useful someday:
+
+The test file name, and the test policy could be
+intepreted backwards to determine what's being tested.
+
+===
+                                       Thu Feb 26 11:59:19 2004
+
+When a script run-string ends in a re-direct "> blah.txt",
+perlnow should assume that the user will want to see that
+file.  It should be opened in a freshly "reverted" buffer
+at the bottom of the screen (or something).
+
+===
+
+Diagramming of perl classes?  Of dependencies?
+
+===
+                                            Thu Feb 26 11:59:24 2004
+Need to think carefully about what buffers should be
+displayed when... avoid messing with the buffer layout if
+possible (closing all competing windows just to make sure
+you've got room to open another is excessively fascist).
+
+                                           Fri Apr 23 20:27:03 2004
+Created centralized file open and buffer display
+routines, to simplify fixing this later
+
+    perlnow-open-file-other-window
+    perlnow-show-buffer-other-window
+
+====
+
+                                      Mon Apr 19 11:29:51 2004
+Break out behavior of run-string(s) history into configurable settings:
+  o  joint history vs separate history.
+  o  buffer-local vs global history.
+  o  number of concurrently defined runstring commands.
+===
+
+Test with xemacs.  Easy enough.
+
+===
+
+Integration with bug database(s)... somehow?
+
+===
+
+ perlnow-script-using-this-module
+ Option to include the SYNOPSIS section, in commented out form
+
+===
+
+Possible feature:
+
+;;; Weird feature idea: when just tabbing away, and you get to
+;;; a level boundary, current behavior is to add a separator "/".
+;;; Does not switch to "::" until the user has entered one.
+;;; Might be better to consult the @INC array, and guess that it's
+;;; time to switch to :: once you've entered a module-root.
+;;; Sounds cool, but, like: MUCH later.
+
+===
+
+Another thought: generate-test-to-lock-behavior.
+
+I often want to do things backwards: develop a script
+that generates some output, then decide that it's working.
+Then I want to automatically generate a test script that
+will lock the current behavior, so I can continue modifying
+the script, and verify that it still does what it did before
+when I decided it was working.
+
+If script has a run-string of the form
+  perl script input-file > output-file
+This is *relatively* easy... Makes copy of the input-file,
+saves a copy of the output, uses a simple test to make
+sure that in the future the one file is generated by the other.
+
+===
+
+perl-later.el or perl-refactory.el
+
+Maybe: think about the various *actually* workflows that
+people *really* use.  Like, you write a script, then
+realize you want to move parts of it into a module.
+("refactoring")
+
+How about a perlnow-move-this-sub-to-library as an alternate
+to cut-and-paste?  A new library *or* an already existing
+library.  Make it EXPORT_OK, add in a "use" line that brings
+it in.
+
+===
+
+Maybe:
+  perlnow-use-this-module-to-other-window
+
+Theory is you've got a module window open, and are browsing
+code or docs for some other module in the other window.
+You decide, yeah, I want to use this too.  Command should
+check if the additional module is in INC, if not do the
+appropriate use lib, and so on.
+
+===
+
+Add mouse menu stuff?
+Hard for me to get right, since I don't use any of it.
+
+===
+
+Create hooks.  (*after* and *before*, right?)
+perlnow-new-script-hook,
+perlnow-new-module-hook,
+perlnow-h2xs--hook
+
+===
+
+Can you fix "man" with a wrapper?  Goal is to *never* lose
+your original context.  When you follow a link, the content
+replaces current man window, web browser style.
+
+===
+                           Fri Mar  3, 2006  1:43 PM
+
+Just thinking... if the pod for a sub is somewhere some distance
+away from the sub, it would be usefult to have commands to jump
+from one to the other...
+Maybe to display the other in another window.
+
+E.g., while editing a sub, you say
+perlnow-sub-perldoc-other-window,
+and it shows you the corresponding =item
+(or... if one doesn't exist, it guesses where
+to put it based on proximity to other subs).
+
+And vice-versa, starting with perldoc, and then writing a sub.
+
+===
+
+The listing of subs in the current file would be a useful
+feature.   Make it a hot list, so you can "click" on one
+and jump to it.  (Or jump to it's pod?)  Would also
+like to able to do an insert, start writing a new sub
+given the list of subs...
+
+(( starting to sound like some other ide-ish packages ))
+
+
+===
+
+                                Sat Mar  4 20:47:29 2006
+
+The edit-test file thing is doing something funny with the
+window sizes...  If you don't have a lot of screen lines,
+you can get a "window not large enough to subdivide" error,
+which seems pretty weird when you've only got one window
+open.  The balance between the window sizes can seem
+weird, too... (Probably an intended feature, to make the
+new window a little larger than the old.)
+
+===
+
+Improve C-c / b navigation.  See: /home/doom/End/Cave/Perlnow/Notes/notes-perlnow-version-0.4
+
+===
+
+Lexical search: automatically narrows to current lexical scope.
+Or failing that, just the current sub (easier).
+
+===
+
+Need a template for a *.conf file.
+Maybe: a *.sql file.
+
+===
+
+Need to cover all the perl file extensions:
+  (add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\|t\\|pod\\)\\'" . cperl-mode)) ; .pm .pl .t .pod .al?
+Q: what's *.al?
+Q: what about *.mas?  Check mmm-mode set-up.
+
+===
+
+I'd like a feature like this... but it's dependant on certain
+assumptions about how you like to do OOP.
+
+perlnow-document-accessors-from-attributes-array
+
+presuming you have an @attributes = qw( ); list in a sub init
+(or sub _init or sub new), skip down to just after the closing
+
+1;
+
+and insert some simple pod boilerplate listing the accessors.
+
+Note: needs to know what naming convention you're using (embedded inside
+AUTOLOAD?).
+
+First cut: just hard code that.
+
+approach: find sub name, do a narrow-to-defun, search for '@attributes',
+if fails, try another sub candidate.
+
+List can be written in a few ways... presume qw and whitespace sep as
+a first cut.
+
+Try searching for m{ 1; .*? \A\z\A=  }msx  (translated into elisp).
+
+===
+
+A need for shared blocks of text between templates
+that are also project-specific: e.g. the copyright
+notice.  Define these as defvar strings, make them
+available to template.el templates as tokens.
+
+===
+
+                         Fri Mar  7 02:38:46 2008
+perlnow-perlversion-old-to-new:
+Get a definitive list of cases of perl versions that it
+should handle, write a unit test, and refactor this.
+The regexps here probably need improvement.
+
+(And the state of policy surrounding perl versions
+are continually in flux.)
+
+===
+
+*Really* need to replace blank lines with empty lines on
+either side of a pod tag (^=).
+
+For that matter, opening up empty lines on either side of
+pod tags would probably be a good idea.
+
+===
+
+If you create a module from another module, should you get the
+same automatic use features that scripts get?
+
+===
+
+Creating a script in a cpan-style tree, the script should
+default to being inside the tree, in the right place, maybe:
+  <staging area>/bin
+
+===
+
+                                   Thu Dec 10 17:21:43 2009
+  What if you want to create a test file first?
+  If you start from a text file, and do a: C-c / t
+  You get:
+
+    perlnow-search-through-test-path called.
+    setq: Args out of range: "notes-nxhtml", 13, 12
+
+===
+
+BUG               Wed Dec 30 17:26:50 2009
+
+C-c / a
+
+Symbol's function definition is void:
+ perlnow-guess-script-run-string
+
+===
+
+BUG
+
+You can run C / s and feed it what is obviously a module name.
+It creates a script with double-colons embedded in the name.
+
+===
+
+BUG
+
+From a module:
+C-c / R
+
+Appears to create a *.t file, before
+prompting for a run-string,
+
+And the prompted run-string defaults to running the *.pm file,
+not the *.t.
+
+===
+
+
+BUG               Thu Jan  7 23:06:26 2010
+
+Down in here:
+         ~/End/Cave/TextCap/Wall/Cpan/Text-Capitalize/t/lib/Test/Locale/Utils.pm
+Doing a  C-c / R
+
+Messages:
+
+perlnow-list-test-files, looking at buffer: Utils.pm
+warning /home/doom/End/Cave/TextCap/Wall/Cpan/Text-Capitalize/t/t/ is not a directory
+setq: Opening directory: no such file or directory, /home/doom/End/Cave/TextCap/Wall/Cpan/Text-Capitalize/t/t/
+
+What I want to do is *set* the run-string.
+I presume it's doing this crap to set-up an intelligent
+default, but it's not failing gracefully.
+
+===
+                     Fri Feb 26 19:42:32 2010
+BUG
+Creating a test file in a non-cpan location
+doesn't respect the numbered *.t file convention
+(or doesn't seem to).
+
+If there's a 00-*.t file there already, it doesn't
+take that as a hint.
+
+(( But then... what if one "t" directory is used
+   for test files for multiple modules? ))
+
+===
+
+                       Fri Feb 26 19:40:29 2010
+BUGLET
+
+This only works from inside of the *.t file:
+   perlnow-revise-test-plan
+It should also work from the *compiliation* window,
+(or for that matter, from an associated *.pm, no?)
+
+===
+
+FEATURE
+
+If you rename a file, there should be a way to make
+sure that the "associated buffer" is also renamed, in
+sync.  How?
+
+Modify dired, to watch out for the case?
+
+Overide the rename command with one that special cases my cases...
+
+===
+                       Wed Apr  7 15:24:51 2010
+
+BUGLET
+
+Creating a script from a "*WoMan" buffer for a module,
+doesn't give you the "use" line for the module.
+
+===
+
+BUG
+
+Would have liked perlnow to find this already existing "t",
+and create this file:
+
+  ~/End/Ag/API/Goncarova/gen/t/Goncarova-Image-Mod.t
+
+When it was started up from this file:
+
+  ~/End/Ag/API/Goncarova/gen/lib/perl/Goncarova/Image/Mod.pm
+
+Instead it put it in
+
+  ~/End/Ag/API/Goncarova/gen/lib/perl/Goncarova/Image/t
+
+===
+
+BUGLET
+
+Create a file in a wrong place (say a *.t)
+This sets the run-string.
+You move the file (using dired) to where you want it,
+emacs realizes that the buffer should point at the
+new location... but the run-string stays un-revised.
+
+If it stalled on guessing a run-string until it was actually
+run, this little problem would be covered.
+
+===
+
+                                Thu Apr 15 12:42:53 2010
+
+Really need some form of automated tests.
+I've had a lot of difficulty in getting consistent behavior
+with the most recent versions (circa 0.4).  E.g. improve
+the code to guess a run-string, and realize belatedly that
+you're blowing away user-set run-strings at odd times.
+
+===
+
+                                Thu Apr 15 14:17:15 2010
+
+Look at declared variables in a given scope (a sub?)
+and report on any that are un-used.  Possibly: mark them
+up with comments, which can then be used to remove them.
+
+That could work with something like an "unpack object"
+routine that generates a chunk of code like
+  my $atttribute = $self->attribute;
+  my $widgit     = $self->widgit;
+  my $flag       = $self->flag;
+
+unpack all object attributes (alt form: hash fields),
+then later clean-up the un-used ones.
+
+===
+
+                                Fri Apr 23 14:06:47 2010
+BUG
+perlnow-revise-export-list
+
+When trying to publish sub names to an export list ending in
+exported hash variables, have seen it add a list of sub names
+with '%' marks in front of them (as though they, too, were
+hashes).  (?)
+
+===
+
+                              Fri Apr 30 17:30:25 2010
+
+
+FEATURE
+
+Perlnow has creation commands that distinguish between proceedural
+(exported-based) modules, and object-based modules: that works well,
+for me.  Depending on what I'm doing, I might want to do either...
+
+Obviously though, there are *many* ways of doing object-based perl
+modules.  Does it make sense to have only one set of templates for that?
+
+My theory has been that the way to do it is to swap in different sets
+of templates on a project-by-project basis, which hopefully can be
+done without perlnow knowing anything about it.
+
+But I *personally* would probably like to have multiple styles available
+*without* switching projects (facilitate experimentation).  (For me,
+a "project" might be evaluating styles).
+
+But multiplying the number of creation commands doesn't sound like
+a great way to deal with that... *possibly* one could have a default
+style, and alternate styles accessed via the prefix command C-u.
+Like, if string, use it as an object style-name, if numeric, bring
+up a menu of such styles... something like that.  Maybe, if prefix,
+ask for a style name, using the usual auto-completion features.
+
+   Maybe just: "style" setting separate from "project" setting.
+
+Similar idea, no?: "plug-ins" choosen by "style" (or "world"?).
+Note: many projects may belong to one world.
+
+   Come to grips with the Too Many Ways To Do It problem.
+   You just *can't* support all of them.
+
+    In addition to the general perlnow.el package, add variants
+    that deal with different perl sub-worlds: perlnow-moose.el
+    perlnow-class-base.el, etc.
+
+    In effect "plug-ins".
+
+===
+
+FEATURE
+                                          Sat May 29 13:32:20 2010
+
+perlnow has a few "creation" commands, but it lacks one to
+"create" test files.  The "perlnow-edit-test-file" does creation
+only when it can't find anything pre-existing (and most of the
+time, that's the Wrong Thing, it just didn't succeed in looking
+in the right place).  The multiple forms of "edit-test" are cool,
+but I *also* need one that definitely creates a new file
+(though in fact, mutating from an existing file is a pretty common
+idiom, isn't it... is that automatable in any way?  e.g. scrape
+the "use" lines, snag other stuff that looks like set-up, and
+re-use it).
+
+===
+
+PERLNOW FEATURE:
+  standardized way of overriding other templates...
+  run mod star, then replace any of the generated files
+  with your own, if you've defined/created a replacement
+
+  ~/End/Cave/Lightning/Notes/notes-writing_cpan_modules:
+
+      I'm really disliking the standard *.t files that
+      come out of Module::Starter.
+
+      From the -T flag in the hashbang, to the lack of a
+      use lib line, they're good for nothing but running
+      in one single way, and I like to run my *.t files
+      other ways.
+
+===
+
+Sun May 30 12:15:50 2010
+
+TODO CAVING (?)
+
+When creating a new room, also create git repo?
+
+I'm always going to want one of these:
+  ~/End/Cave/Rep/Wall/Emacs-Rep/.gitignore
+
+.gitignore:
+*~
+\#*#
+
+Question: is my old "lib" and "bin" obsolete now?
+Is there a better way to distinguish public and private
+than the "Wall"?
+
+"publication" of code gets different if you're planning on using
+github...
+
+===
+
+Sat Jun  5 00:27:09 2010
+
+I think the *right* way to deal with version numbers is that
+there should be a project-wide version number, and every file
+should have the same version number hard-coded in it.
+
+Might like a command (a function fired by save-hook?) like so:
+  perlnow-update-version-numbers
+
+This would look at the Build.PL to find out which version is king.
+
+===
+
+BUG NOMENCLATURE                 Sun Jun 13 14:10:28 2010
+
+I treat these as synonyms:
+
+   MODULE NAME or PACKAGE NAME: perl's double colon separated
+   name, e.g. \"Modular::Stuff\"
+
+These days, I'm inclined to reserve "package name" for something
+like a CPAN tarball.
+
+===
