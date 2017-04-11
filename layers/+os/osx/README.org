@@ -15,7 +15,7 @@
 
 * Description
 Spacemacs is not just emacs+vim. It can have OSX keybindings too! This layer
-globally defines common OSX keybindings. ~⌘~ is set to ~super~ and ~⌥~ is set to
+globally defines common OSX keybindings. ~⌘~ is set to ~hyper~ and ~⌥~ is set to
 ~meta~. Aside from that, there's nothing much, really.
 
 While in =dired= this layer will try to use =gls= instead of =ls=.
@@ -37,7 +37,7 @@ The different modifier keys can be set as follows:
 
 #+BEGIN_SRC emacs-lisp
   (setq-defaults dotspacemacs-configuration-layers '(
-     (osx :variables osx-command-as       'super
+     (osx :variables osx-command-as       'hyper
                      osx-option-as        'meta
                      osx-control-as       'control
                      osx-function-as      'none
@@ -115,6 +115,7 @@ To get =gls= install coreutils homebrew:
 | ~⌘ w~       | Close window                |
 | ~⌘ W~       | Close frame                 |
 | ~⌘ n~       | New frame                   |
+| ~⌘ `~       | Other frame                 |
 | ~⌘ z~       | Undo                        |
 | ~⌘ Z~       | Redo                        |
 | ~⌃ ⌘ f~     | Toggle fullscreen           |
