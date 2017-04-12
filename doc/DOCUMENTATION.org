@@ -1262,6 +1262,7 @@ Some elements can be dynamically toggled:
 | ~SPC t m M~ | toggle the major mode                                           |
 | ~SPC t m n~ | toggle the cat! (if =colors= layer is declared in your dotfile) |
 | ~SPC t m p~ | toggle the point character position                             |
+| ~SPC t m s~ | toggle system monitor (displayed in the minibuffer)             |
 | ~SPC t m t~ | toggle the time                                                 |
 | ~SPC t m T~ | toggle the mode line itself                                     |
 | ~SPC t m v~ | toggle the version control info                                 |
