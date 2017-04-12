@@ -50,12 +50,14 @@
         dotspacemacs-emacs-command-key 'counsel-M-x
         ;; files
         "ff"  'counsel-find-file
+        "fel" 'counsel-find-library
         "fL"  'counsel-locate
         ;; help
         "?"   'counsel-descbinds
         "hdf" 'counsel-describe-function
         "hdm" 'spacemacs/describe-mode
         "hdv" 'counsel-describe-variable
+        "hi"  'counsel-info-lookup-symbol
         "hR"  'spacemacs/counsel-search-docs
         ;; insert
         "iu"  'counsel-unicode-char
