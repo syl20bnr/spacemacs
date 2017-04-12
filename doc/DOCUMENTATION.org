@@ -2710,6 +2710,7 @@ Text related commands (start with ~x~):
 | ~SPC x a &~ | align region at &                                             |
 | ~SPC x a (~ | align region at (                                             |
 | ~SPC x a )~ | align region at )                                             |
+| ~SPC x a {~ | align region at {                                             |
 | ~SPC x a ​,​~ | align region at ,                                             |
 | ~SPC x a .~ | align region at . (for numeric tables)                        |
 | ~SPC x a :~ | align region at :                                             |
