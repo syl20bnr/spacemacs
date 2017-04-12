@@ -6,6 +6,7 @@
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#configuration][Configuration]]
+   - [[#auto-format-on-save][Auto-format on save]]
 
 * Description
 This layer provides syntax support for Terraform =.tf= files using
@@ -17,15 +18,10 @@ add =terraform= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
-By default, `terraform fmt` is applied to the terraform buffers before saving.
-If you wish to turn off this feature you may override this setting in your .spacemacs file.
+** Auto-format on save
+If you want =terraform fmt= to be applied automatically on save then set the
+layer variable =terraform-auto-format-on-save= to =t=:
 
-In .spacemacs user-init:
 #+begin_src emacs-lisp
-  (setq terraform-fmt-on-save nil)
-#+end_src
-
-In .spacemacs layers declaration:
-#+begin_src emacs-lisp
-  (terraform :variables terraform-fmt-on-save nil)
+  (terraform :variables terraform-auto-format-on-save t)
 #+end_src

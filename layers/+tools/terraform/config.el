@@ -11,5 +11,5 @@
 
 ;; variables
 
-(defvar terraform-fmt-on-save t
-  "If set then use terraform fmt before saving the terraform buffer. Enabled by default.")
+(defvar terraform-auto-format-on-save nil
+  "If non-nil then call `terraform fmt' before saving the terraform buffer.")
