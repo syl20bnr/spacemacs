@@ -1,4 +1,4 @@
-;;; config.el --- Spacemacs UI Visual Layer configuration File
+;;; config.el --- Spacemacs Mode-line Visual Layer configuration File
 ;;
 ;; Copyright (c) 2016 Sylvain Benner & Contributors
 ;;
