@@ -13,6 +13,7 @@
       '(
         fancy-battery
         spaceline
+        symon
         ))
 
 (defun spacemacs-modeline/init-fancy-battery ()
@@ -106,3 +107,14 @@
       ;; Enable spaceline for buffers created before the configuration of
       ;; spaceline
       (spacemacs//set-powerline-for-startup-buffers))))
+
+(defun spacemacs-modeline/init-symon ()
+  (use-package symon
+    :defer t
+    :init
+    (progn
+      (setq symon-delay 0
+            symon-refresh-rate 2)
+      (spacemacs|add-toggle minibuffer-system-monitor
+        :mode symon-mode
+        :evil-leader "tms"))))
