@@ -1,0 +1,35 @@
+#+TITLE: Helm layer
+
+[[file:img/helm.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+ - [[#external-resources][External resources]]
+
+* Description
+Spacemacs is powered by one of two incremental completion and selection
+narrowing frameworks: [[https://github.com/emacs-helm/helm][Helm]] (this layer, which is the default) or Ivy.
+
+These completion systems are the central control towers of Spacemacs, they are
+used to manage buffers, projects, search results, configuration layers, toggles
+and more...
+
+Mastering your choice of completion system will make you a Spacemacs power user.
+
+* Install
+Helm is the default completion framework -- if Ivy is not enabled, Helm will be
+enabled automatically.
+
+To switch from Ivy to Helm, modify your =~/.spacemacs=. You will need to add
+=helm= to the existing =dotspacemacs-configuration-layers= list in this file,
+and remove =ivy=.
+
+* Key bindings
+The Spacemacs-specific keybindings are described in the Spacemacs documentation:
+- [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#helm][Navigating Helm buffers]]
+
+* External resources
+- [[https://github.com/emacs-helm/helm/wiki][The Helm wiki]]
+- [[http://tuhdo.github.io/helm-intro.html][The Helm guide]]
