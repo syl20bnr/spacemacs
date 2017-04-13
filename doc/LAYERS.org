@@ -21,7 +21,7 @@
  - [[#case-study-auto-completion][Case study: auto-completion]]
  - [[#layer-tips-and-tricks][Layer tips and tricks]]
    - [[#cross-dependencies][Cross-dependencies]]
-   - [[#use-package-1][Use-package]]
+   - [[#use-package-init-and-config][Use-package init and config]]
    - [[#use-package-hooks][Use-package hooks]]
    - [[#best-practices][Best practices]]
      - [[#package-ownership][Package ownership]]
@@ -480,7 +480,7 @@ For layers that require another layers to be enabled, use the functions
 ensure that layers are enabled even if the user has not enabled them explicitly.
 Calls to these functions must go in the =layers.el= file.
 
-** Use-package
+** Use-package init and config
 In the vast majority of cases, a package =init= function should do nothing but
 call to =use-package=. Again, in the vast majority of cases, all the
 configuration you need to do should be doable within the =:init= or =:config=
