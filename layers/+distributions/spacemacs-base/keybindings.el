@@ -124,6 +124,10 @@
   "bh"    'spacemacs/home
   "b C-d" 'spacemacs/kill-other-buffers
   "b C-S-d" 'spacemacs/kill-matching-buffers-rudely
+  "b M-h" 'spacemacs/new-empty-buffer-left
+  "b M-j" 'spacemacs/new-empty-buffer-below
+  "b M-k" 'spacemacs/new-empty-buffer-above
+  "b M-l" 'spacemacs/new-empty-buffer-right
   "bn"    'next-buffer
   "bm"    'spacemacs/switch-to-messages-buffer
   "bN"    'spacemacs/new-empty-buffer
