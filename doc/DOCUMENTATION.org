@@ -555,9 +555,9 @@ tests are also run automatically when you synchronize with ~SPC f e R~.
 Three special functions in the =~/.spacemacs= file can be used to perform
 configuration at the beginning and end of Spacemacs loading process:
 
-- =dotspacemacs/layers= is called at the very startup of Spacemacs initilialization,
+- =dotspacemacs/layers= is called at the very startup of Spacemacs initialization,
   this is where you set the Spacemacs distribution and declare layers to be used
-  in your configuration. You can also add or excluded packages of your choice
+  in your configuration. You can also add or exclude packages of your choice
   and tweak some behavior of Spacemacs loading.
 - =dotspacemacs/init= is called at the very startup of Spacemacs initialization
   before layers configuration. *You should not put any user code* in there
