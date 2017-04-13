@@ -1889,7 +1889,7 @@ press just ~l~).
 The following helm actions are available on packages:
   - default: toggle on/off
 
-*Tips* Use ~SPC h l~ to resume the last helm session. It is handy to quickly
+*Tips* Use ~SPC r l~ to resume the last helm session. It is handy to quickly
 toggle on and off a toggle.
 
 ** Navigating
