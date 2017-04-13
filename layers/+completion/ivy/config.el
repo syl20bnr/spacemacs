@@ -15,7 +15,7 @@
 (defvar spacemacs--counsel-commands
   '(;; --line-number forces line numbers (disabled by default on windows)
     ;; no --vimgrep because it adds column numbers that wgrep can't handle
-    ;; (see https://github.com/syl20bnr/spacemacs/pull/8065 )
+    ;; see https://github.com/syl20bnr/spacemacs/pull/8065
     ("rg" . "rg --smart-case --no-heading --color never --line-number %s %S .")
     ("ag" . "ag --nocolor --nogroup %s %S .")
     ("pt" . "pt -e --nocolor --nogroup %s %S .")
