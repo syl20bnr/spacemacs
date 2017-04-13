@@ -108,6 +108,7 @@ the mode will not show in the mode line."
        (push '(,mode ,unicode ,ascii) spacemacs--diminished-minor-modes))))
 
 (defun spacemacs/diminish-undo (mode)
+  "Restore the diminished lighter."
   (interactive
    (list (read (completing-read
                 "Restore what diminished mode: "
@@ -115,9 +116,11 @@ the mode will not show in the mode line."
                       (mapcar (lambda (x) (list (symbol-name (car x))))
                               diminished-mode-alist))
                 nil t nil 'diminish-history-symbols))))
-  (setq spacemacs--diminished-minor-modes nil)
-  (diminish-undo mode)
-  )
+  ;; remove the `mode' entry from spacemacs own list
+  (setq spacemacs--diminished-minor-modes
+        (delq nil (mapcar (lambda (x) (unless (eq (car x) mode) x))
+                          spacemacs--diminished-minor-modes)))
+  (diminish-undo mode))
 
 (defmacro spacemacs|hide-lighter (mode)
   "Diminish MODE name in mode line to LIGHTER."

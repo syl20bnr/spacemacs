@@ -1385,6 +1385,7 @@ can be reached using the =control= key.
 | ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
 
 **** Customizing the mode-line
+***** Spaceline
 Spacemacs uses [[https://github.com/TheBB/spaceline][Spaceline]] to provide its mode-line. It consists of a number of
 /segments/ arranged on the left and right sides. These are defined in the
 variables =spaceline-left= and =spaceline-right=. Segments can be defined using
@@ -1392,6 +1393,24 @@ variables =spaceline-left= and =spaceline-right=. Segments can be defined using
 right hand side variables.
 
 Please see the Spaceline documentation for more information.
+
+***** Restore lighters
+Lighters are abbreviations displayed in the mode-line to identify running minor
+modes. Spacemacs diminishes most of them to make them more compact.
+
+If you want to restore the original lighter of a mode then use the function
+=spacemacs/diminish-undo= with the appropriate mode name.
+
+For example to undo diminish for =company=:
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs|use-package-add-hook company
+    :post-config (spacemacs/diminish-undo 'company-mode))
+#+END_SRC
+
+Note that we use a =use-package= post init hook to be sure to override any
+lazily diminished lighters (see [[file:LAYERS.org][layers documentation]] for more information
+about lazy loading).
 
 * Layouts and workspaces
 Layouts are window configurations with buffer isolation, each layout can define
