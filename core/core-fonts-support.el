@@ -107,6 +107,18 @@ the mode will not show in the mode line."
          (setcdr cell '(,unicode ,ascii))
        (push '(,mode ,unicode ,ascii) spacemacs--diminished-minor-modes))))
 
+(defun spacemacs/diminish-undo (mode)
+  (interactive
+   (list (read (completing-read
+                "Restore what diminished mode: "
+                (cons (list "diminished-modes")
+                      (mapcar (lambda (x) (list (symbol-name (car x))))
+                              diminished-mode-alist))
+                nil t nil 'diminish-history-symbols))))
+  (setq spacemacs--diminished-minor-modes nil)
+  (diminish-undo mode)
+  )
+
 (defmacro spacemacs|hide-lighter (mode)
   "Diminish MODE name in mode line to LIGHTER."
   `(eval-after-load 'diminish '(diminish ',mode)))
