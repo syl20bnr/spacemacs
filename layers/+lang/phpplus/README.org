@@ -1,0 +1,29 @@
+#+TITLE: phpplus layer
+
+
+# TOC links should be GitHub style anchors.
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features:]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+
+This layer adds PHP language support to Spacemacs.
+
+** Features:
+- Edit PHP files using [[https://github.com/ejmr/php-mode][php-mode]]
+- complete and jump with  [[https://github.com/xcwen/ac-php#company-php]]
+
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =phpplus= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+| Key Binding | Description    |
+|-------------+----------------|
+| ~SPC m g g~ | jump to define at point |
+| ~C-t~       | jump back |
