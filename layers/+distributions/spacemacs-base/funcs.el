@@ -491,11 +491,43 @@ If the universal prefix argument is used then will the windows too."
   (ediff-files (dotspacemacs/location)
                (concat dotspacemacs-template-directory ".spacemacs.template")))
 
-(defun spacemacs/new-empty-buffer ()
-  "Create a new buffer called untitled(<n>)"
+(defun spacemacs/new-empty-buffer (&optional split)
+  "Create a new buffer called untitled(<n>).
+A SPLIT argument with the value: `left',
+`below', `above' or `right', opens the new
+buffer in a split window."
   (interactive)
   (let ((newbuf (generate-new-buffer-name "untitled")))
+    (case split
+      ('left  (split-window-horizontally))
+      ('below (spacemacs/split-window-vertically-and-switch))
+      ('above (split-window-vertically))
+      ('right (spacemacs/split-window-horizontally-and-switch)))
     (switch-to-buffer newbuf)))
+
+(defun spacemacs/new-empty-buffer-left ()
+  "Create a new buffer called untitled(<n>),
+in a split window to the left."
+  (interactive)
+  (spacemacs/new-empty-buffer 'left))
+
+(defun spacemacs/new-empty-buffer-below ()
+  "Create a new buffer called untitled(<n>),
+in a split window below."
+  (interactive)
+  (spacemacs/new-empty-buffer 'below))
+
+(defun spacemacs/new-empty-buffer-above ()
+  "Create a new buffer called untitled(<n>),
+in a split window above."
+  (interactive)
+  (spacemacs/new-empty-buffer 'above))
+
+(defun spacemacs/new-empty-buffer-right ()
+  "Create a new buffer called untitled(<n>),
+in a split window to the right."
+  (interactive)
+  (spacemacs/new-empty-buffer 'right))
 
 ;; from https://gist.github.com/timcharper/493269
 (defun spacemacs/split-window-vertically-and-switch ()
