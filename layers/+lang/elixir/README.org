@@ -180,8 +180,11 @@ You find and overview of all the key-bindings on the [[file:alchemist-refcard.pd
 | ~SPC m g t~ | Open the test file for current buffer |
 | ~SPC m t a~ | Run all the tests                     |
 | ~SPC m t b~ | Run all the tests from current buffer |
+| ~SPC m t f~ | Test this file                        |
 | ~SPC m t r~ | Rerun the last test                   |
 | ~SPC m t t~ | Run test under point                  |
+| ~SPC m t n~ | Jump to next test                     |
+| ~SPC m t p~ | Jump to previous test                 |
 
 ** Compile
 
