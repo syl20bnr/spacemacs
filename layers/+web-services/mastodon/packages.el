@@ -14,11 +14,11 @@
     (mastodon :location (recipe
                          :fetcher github
                          :repo "jdenen/mastodon.el"
-                         :files ("lisp/*.el" "README.org")))))
+                         :files ("lisp/*.el" "README.org" ".version")))))
 
 (defun mastodon/init-mastodon ()
   ;; (use-package mastodon)
   (require 'mastodon)
-  (setq mastdon-token-file "~/emacs.d/private/mastodon.plstore"))
+  (setq mastodon-token-file "~/emacs.d/private/mastodon.plstore"))
 
 ;;; packages.el ends here
