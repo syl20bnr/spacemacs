@@ -162,7 +162,7 @@ Here are the often used bindings inside a =status buffer=:
 | ~s~         | on a file or hunk in a diff: stage the file or hunk                 |
 | ~x~         | discard changes                                                     |
 | ~+~         | on a hunk: increase hunk size                                       |
-| ~-~         | on a hunk: decrease hunk size                                       |
+| ~=~         | on a hunk: decrease hunk size                                       |
 | ~S~         | stage all                                                           |
 | ~TAB~       | on a file: expand/collapse diff                                     |
 | ~u~         | on a staged file: unstage                                           |
