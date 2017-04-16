@@ -8,7 +8,8 @@
    - [[#transient-state][Transient state]]
 
 * Description
-This layer enables Ivy for completion. It will replace the default completion by [[https://github.com/emacs-helm/helm][Helm]].
+This layer enables Ivy for completion. It will replace the default completion by
+[[https://github.com/emacs-helm/helm][Helm]].
 
 These completion systems are the central control towers of Spacemacs, they are
 used to manage buffers, projects, search results, configuration layers, toggles
@@ -24,15 +25,21 @@ file.
 * Configuration
 You can customize ivy with the following variables:
 
-- =ivy-wrap= Whether C-n and C-p should wrap-around when at the the first or last candidate. The default value is nil.
-- =ivy-extra-directories= Setting this to nil hides . and .. directories from file name completion. You can still go up a directory up by ~DEL~. The default value is ("../", "./").
-- =ivy-use-virtual-buffers= Add bookmarks and recent files to buffer completion menu. The Spacemacs default is t.
+- =ivy-wrap= Whether C-n and C-p should wrap-around when at the the first or
+  last candidate. The default value is nil.
+- =ivy-extra-directories= Setting this to =nil= hides . and .. directories from
+  file name completion. You can still go up a directory up by ~DEL~.
+  The default value is ("../", "./").
+- =ivy-use-virtual-buffers= Add bookmarks and recent files to buffer completion
+  menu. The Spacemacs default is t.
 - =ivy-height= The height of the minibuffer. The Spacemacs default is 15.
 
 * Key Bindings
-If you choose =ivy= as completion system, make sure to read the [[http://oremacs.com/swiper/][official manual]]. In
-case you don't want to read everything, at least familiarise with [[http://oremacs.com/swiper/#minibuffer-key-bindings][minibuffer key
-bindings]]. Some useful key bindings are presented in the following table.
+If you choose =ivy= as completion system, make sure to read the [[http://oremacs.com/swiper/][official manual]].
+In case you don't want to read everything, at least familiarise with
+[[http://oremacs.com/swiper/#minibuffer-key-bindings][minibuffer key bindings]].
+
+Some useful key bindings are presented in the following table.
 
 | Key Binding | Description                                                                                          |
 |-------------+------------------------------------------------------------------------------------------------------|
