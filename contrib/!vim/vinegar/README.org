@@ -1,0 +1,54 @@
+#+TITLE: Vinegar contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#desciption][Desciption]]
+     - [[#features][Features]]
+     - [[#mouse-bindings][Mouse bindings]]
+     - [[#key-bindings][Key bindings]]
+
+* Desciption
+
+This layer is a port contribution layer for vim-vinegar for emacs.
+
+A port of tpope's vinegar.vim
+[vinegar][https://github.com/tpope/vim-vinegar], simplifying =dired=
+with a limited number of details and exposing the ~-~ command in all
+buffers to enter dired.
+
+** Features
+
+-  navigation up folders with ~-~ key
+-  simplify dired buffer to show only file names
+-  better evil/vim bindings for navigation within dired buffer
+-  keep only one active dired buffer
+-  Use dired-k extension to show time / vcs related information in
+   single bar
+-  right mouse click moves up directory if in blank space or shows context menu
+
+** Mouse bindings
+
+| Mouse Binding | Description                                   |
+|---------------+-----------------------------------------------|
+| ~mouse-1~     | (Dired) Open selected file                    |
+| ~mouse-2~     | (Dired) Open clicked file in other-window     |
+| ~mouse-3~     | (Dired) Open context popup or go up directory |
+
+** Key bindings
+
+| Key Binding | Description                                        |
+|-------------+----------------------------------------------------|
+| ~-~         | Navigate to parent directory in dired              |
+| ~0~         | (Dired) Move to the beginning of the file in dired |
+| ~=~         | (Dired) Diff between selected files                |
+| ~C-j~       | (Dired) Move to next subdirectory                  |
+| ~C-k~       | (Dired) Move to previous sbdirectory               |
+| ~I~         | (Dired) Toggle showing dotfiles                    |
+| ~~~         | (Dired) Navigate to home directory                 |
+| ~f~         | (Dired) Helm find file                             |
+| ~C-f~       | (Dired) dired-find                                 |
+| ~H~         | (Dired) Show dired history                         |
+| ~T~         | (Dired) Move down in dired tree                    |
+| ~K~         | (Dired) Kill marked lines (hide, do not delete)    |
+| ~r~         | (Dired) Redisplay buffer                           |
+| ~C-r~       | (Dired) Revert buffer                              |
+
