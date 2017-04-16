@@ -12,6 +12,7 @@
  - [[#keyboard-layouts][Keyboard layouts]]
    - [[#bepo][bepo]]
    - [[#dvorak][dvorak]]
+   - [[#workman][Workman]]
  - [[#package-configurations][Package Configurations]]
  - [[#keybindings][Keybindings]]
  - [[#sources][Sources]]
@@ -147,6 +148,23 @@ variant of the more general =dvorak= (us) keyboard layout. This configuration
 will remap keybindings for the =dvorak-programmer= variant.
 
 [[file:img/dvorak-keymap.png]]
+
+** Workman
+=Workman= is an English-optimized keyboard layout designed to,
+[[https://workmanlayout.com][among other things]], reduce finger travel-distance,
+ and balance the load equally between hands.
+It is meant to function particularly well in conjunction with ortholinear
+('matrix' or 'grid') keyboards, such as the one depicted in the diagram.
+
+file:img/workman-keymap.png
+
+This layer performs the following substitutions, as recommended in
+[[https://axiomatic.neophilus.net/posts/2013-08-13-workman-layout-for-vim.html][this blog post]], with some suggested mnemonics:
+
+(y)ank -> (h)aul
+Search (n)ext -> (j)ump
+(e)nd word -> brea(k) of word
+(o)pen new line -> (l)ine
 
 * Package Configurations
 The available configurations are:
