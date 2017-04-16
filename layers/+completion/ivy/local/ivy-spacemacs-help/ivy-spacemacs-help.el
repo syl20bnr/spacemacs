@@ -67,6 +67,8 @@
     ;; give each document an appropriate title
     (mapcar (lambda (r)
               (cond
+               ((string-equal r "BEGINNERS_TUTORIAL.org")
+                `("Beginners tutorial" . ,r))
                ((string-equal r "CONTRIBUTING.org")
                 `("How to contribute to Spacemacs" . ,r))
                ((string-equal r "CONVENTIONS.org")
