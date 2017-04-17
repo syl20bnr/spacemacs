@@ -38,11 +38,13 @@
                               all-subs)))
     (message "%S" layers)
     (dolist (l layers)
-      (let ((layer-name (file-name-nondirectory l))
-            (target-path (concat (file-relative-name
-                                  l (concat spacemacs-start-directory "layers"))
-                                 "/README.org")))
-        (insert (format "- [[file:%s][%s]]\n" target-path layer-name))))
+      (let* ((layer-name (file-name-nondirectory l))
+             (layer-readme-path (concat (file-name-as-directory l) "README.org"))
+            (target-path (file-relative-name
+                          actual-file-name (concat spacemacs-start-directory "layers"))))
+        (if (file-readable-p layer-readme-path)
+            (insert (format "- [[file:%s][%s]]\n" target-path layer-name))
+          (insert (format "- %s\n" layer-name)))))
     (dolist (c categories)
       (let* ((category-name (substring (file-name-nondirectory c) 1))
              (pretty-name
