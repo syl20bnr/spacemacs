@@ -52,6 +52,7 @@
         "ff"  'counsel-find-file
         "fel" 'counsel-find-library
         "fL"  'counsel-locate
+        "fel" 'spacemacs/counsel-find-library
         ;; help
         "?"   'counsel-descbinds
         "hdf" 'counsel-describe-function
@@ -100,6 +101,13 @@
       (ivy-set-actions
        'counsel-find-file
        spacemacs--ivy-file-actions)
+
+      (ivy-set-actions
+       'spacemacs/counsel-find-library
+       '(("w"
+          (lambda (x)
+            (find-file-other-window (get-text-property 0 'full-name x))) "other window")))
+
 
       ;; remaps built-in commands that have a counsel replacement
       (counsel-mode 1)
