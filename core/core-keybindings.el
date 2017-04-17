@@ -174,4 +174,73 @@ they are in `spacemacs/set-leader-keys'."
         (setq key (pop bindings) def (pop bindings))))))
 (put 'spacemacs/set-leader-keys-for-minor-mode 'lisp-indent-function 'defun)
 
+(defun spacemacs/set-key (key binding &rest bindings)
+  (while (and key binding)
+    (let ((full-key (kbd (concat dotspacemacs-leader-key " " key)))
+          (full-emacs-key (kbd (concat dotspacemacs-emacs-leader-key " " key))))
+      (dolist (state '(normal visual motion))
+        (evil-global-set-key state full-key binding))
+      (dolist (state '(insert emacs normal visual motion hybrid))
+        (evil-global-set-key state full-emacs-key binding)))
+    (setq key (pop bindings) binding (pop bindings))))
+
+(defun spacemacs/set-default-key (key binding &rest bindings)
+  (while (and key binding)
+    (let ((full-key (kbd (concat dotspacemacs-leader-key " " key)))
+          (full-emacs-key (kbd (concat dotspacemacs-emacs-leader-key " " key))))
+      (dolist (state '(normal visual motion))
+        (unless (lookup-key (evil-state-property state :keymap t) full-key)
+          (evil-global-set-key state full-key binding)))
+      (dolist (state '(insert emacs normal visual motion hybrid))
+        (unless (lookup-key (evil-state-property state :keymap t) full-emacs-key)
+          (evil-global-set-key state full-emacs-key binding))))
+    (setq key (pop bindings) binding (pop bindings))))
+
+(defun spacemacs/set-key-for-mode (major-mode-map key binding &rest bindings)
+  (while (and key binding)
+    (let ((full-key (kbd (concat dotspacemacs-leader-key " m " key)))
+          (full-emacs-key (kbd (concat dotspacemacs-emacs-leader-key " m " key)))
+          (full-mm-key
+           (when dotspacemacs-major-mode-leader-key
+             (kbd (concat dotspacemacs-major-mode-leader-key " " key))))
+          (full-mm-emacs-key
+           (when dotspacemacs-major-mode-emacs-leader-key
+             (kbd (concat dotspacemacs-major-mode-emacs-leader-key " " key)))))
+      (dolist (state '(normal visual motion))
+        (evil-define-key state major-mode-map full-key binding)
+        (when full-mm-key
+          (evil-define-key state major-mode-map full-mm-key binding)))
+      (dolist (state '(insert emacs normal visual motion hybrid))
+        (evil-define-key state major-mode-map full-emacs-key binding)
+        (when full-mm-emacs-key
+          (evil-define-key state major-mode-map full-mm-emacs-key binding)))
+      (setq key (pop bindings) binding (pop bindings)))))
+
+(defun spacemacs//lookup-key-for-mode (major-mode-map state key)
+  (let ((aux-map (evil-get-auxiliary-keymap major-mode-map state)))
+    (when aux-map
+      (lookup-key aux-map key))))
+
+(defun spacemacs/set-default-key-for-mode (major-mode-map key binding &rest bindings)
+  (while (and key binding)
+    (let ((full-key (kbd (concat dotspacemacs-leader-key " m " key)))
+          (full-emacs-key (kbd (concat dotspacemacs-emacs-leader-key " m " key)))
+          (full-mm-key
+           (when dotspacemacs-major-mode-leader-key
+             (kbd (concat dotspacemacs-major-mode-leader-key " " key))))
+          (full-mm-emacs-key
+           (when dotspacemacs-major-mode-emacs-leader-key
+             (kbd (concat dotspacemacs-major-mode-emacs-leader-key " " key)))))
+      (dolist (state '(normal visual motion))
+        (unless (spacemacs//lookup-key-for-mode major-mode-map state full-key)
+          (evil-define-key state major-mode-map full-key binding)
+          (when full-mm-key
+            (evil-define-key state major-mode-map full-mm-key binding))))
+      (dolist (state '(insert emacs normal visual motion hybrid))
+        (unless (spacemacs//lookup-key-for-mode major-mode-map state full-emacs-key)
+          (evil-define-key state major-mode-map full-emacs-key binding)
+          (when full-mm-emacs-key
+            (evil-define-key state major-mode-map full-mm-emacs-key binding)))))
+    (setq key (pop bindings) binding (pop bindings))))
+
 (provide 'core-keybindings)
