@@ -12,6 +12,7 @@
  - [[#keyboard-layouts][Keyboard layouts]]
    - [[#bepo][bepo]]
    - [[#dvorak][dvorak]]
+   - [[#colemak][colemak]]
  - [[#package-configurations][Package Configurations]]
  - [[#keybindings][Keybindings]]
  - [[#sources][Sources]]
@@ -148,6 +149,13 @@ will remap keybindings for the =dvorak-programmer= variant.
 
 [[file:img/dvorak-keymap.png]]
 
+** colemak
+=colemak= is a modern alternative to the QWERTY and =dvorak= layouts. It is
+designed for efficient and ergonomic touch typing in English. More info can be
+found at the [[https://colemak.com/][Colemak website]].
+
+[[file:img/colemak-keymap.png]]
+
 * Package Configurations
 The available configurations are:
 
@@ -186,4 +194,5 @@ So the price you have to pay is the absence of a keybindings list.
 * Sources
 The keyboard-layout logo is coming from [[https://openclipart.org/detail/202777/keyboard-layout][openclipart.org]] and is under the public
 domain. The bepo logo and the keymap images are coming from the [[http://bepo.fr/][bepo]] official
-website. They are licensed under the [[http://creativecommons.org/licenses/by-sa/3.0/deed.en][CC-BY-SA]].
+website.  The Colemak keyboard layout image is from [[https://en.wikipedia.org/wiki/File:KB_US-Colemak.svg][Wikipedia]]. They are all
+licensed under the [[http://creativecommons.org/licenses/by-sa/3.0/deed.en][CC-BY-SA]].
