@@ -66,6 +66,9 @@
       (when (version< emacs-version "25")
         (add-hook 'css-mode-hook 'spacemacs/run-prog-mode-hooks))
 
+      ;; Mark `css-indent-offset' as safe-local variable
+      (put 'css-indent-offset 'safe-local-variable #'integerp)
+
       (defun css-expand-statement ()
         "Expand CSS block"
         (interactive)
