@@ -15,7 +15,9 @@
  - [[#basic-usage-tips][Basic usage tips]]
    - [[#compilation][Compilation]]
    - [[#reactor][Reactor]]
-   - [[#sort-imports-on-save][Sort imports on save]]
+   - [[#on-save-usage][On save usage]]
+      - [[#imports-sort][Imports sort]]
+      - [[#file-format][File format]]
  - [[#key-bindings][Key bindings]]
    - [[#elm-make][elm-make]]
    - [[#elm-repl][elm-repl]]
@@ -136,12 +138,20 @@ can be controlled by passing in these variables in your =~/.spacemacs=:
        elm-reactor-address "0.0.0.0") ; default 127.0.0.1
 #+END_SRC
 
-** Sort imports on save
+** On save usage
+*** Imports sort
 Set ~elm-sort-imports-on-save~ to ~t~ to sort the imports in the current file on
 every save.
 
 #+BEGIN_SRC emacs-lisp
   (elm :variables elm-sort-imports-on-save t)
+#+END_SRC
+
+*** File format 
+Set ~elm-format-on-save~ to ~t~ to format current file on every save.
+
+#+BEGIN_SRC emacs-lisp
+  (elm :variables elm-format-on-save t)
 #+END_SRC
 
 * Key bindings
