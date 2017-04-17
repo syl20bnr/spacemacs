@@ -60,8 +60,9 @@
 
       (defun spacemacs/go-run-tests (args)
         (interactive)
-        (save-selected-window
-          (async-shell-command (concat "go test " args))))
+        (let ((all-args (concat args " " go-use-test-args)))
+          (save-selected-window
+            (async-shell-command (concat "go test " all-args)))))
 
       (defun spacemacs/go-run-package-tests ()
         (interactive)
