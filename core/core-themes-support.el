@@ -19,8 +19,8 @@
   "Internal variable storing user theme to be installed.")
 
 (defface org-kbd
-  '((t (:background "LemonChiffon1" :foreground "black" :box
-                    (:line-width 2 :color nil :style released-button))))
+  '((t
+     (:overline "black" :foreground "black" :background "LemonChiffon1")))
   "Face for displaying key bindings in Spacemacs documents."
   :group 'org-faces)
 
