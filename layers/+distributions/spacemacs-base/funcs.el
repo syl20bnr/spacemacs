@@ -842,7 +842,8 @@ A non-nil argument sorts in reverse order."
   (spacemacs/sort-lines -1))
 
 (defun spacemacs/sort-lines-by-column (&optional reverse)
-  "Sort lines by the selected column.
+  "Sort lines by the selected column,
+using a visual block/rectangle selection.
 A non-nil argument sorts in reverse order."
   (interactive "P")
   (let* ((region-active (or (region-active-p) (evil-visual-state-p)))
@@ -851,7 +852,8 @@ A non-nil argument sorts in reverse order."
     (sort-columns reverse beg end)))
 
 (defun spacemacs/sort-lines-by-column-reverse ()
-  "Sort lines by the selected column in reverse order."
+  "Sort lines by the selected column in reverse order,
+using a visual block/rectangle selection."
   (interactive)
   (spacemacs/sort-lines-by-column -1))
 
