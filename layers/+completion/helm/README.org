@@ -49,9 +49,6 @@ Helm buffers with ~hjkl~.
 | ~C-l~       | same as ~return~             |
 
 ** Transient state
-   :PROPERTIES:
-   :CUSTOM_ID: helm-transient-state
-   :END:
 Spacemacs defines a transient state for =Helm= to make it work like [[https://github.com/Shougo/unite.vim][Vim's Unite]]
 plugin.
 
