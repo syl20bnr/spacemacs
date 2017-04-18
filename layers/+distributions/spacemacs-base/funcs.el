@@ -504,7 +504,9 @@ buffer in a split window."
       ('below (spacemacs/split-window-vertically-and-switch))
       ('above (split-window-vertically))
       ('right (spacemacs/split-window-horizontally-and-switch)))
-    (switch-to-buffer newbuf)))
+    ;; pass non-nil force-same-window to prevent `switch-to-buffer' from
+    ;; displaying buffer in another window
+    (switch-to-buffer newbuf nil 'force-same-window)))
 
 (defun spacemacs/new-empty-buffer-left ()
   "Create a new buffer called untitled(<n>),
