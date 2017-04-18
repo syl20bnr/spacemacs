@@ -11,8 +11,6 @@
 ##
 ## License: GPLv3
 
-tests=("core" "doc")
-
 if [ $USER != "travis" ]; then
     echo "This script is not designed to run locally."
     echo "Instead, navigate to the appropriate test folder and run make there instead."
@@ -47,11 +45,12 @@ if [ "${FORMATTING}" = "space-test" ]; then
 fi
 
 # Emacs tests
+
 echo "Pwd $(pwd)"
 rm -rf ~/.emacs.d
 ln -sf `pwd` ~/.emacs.d
 
-for test in "${tests[@]}"; do
+for test in "${TESTS[@]}"; do
     rm -rf ~/.emacs.d/elpa
     rm -rf ~/.emacs.d/.cache
     rm -f ~/.spacemacs
