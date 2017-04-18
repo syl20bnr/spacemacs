@@ -120,6 +120,7 @@
        - [[#golden-ratio][Golden ratio]]
      - [[#buffers-and-files][Buffers and Files]]
        - [[#buffers-manipulation-key-bindings][Buffers manipulation key bindings]]
+       - [[#create-a-new-empty-buffer][Create a new empty buffer]]
        - [[#buffers-manipulation-transient-state][Buffers manipulation transient state]]
        - [[#special-buffers][Special Buffers]]
        - [[#files-manipulations-key-bindings][Files manipulations key bindings]]
@@ -2076,6 +2077,16 @@ Buffer manipulation commands (start with ~b~):
 | ~SPC b w~       | toggle read-only (writable state)                                        |
 | ~SPC b Y~       | copy whole buffer to clipboard (useful when copying to a browser)        |
 | ~z f~           | Make current function or comments visible in buffer as much as possible  |
+
+**** Create a new empty buffer
+
+| Key Binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC b N h~ | create new empty buffer in a new window on the left          |
+| ~SPC b N j~ | create new empty buffer in a new window at the bottom        |
+| ~SPC b N k~ | create new empty buffer in a new window above                |
+| ~SPC b N l~ | create new empty buffer in a new window below                |
+| ~SPC b N n~ | create new empty buffer in current window                    |
 
 **** Buffers manipulation transient state
 A convenient buffer manipulation transient state allows to quickly cycles through
