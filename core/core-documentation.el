@@ -122,20 +122,17 @@ compatible."
     (goto-char (point-min))
     (while (re-search-forward heading-regexp nil t)
       (let ((heading (match-string 1)))
-        (progn (move-end-of-line nil)
-               (open-line 1)
-               (next-line 1)
-               (insert (format (concat "  :PROPERTIES:\n"
-                                       "  :CUSTOM_ID: %s\n"
-                                       "  :END:\n")
-                               (substring (toc-org-hrefify-gh
-                                           (replace-regexp-in-string
-                                            toc-org-tags-regexp
-                                            ""
-                                            heading))
-                                          ;; Remove # prefix added by
-                                          ;; `toc-org-hrefify-gh'.
-                                          1))))))))
+        (insert (format (concat "\n:PROPERTIES:\n"
+                                ":CUSTOM_ID: %s\n"
+                                ":END:\n")
+                        (substring (toc-org-hrefify-gh
+                                    (replace-regexp-in-string
+                                     toc-org-tags-regexp
+                                     ""
+                                     heading))
+                                   ;; Remove # prefix added by
+                                   ;; `toc-org-hrefify-gh'.
+                                   1)))))))
 
 (defun spacemacs//reroot-links ()
   "Find the links that start with https://github.com/syl20bnr/spacemacs/blob/
@@ -188,10 +185,10 @@ preprocessors for the exported .org files."
           (save-match-data
             (insert-file-contents filename t)
             ;; ===========Add preprocessors here===============
+            (spacemacs//org-heading-annotate-custom-id)
             (spacemacs//add-org-meta-readtheorg-css filename)
             (spacemacs//toc-org-unhrefify-toc)
             (spacemacs//reroot-links)
-            (spacemacs//org-heading-annotate-custom-id)
             (apply origfunc args)
             (set-buffer-modified-p nil)))
         ;; Restore `buffer-file-name' for the buffers that previously visited
