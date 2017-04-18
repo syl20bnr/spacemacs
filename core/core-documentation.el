@@ -118,24 +118,24 @@
 `org-html-publish-to-html' will use them instead of the default #orgheadline{N}.
 This way the GitHub links and the http://spacemacs.org/ links will be
 compatible."
-  (progn (goto-char (point-min))
-         (goto-char (point-min))
-         (while (re-search-forward "^[\\*]+\s\\(.*\\).*$" nil t)
-           (let ((heading (match-string 1)))
-             (progn (move-end-of-line nil)
-                    (open-line 1)
-                    (next-line 1)
-                    (insert (format (concat "  :PROPERTIES:\n"
-                                            "  :CUSTOM_ID: %s\n"
-                                            "  :END:\n")
-                                    (substring (toc-org-hrefify-gh
-                                                (replace-regexp-in-string
-                                                 toc-org-tags-regexp
-                                                 ""
-                                                 heading))
-                                               ;; Remove # prefix added by
-                                               ;; `toc-org-hrefify-gh'.
-                                               1))))))))
+  (let ((heading-regexp "^[\\*]+\s\\(.*\\).*$"))
+    (goto-char (point-min))
+    (while (re-search-forward heading-regexp nil t)
+      (let ((heading (match-string 1)))
+        (progn (move-end-of-line nil)
+               (open-line 1)
+               (next-line 1)
+               (insert (format (concat "  :PROPERTIES:\n"
+                                       "  :CUSTOM_ID: %s\n"
+                                       "  :END:\n")
+                               (substring (toc-org-hrefify-gh
+                                           (replace-regexp-in-string
+                                            toc-org-tags-regexp
+                                            ""
+                                            heading))
+                                          ;; Remove # prefix added by
+                                          ;; `toc-org-hrefify-gh'.
+                                          1))))))))
 
 (defun spacemacs//reroot-links ()
   "Find the links that start with https://github.com/syl20bnr/spacemacs/blob/
@@ -193,7 +193,7 @@ preprocessors for the exported .org files."
             (spacemacs//reroot-links)
             (spacemacs//org-heading-annotate-custom-id)
             (apply origfunc args)
-            (not-modified)))
+            (set-buffer-modified-p nil)))
         ;; Restore `buffer-file-name' for the buffers that previously visited
         ;; the org files.
         (when visitingp (with-current-buffer visitingp
