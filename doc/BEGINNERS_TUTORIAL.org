@@ -268,9 +268,9 @@ and effective plain-text system", but this gives only a small inkling of its
 versatility. If you do any kind of writing at all, chances are that Org mode
 will make it easier and more fun. This tutorial was written in Org mode.
 
-Install the Org layer and open this tutorial. Make a copy named test.org with ~SPC f c~
-somewhere outside of the .emacs.d directory. Write ~SPC SPC org-mode RET~ to
-switch to org mode from the write-only documentation mode.
+Install the Org layer and open this tutorial. Make a copy named test.org with
+~SPC f c~ somewhere outside of the .emacs.d directory. Write
+~SPC SPC org-mode RET~ to switch to org mode from the write-only documentation mode.
 
 Press ~S-TAB~ repeatedly and observe that this cycles the visibility of the
 contents of different headlines. Press ~t~ in normal mode and observe that you
