@@ -116,7 +116,7 @@ Write commit messages according to adapted [[http://tbaggery.com/2008/04/19/a-no
 
 This is a model commit message:
 
-#+begin_EXAMPLE
+#+BEGIN_EXAMPLE
 Capitalized, short (72 chars or less) summary
 
 More detailed explanatory text, if necessary.  Wrap it to about 72
@@ -138,7 +138,7 @@ Further paragraphs come after blank lines.
       single space, with blank lines in between, but conventions vary here
 
     - Use a hanging indent
-#+end_EXAMPLE
+#+END_EXAMPLE
 
 [[https://github.com/magit/magit/][Git Commit]] and [[https://github.com/magit/magit/][Magit]] provide Emacs mode for Git commit messages, which helps you
 to comply to these guidelines.
