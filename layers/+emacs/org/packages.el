@@ -246,24 +246,18 @@ Will work on both org-mode and any mode that accepts plain html."
         "-" 'org-ctrl-c-minus
         "^" 'org-sort
         "/" 'org-sparse-tree
-
         "I" 'org-clock-in
+        ;; insertion
+        "ia" 'org-attach
+        "il" 'org-insert-link
+        "if" 'org-footnote-new
+        "ik" 'spacemacs/insert-keybinding-org
         "n" 'org-narrow-to-subtree
         "N" 'widen
         "O" 'org-clock-out
         "q" 'org-clock-cancel
         "R" 'org-refile
         "s" 'org-schedule
-        "v" 'space-doc-mode
-
-        ;; insertion of common elements
-        "ia" 'org-attach
-        "il" 'org-insert-link
-        "if" 'org-footnote-new
-        "ik" 'spacemacs/insert-keybinding-org
-
-        ;; images and other link types have no commands in org mode-line
-        ;; could be inserted using yasnippet?
         ;; region manipulation
         "xb" (spacemacs|org-emphasize spacemacs/org-bold ?*)
         "xc" (spacemacs|org-emphasize spacemacs/org-code ?~)
@@ -271,7 +265,8 @@ Will work on both org-mode and any mode that accepts plain html."
         "xr" (spacemacs|org-emphasize spacemacs/org-clear ? )
         "xs" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
         "xu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
-        "xv" (spacemacs|org-emphasize spacemacs/org-verbose ?=))
+        "xv" (spacemacs|org-emphasize spacemacs/org-verbose ?=)
+        "V" 'space-doc-mode)
 
       ;; Add global evil-leader mappings. Used to access org-agenda
       ;; functionalities – and a few others commands – from any other mode.
