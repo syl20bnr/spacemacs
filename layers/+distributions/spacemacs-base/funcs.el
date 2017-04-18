@@ -810,7 +810,6 @@ the right."
 (spacemacs|create-align-repeat-x "left-square-brace" "\\[")
 (spacemacs|create-align-repeat-x "right-square-brace" "\\]" t)
 (spacemacs|create-align-repeat-x "backslash" "\\\\")
-(spacemacs|create-align-repeat-x "brackets" "\\(\\s-*\\){" nil t)
 
 ;; END align functions
 
