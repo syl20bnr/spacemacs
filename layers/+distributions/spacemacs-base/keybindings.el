@@ -432,7 +432,6 @@
   "xa;" 'spacemacs/align-repeat-semicolon
   "xa=" 'spacemacs/align-repeat-equal
   "xa\\" 'spacemacs/align-repeat-backslash
-  "xa{" 'spacemacs/align-repeat-brackets
   "xaa" 'align
   "xac" 'align-current
   "xam" 'spacemacs/align-repeat-math-oper
