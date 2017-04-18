@@ -11,16 +11,21 @@ before_install:
  - if [ ! -z "$EVM_EMACS" ]; then evm install $EVM_EMACS --use --skip; fi
 
 env:
- - EVM_EMACS=emacs-24.4-travis
- - EVM_EMACS=emacs-24.5-travis
- - EVM_EMACS=emacs-25.1-travis
- - EVM_EMACS=emacs-git-snapshot-travis
+ - TESTS=core EVM_EMACS=emacs-24.4-travis
+ - TESTS=core EVM_EMACS=emacs-24.5-travis
+ - TESTS=core EVM_EMACS=emacs-25.1-travis
+ - TESTS=core EVM_EMACS=emacs-git-snapshot-travis
+ - TESTS=doc EVM_EMACS=emacs-24.4-travis
+ - TESTS=doc EVM_EMACS=emacs-24.5-travis
+ - TESTS=doc EVM_EMACS=emacs-25.1-travis
+ - TESTS=doc EVM_EMACS=emacs-git-snapshot-travis
  - FORMATTING=space-test
 
 matrix:
   fast_finish: true
   allow_failures:
-    - env: EVM_EMACS=emacs-git-snapshot-travis
+    - env: TESTS=core EVM_EMACS=emacs-git-snapshot-travis
+    - env: TESTS=doc EVM_EMACS=emacs-git-snapshot-travis
 
 script:
   - ./.travis-build.sh
