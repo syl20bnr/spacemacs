@@ -567,12 +567,12 @@ configuration at the beginning and end of Spacemacs loading process:
 *** Custom variables
 By default custom variables from =M-x customize-group= are automatically saved
 at the end of your =~/.spacemacs= file in the function
-=dotspacemacs/emacs-custom-settings== unless you declare a custom =custom-file=
+=dotspacemacs/emacs-custom-settings= unless you declare a custom =custom-file=
 in the =dotspacemacs/user-init= function, in this case custom variables will be
 written to the user defined =custom-file= and the function
 =dotspacemacs/emacs-custom-settings= will remain empty.
 
-*Note:* if you set a custom =custom-file= value then it is your responsibility
+*Note:* If you set a custom =custom-file= value then it is your responsibility
 to load this file at the appropriate time. Often the best time to load it is
 just after setting the value for =custom-file= in the =dotspacemacs/user-init=
 function.
@@ -587,12 +587,12 @@ layer=.
 For instance, [[Thank you][RMS]] can add his private configuration layer like this:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '(
-    ;; other layers
-    ;; rms layer added at the end of the list
-    rms
-  ))
+  (setq-default dotspacemacs-configuration-layers
+                '(
+                  ;; other layers
+                  ;; rms layer added at the end of the list
+                  rms
+                  ))
 #+END_SRC
 
 Official layers shipped with Spacemacs are stored in =~/.emacs.d/layers=. The
@@ -788,10 +788,10 @@ Default configuration is:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-editing-style '(hybrid :variables
-                                           hybrid-mode-enable-evilified-state t
-                                           hybrid-mode-enable-hjkl-bindings nil
-                                           hybrid-mode-use-evil-search-module nil
-                                           hybrid-mode-default-state 'normal)
+                                                  hybrid-mode-enable-evilified-state t
+                                                  hybrid-mode-enable-hjkl-bindings nil
+                                                  hybrid-mode-use-evil-search-module nil
+                                                  hybrid-mode-default-state 'normal)
 #+END_SRC
 
 To toggle the hybrid style on and off use ~SPC t E h~ and ~M-m t E h~. When
@@ -1008,12 +1008,12 @@ fetch =zenburn= theme directly from the GitHub repository with the following
 declaration:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-themes
-              '(spacemacs-light
-              leuven
-              (zenburn :location (recipe :fetcher github
-                                         :repo "bbatsov/zenburn-emacs"))
-              ))
+  (setq-default dotspacemacs-themes
+                '(spacemacs-light
+                  leuven
+                  (zenburn :location (recipe :fetcher github
+                                             :repo "bbatsov/zenburn-emacs"))
+                  ))
 #+END_SRC
 
 *Important note:* If you use =:location local= then you have to put your theme
@@ -1650,8 +1650,8 @@ Additional text objects are defined in Spacemacs:
 these is *guaranteed* to never conflict with Spacemacs default key bindings.
 
 *Example:* Put =(spacemacs/set-leader-keys "oc" 'org-capture)= inside
-=dotspacemacs/user-config= in your =~/.spacemacs= file, to be able to use ~SPC o
-c~ to run org mode capture.
+=dotspacemacs/user-config= in your =~/.spacemacs= file, to be able to use
+~SPC o c~ to run org mode capture.
 
 ** Completion
 Spacemacs is powered by one of two incremental completion and selection
@@ -2102,9 +2102,10 @@ the opened buffer and kill them.
 
 **** Special Buffers
 Unlike vim, emacs creates many buffers that most people do not need to see. Some
-examples are =*Messages*= and =*Compile-Log*=. Spacemacs tries to automatically
-ignore buffers that are not useful. However, you may want to change the way
-Spacemacs marks buffers as useful. For instructions, see the [[file:FAQ.org::#change-special-buffer-rules][special buffer howto]].
+examples are the =*Messages*= and =*Compile-Log*= buffers. Spacemacs tries to
+automatically ignore buffers that are not useful. However, you may want to
+change the way Spacemacs marks buffers as useful. For instructions, see the
+[[file:FAQ.org::#change-special-buffer-rules][special buffer howto]].
 
 **** Files manipulations key bindings
 Files manipulation commands (start with ~f~):
@@ -2247,8 +2248,8 @@ experience.
 
 **** Opening files with NeoTree
 By default a file is opened in the last active window. It is possible to choose
-window number where to open a file by using a numeric argument, for instance ~2
-l~ or ~2 RET~ will open the current file in window 2. It is also possible to
+window number where to open a file by using a numeric argument, for instance
+~2 l~ or ~2 RET~ will open the current file in window 2. It is also possible to
 open the file in a split window with ~|~ and ~-~:
 
 | Key Binding      | Description                               |
@@ -2400,12 +2401,12 @@ Spacemacs can be interfaced with different search utilities like:
   - grep
 
 The search commands in Spacemacs are organized under the ~SPC s~ prefix with the
-next key is the tool to use and the last key is the scope. For instance ~SPC s a
-b~ will search in all opened buffers using =ag=.
+next key is the tool to use and the last key is the scope. For instance
+~SPC s a b~ will search in all opened buffers using =ag=.
 
 If the last key (determining the scope) is uppercase then the current region or
-symbol under point is used as default input for the search. For instance ~SPC s
-a B~ will search with symbol under point (if there is no active region).
+symbol under point is used as default input for the search. For instance
+~SPC s a B~ will search with symbol under point (if there is no active region).
 
 If the tool key is omitted then a default tool will be automatically selected
 for the search. This tool corresponds to the first tool found on the system of
@@ -2891,8 +2892,8 @@ an ~occurrence~.
 -  manual selection of several words then replace: ~v w w SPC s e S "toto" ESC ESC~
 -  append text to a word on two lines: ~v i w SPC s e J i "toto" ESC ESC~
 -  substitute symbol /with expand-region/: ~SPC v v e S "toto" ESC ESC~
--  replace symbol with yanked (copied) text /with expand region/: ~SPC v
-   e p ESC ESC~
+-  replace symbol with yanked (copied) text /with expand region/:
+   ~SPC v e p ESC ESC~
 
 *** Replacing text in several files
 If you have =rg=, =ag=, =pt= or =ack= installed, replacing an occurrence of text

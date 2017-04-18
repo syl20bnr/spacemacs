@@ -156,10 +156,10 @@ conflict is to wrap your =org= config code in a =with-eval-after-load= block
 like this:
 
 #+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'org
-  ;; here goes your Org config :)
-  ;; ....
-  )
+  (with-eval-after-load 'org
+    ;; Org config goes here
+    ;; ....
+    )
 #+END_SRC
 
 ** Why is Spacemacs hanging on startup?
@@ -418,11 +418,11 @@ For instance, if you want to switch ~SPC S~ (spelling) with ~SPC d~ (used by
 dash) to make the former easier to reach, you can use:
 
 #+BEGIN_SRC emacs-lisp
-(defun dear-leader/swap-keys (key1 key2)
-  (let ((map1 (lookup-key spacemacs-default-map key1))
-        (map2 (lookup-key spacemacs-default-map key2)))
-    (spacemacs/set-leader-keys key1 map2 key2 map1)))
-(dear-leader/swap-keys "S" "d")
+  (defun dear-leader/swap-keys (key1 key2)
+    (let ((map1 (lookup-key spacemacs-default-map key1))
+          (map2 (lookup-key spacemacs-default-map key2)))
+      (spacemacs/set-leader-keys key1 map2 key2 map1)))
+  (dear-leader/swap-keys "S" "d")
 #+END_SRC
 
 If you want to define your own alias, like using ~SPC é~ (because it's a not
