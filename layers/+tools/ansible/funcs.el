@@ -25,7 +25,3 @@
 (defun spacemacs/ansible-doc-maybe-enable ()
   (when (spacemacs//ansible-should-enable?)
     (ansible-doc-mode 1)))
-
-(defun spacemacs//ansible-reset-buffer-modified ()
-  "Force the modified buffer flag to nil."
-  (set-buffer-modified-p nil))
