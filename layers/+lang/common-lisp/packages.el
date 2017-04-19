@@ -47,7 +47,8 @@
                              slime-fancy
                              slime-indentation
                              slime-sbcl-exts
-                             slime-scratch)
+                             slime-scratch
+                             slime-company)
             inferior-lisp-program "sbcl")
       (when (configuration-layer/package-usedp 'slime-company)
         (push 'slime-company slime-contribs))
