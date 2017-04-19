@@ -271,7 +271,7 @@ If the mode-line turns red then be sure to consult the [FAQ][FAQ.org].
 ## Alternate installations
 
 It may be useful to clone Spacemacs outside Emacs dotdirectory `~/.emacs.d` so
-you can try Spacemacs without replacing completely our own configuration.
+you can try Spacemacs without replacing completely your own configuration.
 There is currently two possibilities to support alternative location for
 Spacemacs configuration.
 
