@@ -59,7 +59,8 @@ A COUNT argument matches the indentation to the next COUNT lines."
 ;; from Prelude
 ;; TODO: dispatch these in the layers
 (defvar spacemacs-indent-sensitive-modes
-  '(coffee-mode
+  '(asm-mode
+    coffee-mode
     elm-mode
     haml-mode
     haskell-mode
@@ -491,11 +492,45 @@ If the universal prefix argument is used then will the windows too."
   (ediff-files (dotspacemacs/location)
                (concat dotspacemacs-template-directory ".spacemacs.template")))
 
-(defun spacemacs/new-empty-buffer ()
-  "Create a new buffer called untitled(<n>)"
+(defun spacemacs/new-empty-buffer (&optional split)
+  "Create a new buffer called untitled(<n>).
+A SPLIT argument with the value: `left',
+`below', `above' or `right', opens the new
+buffer in a split window."
   (interactive)
   (let ((newbuf (generate-new-buffer-name "untitled")))
-    (switch-to-buffer newbuf)))
+    (case split
+      ('left  (split-window-horizontally))
+      ('below (spacemacs/split-window-vertically-and-switch))
+      ('above (split-window-vertically))
+      ('right (spacemacs/split-window-horizontally-and-switch)))
+    ;; pass non-nil force-same-window to prevent `switch-to-buffer' from
+    ;; displaying buffer in another window
+    (switch-to-buffer newbuf nil 'force-same-window)))
+
+(defun spacemacs/new-empty-buffer-left ()
+  "Create a new buffer called untitled(<n>),
+in a split window to the left."
+  (interactive)
+  (spacemacs/new-empty-buffer 'left))
+
+(defun spacemacs/new-empty-buffer-below ()
+  "Create a new buffer called untitled(<n>),
+in a split window below."
+  (interactive)
+  (spacemacs/new-empty-buffer 'below))
+
+(defun spacemacs/new-empty-buffer-above ()
+  "Create a new buffer called untitled(<n>),
+in a split window above."
+  (interactive)
+  (spacemacs/new-empty-buffer 'above))
+
+(defun spacemacs/new-empty-buffer-right ()
+  "Create a new buffer called untitled(<n>),
+in a split window to the right."
+  (interactive)
+  (spacemacs/new-empty-buffer 'right))
 
 ;; from https://gist.github.com/timcharper/493269
 (defun spacemacs/split-window-vertically-and-switch ()
@@ -772,6 +807,10 @@ the right."
 (spacemacs|create-align-repeat-x "bar" "|")
 (spacemacs|create-align-repeat-x "left-paren" "(")
 (spacemacs|create-align-repeat-x "right-paren" ")" t)
+(spacemacs|create-align-repeat-x "left-curly-brace" "{")
+(spacemacs|create-align-repeat-x "right-curly-brace" "}" t)
+(spacemacs|create-align-repeat-x "left-square-brace" "\\[")
+(spacemacs|create-align-repeat-x "right-square-brace" "\\]" t)
 (spacemacs|create-align-repeat-x "backslash" "\\\\")
 
 ;; END align functions
@@ -841,16 +880,24 @@ A non-nil argument sorts in reverse order."
   (spacemacs/sort-lines -1))
 
 (defun spacemacs/sort-lines-by-column (&optional reverse)
-  "Sort lines by the selected column.
-A non-nil argument sorts in reverse order."
+  "Sort lines by the selected column,
+using a visual block/rectangle selection.
+A non-nil argument sorts in REVERSE order."
   (interactive "P")
-  (let* ((region-active (or (region-active-p) (evil-visual-state-p)))
-         (beg (if region-active (region-beginning) (point-min)))
-         (end (if region-active (region-end) (point-max))))
-    (sort-columns reverse beg end)))
+  (if (and
+       ;; is there an active selection
+       (or (region-active-p) (evil-visual-state-p))
+       ;; is it a block or rectangle selection
+       (or (eq evil-visual-selection 'block) (eq rectangle-mark-mode t))
+       ;; is the selection height 2 or more lines
+       (>= (1+ (- (line-number-at-pos (region-end))
+                  (line-number-at-pos (region-beginning)))) 2))
+      (sort-columns reverse (region-beginning) (region-end))
+    (error "Sorting by column requires a block/rect selection on 2 or more lines.")))
 
 (defun spacemacs/sort-lines-by-column-reverse ()
-  "Sort lines by the selected column in reverse order."
+"Sort lines by the selected column in reverse order,
+using a visual block/rectangle selection."
   (interactive)
   (spacemacs/sort-lines-by-column -1))
 

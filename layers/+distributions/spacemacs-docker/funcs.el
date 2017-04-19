@@ -11,8 +11,8 @@
 
 (defun spacemacs-docker//dump-layers-data ()
   "Save used layers and their configurations to
-the `spacemacs-docker--default-dump-layer-data-file-path' file"
-  (with-temp-file docker-spacemacs--default-dump-layer-data-file-path
+the `spacemacs-docker-dump-layer-data-fp' file"
+  (with-temp-file spacemacs-docker-dump-layer-data-fp
     (let ((used-layers (mapcar (lambda (el)
                                  (or (car-safe el)
                                      el))
@@ -35,17 +35,10 @@ the `spacemacs-docker--default-dump-layer-data-file-path' file"
                              (string-prefix-p
                               (configuration-layer/get-layer-path layer)
                               fp))
-                        (string-match-p (regexp-quote "docker-spacemacs-")
+                        (string-match-p (regexp-quote "spacemacs-docker")
                                         name))
                 (insert (format "%-28s(%s . %s)\n"
                                 ""
                                 name
                                 (symbol-value symbol))))))))
       (insert "))\n\n"))))
-
-(defun spacemacs-docker//test-dotfile ()
-  "Run `dotspacemacs/test-dotfile' and `kill-emacs' with
-the code 1 if tests failed."
-  (unless (dotspacemacs/test-dotfile)
-    (message "dotspacemacs/test-dotfile FAILED")
-    (kill-emacs 1)))

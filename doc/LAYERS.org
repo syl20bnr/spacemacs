@@ -21,7 +21,7 @@
  - [[#case-study-auto-completion][Case study: auto-completion]]
  - [[#layer-tips-and-tricks][Layer tips and tricks]]
    - [[#cross-dependencies][Cross-dependencies]]
-   - [[#use-package-1][Use-package]]
+   - [[#use-package-init-and-config][Use-package init and config]]
    - [[#use-package-hooks][Use-package hooks]]
    - [[#best-practices][Best practices]]
      - [[#package-ownership][Package ownership]]
@@ -128,8 +128,8 @@ simply push to this list, e.g.
 Calling =require= is nothing more than a glorified way of calling =load-file=.
 It solves the problem of ensuring that files are loaded in the correct order,
 and to some degree it solved the problem of where to find the files on disk but
-a long list of calls to =require= at startup would still cause Emacs to take for
-ever to load.
+a long list of calls to =require= at startup would still cause Emacs to take
+forever to load.
 
 Emacs uses auto-loading to solve this problem. When a function is registered as
 auto-loading, an "empty" definition is provided. When that function is called,
@@ -273,9 +273,6 @@ Use-package supports heaps of useful keywords. Look at the [[https://github.com/
 more.
 
 * Anatomy of a layer
-:PROPERTIES:
-:CUSTOM_ID: anatomy-of-a-layer
-:END:
 A layer is simply a folder somewhere in Spacemacs' layer search path that
 usually contains these files (listed in loading order).
 
@@ -362,7 +359,7 @@ discuss later.
 ** funcs.el
 It contains all the defined functions used in the layer.
 
-This file is loaded after  =packages.el= and before =config.el=.
+This file is loaded after =packages.el= and before =config.el=.
 
 It is good practice to guard the definition of functions to make sure a package
 is actually used. For instance:
@@ -373,12 +370,12 @@ is actually used. For instance:
   (defun spacemacs/my-package-disable () ...))
 #+end_src
 
-By guarding these functions we avoid to define them in case the package
-`my-package` is not used.
+By guarding these functions we avoid defining them when the package =my-package=
+is not used.
 
 ** config.el
-This file configure the layer like declaring layer variables default values
-and setup some other variables related to the layer.
+This file configures the layer by declaring layer variables' default values and
+setting up some other variables related to the layer.
 
 This file is loaded after =funcs.el=.
 
@@ -480,7 +477,7 @@ For layers that require another layers to be enabled, use the functions
 ensure that layers are enabled even if the user has not enabled them explicitly.
 Calls to these functions must go in the =layers.el= file.
 
-** Use-package
+** Use-package init and config
 In the vast majority of cases, a package =init= function should do nothing but
 call to =use-package=. Again, in the vast majority of cases, all the
 configuration you need to do should be doable within the =:init= or =:config=
@@ -499,9 +496,6 @@ hooks, if the package should be loaded upon some event. It is not unusual to
 have both!
 
 ** Use-package hooks
-:PROPERTIES:
-:CUSTOM_ID: use-package-hooks
-:END:
 Spacemacs includes a macro for adding more code to the =:init= or =:config=
 blocks of a call to =use-package=, after the fact. This is useful for =pre-init=
 or =post-init= functions to "inject" code into the =use-package= call of the
@@ -573,4 +567,3 @@ missing appropriate auto-loads.
 *** Auto-load everything
 Defer everything. You should have a very good reason not to defer the loading
 of a package.
-

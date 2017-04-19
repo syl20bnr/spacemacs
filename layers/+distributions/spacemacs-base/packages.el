@@ -56,6 +56,7 @@
         (visual-line-mode :location built-in)
         (whitespace :location built-in)
         (winner :location built-in)
+        (zone :location built-in)
         ))
 
 ;; Initialization of packages
@@ -343,7 +344,6 @@
         "pd" 'projectile-find-dir
         "pf" 'projectile-find-file
         "pF" 'projectile-find-file-dwim
-        "ph" 'helm-projectile
         "pr" 'projectile-recentf
         "pp" 'projectile-switch-project
         "pv" 'projectile-vc)
@@ -537,5 +537,34 @@
       (setq winner-boring-buffers
             (append winner-boring-buffers spacemacs/winner-boring-buffers))
       (winner-mode t))))
+
+(defun spacemacs-base/init-zone ()
+  (require 'zone)
+  (when (and dotspacemacs-zone-out-when-idle
+             (numberp dotspacemacs-zone-out-when-idle))
+    (zone-when-idle dotspacemacs-zone-out-when-idle))
+  ;; remove not interesting programs
+  (setq zone-programs [
+                       ;; zone-pgm-jitter
+                       zone-pgm-putz-with-case
+                       zone-pgm-dissolve
+                       ;; zone-pgm-explode
+                       zone-pgm-whack-chars
+                       zone-pgm-rotate
+                       zone-pgm-rotate-LR-lockstep
+                       zone-pgm-rotate-RL-lockstep
+                       zone-pgm-rotate-LR-variable
+                       zone-pgm-rotate-RL-variable
+                       zone-pgm-drip
+                       ;; zone-pgm-drip-fretfully
+                       ;; zone-pgm-five-oclock-swan-dive
+                       ;; zone-pgm-martini-swan-dive
+                       zone-pgm-rat-race
+                       zone-pgm-paragraph-spaz
+                       ;; zone-pgm-stress
+                       ;; zone-pgm-stress-destress
+                       ;; zone-pgm-random-life
+                       ])
+  (spacemacs/set-leader-keys "TZ" 'zone))
 
 (defun spacemacs-base/init-centered-buffer-mode ())

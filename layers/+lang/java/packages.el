@@ -349,7 +349,7 @@
     :config
     (progn
       ;; key bindings
-      (dolist (prefix '(("mc" . "comppile")
+      (dolist (prefix '(("mc" . "compile")
                         ("mD" . "daemon")
                         ("mg" . "goto")
                         ("mr" . "refactor")

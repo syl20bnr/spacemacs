@@ -22,9 +22,14 @@
         go-eldoc
         go-mode
         go-guru
-        (go-rename :location local)
+        go-rename
+        popwin
         ))
 
+
+(defun go/post-init-popwin ()
+  (push (cons go-test-buffer-name '(:dedicated t :position bottom :stick t :noselect t :height 0.4))
+        popwin:special-display-config))
 
 (defun go/init-company-go ()
   (use-package company-go
@@ -60,8 +65,7 @@
 
       (defun spacemacs/go-run-tests (args)
         (interactive)
-        (save-selected-window
-          (async-shell-command (concat "go test " args))))
+        (compilation-start (concat "go test " args) nil (lambda (n) go-test-buffer-name) nil))
 
       (defun spacemacs/go-run-package-tests ()
         (interactive)
@@ -79,7 +83,7 @@
                                  "-run")))
               (save-excursion
                   (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?[[:alnum:]]+)[ ]+\\)?\\(Test[[:alnum:]_]+\\)(.*)")
-                  (spacemacs/go-run-tests (concat test-method "='" (match-string-no-properties 2) "'"))))
+                  (spacemacs/go-run-tests (concat test-method "='" (match-string-no-properties 2) "$'"))))
           (message "Must be in a _test.go file to run go-run-test-current-function")))
 
       (defun spacemacs/go-run-test-current-suite ()
@@ -96,7 +100,7 @@
         (interactive)
         (shell-command
           (format "go run %s"
-                  (shell-quote-argument (buffer-file-name)))))
+                  (shell-quote-argument (buffer-file-name (buffer-base-buffer))))))
 
       (spacemacs/declare-prefix-for-mode 'go-mode "me" "playground")
       (spacemacs/declare-prefix-for-mode 'go-mode "mg" "goto")

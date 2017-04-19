@@ -1,0 +1,34 @@
+#+TITLE: spacemacs-docker layers dependency installation scripts
+
+* Table of Contents                 :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#supported-layers][Supported layers]]
+ - [[#how-it-works][How it works]]
+
+* Description
+Dependency installation scripts for Spacemacs layers
+in Docker environment.
+* Supported layers
+1. [[./installers/clojure/README.org][Clojure]]
+2. [[./installers/dash/README.org][Dash]]
+3. [[./installers/fasd/README.org][fasd]]
+4. [[./installers/go/README.org][Go]]
+5. [[./installers/gtags/README.org][gtags]]
+6. [[./installers/html/README.org][html]]
+7. [[./installers/javascript/README.org][JavaScript]]
+8. [[./installers/pandoc/README.org][pandoc]]
+9. [[./installers/pdf-tools/README.org][pdf-tools]]
+10. [[./installers/spell-checking/README.org][spell-checking]]
+10. [[./installers/python/README.org][python]]
+
+* How it works
+When .spacemacs file contains one of supported layers and its installation
+isn't disabled, it will be used to satisfy the layer's requirements, taking
+into account its configurations. For example, [[https://github.com/alecthomas/gometalinter][gometalinter]] will be installed
+only if the variable =go-use-gometalinter= is =t=.
+Set  =<LAYER_NAME>-spacemacs-docker-disable-deps-install= to =t=
+if you want to disable dependency installation for the =<LAYER_NAME>= layer.
+Example:
+#+BEGIN_SRC emacs-lisp
+  (pandoc :variables pandoc-spacemacs-docker-disable-deps-install t)
+#+END_SRC

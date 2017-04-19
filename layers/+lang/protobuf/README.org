@@ -1,0 +1,22 @@
+#+TITLE: Protocol Buffers layer
+
+[[file:img/protobuf.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#install][Install]]
+
+* Description
+Highlighting and syntax checking for [[https://developers.google.com/protocol-buffers/][Protocol Buffer]] files.
+
+* Features
+- Syntax highlighting
+- Syntax checking using Flycheck (=protoc= compiler must be available)
+- Correct indentation and commenting
+- Quickly browse file contents using imenu (default key binding ~SPC j i~).
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =protobuf= to the existing =dotspacemacs-configuration-layers= list in this
+file.

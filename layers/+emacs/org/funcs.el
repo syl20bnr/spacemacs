@@ -9,6 +9,9 @@
 ;;
 ;;; License: GPLv3
 
+;; Autoload space-doc-mode
+(autoload 'space-doc-mode "space-doc" nil 'interactive)
+
 (defun org-projectile/capture (&optional arg)
   (interactive "P")
   (if arg

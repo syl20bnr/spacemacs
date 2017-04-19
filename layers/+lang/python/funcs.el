@@ -75,8 +75,9 @@
              (version
               (with-temp-buffer
                 (insert-file-contents-literally file-path)
-                (buffer-substring-no-properties (line-beginning-position)
-                                                (line-end-position)))))
+                (nth 0 (split-string (buffer-substring-no-properties
+                                       (line-beginning-position)
+                                       (line-end-position)))))))
         (if (member version (pyenv-mode-versions))
             (pyenv-mode-set version)
           (message "pyenv: version `%s' is not installed (set by %s)"

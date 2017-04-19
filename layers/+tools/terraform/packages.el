@@ -13,4 +13,6 @@
 
 (defun terraform/init-terraform-mode ()
   (use-package terraform-mode
-    :defer t))
+    :defer t
+    :config (when terraform-auto-format-on-save
+              (add-hook 'terraform-mode-hook 'terraform-format-on-save-mode))))

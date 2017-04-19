@@ -17,6 +17,7 @@
     ggtags
     helm-gtags
     omnisharp
+    flycheck
     ))
 
 (defun csharp/init-omnisharp ()
@@ -104,6 +105,9 @@
                '((evilmi-simple-get-tag evilmi-simple-jump)
                  (evilmi-c-get-tag evilmi-c-jump))))
   (add-hook 'csharp-mode-hook 'turn-on-evil-matchit-mode))
+
+(defun csharp/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'csharp-mode))
 
 (defun csharp/post-init-ggtags ()
   (add-hook 'csharp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

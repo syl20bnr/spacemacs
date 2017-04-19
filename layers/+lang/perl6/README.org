@@ -1,0 +1,43 @@
+#+TITLE: perl6 layer
+
+[[file:img/camelia-logo.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#jump-to-definition][Jump to definition]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer provides the following features for the [[https://perl6.org/][Perl 6 Programming Language]]:
+- Jump to definition & Code completion via [[https://github.com/universal-ctags/ctags][ctags-universal]]
+- Syntax checking via [[https://github.com/hinrik/flycheck-perl6][flycheck-perl6]] and =perl6 -c=
+- Syntax highlighting & Syntax indentation via [[https://github.com/hinrik/perl6-mode][perl6-mode]]
+- =META6.json= highlighting via [[https://github.com/joshwnj/json-mode][json-mode]]
+- Provides Evil text objects for:
+  - double-angle-brackets
+  - corner-brackets
+  - single-quotation-marks
+  - double-quotation-marks
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =perl6= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+** Jump to definition
+Jump to definition requires [[https://github.com/universal-ctags/ctags][ctags-universal]] to be be installed.
+Then you can generate the =TAGS= file for your projects like this:
+
+#+BEGIN_SRC shell
+ctags -e -Ra lib t/
+ctags -e -Ra --language-force=Perl6 bin/ $YOUR_PERL_PATH/share/perl6/site/sources/
+#+END_SRC
+
+* Key bindings
+
+| Key Binding | Description                                    |
+|-------------+------------------------------------------------|
+| ~SPC m g g~ | Jump to definition (requires =ctags-universal= |

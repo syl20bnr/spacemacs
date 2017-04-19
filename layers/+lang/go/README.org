@@ -55,7 +55,7 @@ For more information read [[https://github.com/alecthomas/gometalinter/blob/mast
 and [[https://github.com/favadi/flycheck-gometalinter/blob/master/README.md][flycheck-gometalinter README.md]]
 
 Make sure that =gocode= executable is in your PATH. For information about
-setting up =$PATH=, check out the corresponding section in the FAQ (~SPC h SPC
+setting up =$PATH=, check out the corresponding section in the FAQ (~SPC h f
 $PATH RET~).
 
 For best results, make sure that the =auto-completion= and =syntax-checking=
@@ -97,6 +97,10 @@ function testing to work.
 =go-coverage-display-buffer-func= controls how =go-coverage= should display
 the coverage buffer. See [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html][=display-buffer=]] for a list of possible functions.
 The default value is =display-buffer-reuse-window=.
+
+Tests are run in a compilation buffer displayed in a popup window that can be
+closed by pressing ~C-g~ from any other window. The variable
+=go-test-buffer-name= can be customized to set the output buffer name.
 
 ** Guru
 

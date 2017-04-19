@@ -211,6 +211,12 @@ You can tweak the bullets displayed in the org buffer in the function
   (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
 #+END_SRC
 
+You can disable the fancy bullets entirely by adding =org-bullets= to =dotspacemacs-excluded-packages=.
+
+#+BEGIN_SRC emacs-lisp
+  (dotspacemacs-excluded-packages '(org-bullets))
+#+END_SRC
+
 ** Project support
 Set the layer variable =org-projectile-file= to the filename where you want to
 store project-specific TODOs. If this is an absolute path, all todos will be
@@ -264,45 +270,46 @@ To permanently enable mode line display of org clock, add this snippet to your
 
 ** Org with evil-org-mode
 
-| Key Binding                                  | Description                                  |
-|----------------------------------------------+----------------------------------------------|
-| ~SPC m <dotspacemacs-major-mode-leader-key>~ | org-ctrl-c-ctrl-c                            |
-| ~SPC m *~                                    | org-ctrl-c-star                              |
-| ~SPC m RET~                                  | org-ctrl-c-ret                               |
-| ~SPC m -~                                    | org-ctrl-c-minus                             |
-| ~SPC m '​~                                    | org-edit-special                             |
-| ~SPC m ^~                                    | org-sort                                     |
-| ~SPC m /~                                    | org-sparse-tree                              |
-| ~SPC m .~                                    | org-time-stamp                               |
-| ~SPC m !~                                    | org-time-stamp-inactive                      |
-| ~SPC m a~                                    | org-agenda                                   |
-| ~SPC m b~                                    | org-tree-to-indirect-buffer                  |
-| ~SPC m A~                                    | org-archive-subtree                          |
-| ~SPC m c~                                    | org-capture                                  |
-| ~SPC m C~                                    | evil-org-recompute-clocks                    |
-| ~SPC m d~                                    | org-deadline                                 |
-| ~SPC m D~                                    | org-insert-drawer                            |
-| ~SPC m e e~                                  | org-export-dispatch                          |
-| ~SPC m f~                                    | org-set-effort                               |
-| ~SPC m I~                                    | org-clock-in                                 |
-| ~SPC m l~                                    | org-open-at-point                            |
-| ~SPC m n~                                    | org-narrow-to-subtree                        |
-| ~SPC m N~                                    | widen                                        |
-| ~SPC m O~                                    | org-clock-out                                |
-| ~SPC m P~                                    | org-set-property                             |
-| ~SPC m q~                                    | org-clock-cancel                             |
-| ~SPC m R~                                    | org-refile                                   |
-| ~SPC m s~                                    | org-schedule                                 |
-| ~SPC m T~                                    | org-show-todo-tree                           |
-| ~SPC m L~                                    | org-shiftright                               |
-| ~SPC m H~                                    | org-shiftleft                                |
-| ~SPC m K~                                    | org-shiftup                                  |
-| ~SPC m J~                                    | org-shiftdown                                |
-| ~SPC m C-S-l~                                | org-shiftcontrolright                        |
-| ~SPC m C-S-h~                                | org-shiftcontrolleft                         |
-| ~SPC m C-S-j~                                | org-shiftcontroldown                         |
-| ~SPC m C-S-k~                                | org-shiftcontrolup                           |
-| ~SPC s j~                                    | spacemacs/jump-in-buffer (jump to a heading) |
+| Key Binding                                  | Description                                   |
+|----------------------------------------------+-----------------------------------------------|
+| ~SPC m <dotspacemacs-major-mode-leader-key>~ | org-ctrl-c-ctrl-c                             |
+| ~SPC m *~                                    | org-ctrl-c-star                               |
+| ~SPC m RET~                                  | org-ctrl-c-ret                                |
+| ~SPC m -~                                    | org-ctrl-c-minus                              |
+| ~SPC m '​~                                    | org-edit-special                              |
+| ~SPC m ^~                                    | org-sort                                      |
+| ~SPC m /~                                    | org-sparse-tree                               |
+| ~SPC m .~                                    | org-time-stamp                                |
+| ~SPC m !~                                    | org-time-stamp-inactive                       |
+| ~SPC m a~                                    | org-agenda                                    |
+| ~SPC m b~                                    | org-tree-to-indirect-buffer                   |
+| ~SPC m A~                                    | org-archive-subtree                           |
+| ~SPC m c~                                    | org-capture                                   |
+| ~SPC m C~                                    | evil-org-recompute-clocks                     |
+| ~SPC m d~                                    | org-deadline                                  |
+| ~SPC m D~                                    | org-insert-drawer                             |
+| ~SPC m e e~                                  | org-export-dispatch                           |
+| ~SPC m f~                                    | org-set-effort                                |
+| ~SPC m I~                                    | org-clock-in                                  |
+| ~SPC m l~                                    | org-open-at-point                             |
+| ~SPC m n~                                    | org-narrow-to-subtree                         |
+| ~SPC m N~                                    | widen                                         |
+| ~SPC m O~                                    | org-clock-out                                 |
+| ~SPC m P~                                    | org-set-property                              |
+| ~SPC m q~                                    | org-clock-cancel                              |
+| ~SPC m R~                                    | org-refile                                    |
+| ~SPC m s~                                    | org-schedule                                  |
+| ~SPC m T~                                    | org-show-todo-tree                            |
+| ~SPC m L~                                    | org-shiftright                                |
+| ~SPC m H~                                    | org-shiftleft                                 |
+| ~SPC m K~                                    | org-shiftup                                   |
+| ~SPC m J~                                    | org-shiftdown                                 |
+| ~SPC m C-S-l~                                | org-shiftcontrolright                         |
+| ~SPC m C-S-h~                                | org-shiftcontrolleft                          |
+| ~SPC m C-S-j~                                | org-shiftcontroldown                          |
+| ~SPC m C-S-k~                                | org-shiftcontrolup                            |
+| ~SPC m V~                                    | toggle =space-doc-mode= a read-only view mode |
+| ~SPC s j~                                    | spacemacs/jump-in-buffer (jump to a heading)  |
 
 *** Tables
 
