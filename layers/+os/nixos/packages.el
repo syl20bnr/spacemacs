@@ -1,6 +1,7 @@
 (setq nixos-packages
       '(
         company
+        flycheck
         (company-nixos-options :toggle
                                (configuration-layer/package-usedp 'company))
         (helm-nixos-options :toggle (configuration-layer/package-usedp 'helm))
@@ -32,3 +33,6 @@
 
 (defun nixos/init-nixos-options ()
   (use-package nixos-options))
+
+(defun nixos/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'nix-mode))
