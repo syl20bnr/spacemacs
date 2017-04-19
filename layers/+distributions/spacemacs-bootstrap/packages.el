@@ -210,11 +210,6 @@
     ("P" evil-paste-before)
     ("0" spacemacs//transient-state-0))
 
-  (when dotspacemacs-enable-paste-transient-state
-    (define-key evil-normal-state-map
-      "p" 'spacemacs/paste-transient-state/evil-paste-after)
-    (define-key evil-normal-state-map
-      "P" 'spacemacs/paste-transient-state/evil-paste-before))
   ;; fold transient state
   (when (eq 'evil dotspacemacs-folding-method)
     (spacemacs|define-transient-state fold
