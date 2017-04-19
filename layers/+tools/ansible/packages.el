@@ -23,7 +23,7 @@
     (progn
       (add-hook 'yaml-mode-hook 'spacemacs/ansible-maybe-enable)
       (put 'ansible::vault-password-file 'safe-local-variable #'stringp)
-      (if ansible-auto-encrypt-descrypt
+      (if ansible-auto-encrypt-decrypt
           ;; add this hook to local-vars-hook to allow users to specify
           ;; a password file in directory local variables
           (add-hook 'yaml-mode-local-vars-hook 'ansible::auto-decrypt-encrypt)
