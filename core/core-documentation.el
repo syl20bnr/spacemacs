@@ -121,18 +121,19 @@ compatible."
   (let ((heading-regexp "^[\\*]+\s\\(.*\\).*$"))
     (goto-char (point-min))
     (while (re-search-forward heading-regexp nil t)
-      (let ((heading (match-string 1)))
-        (insert (format (concat "\n:PROPERTIES:\n"
-                                ":CUSTOM_ID: %s\n"
-                                ":END:\n")
-                        (substring (toc-org-hrefify-gh
-                                    (replace-regexp-in-string
-                                     toc-org-tags-regexp
-                                     ""
-                                     heading))
-                                   ;; Remove # prefix added by
-                                   ;; `toc-org-hrefify-gh'.
-                                   1)))))))
+      (unless (looking-at-p ".*\n\s*:PROPERTIES:")
+        (let ((heading (match-string 1)))
+          (insert (format (concat "\n:PROPERTIES:\n"
+                                  ":CUSTOM_ID: %s\n"
+                                  ":END:\n")
+                          (substring (toc-org-hrefify-gh
+                                      (replace-regexp-in-string
+                                       toc-org-tags-regexp
+                                       ""
+                                       heading))
+                                     ;; Remove # prefix added by
+                                     ;; `toc-org-hrefify-gh'.
+                                     1))))))))
 
 (defun spacemacs//reroot-links ()
   "Find the links that start with https://github.com/syl20bnr/spacemacs/blob/
