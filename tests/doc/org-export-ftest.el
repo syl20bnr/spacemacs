@@ -58,7 +58,10 @@
 ;; Currently checks whether all org documentation files can be converted to html
 ;; ---------------------------------------------------------------------------
 (ert-deftest test-spacemacs-html-export ()
-  (spacemacs/publish-doc)
+  (unwind-protect (spacemacs/publish-doc)
+    (delete-directory (concat spacemacs-start-directory
+                              "export/")
+                      t))
   ;; Activate this to check all external links, beware don't try this on travis bandwith limits will prevent this from finishing
   ;;
   ;; (let ((allFiles (directory-files-recursive_ForOldEmacs (concat spacemacs-start-directory "export/") "\\.html" 9999 "NeverIgnore")))
