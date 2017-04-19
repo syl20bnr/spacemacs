@@ -27,11 +27,7 @@
         (remove-hook 'ansible-hook 'ansible::auto-decrypt-encrypt))
       (spacemacs/set-leader-keys-for-minor-mode 'ansible
         "bd" 'ansible::decrypt-buffer
-        "be" 'ansible::encrypt-buffer))
-    :config
-    ;; TODO to remove when fixed upstream
-    (advice-add 'ansible::decrypt-buffer
-                :after 'spacemacs//ansible-reset-buffer-modified)))
+        "be" 'ansible::encrypt-buffer))))
 
 (defun ansible/init-ansible-doc ()
   (use-package ansible-doc
