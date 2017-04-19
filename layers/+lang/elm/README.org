@@ -204,6 +204,7 @@ cycle through the list (note that hitting any other key will cancel the cycle).
 |-------------+--------------------------|
 | ~SPC m h h~ | elm-oracle-doc-at-point  |
 | ~SPC m h t~ | elm-oracle-type-at-point |
+| ~SPC m h d~ | elm-oracle-doc-at-point  |
 
 ** elm-format
 

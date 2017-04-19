@@ -60,6 +60,7 @@
         ;; oracle
         "hh" 'elm-oracle-doc-at-point
         "ht" 'elm-oracle-type-at-point
+        "hd" 'elm-oracle-doc-at-point
         ;; refactoring
         "ri" 'elm-sort-imports
         ;; repl
