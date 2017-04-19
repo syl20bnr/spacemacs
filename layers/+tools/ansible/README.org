@@ -32,6 +32,18 @@ For instance:
 
 The default value is the ansible-vault default value: =~/.vault_pass.txt=.
 
+For now Ansible does not handle multiple passwords in the vault file
+(see https://github.com/ansible/ansible/issues/13243). To work around this
+limitation directory local variables can be used to define a different
+password file for a given environment. Example:
+
+#+BEGIN_SRC emacs-lisp
+;;; Directory Local Variables
+;;; For more information see (info "(emacs) Directory Variables")
+
+((yaml-mode . ((ansible::vault-password-file . "path/to/vault_file"))))
+#+END_SRC
+
 *** Automatic encryption and descryption
 This layer comes preconfigured with automatic encryption/decryption of
 encrypted files using =ansible-vault= so it is possible to edit seamlessly
