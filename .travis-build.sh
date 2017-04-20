@@ -19,6 +19,7 @@ if [ $USER != "travis" ]; then
     exit 1
 fi
 
+# Make sure that PR doesn't target master branch
 if  [ $TRAVIS_SECURE_ENV_VARS = false ] &&
         [ $TRAVIS_PULL_REQUEST != false ] &&
         [ $TRAVIS_BRANCH = "master" ]; then
@@ -30,22 +31,50 @@ if  [ $TRAVIS_SECURE_ENV_VARS = false ] &&
     echo   "https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org"
     exit 1
 fi
-
-if [ "${FORMATTING}" = "space-test" ]; then
+# Formatting conventions tests
+if [ ! -z "$FORMATTING" ]; then
 	cd "${TRAVIS_BUILD_DIR}"
-	echo "Testing for trailing and all sorts of broken white spaces"
 	echo "TRAVIS_COMMIT_RANGE: ${TRAVIS_COMMIT_RANGE}"
 	first_commit=`echo ${TRAVIS_COMMIT_RANGE} | sed -r 's/\..*//'`
-	git reset -q "${first_commit}"
-	git diff --check --color > space_test_result
-	if [[ -s space_test_result ]]; then
-		cat space_test_result
-		exit 1
-	fi
-	echo "No bad spaces detected"
-	exit 0
+	git diff --name-only "${first_commit}" HEAD > /tmp/changed_files
+	case "${FORMATTING}" in
+		space-test)
+			echo "Testing for trailing and all sorts of broken white spaces"
+			git reset -q "${first_commit}"
+			git diff --check --color > space_test_result
+			if [[ -s space_test_result ]]; then
+				cat space_test_result
+				exit 1
+			fi
+			echo "No bad spaces detected"
+			exit 0
+		;;
+		spacefmt)
+			echo "Testing changed files with spacefmt"
+			rm -rf ~/.emacs.d
+			ln -sf `pwd` ~/.emacs.d
+			cp ~/.emacs.d/core/templates/.spacemacs.template ~/
+			mv ~/.spacemacs.template ~/.spacemacs
+			while read p
+			do
+				echo "Checking $p file"
+				./core/tools/spacefmt/spacefmt -f "$p"
+				if [ $? -ne 0 ]; then
+					echo "spacefmt exited with $?"
+					exit 2
+				fi
+			done </tmp/changed_files
+			git diff --color HEAD > spacefmt_result
+			if [[ -s spacefmt_result ]]; then
+				echo "Please apply these changes:"
+				cat spacefmt_result
+				exit 1
+			fi
+			echo "All changed files comply with spacefmt"
+			exit 0
+		;;
+	esac
 fi
-
 # Emacs tests
 echo "Pwd $(pwd)"
 rm -rf ~/.emacs.d
