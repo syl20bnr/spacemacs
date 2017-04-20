@@ -156,22 +156,17 @@ found at the [[https://colemak.com/][Colemak website]].
 
 [[file:img/colemak-layout.png]]
 
-The configuration `colemak-jkhl` reuses HJKL as movement keys, but permuted as
-JKHL:
-- ~j~ is now left
-- ~k~ is now down
-- ~h~ is now up
-- ~l~ is right, unchanged
+This layer offers three flavors of Colemak bindings:
 
-While not on the home row, the keys are still easily accessible and do not
-conflict with any other ~evil~ binding.
+- =colemak-hnei= remaps ~HJKL~ to ~HNEI~, keeping the same key location; useful
+  for people used to the ~HJKL~ scheme on a Qwerty keyboard.
+- =colemak-neio= remaps ~HJKL~ to ~NEIO~, shifted one key to the right for
+  easier access.
+- =colemak-jkhl= remaps ~HJKL~ to ~JKHL~, permuting the direction of the keys
+  without disturbing any other binding.
 
-Additionally, in normal and motion states, ~L~ is bound to ~evil-lookup~ while
-~H~ and ~K~ are respectively bound to ~evil-window-top~ and
-~evil-window-bottom~.
-
-*Note*: for technical reasons (see [[https://github.com/syl20bnr/spacemacs/pull/7178#issuecomment-249360301][GH-7178]]), the ~kl/pre-config-evil~ and
-~kl/post-config-evil~ hooks will be run /twice/.
+*Note*: for technical reasons (see [[https://github.com/syl20bnr/spacemacs/pull/7178#issuecomment-249360301][GH-7178]]), when using =colemak-jkhl=, the
+~kl/pre-config-evil~ and ~kl/post-config-evil~ hooks will be run /twice/.
 
 * Package Configurations
 The available configurations are:
