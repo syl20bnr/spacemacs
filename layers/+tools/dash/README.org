@@ -31,7 +31,7 @@
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =dash= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+file. 
 
 ** Dash (OS X)
 
