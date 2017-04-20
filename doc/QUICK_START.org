@@ -96,7 +96,7 @@ initialization, and variable =user-emacs-directory= will still point
 to =~/.emacs.d/=, even if =~/.spacemacs.d= or =~/.spacemacs= are
 present. Only now =~/.emacs.d/init.el= is provided by Spacemacs
 (e.g. after cloning the Spacemacs git repo into an empty
-=~/.emacs.d/=), and your own personnal configurations go into
+=~/.emacs.d/=), and your own personal configurations go into
 =~/.spacemacs.d/init.el= (or =~/.spacemacs=).
 
 Have a look into the FAQ for an easy workaround to maintain (your
@@ -121,7 +121,7 @@ the =emacs= style (these variables must be set in the file =~/.spacemacs=).
 For simplicity the documentation always refers to the leader key as
 ~SPC~.
 
-There is secondary leader key called the major-mode leader key which is
+There is a secondary leader key called the major-mode leader key which is
 set to ~​,​~ by default. This key is a shortcut for ~SPC m~
 where all the major-mode specific commands are bound.
 
