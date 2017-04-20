@@ -35,7 +35,7 @@ if [ "${CHECK_MENTIONS}" = "true" ]; then
 	cd "${TRAVIS_BUILD_DIR}"
 	last_commit_message=$(git log -2 --pretty=%B)
 	if [[ ! "$last_commit_message" == *"@"* ]]; then
-		echo "Please summon a mainteiner"
+		echo "Please summon a maintainer"
 		echo "See: https://github.com/syl20bnr/spacemacs/blob/develop/MAINTAINERS.org"
 		exit 1
 	fi
