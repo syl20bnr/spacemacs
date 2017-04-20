@@ -21,6 +21,8 @@
   - [[#compile][Compile]]
   - [[#execute][Execute]]
   - [[#code-definition-jump][Code Definition Jump]]
+  - [[#hex-packages][Hex (packages)]]
+  - [[#macro-expand][Macro expand]]
 
 * Description
 This layer adds support for [[http://elixir-lang.org/][Elixir]] .
@@ -175,16 +177,19 @@ You find and overview of all the key-bindings on the [[https://github.com/tonini
 
 ** Tests
 
-| Key Binding | Description                           |
-|-------------+---------------------------------------|
-| ~SPC m g t~ | Open the test file for current buffer |
-| ~SPC m t a~ | Run all the tests                     |
-| ~SPC m t b~ | Run all the tests from current buffer |
-| ~SPC m t f~ | Test this file                        |
-| ~SPC m t r~ | Rerun the last test                   |
-| ~SPC m t t~ | Run test under point                  |
-| ~SPC m t n~ | Jump to next test                     |
-| ~SPC m t p~ | Jump to previous test                 |
+| Key Binding | Description                                                                           |
+|-------------+---------------------------------------------------------------------------------------|
+| ~SPC m g t~ | Open the test file for current buffer                                                 |
+| ~SPC m t a~ | Run all the tests                                                                     |
+| ~SPC m t b~ | Run all the tests from current buffer                                                 |
+| ~SPC m t B~ | Run all the tests from current file; if test file not found, after confirm, create it |
+| ~SPC m t f~ | Choose test file to run                                                               |
+| ~SPC m t t~ | Run test under point                                                                  |
+| ~SPC m t r~ | Rerun the last test                                                                   |
+| ~SPC m t n~ | Jump to next test                                                                     |
+| ~SPC m t N~ | Jump to previous test                                                                 |
+| ~SPC m t s~ | Run stale tests (~mix test --stale~)                                                  |
+| ~SPC m t R~ | Toggle test report window                                                             |
 
 ** Compile
 
@@ -207,4 +212,34 @@ You find and overview of all the key-bindings on the [[https://github.com/tonini
 | Key Binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC m g g~ | Jump to the elixir expression definition at point. |
-| ~SPC m ​,​~   | Pop back to where ~SPC m g g~ was last invoked.    |
+| ~SPC m .~   | Jump to the elixir expression definition at point. |
+| ~SPC m g b~ | Pop back to where ~SPC m g g~ was last invoked.    |
+| ~SPC m ,~   | Pop back to where ~SPC m g g~ was last invoked.    |
+| ~SPC m g n~ | Jump to next symbol definition                     |
+| ~SPC m g N~ | Jump to previous symbol definition                 |
+| ~SPC m g j~ | Choose which symbol definition to jump to          |
+
+** Hex (packages)
+
+Hex is the package manager for Elixir & Erlang ecosystem. See https://hex.pm .
+
+| Key Binding | Description                                              |
+|-------------+----------------------------------------------------------|
+| ~SPC m X i~ | Display Hex package information for the package at point |
+| ~SPC m X r~ | Display Hex package releases for the package at point    |
+| ~SPC m X R~ | Display Hex package releases for a certain package       |
+| ~SPC m X I~ | Display Hex package info for a certain package           |
+| ~SPC m X s~ | Search for Hex packages                                  |
+
+** Macro expand
+
+| Key Binding | Description                                                                       |
+|-------------+-----------------------------------------------------------------------------------|
+| ~SPC m o l~ | Macro expand once the Elixir code on the current line                             |
+| ~SPC m o L~ | Macro expand once the Elixir code on the current line and insert the result       |
+| ~SPC m o k~ | Macro expand completely the Elixir code on the current line                       |
+| ~SPC m o K~ | Macro expand completely the Elixir code on the current line and insert the result |
+| ~SPC m o i~ | Macro expand once the Elixir code on marked region                                |
+| ~SPC m o I~ | Macro expand once the Elixir code on marked region once and insert the result     |
+| ~SPC m o r~ | Macro expand completely the Elixir code on marked region                          |
+| ~SPC m o R~ | Macro expand completely the Elixir code on marked region and insert the result    |
