@@ -341,9 +341,8 @@
         ;; universal argument put compile buffer in comint mode
         (let ((universal-argument t)
               (compile-command (format "%s %s"
-                                       python-shell-interpreter
-                                       (file-name-nondirectory
-                                        buffer-file-name))))
+                                       (spacemacs/pyenv-executable-find python-shell-interpreter)
+                                       (file-name-nondirectory buffer-file-name))))
           (if arg
               (call-interactively 'compile)
             (compile compile-command t)
