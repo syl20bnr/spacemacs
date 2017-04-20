@@ -1941,18 +1941,21 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 Every window has a number displayed at the start of the mode-line and
 can be quickly accessed using =SPC number=.
 
-| Key Binding | Description           |
-|-------------+-----------------------|
-| ~SPC 1~     | go to window number 1 |
-| ~SPC 2~     | go to window number 2 |
-| ~SPC 3~     | go to window number 3 |
-| ~SPC 4~     | go to window number 4 |
-| ~SPC 5~     | go to window number 5 |
-| ~SPC 6~     | go to window number 6 |
-| ~SPC 7~     | go to window number 7 |
-| ~SPC 8~     | go to window number 8 |
-| ~SPC 9~     | go to window number 9 |
-| ~SPC 0~     | go to window number 0 |
+| Key Binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~SPC 1~     | go to window number 1                               |
+| ~SPC 2~     | go to window number 2                               |
+| ~SPC 3~     | go to window number 3                               |
+| ~SPC 4~     | go to window number 4                               |
+| ~SPC 5~     | go to window number 5                               |
+| ~SPC 6~     | go to window number 6                               |
+| ~SPC 7~     | go to window number 7                               |
+| ~SPC 8~     | go to window number 8                               |
+| ~SPC 9~     | go to window number 9                               |
+| ~SPC 0~     | go to window number 0 (or 10 if no window number 0) |
+
+Window number 0 is assigned to the sidebar, like NeoTree. If there is no window
+number 0, =SPC 0= attempts to select window number 10.
 
 Windows manipulation commands (start with ~w~):
 
