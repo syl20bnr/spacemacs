@@ -20,6 +20,7 @@ env:
  - TESTS=doc EVM_EMACS=emacs-25.1-travis
  - TESTS=doc EVM_EMACS=emacs-git-snapshot-travis
  - FORMATTING=space-test
+ - FORMATTING=spacefmt EVM_EMACS=emacs-25.1-travis
 
 matrix:
   fast_finish: true
