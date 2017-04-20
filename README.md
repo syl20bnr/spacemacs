@@ -138,15 +138,19 @@ as well.
 
 ### macOS
 
-The recommended way of installing Emacs on macOS is using [homebrew][]:
+The recommended way of installing Emacs on macOS is using [Homebrew][], a
+package manager for macOS. Once Homebrew is installed, run the following
+commands in terminal to install both Emacs and the default Source Code Pro font:
 
 ```sh
-$ brew tap d12frosted/emacs-plus
-$ brew install emacs-plus
-$ brew linkapps emacs-plus
+brew tap d12frosted/emacs-plus
+brew install emacs-plus
+brew linkapps emacs-plus
+brew tap caskroom/fonts
+brew cask install font-source-code-pro
 ```
 
-*Note:* these homebrew commands will install GNU Emacs, and link it to your
+*Note:* these Homebrew commands will install GNU Emacs, and link it to your
 `/Applications` directory. You still need to run the `git clone` mentioned at
 the start of this file. That will populate your `~/.emacs.d` directory, which is
 what transforms a regular GNU Emacs into Spacemacs.
@@ -447,7 +451,7 @@ Thank you!
 [osx layer]: http://spacemacs.org/layers/+os/osx/README.html
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
 [Gitter Chat IRC server]: https://irc.gitter.im/
-[homebrew]: http://brew.sh
+[Homebrew]: http://brew.sh
 [emacs-for-windows]: http://emacsbinw64.sourceforge.net/
 [emacs-for-windows-stable]: https://sourceforge.net/projects/emacsbinw64/files/release/
 [the platinum searcher]: https://github.com/monochromegane/the_platinum_searcher
