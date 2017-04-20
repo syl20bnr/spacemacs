@@ -2,13 +2,8 @@
 
 * Beginners tutorial                                      :TOC_4_gh:noexport:
  - [[#why-spacemacs][Why Spacemacs?]]
- - [[#install][Install]]
-   - [[#1-install-emacs][1. Install Emacs]]
-   - [[#2-install-git][2. Install Git]]
-   - [[#3-install-spacemacs][3. Install Spacemacs]]
-     - [[#note-for-windows-users][Note for Windows users]]
-   - [[#4-install-the-default-font][4. Install the default font]]
-   - [[#5-open-spacemacs-and-choose-default-editing-style][5. Open Spacemacs and choose default editing style]]
+ - [[#installation-and-setup][Installation and setup]]
+   - [[#first-startup-and-choosing-the-default-editing-style][First startup and choosing the default editing style]]
  - [[#getting-started][Getting started]]
    - [[#keybinding-notation][Keybinding notation]]
    - [[#modal-text-editing---why-and-how][Modal text editing - why and how?]]
@@ -34,51 +29,13 @@
 - Powerful modes for programming in dozens of programming languages
 - Deeply customizable yet beginner-friendly
 
-* Install
+* Installation and setup
  Spacemacs is a beginner-friendly and powerful extension of a popular text
  editor called Emacs. To install Spacemacs you need to first install base Emacs
  and then download the Spacemacs extension files, which is most easily done by
- using a program called Git. The steps are easy and outlined below.
+ using a program called Git. The steps are easy and detailed in the [[https://github.com/syl20bnr/spacemacs/blob/master/README.md#prerequisites][readm]]e.
 
-** 1. [[https://github.com/syl20bnr/spacemacs#prerequisites][Install Emacs]]
-
-** 2. [[https://git-scm.com/downloads][Install Git]]
-
-** 3. Install Spacemacs
-Open a terminal or command prompt, paste the following code to it:
-
-#+BEGIN_SRC sh
-git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-#+END_SRC
-
-Press ~RET~ (return / enter) to execute the code and the program you installed
-in the previous step, Git, will download the Spacemacs extension files.
-
-*** Note for Windows users
-If you use windows, you have to modify the git command by inserting the correct
-path to your .emacs.d folder. The dot before the folder means that it is hidden,
-so you'll have to search for hidden files to find the folder. When you have
-found the folder, substitute the original path with the correct one. The proper
-code would look something like this:
-
-#+BEGIN_SRC sh
-git clone https://github.com/syl20bnr/spacemacs /path/to/your/.emacs.d
-#+END_SRC
-
-** 4. Install the default font
-The default font used by Spacemacs is Source Code Pro by Adobe. It is
-recommended to [[https://github.com/adobe-fonts/source-code-pro#font-installation-instructions][install]] it on your system to ensure correct visual
-representation. Also a "Fallback font" for nicer-looking symbols in the modeline
-(bottom bar) is recommended. These depend on the system:
-
-- gnu/linux: Nanum
-- MacOS: Arial Unicode MS
-- Windows: MS Gothic or Lucida Sans Unicode
-
-If the modeline doesn't look as great as in the pictures, make sure you have the
-correct fallback font installed on your system.
-
-** 5. Open Spacemacs and choose default editing style
+** First startup and choosing the default editing style
 Open Spacemacs by clicking the Emacs icon in your applications menu. The first
 time Spacemacs launches, it will load and install packages and prompt you for
 your preferred editing style. You have two options: Vim ("Among the stars aboard
@@ -88,7 +45,9 @@ Vim, by pressing ~RET~. Using this configuration is introduced more thoroughly
 in the next section. If you are already familiar with Emacs or do not plan to
 switch into modal editing style, select Emacs with the left and right arrow
 keys. There is also a third option, "Hybrid", for more advanced users willing to
-use both styles. All of these choices can be easily changed later by editing the
+use both styles.
+
+All of these choices can be easily changed later by editing the
 dotspacemacs-editing-style variable in the dotfile (see [[#configuring-spacemacs][Configuring Spacemacs]]),
 so if modal editing does not sweep you away, you can switch to the Emacs style
 later.
@@ -98,7 +57,7 @@ The standard distribution is recommended, press ~RET~ to select it.
 
 Now Spacemacs will download and install required packages. This will take some
 minutes depending on your connection. After everything is installed (you will
-see the text "n packages loaded in x s" appear in the list under the Spacemacs
+see the text ="n packages loaded in x s"= appear in the list under the Spacemacs
 logo), restart Spacemacs.
 
 Now your installation process is complete, congratulations! For troubleshooting,
@@ -234,17 +193,18 @@ Spacemacs divides its configuration into self-contained units called
 configuration layers. These layers are stacked on top of each other to achieve a
 custom configuration.
 
-By default Spacemacs uses a dotfile called ~/.spacemacs to control which layers
+By default Spacemacs uses a dotfile called =~/.spacemacs= to control which layers
 to load. Within this file you can also configure certain features. First, split
 the window vertically to view both this tutorial and the dotfile simultaneously
 (~SPC w /~). Open the dotfile by pressing ~SPC f e d~. Navigate to the line
 starting with "dotspacemacs-configuration-layers". The following lines have
-further instructions: uncomment org and git layers if you want to be
+further instructions: uncomment =org= and =git= layers if you want to be
 familiarized with them. More [[file:../layers/LAYERS.org][layers]] for different languages and tools can be
 found by pressing ~SPC h SPC~. The added layers will be installed upon restart
 of Spacemacs.
 
-Mac users: add the osx layer to use the OS X keybindings!
+Some layers require third-party tools that you'll have to install via your
+favorite package manager. The layer readme will tell if this is the case.
 
 ** Changing the colour theme
 You can toggle the theme by ~SPC T n~. This cycles between currently
@@ -252,7 +212,7 @@ activated themes. You can find more by adding the themes-megapack layer and
 activate them by writing their names in the dotspacemacs-themes list.
 
 ** Starting maximized
-Editing the dotspacemacs-maximized-at-startup variable from nil to t will start
+Editing the =dotspacemacs-maximized-at-startup= variable from =nil= to =t= will start
 Spacemacs maximized.
 
 ** Quitting
