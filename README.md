@@ -40,13 +40,14 @@
 - [Documentation](#documentation)
 - [Getting Help](#getting-help)
 - [Prerequisites](#prerequisites)
+    - [[Git][]](#git)
     - [Emacs](#emacs)
         - [Linux distros](#linux-distros)
         - [macOS](#macos)
         - [Windows](#windows)
 - [Install](#install)
     - [Default installation](#default-installation)
-    - [Alternate installations](#alternate-installations)
+    - [Alternative installations](#alternative-installations)
         - [Modify HOME environment variable](#modify-home-environment-variable)
         - [Modify spacemacs-start-directory variable](#modify-spacemacs-start-directory-variable)
     - [Spacemacs logo](#spacemacs-logo)
@@ -114,6 +115,12 @@ If you prefer IRC, connect to the [Gitter Chat IRC server][] and join the
 
 # Prerequisites
 
+Spacemacs is an extension of a popular text editor called Emacs. Thus you need
+to first install base Emacs and then download the Spacemacs extension files with
+Git.
+
+## [Git][]
+
 ## Emacs
 
 Spacemacs requires Emacs 24.4 or above. The development version of Emacs (at the
@@ -165,7 +172,7 @@ information.
 consider using instead:
 
 ``` sh
-$ brew install emacs-plus --HEAD --with-natural-title-bar
+brew install emacs-plus --HEAD --with-natural-title-bar
 ```
 
 *Note:* after you have completed the [install process](#install) below, it is
@@ -222,7 +229,8 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
 
 ## Default installation
 
-1. If you have an existing Emacs configuration, back it up first:
+1. If you have an existing Emacs configuration, back it up first by running the
+   following code in your terminal:
 
    ```sh
    cd ~
@@ -234,7 +242,7 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    **WILL NOT** load since that file prevents Emacs from loading the proper
    initialization file.
 
-2. Clone the repository:
+2. Clone the repository with [Git][]:
 
    ```sh
    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
@@ -245,7 +253,30 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    fork Spacemacs safely use the `develop` branch where you handle the update
    manually.
 
-3. (Optional) Install the [Source Code Pro][] font.
+   **Note for Windows users**
+   If you use windows, you have to modify the git command by inserting the
+   correct path to your .emacs.d folder. The dot before the folder means that it
+   is hidden, so you'll have to search for hidden files to find the folder. When
+   you have found the folder, substitute the original path with the correct one.
+   The proper code would look something like this:
+
+   ```sh
+   git clone https://github.com/syl20bnr/spacemacs /path/to/your/.emacs.d
+   ```
+
+3. Install the default fonts
+
+   The default font used by Spacemacs is [Source Code Pro][] by Adobe. It is
+   recommended to install it to ensure correct visual representation. Also a
+   "Fallback font" for nicer-looking symbols in the modeline (bottom bar) is
+   recommended. These depend on the system:
+
+   - GNU/Linux: *NanumGothic* (package named *fonts-nanum* on Debian, for example)
+   - macOS: *Arial Unicode MS*
+   - Windows: *MS Gothic* or *Lucida Sans Unicode*
+
+   If the modeline doesn't look as great as in the pictures, make sure you have
+   the correct fallback font installed.
 
    If you are running in terminal you'll also need to change font settings of
    your terminal.
@@ -272,7 +303,7 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
 
 If the mode-line turns red then be sure to consult the [FAQ][FAQ.org].
 
-## Alternate installations
+## Alternative installations
 
 It may be useful to clone Spacemacs outside Emacs dotdirectory `~/.emacs.d` so
 you can try Spacemacs without replacing completely your own configuration.
@@ -469,3 +500,4 @@ Thank you!
 [Bountysource]: https://salt.bountysource.com/teams/spacemacs
 [Source Code Pro]: https://github.com/adobe-fonts/source-code-pro
 [Spacemacs Shop]: https://shop.spreadshirt.com/spacemacs-shop
+[Git]: https://git-scm.com/downloads
