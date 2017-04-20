@@ -1,0 +1,29 @@
+#+TITLE: Spacemacs maintainers
+
+When you open a pull request the message of the last commit
+should [[https://github.com/blog/821-mention-somebody-they-re-notified][@mention]] one or more maintainers
+or a [[https://github.com/blog/1121-introducing-team-mentions][team of maintainers]] responsible for
+the affected(by the pull request) Spacemacs subsection.
+
+* TODO HOW TO BECOME A MAINTAINER
+
+* Languages
+
+| language | maintainers        |
+|----------+--------------------|
+| clojure  | @spacemacs/clojure |
+| go       | @spacemacs/go      |
+
+* Trailing white spaces
+
+| maintainers   |
+|---------------|
+| @robbyoconnor |
+| @robbyoconnor |
+| @robbyoconnor |
+| @robbyoconnor |
+| @robbyoconnor |
+
+* Global maintainers
+Call @syl20bnr or @bmag if none of above fits
+=Please consider becoming maintainer yourself!= :heart:
