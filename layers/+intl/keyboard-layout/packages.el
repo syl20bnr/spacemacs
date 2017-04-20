@@ -42,12 +42,14 @@
     (spacemacs|use-package-add-hook ace-window :post-init BODY)
     :bepo
     (setq aw-keys '(?a ?u ?i ?e ?t ?s ?r ?n))
-    :colemak
-    (setq aw-keys '(?a ?r ?s ?t ?n ?e ?i ?o))
     :dvorak
     (setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s))
     :neo
     (setq aw-keys '(?u ?i ?a ?e ?n ?r ?t ?d))
+    :colemak-neio
+    (setq aw-keys '(?a ?r ?s ?t ?n ?e ?i ?o))
+    :colemak-hnei
+    (setq aw-keys '(?a ?r ?s ?t ?n ?e ?i ?o))
     :colemak-jkhl
     (setq aw-keys '(?a ?r ?s ?t ?n ?e ?i ?o))))
 
@@ -59,12 +61,14 @@
     (spacemacs|use-package-add-hook avy :post-init BODY)
     :bepo
     (setq-default avy-keys '(?a ?u ?i ?e ?t ?s ?r ?n))
-    :colemak
-    (setq-default avy-keys '(?a ?r ?s ?t ?n ?e ?i ?o))
     :dvorak
     (setq-default avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s))
     :neo
     (setq-default avy-keys '(?u ?i ?a ?e ?n ?r ?t ?d))
+    :colemak-neio
+    (setq-default avy-keys '(?a ?r ?s ?t ?n ?e ?i ?o))
+    :colemak-hnei
+    (setq-default avy-keys '(?a ?r ?s ?t ?n ?e ?i ?o))
     :colemak-jkhl
     (setq-default avy-keys '(?a ?r ?s ?t ?n ?e ?i ?o))))
 
@@ -203,7 +207,7 @@
     (spacemacs|use-package-add-hook evil-escape :post-init BODY)
     :bepo
     (setq-default evil-escape-key-sequence "gq")
-    :colemak
+    :colemak-neio
     (setq-default evil-escape-key-sequence "tn")))
 
 (defun keyboard-layout/pre-init-evil-evilified-state ()
@@ -487,7 +491,7 @@
         ;; additional
         (kbd "«") 'org-metaleft
         (kbd "»") 'org-metaright))
-    :colemak
+    :colemak-neio
     (progn
       (spacemacs|use-package-add-hook evil-org
         :post-config

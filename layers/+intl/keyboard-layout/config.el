@@ -13,7 +13,10 @@
 ;; PUBLIC VARIABLES
 ;;------------------------------------------------------------------------------
 
-(defvar kl-layout 'dvorak)
+(defvar kl-layout 'dvorak
+  "The keyboard-layout to use. Possible values are `bepo', `dvp',
+`dvorak', `workman', `neo', `colemak-neio', `colemak-hnei' and
+`colemak-jkhl'.")
 
 (defvar kl-enabled-configurations nil
   "If non nil, `keyboard-layout' will enable configurations only
@@ -57,15 +60,6 @@ case.")
                ("j" . "t")
                ("k" . "n")
                ("l" . "s")))
-    (colemak . (("h" . "h")
-                ("n" . "j")
-                ("e" . "k")
-                ("i" . "l")
-                ;;
-                ("h" . "h")
-                ("j" . "n")
-                ("k" . "e")
-                ("l" . "i")))
     (workman . (("y" . "h")
                 ("n" . "j")
                 ("e" . "k")
@@ -84,6 +78,24 @@ case.")
             ("j" . "n")
             ("h" . "r")
             ("k" . "t")))
+    (colemak-neio . (("n" . "h")
+                     ("e" . "j")
+                     ("i" . "k")
+                     ("o" . "l")
+                     ;;
+                     ("h" . "n")
+                     ("j" . "e")
+                     ("k" . "i")
+                     ("l" . "o")))
+    (colemak-hnei . (("h" . "h")
+                     ("n" . "j")
+                     ("e" . "k")
+                     ("i" . "l")
+                     ;;
+                     ("h" . "h")
+                     ("j" . "n")
+                     ("k" . "e")
+                     ("l" . "i")))
     (colemak-jkhl . (("j" . "h")
                      ("k" . "j")
                      ("h" . "k")
