@@ -5,6 +5,12 @@ should [[https://github.com/blog/821-mention-somebody-they-re-notified][@mention
 or a [[https://github.com/blog/1121-introducing-team-mentions][team of maintainers]] responsible for
 the affected(by the pull request) Spacemacs subsection.
 
+* Table of Contents                      :TOC_4_gh:noexport:
+ - [[#how-to-become-a-maintainer][HOW TO BECOME A MAINTAINER]]
+ - [[#languages][Languages]]
+ - [[#trailing-white-spaces][Trailing white spaces]]
+ - [[#global-maintainers][Global maintainers]]
+
 * TODO HOW TO BECOME A MAINTAINER
 
 * Languages
