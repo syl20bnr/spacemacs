@@ -268,7 +268,8 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    "Fallback font" for nicer-looking symbols in the modeline (bottom bar) is
    recommended. These depend on the system:
 
-   - GNU/Linux: *NanumGothic* (package named *fonts-nanum* on Debian, for example)
+   - GNU/Linux: *NanumGothic* (package named *fonts-nanum* on Debian, for
+     example)
    - macOS: *Arial Unicode MS*
    - Windows: *MS Gothic* or *Lucida Sans Unicode*
 
@@ -278,25 +279,27 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    If you are running in terminal you'll also need to change font settings of
    your terminal.
 
-4. Launch Emacs. Spacemacs will automatically install the packages it requires. Finally, restart Emacs to complete the installation.
+4. Launch Emacs. Spacemacs will automatically install the packages it requires.
+   Finally, restart Emacs to complete the installation.
 
-**Note:** If you get an error regarding package downloads then you may try to disable
-   the HTTPS protocol by starting Emacs with
+**Note:** If you get an error regarding package downloads then you may try to
+   disable the HTTPS protocol by starting Emacs with
 
    ```sh
    emacs --insecure
    ```
 
-   Or you can set the `dotspacemacs-elpa-https` to `nil` in your dotfile `~/.spacemacs` to
-   remove the need to start Emacs with `--insecure` argument. You may wish to
-   clear out your `.emacs.d/elpa` directory before doing this, so that any
-   corrupted packages you may have downloaded will be re-installed.
+   Or you can set the `dotspacemacs-elpa-https` to `nil` in your dotfile
+   `~/.spacemacs` to remove the need to start Emacs with `--insecure` argument.
+   You may wish to clear out your `.emacs.d/elpa` directory before doing this,
+   so that any corrupted packages you may have downloaded will be re-installed.
 
-**Note:** `error: Package 'package-build-' is unavailable` may occur due to heavy network taffic.
-   You can fix it by setting the `dotspacemacs-elpa-timeout` to `70` in your dotfile.
+**Note:** `error: Package 'package-build-' is unavailable` may occur due to
+   heavy network taffic. You can fix it by setting the
+   `dotspacemacs-elpa-timeout` to `70` in your dotfile.
 
-**Note:** `Warning (bytecomp)` and other compilation warnings are perfectly normal. If curious,
-   you can find out why these occur [here](https://github.com/quelpa/quelpa/issues/90#issuecomment-137982713).
+**Note:** `Warning (bytecomp)` and other compilation warnings are perfectly
+   normal. If curious, you can find out why these occur [here](https://github.com/quelpa/quelpa/issues/90#issuecomment-137982713).
 
 If the mode-line turns red then be sure to consult the [FAQ][FAQ.org].
 
@@ -369,8 +372,8 @@ git reset --hard <tag version which you are updating to>
 
 ## On develop branch
 
-1. Update Emacs packages by clicking (press `RET`) on the `[Update Packages]` link of
-the starting page.
+1. Update Emacs packages by clicking (press `RET`) on the `[Update Packages]`
+   link of the starting page.
 
 2. Close Emacs and update the git repository:
 
@@ -397,7 +400,8 @@ branch, for instance to revert to the last `0.103`:
 
 [Quote][quote01] by [ashnur](https://github.com/ashnur):
 
-    «I feel that spacemacs is an aircraft carrier and I am playing table tennis on the deck as a freerider.»
+    «I feel that spacemacs is an aircraft carrier and I am playing table tennis
+    on the deck as a freerider.»
 
 [Quote][quote02] by [deuill](https://github.com/deuill):
 
@@ -432,7 +436,8 @@ The license is GPLv3 for all parts specific to Spacemacs, this includes:
 
 For the packages shipped in this repository, you can refer to the files header.
 
-[Spacemacs logo][] by [Nasser Alshammari][] released under a [Creative Commons Attribution-ShareAlike 4.0 International License.](http://creativecommons.org/licenses/by-sa/4.0/)
+[Spacemacs logo][] by [Nasser Alshammari][] released under a
+[Creative Commons Attribution-ShareAlike 4.0 International License.](http://creativecommons.org/licenses/by-sa/4.0/)
 
 # Supporting Spacemacs
 
@@ -442,8 +447,9 @@ bugs, helping the community on the [Gitter Chat][] or sending pull requests.
 You can show your love for the project by getting cool Spacemacs t-shirts, mugs
 and more in the [Spacemacs Shop][].
 
-If you want to show your support financially you can contribute to [Bountysource][] or buy a drink for the
-maintainer by clicking on the [Paypal badge](#top).
+If you want to show your support financially you can contribute
+to [Bountysource][] or buy a drink for the maintainer by clicking on
+the [Paypal badge](#top).
 
 If you used spacemacs in a project and you want to show that fact, you can use
 the spacemacs badge: [![Built with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)](http://spacemacs.org)
