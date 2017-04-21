@@ -100,6 +100,9 @@
 (configuration-layer/lazy-install 'rust :extensions '("\\(\\.rs\\'\\)" rust-mode))
 (configuration-layer/lazy-install 'rust :extensions '("\\(\\.toml$\\)" toml-mode))
 
+;; org
+(configuration-layer/lazy-install 'org :extensions '("\\(\\.org\\'\\)" org-mode))
+
 ;; scala
 
 ;; scheme
