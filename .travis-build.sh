@@ -64,7 +64,10 @@ if [ ! -z "$FORMATTING" ]; then
 			done </tmp/changed_files
 			git diff --color HEAD > spacefmt_result
 			if [[ -s spacefmt_result ]]; then
-				echo "Please apply these changes:"
+				printf '=%.0s' {1..70}
+				echo "\nPLEASE APPLY CHANGES BELOW:\n"
+				printf '=%.0s' {1..70}
+				echo
 				cat spacefmt_result
 				exit 1
 			fi
