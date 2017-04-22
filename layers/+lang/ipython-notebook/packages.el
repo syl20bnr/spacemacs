@@ -9,7 +9,13 @@
 ;;
 ;;; License: GPLv3
 
-(setq ipython-notebook-packages '(ein))
+(setq ipython-notebook-packages '(company
+                                  ein))
+
+(defun ipython-notebook/post-init-company ()
+  (spacemacs|add-company-backends
+    :backends ein:company-backend
+    :modes ein:notebook-mode))
 
 (defun ipython-notebook/init-ein ()
   (use-package ein
