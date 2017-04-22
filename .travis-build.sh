@@ -74,6 +74,81 @@ if [ ! -z "$FORMATTING" ]; then
 		;;
 	esac
 fi
+
+# If we are pushing changes to the master branch,
+# open PR to syl20bnr/develop.spacemacs.org with Spacemacs
+# documentation exported as HTML and formatted with spacefmt
+if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ $TRAVIS_BRANCH = "master" ] && [ $PUBLISH = "html" ]; then
+	printf '=%.0s' {1..70}
+	printf "\n FORMATTING DOCUMENTATION:\n"
+	printf '=%.0s' {1..70}
+	echo
+	rm -rf ~/.emacs.d
+	ln -sf `pwd` ~/.emacs.d
+	cp ~/.emacs.d/tests/doc/dotspacemacs.el ~/dotspacemacs.el
+	mv ~/dotspacemacs.el ~/.spacemacs
+	./core/tools/spacefmt/spacefmt doc
+	if [ $? -ne 0 ]; then
+		echo "spacefmt exited with: $?"
+		exit 2
+	fi
+	printf '=%.0s' {1..70}
+	printf "\n EXPORTING DOCUMENTATION:\n"
+	printf '=%.0s' {1..70}
+	echo
+	emacs -batch -l init.el > /dev/null 2>&1
+	emacs -batch -l init.el -l core/core-documentation.el -f spacemacs/publish-doc
+	if [ $? -ne 0 ]; then
+		echo "spacemacs/publish-doc failed"
+		exit 2
+	fi
+	git config --global user.name "TheBBot"
+	git config --global user.email "69BakaBaka69@gmail.com"
+	git config --global push.default simple
+	git config --global hub.protocol https
+	export GITHUB_TOKEN=$THEBBOT_TK
+	git clone https://github.com/syl20bnr/develop.spacemacs.org.git -b gh-pages /tmp/develop.spacemacs.org
+	rsync -avh ~/.emacs.d/export/ /tmp/develop.spacemacs.org
+	git add -N .
+	cd /tmp/develop.spacemacs.org
+	if ! git diff-files  --quiet --; then
+		printf '=%.0s' {1..70}
+		printf "\n COMMITTING CHANGES TO TheBBot/develop.spacemacs.org:\n"
+		printf '=%.0s' {1..70}
+		echo
+		git diff --color HEAD
+		curl -L https://github.com/github/hub/releases/download/v2.2.9/hub-linux-amd64-2.2.9.tgz | tar \
+			--strip-components=2 -xz --wildcards -C /tmp/ "*hub"
+		/tmp/hub add --all
+		/tmp/hub commit -m "doc update:$(date -u)"
+		/tmp/hub fork
+		mkdir -p ~/.ssh
+		printf "Host  github.com\n  StrictHostKeyChecking no\n  UserKnownHostsFile=/dev/null\n" \
+			>  ~/.ssh/config
+		git remote set-url TheBBot \
+			"https://TheBBot:${THEBBOT_TK}@github.com/TheBBot/develop.spacemacs.org.git"
+		/tmp/hub push TheBBot gh-pages
+		printf '=%.0s' {1..70}
+		printf "\n OPENING PR TO syl20bnr/develop.spacemacs.org.git\n"
+		printf '=%.0s' {1..70}
+		echo
+		echo "doc update:$(date -u)" > msg
+		echo "My life for Spacemacs!" >> msg
+		/tmp/hub pull-request -F msg
+		printf '=%.0s' {1..70}
+		printf "\n DONE!\n"
+		printf '=%.0s' {1..70}
+		echo
+		exit 0
+	else
+		printf '=%.0s' {1..70}
+		printf "\n NOTING TO COMMIT!\n"
+		printf '=%.0s' {1..70}
+		echo
+		exit 0
+	fi
+fi
+
 # Emacs tests
 
 echo "Pwd $(pwd)"

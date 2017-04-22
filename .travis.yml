@@ -1,32 +1,31 @@
 language: generic
 sudo: false
-
 branches:
   only:
-    - master
-    - develop
-
+  - master
+  - develop
 before_install:
- - if [ ! -z "$EVM_EMACS" ]; then curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw > x.sh && source ./x.sh; fi
- - if [ ! -z "$EVM_EMACS" ]; then evm install $EVM_EMACS --use --skip; fi
-
+- if [ ! -z "$EVM_EMACS" ]; then curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw
+  > x.sh && source ./x.sh; fi
+- if [ ! -z "$EVM_EMACS" ]; then evm install $EVM_EMACS --use --skip; fi
 env:
- - TESTS=core EVM_EMACS=emacs-24.4-travis
- - TESTS=core EVM_EMACS=emacs-24.5-travis
- - TESTS=core EVM_EMACS=emacs-25.1-travis
- - TESTS=core EVM_EMACS=emacs-git-snapshot-travis
- - TESTS=doc EVM_EMACS=emacs-24.4-travis
- - TESTS=doc EVM_EMACS=emacs-24.5-travis
- - TESTS=doc EVM_EMACS=emacs-25.1-travis
- - TESTS=doc EVM_EMACS=emacs-git-snapshot-travis
- - FORMATTING=space-test
- - FORMATTING=spacefmt EVM_EMACS=emacs-25.1-travis
-
+  matrix:
+  - FORMATTING=space-test
+  - FORMATTING=spacefmt EVM_EMACS=emacs-25.1-travis
+  - TESTS=core EVM_EMACS=emacs-24.4-travis
+  - TESTS=core EVM_EMACS=emacs-24.5-travis
+  - TESTS=core EVM_EMACS=emacs-25.1-travis
+  - TESTS=core EVM_EMACS=emacs-git-snapshot-travis
+  - TESTS=doc EVM_EMACS=emacs-24.4-travis
+  - TESTS=doc EVM_EMACS=emacs-24.5-travis
+  - TESTS=doc EVM_EMACS=emacs-25.1-travis
+  - TESTS=doc EVM_EMACS=emacs-git-snapshot-travis
+  - PUBLISH=html EVM_EMACS=emacs-25.1-travis
+  global:
+    - secure: OcM55oF/X9s4gutRVRohp6gNjsUUzZ9oad1O0Ve52sa23ii/cT6M//g0bSX+q/5DgzqUCySeat6QgPy1lHIQTOAe9TNTwqbt0CNN10k1vxiw+ufg0kzhWl4/AGzgqaxdtmkWJSdelnKOG2wgWGnHekiv8gtEw1PPAyktaDCK8/0CSf/XC3ZpWNbomv2HX6yRWYiVwUCftkT5BUJKssMcvlMFdMMoxGsb0FmzEnXba88lxBQ/bM8ltWWSDW9nRShzyR2Cow2RmEZ2fwgAggbQEjaQl+NOuN91ERLVpSwMFOI+pv+i/WHJve+Wr8QyrlWnvN7+bXt6rODw4s17tArXWJwjZdUwmRB7O0cUuPhSxfr2hLNzVfkHduQ1TgJ9ZJ8SXgGJ94tnlQeYVaKS+NgJWpr/Ihgvps3IXEsZ4QRY6xZPkkwKWbzgEV6gg1ogz0u7p7rLOwBadFpkraRPzb1bA6Okrg3VDbbd0+kOTowGfsijb1DTihFqSqbMWkq6nxlmJoAOjIuV/Y9MCCqux7C2SxutY5zXPqiVnee/L2IY/Sv/BJk5p3ZKAjjXKA5dbCZ5nENj5WQ01qX7Lkp6QUwsXMQrVZic8XwFnXbbBp0OumY6NBAcj3VBsjB2wshPpPMk+qtSNoxwDppkRGVJai/bTThstdSkoyEd+N+DaYl4XFk=
 matrix:
   fast_finish: true
   allow_failures:
-    - env: TESTS=core EVM_EMACS=emacs-git-snapshot-travis
-    - env: TESTS=doc EVM_EMACS=emacs-git-snapshot-travis
-
-script:
-  - ./.travis-build.sh
+  - env: TESTS=core EVM_EMACS=emacs-git-snapshot-travis
+  - env: TESTS=doc EVM_EMACS=emacs-git-snapshot-travis
+script: "./.travis-build.sh"
