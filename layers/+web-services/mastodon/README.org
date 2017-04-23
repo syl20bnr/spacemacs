@@ -7,7 +7,7 @@
 
 * Description
 This layer adds the ability to connect to a Mastodon Social Instance. It uses
- https://github.com/jdenen/mastodon.el to do this
+https://github.com/jdenen/mastodon.el to do this
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
