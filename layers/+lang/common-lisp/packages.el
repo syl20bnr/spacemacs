@@ -12,6 +12,7 @@
 (setq common-lisp-packages
       '(auto-highlight-symbol
         (common-lisp-snippets :toggle (configuration-layer/package-usedp 'yasnippet))
+        evil
         ggtags
         helm
         helm-gtags
@@ -23,6 +24,16 @@
     (add-to-list 'ahs-plugin-bod-modes 'lisp-mode)))
 
 (defun common-lisp/init-common-lisp-snippets ())
+
+(defun common-lisp/post-init-evil ()
+  (defadvice slime-last-expression (around evil activate)
+    "In normal-state or motion-state, last sexp ends at point."
+    (if (and (not evil-move-beyond-eol)
+             (or (evil-normal-state-p) (evil-motion-state-p)))
+        (save-excursion
+          (unless (or (eobp) (eolp)) (forward-char))
+          ad-do-it)
+      ad-do-it)))
 
 (defun common-lisp/post-init-helm ()
   (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
@@ -66,18 +77,6 @@
     :config
     (progn
       (slime-setup)
-      (defun slime-eval-sexp-end-of-line ()
-        (interactive)
-        (move-end-of-line 1)
-        (slime-eval-last-expression))
-      (defadvice slime-last-expression (around evil activate)
-        "In normal-state or motion-state, last sexp ends at point."
-        (if (and (not evil-move-beyond-eol)
-                 (or (evil-normal-state-p) (evil-motion-state-p)))
-            (save-excursion
-              (unless (or (eobp) (eolp)) (forward-char))
-              ad-do-it)
-          ad-do-it))
       ;; TODO: Add bindings for the SLIME debugger?
       (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
         "'" 'slime
@@ -93,7 +92,7 @@
         "ef" 'slime-eval-defun
         "eF" 'slime-undefine-function
         "ee" 'slime-eval-last-expression
-        "el" 'slime-eval-sexp-end-of-line
+        "el" 'spacemacs/slime-eval-sexp-end-of-line
         "er" 'slime-eval-region
 
         "gb" 'slime-pop-find-definition-stack

@@ -23,3 +23,12 @@
   (interactive)
   (let ((command (helm :sources (spacemacs//slime-helm-source))))
     (and command (slime (intern command)))))
+
+
+;; Evil integration
+
+(defun spacemacs/slime-eval-sexp-end-of-line ()
+  "Evaluate current line."
+  (interactive)
+  (move-end-of-line 1)
+  (slime-eval-last-expression))
