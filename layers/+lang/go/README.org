@@ -12,6 +12,7 @@
    - [[#indentation][Indentation]]
    - [[#tests][Tests]]
    - [[#guru][Guru]]
+   - [[#autocomplete][Autocomplete]]
  - [[#working-with-go][Working with Go]]
    - [[#go-commands-start-with-m][Go commands (start with =m=):]]
    - [[#go-guru][Go Guru]]
@@ -55,7 +56,7 @@ For more information read [[https://github.com/alecthomas/gometalinter/blob/mast
 and [[https://github.com/favadi/flycheck-gometalinter/blob/master/README.md][flycheck-gometalinter README.md]]
 
 Make sure that =gocode= executable is in your PATH. For information about
-setting up =$PATH=, check out the corresponding section in the FAQ (~SPC h SPC
+setting up =$PATH=, check out the corresponding section in the FAQ (~SPC h f
 $PATH RET~).
 
 For best results, make sure that the =auto-completion= and =syntax-checking=
@@ -98,6 +99,10 @@ function testing to work.
 the coverage buffer. See [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html][=display-buffer=]] for a list of possible functions.
 The default value is =display-buffer-reuse-window=.
 
+Tests are run in a compilation buffer displayed in a popup window that can be
+closed by pressing ~C-g~ from any other window. The variable
+=go-test-buffer-name= can be customized to set the output buffer name.
+
 ** Guru
 
 Go Oracle has been deprecated as of October 1, 2016, it's replacement is =go-guru=.
@@ -109,6 +114,16 @@ supported. In addition, you can prefix with =-= to exclude a package from
 searching.
 
 In addition, =GOPATH= must be set prior to =go-guru= initialization.
+
+** Autocomplete
+=gocode= uses the output from installed binary files to provide its suggestions.
+You have a few options to ensure you always get up to date suggestions:
+
+- Run =go install ./...= in your package directory when you make a file change.
+- Run =gocode set autobuild true= to have gocode attempt to run =go install
+  ./...= for you.
+- You can configure your task runner to run =go install ./...= command on every
+  file change.
 
 * Working with Go
 ** Go commands (start with =m=):

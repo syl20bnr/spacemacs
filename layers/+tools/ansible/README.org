@@ -8,7 +8,7 @@
  - [[#configuration][Configuration]]
    - [[#ansible-vault][ansible-vault]]
      - [[#password][Password]]
-     - [[#automatic-encryption-and-descryption][Automatic encryption and descryption]]
+     - [[#automatic-encryption-and-decryption][Automatic encryption and decryption]]
  - [[#key-bindings][Key bindings]]
 
 * Description
@@ -23,7 +23,7 @@ file.
 ** ansible-vault
 *** Password
 To use =ansible-vault= you have to provide the path to a file containing the
-password to use somewhere in you =dotspacemacs/user-config= function.
+password to use somewhere in your =dotspacemacs/user-config= function.
 For instance:
 
 #+BEGIN_SRC emacs-lisp
@@ -32,16 +32,28 @@ For instance:
 
 The default value is the ansible-vault default value: =~/.vault_pass.txt=.
 
-*** Automatic encryption and descryption
+For now Ansible does not handle multiple passwords in the vault file
+(see https://github.com/ansible/ansible/issues/13243). To work around this
+limitation directory local variables can be used to define a different
+password file for a given environment. Example:
+
+#+BEGIN_SRC emacs-lisp
+;;; Directory Local Variables
+;;; For more information see (info "(emacs) Directory Variables")
+
+((yaml-mode . ((ansible::vault-password-file . "path/to/vault_file"))))
+#+END_SRC
+
+*** Automatic encryption and decryption
 This layer comes preconfigured with automatic encryption/decryption of
 encrypted files using =ansible-vault= so it is possible to edit seamlessly
 any encrypted files.
 
 If you want to disable this feature then set the layer variable
-=ansible-auto-encrypt-descrypt= to =nil=.
+=ansible-auto-encrypt-decrypt= to =nil=.
 
 #+BEGIN_SRC emacs-lisp
-(ansible :variables ansible-auto-encrypt-descrypt t)
+(ansible :variables ansible-auto-encrypt-decrypt t)
 #+END_SRC
 
 * Key bindings

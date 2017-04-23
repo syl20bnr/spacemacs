@@ -1,0 +1,18 @@
+#+TITLE: go layer dependency installation script
+
+* Table of Contents                 :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#list-of-installed-software][List of installed software:]]
+
+* Description
+Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/go/README.org][Go layer.]]
+
+* List of installed software:
+1. [[https://golang.org/][Go 1.8]]
+2. [[https://github.com/go-check/check/][go-check]]
+3. [[https://github.com/nsf/gocode][gocode]]
+4. [[https://github.com/rogpeppe/godef][godef]]
+5. [[https://godoc.org/golang.org/x/tools/cmd/guru][go-guru]]
+6. [[https://godoc.org/golang.org/x/tools/cmd/gorename][gorename]]
+7. [[https://godoc.org/golang.org/x/tools/cmd/goimports][goimports]]
+8. [[https://github.com/alecthomas/gometalinter][gometalinter]] if =go-use-gometalinter= is =t=

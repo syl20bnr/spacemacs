@@ -33,7 +33,10 @@
         ;; When opening it you always want to filter right away
         (evil-insert-state nil)))
     :config (spacemacs/set-leader-keys-for-major-mode 'deft-mode
+              "c" 'deft-filter-clear
               "d" 'deft-delete-file
               "i" 'deft-toggle-incremental-search
               "n" 'deft-new-file
+              "N" 'deft-new-file-named
+              "o" 'deft-open-file-other-window
               "r" 'deft-rename-file)))

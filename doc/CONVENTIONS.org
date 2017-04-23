@@ -216,7 +216,7 @@ Note: we don't distinguish between the file and the buffer. We can
 implement an auto-save of the buffer before compiling the buffer.
 
 ** Debugging
-The base prefix for debugging commands is ~SPC d~.
+The base prefix for debugging commands is ~SPC m d~.
 
 | Key Binding | Description             |
 |-------------+-------------------------|
@@ -352,7 +352,7 @@ Major-mode code formatting is under prefix ~SPC m =~.
 | ~m = f~     | format current function  |
 
 ** Help or Documentation
-The base prefix for help commands is ~SPC h~. Documentation is considered
+The base prefix for help commands is ~SPC m h~. Documentation is considered
 as an help command.
 
 | Key     | Description                        |

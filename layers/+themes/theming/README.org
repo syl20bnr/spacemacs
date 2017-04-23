@@ -4,6 +4,7 @@
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#usage][Usage]]
+   - [[#example][Example]]
  - [[#attributes][Attributes]]
  - [[#faces][Faces]]
  - [[#headers][Headers]]
@@ -29,6 +30,23 @@ of the following form:
            ...)
    ...)
 #+end_src
+
+** Example
+#+begin_src lisp
+  (defun dotspacemacs/user-init ()
+    (setq theming-modifications
+          '((monokai
+             ;; Font locking
+             (font-lock-comment-face :slant italic)
+             (web-mode-html-attr-name-face :inherit font-lock-variable-name-face
+                                           :foreground nil)
+             ;; Modeline
+             (powerline-active1 :box (:color "#999999"
+                                      :line-width 1
+                                      :style released-button)
+                                :background "#5a5a5a")))))
+#+end_src
+Source: [[https://gist.github.com/TheBB/f25a607b9bda4d5861f2#file-init-el-L274][gist]]
 
 This will apply the given attributes to the relevant faces whenever the
 appropriate theme is loaded. To update without changing the theme, use ~SPC SPC

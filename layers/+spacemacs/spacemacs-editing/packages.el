@@ -24,6 +24,7 @@
         (origami :toggle (eq 'origami dotspacemacs-folding-method))
         smartparens
         (spacemacs-whitespace-cleanup :location local)
+        string-inflection
         undo-tree
         uuidgen
         ws-butler))
@@ -331,6 +332,18 @@
       (spacemacs|diminish spacemacs-whitespace-cleanup-mode " Ⓦ" " W")
       (spacemacs|diminish global-spacemacs-whitespace-cleanup-mode
                           " Ⓦ" " W"))))
+
+(defun spacemacs-editing/init-string-inflection ()
+  (use-package string-inflection
+    :init
+    (progn
+      (spacemacs/set-leader-keys
+        "xii" 'string-inflection-all-cycle
+        "xiu" 'string-inflection-underscore
+        "xiU" 'string-inflection-upcase
+        "xik" 'string-inflection-kebab-case
+        "xic" 'string-inflection-lower-camelcase
+        "xiC" 'string-inflection-camelcase))))
 
 (defun spacemacs-editing/init-undo-tree ()
   (use-package undo-tree

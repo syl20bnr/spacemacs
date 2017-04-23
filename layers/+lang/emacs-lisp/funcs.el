@@ -39,9 +39,9 @@
   (eval-defun 'edebugit))
 
 (defun spacemacs/edebug-instrument-defun-off ()
-  "Toggle on instrumentalisation for the function under `defun'."
+  "Toggle off instrumentalisation for the function under `defun'."
   (interactive)
-  (eval-defun))
+  (eval-defun nil))
 
 (defun spacemacs/elisp-toggle-debug-expr-and-eval-func ()
   "Insert or remove debug expression, evaluate function and save buffer."

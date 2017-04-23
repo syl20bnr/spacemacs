@@ -1,4 +1,0 @@
-* TODO add examples:
-- modularity example with golang and /bin/bash instructions (for non-lispers)
-- mounting local .m2 for clojure layer (persistence/bandwidth saving example)
-- multi-image example (partial updates)
