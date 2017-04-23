@@ -39,9 +39,6 @@
 - [[file:+completion/ivy/README.org][ivy]]
 
 * Distributions
-- [[file:+distributions/spacemacs/README.org][spacemacs]]
-- [[file:+distributions/spacemacs-base/README.org][spacemacs-base]]
-- [[file:+distributions/spacemacs-bootstrap/README.org][spacemacs-bootstrap]]
 - [[file:+distributions/spacemacs-docker/README.org][spacemacs-docker]]
 
 * Emacs
@@ -94,6 +91,7 @@
 - [[file:+lang/forth/README.org][forth]]
 - [[file:+lang/fsharp/README.org][fsharp]]
 - [[file:+lang/go/README.org][go]]
+- [[file:+lang/gpu/README.org][gpu]]
 - [[file:+lang/graphviz/README.org][graphviz]]
 - [[file:+lang/haskell/README.org][haskell]]
 - [[file:+lang/html/README.org][html]]
@@ -108,8 +106,10 @@
 - [[file:+lang/nim/README.org][nim]]
 - [[file:+lang/ocaml/README.org][ocaml]]
 - [[file:+lang/octave/README.org][octave]]
+- [[file:+lang/perl6/README.org][perl6]]
 - [[file:+lang/php/README.org][php]]
 - [[file:+lang/plantuml/README.org][plantuml]]
+- [[file:+lang/protobuf/README.org][protobuf]]
 - [[file:+lang/purescript/README.org][purescript]]
 - [[file:+lang/python/README.org][python]]
 - [[file:+lang/racket/README.org][racket]]
@@ -118,7 +118,6 @@
 - [[file:+lang/rust/README.org][rust]]
 - [[file:+lang/scala/README.org][scala]]
 - [[file:+lang/scheme/README.org][scheme]]
-- [[file:+lang/shaders/README.org][shaders]]
 - [[file:+lang/shell-scripts/README.org][shell-scripts]]
 - [[file:+lang/sml/README.org][sml]]
 - [[file:+lang/sql/README.org][sql]]
@@ -129,7 +128,6 @@
 - [[file:+lang/yaml/README.org][yaml]]
 
 * Misc
-- [[file:+misc/nlinum/README.org][nlinum]]
 
 * Operating systems
 - [[file:+os/nixos/README.org][nixos]]
@@ -145,17 +143,7 @@
 - [[file:+source-control/version-control/README.org][version-control]]
 
 * Spacemacs distribution layers
-- [[file:+spacemacs/spacemacs-completion/README.org][spacemacs-completion]]
-- [[file:+spacemacs/spacemacs-editing/README.org][spacemacs-editing]]
-- [[file:+spacemacs/spacemacs-editing-visual/README.org][spacemacs-editing-visual]]
-- [[file:+spacemacs/spacemacs-evil/README.org][spacemacs-evil]]
-- [[file:+spacemacs/spacemacs-language/README.org][spacemacs-language]]
-- [[file:+spacemacs/spacemacs-layouts/README.org][spacemacs-layouts]]
-- [[file:+spacemacs/spacemacs-misc/README.org][spacemacs-misc]]
-- [[file:+spacemacs/spacemacs-org/README.org][spacemacs-org]]
 - [[file:+spacemacs/spacemacs-purpose/README.org][spacemacs-purpose]]
-- [[file:+spacemacs/spacemacs-ui/README.org][spacemacs-ui]]
-- [[file:+spacemacs/spacemacs-ui-visual/README.org][spacemacs-ui-visual]]
 
 * Tags
 - [[file:+tags/cscope/README.org][cscope]]

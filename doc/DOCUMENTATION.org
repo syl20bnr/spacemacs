@@ -95,15 +95,11 @@
      - [[#additional-text-objects][Additional text objects]]
    - [[#reserved-prefix-command-for-user][Reserved prefix command for user]]
    - [[#completion][Completion]]
-     - [[#helm][Helm]]
-       - [[#c-z-and-tab-switch][C-z and Tab switch]]
-       - [[#helm-focus][Helm focus]]
-       - [[#helm-transient-state][Helm transient state]]
      - [[#ivy][Ivy]]
    - [[#discovering][Discovering]]
      - [[#key-bindings][Key bindings]]
        - [[#which-key][Which-key]]
-       - [[#helm-describe-key-bindings][Helm describe key bindings]]
+       - [[#describe-key-bindings][Describe key bindings]]
      - [[#getting-help][Getting help]]
      - [[#available-layers][Available layers]]
        - [[#available-packages-in-spacemacs][Available packages in Spacemacs]]
@@ -124,11 +120,12 @@
        - [[#golden-ratio][Golden ratio]]
      - [[#buffers-and-files][Buffers and Files]]
        - [[#buffers-manipulation-key-bindings][Buffers manipulation key bindings]]
+       - [[#create-a-new-empty-buffer][Create a new empty buffer]]
        - [[#buffers-manipulation-transient-state][Buffers manipulation transient state]]
        - [[#special-buffers][Special Buffers]]
        - [[#files-manipulations-key-bindings][Files manipulations key bindings]]
        - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
-       - [[#browsing-files-with-helm][Browsing files with Helm]]
+       - [[#browsing-files-in-completion-buffer][Browsing files in completion buffer]]
      - [[#ido][Ido]]
      - [[#ido-transient-state][Ido transient state]]
      - [[#neotree-file-tree][NeoTree file tree]]
@@ -156,7 +153,6 @@
      - [[#highlight-current-symbol][Highlight current symbol]]
      - [[#visual-star][Visual Star]]
      - [[#listing-symbols-by-semantic][Listing symbols by semantic]]
-     - [[#helm-swoop][Helm-swoop]]
    - [[#editing][Editing]]
      - [[#paste-text][Paste text]]
        - [[#paste-transient-state][Paste Transient-state]]
@@ -327,9 +323,6 @@ and choosing a rollback slot (sorted by date). This button uses the command
 =configuration-layer/rollback=.
 
 * Configuration layers
-  :PROPERTIES:
-  :CUSTOM_ID: configuration-layers
-  :END:
 This section is an overview of layers. A more extensive introduction to writing
 configuration layers can be found [[file:LAYERS.org][here]] (recommended reading!).
 
@@ -367,7 +360,7 @@ Where:
 | packages.el    | The list of packages and their configuration functions (init, post-init, etc...)                 |
 | funcs.el       | All functions defined in the layer (used in package configuration for instance)                  |
 | config.el      | Layer configuration (defines the layer variables default values and setup some config variables) |
-| keybindings.el | General key bindings no tied to a specific package configuration                                 |
+| keybindings.el | General key bindings not tied to a specific package configuration                                |
 
 =Packages= can be:
 - =ELPA= packages installed from an =ELPA= compliant repository
@@ -506,9 +499,6 @@ Please refer to [[file:LAYERS.org][this]] introduction for some tips on writing 
 best make them fit with the Spacemacs philosophy and loading strategy.
 
 * Dotfile Configuration
-:PROPERTIES:
-:CUSTOM_ID: dotfile-configuration
-:END:
 User configuration can be stored in your =~/.spacemacs= file.
 
 ** Dotfile Installation
@@ -555,9 +545,9 @@ tests are also run automatically when you synchronize with ~SPC f e R~.
 Three special functions in the =~/.spacemacs= file can be used to perform
 configuration at the beginning and end of Spacemacs loading process:
 
-- =dotspacemacs/layers= is called at the very startup of Spacemacs initilialization,
+- =dotspacemacs/layers= is called at the very startup of Spacemacs initialization,
   this is where you set the Spacemacs distribution and declare layers to be used
-  in your configuration. You can also add or excluded packages of your choice
+  in your configuration. You can also add or exclude packages of your choice
   and tweak some behavior of Spacemacs loading.
 - =dotspacemacs/init= is called at the very startup of Spacemacs initialization
   before layers configuration. *You should not put any user code* in there
@@ -577,12 +567,12 @@ configuration at the beginning and end of Spacemacs loading process:
 *** Custom variables
 By default custom variables from =M-x customize-group= are automatically saved
 at the end of your =~/.spacemacs= file in the function
-=dotspacemacs/emacs-custom-settings== unless you declare a custom =custom-file=
+=dotspacemacs/emacs-custom-settings= unless you declare a custom =custom-file=
 in the =dotspacemacs/user-init= function, in this case custom variables will be
 written to the user defined =custom-file= and the function
 =dotspacemacs/emacs-custom-settings= will remain empty.
 
-*Note:* if you set a custom =custom-file= value then it is your responsibility
+*Note:* If you set a custom =custom-file= value then it is your responsibility
 to load this file at the appropriate time. Often the best time to load it is
 just after setting the value for =custom-file= in the =dotspacemacs/user-init=
 function.
@@ -597,12 +587,12 @@ layer=.
 For instance, [[Thank you][RMS]] can add his private configuration layer like this:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '(
-    ;; other layers
-    ;; rms layer added at the end of the list
-    rms
-  ))
+  (setq-default dotspacemacs-configuration-layers
+                '(
+                  ;; other layers
+                  ;; rms layer added at the end of the list
+                  rms
+                  ))
 #+END_SRC
 
 Official layers shipped with Spacemacs are stored in =~/.emacs.d/layers=. The
@@ -745,7 +735,7 @@ Three styles are available:
 - Hybrid (a mix between Vim and Emacs).
 
 *** Vim
-Spacemacs behaves like in Vim using [[https://gitorious.org/evil/pages/Home][Evil]] mode package to emulate Vim key bindings.
+Spacemacs behaves like in Vim using [[https://github.com/emacs-evil/evil][Evil]] mode package to emulate Vim key bindings.
 This is the default style of Spacemacs; it can be set explicitly by setting
 the =dotspacemacs-editing-style= variable to =vim= in the dotfile.
 
@@ -798,19 +788,16 @@ Default configuration is:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-editing-style '(hybrid :variables
-                                           hybrid-mode-enable-evilified-state t
-                                           hybrid-mode-enable-hjkl-bindings nil
-                                           hybrid-mode-use-evil-search-module nil
-                                           hybrid-mode-default-state 'normal)
+                                                  hybrid-mode-enable-evilified-state t
+                                                  hybrid-mode-enable-hjkl-bindings nil
+                                                  hybrid-mode-use-evil-search-module nil
+                                                  hybrid-mode-default-state 'normal)
 #+END_SRC
 
 To toggle the hybrid style on and off use ~SPC t E h~ and ~M-m t E h~. When
 off the =vim= style is enabled.
 
 ** States
-:PROPERTIES:
-:CUSTOM_ID: states
-:END:
 Spacemacs has 10 states:
 
 | State        | Default Color | Description                                                                                                |
@@ -820,7 +807,7 @@ Spacemacs has 10 states:
 | visual       | gray          | like the =visual mode of Vim=, used to make text selection                                                 |
 | motion       | purple        | exclusive to =Evil=, used to navigate read only buffers                                                    |
 | emacs        | blue          | exclusive to =Evil=, using this state is like using a regular Emacs without Vim                            |
-| replace      | chocolate     | exclusive to =Evil=, overwrites the character under point instead of inserting a new one                   |
+| replace      | chocolate     | like =replace mode of Vim=, overwrites the character under point instead of inserting a new one            |
 | hybrid       | blue          | exclusive to Spacemacs, this is like the insert state except that all the emacs key bindings are available |
 | evilified    | light brown   | exclusive to Spacemacs, this is an =emacs state= modified to bring Vim navigation, selection and search.   |
 | lisp         | pink          | exclusive to Spacemacs, used to navigate Lisp code and modify it (more [[#editing-lisp-code][info]])                               |
@@ -865,7 +852,7 @@ are in =normal= mode by pressing the ~SPC~ leader key, here are a few examples:
 
 -  Save a buffer: ~SPC f s~
 -  Save all opened buffers: ~SPC f S~
--  Open (switch) to a buffer with =helm=: ~SPC b b~
+-  Open (switch) to a buffer: ~SPC b b~
 
 ** Universal argument
 The universal argument ~C-u~ is an important command in Emacs but it is also a
@@ -874,14 +861,7 @@ very handy Vim key binding to scroll up.
 Spacemacs binds ~C-u~ to =scroll-up= and changes the universal argument binding
 to ~SPC u~.
 
-*Note*: ~SPC u~ is not working before =helm-M-x= (~SPC SPC~). Instead, call
-=helm-M-x= first, select the command you want to run, and press ~C-u~ before
-pressing ~RETURN~. For instance: ~SPC SPC org-reload C-u RET~
-
 ** Transient-states
-   :PROPERTIES:
-   :CUSTOM_ID: transient-states
-   :END:
 Spacemacs defines a wide variety of =transient states= (temporary overlay maps)
 where it makes sense. This prevents one from doing repetitive and tedious
 presses on the ~SPC~ key.
@@ -1028,12 +1008,12 @@ fetch =zenburn= theme directly from the GitHub repository with the following
 declaration:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-themes
-              '(spacemacs-light
-              leuven
-              (zenburn :location (recipe :fetcher github
-                                         :repo "bbatsov/zenburn-emacs"))
-              ))
+  (setq-default dotspacemacs-themes
+                '(spacemacs-light
+                  leuven
+                  (zenburn :location (recipe :fetcher github
+                                             :repo "bbatsov/zenburn-emacs"))
+                  ))
 #+END_SRC
 
 *Important note:* If you use =:location local= then you have to put your theme
@@ -1049,7 +1029,7 @@ You can cycle between the themes declared in =dotspacemacs-themes= with
 | Key Binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC T n~   | switch to next theme listed in =dotspacemacs-themes=. |
-| ~SPC T s~   | select a theme using a =helm= buffer.                 |
+| ~SPC T s~   | select a theme.                                       |
 
 *** Browsing themes
 You can see samples of all themes included in the =themes-megapack= layer
@@ -1160,8 +1140,8 @@ and ~T~):
 | ~SPC T t~   | toggle tool bar                                                  |
 | ~SPC T T~   | toggle frame transparency and enter transparency transient state |
 
-*Note*: These toggles are all available via the =helm-spacemacs-help= interface
-(press ~SPC h SPC~ to display the =helm-spacemacs-help= buffer).
+*Note*: These toggles are all available via the =spacemacs-help= interfaces
+(press ~SPC h SPC~ to display the =spacemacs-help= buffer).
 
 **** Global line numbers
 Line numbers can be toggled on in all =prog-mode= and =text-mode= buffers by
@@ -1262,6 +1242,7 @@ Some elements can be dynamically toggled:
 | ~SPC t m M~ | toggle the major mode                                           |
 | ~SPC t m n~ | toggle the cat! (if =colors= layer is declared in your dotfile) |
 | ~SPC t m p~ | toggle the point character position                             |
+| ~SPC t m s~ | toggle system monitor (displayed in the minibuffer)             |
 | ~SPC t m t~ | toggle the time                                                 |
 | ~SPC t m T~ | toggle the mode line itself                                     |
 | ~SPC t m v~ | toggle the version control info                                 |
@@ -1384,6 +1365,7 @@ can be reached using the =control= key.
 | ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
 
 **** Customizing the mode-line
+***** Spaceline
 Spacemacs uses [[https://github.com/TheBB/spaceline][Spaceline]] to provide its mode-line. It consists of a number of
 /segments/ arranged on the left and right sides. These are defined in the
 variables =spaceline-left= and =spaceline-right=. Segments can be defined using
@@ -1391,6 +1373,24 @@ variables =spaceline-left= and =spaceline-right=. Segments can be defined using
 right hand side variables.
 
 Please see the Spaceline documentation for more information.
+
+***** Restore lighters
+Lighters are abbreviations displayed in the mode-line to identify running minor
+modes. Spacemacs diminishes most of them to make them more compact.
+
+If you want to restore the original lighter of a mode then use the function
+=spacemacs/diminish-undo= with the appropriate mode name.
+
+For example to undo diminish for =company=:
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs|use-package-add-hook company
+    :post-config (spacemacs/diminish-undo 'company-mode))
+#+END_SRC
+
+Note that we use a =use-package= post init hook to be sure to override any
+lazily diminished lighters (see [[file:LAYERS.org][layers documentation]] for more information
+about lazy loading).
 
 * Layouts and workspaces
 Layouts are window configurations with buffer isolation, each layout can define
@@ -1482,34 +1482,34 @@ selected layout.
 
 Press ~?~ to toggle the full help.
 
-| Key Binding       | Description                                                |
-|-------------------+------------------------------------------------------------|
-| ~SPC l~           | activate the transient- state                              |
-| ~?~               | toggle the documentation                                   |
-| ~[0..9]~          | switch to nth layout                                       |
-| ~[C-0..C-9]~      | switch to nth layout and keep the transient state active   |
-| ~<tab>~           | switch to the latest layout                                |
-| ~a~               | add a buffer to the current layout                         |
-| ~A~               | add all the buffers from another layout in the current one |
-| ~b~               | select a buffer in the current layout                      |
-| ~d~               | delete the current layout and keep its buffers             |
-| ~D~               | delete the other layouts and keep their buffers            |
-| ~h~               | go to default layout                                       |
-| ~C-h~             | previous layout in list                                    |
-| ~l~               | select/create a layout with helm                           |
-| ~L~               | load layouts from file                                     |
-| ~C-l~             | next layout in list                                        |
-| ~n~               | next layout in list                                        |
-| ~N~               | previous layout in list                                    |
-| ~o~               | open a custom layout                                       |
-| ~p~               | previous layout in list                                    |
-| ~r~               | remove current buffer from layout                          |
-| ~R~               | rename current layout                                      |
-| ~s~               | save layouts                                               |
-| ~t~               | display a buffer without adding it to the current layout   |
-| ~w~               | workspaces transient state (needs eyebrowse layer enabled) |
-| ~x~               | kill current layout with its buffers                       |
-| ~X~               | kill other layouts with their buffers                      |
+| Key Binding  | Description                                                |
+|--------------+------------------------------------------------------------|
+| ~SPC l~      | activate the transient- state                              |
+| ~?~          | toggle the documentation                                   |
+| ~[0..9]~     | switch to nth layout                                       |
+| ~[C-0..C-9]~ | switch to nth layout and keep the transient state active   |
+| ~<tab>~      | switch to the latest layout                                |
+| ~a~          | add a buffer to the current layout                         |
+| ~A~          | add all the buffers from another layout in the current one |
+| ~b~          | select a buffer in the current layout                      |
+| ~d~          | delete the current layout and keep its buffers             |
+| ~D~          | delete the other layouts and keep their buffers            |
+| ~h~          | go to default layout                                       |
+| ~C-h~        | previous layout in list                                    |
+| ~l~          | select/create a layout                                     |
+| ~L~          | load layouts from file                                     |
+| ~C-l~        | next layout in list                                        |
+| ~n~          | next layout in list                                        |
+| ~N~          | previous layout in list                                    |
+| ~o~          | open a custom layout                                       |
+| ~p~          | previous layout in list                                    |
+| ~r~          | remove current buffer from layout                          |
+| ~R~          | rename current layout                                      |
+| ~s~          | save layouts                                               |
+| ~t~          | display a buffer without adding it to the current layout   |
+| ~w~          | workspaces transient state (needs eyebrowse layer enabled) |
+| ~x~          | kill current layout with its buffers                       |
+| ~X~          | kill other layouts with their buffers                      |
 
 ** Workspaces
 Workspaces are sub-layouts, they allow to define multiple layouts into a given
@@ -1650,8 +1650,8 @@ Additional text objects are defined in Spacemacs:
 these is *guaranteed* to never conflict with Spacemacs default key bindings.
 
 *Example:* Put =(spacemacs/set-leader-keys "oc" 'org-capture)= inside
-=dotspacemacs/user-config= in your =~/.spacemacs= file, to be able to use ~SPC o
-c~ to run org mode capture.
+=dotspacemacs/user-config= in your =~/.spacemacs= file, to be able to use
+~SPC o c~ to run org mode capture.
 
 ** Completion
 Spacemacs is powered by one of two incremental completion and selection
@@ -1666,61 +1666,10 @@ and more...
 
 Mastering your choice of completion system will make you a Spacemacs power user.
 
-*** Helm
-Do not hesitate to read the [[https://github.com/emacs-helm/helm/wiki][Helm documentation wiki]].
+For more information go to the layers documentation for [[https://github.com/syl20bnr/spacemacs/blob/master/layers/+completion/helm/README.org][Helm]] and [[https://github.com/syl20bnr/spacemacs/blob/master/layers/+completion/ivy/README.org][Ivy]].
 
-Spacemacs add =hjkl= navigation to =helm= buffers:
-
-| Key Binding | Description                  |
-|-------------+------------------------------|
-| ~C-h~       | go to next source            |
-| ~C-H~       | describe key (replace ~C-h~) |
-| ~C-j~       | go to previous candidate     |
-| ~C-k~       | go to next candidate         |
-| ~C-l~       | same as ~return~             |
-
-**** C-z and Tab switch
-The command bound to ~C-z~ is much more useful than the one bound to Tab, so it
-makes sense to swap them. It's also recommended [[http://tuhdo.github.io/helm-intro.html][here]].
-
-**** Helm focus
-If you find yourself unable to return focus to Helm (after a careless
-mouse-click for example), use ~SPC w b~ to return focus to the minibuffer.
-
-**** Helm transient state
-     :PROPERTIES:
-     :CUSTOM_ID: helm-transient-state
-     :END:
-Spacemacs defines a [[#transient-states][transient state]] for =Helm= to make it work like [[https://github.com/Shougo/unite.vim][Vim's Unite]]
-plugin.
-
-Initiate the transient state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
-
-| Key Binding          | Description                                          |
-|----------------------+------------------------------------------------------|
-| ~M-SPC~ or ~s-M-SPC~ | initiate the transient state                         |
-| ~q~                  | quit transient state                                 |
-| ~TAB~                | switch to actions page and leave the transient state |
-| ~1~                  | execute action 0                                     |
-| ~2~                  | execute action 1                                     |
-| ~3~                  | execute action 2                                     |
-| ~4~                  | execute action 3                                     |
-| ~5~                  | execute action 4                                     |
-| ~6~                  | execute action 5                                     |
-| ~7~                  | execute action 6                                     |
-| ~8~                  | execute action 7                                     |
-| ~9~                  | execute action 8                                     |
-| ~0~                  | execute action 9                                     |
-| ~a~                  | switch to actions page                               |
-| ~g~                  | go to first candidate                                |
-| ~G~                  | go to last candidate                                 |
-| ~h~                  | go to previous source                                |
-| ~j~                  | select next candidate                                |
-| ~k~                  | select previous candidate                            |
-| ~l~                  | go to next source                                    |
-| ~t~                  | mark current candidate                               |
-| ~T~                  | mark all candidates                                  |
-| ~v~                  | execute persistent action                            |
+*Note:* To open the Spacemacs documentation for Helm of Ivy in Emacs, open the
+=spacemacs-help= menu with ~SPC h SPC~ and type ~helm~ or ~ivy~ then ~return~.
 
 *** Ivy
 If you choose =ivy= as completion system, make sure to read [[http://oremacs.com/swiper/][official manual]]. In
@@ -1745,7 +1694,7 @@ By default the [[https://github.com/justbur/emacs-which-key][which-key]] buffer 
 pressed. You can change the delay by setting the variable
 =dotspacemacs-which-key-delay= to your liking (the value is in second).
 
-**** Helm describe key bindings
+**** Describe key bindings
 It is possible to search for specific key bindings by pressing ~SPC ?~.
 
 To narrow the list to some key bindings using the leader key type a pattern like
@@ -1759,7 +1708,7 @@ thusly:
 
 | Key Binding | Description                                               |
 |-------------+-----------------------------------------------------------|
-| ~SPC h d b~ | describe bindings in a =helm= buffer                      |
+| ~SPC h d b~ | describe bindings                                         |
 | ~SPC h d c~ | describe current character under point                    |
 | ~SPC h d d~ | describe current expression under point                   |
 | ~SPC h d f~ | describe a function                                       |
@@ -1776,13 +1725,13 @@ thusly:
 
 Other help key bindings:
 
-| Key Binding | Description                                                        |
-|-------------+--------------------------------------------------------------------|
-| ~SPC h SPC~ | discover Spacemacs documentation, layers and packages using =helm= |
-| ~SPC h i~   | search in info pages with the symbol at point                      |
-| ~SPC h k~   | show top-level bindings with =which-key=                           |
-| ~SPC h m~   | search available man pages                                         |
-| ~SPC h n~   | browse emacs news                                                  |
+| Key Binding | Description                                           |
+|-------------+-------------------------------------------------------|
+| ~SPC h SPC~ | discover Spacemacs documentation, layers and packages |
+| ~SPC h i~   | search in info pages with the symbol at point         |
+| ~SPC h k~   | show top-level bindings with =which-key=              |
+| ~SPC h m~   | search available man pages                            |
+| ~SPC h n~   | browse emacs news                                     |
 
 Navigation key bindings in =help-mode=:
 
@@ -1799,23 +1748,23 @@ Reporting an issue:
 | ~SPC h I~       | Open Spacemacs GitHub issue page with pre-filled information                             |
 | ~SPC u SPC h I~ | Open Spacemacs GitHub issue page with pre-filled information - include last pressed keys |
 
-/Note:/ If these two bindings are used with the =*Backtrace*= buffer open, the
+*Note:* If these two bindings are used with the =*Backtrace*= buffer open, the
 backtrace is automatically included
 
 *** Available layers
-All layers can be easily discovered via =helm-spacemacs-help= accessible with
-~SPC h SPC~.
+All layers can be easily discovered via =spacemacs-help= accessible with
+ ~SPC h SPC~.
 
-The following helm actions are available:
+The following actions on the selected candidate are available:
   - default: open the layer =README.org=
   - 2nd: open the layer =packages.el=
 
 **** Available packages in Spacemacs
-=helm-spacemacs-help= also lists all the packages available in Spacemacs. The
+=spacemacs-help= also lists all the packages available in Spacemacs. The
 entry format is =(layer) packages=. If you type =flycheck= you'll be able to see
 all the layers where =flycheck= is used.
 
-The following helm actions are available on packages:
+The following actions are available on selected package:
   - default: go the package init function
 
 **** New packages from ELPA repositories
@@ -1862,15 +1811,11 @@ Spacemacs.
 | ~x~         | execute (action flags)                                |
 
 *** Toggles
-=helm-spacemacs-help= is also a central place to discover the available toggles.
-To display only the toggles source press ~C-l~ (or in [[#helm-transient-state][Helm transient state]] you can
-press just ~l~).
+=spacemacs-help= is also a central place to discover the available toggles.
+To display only the toggles source press ~C-l~.
 
-The following helm actions are available on packages:
+The following actions are available on selected toggle:
   - default: toggle on/off
-
-*Tips* Use ~SPC h l~ to resume the last helm session. It is handy to quickly
-toggle on and off a toggle.
 
 ** Navigating
 *** Point/Cursor
@@ -1973,7 +1918,7 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | ~SPC j J~   | jump to a suite of two characters in the buffer (works as an evil motion)         |
 | ~SPC j k~   | jump to next line and indent it using auto-indent rules                           |
 | ~SPC j l~   | jump to a line with avy (works as an evil motion)                                 |
-| ~SPC j q~   | show the dumb-jump quick look tooltip                                              |
+| ~SPC j q~   | show the dumb-jump quick look tooltip                                             |
 | ~SPC j u~   | jump to a URL in the current buffer                                               |
 | ~SPC j v~   | jump to the definition/declaration of an Emacs Lisp variable                      |
 | ~SPC j w~   | jump to a word in the current buffer (works as an evil motion)                    |
@@ -1993,18 +1938,21 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 Every window has a number displayed at the start of the mode-line and
 can be quickly accessed using =SPC number=.
 
-| Key Binding | Description           |
-|-------------+-----------------------|
-| ~SPC 1~     | go to window number 1 |
-| ~SPC 2~     | go to window number 2 |
-| ~SPC 3~     | go to window number 3 |
-| ~SPC 4~     | go to window number 4 |
-| ~SPC 5~     | go to window number 5 |
-| ~SPC 6~     | go to window number 6 |
-| ~SPC 7~     | go to window number 7 |
-| ~SPC 8~     | go to window number 8 |
-| ~SPC 9~     | go to window number 9 |
-| ~SPC 0~     | go to window number 0 |
+| Key Binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~SPC 1~     | go to window number 1                               |
+| ~SPC 2~     | go to window number 2                               |
+| ~SPC 3~     | go to window number 3                               |
+| ~SPC 4~     | go to window number 4                               |
+| ~SPC 5~     | go to window number 5                               |
+| ~SPC 6~     | go to window number 6                               |
+| ~SPC 7~     | go to window number 7                               |
+| ~SPC 8~     | go to window number 8                               |
+| ~SPC 9~     | go to window number 9                               |
+| ~SPC 0~     | go to window number 0 (or 10 if no window number 0) |
+
+Window number 0 is assigned to the sidebar, like NeoTree. If there is no window
+number 0, =SPC 0= attempts to select window number 10.
 
 Windows manipulation commands (start with ~w~):
 
@@ -2012,7 +1960,7 @@ Windows manipulation commands (start with ~w~):
 |------------------------+-----------------------------------------------------------------------------|
 | ~SPC w TAB~            | switch to alternate window in the current frame (switch back and forth)     |
 | ~SPC w =~              | balance split windows                                                       |
-| ~SPC w b~              | force the focus back to the minibuffer (useful with =helm= popups)         |
+| ~SPC w b~              | force the focus back to the minibuffer                                      |
 | ~SPC w c~              | maximize/minimize a window and center it                                    |
 | ~SPC w C~              | maximize/minimize a window and center it using [[https://github.com/abo-abo/ace-window][ace-window]]                   |
 | ~SPC w d~              | delete a window                                                             |
@@ -2090,7 +2038,7 @@ window resizing.
 | ~u~           | undo window layout (used to effectively undo a closed window) |
 | ~U~           | redo window layout                                            |
 | ~v~           | vertical split                                                |
-| ~V~           | horizontal split and focus new window                         |
+| ~V~           | vertical split and focus new window                           |
 | ~w~           | focus other window                                            |
 | Any other key | leave the transient state                                     |
 
@@ -2103,15 +2051,13 @@ selected or not. By default =golden-ratio= is off.
 The mode can be toggled on and off with ~SPC t g~.
 
 *** Buffers and Files
-By default Spacemacs uses =helm= to open files.
-
 **** Buffers manipulation key bindings
 Buffer manipulation commands (start with ~b~):
 
 | Key Binding     | Description                                                              |
 |-----------------+--------------------------------------------------------------------------|
 | ~SPC TAB~       | switch to alternate buffer in the current window (switch back and forth) |
-| ~SPC b b~       | switch to a buffer using [[https://github.com/emacs-helm/helm][helm]]                                            |
+| ~SPC b b~       | switch to a buffer                                                       |
 | ~SPC b d~       | kill the current buffer (does not delete the visited file)               |
 | ~SPC u SPC b d~ | kill the current buffer and window (does not delete the visited file)    |
 | ~SPC b D~       | kill a visible buffer using [[https://github.com/abo-abo/ace-window][ace-window]]                                   |
@@ -2132,6 +2078,16 @@ Buffer manipulation commands (start with ~b~):
 | ~SPC b Y~       | copy whole buffer to clipboard (useful when copying to a browser)        |
 | ~z f~           | Make current function or comments visible in buffer as much as possible  |
 
+**** Create a new empty buffer
+
+| Key Binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC b N h~ | create new empty buffer in a new window on the left          |
+| ~SPC b N j~ | create new empty buffer in a new window at the bottom        |
+| ~SPC b N k~ | create new empty buffer in a new window above                |
+| ~SPC b N l~ | create new empty buffer in a new window below                |
+| ~SPC b N n~ | create new empty buffer in current window                    |
+
 **** Buffers manipulation transient state
 A convenient buffer manipulation transient state allows to quickly cycles through
 the opened buffer and kill them.
@@ -2145,42 +2101,40 @@ the opened buffer and kill them.
 | Any other key | leave the transient state                     |
 
 **** Special Buffers
-:PROPERTIES:
-:CUSTOM_ID: special-buffers
-:END:
 Unlike vim, emacs creates many buffers that most people do not need to see. Some
-examples are =*Messages*= and =*Compile-Log*=. Spacemacs tries to automatically
-ignore buffers that are not useful. However, you may want to change the way
-Spacemacs marks buffers as useful. For instructions, see the [[file:FAQ.org::#change-special-buffer-rules][special buffer howto]].
+examples are the =*Messages*= and =*Compile-Log*= buffers. Spacemacs tries to
+automatically ignore buffers that are not useful. However, you may want to
+change the way Spacemacs marks buffers as useful. For instructions, see the
+[[file:FAQ.org::#change-special-buffer-rules][special buffer howto]].
 
 **** Files manipulations key bindings
 Files manipulation commands (start with ~f~):
 
-| Key Binding | Description                                                                                                                     |
-|-------------+---------------------------------------------------------------------------------------------------------------------------------|
-| ~SPC f b~   | go to file bookmarks                                                                                                            |
-| ~SPC f c~   | copy current file to a different location                                                                                       |
-| ~SPC f C d~ | convert file from unix to dos encoding                                                                                          |
-| ~SPC f C u~ | convert file from dos to unix encoding                                                                                          |
-| ~SPC f D~   | delete a file and the associated buffer (ask for confirmation)                                                                  |
-| ~SPC f E~   | open a file with elevated privileges (sudo edit)                                                                                |
-| ~SPC f f~   | open file with =helm=                                                                                                           |
-| ~SPC f F~   | try to open the file under point =helm=                                                                                         |
-| ~SPC f h~   | open binary file with =hexl= (a hex editor)                                                                                     |
-| ~SPC f j~   | jump to the current buffer file in dired                                                                                        |
-| ~SPC f J~   | open a junk file, in mode determined by the file extension provided (defaulting to =fundamental mode=), using =helm= (or =ivy=) |
-| ~SPC f l~   | open file literally in =fundamental mode=                                                                                       |
-| ~SPC f L~   | Locate a file (using =locate=)                                                                                                  |
-| ~SPC f o~   | open a file using the default external program                                                                                  |
-| ~SPC f R~   | rename the current file                                                                                                         |
-| ~SPC f s~   | save a file                                                                                                                     |
-| ~SPC f S~   | save all files                                                                                                                  |
-| ~SPC f r~   | open a recent file with =helm=                                                                                                  |
-| ~SPC f t~   | toggle file tree side bar using [[https://github.com/jaypei/emacs-neotree][NeoTree]]                                                                                         |
-| ~SPC f v d~ | add a directory variable                                                                                                        |
-| ~SPC f v f~ | add a local variable to the current file                                                                                        |
-| ~SPC f v p~ | add a local variable to the first line of the current file                                                                      |
-| ~SPC f y~   | show and copy current file absolute path in the minibuffer                                                                      |
+| Key Binding | Description                                                                                            |
+|-------------+--------------------------------------------------------------------------------------------------------|
+| ~SPC f b~   | go to file bookmarks                                                                                   |
+| ~SPC f c~   | copy current file to a different location                                                              |
+| ~SPC f C d~ | convert file from unix to dos encoding                                                                 |
+| ~SPC f C u~ | convert file from dos to unix encoding                                                                 |
+| ~SPC f D~   | delete a file and the associated buffer (ask for confirmation)                                         |
+| ~SPC f E~   | open a file with elevated privileges (sudo edit)                                                       |
+| ~SPC f f~   | open file                                                                                              |
+| ~SPC f F~   | try to open the file under point                                                                       |
+| ~SPC f h~   | open binary file with =hexl= (a hex editor)                                                            |
+| ~SPC f j~   | jump to the current buffer file in dired                                                               |
+| ~SPC f J~   | open a junk file, in mode determined by the file extension provided (defaulting to =fundamental mode=) |
+| ~SPC f l~   | open file literally in =fundamental mode=                                                              |
+| ~SPC f L~   | Locate a file (using =locate=)                                                                         |
+| ~SPC f o~   | open a file using the default external program                                                         |
+| ~SPC f R~   | rename the current file                                                                                |
+| ~SPC f s~   | save a file                                                                                            |
+| ~SPC f S~   | save all files                                                                                         |
+| ~SPC f r~   | open a recent file                                                                                     |
+| ~SPC f t~   | toggle file tree side bar using [[https://github.com/jaypei/emacs-neotree][NeoTree]]                                                                |
+| ~SPC f v d~ | add a directory variable                                                                               |
+| ~SPC f v f~ | add a local variable to the current file                                                               |
+| ~SPC f v p~ | add a local variable to the first line of the current file                                             |
+| ~SPC f y~   | show and copy current file absolute path in the minibuffer                                             |
 
 **** Emacs and Spacemacs files
 Convenient key bindings are located under the prefix ~SPC f e~ to quickly
@@ -2190,15 +2144,15 @@ navigate between =Emacs= and Spacemacs specific files.
 |-------------+-----------------------------------------------------------------|
 | ~SPC f e d~ | open the spacemacs dotfile (=~/.spacemacs=)                     |
 | ~SPC f e D~ | open =ediff= buffer of =~/.spacemacs= and =.spacemacs.template= |
-| ~SPC f e f~ | discover the =FAQ= using =helm=                                 |
+| ~SPC f e f~ | discover the =FAQ=                                              |
 | ~SPC f e i~ | open the all mighty =init.el=                                   |
 | ~SPC f e l~ | locate an Emacs library                                         |
 | ~SPC f e R~ | resync the dotfile with spacemacs                               |
 | ~SPC f e v~ | display and copy the spacemacs version                          |
 
-**** Browsing files with Helm
-In =vim= and  =hybrid= styles, Spacemacs remap the navigation in Helm find-files
-to keep finger on the home row.
+**** Browsing files in completion buffer
+In =vim= style and  =hybrid= style with the variable
+=hybrid-mode-enable-hjkl-bindings= set to =t=, you can navigation with ~hjkl~.
 
 | Key Binding | Description                       |
 |-------------+-----------------------------------|
@@ -2216,8 +2170,8 @@ Basic =ido= operations can be done with ~Ctrl~ key:
 
 | Key Binding        | Description                                       |
 |--------------------+---------------------------------------------------|
-| ~C-<return>~       | open a =dired buffer=                             |
-| ~M-<return>~       | open a =dired buffer= in terminal                 |
+| ~C-RET~            | open a =dired buffer=                             |
+| ~M-RET~            | select the buffer or file named by the prompt     |
 | ~C-d~              | delete selected file (ask for confirmation)       |
 | ~C-h~              | go to parent directory                            |
 | ~C-j~              | select next file or directory                     |
@@ -2294,8 +2248,8 @@ experience.
 
 **** Opening files with NeoTree
 By default a file is opened in the last active window. It is possible to choose
-window number where to open a file by using a numeric argument, for instance ~2
-l~ or ~2 RET~ will open the current file in window 2. It is also possible to
+window number where to open a file by using a numeric argument, for instance
+~2 l~ or ~2 RET~ will open the current file in window 2. It is also possible to
 open the file in a split window with ~|~ and ~-~:
 
 | Key Binding      | Description                               |
@@ -2369,12 +2323,9 @@ Use =nerd= if you want it to look most like NERDTree in VIM.  For example:
 
 *** Bookmarks
 Bookmarks can be set anywhere in a file. Bookmarks are persistent. They are very
-useful to jump to/open a known project. Spacemacs uses =helm-bookmarks= to
-manage them.
+useful to jump to/open a known project.
 
-Open an =helm= window with the current bookmarks by pressing: ~SPC f b~
-
-Then in the =helm-bookmarks= buffer:
+Open the bookmark completion window by pressing= ~SPC f b~
 
 | Key Binding | Description                                  |
 |-------------+----------------------------------------------|
@@ -2450,12 +2401,12 @@ Spacemacs can be interfaced with different search utilities like:
   - grep
 
 The search commands in Spacemacs are organized under the ~SPC s~ prefix with the
-next key is the tool to use and the last key is the scope. For instance ~SPC s a
-b~ will search in all opened buffers using =ag=.
+next key is the tool to use and the last key is the scope. For instance
+~SPC s a b~ will search in all opened buffers using =ag=.
 
 If the last key (determining the scope) is uppercase then the current region or
-symbol under point is used as default input for the search. For instance ~SPC s
-a B~ will search with symbol under point (if there is no active region).
+symbol under point is used as default input for the search. For instance
+~SPC s a B~ will search with symbol under point (if there is no active region).
 
 If the tool key is omitted then a default tool will be automatically selected
 for the search. This tool corresponds to the first tool found on the system of
@@ -2489,20 +2440,20 @@ file with =ag=.
 - =rg=, =ag= and =pt= are optimized to be used in a source control repository but
   they can be used in an arbitrary directory as well.
 - It is also possible to search in several directories at once by marking
-  them in the helm buffer.
+  them in the Helm buffer (not available in Ivy).
 
 *Beware* if you use =pt=, [[https://core.tcl.tk/tcllib/doc/trunk/embedded/www/tcllib/files/apps/pt.html][TCL parser tools]] also install a command line tool
 called =pt=.
 
 **** Useful key bindings
 
-| Key Binding            | Description                                                   |
-|------------------------+---------------------------------------------------------------|
-| ~F3~                   | in a =helm= or =ivy= buffer, save results to a regular buffer |
-| ~SPC r l~              | resume the last =completion= buffer                           |
-| ~SPC r s~ or ~SPC s l~ | resume search buffer (completion or converted search buffer)  |
-| ~SPC s `~              | go back to the previous place reached with =helm-ag=          |
-| Prefix argument        | will ask for file extensions                                  |
+| Key Binding            | Description                                                  |
+|------------------------+--------------------------------------------------------------|
+| ~F3~                   | in a completion buffer, save results to a regular buffer     |
+| ~SPC r l~              | resume the last =completion= buffer                          |
+| ~SPC r s~ or ~SPC s l~ | resume search buffer (completion or converted search buffer) |
+| ~SPC s `~              | go back to the previous place before jump                    |
+| Prefix argument        | will ask for file extensions                                 |
 
 When results have been saved in a regular buffer with ~F3~, that buffer supports
 browsing through the matches with Spacemacs’ =next-error= and =previous-error=
@@ -2556,10 +2507,6 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e~
 | ~SPC s t F~ | =pt= with default text                              |
 
 **** Searching in a project
-:PROPERTIES:
-:CUSTOM_ID: searching-in-a-project
-:END:
-
 | Key Binding           | Description                                         |
 |-----------------------+-----------------------------------------------------|
 | ~SPC /~  or ~SPC s p~ | search with the first found tool                    |
@@ -2655,24 +2602,7 @@ It is pretty useful combined with the [[#expand-region][expand-region]] bindings
 auto-highlight-symbol and its transient state.
 
 *** Listing symbols by semantic
-Use =helm-semantic-or-imenu= command from =Helm= to quickly navigate between the
-symbols in a buffer.
-
-To list all the symbols of a buffer press: ~SPC s j~
-
-*** Helm-swoop
-This is very similar to =moccur=, it displays a =helm= buffer with all the
-occurrences of the word under point. You can then change the search query in
-real-time and navigate between them easily.
-
-You can even edit the occurrences directly in the =helm= buffer and apply the
-modifications to the buffer.
-
-| Key Binding | Description                    |
-|-------------+--------------------------------|
-| ~SPC s s~   | execute =helm-swoop=           |
-| ~SPC s S~   | execute =helm-multi-swoop=     |
-| ~SPC s C-s~ | execute =helm-multi-swoop-all= |
+To list all the symbols of a buffer press ~SPC s j~
 
 ** Editing
 *** Paste text
@@ -2709,6 +2639,10 @@ Text related commands (start with ~x~):
 | ~SPC x a &~ | align region at &                                             |
 | ~SPC x a (~ | align region at (                                             |
 | ~SPC x a )~ | align region at )                                             |
+| ~SPC x a [~ | align region at [                                             |
+| ~SPC x a ]~ | align region at ]                                             |
+| ~SPC x a {~ | align region at {                                             |
+| ~SPC x a }~ | align region at }                                             |
 | ~SPC x a ​,​~ | align region at ,                                             |
 | ~SPC x a .~ | align region at . (for numeric tables)                        |
 | ~SPC x a :~ | align region at :                                             |
@@ -2724,6 +2658,12 @@ Text related commands (start with ~x~):
 | ~SPC x g l~ | set languages used by translate commands                      |
 | ~SPC x g t~ | translate current word using Google Translate                 |
 | ~SPC x g T~ | reverse source and target languages                           |
+| ~SPC x i i~ | cycle symbol naming styles                                    |
+| ~SPC x i u~ | change symbol style to ~under_score~                          |
+| ~SPC x i U~ | change symbol style to ~UP_CASE~                              |
+| ~SPC x i k~ | change symbol style to ~kebab-case~                           |
+| ~SPC x i c~ | change symbol style to ~lowerCamelCase~                       |
+| ~SPC x i C~ | change symbol style to ~UpperCamelCase~                       |
 | ~SPC x j c~ | set the justification to center                               |
 | ~SPC x j f~ | set the justification to full                                 |
 | ~SPC x j l~ | set the justification to left                                 |
@@ -2774,9 +2714,6 @@ It is possible to enable it easily for /all programming modes/ with the variable
 
 *** Zooming
 **** Text
-     :PROPERTIES:
-     :CUSTOM_ID: text
-     :END:
 The font size of the current buffer can be adjusted with the commands:
 
 | Key Binding   | Description                                                                    |
@@ -2839,9 +2776,6 @@ Keybindings are listed in the layer documentation.
 Vi =Visual= modes are all supported by =evil=.
 
 **** Expand-region
-:PROPERTIES:
-:CUSTOM_ID: expand-region
-:END:
 Spacemacs adds another =Visual= mode via the [[https://github.com/magnars/expand-region.el][expand-region]] mode.
 
 | Key Binding | Description                              |
@@ -2875,17 +2809,14 @@ There are also ~a~ variants that include whitespace. Example (=|= indicates poin
 The displayed text of a buffer can be narrowed with the commands (start with
 ~n~):
 
-| Key Binding | Description                                |
-|-------------+--------------------------------------------|
-| ~SPC n f~   | narrow the buffer to the current function  |
-| ~SPC n p~   | narrow the buffer to the visible page      |
-| ~SPC n r~   | narrow the buffer to the selected text     |
-| ~SPC n w~   | widen, i.e. show the whole buffer again    |
+| Key Binding | Description                               |
+|-------------+-------------------------------------------|
+| ~SPC n f~   | narrow the buffer to the current function |
+| ~SPC n p~   | narrow the buffer to the visible page     |
+| ~SPC n r~   | narrow the buffer to the selected text    |
+| ~SPC n w~   | widen, i.e. show the whole buffer again   |
 
 *** Replacing text with iedit
-    :PROPERTIES:
-    :CUSTOM_ID: replacing-text-with-iedit
-    :END:
 Spacemacs uses the powerful [[https://github.com/tsdh/iedit][iedit]] mode through [[https://github.com/syl20bnr/evil-iedit-state][evil-iedit-state]] to quickly
 edit multiple occurrences of a symbol or selection.
 
@@ -2961,8 +2892,8 @@ an ~occurrence~.
 -  manual selection of several words then replace: ~v w w SPC s e S "toto" ESC ESC~
 -  append text to a word on two lines: ~v i w SPC s e J i "toto" ESC ESC~
 -  substitute symbol /with expand-region/: ~SPC v v e S "toto" ESC ESC~
--  replace symbol with yanked (copied) text /with expand region/: ~SPC v
-   e p ESC ESC~
+-  replace symbol with yanked (copied) text /with expand region/:
+   ~SPC v e p ESC ESC~
 
 *** Replacing text in several files
 If you have =rg=, =ag=, =pt= or =ack= installed, replacing an occurrence of text
@@ -3047,9 +2978,6 @@ To disable the trash you can set the variable =delete-by-moving-to-trash= to
 =nil= in your =~/.spacemacs=.
 
 *** Editing Lisp code
-    :PROPERTIES:
-    :CUSTOM_ID: editing-lisp-code
-    :END:
 Editing of lisp code is provided by [[https://github.com/syl20bnr/evil-lisp-state][evil-lisp-state]].
 
 Commands will set the current state to =lisp state= where different commands
@@ -3148,8 +3076,6 @@ Projects in Spacemacs are managed with [[https://github.com/bbatsov/projectile][
 are defined implicitly, for instance the root of a project is found when a
 =.git= repository or =.projectile= file is encountered in the file tree.
 
-=Helm= is used whenever it is possible.
-
 To search in a project see [[#searching-in-a-project][project searching]].
 
 =projectile= commands start with p:
@@ -3169,7 +3095,7 @@ To search in a project see [[#searching-in-a-project][project searching]].
 | ~SPC p F~   | find file based on path around point                    |
 | ~SPC p g~   | find tags                                               |
 | ~SPC p G~   | regenerate the project's =etags= / =gtags=              |
-| ~SPC p h~   | find file using =helm=                                  |
+| ~SPC p h~   | find file                                               |
 | ~SPC p I~   | invalidate the projectile cache                         |
 | ~SPC p k~   | kill all project buffers                                |
 | ~SPC p o~   | run =multi-occur=                                       |
@@ -3287,7 +3213,7 @@ server is to use the following bindings:
 | ~SPC q Q~  | Quit Emacs and kill the server, lose all unsaved changes.                |
 | ~SPC q r~  | Restart both Emacs and the server, prompting to save any changed buffers |
 | ~SPC q s~  | Save the buffers, quit Emacs and kill the server                         |
-| ~SPC q z~  | Kill the current frame                                                   |
+| ~SPC q f~  | Kill the current frame                                                   |
 
 * Troubleshoot
 ** Loading fails

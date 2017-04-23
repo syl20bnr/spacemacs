@@ -6,13 +6,19 @@
 # Authors: Eugene Yaremenko and Sylvain Benner
 #
 # Arguments:
-# $1: action name can be `all`, `doc`, `config`
+# $1: action name can be `all`, `doc`, `config` `-f`
 #     `doc` formats documentation files
 #     `config` format configuration files
 #     `all` performs all actions
+#     `-f <FILEPATH>` process FILEPATH file
 # $2: if equal to `test` then use test files as input
 
 # TODO a function to add headers to config.el, packages.el etc...
+
+if [ $# -eq 0 ]; then
+    echo "No arguments provided!"
+    exit 1
+fi
 
 if ! [ -d "./.git" ]
 then
@@ -32,6 +38,38 @@ if hash md5 2>/dev/null; then
     mdfive="md5"
 fi
 
+if [[ $1 = "-f" ]]
+then
+	before_md5="foo"
+	after_md5="bar"
+	while ! [ "$before_md5" = "$after_md5" ]
+	do
+		before_md5=$($mdfive "$2")
+		if [ ${2: -4} == ".org" ]
+		then
+			# Remove trailing delimiters in headlines
+			$seder -i 's/^\(*\+\s\+.*\)[;,.]$/\1/g' "$2"
+			# Remove trailing spaces
+			$seder -i 's/[ \t]*$//' "$2"
+			# Remove #+HTML_HEAD_EXTRA: ... readtheorg.css" />
+			$seder -i '/#+HTML_HEAD_EXTRA.*readtheorg.css.*/d' "$2"
+			# Replace multiply empty lines with a single empty line
+			$seder -i '/^$/N;/^\n$/D' "$2"
+			# Replace :TOC_4_org: with :TOC_4_gh:
+			$seder -i 's/:TOC_4_org:/:TOC_4_gh:/' "$2"
+			# apply toc-org
+			emacs -batch -l ./core/tools/spacefmt/spacefmt.el "$2" -f apply-all
+		fi
+		if [ ${2: -3} == ".el" ]
+		then
+			# migrate packages lists to config.el
+			emacs -batch -l ./core/tools/spacefmt/spacefmt.el "$2" -f move-packages-to-config
+		fi
+		# Calculate md5 of the files in $place after formating
+		after_md5=$($mdfive "$2")
+	done
+	exit 0
+fi
 
 if [[ $2 = "test" ]]
 then

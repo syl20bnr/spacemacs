@@ -10,6 +10,7 @@
        - [[#install-recommended-dependencies][Install recommended dependencies]]
        - [[#install-with-recommended-features][Install with recommended features]]
        - [[#configure-your-environment-to-use-pygments-and-ctags][Configure your environment to use pygments and ctags]]
+     - [[#conflict-between-ctags-and-emacss-etags-binary][Conflict between =ctags= and emacs's =etags= binary]]
    - [[#emacs-configuration][Emacs Configuration]]
      - [[#disabling-by-default][Disabling by default]]
  - [[#usage][Usage]]
@@ -106,6 +107,24 @@ with sh/ksh:
 #+begin_src sh
   echo export GTAGSLABEL=pygments >> .profile
 #+end_src
+
+*** Conflict between =ctags= and emacs's =etags= binary
+If you installed =emacs= from source after =ctags=, your original =ctags= binary
+is probably replaced by emacs's =etags=. To get around this you will need to
+configure =emacs= as following before installing:
+
+#+begin_src sh
+  ./configure --program-transform-name='s/^ctags$/ctags.emacs/'
+#+end_src
+
+To check if you have the correct version of =ctags= execute:
+
+#+begin_src sh
+  ctags --version | grep Exuberant
+#+end_src
+
+If yo do not get any output then it means you have the wrong =ctags= and must
+install it again.
 
 ** Emacs Configuration
 To use this configuration layer, add it to your =~/.spacemacs=. You

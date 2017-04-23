@@ -35,14 +35,16 @@
          (categories (-filter
                       (lambda (p)
                         (eq 'category (configuration-layer//directory-type p)))
-                              all-subs)))
+                      all-subs)))
     (message "%S" layers)
     (dolist (l layers)
       (let ((layer-name (file-name-nondirectory l))
-            (target-path (concat (file-relative-name
-                                  l (concat spacemacs-start-directory "layers"))
-                                 "/README.org")))
-        (insert (format "- [[file:%s][%s]]\n" target-path layer-name))))
+            (layer-readme (concat l "/README.org")))
+        (if (file-exists-p layer-readme)
+            (insert (format "- [[file:%s][%s]]\n" (file-relative-name
+                                                   layer-readme
+                                                   (concat spacemacs-start-directory "layers"))
+                            layer-name)))))
     (dolist (c categories)
       (let* ((category-name (substring (file-name-nondirectory c) 1))
              (pretty-name
@@ -50,9 +52,19 @@
                   (s-capitalize (replace-regexp-in-string
                                  "-" " " category-name)))))
         (message "%S" category-name)
-        (unless (string= "distribution" category-name)
-          (insert (format "\n%s %s\n" level pretty-name))
-          (spacemacs//generate-layers-from-path c (concat level "*")))))))
+        (insert (format "\n%s %s\n" level pretty-name))
+        (spacemacs//generate-layers-from-path c (concat level "*"))))))
+
+(defun spacemacs//fetch-docs-from-root (project-plist)
+  "Add missing CONTRIBUTING and COMMUNITY files to doc folder for publishing.
+   Have been moved out of the doc folder to let github show the documentation.
+   See commit 315528c89fd351d559a262bb88bd15ed961e4b4e"
+  (copy-file (concat spacemacs-start-directory "CONTRIBUTING.org")
+             (concat spacemacs-docs-directory "CONTRIBUTING.org")
+             "overwrite-existing-file")
+  (copy-file (concat spacemacs-start-directory "COMMUNITY.org")
+             (concat spacemacs-docs-directory "COMMUNITY.org")
+             "overwrite-existing-file"))
 
 (defun spacemacs/generate-layers-file (project-plist)
   "Generate the layers list file."
@@ -106,24 +118,22 @@
 `org-html-publish-to-html' will use them instead of the default #orgheadline{N}.
 This way the GitHub links and the http://spacemacs.org/ links will be
 compatible."
-  (progn (goto-char (point-min))
-         (goto-char (point-min))
-         (while (re-search-forward "^[\\*]+\s\\(.*\\).*$" nil t)
-           (let ((heading (match-string 1)))
-             (progn (move-end-of-line nil)
-                    (open-line 1)
-                    (next-line 1)
-                    (insert (format (concat "  :PROPERTIES:\n"
-                                            "  :CUSTOM_ID: %s\n"
-                                            "  :END:\n")
-                                    (substring (toc-org-hrefify-gh
-                                                (replace-regexp-in-string
-                                                 toc-org-tags-regexp
-                                                 ""
-                                                 heading))
-                                               ;; Remove # prefix added by
-                                               ;; `toc-org-hrefify-gh'.
-                                               1))))))))
+  (let ((heading-regexp "^[\\*]+\s\\(.*\\).*$"))
+    (goto-char (point-min))
+    (while (re-search-forward heading-regexp nil t)
+      (unless (looking-at-p ".*\n\s*:PROPERTIES:")
+        (let ((heading (match-string 1)))
+          (insert (format (concat "\n:PROPERTIES:\n"
+                                  ":CUSTOM_ID: %s\n"
+                                  ":END:\n")
+                          (substring (toc-org-hrefify-gh
+                                      (replace-regexp-in-string
+                                       toc-org-tags-regexp
+                                       ""
+                                       heading))
+                                     ;; Remove # prefix added by
+                                     ;; `toc-org-hrefify-gh'.
+                                     1))))))))
 
 (defun spacemacs//reroot-links ()
   "Find the links that start with https://github.com/syl20bnr/spacemacs/blob/
@@ -176,12 +186,12 @@ preprocessors for the exported .org files."
           (save-match-data
             (insert-file-contents filename t)
             ;; ===========Add preprocessors here===============
+            (spacemacs//org-heading-annotate-custom-id)
             (spacemacs//add-org-meta-readtheorg-css filename)
             (spacemacs//toc-org-unhrefify-toc)
             (spacemacs//reroot-links)
-            (spacemacs//org-heading-annotate-custom-id)
             (apply origfunc args)
-            (not-modified)))
+            (set-buffer-modified-p nil)))
         ;; Restore `buffer-file-name' for the buffers that previously visited
         ;; the org files.
         (when visitingp (with-current-buffer visitingp
@@ -230,6 +240,7 @@ preprocessors for the exported .org files."
              :base-extension "org"
              :publishing-directory ,(concat publish-target "doc/")
              :publishing-function org-html-publish-to-html
+             :preparation-function spacemacs//fetch-docs-from-root
              :headline-levels 4
              :html-head ,header)
             ("layers-doc"

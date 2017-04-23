@@ -19,6 +19,7 @@
      - [[#usage][Usage]]
    - [[#ensime][ENSIME]]
      - [[#installation-2][Installation]]
+     - [[#configuration-1][Configuration]]
      - [[#usage-1][Usage]]
      - [[#issues][Issues]]
  - [[#key-bindings][Key bindings]]
@@ -41,7 +42,7 @@
        - [[#tests][Tests]]
      - [[#errors-problems-buffer][Errors (problems) buffer]]
      - [[#projects-buffer][Projects buffer]]
-   - [[#ensime-1][Ensime]]
+   - [[#ensime-key-bindings][Ensime key bindings]]
      - [[#search][Search]]
      - [[#sbt][sbt]]
      - [[#typecheck][Typecheck]]
@@ -173,9 +174,6 @@ Auto-save feature may freeze Emacs sometimes, use ~C-g~ to unfreeze Emacs or
 atlernatively you can set =dotspacemacs-auto-save-file-location= to nil.
 
 ** ENSIME
-  :PROPERTIES:
-  :CUSTOM_ID: ensime
-  :END:
 Another backend option is the ENSIME server, which is a lot more responsive than
 Eclim. ENSIME is originally made to work with Scala but it now works with plain
 Java projects as well.
@@ -368,10 +366,7 @@ particular refactoring doesn't work.
  | ~u~         | unmark current project                     |
  | ~U~         | unmark all projects                        |
 
-** Ensime
-  :PROPERTIES:
-  :CUSTOM_ID: ensime-key-bindings
-  :END:
+** Ensime key bindings
 *** Search
 
 | Key Binding | Description                                         |

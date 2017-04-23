@@ -1,0 +1,23 @@
+#+TITLE: python layer dependency installation script
+
+* Table of Contents                 :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#list-of-installed-software][List of installed software:]]
+
+* Description
+Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/python/README.org][python layer]].
+
+* List of installed software:
+1. [[https://pypi.python.org/pypi/pip][pip]]
+2. [[https://github.com/davidhalter/jedi][jedi]]
+3. [[https://pypi.python.org/pypi/json-rpc][json-rpc]]
+4. [[https://pypi.python.org/pypi/service_factory/0.1.2][service_factory]]
+5. [[https://pypi.python.org/pypi/autoflake][autoflake]]
+6. [[https://github.com/hylang/hy][hy]]
+7. [[https://pypi.python.org/pypi/nose/1.3.7][nose]]
+8. [[https://pypi.python.org/pypi/pytest][pytest]]
+9. [[https://pypi.python.org/pypi/flake8][flake8]]
+10. [[https://github.com/google/yapf][yapf]]
+11. [[https://pypi.python.org/pypi/pylint][pylint]]
+12. [[https://pypi.python.org/pypi/isort][isort]]
+13. [[http://packages.ubuntu.com/xenial/python][python]]

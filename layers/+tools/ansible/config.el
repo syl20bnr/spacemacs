@@ -11,7 +11,7 @@
 
 ;; variables
 
-(defvar ansible-auto-encrypt-descrypt t
+(defvar ansible-auto-encrypt-decrypt t
   "Set it to non-nil to seamlessly edit `ansible-vault' encrypted files.
 If non-nil then encrypted files are automatically decrypted when opened and
  encrypted when saved.")

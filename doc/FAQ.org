@@ -156,10 +156,10 @@ conflict is to wrap your =org= config code in a =with-eval-after-load= block
 like this:
 
 #+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'org
-  ;; here goes your Org config :)
-  ;; ....
-  )
+  (with-eval-after-load 'org
+    ;; Org config goes here
+    ;; ....
+    )
 #+END_SRC
 
 ** Why is Spacemacs hanging on startup?
@@ -263,9 +263,6 @@ the list =dotspacemacs-excluded-packages= if you prefer setting =exec-path=
 yourself.
 
 * How do I:
-:PROPERTIES:
-:CUSTOM_ID: how-do-i
-:END:
 ** Install a package not provided by a layer?
 Spacemacs provides a variable in the =dotspacemacs/layers= function in
 =.spacemacs= called =dotspacemacs-additional-packages=. Just add a package name
@@ -304,9 +301,6 @@ dotfile. The following snippet disables company for =python-mode=:
 #+END_SRC
 
 ** Change special buffer rules?
-   :PROPERTIES:
-   :CUSTOM_ID: change-special-buffer-rules
-   :END:
 To change the way spacemacs marks buffers as useless, you can customize
 =spacemacs-useless-buffers-regexp= which marks buffers matching the regexp as
 useless. The variable =spacemacs-useful-buffers-regexp= marks buffers matching
@@ -424,11 +418,11 @@ For instance, if you want to switch ~SPC S~ (spelling) with ~SPC d~ (used by
 dash) to make the former easier to reach, you can use:
 
 #+BEGIN_SRC emacs-lisp
-(defun dear-leader/swap-keys (key1 key2)
-  (let ((map1 (lookup-key spacemacs-default-map key1))
-        (map2 (lookup-key spacemacs-default-map key2)))
-    (spacemacs/set-leader-keys key1 map2 key2 map1)))
-(dear-leader/swap-keys "S" "d")
+  (defun dear-leader/swap-keys (key1 key2)
+    (let ((map1 (lookup-key spacemacs-default-map key1))
+          (map2 (lookup-key spacemacs-default-map key2)))
+      (spacemacs/set-leader-keys key1 map2 key2 map1)))
+  (dear-leader/swap-keys "S" "d")
 #+END_SRC
 
 If you want to define your own alias, like using ~SPC é~ (because it's a not

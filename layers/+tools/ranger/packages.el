@@ -13,6 +13,7 @@
 (setq ranger-packages
       '(
         (dired :location built-in)
+        golden-ratio
         ranger
         ))
 
@@ -42,3 +43,7 @@
   (spacemacs|use-package-add-hook ranger
     :post-init (when ranger-override-dired
                  (add-hook 'dired-mode-hook #'ranger-override-dired-fn))))
+
+(defun ranger/post-init-golden-ratio ()
+  (with-eval-after-load 'golden-ratio
+    (add-to-list 'golden-ratio-exclude-modes "ranger-mode")))

@@ -46,7 +46,7 @@
     (progn
       (add-hook 'slack-mode #'(lambda ()
                                 (persp-add-buffer (current-buffer))))
-      ;; TODO: We don't want to slack-start every time someone types `<SPC> l o s`
+      ;; TODO: We don't want to slack-start every time someone types `SPC l o s`
       (call-interactively 'slack-start)
       (call-interactively 'slack-channel-select)))
   ;; Do not save slack buffers

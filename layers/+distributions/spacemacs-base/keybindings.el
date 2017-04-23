@@ -126,7 +126,11 @@
   "b C-S-d" 'spacemacs/kill-matching-buffers-rudely
   "bn"    'next-buffer
   "bm"    'spacemacs/switch-to-messages-buffer
-  "bN"    'spacemacs/new-empty-buffer
+  "b N h" 'spacemacs/new-empty-buffer-left
+  "b N j" 'spacemacs/new-empty-buffer-below
+  "b N k" 'spacemacs/new-empty-buffer-above
+  "b N l" 'spacemacs/new-empty-buffer-right
+  "b N n" 'spacemacs/new-empty-buffer
   "bP"    'spacemacs/copy-clipboard-to-whole-buffer
   "bp"    'previous-buffer
   "bR"    'spacemacs/safe-revert-buffer
@@ -348,7 +352,7 @@
   "qs" 'spacemacs/save-buffers-kill-emacs
   "qq" 'spacemacs/prompt-kill-emacs
   "qQ" 'spacemacs/kill-emacs
-  "qz" 'spacemacs/frame-killer)
+  "qf" 'spacemacs/frame-killer)
 ;; window ---------------------------------------------------------------------
 (defun split-window-below-and-focus ()
   "Split the window vertically and focus the new window."
@@ -418,6 +422,10 @@
   "xa&" 'spacemacs/align-repeat-ampersand
   "xa(" 'spacemacs/align-repeat-left-paren
   "xa)" 'spacemacs/align-repeat-right-paren
+  "xa{" 'spacemacs/align-repeat-left-curly-brace
+  "xa}" 'spacemacs/align-repeat-right-curly-brace
+  "xa[" 'spacemacs/align-repeat-left-square-brace
+  "xa]" 'spacemacs/align-repeat-right-square-brace
   "xa," 'spacemacs/align-repeat-comma
   "xa." 'spacemacs/align-repeat-decimal
   "xa:" 'spacemacs/align-repeat-colon

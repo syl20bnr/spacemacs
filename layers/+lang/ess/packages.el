@@ -100,8 +100,8 @@
       "sl" 'ess-eval-line
       "sR" 'ess-eval-region-and-go
       "sr" 'ess-eval-region
-      "sT" 'ess-eval-function-and-go
-      "st" 'ess-eval-function
+      "sF" 'ess-eval-function-and-go
+      "sf" 'ess-eval-function
       ;; R helpers
       "hd" 'ess-R-dv-pprint
       "hi" 'ess-R-object-popup

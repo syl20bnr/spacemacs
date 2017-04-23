@@ -14,7 +14,14 @@ TEST_NAME = `basename $(TEST_DIR) | tr a-z A-Z`
 
 all: test
 
-test: unit_tests func_tests
+test: installation unit_tests func_tests
+
+installation:
+	@echo "================================================================="
+	@echo "INSTALLATION OF PACKAGES FOR $(TEST_NAME)"
+	@echo "================================================================="
+	@emacs -batch \
+		$(addprefix -l $(EMACS_DIR)/, $(LOAD_FILES))
 
 ifneq ($(strip $(UNIT_TEST_FILES)),)
 unit_tests:
@@ -22,9 +29,9 @@ unit_tests:
 	@echo "UNIT TESTS FOR $(TEST_NAME)"
 	@echo "================================================================="
 	@emacs -batch -l ert \
-    $(addprefix -l $(EMACS_DIR)/, $(LOAD_FILES)) \
-    $(addprefix -l $(TEST_DIR)/, $(UNIT_TEST_FILES)) \
-    -f ert-run-tests-batch-and-exit
+		$(addprefix -l $(EMACS_DIR)/, $(LOAD_FILES)) \
+		$(addprefix -l $(TEST_DIR)/, $(UNIT_TEST_FILES)) \
+		-f ert-run-tests-batch-and-exit
 endif
 
 ifneq ($(strip $(FUNC_TEST_FILES)),)
@@ -33,9 +40,9 @@ func_tests:
 	@echo "FUNCTIONAL TESTS FOR $(TEST_NAME)"
 	@echo "================================================================="
 	@emacs -batch -l ert \
-    $(addprefix -l $(EMACS_DIR)/, $(LOAD_FILES)) \
-    $(addprefix -l $(TEST_DIR)/, $(FUNC_TEST_FILES)) \
-    -f ert-run-tests-batch-and-exit
+		$(addprefix -l $(EMACS_DIR)/, $(LOAD_FILES)) \
+		$(addprefix -l $(TEST_DIR)/, $(FUNC_TEST_FILES)) \
+		-f ert-run-tests-batch-and-exit
 endif
 
 .PHONY: test unit_tests func_tests

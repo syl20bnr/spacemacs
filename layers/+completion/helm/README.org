@@ -1,0 +1,143 @@
+#+TITLE: Helm layer
+
+[[file:img/helm.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+   - [[#hjkl-navigation][hjkl navigation]]
+   - [[#transient-state][Transient state]]
+   - [[#bookmarks][Bookmarks]]
+   - [[#c-z-and-tab-switch][C-z and Tab switch]]
+   - [[#helm-focus][Helm focus]]
+   - [[#helm-swoop][Helm-swoop]]
+   - [[#universal-argument][Universal argument]]
+   - [[#replacing-text-in-several-files][Replacing text in several files]]
+   - [[#resume-last-session][Resume last session]]
+ - [[#external-resources][External resources]]
+
+* Description
+This layer enables Helm everywhere in Spacemacs. The alternative to this
+layer is the Ivy layer which brings the same level of integration as Helm.
+
+These completion systems are the central control towers of Spacemacs, they are
+used to manage buffers, projects, search results, configuration layers, toggles
+and more...
+
+Mastering your choice of completion system will make you a Spacemacs power user.
+
+* Install
+Helm is the default completion framework -- if Ivy is not enabled, Helm will be
+enabled automatically.
+
+To switch from Ivy to Helm, modify your =~/.spacemacs=. You will need to add
+=helm= to the existing =dotspacemacs-configuration-layers= list in this file,
+and remove =ivy=.
+
+* Key bindings
+** hjkl navigation
+When using the Vim style or Hybrid style with the variable
+=hybrid-mode-enable-hjkl-bindings= set to =t=, Spacemacs adds navigation in the
+Helm buffers with ~hjkl~.
+
+| Key Binding | Description                  |
+|-------------+------------------------------|
+| ~C-h~       | go to next source            |
+| ~C-H~       | describe key (replace ~C-h~) |
+| ~C-j~       | go to previous candidate     |
+| ~C-k~       | go to next candidate         |
+| ~C-l~       | same as ~return~             |
+
+** Transient state
+Spacemacs defines a transient state for =Helm= to make it work like [[https://github.com/Shougo/unite.vim][Vim's Unite]]
+plugin.
+
+Initiate the transient state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
+
+| Key Binding          | Description                                          |
+|----------------------+------------------------------------------------------|
+| ~M-SPC~ or ~s-M-SPC~ | initiate the transient state                         |
+| ~q~                  | quit transient state                                 |
+| ~TAB~                | switch to actions page and leave the transient state |
+| ~1~                  | execute action 0                                     |
+| ~2~                  | execute action 1                                     |
+| ~3~                  | execute action 2                                     |
+| ~4~                  | execute action 3                                     |
+| ~5~                  | execute action 4                                     |
+| ~6~                  | execute action 5                                     |
+| ~7~                  | execute action 6                                     |
+| ~8~                  | execute action 7                                     |
+| ~9~                  | execute action 8                                     |
+| ~0~                  | execute action 9                                     |
+| ~a~                  | switch to actions page                               |
+| ~g~                  | go to first candidate                                |
+| ~G~                  | go to last candidate                                 |
+| ~h~                  | go to previous source                                |
+| ~j~                  | select next candidate                                |
+| ~k~                  | select previous candidate                            |
+| ~l~                  | go to next source                                    |
+| ~t~                  | mark current candidate                               |
+| ~T~                  | mark all candidates                                  |
+| ~v~                  | execute persistent action                            |
+
+** Bookmarks
+In the =helm-bookmarks= buffer:
+
+| Key Binding | Description                                  |
+|-------------+----------------------------------------------|
+| ~C-d~       | delete the selected bookmark                 |
+| ~C-e~       | edit the selected bookmark                   |
+| ~C-f~       | toggle filename location                     |
+| ~C-o~       | open the selected bookmark in another window |
+
+** C-z and Tab switch
+The command bound to ~C-z~ is much more useful than the one bound to Tab, so it
+makes sense to swap them. It's also recommended [[http://tuhdo.github.io/helm-intro.html][here]].
+
+** Helm focus
+If you find yourself unable to return focus to Helm (after a careless
+mouse-click for example), use ~SPC w b~ to return focus to the minibuffer.
+
+** Helm-swoop
+[[https://github.com/ShingoFukuyama/helm-swoop][Helm-swoop]] is very similar to =moccur=, it displays a =helm= buffer with all the
+occurrences of the word under point. You can then change the search query in
+real-time and navigate between them easily.
+
+You can even edit the occurrences directly in the =helm= buffer and apply the
+modifications to the buffer.
+
+| Key Binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC s s~   | execute =helm-swoop=           |
+| ~SPC s S~   | execute =helm-multi-swoop=     |
+| ~SPC s C-s~ | execute =helm-multi-swoop-all= |
+
+** Universal argument
+
+~SPC u~ is not working before =helm-M-x= (~SPC SPC~). Instead, call =helm-M-x=
+first, select the command you want to run, and press ~C-u~ before pressing
+~RETURN~. For instance: ~SPC SPC org-reload C-u RET~
+
+** Replacing text in several files
+If you have =rg=, =ag=, =pt= or =ack= installed, replacing an occurrence of text
+in several files can be performed via [[https://github.com/syohex/emacs-helm-ag][helm-ag]].
+
+Say you want to replace all =foo= occurrences by =bar= in your current
+project:
+  - initiate a search with ~SPC /~
+  - enter in edit mode with ~C-c C-e~
+  - go to the occurrence and enter in =iedit state= with ~SPC s e~
+  - edit the occurrences then leave the =iedit state=
+  - press ~C-c C-c~
+
+*Note*: In Spacemacs, =helm-ag= despite its name works with =rg=, =pt= and =ack=
+as well (but not with =grep=).
+
+** Resume last session
+Use ~SPC r l~ to resume the last helm session. For instance it is handy to
+quickly toggle on and off a toggle using ~SPC h t~.
+
+* External resources
+- [[https://github.com/emacs-helm/helm/wiki][The Helm wiki]]
+- [[http://tuhdo.github.io/helm-intro.html][The Helm guide]]
