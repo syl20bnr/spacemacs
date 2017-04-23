@@ -170,12 +170,6 @@
            (spacemacs//symbol-highlight-doc)
            (make-string (length (spacemacs//symbol-highlight-doc)) 32))))
 
-(defun spacemacs/symbol-highlight-permanent ()
-  "Highlight the symbol under point with `highlight-symbol-at-point'."
-  (interactive)
-  (highlight-symbol-at-point)
-  (spacemacs/ahs-highlight-now-wrapper))
-
 
 ;; golden ratio
 
