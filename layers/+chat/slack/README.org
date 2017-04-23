@@ -42,28 +42,30 @@ stuff elsewhere (like Dropbox for instance) and load the file in your dotfile.
 
 * Key bindings
 
-| Key Binding | Description              |
-|-------------+--------------------------|
-| ~SPC a C s~ | (Re)connects to Slack    |
-| ~SPC a C j~ | Join a channel           |
-| ~SPC a C d~ | Direct message someone   |
-| ~SPC a C q~ | Close connection         |
-| ~SPC m j~   | Join a channel           |
-| ~SPC m d~   | Direct message someone   |
-| ~SPC m p~   | Load previous messages   |
-| ~SPC m e~   | Edit message at point    |
-| ~SPC m q~   | Quit Slack               |
-| ~SPC m m~   | Embed mention of user    |
-| ~SPC m c~   | Embed mention of channel |
+| Key Binding | Description                             |
+|-------------+-----------------------------------------|
+| ~SPC a C s~ | (Re)connects to Slack                   |
+| ~SPC a C j~ | Join a channel                          |
+| ~SPC a C g~ | Join a group (private channel)          |
+| ~SPC a C r~ | Join a channel, group, or direct messge |
+| ~SPC a C d~ | Direct message someone                  |
+| ~SPC a C q~ | Close connection                        |
+| ~SPC m j~   | Join a channel                          |
+| ~SPC m d~   | Direct message someone                  |
+| ~SPC m p~   | Load previous messages                  |
+| ~SPC m e~   | Edit message at point                   |
+| ~SPC m q~   | Quit Slack                              |
+| ~SPC m m~   | Embed mention of user                   |
+| ~SPC m c~   | Embed mention of channel                |
 
 The following bindings are provided to mimic bindings in the official Slack
 client.
 
-| Key Binding | Description              |
-|-------------+--------------------------|
-| ~SPC m k~ | Join a channel           |
-| ~SPC m @~ | Embed mention of user    |
-| ~SPC m #~ | Embed mention of channel |
+| Key Binding | Description                               |
+|-------------+-------------------------------------------|
+| ~<SPC> m k~ | Join a channel, group, and direct message |
+| ~<SPC> m @~ | Embed mention of user                     |
+| ~<SPC> m #~ | Embed mention of channel                  |
 
 In insert state, one can also use ~@~ and ~#~ directly without the leader key
 prefix.
