@@ -321,6 +321,9 @@ as follows:
     ;; A local package
     (some-package :location local)
 
+    ;; A local package to be built with Quelpa
+    (some-package :location (recipe :fetcher local))
+
     ;; A package recipe
     (some-package :location (recipe
                              :fetcher github
@@ -333,7 +336,16 @@ as follows:
 
 The =:location= attribute specifies where the package may be found. Spacemacs
 currently supports packages on ELPA compliant repositories, local packages and
-MELPA recipes (through the Quelpa package). Local packages should reside at =<layer>/local/<package>/=. For information about recipes see the [[https://github.com/milkypostman/melpa#recipe-format][MELPA documentation]].
+MELPA recipes (through the [[https://github.com/quelpa/quelpa][Quelpa]] package). Local packages should reside at
+=<layer>/local/<package>/=. For information about recipes see the [[https://github.com/milkypostman/melpa#recipe-format][MELPA
+documentation]].
+
+As you may have noticed from examples above, there are two ways to declare a
+local package: using either =:location local= or a Quelpa recipe with the
+Spacemacs-specific pseudo-fetcher =local=. The former is for the simplest
+packages that declare no external dependencies, since it just adds the package
+directory to the =load-path=. The latter is for packages that do have external
+dependencies declared and thus have to be built with Quelpa.
 
 Packages may be /excluded/ by setting the =:excluded= property to true. This
 will prevent the package from being installed even if it is used by another
