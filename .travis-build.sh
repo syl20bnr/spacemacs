@@ -39,6 +39,7 @@ if [ ! -z "$FORMATTING" ]; then
 		space-test)
 			echo "Testing for trailing and all sorts of broken white spaces"
 			git reset -q "${first_commit}"
+			git add -N .
 			git diff --check --color > space_test_result
 			if [[ -s space_test_result ]]; then
 				cat space_test_result
