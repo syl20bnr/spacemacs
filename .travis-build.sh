@@ -48,23 +48,28 @@ if [ ! -z "$FORMATTING" ]; then
 			exit 0
 		;;
 		spacefmt)
-			echo "Testing changed files with spacefmt"
+			echo "Testing changed ORG files with spacefmt"
 			rm -rf ~/.emacs.d
 			ln -sf `pwd` ~/.emacs.d
 			cp ~/.emacs.d/core/templates/.spacemacs.template ~/
 			mv ~/.spacemacs.template ~/.spacemacs
 			while read p
 			do
-				echo "Checking $p file"
-				./core/tools/spacefmt/spacefmt -f "$p"
-				if [ $? -ne 0 ]; then
-					echo "spacefmt exited with $?"
-					exit 2
+				if [ ${p: -4} == ".org" ]; then
+					echo "Checking $p file"
+					./core/tools/spacefmt/spacefmt -f "$p"
+					if [ $? -ne 0 ]; then
+						echo "spacefmt failed"
+						exit 2
+					fi
 				fi
 			done </tmp/changed_files
 			git diff --color HEAD > spacefmt_result
 			if [[ -s spacefmt_result ]]; then
-				echo "Please apply these changes:"
+				printf '=%.0s' {1..70}
+				printf "\nPLEASE APPLY CHANGES BELOW:\n"
+				printf '=%.0s' {1..70}
+				echo
 				cat spacefmt_result
 				exit 1
 			fi

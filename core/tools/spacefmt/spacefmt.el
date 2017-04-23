@@ -27,7 +27,7 @@
                                toc-heading-tail))
 
 (defun apply-all ()
-  (message "Processing %s file.." (buffer-name))
+  (message "Processing %s file.." (buffer-file-name))
   "Apply all filters."
   (remove-empty-lines-at-the-beginning)
   (insert-title)
