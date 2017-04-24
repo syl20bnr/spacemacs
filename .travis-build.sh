@@ -76,9 +76,9 @@ if [ ! -z "$FORMATTING" ]; then
 fi
 
 # If we are pushing changes to the master branch,
-# open PR to syl20bnr/develop.spacemacs.org with Spacemacs
+# open PR to syl20bnr/${PUBLISH} with Spacemacs
 # documentation exported as HTML and formatted with spacefmt
-if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ $TRAVIS_BRANCH = "master" ] && [ $PUBLISH = "html" ]; then
+if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ ! -z "$PUBLISH" ]; then
 	printf '=%.0s' {1..70}
 	printf "\n FORMATTING DOCUMENTATION:\n"
 	printf '=%.0s' {1..70}
@@ -102,18 +102,18 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ $TRAVIS_BRANCH = "master" ] && [ $PU
 		echo "spacemacs/publish-doc failed"
 		exit 2
 	fi
-	git config --global user.name "TheBBot"
-	git config --global user.email "69BakaBaka69@gmail.com"
+	git config --global user.name "${BOT_NAME}"
+	git config --global user.email "${BOT_EMAIL}"
 	git config --global push.default simple
 	git config --global hub.protocol https
-	export GITHUB_TOKEN=$THEBBOT_TK
-	git clone https://github.com/syl20bnr/develop.spacemacs.org.git -b gh-pages /tmp/develop.spacemacs.org
-	rsync -avh ~/.emacs.d/export/ /tmp/develop.spacemacs.org
+	export GITHUB_TOKEN=$BOT_TK
+	git clone "https://github.com/syl20bnr/${PUBLISH}.git" -b gh-pages "/tmp/${PUBLISH}"
+	rsync -avh ~/.emacs.d/export/ "/tmp/${PUBLISH}"
 	git add -N .
-	cd /tmp/develop.spacemacs.org
+	cd "/tmp/${PUBLISH}"
 	if ! git diff-files  --quiet --; then
 		printf '=%.0s' {1..70}
-		printf "\n COMMITTING CHANGES TO TheBBot/develop.spacemacs.org:\n"
+		printf "\n COMMITTING CHANGES TO ${BOT_NAME}/${PUBLISH}:\n"
 		printf '=%.0s' {1..70}
 		echo
 		git diff --color HEAD
@@ -125,11 +125,11 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ $TRAVIS_BRANCH = "master" ] && [ $PU
 		mkdir -p ~/.ssh
 		printf "Host  github.com\n  StrictHostKeyChecking no\n  UserKnownHostsFile=/dev/null\n" \
 			>  ~/.ssh/config
-		git remote set-url TheBBot \
-			"https://TheBBot:${THEBBOT_TK}@github.com/TheBBot/develop.spacemacs.org.git"
-		/tmp/hub push TheBBot gh-pages
+		git remote set-url "${BOT_NAME}" \
+			"https://${BOT_NAME}:${BOT_TK}@github.com/${BOT_NAME}/${PUBLISH}.git"
+		/tmp/hub push "${BOT_NAME}" gh-pages
 		printf '=%.0s' {1..70}
-		printf "\n OPENING PR TO syl20bnr/develop.spacemacs.org.git\n"
+		printf "\n OPENING PR TO syl20bnr/${PUBLISH}.git\n"
 		printf '=%.0s' {1..70}
 		echo
 		echo "doc update:$(date -u)" > msg
