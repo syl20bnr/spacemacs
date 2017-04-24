@@ -213,8 +213,6 @@
               (lambda (&rest _)
                 (shell-interactive-shell-set-tab-width))))
 
-
-
 (defun shell/init-shell-pop ()
   (use-package shell-pop
     :defer t
