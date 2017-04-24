@@ -18,6 +18,5 @@ On the first invocation, you will be prompted for the instance, username, and
 password for connecting to mastodon.
 
 * Keybindings
-SPC-a-m-r Set up your mastodon connection (mastodon-register) 
 SPC-a-m-m Load Mastodon buffer with your timeline (mastodon)
 SPC-a-m-t Post a new toot to your Mastodon account (mastodon-toot)
