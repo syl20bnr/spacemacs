@@ -14,7 +14,7 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =mastodon= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-On the first invocation, you will be prompted for the instance, username, and 
+On the first invocation, you will be prompted for the instance, username, and
 password for connecting to mastodon.
 
 * Keybindings
