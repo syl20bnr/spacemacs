@@ -137,8 +137,8 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ ! -z "$PUBLISH" ]; then
 		printf "\n OPENING PR TO syl20bnr/${PUBLISH}.git\n"
 		printf '=%.0s' {1..70}
 		echo
-		echo "doc update:$(date -u)" > msg
-		echo "My life for Spacemacs!" >> msg
+		echo "Documentation updates (autoexport)" > msg
+		echo "beep beep boop... Beep?" >> msg
 		/tmp/hub pull-request -F msg
 		printf '=%.0s' {1..70}
 		printf "\n DONE!\n"
