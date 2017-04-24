@@ -6,7 +6,7 @@
    - [[#discoverable][Discoverable]]
    - [[#consistent][Consistent]]
    - [[#crowd-configured][Crowd-Configured]]
- - [[#highlighted-feature][Highlighted feature]]
+ - [[#highlighted-features][Highlighted features]]
  - [[#screenshots][Screenshots]]
  - [[#who-can-benefit-from-this][Who can benefit from this?]]
  - [[#update-and-rollback][Update and Rollback]]
@@ -225,7 +225,7 @@ that ships with Spacemacs.
 Community-driven configuration provides curated packages tuned by power users
 and bugs are fixed quickly.
 
-* Highlighted feature
+* Highlighted features
 - *Bring the efficiency of modal editing* to the powerful Emacs lisp platform.
   Modal UX is optional and Spacemacs can be used with only Emacs key bindings.
 
