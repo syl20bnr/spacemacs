@@ -33,10 +33,4 @@
   (require 'server)
   (unless (server-running-p) (server-start)))
 
-(defun spacemacs//interactive-shell-set-tab-width ()
-  "set the tab width to 8 for interactive shell"
-  (setq tab-width 8))
-
-(advice-add 'shell :after
-            (lambda (&rest _)
-              (spacemacs//interactive-shell-set-tab-width)))
+(advice-add 'shell :after (lambda (&rest _) (shell/init-shell)))

@@ -181,6 +181,11 @@
 
 (defun shell/init-shell ()
   (spacemacs/register-repl 'shell 'shell)
+
+  (defun shell-interactive-shell-set-tab-width ()
+    "set the tab width to 8 for interactive shell"
+    (setq tab-width 8))
+
   (defun shell-comint-input-sender-hook ()
     "Check certain shell commands.
  Executes the appropriate behavior for certain commands."
@@ -202,7 +207,13 @@
              ;; Send other commands to the default handler.
              (t (comint-simple-send proc command))))))
   (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook)
-  (add-hook 'shell-mode-hook 'spacemacs/disable-hl-line-mode))
+  (add-hook 'shell-mode-hook 'spacemacs/disable-hl-line-mode)
+
+  (advice-add 'shell :after
+              (lambda (&rest _)
+                (shell-interactive-shell-set-tab-width))))
+
+
 
 (defun shell/init-shell-pop ()
   (use-package shell-pop
