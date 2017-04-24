@@ -29,6 +29,34 @@ if  [ $TRAVIS_SECURE_ENV_VARS = false ] &&
     echo   "https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org"
     exit 1
 fi
+
+# Make sure that a maintainer was summoned via commit message to review it
+if [ "${CHECK_MENTIONS}" = "true" ]; then
+	cd "${TRAVIS_BUILD_DIR}"
+	last_commit_message=$(git log -2 --pretty=%B)
+	if [[ ! "$last_commit_message" == *"@"* ]]; then
+		echo "Please summon a maintainer"
+		echo "See: https://github.com/syl20bnr/spacemacs/blob/develop/MAINTAINERS.org"
+		exit 1
+	fi
+	grep -Po "@\S+" <<< "$last_commit_message" > /tmp/tcm_mentions
+	maintainer_mentioned=false
+	while read p; do
+		if grep -q "$p" "MAINTAINERS.org"; then
+			echo "$p was mentioned"
+			maintainer_mentioned=true
+		fi
+	done </tmp/tcm_mentions
+	if [ ! "$maintainer_mentioned" = true ] ; then
+		echo 'None of:'
+		cat /tmp/tcm_mentions
+		echo "Seems to be a maintainer. Typo?"
+		echo "See: https://github.com/syl20bnr/spacemacs/blob/develop/MAINTAINERS.org"
+		exit 1
+	fi
+	exit 0
+fi
+
 # Formatting conventions tests
 if [ ! -z "$FORMATTING" ]; then
 	cd "${TRAVIS_BUILD_DIR}"
@@ -73,8 +101,8 @@ if [ ! -z "$FORMATTING" ]; then
 		;;
 	esac
 fi
-# Emacs tests
 
+# Emacs tests
 echo "Pwd $(pwd)"
 rm -rf ~/.emacs.d
 ln -sf `pwd` ~/.emacs.d

@@ -1,6 +1,8 @@
 Thank you for contributing to Spacemacs!
 
 Before you submit this pull request, please ensure it is against the develop branch and not master.
+And that your last commit message mentions one or more maintainer
+See https://github.com/syl20bnr/spacemacs/blob/develop/MAINTAINERS.org
 
 This message should be replaced with a description of your change.
 

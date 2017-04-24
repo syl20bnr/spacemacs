@@ -11,6 +11,9 @@ before_install:
  - if [ ! -z "$EVM_EMACS" ]; then evm install $EVM_EMACS --use --skip; fi
 
 env:
+ - CHECK_MENTIONS=true
+ - FORMATTING=space-test
+ - FORMATTING=spacefmt EVM_EMACS=emacs-25.1-travis
  - TESTS=core EVM_EMACS=emacs-24.4-travis
  - TESTS=core EVM_EMACS=emacs-24.5-travis
  - TESTS=core EVM_EMACS=emacs-25.1-travis
@@ -19,8 +22,6 @@ env:
  - TESTS=doc EVM_EMACS=emacs-24.5-travis
  - TESTS=doc EVM_EMACS=emacs-25.1-travis
  - TESTS=doc EVM_EMACS=emacs-git-snapshot-travis
- - FORMATTING=space-test
- - FORMATTING=spacefmt EVM_EMACS=emacs-25.1-travis
 
 matrix:
   fast_finish: true
