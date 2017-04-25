@@ -1,9 +1,7 @@
 #+TITLE: habitrpg layer
 
-# The maximum height of the logo should be 200 pixels.
 [[file:img/habitica_logo.png]]
 
-# TOC links should be GitHub style anchors.
 * Table of Contents                                        :TOC_4_gh:noexport:
  - [[#description][Description]]
  - [[#install][Install]]
