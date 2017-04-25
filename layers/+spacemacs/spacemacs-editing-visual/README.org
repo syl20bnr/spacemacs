@@ -1,0 +1,8 @@
+#+TITLE: spacemacs-editing-visual layer
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#describe-spacemacs-editing-visual-layer-in-this-file][describe spacemacs-editing-visual layer in this file]]
+
+* Description
+** TODO describe spacemacs-editing-visual layer in this file
