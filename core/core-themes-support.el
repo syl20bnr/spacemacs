@@ -218,15 +218,14 @@ THEME."
           ;; Load theme
           (unless (or (memq theme-name (custom-available-themes))
                       (eq 'default theme-name))
-            (let ((pkg-dir (spacemacs//get-theme-package-directory theme)))
+            (let ((pkg-dir (spacemacs//get-theme-package-directory theme))
+                  (pkg-name (spacemacs/get-theme-package-name theme-name)))
               (when pkg-dir
+                ;; package activate should be enough, but not all themes
+                ;; have add themselves to `custom-theme-load-path' in autoload.
+                ;; (for example, moe-theme).
                 (add-to-list 'custom-theme-load-path pkg-dir)
-                (add-to-list 'load-path pkg-dir)
-                ;; do we still need this particual case for moe theme?
-                (when (or (eq 'moe-light theme-name)
-                          (eq 'moe-dark theme-name))
-                  (load-file (concat pkg-dir "moe-light-theme.el"))
-                  (load-file (concat pkg-dir "moe-dark-theme.el"))))))
+                (package-activate pkg-name))))
           (when disable
             (mapc 'disable-theme custom-enabled-themes))
           (load-theme theme-name t)
