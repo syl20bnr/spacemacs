@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/syl20bnr/spacemacs.png?label=ready&title=Ready)](https://waffle.io/syl20bnr/spacemacs)
 <a name="top"></a>
 <a href="http://spacemacs.org"><img src="https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg" alt="Made with Spacemacs"></a><a href="http://www.twitter.com/spacemacs"><img src="http://i.imgur.com/tXSoThF.png" alt="Twitter" align="right"></a><br>
 ***
@@ -324,6 +325,23 @@ HOME=~/spacemacs emacs
 Note: If you're on Fish shell, you will need to modify the last command to: `env
 HOME=$HOME/spacemacs emacs`
 
+<<<<<<< HEAD
+## Installation alongside another configuration
+
+To try out Spacemacs (or any other Emacs configuration you desire) without
+having to go through the trouble of backing up you `~/.emacs.d` directory and
+then cloning the new configuration:
+
+```sh
+mkdir ~/spacemacs
+git clone git@github.com:syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
+HOME=~/spacemacs emacs
+```
+
+Note: If you're on Fish shell, you will need to modify the last command to: `env
+HOME=$HOME/spacemacs emacs`
+
+=======
 ### Modify spacemacs-start-directory variable
 
 This solution is better suited to "embed" Spacemacs into your own configuration.
@@ -335,6 +353,7 @@ Say you cloned Spacemacs in `~/.emacs.d/spacemacs/` then drop these lines in
 (load-file (concat spacemacs-start-directory "init.el"))
 ```
 
+>>>>>>> upstream/develop
 ## Spacemacs logo
 
 For Ubuntu users, follow this guide to
