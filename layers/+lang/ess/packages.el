@@ -58,6 +58,10 @@
       ;; Explicitly run prog-mode hooks since ess-mode does not derive from
       ;; prog-mode major-mode
       (add-hook 'ess-mode-hook 'spacemacs/run-prog-mode-hooks)
+      (add-hook 'inferior-ess-mode-hook
+                '(lambda () (progn
+                              (setq-local comint-use-prompt-regexp nil)
+                              (setq-local inhibit-field-text-motion nil))))
       (when (configuration-layer/package-usedp 'company)
           (add-hook 'ess-mode-hook 'company-mode))))
 
