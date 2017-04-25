@@ -8,20 +8,21 @@
  - [[#description][Description]]
  - [[#install][Install]]
    - [[#dash-os-x][Dash (OS X)]]
+   - [[#sqlite3][Sqlite3]]
    - [[#zeal-linux--windows][Zeal (Linux & Windows)]]
    - [[#check-documentation-for-x-at-point][Check Documentation for x-at-point]]
  - [[#key-bindings][Key bindings]]
    - [[#helm-dash-and-counsel-dash][helm-dash and counsel-dash]]
 
 * Description
-- [[http://kapeli.com/dash][dash]] :: Is a great tool for quick access to various sets of documentation,
+- [[https://kapeli.com/dash][dash]] :: Is a great tool for quick access to various sets of documentation,
           only available in OS X.
 
 - [[https://github.com/stanaka/dash-at-point][dash-at-point]] :: Is the package used to integrate =dash= in Emacs. It will try
                    to intelligently guess specific docsets to use based off of
                    your current mode.
 
-- [[http://zealdocs.org/][zeal]] :: Zeal is an offline documentation browser inspired by Dash,
+- [[https://zealdocs.org/][zeal]] :: Zeal is an offline documentation browser inspired by Dash,
           available for Linux and Windows.
 
 - [[https://github.com/jinzhu/zeal-at-point][zeal-at-point]] :: Run zeal-at-point to search the word at point (or string in
@@ -35,17 +36,17 @@ file.
 
 ** Dash (OS X)
 
-You have to install [[http://kapeli.com/dash][dash]] on your machine.
+You have to install [[https://kapeli.com/dash][dash]] on your machine.
 
 It is recommended to set the =HUD mode= in your Dash application preferences
 when using this layer.
 
 ** Sqlite3
-Helm Dash [[https://github.com/areina/helm-dash#requirements][requires]] sqlite3 to be installed to function properly.
+Helm Dash [[https://github.com/areina/helm-dash#user-content-requirements][requires]] sqlite3 to be installed to function properly.
 
 ** Zeal (Linux & Windows)
 
-You have to install [[http://zealdocs.org/][zeal]] on your machine.
+You have to install [[https://zealdocs.org/][zeal]] on your machine.
 
 Then install the docsets you use more frequently
 

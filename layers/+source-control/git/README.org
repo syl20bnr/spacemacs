@@ -20,7 +20,7 @@
    - [[#commit-message-editing-buffer][Commit message editing buffer]]
    - [[#interactive-rebase-buffer][Interactive rebase buffer]]
    - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
-   - [[#git-flow-1][Git-Flow]]
+   - [[#git-flow][Git-Flow]]
    - [[#git-time-machine][Git time machine]]
    - [[#git-links-to-web-services][Git links to web services]]
    - [[#repository-list][Repository list]]

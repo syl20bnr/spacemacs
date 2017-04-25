@@ -200,7 +200,7 @@ Instead, call =helm-M-x= first, select the command you want to run, and press
 In the terminal version of Emacs, color themes will not render correctly as
 colors are rendered by the terminal and not by emacs. You will probably have to
 change your terminal color palette. More explanations can be found on
-[[https://github.com/sellout/emacs-color-theme-solarized#important-note-for-terminal-users][emacs-color-theme-solarized webpage]].
+[[https://github.com/sellout/emacs-color-theme-solarized#user-content-important-note-for-terminal-users][emacs-color-theme-solarized webpage]].
 
 ** Typing quickly =fd= takes me out of =insert state=. What is going on?
 This is a feature of Spacemacs, enabling you to easily escape from a lot of

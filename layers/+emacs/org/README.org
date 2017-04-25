@@ -200,8 +200,6 @@ For example:
                                                     )
 #+END_SRC
 
-
-
 ** Different bullets
 You can tweak the bullets displayed in the org buffer in the function
 =dotspacemacs/user-config= of your dotfile by setting the variable
@@ -485,7 +483,7 @@ are listed bellow.
 |-------------+---------------------+-----------------------------------|
 | ~ht~        | set status          | org-agenda-todo                   |
 | ~hk~        | kill                | org-agenda-kill                   |
-| ~hR~       | refile              | org-agenda-refile                 |
+| ~hR~        | refile              | org-agenda-refile                 |
 | ~hA~        | archive             | org-agenda-archive-default        |
 | ~h:~        | set tags            | org-agenda-set-tags               |
 | ~hp~        | set priority        | org-agenda-priority               |

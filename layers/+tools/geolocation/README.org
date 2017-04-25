@@ -63,7 +63,7 @@ cycling, etc.
 ** sunshine (weather forecast)
 Sunshine display local weather forecast.
 
-Setup [[http://home.openweathermap.org/][OpenWeatherMap]] API key.
+Setup [[https://home.openweathermap.org/users/sign_in][OpenWeatherMap]] API key.
 Set ~sunshine-appid~ to some hash string from the openweathermap
 website. You need to sign up to the website to get a API key.
 
