@@ -25,8 +25,8 @@
    - [[#elm-reactor][elm-reactor]]
    - [[#elm-package][elm-package]]
      - [[#package-list-buffer][package list buffer]]
-   - [[#elm-oracle-1][elm-oracle]]
-   - [[#elm-format-1][elm-format]]
+   - [[#elm-oracle][elm-oracle]]
+   - [[#elm-format][elm-format]]
    - [[#refactoring][Refactoring]]
 
 * Description
@@ -217,8 +217,8 @@ cycle through the list (note that hitting any other key will cancel the cycle).
 
 ** elm-format
 
-| Key Binding | Description              |
-| ~SPC m = b~ | elm-mode-format-buffer   |
+| Key Binding | Description            |
+| ~SPC m = b~ | elm-mode-format-buffer |
 
 ** Refactoring
 

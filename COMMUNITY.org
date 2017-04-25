@@ -31,6 +31,7 @@
   intentions.
 - In a nutshell: Be good, positive and/or with good intentions and focused on
   the project.
+
 ** For Users
 - Any question related to the project is welcomed and encouraged, the worst
   thing that can happen is that we redirect you to the documentation.
@@ -51,18 +52,22 @@ by the collaborators since the beginning of the project which started officially
 in August 2014. It should allow you to decide whether or not you want to be part
 of this community. If you are not convinced then be assured that the only evil
 part in Spacemacs is the evil mode :-)
+
 ** Guidelines
 These guidelines apply to all collaborators of the project, namely @syl20bnr,
 @TheBB, @d12frosted and @bmag.
+
 *** People
 - Collaborators cannot ban any GitHub user from the repository but they can ban
   users from the official Gitter channel.
 - A user can be banned if and only if all the collaborators agree to do so.
 - The reasons of the ban are mentioned in the moderation actions log (see
   below).
+
 *** Issues
 - Issues can be locked if their contents are judged _inappropriate_, _offending_
   or if they deviate _dangerously_ from the project.
+
 *** Pull requests and Commmits
 - Collaborators can push to the repository without making a PR.
 - PR can be rejected. Rejected PR always go with a reason explicitly written
@@ -71,6 +76,7 @@ These guidelines apply to all collaborators of the project, namely @syl20bnr,
   reason is contained in the commit comments.
 - Pull request are also issues, thus issue guidelines also apply to pull
   requests.
+
 *** Messages
 - Only the form of a message can be edited, not its meaning, except if this
   meaning is _outrageous_.
@@ -83,11 +89,13 @@ These guidelines apply to all collaborators of the project, namely @syl20bnr,
   #+END_EXAMPLE
 - The reason is added only when needed (for instance we won't add a reason for
   formatting edits)
+
 ** Interpretation
 Words used in these guidelines like _good_, _inappropriate_, _offending_,
 _dangerously_ and _outrageous_ are used without any explanation, their meanings
 and interpretations are left solely to the discretion of the collaborators who
 are educated persons working in the interest of the community.
+
 ** Collaborators privacy
 Life and actions of collaborators outside of the project (i.e. outside of the
 Spacemacs GitHub repository, official Spacemacs Gitter channels and Twitter
@@ -96,15 +104,18 @@ activities and roles in the project. They are free to express any opinion on the
 project or any other subjects and those opinions cannot be used to compromise
 their roles in the project as long as they follow the moderation guidelines with
 good intentions.
+
 ** Maintainer
 - The maintainer @syl20bnr as a BDFL is free to demote a collaborator in extreme
   situations.
 - When there is no consensus on a subject, the BDFL can decide to impose his
   view on the subject.
+
 ** Log
 For transparency and future reference any major moderation actions are recorded
 here. As of Sunday, April 10th 2016, 7200 issues have been opened and 2 major
 moderation actions have been taken:
+
 | Date       | Moderator | Action | Issue | Reason                                                          |
 |------------+-----------+--------+-------+-----------------------------------------------------------------|
 | 2016/01/27 | syl20bnr  | lock   | #3484 | comments judged to be offending towards the Spacemacs community |

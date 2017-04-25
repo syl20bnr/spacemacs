@@ -96,12 +96,12 @@ As this state works the same for all files, the documentation is in global
 
 *** Navigation
 
-| Key Binding               | Description        |
-|---------------------------+--------------------|
-| ~SPC m g g~               | Go to definition   |
-| ~SPC m g b~               | Go back            |
-| ~SPC m g n~               | Next note          |
-| ~SPC m g N~ or ~SPC m g p | Previous note      |
+| Key Binding               | Description      |
+|---------------------------+------------------|
+| ~SPC m g g~               | Go to definition |
+| ~SPC m g b~               | Go back          |
+| ~SPC m g n~               | Next note        |
+| ~SPC m g N~ or ~SPC m g p | Previous note    |
 
 *** Macroexpansion
 

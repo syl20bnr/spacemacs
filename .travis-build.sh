@@ -147,7 +147,7 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ ! -z "$PUBLISH" ]; then
 		exit 0
 	else
 		printf '=%.0s' {1..70}
-		printf "\n NOTING TO COMMIT!\n"
+		printf "\n NOTHING TO COMMIT!\n"
 		printf '=%.0s' {1..70}
 		echo
 		exit 0

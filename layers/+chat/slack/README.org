@@ -61,11 +61,11 @@ stuff elsewhere (like Dropbox for instance) and load the file in your dotfile.
 The following bindings are provided to mimic bindings in the official Slack
 client.
 
-| Key Binding | Description                               |
-|-------------+-------------------------------------------|
-| ~SPC m @~   | Embed mention of user                     |
-| ~SPC m #~   | Embed mention of channel                  |
-| ~SPC m k~   | Join a channel, group, and direct message |
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC m @~   | Embed mention of user    |
+| ~SPC m #~   | Embed mention of channel |
+| ~SPC m k~   | Join a channel           |
 
 In insert state, one can also use ~@~ and ~#~ directly without the leader key
 prefix.

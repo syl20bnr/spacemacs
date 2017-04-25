@@ -9,7 +9,7 @@
    - [[#colorize-identifiers][Colorize identifiers]]
    - [[#enable-nyan-cat][Enable Nyan cat]]
  - [[#key-bindings][Key bindings]]
-   - [[#colorize-identifiers-1][Colorize Identifiers]]
+   - [[#colorize-identifiers][Colorize Identifiers]]
    - [[#rainbow-mode][Rainbow Mode]]
    - [[#nyan-mode][Nyan Mode]]
 
