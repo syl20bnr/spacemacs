@@ -66,6 +66,16 @@
              (concat spacemacs-docs-directory "COMMUNITY.org")
              "overwrite-existing-file"))
 
+(defun spacemacs//copy-fetched-docs-html-to-pub-root (project-plist)
+  "Move CONTRIBUTING.html and COMMUNITY.html to `publish-target'.
+See `spacemacs//fetch-docs-from-root'"
+  (f-move  (concat (plist-get project-plist :publishing-directory)
+                   "CONTRIBUTING.html")
+           (concat publish-target "CONTRIBUTING.html"))
+  (f-move (concat (plist-get project-plist :publishing-directory)
+                  "COMMUNITY.html")
+          (concat publish-target "COMMUNITY.html")))
+
 (defun spacemacs/generate-layers-file (project-plist)
   "Generate the layers list file."
   (interactive)
@@ -266,6 +276,7 @@ preprocessors for the exported .org files."
              :publishing-directory ,(concat publish-target "doc/")
              :publishing-function org-html-publish-to-html
              :preparation-function spacemacs//fetch-docs-from-root
+             :completion-function spacemacs//copy-fetched-docs-html-to-pub-root
              :headline-levels 4
              :html-head ,header)
             ("layers-doc"
