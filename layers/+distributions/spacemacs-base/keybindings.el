@@ -218,8 +218,6 @@
   "ik" 'spacemacs/evil-insert-line-above
   "ij" 'spacemacs/evil-insert-line-below)
 ;; format ---------------------------------------------------------------------
-;; `SPC j k' key binding for a frequent action: go and indent line below the point
-;; `SPC J' split the current line at point and indent it
 (spacemacs/set-leader-keys
   "jo" 'open-line
   "j=" 'spacemacs/indent-region-or-buffer
@@ -438,6 +436,7 @@
   "xar" 'spacemacs/align-repeat
   "xa|" 'spacemacs/align-repeat-bar
   "xc"  'count-region
+  "xd SPC" 'just-one-space
   "xdw" 'delete-trailing-whitespace
   "xjc" 'set-justification-center
   "xjf" 'set-justification-full
