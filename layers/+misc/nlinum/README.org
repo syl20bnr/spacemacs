@@ -1,8 +1,8 @@
-#+TITLE: nlinum Layer
+#+TITLE: nlinum layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
  - [[#description][Description]]
-   - [[#describe-nlinum-Layer-in-this-file][describe nlinum Layer in this file]]
+   - [[#describe-nlinum-layer-in-this-file][describe nlinum layer in this file]]
 
 * Description
-** TODO describe nlinum Layer in this file
+** TODO describe nlinum layer in this file
