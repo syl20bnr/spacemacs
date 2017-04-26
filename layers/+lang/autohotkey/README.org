@@ -10,7 +10,7 @@
 
 * Description
 
-Syntax highlighting and Emacs functions for use with [[http://www.autohotkey.com][AutoHotkey]] or
+Syntax highlighting and Emacs functions for use with [[https://autohotkey.com/][AutoHotkey]] or
 [[http://ahkscript.org][AutoHotkey_L]].
 
 Using a combined implementation of ahk-mode from Xah Lee's =xahk-mode=

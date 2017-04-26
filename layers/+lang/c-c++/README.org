@@ -15,7 +15,7 @@
  - [[#key-bindings][Key Bindings]]
 
 * Description
-This layer adds configuration for C/C++ language as well support for [[http://www.cmake.org/][CMake]]
+This layer adds configuration for C/C++ language as well support for [[https://cmake.org/][CMake]]
 scripts.
 
 * Features

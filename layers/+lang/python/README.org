@@ -63,7 +63,7 @@ opening a python buffer:
     Blocking call to accept-process-output with quit inhibited!!
 #+end_example
 
-To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anaconda-mode/blob/master/requirements.txt][anaconda-deps]] by hand:
+To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anaconda-mode/tree/master/requirements][anaconda-deps]] by hand:
 
 #+begin_src sh
     pip install --upgrade "jedi>=0.9.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
@@ -140,7 +140,7 @@ that hy is installed.
 
 ** Manage virtual environments with pyvenv
 A virtual environment provides isolation of your Python package versions. For a
-general overview see [[http://docs.python-guide.org/en/latest/dev/virtualenvs/][this site]]. [[http://virtualenvwrapper.readthedocs.org/en/latest/index.html][Virtualenvwrapper]] which is also explained in the
+general overview see [[http://docs.python-guide.org/en/latest/dev/virtualenvs/][this site]]. [[http://virtualenvwrapper.readthedocs.io/en/latest/index.html][Virtualenvwrapper]] which is also explained in the
 previous link, is a program which manages your virtual environments in a central
 location set by the ~WORKON_HOME~ environment variable.
 
@@ -162,15 +162,15 @@ integration is provided by [[https://github.com/proofit404/pyenv-mode][pyenv mod
 
 | Key Binding | Description                          |
 |-------------+--------------------------------------|
-| ~SPC m v s~ | set a pyenv environment with [[https://github.com/yyuu/pyenv][pyenv]]   |
-| ~SPC m v u~ | unset a pyenv environment with [[https://github.com/yyuu/pyenv][pyenv]] |
+| ~SPC m v s~ | set a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]   |
+| ~SPC m v u~ | unset a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]] |
 
 Pyenv can also manage virtual environments for each of the Python versions it
 has installed. Those will be listed alongside your Python versions.
 
 *** Automatic activation of local pyenv version
 A project-specific pyenv version may be written to a file called
-=.python-version= using the [[https://github.com/yyuu/pyenv/blob/master/COMMANDS.md#pyenv-local][pyenv local]] command.
+=.python-version= using the [[https://github.com/yyuu/pyenv/blob/master/COMMANDS.md#user-content-pyenv-local][pyenv local]] command.
 
 Spacemacs can search in parent directories for this file, and automatically set
 the pyenv version. The behavior can be set with the variable
@@ -289,8 +289,8 @@ Send code to hy REPL commands:
 | ~SPC m h d~ | look for documentation using =helm-pydoc=                                    |
 | ~SPC m h h~ | quick documentation using anaconda                                           |
 | ~SPC m h H~ | open documentation in =firefox= using [[https://github.com/tsgates/pylookup][pylookup]]                               |
-| ~SPC m v s~ | set a pyenv environment with [[https://github.com/yyuu/pyenv][pyenv]]                                           |
-| ~SPC m v u~ | unset a pyenv environment with [[https://github.com/yyuu/pyenv][pyenv]]                                         |
+| ~SPC m v s~ | set a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]                                           |
+| ~SPC m v u~ | unset a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]                                         |
 | ~SPC m V w~ | work on virtual environment in ~WORKON_HOME~                                 |
 | ~SPC m V a~ | activate a virtual environment in any directory                              |
 | ~SPC m V d~ | deactivate active virtual environment                                        |
