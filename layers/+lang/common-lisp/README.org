@@ -66,13 +66,14 @@ As this state works the same for all files, the documentation is in global
 
 *** Evaluation
 
-| Key Binding | Description                     |
-|-------------+---------------------------------|
-| ~SPC m e b~ | Evaluate buffer                 |
-| ~SPC m e e~ | Evaluate last expression        |
-| ~SPC m e f~ | Evaluate top level s-expression |
-| ~SPC m e F~ | Undefine the function at point  |
-| ~SPC m e r~ | Evaluate region                 |
+| Key Binding | Description                              |
+|-------------+------------------------------------------|
+| ~SPC m e b~ | Evaluate buffer                          |
+| ~SPC m e e~ | Evaluate last sexp                       |
+| ~SPC m e l~ | Go to end of line and evaluate last sexp |
+| ~SPC m e f~ | Evaluate top level sexp                  |
+| ~SPC m e F~ | Undefine the function at point           |
+| ~SPC m e r~ | Evaluate region                          |
 
 *** REPL
 
