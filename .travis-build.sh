@@ -56,12 +56,14 @@ if [ ! -z "$FORMATTING" ]; then
 			mv ~/.spacemacs.template ~/.spacemacs
 			while read p
 			do
-				if [ ${p: -4} == ".org" ]; then
-					echo "Checking $p file"
-					./core/tools/spacefmt/spacefmt -f "$p"
-					if [ $? -ne 0 ]; then
-						echo "spacefmt failed"
-						exit 2
+				if [ -f "$p" ]; then
+					if [ ${p: -4} == ".org" ]; then
+						echo "Checking $p file"
+						./core/tools/spacefmt/spacefmt -f "$p"
+						if [ $? -ne 0 ]; then
+							echo "spacefmt failed"
+							exit 2
+						fi
 					fi
 				fi
 			done </tmp/changed_files

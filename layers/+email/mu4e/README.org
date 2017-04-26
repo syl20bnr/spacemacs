@@ -157,7 +157,7 @@ count of unread messages to the modeline.
 [[https://raw.githubusercontent.com/iqbalansari/mu4e-alert/master/screenshots/mu4e-alert-in-action.png]]
 
 For an extended documentation of the available customizations please refer to
-[[https://github.com/iqbalansari/mu4e-alert#customizations][mu4e-alert's documentation]]
+[[https://github.com/iqbalansari/mu4e-alert#user-content-customizations][mu4e-alert's documentation]]
 
 *** OS notifications
 To enable notifications about new messages, add the following line to your

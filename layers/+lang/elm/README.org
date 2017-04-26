@@ -58,7 +58,7 @@ able to access commands such as ~elm-reactor~ or ~elm-make~.
 
 *** OS X and Windows installers
 Official installers for these operating systems are available from:
-[[http://elm-lang.org/install][http://elm-lang.org/install]]
+[[https://guide.elm-lang.org/install.html][https://guide.elm-lang.org/install.html]]
 
 *** Universal installer using npm
 A npm based installer is available to, and provides pre-compiled binaries for

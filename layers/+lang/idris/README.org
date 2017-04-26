@@ -16,7 +16,7 @@
    - [[#build-system][Build system]]
 
 * Description
-This layer adds support for the [[http://www.idris-lang.org/][Idris]] language.
+This layer adds support for the [[https://www.idris-lang.org/][Idris]] language.
 
 * Install
 
@@ -34,7 +34,7 @@ cabal install idris
 #+END_SRC
 
 Binaries are also available for some platforms at
-http://www.idris-lang.org/download/
+https://www.idris-lang.org/download/
 
 * Key bindings
 

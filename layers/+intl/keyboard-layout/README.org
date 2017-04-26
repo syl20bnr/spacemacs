@@ -195,4 +195,4 @@ So the price you have to pay is the absence of a keybindings list.
 The keyboard-layout logo is coming from [[https://openclipart.org/detail/202777/keyboard-layout][openclipart.org]] and is under the public
 domain. The bepo logo and the keymap images are coming from the [[http://bepo.fr/][bepo]] official
 website.  The Colemak keyboard layout image is from [[https://en.wikipedia.org/wiki/File:KB_US-Colemak.svg][Wikipedia]]. They are all
-licensed under the [[http://creativecommons.org/licenses/by-sa/3.0/deed.en][CC-BY-SA]].
+licensed under the [[https://creativecommons.org/licenses/by-sa/3.0/deed.en][CC-BY-SA]].

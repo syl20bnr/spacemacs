@@ -20,8 +20,8 @@ This is a very basic layer for editing ocaml files.
 
 ** Features:
 - Syntax highlighting (major-mode) via [[https://github.com/ocaml/tuareg][tuareg-mode]]
-- Error reporting, completion and type display via [[https://github.com/the-lambda-church/merlin][merlin]]
-- auto-completion with company mode via [[https://github.com/the-lambda-church/merlin][merlin]]
+- Error reporting, completion and type display via [[https://github.com/ocaml/merlin][merlin]]
+- auto-completion with company mode via [[https://github.com/ocaml/merlin][merlin]]
 - syntax-checking via [[https://github.com/diml/utop][flycheck-ocaml]]
 
 * Install
