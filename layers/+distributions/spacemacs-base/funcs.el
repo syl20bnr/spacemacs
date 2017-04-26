@@ -241,7 +241,7 @@ Dedicated (locked) windows are left untouched."
       (set-window-buffer w2 b1)
       (unrecord-window-buffer w1 b1)
       (unrecord-window-buffer w2 b2)))
-  (when follow-focus-p (select-window-by-number windownum)))
+  (when follow-focus-p (winum-select-window-by-number windownum)))
 
 (dotimes (i 9)
   (let ((n (+ i 1)))
