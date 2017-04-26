@@ -43,7 +43,7 @@ with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.g
 - Share your setup with others or extend someone else's development environment
 - Run multiple Emacs instances on the same machine isolated
 - An easy way to swap Emacs version (=emacs25= =emacs-snapshot=) for debugging
-- [[https://docs.docker.com/engine/reference/commandline/pause][pause]] container to free resources temporarily
+- [[https://docs.docker.com/engine/reference/commandline/pause/][pause]] container to free resources temporarily
 - [[https://github.com/docker/docker/blob/1.13.x/experimental/checkpoint-restore.md][Checkpoint & Restore]] - maybe the fastest way to start a "heavy" environment
 - Friendly for networks with low upload speed/quotas.
 
@@ -186,7 +186,7 @@ With the running =spacemacs= container
 - =docker logs spacemacs= - print =spacemacs= container's logs
 - =docker cp <from_local_path> spacemacs:/<to_my_spacemacs_container_path>=
 - =docker cp spacemacs:/<from_my_spacemacs_container_path> <to_local_path>=
--  Manage data in containers with [[https://docs.docker.com/engine/tutorials/dockervolumes][Docker volumes]]. Example
+-  Manage data in containers with [[https://docs.docker.com/engine/tutorials/dockervolumes/][Docker volumes]]. Example
  -  =docker volume create --name my-ws=
  -  =docker run ... -v my-ws:/mnt/workspace ... spacemacs/emacs25=
  -  =docker run ... -v my-ws:/home/developer/workspace ... jare/vim-bundle=

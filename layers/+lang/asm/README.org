@@ -39,7 +39,7 @@ To look up the x86 instructions, two things are required:
   sudo apt-get install poppler-utils
 #+end_src
 
-- [[http://www.intel.com/content/www/us/en/processors/architectures-software-developer-manuals.html][Intel® 64 and IA-32 Architectures Software Developer Manuals]]. Any PDF that
+- [[https://software.intel.com/en-us/articles/intel-sdm][Intel® 64 and IA-32 Architectures Software Developer Manuals]]. Any PDF that
   contains the full instruction set reference will work, though volume 2 is the
   best choice for x86-lookup.
 
