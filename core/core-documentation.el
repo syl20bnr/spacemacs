@@ -66,6 +66,13 @@
              (concat spacemacs-docs-directory "COMMUNITY.org")
              "overwrite-existing-file"))
 
+(defun spacemacs//fetch-docs-from-root (project-plist)
+  "Add missing CONTRIBUTING and COMMUNITY files to doc folder for publishing.
+   Have been moved out of the doc folder to let github show the documentation.
+   See commit 315528c89fd351d559a262bb88bd15ed961e4b4e"
+  (copy-file (concat spacemacs-start-directory "CONTRIBUTING.org") (concat spacemacs-docs-directory "CONTRIBUTE.org") "overwrite-existing-file")
+  (copy-file (concat spacemacs-start-directory "COMMUNITY.org") (concat spacemacs-docs-directory "COMMUNITY.org") "overwrite-existing-file"))
+
 (defun spacemacs/generate-layers-file (project-plist)
   "Generate the layers list file."
   (interactive)
