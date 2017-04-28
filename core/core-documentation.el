@@ -66,6 +66,16 @@
              (concat spacemacs-docs-directory "COMMUNITY.org")
              "overwrite-existing-file"))
 
+(defun spacemacs//copy-fetched-docs-html-to-pub-root (project-plist)
+  "Move CONTRIBUTING.html and COMMUNITY.html to `publish-target'.
+See `spacemacs//fetch-docs-from-root'"
+  (f-move  (concat (plist-get project-plist :publishing-directory)
+                   "CONTRIBUTING.html")
+           (concat publish-target "CONTRIBUTING.html"))
+  (f-move (concat (plist-get project-plist :publishing-directory)
+                  "COMMUNITY.html")
+          (concat publish-target "COMMUNITY.html")))
+
 (defun spacemacs/generate-layers-file (project-plist)
   "Generate the layers list file."
   (interactive)
@@ -113,6 +123,30 @@
   (let ((toc-org-hrefify-default "org"))
     (toc-org-insert-toc)))
 
+(defvar-local  spacemacs--org-custom-id-hash nil
+  "Stores repetition count for `spacemacs//org-custom-id-uniquify' func")
+
+(defun spacemacs//org-custom-id-uniquify (id)
+  "Make ID unique by attaching -<N> postfix if org heading repeats
+in the current buffer. N is repetition count.
+NOTE: We probably should handle differently the corner cases when
+the current buffer already has headlines with -<N> postfixes.
+:see_no_evil:"
+  (unless spacemacs--org-custom-id-hash
+    (setq spacemacs--org-custom-id-hash
+          (make-hash-table :test 'equal)))
+  (let* ((old-count (gethash
+                     id
+                     spacemacs--org-custom-id-hash
+                     0))
+         (new-count (puthash
+                     id
+                     (1+ old-count)
+                     spacemacs--org-custom-id-hash)))
+    (if (> new-count 1)
+        (concat id "-" (int-to-string old-count))
+      id)))
+
 (defun spacemacs//org-heading-annotate-custom-id ()
   "Annotate headings with the indexes that GitHub uses for linking.
 `org-html-publish-to-html' will use them instead of the default #orgheadline{N}.
@@ -122,18 +156,19 @@ compatible."
     (goto-char (point-min))
     (while (re-search-forward heading-regexp nil t)
       (unless (looking-at-p ".*\n\s*:PROPERTIES:")
-        (let ((heading (match-string 1)))
+        (let* ((heading (match-string 1))
+               (id (substring (toc-org-hrefify-gh
+                               (replace-regexp-in-string
+                                toc-org-tags-regexp
+                                ""
+                                heading))
+                              ;; Remove # prefix added by
+                              ;; `toc-org-hrefify-gh'.
+                              1)))
           (insert (format (concat "\n:PROPERTIES:\n"
                                   ":CUSTOM_ID: %s\n"
                                   ":END:\n")
-                          (substring (toc-org-hrefify-gh
-                                      (replace-regexp-in-string
-                                       toc-org-tags-regexp
-                                       ""
-                                       heading))
-                                     ;; Remove # prefix added by
-                                     ;; `toc-org-hrefify-gh'.
-                                     1))))))))
+                          (spacemacs//org-custom-id-uniquify id))))))))
 
 (defun spacemacs//reroot-links ()
   "Find the links that start with https://github.com/syl20bnr/spacemacs/blob/
@@ -241,6 +276,7 @@ preprocessors for the exported .org files."
              :publishing-directory ,(concat publish-target "doc/")
              :publishing-function org-html-publish-to-html
              :preparation-function spacemacs//fetch-docs-from-root
+             :completion-function spacemacs//copy-fetched-docs-html-to-pub-root
              :headline-levels 4
              :html-head ,header)
             ("layers-doc"

@@ -3,11 +3,11 @@
 [[file:img/docker.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Usage][Usage]]
-   - [[TRAMP access to docker containers][TRAMP access to docker containers]]
- - [[Key bindings][Key bindings]]
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#usage][Usage]]
+   - [[#tramp-access-to-docker-containers][TRAMP access to docker containers]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 This layer provides syntax highlighting and build functionality for Docker files

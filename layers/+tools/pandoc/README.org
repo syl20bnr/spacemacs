@@ -10,7 +10,7 @@
 
 * Description
 
-This layer adds support for [[http://johnmacfarlane.net/pandoc][Pandoc]].
+This layer adds support for [[http://pandoc.org/][Pandoc]].
 
 Pandoc is a universal document converter. It makes it easy to e.g. convert a
 Markdown file to org mode or vice versa. It can also export your text to PDF or
@@ -28,9 +28,9 @@ file.
 To use the mode please [[http://pandoc.org/installing.html][install]] pandoc first.
 
 * Usage
-For a full list of possible conversions see the [[http://johnmacfarlane.net/pandoc][Pandoc documentation]].
+For a full list of possible conversions see the [[http://pandoc.org/][Pandoc documentation]].
 An explanation of all the options offered by =pandoc-mode= can be found at the
-[[http://joostkremers.github.io/pandoc-mode][Pandoc-mode website]].
+[[http://joostkremers.github.io/pandoc-mode/][Pandoc-mode website]].
 
 * Key Bindings
 

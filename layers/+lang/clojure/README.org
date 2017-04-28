@@ -32,7 +32,7 @@
    - [[#indentation][Indentation]]
 
 * Description
-This layer adds support for [[http://clojure.org][Clojure]] language using [[https://github.com/clojure-emacs/cider][CIDER]].
+This layer adds support for [[https://clojure.org/][Clojure]] language using [[https://github.com/clojure-emacs/cider][CIDER]].
 
 * Features
 - REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
@@ -71,7 +71,7 @@ older. Most users should be able to just run ~SPC m s i~ to connect to the CIDER
 REPL and skip the rest of this section.
 
 *** Quick Start with boot
-- Install =boot= (see https://github.com/boot-clj/boot#install)
+- Install =boot= (see https://github.com/boot-clj/boot#user-content-install)
 - Create a file =~/.boot/profile.boot= with the following content:
 
 #+BEGIN_SRC clojure
@@ -90,7 +90,7 @@ REPL and skip the rest of this section.
   for Cider to recognize the presence of boot.
 
 *** Quick Start with lein
-- Install =lein= version 2.5.2 or newer (see http://leiningen.org/#install)
+- Install =lein= version 2.5.2 or newer (see https://leiningen.org/#install)
 - Create a file =~/.lein/profiles.clj= with the following content:
 
 #+BEGIN_SRC clojure
@@ -202,7 +202,7 @@ As this state works the same for all files, the documentation is in global
 |-------------+--------------------------------|
 | ~SPC m d b~ | instrument expression at point |
 | ~SPC m d e~ | display last stacktrace        |
-| ~SPC m d r~ | reload namespaces             |
+| ~SPC m d r~ | reload namespaces              |
 | ~SPC m d v~ | inspect expression at point    |
 
 *** Refactoring
@@ -313,7 +313,7 @@ In general, ~q~ should always quit the popped up buffer.
 
 * Development Notes
 ** Indentation
-With a [[https://github.com/clojure-emacs/cider/blob/master/doc/Indent-Spec.md#indent-specification][new]] functionality of Cider to read the custom indentation rules from the
+With a [[https://github.com/clojure-emacs/cider/blob/master/doc/indent_spec.md][new]] functionality of Cider to read the custom indentation rules from the
 var's metadata, it is better for consistency reasons to not add the custom
 indentation rules to Spacemacs, but to add them to the metadata of those
 specific vars.

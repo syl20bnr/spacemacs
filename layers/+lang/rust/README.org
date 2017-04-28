@@ -12,7 +12,7 @@
  - [[#key-bindings][Key bindings]]
 
 * Description
-This layer supports [[http://www.rust-lang.org/][Rust]] development in Spacemacs.
+This layer supports [[https://www.rust-lang.org/en-US/][Rust]] development in Spacemacs.
 
 It has auto-completion and navigation support through [[https://github.com/phildawes/racer][Racer]] and supports [[http://doc.crates.io/index.html][Cargo]].
 

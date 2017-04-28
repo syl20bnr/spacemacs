@@ -65,7 +65,7 @@ specific documentation for details and caveats):
 #+END_SRC
 
 ** Ruby version management
-This layer supports [[https://rvm.io/][RVM]], [[https://github.com/sstephenson/rbenv][Rbenv]], and [[https://github.com/postmodern/chruby][Chruby]]. You can choose the default version
+This layer supports [[https://rvm.io/][RVM]], [[https://github.com/rbenv/rbenv][Rbenv]], and [[https://github.com/postmodern/chruby][Chruby]]. You can choose the default version
 manager by setting the variable =ruby-version-manager= in your dotfile, for
 example:
 

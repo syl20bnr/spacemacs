@@ -7,13 +7,13 @@
  - [[#configuration][Configuration]]
    - [[#ledger][Ledger]]
  - [[#key-bindings][Key bindings]]
-   - [[#ledger-1][Ledger]]
+   - [[#ledger][Ledger]]
    - [[#ledger-reconcile][Ledger-Reconcile]]
 
 * Description
 
 This layer adds finance related packages:
-- [[https://github.com/ledger/ledger][ledger]] support via [[https://github.com/ledger/ledger/tree/next/lisp][ledger-mode]]
+- [[https://github.com/ledger/ledger][ledger]] support via [[https://www.emacswiki.org/emacs/LedgerMode][ledger-mode]]
 
 [[file:img/ledger.png]]
 

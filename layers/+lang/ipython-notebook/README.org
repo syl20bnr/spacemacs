@@ -153,5 +153,5 @@ In traceback mode the following key bindings are defined:
 
 * Bonus
 If you want to have a matplotlibrc that looks good with a dark background try
-using [[file:matplotlibrc][this]] =matplotlibrc=. Plot background is always transparent by default so
+using [[https://gist.github.com/anonymous/80219c49cb674d01e6b5fab94e759f54][this]] =matplotlibrc=. Plot background is always transparent by default so
 it will look okay for most dark themes out there.

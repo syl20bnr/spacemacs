@@ -34,10 +34,10 @@ file.
 
 ** Prerequisites
 *** ASP.NET 5
-Follow the instructions for your platform [[https://github.com/aspnet/home#getting-started][here]].
+Follow the instructions for your platform [[https://github.com/aspnet/home#user-content-get-started][here]].
 
 *** curl
-You'll need [[http://curl.haxx.se/][curl]] to be able to use the Omnisharp package. Use your favorite
+You'll need [[https://curl.haxx.se/][curl]] to be able to use the Omnisharp package. Use your favorite
 package manager to install it (on Windows you can use [[https://chocolatey.org/][chocolatey]]).
 
 Be sure to make the =curl= binary available to your PATH environment variable,

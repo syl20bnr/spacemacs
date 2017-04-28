@@ -15,7 +15,7 @@
  - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for the Scala language using the excellent [[http://ensime.github.io/][ENSIME]]
+This layer adds support for the Scala language using the excellent [[http://ensime.org/][ENSIME]]
 client/server.
 
 * Layer Installation
@@ -24,7 +24,7 @@ add =scala= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Ensime
-[[http://ensime.github.io/][ENSIME]] provides IDE-like features, such as refactoring, incremental compilation
+[[http://ensime.org/][ENSIME]] provides IDE-like features, such as refactoring, incremental compilation
 and project-wide type-checking.
 
 ENSIME requires a configuration file at the root of each Scala project. It

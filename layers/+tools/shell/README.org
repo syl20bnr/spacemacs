@@ -16,7 +16,7 @@
  - [[#eshell][Eshell]]
  - [[#key-bindings][Key bindings]]
    - [[#multi-term][Multi-term]]
-   - [[#eshell-1][Eshell]]
+   - [[#eshell][Eshell]]
 
 * Description
 This layer configures the various shells available in Emacs.
@@ -169,7 +169,7 @@ Some advanced configuration is setup for =eshell= in this layer:
   - =z= for quickly jumping to a previously visited directory
 - optional configuration for =em-smart= (see =Install= section for more info)
 - support for visual commands via =em-term=
-- working directory sensitive prompt via [[https://github.com/hiddenlotus/eshell-prompt-extras][eshell-prompt-extras]]
+- working directory sensitive prompt via [[https://github.com/kaihaosw/eshell-prompt-extras][eshell-prompt-extras]]
 - advanced help support via =esh-help= (enable =el-doc= support in eshell)
 - add support for auto-completion via =company= (when the =auto-completion=
   layer is installed)
