@@ -139,8 +139,12 @@ whenever you start Emacs.")
 Press `SPC T n' to cycle to the next theme in the list (works great
 with 2 themes variants, one dark and one light")
 
-(defvar dotspacemacs-frame-title-format nil
+(defvar dotspacemacs-frame-title-format "%I@%S"
   "Default format string for a frame title bar, using the
+  original format spec, and additional customizations.")
+
+(defvar dotspacemacs-icon-title-format nil
+  "Default format string for a icon title bar, using the
   original format spec, and additional customizations.")
 
 (defvar dotspacemacs-colorize-cursor-according-to-state t
@@ -601,7 +605,8 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
                   (load dotspacemacs))
           (dotspacemacs/safe-load)))))
 
-(defun spacemacs/frame-title-prepare ()
+(defun spacemacs/title-prepare (title-format)
+>>>>>>> ca96a88b... Add support for fancy frame title
   "A string is printed verbatim except for %-constructs.
   %a -- prints the `abbreviated-file-name', or `buffer-name'
   %t -- prints `projectile-project-name'
@@ -620,7 +625,7 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
   %z -- prints mnemonics of buffer, terminal, and keyboard coding systems
   %Z -- like %z, but including the end-of-line format"
   (let* ((fs (format-spec-make
-              ?a (abbreviate-file-name (or (buffer-file-name) (buffer-name))) 
+              ?a (abbreviate-file-name (or (buffer-file-name) (buffer-name)))
               ?t (if (boundp 'projectile-mode) (projectile-project-name) "-")
               ?S system-name
               ?I invocation-name
@@ -644,7 +649,7 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
               ?% "%%"
               ?- "%-"
               )))
-    (format-spec dotspacemacs-frame-title-format fs)))
+    (format-spec title-format fs)))
 
 (defun dotspacemacs/safe-load ()
   "Error recovery from malformed .spacemacs.
