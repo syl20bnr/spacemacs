@@ -567,12 +567,12 @@ configuration at the beginning and end of Spacemacs loading process:
 *** Custom variables
 By default custom variables from =M-x customize-group= are automatically saved
 at the end of your =~/.spacemacs= file in the function
-=dotspacemacs/emacs-custom-settings== unless you declare a custom =custom-file=
+=dotspacemacs/emacs-custom-settings= unless you declare a custom =custom-file=
 in the =dotspacemacs/user-init= function, in this case custom variables will be
 written to the user defined =custom-file= and the function
 =dotspacemacs/emacs-custom-settings= will remain empty.
 
-*Note:* if you set a custom =custom-file= value then it is your responsibility
+*Note:* If you set a custom =custom-file= value then it is your responsibility
 to load this file at the appropriate time. Often the best time to load it is
 just after setting the value for =custom-file= in the =dotspacemacs/user-init=
 function.
@@ -587,12 +587,12 @@ layer=.
 For instance, [[Thank you][RMS]] can add his private configuration layer like this:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '(
-    ;; other layers
-    ;; rms layer added at the end of the list
-    rms
-  ))
+  (setq-default dotspacemacs-configuration-layers
+                '(
+                  ;; other layers
+                  ;; rms layer added at the end of the list
+                  rms
+                  ))
 #+END_SRC
 
 Official layers shipped with Spacemacs are stored in =~/.emacs.d/layers=. The
@@ -788,10 +788,10 @@ Default configuration is:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-editing-style '(hybrid :variables
-                                           hybrid-mode-enable-evilified-state t
-                                           hybrid-mode-enable-hjkl-bindings nil
-                                           hybrid-mode-use-evil-search-module nil
-                                           hybrid-mode-default-state 'normal)
+                                                  hybrid-mode-enable-evilified-state t
+                                                  hybrid-mode-enable-hjkl-bindings nil
+                                                  hybrid-mode-use-evil-search-module nil
+                                                  hybrid-mode-default-state 'normal)
 #+END_SRC
 
 To toggle the hybrid style on and off use ~SPC t E h~ and ~M-m t E h~. When
@@ -1008,12 +1008,12 @@ fetch =zenburn= theme directly from the GitHub repository with the following
 declaration:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-themes
-              '(spacemacs-light
-              leuven
-              (zenburn :location (recipe :fetcher github
-                                         :repo "bbatsov/zenburn-emacs"))
-              ))
+  (setq-default dotspacemacs-themes
+                '(spacemacs-light
+                  leuven
+                  (zenburn :location (recipe :fetcher github
+                                             :repo "bbatsov/zenburn-emacs"))
+                  ))
 #+END_SRC
 
 *Important note:* If you use =:location local= then you have to put your theme
@@ -1650,8 +1650,8 @@ Additional text objects are defined in Spacemacs:
 these is *guaranteed* to never conflict with Spacemacs default key bindings.
 
 *Example:* Put =(spacemacs/set-leader-keys "oc" 'org-capture)= inside
-=dotspacemacs/user-config= in your =~/.spacemacs= file, to be able to use ~SPC o
-c~ to run org mode capture.
+=dotspacemacs/user-config= in your =~/.spacemacs= file, to be able to use
+~SPC o c~ to run org mode capture.
 
 ** Completion
 Spacemacs is powered by one of two incremental completion and selection
@@ -1817,9 +1817,6 @@ To display only the toggles source press ~C-l~.
 The following actions are available on selected toggle:
   - default: toggle on/off
 
-*Tips* Use ~SPC h l~ to resume the last session. It is handy to quickly toggle
- on and off a toggle.
-
 ** Navigating
 *** Point/Cursor
 Navigation is performed using the Vi key bindings ~hjkl~.
@@ -1933,6 +1930,7 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | ~J~         | join the current line with the next line                                 |
 | ~SPC j k~   | go to next line and indent it using auto-indent rules                    |
 | ~SPC j n~   | split the current line at point, insert a new line and auto-indent       |
+| ~SPC j o~   | split the current line at point but let point on current line            |
 | ~SPC j s~   | split a quoted string or s-expression in place                           |
 | ~SPC j S~   | split a quoted string or s-expression, insert a new line and auto-indent |
 
@@ -1941,18 +1939,21 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 Every window has a number displayed at the start of the mode-line and
 can be quickly accessed using =SPC number=.
 
-| Key Binding | Description           |
-|-------------+-----------------------|
-| ~SPC 1~     | go to window number 1 |
-| ~SPC 2~     | go to window number 2 |
-| ~SPC 3~     | go to window number 3 |
-| ~SPC 4~     | go to window number 4 |
-| ~SPC 5~     | go to window number 5 |
-| ~SPC 6~     | go to window number 6 |
-| ~SPC 7~     | go to window number 7 |
-| ~SPC 8~     | go to window number 8 |
-| ~SPC 9~     | go to window number 9 |
-| ~SPC 0~     | go to window number 0 |
+| Key Binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~SPC 1~     | go to window number 1                               |
+| ~SPC 2~     | go to window number 2                               |
+| ~SPC 3~     | go to window number 3                               |
+| ~SPC 4~     | go to window number 4                               |
+| ~SPC 5~     | go to window number 5                               |
+| ~SPC 6~     | go to window number 6                               |
+| ~SPC 7~     | go to window number 7                               |
+| ~SPC 8~     | go to window number 8                               |
+| ~SPC 9~     | go to window number 9                               |
+| ~SPC 0~     | go to window number 0 (or 10 if no window number 0) |
+
+Window number 0 is assigned to the sidebar, like NeoTree. If there is no window
+number 0, =SPC 0= attempts to select window number 10.
 
 Windows manipulation commands (start with ~w~):
 
@@ -2102,9 +2103,10 @@ the opened buffer and kill them.
 
 **** Special Buffers
 Unlike vim, emacs creates many buffers that most people do not need to see. Some
-examples are =*Messages*= and =*Compile-Log*=. Spacemacs tries to automatically
-ignore buffers that are not useful. However, you may want to change the way
-Spacemacs marks buffers as useful. For instructions, see the [[file:FAQ.org::#change-special-buffer-rules][special buffer howto]].
+examples are the =*Messages*= and =*Compile-Log*= buffers. Spacemacs tries to
+automatically ignore buffers that are not useful. However, you may want to
+change the way Spacemacs marks buffers as useful. For instructions, see the
+[[file:FAQ.org::#change-special-buffer-rules][special buffer howto]].
 
 **** Files manipulations key bindings
 Files manipulation commands (start with ~f~):
@@ -2169,8 +2171,8 @@ Basic =ido= operations can be done with ~Ctrl~ key:
 
 | Key Binding        | Description                                       |
 |--------------------+---------------------------------------------------|
-| ~C-<return>~       | open a =dired buffer=                             |
-| ~M-<return>~       | open a =dired buffer= in terminal                 |
+| ~C-RET~            | open a =dired buffer=                             |
+| ~M-RET~            | select the buffer or file named by the prompt     |
 | ~C-d~              | delete selected file (ask for confirmation)       |
 | ~C-h~              | go to parent directory                            |
 | ~C-j~              | select next file or directory                     |
@@ -2247,8 +2249,8 @@ experience.
 
 **** Opening files with NeoTree
 By default a file is opened in the last active window. It is possible to choose
-window number where to open a file by using a numeric argument, for instance ~2
-l~ or ~2 RET~ will open the current file in window 2. It is also possible to
+window number where to open a file by using a numeric argument, for instance
+~2 l~ or ~2 RET~ will open the current file in window 2. It is also possible to
 open the file in a split window with ~|~ and ~-~:
 
 | Key Binding      | Description                               |
@@ -2400,12 +2402,12 @@ Spacemacs can be interfaced with different search utilities like:
   - grep
 
 The search commands in Spacemacs are organized under the ~SPC s~ prefix with the
-next key is the tool to use and the last key is the scope. For instance ~SPC s a
-b~ will search in all opened buffers using =ag=.
+next key is the tool to use and the last key is the scope. For instance
+~SPC s a b~ will search in all opened buffers using =ag=.
 
 If the last key (determining the scope) is uppercase then the current region or
-symbol under point is used as default input for the search. For instance ~SPC s
-a B~ will search with symbol under point (if there is no active region).
+symbol under point is used as default input for the search. For instance
+~SPC s a B~ will search with symbol under point (if there is no active region).
 
 If the tool key is omitted then a default tool will be automatically selected
 for the search. This tool corresponds to the first tool found on the system of
@@ -2633,56 +2635,57 @@ adding a major-mode to the variable =spacemacs-indent-sensitive-modes= in your
 *** Text manipulation commands
 Text related commands (start with ~x~):
 
-| Key Binding | Description                                                   |
-|-------------+---------------------------------------------------------------|
-| ~SPC x a &~ | align region at &                                             |
-| ~SPC x a (~ | align region at (                                             |
-| ~SPC x a )~ | align region at )                                             |
-| ~SPC x a [~ | align region at [                                             |
-| ~SPC x a ]~ | align region at ]                                             |
-| ~SPC x a {~ | align region at {                                             |
-| ~SPC x a }~ | align region at }                                             |
-| ~SPC x a ​,​~ | align region at ,                                             |
-| ~SPC x a .~ | align region at . (for numeric tables)                        |
-| ~SPC x a :~ | align region at :                                             |
-| ~SPC x a ;~ | align region at ;                                             |
-| ~SPC x a =~ | align region at =                                             |
-| ~SPC x a a~ | align region (or guessed section) using default rules         |
-| ~SPC x a c~ | align current indentation region using default rules          |
-| ~SPC x a r~ | align region using user-specified regexp                      |
-| ~SPC x a m~ | align region at arithmetic operators (+-*/)                   |
-| ~SPC x a ¦~ | align region at ¦                                             |
-| ~SPC x c~   | count the number of chars/words/lines in the selection region |
-| ~SPC x d w~ | delete trailing whitespaces                                   |
-| ~SPC x g l~ | set languages used by translate commands                      |
-| ~SPC x g t~ | translate current word using Google Translate                 |
-| ~SPC x g T~ | reverse source and target languages                           |
-| ~SPC x i i~ | cycle symbol naming styles                                    |
-| ~SPC x i u~ | change symbol style to ~under_score~                          |
-| ~SPC x i U~ | change symbol style to ~UP_CASE~                              |
-| ~SPC x i k~ | change symbol style to ~kebab-case~                           |
-| ~SPC x i c~ | change symbol style to ~lowerCamelCase~                       |
-| ~SPC x i C~ | change symbol style to ~UpperCamelCase~                       |
-| ~SPC x j c~ | set the justification to center                               |
-| ~SPC x j f~ | set the justification to full                                 |
-| ~SPC x j l~ | set the justification to left                                 |
-| ~SPC x j n~ | set the justification to none                                 |
-| ~SPC x j r~ | set the justification to right                                |
-| ~SPC x J~   | move down a line of text (enter transient state)              |
-| ~SPC x K~   | move up a line of text (enter transient state)                |
-| ~SPC x l d~ | duplicate line or region                                      |
-| ~SPC x l s~ | sort lines                                                    |
-| ~SPC x l u~ | uniquify lines                                                |
-| ~SPC x o~   | use avy to select a link in the frame and open it             |
-| ~SPC x O~   | use avy to select multiple links in the frame and open them   |
-| ~SPC x t c~ | swap (transpose) the current character with the previous one  |
-| ~SPC x t w~ | swap (transpose) the current word with the previous one       |
-| ~SPC x t l~ | swap (transpose) the current line with the previous one       |
-| ~SPC x u~   | set the selected text to lower case                           |
-| ~SPC x U~   | set the selected text to upper case                           |
-| ~SPC x w c~ | count the number of occurrences per word in the select region |
-| ~SPC x w d~ | show dictionary entry of word from wordnik.com                |
-| ~SPC x TAB~ | indent or dedent a region rigidly                             |
+| Key Binding   | Description                                                   |
+|---------------+---------------------------------------------------------------|
+| ~SPC x a &~   | align region at &                                             |
+| ~SPC x a (~   | align region at (                                             |
+| ~SPC x a )~   | align region at )                                             |
+| ~SPC x a [~   | align region at [                                             |
+| ~SPC x a ]~   | align region at ]                                             |
+| ~SPC x a {~   | align region at {                                             |
+| ~SPC x a }~   | align region at }                                             |
+| ~SPC x a ​,​~   | align region at ,                                             |
+| ~SPC x a .~   | align region at . (for numeric tables)                        |
+| ~SPC x a :~   | align region at :                                             |
+| ~SPC x a ;~   | align region at ;                                             |
+| ~SPC x a =~   | align region at =                                             |
+| ~SPC x a a~   | align region (or guessed section) using default rules         |
+| ~SPC x a c~   | align current indentation region using default rules          |
+| ~SPC x a r~   | align region using user-specified regexp                      |
+| ~SPC x a m~   | align region at arithmetic operators (+-*/)                   |
+| ~SPC x a ¦~   | align region at ¦                                             |
+| ~SPC x c~     | count the number of chars/words/lines in the selection region |
+| ~SPC x d w~   | delete trailing whitespaces                                   |
+| ~SPC x d SPC~ | Delete all spaces and tabs around point, leaving one space    |
+| ~SPC x g l~   | set languages used by translate commands                      |
+| ~SPC x g t~   | translate current word using Google Translate                 |
+| ~SPC x g T~   | reverse source and target languages                           |
+| ~SPC x i i~   | cycle symbol naming styles                                    |
+| ~SPC x i u~   | change symbol style to ~under_score~                          |
+| ~SPC x i U~   | change symbol style to ~UP_CASE~                              |
+| ~SPC x i k~   | change symbol style to ~kebab-case~                           |
+| ~SPC x i c~   | change symbol style to ~lowerCamelCase~                       |
+| ~SPC x i C~   | change symbol style to ~UpperCamelCase~                       |
+| ~SPC x j c~   | set the justification to center                               |
+| ~SPC x j f~   | set the justification to full                                 |
+| ~SPC x j l~   | set the justification to left                                 |
+| ~SPC x j n~   | set the justification to none                                 |
+| ~SPC x j r~   | set the justification to right                                |
+| ~SPC x J~     | move down a line of text (enter transient state)              |
+| ~SPC x K~     | move up a line of text (enter transient state)                |
+| ~SPC x l d~   | duplicate line or region                                      |
+| ~SPC x l s~   | sort lines                                                    |
+| ~SPC x l u~   | uniquify lines                                                |
+| ~SPC x o~     | use avy to select a link in the frame and open it             |
+| ~SPC x O~     | use avy to select multiple links in the frame and open them   |
+| ~SPC x t c~   | swap (transpose) the current character with the previous one  |
+| ~SPC x t w~   | swap (transpose) the current word with the previous one       |
+| ~SPC x t l~   | swap (transpose) the current line with the previous one       |
+| ~SPC x u~     | set the selected text to lower case                           |
+| ~SPC x U~     | set the selected text to upper case                           |
+| ~SPC x w c~   | count the number of occurrences per word in the select region |
+| ~SPC x w d~   | show dictionary entry of word from wordnik.com                |
+| ~SPC x TAB~   | indent or dedent a region rigidly                             |
 
 *** Text insertion commands
 Text insertion commands (start with ~i~):
@@ -2891,8 +2894,8 @@ an ~occurrence~.
 -  manual selection of several words then replace: ~v w w SPC s e S "toto" ESC ESC~
 -  append text to a word on two lines: ~v i w SPC s e J i "toto" ESC ESC~
 -  substitute symbol /with expand-region/: ~SPC v v e S "toto" ESC ESC~
--  replace symbol with yanked (copied) text /with expand region/: ~SPC v
-   e p ESC ESC~
+-  replace symbol with yanked (copied) text /with expand region/:
+   ~SPC v e p ESC ESC~
 
 *** Replacing text in several files
 If you have =rg=, =ag=, =pt= or =ack= installed, replacing an occurrence of text

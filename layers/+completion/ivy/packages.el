@@ -54,6 +54,7 @@
         ;; help
         "?"   'counsel-descbinds
         "hdf" 'counsel-describe-function
+        "hdF" 'counsel-faces
         "hdm" 'spacemacs/describe-mode
         "hdv" 'counsel-describe-variable
         "hi"  'counsel-info-lookup-symbol

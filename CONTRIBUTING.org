@@ -1,5 +1,4 @@
 #+TITLE: Contribution guidelines
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
 Spacemacs is a volunteer effort. We encourage you to pitch in. The community
 makes Spacemacs what it is. We have a few guidelines, which we ask all
@@ -12,12 +11,21 @@ You can only consider reading the sections relevant to what you are going to do:
 
 Thanks! :heart: :heart: :heart:
 
-* Content                                                    :TOC@2:noexport:
+* Content                                                   :TOC_4_gh:noexport:
  - [[#asking-for-help][Asking for help]]
  - [[#reporting-issues][Reporting issues]]
  - [[#contributing-code][Contributing code]]
    - [[#general-contribution-guidelines][General contribution guidelines]]
+     - [[#license][License]]
+     - [[#conventions][Conventions]]
+     - [[#pull-request][Pull-Request]]
+       - [[#ideally-for-simple-prs-most-of-them][Ideally for /simple/ PRs (most of them):]]
+       - [[#for-complex-prs-big-refactoring-etc][For complex PRs (big refactoring, etc):]]
+     - [[#commit-messages][Commit messages]]
    - [[#contributing-a-layer][Contributing a layer]]
+     - [[#file-header][File header]]
+     - [[#author-of-a-new-layer][Author of a new layer]]
+     - [[#contributor-to-an-existing-layer][Contributor to an existing layer]]
    - [[#contributing-a-keybinding][Contributing a keybinding]]
    - [[#contributing-a-banner][Contributing a banner]]
  - [[#additional-information][Additional information]]
@@ -30,7 +38,7 @@ it may hold the answer:
 
 - [[file:doc/FAQ.org][The FAQ]]. Some of the most frequently asked questions are answered there.
 - [[file:doc/DOCUMENTATION.org][The documentation]]. It's the general documentation of Spacemacs.
-- You may also read the =README.org= of the [[file:layers/][relevant layer(s)]].
+- You may also read the =README.org= of the [[file:doc/LAYERS.org][relevant layer(s)]].
 
 If your question is not answered there, then please come into our [[https://gitter.im/syl20bnr/spacemacs][gitter chat]] to
 discuss it with us :relaxed:. We will direct you to a solution, or ask you to
@@ -116,7 +124,7 @@ Write commit messages according to adapted [[http://tbaggery.com/2008/04/19/a-no
 
 This is a model commit message:
 
-#+begin_EXAMPLE
+#+BEGIN_EXAMPLE
 Capitalized, short (72 chars or less) summary
 
 More detailed explanatory text, if necessary.  Wrap it to about 72
@@ -138,7 +146,7 @@ Further paragraphs come after blank lines.
       single space, with blank lines in between, but conventions vary here
 
     - Use a hanging indent
-#+end_EXAMPLE
+#+END_EXAMPLE
 
 [[https://github.com/magit/magit/][Git Commit]] and [[https://github.com/magit/magit/][Magit]] provide Emacs mode for Git commit messages, which helps you
 to comply to these guidelines.
