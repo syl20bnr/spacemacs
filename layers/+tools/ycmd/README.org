@@ -23,7 +23,7 @@ add =ycmd= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** YCMD
-1) Install the =ycm= server. Installation instructions can be found [[https://github.com/Valloric/ycmd#building][here]].
+1) Install the =ycm= server. Installation instructions can be found [[https://github.com/Valloric/ycmd#user-content-building][here]].
 2) Set the =ycmd-server-command= variable to reflect the path to the installation:
   #+BEGIN_SRC emacs-lisp
   (setq ycmd-server-command '("python" "/path/to/YouCompleteMe/third_party/ycmd/ycmd"))
@@ -67,7 +67,7 @@ specific languages like:
 ** Getting the compilation flags
 
 Spacemacs uses its own ycmd global configuration file. If you prefer, you can
-write your own [[https://github.com/Valloric/YouCompleteMe/blob/master/README.md#c-family-semantic-completion][.ycm_extra_conf.py]].
+write your own [[https://github.com/Valloric/YouCompleteMe/blob/master/README.md#user-content-c-family-semantic-completion][.ycm_extra_conf.py]].
 
 Spacemacs will search for a compile_command.json or fall back to a
 .clang_complete file in all parent directories of the current translation unit.

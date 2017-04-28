@@ -8,7 +8,7 @@
  - [[#key-bindings][Key bindings]]
 
 * Description
-This layer aims at providing support for the Puppet DSL using [[https://github.com/lunaryorn/puppet-mode][puppet-mode]].
+This layer aims at providing support for the Puppet DSL using [[https://github.com/voxpupuli/puppet-mode][puppet-mode]].
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

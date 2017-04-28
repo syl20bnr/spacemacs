@@ -50,12 +50,11 @@ Here is an example of such a file (note the usage of org tags to tag your feeds)
  ** [[http://orgmode.org][Org Mode Links supported as well]]
  ** Software Development                                                 :dev:
  *** Emacs                                                    :emacs:mustread:
- **** http://www.terminally-incoherent.com/blog/feed
- **** http://nullprogram.com/feed
+ **** http://www.terminally-incoherent.com/blog/feed/
+ **** http://nullprogram.com/feed/
  **** entry-title: \(emacs\|org-mode\)
  **** http://planet.emacsen.org/atom.xml
  *** Web Development                                                     :web:
- **** http://planet.phpunit.de/atom.xml
  **** http://feeds.feedburner.com/symfony/blog
  **** http://feeds.feedburner.com/qooxdoo/blog/content
  *** Eclipse                                                         :eclipse:

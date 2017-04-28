@@ -14,7 +14,7 @@
 This layer adds support for Apple's Swift programming language, used as a
 general purpose scripting language.
 
-It relies on the [[https://github.com/chrisbarrett/swift-mode][swift-mode]] major-mode* for Emacs 24.4 or later, to provide the
+It relies on the [[https://github.com/swift-emacs/swift-mode][swift-mode]] major-mode* for Emacs 24.4 or later, to provide the
 following features:
 
 - Syntax highlighting

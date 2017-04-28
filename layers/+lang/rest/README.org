@@ -1,7 +1,5 @@
 #+TITLE: reStructuredText layer
 
-[[file:img/restructuredtext.png]]
-
 * Table of Contents                                        :TOC_4_org:noexport:
  - [[Description][Description]]
    - [[Features][Features]]

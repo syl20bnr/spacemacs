@@ -4,6 +4,6 @@
  - [[#what-is-this][What is this]]
 
 * What is this
-This is an extension to support [[https://github.com/Keithbsmiley/evil-tmux-navigator][evil-tmux-navigator]]. It requires a little
+This is an extension to support [[https://github.com/keith/evil-tmux-navigator][evil-tmux-navigator]]. It requires a little
 configuration for tmux, so check the upstream documentation.
 
