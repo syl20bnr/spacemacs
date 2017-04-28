@@ -7,7 +7,7 @@
  - [[#configuration][Configuration]]
    - [[#ledger][Ledger]]
  - [[#key-bindings][Key bindings]]
-   - [[#ledger-1][Ledger]]
+   - [[#ledger][Ledger]]
    - [[#ledger-reconcile][Ledger-Reconcile]]
 
 * Description

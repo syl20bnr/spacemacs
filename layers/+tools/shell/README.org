@@ -16,7 +16,7 @@
  - [[#eshell][Eshell]]
  - [[#key-bindings][Key bindings]]
    - [[#multi-term][Multi-term]]
-   - [[#eshell-1][Eshell]]
+   - [[#eshell][Eshell]]
 
 * Description
 This layer configures the various shells available in Emacs.

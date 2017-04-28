@@ -8,6 +8,7 @@
  - [[#description][Description]]
  - [[#install][Install]]
    - [[#dash-os-x][Dash (OS X)]]
+   - [[#sqlite3][Sqlite3]]
    - [[#zeal-linux--windows][Zeal (Linux & Windows)]]
    - [[#check-documentation-for-x-at-point][Check Documentation for x-at-point]]
  - [[#key-bindings][Key bindings]]

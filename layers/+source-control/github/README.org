@@ -64,13 +64,13 @@ possible.
 
 ** magithub
 
-| Key Binding | Description                                                 |
-|-------------+-------------------------------------------------------------|
-| ~@ H~       | opens the current repository in the browser                 |
-| ~@ c~       | pushes a brand-new local repository up to GitHub            |
-| ~@ f~       | create a fork of an existing repository                     |
-| ~@ p~       | submit pull request upstream                                |
-| ~@ i~       | create an issue                                             |
+| Key Binding | Description                                      |
+|-------------+--------------------------------------------------|
+| ~@ H~       | opens the current repository in the browser      |
+| ~@ c~       | pushes a brand-new local repository up to GitHub |
+| ~@ f~       | create a fork of an existing repository          |
+| ~@ p~       | submit pull request upstream                     |
+| ~@ i~       | create an issue                                  |
 
 ** gist.el
 

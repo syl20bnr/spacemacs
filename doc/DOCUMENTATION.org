@@ -2081,13 +2081,13 @@ Buffer manipulation commands (start with ~b~):
 
 **** Create a new empty buffer
 
-| Key Binding | Description                                                  |
-|-------------+--------------------------------------------------------------|
-| ~SPC b N h~ | create new empty buffer in a new window on the left          |
-| ~SPC b N j~ | create new empty buffer in a new window at the bottom        |
-| ~SPC b N k~ | create new empty buffer in a new window above                |
-| ~SPC b N l~ | create new empty buffer in a new window below                |
-| ~SPC b N n~ | create new empty buffer in current window                    |
+| Key Binding | Description                                           |
+|-------------+-------------------------------------------------------|
+| ~SPC b N h~ | create new empty buffer in a new window on the left   |
+| ~SPC b N j~ | create new empty buffer in a new window at the bottom |
+| ~SPC b N k~ | create new empty buffer in a new window above         |
+| ~SPC b N l~ | create new empty buffer in a new window below         |
+| ~SPC b N n~ | create new empty buffer in current window             |
 
 **** Buffers manipulation transient state
 A convenient buffer manipulation transient state allows to quickly cycles through
@@ -2508,6 +2508,7 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e~
 | ~SPC s t F~ | =pt= with default text                              |
 
 **** Searching in a project
+
 | Key Binding           | Description                                         |
 |-----------------------+-----------------------------------------------------|
 | ~SPC /~  or ~SPC s p~ | search with the first found tool                    |

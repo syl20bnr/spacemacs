@@ -61,9 +61,9 @@ client.
 
 | Key Binding | Description              |
 |-------------+--------------------------|
-| ~SPC m k~ | Join a channel           |
-| ~SPC m @~ | Embed mention of user    |
-| ~SPC m #~ | Embed mention of channel |
+| ~SPC m k~   | Join a channel           |
+| ~SPC m @~   | Embed mention of user    |
+| ~SPC m #~   | Embed mention of channel |
 
 In insert state, one can also use ~@~ and ~#~ directly without the leader key
 prefix.

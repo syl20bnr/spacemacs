@@ -38,4 +38,3 @@ In order to enable =sh= scripts linting, install [[https://www.shellcheck.net/][
 | ~SPC i !~   | insert shebang in a script file                           |
 | ~SPC m \~   | insert end-of-line backslashes to the lines in the region |
 
-

@@ -18,7 +18,6 @@ This layer provides some integration with the Google Chrome browser.
 - Edit text boxes with Emacs using [[https://github.com/stsquad/emacs_chrome][edit-server]]
 - Write markdown in Emacs and realtime show in chrome using [[https://github.com/mola-T/flymd][flymd]]
 
-
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

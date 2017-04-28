@@ -47,7 +47,6 @@ file.
   (setq ycmd-force-semantic-completion t)
   #+END_SRC
 
-
 ** Other Requirements
 This package requires the =auto-completion= layer in order to get actual
 completion. The =syntax-checking= layer is required for flycheck support.

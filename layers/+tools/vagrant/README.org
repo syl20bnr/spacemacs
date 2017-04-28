@@ -42,13 +42,13 @@ in this directory.
 
 | Key Binding | Description                                                                                    |
 |-------------+------------------------------------------------------------------------------------------------|
-| ~SPC a V D~   | destroy a box                                                                                  |
-| ~SPC a V e~   | edit the =Vagrantfile=                                                                         |
-| ~SPC a V H~   | halt (shut down) a box                                                                         |
-| ~SPC a V p~   | (re)provision a box that is already up                                                         |
-| ~SPC a V r~   | resume a suspended box (you can also use =SPC V V= for this)                                   |
-| ~SPC a V R~   | reload a box                                                                                   |
-| ~SPC a V s~   | view the status of running boxes in the current project                                        |
-| ~SPC a V S~   | suspend a box                                                                                  |
-| ~SPC a V t~   | start a =vagrant-tramp-term= session - after start, edit files at =/vagrant:box_name:filename= |
-| ~SPC a V V~   | bring up a Vagrant box                                                                         |
+| ~SPC a V D~ | destroy a box                                                                                  |
+| ~SPC a V e~ | edit the =Vagrantfile=                                                                         |
+| ~SPC a V H~ | halt (shut down) a box                                                                         |
+| ~SPC a V p~ | (re)provision a box that is already up                                                         |
+| ~SPC a V r~ | resume a suspended box (you can also use =SPC V V= for this)                                   |
+| ~SPC a V R~ | reload a box                                                                                   |
+| ~SPC a V s~ | view the status of running boxes in the current project                                        |
+| ~SPC a V S~ | suspend a box                                                                                  |
+| ~SPC a V t~ | start a =vagrant-tramp-term= session - after start, edit files at =/vagrant:box_name:filename= |
+| ~SPC a V V~ | bring up a Vagrant box                                                                         |
