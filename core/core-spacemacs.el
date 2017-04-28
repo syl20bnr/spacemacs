@@ -104,6 +104,12 @@ the final step of executing code in `emacs-startup-hook'.")
   (setq dotspacemacs-editing-style (dotspacemacs//read-editing-style-config
                                     dotspacemacs-editing-style))
   (configuration-layer/initialize)
+  ;; frame title init
+  (when (and (display-graphic-p) dotspacemacs-frame-title-format)
+    (setq frame-title-format '((:eval (spacemacs/title-prepare dotspacemacs-frame-title-format))))
+    (if dotspacemacs-icon-title-format
+        (setq icon-title-format '((:eval (spacemacs/title-prepare dotspacemacs-icon-title-format))))
+      (setq icon-title-format frame-title-format)))
   ;; theme
   (spacemacs/load-default-theme spacemacs--fallback-theme)
   ;; frame title init
