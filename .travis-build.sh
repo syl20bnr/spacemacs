@@ -20,7 +20,7 @@ fi
 # Make sure that PR doesn't target master branch
 if  [ $TRAVIS_SECURE_ENV_VARS = false ] &&
         [ $TRAVIS_PULL_REQUEST != false ] &&
-        [ $TRAVIS_BRANCH = "master" ]; then
+        [ "$TRAVIS_BRANCH" = "master" ]; then
     printf '=%.0s' {1..70}
     printf "\n       し(*･∀･)／   Thanks for the contribution!  ＼(･∀･*)ノ\n"
     printf '=%.0s' {1..70}
@@ -85,7 +85,12 @@ fi
 # If we are pushing changes to the master branch,
 # open PR to syl20bnr/${PUBLISH} with Spacemacs
 # documentation exported as HTML and formatted with spacefmt
-if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ ! -z "$PUBLISH" ]; then
+if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ ! -z "$PUBLISH" ] && [ $TRAVIS_PULL_REQUEST = false ]; then
+	if  [ "$TRAVIS_BRANCH" = "master" ] && [ "$PUBLISH" != "spacemacs.org" ] ||
+	    [ "$TRAVIS_BRANCH" = "develop" ] && [ "$PUBLISH" != "develop.spacemacs.org" ]; then
+		echo "branch is \"${TRAVIS_BRANCH}\" not publishing to \"${PUBLISH}\""
+		exit 0
+	fi
 	printf '=%.0s' {1..70}
 	printf "\n FORMATTING DOCUMENTATION:\n"
 	printf '=%.0s' {1..70}
