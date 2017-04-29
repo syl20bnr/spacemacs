@@ -28,7 +28,7 @@ This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects
 
 ** BibTeX
 For more extensive support of BibTeX files than RefTeX provides, have a look at
-the [[../bibtex][BibTeX layer]].
+the [[../bibtex/README.org][BibTeX layer]].
 
 * Install
 ** Layer
