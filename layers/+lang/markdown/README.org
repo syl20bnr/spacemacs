@@ -77,6 +77,10 @@ list of `("language" "mode")`:
     (markdown :variables markdown-mmm-auto-modes '("c" "c++" "python" "scala" ("elisp" "emacs-lisp"))
 #+END_SRC
 
+*Note:* Spacemacs already defines the variable =markdown-mmm-auto-modes= to a
+bunch of languages. Consider opening a PR on the Spacemacs repository to add
+new languages instead of overriding the variable in your dotfile.
+
 * Usage
 ** Generate a TOC
 To generate a table of contents type on top of the buffer:

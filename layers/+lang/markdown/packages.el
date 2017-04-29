@@ -63,30 +63,8 @@
     :defer t
     :config
     (progn
-      ;; stolen from http://stackoverflow.com/a/26297700
-      ;; makes markdown tables saner via orgtbl-mode
-      (require 'org-table)
-      (defun cleanup-org-tables ()
-        (save-excursion
-          (goto-char (point-min))
-          (while (search-forward "-+-" nil t) (replace-match "-|-"))))
       (add-hook 'markdown-mode-hook 'orgtbl-mode)
-      (add-hook 'markdown-mode-hook
-                (lambda()
-                  (add-hook 'before-save-hook 'cleanup-org-tables  nil 'make-it-local)))
-      ;; Insert key for org-mode and markdown a la C-h k
-      ;; from SE endless http://emacs.stackexchange.com/questions/2206/i-want-to-have-the-kbd-tags-for-my-blog-written-in-org-mode/2208#2208
-      (defun spacemacs/insert-keybinding-markdown (key)
-        "Ask for a key then insert its description.
-Will work on both org-mode and any mode that accepts plain html."
-        (interactive "kType key sequence: ")
-        (let* ((tag "~%s~"))
-          (if (null (equal key "\r"))
-              (insert
-               (format tag (help-key-description key nil)))
-            (insert (format tag ""))
-            (forward-char -6))))
-
+      (add-hook 'markdown-mode-hook 'spacemacs//cleanup-org-tables nil 'local)
       ;; Declare prefixes and bind keys
       (dolist (prefix '(("mc" . "markdown/command")
                         ("mh" . "markdown/header")
