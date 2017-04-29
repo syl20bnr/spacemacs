@@ -68,4 +68,3 @@ replacement of underscores by =<-=, and additionally replace the equals sign wit
   (setq-default dotspacemacs-configuration-layers '((ess :variables
                                                          ess-enable-smart-equals t)))
 #+END_SRC
-
