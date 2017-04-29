@@ -11,10 +11,7 @@
 
 (defconst mastodon-packages
   '(
-    (mastodon :location (recipe
-                         :fetcher github
-                         :repo "jdenen/mastodon.el"
-                         :files ("lisp/*.el" "README.org" ".version")))))
+    mastodon))
 
 (defun mastodon/init-mastodon ()
   ;; (use-package mastodon)
