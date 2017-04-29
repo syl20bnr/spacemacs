@@ -89,12 +89,16 @@
       ;; buffer. This breaks the xterm color filtering when the eshell buffer is updated
       ;; when it's not currently focused.
       ;; To remove if/when fixed upstream.
-      (define-advice eshell-output-filter (:around (fn process string) with-buffer)
+      (defun eshell-output-filter@spacemacs-with-buffer (fn process string)
         (let ((proc-buf (if process (process-buffer process)
                           (current-buffer))))
           (when proc-buf
             (with-current-buffer proc-buf
               (funcall fn process string)))))
+      (advice-add
+       #'eshell-output-filter
+       :around
+       #'eshell-output-filter@spacemacs-with-buffer)
 
       (require 'esh-opt)
 
