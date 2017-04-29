@@ -1494,6 +1494,7 @@ Some custom layouts that ship with Spacemacs:
 | Name       | Key Binding | Description                                                                     |
 |------------+-------------+---------------------------------------------------------------------------------|
 | @Spacemacs | ~e~         | Custom perspective containing all buffers of =~/.emacs.d=                       |
+| @Mu4e      | ~m~         | Custom perspective containing all mu4e buffers (needs the mu4e layer enabled)   |
 | @ERC       | ~E~         | Custom perspective containing all ERC buffers (needs the erc layer enabled)     |
 | @RCIRC     | ~i~         | Custom perspective containing all RCIRC buffers (needs the rcirc layer enabled) |
 | @Org       | ~o~         | Custom perspective containing all the =org-agenda= buffers                      |

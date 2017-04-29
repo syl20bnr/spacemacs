@@ -12,6 +12,12 @@
 (defvar mu4e-installation-path nil
   "Installation path for mu4e.")
 
+(defvar mu4e-spacemacs-layout-name "@Mu4e"
+  "Name used in the setup for `spacemacs-layouts' micro-state")
+
+(defvar mu4e-spacemacs-layout-binding "m"
+  "Binding used in the setup for `spacemacs-layouts' micro-state")
+
 (defvar mu4e-account-alist nil
   "Account alist for custom multi-account compose.")
 
