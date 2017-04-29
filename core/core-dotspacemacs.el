@@ -606,7 +606,6 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
           (dotspacemacs/safe-load)))))
 
 (defun spacemacs/title-prepare (title-format)
->>>>>>> ca96a88b... Add support for fancy frame title
   "A string is printed verbatim except for %-constructs.
   %a -- prints the `abbreviated-file-name', or `buffer-name'
   %t -- prints `projectile-project-name'
@@ -625,8 +624,11 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
   %z -- prints mnemonics of buffer, terminal, and keyboard coding systems
   %Z -- like %z, but including the end-of-line format"
   (let* ((fs (format-spec-make
-              ?a (abbreviate-file-name (or (buffer-file-name) (buffer-name)))
-              ?t (if (boundp 'projectile-mode) (projectile-project-name) "-")
+              ?a (abbreviate-file-name (or (buffer-file-name)
+                                           (buffer-name)))
+              ?t (if (fboundp 'projectile-project-name)
+                     (projectile-project-name)
+                   "-")
               ?S system-name
               ?I invocation-name
               ?U (or (getenv "USER") "")
