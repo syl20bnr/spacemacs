@@ -52,7 +52,7 @@ with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.g
 
 * How to setup
 The idea is to build your own image [[https://docs.docker.com/engine/reference/builder/#from][FROM]] the one of the provided base images
-([[file:../../../Dockerfile.emacs25][spacemacs/emacs25]] and [[file:../../../Dockerfile.snapshot][spacemacs/emacs-snapshot]]). Get [[https://docs.docker.com/engine/installation][docker]] for the OS of
+([[https://goo.gl/Rb2Als][spacemacs/emacs25]] and [[https://goo.gl/DFSenZ][spacemacs/emacs-snapshot]]). Get [[https://docs.docker.com/engine/installation][docker]] for the OS of
 the machine that will run development environment and then use
 [[https://github.com/JAremko/spacemacs-docker-seed][spacemacs-docker-seed]]  as an example to create [[https://docs.docker.com/docker-hub/builds/][automated builds on Docker Hub]] or
 [[https://docs.docker.com/engine/reference/commandline/build/][build it locally]].
