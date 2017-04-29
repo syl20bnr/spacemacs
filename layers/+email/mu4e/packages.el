@@ -15,7 +15,24 @@
         mu4e-alert
         mu4e-maildirs-extension
         org
+        persp-mode
         ))
+
+(defun mu4e/post-init-persp-mode ()
+  (spacemacs|define-custom-layout mu4e-spacemacs-layout-name
+    :binding mu4e-spacemacs-layout-binding
+    :body
+    (progn
+      (defun spacemacs-layouts/add-mu4e-buffer-to-persp ()
+        (persp-add-buffer (current-buffer)
+                          (persp-get-by-name
+                           mu4e-spacemacs-layout-name)))
+      (add-hook 'mu4e-main-mode    #'spacemacs-layouts/add-mu4e-buffer-to-persp)
+      (add-hook 'mu4e-headers-mode #'spacemacs-layouts/add-mu4e-buffer-to-persp)
+      (add-hook 'mu4e-view-mode    #'spacemacs-layouts/add-mu4e-buffer-to-persp)
+      (add-hook 'mu4e-compose-mode #'spacemacs-layouts/add-mu4e-buffer-to-persp)
+      (call-interactively 'mu4e)
+      (call-interactively 'mu4e-update-index))))
 
 (defun mu4e/init-mu4e ()
   (use-package mu4e
