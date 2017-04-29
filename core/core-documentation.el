@@ -69,12 +69,17 @@
 (defun spacemacs//copy-fetched-docs-html-to-pub-root (project-plist)
   "Move CONTRIBUTING.html and COMMUNITY.html to `publish-target'.
 See `spacemacs//fetch-docs-from-root'"
-  (f-move  (concat (plist-get project-plist :publishing-directory)
-                   "CONTRIBUTING.html")
-           (concat publish-target "CONTRIBUTING.html"))
-  (f-move (concat (plist-get project-plist :publishing-directory)
-                  "COMMUNITY.html")
-          (concat publish-target "COMMUNITY.html")))
+  (dolist (file-name '("CONTRIBUTING.html" "COMMUNITY.html"))
+    (let ((file-to-move (concat (plist-get project-plist
+                                           :publishing-directory)
+                                file-name)))
+      (with-temp-file file-to-move
+        (insert-file-contents file-to-move)
+        (goto-char (point-min))
+        (while (re-search-forward "^.*href=\"\\(.+\\)css/readtheorg\.css\".*$" nil t)
+          (replace-match "" nil t nil 1)))
+      (f-move file-to-move
+              (concat publish-target file-name)))))
 
 (defun spacemacs/generate-layers-file (project-plist)
   "Generate the layers list file."
