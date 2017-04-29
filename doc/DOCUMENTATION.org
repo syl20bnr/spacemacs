@@ -77,6 +77,8 @@
        - [[#powerline-separators][Powerline separators]]
        - [[#minor-modes][Minor Modes]]
        - [[#customizing-the-mode-line][Customizing the mode-line]]
+   - [[#frame-title][Frame title]]
+     - [[#iconified-tabified-title][Iconified (tabified) title]]
  - [[#layouts-and-workspaces][Layouts and workspaces]]
    - [[#layouts][Layouts]]
      - [[#the-default-layout][The default layout]]
@@ -1391,6 +1393,39 @@ For example to undo diminish for =company=:
 Note that we use a =use-package= post init hook to be sure to override any
 lazily diminished lighters (see [[file:LAYERS.org][layers documentation]] for more information
 about lazy loading).
+
+** Frame title
+Default frame title displays name of current process and hostname of system. You
+can include more information (like name of current file, name of current project
+etc) by setting =dotspacemacs-frame-title-format= variable.
+
+Following format short codes are avialable:
+
+| Code | Description                                                                  |
+|------+------------------------------------------------------------------------------|
+| =%a= | the `abbreviated-file-name', or `buffer-name'                                |
+| =%t= | `projectile-project-name'                                                    |
+| =%I= | `invocation-name'                                                            |
+| =%S= | `system-name'                                                                |
+| =%U= | contents of $USER                                                            |
+| =%b= | buffer name                                                                  |
+| =%f= | visited file name                                                            |
+| =%F= | frame name                                                                   |
+| =%s= | process status                                                               |
+| =%p= | percent of buffer above top of window, or Top, Bot or All                    |
+| =%P= | percent of buffer above bottom of window, perhaps plus Top, or Bottom or All |
+| =%m= | mode name                                                                    |
+| =%n= | Narrow if appropriate                                                        |
+| =%z= | mnemonics of buffer, terminal, and keyboard coding systems                   |
+| =%Z= | like %z, but including the end-of-line format"                               |
+
+*** Iconified (tabified) title
+If you are using tiling window manager with tab support you may want to display
+different title for inactive tabs with =dotspacemacs-icon-title-format=
+variable. Short codes are same as for frame title.
+
+If this variable is set to =nil= (default) its value will be same as
+=dotspacemacs-frame-title-format=.
 
 * Layouts and workspaces
 Layouts are window configurations with buffer isolation, each layout can define
