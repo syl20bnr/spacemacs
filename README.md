@@ -123,8 +123,7 @@ favorite package manager.
 Install the `emacs` package with your linux distributions package manager.
 
 Do not install the `xemacs` package. It's not supported by Spacemacs. XEmacs is
-an old fork of Emacs, but it's development has stopped. The X in its name is
-unrelated to X11.
+an old fork of Emacs. The X in its name is unrelated to X11.
 
 Emacs has graphical support.
 
@@ -138,41 +137,27 @@ package manager for macOS. Once Homebrew is installed, run the following
 commands in the terminal to install both Emacs and the default Source Code Pro
 font:
 
-*Note*: if you want the title bar to match your themes background color, use
-this command:
-
-``` sh
-brew install emacs-plus --HEAD --with-natural-title-bar
-```
-instead of `brew install emacs-plus` below:
-
 ```sh
 brew tap d12frosted/emacs-plus
 brew install emacs-plus
 brew linkapps emacs-plus
 brew tap caskroom/fonts
 brew cask install font-source-code-pro
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 ```
 
-*Note:* these Homebrew commands will install GNU Emacs, and link it to your
-`/Applications` directory. You still need to run the following command:
-```sh
-    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-```
-It populates your `~/.emacs.d` directory, so that the regular GNU Emacs
-transforms into Spacemacs.
+**Notes:**
+The proposed `emacs-plus` tap is identical to the `emacs` formulae, it just
+builds GNU Emacs with support for several features by default, including the
+Spacemacs icon. See [emacs-plus][] for more information.
 
-*Note:* the proposed `emacs-plus` tap is identical to the `emacs` formulae, it
-just builds GNU Emacs with support for several features by default, including
-the Spacemacs icon. See [emacs-plus][] for more information.
-
-*Note:* after completing the Spacemacs [install process](#install), then
-it's also recommended to add the [osx layer][] to your [dotfile][]. Installation
+After completing the Spacemacs [install process](#install), then it's also
+recommended to add the [osx layer][] to your [dotfile][]. Installation
 instructions are available in the documentation for the [osx layer][].
 
-*Note:* if the powerline separators on the spaceline have a different (less
-saturated) color than the rest of the line, then you can add the following
-snippet to the `dotspacemacs/user-config` section in your `~/.spacemacs` file.
+If the powerline separators on the spaceline have a different (less saturated)
+color than the rest of the line, then you can add the following snippet to the
+`dotspacemacs/user-config` section in your `~/.spacemacs` file:
 
 ```elisp
 (setq ns-use-srgb-colorspace nil)
@@ -183,7 +168,7 @@ Emacs. Another option is to change the powerline separators. For example to
 `alternate` or `bar`, they diminish the color difference. Or change them to
 `utf-8`, which makes them go away completely, without having to change colour
 space. In order to change the powerline separators, put the following snippet in
-the `dotspacemacs/user-config` section of your `~/.spacemacs` file.
+the `dotspacemacs/user-config` section of your `~/.spacemacs` file:
 
 ```eslip
 (setq powerline-default-separator 'utf-8)
@@ -273,56 +258,35 @@ For efficient searches we recommend installing `pt` ([the platinum searcher][]).
    If you're running in a terminal then you'll also need to change the terminals
    font settings.
 
-4. Launch Emacs, and answer three questions in the: Dotfile wizard installer
-   ```
-   What is your preferred editing style?
-   -> Among the stars aboard the Evil flagship (vim)
-      On the planet Emacs in the Holy control tower (emacs)
+4. Launch Emacs, and answer the questions in the Dotfile wizard installer. If
+   you are new to Emacs and Spacemacs, then it's fine to just accept the default
+   choices. It's easy to try the other choices later, without having to
+   reinstall Spacemacs. They can be changed in the dotfile `~/.spacemacs`.
 
-   What distribution of spacemacs would you like to start with?
-   -> The standard distribution, recommended (spacemacs)
-      A minimalist distribution that you can build on (spacemacs-base)
-
-   What type of completion framework do you want?
-   -> A heavy one but full-featured (helm)
-      A lighter one but still very powerful (ivy)
-      None (not recommended)
-   ```
-   If your new to Emacs and Spacemacs, then it's fine to just accept the default
-   choices:
-   ```
-   editing style: vim
-   distribution: spacemacs
-   completion framework: helm
-   ```
-
-   It's easy to try the other choices later, without having to reinstall
-   Spacemacs. They can be changed in the dotfile `~/.spacemacs`.
-
-   After answering the third question, then Spacemacs starts downloading and
+   After answering the questions, then Spacemacs starts downloading and
    installing the packages it requires. When the packages have been installed.
    Restart Emacs to complete the installation.
 
-**Note:** If you get an error regarding package downloads, then you can try to
-   disable the HTTPS protocol by starting Emacs with the `--insecure` argument:
+**Notes:**
+If you get an error regarding package downloads, then you can try to
+disable the HTTPS protocol by starting Emacs with the `--insecure` argument:
 
-   ```sh
-   emacs --insecure
-   ```
+```sh
+emacs --insecure
+```
 
-   Or you can set the `dotspacemacs-elpa-https` variable to `nil` in your
-   dotfile `~/.spacemacs`. That will remove the need to start Emacs with the
-   `--insecure` argument. You may also want to clear out your `.emacs.d/elpa`
-   directory before doing this, so that any corrupted packages you may have
-   downloaded will be re-installed.
+Or you can set the `dotspacemacs-elpa-https` variable to `nil` in your
+dotfile `~/.spacemacs`. That will remove the need to start Emacs with the
+`--insecure` argument. You may also want to clear out your `.emacs.d/elpa`
+directory before doing this, so that any corrupted packages you may have
+downloaded will be re-installed.
 
-**Note:** `error: Package 'package-build-' is unavailable` may occur due to
-   heavy network taffic. You can fix it by setting the
-   `dotspacemacs-elpa-timeout` variable to `70` in your dotfile.
+`error: Package 'package-build-' is unavailable` may occur due to heavy network
+taffic. You can fix it by setting the `dotspacemacs-elpa-timeout` variable to
+`70` in your dotfile.
 
-**Note:** `Warning (bytecomp)` and other compilation warnings are perfectly
-   normal. If your curious, you can find out why these occur
-[here][compilation-warnings].
+`Warning (bytecomp)` and other compilation warnings are perfectly normal. If
+your curious, you can find out why these occur [here][compilation-warnings].
 
 If the mode-line turns red then be sure to consult the [FAQ][FAQ.org].
 
