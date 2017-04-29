@@ -3005,7 +3005,7 @@ The key bindings start with ~SPC x r~ and have the following mnemonic structure:
 *** Deleting files
 Deletion is configured to send deleted files to system trash.
 
-On OS X the =trash= program is required. It can be installed with [[http:www.brew.sh][homebrew]] with
+On OS X the =trash= program is required. It can be installed with [[http://www.brew.sh][homebrew]] with
 the following command:
 
 #+BEGIN_SRC sh
