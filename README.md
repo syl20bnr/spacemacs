@@ -286,7 +286,7 @@ taffic. You can fix it by setting the `dotspacemacs-elpa-timeout` variable to
 `70` in your dotfile.
 
 `Warning (bytecomp)` and other compilation warnings are perfectly normal. If
-your curious, you can find out why these occur [here][compilation-warnings].
+you're curious, you can find out why these occur [here][compilation-warnings].
 
 If the mode-line turns red then be sure to consult the [FAQ][FAQ.org].
 
