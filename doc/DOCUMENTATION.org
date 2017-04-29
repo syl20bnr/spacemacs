@@ -1496,6 +1496,7 @@ Some custom layouts that ship with Spacemacs:
 | @Spacemacs | ~e~         | Custom perspective containing all buffers of =~/.emacs.d=                       |
 | @ERC       | ~E~         | Custom perspective containing all ERC buffers (needs the erc layer enabled)     |
 | @RCIRC     | ~i~         | Custom perspective containing all RCIRC buffers (needs the rcirc layer enabled) |
+| @Slack     | ~s~         | Custom perspective containing all Slack buffers (needs the slack layer enabled) |
 | @Org       | ~o~         | Custom perspective containing all the =org-agenda= buffers                      |
 
 *** Save/Load layouts into a file
