@@ -1,4 +1,4 @@
-#+TITLE: mastonon.social layer
+#+TITLE: mastodon.social layer
 
 * Table of Contents                                        :TOC_4_gh:noexport:
  - [[#description][Description]]
