@@ -88,7 +88,7 @@ fi
 if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ ! -z "$PUBLISH" ] && [ $TRAVIS_PULL_REQUEST = false ]; then
 	if  [ "$TRAVIS_BRANCH" = "master" ] && [ "$PUBLISH" != "spacemacs.org" ] ||
 	    [ "$TRAVIS_BRANCH" = "develop" ] && [ "$PUBLISH" != "develop.spacemacs.org" ]; then
-		echo "branch is \"${TRAVIS_BRANCH}\" not publishing to \"${PUBLISH}\""
+		echo "branch is \"${TRAVIS_BRANCH}\", now publishing to \"${PUBLISH}\"..."
 		exit 0
 	fi
 	printf '=%.0s' {1..70}
