@@ -112,6 +112,7 @@
           "hj" 'cider-javadoc
           "hn" 'cider-browse-ns
 
+          "e;" 'cider-eval-defun-to-comment
           "eb" 'cider-eval-buffer
           "ee" 'cider-eval-last-sexp
           "ef" 'cider-eval-defun-at-point
