@@ -298,6 +298,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC m R~                                    | org-refile                                    |
 | ~SPC m s~                                    | org-schedule                                  |
 | ~SPC m T~                                    | org-show-todo-tree                            |
+| ~SPC m X~                                    | org-preview-latex-fragment                    |
 | ~SPC m L~                                    | org-shiftright                                |
 | ~SPC m H~                                    | org-shiftleft                                 |
 | ~SPC m K~                                    | org-shiftup                                   |
