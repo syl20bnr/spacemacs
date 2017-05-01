@@ -1004,7 +1004,7 @@ variable =dotspacemacs-themes=. For instance, to specify =spacemacs-light=,
 #+END_SRC
 
 =dotspacemacs-themes= entries accept the same properties as packages listed
-in layers package lists or in =dotspacemacs-addtional-packages=. So it is
+in layers package lists or in =dotspacemacs-additional-packages=. So it is
 possible to fetch a package from a specific location. For example, you could
 fetch =zenburn= theme directly from the GitHub repository with the following
 declaration:
