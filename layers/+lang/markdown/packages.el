@@ -160,11 +160,8 @@
   (use-package mmm-mode
     :commands mmm-mode
     :init (add-hook 'markdown-mode-hook 'spacemacs/activate-mmm-mode)
-    :config
-    (progn
-      ;; Automatically add mmm class for languages
-      (mapc 'markdown/mmm-auto-class markdown-mmm-auto-modes)
-      (setq mmm-global-mode t))))
+    ;; Automatically add mmm class for languages
+    :config (mapc 'markdown/mmm-auto-class markdown-mmm-auto-modes)))
 
 (defun markdown/init-vmd-mode ()
   (use-package vmd-mode
