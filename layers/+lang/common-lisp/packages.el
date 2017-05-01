@@ -47,7 +47,7 @@
 
 (defun common-lisp/init-slime-company ()
   (spacemacs|use-package-add-hook slime
-    :post-init
+    :pre-config
     (progn
       (setq slime-company-completion 'fuzzy)
       (add-to-list 'slime-contribs 'slime-company))))
