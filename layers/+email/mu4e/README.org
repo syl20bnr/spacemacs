@@ -55,10 +55,14 @@ existing =dotspacemacs-configuration-layers= list in this file.
 | ~C-j~      | Next header                                                 |
 | ~C-k~      | Previous header                                             |
 
+
 ** View mode
 
 | Keybinding | Command                                                     |
 |------------+-------------------------------------------------------------|
+| T          | Go to next unread thread marking other mail read on the way |
+| C-j        | Next header                                                 |
+| C-k        | Previous header                                             |
 | ~J~        | Go to next unread thread marking other mail read on the way |
 | ~C-j~      | Next header                                                 |
 | ~C-k~      | Previous header                                             |
