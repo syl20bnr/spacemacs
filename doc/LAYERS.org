@@ -288,7 +288,7 @@ Before initializing that package, Spacemacs will add this folder to the load
 path for you.
 
 ** layers.el
-This file is the first file to be loaded and this is the place where addtional
+This file is the first file to be loaded and this is the place where additional
 layers can be declared.
 
 For instance is layer A depends on some functionality of layer B then in the
