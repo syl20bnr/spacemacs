@@ -133,6 +133,7 @@ As this state works the same for all files, the documentation is in global
 
 | Key Binding | Description                                     |
 |-------------+-------------------------------------------------|
+| ~SPC m e ;~ | eval sexp and show result as comment            |
 | ~SPC m e b~ | eval buffer                                     |
 | ~SPC m e e~ | eval last sexp                                  |
 | ~SPC m e f~ | eval function at point                          |
