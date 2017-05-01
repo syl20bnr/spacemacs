@@ -188,6 +188,8 @@ Will work on both org-mode and any mode that accepts plain html."
         "." 'org-time-stamp
         "!" 'org-time-stamp-inactive
 
+        "X" 'org-preview-latex-fragment
+
         ;; headings
         "hi" 'org-insert-heading-after-current
         "hI" 'org-insert-heading
