@@ -246,6 +246,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "-" 'org-ctrl-c-minus
         "^" 'org-sort
         "/" 'org-sparse-tree
+        "#" 'org-update-statistics-cookies
         "I" 'org-clock-in
         ;; insertion
         "ia" 'org-attach
