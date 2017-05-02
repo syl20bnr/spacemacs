@@ -56,4 +56,4 @@ from anchor= to =2=. For example:
 
 | Key Binding | Description           |
 |-------------+-----------------------|
-| ~SPC m j~ | Reformats JSON string |
+| ~SPC m j~   | Reformats JSON string |

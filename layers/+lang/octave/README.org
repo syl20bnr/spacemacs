@@ -14,7 +14,7 @@ This layer activates [[info:octave-mode][octave-mode]] for files with =.m=
 extensions and configures spacemacs-style key bindings.
 
 * Install
-Make sure that [[https://gnu.org/software/octave/][GNU Octave]] is installed and
+Make sure that [[https://www.gnu.org/software/octave/][GNU Octave]] is installed and
 in your PATH. For information about setting up $PATH, check out the
 corresponding section in the FAQ (=SPC h SPC $PATH RET=).
 

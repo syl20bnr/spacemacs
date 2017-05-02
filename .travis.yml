@@ -1,32 +1,32 @@
 language: generic
 sudo: false
-
 branches:
   only:
-    - master
-    - develop
-
+  - master
+  - develop
 before_install:
- - if [ ! -z "$EVM_EMACS" ]; then curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw > x.sh && source ./x.sh; fi
- - if [ ! -z "$EVM_EMACS" ]; then evm install $EVM_EMACS --use --skip; fi
-
+- if [ ! -z "$EVM_EMACS" ]; then curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw
+  > x.sh && source ./x.sh; fi
+- if [ ! -z "$EVM_EMACS" ]; then evm install $EVM_EMACS --use --skip; fi
 env:
- - TESTS=core EVM_EMACS=emacs-24.4-travis
- - TESTS=core EVM_EMACS=emacs-24.5-travis
- - TESTS=core EVM_EMACS=emacs-25.1-travis
- - TESTS=core EVM_EMACS=emacs-git-snapshot-travis
- - TESTS=doc EVM_EMACS=emacs-24.4-travis
- - TESTS=doc EVM_EMACS=emacs-24.5-travis
- - TESTS=doc EVM_EMACS=emacs-25.1-travis
- - TESTS=doc EVM_EMACS=emacs-git-snapshot-travis
- - FORMATTING=space-test
- - FORMATTING=spacefmt EVM_EMACS=emacs-25.1-travis
-
+  matrix:
+  - FORMATTING=space-test
+  - FORMATTING=spacefmt EVM_EMACS=emacs-25.1-travis
+  - TESTS=core EVM_EMACS=emacs-24.4-travis
+  - TESTS=core EVM_EMACS=emacs-24.5-travis
+  - TESTS=core EVM_EMACS=emacs-25.1-travis
+  - TESTS=core EVM_EMACS=emacs-git-snapshot-travis
+  - TESTS=doc EVM_EMACS=emacs-24.4-travis
+  - TESTS=doc EVM_EMACS=emacs-24.5-travis
+  - TESTS=doc EVM_EMACS=emacs-25.1-travis
+  - TESTS=doc EVM_EMACS=emacs-git-snapshot-travis
+  - PUBLISH=spacemacs.org EVM_EMACS=emacs-25.1-travis BOT_NAME=emacspace BOT_EMAIL=emacspace@gmail.com
+  - PUBLISH=develop.spacemacs.org EVM_EMACS=emacs-25.1-travis BOT_NAME=emacspace BOT_EMAIL=emacspace@gmail.com
+  global:
+    - secure: "M8NF1Uw7VGkLdNmWiUF4T+VOJXwN8KCKVQb45/BWVpGm88Rcfom/9bxRTUme8VYuzIavph32QF+P9KyhX8aj2p2FMItNnxiEySzap5UrLrNiwB6ZxbQglMJj0yMQKASynNBai9KKI7mYlsM5jRpFJ9OSgj7Ko00RIFpO3EpJ+kE="
 matrix:
   fast_finish: true
   allow_failures:
-    - env: TESTS=core EVM_EMACS=emacs-git-snapshot-travis
-    - env: TESTS=doc EVM_EMACS=emacs-git-snapshot-travis
-
-script:
-  - ./.travis-build.sh
+  - env: TESTS=core EVM_EMACS=emacs-git-snapshot-travis
+  - env: TESTS=doc EVM_EMACS=emacs-git-snapshot-travis
+script: "./.travis-build.sh"

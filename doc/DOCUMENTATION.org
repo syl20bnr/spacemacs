@@ -6,7 +6,7 @@
    - [[#discoverable][Discoverable]]
    - [[#consistent][Consistent]]
    - [[#crowd-configured][Crowd-Configured]]
- - [[#highlighted-feature][Highlighted feature]]
+ - [[#highlighted-features][Highlighted features]]
  - [[#screenshots][Screenshots]]
  - [[#who-can-benefit-from-this][Who can benefit from this?]]
  - [[#update-and-rollback][Update and Rollback]]
@@ -77,6 +77,8 @@
        - [[#powerline-separators][Powerline separators]]
        - [[#minor-modes][Minor Modes]]
        - [[#customizing-the-mode-line][Customizing the mode-line]]
+   - [[#frame-title][Frame title]]
+     - [[#iconified-tabified-title][Iconified (tabified) title]]
  - [[#layouts-and-workspaces][Layouts and workspaces]]
    - [[#layouts][Layouts]]
      - [[#the-default-layout][The default layout]]
@@ -223,7 +225,7 @@ that ships with Spacemacs.
 Community-driven configuration provides curated packages tuned by power users
 and bugs are fixed quickly.
 
-* Highlighted feature
+* Highlighted features
 - *Bring the efficiency of modal editing* to the powerful Emacs lisp platform.
   Modal UX is optional and Spacemacs can be used with only Emacs key bindings.
 
@@ -1392,6 +1394,39 @@ Note that we use a =use-package= post init hook to be sure to override any
 lazily diminished lighters (see [[file:LAYERS.org][layers documentation]] for more information
 about lazy loading).
 
+** Frame title
+Default frame title displays name of current process and hostname of system. You
+can include more information (like name of current file, name of current project
+etc) by setting =dotspacemacs-frame-title-format= variable.
+
+Following format short codes are avialable:
+
+| Code | Description                                                                  |
+|------+------------------------------------------------------------------------------|
+| =%a= | the `abbreviated-file-name', or `buffer-name'                                |
+| =%t= | `projectile-project-name'                                                    |
+| =%I= | `invocation-name'                                                            |
+| =%S= | `system-name'                                                                |
+| =%U= | contents of $USER                                                            |
+| =%b= | buffer name                                                                  |
+| =%f= | visited file name                                                            |
+| =%F= | frame name                                                                   |
+| =%s= | process status                                                               |
+| =%p= | percent of buffer above top of window, or Top, Bot or All                    |
+| =%P= | percent of buffer above bottom of window, perhaps plus Top, or Bottom or All |
+| =%m= | mode name                                                                    |
+| =%n= | Narrow if appropriate                                                        |
+| =%z= | mnemonics of buffer, terminal, and keyboard coding systems                   |
+| =%Z= | like %z, but including the end-of-line format"                               |
+
+*** Iconified (tabified) title
+If you are using tiling window manager with tab support you may want to display
+different title for inactive tabs with =dotspacemacs-icon-title-format=
+variable. Short codes are same as for frame title.
+
+If this variable is set to =nil= (default) its value will be same as
+=dotspacemacs-frame-title-format=.
+
 * Layouts and workspaces
 Layouts are window configurations with buffer isolation, each layout can define
 several workspaces (think of them as sub-layouts) sharing the same list of
@@ -2081,13 +2116,13 @@ Buffer manipulation commands (start with ~b~):
 
 **** Create a new empty buffer
 
-| Key Binding | Description                                                  |
-|-------------+--------------------------------------------------------------|
-| ~SPC b N h~ | create new empty buffer in a new window on the left          |
-| ~SPC b N j~ | create new empty buffer in a new window at the bottom        |
-| ~SPC b N k~ | create new empty buffer in a new window above                |
-| ~SPC b N l~ | create new empty buffer in a new window below                |
-| ~SPC b N n~ | create new empty buffer in current window                    |
+| Key Binding | Description                                           |
+|-------------+-------------------------------------------------------|
+| ~SPC b N h~ | create new empty buffer in a new window on the left   |
+| ~SPC b N j~ | create new empty buffer in a new window at the bottom |
+| ~SPC b N k~ | create new empty buffer in a new window above         |
+| ~SPC b N l~ | create new empty buffer in a new window below         |
+| ~SPC b N n~ | create new empty buffer in current window             |
 
 **** Buffers manipulation transient state
 A convenient buffer manipulation transient state allows to quickly cycles through
@@ -2508,6 +2543,7 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e~
 | ~SPC s t F~ | =pt= with default text                              |
 
 **** Searching in a project
+
 | Key Binding           | Description                                         |
 |-----------------------+-----------------------------------------------------|
 | ~SPC /~  or ~SPC s p~ | search with the first found tool                    |
@@ -2969,7 +3005,7 @@ The key bindings start with ~SPC x r~ and have the following mnemonic structure:
 *** Deleting files
 Deletion is configured to send deleted files to system trash.
 
-On OS X the =trash= program is required. It can be installed with [[http:www.brew.sh][homebrew]] with
+On OS X the =trash= program is required. It can be installed with [[http://www.brew.sh][homebrew]] with
 the following command:
 
 #+BEGIN_SRC sh
@@ -3305,7 +3341,7 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 |---------------------------------+--------------|
 | [[https://github.com/syl20bnr/spacemacs/pull/19][First contribution]]              | [[https://github.com/trishume][trishume]]     |
 | [[https://github.com/syl20bnr/spacemacs/commit/e802027d75d0c0aed55539b0da2dfa0df94dfd39][First contribution layer]]        | [[https://github.com/trishume][trishume]]     |
-| [[http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/][First blog article on Spacemacs]] | [[https://github.com/Wolfy87][Wolfy87]]      |
+| [[http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/][First blog article on Spacemacs]] | Wolfy87      |
 | [[https://github.com/syl20bnr/spacemacs/commit/7b44a56263049482ed540ed6815a295633ffe9d1][First contributed banner]]        | [[https://github.com/chrisbarrett][chrisbarrett]] |
 
 ** Special Mentions

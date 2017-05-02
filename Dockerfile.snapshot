@@ -58,6 +58,9 @@ RUN ln -s \
     && chown root:root /usr/local/sbin/install-deps \
     && chmod 770 /usr/local/sbin/install-deps
 
+# Install global dependencies (if any exists)
+RUN install-deps
+
 # Entrypoint and deps installation script will recreate it.
 RUN userdel $UNAME \
     && groupdel $GNAME

@@ -66,6 +66,21 @@
              (concat spacemacs-docs-directory "COMMUNITY.org")
              "overwrite-existing-file"))
 
+(defun spacemacs//copy-fetched-docs-html-to-pub-root (project-plist)
+  "Move CONTRIBUTING.html and COMMUNITY.html to `publish-target'.
+See `spacemacs//fetch-docs-from-root'"
+  (dolist (file-name '("CONTRIBUTING.html" "COMMUNITY.html"))
+    (let ((file-to-move (concat (plist-get project-plist
+                                           :publishing-directory)
+                                file-name)))
+      (with-temp-file file-to-move
+        (insert-file-contents file-to-move)
+        (goto-char (point-min))
+        (while (re-search-forward "^.*href=\"\\(.+\\)css/readtheorg\.css\".*$" nil t)
+          (replace-match "" nil t nil 1)))
+      (f-move file-to-move
+              (concat publish-target file-name)))))
+
 (defun spacemacs/generate-layers-file (project-plist)
   "Generate the layers list file."
   (interactive)
@@ -113,6 +128,30 @@
   (let ((toc-org-hrefify-default "org"))
     (toc-org-insert-toc)))
 
+(defvar-local  spacemacs--org-custom-id-hash nil
+  "Stores repetition count for `spacemacs//org-custom-id-uniquify' func")
+
+(defun spacemacs//org-custom-id-uniquify (id)
+  "Make ID unique by attaching -<N> postfix if org heading repeats
+in the current buffer. N is repetition count.
+NOTE: We probably should handle differently the corner cases when
+the current buffer already has headlines with -<N> postfixes.
+:see_no_evil:"
+  (unless spacemacs--org-custom-id-hash
+    (setq spacemacs--org-custom-id-hash
+          (make-hash-table :test 'equal)))
+  (let* ((old-count (gethash
+                     id
+                     spacemacs--org-custom-id-hash
+                     0))
+         (new-count (puthash
+                     id
+                     (1+ old-count)
+                     spacemacs--org-custom-id-hash)))
+    (if (> new-count 1)
+        (concat id "-" (int-to-string old-count))
+      id)))
+
 (defun spacemacs//org-heading-annotate-custom-id ()
   "Annotate headings with the indexes that GitHub uses for linking.
 `org-html-publish-to-html' will use them instead of the default #orgheadline{N}.
@@ -122,18 +161,19 @@ compatible."
     (goto-char (point-min))
     (while (re-search-forward heading-regexp nil t)
       (unless (looking-at-p ".*\n\s*:PROPERTIES:")
-        (let ((heading (match-string 1)))
+        (let* ((heading (match-string 1))
+               (id (substring (toc-org-hrefify-gh
+                               (replace-regexp-in-string
+                                toc-org-tags-regexp
+                                ""
+                                heading))
+                              ;; Remove # prefix added by
+                              ;; `toc-org-hrefify-gh'.
+                              1)))
           (insert (format (concat "\n:PROPERTIES:\n"
                                   ":CUSTOM_ID: %s\n"
                                   ":END:\n")
-                          (substring (toc-org-hrefify-gh
-                                      (replace-regexp-in-string
-                                       toc-org-tags-regexp
-                                       ""
-                                       heading))
-                                     ;; Remove # prefix added by
-                                     ;; `toc-org-hrefify-gh'.
-                                     1))))))))
+                          (spacemacs//org-custom-id-uniquify id))))))))
 
 (defun spacemacs//reroot-links ()
   "Find the links that start with https://github.com/syl20bnr/spacemacs/blob/
@@ -208,8 +248,8 @@ preprocessors for the exported .org files."
                  href=\"http://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>
           <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\"></script>
           <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
-          <script type=\"text/javascript\"
-                  src=\"http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js\"></script>
+          <script src=\"http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js\"></script>
+          <script src=\"http://spacemacs.org/js/permalinks.js\"></script>
           <script>
            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
@@ -241,6 +281,7 @@ preprocessors for the exported .org files."
              :publishing-directory ,(concat publish-target "doc/")
              :publishing-function org-html-publish-to-html
              :preparation-function spacemacs//fetch-docs-from-root
+             :completion-function spacemacs//copy-fetched-docs-html-to-pub-root
              :headline-levels 4
              :html-head ,header)
             ("layers-doc"

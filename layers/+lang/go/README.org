@@ -23,7 +23,7 @@ This layer adds extensive support for go.
 ** Features:
 - gofmt/goimports on file save
 - Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]] (with the =auto-completion= layer)
-- Source analysis using [[https://godoc.org/golang.org/x/tools/cmd/guru][go-guru]]
+- Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]]
 - Linting with flycheck's built-in checkers or flycheck-gometalinter
 - Coverage profile visualization
 
@@ -36,7 +36,7 @@ You will need =gocode= and =godef=:
   go get -u -v github.com/rogpeppe/godef
   go get -u -v golang.org/x/tools/cmd/guru
   go get -u -v golang.org/x/tools/cmd/gorename
-  go get -u -v golang.org/x/tools/cmd/goimports
+  go get -u -v github.com/golang/tools/cmd/goimports
 #+END_SRC
 
 If you wish to use =gometalinter= set the value of =go-use-gometalinter= to t:

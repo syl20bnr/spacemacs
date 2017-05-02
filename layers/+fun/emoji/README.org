@@ -10,7 +10,7 @@
    - [[#emoji-dedicated-buffer][Emoji dedicated buffer]]
 
 * Description
-This layer adds support for Emoji emoticons from [[http://www.emoji-cheat-sheet.com/][emoji-cheat-sheet.com]].
+This layer adds support for Emoji emoticons from [[https://www.webpagefx.com/tools/emoji-cheat-sheet/][emoji-cheat-sheet]].
 
 ** Features
 - Browse Emoji in a dedicated buffer

@@ -14,7 +14,7 @@
    - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
    - [[#completion-back-ends][Completion back ends]]
    - [[#improved-faces][Improved faces]]
- - [[#key-bindings-1][Key Bindings]]
+ - [[#key-bindings][Key Bindings]]
    - [[#company][Company]]
    - [[#auto-complete][Auto-complete]]
    - [[#yasnippet][Yasnippet]]

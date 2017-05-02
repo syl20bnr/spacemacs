@@ -11,7 +11,7 @@
 
 * Description
 
-This layer adds support for the [[https://github.com/hrs/engine-mode/engine-mode.el][Search Engine]] package.
+This layer adds support for the [[https://github.com/hrs/engine-mode][Search Engine]] package.
 
 ** Supported search engines
 

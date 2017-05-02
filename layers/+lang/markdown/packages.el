@@ -43,36 +43,28 @@
 (defun markdown/post-init-smartparens ()
   (add-hook 'markdown-mode-hook 'smartparens-mode))
 
+;; from Jason Blevins http://jblevins.org/log/mmm
+(defun markdown/mmm-auto-class (lang)
+  (let* ((l (if (listp lang) (car lang) lang))
+         (s (if (listp lang) (cadr lang) lang))
+         (class (intern (concat "markdown-" l)))
+         (submode (intern (concat s "-mode")))
+         (front (concat "^```" l "[\n\r]+"))
+         (back "^```$"))
+    (mmm-add-classes (list (list class
+                               :submode submode
+                               :front front
+                               :back back)))
+    (mmm-add-mode-ext-class 'markdown-mode nil class)))
+
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode
     :mode ("\\.m[k]d" . markdown-mode)
     :defer t
     :config
     (progn
-      ;; stolen from http://stackoverflow.com/a/26297700
-      ;; makes markdown tables saner via orgtbl-mode
-      (require 'org-table)
-      (defun cleanup-org-tables ()
-        (save-excursion
-          (goto-char (point-min))
-          (while (search-forward "-+-" nil t) (replace-match "-|-"))))
       (add-hook 'markdown-mode-hook 'orgtbl-mode)
-      (add-hook 'markdown-mode-hook
-                (lambda()
-                  (add-hook 'before-save-hook 'cleanup-org-tables  nil 'make-it-local)))
-      ;; Insert key for org-mode and markdown a la C-h k
-      ;; from SE endless http://emacs.stackexchange.com/questions/2206/i-want-to-have-the-kbd-tags-for-my-blog-written-in-org-mode/2208#2208
-      (defun spacemacs/insert-keybinding-markdown (key)
-        "Ask for a key then insert its description.
-Will work on both org-mode and any mode that accepts plain html."
-        (interactive "kType key sequence: ")
-        (let* ((tag "~%s~"))
-          (if (null (equal key "\r"))
-              (insert
-               (format tag (help-key-description key nil)))
-            (insert (format tag ""))
-            (forward-char -6))))
-
+      (add-hook 'markdown-mode-hook 'spacemacs//cleanup-org-tables nil 'local)
       ;; Declare prefixes and bind keys
       (dolist (prefix '(("mc" . "markdown/command")
                         ("mh" . "markdown/header")
@@ -168,75 +160,8 @@ Will work on both org-mode and any mode that accepts plain html."
   (use-package mmm-mode
     :commands mmm-mode
     :init (add-hook 'markdown-mode-hook 'spacemacs/activate-mmm-mode)
-    :config
-    (progn
-      (spacemacs|hide-lighter mmm-mode)
-      (mmm-add-classes '((markdown-ini
-                          :submode conf-unix-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```ini[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-python
-                          :submode python-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```python[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-html
-                          :submode web-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```html[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-java
-                          :submode java-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```java[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-ruby
-                          :submode ruby-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```ruby[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-c
-                          :submode c-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```c[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-c++
-                          :submode c++-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```c\+\+[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-elisp
-                          :submode emacs-lisp-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```elisp[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-javascript
-                          :submode javascript-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```javascript[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-ess
-                          :submode R-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```{?r.*}?[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-rust
-                          :submode rust-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```rust[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-python)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-java)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ruby)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-c)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-c++)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-elisp)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-html)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-javascript)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ess)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-rust)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ini))))
+    ;; Automatically add mmm class for languages
+    :config (mapc 'markdown/mmm-auto-class markdown-mmm-auto-modes)))
 
 (defun markdown/init-vmd-mode ()
   (use-package vmd-mode

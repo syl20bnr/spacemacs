@@ -237,10 +237,10 @@ time of Spacemacs should be reduced by 20~25%. Also this refactoring will better
 scale as we add new layers and packages to the distribution.
 
 ** Improved composability
-The =spacemacs= distribution layer has been split into several layers under
-the =spacemacs= directory. The user can now very easily customize her Spacemacs
-experience by choosing the =spacemacs-base= distribution and using only the
-=spacemacs= layers she wants.
+The =spacemacs= distribution layer has been split into several layers under the
+=spacemacs= directory. Users can now easily customize their Spacemacs experience
+by choosing the spacemacs-base distribution and using only the spacemacs layers
+they want.
 
 An exhaustive list of all the =spacemacs= layers:
 - spacemacs-completion

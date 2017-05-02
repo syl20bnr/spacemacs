@@ -74,7 +74,7 @@
             ahs-inhibit-face-list nil
             spacemacs--symbol-highlight-transient-state-doc
             "
- %s  [_n_] next  [_N_/_p_] previous        [_r_] change range   [_R_] reset       [_e_] iedit
+ %s  [_n_] next   [_N_/_p_] previous   [_r_] change range   [_R_] reset   [_e_] iedit
  %s  [_d_/_D_] next/previous definition")
 
       ;; since we are creating our own maps,

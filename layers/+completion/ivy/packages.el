@@ -35,11 +35,12 @@
     ;; add some functions to ahs transient states
     (setq spacemacs--symbol-highlight-transient-state-doc
           (concat spacemacs--symbol-highlight-transient-state-doc
-                  "  [_b_] search buffers [_/_] search proj [_f_] search files")
+                  "  [_b_] search buffers [_/_] search proj [_f_] search files [_s_] swiper")
           spacemacs-symbol-highlight-transient-state-add-bindings
           '(("/" spacemacs/search-project-auto-region-or-symbol :exit t)
             ("b" spacemacs/swiper-all-region-or-symbol :exit t)
-            ("f" spacemacs/search-auto-region-or-symbol :exit t)))))
+            ("f" spacemacs/search-auto-region-or-symbol :exit t)
+            ("s" spacemacs/swiper-region-or-symbol :exit t)))))
 
 (defun ivy/init-counsel ()
   (use-package counsel
@@ -54,7 +55,7 @@
         ;; help
         "?"   'counsel-descbinds
         "hdf" 'counsel-describe-function
-        "hdF" 'counsel-faces
+        "hdF" 'counsel-describe-face
         "hdm" 'spacemacs/describe-mode
         "hdv" 'counsel-describe-variable
         "hi"  'counsel-info-lookup-symbol

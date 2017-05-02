@@ -25,12 +25,12 @@
    - [[#cabal-commands][Cabal commands]]
    - [[#cabal-files][Cabal files]]
    - [[#refactor][Refactor]]
-   - [[#ghc-mod-1][Ghc-mod]]
+   - [[#ghc-mod][Ghc-mod]]
      - [[#insert-template][Insert template]]
  - [[#syntax-checking][Syntax checking]]
    - [[#flycheck][Flycheck]]
    - [[#hlint][HLint]]
-   - [[#ghc-mod-2][ghc-mod]]
+   - [[#ghc-mod][ghc-mod]]
    - [[#interactive-haskell-mode][Interactive haskell-mode]]
    - [[#flymake][Flymake]]
    - [[#troubleshooting][Troubleshooting]]
@@ -126,7 +126,7 @@ executable with =cabal install ghc-mod= (or =stack= equivalent).
 
 =Stack= users also should make sure that =dist/setup-config= doesn't exist in the
 project root. As it will confuse =ghc-mod=. For more troubleshooting, checkout
-this [[https://github.com/kazu-yamamoto/ghc-mod/wiki#known-issues-related-to-stack][document]].
+this [[https://github.com/DanielG/ghc-mod/wiki#user-content-known-issues-related-to-stack][document]].
 
 Also note that =ghc-mod= works only with =GHC= version that was used to build
 =ghc-mod=. You can check which version was used by calling =ghc-mod --version=.
@@ -148,7 +148,7 @@ Any contributions that will help to solve issues with =structured-haskell-mode=
 are warmly welcome!
 
 *** hindent
-[[https://github.com/chrisdone/hindent][hindent]] is an extensible Haskell pretty printer, which let's you
+[[https://github.com/commercialhaskell/hindent][hindent]] is an extensible Haskell pretty printer, which let's you
 reformat your code. You need to install the executable with =cabal
 install hindent= or =stack install hindent=
 
@@ -159,7 +159,7 @@ supported style. The available styles are:
 - chris-done
 - gibiansky
 
-See examples [[https://github.com/chrisdone/hindent#example][here]].
+See examples [[https://github.com/commercialhaskell/hindent/blob/master/TESTS.md][here]].
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers

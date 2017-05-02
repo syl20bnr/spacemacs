@@ -44,14 +44,14 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 ** Features:
 - Vim inspired key bindings are provided by [[https://github.com/edwtjo/evil-org-mode][evil-org-mode]]
 - Nicer bullet via [[https://github.com/sabof/org-bullets][org-bullets]]
-- A [[http://pomodorotechnique.com/][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
+- A [[https://cirillocompany.de/pages/pomodoro-technique][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
 - Presentation mode via [[https://github.com/rlister/org-present][org-present]]
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
 - Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
 
 ** BibTeX
 For more extensive support of references through BibTeX files, have a look at
-the [[../+lang/bibtex][BibTeX layer]].
+the [[../../+lang/bibtex/README.org][BibTeX layer]].
 
 ** Important Note
 Since version 0.104, spacemacs uses the =org= version from the org ELPA
@@ -116,7 +116,7 @@ extension.
 
 In order to be able to use org-reveal, download =reveal.js= from its
 [[http://lab.hakim.se/reveal-js/#/][homepage]] and set =org-reveal-js= to the
-download path, as described in the [[https://github.com/yjwen/org-reveal#obtain-revealjs][manual]]. Alternatively, add the following line
+download path, as described in the [[https://github.com/yjwen/org-reveal#user-content-revealjs-and-org-reveal][manual]]. Alternatively, add the following line
 to each =.org= file you want to process:
 
 #+BEGIN_EXAMPLE
@@ -199,8 +199,6 @@ For example:
                                                          org-journal-time-format "")
                                                     )
 #+END_SRC
-
-
 
 ** Different bullets
 You can tweak the bullets displayed in the org buffer in the function
@@ -485,7 +483,7 @@ are listed bellow.
 |-------------+---------------------+-----------------------------------|
 | ~ht~        | set status          | org-agenda-todo                   |
 | ~hk~        | kill                | org-agenda-kill                   |
-| ~hR~       | refile              | org-agenda-refile                 |
+| ~hR~        | refile              | org-agenda-refile                 |
 | ~hA~        | archive             | org-agenda-archive-default        |
 | ~h:~        | set tags            | org-agenda-set-tags               |
 | ~hp~        | set priority        | org-agenda-priority               |

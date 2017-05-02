@@ -13,7 +13,7 @@ eshell/history
 .emacs.desktop.lock
 eshell/alias
 eshell/lastdir
-/url/
+url/*
 my-org/
 org-files/
 semanticdb/

@@ -9,14 +9,14 @@
 
 * Description
 
-This layer adds support for [[http://www.perforce.com/][Perforce]] (p4).
+This layer adds support for [[https://www.perforce.com/][Perforce]] (p4).
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =perforce= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-You'll have to install the =p4== command line tool from the [[http://www.perforce.com/downloads][download page]].
+You'll have to install the =p4== command line tool from the [[https://www.perforce.com/downloads/helix][download page]].
 
 Don't forget to setup the environment variables:
 - =P4_PORT=

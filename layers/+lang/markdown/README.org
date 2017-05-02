@@ -9,6 +9,7 @@
  - [[#install][Install]]
  - [[#configuration][Configuration]]
    - [[#live-preview][Live preview]]
+   - [[#automatic-mmm-mode-generation][Automatic MMM-Mode Generation]]
  - [[#usage][Usage]]
    - [[#generate-a-toc][Generate a TOC]]
  - [[#key-bindings][Key bindings]]
@@ -35,7 +36,7 @@ This layer adds markdown support to Spacemacs.
 
 ** BibTeX
 For more extensive support of references with BibTeX files, have a look at the
-[[../bibtex][BibTeX layer]].
+[[../bibtex/README.org][BibTeX layer]].
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -64,6 +65,21 @@ npm install -g vmd
 Additionally there is =flymd= package in =chrome= layer that allows to preview
 markdown buffer in Chrome. Please refer to =chrome= layer documentation for more
 information.
+
+** Automatic MMM-Mode Generation
+To generate MMM-Modes for languages set the value of the variable
+=markdown-mmm-auto-modes= to a list of the languages. For languages where the
+mode name directly relates to the language name, use a string. Otherwise, use a
+list of `("language" "mode")`:
+
+#+BEGIN_SRC emacs-lisp
+  dotspacemacs-configuration-layers '(
+    (markdown :variables markdown-mmm-auto-modes '("c" "c++" "python" "scala" ("elisp" "emacs-lisp"))
+#+END_SRC
+
+*Note:* Spacemacs already defines the variable =markdown-mmm-auto-modes= to a
+bunch of languages. Consider opening a PR on the Spacemacs repository to add
+new languages instead of overriding the variable in your dotfile.
 
 * Usage
 ** Generate a TOC
