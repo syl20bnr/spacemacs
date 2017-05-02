@@ -71,6 +71,8 @@
           ess-expression-offset 2
           ess-nuke-trailing-whitespace-p t
           ess-default-style 'DEFAULT)
+    (if ess-disable-underscore-assign
+      (ess-toggle-underscore nil))
 
     (spacemacs/set-leader-keys-for-major-mode 'ess-julia-mode
       "'"  'julia
