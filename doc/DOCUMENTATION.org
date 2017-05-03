@@ -458,7 +458,7 @@ guidelines first in [[file:../CONTRIBUTING.org][CONTRIBUTING]].
 
 ** Example: Themes Megapack example
 This is a simple configuration layer listing a bunch of themes which you can
-find [[file:../layers/+themes/themes-megapack/README.org][here]].
+find [[file:../layers/%2Bthemes/themes-megapack/README.org][here]].
 
 To install it, just add =themes-megapack= to your =~/.spacemacs= like so:
 
