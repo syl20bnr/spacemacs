@@ -19,7 +19,6 @@
   '(
     alert
     emoji-cheat-sheet-plus
-    emojify
     flyspell
     linum
     persp-mode
@@ -33,13 +32,6 @@
 
 (defun slack/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'slack-mode-hook 'emoji-cheat-sheet-plus-display-mode))
-
-;; pulled as dependency of slack package
-(defun slack/init-emojify ()
-  (use-package emojify
-    :defer t
-    :init
-    (setq emojify-emojis-dir (concat spacemacs-cache-directory "emojis/"))))
 
 (defun slack/post-init-flyspell ()
   (add-hook 'lui-mode-hook 'flyspell-mode))

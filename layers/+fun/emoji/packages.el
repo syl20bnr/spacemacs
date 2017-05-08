@@ -12,6 +12,7 @@
 (setq emoji-packages
       '(
         emoji-cheat-sheet-plus
+        emojify
         (company-emoji :toggle (configuration-layer/package-usedp 'company))
         ))
 
@@ -35,6 +36,12 @@
         ;; If we directly call the emoji mode at hook runtime then some
         ;; text properties are not applied correctly.
         (run-at-time 0.1 nil 'emoji-cheat-sheet-plus-display-mode)))))
+
+(defun emoji/init-emojify ()
+  (use-package emojify
+    :defer t
+    :init
+    (setq emojify-emojis-dir (concat spacemacs-cache-directory "emojify/"))))
 
 (defun emoji/init-company-emoji ()
   (use-package company-emoji
