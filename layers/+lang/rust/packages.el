@@ -95,6 +95,7 @@
 
 (defun rust/init-racer ()
   (use-package racer
+    :diminish racer-mode
     :defer t
     :init
     (progn
