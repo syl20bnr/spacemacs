@@ -14,33 +14,75 @@
 
   ;; this is only applicable to GUI mode
   (when (display-graphic-p)
-    ;; Treat command as super
-    (setq mac-command-key-is-meta nil)
-    (setq mac-command-modifier 'super)
 
-    (when osx-use-option-as-meta
-      ;; Treat option as meta
-      (setq mac-option-key-is-meta t))
-    (setq mac-option-modifier (if osx-use-option-as-meta 'meta nil))
+    ;; `Command' key is by default bound to HYPER (H-*),
+    ;; `Option' key is by default bound to META (M-*).
+    ;; `Function' key is by default not rebound.
+    ;; `Control' key is by default not rebound.
+    ;; The right variations of the above keys can
+    ;; also be modified but are not rebound by
+    ;; default.
+
+    ;; `Alist' linking the layer config variables to
+    ;; the internal Emacs variables for the modifier keys.
+    (setq modifier-keys '((osx-command-as       . mac-command-modifier)
+                          (osx-option-as        . mac-option-modifier)
+                          (osx-function-as      . mac-function-modifier)
+                          (osx-control-as       . mac-control-modifier)
+                          (osx-right-command-as . mac-right-command-modifier)
+                          (osx-right-option-as  . mac-right-option-modifier)
+                          (osx-right-control-as . mac-right-control-modifier)))
+
+    ;; The allowed non-nil values for the config variables.
+    (setq allowed-values '(super meta hyper control alt none left))
+
+    ;; Backwards compatibility
+    (case osx-use-option-as-meta
+      ('nil (setf osx-option-as 'none))
+      (deprecated nil)
+      (t (setf osx-option-as 'meta)))
+
+    ;; Set internal variables according to the given config variables
+    (cl-loop for (key-var . internal-var) in modifier-keys do
+             (let ((key-value (symbol-value key-var)))
+               (when (member key-value allowed-values)
+                 (setf (symbol-value internal-var) key-value))))
+
+    (defun kbd-mac-command (keys)
+      "Wraps `kbd' function with Mac OSX compatible Command-key (⌘).
+KEYS should be a string such as \"f\" which will be turned into values
+such as \"H-f\", \"s-f\", or \"A-f\" depending on the value of
+`mac-commmand-modifier' which could be `hyper', `super', or `alt'.
+KEYS with a string of \"C-f\" are also valid and will be turned into
+values such as \"H-C-f\".
+Returns nil if `mac-command-modifier' is set to `none' or something
+other than the three sane values listed above."
+      (let ((found (assoc mac-command-modifier
+                          '((hyper . "H-")
+                            (super . "s-")
+                            (alt   . "A-")))))
+        (when found (kbd (concat (cdr found) keys)))))
 
     ;; Keybindings
-    (global-set-key (kbd "s-=") 'spacemacs/scale-up-font)
-    (global-set-key (kbd "s--") 'spacemacs/scale-down-font)
-    (global-set-key (kbd "s-0") 'spacemacs/reset-font-size)
-    (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
-    (global-set-key (kbd "s-v") 'yank)
-    (global-set-key (kbd "s-c") 'evil-yank)
-    (global-set-key (kbd "s-a") 'mark-whole-buffer)
-    (global-set-key (kbd "s-x") 'kill-region)
-    (global-set-key (kbd "s-w") 'delete-window)
-    (global-set-key (kbd "s-W") 'delete-frame)
-    (global-set-key (kbd "s-n") 'make-frame)
-    (global-set-key (kbd "s-z") 'undo-tree-undo)
-    (global-set-key (kbd "s-s")
+    (global-set-key (kbd-mac-command "=") 'spacemacs/scale-up-font)
+    (global-set-key (kbd-mac-command "-") 'spacemacs/scale-down-font)
+    (global-set-key (kbd-mac-command "0") 'spacemacs/reset-font-size)
+    (global-set-key (kbd-mac-command "q") 'save-buffers-kill-terminal)
+    (global-set-key (kbd-mac-command "v") 'yank)
+    (global-set-key (kbd-mac-command "c") 'evil-yank)
+    (global-set-key (kbd-mac-command "a") 'mark-whole-buffer)
+    (global-set-key (kbd-mac-command "x") 'kill-region)
+    (global-set-key (kbd-mac-command "w") 'delete-window)
+    (global-set-key (kbd-mac-command "W") 'delete-frame)
+    (global-set-key (kbd-mac-command "n") 'make-frame)
+    (global-set-key (kbd-mac-command "`") 'other-frame)
+    (global-set-key (kbd-mac-command "z") 'undo-tree-undo)
+    (global-set-key (kbd-mac-command "s")
                     (lambda ()
                       (interactive)
                       (call-interactively (key-binding "\C-x\C-s"))))
-    (global-set-key (kbd "s-Z") 'undo-tree-redo)
-    (global-set-key (kbd "C-s-f") 'spacemacs/toggle-frame-fullscreen)
+    (global-set-key (kbd-mac-command "Z") 'undo-tree-redo)
+    (global-set-key (kbd-mac-command "C-f") 'spacemacs/toggle-frame-fullscreen)
     ;; Emacs sometimes registers C-s-f as this weird keycode
-    (global-set-key (kbd "<C-s-268632070>") 'spacemacs/toggle-frame-fullscreen)))
+    ;; (global-set-key (kbd "<C-s-268632070>") 'spacemacs/toggle-frame-fullscreen)
+    ))
