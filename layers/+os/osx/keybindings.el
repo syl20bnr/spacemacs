@@ -42,5 +42,7 @@
                       (call-interactively (key-binding "\C-x\C-s"))))
     (global-set-key (kbd "s-Z") 'undo-tree-redo)
     (global-set-key (kbd "C-s-f") 'spacemacs/toggle-frame-fullscreen)
-    ;; Emacs sometimes registers C-s-f as this weird keycode
-    (global-set-key (kbd "<C-s-268632070>") 'spacemacs/toggle-frame-fullscreen)))
+    (global-set-key (kbd "M-s-h") 'ns-do-hide-others)
+    ;; Emacs sometimes registers C-s-f or M-s-h as this weird keycode
+    (global-set-key (kbd "<C-s-268632070>") 'spacemacs/toggle-frame-fullscreen)
+    (global-set-key [142607065] 'ns-do-hide-others)))
