@@ -17,13 +17,8 @@
 
 (defun chrome/init-edit-server ()
   (use-package edit-server
-    :init
-    (progn
-      (edit-server-start))
-    :config
-    (progn
-      (setq edit-server-default-major-mode 'markdown-mode))
-    ))
+    :init (edit-server-start)
+    :config (setq edit-server-default-major-mode 'markdown-mode)))
 
 (defun chrome/init-gmail-message-mode ()
   (use-package gmail-message-mode
@@ -32,21 +27,5 @@
 (defun chrome/init-flymd ()
   (use-package flymd
     :defer t
-    :init
-    (progn
-      (defun start-browser(browser url)
-        (let ((process-environment (browse-url-process-environment)))
-          (apply 'start-process
-                 "flymd" nil
-                 browser
-                 (list "--new-window" "--allow-file-access-from-files" url))))
-
-      (defun my-flymd-browser-function (url)
-               (cond
-                (chrome-exec-path (start-browser chrome-exec-path url))
-                ((executable-find "chromium") (start-browser (executable-find "chromium") url))
-                ((executable-find "google-chrome") (start-browser (executable-find "google-chrome") url))
-                ((executable-find "google-chrome-stable") (start-browser (executable-find "google-chrome-stable") url))
-                (t (message "no useful browser"))))
-
-      (setq flymd-browser-open-function 'my-flymd-browser-function))))
+    :init (setq flymd-browser-open-function
+                'spacemacs//flymd-browser-function)))
