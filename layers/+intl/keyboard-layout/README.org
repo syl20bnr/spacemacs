@@ -14,6 +14,7 @@
   - [[#dvorak][Dvorak]]
   - [[#colemak][Colemak]]
   - [[#workman][Workman]]
+  - [[#neo][neo]]
 - [[#package-configurations][Package Configurations]]
 - [[#key-bindings][Key bindings]]
 - [[#image-sources][Image sources]]
@@ -227,6 +228,13 @@ substitutes the following keys with these mnemonics:
   - ~j → n~
   - ~k → e~
   - ~l → o~
+
+** neo
+=neo= is a ergonomic keyboard, which is optimized for German. More information can
+be found on the [[https://www.neo-layout.org/][website]].
+
+The Neo layout has six layers, here is only the first:
+[[file:img/neo-layout.png]]
 
 * Package Configurations
 The available configurations are:
