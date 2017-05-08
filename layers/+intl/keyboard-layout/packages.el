@@ -45,7 +45,9 @@
     :colemak
     (setq aw-keys '(?a ?r ?s ?t ?n ?e ?i ?o))
     :dvorak
-    (setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s))))
+    (setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s))
+    :neo
+    (setq aw-keys '(?u ?i ?a ?e ?n ?r ?t ?d))))
 
 (defun keyboard-layout/pre-init-avy ()
   (kl|config avy
@@ -58,7 +60,9 @@
     :colemak
     (setq-default avy-keys '(?a ?r ?s ?t ?n ?e ?i ?o))
     :dvorak
-    (setq-default avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s))))
+    (setq-default avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s))
+    :neo
+    (setq-default avy-keys '(?u ?i ?a ?e ?n ?r ?t ?d))))
 
 (defun keyboard-layout/pre-init-comint ()
   (kl|config comint-mode
@@ -263,7 +267,11 @@
       (kl/set-in-state helm-find-files-map "C-k" 'helm-ff-run-grep)
       (kl/set-in-state helm-find-files-map "C-r" 'helm-maybe-exit-minibuffer)
       (kl/set-in-state helm-read-file-map "C-s" 'helm-previous-line)
-      (kl/set-in-state helm-read-file-map "C-K" 'helm-previous-line)))
+      (kl/set-in-state helm-read-file-map "C-K" 'helm-previous-line))
+    :neo
+    (progn
+      (kl/set-in-state helm-find-files-map "C-r" 'helm-previous-line)
+      (kl/set-in-state helm-find-files-map "C-s" 'helm-next-line)))
 
   (kl|config helm-locate
     :description
@@ -456,7 +464,50 @@
             "o" 'evil-forward-char
             "E" 'org-forward-element
             "I" 'org-backward-element
-            "N" 'org-backward-heading-same-level))))))
+            "N" 'org-backward-heading-same-level))))
+    :neo
+    (progn
+      (spacemacs|use-package-add-hook evil-org
+        :post-config
+        (progn
+          (evil-define-key 'normal evil-org-mode-map
+            "t" 'evil-forward-char
+            "l" 'org-todo
+            "gn" 'org-forward-heading-same-level
+            "gr" 'org-backward-heading-same-level
+            "gj" nil
+            "gk" nil)
+          (dolist (m '(normal insert))
+            (eval `(evil-define-key ',m evil-org-mode-map
+                     ;; snrt
+                     (kbd "M-s") 'org-metaleft
+                     (kbd "M-n") 'org-metadown
+                     (kbd "M-r") 'org-metaup
+                     (kbd "M-t") 'org-metaright
+                     (kbd "M-S") 'org-shiftmetaleft
+                     (kbd "M-N") 'org-shiftmetadown
+                     (kbd "M-R") 'org-shiftmetaup
+                     (kbd "M-T") 'org-shiftmetaright
+                     ;; hjkl
+                     (kbd "M-h") 'capitalize-word
+                     (kbd "M-j") 'transpose-chars
+                     (kbd "M-k") 'kill-sentence
+                     (kbd "M-l") 'move-to-window-line-top-bottom
+                     (kbd "M-H") 'capitalize-word
+                     (kbd "M-J") 'transpose-chars
+                     (kbd "M-K") 'kill-sentence
+                     (kbd "M-L") 'move-to-window-line-top-bottom)))
+          (spacemacs/set-leader-keys-for-major-mode 'org-mode
+            ;; snrt
+            "C-S-s" 'org-shiftcontrolleft
+            "C-S-n" 'org-shiftcontroldown
+            "C-S-r" 'org-shiftcontrolup
+            "C-S-t" 'org-shiftcontrolright
+            ;; hjkl
+            "C-S-h" nil
+            "C-S-j" nil
+            "C-S-k" nil
+            "C-S-l" nil))))))
 
 (defun keyboard-layout/pre-init-org-agenda ()
   (kl|config org-agenda
