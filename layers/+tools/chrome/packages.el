@@ -13,6 +13,7 @@
                         edit-server
                         gmail-message-mode
                         flymd
+                        markdown-mode
                         ))
 
 (defun chrome/init-edit-server ()
@@ -33,3 +34,9 @@
     :defer t
     :init (setq flymd-browser-open-function
                 'spacemacs//flymd-browser-function)))
+
+(defun chrome/pre-init-markdown-mode ()
+  (spacemacs|use-package-add-hook markdown-mode
+    :pre-config
+    (when (configuration-layer/package-usedp 'gmail-message-mode)
+      (add-to-list 'markdown--key-bindings-modes 'gmail-message-client-mode))))

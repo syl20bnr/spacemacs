@@ -75,7 +75,7 @@
          'markdown-mode (car prefix) (cdr prefix)))
       ;; note: `gfm-mode' is part of `markdown-mode.el' so we can define its key
       ;; bindings here
-      (dolist (mode '(markdown-mode gfm-mode))
+      (dolist (mode markdown--key-bindings-modes)
         (spacemacs/set-leader-keys-for-major-mode mode
           ;; Movement
           "{"   'markdown-backward-paragraph
