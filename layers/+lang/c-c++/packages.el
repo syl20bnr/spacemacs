@@ -14,6 +14,7 @@
     cc-mode
     disaster
     clang-format
+    cmake-ide
     cmake-mode
     company
     (company-c-headers :toggle (configuration-layer/package-usedp 'company))
@@ -41,12 +42,13 @@
     (progn
       (require 'compile)
       (c-toggle-auto-newline 1)
-      (spacemacs/set-leader-keys-for-major-mode 'c-mode
-        "ga" 'projectile-find-other-file
-        "gA" 'projectile-find-other-file-other-window)
-      (spacemacs/set-leader-keys-for-major-mode 'c++-mode
-        "ga" 'projectile-find-other-file
-        "gA" 'projectile-find-other-file-other-window))))
+      (dolist (mode '(c++-mode c-mode))
+        (spacemacs/declare-prefix-for-mode mode "mc" "compile")
+        (spacemacs/declare-prefix-for-mode mode "mg" "goto")
+        (spacemacs/declare-prefix-for-mode mode "mp" "project/build system")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "ga" 'projectile-find-other-file
+          "gA" 'projectile-find-other-file-other-window)))))
 
 (defun c-c++/init-disaster ()
   (use-package disaster
@@ -66,6 +68,18 @@
     (when c-c++-enable-clang-format-on-save
       (spacemacs/add-to-hooks 'spacemacs/clang-format-on-save
                               '(c-mode-hook c++-mode-hook)))))
+
+(defun c-c++/init-cmake-ide ()
+  (use-package cmake-ide)
+    :config
+    (progn
+      (cmake-ide-setup)
+      (dolist (mode '(c++-mode c-mode))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "cc" 'cmake-ide-compile
+          "pc" 'cmake-ide-run-cmake
+          "pC" 'cmake-ide-maybe-run-cmake
+          "pd" 'cmake-ide-delete-file))))
 
 (defun c-c++/init-cmake-mode ()
   (use-package cmake-mode
