@@ -152,6 +152,8 @@
       (add-hook 'eshell-mode-hook 'spacemacs/init-helm-eshell)
       ;;shell
       (spacemacs/set-leader-keys-for-major-mode 'shell-mode
+        "d" 'projectile-dired)
+      (spacemacs/set-leader-keys-for-major-mode 'shell-mode
         "H" 'spacemacs/helm-shell-history))))
 
 (defun shell/pre-init-magit ()
