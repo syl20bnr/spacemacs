@@ -78,6 +78,30 @@
   (define-key evil-evilified-state-map-original (kbd "C-k") #'tmux-nav-up)
   (define-key evil-evilified-state-map-original (kbd "C-l") #'tmux-nav-right))
 
+;; Modify `evil-evilified-state-map-original' because `evil-evilified-state-map'
+;; is reset to this value each time the evilify macro is run.
+(when (boundp 'evil-evilified-state-map-original)
+  (define-key evil-evilified-state-map-original
+    (kbd "C-h")
+    (lambda ()
+      (interactive)
+      (tmux-navigate "left")))
+  (define-key evil-evilified-state-map-original
+    (kbd "C-j")
+    (lambda ()
+      (interactive)
+      (tmux-navigate "down")))
+  (define-key evil-evilified-state-map-original
+    (kbd "C-k")
+    (lambda ()
+      (interactive)
+      (tmux-navigate "up")))
+  (define-key evil-evilified-state-map-original
+    (kbd "C-l")
+    (lambda ()
+      (interactive)
+      (tmux-navigate "right"))))
+
 (provide 'tmux)
 
 ;;; tmux.el ends here
