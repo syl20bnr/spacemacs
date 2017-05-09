@@ -1,0 +1,19 @@
+#+TITLE: Workgroups2 layer for Spacemacs
+
+* Description
+  
+This layer adds basic support for [[https://github.com/pashinin/workgroups2][Workgroups for Emacs]]
+
+* Install
+
+Add workgroups2 to dotspacemacs-configuration-layers
+
+* Key Bindings
+  
+| Key Binding | Description            |
+|-------------|------------------------|
+| SPC G c     | Create workgroup       |
+| SPC G r     | Rename workgroup       |
+| SPC G k     | Kill workgroup         |
+| SPC G s     | Switch workgroup       |
+| SPC G S     | Save workgroup session |
