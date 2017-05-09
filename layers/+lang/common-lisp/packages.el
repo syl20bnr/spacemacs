@@ -76,6 +76,18 @@
       (spacemacs/add-to-hooks 'slime-mode '(lisp-mode-hook)))
     :config
     (progn
+      (defun spacemacs//slime-source (&optional table)
+        (or table (setq table slime-lisp-implementations))
+        `((name . "Slime")
+          (candidates . ,(mapcar #'car table))
+          (action . (lambda (candidate)
+                      (car (helm-marked-candidates))))))
+
+      (defun spacemacs/helm-slime ()
+        (interactive)
+        (let ((command (helm :sources (spacemacs//slime-source))))
+          (and command (slime (intern command)))))
+
       (slime-setup)
       ;; TODO: Add bindings for the SLIME debugger?
       (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
@@ -120,6 +132,7 @@
 
         "se" 'slime-eval-last-expression-in-repl
         "si" 'slime
+        "sI" 'spacemacs/helm-slime
         "sq" 'slime-quit-lisp
 
         "tf" 'slime-toggle-fancy-trace)
