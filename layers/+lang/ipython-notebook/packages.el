@@ -103,6 +103,8 @@
         "gj" 'ein:worksheet-goto-next-input
         "gk" 'ein:worksheet-goto-prev-input)
 
+      (define-key ein:notebooklist-mode-map "o" 'spacemacs/ace-buffer-links)
+
       ;; if this is not required then the following keygindings fail
       (require 'ein-multilang)
       (define-key ein:notebook-multilang-mode-map (kbd "M-j") 'ein:worksheet-move-cell-down)
