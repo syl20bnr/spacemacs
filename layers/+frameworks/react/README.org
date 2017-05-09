@@ -82,7 +82,7 @@ Be sure to have the ~e4x~ option set to ~true~ on your ~.jsbeautifyrc~ here it i
 
 You may refer to the =web-mode= configuration for fine tuning the indenting behaviour.
 
-For example to have a consistent 2 spaces indenting both on =js= and =jsx= you may use these settings:
+For example to have a consistent 2 spaces indenting both on =js= and =jsx= you may use these settings in `dotspacemacs/user-init`:
 
 #+begin_src emacs-lisp
   (setq-default
