@@ -40,7 +40,9 @@
     :init
     (progn
       (spacemacs/set-leader-keys "a M" 'mu4e)
-      (global-set-key (kbd "C-x m") 'mu4e-compose-new))
+      (global-set-key (kbd "C-x m") 'mu4e-compose-new)
+      (with-eval-after-load 'org
+        (require 'org-mu4e)))
     :config
     (progn
       (evilified-state-evilify-map mu4e-main-mode-map
@@ -72,6 +74,9 @@
 
       (add-to-list 'mu4e-view-actions
                    '("View in browser" . mu4e-action-view-in-browser) t)
+
+      (when (configuration-layer/layer-usedp 'org)
+        (require 'org-mu4e))
 
       (when mu4e-account-alist
         (add-hook 'mu4e-compose-pre-hook 'mu4e/set-account)
