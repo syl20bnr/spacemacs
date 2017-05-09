@@ -1295,7 +1295,8 @@ file:
 (defun dotspacemacs/user-config ()
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
-  (setq powerline-default-separator 'arrow))
+  (setq powerline-default-separator 'arrow)
+  (spaceline-compile))
 #+END_SRC
 
 To save you the time to try all the possible separators provided by the
