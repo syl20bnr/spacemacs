@@ -190,7 +190,7 @@ Now visit http://localhost:10000/index.html?encoding=png&password=<PASSWORD>
 - =docker pull spacemacs/emacs25:develop= - get newer =spacemacs/emacs25:develop= version
 - =docker images -a= - list all images
 - =docker ps -a= - list all containers
-- =docker run ... spacemacs/emacs25:develop= - run the [[https://github.com/JAremko/docker-emacs/blob/master/Dockerfile#L45][default command]]
+- =docker run ... spacemacs/emacs25:develop= - run the [[https://github.com/JAremko/docker-emacs/blob/master/Dockerfile.emacs25#L63][default command]]
 - =docker run -ti ... spacemacs/emacs25:develop /bin/bash= - start bash
 - =docker exec spacemacs /usr/bin/emacs= - start =/usr/bin/emacs=
 With the running =spacemacs= container
