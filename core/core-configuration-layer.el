@@ -519,6 +519,7 @@ layer directory."
      (t
       (make-directory layer-dir t)
       (configuration-layer//copy-template name "packages.el" layer-dir)
+      (configuration-layer//copy-template name "packages-config.el" layer-dir)
       (when (y-or-n-p "Create readme?")
         (configuration-layer//copy-template name "README.org" layer-dir))
       (message "Configuration layer \"%s\" successfully created." name)))))

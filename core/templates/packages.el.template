@@ -18,14 +18,15 @@
 ;;
 ;;
 ;; Briefly, each package to be installed or configured by this layer should be
-;; added to `%LAYER_NAME%-packages'. Then, for each package PACKAGE:
+;; added to `%LAYER_NAME%-packages' in packages-config.el. Then, for each package PACKAGE:
 ;;
 ;; - If PACKAGE is not referenced by any other Spacemacs layer, define a
-;;   function `%LAYER_NAME%/init-PACKAGE' to load and initialize the package.
+;;   function `%LAYER_NAME%/init-PACKAGE' in packages.el to load and initialize the package.
 
 ;; - Otherwise, PACKAGE is already referenced by another Spacemacs layer, so
 ;;   define the functions `%LAYER_NAME%/pre-init-PACKAGE' and/or
 ;;   `%LAYER_NAME%/post-init-PACKAGE' to customize the package as it is loaded.
+
 
 ;;; Code:
 
