@@ -305,10 +305,12 @@ Returns the output of git status --porcelain."
                               "status" "--porcelain"))
       (with-current-buffer proc-buffer
         (prog1
-            (when (and (buffer-string)
-                       ;;simplecheckforanytext
-                       (string-match-p "[^ \t\n]" (buffer-string)))
-              (replace-regexp-in-string "\n\\'" "" (buffer-string)))
+            ;; Exclude lines of the form "?? FILENAME", which represent
+            ;; untracked files
+            (let ((status (replace-regexp-in-string "^\\?\\? .+?$" ""
+                                                    (buffer-string))))
+              (when (and status (string-match-p "[^ \t\n]" (buffer-string)))
+               (replace-regexp-in-string "\n\\'" "" (buffer-string))))
           (kill-buffer proc-buffer))))))
 
 (defun spacemacs//deffaces-new-version-lighter (state)
