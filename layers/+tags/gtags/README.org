@@ -260,6 +260,7 @@ the gtags commands.
 | ~SPC m g g~ | jump to a location based on context                       |
 | ~SPC m g G~ | jump to a location based on context (open another window) |
 | ~SPC m g d~ | find definitions                                          |
+| ~SPC m g D~ | find definitions (open another window)                    |
 | ~SPC m g i~ | present tags in current function only                     |
 | ~SPC m g l~ | jump to definitions in file                               |
 | ~SPC m g n~ | jump to next location in context stack                    |
