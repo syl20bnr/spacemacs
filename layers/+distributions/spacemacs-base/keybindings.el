@@ -173,6 +173,7 @@
   :bindings
   ("n" spacemacs/next-error "next")
   ("p" spacemacs/previous-error "prev")
+  ("N" spacemacs/previous-error "prev")
   ("q" nil "quit" :exit t)
   :evil-leader "e.")
 ;; file -----------------------------------------------------------------------

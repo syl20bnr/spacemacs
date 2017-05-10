@@ -139,7 +139,7 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ ! -z "$PUBLISH" ] && [ $TRAVIS_PULL_
 			>  ~/.ssh/config
 		git remote set-url "${BOT_NAME}" \
 			"https://${BOT_NAME}:${BOT_TK}@github.com/${BOT_NAME}/${PUBLISH}.git"
-		/tmp/hub push "${BOT_NAME}" gh-pages
+		/tmp/hub push -f "${BOT_NAME}" gh-pages
 		printf '=%.0s' {1..70}
 		printf "\n OPENING PR TO syl20bnr/${PUBLISH}.git\n"
 		printf '=%.0s' {1..70}

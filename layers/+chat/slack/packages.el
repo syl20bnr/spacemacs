@@ -40,8 +40,8 @@
   (add-hook 'slack-mode-hook 'spacemacs/no-linum))
 
 (defun slack/post-init-persp-mode ()
-  (spacemacs|define-custom-layout "@Slack"
-    :binding "s"
+  (spacemacs|define-custom-layout slack-spacemacs-layout-name
+    :binding slack-spacemacs-layout-binding
     :body
     (progn
       (add-hook 'slack-mode #'(lambda ()

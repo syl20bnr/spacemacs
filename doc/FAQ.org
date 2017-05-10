@@ -151,7 +151,7 @@ should not be loaded before =dotspacemacs/user-config=, otherwise both versions
 will be loaded and will conflict.
 
 Because of autoloading, calling to =org= functions will trigger the loading up
-of the =org= shipped with emacs wich will induce conflicts. One way to avoid
+of the =org= shipped with emacs which will induce conflicts. One way to avoid
 conflict is to wrap your =org= config code in a =with-eval-after-load= block
 like this:
 
@@ -515,7 +515,7 @@ some expressions to the search input:
   ending with =.el= which are emacs-lisp files.
 
 - By using a flag like =--python= which should be self-explaining. The list of
-  available flags colud be accessed from terminal with:
+  available flags could be accessed from terminal with:
 
   #+begin_src shell
   ag --list-file-types

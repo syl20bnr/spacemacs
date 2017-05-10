@@ -6,6 +6,7 @@
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#configuration][Configuration]]
+   - [[#spacemacs-layout-integration][Spacemacs layout integration]]
  - [[#key-bindings][Key bindings]]
 
 * Description
@@ -19,7 +20,6 @@ add =slack= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
-
 Follow the instructions in the [[https://github.com/yuya373/emacs-slack/blob/master/README.md][emacs-slack]] package for obtaining your client ID,
 client secret, and token.
 
@@ -39,6 +39,20 @@ stuff elsewhere (like Dropbox for instance) and load the file in your dotfile.
   :token "token"
   :subscribed-channels '(general slackbot))
 #+end_src
+
+** Spacemacs layout integration
+A [[file:../../../doc/DOCUMENTATION.org::#layouts-and-workspaces][Spacemacs custom layout]] is defined by the layer. The name and the key binding
+for it can be customized with the following layer variables:
+- =slack-spacemacs-layout-name= for the layout name,
+- =slack-spacemacs-layout-binding= for the key binding.
+
+By default the values are:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(
+  (slack :variables slack-spacemacs-layout-name "@Slack"
+                    slack-spacemacs-layout-binding "s")))
+#+END_SRC
 
 * Key bindings
 
