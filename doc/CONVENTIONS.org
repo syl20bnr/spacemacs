@@ -98,7 +98,7 @@ map to:
 - activate evil-leader key on ~SPC~
 
 Setting the =evilified state= to a mode is done by calling the macro
-=spacemacs|evilify-map=.
+=evilified-state-evilify-map=.
 
 /Evilification/ rebinds shadowed key bindings according to the following
 rules:
