@@ -292,7 +292,9 @@ Will work on both org-mode and any mode that accepts plain html."
         "aom" 'org-tags-view
         "aoo" 'org-agenda
         "aos" 'org-search-view
-        "aot" 'org-todo-list)
+        "aot" 'org-todo-list
+        ;; SPC C- capture/colors
+        "Cc" 'org-capture)
 
       (define-key global-map "\C-cl" 'org-store-link)
       (define-key global-map "\C-ca" 'org-agenda)
@@ -308,8 +310,6 @@ Will work on both org-mode and any mode that accepts plain html."
       (define-key org-src-mode-map
         (kbd (concat dotspacemacs-major-mode-emacs-leader-key " '"))
         'org-edit-src-exit)
-
-      (spacemacs/set-leader-keys "Cc" 'org-capture)
 
       ;; Evilify the calendar tool on C-c .
       (unless (eq 'emacs dotspacemacs-editing-style)
