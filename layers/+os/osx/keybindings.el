@@ -42,5 +42,17 @@
                       (call-interactively (key-binding "\C-x\C-s"))))
     (global-set-key (kbd "s-Z") 'undo-tree-redo)
     (global-set-key (kbd "C-s-f") 'spacemacs/toggle-frame-fullscreen)
+
+    ;; window manipulation with command key
+    (global-set-key (kbd "s-1") 'winum-select-window-1)
+    (global-set-key (kbd "s-2") 'winum-select-window-2)
+    (global-set-key (kbd "s-3") 'winum-select-window-3)
+    (global-set-key (kbd "s-4") 'winum-select-window-4)
+    (global-set-key (kbd "s-5") 'winum-select-window-5)
+    (global-set-key (kbd "s-6") 'winum-select-window-6)
+    (global-set-key (kbd "s-7") 'winum-select-window-7)
+    (global-set-key (kbd "s-8") 'winum-select-window-8)
+    (global-set-key (kbd "s-9") 'winum-select-window-9)
+
     ;; Emacs sometimes registers C-s-f as this weird keycode
     (global-set-key (kbd "<C-s-268632070>") 'spacemacs/toggle-frame-fullscreen)))
