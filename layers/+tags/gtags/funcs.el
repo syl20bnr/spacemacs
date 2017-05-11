@@ -53,6 +53,7 @@ Otherwise does nothing."
       "gR" 'helm-gtags-resume
       "gs" 'helm-gtags-select
       "gS" 'helm-gtags-show-stack
+      "gy" 'helm-gtags-find-symbol
       "gu" 'helm-gtags-update-tags)))
 
 (defun spacemacs/ggtags-mode-enable ()
