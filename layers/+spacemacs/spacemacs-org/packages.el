@@ -33,6 +33,11 @@
 ;; dummy init function to force installation of `org-plus-contrib'
 (defun spacemacs-org/init-org-plus-contrib ())
 
+(defun spacemacs-org/org-restart ()
+    "Restart org-mode, preserving the current visibility of headers"
+   (when (featurep 'org)
+     (org-save-outline-visibility 'use-markers (org-mode-restart))))
+
 (defun spacemacs-org/init-default-org-config ()
   (use-package org
     :commands (org-clock-out org-occur-in-agenda-files org-agenda-files)
@@ -59,6 +64,8 @@
                     (1 font-lock-comment-face prepend)
                     (2 font-lock-function-name-face)
                     (3 font-lock-comment-face prepend))))
+      ;; changing themes can leave artifacts in org mode, it should reload
+      (add-hook 'spacemacs-post-theme-change-hook 'spacemacs-org/org-restart)
       ;; Open links and files with RET in normal state
       (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)))))
 
