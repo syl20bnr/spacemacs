@@ -268,4 +268,5 @@ the gtags commands.
 | ~SPC m g R~ | resume previous helm-gtags session                        |
 | ~SPC m g s~ | select any tag in a project retrieved by gtags            |
 | ~SPC m g S~ | show stack of visited locations                           |
+| ~SPC m g y~ | find symbols                                              |
 | ~SPC m g u~ | manually update tag database                              |
