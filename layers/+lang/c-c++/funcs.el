@@ -69,3 +69,12 @@ and the arguments for flyckeck-clang based on a project-specific text file."
                   (append '("/usr/include" "/usr/local/include")
                           dirs))
       (setq-local flycheck-clang-args flags))))
+
+
+;; realgud
+
+(defun spacemacs//short-key-state (modeon)
+  "Set evil-evilified-state explicitly."
+  (if modeon
+      (evil-evilified-state)
+    (evil-normal-state)))
