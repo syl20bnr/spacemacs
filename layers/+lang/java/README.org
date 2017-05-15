@@ -12,31 +12,31 @@
      - [[#installation][Installation]]
      - [[#about-maven][About Maven]]
    - [[#eclim][Eclim]]
-     - [[#installation][Installation]]
+     - [[#installation-1][Installation]]
        - [[#eclipse][Eclipse]]
-       - [[#eclim][Eclim]]
+       - [[#eclim-1][Eclim]]
      - [[#configuration][Configuration]]
      - [[#usage][Usage]]
    - [[#ensime][ENSIME]]
-     - [[#installation][Installation]]
-     - [[#configuration][Configuration]]
-     - [[#usage][Usage]]
+     - [[#installation-2][Installation]]
+     - [[#configuration-1][Configuration]]
+     - [[#usage-1][Usage]]
      - [[#issues][Issues]]
  - [[#key-bindings][Key bindings]]
-   - [[#meghanada][Meghanada]]
+   - [[#meghanada-1][Meghanada]]
      - [[#server][Server]]
      - [[#navigation][Navigation]]
      - [[#compilation][Compilation]]
      - [[#tests-junit][Tests (junit)]]
      - [[#refactoring][Refactoring]]
      - [[#tasks][Tasks]]
-   - [[#eclim][Eclim]]
+   - [[#eclim-2][Eclim]]
      - [[#java-mode][Java-mode]]
        - [[#project-management][Project management]]
        - [[#eclim-daemon][Eclim daemon]]
        - [[#maven][Maven]]
        - [[#goto][Goto]]
-       - [[#refactoring][Refactoring]]
+       - [[#refactoring-1][Refactoring]]
        - [[#documentation-find][Documentation, Find]]
        - [[#errors-problems][Errors (problems)]]
        - [[#tests][Tests]]
@@ -49,12 +49,12 @@
      - [[#typecheck][Typecheck]]
      - [[#debug][Debug]]
      - [[#errors][Errors]]
-     - [[#goto][Goto]]
+     - [[#goto-1][Goto]]
      - [[#print-and-yank-types][Print and yank types]]
      - [[#documentation-inspect][Documentation, Inspect]]
-     - [[#server][Server]]
-     - [[#refactoring][Refactoring]]
-     - [[#tests][Tests]]
+     - [[#server-1][Server]]
+     - [[#refactoring-2][Refactoring]]
+     - [[#tests-1][Tests]]
      - [[#repl][REPL]]
 
 * Description
@@ -382,7 +382,7 @@ particular refactoring doesn't work.
 | ~C-k~       | Move to previous match                                            |
 | ~C-i~       | Insert at point import of current result                          |
 | ~RET~       | Jump to the target of the currently selected ensime-search-result |
-| ~C-q~       | Quit ensime search
+| ~C-q~       | Quit ensime search                                                |
 
 *** sbt
 

@@ -72,7 +72,6 @@ key.
                      osx-right-option-as 'none)))
 #+END_SRC
 
-
 *** Define words using OS X Dictionary
 
 This layer by default enables defining words under point ~SPC x w d~ using OS X
