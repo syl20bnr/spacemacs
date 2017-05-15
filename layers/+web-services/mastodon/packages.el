@@ -14,8 +14,8 @@
     mastodon))
 
 (defun mastodon/init-mastodon ()
-  ;; (use-package mastodon)
-  (require 'mastodon)
-  (setq mastodon-token-file "~/emacs.d/private/mastodon.plstore"))
+  (use-package mastodon)
+  ;; (require 'mastodon)
+  (setq mastodon-token-file "~/.emacs.d/private/mastodon.plstore"))
 
 ;;; packages.el ends here
