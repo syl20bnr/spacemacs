@@ -418,6 +418,7 @@ sane way, here is the complete list of changed key bindings
 - dotnet (thanks to Jordan Kaye)
 - import-js (thanks to Thanh Vuong and Seong Yong-ju)
 - kubernetes with tramp support (thanks to Matt Bray and Maximilian Wolff)
+- languagetool (thanks to Robbert van der Helm)
 - lsp (thanks to Fangrui Song, 0bl.blwl, Cormac Cannon, Juuso Valkeejärvi,
   Guan Xipeng, Ivan Yonchovski, Justin Martin, dscole and Sylvain Benner)
 - node (thanks to jupl)
