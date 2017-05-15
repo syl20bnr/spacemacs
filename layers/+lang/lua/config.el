@@ -11,6 +11,4 @@
 
 ;; variables
 
-(spacemacs|defvar-company-backends lua-mode)
-
 (spacemacs|define-jump-handlers lua-mode)
