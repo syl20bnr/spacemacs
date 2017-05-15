@@ -28,6 +28,7 @@ Linux user could install [[https://zhm.github.io/symbola/][Symbola]] font to get
 #+BEGIN_SRC shell
   apt-get install ttf-ancient-fonts
 #+END_SRC
+
 * Key bindings
 
 | Key Binding | Description                             |
