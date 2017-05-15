@@ -167,7 +167,7 @@ Eclim workspace (default value is =~/workspace=), as shown below:
 Start the eclim daemon with ~SPC m D s~ and stop it with ~SPC m D k~. (See
 below.)
 
-Syntax checking is performed only on demande with ~SPC e e~ to preserve
+Syntax checking is performed only on demand with ~SPC e e~ to preserve
 perfomance.
 
 Auto-save feature may freeze Emacs sometimes, use ~C-g~ to unfreeze Emacs or
