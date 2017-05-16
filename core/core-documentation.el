@@ -249,15 +249,28 @@ preprocessors for the exported .org files."
           <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\"></script>
           <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
           <script src=\"http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js\"></script>
-          <script src=\"http://spacemacs.org/js/permalinks.js\"></script>
           <script>
-           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
-               Date();a=s.createElement(o),
-               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-               })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+          // Google Analytics
+                     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+                         Date();a=s.createElement(o),
+                         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-           ga('create', 'UA-28326243-2', 'auto'); ga('send', 'pageview');
+                     ga('create', 'UA-28326243-2', 'auto'); ga('send', 'pageview');
+
+          // Add permalinks to the documentation headings
+          $(document).ready(function() {
+              [\".outline-2 h2\", \".outline-3 h3\", \".outline-4 h4\", \".outline-5 h5\"].forEach(function(i) {
+                  $(i).each(function() {
+                          var page_url = window.location.pathname;
+                          var node = $(this).attr(\"id\");
+                          var full_url = page_url + \"#\" + node;
+                          $(this).contents().last().after('<span id=\"permalink\"><a href=\"'
+                                                          + full_url + '\">¶</a></span>');
+                  });
+              });
+          });
           </script>")
          (publish-target (concat spacemacs-start-directory "export/"))
          (org-html-htmlize-output-type 'css)

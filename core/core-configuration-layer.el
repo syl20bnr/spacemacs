@@ -633,10 +633,10 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
                (eq (plist-get (cdr location) :fetcher) 'local))
           (cond
            (layer (let ((path (expand-file-name
-                               (format "%s%s/%s.el"
+                               (format "%s%s"
                                        (configuration-layer/get-layer-local-dir
                                         layer-name)
-                                       pkg-name-str pkg-name-str))))
+                                       pkg-name-str))))
                     (cfgl-package-set-property
                      obj :location `(recipe :fetcher file :path ,path))))
            ((eq 'dotfile layer-name)

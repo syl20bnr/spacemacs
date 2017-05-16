@@ -15,7 +15,7 @@
 
 * Description
 Spacemacs is not just emacs+vim. It can have OSX keybindings too! This layer
-globally defines common OSX keybindings. ~⌘~ is set to ~super~ and ~⌥~ is set to
+globally defines common OSX keybindings. ~⌘~ is set to ~hyper~ and ~⌥~ is set to
 ~meta~. Aside from that, there's nothing much, really.
 
 While in =dired= this layer will try to use =gls= instead of =ls=.
@@ -27,26 +27,49 @@ encourage you to do so :)
 
 * Install
 ** Layer
+
+Layer has been updated for new config variables. The variable =osx-use-option-as-meta=
+is still available for backwards compatibility and will take precedence if set.
+
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =osx= to the existing =dotspacemacs-configuration-layers= list in this file.
+The different modifier keys can be set as follows:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-defaults dotspacemacs-configuration-layers '(
+     (osx :variables osx-command-as       'hyper
+                     osx-option-as        'meta
+                     osx-control-as       'control
+                     osx-function-as      'none
+                     osx-right-command-as 'left
+                     osx-right-option-as  'left
+                     osx-right-control-as 'left))
+#+END_SRC
+
+These are also the default values. Setting the right modifier to =left=
+will equal the left modifier. Allowed values are: =super=, =meta=, =control=,
+=alt= and =none=.
+Setting =nil= for modifiers will leave the left modifiers as emacs default.
 
 *** Use with non-US keyboard layouts
 If you need the ~⌥~ key to type common characters such as ={[]}~= which is usual
 for e.g. Finnish and Swedish keyboard layouts, you'll probably want to leave the
-~⌥~ key unchanged by setting the =osx-use-option-as-meta= variable to =nil=:
+~⌥~ key unchanged by setting the =osx-option-as= variable to =none=:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-     (osx :variables osx-use-option-as-meta nil)))
+     (osx :variables osx-option-as 'none)))
 #+END_SRC
 
 If you have problem entering symbols that are behind the ~⌥~ key you may want to
-added this to the user-init in the .spacemacs-File. This will allow you to use
+set the variables as follows. This will allow you to use
 the right ~⌥~ key to write symbols. The left ~⌥~ key can be used as the Meta
 key.
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default mac-right-option-modifier nil)
+  (setq-default dotspacemacs-configuration-layers '(
+     (osx :variables osx-option-as 'meta
+                     osx-right-option-as 'none)))
 #+END_SRC
 
 *** Define words using OS X Dictionary
@@ -91,6 +114,7 @@ To get =gls= install coreutils homebrew:
 | ~⌘ w~       | Close window                |
 | ~⌘ W~       | Close frame                 |
 | ~⌘ n~       | New frame                   |
+| ~⌘ `~       | Other frame                 |
 | ~⌘ z~       | Undo                        |
 | ~⌘ Z~       | Redo                        |
 | ~⌃ ⌘ f~     | Toggle fullscreen           |

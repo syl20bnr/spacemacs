@@ -75,10 +75,10 @@ Paths must have a trailing slash (ie. `~/.mycontribs/')")
 (defvar dotspacemacs-install-packages 'used-only
   "Defines the behaviour of Spacemacs when installing packages.
 Possible values are `used-only', `used-but-keep-unused' and `all'. `used-only'
-installs only explicitly used packages and uninstall any unused packages as well
+installs only explicitly used packages and deletes any unused packages as well
 as their unused dependencies. `used-but-keep-unused' installs only the used
-packages but won't uninstall them if they become unused. `all' installs *all*
-packages supported by Spacemacs and never uninstall them.")
+packages but won't delete unused ones. `all' installs *all*
+packages supported by Spacemacs and never uninstalls them.")
 
 (defvar dotspacemacs-enable-lazy-installation 'unused
   "Lazy installation of layers (i.e. layers are installed only when a file

@@ -17,6 +17,7 @@
     (spacemacs/set-leader-keys "aS" 'prodigy)
     :config
     (evilified-state-evilify prodigy-mode prodigy-mode-map
+      "c" 'prodigy-view-clear-buffer
       "h" 'prodigy-first
       "j" 'prodigy-next
       "k" 'prodigy-prev

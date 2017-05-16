@@ -1,4 +1,4 @@
-;;; config.el --- keyboard-layout Layer Packages File for Spacemacs
+;;; packages.el --- keyboard-layout Layer Packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;

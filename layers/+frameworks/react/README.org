@@ -38,20 +38,30 @@ documentation features:
   $ npm install -g tern
 #+END_SRC
 
-To use the on-the-fly syntax checking, install =eslint= with babel and react support:
+To use the on-the-fly syntax checking, install =eslint= with babel and react
+support:
 #+BEGIN_SRC sh
   $ npm install -g eslint babel-eslint eslint-plugin-react
 #+END_SRC
 
-If your project do not use a custom =.eslintrc= file I strongly advice you to try out this one by Airbnb:
+If your project do not use a custom =.eslintrc= file I strongly advice you to
+try out this one by Airbnb:
 [[https://github.com/airbnb/javascript/blob/master/linters/.eslintrc][.eslintrc]]
 
-In order to use automatic code formatting you need to install ~js-beautify~ with:
+In order to use automatic code formatting you need to install ~js-beautify~
+with:
 #+BEGIN_SRC sh
   $ npm install -g js-beautify
 #+END_SRC
 
-Be sure to have the ~e4x~ option set to ~true~ on your ~.jsbeautifyrc~ here it is my configuration as an example:
+If you install these in non-standard locations, then add the following to your
+=dotspacemacs/user-init= function:
+#+BEGIN_SRC elisp
+  (add-to-list 'exec-path "/path/to/node/bins" t)
+#+END_SRC
+
+Be sure to have the ~e4x~ option set to ~true~ on your ~.jsbeautifyrc~ here it
+is my configuration as an example:
 #+BEGIN_SRC json
   {
     "indent_size": 2,
@@ -80,9 +90,11 @@ Be sure to have the ~e4x~ option set to ~true~ on your ~.jsbeautifyrc~ here it i
 
 * Optional Configuration
 
-You may refer to the =web-mode= configuration for fine tuning the indenting behaviour.
+You may refer to the =web-mode= configuration for fine tuning the indenting
+behaviour.
 
-For example to have a consistent 2 spaces indenting both on =js= and =jsx= you may use these settings:
+For example to have a consistent 2 spaces indenting both on =js= and =jsx= you
+may use these settings:
 
 #+begin_src emacs-lisp
   (setq-default
@@ -96,7 +108,8 @@ For example to have a consistent 2 spaces indenting both on =js= and =jsx= you m
    web-mode-attr-indent-offset 2)
 #+end_src
 
-And if you want to have 2 space indent also for element's attributes, concatenations and contiguous function calls:
+And if you want to have 2 space indent also for element's attributes,
+concatenations and contiguous function calls:
 #+begin_src emacs-lisp
   (with-eval-after-load 'web-mode
     (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))

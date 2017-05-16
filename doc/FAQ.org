@@ -24,6 +24,7 @@
    - [[#why-do-i-get-4m-characters-inside-ansi-term][Why do I get '4m' characters inside ansi-term?]]
    - [[#why-are-my-font-settings-not-being-respected][Why are my font settings not being respected?]]
    - [[#why-am-i-getting-a-message-about-environment-variables-on-startup][Why am I getting a message about environment variables on startup?]]
+   - [[#i-want-to-learn-elisp-where-do-i-start-][I want to learn elisp, where do I start ?]]
  - [[#how-do-i][How do I:]]
    - [[#install-a-package-not-provided-by-a-layer][Install a package not provided by a layer?]]
    - [[#disable-a-package-completely][Disable a package completely?]]
@@ -262,6 +263,13 @@ You can also disable this feature entirely by adding =exec-path-from-shell= to
 the list =dotspacemacs-excluded-packages= if you prefer setting =exec-path=
 yourself.
 
+** I want to learn elisp, where do I start ?
+Very quick start: [[http://learnxinyminutes.com/docs/elisp/][learn X in Y minutes (where X is elisp)]]
+
+Practical reference with code examples for various situations that you will
+encounter: [[http://caiorss.github.io/Emacs-Elisp-Programming/][http://caiorss.github.io/Emacs-Elisp-Programming/]], more particularly
+sections [[http://caiorss.github.io/Emacs-Elisp-Programming/Elisp_Programming.html][Elisp Programming]] and [[http://caiorss.github.io/Emacs-Elisp-Programming/Elisp_Snippets.html][Elisp code snippets]].
+
 * How do I:
 ** Install a package not provided by a layer?
 Spacemacs provides a variable in the =dotspacemacs/layers= function in
@@ -490,7 +498,7 @@ the new configuration. This can be achieved easily using the following steps:
 
 #+BEGIN_SRC sh
 mkdir ~/spacemacs
-git clone git@github.com:syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
+git clone https://github.com/syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
 HOME=~/spacemacs emacs
 #+END_SRC
 
@@ -579,4 +587,4 @@ If this returns =nil=, you need to install the GnuTLS DLL file in the same
 directory as Emacs. See [[https://www.gnu.org/software/emacs/manual/html_mono/emacs-gnutls.html#Help-For-Users][here]] for instructions.
 
 ** The powerline isn't shown correctly when Spacemacs is used within =PuTTY=
-You can follow [[http://mschulte.nl/posts/using-powerline-in-PuTTY.html][this explanation]] explaining how to correct this.
+You can follow [[http://webcache.googleusercontent.com/search?q=cache:CsTK3URgUr8J:mschulte.nl/nl/posts/using-powerline-in-PuTTY.html][this explanation]] explaining how to correct this.

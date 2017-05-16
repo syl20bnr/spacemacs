@@ -36,6 +36,7 @@ You start prodigy with this:
 
 | Key Binding | Description                     |
 |-------------+---------------------------------|
+| ~c~         | Clear buffer                    |
 | ~h~         | First service                   |
 | ~j~         | Next service                    |
 | ~k~         | Previous service                |

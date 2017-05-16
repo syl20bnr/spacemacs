@@ -13,6 +13,7 @@
      - [[#clang-format][clang-format]]
      - [[#company-clang-and-flycheck][Company-clang and flycheck]]
  - [[#key-bindings][Key Bindings]]
+   - [[#debugger-realgud][Debugger (realgud)]]
 
 * Description
 This layer adds configuration for C/C++ language as well support for [[https://cmake.org/][CMake]]
@@ -32,6 +33,7 @@ scripts.
 - Support auto-completion (when =auto-completion= layer is included) via
   company-clang (when =c-c++-enable-clang-support= is turned on), or
   company-ycmd (when =ycmd= layer is included).
+- Support for [[https://github.com/realgud/realgud][realgud]] debugger.
 
 * Install
 ** Layer
@@ -79,9 +81,9 @@ particular mode or all modes in your =dotspacemacs/user-config= (within your
   ;; Bind clang-format-region to C-M-tab in all modes:
   (global-set-key [C-M-tab] 'clang-format-region)
   ;; Bind clang-format-buffer to tab on the c++-mode only:
-  (add-hook 'c++-mode-hook 'clang-format-bindings)
-    (defun clang-format-bindings ()
-      (define-key c++-mode-map [tab] 'clang-format-buffer))
+  (add-hook 'c++-mode-hook 'clang-format-bindings
+            (defun clang-format-bindings ()
+              (define-key c++-mode-map [tab] 'clang-format-buffer)))
 #+END_SRC
 
 To enable automatic buffer formatting on save, set the variable
@@ -112,3 +114,20 @@ doesn't complain about missing header files.
 | ~SPC m r~   | srefactor: refactor thing at point.                                    |
 
 *Note:*  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+
+
+** Debugger (realgud)
+
+ | Key Binding | Description     |
+ |-------------+-----------------|
+ | ~SPC m d d~ | open cmd buffer |
+ | ~SPC m d e~ | eval variable   |
+ | ~s~         | step over       |
+ | ~i~         | step into       |
+ | ~b~         | set break       |
+ | ~B~         | unset break     |
+ | ~o~         | step out        |
+ | ~c~         | continue        |
+ | ~e~         | eval variable   |
+ | ~r~         | restart         |
+ | ~q~         | quit debug      |
+ | ~S~         | goto cmd buffer |
