@@ -18,6 +18,7 @@
   (use-package pony-mode
     :defer t
     :init (progn
+            (spacemacs/declare-prefix-for-mode 'python-mode "mj" "django")
             (spacemacs/declare-prefix-for-mode 'python-mode "mja" "fabric")
             (spacemacs/declare-prefix-for-mode 'python-mode "mjf" "files")
             (spacemacs/declare-prefix-for-mode 'python-mode "mji" "interactive")
