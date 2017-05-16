@@ -421,6 +421,7 @@
   - ~SPC h b~ for =helm-filtered-bookmarks~is now ~SPC f b~
   - ~SPC h l~ for =helm-resume= is now ~SPC r l~
   - ~SPC h L~ for =helm-locate-library= is now ~SPC f e l~
+- Change default value of =dotspacemacs-remap-Y-to-y$= to =nil=
 - Git key bindings under ~SPC g~ have been reorganised to free up some keys
   and capitalize on =Magit= dispatch menu to keep things consistent (see
   =git= section in change log for more information)
@@ -522,6 +523,7 @@
   - agenda
   - todos
   (thanks to tonyday567)
+- Change default value of =dotspacemacs-remap-Y-to-y$= to =nil=
 - Change default value of =dotspacemacs-startup-lists= to =nil=
 - Change default value of =dotspacemacs-check-for-update= to =nil=
 - Remove support for value =all= in variable =dotspacemacs-configuration-layers=
