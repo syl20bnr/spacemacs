@@ -263,7 +263,7 @@ project.
   the next level by using Emacs (see [[file:VIMUSERS.org][guide]] for Vimmers). But it is now
   perfectly *usable by non Vim users* by choosing the =emacs= editing style.
 
-- It is also a good fit for people wanting to *lower the [[http://en.wikipedia.org/wiki/Repetitive_strain_injury][risk of RSI]]* induced by
+- It is also a good fit for people wanting to *lower the [[https://en.wikipedia.org/wiki/Repetitive_strain_injury][risk of RSI]]* induced by
   the default Emacs key bindings. (This is an assumption, there are no official
   studies to prove this!) If you have issues using your thumbs you can still
   use the =emacs= editing style which puts the leader key on a modifier
@@ -845,7 +845,7 @@ Spacemacs uses a leader key to bind almost all its key bindings.
 This leader key is commonly set to ~​,​~ by Vim users, in Spacemacs the leader
 key is set on ~SPC~ (the space bar, hence the name =spacemacs=). This key is the
 most accessible key on a keyboard and it is pressed with the thumb which is a
-good choice to lower the risk of [[http://en.wikipedia.org/wiki/Repetitive_strain_injury][RSI]]. It can be customized to any other key
+good choice to lower the risk of [[https://en.wikipedia.org/wiki/Repetitive_strain_injury][RSI]]. It can be customized to any other key
 using the variable =dotspacemacs-leader-key= and =dotspacemacs-emacs-leader-key=.
 
 With Spacemacs there is no need to remap your keyboard modifiers to attempt
@@ -1035,7 +1035,7 @@ You can cycle between the themes declared in =dotspacemacs-themes= with
 
 *** Browsing themes
 You can see samples of all themes included in the =themes-megapack= layer
-in this [[http://themegallery.robdor.com][theme gallery]] from [[http://www.twitter.com/robmerrell][Rob Merrell]].
+in this [[http://themegallery.robdor.com][theme gallery]] from [[https://twitter.com/robmerrell][Rob Merrell]].
 
 *** Notes
 - You don't need to explicitly list in a layer the theme packages you are
@@ -1069,7 +1069,7 @@ your system). Also note that changing this value has no effect if you are
 running Emacs in terminal.
 
 The properties should be pretty straightforward, it is possible to set any valid
-property of a [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Low_002dLevel-Font.html][font-spec]]:
+property of a [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Low_002dLevel-Font.html][font-spec]]:
   - =:family= Font family or fontset (a string).
   - =:width= Relative character width. This should be one of the symbols:
     - ultra-condensed
@@ -1321,7 +1321,7 @@ powerline, here is an exhaustive set of screenshots:
 | =nil=        | [[file:img/powerline-nil.png]]        |
 
 **** Minor Modes
-Spacemacs uses [[http://www.emacswiki.org/emacs/DiminishedModes][diminish]] mode to reduce the size of minor mode indicators:
+Spacemacs uses [[https://www.emacswiki.org/emacs/DiminishedModes][diminish]] mode to reduce the size of minor mode indicators:
 
 The minor mode area can be toggled on and off with ~SPC t m m~
 
@@ -1338,7 +1338,7 @@ can be reached using the =control= key.
 
 | Key Binding | Unicode | ASCII | Mode                                                                 |
 |-------------+---------+-------+----------------------------------------------------------------------|
-| ~SPC t -~   | =⊝=     | -     | [[http://emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]]  mode                                                |
+| ~SPC t -~   | =⊝=     | -     | [[https://www.emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]]  mode                                                |
 | ~SPC t 8~   | =⑧=     | 8     | toggle highlight of characters for long lines                        |
 | ~SPC t C-8~ | =⑧=     | 8     | global toggle highlight of characters for long lines                 |
 | ~SPC t C--~ | =⊝=     | -     | global centered cursor                                               |
@@ -2435,7 +2435,7 @@ Spacemacs can be interfaced with different search utilities like:
   - [[https://github.com/BurntSushi/ripgrep][rg]]
   - [[https://github.com/ggreer/the_silver_searcher][ag]]
   - [[https://github.com/monochromegane/the_platinum_searcher][pt]]
-  - [[http://beyondgrep.com/][ack]]
+  - [[https://beyondgrep.com/][ack]]
   - grep
 
 The search commands in Spacemacs are organized under the ~SPC s~ prefix with the
@@ -3007,7 +3007,7 @@ The key bindings start with ~SPC x r~ and have the following mnemonic structure:
 *** Deleting files
 Deletion is configured to send deleted files to system trash.
 
-On OS X the =trash= program is required. It can be installed with [[http://www.brew.sh][homebrew]] with
+On OS X the =trash= program is required. It can be installed with [[https://brew.sh/][homebrew]] with
 the following command:
 
 #+BEGIN_SRC sh
@@ -3368,7 +3368,7 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | The Saint (unlocked the holy-mode)              | [[https://github.com/trishume][trishume]]     |
 | The Artist ([[https://github.com/nashamri/spacemacs-logo][logo]] and [[https://github.com/nashamri/spacemacs-theme][theme]])                     | [[https://github.com/nashamri][nashamri]]     |
 | The Meme Master (doge banner)                   | [[https://github.com/chrisbarrett][chrisbarrett]] |
-| The Helm captain ([[http://tuhdo.github.io/helm-intro.html][helm guide]])                   | [[https://github.com/tuhdo][tuhdo]]        |
+| The Helm captain ([[https://tuhdo.github.io/helm-intro.html][helm guide]])                   | [[https://github.com/tuhdo][tuhdo]]        |
 | The Master of the Keys ([[https://github.com/justbur/emacs-which-key][which-key]] and [[https://github.com/justbur/emacs-bind-map][bind-map]]) | [[https://github.com/justbur][justbur]]      |
 | The PR Patrol Officer                           | [[https://github.com/robbyoconnor][robbyoconnor]] |
 | The Expert in Latin Language ([[https://github.com/syl20bnr/spacemacs/pull/4043][PR]])               | [[https://github.com/vijaykiran][vijaykiran]]   |
