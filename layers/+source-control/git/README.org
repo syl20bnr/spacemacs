@@ -20,7 +20,7 @@
    - [[#commit-message-editing-buffer][Commit message editing buffer]]
    - [[#interactive-rebase-buffer][Interactive rebase buffer]]
    - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
-   - [[#git-flow][Git-Flow]]
+   - [[#git-flow-1][Git-Flow]]
    - [[#git-time-machine][Git time machine]]
    - [[#git-links-to-web-services][Git links to web services]]
    - [[#repository-list][Repository list]]
@@ -107,6 +107,7 @@ Git commands (start with ~g~):
 |-------------+-----------------------------------------------------|
 | ~SPC g >~   | show submodule prompt                               |
 | ~SPC g b~   | open a =magit= blame                                |
+| ~SPC g f f~ | view a file at a specific branch or commit          |
 | ~SPC g f h~ | show file commits history                           |
 | ~SPC g H c~ | clear highlights                                    |
 | ~SPC g H h~ | highlight regions by age of commits                 |
