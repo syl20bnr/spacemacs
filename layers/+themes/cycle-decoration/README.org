@@ -1,0 +1,37 @@
+#+TITLE: dark-window layer
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#todo][TODO]]
+   - [[#fix-its-working-only-for-first-frame-first-launch-of-spacemacs][Fix: It's working only for first frame (first launch of spacemacs)]]
+ - [[#install][Install]]
+ - [[#screenshots][Screenshots]]
+
+* Description
+
+Many GNOME applications like gnome-terminal have options to set dark color
+theme. Emacs doesn't have this possibility, so Emacs dark themes with light
+GNOME window borders look bad. This layer solves it, but only for initial frame.
+
+[[http://nicolas.petton.fr/blog/emacs-dark-window-decoration.html]]
+#+BEGIN_QUOTE
+Gnome 3's default theme Adwaita has support for both light and dark window
+decorations. Many media apps like Totem use the dark theme. It puts the focus
+on the content and it's easier on the eyes.
+
+Emacs with a dark theme and the large white-ish window decoration isn't really a
+fit on my desktop, but that can be easily fixed using a bit of elisp with xprop!
+#+END_QUOTE
+
+* TODO
+
+** TODO Fix: It's working only for first frame (first launch of spacemacs)
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =dark-window= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Screenshots
+[[file:img/emacs-light.png]]
+[[file:img/emacs-dark.png]]
