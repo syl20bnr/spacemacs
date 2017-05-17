@@ -105,7 +105,11 @@
         "sp" 'idris-load-backward-line
         "sP" 'spacemacs/idris-load-backward-line-and-focus
         "ss" 'idris-pop-to-repl
-        "sq" 'idris-quit)))
+        "sq" 'idris-quit)
+
+      (with-eval-after-load 'golden-ratio
+        (add-to-list 'golden-ratio-exclude-buffer-names
+                      "*idris-notes*"))))
 
   ;; open special buffers in motion state so they can be closed with ~q~
   (evil-set-initial-state 'idris-compiler-notes-mode 'motion)
