@@ -130,57 +130,57 @@
     ;; key bindings
     ;; ensure that the correct bindings are set at startup
     (spacemacs//ivy-hjkl-navigation dotspacemacs-editing-style)
-    ;; Transient state
     ;; ivy-hydra disabled for now, waiting to see how the dependency management
-    ;; evolves upstream
+    ;; evolves upstream. Meanwhile, directly use the only function defined in
+    ;; ivy-hydra.el
+    (defun ivy--matcher-desc ()
+      (if (eq ivy--regex-function
+              'ivy--regex-fuzzy)
+          "fuzzy"
+        "ivy"))
     ;; (require 'ivy-hydra)
-    (spacemacs|define-transient-state ivy
-      :doc "
- Move/Resize^^^^      | Select Action^^^^   |  Call^^          |  Cancel^^    | Toggles
---^-^-^-^-------------|--^-^-^-^------------|--^---^-----------|--^-^---------|---------------------
- [_j_/_k_] by line    | [_s_/_w_] next/prev | [_RET_] & done   | [_i_] & ins  | [_C_] calling: %s(if ivy-calling \"on\" \"off\")
- [_g_/_G_] first/last | [_a_]^ ^  list all  | [_TAB_] alt done | [_q_] & quit | [_m_] matcher: %s(ivy--matcher-desc)
- [_d_/_u_] pg down/up |  ^ ^ ^ ^            | [_c_]   & cont   |  ^ ^         | [_f_] case-fold: %`ivy-case-fold-search
- [_<_/_>_] resize     |  ^ ^ ^ ^            | [_o_]   occur    |  ^ ^         | [_t_] truncate: %`truncate-lines
- [_h_/_l_] out/in dir |  ^ ^ ^ ^            |  ^ ^             |  ^ ^         |  ^ ^
 
-Current Action: %s(ivy-action-name)
+    (define-key ivy-minibuffer-map "\C-o"
+      (defhydra spacemacs/ivy-transient-state (:hint nil :color pink)
+        "
+ Move     ^^^^^^^^^^ | Call         ^^^^ | Cancel^^ | Options    ^^ | Action _w_/_s_/_a_: %s(ivy-action-name)
+----------^^^^^^^^^^-+--------------^^^^-+-------^^-+------------^^-+-----------------------------
+ _g_ ^ ^ _k_ ^ ^ _u_ | call-_f_n _o_ccur | _i_nsert | _c_alling: %-7s(if ivy-calling \"on\" \"off\") _C_ase-fold: %-10`ivy-case-fold-search
+ ^↨^ _h_ ^+^ _l_ ^↕^ | _RET_ done     ^^ | _q_uit   | _m_atcher: %-7s(ivy--matcher-desc)^^^^^^^^^^^^ _t_runcate: %-11`truncate-lines
+ _G_ ^ ^ _j_ ^ ^ _d_ | _TAB_ alt-done ^^ | ^^       | _<_/_>_: shrink/grow
 "
-      :foreign-keys run
-      :bindings
-      ;; arrows
-      ("j" ivy-next-line)
-      ("k" ivy-previous-line)
-      ("l" ivy-alt-done)
-      ("h" spacemacs/counsel-up-directory-no-error)
-      ("g" ivy-beginning-of-buffer)
-      ("G" ivy-end-of-buffer)
-      ("d" ivy-scroll-up-command)
-      ("u" ivy-scroll-down-command)
-      ;; actions
-      ("q" keyboard-escape-quit :exit t)
-      ("C-g" keyboard-escape-quit :exit t)
-      ("<escape>" keyboard-escape-quit :exit t)
-      ("i" nil)
-      ("C-o" nil)
-      ("TAB" ivy-alt-done :exit nil)
-      ;; ("C-j" ivy-alt-done :exit nil)
-      ;; ("d" ivy-done :exit t)
-      ("RET" ivy-done :exit t)
-      ("c" ivy-call)
-      ("C-m" ivy-done :exit t)
-      ("C" ivy-toggle-calling)
-      ("m" ivy-toggle-fuzzy)
-      (">" ivy-minibuffer-grow)
-      ("<" ivy-minibuffer-shrink)
-      ("w" ivy-prev-action)
-      ("s" ivy-next-action)
-      ("a" ivy-read-action)
-      ("t" (setq truncate-lines (not truncate-lines)))
-      ("f" ivy-toggle-case-fold)
-      ("o" ivy-occur :exit t))
-    (define-key ivy-minibuffer-map "\C-o" 'spacemacs/ivy-transient-state/body)
-    ))
+        ;; arrows
+        ("j" ivy-next-line)
+        ("k" ivy-previous-line)
+        ("l" ivy-alt-done)
+        ("h" spacemacs/counsel-up-directory-no-error)
+        ("g" ivy-beginning-of-buffer)
+        ("G" ivy-end-of-buffer)
+        ("d" ivy-scroll-up-command)
+        ("u" ivy-scroll-down-command)
+        ("e" ivy-scroll-down-command)
+        ;; actions
+        ("q" keyboard-escape-quit :exit t)
+        ("C-g" keyboard-escape-quit :exit t)
+        ("<escape>" keyboard-escape-quit :exit t)
+        ("C-o" nil)
+        ("i" nil)
+        ("TAB" ivy-alt-done :exit nil)
+        ("C-j" ivy-alt-done :exit nil)
+        ;; ("d" ivy-done :exit t)
+        ("RET" ivy-done :exit t)
+        ("C-m" ivy-done :exit t)
+        ("f" ivy-call)
+        ("c" ivy-toggle-calling)
+        ("m" ivy-toggle-fuzzy)
+        (">" ivy-minibuffer-grow)
+        ("<" ivy-minibuffer-shrink)
+        ("w" ivy-prev-action)
+        ("s" ivy-next-action)
+        ("a" ivy-read-action)
+        ("t" (setq truncate-lines (not truncate-lines)))
+        ("C" ivy-toggle-case-fold)
+        ("o" ivy-occur :exit t)))))
 
 (defun spacemacs-completion/init-ido ()
   (setq ido-save-directory-list-file
