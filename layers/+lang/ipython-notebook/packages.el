@@ -81,7 +81,9 @@
         "+" 'ein:notebook-worksheet-insert-next
         "-" 'ein:notebook-worksheet-delete
         "x" 'ein:notebook-close
-        "u" 'ein:worksheet-change-cell-type
+        "u" 'ein:worksheet-change-cell-type)
+
+      (evil-leader/set-key-for-mode 'ein:notebook-multilang-mode
         "fs" 'ein:notebook-save-notebook-command)
 
       ;; keybindings for ipython notebook traceback mode
