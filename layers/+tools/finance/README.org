@@ -7,7 +7,7 @@
  - [[#configuration][Configuration]]
    - [[#ledger][Ledger]]
  - [[#key-bindings][Key bindings]]
-   - [[#ledger][Ledger]]
+   - [[#ledger-1][Ledger]]
    - [[#ledger-reconcile][Ledger-Reconcile]]
 
 * Description
@@ -21,7 +21,7 @@ This layer adds finance related packages:
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =finance= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+file. This layer adds support for [[http://ledger-cli.org/download.html][ledger]], which must be installed separately.
 
 * Configuration
 
