@@ -384,6 +384,13 @@ Home Buffer `SPC b h`, click (press `RET`) on the `[Update Packages]` button.**
 
      That is all»
 
+[Quote][quote03] by [patrick-motard](https://github.com/patrick-motard):
+
+    «I've no aversion to learning it [spacemacs].
+     Taking it in bits and pieces as I customize it.
+     Like drinking from a fire hose.»
+
+
 # Contributions
 Spacemacs is a community-driven project, it needs _you_ to keep it up to date
 and to propose great and useful configurations for all the things!
@@ -474,6 +481,7 @@ Thank you!
 [Reddit]: https://www.reddit.com/r/spacemacs
 [quote01]: https://gitter.im/syl20bnr/spacemacs?at=568e627a0cdaaa62045a7df6
 [quote02]: https://gitter.im/syl20bnr/spacemacs?at=5768456c6577f032450cfedb
+[quote03]: https://gitter.im/syl20bnr/spacemacs?at=575b9bf2e20024bd1ad285e8
 [build_source]: https://www.gnu.org/software/emacs/manual/html_node/efaq/Installing-Emacs.html
 [Bountysource]: https://salt.bountysource.com/teams/spacemacs
 [Source Code Pro]: https://github.com/adobe-fonts/source-code-pro
