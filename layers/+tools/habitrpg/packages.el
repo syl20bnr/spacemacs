@@ -23,7 +23,9 @@
                          :repo "ryjm/habitrpg.el"))))
 
 (defun habitrpg/init-habitrpg ()
-  (require 'org-habit)
-  (require 'habitrpg))
+  (use-package habitrpg
+    :config
+      (use-package org-habit)
+      (add-hook 'org-after-todo-state-change-hook 'habitrpg-add 'append)))
 
 ;;; packages.el ends here
