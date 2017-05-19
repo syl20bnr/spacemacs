@@ -14,6 +14,7 @@
         avy
         (bracketed-paste :toggle (version<= emacs-version "25.0.92"))
         clean-aindent-mode
+        editorconfig
         eval-sexp-fu
         expand-region
         (hexl :location built-in)
@@ -89,6 +90,13 @@
 (defun spacemacs-editing/init-clean-aindent-mode ()
   (use-package clean-aindent-mode
     :config (clean-aindent-mode)))
+
+(defun spacemacs-editing/init-editorconfig ()
+  (use-package editorconfig
+    :init
+    (spacemacs|diminish editorconfig-mode)
+    :config
+    (editorconfig-mode t)))
 
 (defun spacemacs-editing/init-eval-sexp-fu ()
   ;; ignore obsolete function warning generated on startup
