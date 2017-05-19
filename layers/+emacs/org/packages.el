@@ -37,6 +37,7 @@
             :toggle org-enable-github-support)
     (ox-reveal :toggle org-enable-reveal-js-support)
     persp-mode
+    org-bullets
     ))
 
 (defun org/post-init-company ()
@@ -75,6 +76,11 @@
 (defun org/init-htmlize ()
   (use-package htmlize
     :defer t))
+
+(defun org/init-org-bullets ()
+  (use-package org-bullets
+     :defer t
+     :init (add-hook 'org-mode-hook 'org-bullets-mode)))
 
 (defun org/pre-init-mu4e ()
   ;; Load org-mu4e when mu4e is actually loaded
