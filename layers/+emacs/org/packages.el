@@ -19,6 +19,7 @@
     gnuplot
     htmlize
     mu4e
+    notmuch
     ;; ob, org and org-agenda are installed by `org-plus-contrib'
     (ob :location built-in)
     (org :location built-in)
@@ -80,6 +81,11 @@
   ;; Load org-mu4e when mu4e is actually loaded
   (spacemacs|use-package-add-hook mu4e
     :post-config (require 'org-mu4e nil 'noerror)))
+
+(defun org/pre-init-notmuch ()
+  ;; Load org-notmuch when notmuch is actually loaded
+  (spacemacs|use-package-add-hook notmuch
+    :post-config (require 'org-notmuch nil 'noerror)))
 
 (defun org/init-ob ()
   (use-package ob
