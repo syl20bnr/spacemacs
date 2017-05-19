@@ -15,3 +15,11 @@
   (setq helm-dash-common-docsets (helm-dash-installed-docsets))
   (message (format "activated %d docsets from: %s"
                    (length helm-dash-common-docsets) path)))
+
+(defun counsel-dash-at-point ()
+  "Counsel dash with selected point"
+  (interactive)
+  (counsel-dash
+   (if (use-region-p)
+       (buffer-substring-no-properties (region-beginning) (region-end))
+     (substring-no-properties (or (thing-at-point 'symbol) "")))))
