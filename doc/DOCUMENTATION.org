@@ -2733,10 +2733,19 @@ Text insertion commands (start with ~i~):
 | ~SPC i l l~ | insert lorem-ipsum list                                               |
 | ~SPC i l p~ | insert lorem-ipsum paragraph                                          |
 | ~SPC i l s~ | insert lorem-ipsum sentence                                           |
+| ~SPC i p 1~ | insert simple password                                                |
+| ~SPC i p 2~ | insert stronger password                                              |
+| ~SPC i p 3~ | insert password for paranoids                                         |
+| ~SPC i p p~ | insert a phonetically easy password                                   |
+| ~SPC i p n~ | insert a numerical password                                           |
 | ~SPC i u~   | Search for Unicode characters and insert them into the active buffer. |
 | ~SPC i U 1~ | insert UUIDv1 (use universal argument to insert with CID format)      |
 | ~SPC i U 4~ | insert UUIDv4 (use universal argument to insert with CID format)      |
 | ~SPC i U U~ | insert UUIDv4 (use universal argument to insert with CID format)      |
+
+*Hint:* You can change the length of the inserted password with a numerical
+prefix argument, for instance ~SPC U 24 SPC i p p~  will insert a password
+with 24 characters.
 
 *** Smartparens Strict mode
 [[https://github.com/Fuco1/smartparens][Smartparens]] comes with a strict mode which prevents deletion of parenthesis if
