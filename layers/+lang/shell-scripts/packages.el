@@ -26,10 +26,10 @@
     :init
     (progn
       (spacemacs|add-company-backends
-        :backends company-shell
+        :backends (company-shell company-shell-env)
         :modes sh-mode)
       (spacemacs|add-company-backends
-        :backends (company-shell company-fish-shell)
+        :backends (company-shell company-shell-env company-fish-shell)
         :modes fish-mode))))
 
 (defun shell-scripts/post-init-flycheck ()
