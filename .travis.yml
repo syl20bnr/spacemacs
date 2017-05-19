@@ -28,5 +28,7 @@ matrix:
   fast_finish: true
   allow_failures:
   - env: TESTS=core EVM_EMACS=emacs-git-snapshot-travis
+  - env: TESTS=doc EVM_EMACS=emacs-24.4-travis
+  - env: TESTS=doc EVM_EMACS=emacs-24.5-travis
   - env: TESTS=doc EVM_EMACS=emacs-git-snapshot-travis
 script: "./.travis-build.sh"
