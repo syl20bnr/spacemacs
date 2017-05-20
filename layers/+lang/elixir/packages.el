@@ -69,6 +69,16 @@
       "gt" 'alchemist-project-toggle-file-and-tests
       "gT" 'alchemist-project-toggle-file-and-tests-other-window
 
+      "nw" 'alchemist-phoenix-find-web
+      "nc" 'alchemist-phoenix-find-controllers
+      "nl" 'alchemist-phoenix-find-channels
+      "nt" 'alchemist-phoenix-find-templates
+      "nm" 'alchemist-phoenix-find-models
+      "nv" 'alchemist-phoenix-find-views
+      "ns" 'alchemist-phoenix-find-static
+      "nr" 'alchemist-phoenix-router
+      "nR" 'alchemist-phoenix-routes
+
       "h:" 'alchemist-help
       "hH" 'alchemist-help-history
       "hh" 'alchemist-help-search-at-point
