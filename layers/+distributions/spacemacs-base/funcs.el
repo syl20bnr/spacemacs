@@ -752,7 +752,8 @@ The body of the advice is in BODY."
 
 (defun spacemacs//find-ert-test-buffer (ert-test)
   "Return the buffer where ERT-TEST is defined."
-  (car (find-definition-noselect (ert-test-name ert-test) 'ert-deftest)))
+  (save-excursion
+    (car (find-definition-noselect (ert-test-name ert-test) 'ert-deftest))))
 
 (defun spacemacs/ert-run-tests-buffer ()
   "Run all the tests in the current buffer."
