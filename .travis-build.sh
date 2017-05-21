@@ -29,9 +29,15 @@ if  [ $TRAVIS_SECURE_ENV_VARS = false ] &&
     echo   "https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org"
     exit 1
 fi
+
+rm -rf ~/.emacs.d
+mv "${TRAVIS_BUILD_DIR}" ~/.emacs.d
+ln -sf ~/.emacs.d "${TRAVIS_BUILD_DIR}"
+cd  ~/.emacs.d
+echo "Pwd $(pwd)"
+
 # Formatting conventions tests
 if [ ! -z "$FORMATTING" ]; then
-	cd "${TRAVIS_BUILD_DIR}"
 	echo "TRAVIS_COMMIT_RANGE: ${TRAVIS_COMMIT_RANGE}"
 	first_commit=`echo ${TRAVIS_COMMIT_RANGE} | sed -r 's/\..*//'`
 	git diff --name-only "${first_commit}" HEAD > /tmp/changed_files
@@ -50,8 +56,6 @@ if [ ! -z "$FORMATTING" ]; then
 		;;
 		spacefmt)
 			echo "Testing changed ORG files with spacefmt"
-			rm -rf ~/.emacs.d
-			ln -sf `pwd` ~/.emacs.d
 			cp ~/.emacs.d/core/templates/.spacemacs.template ~/
 			mv ~/.spacemacs.template ~/.spacemacs
 			while read p
@@ -95,8 +99,6 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ ! -z "$PUBLISH" ] && [ $TRAVIS_PULL_
 	printf "\n FORMATTING DOCUMENTATION:\n"
 	printf '=%.0s' {1..70}
 	echo
-	rm -rf ~/.emacs.d
-	ln -sf `pwd` ~/.emacs.d
 	cp ~/.emacs.d/tests/doc/dotspacemacs.el ~/dotspacemacs.el
 	mv ~/dotspacemacs.el ~/.spacemacs
 	./core/tools/spacefmt/spacefmt doc
@@ -162,11 +164,6 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ ! -z "$PUBLISH" ] && [ $TRAVIS_PULL_
 fi
 
 # Emacs tests
-
-echo "Pwd $(pwd)"
-rm -rf ~/.emacs.d
-ln -sf `pwd` ~/.emacs.d
-
 for test in "${TESTS[@]}"; do
     rm -rf ~/.emacs.d/elpa
     rm -rf ~/.emacs.d/.cache
