@@ -74,6 +74,8 @@ formatter, set the value of =gofmt-command=, e.g.
 
 #+begin_src emacs-lisp
   (setq gofmt-command "goimports")
+  or
+  (go :variables gofmt-command "goimports")
 #+end_src
 
 or
