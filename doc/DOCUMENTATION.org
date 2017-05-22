@@ -126,6 +126,7 @@
        - [[#buffers-manipulation-transient-state][Buffers manipulation transient state]]
        - [[#special-buffers][Special Buffers]]
        - [[#files-manipulations-key-bindings][Files manipulations key bindings]]
+       - [[#frame-manipulations-key-bindings][Frame manipulations key bindings]]
        - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
        - [[#browsing-files-in-completion-buffer][Browsing files in completion buffer]]
      - [[#ido][Ido]]
@@ -2173,6 +2174,20 @@ Files manipulation commands (start with ~f~):
 | ~SPC f v f~ | add a local variable to the current file                                                               |
 | ~SPC f v p~ | add a local variable to the first line of the current file                                             |
 | ~SPC f y~   | show and copy current file absolute path in the minibuffer                                             |
+
+**** Frame manipulations key bindings
+Frame manimpulation commands (start with ~F~):
+
+| Key Binding | Description                                                                |
+|-------------+----------------------------------------------------------------------------|
+| ~SPC F f~   | open file in another frame                                                 |
+| ~SPC F c~   | delete the current frame (the frame will stay open if there are no others) |
+| ~SPC F C~   | delete all other frames                                                    |
+| ~SPC F b~   | open buffer in a new frame                                                 |
+| ~SPC F B~   | open buffer in a new frame, but don't switch                               |
+| ~SPC F o~   | switch to next frame                                                       |
+| ~SPC F d~   | open dired in a new frame                                                  |
+| ~SPC F n~   | create new frame with the current buffer                                   |
 
 **** Emacs and Spacemacs files
 Convenient key bindings are located under the prefix ~SPC f e~ to quickly
