@@ -43,7 +43,7 @@ some tips on how to make nyan-mode work with custom modeline.
 
 He basically changed the mode-line-format to include:
 #+begin_src emacs-lisp
-  (:eval (list (nyan-create)))  
+  (:eval (list (nyan-create)))
 #+end_src
 
 ** Known issues
