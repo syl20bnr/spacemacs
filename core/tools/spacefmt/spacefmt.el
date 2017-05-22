@@ -125,6 +125,7 @@
 
 (defun apply-toc ()
   "Apply current toc-org TAG to TOC."
+  (toc-org-enable)
   (goto-char (point-min))
   (toc-org-insert-toc))
 

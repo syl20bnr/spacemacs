@@ -3,14 +3,14 @@
 [[file:img/TypeScript.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#pre-requisites][Pre-requisites]]
-   - [[#layer][Layer]]
-   - [[#notes][Notes]]
- - [[#key-bindings][Key bindings]]
-   - [[#typescript-major-mode][Typescript Major Mode]]
-   - [[#reference-major-mode][Reference Major Mode]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#pre-requisites][Pre-requisites]]
+  - [[#layer][Layer]]
+  - [[#notes][Notes]]
+- [[#key-bindings][Key bindings]]
+  - [[#typescript-major-mode][Typescript Major Mode]]
+  - [[#reference-major-mode][Reference Major Mode]]
 
 * Description
 

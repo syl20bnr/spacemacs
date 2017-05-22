@@ -3,19 +3,19 @@
 [[file:img/keyboard-layout.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#installation][Installation]]
- - [[#configuration][Configuration]]
-   - [[#enabledisable-package-configurations][Enable/Disable package configurations]]
-   - [[#addoverride-key-bindings][Add/Override key bindings]]
- - [[#concept][Concept]]
- - [[#keyboard-layouts][Keyboard layouts]]
-   - [[#bepo][bepo]]
-   - [[#dvorak][dvorak]]
-   - [[#colemak][colemak]]
- - [[#package-configurations][Package Configurations]]
- - [[#keybindings][Keybindings]]
- - [[#sources][Sources]]
+- [[#description][Description]]
+- [[#installation][Installation]]
+- [[#configuration][Configuration]]
+  - [[#enabledisable-package-configurations][Enable/Disable package configurations]]
+  - [[#addoverride-key-bindings][Add/Override key bindings]]
+- [[#concept][Concept]]
+- [[#keyboard-layouts][Keyboard layouts]]
+  - [[#bepo][bepo]]
+  - [[#dvorak][dvorak]]
+  - [[#colemak][colemak]]
+- [[#package-configurations][Package Configurations]]
+- [[#keybindings][Keybindings]]
+- [[#sources][Sources]]
 
 * Description
 This layer configures some keybindings in spacemacs to make it compatible with

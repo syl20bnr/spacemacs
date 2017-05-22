@@ -3,10 +3,10 @@
 [[file:img/csv.png]]
 
 * Table of Contents                                      :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
- - [[#key-bindings][Key Bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+- [[#key-bindings][Key Bindings]]
 
 * Description
 

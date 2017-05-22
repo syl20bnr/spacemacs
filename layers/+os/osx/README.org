@@ -3,15 +3,15 @@
 [[file:img/apple.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#philosophy][Philosophy]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-     - [[#use-with-non-us-keyboard-layouts][Use with non-US keyboard layouts]]
-     - [[#define-words-using-os-x-dictionary][Define words using OS X Dictionary]]
-   - [[#coreutils][Coreutils]]
- - [[#key-bindings][Key Bindings]]
- - [[#future-work][Future Work]]
+- [[#description][Description]]
+- [[#philosophy][Philosophy]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+    - [[#use-with-non-us-keyboard-layouts][Use with non-US keyboard layouts]]
+    - [[#define-words-using-os-x-dictionary][Define words using OS X Dictionary]]
+  - [[#coreutils][Coreutils]]
+- [[#key-bindings][Key Bindings]]
+- [[#future-work][Future Work]]
 
 * Description
 Spacemacs is not just emacs+vim. It can have OSX keybindings too! This layer

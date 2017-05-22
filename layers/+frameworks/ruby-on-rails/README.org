@@ -3,13 +3,13 @@
 [[file:img/ror.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-   - [[#code-navigation][Code Navigation]]
-   - [[#refactoring][Refactoring]]
-   - [[#run-commands][RUN commands]]
-   - [[#ex-commands][Ex-commands]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+  - [[#code-navigation][Code Navigation]]
+  - [[#refactoring][Refactoring]]
+  - [[#run-commands][RUN commands]]
+  - [[#ex-commands][Ex-commands]]
 
 * Description
 This layer aims at providing support for the Ruby on Rails framework.

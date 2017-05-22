@@ -3,17 +3,17 @@
 [[file:img/elfeed.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#setup-feeds][Setup feeds]]
-     - [[#with-org][With Org]]
-     - [[#manually][Manually]]
-   - [[#server][Server]]
- - [[#key-bindings][Key Bindings]]
- - [[#troubleshooting][Troubleshooting]]
-   - [[#database-empty-at-first-start][Database empty at first start]]
-   - [[#queue-timeout-exceeded][Queue timeout exceeded]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#setup-feeds][Setup feeds]]
+    - [[#with-org][With Org]]
+    - [[#manually][Manually]]
+  - [[#server][Server]]
+- [[#key-bindings][Key Bindings]]
+- [[#troubleshooting][Troubleshooting]]
+  - [[#database-empty-at-first-start][Database empty at first start]]
+  - [[#queue-timeout-exceeded][Queue timeout exceeded]]
 
 * Description
 This layer enables [[https://github.com/skeeto/elfeed][Elfeed]], a web feeds client which supports both Atom and RSS

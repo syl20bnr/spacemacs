@@ -3,11 +3,11 @@
 [[file:img/twitter.png]]
 
 * Table of Contents                                                     :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#features][Features]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
- - [[#key-bindings][Key Bindings]]
+- [[#description][Description]]
+- [[#features][Features]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#key-bindings][Key Bindings]]
 
 * Description
 This layer adds Twitter support to Spacemacs via the package [[https://github.com/hayamiz/twittering-mode][twittering-mode]].

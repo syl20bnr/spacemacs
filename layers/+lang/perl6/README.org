@@ -3,11 +3,11 @@
 [[file:img/camelia-logo.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#jump-to-definition][Jump to definition]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#jump-to-definition][Jump to definition]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer provides the following features for the [[https://perl6.org/][Perl 6 Programming Language]]:

@@ -3,11 +3,11 @@
 [[file:img/octave.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-   - [[#inferior-repl-process][Inferior REPL process]]
-   - [[#helpers][Helpers]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+  - [[#inferior-repl-process][Inferior REPL process]]
+  - [[#helpers][Helpers]]
 
 * Description
 This layer activates [[info:octave-mode][octave-mode]] for files with =.m=

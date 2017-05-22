@@ -3,17 +3,17 @@
 [[file:img/github.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features:]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#git-configuration][Git configuration]]
-   - [[#hub-configuration][Hub configuration]]
- - [[#key-bindings][Key Bindings]]
-   - [[#magit-gh-pulls][magit-gh-pulls]]
-   - [[#magithub][magithub]]
-   - [[#gistel][gist.el]]
-   - [[#clone-repositories][Clone repositories]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#git-configuration][Git configuration]]
+  - [[#hub-configuration][Hub configuration]]
+- [[#key-bindings][Key Bindings]]
+  - [[#magit-gh-pulls][magit-gh-pulls]]
+  - [[#magithub][magithub]]
+  - [[#gistel][gist.el]]
+  - [[#clone-repositories][Clone repositories]]
 
 * Description
 This layers adds support for [[http://github.com][GitHub]].

@@ -1,12 +1,12 @@
 #+TITLE: imenu-list layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#screenshot][Screenshot]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-   - [[#from-any-buffer][From any buffer]]
-   - [[#from-imenu-list-buffer][From imenu-list buffer]]
+- [[#description][Description]]
+- [[#screenshot][Screenshot]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+  - [[#from-any-buffer][From any buffer]]
+  - [[#from-imenu-list-buffer][From imenu-list buffer]]
 
 * Description
 This layer uses [[https://github.com/bmag/imenu-list][imenu-list]] to show the current buffer's index in a side bar.

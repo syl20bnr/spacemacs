@@ -3,12 +3,12 @@
 [[file:img/swift.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#usage-information][Usage information]]
- - [[#key-bindings][Key bindings]]
-   - [[#swift-mode][swift-mode]]
-   - [[#swift-repl-mode][swift-repl-mode]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#usage-information][Usage information]]
+- [[#key-bindings][Key bindings]]
+  - [[#swift-mode][swift-mode]]
+  - [[#swift-repl-mode][swift-repl-mode]]
 
 * Description
 This layer adds support for Apple's Swift programming language, used as a

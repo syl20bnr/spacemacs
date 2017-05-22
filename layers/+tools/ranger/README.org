@@ -1,13 +1,13 @@
 #+TITLE: Ranger layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#features][Features]]
- - [[#configuration][Configuration]]
-   - [[#customizing][Customizing]]
-   - [[#parent-options][Parent options]]
-   - [[#preview-options][Preview options]]
- - [[#key-bindings][Key Bindings]]
+- [[#description][Description]]
+- [[#features][Features]]
+- [[#configuration][Configuration]]
+  - [[#customizing][Customizing]]
+  - [[#parent-options][Parent options]]
+  - [[#preview-options][Preview options]]
+- [[#key-bindings][Key Bindings]]
 
 * Description
 

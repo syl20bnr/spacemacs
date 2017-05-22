@@ -3,14 +3,14 @@
 [[file:img/emacs.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#features][Features]]
-   - [[#smart-line-navigation][Smart line navigation]]
-   - [[#spacemacsbackward-kill-word-or-region][=spacemacs/backward-kill-word-or-region=]]
-   - [[#fill-or-unfill-paragraph][Fill or unfill paragraph]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#features][Features]]
+  - [[#smart-line-navigation][Smart line navigation]]
+  - [[#spacemacsbackward-kill-word-or-region][=spacemacs/backward-kill-word-or-region=]]
+  - [[#fill-or-unfill-paragraph][Fill or unfill paragraph]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer enhances the default commands of Emacs and is primarily intended to

@@ -3,16 +3,16 @@
 [[file:img/scala.png]] with [[file:img/ensime.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#layer-installation][Layer Installation]]
- - [[#ensime][Ensime]]
- - [[#scalastyle][Scalastyle]]
-   - [[#use-java-doc-style][Use Java doc-style]]
- - [[#automatically-show-the-type-of-the-symbol-under-the-cursor][Automatically show the type of the symbol under the cursor]]
- - [[#automatically-insert-asterisk-in-multiline-comments][Automatically insert asterisk in multiline comments]]
- - [[#automatically-replace-arrows-with-unicode-ones][Automatically replace arrows with unicode ones]]
- - [[#auto-start][Auto-start]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#layer-installation][Layer Installation]]
+- [[#ensime][Ensime]]
+- [[#scalastyle][Scalastyle]]
+  - [[#use-java-doc-style][Use Java doc-style]]
+- [[#automatically-show-the-type-of-the-symbol-under-the-cursor][Automatically show the type of the symbol under the cursor]]
+- [[#automatically-insert-asterisk-in-multiline-comments][Automatically insert asterisk in multiline comments]]
+- [[#automatically-replace-arrows-with-unicode-ones][Automatically replace arrows with unicode ones]]
+- [[#auto-start][Auto-start]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for the Scala language using the excellent [[http://ensime.org/][ENSIME]]

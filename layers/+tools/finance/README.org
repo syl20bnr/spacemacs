@@ -1,14 +1,14 @@
 #+TITLE: Finance layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
- - [[#configuration][Configuration]]
-   - [[#ledger][Ledger]]
- - [[#key-bindings][Key bindings]]
-   - [[#ledger-1][Ledger]]
-   - [[#ledger-reconcile][Ledger-Reconcile]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+- [[#configuration][Configuration]]
+  - [[#ledger][Ledger]]
+- [[#key-bindings][Key bindings]]
+  - [[#ledger-1][Ledger]]
+  - [[#ledger-reconcile][Ledger-Reconcile]]
 
 * Description
 

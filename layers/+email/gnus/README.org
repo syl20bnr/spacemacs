@@ -3,12 +3,12 @@
 [[file:img/gnus.gif]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#install][Install]]
- - [[#basic-concepts][Basic Concepts]]
- - [[#adding-news-sources][Adding news sources]]
- - [[#configuring-gmail][Configuring gmail]]
- - [[#org-mime-in-org-layer][Org MIME in Org layer]]
- - [[#keybindings][Keybindings]]
+- [[#install][Install]]
+- [[#basic-concepts][Basic Concepts]]
+- [[#adding-news-sources][Adding news sources]]
+- [[#configuring-gmail][Configuring gmail]]
+- [[#org-mime-in-org-layer][Org MIME in Org layer]]
+- [[#keybindings][Keybindings]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

@@ -1,13 +1,13 @@
 #+TITLE: IBuffer layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#grouping-buffers][Grouping buffers]]
- - [[#key-bindings][Key bindings]]
-   - [[#global][Global]]
-   - [[#ibuffer][IBuffer]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#grouping-buffers][Grouping buffers]]
+- [[#key-bindings][Key bindings]]
+  - [[#global][Global]]
+  - [[#ibuffer][IBuffer]]
 
 * Description
 
