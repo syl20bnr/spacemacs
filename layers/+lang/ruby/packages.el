@@ -212,7 +212,11 @@
            ("Puppetfile" . ruby-mode))
     :init
     (progn
-      (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "ruby/test"))
+      (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "ruby/test")
+      (when ruby-highlight-debugger-keywords
+        (spacemacs/add-to-hooks 'spacemacs/ruby-highlight-debugger-keywords
+                                '(ruby-mode-hook
+                                  enh-ruby-mode-hook))))
     :config (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
               "'" 'ruby-toggle-string-quotes
               "{" 'ruby-toggle-block)))
