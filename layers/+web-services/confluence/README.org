@@ -3,14 +3,14 @@
 [[file:img/confluence.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
- - [[#configuration][Configuration]]
- - [[#about-xlm-and-wiki-formats][About xlm and wiki formats]]
- - [[#key-bindings][Key bindings]]
-   - [[#confluence-page][Confluence page]]
-   - [[#org][Org]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+- [[#configuration][Configuration]]
+- [[#about-xlm-and-wiki-formats][About xlm and wiki formats]]
+- [[#key-bindings][Key bindings]]
+  - [[#confluence-page][Confluence page]]
+  - [[#org][Org]]
 
 * Description
 This layer add support for Atlassian [[https://www.atlassian.com/software/confluence][Confluence]] to create/edit Confluence pages

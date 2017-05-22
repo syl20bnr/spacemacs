@@ -3,10 +3,10 @@
 [[file:img/logo.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 BibTeX and BibLaTeX files are a common way to manage bibliographies.  The format

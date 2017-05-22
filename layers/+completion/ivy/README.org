@@ -1,11 +1,11 @@
 #+TITLE: Ivy layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
- - [[#key-bindings][Key Bindings]]
-   - [[#transient-state][Transient state]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#key-bindings][Key Bindings]]
+  - [[#transient-state][Transient state]]
 
 * Description
 This layer enables Ivy for completion. It will replace the default completion by

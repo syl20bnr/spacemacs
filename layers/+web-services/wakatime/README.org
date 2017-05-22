@@ -3,12 +3,12 @@
 [[file:img/wakatime.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#wakatime-program][Wakatime Program]]
-   - [[#layer][Layer]]
-   - [[#api-keys][API Keys]]
-     - [[#note-to-venv-workon-users][Note to =venv-workon= users:]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#wakatime-program][Wakatime Program]]
+  - [[#layer][Layer]]
+  - [[#api-keys][API Keys]]
+    - [[#note-to-venv-workon-users][Note to =venv-workon= users:]]
 
 * Description
 This layer adds support for Wakatime.

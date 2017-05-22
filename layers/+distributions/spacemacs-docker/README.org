@@ -1,21 +1,21 @@
 #+TITLE: spacemacs-docker distribution
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#screenshots][Screenshots]]
-   - [[#major-benefits][Major benefits]]
- - [[#how-to-setup][How to setup]]
- - [[#how-to-use][How to use]]
-   - [[#macos][MacOS]]
-   - [[#windows][Windows]]
-   - [[#gnulinux][GNU/Linux]]
-   - [[#with-xpra-on-any-of-the-oses-and-via-web-browser][With Xpra on any of the OSes and via web-browser]]
-     - [[#pros][Pros]]
-     - [[#cons][Cons]]
-     - [[#instruction][Instruction]]
-       - [[#with-xpra-desktop-client][With Xpra desktop client]]
-       - [[#via-web-browser][Via web-browser]]
- - [[#some-basic-docker-commands-to-get-you-going][Some basic docker commands to get you going]]
+- [[#description][Description]]
+  - [[#screenshots][Screenshots]]
+  - [[#major-benefits][Major benefits]]
+- [[#how-to-setup][How to setup]]
+- [[#how-to-use][How to use]]
+  - [[#macos][MacOS]]
+  - [[#windows][Windows]]
+  - [[#gnulinux][GNU/Linux]]
+  - [[#with-xpra-on-any-of-the-oses-and-via-web-browser][With Xpra on any of the OSes and via web-browser]]
+    - [[#pros][Pros]]
+    - [[#cons][Cons]]
+    - [[#instruction][Instruction]]
+      - [[#with-xpra-desktop-client][With Xpra desktop client]]
+      - [[#via-web-browser][Via web-browser]]
+- [[#some-basic-docker-commands-to-get-you-going][Some basic docker commands to get you going]]
 
 * Description
 Spacemacs distribution that aims to automate dependency installation for

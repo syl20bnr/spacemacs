@@ -1,16 +1,16 @@
 #+TITLE: Scheme layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#compiling][Compiling]]
-   - [[#navigation][Navigation]]
-   - [[#documentation][Documentation]]
-   - [[#insertion][Insertion]]
-   - [[#macroexpansion][Macroexpansion]]
-   - [[#repl][REPL]]
-   - [[#evaluation][Evaluation]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+  - [[#compiling][Compiling]]
+  - [[#navigation][Navigation]]
+  - [[#documentation][Documentation]]
+  - [[#insertion][Insertion]]
+  - [[#macroexpansion][Macroexpansion]]
+  - [[#repl][REPL]]
+  - [[#evaluation][Evaluation]]
 
 * Description
 

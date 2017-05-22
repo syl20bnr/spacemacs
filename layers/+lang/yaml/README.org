@@ -1,9 +1,9 @@
 #+TITLE: YAML layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#syntax-checking-with-flycheck][Syntax checking with flycheck]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#syntax-checking-with-flycheck][Syntax checking with flycheck]]
 
 * Description
 This layer provides syntax highlighting and syntax checking via [[http://www.flycheck.org/en/latest/languages.html#yaml][flycheck]] for YAML files.

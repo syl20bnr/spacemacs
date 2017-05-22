@@ -3,13 +3,13 @@
 [[file:img/sql.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-   - [[#highlighting][Highlighting]]
-   - [[#inferior-process-interactions-sqli][Inferior Process Interactions (SQLi)]]
-     - [[#send-sql-queries-to-sqli][Send SQL queries to SQLi:]]
-   - [[#sqli-buffer][SQLi buffer]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+  - [[#highlighting][Highlighting]]
+  - [[#inferior-process-interactions-sqli][Inferior Process Interactions (SQLi)]]
+    - [[#send-sql-queries-to-sqli][Send SQL queries to SQLi:]]
+  - [[#sqli-buffer][SQLi buffer]]
 
 * Description
 

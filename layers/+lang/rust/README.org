@@ -3,13 +3,13 @@
 [[file:img/rust.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#racer][Racer]]
-   - [[#cargo][Cargo]]
-   - [[#rustfmt][Rustfmt]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#racer][Racer]]
+  - [[#cargo][Cargo]]
+  - [[#rustfmt][Rustfmt]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer supports [[https://www.rust-lang.org/en-US/][Rust]] development in Spacemacs.

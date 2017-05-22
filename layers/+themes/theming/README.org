@@ -1,13 +1,13 @@
 #+TITLE: Theming layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#usage][Usage]]
-   - [[#example][Example]]
- - [[#attributes][Attributes]]
- - [[#faces][Faces]]
- - [[#headers][Headers]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#usage][Usage]]
+  - [[#example][Example]]
+- [[#attributes][Attributes]]
+- [[#faces][Faces]]
+- [[#headers][Headers]]
 
 * Description
 This layer allows for a simple way of modifying themes.

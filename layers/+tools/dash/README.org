@@ -5,14 +5,14 @@
 [[file:img/zeal.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#dash-os-x][Dash (OS X)]]
-   - [[#sqlite3][Sqlite3]]
-   - [[#zeal-linux--windows][Zeal (Linux & Windows)]]
-   - [[#check-documentation-for-x-at-point][Check Documentation for x-at-point]]
- - [[#key-bindings][Key bindings]]
-   - [[#helm-dash-and-counsel-dash][helm-dash and counsel-dash]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#dash-os-x][Dash (OS X)]]
+  - [[#sqlite3][Sqlite3]]
+  - [[#zeal-linux--windows][Zeal (Linux & Windows)]]
+  - [[#check-documentation-for-x-at-point][Check Documentation for x-at-point]]
+- [[#key-bindings][Key bindings]]
+  - [[#helm-dash-and-counsel-dash][helm-dash and counsel-dash]]
 
 * Description
 - [[https://kapeli.com/dash][dash]] :: Is a great tool for quick access to various sets of documentation,
