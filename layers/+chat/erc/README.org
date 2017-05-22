@@ -1,16 +1,16 @@
 #+TITLE: ERC layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#features][Features]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#os-x][OS X]]
-   - [[#social-graph][Social graph]]
-   - [[#default-servers][Default servers]]
-     - [[#security-note][Security Note]]
- - [[#key-bindings][Key bindings]]
- - [[#spacemacs-layout-support][Spacemacs Layout Support]]
+- [[#description][Description]]
+- [[#features][Features]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#os-x][OS X]]
+  - [[#social-graph][Social graph]]
+  - [[#default-servers][Default servers]]
+    - [[#security-note][Security Note]]
+- [[#key-bindings][Key bindings]]
+- [[#spacemacs-layout-support][Spacemacs Layout Support]]
 
 * Description
 Layer for [[http://www.emacswiki.org/emacs/ERC][ERC IRC chat]].

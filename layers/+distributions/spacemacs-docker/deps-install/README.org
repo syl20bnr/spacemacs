@@ -1,9 +1,9 @@
 #+TITLE: spacemacs-docker layers dependency installation scripts
 
 * Table of Contents                 :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#supported-layers][Supported layers]]
- - [[#how-it-works][How it works]]
+- [[#description][Description]]
+- [[#supported-layers][Supported layers]]
+- [[#how-it-works][How it works]]
 
 * Description
 Dependency installation scripts for Spacemacs layers

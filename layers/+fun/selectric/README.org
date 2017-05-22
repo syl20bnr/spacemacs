@@ -3,10 +3,10 @@
 [[file:img/typewriter.jpg]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
- - [[#notes][Notes]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+- [[#notes][Notes]]
 
 * Description
 This layer makes your Emacs sound like an IBM Selectric typewriter, for those

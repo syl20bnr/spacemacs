@@ -3,12 +3,12 @@
 [[file:./img/agent.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#set-file-permission-on-save][Set file permission on save]]
-   - [[#indendation][Indendation]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#set-file-permission-on-save][Set file permission on save]]
+  - [[#indendation][Indendation]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer makes working with CFEngine policy easier:

@@ -3,14 +3,14 @@
 [[file:img/racket.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#navigation][Navigation]]
-   - [[#documentation][Documentation]]
-   - [[#tests][Tests]]
-   - [[#repl][REPL]]
-   - [[#other-key-bindings][Other key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+  - [[#navigation][Navigation]]
+  - [[#documentation][Documentation]]
+  - [[#tests][Tests]]
+  - [[#repl][REPL]]
+  - [[#other-key-bindings][Other key bindings]]
 
 * Description
 

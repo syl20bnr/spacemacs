@@ -1,19 +1,19 @@
 #+TITLE:Spacemacs-purpose layer
 
 * Table of Contents                                                   :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#purposes][Purposes]]
-   - [[#switch-to-buffer-and-display-buffer][switch-to-buffer and display-buffer]]
- - [[#features][Features]]
-   - [[#windows-purpose-purpose-mode][windows-purpose (purpose-mode)]]
-   - [[#purpose-popwinel-pupo-mode][purpose-popwin.el (pupo-mode)]]
-   - [[#misc][misc]]
- - [[#install][Install]]
- - [[#usage][Usage]]
- - [[#key-bindings][Key Bindings]]
- - [[#caveats][Caveats]]
-   - [[#popwin-and-guide-key][Popwin and guide-key]]
-   - [[#packages-that-do-display-management][Packages that do display management]]
+- [[#description][Description]]
+  - [[#purposes][Purposes]]
+  - [[#switch-to-buffer-and-display-buffer][switch-to-buffer and display-buffer]]
+- [[#features][Features]]
+  - [[#windows-purpose-purpose-mode][windows-purpose (purpose-mode)]]
+  - [[#purpose-popwinel-pupo-mode][purpose-popwin.el (pupo-mode)]]
+  - [[#misc][misc]]
+- [[#install][Install]]
+- [[#usage][Usage]]
+- [[#key-bindings][Key Bindings]]
+- [[#caveats][Caveats]]
+  - [[#popwin-and-guide-key][Popwin and guide-key]]
+  - [[#packages-that-do-display-management][Packages that do display management]]
 
 * Description
 This layer enables [[https://github.com/bmag/emacs-purpose][window-purpose]], which provides an alternative, purpose-based

@@ -3,13 +3,13 @@
 [[file:img/vagrant.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features:]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#vagrant][Vagrant]]
-   - [[#testing][Testing]]
- - [[#keybindings][Keybindings]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#vagrant][Vagrant]]
+  - [[#testing][Testing]]
+- [[#keybindings][Keybindings]]
 
 * Description
 

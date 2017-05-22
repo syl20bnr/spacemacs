@@ -3,14 +3,14 @@
 [[file:img/Cat_With_Rifle.jpg]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#improved-f-and-t-search-behavior][Improved f and t search behavior]]
-   - [[#two-character-search-with-s][Two-character search with s]]
-   - [[#more-scopes][More scopes]]
-   - [[#symbol-groups][Symbol groups]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#improved-f-and-t-search-behavior][Improved f and t search behavior]]
+  - [[#two-character-search-with-s][Two-character search with s]]
+  - [[#more-scopes][More scopes]]
+  - [[#symbol-groups][Symbol groups]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 The package [[https://github.com/hlissner/evil-snipe][evil-snipe]]

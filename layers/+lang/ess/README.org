@@ -3,11 +3,11 @@
 [[file:img/r.jpg]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#inferior-repl-process][Inferior REPL process]]
-   - [[#helpers][Helpers]]
- - [[#options][Options]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+  - [[#inferior-repl-process][Inferior REPL process]]
+  - [[#helpers][Helpers]]
+- [[#options][Options]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

@@ -1,15 +1,15 @@
 #+TITLE: YCMD layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#ycmd][YCMD]]
-   - [[#other-requirements][Other Requirements]]
- - [[#configuration][Configuration]]
-   - [[#activating-ycmd-in-a-major-mode][Activating ycmd in a major mode]]
-   - [[#getting-the-compilation-flags][Getting the compilation flags]]
- - [[#key-bindings][Key Bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#ycmd][YCMD]]
+  - [[#other-requirements][Other Requirements]]
+- [[#configuration][Configuration]]
+  - [[#activating-ycmd-in-a-major-mode][Activating ycmd in a major mode]]
+  - [[#getting-the-compilation-flags][Getting the compilation flags]]
+- [[#key-bindings][Key Bindings]]
 
 * Description
 

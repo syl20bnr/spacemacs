@@ -3,10 +3,10 @@
 [[file:img/graphviz.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This contains a forked version of [[https://github.com/ppareit/graphviz-dot-mode][graphviz-dot-mode]] that enables a live-reload

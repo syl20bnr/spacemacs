@@ -1,16 +1,16 @@
 #+TITLE: Geolocation layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#supported-packages-in-this-layer][Supported packages in this layer]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#location][Location]]
-   - [[#theme-changer][theme-changer]]
-   - [[#sunshine-weather-forecast][sunshine (weather forecast)]]
-   - [[#osx-location][osx-location]]
- - [[#key-bindings][Key Bindings]]
-   - [[#weather][Weather]]
+- [[#description][Description]]
+  - [[#supported-packages-in-this-layer][Supported packages in this layer]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#location][Location]]
+  - [[#theme-changer][theme-changer]]
+  - [[#sunshine-weather-forecast][sunshine (weather forecast)]]
+  - [[#osx-location][osx-location]]
+- [[#key-bindings][Key Bindings]]
+  - [[#weather][Weather]]
 
 * Description
 This layer offers few location sensitive adjustment to Emacs, such as

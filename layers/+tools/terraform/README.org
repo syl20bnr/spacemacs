@@ -3,10 +3,10 @@
 [[file:img/terraform.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#auto-format-on-save][Auto-format on save]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#auto-format-on-save][Auto-format on save]]
 
 * Description
 This layer provides syntax support for Terraform =.tf= files using

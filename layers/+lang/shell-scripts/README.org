@@ -3,11 +3,11 @@
 [[file:img/fish.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features]]
- - [[#install][Install]]
-   - [[#linting][Linting]]
- - [[#key-bindings][Key Bindings]]
+- [[#description][Description]]
+  - [[#features][Features]]
+- [[#install][Install]]
+  - [[#linting][Linting]]
+- [[#key-bindings][Key Bindings]]
 
 * Description
 

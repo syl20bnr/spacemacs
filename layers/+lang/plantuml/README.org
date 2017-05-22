@@ -2,10 +2,10 @@
 [[file:img/logo.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#org-babel-integration][Org-Babel Integration]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#org-babel-integration][Org-Babel Integration]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer enables support for [[https://github.com/skuro/plantuml-mode][plantuml-mode]], which provides

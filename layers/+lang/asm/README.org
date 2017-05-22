@@ -3,11 +3,11 @@
 [[file:img/asm.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#pdfs][PDFs]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+    - [[#layer][Layer]]
+    - [[#pdfs][PDFs]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for Assembly code. The built-in major mode for

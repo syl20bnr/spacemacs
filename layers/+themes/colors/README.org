@@ -3,15 +3,15 @@
 [[file:img/rainbow_dash.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#colorize-identifiers][Colorize identifiers]]
-   - [[#enable-nyan-cat][Enable Nyan cat]]
- - [[#key-bindings][Key bindings]]
-   - [[#colorize-identifiers][Colorize Identifiers]]
-   - [[#rainbow-mode][Rainbow Mode]]
-   - [[#nyan-mode][Nyan Mode]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#colorize-identifiers][Colorize identifiers]]
+  - [[#enable-nyan-cat][Enable Nyan cat]]
+- [[#key-bindings][Key bindings]]
+  - [[#colorize-identifiers-1][Colorize Identifiers]]
+  - [[#rainbow-mode][Rainbow Mode]]
+  - [[#nyan-mode][Nyan Mode]]
 
 * Description
 This layer colors your life with:

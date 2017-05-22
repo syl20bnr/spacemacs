@@ -3,18 +3,18 @@
 [[file:img/pdf.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#prerequisites][Prerequisites]]
-   - [[#dotfile][Dotfile]]
- - [[#usage][Usage]]
- - [[#known-issues][Known Issues]]
- - [[#key-bindings][Key bindings]]
-   - [[#pdf-view][PDF View]]
-   - [[#leader-keys][Leader keys]]
-   - [[#outline-buffer-mode][Outline buffer mode]]
-   - [[#annotation-list-mode][Annotation list mode]]
-   - [[#occur-mode][Occur mode]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#prerequisites][Prerequisites]]
+  - [[#dotfile][Dotfile]]
+- [[#usage][Usage]]
+- [[#known-issues][Known Issues]]
+- [[#key-bindings][Key bindings]]
+  - [[#pdf-view][PDF View]]
+  - [[#leader-keys][Leader keys]]
+  - [[#outline-buffer-mode][Outline buffer mode]]
+  - [[#annotation-list-mode][Annotation list mode]]
+  - [[#occur-mode][Occur mode]]
 
 * Description
 This layer enables support for the [[https://github.com/politza/pdf-tools][pdf-tools]] package.

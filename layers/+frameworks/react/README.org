@@ -3,14 +3,14 @@
 [[file:img/react.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features]]
- - [[#install][Install]]
- - [[#optional-configuration][Optional Configuration]]
- - [[#key-bindings][Key Bindings]]
-   - [[#formatting-web-beautify][Formatting (web-beautify)]]
-     - [[#documentation-js-doc][Documentation (js-doc)]]
-   - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
+- [[#description][Description]]
+  - [[#features][Features]]
+- [[#install][Install]]
+- [[#optional-configuration][Optional Configuration]]
+- [[#key-bindings][Key Bindings]]
+  - [[#formatting-web-beautify][Formatting (web-beautify)]]
+    - [[#documentation-js-doc][Documentation (js-doc)]]
+  - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
 
 * Description
 

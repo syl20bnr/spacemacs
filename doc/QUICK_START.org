@@ -1,18 +1,18 @@
 #+TITLE: Quick start
 
 * Configuration                                             :TOC_4_gh:noexport:
- - [[#configuration-layers][Configuration layers]]
- - [[#dotfile-spacemacs][Dotfile (.spacemacs)]]
- - [[#dotdirectory-spacemacsd][Dotdirectory (~/.spacemacs.d)]]
- - [[#learning-spacemacs][Learning Spacemacs]]
-   - [[#editing-styles][Editing Styles]]
-   - [[#the-leader-keys][The leader keys]]
-   - [[#evil-tutor][Evil-tutor]]
-   - [[#universal-argument][Universal argument]]
-   - [[#configuration-layers-and-package-discovery][Configuration layers and Package discovery]]
-   - [[#key-bindings-discovery][Key bindings discovery]]
-   - [[#describe-functions][Describe functions]]
- - [[#how-tos][How-To's]]
+- [[#configuration-layers][Configuration layers]]
+- [[#dotfile-spacemacs][Dotfile (.spacemacs)]]
+- [[#dotdirectory-spacemacsd][Dotdirectory (~/.spacemacs.d)]]
+- [[#learning-spacemacs][Learning Spacemacs]]
+  - [[#editing-styles][Editing Styles]]
+  - [[#the-leader-keys][The leader keys]]
+  - [[#evil-tutor][Evil-tutor]]
+  - [[#universal-argument][Universal argument]]
+  - [[#configuration-layers-and-package-discovery][Configuration layers and Package discovery]]
+  - [[#key-bindings-discovery][Key bindings discovery]]
+  - [[#describe-functions][Describe functions]]
+- [[#how-tos][How-To's]]
 
 * Configuration layers
 Spacemacs divides its configuration into self-contained units called
