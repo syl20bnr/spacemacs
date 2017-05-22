@@ -43,6 +43,19 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =markdown= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+** Installation for MAC OS X
+Sometimes you might get error "/bin/bash : markdown: command not found" , to fix
+this error you have to install markdown generation tool, for example 
+[[http://johnmacfarlane.net/pandoc/][pandoc]]
+and add this to user-config function in your .spacemacs file
+
+#+BEGIN_SRC emacs-lisp
+  (custom-set-variables
+   '(markdown-command "/usr/local/bin/pandoc"))
+#+END_SRC
+
+This will resolve errors occurred while exporting and previewing markdown files.
+
 * Configuration
 ** Live preview
 By default the built-in Emacs web browser is used to live preview a markdown
