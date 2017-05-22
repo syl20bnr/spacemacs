@@ -59,7 +59,7 @@
 
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode
-    :mode ("\\.m[k]d" . markdown-mode)
+    :mode ("\\.m[k]d" . markdown-mode) ("\\.mdk" . markdown-mode)
     :defer t
     :config
     (progn
