@@ -58,7 +58,9 @@
         "gb" 'anaconda-mode-go-back
         "gu" 'anaconda-mode-find-references)
       (evilified-state-evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
-        (kbd "q") 'quit-window)
+        (kbd "q") 'quit-window
+        (kbd "j") 'next-error-no-select
+        (kbd "k") 'previous-error-no-select)
       (spacemacs|hide-lighter anaconda-mode)
 
       (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
