@@ -6,6 +6,7 @@
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#key-bindings][Key bindings]]
+ - [[#requirements][Requirements]]
 
 * Description
 This simple layer adds support for the [[http://dlang.org/][D language]].
@@ -30,3 +31,6 @@ instructions]]. After successfully built DCD, you need to copy the binary
 | ~SPC m g r~ | find references to all symbol at point                |
 |-------------+-------------------------------------------------------|
 
+* Requirements
+	- [[https://github.com/Hackerpilot/DCD][DCD]] (completion)
+	- [[https://github.com/dlang/dub][DUB]] (dub projects)
