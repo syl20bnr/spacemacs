@@ -31,7 +31,7 @@
         ;; https://github.com/7696122/evil-terminal-cursor-changer/issues/8
         ;; evil-terminal-cursor-changer
         evil-tutor
-        (evil-unimpaired :location (recipe :fetcher local))
+        (evil-unimpaired :location local)
         evil-visual-mark-mode
         (hs-minor-mode :location built-in)
         linum-relative
