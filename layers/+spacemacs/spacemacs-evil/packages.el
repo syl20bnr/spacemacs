@@ -101,7 +101,15 @@
 
 (defun spacemacs-evil/init-evil-lion ()
   (use-package evil-lion
-    :init (evil-lion-mode)))
+    :init
+    (progn
+      ;; Override the default keys, as they collide
+      (setq evil-lion-left-align-key nil
+            evil-lion-right-align-key nil)
+      (spacemacs/set-leader-keys
+        "xal" 'evil-lion-left
+        "xaL" 'evil-lion-right)
+      (evil-lion-mode))))
 
 (defun spacemacs-evil/init-evil-lisp-state ()
   (use-package evil-lisp-state
