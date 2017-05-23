@@ -69,7 +69,7 @@
                     (mu4e-view-mark-thread '(read))))
 
       (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode
-        "," 'message-send-and-exit
+        dotspacemacs-major-mode-leader-key 'message-send-and-exit
         "c" 'message-send-and-exit
         "k" 'message-kill-buffer
         "a" 'message-kill-buffer
