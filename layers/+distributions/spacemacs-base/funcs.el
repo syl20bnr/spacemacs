@@ -292,16 +292,20 @@ projectile cache when it's possible and update recentf list."
              (message "File '%s' successfully renamed to '%s'" short-name (file-name-nondirectory new-name)))))))
 
 ;; from magnars
-(defun spacemacs/rename-current-buffer-file ()
+(defun spacemacs/rename-current-buffer-file (&optional arg)
   "Rename the current buffer and the file it is visiting.
 If the buffer isn't visiting a file, ask if it should
-be saved to a file, or just renamed."
-  (interactive)
+be saved to a file, or just renamed.
+
+If called without a prefix argument, the prompt is
+initialized with the current filename."
+  (interactive "P")
   (let* ((name (buffer-name))
          (filename (buffer-file-name)))
     (if (and filename (file-exists-p filename))
         ;; the buffer is visiting a file
-        (let ((new-name (read-file-name "New name: " filename)))
+        (let* ((dir (file-name-directory filename))
+               (new-name (read-file-name "New name: " (if arg dir filename))))
           (cond ((get-buffer new-name)
                  (error "A buffer named '%s' already exists!" new-name))
                 (t
