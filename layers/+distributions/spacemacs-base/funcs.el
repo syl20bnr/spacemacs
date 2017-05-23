@@ -825,20 +825,17 @@ the right."
                             (concat ws-regexp regexp)))
          (group (if justify-right -1 1)))
 
-    (message "%S" complete-regexp)
-
-    (if (equalp start end)
-        (progn
-          (save-excursion
-            (while (and
-                    (string-match-p complete-regexp (thing-at-point 'line))
-                    (equalp 0 (forward-line -1)))
-              (setq start (point))))
-          (save-excursion
-            (while (and
-                    (string-match-p complete-regexp (thing-at-point 'line))
-                    (equalp 0 (forward-line 1)))
-              (setq end (point))))))
+    (unless (use-region-p)
+      (save-excursion
+        (while (and
+                (string-match-p complete-regexp (thing-at-point 'line))
+                (= 0 (forward-line -1)))
+          (setq start (point-at-bol))))
+      (save-excursion
+        (while (and
+                (string-match-p complete-regexp (thing-at-point 'line))
+                (= 0 (forward-line 1)))
+          (setq end (point-at-eol)))))
 
     (align-regexp start end complete-regexp group 1 t)))
 
