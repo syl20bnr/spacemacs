@@ -301,8 +301,7 @@ be saved to a file, or just renamed."
          (filename (buffer-file-name)))
     (if (and filename (file-exists-p filename))
         ;; the buffer is visiting a file
-        (let* ((dir (file-name-directory filename))
-               (new-name (read-file-name "New name: " dir)))
+        (let ((new-name (read-file-name "New name: " filename)))
           (cond ((get-buffer new-name)
                  (error "A buffer named '%s' already exists!" new-name))
                 (t
