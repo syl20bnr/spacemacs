@@ -47,7 +47,7 @@
     (setq spacemacs--symbol-highlight-transient-state-doc
           (concat spacemacs--symbol-highlight-transient-state-doc
                   "  [_b_] search buffers [_/_] search proj [_f_] search files [_s_] swoop"))
-    (spacemacs/transient-state-register-add-bindings "symbol-highlight"
+    (spacemacs/transient-state-register-add-bindings 'symbol-highlight
       '(("/" spacemacs/helm-project-smart-do-search-region-or-symbol :exit t)
         ("b" spacemacs/helm-buffers-smart-do-search-region-or-symbol :exit t)
         ("f" spacemacs/helm-files-smart-do-search-region-or-symbol :exit t)
@@ -643,6 +643,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
   (setq projectile-completion-system 'helm))
 
 (defun helm/post-init-persp-mode ()
-  (spacemacs/transient-state-register-add-bindings "layouts"
+  (spacemacs/transient-state-register-add-bindings 'layouts
     '(("b" spacemacs/persp-helm-mini :exit t)
       ("l" spacemacs/helm-perspectives :exit t))))

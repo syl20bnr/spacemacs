@@ -229,7 +229,7 @@
     :defer t
     :init
     (progn
-      (spacemacs/transient-state-register-add-bindings "window-manipulation"
+      (spacemacs/transient-state-register-add-bindings 'window-manipulation
         '(("g" spacemacs/toggle-golden-ratio)))
       (spacemacs|add-toggle golden-ratio
         :status golden-ratio-mode
