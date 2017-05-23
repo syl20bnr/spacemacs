@@ -111,9 +111,6 @@
        haskell-stylish-on-save nil))
     :config
     (progn
-      (defun spacemacs/init-haskell-mode ()
-        (spacemacs-haskell//disable-electric-indent))
-
       (defun spacemacs/haskell-interactive-bring ()
         "Bring up the interactive mode for this session without
          switching to it."
@@ -123,7 +120,7 @@
           (display-buffer buffer)))
 
       ;; hooks
-      (add-hook 'haskell-mode-hook 'spacemacs/init-haskell-mode)
+      (add-hook 'haskell-mode-hook #'spacemacs-haskell//disable-electric-indent)
 
       ;; prefixes
       (dolist (mode haskell-modes)
