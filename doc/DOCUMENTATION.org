@@ -737,7 +737,7 @@ Three styles are available:
 - Hybrid (a mix between Vim and Emacs).
 
 *** Vim
-Spacemacs behaves like in Vim using the [[https://gitorious.org/evil/pages/Home][Evil]] mode package to emulate Vim key
+Spacemacs behaves like in Vim using the [[https://github.com/emacs-evil/evil/][Evil]] mode package to emulate Vim key
 bindings. This is the default style of Spacemacs; it can be set explicitly by
 setting the =dotspacemacs-editing-style= variable to =vim= in the dotfile.
 
