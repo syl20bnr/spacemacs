@@ -3,21 +3,21 @@
 [[file:img/chrome.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#chrome-extension][Chrome extension]]
- - [[#configuration][Configuration]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+  - [[#features][Features]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#chrome-extension][Chrome extension]]
+- [[#configuration][Configuration]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer provides some integration with the Google Chrome browser.
 
 ** Features
-- Edit text boxes with Emacs using [[http://melpa.org/#/edit-server][edit-server]]
+- Edit text boxes with Emacs using [[https://github.com/stsquad/emacs_chrome][edit-server]]
 - Write markdown in Emacs and realtime show in chrome using [[https://github.com/mola-T/flymd][flymd]]
-
+- gmail message mode uses standard markdown keybindings
 
 * Install
 ** Layer
@@ -26,7 +26,7 @@ add =chrome= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Chrome extension
-[[http://melpa.org/#/edit-server][edit-server]] is a server that responds to edit requests sent Chrome via the
+[[https://github.com/stsquad/emacs_chrome][edit-server]] is a server that responds to edit requests sent Chrome via the
 Google Chrome extension [[https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh][Edit with Emacs]]. You have to install this extension.
 
 More information can be found on [[http://www.emacswiki.org/emacs/Edit_with_Emacs][Emacs Wiki]].

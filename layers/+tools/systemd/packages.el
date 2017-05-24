@@ -10,8 +10,14 @@
 ;;; License: GPLv3
 
 (defconst systemd-packages
-  '(systemd)
+  '(
+    flycheck
+    systemd
+    )
   "The list of Lisp packages required by the systemd layer.")
+
+(defun systemd/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'systemd-mode))
 
 (defun systemd/init-systemd ()
   (use-package systemd

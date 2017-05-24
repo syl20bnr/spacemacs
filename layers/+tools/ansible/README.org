@@ -3,13 +3,13 @@
 [[file:img/ansible.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#ansible-vault][ansible-vault]]
-     - [[#password][Password]]
-     - [[#automatic-encryption-and-decryption][Automatic encryption and decryption]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#ansible-vault][ansible-vault]]
+    - [[#password][Password]]
+    - [[#automatic-encryption-and-decryption][Automatic encryption and decryption]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for Ansible-flavored YAML buffers and Jinja2 templates.

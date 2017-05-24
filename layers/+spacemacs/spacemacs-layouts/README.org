@@ -1,0 +1,8 @@
+#+TITLE: spacemacs-layouts layer
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#describe-spacemacs-layouts-layer-in-this-file][describe spacemacs-layouts layer in this file]]
+
+* Description
+** TODO describe spacemacs-layouts layer in this file

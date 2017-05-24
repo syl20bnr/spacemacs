@@ -1,13 +1,14 @@
 #+TITLE: Theming layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#usage][Usage]]
-   - [[#example][Example]]
- - [[#attributes][Attributes]]
- - [[#faces][Faces]]
- - [[#headers][Headers]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#usage][Usage]]
+  - [[#example][Example]]
+- [[#attributes][Attributes]]
+- [[#faces][Faces]]
+- [[#headers][Headers]]
+- [[#example-1][Example]]
 
 * Description
 This layer allows for a simple way of modifying themes.
@@ -18,8 +19,10 @@ add =theming= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Usage
-To use this layer, set the value of =theming-modifications=. It should be a list
-of the following form:
+
+To use this layer, set the value of =theming-modifications= (a good place is
+inside your =.spacemacs= in =dotspacemacs/user-init()=).
+It should be a list of the following form:
 
 #+begin_src emacs-lisp
   ((theme1 (face1 attributes...)
@@ -103,3 +106,22 @@ the symbol =all= to apply it on all themes.
      headings to give them the same size as the rest of the text
 - =theming-headings-bold= :: sets the =:weight= attribute to bold on all
      headings
+
+
+* Example
+
+An example of how to set the default font colour to be black in a custom theme leuven:
+
+#+begin_src emacs-lisp
+(defun dotspacemacs/user-init ()
+
+  ; custom theme modification - overriding default font colour
+  (setq-default
+    theming-modifications
+      '((leuven
+          (default :foreground "#000000")
+       ))
+  )
+
+)
+#+end_src

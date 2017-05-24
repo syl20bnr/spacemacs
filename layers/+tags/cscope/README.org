@@ -3,13 +3,13 @@
 [[file:img/cscope.jpg]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#cscope][Cscope]]
-   - [[#pycscope][PyCscope]]
- - [[#usage][Usage]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#cscope][Cscope]]
+  - [[#pycscope][PyCscope]]
+- [[#usage][Usage]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer provides bindings for using [[http://cscope.sourceforge.net][Cscope]] and [[https://github.com/portante/pycscope][PyCscope]] in Spacemacs.
@@ -60,6 +60,7 @@ command =cscope/run-pycscope= for Python projects, bound to ~SPC m g i~.
 
 | Key Binding | Description                                   |
 |-------------+-----------------------------------------------|
+| ~SPC m g =~ | Find assignments to a symbol              |
 | ~SPC m g c~ | find which functions are called by a function |
 | ~SPC m g C~ | find where a function is called               |
 | ~SPC m g d~ | find global definition of a symbol            |

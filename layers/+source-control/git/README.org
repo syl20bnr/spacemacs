@@ -3,29 +3,29 @@
 [[file:img/git.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features:]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#magit-status-fullscreen][Magit status fullscreen]]
-   - [[#magit-auto-complete][Magit auto-complete]]
-   - [[#magit-svn-plugin][Magit SVN plugin]]
-   - [[#global-git-commit-mode][Global git commit mode]]
-   - [[#git][Git]]
-   - [[#git-flow][Git-Flow]]
-   - [[#org-integration][Org integration]]
- - [[#working-with-git][Working with Git]]
-   - [[#magit][Magit]]
-   - [[#staging-lines][Staging lines]]
-   - [[#commit-message-editing-buffer][Commit message editing buffer]]
-   - [[#interactive-rebase-buffer][Interactive rebase buffer]]
-   - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
-   - [[#git-flow-1][Git-Flow]]
-   - [[#git-time-machine][Git time machine]]
-   - [[#git-links-to-web-services][Git links to web services]]
-   - [[#repository-list][Repository list]]
+- [[#descriptions][Descriptions]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#magit-status-fullscreen][Magit status fullscreen]]
+  - [[#magit-auto-complete][Magit auto-complete]]
+  - [[#magit-svn-plugin][Magit SVN plugin]]
+  - [[#global-git-commit-mode][Global git commit mode]]
+  - [[#git][Git]]
+  - [[#git-flow][Git-Flow]]
+  - [[#org-integration][Org integration]]
+- [[#working-with-git][Working with Git]]
+  - [[#magit][Magit]]
+  - [[#staging-lines][Staging lines]]
+  - [[#commit-message-editing-buffer][Commit message editing buffer]]
+  - [[#interactive-rebase-buffer][Interactive rebase buffer]]
+  - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
+  - [[#git-flow-1][Git-Flow]]
+  - [[#git-time-machine][Git time machine]]
+  - [[#git-links-to-web-services][Git links to web services]]
+  - [[#repository-list][Repository list]]
 
-* Description
+* Descriptions
 This layers adds extensive support for [[http://git-scm.com/][git]].
 
 ** Features:
@@ -105,12 +105,13 @@ Git commands (start with ~g~):
 
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
-| ~SPC g >~   | show submodule prompt                               |
 | ~SPC g b~   | open a =magit= blame                                |
+| ~SPC g f f~ | view a file at a specific branch or commit          |
 | ~SPC g f h~ | show file commits history                           |
 | ~SPC g H c~ | clear highlights                                    |
 | ~SPC g H h~ | highlight regions by age of commits                 |
 | ~SPC g H t~ | highlight regions by last updated time              |
+| ~SPC g i~   | initialize a new git repository                     |
 | ~SPC g I~   | open =helm-gitignore=                               |
 | ~SPC g L~   | open magit-repolist                                 |
 | ~SPC g s~   | open a =magit= status window                        |

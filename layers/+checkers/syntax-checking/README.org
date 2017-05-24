@@ -3,13 +3,13 @@
 [[file:img/flycheck.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#enablingdisabling-tooltips][Enabling/Disabling tooltips]]
-   - [[#disabling-by-default][Disabling by default]]
-   - [[#bitmaps][Bitmaps]]
- - [[#key-bindings][Key Bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#enablingdisabling-tooltips][Enabling/Disabling tooltips]]
+  - [[#disabling-by-default][Disabling by default]]
+  - [[#bitmaps][Bitmaps]]
+- [[#key-bindings][Key Bindings]]
 
 * Description
 This layer provides on the fly syntax checking using [[http://www.flycheck.org/][Flycheck]].

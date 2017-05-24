@@ -3,58 +3,59 @@
 [[file:img/java.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#layer-installation][Layer Installation]]
-   - [[#layer][Layer]]
-   - [[#choosing-a-backend][Choosing a backend]]
- - [[#backends][Backends]]
-   - [[#meghanada][Meghanada]]
-     - [[#installation][Installation]]
-     - [[#about-maven][About Maven]]
-   - [[#eclim][Eclim]]
-     - [[#installation-1][Installation]]
-       - [[#eclipse][Eclipse]]
-       - [[#eclim-1][Eclim]]
-     - [[#configuration][Configuration]]
-     - [[#usage][Usage]]
-   - [[#ensime][ENSIME]]
-     - [[#installation-2][Installation]]
-     - [[#configuration-1][Configuration]]
-     - [[#usage-1][Usage]]
-     - [[#issues][Issues]]
- - [[#key-bindings][Key bindings]]
-   - [[#meghanada-1][Meghanada]]
-     - [[#server][Server]]
-     - [[#navigation][Navigation]]
-     - [[#compilation][Compilation]]
-     - [[#tests-junit][Tests (junit)]]
-     - [[#refactoring][Refactoring]]
-     - [[#tasks][Tasks]]
-   - [[#eclim-2][Eclim]]
-     - [[#java-mode][Java-mode]]
-       - [[#project-management][Project management]]
-       - [[#eclim-daemon][Eclim daemon]]
-       - [[#maven][Maven]]
-       - [[#goto][Goto]]
-       - [[#refactoring-1][Refactoring]]
-       - [[#documentation-find][Documentation, Find]]
-       - [[#errors-problems][Errors (problems)]]
-       - [[#tests][Tests]]
-     - [[#errors-problems-buffer][Errors (problems) buffer]]
-     - [[#projects-buffer][Projects buffer]]
-   - [[#ensime-key-bindings][Ensime key bindings]]
-     - [[#search][Search]]
-     - [[#sbt][sbt]]
-     - [[#typecheck][Typecheck]]
-     - [[#debug][Debug]]
-     - [[#errors][Errors]]
-     - [[#goto-1][Goto]]
-     - [[#print-and-yank-types][Print and yank types]]
-     - [[#documentation-inspect][Documentation, Inspect]]
-     - [[#server-1][Server]]
-     - [[#refactoring-2][Refactoring]]
-     - [[#tests-1][Tests]]
-     - [[#repl][REPL]]
+- [[#description][Description]]
+- [[#layer-installation][Layer Installation]]
+  - [[#layer][Layer]]
+  - [[#choosing-a-backend][Choosing a backend]]
+- [[#backends][Backends]]
+  - [[#meghanada][Meghanada]]
+    - [[#installation][Installation]]
+    - [[#about-maven][About Maven]]
+  - [[#eclim][Eclim]]
+    - [[#installation-1][Installation]]
+      - [[#eclipse][Eclipse]]
+      - [[#eclim-1][Eclim]]
+    - [[#configuration][Configuration]]
+    - [[#usage][Usage]]
+  - [[#ensime][ENSIME]]
+    - [[#installation-2][Installation]]
+    - [[#configuration-1][Configuration]]
+    - [[#usage-1][Usage]]
+    - [[#issues][Issues]]
+- [[#key-bindings][Key bindings]]
+  - [[#meghanada-1][Meghanada]]
+    - [[#server][Server]]
+    - [[#navigation][Navigation]]
+    - [[#compilation][Compilation]]
+    - [[#tests-junit][Tests (junit)]]
+    - [[#refactoring][Refactoring]]
+    - [[#tasks][Tasks]]
+  - [[#eclim-2][Eclim]]
+    - [[#java-mode][Java-mode]]
+      - [[#project-management][Project management]]
+      - [[#eclim-daemon][Eclim daemon]]
+      - [[#maven][Maven]]
+      - [[#goto][Goto]]
+      - [[#refactoring-1][Refactoring]]
+      - [[#documentation-find][Documentation, Find]]
+      - [[#errors-problems][Errors (problems)]]
+      - [[#tests][Tests]]
+    - [[#errors-problems-buffer][Errors (problems) buffer]]
+    - [[#projects-buffer][Projects buffer]]
+  - [[#ensime-key-bindings][Ensime key bindings]]
+    - [[#search][Search]]
+    - [[#ensime-search-mode][Ensime Search Mode]]
+    - [[#sbt][sbt]]
+    - [[#typecheck][Typecheck]]
+    - [[#debug][Debug]]
+    - [[#errors][Errors]]
+    - [[#goto-1][Goto]]
+    - [[#print-and-yank-types][Print and yank types]]
+    - [[#documentation-inspect][Documentation, Inspect]]
+    - [[#server-1][Server]]
+    - [[#refactoring-2][Refactoring]]
+    - [[#tests-1][Tests]]
+    - [[#repl][REPL]]
 
 * Description
 This layer adds support for the Java language, it supports multiple backends:
@@ -88,6 +89,13 @@ Backend can be chosen on a per project basis using directory local variables
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
 
+If you want to use the Ensime backend, you should modify your =~/.spacemacs= to
+use the recommended Ensime version (Stable). Please add the following lines to
+=dotspacemacs/user-init=:
+#+BEGIN_SRC emacs-lisp
+  (push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer--elpa-archives)
+  (push '(ensime . "melpa-stable") package-pinned-packages)
+#+END_SRC
 
 * Backends
 ** Meghanada
@@ -167,7 +175,7 @@ Eclim workspace (default value is =~/workspace=), as shown below:
 Start the eclim daemon with ~SPC m D s~ and stop it with ~SPC m D k~. (See
 below.)
 
-Syntax checking is performed only on demande with ~SPC e e~ to preserve
+Syntax checking is performed only on demand with ~SPC e e~ to preserve
 perfomance.
 
 Auto-save feature may freeze Emacs sometimes, use ~C-g~ to unfreeze Emacs or
@@ -247,11 +255,11 @@ particular refactoring doesn't work.
 
 *** Refactoring
 
- | Key Binding | Description                                  |
- |-------------+----------------------------------------------|
- | ~SPC m =~   | Beautify code                                |
- | ~SPC m r i~ | Optimize imports                             |
- | ~SPC m r I~ | Import all                                   |
+ | Key Binding | Description      |
+ |-------------+------------------|
+ | ~SPC m =~   | Beautify code    |
+ | ~SPC m r i~ | Optimize imports |
+ | ~SPC m r I~ | Import all       |
 
 *** Tasks
 
@@ -274,6 +282,7 @@ particular refactoring doesn't work.
  | ~SPC m p k~ | Close project                  |
  | ~SPC m p o~ | Open project                   |
  | ~SPC m p p~ | Open project management buffer |
+ | ~SPC m p r~ | Run project                    |
  | ~SPC m p u~ | Update project                 |
 
 **** Eclim daemon
@@ -374,6 +383,16 @@ particular refactoring doesn't work.
 | ~SPC m /~   | incremental search using =ensime-scalex= major mode |
 | ~SPC m ?~   | incremental search in all live buffers              |
 
+*** Ensime Search Mode
+
+| Key Binding | Description                                                       |
+|-------------+-------------------------------------------------------------------|
+| ~C-j~       | Move to next match                                                |
+| ~C-k~       | Move to previous match                                            |
+| ~C-i~       | Insert at point import of current result                          |
+| ~RET~       | Jump to the target of the currently selected ensime-search-result |
+| ~C-q~       | Quit ensime search                                                |
+
 *** sbt
 
 | Key Binding | Description         |
@@ -429,6 +448,7 @@ particular refactoring doesn't work.
 | ~SPC m g t~ | go to test           |
 
 *** Print and yank types
+
 |-------------+--------------------------------|
 | ~SPC m h T~ | print full type name at point  |
 | ~SPC m h t~ | print short type name at point |

@@ -3,11 +3,11 @@
 [[file:img/prodigy.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#spawn-prodigy][Spawn prodigy]]
-   - [[#navigate-through-it][Navigate through it]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+  - [[#spawn-prodigy][Spawn prodigy]]
+  - [[#navigate-through-it][Navigate through it]]
 
 * Description
 
@@ -36,6 +36,7 @@ You start prodigy with this:
 
 | Key Binding | Description                     |
 |-------------+---------------------------------|
+| ~c~         | Clear buffer                    |
 | ~h~         | First service                   |
 | ~j~         | Next service                    |
 | ~k~         | Previous service                |

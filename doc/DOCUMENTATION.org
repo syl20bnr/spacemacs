@@ -1,204 +1,206 @@
 #+TITLE: Spacemacs documentation
 
 * Spacemacs documentation                                   :TOC_4_gh:noexport:
- - [[#core-pillars][Core Pillars]]
-   - [[#mnemonic][Mnemonic]]
-   - [[#discoverable][Discoverable]]
-   - [[#consistent][Consistent]]
-   - [[#crowd-configured][Crowd-Configured]]
- - [[#highlighted-feature][Highlighted feature]]
- - [[#screenshots][Screenshots]]
- - [[#who-can-benefit-from-this][Who can benefit from this?]]
- - [[#update-and-rollback][Update and Rollback]]
-   - [[#update-spacemacs-repository][Update Spacemacs repository]]
-     - [[#automatic-updates][Automatic Updates]]
-     - [[#updating-from-the-spacemacs-buffer][Updating from the Spacemacs Buffer]]
-     - [[#updating-manually-with-git][Updating Manually with git]]
-   - [[#update-packages][Update packages]]
- - [[#configuration-layers][Configuration layers]]
-   - [[#purpose][Purpose]]
-   - [[#structure][Structure]]
-   - [[#configure-packages][Configure packages]]
-     - [[#with-a-layer][With a layer]]
-       - [[#declaration][Declaration]]
-       - [[#initialization][Initialization]]
-       - [[#exclusion][Exclusion]]
-     - [[#without-a-layer][Without a layer]]
-   - [[#packages-synchronization][Packages synchronization]]
-   - [[#types-of-configuration-layers][Types of configuration layers]]
-   - [[#submitting-a-configuration-layer-upstream][Submitting a configuration layer upstream]]
-   - [[#example-themes-megapack-example][Example: Themes Megapack example]]
-   - [[#managing-private-configuration-layers][Managing private configuration layers]]
-     - [[#using-the-private-directory][Using the private directory]]
-     - [[#using-an-external-git-repository][Using an external Git repository]]
-     - [[#using-a-personal-branch][Using a personal branch]]
-   - [[#tips-for-writing-layers][Tips for writing layers]]
- - [[#dotfile-configuration][Dotfile Configuration]]
-   - [[#dotfile-installation][Dotfile Installation]]
-   - [[#alternative-dotdirectory][Alternative dotdirectory]]
-   - [[#synchronization-of-dotfile-changes][Synchronization of dotfile changes]]
-   - [[#testing-the-dotfile][Testing the dotfile]]
-   - [[#dotfile-contents][Dotfile Contents]]
-     - [[#configuration-functions][Configuration functions]]
-     - [[#custom-variables][Custom variables]]
-   - [[#declaring-configuration-layers][Declaring Configuration layers]]
-     - [[#setting-configuration-layers-variables][Setting configuration layers variables]]
-     - [[#disabling-layer-services-in-other-layers][Disabling layer services in other layers]]
-     - [[#selectingignoring-packages-of-a-layer][Selecting/Ignoring packages of a layer]]
-     - [[#excluding-packages][Excluding packages]]
- - [[#concepts][Concepts]]
-   - [[#editing-styles][Editing Styles]]
-     - [[#vim][Vim]]
-     - [[#emacs][Emacs]]
-     - [[#hybrid][Hybrid]]
-   - [[#states][States]]
-   - [[#evilified-modes][Evilified modes]]
-   - [[#evil-leader][Evil leader]]
-   - [[#universal-argument][Universal argument]]
-   - [[#transient-states][Transient-states]]
- - [[#differences-between-vim-evil-and-spacemacs][Differences between Vim, Evil and Spacemacs]]
-   - [[#the-vim-surround-case][The vim-surround case]]
- - [[#evil-plugins][Evil plugins]]
- - [[#binding-keys][Binding keys]]
- - [[#gui-elements][GUI Elements]]
-   - [[#color-themes][Color themes]]
-     - [[#default-theme][Default theme]]
-     - [[#choosing-themes][Choosing themes]]
-     - [[#browsing-themes][Browsing themes]]
-     - [[#notes][Notes]]
-   - [[#font][Font]]
-   - [[#gui-toggles][GUI Toggles]]
-       - [[#global-line-numbers][Global line numbers]]
-   - [[#mode-line][Mode-line]]
-       - [[#powerline-font-installation-for-terminal-mode-users][Powerline font installation for terminal-mode users]]
-       - [[#flycheck-integration][Flycheck integration]]
-       - [[#anzu-integration][Anzu integration]]
-       - [[#battery-status-integration][Battery status integration]]
-       - [[#powerline-separators][Powerline separators]]
-       - [[#minor-modes][Minor Modes]]
-       - [[#customizing-the-mode-line][Customizing the mode-line]]
- - [[#layouts-and-workspaces][Layouts and workspaces]]
-   - [[#layouts][Layouts]]
-     - [[#the-default-layout][The default layout]]
-     - [[#project-layouts][Project layouts]]
-     - [[#custom-layouts][Custom Layouts]]
-     - [[#saveload-layouts-into-a-file][Save/Load layouts into a file]]
-     - [[#layout-key-bindings][Layout key bindings]]
-   - [[#workspaces][Workspaces]]
-     - [[#workspace-key-bindings][Workspace key bindings]]
- - [[#commands][Commands]]
-   - [[#vim-key-bindings][Vim key bindings]]
-     - [[#escaping][Escaping]]
-     - [[#executing-vim-and-emacs-exm-x-commands][Executing Vim and Emacs ex/M-x commands]]
-     - [[#leader-key][Leader key]]
-     - [[#major-mode-leader-key][Major Mode leader key]]
-     - [[#additional-text-objects][Additional text objects]]
-   - [[#reserved-prefix-command-for-user][Reserved prefix command for user]]
-   - [[#completion][Completion]]
-     - [[#ivy][Ivy]]
-   - [[#discovering][Discovering]]
-     - [[#key-bindings][Key bindings]]
-       - [[#which-key][Which-key]]
-       - [[#describe-key-bindings][Describe key bindings]]
-     - [[#getting-help][Getting help]]
-     - [[#available-layers][Available layers]]
-       - [[#available-packages-in-spacemacs][Available packages in Spacemacs]]
-       - [[#new-packages-from-elpa-repositories][New packages from ELPA repositories]]
-     - [[#toggles][Toggles]]
-   - [[#navigating][Navigating]]
-     - [[#pointcursor][Point/Cursor]]
-       - [[#smooth-scrolling][Smooth scrolling]]
-     - [[#vim-motions-with-avy][Vim motions with avy]]
-       - [[#ace-link-mode][ace-link mode]]
-     - [[#unimpaired-bindings][Unimpaired bindings]]
-     - [[#jumping-joining-and-splitting][Jumping, Joining and Splitting]]
-       - [[#jumping][Jumping]]
-       - [[#joining-and-splitting][Joining and splitting]]
-     - [[#window-manipulation][Window manipulation]]
-       - [[#window-manipulation-key-bindings][Window manipulation key bindings]]
-       - [[#window-manipulation-transient-state][Window manipulation transient state]]
-       - [[#golden-ratio][Golden ratio]]
-     - [[#buffers-and-files][Buffers and Files]]
-       - [[#buffers-manipulation-key-bindings][Buffers manipulation key bindings]]
-       - [[#create-a-new-empty-buffer][Create a new empty buffer]]
-       - [[#buffers-manipulation-transient-state][Buffers manipulation transient state]]
-       - [[#special-buffers][Special Buffers]]
-       - [[#files-manipulations-key-bindings][Files manipulations key bindings]]
-       - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
-       - [[#browsing-files-in-completion-buffer][Browsing files in completion buffer]]
-     - [[#ido][Ido]]
-     - [[#ido-transient-state][Ido transient state]]
-     - [[#neotree-file-tree][NeoTree file tree]]
-       - [[#neotree-navigation][NeoTree navigation]]
-       - [[#opening-files-with-neotree][Opening files with NeoTree]]
-       - [[#other-neotree-key-bindings][Other NeoTree key bindings]]
-       - [[#neotree-mode-line][NeoTree mode-line]]
-       - [[#neotree-source-control-integration][NeoTree Source Control Integration]]
-       - [[#neotree-theme][NeoTree Theme]]
-     - [[#bookmarks][Bookmarks]]
-     - [[#docview-mode][DocView mode]]
-   - [[#auto-saving][Auto-saving]]
-     - [[#frequency-of-auto-saving][Frequency of auto-saving]]
-     - [[#location-of-auto-saved-files][Location of auto-saved files]]
-     - [[#disable-auto-save][Disable auto-save]]
-   - [[#searching][Searching]]
-     - [[#with-an-external-tool][With an external tool]]
-       - [[#useful-key-bindings][Useful key bindings]]
-       - [[#searching-in-current-file][Searching in current file]]
-       - [[#searching-in-all-open-buffers-visiting-files][Searching in all open buffers visiting files]]
-       - [[#searching-in-files-in-an-arbitrary-directory][Searching in files in an arbitrary directory]]
-       - [[#searching-in-a-project][Searching in a project]]
-       - [[#searching-the-web][Searching the web]]
-     - [[#persistent-highlighting][Persistent highlighting]]
-     - [[#highlight-current-symbol][Highlight current symbol]]
-     - [[#visual-star][Visual Star]]
-     - [[#listing-symbols-by-semantic][Listing symbols by semantic]]
-   - [[#editing][Editing]]
-     - [[#paste-text][Paste text]]
-       - [[#paste-transient-state][Paste Transient-state]]
-       - [[#auto-indent-pasted-text][Auto-indent pasted text]]
-     - [[#text-manipulation-commands][Text manipulation commands]]
-     - [[#text-insertion-commands][Text insertion commands]]
-     - [[#smartparens-strict-mode][Smartparens Strict mode]]
-     - [[#zooming][Zooming]]
-       - [[#text][Text]]
-       - [[#frame][Frame]]
-     - [[#increasedecrease-numbers][Increase/Decrease numbers]]
-     - [[#spell-checking][Spell checking]]
-     - [[#region-selection][Region selection]]
-       - [[#expand-region][Expand-region]]
-       - [[#indent-text-object][Indent text object]]
-     - [[#region-narrowing][Region narrowing]]
-     - [[#replacing-text-with-iedit][Replacing text with iedit]]
-       - [[#iedit-states-key-bindings][iedit states key bindings]]
-       - [[#examples][Examples]]
-     - [[#replacing-text-in-several-files][Replacing text in several files]]
-     - [[#renaming-files-in-a-directory][Renaming files in a directory]]
-     - [[#commenting][Commenting]]
-     - [[#regular-expressions][Regular expressions]]
-     - [[#deleting-files][Deleting files]]
-     - [[#editing-lisp-code][Editing Lisp code]]
-       - [[#lisp-key-bindings][Lisp Key Bindings]]
-     - [[#mouse-usage][Mouse usage]]
-   - [[#managing-projects][Managing projects]]
-   - [[#registers][Registers]]
-   - [[#errors-handling][Errors handling]]
-   - [[#compiling][Compiling]]
- - [[#emacs-server][Emacs Server]]
-   - [[#connecting-to-the-emacs-server][Connecting to the Emacs server]]
-   - [[#keeping-the-server-alive][Keeping the server alive]]
- - [[#troubleshoot][Troubleshoot]]
-   - [[#loading-fails][Loading fails]]
-   - [[#upgradingdowngrading-emacs-version][Upgrading/Downgrading Emacs version]]
- - [[#achievements][Achievements]]
-   - [[#issues][Issues]]
-   - [[#merged-pull-requests][Merged Pull Requests]]
-   - [[#stars-forks-and-watchers][Stars, forks and watchers]]
-   - [[#gitter-chat][Gitter chat]]
-   - [[#first-times][First times]]
-   - [[#special-mentions][Special Mentions]]
-   - [[#special-titles][Special Titles]]
- - [[#thank-you][Thank you]]
+- [[#core-pillars][Core Pillars]]
+  - [[#mnemonic][Mnemonic]]
+  - [[#discoverable][Discoverable]]
+  - [[#consistent][Consistent]]
+  - [[#crowd-configured][Crowd-Configured]]
+- [[#highlighted-features][Highlighted features]]
+- [[#screenshots][Screenshots]]
+- [[#who-can-benefit-from-this][Who can benefit from this?]]
+- [[#update-and-rollback][Update and Rollback]]
+  - [[#update-spacemacs-repository][Update Spacemacs repository]]
+    - [[#automatic-updates][Automatic Updates]]
+    - [[#updating-from-the-spacemacs-buffer][Updating from the Spacemacs Buffer]]
+    - [[#updating-manually-with-git][Updating Manually with git]]
+  - [[#update-packages][Update packages]]
+- [[#configuration-layers][Configuration layers]]
+  - [[#purpose][Purpose]]
+  - [[#structure][Structure]]
+  - [[#configure-packages][Configure packages]]
+    - [[#with-a-layer][With a layer]]
+      - [[#declaration][Declaration]]
+      - [[#initialization][Initialization]]
+      - [[#exclusion][Exclusion]]
+    - [[#without-a-layer][Without a layer]]
+  - [[#packages-synchronization][Packages synchronization]]
+  - [[#types-of-configuration-layers][Types of configuration layers]]
+  - [[#submitting-a-configuration-layer-upstream][Submitting a configuration layer upstream]]
+  - [[#example-themes-megapack-example][Example: Themes Megapack example]]
+  - [[#managing-private-configuration-layers][Managing private configuration layers]]
+    - [[#using-the-private-directory][Using the private directory]]
+    - [[#using-an-external-git-repository][Using an external Git repository]]
+    - [[#using-a-personal-branch][Using a personal branch]]
+  - [[#tips-for-writing-layers][Tips for writing layers]]
+- [[#dotfile-configuration][Dotfile Configuration]]
+  - [[#dotfile-installation][Dotfile Installation]]
+  - [[#alternative-dotdirectory][Alternative dotdirectory]]
+  - [[#synchronization-of-dotfile-changes][Synchronization of dotfile changes]]
+  - [[#testing-the-dotfile][Testing the dotfile]]
+  - [[#dotfile-contents][Dotfile Contents]]
+    - [[#configuration-functions][Configuration functions]]
+    - [[#custom-variables][Custom variables]]
+  - [[#declaring-configuration-layers][Declaring Configuration layers]]
+    - [[#setting-configuration-layers-variables][Setting configuration layers variables]]
+    - [[#disabling-layer-services-in-other-layers][Disabling layer services in other layers]]
+    - [[#selectingignoring-packages-of-a-layer][Selecting/Ignoring packages of a layer]]
+    - [[#excluding-packages][Excluding packages]]
+- [[#concepts][Concepts]]
+  - [[#editing-styles][Editing Styles]]
+    - [[#vim][Vim]]
+    - [[#emacs][Emacs]]
+    - [[#hybrid][Hybrid]]
+  - [[#states][States]]
+  - [[#evilified-modes][Evilified modes]]
+  - [[#evil-leader][Evil leader]]
+  - [[#universal-argument][Universal argument]]
+  - [[#transient-states][Transient-states]]
+- [[#differences-between-vim-evil-and-spacemacs][Differences between Vim, Evil and Spacemacs]]
+  - [[#the-vim-surround-case][The vim-surround case]]
+- [[#evil-plugins][Evil plugins]]
+- [[#binding-keys][Binding keys]]
+- [[#gui-elements][GUI Elements]]
+  - [[#color-themes][Color themes]]
+    - [[#default-theme][Default theme]]
+    - [[#choosing-themes][Choosing themes]]
+    - [[#browsing-themes][Browsing themes]]
+    - [[#notes][Notes]]
+  - [[#font][Font]]
+  - [[#gui-toggles][GUI Toggles]]
+      - [[#global-line-numbers][Global line numbers]]
+  - [[#mode-line][Mode-line]]
+      - [[#powerline-font-installation-for-terminal-mode-users][Powerline font installation for terminal-mode users]]
+      - [[#flycheck-integration][Flycheck integration]]
+      - [[#anzu-integration][Anzu integration]]
+      - [[#battery-status-integration][Battery status integration]]
+      - [[#powerline-separators][Powerline separators]]
+      - [[#minor-modes][Minor Modes]]
+      - [[#customizing-the-mode-line][Customizing the mode-line]]
+  - [[#frame-title][Frame title]]
+    - [[#iconified-tabified-title][Iconified (tabified) title]]
+- [[#layouts-and-workspaces][Layouts and workspaces]]
+  - [[#layouts][Layouts]]
+    - [[#the-default-layout][The default layout]]
+    - [[#project-layouts][Project layouts]]
+    - [[#custom-layouts][Custom Layouts]]
+    - [[#saveload-layouts-into-a-file][Save/Load layouts into a file]]
+    - [[#layout-key-bindings][Layout key bindings]]
+  - [[#workspaces][Workspaces]]
+    - [[#workspace-key-bindings][Workspace key bindings]]
+- [[#commands][Commands]]
+  - [[#vim-key-bindings][Vim key bindings]]
+    - [[#escaping][Escaping]]
+    - [[#executing-vim-and-emacs-exm-x-commands][Executing Vim and Emacs ex/M-x commands]]
+    - [[#leader-key][Leader key]]
+    - [[#major-mode-leader-key][Major Mode leader key]]
+    - [[#additional-text-objects][Additional text objects]]
+  - [[#reserved-prefix-command-for-user][Reserved prefix command for user]]
+  - [[#completion][Completion]]
+    - [[#ivy][Ivy]]
+  - [[#discovering][Discovering]]
+    - [[#key-bindings][Key bindings]]
+      - [[#which-key][Which-key]]
+      - [[#describe-key-bindings][Describe key bindings]]
+    - [[#getting-help][Getting help]]
+    - [[#available-layers][Available layers]]
+      - [[#available-packages-in-spacemacs][Available packages in Spacemacs]]
+      - [[#new-packages-from-elpa-repositories][New packages from ELPA repositories]]
+    - [[#toggles][Toggles]]
+  - [[#navigating][Navigating]]
+    - [[#pointcursor][Point/Cursor]]
+      - [[#smooth-scrolling][Smooth scrolling]]
+    - [[#vim-motions-with-avy][Vim motions with avy]]
+      - [[#ace-link-mode][ace-link mode]]
+    - [[#unimpaired-bindings][Unimpaired bindings]]
+    - [[#jumping-joining-and-splitting][Jumping, Joining and Splitting]]
+      - [[#jumping][Jumping]]
+      - [[#joining-and-splitting][Joining and splitting]]
+    - [[#window-manipulation][Window manipulation]]
+      - [[#window-manipulation-key-bindings][Window manipulation key bindings]]
+      - [[#window-manipulation-transient-state][Window manipulation transient state]]
+      - [[#golden-ratio][Golden ratio]]
+    - [[#buffers-and-files][Buffers and Files]]
+      - [[#buffers-manipulation-key-bindings][Buffers manipulation key bindings]]
+      - [[#create-a-new-empty-buffer][Create a new empty buffer]]
+      - [[#buffers-manipulation-transient-state][Buffers manipulation transient state]]
+      - [[#special-buffers][Special Buffers]]
+      - [[#files-manipulations-key-bindings][Files manipulations key bindings]]
+      - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
+      - [[#browsing-files-in-completion-buffer][Browsing files in completion buffer]]
+    - [[#ido][Ido]]
+    - [[#ido-transient-state][Ido transient state]]
+    - [[#neotree-file-tree][NeoTree file tree]]
+      - [[#neotree-navigation][NeoTree navigation]]
+      - [[#opening-files-with-neotree][Opening files with NeoTree]]
+      - [[#other-neotree-key-bindings][Other NeoTree key bindings]]
+      - [[#neotree-mode-line][NeoTree mode-line]]
+      - [[#neotree-source-control-integration][NeoTree Source Control Integration]]
+      - [[#neotree-theme][NeoTree Theme]]
+    - [[#bookmarks][Bookmarks]]
+    - [[#docview-mode][DocView mode]]
+  - [[#auto-saving][Auto-saving]]
+    - [[#frequency-of-auto-saving][Frequency of auto-saving]]
+    - [[#location-of-auto-saved-files][Location of auto-saved files]]
+    - [[#disable-auto-save][Disable auto-save]]
+  - [[#searching][Searching]]
+    - [[#with-an-external-tool][With an external tool]]
+      - [[#useful-key-bindings][Useful key bindings]]
+      - [[#searching-in-current-file][Searching in current file]]
+      - [[#searching-in-all-open-buffers-visiting-files][Searching in all open buffers visiting files]]
+      - [[#searching-in-files-in-an-arbitrary-directory][Searching in files in an arbitrary directory]]
+      - [[#searching-in-a-project][Searching in a project]]
+      - [[#searching-the-web][Searching the web]]
+    - [[#persistent-highlighting][Persistent highlighting]]
+    - [[#highlight-current-symbol][Highlight current symbol]]
+    - [[#visual-star][Visual Star]]
+    - [[#listing-symbols-by-semantic][Listing symbols by semantic]]
+  - [[#editing][Editing]]
+    - [[#paste-text][Paste text]]
+      - [[#paste-transient-state][Paste Transient-state]]
+      - [[#auto-indent-pasted-text][Auto-indent pasted text]]
+    - [[#text-manipulation-commands][Text manipulation commands]]
+    - [[#text-insertion-commands][Text insertion commands]]
+    - [[#smartparens-strict-mode][Smartparens Strict mode]]
+    - [[#zooming][Zooming]]
+      - [[#text][Text]]
+      - [[#frame][Frame]]
+    - [[#increasedecrease-numbers][Increase/Decrease numbers]]
+    - [[#spell-checking][Spell checking]]
+    - [[#region-selection][Region selection]]
+      - [[#expand-region][Expand-region]]
+      - [[#indent-text-object][Indent text object]]
+    - [[#region-narrowing][Region narrowing]]
+    - [[#replacing-text-with-iedit][Replacing text with iedit]]
+      - [[#iedit-states-key-bindings][iedit states key bindings]]
+      - [[#examples][Examples]]
+    - [[#replacing-text-in-several-files][Replacing text in several files]]
+    - [[#renaming-files-in-a-directory][Renaming files in a directory]]
+    - [[#commenting][Commenting]]
+    - [[#regular-expressions][Regular expressions]]
+    - [[#deleting-files][Deleting files]]
+    - [[#editing-lisp-code][Editing Lisp code]]
+      - [[#lisp-key-bindings][Lisp Key Bindings]]
+    - [[#mouse-usage][Mouse usage]]
+  - [[#managing-projects][Managing projects]]
+  - [[#registers][Registers]]
+  - [[#errors-handling][Errors handling]]
+  - [[#compiling][Compiling]]
+- [[#emacs-server][Emacs Server]]
+  - [[#connecting-to-the-emacs-server][Connecting to the Emacs server]]
+  - [[#keeping-the-server-alive][Keeping the server alive]]
+- [[#troubleshoot][Troubleshoot]]
+  - [[#loading-fails][Loading fails]]
+  - [[#upgradingdowngrading-emacs-version][Upgrading/Downgrading Emacs version]]
+- [[#achievements][Achievements]]
+  - [[#issues][Issues]]
+  - [[#merged-pull-requests][Merged Pull Requests]]
+  - [[#stars-forks-and-watchers][Stars, forks and watchers]]
+  - [[#gitter-chat][Gitter chat]]
+  - [[#first-times][First times]]
+  - [[#special-mentions][Special Mentions]]
+  - [[#special-titles][Special Titles]]
+- [[#thank-you][Thank you]]
 
 * Core Pillars
 Four core pillars: Mnemonic, Discoverable, Consistent and "Crowd-Configured".
@@ -223,7 +225,7 @@ that ships with Spacemacs.
 Community-driven configuration provides curated packages tuned by power users
 and bugs are fixed quickly.
 
-* Highlighted feature
+* Highlighted features
 - *Bring the efficiency of modal editing* to the powerful Emacs lisp platform.
   Modal UX is optional and Spacemacs can be used with only Emacs key bindings.
 
@@ -261,7 +263,7 @@ project.
   the next level by using Emacs (see [[file:VIMUSERS.org][guide]] for Vimmers). But it is now
   perfectly *usable by non Vim users* by choosing the =emacs= editing style.
 
-- It is also a good fit for people wanting to *lower the [[http://en.wikipedia.org/wiki/Repetitive_strain_injury][risk of RSI]]* induced by
+- It is also a good fit for people wanting to *lower the [[https://en.wikipedia.org/wiki/Repetitive_strain_injury][risk of RSI]]* induced by
   the default Emacs key bindings. (This is an assumption, there are no official
   studies to prove this!) If you have issues using your thumbs you can still
   use the =emacs= editing style which puts the leader key on a modifier
@@ -284,7 +286,7 @@ There are several methods of updating the core files and layer information for
 Spacemacs. It is recommended to update the packages first; see the next section.
 
 *** Automatic Updates
-Spacemacs will automatically check for a new version every startup. When it
+Spacemacs will automatically check for a new version periodically. When it
 detects that a new version is available an arrow will appear in the modeline.
 Click it to update Spacemacs. You must restart Emacs after updating.
 [[file:img/powerline-update.png]]
@@ -456,7 +458,7 @@ guidelines first in [[file:../CONTRIBUTING.org][CONTRIBUTING]].
 
 ** Example: Themes Megapack example
 This is a simple configuration layer listing a bunch of themes which you can
-find [[file:../layers/+themes/themes-megapack/README.org][here]].
+find [[file:../layers/%2Bthemes/themes-megapack/README.org][here]].
 
 To install it, just add =themes-megapack= to your =~/.spacemacs= like so:
 
@@ -542,7 +544,7 @@ tests are also run automatically when you synchronize with ~SPC f e R~.
 
 ** Dotfile Contents
 *** Configuration functions
-Three special functions in the =~/.spacemacs= file can be used to perform
+Five special functions in the =~/.spacemacs= file can be used to perform
 configuration at the beginning and end of Spacemacs loading process:
 
 - =dotspacemacs/layers= is called at the very startup of Spacemacs initialization,
@@ -608,7 +610,7 @@ to add some layers in =~/.myconfig=, set the variable like this:
 
 *** Setting configuration layers variables
 Some configuration layers have configuration variables to enable specific
-feature. For instance the [[file:../layers/+source-control/git/README.org][git layer]] has several configuration variables, they
+features. For instance the [[../layers/%2Bsource-control/git][git layer]] has several configuration variables, they
 can be set directly in the =dotspacemacs-configuration-layers= like this:
 
 #+BEGIN_SRC emacs-lisp
@@ -628,7 +630,7 @@ function of your dotfile is also a perfectly valid way to configure a layer.
 
 *** Disabling layer services in other layers
 Often layers enable services that other layers can use. For instance if you use
-the layer =auto-completion= then every other layers supporting =auto-completion=
+the layer =auto-completion= then all other layers supporting =auto-completion=
 will have this feature enabled.
 
 Sometimes you may want to disable a service added by a layer in some specific
@@ -735,9 +737,9 @@ Three styles are available:
 - Hybrid (a mix between Vim and Emacs).
 
 *** Vim
-Spacemacs behaves like in Vim using [[https://github.com/emacs-evil/evil][Evil]] mode package to emulate Vim key bindings.
-This is the default style of Spacemacs; it can be set explicitly by setting
-the =dotspacemacs-editing-style= variable to =vim= in the dotfile.
+Spacemacs behaves like in Vim using the [[https://github.com/emacs-evil/evil/][Evil]] mode package to emulate Vim key
+bindings. This is the default style of Spacemacs; it can be set explicitly by
+setting the =dotspacemacs-editing-style= variable to =vim= in the dotfile.
 
 To bind keys in Vim editing style (=insert state=):
 
@@ -843,7 +845,7 @@ Spacemacs uses a leader key to bind almost all its key bindings.
 This leader key is commonly set to ~​,​~ by Vim users, in Spacemacs the leader
 key is set on ~SPC~ (the space bar, hence the name =spacemacs=). This key is the
 most accessible key on a keyboard and it is pressed with the thumb which is a
-good choice to lower the risk of [[http://en.wikipedia.org/wiki/Repetitive_strain_injury][RSI]]. It can be customized to any other key
+good choice to lower the risk of [[https://en.wikipedia.org/wiki/Repetitive_strain_injury][RSI]]. It can be customized to any other key
 using the variable =dotspacemacs-leader-key= and =dotspacemacs-emacs-leader-key=.
 
 With Spacemacs there is no need to remap your keyboard modifiers to attempt
@@ -1002,7 +1004,7 @@ variable =dotspacemacs-themes=. For instance, to specify =spacemacs-light=,
 #+END_SRC
 
 =dotspacemacs-themes= entries accept the same properties as packages listed
-in layers package lists or in =dotspacemacs-addtional-packages=. So it is
+in layers package lists or in =dotspacemacs-additional-packages=. So it is
 possible to fetch a package from a specific location. For example, you could
 fetch =zenburn= theme directly from the GitHub repository with the following
 declaration:
@@ -1033,7 +1035,7 @@ You can cycle between the themes declared in =dotspacemacs-themes= with
 
 *** Browsing themes
 You can see samples of all themes included in the =themes-megapack= layer
-in this [[http://themegallery.robdor.com][theme gallery]] from [[http://www.twitter.com/robmerrell][Rob Merrell]].
+in this [[http://themegallery.robdor.com][theme gallery]] from [[https://twitter.com/robmerrell][Rob Merrell]].
 
 *** Notes
 - You don't need to explicitly list in a layer the theme packages you are
@@ -1067,7 +1069,7 @@ your system). Also note that changing this value has no effect if you are
 running Emacs in terminal.
 
 The properties should be pretty straightforward, it is possible to set any valid
-property of a [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Low_002dLevel-Font.html][font-spec]]:
+property of a [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Low_002dLevel-Font.html][font-spec]]:
   - =:family= Font family or fontset (a string).
   - =:width= Relative character width. This should be one of the symbols:
     - ultra-condensed
@@ -1319,7 +1321,7 @@ powerline, here is an exhaustive set of screenshots:
 | =nil=        | [[file:img/powerline-nil.png]]        |
 
 **** Minor Modes
-Spacemacs uses [[http://www.emacswiki.org/emacs/DiminishedModes][diminish]] mode to reduce the size of minor mode indicators:
+Spacemacs uses [[https://www.emacswiki.org/emacs/DiminishedModes][diminish]] mode to reduce the size of minor mode indicators:
 
 The minor mode area can be toggled on and off with ~SPC t m m~
 
@@ -1336,7 +1338,7 @@ can be reached using the =control= key.
 
 | Key Binding | Unicode | ASCII | Mode                                                                 |
 |-------------+---------+-------+----------------------------------------------------------------------|
-| ~SPC t -~   | =⊝=     | -     | [[http://emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]]  mode                                                |
+| ~SPC t -~   | =⊝=     | -     | [[https://www.emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]]  mode                                                |
 | ~SPC t 8~   | =⑧=     | 8     | toggle highlight of characters for long lines                        |
 | ~SPC t C-8~ | =⑧=     | 8     | global toggle highlight of characters for long lines                 |
 | ~SPC t C--~ | =⊝=     | -     | global centered cursor                                               |
@@ -1391,6 +1393,39 @@ For example to undo diminish for =company=:
 Note that we use a =use-package= post init hook to be sure to override any
 lazily diminished lighters (see [[file:LAYERS.org][layers documentation]] for more information
 about lazy loading).
+
+** Frame title
+Default frame title displays name of current process and hostname of system. You
+can include more information (like name of current file, name of current project
+etc) by setting =dotspacemacs-frame-title-format= variable.
+
+Following format short codes are avialable:
+
+| Code | Description                                                                  |
+|------+------------------------------------------------------------------------------|
+| =%a= | the `abbreviated-file-name', or `buffer-name'                                |
+| =%t= | `projectile-project-name'                                                    |
+| =%I= | `invocation-name'                                                            |
+| =%S= | `system-name'                                                                |
+| =%U= | contents of $USER                                                            |
+| =%b= | buffer name                                                                  |
+| =%f= | visited file name                                                            |
+| =%F= | frame name                                                                   |
+| =%s= | process status                                                               |
+| =%p= | percent of buffer above top of window, or Top, Bot or All                    |
+| =%P= | percent of buffer above bottom of window, perhaps plus Top, or Bottom or All |
+| =%m= | mode name                                                                    |
+| =%n= | Narrow if appropriate                                                        |
+| =%z= | mnemonics of buffer, terminal, and keyboard coding systems                   |
+| =%Z= | like %z, but including the end-of-line format"                               |
+
+*** Iconified (tabified) title
+If you are using tiling window manager with tab support you may want to display
+different title for inactive tabs with =dotspacemacs-icon-title-format=
+variable. Short codes are same as for frame title.
+
+If this variable is set to =nil= (default) its value will be same as
+=dotspacemacs-frame-title-format=.
 
 * Layouts and workspaces
 Layouts are window configurations with buffer isolation, each layout can define
@@ -1459,8 +1494,10 @@ Some custom layouts that ship with Spacemacs:
 | Name       | Key Binding | Description                                                                     |
 |------------+-------------+---------------------------------------------------------------------------------|
 | @Spacemacs | ~e~         | Custom perspective containing all buffers of =~/.emacs.d=                       |
+| @Mu4e      | ~m~         | Custom perspective containing all mu4e buffers (needs the mu4e layer enabled)   |
 | @ERC       | ~E~         | Custom perspective containing all ERC buffers (needs the erc layer enabled)     |
 | @RCIRC     | ~i~         | Custom perspective containing all RCIRC buffers (needs the rcirc layer enabled) |
+| @Slack     | ~s~         | Custom perspective containing all Slack buffers (needs the slack layer enabled) |
 | @Org       | ~o~         | Custom perspective containing all the =org-agenda= buffers                      |
 
 *** Save/Load layouts into a file
@@ -1676,8 +1713,11 @@ If you choose =ivy= as completion system, make sure to read [[http://oremacs.com
 case you don't want to read everything, at least familiarise with [[http://oremacs.com/swiper/#minibuffer-key-bindings][minibuffer key
 bindings]]. Some useful key bindings are presented in following table.
 
+Initiate the transient state with ~M-SPC~ while in a =ivy= buffer.
+
 | Key Binding    | Description                                                                                          |
 |----------------+------------------------------------------------------------------------------------------------------|
+| ~M-SPC~        | initiate the transient state                                                                         |
 | ~C-m~ or ~RET~ | call default action on current candidate                                                             |
 | ~M-o~          | show the list of valid actions on current candidate (then press any of described keys to execute it) |
 | ~C-M-m~        | the same as ~RET~ but doesn't close completion minibuffer                                            |
@@ -2081,13 +2121,13 @@ Buffer manipulation commands (start with ~b~):
 
 **** Create a new empty buffer
 
-| Key Binding | Description                                                  |
-|-------------+--------------------------------------------------------------|
-| ~SPC b N h~ | create new empty buffer in a new window on the left          |
-| ~SPC b N j~ | create new empty buffer in a new window at the bottom        |
-| ~SPC b N k~ | create new empty buffer in a new window above                |
-| ~SPC b N l~ | create new empty buffer in a new window below                |
-| ~SPC b N n~ | create new empty buffer in current window                    |
+| Key Binding | Description                                           |
+|-------------+-------------------------------------------------------|
+| ~SPC b N h~ | create new empty buffer in a new window on the left   |
+| ~SPC b N j~ | create new empty buffer in a new window at the bottom |
+| ~SPC b N k~ | create new empty buffer in a new window above         |
+| ~SPC b N l~ | create new empty buffer in a new window below         |
+| ~SPC b N n~ | create new empty buffer in current window             |
 
 **** Buffers manipulation transient state
 A convenient buffer manipulation transient state allows to quickly cycles through
@@ -2398,7 +2438,7 @@ Spacemacs can be interfaced with different search utilities like:
   - [[https://github.com/BurntSushi/ripgrep][rg]]
   - [[https://github.com/ggreer/the_silver_searcher][ag]]
   - [[https://github.com/monochromegane/the_platinum_searcher][pt]]
-  - [[http://beyondgrep.com/][ack]]
+  - [[https://beyondgrep.com/][ack]]
   - grep
 
 The search commands in Spacemacs are organized under the ~SPC s~ prefix with the
@@ -2508,6 +2548,7 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e~
 | ~SPC s t F~ | =pt= with default text                              |
 
 **** Searching in a project
+
 | Key Binding           | Description                                         |
 |-----------------------+-----------------------------------------------------|
 | ~SPC /~  or ~SPC s p~ | search with the first found tool                    |
@@ -2651,6 +2692,8 @@ Text related commands (start with ~x~):
 | ~SPC x a =~   | align region at =                                             |
 | ~SPC x a a~   | align region (or guessed section) using default rules         |
 | ~SPC x a c~   | align current indentation region using default rules          |
+| ~SPC x a l~   | left-align with evil-lion                                     |
+| ~SPC x a L~   | right-align with evil-lion                                    |
 | ~SPC x a r~   | align region using user-specified regexp                      |
 | ~SPC x a m~   | align region at arithmetic operators (+-*/)                   |
 | ~SPC x a ¦~   | align region at ¦                                             |
@@ -2695,10 +2738,19 @@ Text insertion commands (start with ~i~):
 | ~SPC i l l~ | insert lorem-ipsum list                                               |
 | ~SPC i l p~ | insert lorem-ipsum paragraph                                          |
 | ~SPC i l s~ | insert lorem-ipsum sentence                                           |
+| ~SPC i p 1~ | insert simple password                                                |
+| ~SPC i p 2~ | insert stronger password                                              |
+| ~SPC i p 3~ | insert password for paranoids                                         |
+| ~SPC i p p~ | insert a phonetically easy password                                   |
+| ~SPC i p n~ | insert a numerical password                                           |
 | ~SPC i u~   | Search for Unicode characters and insert them into the active buffer. |
 | ~SPC i U 1~ | insert UUIDv1 (use universal argument to insert with CID format)      |
 | ~SPC i U 4~ | insert UUIDv4 (use universal argument to insert with CID format)      |
 | ~SPC i U U~ | insert UUIDv4 (use universal argument to insert with CID format)      |
+
+*Hint:* You can change the length of the inserted password with a numerical
+prefix argument, for instance ~SPC U 24 SPC i p p~  will insert a password
+with 24 characters.
 
 *** Smartparens Strict mode
 [[https://github.com/Fuco1/smartparens][Smartparens]] comes with a strict mode which prevents deletion of parenthesis if
@@ -2969,7 +3021,7 @@ The key bindings start with ~SPC x r~ and have the following mnemonic structure:
 *** Deleting files
 Deletion is configured to send deleted files to system trash.
 
-On OS X the =trash= program is required. It can be installed with [[http:www.brew.sh][homebrew]] with
+On OS X the =trash= program is required. It can be installed with [[https://brew.sh/][homebrew]] with
 the following command:
 
 #+BEGIN_SRC sh
@@ -3216,6 +3268,8 @@ server is to use the following bindings:
 | ~SPC q r~  | Restart both Emacs and the server, prompting to save any changed buffers |
 | ~SPC q s~  | Save the buffers, quit Emacs and kill the server                         |
 | ~SPC q f~  | Kill the current frame                                                   |
+| ~SPC q t~  | Restart Emacs and debug with --with-timed-requires                       |
+| ~SPC q T~  | Restart Emacs and debug with --adv-timers                                |
 
 * Troubleshoot
 ** Loading fails
@@ -3305,7 +3359,7 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 |---------------------------------+--------------|
 | [[https://github.com/syl20bnr/spacemacs/pull/19][First contribution]]              | [[https://github.com/trishume][trishume]]     |
 | [[https://github.com/syl20bnr/spacemacs/commit/e802027d75d0c0aed55539b0da2dfa0df94dfd39][First contribution layer]]        | [[https://github.com/trishume][trishume]]     |
-| [[http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/][First blog article on Spacemacs]] | [[https://github.com/Wolfy87][Wolfy87]]      |
+| [[http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/][First blog article on Spacemacs]] | Wolfy87      |
 | [[https://github.com/syl20bnr/spacemacs/commit/7b44a56263049482ed540ed6815a295633ffe9d1][First contributed banner]]        | [[https://github.com/chrisbarrett][chrisbarrett]] |
 
 ** Special Mentions
@@ -3330,7 +3384,7 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | The Saint (unlocked the holy-mode)              | [[https://github.com/trishume][trishume]]     |
 | The Artist ([[https://github.com/nashamri/spacemacs-logo][logo]] and [[https://github.com/nashamri/spacemacs-theme][theme]])                     | [[https://github.com/nashamri][nashamri]]     |
 | The Meme Master (doge banner)                   | [[https://github.com/chrisbarrett][chrisbarrett]] |
-| The Helm captain ([[http://tuhdo.github.io/helm-intro.html][helm guide]])                   | [[https://github.com/tuhdo][tuhdo]]        |
+| The Helm captain ([[https://tuhdo.github.io/helm-intro.html][helm guide]])                   | [[https://github.com/tuhdo][tuhdo]]        |
 | The Master of the Keys ([[https://github.com/justbur/emacs-which-key][which-key]] and [[https://github.com/justbur/emacs-bind-map][bind-map]]) | [[https://github.com/justbur][justbur]]      |
 | The PR Patrol Officer                           | [[https://github.com/robbyoconnor][robbyoconnor]] |
 | The Expert in Latin Language ([[https://github.com/syl20bnr/spacemacs/pull/4043][PR]])               | [[https://github.com/vijaykiran][vijaykiran]]   |

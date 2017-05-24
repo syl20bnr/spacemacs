@@ -3,18 +3,18 @@
 [[file:img/coq.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#coq][Coq]]
- - [[#key-bindings][Key bindings]]
-   - [[#laying-out-windows][Laying out windows]]
-   - [[#managing-prover-process][Managing prover process]]
-   - [[#prover-queries][Prover queries]]
-   - [[#moving-the-point][Moving the point]]
-   - [[#inserting][Inserting]]
- - [[#faq][FAQ]]
-   - [[#there-are-empty-square-boxes-in-place-of-math-operators][There are empty square boxes in place of math operators]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#coq][Coq]]
+- [[#key-bindings][Key bindings]]
+  - [[#laying-out-windows][Laying out windows]]
+  - [[#managing-prover-process][Managing prover process]]
+  - [[#prover-queries][Prover queries]]
+  - [[#moving-the-point][Moving the point]]
+  - [[#inserting][Inserting]]
+- [[#faq][FAQ]]
+  - [[#there-are-empty-square-boxes-in-place-of-math-operators][There are empty square boxes in place of math operators]]
 
 * Description
 This layer adds support for the [[https://coq.inria.fr/][Coq]] proof assistant (adapted from

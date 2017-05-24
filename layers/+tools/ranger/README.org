@@ -1,13 +1,13 @@
 #+TITLE: Ranger layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#features][Features]]
- - [[#configuration][Configuration]]
-   - [[#customizing][Customizing]]
-   - [[#parent-options][Parent options]]
-   - [[#preview-options][Preview options]]
- - [[#key-bindings][Key Bindings]]
+- [[#description][Description]]
+- [[#features][Features]]
+- [[#configuration][Configuration]]
+  - [[#customizing][Customizing]]
+  - [[#parent-options][Parent options]]
+  - [[#preview-options][Preview options]]
+- [[#key-bindings][Key Bindings]]
 
 * Description
 
@@ -32,6 +32,11 @@ Most parameters can be toggled on and off and stay within the current emacs
 session. Any settings that are desired on startup should be set below.
 
 ** Customizing
+
+You toggle the use of =-= to enter ranger with `ranger-enter-with-minus`.
+#+BEGIN_SRC elisp
+(setq ranger-enter-with-minus t)
+#+END_SRC
 
 When disabling the mode you can choose to kill the buffers that were opened
 while browsing the directories.

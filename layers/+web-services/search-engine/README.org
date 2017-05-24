@@ -3,15 +3,15 @@
 [[file:img/searchengine.jpg]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#supported-search-engines][Supported search engines]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
- - [[#customize-it][Customize it!]]
+- [[#description][Description]]
+  - [[#supported-search-engines][Supported search engines]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+- [[#customize-it][Customize it!]]
 
 * Description
 
-This layer adds support for the [[https://github.com/hrs/engine-mode/engine-mode.el][Search Engine]] package.
+This layer adds support for the [[https://github.com/hrs/engine-mode][Search Engine]] package.
 
 ** Supported search engines
 

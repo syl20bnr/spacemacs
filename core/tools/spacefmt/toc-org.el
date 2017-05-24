@@ -43,7 +43,6 @@
 
 ;;; Code:
 
-(require 'ert)
 (require 'org)
 
 (defgroup toc-org nil
@@ -53,17 +52,32 @@ files on GitHub)"
   :group 'org)
 
 ;; just in case, simple regexp "^*.*:toc:\\($\\|[^ ]*:$\\)"
-(defconst toc-org-toc-org-regexp "^*.*:toc\\([@_][0-9]\\|\\([@_][0-9][@_][a-zA-Z]+\\)\\)?:\\($\\|[^ ]*:$\\)"
+(defconst toc-org-toc-org-regexp "^*.*:toc\\([@_][0-9]\\|\\([@_][0-9][@_][a-zA-Z]+\\)\\)?:\\($\\|[^ ]*?:$\\)"
   "Regexp to find the heading with the :toc: tag")
-(defconst toc-org-tags-regexp "\s*:[[:word:]:@]*:\s*$"
+(defconst toc-org-noexport-regexp "\\(^*+\\)\s+.*:noexport\\([@_][0-9]\\)?:\\($\\|[^ ]*?:$\\)"
+  "Regexp to find the extended version of :noexport: tag")
+(defconst toc-org-tags-regexp "\s*:[[:word:]:@_]*:\s*$"
   "Regexp to find tags on the line")
 (defconst toc-org-states-regexp "^*+\s+\\(TODO\s+\\|DONE\s+\\)"
+  "Regexp to find states on the line")
+(defconst toc-org-COMMENT-regexp "\\(^*+\\)\s+\\(COMMENT\s+\\)"
+  "Regexp to find COMMENT headlines")
+(defconst toc-org-priorities-regexp "^*+\s+\\(\\[#.\\]\s+\\)"
   "Regexp to find states on the line")
 (defconst toc-org-links-regexp "\\[\\[\\(.*?\\)\\]\\[\\(.*?\\)\\]\\]"
   "Regexp to find states on the line")
 (defconst toc-org-special-chars-regexp "[^[:alnum:]_-]"
   "Regexp with the special characters (which are omitted in hrefs
   by GitHub)")
+(defconst toc-org-statistics-cookies-regexp "\s*\\[[0-9]*\\(%\\|/[0-9]*\\)\\]\s*"
+  "Regexp to find statistics cookies on the line")
+(defconst toc-org-leave-todo-regexp "^#\\+OPTIONS:.*\stodo:t[\s\n]"
+  "Regexp to find the todo export setting")
+(defconst toc-org-drawer-regexp "^[ 	]*:\\(\\(?:\\w\\|[-_]\\)+\\):[ 	]*$"
+  "Regexp to match org drawers. Note: generally, it should be
+equal to `org-drawer-regexp'. However, some older versions of
+org (notably, 8.2.10) restrict the values that can be placed
+between the colons. So, the value here is set explicitly.")
 
 (defcustom toc-org-max-depth 2
   "Maximum depth of the headings to use in the table of
@@ -88,11 +102,19 @@ headings.")
 (defun toc-org-raw-toc ()
   "Return the \"raw\" table of contents of the current file,
 i.e. simply flush everything that's not a heading and strip
-tags."
+auxiliary text."
   (let ((content (buffer-substring-no-properties
-                  (point-min) (point-max))))
+                  (point-min) (point-max)))
+        (leave-states-p nil))
     (with-temp-buffer
       (insert content)
+
+      ;; set leave-states-p variable
+      (goto-char (point-min))
+      (when (re-search-forward toc-org-leave-todo-regexp nil t)
+        (setq leave-states-p t))
+
+      ;; keep only lines starting with *s
       (goto-char (point-min))
       (keep-lines "^\*+[ ]")
 
@@ -103,13 +125,45 @@ tags."
       (delete-region (point) (progn (forward-line 1) (point)))
 
       ;; strip states
+      (unless leave-states-p
+        (goto-char (point-min))
+        (while (re-search-forward toc-org-states-regexp nil t)
+          (replace-match "" nil nil nil 1)))
+
+      ;; strip COMMENT headlines
       (goto-char (point-min))
-      (while (re-search-forward toc-org-states-regexp nil t)
+      (while (re-search-forward toc-org-COMMENT-regexp nil t)
+        (let ((skip-depth (concat (match-string 1) "*")))
+          (while (progn
+                   (beginning-of-line)
+                   (delete-region (point) (min (1+ (line-end-position)) (point-max)))
+                   (string-prefix-p skip-depth (or (current-word) ""))))))
+
+      ;; strip headings with :noexport: tag
+      (goto-char (point-min))
+      (while (re-search-forward toc-org-noexport-regexp nil t)
+        (save-excursion
+          (let* ((tag  (match-string 2))
+                 (depth (if tag (string-to-number (substring tag 1)) 0))
+                 (subheading-depth (concat (match-string 1) "*"))
+                 (skip-depth (concat subheading-depth (make-string (max (1- depth) 0) ?*))))
+            (if (> depth 0)
+                (forward-line)
+              (beginning-of-line)
+              (delete-region (point) (min (1+ (line-end-position)) (point-max))))
+            (while (string-prefix-p subheading-depth (or (current-word) ""))
+              (if (string-prefix-p skip-depth (or (current-word) ""))
+                  (progn
+                    (beginning-of-line)
+                    (delete-region (point) (min (1+ (line-end-position)) (point-max))))
+                (forward-line))))))
+
+      ;; strip priorities
+      (goto-char (point-min))
+      (while (re-search-forward toc-org-priorities-regexp nil t)
         (replace-match "" nil nil nil 1))
 
       ;; strip tags
-      ;; TODO :export: and :noexport: tags semantic should be probably
-      ;; implemented
       (goto-char (point-min))
       (while (re-search-forward toc-org-tags-regexp nil t)
         (replace-match "" nil nil))
@@ -122,55 +176,38 @@ tags."
       (buffer-substring-no-properties
        (point-min) (point-max)))))
 
-(ert-deftest toc-org-test-raw-toc ()
-  "Test the `toc-org-raw-toc' function"
-
-  (defun toc-org-test-raw-toc-gold-test (content gold)
-    (should (equal
-             (with-temp-buffer
-               (insert content)
-               (toc-org-raw-toc))
-             gold)))
-  (declare-function toc-org-test-raw-toc-gold-test "toc-org") ;; suppress compiler warning
-
-  (let ((beg "* TODO [[http://somewhere.com][About]]\n:TOC:\n drawer\n:END:\n\ntoc-org is a utility to have an up-to-date table of contents in the\norg files without exporting (useful primarily for readme files on\nGitHub).\n\nIt is similar to the [[https://github.com/ardumont/markdown-toc][markdown-toc]] package, but works for org files.\n:TOC:\n  drawer\n:END:\n\n* Table of Contents                                                     ")
-        (gold "* About\n"))
-
-    ;; different TOC styles
-    (toc-org-test-raw-toc-gold-test (concat beg ":TOC:"         ) gold)
-    (toc-org-test-raw-toc-gold-test (concat beg ":TOC_1:"       ) gold)
-    (toc-org-test-raw-toc-gold-test (concat beg ":TOC_1_qqq:"   ) gold)
-    (toc-org-test-raw-toc-gold-test (concat beg ":TOC@1:"       ) gold)
-    (toc-org-test-raw-toc-gold-test (concat beg ":TOC@1@cxv:"   ) gold)
-    (toc-org-test-raw-toc-gold-test (concat beg ":TOC@1_hello:" ) gold)
-
-    ;; trailing symbols
-    (toc-org-test-raw-toc-gold-test (concat beg ":TOC@1_hello:" "\n\n\n") gold)
-    (toc-org-test-raw-toc-gold-test (concat beg ":TOC@1_hello:" "\n\n\nsdfd") gold))
-
-  ;; more complex case
-  (toc-org-test-raw-toc-gold-test
-   "* About\n:TOC:\n drawer\n:END:\n\ntoc-org is a utility to have an up-to-date table of contents in the\norg files without exporting (useful primarily for readme files on\nGitHub).\n\nIt is similar to the [[https://github.com/ardumont/markdown-toc][markdown-toc]] package, but works for org files.\n:TOC:\n  drawer\n:END:\n\n* Table of Contents                                                     :TOC:\n - [[#about][About]]\n - [[#use][Use]]\n - [[#different-href-styles][Different href styles]]\n - [[#example][Example]]\n\n* Installation\n** via package.el\nThis is the simplest method if you have the package.el module\n(built-in since Emacs 24.1) you can simply use =M-x package-install=\nand then put the following snippet in your ~/.emacs file\n#+BEGIN_SRC elisp\n  (eval-after-load \"toc-org-autoloads\"\n    '(progn\n       (if (require 'toc-org nil t)\n           (add-hook 'org-mode-hook 'toc-org-enable)\n         (warn \"toc-org not found\"))))\n#+END_SRC\n** Manual                                                             :Hello:\n- Create folder ~/.emacs.d if you don't have it\n- Go to it and clone toc-org there\n  #+BEGIN_SRC sh\n    git clone https://github.com/snosov1/toc-org.git\n  #+END_SRC\n- Put this in your ~/.emacs file\n  #+BEGIN_SRC elisp\n    (add-to-list 'load-path \"~/.emacs.d/toc-org\")\n    (when (require 'toc-org nil t)\n      (add-hook 'org-mode-hook 'toc-org-enable))\n  #+END_SRC\n\n* Use\n\nAfter the installation, every time you'll be saving an org file, the\nfirst headline with a :TOC: tag will be updated with the current table\nof contents.\n\nTo add a TOC tag, you can use the command =org-set-tags-command=.\n\nIn addition to the simple :TOC: tag, you can also use the following\ntag formats:\n\n- :TOC@2: - sets the max depth of the headlines in the table of\n  contents to 2 (the default)\n\n- :TOC@2@gh: - sets the max depth as in above and also uses the\n  GitHub-style hrefs in the table of contents (the default). The other\n  supported href style is 'org', which is the default org style (you\n  can use C-c C-o to go to the headline at point).\n\nYou can also use =_= as separator, instead of =@=.\n\n* Different href styles\n\nCurrently, only 2 href styles are supported: =gh= and =org=. You can easily\ndefine your own styles. If you use the tag =:TOC@2@STYLE:= (=STYLE= being a\nstyle name), then the package will look for a function named\n=toc-org-hrefify-STYLE=, which accepts a heading string and returns a href\ncorresponding to that heading.\n\nE.g. for =org= style it simply returns input as is:\n\n#+BEGIN_SRC emacs-lisp\n  (defun toc-org-hrefify-org (str)\n    \"Given a heading, transform it into a href using the org-mode\n  rules.\"\n    str)\n#+END_SRC\n\n* Example\n\n#+BEGIN_SRC org\n  * About\n  * Table of Contents                                           :TOC:\n    - [[#about][About]]\n    - [[#installation][Installation]]\n        - [[#via-packageel][via package.el]]\n        - [[#manual][Manual]]\n    - [[#use][Use]]\n  * Installation\n  ** via package.el\n  ** Manual\n  * Use\n  * Example\n#+END_SRC\n"
-   "* About\n* Installation\n** via package.el\n** Manual\n* Use\n* Different href styles\n* Example\n"))
-
-(defun toc-org-hrefify-gh (str)
+(defun toc-org-hrefify-gh (str &optional hash)
   "Given a heading, transform it into a href using the GitHub
 rules."
   (let* ((spc-fix (replace-regexp-in-string " " "-" str))
          (upcase-fix (replace-regexp-in-string "[A-Z]" 'downcase spc-fix t))
-         (special-chars-fix (replace-regexp-in-string toc-org-special-chars-regexp "" upcase-fix t)))
-    (concat "#" special-chars-fix)))
+         (special-chars-fix (replace-regexp-in-string toc-org-special-chars-regexp "" upcase-fix t))
+         (hrefified-base (concat "#" special-chars-fix))
+         (hrefified hrefified-base)
+         (idx 0))
+    ;; try appending -1, -2, -3, etc. until unique href is found
+    (when hash
+      (while (gethash hrefified hash)
+        (setq hrefified
+              (concat hrefified-base "-" (number-to-string (setq idx (1+ idx)))))))
+    hrefified))
 
-(ert-deftest toc-org-test-hrefify-gh ()
-  "Test the `toc-org-hrefify-gh' function"
-  (should (equal (toc-org-hrefify-gh "About") "#about"))
-  (should (equal (toc-org-hrefify-gh "!h@#$%^&*(){}|][:;\"'/?.>,<`~") "#h"))
-  (should (equal (toc-org-hrefify-gh "!h@#$% ^&*(S){}|][:;\"'/?.>,<`~") "#h-s")))
+(defun toc-org-format-visible-link (str)
+  "Formats the visible text of the link."
+  (with-temp-buffer
+    (insert str)
 
-(defun toc-org-hrefify-org (str)
+    ;; strip statistics cookies
+    (goto-char (point-min))
+    (while (re-search-forward toc-org-statistics-cookies-regexp nil t)
+      (replace-match "" nil nil))
+    (buffer-substring-no-properties
+     (point-min) (point-max))))
+
+(defun toc-org-hrefify-org (str &optional hash)
   "Given a heading, transform it into a href using the org-mode
 rules."
-  str)
+  (toc-org-format-visible-link str))
 
 (defun toc-org-unhrefify (type path)
   "Looks for a value in toc-org-hrefify-hash using path as a key."
@@ -213,18 +250,25 @@ each heading into a link."
                        (+ 2 (or (bound-and-true-p org-list-indent-offset) 0))
                        ?\s)))
 
+            (insert "-")
             (skip-chars-forward " ")
-            (insert "- ")
+
+	    (save-excursion
+	      (delete-trailing-whitespace (point) (line-end-position)))
 
             (let* ((beg (point))
                    (end (line-end-position))
                    (heading (buffer-substring-no-properties
                              beg end))
-                   (hrefified (funcall hrefify heading)))
+                   (hrefified (funcall hrefify heading hash)))
               (insert "[[")
               (insert hrefified)
               (insert "][")
-              (end-of-line)
+              (insert
+               (toc-org-format-visible-link
+                (buffer-substring-no-properties
+                 (point) (line-end-position))))
+              (delete-region (point) (line-end-position))
               (insert "]]")
 
               ;; maintain the hash table, if provided
@@ -234,22 +278,6 @@ each heading into a link."
 
     (buffer-substring-no-properties
      (point-min) (point-max))))
-
-(ert-deftest toc-org-test-hrefify-toc ()
-  (let ((hash (make-hash-table :test 'equal)))
-    (should (equal (toc-org-hrefify-toc "* About\n" 'upcase hash)
-                   " - [[ABOUT][About]]\n"))
-    (should (equal (gethash "ABOUT" hash) "About")))
-  (let ((hash (make-hash-table :test 'equal)))
-    (should (equal (toc-org-hrefify-toc "* About\n* Installation\n** via package.el\n** Manual\n* Use\n* Different href styles\n* Example\n" 'upcase hash)
-                   " - [[ABOUT][About]]\n - [[INSTALLATION][Installation]]\n   - [[VIA PACKAGE.EL][via package.el]]\n   - [[MANUAL][Manual]]\n - [[USE][Use]]\n - [[DIFFERENT HREF STYLES][Different href styles]]\n - [[EXAMPLE][Example]]\n"))
-    (should (equal (gethash "ABOUT" hash) "About"))
-    (should (equal (gethash "INSTALLATION" hash) "Installation"))
-    (should (equal (gethash "VIA PACKAGE.EL" hash) "via package.el"))
-    (should (equal (gethash "MANUAL" hash) "Manual"))
-    (should (equal (gethash "USE" hash) "Use"))
-    (should (equal (gethash "DIFFERENT HREF STYLES" hash) "Different href styles"))
-    (should (equal (gethash "EXAMPLE" hash) "Example"))))
 
 (defun toc-org-flush-subheadings (toc max-depth)
   "Flush subheadings of the raw `toc' deeper than `max-depth'."
@@ -265,44 +293,34 @@ each heading into a link."
     (buffer-substring-no-properties
      (point-min) (point-max))))
 
-(ert-deftest toc-org-test-flush-subheadings ()
-  (should (equal (toc-org-flush-subheadings "* About\n" 0)
-                 ""))
-  (should (equal (toc-org-flush-subheadings "* About\n" 1)
-                 "* About\n"))
-  (should (equal (toc-org-flush-subheadings "* About\n" 2)
-                 "* About\n"))
-
-  (should (equal (toc-org-flush-subheadings "* About\n* Installation\n** via package.el\n** Manual\n* Use\n* Different href styles\n* Example\n" 0)
-                 ""))
-  (should (equal (toc-org-flush-subheadings "* About\n* Installation\n** via package.el\n** Manual\n* Use\n* Different href styles\n* Example\n" 1)
-                 "* About\n* Installation\n* Use\n* Different href styles\n* Example\n"))
-  (should (equal (toc-org-flush-subheadings "* About\n* Installation\n** via package.el\n** Manual\n* Use\n* Different href styles\n* Example\n" 2)
-                 "* About\n* Installation\n** via package.el\n** Manual\n* Use\n* Different href styles\n* Example\n"))
-  (should (equal (toc-org-flush-subheadings "* About\n* Installation\n** via package.el\n** Manual\n* Use\n* Different href styles\n* Example\n" 3)
-                 "* About\n* Installation\n** via package.el\n** Manual\n* Use\n* Different href styles\n* Example\n")))
-
 (defun toc-org-insert-toc (&optional dry-run)
-  "Looks for a headline with the TOC tag and updates it with the
-current table of contents.
+  "Update table of contents in heading tagged :TOC:.
 
-If optional second argument DRY-RUN is provided, then the buffer
-is not modified at all. Only the internal hash-table is updated
-to enable `org-open-at-point' for TOC links.
+When DRY-RUN is non-nil, the buffer is not modified, only the
+internal hash-table is updated to enable `org-open-at-point' for
+TOC links.
 
-To add a TOC tag, you can use the command
-`org-set-tags-command' (C-c C-q).
+The table of contents heading may also be set with these tags:
 
-In addition to the simple :TOC: tag, you can also use the
-following tag formats:
+- :TOC_#: Sets the maximum depth of the headlines in the table of
+          contents to the number given, e.g. :TOC_3: for
+          3 (default for plain :TOC: tag is 2).
 
-- :TOC_2: - sets the max depth of the headlines in the table of
-  contents to 2 (the default)
+- :TOC_#_gh: Sets the maximum depth as above and also uses
+             GitHub-style anchors in the table of contents (the
+             default).  The other supported style is :TOC_#_org:,
+             which is the default org style.
 
-- :TOC_2_gh: - sets the max depth as in above and also uses the
-  GitHub-style hrefs in the table of contents (this style is
-  default). The other supported href style is 'org', which is the
-  default org style."
+Headings may be excluded from the TOC with these tags:
+
+- :noexport: Exclude this heading.
+
+- :noexport_#: Exclude this heading's children with relative
+               level greater than number given (e.g. :noexport_1:
+               causes all child headings to be excluded).
+
+Note that :noexport: is also used by Org-mode's exporter, but
+not :noexport_#:."
 
   (interactive)
   (when (eq major-mode 'org-mode)
@@ -330,6 +348,14 @@ following tag formats:
                   (unless dry-run
                     (newline (forward-line 1))
 
+                    ;; skip drawers
+                    (let ((end
+                           (save-excursion ;; limit to next heading
+                             (search-forward-regexp "^\\*" (point-max) 'skip))))
+                      (while (re-search-forward toc-org-drawer-regexp end t)
+                        (skip-chars-forward "[:space:]")))
+                    (beginning-of-line)
+
                     ;; insert newline if TOC is currently empty
                     (when (looking-at "^\\*")
                       (open-line 1))
@@ -338,7 +364,7 @@ following tag formats:
                     (let ((beg (point))
                           (end
                            (save-excursion
-                             (when (search-forward-regexp "^\\*" (point-max) t)
+                             (when (search-forward-regexp "^\\*" (point-max) 'skip)
                                (forward-line -1))
                              (end-of-line)
                              (point))))
@@ -365,44 +391,8 @@ following tag formats:
     (setq org-link-translation-function 'toc-org-unhrefify)
     (toc-org-insert-toc t)))
 
-(ert-deftest toc-org-test-insert-toc ()
-  "Test the `toc-org-insert-toc' function"
-
-  (defun toc-org-test-insert-toc-gold-test (content gold)
-    (with-temp-buffer
-      (org-mode)
-      (insert content)
-      (toc-org-raw-toc)
-      (toc-org-insert-toc)
-      (should (equal
-               (buffer-substring-no-properties
-                (point-min) (point-max))
-               gold))))
-  (declare-function toc-org-test-insert-toc-gold-test "toc-org") ;; suppress compiler warning
-
-  (let ((beg "* About\n:TOC:\n drawer\n:END:\n\ntoc-org is a utility to have an up-to-date table of contents in the\norg files without exporting (useful primarily for readme files on\nGitHub).\n\nIt is similar to the [[https://github.com/ardumont/markdown-toc][markdown-toc]] package, but works for org files.\n:TOC:\n  drawer\n:END:\n* Hello\n** Good-bye\n*** Salut\n* Table of Contents                                                     "))
-    (toc-org-test-insert-toc-gold-test
-     (concat beg ":TOC:")
-     "* About\n:TOC:\n drawer\n:END:\n\ntoc-org is a utility to have an up-to-date table of contents in the\norg files without exporting (useful primarily for readme files on\nGitHub).\n\nIt is similar to the [[https://github.com/ardumont/markdown-toc][markdown-toc]] package, but works for org files.\n:TOC:\n  drawer\n:END:\n* Hello\n** Good-bye\n*** Salut\n* Table of Contents                                                     :TOC:\n - [[#about][About]]\n - [[#hello][Hello]]\n   - [[#good-bye][Good-bye]]\n")
-
-    (toc-org-test-insert-toc-gold-test
-     (concat beg ":TOC_1:")
-     "* About\n:TOC:\n drawer\n:END:\n\ntoc-org is a utility to have an up-to-date table of contents in the\norg files without exporting (useful primarily for readme files on\nGitHub).\n\nIt is similar to the [[https://github.com/ardumont/markdown-toc][markdown-toc]] package, but works for org files.\n:TOC:\n  drawer\n:END:\n* Hello\n** Good-bye\n*** Salut\n* Table of Contents                                                     :TOC_1:\n - [[#about][About]]\n - [[#hello][Hello]]\n")
-
-    (toc-org-test-insert-toc-gold-test
-     (concat beg ":TOC_3:")
-     "* About\n:TOC:\n drawer\n:END:\n\ntoc-org is a utility to have an up-to-date table of contents in the\norg files without exporting (useful primarily for readme files on\nGitHub).\n\nIt is similar to the [[https://github.com/ardumont/markdown-toc][markdown-toc]] package, but works for org files.\n:TOC:\n  drawer\n:END:\n* Hello\n** Good-bye\n*** Salut\n* Table of Contents                                                     :TOC_3:\n - [[#about][About]]\n - [[#hello][Hello]]\n   - [[#good-bye][Good-bye]]\n     - [[#salut][Salut]]\n")
-
-    (toc-org-test-insert-toc-gold-test
-     (concat beg ":TOC_1_org:")
-     "* About\n:TOC:\n drawer\n:END:\n\ntoc-org is a utility to have an up-to-date table of contents in the\norg files without exporting (useful primarily for readme files on\nGitHub).\n\nIt is similar to the [[https://github.com/ardumont/markdown-toc][markdown-toc]] package, but works for org files.\n:TOC:\n  drawer\n:END:\n* Hello\n** Good-bye\n*** Salut\n* Table of Contents                                                     :TOC_1_org:\n - [[About][About]]\n - [[Hello][Hello]]\n")
-
-    (toc-org-test-insert-toc-gold-test
-     (concat beg ":TOC_3_org:")
-     "* About\n:TOC:\n drawer\n:END:\n\ntoc-org is a utility to have an up-to-date table of contents in the\norg files without exporting (useful primarily for readme files on\nGitHub).\n\nIt is similar to the [[https://github.com/ardumont/markdown-toc][markdown-toc]] package, but works for org files.\n:TOC:\n  drawer\n:END:\n* Hello\n** Good-bye\n*** Salut\n* Table of Contents                                                     :TOC_3_org:\n - [[About][About]]\n - [[Hello][Hello]]\n   - [[Good-bye][Good-bye]]\n     - [[Salut][Salut]]\n")))
-
 ;; Local Variables:
-;; compile-command: "emacs -batch -l ert -l *.el -f ert-run-tests-batch-and-exit && emacs -batch -f batch-byte-compile *.el 2>&1 | sed -n '/Warning\|Error/p' | xargs -r ls"
+;; compile-command: "emacs -batch -l ert -l toc-org.el -l toc-org-test.el -f ert-run-tests-batch-and-exit && emacs -batch -f batch-byte-compile toc-org.el 2>&1 | sed -n '/Warning\|Error/p' | xargs -r ls"
 ;; End:
 
 (provide 'toc-org)

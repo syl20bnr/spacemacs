@@ -109,6 +109,7 @@
         "pk" 'eclim-project-close
         "po" 'eclim-project-open
         "pp" 'eclim-project-mode
+        "pr" 'eclim-java-run-run
         "pu" 'eclim-project-update
         ;; refactor
         "rc" 'eclim-java-constructor
@@ -155,8 +156,7 @@
         (kbd "p") 'eclim-project-update
         (kbd "g") 'eclim-project-mode-refresh
         (kbd "R") 'eclim-project-rename
-        (kbd "q") 'eclim-quit-window)
-      )))
+        (kbd "q") 'eclim-quit-window))))
 
 (defun java/post-init-eldoc ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-eldoc))
@@ -280,7 +280,13 @@
         (kbd "M-n") 'forward-button
         (kbd "M-p") 'backward-button
         (kbd "n") 'forward-button
-        (kbd "N") 'backward-button))))
+        (kbd "N") 'backward-button)
+      (evil-define-key '(insert normal) ensime-search-mode-map
+        (kbd "C-q") 'ensime-search-quit
+        (kbd "C-j") 'ensime-search-next-match
+        (kbd "C-k") 'ensime-search-prev-match
+        (kbd "RET") 'ensime-search-choose-current-result
+        (kbd "C-i") 'ensime-search-insert-import-of-current-result))))
 
 ;; (defun java/post-init-ensime ()
 ;;   (when (eq 'ensime java-backend)

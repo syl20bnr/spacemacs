@@ -3,9 +3,9 @@
 [[file:img/smex.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer replaces =helm-M-x= by [[https://github.com/nonsequitur/smex][smex]] which is built on top of =ido=.

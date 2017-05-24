@@ -1,9 +1,9 @@
 #+TITLE: dash layer dependency installation script
 
 * Table of Contents                 :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#list-of-installed-software][List of installed software:]]
- - [[#notes][Notes:]]
+- [[#description][Description]]
+- [[#list-of-installed-software][List of installed software:]]
+- [[#notes][Notes:]]
 
 * Description
 Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Btools/dash/README.org][Dash layer.]]

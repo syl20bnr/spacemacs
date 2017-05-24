@@ -1,34 +1,34 @@
 #+TITLE: Configuration layers
 
 * Configuration Layers                                      :TOC_4_gh:noexport:
- - [[#introduction][Introduction]]
- - [[#nomenclature][Nomenclature]]
- - [[#the-emacs-loading-process][The Emacs loading process]]
-   - [[#emacs-lisp-files][Emacs Lisp files]]
-     - [[#loading-a-file][Loading a file]]
-   - [[#features][Features]]
-     - [[#the-load-path][The load path]]
-   - [[#auto-loading][Auto-loading]]
-   - [[#eval-after-load][Eval after load]]
-   - [[#use-package][Use-package]]
- - [[#anatomy-of-a-layer][Anatomy of a layer]]
-   - [[#layersel][layers.el]]
-   - [[#packagesel][packages.el]]
-   - [[#funcsel][funcs.el]]
-   - [[#configel][config.el]]
-   - [[#keybindingsel][keybindings.el]]
- - [[#the-spacemacs-loading-process][The Spacemacs loading process]]
- - [[#case-study-auto-completion][Case study: auto-completion]]
- - [[#layer-tips-and-tricks][Layer tips and tricks]]
-   - [[#cross-dependencies][Cross-dependencies]]
-   - [[#use-package-init-and-config][Use-package init and config]]
-   - [[#use-package-hooks][Use-package hooks]]
-   - [[#best-practices][Best practices]]
-     - [[#package-ownership][Package ownership]]
-     - [[#localize-your-configuration][Localize your configuration]]
-     - [[#load-ordering][Load ordering]]
-     - [[#no-require][No require]]
-     - [[#auto-load-everything][Auto-load everything]]
+- [[#introduction][Introduction]]
+- [[#nomenclature][Nomenclature]]
+- [[#the-emacs-loading-process][The Emacs loading process]]
+  - [[#emacs-lisp-files][Emacs Lisp files]]
+    - [[#loading-a-file][Loading a file]]
+  - [[#features][Features]]
+    - [[#the-load-path][The load path]]
+  - [[#auto-loading][Auto-loading]]
+  - [[#eval-after-load][Eval after load]]
+  - [[#use-package][Use-package]]
+- [[#anatomy-of-a-layer][Anatomy of a layer]]
+  - [[#layersel][layers.el]]
+  - [[#packagesel][packages.el]]
+  - [[#funcsel][funcs.el]]
+  - [[#configel][config.el]]
+  - [[#keybindingsel][keybindings.el]]
+- [[#the-spacemacs-loading-process][The Spacemacs loading process]]
+- [[#case-study-auto-completion][Case study: auto-completion]]
+- [[#layer-tips-and-tricks][Layer tips and tricks]]
+  - [[#cross-dependencies][Cross-dependencies]]
+  - [[#use-package-init-and-config][Use-package init and config]]
+  - [[#use-package-hooks][Use-package hooks]]
+  - [[#best-practices][Best practices]]
+    - [[#package-ownership][Package ownership]]
+    - [[#localize-your-configuration][Localize your configuration]]
+    - [[#load-ordering][Load ordering]]
+    - [[#no-require][No require]]
+    - [[#auto-load-everything][Auto-load everything]]
 
 * Introduction
 This document is intended as a tutorial for users who are interested in writing
@@ -288,7 +288,7 @@ Before initializing that package, Spacemacs will add this folder to the load
 path for you.
 
 ** layers.el
-This file is the first file to be loaded and this is the place where addtional
+This file is the first file to be loaded and this is the place where additional
 layers can be declared.
 
 For instance is layer A depends on some functionality of layer B then in the
@@ -321,6 +321,9 @@ as follows:
     ;; A local package
     (some-package :location local)
 
+    ;; A local package to be built with Quelpa
+    (some-package :location (recipe :fetcher local))
+
     ;; A package recipe
     (some-package :location (recipe
                              :fetcher github
@@ -333,7 +336,16 @@ as follows:
 
 The =:location= attribute specifies where the package may be found. Spacemacs
 currently supports packages on ELPA compliant repositories, local packages and
-MELPA recipes (through the Quelpa package). Local packages should reside at =<layer>/local/<package>/=. For information about recipes see the [[https://github.com/milkypostman/melpa#recipe-format][MELPA documentation]].
+MELPA recipes (through the Quelpa package). Local packages should reside at
+=<layer>/local/<package>/=. For information about recipes see the [[https://github.com/milkypostman/melpa#user-content-recipe-format][MELPA
+documentation]].
+
+As you may have noticed from examples above, there are two ways to declare a
+local package: using either =:location local= or a Quelpa recipe with the
+Spacemacs-specific pseudo-fetcher =local=. The former is for the simplest
+packages that declare no external dependencies, since it just adds the package
+directory to the =load-path=. The latter is for packages that do have external
+dependencies declared and thus have to be built with Quelpa.
 
 Packages may be /excluded/ by setting the =:excluded= property to true. This
 will prevent the package from being installed even if it is used by another

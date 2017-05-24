@@ -3,24 +3,24 @@
 [[file:img/elixir.png]] with [[file:img/alchemist.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#flycheck][Flycheck]]
-     - [[#credo][Credo]]
-     - [[#dogma][Dogma]]
-     - [[#mix-compile][mix compile]]
- - [[#key-bindings][Key bindings]]
-   - [[#refcard][Refcard]]
-   - [[#help][Help]]
-   - [[#mix][Mix]]
-   - [[#project][Project]]
-   - [[#evaluation-in-place][Evaluation in place]]
-   - [[#repl-interactions][REPL interactions]]
-   - [[#tests][Tests]]
-   - [[#compile][Compile]]
-   - [[#execute][Execute]]
-   - [[#code-definition-jump][Code Definition Jump]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#flycheck][Flycheck]]
+    - [[#credo][Credo]]
+    - [[#dogma][Dogma]]
+    - [[#mix-compile][mix compile]]
+- [[#key-bindings][Key bindings]]
+  - [[#refcard][Refcard]]
+  - [[#help][Help]]
+  - [[#mix][Mix]]
+  - [[#project][Project]]
+  - [[#evaluation-in-place][Evaluation in place]]
+  - [[#repl-interactions][REPL interactions]]
+  - [[#tests][Tests]]
+  - [[#compile][Compile]]
+  - [[#execute][Execute]]
+  - [[#code-definition-jump][Code Definition Jump]]
 
 * Description
 This layer adds support for [[http://elixir-lang.org/][Elixir]] .
@@ -121,7 +121,7 @@ Remember that you can verify the flycheck checkers status with ~SPC e v~.
 
 * Key bindings
 ** Refcard
-You find and overview of all the key-bindings on the [[file:alchemist-refcard.pdf][Alchemist-Refcard]].
+You find and overview of all the key-bindings on the [[https://github.com/tonini/alchemist.el/blob/master/doc/alchemist-refcard.pdf][Alchemist-Refcard]].
 
 ** Help
 

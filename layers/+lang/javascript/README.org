@@ -3,22 +3,22 @@
 [[file:img/javascript.png]] [[file:img/coffee.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features:]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#tern][Tern]]
-   - [[#indentation][Indentation]]
-   - [[#repl][REPL]]
- - [[#key-bindings][Key Bindings]]
-   - [[#js2-mode][js2-mode]]
-   - [[#folding-js2-mode][Folding (js2-mode)]]
-   - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
-   - [[#formatting-web-beautify][Formatting (web-beautify)]]
-     - [[#documentation-js-doc][Documentation (js-doc)]]
-   - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
-   - [[#json][JSON]]
-   - [[#repl-skewer-mode][REPL (skewer-mode)]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#tern][Tern]]
+  - [[#indentation][Indentation]]
+  - [[#repl][REPL]]
+- [[#key-bindings][Key Bindings]]
+  - [[#js2-mode][js2-mode]]
+  - [[#folding-js2-mode][Folding (js2-mode)]]
+  - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
+  - [[#formatting-web-beautify][Formatting (web-beautify)]]
+    - [[#documentation-js-doc][Documentation (js-doc)]]
+  - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
+  - [[#json][JSON]]
+  - [[#repl-skewer-mode][REPL (skewer-mode)]]
 
 * Description
 
@@ -55,6 +55,11 @@ such as =ESLint= or =JSHint=:
   $ npm install -g eslint
   # or
   $ npm install -g jshint
+#+END_SRC
+
+If you install these in non-standard locations, then add the following to your =dotspacemacs/user-init= function:
+#+BEGIN_SRC elisp
+  (add-to-list 'exec-path "/path/to/node/bins" t)
 #+END_SRC
 
 * Configuration

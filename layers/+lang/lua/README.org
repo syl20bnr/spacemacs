@@ -3,11 +3,11 @@
 [[file:img/lua.gif]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features:]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#commands][Commands]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+  - [[#commands][Commands]]
 
 * Description
 This layer adds support for editing Lua.

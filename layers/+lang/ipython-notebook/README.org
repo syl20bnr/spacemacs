@@ -1,27 +1,27 @@
 #+TITLE: IPython Notebook layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#features][Features]]
- - [[#list-of-todos][List of TODOS]]
-   - [[#maybe-itd-be-better-if-there-was-a-state-for-this][Maybe it'd be better if there was a state for this]]
-   - [[#make-more-keybinding-to-connect-to-a-python-buffer][Make more keybinding to =connect= to a python buffer]]
-   - [[#deleting-visual-regions-dont-work-find-out-why][Deleting visual regions don't work, find out why]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#dependencies][Dependencies]]
-   - [[#what-needs-to-be-run][What needs to be run]]
- - [[#using-the-ipython-notebook][Using the IPython notebook]]
-   - [[#open-notebook-list][Open Notebook List]]
-   - [[#key-bindings][Key Bindings]]
-     - [[#transient-state-ipython-notebook][Transient-state: =ipython-notebook=]]
-     - [[#normal-mode][Normal mode]]
-     - [[#insert-mode][Insert mode]]
-     - [[#traceback-mode][Traceback mode]]
- - [[#screenshots][Screenshots]]
-   - [[#light][Light]]
-   - [[#dark][Dark]]
- - [[#bonus][Bonus]]
+- [[#description][Description]]
+- [[#features][Features]]
+- [[#list-of-todos][List of TODOS]]
+  - [[#maybe-itd-be-better-if-there-was-a-state-for-this][Maybe it'd be better if there was a state for this]]
+  - [[#make-more-keybinding-to-connect-to-a-python-buffer][Make more keybinding to =connect= to a python buffer]]
+  - [[#deleting-visual-regions-dont-work-find-out-why][Deleting visual regions don't work, find out why]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#dependencies][Dependencies]]
+  - [[#what-needs-to-be-run][What needs to be run]]
+- [[#using-the-ipython-notebook][Using the IPython notebook]]
+  - [[#open-notebook-list][Open Notebook List]]
+  - [[#key-bindings][Key Bindings]]
+    - [[#transient-state-ipython-notebook][Transient-state: =ipython-notebook=]]
+    - [[#normal-mode][Normal mode]]
+    - [[#insert-mode][Insert mode]]
+    - [[#traceback-mode][Traceback mode]]
+- [[#screenshots][Screenshots]]
+  - [[#light][Light]]
+  - [[#dark][Dark]]
+- [[#bonus][Bonus]]
 
 * Description
 This layer adds support for the package =emacs-ipython-notebook=.
@@ -153,5 +153,5 @@ In traceback mode the following key bindings are defined:
 
 * Bonus
 If you want to have a matplotlibrc that looks good with a dark background try
-using [[file:matplotlibrc][this]] =matplotlibrc=. Plot background is always transparent by default so
+using [[https://gist.github.com/anonymous/80219c49cb674d01e6b5fab94e759f54][this]] =matplotlibrc=. Plot background is always transparent by default so
 it will look okay for most dark themes out there.

@@ -197,7 +197,7 @@ Available PROPS:
        ;; Check for Clashes
        (if ,already-defined?
            (unless (equal ,already-defined? ,name)
-             (spacemacs-buffer/warning "Replacing existing binding \"%s\" for %s with %s"
+             (spacemacs-buffer/message "Replacing existing binding \"%s\" for %s with %s"
                                        ,binding ,already-defined? ,name)
              (setq spacemacs--custom-layout-alist
                    (delete (assoc ,binding spacemacs--custom-layout-alist)

@@ -3,15 +3,15 @@
 [[file:img/emacs.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#auto-compile][Auto-compile]]
- - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
- - [[#debugging-elisp][Debugging Elisp]]
- - [[#key-bindings][Key bindings]]
-   - [[#additional-evaluation-functions][Additional evaluation functions]]
-   - [[#format-code][Format code]]
-   - [[#debugging][Debugging]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#auto-compile][Auto-compile]]
+- [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
+- [[#debugging-elisp][Debugging Elisp]]
+- [[#key-bindings][Key bindings]]
+  - [[#additional-evaluation-functions][Additional evaluation functions]]
+  - [[#format-code][Format code]]
+  - [[#debugging][Debugging]]
 
 * Description
 This layer gathers all the configuration related to emacs-lisp. This should
@@ -37,7 +37,7 @@ feature use this line in your =dotspacemacs/user-config= function.
 You can also exclude the =auto-compile= package.
 
 * Working with lisp files (barfage, slurpage & more)
-Spacemacs comes with a special ~lisp-state~ for working with lisp code that
+Spacemacs comes with a special =lisp-state= for working with lisp code that
 supports slurpage, barfage and more tools you'll likely want when working with
 lisp.
 
@@ -113,7 +113,7 @@ If =smartparens= is used the following additional key bindings are available:
 | ~SPC m e s~ | evaluate symbol around point |
 
 ** Format code
-The [[file:../../semantic/README.org][semantic]] layer should be installed for these key bindings to become active.
+The [[file:../../+emacs/semantic/README.org][semantic]] layer should be installed for these key bindings to become active.
 
 | Key Binding | Description             |
 |-------------+-------------------------|

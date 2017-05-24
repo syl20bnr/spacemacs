@@ -1,27 +1,26 @@
 #+TITLE: Beginners tutorial
 
 * Beginners tutorial                                      :TOC_4_gh:noexport:
- - [[#why-spacemacs][Why Spacemacs?]]
- - [[#installation-and-setup][Installation and setup]]
-   - [[#first-startup-and-choosing-the-default-editing-style][First startup and choosing the default editing style]]
- - [[#getting-started][Getting started]]
-   - [[#keybinding-notation][Keybinding notation]]
-   - [[#modal-text-editing---why-and-how][Modal text editing - why and how?]]
-   - [[#start-the-vim-tutorial][Start the Vim tutorial]]
-   - [[#using-the-spacebar-to-launch-commands][Using the spacebar to launch commands]]
-   - [[#buffers-windows-and-frames][Buffers, windows and frames]]
-   - [[#accessing-files][Accessing files]]
- - [[#configuring-spacemacs][Configuring Spacemacs]]
-   - [[#adding-language-support-and-other-features-using-layers][Adding language support and other features: using layers]]
-   - [[#changing-the-colour-theme][Changing the colour theme]]
-   - [[#starting-maximized][Starting maximized]]
-   - [[#quitting][Quitting]]
- - [[#additional-features-tips-and-troubleshooting][Additional features, tips and troubleshooting]]
-   - [[#org-mode][Org mode]]
-   - [[#version-control---the-intelligent-way][Version control - the intelligent way]]
-   - [[#daemon-mode-and-instant-startup-linux][Daemon mode and instant startup (Linux)]]
-   - [[#swap-caps-lock-and-esc-keys-on-your-keyboard][Swap caps lock and esc keys on your keyboard]]
-   - [[#troubleshooting-and-further-info][Troubleshooting and further info]]
+- [[#why-spacemacs][Why Spacemacs?]]
+- [[#installation-and-setup][Installation and setup]]
+- [[#getting-started][Getting started]]
+  - [[#keybinding-notation][Keybinding notation]]
+  - [[#modal-text-editing---why-and-how][Modal text editing - why and how?]]
+  - [[#start-the-vim-tutorial][Start the Vim tutorial]]
+  - [[#using-the-spacebar-to-launch-commands][Using the spacebar to launch commands]]
+  - [[#buffers-windows-and-frames][Buffers, windows and frames]]
+  - [[#accessing-files][Accessing files]]
+- [[#configuring-spacemacs][Configuring Spacemacs]]
+  - [[#adding-language-support-and-other-features-using-layers][Adding language support and other features: using layers]]
+  - [[#changing-the-colour-theme][Changing the colour theme]]
+  - [[#starting-maximized][Starting maximized]]
+  - [[#quitting][Quitting]]
+- [[#additional-features-tips-and-troubleshooting][Additional features, tips and troubleshooting]]
+  - [[#org-mode][Org mode]]
+  - [[#version-control---the-intelligent-way][Version control - the intelligent way]]
+  - [[#daemon-mode-and-instant-startup-linux][Daemon mode and instant startup (Linux)]]
+  - [[#swap-caps-lock-and-esc-keys-on-your-keyboard][Swap caps lock and esc keys on your keyboard]]
+  - [[#troubleshooting-and-further-info][Troubleshooting and further info]]
 
 * Why Spacemacs?
 - Unparallelled text and structure editing for all types of writing tasks:
@@ -33,35 +32,7 @@
  Spacemacs is a beginner-friendly and powerful extension of a popular text
  editor called Emacs. To install Spacemacs you need to first install base Emacs
  and then download the Spacemacs extension files, which is most easily done by
- using a program called Git. The steps are easy and detailed in the [[https://github.com/syl20bnr/spacemacs/blob/master/README.md#prerequisites][readm]]e.
-
-** First startup and choosing the default editing style
-Open Spacemacs by clicking the Emacs icon in your applications menu. The first
-time Spacemacs launches, it will load and install packages and prompt you for
-your preferred editing style. You have two options: Vim ("Among the stars aboard
-the Evil flagship") and Emacs. If you haven't used Emacs before or are unsure
-about the differences of the editing styles, we recommend selecting the default,
-Vim, by pressing ~RET~. Using this configuration is introduced more thoroughly
-in the next section. If you are already familiar with Emacs or do not plan to
-switch into modal editing style, select Emacs with the left and right arrow
-keys. There is also a third option, "Hybrid", for more advanced users willing to
-use both styles.
-
-All of these choices can be easily changed later by editing the
-dotspacemacs-editing-style variable in the dotfile (see [[#configuring-spacemacs][Configuring Spacemacs]]),
-so if modal editing does not sweep you away, you can switch to the Emacs style
-later.
-
-Next, you will be prompted for the distribution you would like to start with.
-The standard distribution is recommended, press ~RET~ to select it.
-
-Now Spacemacs will download and install required packages. This will take some
-minutes depending on your connection. After everything is installed (you will
-see the text ="n packages loaded in x s"= appear in the list under the Spacemacs
-logo), restart Spacemacs.
-
-Now your installation process is complete, congratulations! For troubleshooting,
-see the last section.
+ using a program called Git. The steps are easy and detailed in the [[https://github.com/syl20bnr/spacemacs/blob/master/README.md#prerequisites][readme]].
 
 * Getting started
 ** Keybinding notation
@@ -128,7 +99,7 @@ touch-typing) and without using modifier keys.
 The modal editing features of Spacemacs originate from a text editor called Vi,
 and thus the modal editing tutorial is called eVIl tutor. Press ~SPC h T~ (that
 is, the spacebar followed by ~h~ and ~T~) to familiarize yourself with
-modal editig.
+modal editing.
 
 ** Using the spacebar to launch commands
 Now that you are familiar with writing and editing text it is time to put the

@@ -92,6 +92,11 @@
       (add-hook 'haskell-cabal-mode-hook
                 'spacemacs//force-haskell-mode-loading)
 
+      ;; Haskell cabal files interact badly with electric-indent-mode
+      ;; note: we cannot add this hook in :config, since haskell-mode might
+      ;; only be loaded after cabal-mode hooks are already run (see add-hook above)
+      (add-hook 'haskell-cabal-mode-hook #'spacemacs-haskell//disable-electric-indent)
+
       (setq
        ;; Use notify.el (if you have it installed) at the end of running
        ;; Cabal commands or generally things worth notifying.
@@ -106,12 +111,6 @@
        haskell-stylish-on-save nil))
     :config
     (progn
-      ;; Haskell main editing mode key bindings.
-      (defun spacemacs/init-haskell-mode ()
-        ;; use only internal indentation system from haskell
-        (if (fboundp 'electric-indent-local-mode)
-            (electric-indent-local-mode -1)))
-
       (defun spacemacs/haskell-interactive-bring ()
         "Bring up the interactive mode for this session without
          switching to it."
@@ -121,7 +120,7 @@
           (display-buffer buffer)))
 
       ;; hooks
-      (add-hook 'haskell-mode-hook 'spacemacs/init-haskell-mode)
+      (add-hook 'haskell-mode-hook #'spacemacs-haskell//disable-electric-indent)
 
       ;; prefixes
       (dolist (mode haskell-modes)

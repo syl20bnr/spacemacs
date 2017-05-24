@@ -3,13 +3,13 @@
 [[file:img/jabber-logo.gif]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-   - [[#jabber-roster][Jabber Roster]]
- - [[#hipchat][HipChat]]
-   - [[#authentication][Authentication]]
-   - [[#joining-rooms][Joining rooms]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+  - [[#jabber-roster][Jabber Roster]]
+- [[#hipchat][HipChat]]
+  - [[#authentication][Authentication]]
+  - [[#joining-rooms][Joining rooms]]
 
 * Description
 This layer adds keybindings for jabber.el. jabber.el is a Jabber (XMPP) client for Emacs
@@ -25,6 +25,7 @@ file.
 | ~SPC a j~   | Connect all accounts |
 
 ** Jabber Roster
+
 | Key Binding | Description                          |
 | ~SPC m a~   | Jabber send presence                 |
 | ~SPC m b~   | Jabber get browse                    |

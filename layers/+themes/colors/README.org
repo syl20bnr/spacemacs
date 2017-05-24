@@ -3,24 +3,24 @@
 [[file:img/rainbow_dash.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#colorize-identifiers][Colorize identifiers]]
-   - [[#enable-nyan-cat][Enable Nyan cat]]
- - [[#key-bindings][Key bindings]]
-   - [[#colorize-identifiers-1][Colorize Identifiers]]
-   - [[#rainbow-mode][Rainbow Mode]]
-   - [[#nyan-mode][Nyan Mode]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#colorize-identifiers][Colorize identifiers]]
+  - [[#enable-nyan-cat][Enable Nyan cat]]
+- [[#key-bindings][Key bindings]]
+  - [[#colorize-identifiers-1][Colorize Identifiers]]
+  - [[#rainbow-mode][Rainbow Mode]]
+  - [[#nyan-mode][Nyan Mode]]
 
 * Description
-This layer colors your life with:
-- [[https://github.com/Fanael/rainbow-identifiers][rainbow identifiers]] mode will colorize all identifiers (christmas tree mode :-))
-  with an almost unique color.
+This layer colors your life with the help of the following packages:
+- [[https://github.com/Fanael/rainbow-identifiers][rainbow-identifiers]] mode will colorize all identifiers (christmas tree mode :-))
+  with mostly unique colors, and the ability to choose saturation and lightness.
 - [[https://github.com/ankurdave/color-identifiers-mode][color-identifiers]] mode will colorize only identifiers recognized as variables.
-- [[https://julien.danjou.info/projects/emacs-packages][rainbow mode]] displays strings representing colors with the color they
+- [[https://julien.danjou.info/projects/emacs-packages][rainbow-mode]] displays strings representing colors with the color they
   represent as background.
-- [[https://github.com/syl20bnr/nyan-mode][nyan mode]] display a Nyan cat progress bar in the mode-line.
+- [[https://github.com/syl20bnr/nyan-mode][nyan-mode]] display a Nyan cat progress bar in the mode-line.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -29,31 +29,54 @@ file.
 
 * Configuration
 ** Colorize identifiers
-To colorize some identifiers by default in programming language buffers, set
-the layer variables =colors-colorize-identifiers= to either =variables= or
-=all=. =variables= will colorize only words recognized as variables, =all=
-will colorize all the words.
+To colorize variable identifiers using color-identifiers and its supported languages,
+set the layer variable =colors-colorize-identifiers= to =variables=.
+
+If you want to colorize all identifiers using the more universal rainbow-identifiers
+method instead, set the layer variable =colors-colorize-identifiers= to =all=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (colors :variables colors-colorize-identifiers 'all)))
 #+END_SRC
 
-When using the value =all= the Saturation and lightness of can be set per theme
-by adding an entry in the variable =colors-theme-identifiers-sat&light=. This is
-an alist where the key is a theme symbol and the value is a pair =(saturation
-lightness)=.
+When using the value =all= (rainbow-identifiers method), the Saturation and Lightness
+used for colors can be set on a per-theme basis by adding an entry to the variable
+=colors-theme-identifiers-sat&light=. This is an alist where the key is a theme symbol
+and the value is a pair =(saturation lightness)=.
 
-For now saturation and lightness are not supported with the =variables= value.
+For now, saturation and lightness are not supported via a =variables= value!
+Instead, you must push themes into the alist in your =dotspacemacs/user-config= section,
+and then refresh the values to ensure your overrides are applied to your current theme.
+
+Two handy built-in functions makes both of those steps very easy.
 
 Example:
 
 #+BEGIN_SRC emacs-lisp
-  (push '(mytheme . (50 50)) colors-theme-identifiers-sat&light)
+  (defun dotspacemacs/user-config ()
+    ;; add per-theme sat&light overrides and refresh values for your current theme
+    (colors/add-theme-sat&light 'mytheme '(50 50))
+    (colors/add-theme-sat&light 'anothertheme '(90 40))
+    (colors/refresh-theme-look)
+    )
+#+END_SRC
+
+For all themes that lack per-theme overrides, it uses default saturation and lightness.
+You can configure your own defaults via =colors-default-rainbow-identifiers-sat=
+and =colors-default-rainbow-identifiers-light=, which can be set via =variables=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (colors :variables
+      colors-colorize-identifiers 'all
+      colors-default-rainbow-identifiers-sat 42
+      colors-default-rainbow-identifiers-light 86)
+    )
 #+END_SRC
 
 ** Enable Nyan cat
-To enable the package =nyan-mode= set the variable
+To enable the package =nyan-mode= just set the variable
 =colors-enable-nyan-cat-progress-bar= to =t=:
 
 #+BEGIN_SRC emacs-lisp
@@ -61,8 +84,8 @@ To enable the package =nyan-mode= set the variable
     (colors :variables colors-enable-nyan-cat-progress-bar t)))
 #+END_SRC
 
-It may be handy to enable it only in a GUI, you can do it by using
-a quasi-quoted list:
+It may be handy to enable it only when Emacs is running in a GUI.
+You can do that by using a quasi-quoted list which checks the Emacs mode:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
@@ -71,19 +94,17 @@ a quasi-quoted list:
 #+END_SRC
 
 * Key bindings
-The prefix associated with colors is ~C~.
-
 ** Colorize Identifiers
 
-| Key Binding | Description                                                     |
-|-------------+-----------------------------------------------------------------|
-| ~SPC C a~   | colorize all idendifiers in current buffer                      |
-| ~SPC C C-a~ | globally colorize all idendifiers and all subsequent buffers    |
-| ~SPC C v~   | colorize all variables only in current buffer                   |
-| ~SPC C C-v~ | globally colorize all variables only and all subsequent buffers |
+| Key Binding   | Description                                                           |
+|---------------+-----------------------------------------------------------------------|
+| ~SPC t C a~   | colorize all identifiers in current buffer (rainbow-identifiers mode) |
+| ~SPC t C C-a~ | globally colorize all identifiers and all subsequent buffers          |
+| ~SPC t C v~   | colorize only variables in current buffer (color-identifiers mode)    |
+| ~SPC t C C-v~ | globally colorize only variables and all subsequent buffers           |
 
-The =saturation= and =lightness= of identifier colors can be adjusted live
-when colorizing all the identifiers with the transient-state:
+The =saturation= and =lightness= of rainbow-identifier mode's colors
+can be adjusted live via the following transient-state:
 
 | Key Binding     | Description                              |
 |-----------------+------------------------------------------|
@@ -98,11 +119,19 @@ when colorizing all the identifiers with the transient-state:
 
 [[file:img/rainbow-mode.png]]
 
-=rainbow-mode= mode can be toggled on and off with:
+=rainbow-mode= mode is different from both rainbow-identifiers and color-identifiers.
+It can be used together with either (or none) of the identifier colorizers.
+
+All detected color codes in the current buffer will be be highlighted as their
+actual color. However, for accurate display, this mode requires that you use
+GUI Emacs and that you haven't disabled sRGB mode (if your platform uses that).
+
+To enable, you must manually toggle it on and off on a per-buffer basis with:
 
     ~SPC t C c~
 
 ** Nyan Mode
+
 =nyan-mode= mode can be toggled on and off with:
 
     ~SPC t m n~

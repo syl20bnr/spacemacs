@@ -27,7 +27,7 @@
                                toc-heading-tail))
 
 (defun apply-all ()
-  (message "Processing %s file.." (buffer-name))
+  (message "Processing %s file.." (buffer-file-name))
   "Apply all filters."
   (remove-empty-lines-at-the-beginning)
   (insert-title)
@@ -125,6 +125,7 @@
 
 (defun apply-toc ()
   "Apply current toc-org TAG to TOC."
+  (toc-org-enable)
   (goto-char (point-min))
   (toc-org-insert-toc))
 

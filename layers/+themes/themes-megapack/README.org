@@ -1,8 +1,8 @@
 #+TITLE: Themes Megapack layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#what-is-this][What is this?]]
- - [[#install][Install]]
+- [[#what-is-this][What is this?]]
+- [[#install][Install]]
 
 * What is this?
 This simple contribution layer is an example. It installs around 100 themes

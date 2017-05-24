@@ -3,19 +3,19 @@
 [[file:img/latex.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features]]
-   - [[#bibtex][BibTeX]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#auto-completion][Auto-completion]]
-   - [[#previewing][Previewing]]
-   - [[#build-command][Build command]]
-   - [[#auto-fill][Auto-fill]]
-   - [[#folding][Folding]]
- - [[#keybindings][Keybindings]]
-   - [[#folding][Folding]]
-   - [[#reftex][RefTeX]]
+- [[#description][Description]]
+  - [[#features][Features]]
+  - [[#bibtex][BibTeX]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#auto-completion][Auto-completion]]
+  - [[#previewing][Previewing]]
+  - [[#build-command][Build command]]
+  - [[#auto-fill][Auto-fill]]
+  - [[#folding][Folding]]
+- [[#keybindings][Keybindings]]
+  - [[#folding-1][Folding]]
+  - [[#reftex][RefTeX]]
 
 * Description
 This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects/auctex/][AucTeX]].
@@ -28,7 +28,7 @@ This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects
 
 ** BibTeX
 For more extensive support of BibTeX files than RefTeX provides, have a look at
-the [[../bibtex][BibTeX layer]].
+the [[../bibtex/README.org][BibTeX layer]].
 
 * Install
 ** Layer

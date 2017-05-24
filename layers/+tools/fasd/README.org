@@ -1,11 +1,11 @@
 #+TITLE: fasd layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#fasd][fasd]]
- - [[#keybindings][Keybindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#fasd][fasd]]
+- [[#keybindings][Keybindings]]
 
 * Description
 
@@ -24,7 +24,7 @@ file.
 [[https://github.com/clvv/fasd][fasd]] must be installed on your system. The general installation
 instructions can be found in the repository [[https://github.com/clvv/fasd#install][README]]
 
-On OS X, it can be installed via [[https://github.com/Homebrew/homebrew][homebrew]]:
+On OS X, it can be installed via [[https://github.com/Homebrew/legacy-homebrew][homebrew]]:
 
 #+BEGIN_SRC sh
   $ brew install fasd

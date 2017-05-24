@@ -16,4 +16,4 @@
   "Specify if auto-dictionary should be enabled or not.")
 
 (defvar enable-flyspell-auto-completion nil
-  "If not nil, show speeling suggestions in popups.")
+  "If not nil, show spelling suggestions in popups.")

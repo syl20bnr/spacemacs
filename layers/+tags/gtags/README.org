@@ -1,26 +1,26 @@
 #+TITLE: Helm Gtags layer
 
 * Table of Contents                                          :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#features][Features]]
- - [[#install][Install]]
-   - [[#gnu-global-gtags][GNU Global (gtags)]]
-     - [[#install-on-osx-using-homebrew][Install on OSX using Homebrew]]
-     - [[#install-on-nix-from-source][Install on *nix from source]]
-       - [[#install-recommended-dependencies][Install recommended dependencies]]
-       - [[#install-with-recommended-features][Install with recommended features]]
-       - [[#configure-your-environment-to-use-pygments-and-ctags][Configure your environment to use pygments and ctags]]
-     - [[#conflict-between-ctags-and-emacss-etags-binary][Conflict between =ctags= and emacs's =etags= binary]]
-   - [[#emacs-configuration][Emacs Configuration]]
-     - [[#disabling-by-default][Disabling by default]]
- - [[#usage][Usage]]
-     - [[#language-support][Language Support]]
-       - [[#built-in-languages][Built-in languages]]
-       - [[#exuberant-ctags-languages][Exuberant ctags languages]]
-       - [[#universal-ctags-languages][Universal ctags languages]]
-       - [[#pygments-languages-plus-symbol-and-reference-tags][Pygments languages (plus symbol and reference tags)]]
-   - [[#eldoc-integration][Eldoc integration]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#features][Features]]
+- [[#install][Install]]
+  - [[#gnu-global-gtags][GNU Global (gtags)]]
+    - [[#install-on-osx-using-homebrew][Install on OSX using Homebrew]]
+    - [[#install-on-nix-from-source][Install on *nix from source]]
+      - [[#install-recommended-dependencies][Install recommended dependencies]]
+      - [[#install-with-recommended-features][Install with recommended features]]
+      - [[#configure-your-environment-to-use-pygments-and-ctags][Configure your environment to use pygments and ctags]]
+    - [[#conflict-between-ctags-and-emacss-etags-binary][Conflict between =ctags= and emacs's =etags= binary]]
+  - [[#emacs-configuration][Emacs Configuration]]
+    - [[#disabling-by-default][Disabling by default]]
+- [[#usage][Usage]]
+    - [[#language-support][Language Support]]
+      - [[#built-in-languages][Built-in languages]]
+      - [[#exuberant-ctags-languages][Exuberant ctags languages]]
+      - [[#universal-ctags-languages][Universal ctags languages]]
+      - [[#pygments-languages-plus-symbol-and-reference-tags][Pygments languages (plus symbol and reference tags)]]
+  - [[#eldoc-integration][Eldoc integration]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 =helm-gtags= and =ggtags= are clients for GNU Global. GNU Global is a source
@@ -186,7 +186,7 @@ tags for the following languages:
 
 **** Exuberant ctags languages
 If you have enabled =exuberant ctags= and use that as the backend (i.e.,
-GTAGSLABEL=ctags or --gtagslabel=ctags) the following additional languages
+=GTAGSLABEL=ctags= or =--gtagslabel=ctags=) the following additional languages
 will have tags created for them:
 
 - c#
@@ -219,7 +219,7 @@ actually uses both ctags and pygments to find the definitions and uses of
 functions and variables as well as "other symbols".
 
 If you enabled pygments (the best choice) and use that as the backend (i.e.,
-GTAGSLABEL=pygments or --gtagslabel=pygments) the following additional
+=GTAGSLABEL=pygments= or =--gtagslabel=pygments=) the following additional
 languages will have tags created for them:
 
 - elixir
@@ -268,4 +268,5 @@ the gtags commands.
 | ~SPC m g R~ | resume previous helm-gtags session                        |
 | ~SPC m g s~ | select any tag in a project retrieved by gtags            |
 | ~SPC m g S~ | show stack of visited locations                           |
+| ~SPC m g y~ | find symbols                                              |
 | ~SPC m g u~ | manually update tag database                              |

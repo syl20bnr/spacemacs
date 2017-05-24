@@ -3,12 +3,12 @@
 [[file:img/html.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#web-mode][Web mode]]
-   - [[#cssscss][CSS/SCSS]]
+- [[#description][Description]]
+  - [[#features][Features]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+  - [[#web-mode][Web mode]]
+  - [[#cssscss][CSS/SCSS]]
 
 * Description
 This layer adds support for editing HTML and CSS.

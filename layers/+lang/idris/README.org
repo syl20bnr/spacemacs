@@ -3,20 +3,20 @@
 [[file:img/idris.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#idris][Idris]]
- - [[#key-bindings][Key bindings]]
-   - [[#shorthands][Shorthands]]
-   - [[#interactive-editing][Interactive editing]]
-   - [[#documentation][Documentation]]
-   - [[#repl][REPL]]
-   - [[#active-term-manipulations][Active term manipulations]]
-   - [[#build-system][Build system]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#idris][Idris]]
+- [[#key-bindings][Key bindings]]
+  - [[#shorthands][Shorthands]]
+  - [[#interactive-editing][Interactive editing]]
+  - [[#documentation][Documentation]]
+  - [[#repl][REPL]]
+  - [[#active-term-manipulations][Active term manipulations]]
+  - [[#build-system][Build system]]
 
 * Description
-This layer adds support for the [[http://www.idris-lang.org/][Idris]] language.
+This layer adds support for the [[https://www.idris-lang.org/][Idris]] language.
 
 * Install
 
@@ -34,7 +34,7 @@ cabal install idris
 #+END_SRC
 
 Binaries are also available for some platforms at
-http://www.idris-lang.org/download/
+https://www.idris-lang.org/download/
 
 * Key bindings
 

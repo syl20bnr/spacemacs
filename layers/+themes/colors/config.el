@@ -18,15 +18,43 @@ programming language buffers.")
 (defvar colors-enable-nyan-cat-progress-bar nil
   "If non nil all nyan cat packages are enabled (for now only `nyan-mode').")
 
+;; IMPORTANT INFORMATION FOR CONTRIBUTORS:
+;; Do not edit these defaults. Let the user change them if they really want to.
+;; These defaults are carefully balanced statistical averages of all colors suitable
+;; for both light and dark themes, and perfected to work for 90% of all themes.
+;; It's the BEST out-of-the-box experience we can offer without forcing all users
+;; to write their own individual per-theme optimizations for ALL of their themes...
+
+(defvar colors-default-rainbow-identifiers-sat 50
+  "The rainbow-identifiers saturation value to use for themes that lack per-theme settings.")
+
+(defvar colors-default-rainbow-identifiers-light 65
+  "The rainbow-identifiers lightness value to use for themes that lack per-theme settings.")
+
+;; PER-THEME CONTRIBUTIONS WELCOME:
+;; Guideline: Aim at a saturation and lightness level that matches the average
+;; look of the theme, so that it looks balanced against the theme's own colors.
+
 (defvar colors-theme-identifiers-sat&light
-  '((jazz . (50 55))
+  '(
+    (doom-molokai . (45 80))
+    (doom-one . (45 80))
+    (flatland . (50 80))
     (gotham . (45 60))
-    (leuven . (100 40))
-    (material . (95 105))
+    (gruvbox . (55 80))
+    (jazz . (50 55))
+    (leuven . (95 40))
+    (material . (55 90))
+    (material-light . (70 35))
     (monokai . (55 60))
+    (sanityinc-tomorrow-blue . (40 95))
+    (sanityinc-tomorrow-eighties . (30 80))
     (solarized-dark . (65 55))
     (solarized-light . (60 55))
-    (spacemacs-light . (65 45))
-    (spacemacs-dark . (125 100))
-    (zenburn . (40 65)))
+    (spacemacs-dark . (45 70))
+    (spacemacs-light . (60 45))
+    (subatomic . (35 90))
+    (subatomic256 . (30 85))
+    (zenburn . (40 65))
+    )
   "alist of theme symbols and pair of saturation and lightness values.")

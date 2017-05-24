@@ -1,19 +1,20 @@
 #+TITLE: Mu4e layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#install][Install]]
- - [[#commands][Commands]]
-   - [[#global-bindings][Global bindings]]
-   - [[#headers-mode][Headers mode]]
-   - [[#view-mode][View mode]]
- - [[#configuration][Configuration]]
-   - [[#maildirs-extension][Maildirs extension]]
-   - [[#multiple-accounts][Multiple Accounts]]
-   - [[#example-configuration][Example configuration]]
-   - [[#notifications][Notifications]]
-     - [[#os-notifications][OS notifications]]
-     - [[#mode-line-notifications][Mode-line notifications]]
- - [[#see-also][See also]]
+- [[#install][Install]]
+- [[#commands][Commands]]
+  - [[#global-bindings][Global bindings]]
+  - [[#headers-mode][Headers mode]]
+  - [[#view-mode][View mode]]
+- [[#configuration][Configuration]]
+  - [[#maildirs-extension][Maildirs extension]]
+  - [[#multiple-accounts][Multiple Accounts]]
+  - [[#example-configuration][Example configuration]]
+  - [[#notifications][Notifications]]
+    - [[#os-notifications][OS notifications]]
+    - [[#mode-line-notifications][Mode-line notifications]]
+  - [[#spacemacs-layout-integration][Spacemacs layout integration]]
+- [[#see-also][See also]]
 
 * Install
 In order to use this layer you must install mu and mu4e separately. Typically
@@ -21,7 +22,7 @@ mu4e will be bundled with mu (this is the case on many Linux distributions).
 
 If you're on OS X and install mu using Homebrew, you must specify the
 location of your Emacs binary at install time using the EMACS environment
-variable, as well as passing the --with-emacs option:
+variable, as well as passing the =--with-emacs= option:
 
 #+begin_src shell
 brew install mu --with-emacs
@@ -151,17 +152,17 @@ instead (see [[http://www.djcbsoftware.nl/code/mu/mu4e/Contexts.html#Contexts][m
 #+END_SRC
 
 ** Notifications
-~mu4e-alert~ is an extension that provides desktop notifications and adds the
+=mu4e-alert= is an extension that provides desktop notifications and adds the
 count of unread messages to the modeline.
 
 [[https://raw.githubusercontent.com/iqbalansari/mu4e-alert/master/screenshots/mu4e-alert-in-action.png]]
 
 For an extended documentation of the available customizations please refer to
-[[https://github.com/iqbalansari/mu4e-alert#customizations][mu4e-alert's documentation]]
+[[https://github.com/iqbalansari/mu4e-alert#user-content-customizations][mu4e-alert's documentation]]
 
 *** OS notifications
 To enable notifications about new messages, add the following line to your
-~dotspacemacs/user-config~:
+=dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
   (setq mu4e-enable-notifications t)
@@ -174,9 +175,9 @@ or use layer variables when you add the layer to
   (mu4e :variables mu4e-enable-notifications t)
 #+END_SRC
 
-By default, notifications will be shown in the ~*Messages*~ buffer. To enable
+By default, notifications will be shown in the =*Messages*= buffer. To enable
 desktop notifications about new messages, add the following lines to
-your ~dotspacemacs/user-config~, according to your operating system and the
+your =dotspacemacs/user-config=, according to your operating system and the
 installed libraries:
 
 #+BEGIN_SRC emacs-lisp
@@ -191,7 +192,7 @@ installed libraries:
 
 *** Mode-line notifications
 To enable mode-line display about new messages, add the following line to
-your ~dotspacemacs/user-config~:
+your =dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
   (setq mu4e-enable-mode-line t)
@@ -202,6 +203,20 @@ or use layer variables when you add the layer to
 
 #+BEGIN_SRC emacs-lisp
   (mu4e :variables mu4e-enable-mode-line t)
+#+END_SRC
+
+** Spacemacs layout integration
+A [[file:../../../doc/DOCUMENTATION.org::#layouts-and-workspaces][Spacemacs custom layout]] is defined by the layer. The name and the key binding
+for it can be customized with the following layer variables:
+- =mu4e-spacemacs-layout-name= for the layout name,
+- =mu4e-spacemacs-layout-binding= for the key binding.
+
+By default the values are:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(
+  (mu4e :variables mu4e-spacemacs-layout-name "@Mu4e"
+                   mu4e-spacemacs-layout-binding "m")))
 #+END_SRC
 
 * See also

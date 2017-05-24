@@ -1,54 +1,55 @@
 #+TITLE: Frequently Asked Questions
 
 * FAQ                                                       :TOC_4_gh:noexport:
- - [[#common][Common]]
-   - [[#which-version-of-spacemacs-am-i-running][Which version of Spacemacs am I running?]]
-   - [[#what-is-the-official-pronunciation-of-spacemacs][What is the official pronunciation of Spacemacs?]]
-   - [[#why-do-you-call-this-a-distribution-i-dont-see-any-spacemacs-executable][Why do you call this a "distribution", I don't see any "Spacemacs" executable?]]
-   - [[#why-are-packages-installed-with-package-install-automatically-deleted-by-spacemacs-when-it-boots][Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?]]
-   - [[#how-to-fix-package-download-errors-when-installing-spacemacs-][How to fix package download errors when installing Spacemacs ?]]
-   - [[#how-to-fix-symbols-value-as-variable-is-void-errors-on-startup][How to fix =Symbol's value as variable is void= errors on startup?]]
-   - [[#how-to-fix-wrong-type-argument-arrayp-nil-errors-on-startup][How to fix =(wrong-type-argument arrayp nil)= errors on startup?]]
-   - [[#the-spacemacs-banner-is-ugly-what-should-i-do][The Spacemacs banner is ugly, what should I do?]]
-   - [[#the-powerline-separators-are-ugly-how-can-i-fix-them][The powerline separators are ugly, how can I fix them?]]
-   - [[#the-powerline-separators-have-no-anti-aliasing-what-can-i-do][The powerline separators have no anti-aliasing, what can I do?]]
-   - [[#why-is-after-init-hook-not-executed][Why is after-init-hook not executed?]]
-   - [[#what-is-the-difference-between-spacemacs-base-and-spacemacs-distributions][What is the difference between =spacemacs-base= and =spacemacs= distributions?]]
-   - [[#should-i-place-my-settings-in-user-init-or-user-config][Should I place my settings in =user-init= or =user-config=?]]
-   - [[#why-do-some-of-my-org-related-settings-cause-problems][Why do some of my =org=-related settings cause problems?]]
-   - [[#why-is-spacemacs-hanging-on-startup][Why is Spacemacs hanging on startup?]]
-   - [[#why-does-helm-m-x-spc-spc-not-accept-the-prefix-argument][Why does =helm-M-x= (~SPC SPC~) not accept the prefix argument?]]
-   - [[#why-does-my-color-theme-not-render-correctly-in-terminal-mode][Why does my color theme not render correctly in terminal mode?]]
-   - [[#typing-quickly-fd-takes-me-out-of-insert-state-what-is-going-on][Typing quickly =fd= takes me out of =insert state=. What is going on?]]
-   - [[#why-do-i-get-files-starting-with-][Why do I get files starting with .#?]]
-   - [[#why-do-i-get-4m-characters-inside-ansi-term][Why do I get '4m' characters inside ansi-term?]]
-   - [[#why-are-my-font-settings-not-being-respected][Why are my font settings not being respected?]]
-   - [[#why-am-i-getting-a-message-about-environment-variables-on-startup][Why am I getting a message about environment variables on startup?]]
- - [[#how-do-i][How do I:]]
-   - [[#install-a-package-not-provided-by-a-layer][Install a package not provided by a layer?]]
-   - [[#disable-a-package-completely][Disable a package completely?]]
-   - [[#disable-a-package-only-for-a-specific-major-mode][Disable a package only for a specific major-mode?]]
-   - [[#disable-company-for-a-specific-major-mode][Disable company for a specific major-mode?]]
-   - [[#change-special-buffer-rules][Change special buffer rules?]]
-   - [[#enable-navigation-by-visual-lines][Enable navigation by visual lines?]]
-   - [[#disable-evilification-of-a-mode][Disable evilification of a mode?]]
-   - [[#include-underscores-in-word-motions][Include underscores in word motions?]]
-   - [[#setup-path][Setup =$PATH=?]]
-   - [[#change-or-define-an-alias-for-a-leader-key][Change or define an alias for a leader key?]]
-   - [[#restore-the-sentence-delimiter-to-two-spaces][Restore the sentence delimiter to two spaces?]]
-   - [[#prevent-the-visual-selection-overriding-my-system-clipboard][Prevent the visual selection overriding my system clipboard?]]
-   - [[#make-spell-checking-support-curly-quotes-or-any-other-character][Make spell-checking support curly quotes (or any other character)?]]
-   - [[#use-spacemacs-as-the-editor-for-git-commits][Use Spacemacs as the =$EDITOR= for git commits?]]
-   - [[#try-spacemacs-without-modifying-my-existing-emacs-configuration][Try Spacemacs without modifying my existing Emacs configuration?]]
-   - [[#make-copypaste-working-with-the-mouse-in-x11-terminals][Make copy/paste working with the mouse in X11 terminals?]]
-   - [[#use-helm-ag-to-search-only-in-files-of-a-certain-type][Use =helm-ag= to search only in files of a certain type?]]
-   - [[#modify-spacemacs-documentation-look-space-doc-mode][Modify spacemacs documentation look (space-doc-mode)]]
-   - [[#remap-paste-key-to-be-able-to-paste-copied-text-multiple-times][Remap paste key to be able to paste copied text multiple times]]
- - [[#windows][Windows]]
-   - [[#why-do-the-fonts-look-crappy-on-windows][Why do the fonts look crappy on Windows?]]
-   - [[#why-is-there-no-spacemacs-logo-in-the-startup-buffer][Why is there no Spacemacs logo in the startup buffer?]]
-   - [[#why-are-all-packages-unavailable][Why are all packages unavailable?]]
-   - [[#the-powerline-isnt-shown-correctly-when-spacemacs-is-used-within-putty][The powerline isn't shown correctly when Spacemacs is used within =PuTTY=]]
+- [[#common][Common]]
+  - [[#which-version-of-spacemacs-am-i-running][Which version of Spacemacs am I running?]]
+  - [[#what-is-the-official-pronunciation-of-spacemacs][What is the official pronunciation of Spacemacs?]]
+  - [[#why-do-you-call-this-a-distribution-i-dont-see-any-spacemacs-executable][Why do you call this a "distribution", I don't see any "Spacemacs" executable?]]
+  - [[#why-are-packages-installed-with-package-install-automatically-deleted-by-spacemacs-when-it-boots][Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?]]
+  - [[#how-to-fix-package-download-errors-when-installing-spacemacs-][How to fix package download errors when installing Spacemacs ?]]
+  - [[#how-to-fix-symbols-value-as-variable-is-void-errors-on-startup][How to fix =Symbol's value as variable is void= errors on startup?]]
+  - [[#how-to-fix-wrong-type-argument-arrayp-nil-errors-on-startup][How to fix =(wrong-type-argument arrayp nil)= errors on startup?]]
+  - [[#the-spacemacs-banner-is-ugly-what-should-i-do][The Spacemacs banner is ugly, what should I do?]]
+  - [[#the-powerline-separators-are-ugly-how-can-i-fix-them][The powerline separators are ugly, how can I fix them?]]
+  - [[#the-powerline-separators-have-no-anti-aliasing-what-can-i-do][The powerline separators have no anti-aliasing, what can I do?]]
+  - [[#why-is-after-init-hook-not-executed][Why is after-init-hook not executed?]]
+  - [[#what-is-the-difference-between-spacemacs-base-and-spacemacs-distributions][What is the difference between =spacemacs-base= and =spacemacs= distributions?]]
+  - [[#should-i-place-my-settings-in-user-init-or-user-config][Should I place my settings in =user-init= or =user-config=?]]
+  - [[#why-do-some-of-my-org-related-settings-cause-problems][Why do some of my =org=-related settings cause problems?]]
+  - [[#why-is-spacemacs-hanging-on-startup][Why is Spacemacs hanging on startup?]]
+  - [[#why-does-helm-m-x-spc-spc-not-accept-the-prefix-argument][Why does =helm-M-x= (~SPC SPC~) not accept the prefix argument?]]
+  - [[#why-does-my-color-theme-not-render-correctly-in-terminal-mode][Why does my color theme not render correctly in terminal mode?]]
+  - [[#typing-quickly-fd-takes-me-out-of-insert-state-what-is-going-on][Typing quickly =fd= takes me out of =insert state=. What is going on?]]
+  - [[#why-do-i-get-files-starting-with-][Why do I get files starting with .#?]]
+  - [[#why-do-i-get-4m-characters-inside-ansi-term][Why do I get '4m' characters inside ansi-term?]]
+  - [[#why-are-my-font-settings-not-being-respected][Why are my font settings not being respected?]]
+  - [[#why-am-i-getting-a-message-about-environment-variables-on-startup][Why am I getting a message about environment variables on startup?]]
+  - [[#i-want-to-learn-elisp-where-do-i-start-][I want to learn elisp, where do I start ?]]
+- [[#how-do-i][How do I:]]
+  - [[#install-a-package-not-provided-by-a-layer][Install a package not provided by a layer?]]
+  - [[#disable-a-package-completely][Disable a package completely?]]
+  - [[#disable-a-package-only-for-a-specific-major-mode][Disable a package only for a specific major-mode?]]
+  - [[#disable-company-for-a-specific-major-mode][Disable company for a specific major-mode?]]
+  - [[#change-special-buffer-rules][Change special buffer rules?]]
+  - [[#enable-navigation-by-visual-lines][Enable navigation by visual lines?]]
+  - [[#disable-evilification-of-a-mode][Disable evilification of a mode?]]
+  - [[#include-underscores-in-word-motions][Include underscores in word motions?]]
+  - [[#setup-path][Setup =$PATH=?]]
+  - [[#change-or-define-an-alias-for-a-leader-key][Change or define an alias for a leader key?]]
+  - [[#restore-the-sentence-delimiter-to-two-spaces][Restore the sentence delimiter to two spaces?]]
+  - [[#prevent-the-visual-selection-overriding-my-system-clipboard][Prevent the visual selection overriding my system clipboard?]]
+  - [[#make-spell-checking-support-curly-quotes-or-any-other-character][Make spell-checking support curly quotes (or any other character)?]]
+  - [[#use-spacemacs-as-the-editor-for-git-commits][Use Spacemacs as the =$EDITOR= for git commits?]]
+  - [[#try-spacemacs-without-modifying-my-existing-emacs-configuration][Try Spacemacs without modifying my existing Emacs configuration?]]
+  - [[#make-copypaste-working-with-the-mouse-in-x11-terminals][Make copy/paste working with the mouse in X11 terminals?]]
+  - [[#use-helm-ag-to-search-only-in-files-of-a-certain-type][Use =helm-ag= to search only in files of a certain type?]]
+  - [[#modify-spacemacs-documentation-look-space-doc-mode][Modify spacemacs documentation look (space-doc-mode)]]
+  - [[#remap-paste-key-to-be-able-to-paste-copied-text-multiple-times][Remap paste key to be able to paste copied text multiple times]]
+- [[#windows][Windows]]
+  - [[#why-do-the-fonts-look-crappy-on-windows][Why do the fonts look crappy on Windows?]]
+  - [[#why-is-there-no-spacemacs-logo-in-the-startup-buffer][Why is there no Spacemacs logo in the startup buffer?]]
+  - [[#why-are-all-packages-unavailable][Why are all packages unavailable?]]
+  - [[#the-powerline-isnt-shown-correctly-when-spacemacs-is-used-within-putty][The powerline isn't shown correctly when Spacemacs is used within =PuTTY=]]
 
 * Common
 ** Which version of Spacemacs am I running?
@@ -151,7 +152,7 @@ should not be loaded before =dotspacemacs/user-config=, otherwise both versions
 will be loaded and will conflict.
 
 Because of autoloading, calling to =org= functions will trigger the loading up
-of the =org= shipped with emacs wich will induce conflicts. One way to avoid
+of the =org= shipped with emacs which will induce conflicts. One way to avoid
 conflict is to wrap your =org= config code in a =with-eval-after-load= block
 like this:
 
@@ -200,7 +201,7 @@ Instead, call =helm-M-x= first, select the command you want to run, and press
 In the terminal version of Emacs, color themes will not render correctly as
 colors are rendered by the terminal and not by emacs. You will probably have to
 change your terminal color palette. More explanations can be found on
-[[https://github.com/sellout/emacs-color-theme-solarized#important-note-for-terminal-users][emacs-color-theme-solarized webpage]].
+[[https://github.com/sellout/emacs-color-theme-solarized#user-content-important-note-for-terminal-users][emacs-color-theme-solarized webpage]].
 
 ** Typing quickly =fd= takes me out of =insert state=. What is going on?
 This is a feature of Spacemacs, enabling you to easily escape from a lot of
@@ -261,6 +262,13 @@ warning, e.g. from =dotspacemacs/user-init=:
 You can also disable this feature entirely by adding =exec-path-from-shell= to
 the list =dotspacemacs-excluded-packages= if you prefer setting =exec-path=
 yourself.
+
+** I want to learn elisp, where do I start ?
+Very quick start: [[http://learnxinyminutes.com/docs/elisp/][learn X in Y minutes (where X is elisp)]]
+
+Practical reference with code examples for various situations that you will
+encounter: [[http://caiorss.github.io/Emacs-Elisp-Programming/][http://caiorss.github.io/Emacs-Elisp-Programming/]], more particularly
+sections [[http://caiorss.github.io/Emacs-Elisp-Programming/Elisp_Programming.html][Elisp Programming]] and [[http://caiorss.github.io/Emacs-Elisp-Programming/Elisp_Snippets.html][Elisp code snippets]].
 
 * How do I:
 ** Install a package not provided by a layer?
@@ -490,7 +498,7 @@ the new configuration. This can be achieved easily using the following steps:
 
 #+BEGIN_SRC sh
 mkdir ~/spacemacs
-git clone git@github.com:syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
+git clone https://github.com/syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
 HOME=~/spacemacs emacs
 #+END_SRC
 
@@ -515,7 +523,7 @@ some expressions to the search input:
   ending with =.el= which are emacs-lisp files.
 
 - By using a flag like =--python= which should be self-explaining. The list of
-  available flags colud be accessed from terminal with:
+  available flags could be accessed from terminal with:
 
   #+begin_src shell
   ag --list-file-types

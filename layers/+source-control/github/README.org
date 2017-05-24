@@ -3,17 +3,17 @@
 [[file:img/github.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features:]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#git-configuration][Git configuration]]
-   - [[#hub-configuration][Hub configuration]]
- - [[#key-bindings][Key Bindings]]
-   - [[#magit-gh-pulls][magit-gh-pulls]]
-   - [[#magithub][magithub]]
-   - [[#gistel][gist.el]]
-   - [[#clone-repositories][Clone repositories]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#git-configuration][Git configuration]]
+  - [[#hub-configuration][Hub configuration]]
+- [[#key-bindings][Key Bindings]]
+  - [[#magit-gh-pulls][magit-gh-pulls]]
+  - [[#magithub][magithub]]
+  - [[#gistel][gist.el]]
+  - [[#clone-repositories][Clone repositories]]
 
 * Description
 This layers adds support for [[http://github.com][GitHub]].
@@ -35,6 +35,8 @@ file.
 You will need to generate a [[https://github.com/settings/tokens][personal access token]] on GitHub. This token should
 have the =gist= and =repo= permissions. Once this token is created, it needs to
 be added to your =~/.gitconfig=
+
+You will also need to [[https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/][generate an SSH key]] and [[https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/][add it to your GitHub account]].
 
 #+BEGIN_SRC sh
   git config --global github.oauth-token <token>
@@ -64,13 +66,13 @@ possible.
 
 ** magithub
 
-| Key Binding | Description                                                 |
-|-------------+-------------------------------------------------------------|
-| ~@ H~       | opens the current repository in the browser                 |
-| ~@ c~       | pushes a brand-new local repository up to GitHub            |
-| ~@ f~       | create a fork of an existing repository                     |
-| ~@ p~       | submit pull request upstream                                |
-| ~@ i~       | create an issue                                             |
+| Key Binding | Description                                      |
+|-------------+--------------------------------------------------|
+| ~@ H~       | opens the current repository in the browser      |
+| ~@ c~       | pushes a brand-new local repository up to GitHub |
+| ~@ f~       | create a fork of an existing repository          |
+| ~@ p~       | submit pull request upstream                     |
+| ~@ i~       | create an issue                                  |
 
 ** gist.el
 

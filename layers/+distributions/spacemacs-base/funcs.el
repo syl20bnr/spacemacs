@@ -241,7 +241,7 @@ Dedicated (locked) windows are left untouched."
       (set-window-buffer w2 b1)
       (unrecord-window-buffer w1 b1)
       (unrecord-window-buffer w2 b2)))
-  (when follow-focus-p (select-window-by-number windownum)))
+  (when follow-focus-p (winum-select-window-by-number windownum)))
 
 (dotimes (i 9)
   (let ((n (+ i 1)))
@@ -292,32 +292,66 @@ projectile cache when it's possible and update recentf list."
              (message "File '%s' successfully renamed to '%s'" short-name (file-name-nondirectory new-name)))))))
 
 ;; from magnars
-(defun spacemacs/rename-current-buffer-file ()
-  "Renames current buffer and file it is visiting."
-  (interactive)
+(defun spacemacs/rename-current-buffer-file (&optional arg)
+  "Rename the current buffer and the file it is visiting.
+If the buffer isn't visiting a file, ask if it should
+be saved to a file, or just renamed.
+
+If called without a prefix argument, the prompt is
+initialized with the current filename."
+  (interactive "P")
   (let* ((name (buffer-name))
-        (filename (buffer-file-name)))
-    (if (not (and filename (file-exists-p filename)))
-        (error "Buffer '%s' is not visiting a file!" name)
-      (let* ((dir (file-name-directory filename))
-             (new-name (read-file-name "New name: " dir)))
-        (cond ((get-buffer new-name)
-               (error "A buffer named '%s' already exists!" new-name))
-              (t
-               (let ((dir (file-name-directory new-name)))
-                 (when (and (not (file-exists-p dir)) (yes-or-no-p (format "Create directory '%s'?" dir)))
-                   (make-directory dir t)))
-               (rename-file filename new-name 1)
-               (rename-buffer new-name)
-               (set-visited-file-name new-name)
-               (set-buffer-modified-p nil)
-               (when (fboundp 'recentf-add-file)
+         (filename (buffer-file-name)))
+    (if (and filename (file-exists-p filename))
+        ;; the buffer is visiting a file
+        (let* ((dir (file-name-directory filename))
+               (new-name (read-file-name "New name: " (if arg dir filename))))
+          (cond ((get-buffer new-name)
+                 (error "A buffer named '%s' already exists!" new-name))
+                (t
+                 (let ((dir (file-name-directory new-name)))
+                   (when (and (not (file-exists-p dir))
+                              (yes-or-no-p
+                               (format "Create directory '%s'?" dir)))
+                     (make-directory dir t)))
+                 (rename-file filename new-name 1)
+                 (rename-buffer new-name)
+                 (set-visited-file-name new-name)
+                 (set-buffer-modified-p nil)
+                 (when (fboundp 'recentf-add-file)
                    (recentf-add-file new-name)
                    (recentf-remove-if-non-kept filename))
-               (when (and (configuration-layer/package-usedp 'projectile)
-                          (projectile-project-p))
-                 (call-interactively #'projectile-invalidate-cache))
-               (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
+                 (when (and (configuration-layer/package-usedp 'projectile)
+                            (projectile-project-p))
+                   (call-interactively #'projectile-invalidate-cache))
+                 (message "File '%s' successfully renamed to '%s'"
+                          name (file-name-nondirectory new-name)))))
+      ;; the buffer is not visiting a file
+      (let ((key))
+        (while (not (memq key '(?s ?r)))
+          (setq key (read-key (propertize
+                               (format
+                                (concat "Buffer '%s' is not visiting a file: "
+                                        "[s]ave to file or [r]ename buffer?")
+                                name) 'face 'minibuffer-prompt)))
+          (cond ((eq key ?s)            ; save to file
+                 ;; this allows for saving a new empty (unmodified) buffer
+                 (unless (buffer-modified-p) (set-buffer-modified-p t))
+                 (save-buffer))
+                ((eq key ?r)            ; rename buffer
+                 (let ((new-name (read-string "New buffer name: ")))
+                   (while (get-buffer new-name)
+                     ;; ask to rename again, if the new buffer name exists
+                     (if (yes-or-no-p
+                          (format (concat "A buffer named '%s' already exists: "
+                                          "Rename again?") new-name))
+                         (setq new-name (read-string "New buffer name: "))
+                       (keyboard-quit)))
+                   (rename-buffer new-name)
+                   (message "Buffer '%s' successfully renamed to '%s'"
+                            name new-name)))
+                ;; ?\a = C-g, ?\e = Esc and C-[
+                ((memq key '(?\a ?\e)) (keyboard-quit))))))))
 
 (defun spacemacs/delete-file (filename &optional ask-user)
   "Remove specified file or directory.
@@ -629,9 +663,10 @@ dotspacemacs-persistent-server to be t"
 
 (defadvice save-buffers-kill-emacs (around spacemacs-really-exit activate)
   "Only kill emacs if a prefix is set"
-  (if (or spacemacs-really-kill-emacs (not dotspacemacs-persistent-server))
-      ad-do-it
-    (spacemacs/frame-killer)))
+  (if (and (not spacemacs-really-kill-emacs)
+           (spacemacs//persistent-server-running-p))
+      (spacemacs/frame-killer)
+    ad-do-it))
 
 (defun spacemacs/save-buffers-kill-emacs ()
   "Save all changed buffers and exit Spacemacs"
@@ -655,10 +690,10 @@ dotspacemacs-persistent-server to be t"
 (defun spacemacs/frame-killer ()
   "Kill server buffer and hide the main Emacs window"
   (interactive)
-  (condition-case-unless-debug nil
+  (condition-case nil
       (delete-frame nil 1)
-      (error
-       (make-frame-invisible nil 1))))
+    (error
+     (make-frame-invisible nil 1))))
 
 (defun spacemacs/toggle-frame-fullscreen ()
   "Respect the `dotspacemacs-fullscreen-use-non-native' variable when
@@ -721,7 +756,8 @@ The body of the advice is in BODY."
 
 (defun spacemacs//find-ert-test-buffer (ert-test)
   "Return the buffer where ERT-TEST is defined."
-  (car (find-definition-noselect (ert-test-name ert-test) 'ert-deftest)))
+  (save-excursion
+    (car (find-definition-noselect (ert-test-name ert-test) 'ert-deftest))))
 
 (defun spacemacs/ert-run-tests-buffer ()
   "Run all the tests in the current buffer."
@@ -789,7 +825,19 @@ the right."
                               (concat regexp ws-regexp)
                             (concat ws-regexp regexp)))
          (group (if justify-right -1 1)))
-    (message "%S" complete-regexp)
+
+    (unless (use-region-p)
+      (save-excursion
+        (while (and
+                (string-match-p complete-regexp (thing-at-point 'line))
+                (= 0 (forward-line -1)))
+          (setq start (point-at-bol))))
+      (save-excursion
+        (while (and
+                (string-match-p complete-regexp (thing-at-point 'line))
+                (= 0 (forward-line 1)))
+          (setq end (point-at-eol)))))
+
     (align-regexp start end complete-regexp group 1 t)))
 
 ;; Modified answer from http://emacs.stackexchange.com/questions/47/align-vertical-columns-of-numbers-on-the-decimal-point
@@ -968,17 +1016,18 @@ using a visual block/rectangle selection."
 (setq compilation-finish-function
       (lambda (buf str)
 
-        (if (or (string-match "exited abnormally" str)
-                (string-match "FAILED" (buffer-string)))
+        (let ((case-fold-search nil))
+          (if (or (string-match "exited abnormally" str)
+                  (string-match "FAILED" (buffer-string)))
 
-            ;; there were errors
-            (message "There were errors. SPC-e-n to visit.")
-          (unless (or (string-match "Grep finished" (buffer-string))
-                      (string-match "Ag finished" (buffer-string))
-                      (string-match "nosetests" (buffer-name)))
+              ;; there were errors
+              (message "There were errors. SPC-e-n to visit.")
+            (unless (or (string-match "Grep finished" (buffer-string))
+                        (string-match "Ag finished" (buffer-string))
+                        (string-match "nosetests" (buffer-name)))
 
-            ;; no errors
-            (message "compilation ok.")))))
+              ;; no errors
+              (message "compilation ok."))))))
 
 ;; from http://www.emacswiki.org/emacs/WordCount
 (defun spacemacs/count-words-analysis (start end)

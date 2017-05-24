@@ -12,6 +12,7 @@
 (setq javascript-packages
   '(
     coffee-mode
+    company
     (company-tern :toggle (configuration-layer/package-usedp 'company))
     evil-matchit
     flycheck
@@ -47,6 +48,11 @@
     :init (spacemacs|add-company-backends
             :backends company-tern
             :modes js2-mode)))
+
+(defun javascript/post-init-company ()
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes coffee-mode))
 
 (defun javascript/post-init-flycheck ()
   (dolist (mode '(coffee-mode js2-mode json-mode))

@@ -340,26 +340,25 @@
             projectile-known-projects-file (concat spacemacs-cache-directory
                                                    "projectile-bookmarks.eld"))
       (spacemacs/set-leader-keys
-        "pb" 'projectile-switch-to-buffer
-        "pd" 'projectile-find-dir
-        "pf" 'projectile-find-file
-        "pF" 'projectile-find-file-dwim
-        "pr" 'projectile-recentf
-        "pp" 'projectile-switch-project
-        "pv" 'projectile-vc)
-      (spacemacs/set-leader-keys
         "p!" 'projectile-run-shell-command-in-root
         "p&" 'projectile-run-async-shell-command-in-root
         "p%" 'projectile-replace-regexp
         "pa" 'projectile-toggle-between-implementation-and-test
+        "pb" 'projectile-switch-to-buffer
         "pc" 'projectile-compile-project
+        "pd" 'projectile-find-dir
         "pD" 'projectile-dired
+        "pf" 'projectile-find-file
+        "pF" 'projectile-find-file-dwim
         "pg" 'projectile-find-tag
         "pG" 'projectile-regenerate-tags
         "pI" 'projectile-invalidate-cache
         "pk" 'projectile-kill-buffers
+        "pp" 'projectile-switch-project
+        "pr" 'projectile-recentf
         "pR" 'projectile-replace
-        "pT" 'projectile-test-project))
+        "pT" 'projectile-test-project
+        "pv" 'projectile-vc))
     :config
     (progn
       (projectile-global-mode)
@@ -382,8 +381,8 @@
     :config
     (progn
       (add-to-list 'recentf-exclude
-                   (expand-file-name spacemacs-cache-directory))
-      (add-to-list 'recentf-exclude (expand-file-name package-user-dir))
+                   (file-truename spacemacs-cache-directory))
+      (add-to-list 'recentf-exclude (file-truename package-user-dir))
       (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'"))))
 
 (defun spacemacs-base/init-savehist ()

@@ -3,40 +3,38 @@
 [[file:img/org.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features:]]
-   - [[#bibtex][BibTeX]]
-   - [[#important-note][Important Note]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#github-support][Github support]]
-   - [[#twitter-bootstrap-support][Twitter Bootstrap support]]
-   - [[#gnuplot-support][Gnuplot support]]
-   - [[#revealjs-support][Reveal.js support]]
-   - [[#org-journal-support][Org-journal support]]
-   - [[#different-bullets][Different bullets]]
-   - [[#project-support][Project support]]
-   - [[#mode-line-support][Mode line support]]
- - [[#key-bindings][Key bindings]]
-   - [[#org][Org]]
-   - [[#org-with-evil-org-mode][Org with evil-org-mode]]
-     - [[#tables][Tables]]
-     - [[#tree][Tree]]
-     - [[#element-insertion][Element insertion]]
-     - [[#links][Links]]
-     - [[#emphasis][Emphasis]]
-     - [[#tagging][Tagging]]
-     - [[#navigating-in-calendar][Navigating in calendar]]
-   - [[#capture-buffers-and-src-blocks][Capture buffers and src blocks]]
-   - [[#org-agenda][Org agenda]]
-     - [[#keybindings][Keybindings]]
-     - [[#org-agenda-transient-state][Org agenda transient state]]
-   - [[#pomodoro][Pomodoro]]
-   - [[#presentation][Presentation]]
-   - [[#org-mime][Org-MIME]]
-   - [[#org-download][Org-download]]
-   - [[#org-projectile][Org-projectile]]
-   - [[#org-journal][Org-journal]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+  - [[#bibtex][BibTeX]]
+  - [[#important-note][Important Note]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#github-support][Github support]]
+  - [[#twitter-bootstrap-support][Twitter Bootstrap support]]
+  - [[#gnuplot-support][Gnuplot support]]
+  - [[#revealjs-support][Reveal.js support]]
+  - [[#org-journal-support][Org-journal support]]
+  - [[#different-bullets][Different bullets]]
+  - [[#project-support][Project support]]
+  - [[#mode-line-support][Mode line support]]
+- [[#key-bindings][Key bindings]]
+  - [[#org][Org]]
+  - [[#toggles][Toggles]]
+  - [[#org-with-evil-org-mode][Org with evil-org-mode]]
+    - [[#tables][Tables]]
+    - [[#trees][Trees]]
+    - [[#element-insertion][Element insertion]]
+    - [[#links][Links]]
+    - [[#emphasis][Emphasis]]
+    - [[#navigating-in-calendar][Navigating in calendar]]
+  - [[#capture-buffers-and-src-blocks][Capture buffers and src blocks]]
+  - [[#org-agenda][Org agenda]]
+    - [[#keybindings][Keybindings]]
+    - [[#org-agenda-transient-state][Org agenda transient state]]
+  - [[#pomodoro][Pomodoro]]
+  - [[#presentation][Presentation]]
+  - [[#org-projectile][Org-projectile]]
+  - [[#org-journal][Org-journal]]
 
 * Description
 This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
@@ -44,14 +42,14 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 ** Features:
 - Vim inspired key bindings are provided by [[https://github.com/edwtjo/evil-org-mode][evil-org-mode]]
 - Nicer bullet via [[https://github.com/sabof/org-bullets][org-bullets]]
-- A [[http://pomodorotechnique.com/][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
+- A [[https://cirillocompany.de/pages/pomodoro-technique][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
 - Presentation mode via [[https://github.com/rlister/org-present][org-present]]
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
 - Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
 
 ** BibTeX
 For more extensive support of references through BibTeX files, have a look at
-the [[../+lang/bibtex][BibTeX layer]].
+the [[../../+lang/bibtex/README.org][BibTeX layer]].
 
 ** Important Note
 Since version 0.104, spacemacs uses the =org= version from the org ELPA
@@ -116,7 +114,7 @@ extension.
 
 In order to be able to use org-reveal, download =reveal.js= from its
 [[http://lab.hakim.se/reveal-js/#/][homepage]] and set =org-reveal-js= to the
-download path, as described in the [[https://github.com/yjwen/org-reveal#obtain-revealjs][manual]]. Alternatively, add the following line
+download path, as described in the [[https://github.com/yjwen/org-reveal#user-content-revealjs-and-org-reveal][manual]]. Alternatively, add the following line
 to each =.org= file you want to process:
 
 #+BEGIN_EXAMPLE
@@ -200,8 +198,6 @@ For example:
                                                     )
 #+END_SRC
 
-
-
 ** Different bullets
 You can tweak the bullets displayed in the org buffer in the function
 =dotspacemacs/user-config= of your dotfile by setting the variable
@@ -268,48 +264,46 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC a o t~   | org todo list                  |
 | ~SPC C c~     | org-capture                    |
 
+** Toggles
+
+| Key Binding | Description                                   |
+|-------------+-----------------------------------------------|
+| ~SPC m T i~ | org-toggle-inline-images                      |
+| ~SPC m T t~ | org-show-todo-tree                            |
+| ~SPC m T V~ | toggle =space-doc-mode= a read-only view mode |
+| ~SPC m T x~ | org-preview-latex-fragment                    |
+
 ** Org with evil-org-mode
 
-| Key Binding                                  | Description                                   |
-|----------------------------------------------+-----------------------------------------------|
-| ~SPC m <dotspacemacs-major-mode-leader-key>~ | org-ctrl-c-ctrl-c                             |
-| ~SPC m *~                                    | org-ctrl-c-star                               |
-| ~SPC m RET~                                  | org-ctrl-c-ret                                |
-| ~SPC m -~                                    | org-ctrl-c-minus                              |
-| ~SPC m '​~                                    | org-edit-special                              |
-| ~SPC m ^~                                    | org-sort                                      |
-| ~SPC m /~                                    | org-sparse-tree                               |
-| ~SPC m .~                                    | org-time-stamp                                |
-| ~SPC m !~                                    | org-time-stamp-inactive                       |
-| ~SPC m a~                                    | org-agenda                                    |
-| ~SPC m b~                                    | org-tree-to-indirect-buffer                   |
-| ~SPC m A~                                    | org-archive-subtree                           |
-| ~SPC m c~                                    | org-capture                                   |
-| ~SPC m C~                                    | evil-org-recompute-clocks                     |
-| ~SPC m d~                                    | org-deadline                                  |
-| ~SPC m D~                                    | org-insert-drawer                             |
-| ~SPC m e e~                                  | org-export-dispatch                           |
-| ~SPC m f~                                    | org-set-effort                                |
-| ~SPC m I~                                    | org-clock-in                                  |
-| ~SPC m l~                                    | org-open-at-point                             |
-| ~SPC m n~                                    | org-narrow-to-subtree                         |
-| ~SPC m N~                                    | widen                                         |
-| ~SPC m O~                                    | org-clock-out                                 |
-| ~SPC m P~                                    | org-set-property                              |
-| ~SPC m q~                                    | org-clock-cancel                              |
-| ~SPC m R~                                    | org-refile                                    |
-| ~SPC m s~                                    | org-schedule                                  |
-| ~SPC m T~                                    | org-show-todo-tree                            |
-| ~SPC m L~                                    | org-shiftright                                |
-| ~SPC m H~                                    | org-shiftleft                                 |
-| ~SPC m K~                                    | org-shiftup                                   |
-| ~SPC m J~                                    | org-shiftdown                                 |
-| ~SPC m C-S-l~                                | org-shiftcontrolright                         |
-| ~SPC m C-S-h~                                | org-shiftcontrolleft                          |
-| ~SPC m C-S-j~                                | org-shiftcontroldown                          |
-| ~SPC m C-S-k~                                | org-shiftcontrolup                            |
-| ~SPC m V~                                    | toggle =space-doc-mode= a read-only view mode |
-| ~SPC s j~                                    | spacemacs/jump-in-buffer (jump to a heading)  |
+| Key Binding                                  | Description                                  |
+|----------------------------------------------+----------------------------------------------|
+| ~SPC m <dotspacemacs-major-mode-leader-key>~ | org-ctrl-c-ctrl-c                            |
+| ~SPC m *~                                    | org-ctrl-c-star                              |
+| ~SPC m RET~                                  | org-ctrl-c-ret                               |
+| ~SPC m -~                                    | org-ctrl-c-minus                             |
+| ~SPC m '​~                                    | org-edit-special                             |
+| ~SPC m a~                                    | org-agenda                                   |
+| ~SPC m c~                                    | org-capture                                  |
+| ~SPC m C c~                                  | org-clock-cancel                             |
+| ~SPC m C g~                                  | evil-org-recompute-clocks                    |
+| ~SPC m C i~                                  | org-clock-in                                 |
+| ~SPC m C o~                                  | org-clock-out                                |
+| ~SPC m d d~                                  | org-deadline                                 |
+| ~SPC m d s~                                  | org-schedule                                 |
+| ~SPC m d t~                                  | org-time-stamp                               |
+| ~SPC m d T~                                  | org-time-stamp-inactive                      |
+| ~SPC m e e~                                  | org-export-dispatch                          |
+| ~SPC m e m~                                  | send current buffer as HTML email message    |
+| ~SPC m l~                                    | org-open-at-point                            |
+| ~SPC m L~                                    | org-shiftright                               |
+| ~SPC m H~                                    | org-shiftleft                                |
+| ~SPC m K~                                    | org-shiftup                                  |
+| ~SPC m J~                                    | org-shiftdown                                |
+| ~SPC m C-S-l~                                | org-shiftcontrolright                        |
+| ~SPC m C-S-h~                                | org-shiftcontrolleft                         |
+| ~SPC m C-S-j~                                | org-shiftcontroldown                         |
+| ~SPC m C-S-k~                                | org-shiftcontrolup                           |
+| ~SPC s j~                                    | spacemacs/jump-in-buffer (jump to a heading) |
 
 *** Tables
 
@@ -343,62 +337,70 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC m t t o~ | Toggle the display of Row/Column numbers in tables                         |
 | ~SPC m t w~   | Wrap several fields in a column like a paragraph                           |
 
-*** Tree
-
-| Key Binding | Description           |
-|-------------+-----------------------|
-| ~SPC m S l~ | org-demote-subtree    |
-| ~SPC m S h~ | org-promote-subtree   |
-| ~SPC m S k~ | org-move-subtree-up   |
-| ~SPC m S j~ | org-move-subtree-down |
-
-| Key Binding | Description                     |
-|-------------+---------------------------------|
-| ~TAB~       | org-cycle                       |
-| ~$~         | org-end-of-line                 |
-| ~^~         | org-beginning-of-line           |
-| ~<~         | org-metaleft                    |
-| ~>~         | org-metaright                   |
-| ~gh~        | outline-up-heading              |
-| ~gj~        | org-forward-heading-same-level  |
-| ~gk~        | org-backward-heading-same-level |
-| ~gl~        | outline-next-visible-heading    |
-| ~t~         | org-todo                        |
-| ~T~         | org-insert-todo-heading nil     |
-| ~H~         | org-beginning-of-line           |
-| ~L~         | org-end-of-line                 |
-| ~o~         | always-insert-item              |
-| ~O~         | org-open-above                  |
+*** Trees
 
 | Key Binding | Description                                |
 |-------------+--------------------------------------------|
-| ~M-l~       | org-metaright                              |
+| ~TAB~       | org-cycle                                  |
+| ~$~         | org-end-of-line                            |
+| ~^~         | org-beginning-of-line                      |
+| ~<~         | org-metaleft                               |
+| ~>~         | org-metaright                              |
+| ~gh~        | outline-up-heading                         |
+| ~gj~        | org-forward-heading-same-level             |
+| ~gk~        | org-backward-heading-same-level            |
+| ~gl~        | outline-next-visible-heading               |
+| ~H~         | org-beginning-of-line                      |
+| ~L~         | org-end-of-line                            |
+| ~o~         | always-insert-item                         |
+| ~O~         | org-open-above                             |
+| ~t~         | org-todo                                   |
+| ~T~         | org-insert-todo-heading nil                |
 | ~M-h~       | org-metaleft                               |
-| ~M-k~       | org-metaup                                 |
-| ~M-j~       | org-metadown                               |
-| ~M-L~       | org-shiftmetaright                         |
 | ~M-H~       | org-shiftmetaleft                          |
-| ~M-K~       | org-shiftmetaup                            |
+| ~M-j~       | org-metadown                               |
 | ~M-J~       | org-shiftmetadown                          |
+| ~M-k~       | org-metaup                                 |
+| ~M-K~       | org-shiftmetaup                            |
+| ~M-l~       | org-metaright                              |
+| ~M-L~       | org-shiftmetaright                         |
 | ~M-o~       | org-insert-heading+org-metaright           |
 | ~M-t~       | org-insert-todo-heading nil+ org-metaright |
+| ~SPC m s a~ | org-archive-subtree                        |
+| ~SPC m s b~ | org-tree-to-indirect-buffer                |
+| ~SPC m s l~ | org-demote-subtree                         |
+| ~SPC m s h~ | org-promote-subtree                        |
+| ~SPC m s k~ | org-move-subtree-up                        |
+| ~SPC m s j~ | org-move-subtree-down                      |
+| ~SPC m s n~ | org-narrow-to-subtree                      |
+| ~SPC m s N~ | widen narrowed subtree                     |
+| ~SPC m s r~ | org-refile                                 |
+| ~SPC m s s~ | show sparse tree                           |
+| ~SPC m s S~ | sort trees                                 |
 
 *** Element insertion
 
-| Key Binding | Description                      |
-|-------------+----------------------------------|
-| ~SPC m h i~ | org-insert-heading-after-current |
-| ~SPC m h I~ | org-insert-heading               |
-| ~SPC m h s~ | org-insert-subheading            |
-| ~SPC m i f~ | org-insert-footnote              |
-| ~SPC m i l~ | org-insert-link                  |
-| ~SPC m i a~ | org-attach                       |
+| Key Binding   | Description                      |
+|---------------+----------------------------------|
+| ~SPC m i a~   | org-attach                       |
+| ~SPC m i d~   | org-insert-drawer                |
+| ~SPC m i D s~ | Take screenshot                  |
+| ~SPC m i D y~ | Yank image url                   |
+| ~SPC m i e~   | org-set-effort                   |
+| ~SPC m i f~   | org-insert-footnote              |
+| ~SPC m i H~   | org-insert-heading-after-current |
+| ~SPC m i h~   | org-insert-heading               |
+| ~SPC m i K~   | spacemacs/insert-keybinding-org  |
+| ~SPC m i l~   | org-insert-link                  |
+| ~SPC m i p~   | org-set-property                 |
+| ~SPC m i s~   | org-insert-subheading            |
+| ~SPC m i t~   | org-set-tags                     |
 
 *** Links
 
 | Key Binding | Description       |
 |-------------+-------------------|
-| ~RET~       | org-open-at-point |
+| ~SPC m x o~ | org-open-at-point |
 
 *** Emphasis
 
@@ -411,12 +413,6 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC m x s~ | make region strike-through |
 | ~SPC m x u~ | make region underline      |
 | ~SPC m x v~ | make region verbose        |
-
-*** Tagging
-
-| Key Binding | Description  |
-|-------------+--------------|
-| ~SPC m :~   | org-set-tags |
 
 *** Navigating in calendar
 
@@ -442,7 +438,7 @@ conventions.
 | ~SPC m c~                                    | confirm                                |
 | ~SPC m a~                                    | abort                                  |
 | ~SPC m k~                                    | abort                                  |
-| ~SPC m R~                                    | org-capture-refile in org-capture-mode |
+| ~SPC m r~                                    | org-capture-refile in org-capture-mode |
 
 ** Org agenda
 
@@ -452,17 +448,17 @@ The evilified org agenda supports the following bindings:
 | Key Binding          | Description                       |
 |----------------------+-----------------------------------|
 | ~M-SPC~ or ~s-M-SPC~ | org-agenda transient state        |
-| ~SPC m :~            | org-agenda-set-tags               |
 | ~SPC m a~            | org-agenda                        |
-| ~SPC m d~            | org-agenda-deadline               |
-| ~SPC m f~            | org-agenda-set-effort             |
-| ~SPC m I~            | org-agenda-clock-in               |
-| ~SPC m O~            | org-agenda-clock-out              |
-| ~SPC m p~            | org-pomodoro (if package is used) |
-| ~SPC m P~            | org-agenda-set-property           |
-| ~SPC m R~            | org-agenda-refile                 |
-| ~SPC m q~            | org-agenda-clock-cancel           |
-| ~SPC m s~            | org-agenda-schedule               |
+| ~SPC m C c~          | org-agenda-clock-cancel           |
+| ~SPC m C i~          | org-agenda-clock-in               |
+| ~SPC m C o~          | org-agenda-clock-out              |
+| ~SPC m C p~          | org-pomodoro (if package is used) |
+| ~SPC m d d~          | org-agenda-deadline               |
+| ~SPC m d s~          | org-agenda-schedule               |
+| ~SPC m i e~          | org-agenda-set-effort             |
+| ~SPC m i p~          | org-agenda-set-property           |
+| ~SPC m i t~          | org-agenda-set-tags               |
+| ~SPC m s r~          | org-agenda-refile                 |
 | ~M-j~                | next item                         |
 | ~M-k~                | previous item                     |
 | ~M-h~                | earlier view                      |
@@ -485,7 +481,7 @@ are listed bellow.
 |-------------+---------------------+-----------------------------------|
 | ~ht~        | set status          | org-agenda-todo                   |
 | ~hk~        | kill                | org-agenda-kill                   |
-| ~hR~       | refile              | org-agenda-refile                 |
+| ~hR~        | refile              | org-agenda-refile                 |
 | ~hA~        | archive             | org-agenda-archive-default        |
 | ~h:~        | set tags            | org-agenda-set-tags               |
 | ~hp~        | set priority        | org-agenda-priority               |
@@ -550,7 +546,7 @@ are listed bellow.
 
 | Key Binding | Description       |
 |-------------+-------------------|
-| ~SPC m p~   | starts a pomodoro |
+| ~SPC m C p~ | starts a pomodoro |
 
 ** Presentation
 org-present must be activated explicitly by typing: ~SPC SPC org-present~
@@ -560,20 +556,6 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 | ~h~         | previous slide |
 | ~l~         | next slide     |
 | ~q~         | quit           |
-
-** Org-MIME
-
-| Key Binding | Description                                       |
-|-------------+---------------------------------------------------|
-| ~SPC m M~   | in =message-mode= buffers convert into html email |
-| ~SPC m m~   | send current buffer as HTML email message         |
-
-** Org-download
-
-| Key Binding | Description     |
-|-------------+-----------------|
-| ~SPC m i s~ | Take screenshot |
-| ~SPC m i y~ | Yank image url  |
 
 ** Org-projectile
 

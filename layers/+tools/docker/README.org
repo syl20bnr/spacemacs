@@ -3,11 +3,11 @@
 [[file:img/docker.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Usage][Usage]]
-   - [[TRAMP access to docker containers][TRAMP access to docker containers]]
- - [[Key bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#usage][Usage]]
+  - [[#tramp-access-to-docker-containers][TRAMP access to docker containers]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer provides syntax highlighting and build functionality for Docker files
@@ -23,7 +23,7 @@ file.
 
 * Usage
 ** TRAMP access to docker containers
-This relies on the [[https://github.com/emacs-pe/docker-tramp.el][docker-tramp]] package which uses ~docker exec~ available in
+This relies on the [[https://github.com/emacs-pe/docker-tramp.el][docker-tramp]] package which uses =docker exec= available in
 docker versions > 1.3.
 
 =docker-tramp= adds a new prefix =/docker:= that you can use with ~SPC f f~,

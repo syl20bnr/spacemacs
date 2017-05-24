@@ -2,10 +2,10 @@
 [[file:img/logo.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#org-babel-integration][Org-Babel Integration]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#org-babel-integration][Org-Babel Integration]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer enables support for [[https://github.com/skuro/plantuml-mode][plantuml-mode]], which provides
@@ -48,4 +48,4 @@ documents, define a value for =org-plantuml-jar-path= in your =~/.spacemacs=.
 | Key Binding              | Description                                           |
 |--------------------------+-------------------------------------------------------|
 | ~SPC m c c~ or ~C-c C-c~ | Build diagram from the text in the current buffer     |
-| ~SPC m c o~              | Set the output type (~unicode text~, ~svg~, or ~png~) |
+| ~SPC m c o~              | Set the output type (=unicode text=, =svg=, or =png=) |

@@ -65,7 +65,8 @@
 
       (defun spacemacs/go-run-tests (args)
         (interactive)
-        (compilation-start (concat "go test " args) nil (lambda (n) go-test-buffer-name) nil))
+        (compilation-start (concat "go test " args " " go-use-test-args)
+                           nil (lambda (n) go-test-buffer-name) nil))
 
       (defun spacemacs/go-run-package-tests ()
         (interactive)
