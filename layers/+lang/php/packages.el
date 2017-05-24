@@ -22,10 +22,17 @@
         php-mode
         phpcbf
         phpunit
+        company-php
         ))
 
 (defun php/post-init-company ()
-  (spacemacs|add-company-backends :modes php-mode))
+  (spacemacs|add-company-backends
+    :modes php-mode
+    :variables
+    company-minimum-prefix-length 1000
+    :backends  company-ac-php-backend
+    )
+  )
 
 (defun php/init-drupal-mode ()
   (use-package drupal-mode
@@ -42,6 +49,7 @@
 
 (defun php/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'php-mode))
+
 
 (defun php/init-php-auto-yasnippets ()
   (use-package php-auto-yasnippets
@@ -63,3 +71,13 @@
 (defun php/init-phpunit ()
   (use-package phpunit
     :defer t))
+
+(defun phpplus/init-company-php ()
+  (use-package company-php
+    :defer t
+    :init
+    (progn
+      (add-hook 'php-mode-hook  'ac-php-core-eldoc-setup  )
+      )
+    )
+  )
