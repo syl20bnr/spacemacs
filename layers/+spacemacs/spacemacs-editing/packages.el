@@ -281,7 +281,10 @@
     :init
     (progn
       ;; settings
-      (setq sp-show-pair-delay 0.2
+      (setq sp-show-pair-delay
+            ;; Use this form to allow users to override this setting from
+            ;; dotspacemacs/user-init
+            (or (bound-and-true-p sp-show-pair-delay) 0.2)
             ;; fix paren highlighting in normal mode
             sp-show-pair-from-inside t
             sp-cancel-autoskip-on-backward-movement nil
