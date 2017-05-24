@@ -83,6 +83,7 @@
 (defun spacemacs-editing/init-bracketed-paste ()
   (use-package bracketed-paste
     :defer t
+    :if (version< "25.0.92" emacs-version)
     :init
     ;; Enable bracketed-paste for tty
     (add-hook 'tty-setup-hook 'bracketed-paste-enable)))
