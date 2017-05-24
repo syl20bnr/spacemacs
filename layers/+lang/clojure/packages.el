@@ -280,7 +280,8 @@
             (if dotspacemacs-smartparens-strict-mode
                 #'smartparens-strict-mode
               #'smartparens-mode))
-  (sp-local-pair 'clojure-mode "`" nil :actions nil))
+  (with-eval-after-load 'smartparens
+    (sp-local-pair 'clojure-mode "`" nil :actions nil)))
 
 (defun clojure/post-init-subword ()
   (add-hook 'cider-mode-hook 'subword-mode))
