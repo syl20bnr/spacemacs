@@ -11,4 +11,4 @@
 
 ;; variables
 
-(spacemacs|define-jump-handlers php-mode)
+(spacemacs|define-jump-handlers php-mode ac-php-find-symbol-at-point)
