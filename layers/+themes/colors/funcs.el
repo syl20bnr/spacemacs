@@ -27,9 +27,21 @@
       (if sat&light
           (setq rainbow-identifiers-cie-l*a*b*-saturation (cadr sat&light)
                 rainbow-identifiers-cie-l*a*b*-lightness (caddr sat&light))
-        ;; default
-        (setq rainbow-identifiers-cie-l*a*b*-saturation 80
-              rainbow-identifiers-cie-l*a*b*-lightness 45)))))
+        ;; fall back to our defaults if there are no per-theme settings
+        (setq rainbow-identifiers-cie-l*a*b*-saturation colors-default-rainbow-identifiers-sat
+              rainbow-identifiers-cie-l*a*b*-lightness colors-default-rainbow-identifiers-light))))
+  ;; it isn't enough to just update the variables! we must now refresh the "font
+  ;; locking" (syntax highlighting) in all buffers that have rainbow-identifiers-mode
+  ;; currently active, so that they instantly re-paint with their per-theme values.
+  ;; this loops through all buffers and marks matching ones for re-painting,
+  ;; starting with the current buffer first so that the user sees quick results!
+  (when (featurep 'rainbow-identifiers)
+    (dolist ($buf (buffer-list (current-buffer)))
+      (with-current-buffer $buf
+        (when (and rainbow-identifiers-mode font-lock-mode)
+          (if (fboundp 'font-lock-flush)
+              (font-lock-flush) ; use flush if available
+            (with-no-warnings (font-lock-fontify-buffer))))))))
 
 (defun colors//change-color-mini-mode-doc (component)
   "Display a short documentation in the mini buffer."
@@ -78,9 +90,9 @@ Press any other key to exit." component (eval var) component component)))
   (colors//change-color-component-func "saturation" -5))
 
 (defun colors/change-color-saturation-reset ()
-  "Reset the saturation to 100."
+  "Reset the saturation to default."
   (interactive)
-  (colors//change-color-component-func "saturation" 100 t))
+  (colors//change-color-component-func "saturation" colors-default-rainbow-identifiers-sat t))
 
 (defun colors/start-change-color-lightness ()
   "Initiate the overlay map to change the lightness."
@@ -98,9 +110,9 @@ Press any other key to exit." component (eval var) component component)))
   (colors//change-color-component-func "lightness" -5))
 
 (defun colors/change-color-lightness-reset ()
-  "Reset the lightness to 40."
+  "Reset the lightness to default."
   (interactive)
-  (colors//change-color-component-func "lightness" 40 t))
+  (colors//change-color-component-func "lightness" colors-default-rainbow-identifiers-light t))
 
 (defun colors//change-color-component-func
     (component inc &optional reset)
@@ -115,5 +127,27 @@ Press any other key to exit." component (eval var) component component)))
         (if (< new-value 0)
             (setq new-value 0))
         (set var new-value)))
-    (font-lock-fontify-buffer)
+    (if (fboundp 'font-lock-flush)
+        (font-lock-flush) ; use flush if available
+      (with-no-warnings (font-lock-fontify-buffer)))
     (colors/change-color-component-overlay-map component)))
+
+(defun colors/add-theme-sat&light (theme_name sat_light)
+  "Easily add personal per-theme rainbow-identifiers
+saturation & lightness settings. Your new values will
+override any previous definitions for that theme.
+
+Remember to always refresh the look of your theme after
+you've added any new settings!
+
+Example usage:
+    (colors/add-theme-sat&light 'leuven '(30 50))
+    (colors/add-theme-sat&light 'anothertheme '(90 20))
+    (colors/refresh-theme-look)"
+  (push (cons theme_name sat_light) colors-theme-identifiers-sat&light))
+
+(defun colors/refresh-theme-look ()
+  "Refresh and re-apply the look of your current theme.
+Always run this after adding new per-theme settings!"
+  (interactive)
+  (colors//tweak-theme-colors spacemacs--cur-theme))
