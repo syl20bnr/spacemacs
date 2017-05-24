@@ -156,6 +156,18 @@ found at the [[https://colemak.com/][Colemak website]].
 
 [[file:img/colemak-layout.png]]
 
+This layer offers three flavors of Colemak bindings:
+
+- =colemak-hnei= remaps ~HJKL~ to ~HNEI~, keeping the same key location; useful
+  for people used to the ~HJKL~ scheme on a Qwerty keyboard.
+- =colemak-neio= remaps ~HJKL~ to ~NEIO~, shifted one key to the right for
+  easier access.
+- =colemak-jkhl= remaps ~HJKL~ to ~JKHL~, permuting the direction of the keys
+  without disturbing any other binding.
+
+*Note*: for technical reasons (see [[https://github.com/syl20bnr/spacemacs/pull/7178#issuecomment-249360301][GH-7178]]), when using =colemak-jkhl=, the
+~kl/pre-config-evil~ and ~kl/post-config-evil~ hooks will be run /twice/.
+
 * Package Configurations
 The available configurations are:
 
