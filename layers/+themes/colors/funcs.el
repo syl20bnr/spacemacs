@@ -132,7 +132,7 @@ Press any other key to exit." component (eval var) component component)))
       (with-no-warnings (font-lock-fontify-buffer)))
     (colors/change-color-component-overlay-map component)))
 
-(defun colors/add-theme-sat&light (theme_name sat_light)
+(defun colors/add-theme-sat&light (theme-name sat-light)
   "Easily add personal per-theme rainbow-identifiers
 saturation & lightness settings. Your new values will
 override any previous definitions for that theme.
@@ -144,7 +144,7 @@ Example usage:
     (colors/add-theme-sat&light 'leuven '(30 50))
     (colors/add-theme-sat&light 'anothertheme '(90 20))
     (colors/refresh-theme-look)"
-  (push (cons theme_name sat_light) colors-theme-identifiers-sat&light))
+  (push (cons theme-name sat-light) colors-theme-identifiers-sat&light))
 
 (defun colors/refresh-theme-look ()
   "Refresh and re-apply the look of your current theme.
