@@ -1,0 +1,26 @@
+#+TITLE: mwe-log-commands contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#mwe-log-commands][mwe-log-commands]]
+ - [[#usage][Usage]]
+
+* Description
+
+mwe-log-commands can be used to demo Emacs to an audience. When activated, keystrokes get logged into a designated buffer, along with the command bound to them.
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(mwe-log-commands))
+#+END_SRC
+
+* Usage
+
+M-x spacemacs/mwe-log-commands
