@@ -30,7 +30,9 @@
 
 **Quick Install:**
 
-This assumes you don't have an existing Emacs setup and want to run Spacemacs as your config. If you do have one, first `mv ~/.emacs.d ~/.emacs.d.bak`, or look at the [full installation instructions](#install) for other options.
+This assumes you don't have an existing Emacs setup and want to run Spacemacs as
+your config. If you do have one, look at
+the [full installation instructions](#install) for other options.
 
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
