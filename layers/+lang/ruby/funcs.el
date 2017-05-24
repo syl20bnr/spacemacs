@@ -62,9 +62,11 @@ Called interactively it prompts for a directory."
 
 
 ;; highlight debugger keywords
-(defun spacemacs/ruby-highlight-debugger-keywords ()
+
+(defun spacemacs/ruby-maybe-highlight-debugger-keywords ()
   "Highlight break point lines."
   (interactive)
-  (highlight-lines-matching-regexp "byebug")
-  (highlight-lines-matching-regexp "binding.irb")
-  (highlight-lines-matching-regexp "binding.pry"))
+  (when ruby-highlight-debugger-keywords
+    (highlight-lines-matching-regexp "byebug")
+    (highlight-lines-matching-regexp "binding.irb")
+    (highlight-lines-matching-regexp "binding.pry")))
