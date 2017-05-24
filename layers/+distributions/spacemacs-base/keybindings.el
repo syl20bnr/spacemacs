@@ -231,6 +231,9 @@
   "j0" 'spacemacs/push-mark-and-goto-beginning-of-line
   "j$" 'spacemacs/push-mark-and-goto-end-of-line
   "jf" 'find-function
+  "jj" 'avy-goto-char
+  "jl" 'avy-goto-line
+  "jw" 'avy-goto-word-1
   "jv" 'find-variable)
 
 ;; Compilation ----------------------------------------------------------------
