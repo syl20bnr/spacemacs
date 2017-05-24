@@ -1,12 +1,12 @@
-#+TITLE: PHP layer
+#+TITLE: phpplus layer
 
-[[file:img/php.png]]
 
+# TOC links should be GitHub style anchors.
 * Table of Contents                                         :TOC_4_gh:noexport:
-- [[#description][Description]]
-  - [[#features][Features:]]
-- [[#install][Install]]
-- [[#key-bindings][Key bindings]]
+ - [[#description][Description]]
+   - [[#features][Features:]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
 
 * Description
 
@@ -14,21 +14,15 @@ This layer adds PHP language support to Spacemacs.
 
 ** Features:
 - Edit PHP files using [[https://github.com/ejmr/php-mode][php-mode]]
-- Edit Drupal files
-- Complete and jump to define with [[https://github.com/xcwen/ac-php][company-php]]
-- Run tests with PHPUnit
-- Reformat code with PHP CBF
+- complete and jump with  [[https://github.com/xcwen/ac-php#company-php]]
 
-The =gtags= layer is recommended to benefit from better =eldoc= and
-=helm-gtags=.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =php= to the existing =dotspacemacs-configuration-layers= list in this
+add =phpplus= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key bindings
-
 | Key Binding | Description    |
 |-------------+----------------|
 | ~SPC m g g~ | jump to define at point |
