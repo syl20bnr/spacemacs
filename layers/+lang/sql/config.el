@@ -15,5 +15,5 @@
 (defvar sql-capitalize-keywords-disable-interactive nil
   "Do not capitalize keywords in interactive session (e.g. psql).")
 
-(defvar sql-capitalize-keywords-blacklist "name"
-  "Keyword or list of keywords to ignore during capitalization.")
+(defvar sql-capitalize-keywords-blacklist '("name")
+  "List of keywords to ignore during capitalization.")

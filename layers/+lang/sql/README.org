@@ -45,10 +45,16 @@ you can set the variable =sql-capitalize-keywords-disable-interactive= to =t=.
 [[https://github.com/Trevoke/sqlup-mode.el][sqlup-mode]] can be configured to ignore certain keywords. For example if you use
 =name= as column name it would be annoying to have it upcased. You can prevent
 this behaviour by setting the variable =sql-capitalize-keywords-blacklist= to
-string with one keyword (like ="name"=) or to list with multiple keywords (like
-='("name" "varchar")=) to ignore.
+a list with keywords to ignore, e.g.
 
-This layer is blacklisting =name= by default as it is very common name for
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (sql :variables
+         sql-capitalize-keywords t
+         sql-capitalize-keywords-blacklist '("name" "varchar"))))
+#+END_SRC
+
+This layer is blacklisting =name= by default as it is a very common name for
 column and NAME is non-reserved SQL keyword.
 
 * Key bindings

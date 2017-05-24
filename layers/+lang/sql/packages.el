@@ -136,7 +136,5 @@
     :config
     (progn
       (spacemacs|diminish sqlup-mode)
-      (when sql-capitalize-keywords-blacklist
-        (if (listp sql-capitalize-keywords-blacklist)
-            (setq sqlup-blacklist (append sqlup-blacklist sql-capitalize-keywords-blacklist))
-          (add-to-list 'sqlup-blacklist sql-capitalize-keywords-blacklist))))))
+      (setq sqlup-blacklist (append sqlup-blacklist
+                                    sql-capitalize-keywords-blacklist)))))
