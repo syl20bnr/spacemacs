@@ -146,6 +146,9 @@ programmer]] is an optimized keyboard layout focused in programming and it's a
 variant of the more general =dvorak= (us) keyboard layout. This configuration
 will remap keybindings for the =dvorak-programmer= variant.
 
+There are 2 variants of dvorak implemented in this layout: dvp and dvorak. Dvp tries to match vim like hand placement on keyboard.
+Dvorak has movement keys shifted by 1 key to the right on home row.
+
 [[file:img/dvorak-keymap.png]]
 
 * Package Configurations
