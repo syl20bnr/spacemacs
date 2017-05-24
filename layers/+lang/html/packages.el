@@ -166,7 +166,7 @@
      'smartparens-mode)
    '(css-mode-hook scss-mode-hook sass-mode-hook less-css-mode-hook))
 
-  (add-hook 'web-mode-hook 'spacemacs/toggle-smartparens-off))
+  (add-hook 'web-mode-hook 'turn-off-smartparens-mode))
 
 (defun html/init-tagedit ()
   (use-package tagedit
