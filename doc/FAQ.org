@@ -587,4 +587,4 @@ If this returns =nil=, you need to install the GnuTLS DLL file in the same
 directory as Emacs. See [[https://www.gnu.org/software/emacs/manual/html_mono/emacs-gnutls.html#Help-For-Users][here]] for instructions.
 
 ** The powerline isn't shown correctly when Spacemacs is used within =PuTTY=
-You can follow [[http://mschulte.nl/posts/using-powerline-in-PuTTY.html][this explanation]] explaining how to correct this.
+You can follow [[http://webcache.googleusercontent.com/search?q=cache:CsTK3URgUr8J:mschulte.nl/nl/posts/using-powerline-in-PuTTY.html][this explanation]] explaining how to correct this.
