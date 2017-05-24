@@ -3,10 +3,10 @@
 [[file:img/php.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features:]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 
@@ -29,7 +29,7 @@ file.
 
 * Key bindings
 
-| Key Binding | Description    |
-|-------------+----------------|
+| Key Binding | Description             |
+|-------------+-------------------------|
 | ~SPC m g g~ | jump to define at point |
-| ~C-t~       | jump back |
+| ~C-t~       | jump back               |
