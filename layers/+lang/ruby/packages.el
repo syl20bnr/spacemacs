@@ -213,10 +213,9 @@
     :init
     (progn
       (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "ruby/test")
-      (when ruby-highlight-debugger-keywords
-        (spacemacs/add-to-hooks 'spacemacs/ruby-highlight-debugger-keywords
-                                '(ruby-mode-hook
-                                  enh-ruby-mode-hook))))
+      (spacemacs/add-to-hooks
+       'spacemacs/ruby-maybe-highlight-debugger-keywords
+       '(ruby-mode-local-vars-hook enh-ruby-mode-local-vars-hook)))
     :config (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
               "'" 'ruby-toggle-string-quotes
               "{" 'ruby-toggle-block)))
