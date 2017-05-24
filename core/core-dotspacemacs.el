@@ -343,6 +343,10 @@ This can be temporary disabled by pressing `C-q' before `)'. (default nil)")
   "Either nil or a number of seconds. If non-nil zone out after the specified
 number of seconds.")
 
+(defvar dotspacemacs-sp-show-pair-delay 0.2
+  "Sets the global value for `sp-show-pair-delay'. Which in turn sets the
+  time in seconds to delay before showing a matching pair with smartparens.")
+
 (defvar dotspacemacs-highlight-delimiters 'all
   "Select a scope to highlight delimiters. Possible values are `any',
 `current', `all' or `nil'. Default is `all' (highlight any scope and

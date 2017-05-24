@@ -281,7 +281,7 @@
     :init
     (progn
       ;; settings
-      (setq sp-show-pair-delay 0.2
+      (setq sp-show-pair-delay dotspacemacs-sp-show-pair-delay
             ;; fix paren highlighting in normal mode
             sp-show-pair-from-inside t
             sp-cancel-autoskip-on-backward-movement nil
