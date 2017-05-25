@@ -106,12 +106,12 @@ layout, which is also knows as the 0th layout.
   (catch 'found
     ;; return 1st available name
     (dolist (name (nth pos spacemacs-generic-layout-names))
-      (unless (persp-get-by-name name)
+      (unless (persp-p (persp-get-by-name name))
         (throw 'found name)))
 
     ;; return 1st available name from grab-bag
     (dolist (name (car spacemacs-generic-layout-names))
-      (unless (persp-get-by-name name)
+      (unless (persp-p (persp-get-by-name name))
         (throw 'found name)))))
 
 (defun spacemacs/layout-switch-by-pos (pos)
