@@ -64,46 +64,6 @@
     (progn
       (add-hook 'before-save-hook 'gofmt-before-save)
 
-      (defun spacemacs/go-run-tests (args)
-        (interactive)
-        (compilation-start (concat "go test " args " " go-use-test-args)
-                           nil (lambda (n) go-test-buffer-name) nil))
-
-      (defun spacemacs/go-run-package-tests ()
-        (interactive)
-        (spacemacs/go-run-tests ""))
-
-      (defun spacemacs/go-run-package-tests-nested ()
-        (interactive)
-        (spacemacs/go-run-tests "./..."))
-
-      (defun spacemacs/go-run-test-current-function ()
-        (interactive)
-        (if (string-match "_test\\.go" buffer-file-name)
-            (let ((test-method (if go-use-gocheck-for-testing
-                                   "-check.f"
-                                 "-run")))
-              (save-excursion
-                  (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?[[:alnum:]]+)[ ]+\\)?\\(Test[[:alnum:]_]+\\)(.*)")
-                  (spacemacs/go-run-tests (concat test-method "='" (match-string-no-properties 2) "$'"))))
-          (message "Must be in a _test.go file to run go-run-test-current-function")))
-
-      (defun spacemacs/go-run-test-current-suite ()
-        (interactive)
-        (if (string-match "_test\.go" buffer-file-name)
-            (if go-use-gocheck-for-testing
-                (save-excursion
-                    (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?\\([[:alnum:]]+\\))[ ]+\\)?Test[[:alnum:]_]+(.*)")
-                    (spacemacs/go-run-tests (concat "-check.f='" (match-string-no-properties 2) "'")))
-              (message "Gocheck is needed to test the current suite"))
-          (message "Must be in a _test.go file to run go-test-current-suite")))
-
-      (defun spacemacs/go-run-main ()
-        (interactive)
-        (shell-command
-          (format "go run %s"
-                  (shell-quote-argument (buffer-file-name (buffer-base-buffer))))))
-
       (spacemacs/declare-prefix-for-mode 'go-mode "me" "playground")
       (spacemacs/declare-prefix-for-mode 'go-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'go-mode "mh" "help")
@@ -126,10 +86,10 @@
         "tp" 'spacemacs/go-run-package-tests
         "tP" 'spacemacs/go-run-package-tests-nested))))
 
-(defun go/init-go-eldoc()
+(defun go/init-go-eldoc ()
   (add-hook 'go-mode-hook 'go-eldoc-setup))
 
-(defun go/init-go-guru()
+(defun go/init-go-guru ()
   (spacemacs/declare-prefix-for-mode 'go-mode "mf" "guru")
   (spacemacs/set-leader-keys-for-major-mode 'go-mode
     "fd" 'go-guru-describe
@@ -145,7 +105,7 @@
     "f>" 'go-guru-callees
     "fo" 'go-guru-set-scope))
 
-(defun go/init-go-rename()
+(defun go/init-go-rename ()
   (use-package go-rename
     :init
     (spacemacs/declare-prefix-for-mode 'go-mode "mr" "refactoring")
@@ -163,7 +123,7 @@
         "rt" 'godoctor-toggle
         "rd" 'godoctor-godoc))))
 
-(defun go/init-flycheck-gometalinter()
+(defun go/init-flycheck-gometalinter ()
   (use-package flycheck-gometalinter
     :defer t
     :init
