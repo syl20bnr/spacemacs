@@ -23,6 +23,7 @@
         go-mode
         go-guru
         go-rename
+        godoctor
         popwin
         ))
 
@@ -147,8 +148,20 @@
 (defun go/init-go-rename()
   (use-package go-rename
     :init
-    (spacemacs/declare-prefix-for-mode 'go-mode "mr" "rename")
-    (spacemacs/set-leader-keys-for-major-mode 'go-mode "rn" 'go-rename)))
+    (spacemacs/declare-prefix-for-mode 'go-mode "mr" "refactoring")
+    (spacemacs/set-leader-keys-for-major-mode 'go-mode "rN" 'go-rename)))
+
+(defun go/init-godoctor ()
+  (use-package godoctor
+    :defer t
+    :init
+    (progn
+      (spacemacs/declare-prefix-for-mode 'go-mode "mr" "refactoring")
+      (spacemacs/set-leader-keys-for-major-mode 'go-mode
+        "rn" 'godoctor-rename
+        "re" 'godoctor-extract
+        "rt" 'godoctor-toggle
+        "rd" 'godoctor-godoc))))
 
 (defun go/init-flycheck-gometalinter()
   (use-package flycheck-gometalinter
