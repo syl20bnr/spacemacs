@@ -186,6 +186,7 @@
   - [[#registers][Registers]]
   - [[#errors-handling][Errors handling]]
   - [[#compiling][Compiling]]
+- [[#editorconfig][EditorConfig]]
 - [[#emacs-server][Emacs Server]]
   - [[#connecting-to-the-emacs-server][Connecting to the Emacs server]]
   - [[#keeping-the-server-alive][Keeping the server alive]]
@@ -3221,6 +3222,13 @@ Spacemacs binds a few commands to support compiling a project.
    | ~SPC c k~   | kill compilation               |
    | ~SPC c m~   | =helm-make=                    |
    | ~SPC c r~   | recompile                      |
+
+* EditorConfig
+Spacemacs has support for [[http://editorconfig.org/][EditorConfig]], a configuration file to "define and maintain consistent coding styles between different editors and IDEs."
+
+To enable this feature, [[https://github.com/editorconfig/editorconfig-core-c/blob/master/INSTALL.md][install the editorconfig command]].
+
+[[https://github.com/editorconfig/editorconfig-emacs/blob/master/README.md#customize][To customize your editorconfig experience, read the editorconfig-emacs package's documentation]].
 
 * Emacs Server
 Spacemacs starts a server at launch. This server is killed whenever you close
