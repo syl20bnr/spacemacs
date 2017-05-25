@@ -101,6 +101,6 @@
 
 (defun mu4e/post-init-org ()
   ;; load org-mu4e when org is actually loaded
-  (with-eval-after-load 'org (require 'org-mu4e nil 'noerror)))
-
-
+  (with-eval-after-load 'org
+    (require 'org-mu4e nil 'noerror)
+    (require 'org-notmuch nil 'noerror)))

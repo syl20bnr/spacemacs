@@ -27,9 +27,6 @@
     org-download
     ;; org-mime is installed by `org-plus-contrib'
     (org-mime :location built-in)
-    ;; org-notmuch and org-mu4e are installed by `org-plus-contrib'
-    (org-notmuch :location built-in :toggle (configuration-layer/package-usedp 'notmuch))
-    (org-mu4e :location built-in :toggle (configuration-layer/package-usedp 'mu4e))
     org-pomodoro
     org-present
     (org-projectile :toggle (configuration-layer/package-usedp 'projectile))
@@ -77,14 +74,6 @@
 (defun org/init-htmlize ()
   (use-package htmlize
     :defer t))
-
-(defun org/init-org-mu4e ()
-  (with-eval-after-load 'org
-    (require 'org-mu4e)))
-
-(defun org/init-org-notmuch ()
-  (with-eval-after-load 'org
-    (require 'org-notmuch)))
 
 (defun org/init-ob ()
   (use-package ob
