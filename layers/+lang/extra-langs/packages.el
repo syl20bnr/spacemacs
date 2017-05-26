@@ -6,7 +6,6 @@
     qml-mode
     scad-mode
     stan-mode
-    sparql-mode
     thrift
     wolfram-mode
     ))
@@ -39,13 +38,6 @@
 (defun extra-langs/init-stan-mode ()
   (use-package stan-mode
     :defer t))
-
-(defun extra-langs/init-sparql-mode ()
-  (use-package sparql-mode
-    :defer t
-    :mode "\\.sparql\\'")
-    (when (configuration-layer/package-usedp 'company)
-      (spacemacs|add-company-backends :modes sparql-mode)))
 
 (defun extra-langs/init-thrift ()
   (use-package thrift
