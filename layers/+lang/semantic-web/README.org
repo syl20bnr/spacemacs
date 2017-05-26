@@ -3,9 +3,9 @@
 [[file:img/semweb.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for RDF files in N3 and [[https://www.w3.org/TR/turtle/][Turtle syntax]] using [[https://bitbucket.org/nxg/ttl-mode][ttl-mode]]
@@ -23,6 +23,6 @@ file.
 
 * Key bindings
 
-| Key Binding | Description           |
-|-------------+-----------------------|
-| ~SPC m q~   | Execute SPARQL query  |
+| Key Binding | Description          |
+|-------------+----------------------|
+| ~SPC m q~   | Execute SPARQL query |
