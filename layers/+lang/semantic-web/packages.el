@@ -9,25 +9,28 @@
 ;;
 ;;; License: GPLv3
 
-(setq semweb-packages
+(setq semantic-web-packages
   '(
-    company
     ttl-mode
     sparql-mode
+    org
     ))
 
-(defun semweb/init-ttl-mode ()
+(defun semantic-web/init-ttl-mode ()
   (use-package ttl-mode
     :mode ("\\.\\(ttl\\|n3\\)\\'" . ttl-mode)))
 
-(defun semweb/post-init-company ()
-  (add-hook 'sparql-mode-hook 'company-mode))
-
-(defun semweb/init-sparql-mode ()
+(defun semantic-web/init-sparql-mode ()
   (use-package sparql-mode
     :mode ("\\.\\(sparql\\|rq\\)\\'" . sparql-mode)
-    :init (spacemacs/set-leader-keys-for-major-mode 'sparql-mode "q" 'sparql-query-region)))
+    :init
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'sparql-mode "q" 'sparql-query-region)
+      (when (configuration-layer/package-usedp 'company)
+        (spacemacs|add-company-backends
+          :backends company-sparql
+          :modes sparql-mode)))))
 
-(defun semweb/pre-init-org ()
+(defun semantic-web/pre-init-org ()
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(sparql . t))))
