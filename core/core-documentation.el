@@ -178,19 +178,20 @@ compatible."
 (defun spacemacs//reroot-links ()
   "Find the links that start with https://github.com/syl20bnr/spacemacs/blob/
 and end with .org{#an-optional-heading-link} (i.e the links between the local
-org files). Change their root to http://spacemacs.org/ so the links will point
-at files located on the site. For the file to file links to work properly the
+org files) and make it relative .For the file to file links to work properly
 exported org files should be processed with
-the `spacemacs//org-heading-annotate-custom-id' function."
+`spacemacs//org-heading-annotate-custom-id' function."
   (let ((git-url-root-regexp
          (concat "\\[\\[[\\s]*\\(https\\:\\/\\/github\\.com\\/syl20bnr"
-                 "\\/spacemacs\\/blob\\/[^/]+\\/\\)[^]]+\\(\\.org\\).*$"))
-        (site-url "http://spacemacs.org/")
-        (site-doc-postf ".html"))
-    (progn (goto-char (point-min))
-           (while (re-search-forward git-url-root-regexp nil t)
-             (progn (replace-match site-url nil t nil 1)
-                    (replace-match site-doc-postf nil t nil 2))))))
+                 "\\/spacemacs\\/blob\\/[^/]+\\/\\)\\([^]]+\\)")))
+    (goto-char (point-min))
+    (while (re-search-forward git-url-root-regexp nil t)
+      (replace-match "file:" nil t nil 1)
+      (replace-match (f-relative (concat spacemacs-start-directory
+                                         (match-string 2))
+                                 (file-name-directory
+                                  (buffer-file-name)))
+                     nil t nil 2))))
 
 (defun spacemacs//add-org-meta-readtheorg-css (filename)
   (let* ((head-css-extra-readtheorg-head (concat
