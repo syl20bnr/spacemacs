@@ -12,6 +12,7 @@
   - [[#completion-support][Completion support]]
     - [[#company-ghci][=company-ghci=]]
     - [[#intero][=intero=]]
+    - [[#dante][=dante=]]
     - [[#ghc-mod][=ghc-mod=]]
   - [[#optional-extras][Optional extras]]
     - [[#structured-haskell-mode][structured-haskell-mode]]
@@ -118,6 +119,9 @@ order to use it you have to call =haskell-process-load-or-reload= (=SPC s b=).
 =Intero= works only for =stack= users. You can manually install =intero= executable by
 calling =stack install intero=, but this step is optional as =Intero= installs
 itself.
+
+*** =dante=
+=dante= works for =cabal=, =nix=, =sytx=, and =stack= users.
 
 *** =ghc-mod=
 [[http://www.mew.org/~kazu/proj/ghc-mod/][ghc-mod]] enhances =haskell-mode= with for example code completion, templates,
