@@ -1,0 +1,28 @@
+#+TITLE: tldr layer
+
+[[./img/tldr.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds integration of [[https://github.com/tldr-pages/tldr][tldr]]
+which is a collection of simplified and community-driven man pages.
+
+The integration is implemented in the package
+[[https://github.com/kuanyui/tldr.el][tldr.el]]
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =tldr= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description                                           |
+|-------------+-------------------------------------------------------|
+| ~SPC d m~   | Lookup in tldr pages                                  |
+| ~SPC d M~   | Lookup thing at point in tldr pages                   |
+| ~SPC m r~   | Update tldr pages from source (when in a tldr buffer) |
