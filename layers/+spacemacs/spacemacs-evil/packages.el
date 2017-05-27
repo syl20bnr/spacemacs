@@ -214,6 +214,12 @@
   (use-package evil-search-highlight-persist
     :init
     (progn
+      (defun spacemacs/evil-search-clear-highlight ()
+        "Clear evil-search or evil-ex-search persistent highlights."
+        (interactive)
+        (case evil-search-module
+          ('isearch (evil-search-highlight-persist-remove-all))
+          ('evil-search (evil-ex-nohighlight))))
       (global-evil-search-highlight-persist)
       ;; (set-face-attribute )
       (spacemacs/set-leader-keys "sc" 'spacemacs/evil-search-clear-highlight)
