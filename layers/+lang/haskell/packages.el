@@ -26,6 +26,7 @@
     hindent
     hlint-refactor
     intero
+    dante
     ))
 
 (defun haskell/init-cmm-mode ()
@@ -53,6 +54,11 @@
 (defun haskell/init-ghc ()
   (use-package ghc
     :defer t))
+
+(defun haskell/init-dante ()
+  (use-package dante
+    :defer t
+    :init (add-hook 'haskell-mode-hook 'dante-mode)))
 
 (defun haskell/init-intero ()
   (use-package intero
