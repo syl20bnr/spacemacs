@@ -53,6 +53,7 @@
     :backends (company-dante company-dabbrev-code company-yasnippet)
     :modes haskell-mode)
   (push 'xref-find-definitions spacemacs-jump-handlers)
+  (dante-mode)
   (dolist (mode haskell-modes)
     (spacemacs/set-leader-keys-for-major-mode mode
       "ht" 'dante-type-at
