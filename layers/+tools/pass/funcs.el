@@ -10,13 +10,8 @@
 ;;; License: GPLv3
 
 (defun spacemacs//pass-completing-read ()
-  "Read a password entry in the minibuffer, with completion.
-
-This method is overridden to allow use of the dotspacemacs-use-ido variable."
-  ;; TODO update this to works with ivy
-  (if dotspacemacs-use-ido
-      (ido-completing-read "Password entry: " (password-store-list))
-    (helm-comp-read "Password entry: " (password-store-list))))
+  "Read a password entry in the minibuffer, with completion."
+  (completing-read "Password entry: " (password-store-list)))
 
 (defun spacemacs/pass-copy-and-describe (entry)
   "Copy the password to the clipboard, and show the multiline description for ENTRY"
