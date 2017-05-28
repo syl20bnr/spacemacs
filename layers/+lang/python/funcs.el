@@ -22,7 +22,7 @@
       (progn
         (let ((pyenv-string (shell-command-to-string (concat "pyenv which " command))))
           (unless (string-match "not found" pyenv-string)
-            pyenv-string)))
+            (string-trim pyenv-string))))
     (executable-find command)))
 
 (defun spacemacs/python-setup-shell (&rest args)
