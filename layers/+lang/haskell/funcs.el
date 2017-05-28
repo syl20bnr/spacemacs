@@ -11,15 +11,15 @@
 
 (defun spacemacs-haskell//setup-completion-backend ()
   "Conditionally setup haskell completion backend."
-  (unless (eq haskell-completion-backend 'ghc-mod)
-    (add-hook 'haskell-mode-hook 'interactive-haskell-mode))
   (when (configuration-layer/package-usedp 'company)
     (pcase haskell-completion-backend
       (`ghci (spacemacs-haskell//setup-ghci))
       (`ghc-mod (spacemacs-haskell//setup-ghc-mod))
-      (`intero (spacemacs-haskell//setup-intero)))))
+      (`intero (spacemacs-haskell//setup-intero))
+      (`dante (spacemacs-haskell//setup-dante)))))
 
 (defun spacemacs-haskell//setup-ghci ()
+  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
   (spacemacs|add-company-backends
     :backends (company-ghci company-dabbrev-code company-yasnippet)
     :modes haskell-mode))
@@ -48,7 +48,22 @@
     (set-face-attribute 'ghc-face-error nil :underline nil)
     (set-face-attribute 'ghc-face-warn nil :underline nil)))
 
+(defun spacemacs-haskell//setup-dante ()
+  (spacemacs|add-company-backends
+    :backends (company-dante company-dabbrev-code company-yasnippet)
+    :modes haskell-mode)
+  (push 'xref-find-definitions spacemacs-jump-handlers)
+  (dolist (mode haskell-modes)
+    (spacemacs/set-leader-keys-for-major-mode mode
+      "ht" 'dante-type-at
+      "hT" 'spacemacs-haskell//dante-insert-type
+      "hi" 'dante-info
+      "rs" 'dante-auto-fix
+      "se" 'dante-eval-block
+      "sr" 'dante-restart)))
+
 (defun spacemacs-haskell//setup-intero ()
+  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
   (spacemacs|add-company-backends
     :backends (company-intero company-dabbrev-code company-yasnippet)
     :modes haskell-mode)
@@ -86,6 +101,12 @@
   ;; use only internal indentation system from haskell
   (if (fboundp 'electric-indent-local-mode)
       (electric-indent-local-mode -1)))
+
+;; Dante Functions
+
+(defun spacemacs-haskell//dante-insert-type ()
+  (interactive)
+  (dante-type-at :insert))
 
 
 ;; Intero functions
