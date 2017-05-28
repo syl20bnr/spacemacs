@@ -183,7 +183,8 @@ exported org files should be processed with
 `spacemacs//org-heading-annotate-custom-id' function."
   (let ((git-url-root-regexp
          (concat "\\[\\[[\\s]*\\(https\\:\\/\\/github\\.com\\/syl20bnr"
-                 "\\/spacemacs\\/blob\\/[^/]+\\/\\)\\([^]]+\\)")))
+                 "\\/spacemacs\\/blob\\/[^/]+\\/\\)\\([^]]+\\)\\(\\.org\\)"))
+        (case-fold-search t))
     (goto-char (point-min))
     (while (re-search-forward git-url-root-regexp nil t)
       (replace-match "file:" nil t nil 1)
@@ -191,7 +192,8 @@ exported org files should be processed with
                                          (match-string 2))
                                  (file-name-directory
                                   (buffer-file-name)))
-                     nil t nil 2))))
+                     nil t nil 2)
+      (replace-match ".html" nil t nil 3))))
 
 (defun spacemacs//add-org-meta-readtheorg-css (filename)
   (let* ((head-css-extra-readtheorg-head (concat
