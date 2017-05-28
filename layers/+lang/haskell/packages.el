@@ -55,10 +55,7 @@
   (use-package ghc
     :defer t))
 
-(defun haskell/init-dante ()
-  (use-package dante
-    :defer t
-    :init (add-hook 'haskell-mode-hook 'dante-mode)))
+(defun haskell/init-dante ())
 
 (defun haskell/init-intero ()
   (use-package intero
