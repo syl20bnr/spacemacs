@@ -400,8 +400,7 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
 ;; from magnars
 (defun spacemacs/sudo-edit (&optional arg)
   (interactive "P")
-  (eval-when-compile
-    (require 'tramp))
+  (require 'tramp)
   (let ((fname (if (or arg (not buffer-file-name))
                    (read-file-name "File: ")
                  buffer-file-name)))
