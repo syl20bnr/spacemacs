@@ -79,6 +79,7 @@ client.
 |-------------+--------------------------|
 | ~SPC m @~   | Embed mention of user    |
 | ~SPC m #~   | Embed mention of channel |
+| ~SPC m )~   | Add a rection            |
 | ~SPC m k~   | Join a channel           |
 
 In insert state, one can also use ~@~ and ~#~ directly without the leader key
