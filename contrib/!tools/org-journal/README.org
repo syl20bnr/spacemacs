@@ -1,0 +1,35 @@
+#+TITLE: org-journal contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@2:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+   - [[#in-org-journal-entry][In org-journal entry]]
+
+* Description
+
+A simple org-mode based journaling mode. For further information, please
+refer to [[https://github.com/bastibe/org-journal][org-journal]].
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(org-journal))
+#+END_SRC
+
+* Key Bindings
+
+| Key Binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~SPC j j~   | Enter org-journal-mode and create new journal entry |
+|             |                                                     |
+
+** In org-journal-mode entry
+
+| Key Binding | Description         |
+|-------------+---------------------|
+| ~SPC m n~   | View next entry     |
+| ~SPC m p~   | View previous entry |
+|             |                     |
