@@ -24,6 +24,7 @@
         helm-gtags
         (ielm :location built-in)
         macrostep
+        parinfer
         semantic
         smartparens
         srefactor))
@@ -193,6 +194,9 @@
 
 (defun emacs-lisp/post-init-ggtags ()
   (add-hook 'emacs-lisp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun emacs-lisp/post-init-parinfer ()
+  (add-hook 'emacs-lisp-mode-hook 'parinfer-mode))
 
 (defun emacs-lisp/post-init-semantic ()
   (add-hook 'emacs-lisp-mode-hook 'semantic-mode)

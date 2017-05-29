@@ -1,20 +1,21 @@
 (setq clojure-packages
-  '(
-    cider
-    cider-eval-sexp-fu
-    clj-refactor
-    clojure-mode
-    (clojure-snippets :toggle (configuration-layer/layer-usedp 'auto-completion))
-    company
-    eldoc
-    ggtags
-    helm-gtags
-    popwin
-    smartparens
-    subword
-    org
-    sayid
-    ))
+      '(
+        cider
+        cider-eval-sexp-fu
+        clj-refactor
+        clojure-mode
+        (clojure-snippets :toggle (configuration-layer/layer-usedp 'auto-completion))
+        company
+        eldoc
+        ggtags
+        helm-gtags
+        org
+        parinfer
+        popwin
+        sayid
+        smartparens
+        subword))
+
 
 (defun clojure/init-cider ()
   (use-package cider
@@ -355,8 +356,8 @@
         (kbd "C-s v") 'sayid-toggle-view
         (kbd "C-s V") 'sayid-set-view
         (kbd "L") 'sayid-buf-back
-        (kbd "e") 'sayid-gen-instance-expr ;Originally this was bound to 'g', but I feel this is still mnemonic and doesn't overlap with evil
-        )
+        (kbd "e") 'sayid-gen-instance-expr) ;Originally this was bound to 'g', but I feel this is still mnemonic and doesn't overlap with evil
+
       (evilified-state-evilify sayid-pprint-mode sayid-pprint-mode-map
         (kbd "h") 'sayid-pprint-buf-show-help
         (kbd "n") 'sayid-pprint-buf-next
@@ -366,3 +367,10 @@
       (evilified-state-evilify sayid-traced-mode sayid-traced-mode-map
         (kbd "l") 'sayid-show-traced
         (kbd "h") 'sayid-traced-buf-show-help))))
+
+(defun clojure/post-init-parinfer ()
+  (dolist (m '(clojure-mode
+               clojurec-mode
+               clojurescript-mode
+               clojurex-mode))
+    (add-hook m 'parinfer-mode)))
