@@ -369,8 +369,8 @@
         (kbd "h") 'sayid-traced-buf-show-help))))
 
 (defun clojure/post-init-parinfer ()
-  (dolist (m '(clojure-mode
-               clojurec-mode
-               clojurescript-mode
-               clojurex-mode))
+  (dolist (m '(clojure-mode-hook
+               clojurec-mode-hook
+               clojurescript-mode-hook
+               clojurex-mode-hook))
     (add-hook m 'parinfer-mode)))
