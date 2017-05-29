@@ -1128,9 +1128,11 @@ Returns nil if the directory is not a category."
                        ;; layers in private folder ~/.emacs.d/private
                        (list configuration-layer-private-directory)
                        ;; layers in dotdirectory
+                       ;; this path may not exist, so check if it does
                        (when dotspacemacs-directory
-                         (list (expand-file-name (concat dotspacemacs-directory
-                                                         "layers/"))))
+                         (let ((dir (expand-file-name (concat dotspacemacs-directory
+                                                              "layers/"))))
+                           (when (file-exists-p dir) (list dir))))
                        ;; additional layer directories provided by the user
                        dotspacemacs-configuration-layer-path))
         (discovered '()))
