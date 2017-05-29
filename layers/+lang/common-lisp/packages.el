@@ -16,6 +16,7 @@
         ggtags
         helm
         helm-gtags
+        parinfer
         slime
         (slime-company :toggle (configuration-layer/package-usedp 'company))))
 
@@ -44,6 +45,9 @@
 
 (defun common-lisp/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'common-lisp-mode))
+
+(defun common-lisp/post-init-parinfer ()
+  (add-hook 'lisp-mode-hook 'parinfer-mode))
 
 (defun common-lisp/init-slime-company ()
   (spacemacs|use-package-add-hook slime
