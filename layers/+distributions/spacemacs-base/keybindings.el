@@ -455,6 +455,8 @@
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
   "xtw" 'transpose-words
+  "xts" 'transpose-sentences
+  "xtp" 'transpose-paragraphs
   "xU"  'upcase-region
   "xu"  'downcase-region
   "xwc" 'spacemacs/count-words-analysis
