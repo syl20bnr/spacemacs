@@ -84,8 +84,8 @@
 
       ;; key bindings
       (spacemacs/set-leader-keys
+        "eb" 'flycheck-buffer
         "ec" 'flycheck-clear
-        "ee" 'flycheck-buffer
         "eh" 'flycheck-describe-checker
         "el" 'spacemacs/toggle-flycheck-error-list
         "eL" 'spacemacs/goto-flycheck-error-list
