@@ -38,3 +38,50 @@
 (defun spacemacs//surround-code ()
   (let ((dname (read-from-minibuffer "" "")))
     (cons (format "#+BEGIN_SRC %s" (or dname "")) "#+END_SRC")))
+
+
+
+(defun spacemacs/org-smart-open-line-below ()
+  "Insert new item if already in an item, otherwise, open line."
+  (interactive)
+  (end-of-visible-line)
+  (if (not (org-in-item-p))
+      (evil-open-below nil)
+    (org-insert-item)
+    (evil-append nil)))
+
+(defun spacemacs/org-smart-open-line-above ()
+  "Insert new item if already in an item, otherwise, open line."
+  (interactive)
+  (end-of-visible-line)
+  (if (not (org-in-item-p))
+      (evil-open-above nil)
+    (org-insert-item)
+    (org-move-item-up)
+    (evil-append nil)))
+
+(defun spacemacs/org-insert-heading-below ()
+  "Insert a new heading below."
+  (interactive)
+  (org-insert-heading-respect-content)
+  (evil-append nil))
+
+(defun spacemacs/org-insert-heading-above ()
+  "Insert a new heading above."
+  (interactive)
+  (org-insert-heading-respect-content)
+  (org-metaup)
+  (evil-append nil))
+
+(defun spacemacs/org-insert-todo-heading-below ()
+  "Insert a new heading below."
+  (interactive)
+  (org-insert-todo-heading-respect-content)
+  (evil-append nil))
+
+(defun spacemacs/org-insert-todo-heading-above ()
+  "Insert a new heading above."
+  (interactive)
+  (org-insert-todo-heading-respect-content)
+  (org-metaup)
+  (evil-append nil))
