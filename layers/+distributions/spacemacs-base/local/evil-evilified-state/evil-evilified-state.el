@@ -61,7 +61,7 @@
   :enable (emacs)
   :message "-- EVILIFIED BUFFER --"
   :cursor box
-  :exit-hook (list evilified-state--restore-normal-state-keymap))
+  :exit-hook (evilified-state--restore-normal-state-keymap))
 
 (bind-map spacemacs-default-map
   :prefix-cmd spacemacs-cmds
