@@ -13,8 +13,8 @@
 (defun spacemacs/python-annotate-pdb ()
   "Highlight break point lines."
   (interactive)
-  (highlight-lines-matching-regexp "import i?pu?db")
-  (highlight-lines-matching-regexp "i?pu?db.set_trace()"))
+  (highlight-lines-matching-regexp "import \\(pdb\\|ipdb\\|pudb\\|wdb\\)")
+  (highlight-lines-matching-regexp "\\(pdb\\|ipdb\\|pudb\\|wdb\\).set_trace()"))
 
 (defun spacemacs/pyenv-executable-find (command)
   "Find executable taking pyenv shims into account."
@@ -22,7 +22,7 @@
       (progn
         (let ((pyenv-string (shell-command-to-string (concat "pyenv which " command))))
           (unless (string-match "not found" pyenv-string)
-            pyenv-string)))
+            (string-trim pyenv-string))))
     (executable-find command)))
 
 (defun spacemacs/python-setup-shell (&rest args)
@@ -34,6 +34,15 @@
     (progn
       (setq python-shell-interpreter-args "-i")
       (setq python-shell-interpreter "python"))))
+
+(defun spacemacs/python-setup-checkers (&rest args)
+  (let ((pylint (spacemacs/pyenv-executable-find "pylint"))
+        (flake8 (spacemacs/pyenv-executable-find "flake8")))
+    (when pylint
+      (flycheck-set-checker-executable "python-pylint" pylint))
+    (when flake8
+      (flycheck-set-checker-executable "python-flake8" flake8))
+    ))
 
 (defun spacemacs/python-toggle-breakpoint ()
   "Add a break point, highlight it."
@@ -210,3 +219,11 @@ to be called for each testrunner. "
   (when (and python-sort-imports-on-save
              (derived-mode-p 'python-mode))
     (py-isort-before-save)))
+
+
+;;* Anaconda
+(defun spacemacs/anaconda-view-forward-and-push ()
+  "Find next button and hit RET"
+  (interactive)
+  (forward-button 1)
+  (call-interactively #'push-button))

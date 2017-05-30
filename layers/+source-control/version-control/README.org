@@ -1,15 +1,15 @@
 #+TITLE: Version-Control layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
- - [[#configuration][Configuration]]
-   - [[#differences-between-margin-programs][Differences between margin programs]]
- - [[#key-bindings][Key Bindings]]
-   - [[#version-control-transient-state][Version Control Transient-state]]
-   - [[#smerge-mode-transient-state][Smerge Mode Transient-state]]
+- [[#description][Description]]
+  - [[#features][Features]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+- [[#configuration][Configuration]]
+  - [[#differences-between-margin-programs][Differences between margin programs]]
+- [[#key-bindings][Key Bindings]]
+  - [[#version-control-transient-state][Version Control Transient-state]]
+  - [[#smerge-mode-transient-state][Smerge Mode Transient-state]]
 
 * Description
 This layers adds general configuration for [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html][Emacs VC]].

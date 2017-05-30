@@ -3,16 +3,16 @@
 [[file:img/scala.png]] with [[file:img/ensime.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#layer-installation][Layer Installation]]
- - [[#ensime][Ensime]]
- - [[#scalastyle][Scalastyle]]
-   - [[#use-java-doc-style][Use Java doc-style]]
- - [[#automatically-show-the-type-of-the-symbol-under-the-cursor][Automatically show the type of the symbol under the cursor]]
- - [[#automatically-insert-asterisk-in-multiline-comments][Automatically insert asterisk in multiline comments]]
- - [[#automatically-replace-arrows-with-unicode-ones][Automatically replace arrows with unicode ones]]
- - [[#auto-start][Auto-start]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#layer-installation][Layer Installation]]
+- [[#ensime][Ensime]]
+- [[#scalastyle][Scalastyle]]
+  - [[#use-java-doc-style][Use Java doc-style]]
+- [[#automatically-show-the-type-of-the-symbol-under-the-cursor][Automatically show the type of the symbol under the cursor]]
+- [[#automatically-insert-asterisk-in-multiline-comments][Automatically insert asterisk in multiline comments]]
+- [[#automatically-replace-arrows-with-unicode-ones][Automatically replace arrows with unicode ones]]
+- [[#auto-start][Auto-start]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for the Scala language using the excellent [[http://ensime.org/][ENSIME]]
@@ -22,6 +22,13 @@ client/server.
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =scala= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+Then, you should modify your =~/.spacemacs= to use the recommended Ensime
+version (Stable). Please add the following lines to =dotspacemacs/user-init=:
+#+BEGIN_SRC emacs-lisp
+  (push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer--elpa-archives)
+  (push '(ensime . "melpa-stable") package-pinned-packages)
+#+END_SRC
 
 * Ensime
 [[http://ensime.org/][ENSIME]] provides IDE-like features, such as refactoring, incremental compilation

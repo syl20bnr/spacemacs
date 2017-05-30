@@ -9,7 +9,12 @@
 ;;
 ;;; License: GPLv3
 
-(setq sql-packages '(sql sql-indent))
+(setq sql-packages
+      '(
+        sql
+        sql-indent
+        (sqlup-mode :toggle sql-capitalize-keywords)
+        ))
 
 (defun sql/init-sql ()
   (use-package sql
@@ -117,3 +122,19 @@
 (defun sql/init-sql-indent ()
   (use-package sql-indent
     :defer t))
+
+(defun sql/init-sqlup-mode ()
+  (use-package sqlup-mode
+    :defer t
+    :init
+    (progn
+      (add-hook 'sql-mode-hook 'sqlup-mode)
+      (unless sql-capitalize-keywords-disable-interactive
+        (add-hook 'sql-interactive-mode-hook 'sqlup-mode))
+      (spacemacs/set-leader-keys-for-major-mode 'sql-mode
+        "=c" 'sqlup-capitalize-keywords-in-region))
+    :config
+    (progn
+      (spacemacs|diminish sqlup-mode)
+      (setq sqlup-blacklist (append sqlup-blacklist
+                                    sql-capitalize-keywords-blacklist)))))

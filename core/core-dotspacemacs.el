@@ -216,6 +216,10 @@ if used there.")
   "If non nil then the last auto saved layouts are resume automatically upon
 start.")
 
+(defvar dotspacemacs-auto-generate-layout-names nil
+  "If non-nil, auto-generate layout name when creating new layouts.
+Only has effect when using the \"jump to layout by number\" commands.")
+
 (defvar dotspacemacs-max-rollback-slots 5
   "Maximum number of rollback slots to keep in the cache.")
 
@@ -442,10 +446,13 @@ Returns non nil if the layer has been effectively inserted."
     (with-current-buffer (find-file-noselect (dotspacemacs/location))
       (beginning-of-buffer)
       (let ((insert-point (re-search-forward
-                           "dotspacemacs-configuration-layers *\n?.*\\((\\)")))
-        (insert (format "\n%S" layer-name))
-        (indent-region insert-point (+ insert-point
-                                       (length (symbol-name layer-name))))
+                           "dotspacemacs-configuration-layers\\s-*\n?[^(]*\\((\\)")))
+        (insert (format "%S" layer-name))
+        (unless (equal (point) (point-at-eol))
+          (insert "\n"))
+        (indent-region insert-point (min (point-max)
+                                         (+ insert-point 2
+                                            (length (symbol-name layer-name)))))
         (save-buffer)))
     (load-file (dotspacemacs/location))
     t))

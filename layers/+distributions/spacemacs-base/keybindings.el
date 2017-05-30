@@ -15,6 +15,7 @@
 
 ;; We define prefix commands only for the sake of which-key
 (setq spacemacs/key-binding-prefixes '(("a"   "applications")
+                                       ("A"   "other applications")
                                        ("ai"  "irc")
                                        ("as"  "shells")
                                        ("b"   "buffers")
@@ -292,6 +293,7 @@
   :documentation "Toggle display of backtrace when an error happens."
   :evil-leader "tD")
 (spacemacs|add-toggle fringe
+  :if (fboundp 'fringe-mode)
   :status (not (equal fringe-mode 0))
   :on (call-interactively 'fringe-mode)
   :off (fringe-mode 0)

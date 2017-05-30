@@ -3,11 +3,11 @@
 [[file:img/slack.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#spacemacs-layout-integration][Spacemacs layout integration]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#spacemacs-layout-integration][Spacemacs layout integration]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer provides an interface to the Slack chat service via the emacs-slack
@@ -79,6 +79,7 @@ client.
 |-------------+--------------------------|
 | ~SPC m @~   | Embed mention of user    |
 | ~SPC m #~   | Embed mention of channel |
+| ~SPC m )~   | Add a rection            |
 | ~SPC m k~   | Join a channel           |
 
 In insert state, one can also use ~@~ and ~#~ directly without the leader key

@@ -42,15 +42,17 @@
       (add-to-list 'spacemacs-jump-handlers-elixir-mode
                 'alchemist-goto-definition-at-point))
     :config
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mX" "hex")
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mc" "compile")
     (spacemacs/declare-prefix-for-mode 'elixir-mode "me" "eval")
-    (spacemacs/declare-prefix-for-mode 'elixir-mode "mp" "project")
-    (spacemacs/declare-prefix-for-mode 'elixir-mode "mh" "help")
-    (spacemacs/declare-prefix-for-mode 'elixir-mode "mt" "test")
-    (spacemacs/declare-prefix-for-mode 'elixir-mode "ms" "iex")
-    (spacemacs/declare-prefix-for-mode 'elixir-mode "mm" "mix")
-    (spacemacs/declare-prefix-for-mode 'elixir-mode "mx" "execute")
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mg" "goto")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mh" "help")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mm" "mix")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mo" "macroexpand")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mp" "project")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "ms" "iex")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mt" "test")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mx" "execute")
     (spacemacs/set-leader-keys-for-major-mode 'elixir-mode
       "el" 'alchemist-eval-current-line
       "eL" 'alchemist-eval-print-current-line
@@ -90,11 +92,14 @@
 
       "ta" 'alchemist-mix-test
       "tb" 'alchemist-mix-test-this-buffer
+      "tB" 'alchemist-project-run-tests-for-current-file
       "tt" 'alchemist-mix-test-at-point
       "tf" 'alchemist-mix-test-file
       "tn" 'alchemist-test-mode-jump-to-next-test
-      "tp" 'alchemist-test-mode-jump-to-previous-test
+      "tN" 'alchemist-test-mode-jump-to-previous-test
       "tr" 'alchemist-mix-rerun-last-test
+      "ts" 'alchemist-mix-test-stale
+      "tR" 'alchemist-test-toggle-test-report-display
 
       "xb" 'alchemist-execute-this-buffer
       "xf" 'alchemist-execute-file
@@ -104,7 +109,28 @@
       "cf" 'alchemist-compile-file
       "c:" 'alchemist-compile
 
-      "," 'alchemist-goto-jump-back)
+      "gg" 'alchemist-goto-definition-at-point
+      "." 'alchemist-goto-definition-at-point
+      "gb" 'alchemist-goto-jump-back
+      ","  'alchemist-goto-jump-back
+      "gN" 'alchemist-goto-jump-to-previous-def-symbol
+      "gn" 'alchemist-goto-jump-to-next-def-symbol
+      "gj" 'alchemist-goto-list-symbol-definitions
+
+      "Xi" 'alchemist-hex-info-at-point
+      "Xr" 'alchemist-hex-releases-at-point
+      "XR" 'alchemist-hex-releases
+      "XI" 'alchemist-hex-info
+      "Xs" 'alchemist-hex-search
+
+      "ol" 'alchemist-macroexpand-once-current-line
+      "oL" 'alchemist-macroexpand-once-print-current-line
+      "ok" 'alchemist-macroexpand-current-line
+      "oK" 'alchemist-macroexpand-print-current-line
+      "oi" 'alchemist-macroexpand-once-region
+      "oI" 'alchemist-macroexpand-once-print-region
+      "or" 'alchemist-macroexpand-region
+      "oR" 'alchemist-macroexpand-print-region)
 
     (dolist (mode (list alchemist-compile-mode-map
                         alchemist-eval-mode-map

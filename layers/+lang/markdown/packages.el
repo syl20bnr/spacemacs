@@ -59,12 +59,14 @@
 
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode
-    :mode ("\\.m[k]d" . markdown-mode)
+    :mode
+    (("\\.m[k]d" . markdown-mode)
+     ("\\.mdk" . markdown-mode))
     :defer t
     :config
     (progn
       (add-hook 'markdown-mode-hook 'orgtbl-mode)
-      (add-hook 'markdown-mode-hook 'spacemacs//cleanup-org-tables nil 'local)
+      (add-hook 'markdown-mode-hook 'spacemacs//cleanup-org-tables-on-save)
       ;; Declare prefixes and bind keys
       (dolist (prefix '(("mc" . "markdown/command")
                         ("mh" . "markdown/header")

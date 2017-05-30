@@ -1,12 +1,12 @@
 #+TITLE: Asciidoc layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#feature][Feature]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-   - [[#element-insertion][Element insertion]]
-   - [[#promotion-demotion][Promotion, Demotion]]
+- [[#description][Description]]
+  - [[#feature][Feature]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+  - [[#element-insertion][Element insertion]]
+  - [[#promotion-demotion][Promotion, Demotion]]
 
 * Description
 This layer adds [[https://asciidoctor.org][AsciiDoc]] markup language support to Spacemacs.

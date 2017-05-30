@@ -1,11 +1,11 @@
 #+TITLE: fasd layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#fasd][fasd]]
- - [[#keybindings][Keybindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#fasd][fasd]]
+- [[#keybindings][Keybindings]]
 
 * Description
 

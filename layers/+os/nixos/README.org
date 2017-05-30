@@ -3,12 +3,12 @@
 [[file:img/nixos.jpg]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features:]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
- - [[#key-bindings][Key Bindings]]
-   - [[#nixos-options][NixOS Options]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+- [[#key-bindings][Key Bindings]]
+  - [[#nixos-options][NixOS Options]]
 
 * Description
 

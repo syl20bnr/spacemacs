@@ -30,6 +30,10 @@
 
 **Quick Install:**
 
+This assumes you don't have an existing Emacs setup and want to run Spacemacs as
+your config. If you do have one, look at
+the [full installation instructions](#install) for other options.
+
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->

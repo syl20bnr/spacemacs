@@ -28,7 +28,7 @@ A nice video demonstration by the package author can be found [[https://www.yout
 - Boxes auto-adapt as text is inserted or deleted,
 - ~S-RET~ to continue a comment on the next line,
 - Kill/yank within the box,
-- Apparently works well with ancient ~filladpt-mode~ (see authors video).
+- Apparently works well with ancient =filladpt-mode= (see authors video).
 
 * Install
 ** Layer

@@ -3,11 +3,11 @@
 [[file:img/restructuredtext.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#auto-complete][Auto-complete]]
+- [[#description][Description]]
+  - [[#features][Features]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#auto-complete][Auto-complete]]
 
 * Description
 The layer adds ReStructuredText (ReST) support to Spacemacs and adds some

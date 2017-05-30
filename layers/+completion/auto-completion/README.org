@@ -1,24 +1,24 @@
 #+TITLE: Auto-completion layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#key-bindings][Key bindings]]
-   - [[#snippets-directories][Snippets directories]]
-   - [[#show-snippets-in-auto-completion-popup][Show snippets in auto-completion popup]]
-   - [[#tooltips][Tooltips]]
-   - [[#sort-results-by-usage][Sort results by usage]]
-   - [[#enable-company-or-auto-complete-globally][Enable company or auto-complete globally]]
-   - [[#replacing-company-by-auto-complete][Replacing company by auto-complete]]
-   - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
-   - [[#completion-back-ends][Completion back ends]]
-   - [[#improved-faces][Improved faces]]
- - [[#key-bindings][Key Bindings]]
-   - [[#company][Company]]
-   - [[#auto-complete][Auto-complete]]
-   - [[#yasnippet][Yasnippet]]
-   - [[#auto-yasnippet][Auto-yasnippet]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#key-bindings][Key bindings]]
+  - [[#snippets-directories][Snippets directories]]
+  - [[#show-snippets-in-auto-completion-popup][Show snippets in auto-completion popup]]
+  - [[#tooltips][Tooltips]]
+  - [[#sort-results-by-usage][Sort results by usage]]
+  - [[#enable-company-or-auto-complete-globally][Enable company or auto-complete globally]]
+  - [[#replacing-company-by-auto-complete][Replacing company by auto-complete]]
+  - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
+  - [[#completion-back-ends][Completion back ends]]
+  - [[#improved-faces][Improved faces]]
+- [[#key-bindings-1][Key Bindings]]
+  - [[#company][Company]]
+  - [[#auto-complete][Auto-complete]]
+  - [[#yasnippet][Yasnippet]]
+  - [[#auto-yasnippet][Auto-yasnippet]]
 
 * Description
 This layer provides auto-completion to Spacemacs.
@@ -177,7 +177,7 @@ Many spacemacs layers (e.g., python, html, haskell) configure company mode
 backends to provide mode-specific completion. These modes will include
 completion backends specified in the `spacemacs-default-company-backends`
 variable. The defaults should work well, but you can configure this variable in
-your ~.spacemacs~ file with (e.g.)
+your =.spacemacs= file with (e.g.)
 #+BEGIN_SRC emacs-lisp
   (setq-default
    dotspacemacs-configuration-layers

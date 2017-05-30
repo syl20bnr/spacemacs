@@ -27,6 +27,7 @@
         rspec-mode
         rubocop
         (ruby-mode :location built-in :toggle (not ruby-enable-enh-ruby-mode))
+        ruby-refactor
         ruby-test-mode
         ruby-tools
         rvm
@@ -212,10 +213,28 @@
            ("Puppetfile" . ruby-mode))
     :init
     (progn
-      (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "ruby/test"))
+      (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "ruby/test")
+      (spacemacs/add-to-hooks
+       'spacemacs/ruby-maybe-highlight-debugger-keywords
+       '(ruby-mode-local-vars-hook enh-ruby-mode-local-vars-hook)))
     :config (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
               "'" 'ruby-toggle-string-quotes
               "{" 'ruby-toggle-block)))
+
+(defun ruby/init-ruby-refactor ()
+  (use-package ruby-refactor
+    :defer t
+    :init (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+            (add-hook hook 'ruby-refactor-mode-launch))
+    :config
+    (progn
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/declare-prefix-for-mode mode "mrR" "ruby/refactor")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "rRm" 'ruby-refactor-extract-to-method
+          "rRv" 'ruby-refactor-extract-local-variable
+          "rRc" 'ruby-refactor-extract-constant
+          "rRl" 'ruby-refactor-extract-to-let)))))
 
 (defun ruby/init-ruby-tools ()
   (use-package ruby-tools

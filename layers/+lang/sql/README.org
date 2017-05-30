@@ -3,16 +3,19 @@
 [[file:img/sql.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-   - [[#highlighting][Highlighting]]
-   - [[#inferior-process-interactions-sqli][Inferior Process Interactions (SQLi)]]
-     - [[#send-sql-queries-to-sqli][Send SQL queries to SQLi:]]
-   - [[#sqli-buffer][SQLi buffer]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#sql-keywords-capitalization][SQL Keywords Capitalization]]
+    - [[#sql-interactive-mode][SQL Interactive Mode]]
+    - [[#blacklisting-keywords][Blacklisting keywords]]
+- [[#key-bindings][Key bindings]]
+  - [[#highlighting][Highlighting]]
+  - [[#inferior-process-interactions-sqli][Inferior Process Interactions (SQLi)]]
+    - [[#send-sql-queries-to-sqli][Send SQL queries to SQLi:]]
+  - [[#sqli-buffer][SQLi buffer]]
+  - [[#code-formating][Code Formating]]
 
 * Description
-
 This layer adds key bindings and configuration for =sql-mode=, which manages
 interactive SQL buffers and highlights a wide range of SQL dialects.
 
@@ -20,6 +23,39 @@ interactive SQL buffers and highlights a wide range of SQL dialects.
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =sql= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+** SQL Keywords Capitalization
+SQL, by convention, uses upper-case keywords, although lower-case works just as
+well. As humans, the separation between upper-case and lower-case helps scan and
+parse the code much more quickly.
+
+To install [[https://github.com/Trevoke/sqlup-mode.el][sqlup-mode]] which enables auto capitalization in =sql mode= set the
+variable =sql-capitalize-keywords= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (sql :variables sql-capitalize-keywords t)))
+#+END_SRC
+
+*** SQL Interactive Mode
+If you want capitalization only in =sql-mode= and not in =sql-interactive-mode=
+you can set the variable =sql-capitalize-keywords-disable-interactive= to =t=.
+
+*** Blacklisting keywords
+[[https://github.com/Trevoke/sqlup-mode.el][sqlup-mode]] can be configured to ignore certain keywords. For example if you use
+=name= as column name it would be annoying to have it upcased. You can prevent
+this behaviour by setting the variable =sql-capitalize-keywords-blacklist= to
+a list with keywords to ignore, e.g.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (sql :variables
+         sql-capitalize-keywords t
+         sql-capitalize-keywords-blacklist '("name" "varchar"))))
+#+END_SRC
+
+This layer is blacklisting =name= by default as it is a very common name for
+column and NAME is non-reserved SQL keyword.
 
 * Key bindings
 
@@ -58,3 +94,7 @@ file.
 |-------------+--------------------------------------------------------------|
 | ~SPC m b r~ | rename buffer (follow up in the SQL buffer with ~SPC m b s~) |
 | ~SPC m b S~ | save the current connection                                  |
+
+** Code Formating
+
+| ~SPC m = c~ | capitalize SQL keywords in region (if capitalize is enabled) |

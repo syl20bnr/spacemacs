@@ -3,9 +3,9 @@
 [[file:img/faust.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This simple layer adds support for the [[http://faust.grame.fr/][faust language]].

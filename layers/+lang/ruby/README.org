@@ -3,20 +3,22 @@
 [[file:img/ruby.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#prerequisites][Prerequisites]]
-   - [[#ruby-version-management][Ruby version management]]
-   - [[#test-runner][Test runner]]
- - [[#key-bindings][Key bindings]]
-   - [[#ruby-enh-ruby-mode-robe-inf-ruby-ruby-tools][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
-   - [[#bundler][Bundler]]
-   - [[#rubocop][RuboCop]]
-   - [[#tests][Tests]]
-     - [[#rspec-mode][RSpec-mode]]
-     - [[#ruby-test-mode][Ruby-test-mode]]
-     - [[#minitest-mode][minitest-mode]]
-   - [[#rake][Rake]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#prerequisites][Prerequisites]]
+  - [[#ruby-version-management][Ruby version management]]
+  - [[#test-runner][Test runner]]
+- [[#key-bindings][Key bindings]]
+  - [[#ruby-enh-ruby-mode-robe-inf-ruby-ruby-tools][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
+  - [[#bundler][Bundler]]
+  - [[#rubocop][RuboCop]]
+  - [[#tests][Tests]]
+    - [[#rspec-mode][RSpec-mode]]
+    - [[#ruby-test-mode][Ruby-test-mode]]
+    - [[#minitest-mode][minitest-mode]]
+  - [[#rake][Rake]]
+  - [[#refactor][Refactor]]
+- [[#layer-options][Layer options]]
 
 * Description
 This layer provides support for the Ruby language with the following features:
@@ -184,3 +186,21 @@ When =ruby-test-runner= equals =minitest=.
 | ~SPC m k r~ | Re-runs the last rake task      |
 | ~SPC m k R~ | Regenerates the rake cache      |
 | ~SPC m k f~ | Finds definition of a rake task |
+
+** Refactor
+
+| Key binding   | Description            |
+|---------------+------------------------|
+| ~SPC m r R m~ | Extract to method      |
+| ~SPC m r R v~ | Extract local variable |
+| ~SPC m r R c~ | Extract constant       |
+| ~SPC m r R l~ | Extract to let (rspec) |
+
+* Layer options
+
+| Variable                           | Default value | Description                                                                                  |
+|------------------------------------+---------------+----------------------------------------------------------------------------------------------|
+| =ruby-enable-enh-ruby-mode=        | =nil=         | If non-nil, use `enh-ruby-mode' package instead of the built-in Ruby Mode.                   |
+| =ruby-version-manager=             | =nil=         | If non nil, defines the Ruby version manager.Possible values are `rbenv', `rvm' or `chruby'. |
+| =ruby-test-runner=                 | =ruby-test=   | Test runner to use. Possible values are `ruby-test', `minitest' or `rspec'.                  |
+| =ruby-highlight-debugger-keywords= | =t=           | If non-nil, enable highlight for debugger keywords.                                          |

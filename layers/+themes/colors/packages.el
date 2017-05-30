@@ -78,8 +78,9 @@
     :init
     (progn
       (setq rainbow-identifiers-choose-face-function 'rainbow-identifiers-cie-l*a*b*-choose-face
-            rainbow-identifiers-cie-l*a*b*-saturation 100
-            rainbow-identifiers-cie-l*a*b*-lightness 40
+            ;; defaults to use before we've loaded per-theme settings
+            rainbow-identifiers-cie-l*a*b*-saturation colors-default-rainbow-identifiers-sat
+            rainbow-identifiers-cie-l*a*b*-lightness colors-default-rainbow-identifiers-light
             ;; override theme faces
             rainbow-identifiers-faces-to-override '(highlight-quoted-symbol
                                                     font-lock-keyword-face

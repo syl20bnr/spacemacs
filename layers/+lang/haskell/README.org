@@ -3,52 +3,53 @@
 [[file:img/haskell.png]]
 
 * Table of Contents                                      :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features:]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#dependencies][Dependencies]]
-   - [[#setup-path][Setup PATH]]
-   - [[#completion-support][Completion support]]
-     - [[#company-ghci][=company-ghci=]]
-     - [[#intero][=intero=]]
-     - [[#ghc-mod][=ghc-mod=]]
-   - [[#optional-extras][Optional extras]]
-     - [[#structured-haskell-mode][structured-haskell-mode]]
-     - [[#hindent][hindent]]
- - [[#key-bindings][Key bindings]]
-   - [[#documentation][Documentation]]
-   - [[#debug][Debug]]
-   - [[#debug-buffer][Debug Buffer]]
-   - [[#repl][REPL]]
-   - [[#intero-repl][Intero REPL]]
-   - [[#cabal-commands][Cabal commands]]
-   - [[#cabal-files][Cabal files]]
-   - [[#refactor][Refactor]]
-   - [[#ghc-mod][Ghc-mod]]
-     - [[#insert-template][Insert template]]
- - [[#syntax-checking][Syntax checking]]
-   - [[#flycheck][Flycheck]]
-   - [[#hlint][HLint]]
-   - [[#ghc-mod][ghc-mod]]
-   - [[#interactive-haskell-mode][Interactive haskell-mode]]
-   - [[#flymake][Flymake]]
-   - [[#troubleshooting][Troubleshooting]]
- - [[#faq][FAQ]]
-   - [[#the-repl-doesnt-work][The REPL doesn't work]]
-   - [[#the-repl-is-stuck][The REPL is stuck]]
-   - [[#i-am-using-stack-and-ghc-mod-but-ghc-mod-doesnt-work][I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work]]
-   - [[#ghc-mod-doesnt-work][=ghc-mod= doesn't work]]
-   - [[#indentation-doesnt-reset-when-pressing-return-after-an-empty-line][Indentation doesn't reset when pressing return after an empty line]]
-   - [[#flycheck-displays-hlint-warnings-but-not-errors][Flycheck displays HLint warnings but not errors]]
-   - [[#i-can-see-highlighted-errors-but-they-dont-appear-in-the-error-list][I can see highlighted errors but they don't appear in the error list]]
-   - [[#flycheck-doesnt-work][Flycheck doesn't work]]
-   - [[#flycheck-doesnt-work-with-stack][Flycheck doesn't work with =stack=]]
-     - [[#the-stack-build-directory-is-wrong][The stack build directory is wrong]]
-     - [[#the-project-root-directory-is-not-set-properly][The Project root directory is not set properly]]
-   - [[#haskell-mode-commands-dont-work][haskell-mode commands don't work]]
-   - [[#ghc-mod-and-haskell-mode-commands-overlap-how-do-i-know-which-command-belongs-to-what][=ghc-mod= and =haskell-mode= commands overlap. How do I know which command belongs to what?]]
-   - [[#some-commands-start-with-ghc--and-some-with-haskell--what-does-that-mean][Some commands start with =ghc-= and some with =haskell-=. What does that mean?]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#dependencies][Dependencies]]
+  - [[#setup-path][Setup PATH]]
+  - [[#completion-support][Completion support]]
+    - [[#company-ghci][=company-ghci=]]
+    - [[#intero][=intero=]]
+    - [[#dante][=dante=]]
+    - [[#ghc-mod][=ghc-mod=]]
+  - [[#optional-extras][Optional extras]]
+    - [[#structured-haskell-mode][structured-haskell-mode]]
+    - [[#hindent][hindent]]
+- [[#key-bindings][Key bindings]]
+  - [[#documentation][Documentation]]
+  - [[#debug][Debug]]
+  - [[#debug-buffer][Debug Buffer]]
+  - [[#repl][REPL]]
+  - [[#intero-repl][Intero REPL]]
+  - [[#cabal-commands][Cabal commands]]
+  - [[#cabal-files][Cabal files]]
+  - [[#refactor][Refactor]]
+  - [[#ghc-mod-1][Ghc-mod]]
+    - [[#insert-template][Insert template]]
+- [[#syntax-checking][Syntax checking]]
+  - [[#flycheck][Flycheck]]
+  - [[#hlint][HLint]]
+  - [[#ghc-mod-2][ghc-mod]]
+  - [[#interactive-haskell-mode][Interactive haskell-mode]]
+  - [[#flymake][Flymake]]
+  - [[#troubleshooting][Troubleshooting]]
+- [[#faq][FAQ]]
+  - [[#the-repl-doesnt-work][The REPL doesn't work]]
+  - [[#the-repl-is-stuck][The REPL is stuck]]
+  - [[#i-am-using-stack-and-ghc-mod-but-ghc-mod-doesnt-work][I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work]]
+  - [[#ghc-mod-doesnt-work][=ghc-mod= doesn't work]]
+  - [[#indentation-doesnt-reset-when-pressing-return-after-an-empty-line][Indentation doesn't reset when pressing return after an empty line]]
+  - [[#flycheck-displays-hlint-warnings-but-not-errors][Flycheck displays HLint warnings but not errors]]
+  - [[#i-can-see-highlighted-errors-but-they-dont-appear-in-the-error-list][I can see highlighted errors but they don't appear in the error list]]
+  - [[#flycheck-doesnt-work][Flycheck doesn't work]]
+  - [[#flycheck-doesnt-work-with-stack][Flycheck doesn't work with =stack=]]
+    - [[#the-stack-build-directory-is-wrong][The stack build directory is wrong]]
+    - [[#the-project-root-directory-is-not-set-properly][The Project root directory is not set properly]]
+  - [[#haskell-mode-commands-dont-work][haskell-mode commands don't work]]
+  - [[#ghc-mod-and-haskell-mode-commands-overlap-how-do-i-know-which-command-belongs-to-what][=ghc-mod= and =haskell-mode= commands overlap. How do I know which command belongs to what?]]
+  - [[#some-commands-start-with-ghc--and-some-with-haskell--what-does-that-mean][Some commands start with =ghc-= and some with =haskell-=. What does that mean?]]
 
 * Description
 This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
@@ -118,6 +119,9 @@ order to use it you have to call =haskell-process-load-or-reload= (=SPC s b=).
 =Intero= works only for =stack= users. You can manually install =intero= executable by
 calling =stack install intero=, but this step is optional as =Intero= installs
 itself.
+
+*** =dante=
+=dante= works for =cabal=, =nix=, =sytx=, and =stack= users.
 
 *** =ghc-mod=
 [[http://www.mew.org/~kazu/proj/ghc-mod/][ghc-mod]] enhances =haskell-mode= with for example code completion, templates,
@@ -302,8 +306,8 @@ ghc-mod commands are prefixed by ~SPC m m~:
 |-------------+-------------------------------------------|
 | ~SPC t~     | insert template                           |
 | ~SPC m m u~ | insert template with holes                |
-| ~SPC m m a~ | select one of possible cases (~ghc-auto~) |
-| ~SPC m m f~ | replace a hole (~ghc-refine~)             |
+| ~SPC m m a~ | select one of possible cases (=ghc-auto=) |
+| ~SPC m m f~ | replace a hole (=ghc-refine=)             |
 | ~SPC m m e~ | expand template haskell                   |
 | ~SPC m m n~ | go to next type hole                      |
 | ~SPC m m p~ | go to previous type hole                  |

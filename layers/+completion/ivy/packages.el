@@ -35,12 +35,12 @@
     ;; add some functions to ahs transient states
     (setq spacemacs--symbol-highlight-transient-state-doc
           (concat spacemacs--symbol-highlight-transient-state-doc
-                  "  [_b_] search buffers [_/_] search proj [_f_] search files [_s_] swiper")
-          spacemacs-symbol-highlight-transient-state-add-bindings
-          '(("/" spacemacs/search-project-auto-region-or-symbol :exit t)
-            ("b" spacemacs/swiper-all-region-or-symbol :exit t)
-            ("f" spacemacs/search-auto-region-or-symbol :exit t)
-            ("s" spacemacs/swiper-region-or-symbol :exit t)))))
+                  "  [_b_] search buffers [_/_] search proj [_f_] search files [_s_] swiper"))
+    (spacemacs/transient-state-register-add-bindings 'symbol-highlight
+      '(("/" spacemacs/search-project-auto-region-or-symbol :exit t)
+        ("b" spacemacs/swiper-all-region-or-symbol :exit t)
+        ("f" spacemacs/search-auto-region-or-symbol :exit t)
+        ("s" spacemacs/swiper-region-or-symbol :exit t)))))
 
 (defun ivy/init-counsel ()
   (use-package counsel
@@ -214,13 +214,13 @@
    'spacemacs/ivy-spacemacs-layouts
    '(("c" persp-kill-without-buffers "Close layout(s)")
      ("k" persp-kill  "Kill layout(s)")))
-  (setq spacemacs-layouts-transient-state-remove-bindings
-        '("C" "X"))
-  (setq spacemacs-layouts-transient-state-add-bindings
-        '(("b" spacemacs/ivy-spacemacs-layout-buffer :exit t)
-          ("l" spacemacs/ivy-spacemacs-layouts :exit t)
-          ("C" spacemacs/ivy-spacemacs-layout-close-other :exit t)
-          ("X" spacemacs/ivy-spacemacs-layout-kill-other :exit t))))
+  (spacemacs/transient-state-register-remove-bindings 'layouts
+    '("C" "X"))
+  (spacemacs/transient-state-register-add-bindings 'layouts
+    '(("b" spacemacs/ivy-spacemacs-layout-buffer :exit t)
+      ("l" spacemacs/ivy-spacemacs-layouts :exit t)
+      ("C" spacemacs/ivy-spacemacs-layout-close-other :exit t)
+      ("X" spacemacs/ivy-spacemacs-layout-kill-other :exit t))))
 
 (defun ivy/post-init-projectile ()
   (setq projectile-completion-system 'ivy)

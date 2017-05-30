@@ -3,19 +3,19 @@
 [[file:img/helm.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-   - [[#hjkl-navigation][hjkl navigation]]
-   - [[#transient-state][Transient state]]
-   - [[#bookmarks][Bookmarks]]
-   - [[#c-z-and-tab-switch][C-z and Tab switch]]
-   - [[#helm-focus][Helm focus]]
-   - [[#helm-swoop][Helm-swoop]]
-   - [[#universal-argument][Universal argument]]
-   - [[#replacing-text-in-several-files][Replacing text in several files]]
-   - [[#resume-last-session][Resume last session]]
- - [[#external-resources][External resources]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+  - [[#hjkl-navigation][hjkl navigation]]
+  - [[#transient-state][Transient state]]
+  - [[#bookmarks][Bookmarks]]
+  - [[#c-z-and-tab-switch][C-z and Tab switch]]
+  - [[#helm-focus][Helm focus]]
+  - [[#helm-swoop][Helm-swoop]]
+  - [[#universal-argument][Universal argument]]
+  - [[#replacing-text-in-several-files][Replacing text in several files]]
+  - [[#resume-last-session][Resume last session]]
+- [[#external-resources][External resources]]
 
 * Description
 This layer enables Helm everywhere in Spacemacs. The alternative to this

@@ -3,12 +3,12 @@
 [[file:img/swift.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#usage-information][Usage information]]
- - [[#key-bindings][Key bindings]]
-   - [[#swift-mode][swift-mode]]
-   - [[#swift-repl-mode][swift-repl-mode]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#usage-information][Usage information]]
+- [[#key-bindings][Key bindings]]
+  - [[#swift-mode][swift-mode]]
+  - [[#swift-repl-mode][swift-repl-mode]]
 
 * Description
 This layer adds support for Apple's Swift programming language, used as a
@@ -19,9 +19,9 @@ following features:
 
 - Syntax highlighting
 - Indentation
-- Code navigation using ~imenu~ (built-in)
-- Automatic syntax checking with ~flycheck~ (available with the
-  ~syntax-checking~ layer)
+- Code navigation using =imenu= (built-in)
+- Automatic syntax checking with =flycheck= (available with the
+  =syntax-checking= layer)
 
 * Install
 First check that you are able to run this from the command line:
@@ -36,8 +36,8 @@ need to add =swift= to the existing =dotspacemacs-configuration-layers= list in
 this file.
 
 * Usage information
-Unless configured by the user, the REPL will be invoked using the command ~xcrun
-swift~.
+Unless configured by the user, the REPL will be invoked using the command =xcrun
+swift=.
 You can launch the REPL using the keybinding ~SPC m s s~ (or ~C-c C-z~).
 The universal prefix ~SPC u~ (~C-u~) may be used to modify command invocation.
 
@@ -51,7 +51,7 @@ The universal prefix ~SPC u~ (~C-u~) may be used to modify command invocation.
 | ~SPC m s r~  | swift-mode-send-region |
 
 Notes:
-1. ~swift-mode-run-repl~ will run or switch to an existing REPL.
+1. =swift-mode-run-repl= will run or switch to an existing REPL.
 2. To edit the command invocation, prefix with ~SPC u~ (or ~C-u~).
 3. Emacs key bindings in use are the those set by the package.
 

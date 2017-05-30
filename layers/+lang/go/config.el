@@ -24,3 +24,6 @@
 
 (defvar go-test-buffer-name "*go test*"
   "Name of the buffer for go test output. Default is *go test*.")
+
+(defvar go-use-test-args ""
+  "Additional arguments to be supplied to `go test` during runtime.")

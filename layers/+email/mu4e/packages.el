@@ -68,6 +68,14 @@
                    (interactive)
                     (mu4e-view-mark-thread '(read))))
 
+      (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode
+        dotspacemacs-major-mode-leader-key 'message-send-and-exit
+        "c" 'message-send-and-exit
+        "k" 'message-kill-buffer
+        "a" 'message-kill-buffer
+        "s" 'message-dont-send         ; saves as draft
+        "f" 'mml-attach-file)
+
       (setq mu4e-completing-read-function 'completing-read)
 
       (add-to-list 'mu4e-view-actions
@@ -93,6 +101,6 @@
 
 (defun mu4e/post-init-org ()
   ;; load org-mu4e when org is actually loaded
-  (with-eval-after-load 'org (require 'org-mu4e nil 'noerror)))
-
-
+  (with-eval-after-load 'org
+    (require 'org-mu4e nil 'noerror)
+    (require 'org-notmuch nil 'noerror)))

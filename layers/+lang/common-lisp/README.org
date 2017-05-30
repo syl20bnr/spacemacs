@@ -3,17 +3,17 @@
 [[file:img/slime.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
-   - [[#leader][Leader]]
-     - [[#help][Help]]
-     - [[#evaluation][Evaluation]]
-     - [[#repl][REPL]]
-     - [[#compile][Compile]]
-     - [[#navigation][Navigation]]
-     - [[#macroexpansion][Macroexpansion]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+  - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
+  - [[#leader][Leader]]
+    - [[#help][Help]]
+    - [[#evaluation][Evaluation]]
+    - [[#repl][REPL]]
+    - [[#compile][Compile]]
+    - [[#navigation][Navigation]]
+    - [[#macroexpansion][Macroexpansion]]
 
 * Description
 A Spacemacs contribution layer providing Common Lisp support via [[https://github.com/slime/slime][SLIME]].
@@ -38,7 +38,7 @@ of Common Lisp, you can specify it in your =~/.spacemacs=
 
 * Key Bindings
 ** Working with lisp files (barfage, slurpage & more)
-Spacemacs comes with a special ~lisp-state~ for working with lisp code that
+Spacemacs comes with a special =lisp-state= for working with lisp code that
 supports slurpage, barfage and more tools you'll likely want when working with
 lisp.
 

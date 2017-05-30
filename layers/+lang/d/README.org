@@ -3,9 +3,10 @@
 [[file:img/dlogo.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#requirements][Requirements]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This simple layer adds support for the [[http://dlang.org/][D language]].
@@ -21,6 +22,10 @@ instructions]]. After successfully built DCD, you need to copy the binary
 =dcd-server= and  =dcd-client= in =bin/= directory to somewhere in your $PATH e.g.
 =/usr/local/bin= on Linux.
 
+* Requirements
+- [[https://github.com/Hackerpilot/DCD][DCD]] (completion)
+- [[https://github.com/dlang/dub][DUB]] (dub projects)
+
 * Key bindings
 
 | Key Binding | Description                                           |
@@ -29,4 +34,3 @@ instructions]]. After successfully built DCD, you need to copy the binary
 | ~SPC m g b~ | Jump back (after go to definition with above command) |
 | ~SPC m g r~ | find references to all symbol at point                |
 |-------------+-------------------------------------------------------|
-

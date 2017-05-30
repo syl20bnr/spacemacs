@@ -1,8 +1,8 @@
 #+TITLE: Vim-empty-lines layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
+- [[#description][Description]]
+- [[#install][Install]]
 
 * Description
 

@@ -3,16 +3,16 @@
 [[file:img/purescript-logo.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#add-import-on-completion][Add import on completion]]
-   - [[#error-popup][Error popup]]
- - [[#key-bindings][Key bindings]]
-   - [[#purescript][Purescript]]
-     - [[#imports][Imports]]
-     - [[#psc-ide][psc-ide]]
-   - [[#repl][REPL]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#add-import-on-completion][Add import on completion]]
+  - [[#error-popup][Error popup]]
+- [[#key-bindings][Key bindings]]
+  - [[#purescript][Purescript]]
+    - [[#imports][Imports]]
+    - [[#psc-ide][psc-ide]]
+  - [[#repl][REPL]]
 
 * Description
 

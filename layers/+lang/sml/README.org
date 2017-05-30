@@ -3,11 +3,11 @@
 [[file:img/sml.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#form-completion][Form Completion]]
-   - [[#repl][REPL]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+  - [[#form-completion][Form Completion]]
+  - [[#repl][REPL]]
 
 * Description
 

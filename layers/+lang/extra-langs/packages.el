@@ -11,10 +11,12 @@
     ))
 
 (defun extra-langs/init-arduino-mode ()
-  (use-package arduino-mode :defer t))
+  (use-package arduino-mode
+    :defer t))
 
 (defun extra-langs/init-julia-mode ()
-  (use-package julia-mode :defer t))
+  (use-package julia-mode
+    :defer t))
 
 (defun extra-langs/init-matlab-mode ()
   (use-package matlab-mode
@@ -25,16 +27,21 @@
     (add-hook 'matlab-mode-hook 'spacemacs/run-prog-mode-hooks)))
 
 (defun extra-langs/init-qml-mode ()
-  (use-package qml-mode :defer t :mode "\\.qml\\'"))
+  (use-package qml-mode
+    :defer t
+    :mode "\\.qml\\'"))
 
 (defun extra-langs/init-scad-mode ()
-  (use-package scad-mode :defer t))
+  (use-package scad-mode
+    :defer t))
 
 (defun extra-langs/init-stan-mode ()
-  (use-package stan-mode :defer t))
+  (use-package stan-mode
+    :defer t))
 
 (defun extra-langs/init-thrift ()
-  (use-package thrift :defer t))
+  (use-package thrift
+    :defer t))
 
 ;; .m files are not associated because conflict with more common Objective-C and
 ;; MATLAB/Octave, manually invoke for .m files.

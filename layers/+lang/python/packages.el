@@ -57,8 +57,15 @@
         "ga" 'anaconda-mode-find-assignments
         "gb" 'anaconda-mode-go-back
         "gu" 'anaconda-mode-find-references)
-      (evilified-state-evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
-        (kbd "q") 'quit-window)
+
+      (evilified-state-evilify-map anaconda-mode-view-mode-map
+        :mode anaconda-mode-view-mode
+        :bindings
+        (kbd "q") 'quit-window
+        (kbd "C-j") 'next-error-no-select
+        (kbd "C-k") 'previous-error-no-select
+        (kbd "RET") 'spacemacs/anaconda-view-forward-and-push)
+
       (spacemacs|hide-lighter anaconda-mode)
 
       (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
@@ -222,7 +229,8 @@
           "Vw" 'pyvenv-workon))
       ;; setup shell correctly on environment switch
       (dolist (func '(pyvenv-activate pyvenv-deactivate pyvenv-workon))
-        (advice-add func :after 'spacemacs/python-setup-shell)))))
+        (advice-add func :after 'spacemacs/python-setup-shell)
+        (advice-add func :after 'spacemacs/python-setup-checkers)))))
 
 (defun python/init-pylookup ()
   (use-package pylookup
@@ -332,8 +340,9 @@
         ;; set compile command to buffer-file-name
         ;; universal argument put compile buffer in comint mode
         (let ((universal-argument t)
-              (compile-command (format "python %s" (file-name-nondirectory
-                                                    buffer-file-name))))
+              (compile-command (format "%s %s"
+                                       (spacemacs/pyenv-executable-find python-shell-interpreter)
+                                       (file-name-nondirectory buffer-file-name))))
           (if arg
               (call-interactively 'compile)
             (compile compile-command t)

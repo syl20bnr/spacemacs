@@ -1,12 +1,12 @@
 #+TITLE: Pandoc layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#pandoc][Pandoc]]
- - [[#usage][Usage]]
- - [[#key-bindings][Key Bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#pandoc][Pandoc]]
+- [[#usage][Usage]]
+- [[#key-bindings][Key Bindings]]
 
 * Description
 

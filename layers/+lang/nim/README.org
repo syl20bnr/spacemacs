@@ -3,10 +3,10 @@
 [[file:img/logo.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#working-with-nim][Working with Nim]]
-   - [[#nim-commands-start-with-m][Nim commands (start with =m=):]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#working-with-nim][Working with Nim]]
+  - [[#nim-commands-start-with-m][Nim commands (start with =m=):]]
 
 * Description
 This layer provides the following features for Nim:
@@ -29,9 +29,9 @@ and =nimsuggest= binary must be in $PATH.
 
 ** Nim commands (start with =m=):
 
-| Key Binding          | Description                |
-|----------------------+----------------------------|
-| ~SPC m c r~          | nim compile --run main.nim |
-| ~SPC m g g~ or ~M-.~ | Jump to definition         |
-| ~SPC m g b~ or ~M-,~ | Jump back                  |
-|----------------------+----------------------------|
+| Key Binding          | Description                  |
+|----------------------+------------------------------|
+| ~SPC m c r~          | =nim compile --run main.nim= |
+| ~SPC m g g~ or ~M-.~ | Jump to definition           |
+| ~SPC m g b~ or ~M-,~ | Jump back                    |
+|----------------------+------------------------------|
