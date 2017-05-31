@@ -32,7 +32,7 @@ than this amount.")
 
 (defvar spacemacs--ivy-file-actions
   '(("f" find-file-other-frame "other frame")
-    ("w" find-file-other-window "other window")
+    ("j" find-file-other-window "other window")
     ("v" spacemacs/find-file-vsplit "in vertical split")
     ("s" spacemacs/find-file-split "in horizontal split")
     ("l" find-file-literally "literally")
