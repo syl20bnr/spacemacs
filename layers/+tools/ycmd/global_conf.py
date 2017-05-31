@@ -46,6 +46,7 @@ SOURCE_EXTENSIONS = ['.cpp', '.cxx', '.cc', '.c', '.m', '.mm',
                      '.CPP', '.CXX', '.CC', '.C', '.M', '.MM']
 HEADER_EXTENSIONS = ['.h', '.hxx', '.hpp', '.hh'
                      '.H', '.HXX', '.HPP', '.HH']
+SUBDIRS = ['build']
 
 # This function is called by ycmd.
 def FlagsForFile(filename):
@@ -81,7 +82,8 @@ def FlagsFromClangComplete(root, filename):
 
 def FlagsFromCompilationDatabase(root, filename):
     try:
-        database_path = FindNearestWithBuild(root, 'compile_commands.json', filename)
+        database_path = FindNearestWithBuild(root, 'compile_commands.json',
+                                             filename, subdirs=SUBDIRS)
         database = ycm_core.CompilationDatabase(os.path.dirname(database_path))
         if not database:
             logging.info("%s: Compilation database file found but unable to load"
@@ -124,34 +126,19 @@ def GetFlagsForSourceFile(database_path, database, filename):
         return flags
     return FindNearestSourceFileInDb(database_path, database, filename)
 
-def FindNearest(path, target, filename):
-    candidate = os.path.join(path, target)
-    if(os.path.isfile(candidate) or os.path.isdir(candidate)):
-        logging.info("%s: Found nearest %s at %s"
-                     % (os.path.basename(filename), target, candidate))
-        return candidate
-    else:
-        parent = os.path.dirname(os.path.abspath(path))
-        if(parent == path):
-            raise RuntimeError("could not find %s" % target)
-        return FindNearest(parent, target, filename)
-
-def FindNearestWithBuild(path, target, filename):
-    candidate = os.path.join(path, target)
-    candidate2 = os.path.join(path, "build", target)
-    if(os.path.isfile(candidate2) or os.path.isdir(candidate2)):
-        logging.info("%s: Found nearest %s at %s"
-                     % (os.path.basename(filename), target, candidate2))
-        return candidate2
-    elif(os.path.isfile(candidate) or os.path.isdir(candidate)):
-        logging.info("%s: Found nearest %s at %s"
-                     % (os.path.basename(filename), target, candidate))
-        return candidate
-    else:
-        parent = os.path.dirname(os.path.abspath(path))
-        if(parent == path):
-            raise RuntimeError("could not find %s" % target)
-        return FindNearestWithBuild(parent, target, filename)
+def FindNearest(path, target, filename, subdirs=[]):
+    candidates = [os.path.join(path, target)]
+    for subdir in subdirs:
+        candidates.append(os.path.join(path, subdir, target))
+    for candidate in candidates:
+        if(os.path.isfile(candidate) or os.path.isdir(candidate)):
+            logging.info("%s: Found nearest %s at %s"
+                         % (os.path.basename(filename), target, candidate))
+            return candidate
+    parent = os.path.dirname(os.path.abspath(path))
+    if(parent == path):
+        raise RuntimeError("could not find %s" % target)
+    return FindNearest(parent, target, filename)
 
 def FindFileInDb(database, filename):
     logging.info("%s: Trying to find file in database..."
