@@ -72,6 +72,9 @@
       (setq slack-enable-emoji t))
     :config
     (progn
+      ;; To enable completion for `slack-message-add-reaction'
+      (add-hook 'slack-mode-hook 'emojify-mode)
+
       (spacemacs/set-leader-keys-for-major-mode 'slack-mode
         "j" 'slack-channel-select
         "g" 'slack-group-select
