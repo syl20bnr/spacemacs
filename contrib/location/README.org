@@ -1,0 +1,88 @@
+#+TITLE: Location contribution layer for Spacemacs
+
+* Table of Contents
+ 
+* Description
+This layer offers few location sensetive adjustment to Emacs, such as
+automaticly switching between light (day) and dark (night) themes, weather
+forecast and on OS X, also automatic tracking of location, using OS X's
+CoreLocation services.
+
+** Supported packages in this layer
+
+- [[https://github.com/hadronzoo/theme-changer][theme-changer]]
+- [[https://github.com/aaronbieber/sunshine.el/blob/master/sunshine.el][sunshine]]
+- [[https://github.com/purcell/osx-location][osx-location]]
+
+* Install
+
+To enable this contribution layer, add it to your =~/.spacemacs=~ like this:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(location))
+#+END_SRC
+
+All services are disable by default. To enable all, or some of them, add instead
+something like this:
+
+#+BEGIN_SRC emacs-lisp
+  (location :variables
+            enable-osx-location-service-support t
+            enable-weather-forecast t
+            enable-automatic-theme-managment t)
+#+END_SRC
+
+To set location manually, add something like this inside the ~dotspacemacs/config
+defun~. 
+
+#+BEGIN_SRC emacs-lisp
+  (setq calendar-location-name "Barcelona, Spain"
+        calendar-latitude 41.23
+        calendar-longitude 1.80)
+#+END_SRC
+
+On OS X, all of these variables get setup automatically by the ~osx-location~
+service, when enabled. If ~calendar-location-name~ was ommitted, it'll be
+stringed-up like so: "41.23, 1.80".
+
+* Key Bindings
+New keybindings for this layer are for using ~sunshine~.
+
+| Evil      | Holy | Command                                       |
+|-----------+------+-----------------------------------------------|
+| ~SPC a w~ |      | Display pretty weather forecast               |
+| ~SPC a W~ |      | Display quick weather forecast in mini buffer |
+
+* Customize it!
+** theme-changer
+Theme changer will switch between two given themes, depending on time at
+geographical location. By default, it will use first two themes the user has setup in
+~dotemacs-themes~. 
+
+If the list is empty, for whatever reason, it'll swap ~spacemacs-light~ and
+~spacemacs-dark~ by default.
+
+** sunshine (weather forecast)
+Sunshine uses the imperial unit system by default. To switch to metric, do this:
+
+#+BEGIN_SRC emacs-lisp
+  (setq sunshine-units 'metric)
+#+END_SRC
+
+Weather forecast icons are disabled by default, but can be toggled by pressing
+`i' within this mode's main buffer. To display weather forecast icons by default
+("pretty mode"), change the settings to this:
+
+#+BEGIN_SRC emacs-lisp
+  (setq sunshine-show-icons t)
+#+END_SRC
+
+[[file:img/emacs-sunshine.jpg]]
+
+** osx-location
+OS X users can take adavantage of automatic geogrphical discovery using the OS'
+CoreLocation system service, implemented as a long running background process. A
+helper script will need to be given proper access first time this layer is
+activated.
+
+[[file:img/emacs-location-helper.jpg]]
