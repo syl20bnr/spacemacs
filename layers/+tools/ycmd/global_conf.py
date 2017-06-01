@@ -82,8 +82,7 @@ def FlagsFromClangComplete(root, filename):
 
 def FlagsFromCompilationDatabase(root, filename):
     try:
-        database_path = FindNearestWithBuild(root, 'compile_commands.json',
-                                             filename, subdirs=SUBDIRS)
+        database_path = FindNearest(root, 'compile_commands.json', filename, subdirs=SUBDIRS)
         database = ycm_core.CompilationDatabase(os.path.dirname(database_path))
         if not database:
             logging.info("%s: Compilation database file found but unable to load"
