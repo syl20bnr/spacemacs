@@ -50,11 +50,11 @@
     (org-insert-item))
   )
 
-(defun evil-org-eol-call (fun)
+(defun evil-org-eol-call (fun &optional arg)
   "Go to end of line and call provided function.
-FUN function callback"
+FUN function callback. Optionally, apply prefix argument ARG."
   (end-of-visible-line)
-  (funcall fun)
+  (funcall fun arg)
   (evil-append nil)
   )
 
