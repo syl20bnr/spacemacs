@@ -59,6 +59,22 @@
                     (1 font-lock-comment-face prepend)
                     (2 font-lock-function-name-face)
                     (3 font-lock-comment-face prepend))))
+
+      ;; use :w and :q within org-src-edit buffer
+      (defadvice evil-write (around evil-src-block activate)
+        (if (and (fboundp 'org-base-buffer) (org-src-edit-buffer-p))
+            (org-edit-src-save)
+          ad-do-it))
+
+      (defadvice evil-quit (around evil-src-block activate)
+        (if (org-src-edit-buffer-p)
+            (if (and
+                 (buffer-modified-p)
+                 (yes-or-no-p "There are changes to the org-src buffer, save?"))
+                (org-edit-src-exit)
+              (org-edit-src-abort))
+          ad-do-it))
+
       ;; Open links and files with RET in normal state
       (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)))))
 
