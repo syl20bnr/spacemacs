@@ -13,6 +13,7 @@
   - [[#build-command][Build command]]
   - [[#auto-fill][Auto-fill]]
   - [[#folding][Folding]]
+  - [[#magic-latex-buffer][Magic latex buffer]]
 - [[#keybindings][Keybindings]]
   - [[#folding-1][Folding]]
   - [[#reftex][RefTeX]]
@@ -86,6 +87,28 @@ is nil.
   dotspacemacs-configuration-layers '(
     (latex :variables latex-enable-folding t))
 #+END_SRC
+
+** Magic latex buffer
+To enable “magic” symbols in latex buffers, set the variable
+=latex-enable-magic= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  dotspacemacs-configuration-layers '(
+    (latex :variables latex-enable-magic t))
+#+END_SRC
+
+The precise effect of this feature can be modified by adjusting the following
+variables:
+- =magic-latex-enable-block-highlight=: show font properties like =\large=
+  (default =t=).
+- =magic-latex-enable-block-align=: reflect block alignment such as =\center=
+  (default =nil=).
+- =magic-latex-enable-pretty-symbols=: substitute symbols in place of code, e.g.
+  greek letters (default =t=).
+- =magic-latex-enable-suscript=: show subscripts and superscripts (default =t=).
+- =magic-latex-enable-inline-image=: show images inline (default =nil=).
+
+By default, the underlying latex code is echoed in the echo area.
 
 * Keybindings
 
