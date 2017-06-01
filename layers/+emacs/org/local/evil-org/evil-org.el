@@ -43,11 +43,11 @@
 
 (add-hook 'org-mode-hook 'evil-org-mode) ;; only load with org-mode
 
-(defun clever-insert-item ()
+(defun clever-insert-item (&optional arg)
   "Clever insertion of org item."
   (if (not (org-in-item-p))
       (insert "\n")
-    (org-insert-item))
+    (org-insert-item arg))
   )
 
 (defun evil-org-eol-call (fun &optional arg)
@@ -133,7 +133,7 @@ FUN function callback. Optionally, apply prefix argument ARG."
   "gl" 'outline-next-visible-heading
   "t" 'org-todo
   "T" '(lambda () (interactive) (evil-org-eol-call (lambda() (org-insert-todo-heading nil))))
-  "o" '(lambda () (interactive) (evil-org-eol-call 'clever-insert-item))
+  "o" '(lambda (arg) (interactive "P") (evil-org-eol-call 'clever-insert-item arg))
   "O" '(lambda () (interactive) (evil-org-eol-call 'org-insert-heading))
   "$" 'org-end-of-line
   "^" 'org-beginning-of-line
