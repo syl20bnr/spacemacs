@@ -85,7 +85,8 @@
         "k" 'slack-select-rooms
         "@" 'slack-message-embed-mention
         "#" 'slack-message-embed-channel
-        ")" 'slack-message-add-reaction)
+        ")" 'slack-message-add-reaction
+        "(" 'slack-message-remove-reaction)
       (evil-define-key 'insert slack-mode-map
         (kbd "@") 'slack-message-embed-mention
         (kbd "#") 'slack-message-embed-channel))))
