@@ -23,15 +23,16 @@ This layer configures some keybindings in spacemacs to make it compatible with
 keyboard layouts that differs from the traditional =en-us= keymap.
 
 * Installation
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =keyboard-layout= to the existing =dotspacemacs-configuration-layers= list
-in this file. You can then select the desired layout by specifying the
-=kl-layout= variable:
-
+To use this configuration layer, add it to your =~/.spacemacs=. Do this by
+appending it to the existing =dotspacemacs-configuration-layers= list as follows:
 #+begin_src emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(
-  (keyboard-layout :variables kl-layout 'dvorak)))
+    […other layers…]
+    (keyboard-layout :variables kl-layout 'dvorak)
+  )
+  […standalone packages…] )
 #+end_src
+Adjust the line appropriately to select a different layout (e.g. by replacing =dvorak= with =bepo=).
 
 * Configuration
 ** Enable/Disable package configurations
