@@ -189,10 +189,6 @@
 
 (defun spacemacs//java-setup-eclim-company ()
   "Setup Eclim auto-completion."
-  (spacemacs|add-company-backends
-    :backends company-emacs-eclim
-    :modes eclim-mode
-    :hooks nil)
   ;; call manualy generated functions by the macro
   (spacemacs//init-company-eclim-mode)
   (set (make-variable-buffer-local 'company-idle-delay) 0.5)
@@ -242,7 +238,8 @@
 
 (defun spacemacs//java-setup-meghanada-company ()
   "Setup Meghanada auto-completion."
-  (meghanada-company-enable))
+  (meghanada-company-enable)
+  (company-mode))
 
 (defun spacemacs//java-setup-meghanada-flycheck ()
   "Setup Meghanada syntax checking."

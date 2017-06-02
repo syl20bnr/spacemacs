@@ -19,3 +19,12 @@ and `meghanada'.")
 
 (defvar java--ensime-modes '(java-mode)
   "Modes using ensime. Mainly used to define ENSIME key bindings.")
+
+(defvar java-enable-backend-company t
+  "If non-nil enable company backends for the given java layer backend.
+   Default: t.")
+
+(defvar java-autoenable-backend nil
+  "If non nil the chosen backend mode will be automatically activated when entering
+   java mode.
+   Default: nil.")
