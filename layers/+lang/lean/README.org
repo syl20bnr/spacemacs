@@ -1,0 +1,52 @@
+#+TITLE: Lean Layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+
+
+* Description
+This layer adds support for the [[https://leanprover.github.io][Lean]] theorem prover.
+* Install
+** Layer
+To use this layer, first add it to your =.spacemacs=.
+
+#+BEGIN_SRC elisp
+(setq-default dotspacemacs-configuration-layers '(lean))
+#+END_SRC
+
+Then configure Lean's root directory as follows:
+*** Case 1: You built Lean from source:
+Suppose that the full path to the root directory of Lean's source is =~/projects/lean=, then put this in your =.spacemacs=:
+
+#+BEGIN_SRC elisp
+(setq-default lean-rootdir "~/projects/lean")
+#+END_SRC
+
+*** Case 2: You installed Lean via dpkg, or apt-get:
+Put this in your =.spacemacs.=
+
+#+BEGIN_SRC elisp
+(setq-default lean-rootdir "/usr")
+#+END_SRC
+
+*** Case 3: You installed Lean via homebrew:
+If you installed Lean in the default directory, put this in your =.spacemacs.=:
+
+#+BEGIN_SRC elisp
+(setq-default lean-rootdir "/usr/local")
+#+END_SRC
+
+
+* Key Bindings
+| Key Binding | Description                                  |
+|-------------+----------------------------------------------|
+| ~SPC m c c~ | Compile the current file/project.            |
+| ~SPC m R~   | Restart the Lean Server.                     |
+| ~SPC m h h~ | Show Eldoc Documentation for value at point. |
+| ~SPC m h t~ | Show type of value at point.                 |
+| ~SPC m h i~ | Show ID/Keyword info t point.                |
+| ~SPC m f~   | Fill a placeholder.                          |
+| ~SPC m g g~ | Find tag at point.                           |
+| ~SPC m g u~ | Update Lean tags.                            |
+| ~SPC e f~   | Set flags for current Lean process.          |
+| ~SPC e c~   | Execute a Lean commmand.                     |
+| ~SPC m ,~   | Show goal at point.                          |
+| ~SPC m h k~ | Show how to type the key at point.           |
