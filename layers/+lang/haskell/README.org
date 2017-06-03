@@ -122,6 +122,7 @@ itself.
 
 *** =dante=
 =dante= works for =cabal=, =nix=, =sytx=, and =stack= users.
+=dante= requires Emacs 25.
 
 *** =ghc-mod=
 [[http://www.mew.org/~kazu/proj/ghc-mod/][ghc-mod]] enhances =haskell-mode= with for example code completion, templates,
