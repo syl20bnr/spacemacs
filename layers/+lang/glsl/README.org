@@ -1,0 +1,19 @@
+#+TITLE: GLSL layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
+
+* Table of Contents
+- [[Desscription][Description]]
+- [[Install][Install]]
+
+* Description
+This layer provides syntax highlighting for GLSL shader files. 
+By default it will provide highlighting for files ending in:
+- .glsl
+- .vert
+- .frag
+- .geom
+
+* Install
+To use this configuration layer, add it to your =~.spacemacs=.
+You will need to add =yaml= to the existing =dotspacemacs-configuration-layers=
+list in this file.
