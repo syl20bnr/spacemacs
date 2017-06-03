@@ -1,0 +1,58 @@
+#+TITLE: Shen contribution layer for Spacemacs
+
+[[file:img/shen.gif]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#keybindings][Keybindings]]
+   - [[#eval][Eval]]
+   - [[#compile][Compile]]
+   - [[#repl][REPL]]
+   - [[#help][Help]]
+
+* Description
+
+Adds support for the [[http://www.shenlanguage.org/][Shen]] programming language via [[https://github.com/eschulte/shen-mode][shen-mode and inf-shen]].
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(shen))
+#+END_SRC
+
+* Keybindings
+
+** Eval
+
+| Key Binding | Description                   |
+| =SPC m e l= | Eval last sexp                |
+| =SPC m e d= | Eval defun                    |
+| =SPC m e g= | Eval defun and switch to REPL |
+| =SPC m e r= | Eval region                   |
+| =SPC m e t= | Eval region and swith to REPL |
+
+
+** Compile
+
+| Key Binding | Description                     |
+| =SPC m f=   | Compile file                    |
+| =SPC m d=   | Compile defun                   |
+| =SPC m g=   | Compile defun and swith to REPL |
+
+** REPL
+
+| Key Binding | Description         |
+| =SPC m s i= | Start REPL          |
+| =SPC m s s= | Switch to REPL      |
+| =SPC m s l= | Load file into REPL |
+
+** Help
+
+| Key Binding | Description                 |
+| =SPC m h a= | Show arglist                |
+| =SPC m h s= | Describe symbol             |
+| =SPC m h f= | Show function documentation |
+| =SPC m h v= | Show variable documentation |
