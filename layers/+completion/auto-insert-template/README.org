@@ -1,0 +1,38 @@
+#+TITLE: auto-insert-template layer
+
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#templates][Templates]]
+   - [[#default-location-for-templetes][Default location for templetes]]
+
+* Description
+This layer provides template auto insertion.
+
+* Install
+** Layer
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(auto-insert-template))
+#+end_src
+
+** Templates
+
+Template file's format is similar to yasnippet's snippet.
+
+If you want to make your own template file , see [[https://github.com/mineo/yatemplate][mineo/yatemplate
+]]
+
+** Default location for templetes
+Templates directory is already set =~/.emacs.d/private/templates/=.
+If your template files is placed other location, you should set variable =yatemplate-dir= to =your_templates_directory= .
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+     '((auto-insert-template :variables
+                             yatemplate-dir "your_templates_directory")))
+#+end_src
+
