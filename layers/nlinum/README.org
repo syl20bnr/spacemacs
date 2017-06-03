@@ -1,0 +1,46 @@
+#+TITLE: nlinum layer
+
+# TOC links should be GitHub style anchors.
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#feature][Feature]]
+ - [[#config][Config]]
+ - [[#important-note][Important Note]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer provide a faster drop-in replacement for =linum-mode= and =linum-relative-mode=.
+
+* Feature
++ [[https://elpa.gnu.org/packages/nlinum.html][nlinum-mode]] as replacement of linum-mode
++ [[https://github.com/CodeFalling/nlinum-relative][nlinum-relative]] as replacement of nlinum-relative-mode
+
+* Config
+#+BEGIN_SRC emacs-lisp
+  (setq nlinum-relative-redisplay-delay 0.1)      ;; delay
+  (setq nlinum-relative-current-symbol "")        ;; or "" for display current line number, or "0" "->" etc
+  (setq nlinum-relative-offset 0)                 ;; 1 if you want 0, 2, 3...
+  (setq nlinum-format "%4d")
+#+END_SRC
+
+* Important Note
+
++ With this layer =linum-mode= is just =nlinum-mode=.
+
++ =nlinum-relative= do not redisplay line number immediately, but in idle time with a delay.
+
+* Install
+To use this configuration layer, add it to your ~/.spacemacs. You will need to add =nlinum= to the existing dotspacemacs-configuration-layers list in this file.
+
+* Key bindings
+
+| Key Binding | Description                               |
+|-------------+-------------------------------------------|
+| ~SPC t n~   | Toggle line number with nlinum-mode       |
+| ~SPC t r~   | Toggle relative line nlinum-relative-mode |
+# Use GitHub URLs if you wish to link a Spacemacs documentation file or its heading.
+# Examples:
+# [[https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org#sessions]]
+# [[https://github.com/syl20bnr/spacemacs/blob/master/layers/%2Bfun/emoji/README.org][Link to Emoji layer README.org]]
+# If space-doc-mode is enabled, Spacemacs will open a local copy of the linked file.
