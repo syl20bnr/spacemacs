@@ -1,0 +1,53 @@
+#+TITLE: langtool layer
+
+[[file:img/langtool.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#java][Java]]
+   - [[#languagetool][LanguageTool]]
+   - [[#layer][Layer]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+Layer for [[https://github.com/languagetool-org/languagetool][LanguageTool]]. It finds many errors that a simple spell checker cannot
+detect.
+
+* Install
+** Java
+Install =openjdk-8-jdk= or =openjdk-8-jre= and set default java to version 8.
+
+Debian/Ubuntu:
+#+BEGIN_SRC shell
+sudo apt-get install openjdk-8-jdk
+sudo update-alternatives --config java
+#+END_SRC
+
+** LanguageTool
+Download LanguageTool from https://languagetool.org/ and extract archive
+wherever you want.
+
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =langtool= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+Set variable =langtool-language-tool-jar= to path of extracted LanguageTool.
+
+By default language is en-US. You can change it with
+=langtool-default-language=.
+
+Example:
+#+BEGIN_SRC emacs-lisp
+  (langtool :variables
+            langtool-language-tool-jar "/opt/LanguageTool-3.5/languagetool-commandline.jar"
+            langtool-default-language "ru-RU")
+#+END_SRC
+
+* Key bindings
+
+| Key Binding | Description      |
+|-------------+------------------|
+| ~M-n~       | Go to next error |
+
