@@ -1,0 +1,29 @@
+#+TITLE: replace-text layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
+
+* Description
+This simple layer provides functions to interactively replace text in a buffer
+using more commonly known versions of regex (default is Python's). It uses the
+=visual-regexp-steroids= package to provide the functionality.
+
+* Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(replace-text))
+#+end_src
+
+If you use the default settings you should have a python interpreter installed
+in your system PATH variable.
+
+* Key bindings
+
+| Key Binding   | Description                         |
+|---------------+-------------------------------------|
+| ~<SPC> x r r~ | Regexp replace with visual feedback |
+| ~<SPC> x r q~ | Version of =query-replace-regexp=   |
