@@ -68,7 +68,8 @@
 (defun spacemacs//java-setup-ensime ()
   "Setup ENSIME."
   ;; jump handler
-  (add-to-list 'spacemacs-jump-handlers 'ensime-edit-definition)
+  (add-to-list 'spacemacs-jump-handlers-java-mode 'ensime-edit-definition)
+  (add-to-list 'spacemacs-jump-handlers-scala-mode 'ensime-edit-definition)
   ;; ensure the file exists before starting `ensime-mode'
   (cond
    ((and (buffer-file-name) (file-exists-p (buffer-file-name)))
