@@ -19,9 +19,10 @@
   '(org
     plantuml-mode))
 
-(defun plantuml/post-init-org ()
+(defun plantuml/pre-init-org ()
   (spacemacs|use-package-add-hook org
-    :post-config (add-to-list 'org-babel-load-languages '(plantuml . t))))
+    :post-config (add-to-list 'org-babel-load-languages '(plantuml . t))
+    (add-to-list 'org-src-lang-modes '("plantuml" . puml))))
 
 (defun plantuml/init-plantuml-mode ()
   (use-package plantuml-mode
