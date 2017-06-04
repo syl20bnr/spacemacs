@@ -87,6 +87,7 @@
     soft-stone-theme
     solarized-theme
     soothe-theme
+    sourcerer-theme
     spacegray-theme
     subatomic-theme
     subatomic256-theme
