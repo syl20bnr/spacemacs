@@ -535,7 +535,7 @@ ARGS: format string arguments."
 
 (defun spacemacs-buffer/insert-page-break ()
   "Insert a page break line in spacemacs buffer."
-  (spacemacs-buffer/append "\n\n"))
+  (spacemacs-buffer/append (concat "\n" (make-string (window-body-width) ?\u2500) "\n")))
 
 (defun spacemacs-buffer/append (msg &optional messagebuf)
   "Append MSG to spacemacs buffer.
