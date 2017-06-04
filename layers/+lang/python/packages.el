@@ -214,6 +214,7 @@
     :defer t
     :init
     (progn
+      (add-hook 'pyvenv-post-activate-hooks 'python/init-hy-mode)
       (pcase python-auto-set-local-pyvenv-virtualenv
         (`on-visit
          (spacemacs/add-to-hooks 'spacemacs//pyvenv-mode-set-local-virtualenv
