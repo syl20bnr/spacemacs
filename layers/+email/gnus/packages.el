@@ -73,11 +73,65 @@
             (gnus-summary-scroll-up arg))))
       (add-to-list 'nnmail-extra-headers nnrss-url-field)
 
-      (evilified-state-evilify gnus-group-mode gnus-group-mode-map)
-      (evilified-state-evilify gnus-server-mode gnus-server-mode-map)
-      (evilified-state-evilify gnus-browse-mode gnus-browse-mode-map)
-      (evilified-state-evilify gnus-article-mode gnus-article-mode-map)
+      ;; All the functions of `SPC' are bind to `quote'
+      (evilified-state-evilify gnus-group-mode gnus-group-mode-map
+        (kbd "f") 'gnus-group-get-new-news
+        (kbd "'") 'gnus-topic-read-group)
+      (evilified-state-evilify gnus-server-mode gnus-server-mode-map
+        (kbd "'") 'gnus-server-read-server-in-server-buffer)
+      (evilified-state-evilify gnus-browse-mode gnus-browse-mode-map                      
+        (kbd "'") 'gnus-browse-read-group)
+      (evilified-state-evilify gnus-article-mode gnus-article-mode-map
+        (kbd "'") 'gnus-article-goto-next-page)
       (evilified-state-evilify gnus-summary-mode gnus-summary-mode-map
         (kbd "J") 'gnus-summary-next-article
         (kbd "K") 'gnus-summary-prev-article
-        (kbd "<RET>") 'spacemacs/browse-nnrss-url))))
+        (kbd "'") 'gnus-summary-next-page
+        (kbd "<RET>") 'spacemacs/browse-nnrss-url)
+
+      ;; Bind Shawdowed bindings to Major mode prefix
+      (dolist (prefix '(("mP" . "group/sort-select")
+                        ("mS" . "group/sort")))
+        (spacemacs/declare-prefix-for-mode
+         'gnus-group-mode (car prefix) (cdr prefix)))
+      (spacemacs/set-leader-keys-for-major-mode 'gnus-group-mode
+        ;; Group
+        "D" 'gnus-group-enter-directory
+        "E" 'gnus-group-edit-group
+        "G" 'gnus-group-make-nnir-group
+        "M" 'gnus-group-read-ephemeral-group
+        "R" 'gnus-group-make-rss-group
+        "V" 'gnus-group-make-empty-virtual
+        "c" 'gnus-group-customize
+        "d" 'gnus-group-make-directory-group
+        "e" 'gnus-group-edit-group-method
+        "f" 'gnus-group-make-doc-group
+        "h" 'gnus-group-make-help-group
+        "l" 'gnus-group-nnimap-edit-acl
+        "m" 'gnus-group-make-group
+        "p" 'gnus-group-edit-group-parameters
+        "r" 'gnus-group-rename-group
+        "u" 'gnus-group-make-useful-group
+        "v" 'gnus-group-add-to-virtual
+        "w" 'gnus-group-make-web-group
+        "x" 'gnus-group-expunge-group
+        "z" 'gnus-group-compact-group
+        "DEL" 'gnus-group-delete-group
+        ;; Sort Selected
+        "Pa" 'gnus-group-sort-selected-groups-by-alphabet
+        "Pl" 'gnus-group-sort-selected-groups-by-level
+        "Pm" 'gnus-group-sort-selected-groups-by-method
+        "Pn" 'gnus-group-sort-selected-groups-by-real-name
+        "Pr" 'gnus-group-sort-selected-groups-by-rank
+        "Ps" 'gnus-group-sort-selected-groups
+        "Pu" 'gnus-group-sort-selected-groups-by-unread
+        "Pv" 'gnus-group-sort-selected-groups-by-score
+        ;; Sort
+        "Sa" 'gnus-group-sort-groups-by-alphabet
+        "Sl" 'gnus-group-sort-groups-by-level
+        "Sm" 'gnus-group-sort-groups-by-method
+        "Sn" 'gnus-group-sort-groups-by-real-name
+        "Sr" 'gnus-group-sort-groups-by-rank
+        "Ss" 'gnus-group-sort-groups
+        "Su" 'gnus-group-sort-groups-by-unread
+        "Sv" 'gnus-group-sort-groups-by-score))))
