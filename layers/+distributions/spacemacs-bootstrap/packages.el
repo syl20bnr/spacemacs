@@ -41,10 +41,10 @@
     :override-mode-name spacemacs-leader-override-mode))
 
 (defun spacemacs-bootstrap/init-evil ()
-  ;; ensure that the search module is set at startup
-  ;; must be called before evil is required to really take effect.
-  (spacemacs/set-evil-search-module dotspacemacs-editing-style)
-  (add-hook 'spacemacs-editing-style-hook 'spacemacs/set-evil-search-module)
+  (with-eval-after-load 'hybrid-mode
+    ;; ensure that the search module is set at startup
+    (spacemacs/set-evil-search-module dotspacemacs-editing-style)
+    (add-hook 'spacemacs-editing-style-hook 'spacemacs/set-evil-search-module))
 
   ;; evil-mode is mandatory for Spacemacs to work properly
   ;; evil must be require explicitly, the autoload seems to not
