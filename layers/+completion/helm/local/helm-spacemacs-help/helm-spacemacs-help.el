@@ -206,7 +206,7 @@
     (action . (("Go to configuration function"
                 . helm-spacemacs-help//package-action-goto-config-func)
                ("Describe"
-                . helm-spacemacs-help//package-action-decribe)))))
+                . helm-spacemacs-help//package-action-describe)))))
 
 (defun helm-spacemacs-help//package-candidates ()
   "Return the sorted candidates for package source."
@@ -318,7 +318,7 @@
   "Open the `config.el' file of the passed CANDIDATE."
   (helm-spacemacs-help//layer-action-open-file "config.el" candidate))
 
-(defun helm-spacemacs-help//package-action-decribe (candidate)
+(defun helm-spacemacs-help//package-action-describe (candidate)
   "Describe the passed package using Spacemacs describe function."
   (save-match-data
     (string-match "^\\(.+\\)\s(\\(.+\\) layer)$" candidate)
