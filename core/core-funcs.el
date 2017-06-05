@@ -324,6 +324,16 @@ current frame."
     (unless prev-window (user-error "Last window not found."))
     (select-window prev-window)))
 
+(defun spacemacs/alternate-window ()
+  "Switch back and forth between current and last window in the
+current frame."
+  (interactive)
+  (let (;; switch to first window previously shown in this frame
+        (prev-window (get-mru-window nil t t)))
+    ;; Check window was not found successfully
+    (unless prev-window (user-error "Last window not found."))
+    (select-window prev-window)))
+
 (defun spacemacs/comint-clear-buffer ()
   (interactive)
   (let ((comint-buffer-maximum-size 0))
