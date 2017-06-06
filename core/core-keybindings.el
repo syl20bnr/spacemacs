@@ -47,6 +47,7 @@ gui, translate to [C-i]. Otherwise, [9] (TAB)."
 sequence. NAME is a string used as the prefix command.
 LONG-NAME if given is stored in `spacemacs/prefix-titles'."
   (let* ((command name)
+         (prefix (mapconcat 'identity (split-string prefix "" t) " "))
          (full-prefix (concat dotspacemacs-leader-key " " prefix))
          (full-prefix-emacs (concat dotspacemacs-emacs-leader-key " " prefix))
          (full-prefix-lst (listify-key-sequence (kbd full-prefix)))
@@ -63,15 +64,16 @@ LONG-NAME if given is stored in `spacemacs/prefix-titles'."
   "Declare a prefix PREFIX. MODE is the mode in which this prefix command should
 be added. PREFIX is a string describing a key sequence. NAME is a symbol name
 used as the prefix command."
-  (let  ((command (intern (concat (symbol-name mode) name)))
+  (let* ((command (intern (concat (symbol-name mode) name)))
+         (prefix (mapconcat 'identity (split-string prefix "" t) " "))
          (full-prefix (concat dotspacemacs-leader-key " " prefix))
          (full-prefix-emacs (concat dotspacemacs-emacs-leader-key " " prefix))
          (is-major-mode-prefix (string-prefix-p "m" prefix))
          (major-mode-prefix (concat dotspacemacs-major-mode-leader-key
-                                    " " (substring prefix 1)))
+                                    (substring prefix 1)))
          (major-mode-prefix-emacs
           (concat dotspacemacs-major-mode-emacs-leader-key
-                  " " (substring prefix 1))))
+                  (substring prefix 1))))
     (unless long-name (setq long-name name))
     (let ((prefix-name (cons name long-name)))
       (which-key-declare-prefixes-for-mode mode
