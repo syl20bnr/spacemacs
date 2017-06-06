@@ -1,0 +1,36 @@
+#+TITLE: CEDET layer
+
+[[file:img/cedet.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+
+* Description
+  This layer add CEDET latest version to Spacemacs.
+  - Add Cedet devel version,
+  - Add Cedet contrib.
+
+* Install
+In order to use this layer you must install clone cedet git repo, and compile
+manually. The official CEDET project page can be found on [[http://cedet.sourceforge.net/][CEDET on Sourceforge]] 
+You can clone the git repo with:
+
+#+BEGIN_SRC bash
+ git clone git://git.code.sf.net/p/cedet/git cedet 
+#+END_SRC
+
+Also I host a mirror on [[https://github.com/declanqian/cedet][Github]].
+
+If the installation directory of CEDET is not in Emacs’ load path, you can set
+the layer variable =mu4e-installation-path=, for example:
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((cedet :variables
+                         cedet-installation-path "/home/user/cedet")))
+#+end_src
+
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =cedet= to the existing =dotspacemacs-configuration-layers= list in this
+file.
