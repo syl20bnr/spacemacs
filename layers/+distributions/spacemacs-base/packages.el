@@ -332,8 +332,12 @@
       ;; note for Windows: GNU find or Cygwin find must be in path to enable
       ;; fast indexing
       (when (and (spacemacs/system-is-mswindows) (executable-find "find"))
-        (setq  projectile-indexing-method 'alien
-               projectile-generic-command "find . -type f"))
+        (progn
+          (when (not (boundp 'projectile-indexing-method))
+               (setq  projectile-indexing-method 'alien))
+          (when (not (boundp 'projectile-generic-command))
+               (setq projectile-generic-command "find . -type f"))))
+
       (setq projectile-sort-order 'recentf
             projectile-cache-file (concat spacemacs-cache-directory
                                           "projectile.cache")
