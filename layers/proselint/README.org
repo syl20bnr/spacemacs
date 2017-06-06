@@ -1,0 +1,52 @@
+#+TITLE: proselint layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+
+#+CAPTION: logo
+
+# The maximum height of the logo should be 200 pixels.
+[[img/proselint.png]]
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
+
+* Description
+
+  This layer hooks [[https://github.com/amperser/proselint][proselint]] into flycheck to making typing go good, obviously.
+
+  While flycheck-proselint is enabled (via the toggle or the config var), it
+  will take precedence and be the ONLY functioning flycheck checker. Toggling
+  it off will return the normal flycheck functioning to the buffer.
+
+  It is possible to manually change this behavior using the
+  `flycheck-add-next-checker` function.
+
+* Install
+
+Install the proselint executable. Make sure it is in your $PATH.
+
+#+begin_src sh
+  pip install proselint
+#+end_src
+
+Add the following to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(proselint))
+#+end_src
+
+You may have proselint available but not started immediately by setting the
+`enable-proselint-feedback` variable to `nil`.
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(proselint :variables
+                                                              enable-proselint-feedback nil))
+#+end_src
+
+* Key bindings
+
+| Key Binding  | Description                                        |
+|--------------+--------------------------------------------------- |
+| ~<SPC> t P~  | Toggles the proselint flycheck feedback on and off |
+
