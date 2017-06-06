@@ -129,23 +129,25 @@
     :init
     (spacemacs/set-leader-keys-for-major-mode 'python-mode "hd" 'helm-pydoc)))
 
+(defun python/find-hy-executable ()
+  (setq-local hy-mode-inferior-lisp-command (concat (spacemacs/pyenv-executable-find "hy") " --spy")))
+
 (defun python/init-hy-mode ()
   (use-package hy-mode
     :defer t
     :init
     (progn
-      (let ((hy-path (executable-find "hy")))
-        (when hy-path
-          (setq hy-mode-inferior-lisp-command (concat hy-path " --spy"))
-          (spacemacs/set-leader-keys-for-major-mode 'hy-mode
-            "si" 'inferior-lisp
-            "sb" 'lisp-load-file
-            "sB" 'switch-to-lisp
-            "se" 'lisp-eval-last-sexp
-            "sf" 'lisp-eval-defun
-            "sF" 'lisp-eval-defun-and-go
-            "sr" 'lisp-eval-region
-            "sR" 'lisp-eval-region-and-go))))))
+      (add-hook 'hy-mode-hook 'python/find-hy-executable)
+      (add-hook 'pyvenv-post-activate-hooks 'python/find-hy-executable)
+      (spacemacs/set-leader-keys-for-major-mode 'hy-mode
+        "si" 'inferior-lisp
+        "sb" 'lisp-load-file
+        "sB" 'switch-to-lisp
+        "se" 'lisp-eval-last-sexp
+        "sf" 'lisp-eval-defun
+        "sF" 'lisp-eval-defun-and-go
+        "sr" 'lisp-eval-region
+        "sR" 'lisp-eval-region-and-go))))
 
 (defun python/init-live-py-mode ()
   (use-package live-py-mode
@@ -214,7 +216,6 @@
     :defer t
     :init
     (progn
-      (add-hook 'pyvenv-post-activate-hooks 'python/init-hy-mode)
       (pcase python-auto-set-local-pyvenv-virtualenv
         (`on-visit
          (spacemacs/add-to-hooks 'spacemacs//pyvenv-mode-set-local-virtualenv
