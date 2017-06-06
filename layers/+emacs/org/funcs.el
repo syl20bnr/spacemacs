@@ -38,3 +38,9 @@
 (defun spacemacs//surround-code ()
   (let ((dname (read-from-minibuffer "" "")))
     (cons (format "#+BEGIN_SRC %s" (or dname "")) "#+END_SRC")))
+
+
+
+(defun spacemacs//evil-org-mode ()
+  (evil-org-mode)
+  (evil-normalize-keymaps))
