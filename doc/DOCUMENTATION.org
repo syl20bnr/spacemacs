@@ -2701,7 +2701,16 @@ Text related commands (start with ~x~):
 | ~SPC x a m~   | align region at arithmetic operators (+-*/)                   |
 | ~SPC x a ¦~   | align region at ¦                                             |
 | ~SPC x c~     | count the number of chars/words/lines in the selection region |
+| ~SPC x d b~   | delete blank lines                                            |
+| ~SPC x d d~   | delete duplicate lines                                        |
+| ~SPC x d l~   | delete line                                                   |
+| ~SPC x d L~   | delete whole line                                             |
+| ~SPC x d p~   | delete paragraph                                              |
+| ~SPC x d r~   | delete region                                                 |
+| ~SPC x d s~   | delete sentence                                               |
+| ~SPC x d S~   | delete s-expression                                           |
 | ~SPC x d w~   | delete trailing whitespaces                                   |
+| ~SPC x d z~   | delete all characters up to the given character               |
 | ~SPC x d SPC~ | Delete all spaces and tabs around point, leaving one space    |
 | ~SPC x g l~   | set languages used by translate commands                      |
 | ~SPC x g t~   | translate current word using Google Translate                 |

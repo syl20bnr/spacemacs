@@ -443,7 +443,16 @@
   "xa|" 'spacemacs/align-repeat-bar
   "xc"  'count-region
   "xd SPC" 'just-one-space
+  "xdb" 'delete-blank-lines
+  "xdd" 'delete-duplicate-lines
+  "xdl" 'kill-line
+  "xdL" 'kill-whole-line
+  "xdp" 'kill-paragraph
+  "xdr" 'kill-region
+  "xds" 'kill-sentence
+  "xdS" 'kill-sexp
   "xdw" 'delete-trailing-whitespace
+  "xdz" 'zap-to-char
   "xjc" 'set-justification-center
   "xjf" 'set-justification-full
   "xjl" 'set-justification-left
