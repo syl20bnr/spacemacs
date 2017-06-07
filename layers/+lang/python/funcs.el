@@ -35,7 +35,7 @@
       (setq python-shell-interpreter-args "-i")
       (setq python-shell-interpreter "python"))))
 
-(defun spacemacs//python-setup-hy ()
+(defun spacemacs//python-setup-hy (&rest args)
   (setq hy-mode-inferior-lisp-command
         (concat (or (spacemacs/pyenv-executable-find "hy") "hy")
                 " --spy")))
