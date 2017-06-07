@@ -3,10 +3,10 @@
 [[file:img/perl5.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
+- [[#description][Description]]
+  - [[#features][Features]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
 
 * Description
 This layer adds support for the Perl5 language.
