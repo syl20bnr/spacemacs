@@ -38,7 +38,7 @@ You will need =gocode=, =godef= and =godoctor=:
   go get -u -v github.com/rogpeppe/godef
   go get -u -v golang.org/x/tools/cmd/guru
   go get -u -v golang.org/x/tools/cmd/gorename
-  go get -u -v golang.org/x/tools/cmd/goimports
+  go get -u -v github.com/golang/tools/cmd/goimports
 #+END_SRC
 
 If you wish to use =gometalinter= set the value of =go-use-gometalinter= to t:
