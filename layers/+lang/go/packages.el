@@ -59,7 +59,15 @@
       (defun spacemacs//go-set-tab-width ()
         "Set the tab width."
         (setq-local tab-width go-tab-width))
-      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width))
+      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width)
+
+      (defun spacemacs//go-adaptive-fill ()
+        (looking-at "^[ \t]*// ")
+        (match-string-no-properties 0))
+      (defun spacemacs//go-set-adaptive-fill-function ()
+        "Enable comment aware adaptive fill"
+        (setq-local adaptive-fill-function 'spacemacs//go-adaptive-fill))
+      (add-hook 'go-mode-hook 'spacemacs//go-set-adaptive-fill-function))
     :config
     (progn
       (add-hook 'before-save-hook 'gofmt-before-save)
