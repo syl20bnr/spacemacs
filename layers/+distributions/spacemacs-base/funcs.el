@@ -684,12 +684,14 @@ dotspacemacs-persistent-server to be t"
 (defun spacemacs/kill-emacs ()
   "Lose all changes and exit Spacemacs"
   (interactive)
+  (run-hook-with-args-until-failure 'kill-emacs-query-functions)
   (setq spacemacs-really-kill-emacs t)
   (kill-emacs))
 
 (defun spacemacs/prompt-kill-emacs ()
   "Prompt to save changed buffers and exit Spacemacs"
   (interactive)
+  (run-hook-with-args-until-failure 'kill-emacs-query-functions)
   (setq spacemacs-really-kill-emacs t)
   (save-some-buffers)
   (kill-emacs))
