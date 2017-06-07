@@ -13,7 +13,6 @@
       '(
         (cperl-mode :location built-in)
         smartparens
-        highlight-numbers
         flycheck
         (perl-completion :toggle (configuration-layer/package-usedp 'auto-complete))
         ))
@@ -93,7 +92,7 @@
                               '(("\\_<say\\|any\\_>" . cperl-nonoverridable-face))))))
 
 (defun perl5/post-init-smartparens ()
-  :init
+  :config
   (progn
     ;; fix a bug with electric mode and smartparens https://github.com/syl20bnr/spacemacs/issues/480
     (add-hook 'smartparens-enabled-hook  (lambda () (define-key cperl-mode-map "{" nil)))
@@ -105,7 +104,7 @@
 (defun perl5/init-perl-completion ()
   (use-package perl-completion
     :defer t
-    :init
+    :config
     (progn
       (setq plcmp-default-lighter  "")
       (add-hook
