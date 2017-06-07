@@ -1950,9 +1950,11 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | ~SPC j 0~   | go to the beginning of line (and set a mark at the previous location in the line) |
 | ~SPC j $~   | go to the end of line (and set a mark at the previous location in the line)       |
 | ~SPC j b~   | undo a jump (go back to previous location)                                        |
+| ~SPC j c~   | jump to the last line changed                                                     |
 | ~SPC j d~   | jump to a listing of the current directory                                        |
 | ~SPC j D~   | jump to a listing of the current directory (other window)                         |
 | ~SPC j f~   | jump to the definition of an Emacs Lisp function                                  |
+| ~SPC j g~   | jump to a line in the buffer                                                      |
 | ~SPC j i~   | jump to a definition in buffer (imenu)                                            |
 | ~SPC j I~   | jump to a definition in any buffer (imenu)                                        |
 | ~SPC j j~   | jump to a character in the buffer (works as an evil motion)                       |

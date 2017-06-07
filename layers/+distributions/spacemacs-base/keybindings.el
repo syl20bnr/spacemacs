@@ -230,7 +230,9 @@
 (spacemacs/set-leader-keys
   "j0" 'spacemacs/push-mark-and-goto-beginning-of-line
   "j$" 'spacemacs/push-mark-and-goto-end-of-line
+  "jc" 'goto-last-change
   "jf" 'find-function
+  "jg" 'goto-line
   "jv" 'find-variable)
 
 ;; Compilation ----------------------------------------------------------------
