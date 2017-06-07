@@ -15,7 +15,7 @@
 
 (defvar kl-layout 'dvorak
   "The keyboard-layout to use. Possible values are `colemak',
-`dvorak', `bepo' and `workman'.")
+`dvorak', `bepo', `workman', and `neo'.")
 
 (defvar kl-enabled-configurations nil
   "If non nil, `keyboard-layout' will enable configurations only
@@ -76,7 +76,16 @@ any case.")
                 ("h" . "y")
                 ("j" . "n")
                 ("k" . "e")
-                ("l" . "o"))))
+                ("l" . "o")))
+    (neo . (("s" . "h")
+            ("n" . "j")
+            ("r" . "k")
+            ("t" . "l")
+            ;;
+            ("l" . "s")
+            ("j" . "n")
+            ("h" . "r")
+            ("k" . "t"))))
   "The base rebinding map. Dots should be read as `will behave
   as'. It should be a bidirectional mapping, i.e. all present
   keys should be once in each column.")
