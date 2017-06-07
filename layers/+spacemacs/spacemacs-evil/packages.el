@@ -252,7 +252,12 @@
 
 (defun spacemacs-evil/init-evil-unimpaired ()
   ;; No laziness here, unimpaired bindings should be available right away.
-  (use-package evil-unimpaired))
+  (use-package evil-unimpaired
+    :init
+    (progn
+      ;; Jumping to an error should not be repeated when pressing the '.' key
+      (evil-declare-ignore-repeat 'spacemacs/next-error)
+      (evil-declare-ignore-repeat 'spacemacs/previous-error))))
 
 (defun spacemacs-evil/init-evil-visual-mark-mode ()
   (use-package evil-visual-mark-mode
