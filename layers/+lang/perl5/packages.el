@@ -20,9 +20,18 @@
 (defun perl5/init-cperl-mode ()
   (use-package cperl-mode
     :defer t
-    :mode "\\.\\([pP][pLlm]\\|al\\)\\'"
+    :mode "\\.\\(p[lm]x?\\|P[LM]X?\\)\\'"
     :interpreter "perl"
     :interpreter "perl5"
+
+    :init
+    (progn
+      (setq cperl-highlight-variables-indiscriminately t) ;; highlight all scalar variables not just the instantiation
+      (setq cperl-indent-level 4) ;; 4 spaces is the standard indentation
+      (setq cperl-close-paren-offset -4) ;; indent the closing paren back four spaces
+      (setq cperl-continued-statement-offset 4) ;; if a statement continues indent it to four spaces
+      (setq cperl-indent-parens-as-block t)) ;; parentheses are indented with the block and not with scope
+
     :config
     (progn
       ;; Don't highlight arrays and hashes in comments
@@ -74,17 +83,6 @@
       ;; Use less horrible colors for cperl arrays and hashes
       (set-face-attribute 'cperl-array-face nil :foreground  "#DD7D0A"    :background  'unspecified :weight 'unspecified)
       (set-face-attribute 'cperl-hash-face nil  :foreground  "OrangeRed3" :background  'unspecified :weight 'unspecified)
-      (setq cperl-highlight-variables-indiscriminately t)
-
-      ;; default settings
-      (setq cperl-indent-level 4) ;; 4 spaces is the standard indentation
-      (setq cperl-close-paren-offset -4) ;; indent the closing paren back four spaces
-      (setq cperl-continued-statement-offset 4) ;; if a statement continues indent it to four spaces
-      (setq cperl-indent-parens-as-block t) ;; parentheses are indented with the block and not with scope
-
-      ;; tab key will indent all marked code when pressed
-      (add-hook 'cperl-mode-hook
-                (lambda () (local-set-key (kbd "<tab>") 'indent-for-tab-command)))
 
       (font-lock-add-keywords 'cperl-mode
                               '(("\\_<const\\|croak\\_>" . font-lock-keyword-face)))
@@ -92,7 +90,6 @@
                               '(("\\_<say\\|any\\_>" . cperl-nonoverridable-face))))))
 
 (defun perl5/post-init-smartparens ()
-  :config
   ;; fix a bug with electric mode and smartparens https://github.com/syl20bnr/spacemacs/issues/480
   (with-eval-after-load "cperl-mode"
     (add-hook 'smartparens-enabled-hook  (lambda () (define-key cperl-mode-map "{" nil)))
