@@ -36,9 +36,9 @@
       (setq python-shell-interpreter "python"))))
 
 (defun spacemacs//python-setup-hy ()
-  (setq-local hy-mode-inferior-lisp-command
-              (concat (or (spacemacs/pyenv-executable-find "hy") "hy")
-                      " --spy")))
+  (setq hy-mode-inferior-lisp-command
+        (concat (or (spacemacs/pyenv-executable-find "hy") "hy")
+                " --spy")))
 
 (defun spacemacs//python-setup-checkers (&rest args)
   (when (fboundp 'flycheck-set-checker-executable)
