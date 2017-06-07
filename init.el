@@ -32,3 +32,5 @@
   (spacemacs/setup-startup-hook)
   (require 'server)
   (unless (server-running-p) (server-start)))
+
+(advice-add 'shell :after (lambda (&rest _) (shell/init-shell)))
