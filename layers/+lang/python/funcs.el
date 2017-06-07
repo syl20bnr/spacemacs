@@ -25,7 +25,7 @@
             (string-trim pyenv-string))))
     (executable-find command)))
 
-(defun spacemacs/python-setup-shell (&rest args)
+(defun spacemacs//python-setup-shell (&rest args)
   (if (spacemacs/pyenv-executable-find "ipython")
       (progn (setq python-shell-interpreter "ipython")
              (if (version< (replace-regexp-in-string "\n$" "" (shell-command-to-string "ipython --version")) "5")
@@ -35,14 +35,24 @@
       (setq python-shell-interpreter-args "-i")
       (setq python-shell-interpreter "python"))))
 
-(defun spacemacs/python-setup-checkers (&rest args)
-  (let ((pylint (spacemacs/pyenv-executable-find "pylint"))
-        (flake8 (spacemacs/pyenv-executable-find "flake8")))
-    (when pylint
-      (flycheck-set-checker-executable "python-pylint" pylint))
-    (when flake8
-      (flycheck-set-checker-executable "python-flake8" flake8))
-    ))
+(defun spacemacs//python-setup-hy ()
+  (setq-local hy-mode-inferior-lisp-command
+              (concat (or (spacemacs/pyenv-executable-find "hy") "hy")
+                      " --spy")))
+
+(defun spacemacs//python-setup-checkers (&rest args)
+  (when (fboundp 'flycheck-set-checker-executable)
+    (let ((pylint (spacemacs/pyenv-executable-find "pylint"))
+          (flake8 (spacemacs/pyenv-executable-find "flake8")))
+      (when pylint
+        (flycheck-set-checker-executable "python-pylint" pylint))
+      (when flake8
+        (flycheck-set-checker-executable "python-flake8" flake8)))))
+
+(defun spacemacs/python-setup-everything (&rest args)
+  (apply 'spacemacs//python-setup-shell args)
+  (apply 'spacemacs//python-setup-hy args)
+  (apply 'spacemacs//python-setup-checkers args))
 
 (defun spacemacs/python-toggle-breakpoint ()
   "Add a break point, highlight it."

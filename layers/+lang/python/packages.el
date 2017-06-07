@@ -129,17 +129,11 @@
     :init
     (spacemacs/set-leader-keys-for-major-mode 'python-mode "hd" 'helm-pydoc)))
 
-(defun python/find-hy-executable ()
-  (setq-local hy-executable (or (spacemacs/pyenv-executable-find "hy") "hy"))
-  (setq-local hy-mode-inferior-lisp-command (concat hy-executable " --spy")))
-
 (defun python/init-hy-mode ()
   (use-package hy-mode
     :defer t
     :init
     (progn
-      (add-hook 'hy-mode-hook 'python/find-hy-executable)
-      (add-hook 'pyvenv-post-activate-hooks 'python/find-hy-executable)
       (spacemacs/set-leader-keys-for-major-mode 'hy-mode
         "si" 'inferior-lisp
         "sb" 'lisp-load-file
@@ -148,7 +142,9 @@
         "sf" 'lisp-eval-defun
         "sF" 'lisp-eval-defun-and-go
         "sr" 'lisp-eval-region
-        "sR" 'lisp-eval-region-and-go))))
+        "sR" 'lisp-eval-region-and-go)
+      ;; call `spacemacs/python-setup-hy' once, don't put it in a hook (see issue #5988)
+      (spacemacs/python-setup-hy))))
 
 (defun python/init-live-py-mode ()
   (use-package live-py-mode
@@ -207,7 +203,7 @@
                   'spacemacs//pyenv-mode-set-local-version)))
       ;; setup shell correctly on environment switch
       (dolist (func '(pyenv-mode-set pyenv-mode-unset))
-        (advice-add func :after 'spacemacs/python-setup-shell))
+        (advice-add func :after 'spacemacs/python-setup-everything))
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "vu" 'pyenv-mode-unset
         "vs" 'pyenv-mode-set))))
@@ -232,8 +228,7 @@
           "Vw" 'pyvenv-workon))
       ;; setup shell correctly on environment switch
       (dolist (func '(pyvenv-activate pyvenv-deactivate pyvenv-workon))
-        (advice-add func :after 'spacemacs/python-setup-shell)
-        (advice-add func :after 'spacemacs/python-setup-checkers)))))
+        (advice-add func :after 'spacemacs/python-setup-everything)))))
 
 (defun python/init-pylookup ()
   (use-package pylookup
@@ -281,7 +276,6 @@
         (spacemacs/python-annotate-pdb)
         ;; make C-j work the same way as RET
         (local-set-key (kbd "C-j") 'newline-and-indent))
-
 
       (defun inferior-python-setup-hook ()
         (setq indent-tabs-mode t))
