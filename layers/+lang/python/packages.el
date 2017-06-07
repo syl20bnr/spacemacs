@@ -130,7 +130,8 @@
     (spacemacs/set-leader-keys-for-major-mode 'python-mode "hd" 'helm-pydoc)))
 
 (defun python/find-hy-executable ()
-  (setq-local hy-mode-inferior-lisp-command (concat (spacemacs/pyenv-executable-find "hy") " --spy")))
+  (setq-local hy-executable (or (spacemacs/pyenv-executable-find "hy") "hy"))
+  (setq-local hy-mode-inferior-lisp-command (concat hy-executable " --spy")))
 
 (defun python/init-hy-mode ()
   (use-package hy-mode
