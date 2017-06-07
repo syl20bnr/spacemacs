@@ -1,0 +1,2554 @@
+This is template.info, produced by makeinfo version 4.12 from
+/sapmnt/home1/d029492/.emacs.d/lisp/published/template.texi.
+
+This manual is for the Emacs package "template" (3.1c/3.3b/diffs,
+updated March 2015).
+
+   Copyright (C) 2008 Vincent Belaïche, 2015 Free Software Foundation,
+Inc.
+
+     Permission is granted to make and distribute verbatim copies of
+     this manual provided the copyright notice and this permission
+     notice are preserved on all copies.
+
+     Permission is granted to copy and distribute modified versions of
+     this manual under the conditions for verbatim copying, provided
+     also that the sections entitled "Copying" and "GNU General Public
+     License" are included exactly as in the original, and provided
+     that the entire resulting derived work is distributed under the
+     terms of a permission notice identical to this one.
+
+     Permission is granted to copy and distribute translations of this
+     manual into another language, under the above conditions for
+     modified versions, except that this permission notice may be
+     stated in a translation approved by the Free Software Foundation.
+
+INFO-DIR-SECTION Emacs
+START-INFO-DIR-ENTRY
+* Template: (template). Using and creating templates for files creation.
+END-INFO-DIR-ENTRY
+
+
+File: template.info,  Node: Top,  Next: Overview,  Prev: (dir),  Up: (dir)
+
+Top node.
+*********
+
+This is the manual of Emacs package "template" (3.1c/3.3b/diffs,
+updated March 2015).
+
+   When you create a new file with Emacs, package Template supplies an
+initial buffer content via a template: a file with normal text and
+so-called expansion forms.  You can also use new commands to decorate
+comments and update the buffer contents.
+
+* Menu:
+
+* Overview::                    Overview.
+* Installation::                how to install the template package.
+* Basics::                      How to make and use templates.
+* Advanced::                    Templates for advanced users.
+* Indexes::                     Indexes for commands, keyword, and variable.
+* News::                        News for Package Template.
+
+
+File: template.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+
+1 Overview
+**********
+
+When you create a new file with Emacs, package Template supplies an
+initial buffer content via a template: a file with normal text and
+so-called expansion forms.  The main properties are:
+
+   * Templates are defined via files, not by customizing your Emacs.
+     There is a menu to easily create such templates.
+
+   * The template mechanism is hooked into the normal find/open file
+     command.  There are also new commands for creating a new file
+     using a template and inserting and expanding a template.
+
+   * You do not have to enter the file name of the template file.  This
+     package uses a sophisticated search to find the most appropriate
+     template (supporting project- and subproject specific template
+     files).  You can change the suggestion, of course.
+
+   * A template file can be easily created - no Lisp code is required
+     even for quite sophistated templates.  Most of the file content is
+     usually simple text; only "expansion forms" which look like
+     `(>>>KEY<<<)' will get replaced.
+
+   * There are various useful predefined expansion forms: to set point
+     (the cursor position), mark and registers to the current position;
+     to insert various parts of the filename, the user/system name, the
+     current date/time in various formats, and some text to be entered
+     by the user.
+
+   * Per-template expansion rules can be defined at the end of the
+     template file.  There are commands to create these definitions;
+     only complex expansions would require some knowledge of Lisp.
+
+   Additionally, this package provides the following features:
+
+   * When saving a buffer, some parts of the buffer contents (header
+     and time stamps) are automatically updated if necessary.
+
+   * There are commands to decorate comments with dashes and alike.
+     Works for languages with any comment style, even languages having
+     mixed comments like C++ and Java.
+
+   A final word: this manual does not explain deprecated functionality,
+and tries to give a user-friendly description of this package's
+functionality.  If you are interested in deprecated uses and a more
+technical description, please consult the online help for commands
+(functions) and user options (variables) - this manual includes a list
+of all related user options and commands.
+
+
+File: template.info,  Node: Installation,  Next: Basics,  Prev: Overview,  Up: Top
+
+2 Installation
+**************
+
+This package requires Emacs-22.2, XEmacs-20.2 or higher.
+
+   To install, copy file `template.el' into your load-path, i.e. any
+directory mentioned in the value of `load-path'.  Then, byte compile
+(`M-x byte-compile-file') file `template.el'.
+
+   To enable this package, use the following sequence:
+
+   * Load this package by `M-x load-library <RET> template <RET>'.
+
+   * Customize via `M-x customize-variable <RET> template-use-package
+     <RET>'.
+
+   * Toggle the option to `in use'.
+
+   * Save your customization via `Save for future sessions'.
+
+   Alternatively, you can enable this package by adding the following
+into your Emacs init file (`~/.emacs.d/init.el'):
+
+     (custom-set-variables '(template-use-package t nil (template)))
+
+   You might want to copy the template files from the directory
+`templates/' in the distribution to `~/.templates/' and change them
+according to your preferences.
+
+   If you want to customize package Template, use `M-x customize-group
+<RET> template <RET>' or the customize entry in menu `Options'.
+
+
+File: template.info,  Node: Basics,  Next: Advanced,  Prev: Installation,  Up: Top
+
+3 Basics
+********
+
+Emacs, template, file template, comment decoration, auto-updating, time
+stamp, details
+
+* Menu:
+
+* menus::                       Menus and Key-Bindings.
+* using::                       Using a Template.
+* finding::                     Finding a Template.
+* creating::                    Creating a Template.
+* decorating::                  Decorating a Comment.
+* updating::                    Updating a Buffer.
+
+
+File: template.info,  Node: menus,  Next: using,  Prev: Basics,  Up: Basics
+
+3.1 Menus and Key-Bindings
+==========================
+
+For Emacs-21.1+ and XEmacs, this package defines the following menu
+entries and key-bindings:
+
+   * In menu `File' , there is a new menu item `New File Using
+     Template...'.  The corresponding command is also bound to the key
+     sequence `C-x t'.
+
+   * At the end of menu `Cmds' (in XEmacs if it exists) or menu  `Edit'
+     , there is a new submenu `Template Creation'.
+
+   * Enter `C-x C-=' (command `template-single-comment') to insert
+     dashes and alike into the current line and end the comment.
+
+   * Enter `C-x C-;' (command `template-single-comment') to insert
+     dashes and alike around the current comment block.
+
+   * At the end of menu `Edit' , there is a new submenu `Comment'.  It
+     also contains the two commands just mentioned.
+
+
+File: template.info,  Node: using,  Next: finding,  Prev: menus,  Up: Basics
+
+3.2 Using a Template
+====================
+
+Package Template offers various ways how to use template files:
+
+   In Emacs, the usual way to create a new file is by typing `C-x C-f',
+using the menu or the toolbar (running command `find-file' or `ffap')
+and entering a non-existent file name.  In this case, you will be asked
+whether to use a template for the new file.  You can turn off this
+feature.
+
+   * There is a new command `template-new-file' (1) to create a new
+     file using a template.  Here, you have the chance to edit the name
+     of the template file.  This command also supports file name
+     refinement which is useful to create a file in a series of files
+     like `exercise2.tex' etc.
+
+   * There is also a command (`M-x template-expand-template') to insert
+     a template file into the current buffer and expand its expansion
+     forms.
+
+   For more `template-new-file' and `template-auto-insert',  *Note
+TplProcOverview::.
+
+   ---------- Footnotes ----------
+
+   (1) for the menu entry and its key-binding type `C-h f
+template-new-file', *Note TplProcOverview::.
+
+
+File: template.info,  Node: finding,  Next: creating,  Prev: using,  Up: Basics
+
+3.3 Finding a Template
+======================
+
+The algorithm for finding the most appropriate template can be best
+explained with a little example:
+
+   * You have a project `~/proj/' with subprojects `foo/' and `bar/'
+     containing `.java' files.
+
+   * You want to define a general template for the `.java' in your
+     project files, although `.java' files in subproject `foo/' should
+     use their own template.  You also want to define a special
+     template for all files `proj.java' in the project.
+
+   * Since you do not want to clutter the project directory with
+     template files, you first create a directory `~/proj/Templates/'.
+     In this directory, you create new files `TEMPLATE.java.tpl' and
+     `proj.java.tpl'.  In directory `~/proj/foo/', you create a new
+     file `TEMPLATE.java.tpl'.
+
+   The creation of the template files in the right directory is already
+enough for packages Template to find the most appropriate template for
+a new file:
+
+   * If you create a new file `~/proj/foo/abc.java', this package tries
+     to find a template based on the file extension of the new file.
+     The generic base file name for a template is `TEMPLATE' and the
+     additional extension is `.tpl', a file `TEMPLATE.java.tpl' exists
+     in `~/proj/foo/', so that file is used as the template.
+
+   * If you create a new file `~/proj/bar/abc.java', this package again
+     tries to find `TEMPLATE.java.tpl'.  Since this file doesn't exist
+     in `~/proj/bar/', it first inspects the subdirectory `Templates/'
+     which doesn't exist.  The search continues with the parent
+     directory `~/proj/' and then its subdirectory `Templates/'.  Thus
+     `~/proj/Templates/TEMPLATE.java.tpl' will be used.
+
+   * If you create a new file `~/proj/foo/proj.java', this package finds
+     a template file with the same base name: it uses
+     `~/proj/Templates/proj.java.tpl'.  You might argue that
+     `~/proj/foo/TEMPLATE.java.tpl' resides in a more specific
+     directory, but having the same base name is considered to be more
+     important (remember that some file like Makefiles do not have file
+     extensions).
+
+   * If you create a new file `~/other_proj/foo/proj.java', i.e., a
+     project where you have defined no template files, this package
+     uses one of the default templates, in this case
+     `~/.templates/TEMPLATE.java.tpl'.
+
+   For more on derivation *Note Derivation::.
+
+
+File: template.info,  Node: creating,  Next: decorating,  Prev: finding,  Up: Basics
+
+3.4 Creating a Template
+=======================
+
+There are various predefined expansions which are probably enough for
+most templates. A corresponding expansion forms can be easily inserted
+by selecting the appropriate entry in the new submenu `Template
+Creation':
+
+   * Remember positions: use `(>>>POINT<<<)' to set point (the cursor
+     position), `(>>>MARK<<<)' to set mark (e.g., the opposite position
+     when a region is highlighted), and `(>>>1<<<)' to `(>>>0<<<)' to
+     registers to the current position.  Remember that `C-x r j KEY'
+     jumps to the position stored in register KEY.
+
+   * Insert parts of the file name, e.g., when creating the new file
+     `~/proj/foo/abc1.java': `(>>>DIR<<<)' is replaced by
+     `/home/user/proj/foo/', `(>>>FILE<<<)' by `abc1.java',
+     `(>>>FILE_SANS<<<)' by `abc1' , `(>>>FILE_UPCASE<<<)' by `ABC1' ,
+     `(>>>FILE_RAW<<<)' by `abc', `(>>>FILE_NUM<<<)' by `1' , and
+     `(>>>FILE_EXT<<<)' by `java'.
+
+   * Insert the current date/time in two customizable and three fixed
+     formats: use `(>>>DATE<<<)' for `20 Feb 2002', `(>>>TIME<<<)' for
+     `20:01:13' , `(>>>YEAR<<<)' for `2002' , `(>>>ISO_DATE<<<)' for
+     `2002-02-20' , and `(>>>VC_DATE<<<)' for `2002/02/20 19:01:13'
+
+   * Insert the user/system name in various formats: use
+     `(>>>AUTHOR<<<)' for <Christoph Wedler
+     <wedler@fmi.uni-passau.de>>, `(>>>USER_NAME<<<)' for `Christoph
+     Wedler' , `(>>>LOGIN_NAME<<<)' for `wedler', and
+     `(>>>HOST_ADDR<<<)' for `fmi.uni-passau.de'.
+
+   * Ask the user for some initial comment.  If this expansion is used,
+     the buffer for the new file will be marked as modified.  For each
+     undefined expansion, the user is also asked.
+
+   * Disabling the search for expansion forms: `(>>>ZERO_FORM<<<)' can
+     be inserted into a string which will be otherwise regarded as an
+     expansion form, the region between `(>>>LITERAL<<<)' and the first
+     `(>>>/LITERAL<<<)' after it will be skipped(1).
+
+   You can define your own expansion forms in your Emacs init file and
+at the end of a template file(2). A corresponding per-template
+definition section can be easily inserted by selecting the appropriate
+entry in the new submenu `Template Creation':
+
+   * `Define User Input'.  Ask the user to insert some text using some
+     specific prompt.  Optionally, ask for a text with completion, or
+     for a sequence of user input (exit with empty input).
+
+   * `Define Text Register'.  Define a text for register REG which can
+     be inserted with `C-x r i REG'.  Optionally, provide a comment for
+     it which will be temporarily shown at point.
+
+   * `Define Message'.  Define a message which will be temporarily
+     shown at point or before/after the expansion in a special buffer.
+     There is also a computed message in the echo area.
+
+   * Execute some Lisp coding defined at the end of the template.  By
+     default, you have to confirm it first, since it is insecure to
+     execute unchecked coding.  (You do not have menu support to define
+     this kind of expansion.)
+
+   ---------- Footnotes ----------
+
+   (1) For more on escaping, *Note Escaping::.
+
+   (2) For more on creation of new expansion forms *Note ExpRules::.
+
+
+File: template.info,  Node: decorating,  Next: updating,  Prev: creating,  Up: Basics
+
+3.5 Decorating a Comment
+========================
+
+There are commands to decorate comments with dashes and alike (`-', `='
+and `#' by default).  Both commands are included in the new submenu
+`Comments' and bound to keys:
+
+   * Use command `template-single-comment' to jump to the end of the
+     current line and insert the dashes and the final comment
+     end-string up-to the fill position.  This command works with any
+     comment style, including for languages having mixed comments like
+     C++ and Java.  It also works in major modes without a defined
+     comment syntax.
+
+   * Use command `template-block-comment' to surround the current
+     comment block (i.e., contiguous comment lines) with extra lines
+     containing dashes and alike and to put the correct number of
+     newlines around the block.  This command only works with comments
+     which are terminated with the end of the line (like Java's `//'
+     comment).
+
+   The comment decoration style is highly customizable and can be
+controlled by
+
+   * The prefix argument given to the two commands.
+
+   * The existing comment decoration style when present.
+
+   * Determined by the indentation or the repetition of a
+     single-character comment start (like Emacs-Lisp's `;').
+
+   For more on comments *Note Comments::.
+
+
+File: template.info,  Node: updating,  Prev: decorating,  Up: Basics
+
+3.6 Updating a Buffer
+=====================
+
+A buffer is automatically updated according to some rules when saving
+the file.  This updating can be invoked explicitly by selecting the menu
+entry `Update Buffer' in the new submenu `Comments'(1).
+
+   * Update the file name in the first three lines of the buffer if the
+     file name is indicated by `@(#) FILENAME' or `;;; FILENAME --'
+     where `;;;' stands for any comment start (with optional repetition
+     of a single-character comment start).
+
+   * Update the date if it is the last text inside the `address'
+     element of a HTML buffer.
+
+   * Automatic updating is optional, as is user confirmation for it.
+     Automatic updating can be disabled for buffers whose file name
+     matches a regular expression.
+
+   * If nothing will be changed by the updating, there will be no user
+     confirmation and the buffer will not be marked as modified.
+
+   ---------- Footnotes ----------
+
+   (1) For more on buffer updating, *Note BufferUpd::.
+
+
+File: template.info,  Node: Advanced,  Next: Indexes,  Prev: Basics,  Up: Top
+
+4 Templates for advanced users
+******************************
+
+From this node you can access to the detailed documentation for the
+three main features of the templates package.
+
+   Template processing is all that happens to convert a template file
+into a target file. The main entry point of template processing is the
+interactive command `template-new-file'. Template processing involves a
+number of steps including notably the derivation of the correct template
+file from the target file name, and the expansion step.
+
+   Follow *note TplProcOverview:: for information on the template
+processing.
+
+   Comment decoration insertion concerns commands to insert some
+comments delimitations including additional fancy patterns decorating
+the comment. For instance in C language to make a comment that would
+like that:
+     /* ================================================
+     ** The surrounding `/', `*' and `=' of this text
+     ** where inserted by the template package
+     ** ================================================ */
+
+   Follow *note Comments:: for information on how to customize commands
+for comment decoration insertion.
+
+   The template package can recognize in a file special forms, called
+buffer update forms, that allows to update some text next to this form
+either automatically, or on demand. For instance you could update
+automatically some timestamp each time that you save a file.
+
+   Follow *note BufferUpd:: for information on special template forms
+for buffer automatic update, and on commands that allow to use them.
+
+* Menu:
+
+* TplProcOverview::             Template processing means going from a template file to a
+              target file.
+* Comments::                    Customization of comments.
+* BufferUpd::                   Buffer updating.
+
+
+File: template.info,  Node: TplProcOverview,  Next: Comments,  Prev: Advanced,  Up: Advanced
+
+4.1 Template processing
+=======================
+
+Template processing involves a number of steps that are listed along
+with the documentation of the interactive command `template-new-file'
+(`C-x t'), *Note NewFileSteps::.
+
+   You can influence most of these steps using emacs customization
+facility accessible with command `M-x customize-group <RET> template
+<RET>'(1). Specific customization sub-group `template-derivation',
+`template-expansion' and `template-miscellaneous' allow you to access
+more directly variables concerning respectively the template derivation
+step, the expansion step, or miscellaneous settings concerning notably
+template messages and registers.
+
+   For more details specifically on the template derivation step, *Note
+Derivation::, and for more details on the expansion step, *Note
+ExpStep::.
+
+   Now, expansion is based on expansion rules which may involve testing
+some settings that are not user options of the template package, but
+settings of other packages or of basic emacs.  In general we call
+"expansion setting" a variable on which depends the expansion of some
+expansion form. For a complete list of default expansion forms and the
+corresponding expansion settings, if any, *Note DefltExp::.
+
+   Note that all pre-defined expansion rules are not in the list of
+default expansion rules: when no expansion rules can be found for an
+expansion form, neither in the default expansion rules, nor in the user
+defined expansion rules, implicit expansion rules are applied, *Note
+ImplicitER::.
+
+   Remember that when you customize template user options, or other
+expansion settings with the emacs customization facility, the setting
+will apply for all templates. If you want to make some per-template
+specific setting, then you need to create a template file with a
+"per-template definition section". The definition section reading step
+is carried out before the expansion step and allows to define template
+statements not only like expansion rules or expansion settings, but
+also other template statements creating template messages, registers,
+pre and post expansion commands, and a few other things.
+
+   For more on writing per template definition section, *Note
+DefinitionSect::.
+
+   Finally, you may simply want to escape some string in a template from
+being interpreted by the template package as some special marker such as
+an expansion form, an alias of an expansion form, or the definition
+section start mark. For more on this, *Note Escaping::.
+
+* Menu:
+
+* NewFileSteps::                Overview of template processing steps.
+* Derivation::                  Customization of the template derivation step.
+* ExpStep::                     How expansion forms, rules and settings interact during the
+   expansion step.
+* ExpRules::                    Define new expansion rules.
+* ExpSetting::                  Make expansion settings affecting the way expansion forms
+   are processed.
+* DefltExp::                    List of default expansion forms and corresponding
+  expansion settings.
+* ImplicitER::                  Implicit expansion rules applied when no explicit
+ expansion rule is found.
+* DefinitionSect::              definitions specific to one template are put in the
+        per-template definition section.
+* Escaping::                    preventing strings with reserved value from being
+   recognized as such.
+
+   ---------- Footnotes ----------
+
+   (1) For more on Emacs customization facility, *Note (emacs) Easy
+Customization::.
+
+
+File: template.info,  Node: NewFileSteps,  Next: Derivation,  Prev: TplProcOverview,  Up: TplProcOverview
+
+4.1.1 Template processing steps overview
+----------------------------------------
+
+ -- Command: template-new-file file template &optional with-undo
+     Open a new file FILE by using a TEMPLATE.  Using a template for
+     creating a new file consists of, steps 1 to 3 are only executed
+     when called interactively:
+       1. Prompt for the name of the new file.
+
+       2. Template derivation: suggest a reasonable template file to
+          the user see `template-derivation-alist'.
+
+       3. File name refinement: e.g., if the given file name is
+          `exercise' and there are two files `exercise1.tex' and
+          `exercise2.tex' in the same directory and if we have a
+          template `exercise.tex.tpl', the file name is refined to
+          `exercise3.tex'.  This is turned off when `C-x t' is called
+          with a prefix argument.
+
+       4. Template insertion: insert the template file into the empty
+          buffer.
+
+       5. Per-template definition section reading: Seek for the start
+          mark of the per-template definition section as defined by
+          `template-definition-start'. If found, collect all the
+          subsequence template statements in the definition section,
+          and then delete the buffer region containing the definition
+          section.
+
+       6. Display: before message in `template-message-buffer'.
+
+       7. Execute pre-expansion commands defined in the definition
+          section.
+
+       8. Set local variables defined in the definition section.
+
+       9. Expansion: expand the expansion forms (text matched by
+          variable `template-expansion-regexp'). They are defined in
+          the definition section, in variable
+          `template-expansion-alist', or provided by default, see
+          `template-expansion-regexp' and variable
+          `template-register-regexp'.
+
+      10. Execute post-expansion commands defined in the definition
+          section.
+
+      11. Run command `normal-mode' and functions in variable
+          `find-file-hooks'.
+
+      12. Update header by calling command `template-update-header' with
+          argument `if-exists'.
+
+      13. Display: after message in `template-message-buffer'.
+
+      14. Report: display a temporary message at point defined in the
+          definition section and an automatically generated message in
+          the minibuffer area, see `template-message-timeout'.
+
+     If optional WITH-UNDO is non-nil, store corresponding changes in
+     `buffer-undo-list'.  If FILE is nil, the buffer for FILE has
+     already been created and the accessible part will be replaced by
+     the expanded template.  If TEMPLATE is nil (empty input when called
+     interactively), do not use a template.
+
+ -- User Option: template-auto-insert
+     Whether to automatically use template files for new files. Used if
+     the user gave a non-existent file as argument to a command in
+     `template-find-file-commands'.  When non-nil and a matching
+     template file can be found, use a template like in
+     `template-new-file'.  File name refinement is never performed, see
+     `template-derivation-alist'.
+
+     With value `t', do not ask for confirmation.
+
+     You should have called `template-initialize' (from your init file)
+     to enable this feature.
+
+
+File: template.info,  Node: Derivation,  Next: ExpStep,  Prev: NewFileSteps,  Up: TplProcOverview
+
+4.1.2 Customization of how templates are derived
+------------------------------------------------
+
+When the user invokes `template-new-file' (`C-x t'), the package
+templates asks the user for a filename for the target file to be
+created. Then a template filename is derived from the user supplied
+target file filename, and the user is asked for confirmation of this
+template filname. Then target file supplied filename maybe refined into
+the actual final filename for the target file.
+
+ -- User Option: template-derivation-alist
+     Alist for template file name derivation and file name refinement.
+     Template derivation searches for the most specific readable
+     template file.  By default, files with the same RAW part as the
+     name of the new file are considered to be more specific than files
+     with just the same EXT part.  Also files in the same directory are
+     considered to be more specific than files in their parent
+     directory or any default template directory.  This behavior can be
+     changed by this alist.
+
+     Each FORM in this alist has the form `(TEMPLATE . REFINEMENT)'.
+     If TEMPLATE matches, we have found a valid template file and the
+     corresponding REFINEMENT is used for the file name refinement.
+
+     Before the derivation, the given file name is split into the
+     directory part DIR, the file name without directory FILE, and the
+     raw part RAW of FILE, the numbering NUM and the extension EXT.
+     The result is stored in `template-file'.
+
+     TEMPLATE can have the form (FUNCTION ARG...).  If TEMPLATE
+     matches, FUNCTION, called with arguments ARGs, should return the
+     split template file name, see `template-split-filename'.
+
+     TEMPLATE can also have the form (T-RAW T-NUM T-EXT F-REGEXP) where
+     all elements are optional, i.e., have value nil as default.  For
+     TEMPLATE to match, all conditions T-RAW, T-NUM and T-EXT must be
+     met and F-REGEXP, if non-nil, should match FILE, the non-directory
+     part of the given file name.  If a condition is a string, the
+     corresponding part of the template file must be equal to it.  If
+     t, the part must be equal to RAW/NUM/EXT of the given file name.
+     If nil, any value will do it.  Any other value acts like t when
+     the part of the given file name is non-empty, as nil otherwise.
+
+     REFINEMENT can have the form `(FUNCTION ARG...)'.  FUNCTION,
+     called with the list of the split template filename and ARGs as
+     arguments, should set `template-file' if the file name should be
+     refined.
+
+     REFINEMENT can also have the form `(F-RAW F-NUM F-EXT AUTO-NUM)'
+     where all elements are optional, i.e., have value nil as default.
+     If F-RAW, F-NUM and F-EXT are non-`nil', they change RAW/NUM/EXT of
+     `template-file'.  A string will be used as the new part.  If `t',
+     the corresponding part of the template name will be used.
+
+     We will use auto numbering in the following two cases: if NUM is
+     non-empty and the file exists already, or if NUM is empty and
+     AUTO-NUM is non-nil.  Auto numbering looks at the file names in
+     DIR to generate the next unique number which is at least as high
+     as NUM in the first case and AUTO-NUM in the second.
+
+     Let us use parts of the default value as examples:
+
+     Use a template with the same RAW part of the given file name and
+     the same EXT part if provided, e.g., for `exercise2' use template
+     `exercise.tex.tpl'.  Refine file name to use the extension of the
+     template file, also use auto numbering, e.g., if files
+     `exercise2.tex' and `exercise3.tex' exist, refine name to
+     `exercise4.tex': ((t nil null) . (nil nil t 1))
+
+     For a file with extension EXT, use `TEMPLATE.EXT':
+
+            (("TEMPLATE" "" t))
+
+     We could define: If the given file name starts with `00', use
+     template `00readme.txt.tpl'.  Refine file name to `00readme.txt':
+
+            (("00readme" "" ".txt" "\\`00") . ("00readme" "" ".txt"))
+
+     Since more than one template file could meet this conditions, the
+     template derivation searches for first readable file with extension
+     `template-extension' which is found by the following algorithm:
+
+            forall FORMs in `template-derivation-alist' do
+              for directory BASE from DIR
+                     while not stopped according to `template-stop-derivation' do
+                forall subdirectories DIRs in `template-subdirectories'
+                       relative to BASE do
+                  forall TEMPLATEs in DIR do
+                    if check_form (FORM, FULL, TEMPLATE) return TEMPLATE
+              forall directories DIRs in `template-default-directories' do
+                forall TEMPLATEs in DIR do
+                  if check_form (FORM, FULL, TEMPLATE) return TEMPLATE
+            if not used via `template-auto-insert'
+              forall TEMPLATEs in `template-default-directories'
+                     where name_nondir (TEMPLATE) = "DEFAULT.tpl" do
+                if readable (TEMPLATE) return TEMPLATE
+              return TEMPLATE in first (`template-default-directories')
+                     where name_nondir (TEMPLATE) = "DEFAULT.tpl"
+
+
+File: template.info,  Node: ExpStep,  Next: ExpRules,  Prev: Derivation,  Up: TplProcOverview
+
+4.1.3 How expansion forms, rules and settings interact during the expansion step
+--------------------------------------------------------------------------------
+
+The processing of a template file involves several steps. One of this
+step is the expansion step. For more on what preceeds and succeeds this
+step during template processing, *Note ExpStepInNewFile::.
+
+   During the expansion step, the buffer is scanned for expansion
+forms, and each time an expansion form is met, it is processed
+according to some corresponding expansion rule.
+
+   An "expansion form" is a string that matches the regular
+expression(1) in variable `template-expansion-regexp', and for which an
+expansion rule exists explicitly or implicitly. With the default
+setting of `template-expansion-regexp', an expansion form is a string
+that looks like `(>>>KEY<<<)', where KEY is a string with only digits,
+ASCII letters, and underscore `_' in it.
+
+   During the expansion step, when the template package finds a match
+for the `template-expansion-regexp', it carries out the following
+actions:
+  1. Derives an expansion key from the expansion form.
+
+  2. Based on the expansion key it seeks for an explicit, or implicit
+     expansion rule associated to this key,
+
+  3. It evaluates some expression SEXP contained in the expansion rule
+     that was found, which may involve inserting some string at point.
+     In this case, the expansion form would be expanded in this string.
+     However other type of actions are possible, like setting a
+     position register to point.
+
+   An "expansion key" is a string uniquely associated to an expansion
+form. This key is used as a search key to find the corresponding
+expansion rule. The derivation of the expansion key from the expansion
+form is also based on the regular expression in
+`template-expansion-regexp'. The expansion key is the matched string
+for the first `\( ... \)' grouping construct in the regular expression
+stored in `template-expansion-regexp'. For typical settings, if
+`(>>>KEY<<<)' is an expansion form, then KEY is the corresponding
+expansion key.
+
+   Once the expansion key has been derived, the template package checks
+whether there exists some expansion rule for this key.  An "expansion
+rule" is a rule that associate some action SEXP to some key KEY
+resulting from meeting some an expansion form during the expansion
+step. The expansion rules in effect during the expansion step are found
+by order of descending precedence in:
+
+  1. The per-template definition section
+
+  2. The `template-default-expansion-alist' variable, *Note DefltExp::.
+
+  3. The `template-expansion-alist' variable
+
+  4. Implicit expansion rules are applied otherwise
+
+   Remember that the way how an expansion form is expanded may depend on
+some expansion setting. In some case it is a better alternative to alter
+an expansion setting for an existing expansion form than to define a new
+expansion rule.
+
+   If you want to affect the template processing in other ways, like
+displaying messages, or executing some specific command, you need to
+make template statements other than expansion rules or expansion
+settings. *Note DefinitionSect::.
+
+   ---------- Footnotes ----------
+
+   (1) For more on regular expressions, *Note (emacs) Regexps::.
+
+
+File: template.info,  Node: ExpRules,  Next: ExpSetting,  Prev: ExpStep,  Up: TplProcOverview
+
+4.1.4 Define new expansion rules.
+---------------------------------
+
+Before thinking about creating new expansion forms, look at whether what
+you seek does not already exist in the default expansion form expansion
+rules defined in the `template-default-expansion-alist', *Note
+DefltExp::, or *Note ExpForm Index::. Also, check whether using these
+default expansion forms with specific expansion settings fulfills your
+need.
+
+* Menu:
+
+* FormatWhereEF::               How to format an expansion rule, and where to place it.
+* MyInputEF::                   Create an expansion form that require some user input and
+   expand to a string based on this input.
+* MySettingEF::                 Create an expansion form that expands to some expansion setting.
+* MyRegisterEF::                Create an expansion form that sets some Emacs register.
+* MyCommandEF::                 Create an expansion form that execute some command.
+
+
+File: template.info,  Node: FormatWhereEF,  Next: MyInputEF,  Prev: ExpRules,  Up: ExpRules
+
+4.1.4.1 How to format an expansion rule
+.......................................
+
+An expansion rule E-RULE is a Lisp object that may have the form of a
+list or that of a cons cell.
+
+   You need not know a lot about Lisp language to write expansion
+rules. If you are a complete beginner in Lisp, and for convention used
+in this manual, *Note LispObj::.
+
+   A list looks like this:
+
+     (KEYSTRING  SOME-OBJECTS )
+
+   wwhere SOME-OBJECTS is a sequence of zero, one, or more Lisp objects
+separated by blanks (space, tabs, or carriage return).
+
+   A cons cell looks like this:
+
+     (KEYSTRING  . OBJECT)
+
+   Note that in a cons cell there shall be a point `.'  between
+KEYSTRING and OBJECT).
+
+   KEYSTRING is a string lisp object containing the expansion key KEY
+in-between double-quotes like this with default settings:
+
+     "KEY"
+
+   So that expansion rules look like this respectively for the list and
+the cons cell case:
+
+     ("KEY"  SOME-OBJECTS )
+
+     ("KEY" .  OBJECT )
+
+   To have a better idea of what expansion rules actually look like,
+just have a look at the default ones in variable
+`template-default-expansion-alist'. You can see the value of this
+variable with command `C-h v template-default-expansion-alist <ret>'.
+
+   See `template-expansion-regexp' for characters allowed within an
+expansion key ; with the default value of `template-expansion-regexp',
+expansion keys are supposed to contain only ASCII letters, digits or
+underscores (`_'), and this is why we can KEYSTRING just like
+`"KEY"'(1).
+
+   It is also useful to follow the following conventions:
+
+   * upper case keys for predefined expansion forms
+
+   * lower case and digits for per-template expansion forms
+
+   * expansion forms `(>>>0<<<)' to `(>>>9<<<)' to set registers 0 to
+     9, jump to it with `C-x r j 0', etc.
+
+   A special case of the list form `("KEY" SOME-OBJECTS)' is when
+SOME-OBJECTS is absent, that is to say the expansion form is just
+`("KEY")'. In this case no action is carried out except, as usual,
+deleting the region containing the expansion form `(>>>KEY<<<)'. In
+this case `(>>>KEY<<<)' has exactly the same definition and possible
+use as `(>>>ZERO_FORM<<<)'.
+
+   If you want some expansion rule E-RULE to be in effect for all
+templates, insert it in the `template-expansion-alist', to that purpose
+type the interactive command `M-x customize-variable <ret>
+template-expansion-alist <ret>', then click on the `INS' button to
+create a new item, and then insert the E-RULE. Don't forget to click on
+`Save for Future Sessions' before finishing. If you want this expansion
+rule to be in effect for just one template file, insert a per-template
+definition section in this file, and type the expansion rule in it. To
+create a definition section, *Note DefSect::.
+
+ -- User Option: template-expansion-alist
+     User defined expansions rules. These expansion forms shadow those
+     in `template-default-expansion-alist' and are shadowed by those in
+     the per-template definition section (*note DefinitionSect::).
+
+ -- User Option: template-expansion-regexp
+     Its default value is `"(>>>\\([-A-Za-z0-9_]+\\)<<<)"'. Regexp
+     matching strings which are replaced by their expansions.  The first
+     regexp group contains the KEY used by the per-template expansion
+     rules defined in the template definition section (see
+     `template-definition-start') and the expansion rules for all
+     templates defined in `template-expansion-alist' and
+     `template-default-expansion-alist'.  The value should correspond
+     with `template-expansion-alist'.
+
+     If there is no defined expansion for the KEY, ask the user for a
+     replacement, see `template-read'.  If the KEY is matched by
+     `template-register-regexp', store buffer position in register, see
+     `template-register'.
+
+     If you want to use a text literally which is matched by this
+     regexp, use the zero expansion form `(>>>ZERO_FORM<<<)'.
+
+   ---------- Footnotes ----------
+
+   (1) If you modify the value `template-expansion-regexp' to allow
+other characters in the expansion key, then take care to type KEYSTRING
+correctly, notably note that a double quote `"' shall be escaped as
+`\"' within a Lisp string.
+
+
+File: template.info,  Node: MyInputEF,  Next: MySettingEF,  Prev: FormatWhereEF,  Up: ExpRules
+
+4.1.4.2 Input Expansion Forms
+.............................
+
+To ask the use for a string input:
+      ("KEY" "PROMPT" "PREFIX" "SUFFIX" "DEFAULT" AGAIN-P)
+   where the last four arguments are optional. User is prompted with
+PROMPT for a STRING.  If the user replies a non empty STRING, expansion
+of `(>>>KEY<<<)' will insert PREFIX STRING SUFFIX, otherwise it will
+insert DEFAULT.  You can define this expansion rule with command
+`template-define-prompt'.  For AGAIN-P, see command `template-read'.
+
+   To ask the user for a choice selection:
+        ("KEY" "PROMPT" ("ANSWER" . "TEXT")...)
+   User is prompted with with PROMPT for an input, auto-completion is
+available over all ANSWERs. Expansion of `(>>>KEY<<<)' will insert the
+TEXT corresponding to the ANSWER entered by the users. Expansion is by
+default recursive, i.e. expansion forms in TEXT will be expanded.
+
+   To ask the user for a "y or n" answer:
+        ("KEY" "PROMPT" (t . "TEXT-Y")  (nil . "TEXT-N"))
+   User is prompted with PROMPT a "y or n" question with `y-or-n-p'.
+Expansion of `(>>>KEY<<<)' will insert TEXT-X according to user's X
+answer. Expansion is recursive, i.e.  expansion forms in TEXT-X will be
+expanded. The order of `(t . "TEXT-Y")' and of `(nil . "TEXT-N")' can
+be reversed, and you may provide only one of them.
+
+ -- ExpRule function: template-read prompt &optional prefix suffix
+          default again-p
+     Ask user with PROMPT for a STRING to be inserted.  If STRING is
+     not empty, insert PREFIX STRING SUFFIX, otherwise DEFAULT.  If
+     AGAIN-P is nil, do not ask if `template-current' appears another
+     time as key in a expansion form.  If AGAIN-P is `expand', the
+     inserted region is searched for expansion forms where STRING is
+     marked as a literal environment, see
+     `template-literal-environment'.
+
+ -- ExpRule function: template-choice prompt table
+     ask user with PROMPT for a choice and insert it.  each element in
+     TABLE looks like `(ANSWER . TEXT)'.  ask for an input with
+     completion over all ANSWERs and insert corresponding TEXT if
+     ANSWER is a string, otherwise ask a "y or n" question and use the
+     result of `y-or-n-p' as ANSWER.  expansion forms in TEXT will be
+     expanded.
+
+
+File: template.info,  Node: MySettingEF,  Next: MyRegisterEF,  Prev: MyInputEF,  Up: ExpRules
+
+4.1.4.3 setting
+...............
+
+The following  expansion rule causes the insertion of the value of a
+symbol SYMBOL when the corresponding expansion form is met:
+
+      ("KEY" . SYMBOL)
+
+   If the value of SYMBOL is not a string at the time of the expansion,
+then the template package tries to format it with the format string in
+variable `template-string-default' and the Elisp function `format'.
+
+
+File: template.info,  Node: MyRegisterEF,  Next: MyCommandEF,  Prev: MySettingEF,  Up: ExpRules
+
+4.1.4.4 registers
+.................
+
+Emacs registers can be used to save positions (*note (emacs) RegPos::).
+Keep in mind that registers are like temporary variables that will be
+available just after creation of the target file: position registers
+will be lost if you close the target file.
+
+   In order to set an Emacs register to point at some position in the
+buffer use the following expansion rule where KEY is the expansion key,
+and CHAR is one character identifiying the register set to point as the
+position the corresponding expansion form is placed:
+
+     ("KEY" . ?CHAR)
+
+   You can then jump to this position with `C-x r j CHAR'.
+
+   There is also an implicit expansion rule for setting position
+registers, *Note ImplicitER::. You can also make template statement to
+set some register so some text, *Note TextRegTS::.
+
+
+File: template.info,  Node: MyCommandEF,  Prev: MyRegisterEF,  Up: ExpRules
+
+4.1.4.5 Commands
+................
+
+Expansion rules requiring the execution of one or several commands when
+the corresponding expansion form is met is just another case of the more
+generic command template statement, where the FORM-SELECTOR is
+specifying the expansion key KEY like this:
+     "KEY"
+
+   *Note CommandTS::.
+
+
+File: template.info,  Node: ExpSetting,  Next: DefltExp,  Prev: ExpRules,  Up: TplProcOverview
+
+4.1.5 Make expansion settings affecting the way expansion forms are processed
+-----------------------------------------------------------------------------
+
+In addition to defining your own expansion rules, you may make some
+specific "expansion setting"s
+
+   An expansion setting is a variable which is used by the templates
+package to derive the string into which an expansion form is expanded.
+This variable may or may not be part of the templates package. For
+instance the expansion form `(>>>USER_NAME<<<)' expands in the value of
+the variable `user-full-name' which is part of Emacs. As such, the
+variable `user-full-name' is an expansion setting.
+
+   Expansion settings may be made by order of descending precedence in:
+
+  1. The per template definition section
+
+  2. Your init file, or your custom file if you have one defined in
+     variable `custom-file', like any other variable settings. If the
+     expansion setting is a variable VAR, and that this variable is a
+     user option(1) when reading the documentation of this variable by
+     `C-h v'.
+
+   Here follow links to expansion settings that concerns default
+expansion forms:
+   * *Note IdentitiesEF::, for expansion setting that concern expansion
+     forms expanding to some identity. These are `user-mail-address',
+     `user-full-name', `user-login-name' and `mail-host-address'.
+
+   * *Note DateTimeEF::, for expansion setting that concerns time and
+     date format in expansion forms concerned with time and date. These
+     are `template-date-format' and `template-time-format'.
+
+   ---------- Footnotes ----------
+
+   (1) a user option is a variable defined by the Elisp `defcustom'
+statement, whereas an internal variable is defined by the Elisp
+`defvar' statement. User option can be set by the Emacs customization
+feature, thanks to command `customize-variable'
+
+
+File: template.info,  Node: DefltExp,  Next: ImplicitER,  Prev: ExpSetting,  Up: TplProcOverview
+
+4.1.6 Expansion forms valid by default for all templates
+--------------------------------------------------------
+
+ -- User Option: template-default-expansion-alist
+     Default expansions rules.  These expansion rules are predefined in
+     the template package and are shadowed by those in
+     `template-expansion-alist' and by those in the per-template
+     definition section (*note DefinitionSect::).  Each of the
+     predefined expansion form has a one letter key alias, see
+     `template-key-alias-alist'.
+
+   Default expansion forms may
+
+* Menu:
+
+* Filename: FilenameEF.         Expand to parts of the target file filename.
+* Registers: RegistersEF.       Set position registers.
+* DateTime: DateTimeEF.         Expand to to date and/or time in various format.
+* Identities: IdentitiesEF.     Expand to to miscalleous user and
+   machine adressed or indentity information.
+* Miscellaneous: MiscellaneousEF.  Expand to to miscalleous other things.
+
+
+File: template.info,  Node: FilenameEF,  Next: RegistersEF,  Prev: DefltExp,  Up: DefltExp
+
+4.1.6.1 filename manipulation default expansion forms
+.....................................................
+
+The "target file" is the file that is created by the
+`template-new-file' command and to which a template is applied.
+
+   Recall now that a "fullpath" is a filename identifying a file
+without regards to the current directory. For instance consider a file
+with full path `/home/clstaff/wedler/lib/text1.txt'. The fullpath is
+the concatenation of a "dirname" `/home/clstaff/wedler/lib/' which
+identifies the the directory in which is stored the file of interest
+and of a "basename" `text1.txt' which identifies the file of interest
+within this directory. The basename `text1.txt' can itself be
+decomposed into various parts:
+a basename without extension and number
+     `text'
+
+a basename without extension one (a.k.a. "sans" extension)
+     `text1'
+
+an extension
+     `txt'
+
+a file number
+     `1'
+
+   For each of these parts of the fullpath there exists default
+expansion forms as follows
+
+`(>>>DIR<<<)'
+     expands to dirname of target file, e.g. `/home/clstaff/wedler/lib/'
+
+`(>>>FILE<<<)'
+     target file basename : `text1.txt'
+
+`(>>>FILE_SANS<<<)'
+     target file basename w/o extension: `text1'
+
+`(>>>FILE_RAW<<<)'
+     target file basename without extension and number: `text'
+
+`(>>>FILE_NUM<<<)'
+     number in basename of target file: `1'
+
+`(>>>FILE_EXT<<<)'
+     extension of basename of target file, without point: `txt'
+
+`(>>>FILE_UPCASE<<<)'
+     upcase basename w/o extension of target file : `TEXT1'
+
+
+File: template.info,  Node: RegistersEF,  Next: DateTimeEF,  Prev: FilenameEF,  Up: DefltExp
+
+4.1.6.2 Set position registers
+..............................
+
+The default predefined expansion forms are:
+`(>>>POINT<<<)'
+     set point
+
+`(>>>MARK<<<)'
+     set mark, jump to it with `C-x C-x'
+
+
+File: template.info,  Node: DateTimeEF,  Next: IdentitiesEF,  Prev: RegistersEF,  Up: DefltExp
+
+4.1.6.3 Expand to to date and/or time in various format.
+........................................................
+
+`(>>>DATE<<<)'
+     date using `template-date-format': 11 Jan 1999
+
+`(>>>TIME<<<)'
+     time using `template-time-format': 11:58:49
+
+`(>>>YEAR<<<)'
+     the year: 1999
+
+`(>>>ISO_DATE<<<)'
+     ISO 8601 date: 1999-01-11
+
+`(>>>VC_DATE<<<)'
+     UTC date/time for vc: 1999/01/11 10:58:49
+
+
+File: template.info,  Node: IdentitiesEF,  Next: MiscellaneousEF,  Prev: DateTimeEF,  Up: DefltExp
+
+4.1.6.4 Expand to to miscalleous user and machine adressed or indentity information
+...................................................................................
+
+`(>>>AUTHOR<<<)'
+     Expands to the value in expansion setting  `user-mail-address' if
+     this variable is bound. Otherwise, expands to the the value of
+     expansion setting `user-login-name' following by the string
+     `@SYSTEM' were SYSTEM is the system name (like for instance the
+     network identity of your computer).
+
+`(>>>USER_NAME<<<)'
+     Expands to the vlaue in expansion setting `user-full-name'
+
+`(>>>LOGIN_NAME<<<)'
+     Expands to the value in expansion setting `user-login-name'
+
+`(>>>HOST_ADDR<<<)'
+     Expands tot the value of expansion setting `mail-host-address' is
+     it is bound and is a string, and otherwise to the system name
+     (like for instance the network identity of your computer).
+
+
+File: template.info,  Node: MiscellaneousEF,  Prev: IdentitiesEF,  Up: DefltExp
+
+4.1.6.5 MiscellaneousEF. Expand to to miscalleous other things.
+...............................................................
+
+`(>>>COMMENT<<<)'
+     ask user for initial comment
+
+`(>>>LITERAL<<<)'
+     literal text up to `(>>>/LITERAL<<<)' 
+
+`(>>>ZERO_FORM<<<)'
+     zero form, i.e., insert nothing.  Useful to insert a text part
+     matched by `template-expansion-regexp' literally.
+
+
+File: template.info,  Node: ImplicitER,  Next: DefinitionSect,  Prev: DefltExp,  Up: TplProcOverview
+
+4.1.7 Implicit expansion rules applied when no explicit expansion rule is found
+-------------------------------------------------------------------------------
+
+In case no expansion rule is found for an expansion key KEY, the
+template package applies the following implicit expansion rule:
+
+  1. If the expansion key matches the regular expression in variable
+     `template-register-regexp' then this implies that the expansion
+     key is made of one single character, and the position of the
+     corresponding expansion form will be stored in the Emacs register
+     identified by this character. What happens is that the following
+     implicit expansion rule is applied:
+
+          ( "KEY" . ?KEY-LAST-CHAR)
+
+     Where KEY-LAST-CHAR is the last character of KEY.
+
+  2. Otherwise, the template package will prompt the user for a string,
+     and then the expansion form `(>>>KEY<<<)' will expand to this
+     string wherever it is met. What happens is that the following
+     implicit expansion rule is applied:
+
+          ( "KEY" "Replacement for `KEY': ")
+
+ -- User Option: template-register-regexp
+     Regexp matching KEYs for storing point positions in registers.
+     With these KEYs, an implicit expansion rule is built to call
+     command `template-register', and not command `template-read' that
+     is called otherwise in case that no explicit expansion rule is
+     found. If a register is used twice, it is marked by a `*' in the
+     echo area after the expansion.
+
+ -- ExpRule function: template-register &optional register
+     Set current location in register REGISTER.  That is, `C-x r j
+     REGISTER' jumps to the current position.  If REGISTER is `nil',
+     use register corresponding to the last character in
+     `template-current'.
+
+
+File: template.info,  Node: DefinitionSect,  Next: Escaping,  Prev: ImplicitER,  Up: TplProcOverview
+
+4.1.8 Create New expansion forms for one template
+-------------------------------------------------
+
+The "per-template definition" section is a section placed at the end of
+a template file and where "template statements" can be placed to be in
+effect only for this template.
+
+   A "template statement" is an instruction given to the template
+package to define the template processing. A template statement is in
+general made of one of several Lisp objects.
+
+* Menu:
+
+* DefSect::                     Definition section creation, placement and processing.
+* Syntax::                      Syntax of the definition section, conventions used to
+   describe it, and types of template-statements.
+* LispObj::                     What you need to know about Lisp to write template
+  statements, and convention used in this manual.
+* ExRuleTS::                    Template statement defining expansion rules.
+* TextRegTS::                   Template statement defining a text register.
+* LocVarTS::                    Template statement defining a local variable.
+* MessageTS::                   Template state to produce a message.
+* CommandTS::                   Template statement defining a command to be executed
+   before or after expansion.
+
+
+File: template.info,  Node: DefSect,  Next: Syntax,  Prev: DefinitionSect,  Up: DefinitionSect
+
+4.1.8.1 Definition section creation
+...................................
+
+The definition section is in the buffer region following the the first
+match of the string in `template-definition-start' up to the end of the
+buffer.
+
+ -- User Option: template-definition-start
+     Header mark for the per-template definition section. This is a
+     string, not a regular expression.  If default value is
+     `>>>TEMPLATE-DEFINITION-SECTION<<<'
+
+   Don't be confused: `>>>TEMPLATE-DEFINITION-SECTION<<<' is not an
+expansion form (note that it is not enclosed within round brackets). It
+is not processed by the template package during the expansion step, but
+during the definition section reading step that is a step before
+expansion step.
+
+   To create a template definition section, simply use the command
+`template-define-start'.
+
+ -- Command: template-define-start arg
+     If prefix ARG is `nil', and current buffer is recognized as being
+     a template file, insert a definition section into it, otherwise
+     run `template-open-template' first to open and/or create the
+     default template file corresponding to the file in current buffer.
+     If prefix ARG is non-`nil', insert the definition section directy
+     into the current buffer without checking for it to be a template
+     file or not.
+
+   Both the template file and the target file may contain a file
+variable section.  A file varialbe section is a section enclosed
+between `Local Variables:' and `End:' lines for definition of variables
+locally defined to a file. For more on file variables, *Note (emacs)
+File Variables::.
+
+   File variable for the target file shall be placed in a file variable
+section *before* the per-template definition section if any, and using
+a comment style adapted to the target file format. They will be
+available after target file creation, and every time target file is
+open.
+
+   File variables for the template file shall be placed in a file
+variable section at the complete end of the template file, and *after* a
+per-template definition section if any. They shall use Lisp comment
+style (`;'). These variables will be defined locally during the
+template file edition, but not during template expansion step. The file
+variable definition section for the template file will be deleted along
+with the per-template definition section before the expansion step.
+
+   To set variables locally to be available during the expansion step,
+do not use file variables, but use a local variable template statement
+for that, *Note LocVarTS::.
+
+   In case there is no per-template definition section, and there is a
+file variable section, then this file variable section will be in
+effect both for the template file and for the target file.
+
+   Have a look at the following example of template file:
+
+     (>>>test<<<)
+
+     // Local Variables:
+     // some-variable: "target file"
+     // End:
+
+
+     >>>TEMPLATE-DEFINITION-SECTION<<<
+
+     ("test"  (if (boundp 'some-variable)
+       (insert some-variable)
+       (insert "not bound")))
+
+     ;; Local Variables:
+     ;; some-variable: "template file"
+     ;; End:
+
+   It contains the following sequence of 5 paragraphs:
+
+  1. The first paragrah is just a user defined expansion form
+     `(>>>test<<<)' defined by an expansion rule in the per-template
+     definition section
+
+  2. The second paragraph is a file variable definition section for the
+     target file which defines variable `some-variable' to be equal to
+     string `target file'
+
+  3. The third paragraph is just the start mark of the per-template
+     definition section.
+
+  4. The fourth paragraph is an expansion rule that tells the template
+     package to expand `(>>>test<<<)' to the value of variable
+     `some-variable' if it is bound, and to the text `not bound'
+     otherwise
+
+  5. The fifth paragraph is a file variable definition section for the
+     template file  which defines variable `some-variable' to be equal
+     to string `template file'.
+
+   Now if you cut and paste this example into a template file
+`TEMPLATE.someext.tpl', close this file, re-open it and type `C-h v
+some-variable <RET>', this will show that value of `some-variable' is
+`template file'.
+
+   Now type `C-x t foo.someext <ret>', and accept
+`TEMPLATE.someext.tpl' to be the template to be used. This way, you
+will create a file `foo.someext' with the following content:
+
+     not bound
+
+     // Local Variables:
+     // some-variable: "target file"
+     // End:
+
+   This content shows that variable `some-variable' was not bound
+during the expansion step.
+
+   If you test again the value of `some-variable' by typing `C-h v
+some-variable <RET>' again, this will show that value of
+`some-variable' is `target file'.
+
+
+File: template.info,  Node: Syntax,  Next: LispObj,  Prev: DefSect,  Up: DefinitionSect
+
+4.1.8.2 Syntax
+..............
+
+Hereinafter, any portion of quoted code is simply directly represented
+like this:
+     this
+   While Metasyntactic variables are shown like THAT. That is to say
+`this' stands for itself, while THAT stands for some another piece of
+text.
+
+   The symbol "::=" is used to show what value some metasyntactic
+variable stands for, and the symbol "|" is used to separates
+alternatives between several possible values, "nothing" is used when
+you means that a meta-syntactic variable stands for nothing. Finally the
+ellipsis "..." is used to omit some part of text.
+
+   Unless stated otherwise any sequence of blanks are carriage returns
+is considered as one single blank.
+
+   For instance:
+     FOO _::=_ foo _|_ BAR _|_ gnats
+   means that the metasyntactic variable FOO may stand either for `foo'
+litterally, or for some other metasyntactic variable BAR, or for
+`gnats' litterally.
+
+   The DEFINITION-SECTION is defined as follows:
+
+     DEFINITION-SECTION _::=_ START-MARK TOKEN-SEQUENCE
+     TOKEN-SEQUENCE _::=_ _nothing_ _|_ TOKEN TOKEN-SEQUENCE
+
+   START-MARK is the definition section start mark as defined by
+variable `template-definition-start'. It shall be alone on a line by
+itself, however it maybe preceded or followed by blanks on this line.
+
+     TOKEN _::=_ COMMENT _|_ TEMPLATE-STATEMENT
+
+   A COMMENT is ignored by the template package. It starts with a `;'
+character, and extends up to the end of line.
+
+   A TEMPLATE-STATEMENT is made of one Lisp object with the following
+form:
+     TEMPLATE-STATEMENT _::=_ ( FORM-SELECTOR  .  DEFINITION )
+
+   Please note that in ` . ', the character `.' shall be surrounded by
+blanks.
+
+   FORM-SELECTOR determines what kind of template statement is stated,
+how DEFINITION has to be interpreted, and when the actions required by
+the statement are executed. Conversely DEFINITION describes the actions
+to be executed.
+
+   The FORM-SELECTOR can take one of the following values: `:before',
+`:after', `:point', `:eval-before', `eval-after', `"KEY"', and `?CHAR'.
+
+   As a convenience, and for backward compatibility, standalone
+FORM-SELECTOR can be written with those one of `:before', `:after',
+`:eval-before', and `:eval-after', followed and corresponding
+standalone definitions. So that the template statement can be written
+just as:
+     TEMPLATE-STATEMENT _::=_ FORM-SELECTOR DEFINITION
+
+   Note that in that case FORM-SELECTOR does not need to be just before
+DEFINITION, but actually the latest stand-alone FORM-SELECTOR. So that:
+
+     FORM-SELECTOR-1 DEFINITION-1
+                     DEFINITION-2
+     ( FORM-SELECTOR-2  .  DEFINITION-3 )
+                     DEFINITION-4
+     FORM-SELECTOR-3 DEFINITION-5
+
+is equivalent to:
+
+     ( FORM-SELECTOR-1  .  DEFINITION-1 )
+     ( FORM-SELECTOR-1  .  DEFINITION-2 )
+     ( FORM-SELECTOR-2  .  DEFINITION-3 )
+     ( FORM-SELECTOR-1  .  DEFINITION-4 )
+     ( FORM-SELECTOR-3  .  DEFINITION-5 )
+
+   Note that in the context of the template package, given the default
+value of variable `template-expansion-regexp', expansion keys are
+supposed to contain only ASCII letters, digits, or underscores. So a
+string containing an expansion key KEY, can be represented in Lisp by
+just surrounding `KEY' by double-quotes, like this `"KEY"'. For
+instance `"foo"' is a string containing the text `foo'.
+
+   Similarly, if we restrict ourself to using only letters or digits for
+characters identifying registers, then the character `CHAR' is
+represented in Lisp as `?CHAR' with a question mark `?' prefix. For
+instance `?a' is the Lisp representation of chanracter `a'.
+
+   Futhermore, please note that in Lisp, any form like this
+
+     ( A  .  ( B ) )
+
+can be equivalently, and preferrably written like this:
+
+     ( A B )
+
+
+File: template.info,  Node: LispObj,  Next: ExRuleTS,  Prev: Syntax,  Up: DefinitionSect
+
+4.1.8.3 Lisp Objects
+....................
+
+Here is all that you need to know about Lisp objects in order to write
+simple template statements:
+
+string
+     A "string" is a Lisp object dedicated to hold a string of
+     characters. A string is represented as free text surrounded by
+     double quotes `"'. A double quote `"' shall be escaped as `\"'
+     within a string, and an antislash `\' shall be escaped as `\\'. To
+     write the string `Hello "world"!', write `"Hello \"world\"!"'.
+
+character
+     A "character" is a Lisp object. A printable character (letters,
+     digits and so on) CHAR different from a whitespace ` ' or from an
+     antislash is represented as `?CHAR'. For instance the caracter `0'
+     is represented in Lisp as `?0'.
+
+lisp
+     A "list" is a sequence of zero, on or more Lisp objects enclosed in
+     matched round backets `(' and `)'. For instance `(?a "hello" ())'
+     is a list of 3 elements, the first element is the character `a',
+     the second element is the string `hello', and the third element is
+     an empty list
+
+symbol
+     A "symbol" is a Lips object used to name some other Lisp object,
+     just like some formal pointer. It is generally made of letters,
+     digits and other characters like colons `:', minus signs `-', etc.
+     It shall not contain any special characters like brackets, blanks,
+     double quotes, single quotes, backquotes, or antislashes. For
+     instance `some-symbol' is a symbol
+
+cons cell
+     A "cons cell" is a Lisp object that is a pair of two lisp object
+     surrounded by matched round brackets and separated by a point `.'.
+     Note that there shall be blanks arround the point. For instance `(
+     flower . "rose")' is a cons cell whose first element is the symbol
+     `flower' and second element is a string `"rose"'.
+
+   Lists are made of concatenated cons cells:
+
+   `(a . ( b . ( c . nil )))' is equivalent to `(a b c)', where `nil'
+is a special symbol to denote the empty list `()'.
+
+   Similarly `(a b . c)' is equivalent to `(a . (b . c))'.
+
+
+File: template.info,  Node: ExRuleTS,  Next: TextRegTS,  Prev: LispObj,  Up: DefinitionSect
+
+4.1.8.4 ExRuleTS
+................
+
+In order to create an expansion rule specific to one template file,
+simply type this expansion rule in the per-template definition section
+of this template file.
+
+   Expansion rules are not described under this node, because stating
+expansion rules is not limited to the per-template section, this can be
+also made into the `template-expansion-alist', in which case they are
+valid for all the template files.
+
+   For more on expansion rules, *Note ExpRules::.
+
+
+File: template.info,  Node: TextRegTS,  Next: LocVarTS,  Prev: ExRuleTS,  Up: DefinitionSect
+
+4.1.8.5 TextRegTS
+.................
+
+In this node we described how to set a text register (*note (emacs)
+RegText::) to some value. Remember that registers are kind of temporary
+variable that will be lost at the end of the emacs session.
+
+   To save text into a register, make a template statement where the
+FORM-SELECTOR is the character CHAR by which the register is
+identified, and where the DEFINITION is a string containing the the
+CONTENTS of the register:
+
+       (?CHAR . "CONTENTS")
+
+   CONTENTS can then be inserted into a buffer with `C-x r g CHAR', or
+with `C-x r i CHAR'.
+
+   There is another form:
+
+        (?CHAR "CONTENTS" COMMENT)
+
+   where COMMENT is optional. This sets register CHAR to have contents
+CONTENTS.  CONTENTS can then be inserted into a buffer with `C-x r g
+CHAR'.  Also display an additional line at point to show the contents
+with COMMENT.  To define, use M-x template-define-register.
+
+
+File: template.info,  Node: LocVarTS,  Next: MessageTS,  Prev: TextRegTS,  Up: DefinitionSect
+
+4.1.8.6 LocVarTS
+................
+
+The main application of making a local variable setting by a template
+statement is to configure some expansion setting, *Note ExpSetting::.
+Another application is to play with variable
+`template-expansion-regexp' and `template-expansion-format' to change
+the decoration of expansion keys, *Note RedefineExpkeyDecoration::.
+
+   If you would like to set a variable locally to a target file that
+would influence this file edition, it is better to make it as a file
+variable setting or as a mode hook, because this setting would be
+victual every time the file is open, and not only at file creation
+during expansion step. For more on this, *Note FileVariableInDefSect::.
+
+   To set variables, use the FORM-SELECTOR `:before' like this:
+
+      (:before VAR-SYMBOL . VALUE)
+
+   VAR-SYMBOL must be a symbol identifying the variable of concern.
+This template statement cause setting variable set VAR-SYMBOL buffer
+locally to VALUE. VALUE is  not evaluated, so if you write:
+
+      (:before foo . (+ 1 3))
+
+this will not set variable `foo' to value 4 but to a list of three
+elements `+', `1' and `3'.
+
+   This form is only secure if VAR-SYMBOL has a symbol property
+`template-secure-value' which returns non-nil when applied to VALUE,
+not evaluated.  This form is useful for variables which determine the
+expansion, like `template-time-format' and `template-date-format'.
+
+   If you want to use a stand-alone DEFINITION like this:
+
+     FORM-SELECTOR
+     _..._
+     (VAR-SYMBOL . VALUE)
+
+   The latest form selector FORM-SELECTOR needs not be `:before', it
+can be anything different from `:eval-before', or `:eval-after',
+including not being defined, meaning that when the stand-alone
+definition `(VAR-SYMBOL . VALUE)' is met, no stand-alone FORM-SELECTOR
+was specified before.
+
+
+File: template.info,  Node: MessageTS,  Next: CommandTS,  Prev: LocVarTS,  Up: DefinitionSect
+
+4.1.8.7 MessageTS
+.................
+
+You can define interactively message template statement with the `M-x
+template-define-message' interactive command.
+
+   There are three template statements to display messages
+
+     (:before . "MESSAGE")
+     (:after  . "MESSAGE")
+     (:point  . "MESSAGE")
+
+   The template statement `(:before . "MESSAGE")' will display MESSAGE
+in buffer `template-message-buffer' _before_ the expansion step.
+
+   The template statement `(:after . "MESSAGE")' will display MESSAGE
+in buffer `template-message-buffer' _after_ the expansion step.
+
+   Finally, the template statement `(:point . "MESSAGE")', will display
+MESSAGE at point until first user event or after
+`template-message-timeout' seconds.  MESSAGE is displayed with face in
+`template-message-face'.  Displaying MESSAGE at point means that the
+text MESSAGE is temporarilly inserted after point in the target file
+buffer.
+
+ -- User Option: template-message-buffer
+     If non `nil', name of buffer where messages are shown.  The
+     following messages will be displayed in definition sequence before
+     the expansion has taken place:
+        * :before messages,
+
+        * user defined prompts if `template-message-prompt-format' is
+          non-nil,
+
+        * user defined registers when there has been a :before message
+          before, see    `template-message-register-format'.
+
+     The following messages will be displayed in definition sequence
+     after the expansion has taken place:
+        * :after messages,
+
+        * user defined registers, display them at point if the value of
+          this    variable is `nil', see
+          `template-message-register-format'.
+
+ -- User Option: template-message-prompt-format
+     If non-`nil', format string for user defined prompts.  If
+     non-`nil' and `template-message-buffer' is non-`nil', user defined
+     prompts will be listed before starting the expansions.  Prompts
+     can be defined as specified in the docstring of
+     `template-definition-start'.  For each PROMPT, this format string
+     will be used with substitution of `%s' by PROMPT.
+
+     If no `:before' message has been defined before, use, if
+     non-`nil', `template-message-prompt-intro' as the first `:before'
+     message.
+
+ -- User Option: template-message-prompt-intro
+     Default intro message used before listing user defined prompts.
+     Used with `:before' messages, see `template-message-prompt-format'.
+
+ -- User Option: template-message-register-format
+     If non-`nil', format string for user defined registers.  If
+     non-`nil', user defined text registers will be listed.  Registers
+     can be defined as specified in the docstring of
+     `template-definition-start'.  For each register CHAR with contents
+     CONTENTS and optional comment COMMENT, this format string will be
+     used with the substitutions:
+     ?CHAR          %c
+     "CONTENTS"     %s
+     "COMMENT"      %s
+
+     Note that COMMENT may stand for _nothing_, in otherwords
+     `"COMMENT"' is just `""'.
+
+     The list of register definitions will be displayed:
+        * at point if `template-message-buffer' is `nil',
+
+        * with `:before' messages if there has been at least one
+          :before message    defined before and if
+          `template-message-buffer' is    non-`nil',
+
+        * with `:after' messages if `template-message-buffer' is
+          non-`nil'.  If no `:after' message has been defined
+          before, use, if non-`nil',
+          `template-message-register-intro' as the first `:after'
+          message.
+
+
+ -- User Option: template-message-face
+
+ -- Command: template-define-message arg message
+     Insert a temporary message MESSAGE definition into the template
+     definition section.
+
+
+File: template.info,  Node: CommandTS,  Prev: MessageTS,  Up: DefinitionSect
+
+4.1.8.8 CommandTS
+.................
+
+Template statements causing the execution of one or more Lisp functions
+are specified with one of the three following FORM-SELECTOR:
+
+:eval-before
+     In this case the Lisp functions are executed before the expansion
+     step, in the so called "pre-command" step.
+
+"KEY"
+     For expansion rules. In this case the Lisp functions are executed
+     when the expansion form corresponding to `"KEY"' is met during the
+     expansion step.
+
+:eval-after
+     In this case the Lisp functions are executed after the expansion
+     step, in the so called "post-command" step.
+
+   You should use the safe command `normal-mode' in the "pre-command"
+step, if the expansion forms depend on the correct major mode.
+
+   There are three types of definitions causing one or more commands to
+be called:
+
+   Type 1, is also referred to as the plain type and is as follows:
+     (FORM-SELECTOR CMD-SYMBOL . PREFIX)
+
+   Type 2, is also referred to as the hybrid type and is as follows:
+     (FORM-SELECTOR CMD-SYMBOL ARG-1 ARG-2 _..._ )
+
+   Type 3, is also referred to as the complex type and is as follows:
+     (FORM-SELECTOR ( _..._ ) _..._ )
+
+   The difference between these three types are as follows:
+   * With the plain type, the templates package will consider that
+     CMD-SYMBOL identifies an interactive command, and will call this
+     command with the `command-execute' function. This makes a
+     difference for all commands that make some interactive stuff, like
+     reading input from the minibuffer. The first form is equivalent to
+     make the following command invocation:
+          C-u PREFIX M-x CMD-SYMBOL
+
+   * The second form is a kind of hybrid:
+        * If there is no arguments, that is to say if the template
+          statement is as follows:
+               (FORM-SELECTOR CMD-SYMBOL)
+          then this is equivalent to calling the interactive command
+          with no prefix argument, like this:
+               M-x CMD-SYMBOL
+
+        * If there is one single argument equal to 4, then this is
+          equivalent to call the interactive command with an empty
+          prefix argument, like this:
+               C-u M-x CMD-SYMBOL
+
+        * Otherwise, this is equivalent to using the complex type as
+          follows:
+               (FORM-SELECTOR (CMD-SYMBOL ARG-1 ARG-2  _..._))
+
+   * With the complex type, the template package will evaluate
+     everything that follows the FORM-SELECTOR as a Lisp program.
+
+   The template package check the security by looking whether there is
+a `template-secure-command' property on the command/function that is
+called. Note that in the case of the complex type, it is always
+considered insecure when there more than one function call.
+
+   If any insecure forms have been used, the user of the template will
+be asked whether to use the template, see `template-confirm-insecure'.
+
+   Note that, in the case of the complex type, the number of Lisp
+objects following the FORM-SELECTOR be zero, one or more. See
+`template-default-expansion-alist' (*note DefltExp::) for examples.
+
+   One funny example is the `(>>>ZERO_FORM<<<)'. It is defined by the
+following template statement
+
+     ( "ZERO_FORM" )
+
+meaning that _nothing_ more than deleting the region where the
+expansion form is met has to be done when the `(>>>ZERO_FORM<<<)' is
+met.
+
+ -- User Option: template-confirm-insecure
+     Non-`nil' means, ask whether to use insecure template expansions.
+     Only set this to nil if you *always* check template files before
+     using it!
+
+
+File: template.info,  Node: Escaping,  Prev: DefinitionSect,  Up: TplProcOverview
+
+4.1.9 Escaping
+--------------
+
+"escaping" means preventing some reserved keyword or data appearing by
+chance in some text to be recognized as a reserved keyword or data by
+the software for which it is reserved.
+
+   There are two things that you may want to escape from the template
+package:
+
+  1. You may want that a string equal to the value of variable
+     `template-definition-start' be not recognized as the start mark of
+     the per-template definition section
+
+  2. You may want that a string that matches the regular expression in
+     `template-expansion-regexp' be not recognized as an expansion form.
+
+   In the former case, the only method to escape the start mark is to
+insert a `(>>>ZERO_FORM<<<)' within the define start mark. For instance:
+
+     The definition section start is marked as follows:
+     >>>(>>>ZERO_FORM<<<)TEMPLATE-DEFINITION-SECTION<<<
+     Here is the real last line before definition section.
+     >>>TEMPLATE-DEFINITION-SECTION<<<
+
+   The resulting expansion will be:
+
+     The definition section start is marked as follows:
+     >>>TEMPLATE-DEFINITION-SECTION<<<
+     Here is the real last line before definition section.
+
+   The same technique can be used for expansion forms. Assume you do not
+want the string `(>>>foo<<<)' to be applied an implicit expansion rule,
+you can prevent this by writing it as:
+
+     (>>>(>>>ZERO_FORM<<<)foo<<<)
+
+   The resulting expansion will be:
+
+     (>>>foo<<<)
+
+   Another way to escape expansion forms is to redefine the decorations
+`(>>>' and `<<<)' that encapsulate expansion keys into expansion forms.
+You can do this by overloading the values of variable
+`template-expansion-regexp' and `template-expansion-format' in the
+definition section. Imagine for instance that you want to redefine
+`(>>>' and `<<<)' respectively by `[:::' and `:::]', you can do this as
+follows:
+
+     The expansion form (>>>USER_NAME<<<) expands to [:::USER_NAME:::]
+     >>>TEMPLATE-DEFINITION-SECTION<<<
+     :before (template-expansion-regexp . "\\[:::\\([A-Za-z0-9_]+\\):::\\]" )
+     :before (template-expansion-format . "[:::%s:::]")
+
+   The resulting expansion will be:
+
+     The expansion form (>>>USER_NAME<<<) expands to Christoph Wedler
+
+   Note that this example is intentionally a bit tricky: you cannot
+write directly `[' or `]' inside a regular expression because this is a
+reserved character. Instead, you have to escape it with an antislash
+`\'(1).
+
+   Finally, you can quote verbatim some text by surrounding it between
+`(>>>LITERAL<<<)'  and `(>>>/LITERAL<<<)'.
+
+     The expansion form (>>>LITERAL<<<)(>>>USER_NAME<<<)(>>>/LITERAL<<<) ...
+     ... expands to (>>>USER_NAME<<<)
+
+   While result in:
+
+     The expansion form (>>>USER_NAME<<<) ...
+     ... expands to Christoph Wedler
+
+   Other funny tricks are possible. For instance you can define a
+per-template expansion form `(>>>i2nl<<<)' to ignore eveything up to
+the end of line. Just use the interactive command `move-end-of-line' in
+the expansion rule. For instance the following template:
+
+     The expansion form (>>>i2nl<<<)(>>>USER_NAME<<<) is not expanded
+     to (>>>USER_NAME<<<), but (>>>USER_NAME<<<) is expanded
+     from (>>>i2nl<<<)(>>>USER_NAME<<<).
+     >>>TEMPLATE-DEFINITION-SECTION<<<
+     ( "i2nl" . (move-end-of-line))
+
+   will expand to:
+
+     The expansion form (>>>USER_NAME<<<) is not expanded
+     to Christopher Wedler, but Christopher Wedler is expanded
+     from (>>>USER_NAME<<<).
+
+   ---------- Footnotes ----------
+
+   (1) Actually this is true only outside the `[...]' construct, inside
+a `[...]' construct escaping `]' or `[' is made by placing it at the
+beginning. For more on this, *Note (emacs) Regexps::.
+
+
+File: template.info,  Node: Comments,  Next: BufferUpd,  Prev: TplProcOverview,  Up: Advanced
+
+4.2 Customization of comments
+=============================
+
+ -- Command: template-single-comment &optional arg
+     It is bound to `C-x C-=', and `<menu-bar> <edit> <Comment>
+     <Decorate Comment Line>'.
+
+     Decorate the comment in the current line with dashes and alike.
+     The line must be a comment-only line or must contain a comment
+     ending by eol.  That is, jump to the end of the current line and
+     insert the dashes and the final comment end-string up-to the fill
+     position.  Prefix argument ARG and `template-comment-specification'
+     determines the comment style to use.  The length of the resulting
+     line is determined by `template-max-column' and
+     `template-max-column-with-end'.
+
+ -- Command: template-block-comment arg
+     It is bound to `C-x C-;', and `<menu-bar> <edit> <Comment>
+     <Decorate Comment Block>'.
+
+     Decorate the current block of comment-only lines with dashes and
+     alike.  That is, surround the the contiguous comment-only lines
+     around point with extra lines containing dashes and alike and to
+     put the correct number of newlines around the block.
+
+     Barf if the comment syntax at point has a non-empty `comment-end'
+     or if point is not in a comment-only line.
+
+     A block comment consists of all neighboring lines which start with
+     spaces and `comment-start'.  If `comment-start' is a string of
+     length 1, the number of repetitions of `comment-start' must be the
+     same or larger than in the line where the command is invoked from,
+     too.
+
+     Prefix argument ARG and `template-comment-specification'
+     determines the comment style to use.  The length of the separator
+     line is determined by `template-max-column'.
+
+     This command can also be used with point in an empty line after a
+     block comment.  A second invocation of this command directly after
+     a successful invocation deletes the remaining empty lines from the
+     current line on.
+
+ -- User Option: template-comment-specification-alist
+     List of specifications for comment functions.
+
+     This list associate a comment specification to a comment LEVEL.
+     Each list element is directly a comment specification, as the
+     comment LEVEL is implicitly given by the position in the list,
+     starting at LEVEL = 1.
+
+     Each specification is a list `(SEPARATOR BEFORE-BLOCK AFTER-BLOCK
+     DELETE-LINES)'
+
+     SEPARATOR is the string which is inserted repeatedly by commands
+     `C-x C-=' and `C-x C-;' up to `template-max-column'.
+
+     After that, `C-x C-;' deletes DELETE-LINES after the comment block
+     and inserts string AFTER-BLOCK at the end of the block and
+     BEFORE-BLOCK at the front of the block.
+
+     The specification LEVEL to use is determined by testing one by one
+     the following conditions until one holds:
+       1. If the prefix argument is non-nil and its numeric value is >
+          0, this value is the LEVEL.
+
+       2. If the prefix argument is nil, and there is an old comment
+          style, use old comment style.
+
+       3. If `template-comment-specification-special' is a function or
+          the current major mode has a property with this name and its
+          value is a function, this function returns the specification.
+
+       4. If `comment-end' is empty and `comment-start' is a string of
+          length 1: LEVEL is number of repetitions of `comment-start'
+          at the beginning of the line.  Otherwise, if the correctly
+          indented line starts at the beginning of the line, LEVEL=3,
+          else LEVEL=2.
+
+
+File: template.info,  Node: BufferUpd,  Prev: Comments,  Up: Advanced
+
+4.3 Buffer updating
+===================
+
+* Menu:
+
+* WhatDoesBU::                  What buffer updating is doing
+* TriggerBU::                   Automatic and manual buffer update
+* EnbDisableBU::                Enabling/disabling Buffer updating
+* CustomBU::                    Customizing buffer update
+
+
+File: template.info,  Node: WhatDoesBU,  Next: TriggerBU,  Prev: BufferUpd,  Up: BufferUpd
+
+4.3.1 What buffer updating is doing
+-----------------------------------
+
+Buffer updating is the action performed when function
+`template-update-buffer' is executed.  Automatic buffer updating means
+that buffer updating is configured to happen every time a buffer is
+written to a file.
+
+   What this function `template-update-buffer' exactly does depends on
+customization of buffer updating. For more on customization, see *note
+CustomBU::.
+
+   Buffer updating can be seen as a sequence of elementary buffer
+updates, each of which corresponds to an element of
+`template-update-buffer-alist'. By default, one of this elementary
+update is the header update with file name, as performed by function
+`template-update-header'.
+
+   For each elementary update the following information is customizable:
+
+   * Some individual enable criterion based on buffer mode or filename
+
+   * What region of the buffer is concerned by updating. This region
+     may be specified by some line count and markup regexps, or more
+     finely by calling some test function which also may be used to
+     control enabling(1).
+
+   * When automatic update is configured to ask confirmation (see *note
+     EnbDisableBU:: for variable `template-auto-update'), whether or
+     not to prompt to user, and if so what prompt is sent to user.
+
+   * Whether a replacement string is considered for updated region, and
+     if so what replacement string.
+
+   * The function called to do the replacement may also be overloaded
+     by some specific function.
+
+   Concerning now specifically the header update, the following
+information is customizable:
+
+   * What markup is used to locate the filename region to be updated in
+     the header, (see *note CustomBU:: for variable
+     `template-header-regexp-alist').
+
+   * How many lines from top of buffer are scaned for update, (see
+     *note CustomBU:: for variable `template-header-lines').
+
+   ---------- Footnotes ----------
+
+   (1) you should not use this function to perform the actual update,
+as in this case user confirmation would not be handled normally
+
+
+File: template.info,  Node: TriggerBU,  Next: EnbDisableBU,  Prev: WhatDoesBU,  Up: BufferUpd
+
+4.3.2 Automatic and manual buffer update
+----------------------------------------
+
+As as soon as `template-initialize' is called in your init file,
+automatic buffer updating is configured (and by default enabled).  This
+means that command `template-update-buffer' is added to the
+`write-file-hooks', and therefore is called every time a buffer is
+written to a file.
+
+   Buffer updating may be triggered manually by calling interactively
+`template-update-buffer'. In that case, buffer updating is triggered
+even when automatic updating it is disabled, unless you pass a prefix
+argument.
+
+   Recall that buffer update can be seen as a sequence of elementary
+buffer updates, one of which is typically the header update. Header
+update can also be manually triggered by calling command
+`template-update-header'.
+
+ -- Command: template-update-buffer &optional arg
+     Update buffer according to `template-update-buffer-alist'. Do not
+     do anything if `template-auto-update-disable-regexp' matches the
+     file name or if `template-auto-update' is `nil'.
+
+     When called interactively ARG is `nil' *when* a prefix argument
+     has been passed and non-`nil' *otherwie*, that is to say it works
+     the opposite way than usual. When optional ARG is non-`nil', then
+     updating is forced whatever `template-auto-update-disable-regexp'
+     or `template-auto-update'.
+
+ -- Command: template-update-header show
+     Replace old file name in header with current file name.  If SHOW
+     is `t', just return region of the filename or `nil'.  Otherwise,
+     replace filename if possible and signal an error if SHOW is `nil'
+     and there is no filename in the header.  For more information, see
+     user option variables `template-header-lines' and
+     `template-header-regexp-alist'.
+
+
+File: template.info,  Node: EnbDisableBU,  Next: CustomBU,  Prev: TriggerBU,  Up: BufferUpd
+
+4.3.3 Enabling/Disabling Buffer updating
+----------------------------------------
+
+Automatic buffer updating is by default enabled with confirmation asked
+to you as soon as `template-initialize' is called in your init file.
+You can change this globally by customizing variable
+`template-auto-update'.
+
+   While buffer automatic updating is enabled globally, there are two
+ways to disable buffer updating of a specific buffer. The first way is
+to disable update for all buffer corresponding to file names matching
+some regular expression by setting
+`template-auto-update-disable-regexp'. The second way is simply to set
+variable `template-auto-update' to `nil' as a file variable locally to
+a file.
+
+   Remember that buffer updating is a sequence of elementary buffer
+updates, one of which is typically the header updating. If you want to
+control only enabling of header updating without impacting the other
+updates that you configured, then you should look at customization of
+variables `template-update-buffer-alist', `template-header-lines' and/or
+`template-header-regexp-alist'.
+
+ -- User Option: template-auto-update
+     Whether or not to update parts of the file when saving the buffer.
+     When non-`nil' and `template-auto-update-disable-regexp' does not
+     match the file name, automatically updates parts of the buffer, see
+     `template-update-buffer-alist' .  With value `t' or if the entry
+     in the alist has no prompt, do not ask for confirmation.
+
+     You should have called `template-initialize' in your init file to
+     enable this feature.
+
+     This variable can be set globally to enable/disable automatic
+     update, or on a file by file basis, like a file variable.
+
+ -- User Option: template-auto-update-disable-regexp
+     Regular expression matching files not to automatically update.
+     Value nil matches no file.  See `template-auto-update'.
+
+
+File: template.info,  Node: CustomBU,  Prev: EnbDisableBU,  Up: BufferUpd
+
+4.3.4 Customizing buffer update
+-------------------------------
+
+ -- User Option: template-update-buffer-alist
+     Alist used to update parts of the buffer by function
+     `template-update-buffer'.  Each element looks like
+     `(MODES-OR-REGEXP PROMPT TEST NEW REPLACEMENT-FUN)'
+
+     When buffer updating occurs, for each element ELT in this list the
+     following steps are carried out:
+
+       1. First the element ELT is tested to "pass" MODES-OR-REGEXP. If
+          it does not pass it, then the subsequent steps are ignored,
+          i.e. no buffer updating is done for element ELT. Passing
+          means that all the conditions below are true:
+             * if MODES-OR-REGEXP is a list then it includes the current
+               major-mode,
+
+             * if it is a regexp then it matches the `buffer-file-name'
+               without version,
+
+             * MODES-OR-REGEXP is non-nil.
+
+       2. Then, TEST is processed to determine a region descriptor
+          REGION for the region to be replaced. When the region is
+          successfully determined then REGION has the form `(BEG .
+          END)', otherwise REGION is `nil'. If REGION is `nil' then the
+          subsequent steps are ignored, i.e. no buffer updating is done
+          for element ELT.
+
+          TEST is processed as as follows:
+             * If TEST is a list with the form `(FUN-SYMB ...)', i.e.
+               the `car' of TEST is a function FUN-SYMB, then REGION is
+               obtained by evaluating TEST, i.e. REGION is the returned
+               value of calling function FUN-SYMB with the arguments in
+               the `cdr' of TEST.
+
+             * If TEST is an atom (i.e. not a cons cell), then REGION is
+               also obtained by evaluating TEST.
+
+             * If TEST is a list but the `car' of TEST is not a
+               function, then REGION is the returned value of calling
+               function `template-update-buffer-region' with the
+               arguments in TEST. That is to say TEST looks like `(LIMIT
+               REGEXP GROUP)', and `template-update-buffer-region' will:
+                  * search for regexp REGEXP in the first/last LIMIT
+                    characters in buffer,
+
+                  * if no match is found returns REGION as `nil',
+
+                  * if a match is found, then returns REGION according
+                    to beginning and end of the grouping construct with
+                    number GROUP in REGEXP.
+
+       3. Then, NEW is `eval'd.  If it is a string, it is considered as
+          replacement for the region, otherwise REPLACE-FUN must be
+          non-nil.
+
+       4. Then, ask user for confirmation with PROMPT where %s is
+          substituted by the buffer name if PROMPT is a string and
+          `template-auto-update' is not t.
+
+       5. Finally, REPLACEMENT-FUN is called the `eval'd NEW and the
+          beginning and the end of the region returned by TEST.  If
+          REPLACEMENT-FUN is nil, just replace the region by the
+          `eval'd NEW.
+
+ -- User Option: template-header-regexp-alist
+     Alist of regexps matching the file name in the header.  The `car'
+     of each element is the REGEXP with `%s', if present, substituted
+     by the comment start.  A second `%s', if present, is substitud by
+     a single letter non-alpha comment start, or the empty string
+     otherwise.
+
+     The `cdr' is the regexp group to be replaced.  Used by `M-x
+     template-update-header'.
+
+     The comment start is evaluated from `comment-start', the first
+     character in the buffer or `"#"'.  It is assumed that a non-alpha
+     single character comment start may be repeated.  For example, the
+     substituted regexp in `emacs-lisp-mode' is `";+"', whereas in
+     `c++-mode' it is `"//"'.
+
+ -- User Option: template-header-lines
+     Count of lines which are checked from top of buffer by command
+     `template-update-header'.
+
+
+File: template.info,  Node: Indexes,  Next: News,  Prev: Advanced,  Up: Top
+
+5 Indexes for commands, keyword, and variable
+*********************************************
+
+* Menu:
+
+* Concept Index::               Concept Index.
+* ExpForm Index::               Expansion form Index.
+* Command Index::               Command Index.
+* Variable Index::              Customizable Variable Index.
+* Key Index::                   Key Index.
+
+
+File: template.info,  Node: Concept Index,  Next: ExpForm Index,  Prev: Indexes,  Up: Indexes
+
+5.1 Concept Index
+=================
+
+ [index ]
+* Menu:
+
+* Automatic buffer updating:             WhatDoesBU.           (line  7)
+* Buffer updating:                       WhatDoesBU.           (line  6)
+* definition section:                    DefinitionSect.       (line  6)
+* Elementary buffer updates:             WhatDoesBU.           (line 15)
+* Escape:                                Escaping.             (line  6)
+* Escaping:                              Escaping.             (line  6)
+* Expansion form:                        ExpStep.              (line 14)
+* Expansion key:                         ExpStep.              (line 35)
+* Expansion rule:                        ExpStep.              (line 46)
+* Expansion setting <1>:                 ExpSetting.           (line  9)
+* Expansion setting:                     TplProcOverview.      (line 24)
+* Expansion step:                        ExpStep.              (line 10)
+* file variable section:                 DefSect.              (line 34)
+* per-template definition section:       DefinitionSect.       (line  6)
+* Target file:                           FilenameEF.           (line  6)
+* template definition section:           DefinitionSect.       (line  6)
+* Template processing:                   Advanced.             (line  9)
+* template statement:                    DefinitionSect.       (line 10)
+
+
+File: template.info,  Node: ExpForm Index,  Next: Command Index,  Prev: Concept Index,  Up: Indexes
+
+5.2 Default expansion form Index
+================================
+
+ [index ]
+* Menu:
+
+* /LITERAL:                              MiscellaneousEF.      (line 10)
+* 0:                                     FormatWhereEF.        (line 56)
+* 1:                                     FormatWhereEF.        (line 56)
+* 2:                                     FormatWhereEF.        (line 56)
+* 3:                                     FormatWhereEF.        (line 56)
+* 4:                                     FormatWhereEF.        (line 56)
+* 5:                                     FormatWhereEF.        (line 56)
+* 6:                                     FormatWhereEF.        (line 56)
+* 7:                                     FormatWhereEF.        (line 56)
+* 8:                                     FormatWhereEF.        (line 56)
+* 9:                                     FormatWhereEF.        (line 56)
+* AUTHOR:                                IdentitiesEF.         (line  7)
+* COMMENT:                               MiscellaneousEF.      (line  7)
+* DATE:                                  DateTimeEF.           (line  7)
+* DIR:                                   FilenameEF.           (line 33)
+* FILE:                                  FilenameEF.           (line 36)
+* FILE_EXT:                              FilenameEF.           (line 48)
+* FILE_NUM:                              FilenameEF.           (line 45)
+* FILE_RAW:                              FilenameEF.           (line 42)
+* FILE_SANS:                             FilenameEF.           (line 39)
+* FILE_UPCASE:                           FilenameEF.           (line 51)
+* HOST_ADDR:                             IdentitiesEF.         (line 20)
+* ISO_DATE:                              DateTimeEF.           (line 16)
+* LITERAL:                               MiscellaneousEF.      (line 10)
+* LOGIN_NAME:                            IdentitiesEF.         (line 17)
+* MARK:                                  RegistersEF.          (line 11)
+* POINT:                                 RegistersEF.          (line  8)
+* TIME:                                  DateTimeEF.           (line 10)
+* USER_NAME:                             IdentitiesEF.         (line 14)
+* VC_DATE:                               DateTimeEF.           (line 19)
+* YEAR:                                  DateTimeEF.           (line 13)
+* ZERO_FORM:                             MiscellaneousEF.      (line 13)
+
+
+File: template.info,  Node: Command Index,  Next: Variable Index,  Prev: ExpForm Index,  Up: Indexes
+
+5.3 Function Index
+==================
+
+Functions for which documentation is reached from this node fall in two
+categories:
+Command
+     This concerns only interactive commands that may have some key
+     binding (like `C-x t' for `template-new-file') and which the user
+     can call directly from keyboard witht the `M-x' prefix.
+
+ExpRule function
+     This concerns Elisp functions that can be found in the SEXP part
+     of an expansion rule.
+
+ [index ]
+* Menu:
+
+* template-block-comment:                Comments.             (line 20)
+* template-choice:                       MyInputEF.            (line 40)
+* template-define-message:               MessageTS.            (line 95)
+* template-define-start:                 DefSect.              (line 25)
+* template-new-file:                     NewFileSteps.         (line  7)
+* template-read:                         MyInputEF.            (line 31)
+* template-register:                     ImplicitER.           (line 36)
+* template-single-comment:               Comments.             (line  7)
+* template-update-buffer:                TriggerBU.            (line 23)
+* template-update-header:                TriggerBU.            (line 34)
+
+
+File: template.info,  Node: Variable Index,  Next: Key Index,  Prev: Command Index,  Up: Indexes
+
+5.4 Variable Index
+==================
+
+ [index ]
+* Menu:
+
+* template-auto-insert:                  NewFileSteps.         (line 68)
+* template-auto-update:                  EnbDisableBU.         (line 27)
+* template-auto-update-disable-regexp:   EnbDisableBU.         (line 40)
+* template-comment-specification-alist:  Comments.             (line 47)
+* template-confirm-insecure:             CommandTS.            (line 88)
+* template-default-expansion-alist:      DefltExp.             (line  7)
+* template-definition-start:             DefSect.              (line 11)
+* template-derivation-alist:             Derivation.           (line 14)
+* template-expansion-alist:              FormatWhereEF.        (line 77)
+* template-expansion-regexp:             FormatWhereEF.        (line 82)
+* template-header-lines:                 CustomBU.             (line 87)
+* template-header-regexp-alist:          CustomBU.             (line 71)
+* template-message-buffer:               MessageTS.            (line 29)
+* template-message-face:                 MessageTS.            (line 93)
+* template-message-prompt-format:        MessageTS.            (line 49)
+* template-message-prompt-intro:         MessageTS.            (line 61)
+* template-message-register-format:      MessageTS.            (line 65)
+* template-register-regexp:              ImplicitER.           (line 28)
+* template-update-buffer-alist:          CustomBU.             (line  7)
+
+
+File: template.info,  Node: Key Index,  Prev: Variable Index,  Up: Indexes
+
+5.5 Key Index
+=============
+
+ [index ]
+* Menu:
+
+* C-x C-;:                               menus.                (line 19)
+* C-x C-=:                               menus.                (line 16)
+* C-x t:                                 menus.                (line 10)
+
+
+File: template.info,  Node: News,  Prev: Indexes,  Up: Top
+
+6 News for Package Template
+***************************
+
+Latest Version:
+     *3.1c* (21 Aug 2003).
+
+Requirements:
+     `Emacs-20.2', `XEmacs-20.2', or higher.
+
+     No menu support for Emacs before Version 21.1.
+
+Licence:
+     `GNU General Public License'.
+
+6.1 Changes with Release 3.1c
+=============================
+
+   * Bug fix: on XEmacs, initialization would fail without menus `File'
+     and `Edit' in menubar.
+
+   * Allow messages to be displayed in a separate buffer "*Template
+     Messages*" instead at point.
+
+   * Correct and improve header updating.
+
+   * Extend use of `M-x template-single-comment'.
+
+   * Minor bug fixes.  Miscellaneous.
+
+6.2 Changes with Release 3.1
+============================
+
+   * Moved to SourceForge.net.  Less technical description on web page.
+
+   * Remove examples from distribution, they were more confusing than
+     helpful.
+
+   * Bug fix: would sometimes indent the current line when using the
+     menubar.
+
+   * Menus work with Emacs-21, too.  Rename some menu entries.
+
+   * Don't search further for remote templates.  Nuke this home/base
+     directory stuff, stop search at root.
+
+   * Don't rely on command `ffap' to always add an entry to
+     `command-history' if the filename is read from terminal.  Special
+     setup for `ffap' and `html-helper'.
+
+   * Make date/time formats work as names suggest.
+
+   * Command to insert & expand a template file.
+
+   * Allow user to define a choice in the definition section to be
+     answered via `y-or-n-p'.
+
+   * Various miscellaneous improvements.  Minor bug fixes.
+
+
+
+Tag Table:
+Node: Top1285
+Node: Overview2103
+Node: Installation4503
+Node: Basics5661
+Node: menus6180
+Node: using7072
+Ref: using-Footnote-18136
+Node: finding8240
+Node: creating10731
+Ref: creating-Footnote-113912
+Ref: creating-Footnote-213960
+Node: decorating14030
+Node: updating15414
+Ref: updating-Footnote-116430
+Node: Advanced16486
+Node: TplProcOverview18352
+Ref: TplProcOverview-Footnote-121848
+Node: NewFileSteps21934
+Ref: ExpStepInNewFile23576
+Node: Derivation25339
+Node: ExpStep30617
+Ref: ExpStep-Footnote-133913
+Node: ExpRules33979
+Node: FormatWhereEF35001
+Ref: FormatWhereEF-Footnote-139056
+Node: MyInputEF39292
+Node: MySettingEF41616
+Node: MyRegisterEF42112
+Node: MyCommandEF43041
+Node: ExpSetting43442
+Ref: ExpSetting-Footnote-145133
+Node: DefltExp45384
+Node: FilenameEF46443
+Node: RegistersEF48063
+Node: DateTimeEF48355
+Node: IdentitiesEF48854
+Node: MiscellaneousEF49852
+Node: ImplicitER50324
+Node: DefinitionSect52193
+Node: DefSect53537
+Ref: FileVariableInDefSect54937
+Node: Syntax58346
+Node: LispObj62177
+Node: ExRuleTS64309
+Node: TextRegTS64900
+Node: LocVarTS65915
+Node: MessageTS67818
+Node: CommandTS71658
+Node: Escaping75274
+Ref: RedefineExpkeyDecoration76795
+Ref: Escaping-Footnote-178836
+Node: Comments79032
+Node: BufferUpd82693
+Node: WhatDoesBU83071
+Ref: WhatDoesBU-Footnote-185109
+Node: TriggerBU85244
+Node: EnbDisableBU87127
+Node: CustomBU89104
+Node: Indexes93109
+Node: Concept Index93543
+Node: ExpForm Index95013
+Node: Command Index97541
+Node: Variable Index98844
+Node: Key Index100392
+Node: News100740
+
+End Tag Table
+
+
+Local Variables:
+coding: iso-8859-1
+End:

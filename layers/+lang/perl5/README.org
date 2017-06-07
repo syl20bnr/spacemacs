@@ -1,0 +1,25 @@
+#+TITLE: Perl5 layer
+
+[[file:img/sm_camel.png]]
+
+This readme was stolen from the python readme and so is utterly wrong.
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+   - [[#features][Features]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+   - [[#dependencies][Dependencies]]
+
+* Description
+This layer adds support for Perl5.
+
+** Features
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =perl5= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+** Dependencies

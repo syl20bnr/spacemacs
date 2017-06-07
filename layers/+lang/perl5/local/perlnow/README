@@ -1,0 +1,74 @@
+perlnow.el is a collection of utility commands for perl programmers
+who use emacs. These commands are designed to help automate some
+routine tasks in (1) the initial creation of perl scripts and
+modules (2) running, testing and debugging inside of emacs.
+
+DOCUMENTATION
+
+Online documentation is available at:
+
+  http://obsidianrook.com/perlnow/
+
+Detailed documentation has been included inside the code itself,
+using the "docstrings" that are easily accessible through the
+emacs help system, for example:
+
+   ESC x help v perlnow-documentation-tutorial
+
+This looks up the docstring for the dummy variable
+"perlnow-documentation-tutorial".
+
+Think of it as the poor man's pod (or perhaps the lazy man's info).
+
+INSTALLATION
+
+Put the perlnow.el file somewhere that's included in your load-path.
+
+Also install Christoph Wedler's template.el if at all possible,
+because many features of this package depend on it.  The latest
+version of template.el can be found at:
+
+   http://sourceforge.net/project/showfiles.php?group_id=47369
+
+You'll need some custom perl-oriented template.el templates ("*.tpl")
+that come with perlnow.el.  Most likely these templates should go in
+~/.templates. Stable versions are located here (most of the non-perl
+ones were created by Christoph Wedler):
+
+  http://github.com/doomvox/perlnow/tree/master/templates/standard/
+
+With some alternate versions in similar locations, such as these
+experimental ones which are continually under development:
+
+  http://github.com/doomvox/perlnow/tree/master/templates/dev/
+
+
+In your ~/.emacs file, add something like the following:
+
+   (require 'template)
+   (template-initialize)
+   (require 'perlnow)
+
+  (setq perlnow-script-location
+      (substitute-in-file-name "$HOME/bin"))
+  (setq perlnow-pm-location
+      (substitute-in-file-name "$HOME/lib"))
+  (setq perlnow-dev-location
+      (substitute-in-file-name "$HOME/dev"))
+
+   (perlnow-define-standard-keymappings)
+
+Alternately, if you'd like a different prefix than the
+default "C-c\", you can supply it as an argument:
+
+   (perlnow-define-standard-keymappings "C-c'")
+
+Additional installation instructions:
+
+  http://obsidianrook.com/perlnow/perlnow-el-docstrings.html#perlnow-documentation-installation
+
+TUTORIAL
+
+  http://obsidianrook.com/perlnow/perlnow-el-docstrings.html#perlnow-documentation-tutorial
+
+
