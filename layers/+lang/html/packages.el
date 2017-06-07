@@ -100,6 +100,7 @@
                                                 html-mode-hook
                                                 sass-mode-hook
                                                 scss-mode-hook
+                                                react-mode-hook
                                                 web-mode-hook))
     :config
     (progn
