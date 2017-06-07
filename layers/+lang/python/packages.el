@@ -143,8 +143,8 @@
         "sF" 'lisp-eval-defun-and-go
         "sr" 'lisp-eval-region
         "sR" 'lisp-eval-region-and-go)
-      ;; call `spacemacs/python-setup-hy' once, don't put it in a hook (see issue #5988)
-      (spacemacs/python-setup-hy))))
+      ;; call `spacemacs//python-setup-hy' once, don't put it in a hook (see issue #5988)
+      (spacemacs//python-setup-hy))))
 
 (defun python/init-live-py-mode ()
   (use-package live-py-mode
@@ -282,8 +282,8 @@
 
       (add-hook 'inferior-python-mode-hook #'inferior-python-setup-hook)
       (add-hook 'python-mode-hook #'python-default)
-      ;; call `spacemacs/python-setup-shell' once, don't put it in a hook (see issue #5988)
-      (spacemacs/python-setup-shell))
+      ;; call `spacemacs//python-setup-shell' once, don't put it in a hook (see issue #5988)
+      (spacemacs//python-setup-shell))
     :config
     (progn
       ;; add support for `ahs-range-beginning-of-defun' for python-mode
