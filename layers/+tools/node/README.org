@@ -3,7 +3,7 @@
 [[file:img/node.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
+- [[#description][Description]]
 
 * Description
 This layer introduces packages that target Node.js. Currently this layer should
