@@ -10,33 +10,33 @@
 ;;; License: GPLv3
 
 (setq org-packages
-  '(
-    company
-    company-emoji
-    emoji-cheat-sheet-plus
-    (evil-org :location local)
-    evil-surround
-    gnuplot
-    htmlize
-    ;; ob, org and org-agenda are installed by `org-plus-contrib'
-    (ob :location built-in)
-    (org :location built-in)
-    (org-agenda :location built-in)
-    (org-expiry :location built-in)
-    (org-journal :toggle org-enable-org-journal-support)
-    org-download
-    ;; org-mime is installed by `org-plus-contrib'
-    (org-mime :location built-in)
-    org-pomodoro
-    org-present
-    (org-projectile :toggle (configuration-layer/package-usedp 'projectile))
-    (ox-twbs :toggle org-enable-bootstrap-support)
-    ;; use a for of ox-gfm to fix index generation
-    (ox-gfm :location (recipe :fetcher github :repo "syl20bnr/ox-gfm")
-            :toggle org-enable-github-support)
-    (ox-reveal :toggle org-enable-reveal-js-support)
-    persp-mode
-    ))
+      '(
+        company
+        company-emoji
+        emoji-cheat-sheet-plus
+        evil-surround
+        gnuplot
+        htmlize
+        ;; ob, org and org-agenda are installed by `org-plus-contrib'
+        (ob :location built-in)
+        (org :location built-in)
+        (org-agenda :location built-in)
+        (org-expiry :location built-in)
+        (org-journal :toggle org-enable-org-journal-support)
+        org-download
+        ;; org-mime is installed by `org-plus-contrib'
+        (org-mime :location built-in)
+        org-pomodoro
+        org-present
+        (org-projectile :toggle (configuration-layer/package-usedp 'projectile))
+        (ox-twbs :toggle org-enable-bootstrap-support)
+        ;; use a for of ox-gfm to fix index generation
+        (ox-gfm :location (recipe :fetcher github :repo "syl20bnr/ox-gfm")
+                :toggle org-enable-github-support)
+        (ox-reveal :toggle org-enable-reveal-js-support)
+        persp-mode
+        worf
+        ))
 
 (defun org/post-init-company ()
   (spacemacs|add-company-backends :backends company-capf :modes org-mode))
@@ -46,18 +46,6 @@
 
 (defun org/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'org-mode-hook 'spacemacs/delay-emoji-cheat-sheet-hook))
-
-(defun org/init-evil-org ()
-  (use-package evil-org
-    :commands (evil-org-mode evil-org-recompute-clocks)
-    :init (add-hook 'org-mode-hook 'evil-org-mode)
-    :config
-    (progn
-      (evil-define-key 'normal evil-org-mode-map
-        "O" 'evil-open-above)
-      (spacemacs/set-leader-keys-for-major-mode 'org-mode
-        "Cg" 'evil-org-recompute-clocks)
-      (spacemacs|diminish evil-org-mode " ⓔ" " e"))))
 
 (defun org/post-init-evil-surround ()
   (defun spacemacs/add-org-surrounds ()
@@ -183,6 +171,7 @@ Will work on both org-mode and any mode that accepts plain html."
 
         "a" 'org-agenda
 
+        "TT" 'org-todo
         "Tt" 'org-show-todo-tree
         "Ti" 'org-toggle-inline-images
         "TV" 'space-doc-mode
@@ -268,6 +257,23 @@ Will work on both org-mode and any mode that accepts plain html."
         "xs" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
         "xu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
         "xv" (spacemacs|org-emphasize spacemacs/org-verbose ?=))
+
+      (evil-define-key 'normal org-mode-map (kbd "M-l") 'org-metaright)
+      (evil-define-key 'normal org-mode-map (kbd "M-h") 'org-metaleft)
+      (evil-define-key 'normal org-mode-map (kbd "M-k") 'org-metaup)
+      (evil-define-key 'normal org-mode-map (kbd "M-j") 'org-metadown)
+      (evil-define-key 'normal org-mode-map (kbd "M-L") 'org-shiftmetaright)
+      (evil-define-key 'normal org-mode-map (kbd "M-H") 'org-shiftmetaleft)
+      (evil-define-key 'normal org-mode-map (kbd "M-K") 'org-shiftmetaup)
+      (evil-define-key 'normal org-mode-map (kbd "M-J") 'org-shiftmetadown)
+      (evil-define-key 'normal org-mode-map (kbd "o") 'spacemacs/org-smart-open-line-below)
+      (evil-define-key 'normal org-mode-map (kbd "O") 'spacemacs/org-smart-open-line-above)
+      (evil-define-key 'normal org-mode-map (kbd "M-o") 'spacemacs/org-insert-heading-below)
+      (evil-define-key 'normal org-mode-map (kbd "M-O") 'spacemacs/org-insert-heading-above)
+      (evil-define-key 'normal org-mode-map (kbd "M-o") 'spacemacs/org-insert-heading-below)
+      (evil-define-key 'normal org-mode-map (kbd "M-O") 'spacemacs/org-insert-heading-above)
+      (evil-define-key 'normal org-mode-map (kbd "M-t") 'spacemacs/org-insert-todo-heading-below)
+      (evil-define-key 'normal org-mode-map (kbd "M-T") 'spacemacs/org-insert-todo-heading-above)
 
       ;; Add global evil-leader mappings. Used to access org-agenda
       ;; functionalities – and a few others commands – from any other mode.
@@ -587,3 +593,47 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "j" 'org-journal-new-entry
         "n" 'org-journal-open-next-entry
         "p" 'org-journal-open-previous-entry))))
+
+(defun org/init-worf ()
+  (use-package worf
+    :defer t
+    :commands worf-mode
+    :init
+    (progn
+      (add-hook 'org-mode-hook 'worf-mode)
+      (spacemacs|define-transient-state org
+        :doc "
+ [_j_/_k_] next/previous (same level)  [_M-l_/_M-h_/_M-j_/_M-k_] move headings
+ [_l_]^^   first child                 [_M-L_/_M-H_/_M-J_/_M-K_] move subtrees
+ [_h_]^^   parent                      [_d_]^^^^^^               delete subtree
+ [_]_/_[_] next/previous               [_i_/_I_]^^^^             cycle visibility
+"
+        :on-enter (org-back-to-heading)
+        :bindings
+        ("j" worf-down)
+        ("k" worf-up)
+        ("h" worf-left)
+        ("l" worf-right)
+        ("i" worf-tab)
+        ("I" worf-shifttab)
+        ("d" worf-delete-subtree)
+        ("M-l" org-metaright)
+        ("M-h" org-metaleft)
+        ("M-k" org-metaup)
+        ("M-j" org-metadown)
+        ("M-L" org-shiftmetaright)
+        ("M-H" org-shiftmetaleft)
+        ("M-K" org-shiftmetaup)
+        ("M-J" org-shiftmetadown)
+        ("]" worf-forward)
+        ("[" worf-backward)
+        ("t" worf-todo))
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode "n" 'spacemacs/org-transient-state/body))
+    :config
+    (progn
+      (evil-define-key 'normal org-mode-map "gj" 'worf-down)
+      (evil-define-key 'normal org-mode-map "gk" 'worf-up)
+      (evil-define-key 'normal org-mode-map "gh" 'worf-left)
+      (evil-define-key 'normal org-mode-map "gl" 'worf-right)
+      (evil-define-key 'normal org-mode-map "g]" 'worf-forward)
+      (evil-define-key 'normal org-mode-map "g[" 'worf-backward))))
