@@ -93,8 +93,8 @@
 
 (defun perl5/post-init-smartparens ()
   :config
-  (progn
-    ;; fix a bug with electric mode and smartparens https://github.com/syl20bnr/spacemacs/issues/480
+  ;; fix a bug with electric mode and smartparens https://github.com/syl20bnr/spacemacs/issues/480
+  (with-eval-after-load "cperl-mode"
     (add-hook 'smartparens-enabled-hook  (lambda () (define-key cperl-mode-map "{" nil)))
     (add-hook 'smartparens-disabled-hook  (lambda () (define-key cperl-mode-map "{" 'cperl-electric-lbrace)))))
 
