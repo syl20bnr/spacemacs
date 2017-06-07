@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
-;; Author: Troy Hinckley <troy.hinckley@gmail.com>
+;; Author: Troy Hinckley <troyhinckley@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -14,7 +14,6 @@
         (cperl-mode :location built-in)
         smartparens
         flycheck
-        (perl-completion :toggle (configuration-layer/package-usedp 'auto-complete))
         ))
 
 (defun perl5/init-cperl-mode ()
@@ -90,25 +89,10 @@
                               '(("\\_<say\\|any\\_>" . cperl-nonoverridable-face))))))
 
 (defun perl5/post-init-smartparens ()
-  ;; fix a bug with electric mode and smartparens https://github.com/syl20bnr/spacemacs/issues/480
+  ;; fixs a bug with electric mode and smartparens https://github.com/syl20bnr/spacemacs/issues/480
   (with-eval-after-load "cperl-mode"
     (add-hook 'smartparens-enabled-hook  (lambda () (define-key cperl-mode-map "{" nil)))
     (add-hook 'smartparens-disabled-hook  (lambda () (define-key cperl-mode-map "{" 'cperl-electric-lbrace)))))
 
 (defun perl5/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'cperl-mode))
-
-(defun perl5/init-perl-completion ()
-  (use-package perl-completion
-    :defer t
-    :config
-    (progn
-      (setq plcmp-default-lighter  "")
-      (add-hook
-       'cperl-mode-hook
-       (lambda ()
-         (auto-complete-mode t)
-         (perl-completion-mode t)
-         (make-variable-buffer-local 'ac-sources)
-         (setq ac-sources
-               '(ac-source-perl-completion)))))))
