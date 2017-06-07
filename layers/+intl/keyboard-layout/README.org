@@ -14,7 +14,7 @@
   - [[#dvorak][Dvorak]]
   - [[#colemak][Colemak]]
   - [[#workman][Workman]]
-  - [[#neo][neo]]
+  - [[#neo][Neo]]
 - [[#package-configurations][Package Configurations]]
 - [[#key-bindings][Key bindings]]
 - [[#image-sources][Image sources]]
@@ -96,11 +96,11 @@ The following keyboard-layouts are available with this layer:
 ** Bepo
 [[file:img/bepo-logo.png]]
 
-=bepo= is a keyboard layout, that's optimized for the French language.
+Bepo is a keyboard layout that's optimized for the French language.
 
 [[file:img/bepo-layout.png]]
 
-The mapping correction is the one proposed for vim on the official bepo [[http://bepo.fr/wiki/Vim#Principe][wiki]].
+The mapping correction is the one proposed for vim on the official Bepo [[http://bepo.fr/wiki/Vim#Principe][wiki]].
 
 - The =bepo= layout: matches Vims movements keys:
   - ~c → h~
@@ -114,7 +114,7 @@ The mapping correction is the one proposed for vim on the official bepo [[http:/
   - ~k → s~
   - ~l → c~
 
-Some bepo keys are not used in the traditional mapping, mainly because they are
+Some Bepo keys are not used in the traditional mapping, mainly because they are
 not on the =en-us= keyboard layout. They are used as aliases for other
 shortcuts:
 
@@ -142,25 +142,25 @@ Note: There's one difference from the wiki version: ~w~ is *not* remapped to
 already provides ~SPC w~ for working with windows.
 
 ** Dvorak
-=dvorak= is a keyboard layout, that's optimized for the English language. It
+Dvorak is a keyboard layout, that's optimized for the English language. It
 rearranges the keys, to require less finger movements away from the home row.
 
 The most common Dvorak layout is called Dvorak Simplified Keyboard (referred to
 as just Dvorak keyboard or Dvorak layout). It comes pre-installed on most
 operating systems.
 
-=Dvorak Simplified Keyboard (US layout)=
+/Dvorak Simplified Keyboard (US layout):/
 
 [[file:img/dvorak-simplified-layout.png]]
 
-=Programmer Dvorak=
+/Programmer Dvorak:/
 
 [[file:img/programmer-dvorak-layout.png]]
 
 There's also a sub-layout called [[Https://www.kaufmann.no/roland/dvorak/][Programmer Dvorak]]. It reorders the number and
 symbol keys, to make it easier to type common programming symbols, without
-having to hold down the shift key. The keys that differ from the =Dvorak
-Simplified Keyboard= are shown in blue.
+having to hold down the shift key. The keys that differ from the /Dvorak
+Simplified Keyboard/ are shown in blue.
 
 This Spacemacs Keyboard Layout layer has two Dvorak movement key variants:
 
@@ -188,9 +188,9 @@ The lost keys are remapped as follows:
 - ~l → s~
 
 ** Colemak
-=colemak= is a modern alternative to the QWERTY and =dvorak= layouts. It is
-designed for efficient and ergonomic touch typing in English. More info can be
-found on the [[https://colemak.com/][Colemak website]].
+Colemak is a modern alternative to the QWERTY and Dvorak layouts. It is designed
+for efficient and ergonomic touch typing in English. More info can be found on
+the [[https://colemak.com/][Colemak website]].
 
 [[file:img/colemak-layout.png]]
 
@@ -229,8 +229,8 @@ substitutes the following keys with these mnemonics:
   - ~k → e~
   - ~l → o~
 
-** neo
-=neo= is a ergonomic keyboard, which is optimized for German. More information can
+** Neo
+Neo is a ergonomic keyboard that is optimized for German. More information can
 be found on the [[https://www.neo-layout.org/][website]].
 
 The Neo layout has six layers, here is only the first:
