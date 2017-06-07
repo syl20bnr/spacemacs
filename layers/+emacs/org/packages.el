@@ -331,7 +331,12 @@ Will work on both org-mode and any mode that accepts plain html."
             (org-eval-in-calendar '(calendar-backward-year 1))))
         (define-key org-read-date-minibuffer-local-map (kbd "M-J")
           (lambda () (interactive)
-            (org-eval-in-calendar '(calendar-forward-year 1))))))))
+            (org-eval-in-calendar '(calendar-forward-year 1)))))
+
+      ;; Default `org-set-tags' does not work well with ivy.
+      (when (configuration-layer/layer-usedp 'ivy)
+        (add-hook 'org-ctrl-c-ctrl-c-hook
+                  'spacemacs//org-ctrl-c-ctrl-c-counsel-org-tag)))))
 
 (defun org/init-org-agenda ()
   (use-package org-agenda

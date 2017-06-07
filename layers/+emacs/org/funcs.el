@@ -38,3 +38,37 @@
 (defun spacemacs//surround-code ()
   (let ((dname (read-from-minibuffer "" "")))
     (cons (format "#+BEGIN_SRC %s" (or dname "")) "#+END_SRC")))
+
+(defun spacemacs//org-ctrl-c-ctrl-c-counsel-org-tag ()
+  "Hook for `org-ctrl-c-ctrl-c-hook' to use `counsel-org-tag'."
+  (if (save-excursion (beginning-of-line) (looking-at "[ \t]*$"))
+      (or (run-hook-with-args-until-success 'org-ctrl-c-ctrl-c-final-hook)
+          (user-error "C-c C-c can do nothing useful at this location"))
+    (let* ((context (org-element-context))
+           (type (org-element-type context)))
+      (case type
+        ;; When at a link, act according to the parent instead.
+        (link (setq context (org-element-property :parent context))
+              (setq type (org-element-type context)))
+        ;; Unsupported object types: refer to the first supported
+        ;; element or object containing it.
+        ((bold code entity export-snippet inline-babel-call inline-src-block
+               italic latex-fragment line-break macro strike-through subscript
+               superscript underline verbatim)
+         (setq context
+               (org-element-lineage
+                context '(radio-target paragraph verse-block table-cell)))))
+      ;; For convenience: at the first line of a paragraph on the
+      ;; same line as an item, apply function on that item instead.
+      (when (eq type 'paragraph)
+        (let ((parent (org-element-property :parent context)))
+          (when (and (eq (org-element-type parent) 'item)
+                     (= (line-beginning-position)
+                        (org-element-property :begin parent)))
+            (setq context parent type 'item))))
+
+      ;; Act according to type of element or object at point.
+      (case type
+        ((headline inlinetask)
+         (save-excursion (goto-char (org-element-property :begin context))
+                         (call-interactively 'counsel-org-tag)) t)))))
