@@ -11,6 +11,8 @@
 ##
 ## License: GPLv3
 
+echo "$TRAVIS_COMMIT_MESSAGE"
+
 if [ $USER != "travis" ]; then
     echo "This script is not designed to run locally."
     echo "Instead, navigate to the appropriate test folder and run make there instead."
