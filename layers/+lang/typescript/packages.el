@@ -34,7 +34,8 @@
   (add-hook 'typescript-mode-hook 'eldoc-mode))
 
 (defun typescript/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'typescript-mode))
+  (spacemacs/enable-flycheck 'typescript-mode)
+  (add-hook 'typescript-mode-hook #'spacemacs//typescript-use-tslint-from-node-modules))
 
 (defun typescript/init-tide ()
   (use-package tide
@@ -47,7 +48,8 @@
         (kbd "C-j") 'tide-find-next-reference
         (kbd "C-l") 'tide-goto-reference)
       (add-hook 'typescript-mode-hook 'tide-setup)
-      (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition))
+      (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition)
+      (add-hook 'typescript-mode-hook #'spacemacs//typescript-use-tsserver-from-node-modules))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'typescript-mode "mg" "goto")

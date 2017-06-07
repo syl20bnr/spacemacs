@@ -65,3 +65,27 @@
                  (list (point-min) (point-max))))
   (browse-url (concat "http://www.typescriptlang.org/Playground#src="
                       (url-hexify-string (buffer-substring-no-properties start end)))))
+
+(defun spacemacs//typescript-use-tslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (global-tslint (executable-find "tslint"))
+         (local-tslint (expand-file-name "node_modules/.bin/tslint"
+                                         root))
+         (tslint (if (file-executable-p local-tslint)
+                     local-tslint
+                   global-tslint)))
+    (setq-local flycheck-typescript-tslint-executable tslint)))
+
+(defun spacemacs//typescript-use-tsserver-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (global-tsserver (executable-find "tsserver"))
+         (local-tsserver (expand-file-name "node_modules/.bin/tsserver"
+                                           root))
+         (tsserver (if (file-executable-p local-tsserver)
+                       local-tsserver
+                     global-tsserver)))
+    (setq-local tide-tsserver-executable tsserver)))
