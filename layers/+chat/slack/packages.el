@@ -79,6 +79,7 @@
         "d" 'slack-im-select
         "p" 'slack-room-load-prev-messages
         "e" 'slack-message-edit
+        "t" 'slack-thread-show-or-create
         "q" 'slack-ws-close
         "mm" 'slack-message-embed-mention
         "mc" 'slack-message-embed-channel
