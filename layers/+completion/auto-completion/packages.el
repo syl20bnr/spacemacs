@@ -100,6 +100,17 @@
       ;; ensure that the correct bindings are set at startup
       (spacemacs//company-active-navigation dotspacemacs-editing-style)
 
+      ;; add current company backend indicator in mode line
+      (spaceline-define-segment current-company-backend
+        (when (bound-and-true-p company-candidates)
+          (if (consp company-backend)
+            (company--group-lighter (nth company-selection
+                                         company-candidates)
+                                    company-lighter-base)
+            (symbol-name company-backend))))
+      (add-to-list 'spacemacs-spaceline-additional-segments 'current-company-backend)
+      (apply #'spaceline-spacemacs-theme spacemacs-spaceline-additional-segments)
+
       (setq company-transformers '(spacemacs//company-transformer-cancel
                                    company-sort-by-occurrence)))))
 
