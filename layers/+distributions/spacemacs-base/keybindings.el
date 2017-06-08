@@ -114,6 +114,7 @@
 ;; applications ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "ac"  'calc-dispatch
+  "aC"  'calendar
   "ap"  'list-processes
   "aP"  'proced
   "au"  'undo-tree-visualize)
