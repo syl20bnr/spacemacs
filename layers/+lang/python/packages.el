@@ -138,11 +138,11 @@
         "si" 'inferior-lisp
         "sb" 'lisp-load-file
         "sB" 'switch-to-lisp
-        "se" 'lisp-eval-last-sexp
-        "sf" 'lisp-eval-defun
-        "sF" 'lisp-eval-defun-and-go
-        "sr" 'lisp-eval-region
-        "sR" 'lisp-eval-region-and-go)
+        "ee" 'lisp-eval-last-sexp
+        "ef" 'lisp-eval-defun
+        "eF" 'lisp-eval-defun-and-go
+        "er" 'lisp-eval-region
+        "eR" 'lisp-eval-region-and-go)
       ;; call `spacemacs//python-setup-hy' once, don't put it in a hook (see issue #5988)
       (spacemacs//python-setup-hy))))
 
