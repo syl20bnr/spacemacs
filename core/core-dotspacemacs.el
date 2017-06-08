@@ -446,7 +446,7 @@ Returns non nil if the layer has been effectively inserted."
     (with-current-buffer (find-file-noselect (dotspacemacs/location))
       (beginning-of-buffer)
       (let ((insert-point (re-search-forward
-                           "dotspacemacs-configuration-layers\\s-*\n?[^(]*\\((\\)")))
+                           "[^`]dotspacemacs-configuration-layers\\s-*\n?[^(]*\\((\\)")))
         (insert (format "%S" layer-name))
         (unless (equal (point) (point-at-eol))
           (insert "\n"))
