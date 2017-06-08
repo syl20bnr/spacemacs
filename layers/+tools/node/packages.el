@@ -10,9 +10,9 @@
 ;;; License: GPLv3
 
 (setq node-packages
-  '(
-     add-node-modules-path
-     ))
+      '(
+        (add-node-modules-path :toggle node-add-modules-path)
+        ))
 
 (defun node/init-add-node-modules-path ()
   (use-package add-node-modules-path :defer t))
