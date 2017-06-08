@@ -1,0 +1,31 @@
+#+TITLE: lispy layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+
+#+CAPTION: logo
+
+# The maximum height of the logo should be 200 pixels.
+[[img/lispy.png]]
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
+
+* Description
+This layer adds the [[https://github.com/abo-abo/lispy][lispy]] package and makes it available as a toggle on =M-m k=.
+The intention is to provide users of holy-mode (and possibly hybrid-mode) with
+an alternative to =evil-lisp-state= for editing lisp in spacemacs. 
+
+* Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(lispy))
+#+end_src
+
+* Key bindings
+
+| Key Binding | Description                                |
+|-------------+--------------------------------------------|
+| ~<SPC> k~   | Toggle lispy mode on in the current buffer |
+|             |                                            |
