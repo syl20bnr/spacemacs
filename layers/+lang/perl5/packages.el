@@ -25,11 +25,13 @@
 
     :init
     (progn
-      (setq cperl-highlight-variables-indiscriminately t) ;; highlight all scalar variables not just the instantiation
-      (setq cperl-indent-level 4) ;; 4 spaces is the standard indentation
-      (setq cperl-close-paren-offset -4) ;; indent the closing paren back four spaces
-      (setq cperl-continued-statement-offset 4) ;; if a statement continues indent it to four spaces
-      (setq cperl-indent-parens-as-block t)) ;; parentheses are indented with the block and not with scope
+      (setq
+       ;; highlight all scalar variables not just the instantiation
+       cperl-highlight-variables-indiscriminately t
+       cperl-indent-level 4        ; 4 spaces is the standard indentation
+       cperl-close-paren-offset -4 ; indent the closing paren back four spaces
+       cperl-continued-statement-offset 4 ; if a statement continues indent it to four spaces
+       cperl-indent-parens-as-block t)) ; parentheses are indented with the block and not with scope
 
     :config
     (progn
@@ -80,8 +82,14 @@
             'font-lock-string-face) t)))
 
       ;; Use less horrible colors for cperl arrays and hashes
-      (set-face-attribute 'cperl-array-face nil :foreground  "#DD7D0A"    :background  'unspecified :weight 'unspecified)
-      (set-face-attribute 'cperl-hash-face nil  :foreground  "OrangeRed3" :background  'unspecified :weight 'unspecified)
+      (set-face-attribute 'cperl-array-face nil
+                          :foreground  "#DD7D0A"
+                          :background  'unspecified
+                          :weight 'unspecified)
+      (set-face-attribute 'cperl-hash-face nil
+                          :foreground "OrangeRed3"
+                          :background 'unspecified
+                          :weight 'unspecified)
 
       (font-lock-add-keywords 'cperl-mode
                               '(("\\_<const\\|croak\\_>" . font-lock-keyword-face)))
@@ -90,9 +98,9 @@
 
 (defun perl5/post-init-smartparens ()
   ;; fixs a bug with electric mode and smartparens https://github.com/syl20bnr/spacemacs/issues/480
-  (with-eval-after-load "cperl-mode"
-    (add-hook 'smartparens-enabled-hook  (lambda () (define-key cperl-mode-map "{" nil)))
-    (add-hook 'smartparens-disabled-hook  (lambda () (define-key cperl-mode-map "{" 'cperl-electric-lbrace)))))
+  (with-eval-after-load 'cperl-mode
+    (add-hook 'smartparens-enabled-hook 'spacemacs//perl5-smartparens-enable)
+    (add-hook 'smartparens-disabled-hook 'spacemacs//perl5-spartparens-disable)))
 
 (defun perl5/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'cperl-mode))
+  (spacemacs/enable-flycheck 'cperl-mode))
