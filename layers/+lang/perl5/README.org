@@ -12,7 +12,6 @@
 This layer adds support for the Perl5 language.
 
 ** Features
-- Auto-completion using [[https://www.emacswiki.org/emacs/PerlCompletion][perl-completion-mode]]
 - syntactic and semantic checking using [[https://github.com/flycheck/flycheck][flycheck]]
 
 * Install
