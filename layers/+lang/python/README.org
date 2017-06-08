@@ -55,6 +55,9 @@ file.
 
 ** Dependencies
 *** Auto-completion: Anaconda dependencies
+=anaconda-mode= currently only supports Python versions 2.6, 2.7, 3.3, and 3.4.
+Source: https://github.com/proofit404/anaconda-mode#supported-python-versions
+
 =anaconda-mode= tries to install the dependencies itself but sometimes
 it does not work and you may encounter the following message when
 opening a python buffer:
