@@ -363,19 +363,20 @@
     :init
     (progn
       (spacemacs|define-transient-state string-inflection
-        :title "String inflection transient state"
+        :title "String Inflection Transient State"
         :doc "\n [_i_] cycle"
         :bindings
         ("i" string-inflection-all-cycle))
+      (spacemacs/declare-prefix "xi" "inflection")
       (spacemacs/set-leader-keys
-        "xii" 'spacemacs/string-inflection-transient-state/body
-        "xiu" 'string-inflection-underscore
-        "xi_" 'string-inflection-underscore
-        "xiU" 'string-inflection-upcase
-        "xik" 'string-inflection-kebab-case
-        "xi-" 'string-inflection-kebab-case
         "xic" 'string-inflection-lower-camelcase
-        "xiC" 'string-inflection-camelcase))))
+        "xiC" 'string-inflection-camelcase
+        "xii" 'spacemacs/string-inflection-transient-state/body
+        "xi-" 'string-inflection-kebab-case
+        "xik" 'string-inflection-kebab-case
+        "xi_" 'string-inflection-underscore
+        "xiu" 'string-inflection-underscore
+        "xiU" 'string-inflection-upcase))))
 
 (defun spacemacs-editing/init-undo-tree ()
   (use-package undo-tree
