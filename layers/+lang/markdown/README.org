@@ -185,6 +185,7 @@ To generate a table of contents type on top of the buffer:
 | ~SPC m }~   | forward paragraph  |
 | ~SPC m N~   | next link          |
 | ~SPC m P~   | previous link      |
+
 ** Promotion, Demotion
 
 | Key Binding | Description        |
