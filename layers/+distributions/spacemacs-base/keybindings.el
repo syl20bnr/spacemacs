@@ -17,6 +17,7 @@
 (setq spacemacs/key-binding-prefixes '(("a"   "applications")
                                        ("A"   "other applications")
                                        ("ai"  "irc")
+                                       ("an"  "notebook")
                                        ("as"  "shells")
                                        ("b"   "buffers")
                                        ("c"   "compile/comments")

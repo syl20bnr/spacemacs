@@ -24,8 +24,8 @@
     :init
     (progn
       (spacemacs/set-leader-keys
-        "ail" 'ein:notebooklist-login
-        "aio" 'ein:notebooklist-open)
+        "anl" 'ein:notebooklist-login
+        "ano" 'ein:notebooklist-open)
       (with-eval-after-load 'ein-notebooklist
         (evilified-state-evilify-map ein:notebooklist-mode-map
           :mode ein:notebooklist-mode
