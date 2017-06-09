@@ -23,6 +23,7 @@
   - [[#list-editing][List editing]]
   - [[#movement][Movement]]
   - [[#promotion-demotion][Promotion, Demotion]]
+  - [[#toggles][Toggles]]
 
 * Description
 This layer adds markdown support to Spacemacs.
@@ -193,3 +194,11 @@ To generate a table of contents type on top of the buffer:
 | ~M-j~       | markdown-move-down |
 | ~M-h~       | markdown-promote   |
 | ~M-l~       | markdown-demote    |
+
+** Toggles
+
+| Key Binding | Description          |
+|-------------+----------------------|
+| ~SPC m t i~ | toggle inline images |
+| ~SPC m t l~ | toggle hidden urls   |
+| ~SPC m t w~ | toggle wiki links    |
