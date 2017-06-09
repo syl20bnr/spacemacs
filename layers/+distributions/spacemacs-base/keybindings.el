@@ -18,6 +18,7 @@
                                        ("A"   "other applications")
                                        ("ai"  "irc")
                                        ("as"  "shells")
+                                       ("ay"  "ipython notebook")
                                        ("b"   "buffers")
                                        ("c"   "compile/comments")
                                        ("C"   "capture/colors")
