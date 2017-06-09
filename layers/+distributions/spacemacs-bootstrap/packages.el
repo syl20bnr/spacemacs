@@ -413,6 +413,27 @@
           ("\\11..9" . "digit-argument"))
         which-key-replacement-alist)
 
+  ;; SPC x i- inflection
+  ;; rename "k -> string-inflection-kebab-case"
+  ;; to "k,- -> string-inflection-kebab-case"
+  (push '(("\\(.*\\)k" . "string-inflection-kebab-case") .
+          ("\\1k,-" . "string-inflection-kebab-case"))
+        which-key-replacement-alist)
+
+  ;; hide the "- -> string-inflection-kebab-case" entry
+  (push '(("\\(.*\\)-" . "string-inflection-kebab-case") . t)
+        which-key-replacement-alist)
+
+  ;; rename "u -> string-inflection-underscore"
+  ;; to "u,_ -> string-inflection-underscore"
+  (push '(("\\(.*\\)u" . "string-inflection-underscore") .
+          ("\\1u,_" . "string-inflection-underscore"))
+        which-key-replacement-alist)
+
+  ;; hide the "_ -> string-inflection-underscore" entry
+  (push '(("\\(.*\\)_" . "string-inflection-underscore") . t)
+        which-key-replacement-alist)
+
   ;; C-c C-w-
   ;; rename the eyebrowse-switch-to-window-config-0 entry, to 0..9
   (push '(("\\(.*\\)0" . "eyebrowse-switch-to-window-config-0") .
