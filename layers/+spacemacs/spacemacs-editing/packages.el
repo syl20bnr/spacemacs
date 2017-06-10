@@ -362,8 +362,13 @@
   (use-package string-inflection
     :init
     (progn
+      (spacemacs|define-transient-state string-inflection
+        :title "String inflection transient state"
+        :doc "\n [_i_] cycle"
+        :bindings
+        ("i" string-inflection-all-cycle))
       (spacemacs/set-leader-keys
-        "xii" 'string-inflection-all-cycle
+        "xii" 'spacemacs/string-inflection-transient-state/body
         "xiu" 'string-inflection-underscore
         "xi_" 'string-inflection-underscore
         "xiU" 'string-inflection-upcase
