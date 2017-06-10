@@ -1,0 +1,34 @@
+#+TITLE: bm layer
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+- [[#features][Features]]
+- [[#install][Install]]
+- [[#keybindings][Keybindings]]
+
+* Description
+[[https://github.com/joodland/bm/blob/master/README.md][BM]] provides visible, buffer local, bookmarks and the ability to jump forward and backward to the next bookmark.
+
+* Features
+- Auto remove bookmark after jump to it by =bm-next= or =bm-previous=
+- Cycle through bookmarks in all open buffers in LIFO order
+- Toggle bookmarks. Jump to next/previous bookmark.
+- Setting bookmarks based on a regexp. (Useful when searching logfiles.)
+- Mouse navigation.
+- Annotate bookmarks.
+- Different wrapping modes.
+- Different bookmarks styles, line-only, fringe-only or both.
+- Persistent bookmarks.
+- List bookmarks (in all buffers) in a separate buffer.
+- Cycle through bookmarks in all open buffers.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =fasd= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Keybindings
+
+| Key Binding | Description        |
+|-------------+--------------------|
+| ~SPC a b~   | bm transient state |
