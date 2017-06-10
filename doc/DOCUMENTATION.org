@@ -2706,8 +2706,10 @@ Text related commands (start with ~x~):
 | ~SPC x g T~   | reverse source and target languages                           |
 | ~SPC x i i~   | cycle symbol naming styles                                    |
 | ~SPC x i u~   | change symbol style to ~under_score~                          |
+| ~SPC x i _~   | change symbol style to ~under_score~                          |
 | ~SPC x i U~   | change symbol style to ~UP_CASE~                              |
 | ~SPC x i k~   | change symbol style to ~kebab-case~                           |
+| ~SPC x i -~   | change symbol style to ~kebab-case~                           |
 | ~SPC x i c~   | change symbol style to ~lowerCamelCase~                       |
 | ~SPC x i C~   | change symbol style to ~UpperCamelCase~                       |
 | ~SPC x j c~   | set the justification to center                               |
