@@ -323,6 +323,7 @@ Please see the [[https://github.com/Somelauw/evil-org-mode/blob/master/doc/keyth
 | ~M-h~ / ~M-l~ | Promote or demote heading       |
 | ~M-J~ / ~M-K~ | Move subtree                    |
 | ~M-H~ / ~M-L~ | Promote or demote subtree       |
+| ~>>~ / ~<<~   | Promote or demote heading       |
 
 ** Tables
 
@@ -358,44 +359,30 @@ Please see the [[https://github.com/Somelauw/evil-org-mode/blob/master/doc/keyth
 
 ** Trees
 
-| Key Binding | Description                                |
-|-------------+--------------------------------------------|
-| ~TAB~       | org-cycle                                  |
-| ~$~         | org-end-of-line                            |
-| ~^~         | org-beginning-of-line                      |
-| ~<~         | org-metaleft                               |
-| ~>~         | org-metaright                              |
-| ~gh~        | outline-up-heading                         |
-| ~gj~        | org-forward-heading-same-level             |
-| ~gk~        | org-backward-heading-same-level            |
-| ~gl~        | outline-next-visible-heading               |
-| ~H~         | org-beginning-of-line                      |
-| ~L~         | org-end-of-line                            |
-| ~o~         | always-insert-item                         |
-| ~O~         | org-open-above                             |
-| ~t~         | org-todo                                   |
-| ~T~         | org-insert-todo-heading nil                |
-| ~M-h~       | org-metaleft                               |
-| ~M-H~       | org-shiftmetaleft                          |
-| ~M-j~       | org-metadown                               |
-| ~M-J~       | org-shiftmetadown                          |
-| ~M-k~       | org-metaup                                 |
-| ~M-K~       | org-shiftmetaup                            |
-| ~M-l~       | org-metaright                              |
-| ~M-L~       | org-shiftmetaright                         |
-| ~M-o~       | org-insert-heading+org-metaright           |
-| ~M-t~       | org-insert-todo-heading nil+ org-metaright |
-| ~SPC m s a~ | org-archive-subtree                        |
-| ~SPC m s b~ | org-tree-to-indirect-buffer                |
-| ~SPC m s l~ | org-demote-subtree                         |
-| ~SPC m s h~ | org-promote-subtree                        |
-| ~SPC m s k~ | org-move-subtree-up                        |
-| ~SPC m s j~ | org-move-subtree-down                      |
-| ~SPC m s n~ | org-narrow-to-subtree                      |
-| ~SPC m s N~ | widen narrowed subtree                     |
-| ~SPC m s r~ | org-refile                                 |
-| ~SPC m s s~ | show sparse tree                           |
-| ~SPC m s S~ | sort trees                                 |
+| Key Binding   | Description                     |
+|---------------+---------------------------------|
+| ~gj~ / ~gk~   | Next/previous element (heading) |
+| ~gh~ / ~gl~   | Parent/child element (heading)  |
+| ~gH~          | Root heading                    |
+| ~ae~          | Element text object             |
+| ~ar~          | Subtree text object             |
+| ~M-j~ / ~M-k~ | Move heading                    |
+| ~M-h~ / ~M-l~ | Promote or demote heading       |
+| ~M-J~ / ~M-K~ | Move subtree                    |
+| ~M-H~ / ~M-L~ | Promote or demote subtree       |
+| ~>>~ / ~<<~   | Promote or demote heading       |
+| ~TAB~         | org-cycle                       |
+| ~SPC m s a~   | org-archive-subtree             |
+| ~SPC m s b~   | org-tree-to-indirect-buffer     |
+| ~SPC m s l~   | org-demote-subtree              |
+| ~SPC m s h~   | org-promote-subtree             |
+| ~SPC m s k~   | org-move-subtree-up             |
+| ~SPC m s j~   | org-move-subtree-down           |
+| ~SPC m s n~   | org-narrow-to-subtree           |
+| ~SPC m s N~   | widen narrowed subtree          |
+| ~SPC m s r~   | org-refile                      |
+| ~SPC m s s~   | show sparse tree                |
+| ~SPC m s S~   | sort trees                      |
 
 ** Element insertion
 
