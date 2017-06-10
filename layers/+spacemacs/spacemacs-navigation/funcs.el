@@ -303,6 +303,7 @@
 (defun spacemacs/ace-buffer-links ()
   "Ace jump to links in `spacemacs' buffer."
   (interactive)
+  (require 'avy)
   (let ((res (avy-with spacemacs/ace-buffer-links
                (avy--process
                 (spacemacs//collect-spacemacs-buffer-links)
