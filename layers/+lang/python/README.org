@@ -66,7 +66,7 @@ opening a python buffer:
 To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anaconda-mode/wiki][anaconda-deps]] by hand:
 
 #+begin_src sh
-    pip install --upgrade "jedi>=0.9.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
+    pip install --upgrade "jedi==0.9.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
 #+end_src
 
 Source: https://github.com/proofit404/anaconda-mode#issues
