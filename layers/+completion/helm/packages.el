@@ -259,7 +259,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-rg))
 
       (defun spacemacs/helm-files-smart-do-search (&optional default-inputp)
-        "Search in opened buffers using `dotspacemacs-search-tools'.
+        "Search in files using `dotspacemacs-search-tools'.
 Search for a search tool in the order provided by `dotspacemacs-search-tools'
 If DEFAULT-INPUTP is non nil then the current region or symbol at point
 are used as default input."
@@ -270,8 +270,7 @@ are used as default input."
                                               default-inputp)))
 
       (defun spacemacs/helm-files-smart-do-search-region-or-symbol ()
-        "Search in opened buffers using `dotspacemacs-search-tools'.
-with default input.
+        "Search in files using `dotspacemacs-search-tools' with default input.
 Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (interactive)
         (spacemacs/helm-files-smart-do-search t))
