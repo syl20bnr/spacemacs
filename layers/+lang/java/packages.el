@@ -117,6 +117,7 @@
         "rf" 'eclim-java-format
         "ri" 'eclim-java-import-organize
         "rj" 'eclim-java-implement
+        "rn" 'eclim-java-new
         "rr" 'eclim-java-refactor-rename-symbol-at-point
         ;; test
         "tt" 'eclim-run-junit)
