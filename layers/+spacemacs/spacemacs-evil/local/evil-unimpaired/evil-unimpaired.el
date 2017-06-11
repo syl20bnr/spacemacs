@@ -54,11 +54,13 @@
 
 (defun evil-unimpaired/paste-above ()
   (interactive)
+  (setq this-command 'evil-paste-after)
   (evil-insert-newline-above)
   (evil-paste-after 1))
 
 (defun evil-unimpaired/paste-below ()
   (interactive)
+  (setq this-command 'evil-paste-after)
   (evil-insert-newline-below)
   (evil-paste-after 1))
 
