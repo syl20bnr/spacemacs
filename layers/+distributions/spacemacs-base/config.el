@@ -70,7 +70,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Edit
 ;; ---------------------------------------------------------------------------
 
-;; start scratch in text mode (usefull to get a faster Emacs load time
+;; Start with the *scratch* buffer in text mode (speeds up Emacs load time,
 ;; because it avoids autoloads of elisp modes)
 (setq initial-major-mode 'text-mode)
 
