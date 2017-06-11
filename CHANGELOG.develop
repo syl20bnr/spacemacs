@@ -24,6 +24,7 @@ This file containes the change log for the next major version of Spacemacs.
   README.org file of the =auto-completion= layer, also you can read
   [[https://github.com/syl20bnr/spacemacs/commit/74fdbb6][commit message of commit 74fdbb6]].
 - The function =add-flycheck-hook= has been renamed to =enable-flycheck=.
+- Remap =org-attach= from ~SPC m i a~ to ~SPC m A~.
 *** Hot new feature
 - Improve themes support. Support are now handled like regular packages. The
   list of themes now supports =:location= keyword like in layer list. More
@@ -93,6 +94,7 @@ This file containes the change log for the next major version of Spacemacs.
 - Move clock related key bindings to ~SPC a o k~
 - Add key bindings ~SPC a o k i~ to clock in last and ~SPC a o k j~
   to jump to current clock (thanks to darkfeline)
+- Remap =org-attach= from ~SPC m i a~ to ~SPC m A~.
 **** Scala
 - Move =ensime= to the =java= layer (Tor Hedin Bronner)
 **** Syntax-checking
