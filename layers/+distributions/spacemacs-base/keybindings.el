@@ -218,7 +218,8 @@
   "iJ" 'spacemacs/insert-line-below-no-indent
   "iK" 'spacemacs/insert-line-above-no-indent
   "ik" 'spacemacs/evil-insert-line-above
-  "ij" 'spacemacs/evil-insert-line-below)
+  "ij" 'spacemacs/evil-insert-line-below
+  "iy" 'yank)
 ;; format ---------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "jo" 'open-line

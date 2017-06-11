@@ -2750,6 +2750,7 @@ Text insertion commands (start with ~i~):
 | ~SPC i U 1~ | insert UUIDv1 (use universal argument to insert with CID format)      |
 | ~SPC i U 4~ | insert UUIDv4 (use universal argument to insert with CID format)      |
 | ~SPC i U U~ | insert UUIDv4 (use universal argument to insert with CID format)      |
+| ~SPC i y~   | insert most recent item in kill-ring                                  |
 
 *Hint:* You can change the length of the inserted password with a numerical
 prefix argument, for instance ~SPC U 24 SPC i p p~  will insert a password
