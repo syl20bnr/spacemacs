@@ -20,7 +20,7 @@
     :defer t
     :init
     (progn
-      (spacemacs/set-leader-keys "bB" 'ibuffer)
+      (spacemacs/set-leader-keys "bI" 'ibuffer)
       (global-set-key (kbd "C-x C-b") 'ibuffer)
       (defun spacemacs//ibuffer-group-by-modes ()
         "Group buffers by modes."
