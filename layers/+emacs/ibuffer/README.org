@@ -42,7 +42,7 @@ Example:
 
 | Key Binding | Description                |
 |-------------+----------------------------|
-| ~SPC b B~   | open IBuffer menu (global) |
+| ~SPC b I~   | open IBuffer menu (global) |
 
 *Note:* The layer will also replace regular ~C-x C-b~ with =ibuffer=.
 
