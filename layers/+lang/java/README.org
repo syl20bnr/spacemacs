@@ -255,11 +255,12 @@ particular refactoring doesn't work.
 
 *** Refactoring
 
- | Key Binding | Description      |
- |-------------+------------------|
- | ~SPC m =~   | Beautify code    |
- | ~SPC m r i~ | Optimize imports |
- | ~SPC m r I~ | Import all       |
+ | Key Binding | Description                            |
+ |-------------+----------------------------------------|
+ | ~SPC m =~   | Beautify code                          |
+ | ~SPC m r i~ | Optimize imports                       |
+ | ~SPC m r I~ | Import all                             |
+ | ~SPC m r n~ | Create a new class, interface, or enum |
 
 *** Tasks
 
