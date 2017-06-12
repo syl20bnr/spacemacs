@@ -285,6 +285,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC m -~                                    | org-ctrl-c-minus                             |
 | ~SPC m '​~                                    | org-edit-special                             |
 | ~SPC m a~                                    | org-agenda                                   |
+| ~SPC m A~                                    | org-attach                                   |
 | ~SPC m c~                                    | org-capture                                  |
 | ~SPC m C c~                                  | org-clock-cancel                             |
 | ~SPC m C g~                                  | evil-org-recompute-clocks                    |
@@ -388,7 +389,6 @@ Please see the [[https://github.com/Somelauw/evil-org-mode/blob/master/doc/keyth
 
 | Key Binding   | Description                      |
 |---------------+----------------------------------|
-| ~SPC m i a~   | org-attach                       |
 | ~SPC m i d~   | org-insert-drawer                |
 | ~SPC m i D s~ | Take screenshot                  |
 | ~SPC m i D y~ | Yank image url                   |
