@@ -105,11 +105,18 @@ to not have to set these variables manually when enabling this layer."
   "Initialize theme-changer"
   (use-package theme-changer
     :if geolocation-enable-automatic-theme-changer
-    :config
+    :init
     (progn
-      (when (> (length dotspacemacs-themes) 1)
-        (change-theme (nth 0 dotspacemacs-themes)
-                      (nth 1 dotspacemacs-themes))))))
+      (defun geolocation//activate-theme-changer ()
+        (when (> (length dotspacemacs-themes) 1)
+          (change-theme (nth 0 dotspacemacs-themes)
+                        (nth 1 dotspacemacs-themes)))
+        )
+      (spacemacs/defer-until-after-user-config #'geolocation//activate-theme-changer)
+      )
+    )
+  )
+
 
 (defun geolocation/post-init-popwin ()
   ;; Pin the weather forecast to the bottom window
