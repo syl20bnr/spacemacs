@@ -11,6 +11,7 @@
 
 (setq javascript-packages
   '(
+    add-node-modules-path
     coffee-mode
     company
     (company-tern :toggle (configuration-layer/package-usedp 'company))
@@ -28,6 +29,12 @@
     skewer-mode
     livid-mode
     ))
+
+(defun javascript/post-init-add-node-modules-path ()
+  (add-hook 'css-mode-hook #'add-node-modules-path)
+  (add-hook 'coffee-mode-hook #'add-node-modules-path)
+  (add-hook 'js2-mode-hook #'add-node-modules-path)
+  (add-hook 'json-mode-hook #'add-node-modules-path))
 
 (defun javascript/init-coffee-mode ()
   (use-package coffee-mode

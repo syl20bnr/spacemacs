@@ -26,7 +26,7 @@
     hindent
     hlint-refactor
     intero
-    dante
+    (dante :toggle (version<= "25" emacs-version))
     ))
 
 (defun haskell/init-cmm-mode ()

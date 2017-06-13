@@ -1,0 +1,10 @@
+#+TITLE: Node layer
+
+[[file:img/node.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+
+* Description
+This layer introduces packages that target Node.js. Currently this layer should
+not be used directly, as it will be used by other layers.

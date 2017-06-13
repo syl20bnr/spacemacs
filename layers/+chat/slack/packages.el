@@ -79,13 +79,15 @@
         "d" 'slack-im-select
         "p" 'slack-room-load-prev-messages
         "e" 'slack-message-edit
+        "t" 'slack-thread-show-or-create
         "q" 'slack-ws-close
         "mm" 'slack-message-embed-mention
         "mc" 'slack-message-embed-channel
         "k" 'slack-select-rooms
         "@" 'slack-message-embed-mention
         "#" 'slack-message-embed-channel
-        ")" 'slack-message-add-reaction)
+        ")" 'slack-message-add-reaction
+        "(" 'slack-message-remove-reaction)
       (evil-define-key 'insert slack-mode-map
         (kbd "@") 'slack-message-embed-mention
         (kbd "#") 'slack-message-embed-channel))))

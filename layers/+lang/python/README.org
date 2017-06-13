@@ -69,6 +69,9 @@ To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anacond
     pip install --upgrade "jedi>=0.9.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
 #+end_src
 
+If you encounter problems with Jedi 1.0 consider downgrading to 0.9.0. See [[https://github.com/davidhalter/jedi/issues/873][this
+issue]] for details.
+
 Source: https://github.com/proofit404/anaconda-mode#issues
 
 If you are facing errors such as "Unable to run anaconda-mode server", try

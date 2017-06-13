@@ -1178,9 +1178,9 @@ Decision is based on `dotspacemacs-line-numbers'."
   (set-window-margins win
                       (ceiling (* (if (boundp 'text-scale-mode-step)
                                       (expt text-scale-mode-step
-                                            text-scale-mode-amount) 1)
-                                  (if (car (window-margins))
-                                      (car (window-margins)) 1)))))
+                                            text-scale-mode-amount)
+                                    1)
+                                  (or (car (window-margins win)) 1)))))
 
 (defun spacemacs//linum-backward-compabitility ()
   "Return non-nil if `dotspacemacs-line-numbers' has an old format and if

@@ -70,6 +70,9 @@ By default the values are:
 | ~SPC m d~   | Direct message someone                  |
 | ~SPC m m~   | Embed mention of user                   |
 | ~SPC m p~   | Load previous messages                  |
+| ~SPC m )~   | Add reaction (emoji) to a message       |
+| ~SPC m (~   | Remove reaction (emoji) to a message    |
+| ~SPC m t~   | Show or create thread                   |
 | ~SPC m q~   | Quit Slack                              |
 
 The following bindings are provided to mimic bindings in the official Slack

@@ -1,6 +1,6 @@
 #+TITLE: keyboard-layout layer
 
-[[file:img/keyboard-layout.png]]
+[[file:img/keyboard-layout-layer-logo.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
@@ -10,17 +10,18 @@
   - [[#addoverride-key-bindings][Add/Override key bindings]]
 - [[#concept][Concept]]
 - [[#keyboard-layouts][Keyboard layouts]]
-  - [[#bepo][bepo]]
-  - [[#dvorak][dvorak]]
-  - [[#colemak][colemak]]
+  - [[#bepo][Bepo]]
+  - [[#dvorak][Dvorak]]
+  - [[#colemak][Colemak]]
   - [[#workman][Workman]]
+  - [[#neo][Neo]]
 - [[#package-configurations][Package Configurations]]
-- [[#keybindings][Keybindings]]
-- [[#sources][Sources]]
+- [[#key-bindings][Key bindings]]
+- [[#image-sources][Image sources]]
 
 * Description
-This layer configures some keybindings in spacemacs to make it compatible with
-keyboard layouts that differs from the traditional =en-us= keymap.
+This layer configures some key bindings in Spacemacs, to make it compatible with
+keyboard layouts that differs from the traditional =en-us= =QWERTY= layout.
 
 * Installation
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -41,10 +42,10 @@ This layer can be customized with two variables:
 
 The first one is used to set the list of configurations to activate, and the
 second one to prevent loading certain configurations. If the
-=kl-enabled-configurations= is nil (by default), all configurations are loaded.
-Otherwise, only the listed configurations are loaded. Any configuration listed
-in =kl-disabled-configurations= will never be loaded, whether it is in the
-enabled list or not (empty by default).
+=kl-enabled-configurations= variable is =nil=, (default: =nil=), then all
+configurations are loaded. Otherwise, only the listed configurations are loaded.
+Any configuration listed in =kl-disabled-configurations= will never be loaded,
+whether it is in the enabled list or not (default: =nil=).
 
 #+begin_src emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(
@@ -54,10 +55,10 @@ enabled list or not (empty by default).
 #+end_src
 
 ** Add/Override key bindings
-It is possible to override or add bindings by defining functions named
+It is possible to override or add key bindings, by defining functions named
 =kl/pre-config-<NAME>= and =kl/post-config-<NAME>= in =dotspacemacs/user-init=.
-They are respectively called just before and after the actual configuration of
-keybindings in this layer, so *you don't have to think about when to apply the
+They are called just before and after the actual configuration of the key
+bindings in this layer. *You don't have to think about when to apply the
 configuration by yourself*. =<NAME>= is the name of the configuration you want
 to customize, they are listed under the [[#configuration][Configuration]] section.
 
@@ -68,114 +69,173 @@ Example:
   (kl/set-in-state company-active-map (kbd "C-w") 'evil-delete-backward-word))
 #+end_src
 
-Note: If you define some of these functions in your own layer, be sure that the
-=keyboard-layout= layer is placed _after_ it in the
+Note: If you define some of these functions in your own layer, then make sure
+that the =keyboard-layout= layer is placed *after* it in the
 =dotspacemacs-configuration-layers= list.
 
 * Concept
-This package first switch traditional ~hjkl~ movement keys with their equivalent
-in destination layout, and then try to correct the bugs introduced by these
-changes in other parts of Spacemacs. This layer only tries to do these changes
-when the letters are used for *doing a movement*.
+This package first switches the traditional ~hjkl~ movement keys, with their
+equivalent keys in the destination layout. It then tries to correct the bugs,
+that were introduced by these changes in other parts of Spacemacs. This layer
+only tries to make these changes when the letters are used for *movements*.
 
 The equivalent remapping is also made for uppercase letters, ~CTRL+KEY~,
-~META+KEY~ and leaders keybindings (~SPC …~) whenever it makes sense to make
-such changes.
+~META+KEY~ and leader key bindings such as (~SPC …~), whenever it makes sense.
 
-In some cases the key remapping will not follow these conventions, mainly
-because there are better alternatives, or because some moves don't make sense.
+In some cases the remapped keys won't follow these conventions, mainly because
+there are better alternatives, or because some movements don't make sense.
 
-#+begin_verse
-Example: In the =magit= status buffer, the ~c~ is used for =commit= by default,
-but if we want to follow the conventions, it should be remapped to "move left"
-in bepo. As it is not useful to move left on =magit= because operations are done
-line by line the ~c~ is not remapped.
-#+end_verse
+For example: In the =magit= status buffer, the ~c~ key is bound to =commit= by
+default. If we want to follow the conventions, then it should be remapped to
+"move left" in the bepo layout, but since operations in =magit= are done line by
+line, then there's no reason to move left, and we won't remap the ~c~ key.
 
 * Keyboard layouts
-The keyboard-layouts available with this layer are the following:
+The following keyboard-layouts are available with this layer:
 
-** bepo
+** Bepo
 [[file:img/bepo-logo.png]]
 
-=bepo= is a keyboard layout optimized for the French language.
+Bepo is a keyboard layout that's optimized for the French language.
 
-[[file:img/bepo-keymap.png]]
+[[file:img/bepo-layout.png]]
 
-The mapping correction is the one proposed for vim on the official bepo [[http://bepo.fr/wiki/Vim#Principe][wiki]].
+The mapping correction is the one proposed for vim on the official Bepo [[http://bepo.fr/wiki/Vim#Principe][wiki]].
 
-- Map the movements keys under the right hand's fingers:
+- The =bepo= layout: matches Vims movements keys:
   - ~c → h~
   - ~t → j~
   - ~s → k~
   - ~r → l~
 
-- Map lost functionalities back to some keys:
+- The lost keys are remapped as follows:
   - ~h → r~
   - ~j → t~
   - ~k → s~
   - ~l → c~
 
-Some bepo keys are not used in traditional mapping, mainly because they are not
-on the =en-us= keyboard layout. They are used as aliases for other shortcuts:
+Some Bepo keys are not used in the traditional mapping, mainly because they are
+not on the =en-us= keyboard layout. They are used as aliases for other
+shortcuts:
 
-- Map unused ~é~ key as an alias of ~w~, more useful in vim mode:
+- Map the unused ~é~ key as an alias for ~w~, it's more useful in vim mode:
   - ~é → w~
   - ~É → W~
 
-- Map indentation on direct-access keys:
+- Map indentation to direct-access keys:
   - ~» → >~
   - ~« → <~
 
 Some default configurations are also not optimal for vim, so the following
 defaults are changed:
 
-- Change =evil-escape= escape combination to something faster to type, while
+- Change the =evil-escape= combination to something that's faster to type, while
   being nearly nonexistent in French or English words:
   - ~fd → gq~
 
-- In =avy=, the key used to select words/lines are remapped to the 8 characters
-  under the fingers:
+- In =avy=, the keys that select words/lines are remapped to the 8 characters
+  under the home row fingers:
   - ~a u i e t s r n~
 
-Note: One difference exists with the wiki version: the ~w~ is *not* remapped to
-~C-w~ to avoid having to change its meaning in other modes. Spacemacs provides
-already a ~SPC w~ key binding for working with windows.
+Note: There's one difference from the wiki version: ~w~ is *not* remapped to
+~C-w~. This avoids having to change its meaning in other modes. Spacemacs
+already provides ~SPC w~ for working with windows.
 
-** dvorak
-=dvorak= is a keyboard layout optimized for the English language. [[http://www.kaufmann.no/roland/dvorak/][dvorak
-programmer]] is an optimized keyboard layout focused in programming and it's a
-variant of the more general =dvorak= (us) keyboard layout. This configuration
-will remap keybindings for the =dvorak-programmer= variant.
+** Dvorak
+Dvorak is a keyboard layout, that's optimized for the English language. It
+rearranges the keys, to require less finger movements away from the home row.
 
-There are 2 variants of dvorak implemented in this layout: dvp and dvorak. Dvp
-tries to match vim like hand placement on keyboard. Dvorak has movement keys
-shifted by 1 key to the right on home row.
+The most common Dvorak layout is called Dvorak Simplified Keyboard (referred to
+as just Dvorak keyboard or Dvorak layout). It comes pre-installed on most
+operating systems.
 
-[[file:img/dvorak-keymap.png]]
+/Dvorak Simplified Keyboard (US layout):/
 
-** colemak
-=colemak= is a modern alternative to the QWERTY and =dvorak= layouts. It is
-designed for efficient and ergonomic touch typing in English. More info can be
-found at the [[https://colemak.com/][Colemak website]].
+[[file:img/dvorak-simplified-layout.png]]
+
+/Programmer Dvorak:/
+
+[[file:img/programmer-dvorak-layout.png]]
+
+There's also a sub-layout called [[Https://www.kaufmann.no/roland/dvorak/][Programmer Dvorak]]. It reorders the number and
+symbol keys, to make it easier to type common programming symbols, without
+having to hold down the shift key. The keys that differ from the /Dvorak
+Simplified Keyboard/ are shown in blue.
+
+This Spacemacs Keyboard Layout layer has two Dvorak movement key variants:
+
+The =dvp= variant: matches Vims movement keys:
+- ~d → h~
+- ~h → j~
+- ~t → k~
+- ~n → l~
+
+The lost keys are remapped as follows:
+- ~j → d~
+- ~k → t~
+- ~l → n~
+
+The =dvorak= variant: uses the home row, which is shifted 1 key to the right of
+Vims movement keys.
+- ~h~ doesn't need to be remapped, it's already under the index finger.
+- ~t → j~
+- ~n → k~
+- ~s → l~
+
+The lost keys are remapped as follows:
+- ~j → t~
+- ~k → n~
+- ~l → s~
+
+** Colemak
+Colemak is a modern alternative to the QWERTY and Dvorak layouts. It is designed
+for efficient and ergonomic touch typing in English. More info can be found on
+the [[https://colemak.com/][Colemak website]].
 
 [[file:img/colemak-layout.png]]
 
+This layer offers three flavors of Colemak bindings:
+
+- =colemak-hnei= remaps ~HJKL~ to ~HNEI~, keeping the same key location; useful
+  for people used to the ~HJKL~ scheme on a Qwerty keyboard.
+- =colemak-neio= remaps ~HJKL~ to ~NEIO~, shifted one key to the right for
+  easier access.
+- =colemak-jkhl= remaps ~HJKL~ to ~JKHL~, permuting the direction of the keys
+  without disturbing any other binding.
+
+*Note*: for technical reasons (see [[https://github.com/syl20bnr/spacemacs/pull/7178#issuecomment-249360301][GH-7178]]), when using =colemak-jkhl=, the
+~kl/pre-config-evil~ and ~kl/post-config-evil~ hooks will be run /twice/.
+
 ** Workman
-=Workman= is an English-optimized keyboard layout designed to, [[https://workmanlayout.com][among other
-things]], reduce finger travel-distance, and balance the load equally between
-hands. It is meant to function particularly well in conjunction with ortholinear
-('matrix' or 'grid') keyboards, such as the one depicted in the diagram.
+=Workman= is an English-optimized keyboard layout that's designed to, among
+other things, reduce finger travel-distance, and balance the load equally
+between hands. It is meant to function particularly well in conjunction with
+ortholinear ('matrix' or 'grid') keyboards, such as the one depicted in the
+diagram below. More information can be found in the [[https://en.wikipedia.org/wiki/Keyboard_layout#Workman][Workman section]], of the
+wikipedia keyboard layout page.
 
-file:img/workman-keymap.png
+[[file:img/workman-layout.png]]
 
-This layer performs the following substitutions, as recommended in [[https://axiomatic.neophilus.net/posts/2013-08-13-workman-layout-for-vim.html][this blog
-post]], with some suggested mnemonics:
+As recommended in this blog post: [[Https://axiomatic.neophilus.net/posts/2013-08-13-workman-layout-for-vim.html][Workman layout for Vim]], this layout
+substitutes the following keys with these mnemonics:
 
 - (y)ank -> (h)aul
 - Search (n)ext -> (j)ump
 - (e)nd word -> brea(k) of word
 - (o)pen new line -> (l)ine
+
+- The lost keys are remapped as follows:
+  - ~h → y~
+  - ~j → n~
+  - ~k → e~
+  - ~l → o~
+
+** Neo
+Neo is a ergonomic keyboard that is optimized for German. More information can
+be found on the [[https://www.neo-layout.org/][website]].
+
+The Neo layout has six layers, here is only the first:
+[[file:img/neo-layout.png]]
 
 * Package Configurations
 The available configurations are:
@@ -202,18 +262,23 @@ The available configurations are:
 - ranger
 - twittering-mode
 
-* Keybindings
-This layer is using functions that try to /automatically/ remap keybindings in a
-lot of modes, so it's difficult to list all changed keybindings. And
+* Key bindings
+This layer tries to bind keys /automatically/ in a lot of modes. That makes it
+difficult to list them all. For example the key bindings change if:
 
 - You chose to use a different keyboard layout.
 - You chose to be on the dark side by using evil (because they have :cookie: obviously).
 - You chose to use a layer, written with :heart:, that try to solve the induced mess.
 
-So the price you have to pay is the absence of a keybindings list.
+So the price you have to pay is the absence of a key bindings list.
 
-* Sources
-The keyboard-layout logo is coming from [[https://openclipart.org/detail/202777/keyboard-layout][openclipart.org]] and is under the public
-domain. The bepo logo and the keymap images are coming from the [[http://bepo.fr/][bepo]] official
-website.  The Colemak keyboard layout image is from [[https://en.wikipedia.org/wiki/File:KB_US-Colemak.svg][Wikipedia]]. They are all
-licensed under the [[https://creativecommons.org/licenses/by-sa/3.0/deed.en][CC-BY-SA]].
+* Image sources
+- The keyboard-layout layer logo is a modified image from [[https://openclipart.org/detail/202777/keyboard-layout][openclipart.org]], and
+  is under the public domain.
+- The Bepo logo and layout images, are from the official [[http://bepo.fr/][bepo]] website. (the
+  layout image has been modified).
+- The Dvorak Simplified layout image is a modified image from [[https://en.wikipedia.org/wiki/File:KB_United_States_Dvorak.svg][Wikipedia]].
+- The Programmer Dvorak layout image is a modified version of the Dvorak
+  Simplified layout image.
+- The Colemak layout image is a modified version from [[https://en.wikipedia.org/wiki/File:KB_US-Colemak.svg][Wikipedia]].
+They are all licensed under the [[https://creativecommons.org/licenses/by-sa/3.0/deed.en][CC-BY-SA]].

@@ -22,8 +22,8 @@
         paradox
         restart-emacs
         (smooth-scrolling :location built-in)
-        winum
-        ))
+        winum))
+
 
 (defun spacemacs-navigation/init-ace-link ()
   (use-package ace-link
@@ -37,28 +37,7 @@
         (define-key help-mode-map "o" 'ace-link-help))
       (with-eval-after-load 'eww
         (define-key eww-link-keymap "o" 'ace-link-eww)
-        (define-key eww-mode-map "o" 'ace-link-eww)))
-    :config
-    (progn
-      (defvar spacemacs--link-pattern "~?/.+\\|\s\\[")
-      (defun spacemacs//collect-spacemacs-buffer-links ()
-        (let ((end (window-end))
-              points)
-          (save-excursion
-            (goto-char (window-start))
-            (while (re-search-forward spacemacs--link-pattern end t)
-              (push (+ (match-beginning 0) 1) points))
-            (nreverse points))))
-      (defun spacemacs/ace-buffer-links ()
-        "Ace jump to links in `spacemacs' buffer."
-        (interactive)
-        (let ((res (avy-with spacemacs/ace-buffer-links
-                             (avy--process
-                              (spacemacs//collect-spacemacs-buffer-links)
-                              #'avy--overlay-pre))))
-          (when res
-            (goto-char (1+ res))
-            (widget-button-press (point))))))))
+        (define-key eww-mode-map "o" 'ace-link-eww)))))
 
 (defun spacemacs-navigation/init-auto-highlight-symbol ()
   (use-package auto-highlight-symbol
@@ -191,24 +170,6 @@
       (kbd "C-u") 'doc-view-scroll-down-or-previous-page)
     :config
     (progn
-      (defun spacemacs/doc-view-search-new-query ()
-        "Initiate a new query."
-        (interactive)
-        (doc-view-search 'newquery))
-
-      (defun spacemacs/doc-view-search-new-query-backward ()
-        "Initiate a new query."
-        (interactive)
-        (doc-view-search 'newquery t))
-
-      (defun spacemacs/doc-view-goto-page (&optional count)
-        (interactive (list
-                      (when current-prefix-arg
-                        (prefix-numeric-value current-prefix-arg))))
-        (if (null count)
-            (doc-view-last-page)
-          (doc-view-goto-page count)))
-
       ;; fixed a weird issue where toggling display does not
       ;; swtich to text mode
       (defadvice doc-view-toggle-display
@@ -253,8 +214,8 @@
                    "gdb-inferior-io-mode"
                    "gdb-disassembly-mode"
                    "gdb-memory-mode"
-                   "speedbar-mode"
-                   ))
+                   "speedbar-mode"))
+
         (add-to-list 'golden-ratio-exclude-modes m))
 
       (add-to-list 'golden-ratio-exclude-buffer-regexp "^\\*[hH]elm.*")
@@ -427,33 +388,9 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
     :defer t
     :commands (open-junk-file)
     :init
-    (setq open-junk-file-format (concat spacemacs-cache-directory "junk/%Y/%m/%d-%H%M%S."))
-    (defun spacemacs/open-junk-file (&optional arg)
-      "Open junk file using helm or ivy.
-
-Interface choice depends on whether the `ivy' layer is used or
-not.
-
-When ARG is non-nil search in junk files."
-      (interactive "P")
-      (let* ((fname (format-time-string open-junk-file-format (current-time)))
-             (rel-fname (file-name-nondirectory fname))
-             (junk-dir (file-name-directory fname))
-             (default-directory junk-dir))
-        (cond ((and arg (configuration-layer/layer-usedp 'ivy))
-               (spacemacs/counsel-search dotspacemacs-search-tools nil junk-dir))
-              ((configuration-layer/layer-usedp 'ivy)
-               (require 'counsel)
-               (counsel-find-file rel-fname))
-              (arg
-               (require 'helm)
-               (let (helm-ff-newfile-prompt-p)
-                 (spacemacs/helm-files-smart-do-search)))
-              (t
-               (require 'helm)
-               (let (helm-ff-newfile-prompt-p)
-                 (helm-find-files-1 fname))))))
-    (spacemacs/set-leader-keys "fJ" 'spacemacs/open-junk-file)))
+    (progn
+      (setq open-junk-file-format (concat spacemacs-cache-directory "junk/%Y/%m/%d-%H%M%S."))
+      (spacemacs/set-leader-keys "fJ" 'spacemacs/open-junk-file))))
 
 (defun spacemacs-navigation/init-paradox ()
   (use-package paradox
@@ -461,25 +398,6 @@ When ARG is non-nil search in junk files."
     :init
     (progn
       (setq paradox-execute-asynchronously nil)
-      (defun spacemacs/paradox-list-packages ()
-        "Load depdendencies for auth and open the package list."
-        (interactive)
-        (require 'epa-file)
-        (require 'auth-source)
-        (when (and (not (boundp 'paradox-github-token))
-                   (file-exists-p "~/.authinfo.gpg"))
-          (let ((authinfo-result (car (auth-source-search
-                                       :max 1
-                                       :host "github.com"
-                                       :port "paradox"
-                                       :user "paradox"
-                                       :require '(:secret)))))
-            (let ((paradox-token (plist-get authinfo-result :secret)))
-              (setq paradox-github-token (if (functionp paradox-token)
-                                             (funcall paradox-token)
-                                           paradox-token)))))
-        (paradox-list-packages nil))
-
       (evilified-state-evilify paradox-menu-mode paradox-menu-mode-map
         "H" 'paradox-menu-quick-help
         "J" 'paradox-next-describe
@@ -489,53 +407,10 @@ When ARG is non-nil search in junk files."
       (spacemacs/set-leader-keys
         "ak" 'spacemacs/paradox-list-packages))))
 
-(defun spacemacs-navigation/init-restart-emacs()
+(defun spacemacs-navigation/init-restart-emacs ()
   (use-package restart-emacs
     :defer t
     :init
-    (defun spacemacs/restart-emacs (&optional args)
-      "Restart emacs."
-      (interactive)
-      (setq spacemacs-really-kill-emacs t)
-      (restart-emacs args))
-    (defun spacemacs/restart-emacs-resume-layouts (&optional args)
-      "Restart emacs and resume layouts."
-      (interactive)
-      (spacemacs/restart-emacs (cons "--resume-layouts" args)))
-    (defun spacemacs/restart-emacs-debug-init (&optional args)
-      "Restart emacs and enable debug-init."
-      (interactive)
-      (spacemacs/restart-emacs (cons "--debug-init" args)))
-    (defun spacemacs/restart-emacs-timed-requires (&optional args)
-      "Restart emacs and time loads / requires."
-      (interactive)
-      (spacemacs/restart-emacs (cons "--timed-requires" args)))
-    (defun spacemacs/restart-emacs-adv-timers (&optional args)
-      "Restart emacs and time loads / requires and spacemacs configuration."
-      (interactive)
-      (spacemacs/restart-emacs (cons "--adv-timers" args)))
-    (defun spacemacs/restart-stock-emacs-with-packages (packages &optional args)
-      "Restart emacs without the spacemacs configuration, enable
-debug-init and load the given list of packages."
-      (interactive
-       (progn
-         (unless package--initialized
-           (package-initialize t))
-         (let ((packages (append (mapcar 'car package-alist)
-                                 (mapcar 'car package-archive-contents)
-                                 (mapcar 'car package--builtins))))
-           (setq packages (mapcar 'symbol-name packages))
-           (let ((val (completing-read-multiple "Packages to load (comma separated): "
-                                                packages nil t)))
-             `(,val)))))
-      (let ((load-packages-string (mapconcat (lambda (pkg) (format "(use-package %s)" pkg))
-                                             packages " ")))
-        (spacemacs/restart-emacs-debug-init
-         (append (list "-q" "--execute"
-                       (concat "(progn (package-initialize) "
-                               "(require 'use-package)"
-                               load-packages-string ")"))
-                 args))))
     (spacemacs/set-leader-keys
       "qd" 'spacemacs/restart-emacs-debug-init
       "qD" 'spacemacs/restart-stock-emacs-with-packages
@@ -559,17 +434,6 @@ debug-init and load the given list of packages."
   (use-package winum
     :config
     (progn
-      (defun spacemacs//winum-assign-func ()
-        "Custom number assignment for neotree."
-        (when (and (boundp 'neo-buffer-name)
-                   (string= (buffer-name) neo-buffer-name)
-                   ;; in case there are two neotree windows. Example: when
-                   ;; invoking a transient state from neotree window, the new
-                   ;; window will show neotree briefly before displaying the TS,
-                   ;; causing an error message. the error is eliminated by
-                   ;; assigning 0 only to the top-left window
-                   (eq (selected-window) (frame-first-window)))
-          0))
       (setq winum-auto-assign-0-to-minibuffer nil
             winum-assign-func 'spacemacs//winum-assign-func
             winum-auto-setup-mode-line nil

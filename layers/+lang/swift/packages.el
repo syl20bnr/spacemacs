@@ -48,10 +48,10 @@ before activiting or switching to REPL."
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'swift-mode
-        "sS" 'swift-mode-run-repl      ; run or switch to an existing swift repl
-        "ss" 'swift-mode-run-repl
-        "sb" 'swift-mode-send-buffer
-        "sr" 'swift-mode-send-region)
+        "sS" 'swift-mode:run-repl      ; run or switch to an existing swift repl
+        "ss" 'swift-mode:run-repl
+        "sb" 'swift-mode:send-buffer
+        "sr" 'swift-mode:send-region)
 
       (with-eval-after-load 'swift-repl-mode-map
         ;; Switch back to editor from REPL

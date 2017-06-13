@@ -10,53 +10,30 @@
 ;;; License: GPLv3
 
 (setq geolocation-packages
-    '(
-      osx-location
-      popwin
-      rase
-      sunshine
-      theme-changer
-      ))
+      '(
+        (osx-location :toggle geolocation-enable-location-service)
+        popwin
+        rase
+        (sunshine :toggle geolocation-enable-weather-forecast)
+        (theme-changer :toggle geolocation-enable-automatic-theme-changer)
+        ))
 
 (defun geolocation/init-osx-location ()
   "Initialize osx-location"
   (use-package osx-location
-    :if geolocation-enable-location-service
     :defer t
     :init
     (progn
       (when (spacemacs/system-is-mac)
-          (add-hook 'osx-location-changed-hook
-                    (lambda ()
-                      (let ((location-changed-p nil)
-                            (_longitude (/ (truncate (* osx-location-longitude 10)) 10.0)) ; one decimal point, no rounding
-                            (_latitdue (/ (truncate (* osx-location-latitude 10)) 10.0)))
-                        (unless (equal (bound-and-true-p calendar-longitude) _longitude)
-                          (setq calendar-longitude _longitude
-                                location-changed-p t))
-                        (unless (equal (bound-and-true-p  calendar-latitude) _latitdue)
-                          (setq calendar-latitude _latitdue
-                                location-changed-p t))
-                        (when (and (configuration-layer/layer-usedp 'geolocation) location-changed-p)
-                          (message "Location changed %s %s (restarting rase-timer)" calendar-latitude calendar-longitude)
-                          (rase-start t)
-                          ))))
-          (osx-location-watch)))))
+        (add-hook 'osx-location-changed-hook 'spacemacs//osx-location-changed))
+      (osx-location-watch))))
 
 (defun geolocation/init-rase ()
   (use-package rase
     :defer t
     :init
     (progn
-      (add-hook 'osx-location-changed-hook
-                (lambda ()
-                  (setq calendar-latitude osx-location-latitude
-                        calendar-longitude osx-location-longitude)
-                  (unless (bound-and-true-p calendar-location-name)
-                    (setq calendar-location-name
-                          (format "%s, %s"
-                                  osx-location-latitude
-                                  osx-location-longitude)))))
+      (add-hook 'osx-location-changed-hook 'spacemacs//osx-location-changed-rase)
       (osx-location-watch)
       (defadvice rase-start (around test-calendar activate)
         "Don't call `raise-start' if `calendar-latitude' or
@@ -71,13 +48,11 @@ to not have to set these variables manually when enabling this layer."
         (if (and (bound-and-true-p calendar-longitude)
                  (bound-and-true-p calendar-latitude))
             ad-do-it))
-      (rase-start t)
-      )))
+      (rase-start t))))
 
 (defun geolocation/init-sunshine ()
   "Initialize sunshine"
   (use-package sunshine
-    :if geolocation-enable-weather-forecast
     :commands (sunshine-forecast sunshine-quick-forecast)
     :init
     (progn
@@ -93,23 +68,19 @@ to not have to set these variables manually when enabling this layer."
         (kbd "i") 'sunshine-toggle-icons)
 
       ;; just in case location was not set by user, or on OS X,
-      ;; if wasn't set up automatically, will not work with Emac's
-      ;; default for ;; `calendar-location-name'
-      (when (not (boundp 'sunshine-location))
+      ;; if wasn't set up automatically, will not work with Emacs'
+      ;; default for `calendar-location-name'
+      (unless (boundp 'sunshine-location)
         (setq sunshine-location (format "%s, %s"
                                         calendar-latitude
-                                        calendar-longitude)))
-  )))
+                                        calendar-longitude))))))
 
 (defun geolocation/init-theme-changer ()
   "Initialize theme-changer"
   (use-package theme-changer
-    :if geolocation-enable-automatic-theme-changer
-    :config
+    :init
     (progn
-      (when (> (length dotspacemacs-themes) 1)
-        (change-theme (nth 0 dotspacemacs-themes)
-                      (nth 1 dotspacemacs-themes))))))
+      (spacemacs/defer-until-after-user-config #'geolocation//activate-theme-changer))))
 
 (defun geolocation/post-init-popwin ()
   ;; Pin the weather forecast to the bottom window

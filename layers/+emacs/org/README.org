@@ -18,15 +18,16 @@
   - [[#project-support][Project support]]
   - [[#mode-line-support][Mode line support]]
 - [[#key-bindings][Key bindings]]
-  - [[#org][Org]]
+  - [[#starting-org-mode][Starting org-mode]]
   - [[#toggles][Toggles]]
+  - [[#org-mode][Org-mode]]
   - [[#org-with-evil-org-mode][Org with evil-org-mode]]
-    - [[#tables][Tables]]
-    - [[#trees][Trees]]
-    - [[#element-insertion][Element insertion]]
-    - [[#links][Links]]
-    - [[#emphasis][Emphasis]]
-    - [[#navigating-in-calendar][Navigating in calendar]]
+  - [[#tables][Tables]]
+  - [[#trees][Trees]]
+  - [[#element-insertion][Element insertion]]
+  - [[#links][Links]]
+  - [[#emphasis][Emphasis]]
+  - [[#navigating-in-calendar][Navigating in calendar]]
   - [[#capture-buffers-and-src-blocks][Capture buffers and src blocks]]
   - [[#org-agenda][Org agenda]]
     - [[#keybindings][Keybindings]]
@@ -40,7 +41,7 @@
 This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 
 ** Features:
-- Vim inspired key bindings are provided by [[https://github.com/edwtjo/evil-org-mode][evil-org-mode]]
+- Vim inspired key bindings are provided by [[https://github.com/Somelauw/evil-org-mode][evil-org-mode]]
 - Nicer bullet via [[https://github.com/sabof/org-bullets][org-bullets]]
 - A [[https://cirillocompany.de/pages/pomodoro-technique][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
 - Presentation mode via [[https://github.com/rlister/org-present][org-present]]
@@ -245,7 +246,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 #+END_SRC
 
 * Key bindings
-** Org
+** Starting org-mode
 
 | Key Binding   | Description                    |
 |---------------+--------------------------------|
@@ -270,10 +271,11 @@ To permanently enable mode line display of org clock, add this snippet to your
 |-------------+-----------------------------------------------|
 | ~SPC m T i~ | org-toggle-inline-images                      |
 | ~SPC m T t~ | org-show-todo-tree                            |
+| ~SPC m T T~ | org-todo                                      |
 | ~SPC m T V~ | toggle =space-doc-mode= a read-only view mode |
 | ~SPC m T x~ | org-preview-latex-fragment                    |
 
-** Org with evil-org-mode
+** Org-mode
 
 | Key Binding                                  | Description                                  |
 |----------------------------------------------+----------------------------------------------|
@@ -283,6 +285,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC m -~                                    | org-ctrl-c-minus                             |
 | ~SPC m '​~                                    | org-edit-special                             |
 | ~SPC m a~                                    | org-agenda                                   |
+| ~SPC m A~                                    | org-attach                                   |
 | ~SPC m c~                                    | org-capture                                  |
 | ~SPC m C c~                                  | org-clock-cancel                             |
 | ~SPC m C g~                                  | evil-org-recompute-clocks                    |
@@ -305,7 +308,25 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC m C-S-k~                                | org-shiftcontrolup                           |
 | ~SPC s j~                                    | spacemacs/jump-in-buffer (jump to a heading) |
 
-*** Tables
+** Org with evil-org-mode
+
+Please see the [[https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org][evil-org documentation]] for additional instructions on customizing
+=evil-org-mode=.
+
+| Key Binding   | Description                     |
+|---------------+---------------------------------|
+| ~gj~ / ~gk~   | Next/previous element (heading) |
+| ~gh~ / ~gl~   | Parent/child element (heading)  |
+| ~gH~          | Root heading                    |
+| ~ae~          | Element text object             |
+| ~ar~          | Subtree text object             |
+| ~M-j~ / ~M-k~ | Move heading                    |
+| ~M-h~ / ~M-l~ | Promote or demote heading       |
+| ~M-J~ / ~M-K~ | Move subtree                    |
+| ~M-H~ / ~M-L~ | Promote or demote subtree       |
+| ~>>~ / ~<<~   | Promote or demote heading       |
+
+** Tables
 
 | Key Binding   | Description                                                                |
 |---------------+----------------------------------------------------------------------------|
@@ -337,52 +358,37 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC m t t o~ | Toggle the display of Row/Column numbers in tables                         |
 | ~SPC m t w~   | Wrap several fields in a column like a paragraph                           |
 
-*** Trees
+** Trees
 
-| Key Binding | Description                                |
-|-------------+--------------------------------------------|
-| ~TAB~       | org-cycle                                  |
-| ~$~         | org-end-of-line                            |
-| ~^~         | org-beginning-of-line                      |
-| ~<~         | org-metaleft                               |
-| ~>~         | org-metaright                              |
-| ~gh~        | outline-up-heading                         |
-| ~gj~        | org-forward-heading-same-level             |
-| ~gk~        | org-backward-heading-same-level            |
-| ~gl~        | outline-next-visible-heading               |
-| ~H~         | org-beginning-of-line                      |
-| ~L~         | org-end-of-line                            |
-| ~o~         | always-insert-item                         |
-| ~O~         | org-open-above                             |
-| ~t~         | org-todo                                   |
-| ~T~         | org-insert-todo-heading nil                |
-| ~M-h~       | org-metaleft                               |
-| ~M-H~       | org-shiftmetaleft                          |
-| ~M-j~       | org-metadown                               |
-| ~M-J~       | org-shiftmetadown                          |
-| ~M-k~       | org-metaup                                 |
-| ~M-K~       | org-shiftmetaup                            |
-| ~M-l~       | org-metaright                              |
-| ~M-L~       | org-shiftmetaright                         |
-| ~M-o~       | org-insert-heading+org-metaright           |
-| ~M-t~       | org-insert-todo-heading nil+ org-metaright |
-| ~SPC m s a~ | org-archive-subtree                        |
-| ~SPC m s b~ | org-tree-to-indirect-buffer                |
-| ~SPC m s l~ | org-demote-subtree                         |
-| ~SPC m s h~ | org-promote-subtree                        |
-| ~SPC m s k~ | org-move-subtree-up                        |
-| ~SPC m s j~ | org-move-subtree-down                      |
-| ~SPC m s n~ | org-narrow-to-subtree                      |
-| ~SPC m s N~ | widen narrowed subtree                     |
-| ~SPC m s r~ | org-refile                                 |
-| ~SPC m s s~ | show sparse tree                           |
-| ~SPC m s S~ | sort trees                                 |
+| Key Binding   | Description                     |
+|---------------+---------------------------------|
+| ~gj~ / ~gk~   | Next/previous element (heading) |
+| ~gh~ / ~gl~   | Parent/child element (heading)  |
+| ~gH~          | Root heading                    |
+| ~ae~          | Element text object             |
+| ~ar~          | Subtree text object             |
+| ~M-j~ / ~M-k~ | Move heading                    |
+| ~M-h~ / ~M-l~ | Promote or demote heading       |
+| ~M-J~ / ~M-K~ | Move subtree                    |
+| ~M-H~ / ~M-L~ | Promote or demote subtree       |
+| ~>>~ / ~<<~   | Promote or demote heading       |
+| ~TAB~         | org-cycle                       |
+| ~SPC m s a~   | org-archive-subtree             |
+| ~SPC m s b~   | org-tree-to-indirect-buffer     |
+| ~SPC m s l~   | org-demote-subtree              |
+| ~SPC m s h~   | org-promote-subtree             |
+| ~SPC m s k~   | org-move-subtree-up             |
+| ~SPC m s j~   | org-move-subtree-down           |
+| ~SPC m s n~   | org-narrow-to-subtree           |
+| ~SPC m s N~   | widen narrowed subtree          |
+| ~SPC m s r~   | org-refile                      |
+| ~SPC m s s~   | show sparse tree                |
+| ~SPC m s S~   | sort trees                      |
 
-*** Element insertion
+** Element insertion
 
 | Key Binding   | Description                      |
 |---------------+----------------------------------|
-| ~SPC m i a~   | org-attach                       |
 | ~SPC m i d~   | org-insert-drawer                |
 | ~SPC m i D s~ | Take screenshot                  |
 | ~SPC m i D y~ | Yank image url                   |
@@ -396,13 +402,13 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC m i s~   | org-insert-subheading            |
 | ~SPC m i t~   | org-set-tags                     |
 
-*** Links
+** Links
 
 | Key Binding | Description       |
 |-------------+-------------------|
 | ~SPC m x o~ | org-open-at-point |
 
-*** Emphasis
+** Emphasis
 
 | Key Binding | Description                |
 |-------------+----------------------------|
@@ -414,7 +420,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC m x u~ | make region underline      |
 | ~SPC m x v~ | make region verbose        |
 
-*** Navigating in calendar
+** Navigating in calendar
 
 | Key Binding | Description        |
 |-------------+--------------------|

@@ -1,0 +1,21 @@
+#+TITLE: Perl5 layer
+
+[[file:img/perl5.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+
+* Description
+This layer adds support for the Perl5 language.
+
+** Features
+- syntactic and semantic checking using [[https://github.com/flycheck/flycheck][flycheck]]
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =perl5= to the existing =dotspacemacs-configuration-layers= list in this
+file.

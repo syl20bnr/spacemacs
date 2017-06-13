@@ -107,7 +107,6 @@ the symbol =all= to apply it on all themes.
 - =theming-headings-bold= :: sets the =:weight= attribute to bold on all
      headings
 
-
 * Example
 
 An example of how to set the default font colour to be black in a custom theme leuven:

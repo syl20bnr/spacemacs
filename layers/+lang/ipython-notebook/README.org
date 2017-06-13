@@ -61,7 +61,7 @@ Have an IPython notebook running
 * Using the IPython notebook
 ** Open Notebook List
 This layer is lazy loaded so the transient-state will only work after you summon the
-command =ein:notebooklist-open= which is bound to ~SPC a i n~
+command =ein:notebooklist-open= which is bound to ~SPC a y o~
 
 ** Key Bindings
 The key bindings can be used through a transient state or the usual evil-leader.
@@ -97,6 +97,7 @@ prefix with ~SPC m~ to use with your evil-leader.
 | ~C-o~   | ein:console-open                          |
 | ~C-k~   | ein:worksheet-merge-cell                  |
 | ~C-j~   | spacemacs/ein:worksheet-merge-cell-next   |
+| ~s~     | ein:worksheet-split-cell-at-point         |
 | ~C-s~   | ein:notebook-save-notebook-command        |
 | ~C-r~   | ein:notebook-rename-command               |
 | ~1~     | ein:notebook-worksheet-open-1th           |
