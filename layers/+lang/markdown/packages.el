@@ -114,7 +114,7 @@
           "ii"  'markdown-insert-image
           "ik"  'spacemacs/insert-keybinding-markdown
           "iI"  'markdown-insert-reference-image
-          "il"  'markdown-insert-link
+          "il"  'markdown-insert-inline-link-dwim
           "iL"  'markdown-insert-reference-link-dwim
           "iw"  'markdown-insert-wiki-link
           "iu"  'markdown-insert-uri
