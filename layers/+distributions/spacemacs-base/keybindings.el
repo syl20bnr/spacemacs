@@ -64,7 +64,7 @@
                                        ("xd"  "delete")
                                        ("xg"  "google-translate")
                                        ("xl"  "lines")
-                                       ("xm"  "move")
+                                       ("xm"  "mark/move")
                                        ("xt"  "transpose")
                                        ("xw"  "words")
                                        ("z"   "zoom")))
@@ -464,6 +464,13 @@
   "xls" 'spacemacs/sort-lines
   "xlS" 'spacemacs/sort-lines-reverse
   "xlu" 'spacemacs/uniquify-lines
+  "xmb" 'mark-whole-buffer
+  "xmf" 'mark-defun
+  "xmm" 'set-mark-command
+  "xmp" 'mark-paragraph
+  "xmP" 'mark-page
+  "xms" 'mark-end-of-sentence
+  "xmS" 'mark-sexp
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
   "xtw" 'transpose-words

@@ -2731,6 +2731,13 @@ Text related commands (start with ~x~):
 | ~SPC x l d~   | duplicate line or region                                      |
 | ~SPC x l s~   | sort lines                                                    |
 | ~SPC x l u~   | uniquify lines                                                |
+| ~SPC x m b~   | mark whole buffer                                             |
+| ~SPC x m f~   | mark a function                                               |
+| ~SPC x m m~   | set mark at cursor                                            |
+| ~SPC x m p~   | mark paragraph                                                |
+| ~SPC x m P~   | mark page                                                     |
+| ~SPC x m s~   | mark end of sentence                                          |
+| ~SPC x m S~   | mark s-expression                                             |
 | ~SPC x o~     | use avy to select a link in the frame and open it             |
 | ~SPC x O~     | use avy to select multiple links in the frame and open them   |
 | ~SPC x t c~   | swap (transpose) the current character with the previous one  |
