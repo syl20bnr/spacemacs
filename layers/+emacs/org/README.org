@@ -16,6 +16,7 @@
   - [[#org-journal-support][Org-journal support]]
   - [[#different-bullets][Different bullets]]
   - [[#project-support][Project support]]
+  - [[#org-brain-support][Org-brain support]]
   - [[#mode-line-support][Mode line support]]
 - [[#key-bindings][Key bindings]]
   - [[#starting-org-mode][Starting org-mode]]
@@ -36,6 +37,9 @@
   - [[#presentation][Presentation]]
   - [[#org-projectile][Org-projectile]]
   - [[#org-journal][Org-journal]]
+  - [[#org-brain][Org-brain]]
+    - [[#application-bindings][Application bindings]]
+    - [[#visualization-bindings][Visualization bindings]]
 
 * Description
 This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
@@ -234,6 +238,10 @@ the following snippet. Note that this may have unintended consequences until
     (require 'org-projectile)
     (push (org-projectile:todo-files) org-agenda-files))
 #+END_SRC
+
+** Org-brain support
+For Emacs 25 or later, support for [[https://kungsgeten.github.io/org-brain.html][org-brain]] is included. See the [[https://github.com/Kungsgeten/org-brain][org-brain
+package documentation]] for more information.
 
 ** Mode line support
 To temporarily enable mode line display of org clock, press ~SPC t m c~.
@@ -600,3 +608,27 @@ are available.
 | ~SPC m j~   | New journal entry      |
 | ~SPC m p~   | Previous journal entry |
 | ~SPC m n~   | Next journal entry     |
+
+** Org-brain
+
+*** Application bindings
+
+| Key Binding | Description                  |
+|-------------+------------------------------|
+| ~SPC a o b~ | Opens a new org-brain entry  |
+| ~SPC a o B~ | Visualize an org-brain entry |
+
+*** Visualization bindings
+
+| Key Binding | Description                           |
+|-------------+---------------------------------------|
+| ~j / TAB~   | Goto next link                        |
+| ~k / S-TAB~ | Goto previous link                    |
+| ~c~         | Add child                             |
+| ~p~         | Add parent                            |
+| ~l~         | Add resource link                     |
+| ~C-y~       | Paste resource link                   |
+| ~a~         | Add resource [[http://orgmode.org/manual/Attachments.html][attachment]]               |
+| ~o~         | Open and edit the visualized entry    |
+| ~f~         | Find/visit another entry to visualize |
+| ~r~         | Rename this, or another, entry        |

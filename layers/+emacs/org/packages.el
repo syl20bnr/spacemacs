@@ -22,6 +22,7 @@
         (ob :location built-in)
         (org :location built-in)
         (org-agenda :location built-in)
+        (org-brain :toggle (version<= "25" emacs-version))
         (org-expiry :location built-in)
         (org-journal :toggle org-enable-org-journal-support)
         org-download
@@ -449,6 +450,16 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (kbd "M-RET") 'org-agenda-show-and-scroll-up
       (kbd "M-SPC") 'spacemacs/org-agenda-transient-state/body
       (kbd "s-M-SPC") 'spacemacs/org-agenda-transient-state/body)))
+
+(defun org/init-org-brain ()
+  (use-package org-brain
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys
+        "aob" 'org-brain-open
+        "aoB" 'org-brain-visualize)
+      (evil-set-initial-state 'org-brain-visualize-mode 'emacs))))
 
 (defun org/init-org-expiry ()
   (use-package org-expiry
