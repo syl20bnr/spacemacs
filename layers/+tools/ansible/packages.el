@@ -28,9 +28,10 @@
           ;; a password file in directory local variables
           (add-hook 'yaml-mode-local-vars-hook 'ansible::auto-decrypt-encrypt)
         (remove-hook 'yaml-mode-local-vars-hook 'ansible::auto-decrypt-encrypt))
-      (spacemacs/set-leader-keys-for-minor-mode 'ansible
-        "bd" 'ansible::decrypt-buffer
-        "be" 'ansible::encrypt-buffer))))
+      (with-eval-after-load 'ansible
+        (spacemacs/set-leader-keys-for-minor-mode 'ansible
+          "bd" 'ansible::decrypt-buffer
+          "be" 'ansible::encrypt-buffer)))))
 
 (defun ansible/init-ansible-doc ()
   (use-package ansible-doc
@@ -38,8 +39,9 @@
     :init
     (progn
       (add-hook 'yaml-mode-hook 'spacemacs/ansible-doc-maybe-enable)
-      (spacemacs/set-leader-keys-for-minor-mode 'ansible-doc-mode
-        "ha" 'ansible-doc))
+      (with-eval-after-load 'ansible-doc
+        (spacemacs/set-leader-keys-for-minor-mode 'ansible-doc-mode
+          "ha" 'ansible-doc)))
     :config (spacemacs|hide-lighter ansible-doc-mode)))
 
 (defun ansible/post-init-company ()
