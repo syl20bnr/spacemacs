@@ -103,7 +103,7 @@ To generate a table of contents type on top of the buffer:
 | ~SPC m h 6~ | insert header atx 6                                               |
 | ~SPC m h !~ | insert header setext 1                                            |
 | ~SPC m h @~ | insert header setext 2                                            |
-| ~SPC m i l~ | insert link                                                       |
+| ~SPC m i l~ | insert inline link dwim                                           |
 | ~SPC m i L~ | insert reference link dwim                                        |
 | ~SPC m i u~ | insert uri                                                        |
 | ~SPC m i f~ | insert footnote                                                   |
