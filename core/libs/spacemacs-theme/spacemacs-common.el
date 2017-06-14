@@ -549,11 +549,25 @@
      `(mode-line-inactive  ((,class (:foreground ,base :background ,bg1  :box (:color ,border :line-width 1)))))
 
 ;;;;; mu4e
-     `(mu4e-cited-1-face ((,class (:foreground ,base))))
-     `(mu4e-cited-7-face ((,class (:foreground ,base))))
-     `(mu4e-header-key-face ((,class (:foreground ,head2 :inherit bold))))
+     `(mu4e-attach-number-face ((,class (:foreground ,var))))
+     `(mu4e-cited-1-face ((,class (:foreground ,head1))))
+     `(mu4e-cited-2-face ((,class (:foreground ,head2))))
+     `(mu4e-cited-3-face ((,class (:foreground ,head3))))
+     `(mu4e-cited-4-face ((,class (:foreground ,head4))))
+     `(mu4e-cited-5-face ((,class (:foreground ,head1))))
+     `(mu4e-cited-6-face ((,class (:foreground ,head2))))
+     `(mu4e-cited-7-face ((,class (:foreground ,head3))))
+     `(mu4e-draft-face ((,class (:foreground ,var))))
+     `(mu4e-flagged-face ((,class (:foreground ,yellow :inherit bold))))
+     `(mu4e-header-key-face ((,class (:foreground ,meta :inherit bold))))
      `(mu4e-header-marks-face ((,class (:foreground ,comp))))
-     `(mu4e-unread-face ((,class (:foreground ,yellow :inherit bold))))
+     `(mu4e-header-highlight-face ((,class (:background ,highlight))))
+     `(mu4e-highlight-face ((,class (:foreground ,comp))))
+     `(mu4e-title-face ((,class (:foreground ,head1 :inherit bold))))
+     `(mu4e-replied-face ((,class (:foreground ,green))))
+     `(mu4e-modeline-face ((,class (:foreground ,func))))
+     `(mu4e-special-header-value-face ((,class (:foreground ,green))))
+     `(mu4e-unread-face ((,class (:foreground ,type :inherit bold))))
      `(mu4e-view-url-number-face ((,class (:foreground ,comp))))
 
 ;;;;; notmuch
@@ -667,6 +681,15 @@
 ;;;;; smartparens
      `(sp-pair-overlay-face ((,class (:background ,highlight :foreground nil))))
      `(sp-show-pair-match-face ((,class (:foreground ,mat :inherit bold :underline t))))
+
+;;;;; smerge
+     `(smerge-base ((,class (:background ,yellow-bg))))
+     `(smerge-markers ((,class (:background ,ttip-bg :foreground ,ttip))))
+     `(smerge-mine ((,class (:background ,red-bg))))
+     `(smerge-other ((,class (:background ,green-bg))))
+     `(smerge-refined-added ((,class (:background ,green-bg-s :foreground ,green))))
+     `(smerge-refined-changed ((,class (:background ,blue-bg :foreground ,blue))))
+     `(smerge-refined-removed ((,class (:background ,red-bg-s :foreground ,red))))
 
 ;;;;; spaceline
      `(spaceline-flycheck-error  ((,class (:foreground ,err))))
