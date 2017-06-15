@@ -397,8 +397,8 @@
         :bindings
         (kbd "j") 'undo-tree-visualize-redo
         (kbd "k") 'undo-tree-visualize-undo
-        (kbd "h") 'undo-tree-visualize-switch-branch-right
-        (kbd "l") 'undo-tree-visualize-switch-branch-left))))
+        (kbd "h") 'undo-tree-visualize-switch-branch-left
+        (kbd "l") 'undo-tree-visualize-switch-branch-right))))
 
 (defun spacemacs-editing/init-uuidgen ()
   (use-package uuidgen
