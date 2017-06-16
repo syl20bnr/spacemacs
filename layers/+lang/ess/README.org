@@ -52,17 +52,17 @@ Helpers for inspecting objects at point are available in R buffers only.
 
 * Options
 
-To turn off the automatic replacement of underscores by =<-=,
-set in your =~/.spacemacs=:
+To turn off the automatic replacement of underscores by =<-=, set in your
+=~/.spacemacs=:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((ess :variables
                                                          ess-disable-underscore-assign t)))
 #+END_SRC
 
-Alternatively you may enable =ess-smart-equals=, which also disables
-replacement of underscores by =<-=, and additionally replace the equals sign with
-=<-= when appropriate:
+Alternatively you may enable =ess-smart-equals=, which also disables replacement
+of underscores by =<-=, and additionally replace the equals sign with =<-= when
+appropriate:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((ess :variables
