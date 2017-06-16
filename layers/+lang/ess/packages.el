@@ -10,13 +10,13 @@
 ;;; License: GPLv3
 
 (setq ess-packages
-  '(
-    ess
-    ess-R-data-view
-    ess-R-object-popup
-    ess-smart-equals
-    golden-ratio
-    org))
+      '(
+        ess
+        ess-R-data-view
+        ess-R-object-popup
+        (ess-smart-equals :toggle ess-enable-smart-equals)
+        golden-ratio
+        org))
 
 (defun ess/init-ess ()
   (use-package ess-site
@@ -61,7 +61,7 @@
       (add-hook 'inferior-ess-mode-hook
                 'spacemacs//ess-fix-read-only-inferior-ess-mode)
       (when (configuration-layer/package-usedp 'company)
-          (add-hook 'ess-mode-hook 'company-mode))))
+        (add-hook 'ess-mode-hook 'company-mode))))
 
   ;; R --------------------------------------------------------------------------
   (with-eval-after-load 'ess-site
@@ -71,7 +71,7 @@
           ess-expression-offset 2
           ess-nuke-trailing-whitespace-p t
           ess-default-style 'DEFAULT)
-    (if ess-disable-underscore-assign
+    (when ess-disable-underscore-assign
       (ess-toggle-underscore nil))
 
     (spacemacs/set-leader-keys-for-major-mode 'ess-julia-mode
@@ -114,7 +114,6 @@
 (defun ess/init-ess-smart-equals ()
   (use-package ess-smart-equals
     :defer t
-    :if ess-enable-smart-equals
     :init
     (progn
       (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
