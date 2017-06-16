@@ -210,12 +210,12 @@ package name does not match theme name + `-theme' suffix.")
                  pkg-name)))
     dir))
 
-(defun spacemacs/load-default-theme (&optional fallback-theme)
+(defun spacemacs/load-default-theme (&optional fallback-theme disable)
   "Load default theme.
 Default theme is the car of `dotspacemacs-themes'.
 If FALLBACK-THEME is non-nil it must be a package name which will be loaded if
 THEME cannot be applied."
-  (spacemacs/load-theme (car dotspacemacs-themes) fallback-theme))
+  (spacemacs/load-theme (car dotspacemacs-themes) fallback-theme disable))
 
 (defun spacemacs/load-theme (theme &optional fallback-theme disable)
   "Apply user theme.
@@ -285,7 +285,6 @@ THEME."
   "Cycle through themes defined in `dotspacemacs-themes.'"
   (interactive)
   (when spacemacs--cur-theme
-    (disable-theme spacemacs--cur-theme)
     ;; if current theme isn't in cycleable themes, start over
     (setq spacemacs--cycle-themes
           (or (cdr (memq spacemacs--cur-theme dotspacemacs-themes))
@@ -294,7 +293,7 @@ THEME."
   (let ((progress-reporter
          (make-progress-reporter
           (format "Loading theme %s..." spacemacs--cur-theme))))
-    (spacemacs/load-theme spacemacs--cur-theme)
+    (spacemacs/load-theme spacemacs--cur-theme nil 'disable)
     (progress-reporter-done progress-reporter)))
 
 (defadvice load-theme (after spacemacs/load-theme-adv activate)
