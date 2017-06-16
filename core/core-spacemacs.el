@@ -112,7 +112,7 @@ the final step of executing code in `emacs-startup-hook'.")
         (setq icon-title-format '((:eval (spacemacs/title-prepare dotspacemacs-icon-title-format))))
       (setq icon-title-format frame-title-format)))
   ;; theme
-  (spacemacs/load-default-theme spacemacs--fallback-theme)
+  (spacemacs/load-default-theme spacemacs--fallback-theme 'disable)
   ;; font
   (spacemacs|do-after-display-system-init
    ;; If you are thinking to remove this call to `message', think twice. You'll
