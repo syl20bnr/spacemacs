@@ -1,0 +1,20 @@
+#+TITLE: android-logcat layer
+
+[[file:img/android-logcat.png]]
+
+# TOC links should be GitHub style anchors.
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+- [[#install][Install]]
+
+* Description
+This layer is using logcat mode (https://github.com/dcolascione/logcat-mode),
+this mode can do few thing that really helpful on debug and view android log
+  - view android logcat file with color.
+  - filter and monitor android log with fb-adb.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =android-logcat= to the existing =dotspacemacs-configuration-layers= list in this
+file.
