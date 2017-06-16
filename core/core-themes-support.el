@@ -239,7 +239,8 @@ THEME."
                 (package-activate pkg-name))))
           (when disable
             (mapc 'disable-theme custom-enabled-themes))
-          (load-theme theme-name t)
+          (unless (eq 'default theme-name)
+            (load-theme theme-name t))
           (unless (display-graphic-p)
             (eval `(spacemacs|do-after-display-system-init
                     (load-theme ',theme-name t))))
