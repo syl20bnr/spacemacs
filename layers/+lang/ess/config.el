@@ -13,3 +13,6 @@
 
 (defvar ess-enable-smart-equals nil
   "If non-nil smart-equal support is enabled")
+
+(defvar ess-enable-underscore-assign nil
+  "If non-nil, disables underscore _ being a shortcut for assignment <-")
