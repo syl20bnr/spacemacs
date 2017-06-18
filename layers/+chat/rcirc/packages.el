@@ -126,8 +126,6 @@
       (setq rcirc-log-flag t)
       (defun rcirc-write-log (process sender response target text)
         (when rcirc-log-directory
-          (when (not (file-directory-p rcirc-log-directory))
-            (make-directory rcirc-log-directory))
           (with-temp-buffer
             ;; Sometimes TARGET is a buffer :-(
             (when (bufferp target)
@@ -141,9 +139,12 @@
                 (insert "/" (downcase response) " "))
               (insert text "\n")
               ;; Append the line to the appropriate logfile.
-              (let ((coding-system-for-write 'no-conversion))
+              (let ((coding-system-for-write 'no-conversion)
+                    (logfile (concat rcirc-log-directory  (downcase target))))
+                (when (not (file-directory-p (file-name-directory logfile)))
+                  (make-directory (file-name-directory logfile)))
                 (write-region (point-min) (point-max)
-                              (concat rcirc-log-directory  (downcase target))
+                              logfile
                               t 'quietly))))))
       (add-hook 'rcirc-print-hooks 'rcirc-write-log)
 
