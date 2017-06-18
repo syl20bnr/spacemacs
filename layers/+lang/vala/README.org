@@ -1,0 +1,13 @@
+#+TITLE: Vala layer
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+
+* Description
+Syntax highlighting and snippets for the [[https://wiki.gnome.org/Projects/Vala][Vala]] programming language.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =vala= to the existing =dotspacemacs-configuration-layers= list in this
+file.
