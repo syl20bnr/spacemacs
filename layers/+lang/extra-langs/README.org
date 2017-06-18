@@ -10,6 +10,7 @@ Adds many more language modes for less common languages, some more niche than ot
 These include:
 - Arduino
 - Julia
+- Kivy
 - MATLAB
 - QML
 - OpenScad

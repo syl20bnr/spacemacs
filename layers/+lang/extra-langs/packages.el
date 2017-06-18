@@ -2,6 +2,7 @@
   '(
     arduino-mode
     julia-mode
+    kivy-mode
     matlab-mode
     qml-mode
     scad-mode
@@ -17,6 +18,9 @@
 (defun extra-langs/init-julia-mode ()
   (use-package julia-mode
     :defer t))
+
+(defun extra-langs/init-kivy-mode ()
+  (use-package kivy-mode :defer t))
 
 (defun extra-langs/init-matlab-mode ()
   (use-package matlab-mode
