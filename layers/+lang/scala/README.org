@@ -77,7 +77,7 @@ To enable =java-doc-style=, set the variable =scala-indent:use-javadoc-style= to
 #+END_SRC
 
 * Automatically show the type of the symbol under the cursor
-To enable the feature =ensime-print-type-at-point= when cursor moves, set the
+To enable the feature =ensime-type-at-point= when cursor moves, set the
 variable =scala-enable-eldoc= to =t=.
 
 #+BEGIN_SRC emacs-lisp
