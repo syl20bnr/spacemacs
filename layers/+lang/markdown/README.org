@@ -201,4 +201,5 @@ To generate a table of contents type on top of the buffer:
 |-------------+----------------------|
 | ~SPC m t i~ | toggle inline images |
 | ~SPC m t l~ | toggle hidden urls   |
+| ~SPC m t t~ | toggle checkbox      |
 | ~SPC m t w~ | toggle wiki links    |
