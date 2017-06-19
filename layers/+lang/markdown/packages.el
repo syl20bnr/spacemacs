@@ -125,6 +125,7 @@
           ;; Toggles
           "ti"  'markdown-toggle-inline-images
           "tl"  'markdown-toggle-url-hiding
+          "tt"  'markdown-toggle-gfm-checkbox
           "tw"  'markdown-toggle-wiki-links
           ;; region manipulation
           "xb"  'markdown-insert-bold
