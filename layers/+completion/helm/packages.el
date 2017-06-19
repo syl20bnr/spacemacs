@@ -275,6 +275,66 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (interactive)
         (spacemacs/helm-files-smart-do-search t))
 
+      ;; Search in current dir -----------------------------------------------
+
+      (defun spacemacs/helm-dir-do-ag ()
+        "Search in current directory with `ag'."
+        (interactive)
+        (spacemacs/helm-files-do-ag default-directory))
+
+      (defun spacemacs/helm-dir-do-ag-region-or-symbol ()
+        "Search in current directory with `ag' with a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-ag default-directory))
+
+      (defun spacemacs/helm-dir-do-ack ()
+        "Search in current directory with `ack'."
+        (interactive)
+        (spacemacs/helm-files-do-ack default-directory))
+
+      (defun spacemacs/helm-dir-do-ack-region-or-symbol ()
+        "Search in current directory with `ack' with a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-ack default-directory))
+
+      (defun spacemacs/helm-dir-do-pt ()
+        "Search in current directory with `pt'."
+        (interactive)
+        (spacemacs/helm-files-do-pt default-directory))
+
+      (defun spacemacs/helm-dir-do-pt-region-or-symbol ()
+        "Search in current directory with `pt' with a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-pt default-directory))
+
+      (defun spacemacs/helm-dir-do-rg ()
+        "Search in current directory with `rg'."
+        (interactive)
+        (spacemacs/helm-files-do-rg default-directory))
+
+      (defun spacemacs/helm-dir-do-rg-region-or-symbol ()
+        "Search in current directory with `rg' with a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-rg default-directory))
+
+      (defun spacemacs/helm-dir-smart-do-search (&optional default-inputp)
+        "Search in current directory using `dotspacemacs-search-tools'.
+Search for a search tool in the order provided by `dotspacemacs-search-tools'
+If DEFAULT-INPUTP is non nil then the current region or symbol at point
+are used as default input."
+        (interactive)
+        (call-interactively
+         (spacemacs//helm-do-search-find-tool "helm-dir-do"
+                                              dotspacemacs-search-tools
+                                              default-inputp)))
+
+      (defun spacemacs/helm-dir-smart-do-search-region-or-symbol ()
+        "Search in current directory using `dotspacemacs-search-tools'.
+with default input.
+Search for a search tool in the order provided by `dotspacemacs-search-tools'."
+        (interactive)
+        (spacemacs/helm-dir-smart-do-search t))
+
       ;; Search in buffers ---------------------------------------------------
 
       (defun spacemacs/helm-buffers-do-ag (&optional _)
@@ -478,6 +538,17 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "srF" 'spacemacs/helm-files-do-rg-region-or-symbol
         "stf" 'spacemacs/helm-files-do-pt
         "stF" 'spacemacs/helm-files-do-pt-region-or-symbol
+        ;; current dir scope
+        "sd"  'spacemacs/helm-dir-smart-do-search
+        "sD"  'spacemacs/helm-dir-smart-do-search-region-or-symbol
+        "sad" 'spacemacs/helm-dir-do-ag
+        "saD" 'spacemacs/helm-dir-do-ag-region-or-symbol
+        "skd" 'spacemacs/helm-dir-do-ack
+        "skD" 'spacemacs/helm-dir-do-ack-region-or-symbol
+        "srd" 'spacemacs/helm-dir-do-rg
+        "srD" 'spacemacs/helm-dir-do-rg-region-or-symbol
+        "std" 'spacemacs/helm-dir-do-pt
+        "stD" 'spacemacs/helm-dir-do-pt-region-or-symbol
         ;; current project scope
         "/"   'spacemacs/helm-project-smart-do-search
         "*"   'spacemacs/helm-project-smart-do-search-region-or-symbol
