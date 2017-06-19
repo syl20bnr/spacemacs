@@ -8,6 +8,7 @@ This layer adds a number of packages for less common languages and major modes.
 
 These include:
 - Arduino
+- Android Logcat (not associated with any file types by default)
 - Julia
 - MATLAB
 - QML

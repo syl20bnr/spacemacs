@@ -2,6 +2,7 @@
       '(
         arduino-mode
         julia-mode
+        (logcat :location (recipe :fetcher github :repo "dcolascione/logcat-mode"))
         matlab-mode
         qml-mode
         scad-mode
@@ -11,6 +12,10 @@
         ))
 
 (defun major-modes/init-arduino-mode ())
+
+(defun major-modes/init-logcat ()
+  (use-package logcat
+    :commands (logcat logcat-mode)))
 
 (defun major-modes/init-julia-mode ())
 
