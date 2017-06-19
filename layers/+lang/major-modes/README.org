@@ -4,8 +4,7 @@
 - [[#description][Description]]
 
 * Description
-
-Adds many more language modes for less common languages, some more niche than others.
+This layer adds a number of packages for less common languages and major modes.
 
 These include:
 - Arduino
