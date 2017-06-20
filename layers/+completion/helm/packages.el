@@ -280,50 +280,42 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (defun spacemacs/helm-dir-do-ag ()
         "Search in current directory with `ag'."
         (interactive)
-        (let ((dir default-directory))
-          (spacemacs/helm-files-do-ag dir)))
+        (spacemacs/helm-files-do-ag default-directory))
 
       (defun spacemacs/helm-dir-do-ag-region-or-symbol ()
         "Search in current directory with `ag' with a default input."
         (interactive)
-        (let ((dir default-directory))
-          (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-ag dir)))
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-ag default-directory))
 
       (defun spacemacs/helm-dir-do-ack ()
         "Search in current directory with `ack'."
         (interactive)
-        (let ((dir default-directory))
-          (spacemacs/helm-files-do-ack dir)))
+        (spacemacs/helm-files-do-ack default-directory))
 
       (defun spacemacs/helm-dir-do-ack-region-or-symbol ()
         "Search in current directory with `ack' with a default input."
         (interactive)
-        (let ((dir default-directory))
-          (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-ack dir)))
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-ack default-directory))
 
       (defun spacemacs/helm-dir-do-pt ()
         "Search in current directory with `pt'."
         (interactive)
-        (let ((dir default-directory))
-          (spacemacs/helm-files-do-pt dir)))
+        (spacemacs/helm-files-do-pt default-directory))
 
       (defun spacemacs/helm-dir-do-pt-region-or-symbol ()
         "Search in current directory with `pt' with a default input."
         (interactive)
-        (let ((dir default-directory))
-          (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-pt dir)))
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-pt default-directory))
 
       (defun spacemacs/helm-dir-do-rg ()
         "Search in current directory with `rg'."
         (interactive)
-        (let ((dir default-directory))
-          (spacemacs/helm-files-do-rg dir)))
+        (spacemacs/helm-files-do-rg default-directory))
 
       (defun spacemacs/helm-dir-do-rg-region-or-symbol ()
         "Search in current directory with `rg' with a default input."
         (interactive)
-        (let ((dir default-directory))
-          (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-rg dir)))
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-rg default-directory))
 
       (defun spacemacs/helm-dir-smart-do-search (&optional default-inputp)
         "Search in current directory using `dotspacemacs-search-tools'.
