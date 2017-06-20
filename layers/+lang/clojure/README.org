@@ -147,6 +147,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m e m~ | cider macroexpand 1                             |
 | ~SPC m e M~ | cider macroexpand all                           |
 | ~SPC m e p~ | print last sexp (clojure interaction mode only) |
+| ~SPC m e P~ | eval last sexp and pretty print result in separate buffer |
 | ~SPC m e w~ | eval last sexp and replace with result          |
 
 *** Goto
