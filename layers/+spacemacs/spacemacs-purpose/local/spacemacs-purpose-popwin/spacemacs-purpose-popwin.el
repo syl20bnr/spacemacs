@@ -6,6 +6,12 @@
 
 (require 'window-purpose)
 
+(defcustom pupo-split-active-window nil
+  "Non-nil if Pupo splits the active window.
+Nil if Pupo splits the entire frame."
+  :type '(boolean)
+  :group 'pupo)
+
 (defconst pupo--direction-to-purpose '((left . popl)
                                        (right . popr)
                                        (top . popt)
@@ -46,8 +52,10 @@ width or height depending on POSITION."
                  ('top 'above)
                  ('bottom 'below))))
     (lambda (buffer alist)
-      (let ((window (ignore-errors
-                      (split-window (frame-root-window) size side))))
+      (let* ((main-window (if pupo-split-active-window
+                              (selected-window)
+                            (frame-root-window)))
+             (window (ignore-errors (split-window main-window size side))))
         (when window
           (purpose-change-buffer buffer window 'window alist))))))
 
