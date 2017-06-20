@@ -137,17 +137,18 @@ As this state works the same for all files, the documentation is in global
 
 *** Evaluation
 
-| Key Binding | Description                                     |
-|-------------+-------------------------------------------------|
-| ~SPC m e ;~ | eval sexp and show result as comment            |
-| ~SPC m e b~ | eval buffer                                     |
-| ~SPC m e e~ | eval last sexp                                  |
-| ~SPC m e f~ | eval function at point                          |
-| ~SPC m e r~ | eval region                                     |
-| ~SPC m e m~ | cider macroexpand 1                             |
-| ~SPC m e M~ | cider macroexpand all                           |
-| ~SPC m e p~ | print last sexp (clojure interaction mode only) |
-| ~SPC m e w~ | eval last sexp and replace with result          |
+| Key Binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~SPC m e ;~ | eval sexp and show result as comment                      |
+| ~SPC m e b~ | eval buffer                                               |
+| ~SPC m e e~ | eval last sexp                                            |
+| ~SPC m e f~ | eval function at point                                    |
+| ~SPC m e r~ | eval region                                               |
+| ~SPC m e m~ | cider macroexpand 1                                       |
+| ~SPC m e M~ | cider macroexpand all                                     |
+| ~SPC m e p~ | print last sexp (clojure interaction mode only)           |
+| ~SPC m e P~ | eval last sexp and pretty print result in separate buffer |
+| ~SPC m e w~ | eval last sexp and replace with result                    |
 
 *** Goto
 
