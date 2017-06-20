@@ -555,8 +555,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "std" 'spacemacs/helm-dir-do-pt
         "stD" 'spacemacs/helm-dir-do-pt-region-or-symbol
         ;; current project scope
-        "/"   'spacemacs/helm-project-smart-do-search
-        "*"   'spacemacs/helm-project-smart-do-search-region-or-symbol
+        "*"   'spacemacs/helm-project-smart-do-search
+        "/"   'spacemacs/helm-project-smart-do-search-region-or-symbol
         "sp"  'spacemacs/helm-project-smart-do-search
         "sP"  'spacemacs/helm-project-smart-do-search-region-or-symbol
         "sap" 'spacemacs/helm-project-do-ag
