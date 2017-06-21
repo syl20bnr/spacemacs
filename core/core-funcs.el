@@ -343,6 +343,61 @@ is not visible. Otherwise delegates to regular Emacs next-error."
       'flycheck
     'emacs))
 
+(defun animate-holidays (&optional name)
+    "Holidays!!!!"
+    (interactive (list (read-string "Holidays for: "
+                                    nil nil)))
+    ;; Make a suitable buffer to display the birthday present in.
+    (switch-to-buffer (get-buffer-create
+                       (if name
+                           (concat "*A-Spacemacsy-Holiday-for-" (capitalize name) "*")
+                         "*Spacemacs-Holidays*")))
+    (erase-buffer)
+    ;; Display the empty buffer.
+    (sit-for 0)
+
+    (if name
+        (animate-string "Happy Holidays," 6)
+      (animate-string "Happy Holidays" 6))
+    (when name (animate-string (format "%s" (capitalize name)) 7))
+    (sit-for 1)
+
+    (animate-string "It was January the 1st" 10 30)
+    (sit-for .5)
+    (animate-string "I turned over a new leaf" 11 30)
+    (sit-for .5)
+    (animate-string "It was clean on the top side" 12 30)
+    (sit-for .5)
+    (animate-string "But had bugs underneath." 13 30)
+    (sit-for .5)
+    ;; (animate-string "             .-."                   18 30)
+    ;; (animate-string "            o   \     .-. "         19 30)
+    ;; (animate-string "               .----.'   \ "        20 30)
+    ;; (animate-string "             .'o)  / `.   o "       21 30)
+    ;; (animate-string "            /         | "           22 30)
+    ;; (animate-string "            \_)       /-. "         23 30)
+    ;; (animate-string "              '_.`    \  \ "        24 30)
+    ;; (animate-string "               `.      |  \ "       25 30)
+    ;; (animate-string "                |       \ | "       26 30)
+    ;; (animate-string "            .--/`-.     / / "       27 30)
+    ;; (animate-string "          .'.-/`-. `.  .\| "        28 30)
+    ;; (animate-string "         /.' /`._ `-    '-. "       29 30)
+    ;; (animate-string "    ____(|__/`-..`-   '-._ \ "      30 30)
+    ;; (animate-string "   |`------.'-._ `      ||\ \ "     31 30)
+    ;; (animate-string "   || #   /-.   `   /   || \| "     32 30)
+    ;; (animate-string "   ||   #/   `--'  /  /_::_|)__ "   33 30)
+    ;; (animate-string "   `|____|-._.-`  /  ||`--------` " 34 30)
+    ;; (animate-string "         \-.___.` | / || #      | " 35 30)
+    ;; (animate-string "          \       | | ||   #  # | " 36 30)
+    ;; (animate-string "          /`.___.'\ |.`|________| " 37 30)
+    ;; (animate-string "          | /`.__.'|'.` "           38 30)
+    ;; (animate-string "        __/ \    __/ \ "            39 30)
+    ;; (animate-string "       /__.-.)  /__.-.) "           40 30)
+
+    (animate-string "Have very Spacemacsy holidays" 17 30)
+    (animate-string "now, back to coding!!!!!" 19 34)
+    (sit-for 1))
+
 (defun spacemacs/next-error (&optional n reset)
   "Dispatch to flycheck or standard emacs error."
   (interactive "P")
