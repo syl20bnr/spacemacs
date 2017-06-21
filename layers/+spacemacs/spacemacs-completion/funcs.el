@@ -84,6 +84,8 @@
              hybrid-mode-enable-hjkl-bindings))
     (define-key helm-map (kbd "C-j") 'helm-next-line)
     (define-key helm-map (kbd "C-k") 'helm-previous-line)
+    (define-key helm-map (kbd "C-S-j") 'helm-follow-action-forward)
+    (define-key helm-map (kbd "C-S-k") 'helm-follow-action-backward)
     (define-key helm-map (kbd "C-h") 'helm-next-source)
     (define-key helm-map (kbd "C-S-h") 'describe-key)
     (define-key helm-map (kbd "C-l") (kbd "RET"))
@@ -225,15 +227,15 @@ See https://github.com/syl20bnr/spacemacs/issues/3700"
   ;; iteration setup a whole new minibuffer, we have to keep
   ;; track of any activated ido navigation transient-state and force
   ;; the reactivation at each iteration.
-  (when spacemacs--ido-navigation-ms-enabled
-    (spacemacs/ido-navigation-micro-state)))
+  (when spacemacs--ido-navigation-ts-enabled
+    (spacemacs/ido-navigation-transient-state/body)))
 
 (defun spacemacs//ido-setup ()
-  (when spacemacs--ido-navigation-ms-face-cookie-minibuffer
+  (when spacemacs--ido-navigation-ts-face-cookie-minibuffer
     (face-remap-remove-relative
-     spacemacs--ido-navigation-ms-face-cookie-minibuffer))
+     spacemacs--ido-navigation-ts-face-cookie-minibuffer))
   ;; be sure to wipe any previous transient-state flag
-  (setq spacemacs--ido-navigation-ms-enabled nil)
+  (setq spacemacs--ido-navigation-ts-enabled nil)
   ;; overwrite the key bindings for ido vertical mode only
   (define-key ido-completion-map (kbd "C-<return>") 'ido-select-text)
   ;; use M-RET in terminal
@@ -256,8 +258,8 @@ See https://github.com/syl20bnr/spacemacs/issues/3700"
   (define-key ido-completion-map (kbd "C-t") 'spacemacs/ido-invoke-in-new-frame)
   (define-key ido-completion-map (kbd "C-v") 'spacemacs/ido-invoke-in-horizontal-split)
   ;; initiate transient-state
-  (define-key ido-completion-map (kbd "M-SPC") 'spacemacs/ido-navigation-micro-state)
-  (define-key ido-completion-map (kbd "s-M-SPC") 'spacemacs/ido-navigation-micro-state))
+  (define-key ido-completion-map (kbd "M-SPC") 'spacemacs/ido-navigation-transient-state/body)
+  (define-key ido-completion-map (kbd "S-M-SPC") 'spacemacs/ido-navigation-transient-state/body))
 
 (defun spacemacs/ido-invoke-in-other-window ()
   "signals ido mode to switch to (or create) another window after exiting"
@@ -283,24 +285,24 @@ See https://github.com/syl20bnr/spacemacs/issues/3700"
   (setq ido-exit-minibuffer-target-window 'frame)
   (ido-exit-minibuffer))
 
-(defun spacemacs//ido-navigation-ms-set-face ()
+(defun spacemacs//ido-navigation-ts-set-face ()
   "Set faces for ido navigation transient-state."
-  (setq spacemacs--ido-navigation-ms-face-cookie-minibuffer
+  (setq spacemacs--ido-navigation-ts-face-cookie-minibuffer
         (face-remap-add-relative
          'minibuffer-prompt
-         'spacemacs-ido-navigation-ms-face)))
+         'spacemacs-ido-navigation-ts-face)))
 
-(defun spacemacs//ido-navigation-ms-on-enter ()
+(defun spacemacs//ido-navigation-ts-on-enter ()
   "Initialization of ido transient-state."
-  (setq spacemacs--ido-navigation-ms-enabled t)
-  (spacemacs//ido-navigation-ms-set-face))
+  (setq spacemacs--ido-navigation-ts-enabled t)
+  (spacemacs//ido-navigation-ts-set-face))
 
-(defun spacemacs//ido-navigation-ms-on-exit ()
+(defun spacemacs//ido-navigation-ts-on-exit ()
   "Action to perform when exiting ido transient-state."
   (face-remap-remove-relative
-   spacemacs--ido-navigation-ms-face-cookie-minibuffer))
+   spacemacs--ido-navigation-ts-face-cookie-minibuffer))
 
-(defun spacemacs//ido-navigation-ms-full-doc ()
+(defun spacemacs//ido-navigation-ts-full-doc ()
   "Full documentation for ido navigation transient-state."
   "
  [?]          display this help

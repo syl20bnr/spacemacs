@@ -51,19 +51,20 @@ Helpers for inspecting objects at point are available in R buffers only.
 | ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]                 |
 
 * Options
-=ess-smart-equals= is disabled by default. In order to enable it, set in your
-=~/.spacemacs=
+
+To turn off the automatic replacement of underscores by =<-=, set in your
+=~/.spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '((ess :variables
+                                                         ess-disable-underscore-assign t)))
+#+END_SRC
+
+Alternatively you may enable =ess-smart-equals=, which also disables replacement
+of underscores by =<-=, and additionally replace the equals sign with =<-= when
+appropriate:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((ess :variables
                                                          ess-enable-smart-equals t)))
 #+END_SRC
-
-To turn off the automatic replacement of underscores by =<-=, add the following
-hook:
-
-#+begin_src emacs-lisp
-  (add-hook 'ess-mode-hook
-            (lambda ()
-              (ess-toggle-underscore nil)))
-#+end_src

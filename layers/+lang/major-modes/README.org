@@ -1,0 +1,48 @@
+#+TITLE: Extra Languages
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+- [[#key-bindings][Key bindings]]
+  - [[#arch-linux-pkgbuilds][Arch Linux PKGBUILDs]]
+  - [[#gentoo-ebuilds][Gentoo ebuilds]]
+
+* Description
+This layer adds a number of packages for less common languages and major modes.
+
+These include:
+- Arch Linux PKGBUILDs
+- Arduino
+- Android Logcat (not associated with any file types by default)
+- Gentoo ebuilds
+- Hoon
+- Julia
+- Kivy
+- MATLAB
+- QML
+- OpenScad
+- Stan
+- Thrift
+- Vala
+- Wolfram Language / Mathematica
+
+* Key bindings
+
+** Arch Linux PKGBUILDs
+
+| Key Binding | Description                |
+|-------------+----------------------------|
+| ~SPC m b~   | Run makepkg                |
+| ~SPC m r~   | Increase the pkgrel number |
+| ~SPC m u~   | Browse URL                 |
+| ~SPC m m~   | Update package sums        |
+| ~SPC m e~   | Build ETAGS file           |
+| ~SPC m a~   | Make a source tarball      |
+
+** Gentoo ebuilds
+
+| Key Binding | Description            |
+|-------------+------------------------|
+| ~SPC m n~   | Insert skeleton ebuild |
+| ~SPC m k~   | Edit keywords          |
+| ~SPC m e~   | Run ebuild command     |
+| ~SPC m a~   | Add ChangeLog entry    |

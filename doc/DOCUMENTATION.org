@@ -126,6 +126,7 @@
       - [[#buffers-manipulation-transient-state][Buffers manipulation transient state]]
       - [[#special-buffers][Special Buffers]]
       - [[#files-manipulations-key-bindings][Files manipulations key bindings]]
+      - [[#frame-manipulation-key-bindings][Frame manipulation key bindings]]
       - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
       - [[#browsing-files-in-completion-buffer][Browsing files in completion buffer]]
     - [[#ido][Ido]]
@@ -2177,6 +2178,19 @@ Files manipulation commands (start with ~f~):
 | ~SPC f v f~ | add a local variable to the current file                                                               |
 | ~SPC f v p~ | add a local variable to the first line of the current file                                             |
 | ~SPC f y~   | show and copy current file absolute path in the minibuffer                                             |
+
+**** Frame manipulation key bindings
+Frame manipulation commands (start with ~F~):
+
+| Key Binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~SPC F f~   | open a file in another frame                        |
+| ~SPC F c~   | delete the current frame (unless it’s the only one) |
+| ~SPC F C~   | delete all other frames                             |
+| ~SPC F b~   | open a buffer in another frame                      |
+| ~SPC F B~   | open a buffer in another frame (but don’t switch)   |
+| ~SPC F o~   | cycle focus between frames                          |
+| ~SPC F n~   | create a new frame                                  |
 
 **** Emacs and Spacemacs files
 Convenient key bindings are located under the prefix ~SPC f e~ to quickly

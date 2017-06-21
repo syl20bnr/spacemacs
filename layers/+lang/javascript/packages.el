@@ -10,25 +10,26 @@
 ;;; License: GPLv3
 
 (setq javascript-packages
-  '(
-    add-node-modules-path
-    coffee-mode
-    company
-    (company-tern :toggle (configuration-layer/package-usedp 'company))
-    evil-matchit
-    flycheck
-    ggtags
-    helm-gtags
-    js-doc
-    js2-mode
-    js2-refactor
-    json-mode
-    json-snatcher
-    (tern :toggle (spacemacs//tern-detect))
-    web-beautify
-    skewer-mode
-    livid-mode
-    ))
+      '(
+        add-node-modules-path
+        coffee-mode
+        company
+        (company-tern :toggle (configuration-layer/package-usedp 'company))
+        evil-matchit
+        flycheck
+        ggtags
+        helm-gtags
+        impatient-mode
+        js-doc
+        js2-mode
+        js2-refactor
+        json-mode
+        json-snatcher
+        (tern :toggle (spacemacs//tern-detect))
+        web-beautify
+        skewer-mode
+        livid-mode
+        ))
 
 (defun javascript/post-init-add-node-modules-path ()
   (add-hook 'css-mode-hook #'add-node-modules-path)
@@ -70,6 +71,9 @@
 
 (defun javascript/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'js2-mode))
+
+(defun javascript/post-init-impatient-mode ()
+  (spacemacs/set-leader-keys-for-major-mode 'js2-mode "i" 'spacemacs/impatient-mode))
 
 (defun javascript/init-js-doc ()
   (use-package js-doc

@@ -11,6 +11,9 @@
 
 ;; Variables
 
+(defvar org-want-todo-bindings nil
+  "If non-nil, evil-org's todo bindings are activated.")
+
 (defvar org-enable-bootstrap-support nil
   "If non-nil Twitter Bootstrap related packages are configured.")
 
