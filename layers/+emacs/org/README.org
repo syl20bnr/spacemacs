@@ -127,7 +127,6 @@ to each =.org= file you want to process:
 #+END_EXAMPLE
 
 ** Org-journal support
-
 [[https://github.com/bastibe/org-journal][org-journal]] is a simple journal management system for keeping a seperate journal
 file for each day inside a directory.
 
@@ -333,6 +332,15 @@ Please see the [[https://github.com/Somelauw/evil-org-mode/blob/master/doc/keyth
 | ~M-J~ / ~M-K~ | Move subtree                    |
 | ~M-H~ / ~M-L~ | Promote or demote subtree       |
 | ~>>~ / ~<<~   | Promote or demote heading       |
+
+If the layer variable =org-want-todo-bindings= is true, the following bindings
+are also available.
+
+| Key Bindings | Description                         |
+|--------------+-------------------------------------|
+| ~t~          | Cycle TODO state of current heading |
+| ~T~          | Insert new TODO heading             |
+| ~M-t~        | Insert new TODO sub-heading         |
 
 ** Tables
 
