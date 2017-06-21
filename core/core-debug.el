@@ -19,6 +19,7 @@
 ;; startup debug
 
 (require 'profiler)
+(require 'url-util)
 
 (defvar spacemacs-debug-timer-threshold 0.15
   "Generate message if file takes longer than this number of
@@ -222,6 +223,119 @@ seconds to load")
                      "You can paste it in the gitter chat.\n"
                      "Check the *Messages* buffer if you need to review it"))))
 
+(defun spacemacs//render-keybinding-collision-template
+    (replacement file collisions)
+  "Render keybinding collision template and return the result.
+REPLACEMENT - list of replacements ((PLACEHOLDER KEY) ...)
+  PLACEHOLDER - in template FILE.
+  KEY - plist key in COLLISIONS list.
+FILE - template file path.
+COLLISIONS - plist of collisions. Either
+`spacemacs--keybinding-prefix-collision-list' or
+`spacemacs--keybinding-sequences-collision-list'"
+  (let ((ret "")
+        (nn "`<NONE>`")
+        (gh-search-prefix
+         "https://github.com/syl20bnr/spacemacs/search?utf8=✓&q="))
+    (dolist (collision collisions)
+      (let ((from (plist-get collision :from))
+            (to (plist-get collision :to)))
+        (with-temp-buffer
+          (insert-file-contents-literally file)
+          (loop
+           for (ph key)
+           in replacement
+           do (save-excursion
+                (goto-char (point-min))
+                (search-forward ph nil nil 1)
+                (replace-match (let ((f-rep (plist-get from
+                                                       key))
+                                     (t-rep (plist-get to
+                                                       key)))
+                                 (concat
+                                  (cond ((and (eq key :scope)
+                                              f-rep)
+                                         (format "[`%s`](%s%s)"
+                                                 f-rep
+                                                 gh-search-prefix
+                                                 (url-encode-url f-rep)))
+                                        (f-rep (format "`%s`"
+                                                       f-rep))
+                                        (t nn))
+                                  " :arrow_right: "
+                                  (cond ((and (eq key :scope)
+                                              t-rep)
+                                         (format "[`%s`](%s%s)"
+                                                 t-rep
+                                                 gh-search-prefix
+                                                 (url-encode-url t-rep)))
+                                        (t-rep (format "`%s`"
+                                                       t-rep))
+                                        (t nn))))
+                               [keep-case]
+                               [literal])))
+          (setq ret (concat ret (buffer-string))))))
+    ret))
+
+(defun spacemacs/report-keybindings-collisions ()
+  "Open REPORT_KEYBINDING_COLLISIONS buffer if
+any keybinding collision detected."
+  (interactive)
+  (if (or spacemacs--keybinding-prefix-collision-list
+          spacemacs--keybinding-sequences-collision-list)
+      (let* ((buf
+              (generate-new-buffer "REPORT_KEYBINDING_COLLISIONS"))
+             (system-info
+              (spacemacs//describe-system-info-string)))
+        (switch-to-buffer buf)
+        (insert-file-contents-literally
+         (concat configuration-layer-template-directory
+                 "keybinding_collisions/REPORTING.template"))
+        (loop
+         for (placeholder replacement)
+         in `(("%PREFIX_REPORT%"
+               ,(if spacemacs--keybinding-prefix-collision-list
+                    (format
+                     (concat "#### Collisions in prefixes:"
+                             " :twisted_rightwards_arrows:"
+                             "\n%s\n")
+                     (spacemacs//render-keybinding-collision-template
+                      '(("%PREFIX%" :prefix)
+                        ("%MODE%"  :mode)
+                        ("%NAME%" :name)
+                        ("%SCOPE%" :scope)
+                        ("%FILE%" :file))
+                      (concat
+                       configuration-layer-template-directory
+                       "keybinding_collisions/PREFIX_PART.template")
+                      spacemacs--keybinding-prefix-collision-list))
+                  ""))
+              ("%SEQUENCES_REPORT%"
+               ,(if spacemacs--keybinding-sequences-collision-list
+                    (format
+                     (concat "#### Collisions in key sequences:"
+                             " :abc:"
+                             ":abc:"
+                             "\n%s\n")
+                     (spacemacs//render-keybinding-collision-template
+                      '(("%KEY_SEQUENCE%" :sequence)
+                        ("%MODE%"  :mode)
+                        ("%NAME%" :name)
+                        ("%SCOPE%" :scope)
+                        ("%FILE%" :file))
+                      (concat
+                       configuration-layer-template-directory
+                       "keybinding_collisions/KEY_PART.template")
+                      spacemacs--keybinding-sequences-collision-list))
+                  ""))
+              ("%SYSTEM_INFO%" ,system-info))
+         do (save-excursion
+              (goto-char (point-min))
+              (search-forward placeholder)
+              (replace-match (or replacement "") [keep-case] [literal])))
+        (spacemacs/report-issue-mode))
+    (message "No keybinding collisions detected.")))
+
 (defun spacemacs/report-issue (arg)
   "Open a spacemacs/report-issue-mode buffer prepopulated with
    issue report template and system information.
@@ -270,6 +384,16 @@ Markdown syntax is supported in this buffer.
 
 \\{spacemacs/report-issue-mode-map}
 "
+  (let ((ov (make-overlay (point-min) (point-min)))
+        (prop-val
+         (concat (propertize (concat "REPLACE ALL UPPERCASE EXPRESSIONS"
+                                     " AND PRESS `C-c` `C-c` TO SUBMIT")
+                             'display
+                             '(raise -1)
+                             'face
+                             'font-lock-warning-face)
+                 "\n\n")))
+    (overlay-put ov 'after-string prop-val))
   (font-lock-add-keywords 'spacemacs/report-issue-mode
                           '(("\\(<<.*?>>\\)" . 'font-lock-comment-face))))
 

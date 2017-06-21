@@ -386,6 +386,14 @@ List sizes may be nil, in which case
 (defvar dotspacemacs-frozen-packages '()
   "A list of packages that cannot be updated.")
 
+(defvar dotspecemacs-keybindings-collision-report 'internal
+  "'all - Report all keybinding collisions.
+   'internal -  Report only collisions in files inside
+`spacemacs-start-directory'.
+   nil - don't report any collisions.
+ NOTE: Buffer evaluations are ignored.
+ (default 'internal)")
+
 ;; only for backward compatibility
 (defalias 'dotspacemacs-mode 'emacs-lisp-mode)
 
@@ -397,7 +405,8 @@ are caught and signaled to user in spacemacs buffer."
      (when ,msg (spacemacs-buffer/message ,msg))
      (when (fboundp ',func)
        (condition-case-unless-debug err
-           (,func)
+           (let ((spacemacs--config-scope ,(symbol-name func)))
+             (,func))
          (error
           (configuration-layer//increment-error-count)
           (spacemacs-buffer/append (format "Error in %s: %s\n"
@@ -474,8 +483,11 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
                 (load-file buffer-file-name)
                 (dotspacemacs|call-func dotspacemacs/init
                                         "Calling dotfile init...")
-                (dotspacemacs|call-func dotspacemacs/user-init
-                                        "Calling dotfile user init...")
+                (let ((dotspecemacs-keybindings-collision-report
+                       (if (eq dotspecemacs-keybindings-collision-report 'all)
+                           'all nil)))
+                  (dotspacemacs|call-func dotspacemacs/user-init
+                                          "Calling dotfile user init..."))
                 (setq dotspacemacs-editing-style
                       (dotspacemacs//read-editing-style-config
                        dotspacemacs-editing-style))
@@ -483,8 +495,11 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
                 (if (member arg '((4) (16)))
                     (message (concat "Done (`dotspacemacs/user-config' "
                                      "function has been skipped)."))
-                  (dotspacemacs|call-func dotspacemacs/user-config
-                                          "Calling dotfile user config...")
+                  (let ((dotspecemacs-keybindings-collision-report
+                         (if (eq dotspecemacs-keybindings-collision-report 'all)
+                             'all nil)))
+                    (dotspacemacs|call-func dotspacemacs/user-config
+                                            "Calling dotfile user config..."))
                   (run-hooks 'spacemacs-post-user-config-hook)
                   (message "Done.")))
             (switch-to-buffer-other-window dotspacemacs-test-results-buffer)
