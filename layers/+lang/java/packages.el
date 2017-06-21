@@ -172,6 +172,12 @@
       (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime"))
     :config
     (progn
+      ;; This function was renamed in ensime. Usually we don't need to do this,
+      ;; but documentation recommends the stable version of ensime, so we must
+      ;; try to support it, too.
+      (unless (fboundp 'ensime-type-at-point)
+        (defalias 'ensime-type-at-point 'ensime-print-type-at-point))
+
       ;; key bindings
       (dolist (mode java--ensime-modes)
         (dolist (prefix '(("mb" . "build")
