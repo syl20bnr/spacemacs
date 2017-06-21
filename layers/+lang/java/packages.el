@@ -19,7 +19,7 @@
         ensime
         flycheck
         (flycheck-eclim :location local
-                        :toggle (configuration-layer/package-usedp 'flycheck))
+                        :depends flycheck)
         flyspell
         ggtags
         gradle-mode

@@ -13,7 +13,7 @@
   '(company
     evil
     flycheck
-    (flycheck-perl6 :toggle (configuration-layer/package-usedp 'flycheck))
+    (flycheck-perl6 :depends flycheck)
     perl6-mode
     ))
 

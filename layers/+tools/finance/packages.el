@@ -12,7 +12,7 @@
 (setq finance-packages
   '(
     company
-    (flycheck-ledger :toggle (configuration-layer/package-usedp 'flycheck))
+    (flycheck-ledger :depends flycheck)
     ledger-mode
     ))
 

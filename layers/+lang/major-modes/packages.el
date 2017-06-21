@@ -13,7 +13,7 @@
         stan-mode
         thrift
         vala-mode
-        (vala-snippets :toggle (configuration-layer/package-usedp 'yasnippet))
+        (vala-snippets :depends yasnippet)
         wolfram-mode
         ))
 

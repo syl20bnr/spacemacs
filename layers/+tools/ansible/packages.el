@@ -12,7 +12,7 @@
       '(ansible
         ansible-doc
         company
-        (company-ansible :toggle (configuration-layer/package-usedp 'company))
+        (company-ansible :depends company)
         jinja2-mode
         yaml-mode))
 

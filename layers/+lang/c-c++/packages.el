@@ -16,7 +16,7 @@
     clang-format
     cmake-mode
     company
-    (company-c-headers :toggle (configuration-layer/package-usedp 'company))
+    (company-c-headers :depends company)
     company-ycmd
     flycheck
     gdb-mi

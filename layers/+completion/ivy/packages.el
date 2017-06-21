@@ -14,7 +14,7 @@
         auto-highlight-symbol
         bookmark
         counsel
-        (counsel-projectile :toggle (configuration-layer/package-usedp 'projectile))
+        (counsel-projectile :depends projectile)
         evil
         flx
         helm-make
