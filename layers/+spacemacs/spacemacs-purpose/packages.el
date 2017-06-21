@@ -16,7 +16,7 @@
         popwin
         (spacemacs-purpose-popwin
          :location local
-         :toggle (configuration-layer/package-usedp 'popwin))
+         :depends popwin)
         window-purpose))
 
 (defun spacemacs-purpose/pre-init-eyebrowse ()

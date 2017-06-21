@@ -11,7 +11,7 @@
 
 (setq shell-scripts-packages
       '(
-        (company-shell :toggle (configuration-layer/package-usedp 'company))
+        (company-shell :depends company)
         fish-mode
         flycheck
         flycheck-bashate

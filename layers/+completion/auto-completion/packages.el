@@ -17,8 +17,8 @@
         (company-quickhelp :toggle auto-completion-enable-help-tooltip)
         company-statistics
         fuzzy
-        (helm-company :toggle (configuration-layer/package-usedp 'helm))
-        (helm-c-yasnippet :toggle (configuration-layer/package-usedp 'helm))
+        (helm-company :depends helm)
+        (helm-c-yasnippet :depends helm)
         hippie-exp
         yasnippet
         auto-yasnippet

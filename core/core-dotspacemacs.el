@@ -791,7 +791,7 @@ error recovery."
   "Test settings in dotfile for correctness.
  Return non-nil if all the tests passed."
   (interactive)
-  (configuration-layer/discover-layers)
+  (configuration-layer/discover-layers 'refresh-index)
   (let ((min-version "0.0"))
     ;; dotspacemacs-version not implemented yet
     ;; (if (version< dotspacemacs-version min-version)
@@ -815,10 +815,10 @@ error recovery."
           (prog1
               ;; execute all tests no matter what
               (cl-reduce (lambda (x y)
-                        (and (funcall y) x))
-                      '(dotspacemacs//test-dotspacemacs/layers
-                        dotspacemacs//test-dotspacemacs/init)
-                      :initial-value t)
+                           (and (funcall y) x))
+                         '(dotspacemacs//test-dotspacemacs/layers
+                           dotspacemacs//test-dotspacemacs/init)
+                         :initial-value t)
             (goto-char (point-min))))))))
 
 (provide 'core-dotspacemacs)

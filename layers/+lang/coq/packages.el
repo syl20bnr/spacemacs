@@ -11,7 +11,7 @@
 
 (setq coq-packages
       '(
-        (company-coq :toggle (configuration-layer/package-usedp 'company))
+        (company-coq :depends company)
         (proof-general :location (recipe
                                   :fetcher github
                                   :repo "ProofGeneral/PG"

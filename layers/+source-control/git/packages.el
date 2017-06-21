@@ -20,12 +20,12 @@
         git-link
         git-messenger
         git-timemachine
-        (helm-gitignore :toggle (configuration-layer/package-usedp 'helm))
+        (helm-gitignore :depends helm)
         magit
         magit-gitflow
         ;; not compatible with magit 2.1 at the time of release
         ;; magit-svn
-        (orgit :toggle (configuration-layer/package-usedp 'org))
+        (orgit :depends org)
         smeargle
         ))
 

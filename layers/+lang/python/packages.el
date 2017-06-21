@@ -13,7 +13,7 @@
   '(
     anaconda-mode
     company
-    (company-anaconda :toggle (configuration-layer/package-usedp 'company))
+    (company-anaconda :depends company)
     cython-mode
     eldoc
     evil-matchit
@@ -21,7 +21,7 @@
     ggtags
     helm-cscope
     helm-gtags
-    (helm-pydoc :toggle (configuration-layer/package-usedp 'helm))
+    (helm-pydoc :depends helm)
     hy-mode
     live-py-mode
     (nose :location local)

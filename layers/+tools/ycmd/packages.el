@@ -11,8 +11,8 @@
 
 (setq ycmd-packages
   '(
-    (company-ycmd :toggle (configuration-layer/package-usedp 'company))
-    (flycheck-ycmd :toggle (configuration-layer/package-usedp 'flycheck))
+    (company-ycmd :depends company)
+    (flycheck-ycmd :depends flycheck)
     eldoc
     ycmd
     ))

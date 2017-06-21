@@ -14,10 +14,10 @@
 (setq d-packages
       '(
         company
-        (company-dcd :toggle (configuration-layer/package-usedp 'company))
+        (company-dcd :depends company)
         d-mode
         flycheck
-        (flycheck-dmd-dub :toggle (configuration-layer/package-usedp 'flycheck))
+        (flycheck-dmd-dub :depends flycheck)
         ggtags
         helm-gtags
         ))
