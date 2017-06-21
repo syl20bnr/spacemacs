@@ -54,7 +54,10 @@
     :init
     (progn
       (add-hook 'org-mode-hook 'spacemacs//evil-org-mode)
-      (setq evil-org-key-theme '(textobjects navigation additional)))
+      (setq evil-org-key-theme `(textobjects
+                                 navigation
+                                 additional
+                                 ,@(when org-want-todo-bindings '(todo)))))
     :config
     (spacemacs|diminish evil-org-mode " ⓔ" " e")))
 
