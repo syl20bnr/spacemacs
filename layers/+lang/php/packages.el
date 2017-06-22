@@ -21,7 +21,7 @@
         php-mode
         phpcbf
         phpunit
-        (company-php :toggle (configuration-layer/package-usedp 'company))
+        (company-php :depends company)
         ))
 
 (defun php/init-drupal-mode ()

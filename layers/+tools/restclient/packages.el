@@ -10,12 +10,12 @@
 ;;; License: GPLv3
 (setq restclient-packages
       '(
-        (company-restclient :toggle (configuration-layer/package-usedp 'company))
+        (company-restclient :depends company)
         golden-ratio
         ob-http
         ob-restclient
         restclient
-        (restclient-helm :toggle (configuration-layer/package-usedp 'helm))
+        (restclient-helm :depends helm)
         ))
 
 (defun restclient/pre-init-golden-ratio ()

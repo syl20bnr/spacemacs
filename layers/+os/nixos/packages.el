@@ -4,7 +4,7 @@
         flycheck
         (company-nixos-options :toggle
                                (configuration-layer/package-usedp 'company))
-        (helm-nixos-options :toggle (configuration-layer/package-usedp 'helm))
+        (helm-nixos-options :depends helm)
         nix-mode
         nixos-options
         ))

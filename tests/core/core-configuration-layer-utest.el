@@ -168,35 +168,103 @@
 ;; class cfgl-package
 ;; ---------------------------------------------------------------------------
 
-;; method: cfgl-package-enabledp
+;; method: cfgl-package-enabled-p
 
-(ert-deftest test-cfgl-package-enabledp--default-toggle-eval-non-nil ()
+(ert-deftest test-cfgl-package-enabled-p--default-toggle-eval-non-nil ()
   (let ((pkg (cfgl-package "testpkg" :name 'testpkg)))
-    (should (cfgl-package-enabledp pkg))))
+    (should (cfgl-package-enabled-p pkg))))
 
-(ert-deftest test-cfgl-package-enabledp--symbol-toggle-eval-non-nil-example ()
+(ert-deftest test-cfgl-package-enabled-p--symbol-toggle-eval-non-nil-example ()
   (let ((pkg (cfgl-package "testpkg" :name 'testpkg :toggle 'package-toggle))
         (package-toggle t))
-    (should (cfgl-package-enabledp pkg))))
+    (should (cfgl-package-enabled-p pkg))))
 
-(ert-deftest test-cfgl-package-enabledp--symbol-toggle-eval-nil-example ()
+(ert-deftest test-cfgl-package-enabled-p--symbol-toggle-eval-nil-example ()
   (let ((pkg (cfgl-package "testpkg" :name 'testpkg :toggle 'package-toggle))
         (package-toggle nil))
-    (should (null (cfgl-package-enabledp pkg)))))
+    (should (null (cfgl-package-enabled-p pkg)))))
 
-(ert-deftest test-cfgl-package-enabledp--list-toggle-eval-non-nil-example ()
+(ert-deftest test-cfgl-package-enabled-p--list-toggle-eval-non-nil-example ()
   (let ((pkg (cfgl-package "testpkg"
                            :name 'testpkg
                            :toggle '(memq package-toggle '(foo bar))))
         (package-toggle 'foo))
-    (should (cfgl-package-enabledp pkg))))
+    (should (cfgl-package-enabled-p pkg))))
 
-(ert-deftest test-cfgl-package-enabledp--list-toggle-eval-nil-example ()
+(ert-deftest test-cfgl-package-enabled-p--list-toggle-eval-nil-example ()
   (let ((pkg (cfgl-package "testpkg"
                            :name 'testpkg
                            :toggle '(memq package-toggle '(foo bar))))
         (package-toggle 'other))
-    (should (null (cfgl-package-enabledp pkg)))))
+    (should (null (cfgl-package-enabled-p pkg)))))
+
+(ert-deftest test-cfgl-package-enabled-p--depends-satisfied ()
+  (let ((pkg-a (cfgl-package "pkg-a"
+                             :name 'pkg-a
+                             :depends '(pkg-b)))
+        (pkg-b (cfgl-package "pkg-b"
+                             :name 'pkg-b))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (configuration-layer//add-package pkg-b)
+    (should (cfgl-package-enabled-p pkg-a))))
+
+(ert-deftest test-cfgl-package-enabled-p--depends-nonexistent ()
+  (let ((pkg-a (cfgl-package "pkg-a"
+                             :name 'pkg-a
+                             :depends '(pkg-b)))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (should (null (cfgl-package-enabled-p pkg-a)))))
+
+(ert-deftest test-cfgl-package-enabled-p--depends-toggled-off ()
+  (let ((pkg-a (cfgl-package "pkg-a"
+                             :name 'pkg-a
+                             :depends '(pkg-b)))
+        (pkg-b (cfgl-package "pkg-b"
+                             :name 'pkg-b
+                             :toggle nil))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (configuration-layer//add-package pkg-b)
+    (should (null (cfgl-package-enabled-p pkg-a)))))
+
+(ert-deftest test-cfgl-package-enabled-p--depends-excluded ()
+  (let ((pkg-a (cfgl-package "pkg-a"
+                             :name 'pkg-a
+                             :depends '(pkg-b)))
+        (pkg-b (cfgl-package "pkg-b"
+                             :name 'pkg-b
+                             :excluded t))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (configuration-layer//add-package pkg-b)
+    (should (null (cfgl-package-enabled-p pkg-a)))))
+
+(ert-deftest test-cfgl-package-enabled-p--depends-transitive ()
+  (let ((pkg-a (cfgl-package "pkg-a"
+                             :name 'pkg-a
+                             :depends '(pkg-b)))
+        (pkg-b (cfgl-package "pkg-b"
+                             :name 'pkg-b
+                             :depends '(pkg-c)))
+        (pkg-c (cfgl-package "pkg-c"
+                             :name 'pkg-c))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (configuration-layer//add-package pkg-b)
+    (configuration-layer//add-package pkg-c)
+    (should (cfgl-package-enabled-p pkg-a))))
+
+(ert-deftest test-cfgl-package-enabled-p--depends-transitive-not-satisfied ()
+  (let ((pkg-a (cfgl-package "pkg-a"
+                             :name 'pkg-a
+                             :depends '(pkg-b)))
+        (pkg-b (cfgl-package "pkg-b"
+                             :name 'pkg-b
+                             :depends '(pkg-c)))
+        (pkg-c (cfgl-package "pkg-c"
+                             :name 'pkg-c
+                             :excluded t))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (configuration-layer//add-package pkg-b)
+    (configuration-layer//add-package pkg-c)
+    (should (null (cfgl-package-enabled-p pkg-a)))))
 
 ;; method: cfgl-package-get-safe-owner
 
@@ -216,6 +284,96 @@
     (helper--set-layers `(,(cfgl-layer "layer1" :name 'layer1)))
     (helper--set-layers `(,(cfgl-layer "layer2" :name 'layer2)) t)
     (should (eq 'layer2 (cfgl-package-get-safe-owner pkg)))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//package-enabled-p
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-package-enabled-p--pre ()
+  (let ((owner (cfgl-layer "owner" :name 'owner))
+        (layer (cfgl-layer "layer" :name 'layer))
+        (pkg (cfgl-package "pkg"
+                           :name 'pkg
+                           :owners '(owner)
+                           :pre-layers '(layer)))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (configuration-layer//add-layer owner)
+    (configuration-layer//add-layer layer)
+    (configuration-layer//add-package pkg)
+    (should (configuration-layer//package-enabled-p pkg 'layer))))
+
+(ert-deftest test-package-enabled-p--post ()
+  (let ((owner (cfgl-layer "owner" :name 'owner))
+        (layer (cfgl-layer "layer" :name 'layer))
+        (pkg (cfgl-package "pkg"
+                           :name 'pkg
+                           :owners '(owner)
+                           :post-layers '(layer)))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (configuration-layer//add-layer owner)
+    (configuration-layer//add-layer layer)
+    (should (configuration-layer//package-enabled-p pkg 'layer))))
+
+(ert-deftest test-package-enabled-p--disabled ()
+  (let ((owner (cfgl-layer "owner" :name 'owner :disabled-for '(layer)))
+        (layer (cfgl-layer "layer" :name 'layer))
+        (pkg (cfgl-package "pkg"
+                           :name 'pkg
+                           :owners '(owner)
+                           :post-layers '(layer)))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (configuration-layer//add-layer owner)
+    (configuration-layer//add-layer layer)
+    (should (null (configuration-layer//package-enabled-p pkg 'layer)))))
+
+(ert-deftest test-package-enabled-p--enabled-precedence ()
+  (let ((owner (cfgl-layer "owner" :name 'owner :disabled-for '(layer) :enabled-for '(layer)))
+        (layer (cfgl-layer "layer" :name 'layer))
+        (pkg (cfgl-package "pkg"
+                           :name 'pkg
+                           :owners '(owner)
+                           :post-layers '(layer)))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (configuration-layer//add-layer owner)
+    (configuration-layer//add-layer layer)
+    (should (configuration-layer//package-enabled-p pkg 'layer))))
+
+(ert-deftest test-package-enabled-p--enabled-for-none ()
+  (let ((owner (cfgl-layer "owner" :name 'owner :enabled-for '()))
+        (layer (cfgl-layer "layer" :name 'layer))
+        (pkg (cfgl-package "pkg"
+                           :name 'pkg
+                           :owners '(owner)
+                           :post-layers '(layer)))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (configuration-layer//add-layer owner)
+    (configuration-layer//add-layer layer)
+    (should (null (configuration-layer//package-enabled-p pkg 'layer)))))
+
+(ert-deftest test-package-enabled-p--depends-on-disabled ()
+  (let ((owner-a (cfgl-layer "owner-a" :name 'owner-a))
+        (owner-b (cfgl-layer "owner-b" :name 'owner-b :disabled-for '(layer)))
+        (layer (cfgl-layer "layer" :name 'layer))
+        (pkg-a (cfgl-package "pkg-a"
+                             :name 'pkg-a
+                             :owners '(owner-a)
+                             :depends  '(pkg-b)
+                             :post-layers '(layer)))
+        (pkg-b (cfgl-package "pkg-b"
+                             :name 'pkg-b
+                             :owners '(owner-b)))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (configuration-layer//add-layer owner-a)
+    (configuration-layer//add-layer owner-b)
+    (configuration-layer//add-layer layer)
+    (configuration-layer//add-package pkg-b)
+    (should (null (configuration-layer//package-enabled-p pkg-a 'layer)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//package-archive-absolute-pathp

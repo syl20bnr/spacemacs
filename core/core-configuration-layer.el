@@ -163,9 +163,9 @@ If PROPS is non-nil then return packages as lists with their properties"
                :type list
                :documentation "List of layers with a pre-init function.")
    (post-layers :initarg :post-layers
-               :initform '()
-               :type list
-               :documentation "List of layers with a post-init function.")
+                :initform '()
+                :type list
+                :documentation "List of layers with a post-init function.")
    (location :initarg :location
              :initform elpa
              :type (satisfies (lambda (x)
@@ -196,15 +196,41 @@ If PROPS is non-nil then return packages as lists with their properties"
              :initform nil
              :type boolean
              :documentation
-             "If non-nil this package is excluded from all layers.")))
+             "If non-nil this package is excluded from all layers.")
+   (depends :initarg :depends
+            :initform nil
+            :type list
+            :documentation
+            "Packages that must be enabled for this package to be enabled.")))
 
-(defmethod cfgl-package-enabledp ((pkg cfgl-package) &optional inhibit-messages)
+(defmethod cfgl-package-toggled-p ((pkg cfgl-package) &optional inhibit-messages)
   "Evaluate the `toggle' slot of passed PKG.
 If INHIBIT-MESSAGES is non nil then any message emitted by the toggle evaluation
 is ignored."
   (let ((message-log-max (unless inhibit-messages message-log-max))
         (toggle (oref pkg :toggle)))
     (eval toggle)))
+
+(defmethod cfgl-package-deps-satisfied-p ((pkg cfgl-package) &optional inhibit-messages)
+  "Check if dependencies of a package are all enabled.
+If INHIBIT-MESSAGES is non nil then any message emitted by the toggle evaluation
+is ignored."
+  (not (memq nil (mapcar
+                  (lambda (dep-pkg)
+                    (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
+                      (when pkg-obj
+                        (cfgl-package-enabled-p pkg-obj inhibit-messages))))
+                  (oref pkg :depends)))))
+
+(defmethod cfgl-package-enabled-p ((pkg cfgl-package) &optional inhibit-messages)
+  "Check if a package is enabled.
+This checks the excluded property, evaluates the toggle, if any, and recursively
+checks whether dependent packages are also enabled.
+If INHIBIT-MESSAGES is non nil then any message emitted by the toggle evaluation
+is ignored."
+  (and (or (oref pkg :protected) (not (oref pkg :excluded)))
+       (cfgl-package-deps-satisfied-p pkg inhibit-messages)
+       (cfgl-package-toggled-p pkg inhibit-messages)))
 
 (defmethod cfgl-package-get-safe-owner ((pkg cfgl-package))
   "Safe method to return the name of the layer which owns PKG."
@@ -421,12 +447,12 @@ If NO-INSTALL is non nil then install steps are skipped."
     (spacemacs-buffer//inject-version))
   ;; declare used layers then packages as soon as possible to resolve
   ;; usage and ownership
-  (configuration-layer/discover-layers)
+  (configuration-layer/discover-layers 'refresh-index)
   (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
   (configuration-layer//declare-used-packages configuration-layer--used-layers)
   ;; then load the functions and finally configure the layers
   (configuration-layer//load-layers-files configuration-layer--used-layers
-                                          '("funcs.el"))
+                         '("funcs.el"))
   (configuration-layer//configure-layers configuration-layer--used-layers)
   ;; pre-filter some packages to save some time later in the loading process
   (setq configuration-layer--used-distant-packages
@@ -469,7 +495,7 @@ If NO-INSTALL is non nil then install steps are skipped."
   ;; configure used packages
   (configuration-layer//configure-packages configuration-layer--used-packages)
   (configuration-layer//load-layers-files configuration-layer--used-layers
-                                          '("keybindings.el"))
+                         '("keybindings.el"))
   (run-hooks 'configuration-layer-post-sync-hook))
 
 (defun configuration-layer/load-auto-layer-file ()
@@ -606,6 +632,8 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
          (min-version (when (listp pkg) (plist-get (cdr pkg) :min-version)))
          (step (when (listp pkg) (plist-get (cdr pkg) :step)))
          (toggle (when (listp pkg) (plist-get (cdr pkg) :toggle)))
+         (depends (when (listp pkg) (plist-get (cdr pkg) :depends)))
+         (depends (if (listp depends) depends (list depends)))
          (excluded (when (listp pkg) (plist-get (cdr pkg) :excluded)))
          (location (when (listp pkg) (plist-get (cdr pkg) :location)))
          (protected (when (listp pkg) (plist-get (cdr pkg) :protected)))
@@ -623,7 +651,10 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
     (when min-version
       (cfgl-package-set-property obj :min-version (version-to-list min-version)))
     (when step (cfgl-package-set-property obj :step step))
-    (when toggle (cfgl-package-set-property obj :toggle toggle))
+    (when toggle
+      (cfgl-package-set-property obj :toggle toggle))
+    (when (and ownerp depends)
+      (cfgl-package-set-property obj :depends depends))
     (cfgl-package-set-property obj :excluded
                                (and (configuration-layer/layer-usedp layer-name)
                                     (or excluded (oref obj :excluded))))
@@ -682,6 +713,12 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
        (format (concat "Ignoring :toggle for package %s because "
                        "layer %S does not own it.")
                pkg-name layer-name)))
+    ;; check if depends can be applied
+    (when (and (not ownerp) depends)
+      (configuration-layer//warning
+       (format (concat "Ignoring :depends for package %s because "
+                       "layer %S does not own it.")
+               pkg-name layer-name)))
     (when (fboundp pre-init-func)
       (object-add-to-list obj :pre-layers layer-name))
     (when (fboundp post-init-func)
@@ -703,6 +740,12 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
   'help-echo
   (purecopy (concat "mouse-2, RET: "
                     "visit the Spacemacs dotfile where variable is defined.")))
+
+(define-button-type 'help-describe-package
+  :supertype 'help-xref
+  'help-function 'configuration-layer/describe-package
+  'help-echo
+  (purecopy (concat "mouse-2, RET: show a description of this package.")))
 
 (defun configuration-layer/describe-package (pkg-symbol
                                              &optional layer-list pkg-list)
@@ -754,11 +797,22 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
       ;; toggle
       (unless (or (oref pkg :excluded) (eq t (oref pkg :toggle)))
         (princ "\nA toggle is defined for this package, it is currently ")
-        (princ (if (cfgl-package-enabledp pkg t) "on" "off"))
+        (princ (if (cfgl-package-toggled-p pkg t) "on" "off"))
         (princ " because the following expression evaluates to ")
-        (princ (if (cfgl-package-enabledp pkg t) "t:\n" "nil:\n"))
+        (princ (if (cfgl-package-toggled-p pkg t) "t:\n" "nil:\n"))
         (princ (oref pkg :toggle))
         (princ "\n"))
+      (when (oref pkg :depends)
+        (princ "\nThis package depends on the following packages: ")
+        (dolist (dep-pkg (oref pkg :depends))
+          (princ (concat "`" (symbol-name dep-pkg) "' "))
+          (with-current-buffer standard-output
+            (save-excursion
+              (re-search-backward "`\\([^`']+\\)'" nil t)
+              (help-xref-button 1 'help-describe-package dep-pkg))))
+        (princ "\nThese dependencies are currently ")
+        (princ (if (cfgl-package-deps-satisfied-p pkg t) "" "not "))
+        (princ "satisfied.\n"))
       (unless (oref pkg :excluded)
         ;; usage and installation
         (if (not (configuration-layer/package-usedp pkg-symbol))
@@ -838,7 +892,9 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
                     (help-xref-button
                      1 'help-function-def
                      (intern (format "%S/pre-init-%S" layer-sym pkg-symbol))
-                     path))))
+                     path)))
+                (unless (configuration-layer//package-enabled-p pkg layer-sym)
+                  (princ " (disabled)")))
               (princ " "))
             (princ "\n"))
           (when (oref pkg post-layers)
@@ -853,7 +909,9 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
                     (help-xref-button
                      1 'help-function-def
                      (intern (format "%S/post-init-%S" layer-sym pkg-symbol))
-                     path))))
+                     path)))
+                (unless (configuration-layer//package-enabled-p pkg layer-sym)
+                  (princ " (disabled)")))
               (princ " "))
             (princ "\n"))))
       (princ (concat "\nClick [here] to display an Emacs description "
@@ -1048,7 +1106,7 @@ return both used and unused packages."
             (or (null usedp)
                 (and (not (null (oref pkg :owners)))
                      (not (oref pkg :excluded))
-                     (cfgl-package-enabledp pkg t))))))))
+                     (cfgl-package-enabled-p pkg t))))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path to the private configuration layer string NAME."
@@ -1114,12 +1172,15 @@ Returns nil if the directory is not a category."
       (when (string-match "^+" dirname)
         (intern (substring dirname 1))))))
 
-(defun configuration-layer/discover-layers ()
-  "Initialize `configuration-layer--indexed-layers' with layer directories."
+(defun configuration-layer/discover-layers (&optional refresh-index)
+  "Initialize `configuration-layer--indexed-layers' with layer directories.
+If REFRESH-INDEX is non-nil, the layer index is cleared before
+discovery."
   ;; load private layers at the end on purpose we asume that the user layers
   ;; must have the final word on configuration choices. Let
   ;; `dotspacemacs-directory' override the private directory if it exists.
-  (setq  configuration-layer--indexed-layers (make-hash-table :size 1024))
+  (when refresh-index
+    (setq configuration-layer--indexed-layers (make-hash-table :size 1024)))
   (spacemacs-buffer/set-mode-line "Indexing layers...")
   (spacemacs//redisplay)
   (let ((search-paths (append
@@ -1186,8 +1247,10 @@ Returns nil if the directory is not a category."
                      "-> Discovered configuration layer: %s" layer-name-str)
                     (let ((configuration-layer--load-packages-files nil))
                       (configuration-layer//add-layer
-                       (configuration-layer/make-layer layer-name
-                                                       nil nil sub))))))
+                       (configuration-layer/make-layer
+                        layer-name
+                        (configuration-layer/get-layer layer-name)
+                        nil sub))))))
                (t
                 ;; layer not found, add it to search path
                 (setq search-paths (cons sub search-paths)))))))))))
@@ -1575,8 +1638,8 @@ wether the declared layer is an used one or not."
        ((null (oref pkg :owners))
         (spacemacs-buffer/message
          (format "%S ignored since it has no owner layer." pkg-name)))
-       ((not (cfgl-package-enabledp pkg))
-        (spacemacs-buffer/message (format "%S is toggled off." pkg-name)))
+       ((not (cfgl-package-enabled-p pkg))
+        (spacemacs-buffer/message (format "%S is disabled." pkg-name)))
        (t
         ;; load-path
         (let ((dir (configuration-layer/get-location-directory
@@ -1622,9 +1685,15 @@ LAYER must not be the owner of PKG."
   (let* ((owner (configuration-layer/get-layer (car (oref pkg :owners))))
          (disabled (oref owner :disabled-for))
          (enabled (oref owner :enabled-for)))
-    (if (not (eq 'unspecified enabled))
-        (memq layer enabled)
-      (not (memq layer disabled)))))
+    (and (not (memq nil (mapcar
+                         (lambda (dep-pkg)
+                           (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
+                             (when pkg-obj
+                               (configuration-layer//package-enabled-p pkg-obj layer))))
+                         (oref pkg :depends))))
+         (if (not (eq 'unspecified enabled))
+             (memq layer enabled)
+           (not (memq layer disabled))))))
 
 (defun configuration-layer//configure-package (pkg)
   "Configure PKG object."

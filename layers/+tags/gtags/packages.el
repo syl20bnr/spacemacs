@@ -13,7 +13,7 @@
 (defconst gtags-packages
   '(
     ggtags
-    (helm-gtags :toggle (configuration-layer/package-usedp 'helm))
+    (helm-gtags :depends helm)
     ))
 
 (defun gtags/init-ggtags ()

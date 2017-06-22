@@ -12,7 +12,7 @@
 (defconst restructuredtext-packages
   '(
     auto-complete
-    (auto-complete-rst :toggle (configuration-layer/package-usedp 'auto-complete))
+    (auto-complete-rst :depends auto-complete)
     linum
     (rst :location built-in)
     (rst-directives :location local)

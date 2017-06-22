@@ -14,7 +14,7 @@
         add-node-modules-path
         coffee-mode
         company
-        (company-tern :toggle (configuration-layer/package-usedp 'company))
+        (company-tern :depends company)
         evil-matchit
         flycheck
         ggtags
