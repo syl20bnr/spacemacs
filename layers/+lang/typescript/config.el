@@ -14,6 +14,9 @@
 (defvar typescript-fmt-on-save nil
   "Run formatter on buffer save.")
 
+(defvar typescript-disable-eldoc nil
+  "Do not use eldoc.")
+
 (defvar typescript-fmt-tool 'tide
   "The name of the tool to be used
 for TypeScript source code formatting.

@@ -31,7 +31,10 @@
       :modes typescript-mode)))
 
 (defun typescript/post-init-eldoc ()
-  (add-hook 'typescript-mode-hook 'eldoc-mode))
+  (add-hook 'typescript-mode-hook
+            (lambda ()
+              (when (not typescript-disable-eldoc)
+                (eldoc-mode +1)))))
 
 (defun typescript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'typescript-mode))
@@ -78,7 +81,8 @@
                          (string-equal "tsx" (file-name-extension (buffer-file-name))))
                 (tide-setup)
                 (flycheck-mode +1)
-                (eldoc-mode +1)
+                (when (not typescript-disable-eldoc)
+                  (eldoc-mode +1))
                 (when (configuration-layer/package-usedp 'company)
                   (company-mode-on))))))
 

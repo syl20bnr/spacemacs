@@ -65,6 +65,15 @@ You can choose formatting tool:
 
 Default is 'tide .
 
+Sometimes eldoc-mode can be very slow, for example when using type inference on a complex data structures.
+You can disable it:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(
+  (typescript :variables
+              typescript-disable-eldoc t)))
+#+END_SRC
+
 ** Notes
 
 This layer uses:
