@@ -386,7 +386,7 @@ List sizes may be nil, in which case
 (defvar dotspacemacs-frozen-packages '()
   "A list of packages that cannot be updated.")
 
-(defvar dotspacemacs-pretty-docs t
+(defvar dotspacemacs-pretty-docs nil
   "Run `spacemacs/prettify-org-buffer' when
 visiting README.org files of Spacemacs.")
 
