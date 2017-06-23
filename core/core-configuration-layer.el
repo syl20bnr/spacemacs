@@ -115,8 +115,8 @@ ROOT is returned."
    (enabled :initarg :enabled-for
             :initform 'unspecified
             :type (satisfies (lambda (x) (or (listp x) (eq 'unspecified x))))
-            :documentation (concat "A list of layers where this layer is enabled. "
-                                   "(Takes precedence over `:disabled-for'.)")))
+            :documentation
+            "A list of layers where this layer is enabled. (Takes precedence over `:disabled-for'.)"))
   "A configuration layer.")
 
 (defmethod cfgl-layer-owned-packages ((layer cfgl-layer) &optional props)
