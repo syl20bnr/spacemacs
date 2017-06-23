@@ -386,6 +386,18 @@ List sizes may be nil, in which case
 (defvar dotspacemacs-frozen-packages '()
   "A list of packages that cannot be updated.")
 
+(defvar dotspacemacs-pretty-docs t
+  "Run `spacemacs/prettify-org-buffer' when
+visiting README.org files of Spacemacs.")
+
+(defun dotspacemacs//prettify-spacemacs-docs ()
+  "Run `spacemacs/prettify-org-buffer' if `buffer-file-name'
+has `spacemacs-start-directory'"
+  (when (and dotspacemacs-pretty-docs
+             (string-prefix-p (expand-file-name spacemacs-start-directory)
+                              (expand-file-name (buffer-file-name))))
+    (spacemacs/prettify-org-buffer)))
+
 ;; only for backward compatibility
 (defalias 'dotspacemacs-mode 'emacs-lisp-mode)
 
