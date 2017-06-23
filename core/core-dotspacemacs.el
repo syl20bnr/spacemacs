@@ -394,8 +394,10 @@ visiting README.org files of Spacemacs.")
   "Run `spacemacs/prettify-org-buffer' if `buffer-file-name'
 has `spacemacs-start-directory'"
   (when (and dotspacemacs-pretty-docs
+             spacemacs-start-directory
+             buffer-file-name
              (string-prefix-p (expand-file-name spacemacs-start-directory)
-                              (expand-file-name (buffer-file-name))))
+                              (expand-file-name buffer-file-name)))
     (spacemacs/prettify-org-buffer)))
 
 ;; only for backward compatibility
