@@ -1337,6 +1337,16 @@ wether the declared layer is an used one or not."
     (and obj (cfgl-package-get-safe-owner obj)
          (not (oref obj :excluded)))))
 
+(defun configuration-layer//package-deps-used-p (pkg)
+  "Returns non-nil if all dependencies of PKG are used."
+  (not (memq nil (mapcar
+                  (lambda (dep-pkg)
+                    (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
+                      (and pkg-obj
+                           (cfgl-package-get-safe-owner pkg-obj)
+                           (not (oref pkg-obj :excluded)))))
+                  (oref pkg :depends)))))
+
 (defun  configuration-layer/package-lazy-installp (name)
   "Return non-nil if NAME is the name of a package to be lazily installed."
   (let ((obj (configuration-layer/get-package name)))
@@ -1638,6 +1648,8 @@ wether the declared layer is an used one or not."
        ((null (oref pkg :owners))
         (spacemacs-buffer/message
          (format "%S ignored since it has no owner layer." pkg-name)))
+       ((not (configuration-layer//package-deps-used-p pkg))
+        (spacemacs-buffer/message (format "%S is ignored since it has dependencies that are not used." pkg-name)))
        ((not (cfgl-package-enabled-p pkg))
         (spacemacs-buffer/message (format "%S is disabled." pkg-name)))
        (t
@@ -1718,7 +1730,7 @@ LAYER must not be the owner of PKG."
                 (concat "\nAn error occurred while pre-configuring %S "
                         "in layer %S (error: %s)\n")
                 pkg-name layer err)))))))
-          (oref pkg :pre-layers))
+     (oref pkg :pre-layers))
     ;; init
     (spacemacs-buffer/message (format "  -> init (%S)..." owner))
     (funcall (intern (format "%S/init-%S" owner pkg-name)))
@@ -1740,7 +1752,7 @@ LAYER must not be the owner of PKG."
                 (concat "\nAn error occurred while post-configuring %S "
                         "in layer %S (error: %s)\n")
                 pkg-name layer err)))))))
-          (oref pkg :post-layers))))
+     (oref pkg :post-layers))))
 
 (defun configuration-layer//cleanup-rollback-directory ()
   "Clean up the rollback directory."
