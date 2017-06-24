@@ -91,8 +91,18 @@
                           :background 'unspecified
                           :weight 'unspecified)
 
+      ;; tab key will ident all marked code when tab key is pressed
+      (add-hook 'cperl-mode-hook
+                (lambda () (local-set-key (kbd "<tab>") 'indent-for-tab-command)))
+
+      (spacemacs/declare-prefix "mh" "perldoc")
+      (spacemacs/declare-prefix "mg" "find-symbol")
+      (spacemacs/set-leader-keys-for-major-mode 'cperl-mode "hp" 'cperl-perldoc-at-point)
+      (spacemacs/set-leader-keys-for-major-mode 'cperl-mode "hd" 'cperl-perldoc)
+      (spacemacs/set-leader-keys-for-major-mode 'cperl-mode "v" 'cperl-select-this-pod-or-here-doc)
+
       (font-lock-add-keywords 'cperl-mode
-                              '(("\\_<const\\|croak\\_>" . font-lock-keyword-face)))
+                              '(("\\_<const\\|croak\\|carp\\|confess\\|cluck\\_>" . font-lock-keyword-face)))
       (font-lock-add-keywords 'cperl-mode
                               '(("\\_<say\\|any\\_>" . cperl-nonoverridable-face))))))
 
