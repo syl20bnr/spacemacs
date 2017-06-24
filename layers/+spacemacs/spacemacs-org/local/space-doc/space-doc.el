@@ -227,7 +227,7 @@ current buffer so piggybacking it should be pretty performant solution."
                 :after
                 #'spacemacs//space-doc-org-do-emphasis-faces-advice)))
 
-(defun spacemacs//space-doc-add-region-edge-text-property
+(defsubst spacemacs//space-doc-add-region-edge-text-property
     (begin end property &optional face)
   "Add text PROPERTY to the first and last character of the BEGIN END
  text region with `add-text-properties' or if FACE has non-nil value
@@ -272,6 +272,7 @@ The character should be one of the markers from `org-emphasis-alist'."
          begin
          end
          '(invisible spacemacs--space-doc-invisible-marker))))))
+(byte-compile 'spacemacs//space-doc-emphasis-region)
 
 (defun spacemacs//space-doc-alternative-emphasis (&optional enable)
   "Emphasis overlays.
@@ -312,7 +313,7 @@ If ENABLE is non-nil, removes boxes from the `org-kbd'face in the current
 Otherwise, reverts them to default.
 This functions is aimed to be used with `spacemacs-space-doc-modificators'."
   (if enable
-      (setq 'spacemacs--space-doc-org-kbd-face-remap-cookie
+      (setq spacemacs--space-doc-org-kbd-face-remap-cookie
            (face-remap-add-relative 'org-kbd
                                     `(:box nil)))
     (when (bound-and-true-p spacemacs--space-doc-org-kbd-face-remap-cookie)
@@ -331,9 +332,9 @@ This functions is aimed to be used with `spacemacs-space-doc-modificators'."
               600)))
     (org-display-inline-images)))
 
-(defun spacemacs//space-doc-tags-fontify (startish endish &optional verbose)
+(defsubst spacemacs//space-doc-tags-fontify (startish endish)
   "Fontify `org-mode' tags in the fuzzy region that starts
- before STARTISH and end after ENDISH. VERBOSE ignored."
+ before STARTISH and end after ENDISH."
   ;; TODO add more types of tags or meta-line if needed.
   (let ((invisible-org-meta-tags-list
          `(;; Hide TITLE tag.
@@ -389,7 +390,8 @@ persist after `org-mode' shenanigans.
 NOTE: Not using `advice-add' because it is global modification.
 FIXME: Find cleaner solution."
   (font-lock-default-fontify-region  start end verbose)
-  (spacemacs//space-doc-tags-fontify start end verbose))
+  (spacemacs//space-doc-tags-fontify start end))
+(byte-compile 'spacemacs//space-doc-font-lock-fontify-region-function)
 
 (defun spacemacs//space-doc-alternative-tags-look (&optional enable)
   "Modify meta tag appearance.
@@ -491,9 +493,6 @@ NOTE: It can find only fontified regions."
                               (list(list p-min r-end))))
             p-min r-end))
     ret))
-
-(dolist (mod spacemacs-space-doc-modificators-functions)
-  (byte-compile (cdr mod)))
 
 (provide 'space-doc)
 ;;; space-doc.el ends here.
