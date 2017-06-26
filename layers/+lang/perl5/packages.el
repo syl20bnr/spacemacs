@@ -114,4 +114,3 @@
 
 (defun perl5/post-init-flycheck ()
   (spacemacs/enable-flycheck 'cperl-mode))
-
