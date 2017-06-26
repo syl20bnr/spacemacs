@@ -55,6 +55,7 @@ To enable automatic buffer formatting on save, set the variable =rust-format-on-
 | ~SPC m c e~ | run benchmarks with Cargo                   |
 | ~SPC m c f~ | run the current test with Cargo             |
 | ~SPC m c i~ | create a new project with Cargo (init)      |
+| ~SPC m c l~ | run linter ([[https://github.com/arcnmx/cargo-clippy][cargo-clippy]]) with Cargo        |
 | ~SPC m c n~ | create a new project with Cargo (new)       |
 | ~SPC m c o~ | run all tests in current file with Cargo    |
 | ~SPC m c s~ | search for packages on crates.io with Cargo |
