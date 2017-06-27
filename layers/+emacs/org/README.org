@@ -414,6 +414,7 @@ are also available.
 | ~SPC m i h~   | org-insert-heading               |
 | ~SPC m i K~   | spacemacs/insert-keybinding-org  |
 | ~SPC m i l~   | org-insert-link                  |
+| ~SPC m i n~   | org-add-note                     |
 | ~SPC m i p~   | org-set-property                 |
 | ~SPC m i s~   | org-insert-subheading            |
 | ~SPC m i t~   | org-set-tags                     |

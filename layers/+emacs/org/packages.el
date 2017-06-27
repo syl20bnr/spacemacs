@@ -262,6 +262,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "iH" 'org-insert-heading-after-current
         "iK" 'spacemacs/insert-keybinding-org
         "il" 'org-insert-link
+        "in" 'org-add-note
         "ip" 'org-set-property
         "is" 'org-insert-subheading
         "it" 'org-set-tags
