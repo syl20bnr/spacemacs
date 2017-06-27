@@ -15,6 +15,7 @@
         fish-mode
         flycheck
         flycheck-bashate
+        flycheck-checkbashisms
         ggtags
         helm-gtags
         insert-shebang
@@ -40,6 +41,11 @@
   (use-package flycheck-bashate
   :defer t
   :init (add-hook 'sh-mode-hook 'flycheck-bashate-setup)))
+
+(defun shell-scripts/init-flycheck-checkbashisms ()
+  (use-package flycheck-checkbashisms
+    :defer t
+    :init (add-hook 'sh-mode-hook 'flycheck-checkbashisms-setup)))
 
 (defun shell-scripts/init-fish-mode ()
   (use-package fish-mode
