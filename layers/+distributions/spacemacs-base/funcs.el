@@ -557,12 +557,15 @@ A SPLIT argument with the value: `left',
 `below', `above' or `right', opens the new
 buffer in a split window."
   (interactive)
-  (let ((newbuf (generate-new-buffer-name "untitled")))
+  (let ((newbuf (generate-new-buffer "untitled")))
     (case split
       ('left  (split-window-horizontally))
       ('below (spacemacs/split-window-vertically-and-switch))
       ('above (split-window-vertically))
       ('right (spacemacs/split-window-horizontally-and-switch)))
+    ;; Prompt to save on `save-some-buffers' with positive PRED
+    (with-current-buffer newbuf
+      (setq-local buffer-offer-save t))
     ;; pass non-nil force-same-window to prevent `switch-to-buffer' from
     ;; displaying buffer in another window
     (switch-to-buffer newbuf nil 'force-same-window)))
@@ -709,7 +712,7 @@ dotspacemacs-persistent-server to be t"
   "Prompt to save changed buffers and exit Spacemacs"
   (interactive)
   (setq spacemacs-really-kill-emacs t)
-  (save-some-buffers)
+  (save-some-buffers nil t)
   (kill-emacs))
 
 (defun spacemacs/frame-killer ()
