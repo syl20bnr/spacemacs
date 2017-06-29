@@ -94,6 +94,7 @@
 
       ;; keybindings
       (spacemacs/set-leader-keys-for-major-mode 'erc-mode
+        "b" 'erc-switch-to-buffer
         "d" 'erc-input-action
         "j" 'erc-join-channel
         "n" 'erc-channel-names
