@@ -27,7 +27,7 @@
                      "core/core-load-paths.el"))
   (require 'core-spacemacs)
   (spacemacs/init)
-  (configuration-layer/sync spacemacs-no-sync)
+  (configuration-layer/sync spacemacs-skip-sync)
   (spacemacs-buffer/display-startup-note)
   (spacemacs/setup-startup-hook)
   (require 'server)
