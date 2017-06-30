@@ -12,6 +12,9 @@
 (defvar erc-enable-sasl-auth nil
   "If non nil then use SASL authenthication with ERC.")
 
+(defvar erc-enable-images t
+  "If non nil then enable inline images using erc-image.")
+
 (defvar erc-spacemacs-layout-name "@ERC"
   "Name used in the setup for `spacemacs-layouts' micro-state")
 
