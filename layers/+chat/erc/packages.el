@@ -214,6 +214,7 @@
 (defun erc/init-erc-image ()
   (use-package erc-image
     :defer t
+    :if erc-enable-images
     :init (with-eval-after-load 'erc
             (require 'erc-image)
             (add-to-list 'erc-modules 'image))))
