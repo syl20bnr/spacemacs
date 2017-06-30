@@ -16,8 +16,8 @@
 (defvar spacemacs-insecure nil
   "If non-nil force Spacemacs to operate without secured protocols.")
 
-(defvar spacemacs-skip-sync nil
-  "If non-nil skip package synchronization on startup")
+(defvar spacemacs-sync-packages t
+  "If non-nil synchronize packages on startup")
 
 (defun spacemacs//parse-command-line (args)
   "Handle Spacemacs specific command line arguments.
@@ -57,7 +57,7 @@ arguments is that we want to process these arguments as soon as possible."
           ("--resume-layouts"
            (setq spacemacs-force-resume-layouts t))
           ("--no-sync"
-           (setq spacemacs-skip-sync t))
+           (setq spacemacs-sync-packages nil))
           (_ (push arg new-args))))
       (setq i (1+ i)))
     (nreverse new-args)))

@@ -436,9 +436,9 @@ refreshed during the current session."
       (package-read-all-archive-contents)
       (unless quiet (spacemacs-buffer/append "\n")))))
 
-(defun configuration-layer/sync (&optional skip-install)
+(defun configuration-layer/sync (&optional install)
   "Synchronize declared layers in dotfile with spacemacs.
-If SKIP-INSTALL is non nil then install steps are skipped."
+If INSTALL is non nil then install missing packages."
   (run-hooks 'configuration-layer-pre-sync-hook)
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
   (setq dotspacemacs--configuration-layers-saved
@@ -461,7 +461,7 @@ If SKIP-INSTALL is non nil then install steps are skipped."
   ;; load layers lazy settings
   (configuration-layer/load-auto-layer-file)
   ;; install and/or uninstall packages
-  (unless skip-install
+  (when install
     (let ((packages
            (append
             ;; install used packages
