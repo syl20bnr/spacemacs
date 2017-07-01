@@ -323,7 +323,7 @@ has been changed to THEME."
             (setcar theme2 pkg-name)
           (setq theme2 pkg-name))
         (add-to-list 'dotspacemacs--additional-theme-packages theme2)))))
-(add-hook 'configuration-layer-pre-sync-hook
+(add-hook 'configuration-layer-pre-load-hook
           'spacemacs//add-theme-packages-to-additional-packages)
 
 (provide 'core-themes-support)

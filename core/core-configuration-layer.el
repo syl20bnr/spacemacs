@@ -69,11 +69,11 @@ ROOT is returned."
              (dir (car (directory-files elpa-dir 'full pkg-match))))
         (when dir (file-name-as-directory dir))))))
 
-(defvar configuration-layer-pre-sync-hook nil
-  "Hook executed at the beginning of configuration synchronization.")
+(defvar configuration-layer-pre-load-hook nil
+  "Hook executed at the beginning of configuration loading.")
 
-(defvar configuration-layer-post-sync-hook nil
-  "Hook executed at the end of configuration synchronization.")
+(defvar configuration-layer-post-load-hook nil
+  "Hook executed at the end of configuration loading.")
 
 (defvar configuration-layer-rollback-directory
   (concat spacemacs-cache-directory ".rollback/")
@@ -436,10 +436,11 @@ refreshed during the current session."
       (package-read-all-archive-contents)
       (unless quiet (spacemacs-buffer/append "\n")))))
 
-(defun configuration-layer/sync (&optional install)
-  "Synchronize declared layers in dotfile with spacemacs.
-If INSTALL is non nil then install missing packages."
-  (run-hooks 'configuration-layer-pre-sync-hook)
+(defun configuration-layer/load ()
+  "Load layers declared in dotfile and install associated packages.
+To prevent package from being installed or uninstalled set the variable
+`spacemacs-sync-packages' to nil."
+  (run-hooks 'configuration-layer-pre-load-hook)
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
   (setq dotspacemacs--configuration-layers-saved
         dotspacemacs-configuration-layers)
@@ -461,7 +462,7 @@ If INSTALL is non nil then install missing packages."
   ;; load layers lazy settings
   (configuration-layer/load-auto-layer-file)
   ;; install and/or uninstall packages
-  (when install
+  (when spacemacs-sync-packages
     (let ((packages
            (append
             ;; install used packages
@@ -496,7 +497,7 @@ If INSTALL is non nil then install missing packages."
   (configuration-layer//configure-packages configuration-layer--used-packages)
   (configuration-layer//load-layers-files configuration-layer--used-layers
                          '("keybindings.el"))
-  (run-hooks 'configuration-layer-post-sync-hook))
+  (run-hooks 'configuration-layer-post-load-hook))
 
 (defun configuration-layer/load-auto-layer-file ()
   "Load `auto-layer.el' file"
@@ -1440,7 +1441,8 @@ wether the declared layer is an used one or not."
                                   "layer %s, do you want to install it?")
                           mode layer-name)))
     (when (dotspacemacs/add-layer layer-name)
-      (configuration-layer/sync 'no-install))
+      (let (spacemacs-sync-packages)
+        (configuration-layer/load)))
     (let* ((layer (configuration-layer/get-layer layer-name))
            (inst-pkgs
             (delq nil

@@ -136,12 +136,12 @@ seconds to load")
     (advice-add 'package-initialize
                 :around
                 (spacemacs||make-function-timer package-intialize))
-    (advice-add 'configuration-layer/sync
+    (advice-add 'configuration-layer/load
                 :around
-                (spacemacs||make-function-timer configuration-layer/sync))
-    ;; (advice-add 'configuration-layer/sync
+                (spacemacs||make-function-timer configuration-layer/load))
+    ;; (advice-add 'configuration-layer/load
     ;;             :around
-    ;;             (spacemacs||make-function-profiler configuration-layer/sync))
+    ;;             (spacemacs||make-function-profiler configuration-layer/load))
     (advice-add 'configuration-layer//configure-package
                 :around
                 (spacemacs||make-function-timer configuration-layer//configure-package)))

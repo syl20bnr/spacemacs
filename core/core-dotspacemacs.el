@@ -493,7 +493,7 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
                 (setq dotspacemacs-editing-style
                       (dotspacemacs//read-editing-style-config
                        dotspacemacs-editing-style))
-                (configuration-layer/sync)
+                (configuration-layer/load)
                 (if (member arg '((4) (16)))
                     (message (concat "Done (`dotspacemacs/user-config' "
                                      "function has been skipped)."))
@@ -557,7 +557,7 @@ a display strng and the value is the actual value to return."
     (spacemacs-buffer/set-mode-line "Dotfile wizard installer")
     (spacemacs//redisplay)
     (when (dotspacemacs/install 'with-wizard)
-      (configuration-layer/sync))))
+      (configuration-layer/load))))
 
 (defun dotspacemacs/install (arg)
   "Install the dotfile, return non nil if the doftile has been installed.
