@@ -576,9 +576,12 @@ layer directory."
 
 (defun configuration-layer/make-layer (layer-specs &optional obj usedp dir)
   "Return a `cfgl-layer' object based on LAYER-SPECS.
-If LOAD-PKGS is non-nil then load the `packages.el' file of the layer.
-DIR is the directory where the layer is, if it is nil then search in the
-indexed layers for the path."
+If OBJ is non nil then copy LAYER-SPECS properties into OBJ, otherwise create
+a new object.
+DIR is the directory where the layer is, if it is nil then search in the indexed
+layers for the path.
+If USEDP or `configuration-layer--load-packages-files' is non-nil then the
+`packages.el' file of the layer is loaded."
   (let* ((layer-name (if (listp layer-specs) (car layer-specs) layer-specs))
          (obj (if obj obj (cfgl-layer (symbol-name layer-name)
                                       :name layer-name)))
@@ -620,24 +623,30 @@ indexed layers for the path."
           (oset obj :selected-packages selected-packages))
         obj))))
 
-(defun configuration-layer/make-package (pkg layer-name &optional obj)
-  "Return a `cfgl-package' object based on PKG.
-If OBJ is non nil then copy PKG properties into OBJ, otherwise create
-a new object.
-Properties that can be copied are `:location', `:step' and `:excluded'.
-If TOGGLEP is nil then `:toggle' parameter is ignored."
-  (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
+(defun configuration-layer/make-package (pkg-specs layer-name &optional obj)
+  "Return a `cfgl-package' object based on PKG-SPECS.
+LAYER-NAME is the layer name where the PKG-SPECS is listed.
+If OBJ is non nil then copy PKG-SPECS properties into OBJ, otherwise create
+a new object."
+  (let* ((pkg-name (if (listp pkg-specs) (car pkg-specs) pkg-specs))
          (pkg-name-str (symbol-name pkg-name))
          (layer (unless (eq 'dotfile layer-name)
                   (configuration-layer/get-layer layer-name)))
-         (min-version (when (listp pkg) (plist-get (cdr pkg) :min-version)))
-         (step (when (listp pkg) (plist-get (cdr pkg) :step)))
-         (toggle (when (listp pkg) (plist-get (cdr pkg) :toggle)))
-         (depends (when (listp pkg) (plist-get (cdr pkg) :depends)))
+         (min-version (when (listp pkg-specs)
+                        (plist-get (cdr pkg-specs) :min-version)))
+         (step (when (listp pkg-specs)
+                 (plist-get (cdr pkg-specs) :step)))
+         (toggle (when (listp pkg-specs)
+                   (plist-get (cdr pkg-specs) :toggle)))
+         (depends (when (listp pkg-specs)
+                    (plist-get (cdr pkg-specs) :depends)))
          (depends (if (listp depends) depends (list depends)))
-         (excluded (when (listp pkg) (plist-get (cdr pkg) :excluded)))
-         (location (when (listp pkg) (plist-get (cdr pkg) :location)))
-         (protected (when (listp pkg) (plist-get (cdr pkg) :protected)))
+         (excluded (when (listp pkg-specs)
+                     (plist-get (cdr pkg-specs) :excluded)))
+         (location (when (listp pkg-specs)
+                     (plist-get (cdr pkg-specs) :location)))
+         (protected (when (listp pkg-specs)
+                      (plist-get (cdr pkg-specs) :protected)))
          (init-func (intern (format "%S/init-%S"
                                     layer-name pkg-name)))
          (pre-init-func (intern (format "%S/pre-init-%S"
@@ -650,8 +659,10 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
                           (null (oref obj :owners)))
                      (fboundp init-func))))
     (when min-version
-      (cfgl-package-set-property obj :min-version (version-to-list min-version)))
-    (when step (cfgl-package-set-property obj :step step))
+      (cfgl-package-set-property obj :min-version
+                                 (version-to-list min-version)))
+    (when step
+      (cfgl-package-set-property obj :step step))
     (when toggle
       (cfgl-package-set-property obj :toggle toggle))
     (when (and ownerp depends)
@@ -671,9 +682,7 @@ If TOGGLEP is nil then `:toggle' parameter is ignored."
                                        pkg-name-str))))
                     (cfgl-package-set-property
                      obj :location `(recipe :fetcher file :path ,path))))
-           ((eq 'dotfile layer-name)
-            ;; TODO what is the local path for a packages owned by the dotfile?
-            nil))
+           ((eq 'dotfile layer-name) nil))
         (cfgl-package-set-property obj :location location)))
     ;; cannot override protected packages
     (unless copyp
