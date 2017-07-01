@@ -215,7 +215,24 @@ that directory."
                        "a tool selected from `dotspacemacs-search-tools'."
                      tool-name))
          (interactive)
-         (spacemacs/counsel-search ,tools t (projectile-project-root))))))
+         (spacemacs/counsel-search ,tools t (projectile-project-root)))
+       (defun ,(intern (format "spacemacs/search-dir-%s" tool-name)) ()
+         ,(format
+           "Use `spacemacs/counsel-search' to search in the current
+ directory with %s." (if (string= tool-name "auto")
+                        "a tool selected from `dotspacemacs-search-tools'."
+                      tool-name))
+         (interactive)
+         (spacemacs/counsel-search ,tools nil default-directory))
+       (defun ,(intern (format "spacemacs/search-dir-%s-region-or-symbol" tool-name)) ()
+         ,(format
+           "Use `spacemacs/counsel-search' to search for
+ the selected region or the symbol around point in the current
+ directory with %s." (if (string= tool-name "auto")
+                        "a tool selected from `dotspacemacs-search-tools'."
+                      tool-name))
+         (interactive)
+         (spacemacs/counsel-search ,tools t default-directory)))))
 
 (defun spacemacs/counsel-git-grep-region-or-symbol ()
   "Use `counsel-git-grep' to search for the selected region or
