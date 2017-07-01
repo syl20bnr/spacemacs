@@ -1,0 +1,24 @@
+#+TITLE: writeroom layer
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
+
+* Description
+When activated, the writeroom mode offers a distraction-free environment for
+writing text.
+
+* Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(writeroom))
+#+end_src
+
+* Key bindings
+
+| Key Binding | Description           |
+|-------------+-----------------------|
+| ~SPC a W~   | Toggle writeroom mode |
