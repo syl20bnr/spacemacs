@@ -1695,9 +1695,10 @@ wether the declared layer is an used one or not."
   "Returns true if PKG should be configured for LAYER.
 LAYER must not be the owner of PKG."
   (let* ((owner (configuration-layer/get-layer (car (oref pkg :owners))))
-         (disabled (oref owner :disabled-for))
-         (enabled (oref owner :enabled-for)))
-    (and (not (memq nil (mapcar
+         (disabled (when owner (oref owner :disabled-for)))
+         (enabled (when owner (oref owner :enabled-for))))
+    (and owner
+         (not (memq nil (mapcar
                          (lambda (dep-pkg)
                            (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
                              (when pkg-obj

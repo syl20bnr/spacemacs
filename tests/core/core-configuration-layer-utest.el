@@ -375,6 +375,21 @@
     (configuration-layer//add-package pkg-b)
     (should (null (configuration-layer//package-enabled-p pkg-a 'layer)))))
 
+(ert-deftest test-package-enabled-p--depends-on-non-owned ()
+  (let ((layer (cfgl-layer "layer" :name 'layer))
+        (owner (cfgl-layer "owner" :name 'owner))
+        (pkg-a (cfgl-package "pkg-a"
+                             :name 'pkg-a
+                             :owners '(owner)
+                             :depends '(pkg-b)
+                             :post-layers '(layer)))
+        (pkg-b (cfgl-package "pkg-b" :name 'pkg-b))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (configuration-layer//add-layer owner)
+    (configuration-layer//add-package pkg-b)
+    (should (null (configuration-layer//package-enabled-p pkg-a layer)))))
+
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//package-deps-used-p
 ;; ---------------------------------------------------------------------------
