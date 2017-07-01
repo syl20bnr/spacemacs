@@ -270,7 +270,7 @@ customization. The syntax is simple:
     )
 
   ;; Calling a function
-  (func-name arg1 arg1)
+  (func-name arg1 arg2)
 #+end_src
 
 Here is an example of a function that is useful in real life:
