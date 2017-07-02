@@ -391,6 +391,36 @@
     (should (null (configuration-layer//package-enabled-p pkg-a layer)))))
 
 ;; ---------------------------------------------------------------------------
+;; configuration-layer/package-used-p
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-package-usedp--package-with-owner-can-be-used ()
+  (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
+         (layer1-packages '(pkg1 pkg2 pkg3))
+         configuration-layer--used-packages
+         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (mocker-mock-default-record-cls 'mocker-stub-record))
+    (helper--set-layers (list layer1) t)
+    (helper--set-packages
+     (list (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1))
+           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1))
+           (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))) t)
+    (should (configuration-layer/package-used-p (nth (random 3)
+                                                    layer1-packages)))))
+
+(ert-deftest test-package-usedp--package-with-no-owner-cannot-be-used ()
+  (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
+         (layers (list layer1))
+         (layer1-packages '(pkg1 pkg2 pkg3))
+         (mocker-mock-default-record-cls 'mocker-stub-record)
+         (configuration-layer--used-packages
+          (list (cfgl-package "pkg3" :name 'pkg3)
+                (cfgl-package "pkg2" :name 'pkg2)
+                (cfgl-package "pkg1" :name 'pkg1))))
+    (should (null (configuration-layer/package-used-p (nth (random 3)
+                                                          layer1-packages))))))
+
+;; ---------------------------------------------------------------------------
 ;; configuration-layer//package-deps-used-p
 ;; ---------------------------------------------------------------------------
 
@@ -2265,36 +2295,6 @@
        pkgs (lambda (x)
               (or (not (eq 'local (oref x :location)))
                   (not (oref x :excluded)))))))))
-
-;; ---------------------------------------------------------------------------
-;; configuration-layer/package-used-p
-;; ---------------------------------------------------------------------------
-
-(ert-deftest test-package-usedp--package-with-owner-can-be-used ()
-  (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
-         (layer1-packages '(pkg1 pkg2 pkg3))
-         configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
-         (mocker-mock-default-record-cls 'mocker-stub-record))
-    (helper--set-layers (list layer1) t)
-    (helper--set-packages
-     (list (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1))
-           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1))
-           (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))) t)
-    (should (configuration-layer/package-used-p (nth (random 3)
-                                                    layer1-packages)))))
-
-(ert-deftest test-package-usedp--package-with-no-owner-cannot-be-used ()
-  (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
-         (layers (list layer1))
-         (layer1-packages '(pkg1 pkg2 pkg3))
-         (mocker-mock-default-record-cls 'mocker-stub-record)
-         (configuration-layer--used-packages
-          (list (cfgl-package "pkg3" :name 'pkg3)
-                (cfgl-package "pkg2" :name 'pkg2)
-                (cfgl-package "pkg1" :name 'pkg1))))
-    (should (null (configuration-layer/package-used-p (nth (random 3)
-                                                          layer1-packages))))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//directory-type
