@@ -375,6 +375,59 @@
     (configuration-layer//add-package pkg-b)
     (should (null (configuration-layer//package-enabled-p pkg-a 'layer)))))
 
+(ert-deftest test-package-enabled-p--depends-on-non-owned ()
+  (let ((layer (cfgl-layer "layer" :name 'layer))
+        (owner (cfgl-layer "owner" :name 'owner))
+        (pkg-a (cfgl-package "pkg-a"
+                             :name 'pkg-a
+                             :owners '(owner)
+                             :depends '(pkg-b)
+                             :post-layers '(layer)))
+        (pkg-b (cfgl-package "pkg-b" :name 'pkg-b))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (configuration-layer//add-layer owner)
+    (configuration-layer//add-package pkg-b)
+    (should (null (configuration-layer//package-enabled-p pkg-a layer)))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//package-deps-used-p
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-package-deps-used-p--no-deps ()
+  (let ((pkg-a (cfgl-package "pkg-a"
+                             :name 'pkg-a)))
+    (should (configuration-layer//package-deps-used-p pkg-a))))
+
+(ert-deftest test-package-deps-used-p--deps ()
+  (let ((pkg-a (cfgl-package "pkg-a"
+                             :name 'pkg-a
+                             :depends '(pkg-b)))
+        (pkg-b (cfgl-package "pkg-b"
+                             :name 'pkg-b
+                             :owners '(owner)))
+        (owner (cfgl-layer "owner" :name 'owner))
+        configuration-layer--used-layers
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (configuration-layer//add-package pkg-b)
+    (configuration-layer//add-layer owner 'used)
+    (should (configuration-layer//package-deps-used-p pkg-a))))
+
+(ert-deftest test-package-deps-used-p--depends-not-owner ()
+  (let ((pkg-a (cfgl-package "pkg-a"
+                             :name 'pkg-a
+                             :depends '(pkg-b)
+                             :owners '(owner)))
+        (pkg-b (cfgl-package "pkg-b"
+                             :name 'pkg-b))
+        (owner (cfgl-layer "owner" :name 'owner))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (configuration-layer//add-package pkg-b)
+    (configuration-layer//add-layer owner nil)
+    (should (null (configuration-layer//package-deps-used-p pkg-a)))))
+
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//package-archive-absolute-pathp
 ;; ---------------------------------------------------------------------------

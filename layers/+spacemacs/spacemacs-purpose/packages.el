@@ -11,8 +11,8 @@
 
 (setq spacemacs-purpose-packages
       '(eyebrowse
-        (helm-purpose :toggle (configuration-layer/layer-usedp 'helm))
-        (ivy-purpose :toggle (configuration-layer/layer-usedp 'ivy))
+        (helm-purpose :depends helm)
+        (ivy-purpose :depends ivy)
         popwin
         (spacemacs-purpose-popwin
          :location local
