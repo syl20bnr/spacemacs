@@ -270,7 +270,7 @@ that directory."
   (ignore-errors
     (call-interactively 'counsel-up-directory)))
 
-(when (configuration-layer/package-usedp 'counsel)
+(when (configuration-layer/package-used-p 'counsel)
   (with-eval-after-load 'counsel
     (defun spacemacs/describe-mode ()
       "Dummy wrapper to prevent an key binding error from helm.

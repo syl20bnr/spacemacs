@@ -73,7 +73,7 @@
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))))
 
 (defun c-c++/post-init-company ()
-  (when (configuration-layer/package-usedp 'cmake-mode)
+  (when (configuration-layer/package-used-p 'cmake-mode)
     (spacemacs|add-company-backends :backends company-cmake :modes cmake-mode))
   (when c-c++-enable-clang-support
     (spacemacs|add-company-backends :backends company-clang

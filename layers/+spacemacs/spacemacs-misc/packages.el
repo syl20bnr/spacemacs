@@ -28,9 +28,9 @@
 
       ;; Use Helm or Ivy as the selector for dumb-jump.
       (cond
-       ((configuration-layer/layer-usedp 'ivy)
+       ((configuration-layer/layer-used-p 'ivy)
         (setq dumb-jump-selector 'ivy))
-       ((configuration-layer/layer-usedp 'helm)
+       ((configuration-layer/layer-used-p 'helm)
         (setq dumb-jump-selector 'helm)))
 
       ;; Since it's dumb, we add it to the end of the default jump handlers. At

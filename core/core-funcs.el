@@ -168,7 +168,7 @@ If EXPAND-SCOPE is `all' then run `outline-show-all' at the matched line."
     ;; If `anchor-text' is GitHub style link.
     (if (string-prefix-p "#" anchor-text)
         ;; If the toc-org package is loaded.
-        (if (configuration-layer/package-usedp 'toc-org)
+        (if (configuration-layer/package-used-p 'toc-org)
             ;; For each heading. Search the heading that corresponds
             ;; to `anchor-text'.
             (while (and (re-search-forward "^[\\*]+\s\\(.*\\).*$" nil t)

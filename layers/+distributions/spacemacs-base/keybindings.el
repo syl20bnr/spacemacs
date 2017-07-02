@@ -564,7 +564,7 @@
  [_0_.._9_] window 0..9   [_r_]^^   rotate fwd  [_v_] horizontal      [_{_] shrink verti   [_d_] close current
  [_w_]^^    other window  [_R_]^^   rotate bwd  [_V_] horiz & follow  [_}_] enlarge verti  [_D_] close other
  [_o_]^^    other frame   ^^^^                  ^^                    ^^                   "
-               (if (configuration-layer/package-usedp 'golden-ratio)
+               (if (configuration-layer/package-used-p 'golden-ratio)
                    "[_g_] golden-ratio %`golden-ratio-mode"
                  "")
                "\n ^^^^                     ^^^^                  ^^                    ^^                   [_q_] quit")

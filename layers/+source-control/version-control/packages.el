@@ -32,7 +32,7 @@
     (progn
       (setq diff-hl-side 'left)
       (when (eq version-control-diff-tool 'diff-hl)
-        (when (configuration-layer/package-usedp 'magit)
+        (when (configuration-layer/package-used-p 'magit)
           (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
         (when version-control-global-margin
           (global-diff-hl-mode))

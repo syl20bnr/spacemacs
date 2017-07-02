@@ -176,7 +176,7 @@
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-yank
-      :if (configuration-layer/package-usedp 'gist)
+      :if (configuration-layer/package-used-p 'gist)
       :init (evil-define-key 'normal erc-mode-map "p" 'erc-yank))))
 
 (defun erc/init-erc-view-log ()

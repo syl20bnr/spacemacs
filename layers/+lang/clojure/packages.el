@@ -4,7 +4,7 @@
         cider-eval-sexp-fu
         clj-refactor
         clojure-mode
-        (clojure-snippets :toggle (configuration-layer/layer-usedp 'auto-completion))
+        (clojure-snippets :toggle (configuration-layer/layer-used-p 'auto-completion))
         company
         eldoc
         ggtags
