@@ -1,0 +1,23 @@
+#+TITLE: clip2org
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+
+* Description
+This package converts Kindle’s “My Clippings.txt” to a format usable in Org
+mode. The result will be sorted by book title and displayed in a temporary
+buffer named ”*clippings*”.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =test= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Configuration
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((clip2org :variables
+          clip2org-clippings-file "~/Dropbox/Books/My Clippings.txt")))
+#+END_SRC
