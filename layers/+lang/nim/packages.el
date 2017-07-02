@@ -14,7 +14,7 @@
 
 (defun nim/init-flycheck-nim ()
   (use-package flycheck-nim
-    :if (configuration-layer/package-usedp 'flycheck)))
+    :if (configuration-layer/package-used-p 'flycheck)))
 
 (defun nim/init-nim-mode ()
   (use-package nim-mode

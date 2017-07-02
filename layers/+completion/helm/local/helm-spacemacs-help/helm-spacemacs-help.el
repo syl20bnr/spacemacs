@@ -215,7 +215,7 @@
       (let* ((pkg (configuration-layer/get-package pkg-name))
              (owner (cfgl-package-get-safe-owner pkg))
              ;; the notion of owner does not make sense if the layer is not used
-             (init-type (if (configuration-layer/layer-usedp owner)
+             (init-type (if (configuration-layer/layer-used-p owner)
                             "owner" "init")))
         (when owner
           (push (format "%s (%s: %S layer)"

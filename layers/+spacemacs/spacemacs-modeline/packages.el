@@ -102,7 +102,7 @@
       ;; Additional spacelines
       (when (package-installed-p 'helm)
         (spaceline-helm-mode t))
-      (when (configuration-layer/package-usedp 'info+)
+      (when (configuration-layer/package-used-p 'info+)
         (spaceline-info-mode t))
       ;; Enable spaceline for buffers created before the configuration of
       ;; spaceline

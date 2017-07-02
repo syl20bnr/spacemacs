@@ -78,7 +78,7 @@
     :variables
     company-minimum-prefix-length 0
     company-idle-delay 0.5)
-  (when (configuration-layer/package-usedp 'pip-requirements)
+  (when (configuration-layer/package-used-p 'pip-requirements)
     (spacemacs|add-company-backends
       :backends company-capf
       :modes pip-requirements-mode)))
@@ -102,7 +102,7 @@
 (defun python/post-init-eldoc ()
   (defun spacemacs//init-eldoc-python-mode ()
     (eldoc-mode)
-    (when (configuration-layer/package-usedp 'anaconda-mode)
+    (when (configuration-layer/package-used-p 'anaconda-mode)
       (anaconda-eldoc-mode)))
   (add-hook 'python-mode-hook 'spacemacs//init-eldoc-python-mode))
 
@@ -407,7 +407,7 @@
         (kbd "C-c M-l") 'spacemacs/comint-clear-buffer))))
 
 (defun python/post-init-semantic ()
-  (when (configuration-layer/package-usedp 'anaconda-mode)
+  (when (configuration-layer/package-used-p 'anaconda-mode)
       (add-hook 'python-mode-hook
                 'spacemacs//disable-semantic-idle-summary-mode t))
   (spacemacs/add-to-hook 'python-mode-hook

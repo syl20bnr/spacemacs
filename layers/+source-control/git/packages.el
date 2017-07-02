@@ -113,7 +113,7 @@
     :init
     (progn
       (setq magit-completing-read-function
-            (if (configuration-layer/layer-usedp 'ivy)
+            (if (configuration-layer/layer-used-p 'ivy)
                 'ivy-completing-read
               'magit-builtin-completing-read))
       (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
@@ -166,7 +166,7 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
           :bindings
           (kbd "gr") 'magit-list-repositories
           (kbd "RET") 'magit-repolist-status)
-      (unless (configuration-layer/package-usedp 'evil-magit)
+      (unless (configuration-layer/package-used-p 'evil-magit)
         ;; use auto evilification if `evil-magit' is not used
         (evilified-state-evilify-map magit-mode-map
           :bindings
@@ -399,7 +399,7 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
     :init
     (progn
       (spacemacs/declare-prefix "gH" "highlight")
-      (when (configuration-layer/package-usedp 'which-key)
+      (when (configuration-layer/package-used-p 'which-key)
         ;; TODO abstract this to a function
         (let ((descr
                '(("smeargle" . "highlight by last update time")

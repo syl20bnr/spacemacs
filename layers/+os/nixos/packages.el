@@ -3,7 +3,7 @@
         company
         flycheck
         (company-nixos-options :toggle
-                               (configuration-layer/package-usedp 'company))
+                               (configuration-layer/package-used-p 'company))
         (helm-nixos-options :depends helm)
         nix-mode
         nixos-options
@@ -11,7 +11,7 @@
 
 (defun nixos/post-init-company ()
   (let ((backends '(company-capf)))
-    (when (configuration-layer/package-usedp 'company-nixos-options)
+    (when (configuration-layer/package-used-p 'company-nixos-options)
       (add-to-list 'backends 'company-nixos-options t))
     (eval `(spacemacs|add-company-backends
              :backends ,backends

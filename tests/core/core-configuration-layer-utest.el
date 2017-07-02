@@ -429,60 +429,60 @@
     (should (null (configuration-layer//package-deps-used-p pkg-a)))))
 
 ;; ---------------------------------------------------------------------------
-;; configuration-layer//package-archive-absolute-pathp
+;; configuration-layer//package-archive-absolute-path-p
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-package-archive-absolute-pathp--http-absolute-path ()
   (let ((input '("melpa" . "http://melpa.org/packages/")))
-    (should (configuration-layer//package-archive-absolute-pathp input))))
+    (should (configuration-layer//package-archive-absolute-path-p input))))
 
 (ert-deftest test-package-archive-absolute-pathp--https-absolute-path ()
   (let ((input '("melpa" . "https://melpa.org/packages/")))
-    (should (configuration-layer//package-archive-absolute-pathp input))))
+    (should (configuration-layer//package-archive-absolute-path-p input))))
 
 (ert-deftest test-package-archive-absolute-pathp--user-home-tilde-absolute-path ()
   (let ((input '("spacelpa" . "~/.elpa/spacelpa")))
-    (should (configuration-layer//package-archive-absolute-pathp input))))
+    (should (configuration-layer//package-archive-absolute-path-p input))))
 
 (ert-deftest test-package-archive-absolute-pathp--user-home-slash-absolute-path ()
   (let ((input '("spacelpa" . "/home/rms/.elpa/spacelpa")))
-    (should (configuration-layer//package-archive-absolute-pathp input))))
+    (should (configuration-layer//package-archive-absolute-path-p input))))
 
 (ert-deftest test-package-archive-absolute-pathp--relative-path-local ()
   (let ((input '("melpa" . "../.elpa/spacelpa")))
-    (should (not (configuration-layer//package-archive-absolute-pathp input)))))
+    (should (not (configuration-layer//package-archive-absolute-path-p input)))))
 
 (ert-deftest test-package-archive-absolute-pathp--not-absolute-path-remote ()
   (let ((input '("melpa" . "melpa.org/spacelpa")))
-    (should (not (configuration-layer//package-archive-absolute-pathp input)))))
+    (should (not (configuration-layer//package-archive-absolute-path-p input)))))
 
 ;; ---------------------------------------------------------------------------
-;; configuration-layer//package-archive-local-pathp
+;; configuration-layer//package-archive-local-path-p
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-package-archive-local-pathp--http-not-local-path ()
   (let ((input '("melpa" . "http://melpa.org/packages/")))
-    (should (not (configuration-layer//package-archive-local-pathp input)))))
+    (should (not (configuration-layer//package-archive-local-path-p input)))))
 
 (ert-deftest test-package-archive-local-pathp--https-not-local-path ()
   (let ((input '("melpa" . "https://melpa.org/packages/")))
-    (should (not (configuration-layer//package-archive-local-pathp input)))))
+    (should (not (configuration-layer//package-archive-local-path-p input)))))
 
 (ert-deftest test-package-archive-local-pathp--user-home-tilde-local-path ()
   (let ((input '("spacelpa" . "~/.elpa/spacelpa")))
-    (should (configuration-layer//package-archive-local-pathp input))))
+    (should (configuration-layer//package-archive-local-path-p input))))
 
 (ert-deftest test-package-archive-local-pathp--user-home-slash-local-path ()
   (let ((input '("spacelpa" . "/home/rms/.elpa/spacelpa")))
-    (should (configuration-layer//package-archive-local-pathp input))))
+    (should (configuration-layer//package-archive-local-path-p input))))
 
 (ert-deftest test-package-archive-local-pathp--relative-local-path-local ()
   (let ((input '("melpa" . "../.elpa/spacelpa")))
-    (should (configuration-layer//package-archive-local-pathp input))))
+    (should (configuration-layer//package-archive-local-path-p input))))
 
 (ert-deftest test-package-archive-local-pathp--default-not-local-path-remote ()
   (let ((input '("melpa" . "melpa.org/spacelpa")))
-    (should (not (configuration-layer//package-archive-local-pathp input)))))
+    (should (not (configuration-layer//package-archive-local-path-p input)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//resolve-package-archives
@@ -2267,7 +2267,7 @@
                   (not (oref x :excluded)))))))))
 
 ;; ---------------------------------------------------------------------------
-;; configuration-layer/package-usedp
+;; configuration-layer/package-used-p
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-package-usedp--package-with-owner-can-be-used ()
@@ -2281,7 +2281,7 @@
      (list (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1))
            (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1))
            (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))) t)
-    (should (configuration-layer/package-usedp (nth (random 3)
+    (should (configuration-layer/package-used-p (nth (random 3)
                                                     layer1-packages)))))
 
 (ert-deftest test-package-usedp--package-with-no-owner-cannot-be-used ()
@@ -2293,7 +2293,7 @@
           (list (cfgl-package "pkg3" :name 'pkg3)
                 (cfgl-package "pkg2" :name 'pkg2)
                 (cfgl-package "pkg1" :name 'pkg1))))
-    (should (null (configuration-layer/package-usedp (nth (random 3)
+    (should (null (configuration-layer/package-used-p (nth (random 3)
                                                           layer1-packages))))))
 
 ;; ---------------------------------------------------------------------------

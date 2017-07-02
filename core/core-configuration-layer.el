@@ -239,9 +239,9 @@ is ignored."
   ;; always the car of the `:owners' slot.
   (let ((layers (oref pkg :owners)))
     (while (and (consp layers)
-                (not (configuration-layer/layer-usedp (car layers))))
+                (not (configuration-layer/layer-used-p (car layers))))
       (pop layers))
-    (when (configuration-layer/layer-usedp (car layers))
+    (when (configuration-layer/layer-used-p (car layers))
       (car layers))))
 
 (defmethod cfgl-package-set-property ((pkg cfgl-package) slot value)
@@ -339,14 +339,14 @@ cache folder.")
         quelpa-update-melpa-p nil)
   (require 'quelpa))
 
-(defun configuration-layer//package-archive-absolute-pathp (archive)
+(defun configuration-layer//package-archive-absolute-path-p (archive)
   "Return t if ARCHIVE has an absolute path defined."
   (let ((path (cdr archive)))
     (or (string-match-p "http" path)
         (string-prefix-p "~" path)
         (string-prefix-p "/" path))))
 
-(defun configuration-layer//package-archive-local-pathp (archive)
+(defun configuration-layer//package-archive-local-path-p (archive)
   "Return t if ARCHIVE has a local path."
   (let ((path (cdr archive)))
     (or (string-prefix-p "~" path)
@@ -364,7 +364,7 @@ The returned list has a `package-archives' compliant format."
      (let ((aname (car x))
            (apath (cdr x)))
        (cons aname
-             (if (configuration-layer//package-archive-absolute-pathp x)
+             (if (configuration-layer//package-archive-absolute-path-p x)
                  apath
                (concat
                 (if (and dotspacemacs-elpa-https
@@ -410,7 +410,7 @@ refreshed during the current session."
           (spacemacs//redisplay)
           (setq i (1+ i))
           (unless
-              (and (not (configuration-layer//package-archive-local-pathp
+              (and (not (configuration-layer//package-archive-local-path-p
                          archive))
                    (eq 'error
                        (with-timeout
@@ -521,7 +521,7 @@ layer directory."
             (candidates . ,(append current-layer-paths
                                    (list other-choice)))
             (action . (lambda (c) c))))
-         (layer-path-sel (if (configuration-layer/layer-usedp 'ivy)
+         (layer-path-sel (if (configuration-layer/layer-used-p 'ivy)
                              (ivy-read "Configuration layer path: "
                                        (append current-layer-paths
                                                (list other-choice)))
@@ -668,7 +668,7 @@ a new object."
     (when (and ownerp depends)
       (cfgl-package-set-property obj :depends depends))
     (cfgl-package-set-property obj :excluded
-                               (and (configuration-layer/layer-usedp layer-name)
+                               (and (configuration-layer/layer-used-p layer-name)
                                     (or excluded (oref obj :excluded))))
     (when location
       (if (and (listp location)
@@ -825,7 +825,7 @@ a new object."
         (princ "satisfied.\n"))
       (unless (oref pkg :excluded)
         ;; usage and installation
-        (if (not (configuration-layer/package-usedp pkg-symbol))
+        (if (not (configuration-layer/package-used-p pkg-symbol))
             (princ "\nYou are not using this package.\n")
           (princ "\nYou are using this package")
           (if (or (memq (oref pkg :location) '(built-in local site))
@@ -837,7 +837,7 @@ a new object."
               (if (featurep pkg-symbol)
                   (princ "and loaded.\n")
                 (princ "but it has not been loaded yet.\n")))))
-        (when (configuration-layer/package-lazy-installp pkg-symbol)
+        (when (configuration-layer/package-lazy-install-p pkg-symbol)
           (princ
            "\nThis package can be lazily installed using `auto-mode-alist'.\n")
           (with-current-buffer standard-output
@@ -1048,7 +1048,7 @@ USEDP if non-nil indicates that made packages are used packages."
   (when (configuration-layer//lazy-install-p layer-name)
     (let ((extensions (spacemacs/mplist-get props :extensions))
           (interpreter (plist-get props :interpreter)))
-      (when (configuration-layer/layer-usedp layer-name)
+      (when (configuration-layer/layer-used-p layer-name)
         (let* ((layer (configuration-layer/get-layer layer-name))
                (package-names (when layer (cfgl-layer-owned-packages layer))))
           ;; set lazy install flag for a layer if and only if its owned
@@ -1093,7 +1093,7 @@ USEDP if non-nil indicates that made packages are used packages."
   "Auto mode support of lazily installed layers."
   (let ((layer (configuration-layer/get-layer layer-name)))
     (when (or (oref layer :lazy-install)
-              (not (configuration-layer/layer-usedp layer-name)))
+              (not (configuration-layer/layer-used-p layer-name)))
       (configuration-layer//lazy-install-packages layer-name mode)))
   (when (fboundp mode) (funcall mode)))
 
@@ -1336,28 +1336,32 @@ wether the declared layer is an used one or not."
           (configuration-layer//warning "Missing value for variable %s !"
                                     var))))))
 
-(defun configuration-layer/layer-usedp (layer-name)
+(defun configuration-layer/layer-used-p (layer-name)
   "Return non-nil if LAYER-NAME is the name of a used layer."
   (or (eq 'dotfile layer-name)
       (let ((obj (configuration-layer/get-layer layer-name)))
         (when obj (memq layer-name configuration-layer--used-layers)))))
+(defalias 'configuration-layer/layer-usedp
+  'configuration-layer/layer-used-p)
 
-(defun configuration-layer/package-usedp (name)
+(defun configuration-layer/package-used-p (name)
   "Return non-nil if NAME is the name of a used package."
   (let ((obj (configuration-layer/get-package name)))
     (and obj (cfgl-package-get-safe-owner obj)
          (not (oref obj :excluded))
          (not (memq nil (mapcar
-                         'configuration-layer/package-usedp
+                         'configuration-layer/package-used-p
                          (oref obj :depends)))))))
+(defalias 'configuration-layer/package-usedp
+  'configuration-layer/package-used-p)
 
 (defun configuration-layer//package-deps-used-p (pkg)
   "Returns non-nil if all dependencies of PKG are used."
   (not (memq nil (mapcar
-                  'configuration-layer/package-usedp
+                  'configuration-layer/package-used-p
                   (oref pkg :depends)))))
 
-(defun  configuration-layer/package-lazy-installp (name)
+(defun  configuration-layer/package-lazy-install-p (name)
   "Return non-nil if NAME is the name of a package to be lazily installed."
   (let ((obj (configuration-layer/get-package name)))
     (when obj (oref obj :lazy-install))))
@@ -1377,7 +1381,7 @@ wether the declared layer is an used one or not."
     (setq configuration-layer--used-packages
           (configuration-layer/filter-objects
            configuration-layer--used-packages
-           'configuration-layer/package-usedp))
+           'configuration-layer/package-used-p))
     (setq configuration-layer--used-packages
           (configuration-layer//sort-packages
            configuration-layer--used-packages))))
@@ -1454,7 +1458,7 @@ wether the declared layer is an used one or not."
   "Return non nil if the layer with LAYER-NAME should be lazy installed."
   (or (eq 'all dotspacemacs-enable-lazy-installation)
       (and (memq dotspacemacs-enable-lazy-installation '(unused t))
-           (not (configuration-layer/layer-usedp layer-name)))))
+           (not (configuration-layer/layer-used-p layer-name)))))
 
 (defun configuration-layer//lazy-install-packages (layer-name mode)
   "Install layer with LAYER-NAME to support MODE."
@@ -1664,7 +1668,9 @@ wether the declared layer is an used one or not."
         (spacemacs-buffer/message
          (format "%S ignored since it has no owner layer." pkg-name)))
        ((not (configuration-layer//package-deps-used-p pkg))
-        (spacemacs-buffer/message (format "%S is ignored since it has dependencies that are not used." pkg-name)))
+        (spacemacs-buffer/message
+         (format (concat "%S is ignored since it has dependencies "
+                         "that are not used.") pkg-name)))
        ((not (cfgl-package-enabled-p pkg))
         (spacemacs-buffer/message (format "%S is disabled." pkg-name)))
        (t
@@ -1731,7 +1737,7 @@ LAYER must not be the owner of PKG."
     ;; pre-init
     (mapc
      (lambda (layer)
-       (when (configuration-layer/layer-usedp layer)
+       (when (configuration-layer/layer-used-p layer)
          (if (not (configuration-layer//package-enabled-p pkg layer))
              (spacemacs-buffer/message
               (format "  -> ignored pre-init (%S)..." layer))
@@ -1753,7 +1759,7 @@ LAYER must not be the owner of PKG."
     ;; post-init
     (mapc
      (lambda (layer)
-       (when (configuration-layer/layer-usedp layer)
+       (when (configuration-layer/layer-used-p layer)
          (if (not (configuration-layer//package-enabled-p pkg layer))
              (spacemacs-buffer/message
               (format "  -> ignored post-init (%S)..." layer))

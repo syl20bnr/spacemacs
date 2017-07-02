@@ -145,7 +145,7 @@
 
 (defun ivy-spacemacs-help//layer-action-add-layer (candidate)
   "Adds layer to dotspacemacs file and reloads configuration"
-  (if (configuration-layer/layer-usedp (intern candidate))
+  (if (configuration-layer/layer-used-p (intern candidate))
       (message "Layer already added.")
     (let ((dotspacemacs   (find-file-noselect (dotspacemacs/location))))
       (with-current-buffer dotspacemacs
@@ -279,7 +279,7 @@
 
 (defun ivy-spacemacs-help//help-action-add-layer (args)
   "Adds layer to dotspacemacs file and reloads configuration"
-  (if (configuration-layer/layer-usedp (intern (cadr args)))
+  (if (configuration-layer/layer-used-p (intern (cadr args)))
       (message "Layer already added.")
     (let ((dotspacemacs   (find-file-noselect (dotspacemacs/location))))
       (with-current-buffer dotspacemacs

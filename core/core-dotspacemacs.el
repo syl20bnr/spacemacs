@@ -456,7 +456,7 @@ the symbol of an editing style and the cdr is a list of keyword arguments like
 (defun dotspacemacs/add-layer (layer-name)
   "Add LAYER_NAME to dotfile and reload the it.
 Returns non nil if the layer has been effectively inserted."
-  (unless (configuration-layer/layer-usedp layer-name)
+  (unless (configuration-layer/layer-used-p layer-name)
     (with-current-buffer (find-file-noselect (dotspacemacs/location))
       (beginning-of-buffer)
       (let ((insert-point (re-search-forward
@@ -504,7 +504,7 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
             (switch-to-buffer-other-window dotspacemacs-test-results-buffer)
             (spacemacs-buffer/warning "Some tests failed, check `%s' buffer"
                                       dotspacemacs-test-results-buffer))))))
-  (when (configuration-layer/package-usedp 'spaceline)
+  (when (configuration-layer/package-used-p 'spaceline)
     (spacemacs//set-powerline-for-startup-buffers)))
 
 (defun dotspacemacs/get-variable-string-list ()

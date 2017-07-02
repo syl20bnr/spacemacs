@@ -39,6 +39,6 @@
 (defun spacemacs/search-engine-select ()
   "Set search engine to use."
   (interactive)
-  (if (configuration-layer/layer-usedp 'ivy)
+  (if (configuration-layer/layer-used-p 'ivy)
       (call-interactively 'spacemacs/ivy-search-engine-select)
     (call-interactively 'spacemacs/helm-search-engine-select)))

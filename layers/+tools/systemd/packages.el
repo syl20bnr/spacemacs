@@ -23,7 +23,7 @@
   (use-package systemd
     :defer t
     :init (setq systemd-use-company-p
-                (configuration-layer/package-usedp 'company))
+                (configuration-layer/package-used-p 'company))
     :config (spacemacs/set-leader-keys-for-major-mode 'systemd-mode
               "hd" 'systemd-doc-directives
               "ho" 'systemd-doc-open)))

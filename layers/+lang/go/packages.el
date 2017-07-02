@@ -14,7 +14,7 @@
         (company-go :depends company)
         flycheck
         (flycheck-gometalinter :toggle (and go-use-gometalinter
-                                            (configuration-layer/package-usedp
+                                            (configuration-layer/package-used-p
                                              'flycheck)))
         ggtags
         helm-gtags

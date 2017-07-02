@@ -401,7 +401,7 @@ no required space when you switch to insert mode. There is possible workaround -
 just add following snippet to your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-(when (configuration-layer/package-usedp 'haskell)
+(when (configuration-layer/package-used-p 'haskell)
   (add-hook 'haskell-interactive-mode-hook
             (lambda ()
               (setq-local evil-move-cursor-back nil))))
@@ -415,7 +415,7 @@ Also, some users might want to start REPL in insert mode. For this to happen you
 could place following snippet in your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-(when (configuration-layer/package-usedp 'haskell)
+(when (configuration-layer/package-used-p 'haskell)
     (defadvice haskell-interactive-switch (after spacemacs/haskell-interactive-switch-advice activate)
       (when (eq dotspacemacs-editing-style 'vim)
         (call-interactively 'evil-insert))))

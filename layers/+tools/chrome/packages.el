@@ -25,7 +25,7 @@
   (use-package gmail-message-mode
     :defer t
     :config
-    (when (configuration-layer/layer-usedp 'markdown)
+    (when (configuration-layer/layer-used-p 'markdown)
       (spacemacs/set-markdown-keybindings
        'gmail-message-client-mode gmail-message-client-mode-map))))
 
@@ -38,5 +38,5 @@
 (defun chrome/pre-init-markdown-mode ()
   (spacemacs|use-package-add-hook markdown-mode
     :pre-config
-    (when (configuration-layer/package-usedp 'gmail-message-mode)
+    (when (configuration-layer/package-used-p 'gmail-message-mode)
       (add-to-list 'markdown--key-bindings-modes 'gmail-message-client-mode))))

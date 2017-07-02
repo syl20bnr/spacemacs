@@ -25,7 +25,7 @@
   (add-hook 'web-mode-hook #'add-node-modules-path))
 
 (defun typescript/post-init-company ()
-  (when (configuration-layer/package-usedp 'tide)
+  (when (configuration-layer/package-used-p 'tide)
     (spacemacs|add-company-backends
       :backends company-tide
       :modes typescript-mode)))
@@ -79,7 +79,7 @@
                 (tide-setup)
                 (flycheck-mode +1)
                 (eldoc-mode +1)
-                (when (configuration-layer/package-usedp 'company)
+                (when (configuration-layer/package-used-p 'company)
                   (company-mode-on))))))
 
 (defun typescript/init-typescript-mode ()
