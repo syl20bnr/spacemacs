@@ -9,13 +9,13 @@
 ;;
 ;;; License: GPLv3
 
-(defconst bibtex-packages
+(setq bibtex-packages
       '(
         auctex
         org
         org-ref
         markdown-mode
-        helm-bibtex
+        (helm-bibtex :depends helm)
         biblio
         biblio-core
         ))
