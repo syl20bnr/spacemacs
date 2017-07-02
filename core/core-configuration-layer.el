@@ -1328,23 +1328,23 @@ wether the declared layer is an used one or not."
 
 (defun configuration-layer/layer-usedp (layer-name)
   "Return non-nil if LAYER-NAME is the name of a used layer."
-  (let ((obj (configuration-layer/get-layer layer-name)))
-    (when obj (memq layer-name configuration-layer--used-layers))))
+  (or (eq 'dotfile layer-name)
+      (let ((obj (configuration-layer/get-layer layer-name)))
+        (when obj (memq layer-name configuration-layer--used-layers)))))
 
 (defun configuration-layer/package-usedp (name)
   "Return non-nil if NAME is the name of a used package."
   (let ((obj (configuration-layer/get-package name)))
     (and obj (cfgl-package-get-safe-owner obj)
-         (not (oref obj :excluded)))))
+         (not (oref obj :excluded))
+         (not (memq nil (mapcar
+                         'configuration-layer/package-usedp
+                         (oref obj :depends)))))))
 
 (defun configuration-layer//package-deps-used-p (pkg)
   "Returns non-nil if all dependencies of PKG are used."
   (not (memq nil (mapcar
-                  (lambda (dep-pkg)
-                    (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
-                      (and pkg-obj
-                           (cfgl-package-get-safe-owner pkg-obj)
-                           (not (oref pkg-obj :excluded)))))
+                  'configuration-layer/package-usedp
                   (oref pkg :depends)))))
 
 (defun  configuration-layer/package-lazy-installp (name)
@@ -1364,6 +1364,10 @@ wether the declared layer is an used one or not."
   (let* ((warning-minimum-level :error))
     (configuration-layer/make-packages-from-layers layers t)
     (configuration-layer/make-packages-from-dotfile t)
+    (setq configuration-layer--used-packages
+          (configuration-layer/filter-objects
+           configuration-layer--used-packages
+           'configuration-layer/package-usedp))
     (setq configuration-layer--used-packages
           (configuration-layer//sort-packages
            configuration-layer--used-packages))))
