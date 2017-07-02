@@ -165,6 +165,27 @@
     (should (null (cfgl-layer-get-packages layer)))))
 
 ;; ---------------------------------------------------------------------------
+;; configuration-layer/layer-used-p
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-layer-used-p--returns-true-when-layer-is-used ()
+  (let (configuration-layer--used-layers
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (helper--set-layers `(,(cfgl-layer "usedlayer" :name 'usedlayer)) 'used)
+    (helper--set-layers `(,(cfgl-layer "notusedlayer" :name 'notusedlayer)))
+    (should (configuration-layer/layer-used-p 'usedlayer))))
+
+(ert-deftest test-layer-used-p--returns-false-when-layer-is-not-used ()
+  (let (configuration-layer--used-layers
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (helper--set-layers `(,(cfgl-layer "usedlayer" :name 'usedlayer)) 'used)
+    (helper--set-layers `(,(cfgl-layer "notusedlayer" :name 'notusedlayer)))
+    (should (null (configuration-layer/layer-used-p 'notusedlayer)))))
+
+(ert-deftest test-layer-used-p--dotfile-layer-is-always-used ()
+  (should (configuration-layer/layer-used-p 'dotfile)))
+
+;; ---------------------------------------------------------------------------
 ;; class cfgl-package
 ;; ---------------------------------------------------------------------------
 
@@ -397,28 +418,120 @@
 (ert-deftest test-package-usedp--package-with-owner-can-be-used ()
   (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
          (layer1-packages '(pkg1 pkg2 pkg3))
+         configuration-layer--used-layers
          configuration-layer--used-packages
-         (configuration-layer--indexed-packages (make-hash-table :size 2048))
-         (mocker-mock-default-record-cls 'mocker-stub-record))
+         (configuration-layer--indexed-layers (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
     (helper--set-layers (list layer1) t)
     (helper--set-packages
      (list (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1))
            (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1))
            (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))) t)
-    (should (configuration-layer/package-used-p (nth (random 3)
-                                                    layer1-packages)))))
+    (should (configuration-layer/package-used-p
+             (nth (random 3) layer1-packages)))))
 
 (ert-deftest test-package-usedp--package-with-no-owner-cannot-be-used ()
   (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
          (layers (list layer1))
          (layer1-packages '(pkg1 pkg2 pkg3))
-         (mocker-mock-default-record-cls 'mocker-stub-record)
+         configuration-layer--used-layers
          (configuration-layer--used-packages
           (list (cfgl-package "pkg3" :name 'pkg3)
                 (cfgl-package "pkg2" :name 'pkg2)
                 (cfgl-package "pkg1" :name 'pkg1))))
-    (should (null (configuration-layer/package-used-p (nth (random 3)
-                                                          layer1-packages))))))
+    (should (null (configuration-layer/package-used-p
+                   (nth (random 3) layer1-packages))))))
+
+(ert-deftest test-package-usedp--excluded-package-cannot-be-used ()
+  (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
+         (layer1-packages '(pkg1 pkg2 pkg3))
+         configuration-layer--used-layers
+         configuration-layer--used-packages
+         (configuration-layer--indexed-layers (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table :size 2048))
+         (mocker-mock-default-record-cls 'mocker-stub-record))
+    (helper--set-layers (list layer1) t)
+    (helper--set-packages
+     (list (cfgl-package "pkg3" :name 'pkg3 :owners '(layer1) :excluded t)
+           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer1) :excluded t)
+           (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :excluded t)) t)
+    (should (null (configuration-layer/package-used-p
+                   (nth (random 3) layer1-packages))))))
+
+(ert-deftest test-package-usedp--used-pkg-depends-on-used-pkg-can-be-used ()
+  (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
+         (layer1-packages '(pkg1))
+         (layer2 (cfgl-layer "layer2" :name 'layer2 :dir "/path/"))
+         (layer2-packages '(pkg2))
+         configuration-layer--used-layers
+         configuration-layer--used-packages
+         (configuration-layer--indexed-layers (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (helper--set-layers (list layer1 layer2) 'used)
+    (helper--set-packages
+     (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))
+           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2) :depends '(pkg1)))
+     'used)
+    (should (configuration-layer/package-used-p 'pkg2))))
+
+(ert-deftest test-package-usedp--used-pkg3-depends-on-used-pkg2-depends-on-used-pkg1-can-be-used ()
+  (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
+         (layer1-packages '(pkg1))
+         (layer2 (cfgl-layer "layer2" :name 'layer2 :dir "/path/"))
+         (layer2-packages '(pkg2))
+         (layer3 (cfgl-layer "layer3" :name 'layer3 :dir "/path/"))
+         (layer3-packages '(pkg3))
+         configuration-layer--used-layers
+         configuration-layer--used-packages
+         (configuration-layer--indexed-layers (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (helper--set-layers (list layer1 layer2 layer3) 'used)
+    (helper--set-packages
+     (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))
+           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2) :depends '(pkg1))
+           (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3) :depends '(pkg2))
+           )
+     'used)
+    (should (configuration-layer/package-used-p 'pkg3))))
+
+(ert-deftest test-package-usedp--used-pkg2-depends-on-unused-pkg1-cannot-be-used ()
+  (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
+         (layer1-packages '(pkg1))
+         (layer2 (cfgl-layer "layer2" :name 'layer2 :dir "/path/"))
+         (layer2-packages '(pkg2))
+         configuration-layer--used-layers
+         configuration-layer--used-packages
+         (configuration-layer--indexed-layers (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (helper--set-layers (list layer1))
+    (helper--set-layers (list layer2) 'used)
+    (helper--set-packages
+     (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))))
+    (helper--set-packages
+     (list (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2) :depends '(pkg1)))
+     'used)
+    (should (null (configuration-layer/package-used-p 'pkg2)))))
+
+(ert-deftest test-package-usedp--used-pkg3-depends-on-used-pkg2-depends-on-unused-pkg1-cannot-be-used ()
+  (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
+         (layer1-packages '(pkg1))
+         (layer2 (cfgl-layer "layer2" :name 'layer2 :dir "/path/"))
+         (layer2-packages '(pkg2))
+         (layer3 (cfgl-layer "layer3" :name 'layer3 :dir "/path/"))
+         (layer3-packages '(pkg3))
+         configuration-layer--used-layers
+         configuration-layer--used-packages
+         (configuration-layer--indexed-layers (make-hash-table :size 2048))
+         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (helper--set-layers (list layer1))
+    (helper--set-layers (list layer2 layer3) 'used)
+    (helper--set-packages
+     (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))))
+    (helper--set-packages
+     (list (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2) :depends '(pkg1))
+           (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3) :depends '(pkg2)))
+     'used)
+    (should (null (configuration-layer/package-used-p 'pkg3)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//package-deps-used-p
