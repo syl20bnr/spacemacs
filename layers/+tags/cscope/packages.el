@@ -11,7 +11,7 @@
 
 (setq cscope-packages
       '(
-        (helm-cscope :depends helm)
+        (helm-cscope :requires helm)
         xcscope
         ))
 

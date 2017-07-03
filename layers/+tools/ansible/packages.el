@@ -12,7 +12,7 @@
       '(ansible
         ansible-doc
         company
-        (company-ansible :depends company)
+        (company-ansible :requires company)
         jinja2-mode
         yaml-mode))
 

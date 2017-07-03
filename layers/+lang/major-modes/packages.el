@@ -13,7 +13,7 @@
         stan-mode
         thrift
         vala-mode
-        (vala-snippets :depends yasnippet)
+        (vala-snippets :requires yasnippet)
         wolfram-mode
         ))
 

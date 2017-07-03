@@ -14,10 +14,10 @@
 (setq d-packages
       '(
         company
-        (company-dcd :depends company)
+        (company-dcd :requires company)
         d-mode
         flycheck
-        (flycheck-dmd-dub :depends flycheck)
+        (flycheck-dmd-dub :requires flycheck)
         ggtags
         helm-gtags
         ))

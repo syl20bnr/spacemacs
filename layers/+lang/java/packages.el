@@ -19,7 +19,7 @@
         ensime
         flycheck
         (flycheck-eclim :location local
-                        :depends flycheck)
+                        :requires flycheck)
         flyspell
         ggtags
         gradle-mode

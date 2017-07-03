@@ -13,7 +13,7 @@
       '(
         2048-game
         (helm-games :location local
-                    :depends helm)
+                    :requires helm)
         pacmacs
         (tetris :location built-in)
         sudoku

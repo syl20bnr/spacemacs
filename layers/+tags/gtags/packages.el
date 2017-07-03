@@ -13,7 +13,7 @@
 (defconst gtags-packages
   '(
     ggtags
-    (helm-gtags :depends helm)
+    (helm-gtags :requires helm)
     ))
 
 (defun gtags/init-ggtags ()

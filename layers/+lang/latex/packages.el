@@ -13,7 +13,7 @@
       '(
         auctex
         (auctex-latexmk :toggle (string= "LatexMk" latex-build-command))
-        (company-auctex :depends company)
+        (company-auctex :requires company)
         evil-matchit
         (reftex :location built-in)
         flycheck
