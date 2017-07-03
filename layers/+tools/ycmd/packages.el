@@ -11,8 +11,8 @@
 
 (setq ycmd-packages
   '(
-    (company-ycmd :depends company)
-    (flycheck-ycmd :depends flycheck)
+    (company-ycmd :requires company)
+    (flycheck-ycmd :requires flycheck)
     eldoc
     ycmd
     ))

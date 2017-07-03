@@ -2,9 +2,8 @@
       '(
         company
         flycheck
-        (company-nixos-options :toggle
-                               (configuration-layer/package-used-p 'company))
-        (helm-nixos-options :depends helm)
+        (company-nixos-options :requires company)
+        (helm-nixos-options :requires helm)
         nix-mode
         nixos-options
         ))

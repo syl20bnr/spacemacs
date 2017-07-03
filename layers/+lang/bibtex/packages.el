@@ -15,7 +15,7 @@
         org
         org-ref
         markdown-mode
-        (helm-bibtex :depends helm)
+        (helm-bibtex :requires helm)
         biblio
         biblio-core
         ))

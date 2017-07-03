@@ -17,8 +17,8 @@
         (company-quickhelp :toggle auto-completion-enable-help-tooltip)
         company-statistics
         fuzzy
-        (helm-company :depends helm)
-        (helm-c-yasnippet :depends helm)
+        (helm-company :requires helm)
+        (helm-c-yasnippet :requires helm)
         hippie-exp
         yasnippet
         auto-yasnippet

@@ -197,11 +197,11 @@ If PROPS is non-nil then return packages as lists with their properties"
              :type boolean
              :documentation
              "If non-nil this package is excluded from all layers.")
-   (depends :initarg :depends
-            :initform nil
-            :type list
-            :documentation
-            "Packages that must be enabled for this package to be enabled.")))
+   (requires :initarg :requires
+             :initform nil
+             :type list
+             :documentation
+             "Packages that must be enabled for this package to be enabled.")))
 
 (defmethod cfgl-package-toggled-p ((pkg cfgl-package) &optional inhibit-messages)
   "Evaluate the `toggle' slot of passed PKG.
@@ -211,8 +211,8 @@ is ignored."
         (toggle (oref pkg :toggle)))
     (eval toggle)))
 
-(defmethod cfgl-package-deps-satisfied-p ((pkg cfgl-package) &optional inhibit-messages)
-  "Check if dependencies of a package are all enabled.
+(defmethod cfgl-package-reqs-satisfied-p ((pkg cfgl-package) &optional inhibit-messages)
+  "Check if requirements of a package are all enabled.
 If INHIBIT-MESSAGES is non nil then any message emitted by the toggle evaluation
 is ignored."
   (not (memq nil (mapcar
@@ -220,7 +220,7 @@ is ignored."
                     (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
                       (when pkg-obj
                         (cfgl-package-enabled-p pkg-obj inhibit-messages))))
-                  (oref pkg :depends)))))
+                  (oref pkg :requires)))))
 
 (defmethod cfgl-package-enabled-p ((pkg cfgl-package) &optional inhibit-messages)
   "Check if a package is enabled.
@@ -229,7 +229,7 @@ checks whether dependent packages are also enabled.
 If INHIBIT-MESSAGES is non nil then any message emitted by the toggle evaluation
 is ignored."
   (and (or (oref pkg :protected) (not (oref pkg :excluded)))
-       (cfgl-package-deps-satisfied-p pkg inhibit-messages)
+       (cfgl-package-reqs-satisfied-p pkg inhibit-messages)
        (cfgl-package-toggled-p pkg inhibit-messages)))
 
 (defmethod cfgl-package-get-safe-owner ((pkg cfgl-package))
@@ -638,9 +638,9 @@ a new object."
                  (plist-get (cdr pkg-specs) :step)))
          (toggle (when (listp pkg-specs)
                    (plist-get (cdr pkg-specs) :toggle)))
-         (depends (when (listp pkg-specs)
-                    (plist-get (cdr pkg-specs) :depends)))
-         (depends (if (listp depends) depends (list depends)))
+         (requires (when (listp pkg-specs)
+                     (plist-get (cdr pkg-specs) :requires)))
+         (requires (if (listp requires) requires (list requires)))
          (excluded (when (listp pkg-specs)
                      (plist-get (cdr pkg-specs) :excluded)))
          (location (when (listp pkg-specs)
@@ -665,8 +665,8 @@ a new object."
       (cfgl-package-set-property obj :step step))
     (when toggle
       (cfgl-package-set-property obj :toggle toggle))
-    (when (and ownerp depends)
-      (cfgl-package-set-property obj :depends depends))
+    (when (and ownerp requires)
+      (cfgl-package-set-property obj :requires requires))
     (cfgl-package-set-property obj :excluded
                                (and (configuration-layer/layer-used-p layer-name)
                                     (or excluded (oref obj :excluded))))
@@ -723,10 +723,10 @@ a new object."
        (format (concat "Ignoring :toggle for package %s because "
                        "layer %S does not own it.")
                pkg-name layer-name)))
-    ;; check if depends can be applied
-    (when (and (not ownerp) depends)
+    ;; check if requires can be applied
+    (when (and (not ownerp) requires)
       (configuration-layer//warning
-       (format (concat "Ignoring :depends for package %s because "
+       (format (concat "Ignoring :requires for package %s because "
                        "layer %S does not own it.")
                pkg-name layer-name)))
     (when (fboundp pre-init-func)
@@ -758,7 +758,7 @@ a new object."
   (purecopy (concat "mouse-2, RET: show a description of this package.")))
 
 (defun configuration-layer/describe-package (pkg-symbol
-                                             &optional layer-list pkg-list)
+                            &optional layer-list pkg-list)
   "Describe a package in the context of the configuration layer system."
   (interactive
    (list (intern
@@ -812,16 +812,16 @@ a new object."
         (princ (if (cfgl-package-toggled-p pkg t) "t:\n" "nil:\n"))
         (princ (oref pkg :toggle))
         (princ "\n"))
-      (when (oref pkg :depends)
-        (princ "\nThis package depends on the following packages: ")
-        (dolist (dep-pkg (oref pkg :depends))
+      (when (oref pkg :requires)
+        (princ "\nThis package requires the following packages: ")
+        (dolist (dep-pkg (oref pkg :requires))
           (princ (concat "`" (symbol-name dep-pkg) "' "))
           (with-current-buffer standard-output
             (save-excursion
               (re-search-backward "`\\([^`']+\\)'" nil t)
               (help-xref-button 1 'help-describe-package dep-pkg))))
         (princ "\nThese dependencies are currently ")
-        (princ (if (cfgl-package-deps-satisfied-p pkg t) "" "not "))
+        (princ (if (cfgl-package-reqs-satisfied-p pkg t) "" "not "))
         (princ "satisfied.\n"))
       (unless (oref pkg :excluded)
         ;; usage and installation
@@ -1351,15 +1351,15 @@ wether the declared layer is an used one or not."
          (not (oref obj :excluded))
          (not (memq nil (mapcar
                          'configuration-layer/package-used-p
-                         (oref obj :depends)))))))
+                         (oref obj :requires)))))))
 (defalias 'configuration-layer/package-usedp
   'configuration-layer/package-used-p)
 
-(defun configuration-layer//package-deps-used-p (pkg)
-  "Returns non-nil if all dependencies of PKG are used."
+(defun configuration-layer//package-reqs-used-p (pkg)
+  "Returns non-nil if all requirements of PKG are used."
   (not (memq nil (mapcar
                   'configuration-layer/package-used-p
-                  (oref pkg :depends)))))
+                  (oref pkg :requires)))))
 
 (defun  configuration-layer/package-lazy-install-p (name)
   "Return non-nil if NAME is the name of a package to be lazily installed."
@@ -1667,7 +1667,7 @@ wether the declared layer is an used one or not."
        ((null (oref pkg :owners))
         (spacemacs-buffer/message
          (format "%S ignored since it has no owner layer." pkg-name)))
-       ((not (configuration-layer//package-deps-used-p pkg))
+       ((not (configuration-layer//package-reqs-used-p pkg))
         (spacemacs-buffer/message
          (format (concat "%S is ignored since it has dependencies "
                          "that are not used.") pkg-name)))
@@ -1724,7 +1724,7 @@ LAYER must not be the owner of PKG."
                            (let ((pkg-obj (configuration-layer/get-package dep-pkg)))
                              (when pkg-obj
                                (configuration-layer//package-enabled-p pkg-obj layer))))
-                         (oref pkg :depends))))
+                         (oref pkg :requires))))
          (if (not (eq 'unspecified enabled))
              (memq layer enabled)
            (not (memq layer disabled))))))

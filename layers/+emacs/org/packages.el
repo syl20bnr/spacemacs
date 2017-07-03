@@ -30,7 +30,7 @@
         (org-mime :location built-in)
         org-pomodoro
         org-present
-        (org-projectile :depends projectile)
+        (org-projectile :requires projectile)
         (ox-twbs :toggle org-enable-bootstrap-support)
         ;; use a for of ox-gfm to fix index generation
         (ox-gfm :location (recipe :fetcher github :repo "syl20bnr/ox-gfm")

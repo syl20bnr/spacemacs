@@ -13,7 +13,7 @@
   '(
     anaconda-mode
     company
-    (company-anaconda :depends company)
+    (company-anaconda :requires company)
     cython-mode
     eldoc
     evil-matchit
@@ -21,7 +21,7 @@
     ggtags
     helm-cscope
     helm-gtags
-    (helm-pydoc :depends helm)
+    (helm-pydoc :requires helm)
     hy-mode
     live-py-mode
     (nose :location local)

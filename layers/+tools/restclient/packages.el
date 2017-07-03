@@ -10,12 +10,12 @@
 ;;; License: GPLv3
 (setq restclient-packages
       '(
-        (company-restclient :depends company)
+        (company-restclient :requires company)
         golden-ratio
         ob-http
         ob-restclient
         restclient
-        (restclient-helm :depends helm)
+        (restclient-helm :requires helm)
         ))
 
 (defun restclient/pre-init-golden-ratio ()
