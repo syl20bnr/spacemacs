@@ -110,7 +110,11 @@
   ;; open special buffers in motion state so they can be closed with ~q~
   (evil-set-initial-state 'idris-compiler-notes-mode 'motion)
   (evil-set-initial-state 'idris-hole-list-mode 'motion)
-  (evil-set-initial-state 'idris-info-mode 'motion))
+  (evil-set-initial-state 'idris-info-mode 'motion)
+
+  ;; make sure projectile ignores .ibc files
+  (with-eval-after-load 'helm-projectile
+    (push ".ibc" projectile-globally-ignored-file-suffixes)))
 
 (defun idris/pre-init-golden-ratio ()
   (spacemacs|use-package-add-hook golden-ratio
