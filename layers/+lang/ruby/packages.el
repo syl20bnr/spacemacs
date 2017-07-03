@@ -49,7 +49,7 @@
               "bo" 'bundle-open))))
 
 (defun ruby/post-init-company ()
-  (when (configuration-layer/package-usedp 'robe)
+  (when (configuration-layer/package-used-p 'robe)
     (spacemacs|add-company-backends
       :backends company-robe
       :modes ruby-mode enh-ruby-mode))

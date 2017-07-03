@@ -12,17 +12,17 @@
 (setq haskell-packages
   '(
     cmm-mode
-    (company-cabal :toggle (configuration-layer/package-usedp 'company))
+    (company-cabal :requires company)
     company-ghci
     company-ghc
     flycheck
-    (flycheck-haskell :toggle (configuration-layer/package-usedp 'flycheck))
+    (flycheck-haskell :requires flycheck)
     ggtags
     ghc
     haskell-mode
     haskell-snippets
     helm-gtags
-    (helm-hoogle :toggle (configuration-layer/package-usedp 'helm))
+    (helm-hoogle :requires helm)
     hindent
     hlint-refactor
     intero

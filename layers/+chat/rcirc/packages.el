@@ -5,7 +5,7 @@
     emoji-cheat-sheet-plus
     flyspell
     (helm-rcirc :location local
-                :toggle (configuration-layer/package-usedp 'helm))
+                :requires helm)
     persp-mode
     rcirc
     rcirc-color

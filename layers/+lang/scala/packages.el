@@ -43,7 +43,7 @@
     (progn
       ;; Enable Expand Region integration from Ensime.  Ignore load errors to
       ;; handle older Ensime versions gracefully.
-      (when (configuration-layer/package-usedp 'expand-region)
+      (when (configuration-layer/package-used-p 'expand-region)
         (require 'ensime-expand-region nil 'noerror)))))
 
 (defun scala/post-init-flycheck ()

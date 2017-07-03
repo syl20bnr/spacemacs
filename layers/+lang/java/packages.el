@@ -13,13 +13,13 @@
       '(
         company
         (company-emacs-eclim :toggle
-                             (configuration-layer/package-usedp 'company))
+                             (configuration-layer/package-used-p 'company))
         eclim
         eldoc
         ensime
         flycheck
         (flycheck-eclim :location local
-                        :toggle (configuration-layer/package-usedp 'flycheck))
+                        :requires flycheck)
         flyspell
         ggtags
         gradle-mode
@@ -302,7 +302,7 @@
 ;;       :init
 ;;       (progn
 ;;         (spacemacs//ensime-init 'java-mode t nil)
-;;         (when (configuration-layer/package-usedp 'company)
+;;         (when (configuration-layer/package-used-p 'company)
 ;;           (push 'ensime-company company-backends-java-mode)))
 ;;       :config
 ;;       (progn

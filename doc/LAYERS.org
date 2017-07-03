@@ -377,7 +377,7 @@ It is good practice to guard the definition of functions to make sure a package
 is actually used. For instance:
 
 #+begin_src emacs-lisp
-(when (configuration-layer/package-usedp 'my-package)
+(when (configuration-layer/package-used-p 'my-package)
   (defun spacemacs/my-package-enable () ...)
   (defun spacemacs/my-package-disable () ...))
 #+end_src

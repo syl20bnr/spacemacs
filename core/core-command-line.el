@@ -16,6 +16,10 @@
 (defvar spacemacs-insecure nil
   "If non-nil force Spacemacs to operate without secured protocols.")
 
+(defvar spacemacs-sync-packages t
+  "If non-nil packages are synchronized when the configuration layer system is
+loaded.")
+
 (defun spacemacs//parse-command-line (args)
   "Handle Spacemacs specific command line arguments.
 The reason why we don't use the Emacs hooks for processing user defined
@@ -53,6 +57,8 @@ arguments is that we want to process these arguments as soon as possible."
                  i (1+ i)))
           ("--resume-layouts"
            (setq spacemacs-force-resume-layouts t))
+          ("--no-package-sync"
+           (setq spacemacs-sync-packages nil))
           (_ (push arg new-args))))
       (setq i (1+ i)))
     (nreverse new-args)))

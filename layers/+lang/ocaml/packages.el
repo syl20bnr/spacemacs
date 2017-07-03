@@ -25,18 +25,18 @@
     ))
 
 (defun ocaml/post-init-company ()
-  (when (configuration-layer/layer-usedp 'merlin)
+  (when (configuration-layer/layer-used-p 'merlin)
     (spacemacs|add-company-backends
       :backends merlin-company-backend
       :modes merlin-mode
       :variables merlin-completion-with-doc t)))
 
-(when (configuration-layer/layer-usedp 'syntax-checking)
+(when (configuration-layer/layer-used-p 'syntax-checking)
   (defun ocaml/post-init-flycheck ()
     (spacemacs/enable-flycheck 'merlin-mode))
   (defun ocaml/init-flycheck-ocaml ()
     (use-package flycheck-ocaml
-      :if (configuration-layer/package-usedp 'flycheck)
+      :if (configuration-layer/package-used-p 'flycheck)
       :defer t
       :init
       (progn

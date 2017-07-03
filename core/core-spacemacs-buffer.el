@@ -694,9 +694,9 @@ REAL-WIDTH: the real width of the line.  If the line contains an image, the size
                  (lambda (&rest ignore)
                    (let ((comp-frontend
                           (cond
-                           ((configuration-layer/layer-usedp 'helm)
+                           ((configuration-layer/layer-used-p 'helm)
                             'helm-spacemacs-help)
-                           ((configuration-layer/layer-usedp 'ivy)
+                           ((configuration-layer/layer-used-p 'ivy)
                             'ivy-spacemacs-help))))
                      (call-interactively comp-frontend)))
                  :mouse-face 'highlight
@@ -912,7 +912,7 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
                   (spacemacs-buffer||add-shortcut "c" "Agenda:")
                   (insert list-separator)))
                ((eq el 'bookmarks)
-                (when (configuration-layer/layer-usedp 'spacemacs-helm)
+                (when (configuration-layer/layer-used-p 'spacemacs-helm)
                   (helm-mode))
                 (require 'bookmark)
                 (when (spacemacs-buffer//insert-bookmark-list

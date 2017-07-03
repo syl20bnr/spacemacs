@@ -17,8 +17,8 @@
         (company-quickhelp :toggle auto-completion-enable-help-tooltip)
         company-statistics
         fuzzy
-        (helm-company :toggle (configuration-layer/package-usedp 'helm))
-        (helm-c-yasnippet :toggle (configuration-layer/package-usedp 'helm))
+        (helm-company :requires helm)
+        (helm-c-yasnippet :requires helm)
         hippie-exp
         yasnippet
         auto-yasnippet
@@ -57,7 +57,7 @@
       (setq-default ac-sources '(ac-source-abbrev
                                  ac-source-dictionary
                                  ac-source-words-in-same-mode-buffers))
-      (when (configuration-layer/package-usedp 'yasnippet)
+      (when (configuration-layer/package-used-p 'yasnippet)
         (push 'ac-source-yasnippet ac-sources))
       (add-to-list 'completion-styles 'initials t)
       (define-key ac-completing-map (kbd "C-j") 'ac-next)
@@ -137,7 +137,7 @@
 
 (defun auto-completion/init-helm-company ()
   (use-package helm-company
-    :if (configuration-layer/package-usedp 'company)
+    :if (configuration-layer/package-used-p 'company)
     :defer t
     :init
     (with-eval-after-load 'company
@@ -170,7 +170,7 @@
           try-complete-lisp-symbol-partially
           ;; Try to complete word as an Emacs Lisp symbol.
           try-complete-lisp-symbol))
-  (when (configuration-layer/package-usedp 'yasnippet)
+  (when (configuration-layer/package-used-p 'yasnippet)
     ;; Try to expand yasnippet snippets based on prefix
     (push 'yas-hippie-try-expand hippie-expand-try-functions-list)))
 

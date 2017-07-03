@@ -386,6 +386,20 @@ List sizes may be nil, in which case
 (defvar dotspacemacs-frozen-packages '()
   "A list of packages that cannot be updated.")
 
+(defvar dotspacemacs-pretty-docs nil
+  "Run `spacemacs/prettify-org-buffer' when
+visiting README.org files of Spacemacs.")
+
+(defun dotspacemacs//prettify-spacemacs-docs ()
+  "Run `spacemacs/prettify-org-buffer' if `buffer-file-name'
+has `spacemacs-start-directory'"
+  (when (and dotspacemacs-pretty-docs
+             spacemacs-start-directory
+             buffer-file-name
+             (string-prefix-p (expand-file-name spacemacs-start-directory)
+                              (expand-file-name buffer-file-name)))
+    (spacemacs/prettify-org-buffer)))
+
 ;; only for backward compatibility
 (defalias 'dotspacemacs-mode 'emacs-lisp-mode)
 
@@ -442,7 +456,7 @@ the symbol of an editing style and the cdr is a list of keyword arguments like
 (defun dotspacemacs/add-layer (layer-name)
   "Add LAYER_NAME to dotfile and reload the it.
 Returns non nil if the layer has been effectively inserted."
-  (unless (configuration-layer/layer-usedp layer-name)
+  (unless (configuration-layer/layer-used-p layer-name)
     (with-current-buffer (find-file-noselect (dotspacemacs/location))
       (beginning-of-buffer)
       (let ((insert-point (re-search-forward
@@ -479,7 +493,7 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
                 (setq dotspacemacs-editing-style
                       (dotspacemacs//read-editing-style-config
                        dotspacemacs-editing-style))
-                (configuration-layer/sync)
+                (configuration-layer/load)
                 (if (member arg '((4) (16)))
                     (message (concat "Done (`dotspacemacs/user-config' "
                                      "function has been skipped)."))
@@ -490,7 +504,7 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
             (switch-to-buffer-other-window dotspacemacs-test-results-buffer)
             (spacemacs-buffer/warning "Some tests failed, check `%s' buffer"
                                       dotspacemacs-test-results-buffer))))))
-  (when (configuration-layer/package-usedp 'spaceline)
+  (when (configuration-layer/package-used-p 'spaceline)
     (spacemacs//set-powerline-for-startup-buffers)))
 
 (defun dotspacemacs/get-variable-string-list ()
@@ -543,7 +557,7 @@ a display strng and the value is the actual value to return."
     (spacemacs-buffer/set-mode-line "Dotfile wizard installer")
     (spacemacs//redisplay)
     (when (dotspacemacs/install 'with-wizard)
-      (configuration-layer/sync))))
+      (configuration-layer/load))))
 
 (defun dotspacemacs/install (arg)
   "Install the dotfile, return non nil if the doftile has been installed.
@@ -791,7 +805,7 @@ error recovery."
   "Test settings in dotfile for correctness.
  Return non-nil if all the tests passed."
   (interactive)
-  (configuration-layer/discover-layers)
+  (configuration-layer/discover-layers 'refresh-index)
   (let ((min-version "0.0"))
     ;; dotspacemacs-version not implemented yet
     ;; (if (version< dotspacemacs-version min-version)
@@ -815,10 +829,10 @@ error recovery."
           (prog1
               ;; execute all tests no matter what
               (cl-reduce (lambda (x y)
-                        (and (funcall y) x))
-                      '(dotspacemacs//test-dotspacemacs/layers
-                        dotspacemacs//test-dotspacemacs/init)
-                      :initial-value t)
+                           (and (funcall y) x))
+                         '(dotspacemacs//test-dotspacemacs/layers
+                           dotspacemacs//test-dotspacemacs/init)
+                         :initial-value t)
             (goto-char (point-min))))))))
 
 (provide 'core-dotspacemacs)

@@ -60,7 +60,7 @@
       (add-hook 'ess-mode-hook 'spacemacs/run-prog-mode-hooks)
       (add-hook 'inferior-ess-mode-hook
                 'spacemacs//ess-fix-read-only-inferior-ess-mode)
-      (when (configuration-layer/package-usedp 'company)
+      (when (configuration-layer/package-used-p 'company)
         (add-hook 'ess-mode-hook 'company-mode))))
 
   ;; R --------------------------------------------------------------------------

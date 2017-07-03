@@ -13,8 +13,8 @@
         (company-glsl :location (recipe
                                  :fetcher github
                                  :repo "Kaali/company-glsl")
-                      :toggle (and (configuration-layer/package-usedp 'company)
-                                   (executable-find "glslangValidator")))
+                      :requires company
+                      :toggle (executable-find "glslangValidator"))
         cuda-mode
         glsl-mode
         opencl-mode

@@ -150,6 +150,7 @@
       - [[#searching-in-current-file][Searching in current file]]
       - [[#searching-in-all-open-buffers-visiting-files][Searching in all open buffers visiting files]]
       - [[#searching-in-files-in-an-arbitrary-directory][Searching in files in an arbitrary directory]]
+      - [[#searching-in-current-directory][Searching in current directory]]
       - [[#searching-in-a-project][Searching in a project]]
       - [[#searching-the-web][Searching the web]]
     - [[#persistent-highlighting][Persistent highlighting]]
@@ -2561,6 +2562,22 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e~
 | ~SPC s r F~ | =rg= with default text                              |
 | ~SPC s t f~ | =pt=                                                |
 | ~SPC s t F~ | =pt= with default text                              |
+
+**** Searching in current directory
+
+| Key Binding           | Description                                         |
+|-----------------------+-----------------------------------------------------|
+| ~SPC /~  or ~SPC s d~ | search with the first found tool                    |
+| ~SPC *~  or ~SPC s D~ | search with the first found tool with default input |
+| ~SPC s a d~           | =ag=                                                |
+| ~SPC s a D~           | =ag= with default text                              |
+| ~SPC s g d~           | =grep= with default text                            |
+| ~SPC s k d~           | =ack=                                               |
+| ~SPC s k D~           | =ack= with default text                             |
+| ~SPC s t d~           | =pt=                                                |
+| ~SPC s t D~           | =pt= with default text                              |
+| ~SPC s r d~           | =rg=                                                |
+| ~SPC s r D~           | =rg= with default text                              |
 
 **** Searching in a project
 

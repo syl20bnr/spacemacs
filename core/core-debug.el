@@ -136,12 +136,12 @@ seconds to load")
     (advice-add 'package-initialize
                 :around
                 (spacemacs||make-function-timer package-intialize))
-    (advice-add 'configuration-layer/sync
+    (advice-add 'configuration-layer/load
                 :around
-                (spacemacs||make-function-timer configuration-layer/sync))
-    ;; (advice-add 'configuration-layer/sync
+                (spacemacs||make-function-timer configuration-layer/load))
+    ;; (advice-add 'configuration-layer/load
     ;;             :around
-    ;;             (spacemacs||make-function-profiler configuration-layer/sync))
+    ;;             (spacemacs||make-function-profiler configuration-layer/load))
     (advice-add 'configuration-layer//configure-package
                 :around
                 (spacemacs||make-function-timer configuration-layer//configure-package)))
@@ -175,9 +175,9 @@ seconds to load")
    (display-graphic-p)
    dotspacemacs-distribution
    dotspacemacs-editing-style
-   (cond ((configuration-layer/layer-usedp 'helm)
+   (cond ((configuration-layer/layer-used-p 'helm)
           'helm)
-         ((configuration-layer/layer-usedp 'ivy)
+         ((configuration-layer/layer-used-p 'ivy)
           'ivy)
          (t 'helm))
    (pp-to-string dotspacemacs--configuration-layers-saved)
@@ -246,7 +246,17 @@ seconds to load")
              (concat (spacemacs//describe-last-keys-string) "\n")
            "")))
     (switch-to-buffer buf)
-    (insert-file-contents-literally
+    (let ((ov (make-overlay (point-min) (point-min)))
+          (prop-val
+           (concat (propertize (concat "REPLACE ALL UPPERCASE EXPRESSIONS"
+                                       " AND PRESS `C-c C-c` TO SUBMIT")
+                               'display
+                               '(raise -1)
+                               'face
+                               'font-lock-warning-face)
+                   "\n\n")))
+      (overlay-put ov 'after-string prop-val))
+    (insert-file-contents
      (concat configuration-layer-template-directory "REPORTING.template"))
     (loop
      for (placeholder replacement)
@@ -259,14 +269,12 @@ seconds to load")
           (replace-match replacement [keep-case] [literal])))
     (spacemacs/report-issue-mode)))
 
-(define-derived-mode spacemacs/report-issue-mode markdown-mode "Report-Issue"
+(define-derived-mode spacemacs/report-issue-mode text-mode "Report-Issue"
   "Major mode for reporting issues with Spacemacs.
 
 When done editing, you can type \\[spacemacs//report-issue-done] to create the
 issue on Github. You must be logged in already for this to work. After you see
 that the issue has been created successfully, you can close this buffer.
-
-Markdown syntax is supported in this buffer.
 
 \\{spacemacs/report-issue-mode-map}
 "

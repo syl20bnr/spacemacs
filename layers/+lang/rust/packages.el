@@ -15,7 +15,7 @@
     company
     racer
     flycheck
-    (flycheck-rust :toggle (configuration-layer/package-usedp 'flycheck))
+    (flycheck-rust :requires flycheck)
     ggtags
     exec-path-from-shell
     helm-gtags

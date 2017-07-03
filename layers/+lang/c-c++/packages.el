@@ -16,7 +16,7 @@
     clang-format
     cmake-mode
     company
-    (company-c-headers :toggle (configuration-layer/package-usedp 'company))
+    (company-c-headers :requires company)
     company-ycmd
     flycheck
     gdb-mi
@@ -73,7 +73,7 @@
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))))
 
 (defun c-c++/post-init-company ()
-  (when (configuration-layer/package-usedp 'cmake-mode)
+  (when (configuration-layer/package-used-p 'cmake-mode)
     (spacemacs|add-company-backends :backends company-cmake :modes cmake-mode))
   (when c-c++-enable-clang-support
     (spacemacs|add-company-backends :backends company-clang

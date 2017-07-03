@@ -94,6 +94,7 @@
 
       ;; keybindings
       (spacemacs/set-leader-keys-for-major-mode 'erc-mode
+        "b" 'erc-switch-to-buffer
         "d" 'erc-input-action
         "j" 'erc-join-channel
         "n" 'erc-channel-names
@@ -175,7 +176,7 @@
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-yank
-      :if (configuration-layer/package-usedp 'gist)
+      :if (configuration-layer/package-used-p 'gist)
       :init (evil-define-key 'normal erc-mode-map "p" 'erc-yank))))
 
 (defun erc/init-erc-view-log ()

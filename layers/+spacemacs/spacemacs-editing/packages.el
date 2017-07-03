@@ -110,7 +110,7 @@
     :config
     (progn
       ;; add search capability to expand-region
-      (when (configuration-layer/package-usedp 'helm-ag)
+      (when (configuration-layer/package-used-p 'helm-ag)
         (defadvice er/prepare-for-more-expansions-internal
             (around helm-ag/prepare-for-more-expansions-internal activate)
           ad-do-it

@@ -26,7 +26,7 @@
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'sparql-mode "q" 'sparql-query-region)
-      (when (configuration-layer/package-usedp 'company)
+      (when (configuration-layer/package-used-p 'company)
         (spacemacs|add-company-backends
           :backends company-sparql
           :modes sparql-mode)))))

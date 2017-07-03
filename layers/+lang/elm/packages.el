@@ -14,7 +14,7 @@
       company
       elm-mode
       flycheck
-      (flycheck-elm :toggle (configuration-layer/package-usedp 'flycheck))
+      (flycheck-elm :requires flycheck)
       popwin
       smartparens
       ))

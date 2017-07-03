@@ -28,7 +28,7 @@
 (defun spacemacs-bootstrap/init-bind-key ())
 
 (defun spacemacs-bootstrap/init-diminish ()
-  (when (not (configuration-layer/package-usedp 'spaceline))
+  (when (not (configuration-layer/package-used-p 'spaceline))
     (add-hook 'after-load-functions 'spacemacs/diminish-hook)))
 
 (defun spacemacs-bootstrap/init-bind-map ()
@@ -274,7 +274,7 @@
       spacemacs-default-map))
 
   ;; support smart 1parens-strict-mode
-  (when (configuration-layer/package-usedp 'smartparens)
+  (when (configuration-layer/package-used-p 'smartparens)
     (defadvice evil-delete-backward-char-and-join
         (around spacemacs/evil-delete-backward-char-and-join activate)
       (if (bound-and-true-p smartparens-strict-mode)

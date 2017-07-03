@@ -11,10 +11,10 @@
 
 (setq go-packages
       '(
-        (company-go :toggle (configuration-layer/package-usedp 'company))
+        (company-go :requires company)
         flycheck
         (flycheck-gometalinter :toggle (and go-use-gometalinter
-                                            (configuration-layer/package-usedp
+                                            (configuration-layer/package-used-p
                                              'flycheck)))
         ggtags
         helm-gtags

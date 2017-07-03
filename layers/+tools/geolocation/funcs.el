@@ -20,7 +20,7 @@
     (unless (equal (bound-and-true-p  calendar-latitude) _latitdue)
       (setq calendar-latitude _latitdue
             location-changed-p t))
-    (when (and (configuration-layer/layer-usedp 'geolocation) location-changed-p)
+    (when (and (configuration-layer/layer-used-p 'geolocation) location-changed-p)
       (message "Location changed %s %s (restarting rase-timer)" calendar-latitude calendar-longitude)
       (rase-start t))))
 

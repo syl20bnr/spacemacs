@@ -25,7 +25,7 @@
     ))
 
 (defun elixir/post-init-company ()
-  (when (configuration-layer/package-usedp 'alchemist)
+  (when (configuration-layer/package-used-p 'alchemist)
     (spacemacs|add-company-backends
       :backends alchemist-company
       :modes elixir-mode alchemist-iex-mode)))

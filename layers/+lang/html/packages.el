@@ -13,13 +13,13 @@
       '(
         add-node-modules-path
         company
-        (company-web :toggle (configuration-layer/package-usedp 'company))
+        (company-web :requires company)
         css-mode
         emmet-mode
         evil-matchit
         flycheck
         haml-mode
-        (helm-css-scss :toggle (configuration-layer/package-usedp 'helm))
+        (helm-css-scss :requires helm)
         impatient-mode
         less-css-mode
         pug-mode
