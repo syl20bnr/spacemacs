@@ -14,6 +14,7 @@
         bundler
         chruby
         company
+        rufo
         (enh-ruby-mode :toggle ruby-enable-enh-ruby-mode)
         evil-matchit
         flycheck
@@ -65,6 +66,13 @@
     :defer t
     :init (spacemacs/add-to-hooks 'chruby-use-corresponding
                                   '(ruby-mode-hook enh-ruby-mode-hook))))
+
+(defun ruby/init-rufo ()
+  (use-package rufo
+    :init (dolist (mode '(ruby-mode enh-ruby-mode))
+            (add-hook (intern (concat (symbol-name mode) "-hook")) 'rufo-minor-mode)
+            (spacemacs/set-leader-keys-for-major-mode mode
+              "=" 'rufo-format))))
 
 (defun ruby/init-enh-ruby-mode ()
   (use-package enh-ruby-mode
