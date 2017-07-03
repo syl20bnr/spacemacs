@@ -149,7 +149,7 @@
         (spacemacs/set-leader-keys-for-major-mode mode
           "'" 'robe-start
           ;; robe mode specific
-          "hd" 'robe-doc
+          "hh" 'robe-doc
           "rsr" 'robe-rails-refresh
           ;; inf-enh-ruby-mode
           "sf" 'ruby-send-definition
