@@ -222,7 +222,7 @@
 (ert-deftest test-cfgl-package-enabled-p--depends-satisfied ()
   (let ((pkg-a (cfgl-package "pkg-a"
                              :name 'pkg-a
-                             :depends '(pkg-b)))
+                             :requires '(pkg-b)))
         (pkg-b (cfgl-package "pkg-b"
                              :name 'pkg-b))
         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
@@ -232,14 +232,14 @@
 (ert-deftest test-cfgl-package-enabled-p--depends-nonexistent ()
   (let ((pkg-a (cfgl-package "pkg-a"
                              :name 'pkg-a
-                             :depends '(pkg-b)))
+                             :requires '(pkg-b)))
         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
     (should (null (cfgl-package-enabled-p pkg-a)))))
 
 (ert-deftest test-cfgl-package-enabled-p--depends-toggled-off ()
   (let ((pkg-a (cfgl-package "pkg-a"
                              :name 'pkg-a
-                             :depends '(pkg-b)))
+                             :requires '(pkg-b)))
         (pkg-b (cfgl-package "pkg-b"
                              :name 'pkg-b
                              :toggle nil))
@@ -250,7 +250,7 @@
 (ert-deftest test-cfgl-package-enabled-p--depends-excluded ()
   (let ((pkg-a (cfgl-package "pkg-a"
                              :name 'pkg-a
-                             :depends '(pkg-b)))
+                             :requires '(pkg-b)))
         (pkg-b (cfgl-package "pkg-b"
                              :name 'pkg-b
                              :excluded t))
@@ -261,10 +261,10 @@
 (ert-deftest test-cfgl-package-enabled-p--depends-transitive ()
   (let ((pkg-a (cfgl-package "pkg-a"
                              :name 'pkg-a
-                             :depends '(pkg-b)))
+                             :requires '(pkg-b)))
         (pkg-b (cfgl-package "pkg-b"
                              :name 'pkg-b
-                             :depends '(pkg-c)))
+                             :requires '(pkg-c)))
         (pkg-c (cfgl-package "pkg-c"
                              :name 'pkg-c))
         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
@@ -275,10 +275,10 @@
 (ert-deftest test-cfgl-package-enabled-p--depends-transitive-not-satisfied ()
   (let ((pkg-a (cfgl-package "pkg-a"
                              :name 'pkg-a
-                             :depends '(pkg-b)))
+                             :requires '(pkg-b)))
         (pkg-b (cfgl-package "pkg-b"
                              :name 'pkg-b
-                             :depends '(pkg-c)))
+                             :requires '(pkg-c)))
         (pkg-c (cfgl-package "pkg-c"
                              :name 'pkg-c
                              :excluded t))
@@ -383,7 +383,7 @@
         (pkg-a (cfgl-package "pkg-a"
                              :name 'pkg-a
                              :owners '(owner-a)
-                             :depends  '(pkg-b)
+                             :requires  '(pkg-b)
                              :post-layers '(layer)))
         (pkg-b (cfgl-package "pkg-b"
                              :name 'pkg-b
@@ -402,7 +402,7 @@
         (pkg-a (cfgl-package "pkg-a"
                              :name 'pkg-a
                              :owners '(owner)
-                             :depends '(pkg-b)
+                             :requires '(pkg-b)
                              :post-layers '(layer)))
         (pkg-b (cfgl-package "pkg-b" :name 'pkg-b))
         (configuration-layer--indexed-packages (make-hash-table :size 2048))
@@ -470,7 +470,7 @@
     (helper--add-layers (list layer1 layer2) 'used)
     (helper--add-packages
      (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))
-           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2) :depends '(pkg1)))
+           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2) :requires '(pkg1)))
      'used)
     (should (configuration-layer/package-used-p 'pkg2))))
 
@@ -488,8 +488,8 @@
     (helper--add-layers (list layer1 layer2 layer3) 'used)
     (helper--add-packages
      (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))
-           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2) :depends '(pkg1))
-           (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3) :depends '(pkg2))
+           (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2) :requires '(pkg1))
+           (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3) :requires '(pkg2))
            )
      'used)
     (should (configuration-layer/package-used-p 'pkg3))))
@@ -508,7 +508,7 @@
     (helper--add-packages
      (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))))
     (helper--add-packages
-     (list (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2) :depends '(pkg1)))
+     (list (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2) :requires '(pkg1)))
      'used)
     (should (null (configuration-layer/package-used-p 'pkg2)))))
 
@@ -528,24 +528,24 @@
     (helper--add-packages
      (list (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1))))
     (helper--add-packages
-     (list (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2) :depends '(pkg1))
-           (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3) :depends '(pkg2)))
+     (list (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2) :requires '(pkg1))
+           (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3) :requires '(pkg2)))
      'used)
     (should (null (configuration-layer/package-used-p 'pkg3)))))
 
 ;; ---------------------------------------------------------------------------
-;; configuration-layer//package-deps-used-p
+;; configuration-layer//package-reqs-used-p
 ;; ---------------------------------------------------------------------------
 
-(ert-deftest test-package-deps-used-p--no-deps ()
+(ert-deftest test-package-reqs-used-p--no-reqs ()
   (let ((pkg-a (cfgl-package "pkg-a"
                              :name 'pkg-a)))
-    (should (configuration-layer//package-deps-used-p pkg-a))))
+    (should (configuration-layer//package-reqs-used-p pkg-a))))
 
-(ert-deftest test-package-deps-used-p--deps ()
+(ert-deftest test-package-reqs-used-p--reqs ()
   (let ((pkg-a (cfgl-package "pkg-a"
                              :name 'pkg-a
-                             :depends '(pkg-b)))
+                             :requires '(pkg-b)))
         (pkg-b (cfgl-package "pkg-b"
                              :name 'pkg-b
                              :owners '(owner)))
@@ -555,12 +555,12 @@
         (configuration-layer--indexed-layers (make-hash-table :size 1024)))
     (configuration-layer//add-package pkg-b)
     (configuration-layer//add-layer owner 'used)
-    (should (configuration-layer//package-deps-used-p pkg-a))))
+    (should (configuration-layer//package-reqs-used-p pkg-a))))
 
-(ert-deftest test-package-deps-used-p--depends-not-owner ()
+(ert-deftest test-package-reqs-used-p--depends-not-owner ()
   (let ((pkg-a (cfgl-package "pkg-a"
                              :name 'pkg-a
-                             :depends '(pkg-b)
+                             :requires '(pkg-b)
                              :owners '(owner)))
         (pkg-b (cfgl-package "pkg-b"
                              :name 'pkg-b))
@@ -569,7 +569,7 @@
         (configuration-layer--indexed-layers (make-hash-table :size 1024)))
     (configuration-layer//add-package pkg-b)
     (configuration-layer//add-layer owner nil)
-    (should (null (configuration-layer//package-deps-used-p pkg-a)))))
+    (should (null (configuration-layer//package-reqs-used-p pkg-a)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//package-archive-absolute-path-p

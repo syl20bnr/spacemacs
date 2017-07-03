@@ -14,7 +14,7 @@
         auto-highlight-symbol
         bookmark
         counsel
-        (counsel-projectile :depends projectile)
+        (counsel-projectile :requires projectile)
         evil
         flx
         helm-make

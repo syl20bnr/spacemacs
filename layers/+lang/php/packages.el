@@ -21,7 +21,7 @@
         php-mode
         phpcbf
         phpunit
-        (company-php :depends company)
+        (company-php :requires company)
         ))
 
 (defun php/init-drupal-mode ()

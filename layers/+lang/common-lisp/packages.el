@@ -11,14 +11,14 @@
 
 (setq common-lisp-packages
       '(auto-highlight-symbol
-        (common-lisp-snippets :depends yasnippet)
+        (common-lisp-snippets :requires yasnippet)
         evil
         ggtags
         helm
         helm-gtags
         parinfer
         slime
-        (slime-company :depends company)
+        (slime-company :requires company)
         ))
 
 (defun common-lisp/post-init-auto-highlight-symbol ()

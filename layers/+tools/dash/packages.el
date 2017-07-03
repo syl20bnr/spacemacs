@@ -2,8 +2,8 @@
 (setq dash-packages
       '(
         (dash-at-point :toggle (spacemacs/system-is-mac))
-        (helm-dash :depends helm)
-        (counsel-dash :depends ivy)
+        (helm-dash :requires helm)
+        (counsel-dash :requires ivy)
         (zeal-at-point :toggle (or (spacemacs/system-is-linux)
                                    (spacemacs/system-is-mswindows)))))
 

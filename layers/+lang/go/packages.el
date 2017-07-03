@@ -11,7 +11,7 @@
 
 (setq go-packages
       '(
-        (company-go :depends company)
+        (company-go :requires company)
         flycheck
         (flycheck-gometalinter :toggle (and go-use-gometalinter
                                             (configuration-layer/package-used-p

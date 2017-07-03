@@ -12,7 +12,7 @@
 (setq lua-packages
       '(
         company
-        (company-lua :depends company)
+        (company-lua :requires company)
         flycheck
         ggtags
         helm-gtags

@@ -14,7 +14,7 @@
       company
       elm-mode
       flycheck
-      (flycheck-elm :depends flycheck)
+      (flycheck-elm :requires flycheck)
       popwin
       smartparens
       ))

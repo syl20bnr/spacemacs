@@ -16,7 +16,7 @@
     clang-format
     cmake-mode
     company
-    (company-c-headers :depends company)
+    (company-c-headers :requires company)
     company-ycmd
     flycheck
     gdb-mi

@@ -11,7 +11,7 @@
 
 (setq shell-scripts-packages
       '(
-        (company-shell :depends company)
+        (company-shell :requires company)
         fish-mode
         flycheck
         flycheck-bashate

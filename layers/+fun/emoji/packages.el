@@ -13,7 +13,7 @@
       '(
         emoji-cheat-sheet-plus
         emojify
-        (company-emoji :depends company)
+        (company-emoji :requires company)
         ))
 
 (defun emoji/init-emoji-cheat-sheet-plus ()

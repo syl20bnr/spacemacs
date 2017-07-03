@@ -13,13 +13,13 @@
       '(
         add-node-modules-path
         company
-        (company-web :depends company)
+        (company-web :requires company)
         css-mode
         emmet-mode
         evil-matchit
         flycheck
         haml-mode
-        (helm-css-scss :depends helm)
+        (helm-css-scss :requires helm)
         impatient-mode
         less-css-mode
         pug-mode
