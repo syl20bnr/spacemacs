@@ -1,0 +1,31 @@
+#+TITLE: kubernetes layer
+
+[[file:./img/kubernetes.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer provides the [[https://github.com/chrisbarrett/kubernetes-el#kubernetes-el][kubernetes-el]] package, a magit-style interface to the
+Kubernetes command-line client.
+
+** Features:
+  - Live-updating lists of kubernetes resources
+  - Viewing and deleting pods, configmaps and secrets
+  - Switching contexts and namespaces.
+  - Showing logs and exec'ing into containers
+  - Describing pods
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =kubernetes= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC a K~   | Opens =kubernetes-overview= |
