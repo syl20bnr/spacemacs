@@ -412,7 +412,7 @@
   "w <right>"  'evil-window-right
   "wm"  'spacemacs/toggle-maximize-buffer
   "wc"  'spacemacs/toggle-centered-buffer-mode
-  "wC"  'spacemacs/centered-buffer-mode-full-width
+  "wC"  'spacemacs/toggle-centered-buffer-mode-frame
   "wo"  'other-frame
   "wr"  'spacemacs/rotate-windows-forward
   "wR"  'spacemacs/rotate-windows-backward
