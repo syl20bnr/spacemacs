@@ -1153,6 +1153,21 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
                (fboundp dotspacemacs-scratch-mode))
       (funcall dotspacemacs-scratch-mode))))
 
+(defvar spacemacs--killed-buffer-list nil
+  "List of recently killed buffers.")
+
+(defun spacemacs//add-buffer-to-killed-list ()
+  "If buffer is associated with a file name, add that file
+to the `killed-buffer-list' when killing the buffer."
+  (when buffer-file-name
+    (push buffer-file-name spacemacs--killed-buffer-list)))
+
+(defun spacemacs/reopen-killed-buffer ()
+  "Reopen the most recently killed file buffer, if one exists."
+  (interactive)
+  (when spacemacs--killed-buffer-list
+    (find-file (pop spacemacs--killed-buffer-list))))
+
 (defun spacemacs/switch-to-messages-buffer (&optional arg)
   "Switch to the `*Messages*' buffer.
 if prefix argument ARG is given, switch to it in an other, possibly new window."
