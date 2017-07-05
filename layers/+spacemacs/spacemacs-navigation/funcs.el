@@ -222,8 +222,14 @@
 
 (defun neotree-find-project-root ()
   (interactive)
+  (let ((origin-buffer-file-name (buffer-file-name)))
+    (neotree-find (projectile-project-root))
+    (neotree-find origin-buffer-file-name)))
+
+(defun neotree-toggle-project-root ()
+  (interactive)
   (if (neo-global--window-exists-p)
-      (neotree-hide)
+    (neotree-hide)
     (let ((origin-buffer-file-name (buffer-file-name)))
       (neotree-find (projectile-project-root))
       (neotree-find origin-buffer-file-name))))
