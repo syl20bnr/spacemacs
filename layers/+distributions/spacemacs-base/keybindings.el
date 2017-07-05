@@ -138,6 +138,7 @@
   "bp"    'previous-buffer
   "bR"    'spacemacs/safe-revert-buffer
   "bs"    'spacemacs/switch-to-scratch-buffer
+  "bu"    'spacemacs/reopen-killed-buffer
   "bY"    'spacemacs/copy-whole-buffer-to-clipboard
   "bw"    'read-only-mode)
 (dotimes (i 9)
