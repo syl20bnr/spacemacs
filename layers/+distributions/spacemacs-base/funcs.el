@@ -1162,8 +1162,6 @@ to the `killed-buffer-list' when killing the buffer."
   (when buffer-file-name
     (push buffer-file-name spacemacs--killed-buffer-list)))
 
-(add-hook 'kill-buffer-hook #'spacemacs//add-buffer-to-killed-list)
-
 (defun spacemacs/reopen-killed-buffer ()
   "Reopen the most recently killed file buffer, if one exists."
   (interactive)
