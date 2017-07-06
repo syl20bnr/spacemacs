@@ -291,8 +291,8 @@ path for you.
 This file is the first file to be loaded and this is the place where additional
 layers can be declared.
 
-For instance is layer A depends on some functionality of layer B then in the
-file =layers.el= of layer A we can add:
+For instance, if layer A depends on some functionality of layer B, then in the
+file =layers.el= of layer A, we can add:
 
 #+begin_src emacs-lisp
 (configuration-layer/declare-layer 'B)
