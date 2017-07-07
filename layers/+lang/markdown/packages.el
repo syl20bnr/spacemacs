@@ -48,21 +48,6 @@
 (defun markdown/post-init-smartparens ()
   (add-hook 'markdown-mode-hook 'smartparens-mode))
 
-;; from Jason Blevins http://jblevins.org/log/mmm
-(defun markdown/mmm-auto-class (lang)
-  (let* ((l (if (listp lang) (car lang) lang))
-         (s (if (listp lang) (cadr lang) lang))
-         (class (intern (concat "markdown-" l)))
-         (submode (intern (concat s "-mode")))
-         (front (concat "^```" l "[\n\r]+"))
-         (back "^```$"))
-    (mmm-add-classes (list (list class
-                               :submode submode
-                               :front front
-                               :back back)))
-    (dolist (mode markdown--key-bindings-modes)
-      (mmm-add-mode-ext-class mode nil class))))
-
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode
     :mode
