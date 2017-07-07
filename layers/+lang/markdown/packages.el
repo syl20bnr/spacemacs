@@ -24,15 +24,15 @@
 
 (defun markdown/post-init-company ()
   (dolist (mode markdown--key-bindings-modes)
-    (spacemacs|add-company-backends
-      :backends company-capf
-      :modes mode)))
+    (eval `(spacemacs|add-company-backends
+             :backends company-capf
+             :modes ,mode))))
 
 (defun markdown/post-init-company-emoji ()
   (dolist (mode markdown--key-bindings-modes)
-    (spacemacs|add-company-backends
-      :backends company-emoji
-      :modes mode)))
+    (eval `(spacemacs|add-company-backends
+             :backends company-emoji
+             :modes ,mode))))
 
 (defun markdown/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'markdown-mode-hook 'emoji-cheat-sheet-plus-display-mode))
