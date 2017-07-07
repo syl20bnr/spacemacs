@@ -94,9 +94,9 @@ password]].
 
 It is possible to send beautiful HTML emails using org mode.
 
-Pressing ~SPC m M~ in a message buffer will convert the current message
+Pressing ~SPC m e m~ in a message buffer will convert the current message
 from org mode to html.  An org mode buffer can be sent via html email by pressing
-~SPC m m~ in any org mode buffer.
+~SPC m e m~ in any org mode buffer.
 
 * Keybindings
 
