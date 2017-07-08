@@ -32,6 +32,7 @@
     - [[#tasks][Tasks]]
   - [[#eclim-2][Eclim]]
     - [[#java-mode][Java-mode]]
+      - [[#ant][Ant]]
       - [[#project-management][Project management]]
       - [[#eclim-daemon][Eclim daemon]]
       - [[#maven][Maven]]
@@ -270,6 +271,16 @@ particular refactoring doesn't work.
 
 ** Eclim
 *** Java-mode
+
+**** Ant
+
+ | Key Binding | Description     |
+ |-------------+-----------------|
+ | ~SPC m a a~ | Run Ant         |
+ | ~SPC m a c~ | Clear Ant cache |
+ | ~SPC m a r~ | Run Ant         |
+ | ~SPC m a v~ | Validate        |
+
 **** Project management
 
  | Key Binding | Description                    |
@@ -314,18 +325,24 @@ particular refactoring doesn't work.
 
 **** Refactoring
 
- | Key Binding | Description      |
- |-------------+------------------|
- | ~SPC m r i~ | optimize imports |
- | ~SPC m r f~ | Format file      |
- | ~SPC m r r~ | Rename symbol    |
+ | Key Binding | Description                            |
+ |-------------+----------------------------------------|
+ | ~SPC m r c~ | create a constructor                   |
+ | ~SPC m r f~ | format file                            |
+ | ~SPC m r g~ | generate getter and setter             |
+ | ~SPC m r i~ | optimize imports                       |
+ | ~SPC m r j~ | implement or override a method         |
+ | ~SPC m r n~ | create a new class, enum, or interface |
+ | ~SPC m r r~ | rename symbol                          |
 
 **** Documentation, Find
 
  | Key Binding | Description                            |
  |-------------+----------------------------------------|
  | ~SPC m f f~ | general find in project                |
+ | ~SPC m h c~ | call hierarchy                         |
  | ~SPC m h h~ | show documentation for symbol at point |
+ | ~SPC m h i~ | view hierarchy                         |
  | ~SPC m h u~ | show usages for symbol at point        |
 
 **** Errors (problems)
