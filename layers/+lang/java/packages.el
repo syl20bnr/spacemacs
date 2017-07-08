@@ -113,8 +113,8 @@
         "pu" 'eclim-project-update
         ;; refactor
         "rc" 'eclim-java-constructor
-        "rg" 'eclim-java-generate-getter-and-setter
         "rf" 'eclim-java-format
+        "rg" 'eclim-java-generate-getter-and-setter
         "ri" 'eclim-java-import-organize
         "rj" 'eclim-java-implement
         "rn" 'eclim-java-new
