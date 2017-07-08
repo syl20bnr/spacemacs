@@ -42,9 +42,11 @@
     (progn
       (require 'compile)
       (c-toggle-auto-newline 1)
+      (spacemacs/declare-prefix-for-mode 'c-mode "mg" "goto")
       (spacemacs/set-leader-keys-for-major-mode 'c-mode
         "ga" 'projectile-find-other-file
         "gA" 'projectile-find-other-file-other-window)
+      (spacemacs/declare-prefix-for-mode 'c++-mode "mg" "goto")
       (spacemacs/set-leader-keys-for-major-mode 'c++-mode
         "ga" 'projectile-find-other-file
         "gA" 'projectile-find-other-file-other-window))))
