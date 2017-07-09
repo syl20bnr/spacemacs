@@ -517,8 +517,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         ;; helm-ag marks
         "s`"  'helm-ag-pop-stack
         ;; opened buffers scope
-        "sb"  'spacemacs/helm-buffers-smart-do-search
-        "sB"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
+        "sB"  'spacemacs/helm-buffers-smart-do-search
+        "sb"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
         "sab" 'helm-do-ag-buffers
         "saB" 'spacemacs/helm-buffers-do-ag-region-or-symbol
         "skb" 'spacemacs/helm-buffers-do-ack
@@ -557,8 +557,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         ;; current project scope
         "*"   'spacemacs/helm-project-smart-do-search
         "/"   'spacemacs/helm-project-smart-do-search-region-or-symbol
-        "sp"  'spacemacs/helm-project-smart-do-search
-        "sP"  'spacemacs/helm-project-smart-do-search-region-or-symbol
+        "sP"  'spacemacs/helm-project-smart-do-search
+        "sp"  'spacemacs/helm-project-smart-do-search-region-or-symbol
         "sap" 'spacemacs/helm-project-do-ag
         "saP" 'spacemacs/helm-project-do-ag-region-or-symbol
         "skp" 'spacemacs/helm-project-do-ack
@@ -697,8 +697,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
           (call-interactively 'helm-swoop)))
 
       (spacemacs/set-leader-keys
-        "ss"    'helm-swoop
-        "sS"    'spacemacs/helm-swoop-region-or-symbol
+        "sS"    'helm-swoop
+        "ss"    'spacemacs/helm-swoop-region-or-symbol
         "s C-s" 'helm-multi-swoop-all)
       (defadvice helm-swoop (before add-evil-jump activate)
         (evil-set-jump)))))
