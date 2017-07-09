@@ -33,7 +33,6 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -44,15 +43,25 @@ values."
      ;; better-defaults
      emacs-lisp
      ;; markdown
+     ;; org mode with Project support
      org
+     ;; (org :variables org-projectile-file "TODOs.org")
+     ;; Add email client
+     mu4e
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
-     ;; Add c c++ support
+     ;; add python support
+     python
+     ;; add c c++ support
      c-c++
+     ;; add shell support
+     shell-scripts
+     ;; add html support
+     html
      gtags
      cscope
      semantic
@@ -329,7 +338,21 @@ you should place your code here."
   (require 'golden-ratio)
   (golden-ratio-mode 1)
   (spacemacs/toggle-line-numbers-on)
+  ;; enable projectile files caching to speed up files indexing time
   (setq projectile-enable-caching t)
+  ;; treat the _ character as a word constituent
+  (modify-syntax-entry ?_ "w")
+  ;; For python
+  (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  ;; For c
+  (add-hook 'c-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  ;; For c++
+  (add-hook 'c++-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+
+  ;; enable that TODO files are added to the agenda automatically.
+  ;; (with-eval-after-load 'org-agenda
+  ;;   (require 'org-projectile)
+  ;;   (push (org-projectile:todo-files) org-agenda-files))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -339,15 +362,9 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote (
-    "/opt/workspace/worklog/linux/utils/binUtils.org" "/opt/workspace/worklog/git/branching.org"
-     "/opt/workspace/worklog/linux/mm/DMA.org" "/opt/workspace/worklog/cpp/build.org"
-     "/opt/workspace/worklog/ide/emacs/org/orgmode.org" "/opt/workspace/worklog/vlc/libvlc.org"
-     "/opt/workspace/worklog/vlc/develop-vlc.org" "/opt/workspace/worklog/android/debug/kernel/camera_anr.org"
-     "/opt/workspace/worklog/android/graphics/BufferQueue.org" "/opt/workspace/worklog/android/debugUtils/unitTest.org"
-     "/opt/workspace/worklog/graphics/graphics_overview.org" "/opt/workspace/worklog/git/branching.org"
-     "/opt/workspace/worklog/git/gitNote.org"
- ))))
+ '(org-agenda-files
+   (quote
+    ("/opt/workspace/worklog/linux/linux_web_resources.org" "/opt/workspace/worklog/android/arm-v5xx/memory_management.org" "/opt/workspace/worklog/linux/mm/memoryManagement.org" "/opt/workspace/worklog/android/multimedia/memory_manager.org" "/opt/workspace/worklog/TODOs.org" "/opt/workspace/worklog/git/branching.org" "/opt/workspace/worklog/work/r4p1.org" "/opt/workspace/worklog/ide/emacs/spacemacs/navigating.org" "/opt/workspace/worklog/linux/utils/binUtils.org" "/opt/workspace/worklog/linux/mm/DMA.org" "/opt/workspace/worklog/cpp/build.org" "/opt/workspace/worklog/ide/emacs/org/orgmode.org" "/opt/workspace/worklog/vlc/libvlc.org" "/opt/workspace/worklog/vlc/develop-vlc.org" "/opt/workspace/worklog/android/debug/kernel/camera_anr.org" "/opt/workspace/worklog/android/graphics/BufferQueue.org" "/opt/workspace/worklog/android/debugUtils/unitTest.org" "/opt/workspace/worklog/graphics/graphics_overview.org" "/opt/workspace/worklog/git/branching.org" "/opt/workspace/worklog/git/gitNote.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
