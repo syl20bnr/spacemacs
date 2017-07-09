@@ -65,6 +65,7 @@
         ;; jump
         ;; register/ring
         "ry"  'counsel-yank-pop
+        "rm"  'counsel-mark-ring
         ;; jumping
         "sj"  'counsel-imenu
         ;; themes
