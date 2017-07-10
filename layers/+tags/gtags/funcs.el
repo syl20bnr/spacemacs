@@ -56,6 +56,19 @@ Otherwise does nothing."
     "gy" 'helm-gtags-find-symbol
     "gu" 'helm-gtags-update-tags))
 
+(defun spacemacs/counsel-gtags-define-keys-for-mode (mode)
+  "Define counsel-gtags key binding for Mode"
+  (spacemacs/set-leader-keys-for-major-mode mode
+    "gC" 'counsel-gtags-create-tags
+    "gd" 'counsel-gtags-find-definition
+    "gr" 'counsel-gtags-find-reference
+    "gS" 'counsel-gtags-find-symbol
+    "gs" 'counsel-gtags-dwim
+    "gu" 'counsel-gtags-update-tags
+    "gf" 'counsel-gtags-find-file
+    "gn" 'counsel-gtags-go-forward
+    "gp" 'counsel-gtags-go-backward))
+
 (defun spacemacs/ggtags-mode-enable ()
   "Enable ggtags and eldoc mode.
 
