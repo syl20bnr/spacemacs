@@ -1211,12 +1211,18 @@ Decision is based on `dotspacemacs-line-numbers'."
 
 (defun spacemacs//linum-update-window-scale-fix (win)
   "Fix linum for scaled text in the window WIN."
-  (set-window-margins win
-                      (ceiling (* (if (boundp 'text-scale-mode-step)
-                                      (expt text-scale-mode-step
-                                            text-scale-mode-amount)
-                                    1)
-                                  (or (car (window-margins win)) 1)))))
+  (when (display-multi-font-p)
+    (unless (boundp 'text-scale-mode-step)
+      (setq window-initial-margins (window-margins win)))
+    (set-window-margins win
+     (ceiling (* (if (boundp 'text-scale-mode-step)
+                   (expt text-scale-mode-step
+                     text-scale-mode-amount)
+                   1)
+                (or (car (if (boundp 'window-initial-margins)
+                           window-initial-margins
+                           (window-margins win)))
+                  1))))))
 
 (defun spacemacs//linum-backward-compabitility ()
   "Return non-nil if `dotspacemacs-line-numbers' has an old format and if
