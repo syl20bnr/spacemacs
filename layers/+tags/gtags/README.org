@@ -21,6 +21,8 @@
       - [[#pygments-languages-plus-symbol-and-reference-tags][Pygments languages (plus symbol and reference tags)]]
   - [[#eldoc-integration][Eldoc integration]]
 - [[#key-bindings][Key bindings]]
+  - [[#using-helm][Using Helm]]
+  - [[#using-ivy][Using Ivy]]
 
 * Description
 =helm-gtags= and =ggtags= are clients for GNU Global. GNU Global is a source
@@ -252,21 +254,37 @@ contains symbol in your project, you move cursor on such symbol and use any of
 the gtags commands.
 
 * Key bindings
+** Using Helm
 
-| Key Binding | Description                                               |
-|-------------+-----------------------------------------------------------|
-| ~SPC m g C~ | create a tag database                                     |
-| ~SPC m g f~ | jump to a file in tag database                            |
-| ~SPC m g g~ | jump to a location based on context                       |
-| ~SPC m g G~ | jump to a location based on context (open another window) |
-| ~SPC m g d~ | find definitions                                          |
-| ~SPC m g i~ | present tags in current function only                     |
-| ~SPC m g l~ | jump to definitions in file                               |
-| ~SPC m g n~ | jump to next location in context stack                    |
-| ~SPC m g p~ | jump to previous location in context stack                |
-| ~SPC m g r~ | find references                                           |
-| ~SPC m g R~ | resume previous helm-gtags session                        |
-| ~SPC m g s~ | select any tag in a project retrieved by gtags            |
-| ~SPC m g S~ | show stack of visited locations                           |
-| ~SPC m g y~ | find symbols                                              |
-| ~SPC m g u~ | manually update tag database                              |
+  | Key Binding | Description                                               |
+  |-------------+-----------------------------------------------------------|
+  | ~SPC m g C~ | create a tag database                                     |
+  | ~SPC m g f~ | jump to a file in tag database                            |
+  | ~SPC m g g~ | jump to a location based on context                       |
+  | ~SPC m g G~ | jump to a location based on context (open another window) |
+  | ~SPC m g d~ | find definitions                                          |
+  | ~SPC m g i~ | present tags in current function only                     |
+  | ~SPC m g l~ | jump to definitions in file                               |
+  | ~SPC m g n~ | jump to next location in context stack                    |
+  | ~SPC m g p~ | jump to previous location in context stack                |
+  | ~SPC m g r~ | find references                                           |
+  | ~SPC m g R~ | resume previous helm-gtags session                        |
+  | ~SPC m g s~ | select any tag in a project retrieved by gtags            |
+  | ~SPC m g S~ | show stack of visited locations                           |
+  | ~SPC m g y~ | find symbols                                              |
+  | ~SPC m g u~ | manually update tag database                              |
+  
+** Using Ivy
+  
+  | Key Binding | Description                                     |
+  |-------------+-------------------------------------------------|
+  | ~SPC m g C~ | create a tag database                           |
+  | ~SPC m g f~ | jump to a file in tag database                  |
+  | ~SPC m g d~ | find definitions                                |
+  | ~SPC m g n~ | jump to next location in context stack          |
+  | ~SPC m g p~ | jump to previous location in context stack      |
+  | ~SPC m g r~ | find references                                 |
+  | ~SPC m g s~ | find definitions or references of this at point |
+  | ~SPC m g S~ | find symbols                                    |
+  | ~SPC m g u~ | manually update tag database                    |
+  

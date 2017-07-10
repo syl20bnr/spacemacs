@@ -14,6 +14,7 @@
   '(
     ggtags
     (helm-gtags :requires helm)
+    (counsel-gtags :requires counsel)
     ))
 
 (defun gtags/init-ggtags ()
@@ -54,3 +55,11 @@
       (spacemacs/helm-gtags-define-keys-for-mode 'dired-mode)
       (spacemacs/helm-gtags-define-keys-for-mode 'compilation-mode)
       (spacemacs/helm-gtags-define-keys-for-mode 'shell-mode))))
+
+(defun gtags/init-counsel-gtags ()
+  (use-package counsel-gtags
+    :defer t
+    :init
+    (progn
+      (setq counsel-gtags-auto-update t
+            counsel-gtags-ignore-case t))))
