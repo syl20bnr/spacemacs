@@ -42,6 +42,13 @@ import os.path
 import re
 import ycm_core
 
+# From pyhon 3 on, zip is already a generator and there is no izip in
+# itertools.
+try:
+    from itertools import izip as zip
+except ImportError:
+    pass
+
 SOURCE_EXTENSIONS = ['.cpp', '.cxx', '.cc', '.c', '.m', '.mm',
                      '.CPP', '.CXX', '.CC', '.C', '.M', '.MM']
 HEADER_EXTENSIONS = ['.h', '.hxx', '.hpp', '.hh'
@@ -198,7 +205,7 @@ def Pairwise(iterable):
     "s -> (s0,s1), (s1,s2), (s2, s3), ..."
     a, b = itertools.tee(iterable)
     next(b, None)
-    return itertools.izip(a, b)
+    return zip(a, b)
 
 def RemoveClosingSlash(path):
     if path.endswith('/'):

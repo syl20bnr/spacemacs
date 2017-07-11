@@ -7,6 +7,10 @@
   - [[#features][Features]]
 - [[#install][Install]]
   - [[#layer][Layer]]
+- [[#key-bindings][Key Bindings]]
+  - [[#perldoc][Perldoc]]
+  - [[#pod-and-here-doc][POD and HERE doc]]
+  - [[#find-symbol][Find Symbol]]
 
 * Description
 This layer adds support for the Perl5 language.
@@ -19,3 +23,28 @@ This layer adds support for the Perl5 language.
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =perl5= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+* Key Bindings
+
+** Perldoc
+Browse formated perldocs.
+
+| Key Binding | Description                     |
+|-------------+---------------------------------|
+| ~SPC m h p~ | view perldoc of symbol at point |
+| ~SPC m h d~ | view perldoc of any symbol      |
+
+** POD and HERE doc
+select a POD or HERE doc
+
+| Key Binding | Description                            |
+|-------------+----------------------------------------|
+| ~SPC m v~   | select entire POD or HERE doc at point |
+
+** Find Symbol
+jump to symbol definition
+
+| Key Binding | Description                               |
+|-------------+-------------------------------------------|
+| ~SPC m g g~ | jump to symbol definition                 |
+| ~SPC m g G~ | jump to symbol definition in other window |

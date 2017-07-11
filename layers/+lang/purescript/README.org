@@ -29,7 +29,7 @@ this file.
 
 You'll also need to make sure the PureScript compiler and its associated
 binaries (psc-ide-server, psci,...) are on your path. Installation instructions
-can be found [[http://www.purescript.org/download/][here]].
+can be found [[https://github.com/purescript/documentation/blob/master/guides/Getting-Started.md][here]].
 
 * Configuration
 ** Add import on completion

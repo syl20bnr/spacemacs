@@ -2118,6 +2118,7 @@ Buffer manipulation commands (start with ~b~):
 | ~SPC b P~       | copy clipboard and replace buffer (useful when pasting from a browser)   |
 | ~SPC b R~       | revert the current buffer (reload from disk)                             |
 | ~SPC b s~       | switch to the =*scratch*= buffer (create it if needed)                   |
+| ~SPC b u~       | reopen the most recently killed file buffer                              |
 | ~SPC b w~       | toggle read-only (writable state)                                        |
 | ~SPC b Y~       | copy whole buffer to clipboard (useful when copying to a browser)        |
 | ~z f~           | Make current function or comments visible in buffer as much as possible  |

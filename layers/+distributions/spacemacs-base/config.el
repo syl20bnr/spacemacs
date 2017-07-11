@@ -205,3 +205,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; hook into `hack-local-variables' in order to allow switching spacemacs
 ;; configurations based on local variables
 (add-hook 'hack-local-variables-hook #'spacemacs//run-local-vars-mode-hook)
+
+;; Add buffer reference to internal list of killed buffers on `kill-buffer',
+;; used for restoring recently killed buffers.
+(add-hook 'kill-buffer-hook #'spacemacs//add-buffer-to-killed-list)
