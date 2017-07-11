@@ -273,9 +273,9 @@ the gtags commands.
   | ~SPC m g S~ | show stack of visited locations                           |
   | ~SPC m g y~ | find symbols                                              |
   | ~SPC m g u~ | manually update tag database                              |
-  
+
 ** Using Ivy
-  
+
   | Key Binding | Description                                     |
   |-------------+-------------------------------------------------|
   | ~SPC m g C~ | create a tag database                           |
@@ -287,4 +287,3 @@ the gtags commands.
   | ~SPC m g s~ | find definitions or references of this at point |
   | ~SPC m g S~ | find symbols                                    |
   | ~SPC m g u~ | manually update tag database                    |
-  
