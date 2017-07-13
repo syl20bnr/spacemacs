@@ -133,7 +133,8 @@
             "rc(" 'clojure-convert-collection-to-list
             "rc'" 'clojure-convert-collection-to-quoted-list
             "rc#" 'clojure-convert-collection-to-set
-            "rc[" 'clojure-convert-collection-to-vector)))
+            "rc[" 'clojure-convert-collection-to-vector
+            "rc:" 'clojure-toggle-keyword-string)))
 
       ;; cider-repl-mode only
       (spacemacs/set-leader-keys-for-major-mode 'cider-repl-mode

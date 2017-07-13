@@ -239,53 +239,54 @@ As this state works the same for all files, the documentation is in global
 
 *** Refactoring
 
-| Key Binding   | Description                 |
-|---------------+-----------------------------|
-| ~SPC m r ?~   | describe refactoring        |
-| ~SPC m r a d~ | add declaration             |
-| ~SPC m r a i~ | add import to ns            |
-| ~SPC m r a m~ | add missing libspec         |
-| ~SPC m r a p~ | add project dependency      |
-| ~SPC m r a r~ | add require to ns           |
-| ~SPC m r a u~ | add use to ns               |
-| ~SPC m r c (~ | convert coll to list        |
-| ~SPC m r c '~ | convert coll to quoted list |
-| ~SPC m r c {~ | convert coll to map         |
-| ~SPC m r c #~ | convert coll to set         |
-| ~SPC m r c [~ | convert coll to vector      |
-| ~SPC m r c i~ | cycle if                    |
-| ~SPC m r c n~ | clean ns                    |
-| ~SPC m r c p~ | cycle privacy               |
-| ~SPC m r d k~ | destructure keys            |
-| ~SPC m r e c~ | extract constant            |
-| ~SPC m r e d~ | extract definition          |
-| ~SPC m r e f~ | extract function            |
-| ~SPC m r e l~ | expand let                  |
-| ~SPC m r f u~ | find usages                 |
-| ~SPC m r f e~ | create fn from example      |
-| ~SPC m r h d~ | hotload dependency          |
-| ~SPC m r i l~ | introduce let               |
-| ~SPC m r i s~ | inline symbol               |
-| ~SPC m r m f~ | move form                   |
-| ~SPC m r m l~ | move to let                 |
-| ~SPC m r p c~ | project clean               |
-| ~SPC m r p f~ | promote function            |
-| ~SPC m r r d~ | remove debug fns            |
-| ~SPC m r r f~ | rename file                 |
-| ~SPC m r r l~ | remove let                  |
-| ~SPC m r r r~ | remove unused requires      |
-| ~SPC m r r s~ | rename symbol               |
-| ~SPC m r r u~ | replace use                 |
-| ~SPC m r s n~ | sort ns                     |
-| ~SPC m r s p~ | sort project dependencies   |
-| ~SPC m r s r~ | stop referring              |
-| ~SPC m r s c~ | show changelog              |
-| ~SPC m r t f~ | thread first all            |
-| ~SPC m r t h~ | thread                      |
-| ~SPC m r t l~ | thread last all             |
-| ~SPC m r u a~ | unwind all                  |
-| ~SPC m r u p~ | update project dependencies |
-| ~SPC m r u w~ | unwind                      |
+| Key Binding   | Description                       |
+|---------------+-----------------------------------|
+| ~SPC m r ?~   | describe refactoring              |
+| ~SPC m r a d~ | add declaration                   |
+| ~SPC m r a i~ | add import to ns                  |
+| ~SPC m r a m~ | add missing libspec               |
+| ~SPC m r a p~ | add project dependency            |
+| ~SPC m r a r~ | add require to ns                 |
+| ~SPC m r a u~ | add use to ns                     |
+| ~SPC m r c (~ | convert coll to list              |
+| ~SPC m r c '~ | convert coll to quoted list       |
+| ~SPC m r c {~ | convert coll to map               |
+| ~SPC m r c #~ | convert coll to set               |
+| ~SPC m r c [~ | convert coll to vector            |
+| ~SPC m r c :~ | toggle between keyword and string |
+| ~SPC m r c i~ | cycle if                          |
+| ~SPC m r c n~ | clean ns                          |
+| ~SPC m r c p~ | cycle privacy                     |
+| ~SPC m r d k~ | destructure keys                  |
+| ~SPC m r e c~ | extract constant                  |
+| ~SPC m r e d~ | extract definition                |
+| ~SPC m r e f~ | extract function                  |
+| ~SPC m r e l~ | expand let                        |
+| ~SPC m r f u~ | find usages                       |
+| ~SPC m r f e~ | create fn from example            |
+| ~SPC m r h d~ | hotload dependency                |
+| ~SPC m r i l~ | introduce let                     |
+| ~SPC m r i s~ | inline symbol                     |
+| ~SPC m r m f~ | move form                         |
+| ~SPC m r m l~ | move to let                       |
+| ~SPC m r p c~ | project clean                     |
+| ~SPC m r p f~ | promote function                  |
+| ~SPC m r r d~ | remove debug fns                  |
+| ~SPC m r r f~ | rename file                       |
+| ~SPC m r r l~ | remove let                        |
+| ~SPC m r r r~ | remove unused requires            |
+| ~SPC m r r s~ | rename symbol                     |
+| ~SPC m r r u~ | replace use                       |
+| ~SPC m r s n~ | sort ns                           |
+| ~SPC m r s p~ | sort project dependencies         |
+| ~SPC m r s r~ | stop referring                    |
+| ~SPC m r s c~ | show changelog                    |
+| ~SPC m r t f~ | thread first all                  |
+| ~SPC m r t h~ | thread                            |
+| ~SPC m r t l~ | thread last all                   |
+| ~SPC m r u a~ | unwind all                        |
+| ~SPC m r u p~ | update project dependencies       |
+| ~SPC m r u w~ | unwind                            |
 
 *** Reformatting
 
