@@ -66,7 +66,7 @@
                                        ("xd"  "delete")
                                        ("xg"  "google-translate")
                                        ("xl"  "lines")
-                                       ("xm"  "move")
+                                       ("xm"  "mark/move")
                                        ("xt"  "transpose")
                                        ("xw"  "words")
                                        ("z"   "zoom")))
@@ -231,7 +231,8 @@
   "iJ" 'spacemacs/insert-line-below-no-indent
   "iK" 'spacemacs/insert-line-above-no-indent
   "ik" 'spacemacs/evil-insert-line-above
-  "ij" 'spacemacs/evil-insert-line-below)
+  "ij" 'spacemacs/evil-insert-line-below
+  "iy" 'yank)
 ;; format ---------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "jo" 'open-line
@@ -243,7 +244,9 @@
 (spacemacs/set-leader-keys
   "j0" 'spacemacs/push-mark-and-goto-beginning-of-line
   "j$" 'spacemacs/push-mark-and-goto-end-of-line
+  "jc" 'goto-last-change
   "jf" 'find-function
+  "jg" 'goto-line
   "jv" 'find-variable)
 
 ;; Compilation ----------------------------------------------------------------
@@ -453,7 +456,16 @@
   "xa|" 'spacemacs/align-repeat-bar
   "xc"  'count-region
   "xd SPC" 'just-one-space
+  "xdb" 'delete-blank-lines
+  "xdd" 'delete-duplicate-lines
+  "xdl" 'kill-line
+  "xdL" 'kill-whole-line
+  "xdp" 'kill-paragraph
+  "xdr" 'kill-region
+  "xds" 'kill-sentence
+  "xdS" 'kill-sexp
   "xdw" 'delete-trailing-whitespace
+  "xdz" 'zap-to-char
   "xjc" 'set-justification-center
   "xjf" 'set-justification-full
   "xjl" 'set-justification-left
@@ -465,6 +477,13 @@
   "xls" 'spacemacs/sort-lines
   "xlS" 'spacemacs/sort-lines-reverse
   "xlu" 'spacemacs/uniquify-lines
+  "xmb" 'mark-whole-buffer
+  "xmf" 'mark-defun
+  "xmm" 'set-mark-command
+  "xmp" 'mark-paragraph
+  "xmP" 'mark-page
+  "xms" 'mark-end-of-sentence
+  "xmS" 'mark-sexp
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
   "xtw" 'transpose-words
