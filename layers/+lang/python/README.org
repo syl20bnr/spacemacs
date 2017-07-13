@@ -85,6 +85,7 @@ Syntax checking uses =flake8= package:
 #+begin_src sh
     pip install flake8
 #+end_src
+
 *** rlipython
 
 If you use IPython as your inferior python shell and the IPython version is
@@ -118,7 +119,7 @@ import rlipython; rlipython.uninstall()
 
 For more information on ~rlipython~ please refer to the Github repo:
 https://github.com/ipython/rlipython.
- 
+
 ** Test runner
 Both =nose= and =pytest= are supported. By default =nose= is used.
 To choose your test runner set the layer variable =python-test-runner= to
