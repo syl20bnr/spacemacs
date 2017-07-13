@@ -10,6 +10,7 @@
   - [[#dependencies][Dependencies]]
     - [[#auto-completion-anaconda-dependencies][Auto-completion: Anaconda dependencies]]
     - [[#syntax-checking][Syntax checking]]
+    - [[#rlipython][rlipython]]
   - [[#test-runner][Test runner]]
   - [[#automatic-buffer-formatting-on-save][Automatic buffer formatting on save]]
   - [[#autoflake][autoflake]]
@@ -84,7 +85,40 @@ Syntax checking uses =flake8= package:
 #+begin_src sh
     pip install flake8
 #+end_src
+*** rlipython
 
+If you use IPython as your inferior python shell and the IPython version is
+between 4.2+ and 5.3, you may encounter readline frontend problem (See
+https://github.com/ipython/ipython/issues/10364 and
+https://github.com/syl20bnr/spacemacs/issues/6580).
+
+From IPython 5.4+ and 6.0+, a package called ~rlipython~ brings back the classic
+readline functionality. You can fix the readline issue by upgrading to IPython
+5.4+ or 6.0+ and install the ~rlipython~ via ~pip~:
+
+#+BEGIN_SRC bash
+pip install rlipython
+#+END_SRC
+
+Then start IPython from command line and enable the classic readline
+functionality:
+
+#+BEGIN_SRC python
+import rlipython; rlipython.install()
+#+END_SRC
+
+After that you should not have trouble starting IPython with the =-i= option,
+without the =--simple-prompt= option.
+
+If you are unhappy with ~rlipython~, you can remove it by:
+
+#+BEGIN_SRC python
+import rlipython; rlipython.uninstall()
+#+END_SRC
+
+For more information on ~rlipython~ please refer to the Github repo:
+https://github.com/ipython/rlipython.
+ 
 ** Test runner
 Both =nose= and =pytest= are supported. By default =nose= is used.
 To choose your test runner set the layer variable =python-test-runner= to

@@ -27,10 +27,12 @@
 
 (defun spacemacs//python-setup-shell (&rest args)
   (if (spacemacs/pyenv-executable-find "ipython")
-      (progn (setq python-shell-interpreter "ipython")
-             (if (version< (replace-regexp-in-string "\n$" "" (shell-command-to-string "ipython --version")) "5")
-                 (setq python-shell-interpreter-args "-i")
-               (setq python-shell-interpreter-args "--simple-prompt -i")))
+      (let ((ipython-version (replace-regexp-in-string "\n$" "" (shell-command-to-string "ipython --version"))))
+        (setq python-shell-interpreter "ipython")
+        (if (and (version<= "5" ipython-version) (version< ipython-version "5.4"))
+            (setq python-shell-interpreter-args "--simple-prompt -i")
+          ;; rlipython works for 5.4+ and 6.0+
+          (setq python-shell-interpreter-args "-i")))
     (progn
       (setq python-shell-interpreter-args "-i")
       (setq python-shell-interpreter "python"))))
