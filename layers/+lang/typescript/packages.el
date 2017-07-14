@@ -47,7 +47,8 @@
         (kbd "C-j") 'tide-find-next-reference
         (kbd "C-l") 'tide-goto-reference)
       (add-hook 'typescript-mode-hook 'tide-setup)
-      (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition))
+      (add-to-list 'spacemacs-jump-handlers-typescript-mode
+                   '(tide-jump-to-definition :async t)))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'typescript-mode "mg" "goto")
