@@ -81,7 +81,7 @@
     :config
     (progn
       (when typescript-fmt-on-save
-        (add-hook 'typescript-mode-hook 'typescript/fmt-before-save-hook))
+        (add-hook 'typescript-mode-hook 'spacemacs/typescript-fmt-before-save-hook))
       (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-        "="  'typescript/format
-        "sp" 'typescript/open-region-in-playground))))
+        "="  'spacemacs/typescript-format
+        "sp" 'spacemacs/typescript-open-region-in-playground))))

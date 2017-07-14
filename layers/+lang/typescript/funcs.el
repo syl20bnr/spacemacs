@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(defun typescript/tsfmt-format-buffer ()
+(defun spacemacs/typescript-tsfmt-format-buffer ()
   "Format buffer with tsfmt."
   (interactive)
   (if (executable-find "tsfmt")
@@ -42,22 +42,22 @@
                 (delete-file tmpfile)))))
     (error "tsfmt not found. Run \"npm install -g typescript-formatter\"")))
 
-(defun typescript/format ()
+(defun spacemacs/typescript-format ()
   "Call formatting tool specified in `typescript-fmt-tool'."
   (interactive)
   (cond
    ((eq typescript-fmt-tool 'typescript-formatter)
-    (call-interactively 'typescript/tsfmt-format-buffer))
+    (call-interactively 'spacemacs/typescript-tsfmt-format-buffer))
    ((eq typescript-fmt-tool 'tide)
     (call-interactively 'tide-format))
    (t (error (concat "%s isn't valid typescript-fmt-tool value."
                      " It should be 'tide or 'typescript-formatter."
                      (symbol-name typescript-fmt-tool))))))
 
-(defun typescript/fmt-before-save-hook ()
-  (add-hook 'before-save-hook 'typescript/format t t))
+(defun spacemacs/typescript-fmt-before-save-hook ()
+  (add-hook 'before-save-hook 'spacemacs/typescript-format t t))
 
-(defun typescript/open-region-in-playground (start end)
+(defun spacemacs/typescript-open-region-in-playground (start end)
   "Open selected region in http://www.typescriptlang.org/Playground
                  If nothing is selected - open the whole current buffer."
   (interactive (if (use-region-p)
