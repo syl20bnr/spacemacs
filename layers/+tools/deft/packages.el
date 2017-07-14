@@ -38,5 +38,6 @@
               "i" 'deft-toggle-incremental-search
               "n" 'deft-new-file
               "N" 'deft-new-file-named
+              "q" 'quit-window
               "o" 'deft-open-file-other-window
               "r" 'deft-rename-file)))
