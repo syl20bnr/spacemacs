@@ -65,3 +65,23 @@
                  (list (point-min) (point-max))))
   (browse-url (concat "http://www.typescriptlang.org/Playground#src="
                       (url-hexify-string (buffer-substring-no-properties start end)))))
+
+(defun spacemacs//typescript-tsx-file-p (&optional filename)
+  "Return non-nil if file is a TSX file."
+  (let ((filename (or filename buffer-file-name)))
+    (string-equal "tsx" (file-name-extension filename))))
+
+(defun spacemacs//typescript-web-mode-enable-tide ()
+  "Enable tide when a .tsx file is opened."
+  (when (spacemacs//typescript-tsx-file-p)
+    (tide-setup)))
+
+(defun spacemacs//typescript-web-mode-enable-eldoc ()
+  "Enable eldoc when a .tsx file is opened."
+  (when (spacemacs//typescript-tsx-file-p)
+    (eldoc-mode)))
+
+(defun spacemacs//typescript-web-mode-enable-flycheck ()
+  "Enable eldoc when a .tsx file is opened."
+  (when (spacemacs//typescript-tsx-file-p)
+    (eldoc-mode)))
