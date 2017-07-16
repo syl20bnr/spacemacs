@@ -10,7 +10,7 @@
   - [[#helpers][Helpers]]
 
 * Description
-This layer activates [[info:octave-mode][octave-mode]] for files with =.m=
+This layer activates [[https://www.gnu.org/software/emacs/manual/html_mono/octave-mode.html][octave-mode]] for files with =.m=
 extensions and configures spacemacs-style key bindings.
 
 * Install
