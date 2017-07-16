@@ -371,7 +371,7 @@ An alternative to syntax checking is to build your project using
 reliable. The error navigation is similar to interactive haskell-mode.
 
 ** Troubleshooting
-Flycheck and ghc-mod can fail silently for miscellaneous reasons. See the [[FAQ]]
+Flycheck and ghc-mod can fail silently for miscellaneous reasons. See the [[#faq][FAQ]]
 for troubleshooting.
 
 * FAQ
@@ -460,18 +460,18 @@ snippet into your =dotspacemacs/user-config= function.
 
 ** Flycheck displays HLint warnings but not errors
 The HLint checker is called *after* normal flycheck checker even if the checker
-fails. Check the [[Flycheck doesn't work]] section.
+fails. Check the [[#flycheck-doesnt-work][Flycheck doesn't work]] section.
 
 ** I can see highlighted errors but they don't appear in the error list
 The error list is only set by flycheck. You are probably seeing errors
-highlighted by either ghc-mode or haskell-mode. Check the [[Flycheck doesn't work]]
+highlighted by either ghc-mode or haskell-mode. Check the [[#flycheck-doesnt-work][Flycheck doesn't work]]
 section.
 
 ** Flycheck doesn't work
 You can check what is wrong with flycheck with the =flycheck-compile= command.
 This will show you the exact command line used and its output.
 
-If you are using stack, check the [[Flycheck doesn't work with =stack=]] section.
+If you are using stack, check the [[#flycheck-doesnt-work-with-stack][Flycheck doesn't work with =stack=]] section.
 
 ** Flycheck doesn't work with =stack=
 First check that flycheck uses the correct checker and all the paths are

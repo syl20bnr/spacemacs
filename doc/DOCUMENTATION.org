@@ -263,7 +263,7 @@ project.
 
 * Who can benefit from this?
 - Spacemacs was initially intended to be used by *Vim users* who want to go to
-  the next level by using Emacs (see [[file:VIMUSERS.org][guide]] for Vimmers). But it is now
+  the next level by using Emacs (see [[https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org][guide]] for Vimmers). But it is now
   perfectly *usable by non Vim users* by choosing the =emacs= editing style.
 
 - It is also a good fit for people wanting to *lower the [[https://en.wikipedia.org/wiki/Repetitive_strain_injury][risk of RSI]]* induced by
@@ -329,7 +329,7 @@ and choosing a rollback slot (sorted by date). This button uses the command
 
 * Configuration layers
 This section is an overview of layers. A more extensive introduction to writing
-configuration layers can be found [[file:LAYERS.org][here]] (recommended reading!).
+configuration layers can be found [[https://github.com/syl20bnr/spacemacs/blob/master/doc/LAYERS.org][here]] (recommended reading!).
 
 ** Purpose
 Layers help collect related packages together to provide features. For example,
@@ -393,7 +393,7 @@ properly. For instance if package =A= depends on =B= then you can configure
 (with-eval-after-load 'B ...)
 #+END_SRC
 
-For details on installing packages using quelpa or local packages see [[file:LAYERS.org::packages.el][LAYERS]].
+For details on installing packages using quelpa or local packages see [[https://github.com/syl20bnr/spacemacs/blob/master/doc/LAYERS.org#packagesel][LAYERS]].
 
 **** Initialization
 To initialize a package =xxx=, define a function with this format in
@@ -589,7 +589,7 @@ To use a configuration layer, declare it in your dotfile by adding it to the
 *Note:* In this documentation a =used layer= is equivalent to a =declared
 layer=.
 
-For instance, [[Thank you][RMS]] can add his private configuration layer like this:
+For instance, [[#thank-you][RMS]] can add his private configuration layer like this:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
@@ -984,9 +984,9 @@ can be bound in your =~/.spacemacs= file or in individual layers.
 
 * GUI Elements
 Spacemacs has a minimalistic and distraction free graphical UI:
-  - custom [[https://github.com/milkypostman/powerline][powerline]] mode-line [[Flycheck integration][with color feedback]] according to current [[https://github.com/flycheck/flycheck][Flycheck]] status
+  - custom [[https://github.com/milkypostman/powerline][powerline]] mode-line [[#flycheck-integration][with color feedback]] according to current [[https://github.com/flycheck/flycheck][Flycheck]] status
   - Unicode symbols for minor mode lighters which appear in the mode-line
-  - [[Errors handling][custom fringe bitmaps]] and error feedbacks for [[https://github.com/flycheck/flycheck][Flycheck]]
+  - [[#errors-handling][custom fringe bitmaps]] and error feedbacks for [[https://github.com/flycheck/flycheck][Flycheck]]
 
 ** Color themes
 *** Default theme
