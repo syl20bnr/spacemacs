@@ -8,6 +8,7 @@
   - [[#pre-requisites][Pre-requisites]]
   - [[#layer][Layer]]
   - [[#notes][Notes]]
+- [[#configuration][Configuration]]
 - [[#key-bindings][Key bindings]]
   - [[#typescript-major-mode][Typescript Major Mode]]
   - [[#reference-major-mode][Reference Major Mode]]
@@ -76,11 +77,26 @@ This layer uses:
 
 Make sure to add [[https://github.com/Microsoft/TypeScript/wiki/tsconfig.json][tsconfig.json]] in the project root folder.
 
-tsserver mangles output sometimes [[https://github.com/Microsoft/TypeScript/issues/2758][issue - #2758]], which will result in json parse error. Try node version 0.12.x if you get this error.
+tsserver mangles output sometimes [[https://github.com/Microsoft/TypeScript/issues/2758][issue - #2758]], which will result in json parse
+error. Try node version 0.12.x if you get this error.
 
 Send to playground requires browser.
 
-Currently tsserver doesn't pickup tsconfig.json file changes. You might need to restart server after editing it.
+Currently tsserver doesn't pickup tsconfig.json file changes. You might need to
+restart server after editing it.
+
+* Configuration
+Tide comes with an embedded Typescript server, it is recommended to use the
+server intalled by =npm= instead. To do so set the variable
+=tide-tsserver-executable= to the path of the =tsserver= executable.
+
+For example:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(
+  (typescript :variables
+              tide-tsserver-executable "/usr/local/bin/tsserver")))
+#+END_SRC
 
 * Key bindings
 
