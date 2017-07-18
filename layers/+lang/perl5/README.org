@@ -16,7 +16,9 @@
 This layer adds support for the Perl5 language.
 
 ** Features
-- syntactic and semantic checking using [[https://github.com/flycheck/flycheck][flycheck]]
+- syntactic and semantic checking via flycheck with =perl -c= and =plsense=
+- jump to symbol via dump jump
+- interactive debug via [[https://github.com/realgud/realgud][realgud]] with [[http://search.cpan.org/~rocky/Devel-Trepan-0.73/lib/Devel/Trepan.pm][trepan.pl]]
 
 * Install
 ** Layer
