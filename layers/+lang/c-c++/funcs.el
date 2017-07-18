@@ -136,15 +136,6 @@ and the arguments for flyckeck-clang based on a project-specific text file."
                           idirafter-paths)))))
 
 
-;; realgud
-
-(defun spacemacs//short-key-state (modeon)
-  "Set evil-evilified-state explicitly."
-  (if modeon
-      (evil-evilified-state)
-    (evil-normal-state)))
-
-
 ;; rtags
 
 (defun spacemacs/c-c++-use-rtags (&optional useFileManager)
