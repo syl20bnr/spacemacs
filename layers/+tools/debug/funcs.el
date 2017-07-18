@@ -27,5 +27,3 @@ Therefore you should add it to a pre-init-realgud definition"
     (add-to-list 'debug-autoload-debuggers dbg-name)
     (spacemacs/set-leader-keys-for-major-mode mode
       "dd" dbg-name)))
-
-
