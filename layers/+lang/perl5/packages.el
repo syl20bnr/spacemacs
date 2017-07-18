@@ -15,6 +15,7 @@
         (cperl-mode :location built-in)
         flycheck
         smartparens
+        realgud
         ))
 
 (defun perl5/init-company-plsense ()
@@ -22,8 +23,8 @@
     :defer t
     :init
     (spacemacs|add-company-backends
-      :backends company-plsense
-      :modes cperl-mode)))
+     :backends company-plsense
+     :modes cperl-mode)))
 
 (defun perl5/init-cperl-mode ()
   (use-package cperl-mode
@@ -116,7 +117,7 @@
         "v" 'cperl-select-this-pod-or-here-doc)
 
       (font-lock-add-keywords 'cperl-mode
-                              '(("\\_<say\\_>" . cperl-nonoverridable-face))))))
+                      '(("\\_<say\\_>" . cperl-nonoverridable-face))))))
 
 (defun perl5/post-init-flycheck ()
   (spacemacs/enable-flycheck 'cperl-mode))
@@ -126,3 +127,6 @@
   (with-eval-after-load 'cperl-mode
     (add-hook 'smartparens-enabled-hook 'spacemacs//perl5-smartparens-enable)
     (add-hook 'smartparens-disabled-hook 'spacemacs//perl5-spartparens-disable)))
+
+(defun perl5/post-init-realgud()
+  (spacemacs/add-realgud-debugger 'cperl-mode "trepan.pl"))
