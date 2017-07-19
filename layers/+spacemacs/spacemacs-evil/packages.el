@@ -172,7 +172,10 @@
         (kbd dotspacemacs-leader-key) spacemacs-default-map)
       (spacemacs//iedit-insert-state-hybrid dotspacemacs-editing-style)
       (add-hook 'spacemacs-editing-style-hook
-                #'spacemacs//iedit-insert-state-hybrid))))
+                #'spacemacs//iedit-insert-state-hybrid)
+      ;; enable kill ring cycling with `C-n' and `C-p' after pasting
+      (define-key evil-iedit-state-map "p"
+        'spacemacs/evil-iedit-state/paste-replace))))
 
 (defun spacemacs-evil/init-evil-indent-plus ()
   (use-package evil-indent-plus

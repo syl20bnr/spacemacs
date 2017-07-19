@@ -83,6 +83,13 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
 
 ;; multiple-cursors
 
+(defun spacemacs/evil-iedit-state/paste-replace (count)
+  "Enable `C-n' and `C-p' for cycling the kill ring after pasting in
+iedit-state."
+  (interactive "P")
+  (setq this-command 'evil-paste-before)
+  (evil-iedit-state/paste-replace count))
+
 (defun spacemacs//paste-transient-state-p ()
   "Return non-nil if the paste transient state is enabled."
   (and dotspacemacs-enable-paste-transient-state
