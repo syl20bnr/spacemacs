@@ -27,6 +27,7 @@
         (term :location built-in)
         xterm-color
         vi-tilde-fringe
+        window-purpose
         ))
 
 (defun shell/init-comint ()
@@ -274,3 +275,10 @@
                             eshell-mode-hook
                             shell-mode-hook
                             term-mode-hook)))
+
+(defun shell/post-init-window-purpose ()
+  (purpose-set-extension-configuration
+   :shell-layer
+   (purpose-conf
+    :mode-purposes '((eshell-mode . terminal)
+                     (term-mode . terminal)))))
