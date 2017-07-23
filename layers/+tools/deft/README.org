@@ -1,12 +1,12 @@
 #+TITLE: Deft layer
 
 * Table of Content                                          :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#differences-from-default][Differences from default]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#configuration][Configuration]]
- - [[#key-bindings][Key Bindings]]
+- [[#description][Description]]
+  - [[#differences-from-default][Differences from default]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#configuration][Configuration]]
+- [[#key-bindings][Key Bindings]]
 
 * Description
 [[http://jblevins.org/projects/deft/][Deft]] is an Emacs mode inspired by =Notational Velocity= for quickly
