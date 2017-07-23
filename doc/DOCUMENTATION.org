@@ -1289,7 +1289,7 @@ Note the these colors may vary depending on your theme.
 
 **** Powerline separators
 It is possible to easily customize the =powerline separator= by setting the
-=powerline-default-separator= variable in your =~./spacemacs= and then
+=powerline-default-separator= variable in your =~/.spacemacs= and then
 recompiling the modeline. For instance if you want to set back the separator to
 the well-known =arrow= separator add the following snippet to your configuration
 file:
@@ -3296,7 +3296,7 @@ See [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.htm
 
 ** Keeping the server alive
 It is possible to keep the server alive when you close Emacs by setting the
-variable =dotspacemacs-persistent-server= to =t= in your =~./spacemacs=.
+variable =dotspacemacs-persistent-server= to =t= in your =~/.spacemacs=.
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-persistent-server t)
