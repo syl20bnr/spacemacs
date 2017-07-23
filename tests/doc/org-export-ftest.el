@@ -53,44 +53,12 @@
       (setq current-directory-list (cdr current-directory-list)))
     files-list))
 
-;; ---------------------------------------------------------------------------
+;; -----------------------------------------------------------------------------
 ;; Spacemacs Documentation HTML Export Test
 ;; Currently checks whether all org documentation files can be converted to html
-;; ---------------------------------------------------------------------------
+;; -----------------------------------------------------------------------------
 (ert-deftest test-spacemacs-html-export ()
   (unwind-protect (spacemacs/publish-doc)
     (delete-directory (concat spacemacs-start-directory
                               "export/")
-                      t))
-  ;; Activate this to check all external links, beware don't try this on travis bandwith limits will prevent this from finishing
-  ;;
-  ;; (let ((allFiles (directory-files-recursive_ForOldEmacs (concat spacemacs-start-directory "export/") "\\.html" 9999 "NeverIgnore")))
-  ;;   (dolist (file allFiles)
-  ;;     (when (file-readable-p file)
-  ;;        (with-temp-buffer
-  ;;          (message "%s" file)
-  ;;          (insert-file-contents file)
-  ;;          (while (re-search-forward "\\(?:href\\|src\\)[ \n]*=[ \n]*\"\\([^\"]+?\\)\"" nil t)
-
-  ;;              ;;Start url validation
-  ;;              (let ((url (match-string 1))
-  ;;                    (p-current (point))
-  ;;                    (p-mb (match-beginning 0)))
-  ;;                (save-excursion
-  ;;                  (search-backward "<" nil t)
-  ;;                  (setq p1 (point))
-  ;;                  (search-forward ">" nil t)
-  ;;                  (setq p2 (point)))
-
-  ;;                (when (and (< p1 p-mb) (< p-current p2) ) ; the “href="…"” is inside <…>
-  ;;                  (if (string-match "^http://\\|^https://" url)
-  ;;                      (progn
-  ;;                        ;; (message "%s%s" "Checking " url)
-  ;;                        (url-retrieve-synchronously url t t)
-  ;;                        )
-  ;;                        ;; Checking for internal links not done yet
-  ;;                        ;; (progn
-  ;;                        ;;   (message "%s%s" "Checking " (concat "file://" url))
-  ;;                        ;;   (url-retrieve-synchronously (concat "file://" url) t))
-  ;;                        ))))))))
-  )
+                      t)))
