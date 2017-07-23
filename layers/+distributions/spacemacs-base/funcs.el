@@ -297,6 +297,10 @@ projectile cache when it's possible and update recentf list."
              (let ((dir (file-name-directory new-name)))
                (when (and (not (file-exists-p dir)) (yes-or-no-p (format "Create directory '%s'?" dir)))
                  (make-directory dir t)))
+             ;; if new-name is a directory, append name to it
+             (if (file-directory-p new-name)
+                 (setq new-name (concat (directory-file-name new-name) "/"
+                                        (file-name-nondirectory filename))))
              (rename-file filename new-name 1)
              (when buffer
                (kill-buffer buffer)
@@ -332,6 +336,9 @@ initialized with the current filename."
                               (yes-or-no-p
                                (format "Create directory '%s'?" dir)))
                      (make-directory dir t)))
+                 ;; if new-name is a directory, append name to it
+                 (if (file-directory-p new-name)
+                     (setq new-name (concat (directory-file-name new-name) "/" name)))
                  (rename-file filename new-name 1)
                  (rename-buffer new-name)
                  (set-visited-file-name new-name)
