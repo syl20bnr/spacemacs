@@ -24,6 +24,5 @@
       (add-hook 'emacs-startup-hook
                 (lambda () (spacemacs/set-leader-keys
                          dotspacemacs-emacs-command-key 'spacemacs/smex)))
-      (spacemacs/declare-prefix-for-mode major-mode "m:" "major-command")
-      (spacemacs/set-leader-keys-for-major-mode major-mode ":" 'spacemacs/smex-major-mode-commands)
+      (spacemacs/set-leader-keys "m:" 'spacemacs/smex-major-mode-commands)
       (global-set-key (kbd "M-x") 'spacemacs/smex))))
