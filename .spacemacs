@@ -68,7 +68,10 @@ values."
      ;; evil-commentary
      evil-commentary
      ;; track programming time
-     wakatime
+     (wakatime :variables
+               wakatime-api-key  "dd8afe5b-62bb-4d7c-aafc-569578d758da"
+               ;; use the actual wakatime path
+               wakatime-cli-path "/usr/local/bin/wakatime")
      ;; magit support
      git
      ;; feature like tagbar in vim
@@ -340,6 +343,36 @@ you should place your code here."
   (spacemacs/toggle-line-numbers-on)
   ;; enable projectile files caching to speed up files indexing time
   (setq projectile-enable-caching t)
+  ;; TODO keywords, C-S-left/right select the top sequence, key "t" cycle through inner state
+
+  ;; set default taglist and shortcut key
+  (setq org-tag-alist '(("work" . ?w) ("personal" . ?p) ("study" . ?s) ("interest" . ?i) ("@office" . ?o) ("@home" . ?h)))
+  ;; recursively load org files under worklog directories
+  (load-library "find-lisp")
+  (setq org-agenda-files (find-lisp-find-files "/opt/workspace/worklog/" "\.org$"))
+  (setq org-todo-keywords
+        '((sequence "TODO" "IN-PROGRESS" "BLOCKED" "REVIEW" "|" "DONE" "DELEGATED")
+          (sequence "REPORT" "BUG" "KNOWNCAUSE" "|" "FIXED")
+          (sequence "|" "CANCELED")))
+  ;; set different color for different TODOs
+  (setq org-todo-keyword-faces
+        (quote (("TODO" :foreground "orange" :weight bold)
+                ("IN-PROGRESS" :foreground "blue" :weight bold)
+                ("BLOCKED" :foreground "dark orange" :weight bold)
+                ("REVIEW" :foreground "cyan" :weight bold)
+                ("DONE" :foreground "forest green" :weight bold)
+                ("DELEGATED" :foreground "forest green" :weight bold)
+                ("CANCELLED" :foreground "forest green" :weight bold)
+                ("REPROT" :foreground "orange" :weight bold)
+                ("BUG" :foreground "orange" :weight bold)
+                ("KOWNCAUSE" :foreground "dark orange" :weight bold)
+                ("FIXED" :foreground "forest green" :weight bold))))
+  ;; capture time stamps and/or notes when TODO state changes, in particular when a task is DONE
+  (setq org-startup-folded t)
+  ;; capture time stamps and/or notes when TODO state changes, in particular when a task is DONE
+  (setq org-log-done 'time)
+  ;; unfinished children block state changes in the parent
+  (setq org-enforce-todo-dependencies t)
   ;; treat the _ character as a word constituent
   (modify-syntax-entry ?_ "w")
   ;; For python
@@ -348,6 +381,12 @@ you should place your code here."
   (add-hook 'c-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   ;; For c++
   (add-hook 'c++-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  ;; toggle visible mode
+  (global-set-key (kbd "C-c t") 'visible-mode)
+  ;; find counterpart header or source files 
+  (spacemacs/set-leader-keys "px" 'ff-find-other-file)
+  ;; hight word-at-point
+  (spacemacs/set-leader-keys "pn" 'hi-lock-face-symbol-at-point)
 
   ;; enable that TODO files are added to the agenda automatically.
   ;; (with-eval-after-load 'org-agenda
@@ -364,7 +403,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("/opt/workspace/worklog/linux/linux_web_resources.org" "/opt/workspace/worklog/android/arm-v5xx/memory_management.org" "/opt/workspace/worklog/linux/mm/memoryManagement.org" "/opt/workspace/worklog/android/multimedia/memory_manager.org" "/opt/workspace/worklog/TODOs.org" "/opt/workspace/worklog/git/branching.org" "/opt/workspace/worklog/work/r4p1.org" "/opt/workspace/worklog/ide/emacs/spacemacs/navigating.org" "/opt/workspace/worklog/linux/utils/binUtils.org" "/opt/workspace/worklog/linux/mm/DMA.org" "/opt/workspace/worklog/cpp/build.org" "/opt/workspace/worklog/ide/emacs/org/orgmode.org" "/opt/workspace/worklog/vlc/libvlc.org" "/opt/workspace/worklog/vlc/develop-vlc.org" "/opt/workspace/worklog/android/debug/kernel/camera_anr.org" "/opt/workspace/worklog/android/graphics/BufferQueue.org" "/opt/workspace/worklog/android/debugUtils/unitTest.org" "/opt/workspace/worklog/graphics/graphics_overview.org" "/opt/workspace/worklog/git/branching.org" "/opt/workspace/worklog/git/gitNote.org"))))
+    ("/opt/workspace/worklog/git/gerrit.org" "/opt/workspace/worklog/git/navigating.org" "/opt/workspace/worklog/git/gitNote.org" "/opt/workspace/worklog/git/commitAdd.org" "/opt/workspace/worklog/git/branching.org" "/opt/workspace/worklog/graphics/opengc.org" "/opt/workspace/worklog/graphics/opencv.org" "/opt/workspace/worklog/graphics/graphics_overview.org" "/opt/workspace/worklog/android/debugUtils/debugSkills.org" "/opt/workspace/worklog/android/debugUtils/unitTest.org" "/opt/workspace/worklog/android/debugUtils/androidDeviceMonitor.org" "/opt/workspace/worklog/android/graphics/debug_tool.org" "/opt/workspace/worklog/android/graphics/DRM_GPU.org" "/opt/workspace/worklog/android/graphics/graphics_notes.org" "/opt/workspace/worklog/android/graphics/BufferQueue.org" "/opt/workspace/worklog/android/arm-v5xx/memory_management.org" "/opt/workspace/worklog/android/multimedia/mediaserver.org" "/opt/workspace/worklog/android/multimedia/omx.org" "/opt/workspace/worklog/android/multimedia/memory_manager.org" "/opt/workspace/worklog/android/multimedia/miui.videoplayer.org" "/opt/workspace/worklog/android/multimedia/miracast.org" "/opt/workspace/worklog/android/multimedia/media.extractor.org" "/opt/workspace/worklog/android/multimedia/media.codec.org" "/opt/workspace/worklog/android/multimedia/screenrecored.org" "/opt/workspace/worklog/android/multimedia/cts.org" "/opt/workspace/worklog/android/multimedia/NDKMediaCodec.org" "/opt/workspace/worklog/android/multimedia/stagefright.org" "/opt/workspace/worklog/android/kernel/build.org" "/opt/workspace/worklog/android/debug/bugreport/analyzeSkill.org" "/opt/workspace/worklog/android/debug/kernel/porting2Linux4.9.org" "/opt/workspace/worklog/android/debug/kernel/camera_anr.org" "/opt/workspace/worklog/guruBlog/famous_sites.org" "/opt/workspace/worklog/guruBlog/bloglist.org" "/opt/workspace/worklog/vlc/vlc-android.org" "/opt/workspace/worklog/vlc/develop-vlc.org" "/opt/workspace/worklog/vlc/debug-vlc.org" "/opt/workspace/worklog/vlc/core-vlc.org" "/opt/workspace/worklog/vlc/libvlc.org" "/opt/workspace/worklog/vlc/buildVLC.org" "/opt/workspace/worklog/work/camera.org" "/opt/workspace/worklog/work/how2useScons.org" "/opt/workspace/worklog/work/develop_env.org" "/opt/workspace/worklog/work/checklist4push.org" "/opt/workspace/worklog/work/r4p1.org" "/opt/workspace/worklog/work/uav/TODO.org" "/opt/workspace/worklog/work/lessonlearn.org" "/opt/workspace/worklog/work/mali_v61.org" "/opt/workspace/worklog/work/cts.org" "/opt/workspace/worklog/ide/vim/edit.org" "/opt/workspace/worklog/ide/vim/ide.org" "/opt/workspace/worklog/ide/vim/navigation.org" "/opt/workspace/worklog/ide/vim/debug.org" "/opt/workspace/worklog/ide/emacs/org/org-agenda.org" "/opt/workspace/worklog/ide/emacs/org/org-basics.org" "/opt/workspace/worklog/ide/emacs/org/org_notes.org" "/opt/workspace/worklog/ide/emacs/org/orgmode.org" "/opt/workspace/worklog/ide/emacs/org/org-keybindings.org" "/opt/workspace/worklog/ide/emacs/mail/mu4e.org" "/opt/workspace/worklog/ide/emacs/spacemacs/keybinds.org" "/opt/workspace/worklog/ide/emacs/spacemacs/navigating.org" "/opt/workspace/worklog/ide/emacs/spacemacs/layers.org" "/opt/workspace/worklog/ide/emacs/spacemacs/spacemacs.org" "/opt/workspace/worklog/ide/emacs/ide/gdb.org" "/opt/workspace/worklog/ide/emacs/debug_learn/org_learn.org" "/opt/workspace/worklog/ide/emacs/os_like/web_browser.org" "/opt/workspace/worklog/cpp/tips.org" "/opt/workspace/worklog/cpp/build.org" "/opt/workspace/worklog/cpp/syntax.org" "/opt/workspace/worklog/cpp/linking.org" "/opt/workspace/worklog/linux/linux_web_resources.org" "/opt/workspace/worklog/linux/multiThread/thread.org" "/opt/workspace/worklog/linux/mm/memoryMap.org" "/opt/workspace/worklog/linux/mm/DMA.org" "/opt/workspace/worklog/linux/mm/memoryManagement.org" "/opt/workspace/worklog/linux/utils/binUtils.org" "/opt/workspace/worklog/linux/utils/debug_tools.org" "/opt/workspace/worklog/linux/ubuntu/install-SW.org" "/opt/workspace/worklog/linux/io/IOgeneral.org" "/opt/workspace/worklog/linux/multimedia/V4L.org" "/opt/workspace/worklog/linux/multimedia/memory_management.org" "/opt/workspace/worklog/linux/kernel/kconfig.org" "/opt/workspace/worklog/linux/kernel/devicetree.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
