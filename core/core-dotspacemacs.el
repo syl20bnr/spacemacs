@@ -35,6 +35,10 @@
 SPACEMACSDIR environment variable. If neither of these
 directories exist, this variable will be nil.")
 
+  ;; add dotspacemacs-directory to the load-path if present
+  (when dotspacemacs-directory
+    (add-to-load-path dotspacemacs-directory))
+
   (defvar dotspacemacs-filepath
     (let ((spacemacs-dir-init (when dotspacemacs-directory
                                  (concat dotspacemacs-directory
