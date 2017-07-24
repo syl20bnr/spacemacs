@@ -16,19 +16,20 @@
 ;; Spacemacs-EDN (intermediate documentation format)
 ;; ------------------------------------------------------------------------
 (ert-deftest test-spacemacs-edn-export ()
-  (when (version<= "25.0.0" emacs-version)
+  (if (version<= "25.0.0" emacs-version)
     (unwind-protect
         (progn
           (message "=======================================================")
-          (message "Testing Spacemacs-EDN export+")
+          (message "Testing Spacemacs-EDN export STARTED")
           (message "=======================================================")
           (require 'core-documentation-edn)
           (spacemacs/publish-docs-to-edn-concurrently)
           (message "=======================================================")
-          (message "Testing Spacemacs-EDN export-")
+          (message "Testing Spacemacs-EDN export ENDED")
           (message "======================================================="))
       (let ((export-dir (concat spacemacs-start-directory "export/")))
         (if (file-accessible-directory-p export-dir)
             (delete-directory export-dir t)
           (error "\"%s\" doesn't exist. We haven't exported anything :("
-                 export-dir))))))
+                 export-dir))))
+    (error "core-documentation-edn requires Emacs 25+ (for now)")))
