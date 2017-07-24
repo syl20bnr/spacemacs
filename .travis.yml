@@ -20,6 +20,7 @@ env:
   - TESTS=doc EVM_EMACS=emacs-24.5-travis
   - TESTS=doc EVM_EMACS=emacs-25.1-travis
   - TESTS=doc EVM_EMACS=emacs-git-snapshot-travis
+  - TESTS=doc-edn EVM_EMACS=emacs-25.1-travis
   - PUBLISH=spacemacs.org EVM_EMACS=emacs-25.1-travis BOT_NAME=emacspace BOT_EMAIL=emacspace@gmail.com
   - PUBLISH=develop.spacemacs.org EVM_EMACS=emacs-25.1-travis BOT_NAME=emacspace BOT_EMAIL=emacspace@gmail.com
   global:
