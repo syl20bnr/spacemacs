@@ -1463,10 +1463,12 @@ wether the declared layer is an used one or not."
 (defun configuration-layer//lazy-install-packages (layer-name mode)
   "Install layer with LAYER-NAME to support MODE."
   (when (or (not dotspacemacs-ask-for-lazy-installation)
-            (yes-or-no-p (format
-                          (concat "Support for %s requires installation of "
-                                  "layer %s, do you want to install it?")
-                          mode layer-name)))
+            (and
+             (not noninteractive)
+             (yes-or-no-p (format
+                           (concat "Support for %s requires installation of "
+                                   "layer %s, do you want to install it?")
+                           mode layer-name))))
     (when (dotspacemacs/add-layer layer-name)
       (let (spacemacs-sync-packages)
         (configuration-layer/load)))
