@@ -85,7 +85,6 @@
 CONTENTS is the text with bold markup.  INFO is a plist holding
 contextual information."
   (format "#Spacemacs/Org-bold{:contents [%s]}" contents))
-(byte-compile 'spacemacs//org-edn-bold)
 
 ;;;; Center Block
 
@@ -94,7 +93,6 @@ contextual information."
 CONTENTS holds the contents of the block.  INFO is a plist
 holding contextual information."
   (format "#Spacemacs/Org-center-block{:contents [%s]}" contents))
-(byte-compile 'spacemacs//org-edn-center-block)
 
 ;;;; Clock
 
@@ -105,7 +103,6 @@ channel."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-clock")
   "")
-(byte-compile 'spacemacs//org-edn-clock)
 
 ;;;; Code
 
@@ -123,7 +120,6 @@ NOTE: In Spacemacs ~code blocks~ are key sequences."
                      (org-element-property :value code)
                      " "
                      "\\s*"))))))
-(byte-compile 'spacemacs//org-edn-code)
 
 ;;;; Drawer
 
@@ -134,7 +130,6 @@ holding contextual information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-drawer")
   "")
-(byte-compile 'spacemacs//org-edn-drawer)
 
 ;;;; Dynamic Block
 
@@ -145,7 +140,6 @@ holding contextual information.  See `org-export-data'."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-dynamic-block")
   "")
-(byte-compile 'spacemacs//org-edn-dynamic-block)
 
 ;;;; Entity
 
@@ -156,7 +150,6 @@ contextual information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-entity")
   "")
-(byte-compile 'spacemacs//org-edn-entity)
 
 ;;;; Example Block
 
@@ -167,7 +160,6 @@ information."
   (format "#Spacemacs/Org-example-block{:value \"%s\"}"
           (spacemacs/org-edn-escape-string
            (org-element-property :value example-block))))
-(byte-compile 'spacemacs//org-edn-example-block)
 
 ;;;; Export Block
 
@@ -177,7 +169,6 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-export-block")
   "")
-(byte-compile 'spacemacs//org-edn-export-block)
 
 ;;;; Export Snippet
 
@@ -188,7 +179,6 @@ information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-export-snippet")
   "")
-(byte-compile 'spacemacs//org-edn-export-snippet)
 
 ;;;; Fixed Width
 
@@ -198,7 +188,6 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-fixed-width")
   "")
-(byte-compile 'spacemacs//org-edn-fixed-width)
 
 ;;;; Footnote Reference
 
@@ -209,7 +198,6 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-footnote-reference")
   "")
-(byte-compile 'spacemacs//org-edn-footnote-reference)
 
 ;;;; Headline
 
@@ -245,7 +233,6 @@ holding contextual information."
              (spacemacs/org-edn-headline-make-nesting-id headline))
             level
             contents)))
-(byte-compile 'spacemacs//org-edn-headline)
 
 ;;;; Horizontal Rule
 
@@ -255,7 +242,6 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-horizontal-rule")
   "")
-(byte-compile 'spacemacs//org-edn-horizontal-rule)
 
 ;;;; Inline Src Block
 
@@ -266,7 +252,6 @@ contextual information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-inline-src-block")
   "")
-(byte-compile 'spacemacs//org-edn-inline-src-block)
 
 ;;;; Inlinetask
 
@@ -277,7 +262,6 @@ holding contextual information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-inlinetask")
   "")
-(byte-compile 'spacemacs//org-edn-inlinetask)
 
 ;;;; Inner Template
 
@@ -286,7 +270,6 @@ holding contextual information."
 CONTENTS is the transcoded contents string.  INFO is a plist
 holding export options."
   (format "#Spacemacs/Org-inner-template{:contents [%s]}" contents))
-(byte-compile 'spacemacs//org-edn-inner-template)
 
 ;;;; Italic
 
@@ -295,7 +278,6 @@ holding export options."
 CONTENTS is the text with italic markup.  INFO is a plist holding
 contextual information."
   (format "#Spacemacs/Org-italic{:contents [%s]}" contents))
-(byte-compile 'spacemacs//org-edn-italic)
 
 ;;;; Item
 
@@ -327,7 +309,6 @@ contextual information."
             (spacemacs/org-edn-escape-string
              (format "%s" (org-element-property :tag item)))
             contents)))
-(byte-compile 'spacemacs//org-edn-item)
 
 ;;;; Keyword
 
@@ -339,7 +320,6 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
            (org-element-property :key keyword))
           (spacemacs/org-edn-escape-string
            (org-element-property :value keyword))))
-(byte-compile 'spacemacs//org-edn-keyword)
 
 ;;;; Latex Environment
 
@@ -349,7 +329,6 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-latex-environment")
   "")
-(byte-compile 'spacemacs//org-edn-latex-environment)
 
 ;;;; Latex Fragment
 
@@ -359,7 +338,6 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-latex-fragment")
   "")
-(byte-compile 'spacemacs//org-edn-latex-fragment)
 
 ;;;; Line Break
 
@@ -367,7 +345,6 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
   "Transcode a LINE-BREAK object From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual information."
   "#Spacemacs/Org-line-break{}")
-(byte-compile 'spacemacs//org-edn-line-break)
 
 ;;;; Link
 
@@ -445,7 +422,6 @@ INFO is a plist holding contextual information.  See
               raw-link
               file
               type)))))
-(byte-compile 'spacemacs//org-edn-link)
 
 ;;;; Node Property
 
@@ -456,7 +432,6 @@ information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-node-property")
   "")
-(byte-compile 'spacemacs//org-edn-node-property)
 
 ;;;; Paragraph
 
@@ -465,7 +440,6 @@ information."
 CONTENTS is the contents of the paragraph, as a string.  INFO is
 the plist used as a communication channel."
   (format "#Spacemacs/Org-paragraph{:contents [%s]}" contents))
-(byte-compile 'spacemacs//org-edn-paragraph)
 
 ;;;; Plain List
 
@@ -518,7 +492,6 @@ contextual information."
       (format "#Spacemacs/Org-plain-list{:type %s :contents [%s]}"
               type
               contents))))
-(byte-compile 'spacemacs//org-edn-plain-list)
 
 ;;;; Plain Text
 
@@ -528,7 +501,6 @@ TEXT is the string to transcode.  INFO is a plist holding
 contextual information."
   (format "#Spacemacs/Org-plain-text{:text \"%s\"}"
           (spacemacs/org-edn-escape-string text)))
-(byte-compile 'spacemacs//org-edn-plain-text)
 
 ;;;; Planning
 
@@ -539,7 +511,6 @@ channel."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-planning")
   "")
-(byte-compile 'spacemacs//org-edn-planning)
 
 ;;;; Property Drawer
 
@@ -550,7 +521,6 @@ holding contextual information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-property-drawer")
   "")
-(byte-compile 'spacemacs//org-edn-property-drawer)
 
 ;;;; Quote Block
 
@@ -559,7 +529,6 @@ holding contextual information."
 CONTENTS holds the contents of the block.  INFO is a plist
 holding contextual information."
   (format "#Spacemacs/Org-quote-block{:contents [%s]}" contents))
-(byte-compile 'spacemacs//org-edn-quote-block)
 
 ;;;; Radio Target
 
@@ -570,7 +539,6 @@ contextual information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-radio-target")
   "")
-(byte-compile 'spacemacs//org-edn-radio-target)
 
 ;;;; Section
 
@@ -579,7 +547,6 @@ contextual information."
 CONTENTS holds the contents of the section.  INFO is a plist
 holding contextual information."
   (format "#Spacemacs/Org-section{:contents [%s]}" contents))
-(byte-compile 'spacemacs//org-edn-section)
 
 ;;;; Special Block
 
@@ -590,7 +557,6 @@ holding contextual information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-special-block")
   "")
-(byte-compile 'spacemacs//org-edn-special-block)
 
 ;;;; Src Block
 
@@ -602,7 +568,6 @@ CONTENTS is nil. INFO is a plist holding contextual information."
            (org-element-property :language src-block))
           (spacemacs/org-edn-escape-string
            (org-element-property :value src-block))))
-(byte-compile 'spacemacs//org-edn-src-block)
 
 ;;;; Statistics Cookie
 
@@ -612,7 +577,6 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-statistics-cookie")
   "")
-(byte-compile 'spacemacs//org-edn-statistics-cookie)
 
 ;;;; Strike-Through
 
@@ -621,7 +585,6 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
 CONTENTS is the text with strike-through markup.  INFO is a plist
 holding contextual information."
   (format "#Spacemacs/Org-strike-through{:contents [%s]}" contents))
-(byte-compile 'spacemacs//org-edn-strike-through)
 
 ;;;; Subscript
 
@@ -630,7 +593,6 @@ holding contextual information."
 CONTENTS is the contents of the object.  INFO is a plist holding
 contextual information."
   (format "#Spacemacs/Org-subscript{:contents [%s]}" contents))
-(byte-compile 'spacemacs//org-edn-subscript)
 
 ;;;; Superscript
 
@@ -639,7 +601,6 @@ contextual information."
 CONTENTS is the contents of the object.  INFO is a plist holding
 contextual information."
   (format "#Spacemacs/Org-superscript{:contents [%s]}" contents))
-(byte-compile 'spacemacs//org-edn-superscript)
 
 ;;;; Table
 
@@ -654,7 +615,6 @@ contextual information."
     (format "#Spacemacs/Org-table{:type %s :contents [%s]}"
             (org-element-property :type table)
             contents)))
-(byte-compile 'spacemacs//org-edn-table)
 
 ;;;; Table Cell
 
@@ -663,7 +623,6 @@ contextual information."
 CONTENTS is nil.  INFO is a plist used as a communication
 channel."
   (format "#Spacemacs/Org-table-cell{:contents [%s]}" contents))
-(byte-compile 'spacemacs//org-edn-table-cell)
 
 ;;;; Table Row
 
@@ -672,7 +631,6 @@ channel."
 CONTENTS is the contents of the row.  INFO is a plist used as a
 communication channel."
   (format "#Spacemacs/Org-table-row{:contents [%s]}" contents))
-(byte-compile 'spacemacs//org-edn-table-row)
 
 ;;;; Target
 
@@ -683,7 +641,6 @@ information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-target")
   "")
-(byte-compile 'spacemacs//org-edn-target)
 
 ;;;; Template
 
@@ -739,7 +696,6 @@ holding export options."
                 'true
               'false)
             contents)))
-(byte-compile 'spacemacs//org-edn-template)
 
 ;;;; Timestamp
 
@@ -750,7 +706,6 @@ information."
   (error "\"%s\" not implemented"
          "spacemacs//org-edn-timestamp")
   "")
-(byte-compile 'spacemacs//org-edn-timestamp)
 
 ;;;; Underline
 
@@ -759,7 +714,6 @@ information."
 CONTENTS is the text with underline markup.  INFO is a plist
 holding contextual information."
   (format "#Spacemacs/Org-underline{:contents [%s]}" contents))
-(byte-compile 'spacemacs//org-edn-underline)
 
 ;;;; Verbatim
 
@@ -770,7 +724,6 @@ information."
   (format "#Spacemacs/Org-verbatim{:value \"%s\"}"
           (spacemacs/org-edn-escape-string
            (org-element-property :value verbatim))))
-(byte-compile 'spacemacs//org-edn-verbatim)
 
 ;;;; Verse Block
 
@@ -779,7 +732,6 @@ information."
 CONTENTS is verse block contents.  INFO is a plist holding
 contextual information."
   (format "#Spacemacs/Org-verse-block{:contents [%s]}" contents))
-(byte-compile 'spacemacs//org-edn-verse-block)
 
 
 ;;; Helper Functions
@@ -807,13 +759,13 @@ without unification and \"#\" prefix."
     (loop
      t
      (when (eq 'headline (car-safe cur-node))
-       (setq res (add-to-list 'res
-                              (string-remove-prefix
-                               "#"
-                               (toc-org-hrefify-gh
-                                (org-element-property
-                                 :raw-value
-                                 cur-node))))))
+       (push (string-remove-prefix
+              "#"
+              (toc-org-hrefify-gh
+               (org-element-property
+                :raw-value
+                cur-node)))
+             res))
      (if (not parent-node)
          (return res)
        (setq cur-node parent-node
@@ -838,7 +790,6 @@ FIXME: Figure out where they come from :"
   "Call final functions for `space-edn' backend"
   (spacemacs//org-edn-final-function-lint info)
   (spacemacs//org-edn-final-function-tidy contents))
-(byte-compile 'spacemacs//org-edn-final-function)
 
 
 ;;; End-user functions
@@ -856,7 +807,6 @@ Return output file name."
                       ".edn"
                       plist
                       pub-dir))
-(byte-compile 'spacemacs/org-edn-publish-to-spacemacs-edn)
 
 (defun spacemacs/publish-docs-to-edn ()
   "Publish the documentation to doc/export/."
@@ -901,7 +851,6 @@ Return output file name."
              :publishing-directory ,(concat publish-target "layers/")
              :publishing-function org-publish-attachment))))
     (org-publish-project "spacemacs-edn" t)))
-(byte-compile 'spacemacs/publish-docs-to-edn)
 
 (defconst spacemacs-publish-docs-to-edn-default-exclude-re
   (regexp-opt
@@ -921,14 +870,50 @@ Return output file name."
       "CHANGELOG.org")))
   "Default exclusion regexp for `spacemacs/publish-docs-to-edn-concurrently'")
 
+(defun spacemacs//publish-docs-to-edn-concurrently-worker (pub-dir file-list)
+  "Worker for `spacemacs/publish-docs-to-edn-concurrently'"
+  (make-directory
+   (setq spacemacs-cache-directory
+         (concat
+          (make-temp-name "spacemacs-edn-export-worker-cache-dir")
+          "/"))
+   t)
+  (unwind-protect
+      (dolist (file file-list)
+        (let* ((target-file-name (concat
+                                  pub-dir
+                                  (string-remove-suffix
+                                   ".org"
+                                   (string-remove-prefix
+                                    (file-truename
+                                     spacemacs-start-directory)
+                                    (file-truename file)))
+                                  ".edn"))
+               (target-file-dir
+                (file-name-directory target-file-name)))
+          (make-directory target-file-dir t)
+          (message "Exporting \"%s\" into \"%s\""
+                   file
+                   target-file-name)
+          (with-temp-buffer
+            (find-file file)
+            (org-export-to-file
+             'spacemacs-edn
+             target-file-name))))
+    (delete-directory spacemacs-cache-directory t)))
+
 (defun spacemacs/publish-docs-to-edn-concurrently
     (&optional pub-dir inst-num exclude-re)
-  "Publish org files using `org-export-to-file' and `spacemacs-edn' backend.
+  "Publish org files and images using `org-export-to-file' function and
+`spacemacs-edn' backend.
 If PUB-DIR isn't specified - publish to \"%SPACMACS-DIR%/export/\".
 INST-NUM is a number of Emacs instances used for publishing(4 if not pacified).
 EXCLUDE-RE is a exclusion REGEXP. If not specified
 the value of `spacemacs-publish-docs-to-edn-default-exclude-re' is used.
 NOTE: In --batch mode this function will wait for all instances to finish."
+  (byte-compile-file
+   (concat spacemacs-start-directory
+           "core/core-documentation-edn.el"))
   (let ((exclude-re (or exclude-re
                         spacemacs-publish-docs-to-edn-default-exclude-re))
         (pub-dir (or pub-dir (concat spacemacs-start-directory "export/")))
@@ -941,8 +926,9 @@ NOTE: In --batch mode this function will wait for all instances to finish."
         (comp-oses '(gnu/linux darwin))
         (spacemacs-init-fp (concat spacemacs-start-directory
                                    "init.el"))
-        (spacemacs-core-doc-el-fp (concat spacemacs-start-directory
-                                          "core/core-documentation-edn.el"))
+        (spacemacs-core-doc-el-fp (concat
+                                   spacemacs-start-directory
+                                   "core/core-documentation-edn.elc"))
         (instances-finished 0))
     (unless (memq system-type comp-oses)
       (user-error
@@ -957,7 +943,7 @@ NOTE: In --batch mode this function will wait for all instances to finish."
       (unless (string-match-p exclude-re (file-truename org-file-fp))
         (setq  org-files-fp-list-length
                (1+  org-files-fp-list-length))
-        (add-to-list 'org-files-fp-list org-file-fp)))
+        (push org-file-fp org-files-fp-list)))
     (setq org-files-fp-lists (-partition (round (/ org-files-fp-list-length
                                                    part-in))
                                          org-files-fp-list))
@@ -1001,47 +987,18 @@ NOTE: In --batch mode this function will wait for all instances to finish."
                      "-eval"
                      (format
                       "%S"
-                      `(let ((pub-dir ,pub-dir)
-                             (file-list ',file-path-group))
-                         (dolist (file file-list)
-                           (let* ((target-file-name
-                                   (concat
-                                    pub-dir
-                                    (string-remove-suffix
-                                     ".org"
-                                     (string-remove-prefix
-                                      (file-truename
-                                       spacemacs-start-directory)
-                                      (file-truename
-                                       file)))
-                                    ".edn"))
-                                  (target-file-dir
-                                   (file-name-directory
-                                    target-file-name)))
-                             (make-directory target-file-dir t)
-                             (message "Exporting \"%s\" into \"%s\""
-                                      file
-                                      target-file-name)
-                             (with-temp-buffer
-                               (find-file file)
-                               (org-export-to-file
-                                'spacemacs-edn
-                                target-file-name)))))))))
+                      `(spacemacs//publish-docs-to-edn-concurrently-worker
+                        ,pub-dir
+                        ',file-path-group)))))
     (let* ((org-publish-project-alist
             `(("spacemacs-edn-static"
-               :components ("spacemacs-doc-static"
-                            "spacemacs-layers-static"))
+               :components ("spacemacs-doc-static"))
               ("spacemacs-doc-static"
-               :base-directory ,(concat spacemacs-start-directory "doc/")
+               :base-directory ,spacemacs-start-directory
                :base-extension "jpg\\|jpeg\\|svg\\|png\\|gif"
                :recursive t
-               :publishing-directory ,(concat pub-dir "doc/")
-               :publishing-function org-publish-attachment)
-              ("spacemacs-layers-static"
-               :base-directory ,(concat spacemacs-start-directory "layers/")
-               :base-extension "jpg\\|jpeg\\|svg\\|png\\|gif"
-               :recursive t
-               :publishing-directory ,(concat pub-dir "layers/")
+               :exclude ,spacemacs-publish-docs-to-edn-default-exclude-re
+               :publishing-directory ,pub-dir
                :publishing-function org-publish-attachment))))
       (org-publish-project "spacemacs-edn-static" t))
     (when noninteractive
