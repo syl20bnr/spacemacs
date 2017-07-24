@@ -33,6 +33,46 @@
 (defgroup space-doc nil "Minor mode for viewing Spacemacs documentation files."
   :group 'convenience)
 
+;; NOTE: Dont forget to update Spacemacs FAQ if you modify this list!
+(defcustom spacemacs-space-doc-modificators
+  '(org-indent-mode
+    view-mode
+    hide-line-numbers
+    alternative-emphasis
+    alternative-tags-look
+    link-protocol
+    org-block-line-face-remap
+    org-kbd-face-remap
+    resize-inline-images)
+  "List of `space-doc' modificators."
+  :type '(set (const center-buffer-mode)
+              (const org-indent-mode)
+              (const view-mode)
+              (const hide-line-numbers)
+              (const alternative-emphasis)
+              (const alternative-tags-look)
+              (const link-protocol)
+              (const org-bl-face-remap)
+              (const org-kbd-face-remap)
+              (const resize-inline-images))
+  :group 'space-doc)
+
+(defvar spacemacs-space-doc-modificators-functions
+  '((center-buffer-mode           . spacemacs//space-doc-center-buffer-mode)
+    (org-indent-mode              . spacemacs//space-doc-org-indent-mode)
+    (view-mode                    . spacemacs//space-doc-view-mode)
+    (hide-line-numbers            . spacemacs//space-doc-hide-line-numbers)
+    (alternative-emphasis         . spacemacs//space-doc-alternative-emphasis)
+    (alternative-tags-look        . spacemacs//space-doc-alternative-tags-look)
+    (link-protocol                . spacemacs//space-doc-link-protocol)
+    (org-block-line-face-remap    . spacemacs//space-doc-org-bl-face-remap)
+    (org-kbd-face-remap           . spacemacs//space-doc-org-kbd-face-remap)
+    (resize-inline-images         . spacemacs//space-doc-resize-inline-images))
+  "alist of `space-doc' modificator (tag . function) for `org-mode' buffers.
+The functions work with a current buffer and accept ENABLE(flag) argument.
+If the argument has non-nil value - enable the modifications introduced
+by the function. Otherwise - disable. The tags used in
+`spacemacs-space-doc-modificators'")
 
 (define-minor-mode space-doc-mode
   "Buffer local minor mode for viewing Spacemacs documentation files.
@@ -61,30 +101,6 @@ keeping their content visible.
                      (buffer-name)))
     (setq space-doc-mode nil)))
 
-;; NOTE: Dont forget to update Spacemacs FAQ if you modify this list!
-(defcustom spacemacs-space-doc-modificators
-  '(org-indent-mode
-    view-mode
-    hide-line-numbers
-    alternative-emphasis
-    alternative-tags-look
-    link-protocol
-    org-block-line-face-remap
-    org-kbd-face-remap
-    resize-inline-images)
-  "List of `space-doc' modificators."
-  :type '(set (const center-buffer-mode)
-              (const org-indent-mode)
-              (const view-mode)
-              (const hide-line-numbers)
-              (const alternative-emphasis)
-              (const alternative-tags-look)
-              (const link-protocol)
-              (const org-bl-face-remap)
-              (const org-kbd-face-remap)
-              (const resize-inline-images))
-  :group 'space-doc)
-
 (defcustom spacemacs-space-doc-center-buffer-mode-min-aspect-ratio
   1.7
   "Minimal `frame' aspect ration (`frame-pixel-width' divided by
@@ -95,23 +111,6 @@ NOTE: If `center-buffer-mode' isn't a member of
 will not be enabled."
   :type 'number
   :group 'space-doc)
-
-(defvar spacemacs-space-doc-modificators-functions
-  '((center-buffer-mode           . spacemacs//space-doc-center-buffer-mode)
-    (org-indent-mode              . spacemacs//space-doc-org-indent-mode)
-    (view-mode                    . spacemacs//space-doc-view-mode)
-    (hide-line-numbers            . spacemacs//space-doc-hide-line-numbers)
-    (alternative-emphasis         . spacemacs//space-doc-alternative-emphasis)
-    (alternative-tags-look        . spacemacs//space-doc-alternative-tags-look)
-    (link-protocol                . spacemacs//space-doc-link-protocol)
-    (org-block-line-face-remap    . spacemacs//space-doc-org-bl-face-remap)
-    (org-kbd-face-remap           . spacemacs//space-doc-org-kbd-face-remap)
-    (resize-inline-images         . spacemacs//space-doc-resize-inline-images))
-  "alist of `space-doc' modificator (tag . function) for `org-mode' buffers.
-The functions work with a current buffer and accept ENABLE(flag) argument.
-If the argument has non-nil value - enable the modifications introduced
-by the function. Otherwise - disable. The tags used in
-`spacemacs-space-doc-modificators'")
 
 (defvar-local spacemacs--space-doc-org-kbd-face-remap-cookie nil
   "Cookie for org-kbd-face remapping.")
@@ -127,7 +126,7 @@ by the function. Otherwise - disable. The tags used in
 enabled. Set the value of `space-doc-mode' variable in the origin
 buffer to FLAG."
   (when spacemacs-centered-buffer-mode
-    (let ((old-flag space-doc-mode))
+    (let ((old-flag flag))
       (spacemacs-centered-buffer-mode -1)
       (setq space-doc-mode old-flag))))
 
