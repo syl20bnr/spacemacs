@@ -36,54 +36,51 @@ ln -sf ~/.emacs.d "${TRAVIS_BUILD_DIR}"
 cd  ~/.emacs.d
 echo "Pwd $(pwd)"
 
+echo_headline () {
+	  printf '=%.0s' {1..70}
+	  printf "\n$1\n"
+	  printf '=%.0s' {1..70}
+    echo
+}
+
 # Formatting conventions tests
 if [ ! -z "$FORMATTING" ]; then
 	echo "TRAVIS_COMMIT_RANGE: ${TRAVIS_COMMIT_RANGE}"
 	first_commit=`echo ${TRAVIS_COMMIT_RANGE} | sed -r 's/\..*//'`
 	git diff --name-only "${first_commit}" HEAD > /tmp/changed_files
-	case "${FORMATTING}" in
-		space-test)
-			echo "Testing for trailing and all sorts of broken white spaces"
-			git reset -q "${first_commit}"
-			git add -N .
-			git diff --check --color > space_test_result
-			if [[ -s space_test_result ]]; then
-				cat space_test_result
-				exit 1
-			fi
-			echo "No bad spaces detected"
-			exit 0
-		;;
-		spacefmt)
-			echo "Testing changed ORG files with spacefmt"
-			cp ~/.emacs.d/core/templates/.spacemacs.template ~/
-			mv ~/.spacemacs.template ~/.spacemacs
-			while read p
-			do
-				if [ -f "$p" ]; then
-					if [ ${p: -4} == ".org" ]; then
-						echo "Checking $p file"
-						./core/tools/spacefmt/spacefmt -f "$p"
-						if [ $? -ne 0 ]; then
-							echo "spacefmt failed"
-							exit 2
-						fi
-					fi
+  echo_headline "Testing for trailing and all sorts of broken white spaces"
+	git reset -q "${first_commit}"
+	git add -N .
+	git diff --check --color > space_test_result
+	if [[ -s space_test_result ]]; then
+		cat space_test_result
+		exit 1
+	fi
+  echo "No bad spaces detected"
+	echo_headline "Testing changed ORG files with spacefmt"
+	cp ~/.emacs.d/core/templates/.spacemacs.template ~/
+	mv ~/.spacemacs.template ~/.spacemacs
+	while read p
+	do
+		if [ -f "$p" ]; then
+			if [ ${p: -4} == ".org" ]; then
+				echo "Checking $p file"
+				./core/tools/spacefmt/spacefmt -f "$p"
+				if [ $? -ne 0 ]; then
+					echo "spacefmt failed"
+					exit 2
 				fi
-			done </tmp/changed_files
-			git diff --color HEAD > spacefmt_result
-			if [[ -s spacefmt_result ]]; then
-				printf '=%.0s' {1..70}
-				printf "\nPLEASE APPLY CHANGES BELOW:\n"
-				printf '=%.0s' {1..70}
-				echo
-				cat spacefmt_result
-				exit 1
 			fi
-			echo "All changed files comply with spacefmt"
-			exit 0
-		;;
-	esac
+		fi
+	done </tmp/changed_files
+	git diff --color HEAD > spacefmt_result
+	if [[ -s spacefmt_result ]]; then
+		echo_headline "PLEASE APPLY CHANGES BELOW:"
+		cat spacefmt_result
+		exit 1
+	fi
+	echo "All changed files comply with spacefmt"
+	exit 0
 fi
 
 # If we are pushing changes to the master branch,
@@ -95,10 +92,7 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ ! -z "$PUBLISH" ] && [ $TRAVIS_PULL_
 		echo "branch is \"${TRAVIS_BRANCH}\", won't publish to \"${PUBLISH}\" repository!"
 		exit 0
 	fi
-	printf '=%.0s' {1..70}
-	printf "\n FORMATTING DOCUMENTATION:\n"
-	printf '=%.0s' {1..70}
-	echo
+	echo_headline "FORMATTING DOCUMENTATION:"
 	cp ~/.emacs.d/tests/doc/dotspacemacs.el ~/dotspacemacs.el
 	mv ~/dotspacemacs.el ~/.spacemacs
 	./core/tools/spacefmt/spacefmt doc
@@ -106,10 +100,7 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ ! -z "$PUBLISH" ] && [ $TRAVIS_PULL_
 		echo "spacefmt exited with: $?"
 		exit 2
 	fi
-	printf '=%.0s' {1..70}
-	printf "\n EXPORTING DOCUMENTATION:\n"
-	printf '=%.0s' {1..70}
-	echo
+	echo_headline "EXPORTING DOCUMENTATION:"
 	emacs -batch -l init.el > /dev/null 2>&1
 	emacs -batch -l init.el -l core/core-documentation.el -f spacemacs/publish-doc
 	if [ $? -ne 0 ]; then
@@ -126,10 +117,7 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ ! -z "$PUBLISH" ] && [ $TRAVIS_PULL_
 	git add -N .
 	cd "/tmp/${PUBLISH}"
 	if ! git diff-files  --quiet --; then
-		printf '=%.0s' {1..70}
-		printf "\n COMMITTING CHANGES TO ${BOT_NAME}/${PUBLISH}:\n"
-		printf '=%.0s' {1..70}
-		echo
+		echo_headline "COMMITTING CHANGES TO ${BOT_NAME}/${PUBLISH}:"
 		git diff --color HEAD
 		curl -L https://github.com/github/hub/releases/download/v2.2.9/hub-linux-amd64-2.2.9.tgz | tar \
 			--strip-components=2 -xz --wildcards -C /tmp/ "*hub"
@@ -142,23 +130,14 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ] && [ ! -z "$PUBLISH" ] && [ $TRAVIS_PULL_
 		git remote set-url "${BOT_NAME}" \
 			"https://${BOT_NAME}:${BOT_TK}@github.com/${BOT_NAME}/${PUBLISH}.git"
 		/tmp/hub push -f "${BOT_NAME}" gh-pages
-		printf '=%.0s' {1..70}
-		printf "\n OPENING PR TO syl20bnr/${PUBLISH}.git\n"
-		printf '=%.0s' {1..70}
-		echo
+		echo_headline "OPENING PR TO syl20bnr/${PUBLISH}.git"
 		echo "Documentation updates (autoexport)" > msg
 		echo "beep beep boop... Beep?" >> msg
 		/tmp/hub pull-request -F msg
-		printf '=%.0s' {1..70}
-		printf "\n DONE!\n"
-		printf '=%.0s' {1..70}
-		echo
+		echo "DONE!"
 		exit 0
 	else
-		printf '=%.0s' {1..70}
-		printf "\n NOTHING TO COMMIT!\n"
-		printf '=%.0s' {1..70}
-		echo
+		echo "NOTHING TO COMMIT!"
 		exit 0
 	fi
 fi
@@ -172,7 +151,7 @@ for test in "${TESTS[@]}"; do
     mkdir -p /dev/shm/.emacs.d/.cache
     ln -sf /dev/shm/.emacs.d/.cache ~/.emacs.d/.cache
     testdir=~/.emacs.d/tests/$test
-    echo "Running '$test' in '$testdir' folder"
+    echo_headline "Running '$test' in '$testdir' folder"
     if [ -f $testdir/dotspacemacs.el ]; then
         cp $testdir/dotspacemacs.el ~/.spacemacs
     fi
