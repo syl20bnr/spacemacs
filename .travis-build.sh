@@ -166,9 +166,11 @@ fi
 # Emacs tests
 for test in "${TESTS[@]}"; do
     rm -rf ~/.emacs.d/elpa
-    rm -rf ~/.emacs.d/.cache
     rm -f ~/.spacemacs
-
+    # footgun: /dev/shm/ max size is 64M - currently :)
+    rm -rf /dev/shm/.emacs.d/.cache
+    mkdir -p /dev/shm/.emacs.d/.cache
+    ln -sf /dev/shm/.emacs.d/.cache ~/.emacs.d/.cache
     testdir=~/.emacs.d/tests/$test
     echo "Running '$test' in '$testdir' folder"
     if [ -f $testdir/dotspacemacs.el ]; then
