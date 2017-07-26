@@ -467,9 +467,9 @@
   "xlu" 'spacemacs/uniquify-lines
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
-  "xtw" 'transpose-words
-  "xts" 'transpose-sentences
   "xtp" 'transpose-paragraphs
+  "xts" 'transpose-sentences
+  "xtw" 'transpose-words
   "xU"  'upcase-region
   "xu"  'downcase-region
   "xwc" 'spacemacs/count-words-analysis
