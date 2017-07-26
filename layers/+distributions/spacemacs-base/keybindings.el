@@ -123,9 +123,9 @@
 (spacemacs/set-leader-keys
   "TAB"   'spacemacs/alternate-buffer
   "bd"    'spacemacs/kill-this-buffer
+  "bD"    'spacemacs/kill-other-buffers
   "be"    'spacemacs/safe-erase-buffer
   "bh"    'spacemacs/home
-  "b C-d" 'spacemacs/kill-other-buffers
   "b C-S-d" 'spacemacs/kill-matching-buffers-rudely
   "bn"    'next-buffer
   "bm"    'spacemacs/switch-to-messages-buffer

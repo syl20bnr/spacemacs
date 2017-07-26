@@ -2103,10 +2103,10 @@ Buffer manipulation commands (start with ~b~):
 | ~SPC TAB~       | switch to alternate buffer in the current window (switch back and forth) |
 | ~SPC b b~       | switch to a buffer                                                       |
 | ~SPC b d~       | kill the current buffer (does not delete the visited file)               |
+| ~SPC b D~       | kill other buffers                                                       |
 | ~SPC u SPC b d~ | kill the current buffer and window (does not delete the visited file)    |
 | ~SPC b D~       | kill a visible buffer using [[https://github.com/abo-abo/ace-window][ace-window]]                                   |
 | ~SPC u SPC b D~ | kill a visible buffer and its window using [[https://github.com/abo-abo/ace-window][ace-window]]                    |
-| ~SPC b C-d~     | kill other buffers                                                       |
 | ~SPC b C-D~     | kill buffers using a regular expression                                  |
 | ~SPC b e~       | erase the content of the buffer (ask for confirmation)                   |
 | ~SPC b h~       | open =*spacemacs*= home buffer                                           |
