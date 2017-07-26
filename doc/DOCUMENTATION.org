@@ -1851,6 +1851,16 @@ Other help key bindings:
 | ~SPC h m~   | search available man pages                            |
 | ~SPC h n~   | browse emacs news                                     |
 
+The =Profiler= is a tool that helps you identify why your editor is running
+slowly or consumes a lot of memory. Here are key bindings relate to it:
+
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC h P k~ | stop the profiler           |
+| ~SPC h P r~ | display the profiler report |
+| ~SPC h P s~ | start the profiler          |
+| ~SPC h P w~ | write the report to file    |
+
 Navigation key bindings in =help-mode=:
 
 | Key Binding  | Description                                         |
