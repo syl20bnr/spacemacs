@@ -380,16 +380,22 @@ projectile cache when it's possible.
 When ASK-USER is non-nil, user will be asked to confirm file
 removal."
   (interactive "f")
-  (when (and filename (file-exists-p filename))
-    (let ((buffer (find-buffer-visiting filename)))
-      (when buffer
-        (kill-buffer buffer)))
-    (when (or (not ask-user)
-              (yes-or-no-p "Are you sure you want to delete this file? "))
-      (delete-file filename)
+  (let ((is-dir (file-directory-p filename)))
+    (when (and (file-exists-p filename)
+               (or (not ask-user)
+                   (yes-or-no-p
+                    (message  "Are you sure you want to delete this %s? "
+                              (if is-dir "directory" "file")))))
+      (spacemacs/kill-file-or-dir-buffers filename)
+      (if (file-directory-p filename)
+          (delete-directory filename t)
+        (delete-file filename))
       (when (and (configuration-layer/package-used-p 'projectile)
                  (projectile-project-p))
-        (call-interactively #'projectile-invalidate-cache)))))
+        (call-interactively #'projectile-invalidate-cache))
+      (message "%s '%s' successfully removed."
+               (if is-dir "Directory" "File")
+               filename))))
 
 (defun spacemacs/delete-file-confirm (filename)
   "Remove specified file or directory after users approval.
@@ -511,6 +517,21 @@ If the universal prefix argument is used then will the windows too."
     (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
     (when (equal '(4) arg) (delete-other-windows))
     (message "Buffers deleted!")))
+
+(defun spacemacs/kill-file-or-dir-buffers (filename)
+  "Kill all buffers related to FILENAME - file or dir."
+  (when (file-exists-p filename)
+    (if (file-directory-p filename)
+        (let ((buffers (cdr (buffer-list))))
+          (while buffers
+            (when (and (buffer-file-name (car buffers))
+                       (string-prefix-p filename
+                                        (buffer-file-name (car buffers))))
+              (kill-buffer (car buffers)))
+            (setq buffers (cdr buffers))))
+      (let ((buffer (find-buffer-visiting filename)))
+        (when buffer
+          (kill-buffer buffer))))))
 
 ;; from http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
 (defun spacemacs/toggle-current-window-dedication ()
