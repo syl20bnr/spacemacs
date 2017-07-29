@@ -97,7 +97,6 @@
     - [[#additional-text-objects][Additional text objects]]
   - [[#reserved-prefix-command-for-user][Reserved prefix command for user]]
   - [[#completion][Completion]]
-    - [[#ivy][Ivy]]
   - [[#discovering][Discovering]]
     - [[#key-bindings][Key bindings]]
       - [[#which-key][Which-key]]
