@@ -1,22 +1,55 @@
-;;; core-documentation-edn.el --- Spacemacs Core File -*- lexical-binding: t -*-
-
+;;; _worker.el ---  Spacemacs docs export worker -*- lexical-binding: t -*-
+;;
 ;; Copyright (C) 2012-2017 Sylvain Benner & Contributors
-
+;;
 ;; Author: Eugene "JAremko" Yaremenko <w3techplayground@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;; File structure was borrowed from ox-html.el by (Carsten Dominik
 ;; <carsten at orgmode dot org> and Jambunathan K
 ;; <kjambunathan at gmail dot com>).
-
+;;
 ;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
 
-;;; Code:
+(when (and load-file-name
+           noninteractive)
+  (setq gc-cons-threshold 10000000000))
 
-(require 'url-util)
-(require 'toc-org)
-(require 'ox-publish)
-(require 'dash)
-(require 'f)
+(eval-when-compile
+  (require 'cl)
+  (require 'url-util)
+  (require 'subr-x))
+
+(require 'ox)
+
+(load-file
+ (concat
+  (file-name-directory
+   (or load-file-name
+       buffer-file-name))
+  "../lib/toc-org.elc"))
+
+(declare-function toc-org-hrefify-gh "../lib/toc-org.el" (str &optional hash))
+
+(defconst spacemacs-root-directory
+  (file-truename
+   (concat
+    (file-name-directory
+     (or load-file-name
+         buffer-file-name))
+    "../../../"))
+  "Root directory of Spacemacs")
+
+(defconst spacemacs-repository "spacemacs"
+  "Name of the Spacemacs remote repository.")
+(defconst spacemacs-repository-owner "syl20bnr"
+  "Name of the Spacemacs remote repository owner.")
+
+(defconst spacemacs-readme-template-url
+  (concat "https://github.com/syl20bnr/spacemacs/"
+          "blob/develop/core/templates/README.org.template")
+  "URL of README.org template")
 
 (defvar spacemacs--org-export-define-backend-funcs-alist
   '((bold . spacemacs//org-edn-bold)
@@ -76,6 +109,87 @@
   '((:filter-final-output . spacemacs//org-edn-final-function)))
 
 
+;;; Helper Functions
+
+(defsubst spacemacs//org-edn-format-payload (format-string args)
+  "Format payload for JSON."
+  (replace-regexp-in-string
+   "\n"
+   "\r"
+   (if args (apply 'format format-string args) format-string)))
+
+(defsubst spacemacs/org-edn-export-file (src-file file-path)
+  "Emit request for copying file at FILE-PATH. SRC-FILE will
+be sent as the source of request (useful for debugging)"
+  (message "{\"type\":\"export\",\"text\":%S,\"source\":%S}"
+           (spacemacs//org-edn-format-payload
+            file-path)
+           (spacemacs//org-edn-format-payload
+            src-file)))
+
+(defsubst spacemacs/org-edn-message (format-string &rest args)
+  "Emit specified message."
+  (message "{\"type\":\"message\",\"text\":%S}"
+           (spacemacs//org-edn-format-payload
+            format-string
+            args)))
+
+(defsubst spacemacs/org-edn-warn (format-string &rest args)
+  "Emit specified warning."
+  (message "{\"type\":\"warning\",\"text\":%S}"
+           (spacemacs//org-edn-format-payload
+            format-string
+            args)))
+
+(defsubst spacemacs/org-edn-error (format-string &rest args)
+  "Emit specified error and exit with code 1."
+  (message "{\"type\":\"error\",\"text\":%S}"
+           (spacemacs//org-edn-format-payload
+            format-string
+            args))
+  (kill-emacs 1))
+
+(defconst spacemacs-org-edn-special-chars '(("\t" . "\\t")
+                                            ("\r" . "\\r")
+                                            ("\n" . "\\n")))
+(defsubst spacemacs/org-edn-escape-string (str)
+  "Escape special characters in STR"
+  (if str
+      (with-temp-buffer
+        (insert str)
+        (format-replace-strings spacemacs-org-edn-special-chars)
+        (buffer-string))
+    ""))
+
+(defsubst spacemacs/org-edn-headline-make-nesting-id (headline)
+  "Make id for org HEADLINE by chaining headlines from parent to)
+child headline.
+NOTE: Each headline is converted with `toc-org-hrefify-gh' but
+without unification and \"#\" prefix."
+  (let* ((res nil)
+         (cur-node headline)
+         (parent-node (org-export-get-parent cur-node)))
+    (loop
+     t
+     (when (eq 'headline (car-safe cur-node))
+       (push (string-remove-prefix
+              "#"
+              (toc-org-hrefify-gh
+               (org-element-property
+                :raw-value
+                cur-node)))
+             res))
+     (if (not parent-node)
+         (return res)
+       (setq cur-node parent-node
+             parent-node (org-export-get-parent cur-node))))
+    (mapconcat 'identity res "/")))
+
+(defun ask-user-about-lock (_ __)
+  "Ignore locks on files"
+  t)
+
+
 ;;; Transcode Functions
 
 ;;;; Bold
@@ -97,11 +211,11 @@ holding contextual information."
 ;;;; Clock
 
 (defun spacemacs//org-edn-clock (_clock _contents _info)
-  "Transcode a CLOCK element From Org to Spacemacs EDN.))
+  "Transcode a CLOCK element From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist used as a communication
 channel."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-clock")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-clock")
   "")
 
 ;;;; Code
@@ -127,8 +241,8 @@ NOTE: In Spacemacs ~code blocks~ are key sequences."
   "Transcode a DRAWER element From Org to Spacemacs EDN.
 CONTENTS holds the contents of the block.  INFO is a plist
 holding contextual information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-drawer")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-drawer")
   "")
 
 ;;;; Dynamic Block
@@ -137,24 +251,24 @@ holding contextual information."
   "Transcode a DYNAMIC-BLOCK element From Org to Spacemacs EDN.
 CONTENTS holds the contents of the block.  INFO is a plist
 holding contextual information.  See `org-export-data'."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-dynamic-block")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-dynamic-block")
   "")
 
 ;;;; Entity
 
 (defun spacemacs//org-edn-entity (_entity _contents _info)
-  "Transcode an ENTITY object From Org to Spacemacs EDN.))
+  "Transcode an ENTITY object From Org to Spacemacs EDN.
 CONTENTS are the definition itself.  INFO is a plist holding
 contextual information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-entity")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-entity")
   "")
 
 ;;;; Example Block
 
 (defun spacemacs//org-edn-example-block (example-block _contents _info)
-  "Transcode a EXAMPLE-BLOCK element From Org to Spacemacs EDN.))
+  "Transcode a EXAMPLE-BLOCK element From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual
 information."
   (format "#Spacemacs/Org-example-block{:value \"%s\"}"
@@ -164,45 +278,45 @@ information."
 ;;;; Export Block
 
 (defun spacemacs//org-edn-export-block (_export-block _contents _info)
-  "Transcode a EXPORT-BLOCK element From Org to Spacemacs EDN.))
+  "Transcode a EXPORT-BLOCK element From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-export-block")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-export-block")
   "")
 
 ;;;; Export Snippet
 
 (defun spacemacs//org-edn-export-snippet (_export-snippet _contents _info)
-  "Transcode a EXPORT-SNIPPET object From Org to Spacemacs EDN.))
+  "Transcode a EXPORT-SNIPPET object From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual
 information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-export-snippet")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-export-snippet")
   "")
 
 ;;;; Fixed Width
 
 (defun spacemacs//org-edn-fixed-width (_fixed-width _contents _info)
-  "Transcode a FIXED-WIDTH element From Org to Spacemacs EDN.))
+  "Transcode a FIXED-WIDTH element From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-fixed-width")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-fixed-width")
   "")
 
 ;;;; Footnote Reference
 
 (defun spacemacs//org-edn-footnote-reference
     (_footnote-reference _contents _info)
-  "Transcode a FOOTNOTE-REFERENCE element From Org to Spacemacs EDN.))
+  "Transcode a FOOTNOTE-REFERENCE element From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-footnote-reference")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-footnote-reference")
   "")
 
 ;;;; Headline
 
 (defun spacemacs//org-edn-headline (headline contents info)
-  "Transcode a HEADLINE element From Org to Spacemacs EDN.))
+  "Transcode a HEADLINE element From Org to Spacemacs EDN.
 CONTENTS holds the contents of the headline.  INFO is a plist
 holding contextual information."
   (let* ((raw-value (org-element-property :raw-value headline))
@@ -212,35 +326,49 @@ holding contextual information."
                           (plist-put info :headline-hash hh)
                           hh)))
          (gh-id (toc-org-hrefify-gh raw-value headline-ht))
-         (level (org-element-property :level headline)))
+         (level (org-element-property :level headline))
+         (nesting-ids (plist-get info :nesting-ids))
+         (nesting-id
+          (spacemacs/org-edn-headline-make-nesting-id headline))
+         (file (plist-get info :input-file)))
     (when (and (= level 1)
                (string= raw-value "Description"))
       (if (plist-member info :file-has-description?)
-          (error (concat "File \"%s\" has multiply top level "
-                         "\"Description\" headlines")
-                 (plist-get info :input-file))
+          (spacemacs/org-edn-error
+           (concat "File \"%s\" has multiply top level "
+                   "\"Description\" headlines")
+           file)
         (plist-put info :file-has-description? 'true)))
+    (if (member nesting-id nesting-ids)
+        (spacemacs/org-edn-error
+         (concat "Multiply identical nesting headlines \"%s\" in %S file. "
+                 "Usually it happens when headlines have child headlines "
+                 "with similar names")
+         nesting-id
+         file)
+      (plist-put info :nesting-ids (push nesting-id nesting-ids)))
+
     (puthash gh-id raw-value headline-ht)
-    (format (concat "#Spacemacs/Org-headline{"
-                    ":value \"%s\" "
-                    ":gh-id \"%s\" "
-                    ":nesting-id \"%s\" "
-                    ":level %s "
-                    ":contents [%s]}")
-            (spacemacs/org-edn-escape-string raw-value)
-            (spacemacs/org-edn-escape-string (string-remove-prefix "#" gh-id))
-            (spacemacs/org-edn-escape-string
-             (spacemacs/org-edn-headline-make-nesting-id headline))
-            level
-            contents)))
+    (format
+     (concat "#Spacemacs/Org-headline{"
+             ":value \"%s\" "
+             ":gh-id \"%s\" "
+             ":nesting-id \"%s\" "
+             ":level %s "
+             ":contents [%s]}")
+     (spacemacs/org-edn-escape-string raw-value)
+     (spacemacs/org-edn-escape-string (string-remove-prefix "#" gh-id))
+     (spacemacs/org-edn-escape-string nesting-id)
+     level
+     contents)))
 
 ;;;; Horizontal Rule
 
 (defun spacemacs//org-edn-horizontal-rule (_horizontal-rule _contents _info)
-  "Transcode an HORIZONTAL-RULE  object From Org to Spacemacs EDN.)))
+  "Transcode an HORIZONTAL-RULE  object From Org to Spacemacs EDN.)))))
 CONTENTS is nil.  INFO is a plist holding contextual information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-horizontal-rule")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-horizontal-rule")
   "")
 
 ;;;; Inline Src Block
@@ -249,8 +377,8 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
   "Transcode an INLINE-SRC-BLOCK element From Org to Spacemacs EDN.
 CONTENTS holds the contents of the item.  INFO is a plist holding
 contextual information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-inline-src-block")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-inline-src-block")
   "")
 
 ;;;; Inlinetask
@@ -259,8 +387,8 @@ contextual information."
   "Transcode an INLINETASK element From Org to Spacemacs EDN.
 CONTENTS holds the contents of the block.  INFO is a plist
 holding contextual information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-inlinetask")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-inlinetask")
   "")
 
 ;;;; Inner Template
@@ -291,10 +419,11 @@ contextual information."
     (unless (or (eq 'ordered type)
                 (eq 'unordered type)
                 (eq 'descriptive type))
-      (error (concat "File \"%s\" contains plain list item of type \"%s\" but "
-                     "it isn't implemented in spacemacs//org-edn-item")
-             (plist-get info :input-file)
-             type))
+      (spacemacs/org-edn-error
+       (concat "File \"%s\" contains plain list item of type \"%s\" but "
+               "it isn't implemented in spacemacs//org-edn-item")
+       (plist-get info :input-file)
+       type))
     (format (concat "#Spacemacs/Org-item{"
                     ":type %s "
                     ":bullet %s "
@@ -326,8 +455,8 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
 (defun spacemacs//org-edn-latex-environment (_latex-environment _contents _info)
   "Transcode a LATEX-ENVIRONMENT element From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-latex-environment")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-latex-environment")
   "")
 
 ;;;; Latex Fragment
@@ -335,8 +464,8 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
 (defun spacemacs//org-edn-latex-fragment (_latex-fragment _contents _info)
   "Transcode a LATEX-FRAGMENT object From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-latex-fragment")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-latex-fragment")
   "")
 
 ;;;; Line Break
@@ -351,8 +480,8 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
 (defconst spacemacs--org-edn-git-url-root-regexp
   (format (concat "\\/\\/github\\.com\\/%s\\/%s\\/blob"
                   "\\/[^/]+\\/\\(.*\\.org\\)\\(\\#.*\\)?")
-          (or spacemacs-repository-owner "syl20bnr")
-          (or spacemacs-repository "spacemacs")))
+          spacemacs-repository-owner
+          spacemacs-repository))
 
 (defun spacemacs//org-edn-link (link desc info)
   "Transcode a LINK object From Org to Spacemacs EDN.
@@ -368,60 +497,86 @@ INFO is a plist holding contextual information.  See
                                (string-match-p
                                 ".*\\.org\\(\\(::\\|#\\| \\).*\\)?$"
                                 raw-link))))
-    (when local-org-link? (plist-put
-                           info
-                           :spacemacs-edn-warnings
-                           (concat
-                            (plist-get info :spacemacs-edn-warnings)
-                            (format (concat "The link \"%s\" "
-                                            "in the file \"%s\" "
-                                            "should target the org file at "
-                                            "GitHub "
-                                            "(anchors are supported)\n")
-                                    raw-link
-                                    file))))
-    (cond ((string-match spacemacs--org-edn-git-url-root-regexp
-                         raw-link)
-           (let ((link (match-string 1 raw-link))
-                 (target-id (string-remove-prefix
-                             "#"
-                             (match-string 2 raw-link))))
-             (format (concat "#Spacemacs/Org-org-file-path{"
-                             ":value \"%s\" "
-                             ":raw-link \"%s\" "
-                             ":target-headline-gh-id \"%s\" "
-                             ":description [%s]}")
-                     (spacemacs/org-edn-escape-string
-                      (concat spacemacs-start-directory
-                              (url-unhex-string link)))
-                     (spacemacs/org-edn-escape-string
-                      raw-link)
-                     (spacemacs/org-edn-escape-string
-                      (url-unhex-string target-id))
-                     desc)))
-          (local-link?
-           (format "#Spacemacs/Org-file-path{:value \"%s\" :description [%s]}"
-                   (spacemacs/org-edn-escape-string path)
-                   desc))
-          ((or (string= type "http")
-               (string= type "https")
-               (string= type "ftp"))
-           (format "#Spacemacs/Org-web-link{:value \"%s\" :description [%s]}"
-                   (spacemacs/org-edn-escape-string raw-link)
-                   desc))
-          ((string= type "custom-id")
-           (format (concat "#Spacemacs/Org-internal-link{"
-                           ":target-headline-gh-id \"%s\" :description [%s]}")
-                   (spacemacs/org-edn-escape-string raw-link)
-                   desc))
-          (t (error
-              (concat
-               "Link \"%s\" in file \"%s\" "
-               "has type \"%s\" "
-               "but the type isn't implemented in spacemacs//org-edn-link")
-              raw-link
-              file
-              type)))))
+    (when local-org-link?
+      (plist-put
+       info
+       :spacemacs-edn-warnings
+       (concat
+        (plist-get info :spacemacs-edn-warnings)
+        (format
+         (concat "The link \"%s\" "
+                 "in the file \"%s\" "
+                 "should target the org file at "
+                 "GitHub "
+                 "(GitHub style anchors are supported)\n"
+                 "See footnote of %S\n")
+         raw-link
+         file
+         spacemacs-readme-template-url))))
+    (cond
+     ((string-match spacemacs--org-edn-git-url-root-regexp
+                    raw-link)
+      (let ((path (concat
+                   spacemacs-root-directory
+                   (url-unhex-string (match-string 1 raw-link))))
+            (target-id (string-remove-prefix
+                        "#"
+                        (match-string 2 raw-link))))
+        (unless (file-readable-p path)
+          (spacemacs/org-edn-error
+           (concat
+            "File %S has a GitHub link to the file %S but "
+            "it isn't readable locally.")
+           file
+           (file-truename path)))
+        (format (concat "#Spacemacs/Org-org-file-path{"
+                        ":value \"%s\" "
+                        ":raw-link \"%s\" "
+                        ":target-headline-gh-id \"%s\" "
+                        ":description [%s]}")
+                (spacemacs/org-edn-escape-string path)
+                (spacemacs/org-edn-escape-string raw-link)
+                (spacemacs/org-edn-escape-string (url-unhex-string
+                                                  target-id))
+                desc)))
+     (local-link?
+      (let ((path (url-unhex-string path)))
+        (cond
+         ((not (file-readable-p path))
+          (spacemacs/org-edn-error
+           "File %S has a link to file %S but it isn't readable"
+           file
+           (file-truename path)))
+         ((not (string-prefix-p spacemacs-root-directory
+                                (file-truename path)))
+          (spacemacs/org-edn-error
+           "File %S has a link to file %S but it's outside repository"
+           file
+           (file-truename path))))
+        (when (not local-org-link?)
+          (spacemacs/org-edn-export-file file (file-truename path)))
+        (format "#Spacemacs/Org-file-path{:value \"%s\" :description [%s]}"
+                (spacemacs/org-edn-escape-string path)
+                desc)))
+     ((or (string= type "http")
+          (string= type "https")
+          (string= type "ftp"))
+      (format "#Spacemacs/Org-web-link{:value \"%s\" :description [%s]}"
+              (spacemacs/org-edn-escape-string raw-link)
+              desc))
+     ((string= type "custom-id")
+      (format (concat "#Spacemacs/Org-internal-link{"
+                      ":target-headline-gh-id \"%s\" :description [%s]}")
+              (spacemacs/org-edn-escape-string raw-link)
+              desc))
+     (t (spacemacs/org-edn-error
+         (concat
+          "Link \"%s\" in file \"%s\" "
+          "has type \"%s\" "
+          "but the type isn't implemented in spacemacs//org-edn-link")
+         raw-link
+         file
+         type)))))
 
 ;;;; Node Property
 
@@ -429,8 +584,8 @@ INFO is a plist holding contextual information.  See
   "Transcode a NODE-PROPERTY element From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual
 information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-node-property")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-node-property")
   "")
 
 ;;;; Paragraph
@@ -458,10 +613,11 @@ contextual information."
     (unless (or (eq 'ordered type)
                 (eq 'unordered type)
                 (eq 'descriptive type))
-      (error (concat "File \"%s\" contains plain list of type \"%s\" but "
-                     "it isn't implemented in spacemacs//org-edn-node-property")
-             (plist-get info :input-file)
-             type))
+      (spacemacs/org-edn-error
+       (concat "File \"%s\" contains plain list of type \"%s\" but "
+               "it isn't implemented in spacemacs//org-edn-node-property")
+       (plist-get info :input-file)
+       type))
     (if (and (= (or (org-element-property
                      :level
                      parent-hl)
@@ -481,10 +637,11 @@ contextual information."
                        parent-hl-parent-hl)
                       "Description"))
         (if (plist-member info :file-has-feature-list?)
-            (error (concat "File \"%s\" has multiply "
-                           "\"Features:\" lists in the top "
-                           "level \"Description\" headline")
-                   file)
+            (spacemacs/org-edn-error
+             (concat "File \"%s\" has multiply "
+                     "\"Features:\" lists in the top "
+                     "level \"Description\" headline")
+             file)
           (plist-put info :file-has-feature-list? 'true)
           (format "#Spacemacs/Org-feature-list{:type %s :contents [%s]}"
                   type
@@ -508,8 +665,8 @@ contextual information."
   "Transcode a PLANNING element From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist used as a communication
 channel."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-planning")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-planning")
   "")
 
 ;;;; Property Drawer
@@ -518,8 +675,8 @@ channel."
   "Transcode a PROPERTY-DRAWER element From Org to Spacemacs EDN.
 CONTENTS holds the contents of the drawer.  INFO is a plist
 holding contextual information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-property-drawer")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-property-drawer")
   "")
 
 ;;;; Quote Block
@@ -536,8 +693,8 @@ holding contextual information."
   "Transcode a RADIO-TARGET object From Org to Spacemacs EDN.
 TEXT is the text of the target.  INFO is a plist holding
 contextual information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-radio-target")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-radio-target")
   "")
 
 ;;;; Section
@@ -554,8 +711,8 @@ holding contextual information."
   "Transcode a SPECIAL-BLOCK element From Org to Spacemacs EDN.
 CONTENTS holds the contents of the block.  INFO is a plist
 holding contextual information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-special-block")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-special-block")
   "")
 
 ;;;; Src Block
@@ -574,8 +731,8 @@ CONTENTS is nil. INFO is a plist holding contextual information."
 (defun spacemacs//org-edn-statistics-cookie (_statistics-cookie _contents _info)
   "Transcode a STATISTICS-COOKIE object From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-statistics-cookie")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-statistics-cookie")
   "")
 
 ;;;; Strike-Through
@@ -610,8 +767,9 @@ CONTENTS is the contents of the table.  INFO is a plist holding
 contextual information."
   (let ((type (org-element-property :type table)))
     (unless (eq type 'org)
-      (error "Table type \"%s\" isn't implemented in spacemacs//org-edn-table"
-             type))
+      (spacemacs/org-edn-error
+       "Table type \"%s\" isn't implemented in spacemacs//org-edn-table"
+       type))
     (format "#Spacemacs/Org-table{:type %s :contents [%s]}"
             (org-element-property :type table)
             contents)))
@@ -638,8 +796,8 @@ communication channel."
   "Transcode a TARGET object From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual
 information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-target")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-target")
   "")
 
 ;;;; Template
@@ -652,41 +810,49 @@ holding export options."
          (plist-member info :file-has-description?))
         (has-feature-list?
          (plist-member info :file-has-feature-list?)))
-    (when-let ((has-file? (plist-get info :input-file))
-               (file (file-truename
-                      (plist-get info :input-file))))
-      (when (and (string-prefix-p (file-truename
-                                   (concat
-                                    spacemacs-start-directory
-                                    "layers/"))
-                                  file)
-                 (string-suffix-p "README.org"
-                                  file
-                                  t))
-        (unless has-description?
-          (plist-put
-           info
-           :spacemacs-edn-warnings
-           (concat
-            (plist-get info :spacemacs-edn-warnings)
-            (format (concat "The layer README file \"%s\" "
-                            "doesn't have top level "
-                            "\"Description\" headline\n")
-                    file))))
-        (unless has-feature-list?
-          (plist-put
-           info
-           :spacemacs-edn-warnings
-           (concat
-            (plist-get info :spacemacs-edn-warnings)
-            (format (concat "The layer README.org file \"%s\" "
-                            "doesn't have feature list in the "
-                            "top level \"Description\" headline\n")
-                    file))))))
+    (when (plist-get info :input-file)
+      (let ((file (file-truename
+                   (plist-get info :input-file))))
+        (when (and (string-prefix-p (file-truename
+                                     (concat
+                                      spacemacs-root-directory
+                                      "layers/"))
+                                    file)
+                   (string-suffix-p "README.org"
+                                    file
+                                    t))
+          (unless has-description?
+            (plist-put
+             info
+             :spacemacs-edn-warnings
+             (concat
+              (plist-get info :spacemacs-edn-warnings)
+              (format
+               (concat
+                "The layer README file \"%s\" "
+                "doesn't have top level "
+                "\"Description\" headline\n"
+                "See %S\n")
+               file
+               spacemacs-readme-template-url))))
+          (unless has-feature-list?
+            (plist-put
+             info
+             :spacemacs-edn-warnings
+             (concat
+              (plist-get info :spacemacs-edn-warnings)
+              (format
+               (concat "The layer README.org file \"%s\" "
+                       "doesn't have feature list in the "
+                       "top level \"Description\" headline\n"
+                       "See %S\n")
+               file
+               spacemacs-readme-template-url)))))))
     (format (concat "#Spacemacs/Org-template{"
                     ":export-data #inst \"%s\" "
                     ":file-has-description? %s "
                     ":file-has-feature-list? %s "
+                    ":headlines [%s]"
                     ":contents [%s]}")
             (format-time-string "%Y-%m-%dT%H:%M:%S.52Z" nil t)
             (if (plist-member info :file-has-description?)
@@ -695,6 +861,7 @@ holding export options."
             (if (plist-member info :file-has-feature-list?)
                 'true
               'false)
+            (plist-get info :nesting-ids)
             contents)))
 
 ;;;; Timestamp
@@ -703,8 +870,8 @@ holding export options."
   "Transcode a TIMESTAMP object From Org to Spacemacs EDN.)))))))))
 CONTENTS is nil.  INFO is a plist holding contextual
 information."
-  (error "\"%s\" not implemented"
-         "spacemacs//org-edn-timestamp")
+  (spacemacs/org-edn-error "\"%s\" not implemented"
+                           "spacemacs//org-edn-timestamp")
   "")
 
 ;;;; Underline
@@ -734,45 +901,6 @@ contextual information."
   (format "#Spacemacs/Org-verse-block{:contents [%s]}" contents))
 
 
-;;; Helper Functions
-
-(defconst spacemacs-org-edn-special-chars '(("\t" . "\\t")
-                                            ("\r" . "\\r")
-                                            ("\n" . "\\n")))
-(defsubst spacemacs/org-edn-escape-string (str)
-  "Escape special characters in STR"
-  (if str
-      (with-temp-buffer
-        (insert str)
-        (format-replace-strings spacemacs-org-edn-special-chars)
-        (buffer-string))
-    ""))
-
-(defsubst spacemacs/org-edn-headline-make-nesting-id (headline)
-  "Make id for org HEADLINE by chaining headlines from parent to
-child headline.
-NOTE: Each headline is converted with `toc-org-hrefify-gh' but
-without unification and \"#\" prefix."
-  (let* ((res nil)
-         (cur-node headline)
-         (parent-node (org-export-get-parent cur-node)))
-    (loop
-     t
-     (when (eq 'headline (car-safe cur-node))
-       (push (string-remove-prefix
-              "#"
-              (toc-org-hrefify-gh
-               (org-element-property
-                :raw-value
-                cur-node)))
-             res))
-     (if (not parent-node)
-         (return res)
-       (setq cur-node parent-node
-             parent-node (org-export-get-parent cur-node))))
-    (mapconcat 'identity res "/")))
-
-
 ;;; Filter Functions
 
 (defsubst spacemacs//org-edn-final-function-tidy (contents)
@@ -784,7 +912,9 @@ FIXME: Figure out where they come from :"
   "Warn about potential errors."
   (let ((warnings (plist-get info :spacemacs-edn-warnings)))
     (when (stringp warnings)
-      (warn "%s" (string-remove-suffix "\n" warnings)))))
+      (spacemacs/org-edn-warn
+       "%s"
+       (string-remove-suffix "\n" warnings)))))
 
 (defun spacemacs//org-edn-final-function (contents _backend info)
   "Call final functions for `space-edn' backend"
@@ -794,215 +924,36 @@ FIXME: Figure out where they come from :"
 
 ;;; End-user functions
 
-(defun spacemacs/org-edn-publish-to-spacemacs-edn (plist filename pub-dir)
-  "Publish an org file to Spacemacs EDN.
-
-FILENAME is the filename of the Org file to be published.  PLIST
-is the property list for the given project.  PUB-DIR is the
-publishing directory.
-
-Return output file name."
-  (org-publish-org-to 'spacemacs-edn
-                      filename
-                      ".edn"
-                      plist
-                      pub-dir))
-
-(defun spacemacs/publish-docs-to-edn ()
-  "Publish the documentation to doc/export/."
-  (interactive)
-  (let* ((publish-target (concat spacemacs-start-directory "export/"))
-         (org-publish-project-alist
-          `(("spacemacs-edn"
-             :components ("spacemacs-news"
-                          "spacemacs-doc"
-                          "spacemacs-doc-static"
-                          "layers-doc"
-                          "layers-doc-static"))
-            ("spacemacs-news"
-             :base-directory ,spacemacs-news-directory
-             :base-extension "org"
-             :publishing-directory ,(concat publish-target "news/")
-             :publishing-function spacemacs/org-edn-publish-to-spacemacs-edn
-             :headline-levels 4)
-            ("spacemacs-doc"
-             :base-directory ,spacemacs-docs-directory
-             :base-extension "org"
-             :publishing-directory ,(concat publish-target "doc/")
-             :publishing-function spacemacs/org-edn-publish-to-spacemacs-edn
-             :headline-levels 4)
-            ("layers-doc"
-             :base-directory ,(concat spacemacs-start-directory "layers/")
-             :base-extension "org"
-             :recursive t
-             :publishing-directory ,(concat publish-target "layers/")
-             :publishing-function spacemacs/org-edn-publish-to-spacemacs-edn
-             :exclude "local\\|dockerfiles\\|LAYERS.org")
-            ("spacemacs-doc-static"
-             :base-directory ,spacemacs-docs-directory
-             :base-extension "png"
-             :recursive t
-             :publishing-directory ,(concat publish-target "doc/")
-             :publishing-function org-publish-attachment)
-            ("layers-doc-static"
-             :base-directory ,(concat spacemacs-start-directory "layers/")
-             :base-extension "jpg\\|png\\|gif"
-             :recursive t
-             :publishing-directory ,(concat publish-target "layers/")
-             :publishing-function org-publish-attachment))))
-    (org-publish-project "spacemacs-edn" t)))
-
-(defconst spacemacs-publish-docs-to-edn-default-exclude-re
-  (regexp-opt
-   (append
-    (mapcar (lambda (el)
-              (file-truename
-               (concat
-                spacemacs-start-directory
-                el)))
-            `("export/"
-              "private/"
-              "tests/"
-              "elpa/"))
-    (f-glob (file-truename (concat spacemacs-start-directory
-                                   ".*/")))
-    '("LAYERS.org"
-      "CHANGELOG.org")))
-  "Default exclusion regexp for `spacemacs/publish-docs-to-edn-concurrently'")
-
-(defun spacemacs//publish-docs-to-edn-concurrently-worker (pub-dir file-list)
-  "Worker for `spacemacs/publish-docs-to-edn-concurrently'"
-  (make-directory
-   (setq spacemacs-cache-directory
-         (concat
-          (make-temp-name "spacemacs-edn-export-worker-cache-dir")
-          "/"))
-   t)
+(defun spacemacs//export-docs-to-edn (exp-dir file-list)
+  "Export org files in FILE-LIST into EXP-DIR."
   (unwind-protect
       (dolist (file file-list)
         (let* ((target-file-name (concat
-                                  pub-dir
+                                  exp-dir
                                   (string-remove-suffix
                                    ".org"
                                    (string-remove-prefix
                                     (file-truename
-                                     spacemacs-start-directory)
+                                     spacemacs-root-directory)
                                     (file-truename file)))
                                   ".edn"))
                (target-file-dir
                 (file-name-directory target-file-name)))
           (make-directory target-file-dir t)
-          (message "Exporting \"%s\" into \"%s\""
-                   file
-                   target-file-name)
+          (spacemacs/org-edn-message
+           "Exporting \"%s\" into \"%s\""
+           file
+           target-file-name)
           (with-temp-buffer
             (find-file file)
             (org-export-to-file
-             'spacemacs-edn
-             target-file-name))))
-    (delete-directory spacemacs-cache-directory t)))
-
-(defun spacemacs/publish-docs-to-edn-concurrently
-    (&optional pub-dir inst-num exclude-re)
-  "Publish org files and images using `org-export-to-file' function and
-`spacemacs-edn' backend.
-If PUB-DIR isn't specified - publish to \"%SPACMACS-DIR%/export/\".
-INST-NUM is a number of Emacs instances used for publishing(4 if not pacified).
-EXCLUDE-RE is a exclusion REGEXP. If not specified
-the value of `spacemacs-publish-docs-to-edn-default-exclude-re' is used.
-NOTE: In --batch mode this function will wait for all instances to finish."
-  (byte-compile-file
-   (concat spacemacs-start-directory
-           "core/core-documentation-edn.el"))
-  (let ((exclude-re (or exclude-re
-                        spacemacs-publish-docs-to-edn-default-exclude-re))
-        (pub-dir (or pub-dir (concat spacemacs-start-directory "export/")))
-        (org-files-fp-list-length 0)
-        (org-files-fp-list '())
-        (part-in (or inst-num 4))
-        (org-files-fp-lists '())
-        (emacs-fp (executable-find "emacs"))
-        (uname (user-login-name))
-        (comp-oses '(gnu/linux darwin))
-        (spacemacs-init-fp (concat spacemacs-start-directory
-                                   "init.el"))
-        (spacemacs-core-doc-el-fp (concat
-                                   spacemacs-start-directory
-                                   "core/core-documentation-edn.elc"))
-        (instances-finished 0))
-    (unless (memq system-type comp-oses)
-      (user-error
-       "Sorry. For now this function can be run only on \"%s\" systems"
-       comp-oses))
-    (unless emacs-fp
-      (error "Can't find emacs executable"))
-    (dolist (org-file-fp
-             (directory-files-recursively
-              spacemacs-start-directory
-              "\\.org$"))
-      (unless (string-match-p exclude-re (file-truename org-file-fp))
-        (setq  org-files-fp-list-length
-               (1+  org-files-fp-list-length))
-        (push org-file-fp org-files-fp-list)))
-    (setq org-files-fp-lists (-partition (round (/ org-files-fp-list-length
-                                                   part-in))
-                                         org-files-fp-list))
-    (call-process-shell-command
-     (format "\"%s\" -u \"%s\" -batch -l \"%s\" > /dev/null 2>&1"
-             emacs-fp
-             uname
-             spacemacs-init-fp))
-    (make-directory pub-dir t)
-    (dolist (file-path-group org-files-fp-lists)
-      (make-process :name "spacemacs-edn-concurrent-export"
-                    :sentinel (lambda (p e)
-                                (if (string-match-p "finished" e)
-                                    (progn
-                                      (message "Process %s has finished\n" p)
-                                      (setq instances-finished
-                                            (1+ instances-finished))
-                                      (when (and
-                                             (not noninteractive)
-                                             (= part-in
-                                                instances-finished))
-                                        (run-with-idle-timer
-                                         1
-                                         nil
-                                         'y-or-n-p
-                                         (concat "Export finished! "
-                                                 "Are you happy?"))))
-                                  (error "Process %s was %s"
-                                         p e)
-                                  ;; stop waiting
-                                  (setq part-in -1)))
-                    :filter (lambda (&optional p s) (princ (format "\"%s\":%s" p s)))
-                    :command
-                    (list
-                     emacs-fp
-                     "-u"
-                     uname
-                     "-batch"
-                     "-l"
-                     spacemacs-core-doc-el-fp
-                     "-eval"
-                     (format
-                      "%S"
-                      `(spacemacs//publish-docs-to-edn-concurrently-worker
-                        ,pub-dir
-                        ',file-path-group)))))
-    (let* ((org-publish-project-alist
-            `(("spacemacs-edn-static"
-               :components ("spacemacs-doc-static"))
-              ("spacemacs-doc-static"
-               :base-directory ,spacemacs-start-directory
-               :base-extension "jpg\\|jpeg\\|svg\\|png\\|gif"
-               :recursive t
-               :exclude ,spacemacs-publish-docs-to-edn-default-exclude-re
-               :publishing-directory ,pub-dir
-               :publishing-function org-publish-attachment))))
-      (org-publish-project "spacemacs-edn-static" t))
-    (when noninteractive
-      (while (> part-in instances-finished) (sleep-for 1)))))
-
-(provide 'core-documentation-edn)
-;;; core-documentation-edn.el ends here
+                'spacemacs-edn
+                target-file-name))
+          (if (and (file-readable-p target-file-name)
+                   (> (nth 7 (file-attributes target-file-name)) 0))
+              (spacemacs/org-edn-message
+               "Successfully exported \"%s\""
+               file)
+            (spacemacs/org-edn-error
+             "Export finished but \"%s\" isn't exist or empty"
+             target-file-name))))))

@@ -457,11 +457,11 @@ There are two types of configuration layers:
 
 ** Submitting a configuration layer upstream
 If you decide to provide a configuration layer, please check the contribution
-guidelines first in [[file:../CONTRIBUTING.org][CONTRIBUTING]].
+guidelines first in [[https://github.com/syl20bnr/spacemacs/blob/develop/COMMUNITY.org][CONTRIBUTING]].
 
 ** Example: Themes Megapack example
 This is a simple configuration layer listing a bunch of themes which you can
-find [[file:../layers/%2Bthemes/themes-megapack/README.org][here]].
+find [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bthemes/themes-megapack/README.org][here]].
 
 To install it, just add =themes-megapack= to your =~/.spacemacs= like so:
 
@@ -500,7 +500,7 @@ The final main way to manage your private layers is to push them in a personal
 branch that you keep up to date with upstream =master= or =develop=.
 
 ** Tips for writing layers
-Please refer to [[file:LAYERS.org][this]] introduction for some tips on writing layers, and how to
+Please refer to [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][this]] introduction for some tips on writing layers, and how to
 best make them fit with the Spacemacs philosophy and loading strategy.
 
 * Dotfile Configuration
@@ -613,7 +613,7 @@ to add some layers in =~/.myconfig=, set the variable like this:
 
 *** Setting configuration layers variables
 Some configuration layers have configuration variables to enable specific
-features. For instance the [[../layers/%2Bsource-control/git][git layer]] has several configuration variables, they
+features. For instance the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bsource-control/git/README.org][git layer]] has several configuration variables, they
 can be set directly in the =dotspacemacs-configuration-layers= like this:
 
 #+BEGIN_SRC emacs-lisp
@@ -1362,7 +1362,7 @@ can be reached using the =control= key.
 | ~SPC t p~   | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                                                     |
 | ~SPC t C-p~ | =ⓟ=     | p     | global smartparens                                                   |
 | ~SPC t s~   | =ⓢ=     | s     | syntax checking (flycheck)                                           |
-| ~SPC t S~   | =Ⓢ=     | S     | enabled in [[file:../layers/+checkers/spell-checking/README.org][spell checking layer]] (flyspell)                           |
+| ~SPC t S~   | =Ⓢ=     | S     | enabled in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell checking layer]] (flyspell)                           |
 | ~SPC t w~   | =ⓦ=     | w     | whitespace mode                                                      |
 | ~SPC t C-w~ | =ⓦ=     | w     | global whitespace                                                    |
 | ~SPC t W~   | =Ⓦ=     | W     | automatic whitespace cleanup (see =dotspacemacs-whitespace-cleanup=) |
@@ -1394,7 +1394,7 @@ For example to undo diminish for =company=:
 #+END_SRC
 
 Note that we use a =use-package= post init hook to be sure to override any
-lazily diminished lighters (see [[file:LAYERS.org][layers documentation]] for more information
+lazily diminished lighters (see [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][layers documentation]] for more information
 about lazy loading).
 
 ** Frame title
@@ -2150,7 +2150,7 @@ Unlike vim, emacs creates many buffers that most people do not need to see. Some
 examples are the =*Messages*= and =*Compile-Log*= buffers. Spacemacs tries to
 automatically ignore buffers that are not useful. However, you may want to
 change the way Spacemacs marks buffers as useful. For instructions, see the
-[[file:FAQ.org::#change-special-buffer-rules][special buffer howto]].
+[[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org#change-special-buffer-rules][special buffer howto]].
 
 **** Files manipulations key bindings
 Files manipulation commands (start with ~f~):
@@ -2858,7 +2858,7 @@ In transient state:
 argument (i.e. ~10 SPC n +~ will add 10 to the number under point).
 
 *** Spell checking
-Spell checking is enabled by including the [[file:../layers/+checkers/spell-checking/README.org][spell
+Spell checking is enabled by including the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell
 checking]] layer in your dotfile.
 
 Keybindings are listed in the layer documentation.
