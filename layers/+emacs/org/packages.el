@@ -179,6 +179,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "Cc" 'org-clock-cancel
         "Ci" 'org-clock-in
         "Co" 'org-clock-out
+        "Cr" 'org-resolve-clocks
         "dd" 'org-deadline
         "ds" 'org-schedule
         "dt" 'org-time-stamp
