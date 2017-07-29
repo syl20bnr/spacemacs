@@ -52,10 +52,12 @@ if [ ! -z "$FORMATTING" ]; then
     echo_headline "Testing changed ORG files with spacefmt"
     cp ~/.emacs.d/core/templates/.spacemacs.template ~/
     mv ~/.spacemacs.template ~/.spacemacs
+    changed_f_as_args=()
     while read p
     do
         if [ -f "$p" ]; then
             if [ ${p: -4} == ".org" ]; then
+                changed_f_as_args+=("${p}")
                 echo "Checking $p file"
                 ./core/tools/spacefmt/spacefmt -f "$p"
                 if [ $? -ne 0 ]; then
@@ -72,6 +74,15 @@ if [ ! -z "$FORMATTING" ]; then
         exit 1
     fi
     echo "All changed files comply with spacefmt"
+
+    if [ ${#changed_f_as_args[@]} -ne 0 ]; then
+        echo_headline "Testing with exporter"
+        emacs --batch -l ./core/tools/export/run.el test $(printf "%s " "${changed_f_as_args[@]}")
+        if [ $? -ne 0 ]; then
+            echo "Documentation needs some fixing ;)"
+            exit 1
+        fi
+    fi
 
     echo_headline "Testing for trailing and all sorts of broken white spaces"
     git reset -q "${first_commit}"
