@@ -24,8 +24,8 @@ CoreLocation services.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =geolocation= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+add =geolocation= to the existing =dotspacemacs-configuration-layers= list in
+this file.
 
 All services are disable by default. To enable all, or some of them, add instead
 something like this:
@@ -63,21 +63,21 @@ cycling, etc.
 ** sunshine (weather forecast)
 Sunshine display local weather forecast.
 
-Setup [[https://home.openweathermap.org/users/sign_in][OpenWeatherMap]] API key.
-Set ~sunshine-appid~ to some hash string from the openweathermap
-website. You need to sign up to the website to get a API key.
+Setup [[https://home.openweathermap.org/users/sign_in][OpenWeatherMap]] API key. Set ~sunshine-appid~ to some hash string from the
+openweathermap website. You need to sign up to the website to get a API key.
 
 #+BEGIN_SRC emacs-lisp
   (setq sunshine-appid "your-apikey")
 #+END_SRC
 
-Configure your location by setting the variable sunshine-location. You
-can provide a string, like "New York, NY" or a ZIP code, like "90210".
-This variable is available through the Customize facility.
-  When specifying a ZIP code, you may receive results from a foreign
-country. This is due to weird behavior from OpenWeatherMap. To resolve
-this, append a comma and the country code after the ZIP code. Note the
-lack of a space in the example below.
+Configure your location by setting the variable sunshine-location. You can
+provide a string, like "New York, NY" or a ZIP code, like "90210". This variable
+is available through the Customize facility.
+
+When specifying a ZIP code, you may receive results from a foreign country. This
+is due to weird behavior from OpenWeatherMap. To resolve this, append a comma
+and the country code after the ZIP code. Note the lack of a space in the example
+below.
 
 #+BEGIN_SRC emacs-lisp
 (setq sunshine-location "90210,USA")
