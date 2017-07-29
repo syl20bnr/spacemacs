@@ -205,7 +205,10 @@
       (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
         "w" 'ivy-wgrep-change-to-wgrep-mode)
       ;; Why do we do this ?
-      (ido-mode -1))))
+      (ido-mode -1)
+
+      ;; allow to select prompt in some ivy functions
+      (setq ivy-use-selectable-prompt t))))
 
 (defun ivy/init-ivy-hydra ()
   (use-package ivy-hydra)

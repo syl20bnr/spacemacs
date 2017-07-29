@@ -26,13 +26,15 @@ file.
 You can customize ivy with the following variables:
 
 - =ivy-wrap= Whether C-n and C-p should wrap-around when at the the first or
-  last candidate. The default value is nil.
+  last candidate. The default value is =nil=.
 - =ivy-extra-directories= Setting this to =nil= hides . and .. directories from
   file name completion. You can still go up a directory up by ~DEL~.
   The default value is ("../", "./").
 - =ivy-use-virtual-buffers= Add bookmarks and recent files to buffer completion
   menu. The Spacemacs default is t.
 - =ivy-height= The height of the minibuffer. The Spacemacs default is 15.
+- =ivy-use-selectable-prompt= When non-nil, make the prompt line selectable like
+  a candidate. The Spacemacs default value is =t=.
 
 * Key Bindings
 If you choose =ivy= as completion system, make sure to read the [[http://oremacs.com/swiper/][official manual]].
