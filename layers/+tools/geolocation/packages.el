@@ -11,9 +11,11 @@
 
 (setq geolocation-packages
       '(
-        (osx-location :toggle geolocation-enable-location-service)
+        (osx-location :toggle (and geolocation-enable-location-service
+                                   (spacemacs/system-is-mac)))
         popwin
-        rase
+        (rase :toggle (and geolocation-enable-location-service
+                           (spacemacs/system-is-mac)))
         (sunshine :toggle geolocation-enable-weather-forecast)
         (theme-changer :toggle geolocation-enable-automatic-theme-changer)
         ))
@@ -24,8 +26,7 @@
     :defer t
     :init
     (progn
-      (when (spacemacs/system-is-mac)
-        (add-hook 'osx-location-changed-hook 'spacemacs//osx-location-changed))
+      (add-hook 'osx-location-changed-hook 'spacemacs//osx-location-changed)
       (osx-location-watch))))
 
 (defun geolocation/init-rase ()
