@@ -1711,22 +1711,6 @@ For more information go to the layers documentation for [[https://github.com/syl
 *Note:* To open the Spacemacs documentation for Helm of Ivy in Emacs, open the
 =spacemacs-help= menu with ~SPC h SPC~ and type ~helm~ or ~ivy~ then ~return~.
 
-*** Ivy
-If you choose =ivy= as completion system, make sure to read [[http://oremacs.com/swiper/][official manual]]. In
-case you don't want to read everything, at least familiarise with [[http://oremacs.com/swiper/#minibuffer-key-bindings][minibuffer key
-bindings]]. Some useful key bindings are presented in following table.
-
-Initiate the transient state with ~M-SPC~ while in a =ivy= buffer.
-
-| Key Binding    | Description                                                                                          |
-|----------------+------------------------------------------------------------------------------------------------------|
-| ~M-SPC~        | initiate the transient state                                                                         |
-| ~C-m~ or ~RET~ | call default action on current candidate                                                             |
-| ~M-o~          | show the list of valid actions on current candidate (then press any of described keys to execute it) |
-| ~C-M-m~        | the same as ~RET~ but doesn't close completion minibuffer                                            |
-| ~C-M-o~        | the same as ~M-o~ but doesn't close completion minibuffer                                            |
-| ~C-'~          | use avy to quickly select completion on current page (sometimes faster than using arrows)            |
-
 ** Discovering
 *** Key bindings
 **** Which-key
