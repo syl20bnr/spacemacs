@@ -10,7 +10,7 @@
 ;;; License: GPLv3
 
 
-(load (expand-file-name "./core/tools/spacefmt/toc-org.el") nil t)
+(load (expand-file-name "./core/tools/lib/toc-org.el") nil t)
 
 (require 'cl)
 (require 'files)
