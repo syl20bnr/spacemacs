@@ -232,6 +232,17 @@ is ignored."
        (cfgl-package-reqs-satisfied-p pkg inhibit-messages)
        (cfgl-package-toggled-p pkg inhibit-messages)))
 
+(defmethod cfgl-package-used-p ((pkg cfgl-package))
+  "Return non-nil if PKG is a used package."
+  (and (not (null (oref pkg :owners)))
+       (not (oref pkg :excluded))
+       (cfgl-package-enabled-p pkg t)))
+
+(defmethod cfgl-package-distant-p ((pkg cfgl-package))
+  "Return non-nil if PKG is a distant package (i.e. not built-in Emacs)."
+  (and (not (memq (oref pkg :location) '(built-in site local)))
+       (not (stringp (oref pkg :location)))))
+
 (defmethod cfgl-package-get-safe-owner ((pkg cfgl-package))
   "Safe method to return the name of the layer which owns PKG."
   ;; The owner of a package is the first *used* layer in `:owners' slot.
@@ -281,9 +292,6 @@ is not set for the given SLOT."
 
 (defvar configuration-layer--indexed-packages (make-hash-table :size 2048)
   "Hash map to index `cfgl-package' objects by their names.")
-
-(defvar configuration-layer--used-distant-packages '()
-  "A list of all distant packages that are effectively used.")
 
 (defvar configuration-layer--check-new-version-error-packages nil
   "A list of all packages that were skipped during last update attempt.")
@@ -455,10 +463,6 @@ To prevent package from being installed or uninstalled set the variable
   (configuration-layer//load-layers-files configuration-layer--used-layers
                          '("funcs.el"))
   (configuration-layer//configure-layers configuration-layer--used-layers)
-  ;; pre-filter some packages to save some time later in the loading process
-  (setq configuration-layer--used-distant-packages
-        (configuration-layer//get-distant-packages
-         configuration-layer--used-packages t))
   ;; load layers lazy settings
   (configuration-layer/load-auto-layer-file)
   ;; install and/or uninstall packages
@@ -466,11 +470,9 @@ To prevent package from being installed or uninstalled set the variable
     (let ((packages
            (append
             ;; install used packages
-            (configuration-layer/filter-objects
-             configuration-layer--used-distant-packages
-             (lambda (x)
-               (let ((pkg (configuration-layer/get-package x)))
-                 (not (oref pkg :lazy-install)))))
+            (configuration-layer//filter-distant-packages
+             configuration-layer--used-packages t
+             '(not (oref pkg :lazy-install)))
             ;; also install all other packages if requested
             (when (eq 'all dotspacemacs-install-packages)
               (let (all-other-packages)
@@ -485,7 +487,7 @@ To prevent package from being installed or uninstalled set the variable
                       (dolist (pkg pkgs)
                         (let ((pkg-name (if (listp pkg) (car pkg) pkg)))
                           (add-to-list 'all-other-packages pkg-name))))))
-                (configuration-layer//get-distant-packages
+                (configuration-layer//filter-distant-packages
                  all-other-packages nil))))))
       (configuration-layer//install-packages packages)
       (when (and (or (eq 'used dotspacemacs-install-packages)
@@ -1012,9 +1014,7 @@ If SKIP-LAYER-DISCOVERY is non-nil then do not check for new layers."
 (defun configuration-layer/make-packages-from-layers
     (layer-names &optional usedp)
   "Read the package lists of layers with name LAYER-NAMES and create packages.
-USEDP if non-nil indicates that made packages are used packages.
-DOTFILE if non-nil will process the dotfile `dotspacemacs-additional-packages'
-variable as well."
+USEDP if non-nil indicates that made packages are used packages."
   (dolist (layer-name layer-names)
     (let ((layer (configuration-layer/get-layer layer-name)))
       (dolist (pkg (cfgl-layer-get-packages layer 'with-props))
@@ -1103,20 +1103,21 @@ USEDP if non-nil indicates that made packages are used packages."
                       objects
                       :initial-value nil)))
 
-(defun configuration-layer//get-distant-packages (packages usedp)
+(defun configuration-layer//filter-distant-packages
+    (packages usedp &optional predicate)
   "Return the distant packages (ie to be intalled).
 If USEDP is non nil then returns only the used packages; if it is nil then
-return both used and unused packages."
+return both used and unused packages.
+PREDICATE is an additional expression that eval to a boolean."
   (configuration-layer/filter-objects
    packages
    (lambda (x)
      (let ((pkg (configuration-layer/get-package x)))
-       (and (not (memq (oref pkg :location) '(built-in site local)))
-            (not (stringp (oref pkg :location)))
+       (and (cfgl-package-distant-p pkg)
             (or (null usedp)
-                (and (not (null (oref pkg :owners)))
-                     (not (oref pkg :excluded))
-                     (cfgl-package-enabled-p pkg t))))))))
+                (cfgl-package-used-p pkg))
+            (or (null predicate)
+                (eval predicate)))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path to the private configuration layer string NAME."
@@ -1480,8 +1481,7 @@ wether the declared layer is an used one or not."
                      (let* ((pkg-name (if (listp x) (car x) x))
                             (pkg (configuration-layer/get-package pkg-name)))
                        (cfgl-package-set-property pkg :lazy-install nil)
-                       (when (memq pkg-name
-                                   configuration-layer--used-distant-packages)
+                       (when (cfgl-package-is-distant pkg)
                          pkg-name)))
                    (oref layer :packages)))))
       (let ((last-buffer (current-buffer))
@@ -1803,9 +1803,10 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
   (spacemacs-buffer/append "\nUpdating package archives, please wait...\n")
   (configuration-layer/retrieve-package-archives nil 'force)
   (setq configuration-layer--check-new-version-error-packages nil)
-  (let* ((update-packages
-          (configuration-layer//get-packages-to-update
-           configuration-layer--used-distant-packages))
+  (let* ((distant-packages (configuration-layer//filter-distant-packages
+                            configuration-layer--used-packages t))
+         (update-packages
+          (configuration-layer//get-packages-to-update distant-packages t))
          (skipped-count (length
                          configuration-layer--check-new-version-error-packages))
          (date (format-time-string "%y-%m-%d_%H.%M.%S"))
@@ -2186,7 +2187,7 @@ depends on it."
 (defun configuration-layer//get-indexed-elpa-package-names ()
   "Return a list of all ELPA packages in indexed packages and dependencies."
   (let (result)
-    (dolist (pkg-sym (configuration-layer//get-distant-packages
+    (dolist (pkg-sym (configuration-layer//filter-distant-packages
                       (ht-keys configuration-layer--indexed-packages) nil))
       (when (assq pkg-sym package-archive-contents)
         (let* ((deps (mapcar 'car
