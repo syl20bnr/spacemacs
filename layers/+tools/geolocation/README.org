@@ -6,9 +6,9 @@
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#location][Location]]
+  - [[#osx-location][osx-location]]
   - [[#theme-changer][theme-changer]]
   - [[#sunshine-weather-forecast][sunshine (weather forecast)]]
-  - [[#osx-location][osx-location]]
 - [[#key-bindings][Key Bindings]]
   - [[#weather][Weather]]
 
@@ -21,6 +21,7 @@ CoreLocation services.
 ** Supported packages in this layer
 - [[https://github.com/aaronbieber/sunshine.el/blob/master/sunshine.el][sunshine]]
 - [[https://github.com/purcell/osx-location][osx-location]]
+- [[https://github.com/hadronzoo/theme-changer][theme-changer]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -48,10 +49,16 @@ Set location manually by setting the following variables to the
         calendar-longitude 1.80)
 #+END_SRC
 
-On OS X, all of these variables get setup automatically if the ~osx-location~
-service was enabled (Wifi must be turned on to make it work). In this case, if
-~calendar-location-name~ was omitted, it'll be stringed-up ~calendar-latitude~
-and ~calendar-longitude~ i.e. "41.23, 1.80".
+** osx-location
+Mac users can take adavantage of automatic geogrphical discovery using the OS'
+CoreLocation system service, implemented as a long running background process.
+In order to enable it, set =geolocation-enable-location-service= to =t= as
+explained in installation instructions.
+
+A helper script will need to be given proper access first time this layer is
+activated.
+
+[[file:img/emacs-location-helper.jpg]]
 
 ** theme-changer
 This layer implement a simple "theme changer" which, when enabled, will switch
@@ -59,6 +66,8 @@ between first two themes the user has setup in ~dotspacemacs-themes~. First
 theme listed will be used as light variant, while the second as the the dark.
 Other themes will be ignored by this layer, though they are still available for
 cycling, etc.
+
+Note that =theme-changer= *requires* location to be set.
 
 ** sunshine (weather forecast)
 Sunshine display local weather forecast.
@@ -101,14 +110,6 @@ To display weather forecast icons by default ("pretty mode"), add
 #+END_SRC
 
 [[file:img/emacs-sunshine.jpg]]
-
-** osx-location
-OS X users can take adavantage of automatic geogrphical discovery using the OS'
-CoreLocation system service, implemented as a long running background process. A
-helper script will need to be given proper access first time this layer is
-activated.
-
-[[file:img/emacs-location-helper.jpg]]
 
 * Key Bindings
 ** Weather
