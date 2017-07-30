@@ -1,0 +1,16 @@
+#+TITLE: snoopy layer
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+- [[#install][Install]]
+
+* Description
+  This layer adds ~snoopy-mode~ as a minor mode in all programming modes.
+  ~snoopy-mode~ is a minor mode for number row unshifted character insertion in
+  Emacs. It can insert characters such as ~!~ and ~@~ without pressing the shift
+  key.
+
+* Install
+  To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+  add =snoopy= to the existing =dotspacemacs-configuration-layers= list in this
+  file.
