@@ -50,7 +50,6 @@ Some useful key bindings are presented in the following table.
 | ~M-o~       | show the list of valid actions on current candidate (then press any of described keys to execute it) |
 | ~C-M-o~     | the same as ~M-o~ but doesn't close completion minibuffer                                            |
 | ~C-'~       | use avy to quickly select completion on current page (sometimes faster than using arrows)            |
-| ~C-M-j~     | use current input instead of current candidate                                                       |
 | ~<ESC>~     | close minibuffer                                                                                     |
 
 ** Transient state
