@@ -1794,10 +1794,11 @@ LAYER must not be the owner of PKG."
                                 "/" (car (pop dirs)))
                         t t))))
 
-(defun configuration-layer/update-packages (&optional always-update)
+(defun configuration-layer/update-packages (&optional no-confirmation)
   "Update packages.
 
-If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
+If called with a prefix argument or NO-CONFIRMATION is non-nil then assume yes
+to update."
   (interactive "P")
   (spacemacs-buffer/insert-page-break)
   (spacemacs-buffer/append "\nUpdating package archives, please wait...\n")
@@ -1838,7 +1839,7 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
                            "%s (won't be updated because package is frozen)\n"
                          "%s\n") x) t))
             (sort (mapcar 'symbol-name update-packages) 'string<))
-      (if (and (not always-update)
+      (if (and (not no-confirmation)
                (not (yes-or-no-p
                      (format "Do you want to update %s package(s) ? "
                              upgrade-count))))
