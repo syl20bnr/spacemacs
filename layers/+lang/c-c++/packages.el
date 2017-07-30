@@ -42,14 +42,11 @@
     (progn
       (require 'compile)
       (c-toggle-auto-newline 1)
-      (spacemacs/declare-prefix-for-mode 'c-mode "mg" "goto")
-      (spacemacs/set-leader-keys-for-major-mode 'c-mode
-        "ga" 'projectile-find-other-file
-        "gA" 'projectile-find-other-file-other-window)
-      (spacemacs/declare-prefix-for-mode 'c++-mode "mg" "goto")
-      (spacemacs/set-leader-keys-for-major-mode 'c++-mode
-        "ga" 'projectile-find-other-file
-        "gA" 'projectile-find-other-file-other-window))))
+      (dolist (mode c-c++-modes)
+        (spacemacs/declare-prefix-for-mode mode "mg" "goto")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "ga" 'projectile-find-other-file
+          "gA" 'projectile-find-other-file-other-window)))))
 
 (defun c-c++/init-disaster ()
   (use-package disaster
@@ -57,18 +54,16 @@
     :commands (disaster)
     :init
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'c-mode
-        "D" 'disaster)
-      (spacemacs/set-leader-keys-for-major-mode 'c++-mode
-        "D" 'disaster))))
+      (dolist (mode c-c++-modes)
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "D" 'disaster)))))
 
 (defun c-c++/init-clang-format ()
   (use-package clang-format
     :if c-c++-enable-clang-support
     :init
     (when c-c++-enable-clang-format-on-save
-      (spacemacs/add-to-hooks 'spacemacs/clang-format-on-save
-                              '(c-mode-hook c++-mode-hook)))))
+      (spacemacs/add-to-hooks 'spacemacs/clang-format-on-save c-c++-mode-hooks))))
 
 (defun c-c++/init-cmake-mode ()
   (use-package cmake-mode
@@ -81,8 +76,7 @@
     (spacemacs|add-company-backends :backends company-clang
       :modes c-mode-common)
     (setq company-clang-prefix-guesser 'spacemacs/company-more-than-prefix-guesser)
-    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args
-                            '(c-mode-hook c++-mode-hook))))
+    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)))
 
 (defun c-c++/init-company-c-headers ()
   (use-package company-c-headers
@@ -92,10 +86,10 @@
             :modes c-mode-common)))
 
 (defun c-c++/post-init-flycheck ()
-  (dolist (mode '(c-mode c++-mode))
+  (dolist (mode c-c++-modes)
     (spacemacs/enable-flycheck mode))
   (when c-c++-enable-clang-support
-    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args '(c-mode-hook c++-mode-hook))))
+    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)))
 
 (defun c-c++/post-init-ggtags ()
   (add-hook 'c-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
@@ -112,8 +106,8 @@
      gdb-show-main t)))
 
 (defun c-c++/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'c-mode)
-  (spacemacs/helm-gtags-define-keys-for-mode 'c++-mode))
+  (dolist (mode c-c++-modes)
+    (spacemacs/helm-gtags-define-keys-for-mode mode)))
 
 (defun c-c++/init-realgud()
   (use-package realgud
@@ -121,7 +115,7 @@
     :commands (realgud:gdb)
     :init
     (progn
-      (dolist (mode '(c-mode c++-mode))
+      (dolist (mode c-c++-modes)
         (spacemacs/set-leader-keys-for-major-mode mode
           "dd" 'realgud:gdb
           "de" 'realgud:cmd-eval-dwim))
@@ -143,22 +137,21 @@
         "S" 'realgud-window-cmd-undisturb-src))))
 
 (defun c-c++/post-init-semantic ()
-  (spacemacs/add-to-hooks 'semantic-mode '(c-mode-hook c++-mode-hook)))
+  (spacemacs/add-to-hooks 'semantic-mode c-c++-mode-hooks))
 
 (defun c-c++/post-init-srefactor ()
-  (spacemacs/set-leader-keys-for-major-mode 'c-mode "r" 'srefactor-refactor-at-point)
-  (spacemacs/set-leader-keys-for-major-mode 'c++-mode "r" 'srefactor-refactor-at-point)
-  (spacemacs/add-to-hooks 'spacemacs/lazy-load-srefactor '(c-mode-hook c++-mode-hook)))
+  (dolist (mode c-c++-modes)
+    (spacemacs/set-leader-keys-for-major-mode mode "r" 'srefactor-refactor-at-point))
+  (spacemacs/add-to-hooks 'spacemacs/lazy-load-srefactor c-c++-mode-hooks))
 
 (defun c-c++/post-init-stickyfunc-enhance ()
-  (spacemacs/add-to-hooks 'spacemacs/lazy-load-stickyfunc-enhance '(c-mode-hook c++-mode-hook)))
+  (spacemacs/add-to-hooks 'spacemacs/lazy-load-stickyfunc-enhance c-c++-mode-hooks))
 
 (defun c-c++/post-init-ycmd ()
-  (add-hook 'c++-mode-hook 'ycmd-mode)
-  (add-hook 'c-mode-hook 'ycmd-mode)
+  (spacemacs/add-to-hooks 'ycmd-mode c-c++-mode-hooks)
   (add-to-list 'spacemacs-jump-handlers-c++-mode '(ycmd-goto :async t))
   (add-to-list 'spacemacs-jump-handlers-c-mode '(ycmd-goto :async t))
-  (dolist (mode '(c++-mode c-mode))
+  (dolist (mode c-c++-modes)
     (spacemacs/set-leader-keys-for-major-mode mode
       "gG" 'ycmd-goto-imprecise)))
 
@@ -168,11 +161,11 @@
 (defun c-c++/pre-init-xcscope ()
   (spacemacs|use-package-add-hook xcscope
     :post-init
-    (dolist (mode '(c-mode c++-mode))
+    (dolist (mode c-c++-modes)
       (spacemacs/set-leader-keys-for-major-mode mode "gi" 'cscope-index-files))))
 
 (defun c-c++/pre-init-helm-cscope ()
   (spacemacs|use-package-add-hook xcscope
     :post-init
-    (dolist (mode '(c-mode c++-mode))
+    (dolist (mode c-c++-modes)
       (spacemacs/setup-helm-cscope mode))))
