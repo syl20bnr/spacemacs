@@ -306,6 +306,81 @@
     (helper--add-layers `(,(cfgl-layer "layer2" :name 'layer2)) t)
     (should (eq 'layer2 (cfgl-package-get-safe-owner pkg)))))
 
+;; method: cfgl-package-distant-p
+
+(ert-deftest test-cfgl-package-distant-p--by-default-is-distant ()
+  (let ((pkg (cfgl-package "testpkg"
+                           :name 'testpkg
+                           :owners '(layer1))))
+    (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
+    (should (cfgl-package-distant-p pkg))))
+
+(ert-deftest test-cfgl-package-distant-p--from-elpa-repo-is-distant ()
+  (let ((pkg (cfgl-package "testpkg"
+                           :name 'testpkg
+                           :owners '(layer1)
+                           :location 'elpa)))
+    (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
+    (should (cfgl-package-distant-p pkg))))
+
+(ert-deftest test-cfgl-package-distant-p--from-recipe-is-distant ()
+  (let ((pkg (cfgl-package "testpkg"
+                           :name 'testpkg
+                           :owners '(layer1)
+                           :location '(recipe blahblah))))
+    (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
+    (should (cfgl-package-distant-p pkg))))
+
+(ert-deftest test-cfgl-package-distant-p--built-in-is-not-distant ()
+  (let ((pkg (cfgl-package "testpkg"
+                           :name 'testpkg
+                           :owners '(layer1)
+                           :location 'built-in)))
+    (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
+    (should (not (cfgl-package-distant-p pkg)))))
+
+(ert-deftest test-cfgl-package-distant-p--site-is-not-distant ()
+  (let ((pkg (cfgl-package "testpkg"
+                           :name 'testpkg
+                           :owners '(layer1)
+                           :location 'site)))
+    (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
+    (should (not (cfgl-package-distant-p pkg)))))
+
+(ert-deftest test-cfgl-package-distant-p--local-is-not-distant ()
+  (let ((pkg (cfgl-package "testpkg"
+                           :name 'testpkg
+                           :owners '(layer1)
+                           :location 'local)))
+    (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
+    (should (not (cfgl-package-distant-p pkg)))))
+
+(ert-deftest test-cfgl-package-distant-p--location-is-a-path ()
+  (let ((pkg (cfgl-package "testpkg"
+                           :name 'testpkg
+                           :owners '(layer1)
+                           :location "/a/path/to/pkg")))
+    (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
+    (should (not (cfgl-package-distant-p pkg)))))
+
+;; method: cfgl-package-used-p
+
+(ert-deftest test-cfgl-package-used-p--if-owned-by-layer-pkg-is-used ()
+  (let ((pkg (cfgl-package "testpkg" :name 'testpkg :owners '(layer1))))
+    (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
+    (should (cfgl-package-used-p pkg))))
+
+(ert-deftest test-cfgl-package-used-p--if-no-owner-pkg-is-not-used ()
+  (let ((pkg (cfgl-package "testpkg" :name 'testpkg)))
+    (should (not (cfgl-package-used-p pkg)))))
+
+(ert-deftest test-cfgl-package-used-p--if-excluded-pkg-is-not-used ()
+  (let ((pkg (cfgl-package "testpkg" :name
+                           'testpkg :owners '(layer1)
+                           :excluded t)))
+    (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
+    (should (not (cfgl-package-used-p pkg)))))
+
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//package-enabled-p
 ;; ---------------------------------------------------------------------------
@@ -1135,10 +1210,10 @@
       (configuration-layer/make-package pkg 'layer-make-pkg-11)))))
 
 ;; ---------------------------------------------------------------------------
-;; configuration-layer//get-distant-packages
+;; configuration-layer//filter-distant-packages
 ;; ---------------------------------------------------------------------------
 
-(defvar test-get-distant-packages--test-data
+(defvar test-filter-distant-packages--test-data
   `(,(cfgl-package "pkg18" :name 'pkg18 :owners nil)
     ,(cfgl-package "pkg17" :name 'pkg17 :owners nil :location 'elpa)
     ,(cfgl-package "pkg16" :name 'pkg16 :owners nil :toggle nil)
@@ -1158,25 +1233,25 @@
     ,(cfgl-package "pkg2" :name 'pkg2 :owners '(layer) :location 'site)
     ,(cfgl-package "pkg1" :name 'pkg1 :owners '(layer) :location "/path")))
 
-(ert-deftest test-get-distant-packages--return-only-used-packages ()
+(ert-deftest test-filter-distant-packages--return-only-used-packages ()
   (let* ((packages (mapcar 'car (object-assoc-list
-                                 :name test-get-distant-packages--test-data)))
+                                 :name test-filter-distant-packages--test-data)))
          configuration-layer--used-packages
          (configuration-layer--indexed-packages (make-hash-table :size 2048)))
-    (helper--add-packages test-get-distant-packages--test-data t)
+    (helper--add-packages test-filter-distant-packages--test-data t)
     (should
      (equal '(pkg9 pkg8 pkg6 pkg5)
-            (configuration-layer//get-distant-packages packages t)))))
+            (configuration-layer//filter-distant-packages packages t)))))
 
-(ert-deftest test-get-distant-packages--return-only-unused-packages ()
+(ert-deftest test-filter-distant-packages--return-only-unused-packages ()
   (let ((packages (mapcar 'car (object-assoc-list
-                                :name test-get-distant-packages--test-data)))
+                                :name test-filter-distant-packages--test-data)))
         configuration-layer--used-packages
         (configuration-layer--indexed-packages (make-hash-table :size 2048)))
-    (helper--add-packages test-get-distant-packages--test-data t)
+    (helper--add-packages test-filter-distant-packages--test-data t)
     (should
      (equal '(pkg18 pkg17 pkg16 pkg15 pkg14 pkg9 pkg8 pkg7 pkg6 pkg5)
-            (configuration-layer//get-distant-packages packages nil)))))
+            (configuration-layer//filter-distant-packages packages nil)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer/make-packages-from-layers
