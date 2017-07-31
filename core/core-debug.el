@@ -295,12 +295,8 @@ that the issue has been created successfully, you can close this buffer.
 
 (defun spacemacs//report-issue-done ()
   (interactive)
-  (let ((url "http://github.com/syl20bnr/spacemacs/issues/new?body="))
-    (setq url (url-encode-url (concat url (buffer-string))))
-    ;; HACK: encode some characters according to HTML URL Encoding Reference
-    ;; http://www.w3schools.com/tags/ref_urlencode.asp
-    (setq url (replace-regexp-in-string "#" "%23" url))
-    (setq url (replace-regexp-in-string ";" "%3B" url))
-    (browse-url url)))
+  (let ((url "http://github.com/syl20bnr/spacemacs/issues/new?body=")
+        (body (url-hexify-string (buffer-string))))
+    (browse-url (url-encode-url (concat url body)))))
 
 (provide 'core-debug)
