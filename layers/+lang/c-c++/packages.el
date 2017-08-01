@@ -67,8 +67,14 @@
   (use-package clang-format
     :if c-c++-enable-clang-support
     :init
-    (when c-c++-enable-clang-format-on-save
-      (spacemacs/add-to-hooks 'spacemacs/clang-format-on-save c-c++-mode-hooks))))
+    (progn
+      (when c-c++-enable-clang-format-on-save
+        (spacemacs/add-to-hooks 'spacemacs/clang-format-on-save c-c++-mode-hooks))
+      (dolist (mode c-c++-modes)
+        (spacemacs/declare-prefix-for-mode mode "m=" "format")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "==" 'spacemacs/clang-format-region-or-buffer
+          "=f" 'spacemacs/clang-format-function)))))
 
 (defun c-c++/init-cmake-ide ()
   (use-package cmake-ide
