@@ -3165,6 +3165,7 @@ To search in a project see [[#searching-in-a-project][project searching]].
 | ~SPC p c~   | compile project using =projectile=                      |
 | ~SPC p d~   | find directory                                          |
 | ~SPC p D~   | open project root in =dired=                            |
+| ~SPC p e~   | edit dir-locals.el                                      |
 | ~SPC p f~   | find file                                               |
 | ~SPC p F~   | find file based on path around point                    |
 | ~SPC p g~   | find tags                                               |
