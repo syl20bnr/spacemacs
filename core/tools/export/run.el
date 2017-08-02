@@ -267,66 +267,63 @@ NOTE: N should be less than the alist's length."
   (dolist (line (split-string (with-current-buffer buff (buffer-string)) "\n"))
     (unless (or (string= line "")
                 (string-match-p "^Loading.*\\.\\.\\.$" line))
-      (message
-       "%s"
-       (or
-        (let ((resp (ignore-errors (json-read-from-string line))))
-         (when resp
-          (let ((type (alist-get 'type resp))
-                (text (replace-regexp-in-string
-                       "\r"
-                       "\n"
-                       (alist-get 'text resp))))
-            (cond
-             ;; Export mode.
-             ((string= spacemacs-export-docs-mode "export")
-              (cond
-               ((string= type "message")
-                text)
-               ((string= type "warning")
-                (concat "\n=============== WARNING ===============\n"
-                        text
-                        "\n=======================================\n"))
-               ((string= type "error")
-                (concat "\n!!!!!!!!!!!!!!!! ERROR !!!!!!!!!!!!!!!!\n"
-                        text
-                        "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"))
-               ((string= type "export")
-                (format
-                 (concat "File %S has static dependency %S\n"
-                         "=> it will be copied into the export directory")
-                 (alist-get 'source resp)
-                 (progn
-                   (push text spacemacs--export-docs-copy-queue)
-                   text)))
-               (t
+      (let ((resp (ignore-errors (json-read-from-string line))))
+        (unless resp
+          (error "Malformed response:%s" line))
+        (let ((type (alist-get 'type resp))
+              (text (replace-regexp-in-string
+                     "\r"
+                     "\n"
+                     (alist-get 'text resp))))
+          (cond
+           ;; Export mode.
+           ((string= spacemacs-export-docs-mode "export")
+            (message
+             "%s"
+             (cond
+              ((string= type "message")
+               text)
+              ((string= type "warning")
+               (concat "\n=============== WARNING ===============\n"
+                       text
+                       "\n=======================================\n"))
+              ((string= type "error")
+               (concat "\n!!!!!!!!!!!!!!!! ERROR !!!!!!!!!!!!!!!!\n"
+                       text
+                       "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"))
+              ((string= type "export")
+               (format
+                (concat "File %S has static dependency %S\n"
+                        "=> it will be copied into the export directory")
+                (alist-get 'source resp)
+                (progn
+                  (push text spacemacs--export-docs-copy-queue)
+                  text)))
+              (t
+               (error
+                "%s"
                 (concat "\n?????????? UNKNOWN EVENT TYPE ????????????\n"
                         (format "TYPE:\"%s\" TEXT: \"%s\"" type text)
-                        "\n?????????????????????????????????????????\n"))))
-             ;; Test mode.
-             ((string= spacemacs-export-docs-mode "test")
-              (cond
-               ((string= type "message")
-                text)
-               ((or (string= type "warning")
-                    (string= type "error"))
-                (error "%s"
-                 (concat "\n!!!!!!!!!!!!!! TEST FAILED !!!!!!!!!!!!!!\n"
-                         text
-                         "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")))
-               ((string= type "export")
-                (format
-                 "File %S has static dependency %S"
-                 (alist-get 'source resp)
-                 text))
-               (t
-                (error "%s"
-                 (concat "\n!!!!!!! ERROR: UNKNOWN EVENT TYPE !!!!!!!\n"
-                         (format "TYPE:\"%s\" TEXT: \"%s\"" type text)
-                         "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")))))
-             (t (error "Unknown script mode: %s"
-                     spacemacs-export-docs-mode))))))
-        (error "Malformed response:%s" line)))))
+                        "\n?????????????????????????????????????????\n"))))))
+           ;; Test mode.
+           ((string= spacemacs-export-docs-mode "test")
+            (cond
+             ((or (string= type "message")
+                  (string= type "export")))
+             ((or (string= type "warning")
+                  (string= type "error"))
+              (error "%s"
+                     (concat "\n!!!!!!!!!!!!!! TEST FAILED !!!!!!!!!!!!!!\n"
+                             text
+                             "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")))
+             (t
+              (error
+               "%s"
+               (concat "\n!!!!!!! ERROR: UNKNOWN EVENT TYPE !!!!!!!\n"
+                       (format "TYPE:\"%s\" TEXT: \"%s\"" type text)
+                       "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")))))
+           (t (error "Unknown script mode: %s"
+                     spacemacs-export-docs-mode)))))))
   (while spacemacs--export-docs-copy-queue
     (spacemacs//export-docs-copy-file-to-export-dir
      (pop spacemacs--export-docs-copy-queue)
