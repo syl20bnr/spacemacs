@@ -17,12 +17,17 @@
   (highlight-lines-matching-regexp "\\(pdb\\|ipdb\\|pudb\\|wdb\\).set_trace()"))
 
 (defun spacemacs/pyenv-executable-find (command)
-  "Find executable taking pyenv shims into account."
+  "Find executable taking pyenv shims into account.
+If the executable is a system executable and not in the same path
+as the pyenv version then also return nil. This works around https://github.com/pyenv/pyenv-which-ext
+"
   (if (executable-find "pyenv")
       (progn
-        (let ((pyenv-string (shell-command-to-string (concat "pyenv which " command))))
-          (unless (string-match "not found" pyenv-string)
-            (string-trim pyenv-string))))
+        (let ((pyenv-string (shell-command-to-string (concat "pyenv which " command)))
+              (pyenv-version-name (string-trim (shell-command-to-string "pyenv version-name"))))
+          (and (not (string-match "not found" pyenv-string))
+               (string-match pyenv-version-name (string-trim pyenv-string))
+                 (string-trim pyenv-string))))
     (executable-find command)))
 
 (defun spacemacs//python-setup-shell (&rest args)
