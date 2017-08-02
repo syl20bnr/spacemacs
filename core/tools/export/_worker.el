@@ -504,8 +504,8 @@ INFO is a plist holding contextual information.  See
        (concat
         (plist-get info :spacemacs-edn-warnings)
         (format
-         (concat "The link \"%s\" "
-                 "in the file \"%s\" "
+         (concat "Link \"%s\" "
+                 "in \"%s\" "
                  "should target the org file at "
                  "GitHub "
                  "(GitHub style anchors are supported)\n"
@@ -829,7 +829,7 @@ holding export options."
               (plist-get info :spacemacs-edn-warnings)
               (format
                (concat
-                "The layer README file \"%s\" "
+                "File \"%s\" "
                 "doesn't have top level "
                 "\"Description\" headline\n"
                 "See %S\n")
@@ -842,8 +842,8 @@ holding export options."
              (concat
               (plist-get info :spacemacs-edn-warnings)
               (format
-               (concat "The layer README.org file \"%s\" "
-                       "doesn't have feature list in the "
+               (concat "File \"%s\" "
+                       "doesn't have \"Features:\"(With a colon) list in the "
                        "top level \"Description\" headline\n"
                        "See %S\n")
                file
@@ -955,5 +955,5 @@ FIXME: Figure out where they come from :"
                "Successfully exported \"%s\""
                file)
             (spacemacs/org-edn-error
-             "Export finished but \"%s\" isn't exist or empty"
+             "Export finished but \"%s\" doesn't exist or empty"
              target-file-name))))))
