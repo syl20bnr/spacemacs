@@ -15,8 +15,8 @@ This layer adds support for something.
 
 ** Features:
   - Autocomplete
-  - Linting
-  - Refactoring
+  - Lint
+  - Refactor
   - ...
 
 * Install
