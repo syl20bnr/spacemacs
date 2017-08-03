@@ -201,7 +201,10 @@
 (defun emacs-lisp/post-init-semantic ()
   (add-hook 'emacs-lisp-mode-hook 'semantic-mode)
   (with-eval-after-load 'semantic
-    (semantic-default-elisp-setup)))
+    (semantic-default-elisp-setup)
+    (setq-mode-local emacs-lisp-mode
+                     semanticdb-find-default-throttle
+                     '(file local project unloaded system))))
 
 (defun emacs-lisp/post-init-srefactor ()
   (add-hook 'emacs-lisp-mode-hook 'spacemacs/lazy-load-srefactor)
