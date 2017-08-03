@@ -370,6 +370,7 @@ are also available.
 | ~SPC m t N~   | Use the table.el package to insert a new table                             |
 | ~SPC m t p~   | Plot the table using org-plot/gnuplot                                      |
 | ~SPC m t r~   | Recalculate the current table line by applying all stored formulas         |
+| ~SPC m t R~   | Recalculate the entire current table by applying all stored formulas       |
 | ~SPC m t s~   | Sort table lines according to the column at point                          |
 | ~SPC m t t f~ | Toggle the formula debugger in tables                                      |
 | ~SPC m t t o~ | Toggle the display of Row/Column numbers in tables                         |
