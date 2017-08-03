@@ -60,6 +60,26 @@
 (defvar osx-use-dictionary-app t
   "If non nil use osx dictionary app instead of wordnet")
 
+(defvar osx-use-separate-clipboards nil
+  "If non nil emacs kill-ring is separate from system clipboard.
+   With separate clipboards command-x/c/v interact with system
+   clipboard, while other commands interact with emacs kill-ring.
+   Default: `nil'.")
+
+;; Initialize sane defaults
+(if osx-use-separate-clipboards
+    (osx/enable-separate-clipboards)
+  (osx/disable-separate-clipboards))
+
+;; Add spacemacs toggle for separate clipboards
+(spacemacs|add-toggle separate-clipboards
+  :status osx-use-separate-clipboards
+  :on (osx/enable-separate-clipboards)
+  :off (osx/disable-separate-clipboards)
+  :documentation "Toggle treating OSX pasteboard and spacemacs kill-ring as
+separate clipboards."
+  :evil-leader "tR")
+
 ;; Use the OS X Emoji font for Emoticons
 (when (fboundp 'set-fontset-font)
   (set-fontset-font "fontset-default"

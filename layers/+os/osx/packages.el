@@ -105,7 +105,9 @@
 
 (defun osx/init-pbcopy ()
   (use-package pbcopy
-    :if (and (spacemacs/system-is-mac) (not (display-graphic-p)))
+    :if (and (spacemacs/system-is-mac)
+             (not (display-graphic-p))
+             (not osx-use-separate-clipboards))
     :init (turn-on-pbcopy)))
 
 (defun osx/init-reveal-in-osx-finder ()

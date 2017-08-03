@@ -63,20 +63,24 @@ other than the three sane values listed above."
                             (alt   . "A-")))))
         (when found (kbd (concat (cdr found) keys)))))
 
+    ;; Keybindings for copy/cut/paste
+    ;; Uses the + register to operate on the system pasteboard
+    (global-set-key (kbd-mac-command "v") (kbd "C-r +"))
+    (global-set-key (kbd-mac-command "c") (kbd "\"+y"))
+    (global-set-key (kbd-mac-command "x") (kbd "\"+d"))
+
     ;; Keybindings
     (global-set-key (kbd-mac-command "=") 'spacemacs/scale-up-font)
     (global-set-key (kbd-mac-command "-") 'spacemacs/scale-down-font)
     (global-set-key (kbd-mac-command "0") 'spacemacs/reset-font-size)
     (global-set-key (kbd-mac-command "q") 'save-buffers-kill-terminal)
-    (global-set-key (kbd-mac-command "v") 'yank)
-    (global-set-key (kbd-mac-command "c") 'evil-yank)
     (global-set-key (kbd-mac-command "a") 'mark-whole-buffer)
-    (global-set-key (kbd-mac-command "x") 'kill-region)
     (global-set-key (kbd-mac-command "w") 'delete-window)
     (global-set-key (kbd-mac-command "W") 'delete-frame)
     (global-set-key (kbd-mac-command "n") 'make-frame)
     (global-set-key (kbd-mac-command "`") 'other-frame)
     (global-set-key (kbd-mac-command "z") 'undo-tree-undo)
+    (global-set-key (kbd-mac-command "Z") 'undo-tree-redo)
     (global-set-key (kbd-mac-command "s")
                     (lambda ()
                       (interactive)
@@ -93,7 +97,6 @@ other than the three sane values listed above."
     (global-set-key (kbd-mac-command "8") 'winum-select-window-8)
     (global-set-key (kbd-mac-command "9") 'winum-select-window-9)
 
-    (global-set-key (kbd-mac-command "Z") 'undo-tree-redo)
     (global-set-key (kbd-mac-command "C-f") 'spacemacs/toggle-frame-fullscreen)
     (global-set-key (kbd "M-s-h") 'ns-do-hide-others)
 

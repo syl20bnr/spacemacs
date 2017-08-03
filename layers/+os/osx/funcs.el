@@ -16,3 +16,27 @@ Useful when setting `osx-dictionary-dictionary-choice'."
   (interactive)
   (message (shell-command-to-string
      (format "%s -l" (osx-dictionary-cli-find-or-recompile)))))
+
+(defun osx/enable-separate-clipboards ()
+  "Enable treating OSX pasteboard and spacemacs kill-ring as
+separate clipboards."
+  (interactive)
+  (when (and (spacemacs/system-is-mac)
+             (not (display-graphic-p))
+             (fboundp 'turn-off-pbcopy))
+    (turn-off-pbcopy))
+  (setq select-enable-clipboard nil)
+  (setq osx-use-separate-clipboards t)
+  (message "Now using separate clipboards."))
+
+(defun osx/disable-separate-clipboards ()
+  "Disable treating OSX pasteboard and spacemacs kill-ring as
+separate clipboards."
+  (interactive)
+  (when (and (spacemacs/system-is-mac)
+             (not (display-graphic-p))
+             (fboundp 'turn-on-pbcopy))
+    (turn-on-pbcopy))
+  (setq select-enable-clipboard t)
+  (setq osx-use-separate-clipboards nil)
+  (message "Now using a unified clipboard."))

@@ -4,21 +4,46 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#philosophy][Philosophy]]
 - [[#install][Install]]
   - [[#layer][Layer]]
     - [[#use-with-non-us-keyboard-layouts][Use with non-US keyboard layouts]]
     - [[#define-words-using-os-x-dictionary][Define words using OS X Dictionary]]
+    - [[#separate-osx-and-spacemacs-clipboards][Separate OSX and spacemacs clipboards]]
   - [[#coreutils][Coreutils]]
 - [[#key-bindings][Key Bindings]]
 - [[#future-work][Future Work]]
 
 * Description
-Spacemacs is not just emacs+vim. It can have OSX keybindings too! This layer
-globally defines common OSX keybindings. ~⌘~ is set to ~hyper~ and ~⌥~ is set to
-~meta~. Aside from that, there's nothing much, really.
 
-While in =dired= this layer will try to use =gls= instead of =ls=.
+Spacemacs is not just emacs+vim. It can have OSX keybindings too! This layer
+adds tools for better integration in OSX.
+
+** Features:
+
+- Provides common OSX keybindings, such as: ~⌘ =~ and ~⌘ -~ to change font size;
+  ~⌘ q~ to quit Spacemacs; ~⌘ c~, ~⌘ x~ and ~⌘ v~ for copy/cut/paste; ~⌘ a~ for
+  select all. Refer to the overview of keybindings below.
+
+- Provides closer integration with OSX, such as: reveal files in Finder; use the
+  OSX trash via the Finder API (only on Emacs from MacPorts); use =mdfind=
+  instead of =locate= in helm.
+
+- Enables remapping of the modifier keys found on Mac keyboards, with the option
+  to treat the right modifier key differently from the left one. By default ~⌘~
+  is set to ~hyper~ and ~⌥~ is set to ~meta~.
+
+- Provides a transient interface to =launchctl=, mapped by default to ~SPC a l~.
+
+- Provides option to use the OSX dictionary as default instead of wordnet.
+
+- Provides option to unify or separate the OSX pasteboard from the spacemacs
+  kill-ring. By default they are unified, both in graphical and text mode.
+
+- While in =dired= this layer will try to use =gls= instead of =ls=.
+
+- Uses the OSX Emoji font for emoticons.
 
 * Philosophy
 While this layer enables common OSX bindings, it does not implement OSX
@@ -93,6 +118,41 @@ You can disable it by setting =osx-use-dictionary-app= variable to =nil=:
      (osx :variables osx-use-dictionary-app nil)))
 #+END_SRC
 
+*** Separate OSX and spacemacs clipboards
+
+By default this layer treats the OSX pasteboard and the spacemacs kill-ring as a
+single clipboard. It supports treating them as separate clipboards by setting
+the =osx-use-separate-clipboards= variable to =t=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+     (osx :variables osx-use-separate-clipboards t)))
+#+END_SRC
+
+This setting can be toggled with ~SPC t R~.
+
+When this feature is disabled, this layer treats the OSX system pasteboard and
+the spacemacs kill-ring as a single clipboard: a region killed in spacemacs will
+be readily available for pasting into another application, and conversely a text
+copied from another application can be readily yanked into spacemacs. The usual
+OSX keybindings (~⌘ c~, ~⌘ x~ and ~⌘ v~) and the spacemacs commands can be used
+interchangeably to operate on the clipboard.
+
+When this feature is enabled, the keybindings ~⌘ c~, ~⌘ x~ and ~⌘ v~ operate on
+the OSX pasteboard, while the spacemacs commands operate on the spacemacs
+kill-ring.
+
+NOTE: when spacemacs is started in graphical mode, the value of this setting has
+no impact on spacemacs commands that directly operate on the system clipboard,
+such as ="+y= and ="+d= -- they will always operate on the system clipboard.
+
+NOTE: when spacemacs is started in text mode (i.e. in a terminal), the
+keybindings involving the command key (~⌘~) are not propagated from the terminal
+to spacemacs, meaning the keybindings ~⌘ c~, ~⌘ x~ and ~⌘ v~ do not work.
+Therefore, when the feature is enabled (i.e. separate clipboards), you will have
+to use the capabilities of your terminal to copy/paste. ="+y= and ="+d= do not
+work.
+
 ** Coreutils
 To get =gls= install coreutils homebrew:
 
@@ -102,25 +162,29 @@ To get =gls= install coreutils homebrew:
 
 * Key Bindings
 
-| Key Binding | Description                 |
-|-------------+-----------------------------|
-| ~⌘ =~       | Scale up text               |
-| ~⌘ -~       | Scale down text             |
-| ~⌘ q~       | Quit                        |
-| ~⌘ v~       | Paste                       |
-| ~⌘ c~       | Copy                        |
-| ~⌘ x~       | Cut                         |
-| ~⌘ a~       | Select all                  |
-| ~⌘ w~       | Close window                |
-| ~⌘ W~       | Close frame                 |
-| ~⌘ n~       | New frame                   |
-| ~⌘ `~       | Other frame                 |
-| ~⌘ z~       | Undo                        |
-| ~⌘ Z~       | Redo                        |
-| ~⌃ ⌘ f~     | Toggle fullscreen           |
-| ~SPC x w d~ | Define word under the point |
+| Key Binding | Description                              |
+|-------------+------------------------------------------|
+| ~⌘ =~       | Scale up text                            |
+| ~⌘ -~       | Scale down text                          |
+| ~⌘ 0~       | Reset text size                          |
+| ~⌘ q~       | Quit                                     |
+| ~⌘ v~       | Paste                                    |
+| ~⌘ c~       | Copy                                     |
+| ~⌘ x~       | Cut                                      |
+| ~⌘ a~       | Select all                               |
+| ~⌘ w~       | Close window                             |
+| ~⌘ W~       | Close frame                              |
+| ~⌘ n~       | New frame                                |
+| ~⌘ `~       | Other frame                              |
+| ~⌘ z~       | Undo                                     |
+| ~⌘ Z~       | Redo                                     |
+| ~⌘ s~       | Save buffer                              |
+| ~⌘ N~       | Select window N (N between 1 and 9)      |
+| ~⌃ ⌘ f~     | Toggle fullscreen                        |
+| ~SPC x w d~ | Define word under the point              |
+| ~SPC a l~   | Open transient interface for =launchctl= |
+| ~SPC t R~   | Toggle separate clipboards               |
 
 * Future Work
 - Allow user to choose from either ~hyper~ or ~super~ as ~⌘~. This is an option
   that is supported cross-platform.
-- Configurable option to keep the OSX and spacemacs clipboards separate
