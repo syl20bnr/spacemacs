@@ -554,8 +554,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
     (if (file-name-absolute-p org-projectile-file)
         (progn
           (setq org-projectile-projects-file org-projectile-file)
-          (push (org-projectile-project-todo-entry
-                 nil nil nil :empty-lines 1)
+          (push (org-projectile-project-todo-entry :empty-lines 1)
                 org-capture-templates))
       (org-projectile-per-project)
       (setq org-projectile-per-project-filepath org-projectile-file))))
