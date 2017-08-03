@@ -38,7 +38,7 @@
   (if (require 'dflet nil t)
       (defalias 'mocker-flet 'dflet)
     ;; fallback to regular flet, hoping it's still there
-    (defalias 'mocker-flet 'flet)))
+    (defalias 'mocker-flet 'cl-flet)))
 
 (defvar mocker-mock-default-record-cls 'mocker-record)
 
