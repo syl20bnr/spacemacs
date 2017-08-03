@@ -242,6 +242,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "tn" 'org-table-create
         "tN" 'org-table-create-with-table.el
         "tr" 'org-table-recalculate
+        "tR" 'org-table-iterate
         "ts" 'org-table-sort-lines
         "ttf" 'org-table-toggle-formula-debugger
         "tto" 'org-table-toggle-coordinate-overlays
