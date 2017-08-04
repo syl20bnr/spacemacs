@@ -36,9 +36,9 @@ Thanks! :heart: :heart: :heart:
 If you want to ask an usage question, be sure to look first into some places as
 it may hold the answer:
 
-- [[file:doc/FAQ.org][The FAQ]]. Some of the most frequently asked questions are answered there.
-- [[file:doc/DOCUMENTATION.org][The documentation]]. It's the general documentation of Spacemacs.
-- You may also read the =README.org= of the [[file:doc/LAYERS.org][relevant layer(s)]].
+- [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org][The FAQ]]. Some of the most frequently asked questions are answered there.
+- [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][The documentation]]. It's the general documentation of Spacemacs.
+- You may also read the =README.org= of the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][relevant layer(s)]].
 
 If your question is not answered there, then please come into our [[https://gitter.im/syl20bnr/spacemacs][gitter chat]] to
 discuss it with us :relaxed:. We will direct you to a solution, or ask you to
@@ -81,7 +81,7 @@ accept code without a proper header file.
 
 *** Conventions
 Spacemacs is based on conventions, mainly for naming functions, keybindings
-definition and writing documentation. Please read the [[file:doc/CONVENTIONS.org][CONVENTIONS.org]] file
+definition and writing documentation. Please read the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/CONVENTIONS.org][CONVENTIONS.org]] file
 before your first contribution to get to know them.
 
 *** Pull-Request
@@ -152,7 +152,7 @@ Further paragraphs come after blank lines.
 to comply to these guidelines.
 
 ** Contributing a layer
-Please read the [[file:doc/LAYERS.org][layers documentation]] first.
+Please read the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][layers documentation]] first.
 
 It is recommended to use the =configuration-layer/create-layer= command in order
 to create a layer, as it will take care of using the files templates and will
@@ -206,7 +206,7 @@ can be done from the =dotspacemacs/user-config= function of your =.spacemacs=
 file and don't require any contribution to Spacemacs.
 
 If you think it worth contributing a new key bindings then be sure to read
-the [[file:doc/CONVENTIONS.org][CONVENTIONS.org]] file to find the best key bindings, then create a
+the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/CONVENTIONS.org][CONVENTIONS.org]] file to find the best key bindings, then create a
 Pull-Request with your changes.
 
 *ALWAYS* document your new keybindings or keybindings changes inside the
