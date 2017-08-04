@@ -44,7 +44,7 @@
       ;; The default frontend screws everything up in short windows like
       ;; terminal often are
       (add-hook 'eshell-mode-hook
-                'spacemacs//eshell-switch-company-frontend))))
+                'spacemacs//eshell-switch-company-frontend t))))
 
 (defun shell/init-esh-help ()
   (use-package esh-help
