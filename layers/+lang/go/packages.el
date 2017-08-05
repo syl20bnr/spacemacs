@@ -47,7 +47,7 @@
 (defun go/pre-init-exec-path-from-shell ()
   (spacemacs|use-package-add-hook exec-path-from-shell
     :pre-config
-    (dolist (var '("GOPATH" "GO15VENDOREXPERIMENT") exec-path-from-shell-variables)
+    (dolist (var '("GOPATH" "GOROOT" "GO15VENDOREXPERIMENT") exec-path-from-shell-variables)
       (unless (or (member var exec-path-from-shell-variables) (getenv var))
         (push var exec-path-from-shell-variables)))))
 

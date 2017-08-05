@@ -39,7 +39,7 @@ Any configuration layers you create must be explicitly loaded in =~/.spacemacs=.
 
 Note: For your privacy, the contents of the =private= directory are not
 under source control. See the section on private configuration management in
-the [[file:DOCUMENTATION.org][documentation]].
+the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][documentation]].
 
 * Dotfile (.spacemacs)
 As mentioned =.spacemacs= controls which configuration layers to load and
@@ -66,7 +66,7 @@ dotspacemacs-configuration-layers '(auto-completion smex)
 #+END_SRC
 
 Some configuration layers support configuration variables to expose granular
-control over layer-specific features, [[file:../layers/+source-control/git/README.org][git layer]] being one such example.
+control over layer-specific features, [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+source-control/git/README.org][git layer]] being one such example.
 Variables can be directly set within =dotspacemacs-configuration-layers= like so:
 
 #+BEGIN_SRC elisp
@@ -81,7 +81,7 @@ At anytime you can apply the changes made to the dotfile or layers
 _without restarting_ Spacemacs by pressing ~SPC f e R~.
 
 The [[https://github.com/syl20bnr/spacemacs/blob/master/core/templates/.spacemacs.template][dotfile template]] contains further information about how to customize
-Spacemacs. See the dotfile configuration section of the [[file:DOCUMENTATION.org::#dotfile-configuration][documentation]] for
+Spacemacs. See the dotfile configuration section of the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#dotfile-configuration][documentation]] for
 more details.
 
 * Dotdirectory (~/.spacemacs.d)
@@ -174,4 +174,4 @@ about functions, variables, modes etc. These commands are bound thusly:
 | ~SPC h d v~ | describe-variable |
 
 * How-To's
-Some quick =how-to's= are compiled in the [[file:FAQ.org::#how-do-i][FAQ.]]
+Some quick =how-to's= are compiled in the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org#how-do-i][FAQ.]]

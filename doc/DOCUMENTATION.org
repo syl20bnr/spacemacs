@@ -97,7 +97,6 @@
     - [[#additional-text-objects][Additional text objects]]
   - [[#reserved-prefix-command-for-user][Reserved prefix command for user]]
   - [[#completion][Completion]]
-    - [[#ivy][Ivy]]
   - [[#discovering][Discovering]]
     - [[#key-bindings][Key bindings]]
       - [[#which-key][Which-key]]
@@ -263,7 +262,7 @@ project.
 
 * Who can benefit from this?
 - Spacemacs was initially intended to be used by *Vim users* who want to go to
-  the next level by using Emacs (see [[file:VIMUSERS.org][guide]] for Vimmers). But it is now
+  the next level by using Emacs (see [[https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org][guide]] for Vimmers). But it is now
   perfectly *usable by non Vim users* by choosing the =emacs= editing style.
 
 - It is also a good fit for people wanting to *lower the [[https://en.wikipedia.org/wiki/Repetitive_strain_injury][risk of RSI]]* induced by
@@ -329,7 +328,7 @@ and choosing a rollback slot (sorted by date). This button uses the command
 
 * Configuration layers
 This section is an overview of layers. A more extensive introduction to writing
-configuration layers can be found [[file:LAYERS.org][here]] (recommended reading!).
+configuration layers can be found [[https://github.com/syl20bnr/spacemacs/blob/master/doc/LAYERS.org][here]] (recommended reading!).
 
 ** Purpose
 Layers help collect related packages together to provide features. For example,
@@ -393,7 +392,7 @@ properly. For instance if package =A= depends on =B= then you can configure
 (with-eval-after-load 'B ...)
 #+END_SRC
 
-For details on installing packages using quelpa or local packages see [[file:LAYERS.org::packages.el][LAYERS]].
+For details on installing packages using quelpa or local packages see [[https://github.com/syl20bnr/spacemacs/blob/master/doc/LAYERS.org#packagesel][LAYERS]].
 
 **** Initialization
 To initialize a package =xxx=, define a function with this format in
@@ -457,11 +456,11 @@ There are two types of configuration layers:
 
 ** Submitting a configuration layer upstream
 If you decide to provide a configuration layer, please check the contribution
-guidelines first in [[file:../CONTRIBUTING.org][CONTRIBUTING]].
+guidelines first in [[https://github.com/syl20bnr/spacemacs/blob/develop/COMMUNITY.org][CONTRIBUTING]].
 
 ** Example: Themes Megapack example
 This is a simple configuration layer listing a bunch of themes which you can
-find [[file:../layers/%2Bthemes/themes-megapack/README.org][here]].
+find [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bthemes/themes-megapack/README.org][here]].
 
 To install it, just add =themes-megapack= to your =~/.spacemacs= like so:
 
@@ -500,7 +499,7 @@ The final main way to manage your private layers is to push them in a personal
 branch that you keep up to date with upstream =master= or =develop=.
 
 ** Tips for writing layers
-Please refer to [[file:LAYERS.org][this]] introduction for some tips on writing layers, and how to
+Please refer to [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][this]] introduction for some tips on writing layers, and how to
 best make them fit with the Spacemacs philosophy and loading strategy.
 
 * Dotfile Configuration
@@ -589,7 +588,7 @@ To use a configuration layer, declare it in your dotfile by adding it to the
 *Note:* In this documentation a =used layer= is equivalent to a =declared
 layer=.
 
-For instance, [[Thank you][RMS]] can add his private configuration layer like this:
+For instance, [[#thank-you][RMS]] can add his private configuration layer like this:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
@@ -613,7 +612,7 @@ to add some layers in =~/.myconfig=, set the variable like this:
 
 *** Setting configuration layers variables
 Some configuration layers have configuration variables to enable specific
-features. For instance the [[../layers/%2Bsource-control/git][git layer]] has several configuration variables, they
+features. For instance the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bsource-control/git/README.org][git layer]] has several configuration variables, they
 can be set directly in the =dotspacemacs-configuration-layers= like this:
 
 #+BEGIN_SRC emacs-lisp
@@ -984,9 +983,9 @@ can be bound in your =~/.spacemacs= file or in individual layers.
 
 * GUI Elements
 Spacemacs has a minimalistic and distraction free graphical UI:
-  - custom [[https://github.com/milkypostman/powerline][powerline]] mode-line [[Flycheck integration][with color feedback]] according to current [[https://github.com/flycheck/flycheck][Flycheck]] status
+  - custom [[https://github.com/milkypostman/powerline][powerline]] mode-line [[#flycheck-integration][with color feedback]] according to current [[https://github.com/flycheck/flycheck][Flycheck]] status
   - Unicode symbols for minor mode lighters which appear in the mode-line
-  - [[Errors handling][custom fringe bitmaps]] and error feedbacks for [[https://github.com/flycheck/flycheck][Flycheck]]
+  - [[#errors-handling][custom fringe bitmaps]] and error feedbacks for [[https://github.com/flycheck/flycheck][Flycheck]]
 
 ** Color themes
 *** Default theme
@@ -1289,7 +1288,7 @@ Note the these colors may vary depending on your theme.
 
 **** Powerline separators
 It is possible to easily customize the =powerline separator= by setting the
-=powerline-default-separator= variable in your =~./spacemacs= and then
+=powerline-default-separator= variable in your =~/.spacemacs= and then
 recompiling the modeline. For instance if you want to set back the separator to
 the well-known =arrow= separator add the following snippet to your configuration
 file:
@@ -1362,7 +1361,7 @@ can be reached using the =control= key.
 | ~SPC t p~   | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                                                     |
 | ~SPC t C-p~ | =ⓟ=     | p     | global smartparens                                                   |
 | ~SPC t s~   | =ⓢ=     | s     | syntax checking (flycheck)                                           |
-| ~SPC t S~   | =Ⓢ=     | S     | enabled in [[file:../layers/+checkers/spell-checking/README.org][spell checking layer]] (flyspell)                           |
+| ~SPC t S~   | =Ⓢ=     | S     | enabled in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell checking layer]] (flyspell)                           |
 | ~SPC t w~   | =ⓦ=     | w     | whitespace mode                                                      |
 | ~SPC t C-w~ | =ⓦ=     | w     | global whitespace                                                    |
 | ~SPC t W~   | =Ⓦ=     | W     | automatic whitespace cleanup (see =dotspacemacs-whitespace-cleanup=) |
@@ -1394,7 +1393,7 @@ For example to undo diminish for =company=:
 #+END_SRC
 
 Note that we use a =use-package= post init hook to be sure to override any
-lazily diminished lighters (see [[file:LAYERS.org][layers documentation]] for more information
+lazily diminished lighters (see [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][layers documentation]] for more information
 about lazy loading).
 
 ** Frame title
@@ -1710,22 +1709,6 @@ For more information go to the layers documentation for [[https://github.com/syl
 
 *Note:* To open the Spacemacs documentation for Helm of Ivy in Emacs, open the
 =spacemacs-help= menu with ~SPC h SPC~ and type ~helm~ or ~ivy~ then ~return~.
-
-*** Ivy
-If you choose =ivy= as completion system, make sure to read [[http://oremacs.com/swiper/][official manual]]. In
-case you don't want to read everything, at least familiarise with [[http://oremacs.com/swiper/#minibuffer-key-bindings][minibuffer key
-bindings]]. Some useful key bindings are presented in following table.
-
-Initiate the transient state with ~M-SPC~ while in a =ivy= buffer.
-
-| Key Binding    | Description                                                                                          |
-|----------------+------------------------------------------------------------------------------------------------------|
-| ~M-SPC~        | initiate the transient state                                                                         |
-| ~C-m~ or ~RET~ | call default action on current candidate                                                             |
-| ~M-o~          | show the list of valid actions on current candidate (then press any of described keys to execute it) |
-| ~C-M-m~        | the same as ~RET~ but doesn't close completion minibuffer                                            |
-| ~C-M-o~        | the same as ~M-o~ but doesn't close completion minibuffer                                            |
-| ~C-'~          | use avy to quickly select completion on current page (sometimes faster than using arrows)            |
 
 ** Discovering
 *** Key bindings
@@ -2150,7 +2133,7 @@ Unlike vim, emacs creates many buffers that most people do not need to see. Some
 examples are the =*Messages*= and =*Compile-Log*= buffers. Spacemacs tries to
 automatically ignore buffers that are not useful. However, you may want to
 change the way Spacemacs marks buffers as useful. For instructions, see the
-[[file:FAQ.org::#change-special-buffer-rules][special buffer howto]].
+[[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org#change-special-buffer-rules][special buffer howto]].
 
 **** Files manipulations key bindings
 Files manipulation commands (start with ~f~):
@@ -2757,8 +2740,10 @@ Text related commands (start with ~x~):
 | ~SPC x o~     | use avy to select a link in the frame and open it             |
 | ~SPC x O~     | use avy to select multiple links in the frame and open them   |
 | ~SPC x t c~   | swap (transpose) the current character with the previous one  |
-| ~SPC x t w~   | swap (transpose) the current word with the previous one       |
 | ~SPC x t l~   | swap (transpose) the current line with the previous one       |
+| ~SPC x t p~   | swap (transpose) the current paragraph with the previous one  |
+| ~SPC x t s~   | swap (transpose) the current sentence with the previous one   |
+| ~SPC x t w~   | swap (transpose) the current word with the previous one       |
 | ~SPC x u~     | set the selected text to lower case                           |
 | ~SPC x U~     | set the selected text to upper case                           |
 | ~SPC x w c~   | count the number of occurrences per word in the select region |
@@ -2856,7 +2841,7 @@ In transient state:
 argument (i.e. ~10 SPC n +~ will add 10 to the number under point).
 
 *** Spell checking
-Spell checking is enabled by including the [[file:../layers/+checkers/spell-checking/README.org][spell
+Spell checking is enabled by including the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell
 checking]] layer in your dotfile.
 
 Keybindings are listed in the layer documentation.
@@ -3180,6 +3165,7 @@ To search in a project see [[#searching-in-a-project][project searching]].
 | ~SPC p c~   | compile project using =projectile=                      |
 | ~SPC p d~   | find directory                                          |
 | ~SPC p D~   | open project root in =dired=                            |
+| ~SPC p e~   | edit dir-locals.el                                      |
 | ~SPC p f~   | find file                                               |
 | ~SPC p F~   | find file based on path around point                    |
 | ~SPC p g~   | find tags                                               |
@@ -3296,7 +3282,7 @@ See [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.htm
 
 ** Keeping the server alive
 It is possible to keep the server alive when you close Emacs by setting the
-variable =dotspacemacs-persistent-server= to =t= in your =~./spacemacs=.
+variable =dotspacemacs-persistent-server= to =t= in your =~/.spacemacs=.
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-persistent-server t)

@@ -1,15 +1,26 @@
 #+TITLE:nyan-mode
 
 * Table of Contents                      :TOC_4_gh:noexport:
-- [[#nyan-mode---turn-your-emacs-into-nyanmacs-][Nyan Mode - Turn your Emacs into Nyanmacs! :)]]
+- [[#description][Description]]
+  - [[#features][Features:]]
   - [[#fork-modifications][Fork modifications]]
   - [[#introduction][Introduction]]
-  - [[#features][Features]]
   - [[#using-nyan-mode-with-custom-modeline][Using Nyan Mode with custom modeline]]
   - [[#known-issues][Known issues]]
   - [[#credits][Credits]]
 
-* Nyan Mode - Turn your Emacs into Nyanmacs! :)
+* Description
+Nyan Mode - Turn your Emacs into Nyanmacs! :)
+The mode is an analog indicator of your position in the buffer. The
+Cat should go from left to right in your mode-line, as you move your
+point from 0% to 100%.
+
+** Features:
+  - Mind dumbing content included,
+  - Experimental animation (M-x nyan-start-animation, M-x nyan-stop-animation),
+  - Wavy rainbow (M-x set-variable <ret> nyan-wavy-trail <ret> t),
+  - Music, mplayer is needed (M-x nyan-start-music, M-x nyan-stop-music),
+  - Customizable properties.
 
 ** Fork modifications
 - the starting nyan cat image has no rainbow behind it,
@@ -23,19 +34,6 @@
 "Nyan-mode. It's things like this that make me proud to be an emacs user." - [[http://twitter.com/#!/mitchellh/status/104931263479156736][mitchellh]]
 
 Nyanmacs is expanding!! [[http://temporal.pr0.pl/devblog/2011/08/25/introducing-nyan-mode-el-turn-your-emacs-into-nyanmacs/][Read the story so far]]! :).
-
-[[file:screenshot.png]]
-
-Nyan Mode is an analog indicator of your position in the buffer. The
-Cat should go from left to right in your mode-line, as you move your
-point from 0% to 100%.
-
-** Features
-  - Mind dumbing content included,
-  - Experimental animation (M-x nyan-start-animation, M-x nyan-stop-animation),
-  - Wavy rainbow (M-x set-variable <ret> nyan-wavy-trail <ret> t),
-  - Music, mplayer is needed (M-x nyan-start-music, M-x nyan-stop-music),
-  - Customizable properties.
 
 ** Using Nyan Mode with custom modeline
 For those who were asking, or are planning to, [[http://friendfeed.com/amitp/b4097da0/nyan-mode-turn-your-emacs-into-nyanmacs][Amit Patel shared]]

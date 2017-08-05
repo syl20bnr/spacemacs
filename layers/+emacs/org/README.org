@@ -235,7 +235,7 @@ the following snippet. Note that this may have unintended consequences until
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'org-agenda
     (require 'org-projectile)
-    (push (org-projectile:todo-files) org-agenda-files))
+    (push (org-projectile-todo-files) org-agenda-files))
 #+END_SRC
 
 ** Org-brain support
@@ -298,6 +298,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC m C g~                                  | evil-org-recompute-clocks                    |
 | ~SPC m C i~                                  | org-clock-in                                 |
 | ~SPC m C o~                                  | org-clock-out                                |
+| ~SPC m C r~                                  | org-resolve-clocks                           |
 | ~SPC m d d~                                  | org-deadline                                 |
 | ~SPC m d s~                                  | org-schedule                                 |
 | ~SPC m d t~                                  | org-time-stamp                               |
