@@ -13,7 +13,6 @@
     - [[#clang-format][clang-format]]
     - [[#company-clang-and-flycheck][Company-clang and flycheck]]
 - [[#key-bindings][Key Bindings]]
-  - [[#debugger-realgud][Debugger (realgud)]]
 
 * Description
 This layer adds configuration for C/C++ language as well support for [[https://cmake.org/][CMake]]
@@ -114,20 +113,3 @@ doesn't complain about missing header files.
 | ~SPC m r~   | srefactor: refactor thing at point.                                    |
 
 *Note:*  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+
-
-** Debugger (realgud)
-
- | Key Binding | Description     |
- |-------------+-----------------|
- | ~SPC m d d~ | open cmd buffer |
- | ~SPC m d e~ | eval variable   |
- | ~s~         | step over       |
- | ~i~         | step into       |
- | ~b~         | set break       |
- | ~B~         | unset break     |
- | ~o~         | step out        |
- | ~c~         | continue        |
- | ~e~         | eval variable   |
- | ~r~         | restart         |
- | ~q~         | quit debug      |
- | ~S~         | goto cmd buffer |
