@@ -1,0 +1,57 @@
+#+TITLE: debug layer
+
+[[file:img/debug.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#enable-additional-debuggers][enable additional debuggers]]
+- [[#key-bindings][Key bindings]]
+  - [[#leader][Leader]]
+  - [[#shortkey-mode][shortkey-mode]]
+
+* Description
+This layer adds interactive debuggers for mulitple languages using [[https://github.com/realgud/realgud][realgud]].
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =debug= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+** enable additional debuggers
+Language specific debuggers are added by the respective layer. If you want to
+add additional debuggers, add them to the =debug-additional-debuggers= variable.
+This accepts either a string or list of strings. Make sure that your debugger is
+compatible by checking [[https://github.com/realgud/realgud/wiki/Debuggers-Supported][here]].
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((debug :variables debug-additional-debuggers '("remake" "nodejs"))))
+#+END_SRC
+
+* Key bindings
+
+** Leader
+
+ | Key Binding | Description     |
+ |-------------+-----------------|
+ | ~SPC m d d~ | open cmd buffer |
+
+** shortkey-mode
+
+ | Key Binding | Description          |
+ |-------------+----------------------|
+ | ~s~         | step over            |
+ | ~i~         | step into            |
+ | ~o~         | step out             |
+ | ~c~         | continue             |
+ | ~J~         | jump to current line |
+ | ~e~         | eval variable        |
+ | ~r~         | restart              |
+ | ~q~         | quit debug           |
+ | ~S~         | goto cmd buffer      |
+ | ~bb~        | set break            |
+ | ~bc~        | clear break          |
+ | ~bd~        | delete break         |
+ | ~bs~        | disable break        |
+ | ~be~        | enable break         |

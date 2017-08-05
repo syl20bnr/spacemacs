@@ -45,7 +45,7 @@
       (dolist (mode c-c++-modes)
         (spacemacs/declare-prefix-for-mode mode "mg" "goto")
         (spacemacs/set-leader-keys-for-major-mode mode
-          "ga" 'projectile-find-other-file
+        "ga" 'projectile-find-other-file
           "gA" 'projectile-find-other-file-other-window)))))
 
 (defun c-c++/init-disaster ()
@@ -109,32 +109,9 @@
   (dolist (mode c-c++-modes)
     (spacemacs/helm-gtags-define-keys-for-mode mode)))
 
-(defun c-c++/init-realgud()
-  (use-package realgud
-    :defer t
-    :commands (realgud:gdb)
-    :init
-    (progn
-      (dolist (mode c-c++-modes)
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "dd" 'realgud:gdb
-          "de" 'realgud:cmd-eval-dwim))
-      (advice-add 'realgud-short-key-mode-setup
-                  :before #'spacemacs//short-key-state)
-      (evilified-state-evilify-map realgud:shortkey-mode-map
-        :eval-after-load realgud
-        :mode realgud-short-key-mode
-        :bindings
-        "s" 'realgud:cmd-next
-        "i" 'realgud:cmd-step
-        "b" 'realgud:cmd-break
-        "B" 'realgud:cmd-clear
-        "o" 'realgud:cmd-finish
-        "c" 'realgud:cmd-continue
-        "e" 'realgud:cmd-eval
-        "r" 'realgud:cmd-restart
-        "q" 'realgud:cmd-quit
-        "S" 'realgud-window-cmd-undisturb-src))))
+(defun c-c++/pre-init-realgud()
+  (dolist (mode '(c-mode c++-mode))
+    (spacemacs|add-realgud-debugger mode "gdb")))
 
 (defun c-c++/post-init-semantic ()
   (spacemacs/add-to-hooks 'semantic-mode c-c++-mode-hooks))
