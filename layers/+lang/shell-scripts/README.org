@@ -40,6 +40,16 @@ In order to enable =sh= scripts style checking, install [[https://github.com/ope
 
 | Key Binding | Description                                               |
 |-------------+-----------------------------------------------------------|
-| ~SPC i !~   | insert shebang in a script file                           |
 | ~SPC m \~   | insert end-of-line backslashes to the lines in the region |
-
+| ~SPC i !~   | insert shebang in a script file                           |
+| ~SPC m i !~ | insert shebang in a script file                           |
+| ~SPC m i c~ | insert switch case statement if supported by shell        |
+| ~SPC m i i~ | insert if statement if supported by shell                 |
+| ~SPC m i f~ | insert function definition if supported by shell          |
+| ~SPC m i o~ | insert for loop if supported by shell                     |
+| ~SPC m i e~ | insert an indexed for loop if supported by shell          |
+| ~SPC m i w~ | insert while loop if supported by shell                   |
+| ~SPC m i r~ | insert repeat loop if supported by shell                  |
+| ~SPC m i s~ | insert select loop if supported by shell                  |
+| ~SPC m i u~ | insert until loop if supported by shell                   |
+| ~SPC m i g~ | insert a getopts while loop if supported by shell         |
