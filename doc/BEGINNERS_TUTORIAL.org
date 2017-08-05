@@ -170,7 +170,7 @@ the window vertically to view both this tutorial and the dotfile simultaneously
 (~SPC w /~). Open the dotfile by pressing ~SPC f e d~. Navigate to the line
 starting with "dotspacemacs-configuration-layers". The following lines have
 further instructions: uncomment =org= and =git= layers if you want to be
-familiarized with them. More [[file:../layers/LAYERS.org][layers]] for different languages and tools can be
+familiarized with them. More [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][layers]] for different languages and tools can be
 found by pressing ~SPC h SPC~. The added layers will be installed upon restart
 of Spacemacs.
 
@@ -209,7 +209,7 @@ can add TODO tags on headlines. Press ~M-k~ or ~M-j~ in normal mode and see how
 you can quickly move parts of the document around.
 
 This is not even scratching the surface of Org mode, so you should look into
-[[../layers/+emacs/org/README.org][org layer]] with ~SPC h SPC org~ for more information. Googling for Org mode
+[[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bemacs/org/README.org][org layer]] with ~SPC h SPC org~ for more information. Googling for Org mode
 tutorials is also very helpful in finding out the most useful features of it!
 
 ** Version control - the intelligent way
@@ -250,7 +250,7 @@ This is useful outside of Spacemacs as well!
 
 ** Troubleshooting and further info
 ~SPC ?~ shows you the keybindings in the current major mode, which is often
-helpful. For troubleshooting, please refer to the [[file:FAQ.org][FAQ]] by pressing ~SPC f e f~.
+helpful. For troubleshooting, please refer to the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org][FAQ]] by pressing ~SPC f e f~.
 More help is found under ~SPC h~, and with ~SPC h ~SPC~ you can access the
 comprehensive Spacemacs documentation, including this tutorial and the layer
 documents.
