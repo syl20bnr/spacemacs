@@ -619,5 +619,5 @@ FRAME defaults to the current frame."
           do (progn (setq shell-pop-last-shell-buffer-index i) (return)))))
 
 (defun spacemacs//set-persp-specific-shell-create (arg)
-  "Same as above. But when user creates new layouts, spacemacs/layout-switch-by-pos is called instead of persp-switch. Two functions are thus needed."
+  "Same as spacemacs//set-perp-specific-shell. But when user creates new layouts, spacemacs/layout-switch-by-pos is called instead of persp-switch. Two functions are thus needed."
   (setq shell-pop-last-shell-buffer-index (+ 1 arg)))

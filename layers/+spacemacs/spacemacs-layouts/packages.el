@@ -211,10 +211,9 @@
         :body
         (spacemacs/find-dotfile))
       (when (and spacemacs-persp-unique-shell
-               (configuration-layer/package-usedp 'shell-pop))
-        (progn
-          (advice-add 'persp-switch :after #'set-persp-specific-shell)
-          (advice-add 'spacemacs/layout-switch-by-pos :after #'switch-to-X-advice))))
+                 (configuration-layer/package-usedp 'shell-pop))
+        (advice-add 'persp-switch :after #'set-persp-specific-shell)
+        (advice-add 'spacemacs/layout-switch-by-pos :after #'switch-to-X-advice)))
     :config
     (progn
       (spacemacs|hide-lighter persp-mode)

@@ -35,7 +35,7 @@
   "Timer for layouts auto-save.")
 
 (defvar spacemacs-persp-unique-shell nil
-  "If true, the default shell for each layout will have the same 'index' as the layout.")
+  "If true, each layout will have its own unique shell.")
 
 (defvar spacemacs-generic-layout-names
   '(("zebra" "zucchini" "zen" "yellow" "yeti" "yard") ; grab-bag
