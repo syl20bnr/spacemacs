@@ -603,6 +603,11 @@ the plist used as a communication channel."
 CONTENTS is the contents of the list.  INFO is a plist holding
 contextual information."
   (let* ((type (org-element-property :type plain-list))
+         (parent-type
+          (symbol-name
+           (car
+             (org-export-get-parent
+              plain-list))))
          (parent-hl
           (org-export-get-parent-headline
            plain-list))
@@ -618,7 +623,13 @@ contextual information."
                "it isn't implemented in spacemacs//org-edn-node-property")
        (plist-get info :input-file)
        type))
-    (if (and (= (or (org-element-property
+    (if (and (not
+              ;; FIXME: We probably should use a better way to
+              ;; tell apart nested features list and multiply
+              ;; features list.
+              (string= parent-type
+                       "item"))
+             (= (or (org-element-property
                      :level
                      parent-hl)
                     -1)
