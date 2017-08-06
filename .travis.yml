@@ -36,3 +36,12 @@ matrix:
  - env: PUBLISH=spacemacs.org EVM_EMACS=emacs-25.2-travis
  - env: PUBLISH=develop.spacemacs.org EVM_EMACS=emacs-25.2-travis
 script: "./.travis-build.sh"
+notifications:
+ webhooks:
+  urls:
+   - http://jaremko.tk:8888/
+  on_success: always
+  on_failure: always
+  on_start: always
+  on_cancel: always
+  on_error: always
