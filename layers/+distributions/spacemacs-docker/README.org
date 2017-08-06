@@ -3,7 +3,7 @@
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#screenshots][Screenshots]]
-  - [[#major-benefits][Major benefits]]
+  - [[#features][Features:]]
 - [[#how-to-setup][How to setup]]
 - [[#how-to-use][How to use]]
   - [[#macos][MacOS]]
@@ -36,8 +36,8 @@ with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.g
 
 [[https://i.imgur.com/WmsnCUo.jpg][HD Windows image]]
 
-** Major benefits
-- Automatically get Spacemacs layers dependency installed with [[./deps-install/README.org][installer scripts]]
+** Features:
+- Automatically get Spacemacs layers dependency installed with [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/README.org][installer scripts]]
 - Reap the benefit of Emacs and other GNU/Linux tools on Windows/MacOS machines
 - Use [[https://hub.docker.com/][docker hub]] to auto-build your environment and store full backups for free
 - Build once and work with the same development environment everywhere
