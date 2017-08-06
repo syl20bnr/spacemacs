@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#flycheck][Flycheck]]
@@ -27,9 +28,9 @@
 * Description
 This layer adds support for [[http://elixir-lang.org/][Elixir]] .
 
-[[https://github.com/tonini/alchemist.el][Alchemist]] brings the Elixir tooling to Emacs and comes with a bunch of features
-like:
+[[https://github.com/tonini/alchemist.el][Alchemist]] brings the Elixir tooling to Emacs and comes with a bunch of features.
 
+** Features:
 - Powerful IEx integration
 - Mix integration
 - Compile & Execution of Elixir code

@@ -4,7 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#features][Features]]
+  - [[#features][Features:]]
   - [[#bibtex][BibTeX]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
@@ -28,7 +28,7 @@
 * Description
 This layer adds markdown support to Spacemacs.
 
-** Features
+** Features:
 - markdown files support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
 - Fast Github-flavored live preview via [[https://github.com/blak3mill3r/vmd-mode][vmd-mode]]
 - TOC generation via [[https://github.com/ardumont/markdown-toc][markdown-toc]]

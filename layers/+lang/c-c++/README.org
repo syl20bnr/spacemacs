@@ -5,7 +5,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-- [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#default-mode-for-header-files][Default mode for header files]]
@@ -19,7 +19,7 @@
 This layer adds configuration for C/C++ language as well support for [[https://cmake.org/][CMake]]
 scripts.
 
-* Features
+** Features:
 - Support syntax checking via flycheck with Clang.
 - Support for disassembly of code with [[https://github.com/jart/disaster][disaster]].
 - Support code reformatting with [[http://clang.llvm.org/docs/ClangFormat.html][clang-format]].

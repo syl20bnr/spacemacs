@@ -4,6 +4,7 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
     - [[#layer][Layer]]
     - [[#pdfs][PDFs]]
@@ -17,7 +18,7 @@ The layer also adds =nasm-mode= for NASM-specific syntax. Although =nasm-mode=
 is intended for NASM, it actually works well with other variants of Assembly
 in general, and provides Imenu integration so you can jump around with ~SPC s j~.
 
-_Features_:
+** Features:
 - Improved syntax highlighting.
 - Automatic indentation.
 - Auto-completion for symbol in opened buffers.

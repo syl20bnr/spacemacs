@@ -2,7 +2,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-- [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#os-x][OS X]]
@@ -15,7 +15,7 @@
 * Description
 Layer for [[http://www.emacswiki.org/emacs/ERC][ERC IRC chat]].
 
-* Features
+** Features:
 - Highlight nicks (using [[https://github.com/leathekd/erc-hl-nicks][erc-hl-nicks]])
 - Image inline support (using [[https://github.com/kidd/erc-image.el][erc-image]])
 - Logging to =~/.emacs.d/.cache/erc-logs= and =ViewLogMode= for viewing logs
