@@ -34,12 +34,13 @@
   "Load the flags from CC-FILE, one flag per line."
   (let ((invocation-dir (expand-file-name (file-name-directory cc-file)))
         (case-fold-search nil)
+        (include-regex "\\(-I\\|-isystem\\|-iquote\\|-idirafter\\)\\s-*\\(\\S-+\\)")
         compile-flags)
     (with-temp-buffer
       (insert-file-contents cc-file)
       ;; Replace relative paths with absolute paths (by @trishume)
       ;; (goto-char (point-min))
-      (while (re-search-forward "\\(-I\\|-isystem\n\\)\\(\\S-+\\)" nil t)
+      (while (re-search-forward include-regex nil t)
         (replace-match (format "%s%s" (match-string 1)
                                (expand-file-name (match-string 2)
                                                  invocation-dir))))
@@ -53,6 +54,28 @@
                     (split-string (buffer-string) "\n" t))))
     compile-flags))
 
+(defun spacemacs//c-c++-get-standard-include-paths (lang)
+  "Returns the default system header include paths for LANG if gcc is on the
+system and supports it, else returns a default set of include paths."
+  (let* ((start "#include <...> search starts here:")
+         (end "End of search list.")
+         (gcc-tmplt "echo | gcc -x%s -E -v - 2>&1")
+         (sed-tmplt " | sed -n '/%s/,/%s/{/%s/b;/%s/b;p}' | sed -e 's/^ *//g'")
+         (template (concat gcc-tmplt sed-tmplt))
+         (inc-dirs-cmd (format template lang start end start end))
+         (inc-dirs (split-string (shell-command-to-string inc-dirs-cmd)
+                                 "\n" t)))
+    (if (and inc-dirs (every 'file-exists-p inc-dirs))
+        inc-dirs
+      '("/usr/include" "/usr/local/include"))))
+
+(defun spacemacs//filter-and-substring (flags filter-prefix substr-index)
+  "Returns all the strings in FLAGS starting with FILTER-PREFIX. The returned
+strings are substringed from SUBSTR-INDEX inclusive to the end of the string."
+  (mapcar (lambda (f) (substring f substr-index))
+          (remove-if-not (lambda (f) (string-prefix-p filter-prefix f))
+                         flags)))
+
 (defun spacemacs/c-c++-load-clang-args ()
   "Sets the arguments for company-clang, the system paths for company-c-headers
 and the arguments for flyckeck-clang based on a project-specific text file."
@@ -61,16 +84,28 @@ and the arguments for flyckeck-clang based on a project-specific text file."
            (flags (if cc-file
                       (spacemacs/company-load-clang-complete-file cc-file)
                     '()))
-           (dirs (mapcar (lambda (f) (substring f 2))
-                         (remove-if-not (lambda (f) (string-prefix-p "-I" f))
-                                        flags))))
+           (i-paths (spacemacs//filter-and-substring flags
+                                                     "-I" 2))
+           (iquote-paths (spacemacs//filter-and-substring flags
+                                                          "-iquote" 7))
+           (isystem-paths (spacemacs//filter-and-substring flags
+                                                           "-isystem" 8))
+           (idirafter-paths (spacemacs//filter-and-substring flags
+                                                             "-idirafter" 10)))
       (setq-local company-clang-arguments flags)
+      (setq-local flycheck-clang-args flags)
+      (setq-local company-c-headers-path-user
+                  (append '(".")
+                          iquote-paths))
       (setq-local company-c-headers-path-system
-                  (append '("/usr/include" "/usr/local/include")
-                          dirs))
-      (setq-local flycheck-clang-args flags))))
+                  (append i-paths
+                          isystem-paths
+                          (when (string-equal major-mode "c++-mode")
+                            (spacemacs//c-c++-get-standard-include-paths "c++"))
+                          (when (string-equal major-mode "c-mode")
+                            (spacemacs//c-c++-get-standard-include-paths "c"))
+                          idirafter-paths)))))
 
-
 ;; realgud
 
 (defun spacemacs//short-key-state (modeon)
