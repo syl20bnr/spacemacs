@@ -61,6 +61,7 @@ Internal use, do not set this variable.")
   (let ((map (make-sparse-keymap)))
     (define-key map [down-mouse-1] 'widget-button-click)
     (define-key map (kbd "RET") 'widget-button-press)
+    (define-key map (kbd "SPC") 'spacemacs-cmds)
 
     (define-key map [tab] 'widget-forward)
     (define-key map (kbd "J") 'widget-forward)
