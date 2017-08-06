@@ -549,7 +549,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (spacemacs/set-leader-keys
         "aop" 'org-projectile/capture
         "po" 'org-projectile/goto-todos)
-      (require 'org-projectile))
+      (with-eval-after-load 'org-capture
+        (require 'org-projectile)))
     :config
     (if (file-name-absolute-p org-projectile-file)
         (progn
