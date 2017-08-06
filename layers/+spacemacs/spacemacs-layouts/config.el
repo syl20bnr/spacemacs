@@ -34,6 +34,9 @@
 (defvar spacemacs--layouts-autosave-timer nil
   "Timer for layouts auto-save.")
 
+(defvar spacemacs-persp-unique-shell nil
+  "If true, the default shell for each layout will have the same 'index' as the layout.")
+
 (defvar spacemacs-generic-layout-names
   '(("zebra" "zucchini" "zen" "yellow" "yeti" "yard") ; grab-bag
     ("baboon" "banana" "blue")                        ; 2nd layout

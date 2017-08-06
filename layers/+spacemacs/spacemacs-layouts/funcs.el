@@ -608,3 +608,16 @@ FRAME defaults to the current frame."
                                         (eyebrowse--get 'last-slot frame))
                                   (get-frame-persp frame)
                                   frame))
+
+;; shell-pop integration
+
+(defun spacemacs//set-persp-specific-shell (arg)
+  "To be called after persp-switch. Make the default shell number to use equal to the layout number."
+  (progn
+    (loop for persp in (persp-names-current-frame-fast-ordered) and i from 1
+          when (string= persp arg)
+          do (progn (setq shell-pop-last-shell-buffer-index i) (return)))))
+
+(defun spacemacs//set-persp-specific-shell-create (arg)
+  "Same as above. But when user creates new layouts, spacemacs/layout-switch-by-pos is called instead of persp-switch. Two functions are thus needed."
+  (setq shell-pop-last-shell-buffer-index (+ 1 arg)))
