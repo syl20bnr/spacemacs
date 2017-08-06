@@ -4,7 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-- [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key Bindings]]
 
@@ -19,7 +19,7 @@ ahk and ahk_l commands found in the latest revision of
 
 Contributed and maintained by [[https://www.github.com/ralesi][Rich Alesi]].
 
-* Features
+** Features:
 - Auto-completion
 - Documentation Lookup
 - Execute Code Snippets

@@ -4,7 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
 - [[#key-bindings][Key Bindings]]
@@ -15,7 +15,7 @@
 * Description
 This layer adds support for the Perl5 language.
 
-** Features
+** Features:
 - syntactic and semantic checking using [[https://github.com/flycheck/flycheck][flycheck]]
 
 * Install

@@ -2,7 +2,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-- [[#features][Features]]
+  - [[#features][Features:]]
 - [[#list-of-todos][List of TODOS]]
   - [[#maybe-itd-be-better-if-there-was-a-state-for-this][Maybe it'd be better if there was a state for this]]
   - [[#make-more-keybinding-to-connect-to-a-python-buffer][Make more keybinding to =connect= to a python buffer]]
@@ -29,7 +29,7 @@ This layer adds support for the package =emacs-ipython-notebook=.
 Do not hesitate to check the original package README [[https://github.com/millejoh/emacs-ipython-notebook][here]]. Also the wiki has
 lots of informative stuff.
 
-* Features
+** Features:
 - Keybindings available through transient-state or leader key
 - Lazy-loading
 

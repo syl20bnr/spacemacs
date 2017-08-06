@@ -4,7 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-- [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#configuration][Configuration]]
@@ -24,7 +24,7 @@
 This layer provide support for [[http://www.gnu.org/software/emacs/manual/html_mono/rcirc.html][rcirc]] with optional support for authinfo
 and ZNC.
 
-* Features
+** Features:
 - Store channel logs into =~/.emacs.d/.cache/rcirc-logs/<channel>=
 - Support for credentials stored in =~/.authinfo.gpg= (need to have gnutls)
 - Support ZNC support (with optional =~/.authinfo.gpg=)
