@@ -41,7 +41,7 @@ following:
       ))
 #+END_SRC
 
-For adding RSS Feeds please see the [[Keybindings][keybindings section]].
+For adding RSS Feeds please see the [[#keybindings][keybindings section]].
 
 * Configuring gmail
 

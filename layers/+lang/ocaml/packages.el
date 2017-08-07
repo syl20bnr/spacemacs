@@ -25,7 +25,7 @@
     ))
 
 (defun ocaml/post-init-company ()
-  (when (configuration-layer/layer-used-p 'merlin)
+  (when (configuration-layer/package-used-p 'merlin)
     (spacemacs|add-company-backends
       :backends merlin-company-backend
       :modes merlin-mode

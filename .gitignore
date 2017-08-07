@@ -1,6 +1,7 @@
 auto-save-list/
 elpa/
 export/
+!/core/tools/export/
 ac-comphist.dat
 eproject.lst
 .smex-items

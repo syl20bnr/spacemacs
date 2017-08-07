@@ -15,12 +15,12 @@
 (defun org-projectile/capture (&optional arg)
   (interactive "P")
   (if arg
-      (org-projectile:project-todo-completing-read nil :empty-lines 1)
-    (org-projectile:capture-for-current-project nil :empty-lines 1)))
+      (org-projectile-project-todo-completing-read nil :empty-lines 1)
+    (org-projectile-capture-for-current-project nil :empty-lines 1)))
 
 (defun org-projectile/goto-todos ()
   (interactive)
-  (org-projectile:location-for-project (projectile-project-name)))
+  (org-projectile-location-for-project (projectile-project-name)))
 
 
 

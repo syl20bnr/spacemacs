@@ -109,6 +109,48 @@ NOTE: Can be slow with huge buffers."
         (spacemacs//centered-buffer-disable-branch))
     (message "centered buffer mode doesn't work in terminal :(")))
 
+(defmacro with-mode-disabled (mode &rest body)
+  "Evaluate BODY with MODE disabled."
+  (declare (indent 1) (debug t))
+  `(if (not (bound-and-true-p ,mode))
+       (progn ,@body)
+     (,mode -1)
+     ,@body
+     (,mode +1)))
+
+(defsubst spacemacs//centered-buffer-window-text-pixel-size (window
+                                                             &optional from to)
+  "Calculate WINDOW text pixel width with `window-text-pixel-size' in
+FROM TO region
+and clamp it in between `spacemacs-centered-buffer-mode-min-content-width'
+and `spacemacs-centered-buffer-mode-max-content-width'.
+If `spacemacs-centered-buffer-mode-min-content-width' and
+`spacemacs-centered-buffer-mode-max-content-width' are equal return
+their value instead."
+  (if (= spacemacs-centered-buffer-mode-min-content-width
+         spacemacs-centered-buffer-mode-max-content-width)
+      spacemacs-centered-buffer-mode-max-content-width
+    (max
+     spacemacs-centered-buffer-mode-min-content-width
+     (car (window-text-pixel-size
+           window
+           from
+           to
+           spacemacs-centered-buffer-mode-max-content-width)))))
+
+(defsubst spacemacs//centered-buffer-calc-fringe
+  (&optional window text-pixel-size)
+  "Calculate fringe width for `spacemacs-centered-buffer-mode'.
+The function Uses TEXT-PIXEL-SIZE if provided,
+otherwise calculates it with `window-pixel-width'."
+  (-(/ (- (window-pixel-width window)
+          (or text-pixel-size
+              (spacemacs//centered-buffer-window-text-pixel-size
+               window)))
+       2)
+    (if (bound-and-true-p org-indent-mode) 40
+      spacemacs-centered-buffer-mode-safety-gap-width)))
+
 (defun spacemacs//centered-buffer-enable-branch (interact)
   "Used it `spacemacs-centered-buffer-mode'.
 Assume to be called interactively when INTERACT has non nil value."
@@ -122,7 +164,7 @@ Assume to be called interactively when INTERACT has non nil value."
     (let* ((window (selected-window))
            (ori-buff (window-buffer window))
            (origin-buffer-name (buffer-name ori-buff))
-           (origin-buffer-new-name
+           (_
             (spacemacs//centered-buffer-mode-mark-buff-as-origin t))
            (origin-buffer (window-buffer window))
            (indirect-buffer
@@ -295,6 +337,33 @@ otherwise remove them."
     (remove-hook 'window-configuration-change-hook
                  #'spacemacs//centered-buffer-window-configuration-change-hk)))
 
+(defsubst spacemacs//centered-buffer-cleanup (buffer)
+  "Removes BUFFER from `spacemacs--centered-buffer-indirect-buffers'
+and restores origin buffer configurations."
+  (let ((origin-buffer (buffer-local-value
+                        'spacemacs--centered-buffer-origin-buffer
+                        buffer)))
+    (setq spacemacs--centered-buffer-indirect-buffers
+          (delete buffer
+                  spacemacs--centered-buffer-indirect-buffers))
+    (when (buffer-live-p origin-buffer)
+      (spacemacs//centered-buffer-buffer-fringr-color-toggle
+       origin-buffer nil)
+      (with-current-buffer origin-buffer
+        (setq spacemacs--centered-buffer-indirect-buffers nil)
+        (spacemacs//centered-buffer-mode-mark-buff-as-origin nil)))))
+
+(defsubst spacemacs//centered-buffer-prune-indirect-buffer-list ()
+  "Cleanups dead buffers with `spacemacs//centered-buffer-cleanup'
+and disables `centered-buffer-mode' hooks and advices if
+`spacemacs--centered-buffer-indirect-buffers' in empty (nil)."
+  (dolist (buffer spacemacs--centered-buffer-indirect-buffers)
+    (unless (buffer-live-p buffer)
+      (spacemacs//centered-buffer-cleanup buffer)))
+  ;; Remove hooks and advices when they are not needed anymore.
+  (unless spacemacs--centered-buffer-indirect-buffers
+    (spacemacs//centered-buffer-toggle-hooks nil)))
+
 (defun spacemacs//centered-buffer-indirect-buffer-kill-hook ()
   "`kill-buffer-hook for `centered-buffer-mode' buffers.'"
   (spacemacs//centered-buffer-cleanup (current-buffer))
@@ -333,41 +402,6 @@ Revert changes Otherwise."
        'fringe
        :background
        spacemacs-centered-buffer-mode-default-fringe-color))))
-
-(defsubst spacemacs//centered-buffer-window-text-pixel-size (window
-                                                             &optional from to)
-  "Calculate WINDOW text pixel width with `window-text-pixel-size' in
-FROM TO region
-and clamp it in between `spacemacs-centered-buffer-mode-min-content-width'
-and `spacemacs-centered-buffer-mode-max-content-width'.
-If `spacemacs-centered-buffer-mode-min-content-width' and
-`spacemacs-centered-buffer-mode-max-content-width' are equal return
-their value instead."
-  (if (= spacemacs-centered-buffer-mode-min-content-width
-         spacemacs-centered-buffer-mode-max-content-width)
-      spacemacs-centered-buffer-mode-max-content-width
-    (max
-     spacemacs-centered-buffer-mode-min-content-width
-     (car (window-text-pixel-size
-           window
-           from
-           to
-           spacemacs-centered-buffer-mode-max-content-width)))))
-(byte-compile 'spacemacs//centered-buffer-window-text-pixel-size)
-
-(defsubst spacemacs//centered-buffer-calc-fringe
-  (&optional window text-pixel-size)
-  "Calculate fringe width for `spacemacs-centered-buffer-mode'.
-The function Uses TEXT-PIXEL-SIZE if provided,
-otherwise calculates it with `window-pixel-width'."
-  (-(/ (- (window-pixel-width window)
-          (or text-pixel-size
-              (spacemacs//centered-buffer-window-text-pixel-size
-               window)))
-       2)
-    (if (bound-and-true-p org-indent-mode) 40
-      spacemacs-centered-buffer-mode-safety-gap-width)))
-(byte-compile 'spacemacs//centered-buffer-calc-fringe)
 
 (defsubst spacemacs//centered-buffer-buffer-update-window-fringes (window)
   "Update fringe width of WINDOW if it displays `centered-buffer-mode' buffer."
@@ -431,43 +465,6 @@ if BUFFER's content doesn't fit."
             (spacemacs//centered-buffer-buffer-update-window-fringes
              window)))))))
 (byte-compile 'spacemacs//centered-buffer-update-fringes)
-
-(defsubst spacemacs//centered-buffer-cleanup (buffer)
-  "Removes BUFFER from `spacemacs--centered-buffer-indirect-buffers'
-and restores origin buffer configurations."
-  (let ((origin-buffer (buffer-local-value
-                        'spacemacs--centered-buffer-origin-buffer
-                        buffer)))
-    (setq spacemacs--centered-buffer-indirect-buffers
-          (delete buffer
-                  spacemacs--centered-buffer-indirect-buffers))
-    (when (buffer-live-p origin-buffer)
-      (spacemacs//centered-buffer-buffer-fringr-color-toggle
-       origin-buffer nil)
-      (with-current-buffer origin-buffer
-        (setq spacemacs--centered-buffer-indirect-buffers nil)
-        (spacemacs//centered-buffer-mode-mark-buff-as-origin nil)))))
-(byte-compile 'spacemacs//centered-buffer-cleanup)
-
-(defsubst spacemacs//centered-buffer-prune-indirect-buffer-list ()
-  "Cleanups dead buffers with `spacemacs//centered-buffer-cleanup'
-and disables `centered-buffer-mode' hooks and advices if
-`spacemacs--centered-buffer-indirect-buffers' in empty (nil)."
-  (dolist (buffer spacemacs--centered-buffer-indirect-buffers)
-    (unless (buffer-live-p buffer)
-      (spacemacs//centered-buffer-cleanup buffer)))
-  ;; Remove hooks and advices when they are not needed anymore.
-  (unless spacemacs--centered-buffer-indirect-buffers
-    (spacemacs//centered-buffer-toggle-hooks nil)))
-
-(defmacro with-mode-disabled (mode &rest body)
-  "Evaluate BODY with MODE disabled."
-  (declare (indent 1) (debug t))
-  `(if (not (bound-and-true-p ,mode))
-       (progn ,@body)
-     (,mode -1)
-     ,@body
-     (,mode +1)))
 
 (provide 'centered-buffer-mode)
 
