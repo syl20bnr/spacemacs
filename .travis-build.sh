@@ -43,59 +43,6 @@ echo_headline () {
     echo
 }
 
-# Formatting conventions tests
-if [ ! -z "$FORMATTING" ]; then
-    echo "TRAVIS_COMMIT_RANGE: ${TRAVIS_COMMIT_RANGE}"
-    first_commit=`echo ${TRAVIS_COMMIT_RANGE} | sed -r 's/\..*//'`
-    git diff --name-only "${first_commit}" HEAD > /tmp/changed_files
-
-    echo_headline "Testing changed ORG files with spacefmt"
-    cp ~/.emacs.d/core/templates/.spacemacs.template ~/
-    mv ~/.spacemacs.template ~/.spacemacs
-    changed_f_as_args=()
-    while read p
-    do
-        if [ -f "$p" ]; then
-            if [ ${p: -4} == ".org" ]; then
-                changed_f_as_args+=("${p}")
-                echo "Checking $p file"
-                ./core/tools/spacefmt/spacefmt -f "$p"
-                if [ $? -ne 0 ]; then
-                    echo "spacefmt failed"
-                    exit 2
-                fi
-            fi
-        fi
-    done </tmp/changed_files
-    git diff --color HEAD > spacefmt_result
-    if [[ -s spacefmt_result ]]; then
-        echo_headline "PLEASE APPLY CHANGES BELOW:"
-        cat spacefmt_result
-        exit 1
-    fi
-    echo "All changed files comply with spacefmt"
-
-    if [ ${#changed_f_as_args[@]} -ne 0 ]; then
-        echo_headline "Testing with exporter"
-        emacs --batch -l ./core/tools/export/run.el test $(printf "%s " "${changed_f_as_args[@]}")
-        if [ $? -ne 0 ]; then
-            echo "Documentation needs some fixing ;)"
-            exit 1
-        fi
-    fi
-
-    echo_headline "Testing for trailing and all sorts of broken white spaces"
-    git reset -q "${first_commit}"
-    git add -N .
-    git diff --check --color > space_test_result
-    if [[ -s space_test_result ]]; then
-        cat space_test_result
-        exit 1
-    fi
-    echo "No bad spaces detected"
-    exit 0
-fi
-
 # If we are pushing changes to the master or develop branch,
 # open PR to syl20bnr/${PUBLISH} with Spacemacs
 # documentation exported as HTML and formatted with spacefmt
