@@ -54,7 +54,7 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 
 ** BibTeX
 For more extensive support of references through BibTeX files, have a look at
-the [[../../+lang/bibtex/README.org][BibTeX layer]].
+the [[https://github.com/syl20bnr/spacemacs/blob/master/layers/%2Blang/bibtex/README.org][BibTeX layer]].
 
 ** Important Note
 Since version 0.104, spacemacs uses the =org= version from the org ELPA
