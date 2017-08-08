@@ -624,8 +624,7 @@ are available.
 
 | Key Binding | Description                  |
 |-------------+------------------------------|
-| ~SPC a o b~ | Opens a new org-brain entry  |
-| ~SPC a o B~ | Visualize an org-brain entry |
+| ~SPC a o b~ | Visualize an org-brain entry |
 
 *** Visualization bindings
 

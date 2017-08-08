@@ -463,8 +463,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :init
     (progn
       (spacemacs/set-leader-keys
-        "aob" 'org-brain-open
-        "aoB" 'org-brain-visualize)
+        "aob" 'org-brain-visualize)
       (evil-set-initial-state 'org-brain-visualize-mode 'emacs))))
 
 (defun org/init-org-expiry ()
