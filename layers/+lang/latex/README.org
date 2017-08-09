@@ -43,25 +43,24 @@ Add the layer =auto-completion= to the variable
 
 ** Previewing
 To perform full-document previews (that is, aside from the inline previewing
-under ~SPC m p~), add the following to your =.spacemacs=
-under =dotspacemacs/user-config=:
+under ~SPC m p~), add the following to your =.spacemacs= under
+=dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 #+END_SRC
 
-Then when you open up a compiled PDF, the preview will update automatically
-when you recompile.
+Then when you open up a compiled PDF, the preview will update automatically when
+you recompile.
 
 ** Build command
 A build command can be specified via the layer variable =latex-build-command=.
 
-If =LatexMk= is specified, the appropriate =LatexMk= configuration
-will be applied. (the default on systems with =latexmk= in the path)
-This variable can be set to any of the entities in =TeX-command-list=,
-including any custom entries you may have added there. To use the
-regular =AucTeX= command set =latex-build-command= to =LaTeX= as shown
-below.
+If =LatexMk= is specified, the appropriate =LatexMk= configuration will be
+applied. (the default on systems with =latexmk= in the path) This variable can
+be set to any of the entities in =TeX-command-list=, including any custom
+entries you may have added there. To use the regular =AucTeX= command set
+=latex-build-command= to =LaTeX= as shown below.
 
 #+BEGIN_SRC emacs-lisp
   dotspacemacs-configuration-layers '(
@@ -99,6 +98,7 @@ To enable “magic” symbols in latex buffers, set the variable
 
 The precise effect of this feature can be modified by adjusting the following
 variables:
+
 - =magic-latex-enable-block-highlight=: show font properties like =\large=
   (default =t=).
 - =magic-latex-enable-block-align=: reflect block alignment such as =\center=
