@@ -290,6 +290,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "aoki" 'org-clock-in-last
         "aokj" 'org-clock-jump-to-current-clock
         "aoko" 'org-clock-out
+        "aokr" 'org-resolve-clocks
         "aol" 'org-store-link
         "aom" 'org-tags-view
         "aoo" 'org-agenda
