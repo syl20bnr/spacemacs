@@ -265,6 +265,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC a o k i~ | org clock in last              |
 | ~SPC a o k j~ | org jump to current clock      |
 | ~SPC a o k o~ | org clock out                  |
+| ~SPC a o k r~ | org resolve clocks             |
 | ~SPC a o l~   | org store link                 |
 | ~SPC a o m~   | org tags view                  |
 | ~SPC a o o~   | org agenda                     |
