@@ -245,12 +245,11 @@ no major mode or minor modes are active.")
 (defvar dotspacemacs-auto-save-file-location 'cache
   "Location where to auto-save files. Possible values are `original' to
 auto-save the file in-place, `cache' to auto-save the file to another
-file stored in the cache directory and `nil' to disable auto-saving.
-Default value is `cache'.")
+file stored in the cache directory and `nil' to disable auto-saving.")
 
 (defvar dotspacemacs-enable-paste-transient-state nil
-  "If non-nil, the paste transient-state is enabled. And pressing `p' several
-times, cycles through the elements in the `kill-ring'. (default nil)")
+  "If non-nil, the paste transient-state is enabled. While enabled, pressing
+`p' several times cycles through the elements in the `kill-ring'.")
 (defvaralias
   'dotspacemacs-enable-paste-micro-state
   'dotspacemacs-enable-paste-transient-state
@@ -341,7 +340,7 @@ restricts line-number to the specified list of major-mode.")
 (defvar dotspacemacs-smart-closing-parenthesis nil
   "If non-nil pressing the closing parenthesis `)' key in insert mode passes
 over any automatically added closing parenthesis, bracket, quote, etc…
-This can be temporary disabled by pressing `C-q' before `)'. (default nil)")
+This can be temporary disabled by pressing `C-q' before `)'.")
 
 (defvar dotspacemacs-zone-out-when-idle nil
   "Either nil or a number of seconds. If non-nil zone out after the specified
@@ -350,7 +349,7 @@ number of seconds.")
 (defvar dotspacemacs-highlight-delimiters 'all
   "Select a scope to highlight delimiters. Possible values are `any',
 `current', `all' or `nil'. Default is `all' (highlight any scope and
-emphasis the current one.")
+emphasize the current one.")
 
 (defvar dotspacemacs-whitespace-cleanup nil
   "delete whitespace while saving buffer. possible values are `all'
