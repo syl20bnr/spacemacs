@@ -54,7 +54,7 @@
       ;; If you enable global minor mode
       (when (and (eq version-control-diff-tool 'git-gutter)
                  version-control-global-margin)
-        (run-with-idle-timer 1 nil 'global-git-gutter-mode t))
+        (run-with-idle-timer 1 nil 'global-git-gutter-mode))
       (setq git-gutter:update-interval 2
             git-gutter:modified-sign " "
             git-gutter:added-sign "+"
@@ -112,7 +112,7 @@
       (when (and (eq version-control-diff-tool 'git-gutter+)
                  version-control-global-margin)
         (add-hook 'magit-pre-refresh-hook 'git-gutter+-refresh)
-        (run-with-idle-timer 1 nil 'global-git-gutter+-mode t))
+        (run-with-idle-timer 1 nil 'global-git-gutter+-mode))
       (setq
        git-gutter+-modified-sign " "
        git-gutter+-added-sign "+"
