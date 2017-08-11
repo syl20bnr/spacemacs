@@ -729,7 +729,7 @@ toggling fullscreen."
   (interactive)
   (if dotspacemacs-fullscreen-use-non-native
       (spacemacs/toggle-frame-fullscreen-non-native)
-    (toggle-frame-fullscreen)))
+    (spacemacs/toggle-fullscreen)))
 
 (defun spacemacs/toggle-fullscreen ()
   "Toggle full screen on X11 and Carbon"
