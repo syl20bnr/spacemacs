@@ -1,0 +1,84 @@
+#+TITLE: Circe Layer
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+- [[#features][Features]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+    - [[#helm-auto-completion-for-usernames][Helm auto-completion for usernames]]
+  - [[#default-servers][Default servers]]
+    - [[#security-note][Security Note]]
+- [[#key-bindings][Key bindings]]
+- [[#spacemacs-layout-support][Spacemacs Layout Support]]
+
+* Description
+Layer for [[http://www.emacswiki.org/emacs/Circe][Circe IRC chat]]. 
+
+* Features
+
+- Nickname Highlighting
+- [[https://github.com/lesharris/helm-circe][Circe-Helm]] integration
+- Tab completion
+- [[https://github.com/eqyiel/circe-notifications][Notifications]]
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =circe= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+*** Helm auto-completion for usernames
+One can use =helm= to provide auto-completion for usernames by setting
+=circe-helm-for-username-completion= to 't.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '(helm
+                  (circe :variables circe-helm-for-username-completion 't)))
+#+END_SRC
+
+** Default servers
+You can define the default servers by defining =circe-network-options=.
+
+#+BEGIN_SRC emacs-lisp
+(setq circe-network-options
+                    '(("freenode"
+                       :host "irc.freenode.net"
+                       :port "6697"
+                       :nick "some-nick"
+                       :user "some-user"
+                       :password "secret")
+                      ("irc.myworkirc.net"
+                       :host "irc.placeiwork.com"
+                       :port "1234"
+                       :nick "some-suit"
+                       :password "hunter2")))
+#+END_SRC
+
+*** Security Note
+
+You should not store your passwords in the clear in your =.spacemacs=, and that
+goes double if you version your config file. 
+
+* Key bindings
+
+| Key Binding | Description                                        |
+|-------------+----------------------------------------------------|
+| ~SPC a i c~ | Starts circe                                       |
+| ~SPC m r~   | Reconnects server                                  |
+| ~SPC m R~   | Reconnects all servers                             |
+| ~SPC m v~   | Shows circe version                                |
+| ~SPC m c t~ | Prints channel topic                               |
+| ~SPC m c n~ | Shows channel names                                |
+| ~SPC m c s~ | Says input                                         |
+| ~SPC m h h~ | Displays helm results for everything circe related |
+| ~SPC m h q~ | Displays helm results for queries                  |
+| ~SPC m h s~ | Displays helm results for servers                  |
+| ~SPC m h b~ | Displays helm results by server                    |
+| ~SPC m h n~ | Displays helm results channels with new activity   |
+
+* Spacemacs Layout Support
+CIRCE buffers are added automatically to the default layout for CIRCE controlled by
+the variable ~circe-spacemacs-layout-name~ (defaults to "@circe") and the default
+binding ("i") is controlled by ~circe-spacemacs-layout-binding~. 
+
+
