@@ -32,6 +32,9 @@ scripts.
 - Support auto-completion (when =auto-completion= layer is included) via
   company-clang (when =c-c++-enable-clang-support= is turned on), or
   company-ycmd (when =ycmd= layer is included).
+- Support for CMake configure/build (with limited support for other build systems),
+  automatic generation of =compile_commands.json= (compile flags), on-the-fly configuration
+  of flycheck, company-clang and RTags (if installed) with [[https://github.com/atilaneves/cmake-ide][cmake-ide]] .
 
 * Install
 ** Layer
@@ -102,5 +105,7 @@ doesn't complain about missing header files.
 | ~SPC m g A~ | open matching file in another window (e.g. switch between .cpp and .h) |
 | ~SPC m D~   | disaster: disassemble c/c++ code                                       |
 | ~SPC m r~   | srefactor: refactor thing at point.                                    |
+| ~SPC m p~   | Project / Build system management                                      |
+| ~SPC m c c~ | Compile project                                                        |
 
 *Note:*  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+
