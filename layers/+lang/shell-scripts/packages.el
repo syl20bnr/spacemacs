@@ -18,6 +18,7 @@
         ggtags
         helm-gtags
         insert-shebang
+        org
         (sh-script :location built-in)
         ))
 
@@ -89,6 +90,10 @@
 
 (defun shell-scripts/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'sh-mode))
+
+(defun shell-scripts/post-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(shell . t))))
 
 (defun shell-scripts/init-insert-shebang ()
   (use-package insert-shebang
