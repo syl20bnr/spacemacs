@@ -1807,7 +1807,7 @@ to update."
   (let* ((distant-packages (configuration-layer//filter-distant-packages
                             configuration-layer--used-packages t))
          (update-packages
-          (configuration-layer//get-packages-to-update distant-packages t))
+          (configuration-layer//get-packages-to-update distant-packages))
          (skipped-count (length
                          configuration-layer--check-new-version-error-packages))
          (date (format-time-string "%y-%m-%d_%H.%M.%S"))
