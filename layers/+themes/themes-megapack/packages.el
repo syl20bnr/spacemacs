@@ -36,6 +36,7 @@
     django-theme
     dracula-theme
     espresso-theme
+    exotica-theme
     farmhouse-theme
     flatland-theme
     flatui-theme
