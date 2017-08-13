@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-## run_build.sh --- Travis CI File for Spacemacs
+## Run script for Travis CI integration
 ##
 ## Copyright (c) 2012-2014 Sylvain Benner
-## Copyright (c) 2014-2015 Sylvain Benner & Contributors
+## Copyright (c) 2014-2017 Sylvain Benner & Contributors
 ##
-## Author: Sylvain Benner <sylvain.benner@gmail.com>
+## Author: Eugene Yaremenko
 ## URL: https://github.com/syl20bnr/spacemacs
 ##
 ## This file is not part of GNU Emacs.

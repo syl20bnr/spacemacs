@@ -1,4 +1,15 @@
 #!/bin/bash
+# Run script for Circle CI integration
+#
+## Copyright (c) 2012-2014 Sylvain Benner
+## Copyright (c) 2014-2017 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
 
 if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
     echo "Skipping check for internal PRs"
@@ -21,7 +32,7 @@ curl "${pr_patch_url}" --output /tmp/patch --silent
 first_commit=$(echo $(head -n 1 /tmp/patch) | sed -n 's/From \([a-zA-Z0-9]\+\).*/\1/p')
 
 if [[ -z "${first_commit// }" ]]; then
-    echo "Can't fist commit commit"
+    echo "Can't find first commit"
     exit 1
 else
     echo "First commit: ${first_commit}"
