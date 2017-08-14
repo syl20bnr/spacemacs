@@ -69,4 +69,4 @@
   (interactive)
   (shell-command
    (format "go run %s"
-           (shell-quote-argument (buffer-file-name (buffer-base-buffer))))))
+           (shell-quote-argument (file-remote-p (buffer-file-name (buffer-base-buffer)) 'localname)))))
