@@ -9,13 +9,10 @@
 - [[#key-bindings][Key Bindings]]
 
 * Description
-
 This layer adds tools for better integration of CSV files in Spacemacs.
 
 * Install
-
 ** Layer
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp

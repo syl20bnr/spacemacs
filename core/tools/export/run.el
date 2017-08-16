@@ -11,22 +11,27 @@
 ;; Note: see `spacemacs-export-docs-help-text' for usage.
 ;;
 ;;; License: GPLv3
-(require 'json)
 
-(defvar spacemacs-export-docs-this-file-name
+(require 'json)
+(require 'cl-lib)
+(require 'subr-x)
+
+(defconst spacemacs-export-docs-this-file-name
   (or load-file-name
       buffer-file-name)
   "`load-file-name' or `buffer-file-name'/")
 
-(defvar spacemacs-export-docs-spacemacs-root-dir
-  (file-truename
-   (concat
-    (file-name-directory
-     spacemacs-export-docs-this-file-name)
-    "../../../"))
-  "Root directory of Spacemacs")
+(defconst spacemacs-export-docs-this-file-dir
+  (file-name-directory spacemacs-export-docs-this-file-name)
+  "`file-name-directory' of `spacemacs-export-docs-this-file-name'")
 
-(defvar spacemacs-export-docs-default-exclude-re
+(load
+ (expand-file-name
+  "../lib/shared.el"
+  spacemacs-export-docs-this-file-dir)
+ nil t)
+
+(defvar spacemacs--export-docs-default-exclude-re
   (regexp-opt
    (append
     (mapcar (lambda (el)
@@ -39,23 +44,10 @@
               "tests/"
               "elpa/"))
     (file-expand-wildcards
-     (file-truename (concat spacemacs-export-docs-spacemacs-root-dir
+     (file-truename (concat spacemacs--spacetools-root-dir
                             ".*")))
     '("LAYERS.org")))
   "Default regexp for ignoring ORG and static files.
-It will be matched against full path of each exported file.")
-
-(defvar spacemacs-export-docs-mode nil
-  "Current mode")
-
-(defvar spacemacs-export-docs-directory nil
-  "Target directory for export.")
-
-(defvar spacemacs-export-docs-workers-num nil
-  "Number of Emacs instances that will be used for exporting.")
-
-(defvar spacemacs-export-docs-exclude-re nil
-  "Regexp for ignoring ORG and static files.
 It will be matched against full path of each exported file.")
 
 (defconst spacemacs-export-docs-help-text
@@ -75,194 +67,188 @@ It will be matched against full path of each exported file.")
                 "Arguments:"
                 " - <export> - You already know this :)"
                 " - Target directory for export"
-                "   (default: \"<TMP>/spacemacs-export/\")"
-                " - Number of Emacs instances that will be used for exporting"
+                "   (default: \"<TMP>/spacemacs--export/\")"
+                " - Count of Emacs instances that will be used for exporting"
                 "   (default \"6\", minimal vale is 1 and maximal"
-                "    is total number of ORG files)"
+                "    is total count of ORG files)"
                 " - Regexp for ignoring ORG and static files,"
                 "   exclude nothing if empty string"
                 "   (It will be matched against full path of each exported file"
                 ,(format "   Current default: %S)"
-                         spacemacs-export-docs-default-exclude-re))))
+                         spacemacs--export-docs-default-exclude-re))))
   "Help text for `spacemacs//export-docs-maybe-show-help' .")
 
-(defvar spacemacs--export-docs-copy-queue '())
-(defvar spacemacs--export-docs-worker-fin 0)
-(defvar spacemacs--export-docs-part-in nil)
-(defvar spacemacs--export-docs-file-size-path-alist '())
-(defvar spacemacs--export-docs-test-failed? '())
+(defvar spacemacs--export-docs-configs-plist nil
+  "Script configurations created with `spacemacs//export-docs-parse-args'.
+The shape:(
+:mode <export or test>
+:target-directory <directory to output stuff>
+:workers-count <how many workers will be used>
+:exclude-re <file exclusion regular expression>
+:files <filtered files list>
+)
+See `spacemacs-export-docs-help-text' for details.")
+
+(defvar spacemacs--export-docs-workers-fin 0
+ "Count of Emacs instances that finished exporting.")
+(defvar spacemacs--export-docs-mode nil
+  "Current mode")
+(defvar spacemacs--export-docs-test-failed? nil
+ "Will be set to t if exporting fails in the test mode.")
+(defvar spacemacs--export-docs-stop-waiting nil
+    "Used for blocking until all exporters have exited.")
+(defvar spacemacs--export-docs-copy-queue '()
+  "Queue of static dependencies to be copied to
+the export dir.")
 
 (defun spacemacs//export-docs-maybe-show-help (arg-list)
   "Show help message if arguments are invalid.
 Returns t if help was shown."
-  (cond
-   ((or (not arg-list)
-        (not (member (car arg-list)
-                     '("test" "export"))))
-    (message
+  (message
+   (cond
+    ((or (not arg-list)
+         (not (member (car arg-list)
+                      '("test" "export"))))
      (mapconcat
       'identity
       (alist-get :general spacemacs-export-docs-help-text)
-      "\n")))
+      "\n"))
 
-   ;; test
-   ((and (string= (car arg-list) "test")
-         (or (< (length arg-list) 2)
-             (string-match "-h" (or (cadr arg-list) ""))))
-    (message
+    ;; test
+    ((and (string= (car arg-list) "test")
+          (or (< (length arg-list) 2)
+              (string-match "-h" (or (cadr arg-list) ""))))
      (mapconcat
       'identity
       (alist-get :test spacemacs-export-docs-help-text)
-      "\n")))
+      "\n"))
 
-   ;; export
-   ((and (string= (car arg-list) "export")
-         (or (> (length arg-list) 3)
-             (string-match "-h" (or (cadr arg-list) ""))))
-    (message
+    ;; export
+    ((and (string= (car arg-list) "export")
+          (or (> (length arg-list) 3)
+              (string-match "-h" (or (cadr arg-list) ""))))
      (mapconcat
       'identity
       (alist-get :export spacemacs-export-docs-help-text)
       "\n")))))
 
-(defun spacemacs//export-docs-make-file-size-path-alist ()
-  "Finds org files in `spacemacs-export-docs-spacemacs-root-dir',
-filers this with  `spacemacs-export-docs-exclude-re' and
-returns (file-size . file-path) alist."
-  (let (res)
-   (dolist (org-file-fp
-            (directory-files-recursively
-             spacemacs-export-docs-spacemacs-root-dir
-             "\\.org$"))
-     (unless (and
-              (not (string=
-                     spacemacs-export-docs-exclude-re
-                     ""))
-              (string-match-p spacemacs-export-docs-exclude-re
-                              org-file-fp))
-       (push `(,(float
-                 (nth 7 (file-attributes org-file-fp))) . ,org-file-fp)
-             res)))
-   res))
-
-(defun spacemacs/export-docs-parse-cmd-args (arg-list)
+(defun spacemacs//export-docs-parse-args (arg-list)
   "Initialization. ARG-LIST is argument list.
-  see `spacemacs-export-docs-help-text' for description."
+The function will return a plist of configs or print
+a help message if the list of arguments is invalid.
+See `spacemacs-export-docs-help-text' for description."
   (when (and (spacemacs//export-docs-maybe-show-help arg-list)
              noninteractive)
    (kill-emacs 1))
-  (setq spacemacs-export-docs-mode (pop arg-list))
-  (cond
-   ;; Export mode.
-   ((string= spacemacs-export-docs-mode "export")
-    (setq
-     spacemacs-export-docs-directory
-     (or (pop arg-list)
-         (concat temporary-file-directory
-                 "spacemacs-export/"))
-     spacemacs-export-docs-workers-num
-     (max (or (pop arg-list) 6) 1)
-     spacemacs-export-docs-exclude-re
-     (or (pop arg-list)
-         spacemacs-export-docs-default-exclude-re)
-     spacemacs--export-docs-file-size-path-alist
-     (spacemacs//export-docs-make-file-size-path-alist)))
-   ;; Test mode.
-   ((string= spacemacs-export-docs-mode "test")
-    (setq
-     spacemacs-export-docs-directory
-     (file-name-as-directory (make-temp-file "spacemacs-test-export" t))
-     spacemacs-export-docs-workers-num 1
-     spacemacs-export-docs-exclude-re ""
-     spacemacs--export-docs-file-size-path-alist
-     (mapcar
-      (lambda (path)
-        (let ((abs-path
-               (file-truename
-                (if (file-name-absolute-p path)
-                    path
-                  (expand-file-name
-                   path
-                   spacemacs-export-docs-spacemacs-root-dir)))))
-          (if (and (file-readable-p abs-path)
-                   (not (file-directory-p abs-path))
-                   (string-prefix-p
-                    spacemacs-export-docs-spacemacs-root-dir
-                    abs-path))
-              `(,(float
-                  (nth 7 (file-attributes abs-path))) . ,abs-path)
-            (error "%S is invalid file or outside %S"
-                   path
-                   spacemacs-export-docs-spacemacs-root-dir))))
-      arg-list)))
-   (t (error "Unknown script mode: %s"
-             spacemacs-export-docs-mode))))
+  (let ((script-mode (pop arg-list)))
+   (append
+    `(:mode ,script-mode)
+    (cond
+     ;; Export mode.
+     ((string= script-mode "export")
+      (append
+       `(:target-directory
+         ,(or (pop arg-list)
+              (concat temporary-file-directory
+                      "spacemacs-export/"))
+         :workers-count
+         ,(max (or (pop arg-list) 6) 1))
+       (let ((exclude-re
+              (or (pop arg-list)
+                  spacemacs--export-docs-default-exclude-re))
+             (all-org-files (directory-files-recursively
+                             spacemacs--spacetools-root-dir
+                             "\\.org$")))
+         `(:exclude-re
+           ,exclude-re
+           :files
+           ,(if (or (not exclude-re) (string-empty-p exclude-re))
+                all-org-files
+              (cl-remove-if
+               (lambda(e)(string-match-p exclude-re e))
+               all-org-files))))))
+     ;; Test mode.
+     ((string= script-mode "test")
+      `(:target-directory
+        ,(file-name-as-directory (make-temp-file "spacemacs-test-export" t))
+        :workers-count
+        1
+        :exclude-re
+        ""
+        :files
+        ,(mapcar
+          (lambda (path)
+            (let ((abs-path
+                   (file-truename
+                    (if (file-name-absolute-p path)
+                        path
+                      (expand-file-name
+                       path
+                       spacemacs--spacetools-root-dir)))))
+              (if (and (file-readable-p abs-path)
+                       (not (file-directory-p abs-path))
+                       (string-prefix-p
+                        spacemacs--spacetools-root-dir
+                        abs-path))
+                  abs-path
+                (error "%S is invalid file or outside %S"
+                       path
+                       spacemacs--spacetools-root-dir))))
+          arg-list)))
+     (t (error "Unknown script mode: %s"
+               spacemacs--export-docs-mode))))))
 
 (defun spacemacs//export-docs-copy-file-to-export-dir (path export-dir)
   "Copy file at PATH into corresponding PATH in
 TO EXPORT-DIR unless PATH
-matches `spacemacs-export-docs-exclude-re'.
+matches :exclude-re from `spacemacs--export-docs-configs-plist'.
 NOTE: PATH mast be absolute path."
-  (if (and
-       (not (string= spacemacs-export-docs-exclude-re ""))
-       (string-match-p spacemacs-export-docs-exclude-re
-                       path))
-      (message "File %S was ignored (matched by the exclusion regexp)"
-               path)
-    (let ((new-path
-           (concat
-            export-dir
-            (substring
-             path
-             (length spacemacs-export-docs-spacemacs-root-dir)))))
-      (make-directory (file-name-directory new-path) t)
-      (message "Copying file %S into %S"
-               path
-               new-path)
-      (copy-file path new-path t))))
-
-(defun spacemacs//org-edn-f-alist-to-buckets (f-sp-alist n)
-  "Split F-SP-ALIST - alist of (<file size> . <file path>) into
-N  alists balancing by file sizes.
-NOTE: N should be less than the alist's length."
-  (let ((fps-alist (sort
-                    f-sp-alist
-                    (lambda (e1 e2) (> (car e1) (car e2)))))
-        ;; Try it :)
-        ;; (buckets (make-list n '(0 . nil))))
-        (buckets '()))
-    ;;  ^^^^^^^^^^^^^^
-    (dotimes (_ n) (push (cl-copy-list '(0)) buckets))
-    (dolist (fps fps-alist)
-      (setf buckets (sort
-                     buckets
-                     (lambda (e1 e2) (< (car e1) (car e2))))
-            (car buckets)
-            (cons (+ (caar buckets) (car fps))
-                  (push (cdr fps) (cdar buckets)))))
-    (mapcar 'cdr buckets)))
-(byte-compile 'spacemacs//org-edn-f-alist-to-buckets)
+  (let ((exclude-re (plist-get
+                     spacemacs--export-docs-configs-plist
+                     :exclude-re)))
+   (if (and
+        (not (string= exclude-re ""))
+        (string-match-p exclude-re
+                        path))
+       (message "File %S was ignored (matched by the exclusion regexp)"
+                path)
+     (let ((new-path
+            (concat
+             export-dir
+             (substring
+              path
+              (length spacemacs--spacetools-root-dir)))))
+       (make-directory (file-name-directory new-path) t)
+       (message "Copying file %S into %S"
+                path
+                new-path)
+       (copy-file path new-path t)))))
 
 (defun spacemacs//export-docs-concurrently-sentinel (p e)
-  (let ((buff (process-buffer p)))
-    (when (eq (process-status p) 'exit)
-      (spacemacs//export-docs-interpret-proc-output p buff)
-      (kill-buffer buff)))
-  (if (string-match-p "finished" e)
-      (progn
-        (message "Process %s has finished\n" p)
-        (setq spacemacs--export-docs-worker-fin
-              (1+ spacemacs--export-docs-worker-fin)))
-    (error "Process %s was %s"
-           p e)
-    ;; stop waiting
-    (setq spacemacs--export-docs-part-in
-          -1)))
+  (condition-case err
+      (let ((buff (process-buffer p)))
+        (if (not (eq (process-status p) 'exit))
+            (error "Process %s doesn't have status: exit" p)
+          (spacemacs//export-docs-interpret-proc-output p buff)
+          (kill-buffer buff))
+        (if (string-match-p "finished" e)
+            (progn
+              (message "Process %s has finished\n" p)
+              (when
+                  (= (setq spacemacs--export-docs-workers-fin
+                           (1+ spacemacs--export-docs-workers-fin))
+                     (plist-get
+                      spacemacs--export-docs-configs-plist
+                      :workers-count))
+                (setq spacemacs--export-docs-stop-waiting t)))
+          (error "Process %s was %s"
+                 p e)
+          (setq spacemacs--export-docs-stop-waiting t)))
+    (error (setq spacemacs--export-docs-stop-waiting t)
+           (error "%s" err))))
 
 (defun spacemacs//export-docs-interpret-proc-output (proc buff)
   "Parses process PROC BUFFER. Process P should be finished."
-  (unless (eq (process-status proc) 'exit)
-    (error "Process %s doesn't have status: exit" proc))
   (message "PROCESS: %S\n" proc)
   (dolist (line (split-string (with-current-buffer buff (buffer-string)) "\n"))
     (unless (or (string= line "")
@@ -274,10 +260,13 @@ NOTE: N should be less than the alist's length."
               (text (replace-regexp-in-string
                      "\r"
                      "\n"
-                     (alist-get 'text resp))))
+                     (alist-get 'text resp)))
+              (mode (plist-get
+                     spacemacs--export-docs-configs-plist
+                     :mode)))
           (cond
            ;; Export mode.
-           ((string= spacemacs-export-docs-mode "export")
+           ((string= mode "export")
             (message
              "%s"
              (cond
@@ -306,130 +295,82 @@ NOTE: N should be less than the alist's length."
                         (format "TYPE:\"%s\" TEXT: \"%s\"" type text)
                         "\n?????????????????????????????????????????\n"))))))
            ;; Test mode.
-           ((string= spacemacs-export-docs-mode "test")
-            (cond
-             ((or (string= type "message")
-                  (string= type "export")))
-             ((or (string= type "warning")
-                  (string= type "error"))
-              (error "%s"
-                     (concat "\n!!!!!!!!!!!!!! TEST FAILED !!!!!!!!!!!!!!\n"
-                             text
-                             "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")))
-             (t
-              (error
-               "%s"
-               (concat "\n!!!!!!! ERROR: UNKNOWN EVENT TYPE !!!!!!!\n"
-                       (format "TYPE:\"%s\" TEXT: \"%s\"" type text)
-                       "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")))))
-           (t (error "Unknown script mode: %s"
-                     spacemacs-export-docs-mode)))))))
+           ((string= mode "test")
+            (when-let
+                ((err
+                  (cond
+                   ((or (string= type "message")
+                        (string= type "export"))
+                    nil)
+                   ((or (string= type "warning")
+                        (string= type "error"))
+                    (concat "\n!!!!!!!!!!!!!! TEST FAILED !!!!!!!!!!!!!!\n"
+                            text
+                            "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"))
+                   (t
+                    (concat "\n!!!!!!! ERROR: UNKNOWN EVENT TYPE !!!!!!!\n"
+                            (format "TYPE:\"%s\" TEXT: \"%s\"" type text)
+                            "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")))))
+              (message "%s" (setq spacemacs--export-docs-test-failed? err))))
+           (t (error "Unknown script mode: %s" mode)))))))
   (while spacemacs--export-docs-copy-queue
     (spacemacs//export-docs-copy-file-to-export-dir
      (pop spacemacs--export-docs-copy-queue)
-     spacemacs-export-docs-directory)))
-
-(defun spacemacs//export-docs-concurrently ()
-  "Export Spacemacs documentation files and using `spacemacs-edn' backend."
-  (setq spacemacs--export-docs-part-in spacemacs-export-docs-workers-num
-        spacemacs--export-docs-worker-fin 0)
-  (let ((exp-dir spacemacs-export-docs-directory)
-        (org-file-buckets '())
-        (emacs-fp (executable-find "emacs"))
-        (worker-fp (let ((load-file-dir
-                          (file-name-directory
-                           spacemacs-export-docs-this-file-name)))
-                     (byte-compile-file
-                      (concat
-                       load-file-dir
-                       "_worker.el"))
-                     (concat
-                      load-file-dir
-                      "_worker.elc")))
-        (toc-org-fp (concat
-                     (file-name-directory
-                      spacemacs-export-docs-this-file-name)
-                     "../lib/toc-org.el")))
-    (unless emacs-fp
-      (error "Can't find emacs executable"))
-    (setq org-file-buckets
-          (spacemacs//org-edn-f-alist-to-buckets
-           spacemacs--export-docs-file-size-path-alist
-           (min spacemacs--export-docs-part-in
-                (length spacemacs--export-docs-file-size-path-alist))))
-    (if toc-org-fp
-        (byte-compile-file toc-org-fp)
-      (error "toc-org.el should be present at:%S"
-             toc-org-fp))
-    (make-directory exp-dir t)
-    (dolist (file-path-group org-file-buckets)
-      (make-process
-       :name
-       "worker"
-       :sentinel
-       'spacemacs//export-docs-concurrently-sentinel
-       :buffer (generate-new-buffer "worker-buffer")
-       :command
-       (list
-        emacs-fp
-        "-l"
-        worker-fp
-        "--batch"
-        "-eval"
-        (format
-         "%S"
-         `(spacemacs//export-docs-to-edn
-           ,exp-dir
-           ',file-path-group))))))
-  (while (> spacemacs-export-docs-workers-num
-            spacemacs--export-docs-worker-fin)
-    (accept-process-output)))
+     (plist-get spacemacs--export-docs-configs-plist :target-directory))))
 
 (defun spacemacs//export-docs-run (arg-list)
   "Main function for running as a script. ARG-LIST is an argument list.
 See `spacemacs-export-docs-help-text' for description."
-  (let ((mode (car arg-list)))
-    (unwind-protect
-        (progn
-          (spacemacs/export-docs-parse-cmd-args arg-list)
-          (spacemacs//export-docs-concurrently))
-      (when (string= mode "test")
-        (delete-directory spacemacs-export-docs-directory t)))))
+  (setq spacemacs--export-docs-test-failed? nil
+        spacemacs--export-docs-workers-fin 0
+        spacemacs--export-docs-stop-waiting nil)
+  (let* ((mode (car arg-list))
+         (default-directory spacemacs-export-docs-this-file-dir)
+         (w-path
+          (let ((worker-path (file-truename "_worker.elc")))
+            (byte-compile-file "_worker.el")
+            worker-path)))
+    (let ((conf (setq spacemacs--export-docs-configs-plist
+                      (spacemacs//export-docs-parse-args arg-list))))
+      (unwind-protect
+          (spacemacs//spacetools-do-concurrently
+           (plist-get conf :files)
+           (plist-get conf :workers-count)
+           w-path
+           (lambda (files)
+             (format
+              "%S"
+              `(spacemacs/export-docs-to-edn
+                ,(let ((dir (plist-get conf :target-directory)))
+                   (make-directory dir t)
+                   dir)
+                ',files)))
+           'spacemacs//export-docs-concurrently-sentinel)
+        (when (string= mode "test")
+          (delete-directory (plist-get conf :target-directory) t)))))
+  (while (not spacemacs--export-docs-stop-waiting)
+    (accept-process-output)))
 
 (defun spacemacs/export-docs-do-test (&rest files)
   "Try exporting Spacemacs documentation .org FILES.
-If error occurs return nil - otherwise t.
-NOTE: If files nil - return t."
-  (not
-   (let (test-feiled?)
-     (condition-case _
-         (spacemacs//export-docs-run (append '("test") files))
-       (error (setq test-feiled? t))))))
+if error occurs return nil - otherwise t.
+NOTE: See `spacemacs-export-docs-help-text' for more details."
+  (spacemacs//export-docs-run (append '("test") files))
+  (not spacemacs--export-docs-test-failed?))
 
 (defun spacemacs/export-docs-do-export
-    (&optional target-dir num-workers exclude-re)
+    (&optional target-dir workers-count exclude-re files)
   "Export Spacemacs documentation files
-into TARGET-DIR using NUM-WORKERS threads and
-filtering the file list with EXCLUDE-RE matching
+into TARGET-DIR using WORKERS-COUNT worker threads and
+filtering FILE list with EXCLUDE-RE matching
 against full paths of the files.
 NOTE: See `spacemacs-export-docs-help-text' for more details."
-  (setq
-   spacemacs-export-docs-mode
-   "export"
-   spacemacs-export-docs-directory
-   (or target-dir
-       (concat temporary-file-directory
-               "spacemacs-export/"))
-   spacemacs-export-docs-workers-num
-   (max (or num-workers 6) 1)
-   spacemacs-export-docs-exclude-re
-   (or exclude-re
-       spacemacs-export-docs-default-exclude-re)
-   spacemacs--export-docs-file-size-path-alist
-   (spacemacs//export-docs-make-file-size-path-alist))
-  (spacemacs//export-docs-concurrently))
+  (spacemacs//export-docs-run
+   (list "export" target-dir workers-count exclude-re files)))
 
 ;; Script entry point.
 (when (and load-file-name
            noninteractive)
-  (spacemacs//export-docs-run argv))
+  (spacemacs//export-docs-run argv)
+  (when spacemacs--export-docs-test-failed?
+   (error "Test failed.")))

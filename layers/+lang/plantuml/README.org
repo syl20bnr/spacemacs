@@ -39,7 +39,6 @@ To use this contribution add it to your =~/.spacemacs=
 #+end_src
 
 * Org-Babel Integration
-
 To enable the execution of embedded plantuml code blocks within [[http://orgmode.org/][Org-Mode]]
 documents, define a value for =org-plantuml-jar-path= in your =~/.spacemacs=.
 

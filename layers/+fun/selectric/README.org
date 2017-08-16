@@ -25,5 +25,4 @@ file.
 | ~SPC C-t t~ | Toggle clicky key sounds |
 
 * Notes
-
 IBM Selectric image by Oliver Kurmis
