@@ -41,7 +41,6 @@ Then add this layer to your =~/.spacemacs=. You will need to add =mu4e= to the
 existing =dotspacemacs-configuration-layers= list in this file.
 
 * Commands
-
 ** Global bindings
 
 | Keybinding | Command    |

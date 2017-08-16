@@ -116,7 +116,6 @@ can be adjusted live via the following transient-state:
 | ~Any other key~ | leave the change mini-mode               |
 
 ** Rainbow Mode
-
 [[file:img/rainbow-mode.png]]
 
 =rainbow-mode= mode is different from both rainbow-identifiers and color-identifiers.
@@ -131,7 +130,6 @@ To enable, you must manually toggle it on and off on a per-buffer basis with:
     ~SPC t C c~
 
 ** Nyan Mode
-
 =nyan-mode= mode can be toggled on and off with:
 
     ~SPC t m n~

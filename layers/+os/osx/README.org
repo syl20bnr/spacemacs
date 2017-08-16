@@ -27,7 +27,6 @@ encourage you to do so :)
 
 * Install
 ** Layer
-
 Layer has been updated for new config variables. The variable =osx-use-option-as-meta=
 is still available for backwards compatibility and will take precedence if set.
 
@@ -73,7 +72,6 @@ key.
 #+END_SRC
 
 *** Define words using OS X Dictionary
-
 This layer by default enables defining words under point ~SPC x w d~ using OS X
 Dictionary. In some cases you might want to manually setup dictionary to use.
 For example,

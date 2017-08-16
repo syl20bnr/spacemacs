@@ -10,7 +10,6 @@
   - [[#ibuffer][IBuffer]]
 
 * Description
-
 This layer configures Emacs IBuffer for Spacemacs.
 
 * Install
@@ -20,7 +19,6 @@ add =ibuffer= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Grouping buffers
-
 Buffers can be grouped by major-modes or projectile projects.
 By default buffers are grouped by major-modes.
 

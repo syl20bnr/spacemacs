@@ -140,7 +140,6 @@ that hy is installed.
 #+END_SRC
 
 * Management of Python versions and virtual environments
-
 ** Manage virtual environments with pyvenv
 A virtual environment provides isolation of your Python package versions. For a
 general overview see [[http://docs.python-guide.org/en/latest/dev/virtualenvs/][this site]]. [[http://virtualenvwrapper.readthedocs.io/en/latest/index.html][Virtualenvwrapper]] which is also explained in the
@@ -189,7 +188,6 @@ can be set with the variable =python-auto-set-local-pyvenv-virtualenv== to:
 - =nil= to disable.
 
 * Key Bindings
-
 ** Inferior REPL process
 Start a Python or iPython inferior REPL process with ~SPC m s i~.
 If =ipython= is available in system executable search paths, =ipython=
@@ -253,7 +251,6 @@ function with a prefix argument, for example ~SPC u SPC m t a~.
 | ~SPC m r I~ | sort imports with [[https://pypi.python.org/pypi/isort][isort]]              |
 
 ** Live coding
-
 Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][live-py-plugin.]]
 
 | Key Binding | Description         |

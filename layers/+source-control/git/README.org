@@ -97,7 +97,6 @@ Support requires installation of the git-flow extensions. Please reference their
 [[https://github.com/petervanderdoes/gitflow/wiki][installation page]] for assistance.
 
 ** Org integration
-
 See the commentary section of the package [[https://github.com/magit/orgit/blob/master/orgit.el#L28][here]].
 
 * Working with Git
@@ -271,7 +270,6 @@ or lines in a file hosted on Git web services like GitHub, GitLab, Bitbucket...
   =nil=.
 
 ** Repository list
-
 This feature will show a list of git directories. The feature needs slight
 configuration within your `.spacemacs` config. In the `dotspacemacs/user-config()`
 stanza insert the following with the directories of your choice:
