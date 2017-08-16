@@ -252,7 +252,6 @@ and bugs are fixed quickly.
   (via Gitter IRC bridge)
 
 * Screenshots
-
 [[file:img/spacemacs-python.png]]
 /Python/
 

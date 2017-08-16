@@ -35,7 +35,6 @@ add =dash= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Dash (OS X)
-
 You have to install [[https://kapeli.com/dash][dash]] on your machine.
 
 It is recommended to set the =HUD mode= in your Dash application preferences
@@ -45,13 +44,11 @@ when using this layer.
 Helm Dash [[https://github.com/areina/helm-dash#user-content-requirements][requires]] sqlite3 to be installed to function properly.
 
 ** Zeal (Linux & Windows)
-
 You have to install [[https://zealdocs.org/][zeal]] on your machine.
 
 Then install the docsets you use more frequently
 
 ** Check Documentation for x-at-point
-
 See the documentation [[https://github.com/stanaka/dash-at-point#Usage][dash-at-point-usage]] , or [[https://github.com/jinzhu/zeal-at-point][zeal-at-point]] for more
 information on customizing specific docsets for modes.
 

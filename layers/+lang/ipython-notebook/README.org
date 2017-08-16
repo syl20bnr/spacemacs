@@ -39,7 +39,6 @@ This is a WIP, feel free to collaborate.
 ** TODO Maybe it'd be better if there was a state for this
 ** TODO Make more keybinding to =connect= to a python buffer
 ** TODO Deleting visual regions don't work, find out why
-
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

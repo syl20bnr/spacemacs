@@ -12,7 +12,6 @@
 - [[#keybindings][Keybindings]]
 
 * Description
-
 This layer adds support for working with Vagrant using [[https://github.com/ottbot/vagrant.el][vagrant.el]] and
 [[https://github.com/dougm/vagrant-tramp][vagrant-tramp]].
 

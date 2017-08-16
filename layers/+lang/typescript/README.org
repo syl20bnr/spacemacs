@@ -14,7 +14,6 @@
   - [[#reference-major-mode][Reference Major Mode]]
 
 * Description
-
 This layer adds support for TypeScript and TSX editing.
 
 This layer provides:
@@ -67,7 +66,6 @@ You can choose formatting tool:
 Default is 'tide .
 
 ** Notes
-
 This layer uses:
 - [[https://github.com/ananthakumaran/tide][tide]]
 - [[https://github.com/flycheck/flycheck][flycheck]]
@@ -99,7 +97,6 @@ For example:
 #+END_SRC
 
 * Key bindings
-
 ** Typescript Major Mode
 
 | Key Binding | Description                                                  |

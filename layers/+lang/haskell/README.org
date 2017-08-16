@@ -426,7 +426,6 @@ Make sure that =dist= directory doesn't exist in your project root. So if it
 exists, just remove it and try again.
 
 ** =ghc-mod= doesn't work
-
 First of all - make sure that the version of =ghc= matches the version of =ghc= that
 was used to build =ghc-mod=. To get the latter call =ghc-mod --version= in terminal.
 If they don't match you have to rebuild =ghc-mod=.

@@ -10,7 +10,6 @@
 - [[#key-bindings][Key Bindings]]
 
 * Description
-
 This layer brings Ranger features to spacemacs from the =ranger= package.
 
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -32,7 +31,6 @@ Most parameters can be toggled on and off and stay within the current emacs
 session. Any settings that are desired on startup should be set below.
 
 ** Customizing
-
 You toggle the use of =-= to enter ranger with `ranger-enter-with-minus`.
 #+BEGIN_SRC elisp
 (setq ranger-enter-with-minus t)
@@ -68,7 +66,6 @@ return a string that is placed in the header-line.
 #+END_SRC
 
 ** Parent options
-
 You can set the number of folders to nest to the left, adjusted by =z-= and =z+=
 #+BEGIN_SRC elisp
 (setq ranger-parent-depth 2)
@@ -86,7 +83,6 @@ frame size to prevent filling up entire frame with parents.
 #+END_SRC
 
 ** Preview options
-
 You can choose to show previews literally, or through find-file, toggled by =zi=
 #+BEGIN_SRC elisp
 (setq ranger-show-literal t)

@@ -9,7 +9,6 @@
 - [[#key-bindings][Key Bindings]]
 
 * Description
-
 Syntax highlighting and Emacs functions for use with [[https://autohotkey.com/][AutoHotkey]] or
 [[http://ahkscript.org][AutoHotkey_L]].
 
@@ -21,7 +20,6 @@ ahk and ahk_l commands found in the latest revision of
 Contributed and maintained by [[https://www.github.com/ralesi][Rich Alesi]].
 
 * Features
-
 - Auto-completion
 - Documentation Lookup
 - Execute Code Snippets

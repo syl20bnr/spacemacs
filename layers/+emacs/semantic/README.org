@@ -7,7 +7,6 @@
 - [[#key-bindings][Key Bindings]]
 
 * Description
-
 CEDET is a *C*ollection of *E*macs *D*evelopment *E*nvironment *T*ools written
 with the end goal of creating an advanced development environment in Emacs.
 CEDET includes common features such as intelligent completion, source code
@@ -23,7 +22,6 @@ perform smart code refactoring that based on code structure of the analyzed
 language, instead of plain text structure. Semantic is the core of CEDET.
 
 * Features
-
 - Display function or variable definition at the bottom.
 - Display current function cursor is in at the top. See
   [[https://github.com/tuhdo/semantic-stickyfunc-enhance][this page]] for demos in some programming languages.
