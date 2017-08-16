@@ -1481,7 +1481,7 @@ wether the declared layer is an used one or not."
                      (let* ((pkg-name (if (listp x) (car x) x))
                             (pkg (configuration-layer/get-package pkg-name)))
                        (cfgl-package-set-property pkg :lazy-install nil)
-                       (when (cfgl-package-is-distant pkg)
+                       (when (cfgl-package-distant-p pkg)
                          pkg-name)))
                    (oref layer :packages)))))
       (let ((last-buffer (current-buffer))
