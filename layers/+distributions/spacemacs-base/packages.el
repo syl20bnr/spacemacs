@@ -310,6 +310,7 @@
                projectile-dired
                projectile-find-dir
                projectile-find-file
+               projectile-find-other-file
                projectile-find-tag
                projectile-test-project
                projectile-grep
@@ -350,6 +351,7 @@
         "pD" 'projectile-dired
         "pe" 'projectile-edit-dir-locals
         "pf" 'projectile-find-file
+        "po" 'projectile-find-other-file
         "pF" 'projectile-find-file-dwim
         "pg" 'projectile-find-tag
         "pG" 'projectile-regenerate-tags
