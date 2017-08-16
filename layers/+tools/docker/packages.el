@@ -34,7 +34,8 @@
         "DP" 'docker-push
         "Dp" 'docker-pause
         "Dr" 'docker-restart
-        "Ds" 'docker-start)))
+        "Ds" 'docker-start)
+      (push "\\*docker.+\\*" spacemacs-useful-buffers-regexp)))
   (with-eval-after-load 'docker-containers
     (evilified-state-evilify-map docker-containers-mode-map
       :mode docker-containers-mode))
