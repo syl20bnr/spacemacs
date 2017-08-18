@@ -23,8 +23,6 @@
 
 (require 'ox)
 
-(setq debug-on-error t)
-
 (load-file
  (concat
   (file-name-directory
@@ -950,8 +948,17 @@ FIXME: Figure out where they come from :"
                                     (file-truename file)))
                                   ".edn"))
                (target-file-dir
-                (file-name-directory target-file-name)))
-          (make-directory target-file-dir t)
+                (file-name-as-directory
+                 (file-name-directory target-file-name))))
+          ;; FIXME: Close enough. But it will be better if we
+          ;; export stuff into separate folders and then merge.
+          (while (not (file-accessible-directory-p target-file-dir))
+            (condition-case err
+                (make-directory target-file-dir t)
+              (error (spacemacs/org-edn-warn
+                      "make-directory \"%s\" failed with \"%s\". Retrying..."
+                      target-file-dir
+                      err))))
           (spacemacs/org-edn-message
            "Exporting \"%s\" into \"%s\""
            file
