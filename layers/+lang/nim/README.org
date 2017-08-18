@@ -26,7 +26,6 @@ For all the features to work properly, =nimsuggest= must be installed properly
 and =nimsuggest= binary must be in $PATH.
 
 * Working with Nim
-
 ** Nim commands (start with =m=):
 
 | Key Binding          | Description                  |

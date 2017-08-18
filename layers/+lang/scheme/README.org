@@ -13,7 +13,6 @@
   - [[#evaluation][Evaluation]]
 
 * Description
-
 A spacemacs contribution layer providing Scheme support via [[http://www.nongnu.org/geiser/][Geiser]].
 
 * Install
@@ -33,7 +32,6 @@ For full Chicken support, the following commands should be run:
 #+END_SRC
 
 * Key Bindings
-
 ** Compiling
 
 | Key Binding | Description                |

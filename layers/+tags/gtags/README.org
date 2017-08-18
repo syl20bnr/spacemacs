@@ -29,7 +29,6 @@ as definitions or references. Adding the =gtags= layer enables both of these
 modes.
 
 * Features
-
 - Select any tag in a project retrieved by gtags
 - Resume previous helm-gtags session
 - Jump to a location based on context
@@ -47,7 +46,6 @@ modes.
 - Enables =company complete= in modes that otherwise might not support it.
 
 * Install
-
 ** GNU Global (gtags)
 To use gtags, you first have to install [[https://www.gnu.org/software/global/download.html][GNU Global]].
 
@@ -61,7 +59,6 @@ recommend installing from source. If not for example to install on Ubuntu:
 #+end_src
 
 *** Install on OSX using Homebrew
-
 #+begin_src sh options
   brew install global --with-pygments --with-ctags
 #+end_src
@@ -151,7 +148,6 @@ This variable can also be set as a file-local or directory-local variable for
 additional control per project.
 
 * Usage
-
 Before using the =gtags=, remember to create a GTAGS database by the following
 methods:
 

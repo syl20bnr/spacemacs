@@ -77,7 +77,6 @@ add =go= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
-
 By default, go buffers are run through =gofmt= on save. To use a different
 formatter, set the value of =gofmt-command=, e.g.
 

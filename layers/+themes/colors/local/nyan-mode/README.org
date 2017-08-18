@@ -28,7 +28,6 @@ point from 0% to 100%.
 - the animation loop is not endless and occurs only when nyan cat moves.
 
 ** Introduction
-
  *WARNING, MIND DUMBING CONTENT INSIDE.*
 
 "Nyan-mode. It's things like this that make me proud to be an emacs user." - [[http://twitter.com/#!/mitchellh/status/104931263479156736][mitchellh]]
@@ -63,7 +62,6 @@ DLL is needed, do: M-x describe-variable <ret> image-library-alist
 Customizing nyan-animate-nyancat is broken; don't do it.
 
 ** Credits
-
 Code and idea inspired by sml-modeline.el, written by Lennart Borgman.
 See: http://bazaar.launchpad.net/~nxhtml/nxhtml/main/annotate/head%3A/util/sml-modeline.el
 

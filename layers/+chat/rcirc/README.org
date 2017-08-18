@@ -187,7 +187,6 @@ In normal state:
 The rcirc documentation can be found [[http://www.gnu.org/software/emacs/manual/html_mono/rcirc.html][here]].
 
 * Spacemacs Layout Support
-
 RCIRC buffers are added automatically to the default layout for RCIRC controlled by
 the variable =rcirc-spacemacs-layout-name= (defaults to "@RCIRC") and the default
 binding ("i") is controlled by =rcirc-spacemacs-layout-binding=

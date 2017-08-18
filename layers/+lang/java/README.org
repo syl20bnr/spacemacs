@@ -271,7 +271,6 @@ particular refactoring doesn't work.
 
 ** Eclim
 *** Java-mode
-
 **** Ant
 
  | Key Binding | Description     |
@@ -524,4 +523,3 @@ particular refactoring doesn't work.
 | ~SPC m s i~ | start or switch to the REPL inferior process                        |
 | ~SPC m s r~ | send region to the REPL                                             |
 | ~SPC m s R~ | send region to the REPL and focus the REPL buffer in =insert state= |
-

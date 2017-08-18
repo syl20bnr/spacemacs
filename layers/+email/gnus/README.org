@@ -16,7 +16,6 @@ add =gnus= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Basic Concepts
-
 Gnus is a news reading application. The Gnus terminology can be confusing for
 new users so the basics are listed here:
 
@@ -25,7 +24,6 @@ new users so the basics are listed here:
      the Group Buffer if Topic Mode is enabled(default).
 
 * Adding news sources
-
 Adding news sources can be done in your =.spacemacs= file by adding the
 following:
 
@@ -44,7 +42,6 @@ following:
 For adding RSS Feeds please see the [[#keybindings][keybindings section]].
 
 * Configuring gmail
-
 To configure Gnus with gmail support you can add the following to your
 =.spacemacs= file.
 
@@ -91,7 +88,6 @@ If you use two-step verification the password has to be an [[https://support.goo
 password]].
 
 * Org MIME in Org layer
-
 It is possible to send beautiful HTML emails using org mode.
 
 Pressing ~SPC m e m~ in a message buffer will convert the current message
@@ -99,7 +95,6 @@ from org mode to html.  An org mode buffer can be sent via html email by pressin
 ~SPC m e m~ in any org mode buffer.
 
 * Keybindings
-
 Gnus has very modal default keybindings.
 Please see the [[http://www.gnus.org/manual.html][manual]] for a complete list.
 

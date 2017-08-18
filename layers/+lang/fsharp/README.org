@@ -10,11 +10,9 @@
   - [[#repl][REPL]]
 
 * Description
-
 This layer adds support for F# language using [[https://github.com/fsharp/fsharpbinding][fsharpbinding]].
 
 * Packages Included
-
 - [[https://github.com/fsharp/fsharpbinding][fsharp-mode]]
 
 * Install

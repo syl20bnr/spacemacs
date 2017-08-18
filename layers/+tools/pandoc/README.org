@@ -9,7 +9,6 @@
 - [[#key-bindings][Key Bindings]]
 
 * Description
-
 This layer adds support for [[http://pandoc.org/][Pandoc]].
 
 Pandoc is a universal document converter. It makes it easy to e.g. convert a

@@ -220,7 +220,6 @@ You find and overview of all the key-bindings on the [[https://github.com/tonini
 | ~SPC m g j~ | Choose which symbol definition to jump to          |
 
 ** Hex (packages)
-
 Hex is the package manager for Elixir & Erlang ecosystem. See https://hex.pm .
 
 | Key Binding | Description                                              |

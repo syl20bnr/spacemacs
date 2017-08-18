@@ -44,36 +44,42 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo_headline "Testing changed ORG files with spacefmt"
 changed_f_as_args=()
 while read p
 do
     if [ -f "$p" ]; then
         if [ ${p: -4} == ".org" ]; then
             changed_f_as_args+=("${p}")
-            echo "Checking $p file"
-            ./core/tools/spacefmt/spacefmt -f "$p"
-            if [ $? -ne 0 ]; then
-                echo "spacefmt failed"
-                exit 2
-            fi
         fi
     fi
 done </tmp/changed_files
-git diff --color HEAD > spacefmt_result
-if [[ -s spacefmt_result ]]; then
-    echo_headline "PLEASE APPLY CHANGES BELOW:"
-    cat spacefmt_result
-    exit 1
-fi
 
 if [ ${#changed_f_as_args[@]} -ne 0 ]; then
+
+    echo_headline "Testing changed ORG files with spacefmt"
+    ./core/tools/docfmt/run.el 6 $(printf "%s " "${changed_f_as_args[@]}")
+    if [ $? -ne 0 ]; then
+        echo "Documentation formatting script failed"
+        exit 2
+    fi
+    git diff --color HEAD > spacefmt_result
+    if [[ -s spacefmt_result ]]; then
+        echo_headline "PLEASE APPLY CHANGES BELOW:"
+        cat spacefmt_result
+        exit 1
+    fi
+    echo "Done."
+
     echo_headline "Testing with exporter"
     emacs --batch -l ./core/tools/export/run.el test $(printf "%s " "${changed_f_as_args[@]}")
     if [ $? -ne 0 ]; then
         echo "Documentation needs some fixing ;)"
         exit 1
     fi
+    echo "Done."
+
+else
+    echo "This commit doesn't change documentation files."
 fi
 
 echo_headline "Testing for trailing and all sorts of broken white spaces"
@@ -84,5 +90,6 @@ if [[ -s space_test_result ]]; then
     cat space_test_result
     exit 1
 fi
-echo "No bad spaces detected"
-exit 0
+echo "Done."
+
+echo "All test passed."

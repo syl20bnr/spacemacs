@@ -345,7 +345,6 @@ In general, ~q~ should always quit the popped up buffer.
 | ~T~         | run tests          |
 
 ** Sayid Buffers
-
 *** sayid-mode
 
 | Key Binding        | Description                                       |

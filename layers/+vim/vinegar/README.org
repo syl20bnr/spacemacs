@@ -49,4 +49,3 @@ buffers to enter dired.
 | ~T~         | (Dired) Move down in dired tree                    |
 | ~K~         | (Dired) Kill marked lines (hide, do not delete)    |
 | ~r~         | (Dired) Redisplay buffer                           |
-

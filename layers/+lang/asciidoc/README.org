@@ -42,4 +42,3 @@ file.
 |-------------+---------------------|
 | ~M-h~       | Promote title level |
 | ~M-l~       | Demote title level  |
-

@@ -10,7 +10,6 @@
   - [[#repl][REPL]]
 
 * Description
-
 Adds support for the [[http://www.smlnj.org][SML]] programming language.
 
 * Install
@@ -19,7 +18,6 @@ add =sml= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key Bindings
-
 ** Form Completion
 
 | Key Binding | Description                                                                               |
