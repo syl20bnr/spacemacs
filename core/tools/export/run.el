@@ -16,6 +16,8 @@
 (require 'cl-lib)
 (require 'subr-x)
 
+(setq debug-on-error t)
+
 (defconst spacemacs-export-docs-this-file-name
   (or load-file-name
       buffer-file-name)
