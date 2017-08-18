@@ -89,3 +89,5 @@ elif  [ ! -z "$FORMAT" ]; then
     fi
     echo "Done."
 fi
+
+rm -rf /tmp/*
