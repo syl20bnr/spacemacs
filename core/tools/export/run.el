@@ -16,8 +16,6 @@
 (require 'cl-lib)
 (require 'subr-x)
 
-(setq debug-on-error t)
-
 (defconst spacemacs-export-docs-this-file-name
   (or load-file-name
       buffer-file-name)
@@ -214,13 +212,15 @@ NOTE: PATH mast be absolute path."
                         path))
        (message "File %S was ignored (matched by the exclusion regexp)"
                 path)
-     (let ((new-path
-            (concat
-             export-dir
-             (substring
-              path
-              (length spacemacs--spacetools-root-dir)))))
-       (make-directory (file-name-directory new-path) t)
+     (let* ((new-path
+             (concat
+              export-dir
+              (substring
+               path
+               (length spacemacs--spacetools-root-dir))))
+            (new-path-dir (file-name-as-directory
+                           (file-name-directory new-path))))
+       (make-directory new-path-dir t)
        (message "Copying file %S into %S"
                 path
                 new-path)
@@ -343,7 +343,8 @@ See `spacemacs-export-docs-help-text' for description."
              (format
               "%S"
               `(spacemacs/export-docs-to-edn
-                ,(let ((dir (plist-get conf :target-directory)))
+                ,(let ((dir (file-name-as-directory
+                             (plist-get conf :target-directory))))
                    (make-directory dir t)
                    dir)
                 ',files)))
