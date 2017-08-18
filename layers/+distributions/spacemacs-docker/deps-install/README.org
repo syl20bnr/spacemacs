@@ -10,17 +10,17 @@ Dependency installation scripts for Spacemacs layers
 in Docker environment.
 
 * Supported layers
-1. [[./installers/clojure/README.org][Clojure]]
-2. [[./installers/dash/README.org][Dash]]
-3. [[./installers/fasd/README.org][fasd]]
-4. [[./installers/go/README.org][Go]]
-5. [[./installers/gtags/README.org][gtags]]
-6. [[./installers/html/README.org][html]]
-7. [[./installers/javascript/README.org][JavaScript]]
-8. [[./installers/pandoc/README.org][pandoc]]
-9. [[./installers/pdf-tools/README.org][pdf-tools]]
-10. [[./installers/spell-checking/README.org][spell-checking]]
-10. [[./installers/python/README.org][python]]
+1. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/clojure/README.org][Clojure]]
+2. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/dash/README.org][Dash]]
+3. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/fasd/README.org][fasd]]
+4. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/go/README.org][Go]]
+5. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/gtags/README.org][gtags]]
+6. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/html/README.org][html]]
+7. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/javascript/README.org][JavaScript]]
+8. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/pandoc/README.org][pandoc]]
+9. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/pdf-tools/README.org][pdf-tools]]
+10. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/spell-checking/README.org][spell-checking]]
+10. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/python/README.org][python]]
 
 * How it works
 When .spacemacs file contains one of supported layers and its installation

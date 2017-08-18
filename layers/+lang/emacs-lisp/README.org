@@ -113,7 +113,7 @@ If =smartparens= is used the following additional key bindings are available:
 | ~SPC m e s~ | evaluate symbol around point |
 
 ** Format code
-The [[file:../../+emacs/semantic/README.org][semantic]] layer should be installed for these key bindings to become active.
+The [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bemacs/semantic/README.org][semantic]] layer should be installed for these key bindings to become active.
 
 | Key Binding | Description             |
 |-------------+-------------------------|
