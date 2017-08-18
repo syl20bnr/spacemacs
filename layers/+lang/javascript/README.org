@@ -68,7 +68,7 @@ creating multiple =.tern-port= files for each document you have open [[http://te
 for more details]]):
 
 The variables provided below can be set when adding the =javascript=
-configuration layer, as detailed in [[file:../../../doc/DOCUMENTATION.org::Setting%20configuration%20layers%20variables][this]] section of the documentation.
+configuration layer, as detailed in [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#setting-configuration-layers-variables][this]] section of the documentation.
 
 #+BEGIN_SRC emacs-lisp
   (javascript :variables javascript-disable-tern-port-files nil)
