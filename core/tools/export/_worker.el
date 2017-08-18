@@ -23,6 +23,8 @@
 
 (require 'ox)
 
+(setq debug-on-error t)
+
 (load-file
  (concat
   (file-name-directory
