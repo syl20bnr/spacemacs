@@ -78,6 +78,7 @@ elif  [ ! -z "$FORMAT" ]; then
         echo "core/tools/export failed"
         exit 2
     fi
+    rm -rf /tmp/spacemacs-export
     echo "Done."
 
     echo_headline "Checking for misplaced spaces and tabs."
@@ -89,5 +90,3 @@ elif  [ ! -z "$FORMAT" ]; then
     fi
     echo "Done."
 fi
-
-rm -rf /tmp/*
