@@ -38,7 +38,7 @@ ENSIME requires a configuration file at the root of each Scala project. It
 provides an SBT plugin to generate these files.
 
 Installation instructions and usage can be found in the =Java= layer
-[[file:../java/README.org::#ensime][README.org]].
+[[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Blang/java/README.org#ensime][README.org]].
 
 * Scalastyle
 [[http://www.scalastyle.org/][Scalastyle]] provides style-checking and linting. The Emacs functionality is
@@ -119,4 +119,4 @@ with
 #+END_SRC
 
 * Key bindings
-All ensime key bindings are listed in the =java= layer [[file:../java/README.org::#ensime-key-bindings][README.org]].
+All ensime key bindings are listed in the =java= layer [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Blang/java/README.org#ensime-key-bindings][README.org]].
