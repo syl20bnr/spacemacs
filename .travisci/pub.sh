@@ -86,7 +86,7 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ]; then
         printf  "  StrictHostKeyChecking no\n" >> ~/.ssh/config
         printf  "  UserKnownHostsFile=/dev/null\n" >> ~/.ssh/config
         git remote set-url "${BOT_NAME}" \
-            "https://${BOT_NAME}:${BOT_TK}@github.com/${BOT_NAME}/${PUBLISH}"
+          "https://${BOT_NAME}:${BOT_TK}@github.com/${BOT_NAME}/${PUBLISH}.git"
         /tmp/hub push -f "${BOT_NAME}" gh-pages
 
         echo_headline "OPENING PR TO syl20bnr/${PUBLISH}.git"
