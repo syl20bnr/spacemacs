@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: bundle
+# key: bundle
+# contributor: Nick Anderson <nick@cmdln.org>
+# --
+bundle ${1:$$(yas-choose-value '("agent" "common" "server" "monitor" "edit_line" "edit_xml"))} ${2:BUNDLENAME}
+# @brief ${3:TODO Describe bundles purpose}
+{
+  vars:
+
+  $0
+
+  reports:
+    DEBUG|DEBUG_$2::
+}
