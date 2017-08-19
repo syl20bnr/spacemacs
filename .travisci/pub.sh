@@ -23,10 +23,6 @@ echo_headline () {
     echo
 }
 
-cd  ~/.emacs.d
-echo "Pwd $(pwd)"
-rm -rf ~/.emacs.d/.cache/ ~/.emacs.d/export/
-
 if  [ $TRAVIS_SECURE_ENV_VARS = true ]; then
 
     hub_version="2.2.9"
@@ -45,7 +41,12 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ]; then
     echo "Publishing ${PUBLISH}"
 
     echo_headline "INSTALLING DEPENDENCIES:"
+    rm -rf ~/.emacs.d/.cache ~/.emacs.d/export ~/.emacs.d/elpa ~/.spacemacs
+    cp ~/.emacs.d/core/templates/.spacemacs.template ~/
+    mv ~/.spacemacs.template ~/.spacemacs
+    cd  ~/.emacs.d
     emacs -batch -l init.el
+
     echo_headline "EXPORTING DOCUMENTATION:"
     emacs -batch -l init.el -l core/core-documentation.el \
           -f spacemacs/publish-doc
