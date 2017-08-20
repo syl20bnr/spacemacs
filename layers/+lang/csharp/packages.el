@@ -27,14 +27,8 @@
   (use-package omnisharp
     :defer t
     :init
-    (progn
-      (when (configuration-layer/package-used-p 'company)
-        ;; needed to avoid an error when fetching doc using company
-        ;; Note: if you are using a roslyn based omnisharp server you can
-        ;; set back this variable to t.
-        (setq omnisharp-auto-complete-want-documentation nil))
-      (add-to-list 'spacemacs-jump-handlers-csharp-mode
-                   '(omnisharp-go-to-definition :async t)))
+    (add-to-list 'spacemacs-jump-handlers-csharp-mode
+                 '(omnisharp-go-to-definition :async t))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'csharp-mode "mc" "csharp/compile")
