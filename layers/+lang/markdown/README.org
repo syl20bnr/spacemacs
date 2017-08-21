@@ -37,7 +37,7 @@ This layer adds markdown support to Spacemacs.
 
 ** BibTeX
 For more extensive support of references with BibTeX files, have a look at the
-[[../bibtex/README.org][BibTeX layer]].
+[[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/bibtex/README.org][BibTeX layer]].
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

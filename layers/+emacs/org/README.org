@@ -265,6 +265,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC a o k i~ | org clock in last              |
 | ~SPC a o k j~ | org jump to current clock      |
 | ~SPC a o k o~ | org clock out                  |
+| ~SPC a o k r~ | org resolve clocks             |
 | ~SPC a o l~   | org store link                 |
 | ~SPC a o m~   | org tags view                  |
 | ~SPC a o o~   | org agenda                     |
@@ -317,7 +318,6 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC s j~                                    | spacemacs/jump-in-buffer (jump to a heading) |
 
 ** Org with evil-org-mode
-
 Please see the [[https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org][evil-org documentation]] for additional instructions on customizing
 =evil-org-mode=.
 
@@ -464,7 +464,6 @@ conventions.
 | ~SPC m r~                                    | org-capture-refile in org-capture-mode |
 
 ** Org agenda
-
 *** Keybindings
 The evilified org agenda supports the following bindings:
 
@@ -619,7 +618,6 @@ are available.
 | ~SPC m n~   | Next journal entry     |
 
 ** Org-brain
-
 *** Application bindings
 
 | Key Binding | Description                  |

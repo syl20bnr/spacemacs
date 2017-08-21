@@ -31,4 +31,3 @@ in this file.
 ** Auto-complete
 For now =auto-complete-rst= only works with sphinx 1.4.9 and lower.
 New 1.5 release (as from December 2016) is not yet supported.
-

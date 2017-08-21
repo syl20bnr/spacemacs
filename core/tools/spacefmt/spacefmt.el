@@ -9,8 +9,17 @@
 ;;
 ;;; License: GPLv3
 
+(when (and load-file-name
+           noninteractive)
+  (setq gc-cons-threshold 10000000000))
 
-(load (expand-file-name "./core/tools/lib/toc-org.el") nil t)
+(load
+ (concat
+  (file-name-directory
+   (or load-file-name
+       buffer-file-name))
+  "../lib/toc-org.el")
+ nil t)
 
 (require 'cl)
 (require 'files)
@@ -60,10 +69,10 @@
   (goto-char (point-min))
   (unless (looking-at-p "^#\\+TITLE:.*$")
     (insert (format "#+TITLE:%s\n"
-                    (clj/->> (buffer-file-name)
-                             file-name-directory
-                             directory-file-name
-                             file-name-base)))))
+                    (file-name-base
+                     (directory-file-name
+                      (file-name-directory
+                       (buffer-file-name))))))))
 
 (defun insert-toc ()
   "Insert toc if the buffer doesn't have one."
@@ -121,7 +130,8 @@
   "Align all tables"
   (goto-char (point-min))
   (while (goto-next-table)
-    (org-table-align)))
+    (ignore-errors
+      (org-table-align))))
 
 (defun apply-toc ()
   "Apply current toc-org TAG to TOC."
@@ -161,17 +171,3 @@ Returns nil if no more tables left."
         (save-buffer 0))
       ;; packages.el
       (save-buffer 0))))
-
-(defmacro clj/->> (o &rest forms)
-  "Threads the expr through the forms.
-Inserts o as the  last item in the first form,
-making a list of it if it is not a  list already.
-If there are more forms, inserts the first form
-as the  last item in second form, etc."
-  (cond ((not forms) o)
-        ((= 1 (length forms))
-         (let ((f (first forms)))
-           (append (if (symbolp f)
-                       (list f) f)
-                   (list o))))
-        (:else `(clj/->> (clj/->> ,o ,(first forms)) ,@(rest forms)))))

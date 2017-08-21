@@ -7,7 +7,6 @@
 - [[#install][Install]]
 
 * Description
-
 Very basic layer for Erlang with support for basic =syntax-checking= and
 =auto-completion= with the corresponding layers.
 

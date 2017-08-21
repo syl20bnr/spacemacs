@@ -30,16 +30,15 @@
        buffer-file-name))
   "../lib/toc-org.elc"))
 
-(declare-function toc-org-hrefify-gh "../lib/toc-org.el" (str &optional hash))
-
-(defconst spacemacs-root-directory
+(defconst spacemacs--root-dir
   (file-truename
    (concat
     (file-name-directory
-     (or load-file-name
-         buffer-file-name))
+     (or load-file-name (buffer-file-name)))
     "../../../"))
   "Root directory of Spacemacs")
+
+(declare-function toc-org-hrefify-gh "../lib/toc-org.el" (str &optional hash))
 
 (defconst spacemacs-repository "spacemacs"
   "Name of the Spacemacs remote repository.")
@@ -517,7 +516,7 @@ INFO is a plist holding contextual information.  See
      ((string-match spacemacs--org-edn-git-url-root-regexp
                     raw-link)
       (let ((path (concat
-                   spacemacs-root-directory
+                   spacemacs--root-dir
                    (url-unhex-string (match-string 1 raw-link))))
             (target-id (string-remove-prefix
                         "#"
@@ -547,7 +546,7 @@ INFO is a plist holding contextual information.  See
            "File %S has a link to file %S but it isn't readable"
            file
            (file-truename path)))
-         ((not (string-prefix-p spacemacs-root-directory
+         ((not (string-prefix-p spacemacs--root-dir
                                 (file-truename path)))
           (spacemacs/org-edn-error
            "File %S has a link to file %S but it's outside repository"
@@ -826,7 +825,7 @@ holding export options."
                    (plist-get info :input-file))))
         (when (and (string-prefix-p (file-truename
                                      (concat
-                                      spacemacs-root-directory
+                                      spacemacs--root-dir
                                       "layers/"))
                                     file)
                    (string-suffix-p "README.org"
@@ -935,7 +934,7 @@ FIXME: Figure out where they come from :"
 
 ;;; End-user functions
 
-(defun spacemacs//export-docs-to-edn (exp-dir file-list)
+(defun spacemacs/export-docs-to-edn (exp-dir file-list)
   "Export org files in FILE-LIST into EXP-DIR."
   (unwind-protect
       (dolist (file file-list)
@@ -945,12 +944,21 @@ FIXME: Figure out where they come from :"
                                    ".org"
                                    (string-remove-prefix
                                     (file-truename
-                                     spacemacs-root-directory)
+                                     spacemacs--root-dir)
                                     (file-truename file)))
                                   ".edn"))
                (target-file-dir
-                (file-name-directory target-file-name)))
-          (make-directory target-file-dir t)
+                (file-name-as-directory
+                 (file-name-directory target-file-name))))
+          ;; FIXME: Close enough. But it will be better if we
+          ;; export stuff into separate folders and then merge.
+          (while (not (file-accessible-directory-p target-file-dir))
+            (condition-case err
+                (make-directory target-file-dir t)
+              (error (spacemacs/org-edn-warn
+                      "make-directory \"%s\" failed with \"%s\". Retrying..."
+                      target-file-dir
+                      err))))
           (spacemacs/org-edn-message
            "Exporting \"%s\" into \"%s\""
            file

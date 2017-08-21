@@ -15,7 +15,6 @@ add =ess= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key Bindings
-
 ** Inferior REPL process
 Send code to inferior process with these commands:
 
@@ -51,7 +50,6 @@ Helpers for inspecting objects at point are available in R buffers only.
 | ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]                 |
 
 * Options
-
 To turn off the automatic replacement of underscores by =<-=, set in your
 =~/.spacemacs=:
 

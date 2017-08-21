@@ -69,7 +69,6 @@ any case, feel free to join us on the [[https://gitter.im/syl20bnr/spacemacs][gi
 contributing!
 
 ** General contribution guidelines
-
 *** License
 The license is =GPLv3= for all parts specific to Spacemacs, this includes:
 - The initialization and core files
@@ -259,6 +258,5 @@ To add tests for a layer, do the following:
 5. Add the new test to list of tests in =travis/run_build.sh=.
 
 * Credits
-
 This =CONTRIBUTING.org= file is partially based on the [[https://github.com/rails/rails/blob/master/CONTRIBUTING.md][Rails Contribution
 guidelines]] and [[https://github.com/flycheck/flycheck/blob/master/doc/contributor/contributing.rst][Flycheck Contribution guidelines]].

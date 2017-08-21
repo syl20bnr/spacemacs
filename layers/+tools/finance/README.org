@@ -11,7 +11,6 @@
   - [[#ledger-reconcile][Ledger-Reconcile]]
 
 * Description
-
 This layer adds finance related packages:
 - [[https://github.com/ledger/ledger][ledger]] support via [[https://www.emacswiki.org/emacs/LedgerMode][ledger-mode]]
 
@@ -24,9 +23,7 @@ add =finance= to the existing =dotspacemacs-configuration-layers= list in this
 file. This layer adds support for [[http://ledger-cli.org/download.html][ledger]], which must be installed separately.
 
 * Configuration
-
 ** Ledger
-
 You can set what column transaction posts are aligned to on
 the right by setting the variable =ledger-post-amount-alignment-column= in
 your =dotspacemacs/user-config=.  The default value, set in the layer, is =62=.
@@ -37,7 +34,6 @@ your =dotspacemacs/user-config=.  The default value, set in the layer, is =62=.
 #+END_SRC
 
 * Key bindings
-
 ** Ledger
 
 | Key Binding | Description                                   |

@@ -26,7 +26,6 @@ These include:
 - Wolfram Language / Mathematica
 
 * Key bindings
-
 ** Arch Linux PKGBUILDs
 
 | Key Binding | Description                |

@@ -15,7 +15,6 @@
   - [[#repl][REPL]]
 
 * Description
-
 This layer provides basic Purescript editing support for spacemacs
 thanks to the following packages:
 - [[https://github.com/dysinger/purescript-mode][purescript-mode]]

@@ -9,7 +9,6 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-
 This layer adds PHP language support to Spacemacs.
 
 ** Features:

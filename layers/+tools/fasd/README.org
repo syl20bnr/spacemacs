@@ -8,7 +8,6 @@
 - [[#keybindings][Keybindings]]
 
 * Description
-
 This layer adds integration of [[https://github.com/clvv/fasd][fasd]] which is a command line tool
 to quickly jump between locations in a POSIX shell.
 

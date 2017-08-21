@@ -1,0 +1,95 @@
+#!/bin/bash
+# Run script for Circle CI integration
+#
+## Copyright (c) 2012-2014 Sylvain Benner
+## Copyright (c) 2014-2017 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
+    echo "Skipping check for internal PRs"
+    exit 0
+fi
+
+echo_headline () {
+    printf '=%.0s' {1..70}
+    printf "\n$1\n"
+    printf '=%.0s' {1..70}
+    echo
+}
+
+pr_patch_url="https://patch-diff.githubusercontent.com/raw/"
+pr_patch_url+="${CIRCLE_PROJECT_USERNAME}/"
+pr_patch_url+="${CIRCLE_PROJECT_REPONAME}/pull/"
+pr_patch_url+="${CIRCLE_PR_NUMBER}.patch"
+
+curl "${pr_patch_url}" --output /tmp/patch --silent
+first_commit=$(echo $(head -n 1 /tmp/patch) | sed -n 's/From \([a-zA-Z0-9]\+\).*/\1/p')
+
+if [[ -z "${first_commit// }" ]]; then
+    echo "Can't find first commit"
+    exit 1
+else
+    echo "First commit: ${first_commit}"
+fi
+
+git diff --name-only "${first_commit}^" HEAD > /tmp/changed_files
+if [ $? -ne 0 ]; then
+    echo "Git diff failed"
+    exit 1
+fi
+
+changed_f_as_args=()
+while read p
+do
+    if [ -f "$p" ]; then
+        if [ ${p: -4} == ".org" ]; then
+            changed_f_as_args+=("${p}")
+        fi
+    fi
+done </tmp/changed_files
+
+if [ ${#changed_f_as_args[@]} -ne 0 ]; then
+
+    echo_headline "Testing changed ORG files with spacefmt"
+    ./core/tools/docfmt/run.el 6 $(printf "%s " "${changed_f_as_args[@]}")
+    if [ $? -ne 0 ]; then
+        echo "Documentation formatting script failed"
+        exit 2
+    fi
+    git diff --color HEAD > spacefmt_result
+    if [[ -s spacefmt_result ]]; then
+        echo_headline "PLEASE APPLY CHANGES BELOW:"
+        cat spacefmt_result
+        exit 1
+    fi
+    echo "Done."
+
+    echo_headline "Testing with exporter"
+    emacs --batch -l ./core/tools/export/run.el test $(printf "%s " "${changed_f_as_args[@]}")
+    if [ $? -ne 0 ]; then
+        echo "Documentation needs some fixing ;)"
+        exit 1
+    fi
+    echo "Done."
+
+else
+    echo "This commit doesn't change documentation files."
+fi
+
+echo_headline "Testing for trailing and all sorts of broken white spaces"
+git reset -q "${first_commit}^"
+git add -N .
+git diff --check --color > space_test_result
+if [[ -s space_test_result ]]; then
+    cat space_test_result
+    exit 1
+fi
+echo "Done."
+
+echo "All test passed."

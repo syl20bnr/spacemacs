@@ -41,7 +41,6 @@ Then add this layer to your =~/.spacemacs=. You will need to add =mu4e= to the
 existing =dotspacemacs-configuration-layers= list in this file.
 
 * Commands
-
 ** Global bindings
 
 | Keybinding | Command    |
@@ -217,7 +216,7 @@ or use layer variables when you add the layer to
 #+END_SRC
 
 ** Spacemacs layout integration
-A [[file:../../../doc/DOCUMENTATION.org::#layouts-and-workspaces][Spacemacs custom layout]] is defined by the layer. The name and the key binding
+A [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Spacemacs custom layout]] is defined by the layer. The name and the key binding
 for it can be customized with the following layer variables:
 - =mu4e-spacemacs-layout-name= for the layout name,
 - =mu4e-spacemacs-layout-binding= for the key binding.
