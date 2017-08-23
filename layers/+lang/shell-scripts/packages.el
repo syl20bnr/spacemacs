@@ -18,6 +18,7 @@
         ggtags
         helm-gtags
         insert-shebang
+        sed-mode
         (sh-script :location built-in)
         ))
 
@@ -102,3 +103,7 @@
       (spacemacs/set-leader-keys "i!" 'spacemacs/insert-shebang)
       ;; we don't want to insert shebang lines automatically
       (remove-hook 'find-file-hook 'insert-shebang))))
+
+(defun shell-scripts/init-sed-mode ()
+  (use-package sed-mode
+    :defer t))
