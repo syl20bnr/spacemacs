@@ -4,13 +4,16 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#jump-to-definition][Jump to definition]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer provides the following features for the [[https://perl6.org/][Perl 6 Programming Language]]:
+This layer provides an environment for the [[https://perl6.org/][Perl 6 Programming Language]].
+
+** Features:
 - Jump to definition & Code completion via [[https://github.com/universal-ctags/ctags][ctags-universal]]
 - Syntax checking via [[https://github.com/hinrik/flycheck-perl6][flycheck-perl6]] and =perl6 -c=
 - Syntax highlighting & Syntax indentation via [[https://github.com/hinrik/perl6-mode][perl6-mode]]

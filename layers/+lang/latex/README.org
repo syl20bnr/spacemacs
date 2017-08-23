@@ -4,7 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#features][Features]]
+  - [[#features][Features:]]
   - [[#bibtex][BibTeX]]
 - [[#install][Install]]
   - [[#layer][Layer]]
@@ -21,7 +21,7 @@
 * Description
 This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects/auctex/][AucTeX]].
 
-** Features
+** Features:
 - Auto-build with [[https://github.com/tom-tan/auctex-latexmk/][auctex-latexmk]]
 - Auto-completion with [[https://github.com/alexeyr/company-auctex][company-auctex]]
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]

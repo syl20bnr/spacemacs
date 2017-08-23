@@ -4,7 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#optional-configuration][Optional Configuration]]
 - [[#key-bindings][Key Bindings]]
@@ -18,7 +18,7 @@ It will automatically recognize =.jsx= and =.react.js= files
 
 It will also recognize =/** @jsx React.DOM */= if it is the first line.
 
-** Features
+** Features:
 - on-the-fly syntax checking
 - proper syntax highlight and indentation with jsx
 - ternjs turbocharged autocompletion as in js2-mode
