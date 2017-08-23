@@ -12,6 +12,7 @@
   - [[#enable-clang-support][Enable Clang support]]
     - [[#clang-format][clang-format]]
     - [[#company-clang-and-flycheck][Company-clang and flycheck]]
+  - [[#cmake-configuration][CMake configuration]]
 - [[#key-bindings][Key Bindings]]
   - [[#debugger-realgud][Debugger (realgud)]]
 
@@ -107,16 +108,35 @@ Not only does this allow proper autocomplete on projects with extra
 includes and flags, but there is also support for flycheck so that it
 doesn't complain about missing header files.
 
+** CMake configuration
+=cmake-ide= plugin works out of the box, but there are few useful configuration
+options. To configure project you need to create =.dir-locals.el= file. In case
+of using make as CMake backend you can use helm-make to select required build target.
+Here is sample configuration. This configuration force =cmake-ide= to use local
+directory and pass that directory to =helm-make=. Such config allows to build your
+project with ~SPC c c~ shortcat.
+
+#+BEGIN_SRC emacs-lisp
+((nil .
+      ((cmake-ide-project-dir . "~/Project")
+       (cmake-ide-build-dir . "~/Project/build")
+       (cmake-ide-cmake-opts . "-DCMAKE_BUILD_TYPE=Debug")
+       (helm-make-build-dir . "build")
+       (helm-make-arguments . "-j7"))))
+#+END_SRC
+
 * Key Bindings
 
-| Key Binding | Description                                                            |
-|-------------+------------------------------------------------------------------------|
-| ~SPC m g a~ | open matching file (e.g. switch between .cpp and .h)                   |
-| ~SPC m g A~ | open matching file in another window (e.g. switch between .cpp and .h) |
-| ~SPC m D~   | disaster: disassemble c/c++ code                                       |
-| ~SPC m r~   | srefactor: refactor thing at point.                                    |
-| ~SPC m p~   | Project / Build system management                                      |
-| ~SPC m c c~ | Compile project                                                        |
+| Key Binding | Description                                                             |
+|-------------+-------------------------------------------------------------------------|
+| ~SPC m g a~ | open matching file (e.g. switch between .cpp and .h)                    |
+| ~SPC m g A~ | open matching file in another window (e.g. switch between .cpp and .h)  |
+| ~SPC m D~   | disaster: disassemble c/c++ code                                        |
+| ~SPC m r~   | srefactor: refactor thing at point.                                     |
+| ~SPC m p c~ | Run CMake and set compiler flags for auto-completionand flycheck        |
+| ~SPC m p C~ | Run CMake if compilation database JSON file is not found                |
+| ~SPC m p d~ | Remove file connected to current buffer and kill buffer, then run CMake |
+| ~SPC m c c~ | Compile project                                                         |
 
 *Note:*  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+
 
