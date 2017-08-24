@@ -79,17 +79,17 @@
             erc-server-coding-system '(utf-8 . utf-8))
       (setq erc-prompt (lambda () (concat "[" (buffer-name) "]")))
 
-      (require 'notifications)
-      (defun erc-global-notify (match-type nick message)
-        "Notify when a message is recieved."
-        (notifications-notify
-         :title nick
-         :body message
-         :app-icon (concat spacemacs-assets-directory "spacemacs.svg")
-         :urgency 'low))
-
-      ;; osx doesn't have dbus support
-      (when (boundp 'dbus-compiled-version)
+      ;; Notifications are enabled if erc-enable-notifications is non-nil, and
+      ;; D-BUS is available (i.e. Linux/BSD).
+      (when (and erc-enable-notifications (boundp 'dbus-compiled-version))
+        (require 'notifications)
+        (defun erc-global-notify (match-type nick message)
+          "Notify when a message is received."
+          (notifications-notify
+           :title nick
+           :body message
+           :app-icon (concat spacemacs-assets-directory "spacemacs.svg")
+           :urgency 'low))
         (add-hook 'erc-text-matched-hook 'erc-global-notify))
 
       ;; keybindings

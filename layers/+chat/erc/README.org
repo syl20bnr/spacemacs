@@ -24,6 +24,7 @@ Layer for [[http://www.emacswiki.org/emacs/ERC][ERC IRC chat]].
 - Social Graph for ERC messages (using [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]])
 - Optional SASL authentication via the variable =erc-enable-sasl-auth=
   (using [[http://emacswiki.org/emacs/ErcSASL][erc-sasl]])
+- D-BUS notifications via the variable =erc-enable-notifications=
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
   using the =emoji= layer or having a proper font) :clap:
 
