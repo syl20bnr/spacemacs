@@ -141,28 +141,13 @@ as well.
 The recommended way of installing Emacs on macOS is using [homebrew][]:
 
 ```sh
-$ brew tap d12frosted/emacs-plus
-$ brew install emacs-plus
-$ brew linkapps emacs-plus
+$ brew cask install emacs
 ```
 
-*Note:* these homebrew commands will install GNU Emacs, and link it to your
-`/Applications` directory. You still need to run the `git clone` mentioned at
-the start of this file. That will populate your `~/.emacs.d` directory, which is
-what transforms a regular GNU Emacs into Spacemacs.
-
-*Note:* the proposed `emacs-plus` tap is identical to the `emacs` formulae, it
-just builds GNU Emacs with support of several features by default along with
-providing Spacemacs icon.
-See [emacs-plus](https://github.com/d12frosted/homebrew-emacs-plus) for more
-information.
-
-*Note*: to have the title bar match your theme background color,
-consider using instead:
-
-``` sh
-$ brew install emacs-plus --HEAD --with-natural-title-bars
-```
+*Note:* This will install GNU Emacs, and link it to your `/Applications` 
+directory. You still need to run the `git clone` mentioned at the start of this
+file. That will populate your `~/.emacs.d` directory, which is what transforms a
+regular GNU Emacs into Spacemacs.
 
 *Note:* after you have completed the [install process](#install) below, it is
 also recommended to add the [osx layer][] to your [dotfile][]. Install
