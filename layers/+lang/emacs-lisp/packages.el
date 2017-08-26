@@ -21,6 +21,7 @@
         evil
         flycheck
         ggtags
+        counsel-gtags
         helm-gtags
         (ielm :location built-in)
         macrostep
@@ -188,6 +189,9 @@
   ;; Make flycheck recognize packages in loadpath
   ;; i.e (require 'company) will not give an error now
   (setq flycheck-emacs-lisp-load-path 'inherit))
+
+(defun emacs-lisp/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'emacs-lisp-mode))
 
 (defun emacs-lisp/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'emacs-lisp-mode))

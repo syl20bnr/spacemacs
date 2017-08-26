@@ -13,6 +13,7 @@
   '(
     (dos :location local)
     ggtags
+    counsel-gtags
     helm-gtags
     powershell
     ))
@@ -48,6 +49,9 @@
 
 (defun windows-scripts/post-init-ggtags ()
   (add-hook 'dos-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun windows-scripts/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'dos-mode))
 
 (defun windows-scripts/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'dos-mode))

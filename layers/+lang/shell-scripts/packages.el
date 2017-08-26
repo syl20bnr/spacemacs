@@ -16,6 +16,7 @@
         flycheck
         flycheck-bashate
         ggtags
+        counsel-gtags
         helm-gtags
         insert-shebang
         org
@@ -87,6 +88,9 @@
 
 (defun shell-scripts/post-init-ggtags ()
   (add-hook 'sh-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun shell-scripts/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'sh-mode))
 
 (defun shell-scripts/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'sh-mode))

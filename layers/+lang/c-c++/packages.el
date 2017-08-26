@@ -22,6 +22,7 @@
     flycheck
     gdb-mi
     ggtags
+    counsel-gtags
     helm-cscope
     helm-gtags
     realgud
@@ -119,6 +120,10 @@
      gdb-many-windows t
      ;; Non-nil means display source file containing the main routine at startup
      gdb-show-main t)))
+
+(defun c-c++/post-init-counsel-gtags ()
+  (dolist (mode c-c++-modes)
+    (spacemacs/counsel-gtags-define-keys-for-mode mode)))
 
 (defun c-c++/post-init-helm-gtags ()
   (dolist (mode c-c++-modes)

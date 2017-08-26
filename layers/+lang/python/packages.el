@@ -20,6 +20,7 @@
     flycheck
     ggtags
     helm-cscope
+    counsel-gtags
     helm-gtags
     (helm-pydoc :requires helm)
     hy-mode
@@ -112,6 +113,9 @@
   (spacemacs|use-package-add-hook xcscope
     :post-init
     (spacemacs/setup-helm-cscope 'python-mode)))
+
+(defun python/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'python-mode))
 
 (defun python/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'python-mode))

@@ -14,6 +14,7 @@
     company
     erlang
     ggtags
+    counsel-gtags
     helm-gtags
     flycheck
     ))
@@ -47,6 +48,9 @@
 
 (defun erlang/post-init-ggtags ()
   (add-hook 'erlang-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun erlang/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'erlang-mode))
 
 (defun erlang/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'erlang-mode))

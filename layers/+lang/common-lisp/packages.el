@@ -14,6 +14,7 @@
         (common-lisp-snippets :requires yasnippet)
         evil
         ggtags
+        counsel
         helm
         helm-gtags
         parinfer
@@ -43,6 +44,9 @@
 
 (defun common-lisp/post-init-ggtags ()
   (add-hook 'common-lisp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun common-lisp/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'common-lisp-mode))
 
 (defun common-lisp/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'common-lisp-mode))

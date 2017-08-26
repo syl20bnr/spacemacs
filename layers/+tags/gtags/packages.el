@@ -13,8 +13,24 @@
 (defconst gtags-packages
   '(
     ggtags
+    (counsel-gtags :requires ivy)
     (helm-gtags :requires helm)
     ))
+
+(defun gtags/init-counsel-gtags ()
+  (use-package counsel-gtags
+    :defer t
+    :init
+    (progn
+      (setq counsel-gtags-ignore-case t
+            counse1-gtags-auto-update t)
+      ;; modes that do not have a layer, define here
+      (spacemacs/counsel-gtags-define-keys-for-mode 'tcl-mode)
+      (spacemacs/counsel-gtags-define-keys-for-mode 'vhdl-mode)
+      (spacemacs/counsel-gtags-define-keys-for-mode 'awk-mode)
+      (spacemacs/counsel-gtags-define-keys-for-mode 'dired-mode)
+      (spacemacs/counsel-gtags-define-keys-for-mode 'compilation-mode)
+      (spacemacs/counsel-gtags-define-keys-for-mode 'shell-mode))))
 
 (defun gtags/init-ggtags ()
   (use-package ggtags
