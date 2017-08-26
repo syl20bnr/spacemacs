@@ -19,6 +19,7 @@
         flycheck
         flyspell
         ggtags
+        counsel-gtags
         helm-gtags
         (magic-latex-buffer :toggle latex-enable-magic)
         smartparens
@@ -178,6 +179,9 @@
     "rt"    'reftex-toc
     "rT"    'reftex-toc-recenter
     "rv"    'reftex-view-crossref))
+
+(defun latex/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'latex-mode))
 
 (defun latex/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'latex-mode))

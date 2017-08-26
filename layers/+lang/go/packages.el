@@ -17,6 +17,7 @@
                                             (configuration-layer/package-used-p
                                              'flycheck)))
         ggtags
+        counsel-gtags
         helm-gtags
         exec-path-from-shell
         go-eldoc
@@ -131,6 +132,9 @@
 
 (defun go/post-init-ggtags ()
   (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun go/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'go-mode))
 
 (defun go/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'go-mode))
