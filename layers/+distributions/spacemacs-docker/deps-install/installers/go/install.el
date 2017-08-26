@@ -14,7 +14,7 @@
                         (file-name-directory
                          load-file-name)) nil t)
 
-(let ((go-version "1.8"))
+(let ((go-version "1.9"))
   (with-build-dir (tgp "/tmp/gopath")
     (with-installed (tar gzip wget)
       ($ `("wget https://storage.googleapis.com/golang/go%s.linux-amd64.tar.gz"
