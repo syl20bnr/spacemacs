@@ -1,5 +1,5 @@
 #!/usr/bin/emacs --script
-;;; install.el --- JavaScript layer dependencies installation script
+;;; install.el --- TypeScript layer dependencies installation script
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
@@ -17,9 +17,5 @@
 (with-installed (curl software-properties-common bash)
   ($ "curl -sL https://deb.nodesource.com/setup_6.x | bash -")
   (install nodejs)
-  ($ "npm install csslint -g"
-     "npm install httpd-node"
-     "npm install tern -g"
-     "npm install js-beautify -g"
-     "npm install eslint -g"
-     "npm install jshint -g"))
+  ($ "npm install -g typescript tslint typescript-formatter"
+     "npm install httpd-node"))
