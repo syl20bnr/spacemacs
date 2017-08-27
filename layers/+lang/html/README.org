@@ -21,6 +21,7 @@ This layer adds support for editing HTML and CSS.
 - Tags navigation on key ~%~ using [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Support for editing Slim and Pug templates using [[https://github.com/slim-template/emacs-slim][slim-mode]] and [[https://github.com/hlissner/emacs-pug-mode][pug-mode]]
 - See the effects of typed HTML using [[https://github.com/skeeto/impatient-mode][impatient-mode]]
+- imenu support for CSS and Sass through [[https://github.com/hlissner/emacs-counsel-css][counsel-css]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -87,8 +88,8 @@ A transient-state is also defined, start it with ~SPC m .~ or ~, .~
 
 ** CSS/SCSS
 
-| Key Binding | Description                             |
-|-------------+-----------------------------------------|
-| ~SPC m g h~ | quickly navigate CSS rules using =helm= |
-| ~SPC m z c~ | fold css statement to one line          |
-| ~SPC m z o~ | unfold css statement to one line        |
+| Key Binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC m g h~ | quickly navigate CSS rules       |
+| ~SPC m z c~ | fold css statement to one line   |
+| ~SPC m z o~ | unfold css statement to one line |
