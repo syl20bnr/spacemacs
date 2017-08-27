@@ -19,6 +19,8 @@
         evil-matchit
         flycheck
         haml-mode
+        (counsel-css :requires ivy
+                     :location (recipe :fetcher github :repo "hlissner/emacs-counsel-css"))
         (helm-css-scss :requires helm)
         impatient-mode
         less-css-mode
@@ -138,6 +140,14 @@
 (defun html/init-haml-mode ()
   (use-package haml-mode
     :defer t))
+
+(defun html/init-counsel-css ()
+  (use-package counsel-css
+    :defer t
+    :init
+    (loop for (mode . mode-hook) in '((css-mode . css-mode-hook) (scss-mode . scss-mode-hook))
+          do (add-hook mode-hook 'counsel-css-imenu-setup)
+          (spacemacs/set-leader-keys-for-major-mode mode "gh" 'counsel-css))))
 
 (defun html/init-helm-css-scss ()
   (use-package helm-css-scss
