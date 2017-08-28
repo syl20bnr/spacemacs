@@ -1,0 +1,31 @@
+#+TITLE: MongoDB
+
+[[file:./img/mongo.jpeg]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer aims at providing support for MongoDB Inf Mode [[https://github.com/endofunky/inf-mongo][inf-mongo]].
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =inf-mongo= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+The following key bindings are available in MongoDB Mode:
+
+| Key Binding | Description                           |
+|-------------+---------------------------------------|
+| ~SPC m '~   | Launch inferior mongo shell process   |
+| ~SPC m b~   | Send =buffer= to MongoDB shell        |
+| ~SPC m B~   | Send =buffer= to MongoDB shell and go |
+| ~SPC m s~   | Send =sexp= to MongoDB shell          |
+| ~SPC m S~   | Send =sexp= to MongoDB shell and go   |
+| ~SPC m r~   | Send =region= to MongoDB shell        |
+| ~SPC m R~   | Send =region= to MongoDB shell and go |
+
+Use =M-x customize-group RET inf-mongo= to customize MongoDB Mode.
