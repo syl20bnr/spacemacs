@@ -1,0 +1,30 @@
+#+TITLE: Redis
+
+
+[[file:img/redis.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer aims at providing support for Redis integration [[https://github.com/emacs-pe/redis.el][redis]].
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =redis= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+The following key bindings are available in MongoDB Mode:
+
+| Key Binding | Description                  |
+|-------------+------------------------------|
+| ~SPC m '~   | Launch redis client process  |
+| ~SPC m c~   | Send =current-line= to redis |
+| ~SPC m b~   | Send =buffer= to redis       |
+| ~SPC m r~   | Send =region= to redis       |
+| ~SPC m s~   | Switches to redis cli        |
+
+Use =M-x customize-group RET inf-mongo= to customize MongoDB Mode.
