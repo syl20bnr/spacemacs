@@ -91,7 +91,7 @@
 (defun shell-scripts/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'sh-mode))
 
-(defun shell-scripts/post-init-org ()
+(defun shell-scripts/pre-init-org ()
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(shell . t))))
 
