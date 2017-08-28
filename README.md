@@ -142,19 +142,13 @@ commands in the terminal to install both Emacs and the default Source Code Pro
 font:
 
 ```sh
-brew tap d12frosted/emacs-plus
-brew install emacs-plus
-brew linkapps emacs-plus
+brew cask install emacs
 brew tap caskroom/fonts
 brew cask install font-source-code-pro
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 ```
 
 **Notes:**
-The proposed `emacs-plus` tap is identical to the `emacs` formulae, it just
-builds GNU Emacs with support for several features by default, including the
-Spacemacs icon. See [emacs-plus][] for more information.
-
 After completing the Spacemacs [install process](#install), then it's also
 recommended to add the [osx layer][] to your [dotfile][]. Installation
 instructions are available in the documentation for the [osx layer][].
