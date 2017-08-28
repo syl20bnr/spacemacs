@@ -131,6 +131,7 @@ The prefix for going to something is ~SPC m g~.
 | ~m g g~ | go to things under point                        |
 | ~m g G~ | go to things under point in other window        |
 | ~m g t~ | go to corresponding test file if any            |
+| ~m g u~ | go/find usage of thing under point              |
 
 *** =insert state= buffers
 Navigation in buffers like =Helm= and =ido= which are in =insert state=
