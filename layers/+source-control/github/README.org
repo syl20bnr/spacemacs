@@ -9,6 +9,7 @@
   - [[#layer][Layer]]
   - [[#git-configuration][Git configuration]]
   - [[#hub-configuration][Hub configuration]]
+  - [[#api-timeout][API Timeout]]
 - [[#key-bindings][Key Bindings]]
   - [[#magit-gh-pulls][magit-gh-pulls]]
   - [[#magithub][magithub]]
@@ -34,19 +35,26 @@ file.
 ** Git configuration
 You will need to generate a [[https://github.com/settings/tokens][personal access token]] on GitHub. This token should
 have the =gist= and =repo= permissions. Once this token is created, it needs to
-be added to your =~/.gitconfig=
-
-You will also need to [[https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/][generate an SSH key]] and [[https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/][add it to your GitHub account]].
+be added to your =~/.authinfo.gpg=
 
 #+BEGIN_SRC sh
-  git config --global github.oauth-token <token>
+# -*- epa-file-encrypt-to: ("foo@users.noreply.github.com") -*-
+machine api.github.com login foo secret <token>
 #+END_SRC
+
+You will also need to [[https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/][generate an SSH key]] and [[https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/][add it to your GitHub account]].
 
 ** Hub configuration
 For now, =Magithub= requires the =hub= utility to work -- before trying to use
 Magithub, follow the installation instructions at hub.github.com. To force hub
 to authenticate, you can use hub browse in a terminal (inside a GitHub repo).
 
+** API Timeout
+ ~magithub-api-timeout~ has a default of 1 second.  On slow connections, this might result in the following error: ~API is not responding quickly; go offline? (y or n)~.  Setting this variable to a higher value allows the server sufficient time to respond:
+ #+BEGIN_SRC emacs-lisp
+ (setq-default dotspacemacs-configuration-layers
+ '((github :variables magithub-api-timeout 5)))
+ #+END_SRC
 * Key Bindings
 ** magit-gh-pulls
 In a =magit status= buffer (~SPC g s~):
