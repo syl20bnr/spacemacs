@@ -177,7 +177,8 @@
       (evilified-state-evilify cider-inspector-mode cider-inspector-mode-map
         (kbd "L") 'cider-inspector-pop
         (kbd "n") 'cider-inspector-next-page
-        (kbd "N") 'cider-inspector-previous-page
+        (kbd "N") 'cider-inspector-prev-page
+        (kbd "p") 'cider-inspector-prev-page
         (kbd "r") 'cider-inspector-refresh)
 
       (evilified-state-evilify cider-test-report-mode cider-test-report-mode-map
