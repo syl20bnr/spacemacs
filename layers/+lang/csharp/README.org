@@ -22,8 +22,8 @@ Please report any issues encountered to [[https://github.com/OmniSharp/omnisharp
 PRs are welcome too!
 
 ** Features:
-- Syntax checking with flycheck
-- Support for auto-completion (when =auto-completion= layer is included)
+- Syntax checking with flycheck (when =syntax-checking= layer is used)
+- Support for auto-completion (when =auto-completion= layer is used)
 - Refactoring
 - Navigation to cross-references
 - Inspecting types in metadata
@@ -40,7 +40,7 @@ Before you can work with C# files you will need to install the server by invokin
 ~SPC m s i~ (or =M-x omnisharp-install-server=). Otherwise, if this fails for
 you, please see [[https://github.com/OmniSharp/omnisharp-emacs/blob/master/doc/server-installation.md][omnisharp-emacs/doc/server-installation.md]].
 
-The server needs to be started manually with ~SPC m s s~ (or
+The server needs to be started manually with ~SPC m s s~ (or with
 =M-x omnisharp-start-omnisharp-server=). It will prompt a path to your .cpsroj
 or .sln file. In the future the server will be started automatically however for
 now this is required.
@@ -51,18 +51,18 @@ now this is required.
 
 - Debugging on command line is possible using [[https://github.com/mono/sdb][SDB]].
 
-- There can be only one server running at the same time. To switch to a different
-  solution/project you need to invoke ~SPC m s S~ and ~SPC m s s~ to stop current
-  server and start another one pointing to another solution/project.
+- There can be *only one server* running at the same time. To switch to a different
+  solution/project you need to invoke ~SPC m s S~ and ~SPC m s s~ to stop
+  current server and start another one pointing to another solution/project.
 
 * Key Bindings
 ** Navigation
 
 | Key Binding | Description                                   |
 |-------------+-----------------------------------------------|
+| ~SPC m g c~ | Go to member in current file                  |
 | ~SPC m g f~ | Go to solution file                           |
 | ~SPC m g F~ | Go to solution file then member               |
-| ~SPC m g c~ | Go to member in current file                  |
 | ~SPC m g g~ | Go to definition                              |
 | ~SPC m g G~ | Go to definition in other window              |
 | ~SPC m g i~ | Find implementations                          |
@@ -93,7 +93,7 @@ now this is required.
 
 | Key Binding | Description                |
 |-------------+----------------------------|
+| ~SPC m s i~ | Install OmniSharp server   |
 | ~SPC m s r~ | Reload the solution        |
 | ~SPC m s s~ | Start the OmniSharp server |
 | ~SPC m s S~ | Stop the OmniSharp server  |
-| ~SPC m s i~ | Install OmniSharp server   |
