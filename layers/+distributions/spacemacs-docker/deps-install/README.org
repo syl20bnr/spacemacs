@@ -2,12 +2,16 @@
 
 * Table of Contents                 :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#supported-layers][Supported layers]]
 - [[#how-it-works][How it works]]
 
 * Description
 Dependency installation scripts for Spacemacs layers
 in Docker environment.
+
+** Features:
+- Add Spacemacs to your Docker enviroment so you can build, ship, and run apps, anywhere
 
 * Supported layers
 1. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/clojure/README.org][Clojure]]

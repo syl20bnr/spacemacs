@@ -4,7 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#chrome-extension][Chrome extension]]
@@ -14,7 +14,7 @@
 * Description
 This layer provides some integration with the Google Chrome browser.
 
-** Features
+** Features:
 - Edit text boxes with Emacs using [[https://github.com/stsquad/emacs_chrome][edit-server]]
 - Write markdown in Emacs and realtime show in chrome using [[https://github.com/mola-T/flymd][flymd]]
 - gmail message mode uses standard markdown keybindings
