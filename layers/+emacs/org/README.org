@@ -277,7 +277,9 @@ To permanently enable mode line display of org clock, add this snippet to your
 
 | Key Binding | Description                                   |
 |-------------+-----------------------------------------------|
+| ~SPC m T e~ | org-toggle-pretty-entities                    |
 | ~SPC m T i~ | org-toggle-inline-images                      |
+| ~SPC m T l~ | org-toggle-link-display                       |
 | ~SPC m T t~ | org-show-todo-tree                            |
 | ~SPC m T T~ | org-todo                                      |
 | ~SPC m T V~ | toggle =space-doc-mode= a read-only view mode |

@@ -188,10 +188,10 @@ Will work on both org-mode and any mode that accepts plain html."
 
         "a" 'org-agenda
 
-        "Tt" 'org-show-todo-tree
         "Te" 'org-toggle-pretty-entities
-        "Tl" 'org-toggle-link-display
         "Ti" 'org-toggle-inline-images
+        "Tl" 'org-toggle-link-display
+        "Tt" 'org-show-todo-tree
         "TT" 'org-todo
         "TV" 'space-doc-mode
         "Tx" 'org-toggle-latex-fragment
