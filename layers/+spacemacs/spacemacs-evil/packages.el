@@ -53,14 +53,16 @@
         (defun spacemacs/anzu-update-mode-line (here total)
           "Custom update function which does not propertize the status."
           (when anzu--state
-            (let ((status (cl-case anzu--state
-                            (search (format "(%s/%d%s)"
-                                            (anzu--format-here-position here total)
-                                            total (if anzu--overflow-p "+" "")))
-                            (replace-query (format "(%d replace)" total))
-                            (replace (format "(%d/%d)" here total)))))
+            (let ((status
+                   (cl-case anzu--state
+                     (search (format "(%s/%d%s)"
+                                     (anzu--format-here-position here total)
+                                     total (if anzu--overflow-p "+" "")))
+                     (replace-query (format "(%d replace)" total))
+                     (replace (format "(%d/%d)" here total)))))
               status)))
-        (setq anzu-mode-line-update-function 'spacemacs/anzu-update-mode-line)))))
+        (setq anzu-mode-line-update-function
+              'spacemacs/anzu-update-mode-line)))))
 
 (defun spacemacs-evil/init-evil-args ()
   (use-package evil-args
@@ -217,7 +219,8 @@
     (progn
       (spacemacs|define-transient-state evil-numbers
         :title "Evil Numbers Transient State"
-        :doc "\n[_+_/_=_] increase number  [_-_] decrease  [0..9] prefix  [_q_] quit"
+        :doc
+        "\n[_+_/_=_] increase number  [_-_] decrease  [0..9] prefix  [_q_] quit"
         :bindings
         ("+" evil-numbers/inc-at-pt)
         ("=" evil-numbers/inc-at-pt)
@@ -234,11 +237,13 @@
     (progn
       (global-evil-search-highlight-persist)
       ;; (set-face-attribute )
-      (define-key evil-search-highlight-persist-map (kbd "C-x SPC") 'rectangle-mark-mode)
+      (define-key evil-search-highlight-persist-map
+        (kbd "C-x SPC") 'rectangle-mark-mode)
       (spacemacs/set-leader-keys "sc" 'spacemacs/evil-search-clear-highlight)
       (evil-ex-define-cmd "nohlsearch" 'spacemacs/evil-search-clear-highlight)
       (spacemacs//adaptive-evil-highlight-persist-face)
-      (add-hook 'spacemacs-post-theme-change-hook 'spacemacs//adaptive-evil-highlight-persist-face))))
+      (add-hook 'spacemacs-post-theme-change-hook
+                'spacemacs//adaptive-evil-highlight-persist-face))))
 
 (defun spacemacs-evil/init-evil-surround ()
   (use-package evil-surround
@@ -309,7 +314,8 @@
          "Globally display a ~ on empty lines in the fringe."
          :evil-leader "T~")
        ;; don't enable it on some special buffers
-       (with-current-buffer spacemacs-buffer-name (spacemacs/disable-vi-tilde-fringe))
+       (with-current-buffer spacemacs-buffer-name
+         (spacemacs/disable-vi-tilde-fringe))
        (add-hook 'which-key-init-buffer-hook 'spacemacs/disable-vi-tilde-fringe)
        ;; after a major mode is loaded, check if the buffer is read only
        ;; if so, disable vi-tilde-fringe-mode
