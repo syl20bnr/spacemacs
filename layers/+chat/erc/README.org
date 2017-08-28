@@ -7,6 +7,8 @@
   - [[#layer][Layer]]
   - [[#os-x][OS X]]
   - [[#social-graph][Social graph]]
+  - [[#disable-notifications][Disable notifications]]
+  - [[#enable-sasl-authentication][Enable SASL authentication]]
   - [[#default-servers][Default servers]]
     - [[#security-note][Security Note]]
 - [[#key-bindings][Key bindings]]
@@ -40,6 +42,24 @@ notifications via the OS X Notification Center.
 
 ** Social graph
 [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]] needs graphviz to be installed on your system.
+
+** Disable notifications
+By default D-BUS notifications are enabled, to disable them set the layer
+variable =erc-enable-notifications= to nil.
+
+#+BEGIN_EXAMPLE emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+             '((erc :variables erc-enable-notifications nil)))
+#+END_EXAMPLE
+
+** Enable SASL authentication
+To enable SASL authentication set the layer variable =erc-enable-sasl-auth= to
+non nil.
+
+#+BEGIN_EXAMPLE emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+             '((erc :variables erc-enable-sasl-auth t)))
+#+END_EXAMPLE
 
 ** Default servers
 You can define the default servers in the ERC custom layout by setting the
