@@ -1,0 +1,35 @@
+#+TITLE: Groovy layer
+
+[[file:img/groovy.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+- [[#key-bindings][Key bindings]]
+  - [[#repl][REPL]]
+
+* Description
+This layer supports [[http://www.groovy-lang.org/][groovy]] development in Spacemacs.
+
+It has basic/non-smart auto-completion with the =syntax-checking= layer
+and REPL integration.
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =groovy= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+** REPL
+
+| Key Binding | Description                                           |
+|-------------+-------------------------------------------------------|
+| ~SPC m s b~ | send buffer to REPL and stay in buffer                |
+| ~SPC m s B~ | send buffer and and switch to REPL buffer             |
+| ~SPC m s e~ | send sexp in front of the cursor to the REPL          |
+| ~SPC m s f~ | send function to REPL and stay in buffer              |
+| ~SPC m s F~ | send function to REPL and switch to REPL buffer       |
+| ~SPC m s r~ | send current region to REPL and stay in buffer        |
+| ~SPC m s R~ | send current region to REPL and switch to REPL buffer |

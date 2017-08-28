@@ -30,6 +30,7 @@
 (configuration-layer/lazy-install 'finance :extensions '("\\(\\.\\(ledger\\|ldg\\)\\'\\)" ledger-mode))
 (configuration-layer/lazy-install 'fsharp :extensions '("\\(\\.fs[iylx]?$\\)" fsharp-mode))
 (configuration-layer/lazy-install 'go :extensions '("\\(\\.go\\'\\)" go-mode))
+;; groovy
 (configuration-layer/lazy-install 'graphviz :extensions '("\\(\\.dot\\'\\|\\.gv\\'\\|\\.diag\\'\\|\\.blockdiag\\'\\|\\.nwdiag\\'\\|\\.rackdiag\\'\\)" graphviz-dot-mode))
 (configuration-layer/lazy-install 'haskell :extensions '("\\(\\.cmm\\'\\)" cmm-mode))
 (configuration-layer/lazy-install 'haskell :extensions '("\\(\\.[gh]s\\'\\|\\.hsc\\'\\)" haskell-mode))
