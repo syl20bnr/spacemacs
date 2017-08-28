@@ -2,7 +2,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-- [[#features][Features]]
+  - [[#features][Features:]]
 - [[#configuration][Configuration]]
   - [[#customizing][Customizing]]
   - [[#parent-options][Parent options]]
@@ -23,7 +23,7 @@ To default with preview enabled when entering ranger:
                        ranger-show-preview t))
 #+END_SRC
 
-* Features
+** Features:
 - use ranger to display dired with ranger like preview and stacked parent windows.
 
 * Configuration

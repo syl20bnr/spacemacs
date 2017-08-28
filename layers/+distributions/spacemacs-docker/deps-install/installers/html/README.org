@@ -2,10 +2,14 @@
 
 * Table of Contents                 :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#list-of-installed-software][List of installed software:]]
 
 * Description
 Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/html/README.org][html layer.]]
+
+** Features:
+- HTML support for Docker
 
 * List of installed software:
 1. [[https://rubygems.org][rubygems]]

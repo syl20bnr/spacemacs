@@ -4,19 +4,20 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
-  - [[#layer][Layer]]
 - [[#key-bindings][Key bindings]]
   - [[#repl][REPL]]
 
 * Description
 This layer supports [[http://www.groovy-lang.org/][groovy]] development in Spacemacs.
 
-It has basic/non-smart auto-completion with the =syntax-checking= layer
-and REPL integration.
+** Features:
+- Basic dabbrev auto-completion with company
+- Auto-generate imports with [[https://github.com/mbezjak/emacs-groovy-imports][groovy-imports]]
+- Groovy REPL integration
 
 * Install
-** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =groovy= to the existing =dotspacemacs-configuration-layers= list in this
 file.

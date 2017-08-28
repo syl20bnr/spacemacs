@@ -4,7 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#linting][Linting]]
   - [[#style-checking][Style checking]]
@@ -19,7 +19,7 @@ Supported scripting files:
 
 *Note:* For Windows scripting see the layer =windows-scripts=
 
-** Features
+** Features:
 - Auto-completion using [[https://github.com/Alexander-Miller/company-shell][company-shell]]
 - =Sh= scripts linting using  [[https://www.shellcheck.net/][shellcheck]]
 - =Sh= scripts style checking using [[https://github.com/openstack-dev/bashate][bashate]]

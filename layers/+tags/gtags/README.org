@@ -2,7 +2,7 @@
 
 * Table of Contents                                          :TOC_4_gh:noexport:
 - [[#description][Description]]
-- [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#gnu-global-gtags][GNU Global (gtags)]]
     - [[#install-on-osx-using-homebrew][Install on OSX using Homebrew]]
@@ -28,7 +28,7 @@ code tagging system that allows querying symbol locations in source code, such
 as definitions or references. Adding the =gtags= layer enables both of these
 modes.
 
-* Features
+** Features:
 - Select any tag in a project retrieved by gtags
 - Resume previous helm-gtags session
 - Jump to a location based on context
