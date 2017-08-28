@@ -99,22 +99,24 @@ To enable automatic buffer formatting on save, set the variable
 #+END_SRC
 
 *** Company-clang and flycheck
-This layer adds some fancy improvements to =company-clang=.
-It includes a hook to load a projects =.clang_complete= file, which is
-just a text file with one clang flag per line, a format also used by
-other text editor clang plugins.
+This layer adds some fancy improvements to =company-clang=. It includes a hook
+to load a projects =.clang_complete= file, which is just a text file with one
+clang flag per line, a format also used by other text editor clang plugins.
 
-Not only does this allow proper autocomplete on projects with extra
-includes and flags, but there is also support for flycheck so that it
-doesn't complain about missing header files.
+Not only does this allow proper autocomplete on projects with extra includes and
+flags, but there is also support for flycheck so that it doesn't complain about
+missing header files.
 
 ** CMake configuration
 =cmake-ide= plugin works out of the box, but there are few useful configuration
-options. To configure project you need to create =.dir-locals.el= file. In case
-of using make as CMake backend you can use helm-make to select required build target.
-Here is sample configuration. This configuration force =cmake-ide= to use local
-directory and pass that directory to =helm-make=. Such config allows to build your
-project with ~SPC c c~ shortcat.
+options.
+
+To configure project you need to create =.dir-locals.el= file. In case of using
+make as CMake backend you can use =helm-make= to select required build target.
+
+Here is a sample configuration. This configuration forces =cmake-ide= to use the
+local directory and pass that directory to =helm-make=. Such config allows to
+build your project with ~SPC c c~ key binding.
 
 #+BEGIN_SRC emacs-lisp
 ((nil .
