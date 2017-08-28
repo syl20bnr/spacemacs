@@ -9,6 +9,10 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs/diff-mode-revert-hunk ()
+  (interactive)
+  (diff-apply-hunk t))
+
 (defun spacemacs/vcs-next-hunk ()
   (interactive)
   (let ((current-prefix-arg t))
