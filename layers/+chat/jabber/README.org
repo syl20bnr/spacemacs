@@ -1,4 +1,4 @@
-#+TITLE: Jabber contribution layer for Spacemacs
+#+TITLE: Jabber layer
 
 [[file:img/jabber-logo.gif]]
 

@@ -7,7 +7,7 @@
   - [[#key-bindings][Key bindings]]
 
 * Description
-This layer is a port contribution layer for vim-vinegar for emacs.
+This layer is a port layer for vim-vinegar for emacs.
 
 A port of tpope's
 [[https://github.com/tpope/vim-vinegar][vinegar.vim]], simplifying =dired=

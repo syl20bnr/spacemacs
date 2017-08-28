@@ -1,4 +1,4 @@
-#+TITLE: Rust contribution layer for Spacemacs
+#+TITLE: Rust layer
 
 [[file:img/rust.png]]
 

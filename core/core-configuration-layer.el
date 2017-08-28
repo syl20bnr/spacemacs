@@ -29,7 +29,7 @@
 
 (defconst configuration-layer-directory
   (expand-file-name (concat spacemacs-start-directory "layers/"))
-  "Spacemacs contribution layers base directory.")
+  "Spacemacs layers directory.")
 
 (defconst configuration-layer-private-directory
   (expand-file-name (concat spacemacs-start-directory "private/"))

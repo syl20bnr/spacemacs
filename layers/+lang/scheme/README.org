@@ -13,7 +13,7 @@
   - [[#evaluation][Evaluation]]
 
 * Description
-A spacemacs contribution layer providing Scheme support via [[http://www.nongnu.org/geiser/][Geiser]].
+A spacemacs layer providing Scheme support via [[http://www.nongnu.org/geiser/][Geiser]].
 
 * Install
 The scheme layer currently supports: Chicken and Guile. Combined usage of racket-mode

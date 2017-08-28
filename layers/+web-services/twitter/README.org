@@ -1,4 +1,4 @@
-#+TITLE: Twitter contribution layer for Spacemacs
+#+TITLE: Twitter layer
 
 [[file:img/twitter.png]]
 

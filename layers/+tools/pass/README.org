@@ -1,4 +1,4 @@
-#+TITLE: Pass contribution layer
+#+TITLE: Pass layer
 
 * Table of Contents :TOC_4_gh:noexport:
 - [[#description][Description]]

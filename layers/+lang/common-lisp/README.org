@@ -16,7 +16,7 @@
     - [[#macroexpansion][Macroexpansion]]
 
 * Description
-A Spacemacs contribution layer providing Common Lisp support via [[https://github.com/slime/slime][SLIME]].
+A Spacemacs layer providing Common Lisp support via [[https://github.com/slime/slime][SLIME]].
 
 * Install
 If you have previously installed slime in any other way, it is recommended that
