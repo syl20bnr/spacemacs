@@ -933,6 +933,8 @@ Other:
                spacemacs/window-split-triple-columns
                spacemacs/window-split-grid)
     (thanks to Thanh Vuong)
+  - Added a link to =spacemacs|create-align-repeat-x= in the docstring for
+     =align-repeat-= commands (thanks to Troy Pracy)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)
