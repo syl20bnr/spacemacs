@@ -34,6 +34,7 @@
  [_0_.._9_]^^     nth/new workspace  [_d_] close current workspace
  [_C-0_.._C-9_]^^ nth/new workspace  [_R_] rename current workspace
  [_<tab>_]^^^^    last workspace     [_?_] toggle help\n
+ [_c_/_C_]^^      create workspace
  [_l_]^^^^        layouts
  [_n_/_C-l_]^^    next workspace
  [_N_/_p_/_C-h_]  prev workspace\n
@@ -69,6 +70,8 @@
         ("<return>" nil :exit t)
         ("TAB" eyebrowse-last-window-config)
         ("RET" nil :exit t)
+        ("c" eyebrowse-create-window-config :exit t)
+        ("C" eyebrowse-create-window-config)
         ("C-h" eyebrowse-prev-window-config)
         ("C-l" eyebrowse-next-window-config)
         ("d" eyebrowse-close-window-config)
@@ -98,14 +101,14 @@
 
 (defun spacemacs-layouts/post-init-helm ()
   (spacemacs/set-leader-keys
-    "Bb" 'spacemacs-layouts/non-restricted-buffer-list-helm
+    "bB" 'spacemacs-layouts/non-restricted-buffer-list-helm
     "pl" 'spacemacs/helm-persp-switch-project))
 
 
 
 (defun spacemacs-layouts/post-init-ivy ()
   (spacemacs/set-leader-keys
-    "Bb" 'spacemacs-layouts/non-restricted-buffer-list-ivy))
+    "bB" 'spacemacs-layouts/non-restricted-buffer-list-ivy))
 
  
 
@@ -214,7 +217,6 @@
         (setq spacemacs--last-selected-layout persp-last-persp-name))
       (add-hook 'persp-mode-hook 'spacemacs//layout-autosave)
       (spacemacs/declare-prefix "b" "persp-buffers")
-      (spacemacs/declare-prefix "B" "global-buffers")
       ;; Override SPC TAB to only change buffers in perspective
       (spacemacs/set-leader-keys
         "ba"   'persp-add-buffer

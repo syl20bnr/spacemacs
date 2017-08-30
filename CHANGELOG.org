@@ -1,19 +1,669 @@
+#+TITLE:Changelog
+
+* Table of Contents                      :TOC_4_gh:noexport:
+- [[#release-0200x][Release 0.200.x]]
+  - [[#02009-20170406][0.200.9 (2017/04/06)]]
+    - [[#fixes][Fixes]]
+  - [[#02008-20170401][0.200.8 (2017/04/01)]]
+    - [[#convention-changes][Convention changes]]
+    - [[#dotspacemacs-changes][Dotspacemacs changes]]
+    - [[#core-changes][Core changes]]
+    - [[#distribution-layer-changes][Distribution layer changes]]
+    - [[#layer-changes][Layer changes]]
+      - [[#ansible][Ansible]]
+      - [[#auto-completion][Auto-completion]]
+      - [[#better-defaults][Better defaults]]
+      - [[#chinese][Chinese]]
+      - [[#chrome][Chrome]]
+      - [[#clojure][Clojure]]
+      - [[#common-lisp][Common Lisp]]
+      - [[#csharp][CSharp]]
+      - [[#elixir][Elixir]]
+      - [[#emacs-lisp][Emacs Lisp]]
+      - [[#extra-langs][Extra-langs]]
+      - [[#finance][Finance]]
+      - [[#games][Games]]
+      - [[#go][Go]]
+      - [[#haskell][Haskell]]
+      - [[#html][Html]]
+      - [[#ibuffer][IBuffer]]
+      - [[#ipthon-notebook][IPthon-notebook]]
+      - [[#ivy][Ivy]]
+      - [[#javascript][Javascript]]
+      - [[#latex][LaTeX]]
+      - [[#markdown][Markdown]]
+      - [[#org][Org]]
+      - [[#prodigy][Prodigy]]
+      - [[#python][Python]]
+      - [[#restclient][Restclient]]
+      - [[#ruby-on-rails][Ruby-On-Rails]]
+      - [[#rust][Rust]]
+      - [[#scala][Scala]]
+      - [[#scheme][Scheme]]
+      - [[#semantic][Semantic]]
+      - [[#shaders][Shaders]]
+      - [[#spell-checking][Spell-checking]]
+      - [[#themes][Themes]]
+      - [[#typescript][Typescript]]
+      - [[#version-control][Version control]]
+      - [[#ymcd][Ymcd]]
+    - [[#improvements][Improvements]]
+  - [[#02007-20170102][0.200.7 (2017/01/02)]]
+    - [[#fixes-1][Fixes]]
+  - [[#02006-20170101][0.200.6 (2017/01/01)]]
+    - [[#fixes-2][Fixes]]
+  - [[#02005-20161103][0.200.5 (2016/11/03)]]
+    - [[#fixes-3][Fixes]]
+  - [[#02004-20161026][0.200.4 (2016/10/26)]]
+    - [[#fixes-4][Fixes]]
+  - [[#02003-20161018][0.200.3 (2016/10/18)]]
+    - [[#fixes-5][Fixes]]
+    - [[#improvements-1][Improvements]]
+    - [[#layer-changes-1][Layer changes]]
+      - [[#spacemacs-distribution][Spacemacs distribution]]
+      - [[#cc][C/C++]]
+      - [[#common-lisp-1][Common-lisp]]
+      - [[#d][D]]
+      - [[#ipython-notebook][IPython-notebook]]
+      - [[#ivy-1][Ivy]]
+      - [[#elixir-1][Elixir]]
+      - [[#erc][ERC]]
+      - [[#git][Git]]
+      - [[#go-1][Go]]
+      - [[#helm][Helm]]
+      - [[#html-1][Html]]
+      - [[#javascript-1][Javascript]]
+      - [[#ocaml][Ocaml]]
+      - [[#org-1][Org]]
+      - [[#nim][Nim]]
+      - [[#plantuml][Plantuml]]
+      - [[#python-1][Python]]
+      - [[#ruby][Ruby]]
+      - [[#ruby-on-rails-1][Ruby on rails]]
+      - [[#scala-1][Scala]]
+      - [[#shell-scripts][Shell-scripts]]
+      - [[#syntax-checking][Syntax checking]]
+      - [[#typescript-1][Typescript]]
+      - [[#yaml][Yaml]]
+      - [[#ycmd][Ycmd]]
+  - [[#02002-20161014][0.200.2 (2016/10/14)]]
+    - [[#fixes-6][Fixes]]
+  - [[#02001-20161009][0.200.1 (2016/10/09)]]
+    - [[#fixes-7][Fixes]]
+    - [[#dotfile-changes][Dotfile changes]]
+    - [[#layer-changes-2][Layer changes]]
+      - [[#agda][Agda]]
+      - [[#clojure-1][Clojure]]
+      - [[#git-1][Git]]
+      - [[#html-2][Html]]
+      - [[#markdown-1][Markdown]]
+      - [[#react][React]]
+      - [[#shell][Shell]]
+      - [[#ycmd-1][Ycmd]]
+    - [[#improvements-2][Improvements]]
+  - [[#02000-20161002][0.200.0 (2016/10/02)]]
+    - [[#important-breaking-changes][IMPORTANT: Breaking changes]]
+    - [[#hot-new-features][Hot new features]]
+    - [[#new-layers][New Layers]]
+    - [[#dotfile-changes-1][Dotfile changes]]
+      - [[#changes-for-variable-values-and-keywords][Changes for variable values and keywords]]
+      - [[#new-variables][New variables]]
+    - [[#distribution-layer-changes-1][Distribution layer changes]]
+    - [[#layer-changes-3][Layer changes]]
+      - [[#agda-1][Agda]]
+      - [[#ansible-1][Ansible]]
+      - [[#assembler][Assembler]]
+      - [[#auto-completion-1][Auto-completion]]
+      - [[#autohotkey][AutoHotKey]]
+      - [[#better-defaults-1][Better defaults]]
+      - [[#bibtex][BibTeX]]
+      - [[#cc-1][C/C++]]
+      - [[#chinese-1][Chinese]]
+      - [[#clojure-2][Clojure]]
+      - [[#colors][Colors]]
+      - [[#common-lisp-2][Common-Lisp]]
+      - [[#csharp-1][CSharp]]
+      - [[#dash][Dash]]
+      - [[#deft][Deft]]
+      - [[#docker][Docker]]
+      - [[#elixir-2][Elixir]]
+      - [[#elfeed][Elfeed]]
+      - [[#elm][Elm]]
+      - [[#emacs-lisp-1][Emacs Lisp]]
+      - [[#erc-1][ERC]]
+      - [[#ess][ESS]]
+      - [[#extra-languages][Extra languages]]
+      - [[#games-1][Games]]
+      - [[#geolocation][Geolocation]]
+      - [[#git-2][Git]]
+      - [[#github][GitHub]]
+      - [[#go-2][Go]]
+      - [[#graphviz][Graphviz]]
+      - [[#gtags][Gtags]]
+      - [[#haskell-1][Haskell]]
+      - [[#helm-1][Helm]]
+      - [[#html-3][Html]]
+      - [[#idris][Idris]]
+      - [[#ipython-notebook-1][IPython-notebook]]
+      - [[#jabber][Jabber]]
+      - [[#java][Java]]
+      - [[#javascript-2][JavaScript]]
+      - [[#latex-1][LaTeX]]
+      - [[#markdown-2][Markdown]]
+      - [[#mu4e][mu4e]]
+      - [[#ocaml-1][OCaml]]
+      - [[#org-2][Org]]
+      - [[#osx][OSX]]
+      - [[#nixos][NixOS]]
+      - [[#pdf-tools][Pdf-tools]]
+      - [[#puppet][Puppet]]
+      - [[#purescript][Purescript]]
+      - [[#python-2][Python]]
+      - [[#react-1][React]]
+      - [[#restclient-1][Restclient]]
+      - [[#ruby-1][Ruby]]
+      - [[#ruby-on-rails-2][Ruby on Rails]]
+      - [[#rust-1][Rust]]
+      - [[#scala-2][Scala]]
+      - [[#search-engine][Search-engine]]
+      - [[#shell-1][Shell]]
+      - [[#shell-scripts-1][Shell-scripts]]
+      - [[#sml][SML]]
+      - [[#spell-checking-1][Spell-checking]]
+      - [[#spotify][Spotify]]
+      - [[#syntax-checking-1][Syntax-checking]]
+      - [[#themes-megapack][Themes-megapack]]
+      - [[#tmux][Tmux]]
+      - [[#typescript-2][Typescript]]
+      - [[#version-control-1][Version-control]]
+      - [[#vim-unimpaired][Vim-unimpaired]]
+      - [[#windows-scripts][Windows-scripts]]
+      - [[#yaml-1][Yaml]]
+    - [[#core-changes-1][Core Changes]]
+    - [[#other-fixes-and-improvements][Other fixes and improvements]]
+    - [[#core-team-members][Core team members]]
+      - [[#current][Current]]
+      - [[#old][Old]]
+- [[#release-0105x][Release 0.105.x]]
+  - [[#010522-20160819][0.105.22 (2016/08/19)]]
+    - [[#fixes-8][Fixes]]
+  - [[#010521-20160608][0.105.21 (2016/06/08)]]
+    - [[#fixes-9][Fixes]]
+  - [[#010520-20160510][0.105.20 (2016/05/10)]]
+    - [[#fixes-10][Fixes]]
+  - [[#010519-20160420][0.105.19 (2016/04/20)]]
+    - [[#fixes-11][Fixes]]
+    - [[#layer-changes-4][Layer changes]]
+      - [[#clojure-3][Clojure]]
+      - [[#elm-1][Elm]]
+      - [[#javascript-3][Javascript]]
+      - [[#go-3][Go]]
+      - [[#python-3][Python]]
+      - [[#scala-3][Scala]]
+      - [[#shell-2][Shell]]
+      - [[#tmux-1][Tmux]]
+      - [[#vinegar][Vinegar]]
+    - [[#improvements-3][Improvements]]
+  - [[#010518-20160410][0.105.18 (2016/04/10)]]
+  - [[#010517-20160409][0.105.17 (2016/04/09)]]
+  - [[#010516-20160401][0.105.16 (2016/04/01)]]
+  - [[#010515-20160401][0.105.15 (2016/04/01)]]
+    - [[#improvements-4][Improvements]]
+    - [[#layer-changes-5][Layer changes]]
+      - [[#javascript-4][Javascript]]
+      - [[#swift][Swift]]
+  - [[#010514-20160309][0.105.14 (2016/03/09)]]
+    - [[#fixes-12][Fixes]]
+    - [[#layer-changes-6][Layer changes]]
+      - [[#go-4][Go]]
+      - [[#react-2][React]]
+    - [[#improvements-5][Improvements]]
+  - [[#010513-20160306][0.105.13 (2016/03/06)]]
+    - [[#fixes-13][Fixes]]
+    - [[#layer-changes-7][Layer changes]]
+      - [[#clojure-4][Clojure]]
+      - [[#scala-4][Scala]]
+    - [[#improvements-6][Improvements]]
+  - [[#010512-20160302][0.105.12 (2016/03/02)]]
+    - [[#fixes-14][Fixes]]
+    - [[#layer-changes-8][Layer changes]]
+      - [[#distribution][Distribution]]
+      - [[#c-c][C-C++]]
+      - [[#evil-snipe][Evil-snipe]]
+      - [[#haskell-2][Haskell]]
+      - [[#markdown-3][Markdown]]
+      - [[#org-3][Org]]
+      - [[#osx-1][Osx]]
+      - [[#react-3][React]]
+      - [[#racket][Racket]]
+      - [[#scala-5][Scala]]
+      - [[#shell-3][Shell]]
+      - [[#themes-megapack-1][Themes megapack]]
+    - [[#improvements-7][Improvements]]
+  - [[#010511-20160218][0.105.11 (2016/02/18)]]
+  - [[#010510-20160218][0.105.10 (2016/02/18)]]
+    - [[#fixes-15][Fixes]]
+    - [[#improvements-8][Improvements]]
+    - [[#layer-changes-9][Layer changes]]
+      - [[#auto-completion-2][Auto-completion]]
+      - [[#c-c-1][C-C++]]
+      - [[#clojure-5][Clojure]]
+      - [[#elm-2][Elm]]
+      - [[#erc-2][ERC]]
+      - [[#gnus][Gnus]]
+      - [[#haskell-3][Haskell]]
+      - [[#html-4][Html]]
+      - [[#org-4][Org]]
+      - [[#python-4][Python]]
+      - [[#racket-1][Racket]]
+      - [[#react-4][React]]
+      - [[#ruby-2][Ruby]]
+      - [[#rust-2][Rust]]
+      - [[#shell-4][Shell]]
+      - [[#themes-megapack-2][Themes-megapack]]
+      - [[#tmux-2][Tmux]]
+      - [[#vagrant][Vagrant]]
+      - [[#version-control-2][Version control]]
+      - [[#wakatime][Wakatime]]
+  - [[#01059-20160117][0.105.9 (2016/01/17)]]
+    - [[#improvements-9][Improvements]]
+    - [[#new-conventions][New conventions]]
+    - [[#layer-changes-10][Layer changes]]
+      - [[#markdown-4][Markdown]]
+      - [[#org-5][Org]]
+      - [[#spacemacs][Spacemacs]]
+  - [[#01058-20160112][0.105.8 (2016/01/12)]]
+    - [[#fixes-16][Fixes]]
+    - [[#improvements-10][Improvements]]
+    - [[#layer-changes-11][Layer changes]]
+      - [[#markdown-5][Markdown]]
+  - [[#01057-20160111][0.105.7 (2016/01/11)]]
+    - [[#fixes-17][Fixes]]
+      - [[#erc-and-rcirc-layers][ERC and RCIRC layers]]
+      - [[#go-layer][Go layer]]
+      - [[#haskell-4][Haskell]]
+      - [[#python-layer][Python layer]]
+    - [[#dotfile-changes-2][Dotfile changes]]
+    - [[#improvements-11][Improvements]]
+  - [[#01056-20160109][0.105.6 (2016/01/09)]]
+    - [[#fixes-18][Fixes]]
+  - [[#01055-20160108][0.105.5 (2016/01/08)]]
+    - [[#fixes-19][Fixes]]
+      - [[#core][Core]]
+    - [[#layer-changes-12][Layer changes]]
+      - [[#spacemacs-1][Spacemacs]]
+      - [[#auto-completion-3][Auto-completion]]
+  - [[#01054-20160107][0.105.4 (2016/01/07)]]
+    - [[#fixes-20][Fixes]]
+      - [[#core-1][Core]]
+      - [[#ruby-layer][Ruby layer]]
+      - [[#spacemacs-layouts][Spacemacs layouts]]
+      - [[#yasnippet][Yasnippet]]
+  - [[#01053-20160106][0.105.3 (2016/01/06)]]
+    - [[#fixes-21][Fixes]]
+      - [[#emacs-lisp-layer][Emacs lisp layer]]
+      - [[#ledger][Ledger]]
+      - [[#ocaml-2][Ocaml]]
+    - [[#layer-changes-13][Layer changes]]
+      - [[#spacemacs-2][Spacemacs]]
+    - [[#other-improvements][Other improvements]]
+  - [[#01052-20160105][0.105.2 (2016/01/05)]]
+  - [[#01051-20160105][0.105.1 (2016/01/05)]]
+    - [[#fixes-22][Fixes]]
+      - [[#spacemacs-layer][Spacemacs layer]]
+      - [[#bépo-layer][Bépo layer]]
+      - [[#magit-layer][Magit layer]]
+      - [[#scala-layer][Scala layer]]
+    - [[#layer-changes-14][Layer changes]]
+      - [[#spacemacs-3][Spacemacs]]
+      - [[#themes-megapack-3][Themes megapack]]
+    - [[#other-improvements-1][Other improvements]]
+  - [[#01050-20160104][0.105.0 (2016/01/04)]]
+    - [[#important---breaking-changes][IMPORTANT - Breaking changes]]
+    - [[#hot-new-features-1][Hot new features]]
+    - [[#other-important-notes][Other important notes]]
+    - [[#new-conventions-1][New conventions]]
+    - [[#new-layers-1][New Layers]]
+    - [[#dotfile-changes-3][Dotfile changes]]
+    - [[#distribution-layer-changes-2][Distribution layer changes]]
+      - [[#helm-spacemacs][Helm-spacemacs]]
+      - [[#evilified-map][Evilified map]]
+    - [[#layer-changes-15][Layer changes]]
+      - [[#auto-completion-4][Auto-completion]]
+      - [[#better-defaults-2][Better defaults]]
+      - [[#cc-2][C/C++]]
+      - [[#chinese-2][Chinese]]
+      - [[#clojure-6][Clojure]]
+      - [[#dash-1][Dash]]
+      - [[#elixir-3][Elixir]]
+      - [[#elm-3][Elm]]
+      - [[#emacs-lisp-2][Emacs lisp]]
+      - [[#erc-3][Erc]]
+      - [[#ess-1][Ess]]
+      - [[#evil-snipe-1][Evil-snipe]]
+      - [[#eyebrowse][Eyebrowse]]
+      - [[#games-2][Games]]
+      - [[#git-3][Git]]
+      - [[#github-1][Github]]
+      - [[#go-5][Go]]
+      - [[#haskell-5][Haskell]]
+      - [[#html-5][Html]]
+      - [[#idris-1][Idris]]
+      - [[#javascript-5][Javascript]]
+      - [[#latex-2][LaTeX]]
+      - [[#markdown-6][Markdown]]
+      - [[#nim-1][Nim]]
+      - [[#ocaml-3][Ocaml]]
+      - [[#org-6][Org]]
+      - [[#osx-2][Osx]]
+      - [[#puppet-1][Puppet]]
+      - [[#purescript-1][Purescript]]
+      - [[#python-5][Python]]
+      - [[#react-5][React]]
+      - [[#ruby-3][Ruby]]
+      - [[#ruby-on-rails-3][Ruby on rails]]
+      - [[#rust-3][Rust]]
+      - [[#scala-6][Scala]]
+      - [[#scheme-1][Scheme]]
+      - [[#shell-5][Shell]]
+      - [[#spell-checking-2][Spell-checking]]
+      - [[#syntax-checking-2][Syntax-checking]]
+      - [[#themes-megapack-4][Themes-megapack]]
+      - [[#vagrant-1][Vagrant]]
+      - [[#version-control-3][Version-control]]
+      - [[#vinegar-1][Vinegar]]
+      - [[#yaml-2][Yaml]]
+    - [[#website][Website]]
+    - [[#core-changes-2][Core changes]]
+      - [[#home-buffer][Home buffer]]
+      - [[#configuration-layer][Configuration layer]]
+      - [[#micro-state][Micro-state]]
+    - [[#other-fixes-and-improvements-1][Other fixes and improvements]]
+    - [[#core-team-members-1][Core team members]]
+- [[#release-0104x][Release 0.104.x]]
+  - [[#01048-20151216][0.104.8 (2015/12/16)]]
+    - [[#hotfix][Hotfix]]
+  - [[#01047-20151215][0.104.7 (2015/12/15)]]
+    - [[#distribution-layer-changes-3][Distribution layer changes]]
+      - [[#spacemacs-4][Spacemacs]]
+    - [[#layers-changes][Layers changes]]
+      - [[#eyebrowse-1][Eyebrowse]]
+      - [[#haskell-6][Haskell]]
+      - [[#syntax-checking-3][Syntax-checking]]
+  - [[#01046-20151127][0.104.6 (2015/11/27)]]
+    - [[#hotfix-1][Hotfix]]
+  - [[#01045-20151122][0.104.5 (2015/11/22)]]
+    - [[#distribution-layer-changes-4][Distribution layer changes]]
+      - [[#spacemacs-5][Spacemacs]]
+  - [[#01044-20151104][0.104.4 (2015/11/04)]]
+    - [[#layer-changes-16][Layer changes]]
+      - [[#scala-7][Scala]]
+      - [[#vagrant-2][Vagrant]]
+    - [[#core-2][Core]]
+  - [[#01043-20151101][0.104.3 (2015/11/01)]]
+    - [[#layer-changes-17][Layer changes]]
+      - [[#evil-snipe-2][Evil-snipe]]
+      - [[#haskell-7][Haskell]]
+  - [[#01042-20150929][0.104.2 (2015/09/29)]]
+    - [[#hotfixes][Hotfixes]]
+    - [[#layer-changes-18][Layer changes]]
+      - [[#markdown-7][Markdown]]
+    - [[#core-3][Core]]
+    - [[#other-fixes-and-improvements-2][Other fixes and improvements]]
+  - [[#01041-20150928][0.104.1 (2015/09/28)]]
+    - [[#dotfile-changes-4][Dotfile changes]]
+    - [[#distribution-layer-changes-5][Distribution layer changes]]
+      - [[#spacemacs-6][Spacemacs]]
+    - [[#layer-changes-19][Layer changes]]
+      - [[#react-6][React]]
+    - [[#other-fixes-and-improvements-3][Other fixes and improvements]]
+  - [[#01040-20150928][0.104.0 (2015/09/28)]]
+    - [[#important---breaking-changes-1][IMPORTANT - Breaking changes]]
+    - [[#other-important-notes-1][Other important notes]]
+    - [[#hot-new-features-2][Hot new features]]
+    - [[#new-conventions-2][New conventions]]
+    - [[#new-layers-2][New Layers]]
+    - [[#dotfile-changes-5][Dotfile changes]]
+    - [[#distribution-layer-changes-6][Distribution layer changes]]
+      - [[#spacemacs-base][Spacemacs-base]]
+      - [[#spacemacs-7][Spacemacs]]
+    - [[#layer-changes-20][Layer changes]]
+      - [[#agda-2][Agda]]
+      - [[#auto-completion-5][Auto-completion]]
+      - [[#better-defaults-3][Better-defaults]]
+      - [[#cc-3][C/C++]]
+      - [[#chinese-3][Chinese]]
+      - [[#clojure-7][Clojure]]
+      - [[#csharp-2][CSharp]]
+      - [[#dash-2][Dash]]
+      - [[#deft-1][Deft]]
+      - [[#elixir-4][Elixir]]
+      - [[#emacs-lisp-3][Emacs lisp]]
+      - [[#erc-4][ERC]]
+      - [[#ess-2][ESS]]
+      - [[#evil-commentary][Evil-commentary]]
+      - [[#extra-lang][Extra-lang]]
+      - [[#eyebrowse-2][Eyebrowse]]
+      - [[#fsharp][Fsharp]]
+      - [[#git-4][Git]]
+      - [[#github-2][Github]]
+      - [[#gnus-1][Gnus]]
+      - [[#go-6][Go]]
+      - [[#gtags-1][Gtags]]
+      - [[#haskell-8][Haskell]]
+      - [[#html-6][Html]]
+      - [[#ipython-notebook-2][Ipython-notebook]]
+      - [[#java-1][Java]]
+      - [[#javascript-6][Javascript]]
+      - [[#markdown-8][Markdown]]
+      - [[#org-7][Org]]
+      - [[#osx-3][Osx]]
+      - [[#pandoc][Pandoc]]
+      - [[#php][Php]]
+      - [[#puppet-2][Puppet]]
+      - [[#python-6][Python]]
+      - [[#racket-2][Racket]]
+      - [[#ranger][Ranger]]
+      - [[#ruby-4][Ruby]]
+      - [[#ruby-on-rails-4][Ruby-on-rails]]
+      - [[#rust-4][Rust]]
+      - [[#salt][Salt]]
+      - [[#scala-8][Scala]]
+      - [[#scheme-2][Scheme]]
+      - [[#search-engine-1][Search-engine]]
+      - [[#shell-6][Shell]]
+      - [[#syntax-checking-4][Syntax-checking]]
+      - [[#vinegar-2][Vinegar]]
+      - [[#wakatime-1][Wakatime]]
+    - [[#core-changes-3][Core changes]]
+    - [[#other-fixes-and-improvements-4][Other fixes and improvements]]
+- [[#release-0103x][Release 0.103.x]]
+  - [[#01036-20150830][0.103.6 (2015/08/30)]]
+    - [[#core-4][Core]]
+  - [[#01035-20150809][0.103.5 (2015/08/09)]]
+    - [[#layer-changes-21][Layer changes]]
+      - [[#osx-4][Osx]]
+    - [[#core-5][Core]]
+  - [[#01034-20150807][0.103.4 (2015/08/07)]]
+    - [[#layer-changes-22][Layer changes]]
+      - [[#clojure-8][Clojure]]
+  - [[#01033-20150804][0.103.3 (2015/08/04)]]
+    - [[#layer-changes-23][Layer changes]]
+      - [[#osx-5][Osx]]
+  - [[#01032-20150704][0.103.2 (2015/07/04)]]
+    - [[#layer-changes-24][Layer changes]]
+      - [[#git-5][Git]]
+    - [[#other-fixes-and-improvements-5][Other fixes and improvements]]
+  - [[#01031-20150702][0.103.1 (2015/07/02)]]
+    - [[#layer-changes-25][Layer changes]]
+      - [[#git-6][Git]]
+    - [[#core-6][Core]]
+  - [[#01030-20150701][0.103.0 (2015/07/01)]]
+    - [[#important-breaking-changes-1][IMPORTANT: Breaking changes]]
+    - [[#hot-new-features-3][Hot new features]]
+    - [[#new-layers-3][New Layers]]
+    - [[#dotfile-changes-6][Dotfile changes]]
+    - [[#layer-changes-26][Layer changes]]
+      - [[#spacemacs-8][Spacemacs]]
+      - [[#auto-completion-6][Auto-completion]]
+      - [[#autohotkey-1][Autohotkey]]
+      - [[#cc-4][C/C++]]
+      - [[#clojure-9][Clojure]]
+      - [[#elixir-5][Elixir]]
+      - [[#emacs-lisp-4][Emacs Lisp]]
+      - [[#emoji][Emoji]]
+      - [[#erc-5][ERC]]
+      - [[#evil-snipe-3][Evil-snipe]]
+      - [[#extra-langs-1][Extra-langs]]
+      - [[#eyebrowse-3][Eyebrowse]]
+      - [[#finance-1][Finance]]
+      - [[#git-7][Git]]
+      - [[#go-7][Go]]
+      - [[#gtags-2][Gtags]]
+      - [[#haskell-9][Haskell]]
+      - [[#ipython-notebook-ein][iPython-notebook (ein)]]
+      - [[#latex-3][LaTeX]]
+      - [[#markdown-9][Markdown]]
+      - [[#ocaml-4][Ocaml]]
+      - [[#org-8][Org]]
+      - [[#osx-6][Osx]]
+      - [[#powershell][Powershell]]
+      - [[#puppet-3][Puppet]]
+      - [[#python-7][Python]]
+      - [[#racket-3][Racket]]
+      - [[#ruby-5][Ruby]]
+      - [[#rust-5][Rust]]
+      - [[#scala-9][Scala]]
+      - [[#slime][Slime]]
+      - [[#syntax-checking-5][Syntax-checking]]
+      - [[#theme][Theme]]
+    - [[#core-7][Core]]
+    - [[#other-fixes-and-improvements-6][Other fixes and improvements]]
+- [[#release-0102x][Release 0.102.x]]
+  - [[#01022-20150603][0.102.2 (2015/06/03)]]
+    - [[#layer-changes-27][Layer changes]]
+      - [[#org-9][Org]]
+    - [[#core-8][Core]]
+  - [[#01021-20150601][0.102.1 (2015/06/01)]]
+    - [[#layer-changes-28][Layer changes]]
+      - [[#org-10][Org]]
+    - [[#core-9][Core]]
+  - [[#01020-20150531][0.102.0 (2015/05/31)]]
+    - [[#important-breaking-changes-2][IMPORTANT: Breaking changes]]
+    - [[#new-layers-4][New Layers]]
+    - [[#dotfile-changes-7][Dotfile changes]]
+    - [[#new-conventions-3][New conventions]]
+    - [[#layer-changes-29][Layer changes]]
+      - [[#spacemacs-9][Spacemacs]]
+      - [[#auctex][Auctex]]
+      - [[#auto-completion-7][Auto-completion]]
+      - [[#autohotkey-2][Autohotkey]]
+      - [[#cc-5][C/C++]]
+      - [[#chrome-1][Chrome]]
+      - [[#clojure-10][Clojure]]
+      - [[#colors-1][Colors]]
+      - [[#emacs-lisp-5][Emacs-lisp]]
+      - [[#erc-6][Erc]]
+      - [[#ess-3][ESS]]
+      - [[#extra-langs-2][Extra-langs]]
+      - [[#git-8][Git]]
+      - [[#gtags-3][Gtags]]
+      - [[#haskell-10][Haskell]]
+      - [[#html-7][Html]]
+      - [[#javascript-7][Javascript]]
+      - [[#lua][Lua]]
+      - [[#markdown-10][Markdown]]
+      - [[#ocaml-5][Ocaml]]
+      - [[#org-11][Org]]
+      - [[#osx-7][Osx]]
+      - [[#perforce][Perforce]]
+      - [[#puppet-4][Puppet]]
+      - [[#python-8][Python]]
+      - [[#rcirc][Rcirc]]
+      - [[#ruby-6][Ruby]]
+      - [[#rust-6][Rust]]
+      - [[#scala-10][Scala]]
+      - [[#semantic-1][Semantic]]
+      - [[#shell-7][Shell]]
+      - [[#slime-1][Slime]]
+      - [[#smex][Smex]]
+      - [[#syntax-checking-6][Syntax-checking]]
+      - [[#themes-1][Themes]]
+      - [[#tmux-3][Tmux]]
+      - [[#vim-empty-lines][Vim-empty-lines]]
+      - [[#ycmd-2][Ycmd]]
+    - [[#core-10][Core]]
+    - [[#other-fixes][Other fixes]]
+- [[#release-0101x][Release 0.101.x]]
+  - [[#hot-new-features-4][Hot new features]]
+    - [[#choose-your-own-editing-style][Choose your own editing style]]
+    - [[#mandatory-init-function-and-new-pre-and-post-init-functions][Mandatory init function and new Pre and Post init functions]]
+    - [[#auto-completion-8][Auto-completion]]
+    - [[#syntax-checking-7][Syntax checking]]
+    - [[#org-12][Org]]
+    - [[#new-shortcuts-in-startup-buffer][New shortcuts in startup buffer]]
+    - [[#new-lighter-in-the-mode-line][New lighter in the mode line]]
+    - [[#better-package-update][Better package update]]
+  - [[#initial-release-20150413][Initial Release (2015/04/13)]]
+    - [[#new-layers-5][New layers]]
+    - [[#new-dotfile-variables][New dotfile variables:]]
+    - [[#auto-complete][Auto-complete]]
+    - [[#cc-6][C/C++]]
+    - [[#clojure-11][Clojure]]
+    - [[#company][Company]]
+    - [[#emacs-lisp-6][Emacs Lisp]]
+    - [[#ess-4][Ess]]
+    - [[#extra-lang-layer][Extra-Lang layer]]
+    - [[#flycheck][Flycheck]]
+    - [[#git-9][Git]]
+    - [[#go-8][Go]]
+    - [[#haskell-11][Haskell]]
+    - [[#helm-2][Helm]]
+    - [[#holy-mode][Holy-mode]]
+    - [[#irc][IRC]]
+    - [[#markdown-11][Markdown]]
+    - [[#org-13][Org]]
+    - [[#perspective][Perspective]]
+    - [[#projectile][Projectile]]
+    - [[#python-9][Python]]
+    - [[#racket-4][Racket]]
+    - [[#ruby-7][Ruby]]
+    - [[#scala-11][Scala]]
+    - [[#slime-2][SLIME]]
+    - [[#smartparens][Smartparens]]
+    - [[#themes-2][Themes]]
+    - [[#ycmd-3][ycmd]]
+    - [[#web][Web]]
+    - [[#various-improvements-and-changes][Various Improvements and Changes]]
+  - [[#hot-fixes][Hot Fixes]]
+    - [[#startup-buffer][Startup Buffer]]
+    - [[#auto-completion-9][Auto-completion]]
+    - [[#haskell-12][Haskell]]
+    - [[#org-14][Org]]
+    - [[#ruby-8][Ruby]]
+    - [[#themes-3][Themes]]
+    - [[#various-fixes][Various Fixes]]
+- [[#previous-releases][Previous Releases]]
+
 * Release 0.200.x
 ** 0.200.9 (2017/04/06)
 *** Fixes
 - Fix theme loading with terminal Emacs (thanks to wang0z)
+
 ** 0.200.8 (2017/04/01)
 *** Convention changes
 - Update debug conventions
   - Step in and Step out are now, ~i~ and ~o~ respectively
   - Inspect a value is now ~v~
   - Next step is now ~s~
+
 *** Dotspacemacs changes
 - Improve variable =dotspacemacs-line-numbers=. The variable can now take a
   property list with the following keywords supported: =:relative t= to turn on
   relative lines, =:disabled-for-modes mode1 mode2 ...= to disable line numbers
   in specific major modes and =:size-limit-kb n= to disable line numbers when
   the size of the buffer is greater than n (thanks to deb0ch)
+
 *** Core changes
 - Import =quela=, =package-build=, =ido-vertical-mode= and =spacemacs-theme= in
   =core/libs=
@@ -48,6 +698,7 @@
 - Filter out private vars in dotspacemacs/get-variable-string-list
 - Add support for go to definition in other window with ~SPC m g G~
 - Scope minor-mode specific key bindings under major-mode leader
+
 *** Distribution layer changes
 - New key binding ~SPC w +~ to toggle between vertical and horizontal windows
   layout (thanks to nixmaniack, bmag)
@@ -78,75 +729,100 @@
 - Disable auto-revert of =buffer-menu-mode= (thanks to bgamari)
 - Fix spacemacs/rename-current-buffer-file on non-file buffers
   (thanks to lislon)
+
 *** Layer changes
 **** Ansible
 - Add support for =ansible-vault= (auto-de/encryption of files)
 - Add support for =company= with =company-ansible= package
+
 **** Auto-completion
 - Add new package =fuzzy= for =auto-complete=.
+
 **** Better defaults
 - Add new package =unfill= (thanks to d12frosted)
+
 **** Chinese
 - Move =pyim= into the =.cache= directory (thanks to DCPRevere)
+
 **** Chrome
 + Add package =flymd=. Flymd is a realtime markdown preview (hodge)
+
 **** Clojure
 - Update debugger key bindings to meet new conventions
 - Add new key bindings to convert collections (thanks to benedekfazekas)
 - Fix calls to =cider-test-xxxx= functions (thanks to mahinshaw)
+
 **** Common Lisp
 - Add neew key binding ~SPC m h i~ to inspect a definition
 - Set jump handler to =slime-edit-definition= (thanks to phoe)
+
 **** CSharp
 - Fix Omnisharp jump handler by marking it async (thanks to razzmatazz)
+
 **** Elixir
 - Add support for =credo= (denin)
 - Prevent from inserting too many "end"s in Elixir (thanks to michalmuskala)
+
 **** Emacs Lisp
 - Fix cursor position for =eval-last-sexp=.
 - Add ~SPC m e c~ to evaluate current sexp. Evaluation of current =setq= or
   =defun= form is under ~SPC m e C~.
 - Add support for =debugger= and =edebug=, see tutorial in =README.org= file.
+
 **** Extra-langs
 - Add extension =.wl= for =wolfram-mode= (kenkangxgwe)
+
 **** Finance
 - Add new key bindings for ledger account reconciliation (thanks to timjaeger)
+
 **** Games
 - Add =sudoku= game. (thanks to et2010)
+
 **** Go
 - Fix void reference to =go--position-bytes= (thanks to db47h)
+
 **** Haskell
 - Update debugger key bindings to meet new conventions
+
 **** Html
 - Defer =company-web= loading (ralesi)
+
 **** IBuffer
 - New key bindings  ~g r~ to update buffer, ~g j~ to move to next filter group
   and ~g k~ to move to previous filter group (thanks to donm)
+
 **** IPthon-notebook
 - Fix =axes.color_cycle= warning in matplotlibrc (thanks to Retorz)
+
 **** Ivy
 - Rebind ~SPC f b~ to =counsel-bookmark= (thanks to gilbertw1)
 - Add confirmation between deleting a file with ~d~ (thanks to d12frosted)
 - Add C-c C-e to edit counsel-ag search results (thanks to aaronjensen)
 - Correctly close =ivy= layout transient state when pressing ~b~
  (thanks to gilbertw1)
+
 **** Javascript
 - Fix jump handler using =tern= by marking it async (thanks to coreygrunewald)
+
 **** LaTeX
 - Add new key bindings for folding functions (thanks to nashamri)
+
 **** Markdown
 - Add new key binding ~SPC m i t~ to insert a Table of Contents
 - Fix activation of =mmm-mode=
 - Add support for ini files
 - Hide =MMM= linter in mode-line
+
 **** Org
 - New key binding ~,~ for =org-edit-src-exit= (thanks to david-sawatzke)
 - New key binding ~SPC m i a~ for =org-attach= (thanks to smile12341234)
 - Move ~SPC m e~ to ~SPC m e e~ for =org-export-dispatch=
 - Fix ~o~ on folded headings (thanks to dschoepe)
+
 **** Prodigy
 - Add new key binding ~R~ to refresh buffer (thanks to FrancescElies)
 - Add new key binding ~gf~ to go to file at point (thanks to FrancescElies)
+
 **** Python
 - New layer variable =python-auto-set-local-pyvenv-virtualenv= to autoload
   a virtual env with a =.venv= file (thanks to korayal)
@@ -155,46 +831,59 @@
 - Fix python path with virtualenv on Windows in Python nose package
   (thanks to brenttaylor)
 - Fix python-enable-yapf-format-on-save (thanks to magia)
+
 **** Restclient
 - Add package =ob-restclient= to add =org-babel= support to =restclient=
 - Add helm support to jump to variable or request with ~SPC m j~ (thanks to tko)
 - Add autocompletion for methods and headers (thanks to tko)
 - Add key bindings for jump to next / previous query with ~SPC m n~ and
   ~SPC m p~ (thanks to tko)
+
 **** Ruby-On-Rails
 - Use projectile-rails-global-mode if available (thanks to asok)
+
 **** Rust
 - Add binding for describing symbol at point under ~SPC m h h~
   (thanks to NJBS)
 -  Add key binding to run current Rust file under ~SPC m q~
   (thanks to swaroopch)
 -  Make Racer respect =help-window-select= (thanks to bmag)
+
 **** Scala
 - Update debugger key bindings to meet new conventions
 - Update deprecated =ensime= variable name =user-emacs-ensime-directory=
   (thanks to brakhane)
 - Remove sbt-hydra rename wrapper (thanks to jdnavarro)
+
 **** Scheme
 - Fix void-variable =company-backends-scheme-mode= (thanks to pnagy)
+
 **** Semantic
 - Make Semantic fast (thanks to tudho)
+
 **** Shaders
 - Add support for =company= with =glsl-company= package (thanks to d12frosted)
+
 **** Spell-checking
 - Defer loading of =flyspell-correct-helm= and =flyspell-correct=
   (thanks to ralesi and d12frosted)
+
 **** Themes
 - Add sourcerer theme to themes-megapack (thanks to gilbertw1)
 - Added new base16 themes (thanks to bezhermoso and metamode)
 - Add madhat2r theme to megapack (thanks to madhat2r)
+
 **** Typescript
 - Fix eldoc initialization in typescript layer. (thanks to Stebalien)
+
 **** Version control
 - New layer variable =version-control-diff-side= to set the fringe
   side where to display version control info (thanks to emmanueltouzery)
 - Add a transient state for =smerge-mode= on ~SPC g r~ (thanks to perfectayush)
+
 **** Ymcd
 - Add ycmd-eldoc to ycmd layer (thanks to quicknir)
+
 *** Improvements
 - Improve home buffer responsiveness, add centering for release notes and lists
   (thanks to deb0ch)
@@ -211,21 +900,27 @@
   jgertm, jumarko, jwintz, LemmingAvalanche, lpenz, Melon-Bread, mineo,
   nightuser, nikolaiam, primeos, rodonn, roryokane, rski, skade, smile12341234,
   stratosgear, Trevoke, xiaohanyu, Wiliamvdv, zetok, zhexuany)
+
 ** 0.200.7 (2017/01/02)
 *** Fixes
 - More robust fix for error helm :config: ‘fuzzy-match’ not supported in async sources
+
 ** 0.200.6 (2017/01/01)
 *** Fixes
 - Fix error helm :config: ‘fuzzy-match’ not supported in async sources
+
 ** 0.200.5 (2016/11/03)
 *** Fixes
 - Removed themes missing from MELPA (=colorsarenice-theme= and =stekene-theme=)
+
 ** 0.200.4 (2016/10/26)
 *** Fixes
 - Update go-guru package reflecting MELPA changes
+
 ** 0.200.3 (2016/10/18)
 *** Fixes
 - Fix broken macOS paths for homebrew service (thanks to mgiles)
+
 *** Improvements
 - Add =system-configuration-features= to system description (~SPC h d s~)
   for Emacs 25 and later (thanks to JAremko)
@@ -241,6 +936,7 @@
   d12frosted, d1egoaz, deb0ch, duianto, eagleflo, JAremko, jredville, lunik1,
   mineo, nixmaniack, philtothetop, roryokane, swaroopch, TheBB, Tritlo, tudho,
   xificurC)
+
 *** Layer changes
 **** Spacemacs distribution
 - Add =golden-ratio= toggle key in window transient-state only when
@@ -251,11 +947,14 @@
   =hide-comnt=
 - Add ~q~ key binding to quit the =evil-number= transient-state (thanks to duianto)
 - Activating =linum-relative= now correctly activates =linum= (thanks to deb0ch)
+
 **** C/C++
 - Match entire path after -I when reading cc-file (function
   =spacemacs/company-load-clang-complete-file=) (thanks to jlewallen)
+
 **** Common-lisp
 - Enable fuzzy matching for auto-completion (thanks to tuhdo)
+
 **** D
 - Add support for auto-completion via =DCD= (thanks to tuhdo)
 - Add new key bindings for code navigation:
@@ -263,39 +962,50 @@
   - ~SPC m g b~ to jump back (after go to definition with above command)
   - ~SPC m g r~ to find references to all symbol at point
   (thanks to tuhdo)
+
 **** IPython-notebook
 - Fix deprecated =axes.color_cycle= in =matplotlibrc= (thanks to Retorz)
+
 **** Ivy
 - Fix spacemacs layout transient-state to correctly exit when selecting a layout
   (thanks to gilbertw1)
 - Make =ivy= restrict buffers to current spacemacs layout (thanks to bmag)
+
 **** Elixir
 - Add support for =org-babel= (thanks to usharf)
 - Enable =flycheck= on idle since recent changes to =flycheck-mix= make it safe
   (thanks to aaronjensen)
+
 **** ERC
 - Fix connecting to default servers with TLS more than once with ERC
   (thanks to Hoot215)
+
 **** Git
 - Use =fill-column-indicator= only when the package is effectively used
   (thanks to bmag)
 - Use =magit= 2.8 built-in fullscreen display function (update your
   packages) (thanks to houli)
+
 **** Go
 - Replace deprecated =go-oracle= by =go-guru= (thanks to edrex)
 - Remove check for =GOPATH= when initializing =go-guru= (thanks to goofansu)
 - Fix usage of =go-rename= on symlinked projects (thanks to grncdr)
+
 **** Helm
 - Add key binding ~M-RET~ (meta-return) to open the file =packages.el=
   of a layer in =helm-spacemacs-help= under ~SPC h SPC~ (thanks to CestDiego)
+
 **** Html
 - Fix hooks for CSS-mode since it now derives from =prog-mode= in Emacs 25
   (thanks to TheBB)
+
 **** Javascript
 - Add missing command prefix names (thanks to shanavas786)
+
 **** Ocaml
 - Add =cmti= extension to list of ignored completion extensions
   (thanks to rgrinberg)
+
 **** Org
 - Fix location of =org-async-init.el= (thanks to fintelkai)
 - Add support for =:q= and =:wq= ex commands for abort and finalize in
@@ -303,6 +1013,7 @@
 - Add support for =Twitter Bootstrap= for export to html.
   To enable the support for =bootstrap= set the new layer variable
   =org-enable-bootstrap-support= to =t= (thanks to kalhauge)
+
 **** Nim
 - Add support =nimsuggest= for better completion using Nim's IDE tool
   (thanks to tuhdo)
@@ -311,8 +1022,10 @@
   - ~SPC m g g~ to jump to definition
   - ~SPC m g b~ to jump back
   (thanks to tuhdo)
+
 **** Plantuml
 - Replace deprecated =puml-mode= by =plantuml-mode= (thanks to skuro)
+
 **** Python
 - Fix start of REPL for Emacs 25.1 (thanks to bmag)
 - Make =python-tab-width= configurable (thanks to TheBB)
@@ -323,28 +1036,38 @@
 - Improve =spacemacs/python-execute-file= on ~SPC m c c~ to pre-fill
   "python <filename>" as the compile command when using the universal prefix
   argument ~SPC u SPC m c c~ (thanks to bmag)
+
 **** Ruby
 - Add support for =minitest= test runner (thanks to pawandubey)
+
 **** Ruby on rails
 - Declare prefix command for =ruby-mode= and =enh-ruby-mode= (thanks to selmanj)
+
 **** Scala
 - Remove =ensime= obsolete commands =ensime-db-start= and
   =ensime-db-list-locals= (thanks to atreeyang)
+
 **** Shell-scripts
 - New key binding ~SPC i !~ to insert shebang line in script files using
   package =insert-shebang=
+
 **** Syntax checking
 - Add support for new =flycheck= feature =flycheck-explain-error= on ~SPC e e~
   (thanks to fmdkdd)
+
 **** Typescript
 - Add support for auto-completion (thanks to TheBB)
+
 **** Yaml
 - Add support for syntax checking (thanks to rski)
+
 **** Ycmd
 - Improve search of nearest file in compilation database (thanks to deb0ch)
+
 ** 0.200.2 (2016/10/14)
 *** Fixes
 - Fix compatibility with the =xterm-color= package (thanks to bixuanzju)
+
 ** 0.200.1 (2016/10/09)
 *** Fixes
 - Restore missing support for custom Evil ex command key via the new
@@ -355,36 +1078,47 @@
   =dotspacemacs-install-packages= to =all=
 - core: Fix =spacemacs/ert-run-tests-buffer= to run only the tests in current
   buffer (thanks to bmag)
+
 *** Dotfile changes
 - New variable =dotspacemacs-ex-command-key= to define the key to press
   to enter an Evil ex command, default is ~:~ (thanks to Dietr1ch)
 - Change default value of =dotspacemacs-startup-lists= to =nil=
+
 *** Layer changes
 **** Agda
 - Enable auto-completion (thanks to bixuanzju)
+
 **** Clojure
 - Add support for =org-babel= (thanks to drewokane)
+
 **** Git
 - Adjust linum gutter to accomodate text-size changes (thanks to nspaeth)
+
 **** Html
 - Replace =jade-mode= by =pug-mode= (Jade is now Pug) (thanks to robbyoconnor)
+
 **** Markdown
 - Enable =orgtbl-mode=, this makes working with tables much nicer
   (thanks to robbyoconnor)
+
 **** React
 - Enable =emmet-mode= (thanks to kaipr)
+
 **** Shell
 - Fix shell regular expression to add shell buffers to useful buffers
   (thanks to TheBB)
+
 **** Ycmd
 - Improve performance on large projects by removing buffer parsing on newline
   insertion (thanks to deb0ch)
+
 *** Improvements
 - Add support for transparency in multiple frames (thanks to TGThorax)
 - Add ~J~ and ~K~ key bindings on the home buffer to navigate between widgets
   (thanks to tobimensch)
 - Various documentation improvements (thanks to andschwa, bmag, duianto, jazzpi,
   Tritlo, vigilancer)
+
 ** 0.200.0 (2016/10/02)
 *** IMPORTANT: Breaking changes
 - The support for Emacs 24.3 has been dropped, Spacemacs needs at least Emacs
@@ -441,6 +1175,7 @@
   You have to replace it by =colors-colorize-identifiers 'all=.
 - The =bépo= layer has been replaced by the new layer =keyboard-layout=, see the
   =README.org= of the layer for more info.
+
 *** Hot new features
 - Refactor of the layer system which should reduce startup time by 20~25%.
 - New option to lazy install layers based on =auto-mode-alist= (similar to
@@ -481,6 +1216,7 @@
   - spacemacs-ui
   - spacemacs-ui-visual
   (thanks to justbur)
+
 *** New Layers
 - asm in =+lang= (thanks to thudo)
 - bibtex in =+lang= (thanks to JP-Ellis)
@@ -497,6 +1233,7 @@
 - shaders in =+lang= (thanks to Ell)
 - slack in =+chat= (thanks to kostajh)
 - systemd in =+tools= (thanks to StreakyCobra)
+
 *** Dotfile changes
 **** Changes for variable values and keywords
 - Add new keyword =:packages= for the list of layers in variable
@@ -530,6 +1267,7 @@
 - Remove variable =dotspacemacs-startup-recent-list-size= which has been replaced
   by adding support for cons cells in variable =dotspacemacs-startup-list=
   (thanks to ralesi)
+
 **** New variables
 - New variable =dotspacemacs-enable-lazy-installation= to install a layer only
   when a file with a supported type is opened. Possible values are =all=,
@@ -584,6 +1322,7 @@
 - New variable =dotspacemacs-startup-buffer-responsive= to enable the
   recenter of the home buffer contents when the window is resized.
   (thanks to TheBB)
+
 *** Distribution layer changes
 - Add package =evil-ediff= (thanks to justbur)
 - Add package =evil-visual-mark-mode= (thanks to nixmaniack)
@@ -782,17 +1521,21 @@
 - Start to partition =spacemacs= layers into sub-layers (thanks to justbur)
 - Use two different sets of workspaces for each Spacemacs layout: one set for
   graphical frames, and one set for terminal frames (thanks to bmag)
+
 *** Layer changes
 **** Agda
 - Make it possible to use the layer without =agda-mode= executable
   (thanks to FreeSalad)
+
 **** Ansible
 - Add package =jinja2-mode=
 - Add support for =host_vars= and =group_vars= files (thanks to nixmaniack)
 - Change key binding ~SPC m a ?~ to ~SPC m h a~
+
 **** Assembler
 - Properly deactivate electric mode locally instead of globally
   (thanks to TheBB)
+
 **** Auto-completion
 - New layer variable =auto-completion-complete-with-key-sequence-delay= to
   set the delay in second between the keys of sequence used to select
@@ -812,10 +1555,12 @@
 - Fix auto-complete with key sequence in Hybrid mode (thanks to madand)
 - Remap =evil-complete-previous= to =hippie-expand= (thanks to justbur)
 - Reduce =yasnippet= loading warning (thanks to bixuanzju)
+
 **** AutoHotKey
 - Replace key binding ~SPC m h~ by ~SPC m h h~ (thanks to ralesi)
 - New key binding ~SPC m h H~ to lookup documentation locally in =.chm=
   (thanks to ralesi)
+
 **** Better defaults
 - Add "smart move end of line" behaviour and add two layer variables
   allow for tweaking C-a and C-e behaviours:
@@ -823,15 +1568,19 @@
   - =better-defaults-move-to-end-of-code-first=
   (thanks to deb0ch)
 - Add =fill-or-unfill= on ~M-q~ (thanks to d12frosted)
+
 **** BibTeX
 - Fix key bindings loading and add more navigation options:
   - ~gj~ or ~C-j~ for =org-ref-bibtex-next-entry=
   - ~gk~ or ~C-k~ for =org-ref-bibtex-previous-entry=
   (thanks to cpaulik)
+
 **** C/C++
 - Activate =ycmd-mode= in C files (thanks to deb0ch)
+
 **** Chinese
 - Remove windows checking when using =fcitx= (thanks to zilongshanren)
+
 **** Clojure
 - Add package =clojure-snippets= (thanks to AlejandroCatalina)
 - New key binding ~SPC m s o~ for switching between REPL connections
@@ -856,6 +1605,7 @@
 - Start =cider-debug= in normal state for hybrid style (thanks to sooheon)
 - Fix cider tests functions (thanks to sooheon)
 - Enable =smartparens= in cider (thanks to TheBB)
+
 **** Colors
 - New package =color-identifiers-mode= (thanks to ralesi)
 - New layer variable =colors-colorize-identifiers= supporting the following
@@ -866,12 +1616,14 @@
   - =nil= for no additional colorisation at all
   (thanks to ralesi and curtmack)
 - Fix override of theme values for =rainbow-identifiers= (thanks to ksjogo)
+
 **** Common-Lisp
 - Add package =common-lisp-snippets= (thanks to thudo)
 - Add support for =auto-highlight-symbol= (thanks to AlejandroCatalina)
 - New key binding ~SPC m s I~ to choose lisp implementation with =helm=
   (thanks to kr5x)
 - Fix =slime-eval-last-sexp= is not defined (thanks to 111lll1l1l)
+
 **** CSharp
 - New key bindings
   - ~SPC m g c~ to go to member in current file
@@ -881,21 +1633,27 @@
   (thanks to retran)
 - Enable =evil-matchit= for C-like tags such as preprocessor definitions
   (thanks to andschwa)
+
 **** Dash
 - Rename layer variable =dash-helm-dash-docset-path= to
   =helm-dash-docset-newpath= with default value =~/.docsets= (thanks to nhenezi)
+
 **** Deft
 - Fix create new file with filter text (thanks to andschwa)
+
 **** Docker
 - Add package =docker-tramp= which provides TRAMP access to running docker
   containers (thanks to cpaulik)
 - Add package =docker= which provides basic management of docker images and
   containers (thanks to cpaulik)
+
 **** Elixir
 - Add package =flycheck-mix= (thanks to tomekowal)
 - Remove =ruby-end-mode= and use =smartparens= instead (thanks to mmainz)
+
 **** Elfeed
 - New key binding ~o~ to open links with =ace-jump= (thanks to nixmaniack)
+
 **** Elm
 - New key binding ~SPC m r i~ for =elm-sort-imports= (thanks to tko)
 - New key binding ~SPC m = b~ to format buffer (thanks to AetherLorde)
@@ -903,23 +1661,30 @@
 - Remove ~n~ and ~p~ key bindings from package list mode since they are not
   useful and shadows ~n~ to repeat last search (thanks to tko)
 - Fix auto-complete (thanks to benansell)
+
 **** Emacs Lisp
 - New key binding ~SPC m g G~ to go to definition in other window
 - Fix key binding ~SPC m =~ (thanks to NJBS)
+
 **** ERC
 - New layer variable =erc-server-list= (thanks to jhenahan)
 - Enable lazy loading.
+
 **** ESS
 - Add support for =org-babel= (thanks to cpaulik)
+
 **** Extra languages
 - Add package =thrift= (thanks to secwang)
 - Add package =faust-mode= (thanks to magnetophon)
 - Make =matlab-mode= run =prog-mode-hook= (thanks to TheBB)
+
 **** Games
 - Add package =typit=.
+
 **** Geolocation
 - Rewrite of the layer, see its =README.org= for more info
   (thanks to usharf and declanqian)
+
 **** Git
 + Revamp key bindings to leverage =Magit= dispatch popup and free up some keys
   to be used for other commands:
@@ -952,6 +1717,7 @@
   - ~SPC g l L~ on a region, create a link to the file highlighting the
     selected lines
 + New key binding ~SPC g f h~ to get the commit history of the current file
+
 **** GitHub
 - Add support for =git-link= in =git-timemachine=, this allow to copy
   the SHA-1 or selected lines links for the current commit (thanks to dcluna)
@@ -961,6 +1727,7 @@
   - ~SPC g h c r~ add a remote that is an existing fork of selected remote
   - ~SPC g h c f~ fork remote in current user namespace
   - ~SPC g h c u~ add upstream as remote
+
 **** Go
 - New layer variable =go-tab-width= (thanks to microamp)
 - New key binding ~SPC m g c~ to open a clone of the current buffer with a
@@ -969,8 +1736,10 @@
   =go-use-gometalinter= (thanks to JAremko)
 - Improve indentation (thanks to bogdanteleaga)
 - Show function signatures (thanks to carlosgaldino)
+
 **** Graphviz
 - Add support for =org-babel= (thanks to choppsv1)
+
 **** Gtags
 - Refactoring of the layer to support more languages (thanks to choppsv1 and
   TheBB)
@@ -979,6 +1748,7 @@
 - New key binding ~SPC m g D~ to navigate to definition in another window
   (thanks to NJBS)
 - Remove =helm-gtags= lighter from mode line (thanks to NJBS)
+
 **** Haskell
 - New layer variable =haskell-completion-backend= to select the desired
   completion backend (thanks to d12frosted)
@@ -996,12 +1766,14 @@
 - Remove =structured-haskell-mode= because of poor integration (thanks to
   d12frosted)
 - Remove =ghci-ng= support (thanks to d12frosted)
+
 **** Helm
 - Rename action =Add layer= to =Install layer= in =helm-spacemacs-help=
   (thanks to CestDiego)
 - Fix =helm-source-header= face not updating when changing themes
   (thanks to ghoot)
 - Enable fuzzy matching in all Helm sources (thanks to bling)
+
 **** Html
 - Add prefix command names (thanks to shanavas786)
 - Use built-in =web-mode= pairing (disable =smartparens=) (thanks to TheBB)
@@ -1009,6 +1781,7 @@
 - Make =pug= files use =jade-mode= since Jade is now called Pug
   (thanks to robbyoconnor)
 - Fix =emmet= expansion if =yasnippet= isn’t turned on (thanks to TheBB)
+
 **** Idris
 - New key binding ~SPC m l~ for extracting lemma (thanks to bixuanzju)
 - New key binding ~SPC m c~ for =idris-case-dwim= (thanks to bixuanzju)
@@ -1022,22 +1795,27 @@
   will ask Idris process for completions (thanks to bixuanzju)
 - Enable =auto-completion= in REPL (thanks to bixuanzju)
 - Disable =golden-ratio= in holes buffer (thanks to houli)
+
 **** IPython-notebook
 - Move transient state key binding to ~SPC m .~
 - Evilify notebooklist buffer
 - Fix loading of keymap (thanks to TheBB)
+
 **** Jabber
 - Add support for evilified key bindings (thanks to mssun)
 - Don't overwrite mini-buffer when active (thanks to toshism)
+
 **** Java
 - Add support for =eclimd= with new key bindings:
   - ~SPC m d s~ to start daemon
   - ~SPC m d k~ to stop daemon
  (thanks to elken)
+
 **** JavaScript
 - Add REPL via =skewer-mode= and =livid-mode= (thanks to dcluna)
 - Fix offset detection in js2-mode (thans to TheBB)
 - Diminish =tern= and =skewer= modes (thanks to cpaulik)
+
 **** LaTeX
 - Add prefix command names (thanks to NJBS)
 - New key bindings for fill and uncomment:
@@ -1049,12 +1827,14 @@
   - ~SPC m f s~ to fill LaTeX section
   (thanks to kccai)
 - New key binding ~SPC m a~ for =TeX-command-run-all= (thanks to kccai)
+
 **** Markdown
 - New layer variable =markdown-live-preview-engine=, Possibe values are =eww=
   (built-in browser) or =vmd= (installed with =npm=)
 - Add package =vmd-mode= (thanks to bixuanzju)
 - New key binding ~SPC m c P~ to live preview in Emacs' built-in browser
   (thanks to lunaryorn)
+
 **** mu4e
 - Add package =mu4e-maildirs-extension= (thanks to choppsv1)
 - Add package =mu4-alert= (thanks to zakkak)
@@ -1066,6 +1846,7 @@
 - Enable =org-mu4e= (thanks to choppsv1)
 - Use =helm--completing-read-default= (thanks to jeizsm)
 - Improve set account by "to" field (thanks to sorpaas)
+
 **** OCaml
 - New key binding ~SPC m = ~ to indent buffer with =ocp-indent= (thanks to NJBS)
 - New key binding ~SPC m g o~ to list occurrences for identifier under point
@@ -1076,6 +1857,7 @@
 - Remove unused =flycheck= config, merlin is capable of doing it
   (thanks to bixuanzju)
 - Fix override of =exec-path= by =utop= configuration (thanks to bixuanzju)
+
 **** Org
 - Add package =org-reveal= (thanks to knl)
 - Add local package =space-doc-mode= to improve org files readability
@@ -1115,20 +1897,25 @@
 - set =org-image-actual-width= to nil which allows to resize images in an org
   buffer.
 - Follow the confirm and abort conventions (thanks to myrjola)
+
 **** OSX
 - Add package =osx-dictionary= (thanks to nixmaniack)
 - New layer variable =osx-use-dictionary-app= to use OS X dictionary app
   instead of wordnet. Default value is =t=. (thanks to nixmaniack)
 - Support pasting text with ~s-v~ in terminals (thanks to lyallcooper)
+
 **** NixOS
 - Add =nix-mode= to variable =spacemacs-indent-sensitive-modes= to disable
   automatic indentation on pasting text (thanks to Profpatsch)
+
 **** Pdf-tools
 - New key bindings ~0~ and ~$~ to full left and right scroll
   (thanks to Andre0991)
 - New key binding ~zr~ to reset zoom factor (thanks to Andre0991)
+
 **** Puppet
 - Use =ruby-mode= for Puppetfile support (thanks to nwolfe)
+
 **** Purescript
 - Add package =flycheck-purescript= (thanks to diogob)
 - New key binding ~SPC m g g~ (thanks to kRITZCREEK)
@@ -1153,6 +1940,7 @@
   (thanks to kRITZCREEK)
 - Fix org layout if there is no agenda files and display an error message
   (thanks to TheBB)
+
 **** Python
 - Add package =live-py-mode= (thanks to cpaulik)
 - Add package =py-isort= to sort the imports (thanks to swaroopch)
@@ -1183,15 +1971,18 @@
 - Set =comment-inline-offset= to 2 for =python-mode= Since python's PEP8
   recommends two spaces for inline spaces (thanks to xiaohanyu)
 - Set breakpoints correctly when =pyenv= is used (thanks to cpaulik)
+
 **** React
 - Add support for =smartparens= (thanks to axyz)
 - Add "^import React" to =magic-mode-alist= (thanks to axyz)
 - Add =javascript-standard= as a =flycheck= checker (thanks to shahinism)
 - Use node_modules version of eslint or global if not available (thanks axyz)
+
 **** Restclient
 - Add package =ob-http=.
 - New key binding ~SPC m y~ to copy the query around point as a =curl= command
   (thanks to d1egoaz)
+
 **** Ruby
 - Add package =rake= with key bindings:
   - ~SPC m k k~ to runs rake
@@ -1211,8 +2002,10 @@
 - Fix =chruby= configuration to find out the ruby version to use (thanks to asok)
 - Enter automatically =inf-ruby-mode= when an =rspec= compilation hits a
   breakpoint (thanks to dcluna)
+
 **** Ruby on Rails
 - Add =which-key= prefixes (thanks to ralesi)
+
 **** Rust
 - Remove layer variable =rust-enable-racer=, now =racer= is always used
   (thanks to fbergroth)
@@ -1228,6 +2021,7 @@
   (thanks to dmit)
 - Add support for =Cargo.lock= and =.cargo/config= files for =toml-mode=
   (thanks to Stebalien)
+
 **** Scala
 - Add support for =org-babel= (thanks to tonylotts)
 - New layer variable =scala-use-unicode-arrows= to replace ASCII arrows
@@ -1237,8 +2031,10 @@
 - Use scala-mode instead of scala-mode-2 which is deprecated
   (thanks to j-martin)
 - Fix dot completion bug (thanks to gilbertw1)
+
 **** Search-engine
 - Denote all search functions as autoloadable (thanks to TheBB)
+
 **** Shell
 - New =eshell-z= package (thanks to CestDiego)
 - New layer variable =shell-default-full-span=, if non-nil, the shell buffers
@@ -1254,20 +2050,25 @@
 - Fix =projectile-multi-term-in-root= (~SPC p $ t~) (thanks to TheBB)
 - Enable auto-jump to end of buffer in hybrid style (thanks to TheBB)
 - Disable =global-hl-line-mode= in =shell-like= buffers (thanks to TheBB)
+
 **** Shell-scripts
 - Add package =company-shell= (thanks to joehillen)
 - Enable =flycheck= in =sh-mode= (thanks to fbergroth)
 - New key binding ~SPC m \~ for =sh-backslash-region= to add a backslash at
   end of lines (thanks to fbergroth)
+
 **** SML
 - Improve indentation by binding ~RET~ to =reindent-then-newline-and-indent=
   (thanks to cpaulik)
+
 **** Spell-checking
 - Use package =flyspell-correct= instead of =helm-flyspell=
   (thanks to d12frosted)
 - Add package =flyspell-popup= (thanks to usharf)
+
 **** Spotify
 - Enable lazy loading
+
 **** Syntax-checking
 - New key binding ~SPC e L~ to open the errors buffer and switch to it.
 - Improve =flycheck= loading process (thanks to TheBB)
@@ -1275,10 +2076,13 @@
 - Don't switch to =error-list= window if already on it (thanks to bmag)
 - Fix bug where errors are not filtered correctly when setting
   =flycheck-navigation-minimum-level= (thanks to maxigit)
+
 **** Themes-megapack
 - Add theme =Darkokai= (thanks to ekmecic)
+
 **** Tmux
 - Fix =golden-ratio= (thanks to TheBB)
+
 **** Typescript
 - Rewrite of the layer, see its =README.org= for more info (thanks to JAremko)
 - New key binding ~SPC m s p~ to send region or buffer to the web playground
@@ -1287,19 +2091,24 @@
 - Add support for =evil-shift-width= (thanks to TheBB)
 - Allow =tsfmt= to use the local project's configuration (thanks to overminder)
 - Swap ~C-j~ and ~C-k~ in tide reference mode (thanks to zilongshanren)
+
 **** Version-control
 - Fix git gutter toggle (thanks to ralesi)
 - Fix errors with graphical elements in daemon mode (thanks to TheBB)
+
 **** Vim-unimpaired
 - Keep the point at the same location when calling
   =evil-unimpaired/insert-space-above= and =evil-unimpaired/insert-space-below=
   (thanks to jschaf)
 - New key bindings ~] q~ and ~[ q~ for =spacemacs/next-error= and
   =spacemacs/previous-error= (thanks to bling)
+
 **** Windows-scripts
 - Add support for =.cmd= and =.psm1= files (thanks to ralesi)
+
 **** Yaml
 - Fix auto-completion (thanks to perfectayush)
+
 *** Core Changes
 - Refactor layer system to allow a 20~25% performance boost on startup.
 - Move bootstrap packages from =core-spacemacs.el= to a new layer called
@@ -1390,6 +2199,7 @@
 - Optimize function =spacemacs//get-package-directory= (thanks to ivanbrennan)
 - Improving performance by avoiding to visit dump files in function
   =spacemacs/dump-vars-to-file= (thanks to bmag)
+
 *** Other fixes and improvements
 - Fix all documentation links on GitHub (thanks to JAremko)
 - Improve Spacemacs themes readability of highlight-persist and smartparens
@@ -1407,18 +2217,22 @@
   trenpixster, voidlily, WillianPaiva, WuTheFWasThat, xiaohanyu, xfq, zifeo,
   zjyjer)
 - Other contributions (thanks to hujianxin, nixmaniack)
+
 *** Core team members
 **** Current
 - Sylvain Benner (syl20bnr)
 - Boris (thanks to d12frosted)
 - Eivind Fonn (thanks to TheBB)
+
 **** Old
 - Fabien Dubosson (StreakyCobra)
 - Justin Burkett  (thanks to justbur)
+
 * Release 0.105.x
 ** 0.105.22 (2016/08/19)
 *** Fixes
 - Rename the =emacs-eclim= package to =eclim= (thanks to CestDiego)
+
 ** 0.105.21 (2016/06/08)
 *** Fixes
 - Fix hybrid state when escaping to normal state
@@ -1428,9 +2242,11 @@
 - Fix =scala= layer
   - Use =scala-mode= instead of =scala-mode2= (thanks to j-martin)
   - Fix =sbt= command to generate =ensime= configuration (thanks to d1egoaz)
+
 ** 0.105.20 (2016/05/10)
 *** Fixes
 - Update Spaceline configuration for new version
+
 ** 0.105.19 (2016/04/20)
 *** Fixes
 - Fix =dired-x= autoload (thanks to darkfeline)
@@ -1450,69 +2266,89 @@
 - Discover layers before running dotfile tests when reloading the
   configuration, prevents false negatives (thanks to TheBB)
 - Remove duplicated configuration for =eldoc= (thanks to zilongshanren)
+
 *** Layer changes
 **** Clojure
 - Fix usage of deprecated =cider-turn-on-eldoc-mode=, using =eldoc-mode=
   instead (thanks to tekacs and sooheon)
+
 **** Elm
 - Fix text copy/paste
 - Fix auto-completion
+
 **** Javascript
 - Improve detection of =tern= binary, if =tern= is not found a message
   is displayed in the =*Messages*= buffer (thanks to nixmaniack)
+
 **** Go
 - Fix execution of tests with function names containing underscores
   (thanks to jaffee)
+
 **** Python
 - Use MELPA version of =py-yapf= package (thanks to cpaulik)
 - Fix =makefile= of =pylookup= (thanks to hemcsec)
 - Disable =semantic-idle-summary= which obfuscates =anaconda= information
   in the minibuffer (thanks to cpaulik)
+
 **** Scala
 - Fix =ensime-typecheck-current-file=, rename it to
   =ensime-typecheck-current-buffer=
 - Fix =scala-enable-eldoc-mode=, rename it to =scala-enable-eldoc=
   (thanks to channingwalton)
+
 **** Shell
 - Fix error when attempting to delete the last shell window
   (thanks to joelmccracken)
+
 **** Tmux
 - Fix loading of package (thanks to aaronjensen)
+
 **** Vinegar
 - Correct =dired= configuration (thanks to StreakyCobra)
+
 *** Improvements
 - Various documentation improvements (thanks to d12frosted, gilch, ksrb,
   nixmaniack, StreakyCobra, TheBB, The-Compiler, xiaohanyu)
+
 ** 0.105.18 (2016/04/10)
 - Revert hotfix for =Yasnippet=, the bug has been fixed upstream and is now
   available in MELPA (thanks to TheBB)
 - Remove obsolete package =evil-jumper= which is now part of =evil=
   (thanks to justbur)
+
 ** 0.105.17 (2016/04/09)
 - Hotfix for Yasnippet, using stable version until resolution of
  https://github.com/capitaomorte/yasnippet/issues/673
+
 ** 0.105.16 (2016/04/01)
 - Add FAQ entry about HTTPS issues (thanks to TheBB)
 - Add startup list to Zemacs home buffer.
+
 ** 0.105.15 (2016/04/01)
 *** Improvements
 - Emacs to THE MAX! Release of Zemacs!
+
 *** Layer changes
 **** Javascript
 - New layer variable =javascript-disable-tern-port-files=, when non nil
   tern port files are not created. Default value is nil. (thanks to mijoharas)
+
 **** Swift
 - Fix all =swift= major-mode key bindings (thanks to xinranmsn)
+
 ** 0.105.14 (2016/03/09)
 *** Fixes
 - Fix bad window index for =neotree= buffer (thanks to bmag)
 - Fix error when using ~SPC p l~ right after Emacs started (thanks to bixuanzju)
+
 *** Layer changes
 **** Go
 - Fix bug when there is no test suite when running tests
   (thanks to bogdanteleaga)
+
 **** React
 - Fix broken =helm-imenu= (thanks to huaoguo)
+
 *** Improvements
 - Various documentation improvements (thanks to triklsbg)
 
@@ -1520,9 +2356,11 @@
 *** Fixes
 - Fix smooth-scroll toggling at startup (thanks to TheBB)
 - Fix auto-completion toggle ~SPC t a~ (thanks to TheBB)
+
 *** Layer changes
 **** Clojure
 - Fix function name =cider-pop-back= (thanks to mlachmih)
+
 **** Scala
 - Fix various function names:
   - =ensime-refactor-diff-organize-imports=
@@ -1530,56 +2368,73 @@
   - =ensime-refactor-diff-rename=
   - =ensime-refactor-diff-extract-local=
   (thanks to TheBB)
+
 *** Improvements
 - Reformat =README.md= title section.
 - Add a GitHub pull request template (thanks to robbyoconnor)
+
 ** 0.105.12 (2016/03/02)
 *** Fixes
 - Fix activation of package dependencies
 - Fix =smooth-scrolling= error due to recent changes in package repository
+
 *** Layer changes
 **** Distribution
 - New key binding ~SPC t v~ to toggle smooth scrolling.
+
 **** C-C++
 - Add notes on related layers (thanks to magthe)
 - Remove srefactor from static package list (thanks to magthe)
 - Set paths for C headers from clang (thanks to magthe)
+
 **** Evil-snipe
 - Disable =evil-snipe= in =ranger= (thanks to TheBB)
+
 **** Haskell
 - Fix bad indentation when pasting text (thanks to robbyoconnor)
+
 **** Markdown
 - Add support for =rust= code blocks (thanks to panicbit)
+
 **** Org
 - Fix custom Spacemacs layout when =org-agenda-files= isn't a list.
   The org-agenda-files variable can be the name of a directory or a file.
   (thanks to jmiven)
+
 **** Osx
 - Fix =osx-use-options-as-meta= for Emacs 25 (thanks to d12frosted)
+
 **** React
 - make =evil-matchit= jump between html/jsx tags (thanks to tko)
+
 **** Racket
 - Add command prefix names for =racket-mode= key bindings
   (thanks to rodrigosetti)
+
 **** Scala
 - Rename =ensime-refactor-inline-local= to =ensime-refactor-diff-inline-local=
   (thanks to chessman)
+
 **** Shell
 - Fix reverse key bindings for comint-previous/next (thanks to olejorgenb))
 - Scope the aliases under =eshell= so they are not defined globally
   (thanks to bling)
+
 **** Themes megapack
 - Add =railscasts-theme= (thanks to olsonjeffery)
+
 *** Improvements
 - Improve =toggle-maximize-centered-buffer= (thanks to justbur)
 - Add =display-graphic-p= to ~SPC h d s~ (thanks to TheBB)
 - Various documentation improvements (thanks to d12frosted, davbo, marcopaga,
   microamp, nixmaniack, NJBS, SShrike, TheBB, Tinche, triklsbg, xfq)
+
 ** 0.105.11 (2016/02/18)
 Improve loading robustness:
 - When an ELPA repository is down Spacemacs will now be able to finish loading
 - Spacemacs will use the default theme (i.e. no theme) if there is any error
   during the download of the starting theme.
+
 ** 0.105.10 (2016/02/18)
 *** Fixes
 - Fix re-toggle of fullscreen when pressing ~SPC f e R~ (thanks to MadAnd)
@@ -1591,6 +2446,7 @@ Improve loading robustness:
 - Restore windows layout when quitting =ediff= (thanks to fbergroth)
 - Ensure that =pcache-directory= ends in a slash (thanks to rpglover64)
 - Ensure new Spacemacs layouts only shows home buffer (thanks to bmag)
+
 *** Improvements
 - Add a bug report template for GitHub issues on ~SPC h I~
   (thanks to StreakyCobra)
@@ -1605,60 +2461,81 @@ Improve loading robustness:
 - Various documentation improvements (thanks to balajisivaraman, crododile,
   darkfeline, ernestas, franciscoj, j4, kRITZCREEK, nixmaniack, numkem,
   robbyoconnor, TheBB, tonylotts)
+
 *** Layer changes
 **** Auto-completion
 - Better choice of =company= front-ends (thanks to fbergroth)
+
 **** C-C++
 - Get =clang= args even if =flycheck= isn't installed (thanks to TheBB)
+
 **** Clojure
 - Fix renamed =cider-test-run-tests= function (thanks to AlejandroCatalina)
 - Substitute =align-cljlet= with =clojure-align=. =align-cljlet= was deprecated
   in favour of the vertical alignment in the clojure-mode package (thanks to
   vise890)
+
 **** Elm
 - Fix =flycheck= not working on sub-directories (thanks to AlejandroCatalina)
+
 **** ERC
 - Fix initialisation of =erc-terminal-notifier= (thanks to Andre0991)
+
 **** Gnus
 - Remove =gnus-fetch-old-headers= customization which was causing slowdown
   while consulting some newsgroups (thanks to StreakyCobra)
+
 **** Haskell
 - Fix broken =hoogle-lookup-from-local= (thanks to jb55)
+
 **** Html
 - Remove =.jsx= from =web-mode= auto mode alist (thanks to lunaryorn)
+
 **** Org
 - Remove ~H~ and ~L~ key bindings from =evil-org= (thanks to choppsv1)
+
 **** Python
 - Add missing =py-yapf= configuration (thanks to TheBB)
 - Enable =anaconda-eldoc-mode= (thanks to TheBB)
 - Only load =pyenv= if it is installed (thanks to cpaulik)
+
 **** Racket
 - Disable =company-quickhelp-mode= only when it is already enabled
   (thanks to syohex)
+
 **** React
 - Disable auto-quote of attributes (thanks to TheBB)
 - Fix react magic mode, it will now recognize =/** @jsx React.DOM */= in the
   first line of a file (thanks to EMayej)
+
 **** Ruby
 - Use =popwin= for =rspec= compilations (thanks to joshcass)
 - Do not force =rspec-mode= on ruby files (thanks to morhekil)
+
 **** Rust
 - Fix indentation setting for =evil-shift-width= (thanks to Stebalien)
+
 **** Shell
 - Set the correct shell-pop size variable (thanks to TheBB)
+
 **** Themes-megapack
 - Add =dracula= theme (thanks to MarkRedeman)
 - Add =omtose-phellack= theme (thanks to duien)
 - Add =majapahit= theme (thanks to kostajh)
+
 **** Tmux
 - Fix key bindings ~C-h~, ~C-j~, ~C-k~ and ~C-l~ (thanks to justbur)
+
 **** Vagrant
 - New key binding ~SPC V R~ to reload to restart VMs (thanks to kostajh)
+
 **** Version control
 - Fix bugs due to wrong mode for =diff-hl= margin (thanks to abaw)
 - Fix =git-gutter= linum setup (thanks to person808)
+
 **** Wakatime
 - Fix wakatime-dashboard url (thanks to hallfox)
+
 ** 0.105.9 (2016/01/17)
 *** Improvements
 - Fix error on Microsoft Windows 10 OS regarding missing =printf= command
@@ -1671,25 +2548,31 @@ Improve loading robustness:
 - Remove unused =init-dired+= function (thanks to AlejandroCatalina)
 - Various documentation improvements (thanks to balajisivaraman, jcppython,
   jmiven, jorisE)
+
 *** New conventions
 - =use-package= code guidelines
 - Key bindings documentation only need to mention ~SPC~ prefix
+
 *** Layer changes
 **** Markdown
 - Add syntax highlighting for =R= code blocks (thanks to rustyplanet)
+
 **** Org
 - Fix early creation of empty =org= directory (thanks to tboby)
 - Add default key binding ~C-c c~ for =org-capture=
   (thanks to AlejandroCatalina)
+
 **** Spacemacs
 - Add =bracketed-paste= package to improve pasted text in terminals
   (thanks to AlejandroCatalina)
+
 ** 0.105.8 (2016/01/12)
 *** Fixes
 - Fix the red mode-line when error occurs during loading
 - Fix and improve layer templates and layer creation (thanks to chrisbarrett)
 - Fix and simplify copyrights in file headers
 - Fix =.gitignore= pattern for =private= directory (thanks to jballanc)
+
 *** Improvements
 - New key binding ~SPC h d l~ to describe the last key pressed, useful
   when reporting a bug (thanks to StreakyCobra)
@@ -1698,80 +2581,103 @@ Improve loading robustness:
   (ivy completion engine will be available in 0.106) (thanks to StreakyCobra)
 - Add link to =BountySource= page to =README.md= (thanks to houli)
 - Move =request= storage folder to =.cache= directory
+
 *** Layer changes
 **** Markdown
 - Add support for javascript code blocks syntax highlighting
   (thanks to AlejandroCatalina)
+
 ** 0.105.7 (2016/01/11)
 *** Fixes
 - Fix missing ~q~ key binding in the home buffer introduced in =0.105.5=
   (thanks to justbur)
+
 **** ERC and RCIRC layers
 - Properly add all opened buffers to custom layouts
   (thanks to AlejandroCatalina)
+
 **** Go layer
 - Prevent from clobbering environment variables if already set (thanks to whilp)
+
 **** Haskell
 - Remove reference to undefined function =haskell-cabal-hook=
   (thanks to chrisbarrett)
+
 **** Python layer
 - Fix errors when reading =.python-version= files (thanks to fbergroth)
+
 *** Dotfile changes
 - New variable =dotspacemacs-scratch-mode= to configure the default major-mode
   for the scratch buffer, default value is =text-mode= (thanks to TheBB)
+
 *** Improvements
 - Display a list of packages to update when pressing the =[Update packages]=
   in the home buffer
 - Add highlight of TODOs in text mode files (thanks to StreakyCobra)
 - Various documentation improvements (thanks to StreakyCobra, TheBB)
+
 ** 0.105.6 (2016/01/09)
 *** Fixes
 - Fix shadowed ~TAB~ (~C-i~) key in terminal (thanks to StreakyCobra)
+
 ** 0.105.5 (2016/01/08)
 *** Fixes
 **** Core
 - Fix unavailable major mode leader keys in =evilified= buffers
   (thanks to justbur)
 - Fix ~b~ key binding on home buffer (thanks to justbur)
+
 *** Layer changes
 **** Spacemacs
 - Bind =evil-jumper/forward= to =<C-i>= to make it work when
   =dotspacemacs-distinguish-gui-tab= is non nil (thanks to TheBB)
+
 **** Auto-completion
 - Add =~/.spacemacs.d/snippets= directory to the snippet sources of
   yasnippet.
 - Don't enter =evil-insert-state= after =aya-expand= when =holy-mode= if active
   (thanks to abaw)
+
 ** 0.105.4 (2016/01/07)
 *** Fixes
 **** Core
 - Fix home buffer obfuscating opened file when Emacs starts (thanks to justbur)
+
 **** Ruby layer
 - Fix =rbenv= loading (thanks to TheBB)
+
 **** Spacemacs layouts
 - Fix jumping to last layout when the last layout is the default layout
   (thanks to TheBB)
+
 **** Yasnippet
 - Fix and improve =yasnippet= loading (thanks to TheBB)
+
 ** 0.105.3 (2016/01/06)
 *** Fixes
 **** Emacs lisp layer
 - Fix wrong hook for adding evil text objects (thanks to justbur)
+
 **** Ledger
 - Fix missing major mode key bindings (thanks to travisbhartwell)
+
 **** Ocaml
 - Fix smartparens configuration (thanks to edwintorok)
+
 *** Layer changes
 **** Spacemacs
 - Improve robustness of =spacemacs/toggle-transparency= function
   (thanks to justbur)
+
 *** Other improvements
 - Fix layer install section in all layers READMEs to be more explicit
   and remove a source of confusion for new comers (thanks to mattbaker)
 - Typos and documentation improvements (thanks to d12frosted)
+
 ** 0.105.2 (2016/01/05)
 - Fix empty mode-line when a new Spacemacs version is available
   (thanks to TheBB)
+
 ** 0.105.1 (2016/01/05)
 *** Fixes
 - Fix and improve support for GUI clients using a server started with
@@ -1781,23 +2687,31 @@ Improve loading robustness:
   - Fix theme colors (most of them)
   - Fix Spacemacs logo in home buffer
   - Add support for graphical Nyan Cat
+
 **** Spacemacs layer
 - Fix broken =evil-escape-mode= when toggling =holy-mode= (emacs style)
+
 **** Bépo layer
 - Fix support for Magit (thanks to StreakyCobra)
+
 **** Magit layer
 - Fix ~TAB~ key bindings to expand/collapse sections (thanks to justbur)
+
 **** Scala layer
 - Fix a typo in function name =scala-auto-insert-asterisk-in-comments=
   (thanks to lunaryorn)
+
 *** Layer changes
 **** Spacemacs
 - New key binding ~SPC h n~ to browse the Emacs news (thanks to lunaryorn)
+
 **** Themes megapack
 - Add =monokai= theme (thanks to jonboiser)
+
 *** Other improvements
 - Typos and documentation improvements (thanks to mjs2600, person808,
   robbyoconnor, StreakyCobra, TheBB and xfq)
+
 ** 0.105.0 (2016/01/04)
 *** IMPORTANT - Breaking changes
 - ~SPC l~ for =avy-goto-line= is now under ~SPC y~. ~SPC l~ is for
@@ -1817,6 +2731,7 @@ Improve loading robustness:
 - Ruby: the default major mode is now the Emacs built-in =ruby-mode=.
   If you want to continue to use =enh-ruby-mode= set the layer variable
   =ruby-enable-enh-ruby-mode= to =t=.
+
 *** Hot new features
 - Spacemacs layouts under ~SPC l~ with =eyebrowse= integration
   (thanks to CestDiego, bmag and TheBB)
@@ -1830,12 +2745,14 @@ Improve loading robustness:
   - =--insecure= to disable https when fetching ELPA packages.
   - =--debug-init= (built-in Emacs parameter) now enable Spacemacs verbose
     messages when Emacs is loading.
+
 *** Other important notes
 - All =extensions= directories have been renamed to =local=. =extensions=
   directories will be deprecated in 0.106.0.
 - The =evil-leader= functions =evil-leader/set-key= and
   =evil-leader/set-key-for-mode= are now obsolete and will be deprecated
   in a future version.
+
 *** New conventions
 - Commit and abort commands conventions:
   - ~SPC m ​,​~ and ~SPC m c~ to Valid/Confirm
@@ -1843,6 +2760,7 @@ Improve loading robustness:
   (thanks to StreakyCobra)
 - Update evilified state rebinding conventions:
   ~SPC~ to ~​'​~, ~/~ to ~\~ and ~:~ to ~|~
+
 *** New Layers
 - bepo in =keyboard-layouts= (thanks to StreakyCobra)
 - command-log in =tools= (thanks to bmag)
@@ -1858,6 +2776,7 @@ Improve loading robustness:
 - theming (thanks to TheBB)
 - typography (thanks to lunaryorn)
 - vimscript in =lang= (thanks to ralesi)
+
 *** Dotfile changes
 - New variable =dotspacemacs-elpa-https= if non nil use HTTPS otherwise
   use HTTP. Default is t.
@@ -1884,6 +2803,7 @@ Improve loading robustness:
   =changed= or =nil=. Default is =changed= (thanks to nixmaniack)
 - Remove =dotspacemacs-verbose-loading=, it is now enabled automatically
   with the command line parameter =--debug-init=
+
 *** Distribution layer changes
 - New key binding ~SPC *~ to search for current selection or symbol under point
   in the current project. ~SPC /~ is similar but does not auto-fill the search
@@ -1998,15 +2918,18 @@ Improve loading robustness:
 - Disable version control integration of =Neotree= by setting
   =neo-vc-integration= to =nil= (thanks to synic)
 - Make google translate language code case-insensitive (thanks to lislon)
+
 **** Helm-spacemacs
 - Add =add to dotfile= action on a layer (thanks to CestDiego)
 - Add action to open =.org= files for editing (thanks to TheBB)
 - Add FAQ source (thanks to StreakyCobra)
 - Beautify sources (thanks to TheBB)
+
 **** Evilified map
 - Fix shadowed keys in minibuffer
 - Fix bug where key bindings could be unexpectedly redefined
   (thanks to darkfeline)
+
 *** Layer changes
 **** Auto-completion
 - Add =helm-company= package available on ~C-/~ while company popup is active
@@ -2016,14 +2939,18 @@ Improve loading robustness:
   (thanks to TheBB)
 - Make =auto-yasnippet= points to private directory by default
   (thanks to taiansu)
+
 **** Better defaults
 - Fix =spacemacs/backward-kill-word-or-region= with rectangular selection
   (thanks to bmag)
+
 **** C/C++
 - Fix flycheck clang args loading (thanks to zhengyangfeng00)
+
 **** Chinese
 - Add =fcitx= support (thanks to zilongshanren)
 - Add pinyin support for =avy-goto-char= (thanks to CodeFalling)
+
 **** Clojure
 - New key binding ~SPC m s I~ for =cider-jack-in-clojurescript=
   (thanks to benalbrecht)
@@ -2032,8 +2959,10 @@ Improve loading robustness:
   (thanks to mbertheau)
 - Use =cljr--all-helpers= for automatic setup of refactoring key bindings
   (thanks to grammati)
+
 **** Dash
 - Enable =zeal= on =Microsoft Windows= (thanks to dotneter-)
+
 **** Elixir
 - New key binding ~SPC m s c~ to compile the current buffer in the IEx process
   (thanks to timbuchwaldt)
@@ -2043,9 +2972,11 @@ Improve loading robustness:
 - Bind ~q~ to =quit-window=in various elixir modes (thanks to utkarshkukreti)
 - Enable =company-mode= in =alchemist-iex-mode= (thanks to utkarshkukreti)
 - Fix =ruby-end= hook removal (thanks to TheBB)
+
 **** Elm
 - Fix incorrect command for =elm-repl-load= (thanks to holguinj)
 - Fix key bindings for REPL commands updated upstream (thanks to tcallan)
+
 **** Emacs lisp
 - Add =auto-compile= package (thanks to justbur)
 - New key bindings for compilation:
@@ -2053,23 +2984,29 @@ Improve loading robustness:
   ~SPC m c l~ to popup compile-log buffer
   (thanks to justbur)
 - Add ~q~ to exit =macrostep= (thanks to ralesi)
+
 **** Erc
 - Fix notification icon (thanks to aminb)
 - Fix erroneous micro-state key binding (thanks to StreakyCobra)
+
 **** Ess
 - Simplify the configuration of ESS minor modes (thanks to izahn)
 - ~SPC m s i~ now automatically start the correct REPL for the current
   buffer (thanks to izahn)
 - Fix company activation (thanks to michelk)
+
 **** Evil-snipe
 - Update =evil-snipe= mode names (thanks to person808)
+
 **** Eyebrowse
 - Add ~h~ and ~l~ bindings to eyebrowse micro-state (thanks to TheBB)
 - Fix workspace numbers, the first workspace now starts at 1 instead of 0
   (thanks to d12frosted)
 - Fix call to =eyebrowse-rename= (thanks to TheBB)
+
 **** Games
 - Add =Pacmacs= game (thanks to CestDiego)
+
 **** Git
 - New key binding scheme using =evil-magit= package (thanks to justbur)
 - New key binding ~SPC g i~ for =magit-init= (thanks to CestDiego)
@@ -2095,9 +3032,11 @@ Improve loading robustness:
 - Add =gr= and =gR= bindings to refresh in evilified Magit buffers
 - Deactivate =evil-snipe= mode which messes with =magit= buffer (thanks to
   cpaulik)
+
 **** Github
 - New key binding ~SPC g c~ to clone and optionally fork repository
   (thanks to cpaulik)
+
 **** Go
 - New key binding ~SPC m x x~ to run =go run= for the current main package
   (thanks to sectorzero)
@@ -2108,6 +3047,7 @@ Improve loading robustness:
   (thanks to bogdanteleaga)
 - Import =GO15VENDOREXPERIMENT= from environment variables
   (thanks to sectorzero)
+
 **** Haskell
 - New key binding ~SPC m h H~ to do a local (not using internet) Hoogle lookup
   (thanks to jb55)
@@ -2137,6 +3077,7 @@ Improve loading robustness:
 - Remove indentation guides to comply with latest haskell-mode
   (thanks to PierreR)
 - Remove =haskell-indentation-mode= hook (thanks to d12frosted)
+
 **** Html
 - Add =company-css= backend in =web-mode= (thanks to TheBB)
 - Enable Emmet tab expansion in hybrid mode (thanks to geo7)
@@ -2145,10 +3086,13 @@ Improve loading robustness:
 - Mark =css-indent-offset= as safe local variable (thanks to lunaryorn)
 - Fix =smartparens= loading (thanks to TheBB)
 - Fix erroneous micro-state key binding (thanks to StreakyCobra)
+
 **** Idris
 - Use popwin and motion state for special buffers (thanks to holguinj)
+
 **** Javascript
 - Add evil-matchit support for js files (thanks to robbyoconnor)
+
 **** LaTeX
 - New layer variable =latex-enable-folding= to enable text folding, default
   value is =nil= (thanks to justbur)
@@ -2188,17 +3132,21 @@ Improve loading robustness:
 - Disable =typo= (thanks to TheBB)
 - Fix enabling of minor modes =TeX-source-correlate-mode= and =TeX-PDF-mode=
   (thanks to justbur)
+
 **** Markdown
 - New key binding ~SPC m x C~ to insert github flavored code block
   (thanks to lunaryorn)
 - Include missing =gh-md= package (thanks to tko)
+
 **** Nim
 - Use MELPA version of =flycheck-nim= package (thanks to Gonzih)
 - Remove package =company-nim= which is now part of =nim-mode=
   (thanks to robbyoconnor)
+
 **** Ocaml
 - Fix error when initializing =opam= (thanks to TheBB)
 - Make OCaml generated files invisible to completion (thanks to StreakyCobra)
+
 **** Org
 - New key bindings:
   - ~SPC m <dotspacemacs-major-mode-leader-key>~ for =org-ctrl-c-ctrl-c=
@@ -2220,15 +3168,19 @@ Improve loading robustness:
 - Enable =flyspell= by default (thanks to robbyoconnor)
 - Move =evil-org= to a local package (thanks to TheBB)
 - Move =.org-id-locations= to cache directory (thanks to fandag)
+
 **** Osx
 - Fix search for =GNU ls= (thanks to lunaryorn)
 - Use =osx-trash= package to handle deleted items (thanks to lunaryorn)
 - Make =mdfind= the default backend for =helm-locate= (thanks to Andre0991)
 - Set font =Apple Color Emoji= for emojis (thanks to myrjola)
+
 **** Puppet
 - Remove deprecated =puppetfile-mode= package (thanks to joehillen)
+
 **** Purescript
 - Add =psc-ide= support (thanks to kRITZCREEK)
+
 **** Python
 - New layer variable =python-auto-set-local-pyenv-version= to automatically
   set =pyenv= version from a =.python-version= file. Possible values are
@@ -2238,11 +3190,13 @@ Improve loading robustness:
 - Allow user to customize fill column with the variable =python-fill-column=
   (thanks to swaroopch)
 - Fix =pylookup= makefile for python version 2.7.10 (thanks to hyh)
+
 **** React
 - Fix =flycheck= setup, do not disable =jshint= globally,
   but only for =react= mode (thanks to lunaryorn)
 - Enable =js-mode= snippet (thanks to rhalukongor)
 - Open =index.android.js= and =index.ios.js= with react mode (thanks to erwan)
+
 **** Ruby
 - Enable built-in =ruby-mode= by default instead of =enh-ruby-mode=
   (thanks to lunaryorn)
@@ -2262,14 +3216,17 @@ Improve loading robustness:
   - ~SPC m r r D~ to prompt for a directory on which to run auto-correct
   - ~SPC m r r p~ to run RuboCop on the entire project
   - ~SPC m r r P~ to run auto-correct on the project
+
 **** Ruby on rails
 - Move ~SPC m r r :~ to ~SPC m r :~
+
 **** Rust
 - New key binding ~SPC m c C~ to remove build artefacts with Cargo
   (thanks to SShrike)
 - New key binding  ~SPC m g g~ to jump to definition (thanks to isphinx)
 - Use =exec-path-from-shell-copy-env= to set =RUST_SRC_PATH= for Racer
   (thanks to mahinshaw)
+
 **** Scala
 - New layer variable =scala-enable-eldoc= to explicitly turn on =el-doc=,
   default value is =nil= (thanks to d1egoaz)
@@ -2280,6 +3237,7 @@ Improve loading robustness:
 - Only disable =flycheck= Scala syntax checker in Ensime (thanks to lunaryorn)
 - Fix test key bindings (thanks lunaryorn)
 - Fix automatic trigger of completion when hitting ~.~ (thanks to d1egoaz))
+
 **** Scheme
 - New key binding ~SPC m s s~ for scheme implementation selection
   (thanks to troydm)
@@ -2290,6 +3248,7 @@ Improve loading robustness:
   - ~SPC m e l~ to evaluate line
   - ~SPC m e r~ to evaluate region
   (thanks to CestDiego)
+
 **** Shell
 - Add =xterm-color= package (thanks to CestDiego)
 - New key bindings ~C-j~ and ~C-k~ to browse history in normal state
@@ -2307,6 +3266,7 @@ Improve loading robustness:
 - Typing =clear= in an =eshell= buffer will clear the buffer
   (thanks to CestDiego)
 - Fix SIGQUIT bug (thanks to darkfeline)
+
 **** Spell-checking
 - New layer variable =spell-checking-enable-by-default= to enable/disable
   =flyspell= by default globally (thanks to TheBB)
@@ -2314,6 +3274,7 @@ Improve loading robustness:
   and activate it (thanks to StreakyCobra)
 - Disable line numbers in shell buffers (thanks to CestDiego)
 - Fix =flyspell-prog-mode= activation (thanks to lunaryorn)
+
 **** Syntax-checking
 - New layer variable =syntax-checking-enable-by-default= to enable/disable
   =flycheck= by default globally (thanks to TheBB)
@@ -2323,12 +3284,15 @@ Improve loading robustness:
   executable (thanks to nashamri)
 - Fix escaping in buffer name regexp  (thanks to lunaryorn)
 - Remove flycheck fringe's bullet underlines (thanks to StreakyCobra)
+
 **** Themes-megapack
 - Add =jbeans= theme (thanks to synic)
 - Add =farmhouse= theme (thanks to CodeFalling)
 - Add =badwolf= theme (thanks to fabianhjr)
+
 **** Vagrant
 - Fix obsolete =vagrant-tramp-enable= variable (thanks to joehillen)
+
 **** Version-control
 - New key bindings ~SPC T d~ and ~SPC T C-d~ to toggle diff margin in the fringe
   (thanks to ralesi)
@@ -2336,12 +3300,16 @@ Improve loading robustness:
   show hunks, etc... (thanks to ralesi)
 - Add support for multiple gutter backends: =diff-hl=, =git-gutter= and
   =git-gutter+= (thanks to ralesi)
+
 **** Vinegar
 - Fix evilified dired (thanks to TheBB)
+
 **** Yaml
 - Enable company
+
 *** Website
 - Initial version (thanks to bobbyangelov, nashamri and TheBB)
+
 *** Core changes
 - New command line parameters =--timed-requires= and =--profile= to debug
   and benchmark Emacs initialization (thanks to justbur)
@@ -2377,6 +3345,7 @@ Improve loading robustness:
 - Hide mode-line at startup
 - Generate necessary HTML for the Spacemacs docs (used for the website)
   (thanks to travisbhartwell)
+
 **** Home buffer
 - ~b~ now jumps to the bookmark list (thanks to kccai)
 - Set Spacemacs home buffer as initial buffer for Emacs clients
@@ -2391,6 +3360,7 @@ Improve loading robustness:
 - Factor out =spacemacs-buffer= creation (thanks to justbur)
 - Move =spacemacs-mode= to =core-spacemacs-buffer.el= (thanks to justbur)
 - Simplify =spacemacs-buffer/goto-link-line= (thanks to justbur)
+
 **** Configuration layer
 - Limit the number of rollback slots (thanks to elemakil)
 - Add a timeout when fetching ELPA archives
@@ -2401,9 +3371,11 @@ Improve loading robustness:
   (thanks to StreakyCobra)
 - Add package keyword =:protected=
 - Set configuration layer error flag when calling user dotfile functions
+
 **** Micro-state
 - =:exit= keyword now accepts a list
 - Execute =:on-enter= before =:doc= in micro-state
+
 *** Other fixes and improvements
 - =README.md= introduction rewrite (thanks to purcell)
 - New badge =Built with Spacemacs= (thanks to nashamri)
@@ -2424,85 +3396,107 @@ Improve loading robustness:
   MaxWofford, mbertheau, mineo, mijoharas, mkollaro, nashamri, pbzdyl,
   person808, robbyoconnor, scloudyy, shishkin, swaroopch, TheBB, Treri,
   vijaykiran, xfq, xtian, ZachLiss)
+
 *** Core team members
 - Sylvain Benner (syl20bnr)
 - Eivind Fonn (thanks to TheBB)
 - Fabien Dubosson (StreakyCobra)
 - Justin Burkett (thanks to justbur)
+
 * Release 0.104.x
 ** 0.104.8 (2015/12/16)
 *** Hotfix
 - Revert removal of fancy battery mode-line indicator.
+
 ** 0.104.7 (2015/12/15)
 *** Distribution layer changes
 **** Spacemacs
 - Remove fancy battery custom mode-line (moved to spaceline) (thanks to TheBB)
+
 *** Layers changes
 **** Eyebrowse
 - Eyebrowse doesn't have a lighter anymore (thanks to myrjola)
+
 **** Haskell
 - Replace obsolete function =haskell-process-load-or-reload= (thanks to
   joehillen)
 - Fix renamed command =hindent-reformat-decl= (thanks to lunaryorn)
+
 **** Syntax-checking
 - Add support for =flycheck-pos-tip-mode= (thanks to StreakyCobra, TheBB and
   lunaryorn)
+
 ** 0.104.6 (2015/11/27)
 *** Hotfix
 - Fix void variable error =smartparens-strict-mode= (thanks to TheBB)
+
 ** 0.104.5 (2015/11/22)
 *** Distribution layer changes
 **** Spacemacs
 - Use version 7.1 of =evil-lisp-state=, the version 8 is supported
   in version 105 of Spacemacs only.
+
 ** 0.104.4 (2015/11/04)
 *** Layer changes
 **** Scala
 - Fix Ensime test commands to reflect the changes in the recent versions
   of the package (thanks to lunaryorn)
+
 **** Vagrant
 - Replace obsolete function =vagrant-tramp-enable= by the function
   =vagrant-tramp-add-method= (thanks to joehillen)
+
 *** Core
 - Prevent bootstrap packages from being automatically uninstalled
   (thanks to TheBB)
+
 ** 0.104.3 (2015/11/01)
 *** Layer changes
 **** Evil-snipe
 - Update =evil-snipe= minor mode name to match latest release of
   the package (thanks to person808)
+
 **** Haskell
 - Remove indentation guides to comply with latest =haskell-mode=
   (thanks to PierreR)
+
 ** 0.104.2 (2015/09/29)
 *** Hotfixes
 - Fix error =void-variable warning-minimum-level= on Emacs 24.3
   (thanks to syohex)
+
 *** Layer changes
 **** Markdown
 - Fix ~SPC m c r~ binding (thanks to tko)
+
 *** Core
 - Silence =ad-handle-definition= about advised functions getting redefined
 - Improve evilification rules, now ~:~ is rebound to ~|~, ~/~ is rebound to ~\~
   and ~SPC~ is rebound to ~​'​~
+
 *** Other fixes and improvements
 - Add FAQ entry on the difference between available distributions (thanks to
   robbyoconnor)
 - Delete obsolete =.gitmodules= file (thanks to robbyoconnor)
 - Improve convention documentation for evilified buffers
 - Typos and documentation improvements (thanks to CarlQLange)
+
 ** 0.104.1 (2015/09/28)
 *** Dotfile changes
 - New variable =dotspacemacs-remap-Y-to-y$=, when non nil ~Y~ is remapped to
   ~y$~. Default value is =t=.
+
 *** Distribution layer changes
 **** Spacemacs
 - Add ~SPC t h a~ to toggle automatic highlighting of symbol under point.
+
 *** Layer changes
 **** React
 - Force -jsx= content type (thanks to dvcrn)
+
 *** Other fixes and improvements
 - Typos and documentation improvements (thanks to k4rtik, robbyoconnor, tko, xfq)
+
 ** 0.104.0 (2015/09/28)
 *** IMPORTANT - Breaking changes
 - =org-plus-contrib= is now installed from org ELPA repository, you may
@@ -2524,6 +3518,7 @@ Improve loading robustness:
 - =guide-key= has been replaced by =which-key=, you may encounter issues
   if you have some =guide-key= custom configuration, remove any =guide-key=
   configuration and check the options offered by =which-key=.
+
 *** Other important notes
 - All layers have been moved to =layers= directory
 - Category folder prefix has been changed to =+= (was =!=)
@@ -2532,6 +3527,7 @@ Improve loading robustness:
 - All =extensions= directories have been renamed to =local=. =extensions=
   directories will be deprecated in 0.105.0.
 - =tromey= ELPA repository has been removed (thanks to robbyoconnor)
+
 *** Hot new features
 - Enhanced layer package lists which merge old extension lists and package
   lists. Keywords can be associated with packages. The supported keywords
@@ -2568,6 +3564,7 @@ Improve loading robustness:
 - New interactive function =dotspacemacs/test-dotfile= testing the integrity
   of the =.spacemacs= file. This function will detect any unknown layers and
   bad dotspacemacs variable values (thanks to justbur)
+
 *** New conventions
 - Add spacing conventions for org files (thanks to person808)
 - Move ~SPC m T x~ conventions for executing tests in debug to ~SPC m t X~
@@ -2575,6 +3572,7 @@ Improve loading robustness:
   For major mode specific toggles only ~SPC m T~ is available.
 - Add ~SPC m g b~ to go back to previous location after a ~SPC m g g~.
 - Reserve ~SPC m o~ for users (thanks to TheBB)
+
 *** New Layers
 - asciidoc (thanks to hijarian)
 - chinese (thanks to andyque)
@@ -2598,6 +3596,7 @@ Improve loading robustness:
 - unimpaired (thanks to ralesi)
 - wakatime (thanks to CestDiego)
 - yaml (split from ruby)
+
 *** Dotfile changes
 - New variable =dospacemacs-distribution= allowing to choose the default
   packages installed by Spacemacs.
@@ -2618,6 +3617,7 @@ Improve loading robustness:
   both org and git layers.
 - Rename function =dotspacemacs/config= to =dotspacemacs/user-config=. The
   old function =dotspacemacs/config= will be deprecated in 0.105.0.
+
 *** Distribution layer changes
 **** Spacemacs-base
 - New navigation key bindings for =helm-find-files= (~SPC f f~), now
@@ -2666,6 +3666,7 @@ Improve loading robustness:
 - Add text object ~g~ for entire buffer (thanks to ralesi)
 - helm-spacemacs: load layers only once.
 - helm-spacemacs: show description of toggle functions (thanks to person808)
+
 **** Spacemacs
 - New API for the powerline (thanks to TheBB)
 - Add package =define-word= on ~SPC x w d~ (thanks to swaroopch)
@@ -2699,25 +3700,31 @@ Improve loading robustness:
   based on the indentations (thanks to TheBB)
 - Exclude package =evil-terminal-cursor-changer= since it is buggy in some
   terminals (thanks to TheBB)
+
 *** Layer changes
 **** Agda
 - Move ~SPC m o~ to ~SPC m h~ since ~SPC m o~ is now reserved for users
   (thanks to TheBB)
+
 **** Auto-completion
 - Add new layer variable =auto-completion-private-snippets-directory= which
   allows to specify a custom private snippet directory (thanks to justbur)
 - Improve yasnippet loading robustness (thanks to myrjola)
 - Fix showing snippets in company popup (thanks to person808)
+
 **** Better-defaults
 - Add =backward-kill-word-or-region= on ~C-w~ (thanks to justbur)
+
 **** C/C++
 - Fix key bindings for cscope (thanks to bmag)
 - Add =disaster= package to disassemble c/c++ code on key binding ~SPC m D~
   (thanks to jb55)
 - Fix error with =company-mode/more-than-prefix-guesser= (thanks to TheBB)
+
 **** Chinese
 - Remove "symbol" from list of changed charsets, this prevents minor mode
   lighters from being displayed in the Chinese font (thanks to louy2)
+
 **** Clojure
 - Add cider error buffer to popwin (thanks to cmccloud)
 - Add cider-doc buffer to popwin (thanks to cmccloud)
@@ -2754,44 +3761,56 @@ Improve loading robustness:
   anything other than messing up the buffer) (thanks to luxbock)
 - Gives faster access to display the last error buffer with ~SPC m d e~
   (thanks to luxbock)
+
 **** CSharp
 - Set =omnisharp-auto-complete-want-documentation= to =nil= to work-around
   a bug in standard Omnisharp server built in Release configuration.
 - Add prefix command documentation (thanks to d12frosted)
+
 **** Dash
 - Add support for =zeal= on Linux and Windows (thanks to CestDiego)
+
 **** Deft
 - Replace deprecated =deft-extension= by new =deft-extensions=
   (thanks to mclearc)
+
 **** Elixir
 - Remove flycheck due to a security issue in the Elixir compiler
   (thanks to gilbertkennen)
 - Add support for popwin for =mix= buffers (thanks to rhalukongor)
 - Re-enable =magit-gitflow= since it is now compatible with Magit 2.1
   (thanks to gilbertkennen)
+
 **** Emacs lisp
 - Make =flycheck= aware of =loadpath= (thanks to CestDiego)
 - Define =emacs-lisp-mode= key bindings for =lisp-interaction-mode=
   (thanks to justbur)
 - Fix ~SPC m e c~ to evaluate current form (thanks to justbur)
 - Add ~SPC m e s~ to evaluate symbol under point (thanks to justbur)
+
 **** ERC
 - Add =ERC-SASL= for SASL authentication (thanks to CestDiego)
 - Fix check for =dbus= availability on OS X (thanks to cmccloud)
+
 **** ESS
 - Change default value of =ess-enable-smart-equals= to nil (thanks to
   izahn)
 - Fix =company= back-end declaration (thanks to jcpetkovich)
+
 **** Evil-commentary
 - Add ~SPC ;~ for comment operator
+
 **** Extra-lang
 - Add =Stan= modeling language (thanks to alexanderrich)
+
 **** Eyebrowse
 - Add ~s~ for =switch-to-window-config= (thanks to rphillips)
 - Add ~gt~ and ~gT~ key bindings to switch between workspaces
   (thanks to joehillen)
+
 **** Fsharp
 - Allow fsharp-mode to determine build path (thanks to bsermons)
+
 **** Git
 - Make sure that git-commit is initialized so that Emacs can be used as
   $GITEDITOR (thanks to thrnio)
@@ -2805,12 +3824,15 @@ Improve loading robustness:
   cmccloud)
 - Evilify =magit-hunk-section-map= (thanks to ralesi)
 - Evilify =magit-stash-mode= (thanks to nixmaniack)
+
 **** Github
 - Properly evilify =gist-lists= buffer (thanks to cmccloud)
+
 **** Gnus
 - Move ~SPC m o~ to ~SPC m M~ since ~SPC m o~ is now reserved for users
   (thanks to TheBB)
 - Movw ~SPC m H~ to ~SPC m m~ (thanks to robbyoconnor)
+
 **** Go
 - Use exec-path-from-shell-copy-env to set =GOPATH= (thanks to jenanwise)
 - Fix multiple paths support in =GOPATH= on Windows (thanks to galaxian)
@@ -2820,11 +3842,14 @@ Improve loading robustness:
   is now ~SPC m h~ (thanks to bogdanteleaga)
 - Move ~SPC m r~ to ~SPC m r n~ which conflicted with oracle key bindings
   (thanks to bogdanteleaga)
+
 **** Gtags
 - Fix eldoc configuration (thanks to thudo)
+
 **** Haskell
 - Make =ghc-mod= optional (thanks to michelk)
 - Disable line highlighting when shm is enabled (thanks to d12frosted)
+
 **** Html
 - Add for CSS files ~SPC m z c~ and ~SPC m z o~ to contract and expand CSS
   blocks (thanks to ralesi)
@@ -2843,18 +3868,23 @@ Improve loading robustness:
 - Fix extra space in declared pair <%= %> (thanks to dsdshcym)
 - Fix ~r~ key bindings in web micro-state (thanks to CestDiego)
 - Fix smartparens configuration (thanks to TheBB)
+
 **** Ipython-notebook
 - Move ~SPC m o~ and ~SPC m O~ to ~SPC m i~ and ~SPC m I~ since
   ~SPC m o~ is now reserved for users (thanks to TheBB)
+
 **** Java
 - Diminish =eclim= minor mode lighter (thanks to Devagamster)
+
 **** Javascript
 - Add =json-snatcher= on ~SPC m h p~ (thanks to CestDiego)
+
 **** Markdown
 - Fix backticks and single quotes insertion (thanks to x-ji)
 - Fix =smartparens= configuration (thanks to fintelkai)
 - Move ~SPC m o~ to ~SPC m f~ since ~SPC m o~ is now reserved for users
   (thanks to TheBB)
+
 **** Org
 + Install =org-plus-contrib= from org ELPA repository
 + Add table related key bindings on =SPC m t= (thanks to JP-Ellis)
@@ -2875,19 +3905,24 @@ Improve loading robustness:
 + Fix ~SPC m l~ by calling =org-open-at-point= instead of =evil-org-open-links=
   (thanks to TheBB)
 + Fix org-repo-todo loading (thanks to TheBB)
+
 **** Osx
 - Re-factor and expand support for trash can (thanks to usharf)
 - Add support for =launchctld= (thanks to usharf)
 - Add new key binding to toggle fullscreen which should fix the usage
   of left command key for this command (thanks to sooheon)
 - Change obsolete =new-frame= function to =make-frame= (thanks to fintelkai)
+
 **** Pandoc
 - Add =ox-pandoc= package (thanks to jcf)
+
 **** Php
 - =php-extras= is not correctly installed
 - Enable flycheck (thanks to rakyi)
+
 **** Puppet
 - Enable =flycheck= support (thanks to tko)
+
 **** Python
 - Apply new conventions for test key bindings
 - Fix =anaconda-mode= key bindings for latest version of =anaconda-mode=
@@ -2897,33 +3932,43 @@ Improve loading robustness:
 - Use =quit-window= to close documentation popup (thanks to cpaulik)
 - Enable =evil-matchit= (thanks to robbyoconnor)
 - Move anaconda server cache files to =.cache= directory (thanks to person808)
+
 **** Racket
 - Enable insert state after ~SPC m s B~ accordingly to the conventions
   (thanks to jmiven)
+
 **** Ranger
 - Fix =ranger-up-directory= key binding on ~-~ (thanks to ralesi)
+
 **** Ruby
 - Use =enh-ruby-mode= on interpreter-detected ruby files. This makes
   ruby files that start with shebang ruby directives use =enh-ruby-mode=
   (thanks to jenanwise)
 - Add some =ruby-tools= key bindings (thanks to chrismcg)
 - Enable =evil-matchit= (thanks to robbyoconnor)
+
 **** Ruby-on-rails
 - Activate =projectile-rails= mode for any type of files in a rails
   project (thanks to liuxiang)
+
 **** Rust
 - Add =racer= package (thanks to cdlm)
+
 **** Salt
 - Add =salt-mode= package (thanks to beardedprojamz)
+
 **** Scala
 - Add binding for =ensime-pop-find-definition-stack= on ~SPC m g p~
   (thanks to alexanderkjeldaas)
 - Remove key binding ~SPC m ?~ (thanks to Profpatsch)
+
 **** Scheme
 - Add support for Geiser (thanks to kingcons)
+
 **** Search-engine
 - Add Bing (thanks to Devagamster)
 - Add Spacemacs Pull Requests
+
 **** Shell
 - Add =eldoc= support in eshell (thanks to ppold)
 - Add a better prompt via =eshell-prompt-extras= for eshell (thanks to ppold)
@@ -2941,15 +3986,19 @@ Improve loading robustness:
 - Protect the =eshell= prompt from deletion with evil commands. A new
   layer variable =shell-protect-eshell-prompt= allows to opt-out this behavior
   (thanks to myrjola).
+
 **** Syntax-checking
 - Add ~SPC e l~ to toggle error list buffer (thanks to bmag)
 - Add ~SPC e v~ to verify the flycheck setup (thanks to bmag)
 - Add ~SPC e h~ to describe the flycheck checkers (thanks to bmag)
+
 **** Vinegar
 - Show symlink paths (thanks to ralesi)
+
 **** Wakatime
 - Add ~SPC a W~ to open the Wakatime dashboard in the browser
   (thanks to CestDiego)
+
 *** Core changes
 - Add =with-eval-after-load= backport (thanks to justbur)
 - Add new key bindings to evilified buffers: ~g~, ~GG~, ~C-b~, ~C-f~, ~C-d~
@@ -3001,6 +4050,7 @@ Improve loading robustness:
 - Display home buffer links even when no banner are displayed
   (thanks to sooheon)
 - Better centering of text in the home buffer
+
 *** Other fixes and improvements
 - Add contribution guidelines =CONTRIBUTE.md= (thanks to robbyoconnor)
 - New documentation on layers (thanks to TheBB)
@@ -3015,45 +4065,55 @@ Improve loading robustness:
   justbur, luxbock, mbertheau, mortonfox, nwolfe, oneeman, person808, rakyi,
   sotte, robbyoconnor, robmerrell, screamish, sooheon, srid, swaroopch, syohex,
   travisbhartwell, x-ji, xfq, zmthy)
+
 * Release 0.103.x
 ** 0.103.6 (2015/08/30)
 *** Core
 - Fix error with ~SPC h b~ (bookmarks) (thanks to sgepigon)
+
 ** 0.103.5 (2015/08/09)
 *** Layer changes
 **** Osx
 - Fix initialization of =reveal-in-osx-finder= (thanks to fintelkai)
+
 *** Core
 - Temporarily switch to HTTP instead of HTTPS to communicate with
   elpa.gnu.org (thanks to robbyoconnor)
+
 ** 0.103.4 (2015/08/07)
 *** Layer changes
 **** Clojure
 - Fix key bindings for new Clojure major modes: =clojurec-mode=,
   =clojurescript-mode= and =clojurex-mode= (thanks to benalbrecht)
+
 ** 0.103.3 (2015/08/04)
 *** Layer changes
 **** Osx
 - Rename =reveal-in-finder= to its new name =reveal-in-osx-finder=
   (thanks to syohex)
+
 ** 0.103.2 (2015/07/04)
 *** Layer changes
 **** Git
 - Fix =magit-repository-directories= variable name (thanks to travisbhartwell)
 - Fix =magit-blame= key binding (thanks to jenanwise)
 - Use =magit-log-all= instead of =magit-log= on ~SPC g l~ (thanks to tuhdo)
+
 *** Other fixes and improvements
 - Typos and documentation improvements (thanks to cscorley, dstcruz, h3dkandi,
   kccai, MadAnd, person808, Profpatsch, stnly, stormpat, xfq, zachlatta)
+
 ** 0.103.1 (2015/07/02)
 *** Layer changes
 **** Git
 - Fix ~F~ in Vim style in =Magit= status buffer, now ~F~ is correctly
   bound to =pull= popup menu
 - Fix intermittent erroneous ~k~ key binding in =Magit= status buffer.
+
 *** Core
 - Fix mandatory dependency on =evil-escape=
 - Fix evilification of =evil-escape= starter key
+
 ** 0.103.0 (2015/07/01)
 *** IMPORTANT: Breaking changes
 - Spacemacs is now compatible only with =Magit 2.1= and later, be
@@ -3072,6 +4132,7 @@ Improve loading robustness:
   ~SPC p e~ is now ~SPC p r~ (recent files)
   ~SPC p R~ is now ~SPC p G~ (regenerate tags)
   ~SPC p r~ is now ~SPC p R~ (replace)
+
 *** Hot new features
 - Add support for Magit 2.1!
 - Helm now uses its header to display the input pattern.
@@ -3085,6 +4146,7 @@ Improve loading robustness:
 - New "tool assisted" search and replace interface supporting =ag=, =pt=,
   and =ack= with a new key binding scheme. Check the documentation for
   =searching with an external tool=.
+
 *** New Layers
 - elixir (split from =erlang-elixir=)
 - erlang (split from =erlang-elixir=)
@@ -3092,12 +4154,14 @@ Improve loading robustness:
 - ipython-notebook (ein) (thanks to CestDiego)
 - latex (renamed from =auctex=)
 - version-control
+
 *** Dotfile changes
 - New variable =dotspacemacs-auto-save-file-location= which enable or
   disable auto-saving of modified files. Possible values are =original= to
   auto-save the file in-place, =cache= to auto-save the file to another
   file stored in the cache directory and =nil= to disable auto-saving.
   Default value is =cache=.
+
 *** Layer changes
 **** Spacemacs
 - Add text alignment key bindings on ~SPC x a~ prefix (thanks to justbur and
@@ -3141,6 +4205,7 @@ Improve loading robustness:
 - Remove =comint-delchar-or-maybe-eof= on ~C-d~, it fixes ~C-d~ scroll down
   behavior in =normal state=, user has to press the stock binding ~C-c C-d~
   to send an =EOF= (thanks to kini)
+
 **** Auto-completion
 - Yasnippet: Default =helm-yas-display-key-on-candidate= to =t= (thanks to
   BrianHicks)
@@ -3148,37 +4213,49 @@ Improve loading robustness:
   =hippie-expand= (thanks to tuhdo)
 - New layer variable =auto-completion-enable-snippets-in-popup= to add
   snippets directly to auto-completion popup (thanks to person808)
+
 **** Autohotkey
 - Fix =.ahk= file extension declaration (thanks to ralesi)
+
 **** C/C++
 - Add package =gdb-mi= (gdb-many-windows) which enables an IDE like debugger
   frontend for Emacs (thanks to tuhdo)
+
 **** Clojure
 - Add ~SPC e w~ to eval last sexp and replace it with the result (thanks to
   DayoOliyide)
 - Evilify Cider inspector (thanks to ppold)
+
 **** Elixir
 - List all Elixir key bindings in README
 - Update configuration to support new =alchemist= 1.0 feature (thanks to tonini)
 - Enable auto-completion support
+
 **** Emacs Lisp
 - Add new Spacemacs snippets =micro-state= and =new-package= (thanks to
   CestDiego)
 - Add (f)ielm-indent-line for =ielm= mode (thanks to BlinkD)
+
 **** Emoji
 - Remove the extension and use the MELPA package
+
 **** ERC
 - Use =erc-yank= on ~p~ in normal state if =gist= package is available
   (thanks to CestDiego)
+
 **** Evil-snipe
 - Update configuration to support last upstream changes (thanks to hlissner and
   MadAnd)
+
 **** Extra-langs
 - Enable =QML= mode for =.qml= files (thanks to bennofs)
+
 **** Eyebrowse
 - Add support for workspace labels (thanks to rphillips)
+
 **** Finance
 - Evilify =ledger-report-mode= (thanks to darkfeline)
+
 **** Git
 - Replace =git-gutter= by =diff-hl= (thanks to tuhdo)
 - Remove =gc= prefix command as unused from guide-key (thanks to tko)
@@ -3189,21 +4266,26 @@ Improve loading robustness:
 - Remove deprecated =magit-last-seen-setup-instructions= (thanks to tarsius)
 - Move whitespace toggle in =Magit= to ~C-S-w~
 - Add ~SPC g L~ to display the log for the current file (thanks to tko)
+
 **** Go
 - Add ~SPC m g a~ to switch between tests and implementation (thanks to
   jenanwise)
+
 **** Gtags
 - Enable =helm-gtags= for =compilation-mode= and =shell-mode= (thanks to tuhdo)
+
 **** Haskell
 - Add =company-cabal= support for auto-completion in =.cabal= files (thanks
   to bjarkevad)
 - Fix error with =electric-indent-local-mode= in some versions of Emacs
   (thanks to jeremyjh)
+
 **** iPython-notebook (ein)
 - Add key bindings on major-specific leader (thanks to cpaulik)
 - Add ~C-RET~ and ~S-RET~ key bindings to behave like the =ein= web interface
   (thanks to cpaulik)
 - Bind ~SPC f s~ to save the notebook (thanks to cpaulik)
+
 **** LaTeX
 - Add support for =RefTeX= (thanks to JP-Ellis)
 - Add support for =LatexMk=, to enable it set the layer variable
@@ -3216,17 +4298,21 @@ Improve loading robustness:
   broken and introduce ~SPC m v~ to view (thanks to JP-Ellis)
 - General settings should now be easier to override in =dotspacemacs/config=
 - Fix errors due to layer renaming (thanks to JP-Ellis and autosquid)
+
 **** Markdown
 - Add font-locking for code blocks (thanks to kennethlove)
 - Add support for a bunch of languages for code blocks (thanks to dexafree)
+
 **** Ocaml
 - Don't auto-close backticks (thanks to edwintorok)
+
 **** Org
 - Fontify code blocks (thanks to tuhdo)
 - Add =toc-org= package (thanks to CestDiego)
 - Tweak org-pomodoro mode-line integration (Add missing leading space)
 - Move =org-clock-save.el= to cache folder (thanks to BlinkD)
 - Add key binding ~SPC m :~ for =org-set-tags= (thanks to cpaulik)
+
 **** Osx
 - New variable =osx-use-option-as-meta= allowing to enable or disable the
   mapping of =option= key to =meta= key. This is especially useful for some
@@ -3239,12 +4325,15 @@ Improve loading robustness:
 - Add key bindings ~⌘ a~ (select all) ~⌘ W~ (close frame) and ~⌘ n~ (new frame)
   (thanks to mveytsman)
 - Fix ~⌘ v~ paste behavior (thanks sooheon)
+
 **** Powershell
 - Add ~SPC a s p~ to start a =powershell= buffer (thanks to ralesi)
 - Add ~SPC m r r~ for =powershell-regexp-to-regex= (thanks to ralesi)
 - Add =$(= text object (thanks to ralesi)
+
 **** Puppet
 - Add Puppetfile support (thanks to nwolfe)
+
 **** Python
 - New supported test runner: =pytest= (thanks to cpaulik)
 - New layer variable =python-test-runner=  to choose between =nose= and
@@ -3252,25 +4341,33 @@ Improve loading robustness:
 - Set =indent-tabs-mode= to =t= in REPLs, should fix indent errors (thanks to
   tuhdo)
 - Fix a loading bug due to a typo in =latex= layer (thanks to cpaulik)
+
 **** Racket
 - Fix not working =electric-pair-skip= (thanks x-ji)
+
 **** Ruby
 - Fix some annoyance with deep indentations (thanks to trishume)
+
 **** Rust
 - Add support for =flycheck= (thanks to swaroopch)
 - Add support for auto-completion via =racer= (thanks to JP-Ellis)
 - Use =compile= instead of the shell for =cargo=. This allow Emacs to parse the
   output, including all the errors (thanks to JP-Ellis)
+
 **** Scala
 - Set classpath directory of =ensime= to =.cache/ensime= (thanks to cyrillk)
+
 **** Slime
 - Add a bunch of key bindings (thanks to spigo900)
+
 **** Syntax-checking
 - Now use the =flycheck= default configuration to trigger checks. Checks
   are now performed live (thanks to tuhdo and thrnio)
+
 **** Theme
 - Add spacemacs-theme! (WIP) (thanks to nashamri)
 - Add tao theme (thanks to elais)
+
 *** Core
 - New interactive function =spacemacs/switch-to-version=
 - Clicking on the up arrow will now update Spacemacs
@@ -3293,6 +4390,7 @@ Improve loading robustness:
   file (thanks to justbur)
 - Add the possibility to call =configuration-layer/update-packages= in
   batch mode (thanks to travisbhartwell)
+
 *** Other fixes and improvements
 - Conversion of all layer README.md files to .org (thanks to CestDiego
   and cpaulik)
@@ -3301,19 +4399,24 @@ Improve loading robustness:
 - Typos and documentation improvements (thanks to cloudbring, duerrp, dxnn,
   dvberkel, fotoetienne, JoshTGreenwood, kccai, OliverM, MadAnd, person808,
   robbyoconnor, royseto, swaroopch, travisbhartwell, tuhdo, xfq)
+
 * Release 0.102.x
 ** 0.102.2 (2015/06/03)
 *** Layer changes
 **** Org
 - Fix bug with =ox-gfm= by moving it to extensions
+
 *** Core
 - Fix detection of new versions by correctly fetch latest changes
+
 ** 0.102.1 (2015/06/01)
 *** Layer changes
 **** Org
 - Fix lazy-loading of =ox-gfm= package.
+
 *** Core
 - Catch layer variables syntax errors
+
 ** 0.102.0 (2015/05/31)
 *** IMPORTANT: Breaking changes
 - All Emacs Lisp related configuration has been moved to its own layer
@@ -3331,6 +4434,7 @@ Improve loading robustness:
 - By default *single space* sentence delimiter is defined.
 - Layer variable values set with =:variables= keyword need to be quoted
   like in a regular =setq= expression.
+
 *** New Layers
 - Agda (thanks to ocharles)
 - Chrome (thanks to beardedprojamz)
@@ -3355,6 +4459,7 @@ Improve loading robustness:
 - Sql (thanks to BrianHicks)
 - TypeScript
 - Vim-powerline
+
 *** Dotfile changes
 - New variable =dotspacemacs-search-tools= which is a list of search tool
   executable names. Spacemacs uses the first installed tool of the list
@@ -3373,9 +4478,11 @@ Improve loading robustness:
   dotfile and the current template.
 - Disable paste micro-state by default, i.e. set the variable
   =dotspacemacs-enable-paste-micro-state= to =nil= in the dotfile template.
+
 *** New conventions
 - Add conventions for markup languages like =markdown= or =org=
   (thanks to cpaulik)
+
 *** Layer changes
 **** Spacemacs
 - Auto-indent when pasting use the universal argument to not auto-indent
@@ -3431,6 +4538,7 @@ Improve loading robustness:
 - Improve =smooth-scroll= configuration (thanks to sooheon)
 - Refactor =spacemacs/init-evil-lisp-state= to use =use-package=
   (thanks to mveytsman)
+
 ***** Helm
 - Switch commands for ~Tab~ and ~C-z~ in Helm (thanks to darkfeline)
 - Remove Helm header line to make it clearer (thanks to tuhdo)
@@ -3452,6 +4560,7 @@ Improve loading robustness:
 - Replace =helm-projectile-vc= (which does not exist) by =projectile-vc=
   (thanks to swaroopch)
 - Fix =toggle-maximize-buffer= (thanks to tuhdo)
+
 ***** Evil
 - Use non-visual lines for j/k navigation (thanks to mlsteele)
 - Enable =evil-execute-in-normal-state= in =holy-mode=
@@ -3467,10 +4576,12 @@ Improve loading robustness:
 - Make =evil-smart-*= functions respect the leader key (thanks to person808)
 - Advice =evil-jump-to-var= with =evil-set-jump= (thanks to luxbock)
 - Temporary hack to speed up =ace-jump-line= (~SPC l~) as an evil motion.
+
 **** Auctex
 - Add =RefTeX= package (thanks to rpglover64)
 - Add =flycheck= support
 - =build-view= always recompile TeX (thanks to kvelicka)
+
 **** Auto-completion
 - New variables:
   - =auto-completion-return-key-behavior= set the action to perform when the
@@ -3500,16 +4611,20 @@ Improve loading robustness:
 - ~SPC t a~ now correctly toggle =company= by default.
 - Remove unneeded =yasnippet-snippets= submodule (thanks mkcode)
 - Better lazy-loading of =yasnippet= (thanks to tuhdo)
+
 **** Autohotkey
 - Use MELPA package (thanks to ralesi)
+
 **** C/C++
 - New layer variable =c-c++-enable-clang-support=
 - New layer variable =c-c++-default-mode-for-headers= (thanks to ceales)
 - Remove unnecessary =auto-mode-alist= (thanks ceales)
 - Add =clang-format= support (thanks to gnzlbg)
+
 **** Chrome
 - Add better integration with edit-server package (thanks to CestDiego)
 - Added Gmail messages support with =ham= mode (thanks to CestDiego)
+
 **** Clojure
 - Add binding to connect to REPL in Cider on ~SPC m s c~ (thanks to jcsims)
 - Add ~SPC m t a~ to reload test namespace before running all tests (thanks to
@@ -3518,6 +4633,7 @@ Improve loading robustness:
   voxdolo)
 - Add ~SPC m t t~ to reload test namespace and run focused test (thanks to
   voxdolo)
+
 **** Colors
 - Add =rainbow identifiers= color profiles for =gotham= and
   =material= themes.
@@ -3525,10 +4641,12 @@ Improve loading robustness:
   =rainbow identifiers=.
 - New variable =colors-theme-identifiers-sat&light= to set default
   lightness and saturation for a given theme.
+
 **** Emacs-lisp
 - Move ~SPC m f~ bindings for code formatting to ~SPC m =~
 - Add =macrostep= package with a micro-state on ~SPC m d m~
   (thanks to person808)
+
 **** Erc
 - Add ERC channels to mode-line (thanks to swaroopch)
 - Add ~SPC a i i~ key binding to switch to active ERC channels (thanks
@@ -3539,12 +4657,15 @@ Improve loading robustness:
 - =ViewLogMode= for viewing logs (thanks to CestDiego)
 - YouTube videos Thumbnails inline using =erc-yt= (thanks to CestDiego)
 - Social Graph for ERC messages using =erc-social-graph=  (thanks to CestDiego)
+
 **** ESS
 - Fix lazy-loading of packages (thanks to jcpetkovich)
 - Update to take care of the merge of =company-ess= in =ess=
   (thanks to jcpetkovich)
+
 **** Extra-langs
 -  Add =matlab= package (thanks to TheBB)
+
 **** Git
 - Make =git-gutter= key bindings work with or without the fringe (thanks
   to person808)
@@ -3555,8 +4676,10 @@ Improve loading robustness:
 - Disable =evil-snipe= in =magit-status-mode= (thanks to person808)
 - Enable =fci-mode= (fill column) in =git-commit-mode= (thanks to tuhdo)
 - Add =helm-gitignore= package on ~SPC g I~ (thanks to jupl)
+
 **** Gtags
 - Add =helm-gtags-dwim-other-window= on ~SPC m g G~ (thanks to mijoharas)
+
 **** Haskell
 - ensure =haskell-indentation= is loaded before calling members (thanks
   to chrisbarrett)
@@ -3568,6 +4691,7 @@ Improve loading robustness:
 - Use new package =haskell-snippets=
 - Use =ghci-ng= for function =haskell-process-do-type-on-prev-line= (thanks to
   bjarkevad)
+
 **** Html
 - Improve =web= micro-state key bindings (thanks to CestDiego)
 - =emmet= key bindings fixes (thanks to louy2 and mkcode)
@@ -3577,23 +4701,28 @@ Improve loading robustness:
 - Add =company-web= package (thanks to CestDiego)
 - Add a bunch of new pairs to =sp-local-pair= (thanks to CestDiego)
 - Turn on =rainbow-delimiters= for =LESS= and =SCSS= (thanks to jupl)
+
 **** Javascript
 - Add =js-doc= package (thanks to geksilla)
 - Add =web-beautify= package on ~SPC m =~ (thanks to elliotec)
 - Apply key bindings conventions to some =tern= key bindings.
+
 **** Lua
 - Add support for auto-completion (thanks to mijoharas)
+
 **** Markdown
 - Add a bunch of new key bindings to improve consistency of key bindings
   for markup languages, see [[https://github.com/syl20bnr/spacemacs/commit/7b6678efd6cece5bbb3419579590b843943f9e13][commit]] (thanks to cpaulik)
 - Add markdown render buffer command on ~SPC m c r~ (thanks to CarlQLange)
 - Add ~SPC m i k~ to insert =<kbd>...</kbd>= pairs (thanks to CestDiego)
+
 **** Ocaml
 - Add REPL using =utop= (thanks to edwintorok)
 - Auto-indentation using =ocp-indent= (thanks to edwintorok)
 - Add support for =company= auto-completion (thanks to edwintorok)
 - Add support for =flycheck= syntax checking (thanks to edwintorok)
 - New =merlin= key bindings (thanks to edwintorok)
+
 **** Org
 - Add a bunch of new key bindings to improve consistency of key bindings
   for markup languages, see [[https://github.com/syl20bnr/spacemacs/commit/7b6678efd6cece5bbb3419579590b843943f9e13][commit]] (thanks to cpaulik)
@@ -3608,13 +4737,17 @@ remove =org-indent-mode= (thanks to darkfeline)
 - Add =htmlize= package to enable syntax highlight in export HTML
   (thanks to tetsusoh)
 - Fix error with =org-async= (thanks to justbur)
+
 **** Osx
 - Make ~Command-s~ work with other modes (thanks to linktohack)
 - Make =dired= use =coreutils gls= if installed (thanks to usharf)
+
 **** Perforce
 - Add a bunch of key bindings see [[https://github.com/syl20bnr/spacemacs/commit/6793eda4a90ee3a6c19c433b8676d5d9d8c3de76][commit]] (thanks to snandan)
+
 **** Puppet
 - Add =auto-completion= support (thanks to PierreR)
+
 **** Python
 - Add YAPF extension for buffer formatting (thanks to kennethlove)
 - =nose.el= is now compatible with =virtualenv= (thanks to danielwuz)
@@ -3628,9 +4761,11 @@ remove =org-indent-mode= (thanks to darkfeline)
   tuhdo)
 - Fix Python and Semantic integration when no =python= executable can be
   found on the system (thanks to tuhdo)
+
 **** Rcirc
 - Add =rcirc-track-minor-mode= to the =rcirc-mode-hooks= (thanks to
   luxbock)
+
 **** Ruby
 - Fix =ruby-test-mode= initialization
 - Fix auto-completion (thanks to trishume)
@@ -3638,12 +4773,16 @@ remove =org-indent-mode= (thanks to darkfeline)
 - Add =:A= ex-command which switches between implementation and test
   (thanks to naliwajek)
 - Remove overloading of function =erm-darken-color=
+
 **** Rust
 - Add key bindings for cargo build, run, test (thanks to swaroopch)
+
 **** Scala
 - Add ~SPC m d A~ to attach to remote debugger (thanks to siegelzero)
+
 **** Semantic
 - Create directory for =semanticdb= if it doesn't exist (thanks to CestDiego)
+
 **** Shell
 - Use =shell-pop= to toggle shell/eshell and terminals (thanks to tuhdo)
 - Add binding for EOF (^D) in =term= (thanks to darkfeline)
@@ -3652,24 +4791,32 @@ remove =org-indent-mode= (thanks to darkfeline)
   ralesi)
 - Fix for =paste= command in =multi-term=.
 - Add ~SPC p $ t~ to run =multi-term= at project root
+
 **** Slime
 - Disable =smartparens= in SLIME REPL (thanks to tuhdo)
+
 **** Smex
 - Fix =smex= prompt whitespace (thanks to TheBB)
+
 **** Syntax-checking
 - New variable =syntax-checking-flycheck-pos-tip= to enable or disable
   documentation popup (thanks to beardedprojamz)
+
 **** Themes
 - Add =apropospriate-theme= to megapack
 - Add =jazz-theme= to megapack (thanks to matDobek)
 - Fix theme-to-package rules for =base16= (thanks to mkaito)
+
 **** Tmux
 - Add support for motion state (thanks to rphillips)
+
 **** Vim-empty-lines
 - Update with last patches (thanks to person808)
 - Exclude terminal modes (thanks to tonylotts)
+
 **** Ycmd
 - Move C/C++ related configuration to =c-c++= layer.
+
 *** Core
 - Add support for =use-package= injected hooks (not yet documented)
 - It is now possible to create a layer directly in a known configuration
@@ -3693,6 +4840,7 @@ remove =org-indent-mode= (thanks to darkfeline)
 - Avoid conflict with hydra's =lv.el= (thanks to edwintorok)
 - Update layer templates to use =setq= instead of =defvar= (thanks to
   person808)
+
 *** Other fixes
 - Replace =defvar= with =setq= for variable definition =<layer>-packages=,
   =<layer>-pre-extensions= and =<layer>-pre-extensions=.
@@ -3703,6 +4851,7 @@ remove =org-indent-mode= (thanks to darkfeline)
 - Typos (thanks to Andrea, atamis, CarlQLange, charl, ctjhoa, Devagamster,
   dguilak, edwintorok, fhzerorubigd, jackwilsonv, jupl, kini, latkins, MadAnd,
   mlsteel, mosic, person808, skwuent, srid, swaroopch and zimbatm)
+
 * Release 0.101.x
 ** Hot new features
 *** Choose your own editing style
@@ -3711,6 +4860,7 @@ or Emacs users by setting the =dotspacemacs-editing-style= variable to
 ='vim= or ='emacs= in the dotfile. In =Emacs= style the leader is
 available on =M-m=. It is possible to dynamically switch between the
 two style with ~SPC P tab~.
+
 *** Mandatory init function and new Pre and Post init functions
 A package is now considered to be used only if there is a corresponding
 =<layer>/init-<package>= function explicitly defined.
@@ -3719,33 +4869,40 @@ There is now two new functions to initialize a given package:
 - =<layer>/post-init-<package>= which is called after the init function
 Even if  a =pre= or =post= function exist for a given package, an =init=
 function is still required to consider the package to be used.
+
 *** Auto-completion
 Spacemacs now officially support auto-completion. The old layer
 =company-mode= has been removed and =auto-complete= has been removed
 from the spacemacs layer.
 They are now part of a new layer called =auto-completion=.
 You'll have to this add layer to your dotfile to enable auto-completion.
+
 *** Syntax checking
 Flycheck has been removed from the Spacemacs layer and moved to a new
 layer called =syntax-checking=.
 You'll have to add this layer to your dotfile to enable the fly syntax
 checking.
+
 *** Org
 Org packages have been removed from Spacemacs layer and moved to a new
 =org= layer.
 You'll have to add this layer to your dotfile to enable the Org
 configuration of Spacemacs.
+
 *** New shortcuts in startup buffer
 Recent files, project and bookmarks can be displayed on the startup
 buffer. Check for the new dotfile variable =dotspacemacs-startup-lists=.
 (thanks to CarlQLange)
+
 *** New lighter in the mode line
 Lighter letters have been updated, now the letter corresponds to the
 key binding to toggle the associated mode. For instance auto-completion
 is on ⓐ and thus can be toggled with ~SPC t a~.
+
 *** Better package update
 The package update should now prevent even more errors when upgrading
 a batch of packages.
+
 ** Initial Release (2015/04/13)
 *** New layers
 - evil-commentary: Alternative to =evil-nerd-commenter=
@@ -3757,6 +4914,7 @@ a batch of packages.
 - xkcd: browse for XKCD in Emacs (thanks to CestDiego)
 - shell-scripts: layer containing shell specific modes like =fish-mode=
 - editorconfig: add support for EditorConfig (thanks to jupl)
+
 *** New dotfile variables:
 - =dotspacemacs-editing-style= can be either =vim= or =emacs=.
 - =dotspacemacs-verbose-loading= if non nil the loading prints logs in
@@ -3764,11 +4922,14 @@ a batch of packages.
 - =dotspacemacs-startup-lists= is a list of symbols to display recent
   items in the startup buffer, possible values are:  =recents=,
   =bookmarks= and =projects= (thanks to CarlQLange)
+
 *** Auto-complete
 - Move to =auto-completion= layer
+
 *** C/C++
 - Add key bindings ~SPC m g a~ and ~SPC m g A~ for open alternate file
   (thanks to mijoharas)
+
 *** Clojure
 - Add ~SPC m e f~ eval function at point
 - Add =cider-eval-sexp-fu=
@@ -3778,6 +4939,7 @@ a batch of packages.
   cpaulik)
 - Open =cider-doc= without asking for symbol, close it with =q= (thanks to
   cpaulik)
+
 *** Company
 - Move to =auto-completion= layer
 - Refactoring of =company= configuration, it is now lazy-loaded and the
@@ -3786,21 +4948,26 @@ a batch of packages.
 - Set =company-delay= to 0.2 instead of 0
 - Ignore =company-quickhelp= for Emacs version < 24.4
 - Add support for =company= in various languages (thanks to trishume)
+
 *** Emacs Lisp
 - Add =eval-sexp-fu= (thanks to tuhdo)
 - Enable eldoc in eval-expression and IELM (thanks to tuhdo)
 - New key bindings ~SPC m e b~, ~SPC m e c~ and ~SPC m e r~ to evaluate
   the buffer, the current form starting by =set= or =def= and the region
   respectively (thanks to ralesi)
+
 *** Ess
 - Fix loading of =ess-R-object-popup= and =ess-R-data-view=
   (thanks to jcpetkovich)
+
 *** Extra-Lang layer
 - Add =Nim= language (thanks to trishume)
+
 *** Flycheck
 - Move to =syntax-checking= layer
 - Add =flycheck-pos-tip= (thanks to tuhdo)
 - Enable flycheck for =lua= files (thanks rphillips)
+
 *** Git
 - Add =gitconfig-mode= and =git-commit-mode= (thanks to ralesi)
 - Add =gitattributes-mode= and =gitignore-mode= (thanks to r4ts0n)
@@ -3808,9 +4975,11 @@ a batch of packages.
 - Add =git-link= package (thanks to CestDiego)
 - Enable Magit authentication on Windows (thanks to tuhdo)
 - Loads =magit-gh-pulls= only after requesting it (thanks to cpaulik)
+
 *** Go
 - Add =run-package-tests= command on ~SPC m t p~ (thanks to robmerrell)
 - Fix path to =go-oracle= (thanks to Pursuit92)
+
 *** Haskell
 - Move ~SPC m t~ and ~SPC m i~ under ~SPC m h~
 - Remove =hi2= (it is now integrated in =haskell-mode=)
@@ -3820,6 +4989,7 @@ a batch of packages.
 - Move ~SPC m t~ to ~SPC m h t~ according to Spacemacs conventions (thanks
   to jeremyjh)
 - Add C-- =cmm-mode= (thanks to bgamari)
+
 *** Helm
 - Add =helm-colors= key binding on ~SPC C l~ (thanks to tuhdo)
 - Make =helm-ff-doted-directory= consistent (thanks to tuhdo)
@@ -3836,16 +5006,20 @@ a batch of packages.
   (thanks to tuhdo)
 - Add key bindings for searching the web using =helm-suggest= (thanks to
   cpaulik)
+
 *** Holy-mode
 - New package providing Emacs edition style to Spacemacs
+
 *** IRC
 - rcirc: Create rcirc logging directory during init
   (thanks to jcpetkovich)
 - New ERC layer (thanks to swaroopch)
 - Add ERC keybindings (thans to cpaulik)
 - Move startup key bindings to prefix ~SPC a i~
+
 *** Markdown
 - Associate =.mkd= with =markdown-mode= (thanks to bgamari)
+
 *** Org
 - Move to =org= layer
 - Bind evil-leader in org-agenda-map (thanks to luxbock)
@@ -3853,21 +5027,28 @@ a batch of packages.
 - Add key bindings for =org-clock-cancel= on ~SPC m q~,
   and =org-set-effort= on ~SPC m f~ (thanks to swaroopch)
 - Fix diminish of =org-indent=
+
 *** Perspective
 - Rebind =spacemacs/persp-switch-project= to ~SPC p p~
   (thanks to CestDiego)
+
 *** Projectile
 - Move projectile switch project from ~SPC p S~ to ~SPC p p~
+
 *** Python
 - Add helm-pydoc on ~SPC m h d~ (thanks to danielwuz)
 - Fix =pylookup= configuration
+
 *** Racket
 - Add key bindings for REPL interaction
+
 *** Ruby
 - Lazy-load =projectile-rails=
 - Remove mode-line lighter for =robe=
+
 *** Scala
 - Do not enable ensime in non-file buffers (thanks to chrisbarrett)
+
 *** SLIME
 - Use slime for indentation (thanks to tuhdo)
 - Add extension for SBCL (thanks to tuhdo)
@@ -3875,18 +5056,23 @@ a batch of packages.
   (thanks to tuhdo)
 - Enable fuzzy completion with score (thanks to tuhdo)
 - Don't enable SLIME in Emacs Lisp (thanks to tuhdo)
+
 *** Smartparens
 - Enable smartparens in eval-expression (thanks to tuhdo)
+
 *** Themes
 - Fix =themes-megapack= layer where themes could not be browsed in Helm.
 - Add =material= theme (thanks to cpaulik)
 - Add =darktooth= theme (thanks to person808)
 - Add =gotham= theme (thanks to person808)
+
 *** ycmd
 - Set global config only if not already set (thanks naseer)
+
 *** Web
 - Add =sass-mode= (thanks to ryanartecona)
 - Ensure that less gets loaded (thanks to mijoharas)
+
 *** Various Improvements and Changes
 - New =evil= state called =evilified= which is used in _evilified_
   buffers.
@@ -3952,28 +5138,36 @@ a batch of packages.
 - Add =Buy A Drink= badge to README.md
 - Typo and documentation updates (thanks to danielwuz, swaroopch,
   CestDiego, IvanMalison, agevelt, nwolfe)
+
 ** Hot Fixes
 *** Startup Buffer
 - Don't display the release notes in the startup buffer when Emacs is restarted
   after a fresh install
 - Startup buffer: fix widget activation in =holy-mode= (thanks to tuhdo)
 - Startup buffer: Don't fontify the startup buffer when =rainbow-identifiers=
+
 *** Auto-completion
 - Fix error when toggling auto-completion in some buffers
+
 *** Haskell
 - Add new =haskell-snippets= package (fixes error with required =haskell-yas=)
 - Fix missing quote in =haskell-indentation=
+
 *** Org
 - Org layer: exclude ox-gfm since it seems problematic for some users.
   package is used
+
 *** Ruby
 - Fix auto-completion activation.
+
 *** Themes
 - Fix conflict between official Spacemacs solarized theme and
   =color-theme-solarized= declared in =themes-megapack= layer.
 - Add rules for all base16 themes (thanks to mkaito)
+
 *** Various Fixes
 - revert back =ag= as the default search tool instead of =pt=, =pt= can
   conflict with =pt= command line tool from TCL parser tools.
+
 * Previous Releases
 - See Github release page

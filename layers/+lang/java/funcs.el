@@ -93,7 +93,7 @@
   (setq-local eldoc-documentation-function
               (lambda ()
                 (when (ensime-connected-p)
-                  (ensime-print-type-at-point))))
+                  (ensime-type-at-point))))
   (eldoc-mode))
 
 (defun spacemacs//ensime-maybe-start ()

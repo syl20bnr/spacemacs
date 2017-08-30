@@ -4,7 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-- [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#pretty-symbols][Pretty Symbols]]
@@ -39,7 +39,7 @@
 * Description
 This layer adds support for [[https://clojure.org/][Clojure]] language using [[https://github.com/clojure-emacs/cider][CIDER]].
 
-* Features
+** Features:
 - REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
 - Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]]
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
@@ -137,17 +137,18 @@ As this state works the same for all files, the documentation is in global
 
 *** Evaluation
 
-| Key Binding | Description                                     |
-|-------------+-------------------------------------------------|
-| ~SPC m e ;~ | eval sexp and show result as comment            |
-| ~SPC m e b~ | eval buffer                                     |
-| ~SPC m e e~ | eval last sexp                                  |
-| ~SPC m e f~ | eval function at point                          |
-| ~SPC m e r~ | eval region                                     |
-| ~SPC m e m~ | cider macroexpand 1                             |
-| ~SPC m e M~ | cider macroexpand all                           |
-| ~SPC m e p~ | print last sexp (clojure interaction mode only) |
-| ~SPC m e w~ | eval last sexp and replace with result          |
+| Key Binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~SPC m e ;~ | eval sexp and show result as comment                      |
+| ~SPC m e b~ | eval buffer                                               |
+| ~SPC m e e~ | eval last sexp                                            |
+| ~SPC m e f~ | eval function at point                                    |
+| ~SPC m e r~ | eval region                                               |
+| ~SPC m e m~ | cider macroexpand 1                                       |
+| ~SPC m e M~ | cider macroexpand all                                     |
+| ~SPC m e p~ | print last sexp (clojure interaction mode only)           |
+| ~SPC m e P~ | eval last sexp and pretty print result in separate buffer |
+| ~SPC m e w~ | eval last sexp and replace with result                    |
 
 *** Goto
 
@@ -183,6 +184,8 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m s r~ | send and eval region in REPL                                                   |
 | ~SPC m s R~ | send and eval region and switch to REPL in =insert state=                      |
 | ~SPC m s s~ | switch to REPL or jump to last file or last clj buffer from repl (cider-repl)  |
+| ~SPC m s x~ | refresh REPL                                                                   |
+| ~SPC m s X~ | restart REPL                                                                   |
 
 *** Tests
 
@@ -209,7 +212,7 @@ As this state works the same for all files, the documentation is in global
 |---------------+----------------------------------------------------|
 | ~SPC m d b~   | instrument expression at point                     |
 | ~SPC m d e~   | display last stacktrace                            |
-| ~SPC m d r~   | reload namepspaces                                 |
+| ~SPC m d r~   | reload namespaces                                  |
 | ~SPC m d v~   | inspect expression at point                        |
 | ~SPC m d i~   | inspect expression at point                        |
 | ~SPC m d f~   | query form at point                                |
@@ -236,53 +239,54 @@ As this state works the same for all files, the documentation is in global
 
 *** Refactoring
 
-| Key Binding   | Description                 |
-|---------------+-----------------------------|
-| ~SPC m r ?~   | describe refactoring        |
-| ~SPC m r a d~ | add declaration             |
-| ~SPC m r a i~ | add import to ns            |
-| ~SPC m r a m~ | add missing libspec         |
-| ~SPC m r a p~ | add project dependency      |
-| ~SPC m r a r~ | add require to ns           |
-| ~SPC m r a u~ | add use to ns               |
-| ~SPC m r c (~ | convert coll to list        |
-| ~SPC m r c '~ | convert coll to quoted list |
-| ~SPC m r c {~ | convert coll to map         |
-| ~SPC m r c #~ | convert coll to set         |
-| ~SPC m r c [~ | convert coll to vector      |
-| ~SPC m r c i~ | cycle if                    |
-| ~SPC m r c n~ | clean ns                    |
-| ~SPC m r c p~ | cycle privacy               |
-| ~SPC m r d k~ | destructure keys            |
-| ~SPC m r e c~ | extract constant            |
-| ~SPC m r e d~ | extract definition          |
-| ~SPC m r e f~ | extract function            |
-| ~SPC m r e l~ | expand let                  |
-| ~SPC m r f u~ | find usages                 |
-| ~SPC m r f e~ | create fn from example      |
-| ~SPC m r h d~ | hotload dependency          |
-| ~SPC m r i l~ | introduce let               |
-| ~SPC m r i s~ | inline symbol               |
-| ~SPC m r m f~ | move form                   |
-| ~SPC m r m l~ | move to let                 |
-| ~SPC m r p c~ | project clean               |
-| ~SPC m r p f~ | promote function            |
-| ~SPC m r r d~ | remove debug fns            |
-| ~SPC m r r f~ | rename file                 |
-| ~SPC m r r l~ | remove let                  |
-| ~SPC m r r r~ | remove unused requires      |
-| ~SPC m r r s~ | rename symbol               |
-| ~SPC m r r u~ | replace use                 |
-| ~SPC m r s n~ | sort ns                     |
-| ~SPC m r s p~ | sort project dependencies   |
-| ~SPC m r s r~ | stop referring              |
-| ~SPC m r s c~ | show changelog              |
-| ~SPC m r t f~ | thread first all            |
-| ~SPC m r t h~ | thread                      |
-| ~SPC m r t l~ | thread last all             |
-| ~SPC m r u a~ | unwind all                  |
-| ~SPC m r u p~ | update project dependencies |
-| ~SPC m r u w~ | unwind                      |
+| Key Binding   | Description                       |
+|---------------+-----------------------------------|
+| ~SPC m r ?~   | describe refactoring              |
+| ~SPC m r a d~ | add declaration                   |
+| ~SPC m r a i~ | add import to ns                  |
+| ~SPC m r a m~ | add missing libspec               |
+| ~SPC m r a p~ | add project dependency            |
+| ~SPC m r a r~ | add require to ns                 |
+| ~SPC m r a u~ | add use to ns                     |
+| ~SPC m r c (~ | convert coll to list              |
+| ~SPC m r c '~ | convert coll to quoted list       |
+| ~SPC m r c {~ | convert coll to map               |
+| ~SPC m r c #~ | convert coll to set               |
+| ~SPC m r c [~ | convert coll to vector            |
+| ~SPC m r c :~ | toggle between keyword and string |
+| ~SPC m r c i~ | cycle if                          |
+| ~SPC m r c n~ | clean ns                          |
+| ~SPC m r c p~ | cycle privacy                     |
+| ~SPC m r d k~ | destructure keys                  |
+| ~SPC m r e c~ | extract constant                  |
+| ~SPC m r e d~ | extract definition                |
+| ~SPC m r e f~ | extract function                  |
+| ~SPC m r e l~ | expand let                        |
+| ~SPC m r f u~ | find usages                       |
+| ~SPC m r f e~ | create fn from example            |
+| ~SPC m r h d~ | hotload dependency                |
+| ~SPC m r i l~ | introduce let                     |
+| ~SPC m r i s~ | inline symbol                     |
+| ~SPC m r m f~ | move form                         |
+| ~SPC m r m l~ | move to let                       |
+| ~SPC m r p c~ | project clean                     |
+| ~SPC m r p f~ | promote function                  |
+| ~SPC m r r d~ | remove debug fns                  |
+| ~SPC m r r f~ | rename file                       |
+| ~SPC m r r l~ | remove let                        |
+| ~SPC m r r r~ | remove unused requires            |
+| ~SPC m r r s~ | rename symbol                     |
+| ~SPC m r r u~ | replace use                       |
+| ~SPC m r s n~ | sort ns                           |
+| ~SPC m r s p~ | sort project dependencies         |
+| ~SPC m r s r~ | stop referring                    |
+| ~SPC m r s c~ | show changelog                    |
+| ~SPC m r t f~ | thread first all                  |
+| ~SPC m r t h~ | thread                            |
+| ~SPC m r t l~ | thread last all                   |
+| ~SPC m r u a~ | unwind all                        |
+| ~SPC m r u p~ | update project dependencies       |
+| ~SPC m r u w~ | unwind                            |
 
 *** Reformatting
 
@@ -290,7 +294,6 @@ As this state works the same for all files, the documentation is in global
 |---------------------------+-------------------------|
 | ~SPC m f l~               | realign current form    |
 | ~SPC m f b~ or  ~SPC m =~ | reformat current buffer |
-
 
 ** CIDER Buffers
 In general, ~q~ should always quit the popped up buffer.
@@ -341,9 +344,7 @@ In general, ~q~ should always quit the popped up buffer.
 | ~t~         | run test           |
 | ~T~         | run tests          |
 
-
 ** Sayid Buffers
-
 *** sayid-mode
 
 | Key Binding        | Description                                       |

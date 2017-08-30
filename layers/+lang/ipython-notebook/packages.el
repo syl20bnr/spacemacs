@@ -24,8 +24,8 @@
     :init
     (progn
       (spacemacs/set-leader-keys
-        "ail" 'ein:notebooklist-login
-        "aio" 'ein:notebooklist-open)
+        "ayl" 'ein:notebooklist-login
+        "ayo" 'ein:notebooklist-open)
       (with-eval-after-load 'ein-notebooklist
         (evilified-state-evilify-map ein:notebooklist-mode-map
           :mode ein:notebooklist-mode
@@ -61,16 +61,17 @@
         "R" 'ein:worksheet-rename-sheet
         "RET" 'ein:worksheet-execute-cell-and-goto-next
         ;; Output
-        " C-l" 'ein:worksheet-clear-output
-        " C-S-l" 'ein:worksheet-clear-all-output
+        "C-l" 'ein:worksheet-clear-output
+        "C-S-l" 'ein:worksheet-clear-all-output
         ;;Console
-        " C-o" 'ein:console-open
+        "C-o" 'ein:console-open
         ;; Merge cells
-        " C-k" 'ein:worksheet-merge-cell
-        " C-j" 'spacemacs/ein:worksheet-merge-cell-next
+        "C-k" 'ein:worksheet-merge-cell
+        "C-j" 'spacemacs/ein:worksheet-merge-cell-next
+        "s" 'ein:worksheet-split-cell-at-point
         ;; Notebook
-        " C-s" 'ein:notebook-save-notebook-command
-        " C-r" 'ein:notebook-rename-command
+        "C-s" 'ein:notebook-save-notebook-command
+        "C-r" 'ein:notebook-rename-command
         "1" 'ein:notebook-worksheet-open-1th
         "2" 'ein:notebook-worksheet-open-2th
         "3" 'ein:notebook-worksheet-open-3th
@@ -148,9 +149,10 @@
         ("C-S-l" ein:worksheet-clear-all-output)
         ;;Console
         ("C-o" ein:console-open)
-        ;; Merge cells
+        ;; Merge and split cells
         ("C-k" ein:worksheet-merge-cell)
         ("C-j" spacemacs/ein:worksheet-merge-cell-next)
+        ("s" ein:worksheet-split-cell-at-point)
         ;; Notebook
         ("C-s" ein:notebook-save-notebook-command)
         ("C-r" ein:notebook-rename-command)

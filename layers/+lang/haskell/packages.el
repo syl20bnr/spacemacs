@@ -12,20 +12,21 @@
 (setq haskell-packages
   '(
     cmm-mode
-    (company-cabal :toggle (configuration-layer/package-usedp 'company))
+    (company-cabal :requires company)
     company-ghci
     company-ghc
     flycheck
-    (flycheck-haskell :toggle (configuration-layer/package-usedp 'flycheck))
+    (flycheck-haskell :requires flycheck)
     ggtags
     ghc
     haskell-mode
     haskell-snippets
     helm-gtags
-    (helm-hoogle :toggle (configuration-layer/package-usedp 'helm))
+    (helm-hoogle :requires helm)
     hindent
     hlint-refactor
     intero
+    (dante :toggle (version<= "25" emacs-version))
     ))
 
 (defun haskell/init-cmm-mode ()
@@ -53,6 +54,8 @@
 (defun haskell/init-ghc ()
   (use-package ghc
     :defer t))
+
+(defun haskell/init-dante ())
 
 (defun haskell/init-intero ()
   (use-package intero

@@ -23,12 +23,16 @@
     ))
 
 (defun markdown/post-init-company ()
-  (spacemacs|add-company-backends :backends company-capf :modes markdown-mode))
+  (dolist (mode markdown--key-bindings-modes)
+    (eval `(spacemacs|add-company-backends
+             :backends company-capf
+             :modes ,mode))))
 
 (defun markdown/post-init-company-emoji ()
-  (spacemacs|add-company-backends
-    :backends company-emoji
-    :modes markdown-mode))
+  (dolist (mode markdown--key-bindings-modes)
+    (eval `(spacemacs|add-company-backends
+             :backends company-emoji
+             :modes ,mode))))
 
 (defun markdown/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'markdown-mode-hook 'emoji-cheat-sheet-plus-display-mode))
@@ -37,25 +41,12 @@
   (use-package gh-md
     :defer t
     :init
-    (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-      "cr"  'gh-md-render-buffer)))
+    (dolist (mode markdown--key-bindings-modes)
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "cr" 'gh-md-render-buffer))))
 
 (defun markdown/post-init-smartparens ()
   (add-hook 'markdown-mode-hook 'smartparens-mode))
-
-;; from Jason Blevins http://jblevins.org/log/mmm
-(defun markdown/mmm-auto-class (lang)
-  (let* ((l (if (listp lang) (car lang) lang))
-         (s (if (listp lang) (cadr lang) lang))
-         (class (intern (concat "markdown-" l)))
-         (submode (intern (concat s "-mode")))
-         (front (concat "^```" l "[\n\r]+"))
-         (back "^```$"))
-    (mmm-add-classes (list (list class
-                               :submode submode
-                               :front front
-                               :back back)))
-    (mmm-add-mode-ext-class 'markdown-mode nil class)))
 
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode
@@ -73,10 +64,9 @@
                         ("mi" . "markdown/insert")
                         ("ml" . "markdown/lists")
                         ("mx" . "markdown/text")))
-        (spacemacs/declare-prefix-for-mode
-         'markdown-mode (car prefix) (cdr prefix)))
-      ;; note: `gfm-mode' is part of `markdown-mode.el' so we can define its key
-      ;; bindings here
+        (dolist (mode markdown--key-bindings-modes)
+          (spacemacs/declare-prefix-for-mode
+            mode (car prefix) (cdr prefix))))
       (dolist (mode markdown--key-bindings-modes)
         (spacemacs/set-leader-keys-for-major-mode mode
           ;; Movement
@@ -114,7 +104,7 @@
           "ii"  'markdown-insert-image
           "ik"  'spacemacs/insert-keybinding-markdown
           "iI"  'markdown-insert-reference-image
-          "il"  'markdown-insert-link
+          "il"  'markdown-insert-inline-link-dwim
           "iL"  'markdown-insert-reference-link-dwim
           "iw"  'markdown-insert-wiki-link
           "iu"  'markdown-insert-uri
@@ -122,6 +112,11 @@
           "k"   'markdown-kill-thing-at-point
           ;; List editing
           "li"  'markdown-insert-list-item
+          ;; Toggles
+          "ti"  'markdown-toggle-inline-images
+          "tl"  'markdown-toggle-url-hiding
+          "tt"  'markdown-toggle-gfm-checkbox
+          "tw"  'markdown-toggle-wiki-links
           ;; region manipulation
           "xb"  'markdown-insert-bold
           "xi"  'markdown-insert-italic
@@ -135,10 +130,10 @@
           "N"   'markdown-next-link
           "f"   'markdown-follow-thing-at-point
           "P"   'markdown-previous-link
-          "<RET>" 'markdown-jump))
-      (when (eq 'eww markdown-live-preview-engine)
-        (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-          "cP"  'markdown-live-preview-mode))
+          "<RET>" 'markdown-jump)
+        (when (eq 'eww markdown-live-preview-engine)
+          (spacemacs/set-leader-keys-for-major-mode mode
+            "cP" 'markdown-live-preview-mode)))
       ;; Header navigation in normal state movements
       (evil-define-key 'normal markdown-mode-map
         "gj" 'outline-forward-same-level
@@ -155,8 +150,10 @@
 (defun markdown/init-markdown-toc ()
   (use-package markdown-toc
     :defer t
-    :init (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-            "it"  'markdown-toc-generate-toc)))
+    :init
+    (dolist (mode markdown--key-bindings-modes)
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "it" 'markdown-toc-generate-toc))))
 
 (defun markdown/init-mmm-mode ()
   (use-package mmm-mode
@@ -168,5 +165,7 @@
 (defun markdown/init-vmd-mode ()
   (use-package vmd-mode
     :defer t
-    :init (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-            "cP" 'vmd-mode)))
+    :init
+    (dolist (mode markdown--key-bindings-modes)
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "cP" 'vmd-mode))))

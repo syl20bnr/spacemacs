@@ -74,6 +74,9 @@ fi
 if [[ $2 = "test" ]]
 then
     places=("./core/tools/spacefmt/tests")
+    # Getting fresh test org file each time.
+    rm -f ./core/tools/spacefmt/tests/test.org
+    cp ./core/tools/spacefmt/tests/test.test_org ./core/tools/spacefmt/tests/test.org
 else
     places=("./doc" "./layers")
 fi

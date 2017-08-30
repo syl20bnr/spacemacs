@@ -70,7 +70,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Edit
 ;; ---------------------------------------------------------------------------
 
-;; start scratch in text mode (usefull to get a faster Emacs load time
+;; Start with the *scratch* buffer in text mode (speeds up Emacs load time,
 ;; because it avoids autoloads of elisp modes)
 (setq initial-major-mode 'text-mode)
 
@@ -205,3 +205,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; hook into `hack-local-variables' in order to allow switching spacemacs
 ;; configurations based on local variables
 (add-hook 'hack-local-variables-hook #'spacemacs//run-local-vars-mode-hook)
+
+;; Add buffer reference to internal list of killed buffers on `kill-buffer',
+;; used for restoring recently killed buffers.
+(add-hook 'kill-buffer-hook #'spacemacs//add-buffer-to-killed-list)

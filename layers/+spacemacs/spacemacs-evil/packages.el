@@ -48,7 +48,7 @@
       (setq anzu-search-threshold 1000
             anzu-cons-mode-line-p nil)
       ;; powerline integration
-      (when (configuration-layer/package-usedp 'spaceline)
+      (when (configuration-layer/package-used-p 'spaceline)
         (defun spacemacs/anzu-update-mode-line (here total)
           "Custom update function which does not propertize the status."
           (when anzu--state

@@ -5,7 +5,6 @@
 - [[#install][Install]]
 
 * Description
-
 This simple layer adds the [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]] package, which overrides common
 normal-mode vim commands like D, dd, c, etc. to keep parentheses balanced. See
 the repository for more details.

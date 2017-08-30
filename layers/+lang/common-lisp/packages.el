@@ -11,13 +11,15 @@
 
 (setq common-lisp-packages
       '(auto-highlight-symbol
-        (common-lisp-snippets :toggle (configuration-layer/package-usedp 'yasnippet))
+        (common-lisp-snippets :requires yasnippet)
         evil
         ggtags
         helm
         helm-gtags
+        parinfer
         slime
-        (slime-company :toggle (configuration-layer/package-usedp 'company))))
+        (slime-company :requires company)
+        ))
 
 (defun common-lisp/post-init-auto-highlight-symbol ()
   (with-eval-after-load 'auto-highlight-symbol
@@ -44,6 +46,9 @@
 
 (defun common-lisp/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'common-lisp-mode))
+
+(defun common-lisp/post-init-parinfer ()
+  (add-hook 'lisp-mode-hook 'parinfer-mode))
 
 (defun common-lisp/init-slime-company ()
   (spacemacs|use-package-add-hook slime

@@ -12,7 +12,7 @@
 (defconst restructuredtext-packages
   '(
     auto-complete
-    (auto-complete-rst :toggle (configuration-layer/package-usedp 'auto-complete))
+    (auto-complete-rst :requires auto-complete)
     linum
     (rst :location built-in)
     (rst-directives :location local)
@@ -35,7 +35,7 @@
 (defun restructuredtext/init-post-linum ()
   ;; important auto-complete work-around to be applied to make both linum
   ;; and auto-complete to work together
-  (when (configuration-layer/package-usedp 'auto-complete)
+  (when (configuration-layer/package-used-p 'auto-complete)
     (add-hook 'rst-mode-hook 'ac-linum-workaround t)))
 
 (defun restructuredtext/init-rst-directives ()
@@ -56,7 +56,7 @@
   (spell-checking/add-flyspell-hook 'rst-mode-hook)
   ;; important auto-complete work-around to be applied to make both flyspell
   ;; and auto-complete to work together
-  (when (configuration-layer/package-usedp 'auto-complete)
+  (when (configuration-layer/package-used-p 'auto-complete)
     (add-hook 'rst-mode-hook 'ac-flyspell-workaround t)))
 
 (defun restructuredtext/post-init-yasnippet ()

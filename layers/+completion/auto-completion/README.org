@@ -160,7 +160,7 @@ In the file =packages.el= of the python layer:
   ;; here it is `company-anaconda'
   (setq python-packages
     '(...
-      (company-anaconda :toggle (configuration-layer/package-usedp 'company))
+      (company-anaconda :toggle (configuration-layer/package-used-p 'company))
       ...))
 
   (defun python/init-company-anaconda ()

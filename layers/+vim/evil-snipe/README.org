@@ -96,4 +96,3 @@ group of characters. By adding a pair of =(CHAR REGEX)= to the list
 #+END_SRC
 
 * TODO Key bindings
-

@@ -20,7 +20,7 @@
                                              (git :variables foo 'bar)))
         configuration-layer--used-layers
         (configuration-layer--indexed-layers (make-hash-table :size 1024)))
-    (configuration-layer/discover-layers)
+    (configuration-layer/discover-layers 'refresh-index)
     (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
     (should (eq 'spacemacs-bootstrap
                 (first configuration-layer--used-layers)))))
@@ -31,7 +31,7 @@
                                              (git :variables foo 'bar)))
         configuration-layer--used-layers
         (configuration-layer--indexed-layers (make-hash-table :size 1024)))
-    (configuration-layer/discover-layers)
+    (configuration-layer/discover-layers 'refresh-index)
     (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
     (should (eq 'spacemacs-base (second configuration-layer--used-layers)))))
 

@@ -13,7 +13,7 @@
 (defconst gtags-packages
   '(
     ggtags
-    (helm-gtags :toggle (configuration-layer/package-usedp 'helm))
+    (helm-gtags :requires helm)
     ))
 
 (defun gtags/init-ggtags ()
@@ -27,7 +27,7 @@
       (add-hook 'tcl-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
       (add-hook 'vhdl-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
     :config
-    (when (configuration-layer/package-usedp 'helm-gtags)
+    (when (configuration-layer/package-used-p 'helm-gtags)
       ;; If anyone uses helm-gtags, they would want to use these key bindings.
       ;; These are bound in `ggtags-mode-map', since the functionality of
       ;; `helm-gtags-mode' is basically entirely contained within

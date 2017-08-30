@@ -14,8 +14,9 @@
 ;;------------------------------------------------------------------------------
 
 (defvar kl-layout 'dvorak
-  "The keyboard-layout to use. Possible values are `colemak',
-`dvorak', `bepo' and `workman'.")
+  "The keyboard-layout to use. Possible values are `bepo', `dvp',
+`dvorak', `workman', `neo', `colemak-neio', `colemak-hnei' and
+`colemak-jkhl'.")
 
 (defvar kl-enabled-configurations nil
   "If non nil, `keyboard-layout' will enable configurations only
@@ -25,70 +26,96 @@ for the passed list of symbols. Configurations that are also in
 (defvar kl-disabled-configurations nil
   "If non nil, `keyboard-layout' will disable configurations for
 the passed list of symbols. This list takes priority over
-`kl-enabled-configurations', so they will not be loaded in
-any case.")
+`kl-enabled-configurations', so they will not be loaded in any
+case.")
 
 ;;------------------------------------------------------------------------------
 ;; PRIVATE VARIABLES
 ;;------------------------------------------------------------------------------
 
 (defvar kl--base-rebinding-maps
-  '((bepo . (("c" . "h")
-             ("t" . "j")
-             ("s" . "k")
-             ("r" . "l")
-             ;;
-             ("h" . "r")
-             ("j" . "t")
-             ("k" . "s")
-             ("l" . "c")))
-    (colemak . (("n" . "h")
-                ("e" . "j")
-                ("i" . "k")
-                ("o" . "l")
-                ;;
-                ("h" . "n")
-                ("j" . "e")
-                ("k" . "i")
-                ("l" . "o")))
-   (dvp . (("d" . "h")
-           ("h" . "j")
-           ("t" . "k")
-           ("n" . "l")
-           ;;
-           ("j" . "d")
-           ("k" . "t")
-           ("l" . "n")))
-    (dvorak . (("h" . "h")
-               ("t" . "j")
-               ("n" . "k")
-               ("s" . "l")
-               ;;
-               ("h" . "h")
-               ("j" . "t")
-               ("k" . "n")
-               ("l" . "s")))
-    (colemak . (("h" . "h")
-                ("n" . "j")
-                ("e" . "k")
-                ("i" . "l")
-                ;;
-                ("h" . "h")
-                ("j" . "n")
-                ("k" . "e")
-                ("l" . "i")))
-    (workman . (("y" . "h")
-                ("n" . "j")
-                ("e" . "k")
-                ("o" . "l")
-                ;;
-                ("h" . "y")
-                ("j" . "n")
-                ("k" . "e")
-                ("l" . "o"))))
+  '((bepo
+     . (("c" . "h")
+        ("t" . "j")
+        ("s" . "k")
+        ("r" . "l")
+        ;;
+        ("h" . "r")
+        ("j" . "t")
+        ("k" . "s")
+        ("l" . "c")))
+    (dvp
+     . (("d" . "h")
+        ("h" . "j")
+        ("t" . "k")
+        ("n" . "l")
+        ;;
+        ("j" . "d")
+        ("k" . "t")
+        ("l" . "n")))
+    (dvorak
+     . (("h" . "h")
+        ("t" . "j")
+        ("n" . "k")
+        ("s" . "l")
+        ;;
+        ("h" . "h")
+        ("j" . "t")
+        ("k" . "n")
+        ("l" . "s")))
+    (workman
+     . (("y" . "h")
+        ("n" . "j")
+        ("e" . "k")
+        ("o" . "l")
+        ;;
+        ("h" . "y")
+        ("j" . "n")
+        ("k" . "e")
+        ("l" . "o")))
+    (neo
+     . (("s" . "h")
+        ("n" . "j")
+        ("r" . "k")
+        ("t" . "l")
+        ;;
+        ("l" . "s")
+        ("j" . "n")
+        ("h" . "r")
+        ("k" . "t")))
+    (colemak-neio
+     . (("n" . "h")
+        ("e" . "j")
+        ("i" . "k")
+        ("o" . "l")
+        ;;
+        ("h" . "n")
+        ("j" . "e")
+        ("k" . "i")
+        ("l" . "o")))
+    (colemak-hnei
+     . (("h" . "h")
+        ("n" . "j")
+        ("e" . "k")
+        ("i" . "l")
+        ;;
+        ("h" . "h")
+        ("j" . "n")
+        ("k" . "e")
+        ("l" . "i")))
+    (colemak-jkhl
+     . (("j" . "h")
+        ("k" . "j")
+        ("h" . "k")
+        ("l" . "l")
+        ;;
+        ("h" . "j")
+        ("j" . "k")
+        ("k" . "h")
+        ("l" . "l"))))
   "The base rebinding map. Dots should be read as `will behave
-  as'. It should be a bidirectional mapping, i.e. all present
-  keys should be once in each column.")
+as'. It should be a bidirectional mapping, i.e. all present keys
+should be once in each column.")
 
 (defvar kl--rebinding-maps
   (mapcar (lambda (map) `(,(car map) . ,(kl//generate-full-rebinding-map (cdr map))))

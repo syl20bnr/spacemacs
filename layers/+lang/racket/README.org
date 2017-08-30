@@ -13,7 +13,6 @@
   - [[#other-key-bindings][Other key bindings]]
 
 * Description
-
 Adds support for the [[http://racket-lang.org/][Racket]] programming language.
 
 * Install
@@ -27,7 +26,6 @@ raco pkg install drracket
 #+END_SRC
 
 * Key Bindings
-
 ** Navigation
 
 | Key Binding | Description                         |

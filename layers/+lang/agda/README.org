@@ -2,7 +2,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#some-features][Some features:]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#agda][Agda]]
@@ -11,7 +11,7 @@
 * Description
 This layer adds support for the [[http://wiki.portal.chalmers.se/agda/pmwiki.php][Agda]] programming language.
 
-** Some features:
+** Features:
 - Faces redefined to correctly play with themes.
 - Spacemacs bindings to Agda's interactive tools.
 

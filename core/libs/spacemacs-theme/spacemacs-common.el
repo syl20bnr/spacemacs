@@ -46,6 +46,11 @@
   :type 'boolean
   :group 'spacemacs-theme)
 
+(defcustom spacemacs-theme-comment-italic nil
+  "Enable italics for comments and also disable background."
+  :type 'boolean
+  :group 'spacemacs-theme)
+
 (defcustom spacemacs-theme-org-agenda-height t
   "Use varying text heights for org agenda."
   :type 'boolean
@@ -62,7 +67,7 @@
   :group 'spacemacs-theme)
 
 (defcustom spacemacs-theme-custom-colors nil
-  "Specify a list of custom colors"
+  "Specify a list of custom colors."
   :type 'alist
   :group 'spacemacs-theme)
 
@@ -95,6 +100,7 @@
         (cursor        (if (eq variant 'dark) (if (true-color-p) "#e3dedd" "#d0d0d0") (if (true-color-p) "#100a14" "#121212")))
         (const         (if (eq variant 'dark) (if (true-color-p) "#a45bad" "#d75fd7") (if (true-color-p) "#4e3163" "#8700af")))
         (comment       (if (eq variant 'dark) (if (true-color-p) "#2aa1ae" "#008787") (if (true-color-p) "#2aa1ae" "#008787")))
+        (comment-light (if (eq variant 'dark) (if (true-color-p) "#2aa1ae" "#008787") (if (true-color-p) "#a49da5" "#008787")))
         (comment-bg    (if (eq variant 'dark) (if (true-color-p) "#292e34" "#262626") (if (true-color-p) "#ecf3ec" "#ffffff")))
         (comp          (if (eq variant 'dark) (if (true-color-p) "#c56ec3" "#d75fd7") (if (true-color-p) "#6c4173" "#8700af")))
         (err           (if (eq variant 'dark) (if (true-color-p) "#e0211d" "#e0211d") (if (true-color-p) "#e0211d" "#e0211d")))
@@ -153,7 +159,7 @@
      `(eval-sexp-fu-flash ((,class (:background ,suc :foreground ,bg1))))
      `(eval-sexp-fu-flash-error ((,class (:background ,err :foreground ,bg1))))
      `(font-lock-builtin-face ((,class (:foreground ,keyword))))
-     `(font-lock-comment-face ((,class (:foreground ,comment :background ,(when spacemacs-theme-comment-bg comment-bg)))))
+     `(font-lock-comment-face ((,class (:foreground ,(if spacemacs-theme-comment-italic comment-light comment) :background ,(when spacemacs-theme-comment-bg comment-bg) :slant ,(if spacemacs-theme-comment-italic 'italic 'normal)))))
      `(font-lock-constant-face ((,class (:foreground ,const))))
      `(font-lock-doc-face ((,class (:foreground ,comment))))
      `(font-lock-function-name-face ((,class (:foreground ,func :inherit bold))))
@@ -476,6 +482,12 @@
      `(font-latex-string-face ((,class (:foreground ,str))))
      `(font-latex-warning-face ((,class (:foreground ,war))))
 
+;;;;; ledger-mode
+     `(ledger-font-directive-face ((,class (:foreground ,meta))))
+     `(ledger-font-posting-amount-face ((,class (:foreground ,yellow))))
+     `(ledger-font-posting-date-face ((,class (:foreground ,head1))))
+     `(ledger-occur-xact-face ((,class (:background ,bg2))))
+
 ;;;;; linum-mode
      `(linum ((,class (:foreground ,lnum :background ,bg2))))
 
@@ -549,12 +561,29 @@
      `(mode-line-inactive  ((,class (:foreground ,base :background ,bg1  :box (:color ,border :line-width 1)))))
 
 ;;;;; mu4e
-     `(mu4e-cited-1-face ((,class (:foreground ,base))))
-     `(mu4e-cited-7-face ((,class (:foreground ,base))))
-     `(mu4e-header-key-face ((,class (:foreground ,head2 :inherit bold))))
+     `(mu4e-attach-number-face ((,class (:foreground ,var))))
+     `(mu4e-cited-1-face ((,class (:foreground ,head1))))
+     `(mu4e-cited-2-face ((,class (:foreground ,head2))))
+     `(mu4e-cited-3-face ((,class (:foreground ,head3))))
+     `(mu4e-cited-4-face ((,class (:foreground ,head4))))
+     `(mu4e-cited-5-face ((,class (:foreground ,head1))))
+     `(mu4e-cited-6-face ((,class (:foreground ,head2))))
+     `(mu4e-cited-7-face ((,class (:foreground ,head3))))
+     `(mu4e-draft-face ((,class (:foreground ,var))))
+     `(mu4e-flagged-face ((,class (:foreground ,yellow :inherit bold))))
+     `(mu4e-header-key-face ((,class (:foreground ,meta :inherit bold))))
      `(mu4e-header-marks-face ((,class (:foreground ,comp))))
-     `(mu4e-unread-face ((,class (:foreground ,yellow :inherit bold))))
+     `(mu4e-header-highlight-face ((,class (:background ,highlight))))
+     `(mu4e-highlight-face ((,class (:foreground ,comp))))
+     `(mu4e-title-face ((,class (:foreground ,head1 :inherit bold))))
+     `(mu4e-replied-face ((,class (:foreground ,green))))
+     `(mu4e-modeline-face ((,class (:foreground ,func))))
+     `(mu4e-special-header-value-face ((,class (:foreground ,green))))
+     `(mu4e-unread-face ((,class (:foreground ,type :inherit bold))))
      `(mu4e-view-url-number-face ((,class (:foreground ,comp))))
+
+;;;;; mu4e-maildirs
+     `(mu4e-maildirs-extension-maildir-hl-face ((,class (:foreground ,head2 :inherit bold))))
 
 ;;;;; notmuch
      `(notmuch-search-date ((,class (:foreground ,func))))
@@ -667,6 +696,15 @@
 ;;;;; smartparens
      `(sp-pair-overlay-face ((,class (:background ,highlight :foreground nil))))
      `(sp-show-pair-match-face ((,class (:foreground ,mat :inherit bold :underline t))))
+
+;;;;; smerge
+     `(smerge-base ((,class (:background ,yellow-bg))))
+     `(smerge-markers ((,class (:background ,ttip-bg :foreground ,ttip))))
+     `(smerge-mine ((,class (:background ,red-bg))))
+     `(smerge-other ((,class (:background ,green-bg))))
+     `(smerge-refined-added ((,class (:background ,green-bg-s :foreground ,green))))
+     `(smerge-refined-changed ((,class (:background ,blue-bg :foreground ,blue))))
+     `(smerge-refined-removed ((,class (:background ,red-bg-s :foreground ,red))))
 
 ;;;;; spaceline
      `(spaceline-flycheck-error  ((,class (:foreground ,err))))

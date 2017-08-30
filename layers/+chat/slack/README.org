@@ -4,6 +4,7 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#spacemacs-layout-integration][Spacemacs layout integration]]
@@ -13,6 +14,11 @@
 This layer provides an interface to the Slack chat service via the emacs-slack
 package. Where possible, this layer aims to reuse keybindings from the IRC
 packages in Spacemacs.
+
+** Features:
+   - Real time messaging with [[https://github.com/ahyatt/emacs-websocket][emacs-websocket]]
+   - Connect to multiple slack instances
+   - Notifications with [[https://github.com/jwiegley/alert][alert.el]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -41,7 +47,7 @@ stuff elsewhere (like Dropbox for instance) and load the file in your dotfile.
 #+end_src
 
 ** Spacemacs layout integration
-A [[file:../../../doc/DOCUMENTATION.org::#layouts-and-workspaces][Spacemacs custom layout]] is defined by the layer. The name and the key binding
+A [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Spacemacs custom layout]] is defined by the layer. The name and the key binding
 for it can be customized with the following layer variables:
 - =slack-spacemacs-layout-name= for the layout name,
 - =slack-spacemacs-layout-binding= for the key binding.
@@ -70,6 +76,9 @@ By default the values are:
 | ~SPC m d~   | Direct message someone                  |
 | ~SPC m m~   | Embed mention of user                   |
 | ~SPC m p~   | Load previous messages                  |
+| ~SPC m )~   | Add reaction (emoji) to a message       |
+| ~SPC m (~   | Remove reaction (emoji) to a message    |
+| ~SPC m t~   | Show or create thread                   |
 | ~SPC m q~   | Quit Slack                              |
 
 The following bindings are provided to mimic bindings in the official Slack
@@ -79,6 +88,7 @@ client.
 |-------------+--------------------------|
 | ~SPC m @~   | Embed mention of user    |
 | ~SPC m #~   | Embed mention of channel |
+| ~SPC m )~   | Add a rection            |
 | ~SPC m k~   | Join a channel           |
 
 In insert state, one can also use ~@~ and ~#~ directly without the leader key

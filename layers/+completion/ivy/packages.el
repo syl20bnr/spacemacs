@@ -14,7 +14,7 @@
         auto-highlight-symbol
         bookmark
         counsel
-        (counsel-projectile :toggle (configuration-layer/package-usedp 'projectile))
+        (counsel-projectile :requires projectile)
         evil
         flx
         helm-make
@@ -65,6 +65,7 @@
         ;; jump
         ;; register/ring
         "ry"  'counsel-yank-pop
+        "rm"  'counsel-mark-ring
         ;; jumping
         "sj"  'counsel-imenu
         ;; themes
@@ -72,26 +73,38 @@
         ;; search
         "/"   'spacemacs/search-project-auto
         "*"   'spacemacs/search-project-auto-region-or-symbol
+        "sd"  'spacemacs/search-dir-auto
+        "sD"  'spacemacs/search-dir-auto-region-or-symbol
         "sf"  'spacemacs/search-auto
         "sF"  'spacemacs/search-auto-region-or-symbol
         "sp"  'spacemacs/search-project-auto
         "sP"  'spacemacs/search-project-auto-region-or-symbol
+        "sad" 'spacemacs/search-dir-ag
+        "saD" 'spacemacs/search-dir-ag-region-or-symbol
         "saf" 'spacemacs/search-ag
         "saF" 'spacemacs/search-ag-region-or-symbol
         "sap" 'spacemacs/search-project-ag
         "saP" 'spacemacs/search-project-ag-region-or-symbol
+        "sgd" 'spacemacs/search-dir-grep
+        "sgD" 'spacemacs/search-dir-grep-region-or-symbol
         "sgf" 'spacemacs/search-grep
         "sgF" 'spacemacs/search-grep-region-or-symbol
         "sgp" 'counsel-git-grep
         "sgP" 'spacemacs/counsel-git-grep-region-or-symbol
+        "skd" 'spacemacs/search-ack-grep
+        "skD" 'spacemacs/search-ack-grep-region-or-symbol
         "skf" 'spacemacs/search-ack
         "skF" 'spacemacs/search-ack-region-or-symbol
         "skp" 'spacemacs/search-project-ack
         "skP" 'spacemacs/search-project-ack-region-or-symbol
+        "srd" 'spacemacs/search-rg-grep
+        "srD" 'spacemacs/search-rg-grep-region-or-symbol
         "srf" 'spacemacs/search-rg
         "srF" 'spacemacs/search-rg-region-or-symbol
         "srp" 'spacemacs/search-project-rg
         "srP" 'spacemacs/search-project-rg-region-or-symbol
+        "std" 'spacemacs/search-pt-grep
+        "stD" 'spacemacs/search-pt-grep-region-or-symbol
         "stf" 'spacemacs/search-pt
         "stF" 'spacemacs/search-pt-region-or-symbol
         "stp" 'spacemacs/search-project-pt
@@ -192,7 +205,10 @@
       (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
         "w" 'ivy-wgrep-change-to-wgrep-mode)
       ;; Why do we do this ?
-      (ido-mode -1))))
+      (ido-mode -1)
+
+      ;; allow to select prompt in some ivy functions
+      (setq ivy-use-selectable-prompt t))))
 
 (defun ivy/init-ivy-hydra ()
   (use-package ivy-hydra)

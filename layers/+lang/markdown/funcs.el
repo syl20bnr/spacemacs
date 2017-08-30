@@ -36,3 +36,18 @@ Will work on both org-mode and any mode that accepts plain html."
          (format tag (help-key-description key nil)))
       (insert (format tag ""))
       (forward-char -6))))
+
+;; from Jason Blevins http://jblevins.org/log/mmm
+(defun markdown/mmm-auto-class (lang)
+  (let* ((l (if (listp lang) (car lang) lang))
+         (s (if (listp lang) (cadr lang) lang))
+         (class (intern (concat "markdown-" l)))
+         (submode (intern (concat s "-mode")))
+         (front (concat "^```" l "[\n\r]+"))
+         (back "^```$"))
+    (mmm-add-classes (list (list class
+                                 :submode submode
+                                 :front front
+                                 :back back)))
+    (dolist (mode markdown--key-bindings-modes)
+      (mmm-add-mode-ext-class mode nil class))))

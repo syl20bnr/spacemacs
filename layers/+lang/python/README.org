@@ -4,7 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#dependencies][Dependencies]]
@@ -34,7 +34,7 @@
 * Description
 This layer adds support for the Python language.
 
-** Features
+** Features:
 - Auto-completion using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]
 - Code Navigation using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]
 - Documentation Lookup using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]  and [[https://github.com/tsgates/pylookup][pylookup]]
@@ -68,6 +68,9 @@ To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anacond
 #+begin_src sh
     pip install --upgrade "jedi>=0.9.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
 #+end_src
+
+If you encounter problems with Jedi 1.0 consider downgrading to 0.9.0. See [[https://github.com/davidhalter/jedi/issues/873][this
+issue]] for details.
 
 Source: https://github.com/proofit404/anaconda-mode#issues
 
@@ -137,7 +140,6 @@ that hy is installed.
 #+END_SRC
 
 * Management of Python versions and virtual environments
-
 ** Manage virtual environments with pyvenv
 A virtual environment provides isolation of your Python package versions. For a
 general overview see [[http://docs.python-guide.org/en/latest/dev/virtualenvs/][this site]]. [[http://virtualenvwrapper.readthedocs.io/en/latest/index.html][Virtualenvwrapper]] which is also explained in the
@@ -186,7 +188,6 @@ can be set with the variable =python-auto-set-local-pyvenv-virtualenv== to:
 - =nil= to disable.
 
 * Key Bindings
-
 ** Inferior REPL process
 Start a Python or iPython inferior REPL process with ~SPC m s i~.
 If =ipython= is available in system executable search paths, =ipython=
@@ -250,7 +251,6 @@ function with a prefix argument, for example ~SPC u SPC m t a~.
 | ~SPC m r I~ | sort imports with [[https://pypi.python.org/pypi/isort][isort]]              |
 
 ** Live coding
-
 Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][live-py-plugin.]]
 
 | Key Binding | Description         |

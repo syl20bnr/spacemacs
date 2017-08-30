@@ -114,7 +114,6 @@ modifications to the buffer.
 | ~SPC s C-s~ | execute =helm-multi-swoop-all= |
 
 ** Universal argument
-
 ~SPC u~ is not working before =helm-M-x= (~SPC SPC~). Instead, call =helm-M-x=
 first, select the command you want to run, and press ~C-u~ before pressing
 ~RETURN~. For instance: ~SPC SPC org-reload C-u RET~

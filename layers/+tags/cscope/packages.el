@@ -11,7 +11,7 @@
 
 (setq cscope-packages
       '(
-        (helm-cscope :toggle (configuration-layer/package-usedp 'helm))
+        (helm-cscope :requires helm)
         xcscope
         ))
 

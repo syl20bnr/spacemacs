@@ -10,36 +10,34 @@
 ;;; License: GPLv3
 
 (setq org-packages
-  '(
-    company
-    company-emoji
-    emoji-cheat-sheet-plus
-    (evil-org :location local)
-    evil-surround
-    gnuplot
-    htmlize
-    ;; ob, org and org-agenda are installed by `org-plus-contrib'
-    (ob :location built-in)
-    (org :location built-in)
-    (org-agenda :location built-in)
-    (org-expiry :location built-in)
-    (org-journal :toggle org-enable-org-journal-support)
-    org-download
-    ;; org-mime is installed by `org-plus-contrib'
-    (org-mime :location built-in)
-    ;; org-notmuch and org-mu4e are installed by `org-plus-contrib'
-    (org-notmuch :location built-in :toggle (configuration-layer/package-usedp 'notmuch))
-    (org-mu4e :location built-in :toggle (configuration-layer/package-usedp 'mu4e))
-    org-pomodoro
-    org-present
-    (org-projectile :toggle (configuration-layer/package-usedp 'projectile))
-    (ox-twbs :toggle org-enable-bootstrap-support)
-    ;; use a for of ox-gfm to fix index generation
-    (ox-gfm :location (recipe :fetcher github :repo "syl20bnr/ox-gfm")
-            :toggle org-enable-github-support)
-    (ox-reveal :toggle org-enable-reveal-js-support)
-    persp-mode
-    ))
+      '(
+        company
+        company-emoji
+        emoji-cheat-sheet-plus
+        evil-org
+        evil-surround
+        gnuplot
+        htmlize
+        ;; ob, org and org-agenda are installed by `org-plus-contrib'
+        (ob :location built-in)
+        (org :location built-in)
+        (org-agenda :location built-in)
+        (org-brain :toggle (version<= "25" emacs-version))
+        (org-expiry :location built-in)
+        (org-journal :toggle org-enable-org-journal-support)
+        org-download
+        ;; org-mime is installed by `org-plus-contrib'
+        (org-mime :location built-in)
+        org-pomodoro
+        org-present
+        (org-projectile :requires projectile)
+        (ox-twbs :toggle org-enable-bootstrap-support)
+        ;; use a for of ox-gfm to fix index generation
+        (ox-gfm :location (recipe :fetcher github :repo "syl20bnr/ox-gfm")
+                :toggle org-enable-github-support)
+        (ox-reveal :toggle org-enable-reveal-js-support)
+        persp-mode
+        ))
 
 (defun org/post-init-company ()
   (spacemacs|add-company-backends :backends company-capf :modes org-mode))
@@ -52,15 +50,16 @@
 
 (defun org/init-evil-org ()
   (use-package evil-org
-    :commands (evil-org-mode evil-org-recompute-clocks)
-    :init (add-hook 'org-mode-hook 'evil-org-mode)
-    :config
+    :defer t
+    :init
     (progn
-      (evil-define-key 'normal evil-org-mode-map
-        "O" 'evil-open-above)
-      (spacemacs/set-leader-keys-for-major-mode 'org-mode
-        "Cg" 'evil-org-recompute-clocks)
-      (spacemacs|diminish evil-org-mode " ⓔ" " e"))))
+      (add-hook 'org-mode-hook 'spacemacs//evil-org-mode)
+      (setq evil-org-key-theme `(textobjects
+                                 navigation
+                                 additional
+                                 ,@(when org-want-todo-bindings '(todo)))))
+    :config
+    (spacemacs|diminish evil-org-mode " ⓔ" " e")))
 
 (defun org/post-init-evil-surround ()
   (defun spacemacs/add-org-surrounds ()
@@ -77,14 +76,6 @@
 (defun org/init-htmlize ()
   (use-package htmlize
     :defer t))
-
-(defun org/init-org-mu4e ()
-  (with-eval-after-load 'org
-    (require 'org-mu4e)))
-
-(defun org/init-org-notmuch ()
-  (with-eval-after-load 'org
-    (require 'org-notmuch)))
 
 (defun org/init-ob ()
   (use-package ob
@@ -144,6 +135,8 @@
           "a" 'org-edit-src-abort
           "k" 'org-edit-src-abort))
 
+      (add-hook 'org-mode-hook 'dotspacemacs//prettify-spacemacs-docs)
+
       (let ((dir (configuration-layer/get-layer-local-dir 'org)))
         (setq org-export-async-init-file (concat dir "org-async-init.el")))
       (defmacro spacemacs|org-emphasize (fname char)
@@ -186,6 +179,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "Cc" 'org-clock-cancel
         "Ci" 'org-clock-in
         "Co" 'org-clock-out
+        "Cr" 'org-resolve-clocks
         "dd" 'org-deadline
         "ds" 'org-schedule
         "dt" 'org-time-stamp
@@ -194,8 +188,11 @@ Will work on both org-mode and any mode that accepts plain html."
 
         "a" 'org-agenda
 
-        "Tt" 'org-show-todo-tree
+        "Te" 'org-toggle-pretty-entities
         "Ti" 'org-toggle-inline-images
+        "Tl" 'org-toggle-link-display
+        "Tt" 'org-show-todo-tree
+        "TT" 'org-todo
         "TV" 'space-doc-mode
         "Tx" 'org-toggle-latex-fragment
 
@@ -258,8 +255,9 @@ Will work on both org-mode and any mode that accepts plain html."
         "RET" 'org-ctrl-c-ret
         "-" 'org-ctrl-c-minus
         "#" 'org-update-statistics-cookies
+        ;; attachments
+        "A" 'org-attach
         ;; insertion
-        "ia" 'org-attach
         "id" 'org-insert-drawer
         "ie" 'org-set-effort
         "if" 'org-footnote-new
@@ -278,7 +276,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "xr" (spacemacs|org-emphasize spacemacs/org-clear ? )
         "xs" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
         "xu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
-        "xv" (spacemacs|org-emphasize spacemacs/org-verbose ?=))
+        "xv" (spacemacs|org-emphasize spacemacs/org-verbatim ?=))
 
       ;; Add global evil-leader mappings. Used to access org-agenda
       ;; functionalities – and a few others commands – from any other mode.
@@ -294,6 +292,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "aoki" 'org-clock-in-last
         "aokj" 'org-clock-jump-to-current-clock
         "aoko" 'org-clock-out
+        "aokr" 'org-resolve-clocks
         "aol" 'org-store-link
         "aom" 'org-tags-view
         "aoo" 'org-agenda
@@ -461,6 +460,15 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (kbd "M-SPC") 'spacemacs/org-agenda-transient-state/body
       (kbd "s-M-SPC") 'spacemacs/org-agenda-transient-state/body)))
 
+(defun org/init-org-brain ()
+  (use-package org-brain
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys
+        "aob" 'org-brain-visualize)
+      (evil-set-initial-state 'org-brain-visualize-mode 'emacs))))
+
 (defun org/init-org-expiry ()
   (use-package org-expiry
     :commands (org-expiry-insinuate
@@ -537,7 +545,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-org-projectile ()
   (use-package org-projectile
-    :commands (org-projectile:location-for-project)
+    :commands (org-projectile-location-for-project)
     :init
     (progn
       (spacemacs/set-leader-keys
@@ -548,12 +556,11 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :config
     (if (file-name-absolute-p org-projectile-file)
         (progn
-          (setq org-projectile:projects-file org-projectile-file)
-          (push (org-projectile:project-todo-entry
-                 nil nil nil :empty-lines 1)
+          (setq org-projectile-projects-file org-projectile-file)
+          (push (org-projectile-project-todo-entry :empty-lines 1)
                 org-capture-templates))
-      (org-projectile:per-repo)
-      (setq org-projectile:per-repo-filename org-projectile-file))))
+      (org-projectile-per-project)
+      (setq org-projectile-per-project-filepath org-projectile-file))))
 
 (defun org/init-ox-twbs ()
   (spacemacs|use-package-add-hook org :post-config (require 'ox-twbs)))

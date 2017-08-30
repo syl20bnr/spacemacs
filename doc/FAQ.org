@@ -83,7 +83,7 @@ To install packages that does not belong to any Spacemacs layers, you can:
   which will prevent Spacemacs from removing the packages you installed
   manually.
 
-To create a new configuration layer see the [[file:QUICK_START.org][quick start guide]] for more info.
+To create a new configuration layer see the [[https://github.com/syl20bnr/spacemacs/blob/master/doc/QUICK_START.org][quick start guide]] for more info.
 
 ** How to fix package download errors when installing Spacemacs ?
 Since 0.105.0 HTTPS protocol is used by default to download packages. If your
@@ -110,17 +110,17 @@ This is most likely caused by a corrupted package archive. Try deleting your
 
 ** The Spacemacs banner is ugly, what should I do?
 Install the default font supported by Spacemacs or choose a fixed width font.
-More information in the font section of the [[file:DOCUMENTATION.org][documentation]].
+More information in the font section of the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][documentation]].
 
 ** The powerline separators are ugly, how can I fix them?
 Use the property =:powerline-scale= of the variable =dotspacemacs-default-font=.
-See font section of the [[file:DOCUMENTATION.org][documentation]] for more details.
+See font section of the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][documentation]] for more details.
 
 ** The powerline separators have no anti-aliasing, what can I do?
 Emacs powerline uses XMP images to draw the separators in a graphical
 environment. You can have anti-aliasing if you use the =utf8= separator. Note
 that by default the =utf8= separator is used in a terminal. See the powerline
-section in the font section of the [[file:DOCUMENTATION.org][documentation]].
+section in the font section of the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][documentation]].
 
 ** Why is after-init-hook not executed?
 Don't launch Spacemacs with =emacs -q -l init.el= command. This command will run

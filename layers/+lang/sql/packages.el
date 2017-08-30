@@ -11,6 +11,7 @@
 
 (setq sql-packages
       '(
+        company
         sql
         sql-indent
         (sqlup-mode :toggle sql-capitalize-keywords)
@@ -138,3 +139,8 @@
       (spacemacs|diminish sqlup-mode)
       (setq sqlup-blacklist (append sqlup-blacklist
                                     sql-capitalize-keywords-blacklist)))))
+
+(defun sql/post-init-company ()
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes sql-mode))

@@ -15,7 +15,6 @@ This is similar to `SPC j i` but displayed in a persistent sidebar instead of
 a completion buffer.
 
 * Screenshot
-
 [[file:img/imenu-list-example.png]]
 
 * Install

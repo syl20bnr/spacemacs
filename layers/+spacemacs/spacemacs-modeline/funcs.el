@@ -33,7 +33,7 @@
   "Set the powerline for buffers created when Emacs starts."
   (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
     (when (and (get-buffer buffer)
-               (configuration-layer/package-usedp 'spaceline))
+               (configuration-layer/package-used-p 'spaceline))
       (spacemacs//restore-powerline buffer))))
 
 (defun spacemacs//prepare-diminish ()

@@ -79,11 +79,7 @@
       (setq mu4e-completing-read-function 'completing-read)
 
       (add-to-list 'mu4e-view-actions
-                   '("View in browser" . mu4e-action-view-in-browser) t)
-
-      (when mu4e-account-alist
-        (add-hook 'mu4e-compose-pre-hook 'mu4e/set-account)
-        (add-hook 'message-sent-hook 'mu4e/mail-account-reset)))))
+                   '("View in browser" . mu4e-action-view-in-browser) t))))
 
 (defun mu4e/init-mu4e-alert ()
   (use-package mu4e-alert
@@ -99,8 +95,8 @@
     :defer t
     :init (with-eval-after-load 'mu4e (mu4e-maildirs-extension-load))))
 
-(defun mu4e/post-init-org ()
+(defun mu4e/pre-init-org ()
   ;; load org-mu4e when org is actually loaded
-  (with-eval-after-load 'org (require 'org-mu4e nil 'noerror)))
-
-
+  (with-eval-after-load 'org
+    (require 'org-mu4e nil 'noerror)
+    (require 'org-notmuch nil 'noerror)))

@@ -11,12 +11,12 @@
 
 (setq spacemacs-purpose-packages
       '(eyebrowse
-        (helm-purpose :toggle (configuration-layer/layer-usedp 'helm))
-        (ivy-purpose :toggle (configuration-layer/layer-usedp 'ivy))
+        (helm-purpose :requires helm)
+        (ivy-purpose :requires ivy)
         popwin
         (spacemacs-purpose-popwin
          :location local
-         :toggle (configuration-layer/package-usedp 'popwin))
+         :requires popwin)
         window-purpose))
 
 (defun spacemacs-purpose/pre-init-eyebrowse ()

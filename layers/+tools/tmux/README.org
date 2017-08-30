@@ -6,4 +6,3 @@
 * What is this
 This is an extension to support [[https://github.com/keith/evil-tmux-navigator][evil-tmux-navigator]]. It requires a little
 configuration for tmux, so check the upstream documentation.
-

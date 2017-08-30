@@ -225,13 +225,13 @@ Current Action: %s(ivy-action-name)
           (switch-to-buffer this-buffer)
           result))
 
-      (defvar spacemacs--ido-navigation-ms-enabled nil
+      (defvar spacemacs--ido-navigation-ts-enabled nil
         "Flag which is non nil when ido navigation transient-state is enabled.")
 
-      (defvar spacemacs--ido-navigation-ms-face-cookie-minibuffer nil
+      (defvar spacemacs--ido-navigation-ts-face-cookie-minibuffer nil
         "Cookie pointing to the local face remapping.")
 
-      (defface spacemacs-ido-navigation-ms-face
+      (defface spacemacs-ido-navigation-ts-face
         `((t :background ,(face-attribute 'error :foreground)
              :foreground "black"
              :weight bold))
@@ -241,10 +241,10 @@ Current Action: %s(ivy-action-name)
       (spacemacs|define-transient-state ido-navigation
         :title "ido Transient State"
         :foreign-keys run
-        :on-enter (spacemacs//ido-navigation-ms-on-enter)
-        :on-exit  (spacemacs//ido-navigation-ms-on-exit)
+        :on-enter (spacemacs//ido-navigation-ts-on-enter)
+        :on-exit  (spacemacs//ido-navigation-ts-on-exit)
         :bindings
-        ;;("?" nil (spacemacs//ido-navigation-ms-full-doc))
+        ;;("?" nil (spacemacs//ido-navigation-ts-full-doc))
         ("<RET>" ido-exit-minibuffer :exit t)
         ("<escape>" nil :exit t)
         ("e" ido-select-text :exit t)

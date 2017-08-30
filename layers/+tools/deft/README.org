@@ -51,3 +51,4 @@ this like so in your =dotspacemacs/user-config= function:
 | ~SPC m N~   | Create new file named            |
 | ~SPC m o~   | Deft open file in other window   |
 | ~SPC m r~   | Rename selected note             |
+| ~SPC m q~   | quit deft window                 |
