@@ -9,7 +9,8 @@
 
 * Description
 This layer adds support for ryjm's habitrpg.el Habitica integration.
-This package :
+
+Features:
  - Adds an item to habitica when marked as a TODO in org
  - Marks a habitica todo as complete when marked DONE in org-mode
  - As a nifty TUI in lisp for habitica if you want to use it
