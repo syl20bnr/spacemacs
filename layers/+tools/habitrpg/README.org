@@ -3,9 +3,9 @@
 [[file:img/habitica_logo.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#keybindings][Keybindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#keybindings][Keybindings]]
 
 * Description
 This layer adds support for ryjm's habitrpg.el Habitica integration.
