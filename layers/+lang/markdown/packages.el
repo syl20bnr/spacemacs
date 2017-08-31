@@ -222,6 +222,11 @@ Will work on both org-mode and any mode that accepts plain html."
                           :face mmm-declaration-submode-face
                           :front "^```rust[\n\r]+"
                           :back "^```$")))
+      (mmm-add-classes '((markdown-haskell
+                          :submode haskell-mode
+                          :face mmm-declaration-submode-face
+                          :front "^```haskell[\n\r]+"
+                          :back "^```$")))
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-python)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-java)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ruby)
@@ -232,6 +237,7 @@ Will work on both org-mode and any mode that accepts plain html."
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-javascript)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ess)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-rust)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-haskell)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ini))))
 
 (defun markdown/init-vmd-mode ()
