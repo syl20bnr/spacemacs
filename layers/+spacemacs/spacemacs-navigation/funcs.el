@@ -166,8 +166,7 @@
   (spacemacs//transient-state-make-doc
    'symbol-highlight
    (format spacemacs--symbol-highlight-transient-state-doc
-           (spacemacs//symbol-highlight-doc)
-           (make-string (length (spacemacs//symbol-highlight-doc)) 32))))
+           (spacemacs//symbol-highlight-doc))))
 
 
 ;; golden ratio
