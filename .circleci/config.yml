@@ -1,14 +1,11 @@
 ---
 # Circle CI YAML file
 version: 2.0
-general:
-  branches:
-    ignore:
-      - master
 jobs:
   build:
     docker:
       - image: jare/spacemacs-circleci
+    working_directory: /root/.emacs.d
     steps:
       - checkout
-      - run: bash ./.circleci/run
+      - run: ./.circleci/run

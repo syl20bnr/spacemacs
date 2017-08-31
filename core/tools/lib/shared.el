@@ -83,6 +83,10 @@ SENTINEL is a worker process sentinel."
        :buffer
        (generate-new-buffer "workers")
        :command
-       (list emacs-fp "-l" w-path "--batch" "-eval" (funcall
-                                                     make-task
-                                                     file-path-bucket))))))
+       (list emacs-fp
+             "-Q"
+             "-l" w-path
+             "--batch"
+             "-eval" (funcall
+                       make-task
+                       file-path-bucket))))))
