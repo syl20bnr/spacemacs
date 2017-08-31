@@ -1,0 +1,34 @@
+#+TITLE: olivetti layer
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#customize][Customize]]
+- [[#key-bindings][Key Bindings]]
+
+* Description
+[[https://github.com/rnkn/olivetti][Olivetti]] is a simple Emacs minor mode for a nice writing environment that can replace =spacemacs-centered-buffer-mode=.
+
+** Features:
+- Alternative to =spacemacs-centered-buffer-mode=
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to add =olivetti= to the existing =dotspacemacs-configuration-layers= list in this file.
+
+** Customize
+Olivetti provides additional options to customize its appearance:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+              '(olivetti
+                :variables
+                olivetti-body-width 0.6
+                olivetti-hide-mode-line t))
+#+END_SRC
+
+* Key Bindings
+
+| Key Binding | Description     |
+|-------------+-----------------|
+| SPC T o     | Enable Olivetti |
