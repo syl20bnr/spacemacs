@@ -67,10 +67,10 @@
             ahs-idle-timer 0
             ahs-idle-interval 0.25
             ahs-inhibit-face-list nil
-            spacemacs--symbol-highlight-transient-state-doc
-            "
- %s  [_n_] next   [_N_/_p_] previous   [_r_] change range   [_R_] reset   [_e_] iedit
- %s  [_d_/_D_] next/previous definition")
+            spacemacs--symbol-highlight-transient-state-doc "
+ %s
+ [_n_] next   [_N_/_p_] prev  [_d_/_D_] next/prev def  [_r_] range  [_R_] reset
+ [_e_] iedit")
 
       ;; since we are creating our own maps,
       ;; prevent the default keymap from getting created
@@ -125,6 +125,7 @@
       ;; transient state
       (spacemacs|define-transient-state symbol-highlight
         :title "Symbol Highlight Transient State"
+        :hint-is-doc t
         :dynamic-hint (spacemacs//symbol-highlight-ts-doc)
         :before-exit (spacemacs//ahs-ms-on-exit)
         :bindings

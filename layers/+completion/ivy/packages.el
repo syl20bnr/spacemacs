@@ -37,13 +37,14 @@
     :post-init
     ;; add some functions to ahs transient states
     (setq spacemacs--symbol-highlight-transient-state-doc
-          (concat spacemacs--symbol-highlight-transient-state-doc
-                  "  [_b_] search buffers [_/_] search proj [_f_] search files [_s_] swiper"))
+          (concat
+           spacemacs--symbol-highlight-transient-state-doc
+           "  Search: [_s_] swiper  [_b_] buffers  [_f_] files  [_/_] project"))
     (spacemacs/transient-state-register-add-bindings 'symbol-highlight
-      '(("/" spacemacs/search-project-auto-region-or-symbol :exit t)
+      '(("s" spacemacs/swiper-region-or-symbol :exit t)
         ("b" spacemacs/swiper-all-region-or-symbol :exit t)
         ("f" spacemacs/search-auto-region-or-symbol :exit t)
-        ("s" spacemacs/swiper-region-or-symbol :exit t)))))
+        ("/" spacemacs/search-project-auto-region-or-symbol :exit t)))))
 
 (defun ivy/post-init-bookmark ()
   (spacemacs/set-leader-keys "fb" 'counsel-bookmark))
