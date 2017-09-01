@@ -12,7 +12,7 @@
 
 ;; Helm
 
-(defface spacemacs-helm-navigation-ms-face
+(defface spacemacs-helm-navigation-ts-face
   `((t :background ,(face-attribute 'error :foreground)
        :foreground "black"))
   "Face for helm header when helm transient-state is activated."
