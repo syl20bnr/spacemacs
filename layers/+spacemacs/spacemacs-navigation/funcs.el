@@ -111,7 +111,7 @@
   (spacemacs/symbol-highlight-transient-state/body)
   (spacemacs/integrate-evil-search nil))
 
-(defun spacemacs//ahs-ms-on-exit ()
+(defun spacemacs//ahs-ts-on-exit ()
   ;; Restore user search direction state as ahs has exitted in a state
   ;; good for <C-s>, but not for 'n' and 'N'"
   (setq isearch-forward spacemacs--ahs-searching-forward))
