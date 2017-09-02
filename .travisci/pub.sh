@@ -33,9 +33,9 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ]; then
         exit 0
     fi
 
-    echo_headline "INSTALLING \"${$EVM_EMACS}\":"
+    echo_headline "INSTALLING \"${EVM_EMACS}\":"
     curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw
-    > /tmp/x.sh && source /tmp/x.sh
+        > /tmp/x.sh && source /tmp/x.sh
     evm install $EVM_EMACS --use --skip
     if [ $? -ne 0 ]; then
         echo "Installation failed"
