@@ -33,6 +33,11 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ]; then
         exit 0
     fi
 
+    rm -rf ~/.emacs.d
+    mv "${TRAVIS_BUILD_DIR}" ~/.emacs.d
+    ln -sf ~/.emacs.d "${TRAVIS_BUILD_DIR}"
+    cd  ~/.emacs.d
+
     echo_headline "INSTALLING \"${EVM_EMACS}\":"
     curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw \
         > /tmp/x.sh && source /tmp/x.sh
@@ -77,9 +82,7 @@ if  [ $TRAVIS_SECURE_ENV_VARS = true ]; then
     echo_headline "PUBLISHING ${PUBLISH}"
 
     echo_headline "INSTALLING DEPENDENCIES:"
-    rm -rf ~/.emacs.d/.cache ~/.emacs.d/export ~/.emacs.d/elpa ~/.spacemacs
-    cp ~/.emacs.d/core/templates/.spacemacs.template ~/
-    mv ~/.spacemacs.template ~/.spacemacs
+    cp ~/.emacs.d/.travisci/.spacemacs ~/
     cd  ~/.emacs.d
     emacs -batch -l init.el
 
