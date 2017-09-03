@@ -27,7 +27,7 @@ using `cargo-process-run'."
   (let ((input-file-name (buffer-file-name))
         (output-file-name (concat temporary-file-directory (make-temp-name "rustbin"))))
     (compile
-     (format "rustc -o %s %s && %s"
+     (format "sh -c 'rustc -o %s %s  &&  %s'"
              (shell-quote-argument output-file-name)
              (shell-quote-argument input-file-name)
              (shell-quote-argument output-file-name)))))
