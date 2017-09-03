@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
   - [[#supported-search-engines][Supported search engines]]
 - [[#install][Install]]
 - [[#key-bindings][Key Bindings]]
@@ -11,6 +12,9 @@
 
 * Description
 This layer adds support for the [[https://github.com/hrs/engine-mode][Search Engine]] package.
+
+** Features:
+  - Browser search integration
 
 ** Supported search engines
 - Amazon
