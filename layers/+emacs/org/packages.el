@@ -26,8 +26,7 @@
         (org-expiry :location built-in)
         (org-journal :toggle org-enable-org-journal-support)
         org-download
-        ;; org-mime is installed by `org-plus-contrib'
-        (org-mime :location built-in)
+        org-mime
         org-pomodoro
         org-present
         (org-projectile :requires projectile)
