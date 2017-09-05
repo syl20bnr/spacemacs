@@ -4,7 +4,10 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#choosing-common-lisp-implementation][Choosing Common Lisp implementation]]
+  - [[#enabling-smartparens-strict-mode-or-smartparens-mode][Enabling smartparens-strict-mode or smartparens-mode]]
 - [[#key-bindings][Key Bindings]]
   - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
   - [[#leader][Leader]]
@@ -16,7 +19,11 @@
     - [[#macroexpansion][Macroexpansion]]
 
 * Description
-A Spacemacs layer providing Common Lisp support via [[https://github.com/slime/slime][SLIME]].
+** Features:
+   - Interactive REPL, debugger, inspector and more via [[https://github.com/slime/slime][SLIME]].
+   - Autocompletion via slime-company.
+   - Support for Common Lisp code snippets, user-made and pre-made, via common-lisp-snippets.
+   - Simple support for parenthesis organization via parinfer
 
 * Install
 If you have previously installed slime in any other way, it is recommended that
@@ -28,12 +35,24 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =common-lisp= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-This layer defaults to using [[http://www.sbcl.org/][sbcl]]. If you want to use a different implementation
-of Common Lisp, you can specify it in your =~/.spacemacs=
+** Choosing Common Lisp implementation
+ This layer defaults to using [[http://www.sbcl.org/][sbcl]]. If you want to use a different implementation
+ of Common Lisp, you can specify it in your =~/.spacemacs=
+
+ #+BEGIN_SRC emacs-lisp
+   (defun dotspacemacs/user-config ()
+     (setq inferior-lisp-program "/path/to/your/lisp"))
+ #+END_SRC
+
+** Enabling smartparens-strict-mode or smartparens-mode
+   This layer supports smartparens-mode. It can work in =normal= or =strict= mode, =normal= being =smartparens-mode=.
+   By default the smartparens-mode is disabled. To change that, you need to provide =common-lisp-smartparens-mode= variable.
+
+   Example to enable =smartparens-strict-mode=:
 
 #+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/user-config ()
-    (setq inferior-lisp-program "/path/to/your/lisp"))
+(defun dotspacemacs-configuration-layers ()
+   '((common-lisp :variables common-lisp-smartparens-mode 'strict)))
 #+END_SRC
 
 * Key Bindings

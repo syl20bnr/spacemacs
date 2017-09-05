@@ -32,3 +32,26 @@
   (interactive)
   (move-end-of-line 1)
   (slime-eval-last-expression))
+
+;; Smartparens-mode
+
+(defun common-lisp//enable-smartparens-mode ()
+  (smartparens-mode 1))
+
+;; Smartparens-strict-mode
+
+(defun common-lisp//enable-smartparens-strict-mode ()
+  (smartparens-strict-mode 1))
+
+;; No smartparens
+
+(defun common-lisp//disable-smartparens-mode ()
+  (smartparens-strict-mode -1)
+  (turn-off-smartparens-mode))
+
+(defun common-lisp/maybe-load-smartparens ()
+  (cl-case common-lisp-enable-smartparens-mode
+    ('strict (common-lisp//enable-smartparens-strict-mode))
+    ('normal (common-lisp//enable-smartparens-mode))
+    ((nil) (common-lisp//disable-smartparens-mode))
+    (otherwise nil)))

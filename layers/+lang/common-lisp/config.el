@@ -11,3 +11,7 @@
 
 (spacemacs|define-jump-handlers lisp-mode slime-edit-definition)
 (spacemacs|define-jump-handlers common-lisp-mode)
+
+(defvar common-lisp-enable-smartparens-mode nil
+  "If non nil, smartparens mode will be enabled in SLIME REPL.
+Possible values are `strict' or `normal'.")
