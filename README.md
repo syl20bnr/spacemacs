@@ -164,7 +164,7 @@ color than the rest of the line, then you can add the following snippet to the
 `dotspacemacs/user-config` section in your `~/.spacemacs` file:
 
 ```elisp
-(setq ns-use-srgb-colorspace nil)
+(setq powerline-image-apple-rgb t)
 ```
 
 Keep in mind that this is not an ideal solution as it affects all colours in
