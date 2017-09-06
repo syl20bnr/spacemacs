@@ -15,7 +15,6 @@
         auto-highlight-symbol
         helm
         helm-ag
-        helm-bookmark
         helm-descbinds
         helm-flx
         helm-make
