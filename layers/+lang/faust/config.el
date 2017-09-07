@@ -11,4 +11,4 @@
 
 ;; Variables
 
-(spacemacs|define-jump-handlers faust-mode)
+(spacemacs|define-jump-handlers faustine-mode)

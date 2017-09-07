@@ -9,7 +9,24 @@
 
 * Description
 This simple layer adds support for the [[https://en.wikipedia.org/wiki/FAUST_(programming_language)][faust language]].
-It adds =faust-mode= as well as integrating it with =auto-completion= layer.
+It adds =faustine= as well as integrating it with =auto-completion= layer.
+
+Features
+
+- Project-based (inter-linked Faust files)
+- Faust code syntax hightlighting, indentation and keyword completion
+- Build/compile with output window
+- Graphic diagrams generation and vizualisation in the (default) browser
+- Browse generated C++ code inside Emacs
+- Inter-linked files/buffers :
+    - From "component" to Faust file
+    - From "include" to Faust library file
+- From error to file:line number
+- From function name to online documentation
+- Fully configurable (build type/target/architecture/toolkit, keyboard shortcuts, etc.)
+- Automatic keyword completion (if Auto-Complete is installed)
+- Automatic objets (functions, operators, etc.) template insertion with default sensible values (if Yasnippet is installed)
+- Modeline indicator of the state of the code
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -18,10 +35,18 @@ file.
 
 * Key bindings
 
-| Key Binding | Description                           |
-|-------------+---------------------------------------|
-| ~SPC m c f~ | Compile to SVG and open in Firefox    |
-| ~SPC m c g~ | Compile a jack-gtk program and run it |
-| ~SPC m c q~ | Compile a jack-qt program and run it  |
-| ~SPC m g b~ | Jump back to previous location        |
-| ~SPC m g g~ | Jump to definition around point       |
+| Key Binding | Description                                        |
+|-------------+----------------------------------------------------|
+| ~SPC m b~   | Compile to binary                                  |
+| ~SPC m B~   | Compile all to binary                              |
+| ~SPC m c~   | Check the syntax                                   |
+| ~SPC m d~   | Compile to SVG and open in the default browser     |
+| ~SPC m D~   | Compile all to SVG and open in the default browser |
+| ~SPC m h~   | Go to the online docs                              |
+| ~SPC m i~   | Indent selection                                   |
+| ~SPC m m~   | Build mdoc                                         |
+| ~SPC m o~   | Toggle the output-buffer                           |
+| ~SPC m r~   | Run the binary                                     |
+| ~SPC m s~   | Show the C++ code                                  |
+| ~SPC m g b~ | Jump back to previous location                     |
+| ~SPC m g g~ | Jump to definition around point                    |
