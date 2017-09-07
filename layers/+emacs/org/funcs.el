@@ -44,3 +44,10 @@
 (defun spacemacs//evil-org-mode ()
   (evil-org-mode)
   (evil-normalize-keymaps))
+
+
+
+(defun spacemacs//org-reveal-on-helm-peristent-action ()
+  "reveal content for helm-persistent-action used in an Org file with folded outline"
+  (when (equalp major-mode 'org-mode)
+    (org-reveal)))

@@ -137,6 +137,9 @@
 
       (add-hook 'org-mode-hook 'dotspacemacs//prettify-spacemacs-docs)
 
+      (when (configuration-layer/layer-used-p 'helm)
+        (add-hook 'helm-after-persistent-action-hook 'spacemacs//org-reveal-on-helm-peristent-action))
+
       (let ((dir (configuration-layer/get-layer-local-dir 'org)))
         (setq org-export-async-init-file (concat dir "org-async-init.el")))
       (defmacro spacemacs|org-emphasize (fname char)
