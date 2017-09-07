@@ -55,6 +55,7 @@
     :init
     (progn
       (add-hook 'org-mode-hook 'spacemacs//evil-org-mode)
+      (setq evil-org-use-additional-insert t)
       (setq evil-org-key-theme `(textobjects
                                  navigation
                                  additional
