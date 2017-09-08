@@ -3,11 +3,11 @@
 [[file:img/ps.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#powershell][Powershell]]
-   - [[#batch-dosel][Batch (dos.el)]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+  - [[#powershell][Powershell]]
+  - [[#batch-dosel][Batch (dos.el)]]
 
 * Description
 This simple layer adds support for the Powershell scripting language as well

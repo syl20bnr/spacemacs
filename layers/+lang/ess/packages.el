@@ -10,13 +10,13 @@
 ;;; License: GPLv3
 
 (setq ess-packages
-  '(
-    ess
-    ess-R-data-view
-    ess-R-object-popup
-    ess-smart-equals
-    golden-ratio
-    org))
+      '(
+        ess
+        ess-R-data-view
+        ess-R-object-popup
+        (ess-smart-equals :toggle ess-enable-smart-equals)
+        golden-ratio
+        org))
 
 (defun ess/init-ess ()
   (use-package ess-site
@@ -58,8 +58,10 @@
       ;; Explicitly run prog-mode hooks since ess-mode does not derive from
       ;; prog-mode major-mode
       (add-hook 'ess-mode-hook 'spacemacs/run-prog-mode-hooks)
-      (when (configuration-layer/package-usedp 'company)
-          (add-hook 'ess-mode-hook 'company-mode))))
+      (add-hook 'inferior-ess-mode-hook
+                'spacemacs//ess-fix-read-only-inferior-ess-mode)
+      (when (configuration-layer/package-used-p 'company)
+        (add-hook 'ess-mode-hook 'company-mode))))
 
   ;; R --------------------------------------------------------------------------
   (with-eval-after-load 'ess-site
@@ -69,14 +71,8 @@
           ess-expression-offset 2
           ess-nuke-trailing-whitespace-p t
           ess-default-style 'DEFAULT)
-
-    (defun spacemacs/ess-start-repl ()
-      "Start a REPL corresponding to the ess-language of the current buffer."
-      (interactive)
-      (cond
-       ((string= "S" ess-language) (call-interactively 'R))
-       ((string= "STA" ess-language) (call-interactively 'stata))
-       ((string= "SAS" ess-language) (call-interactively 'SAS))))
+    (when ess-disable-underscore-assign
+      (ess-toggle-underscore nil))
 
     (spacemacs/set-leader-keys-for-major-mode 'ess-julia-mode
       "'"  'julia
@@ -118,7 +114,6 @@
 (defun ess/init-ess-smart-equals ()
   (use-package ess-smart-equals
     :defer t
-    :if ess-enable-smart-equals
     :init
     (progn
       (add-hook 'ess-mode-hook 'ess-smart-equals-mode)

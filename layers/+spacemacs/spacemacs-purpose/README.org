@@ -1,19 +1,17 @@
 #+TITLE:Spacemacs-purpose layer
 
 * Table of Contents                                                   :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#purposes][Purposes]]
-   - [[#switch-to-buffer-and-display-buffer][switch-to-buffer and display-buffer]]
- - [[#features][Features]]
-   - [[#windows-purpose-purpose-mode][windows-purpose (purpose-mode)]]
-   - [[#purpose-popwinel-pupo-mode][purpose-popwin.el (pupo-mode)]]
-   - [[#misc][misc]]
- - [[#install][Install]]
- - [[#usage][Usage]]
- - [[#key-bindings][Key Bindings]]
- - [[#caveats][Caveats]]
-   - [[#popwin-and-guide-key][Popwin and guide-key]]
-   - [[#packages-that-do-display-management][Packages that do display management]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+  - [[#purposes][Purposes]]
+  - [[#switch-to-buffer-and-display-buffer][switch-to-buffer and display-buffer]]
+  - [[#misc][misc]]
+- [[#install][Install]]
+- [[#usage][Usage]]
+- [[#key-bindings][Key Bindings]]
+- [[#caveats][Caveats]]
+  - [[#popwin-and-guide-key][Popwin and guide-key]]
+  - [[#packages-that-do-display-management][Packages that do display management]]
 
 * Description
 This layer enables [[https://github.com/bmag/emacs-purpose][window-purpose]], which provides an alternative, purpose-based
@@ -23,6 +21,16 @@ and shouldn't change too much when opening all sorts of buffers.
 Regular [[https://github.com/m2ym/popwin-el][popwin]] is not triggered when window-purpose is enabled. However,
 the window-purpose layer provides a =purpose-popwin= extension, which
 brings popwin's behavior towindows-purpose and solves that problem.
+
+** Features:
+- Window layout is more robust and less likely to change unintentionally
+- Dedicate window to a purpose
+- User-defined purposes
+- Extensible window display behavior
+- Empty =purpose-mode-map=, to avoid conflicts with other key maps
+- Replicate popwin behavior for purpose-mode - almost no regression in popup behavior from using windows-purpose.
+- Reuses popwin's settings: =popwin:special-display-config=, =popwin:popup-window-height= and =popwin:popup-window-width=.
+- Difference from popwin: when several windows are open, popup window is sometimes bigger than with regular popwin in the same situation.
 
 ** Purposes
 windows-purpose contains a configuration which assigns a purpose for each
@@ -46,22 +54,6 @@ switching and popping commands, because it doesn't use =display-buffer= (which
 the other commands do). With windows-purpose, this behavior is fixed. The
 result is a better control over how buffers are displayed, since
 =switch-to-buffer= doesn't ignore the user's customizations anymore.
-
-* Features
-** windows-purpose (purpose-mode)
-- window layout is more robust and less likely to change unintentionally
-- dedicate window to a purpose
-- user-defined purposes
-- extensible window display behavior
-- empty =purpose-mode-map=, to avoid conflicts with other key maps
-
-** purpose-popwin.el (pupo-mode)
-- replicate popwin behavior for purpose-mode - almost no regression in popup
-  behavior from using windows-purpose.
-- reuses popwin's settings: =popwin:special-display-config=,
-  =popwin:popup-window-height= and =popwin:popup-window-width=.
-- difference from popwin: when several windows are open, popup window is
-  sometimes bigger than with regular popwin in the same situation.
 
 ** misc
 - specialized helm source similar to =helm-source-buffers-list=

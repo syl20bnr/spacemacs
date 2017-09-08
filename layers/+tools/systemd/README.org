@@ -1,9 +1,9 @@
 #+TITLE: systemd layer
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer provides syntax highlighting for systemd files and completion through

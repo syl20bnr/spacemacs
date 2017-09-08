@@ -3,20 +3,20 @@
 [[file:img/shell.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#default-shell][Default shell]]
-   - [[#default-shell-position-and-height][Default shell position and height]]
-   - [[#set-shell-for-term-and-ansi-term][Set shell for term and ansi-term]]
-   - [[#width-of-the-shell-popup-buffers][Width of the shell popup buffers]]
-   - [[#enable-em-smart-in-eshell][Enable em-smart in Eshell]]
-   - [[#protect-your-eshell-prompt][Protect your Eshell prompt]]
-   - [[#fish-shell-and-ansi-term][Fish shell and ansi-term]]
- - [[#eshell][Eshell]]
- - [[#key-bindings][Key bindings]]
-   - [[#multi-term][Multi-term]]
-   - [[#eshell-1][Eshell]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#default-shell][Default shell]]
+  - [[#default-shell-position-and-height][Default shell position and height]]
+  - [[#set-shell-for-term-and-ansi-term][Set shell for term and ansi-term]]
+  - [[#width-of-the-shell-popup-buffers][Width of the shell popup buffers]]
+  - [[#enable-em-smart-in-eshell][Enable em-smart in Eshell]]
+  - [[#protect-your-eshell-prompt][Protect your Eshell prompt]]
+  - [[#fish-shell-and-ansi-term][Fish shell and ansi-term]]
+- [[#eshell][Eshell]]
+- [[#key-bindings][Key bindings]]
+  - [[#multi-term][Multi-term]]
+  - [[#eshell-1][Eshell]]
 
 * Description
 This layer configures the various shells available in Emacs.
@@ -169,7 +169,7 @@ Some advanced configuration is setup for =eshell= in this layer:
   - =z= for quickly jumping to a previously visited directory
 - optional configuration for =em-smart= (see =Install= section for more info)
 - support for visual commands via =em-term=
-- working directory sensitive prompt via [[https://github.com/hiddenlotus/eshell-prompt-extras][eshell-prompt-extras]]
+- working directory sensitive prompt via [[https://github.com/kaihaosw/eshell-prompt-extras][eshell-prompt-extras]]
 - advanced help support via =esh-help= (enable =el-doc= support in eshell)
 - add support for auto-completion via =company= (when the =auto-completion=
   layer is installed)

@@ -1,9 +1,9 @@
 #+TITLE: command-log layer
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 command-log can be used to demo Emacs to an audience. When activated,

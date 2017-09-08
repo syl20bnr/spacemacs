@@ -3,14 +3,14 @@
 [[file:img/protobuf.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#features][Features]]
- - [[#install][Install]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
 
 * Description
 Highlighting and syntax checking for [[https://developers.google.com/protocol-buffers/][Protocol Buffer]] files.
 
-* Features
+** Features:
 - Syntax highlighting
 - Syntax checking using Flycheck (=protoc= compiler must be available)
 - Correct indentation and commenting

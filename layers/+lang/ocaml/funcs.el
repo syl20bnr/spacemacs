@@ -19,9 +19,10 @@
             (setq opam-share share
                   opam-load-path (concat share "/emacs/site-lisp")))
           (add-to-list 'load-path opam-load-path))
-    (spacemacs-buffer/warning
-     (concat "Cannot find \"opam\" executable. "
-             "The ocaml layer won't work properly."))))
+    (unless (executable-find "ocamlmerlin")
+      (spacemacs-buffer/warning
+       (concat "Cannot find \"opam\" or \"merlin\" executable. "
+               "The ocaml layer won't work properly.")))))
 
 (defun spacemacs/merlin-locate ()
   (interactive)

@@ -1,12 +1,12 @@
 #+TITLE: Restclient layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
- - [[#restclient][Restclient]]
-   - [[#keybindings][Keybindings]]
- - [[#ob-http][ob-http]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#restclient][Restclient]]
+  - [[#keybindings][Keybindings]]
+- [[#ob-http][ob-http]]
 
 * Description
 This layer lets you have a REPL-like interface for http requests using a

@@ -11,12 +11,14 @@
 
 (setq shell-scripts-packages
       '(
-        (company-shell :toggle (configuration-layer/package-usedp 'company))
+        (company-shell :requires company)
         fish-mode
         flycheck
+        flycheck-bashate
         ggtags
         helm-gtags
         insert-shebang
+        org
         (sh-script :location built-in)
         ))
 
@@ -26,14 +28,19 @@
     :init
     (progn
       (spacemacs|add-company-backends
-        :backends company-shell
+        :backends (company-shell company-shell-env)
         :modes sh-mode)
       (spacemacs|add-company-backends
-        :backends (company-shell company-fish-shell)
+        :backends (company-shell company-shell-env company-fish-shell)
         :modes fish-mode))))
 
 (defun shell-scripts/post-init-flycheck ()
   (spacemacs/enable-flycheck 'sh-mode))
+
+(defun shell-scripts/init-flycheck-bashate ()
+  (use-package flycheck-bashate
+    :defer t
+    :init (add-hook 'sh-mode-hook 'flycheck-bashate-setup)))
 
 (defun shell-scripts/init-fish-mode ()
   (use-package fish-mode
@@ -44,8 +51,23 @@
     :defer t
     :init
     (progn
+      ;; Add meaningful names for prefix categories
+      (spacemacs/declare-prefix-for-mode 'sh-mode "mi" "insert")
+      (spacemacs/declare-prefix-for-mode 'sh-mode "mg" "goto")
+
+      ;; Add standard key bindings for insert commands
       (spacemacs/set-leader-keys-for-major-mode 'sh-mode
-        "\\" 'sh-backslash-region)
+        "\\" 'sh-backslash-region
+        "ic" 'sh-case
+        "ii" 'sh-if
+        "if" 'sh-function
+        "io" 'sh-for
+        "ie" 'sh-indexed-loop
+        "iw" 'sh-while
+        "ir" 'sh-repeat
+        "is" 'sh-select
+        "iu" 'sh-until
+        "ig" 'sh-while-getopts)
 
       ;; Use sh-mode when opening `.zsh' files, and when opening Prezto runcoms.
       (dolist (pattern '("\\.zsh\\'"
@@ -69,12 +91,19 @@
 (defun shell-scripts/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'sh-mode))
 
+(defun shell-scripts/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(shell . t))))
+
 (defun shell-scripts/init-insert-shebang ()
   (use-package insert-shebang
     :defer t
     :init
     (progn
+      ;; Insert shebang must be available for non shell modes like python or
+      ;; groovy but also in the major mode menu with shell specific inserts
+      (spacemacs/set-leader-keys-for-major-mode 'sh-mode
+        "i!" 'spacemacs/insert-shebang)
       (spacemacs/set-leader-keys "i!" 'spacemacs/insert-shebang)
       ;; we don't want to insert shebang lines automatically
       (remove-hook 'find-file-hook 'insert-shebang))))
-

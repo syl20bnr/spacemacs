@@ -17,8 +17,8 @@
         (company-quickhelp :toggle auto-completion-enable-help-tooltip)
         company-statistics
         fuzzy
-        (helm-company :toggle (configuration-layer/package-usedp 'helm))
-        (helm-c-yasnippet :toggle (configuration-layer/package-usedp 'helm))
+        (helm-company :requires helm)
+        (helm-c-yasnippet :requires helm)
         hippie-exp
         yasnippet
         auto-yasnippet
@@ -57,7 +57,7 @@
       (setq-default ac-sources '(ac-source-abbrev
                                  ac-source-dictionary
                                  ac-source-words-in-same-mode-buffers))
-      (when (configuration-layer/package-usedp 'yasnippet)
+      (when (configuration-layer/package-used-p 'yasnippet)
         (push 'ac-source-yasnippet ac-sources))
       (add-to-list 'completion-styles 'initials t)
       (define-key ac-completing-map (kbd "C-j") 'ac-next)
@@ -137,7 +137,7 @@
 
 (defun auto-completion/init-helm-company ()
   (use-package helm-company
-    :if (configuration-layer/package-usedp 'company)
+    :if (configuration-layer/package-used-p 'company)
     :defer t
     :init
     (with-eval-after-load 'company
@@ -170,7 +170,7 @@
           try-complete-lisp-symbol-partially
           ;; Try to complete word as an Emacs Lisp symbol.
           try-complete-lisp-symbol))
-  (when (configuration-layer/package-usedp 'yasnippet)
+  (when (configuration-layer/package-used-p 'yasnippet)
     ;; Try to expand yasnippet snippets based on prefix
     (push 'yas-hippie-try-expand hippie-expand-try-functions-list)))
 
@@ -195,31 +195,34 @@
       ;; configure snippet directories
       (let* ((spacemacs--auto-completion-dir
               (configuration-layer/get-layer-local-dir 'auto-completion))
-             (private-yas-dir (if auto-completion-private-snippets-directory
-                                  auto-completion-private-snippets-directory
-                                (concat
-                                 configuration-layer-private-directory
-                                 "snippets/")))
+             (emacs-directory-snippets-dir (concat
+                                          configuration-layer-private-directory
+                                          "snippets/"))
              (spacemacs-layer-snippets-dir (expand-file-name
                                       "snippets"
                                       spacemacs--auto-completion-dir))
-             (dotspacemacs-directory-snippets-dir (when dotspacemacs-directory
-                                                    (expand-file-name
-                                                     "snippets"
-                                                     dotspacemacs-directory))))
+             (dotspacemacs-directory-snippets-dir
+              (when dotspacemacs-directory
+                (let ((snippet-dir (expand-file-name
+                                    "snippets"
+                                    dotspacemacs-directory)))
+                  (when (file-accessible-directory-p snippet-dir)
+                    snippet-dir)))))
         (setq yas-snippet-dirs nil)
         ;; ~/.emacs.d/layers/auto-completion/snippets
         (push spacemacs-layer-snippets-dir yas-snippet-dirs)
         ;; ~/.emacs.d/elpa/yasnippet-xxxxx/snippets
         (push 'yas-installed-snippets-dir yas-snippet-dirs)
+        ;; ~/.emacs.d/private/snippets
+        (push emacs-directory-snippets-dir yas-snippet-dirs)
         ;; ~/.spacemacs.d/snippets
         (when dotspacemacs-directory-snippets-dir
           (push dotspacemacs-directory-snippets-dir yas-snippet-dirs))
         ;; arbitrary directories in `auto-completion-private-snippets-directory'
-        (when private-yas-dir
-          (if (listp private-yas-dir)
-              (setq yas-snippet-dirs (append yas-snippet-dirs private-yas-dir))
-            (push private-yas-dir yas-snippet-dirs))))
+        (when auto-completion-private-snippets-directory
+          (if (listp auto-completion-private-snippets-directory)
+              (setq yas-snippet-dirs (append yas-snippet-dirs auto-completion-private-snippets-directory))
+            (push auto-completion-private-snippets-directory yas-snippet-dirs))))
 
       (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                           markdown-mode-hook

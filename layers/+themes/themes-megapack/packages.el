@@ -36,8 +36,8 @@
     django-theme
     dracula-theme
     espresso-theme
+    exotica-theme
     farmhouse-theme
-    firebelly-theme
     flatland-theme
     flatui-theme
     gandalf-theme
@@ -64,14 +64,12 @@
     monochrome-theme
     mustang-theme
     naquadah-theme
-    niflheim-theme
     noctilux-theme
     obsidian-theme
     occidental-theme
     omtose-phellack-theme
     oldlace-theme
     organic-green-theme
-    pastels-on-dark-theme
     phoenix-dark-mono-theme
     phoenix-dark-pink-theme
     planet-theme
@@ -99,12 +97,12 @@
     ;; contains error
     ; tommyh-theme
     toxi-theme
-    tronesque-theme
     twilight-anti-bright-theme
     twilight-bright-theme
     twilight-theme
     ujelly-theme
     underwater-theme
+    white-sand-theme
     zen-and-art-theme
     zenburn-theme
     zonokai-theme

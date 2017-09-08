@@ -3,59 +3,61 @@
 [[file:img/haskell.png]]
 
 * Table of Contents                                      :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features:]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#dependencies][Dependencies]]
-   - [[#setup-path][Setup PATH]]
-   - [[#completion-support][Completion support]]
-     - [[#company-ghci][=company-ghci=]]
-     - [[#intero][=intero=]]
-     - [[#ghc-mod][=ghc-mod=]]
-   - [[#optional-extras][Optional extras]]
-     - [[#structured-haskell-mode][structured-haskell-mode]]
-     - [[#hindent][hindent]]
- - [[#key-bindings][Key bindings]]
-   - [[#documentation][Documentation]]
-   - [[#debug][Debug]]
-   - [[#debug-buffer][Debug Buffer]]
-   - [[#repl][REPL]]
-   - [[#intero-repl][Intero REPL]]
-   - [[#cabal-commands][Cabal commands]]
-   - [[#cabal-files][Cabal files]]
-   - [[#refactor][Refactor]]
-   - [[#ghc-mod-1][Ghc-mod]]
-     - [[#insert-template][Insert template]]
- - [[#syntax-checking][Syntax checking]]
-   - [[#flycheck][Flycheck]]
-   - [[#hlint][HLint]]
-   - [[#ghc-mod-2][ghc-mod]]
-   - [[#interactive-haskell-mode][Interactive haskell-mode]]
-   - [[#flymake][Flymake]]
-   - [[#troubleshooting][Troubleshooting]]
- - [[#faq][FAQ]]
-   - [[#the-repl-doesnt-work][The REPL doesn't work]]
-   - [[#the-repl-is-stuck][The REPL is stuck]]
-   - [[#i-am-using-stack-and-ghc-mod-but-ghc-mod-doesnt-work][I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work]]
-   - [[#ghc-mod-doesnt-work][=ghc-mod= doesn't work]]
-   - [[#indentation-doesnt-reset-when-pressing-return-after-an-empty-line][Indentation doesn't reset when pressing return after an empty line]]
-   - [[#flycheck-displays-hlint-warnings-but-not-errors][Flycheck displays HLint warnings but not errors]]
-   - [[#i-can-see-highlighted-errors-but-they-dont-appear-in-the-error-list][I can see highlighted errors but they don't appear in the error list]]
-   - [[#flycheck-doesnt-work][Flycheck doesn't work]]
-   - [[#flycheck-doesnt-work-with-stack][Flycheck doesn't work with =stack=]]
-     - [[#the-stack-build-directory-is-wrong][The stack build directory is wrong]]
-     - [[#the-project-root-directory-is-not-set-properly][The Project root directory is not set properly]]
-   - [[#haskell-mode-commands-dont-work][haskell-mode commands don't work]]
-   - [[#ghc-mod-and-haskell-mode-commands-overlap-how-do-i-know-which-command-belongs-to-what][=ghc-mod= and =haskell-mode= commands overlap. How do I know which command belongs to what?]]
-   - [[#some-commands-start-with-ghc--and-some-with-haskell--what-does-that-mean][Some commands start with =ghc-= and some with =haskell-=. What does that mean?]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#dependencies][Dependencies]]
+  - [[#setup-path][Setup PATH]]
+  - [[#completion-support][Completion support]]
+    - [[#company-ghci][=company-ghci=]]
+    - [[#intero][=intero=]]
+    - [[#dante][=dante=]]
+    - [[#ghc-mod][=ghc-mod=]]
+  - [[#optional-extras][Optional extras]]
+    - [[#structured-haskell-mode][structured-haskell-mode]]
+    - [[#hindent][hindent]]
+- [[#key-bindings][Key bindings]]
+  - [[#documentation][Documentation]]
+  - [[#debug][Debug]]
+  - [[#debug-buffer][Debug Buffer]]
+  - [[#repl][REPL]]
+  - [[#intero-repl][Intero REPL]]
+  - [[#cabal-commands][Cabal commands]]
+  - [[#cabal-files][Cabal files]]
+  - [[#refactor][Refactor]]
+  - [[#ghc-mod-1][Ghc-mod]]
+    - [[#insert-template][Insert template]]
+- [[#syntax-checking][Syntax checking]]
+  - [[#flycheck][Flycheck]]
+  - [[#hlint][HLint]]
+  - [[#ghc-mod-2][ghc-mod]]
+  - [[#interactive-haskell-mode][Interactive haskell-mode]]
+  - [[#flymake][Flymake]]
+  - [[#troubleshooting][Troubleshooting]]
+- [[#faq][FAQ]]
+  - [[#the-repl-doesnt-work][The REPL doesn't work]]
+  - [[#the-repl-is-stuck][The REPL is stuck]]
+  - [[#i-am-using-stack-and-ghc-mod-but-ghc-mod-doesnt-work][I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work]]
+  - [[#ghc-mod-doesnt-work][=ghc-mod= doesn't work]]
+  - [[#indentation-doesnt-reset-when-pressing-return-after-an-empty-line][Indentation doesn't reset when pressing return after an empty line]]
+  - [[#flycheck-displays-hlint-warnings-but-not-errors][Flycheck displays HLint warnings but not errors]]
+  - [[#i-can-see-highlighted-errors-but-they-dont-appear-in-the-error-list][I can see highlighted errors but they don't appear in the error list]]
+  - [[#flycheck-doesnt-work][Flycheck doesn't work]]
+  - [[#flycheck-doesnt-work-with-stack][Flycheck doesn't work with =stack=]]
+    - [[#the-stack-build-directory-is-wrong][The stack build directory is wrong]]
+    - [[#the-project-root-directory-is-not-set-properly][The Project root directory is not set properly]]
+  - [[#haskell-mode-commands-dont-work][haskell-mode commands don't work]]
+  - [[#ghc-mod-and-haskell-mode-commands-overlap-how-do-i-know-which-command-belongs-to-what][=ghc-mod= and =haskell-mode= commands overlap. How do I know which command belongs to what?]]
+  - [[#some-commands-start-with-ghc--and-some-with-haskell--what-does-that-mean][Some commands start with =ghc-= and some with =haskell-=. What does that mean?]]
 
 * Description
 This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
 
 ** Features:
 - syntax highlighting for [[https://github.com/haskell/haskell-mode][haskell source]], [[https://github.com/haskell/haskell-mode][cabal files]], [[https://github.com/bgamari/cmm-mode][C-- source]],
-- auto-completion with one of selected backends (=intero=, =ghci= or =ghc-mod=).
+- auto-completion with one of selected backends (=intero=, =dante=, =ghci= or
+  =ghc-mod=).
 
 *This layer is in construction, it needs your contributions and bug reports.*
 
@@ -97,7 +99,7 @@ For information about setting up =$PATH=, check out the corresponding section in
 the FAQ (~SPC h SPC $PATH RET~).
 
 ** Completion support
-This layer provides several completion backends - =intero=, =ghci= and
+This layer provides several completion backends - =intero=, =dante=, =ghci= and
 =ghc-mod=. By default =ghci= (=company-ghci=) is used as it requires no
 dependencies and works both with =stack= and pure =cabal= projects. In order to
 manually set completion backend set value of =haskell-completion-backend=. Note
@@ -119,6 +121,10 @@ order to use it you have to call =haskell-process-load-or-reload= (=SPC s b=).
 calling =stack install intero=, but this step is optional as =Intero= installs
 itself.
 
+*** =dante=
+=dante= works for =cabal=, =nix=, =sytx=, and =stack= users.
+=dante= requires Emacs 25.
+
 *** =ghc-mod=
 [[http://www.mew.org/~kazu/proj/ghc-mod/][ghc-mod]] enhances =haskell-mode= with for example code completion, templates,
 case-splitting and much more. In order to use it you need to install the
@@ -126,7 +132,7 @@ executable with =cabal install ghc-mod= (or =stack= equivalent).
 
 =Stack= users also should make sure that =dist/setup-config= doesn't exist in the
 project root. As it will confuse =ghc-mod=. For more troubleshooting, checkout
-this [[https://github.com/kazu-yamamoto/ghc-mod/wiki#known-issues-related-to-stack][document]].
+this [[https://github.com/DanielG/ghc-mod/wiki#user-content-known-issues-related-to-stack][document]].
 
 Also note that =ghc-mod= works only with =GHC= version that was used to build
 =ghc-mod=. You can check which version was used by calling =ghc-mod --version=.
@@ -148,7 +154,7 @@ Any contributions that will help to solve issues with =structured-haskell-mode=
 are warmly welcome!
 
 *** hindent
-[[https://github.com/chrisdone/hindent][hindent]] is an extensible Haskell pretty printer, which let's you
+[[https://github.com/commercialhaskell/hindent][hindent]] is an extensible Haskell pretty printer, which let's you
 reformat your code. You need to install the executable with =cabal
 install hindent= or =stack install hindent=
 
@@ -159,7 +165,7 @@ supported style. The available styles are:
 - chris-done
 - gibiansky
 
-See examples [[https://github.com/chrisdone/hindent#example][here]].
+See examples [[https://github.com/commercialhaskell/hindent/blob/master/TESTS.md][here]].
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
@@ -302,8 +308,8 @@ ghc-mod commands are prefixed by ~SPC m m~:
 |-------------+-------------------------------------------|
 | ~SPC t~     | insert template                           |
 | ~SPC m m u~ | insert template with holes                |
-| ~SPC m m a~ | select one of possible cases (~ghc-auto~) |
-| ~SPC m m f~ | replace a hole (~ghc-refine~)             |
+| ~SPC m m a~ | select one of possible cases (=ghc-auto=) |
+| ~SPC m m f~ | replace a hole (=ghc-refine=)             |
 | ~SPC m m e~ | expand template haskell                   |
 | ~SPC m m n~ | go to next type hole                      |
 | ~SPC m m p~ | go to previous type hole                  |
@@ -365,7 +371,7 @@ An alternative to syntax checking is to build your project using
 reliable. The error navigation is similar to interactive haskell-mode.
 
 ** Troubleshooting
-Flycheck and ghc-mod can fail silently for miscellaneous reasons. See the [[FAQ]]
+Flycheck and ghc-mod can fail silently for miscellaneous reasons. See the [[#faq][FAQ]]
 for troubleshooting.
 
 * FAQ
@@ -395,7 +401,7 @@ no required space when you switch to insert mode. There is possible workaround -
 just add following snippet to your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-(when (configuration-layer/package-usedp 'haskell)
+(when (configuration-layer/package-used-p 'haskell)
   (add-hook 'haskell-interactive-mode-hook
             (lambda ()
               (setq-local evil-move-cursor-back nil))))
@@ -409,7 +415,7 @@ Also, some users might want to start REPL in insert mode. For this to happen you
 could place following snippet in your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-(when (configuration-layer/package-usedp 'haskell)
+(when (configuration-layer/package-used-p 'haskell)
     (defadvice haskell-interactive-switch (after spacemacs/haskell-interactive-switch-advice activate)
       (when (eq dotspacemacs-editing-style 'vim)
         (call-interactively 'evil-insert))))
@@ -420,7 +426,6 @@ Make sure that =dist= directory doesn't exist in your project root. So if it
 exists, just remove it and try again.
 
 ** =ghc-mod= doesn't work
-
 First of all - make sure that the version of =ghc= matches the version of =ghc= that
 was used to build =ghc-mod=. To get the latter call =ghc-mod --version= in terminal.
 If they don't match you have to rebuild =ghc-mod=.
@@ -454,18 +459,18 @@ snippet into your =dotspacemacs/user-config= function.
 
 ** Flycheck displays HLint warnings but not errors
 The HLint checker is called *after* normal flycheck checker even if the checker
-fails. Check the [[Flycheck doesn't work]] section.
+fails. Check the [[#flycheck-doesnt-work][Flycheck doesn't work]] section.
 
 ** I can see highlighted errors but they don't appear in the error list
 The error list is only set by flycheck. You are probably seeing errors
-highlighted by either ghc-mode or haskell-mode. Check the [[Flycheck doesn't work]]
+highlighted by either ghc-mode or haskell-mode. Check the [[#flycheck-doesnt-work][Flycheck doesn't work]]
 section.
 
 ** Flycheck doesn't work
 You can check what is wrong with flycheck with the =flycheck-compile= command.
 This will show you the exact command line used and its output.
 
-If you are using stack, check the [[Flycheck doesn't work with =stack=]] section.
+If you are using stack, check the [[#flycheck-doesnt-work-with-stack][Flycheck doesn't work with =stack=]] section.
 
 ** Flycheck doesn't work with =stack=
 First check that flycheck uses the correct checker and all the paths are

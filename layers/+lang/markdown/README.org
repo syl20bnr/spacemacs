@@ -3,30 +3,32 @@
 [[file:img/markdown.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features]]
-   - [[#bibtex][BibTeX]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#live-preview][Live preview]]
- - [[#usage][Usage]]
-   - [[#generate-a-toc][Generate a TOC]]
- - [[#key-bindings][Key bindings]]
-   - [[#element-insertion][Element insertion]]
-   - [[#element-removal][Element removal]]
-   - [[#completion][Completion]]
-   - [[#following-and-jumping][Following and Jumping]]
-   - [[#indentation][Indentation]]
-   - [[#header-navigation][Header navigation]]
-   - [[#buffer-wide-commands][Buffer-wide commands]]
-   - [[#list-editing][List editing]]
-   - [[#movement][Movement]]
-   - [[#promotion-demotion][Promotion, Demotion]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+  - [[#bibtex][BibTeX]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#live-preview][Live preview]]
+  - [[#automatic-mmm-mode-generation][Automatic MMM-Mode Generation]]
+- [[#usage][Usage]]
+  - [[#generate-a-toc][Generate a TOC]]
+- [[#key-bindings][Key bindings]]
+  - [[#element-insertion][Element insertion]]
+  - [[#element-removal][Element removal]]
+  - [[#completion][Completion]]
+  - [[#following-and-jumping][Following and Jumping]]
+  - [[#indentation][Indentation]]
+  - [[#header-navigation][Header navigation]]
+  - [[#buffer-wide-commands][Buffer-wide commands]]
+  - [[#list-editing][List editing]]
+  - [[#movement][Movement]]
+  - [[#promotion-demotion][Promotion, Demotion]]
+  - [[#toggles][Toggles]]
 
 * Description
 This layer adds markdown support to Spacemacs.
 
-** Features
+** Features:
 - markdown files support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
 - Fast Github-flavored live preview via [[https://github.com/blak3mill3r/vmd-mode][vmd-mode]]
 - TOC generation via [[https://github.com/ardumont/markdown-toc][markdown-toc]]
@@ -35,7 +37,7 @@ This layer adds markdown support to Spacemacs.
 
 ** BibTeX
 For more extensive support of references with BibTeX files, have a look at the
-[[../bibtex][BibTeX layer]].
+[[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/bibtex/README.org][BibTeX layer]].
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -65,6 +67,21 @@ Additionally there is =flymd= package in =chrome= layer that allows to preview
 markdown buffer in Chrome. Please refer to =chrome= layer documentation for more
 information.
 
+** Automatic MMM-Mode Generation
+To generate MMM-Modes for languages set the value of the variable
+=markdown-mmm-auto-modes= to a list of the languages. For languages where the
+mode name directly relates to the language name, use a string. Otherwise, use a
+list of `("language" "mode")`:
+
+#+BEGIN_SRC emacs-lisp
+  dotspacemacs-configuration-layers '(
+    (markdown :variables markdown-mmm-auto-modes '("c" "c++" "python" "scala" ("elisp" "emacs-lisp"))
+#+END_SRC
+
+*Note:* Spacemacs already defines the variable =markdown-mmm-auto-modes= to a
+bunch of languages. Consider opening a PR on the Spacemacs repository to add
+new languages instead of overriding the variable in your dotfile.
+
 * Usage
 ** Generate a TOC
 To generate a table of contents type on top of the buffer:
@@ -86,7 +103,7 @@ To generate a table of contents type on top of the buffer:
 | ~SPC m h 6~ | insert header atx 6                                               |
 | ~SPC m h !~ | insert header setext 1                                            |
 | ~SPC m h @~ | insert header setext 2                                            |
-| ~SPC m i l~ | insert link                                                       |
+| ~SPC m i l~ | insert inline link dwim                                           |
 | ~SPC m i L~ | insert reference link dwim                                        |
 | ~SPC m i u~ | insert uri                                                        |
 | ~SPC m i f~ | insert footnote                                                   |
@@ -177,3 +194,12 @@ To generate a table of contents type on top of the buffer:
 | ~M-j~       | markdown-move-down |
 | ~M-h~       | markdown-promote   |
 | ~M-l~       | markdown-demote    |
+
+** Toggles
+
+| Key Binding | Description          |
+|-------------+----------------------|
+| ~SPC m t i~ | toggle inline images |
+| ~SPC m t l~ | toggle hidden urls   |
+| ~SPC m t t~ | toggle checkbox      |
+| ~SPC m t w~ | toggle wiki links    |

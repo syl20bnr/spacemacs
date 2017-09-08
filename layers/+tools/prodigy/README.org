@@ -3,14 +3,13 @@
 [[file:img/prodigy.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#spawn-prodigy][Spawn prodigy]]
-   - [[#navigate-through-it][Navigate through it]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+  - [[#spawn-prodigy][Spawn prodigy]]
+  - [[#navigate-through-it][Navigate through it]]
 
 * Description
-
 This layer adds support for the [[https://github.com/rejeep/prodigy.el][prodigy]] package to manage external services from
 within Emacs, check the package's documentation for more details.
 
@@ -23,9 +22,7 @@ add =prodigy= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key Bindings
-
 ** Spawn prodigy
-
 You start prodigy with this:
 
 | Key Binding | Description             |
@@ -36,6 +33,7 @@ You start prodigy with this:
 
 | Key Binding | Description                     |
 |-------------+---------------------------------|
+| ~c~         | Clear buffer                    |
 | ~h~         | First service                   |
 | ~j~         | Next service                    |
 | ~k~         | Previous service                |

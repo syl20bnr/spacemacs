@@ -3,12 +3,11 @@
 [[file:img/spotify.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
 
 * Description
-
 This layer adds key bindings for controlling Spotify from inside Emacs.
 
 * Install

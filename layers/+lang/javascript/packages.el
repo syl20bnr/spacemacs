@@ -10,23 +10,32 @@
 ;;; License: GPLv3
 
 (setq javascript-packages
-  '(
-    coffee-mode
-    (company-tern :toggle (configuration-layer/package-usedp 'company))
-    evil-matchit
-    flycheck
-    ggtags
-    helm-gtags
-    js-doc
-    js2-mode
-    js2-refactor
-    json-mode
-    json-snatcher
-    (tern :toggle (spacemacs//tern-detect))
-    web-beautify
-    skewer-mode
-    livid-mode
-    ))
+      '(
+        add-node-modules-path
+        coffee-mode
+        company
+        (company-tern :requires company)
+        evil-matchit
+        flycheck
+        ggtags
+        helm-gtags
+        impatient-mode
+        js-doc
+        js2-mode
+        js2-refactor
+        json-mode
+        json-snatcher
+        (tern :toggle (spacemacs//tern-detect))
+        web-beautify
+        skewer-mode
+        livid-mode
+        ))
+
+(defun javascript/post-init-add-node-modules-path ()
+  (add-hook 'css-mode-hook #'add-node-modules-path)
+  (add-hook 'coffee-mode-hook #'add-node-modules-path)
+  (add-hook 'js2-mode-hook #'add-node-modules-path)
+  (add-hook 'json-mode-hook #'add-node-modules-path))
 
 (defun javascript/init-coffee-mode ()
   (use-package coffee-mode
@@ -41,12 +50,17 @@
 
 (defun javascript/init-company-tern ()
   (use-package company-tern
-    :if (and (configuration-layer/package-usedp 'company)
-             (configuration-layer/package-usedp 'tern))
+    :if (and (configuration-layer/package-used-p 'company)
+             (configuration-layer/package-used-p 'tern))
     :defer t
     :init (spacemacs|add-company-backends
             :backends company-tern
             :modes js2-mode)))
+
+(defun javascript/post-init-company ()
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes coffee-mode))
 
 (defun javascript/post-init-flycheck ()
   (dolist (mode '(coffee-mode js2-mode json-mode))
@@ -57,6 +71,9 @@
 
 (defun javascript/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'js2-mode))
+
+(defun javascript/post-init-impatient-mode ()
+  (spacemacs/set-leader-keys-for-major-mode 'js2-mode "i" 'spacemacs/impatient-mode))
 
 (defun javascript/init-js-doc ()
   (use-package js-doc

@@ -3,14 +3,14 @@
 [[file:img/fish.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features]]
- - [[#install][Install]]
-   - [[#linting][Linting]]
- - [[#key-bindings][Key Bindings]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#linting][Linting]]
+  - [[#style-checking][Style checking]]
+- [[#key-bindings][Key Bindings]]
 
 * Description
-
 This simple layer adds support for shell scripting.
 
 Supported scripting files:
@@ -19,9 +19,10 @@ Supported scripting files:
 
 *Note:* For Windows scripting see the layer =windows-scripts=
 
-** Features
+** Features:
 - Auto-completion using [[https://github.com/Alexander-Miller/company-shell][company-shell]]
 - =Sh= scripts linting using  [[https://www.shellcheck.net/][shellcheck]]
+- =Sh= scripts style checking using [[https://github.com/openstack-dev/bashate][bashate]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -31,11 +32,23 @@ file.
 ** Linting
 In order to enable =sh= scripts linting, install [[https://www.shellcheck.net/][shellcheck]].
 
+** Style checking
+In order to enable =sh= scripts style checking, install [[https://github.com/openstack-dev/bashate][bashate]].
+
 * Key Bindings
 
 | Key Binding | Description                                               |
 |-------------+-----------------------------------------------------------|
-| ~SPC i !~   | insert shebang in a script file                           |
 | ~SPC m \~   | insert end-of-line backslashes to the lines in the region |
-
-
+| ~SPC i !~   | insert shebang in a script file                           |
+| ~SPC m i !~ | insert shebang in a script file                           |
+| ~SPC m i c~ | insert switch case statement if supported by shell        |
+| ~SPC m i i~ | insert if statement if supported by shell                 |
+| ~SPC m i f~ | insert function definition if supported by shell          |
+| ~SPC m i o~ | insert for loop if supported by shell                     |
+| ~SPC m i e~ | insert an indexed for loop if supported by shell          |
+| ~SPC m i w~ | insert while loop if supported by shell                   |
+| ~SPC m i r~ | insert repeat loop if supported by shell                  |
+| ~SPC m i s~ | insert select loop if supported by shell                  |
+| ~SPC m i u~ | insert until loop if supported by shell                   |
+| ~SPC m i g~ | insert a getopts while loop if supported by shell         |

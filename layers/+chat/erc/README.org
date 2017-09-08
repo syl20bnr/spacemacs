@@ -1,21 +1,23 @@
 #+TITLE: ERC layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#features][Features]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#os-x][OS X]]
-   - [[#social-graph][Social graph]]
-   - [[#default-servers][Default servers]]
-     - [[#security-note][Security Note]]
- - [[#key-bindings][Key bindings]]
- - [[#spacemacs-layout-support][Spacemacs Layout Support]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#os-x][OS X]]
+  - [[#social-graph][Social graph]]
+  - [[#disable-notifications][Disable notifications]]
+  - [[#enable-sasl-authentication][Enable SASL authentication]]
+  - [[#default-servers][Default servers]]
+    - [[#security-note][Security Note]]
+- [[#key-bindings][Key bindings]]
+- [[#spacemacs-layout-support][Spacemacs Layout Support]]
 
 * Description
 Layer for [[http://www.emacswiki.org/emacs/ERC][ERC IRC chat]].
 
-* Features
+** Features:
 - Highlight nicks (using [[https://github.com/leathekd/erc-hl-nicks][erc-hl-nicks]])
 - Image inline support (using [[https://github.com/kidd/erc-image.el][erc-image]])
 - Logging to =~/.emacs.d/.cache/erc-logs= and =ViewLogMode= for viewing logs
@@ -24,6 +26,7 @@ Layer for [[http://www.emacswiki.org/emacs/ERC][ERC IRC chat]].
 - Social Graph for ERC messages (using [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]])
 - Optional SASL authentication via the variable =erc-enable-sasl-auth=
   (using [[http://emacswiki.org/emacs/ErcSASL][erc-sasl]])
+- D-BUS notifications via the variable =erc-enable-notifications=
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
   using the =emoji= layer or having a proper font) :clap:
 
@@ -39,6 +42,24 @@ notifications via the OS X Notification Center.
 
 ** Social graph
 [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]] needs graphviz to be installed on your system.
+
+** Disable notifications
+By default D-BUS notifications are enabled, to disable them set the layer
+variable =erc-enable-notifications= to nil.
+
+#+BEGIN_EXAMPLE emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+             '((erc :variables erc-enable-notifications nil)))
+#+END_EXAMPLE
+
+** Enable SASL authentication
+To enable SASL authentication set the layer variable =erc-enable-sasl-auth= to
+non nil.
+
+#+BEGIN_EXAMPLE emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+             '((erc :variables erc-enable-sasl-auth t)))
+#+END_EXAMPLE
 
 ** Default servers
 You can define the default servers in the ERC custom layout by setting the
@@ -99,5 +120,5 @@ read that in =:password=.
 
 * Spacemacs Layout Support
 ERC buffers are added automatically to the default layout for ERC controlled by
-the variable ~erc-spacemacs-layout-name~ (defaults to "@ERC") and the default
-binding ("E") is controlled by ~erc-spacemacs-layout-binding~
+the variable =erc-spacemacs-layout-name= (defaults to "@ERC") and the default
+binding ("E") is controlled by =erc-spacemacs-layout-binding=

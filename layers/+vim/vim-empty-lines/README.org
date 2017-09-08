@@ -1,11 +1,10 @@
 #+TITLE: Vim-empty-lines layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
+- [[#description][Description]]
+- [[#install][Install]]
 
 * Description
-
 This layer is a drop-in replacement for the =vi-tilde-fringe= mode, for those
 who desire behaviour closer to =vim='s.
 

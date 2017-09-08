@@ -3,15 +3,15 @@
 [[file:img/django.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#fabric][Fabric]]
-   - [[#files][Files]]
-   - [[#interactive][Interactive]]
-   - [[#server][Server]]
-   - [[#southsyncdb][South/Syncdb]]
-   - [[#test][Test]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+  - [[#fabric][Fabric]]
+  - [[#files][Files]]
+  - [[#interactive][Interactive]]
+  - [[#server][Server]]
+  - [[#southsyncdb][South/Syncdb]]
+  - [[#test][Test]]
 
 * Description
 This layer adds support for the Python [[https://www.djangoproject.com/][Django]] framework via [[https://github.com/davidmiller/pony-mode][pony-mode]].

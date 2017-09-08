@@ -3,12 +3,12 @@
 [[file:img/faust.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
 
 * Description
-This simple layer adds support for the [[http://faust.grame.fr/][faust language]].
+This simple layer adds support for the [[https://en.wikipedia.org/wiki/FAUST_(programming_language)][faust language]].
 It adds =faust-mode= as well as integrating it with =auto-completion= layer.
 
 * Install

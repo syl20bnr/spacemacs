@@ -3,13 +3,13 @@
 [[file:img/ror.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-   - [[#code-navigation][Code Navigation]]
-   - [[#refactoring][Refactoring]]
-   - [[#run-commands][RUN commands]]
-   - [[#ex-commands][Ex-commands]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+  - [[#code-navigation][Code Navigation]]
+  - [[#refactoring][Refactoring]]
+  - [[#run-commands][RUN commands]]
+  - [[#ex-commands][Ex-commands]]
 
 * Description
 This layer aims at providing support for the Ruby on Rails framework.
@@ -38,6 +38,7 @@ file.
 | ~SPC m r f p~ | find spec file                                                  |
 | ~SPC m r f r~ | find rake task                                                  |
 | ~SPC m r f s~ | find stylesheet file                                            |
+| ~SPC m r f S~ | find serializer file                                            |
 | ~SPC m r f t~ | find test                                                       |
 | ~SPC m r f u~ | find fixture                                                    |
 | ~SPC m r f v~ | find view                                                       |

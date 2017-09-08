@@ -24,6 +24,7 @@
         helm-gtags
         (ielm :location built-in)
         macrostep
+        parinfer
         semantic
         smartparens
         srefactor))
@@ -58,7 +59,7 @@
     :defer t
     :init (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
             (spacemacs/declare-prefix-for-mode mode "md" "debug")
-            (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
+            (spacemacs/set-leader-keys-for-major-mode mode
               "dt" 'spacemacs/elisp-toggle-debug-expr-and-eval-func))
     :config (evilified-state-evilify-map debugger-mode-map
               :mode debugger-mode)))
@@ -70,7 +71,7 @@
     (progn
       ;; key bindings
       (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-        (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
+        (spacemacs/set-leader-keys-for-major-mode mode
           "df" 'spacemacs/edebug-instrument-defun-on
           "dF" 'spacemacs/edebug-instrument-defun-off))
       ;; since we evilify `edebug-mode-map' we don't need to intercept it to
@@ -193,6 +194,9 @@
 
 (defun emacs-lisp/post-init-ggtags ()
   (add-hook 'emacs-lisp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun emacs-lisp/post-init-parinfer ()
+  (add-hook 'emacs-lisp-mode-hook 'parinfer-mode))
 
 (defun emacs-lisp/post-init-semantic ()
   (add-hook 'emacs-lisp-mode-hook 'semantic-mode)

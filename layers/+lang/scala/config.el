@@ -11,8 +11,6 @@
 
 (spacemacs|define-jump-handlers scala-mode)
 
-(spacemacs|define-jump-handlers scala-mode)
-
 (defvar scala-enable-eldoc nil
   "If non nil then eldoc-mode is enabled in the scala layer.")
 

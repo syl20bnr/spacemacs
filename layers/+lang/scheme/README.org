@@ -1,25 +1,26 @@
 #+TITLE: Scheme layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#compiling][Compiling]]
-   - [[#navigation][Navigation]]
-   - [[#documentation][Documentation]]
-   - [[#insertion][Insertion]]
-   - [[#macroexpansion][Macroexpansion]]
-   - [[#repl][REPL]]
-   - [[#evaluation][Evaluation]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+  - [[#compiling][Compiling]]
+  - [[#navigation][Navigation]]
+  - [[#documentation][Documentation]]
+  - [[#insertion][Insertion]]
+  - [[#macroexpansion][Macroexpansion]]
+  - [[#repl][REPL]]
+  - [[#evaluation][Evaluation]]
 
 * Description
+This layer adds support for Scheme via [[http://www.nongnu.org/geiser/][Geiser]]. Note that combined usage of racket-mode and geiser has not been tested.
 
-A spacemacs contribution layer providing Scheme support via [[http://www.nongnu.org/geiser/][Geiser]].
+** Features:
+- Support the Scheme compiler [[https://www.call-cc.org/][Chicken]]
+- Support for the extension language platform [[https://www.gnu.org/software/guile/][Guile]]
 
 * Install
-The scheme layer currently supports: Chicken and Guile. Combined usage of racket-mode
-and geiser has not been tested.
-
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =scheme= to the existing =dotspacemacs-configuration-layers= list in this
 file.
@@ -33,7 +34,6 @@ For full Chicken support, the following commands should be run:
 #+END_SRC
 
 * Key Bindings
-
 ** Compiling
 
 | Key Binding | Description                |

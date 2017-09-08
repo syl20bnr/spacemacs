@@ -15,7 +15,7 @@
     company
     racer
     flycheck
-    (flycheck-rust :toggle (configuration-layer/package-usedp 'flycheck))
+    (flycheck-rust :requires flycheck)
     ggtags
     exec-path-from-shell
     helm-gtags
@@ -40,6 +40,7 @@
         "cf" 'cargo-process-current-test
         "cf" 'cargo-process-fmt
         "ci" 'cargo-process-init
+        "cl" 'cargo-process-clippy
         "cn" 'cargo-process-new
         "co" 'cargo-process-current-file-tests
         "cs" 'cargo-process-search
@@ -98,7 +99,7 @@
     :defer t
     :init
     (progn
-      (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode eldoc-mode))
+      (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode))
       (spacemacs/declare-prefix-for-mode 'rust-mode "mg" "goto")
       (add-to-list 'spacemacs-jump-handlers-rust-mode 'racer-find-definition)
       (spacemacs/declare-prefix-for-mode 'rust-mode "mh" "help")

@@ -10,25 +10,36 @@
 ;;; License: GPLv3
 
 (setq html-packages
-  '(
-    company
-    (company-web :toggle (configuration-layer/package-usedp 'company))
-    css-mode
-    emmet-mode
-    evil-matchit
-    flycheck
-    haml-mode
-    (helm-css-scss :toggle (configuration-layer/package-usedp 'helm))
-    less-css-mode
-    pug-mode
-    sass-mode
-    scss-mode
-    slim-mode
-    smartparens
-    tagedit
-    web-mode
-    yasnippet
-    ))
+      '(
+        add-node-modules-path
+        company
+        (company-web :requires company)
+        css-mode
+        emmet-mode
+        evil-matchit
+        flycheck
+        haml-mode
+        (helm-css-scss :requires helm)
+        impatient-mode
+        less-css-mode
+        pug-mode
+        sass-mode
+        scss-mode
+        slim-mode
+        smartparens
+        tagedit
+        web-mode
+        yasnippet
+        ))
+
+(defun html/post-init-add-node-modules-path ()
+  (add-hook 'css-mode-hook #'add-node-modules-path)
+  (add-hook 'less-css-mode-hook #'add-node-modules-path)
+  (add-hook 'pug-mode-hook #'add-node-modules-path)
+  (add-hook 'sass-mode-hook #'add-node-modules-path)
+  (add-hook 'scss-mode-hook #'add-node-modules-path)
+  (add-hook 'slim-mode-hook #'add-node-modules-path)
+  (add-hook 'web-mode-hook #'add-node-modules-path))
 
 (defun html/post-init-company ()
   (spacemacs|add-company-backends
@@ -134,6 +145,14 @@
     :init
     (dolist (mode '(css-mode scss-mode))
       (spacemacs/set-leader-keys-for-major-mode mode "gh" 'helm-css-scss))))
+
+(defun html/init-impatient-mode ()
+  (use-package impatient-mode
+    :defer t
+    :init
+    (progn
+      (dolist (mode '(web-mode css-mode))
+        (spacemacs/set-leader-keys-for-major-mode 'web-mode "i" 'spacemacs/impatient-mode)))))
 
 (defun html/init-less-css-mode ()
   (use-package less-css-mode

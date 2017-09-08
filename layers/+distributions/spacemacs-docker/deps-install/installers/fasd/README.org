@@ -1,11 +1,15 @@
 #+TITLE: fasd layer dependency installation script
 
 * Table of Contents                 :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#list-of-installed-software][List of installed software:]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#list-of-installed-software][List of installed software:]]
 
 * Description
 Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Btools/fasd/README.org][fasd layer.]]
+
+** Features:
+- Fasd support for Docker
 
 * List of installed software:
 1. [[https://github.com/clvv/fasd][fasd]]

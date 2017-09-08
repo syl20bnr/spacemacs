@@ -3,42 +3,48 @@
 [[file:img/clojure.png]] [[file:img/cider.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#features][Features]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#pretty-symbols][Pretty Symbols]]
-   - [[#cider-and-clj-refactor][CIDER and clj-refactor]]
-     - [[#quick-start-with-boot][Quick Start with boot]]
-     - [[#quick-start-with-lein][Quick Start with lein]]
-     - [[#more-details][More details]]
- - [[#key-bindings][Key Bindings]]
-   - [[#working-with-clojure-files-barfage-slurpage--more][Working with clojure files (barfage, slurpage & more)]]
-   - [[#leader][Leader]]
-     - [[#documentation][Documentation]]
-     - [[#evaluation][Evaluation]]
-     - [[#goto][Goto]]
-     - [[#repl][REPL]]
-     - [[#tests][Tests]]
-     - [[#toggles][Toggles]]
-     - [[#debugging][Debugging]]
-     - [[#refactoring][Refactoring]]
-     - [[#reformatting][Reformatting]]
-   - [[#cider-buffers][CIDER Buffers]]
-     - [[#stacktrace-mode][stacktrace-mode]]
-     - [[#inspector-mode][inspector-mode]]
-     - [[#test-report-mode][test-report-mode]]
- - [[#development-notes][Development Notes]]
-   - [[#indentation][Indentation]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#pretty-symbols][Pretty Symbols]]
+  - [[#cider-and-clj-refactor][CIDER and clj-refactor]]
+    - [[#quick-start-with-boot][Quick Start with boot]]
+    - [[#quick-start-with-lein][Quick Start with lein]]
+    - [[#more-details][More details]]
+- [[#key-bindings][Key Bindings]]
+  - [[#working-with-clojure-files-barfage-slurpage--more][Working with clojure files (barfage, slurpage & more)]]
+  - [[#leader][Leader]]
+    - [[#documentation][Documentation]]
+    - [[#evaluation][Evaluation]]
+    - [[#goto][Goto]]
+    - [[#repl][REPL]]
+    - [[#tests][Tests]]
+    - [[#toggles][Toggles]]
+    - [[#debugging][Debugging]]
+    - [[#refactoring][Refactoring]]
+    - [[#reformatting][Reformatting]]
+  - [[#cider-buffers][CIDER Buffers]]
+    - [[#stacktrace-mode][stacktrace-mode]]
+    - [[#inspector-mode][inspector-mode]]
+    - [[#test-report-mode][test-report-mode]]
+  - [[#sayid-buffers][Sayid Buffers]]
+    - [[#sayid-mode][sayid-mode]]
+    - [[#sayid-traced-mode][sayid-traced-mode]]
+    - [[#sayid-pprint][sayid-pprint]]
+    - [[#cider-repl-mode][cider-repl-mode]]
+- [[#development-notes][Development Notes]]
+  - [[#indentation][Indentation]]
 
 * Description
-This layer adds support for [[http://clojure.org][Clojure]] language using [[https://github.com/clojure-emacs/cider][CIDER]].
+This layer adds support for [[https://clojure.org/][Clojure]] language using [[https://github.com/clojure-emacs/cider][CIDER]].
 
-* Features
+** Features:
 - REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
 - Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]]
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
+- Debugging with [[https://bpiel.github.io/sayid/][sayid]]
 
 * Install
 ** Layer
@@ -71,7 +77,7 @@ older. Most users should be able to just run ~SPC m s i~ to connect to the CIDER
 REPL and skip the rest of this section.
 
 *** Quick Start with boot
-- Install =boot= (see https://github.com/boot-clj/boot#install)
+- Install =boot= (see https://github.com/boot-clj/boot#user-content-install)
 - Create a file =~/.boot/profile.boot= with the following content:
 
 #+BEGIN_SRC clojure
@@ -90,7 +96,7 @@ REPL and skip the rest of this section.
   for Cider to recognize the presence of boot.
 
 *** Quick Start with lein
-- Install =lein= version 2.5.2 or newer (see http://leiningen.org/#install)
+- Install =lein= version 2.5.2 or newer (see https://leiningen.org/#install)
 - Create a file =~/.lein/profiles.clj= with the following content:
 
 #+BEGIN_SRC clojure
@@ -111,7 +117,7 @@ More info regarding installation of nREPL middleware can be found here:
 
 * Key Bindings
 ** Working with clojure files (barfage, slurpage & more)
-Spacemacs comes with a special ~lisp-state~ for working with lisp code that
+Spacemacs comes with a special =lisp-state= for working with lisp code that
 supports slurpage, barfage and more tools you'll likely want when working with
 lisp.
 
@@ -131,16 +137,18 @@ As this state works the same for all files, the documentation is in global
 
 *** Evaluation
 
-| Key Binding | Description                                     |
-|-------------+-------------------------------------------------|
-| ~SPC m e b~ | eval buffer                                     |
-| ~SPC m e e~ | eval last sexp                                  |
-| ~SPC m e f~ | eval function at point                          |
-| ~SPC m e r~ | eval region                                     |
-| ~SPC m e m~ | cider macroexpand 1                             |
-| ~SPC m e M~ | cider macroexpand all                           |
-| ~SPC m e p~ | print last sexp (clojure interaction mode only) |
-| ~SPC m e w~ | eval last sexp and replace with result          |
+| Key Binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~SPC m e ;~ | eval sexp and show result as comment                      |
+| ~SPC m e b~ | eval buffer                                               |
+| ~SPC m e e~ | eval last sexp                                            |
+| ~SPC m e f~ | eval function at point                                    |
+| ~SPC m e r~ | eval region                                               |
+| ~SPC m e m~ | cider macroexpand 1                                       |
+| ~SPC m e M~ | cider macroexpand all                                     |
+| ~SPC m e p~ | print last sexp (clojure interaction mode only)           |
+| ~SPC m e P~ | eval last sexp and pretty print result in separate buffer |
+| ~SPC m e w~ | eval last sexp and replace with result                    |
 
 *** Goto
 
@@ -176,6 +184,8 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m s r~ | send and eval region in REPL                                                   |
 | ~SPC m s R~ | send and eval region and switch to REPL in =insert state=                      |
 | ~SPC m s s~ | switch to REPL or jump to last file or last clj buffer from repl (cider-repl)  |
+| ~SPC m s x~ | refresh REPL                                                                   |
+| ~SPC m s X~ | restart REPL                                                                   |
 
 *** Tests
 
@@ -198,62 +208,85 @@ As this state works the same for all files, the documentation is in global
 
 *** Debugging
 
-| Key Binding | Description                    |
-|-------------+--------------------------------|
-| ~SPC m d b~ | instrument expression at point |
-| ~SPC m d e~ | display last stacktrace        |
-| ~SPC m d r~ | reload namespaces             |
-| ~SPC m d v~ | inspect expression at point    |
+| Key Binding   | Description                                        |
+|---------------+----------------------------------------------------|
+| ~SPC m d b~   | instrument expression at point                     |
+| ~SPC m d e~   | display last stacktrace                            |
+| ~SPC m d r~   | reload namespaces                                  |
+| ~SPC m d v~   | inspect expression at point                        |
+| ~SPC m d i~   | inspect expression at point                        |
+| ~SPC m d f~   | query form at point                                |
+| ~SPC m d w~   | open sayid workspace window                        |
+| ~SPC m d E~   | one time display of value at cursor                |
+| ~SPC m d !~   | reload traces and clear sayid workspace            |
+| ~SPC m d c~   | clear workspace trace log                          |
+| ~SPC m d x~   | clear workspace traces and log                     |
+| ~SPC m d s~   | show what is currently traced                      |
+| ~SPC m d S~   | show what is currently traced in current namespace |
+| ~SPC m d V~   | set the view                                       |
+| ~SPC m d h~   | show sayid help (keybindings may not be accurate)  |
+| ~SPC m d t y~ | recursively trace every namespace in given dir     |
+| ~SPC m d t p~ | trace namespaces by regex                          |
+| ~SPC m d t b~ | trace current file's namespace                     |
+| ~SPC m d t e~ | enable existing trace on current function          |
+| ~SPC m d t E~ | enable existing trace on all functions             |
+| ~SPC m d t d~ | disable existing trace on current function         |
+| ~SPC m d t D~ | disable existing trace on all functions            |
+| ~SPC m d t n~ | create inner trace on function                     |
+| ~SPC m d t o~ | create outer trace on function                     |
+| ~SPC m d t r~ | remove trace on function                           |
+| ~SPC m d t K~ | remove all traces                                  |
 
 *** Refactoring
 
-| Key Binding   | Description                 |
-|---------------+-----------------------------|
-| ~SPC m r ?~   | describe refactoring        |
-| ~SPC m r a d~ | add declaration             |
-| ~SPC m r a i~ | add import to ns            |
-| ~SPC m r a m~ | add missing libspec         |
-| ~SPC m r a p~ | add project dependency      |
-| ~SPC m r a r~ | add require to ns           |
-| ~SPC m r a u~ | add use to ns               |
-| ~SPC m r c (~ | convert coll to list        |
-| ~SPC m r c '~ | convert coll to quoted list |
-| ~SPC m r c {~ | convert coll to map         |
-| ~SPC m r c #~ | convert coll to set         |
-| ~SPC m r c [~ | convert coll to vector      |
-| ~SPC m r c i~ | cycle if                    |
-| ~SPC m r c n~ | clean ns                    |
-| ~SPC m r c p~ | cycle privacy               |
-| ~SPC m r d k~ | destructure keys            |
-| ~SPC m r e c~ | extract constant            |
-| ~SPC m r e d~ | extract definition          |
-| ~SPC m r e f~ | extract function            |
-| ~SPC m r e l~ | expand let                  |
-| ~SPC m r f u~ | find usages                 |
-| ~SPC m r f e~ | create fn from example      |
-| ~SPC m r h d~ | hotload dependency          |
-| ~SPC m r i l~ | introduce let               |
-| ~SPC m r i s~ | inline symbol               |
-| ~SPC m r m f~ | move form                   |
-| ~SPC m r m l~ | move to let                 |
-| ~SPC m r p c~ | project clean               |
-| ~SPC m r p f~ | promote function            |
-| ~SPC m r r d~ | remove debug fns            |
-| ~SPC m r r f~ | rename file                 |
-| ~SPC m r r l~ | remove let                  |
-| ~SPC m r r r~ | remove unused requires      |
-| ~SPC m r r s~ | rename symbol               |
-| ~SPC m r r u~ | replace use                 |
-| ~SPC m r s n~ | sort ns                     |
-| ~SPC m r s p~ | sort project dependencies   |
-| ~SPC m r s r~ | stop referring              |
-| ~SPC m r s c~ | show changelog              |
-| ~SPC m r t f~ | thread first all            |
-| ~SPC m r t h~ | thread                      |
-| ~SPC m r t l~ | thread last all             |
-| ~SPC m r u a~ | unwind all                  |
-| ~SPC m r u p~ | update project dependencies |
-| ~SPC m r u w~ | unwind                      |
+| Key Binding   | Description                       |
+|---------------+-----------------------------------|
+| ~SPC m r ?~   | describe refactoring              |
+| ~SPC m r a d~ | add declaration                   |
+| ~SPC m r a i~ | add import to ns                  |
+| ~SPC m r a m~ | add missing libspec               |
+| ~SPC m r a p~ | add project dependency            |
+| ~SPC m r a r~ | add require to ns                 |
+| ~SPC m r a u~ | add use to ns                     |
+| ~SPC m r c (~ | convert coll to list              |
+| ~SPC m r c '~ | convert coll to quoted list       |
+| ~SPC m r c {~ | convert coll to map               |
+| ~SPC m r c #~ | convert coll to set               |
+| ~SPC m r c [~ | convert coll to vector            |
+| ~SPC m r c :~ | toggle between keyword and string |
+| ~SPC m r c i~ | cycle if                          |
+| ~SPC m r c n~ | clean ns                          |
+| ~SPC m r c p~ | cycle privacy                     |
+| ~SPC m r d k~ | destructure keys                  |
+| ~SPC m r e c~ | extract constant                  |
+| ~SPC m r e d~ | extract definition                |
+| ~SPC m r e f~ | extract function                  |
+| ~SPC m r e l~ | expand let                        |
+| ~SPC m r f u~ | find usages                       |
+| ~SPC m r f e~ | create fn from example            |
+| ~SPC m r h d~ | hotload dependency                |
+| ~SPC m r i l~ | introduce let                     |
+| ~SPC m r i s~ | inline symbol                     |
+| ~SPC m r m f~ | move form                         |
+| ~SPC m r m l~ | move to let                       |
+| ~SPC m r p c~ | project clean                     |
+| ~SPC m r p f~ | promote function                  |
+| ~SPC m r r d~ | remove debug fns                  |
+| ~SPC m r r f~ | rename file                       |
+| ~SPC m r r l~ | remove let                        |
+| ~SPC m r r r~ | remove unused requires            |
+| ~SPC m r r s~ | rename symbol                     |
+| ~SPC m r r u~ | replace use                       |
+| ~SPC m r s n~ | sort ns                           |
+| ~SPC m r s p~ | sort project dependencies         |
+| ~SPC m r s r~ | stop referring                    |
+| ~SPC m r s c~ | show changelog                    |
+| ~SPC m r t f~ | thread first all                  |
+| ~SPC m r t h~ | thread                            |
+| ~SPC m r t l~ | thread last all                   |
+| ~SPC m r u a~ | unwind all                        |
+| ~SPC m r u p~ | update project dependencies       |
+| ~SPC m r u w~ | unwind                            |
 
 *** Reformatting
 
@@ -311,9 +344,64 @@ In general, ~q~ should always quit the popped up buffer.
 | ~t~         | run test           |
 | ~T~         | run tests          |
 
+** Sayid Buffers
+*** sayid-mode
+
+| Key Binding        | Description                                       |
+|--------------------+---------------------------------------------------|
+| ~enter~            | pop to function                                   |
+| ~d~                | def value to $s/*                                 |
+| ~f~                | query for calls to function                       |
+| ~F~                | query to calls to function with modifier          |
+| ~i~                | show only this instance                           |
+| ~I~                | show only this instance with modifier             |
+| ~w~                | show full workspace trace                         |
+| ~n~                | jump to next call                                 |
+| ~N~                | jump to previous call                             |
+| ~P~                | pretty print value                                |
+| ~C~                | clear workspace trace log                         |
+| ~L~ or ~Backspace~ | previous buffer state                             |
+| ~Shift-Backspace~  | forward buffer state                              |
+| ~e~                | generate instance expression and put in kill ring |
+| ~H~                | display help (keybindings may not be accurate)    |
+| ~C-s v~            | toggle view                                       |
+| ~C-s V~            | set view                                          |
+
+*** sayid-traced-mode
+
+| Key Binding | Description                                    |
+|-------------+------------------------------------------------|
+| ~enter~     | drill into ns at point                         |
+| ~e~         | enable trace                                   |
+| ~d~         | disable trace                                  |
+| ~E~         | enable all traces                              |
+| ~D~         | disable all traces                             |
+| ~i~         | apply inner trace to function at point         |
+| ~o~         | apply outer trace to function at point         |
+| ~r~         | remove trace at point                          |
+| ~backspace~ | go back to trace overview                      |
+| ~h~         | display help (keybindings may not be accurate) |
+
+*** sayid-pprint
+
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~enter~     | show path in minibuffer     |
+| ~i~         | enter child node            |
+| ~o~         | enter parent node           |
+| ~n~         | enter next sibling node     |
+| ~p~         | enter previous sibling node |
+
+*** cider-repl-mode
+
+| Key Binding | Description    |
+|-------------+----------------|
+| ~C-j~       | next input     |
+| ~C-k~       | previous input |
+
 * Development Notes
 ** Indentation
-With a [[https://github.com/clojure-emacs/cider/blob/master/doc/Indent-Spec.md#indent-specification][new]] functionality of Cider to read the custom indentation rules from the
+With a [[https://github.com/clojure-emacs/cider/blob/master/doc/indent_spec.md][new]] functionality of Cider to read the custom indentation rules from the
 var's metadata, it is better for consistency reasons to not add the custom
 indentation rules to Spacemacs, but to add them to the metadata of those
 specific vars.

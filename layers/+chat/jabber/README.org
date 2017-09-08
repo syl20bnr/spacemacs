@@ -1,18 +1,22 @@
-#+TITLE: Jabber contribution layer for Spacemacs
+#+TITLE: Jabber layer
 
 [[file:img/jabber-logo.gif]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-   - [[#jabber-roster][Jabber Roster]]
- - [[#hipchat][HipChat]]
-   - [[#authentication][Authentication]]
-   - [[#joining-rooms][Joining rooms]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+  - [[#jabber-roster][Jabber Roster]]
+- [[#hipchat][HipChat]]
+  - [[#authentication][Authentication]]
+  - [[#joining-rooms][Joining rooms]]
 
 * Description
-This layer adds keybindings for jabber.el. jabber.el is a Jabber (XMPP) client for Emacs
+This layer adds support for the Jabber (XMPP) client for Emacs
+
+** Features:
+- Use Jabber without having to leave Spacemacs
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -25,6 +29,7 @@ file.
 | ~SPC a j~   | Connect all accounts |
 
 ** Jabber Roster
+
 | Key Binding | Description                          |
 | ~SPC m a~   | Jabber send presence                 |
 | ~SPC m b~   | Jabber get browse                    |

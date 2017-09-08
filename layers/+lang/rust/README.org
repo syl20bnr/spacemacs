@@ -1,20 +1,23 @@
-#+TITLE: Rust contribution layer for Spacemacs
+#+TITLE: Rust layer
 
 [[file:img/rust.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#racer][Racer]]
-   - [[#cargo][Cargo]]
-   - [[#rustfmt][Rustfmt]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#racer][Racer]]
+  - [[#cargo][Cargo]]
+  - [[#rustfmt][Rustfmt]]
+- [[#key-bindings][Key bindings]]
 
 * Description
-This layer supports [[http://www.rust-lang.org/][Rust]] development in Spacemacs.
+This layer supports [[https://www.rust-lang.org/en-US/][Rust]] development in Spacemacs.
 
-It has auto-completion and navigation support through [[https://github.com/phildawes/racer][Racer]] and supports [[http://doc.crates.io/index.html][Cargo]].
+** Features:
+- Auto-completion and navigation support through [[https://github.com/phildawes/racer][Racer]]
+- support for the Rust package manager [[http://doc.crates.io/index.html][Cargo]]
 
 * Install
 ** Layer
@@ -55,6 +58,7 @@ To enable automatic buffer formatting on save, set the variable =rust-format-on-
 | ~SPC m c e~ | run benchmarks with Cargo                   |
 | ~SPC m c f~ | run the current test with Cargo             |
 | ~SPC m c i~ | create a new project with Cargo (init)      |
+| ~SPC m c l~ | run linter ([[https://github.com/arcnmx/cargo-clippy][cargo-clippy]]) with Cargo        |
 | ~SPC m c n~ | create a new project with Cargo (new)       |
 | ~SPC m c o~ | run all tests in current file with Cargo    |
 | ~SPC m c s~ | search for packages on crates.io with Cargo |

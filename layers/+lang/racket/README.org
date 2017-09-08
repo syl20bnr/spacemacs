@@ -3,17 +3,16 @@
 [[file:img/racket.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#navigation][Navigation]]
-   - [[#documentation][Documentation]]
-   - [[#tests][Tests]]
-   - [[#repl][REPL]]
-   - [[#other-key-bindings][Other key bindings]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+  - [[#navigation][Navigation]]
+  - [[#documentation][Documentation]]
+  - [[#tests][Tests]]
+  - [[#repl][REPL]]
+  - [[#other-key-bindings][Other key bindings]]
 
 * Description
-
 Adds support for the [[http://racket-lang.org/][Racket]] programming language.
 
 * Install
@@ -27,7 +26,6 @@ raco pkg install drracket
 #+END_SRC
 
 * Key Bindings
-
 ** Navigation
 
 | Key Binding | Description                         |

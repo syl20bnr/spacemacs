@@ -3,15 +3,15 @@
 [[file:img/games.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#games-instructions][Games instructions]]
-   - [[#2048][2048]]
-   - [[#pacmacs][Pacmacs]]
-   - [[#sudoku][Sudoku]]
-   - [[#tetris][Tetris]]
-   - [[#typit][Typit]]
-     - [[#create-a-new-dictionary][Create a new dictionary]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#games-instructions][Games instructions]]
+  - [[#2048][2048]]
+  - [[#pacmacs][Pacmacs]]
+  - [[#sudoku][Sudoku]]
+  - [[#tetris][Tetris]]
+  - [[#typit][Typit]]
+    - [[#create-a-new-dictionary][Create a new dictionary]]
 
 * Description
 This layer allows you to play evilified games in spacemacs.

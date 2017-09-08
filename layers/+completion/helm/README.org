@@ -3,19 +3,19 @@
 [[file:img/helm.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-   - [[#hjkl-navigation][hjkl navigation]]
-   - [[#transient-state][Transient state]]
-   - [[#bookmarks][Bookmarks]]
-   - [[#c-z-and-tab-switch][C-z and Tab switch]]
-   - [[#helm-focus][Helm focus]]
-   - [[#helm-swoop][Helm-swoop]]
-   - [[#universal-argument][Universal argument]]
-   - [[#replacing-text-in-several-files][Replacing text in several files]]
-   - [[#resume-last-session][Resume last session]]
- - [[#external-resources][External resources]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+  - [[#hjkl-navigation][hjkl navigation]]
+  - [[#transient-state][Transient state]]
+  - [[#bookmarks][Bookmarks]]
+  - [[#c-z-and-tab-switch][C-z and Tab switch]]
+  - [[#helm-focus][Helm focus]]
+  - [[#helm-swoop][Helm-swoop]]
+  - [[#universal-argument][Universal argument]]
+  - [[#replacing-text-in-several-files][Replacing text in several files]]
+  - [[#resume-last-session][Resume last session]]
+- [[#external-resources][External resources]]
 
 * Description
 This layer enables Helm everywhere in Spacemacs. The alternative to this
@@ -114,7 +114,6 @@ modifications to the buffer.
 | ~SPC s C-s~ | execute =helm-multi-swoop-all= |
 
 ** Universal argument
-
 ~SPC u~ is not working before =helm-M-x= (~SPC SPC~). Instead, call =helm-M-x=
 first, select the command you want to run, and press ~C-u~ before pressing
 ~RETURN~. For instance: ~SPC SPC org-reload C-u RET~

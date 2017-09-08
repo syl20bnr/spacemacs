@@ -28,7 +28,7 @@
 (defun spacemacs-bootstrap/init-bind-key ())
 
 (defun spacemacs-bootstrap/init-diminish ()
-  (when (not (configuration-layer/package-usedp 'spaceline))
+  (when (not (configuration-layer/package-used-p 'spaceline))
     (add-hook 'after-load-functions 'spacemacs/diminish-hook)))
 
 (defun spacemacs-bootstrap/init-bind-map ()
@@ -274,7 +274,7 @@
       spacemacs-default-map))
 
   ;; support smart 1parens-strict-mode
-  (when (configuration-layer/package-usedp 'smartparens)
+  (when (configuration-layer/package-used-p 'smartparens)
     (defadvice evil-delete-backward-char-and-join
         (around spacemacs/evil-delete-backward-char-and-join activate)
       (if (bound-and-true-p smartparens-strict-mode)
@@ -344,26 +344,133 @@
            ("spacemacs/toggle-holy-mode" . "emacs (holy-mode)")
            ("evil-lisp-state-\\(.+\\)" . "\\1")
            ("spacemacs/\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
-           ("spacemacs/\\(.+\\)-transient-state/body" . "\\1-transient-state"))))
+           ("spacemacs/\\(.+\\)-transient-state/body" . "\\1-transient-state")
+           ("helm-mini\\|ivy-switch-buffer" . "list-buffers")
+           ("spacemacs-layouts/non-restricted-buffer-list-\\(helm\\|ivy\\)" . "global-list-buffers"))))
     (dolist (nd new-descriptions)
       ;; ensure the target matches the whole string
       (push (cons (cons nil (concat "\\`" (car nd) "\\'")) (cons nil (cdr nd)))
             which-key-replacement-alist)))
 
-  (push '(("\\(.*\\) 0" . "select-window-0") . ("\\1 0..9" . "window 0..9"))
+  ;; Group together sequence and identical key entries in the which-key popup
+  ;; SPC h k- Top-level bindings
+  ;; Remove spaces around the two dots ".."
+  (push '(("\\(.*\\)1 .. 9" . "digit-argument") .
+          ("\\11..9" . "digit-argument"))
         which-key-replacement-alist)
-  (push '((nil . "select-window-[1-9]") . t) which-key-replacement-alist)
 
-  (push '(("\\(.*\\) 1" . "buffer-to-window-1") . ("\\1 1..9" . "buffer to window 1..9"))
+  ;; And remove the modifier key(s) before the last nr in the sequence
+  (push '(("\\(.*\\)C-0 .. C-5" . "digit-argument") .
+          ("\\1C-0..5" . "digit-argument"))
         which-key-replacement-alist)
-  (push '((nil . "buffer-to-window-[2-9]") . t) which-key-replacement-alist)
+
+  (push '(("\\(.*\\)C-7 .. C-9" . "digit-argument") .
+          ("\\1C-7..9" . "digit-argument"))
+        which-key-replacement-alist)
+
+  (push '(("\\(.*\\)C-M-0 .. C-M-9" . "digit-argument") .
+          ("\\1C-M-0..9" . "digit-argument"))
+        which-key-replacement-alist)
+
+  ;; Rename the entry for M-0 in the SPC h k Top-level bindings,
+  ;; and for 0 in the SPC- Spacemacs root
+  (push '(("\\(.*\\)0" . "winum-select-window-0-or-10") .
+          ("\\10" . "select window 0 or 10"))
+        which-key-replacement-alist)
+
+  ;; Rename the entry for M-1 in the SPC h k Top-level bindings,
+  ;; and for 1 in the SPC- Spacemacs root, to 1..9
+  (push '(("\\(.*\\)1" . "winum-select-window-1") .
+          ("\\11..9" . "select window 1..9"))
+        which-key-replacement-alist)
+
+  ;; Hide the entries for M-[2-9] in the SPC h k Top-level bindings,
+  ;; and for [2-9] in the SPC- Spacemacs root
+  (push '((nil . "winum-select-window-[2-9]") . t)
+        which-key-replacement-alist)
+
+  ;; SPC- Spacemacs root
+  ;; Combine the ` (backtick) and ² (superscript 2) key entries
+  (push '(("\\(.*\\)`" . "winum-select-window-by-number") .
+          ("\\1`,²" . "select window by number"))
+        which-key-replacement-alist)
+
+  ;; hide the "² -> winum-select-window-by-number" entry
+  (push '(("\\(.*\\)²" . nil) . t)
+        which-key-replacement-alist)
+
+  ;; SPC b- buffers
+  ;; rename the buffer-to-window-1 entry, to 1..9
+  (push '(("\\(.*\\)1" . "buffer-to-window-1") .
+          ("\\11..9" . "buffer to window 1..9"))
+        which-key-replacement-alist)
+
+  ;; hide the "[2-9] -> buffer-to-window-[2-9]" entries
+  (push '((nil . "buffer-to-window-[2-9]") . t)
+        which-key-replacement-alist)
+
+  ;; SPC k- lisp
+  ;; rename "1 .. 9 -> digit-argument" to "1..9 -> digit-argument"
+  (push '(("\\(.*\\)1 .. 9" . "evil-lisp-state-digit-argument") .
+          ("\\11..9" . "digit-argument"))
+        which-key-replacement-alist)
+
+  ;; SPC x i- inflection
+  ;; rename "k -> string-inflection-kebab-case"
+  ;; to "k,- -> string-inflection-kebab-case"
+  (push '(("\\(.*\\)k" . "string-inflection-kebab-case") .
+          ("\\1k,-" . "string-inflection-kebab-case"))
+        which-key-replacement-alist)
+
+  ;; hide the "- -> string-inflection-kebab-case" entry
+  (push '(("\\(.*\\)-" . "string-inflection-kebab-case") . t)
+        which-key-replacement-alist)
+
+  ;; rename "u -> string-inflection-underscore"
+  ;; to "u,_ -> string-inflection-underscore"
+  (push '(("\\(.*\\)u" . "string-inflection-underscore") .
+          ("\\1u,_" . "string-inflection-underscore"))
+        which-key-replacement-alist)
+
+  ;; hide the "_ -> string-inflection-underscore" entry
+  (push '(("\\(.*\\)_" . "string-inflection-underscore") . t)
+        which-key-replacement-alist)
+
+  ;; C-c C-w-
+  ;; rename the eyebrowse-switch-to-window-config-0 entry, to 0..9
+  (push '(("\\(.*\\)0" . "eyebrowse-switch-to-window-config-0") .
+          ("\\10..9" . "eyebrowse-switch-to-window-config-0..9"))
+        which-key-replacement-alist)
+
+  ;; hide the "[1-9] -> eyebrowse-switch-to-window-config-[1-9]" entries
+  (push '((nil . "eyebrowse-switch-to-window-config-[1-9]") . t)
+        which-key-replacement-alist)
+
+  ;; Combine the c and C-c key entries
+  (push '(("\\(.*\\)C-c C-w c" . "eyebrowse-create-window-config") .
+          ("\\1c,C-c" . "eyebrowse-create-window-config"))
+        which-key-replacement-alist)
+
+  ;; hide the "C-c -> eyebrowse-create-window-config" entry
+  (push '(("\\(.*\\)C-c C-w C-c" . "eyebrowse-create-window-config") . t)
+          which-key-replacement-alist)
+
+  ;; C-c C-d-
+  ;; Combine the d and C-d key entries
+  (push '(("\\(.*\\)C-c C-d d" . "elisp-slime-nav-describe-elisp-thing-at-point") .
+          ("\\1d,C-d" . "elisp-slime-nav-describe-elisp-thing-at-point"))
+        which-key-replacement-alist)
+
+  ;; hide the "C-d -> elisp-slime-nav-describe-elisp-thing-at-point" entry
+  (push '(("\\(.*\\)C-c C-d C-d" . "elisp-slime-nav-describe-elisp-thing-at-point") . t)
+          which-key-replacement-alist)
 
   (dolist (leader-key `(,dotspacemacs-leader-key ,dotspacemacs-emacs-leader-key))
     (which-key-add-key-based-replacements
       (concat leader-key " m")    "major mode commands"
       (concat leader-key " " dotspacemacs-emacs-command-key) "M-x"))
 
-  (which-key-declare-prefixes
+  (which-key-add-key-based-replacements
     dotspacemacs-leader-key '("root" . "Spacemacs root")
     dotspacemacs-emacs-leader-key '("root" . "Spacemacs root")
     (concat dotspacemacs-leader-key " m")

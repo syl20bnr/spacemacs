@@ -1,8 +1,8 @@
 #+TITLE: vim-powerline layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
+- [[#description][Description]]
+- [[#install][Install]]
 
 * Description
 A powerline theme modeled after the vim powerline theme.

@@ -3,17 +3,17 @@
 [[file:img/elfeed.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#setup-feeds][Setup feeds]]
-     - [[#with-org][With Org]]
-     - [[#manually][Manually]]
-   - [[#server][Server]]
- - [[#key-bindings][Key Bindings]]
- - [[#troubleshooting][Troubleshooting]]
-   - [[#database-empty-at-first-start][Database empty at first start]]
-   - [[#queue-timeout-exceeded][Queue timeout exceeded]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#setup-feeds][Setup feeds]]
+    - [[#with-org][With Org]]
+    - [[#manually][Manually]]
+  - [[#server][Server]]
+- [[#key-bindings][Key Bindings]]
+- [[#troubleshooting][Troubleshooting]]
+  - [[#database-empty-at-first-start][Database empty at first start]]
+  - [[#queue-timeout-exceeded][Queue timeout exceeded]]
 
 * Description
 This layer enables [[https://github.com/skeeto/elfeed][Elfeed]], a web feeds client which supports both Atom and RSS
@@ -50,12 +50,11 @@ Here is an example of such a file (note the usage of org tags to tag your feeds)
  ** [[http://orgmode.org][Org Mode Links supported as well]]
  ** Software Development                                                 :dev:
  *** Emacs                                                    :emacs:mustread:
- **** http://www.terminally-incoherent.com/blog/feed
- **** http://nullprogram.com/feed
+ **** http://www.terminally-incoherent.com/blog/feed/
+ **** http://nullprogram.com/feed/
  **** entry-title: \(emacs\|org-mode\)
  **** http://planet.emacsen.org/atom.xml
  *** Web Development                                                     :web:
- **** http://planet.phpunit.de/atom.xml
  **** http://feeds.feedburner.com/symfony/blog
  **** http://feeds.feedburner.com/qooxdoo/blog/content
  *** Eclipse                                                         :eclipse:

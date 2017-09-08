@@ -14,10 +14,10 @@
 (setq d-packages
       '(
         company
-        (company-dcd :toggle (configuration-layer/package-usedp 'company))
+        (company-dcd :requires company)
         d-mode
         flycheck
-        (flycheck-dmd-dub :toggle (configuration-layer/package-usedp 'flycheck))
+        (flycheck-dmd-dub :requires flycheck)
         ggtags
         helm-gtags
         ))
@@ -47,7 +47,10 @@
 
 (defun d/init-flycheck-dmd-dub ()
   (use-package flycheck-dmd-dub :defer t
-    :init (add-hook 'd-mode-hook 'flycheck-dmd-dub-set-include-path)))
+    :init
+    (progn
+      (add-hook 'd-mode-hook 'flycheck-dmd-dub-set-include-path)
+      (add-hook 'd-mode-hook 'flycheck-dmd-dub-set-variables))))
 
 (defun d/post-init-ggtags ()
   (add-hook 'd-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

@@ -3,18 +3,16 @@
 [[file:img/fsharp.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#packages-included][Packages Included]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#repl][REPL]]
+- [[#description][Description]]
+- [[#packages-included][Packages Included]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+  - [[#repl][REPL]]
 
 * Description
-
 This layer adds support for F# language using [[https://github.com/fsharp/fsharpbinding][fsharpbinding]].
 
 * Packages Included
-
 - [[https://github.com/fsharp/fsharpbinding][fsharp-mode]]
 
 * Install

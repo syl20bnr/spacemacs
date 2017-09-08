@@ -23,12 +23,16 @@
     ))
 
 (defun markdown/post-init-company ()
-  (spacemacs|add-company-backends :backends company-capf :modes markdown-mode))
+  (dolist (mode markdown--key-bindings-modes)
+    (eval `(spacemacs|add-company-backends
+             :backends company-capf
+             :modes ,mode))))
 
 (defun markdown/post-init-company-emoji ()
-  (spacemacs|add-company-backends
-    :backends company-emoji
-    :modes markdown-mode))
+  (dolist (mode markdown--key-bindings-modes)
+    (eval `(spacemacs|add-company-backends
+             :backends company-emoji
+             :modes ,mode))))
 
 (defun markdown/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'markdown-mode-hook 'emoji-cheat-sheet-plus-display-mode))
@@ -37,53 +41,33 @@
   (use-package gh-md
     :defer t
     :init
-    (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-      "cr"  'gh-md-render-buffer)))
+    (dolist (mode markdown--key-bindings-modes)
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "cr" 'gh-md-render-buffer))))
 
 (defun markdown/post-init-smartparens ()
   (add-hook 'markdown-mode-hook 'smartparens-mode))
 
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode
-    :mode ("\\.m[k]d" . markdown-mode)
+    :mode
+    (("\\.m[k]d" . markdown-mode)
+     ("\\.mdk" . markdown-mode))
     :defer t
     :config
     (progn
-      ;; stolen from http://stackoverflow.com/a/26297700
-      ;; makes markdown tables saner via orgtbl-mode
-      (require 'org-table)
-      (defun cleanup-org-tables ()
-        (save-excursion
-          (goto-char (point-min))
-          (while (search-forward "-+-" nil t) (replace-match "-|-"))))
       (add-hook 'markdown-mode-hook 'orgtbl-mode)
-      (add-hook 'markdown-mode-hook
-                (lambda()
-                  (add-hook 'before-save-hook 'cleanup-org-tables  nil 'make-it-local)))
-      ;; Insert key for org-mode and markdown a la C-h k
-      ;; from SE endless http://emacs.stackexchange.com/questions/2206/i-want-to-have-the-kbd-tags-for-my-blog-written-in-org-mode/2208#2208
-      (defun spacemacs/insert-keybinding-markdown (key)
-        "Ask for a key then insert its description.
-Will work on both org-mode and any mode that accepts plain html."
-        (interactive "kType key sequence: ")
-        (let* ((tag "~%s~"))
-          (if (null (equal key "\r"))
-              (insert
-               (format tag (help-key-description key nil)))
-            (insert (format tag ""))
-            (forward-char -6))))
-
+      (add-hook 'markdown-mode-hook 'spacemacs//cleanup-org-tables-on-save)
       ;; Declare prefixes and bind keys
       (dolist (prefix '(("mc" . "markdown/command")
                         ("mh" . "markdown/header")
                         ("mi" . "markdown/insert")
                         ("ml" . "markdown/lists")
                         ("mx" . "markdown/text")))
-        (spacemacs/declare-prefix-for-mode
-         'markdown-mode (car prefix) (cdr prefix)))
-      ;; note: `gfm-mode' is part of `markdown-mode.el' so we can define its key
-      ;; bindings here
-      (dolist (mode '(markdown-mode gfm-mode))
+        (dolist (mode markdown--key-bindings-modes)
+          (spacemacs/declare-prefix-for-mode
+            mode (car prefix) (cdr prefix))))
+      (dolist (mode markdown--key-bindings-modes)
         (spacemacs/set-leader-keys-for-major-mode mode
           ;; Movement
           "{"   'markdown-backward-paragraph
@@ -120,7 +104,7 @@ Will work on both org-mode and any mode that accepts plain html."
           "ii"  'markdown-insert-image
           "ik"  'spacemacs/insert-keybinding-markdown
           "iI"  'markdown-insert-reference-image
-          "il"  'markdown-insert-link
+          "il"  'markdown-insert-inline-link-dwim
           "iL"  'markdown-insert-reference-link-dwim
           "iw"  'markdown-insert-wiki-link
           "iu"  'markdown-insert-uri
@@ -128,6 +112,11 @@ Will work on both org-mode and any mode that accepts plain html."
           "k"   'markdown-kill-thing-at-point
           ;; List editing
           "li"  'markdown-insert-list-item
+          ;; Toggles
+          "ti"  'markdown-toggle-inline-images
+          "tl"  'markdown-toggle-url-hiding
+          "tt"  'markdown-toggle-gfm-checkbox
+          "tw"  'markdown-toggle-wiki-links
           ;; region manipulation
           "xb"  'markdown-insert-bold
           "xi"  'markdown-insert-italic
@@ -141,10 +130,10 @@ Will work on both org-mode and any mode that accepts plain html."
           "N"   'markdown-next-link
           "f"   'markdown-follow-thing-at-point
           "P"   'markdown-previous-link
-          "<RET>" 'markdown-jump))
-      (when (eq 'eww markdown-live-preview-engine)
-        (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-          "cP"  'markdown-live-preview-mode))
+          "<RET>" 'markdown-jump)
+        (when (eq 'eww markdown-live-preview-engine)
+          (spacemacs/set-leader-keys-for-major-mode mode
+            "cP" 'markdown-live-preview-mode)))
       ;; Header navigation in normal state movements
       (evil-define-key 'normal markdown-mode-map
         "gj" 'outline-forward-same-level
@@ -161,85 +150,22 @@ Will work on both org-mode and any mode that accepts plain html."
 (defun markdown/init-markdown-toc ()
   (use-package markdown-toc
     :defer t
-    :init (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-            "it"  'markdown-toc-generate-toc)))
+    :init
+    (dolist (mode markdown--key-bindings-modes)
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "it" 'markdown-toc-generate-toc))))
 
 (defun markdown/init-mmm-mode ()
   (use-package mmm-mode
     :commands mmm-mode
     :init (add-hook 'markdown-mode-hook 'spacemacs/activate-mmm-mode)
-    :config
-    (progn
-      (spacemacs|hide-lighter mmm-mode)
-      (mmm-add-classes '((markdown-ini
-                          :submode conf-unix-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```ini[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-python
-                          :submode python-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```python[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-html
-                          :submode web-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```html[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-java
-                          :submode java-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```java[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-ruby
-                          :submode ruby-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```ruby[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-c
-                          :submode c-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```c[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-c++
-                          :submode c++-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```c\+\+[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-elisp
-                          :submode emacs-lisp-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```elisp[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-javascript
-                          :submode javascript-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```javascript[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-ess
-                          :submode R-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```{?r.*}?[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-classes '((markdown-rust
-                          :submode rust-mode
-                          :face mmm-declaration-submode-face
-                          :front "^```rust[\n\r]+"
-                          :back "^```$")))
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-python)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-java)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ruby)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-c)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-c++)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-elisp)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-html)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-javascript)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ess)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-rust)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ini))))
+    ;; Automatically add mmm class for languages
+    :config (mapc 'markdown/mmm-auto-class markdown-mmm-auto-modes)))
 
 (defun markdown/init-vmd-mode ()
   (use-package vmd-mode
     :defer t
-    :init (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-            "cP" 'vmd-mode)))
+    :init
+    (dolist (mode markdown--key-bindings-modes)
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "cP" 'vmd-mode))))

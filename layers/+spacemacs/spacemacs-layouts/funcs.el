@@ -96,23 +96,49 @@ Cancels autosave on exiting perspectives mode."
                (propertize "?" 'face 'hydra-face-red)
                "] help)")))))
 
+(defun spacemacs//generate-layout-name (pos)
+  "Generate name for layout of position POS.
+POS should be a number between 1 and 9, where 1 represents the
+2nd layout, 2 represents the 3rd and so on. 9 represents the 10th
+layout, which is also knows as the 0th layout.
+
+ If no name can be generated, return nil."
+  (catch 'found
+    ;; return 1st available name
+    (dolist (name (nth pos spacemacs-generic-layout-names))
+      (unless (persp-p (persp-get-by-name name))
+        (throw 'found name)))
+
+    ;; return 1st available name from grab-bag
+    (dolist (name (car spacemacs-generic-layout-names))
+      (unless (persp-p (persp-get-by-name name))
+        (throw 'found name)))))
+
 (defun spacemacs/layout-switch-by-pos (pos)
-  "Switch to perspective of position POS."
+  "Switch to perspective of position POS.
+If POS has no layout, and `dotspacemacs-auto-generate-layout-names'
+is non-nil, create layout with auto-generated name. Otherwise,
+ask the user if a new layout should be created."
   (let ((persp-to-switch
          (nth pos (persp-names-current-frame-fast-ordered))))
     (if persp-to-switch
         (persp-switch persp-to-switch)
-      (when (y-or-n-p
-             (concat "Perspective in this position doesn't exist.\n"
-                     "Do you want to create one? "))
-        (let ((persp-reset-windows-on-nil-window-conf t))
+      (let ((persp-reset-windows-on-nil-window-conf t)
+            (generated-name (and dotspacemacs-auto-generate-layout-names
+                                 (spacemacs//generate-layout-name pos))))
+        (cond
+         (generated-name
+          (persp-switch generated-name))
+         ((y-or-n-p (concat "Layout in this position doesn't exist. "
+                            "Do you want to create one? "))
           (persp-switch nil)
-          (spacemacs/home-delete-other-windows))))))
+          (spacemacs/home-delete-other-windows)))))))
 
 ;; Define all `spacemacs/persp-switch-to-X' functions
 (dolist (i (number-sequence 9 0 -1))
   (eval `(defun ,(intern (format "spacemacs/persp-switch-to-%s" i)) nil
-           ,(format "Switch to layout %s." i)
+           ,(format "Switch to layout %s.\n%s"
+                    i "See `spacemacs/layout-switch-by-pos' for details.")
            (interactive)
            (spacemacs/layout-switch-by-pos ,(if (eq 0 i) 9 (1- i))))))
 
@@ -197,7 +223,7 @@ Available PROPS:
        ;; Check for Clashes
        (if ,already-defined?
            (unless (equal ,already-defined? ,name)
-             (spacemacs-buffer/warning "Replacing existing binding \"%s\" for %s with %s"
+             (spacemacs-buffer/message "Replacing existing binding \"%s\" for %s with %s"
                                        ,binding ,already-defined? ,name)
              (setq spacemacs--custom-layout-alist
                    (delete (assoc ,binding spacemacs--custom-layout-alist)

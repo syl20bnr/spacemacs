@@ -3,19 +3,18 @@
 [[file:img/purescript-logo.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#add-import-on-completion][Add import on completion]]
-   - [[#error-popup][Error popup]]
- - [[#key-bindings][Key bindings]]
-   - [[#purescript][Purescript]]
-     - [[#imports][Imports]]
-     - [[#psc-ide][psc-ide]]
-   - [[#repl][REPL]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#add-import-on-completion][Add import on completion]]
+  - [[#error-popup][Error popup]]
+- [[#key-bindings][Key bindings]]
+  - [[#purescript][Purescript]]
+    - [[#imports][Imports]]
+    - [[#psc-ide][psc-ide]]
+  - [[#repl][REPL]]
 
 * Description
-
 This layer provides basic Purescript editing support for spacemacs
 thanks to the following packages:
 - [[https://github.com/dysinger/purescript-mode][purescript-mode]]
@@ -29,7 +28,7 @@ this file.
 
 You'll also need to make sure the PureScript compiler and its associated
 binaries (psc-ide-server, psci,...) are on your path. Installation instructions
-can be found [[http://www.purescript.org/download/][here]].
+can be found [[https://github.com/purescript/documentation/blob/master/guides/Getting-Started.md][here]].
 
 * Configuration
 ** Add import on completion

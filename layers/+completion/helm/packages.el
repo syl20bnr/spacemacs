@@ -46,11 +46,12 @@
     ;; add some functions to ahs transient states
     (setq spacemacs--symbol-highlight-transient-state-doc
           (concat spacemacs--symbol-highlight-transient-state-doc
-                  "  [_b_] search buffers [_/_] search proj [_f_] search files")
-     spacemacs-symbol-highlight-transient-state-add-bindings
-     '(("/" spacemacs/helm-project-smart-do-search-region-or-symbol :exit t)
-       ("b" spacemacs/helm-buffers-smart-do-search-region-or-symbol :exit t)
-       ("f" spacemacs/helm-files-smart-do-search-region-or-symbol :exit t)))))
+                  "  [_b_] search buffers [_/_] search proj [_f_] search files [_s_] swoop"))
+    (spacemacs/transient-state-register-add-bindings 'symbol-highlight
+      '(("/" spacemacs/helm-project-smart-do-search-region-or-symbol :exit t)
+        ("b" spacemacs/helm-buffers-smart-do-search-region-or-symbol :exit t)
+        ("f" spacemacs/helm-files-smart-do-search-region-or-symbol :exit t)
+        ("s" spacemacs/helm-swoop-region-or-symbol :exit t)))))
 
 (defun helm/post-init-bookmark ()
   (spacemacs/set-leader-keys "fb" 'helm-filtered-bookmarks))
@@ -64,10 +65,10 @@
       (add-hook 'helm-cleanup-hook #'spacemacs//helm-cleanup)
       ;; key bindings
       ;; Use helm to provide :ls, unless ibuffer is used
-      (unless (configuration-layer/package-usedp 'ibuffer)
+      (unless (configuration-layer/package-used-p 'ibuffer)
         (evil-ex-define-cmd "buffers" 'helm-buffers-list))
       ;; use helm by default for M-x, C-x C-f, and C-x b
-      (unless (configuration-layer/package-usedp 'smex)
+      (unless (configuration-layer/package-used-p 'smex)
         (global-set-key (kbd "M-x") 'helm-M-x))
       (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
       (global-set-key (kbd "C-x b") 'helm-buffers-list)
@@ -116,7 +117,7 @@
       ;; to overwrite any key binding
       (add-hook 'emacs-startup-hook
                 (lambda ()
-                  (unless (configuration-layer/package-usedp 'smex)
+                  (unless (configuration-layer/package-used-p 'smex)
                     (spacemacs/set-leader-keys
                       dotspacemacs-emacs-command-key 'helm-M-x)))))
     :config
@@ -127,7 +128,6 @@
       (helm-locate-set-command)
       (setq helm-locate-fuzzy-match (string-match "locate" helm-locate-command))
       ;; alter helm-bookmark key bindings to be simpler
-      ;; TODO check if there is a more elegant solution to setup these bindings
       (defun simpler-helm-bookmark-keybindings ()
         (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
         (define-key helm-bookmark-map (kbd "C-e") 'helm-bookmark-run-edit)
@@ -136,7 +136,8 @@
         (define-key helm-bookmark-map
           (kbd "C-o") 'helm-bookmark-run-jump-other-window)
         (define-key helm-bookmark-map (kbd "C-/") 'helm-bookmark-help))
-      (add-hook 'helm-mode-hook 'simpler-helm-bookmark-keybindings)
+      (with-eval-after-load 'helm-bookmark
+        (simpler-helm-bookmark-keybindings))
       (with-eval-after-load 'helm-mode ; required
         (spacemacs|hide-lighter helm-mode)))))
 
@@ -249,7 +250,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         ;; --line-number forces line numbers (disabled by default on windows)
         ;; no --vimgrep because it adds column numbers that wgrep can't handle
         ;; see https://github.com/syl20bnr/spacemacs/pull/8065
-        (let ((helm-ag-base-command "rg --smart-case --no-heading --color never --line-number"))
+        (let ((helm-ag-base-command "rg --smart-case --no-heading --color never --line-number --max-columns 150"))
           (helm-do-ag dir)))
 
       (defun spacemacs/helm-files-do-rg-region-or-symbol ()
@@ -258,7 +259,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-rg))
 
       (defun spacemacs/helm-files-smart-do-search (&optional default-inputp)
-        "Search in opened buffers using `dotspacemacs-search-tools'.
+        "Search in files using `dotspacemacs-search-tools'.
 Search for a search tool in the order provided by `dotspacemacs-search-tools'
 If DEFAULT-INPUTP is non nil then the current region or symbol at point
 are used as default input."
@@ -269,11 +270,70 @@ are used as default input."
                                               default-inputp)))
 
       (defun spacemacs/helm-files-smart-do-search-region-or-symbol ()
-        "Search in opened buffers using `dotspacemacs-search-tools'.
-with default input.
+        "Search in files using `dotspacemacs-search-tools' with default input.
 Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (interactive)
         (spacemacs/helm-files-smart-do-search t))
+
+      ;; Search in current dir -----------------------------------------------
+
+      (defun spacemacs/helm-dir-do-ag ()
+        "Search in current directory with `ag'."
+        (interactive)
+        (spacemacs/helm-files-do-ag default-directory))
+
+      (defun spacemacs/helm-dir-do-ag-region-or-symbol ()
+        "Search in current directory with `ag' with a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-ag default-directory))
+
+      (defun spacemacs/helm-dir-do-ack ()
+        "Search in current directory with `ack'."
+        (interactive)
+        (spacemacs/helm-files-do-ack default-directory))
+
+      (defun spacemacs/helm-dir-do-ack-region-or-symbol ()
+        "Search in current directory with `ack' with a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-ack default-directory))
+
+      (defun spacemacs/helm-dir-do-pt ()
+        "Search in current directory with `pt'."
+        (interactive)
+        (spacemacs/helm-files-do-pt default-directory))
+
+      (defun spacemacs/helm-dir-do-pt-region-or-symbol ()
+        "Search in current directory with `pt' with a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-pt default-directory))
+
+      (defun spacemacs/helm-dir-do-rg ()
+        "Search in current directory with `rg'."
+        (interactive)
+        (spacemacs/helm-files-do-rg default-directory))
+
+      (defun spacemacs/helm-dir-do-rg-region-or-symbol ()
+        "Search in current directory with `rg' with a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-rg default-directory))
+
+      (defun spacemacs/helm-dir-smart-do-search (&optional default-inputp)
+        "Search in current directory using `dotspacemacs-search-tools'.
+Search for a search tool in the order provided by `dotspacemacs-search-tools'
+If DEFAULT-INPUTP is non nil then the current region or symbol at point
+are used as default input."
+        (interactive)
+        (call-interactively
+         (spacemacs//helm-do-search-find-tool "helm-dir-do"
+                                              dotspacemacs-search-tools
+                                              default-inputp)))
+
+      (defun spacemacs/helm-dir-smart-do-search-region-or-symbol ()
+        "Search in current directory using `dotspacemacs-search-tools'.
+with default input.
+Search for a search tool in the order provided by `dotspacemacs-search-tools'."
+        (interactive)
+        (spacemacs/helm-dir-smart-do-search t))
 
       ;; Search in buffers ---------------------------------------------------
 
@@ -315,7 +375,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         ;; --line-number forces line numbers (disabled by default on windows)
         ;; no --vimgrep because it adds column numbers that wgrep can't handle
         ;; see https://github.com/syl20bnr/spacemacs/pull/8065
-        (let ((helm-ag-base-command "rg --smart-case --no-heading --color never --line-number"))
+        (let ((helm-ag-base-command "rg --smart-case --no-heading --color never --line-number --max-columns 150"))
           (helm-do-ag-buffers)))
 
       (defun spacemacs/helm-buffers-do-rg-region-or-symbol ()
@@ -478,6 +538,17 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "srF" 'spacemacs/helm-files-do-rg-region-or-symbol
         "stf" 'spacemacs/helm-files-do-pt
         "stF" 'spacemacs/helm-files-do-pt-region-or-symbol
+        ;; current dir scope
+        "sd"  'spacemacs/helm-dir-smart-do-search
+        "sD"  'spacemacs/helm-dir-smart-do-search-region-or-symbol
+        "sad" 'spacemacs/helm-dir-do-ag
+        "saD" 'spacemacs/helm-dir-do-ag-region-or-symbol
+        "skd" 'spacemacs/helm-dir-do-ack
+        "skD" 'spacemacs/helm-dir-do-ack-region-or-symbol
+        "srd" 'spacemacs/helm-dir-do-rg
+        "srD" 'spacemacs/helm-dir-do-rg-region-or-symbol
+        "std" 'spacemacs/helm-dir-do-pt
+        "stD" 'spacemacs/helm-dir-do-pt-region-or-symbol
         ;; current project scope
         "/"   'spacemacs/helm-project-smart-do-search
         "*"   'spacemacs/helm-project-smart-do-search-region-or-symbol
@@ -642,6 +713,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
   (setq projectile-completion-system 'helm))
 
 (defun helm/post-init-persp-mode ()
-   (setq spacemacs-layouts-transient-state-add-bindings
-           '(("b" spacemacs/persp-helm-mini :exit t)
-             ("l" spacemacs/helm-perspectives :exit t))))
+  (spacemacs/transient-state-register-add-bindings 'layouts
+    '(("b" spacemacs/persp-helm-mini :exit t)
+      ("l" spacemacs/helm-perspectives :exit t))))

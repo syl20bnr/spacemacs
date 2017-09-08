@@ -1,19 +1,18 @@
 #+TITLE: Finance layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
- - [[#configuration][Configuration]]
-   - [[#ledger][Ledger]]
- - [[#key-bindings][Key bindings]]
-   - [[#ledger-1][Ledger]]
-   - [[#ledger-reconcile][Ledger-Reconcile]]
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+- [[#configuration][Configuration]]
+  - [[#ledger][Ledger]]
+- [[#key-bindings][Key bindings]]
+  - [[#ledger-1][Ledger]]
+  - [[#ledger-reconcile][Ledger-Reconcile]]
 
 * Description
-
 This layer adds finance related packages:
-- [[https://github.com/ledger/ledger][ledger]] support via [[https://github.com/ledger/ledger/tree/next/lisp][ledger-mode]]
+- [[https://github.com/ledger/ledger][ledger]] support via [[https://www.emacswiki.org/emacs/LedgerMode][ledger-mode]]
 
 [[file:img/ledger.png]]
 
@@ -21,12 +20,10 @@ This layer adds finance related packages:
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =finance= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+file. This layer adds support for [[http://ledger-cli.org/download.html][ledger]], which must be installed separately.
 
 * Configuration
-
 ** Ledger
-
 You can set what column transaction posts are aligned to on
 the right by setting the variable =ledger-post-amount-alignment-column= in
 your =dotspacemacs/user-config=.  The default value, set in the layer, is =62=.
@@ -37,7 +34,6 @@ your =dotspacemacs/user-config=.  The default value, set in the layer, is =62=.
 #+END_SRC
 
 * Key bindings
-
 ** Ledger
 
 | Key Binding | Description                                   |

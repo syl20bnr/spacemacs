@@ -3,11 +3,11 @@
 [[file:img/restructuredtext.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#auto-complete][Auto-complete]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#auto-complete][Auto-complete]]
 
 * Description
 The layer adds ReStructuredText (ReST) support to Spacemacs and adds some
@@ -15,7 +15,7 @@ functions to =rst-mode=.
 
 Note: to add =Sphinx= specific support use the layer =sphinx=.
 
-** Features
+** Features:
 - =rst= files are supported via Emacs built-in =rst.el=.
 - Lists are inserted by new functions.
 - Directives can be inserted easily.
@@ -31,4 +31,3 @@ in this file.
 ** Auto-complete
 For now =auto-complete-rst= only works with sphinx 1.4.9 and lower.
 New 1.5 release (as from December 2016) is not yet supported.
-

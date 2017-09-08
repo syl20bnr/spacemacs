@@ -16,7 +16,7 @@
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix "V" "vagrant")
+      (spacemacs/declare-prefix "aV" "vagrant")
       (spacemacs/set-leader-keys
         "aVD" 'vagrant-destroy
         "aVe" 'vagrant-edit

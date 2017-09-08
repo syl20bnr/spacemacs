@@ -1,6 +1,7 @@
 auto-save-list/
 elpa/
 export/
+!/core/tools/export/
 ac-comphist.dat
 eproject.lst
 .smex-items
@@ -13,7 +14,7 @@ eshell/history
 .emacs.desktop.lock
 eshell/alias
 eshell/lastdir
-/url/cookies
+url/*
 my-org/
 org-files/
 semanticdb/

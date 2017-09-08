@@ -1,11 +1,11 @@
 #+TITLE: Typography layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-   - [[#typo-mode][Typo Mode]]
-   - [[#tildify-mode][Tildify Mode]]
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+  - [[#typo-mode][Typo Mode]]
+  - [[#tildify-mode][Tildify Mode]]
 
 * Description
 This layer provides support for typographic text editing in Spacemacs.  It

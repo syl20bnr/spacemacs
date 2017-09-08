@@ -1,25 +1,23 @@
 #+TITLE: Version-Control layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#features][Features]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
- - [[#configuration][Configuration]]
-   - [[#differences-between-margin-programs][Differences between margin programs]]
- - [[#key-bindings][Key Bindings]]
-   - [[#version-control-transient-state][Version Control Transient-state]]
-   - [[#smerge-mode-transient-state][Smerge Mode Transient-state]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+- [[#configuration][Configuration]]
+  - [[#differences-between-margin-programs][Differences between margin programs]]
+- [[#key-bindings][Key Bindings]]
+  - [[#version-control-transient-state][Version Control Transient-state]]
+  - [[#smerge-mode-transient-state][Smerge Mode Transient-state]]
 
 * Description
 This layers adds general configuration for [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html][Emacs VC]].
 It should work with all VC backends such as Git, Mercurial, Bazaar, SVN, etc...
 
-** Features
-- highlights uncommitted changes in the fringe or margin with [[https://github.com/dgutov/diff-hl][diff-hl]],
-git-gutter, or git-gutter+
-- adds vcs transient-state ~SPC g.~ to allow quick navigation and modification of
-buffer hunks.
+** Features:
+- highlights uncommitted changes in the fringe or margin with [[https://github.com/dgutov/diff-hl][diff-hl]], [[https://github.com/syohex/emacs-git-gutter][git-gutter]], or [[https://github.com/nonsequitur/git-gutter-plus][git-gutter+]]
+- adds vcs transient-state ~SPC g.~ to allow quick navigation and modification of buffer hunks.
 
 * Install
 ** Layer
@@ -96,7 +94,6 @@ one over the other:
 | ~SPC g . f~ | Fetch for repo with popup    |
 | ~SPC g . F~ | Pull repo with popup         |
 | ~SPC g . l~ | Show repo log                |
-
 
 ** Smerge Mode Transient-state
 

@@ -62,10 +62,9 @@
       (setq-default evil-search-module 'isearch)))))
 
 (defun spacemacs/evil-smart-doc-lookup ()
-  "Version of `evil-lookup' that attempts to use
-        the mode specific goto-definition binding,
-        i.e. `SPC m h h`, to lookup the source of the definition,
-        while falling back to `evil-lookup'"
+  "Run documentation lookup command specific to the major mode.
+Use command bound to `SPC m h h` if defined, otherwise fall back
+to `evil-lookup'"
   (interactive)
   (let ((binding (key-binding (kbd (concat dotspacemacs-leader-key " mhh")))))
     (if (commandp binding)

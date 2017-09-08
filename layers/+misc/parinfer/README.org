@@ -1,0 +1,28 @@
+#+TITLE: Parinfer layer
+
+[[file:img/parinfer.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer provides an implementation of [[https://shaunlebron.github.io/parinfer/][parinfer]], a lisp editing paradigm that
+controls indentation based on parentheses or vice versa.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =parinfer= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Configuration
+See the official package [[https://github.com/DogLooksGood/parinfer-mode][documentation]] for information about how the parinfer
+works and how to configure it.
+
+* Key bindings
+
+| Key Binding | Description                                   |
+|-------------+-----------------------------------------------|
+| ~SPC t P~   | Toggle between parinfer indent and paren mode |

@@ -102,7 +102,7 @@
     (base16-seti                      . base16-theme)
     (base16-seti-ui                   . base16-theme)
     (base16-shapeshifter              . base16-theme)
-    (base16-solar-flare               . base16-theme)
+    (base16-solarflare                . base16-theme)
     (base16-solarized-dark            . base16-theme)
     (base16-solarized-light           . base16-theme)
     (base16-spacemacs                 . base16-theme)
@@ -122,8 +122,19 @@
     (sanityinc-tomorrow-day           . color-theme-sanityinc-tomorrow)
     (sanityinc-tomorrow-eighties      . color-theme-sanityinc-tomorrow)
     (sanityinc-tomorrow-night         . color-theme-sanityinc-tomorrow)
-    (doom-one                         . doom-themes)
     (doom-molokai                     . doom-themes)
+    (doom-mono-dark                   . doom-themes)
+    (doom-mono-light                  . doom-themes)
+    (doom-nova                        . doom-themes)
+    (doom-one                         . doom-themes)
+    (doom-one-light                   . doom-themes)
+    (doom-peacock                     . doom-themes)
+    (doom-spacegrey                   . doom-themes)
+    (doom-tomorrow-day                . doom-themes)
+    (doom-tomorrow-night              . doom-themes)
+    (doom-tron                        . doom-themes)
+    (doom-vibrant                     . doom-themes)
+    (doom-x                           . doom-themes)
     (solarized-light                  . solarized-theme)
     (solarized-dark                   . solarized-theme)
     (spacemacs-light                  . spacemacs-theme)
@@ -199,12 +210,12 @@ package name does not match theme name + `-theme' suffix.")
                  pkg-name)))
     dir))
 
-(defun spacemacs/load-default-theme (&optional fallback-theme)
+(defun spacemacs/load-default-theme (&optional fallback-theme disable)
   "Load default theme.
 Default theme is the car of `dotspacemacs-themes'.
 If FALLBACK-THEME is non-nil it must be a package name which will be loaded if
 THEME cannot be applied."
-  (spacemacs/load-theme (car dotspacemacs-themes) fallback-theme))
+  (spacemacs/load-theme (car dotspacemacs-themes) fallback-theme disable))
 
 (defun spacemacs/load-theme (theme &optional fallback-theme disable)
   "Apply user theme.
@@ -218,18 +229,18 @@ THEME."
           ;; Load theme
           (unless (or (memq theme-name (custom-available-themes))
                       (eq 'default theme-name))
-            (let ((pkg-dir (spacemacs//get-theme-package-directory theme)))
+            (let ((pkg-dir (spacemacs//get-theme-package-directory theme))
+                  (pkg-name (spacemacs/get-theme-package-name theme-name)))
               (when pkg-dir
+                ;; package activate should be enough, but not all themes
+                ;; have add themselves to `custom-theme-load-path' in autoload.
+                ;; (for example, moe-theme).
                 (add-to-list 'custom-theme-load-path pkg-dir)
-                (add-to-list 'load-path pkg-dir)
-                ;; do we still need this particual case for moe theme?
-                (when (or (eq 'moe-light theme-name)
-                          (eq 'moe-dark theme-name))
-                  (load-file (concat pkg-dir "moe-light-theme.el"))
-                  (load-file (concat pkg-dir "moe-dark-theme.el"))))))
+                (package-activate pkg-name))))
           (when disable
             (mapc 'disable-theme custom-enabled-themes))
-          (load-theme theme-name t)
+          (unless (eq 'default theme-name)
+            (load-theme theme-name t))
           (unless (display-graphic-p)
             (eval `(spacemacs|do-after-display-system-init
                     (load-theme ',theme-name t))))
@@ -274,7 +285,6 @@ THEME."
   "Cycle through themes defined in `dotspacemacs-themes.'"
   (interactive)
   (when spacemacs--cur-theme
-    (disable-theme spacemacs--cur-theme)
     ;; if current theme isn't in cycleable themes, start over
     (setq spacemacs--cycle-themes
           (or (cdr (memq spacemacs--cur-theme dotspacemacs-themes))
@@ -283,7 +293,7 @@ THEME."
   (let ((progress-reporter
          (make-progress-reporter
           (format "Loading theme %s..." spacemacs--cur-theme))))
-    (spacemacs/load-theme spacemacs--cur-theme)
+    (spacemacs/load-theme spacemacs--cur-theme nil 'disable)
     (progress-reporter-done progress-reporter)))
 
 (defadvice load-theme (after spacemacs/load-theme-adv activate)
@@ -313,7 +323,7 @@ has been changed to THEME."
             (setcar theme2 pkg-name)
           (setq theme2 pkg-name))
         (add-to-list 'dotspacemacs--additional-theme-packages theme2)))))
-(add-hook 'configuration-layer-pre-sync-hook
+(add-hook 'configuration-layer-pre-load-hook
           'spacemacs//add-theme-packages-to-additional-packages)
 
 (provide 'core-themes-support)

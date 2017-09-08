@@ -3,11 +3,10 @@
 [[file:img/erlang.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
+- [[#description][Description]]
+- [[#install][Install]]
 
 * Description
-
 Very basic layer for Erlang with support for basic =syntax-checking= and
 =auto-completion= with the corresponding layers.
 

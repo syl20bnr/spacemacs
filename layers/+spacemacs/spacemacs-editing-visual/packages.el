@@ -92,7 +92,7 @@
       (when (member dotspacemacs-highlight-delimiters '(all current))
         (add-hook 'prog-mode-hook #'highlight-parentheses-mode))
       (setq hl-paren-delay 0.2)
-      (spacemacs/set-leader-keys "tCp" 'highlight-parentheses-mode)
+      (spacemacs/set-leader-keys "thp" 'highlight-parentheses-mode)
       (setq hl-paren-colors '("Springgreen3"
                               "IndianRed1"
                               "IndianRed3"

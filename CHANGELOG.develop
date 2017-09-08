@@ -93,6 +93,7 @@ This file containes the change log for the next major version of Spacemacs.
 - Move clock related key bindings to ~SPC a o k~
 - Add key bindings ~SPC a o k i~ to clock in last and ~SPC a o k j~
   to jump to current clock (thanks to darkfeline)
+- Make =org-projectile= integration compatible with the newest version.
 **** Scala
 - Move =ensime= to the =java= layer (Tor Hedin Bronner)
 **** Syntax-checking

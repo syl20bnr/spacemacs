@@ -3,19 +3,19 @@
 [[file:img/scala.png]] with [[file:img/ensime.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#layer-installation][Layer Installation]]
- - [[#ensime][Ensime]]
- - [[#scalastyle][Scalastyle]]
-   - [[#use-java-doc-style][Use Java doc-style]]
- - [[#automatically-show-the-type-of-the-symbol-under-the-cursor][Automatically show the type of the symbol under the cursor]]
- - [[#automatically-insert-asterisk-in-multiline-comments][Automatically insert asterisk in multiline comments]]
- - [[#automatically-replace-arrows-with-unicode-ones][Automatically replace arrows with unicode ones]]
- - [[#auto-start][Auto-start]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+- [[#layer-installation][Layer Installation]]
+- [[#ensime][Ensime]]
+- [[#scalastyle][Scalastyle]]
+  - [[#use-java-doc-style][Use Java doc-style]]
+- [[#automatically-show-the-type-of-the-symbol-under-the-cursor][Automatically show the type of the symbol under the cursor]]
+- [[#automatically-insert-asterisk-in-multiline-comments][Automatically insert asterisk in multiline comments]]
+- [[#automatically-replace-arrows-with-unicode-ones][Automatically replace arrows with unicode ones]]
+- [[#auto-start][Auto-start]]
+- [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for the Scala language using the excellent [[http://ensime.github.io/][ENSIME]]
+This layer adds support for the Scala language using the excellent [[http://ensime.org/][ENSIME]]
 client/server.
 
 * Layer Installation
@@ -23,15 +23,22 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =scala= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+Then, you should modify your =~/.spacemacs= to use the recommended Ensime
+version (Stable). Please add the following lines to =dotspacemacs/user-init=:
+#+BEGIN_SRC emacs-lisp
+  (push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer--elpa-archives)
+  (push '(ensime . "melpa-stable") package-pinned-packages)
+#+END_SRC
+
 * Ensime
-[[http://ensime.github.io/][ENSIME]] provides IDE-like features, such as refactoring, incremental compilation
+[[http://ensime.org/][ENSIME]] provides IDE-like features, such as refactoring, incremental compilation
 and project-wide type-checking.
 
 ENSIME requires a configuration file at the root of each Scala project. It
 provides an SBT plugin to generate these files.
 
 Installation instructions and usage can be found in the =Java= layer
-[[file:../java/README.org::#ensime][README.org]].
+[[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Blang/java/README.org#ensime][README.org]].
 
 * Scalastyle
 [[http://www.scalastyle.org/][Scalastyle]] provides style-checking and linting. The Emacs functionality is
@@ -70,7 +77,7 @@ To enable =java-doc-style=, set the variable =scala-indent:use-javadoc-style= to
 #+END_SRC
 
 * Automatically show the type of the symbol under the cursor
-To enable the feature =ensime-print-type-at-point= when cursor moves, set the
+To enable the feature =ensime-type-at-point= when cursor moves, set the
 variable =scala-enable-eldoc= to =t=.
 
 #+BEGIN_SRC emacs-lisp
@@ -112,4 +119,4 @@ with
 #+END_SRC
 
 * Key bindings
-All ensime key bindings are listed in the =java= layer [[file:../java/README.org::#ensime-key-bindings][README.org]].
+All ensime key bindings are listed in the =java= layer [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Blang/java/README.org#ensime-key-bindings][README.org]].

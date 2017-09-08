@@ -30,7 +30,8 @@ the `spacemacs-docker-dump-layer-data-fp' file"
                                       obarray)))
           (dolist (name names)
             (let* ((symbol (intern-soft name))
-                   (fp (when (boundp symbol) (symbol-file symbol))))
+                   (fp (when (boundp symbol) (symbol-file symbol)))
+                   (sym-val (bound-and-true-p symbol)))
               (when (or (and fp
                              (string-prefix-p
                               (configuration-layer/get-layer-path layer)
@@ -40,5 +41,7 @@ the `spacemacs-docker-dump-layer-data-fp' file"
                 (insert (format "%-28s(%s . %s)\n"
                                 ""
                                 name
-                                (symbol-value symbol))))))))
+                                (if (stringp sym-val)
+                                    (format "\"%s\"" sym-val)
+                                  sym-val))))))))
       (insert "))\n\n"))))

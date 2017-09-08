@@ -1,17 +1,17 @@
 #+TITLE: Agda layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#some-features][Some features:]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#agda][Agda]]
- - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#agda][Agda]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for the [[http://wiki.portal.chalmers.se/agda/pmwiki.php][Agda]] programming language.
 
-** Some features:
+** Features:
 - Faces redefined to correctly play with themes.
 - Spacemacs bindings to Agda's interactive tools.
 

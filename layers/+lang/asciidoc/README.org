@@ -1,17 +1,17 @@
 #+TITLE: Asciidoc layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
-   - [[#feature][Feature]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-   - [[#element-insertion][Element insertion]]
-   - [[#promotion-demotion][Promotion, Demotion]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+  - [[#element-insertion][Element insertion]]
+  - [[#promotion-demotion][Promotion, Demotion]]
 
 * Description
 This layer adds [[https://asciidoctor.org][AsciiDoc]] markup language support to Spacemacs.
 
-** Feature
+** Features:
 - asciidoc format support via [[https://github.com/sensorflo/adoc-mode][adoc-mode]]
 - =.adoc= files are associated with =adoc-mode= by default
 
@@ -42,4 +42,3 @@ file.
 |-------------+---------------------|
 | ~M-h~       | Promote title level |
 | ~M-l~       | Demote title level  |
-

@@ -37,9 +37,10 @@
           (tmux-command direction)))))
 
 (defun tmux-command (direction)
-  (shell-command-to-string
-    (concat "tmux select-pane -"
-      (tmux-direction direction))))
+  (unless (display-graphic-p)
+    (shell-command-to-string
+     (concat "tmux select-pane -"
+             (tmux-direction direction)))))
 
 (defun tmux-direction (direction)
   (upcase

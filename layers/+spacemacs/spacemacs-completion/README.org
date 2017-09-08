@@ -1,0 +1,8 @@
+#+TITLE: spacemacs-completion layer
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#describe-spacemacs-completion-layer-in-this-file][describe spacemacs-completion layer in this file]]
+
+* Description
+** TODO describe spacemacs-completion layer in this file

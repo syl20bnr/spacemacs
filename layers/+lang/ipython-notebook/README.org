@@ -1,27 +1,27 @@
 #+TITLE: IPython Notebook layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#features][Features]]
- - [[#list-of-todos][List of TODOS]]
-   - [[#maybe-itd-be-better-if-there-was-a-state-for-this][Maybe it'd be better if there was a state for this]]
-   - [[#make-more-keybinding-to-connect-to-a-python-buffer][Make more keybinding to =connect= to a python buffer]]
-   - [[#deleting-visual-regions-dont-work-find-out-why][Deleting visual regions don't work, find out why]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#dependencies][Dependencies]]
-   - [[#what-needs-to-be-run][What needs to be run]]
- - [[#using-the-ipython-notebook][Using the IPython notebook]]
-   - [[#open-notebook-list][Open Notebook List]]
-   - [[#key-bindings][Key Bindings]]
-     - [[#transient-state-ipython-notebook][Transient-state: =ipython-notebook=]]
-     - [[#normal-mode][Normal mode]]
-     - [[#insert-mode][Insert mode]]
-     - [[#traceback-mode][Traceback mode]]
- - [[#screenshots][Screenshots]]
-   - [[#light][Light]]
-   - [[#dark][Dark]]
- - [[#bonus][Bonus]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#list-of-todos][List of TODOS]]
+  - [[#maybe-itd-be-better-if-there-was-a-state-for-this][Maybe it'd be better if there was a state for this]]
+  - [[#make-more-keybinding-to-connect-to-a-python-buffer][Make more keybinding to =connect= to a python buffer]]
+  - [[#deleting-visual-regions-dont-work-find-out-why][Deleting visual regions don't work, find out why]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#dependencies][Dependencies]]
+  - [[#what-needs-to-be-run][What needs to be run]]
+- [[#using-the-ipython-notebook][Using the IPython notebook]]
+  - [[#open-notebook-list][Open Notebook List]]
+  - [[#key-bindings][Key Bindings]]
+    - [[#transient-state-ipython-notebook][Transient-state: =ipython-notebook=]]
+    - [[#normal-mode][Normal mode]]
+    - [[#insert-mode][Insert mode]]
+    - [[#traceback-mode][Traceback mode]]
+- [[#screenshots][Screenshots]]
+  - [[#light][Light]]
+  - [[#dark][Dark]]
+- [[#bonus][Bonus]]
 
 * Description
 This layer adds support for the package =emacs-ipython-notebook=.
@@ -29,7 +29,7 @@ This layer adds support for the package =emacs-ipython-notebook=.
 Do not hesitate to check the original package README [[https://github.com/millejoh/emacs-ipython-notebook][here]]. Also the wiki has
 lots of informative stuff.
 
-* Features
+** Features:
 - Keybindings available through transient-state or leader key
 - Lazy-loading
 
@@ -39,7 +39,6 @@ This is a WIP, feel free to collaborate.
 ** TODO Maybe it'd be better if there was a state for this
 ** TODO Make more keybinding to =connect= to a python buffer
 ** TODO Deleting visual regions don't work, find out why
-
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -61,7 +60,7 @@ Have an IPython notebook running
 * Using the IPython notebook
 ** Open Notebook List
 This layer is lazy loaded so the transient-state will only work after you summon the
-command =ein:notebooklist-open= which is bound to ~SPC a i n~
+command =ein:notebooklist-open= which is bound to ~SPC a y o~
 
 ** Key Bindings
 The key bindings can be used through a transient state or the usual evil-leader.
@@ -97,6 +96,7 @@ prefix with ~SPC m~ to use with your evil-leader.
 | ~C-o~   | ein:console-open                          |
 | ~C-k~   | ein:worksheet-merge-cell                  |
 | ~C-j~   | spacemacs/ein:worksheet-merge-cell-next   |
+| ~s~     | ein:worksheet-split-cell-at-point         |
 | ~C-s~   | ein:notebook-save-notebook-command        |
 | ~C-r~   | ein:notebook-rename-command               |
 | ~1~     | ein:notebook-worksheet-open-1th           |
@@ -153,5 +153,5 @@ In traceback mode the following key bindings are defined:
 
 * Bonus
 If you want to have a matplotlibrc that looks good with a dark background try
-using [[file:matplotlibrc][this]] =matplotlibrc=. Plot background is always transparent by default so
+using [[https://gist.github.com/anonymous/80219c49cb674d01e6b5fab94e759f54][this]] =matplotlibrc=. Plot background is always transparent by default so
 it will look okay for most dark themes out there.

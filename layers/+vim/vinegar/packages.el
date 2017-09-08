@@ -54,7 +54,7 @@
       (kbd "RET") (if vinegar-reuse-dired-buffer
                       'dired-find-alternate-file
                     'dired-find-file)
-      "f"         (if (configuration-layer/layer-usedp 'ivy)
+      "f"         (if (configuration-layer/layer-used-p 'ivy)
                       'counsel-find-file
                     'helm-find-files)
       "J"         'dired-goto-file
