@@ -12,7 +12,8 @@
 ;;; Code:
 
 (defconst faust-packages
-  '(company
+  '(auto-complete
+    company
     faustine
     yasnippet))
 
