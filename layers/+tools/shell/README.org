@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#default-shell][Default shell]]
@@ -20,6 +21,9 @@
 
 * Description
 This layer configures the various shells available in Emacs.
+
+** Features:
+  - Shell integration
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
