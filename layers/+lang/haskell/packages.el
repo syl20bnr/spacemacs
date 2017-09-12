@@ -263,12 +263,10 @@
 (defun haskell/init-hindent ()
   (use-package hindent
     :defer t
-    :if (stringp haskell-enable-hindent-style)
     :init
     (add-hook 'haskell-mode-hook #'hindent-mode)
     :config
     (progn
-      (setq hindent-style haskell-enable-hindent-style)
       (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
         "f" 'hindent-reformat-decl))))
 

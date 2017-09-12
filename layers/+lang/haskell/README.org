@@ -156,14 +156,7 @@ are warmly welcome!
 *** hindent
 [[https://github.com/commercialhaskell/hindent][hindent]] is an extensible Haskell pretty printer, which let's you
 reformat your code. You need to install the executable with =cabal
-install hindent= or =stack install hindent=
-
-To enable it you have to set the variable =haskell-enable-hindent-style= to a
-supported style. The available styles are:
-- fundamental
-- johan-tibell
-- chris-done
-- gibiansky
+install hindent= or =stack install hindent=.
 
 See examples [[https://github.com/commercialhaskell/hindent/blob/master/TESTS.md][here]].
 
