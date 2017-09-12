@@ -1365,6 +1365,8 @@ Other:
 - Added support for Emoji fonts on macOS and Linux (thanks to CodeFalling)
 - Setup =emojify= cache directory (thanks to Boris Buliga)
 - Hide mode-line indicator: =emoji= (thanks to duianto)
+- Prevented =set-fontset-font= from being set in Emacs without a window system
+  (thanks to NicholasTD07k)
 **** ERC
 - Key bindings:
   - ~SPC m b~ to switch between ERC buffers (thanks to Evan Klitzke)
