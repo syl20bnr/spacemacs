@@ -9,6 +9,12 @@
 ;;
 ;;; License: GPLv3
 
+;; Mitigation of GNU Emacs 25.2 enriched text remote code execution
+;; see http://seclists.org/oss-sec/2017/q3/422
+(eval-after-load "enriched"
+  '(defun enriched-decode-display-prop (start end &optional param)
+     (list start end)))
+
 ;; Without this comment emacs25 adds (package-initialize) here
 ;; (package-initialize)
 
