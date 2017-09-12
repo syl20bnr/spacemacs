@@ -13,15 +13,16 @@
 ;; Mac OS X and using the Cocoa version of Emacs
 (defun spacemacs//set-emoji-font (frame)
   "Adjust the font settings of FRAME so Emacs can display emoji properly."
-  (cond
-   ((spacemacs/system-is-mac)
-    (set-fontset-font t 'symbol
-                      (font-spec :family "Apple Color Emoji")
-                      frame 'prepend))
-   ((spacemacs/system-is-linux)
-    (set-fontset-font t 'symbol
-                      (font-spec :family "Symbola")
-                      frame 'prepend))))
+  (when (fboundp 'set-fontset-font)
+    (cond
+     ((spacemacs/system-is-mac)
+      (set-fontset-font t 'symbol
+                        (font-spec :family "Apple Color Emoji")
+                        frame 'prepend))
+     ((spacemacs/system-is-linux)
+      (set-fontset-font t 'symbol
+                        (font-spec :family "Symbola")
+                        frame 'prepend)))))
 
 (defun spacemacs//set-emoji-font-for-current-frame ()
   "Adjust the font settings of current frame so Emacs can display emoji
