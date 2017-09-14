@@ -29,6 +29,8 @@ This layer adds support for the Mu4e email client.
   - UI optimized for speed: quick keystrokes for common actions.
   - Very extendable and costumizable.
   - Integration with Helm.
+  - Maildir summary using [[https://github.com/agpchil/mu4e-maildirs-extension][mu4e-mailidrs-extension]]
+  - Notifications using [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]]
 
 * Install
 In order to use this layer you must install mu and mu4e separately. Typically
@@ -86,13 +88,18 @@ example configuration.  Refer to mu4e's manual for more detailed configuration
 instructions.
 
 ** Maildirs extension
-The maildirs extension adds a list of all your maildirs to the main mu4e view
+The [[https://github.com/agpchil/mu4e-maildirs-extension][maildirs extension]] adds a list of all your maildirs to the main mu4e view
 that by default shows the unread and total mail counts for all your mail under
 your base mail directory.
 
-This extension is enabled by default, you can deactivate (and uninstall) it by
-adding the package =mu4e-maildirs-extension= to your dotfile variable
-=dotspacemacs-excluded-packages=.
+The maildirs extension is not enabled by default. To activate it, change the
+variable =mu4e-use-maildirs-extension= to a non-nil value:
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((mu4e :variables
+                        mu4e-use-maildirs-extension t)))
+#+end_src
 
 ** Multiple Accounts
 With `mu 0.9.16`, mu4e comes with a native contexts feature for managing
