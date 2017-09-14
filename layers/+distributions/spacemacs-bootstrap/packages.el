@@ -304,7 +304,58 @@
   (setq use-package-verbose init-file-debug
         ;; inject use-package hooks for easy customization of stock package
         ;; configuration
-        use-package-inject-hooks t))
+        use-package-inject-hooks t)
+
+
+  (add-to-list 'use-package-keywords :evil-init t)
+  (defalias 'use-package-normalize/:evil-init 'use-package-normalize-forms)
+  (defun use-package-handler/:evil-init (name-symbol keyword arg rest state)
+    (when (bound-and-true-p evil-mode)
+      (let ((body (use-package-process-keywords name rest state)))
+        (use-package-concat
+         ;; The user's initializations for evil-mode
+         (let ((init-body
+                (use-package-hook-injector (use-package-as-string name)
+                                           :init arg)))
+           init-body)
+         body))))
+  (add-to-list 'use-package-keywords :evil-config t)
+  (defalias 'use-package-normalize/:evil-config 'use-package-normalize-forms)
+  (defun use-package-handler/:evil-config (name-symbol keyword arg rest state)
+    (when (bound-and-true-p evil-mode)
+      (let ((body (use-package-process-keywords name rest state)))
+        (use-package-concat
+         ;; The user's configurations for evil-mode
+         (let ((config-body
+                (use-package-hook-injector (use-package-as-string name)
+                                           :config arg)))
+           config-body)
+         body))))
+  (add-to-list 'use-package-keywords :holy-init t)
+  (defalias 'use-package-normalize/:holy-init 'use-package-normalize-forms)
+  (defun use-package-handler/:holy-init (name-symbol keyword arg rest state)
+    (when (bound-and-true-p holy-mode)
+      (let ((body (use-package-process-keywords name rest state)))
+        (use-package-concat
+         ;; The user's initializations for holy-mode
+         (let ((init-body
+                (use-package-hook-injector (use-package-as-string name)
+                                           :init arg)))
+           init-body)
+         body))))
+  (add-to-list 'use-package-keywords :holy-config t)
+  (defalias 'use-package-normalize/:holy-config 'use-package-normalize-forms)
+  (defun use-package-handler/:holy-config (name-symbol keyword arg rest state)
+    (when (bound-and-true-p holy-mode)
+      (let ((body (use-package-process-keywords name rest state)))
+        (use-package-concat
+         ;; The user's configurations for holy-mode
+         (let ((config-body
+                (use-package-hook-injector (use-package-as-string name)
+                                           :config arg)))
+           config-body)
+         body))))
+  )
 
 (defun spacemacs-bootstrap/init-which-key ()
   (require 'which-key)
