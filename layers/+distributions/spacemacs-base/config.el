@@ -153,7 +153,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; ---------------------------------------------------------------------------
 
 ;; scratch buffer empty
-(setq initial-scratch-message nil)
+(setq initial-scratch-message dotspacemacs-initial-scratch-message)
 ;; don't create backup~ files
 (setq make-backup-files nil)
 
