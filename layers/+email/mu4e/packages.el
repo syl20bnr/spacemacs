@@ -91,8 +91,10 @@
               (mu4e-alert-enable-mode-line-display)))))
 
 (defun mu4e/init-mu4e-maildirs-extension ()
+  "If mu4e-use-maildirs-extension is non-nil, set
+mu4e-use-maildirs-extension-load to be evaluated after mu4e has been loaded."
   (use-package mu4e-maildirs-extension
-    :defer t
+    :if mu4e-use-maildirs-extension
     :init (with-eval-after-load 'mu4e (mu4e-maildirs-extension-load))))
 
 (defun mu4e/pre-init-org ()
