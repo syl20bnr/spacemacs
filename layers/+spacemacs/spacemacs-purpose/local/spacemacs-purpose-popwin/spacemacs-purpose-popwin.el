@@ -185,7 +185,10 @@ Popwin's settings are taken from `popwin:special-display-config'."
                 (cond ((symbolp pattern) mode-purposes)
                       ((plist-get settings :regexp) regexp-purposes)
                       (t name-purposes))))
-    (purpose-conf :mode-purposes mode-purposes
+    ;; "pupo" argument is obsolete in Emacs 25, but still mandatory in 24.5 (see
+    ;; https://github.com/syl20bnr/spacemacs/issues/9583)
+    (purpose-conf "pupo"
+                  :mode-purposes mode-purposes
                   :name-purposes name-purposes
                   :regexp-purposes regexp-purposes)))
 
