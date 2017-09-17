@@ -22,6 +22,7 @@
     flycheck
     gdb-mi
     ggtags
+    counsel-gtags
     helm-cscope
     helm-gtags
     realgud
@@ -184,3 +185,7 @@
     :post-init
     (dolist (mode c-c++-modes)
       (spacemacs/setup-helm-cscope mode))))
+
+(defun c-c++/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'c-mode)
+  (spacemacs/counsel-gtags-define-keys-for-mode 'c++-mode))
