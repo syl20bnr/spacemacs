@@ -1854,8 +1854,7 @@ to update."
             (let* ((src-dir (configuration-layer//get-package-directory pkg))
                    (dest-dir (expand-file-name
                               (concat rollback-dir
-                                      (file-name-as-directory
-                                       (file-name-nondirectory src-dir))))))
+                                      (file-name-nondirectory src-dir)))))
               (copy-directory src-dir dest-dir 'keeptime 'create 'copy-content)
               (push (cons pkg (file-name-nondirectory src-dir))
                     update-packages-alist))))
