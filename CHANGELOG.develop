@@ -1765,6 +1765,10 @@ Other:
 - Enable auto indent when paste. Remove =latex-mode= from
   =spacemacs-yank-indent-modes= to disable it (thanks to bet4it)
 - Added support for =company-reftex= (thanks to et2010)
+- Added bindings to navigate between errors in tex mode:
+  - ~SPC m n~ goto next error
+  - ~SPC m N~ goto previous error
+    (thanks to Olivier Verdier)
 **** Lua
 - Added support for auto-completion with =company= (thanks to halfcrazy)
 **** Language Server Protocol (LSP)
