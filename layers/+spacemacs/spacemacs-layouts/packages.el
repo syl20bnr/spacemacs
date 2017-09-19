@@ -239,4 +239,5 @@
 
 
 (defun spacemacs-layouts/post-init-swiper ()
+  (ivy-set-actions 'spacemacs/ivy-persp-switch-project counsel-projectile-switch-project-actions)
   (spacemacs/set-leader-keys "pl" 'spacemacs/ivy-persp-switch-project))
