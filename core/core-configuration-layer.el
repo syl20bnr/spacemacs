@@ -1447,7 +1447,7 @@ RNAME is the name symbol of another existing layer."
          (not (oref obj :excluded))
          (not (memq nil (mapcar
                          'configuration-layer/package-used-p
-                         (oref obj :requires)))))))
+                         (oref-default obj :requires)))))))
 (defalias 'configuration-layer/package-usedp
   'configuration-layer/package-used-p)
 
