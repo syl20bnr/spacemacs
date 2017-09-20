@@ -54,7 +54,7 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 
 ** BibTeX
 For more extensive support of references through BibTeX files, have a look at
-the [[../../+lang/bibtex/README.org][BibTeX layer]].
+the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+lang/bibtex/README.org][BibTeX layer]].
 
 ** Important Note
 Since version 0.104, spacemacs uses the =org= version from the org ELPA
@@ -277,7 +277,9 @@ To permanently enable mode line display of org clock, add this snippet to your
 
 | Key Binding | Description                                   |
 |-------------+-----------------------------------------------|
+| ~SPC m T e~ | org-toggle-pretty-entities                    |
 | ~SPC m T i~ | org-toggle-inline-images                      |
+| ~SPC m T l~ | org-toggle-link-display                       |
 | ~SPC m T t~ | org-show-todo-tree                            |
 | ~SPC m T T~ | org-todo                                      |
 | ~SPC m T V~ | toggle =space-doc-mode= a read-only view mode |

@@ -1,4 +1,4 @@
-#+TITLE: Git contribution layer for Spacemacs
+#+TITLE: Git layer
 
 [[file:img/git.png]]
 

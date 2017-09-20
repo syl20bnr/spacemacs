@@ -188,8 +188,10 @@ Will work on both org-mode and any mode that accepts plain html."
 
         "a" 'org-agenda
 
-        "Tt" 'org-show-todo-tree
+        "Te" 'org-toggle-pretty-entities
         "Ti" 'org-toggle-inline-images
+        "Tl" 'org-toggle-link-display
+        "Tt" 'org-show-todo-tree
         "TT" 'org-todo
         "TV" 'space-doc-mode
         "Tx" 'org-toggle-latex-fragment
@@ -274,7 +276,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "xr" (spacemacs|org-emphasize spacemacs/org-clear ? )
         "xs" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
         "xu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
-        "xv" (spacemacs|org-emphasize spacemacs/org-verbose ?=))
+        "xv" (spacemacs|org-emphasize spacemacs/org-verbatim ?=))
 
       ;; Add global evil-leader mappings. Used to access org-agenda
       ;; functionalities – and a few others commands – from any other mode.

@@ -2,12 +2,16 @@
 
 * Table of Contents                 :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#supported-layers][Supported layers]]
 - [[#how-it-works][How it works]]
 
 * Description
 Dependency installation scripts for Spacemacs layers
 in Docker environment.
+
+** Features:
+- Add Spacemacs to your Docker enviroment so you can build, ship, and run apps, anywhere
 
 * Supported layers
 1. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/clojure/README.org][Clojure]]
@@ -20,7 +24,8 @@ in Docker environment.
 8. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/pandoc/README.org][pandoc]]
 9. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/pdf-tools/README.org][pdf-tools]]
 10. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/spell-checking/README.org][spell-checking]]
-10. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/python/README.org][python]]
+11. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/python/README.org][python]]
+12. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/typescript/README.org][TypeScript]]
 
 * How it works
 When .spacemacs file contains one of supported layers and its installation

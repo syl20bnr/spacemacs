@@ -4,7 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#live-display-in-browser][Live display in browser]]
 - [[#key-bindings][Key Bindings]]
@@ -14,7 +14,7 @@
 * Description
 This layer adds support for editing HTML and CSS.
 
-** Features
+** Features:
 - Editing HTML and CSS file using [[http://web-mode.org/][web-mode]]
 - Support for Sass/Scss and Less files
 - Generate HTML and CSS coding using [[https://github.com/smihica/emmet-mode][emmet-mode]]
