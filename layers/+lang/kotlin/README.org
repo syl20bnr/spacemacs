@@ -1,6 +1,6 @@
 #+TITLE: kotlin layer
 
-[[file:img/rust.png]]
+[[file:img/kotlin.png]]
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
