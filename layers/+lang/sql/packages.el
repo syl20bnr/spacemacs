@@ -35,6 +35,7 @@
                                   (lambda (product) (sql-get-product-feature (car product) :sqli-program))
                                   sql-product-alist)))
       (advice-add 'sql-add-product :after #'spacemacs/sql-populate-products-list)
+      (advice-add 'sql-del-product :after #'spacemacs/sql-populate-products-list)
       (spacemacs/sql-populate-products-list)
 
       (defun spacemacs//sql-source (products)
