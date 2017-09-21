@@ -13,7 +13,10 @@
       '(
         company
         sql
-        sql-indent
+        (sql-indent :location (recipe
+                               :fetcher github
+                               :repo "alex-hhh/emacs-sql-indent"
+                               :files ("sql-indent.el")))
         (sqlup-mode :toggle sql-capitalize-keywords)
         ))
 
@@ -126,7 +129,11 @@
 
 (defun sql/init-sql-indent ()
   (use-package sql-indent
-    :defer t))
+    :init (progn (add-hook 'sql-mode-hook 'sqlind-minor-mode))
+    ;; breaks the mode-line globally
+    ;; :config (progn (spacemacs|diminish 'sqlind-minor-mode))
+    )
+  )
 
 (defun sql/init-sqlup-mode ()
   (use-package sqlup-mode
