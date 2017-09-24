@@ -159,7 +159,8 @@
 (defun emacs-lisp/init-macrostep ()
   (use-package macrostep
     :defer t
-    :mode ("\\*.el\\'" . emacs-lisp-mode)
+    :mode (("\\*.el\\'" . emacs-lisp-mode)
+           ("Cask\\'" . emacs-lisp-mode))
     :init
     (progn
       (evil-define-key 'normal macrostep-keymap "q" 'macrostep-collapse-all)
