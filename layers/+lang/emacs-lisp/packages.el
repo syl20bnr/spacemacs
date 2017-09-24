@@ -25,6 +25,7 @@
         helm-gtags
         (ielm :location built-in)
         macrostep
+        overseer
         parinfer
         semantic
         smartparens
@@ -176,6 +177,21 @@
         ("q" macrostep-collapse-all :exit t))
       (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
         "dm" 'spacemacs/macrostep-transient-state/body))))
+
+(defun emacs-lisp/init-overseer ()
+  (use-package overseer
+    :defer t
+    :init (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
+            "ta" 'overseer-test
+            "tt" 'overseer-test-run-test
+            "tb" 'overseer-test-this-buffer
+            "tf" 'overseer-test-file
+            "tg" 'overseer-test-tags
+            "tp" 'overseer-test-prompt
+            "tA" 'overseer-test-debug
+            "tq" 'overseer-test-quiet
+            "tv" 'overseer-test-verbose
+            "th" 'overseer-help)))
 
 (defun emacs-lisp/post-init-evil ()
   (add-hook 'emacs-lisp-mode-hook
