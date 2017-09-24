@@ -50,6 +50,15 @@ references:
             ./.circleci/test layers/+distribution/spacemacs func_tests
 
 jobs:
+  "Validate PR":
+    docker:
+      - image: jare/spacemacs-circleci:latest
+    working_directory: ~/.emacs.d
+    steps:
+      - checkout
+      - run:
+          name: Make sure that this isn't a PR to master
+          command: ./.circleci/PR_base
   # Emacs 24
   "core Emacs24 (required)":
     docker:
@@ -64,10 +73,10 @@ jobs:
     <<: *spacemacs_base_steps
 
   "spacemacs dist. Emacs24 (required)":
-   docker:
-     - image: jare/spacemacs-circleci:emacs24
-   working_directory: ~/.emacs.d
-   <<: *spacemacs_steps
+    docker:
+      - image: jare/spacemacs-circleci:emacs24
+    working_directory: ~/.emacs.d
+    <<: *spacemacs_steps
 
   # Emacs 25
   "core Emacs25 (required)":
@@ -122,13 +131,34 @@ workflows:
   version: 2
   build:
     jobs:
-      - "core Emacs24 (required)"
-#      - "spacemacs-base dist. Emacs24 (required)"
-#      - "spacemacs dist. Emacs24 (required)"
-      - "core Emacs25 (required)"
-#      - "spacemacs-base dist. Emacs25 (required)"
-#      - "spacemacs dist. Emacs25 (required)"
-      - "core Emacs snapshot (optional)"
-#      - "spacemacs-base dist. Emacs snapshot (optional)"
-#      - "spacemacs dist. Emacs snapshot (optional)"
-      - "Formatting (optional)"
+      - "Validate PR"
+      - "core Emacs24 (required)":
+          requires:
+            - "Validate PR"
+#      - "spacemacs-base dist. Emacs24 (required)":
+#          requires:
+#            - "Validate PR"
+#      - "spacemacs dist. Emacs24 (required)":
+#          requires:
+#            - "Validate PR"
+      - "core Emacs25 (required)":
+          requires:
+            - "Validate PR"
+#      - "spacemacs-base dist. Emacs25 (required)":
+#          requires:
+#            - "Validate PR"
+#      - "spacemacs dist. Emacs25 (required)":
+#          requires:
+#            - "Validate PR"
+      - "core Emacs snapshot (optional)":
+          requires:
+            - "Validate PR"
+#      - "spacemacs-base dist. Emacs snapshot (optional)":
+#          requires:
+#            - "Validate PR"
+#      - "spacemacs dist. Emacs snapshot (optional)":
+#          requires:
+#            - "Validate PR"
+      - "Formatting (optional)":
+          requires:
+            - "Validate PR"

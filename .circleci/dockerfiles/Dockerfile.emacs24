@@ -24,6 +24,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     git \
     git \
     gzip \
+    jq \
     make \
     openssl \
     tar \
