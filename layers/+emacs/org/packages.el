@@ -274,6 +274,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "bZ"     'org-babel-switch-to-session-with-code
         "ba"     'org-babel-sha1-hash
         "bx"     'org-babel-do-key-sequence-in-edit-buffer
+        "b."     'spacemacs/org-babel-transient-state/body
         ;; Multi-purpose keys
         (or dotspacemacs-major-mode-leader-key ",") 'org-ctrl-c-ctrl-c
         "*" 'org-ctrl-c-star
@@ -365,7 +366,21 @@ Will work on both org-mode and any mode that accepts plain html."
             (org-eval-in-calendar '(calendar-backward-year 1))))
         (define-key org-read-date-minibuffer-local-map (kbd "M-J")
           (lambda () (interactive)
-            (org-eval-in-calendar '(calendar-forward-year 1))))))))
+            (org-eval-in-calendar '(calendar-forward-year 1)))))
+
+      (spacemacs|define-transient-state org-babel
+        :title "Org Babel Transient state"
+        :doc "
+[_j_/_k_] navigate src blocks         [_e_] execute src block
+[_g_] goto named block                [_'_] edit src block
+[_q_] quit"
+        :bindings
+        ("q" nil :exit t)
+        ("j" org-babel-next-src-block)
+        ("k" org-babel-previous-src-block)
+        ("g" org-babel-goto-named-src-block)
+        ("e" org-babel-execute-maybe :exit t)
+        ("'" org-edit-special :exit t)))))
 
 (defun org/init-org-agenda ()
   (use-package org-agenda
