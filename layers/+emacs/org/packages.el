@@ -171,6 +171,7 @@ Will work on both org-mode and any mode that accepts plain html."
                         ("mti" . "insert")
                         ("mtt" . "toggle")
                         ("mx" . "text")
+                        ("mb" . "src-blocks/babel")
                         ))
         (spacemacs/declare-prefix-for-mode 'org-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
@@ -250,6 +251,29 @@ Will work on both org-mode and any mode that accepts plain html."
         "tto" 'org-table-toggle-coordinate-overlays
         "tw" 'org-table-wrap-region
 
+        ;; Source blocks / org-babel
+        "bp"     'org-babel-previous-src-block
+        "bn"     'org-babel-next-src-block
+        "be"     'org-babel-execute-maybe
+        "bo"     'org-babel-open-src-block-result
+        "bv"     'org-babel-expand-src-block
+        "bu"     'org-babel-goto-src-block-head
+        "bg"     'org-babel-goto-named-src-block
+        "br"     'org-babel-goto-named-result
+        "bb"     'org-babel-execute-buffer
+        "bs"     'org-babel-execute-subtree
+        "bd"     'org-babel-demarcate-block
+        "bt"     'org-babel-tangle
+        "bf"     'org-babel-tangle-file
+        "bc"     'org-babel-check-src-block
+        "bj"     'org-babel-insert-header-arg
+        "bl"     'org-babel-load-in-session
+        "bi"     'org-babel-lob-ingest
+        "bI"     'org-babel-view-src-block-info
+        "bz"     'org-babel-switch-to-session
+        "bZ"     'org-babel-switch-to-session-with-code
+        "ba"     'org-babel-sha1-hash
+        "bx"     'org-babel-do-key-sequence-in-edit-buffer
         ;; Multi-purpose keys
         (or dotspacemacs-major-mode-leader-key ",") 'org-ctrl-c-ctrl-c
         "*" 'org-ctrl-c-star
