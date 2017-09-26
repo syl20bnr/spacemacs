@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/shadow-layer 'helm 'ivy)
+(configuration-layer/declare-shadow-relation 'helm 'ivy)

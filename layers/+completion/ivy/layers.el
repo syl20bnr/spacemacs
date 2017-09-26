@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/shadow-layer 'ivy 'helm)
+(configuration-layer/declare-shadow-relation 'ivy 'helm)
 
 ;; smex is handled by the `ivy' layer and we don't want
 ;; to use the ownership mechanism of layers because it is dependent
