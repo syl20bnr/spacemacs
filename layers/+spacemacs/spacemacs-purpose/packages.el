@@ -82,17 +82,22 @@
                              do (purpose-set-window-purpose-dedicated-p
                                  window t))))
       (add-hook 'purpose-mode-hook #'spacemacs/window-purpose-sync-popwin)
-      (spacemacs/window-purpose-sync-popwin)
-      ;; can't have both `purpose-mode' and `popwin-mode' active at the same
-      ;; time (see https://github.com/syl20bnr/spacemacs/issues/9593), but we
-      ;; use `popwin' for its configuration so we can't just exclude it, so
-      ;; current solution is to disable `popwin-mode' (which is enabled in
-      ;; popwin's :config block)
-      (popwin-mode -1))))
+      (with-eval-after-load 'window-purpose
+        (spacemacs/window-purpose-sync-popwin)
+        ;; can't have both `purpose-mode' and `popwin-mode' active at the same
+        ;; time (see https://github.com/syl20bnr/spacemacs/issues/9593), but we
+        ;; use `popwin' for its configuration so we can't just exclude it, so
+        ;; current solution is to disable `popwin-mode' (which is enabled in
+        ;; popwin's :config block)
+        (popwin-mode -1)))))
 
 (defun spacemacs-purpose/init-spacemacs-purpose-popwin ()
   (use-package spacemacs-purpose-popwin
-    :config
+    ;; defer loading of spacemacs-purpose-popwin
+    :commands pupo-mode)
+  ;; load spacemacs-purpose-popwin after window-purpose
+  (spacemacs|use-package-add-hook window-purpose
+    :post-config
     (progn
       (pupo-mode)
       ;; override popwin commands with pupo commands
