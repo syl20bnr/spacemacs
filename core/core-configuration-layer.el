@@ -116,15 +116,18 @@ ROOT is returned."
             :initform 'unspecified
             :type (satisfies (lambda (x) (or (listp x) (eq 'unspecified x))))
             :documentation
-            "A list of layers where this layer is enabled. (Takes precedence over `:disabled-for'.)")
+            (concat "A list of layers where this layer is enabled. "
+                    "(Takes precedence over `:disabled-for'.)"))
+   ;; Note:
+   ;; 'can-shadow' is a commutative relation:
+   ;;     if Y 'can-shadow' X then X 'can-shadow' Y
+   ;; but the 'shadow' operation is not commutative, the order of the operands
+   ;; is determined by the order of the layers in the dotfile
+   ;; (variable: dotspacemacs-configuration-layers)
    (can-shadow :initarg :can-shadow
-               :initform t
-               :type boolean
-               :documentation "If non-nil this layer can shadow other layers.")
-   (shadowed-by :initarg :shadowed-by
-                :initform nil
-                :type list
-                :documentation "A list of layers that can shadow this layer."))
+               :initform 'unspecified
+               :type (satisfies (lambda (x) (or (listp x) (eq 'unspecified x))))
+               :documentation "A list of layers this layer can shadow."))
   "A configuration layer.")
 
 (defmethod cfgl-layer-owned-packages ((layer cfgl-layer) &optional props)
@@ -142,25 +145,30 @@ LAYER has to be installed for this method to work properly."
   "Accept nil as argument and return nil."
   nil)
 
-(defmethod cfgl-layer-shadowed-p ((layer cfgl-layer))
-  "Return the list of layers that shadow LAYER."
+(defmethod cfgl-layer-get-shadowing-layers ((layer cfgl-layer))
+  "Return the list of used layers that shadow LAYER."
   (let ((rank (cl-position (oref layer :name) configuration-layer--used-layers))
+        (shadow-candidates (oref layer :can-shadow))
         shadowing-layers)
-    (when (numberp rank)
+    (when (and (numberp rank)
+               (not (eq 'unspecified shadow-candidates))
+               (listp shadow-candidates))
       (mapcar
        (lambda (other)
          (let ((orank (cl-position other configuration-layer--used-layers)))
-           ;; LAYER is shadowed by OTHER if and only if its rank is lower than
-           ;; OTHER's rank.
+           ;; OTHER shadows LAYER if and only if OTHER's rank is bigger than
+           ;; LAYER's rank.
            (when (and (numberp orank) (< rank orank))
              (add-to-list 'shadowing-layers other))))
-       (oref layer :shadowed-by)))
+       ;; since the 'can-shadow' relation is commutative it is safe to use this
+       ;; list, i.e. if LAYER can shadow layers X and Y then X and Y can shadow
+       ;; LAYER.
+       shadow-candidates))
     shadowing-layers))
 
 (defmethod cfgl-layer-get-packages ((layer cfgl-layer) &optional props)
   "Return the list of packages for LAYER.
-If PROPS is non-nil then return packages as lists along with their properties.
-Returns nil if the layer is shadowed by a layer."
+If PROPS is non-nil then return packages as lists along with their properties."
   (let ((all (eq 'all (oref layer :selected-packages))))
     (delq nil (mapcar
                (lambda (x)
@@ -626,10 +634,10 @@ If USEDP or `configuration-layer--load-packages-files' is non-nil then the
                         'unspecified))
              (variables (when (listp layer-specs)
                           (spacemacs/mplist-get layer-specs :variables)))
-             (can-shadow
+             (shadow
               (if (and (listp layer-specs)
                        (memq :can-shadow layer-specs))
-                  (nth 0 (spacemacs/mplist-get layer-specs :can-shadow))
+                  (spacemacs/mplist-get layer-specs :can-shadow)
                 'unspecified))
              (packages-file (concat dir "packages.el"))
              (packages
@@ -649,8 +657,8 @@ If USEDP or `configuration-layer--load-packages-files' is non-nil then the
           (oset obj :disabled-for disabled)
           (oset obj :enabled-for enabled)
           (oset obj :variables variables)
-          (unless (eq 'unspecified can-shadow)
-            (oset obj :can-shadow can-shadow)))
+          (unless (eq 'unspecified shadow)
+            (oset obj :can-shadow shadow)))
         (when packages
           (oset obj :packages packages)
           (oset obj :selected-packages selected-packages))
@@ -1048,7 +1056,7 @@ If SKIP-LAYER-DISCOVERY is non-nil then do not check for new layers."
 USEDP if non-nil indicates that made packages are used packages."
   (dolist (layer-name layer-names)
     (let* ((layer (configuration-layer/get-layer layer-name))
-           (shadowed-by (cfgl-layer-shadowed-p layer)))
+           (shadowed-by (cfgl-layer-get-shadowing-layers layer)))
       (if shadowed-by
           (spacemacs-buffer/message
            "Ignoring layer '%s' because it is shadowed by layer(s) '%s'."
@@ -1350,32 +1358,56 @@ wether the declared layer is an used one or not."
         (configuration-layer/declare-layer distribution)))
     (configuration-layer/declare-layer 'spacemacs-bootstrap)))
 
-(defun configuration-layer/shadow-layers (layer-name shadowed-layers)
-  "Declare LAYER-NAME to shadow SHADOWED-LAYERS.
-LAYER-NAME is a the name symbol of an existing layer.
-SHADOWED-LAYERS is a list of layer name symbols."
-  (mapc (lambda (x)
-          (configuration-layer/shadow-layer layer-name x))
-        shadowed-layers))
+(defun configuration-layer/declare-shadow-relation (layer-name &rest onames)
+  "Declare 'can-shadow' relationship between LAYER_NAME and OTHER-NAMES layers.
+LAYER-NAME is the name symbol of an existing layer.
+ONAMES is a list of other layer name symbols."
+  (dolist (o onames)
+    (configuration-layer//declare-shadow-relation layer-name o)))
 
-(defun configuration-layer/shadow-layer (layer-name shadowed-layer-name)
-  "Declare LAYER-NAME to shadow SHADOWED-LAYER.
-LAYER-NAME is a the name symbol of an existing layer.
-SHADOWED-LAYER-NAME is the name symbol of an existing layer."
-  (let* ((layer (configuration-layer/get-layer layer-name))
-         (shadowed-layer (configuration-layer/get-layer shadowed-layer-name)))
-    (if (and layer shadowed-layer)
-        (progn
-          ;; note: shadowing is commutative
-          (cl-pushnew layer-name (oref shadowed-layer :shadowed-by))
-          (cl-pushnew shadowed-layer-name (oref layer :shadowed-by)))
-      ;; cannot find one or both layers
-      (if (null layer)
-          (configuration-layer//warning "Unknown layer %s to shadow %s."
-                                        layer-name shadowed-layer-name))
-      (if (null shadowed-layer)
-          (configuration-layer//warning "Unknown shadowed layer %s by %s."
-                                        shadowed-layer-name layer-name)))))
+(defun configuration-layer//declare-shadow-relation (lname rname)
+  "Declare 'can-shadow' relationship between LAYER_NAME and OTHER-NAMES layers.
+LNAME is the name symbol of an existing layer.
+RNAME is the name symbol of another existing layer."
+  (let ((llayer (configuration-layer/get-layer lname))
+        (rlayer (configuration-layer/get-layer rname)))
+    (if (and llayer rlayer)
+        (let ((lshadow (oref llayer :can-shadow))
+              (rshadow (oref rlayer :can-shadow)))
+          ;; lhs of the relation
+          (cond
+           ((eq 'unspecified lshadow)
+            (when rshadow
+              (oset llayer :can-shadow `(,rname))))
+           ((and lshadow (listp lshadow))
+            (when rshadow
+              (cl-pushnew rname (oref llayer :can-shadow))))
+           ((null lshadow)
+            (spacemacs-buffer/message
+             (concat "Ignore shadow relation between layers %s and %s because "
+                     ":can-shadow of layer %s has been set to nil by the user.")
+             lname rname lname)))
+          ;; rhs of the relation
+          (cond
+           ((eq 'unspecified rshadow)
+            (when lshadow
+              (oset rlayer :can-shadow `(,lname))))
+           ((and rshadow (listp rshadow))
+            (when lshadow
+              (cl-pushnew lname (oref rlayer :can-shadow))))
+           ((null rshadow)
+            (spacemacs-buffer/message
+             (concat "Ignore shadow relation between layers %s and %s because "
+                     ":can-shadow of layer %s has been set to nil by the user.")
+             rname lname rname))))
+      (when (null llayer)
+        (configuration-layer//warning
+         "Unknown layer %s to declare lshadow relationship."
+         lname))
+      (when (null rlayer)
+        (configuration-layer//warning
+         "Unknown layer %s to declare lshadow relationship."
+         rname)))))
 
 (defun configuration-layer//set-layers-variables (layers)
   "Set the configuration variables for the passed LAYERS."
@@ -1403,7 +1435,7 @@ SHADOWED-LAYER-NAME is the name symbol of an existing layer."
   "Return non-nil if LAYER-NAME is the name of a used and non-shadowed layer."
   (or (eq 'dotfile layer-name)
       (let ((obj (configuration-layer/get-layer layer-name)))
-        (when obj (and (not (cfgl-layer-shadowed-p obj))
+        (when obj (and (not (cfgl-layer-get-shadowing-layers obj))
                    (memq layer-name configuration-layer--used-layers))))))
 (defalias 'configuration-layer/layer-usedp
   'configuration-layer/layer-used-p)

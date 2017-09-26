@@ -170,29 +170,48 @@
                            :selected-packages '(pkg-unknown))))
     (should (null (cfgl-layer-get-packages layer)))))
 
-;; method: cfgl-layer-shadowed-p
+;; method: cfgl-layer-get-shadowing-layers
 
-(ert-deftest test-cfgl-layer-shadowed-p--layer2-shadows-layer1 ()
+(ert-deftest test-cfgl-layer-get-shadowing-layers--l2-declared-after-l1-shadows-l1 ()
   (let ((layer1 (cfgl-layer "layer1" :name 'layer1))
         (layer2 (cfgl-layer "layer2" :name 'layer2))
         (configuration-layer--used-layers nil)
         (configuration-layer--indexed-layers (make-hash-table :size 1024)))
     (helper--add-layers `(,layer1 ,layer2) 'used)
-    (configuration-layer/shadow-layer 'layer2 'layer1)
-    (should (and (equal '(layer2) (cfgl-layer-shadowed-p layer1))
-                 (not (cfgl-layer-shadowed-p layer2))))))
+    (configuration-layer/declare-shadow-relation 'layer1 'layer2)
+    (should (and (equal '(layer2) (cfgl-layer-get-shadowing-layers layer1))
+                 (equal '() (cfgl-layer-get-shadowing-layers layer2))))))
 
-(ert-deftest test-cfgl-layer-shadowed-p--layer1-shadows-layer2 ()
+(ert-deftest test-cfgl-layer-get-shadowing-layers--l1-declared-after-l2-shadows-l2 ()
   (let ((layer1 (cfgl-layer "layer1" :name 'layer1))
         (layer2 (cfgl-layer "layer2" :name 'layer2))
         (configuration-layer--used-layers nil)
         (configuration-layer--indexed-layers (make-hash-table :size 1024)))
-    ;; we just switched the order of used layers
-    ;; remember, shadowing is commutative
-    (helper--add-layers `(,layer2 ,layer1) 'used)
-    (configuration-layer/shadow-layer 'layer2 'layer1)
-    (should (and (equal '(layer1) (cfgl-layer-shadowed-p layer2))
-                 (not (cfgl-layer-shadowed-p layer1))))))
+    (helper--add-layers `(,layer1 ,layer2) 'used)
+    (configuration-layer/declare-shadow-relation 'layer1 'layer2)
+    (should (and (equal '(layer2) (cfgl-layer-get-shadowing-layers layer1))
+                 (equal '() (cfgl-layer-get-shadowing-layers layer2))))))
+
+(ert-deftest test-cfgl-layer-get-shadowing-layers--prevent-l2-from-shadowing-l1 ()
+  (let ((layer1 (cfgl-layer "layer1" :name 'layer1))
+        (layer2 (cfgl-layer "layer2" :name 'layer2 :can-shadow nil))
+        (configuration-layer--used-layers nil)
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (helper--add-layers `(,layer1 ,layer2) 'used)
+    (configuration-layer/declare-shadow-relation 'layer2 'layer1)
+    (should (null (cfgl-layer-get-shadowing-layers layer1)))))
+
+(ert-deftest test-cfgl-layer-get-shadowing-layers--prevent-l2-from-shadowing-l1-alternative ()
+  ;; using the commutative property of the can-shadow relation
+  ;; setting :can-shadow to nil on layer1 produces the same effect as the more
+  ;; intuitive test-cfgl-layer-get-shadowing-layers--prevent-l2-from-shadowing-l1
+  (let ((layer1 (cfgl-layer "layer1" :name 'layer1 :can-shadow nil))
+        (layer2 (cfgl-layer "layer2" :name 'layer2))
+        (configuration-layer--used-layers nil)
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (helper--add-layers `(,layer1 ,layer2) 'used)
+    (configuration-layer/declare-shadow-relation 'layer2 'layer1)
+    (should (null (cfgl-layer-get-shadowing-layers layer1)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer/layer-used-p
@@ -218,7 +237,7 @@
         configuration-layer--used-layers
         (configuration-layer--indexed-layers (make-hash-table :size 1024)))
     (helper--add-layers `(,usedlayer1 ,usedlayer2) 'used)
-    (configuration-layer/shadow-layer 'usedlayer2 'usedlayer1)
+    (configuration-layer/declare-shadow-relation 'usedlayer2 'usedlayer1)
     (should (not (configuration-layer/layer-used-p 'usedlayer1)))))
 
 (ert-deftest test-layer-used-p--dotfile-layer-is-always-used ()
@@ -949,7 +968,7 @@
                            :name 'layer
                            :dir spacemacs-start-directory))
         (layer-specs '(layer :disabled-for pkg8 pkg9
-                             :can-shadow nil
+                             :can-shadow layer2 layer3
                              :variables foo bar toto 1))
         (layer-packages '(pkg1 pkg2 pkg3))
         (mocker-mock-default-record-cls 'mocker-stub-record))
@@ -959,7 +978,7 @@
      (should (equal (cfgl-layer "layer"
                                 :name 'layer
                                 :disabled-for '(pkg8 pkg9)
-                                :can-shadow nil
+                                :can-shadow '(layer2 layer3)
                                 :variables '(foo bar toto 1)
                                 :packages '(pkg1 pkg2 pkg3)
                                 :selected-packages 'all
@@ -971,13 +990,13 @@
                            :name 'layer
                            :dir spacemacs-start-directory))
         (layer-specs '(layer :disabled-for pkg8 pkg9
-                             :can-shadow nil
+                             :can-shadow layer2
                              :variables foo bar toto 1))
         (layer-packages '(pkg1 pkg2 pkg3)))
     (should (equal (cfgl-layer "layer"
                                :name 'layer
                                :disabled-for nil
-                               :can-shadow t
+                               :can-shadow 'unspecified
                                :variables nil
                                :packages nil
                                :selected-packages 'all
@@ -988,11 +1007,11 @@
   (let ((layer (cfgl-layer "layer"
                            :name 'layer
                            :disabled-for '(pkg10)
-                           :can-shadow nil
+                           :can-shadow '()
                            :variables '(titi tata tutu 1)
                            :dir spacemacs-start-directory))
         (layer-specs '(layer :disabled-for pkg8 pkg9
-                             :can-shadow t
+                             :can-shadow layer2
                              :variables foo bar toto 1))
         (layer-packages '(pkg1 pkg2 pkg3))
         (mocker-mock-default-record-cls 'mocker-stub-record))
@@ -1002,7 +1021,7 @@
      (should (equal (cfgl-layer "layer"
                                 :name 'layer
                                 :disabled-for '(pkg8 pkg9)
-                                :can-shadow t
+                                :can-shadow '(layer2)
                                 :variables '(foo bar toto 1)
                                 :packages '(pkg1 pkg2 pkg3)
                                 :selected-packages 'all
@@ -1013,115 +1032,86 @@
   (let ((layer (cfgl-layer "layer"
                            :name 'layer
                            :disabled-for '(pkg10)
-                           :can-shadow nil
+                           :can-shadow '()
                            :variables '(titi tata tutu 1)
                            :packages '(pkg1 pkg2 pkg3)
                            :selected-packages 'all
                            :dir spacemacs-start-directory))
         (layer-specs '(layer :disabled-for pkg8 pkg9
-                             :can-shadow t
+                             :can-shadow '(layer2)
                              :variables foo bar toto 1))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (should (equal (cfgl-layer "layer"
                                :name 'layer
                                :disabled-for '(pkg10)
-                               :can-shadow nil
+                               :can-shadow '()
                                :variables '(titi tata tutu 1)
                                :packages '(pkg1 pkg2 pkg3)
                                :selected-packages 'all
                                :dir spacemacs-start-directory)
                    (configuration-layer/make-layer layer-specs layer)))))
 
-;; shadow layers
-
-(ert-deftest test-make-layer--by-default-layer-can-shadow-other-layers ()
-  (let ((layer-specs 'layer)
-        (mocker-mock-default-record-cls 'mocker-stub-record))
-    (should
-     (equal (cfgl-layer "layer"
-                        :name 'layer
-                        :dir spacemacs-start-directory
-                        :can-shadow t)
-            (configuration-layer/make-layer layer-specs nil nil
-                                            spacemacs-start-directory)))))
-
-(ert-deftest test-make-layer--force-used-layer-to-not-shadow-other-layers ()
-  (let ((layer-specs '(layer :can-shadow nil))
-        (mocker-mock-default-record-cls 'mocker-stub-record))
-    (should
-     (equal (cfgl-layer "layer"
-                        :name 'layer
-                        :dir spacemacs-start-directory
-                        :can-shadow nil)
-            (configuration-layer/make-layer layer-specs nil 'used
-                                            spacemacs-start-directory)))))
-(ert-deftest test-make-layer--unused-layer-can-always-shadow-other-layers ()
-  (let ((layer-specs '(layer :can-shadow nil))
-        (mocker-mock-default-record-cls 'mocker-stub-record))
-    (should
-     (equal (cfgl-layer "layer"
-                        :name 'layer
-                        :dir spacemacs-start-directory
-                        :can-shadow t)
-            (configuration-layer/make-layer layer-specs nil nil
-                                            spacemacs-start-directory)))))
-
 ;; ---------------------------------------------------------------------------
-;; configuration-layer//shadow-layer
+;; configuration-layer//declare-shadow-relation
 ;; ---------------------------------------------------------------------------
 
-(ert-deftest test-shadow-layer--layer-1-shadows-layer2 ()
+(ert-deftest test-declare-shadow-relation--is-commutative ()
   (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
     (helper--add-layers
      `(,(cfgl-layer "layer-shadow-1" :name 'layer-shadow-1)
        ,(cfgl-layer "layer-shadow-2" :name 'layer-shadow-2)))
-    (configuration-layer/shadow-layer 'layer-shadow-1 'layer-shadow-2)
-    (should (equal '(layer-shadow-1)
-                   (oref (configuration-layer/get-layer 'layer-shadow-2)
-                         :shadowed-by)))))
+    (configuration-layer/declare-shadow-relation
+     'layer-shadow-1
+     'layer-shadow-2)
+    (should (and
+             (equal '(layer-shadow-1) (oref (configuration-layer/get-layer
+                                             'layer-shadow-2)
+                                            :can-shadow))
+             (equal '(layer-shadow-2) (oref (configuration-layer/get-layer
+                                             'layer-shadow-1)
+                                            :can-shadow))))))
 
-(ert-deftest test-shadow-layer--layer-2-shadows-layer1-as-well--commutativity ()
+(ert-deftest test-declare-shadow-relation--is-idempotent ()
   (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
     (helper--add-layers
      `(,(cfgl-layer "layer-shadow-1" :name 'layer-shadow-1)
        ,(cfgl-layer "layer-shadow-2" :name 'layer-shadow-2)))
-    (configuration-layer/shadow-layer 'layer-shadow-1 'layer-shadow-2)
-    (should (equal '(layer-shadow-2)
-                   (oref (configuration-layer/get-layer 'layer-shadow-1)
-                         :shadowed-by)))))
-
-(ert-deftest test-shadow-layer--idempotency-and-commutatitivity ()
-  (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
-    (helper--add-layers
-     `(,(cfgl-layer "layer-shadow-1" :name 'layer-shadow-1)
-       ,(cfgl-layer "layer-shadow-2" :name 'layer-shadow-2)))
-    (dotimes (i 2)
-     (configuration-layer/shadow-layer 'layer-shadow-1 'layer-shadow-2))
-    (dotimes (i 2)
-      (configuration-layer/shadow-layer 'layer-shadow-2 'layer-shadow-1))
-    (should (and (equal '(layer-shadow-2)
-                        (oref (configuration-layer/get-layer 'layer-shadow-1)
-                              :shadowed-by))
-                 (equal '(layer-shadow-1)
+    (dotimes (i 3)
+      (configuration-layer/declare-shadow-relation
+       'layer-shadow-1
+       'layer-shadow-2))
+    (dotimes (i 3)
+      (configuration-layer/declare-shadow-relation
+       'layer-shadow-2
+       'layer-shadow-1))
+    (should (and (equal '(layer-shadow-1)
                         (oref (configuration-layer/get-layer 'layer-shadow-2)
-                              :shadowed-by))))))
+                              :can-shadow))
+                 (equal '(layer-shadow-2)
+                        (oref (configuration-layer/get-layer 'layer-shadow-1)
+                              :can-shadow))))))
 
-(ert-deftest test-shadow-layer--layer-1-shadows-multiple-layers ()
+(ert-deftest test-declare-shadow-relation--layer-1-shadows-multiple-layers ()
   (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
     (helper--add-layers
      `(,(cfgl-layer "layer-shadow-1" :name 'layer-shadow-1)
        ,(cfgl-layer "layer-shadow-2" :name 'layer-shadow-2)
        ,(cfgl-layer "layer-shadow-3" :name 'layer-shadow-3)))
-    (configuration-layer/shadow-layer 'layer-shadow-1 'layer-shadow-2)
-    (configuration-layer/shadow-layer 'layer-shadow-1 'layer-shadow-3)
-    (should (and (equal '(layer-shadow-1)
-                        (oref (configuration-layer/get-layer 'layer-shadow-2)
-                              :shadowed-by))
-                 (equal '(layer-shadow-1)
-                        (oref (configuration-layer/get-layer 'layer-shadow-3)
-                              :shadowed-by))))))
+    (configuration-layer/declare-shadow-relation
+     'layer-shadow-1
+     'layer-shadow-2
+     'layer-shadow-3)
+    (should (equal '(layer-shadow-1)
+                   (oref (configuration-layer/get-layer 'layer-shadow-2)
+                         :can-shadow)))
+    (should (equal '(layer-shadow-1)
+                   (oref (configuration-layer/get-layer 'layer-shadow-3)
+                         :can-shadow)))
+    (should (equal '(layer-shadow-3 layer-shadow-2)
+                   (oref (configuration-layer/get-layer 'layer-shadow-1)
+                         :can-shadow)))))
 
-(ert-deftest test-shadow-layer--unknown-layer-shadows-existing-layer ()
+(ert-deftest test-declare-shadow-relation--unknown-layer-shadows-known-layer ()
   (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
     (helper--add-layers
      `(,(cfgl-layer "layer-shadow-2" :name 'layer-shadow-2)))
@@ -1129,11 +1119,14 @@
      ((configuration-layer//warning
        (msg &rest args)
        ((:record-cls 'mocker-stub-record :output nil :occur 1))))
-     (configuration-layer/shadow-layer 'layer-shadow-1 'layer-shadow-2)
-     (should (null (oref (configuration-layer/get-layer 'layer-shadow-2)
-                         :shadowed-by))))))
+     (configuration-layer/declare-shadow-relation
+      'layer-shadow-1
+      'layer-shadow-2)
+     (should (eq 'unspecified
+                 (oref (configuration-layer/get-layer 'layer-shadow-2)
+                       :can-shadow))))))
 
-(ert-deftest test-shadow-layer--existing-layer-shadows-non-existing-layer ()
+(ert-deftest test-declare-shadow-relation--known-layer-shadows-unknown-layer ()
   (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
     (helper--add-layers
      `(,(cfgl-layer "layer-shadow-1" :name 'layer-shadow-1)))
@@ -1141,15 +1134,15 @@
      ((configuration-layer//warning
        (msg &rest args)
        ((:record-cls 'mocker-stub-record :output nil :occur 1))))
-     (configuration-layer/shadow-layer 'layer-shadow-1 'layer-shadow-2))))
+     (configuration-layer/declare-shadow-relation 'layer-shadow-1 'layer-shadow-2))))
 
-(ert-deftest test-shadow-layer--unknown-layer-shadows-unknown-layer ()
+(ert-deftest test-declare-shadow-relation--unknown-layer-shadows-unknown-layer ()
   (let ((configuration-layer--indexed-layers (make-hash-table :size 1024)))
     (mocker-let
      ((configuration-layer//warning
        (msg &rest args)
        ((:record-cls 'mocker-stub-record :output nil :occur 2))))
-     (configuration-layer/shadow-layer 'layer-shadow-1 'layer-shadow-2))))
+     (configuration-layer/declare-shadow-relation 'layer-shadow-1 'layer-shadow-2))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//set-layers-variables
