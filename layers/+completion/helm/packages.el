@@ -709,10 +709,13 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
   ;;  Restore popwin-mode after a Helm session finishes.
   (add-hook 'helm-cleanup-hook #'spacemacs//helm-restore-display))
 
+(defun helm/pre-init-persp-mode ()
+  (spacemacs|use-package-add-hook persp-mode
+    :post-config
+    (setq
+     spacemacs--persp-display-buffers-func 'spacemacs/persp-helm-mini
+     spacemacs--persp-display-perspectives-func 'spacemacs/helm-perspectives)))
+
 (defun helm/post-init-projectile ()
   (setq projectile-completion-system 'helm))
 
-(defun helm/post-init-persp-mode ()
-  (spacemacs/transient-state-register-add-bindings 'layouts
-    '(("b" spacemacs/persp-helm-mini :exit t)
-      ("l" spacemacs/helm-perspectives :exit t))))

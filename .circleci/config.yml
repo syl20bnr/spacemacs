@@ -50,6 +50,15 @@ references:
             ./.circleci/test layers/+distribution/spacemacs func_tests
 
 jobs:
+  "Validate PR":
+    docker:
+      - image: jare/spacemacs-circleci:latest
+    working_directory: ~/.emacs.d
+    steps:
+      - checkout
+      - run:
+          name: Make sure that this isn't a PR to master
+          command: ./.circleci/PR_base
   # Emacs 24
   "core Emacs24 (required)":
     docker:
@@ -57,17 +66,17 @@ jobs:
     working_directory: ~/.emacs.d
     <<: *steps_core_steps
 
-  "spacemacs-base Emacs24 (required)":
+  "spacemacs-base dist. Emacs24 (required)":
     docker:
       - image: jare/spacemacs-circleci:emacs24
     working_directory: ~/.emacs.d
     <<: *spacemacs_base_steps
 
-  "spacemacs Emacs24 (required)":
-   docker:
-     - image: jare/spacemacs-circleci:emacs24
-   working_directory: ~/.emacs.d
-   <<: *spacemacs_steps
+  "spacemacs dist. Emacs24 (required)":
+    docker:
+      - image: jare/spacemacs-circleci:emacs24
+    working_directory: ~/.emacs.d
+    <<: *spacemacs_steps
 
   # Emacs 25
   "core Emacs25 (required)":
@@ -76,34 +85,34 @@ jobs:
     working_directory: ~/.emacs.d
     <<: *steps_core_steps
 
-  "spacemacs-base Emacs25 (required)":
+  "spacemacs-base dist. Emacs25 (required)":
     docker:
       - image: jare/spacemacs-circleci:emacs25
     working_directory: ~/.emacs.d
     <<: *spacemacs_base_steps
 
-  "spacemacs Emacs25 (required)":
+  "spacemacs dist. Emacs25 (required)":
     docker:
       - image: jare/spacemacs-circleci:emacs25
     working_directory: ~/.emacs.d
     <<: *spacemacs_steps
 
-  # Emacs 26
-  "core Emacs26 (required)":
+  # Emacs snapshot
+  "core Emacs snapshot (optional)":
     docker:
-      - image: jare/spacemacs-circleci:emacs26
+      - image: jare/spacemacs-circleci:emacs-snapshot
     working_directory: ~/.emacs.d
     <<: *steps_core_steps
 
-  "spacemacs-base Emacs26 (required)":
+  "spacemacs-base dist. Emacs snapshot (optional)":
     docker:
-      - image: jare/spacemacs-circleci:emacs26
+      - image: jare/spacemacs-circleci:emacs-snapshot
     working_directory: ~/.emacs.d
     <<: *spacemacs_base_steps
 
-  "spacemacs Emacs26 (required)":
+  "spacemacs dist. Emacs snapshot (optional)":
     docker:
-      - image: jare/spacemacs-circleci:emacs26
+      - image: jare/spacemacs-circleci:emacs-snapshot
     working_directory: ~/.emacs.d
     <<: *spacemacs_steps
 
@@ -122,13 +131,34 @@ workflows:
   version: 2
   build:
     jobs:
-      - "core Emacs24 (required)"
-#      - "spacemacs-base Emacs24 (required)"
-#      - "spacemacs Emacs24 (required)"
-      - "core Emacs25 (required)"
-#      - "spacemacs-base Emacs25 (required)"
-#      - "spacemacs Emacs25 (required)"
-      - "core Emacs26 (required)"
-#      - "spacemacs-base Emacs26 (required)"
-#      - "spacemacs Emacs26 (required)"
-      - "Formatting (optional)"
+      - "Validate PR"
+      - "core Emacs24 (required)":
+          requires:
+            - "Validate PR"
+#      - "spacemacs-base dist. Emacs24 (required)":
+#          requires:
+#            - "Validate PR"
+#      - "spacemacs dist. Emacs24 (required)":
+#          requires:
+#            - "Validate PR"
+      - "core Emacs25 (required)":
+          requires:
+            - "Validate PR"
+#      - "spacemacs-base dist. Emacs25 (required)":
+#          requires:
+#            - "Validate PR"
+#      - "spacemacs dist. Emacs25 (required)":
+#          requires:
+#            - "Validate PR"
+      - "core Emacs snapshot (optional)":
+          requires:
+            - "Validate PR"
+#      - "spacemacs-base dist. Emacs snapshot (optional)":
+#          requires:
+#            - "Validate PR"
+#      - "spacemacs dist. Emacs snapshot (optional)":
+#          requires:
+#            - "Validate PR"
+      - "Formatting (optional)":
+          requires:
+            - "Validate PR"
