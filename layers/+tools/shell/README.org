@@ -160,7 +160,7 @@ Finally you may need to toggle truncated lines for some prompts to work
 correctly, in the function =dotspacemacs/user-config= of your dotfile add:
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'term-mode-hook 'toggle-truncate-lines)
+(add-hook 'term-mode-hook 'spacemacs/toggle-truncate-lines-on)
 #+END_SRC
 
 * Eshell
