@@ -68,7 +68,7 @@ Cancels autosave on exiting perspectives mode."
 
 (defvar spacemacs--persp-display-perspectives-func 'ignore
   "Function to display perspectives.")
-(defun spacemacs/persp-buffers ()
+(defun spacemacs/persp-perspectives ()
   "Call the function defined in `spacemacs--persp-display-perspectives-func'"
   (interactive)
   (call-interactively spacemacs--persp-display-perspectives-func))

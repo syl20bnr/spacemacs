@@ -193,7 +193,7 @@
         ("D" spacemacs/layouts-ts-close-other :exit t)
         ("h" spacemacs/layout-goto-default :exit t)
         ("L" persp-load-state-from-file :exit t)
-        ("l" spacemacs/persp-buffers :exit t)
+        ("l" spacemacs/persp-perspectives :exit t)
         ("n" persp-next)
         ("N" persp-prev)
         ("o" spacemacs/select-custom-layout :exit t)
