@@ -316,6 +316,12 @@ Will work on both org-mode and any mode that accepts plain html."
         (kbd (concat dotspacemacs-major-mode-emacs-leader-key " '"))
         'org-edit-src-exit)
 
+      ;; In graphical mode, the default value for
+      ;; `dotspacemacs-major-mode-emacs-leader-key', "C-M-m", will
+      ;; override org-mode's binding for "M-RET".
+      (when (display-graphic-p)
+        (define-key org-mode-map (kbd "M-<return>") 'org-meta-return))
+
       ;; Evilify the calendar tool on C-c .
       (unless (eq 'emacs dotspacemacs-editing-style)
         (define-key org-read-date-minibuffer-local-map (kbd "M-h")
