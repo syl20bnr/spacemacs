@@ -85,9 +85,9 @@ packages supported by Spacemacs and never uninstalls them.")
 with a supported type is opened). Possible values are `all', `unused' and `nil'.
 `unused' will lazy install only unused layers (i.e. layers not listed in
 variable `dotspacemacs-configuration-layers'), `all' will lazy install any layer
-that support lazy installation even the layers listed in
-`dotspacemacs-configuration-layers'. `nil' disable the lazy installation feature
-and you have to explicitly list a layer in the variable
+that supports lazy installation, even layers listed in
+`dotspacemacs-configuration-layers'. `nil' disables the lazy installation
+feature and will have you explicitly list a layer in the variable
 `dotspacemacs-configuration-layers' to install it.")
 
 (defvar dotspacemacs-ask-for-lazy-installation t
