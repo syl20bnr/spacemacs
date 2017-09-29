@@ -148,7 +148,17 @@
     (spacemacs/set-leader-keys (format "b%i" n)
       (intern (format "buffer-to-window-%s" n)))))
 ;; Cycling settings -----------------------------------------------------------
+(spacemacs|define-transient-state theme
+  :title "Themes Transient State"
+  :doc "\n[_p_/_<left>_] cycles backward,  [_n_/_<right>_] cycles forward, [_<up>_] helm-themes"
+  :bindings
+  ("n" spacemacs/cycle-spacemacs-theme)
+  ("p" (spacemacs/cycle-spacemacs-theme t))
+  ("<up>" helm-themes)
+  ("<left>" (spacemacs/cycle-spacemacs-theme t))
+  ("<right>" spacemacs/cycle-spacemacs-theme))
 (spacemacs/set-leader-keys "Tn" 'spacemacs/cycle-spacemacs-theme)
+(spacemacs/set-leader-keys "TN" 'spacemacs/theme-transient-state/body)
 ;; errors ---------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "en" 'spacemacs/next-error
