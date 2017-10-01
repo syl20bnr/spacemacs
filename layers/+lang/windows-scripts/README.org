@@ -4,18 +4,19 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key Bindings]]
-  - [[#powershell][Powershell]]
+  - [[#powershell-powershellel][Powershell (powershell.el)]]
   - [[#batch-dosel][Batch (dos.el)]]
 
 * Description
 This simple layer adds support for the Powershell scripting language as well
 as support for batch files.
 
-Supported windows scription extensions:
-- =.ps1=: [[https://github.com/jschaf/powershell.el][powershell]]
-- =.bat=: [[http://www.emacswiki.org/emacs/dos.el][dos.el]]
+** Features:
+- Syntax highlighting of powershell =.ps1= files via [[https://github.com/jschaf/powershell.el][powershell.el]]
+- Syntax highlighting of batch =.bat= files via [[http://www.emacswiki.org/emacs/dos.el][dos.el]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -23,8 +24,11 @@ add =windows-scripts= to the existing =dotspacemacs-configuration-layers= list i
 file.
 
 * Key Bindings
-** Powershell
-No useful bindings.
+** Powershell (powershell.el)
+
+| Key Binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC m r r~ | Transform marked regexp to regex |
 
 ** Batch (dos.el)
 
