@@ -1,0 +1,12 @@
+#+TITLE: Kotlin layer
+
+[[file:img/kotlin.png]]
+
+* Description
+This layer provides support for [[https://kotlinlang.org/][Kotlin]].
+It uses the following packages:
+- [[https://github.com/Emacs-Kotlin-Mode-Maintainers/kotlin-mode][kotlin-mode]]
+
+* Installation
+Add this layer to your =~/.spacemacs=.
+You will need to add =kotlin= to the existing =dotspacemacs-configuration-layers= list in this file.
