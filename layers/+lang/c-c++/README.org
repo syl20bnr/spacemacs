@@ -131,16 +131,18 @@ build your project with ~SPC c c~ key binding.
 
 | Key Binding | Description                                                             |
 |-------------+-------------------------------------------------------------------------|
-| ~SPC m g a~ | open matching file (e.g. switch between .cpp and .h)                    |
-| ~SPC m g A~ | open matching file in another window (e.g. switch between .cpp and .h)  |
+| ~SPC m g a~ | open matching file                                                      |
+|             | (e.g. switch between .cpp and .h, requires a project to work)           |
+| ~SPC m g A~ | open matching file in another window                                    |
+|             | (e.g. switch between .cpp and .h, requires a project to work)           |
 | ~SPC m D~   | disaster: disassemble c/c++ code                                        |
 | ~SPC m r~   | srefactor: refactor thing at point.                                     |
-| ~SPC m p c~ | Run CMake and set compiler flags for auto-completionand flycheck        |
+| ~SPC m p c~ | Run CMake and set compiler flags for auto-completion and flycheck       |
 | ~SPC m p C~ | Run CMake if compilation database JSON file is not found                |
 | ~SPC m p d~ | Remove file connected to current buffer and kill buffer, then run CMake |
 | ~SPC m c c~ | Compile project                                                         |
 
-*Note:*  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+
+*Note:*  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+.
 
 ** Debugger (realgud)
 
