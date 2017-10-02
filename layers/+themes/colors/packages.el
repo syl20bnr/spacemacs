@@ -9,15 +9,14 @@
 ;;
 ;;; License: GPLv3
 
-(setq colors-packages
-  '(
-    ;; not working well for now
-    ;; rainbow-blocks
-    (nyan-mode :location local)
-    color-identifiers-mode
-    rainbow-identifiers
-    rainbow-mode
-    ))
+(setq colors-packages '(
+                        ;; not working well for now
+                        ;; rainbow-blocks
+                        nyan-mode
+                        color-identifiers-mode
+                        rainbow-identifiers
+                        rainbow-mode
+                        ))
 
 ;; (defun colors/init-rainbow-blocks ()
 ;;   (use-package rainbow-blocks
