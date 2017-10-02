@@ -37,7 +37,13 @@
         "ggB" 'gist-buffer-private
         "ggl" 'gist-list
         "ggr" 'gist-region
-        "ggR" 'gist-region-private))))
+        "ggR" 'gist-region-private))
+    :config
+    (progn
+      (evilified-state-evilify-map gist-list-mode-map
+        :mode gist-list-mode
+        :bindings
+        (kbd "gr") 'gist-list-reload))))
 
 (defun github/init-github-clone ()
   (use-package github-clone
