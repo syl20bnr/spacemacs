@@ -24,6 +24,7 @@
         helm-gtags
         (ielm :location built-in)
         macrostep
+        nameless
         overseer
         parinfer
         semantic
@@ -176,6 +177,17 @@
         ("q" macrostep-collapse-all :exit t))
       (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
         "dm" 'spacemacs/macrostep-transient-state/body))))
+
+(defun emacs-lisp/init-nameless ()
+  (use-package nameless
+    :defer t
+    :init (progn
+            (add-hook 'emacs-lisp-mode-hook 'nameless-mode-from-hook)
+            (spacemacs|add-toggle nameless
+              :status nameless-mode
+              :on (nameless-mode)
+              :off (nameless-mode -1)
+              :evil-leader-for-mode (emacs-lisp-mode . ":")))))
 
 (defun emacs-lisp/init-overseer ()
   (use-package overseer
