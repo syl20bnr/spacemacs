@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#philosophy][Philosophy]]
 - [[#install][Install]]
   - [[#layer][Layer]]
@@ -15,10 +16,11 @@
 
 * Description
 Spacemacs is not just emacs+vim. It can have OSX keybindings too! This layer
-globally defines common OSX keybindings. ~⌘~ is set to ~hyper~ and ~⌥~ is set to
-~meta~. Aside from that, there's nothing much, really.
+globally defines common OSX keybindings.
 
-While in =dired= this layer will try to use =gls= instead of =ls=.
+** Features:
+  - ~⌘~ is set to ~hyper~ and ~⌥~ is set to ~meta~
+  - In =dired= use =gls= instead of =ls=
 
 * Philosophy
 While this layer enables common OSX bindings, it does not implement OSX
