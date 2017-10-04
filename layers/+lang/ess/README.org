@@ -44,11 +44,10 @@ Send code to inferior process with these commands:
 ** Helpers
 Helpers for inspecting objects at point are available in R buffers only.
 
-| Key Binding | Description                                                         |
-|-------------+---------------------------------------------------------------------|
-| ~SPC m h d~ | view data under point using [ess-R-data-view][ess-R-data-view]      |
-| ~SPC m h i~ | object introspection popup [ess-R-object-popup][ess-R-object-popup] |
-| ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]                 |
+| Key Binding | Description                                                    |
+|-------------+----------------------------------------------------------------|
+| ~SPC m h d~ | view data under point using [ess-R-data-view][ess-R-data-view] |
+| ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]            |
 
 * Options
 =ess-smart-equals= is disabled by default. In order to enable it, set in your
