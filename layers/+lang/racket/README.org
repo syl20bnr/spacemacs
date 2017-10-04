@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key Bindings]]
   - [[#navigation][Navigation]]
@@ -14,6 +15,12 @@
 
 * Description
 Adds support for the [[http://racket-lang.org/][Racket]] programming language.
+
+** Features:
+   - Syntax highlighting with =racket-mode=
+   - Test runner
+   - Interactive REPL
+   - Code navigation with =gtags=
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

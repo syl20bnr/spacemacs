@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#games-instructions][Games instructions]]
   - [[#2048][2048]]
@@ -16,12 +17,12 @@
 * Description
 This layer allows you to play evilified games in spacemacs.
 
-The games available now are:
-- 2048-game
-- Pacmacs (Pacman for Emacs)
-- Sudoku
-- Tetris
-- Typit
+** Features:
+  - 2048-game
+  - Pacmacs (Pacman for Emacs)
+  - Sudoku
+  - Tetris
+  - Typit
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
