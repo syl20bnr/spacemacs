@@ -529,7 +529,9 @@ are listed bellow.
 | Date        |                     |                                   |
 |-------------+---------------------+-----------------------------------|
 | ~ds~        | schedule            | org-agenda-schedule               |
+| ~dS~        | un-schedule         | org-agenda-schedule               |
 | ~dd~        | set deadline        | org-agenda-deadline               |
+| ~dD~        | remove deadline     | org-agenda-deadline               |
 | ~dt~        | timestamp           | org-agenda-date-prompt            |
 | ~+~         | do later            | org-agenda-do-date-later          |
 | ~-~         | do earlier          | org-agenda-do-date-earlier        |
