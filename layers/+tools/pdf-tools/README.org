@@ -4,6 +4,7 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#prerequisites][Prerequisites]]
   - [[#dotfile][Dotfile]]
@@ -27,10 +28,11 @@ key difference is, that pages are not pre-rendered by e.g. ghostscript and
 stored in the file-system, but rather created on-demand and stored in memory."
 #+end_quote
 
-Examples of features that =pdf-tools= provides:
-- Use =occur= in the pdf file;
-- Show all headings in a outline buffer;
+** Features:
+- Searching and slicing with =occur=.
+- Show document headings in outline buffer.
 - Manipulate annotations.
+- Fit PDF to screen.
 
 * Install
 ** Prerequisites
