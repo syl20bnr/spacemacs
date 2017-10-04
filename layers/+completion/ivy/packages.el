@@ -215,7 +215,7 @@
   (define-key hydra-ivy/keymap [escape] 'hydra-ivy/keyboard-escape-quit-and-exit))
 
 (defun ivy/pre-init-persp-mode ()
-  (spacemacs|use-package-add-hook presp-mode
+  (spacemacs|use-package-add-hook persp-mode
     :post-config
     (setq
      spacemacs--persp-display-buffers-func 'spacemacs/ivy-spacemacs-layout-buffer

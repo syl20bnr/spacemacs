@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#colorize-identifiers][Colorize identifiers]]
@@ -14,13 +15,16 @@
   - [[#nyan-mode][Nyan Mode]]
 
 * Description
-This layer colors your life with the help of the following packages:
-- [[https://github.com/Fanael/rainbow-identifiers][rainbow-identifiers]] mode will colorize all identifiers (christmas tree mode :-))
-  with mostly unique colors, and the ability to choose saturation and lightness.
-- [[https://github.com/ankurdave/color-identifiers-mode][color-identifiers]] mode will colorize only identifiers recognized as variables.
-- [[https://julien.danjou.info/projects/emacs-packages][rainbow-mode]] displays strings representing colors with the color they
-  represent as background.
-- [[https://github.com/syl20bnr/nyan-mode][nyan-mode]] display a Nyan cat progress bar in the mode-line.
+This layer colors your life by enhancing the existing coloration of identifiers as well as providing you with a more colorful
+process indicator.
+
+** Features:
+- Colorize all identifiers (christmas tree mode :-)) with mostly unique colors, and the ability to choose saturation and lightness
+  with [[https://github.com/Fanael/rainbow-identifiers][rainbow-identifiers]].
+- Colorize only identifiers recognized as variables with [[https://github.com/ankurdave/color-identifiers-mode][color-identifiers]].
+- Colorize strings representing colors with the color they represent as background with
+  [[https://julien.danjou.info/projects/emacs-packages][rainbow-mode]].
+- Display a Nyan cat progress bar in the mode-line with [[https://github.com/syl20bnr/nyan-mode][nyan-mode]].
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

@@ -60,15 +60,15 @@ Cancels autosave on exiting perspectives mode."
 ;; Persp transient-state
 
 (defvar spacemacs--persp-display-buffers-func 'ignore
-  "Function to display buffers in the prespective.")
-(defun spacemacs/presp-buffers ()
+  "Function to display buffers in the perspective.")
+(defun spacemacs/persp-buffers ()
   "Call the function defined in `spacemacs--persp-display-buffers-func'"
   (interactive)
   (call-interactively spacemacs--persp-display-buffers-func))
 
 (defvar spacemacs--persp-display-perspectives-func 'ignore
   "Function to display perspectives.")
-(defun spacemacs/presp-buffers ()
+(defun spacemacs/persp-perspectives ()
   "Call the function defined in `spacemacs--persp-display-perspectives-func'"
   (interactive)
   (call-interactively spacemacs--persp-display-perspectives-func))
