@@ -13,7 +13,6 @@
       '(
         ess
         ess-R-data-view
-        ess-R-object-popup
         (ess-smart-equals :toggle ess-enable-smart-equals)
         golden-ratio
         org))
