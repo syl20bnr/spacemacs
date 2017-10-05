@@ -449,4 +449,8 @@ debug-init and load the given list of packages."
              ;; causing an error message. the error is eliminated by
              ;; assigning 0 only to the top-left window
              (eq (selected-window) (frame-first-window)))
-    0))
+    0)
+  (when (and (fboundp #'treemacs--is-treemacs-window-selected?)
+             (treemacs--is-treemacs-window-selected?)
+             (eq (selected-window) (frame-first-window)))
+    10))
