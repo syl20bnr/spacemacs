@@ -8,13 +8,17 @@
 - [[#configuration][Configuration]]
   - [[#set-file-permission-on-save][Set file permission on save]]
   - [[#indendation][Indendation]]
+  - [[#cfengine3-src-blocks-in-org-mode][=cfengine3= =SRC= blocks in =org-mode=]]
+- [[#execution-of-cfengine3-src-blocks][Execution of =cfengine3= =SRC= blocks]]
 - [[#key-bindings][Key bindings]]
 
 * Description
 This layer makes working with CFEngine policy easier:
+
 - Syntax highlighting
 - On the fly syntax checks (via =syntax-checking= layer)
 - Auto completion (via =auto-completion= layer)
+- Execution of =cfengine3= =SRC= blocks in =org-mode= (via ob-cfengine3 package)
 
 * Install
 Add =cfengine= to the =dotspacemacs-configuration-layers= in your =~/.spacemacs=
@@ -28,13 +32,13 @@ errors like:
 =File ./example.cf (owner 1000) is writable by others (security exception)=
 
 #+BEGIN_SRC elisp
-(defun cfengine-permissions-policy-owner-only ()
-  "If file starts with a shebang, make `buffer-file-name' executable"
-  (save-excursion
-    (set-file-modes buffer-file-name #o600)
-    (message (concat "Made " buffer-file-name " accessibly only by the owner (600)."))))
+  (defun cfengine-permissions-policy-owner-only ()
+    "If file starts with a shebang, make `buffer-file-name' executable"
+    (save-excursion
+      (set-file-modes buffer-file-name #o600)
+      (message (concat "Made " buffer-file-name " accessibly only by the owner (600)."))))
 
-(add-hook 'after-save-hook 'cfengine-permissions-policy-owner-only nil 'make-it-local)
+  (add-hook 'after-save-hook 'cfengine-permissions-policy-owner-only nil 'make-it-local)
 #+END_SRC
 
 ** Indendation
@@ -51,6 +55,77 @@ from anchor= to =2=. For example:
           comment => "Indented 2 spaces from promiser";
   }
 #+end_src
+
+** =cfengine3= =SRC= blocks in =org-mode=
+Add cfengine to the list of languages loaded by org-babel.
+
+#+BEGIN_SRC elisp
+  (defun dotspacemacs/user-config ()
+
+    (with-eval-after-load 'org
+
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '(
+         (cfengine . t)))
+      )
+    )
+#+END_SRC
+
+Alternatively configure org-mode to load support for any languages encountered
+automatically.
+
+#+BEGIN_SRC elisp
+  (defun dotspacemacs/user-config ()
+
+    (with-eval-after-load 'org
+
+      (defadvice org-babel-execute-src-block (around load-language nil activate)
+        "Load language if needed"
+        (let ((language (org-element-property :language (org-element-at-point))))
+          (unless (cdr (assoc (intern language) org-babel-load-languages))
+            (add-to-list 'org-babel-load-languages (cons (intern language) t))
+            (org-babel-do-load-languages 'org-babel-load-languages org-babel-load-languages))
+          ad-do-it))
+      )
+    )
+#+END_SRC
+
+Enable syntax highlighting and tab stops as if you were editing in the native
+mode within SRC blocks.
+
+#+BEGIN_SRC elisp
+  (defun dotspacemacs/user-config ()
+
+    (with-eval-after-load 'org
+
+      (setq org-src-tab-acts-natively t)
+      (setq org-src-fontify-natively t)
+      )
+    )
+#+END_SRC
+
+* Execution of =cfengine3= =SRC= blocks
+With the insertion point inside the SRC block press ~,,~ or ~CTRL-c Ctrl-c~
+
+#+BEGIN_SRC cfengine3 :exports both
+  bundle agent main
+  {
+    reports:
+
+        "Hello World!";
+  }
+#+END_SRC
+
+#+RESULTS:
+: R: Hello World!
+
+See the ob-cfengine3 [[https://github.com/nickanderson/ob-cfengine3/blob/master/README.org][README]] for information on controlling inclusion of the
+stdlib, definition of classes and controlling the =bundlesequence= using header
+args.
+
+To suppress the confirmation when executing a block set
+=(setq org-confirm-babel-evaluate nil)= in =dotspacemacs/user-config()=.
 
 * Key bindings
 
