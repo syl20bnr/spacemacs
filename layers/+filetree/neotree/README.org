@@ -6,10 +6,9 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-  - [[#layer][Layer]]
-  - [[#configuration][Configuration]]
-    - [[#neotree-theme][NeoTree Theme]]
-    - [[#neotree-source-control-integration][NeoTree Source Control Integration]]
+- [[#configuration][Configuration]]
+  - [[#neotree-theme][NeoTree Theme]]
+  - [[#neotree-source-control-integration][NeoTree Source Control Integration]]
 - [[#usage][Usage]]
   - [[#neotree-mode-line][NeoTree mode-line]]
 - [[#key-bindings][Key Bindings]]
@@ -34,13 +33,12 @@ This layer setups a file tree navigator buffer using Neotree.
 - Sort imports with [[https://pypi.python.org/pypi/isort][isort]]
 
 * Install
-** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =neotree= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** Configuration
-*** NeoTree Theme
+* Configuration
+** NeoTree Theme
 You can change the NeoTree theme by using the setting =neo-theme=.  Possible
 values are:
 
@@ -60,7 +58,7 @@ Use =nerd= if you want it to look most like NERDTree in VIM.  For example:
 (setq neo-theme 'nerd)
 #+END_SRC
 
-*** NeoTree Source Control Integration
+** NeoTree Source Control Integration
 If you would like NeoTree to show source control information, you can use the
 setting =neo-vc-integration=. It is a list containing the possible values:
 

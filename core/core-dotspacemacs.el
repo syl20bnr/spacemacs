@@ -223,20 +223,6 @@ Only has effect when using the \"jump to layout by number\" commands.")
 (defvar dotspacemacs-max-rollback-slots 5
   "Maximum number of rollback slots to keep in the cache.")
 
-(defvar dotspacemacs-helm-resize nil
-  "If non nil, `helm' will try to minimize the space it uses.")
-
-(defvar dotspacemacs-helm-no-header nil
-  "if non nil, the helm header is hidden when there is only one source.")
-
-(defvar dotspacemacs-helm-position 'bottom
-  "Position in which to show the `helm' mini-buffer.")
-
-(defvar dotspacemacs-helm-use-fuzzy 'always
-  "Controls fuzzy matching in helm. If set to `always', force fuzzy matching
-  in all non-asynchronous sources. If set to `source', preserve individual
-  source settings. Else, disable fuzzy matching in all sources.")
-
 (defvar dotspacemacs-large-file-size 1
   "Size (in MB) above which spacemacs will prompt to open the large file
 literally to avoid performance issues. Opening a file literally means that
