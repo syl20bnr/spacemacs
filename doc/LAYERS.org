@@ -21,6 +21,7 @@
 - [[#case-study-auto-completion][Case study: auto-completion]]
 - [[#layer-tips-and-tricks][Layer tips and tricks]]
   - [[#cross-dependencies][Cross-dependencies]]
+  - [[#shadowing][Shadowing]]
   - [[#use-package-init-and-config][Use-package init and config]]
   - [[#use-package-hooks][Use-package hooks]]
   - [[#best-practices][Best practices]]
@@ -488,6 +489,52 @@ For layers that require another layers to be enabled, use the functions
 =configuration-layer/declare-layer= and =configuration-layer/declare-layers= to
 ensure that layers are enabled even if the user has not enabled them explicitly.
 Calls to these functions must go in the =layers.el= file.
+
+** Shadowing
+Shadowing is the operation of replacing a used layer by another one. For
+instance if a used layer A can shadow a used layer B and the layer A is listed
+after the layer B in the dotfile then the layer A replaces the layer B and it is
+like only the layer A is being used.
+
+Examples of fhis mechanism are helm/ivy layers or neotree/treemacs layers.
+
+A layer can shadow other layers by calling in its =config.el= file the function
+=configuration-layer/declare-shadow-relation=. This function declares a
+=can-shadow= relation between all the layers.
+
+=can-shadow= is a commutative relation, if layer A can shadow layer B then layer
+B can shadow layer A.
+
+The =shadow= operator is a binary operator accepting two layer names, it is not
+commutative and the order of the operands is determined by the order of the
+layers in the dotfile (like the ownership stealing mechanism).
+
+If =:can-shadow= property is set explicity to =nil= in the dotfile then the
+layer won't shadow any layer.
+
+For instance to install both ivy and helm layer:
+
+#+BEGIN_EXAMPLE emacs-lisp
+(setq dotspacemacs-configuration-layers
+ '(
+   ivy
+   (helm :can-shadow nil)
+   )
+#+END_EXAMPLE
+
+note that due to the commutative relation =can-shadow= the above example can
+also be written like this (in this case, =:can-shadow= should be read
+=:can-be-shawdowed=):
+
+#+BEGIN_EXAMPLE emacs-lisp
+(setq dotspacemacs-configuration-layers
+'(
+  (ivy :can-shadow nil)
+  helm
+  )
+#+END_EXAMPLE
+
+We will prefer the first form as it is more intuitive.
 
 ** Use-package init and config
 In the vast majority of cases, a package =init= function should do nothing but
