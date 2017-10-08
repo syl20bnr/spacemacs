@@ -19,7 +19,8 @@
 (defun treemacs/pre-init-golden-ratio ()
   (spacemacs|use-package-add-hook golden-ratio
     :post-config
-    (add-to-list 'golden-ratio-exclude-buffer-regexp (rx "*Treemacs" (0+ any)))))
+    (add-to-list 'golden-ratio-exclude-buffer-regexp
+                 (rx "*Treemacs" (0+ any)))))
 
 (defun treemacs/init-treemacs ()
   (use-package treemacs
@@ -33,19 +34,19 @@
       "f C-t" #'treemacs-find-file)
     :config
     (progn
-      (setq treemacs-follow-after-init          t
-            treemacs-width                      35
-            treemacs-position                   'left
-            treemacs-is-never-other-window      nil
-            treemacs-silent-refresh             nil
-            treemacs-indentation                2
-            treemacs-git-integration            t
+      (setq treemacs-follow-after-init t
+            treemacs-width 35
+            treemacs-position 'left
+            treemacs-is-never-other-window nil
+            treemacs-silent-refresh nil
+            treemacs-indentation 2
+            treemacs-git-integration t
             treemacs-change-root-without-asking nil
-            treemacs-sorting                    'alphabetic-desc
-            treemacs-show-hidden-files          t
-            treemacs-never-persist              nil
-            treemacs-goto-tag-strategy          'refetch-index
-            treemacs-collapse-dirs              treemacs-use-collapsed-directories)
+            treemacs-sorting 'alphabetic-desc
+            treemacs-show-hidden-files t
+            treemacs-never-persist nil
+            treemacs-goto-tag-strategy 'refetch-index
+            treemacs-collapse-dirs treemacs-use-collapsed-directories)
 
       (when treemacs-use-follow-mode
         (treemacs-follow-mode t))
