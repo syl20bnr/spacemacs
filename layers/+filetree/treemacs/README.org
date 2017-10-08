@@ -22,14 +22,17 @@ explorer:
 An detailed overview over Treemacs' available features is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][its
 readme]]. In a short summary Treemacs offers the following:
 
- * Simple and powerful navigation and ability to detail exactly how and where a file should be opened
- * Good looking png icons.
- * Ability to show tags contained in files. Tags are provided by imenu, so nearly every filetype is supported.
- * Optionally fontifying files based on their git status.
- * Optionally collapsing single-dir-child directories into one.
- * Doing both asynchronously for an imperceptible performance cost.
- * Optional follow-mode to automatically focus the currently selected file.
- * Optional filewatch-mode to automatically refresh the view after (and only after) changes to the shown filesystem.
+- Simple and powerful navigation and ability to detail exactly how and where a
+  file should be opened
+- Good looking png icons.
+- Ability to show tags contained in files. Tags are provided by imenu, so
+  nearly every filetype is supported.
+- Optionally fontifying files based on their git status.
+- Optionally collapsing single-dir-child directories into one.
+- Doing both asynchronously for an imperceptible performance cost.
+- Optional =follow-mode= to automatically focus the currently selected file.
+- Optional =filewatch-mode= to automatically refresh the view after (and only
+  after) changes to the shown filesystem.
 
 * Install
 To use this layer, add =treemacs= to the existing

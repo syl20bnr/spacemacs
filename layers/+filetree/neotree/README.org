@@ -20,17 +20,10 @@
 This layer setups a file tree navigator buffer using Neotree.
 
 ** Features:
-- Auto-completion using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]
-- Code Navigation using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]
-- Documentation Lookup using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]  and [[https://github.com/tsgates/pylookup][pylookup]]
-- Test Runners using [[https://github.com/syl20bnr/nose.el][nose.el]] or [[https://github.com/ionrock/pytest-el][pytest]]
-- Virtual Environment using  [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]]
-- semantic mode is enabled
-- PEP8 compliant formatting via [[https://github.com/google/yapf][YAPF]]
-- PEP8 checks with [[https://pypi.python.org/pypi/flake8][flake8]] or [[https://pypi.python.org/pypi/pylint/1.6.4][pylint]]
-- Suppression of unused import with [[https://github.com/myint/autoflake][autoflake]]
-- Use the ~%~ key to jump between blocks with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
-- Sort imports with [[https://pypi.python.org/pypi/isort][isort]]
+- intuitive evil key-bindings integration
+- supports multiple themes
+- transient state by pressing on ~?~
+- version-control integration
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
