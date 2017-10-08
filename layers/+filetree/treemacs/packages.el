@@ -23,6 +23,7 @@
 
 (defun treemacs/init-treemacs ()
   (use-package treemacs
+    :commands treemacs--window-number-ten
     :defer t
     :init
     (spacemacs/set-leader-keys
