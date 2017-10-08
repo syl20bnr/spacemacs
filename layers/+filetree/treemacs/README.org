@@ -1,5 +1,7 @@
 #+TITLE: Treemacs layer
 
+[[file:img/treemacs.png]]
+
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
@@ -11,9 +13,6 @@
 
 * Description
 This layer brings in [[https://github.com/Alexander-Miller/treemacs][Treemacs]] to replace Neotree as the default file and project explorer:
-
-[[file:img/treemacs.png]]
-
 ** Features:
 An detailed overview over Treemacs' available features is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][its readme]]. In a short summary Treemacs offers
 the following:

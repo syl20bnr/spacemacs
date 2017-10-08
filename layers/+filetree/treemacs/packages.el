@@ -10,34 +10,16 @@
 ;;; License: GPLv3
 
 (defconst treemacs-packages
-  '(treemacs
-    treemacs-projectile
+  '(golden-ratio
+    treemacs
     (treemacs-evil :toggle (memq dotspacemacs-editing-style '(vim hybrid)))
-    golden-ratio
+    treemacs-projectile
     winum))
 
 (defun treemacs/pre-init-golden-ratio ()
   (spacemacs|use-package-add-hook golden-ratio
     :post-config
     (add-to-list 'golden-ratio-exclude-buffer-regexp (rx "*Treemacs" (0+ any)))))
-
-(defun treemacs/post-init-winum ()
-  (spacemacs|use-package-add-hook winum
-    :post-config
-    (setq winum-assign-func #'treemacs--window-number-ten)))
-
-(defun treemacs/init-treemacs-projectile ()
-  (use-package treemacs-projectile
-    :defer t
-    :init
-    (spacemacs/set-leader-keys
-      "fp" #'treemacs-projectile-toggle
-      "fP" #'treemacs-projectile)))
-
-(defun treemacs/init-treemacs-evil ()
-  (use-package treemacs-evil
-    :after treemacs
-    :if (memq dotspacemacs-editing-style '(vim hybrid))))
 
 (defun treemacs/init-treemacs ()
   (use-package treemacs
@@ -69,3 +51,21 @@
 
       (when treemacs-use-filewatch-mode
         (treemacs-filewatch-mode t)))))
+
+(defun treemacs/init-treemacs-evil ()
+  (use-package treemacs-evil
+    :after treemacs
+    :if (memq dotspacemacs-editing-style '(vim hybrid))))
+
+(defun treemacs/init-treemacs-projectile ()
+  (use-package treemacs-projectile
+    :defer t
+    :init
+    (spacemacs/set-leader-keys
+      "fp" #'treemacs-projectile-toggle
+      "fP" #'treemacs-projectile)))
+
+(defun treemacs/pre-init-winum ()
+  (spacemacs|use-package-add-hook winum
+    :post-config
+    (setq winum-assign-func #'treemacs--window-number-ten)))
