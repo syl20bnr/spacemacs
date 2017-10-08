@@ -10,6 +10,7 @@
 ;;; License: GPLv3
 
 (configuration-layer/declare-layers '(
+                                      neotree
                                       spacemacs-base
                                       spacemacs-completion
                                       spacemacs-layouts
