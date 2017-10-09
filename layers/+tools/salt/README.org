@@ -4,16 +4,24 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
 This layer provides syntax highlighting for Saltstack files.
 
+** Features:
+- Syntax highlighting
+- Display of salt documentation
+
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =salt= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+To view documentation in Emacs or inline with ElDoc, Python and the Salt Python
+libraries must be installed on the system containing the files being edited.
 
 * Key bindings
 

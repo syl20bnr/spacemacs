@@ -29,9 +29,9 @@
         helm-display-function 'spacemacs//display-helm-window)
   (with-eval-after-load 'helm
     (spacemacs|hide-lighter helm-mode)
-    (when (and dotspacemacs-helm-resize
-               (or (eq dotspacemacs-helm-position 'bottom)
-                   (eq dotspacemacs-helm-position 'top)))
+    (when (and helm-enable-auto-resize
+               (or (eq helm-position 'bottom)
+                   (eq helm-position 'top)))
       (setq helm-autoresize-min-height 10)
       (helm-autoresize-mode 1))
     ;; setup hooks
@@ -47,7 +47,7 @@
     (add-hook 'spacemacs-editing-style-hook 'spacemacs//helm-hjkl-navigation)
     ;; setup advices
     ;; fuzzy matching for all the sourcess
-    (unless (eq dotspacemacs-helm-use-fuzzy 'source)
+    (unless (eq helm-use-fuzzy 'source)
       (advice-add 'helm-make-source :around #'spacemacs//helm-make-source))
 
     (defadvice spacemacs/post-theme-init

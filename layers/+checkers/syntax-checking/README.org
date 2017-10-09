@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#enablingdisabling-tooltips][Enabling/Disabling tooltips]]
@@ -13,6 +14,10 @@
 
 * Description
 This layer provides on the fly syntax checking using [[http://www.flycheck.org/][Flycheck]].
+
+** Features:
+   - Automatic syntax checking with [[http://www.flycheck.org/][Flycheck]]
+   - Tooltip syntax errors with =popwin=
 
 * Install
 ** Layer

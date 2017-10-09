@@ -1,0 +1,144 @@
+#+TITLE: Neotree layer
+
+[[file:img/neotree.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#neotree-theme][NeoTree Theme]]
+  - [[#neotree-source-control-integration][NeoTree Source Control Integration]]
+- [[#usage][Usage]]
+  - [[#neotree-mode-line][NeoTree mode-line]]
+- [[#key-bindings][Key Bindings]]
+  - [[#neotree-navigation][NeoTree navigation]]
+  - [[#opening-files-with-neotree][Opening files with NeoTree]]
+  - [[#other-neotree-key-bindings][Other NeoTree key bindings]]
+
+* Description
+This layer setups a file tree navigator buffer using Neotree.
+
+** Features:
+- intuitive evil key-bindings integration
+- supports multiple themes
+- transient state by pressing on ~?~
+- version-control integration
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =neotree= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Configuration
+** NeoTree Theme
+You can change the NeoTree theme by using the setting =neo-theme=.  Possible
+values are:
+
+| Setting   | Description                                                      |
+|-----------+------------------------------------------------------------------|
+| =classic= | Use an icon to display items - only suitable for gui mode.       |
+| =ascii=   | The simplest style, it will use =x=, =-= to display fold status. |
+| =arrow=   | Use unicode arrows to display fold status.                       |
+| =icons=   | Use [[https://github.com/domtronn/all-the-icons.el][all-the-icons]] packages and fonts                             |
+| =nerd=    | Use the NERDTree indentation mode and arrows.                    |
+
+The default is =classic=.
+
+Use =nerd= if you want it to look most like NERDTree in VIM.  For example:
+
+#+BEGIN_SRC emacs-lisp
+(setq neo-theme 'nerd)
+#+END_SRC
+
+** NeoTree Source Control Integration
+If you would like NeoTree to show source control information, you can use the
+setting =neo-vc-integration=. It is a list containing the possible values:
+
+| Setting | Description                                                               |
+|---------+---------------------------------------------------------------------------|
+| =face=  | Show information by changing the color of the file/directory name.        |
+| =char=  | Show information with a character to the left of the file/directory name. |
+
+The default is =nil= (do not show source control information), which is recommended.
+
+For example,
+
+#+BEGIN_SRC emacs-lisp
+(setq neo-vc-integration 'face)
+#+END_SRC
+
+*Note*: At this time, it is not recommended to set this to anything other
+than =nil=.  Otherwise, it will become very slow with larger source trees.
+See https://github.com/jaypei/emacs-neotree/issues/126 for more information.
+
+* Usage
+This layer provides a quick and simple way to navigate in an unknown project
+file tree with [[https://github.com/jaypei/emacs-neotree][NeoTree]].
+
+To toggle the =NeoTree= buffer press ~SPC f t~ or ~SPC p t~ (the latter open
+NeoTree with the root set to the projectile project root).
+
+The NeoTree window always has the number =0= so it does not shift the current
+number of the other windows. To select the NeoTree window you then use ~SPC 0~.
+
+VCS integration is supported, the file color will change depending on its
+current state. With default =spacemacs-dark= theme:
+- green: new file
+- purple: modified file
+
+** NeoTree mode-line
+The mode-line has the following format =[x/y] d (D:a, F:b)= where:
+  - =x= is the index of the current selected file or directory
+  - =y= the total number of items (file and directory) in the current directory
+  - =d= the name of the current directory
+  - =a= the number of directories in the current directory
+  - =b= the number of files in the current directory
+
+* Key Bindings
+** NeoTree navigation
+Navigation is centered on the ~hjkl~ keys with the hope of providing a fast
+navigation experience like in [[http://ranger.nongnu.org/][ranger]]:
+
+| Key Binding  | Description                                                                   |
+|--------------+-------------------------------------------------------------------------------|
+| ~h~          | collapse expanded directory or go to parent node                              |
+| ~H~          | select previous sibling                                                       |
+| ~j~          | select next file or directory                                                 |
+| ~J~          | select next expanded directory on level down                                  |
+| ~k~          | select previous file or directory                                             |
+| ~K~          | select parent directory, when reaching the root change it to parent directory |
+| ~l~ or ~RET~ | expand directory                                                              |
+| ~L~          | select next sibling                                                           |
+| ~R~          | make a directory the root directory                                           |
+
+*Note*: Point is automatically set to the first letter of a node for a smoother
+experience.
+
+** Opening files with NeoTree
+By default a file is opened in the last active window. It is possible to choose
+window number where to open a file by using a numeric argument, for instance
+~2 l~ or ~2 RET~ will open the current file in window 2. It is also possible to
+open the file in a split window with ~|~ and ~-~:
+
+| Key Binding      | Description                               |
+|------------------+-------------------------------------------|
+| ~l~ or ~RET~     | open file in last active window           |
+| ~# l~ or ~# RET~ | open file in window number =#=            |
+| ~¦~              | open file in an vertically split window   |
+| ~-~              | open file in an horizontally split window |
+
+** Other NeoTree key bindings
+
+| Key Binding | Description                     |
+|-------------+---------------------------------|
+| ~TAB~       | toggle stretching of the buffer |
+| ~c~         | create a node                   |
+| ~C~         | copy a node                     |
+| ~d~         | delete a node                   |
+| ~gr~        | refresh                         |
+| ~s~         | toggle showing of hidden files  |
+| ~q~ or ~fd~ | hide =NeoTree= buffer           |
+| ~r~         | rename a node                   |
+| ~?~         | show help                       |
+
