@@ -37,6 +37,7 @@
                 :toggle org-enable-github-support)
         (ox-reveal :toggle org-enable-reveal-js-support)
         persp-mode
+        (ox-hugo :toggle org-enable-hugo-support)
         ))
 
 (defun org/post-init-company ()
@@ -605,3 +606,6 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "j" 'org-journal-new-entry
         "n" 'org-journal-open-next-entry
         "p" 'org-journal-open-previous-entry))))
+
+(defun org/init-ox-hugo ()
+  (use-package ox-hugo :after ox))
