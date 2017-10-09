@@ -63,6 +63,8 @@ part of the file system shown by treemacs set the layer variable
 Default value is =t=.
 
 ** Collapsed directories
+*This feature requires python to be installed*.
+
 Treemacs tries to collapse empty directory names into one name. It is possible
 to control how deep Treemacs will search for empty directories by settings the
 layer variable =treemacs-use-collapsed-directories= to a positive number.
@@ -72,7 +74,7 @@ layer variable =treemacs-use-collapsed-directories= to a positive number.
     (treemacs :variables treemacs-use-collapsed-directories 3)))
 #+END_SRC
 
-Default value is 3.
+Default value is 3 (or 0 when python is not installed).
 
 * Key Bindings
 ** Global
