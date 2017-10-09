@@ -14,7 +14,7 @@
         company
         company-emoji
         emoji-cheat-sheet-plus
-        evil-org
+        (evil-org :toggle (not (equal dotspacemacs-editing-style 'emacs)))
         evil-surround
         gnuplot
         htmlize
