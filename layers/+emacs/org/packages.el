@@ -15,7 +15,7 @@
         company-emoji
         emoji-cheat-sheet-plus
         (evil-org :toggle (not (equal dotspacemacs-editing-style 'emacs)))
-        evil-surround
+        (evil-surround :toggle (not (equal dotspacemacs-editing-style 'emacs)))
         gnuplot
         htmlize
         ;; ob, org and org-agenda are installed by `org-plus-contrib'
