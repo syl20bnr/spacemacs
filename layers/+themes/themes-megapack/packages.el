@@ -18,7 +18,7 @@
     apropospriate-theme
     anti-zenburn-theme
     ;; contains errors
-    ; badger-theme
+    ;; badger-theme
     badwolf-theme
     birds-of-paradise-plus-theme
     bubbleberry-theme
@@ -37,7 +37,7 @@
     dracula-theme
     espresso-theme
     farmhouse-theme
-    firebelly-theme
+    ;; firebelly-theme
     flatland-theme
     flatui-theme
     gandalf-theme
@@ -64,14 +64,14 @@
     monochrome-theme
     mustang-theme
     naquadah-theme
-    niflheim-theme
+    ;; niflheim-theme
     noctilux-theme
     obsidian-theme
     occidental-theme
     omtose-phellack-theme
     oldlace-theme
     organic-green-theme
-    pastels-on-dark-theme
+    ;; pastels-on-dark-theme
     phoenix-dark-mono-theme
     phoenix-dark-pink-theme
     planet-theme
@@ -96,9 +96,9 @@
     tangotango-theme
     tao-theme
     ;; contains error
-    ; tommyh-theme
+    ;; tommyh-theme
     toxi-theme
-    tronesque-theme
+    ;;tronesque-theme
     twilight-anti-bright-theme
     twilight-bright-theme
     twilight-theme
@@ -106,7 +106,7 @@
     underwater-theme
     zen-and-art-theme
     zenburn-theme
-    zonokai-theme
+    ;; zonokai-theme
     ))
 
 ;; define programmatically the init functions
