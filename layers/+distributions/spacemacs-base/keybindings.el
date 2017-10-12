@@ -227,7 +227,8 @@
   "hdt" 'describe-theme
   "hdv" 'describe-variable
   "hI"  'spacemacs/report-issue
-  "hn"  'view-emacs-news)
+  "hn"  'view-emacs-news
+  "hU"  'configuration-layer/update-packages)
 ;; insert stuff ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "iJ" 'spacemacs/insert-line-below-no-indent
