@@ -43,7 +43,7 @@ the [full installation instructions](#install) for other options.
   ```shell
   git clone -b develop https://github.com/syl20bnr/spacemacs ~/.emacs.d
   ```
-  
+
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->
 **Table of Contents**
 
