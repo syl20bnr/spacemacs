@@ -84,6 +84,11 @@
           (sql-send-region start end)
           (evil-insert-state)))
 
+      (spacemacs/declare-prefix-for-mode 'sql-mode "mb" "buffer")
+      (spacemacs/declare-prefix-for-mode 'sql-mode "mh" "dialects")
+      (spacemacs/declare-prefix-for-mode 'sql-mode "ms" "interactivity")
+      (spacemacs/declare-prefix-for-mode 'sql-mode "ml" "listing")
+
       (spacemacs/set-leader-keys-for-major-mode 'sql-mode
         "'" 'spacemacs/sql-start
 
@@ -111,6 +116,8 @@
         ;; listing
         "la" 'sql-list-all
         "lt" 'sql-list-table)
+
+      (spacemacs/declare-prefix-for-mode 'sql-interactive-mode "mb" "buffer")
 
       (spacemacs/set-leader-keys-for-major-mode 'sql-interactive-mode
         ;; sqli buffer
