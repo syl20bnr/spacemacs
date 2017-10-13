@@ -171,6 +171,12 @@
     (tao-yang                         . tao-theme)
     (farmhouse-light                  . farmhouse-theme)
     (farmhouse-dark                   . farmhouse-theme)
+    (gruvbox-dark-soft                . gruvbox-theme)
+    (gruvbox-dark-medium              . gruvbox-theme)
+    (gruvbox-dark-hard                . gruvbox-theme)
+    (gruvbox-light-soft               . gruvbox-theme)
+    (gruvbox-light-medium             . gruvbox-theme)
+    (gruvbox-light-hard               . gruvbox-theme)
     )
   "alist matching a theme name with its package name, required when
 package name does not match theme name + `-theme' suffix.")
