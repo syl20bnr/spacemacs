@@ -191,6 +191,7 @@
   "feD" 'spacemacs/ediff-dotfile-and-template
   "feR" 'dotspacemacs/sync-configuration-layers
   "fev" 'spacemacs/display-and-copy-version
+  "feU"  'configuration-layer/update-packages
   "fCd" 'spacemacs/unix2dos
   "fCu" 'spacemacs/dos2unix
   "fg" 'rgrep
@@ -227,8 +228,7 @@
   "hdt" 'describe-theme
   "hdv" 'describe-variable
   "hI"  'spacemacs/report-issue
-  "hn"  'view-emacs-news
-  "hU"  'configuration-layer/update-packages)
+  "hn"  'view-emacs-news)
 ;; insert stuff ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "iJ" 'spacemacs/insert-line-below-no-indent
