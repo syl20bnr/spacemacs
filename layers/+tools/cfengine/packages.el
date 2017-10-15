@@ -13,6 +13,7 @@
   '(
     (cfengine3-mode :location built-in)
     company
+    ob-cfengine3
     eldoc
     flycheck
     ))
@@ -32,3 +33,8 @@
 
 (defun cfengine/post-init-flycheck ()
   (spacemacs/enable-flycheck 'cfengine3-mode-hook))
+
+(defun cfengine/init-ob-cfengine3 ()
+  (use-package ob-cfengine3
+    :defer t
+    :after org))
