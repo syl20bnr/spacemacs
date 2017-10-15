@@ -157,8 +157,8 @@
   ("<up>" helm-themes)
   ("<left>" (spacemacs/cycle-spacemacs-theme t))
   ("<right>" spacemacs/cycle-spacemacs-theme))
-(spacemacs/set-leader-keys "Tn" 'spacemacs/cycle-spacemacs-theme)
-(spacemacs/set-leader-keys "TN" 'spacemacs/theme-transient-state/body)
+(spacemacs/set-leader-keys "Tn"
+  'spacemacs/theme-transient-state/spacemacs/cycle-spacemacs-theme)
 ;; errors ---------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "en" 'spacemacs/next-error
