@@ -34,6 +34,20 @@
                   evil-state)))
     (spacemacs/state-color-face state)))
 
+(defun spacemacs/add-evil-cursor (state color shape)
+  "Define a cursor and face for a new evil state.
+An appropriate entry is added to `spacemacs-evil-cursors', as well."
+  (add-to-list 'spacemacs-evil-cursors (list state color shape))
+  (eval `(defface ,(intern (format "spacemacs-%s-face" state))
+           `((t (:background ,color
+                             :foreground ,(face-background 'mode-line)
+                             :inherit 'mode-line)))
+           (format "%s state face." state)
+           :group 'spacemacs))
+  (set (intern (format "evil-%s-state-cursor" state))
+       (list (when dotspacemacs-colorize-cursor-according-to-state color)
+             shape)))
+
 (defun spacemacs/set-state-faces ()
   (cl-loop for (state color cursor) in spacemacs-evil-cursors
            do
