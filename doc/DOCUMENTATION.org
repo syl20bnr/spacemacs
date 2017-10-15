@@ -1750,6 +1750,7 @@ Other help key bindings:
 | ~SPC h k~   | show top-level bindings with =which-key=              |
 | ~SPC h m~   | search available man pages                            |
 | ~SPC h n~   | browse emacs news                                     |
+| ~SPC h U~   | update packages                                       |
 
 Navigation key bindings in =help-mode=:
 
