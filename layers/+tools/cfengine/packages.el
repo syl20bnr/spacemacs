@@ -13,9 +13,10 @@
   '(
     (cfengine3-mode :location built-in)
     company
-    ob-cfengine3
     eldoc
     flycheck
+    (ob-cfengine3 :requires org)
+    org
     ))
 
 (defun cfengine/init-cfengine3-mode ()
@@ -36,5 +37,9 @@
 
 (defun cfengine/init-ob-cfengine3 ()
   (use-package ob-cfengine3
-    :defer t
-    :after org))
+    :defer t))
+
+(defun cfengine/pre-init-org ()
+  (when (configuration-layer/package-used-p 'org)
+    (spacemacs|use-package-add-hook org
+      :post-config (add-to-list 'org-babel-load-languages '(cfengine . t)))))

@@ -9,8 +9,7 @@
 - [[#configuration][Configuration]]
   - [[#set-file-permission-on-save][Set file permission on save]]
   - [[#indendation][Indendation]]
-  - [[#cfengine3-src-blocks-in-org-mode][=cfengine3= =SRC= blocks in =org-mode=]]
-- [[#execution-of-cfengine3-src-blocks][Execution of =cfengine3= =SRC= blocks]]
+- [[#execution-of-cfengine3-src-blocks][Execution of =cfengine3= SRC blocks]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -57,56 +56,8 @@ from anchor= to =2=. For example:
   }
 #+end_src
 
-** =cfengine3= =SRC= blocks in =org-mode=
-Add cfengine to the list of languages loaded by org-babel.
-
-#+BEGIN_SRC elisp
-  (defun dotspacemacs/user-config ()
-
-    (with-eval-after-load 'org
-
-      (org-babel-do-load-languages
-       'org-babel-load-languages
-       '(
-         (cfengine . t)))
-      )
-    )
-#+END_SRC
-
-Alternatively configure org-mode to load support for any languages encountered
-automatically.
-
-#+BEGIN_SRC elisp
-  (defun dotspacemacs/user-config ()
-
-    (with-eval-after-load 'org
-
-      (defadvice org-babel-execute-src-block (around load-language nil activate)
-        "Load language if needed"
-        (let ((language (org-element-property :language (org-element-at-point))))
-          (unless (cdr (assoc (intern language) org-babel-load-languages))
-            (add-to-list 'org-babel-load-languages (cons (intern language) t))
-            (org-babel-do-load-languages 'org-babel-load-languages org-babel-load-languages))
-          ad-do-it))
-      )
-    )
-#+END_SRC
-
-Enable syntax highlighting and tab stops as if you were editing in the native
-mode within SRC blocks.
-
-#+BEGIN_SRC elisp
-  (defun dotspacemacs/user-config ()
-
-    (with-eval-after-load 'org
-
-      (setq org-src-tab-acts-natively t)
-      (setq org-src-fontify-natively t)
-      )
-    )
-#+END_SRC
-
-* Execution of =cfengine3= =SRC= blocks
+* Execution of =cfengine3= SRC blocks
+This layers add support for =cfengine3= source blocks in org files.
 With the insertion point inside the SRC block press ~,,~ or ~CTRL-c Ctrl-c~
 
 #+BEGIN_SRC cfengine3 :exports both
