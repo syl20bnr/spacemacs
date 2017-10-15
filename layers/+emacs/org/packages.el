@@ -254,9 +254,10 @@ Will work on both org-mode and any mode that accepts plain html."
         ;; Multi-purpose keys
         (or dotspacemacs-major-mode-leader-key ",") 'org-ctrl-c-ctrl-c
         "*" 'org-ctrl-c-star
-        "RET" 'org-ctrl-c-ret
         "-" 'org-ctrl-c-minus
         "#" 'org-update-statistics-cookies
+        "RET"   'org-ctrl-c-ret
+        "M-RET" 'org-meta-return
         ;; attachments
         "A" 'org-attach
         ;; insertion
