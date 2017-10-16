@@ -37,6 +37,7 @@
                 :toggle org-enable-github-support)
         (ox-reveal :toggle org-enable-reveal-js-support)
         persp-mode
+        (ox-hugo :toggle org-enable-hugo-support)
         ))
 
 (defun org/post-init-company ()
@@ -106,6 +107,7 @@
             org-startup-with-inline-images t
             org-image-actual-width nil
             org-src-fontify-natively t
+            org-src-tab-acts-natively t
             ;; this is consistent with the value of
             ;; `helm-org-headings-max-depth'.
             org-imenu-depth 8)
@@ -252,9 +254,10 @@ Will work on both org-mode and any mode that accepts plain html."
         ;; Multi-purpose keys
         (or dotspacemacs-major-mode-leader-key ",") 'org-ctrl-c-ctrl-c
         "*" 'org-ctrl-c-star
-        "RET" 'org-ctrl-c-ret
         "-" 'org-ctrl-c-minus
         "#" 'org-update-statistics-cookies
+        "RET"   'org-ctrl-c-ret
+        "M-RET" 'org-meta-return
         ;; attachments
         "A" 'org-attach
         ;; insertion
@@ -373,16 +376,16 @@ Will work on both org-mode and any mode that accepts plain html."
       :foreign-keys run
       :doc
       "
-Headline^^            Visit entry^^               Filter^^                    Date^^               Toggle mode^^        View^^             Clock^^        Other^^
---------^^---------   -----------^^------------   ------^^-----------------   ----^^-------------  -----------^^------  ----^^---------    -----^^------  -----^^-----------
-[_ht_] set status     [_SPC_] in other window     [_ft_] by tag               [_ds_] schedule      [_tf_] follow        [_vd_] day         [_cI_] in      [_gr_] reload
-[_hk_] kill           [_TAB_] & go to location    [_fr_] refine by tag        [_dd_] set deadline  [_tl_] log           [_vw_] week        [_cO_] out     [_._]  go to today
-[_hr_] refile         [_RET_] & del other windows [_fc_] by category          [_dt_] timestamp     [_ta_] archive       [_vt_] fortnight   [_cq_] cancel  [_gd_] go to date
-[_hA_] archive        [_o_]   link                [_fh_] by top headline      [_+_]  do later      [_tr_] clock report  [_vm_] month       [_cj_] jump    ^^
-[_h:_] set tags       ^^                          [_fx_] by regexp            [_-_]  do earlier    [_td_] diaries       [_vy_] year        ^^             ^^
-[_hp_] set priority   ^^                          [_fd_] delete all filters   ^^                   ^^                   [_vn_] next span   ^^             ^^
-^^                    ^^                          ^^                          ^^                   ^^                   [_vp_] prev span   ^^             ^^
-^^                    ^^                          ^^                          ^^                   ^^                   [_vr_] reset       ^^             ^^
+Headline^^            Visit entry^^               Filter^^                    Date^^                  Toggle mode^^        View^^             Clock^^        Other^^
+--------^^---------   -----------^^------------   ------^^-----------------   ----^^-------------     -----------^^------  ----^^---------    -----^^------  -----^^-----------
+[_ht_] set status     [_SPC_] in other window     [_ft_] by tag               [_ds_] schedule         [_tf_] follow        [_vd_] day         [_cI_] in      [_gr_] reload
+[_hk_] kill           [_TAB_] & go to location    [_fr_] refine by tag        [_dS_] un-schedule      [_tl_] log           [_vw_] week        [_cO_] out     [_._]  go to today
+[_hr_] refile         [_RET_] & del other windows [_fc_] by category          [_dd_] set deadline     [_ta_] archive       [_vt_] fortnight   [_cq_] cancel  [_gd_] go to date
+[_hA_] archive        [_o_]   link                [_fh_] by top headline      [_dD_] remove deadline  [_tr_] clock report  [_vm_] month       [_cj_] jump    ^^
+[_h:_] set tags       ^^                          [_fx_] by regexp            [_dt_] timestamp        [_td_] diaries       [_vy_] year        ^^             ^^
+[_hp_] set priority   ^^                          [_fd_] delete all filters   [_+_]  do later         ^^                   [_vn_] next span   ^^             ^^
+^^                    ^^                          ^^                          [_-_]  do earlier       ^^                   [_vp_] prev span   ^^             ^^
+^^                    ^^                          ^^                          ^^                      ^^                   [_vr_] reset       ^^             ^^
 [_q_] quit
 "
       :bindings
@@ -403,8 +406,14 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
       ;; Date
       ("ds" org-agenda-schedule)
+      ("dS" (lambda () (interactive)
+             (let ((current-prefix-arg '(4)))
+                  (call-interactively 'org-agenda-schedule))))
       ("dd" org-agenda-deadline)
       ("dt" org-agenda-date-prompt)
+      ("dD" (lambda () (interactive)
+             (let ((current-prefix-arg '(4)))
+                  (call-interactively 'org-agenda-deadline))))
       ("+" org-agenda-do-date-later)
       ("-" org-agenda-do-date-earlier)
 
@@ -605,3 +614,6 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "j" 'org-journal-new-entry
         "n" 'org-journal-open-next-entry
         "p" 'org-journal-open-previous-entry))))
+
+(defun org/init-ox-hugo ()
+  (use-package ox-hugo :after ox))

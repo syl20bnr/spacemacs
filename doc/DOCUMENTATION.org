@@ -2181,6 +2181,7 @@ navigate between =Emacs= and Spacemacs specific files.
 | ~SPC f e i~ | open the all mighty =init.el=                                   |
 | ~SPC f e l~ | locate an Emacs library                                         |
 | ~SPC f e R~ | resync the dotfile with spacemacs                               |
+| ~SPC f e U~ | update packages                                                 |
 | ~SPC f e v~ | display and copy the spacemacs version                          |
 
 **** Browsing files in completion buffer

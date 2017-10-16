@@ -33,6 +33,7 @@
     :init
     (progn
       (add-hook 'purescript-mode-hook 'turn-on-purescript-indentation)
+      (add-hook 'purescript-mode-hook 'purescript-decl-scan-mode)
       (spacemacs/set-leader-keys-for-major-mode 'purescript-mode
         "i="  'purescript-mode-format-imports
         "i`"  'purescript-navigate-imports-return

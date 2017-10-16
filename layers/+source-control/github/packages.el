@@ -27,17 +27,25 @@
     :defer t
     :init
     (progn
-      (evilified-state-evilify gist-list-mode gist-list-menu-mode-map
-        "f" 'gist-fetch-current
-        "K" 'gist-kill-current
-        "o" 'gist-browse-current-url)
       (spacemacs/declare-prefix "gg" "github gist")
       (spacemacs/set-leader-keys
         "ggb" 'gist-buffer
         "ggB" 'gist-buffer-private
         "ggl" 'gist-list
         "ggr" 'gist-region
-        "ggR" 'gist-region-private))))
+        "ggR" 'gist-region-private))
+    :config
+    (progn
+      (evilified-state-evilify-map gist-list-menu-mode-map
+        :mode gist-list-mode
+        :bindings
+        "f" 'gist-fetch-current
+        "K" 'gist-kill-current
+        "o" 'gist-browse-current-url)
+      (evilified-state-evilify-map gist-list-mode-map
+        :mode gist-list-mode
+        :bindings
+        (kbd "gr") 'gist-list-reload))))
 
 (defun github/init-github-clone ()
   (use-package github-clone

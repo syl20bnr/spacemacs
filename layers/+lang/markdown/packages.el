@@ -57,6 +57,7 @@
     :config
     (progn
       (add-hook 'markdown-mode-hook 'orgtbl-mode)
+      (spacemacs|diminish orgtbl-mode)
       (add-hook 'markdown-mode-hook 'spacemacs//cleanup-org-tables-on-save)
       ;; Declare prefixes and bind keys
       (dolist (prefix '(("mc" . "markdown/command")

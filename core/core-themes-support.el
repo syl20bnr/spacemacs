@@ -171,6 +171,12 @@
     (tao-yang                         . tao-theme)
     (farmhouse-light                  . farmhouse-theme)
     (farmhouse-dark                   . farmhouse-theme)
+    (gruvbox-dark-soft                . gruvbox-theme)
+    (gruvbox-dark-medium              . gruvbox-theme)
+    (gruvbox-dark-hard                . gruvbox-theme)
+    (gruvbox-light-soft               . gruvbox-theme)
+    (gruvbox-light-medium             . gruvbox-theme)
+    (gruvbox-light-hard               . gruvbox-theme)
     )
   "alist matching a theme name with its package name, required when
 package name does not match theme name + `-theme' suffix.")
@@ -281,20 +287,24 @@ THEME."
       (eval `(spacemacs|do-after-display-system-init
               (load-theme ',theme-name t))))))
 
-(defun spacemacs/cycle-spacemacs-theme ()
-  "Cycle through themes defined in `dotspacemacs-themes.'"
-  (interactive)
-  (when spacemacs--cur-theme
-    ;; if current theme isn't in cycleable themes, start over
-    (setq spacemacs--cycle-themes
-          (or (cdr (memq spacemacs--cur-theme dotspacemacs-themes))
-              dotspacemacs-themes)))
-  (setq spacemacs--cur-theme (pop spacemacs--cycle-themes))
-  (let ((progress-reporter
-         (make-progress-reporter
-          (format "Loading theme %s..." spacemacs--cur-theme))))
-    (spacemacs/load-theme spacemacs--cur-theme nil 'disable)
-    (progress-reporter-done progress-reporter)))
+(defun spacemacs/cycle-spacemacs-theme (&optional backward)
+  "Cycle through themes defined in `dotspacemacs-themes.'
+Does it BACKWARD with universal-argument or negative command argument"
+  (interactive "P")
+  (let* ((reversed (member backward '(t - (4))))
+         (themes (if reversed (reverse dotspacemacs-themes) dotspacemacs-themes)))
+    (when spacemacs--cur-theme
+      (disable-theme spacemacs--cur-theme)
+      ;; if current theme isn't in cycleable themes, start over
+      (setq spacemacs--cycle-themes
+            (or (cdr (memq spacemacs--cur-theme themes))
+                themes)))
+    (setq spacemacs--cur-theme (pop spacemacs--cycle-themes))
+    (let ((progress-reporter
+           (make-progress-reporter
+            (format "Loading theme %s..." spacemacs--cur-theme))))
+      (spacemacs/load-theme spacemacs--cur-theme nil 'disable)
+      (progress-reporter-done progress-reporter))))
 
 (defadvice load-theme (after spacemacs/load-theme-adv activate)
   "Perform post load processing."

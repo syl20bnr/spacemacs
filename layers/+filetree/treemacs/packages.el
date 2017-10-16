@@ -34,6 +34,7 @@
       "f C-t" #'treemacs-find-file)
     :config
     (progn
+      (spacemacs/add-evil-cursor "treemacs" "MediumPurple1" '(hbar . 0))
       (setq treemacs-follow-after-init t
             treemacs-width 35
             treemacs-position 'left

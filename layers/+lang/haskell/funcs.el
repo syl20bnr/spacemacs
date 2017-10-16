@@ -50,7 +50,7 @@
 
 (defun spacemacs-haskell//setup-dante ()
   (spacemacs|add-company-backends
-    :backends (company-dante company-dabbrev-code company-yasnippet)
+    :backends (dante-company company-dabbrev-code company-yasnippet)
     :modes haskell-mode)
   (push 'xref-find-definitions spacemacs-jump-handlers)
   (dante-mode)

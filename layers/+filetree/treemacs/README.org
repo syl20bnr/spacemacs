@@ -40,7 +40,7 @@ To use this layer, add =treemacs= to the existing
 
 * Configuration
 ** Follow mode
-To have treemacs automatically syncs with your current buffer set the
+To have treemacs automatically sync with your current buffer set the
 layer variable =treemacs-use-follow-mode= to non-nil.
 
 #+BEGIN_SRC emacs-lisp
@@ -51,8 +51,9 @@ layer variable =treemacs-use-follow-mode= to non-nil.
 Default value is =t=.
 
 ** File watch
-To automatically refresh the Treemacs buffer when a buffer changes set
-the layer variable =treemacs-use-filewatch-mode= to non-nil.
+To automatically refresh the Treemacs buffer when there is a change in the
+part of the file system shown by treemacs set the layer variable
+=treemacs-use-filewatch-mode= to non-nil.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
@@ -62,6 +63,8 @@ the layer variable =treemacs-use-filewatch-mode= to non-nil.
 Default value is =t=.
 
 ** Collapsed directories
+*This feature requires python to be installed*.
+
 Treemacs tries to collapse empty directory names into one name. It is possible
 to control how deep Treemacs will search for empty directories by settings the
 layer variable =treemacs-use-collapsed-directories= to a positive number.
@@ -71,7 +74,7 @@ layer variable =treemacs-use-collapsed-directories= to a positive number.
     (treemacs :variables treemacs-use-collapsed-directories 3)))
 #+END_SRC
 
-Default value is 3.
+Default value is 3 (or 0 when python is not installed).
 
 * Key Bindings
 ** Global
@@ -94,33 +97,33 @@ many other commands.
 
 | Key Binding | Description                                                                                                                           |
 |-------------+---------------------------------------------------------------------------------------------------------------------------------------|
-| ~?~           | Summon the helpful hydra to show you the treemacs keymap.                                                                             |
-| ~j/n~         | Goto next/prev line.                                                                                                                  |
-| ~h~           | Switch treemacs' root directory to current root's parent, if possible.                                                                |
-| ~l~           | Use currently selected directory as new root. Do nothing for files.                                                                   |
-| ~M-j/M-n~     | Select next node at the same depth as currently selected node, if possible.                                                           |
-| ~th~          | Toggle the hiding and displaying of dotfiles.                                                                                         |
-| ~tw~          | Toggle whether the treemacs buffer should have a fixed width.                                                                         |
-| ~tf~          | Toggle treemacs-follow-mode.                                                                                                          |
-| ~ta~          | treemacs-filewatch-mode.                                                                                                              |
-| ~w~           | Reset the width of the treemacs buffer to its default. With a prefix arg set a new default first.                                     |
-| ~TAB~         | Push the button in the current line to open/close the selected node.                                                                  |
-| ~mouse1~      | Do the same as TAB when mouse1 clicking on an icon. Clicking anywhere other than an icon does nothing.                                |
-| ~g/r/gr~      | Refresh and rebuild the treemacs buffer.                                                                                              |
-| ~d~           | Delete node at point. A delete action must always be confirmed. Directories are deleted recursively.                                  |
-| ~cf~          | Create a file.                                                                                                                        |
-| ~cd~          | Create a directory.                                                                                                                   |
-| ~R~           | Rename the currently selected node. Reload buffers visiting renamed files or files in renamed direcotries.                            |
-| ~u~           | Select parent of selected node, if possible.                                                                                          |
-| ~q~           | Hide/show an existing treemacs buffer.                                                                                                |
-| ~Q~           | Kill the treemacs buffer.                                                                                                             |
-| ~RET~         | Do what I mean. (Run the action defined in ~treemacs-default-actions~ for the current button.)                                        |
-| ~ov~          | Open current file or tag by vertically splitting next-window. Stay in current window with a prefix argument.                          |
-| ~oh~          | Open current file or tag by horizontally splitting next-window. Stay in current window with a prefix argument.                        |
-| ~oo/RET~      | Open current file or tag, performing no split and using next-window directly. Stay in current window with a prefix argument.          |
-| ~oaa~         | Open current file or tag, using ace-window to decide which buffer to open the file in. Stay in current window with a prefix argument. |
-| ~oah~         | Open current file or tag by horizontally splitting a buffer selected by ace-window. Stay in current window with a prefix argument.    |
-| ~oav~         | Open current file or tag by vertically splitting a buffer selected by ace-window. Stay in current window with a prefix argument.      |
-| ~ox~          | Open current file or dir, using the xdg-open shell-command.                                                                           |
-| ~yy~          | Copy the absolute path of the node at point.                                                                                          |
-| ~yr~          | Copy the absolute path of the current treemacs root.                                                                                  |
+| ~?~         | Summon the helpful hydra to show you the treemacs keymap.                                                                             |
+| ~j/n~       | Goto next/prev line.                                                                                                                  |
+| ~h~         | Switch treemacs' root directory to current root's parent, if possible.                                                                |
+| ~l~         | Use currently selected directory as new root. Do nothing for files.                                                                   |
+| ~M-j/M-n~   | Select next node at the same depth as currently selected node, if possible.                                                           |
+| ~th~        | Toggle the hiding and displaying of dotfiles.                                                                                         |
+| ~tw~        | Toggle whether the treemacs buffer should have a fixed width.                                                                         |
+| ~tf~        | Toggle treemacs-follow-mode.                                                                                                          |
+| ~ta~        | treemacs-filewatch-mode.                                                                                                              |
+| ~w~         | Reset the width of the treemacs buffer to its default. With a prefix arg set a new default first.                                     |
+| ~TAB~       | Push the button in the current line to open/close the selected node.                                                                  |
+| ~mouse1~    | Do the same as TAB when mouse1 clicking on an icon. Clicking anywhere other than an icon does nothing.                                |
+| ~g/r/gr~    | Refresh and rebuild the treemacs buffer.                                                                                              |
+| ~d~         | Delete node at point. A delete action must always be confirmed. Directories are deleted recursively.                                  |
+| ~cf~        | Create a file.                                                                                                                        |
+| ~cd~        | Create a directory.                                                                                                                   |
+| ~R~         | Rename the currently selected node. Reload buffers visiting renamed files or files in renamed direcotries.                            |
+| ~u~         | Select parent of selected node, if possible.                                                                                          |
+| ~q~         | Hide/show an existing treemacs buffer.                                                                                                |
+| ~Q~         | Kill the treemacs buffer.                                                                                                             |
+| ~RET~       | Do what I mean. (Run the action defined in ~treemacs-default-actions~ for the current button.)                                        |
+| ~ov~        | Open current file or tag by vertically splitting next-window. Stay in current window with a prefix argument.                          |
+| ~oh~        | Open current file or tag by horizontally splitting next-window. Stay in current window with a prefix argument.                        |
+| ~oo/RET~    | Open current file or tag, performing no split and using next-window directly. Stay in current window with a prefix argument.          |
+| ~oaa~       | Open current file or tag, using ace-window to decide which buffer to open the file in. Stay in current window with a prefix argument. |
+| ~oah~       | Open current file or tag by horizontally splitting a buffer selected by ace-window. Stay in current window with a prefix argument.    |
+| ~oav~       | Open current file or tag by vertically splitting a buffer selected by ace-window. Stay in current window with a prefix argument.      |
+| ~ox~        | Open current file or dir, using the xdg-open shell-command.                                                                           |
+| ~yy~        | Copy the absolute path of the node at point.                                                                                          |
+| ~yr~        | Copy the absolute path of the current treemacs root.                                                                                  |

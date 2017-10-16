@@ -496,9 +496,9 @@ instance if a used layer A can shadow a used layer B and the layer A is listed
 after the layer B in the dotfile then the layer A replaces the layer B and it is
 like only the layer A is being used.
 
-Examples of fhis mechanism are helm/ivy layers or neotree/treemacs layers.
+Examples of this mechanism are helm/ivy layers or neotree/treemacs layers.
 
-A layer can shadow other layers by calling in its =config.el= file the function
+A layer can shadow other layers by calling in its =layers.el= file the function
 =configuration-layer/declare-shadow-relation=. This function declares a
 =can-shadow= relation between all the layers.
 
