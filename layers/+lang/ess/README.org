@@ -3,11 +3,22 @@
 [[file:img/r.jpg]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key Bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
   - [[#helpers][Helpers]]
 - [[#options][Options]]
+
+* Description
+This layer adds support for statistical analysis through [[https://ess.r-project.org/][ESS]].
+
+** Features:
+- All [[https://ess.r-project.org/Manual/ess.html#Current-Features][ESS features]]
+- Additional data viewer for R via [[https://github.com/myuhe/ess-R-data-view.el][ess-R-data-view]]
+- Support for Org-Babel
+- Better 'equals' behavior via [[https://github.com/genovese/ess-smart-equals][ess-smart-equals]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -43,11 +54,10 @@ Send code to inferior process with these commands:
 ** Helpers
 Helpers for inspecting objects at point are available in R buffers only.
 
-| Key Binding | Description                                                         |
-|-------------+---------------------------------------------------------------------|
-| ~SPC m h d~ | view data under point using [ess-R-data-view][ess-R-data-view]      |
-| ~SPC m h i~ | object introspection popup [ess-R-object-popup][ess-R-object-popup] |
-| ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]                 |
+| Key Binding | Description                                                    |
+|-------------+----------------------------------------------------------------|
+| ~SPC m h d~ | view data under point using [ess-R-data-view][ess-R-data-view] |
+| ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]            |
 
 * Options
 To turn off the automatic replacement of underscores by =<-=, set in your
