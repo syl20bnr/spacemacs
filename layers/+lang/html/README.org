@@ -10,6 +10,8 @@
 - [[#key-bindings][Key Bindings]]
   - [[#web-mode][Web mode]]
   - [[#cssscss][CSS/SCSS]]
+  - [[#vue][Vue]]
+    - [[#indirect-buffers][Indirect buffers]]
 
 * Description
 This layer adds support for editing HTML and CSS.
@@ -21,6 +23,7 @@ This layer adds support for editing HTML and CSS.
 - Tags navigation on key ~%~ using [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Support for editing Slim and Pug templates using [[https://github.com/slim-template/emacs-slim][slim-mode]] and [[https://github.com/hlissner/emacs-pug-mode][pug-mode]]
 - See the effects of typed HTML using [[https://github.com/skeeto/impatient-mode][impatient-mode]]
+- .vue component support through [[https://github.com/AdamNiederer/vue-mode][vue-mode]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -92,3 +95,21 @@ A transient-state is also defined, start it with ~SPC m .~ or ~, .~
 | ~SPC m g h~ | quickly navigate CSS rules using =helm= |
 | ~SPC m z c~ | fold css statement to one line          |
 | ~SPC m z o~ | unfold css statement to one line        |
+
+** Vue
+
+| Key Binding | Description                                    |
+|-------------+------------------------------------------------|
+| ~SPC m '~   | edit style/script in its own (indirect) buffer |
+
+*** Indirect buffers
+Editing part of a Vue component as an indirect buffer allows Spacemacs to treat
+it like a standalone file. Changes must be committed back to the file before
+they can be saved.
+
+| Key Binding                                  | Description |
+|----------------------------------------------+-------------|
+| ~SPC m <dotspacemacs-major-mode-leader-key>~ | confirm     |
+| ~SPC m c~                                    | confirm     |
+| ~SPC m a~                                    | abort       |
+| ~SPC m k~                                    | abort       |

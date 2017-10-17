@@ -15,6 +15,7 @@
         company
         (company-web :requires company)
         css-mode
+        edit-indirect
         emmet-mode
         evil-matchit
         flycheck
@@ -28,6 +29,7 @@
         slim-mode
         smartparens
         tagedit
+        vue-mode
         web-mode
         yasnippet
         ))
@@ -103,6 +105,19 @@
       (spacemacs/set-leader-keys-for-major-mode 'css-mode
         "zc" 'css-contract-statement
         "zo" 'css-expand-statement))))
+
+(defun html/init-edit-indirect ()
+  ;; vue-mode is the only mode using edit-indirect. This should probably be
+  ;; moved to the spacemacs-base layer if more layers start requiring
+  ;; edit-indirect
+  (use-package edit-indirect
+    :defer t
+    :init
+    (spacemacs/set-leader-keys-for-minor-mode 'edit-indirect--overlay
+      dotspacemacs-major-mode-leader-key 'edit-indirect-commit
+      "c" 'edit-indirect-commit
+      "a" 'edit-indirect-abort
+      "k" 'edit-indirect-abort)))
 
 (defun html/init-emmet-mode ()
   (use-package emmet-mode
@@ -195,6 +210,13 @@
       (tagedit-add-experimental-features)
       (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
       (spacemacs|diminish tagedit-mode " Ⓣ" " T"))))
+
+(defun html/init-vue-mode ()
+  (use-package vue-mode
+    :defer t
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'vue-mode
+      "'" 'vue-mode-edit-indirect-at-point)))
 
 (defun html/init-web-mode ()
   (use-package web-mode
