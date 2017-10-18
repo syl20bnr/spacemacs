@@ -19,6 +19,7 @@
   - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
   - [[#json][JSON]]
   - [[#repl-skewer-mode][REPL (skewer-mode)]]
+  - [[#coffee-mode][coffee-mode]]
 
 * Description
 This layer adds support for the JavaScript language using [[https://github.com/mooz/js2-mode][js2-mode]].
@@ -211,3 +212,16 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m s r~ | send current region to the skewer REPL                                             |
 | ~SPC m s R~ | send current region to the skewer REPL and switch to it in insert state            |
 | ~SPC m s s~ | switch to REPL                                                                     |
+
+** coffee-mode
+
+| Key Binding | Description                                        |
+|-------------+----------------------------------------------------|
+| ~SPC m '~   | Create or go to REPL                               |
+| ~SPC m c c~ | Compile buffer                                     |
+| ~SPC m c r~ | Compile region                                     |
+| ~SPC m s b~ | Send buffer to REPL                                |
+| ~SPC m s l~ | Send line to REPL                                  |
+| ~SPC m s i~ | Create or go to REPL                               |
+| ~SPC m s r~ | send current region to the REPL and stay in buffer |
+| ~SPC m T c~ | Toggle compile on save                             |
