@@ -60,7 +60,7 @@ from anchor= to =2=. For example:
 This layers add support for =cfengine3= source blocks in org files.
 With the insertion point inside the SRC block press ~,,~ or ~CTRL-c Ctrl-c~
 
-#+BEGIN_SRC cfengine3 :exports both
+#+BEGIN_SRC cfengine3
   bundle agent main
   {
     reports:
