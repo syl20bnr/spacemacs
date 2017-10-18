@@ -27,6 +27,7 @@
         robe
         rspec-mode
         rubocop
+        ruby-hash-syntax
         (ruby-mode :location built-in :toggle (not ruby-enable-enh-ruby-mode))
         ruby-refactor
         ruby-test-mode
@@ -224,6 +225,14 @@
     :config (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
               "'" 'ruby-toggle-string-quotes
               "{" 'ruby-toggle-block)))
+
+(defun ruby/init-ruby-hash-syntax ()
+  (use-package ruby-hash-syntax
+    :defer t
+    :init
+    (dolist (mode '(ruby-mode enh-ruby-mode))
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "xh" 'ruby-hash-syntax-toggle))))
 
 (defun ruby/init-ruby-refactor ()
   (use-package ruby-refactor

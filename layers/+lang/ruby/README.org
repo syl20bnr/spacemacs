@@ -120,6 +120,7 @@ directory local variables.
 | ~SPC m x '​~ | Change symbol or " string to '                       |
 | ~SPC m x "​~ | Change symbol or ' string to "                       |
 | ~SPC m x :~ | Change string to symbol                              |
+| ~SPC m x h~ | toggle hash syntax in active region                  |
 | ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks                    |
 
 ** Bundler
