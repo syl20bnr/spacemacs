@@ -25,18 +25,26 @@
       (add-hook 'awk-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
       (add-hook 'shell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
       (add-hook 'tcl-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
-      (add-hook 'vhdl-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+      (add-hook 'vhdl-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
+      (spacemacs|add-toggle ggtags-mode
+        :status ggtags-mode
+        :on (ggtags-mode nil)
+        :off (ggtags-mode -1)
+        :documentation "Toggle GNU Global source code tagging system."
+        :evil-leader "tG"))
     :config
-    (when (configuration-layer/package-used-p 'helm-gtags)
-      ;; If anyone uses helm-gtags, they would want to use these key bindings.
-      ;; These are bound in `ggtags-mode-map', since the functionality of
-      ;; `helm-gtags-mode' is basically entirely contained within
-      ;; `ggtags-mode-map' --- this way we don't have to enable both.
-      ;; Note: all of these functions are autoloadable.
-      (define-key ggtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
-      (define-key ggtags-mode-map (kbd "C-x 4 .") 'helm-gtags-find-tag-other-window)
-      (define-key ggtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
-      (define-key ggtags-mode-map (kbd "M-*") 'helm-gtags-pop-stack))))
+    (progn
+      (when (configuration-layer/package-used-p 'helm-gtags)
+        ;; If anyone uses helm-gtags, they would want to use these key bindings.
+        ;; These are bound in `ggtags-mode-map', since the functionality of
+        ;; `helm-gtags-mode' is basically entirely contained within
+        ;; `ggtags-mode-map' --- this way we don't have to enable both.
+        ;; Note: all of these functions are autoloadable.
+        (define-key ggtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
+        (define-key ggtags-mode-map (kbd "C-x 4 .") 'helm-gtags-find-tag-other-window)
+        (define-key ggtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
+        (define-key ggtags-mode-map (kbd "M-*") 'helm-gtags-pop-stack))
+      (spacemacs|diminish ggtags-mode " Ⓖ" " G"))))
 
 (defun gtags/init-helm-gtags ()
   (use-package helm-gtags
