@@ -135,6 +135,7 @@
         (spacemacs/declare-prefix-for-mode mode "mr" "haskell/refactor"))
       (spacemacs/declare-prefix-for-mode 'haskell-interactive-mode "ms" "haskell/repl")
       (spacemacs/declare-prefix-for-mode 'haskell-cabal-mode "ms" "haskell/repl")
+      (spacemacs/declare-prefix-for-mode 'intero-repl-mode "ms" "haskell/repl")
 
       ;; key bindings
       (defun spacemacs/haskell-process-do-type-on-prev-line ()
@@ -148,8 +149,8 @@
 
           "sb"  'haskell-process-load-file
           "sc"  'haskell-interactive-mode-clear
-          "ss"  'spacemacs/haskell-interactive-bring
-          "sS"  'haskell-interactive-switch
+          "sS"  'spacemacs/haskell-interactive-bring
+          "ss"  'haskell-interactive-switch
 
           "ca"  'haskell-process-cabal
           "cb"  'haskell-process-cabal-build
@@ -193,7 +194,9 @@
 
       ;; Switch back to editor from REPL
       (spacemacs/set-leader-keys-for-major-mode 'haskell-interactive-mode
-        "sS"  'haskell-interactive-switch-back)
+        "ss"  'haskell-interactive-switch-back)
+      (spacemacs/set-leader-keys-for-major-mode 'intero-repl-mode
+        "ss"  'intero-repl-switch-back)
 
       ;; Compile
       (spacemacs/set-leader-keys-for-major-mode 'haskell-cabal
@@ -211,8 +214,8 @@
         "n"   'haskell-cabal-next-subsection
         "p"   'haskell-cabal-previous-subsection
         "sc"  'haskell-interactive-mode-clear
-        "ss"  'spacemacs/haskell-interactive-bring
-        "sS"  'haskell-interactive-switch
+        "sS"  'spacemacs/haskell-interactive-bring
+        "ss"  'haskell-interactive-switch
         "N"   'haskell-cabal-next-section
         "P"   'haskell-cabal-previous-section
         "f"   'haskell-cabal-find-or-create-source-file)

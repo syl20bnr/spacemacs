@@ -81,8 +81,8 @@
   (dolist (mode (cons 'haskell-cabal-mode haskell-modes))
     (spacemacs/set-leader-keys-for-major-mode mode
       "sc"  nil
-      "ss"  'haskell-intero/display-repl
-      "sS"  'haskell-intero/pop-to-repl))
+      "sS"  'haskell-intero/display-repl
+      "ss"  'haskell-intero/pop-to-repl))
 
   (dolist (mode (append haskell-modes '(haskell-cabal-mode intero-repl-mode)))
     (spacemacs/declare-prefix-for-mode mode "mi" "haskell/intero")
@@ -118,13 +118,13 @@
 
 (defun haskell-intero/display-repl (&optional prompt-options)
   (interactive "P")
-  (let ((buffer (intero-repl-buffer prompt-options)))
+  (let ((buffer (intero-repl-buffer prompt-options t)))
     (unless (get-buffer-window buffer 'visible)
       (display-buffer buffer))))
 
 (defun haskell-intero/pop-to-repl (&optional prompt-options)
   (interactive "P")
-  (pop-to-buffer (intero-repl-buffer prompt-options)))
+  (pop-to-buffer (intero-repl-buffer prompt-options t)))
 
 (defun haskell-intero//preserve-focus (f &rest args)
   (let ((buffer (current-buffer)))
