@@ -10,7 +10,6 @@
 ;;; License: GPLv3
 
 ;; Without this comment emacs25 adds (package-initialize) here
-;; (package-initialize)
 
 ;; Increase gc-cons-threshold, depending on your system you may set it back to a
 ;; lower value in your dotfile (function `dotspacemacs/user-config')
