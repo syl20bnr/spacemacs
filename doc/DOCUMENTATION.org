@@ -64,6 +64,7 @@
   - [[#color-themes][Color themes]]
     - [[#default-theme][Default theme]]
     - [[#choosing-themes][Choosing themes]]
+      - [[#themes-transient-state][Themes Transient State]]
     - [[#browsing-themes][Browsing themes]]
     - [[#notes][Notes]]
   - [[#font][Font]]
@@ -1022,10 +1023,13 @@ files in the directory =private/local/foo-theme=.
 You can cycle between the themes declared in =dotspacemacs-themes= with
 ~SPC T n~ and select an installed theme with ~SPC T s~.
 
-| Key Binding | Description                                           |
-|-------------+-------------------------------------------------------|
-| ~SPC T n~   | switch to next theme listed in =dotspacemacs-themes=. |
-| ~SPC T s~   | select a theme.                                       |
+**** Themes Transient State
+
+| Key Binding      | Description                                   |
+|------------------+-----------------------------------------------|
+| ~n~ or ~<right>~ | change to the next theme                      |
+| ~p~ or ~<left>~  | change to the previous theme                  |
+| ~t~ or ~<up>~    | open helm-themes to select an installed theme |
 
 *** Browsing themes
 You can see samples of all themes included in the =themes-megapack= layer
