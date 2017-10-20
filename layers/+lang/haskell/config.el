@@ -20,8 +20,3 @@
   "Completion backend used by company.
 Available options are `ghci', `intero', `dante', and `ghc-mod'. Default is
 `ghci'.")
-
-(defvar haskell-enable-hindent-style nil
-  "Style to use for formatting with hindent; available are:
-fundamental johan-tibell chris-done gibiansky.
-If nil hindent is disabled.")

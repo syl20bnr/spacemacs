@@ -13,7 +13,7 @@
       '(ace-link
         auto-highlight-symbol
         (centered-cursor :location local)
-        (doc-view :location built-in)
+        ;; (doc-view :location built-in)
         flx-ido
         golden-ratio
         info+
