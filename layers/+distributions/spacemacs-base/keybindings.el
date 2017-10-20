@@ -219,12 +219,12 @@
 ;; frame ----------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "Ff" 'find-file-other-frame
-  "Fc" 'delete-frame
-  "FC" 'delete-other-frames
+  "Fd" 'delete-frame
+  "FD" 'delete-other-frames
   "Fb" 'switch-to-buffer-other-frame
   "FB" 'display-buffer-other-frame
-  "Fd" 'dired-other-frame
   "Fo" 'other-frame
+  "FO" 'dired-other-frame
   "Fn" 'make-frame)
 ;; help -----------------------------------------------------------------------
 (spacemacs/set-leader-keys
