@@ -2162,11 +2162,12 @@ Frame manipulation commands (start with ~F~):
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC F f~   | open a file in another frame                        |
-| ~SPC F c~   | delete the current frame (unless it’s the only one) |
-| ~SPC F C~   | delete all other frames                             |
+| ~SPC F d~   | delete the current frame (unless it’s the only one) |
+| ~SPC F D~   | delete all other frames                             |
 | ~SPC F b~   | open a buffer in another frame                      |
 | ~SPC F B~   | open a buffer in another frame (but don’t switch)   |
 | ~SPC F o~   | cycle focus between frames                          |
+| ~SPC F O~   | open a dired buffer in another frame                |
 | ~SPC F n~   | create a new frame                                  |
 
 **** Emacs and Spacemacs files
