@@ -50,7 +50,7 @@
   (add-to-list 'company-backends-haskell-mode
                '(company-intero company-dabbrev-code company-yasnippet))
   (push 'intero-goto-definition spacemacs-jump-handlers)
-  (intero-mode)
+  (intero-global-mode 1)
   (dolist (mode haskell-modes)
     (spacemacs/set-leader-keys-for-major-mode mode
       "hi" 'intero-info
