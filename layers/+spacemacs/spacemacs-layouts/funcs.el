@@ -189,7 +189,7 @@ ask the user if a new layout should be created."
   (spacemacs/layouts-transient-state/body))
 
 (defun spacemacs/move-element-left (element list)
-  "Moves the ELEMENT one step to the left in LIST"
+  "Move ELEMENT one step to the left in LIST."
   (let (value)
     (dolist (name list value)
       (if (and (equal name element) (car value))
@@ -197,13 +197,16 @@ ask the user if a new layout should be created."
         (setq value (cons name value))))
     (nreverse value)))
 
+(defun spacemacs/move-element-right (element list)
+  "Move ELEMENT one step to the right in LIST."
+  (nreverse (spacemacs/move-element-left element (reverse list))))
+
 (defun spacemacs/move-current-persp-right ()
   "Moves the current perspective one step to the right"
   (interactive)
-  (setq persp-names-cache
-        (reverse (spacemacs/move-element-left
-                  (spacemacs//current-layout-name)
-                  (reverse persp-names-cache)))))
+  (setq persp-names-cache (spacemacs/move-element-right
+                           (spacemacs//current-layout-name)
+                           persp-names-cache)))
 
 (defun spacemacs/move-current-persp-left ()
   "Moves the current perspective one step to the left"
