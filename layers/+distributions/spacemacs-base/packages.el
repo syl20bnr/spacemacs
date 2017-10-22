@@ -233,8 +233,34 @@
 
 (defun spacemacs-base/init-image-mode ()
   (use-package image-mode
+    :init
+    (progn
+      (setq image-animate-loop t)
+      (spacemacs/declare-prefix-for-mode 'image-mode "ma" "animate")
+      (spacemacs/declare-prefix-for-mode 'image-mode "mg" "goto file")
+      (spacemacs/declare-prefix-for-mode 'image-mode "mt" "transform/resize")
+      (spacemacs/set-leader-keys-for-major-mode 'image-mode
+        "aa" 'image-toggle-animation
+        "a+" 'image-increase-speed
+        "a-" 'image-decrease-speed
+        "ar" 'image-reset-speed
+        "gn" 'image-next-file
+        "gN" 'image-previous-file
+        "t+" 'image-increase-size
+        "t-" 'image-decrease-size
+        "tf" 'image-mode-fit-frame
+        "tr" 'image-transform-reset
+        "th" 'image-transform-fit-to-height
+        "tw" 'image-transform-fit-to-width
+        "ts" 'image-transform-set-scale
+        "tr" 'image-transform-rotation))
     :config (evilified-state-evilify-map image-mode-map
-              :mode image-mode)))
+              :mode image-mode
+              :bindings
+              "h" 'image-backward-hscroll
+              "j" 'image-next-line
+              "k" 'image-previous-line
+              "l" 'image-forward-hscroll)))
 
 (defun spacemacs-base/init-imenu ()
   (use-package imenu
