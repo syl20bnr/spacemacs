@@ -68,8 +68,8 @@ Get help and helpers for inspecting objects at point are available in R buffers 
 | ~SPC m h a~ | help apropos                                                   |
 | ~SPC m h p~ | view data under point using [ess-R-data-view][ess-R-data-view] |
 | ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]            |
-| ~CTRL+j~    | next item in REPL history                                      |
-| ~CTRL+k~    | previous item in REPL history                                  |
+| ~C-j~       | next item in REPL history                                      |
+| ~C-k~       | previous item in REPL history                                  |
 
 ** More interaction with the REPL
 Helpers that provide further interaction with the REPL.
