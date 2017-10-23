@@ -8,7 +8,11 @@
 - [[#install][Install]]
 - [[#key-bindings][Key Bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
-  - [[#helpers][Helpers]]
+  - [[#help][Help]]
+  - [[#more-interaction-with-the-repl][More interaction with the REPL]]
+  - [[#r-devtools][R devtools]]
+  - [[#debugging][Debugging]]
+  - [[#editing-markdown][Editing Markdown]]
 - [[#options][Options]]
 
 * Description
@@ -29,35 +33,113 @@ file.
 ** Inferior REPL process
 Send code to inferior process with these commands:
 
-| Key Binding | Description                                                      |
-|-------------+------------------------------------------------------------------|
-| ~SPC m c c~ | send knitr/sweave chunk and keep buffer focused                  |
-| ~SPC m c C~ | send knitr/sweave chunk and switch to REPL in insert mode        |
-| ~SPC m c d~ | send knitr/sweave chunk and step to next chunk                   |
-| ~SPC m c m~ | mark knitr/sweave chunk around point                             |
-| ~SPC m c n~ | next knitr/sweave chunk                                          |
-| ~SPC m c N~ | previous knitr/sweave chunk                                      |
-| ~SPC m s b~ | send buffer and keep code buffer focused                         |
-| ~SPC m s B~ | send buffer and switch to REPL in insert mode                    |
-| ~SPC m s d~ | send region or line and step (debug)                             |
-| ~SPC m s D~ | send function or paragraph and step (debug)                      |
-| ~SPC m s i~ | start an inferior REPL process                                   |
-| ~SPC m s l~ | send line and keep code buffer focused                           |
-| ~SPC m s L~ | send line and switch to REPL in insert mode                      |
-| ~SPC m s r~ | send region and keep code buffer focused                         |
-| ~SPC m s R~ | send region and switch to REPL in insert mode                    |
-| ~SPC m s f~ | send thing at point (function) and keep code buffer focused      |
-| ~SPC m s F~ | send thing at point (function) and switch to REPL in insert mode |
-| ~CTRL+j~    | next item in REPL history                                        |
-| ~CTRL+k~    | previous item in REPL history                                    |
+| Key Binding | Description                                          |
+|-------------+------------------------------------------------------|
+| ~SPC m '~   | start REPL                                           |
+| ~SPC m s i~ | start REPL                                           |
+| ~SPC m s s~ | switch between file and REPL                         |
+| ~SPC m s S~ | switch the process associate with file               |
+| ~SPC m ,~   | send region, current function, or paragraph and step |
+|-------------+------------------------------------------------------|
+| ~SPC m s b~ | send buffer and switch to REPL in insert mode        |
+| ~SPC m e b~ | send buffer and keep code buffer focused             |
+| ~SPC m s d~ | send region or line and step                         |
+| ~SPC m s D~ | send function or paragraph and step                  |
+| ~SPC m e l~ | send line and keep code buffer focused               |
+| ~SPC m s l~ | send line and focus REPL                             |
+| ~SPC m e r~ | send region and keep code buffer focused             |
+| ~SPC m s r~ | send region and focus REPL                           |
+| ~SPC m e f~ | send function and keep code buffer focused           |
+| ~SPC m s f~ | send function and focus REPL                         |
 
-** Helpers
-Helpers for inspecting objects at point are available in R buffers only.
+** Help
+Get help and helpers for inspecting objects at point are available in R buffers only.
 
 | Key Binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
-| ~SPC m h d~ | view data under point using [ess-R-data-view][ess-R-data-view] |
+| ~SPC m h h~ | display help on object                                         |
+| ~SPC m h d~ | display help on object                                         |
+| ~SPC m h e~ | describe object                                                |
+| ~SPC m h m~ | manual lookup                                                  |
+| ~SPC m h o~ | display demos                                                  |
+| ~SPC m h r~ | lookup reference                                               |
+| ~SPC m h w~ | help web search                                                |
+| ~SPC m h v~ | display vignettes                                              |
+| ~SPC m h i~ | display index for package                                      |
+| ~SPC m h a~ | help apropos                                                   |
+| ~SPC m h p~ | view data under point using [ess-R-data-view][ess-R-data-view] |
 | ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]            |
+| ~C-j~       | next item in REPL history                                      |
+| ~C-k~       | previous item in REPL history                                  |
+
+** More interaction with the REPL
+Helpers that provide further interaction with the REPL.
+
+| Key Binding   | Description                                           |
+|---------------+-------------------------------------------------------|
+| ~SPC m r TAB~ | install package                                       |
+| ~SPC m r i~   | install package                                       |
+| ~SPC m r l~   | load installed package                                |
+| ~SPC m r /~   | set working directory                                 |
+| ~SPC m r d~   | edit object source or dump() object into a new buffer |
+| ~SPC m r e~   | execute a command in the ESS process                  |
+| ~SPC m r r~   | reload ESS process                                    |
+| ~SPC m r s~   | set source style                                      |
+| ~SPC m r t~   | build tags for directory                              |
+| ~SPC m r w~   | set "width" option                                    |
+
+** R devtools
+Interaction with the =R= =devtools= package.
+
+| Key Binding   | Description                              |
+|---------------+------------------------------------------|
+| ~SPC m w TAB~ | interface for =devtools::install()=      |
+| ~SPC m w i~   | interface for =devtools::install()=      |
+| ~SPC m w a~   | ask for a devtools command and runs it   |
+| ~SPC m w c~   | interface for =devtools::check()=        |
+| ~SPC m w d~   | interface for =devtools::document()=     |
+| ~SPC m w l~   | interface for =devtools::load_all()=     |
+| ~SPC m w t~   | interface for =devtools::tests()=        |
+| ~SPC m w u~   | interface for =devtools::unload()=       |
+| ~SPC m w r~   | interface for =devtools::revdep_check()= |
+| ~SPC m w s~   | set a package for ESS r-package commands |
+
+** Debugging
+Tools for debugging
+
+| Key Binding  | Description                                                       |
+|--------------+-------------------------------------------------------------------|
+| ~SPC m d ?~  | 'ess-tracebug-show-help                                           |
+| ~SPC m d `~  | show traceback and last error message                             |
+| ~SPC m d \~~ | display call current call stack                                   |
+| ~SPC m d b~  | set breakpoint                                                    |
+| ~SPC m d B~  | set conditional breakpoint                                        |
+| ~SPC m d d~  | set debugging flag for function                                   |
+| ~SPC m d e~  | toggle the `on-error` action                                      |
+| ~SPC m d i~  | jump to point where the last debugger or traceback event occurred |
+| ~SPC m d k~  | kill breakpoint                                                   |
+| ~SPC m d K~  | kill all breakpoints in buffer                                    |
+| ~SPC m d l~  | Set breakpoint logger                                             |
+| ~SPC m d n~  | go to next breakpoint                                             |
+| ~SPC m d N~  | go to previous breakpoint                                         |
+| ~SPC m d p~  | go to previous breakpoint                                         |
+| ~SPC m d o~  | toggle breakpoint state                                           |
+| ~SPC m d s~  | set environment for evaluation                                    |
+| ~SPC m d t~  | toggle tracebug                                                   |
+| ~SPC m d u~  | unflag function for debug                                         |
+| ~SPC m d w~  | trigger ESS watch mode                                            |
+
+** Editing Markdown
+Edit Markdown files
+
+| Key Binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~SPC m c m~ | mark knitr/sweave chunk around point                      |
+| ~SPC m c n~ | next knitr/sweave chunk                                   |
+| ~SPC m c N~ | previous knitr/sweave chunk                               |
+| ~SPC m c C~ | send knitr/sweave chunk and switch to REPL in insert mode |
+| ~SPC m c c~ | send knitr/sweave chunk and keep buffer focused           |
+| ~SPC m c d~ | send knitr/sweave chunk and step to next chunk            |
 
 * Options
 To turn off the automatic replacement of underscores by =<-=, set in your
