@@ -43,7 +43,6 @@ Send code to inferior process with these commands:
 |---------------+-------------------------------------------------------------------|
 | ~SPC m s b~   | send buffer and switch to REPL in insert mode                     |
 | ~SPC m e b~   | send buffer and keep code buffer focused                          |
-| ~SPC m c d~   | send knitr/sweave chunk and step to next chunk                    |
 | ~SPC m s d~   | send region or line and step                                      |
 | ~SPC m s D~   | send function or paragraph and step                               |
 | ~SPC m e l~   | send line and keep code buffer focused                            |
