@@ -98,7 +98,7 @@
       ;; R helpers
       "hp" 'ess-R-dv-pprint
       "ht" 'ess-R-dv-ctable
-      "e" 'ess-extra-map
+      "r" 'ess-extra-map
       "w" 'ess-r-package-dev-map
       "d" 'ess-dev-map
       ;; noweb

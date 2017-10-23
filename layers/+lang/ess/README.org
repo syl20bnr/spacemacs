@@ -76,16 +76,16 @@ Helpers that provide further interaction with the REPL.
    
 | Key Binding   | Description                                           |
 |---------------+-------------------------------------------------------|
-| ~SPC m e TAB~ | install package                                       |
-| ~SPC m e i~   | install package                                       |
-| ~SPC m e l~   | load installed package                                |
-| ~SPC m e /~   | set working directory                                 |
-| ~SPC m e d~   | edit object source or dump() object into a new buffer |
-| ~SPC m e e~   | execute a command in the ESS process                  |
-| ~SPC m e r~   | reload ESS process                                    |
-| ~SPC m e s~   | set source style                                      |
-| ~SPC m e t~   | build tags for directory                              |
-| ~SPC m e w~   | set "width" option                                    |
+| ~SPC m r TAB~ | install package                                       |
+| ~SPC m r i~   | install package                                       |
+| ~SPC m r l~   | load installed package                                |
+| ~SPC m r /~   | set working directory                                 |
+| ~SPC m r d~   | edit object source or dump() object into a new buffer |
+| ~SPC m r e~   | execute a command in the ESS process                  |
+| ~SPC m r r~   | reload ESS process                                    |
+| ~SPC m r s~   | set source style                                      |
+| ~SPC m r t~   | build tags for directory                              |
+| ~SPC m r w~   | set "width" option                                    |
 
 ** R devtools
 Interaction with the =R= =devtools= package.
