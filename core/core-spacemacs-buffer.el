@@ -1040,12 +1040,12 @@ REFRESH if the buffer should be redrawn."
             (spacemacs-buffer//insert-footer)
             (spacemacs-buffer/set-mode-line spacemacs--default-mode-line)
             (force-mode-line-update)
-            (spacemacs-buffer-mode))))
-      (if save-line
-          (progn (goto-char (point-min))
-                 (forward-line (1- save-line))
-                 (forward-to-indentation 0))
-        (spacemacs-buffer/goto-link-line))
+            (spacemacs-buffer-mode)))
+        (if save-line
+            (progn (goto-char (point-min))
+                   (forward-line (1- save-line))
+                   (forward-to-indentation 0))
+          (spacemacs-buffer/goto-link-line)))
       (switch-to-buffer spacemacs-buffer-name)
       (spacemacs//redisplay))))
 

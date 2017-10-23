@@ -144,7 +144,12 @@ be sent as the source of request (useful for debugging)"
   "Emit specified error and exit with code 1."
   (message "{\"type\":\"error\",\"text\":%S}"
            (spacemacs//org-edn-format-payload
-            format-string
+            (concat (format "current-buffer: %s\n"
+                            (buffer-name))
+                    (format "current-file: %s\n"
+                            (buffer-file-name))
+                    "error: "
+                    format-string)
             args))
   (kill-emacs 1))
 
@@ -197,7 +202,7 @@ without unification and \"#\" prefix."
   "Transcode BOLD From Org to Spacemacs EDN.
 CONTENTS is the text with bold markup.  INFO is a plist holding
 contextual information."
-  (format "#Spacemacs/Org-bold{:contents [%s]}" contents))
+  (format "#SOE/bold{:contents [%s]}" contents))
 
 ;;;; Center Block
 
@@ -205,7 +210,7 @@ contextual information."
   "Transcode a CENTER-BLOCK element From Org to Spacemacs EDN.
 CONTENTS holds the contents of the block.  INFO is a plist
 holding contextual information."
-  (format "#Spacemacs/Org-center-block{:contents [%s]}" contents))
+  (format "#SOE/center-block{:contents [%s]}" contents))
 
 ;;;; Clock
 
@@ -224,7 +229,7 @@ channel."
 CONTENTS is nil.  INFO is a plist holding contextual
 information.
 NOTE: In Spacemacs ~code blocks~ are key sequences."
-  (format "#Spacemacs/Org-kbd{:value %s}"
+  (format "#SOE/kbd{:value %s}"
           (format "%S"
                   (vconcat
                    (mapcar
@@ -270,7 +275,7 @@ contextual information."
   "Transcode a EXAMPLE-BLOCK element From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual
 information."
-  (format "#Spacemacs/Org-example-block{:value \"%s\"}"
+  (format "#SOE/example-block{:value \"%s\"}"
           (spacemacs/org-edn-escape-string
            (org-element-property :value example-block))))
 
@@ -295,12 +300,12 @@ information."
 
 ;;;; Fixed Width
 
-(defun spacemacs//org-edn-fixed-width (_fixed-width _contents _info)
+(defun spacemacs//org-edn-fixed-width (fixed-width _contents _info)
   "Transcode a FIXED-WIDTH element From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual information."
-  (spacemacs/org-edn-error "\"%s\" not implemented"
-                           "spacemacs//org-edn-fixed-width")
-  "")
+  (format "#SOE/fixed-width{:value \"%s\"}"
+          (spacemacs/org-edn-escape-string
+           (org-element-property :value fixed-width))))
 
 ;;;; Footnote Reference
 
@@ -349,7 +354,7 @@ holding contextual information."
 
     (puthash gh-id raw-value headline-ht)
     (format
-     (concat "#Spacemacs/Org-headline{"
+     (concat "#SOE/headline{"
              ":value \"%s\" "
              ":gh-id \"%s\" "
              ":nesting-id \"%s\" "
@@ -396,7 +401,7 @@ holding contextual information."
   "Return body of document string after HTML conversion.
 CONTENTS is the transcoded contents string.  INFO is a plist
 holding export options."
-  (format "#Spacemacs/Org-inner-template{:contents [%s]}" contents))
+  (format "#SOE/inner-template{:contents [%s]}" contents))
 
 ;;;; Italic
 
@@ -404,7 +409,7 @@ holding export options."
   "Transcode ITALIC From Org to Spacemacs EDN.
 CONTENTS is the text with italic markup.  INFO is a plist holding
 contextual information."
-  (format "#Spacemacs/Org-italic{:contents [%s]}" contents))
+  (format "#SOE/italic{:contents [%s]}" contents))
 
 ;;;; Item
 
@@ -423,7 +428,7 @@ contextual information."
                "it isn't implemented in spacemacs//org-edn-item")
        (plist-get info :input-file)
        type))
-    (format (concat "#Spacemacs/Org-item{"
+    (format (concat "#SOE/item{"
                     ":type %s "
                     ":bullet %s "
                     ":counter %s "
@@ -443,7 +448,7 @@ contextual information."
 (defun spacemacs//org-edn-keyword (keyword _contents _info)
   "Transcode a KEYWORD element From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual information."
-  (format "#Spacemacs/Org-keyword{:key \"%s\" :value \"%s\"}"
+  (format "#SOE/keyword{:key \"%s\" :value \"%s\"}"
           (spacemacs/org-edn-escape-string
            (org-element-property :key keyword))
           (spacemacs/org-edn-escape-string
@@ -472,7 +477,7 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
 (defun spacemacs//org-edn-line-break (_line-break _contents _info)
   "Transcode a LINE-BREAK object From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual information."
-  "#Spacemacs/Org-line-break{}")
+  "#SOE/line-break{}")
 
 ;;;; Link
 
@@ -528,7 +533,7 @@ INFO is a plist holding contextual information.  See
             "it isn't readable locally.")
            file
            (file-truename path)))
-        (format (concat "#Spacemacs/Org-org-file-path{"
+        (format (concat "#SOE/org-file-path{"
                         ":value \"%s\" "
                         ":raw-link \"%s\" "
                         ":target-headline-gh-id \"%s\" "
@@ -554,17 +559,17 @@ INFO is a plist holding contextual information.  See
            (file-truename path))))
         (when (not local-org-link?)
           (spacemacs/org-edn-export-file file (file-truename path)))
-        (format "#Spacemacs/Org-file-path{:value \"%s\" :description [%s]}"
+        (format "#SOE/file-path{:value \"%s\" :description [%s]}"
                 (spacemacs/org-edn-escape-string path)
                 desc)))
      ((or (string= type "http")
           (string= type "https")
           (string= type "ftp"))
-      (format "#Spacemacs/Org-web-link{:value \"%s\" :description [%s]}"
+      (format "#SOE/web-link{:value \"%s\" :description [%s]}"
               (spacemacs/org-edn-escape-string raw-link)
               desc))
      ((string= type "custom-id")
-      (format (concat "#Spacemacs/Org-internal-link{"
+      (format (concat "#SOE/internal-link{"
                       ":target-headline-gh-id \"%s\" :description [%s]}")
               (spacemacs/org-edn-escape-string raw-link)
               desc))
@@ -593,7 +598,7 @@ information."
   "Transcode a PARAGRAPH element From Org to Spacemacs EDN.
 CONTENTS is the contents of the paragraph, as a string.  INFO is
 the plist used as a communication channel."
-  (format "#Spacemacs/Org-paragraph{:contents [%s]}" contents))
+  (format "#SOE/paragraph{:contents [%s]}" contents))
 
 ;;;; Plain List
 
@@ -653,10 +658,10 @@ contextual information."
                      "level \"Description\" headline")
              file)
           (plist-put info :file-has-feature-list? 'true)
-          (format "#Spacemacs/Org-feature-list{:type %s :contents [%s]}"
+          (format "#SOE/feature-list{:type %s :contents [%s]}"
                   type
                   contents))
-      (format "#Spacemacs/Org-plain-list{:type %s :contents [%s]}"
+      (format "#SOE/plain-list{:type %s :contents [%s]}"
               type
               contents))))
 
@@ -666,7 +671,7 @@ contextual information."
   "Transcode a TEXT string From Org to Spacemacs EDN.
 TEXT is the string to transcode.  INFO is a plist holding
 contextual information."
-  (format "#Spacemacs/Org-plain-text{:text \"%s\"}"
+  (format "#SOE/plain-text{:text \"%s\"}"
           (spacemacs/org-edn-escape-string text)))
 
 ;;;; Planning
@@ -695,7 +700,7 @@ holding contextual information."
   "Transcode a QUOTE-BLOCK element From Org to Spacemacs EDN.
 CONTENTS holds the contents of the block.  INFO is a plist
 holding contextual information."
-  (format "#Spacemacs/Org-quote-block{:contents [%s]}" contents))
+  (format "#SOE/quote-block{:contents [%s]}" contents))
 
 ;;;; Radio Target
 
@@ -713,7 +718,7 @@ contextual information."
   "Transcode a SECTION element From Org to Spacemacs EDN.
 CONTENTS holds the contents of the section.  INFO is a plist
 holding contextual information."
-  (format "#Spacemacs/Org-section{:contents [%s]}" contents))
+  (format "#SOE/section{:contents [%s]}" contents))
 
 ;;;; Special Block
 
@@ -730,7 +735,7 @@ holding contextual information."
 (defun spacemacs//org-edn-src-block (src-block _contents _info)
   "Transcode a SRC-BLOCK element From Org to Spacemacs EDN.
 CONTENTS is nil. INFO is a plist holding contextual information."
-  (format "#Spacemacs/Org-src-block{:language \"%s\" :value \"%s\"}"
+  (format "#SOE/src-block{:language \"%s\" :value \"%s\"}"
           (spacemacs/org-edn-escape-string
            (org-element-property :language src-block))
           (spacemacs/org-edn-escape-string
@@ -751,7 +756,7 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
   "Transcode STRIKE-THROUGH From Org to Spacemacs EDN.
 CONTENTS is the text with strike-through markup.  INFO is a plist
 holding contextual information."
-  (format "#Spacemacs/Org-strike-through{:contents [%s]}" contents))
+  (format "#SOE/strike-through{:contents [%s]}" contents))
 
 ;;;; Subscript
 
@@ -759,7 +764,7 @@ holding contextual information."
   "Transcode a SUBSCRIPT object From Org to Spacemacs EDN.
 CONTENTS is the contents of the object.  INFO is a plist holding
 contextual information."
-  (format "#Spacemacs/Org-subscript{:contents [%s]}" contents))
+  (format "#SOE/subscript{:contents [%s]}" contents))
 
 ;;;; Superscript
 
@@ -767,7 +772,7 @@ contextual information."
   "Transcode a SUPERSCRIPT object From Org to Spacemacs EDN.
 CONTENTS is the contents of the object.  INFO is a plist holding
 contextual information."
-  (format "#Spacemacs/Org-superscript{:contents [%s]}" contents))
+  (format "#SOE/superscript{:contents [%s]}" contents))
 
 ;;;; Table
 
@@ -780,7 +785,7 @@ contextual information."
       (spacemacs/org-edn-error
        "Table type \"%s\" isn't implemented in spacemacs//org-edn-table"
        type))
-    (format "#Spacemacs/Org-table{:type %s :contents [%s]}"
+    (format "#SOE/table{:type %s :contents [%s]}"
             (org-element-property :type table)
             contents)))
 
@@ -790,7 +795,7 @@ contextual information."
   "Transcode a TABLE-CELL element From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist used as a communication
 channel."
-  (format "#Spacemacs/Org-table-cell{:contents [%s]}" contents))
+  (format "#SOE/table-cell{:contents [%s]}" contents))
 
 ;;;; Table Row
 
@@ -798,7 +803,7 @@ channel."
   "Transcode a TABLE-ROW element From Org to Spacemacs EDN.
 CONTENTS is the contents of the row.  INFO is a plist used as a
 communication channel."
-  (format "#Spacemacs/Org-table-row{:contents [%s]}" contents))
+  (format "#SOE/table-row{:contents [%s]}" contents))
 
 ;;;; Target
 
@@ -858,13 +863,13 @@ holding export options."
                        "See %S\n")
                file
                spacemacs-readme-template-url)))))))
-    (format (concat "#Spacemacs/Org-template{"
-                    ":export-data #inst \"%s\" "
+    (format (concat "#SOE/template{"
+                    ;; ":export-data #inst \"%s\" "
                     ":file-has-description? %s "
                     ":file-has-feature-list? %s "
-                    ":headlines [%s]"
+                    ":headlines %s"
                     ":contents [%s]}")
-            (format-time-string "%Y-%m-%dT%H:%M:%S.52Z" nil t)
+            ;; (format-time-string "%Y-%m-%dT%H:%M:%S.52Z" nil t)
             (if (plist-member info :file-has-description?)
                 'true
               'false)
@@ -890,7 +895,7 @@ information."
   "Transcode UNDERLINE From Org to Spacemacs EDN.
 CONTENTS is the text with underline markup.  INFO is a plist
 holding contextual information."
-  (format "#Spacemacs/Org-underline{:contents [%s]}" contents))
+  (format "#SOE/underline{:contents [%s]}" contents))
 
 ;;;; Verbatim
 
@@ -898,7 +903,7 @@ holding contextual information."
   "Transcode VERBATIM From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual
 information."
-  (format "#Spacemacs/Org-verbatim{:value \"%s\"}"
+  (format "#SOE/verbatim{:value \"%s\"}"
           (spacemacs/org-edn-escape-string
            (org-element-property :value verbatim))))
 
@@ -908,7 +913,7 @@ information."
   "Transcode a VERSE-BLOCK element From Org to Spacemacs EDN.
 CONTENTS is verse block contents.  INFO is a plist holding
 contextual information."
-  (format "#Spacemacs/Org-verse-block{:contents [%s]}" contents))
+  (format "#SOE/verse-block{:contents [%s]}" contents))
 
 
 ;;; Filter Functions

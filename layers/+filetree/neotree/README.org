@@ -141,4 +141,3 @@ open the file in a split window with ~|~ and ~-~:
 | ~q~ or ~fd~ | hide =NeoTree= buffer           |
 | ~r~         | rename a node                   |
 | ~?~         | show help                       |
-

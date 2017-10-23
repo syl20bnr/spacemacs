@@ -18,6 +18,9 @@
 (defvar spacemacs--delayed-user-theme nil
   "Internal variable storing user theme to be installed.")
 
+(defvar spacemacs--cur-theme nil
+  "Internal variable storing currently loaded theme.")
+
 (defface org-kbd
   '((t (:background "LemonChiffon1" :foreground "black" :box
                     (:line-width 2 :color nil :style released-button))))
@@ -250,8 +253,7 @@ THEME."
           (unless (display-graphic-p)
             (eval `(spacemacs|do-after-display-system-init
                     (load-theme ',theme-name t))))
-          (setq-default spacemacs--cur-theme theme-name)
-          (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
+          (setq-default spacemacs--cur-theme theme-name))
       ('error
        (message "error: %s" err)
        (if fallback-theme
@@ -289,21 +291,19 @@ THEME."
 
 (defun spacemacs/cycle-spacemacs-theme (&optional backward)
   "Cycle through themes defined in `dotspacemacs-themes.'
-Does it BACKWARD with universal-argument or negative command argument"
+When BACKWARD is non-nil, or with universal-argument, cycle backwards."
   (interactive "P")
-  (let* ((reversed (member backward '(t - (4))))
-         (themes (if reversed (reverse dotspacemacs-themes) dotspacemacs-themes)))
+  (let* ((themes (if backward (reverse dotspacemacs-themes) dotspacemacs-themes))
+         (next-theme (car (or (cdr (memq spacemacs--cur-theme themes))
+                              ;; if current theme isn't in cycleable themes, start
+                              ;; over
+                              themes))))
     (when spacemacs--cur-theme
-      (disable-theme spacemacs--cur-theme)
-      ;; if current theme isn't in cycleable themes, start over
-      (setq spacemacs--cycle-themes
-            (or (cdr (memq spacemacs--cur-theme themes))
-                themes)))
-    (setq spacemacs--cur-theme (pop spacemacs--cycle-themes))
+      (disable-theme spacemacs--cur-theme))
     (let ((progress-reporter
            (make-progress-reporter
-            (format "Loading theme %s..." spacemacs--cur-theme))))
-      (spacemacs/load-theme spacemacs--cur-theme nil 'disable)
+            (format "Loading theme %s..." next-theme))))
+      (spacemacs/load-theme next-theme nil 'disable)
       (progress-reporter-done progress-reporter))))
 
 (defadvice load-theme (after spacemacs/load-theme-adv activate)

@@ -188,6 +188,33 @@ ask the user if a new layout should be created."
   (call-interactively 'spacemacs/helm-persp-kill)
   (spacemacs/layouts-transient-state/body))
 
+(defun spacemacs/move-element-left (element list)
+  "Move ELEMENT one step to the left in LIST."
+  (let (value)
+    (dolist (name list value)
+      (if (and (equal name element) (car value))
+          (setq value (cons (car value) (cons name (cdr value))))
+        (setq value (cons name value))))
+    (nreverse value)))
+
+(defun spacemacs/move-element-right (element list)
+  "Move ELEMENT one step to the right in LIST."
+  (nreverse (spacemacs/move-element-left element (reverse list))))
+
+(defun spacemacs/move-current-persp-right ()
+  "Moves the current perspective one step to the right"
+  (interactive)
+  (setq persp-names-cache (spacemacs/move-element-right
+                           (spacemacs//current-layout-name)
+                           persp-names-cache)))
+
+(defun spacemacs/move-current-persp-left ()
+  "Moves the current perspective one step to the left"
+  (interactive)
+  (setq persp-names-cache (spacemacs/move-element-left
+                           (spacemacs//current-layout-name)
+                           persp-names-cache)))
+
 
 ;; Custom Persp transient-state
 
