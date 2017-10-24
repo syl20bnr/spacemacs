@@ -21,7 +21,7 @@ Features
 - Inter-linked files/buffers :
     - From "component" to Faust file
     - From "include" to Faust library file
-- From error to file:line number
+- From error to file and line number
 - From function name to online documentation
 - Fully configurable (build type/target/architecture/toolkit, keyboard shortcuts, etc.)
 - Automatic keyword completion (if Auto-Complete is installed)
