@@ -98,11 +98,13 @@ function or press ~o~ to go out of it.
 7) Press ~a~ to stop debugging.
 
 * Nameless
-Nameless hides package namespaces in your emacs-lisp code, adn replace it by leading ~:~
-It can be toggled by ~SPC m~.
+Nameless hides package namespaces in your emacs-lisp code, and replaces it by leading ~:~
+It can be toggled by ~SPC m :~.
 
-To have it automatically on, you need to add ~(setq nameless-auto-mode t)~ in ~dotspacemacs/user-init~.
-Further configuration can be done with variable ~nameless-global-aliases~, cf [[https://github.com/Malabarba/Nameless#requiring-other-packages-as-aliases][original library documentation]]
+To have it automatically on, you need to define a layer variable:
+=(emacs-lisp :variables emacs-lisp-nameless-mode t)= in =.spacemacs= =dotspacemacs/layers=
+
+Further configuration can be done with the custom variable =nameless-global-aliases=, cf [[https://github.com/Malabarba/Nameless#requiring-other-packages-as-aliases][original library documentation]]
 
 * Key bindings
 
