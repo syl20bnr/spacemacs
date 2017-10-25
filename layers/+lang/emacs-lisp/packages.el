@@ -182,7 +182,8 @@
   (use-package nameless
     :defer t
     :init (progn
-            (add-hook 'emacs-lisp-mode-hook 'nameless-mode-from-hook)
+            (when (bound-and-true-p nameless-auto-mode)
+             (add-hook 'emacs-lisp-mode-hook 'nameless-mode-from-hook))
             (spacemacs|add-toggle nameless
               :status nameless-mode
               :on (nameless-mode)
