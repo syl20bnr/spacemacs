@@ -95,6 +95,7 @@
       "ef" 'ess-eval-function
       ;; ESS doc map
       "h" 'ess-doc-map
+      "hh" 'ess-display-help-on-object
       ;; R helpers
       "hp" 'ess-R-dv-pprint
       "ht" 'ess-R-dv-ctable
