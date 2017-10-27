@@ -57,6 +57,7 @@ Get help and helpers for inspecting objects at point are available in R buffers 
 
 | Key Binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
+| ~SPC m h h~ | display help on object                                         |
 | ~SPC m h d~ | display help on object                                         |
 | ~SPC m h e~ | describe object                                                |
 | ~SPC m h m~ | manual lookup                                                  |
