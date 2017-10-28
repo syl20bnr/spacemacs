@@ -47,7 +47,12 @@
                    spacemacs-jump-handlers-clojurescript-mode
                    spacemacs-jump-handlers-clojurex-mode
                    spacemacs-jump-handlers-cider-repl-mode))
-        (add-to-list x 'cider-find-var))
+        (add-to-list x 'spacemacs/clj-find-var))
+
+      (add-hook 'clojure-mode-hook #'spacemacs//init-jump-handlers-clojure-mode)
+      (add-hook 'clojurescript-mode-hook #'spacemacs//init-jump-handlers-clojurescript-mode)
+      (add-hook 'clojurec-mode-hook #'spacemacs//init-jump-handlers-clojurec-mode)
+      (add-hook 'cider-repl-mode-hook #'spacemacs//init-jump-handlers-cider-repl-mode)
 
       ;; TODO: having this work for cider-macroexpansion-mode would be nice,
       ;;       but the problem is that it uses clojure-mode as its major-mode
