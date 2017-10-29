@@ -63,7 +63,7 @@ environment, otherwise it is strongly recommended to let it set to t.")
 (defvar dotspacemacs-elpa-timeout 5
   "Maximum allowed time in seconds to contact an ELPA repository.")
 
-(defvar dotspacemacs-elpa-subdirectory nil
+(defvar dotspacemacs-elpa-subdirectory 'emacs-version
   "If non-nil, a form that evaluates to a package directory. For
 example, to use different package directories for different Emacs
 versions, set this to `emacs-version'.")
