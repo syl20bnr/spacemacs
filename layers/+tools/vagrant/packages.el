@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 (setq vagrant-packages '(vagrant
-                           vagrant-tramp))
+                         vagrant-tramp))
 
 (defun vagrant/init-vagrant ()
   (use-package vagrant
@@ -39,4 +39,4 @@
         (unless spacemacs--vagrant-tramp-loaded
           (vagrant-tramp-add-method)
           (setq spacemacs--vagrant-tramp-loaded t)))
-      (spacemacs/set-leader-keys "Vt" 'vagrant-tramp-term))))
+      (spacemacs/set-leader-keys "aVt" 'vagrant-tramp-term))))
