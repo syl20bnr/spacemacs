@@ -15,6 +15,7 @@
 (require 'page-break-lines)
 (require 'core-debug)
 (require 'core-command-line)
+(require 'core-configuration-layer)
 (require 'core-dotspacemacs)
 (require 'core-custom-settings)
 (require 'core-release-management)
@@ -79,7 +80,6 @@ the final step of executing code in `emacs-startup-hook'.")
                 ;; instead.
                 evil-want-C-i-jump nil)
   (dotspacemacs/load-file)
-  (require 'core-configuration-layer)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
   (when dotspacemacs-maximized-at-startup
     (unless (frame-parameter nil 'fullscreen)

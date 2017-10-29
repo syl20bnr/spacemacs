@@ -46,20 +46,48 @@
       configuration-layer-private-directory))
   "Spacemacs default directory for private layers.")
 
+(defconst configuration-layer-lock-file
+  (concat spacemacs-start-directory ".lock")
+  "Absolute path to the lock file.")
+
+(defconst configuration-layer--stable-elpa-name "spacelpa"
+  "Name of the stable ELPA repository. Should be fixed by the lock file.")
+
+(defconst configuration-layer--stable-elpa-tarball-directory
+  "https://github.com/syl20bnr/spacelpa/archive/"
+  "Remote location of the tarball for the ELPA stable directory")
+
+(defconst configuration-layer--stable-elpa-directory
+  (expand-file-name
+   (concat spacemacs-cache-directory "stable-elpa/" emacs-version "/"))
+  "Remote location of the tarball for the ELPA stable directory")
+
+(defconst configuration-layer--stable-elpa-version-file
+  (concat configuration-layer--stable-elpa-directory "version")
+  "Absolute path to the file containing the current stable elpa repository
+version")
+
+(defvar configuration-layer--stable-elpa-version spacemacs-version
+  "Version of ELPA stable repository. This value is aimed to be overwritten by
+the .lock file at the root of the repository.")
+
 (defun configuration-layer/elpa-directory (root)
   "Evaluate the correct package subdirectory of ROOT. This is
 done according to the value of `dotspacemacs-elpa-subdirectory'.
-If it is nil, then ROOT is returned. Otherwise a subdirectory of
-ROOT is returned."
-  (if (not dotspacemacs-elpa-subdirectory)
-      root
-    (let ((subdir (if (eq 'emacs-version dotspacemacs-elpa-subdirectory)
-                      (format "%d%s%d"
-                              emacs-major-version
-                              version-separator
-                              emacs-minor-version)
-                    (eval dotspacemacs-elpa-subdirectory))))
-      (file-name-as-directory (expand-file-name subdir root)))))
+This function also appends the name of the current branch of Spacemacs.
+If `dotspacemacs-elpa-subdirectory' is nil, then ROOT is used. Otherwise the
+subdirectory of ROOT is used."
+  (concat
+   (if (not dotspacemacs-elpa-subdirectory)
+       root
+     (let ((subdir (if (eq 'emacs-version dotspacemacs-elpa-subdirectory)
+                       (format "%d%s%d"
+                               emacs-major-version
+                               version-separator
+                               emacs-minor-version)
+                     (eval dotspacemacs-elpa-subdirectory))))
+       (file-name-as-directory (expand-file-name subdir root))))
+   (spacemacs//git-get-current-branch)))
 
 (defun configuration-layer/get-elpa-package-install-directory (pkg)
   "Return the install directory of elpa PKG. Return nil if it is not found."
@@ -294,12 +322,9 @@ is not set for the given SLOT."
   (unless configuration-layer--package-properties-read-onlyp
     (eval `(oset pkg ,slot value))))
 
-(defvar configuration-layer--elpa-archives
-  '(("melpa" . "melpa.org/packages/")
-    ("org"   . "orgmode.org/elpa/")
-    ("gnu"   . "elpa.gnu.org/packages/"))
-  ;; '(("spacelpa" . "~/.emacs.d/.cache/spacelpa/"))
-  "List of ELPA archives required by Spacemacs.")
+(defvar configuration-layer--elpa-archives nil
+  "List of ELPA archives required by Spacemacs. This value is set by the lock
+file.")
 
 (defvar configuration-layer-exclude-all-layers nil
   "If non nil then only the distribution layer is loaded.")
@@ -356,12 +381,17 @@ directory with a name starting with `+'.")
   "Used to collect information about rollback packages in the
 cache folder.")
 
+(defun configuration-layer/load-lock-file ()
+  "Load the .lock file"
+  (load-file configuration-layer-lock-file))
+
 (defun configuration-layer/initialize ()
   "Initialize `package.el'."
   (setq configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout)
   (unless package--initialized
     (setq configuration-layer-rollback-directory
-          (configuration-layer/elpa-directory configuration-layer-rollback-directory))
+          (configuration-layer/elpa-directory
+           configuration-layer-rollback-directory))
     (setq package-user-dir
           (configuration-layer/elpa-directory package-user-dir))
     (setq package-archives (configuration-layer//resolve-package-archives
@@ -480,6 +510,7 @@ refreshed during the current session."
   "Load layers declared in dotfile and install associated packages.
 To prevent package from being installed or uninstalled set the variable
 `spacemacs-sync-packages' to nil."
+  (message "%s" (configuration-layer//stable-elpa-directory))
   (run-hooks 'configuration-layer-pre-load-hook)
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
   (setq dotspacemacs--configuration-layers-saved
@@ -2306,8 +2337,13 @@ depends on it."
                      ,(package-desc-kind obj)
                      ,(package-desc-extras obj)])))
 
+(defun configuration-layer//patch-package-descriptor (desc)
+  "Return a patched DESC.
+The URL of the descriptor is patched to be the passed URL"
+  )
+
 (defun configuration-layer//download-elpa-file
-    (pkg-name filename archive-url output-dir
+    (pkg-name filename archive-url output-dirkkj
               &optional signaturep readmep)
   "Download FILENAME from distant ELPA repository to OUTPUT-DIR.
 
@@ -2367,7 +2403,7 @@ Original code from dochang at https://github.com/dochang/elpa-clone"
            (archive-contents
             (mapcar 'configuration-layer//create-archive-contents-item
                     packages))
-           (path (file-name-as-directory (concat output-dir name))))
+           (path (file-name-as-directory (concat output-dir "/" name))))
       (unless (file-exists-p path) (make-directory path 'create-parents))
       (configuration-layer//sync-elpa-packages-files packages path)
       (push 1 archive-contents)
@@ -2376,6 +2412,71 @@ Original code from dochang at https://github.com/dochang/elpa-clone"
         (erase-buffer)
         (prin1 archive-contents (current-buffer))
         (save-buffer)))))
+
+(defun configuration-layer/stable-elpa-version ()
+  "Set and return the current version of the ELPA repository.
+Returns nil if the version is unknown."
+  (when (file-exists-p configuration-layer--stable-elpa-version-file)
+    (with-current-buffer (find-file-noselect
+                          configuration-layer--stable-elpa-version-file)
+      (buffer-string))))
+
+(defun configuration-layer//stable-elpa-tarball-distant-file ()
+  "Return the distant file path of the downloaded tarball of ELPA stable
+repository."
+  (format "%sv%s.tar.gz"
+          configuration-layer--stable-elpa-tarball-directory
+          configuration-layer--stable-elpa-version))
+
+(defun configuration-layer//stable-elpa-directory ()
+  "Return the local absolute path of the ELPA stable repository."
+  (cdr (assoc configuration-layer--stable-elpa-name
+              configuration-layer--elpa-archives)))
+
+(defun configuration-layer//stable-elpa-tarball-local-file ()
+  "Return the local absolute path for the file of the downloaded tarball of
+ELPA stable repository."
+  (format "%s.tar.gz" (configuration-layer//stable-elpa-directory)))
+
+(defun configuration-layer//stable-elpa-untar-archive ()
+  "Untar the downloaded archive of stable ELPA."
+  (require 'tar-mode)
+  (let (large-file-warning-threshold)
+    (with-current-buffer (find-file-noselect
+                          (configuration-layer//stable-elpa-tarball-local-file))
+      (tar-mode)
+      (tar-untar-buffer))))
+
+(defun configuration-layer/stable-elpa-download-tarball ()
+  "Download and extract the tarball of the stable ELPA repository if it used."
+  (when (and (assoc configuration-layer--stable-elpa-name
+                    configuration-layer--elpa-archives)
+             (not (string-equal (configuration-layer/stable-elpa-version)
+                                configuration-layer--stable-elpa-version)))
+    (let ((address (configuration-layer//stable-elpa-tarball-distant-file))
+          (local (configuration-layer//stable-elpa-tarball-local-file)))
+      (spacemacs-buffer/set-mode-line
+       (format "Downloading stable ELPA repository: %s..."
+               configuration-layer--stable-elpa-name))
+      (spacemacs//redisplay)
+      ;; download
+      (make-directory configuration-layer--stable-elpa-directory t)
+      (url-copy-file address local 'ok-if-already-exists)
+      ;; extract
+      (configuration-layer//stable-elpa-untar-archive)
+      ;; delete archive
+      (delete-file local)
+      ;; update version file
+      (with-current-buffer (find-file-noselect
+                            configuration-layer--stable-elpa-version-file)
+        (erase-buffer)
+        (beginning-of-buffer)
+        (insert (format "%s" configuration-layer--stable-elpa-version))
+        (save-buffer)))))
+
+;; (configuration-layer/create-elpa-repository
+;;  "spacelpa"
+;;  spacemacs-cache-directory)
 
 (defun configuration-layer//package-install-org (func &rest args)
   "Advice around `package-install' to patch package name and dependencies at
