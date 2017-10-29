@@ -370,12 +370,12 @@ Will work on both org-mode and any mode that accepts plain html."
         "it" 'org-agenda-set-tags
         "sr" 'org-agenda-refile)
       (spacemacs|define-transient-state org-agenda
-      :title "Org-agenda transient state"
-      :on-enter (setq which-key-inhibit t)
-      :on-exit (setq which-key-inhibit nil)
-      :foreign-keys run
-      :doc
-      "
+        :title "Org-agenda transient state"
+        :on-enter (setq which-key-inhibit t)
+        :on-exit (setq which-key-inhibit nil)
+        :foreign-keys run
+        :doc
+        "
 Headline^^            Visit entry^^               Filter^^                    Date^^                  Toggle mode^^        View^^             Clock^^        Other^^
 --------^^---------   -----------^^------------   ------^^-----------------   ----^^-------------     -----------^^------  ----^^---------    -----^^------  -----^^-----------
 [_ht_] set status     [_SPC_] in other window     [_ft_] by tag               [_ds_] schedule         [_tf_] follow        [_vd_] day         [_cI_] in      [_gr_] reload
@@ -572,13 +572,13 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (setq org-projectile-per-project-filepath org-projectile-file))))
 
 (defun org/init-ox-twbs ()
-  (spacemacs|use-package-add-hook org :post-config (require 'ox-twbs)))
+  (use-package ox-twbs :after ox))
 
 (defun org/init-ox-gfm ()
-  (spacemacs|use-package-add-hook org :post-config (require 'ox-gfm)))
+  (use-package ox-gfm :after ox))
 
 (defun org/init-ox-reveal ()
-  (spacemacs|use-package-add-hook org :post-config (require 'ox-reveal)))
+  (use-package ox-reveal :after ox))
 
 (defun org/post-init-persp-mode ()
   (spacemacs|define-custom-layout "@Org"
