@@ -125,7 +125,7 @@ to first install base Emacs and then download the Spacemacs extension files with
 Git.
 
 ## Emacs
-Spacemacs requires Emacs 24.4 or above. The development version of Emacs is not
+Spacemacs requires Emacs 25.1 or above. The development version of Emacs is not
 *officially* supported, but it should nevertheless be expected to work.
 
 Some modes require third-party tools that you'll have to install via your
@@ -140,7 +140,7 @@ an old fork of Emacs. The X in its name is unrelated to X11.
 Emacs has graphical support.
 
 **Note:** The Ubuntu LTS 12.04 and 14.04 repositories only have Emacs version
-24.3 available. Version 24.4 or greater needs to be [built from source][build_source].
+24.3 available. Version 25.1 or greater needs to be [built from source][build_source].
 This might also be true for other linux distributions.
 
 ### macOS
