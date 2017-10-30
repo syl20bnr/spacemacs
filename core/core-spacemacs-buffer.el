@@ -509,11 +509,13 @@ allowed types are `quickhelp' and `release-note'"
             (message "Unknown note type: %s" 'type))))
     (setq spacemacs-buffer--current-note-type nil)))
 
-(defun spacemacs-buffer/set-mode-line (format)
+(defun spacemacs-buffer/set-mode-line (format &optional redisplay)
   "Set mode-line format for spacemacs buffer.
-FORMAT: the `mode-line-format' variable Emacs will use to build the mode-line."
+FORMAT: the `mode-line-format' variable Emacs will use to build the mode-line.
+If REDISPLAY is non-nil then force a redisplay as well"
   (with-current-buffer (get-buffer-create spacemacs-buffer-name)
-    (setq mode-line-format format)))
+    (setq mode-line-format format))
+  (when redisplay (spacemacs//redisplay)))
 
 (defun spacemacs-buffer/message (msg &rest args)
   "Display MSG in *Messages* prepended with '(Spacemacs)'.
@@ -576,8 +578,8 @@ If MESSAGEBUF is not nil then MSG is also written in message buffer."
                                     spacemacs-loading-dots-chunk-threshold)))
                        (length suffix)))
                spacemacs-loading-char))
-        (spacemacs-buffer/set-mode-line (concat spacemacs-loading-string
-                                                suffix)))
+        (spacemacs-buffer/set-mode-line
+         (concat spacemacs-loading-string suffix)))
       (spacemacs//redisplay))))
 
 (defmacro spacemacs-buffer||add-shortcut
@@ -993,13 +995,13 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
     (if configuration-layer-error-count
         (progn
           (spacemacs-buffer-mode)
+          (face-remap-add-relative 'mode-line
+                                   '((:background "red") mode-line))
           (spacemacs-buffer/set-mode-line
            (format
             (concat "%s error(s) at startup! "
                     "Spacemacs may not be able to operate properly.")
-            configuration-layer-error-count))
-          (face-remap-add-relative 'mode-line
-                                   '((:background "red") mode-line)))
+            configuration-layer-error-count) t))
       (spacemacs-buffer/set-mode-line spacemacs--default-mode-line)
       (spacemacs-buffer-mode))
     (force-mode-line-update)

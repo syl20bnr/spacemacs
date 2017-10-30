@@ -539,8 +539,7 @@ a display strng and the value is the actual value to return."
 (defun dotspacemacs/maybe-install-dotfile ()
   "Install the dotfile if it does not exist."
   (unless (file-exists-p dotspacemacs-filepath)
-    (spacemacs-buffer/set-mode-line "Dotfile wizard installer")
-    (spacemacs//redisplay)
+    (spacemacs-buffer/set-mode-line "Dotfile wizard installer" t)
     (when (dotspacemacs/install 'with-wizard)
       (configuration-layer/load))))
 

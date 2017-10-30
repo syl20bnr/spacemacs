@@ -1267,8 +1267,7 @@ discovery."
   ;; `dotspacemacs-directory' override the private directory if it exists.
   (when refresh-index
     (setq configuration-layer--indexed-layers (make-hash-table :size 1024)))
-  (spacemacs-buffer/set-mode-line "Indexing layers...")
-  (spacemacs//redisplay)
+  (spacemacs-buffer/set-mode-line "Indexing layers..." t)
   (let ((search-paths (append
                        ;; layers shipped with spacemacs
                        (list configuration-layer-directory)
@@ -1637,8 +1636,7 @@ RNAME is the name symbol of another existing layer."
            installed-count)
       ;; installation
       (when upkg-names
-        (spacemacs-buffer/set-mode-line "Installing packages...")
-        (spacemacs//redisplay)
+        (spacemacs-buffer/set-mode-line "Installing packages..." t)
         (let ((delayed-warnings-backup delayed-warnings-list))
           (spacemacs-buffer/append
            (format "Found %s new package(s) to install...\n"
@@ -2216,8 +2214,7 @@ depends on it."
     ;; (message "orphans: %s" orphans)
     (if orphans
         (progn
-          (spacemacs-buffer/set-mode-line "Uninstalling unused packages...")
-          (spacemacs//redisplay)
+          (spacemacs-buffer/set-mode-line "Uninstalling unused packages..." t)
           (spacemacs-buffer/append
            (format "Found %s orphan package(s) to delete...\n"
                    orphans-count))
@@ -2457,8 +2454,7 @@ ELPA stable repository."
           (local (configuration-layer//stable-elpa-tarball-local-file)))
       (spacemacs-buffer/set-mode-line
        (format "Downloading stable ELPA repository: %s..."
-               configuration-layer--stable-elpa-name))
-      (spacemacs//redisplay)
+               configuration-layer--stable-elpa-name) t)
       (if (and (spacemacs/system-is-mswindows)
                (not (executable-find "gzip")))
           ;; additional check on Windows platform as tarball are not handled
