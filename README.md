@@ -193,6 +193,9 @@ For more information about powerline separators, please refer to the
 You can download good quality builds from the [emacs-w64 project][emacs-for-windows].
 It is recommended to install the most recent [stable build][emacs-for-windows-stable].
 
+You'll also need `gzip` and put it in your path, to download it go to the
+[GNUWin32 project page][gzip-for-windows]
+
 Be sure to declare an environment variable named `HOME` that's pointing to your
 user directory `C:\Users\<username>`. Then you can clone Spacemacs into that
 directory.
@@ -473,6 +476,7 @@ Thank you!
 [powerline documentation]: http://spacemacs.org/doc/DOCUMENTATION.html#powerline-separators
 [emacs-for-windows]: http://emacsbinw64.sourceforge.net/
 [emacs-for-windows-stable]: https://sourceforge.net/projects/emacsbinw64/files/release/
+[gzip-for-windows]: http://gnuwin32.sourceforge.net/packages/gzip.htm
 [the platinum searcher]: https://github.com/monochromegane/the_platinum_searcher
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
 [Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
