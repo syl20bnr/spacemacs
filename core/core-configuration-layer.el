@@ -359,8 +359,11 @@ file.")
 (defvar configuration-layer--lazy-mode-alist nil
   "Association list where the key is a mode and the value a regexp.")
 
+(defvar configuration-layer--inhibit-errors nil
+  "If non-nil then error messages emitted by the layer system are ignored.")
+
 (defvar configuration-layer--inhibit-warnings nil
-  "If non-nil then warning message emitted by the layer system are ignored.")
+  "If non-nil then warning messages emitted by the layer system are ignored.")
 
 (defvar configuration-layer--package-properties-read-onlyp nil
   "If non-nil then package properties are read only and cannot be overriden by
@@ -1010,6 +1013,14 @@ no-op."
   (unless configuration-layer--inhibit-warnings
     (apply 'spacemacs-buffer/warning msg args)))
 
+(defun configuration-layer//error (msg &rest args)
+  "Display MSG as a warning message in buffer `*Messages*'.
+If `configuration-layer--inhibit-errors' is non nil then this function is a
+no-op."
+  (unless configuration-layer--inhibit-errors
+    (configuration-layer//increment-error-count)
+    (apply 'spacemacs-buffer/error msg args)))
+
 (defun configuration-layer//add-layer (layer &optional usedp)
   "Add a LAYER object to the system.
 USEDP non-nil means that PKG is a used layer."
@@ -1452,14 +1463,13 @@ RNAME is the name symbol of another existing layer."
             (condition-case-unless-debug err
                 (set-default var (eval (pop variables)))
               ('error
-               (configuration-layer//increment-error-count)
-               (spacemacs-buffer/append
-                (format (concat "\nAn error occurred while setting layer "
-                                "variable %s "
-                                "(error: %s). Be sure to quote the value "
-                                "if needed.\n") var err))))
+               (configuration-layer//error
+                (concat "\nAn error occurred while setting layer "
+                        "variable %s "
+                        "(error: %s). Be sure to quote the value "
+                        "if needed.\n") var err)))
           (configuration-layer//warning "Missing value for variable %s !"
-                                    var))))))
+                                        var))))))
 
 (defun configuration-layer/layer-used-p (layer-name)
   "Return non-nil if LAYER-NAME is the name of a used and non-shadowed layer."
@@ -1574,10 +1584,9 @@ RNAME is the name symbol of another existing layer."
            (t (configuration-layer//warning "Cannot install package %S."
                                         pkg-name)))
         ('error
-         (configuration-layer//increment-error-count)
-         (spacemacs-buffer/append
-          (format (concat "\nAn error occurred while installing %s "
-                          "(error: %s)\n") pkg-name err))
+         (configuration-layer//error
+          (concat "\nAn error occurred while installing %s "
+                  "(error: %s)\n") pkg-name err)
          (spacemacs//redisplay))))))
 
 (defun configuration-layer//lazy-install-p (layer-name)
@@ -1872,12 +1881,10 @@ LAYER must not be the owner of PKG."
            (condition-case-unless-debug err
                (funcall (intern (format "%S/pre-init-%S" layer pkg-name)))
              ('error
-              (configuration-layer//increment-error-count)
-              (spacemacs-buffer/append
-               (format
-                (concat "\nAn error occurred while pre-configuring %S "
-                        "in layer %S (error: %s)\n")
-                pkg-name layer err)))))))
+              (configuration-layer//error
+               (concat "\nAn error occurred while pre-configuring %S "
+                       "in layer %S (error: %s)\n")
+               pkg-name layer err))))))
      (oref pkg :pre-layers))
     ;; init
     (spacemacs-buffer/message (format "  -> init (%S)..." owner))
@@ -1894,12 +1901,10 @@ LAYER must not be the owner of PKG."
            (condition-case-unless-debug err
                (funcall (intern (format "%S/post-init-%S" layer pkg-name)))
              ('error
-              (configuration-layer//increment-error-count)
-              (spacemacs-buffer/append
-               (format
-                (concat "\nAn error occurred while post-configuring %S "
-                        "in layer %S (error: %s)\n")
-                pkg-name layer err)))))))
+              (configuration-layer//error
+               (concat "\nAn error occurred while post-configuring %S "
+                       "in layer %S (error: %s)\n")
+               pkg-name layer err))))))
      (oref pkg :post-layers))))
 
 (defun configuration-layer//cleanup-rollback-directory ()
@@ -1942,13 +1947,13 @@ to update."
          (upgraded-count 0)
          (update-packages-alist))
     (when configuration-layer--check-new-version-error-packages
-      (spacemacs-buffer/append
-       (format (concat "--> Warning: cannot update %s package(s), possibly due"
-                       " to a temporary network problem: %s\n")
-               skipped-count
-               (mapconcat #'symbol-name
-                          configuration-layer--check-new-version-error-packages
-                          " "))))
+      (spacemacs-buffer/warning
+       (concat "--> Warning: cannot update %s package(s), possibly due"
+               " to a temporary network problem: %s\n")
+       skipped-count
+       (mapconcat #'symbol-name
+                  configuration-layer--check-new-version-error-packages
+                  " ")))
     ;; (message "packages to udpate: %s" update-packages)
     (when (> upgrade-count 0)
       (spacemacs-buffer/append
@@ -2460,8 +2465,7 @@ ELPA stable repository."
           ;; additional check on Windows platform as tarball are not handled
           ;; natively and requires the installation of gzip.
           (progn
-            (configuration-layer//increment-error-count)
-            (spacemacs-buffer/append
+            (configuration-layer//error
              (concat "Error: Cannot find gzip executable in you PATH.\n"
                      "Download and install gzip here: "
                      "http://gnuwin32.sourceforge.net/packages/gzip.htm \n"

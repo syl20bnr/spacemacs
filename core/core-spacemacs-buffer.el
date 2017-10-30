@@ -524,6 +524,17 @@ ARGS: format string arguments."
   (when init-file-debug
     (message "(Spacemacs) %s" (apply 'format msg args))))
 
+(defvar spacemacs-buffer--errors nil
+  "List of errors during startup.")
+
+(defun spacemacs-buffer/error (msg &rest args)
+  "Display MSG as an Error message in `*Messages*' buffer.
+ARGS: format string arguments."
+  (let ((msg (apply 'format msg args)))
+    (message "(Spacemacs) Error: %s" msg)
+    (when message-log-max
+      (add-to-list 'spacemacs-buffer--errors msg 'append))))
+
 (defvar spacemacs-buffer--warnings nil
   "List of warnings during startup.")
 
@@ -888,8 +899,11 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
               (cond
                ((eq el 'warnings)
                 (when (spacemacs-buffer//insert-string-list
-                       "Warnings:"
-                       spacemacs-buffer--warnings)
+                       "Errors:" spacemacs-buffer--errors)
+                  (spacemacs-buffer||add-shortcut "e" "Errors:")
+                  (insert list-separator))
+                (when (spacemacs-buffer//insert-string-list
+                       "Warnings:" spacemacs-buffer--warnings)
                   (spacemacs-buffer||add-shortcut "w" "Warnings:")
                   (insert list-separator)))
                ((eq el 'recents)
