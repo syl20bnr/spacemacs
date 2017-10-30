@@ -13,7 +13,7 @@
 ;;
 ;;; Code:
 
-(defconst spacemacs-buffer-version-info "0.200.9"
+(defconst spacemacs-buffer-version-info "0.300"
   "Current version used to display addition release information.")
 
 (defconst spacemacs-buffer-name "*spacemacs*"
@@ -509,11 +509,13 @@ allowed types are `quickhelp' and `release-note'"
             (message "Unknown note type: %s" 'type))))
     (setq spacemacs-buffer--current-note-type nil)))
 
-(defun spacemacs-buffer/set-mode-line (format)
+(defun spacemacs-buffer/set-mode-line (format &optional redisplay)
   "Set mode-line format for spacemacs buffer.
-FORMAT: the `mode-line-format' variable Emacs will use to build the mode-line."
+FORMAT: the `mode-line-format' variable Emacs will use to build the mode-line.
+If REDISPLAY is non-nil then force a redisplay as well"
   (with-current-buffer (get-buffer-create spacemacs-buffer-name)
-    (setq mode-line-format format)))
+    (setq mode-line-format format))
+  (when redisplay (spacemacs//redisplay)))
 
 (defun spacemacs-buffer/message (msg &rest args)
   "Display MSG in *Messages* prepended with '(Spacemacs)'.
@@ -521,6 +523,17 @@ The message is displayed only if `init-file-debug' is non nil.
 ARGS: format string arguments."
   (when init-file-debug
     (message "(Spacemacs) %s" (apply 'format msg args))))
+
+(defvar spacemacs-buffer--errors nil
+  "List of errors during startup.")
+
+(defun spacemacs-buffer/error (msg &rest args)
+  "Display MSG as an Error message in `*Messages*' buffer.
+ARGS: format string arguments."
+  (let ((msg (apply 'format msg args)))
+    (message "(Spacemacs) Error: %s" msg)
+    (when message-log-max
+      (add-to-list 'spacemacs-buffer--errors msg 'append))))
 
 (defvar spacemacs-buffer--warnings nil
   "List of warnings during startup.")
@@ -576,8 +589,8 @@ If MESSAGEBUF is not nil then MSG is also written in message buffer."
                                     spacemacs-loading-dots-chunk-threshold)))
                        (length suffix)))
                spacemacs-loading-char))
-        (spacemacs-buffer/set-mode-line (concat spacemacs-loading-string
-                                                suffix)))
+        (spacemacs-buffer/set-mode-line
+         (concat spacemacs-loading-string suffix)))
       (spacemacs//redisplay))))
 
 (defmacro spacemacs-buffer||add-shortcut
@@ -886,8 +899,11 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
               (cond
                ((eq el 'warnings)
                 (when (spacemacs-buffer//insert-string-list
-                       "Warnings:"
-                       spacemacs-buffer--warnings)
+                       "Errors:" spacemacs-buffer--errors)
+                  (spacemacs-buffer||add-shortcut "e" "Errors:")
+                  (insert list-separator))
+                (when (spacemacs-buffer//insert-string-list
+                       "Warnings:" spacemacs-buffer--warnings)
                   (spacemacs-buffer||add-shortcut "w" "Warnings:")
                   (insert list-separator)))
                ((eq el 'recents)
@@ -993,13 +1009,13 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
     (if configuration-layer-error-count
         (progn
           (spacemacs-buffer-mode)
+          (face-remap-add-relative 'mode-line
+                                   '((:background "red") mode-line))
           (spacemacs-buffer/set-mode-line
            (format
             (concat "%s error(s) at startup! "
                     "Spacemacs may not be able to operate properly.")
-            configuration-layer-error-count))
-          (face-remap-add-relative 'mode-line
-                                   '((:background "red") mode-line)))
+            configuration-layer-error-count) t))
       (spacemacs-buffer/set-mode-line spacemacs--default-mode-line)
       (spacemacs-buffer-mode))
     (force-mode-line-update)
