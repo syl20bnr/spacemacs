@@ -2459,20 +2459,32 @@ ELPA stable repository."
        (format "Downloading stable ELPA repository: %s..."
                configuration-layer--stable-elpa-name))
       (spacemacs//redisplay)
-      ;; download
-      (make-directory configuration-layer--stable-elpa-directory t)
-      (url-copy-file address local 'ok-if-already-exists)
-      ;; extract
-      (configuration-layer//stable-elpa-untar-archive)
-      ;; delete archive
-      (delete-file local)
-      ;; update version file
-      (with-current-buffer (find-file-noselect
-                            configuration-layer--stable-elpa-version-file)
-        (erase-buffer)
-        (beginning-of-buffer)
-        (insert (format "%s" configuration-layer--stable-elpa-version))
-        (save-buffer)))))
+      (if (and (spacemacs/system-is-mswindows)
+               (not (executable-find "gzip")))
+          ;; additional check on Windows platform as tarball are not handled
+          ;; natively and requires the installation of gzip.
+          (progn
+            (configuration-layer//increment-error-count)
+            (spacemacs-buffer/append
+             (concat "Error: Cannot find gzip executable in you PATH.\n"
+                     "Download and install gzip here: "
+                     "http://gnuwin32.sourceforge.net/packages/gzip.htm \n"
+                     (format "%s installation has been skipped!"
+                             configuration-layer--stable-elpa-name))))
+        ;; download
+        (make-directory configuration-layer--stable-elpa-directory t)
+        (url-copy-file address local 'ok-if-already-exists)
+        ;; extract
+        (configuration-layer//stable-elpa-untar-archive)
+        ;; delete archive
+        (delete-file local)
+        ;; update version file
+        (with-current-buffer (find-file-noselect
+                              configuration-layer--stable-elpa-version-file)
+          (erase-buffer)
+          (beginning-of-buffer)
+          (insert (format "%s" configuration-layer--stable-elpa-version))
+          (save-buffer))))))
 
 ;; (configuration-layer/create-elpa-repository
 ;;  "spacelpa"
