@@ -2453,7 +2453,7 @@ ELPA stable repository."
     (let ((address (configuration-layer//stable-elpa-tarball-distant-file))
           (local (configuration-layer//stable-elpa-tarball-local-file)))
       (spacemacs-buffer/set-mode-line
-       (format "Downloading stable ELPA repository: %s..."
+       (format "Downloading stable ELPA repository: %s... (please wait)"
                configuration-layer--stable-elpa-name) t)
       (if (and (spacemacs/system-is-mswindows)
                (not (executable-find "gzip")))
