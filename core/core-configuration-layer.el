@@ -10,6 +10,7 @@
 ;;; License: GPLv3
 
 (require 'cl-lib)
+(require 'epg)
 (require 'eieio)
 (require 'subr-x)
 (require 'package)
@@ -50,12 +51,21 @@
   (concat spacemacs-start-directory ".lock")
   "Absolute path to the lock file.")
 
+(defconst configuration-layer--stable-elpa-gpg-keyring
+  (expand-file-name (concat spacemacs-core-directory "gnupg/spacemacs.pub"))
+  "Absolute path to public GPG key used to signed the ELPA stable repository
+tarballs.")
+
 (defconst configuration-layer--stable-elpa-name "spacelpa"
   "Name of the stable ELPA repository. Should be fixed by the lock file.")
 
 (defconst configuration-layer--stable-elpa-tarball-directory
   "https://github.com/syl20bnr/spacelpa/archive/"
   "Remote location of the tarball for the ELPA stable directory")
+
+(defconst configuration-layer--stable-elpa-sig-directory
+  "https://github.com/syl20bnr/spacelpa/releases/download/"
+  "Remote location of the signature file for the ELPA stable directory")
 
 (defconst configuration-layer--stable-elpa-directory
   (expand-file-name
@@ -429,7 +439,7 @@ cache folder.")
 (defun configuration-layer//resolve-package-archives (archives)
   "Resolve HTTP handlers for each archive in ARCHIVES and return a list
 of all reachable ones.
-If the address of an archive already contains the protocol then this address is
+If the url of an archive already contains the protocol then this url is
 left untouched.
 The returned list has a `package-archives' compliant format."
   (mapcar
@@ -513,7 +523,6 @@ refreshed during the current session."
   "Load layers declared in dotfile and install associated packages.
 To prevent package from being installed or uninstalled set the variable
 `spacemacs-sync-packages' to nil."
-  (message "%s" (configuration-layer//stable-elpa-directory))
   (run-hooks 'configuration-layer-pre-load-hook)
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
   (setq dotspacemacs--configuration-layers-saved
@@ -2430,6 +2439,13 @@ repository."
           configuration-layer--stable-elpa-tarball-directory
           configuration-layer--stable-elpa-version))
 
+(defun configuration-layer//stable-elpa-tarball-distant-sign-file ()
+  "Return the absolute path to the signature file."
+  (format "%s/v%s/v%s.tar.gz.sig"
+          configuration-layer--stable-elpa-sig-directory
+          configuration-layer--stable-elpa-version
+          configuration-layer--stable-elpa-version))
+
 (defun configuration-layer//stable-elpa-directory ()
   "Return the local absolute path of the ELPA stable repository."
   (cdr (assoc configuration-layer--stable-elpa-name
@@ -2440,14 +2456,62 @@ repository."
 ELPA stable repository."
   (format "%s.tar.gz" (configuration-layer//stable-elpa-directory)))
 
+(defun configuration-layer//stable-elpa-tarball-local-sign-file ()
+  "Return the absolute path to the signature file."
+  (format "%s.sig" (configuration-layer//stable-elpa-directory)))
+
 (defun configuration-layer//stable-elpa-untar-archive ()
-  "Untar the downloaded archive of stable ELPA."
+  "Untar the downloaded archive of stable ELPA, returns non-nil if succeeded."
   (require 'tar-mode)
-  (let (large-file-warning-threshold)
-    (with-current-buffer (find-file-noselect
-                          (configuration-layer//stable-elpa-tarball-local-file))
-      (tar-mode)
-      (tar-untar-buffer))))
+  (let ((untar t)
+        (archive (configuration-layer//stable-elpa-tarball-local-file))
+        (sig-file (configuration-layer//stable-elpa-tarball-local-sign-file))
+        large-file-warning-threshold)
+    (with-current-buffer (find-file-noselect archive)
+      ;; verify signature
+      (when dotspacemacs-verify-spacelpa-archives
+        (let ((name configuration-layer--stable-elpa-name)
+              (sig-string (with-current-buffer (find-file-noselect sig-file)
+                            (buffer-string)))
+              (context (epg-make-context 'OpenPGP))
+              (homedir (configuration-layer//stable-elpa-directory)))
+          (spacemacs-buffer/set-mode-line
+           (format "Verifying %s archive..." name) t)
+          (condition-case-unless-debug error
+              (epg-import-keys-from-file
+               context configuration-layer--stable-elpa-gpg-keyring)
+            (error
+             (message "Cannot import keyring: %S" (cdr error))
+             (setq untar nil)))
+          (condition-case error
+              (setf (epg-context-home-directory context) homedir)
+            (epg-verify-string context sig-string (buffer-string))
+            (let (good-signatures)
+              ;; The .sig file may contain multiple signatures.  Success if one
+              ;; of the signatures is good.
+              (dolist (sig (epg-context-result-for context 'verify))
+                (when (eq (epg-signature-status sig) 'good)
+                  (push sig good-signatures)))
+              (when (null good-signatures)
+                (setq untar nil)
+                (configuration-layer//error
+                 (concat "Cannot verify %s archive! \n"
+                         "Installation of ELPA repository aborted.")
+                 archive)
+                (package--display-verify-error context sig-file)
+                (setq untar nil)))
+            (error
+             (configuration-layer//error
+              (concat "An error happened while trying to verify %s archive! "
+                      "(reason: %S)") archive error)
+             (setq untar nil)))))
+      ;; uncompress
+      (when untar
+        (spacemacs-buffer/set-mode-line
+         (format "Extracting %s archive..." name) t)
+        (tar-mode)
+        (tar-untar-buffer)))
+    untar))
 
 (defun configuration-layer/stable-elpa-download-tarball ()
   "Download and extract the tarball of the stable ELPA repository if it used."
@@ -2455,36 +2519,43 @@ ELPA stable repository."
                     configuration-layer--elpa-archives)
              (not (string-equal (configuration-layer/stable-elpa-version)
                                 configuration-layer--stable-elpa-version)))
-    (let ((address (configuration-layer//stable-elpa-tarball-distant-file))
-          (local (configuration-layer//stable-elpa-tarball-local-file)))
+    (let ((url (configuration-layer//stable-elpa-tarball-distant-file))
+          (local (configuration-layer//stable-elpa-tarball-local-file))
+          (url-sig (configuration-layer//stable-elpa-tarball-distant-sign-file))
+          (local-sig (configuration-layer//stable-elpa-tarball-local-sign-file))
+          (name configuration-layer--stable-elpa-name))
       (spacemacs-buffer/set-mode-line
-       (format "Downloading stable ELPA repository: %s... (please wait)"
-               configuration-layer--stable-elpa-name) t)
+       (format (concat "Downloading stable ELPA repository: %s... "
+                       "(please wait)") name) t)
       (if (and (spacemacs/system-is-mswindows)
                (not (executable-find "gzip")))
           ;; additional check on Windows platform as tarball are not handled
           ;; natively and requires the installation of gzip.
           (progn
             (configuration-layer//error
-             (concat "Error: Cannot find gzip executable in you PATH.\n"
-                     "Download and install gzip here: "
-                     "http://gnuwin32.sourceforge.net/packages/gzip.htm \n"
-                     (format "%s installation has been skipped!"
-                             configuration-layer--stable-elpa-name))))
-        ;; download
+             (format
+              (concat "Error: Cannot find gzip executable in you PATH.\n"
+                      "Download and install gzip here: "
+                      "http://gnuwin32.sourceforge.net/packages/gzip.htm \n"
+                      "%s installation has been skipped!") name)))
+        ;; download tarball and detached signature
         (make-directory configuration-layer--stable-elpa-directory t)
-        (url-copy-file address local 'ok-if-already-exists)
+        (url-copy-file url local 'ok-if-already-exists)
+        (when dotspacemacs-verify-spacelpa-archives
+          (url-copy-file url-sig local-sig 'ok-if-already-exists))
         ;; extract
-        (configuration-layer//stable-elpa-untar-archive)
-        ;; delete archive
-        (delete-file local)
-        ;; update version file
-        (with-current-buffer (find-file-noselect
-                              configuration-layer--stable-elpa-version-file)
-          (erase-buffer)
-          (beginning-of-buffer)
-          (insert (format "%s" configuration-layer--stable-elpa-version))
-          (save-buffer))))))
+        (when (configuration-layer//stable-elpa-untar-archive)
+          ;; delete archive
+          (delete-file local)
+          (when dotspacemacs-verify-spacelpa-archives
+            (delete-file local-sig))
+          ;; update version file
+          (with-current-buffer (find-file-noselect
+                                configuration-layer--stable-elpa-version-file)
+            (erase-buffer)
+            (beginning-of-buffer)
+            (insert (format "%s" configuration-layer--stable-elpa-version))
+            (save-buffer)))))))
 
 ;; (configuration-layer/create-elpa-repository
 ;;  "spacelpa"
