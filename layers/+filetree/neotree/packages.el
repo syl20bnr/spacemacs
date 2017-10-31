@@ -111,4 +111,4 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
 (defun neotree/pre-init-winum ()
   (spacemacs|use-package-add-hook winum
     :post-config
-    (setq winum-assign-func 'spacemacs//winum-neotree-assign-func)))
+    (add-to-list 'winum-assign-functions #'spacemacs//winum-neotree-assign-func)))

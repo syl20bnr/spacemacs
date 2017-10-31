@@ -71,4 +71,4 @@
 (defun treemacs/pre-init-winum ()
   (spacemacs|use-package-add-hook winum
     :post-config
-    (setq winum-assign-func #'treemacs--window-number-ten)))
+    (add-to-list 'winum-assign-functions #'treemacs--window-number-ten)))
