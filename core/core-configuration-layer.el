@@ -87,7 +87,8 @@ done according to the value of `dotspacemacs-elpa-subdirectory'.
 This function also appends the name of the current branch of Spacemacs.
 If `dotspacemacs-elpa-subdirectory' is nil, then ROOT is used. Otherwise the
 subdirectory of ROOT is used."
-  (concat
+  (expand-file-name
+   (spacemacs//git-get-current-branch)
    (if (not dotspacemacs-elpa-subdirectory)
        root
      (let ((subdir (if (eq 'emacs-version dotspacemacs-elpa-subdirectory)
@@ -96,8 +97,7 @@ subdirectory of ROOT is used."
                                version-separator
                                emacs-minor-version)
                      (eval dotspacemacs-elpa-subdirectory))))
-       (file-name-as-directory (expand-file-name subdir root))))
-   (spacemacs//git-get-current-branch)))
+       (file-name-as-directory (expand-file-name subdir root))))))
 
 (defun configuration-layer/get-elpa-package-install-directory (pkg)
   "Return the install directory of elpa PKG. Return nil if it is not found."
@@ -113,9 +113,17 @@ subdirectory of ROOT is used."
 (defvar configuration-layer-post-load-hook nil
   "Hook executed at the end of configuration loading.")
 
-(defvar configuration-layer-rollback-directory
+(defconst configuration-layer--elpa-root-directory
+  (concat spacemacs-start-directory "elpa/")
+  "Spacemacs ELPA root directory.")
+
+(defconst configuration-layer--rollback-root-directory
   (concat spacemacs-cache-directory ".rollback/")
-  "Spacemacs rollback directory.")
+  "Spacemacs rollback root directory.")
+
+(defvar configuration-layer-rollback-directory
+  configuration-layer--rollback-root-directory
+  "Spacemacs current rollback directory.")
 
 (defconst configuration-layer-rollback-info "rollback-info"
   "Spacemacs rollback information file.")
@@ -404,9 +412,10 @@ cache folder.")
   (unless package--initialized
     (setq configuration-layer-rollback-directory
           (configuration-layer/elpa-directory
-           configuration-layer-rollback-directory))
+           configuration-layer--rollback-root-directory))
     (setq package-user-dir
-          (configuration-layer/elpa-directory package-user-dir))
+          (configuration-layer/elpa-directory
+           configuration-layer--elpa-root-directory))
     (setq package-archives (configuration-layer//resolve-package-archives
                             configuration-layer--elpa-archives))
     ;; optimization, no need to activate all the packages so early
