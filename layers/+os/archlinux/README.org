@@ -1,0 +1,28 @@
+#+TITLE: Arch Linux layer
+
+[[img/archlinux.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds [[https://github.com/juergenhoetzel/pkgbuild-mode][PKGBUILD major mode]].
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =archlinux= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description                                                           |
+|-------------+-----------------------------------------------------------------------|
+| ~SPC m r~   | Increase release tag by 1                                             |
+| ~SPC m b~   | Build this package                                                    |
+| ~SPC m a~   | Build a tarball containing all required files to build the package    |
+| ~SPC m u~   | Visit URL (if defined in PKGBUILD)                                    |
+| ~SPC m m~   | Update checksum lines if the file was modified                        |
+| ~SPC m e~   | Create TAGS file by running `etags' recursively on the directory tree |
+
