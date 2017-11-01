@@ -129,6 +129,7 @@
 
 * Misc
 * Operating systems
+- [[file:+os/archlinux/README.org][archlinux]]
 - [[file:+os/nixos/README.org][nixos]]
 - [[file:+os/osx/README.org][osx]]
 
