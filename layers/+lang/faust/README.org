@@ -11,7 +11,7 @@
 This simple layer adds support for the [[https://en.wikipedia.org/wiki/FAUST_(programming_language)][faust language]].
 It adds =faustine= as well as integrating it with =auto-completion= layer.
 
-Features
+** Features
 
 - Project-based (inter-linked Faust files)
 - Faust code syntax hightlighting, indentation and keyword completion
