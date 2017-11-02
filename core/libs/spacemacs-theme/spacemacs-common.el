@@ -770,6 +770,13 @@ to 'auto, tags may not be properly aligned. "
      `(term-color-white ((,class (:foreground ,base))))
      `(term-color-yellow ((,class (:foreground ,yellow))))
 
+;;;;; treemacs
+     `(treemacs-git-added-face ((,class (:foreground ,green :background ,green-bg))))
+     `(treemacs-git-conflict-face ((,class (:foreground ,red :background ,red-bg))))
+     `(treemacs-git-ignored-face ((,class (:foreground ,yellow))))
+     `(treemacs-git-modified-face ((,class (:foreground ,blue :background ,blue-bg))))
+     `(treemacs-git-untracked-face ((,class (:foreground ,aqua :background ,aqua-bg))))
+
 ;;;;; web-mode
      `(web-mode-builtin-face ((,class (:inherit ,font-lock-builtin-face))))
      `(web-mode-comment-face ((,class (:inherit ,font-lock-comment-face))))
