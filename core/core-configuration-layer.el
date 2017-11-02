@@ -58,6 +58,10 @@ the .lock file at the root of the repository.")
 (defvar configuration-layer-stable-elpa-name "spacelpa"
   "Name of the stable ELPA repository. Should be defined in the lock file.")
 
+(defvar configuration-layer-elpa-subdirectory ""
+  "Sub-directory name where to install ELPA packages. Should be defined in
+the lock file.")
+
 (defconst configuration-layer-stable-elpa-directory
   (expand-file-name
    (concat spacemacs-cache-directory "stable-elpa/" emacs-version "/"))
@@ -88,7 +92,7 @@ This function also appends the name of the current branch of Spacemacs.
 If `dotspacemacs-elpa-subdirectory' is nil, then ROOT is used. Otherwise the
 subdirectory of ROOT is used."
   (expand-file-name
-   (spacemacs//git-get-current-branch)
+   configuration-layer-elpa-subdirectory
    (if (not dotspacemacs-elpa-subdirectory)
        root
      (let ((subdir (if (eq 'emacs-version dotspacemacs-elpa-subdirectory)
