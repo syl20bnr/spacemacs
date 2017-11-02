@@ -1,0 +1,4 @@
+                                 HOT FIX RELEASE
+
+- Fix Helm error when selecting a candidate from a Helm buffer (thanks to bmag)
+- Fix window number assignation for Neotree buffer window (thanks to duianto)

@@ -1,4 +1,9 @@
 * Release 0.200.x
+** 0.200.10 (2017/11/01)
+*** Fixes
+- Fix error: (void-variable helm-bookmark-map) when selecting a candidate from
+  a Helm buffer (thanks to bmag)
+- Fix window number assignation for Neotree buffer window (thanks to duianto)
 ** 0.200.9 (2017/04/06)
 *** Fixes
 - Fix theme loading with terminal Emacs (thanks to wang0z)
