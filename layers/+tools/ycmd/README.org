@@ -89,13 +89,13 @@ with almost any build system.
 * Functions
 
 If ~company-ycmd~ is used, then a function
-~spacemacs/company-ycmd-manual-semantic-complete~ is defined. This function is
+~ycmd/manual-semantic-company-completer~ is defined. This function is
 useful if you want to get semantic completions only when you press a
 keybinding; in larger projects ycmd may not be performant for as-you-type
 auto-completion to work well. You can bind it like so:
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "<C-tab>") 'spacemacs/company-ycmd-manual-semantic-complete)
+(global-set-key (kbd "<C-tab>") 'ycmd/manual-semantic-company-completer)
 #+END_SRC
 
 This function will automatically cancel out of any active completers, and offer
