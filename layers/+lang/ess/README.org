@@ -33,24 +33,24 @@ file.
 ** Inferior REPL process
 Send code to inferior process with these commands:
 
-| Key Binding   | Description                                                       |
-|---------------+-------------------------------------------------------------------|
-| ~SPC m '~     | start REPL                                                        |
-| ~SPC m s i~   | start REPL                                                        |
-| ~SPC m s s~   | switch between file and REPL                                      |
-| ~SPC m s S~   | switch the process associate with file                            |
-| ~SPC m ,~     | send region, current function, or paragraph and step              |
-|---------------+-------------------------------------------------------------------|
-| ~SPC m s b~   | send buffer and switch to REPL in insert mode                     |
-| ~SPC m e b~   | send buffer and keep code buffer focused                          |
-| ~SPC m s d~   | send region or line and step                                      |
-| ~SPC m s D~   | send function or paragraph and step                               |
-| ~SPC m e l~   | send line and keep code buffer focused                            |
-| ~SPC m s l~   | send line and focus REPL                                          |
-| ~SPC m e r~   | send region and keep code buffer focused                          |
-| ~SPC m s r~   | send region and focus REPL                                        |
-| ~SPC m e f~   | send function and keep code buffer focused                        |
-| ~SPC m s f~   | send function and focus REPL                                      |
+| Key Binding | Description                                          |
+|-------------+------------------------------------------------------|
+| ~SPC m '~   | start REPL                                           |
+| ~SPC m s i~ | start REPL                                           |
+| ~SPC m s s~ | switch between file and REPL                         |
+| ~SPC m s S~ | switch the process associate with file               |
+| ~SPC m ,~   | send region, current function, or paragraph and step |
+|-------------+------------------------------------------------------|
+| ~SPC m s b~ | send buffer and switch to REPL in insert mode        |
+| ~SPC m e b~ | send buffer and keep code buffer focused             |
+| ~SPC m s d~ | send region or line and step                         |
+| ~SPC m s D~ | send function or paragraph and step                  |
+| ~SPC m e l~ | send line and keep code buffer focused               |
+| ~SPC m s l~ | send line and focus REPL                             |
+| ~SPC m e r~ | send region and keep code buffer focused             |
+| ~SPC m s r~ | send region and focus REPL                           |
+| ~SPC m e f~ | send function and keep code buffer focused           |
+| ~SPC m s f~ | send function and focus REPL                         |
 
 ** Help
 Get help and helpers for inspecting objects at point are available in R buffers only.
@@ -74,7 +74,7 @@ Get help and helpers for inspecting objects at point are available in R buffers 
 
 ** More interaction with the REPL
 Helpers that provide further interaction with the REPL.
-   
+
 | Key Binding   | Description                                           |
 |---------------+-------------------------------------------------------|
 | ~SPC m r TAB~ | install package                                       |
@@ -90,7 +90,7 @@ Helpers that provide further interaction with the REPL.
 
 ** R devtools
 Interaction with the =R= =devtools= package.
-   
+
 | Key Binding   | Description                              |
 |---------------+------------------------------------------|
 | ~SPC m w TAB~ | interface for =devtools::install()=      |
