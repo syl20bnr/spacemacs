@@ -64,5 +64,5 @@
   (add-to-list 'auto-mode-alist '("\\index.android.js\\'" . react-mode))
   (add-to-list 'auto-mode-alist '("\\index.ios.js\\'" . react-mode))
   (add-to-list 'magic-mode-alist '("/\\*\\* @jsx .*\\*/" . react-mode))
-  (add-to-list 'magic-mode-alist '("import\s+[^\s]+\s+from\s+['\"]react['\"]" . react-mode))
+  (add-to-list 'magic-mode-alist '("import React" . react-mode))
   (add-hook 'react-mode-hook 'spacemacs//setup-react-mode))
