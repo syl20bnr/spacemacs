@@ -34,7 +34,7 @@ Default installation location of the ELPA stable repository is in:
 If you want to disable the ELPA stable repository put this in your dotfile in
 the user-init function:
 
-    (setq configuration-layer--elpa-archives
+    (setq configuration-layer-elpa-archives
           '(("melpa"    . "melpa.org/packages/")
             ("org"      . "orgmode.org/elpa/")
             ("gnu"      . "elpa.gnu.org/packages/")))
