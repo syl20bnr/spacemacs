@@ -1,0 +1,40 @@
+       ╭───────────────────────────────────────────────────────────╮
+
+                       VERSION 0.300 IS ALMOST OUT!
+
+       ╰───────────────────────────────────────────────────────────╯
+
+The long awaited feature to have stable ELPA packages is now available in the
+develop branch and we need to test it out before we release the 0.300 version.
+
+The stable ELPA repository is a Git repository, the official one is called
+Spacelpa and it is hosted on GitHub here:
+
+    https://github.com/syl20bnr/spacelpa
+
+In the end only the master branch will use the stable ELPA repository and the
+develop branch will continue to use bleeding edge packages from MELPA
+essentially.
+
+Unfortunately this new feature requires at least Emacs 25.1 to work correctly as
+we need the archive priority feature of package.el that shipped with this
+version of Emacs.
+
+The ELPA repository configuration is set in a new immutable file called .lock
+that sits at the root of the Spacemacs git repository.
+
+Spacemacs downloads the whole ELPA stable repository locally so it means that
+once it is installed you don't need an Internet connection anymore to install
+any packages covered by Spacemacs layers!
+
+Default installation location of the ELPA stable repository is in:
+
+    ~/.emacs.d/.cache/stable-elpa
+
+If you want to disable the ELPA stable repository put this in your dotfile in
+the user-init function:
+
+    (setq configuration-layer-elpa-archives
+          '(("melpa"    . "melpa.org/packages/")
+            ("org"      . "orgmode.org/elpa/")
+            ("gnu"      . "elpa.gnu.org/packages/")))

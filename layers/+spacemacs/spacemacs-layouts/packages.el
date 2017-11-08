@@ -151,6 +151,7 @@
  [_o_]^^^^        custom layout               [_t_]^^   show a buffer without adding it to current layout
  [_w_]^^^^        workspaces transient state  [_x_]^^   kill current w/buffers
  ^^^^^^                                       [_X_]^^   kill other w/buffers
+ ^^^^^^                                       [_<_/_>_] move layout left/right
  ^^^^^^                                       [_?_]^^   toggle help\n")
 
       (spacemacs|define-transient-state layouts
@@ -186,6 +187,8 @@
         ("RET" nil :exit t)
         ("C-h" persp-prev)
         ("C-l" persp-next)
+        ("<" spacemacs/move-current-persp-left)
+        (">" spacemacs/move-current-persp-right)
         ("a" persp-add-buffer :exit t)
         ("A" persp-import-buffers :exit t)
         ("b" spacemacs/persp-buffers :exit t)

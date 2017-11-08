@@ -103,6 +103,8 @@
                                           ".org-id-locations")
             org-publish-timestamp-directory (concat spacemacs-cache-directory
                                                     ".org-timestamps/")
+            org-directory "~/org" ;; needs to be defined for `org-default-notes-file'
+            org-default-notes-file (expand-file-name "notes.org" org-directory)
             org-log-done t
             org-startup-with-inline-images t
             org-image-actual-width nil
@@ -309,8 +311,6 @@ Will work on both org-mode and any mode that accepts plain html."
       (define-key global-map "\C-cc" 'org-capture))
     :config
     (progn
-      (setq org-default-notes-file "notes.org")
-
       ;; We add this key mapping because an Emacs user can change
       ;; `dotspacemacs-major-mode-emacs-leader-key' to `C-c' and the key binding
       ;; C-c ' is shadowed by `spacemacs/default-pop-shell', effectively making

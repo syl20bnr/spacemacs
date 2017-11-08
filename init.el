@@ -16,8 +16,8 @@
 ;; lower value in your dotfile (function `dotspacemacs/user-config')
 (setq gc-cons-threshold 100000000)
 
-(defconst spacemacs-version          "0.200.9" "Spacemacs version.")
-(defconst spacemacs-emacs-min-version   "24.4" "Minimal version of Emacs.")
+(defconst spacemacs-version          "0.300.0" "Spacemacs version.")
+(defconst spacemacs-emacs-min-version   "25.1" "Minimal version of Emacs.")
 
 (if (not (version<= spacemacs-emacs-min-version emacs-version))
     (error (concat "Your version of Emacs (%s) is too old. "
@@ -26,7 +26,9 @@
   (load-file (concat (file-name-directory load-file-name)
                      "core/core-load-paths.el"))
   (require 'core-spacemacs)
+  (configuration-layer/load-lock-file)
   (spacemacs/init)
+  (configuration-layer/stable-elpa-download-tarball)
   (configuration-layer/load)
   (spacemacs-buffer/display-startup-note)
   (spacemacs/setup-startup-hook)
