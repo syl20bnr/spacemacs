@@ -1,5 +1,5 @@
 auto-save-list/
-elpa/
+/elpa*/
 export/
 !/core/tools/export/
 ac-comphist.dat
