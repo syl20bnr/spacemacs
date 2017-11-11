@@ -7,10 +7,11 @@
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
+  - [[#gradle][Gradle]]
   - [[#repl][REPL]]
 
 * Description
-This layer supports [[http://www.groovy-lang.org/][groovy]] development in Spacemacs.
+This layer supports [[http://www.groovy-lang.org/][Groovy]] development in Spacemacs.
 
 ** Features:
 - Basic dabbrev auto-completion with company
@@ -23,6 +24,17 @@ add =groovy= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key bindings
+** Gradle
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC m c c~ | Compile                  |
+| ~SPC m c r~ | Clean and compile        |
+| ~SPC m c t~ | Execute a Gradle task    |
+| ~SPC m t a~ | Run all tests            |
+| ~SPC m t b~ | Run current buffer tests |
+| ~SPC m t t~ | Run a specific test      |
+
 ** REPL
 
 | Key Binding | Description                                           |
