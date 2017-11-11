@@ -39,5 +39,8 @@
         "r" 'faustine-run
         "s" 'faustine-source-code ))))
 
+(defun faust/post-init-auto-complete ()
+  ( use-package auto-complete  ))
+
 (defun faust/post-init-yasnippet ()
   (add-hook 'faust-mode-hook 'spacemacs/load-yasnippet))

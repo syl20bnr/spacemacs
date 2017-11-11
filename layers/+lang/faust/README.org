@@ -4,6 +4,7 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
@@ -11,7 +12,7 @@
 This simple layer adds support for the [[https://en.wikipedia.org/wiki/FAUST_(programming_language)][faust language]].
 It adds =faustine= as well as integrating it with =auto-completion= layer.
 
-Features
+** Features
 
 - Project-based (inter-linked Faust files)
 - Faust code syntax hightlighting, indentation and keyword completion
@@ -21,7 +22,7 @@ Features
 - Inter-linked files/buffers :
     - From "component" to Faust file
     - From "include" to Faust library file
-- From error to file:line number
+- From error to file and line number
 - From function name to online documentation
 - Fully configurable (build type/target/architecture/toolkit, keyboard shortcuts, etc.)
 - Automatic keyword completion (if Auto-Complete is installed)
