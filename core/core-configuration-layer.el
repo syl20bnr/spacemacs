@@ -2372,9 +2372,9 @@ The URL of the descriptor is patched to be the passed URL"
       (error "Opening output file: File already exists, %s" newname))
   (cond
    ((executable-find "wget")
-    (shell-command (concat "wget -O " (shell-quote-argument newname) (shell-quote-argument url))))
+    (shell-command (concat "wget -O " (shell-quote-argument newname) " " (shell-quote-argument url))))
    ((executable-find "curl")
-    (shell-command (concat "curl -o " (shell-quote-argument newname) (shell-quote-argument url))))
+    (shell-command (concat "curl -o " (shell-quote-argument newname) " " (shell-quote-argument url))))
    ;; (t (url-copy-file url newname 'ok-if-already-exists))))
    (t (message (concat "Neither curl nor wget found found; please install")))))
 
