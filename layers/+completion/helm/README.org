@@ -5,6 +5,12 @@
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
 - [[#install][Install]]
+  - [[#alternative-layers][Alternative layers]]
+- [[#configuration][Configuration]]
+  - [[#auto-resize][Auto-Resize]]
+  - [[#disable-helm-header][Disable Helm header]]
+  - [[#define-helm-position][Define Helm position]]
+  - [[#enable-fuzzy-searching-in-helm-buffers][Enable fuzzy searching in Helm buffers]]
 - [[#key-bindings][Key bindings]]
   - [[#hjkl-navigation][hjkl navigation]]
   - [[#transient-state][Transient state]]
@@ -28,12 +34,74 @@ and more...
 Mastering your choice of completion system will make you a Spacemacs power user.
 
 * Install
-Helm is the default completion framework -- if Ivy is not enabled, Helm will be
-enabled automatically.
+Helm is part of the standard distribution of Spacemacs so you don't have to do
+anything to install it if you chose this distribution.
+
+If you want/need to explicitly install Helm then add it to your =~/.spacemacs=.
+You will need to add =helm= to the existing =dotspacemacs-configuration-layers=
+list in this file.
+
+** Alternative layers
+Ivy layer is a replacement layer for Helm. When you add =ivy= to the existing
+== list in your dotfile, it will completely replace the =helm= layer.
 
 To switch from Ivy to Helm, modify your =~/.spacemacs=. You will need to add
 =helm= to the existing =dotspacemacs-configuration-layers= list in this file,
 and remove =ivy=.
+
+* Configuration
+Note: in the following configuration examples, it is possible that =helm=
+is not listed explicitly in your dotfile. If that is the case then just add
+it as you would with any other layers.
+
+** Auto-Resize
+It is possible to have Helm to resize its buffer window to adapt to the length
+of the candidate list. By default the buffer size is fixed, to enable automatic
+resizing set the layer variable =helm-enable-auto-resize= to non-nil.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (helm :variables helm-enable-auto-resize t)))
+#+END_SRC
+
+Default value is =nil=.
+
+** Disable Helm header
+To hide the header in the Helm buffer set the layer variable =helm-no-header=
+to non-nil.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (helm :variables helm-no-header t)))
+#+END_SRC
+
+Default value is =nil=.
+
+** Define Helm position
+To set the position of the Helm buffer add the layer variable =helm-position=
+to your dotfile.
+
+The supported values are =bottom=, =top=, =left= and =right=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (helm :variables helm-position 'top)))
+#+END_SRC
+
+Default value is =bottom=.
+
+** Enable fuzzy searching in Helm buffers
+It is possible to control the fuzziness of Helm when searching for candidates.
+By default this layer /tries/ to enable fuzzy search to all Helm sources.
+You can limit the fuzzy search to helm own defaults by setting the layer
+variable =helm-use-fuzzy= to the value ='source=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (helm :variables helm-use-fuzzy 'source)))
+#+END_SRC
+
+Default value is =always=.
 
 * Key bindings
 ** hjkl navigation

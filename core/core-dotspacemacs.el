@@ -63,7 +63,10 @@ environment, otherwise it is strongly recommended to let it set to t.")
 (defvar dotspacemacs-elpa-timeout 5
   "Maximum allowed time in seconds to contact an ELPA repository.")
 
-(defvar dotspacemacs-elpa-subdirectory nil
+(defvar dotspacemacs-verify-spacelpa-archives nil
+  "If non-nil then verify the signature for downloaded Spacelpa archives.")
+
+(defvar dotspacemacs-elpa-subdirectory 'emacs-version
   "If non-nil, a form that evaluates to a package directory. For
 example, to use different package directories for different Emacs
 versions, set this to `emacs-version'.")
@@ -222,20 +225,6 @@ Only has effect when using the \"jump to layout by number\" commands.")
 
 (defvar dotspacemacs-max-rollback-slots 5
   "Maximum number of rollback slots to keep in the cache.")
-
-(defvar dotspacemacs-helm-resize nil
-  "If non nil, `helm' will try to minimize the space it uses.")
-
-(defvar dotspacemacs-helm-no-header nil
-  "if non nil, the helm header is hidden when there is only one source.")
-
-(defvar dotspacemacs-helm-position 'bottom
-  "Position in which to show the `helm' mini-buffer.")
-
-(defvar dotspacemacs-helm-use-fuzzy 'always
-  "Controls fuzzy matching in helm. If set to `always', force fuzzy matching
-  in all non-asynchronous sources. If set to `source', preserve individual
-  source settings. Else, disable fuzzy matching in all sources.")
 
 (defvar dotspacemacs-large-file-size 1
   "Size (in MB) above which spacemacs will prompt to open the large file
@@ -553,8 +542,7 @@ a display strng and the value is the actual value to return."
 (defun dotspacemacs/maybe-install-dotfile ()
   "Install the dotfile if it does not exist."
   (unless (file-exists-p dotspacemacs-filepath)
-    (spacemacs-buffer/set-mode-line "Dotfile wizard installer")
-    (spacemacs//redisplay)
+    (spacemacs-buffer/set-mode-line "Dotfile wizard installer" t)
     (when (dotspacemacs/install 'with-wizard)
       (configuration-layer/load))))
 
@@ -586,17 +574,7 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
                     spacemacs)
                    (,(concat "A minimalist distribution that you can build on "
                              "(spacemacs-base)")
-                    spacemacs-base)))))
-             ("helm"
-              ,(dotspacemacs//ido-completing-read
-                "What type of completion framework do you want? "
-                '(("A heavy one but full-featured (helm)"
-                   "helm")
-                  ("A lighter one but still very powerful (ivy)"
-                   "ivy")
-                  ;; For now, None works only if the user selected
-                  ;; the spacemacs-base distribution
-                  ("None (not recommended)" ""))))))))
+                    spacemacs-base)))))))))
     (with-current-buffer (find-file-noselect
                           (concat dotspacemacs-template-directory
                                   ".spacemacs.template"))

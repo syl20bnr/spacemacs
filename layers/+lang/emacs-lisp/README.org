@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#auto-compile][Auto-compile]]
 - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
@@ -16,6 +17,14 @@
 * Description
 This layer gathers all the configuration related to emacs-lisp. This should
 always be in your dotfile, it is not recommended to uninstall it.
+
+** Features:
+- Auto-completion using company
+- Linting using flycheck integration
+- Repl support via =IELM=
+- Support for specific lisp navigation styles via =emacs-lisp-mode=
+- Auto-compile via [[https://github.com/tarsius/auto-compile][auto-compile]] package
+- Debuggin via [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Edebug.html#Edebug][edebug]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

@@ -16,11 +16,14 @@
 
 (install libpng-dev libz-dev libpoppler-glib-dev
          libpoppler-private-dev imagemagick)
-(with-installed (git autotools-dev gcc g++ make automake autoconf )
+(with-installed (curl git autotools-dev gcc g++ make automake autoconf python)
   (with-build-dir (tpdft "/tmp/tpdft/")
+    ($ '("su - ${UNAME} -c 'curl -fsSL %s | python'"
+         "https://raw.githubusercontent.com/cask/cask/master/go"))
+    (add-glob-paths (format "%s.cask/bin" (dir $UHOME)))
     ($ "git clone https://github.com/politza/pdf-tools.git ."
        "make -s"
-       "tar -xf  pdf-tools-*.tar"
+       "tar -xf pdf-tools-*.tar"
        `("cp ./pdf-tools-*/epdfinfo %s"
          ,($ ["find \"${UHOME}/.emacs.d/elpa/\""
               "-name pdf-tools* -type d -print -quit"])))))

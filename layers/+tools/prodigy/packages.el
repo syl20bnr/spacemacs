@@ -16,18 +16,21 @@
     :init
     (spacemacs/set-leader-keys "aS" 'prodigy)
     :config
-    (evilified-state-evilify prodigy-mode prodigy-mode-map
-      "c" 'prodigy-view-clear-buffer
-      "h" 'prodigy-first
-      "j" 'prodigy-next
-      "k" 'prodigy-prev
-      "l" 'prodigy-last
-      "H" 'prodigy-display-process
-      "J" 'prodigy-next-with-status
-      "K" 'prodigy-prev-with-status
-      "L" 'prodigy-start
-      "d" 'prodigy-jump-dired
-      "g" 'prodigy-jump-magit
-      "Y" 'prodigy-copy-cmd
-      "R" 'revert-buffer)
-    (evil-define-key 'motion prodigy-view-mode-map (kbd "gf") 'find-file-at-point)))
+    (progn
+      (evilified-state-evilify prodigy-mode prodigy-mode-map
+        "c" 'prodigy-view-clear-buffer
+        "h" 'prodigy-first
+        "j" 'prodigy-next
+        "k" 'prodigy-prev
+        "l" 'prodigy-last
+        "H" 'prodigy-display-process
+        "J" 'prodigy-next-with-status
+        "K" 'prodigy-prev-with-status
+        "L" 'prodigy-start
+        "d" 'prodigy-jump-dired
+        "g" 'prodigy-jump-magit
+        "Y" 'prodigy-copy-cmd
+        "R" 'revert-buffer)
+      (evilified-state-evilify prodigy-view-mode prodigy-view-mode-map
+        "gf" 'find-file-at-point
+        "q" 'quit-window))))

@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#prerequisites][Prerequisites]]
   - [[#ruby-version-management][Ruby version management]]
@@ -21,13 +22,15 @@
 - [[#layer-options][Layer options]]
 
 * Description
-This layer provides support for the Ruby language with the following features:
-- version manager (rbenv, rvm or chruby)
-- integration with bundler
-- test runner (ruby-test and rspec)
-- rake runner
-- linter (rubocop)
-- interactive REPL and code navigation (robe)
+This layer provides support for the Ruby programming language.
+
+** Features:
+   - Version manager (rbenv, rvm or chruby)
+   - Integration with bundler
+   - Test runner (ruby-test and rspec)
+   - Rake runner
+   - Linter (rubocop)
+   - Interactive REPL and code navigation (robe)
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

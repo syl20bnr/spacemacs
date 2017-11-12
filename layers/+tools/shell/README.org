@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#default-shell][Default shell]]
@@ -20,6 +21,9 @@
 
 * Description
 This layer configures the various shells available in Emacs.
+
+** Features:
+  - Shell integration
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -156,7 +160,7 @@ Finally you may need to toggle truncated lines for some prompts to work
 correctly, in the function =dotspacemacs/user-config= of your dotfile add:
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'term-mode-hook 'toggle-truncate-lines)
+(add-hook 'term-mode-hook 'spacemacs/toggle-truncate-lines-on)
 #+END_SRC
 
 * Eshell

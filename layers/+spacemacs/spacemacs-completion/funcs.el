@@ -41,7 +41,7 @@
         (props (cddr args)))
     ;; fuzzy matching is not supported in async sources
     (unless (child-of-class-p source-type helm-source-async)
-      (plist-put props :fuzzy-match (eq 'always dotspacemacs-helm-use-fuzzy))))
+      (plist-put props :fuzzy-match (eq 'always helm-use-fuzzy))))
   (apply f args))
 
 ;; Helm Header line
@@ -58,7 +58,7 @@
 
 (defun helm-toggle-header-line ()
   "Hide the `helm' header if there is only one source."
-  (when dotspacemacs-helm-no-header
+  (when helm-no-header
     (if (> (length helm-sources) 1)
         (set-face-attribute
          'helm-source-header
@@ -104,18 +104,8 @@
 
 ;; Helm Window position
 
-(defvar spacemacs-helm-display-help-buffer-regexp '("*.*Helm.*Help.**"))
-(defvar spacemacs-helm-display-buffer-regexp
-  `("*.*helm.**"
-    (display-buffer-in-side-window)
-    (inhibit-same-window . t)
-    (side . ,dotspacemacs-helm-position)
-    (window-width . 0.6)
-    (window-height . 0.4)))
-(defvar spacemacs-display-buffer-alist nil)
-
 (defun spacemacs//display-helm-window (buffer)
-  "Display the Helm window respecting `dotspacemacs-helm-position'."
+  "Display the Helm window respecting `helm-position'."
   (let ((display-buffer-alist
          (list spacemacs-helm-display-help-buffer-regexp
                ;; this or any specialized case of Helm buffer must be

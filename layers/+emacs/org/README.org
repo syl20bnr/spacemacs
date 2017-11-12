@@ -14,6 +14,7 @@
   - [[#gnuplot-support][Gnuplot support]]
   - [[#revealjs-support][Reveal.js support]]
   - [[#org-journal-support][Org-journal support]]
+  - [[#hugo-support][Hugo support]]
   - [[#different-bullets][Different bullets]]
   - [[#project-support][Project support]]
   - [[#org-brain-support][Org-brain support]]
@@ -200,6 +201,17 @@ For example:
                                                          org-journal-time-prefix "* "
                                                          org-journal-time-format "")
                                                     )
+#+END_SRC
+
+** Hugo support
+To install the Org exporter [[https://ox-hugo.scripter.co][ox-hugo]] that generates [[https://gohugo.io][Hugo]]-compatible Markdown
+/plus/ TOML/YAML front-matter, set the variable =org-enable-hugo-support= to
+=t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (org :variables
+         org-enable-hugo-support t)))
 #+END_SRC
 
 ** Different bullets
@@ -529,7 +541,9 @@ are listed bellow.
 | Date        |                     |                                   |
 |-------------+---------------------+-----------------------------------|
 | ~ds~        | schedule            | org-agenda-schedule               |
+| ~dS~        | un-schedule         | org-agenda-schedule               |
 | ~dd~        | set deadline        | org-agenda-deadline               |
+| ~dD~        | remove deadline     | org-agenda-deadline               |
 | ~dt~        | timestamp           | org-agenda-date-prompt            |
 | ~+~         | do later            | org-agenda-do-date-later          |
 | ~-~         | do earlier          | org-agenda-do-date-earlier        |

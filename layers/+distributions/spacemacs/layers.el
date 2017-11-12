@@ -10,6 +10,8 @@
 ;;; License: GPLv3
 
 (configuration-layer/declare-layers '(
+                                      helm
+                                      neotree
                                       spacemacs-base
                                       spacemacs-completion
                                       spacemacs-layouts
@@ -24,14 +26,3 @@
                                       spacemacs-purpose
                                       spacemacs-visual
                                       ))
-;; If the user has not explicitly declared `helm' or `ivy'
-;; and they are using the standard distribution, assume they
-;; want `helm' completion.
-(unless (or (configuration-layer/layer-used-p 'ivy)
-            (configuration-layer/layer-used-p 'helm))
-  (configuration-layer/declare-layers '(helm)))
-
-(when (and (configuration-layer/layer-used-p 'ivy)
-           (configuration-layer/layer-used-p 'helm))
-  (spacemacs-buffer/warning (concat "Both the `helm' and `ivy' layers are enabled. "
-                             "This may lead to unexpected behaviour.")))

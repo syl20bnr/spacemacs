@@ -4,12 +4,22 @@
 
 * Table of Contents                                      :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
 - [[#key-bindings][Key Bindings]]
 
 * Description
 This layer adds tools for better integration of CSV files in Spacemacs.
+
+** Features:
+- Detecting of fields for various separators
+- Aligning of fields
+- Traversal of fields
+- Killing of fields
+- Sorting of rows
+- Transposing of rows/columns
+- Intelligent yanking of fields
 
 * Install
 ** Layer
