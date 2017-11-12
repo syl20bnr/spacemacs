@@ -2366,8 +2366,20 @@ depends on it."
 The URL of the descriptor is patched to be the passed URL"
   )
 
+(defun configuration-layer//url-copy-file (url newname &optional ok-if-already-exists)
+  (if (and (file-exists-p newname)
+           (not ok-if-already-exists))
+      (error "Opening output file: File already exists, %s" newname))
+  (cond
+   ((executable-find "wget")
+    (shell-command (concat "wget -O " (shell-quote-argument newname) (shell-quote-argument url))))
+   ((executable-find "curl")
+    (shell-command (concat "curl -o " (shell-quote-argument newname) (shell-quote-argument url))))
+   ;; (t (url-copy-file url newname 'ok-if-already-exists))))
+   (t (message (concat "Neither curl nor wget found found; please install")))))
+
 (defun configuration-layer//download-elpa-file
-    (pkg-name filename archive-url output-dirkkj
+    (pkg-name filename archive-url output-dir
               &optional signaturep readmep)
   "Download FILENAME from distant ELPA repository to OUTPUT-DIR.
 
@@ -2378,15 +2390,16 @@ Original code from dochang at https://github.com/dochang/elpa-clone"
       (let* ((readme-filename (format "%S-readme.txt" pkg-name))
              (source-readme (concat archive-url readme-filename)))
         (when (and readmep (url-http-file-exists-p source-readme))
-          (url-copy-file source-readme
-                         (expand-file-name readme-filename output-dir)
-                         'ok-if-already-exists)))
+          (configuration-layer//url-copy-file
+           source-readme
+           (expand-file-name readme-filename output-dir)
+           'ok-if-already-exists)))
       (when signaturep
         (let* ((sig-filename (concat filename ".sig"))
                (source-sig (concat archive-url sig-filename))
                (target-sig (expand-file-name sig-filename output-dir)))
-          (url-copy-file source-sig target-sig 'ok-if-already-exists)))
-      (url-copy-file source target))))
+          (configuration-layer//url-copy-file source-sig target-sig 'ok-if-already-exists)))
+      (configuration-layer//url-copy-file source target))))
 
 (defun configuration-layer//sync-elpa-packages-files (packages output-dir)
   "Synchronize PACKAGES files from remote ELPA directory to OUTPUT-DIR"
@@ -2553,9 +2566,10 @@ ELPA stable repository."
                       "%s installation has been skipped!") name)))
         ;; download tarball and detached signature
         (make-directory configuration-layer-stable-elpa-directory t)
-        (url-copy-file url local 'ok-if-already-exists)
+        (configuration-layer//url-copy-file url local 'ok-if-already-exists)
         (when dotspacemacs-verify-spacelpa-archives
-          (url-copy-file url-sig local-sig 'ok-if-already-exists))
+          (configuration-layer//url-copy-file url-sig local-sig 'ok-if-already-exists))
+        ;; (url-copy-file url-sig local-sig 'ok-if-already-exists))
         ;; extract
         (when (configuration-layer//stable-elpa-untar-archive)
           ;; delete archive
