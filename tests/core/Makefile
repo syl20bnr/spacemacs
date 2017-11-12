@@ -11,7 +11,7 @@
 
 TEST_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-LOAD_FILES = core/core-load-paths.el
+LOAD_FILES = core/core-versions.el core/core-load-paths.el
 UNIT_TEST_FILES = \
   core-configuration-layer-utest.el \
   core-funcs-utest.el
