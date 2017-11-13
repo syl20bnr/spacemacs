@@ -29,7 +29,7 @@ if sys.version_info[0] == 3:
     import urllib.request as urllib
 else:
     from HTMLParser import HTMLParser
-    import urllib
+    import urllib2 as urllib
     import urlparse
     import formatter
 
