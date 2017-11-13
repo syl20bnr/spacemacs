@@ -137,7 +137,6 @@ class IndexProcessor(HTMLParser):
         self.entry = ""
         self.desc = ""
         self.list_entry = False
-        self.do_entry = False
         self.one_entry = False
         self.num_of_a = 0
         self.desc_cnt = 0
@@ -158,8 +157,6 @@ class IndexProcessor(HTMLParser):
     def handle_endtag(self, tag):
         if tag == 'dd':
             self.list_entry = False
-        elif tag == 'dt':
-            self.do_entry = False
 
     def handle_data(self, data):
         if self.tag == 'a':
