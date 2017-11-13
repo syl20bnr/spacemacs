@@ -155,12 +155,14 @@ class IndexProcessor(HTMLParser):
             if self.one_entry:
                 self.url = join(self.dirn, attrs['href'])
 
-    def handle_data(self, data):
-        if self.tag == 'dd':
+    def handle_endtag(self, tag):
+        if tag == 'dd':
             self.list_entry = False
-        elif self.tag == 'dt':
+        elif tag == 'dt':
             self.do_entry = False
-        elif self.tag == 'a':
+
+    def handle_data(self, data):
+        if self.tag == 'a':
             global VERBOSE
             if self.one_entry:
                 if self.num_of_a == 0:
