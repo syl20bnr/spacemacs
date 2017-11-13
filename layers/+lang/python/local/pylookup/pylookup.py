@@ -24,11 +24,11 @@ except:
     import pickle
 
 if sys.version_info[0] == 3:
-    import html.parser as htmllib
+    from html.parser import HTMLParser
     import urllib.parse as urlparse
     import urllib.request as urllib
 else:
-    import htmllib
+    from HTMLParser import HTMLParser
     import urllib
     import urlparse
     import formatter
@@ -122,16 +122,16 @@ def get_matcher(insensitive=True, desc=True):
     return getattr(Element, "match{0}{1}".format(_in_entry, _sensitive))
 
 
-class IndexProcessor(htmllib.HTMLParser):
+class IndexProcessor(HTMLParser):
     """
     Extract the index links from a Python HTML documentation index.
     """
 
     def __init__(self, writer, dirn):
         try:
-            htmllib.HTMLParser.__init__(self)
+            HTMLParser.__init__(self)
         except TypeError:
-            htmllib.HTMLParser.__init__(self, formatter.NullFormatter())
+            HTMLParser.__init__(self, formatter.NullFormatter())
         self.writer = writer
         self.dirn = dirn
         self.entry = ""
@@ -143,11 +143,7 @@ class IndexProcessor(htmllib.HTMLParser):
         self.desc_cnt = 0
         self.tag = None
 
-    def handle_starttag(self, tag, *args):
-        if sys.version_info[0] == 3:
-            attrs = args[0]
-        else:
-            attrs = args[1]
+    def handle_starttag(self, tag, attrs):
         self.tag = tag
         attrs = dict(attrs)
         if self.tag == 'dd':
