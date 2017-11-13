@@ -228,9 +228,11 @@ def update(db, urls, append=False):
                 # guess index URLs
                 # for stdlib, this is genindex-all.html
                 # for django, numpy, etc. it's genindex.html
+                # for flask, requests, it's genindex/
                 url = url.rstrip("/")
                 potential_urls.append(url + "/genindex-all.html")
                 potential_urls.append(url + "/genindex.html")
+                potential_urls.append(url + "/genindex/")
 
             success = False
             for index_url in potential_urls:
