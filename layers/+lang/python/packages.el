@@ -269,6 +269,7 @@
 (defun python/init-python ()
   (use-package python
     :defer t
+    :mode (("SConstruct\\'" . python-mode) ("SConscript\\'" . python-mode))
     :init
     (progn
       (spacemacs/register-repl 'python 'python-start-or-switch-repl "python")
