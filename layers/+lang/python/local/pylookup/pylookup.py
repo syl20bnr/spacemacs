@@ -136,7 +136,7 @@ class IndexProcessor(HTMLParser):
         self.dirn = dirn
         self.entry = ""
         self.desc = ""
-        self.list_entry = False
+        self.level = 0
         self.one_entry = False
         self.num_of_a = 0
         self.desc_cnt = 0
@@ -145,19 +145,19 @@ class IndexProcessor(HTMLParser):
     def handle_starttag(self, tag, attrs):
         self.tag = tag
         attrs = dict(attrs)
-        if self.tag == 'dd':
-            self.list_entry = True
-        elif self.tag == 'dt':
+        if tag in ['dd', 'dl', 'ul']:
+            self.level += 1
+        elif tag in ['dt', 'li']:
             self.one_entry = True
             self.num_of_a = 0
-        elif self.tag == 'a':
+        elif tag == 'a':
             if self.one_entry:
                 self.url = join(self.dirn, attrs['href'])
 
     def handle_endtag(self, tag):
-        if tag == 'dd':
-            self.list_entry = False
-        if tag == 'dt':
+        if tag in ['dd', 'dl', 'ul']:
+            self.level -= 1
+        elif tag in ['dt', 'li']:
             self.one_entry = False
 
     def handle_data(self, data):
@@ -175,7 +175,7 @@ class IndexProcessor(HTMLParser):
                                               self.desc.ljust(80)))
                     # extract fist element
                     #  ex) __and__() (in module operator)
-                    if not self.list_entry:
+                    if self.level == 1:
                         self.entry = re.sub("\([^)]+\)", "", self.desc)
 
                         # clean up PEP
