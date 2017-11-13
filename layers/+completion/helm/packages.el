@@ -59,7 +59,8 @@
 (defun helm/init-helm ()
   (use-package helm
     :defer 1
-    :commands (spacemacs/helm-find-files)
+    :commands (spacemacs/helm-find-files
+               helm-current-directory)
     :init
     (progn
       (add-hook 'helm-cleanup-hook #'spacemacs//helm-cleanup)
