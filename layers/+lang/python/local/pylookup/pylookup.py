@@ -155,6 +155,7 @@ class IndexProcessor(HTMLParser):
                 self.url = join(self.dirn, attrs['href'])
 
     def handle_endtag(self, tag):
+        self.tag = None
         if tag in ['dd', 'dl', 'ul']:
             self.level -= 1
         elif tag in ['dt', 'li']:
