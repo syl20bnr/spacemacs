@@ -7,6 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
+- [[#troubleshooting][Troubleshooting]]
 
 * Description
 This layer adds PHP language support to Spacemacs.
@@ -32,3 +33,16 @@ file.
 |-------------+-------------------------|
 | ~SPC m g g~ | jump to define at point |
 | ~C-t~       | jump back               |
+
+* Troubleshooting
+Because of the way that the php-extras package works, there are a couple of simple
+initialization tasks which must occur to get the completion working as it should.
+On any new project make sure to perform the following initialization tasks:
+
+1. Run the following
+  #+BEGIN_SRC shell
+    cd /root/of/project
+    touch .ac-php-conf.json
+  #+END_SRC
+2. Inside of spacemacs run:
+  = ac-php-remake-tags-all =
