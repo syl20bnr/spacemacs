@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#pre-requisites][Pre-requisites]]
   - [[#layer][Layer]]
@@ -16,7 +17,7 @@
 * Description
 This layer adds support for TypeScript and TSX editing.
 
-This layer provides:
+** Features:
 - Eldoc-mode
 - Documentation at point
 - Auto complete
