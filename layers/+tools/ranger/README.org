@@ -16,11 +16,11 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ranger= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-To default with preview enabled when entering ranger:
+To default with preview disabled when entering ranger:
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
               '(ranger :variables
-                       ranger-show-preview t))
+                       ranger-preview-file nil))
 #+END_SRC
 
 ** Features:
@@ -97,7 +97,7 @@ You probably don't want to open certain files like videos when using preview. To
 ignore certain files when moving over them you can customize the following to
 your liking:
 #+BEGIN_SRC elisp
-(setq ranger-ignored-extensions '("mkv" "iso" "mp4"))
+(setq ranger-excluded-extensions '("mkv" "iso" "mp4"))
 #+END_SRC
 
 To set the max files size (in MB), set the following parameter:
