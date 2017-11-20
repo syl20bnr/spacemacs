@@ -28,7 +28,7 @@ unit_tests:
 	@echo "================================================================="
 	@echo "UNIT TESTS FOR $(TEST_NAME)"
 	@echo "================================================================="
-	@emacs -batch -l ert \
+	emacs -batch -l ert \
 		$(addprefix -l $(EMACS_DIR)/, $(LOAD_FILES)) \
 		$(addprefix -l $(TEST_DIR)/, $(UNIT_TEST_FILES)) \
 		-f ert-run-tests-batch-and-exit

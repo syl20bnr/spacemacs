@@ -412,6 +412,16 @@ cache folder.")
 
 (defun configuration-layer/initialize ()
   "Initialize `package.el'."
+  (unless dotspacemacs-use-spacelpa
+    ;; cleanly remove usage of stable elpa
+    (setq configuration-layer-elpa-archives
+          (cl-delete configuration-layer-stable-elpa-name
+                     configuration-layer-elpa-archives
+                     :test 'equal :key 'car))
+    (setq package-archive-priorities
+          (cl-delete configuration-layer-stable-elpa-name
+                     package-archive-priorities
+                     :test 'equal :key 'car)))
   (setq configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout)
   (unless package--initialized
     (setq configuration-layer-rollback-directory

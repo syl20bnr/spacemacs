@@ -77,8 +77,31 @@
       "'"  'julia
       "si" 'julia)
     (spacemacs/set-leader-keys-for-major-mode 'ess-mode
+      ","  'ess-eval-region-or-function-or-paragraph-and-step
       "'"  'spacemacs/ess-start-repl
       "si" 'spacemacs/ess-start-repl
+      "ss" 'ess-switch-to-inferior-or-script-buffer
+      "sS" 'ess-switch-process
+      ;; REPL
+      "sb" 'ess-eval-buffer-and-go
+      "eb" 'ess-eval-buffer
+      "sd" 'ess-eval-region-or-line-and-step
+      "sD" 'ess-eval-function-or-paragraph-and-step
+      "sl" 'ess-eval-line-and-go
+      "el" 'ess-eval-line
+      "sr" 'ess-eval-region-and-go
+      "er" 'ess-eval-region
+      "sf" 'ess-eval-function-and-go
+      "ef" 'ess-eval-function
+      ;; ESS doc map
+      "h" 'ess-doc-map
+      "hh" 'ess-display-help-on-object
+      ;; R helpers
+      "hp" 'ess-R-dv-pprint
+      "ht" 'ess-R-dv-ctable
+      "r" 'ess-extra-map
+      "w" 'ess-r-package-dev-map
+      "d" 'ess-dev-map
       ;; noweb
       "cC" 'ess-eval-chunk-and-go
       "cc" 'ess-eval-chunk
@@ -86,20 +109,6 @@
       "cm" 'ess-noweb-mark-chunk
       "cN" 'ess-noweb-previous-chunk
       "cn" 'ess-noweb-next-chunk
-      ;; REPL
-      "sB" 'ess-eval-buffer-and-go
-      "sb" 'ess-eval-buffer
-      "sD" 'ess-eval-function-or-paragraph-and-step
-      "sd" 'ess-eval-region-or-line-and-step
-      "sL" 'ess-eval-line-and-go
-      "sl" 'ess-eval-line
-      "sR" 'ess-eval-region-and-go
-      "sr" 'ess-eval-region
-      "sF" 'ess-eval-function-and-go
-      "sf" 'ess-eval-function
-      ;; R helpers
-      "hd" 'ess-R-dv-pprint
-      "ht" 'ess-R-dv-ctable
       )
     (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
     (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)

@@ -2,6 +2,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#usage][Usage]]
   - [[#example][Example]]
@@ -12,6 +13,11 @@
 
 * Description
 This layer allows for a simple way of modifying themes.
+
+** Features:
+  - Modify themes from your =.spacemacs=.
+  - Tweak face attributes and other aspects of themes.
+  - Includes three additional layer variables for tweaking headings.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

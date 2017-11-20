@@ -67,7 +67,7 @@ It will be matched against full path of each exported file.")
                 "Arguments:"
                 " - <export> - You already know this :)"
                 " - Target directory for export"
-                "   (default: \"<TMP>/spacemacs--export/\")"
+                "   (default: \"<TMP>/spacemacs-export/\")"
                 " - Count of Emacs instances that will be used for exporting"
                 "   (default \"6\", minimal vale is 1 and maximal"
                 "    is total count of ORG files)"

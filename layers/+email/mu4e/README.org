@@ -1,6 +1,8 @@
 #+TITLE: Mu4e layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#commands][Commands]]
   - [[#global-bindings][Global bindings]]
@@ -15,6 +17,15 @@
     - [[#mode-line-notifications][Mode-line notifications]]
   - [[#spacemacs-layout-integration][Spacemacs layout integration]]
 - [[#see-also][See also]]
+
+* Description
+This layer adds support for the Mu4e email client.
+
+** Features:
+  - Search, read, reply, move, and delete email.
+  - Search-based: no folders, only queries.
+  - UI optimized for speed: quick keystrokes for common actions.
+  - Very extendable and costumizable.
 
 * Install
 In order to use this layer you must install mu and mu4e separately. Typically
