@@ -25,6 +25,7 @@
         (origami :toggle (eq 'origami dotspacemacs-folding-method))
         password-generator
         smartparens
+        (evil-smartparens :toggle dotspacemacs-smartparens-strict-mode)
         (spacemacs-whitespace-cleanup :location local)
         string-inflection
         undo-tree
@@ -273,6 +274,16 @@
         "ip3" 'password-generator-paranoid
         "ipp" 'password-generator-phonetic
         "ipn" 'password-generator-numeric))))
+
+(defun spacemacs-editing/init-evil-smartparens ()
+  (use-package evil-smartparens
+    :defer t
+    :init
+    (progn
+      (when dotspacemacs-smartparens-strict-mode
+        (spacemacs/add-to-hooks 'evil-smartparens-mode '(prog-mode-hook comint-mode-hook))))
+    :config
+    (spacemacs|diminish evil-smartparens-mode)))
 
 (defun spacemacs-editing/init-smartparens ()
   (use-package smartparens
