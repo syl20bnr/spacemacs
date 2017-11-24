@@ -589,6 +589,7 @@ Other:
   - New emacs banner: "100-banner.txt" (thanks to Robert Zaremba)
   - Add Dogemacs inverted banner for dark themes: "997-banner.txt"
     (thanks to Vitor Finotti and Robby O'Connor)
+  - Added reference handler as per jump handler (thanks to Fangrui Song)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
