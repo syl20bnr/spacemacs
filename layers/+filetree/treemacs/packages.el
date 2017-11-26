@@ -29,7 +29,6 @@
     :init
     (spacemacs/set-leader-keys
       "ft"    #'treemacs-toggle
-      "fT"    #'treemacs
       "fB"    #'treemacs-bookmark
       "f C-t" #'treemacs-find-file)
     :config
@@ -76,4 +75,6 @@
 (defun treemacs/pre-init-winum ()
   (spacemacs|use-package-add-hook winum
     :post-config
-    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window)))
+    (progn
+      (spacemacs/set-leader-keys "0" #'treemacs)
+      (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))))

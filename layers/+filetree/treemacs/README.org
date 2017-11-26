@@ -81,8 +81,8 @@ Default value is 3 (or 0 when python is not installed).
 
 | Key Binding | Description                                                                                                                                    |
 |-------------+------------------------------------------------------------------------------------------------------------------------------------------------|
+| ~SPC 0~     | Open treemacs in the current directory. When not visiting a file use $HOME as fallback. With a prefix arg manually select the root instead.    |
 | ~SPC f t~   | Hide/show existing treemacs buffer. Create one for the current directory if no buffer exists.                                                  |
-| ~SPC f T~   | Open treemacs in the current directory. When not visiting a file use $HOME as fallback. With a prefix arg manually select the root instead.    |
 | ~SPC f p~   | Same as ~SPC f t~, but when creating a new buffer open it in the current project's root.                                                       |
 | ~SPC f P~   | Open treemacs in the current project's root. With a prefix arg manually select the project instead.                                            |
 | ~SPC f B~   | Find and select a bookmark. If it cannot be found rebuild view with the bookmark's location as root. Also open the bookmark with a prefix arg. |
