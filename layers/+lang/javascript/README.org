@@ -10,6 +10,7 @@
   - [[#tern][Tern]]
   - [[#indentation][Indentation]]
   - [[#repl][REPL]]
+  - [[#node-modules][Node Modules]]
 - [[#key-bindings][Key Bindings]]
   - [[#js2-mode][js2-mode]]
   - [[#folding-js2-mode][Folding (js2-mode)]]
@@ -116,6 +117,17 @@ with skewer. If a blank page serves your needs, just use the run-skewer command
 in your javascript buffer. If you want to inject it in your own page, follow
 [[https://github.com/skeeto/skewer-mode#skewering-with-cors][these instructions]] (install the Greasemonkey script and then click the triangle
 in the top-right corner - if it turns green, you're good to go).
+
+** Node Modules
+If you would like =node_modules/.bin= to be automatically added to the buffer
+local =exec_path=, e.g. to support project local eslint installations, set the
+=node-add-modules-path= variable in the =javascript= config section. Note that
+doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472][introduces a security risk]]:
+
+#+BEGIN_SRC elisp
+(setq-default dotspacemacs-configuration-layers
+  '((javascript :variables node-add-modules-path t)))
+#+END_SRC
 
 * Key Bindings
 ** js2-mode
