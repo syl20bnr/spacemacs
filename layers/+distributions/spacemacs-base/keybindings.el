@@ -138,6 +138,7 @@
   "b N n" 'spacemacs/new-empty-buffer
   "bP"    'spacemacs/copy-clipboard-to-whole-buffer
   "bp"    'previous-buffer
+  "bl"    'buffer-menu-other-window
   "bR"    'spacemacs/safe-revert-buffer
   "bs"    'spacemacs/switch-to-scratch-buffer
   "bu"    'spacemacs/reopen-killed-buffer
