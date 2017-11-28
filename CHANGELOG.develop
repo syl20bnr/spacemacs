@@ -333,6 +333,7 @@ sane way, here is the complete list of changed key bindings
 - cmake (thanks to Alexander Dalshov, Sylvain Benner and Jonas Jelten)
 - dap (thanks to Ivan Yonchovski)
 - debug (thanks to Hodge Shen, Troy Hinckley, and Sylvain Benner)
+- dotnet (thanks to Jordan Kaye)
 - emberjs (thanks to Robert O'Connor)
 - import-js (thanks to Thanh Vuong and Seong Yong-ju)
 - lsp (thanks to Fangrui Song, 0bl.blwl, Cormac Cannon, Juuso Valkeejärvi,
@@ -1259,6 +1260,22 @@ Other:
   - Added ~SPC a D C~ for =docker-compose= (thanks to Daniel Caixinha)
 - Fix: broken package declaration for dockerfile-mode
   (thanks to Maximilian Wolff)
+**** Dotnet
+- Key bindings:
+  - Added key bindings for =dotnet= (thanks to Jordan Kaye):
+    - ~SPC m d a p~ Add package to the current dotnet project
+    - ~SPC m d a r~ Add reference to the current dotnet project
+    - ~SPC m d b~   Build the current dotnet project
+    - ~SPC m d c~   Clean the current dotnet project
+    - ~SPC m d n~   Create a new dotnet project
+    - ~SPC m d p~   Publish the current dotnet project
+    - ~SPC m d r a~ Run the current dotnet project with arguments
+    - ~SPC m d r r~ Restore the current dotnet project
+    - ~SPC m d s a~ Add to the current dotnet solution
+    - ~SPC m d s l~ List the current dotnet solution
+    - ~SPC m d s n~ Create a new dotnet solution
+    - ~SPC m d s r~ Remove from the current dotnet solution
+    - ~SPC m d t~   Run tests for the current dotnet project
 **** Elfeed
 - Fixed selection bindings in visual state (thanks to Jeremy Symon)
 - Fixed not saving on quit (thanks to Andrew Stevanus)
