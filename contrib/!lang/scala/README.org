@@ -42,9 +42,11 @@ Add this contribution to your =~/.spacemacs=.
 compilation and project-wide type-checking.
 
 ENSIME requires a configuration file at the root of each Scala project. It
-provides an SBT plugin to generate these files.
+provides an SBT plugin, a gradle plugin and others (see [[http://ensime.org/build_tools/][ensime.org]] for a full list) to generate these files.
 
-** Installation
+** Installation when using SBT
+Refer to the [[https://ensime.github.io/build_tools/sbt/][Ensime installation instructions]] to install the =sbt-ensime=
+plugin.
 
 1. Configure the ENSIME sbt plugin by adding the following to
    =~/.sbt/0.13/plugins/plugins.sbt=:
@@ -59,10 +61,14 @@ provides an SBT plugin to generate these files.
    
 See the [[https://github.com/ensime/ensime-server/wiki/Quick-Start-Guide#installing-the-ensime-sbt-plugin][ENSIME quickstart]] guide for further information.
 
+** Installation when using Gradle
+Refer to the [[https://ensime.org/build_tools/gradle/][Ensime installation
+instructions]] to install the =ensime-gradle= plugin.
+
 ** Usage
 
 1. Create a =.ensime= file at the root of your Scala project using =sbt
-   gen-ensime= at the shell.
+   gen-ensime= or =./gradlew ensime= at the shell.
    
 2. Run =M-x ensime= within Emacs to start an ENSIME session.
    
