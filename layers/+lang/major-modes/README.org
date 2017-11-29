@@ -2,6 +2,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#key-bindings][Key bindings]]
   - [[#arch-linux-pkgbuilds][Arch Linux PKGBUILDs]]
   - [[#gentoo-ebuilds][Gentoo ebuilds]]
@@ -9,21 +10,22 @@
 * Description
 This layer adds a number of packages for less common languages and major modes.
 
-These include:
-- Arch Linux PKGBUILDs
-- Arduino
-- Android Logcat (not associated with any file types by default)
-- Gentoo ebuilds
-- Hoon
-- Julia
-- Kivy
-- MATLAB
-- QML
-- OpenScad
-- Stan
-- Thrift
-- Vala
-- Wolfram Language / Mathematica
+** Features:
+- Support for:
+  - Arch Linux PKGBUILDs
+  - Arduino
+  - Android Logcat (not associated with any file types by default)
+  - Gentoo ebuilds
+  - Hoon
+  - Julia
+  - Kivy
+  - MATLAB
+  - QML
+  - OpenScad
+  - Stan
+  - Thrift
+  - Vala
+  - Wolfram Language / Mathematica
 
 * Key bindings
 ** Arch Linux PKGBUILDs
