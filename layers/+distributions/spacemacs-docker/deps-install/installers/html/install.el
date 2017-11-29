@@ -17,7 +17,7 @@
 (with-installed (git curl software-properties-common)
   ($ "add-apt-repository ppa:brightbox/ruby-ng"
      "apt-get update")
-  (install rubygems ruby-dev ruby2.0-dev ruby2.2-dev npm)
+  (install ruby ruby-dev ruby2.0-dev ruby2.2-dev npm)
   (!"Installing npm stuff...")
   ($ "npm cache clean -f"
      "npm install -g n"
