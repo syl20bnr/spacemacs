@@ -215,6 +215,7 @@
   "fvd" 'add-dir-local-variable
   "fvf" 'add-file-local-variable
   "fvp" 'add-file-local-variable-prop-line
+  "fw" 'write-file
   "fy" 'spacemacs/show-and-copy-buffer-filename)
 ;; frame ----------------------------------------------------------------------
 (spacemacs/set-leader-keys
