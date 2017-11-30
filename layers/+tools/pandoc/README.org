@@ -2,6 +2,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#pandoc][Pandoc]]
@@ -15,7 +16,9 @@ Pandoc is a universal document converter. It makes it easy to e.g. convert a
 Markdown file to org mode or vice versa. It can also export your text to PDF or
 DOCX.
 
-This layer automatically install an org exporter using the [[https://github.com/kawabata/ox-pandoc][ox-pandoc]].
+** Features:
+- Mode independent document conversions via =global pandoc menu=
+- =Org-export= integration via [[https://github.com/kawabata/ox-pandoc][ox-pandoc]]
 
 * Install
 ** Layer
