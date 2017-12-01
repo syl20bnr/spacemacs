@@ -2377,7 +2377,7 @@ The URL of the descriptor is patched to be the passed URL"
   )
 
 (defun configuration-layer//download-elpa-file
-    (pkg-name filename archive-url output-dirkkj
+    (pkg-name filename archive-url output-dir
               &optional signaturep readmep)
   "Download FILENAME from distant ELPA repository to OUTPUT-DIR.
 
