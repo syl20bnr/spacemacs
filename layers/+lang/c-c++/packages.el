@@ -34,8 +34,9 @@
     xcscope
     rtags
     (company-rtags :requires company rtags)
-    (flycheck-rtags :requires flycheck)
-    (helm-rtags :requires helm)
+    (flycheck-rtags :requires flycheck rtags)
+    (helm-rtags :requires helm rtags)
+    (ivy-rtags :requires ivy rtags)
     ))
 
 (defun c-c++/init-cc-mode ()
@@ -257,7 +258,7 @@
     :if c-c++-enable-rtags-support
     :init
     (setq rtags-autostart-diagnostics t)
-    (setq rtags-display-result-backend 'helm)
+    (add-hook 'rtags-jump-hook 'evil-set-jump)
     (rtags-diagnostics)
     (define-key evil-normal-state-map (kbd "RET") 'rtags-select-other-window)
     (define-key evil-normal-state-map (kbd "M-RET") 'rtags-select)
@@ -286,4 +287,14 @@
 
 (defun c-c++/init-helm-rtags ()
   (use-package helm-rtags
-    :if c-c++-enable-rtags-support))
+    :if c-c++-enable-rtags-support
+    :init
+    (setq rtags-display-result-backend 'helm)
+  ))
+
+(defun c-c++/init-ivy-rtags ()
+  (use-package ivy-rtags
+    :if c-c++-enable-rtags-support
+    :init
+    (setq rtags-display-result-backend 'ivy)
+    ))
