@@ -47,6 +47,7 @@ This layer adds support for the Python language.
 - Suppression of unused import with [[https://github.com/myint/autoflake][autoflake]]
 - Use the ~%~ key to jump between blocks with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Sort imports with [[https://pypi.python.org/pypi/isort][isort]]
+- Fix a missing import statement with [[https://github.com/anachronic/importmagic.el][importmagic]]
 
 * Install
 ** Layer
@@ -255,10 +256,11 @@ function with a prefix argument, for example ~SPC u SPC m t a~.
 
 ** Refactoring
 
-| Key Binding | Description                          |
-|-------------+--------------------------------------|
-| ~SPC m r i~ | remove unused imports with [[https://github.com/myint/autoflake][autoflake]] |
-| ~SPC m r I~ | sort imports with [[https://pypi.python.org/pypi/isort][isort]]              |
+| Key Binding | Description                                     |
+|-------------+-------------------------------------------------|
+| ~SPC m r i~ | remove unused imports with [[https://github.com/myint/autoflake][autoflake]]            |
+| ~SPC m r I~ | sort imports with [[https://pypi.python.org/pypi/isort][isort]]                         |
+| ~SPC m r f~ | fix a missing import statement with [[https://pypi.python.org/pypi/importmagic][importmagic]] |
 
 ** Live coding
 Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][live-py-plugin.]]
