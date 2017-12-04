@@ -108,8 +108,15 @@ flags, but there is also support for flycheck so that it doesn't complain about
 missing header files.
 
 ** CMake configuration
-=cmake-ide= plugin works out of the box, but there are few useful configuration
-options.
+To enable CMake projects support set the layer variable =c-c++-enable-cmake-ide-support=
+to =t= in the dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((c-c++ :variables c-c++-enable-cmake-ide-support t)))
+#+END_SRC
+
+=cmake-ide= plugin has several useful configuration options.
 
 To configure project you need to create =.dir-locals.el= file. In case of using
 make as CMake backend you can use =helm-make= to select required build target.
