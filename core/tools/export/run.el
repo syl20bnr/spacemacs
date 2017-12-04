@@ -61,16 +61,16 @@ It will be matched against full path of each exported file.")
               " - <test> - You already know this :)"
               " - list of files for testing"
               " Example: ./run.el test \"doc/FAQ.org\" \"CONTRIBUTING.org\""
-              "NOTE: In this mode warnings are counted as errors"))
+              "NOTE: In this mode warnings are errors"))
     (:export . ("Spacemacs documentation exporter (export mode)"
                 "================================================="
                 "Arguments:"
                 " - <export> - You already know this :)"
                 " - Target directory for export"
                 "   (default: \"<TMP>/spacemacs-export/\")"
-                " - Count of Emacs instances that will be used for exporting"
-                "   (default \"6\", minimal vale is 1 and maximal"
-                "    is total count of ORG files)"
+                " - Number of Emacs instances that will be used for exporting"
+                "   (default \"6\", minimal value is 1 and maximal"
+                "    is total number of ORG files)"
                 " - Regexp for ignoring ORG and static files,"
                 "   exclude nothing if empty string"
                 "   (It will be matched against full path of each exported file"
@@ -90,7 +90,7 @@ The shape:(
 See `spacemacs-export-docs-help-text' for details.")
 
 (defvar spacemacs--export-docs-workers-fin 0
- "Count of Emacs instances that finished exporting.")
+ "Number of Emacs instances that finished exporting.")
 (defvar spacemacs--export-docs-mode nil
   "Current mode")
 (defvar spacemacs--export-docs-test-failed? nil

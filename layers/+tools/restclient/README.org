@@ -2,6 +2,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
 - [[#restclient][Restclient]]
@@ -9,8 +10,11 @@
 - [[#ob-http][ob-http]]
 
 * Description
-This layer lets you have a REPL-like interface for http requests using a
-[[https://github.com/pashky/restclient.el][restclient]] buffer or an =org= buffer.
+This layer provides a REPL-like interface for http requests.
+
+** Features:
+- REPL for http requests via [[https://github.com/pashky/restclient.el][restclient]]
+- Alternative =org= integration via [[http://github.com/zweifisch/ob-http][ob-http]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
