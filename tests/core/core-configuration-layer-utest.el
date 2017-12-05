@@ -724,6 +724,10 @@
   (let ((input '("spacelpa" . "/home/rms/.elpa/spacelpa")))
     (should (configuration-layer//package-archive-absolute-path-p input))))
 
+(ert-deftest test-package-archive-absolute-pathp--windows-absolute-path ()
+  (let ((input '("spacelpa" . "c:/Users/My User/.elpa/spacelpa")))
+    (should (configuration-layer//package-archive-absolute-path-p input))))
+
 (ert-deftest test-package-archive-absolute-pathp--relative-path-local ()
   (let ((input '("melpa" . "../.elpa/spacelpa")))
     (should (not (configuration-layer//package-archive-absolute-path-p input)))))
@@ -750,6 +754,10 @@
 
 (ert-deftest test-package-archive-local-pathp--user-home-slash-local-path ()
   (let ((input '("spacelpa" . "/home/rms/.elpa/spacelpa")))
+    (should (configuration-layer//package-archive-local-path-p input))))
+
+(ert-deftest test-package-archive-local-pathp--windows-local-path ()
+  (let ((input '("spacelpa" . "c:/Users/My User/.elpa/spacelpa")))
     (should (configuration-layer//package-archive-local-path-p input))))
 
 (ert-deftest test-package-archive-local-pathp--relative-local-path-local ()
