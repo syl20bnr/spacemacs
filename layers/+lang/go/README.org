@@ -26,6 +26,7 @@ This layer adds extensive support for go.
 - Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]] (with the =auto-completion= layer)
 - Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]]
 - Refactoring with [[http://gorefactor.org/][godoctor]]
+- Edit struct field tag with [[https://github.com/fatih/gomodifytags][gomodifytags]]
 - Linting with flycheck's built-in checkers or flycheck-gometalinter
 - Coverage profile visualization
 
@@ -62,6 +63,12 @@ If you wish to use =godoctor= for refactoring, install it too:
 #+BEGIN_SRC sh
   go get -u -v github.com/godoctor/godoctor
   go install github.com/godoctor/godoctor
+#+END_SRC
+
+If you want to use =gomodifytags= to edit field tags, install it too:
+
+#+BEGIN_SRC sh
+  go get -u -v github.com/fatih/gomodifytags
 #+END_SRC
 
 Make sure that the =gocode= executable is in your PATH. For information about
@@ -185,3 +192,5 @@ You have a few options to ensure you always get up to date suggestions:
 | ~SPC m r e~ | Extract code as new function      |
 | ~SPC m r t~ | Toggle declaration and assignment |
 | ~SPC m r d~ | Add comment stubs                 |
+| ~SPC m r f~ | Add field tags                    |
+| ~SPC m r F~ | Remove field tags                 |
