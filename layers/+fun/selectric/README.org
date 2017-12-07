@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key Bindings]]
 - [[#notes][Notes]]
@@ -12,6 +13,11 @@
 This layer makes your Emacs sound like an IBM Selectric typewriter, for those
 moments when your loud, clicky mechanical keyboard is not at hand, yet, you'd
 still wish to enjoy the sound.
+
+** Features:
+- Brings back fond memories about your first programming job where you started
+  with that big mechanical keyboard and the small monochrom display working on
+  the latest IBM Iseries server.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
