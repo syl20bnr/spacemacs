@@ -11,14 +11,22 @@
 
 (defun spacemacs//init-ocaml-opam ()
   (if (executable-find "opam")
-      (let* ((output (shell-command-to-string
-                      "opam config var share 2> /dev/null"))
-             (share (when (< 0 (length output))
-                      (substring output 0 -1))))
-          (when share
-            (setq opam-share share
-                  opam-load-path (concat share "/emacs/site-lisp")))
-          (add-to-list 'load-path opam-load-path))
+      (let ((share (string-trim-right
+                    (with-output-to-string
+                      (with-current-buffer
+                          standard-output
+                        (process-file
+                         shell-file-name nil '(t nil) nil shell-command-switch
+                         "opam config var share"))))))
+        (cond ((string= "" share)
+               (spacemacs-buffer/warning
+                "\"opam config var shar\" output empty string."))
+              ((not (file-directory-p share))
+               (spacemacs-buffer/warning
+                "opam share directory does not exist."))
+              (t (setq opam-share share
+                       opam-load-path (concat share "/emacs/site-lisp"))
+                 (add-to-list 'load-path opam-load-path))))
     (unless (executable-find "ocamlmerlin")
       (spacemacs-buffer/warning
        (concat "Cannot find \"opam\" or \"merlin\" executable. "
