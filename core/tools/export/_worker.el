@@ -153,8 +153,10 @@ be sent as the source of request (useful for debugging)"
             args))
   (kill-emacs 1))
 
-(defconst spacemacs-org-edn-special-chars '(("\t" . "\\t")
+(defconst spacemacs-org-edn-special-chars '(("\\" . "\\\\")
+                                            ("\t" . "\\t")
                                             ("\r" . "\\r")
+                                            ("\"" . "\\\"")
                                             ("\n" . "\\n")))
 (defsubst spacemacs/org-edn-escape-string (str)
   "Escape special characters in STR."
@@ -165,7 +167,7 @@ be sent as the source of request (useful for debugging)"
         (buffer-string))
     ""))
 
-(defsubst spacemacs/org-edn-headline-make-nesting-id (headline)
+(defsubst spacemacs/org-edn-headline-make-path-id (headline)
   "Make id for org HEADLINE by chaining headlines from parent to)
 child headline.
 NOTE: Each headline is converted with `toc-org-hrefify-gh' but
@@ -229,7 +231,7 @@ channel."
 CONTENTS is nil.  INFO is a plist holding contextual
 information.
 NOTE: In Spacemacs ~code blocks~ are key sequences."
-  (format "{:tag :kbd :code %s}"
+  (format "{:tag :kbd :value %s}"
           (format "%S"
                   (vconcat
                    (mapcar
@@ -275,7 +277,7 @@ contextual information."
   "Transcode a EXAMPLE-BLOCK element From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual
 information."
-  (format "{:tag :example-block :text \"%s\"}"
+  (format "{:tag :example-block :value \"%s\"}"
           (spacemacs/org-edn-escape-string
            (org-element-property :value example-block))))
 
@@ -303,7 +305,7 @@ information."
 (defun spacemacs//org-edn-fixed-width (fixed-width _contents _info)
   "Transcode a FIXED-WIDTH element From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual information."
-  (format "{:tag :fixed-width :text \"%s\"}"
+  (format "{:tag :fixed-width :value \"%s\"}"
           (spacemacs/org-edn-escape-string
            (org-element-property :value fixed-width))))
 
@@ -331,45 +333,55 @@ holding contextual information."
                           hh)))
          (gh-id (toc-org-hrefify-gh raw-value headline-ht))
          (level (org-element-property :level headline))
-         (nesting-ids (plist-get info :nesting-ids))
-         (nesting-id
-          (spacemacs/org-edn-headline-make-nesting-id headline))
-         (file (plist-get info :input-file)))
-    (when (and (= level 1)
-               (string= raw-value "Description"))
+         (path-ids (plist-get info :path-ids))
+         (path-id
+          (spacemacs/org-edn-headline-make-path-id headline))
+         (file (plist-get info :input-file))
+         (todo? (org-element-property :todo-keyword headline))
+         (description? (and (= level 1)
+                            (string= raw-value "Description"))))
+    (unless (or todo? contents)
+      (spacemacs/org-edn-error
+       "File %S has headline %S without children or TODO marker"
+       file
+       raw-value))
+    (when description?
       (if (plist-member info :file-has-description?)
           (spacemacs/org-edn-error
            (concat "File \"%s\" has multiply top level "
                    "\"Description\" headlines")
            file)
         (plist-put info :file-has-description? 'true)))
-    (if (member nesting-id nesting-ids)
+    (if (member path-id path-ids)
         (spacemacs/org-edn-error
-         (concat "Multiply identical nesting headlines \"%s\" in %S file. "
+         (concat "Multiply identical path IDs \"%s\" in %S file. "
                  "Usually it happens when headlines have child headlines "
                  "with similar names")
-         nesting-id
+         path-id
          file)
-      (plist-put info :nesting-ids (push nesting-id nesting-ids)))
-
+      (plist-put info :path-ids (push path-id path-ids)))
     (puthash gh-id raw-value headline-ht)
     (format
-     (concat "{:tag :headline "
+     (concat "{:tag %s "
              ":value \"%s\" "
              ":gh-id \"%s\" "
-             ":nesting-id \"%s\" "
+             ":path-id \"%s\" "
              ":level %s "
              ":children [%s]}")
+     (cond
+      (todo? :todo)
+      (description? :description)
+      (t :headline))
      (spacemacs/org-edn-escape-string raw-value)
      (spacemacs/org-edn-escape-string (string-remove-prefix "#" gh-id))
-     (spacemacs/org-edn-escape-string nesting-id)
+     (spacemacs/org-edn-escape-string path-id)
      level
      contents)))
 
 ;;;; Horizontal Rule
 
 (defun spacemacs//org-edn-horizontal-rule (_horizontal-rule _contents _info)
-  "Transcode an HORIZONTAL-RULE  object From Org to Spacemacs EDN.
+  "Transcode an HORIZONTAL-RULE  object From Org to Spacemacs EDN.)))))
 CONTENTS is nil.  INFO is a plist holding contextual information."
   (spacemacs/org-edn-error "\"%s\" not implemented"
                            "spacemacs//org-edn-horizontal-rule")
@@ -414,7 +426,7 @@ contextual information."
 ;;;; Item
 
 (defun spacemacs//org-edn-item (item contents info)
-  "Transcode an ITEM element From Org to Spacemacs EDN.))
+  "Transcode an ITEM element From Org to Spacemacs EDN.
 CONTENTS holds the contents of the item.  INFO is a plist holding
 contextual information."
   (let ((type (org-element-property
@@ -436,7 +448,10 @@ contextual information."
                     ":item-tag \"%s\" "
                     ":children [%s]}")
             type
-            (org-element-property :bullet item)
+            (format
+             "\"%s\""
+             (spacemacs/org-edn-escape-string
+              (org-element-property :bullet item)))
             (org-element-property :counter item)
             (org-element-property :checkbox item)
             (spacemacs/org-edn-escape-string
@@ -487,8 +502,17 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
           spacemacs-repository-owner
           spacemacs-repository))
 
+(defconst spacemacs--org-edn-embeddable-file-path-regexp
+  (format
+   "^.*\\.%s$"
+   (regexp-opt
+    '("gif" "gifv" "png" "jpg" "jpeg" "webp" "pdf" "svg" "webm" "mp4")
+    t))
+  "Regexp that matches file paths of files that can be
+embedded into a web page.")
+
 (defun spacemacs//org-edn-link (link desc info)
-  "Transcode a LINK object From Org to Spacemacs EDN.
+  "Transcode a LINK object From Org to Spacemacs EDN.))
 DESC is the description part of the link, or the empty string.
 INFO is a plist holding contextual information.  See
 `org-export-data'."
@@ -500,7 +524,10 @@ INFO is a plist holding contextual information.  See
          (local-org-link? (and local-link?
                                (string-match-p
                                 ".*\\.org\\(\\(::\\|#\\| \\).*\\)?$"
-                                raw-link))))
+                                raw-link)))
+         (embeddable? (string-match-p
+                       spacemacs--org-edn-embeddable-file-path-regexp
+                       path)))
     (when local-org-link?
       (plist-put
        info
@@ -559,17 +586,19 @@ INFO is a plist holding contextual information.  See
            (file-truename path))))
         (when (not local-org-link?)
           (spacemacs/org-edn-export-file file (file-truename path)))
-        (format "{:tag :file-path :value \"%s\" :children [%s]}"
+        (format "{:tag %s :value \"%s\" :children [%s]}"
+                (if embeddable? :embeddable-file-path :file-path)
                 (spacemacs/org-edn-escape-string path)
                 desc)))
      ((or (string= type "http")
           (string= type "https")
           (string= type "ftp"))
-      (format "{:tag :web-link :value \"%s\" :children [%s]}"
+      (format "{:tag %s :value \"%s\" :children [%s]}"
+              (if embeddable? :embeddable-web-link :web-link)
               (spacemacs/org-edn-escape-string raw-link)
               desc))
      ((string= type "custom-id")
-      (format (concat "{:tag :internal-link "
+      (format (concat "{:tag :headline-link "
                       ":target-headline-gh-id \"%s\" :children [%s]}")
               (spacemacs/org-edn-escape-string raw-link)
               desc))
@@ -671,7 +700,7 @@ contextual information."
   "Transcode a TEXT string From Org to Spacemacs EDN.
 TEXT is the string to transcode.  INFO is a plist holding
 contextual information."
-  (format "{:tag :plain-text :text \"%s\"}"
+  (format "{:tag :plain-text :value \"%s\"}"
           (spacemacs/org-edn-escape-string text)))
 
 ;;;; Planning
@@ -867,7 +896,7 @@ holding export options."
                     ;; ":export-data #inst \"%s\" "
                     ":file-has-description? %s "
                     ":file-has-feature-list? %s "
-                    ":headlines %s "
+                    ":headline-path-ids %s "
                     ":children [%s]}")
             ;; (format-time-string "%Y-%m-%dT%H:%M:%S.52Z" nil t)
             (if (plist-member info :file-has-description?)
@@ -878,9 +907,8 @@ holding export options."
               'false)
             (map 'vector
                  (lambda (s)
-                     (spacemacs/org-edn-escape-string
-                      (format "\"%s\"" s)))
-                 (plist-get info :nesting-ids))
+                   (format "\"%s\"" (spacemacs/org-edn-escape-string s)))
+                 (plist-get info :path-ids))
             contents)))
 
 ;;;; Timestamp
