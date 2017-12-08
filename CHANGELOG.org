@@ -3037,7 +3037,6 @@ Improve loading robustness:
   (thanks to nixmaniack)
 - Fix =git-magit-status-fullscreen= (thanks to bmag)
 - Fix various bugs with evilification of maps
-- Add =gr= and =gR= bindings to refresh in evilified Magit buffers
 - Deactivate =evil-snipe= mode which messes with =magit= buffer (thanks to
   cpaulik)
 

@@ -2,11 +2,15 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
 A speed reading mode for Emacs.
+
+** Features:
+- Support for =speed-reading= of arbitrary texts
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

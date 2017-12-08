@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#add-import-on-completion][Add import on completion]]
@@ -15,11 +16,14 @@
   - [[#repl][REPL]]
 
 * Description
-This layer provides basic Purescript editing support for spacemacs
-thanks to the following packages:
-- [[https://github.com/dysinger/purescript-mode][purescript-mode]]
-- [[https://github.com/ardumont/emacs-psci][psci]]
-- [[https://github.com/epost/psc-ide-emacs][psc-ide-emacs]]
+This layer provides basic Purescript editing support for spacemacs.
+
+** Features:
+- Syntax highlighting through [[https://github.com/dysinger/purescript-mode][purescript-mode]]
+- Automatic insert of imports through [[https://github.com/epost/psc-ide-emacs][psc-ide-emacs]]
+- REPL through [[https://github.com/ardumont/emacs-psci][psci]]
+- Syntax checking through flycheck
+- Autocompletion through company
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -33,7 +37,7 @@ can be found [[https://github.com/purescript/documentation/blob/master/guides/Ge
 * Configuration
 ** Add import on completion
 Set =purescript-add-import-on-completion= to nil to make =psc-ide= stop adding
-imports on completion. Default value it =t=.
+imports on completion. Default value is =t=.
 
 ** Error popup
 If you set =purescript-enable-rebuild-on-save= to non-nil, you will get a popup
