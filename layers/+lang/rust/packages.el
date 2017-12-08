@@ -37,13 +37,13 @@
         "cd" 'cargo-process-doc
         "cD" 'cargo-process-doc-open
         "ce" 'cargo-process-bench
-        "cf" 'cargo-process-current-test
         "cf" 'cargo-process-fmt
         "ci" 'cargo-process-init
         "cl" 'cargo-process-clippy
         "cn" 'cargo-process-new
         "co" 'cargo-process-current-file-tests
         "cs" 'cargo-process-search
+        "ct" 'cargo-process-current-test
         "cu" 'cargo-process-update
         "cx" 'cargo-process-run
         "t" 'cargo-process-test))))
