@@ -77,10 +77,16 @@ This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
 - =ghc-mod= (optional for completion)
 - =intero= (optional for completion)
 
-To install them, use following command (or the =stack= equivalent):
+To install them, use one of the following commands:
 
 #+BEGIN_SRC sh
+# If using cabal:
 $ cabal install apply-refact hlint stylish-haskell hasktags hoogle
+#+END_SRC
+
+#+BEGIN_SRC sh
+# If using stack:
+$ cabal install apply-refact-0.3.0.1 hlint stylish-haskell hasktags hoogle
 #+END_SRC
 
 ** Setup PATH
