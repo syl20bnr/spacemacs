@@ -21,7 +21,7 @@
   (setq helm-prevent-escaping-from-minibuffer t
         helm-bookmark-show-location t
         helm-display-header-line nil
-        helm-split-window-in-side-p t
+        helm-split-window-inside-p t
         helm-always-two-windows t
         helm-echo-input-in-header-line t
         helm-imenu-execute-action-at-once-if-one nil
