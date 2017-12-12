@@ -341,6 +341,7 @@ sane way, here is the complete list of changed key bindings
 - pass (thanks to Andrew Oppenlander, Kepi, Kalle Lindqvist, and Evan Klitzke)
 - phoenix (thanks to Lyuben Petrov)
 - prettier (thanks to Seong Yong-ju)
+- sailfish-developer (thanks to Victor Polevoy)
 - sphinx (thanks to Wei-Wei Guo)
 - tern (thanks to Sylvain Benner and Juuso Valkeejärvi)
 - transmission (thanks to Eugene Yaremenko)
@@ -2232,6 +2233,13 @@ Other:
   - Added ~SPC m c v~ to run "cargo check" command (thanks to Victor Polevoy)
 - Added rust lsp completion with company and bindings (thanks to Justin)
 - Added debugger integration via =dap= layer
+**** Sailfish-Developer
+- Key bindings:
+  - Added =sailfish-scratchbox= key bindings (thanks to Victor Polevoy):
+    - ~SPC c s~   Show menu
+    - ~SPC c s b~ Invoke mb2 build
+    - ~SPC c s d~ Copy rpms to the phone
+    - ~SPC c s i~ Install rpms into target
 **** Scala
 - Move =ensime= to the =java= layer (Tor Hedin Bronner)
 - Key bindings:
