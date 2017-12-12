@@ -63,7 +63,15 @@ environment, otherwise it is strongly recommended to let it set to t.")
 (defvar dotspacemacs-elpa-timeout 5
   "Maximum allowed time in seconds to contact an ELPA repository.")
 
-(defvar dotspacemacs-elpa-subdirectory nil
+(defvar dotspacemacs-use-spacelpa nil
+  "If non-nil then Spacelpa repository is the primary source to install
+a locked version of packages. If nil then Spacemacs will install the lastest
+version of packages from MELPA.")
+
+(defvar dotspacemacs-verify-spacelpa-archives nil
+  "If non-nil then verify the signature for downloaded Spacelpa archives.")
+
+(defvar dotspacemacs-elpa-subdirectory 'emacs-version
   "If non-nil, a form that evaluates to a package directory. For
 example, to use different package directories for different Emacs
 versions, set this to `emacs-version'.")
@@ -223,20 +231,6 @@ Only has effect when using the \"jump to layout by number\" commands.")
 (defvar dotspacemacs-max-rollback-slots 5
   "Maximum number of rollback slots to keep in the cache.")
 
-(defvar dotspacemacs-helm-resize nil
-  "If non nil, `helm' will try to minimize the space it uses.")
-
-(defvar dotspacemacs-helm-no-header nil
-  "if non nil, the helm header is hidden when there is only one source.")
-
-(defvar dotspacemacs-helm-position 'bottom
-  "Position in which to show the `helm' mini-buffer.")
-
-(defvar dotspacemacs-helm-use-fuzzy 'always
-  "Controls fuzzy matching in helm. If set to `always', force fuzzy matching
-  in all non-asynchronous sources. If set to `source', preserve individual
-  source settings. Else, disable fuzzy matching in all sources.")
-
 (defvar dotspacemacs-large-file-size 1
   "Size (in MB) above which spacemacs will prompt to open the large file
 literally to avoid performance issues. Opening a file literally means that
@@ -245,12 +239,11 @@ no major mode or minor modes are active.")
 (defvar dotspacemacs-auto-save-file-location 'cache
   "Location where to auto-save files. Possible values are `original' to
 auto-save the file in-place, `cache' to auto-save the file to another
-file stored in the cache directory and `nil' to disable auto-saving.
-Default value is `cache'.")
+file stored in the cache directory and `nil' to disable auto-saving.")
 
 (defvar dotspacemacs-enable-paste-transient-state nil
-  "If non nil the paste transient-state is enabled. While enabled pressing `p`
-several times cycle between the kill ring content.'")
+  "If non-nil, the paste transient-state is enabled. While enabled, pressing
+`p' several times cycles through the elements in the `kill-ring'.")
 (defvaralias
   'dotspacemacs-enable-paste-micro-state
   'dotspacemacs-enable-paste-transient-state
@@ -341,7 +334,7 @@ restricts line-number to the specified list of major-mode.")
 (defvar dotspacemacs-smart-closing-parenthesis nil
   "If non-nil pressing the closing parenthesis `)' key in insert mode passes
 over any automatically added closing parenthesis, bracket, quote, etc…
-This can be temporary disabled by pressing `C-q' before `)'. (default nil)")
+This can be temporary disabled by pressing `C-q' before `)'.")
 
 (defvar dotspacemacs-zone-out-when-idle nil
   "Either nil or a number of seconds. If non-nil zone out after the specified
@@ -350,7 +343,7 @@ number of seconds.")
 (defvar dotspacemacs-highlight-delimiters 'all
   "Select a scope to highlight delimiters. Possible values are `any',
 `current', `all' or `nil'. Default is `all' (highlight any scope and
-emphasis the current one.")
+emphasize the current one.")
 
 (defvar dotspacemacs-whitespace-cleanup nil
   "delete whitespace while saving buffer. possible values are `all'
@@ -554,8 +547,7 @@ a display strng and the value is the actual value to return."
 (defun dotspacemacs/maybe-install-dotfile ()
   "Install the dotfile if it does not exist."
   (unless (file-exists-p dotspacemacs-filepath)
-    (spacemacs-buffer/set-mode-line "Dotfile wizard installer")
-    (spacemacs//redisplay)
+    (spacemacs-buffer/set-mode-line "Dotfile wizard installer" t)
     (when (dotspacemacs/install 'with-wizard)
       (configuration-layer/load))))
 
@@ -587,17 +579,7 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
                     spacemacs)
                    (,(concat "A minimalist distribution that you can build on "
                              "(spacemacs-base)")
-                    spacemacs-base)))))
-             ("helm"
-              ,(dotspacemacs//ido-completing-read
-                "What type of completion framework do you want? "
-                '(("A heavy one but full-featured (helm)"
-                   "helm")
-                  ("A lighter one but still very powerful (ivy)"
-                   "ivy")
-                  ;; For now, None works only if the user selected
-                  ;; the spacemacs-base distribution
-                  ("None (not recommended)" ""))))))))
+                    spacemacs-base)))))))))
     (with-current-buffer (find-file-noselect
                           (concat dotspacemacs-template-directory
                                   ".spacemacs.template"))

@@ -62,7 +62,6 @@ Restart emacs and it will prompt you for the location of the wakatime installer
 =/usr/bin/wakatime= for example) and that's it.
 
 *** Note to =venv-workon= users:
-
 Right now wakatime uses =python= as python bin executable, so if you use
 =venv-workon= because you have python projects which need to have a virtual
 env., then wakatime, which is installed system-wide will have trouble locating

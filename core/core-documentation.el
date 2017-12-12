@@ -190,8 +190,23 @@ exported org files should be processed with
       (replace-match "file:" nil t nil 1)
       (replace-match (f-relative (concat spacemacs-start-directory
                                          (match-string 2))
-                                 (file-name-directory
-                                  (buffer-file-name)))
+                                 (let* ((bfn (buffer-file-name))
+                                        (bfnd (file-name-directory bfn)))
+                                   ;; NOTE: Quick and dirty fix
+                                   ;; for the moved files
+                                   ;; see `spacemacs//fetch-docs-from-root'
+                                   ;; FIXME: maybe?
+                                   (if (or
+                                        (string-suffix-p
+                                         "CONTRIBUTING.org"
+                                         bfn)
+                                        (string-suffix-p
+                                         "COMMUNITY.org"
+                                         bfn))
+                                      (file-name-directory
+                                       (directory-file-name
+                                        bfnd))
+                                      bfnd)))
                      nil t nil 2)
       (replace-match ".html" nil t nil 3))))
 

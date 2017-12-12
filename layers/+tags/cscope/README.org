@@ -25,8 +25,8 @@ add =cscope= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Cscope
-Install =Cscope= through your package manager, or download it from the
-[[http://cscope.sourceforge.net/#downloads][website]] and build it from source.
+Enable =c-c++= layer in your =~/.spacemacs= file. Install =Cscope= through your
+package manager, or download it from the [[http://cscope.sourceforge.net/#downloads][website]] and build it from source.
 
 From package manager (for example, Ubuntu):
 
@@ -45,7 +45,7 @@ sudo make install
 #+END_SRC
 
 ** PyCscope
-Install PyCscope through pip:
+Enable =python= layer in your =~/.spacemacs= file. Install PyCscope through pip:
 
 #+BEGIN_SRC sh
 pip install pycscope

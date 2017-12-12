@@ -9,6 +9,20 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//python-default ()
+  "Defaut settings for python buffers"
+  (setq mode-name "Python"
+        tab-width python-tab-width
+        fill-column python-fill-column)
+  (when (version< emacs-version "24.5")
+    ;; auto-indent on colon doesn't work well with if statement
+    ;; should be fixed in 24.5 and above
+    (setq electric-indent-chars (delq ?: electric-indent-chars)))
+  (setq-local comment-inline-offset 2)
+  (spacemacs/python-annotate-pdb)
+  ;; make C-j work the same way as RET
+  (local-set-key (kbd "C-j") 'newline-and-indent))
+
 ;; from http://pedrokroger.net/2010/07/configuring-emacs-as-a-python-ide-2/
 (defun spacemacs/python-annotate-pdb ()
   "Highlight break point lines."
@@ -237,3 +251,89 @@ to be called for each testrunner. "
   (interactive)
   (forward-button 1)
   (call-interactively #'push-button))
+
+
+;; REPL
+
+(defun spacemacs//inferior-python-setup-hook ()
+  "Setup REPL for python inferior process buffer."
+  (setq indent-tabs-mode t))
+
+(defun spacemacs/python-shell-send-buffer-switch ()
+  "Send buffer content to shell and switch to it in insert mode."
+  (interactive)
+  (python-shell-send-buffer)
+  (python-shell-switch-to-shell)
+  (evil-insert-state))
+
+(defun spacemacs/python-shell-send-defun-switch ()
+  "Send function content to shell and switch to it in insert mode."
+  (interactive)
+  (python-shell-send-defun nil)
+  (python-shell-switch-to-shell)
+  (evil-insert-state))
+
+(defun spacemacs/python-shell-send-region-switch (start end)
+  "Send region content to shell and switch to it in insert mode."
+  (interactive "r")
+  (python-shell-send-region start end)
+  (python-shell-switch-to-shell)
+  (evil-insert-state))
+
+(defun spacemacs/python-start-or-switch-repl ()
+  "Start and/or switch to the REPL."
+  (interactive)
+  (let ((shell-process
+         (or (python-shell-get-process)
+             ;; `run-python' has different return values and different
+             ;; errors in different emacs versions. In 24.4, it throws an
+             ;; error when the process didn't start, but in 25.1 it
+             ;; doesn't throw an error, so we demote errors here and
+             ;; check the process later
+             (with-demoted-errors "Error: %S"
+               ;; in Emacs 24.5 and 24.4, `run-python' doesn't return the
+               ;; shell process
+               (call-interactively #'run-python)
+               (python-shell-get-process)))))
+    (unless shell-process
+      (error "Failed to start python shell properly"))
+    (pop-to-buffer (process-buffer shell-process))
+    (evil-insert-state)))
+
+(defun spacemacs/python-execute-file (arg)
+  "Execute a python script in a shell."
+  (interactive "P")
+  ;; set compile command to buffer-file-name
+  ;; universal argument put compile buffer in comint mode
+  (let ((universal-argument t)
+        (compile-command (format "%s %s"
+                                 (spacemacs/pyenv-executable-find python-shell-interpreter)
+                                 (file-name-nondirectory buffer-file-name))))
+    (if arg
+        (call-interactively 'compile)
+      (compile compile-command t)
+      (with-current-buffer (get-buffer "*compilation*")
+        (inferior-python-mode)))))
+
+(defun spacemacs/python-execute-file-focus (arg)
+  "Execute a python script in a shell and switch to the shell buffer in
+ `insert state'."
+  (interactive "P")
+  (spacemacs/python-execute-file arg)
+  (switch-to-buffer-other-window "*compilation*")
+  (end-of-buffer)
+  (evil-insert-state))
+
+;; fix for issue #2569 (https://github.com/syl20bnr/spacemacs/issues/2569)
+(when (version< emacs-version "25")
+  (advice-add 'wisent-python-default-setup :after
+              #'spacemacs//python-imenu-create-index-use-semantic-maybe))
+
+
+;; Eldoc
+
+(defun spacemacs//init-eldoc-python-mode ()
+  "Initialize elddoc for python buffers"
+  (eldoc-mode)
+  (when (configuration-layer/package-used-p 'anaconda-mode)
+    (anaconda-eldoc-mode)))

@@ -2,6 +2,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#usage][Usage]]
   - [[#example][Example]]
@@ -13,13 +14,17 @@
 * Description
 This layer allows for a simple way of modifying themes.
 
+** Features:
+  - Modify themes from your =.spacemacs=.
+  - Tweak face attributes and other aspects of themes.
+  - Includes three additional layer variables for tweaking headings.
+
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =theming= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Usage
-
 To use this layer, set the value of =theming-modifications= (a good place is
 inside your =.spacemacs= in =dotspacemacs/user-init()=).
 It should be a list of the following form:
@@ -108,7 +113,6 @@ the symbol =all= to apply it on all themes.
      headings
 
 * Example
-
 An example of how to set the default font colour to be black in a custom theme leuven:
 
 #+begin_src emacs-lisp

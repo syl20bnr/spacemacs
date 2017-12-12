@@ -14,13 +14,10 @@
                         (file-name-directory
                          load-file-name)) nil t)
 
-(with-installed (curl)
-  (install npm)
-  ($ "npm cache clean -f"
-     "npm install -g n"
-     "n stable"
-     "curl -L https://npmjs.org/install.sh | sh"
-     "npm install csslint -g"
+(with-installed (curl software-properties-common bash)
+  ($ "curl -sL https://deb.nodesource.com/setup_6.x | bash -")
+  (install nodejs)
+  ($ "npm install csslint -g"
      "npm install httpd-node"
      "npm install tern -g"
      "npm install js-beautify -g"

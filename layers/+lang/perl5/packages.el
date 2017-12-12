@@ -11,10 +11,19 @@
 
 (setq perl5-packages
       '(
+        (company-plsense :requires company)
         (cperl-mode :location built-in)
-        smartparens
         flycheck
+        smartparens
         ))
+
+(defun perl5/init-company-plsense ()
+  (use-package company-plsense
+    :defer t
+    :init
+    (spacemacs|add-company-backends
+      :backends company-plsense
+      :modes cperl-mode)))
 
 (defun perl5/init-cperl-mode ()
   (use-package cperl-mode
@@ -95,22 +104,25 @@
       (add-hook 'cperl-mode-hook
                 (lambda () (local-set-key (kbd "<tab>") 'indent-for-tab-command)))
 
-      (spacemacs/declare-prefix "mh" "perldoc")
+      (spacemacs/declare-prefix "m=" "format")
       (spacemacs/declare-prefix "mg" "find-symbol")
-      (spacemacs/set-leader-keys-for-major-mode 'cperl-mode "hp" 'cperl-perldoc-at-point)
-      (spacemacs/set-leader-keys-for-major-mode 'cperl-mode "hd" 'cperl-perldoc)
-      (spacemacs/set-leader-keys-for-major-mode 'cperl-mode "v" 'cperl-select-this-pod-or-here-doc)
+      (spacemacs/declare-prefix "mh" "perldoc")
+      (spacemacs/set-leader-keys-for-major-mode 'cperl-mode
+        "==" 'spacemacs/perltidy-format
+        "=b" 'spacemacs/perltidy-format-buffer
+        "=f" 'spacemacs/perltidy-format-function
+        "hh" 'cperl-perldoc-at-point
+        "hd" 'cperl-perldoc
+        "v" 'cperl-select-this-pod-or-here-doc)
 
       (font-lock-add-keywords 'cperl-mode
-                              '(("\\_<const\\|croak\\|carp\\|confess\\|cluck\\_>" . font-lock-keyword-face)))
-      (font-lock-add-keywords 'cperl-mode
-                              '(("\\_<say\\|any\\_>" . cperl-nonoverridable-face))))))
+                              '(("\\_<say\\_>" . cperl-nonoverridable-face))))))
+
+(defun perl5/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'cperl-mode))
 
 (defun perl5/post-init-smartparens ()
   ;; fixs a bug with electric mode and smartparens https://github.com/syl20bnr/spacemacs/issues/480
   (with-eval-after-load 'cperl-mode
     (add-hook 'smartparens-enabled-hook 'spacemacs//perl5-smartparens-enable)
     (add-hook 'smartparens-disabled-hook 'spacemacs//perl5-spartparens-disable)))
-
-(defun perl5/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'cperl-mode))

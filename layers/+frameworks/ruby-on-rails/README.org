@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
   - [[#code-navigation][Code Navigation]]
@@ -13,6 +14,13 @@
 
 * Description
 This layer aims at providing support for the Ruby on Rails framework.
+
+** Features:
+   - Quick file navigation with with [[https://github.com/asok/projectile-rails][projectile-rails]]
+   - Run server
+   - Run generators
+   - Rake runner
+   - Interactive Rails console
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -38,6 +46,7 @@ file.
 | ~SPC m r f p~ | find spec file                                                  |
 | ~SPC m r f r~ | find rake task                                                  |
 | ~SPC m r f s~ | find stylesheet file                                            |
+| ~SPC m r f S~ | find serializer file                                            |
 | ~SPC m r f t~ | find test                                                       |
 | ~SPC m r f u~ | find fixture                                                    |
 | ~SPC m r f v~ | find view                                                       |

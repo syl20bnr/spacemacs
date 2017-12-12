@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#layer-installation][Layer Installation]]
   - [[#layer][Layer]]
   - [[#choosing-a-backend][Choosing a backend]]
@@ -59,10 +60,17 @@
     - [[#repl][REPL]]
 
 * Description
-This layer adds support for the Java language, it supports multiple backends:
-- the [[https://github.com/mopemope/meghanada-emacs][Meghanada]] client/server (default),
-- the [[http://eclim.org][Eclim]] client/server,
-- the [[https://ensime.github.io/][ENSIME]] client/server.
+This layer adds support for the Java language.
+
+** Features:
+- Support for the following backends:
+  - [[https://github.com/mopemope/meghanada-emacs][Meghanada]] client/server (default),
+  - [[http://eclim.org][Eclim]] client/server,
+  - [[https://ensime.github.io/][ENSIME]] client/server.
+- Each provides:
+  - Auto-completion using company
+  - Linting using flycheck integration
+  - Maven and Gradle integration
 
 * Layer Installation
 ** Layer
@@ -94,7 +102,7 @@ If you want to use the Ensime backend, you should modify your =~/.spacemacs= to
 use the recommended Ensime version (Stable). Please add the following lines to
 =dotspacemacs/user-init=:
 #+BEGIN_SRC emacs-lisp
-  (push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer--elpa-archives)
+  (push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer-elpa-archives)
   (push '(ensime . "melpa-stable") package-pinned-packages)
 #+END_SRC
 
@@ -125,8 +133,7 @@ at the root of your project first.
 
 ** Eclim
 Eclim provides the ability to access Eclipse features such as code completion,
-searching, code validation, and many more. This is the default value for the
-layer variable =java-backend=.
+searching, code validation, and many more.
 
 *** Installation
 **** Eclipse
@@ -271,7 +278,6 @@ particular refactoring doesn't work.
 
 ** Eclim
 *** Java-mode
-
 **** Ant
 
  | Key Binding | Description     |
@@ -524,4 +530,3 @@ particular refactoring doesn't work.
 | ~SPC m s i~ | start or switch to the REPL inferior process                        |
 | ~SPC m s r~ | send region to the REPL                                             |
 | ~SPC m s R~ | send region to the REPL and focus the REPL buffer in =insert state= |
-

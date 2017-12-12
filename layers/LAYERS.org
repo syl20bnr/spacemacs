@@ -128,7 +128,6 @@
 - [[file:+lang/yaml/README.org][yaml]]
 
 * Misc
-
 * Operating systems
 - [[file:+os/nixos/README.org][nixos]]
 - [[file:+os/osx/README.org][osx]]

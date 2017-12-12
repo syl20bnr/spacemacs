@@ -20,7 +20,7 @@
 ***
 <p align="center">
 <a href="https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join Chat.svg" alt="Gitter"></a>
-<a href="https://travis-ci.org/syl20bnr/spacemacs"><img src="https://travis-ci.org/syl20bnr/spacemacs.svg" alt="Build Status"></a>
+<a href="https://circleci.com/gh/syl20bnr/spacemacs/tree/develop"><img src="https://circleci.com/gh/syl20bnr/spacemacs/tree/develop.svg?style=shield" alt="Build Status"></a>
 <a href="https://waffle.io/syl20bnr/spacemacs"><img src="https://badge.waffle.io/syl20bnr/spacemacs.png?label=Merging...&title=Merging" alt="PR being merged"></a>
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ESFVNPKP4Y742"><img src="https://img.shields.io/badge/Paypal-Donate-blue.svg" alt="Donate"></a>
 <a href="https://shop.spreadshirt.com/spacemacs-shop"><img src="https://img.shields.io/badge/Shop-T--Shirts-blue.svg" alt="Donate"></a>
@@ -34,7 +34,15 @@ This assumes you don't have an existing Emacs setup and want to run Spacemacs as
 your config. If you do have one, look at
 the [full installation instructions](#install) for other options.
 
-    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+* For stable releases:
+  ```shell
+  git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+  ```
+
+* For development updates and participation:
+  ```shell
+  git clone -b develop https://github.com/syl20bnr/spacemacs ~/.emacs.d
+  ```
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->
 **Table of Contents**
@@ -117,7 +125,7 @@ to first install base Emacs and then download the Spacemacs extension files with
 Git.
 
 ## Emacs
-Spacemacs requires Emacs 24.4 or above. The development version of Emacs is not
+Spacemacs requires Emacs 25.1 or above. The development version of Emacs is not
 *officially* supported, but it should nevertheless be expected to work.
 
 Some modes require third-party tools that you'll have to install via your
@@ -132,7 +140,7 @@ an old fork of Emacs. The X in its name is unrelated to X11.
 Emacs has graphical support.
 
 **Note:** The Ubuntu LTS 12.04 and 14.04 repositories only have Emacs version
-24.3 available. Version 24.4 or greater needs to be [built from source][build_source].
+24.3 available. Version 25.1 or greater needs to be [built from source][build_source].
 This might also be true for other linux distributions.
 
 ### macOS
@@ -184,6 +192,9 @@ For more information about powerline separators, please refer to the
 ### Windows
 You can download good quality builds from the [emacs-w64 project][emacs-for-windows].
 It is recommended to install the most recent [stable build][emacs-for-windows-stable].
+
+You'll also need `gzip` and put it in your path, to download it go to the
+[GNUWin32 project page][gzip-for-windows]
 
 Be sure to declare an environment variable named `HOME` that's pointing to your
 user directory `C:\Users\<username>`. Then you can clone Spacemacs into that
@@ -465,6 +476,7 @@ Thank you!
 [powerline documentation]: http://spacemacs.org/doc/DOCUMENTATION.html#powerline-separators
 [emacs-for-windows]: http://emacsbinw64.sourceforge.net/
 [emacs-for-windows-stable]: https://sourceforge.net/projects/emacsbinw64/files/release/
+[gzip-for-windows]: http://gnuwin32.sourceforge.net/packages/gzip.htm
 [the platinum searcher]: https://github.com/monochromegane/the_platinum_searcher
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
 [Spacemacs logo]: https://github.com/nashamri/spacemacs-logo

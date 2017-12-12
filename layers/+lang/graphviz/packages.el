@@ -50,7 +50,7 @@
       (define-key graphviz-dot-mode-map "{" nil)
       (define-key graphviz-dot-mode-map "}" nil))))
 
-(defun graphviz/post-init-org ()
+(defun graphviz/pre-init-org ()
   (spacemacs|use-package-add-hook org
     :post-config
     (progn

@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#installation][Installation]]
 - [[#configuration][Configuration]]
   - [[#enabledisable-package-configurations][Enable/Disable package configurations]]
@@ -22,6 +23,11 @@
 * Description
 This layer configures some key bindings in Spacemacs, to make it compatible with
 keyboard layouts that differs from the traditional =en-us= =QWERTY= layout.
+
+** Features:
+   - Support alernative keyboard layouts within spacemacs
+   - Remap navigation commands to the homerow of your chosen layout
+   - Remap missing commands automatically to elsewhere in the layout
 
 * Installation
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -157,7 +163,7 @@ operating systems.
 
 [[file:img/programmer-dvorak-layout.png]]
 
-There's also a sub-layout called [[Https://www.kaufmann.no/roland/dvorak/][Programmer Dvorak]]. It reorders the number and
+There's also a sub-layout called [[https://www.kaufmann.no/roland/dvorak/][Programmer Dvorak]]. It reorders the number and
 symbol keys, to make it easier to type common programming symbols, without
 having to hold down the shift key. The keys that differ from the /Dvorak
 Simplified Keyboard/ are shown in blue.
@@ -216,7 +222,7 @@ wikipedia keyboard layout page.
 
 [[file:img/workman-layout.png]]
 
-As recommended in this blog post: [[Https://axiomatic.neophilus.net/posts/2013-08-13-workman-layout-for-vim.html][Workman layout for Vim]], this layout
+As recommended in this blog post: [[https://axiomatic.neophilus.net/posts/2013-08-13-workman-layout-for-vim.html][Workman layout for Vim]], this layout
 substitutes the following keys with these mnemonics:
 
 - (y)ank -> (h)aul

@@ -1,3 +1,14 @@
+;;; packages.el --- Clojure Layer packages File for Spacemacs
+;;
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;;
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
 (setq clojure-packages
       '(
         cider
@@ -133,7 +144,8 @@
             "rc(" 'clojure-convert-collection-to-list
             "rc'" 'clojure-convert-collection-to-quoted-list
             "rc#" 'clojure-convert-collection-to-set
-            "rc[" 'clojure-convert-collection-to-vector)))
+            "rc[" 'clojure-convert-collection-to-vector
+            "rc:" 'clojure-toggle-keyword-string)))
 
       ;; cider-repl-mode only
       (spacemacs/set-leader-keys-for-major-mode 'cider-repl-mode

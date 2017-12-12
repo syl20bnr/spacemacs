@@ -119,7 +119,7 @@ To be consistent with the Vim way, ~n~ and ~N~ are favored over Emacs ~n~ and
 Ideally a transient-state should be provided to smooth the navigation
 experience. A transient-state allows to repeat key bindings without entering
 each time the prefix commands. More info on transient-states in the
-[[file:DOCUMENTATION.org::Transient-states][documentation]].
+[[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#transient-states][documentation]].
 
 *** Code Navigation
 The prefix for going to something is ~SPC m g~.
@@ -131,6 +131,7 @@ The prefix for going to something is ~SPC m g~.
 | ~m g g~ | go to things under point                        |
 | ~m g G~ | go to things under point in other window        |
 | ~m g t~ | go to corresponding test file if any            |
+| ~m g u~ | go/find usage of thing under point              |
 
 *** =insert state= buffers
 Navigation in buffers like =Helm= and =ido= which are in =insert state=

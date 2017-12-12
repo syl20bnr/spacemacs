@@ -72,7 +72,7 @@
         "Grep in the current directory for STRING."
         (if (< (length string) 3)
             (counsel-more-chars 3)
-          (let* ((default-directory counsel--git-grep-dir)
+          (let* ((default-directory counsel--git-dir)
                  (args (if (string-match-p " -- " string)
                            (let ((split (split-string string " -- ")))
                              (prog1 (pop split)
@@ -112,7 +112,7 @@
             (line-number-at-pos))
           spacemacs--gne-line-func
           (lambda (c)
-            (let ((counsel--git-grep-dir default-directory))
+            (let ((counsel--git-dir default-directory))
               (counsel-git-grep-action c)))
           next-error-function 'spacemacs/gne-next)))
 
@@ -143,21 +143,21 @@ that directory."
                                  (executable-find tool))
                         (throw 'tool tool)))
                     (throw 'tool "grep"))))
-      (setq counsel--git-grep-dir
+      (setq counsel--git-dir
             (or initial-directory
                 (read-directory-name "Start from directory: ")))
       (ivy-read
        (concat ivy-count-format
                (format "%s from [%s]: "
                        tool
-                       (if (< (length counsel--git-grep-dir)
+                       (if (< (length counsel--git-dir)
                               spacemacs--counsel-search-max-path-length)
-                           counsel--git-grep-dir
+                           counsel--git-dir
                          (concat
-                          "..." (substring counsel--git-grep-dir
-                                           (- (length counsel--git-grep-dir)
+                          "..." (substring counsel--git-dir
+                                           (- (length counsel--git-dir)
                                               spacemacs--counsel-search-max-path-length)
-                                           (length counsel--git-grep-dir))))))
+                                           (length counsel--git-dir))))))
        (spacemacs//make-counsel-search-function tool)
        :initial-input (rxt-quote-pcre initial-input)
        :dynamic-collection t
@@ -253,7 +253,7 @@ that directory."
 (defun spacemacs//counsel-occur ()
   "Generate a custom occur buffer for `counsel-git-grep'."
   (ivy-occur-grep-mode)
-  (setq default-directory counsel--git-grep-dir)
+  (setq default-directory counsel--git-dir)
   (let ((cands ivy--old-cands))
     ;; Need precise number of header lines for `wgrep' to work.
     (insert (format "-*- mode:grep; default-directory: %S -*-\n\n\n"
@@ -294,7 +294,7 @@ To prevent this error we just wrap `describe-mode' to defeat the
       (let ((file-name (match-string-no-properties 1 x))
             (line-number (match-string-no-properties 2 x)))
         (funcall func
-                 (expand-file-name file-name counsel--git-grep-dir))
+                 (expand-file-name file-name counsel--git-dir))
         (goto-char (point-min))
         (forward-line (1- (string-to-number line-number)))
         (re-search-forward (ivy--regex ivy-text t) (line-end-position) t)

@@ -1,19 +1,19 @@
 #+TITLE: Spacemacs Community
 
 * Spacemacs Community                                     :TOC_4_gh:noexport:
- - [[#philosophy][Philosophy]]
-   - [[#for-contributors][For Contributors]]
-   - [[#for-users][For Users]]
- - [[#moderation][Moderation]]
-   - [[#guidelines][Guidelines]]
-     - [[#people][People]]
-     - [[#issues][Issues]]
-     - [[#pull-requests-and-commmits][Pull requests and Commmits]]
-     - [[#messages][Messages]]
-   - [[#interpretation][Interpretation]]
-   - [[#collaborators-privacy][Collaborators privacy]]
-   - [[#maintainer][Maintainer]]
-   - [[#log][Log]]
+- [[#philosophy][Philosophy]]
+  - [[#for-contributors][For Contributors]]
+  - [[#for-users][For Users]]
+- [[#moderation][Moderation]]
+  - [[#guidelines][Guidelines]]
+    - [[#people][People]]
+    - [[#issues][Issues]]
+    - [[#pull-requests-and-commmits][Pull requests and Commmits]]
+    - [[#messages][Messages]]
+  - [[#interpretation][Interpretation]]
+  - [[#collaborators-privacy][Collaborators privacy]]
+  - [[#maintainer][Maintainer]]
+  - [[#log][Log]]
 
 * Philosophy
 ** For Contributors
@@ -23,7 +23,7 @@
 - Be good in what you bring to the project be it code, documentation, typo
   fixes, art, humor, ideas, project management, web design, assurance quality,
   mentorship, you name it! We like to award achievements to people making a
-  difference in a wide variety of domains and occasions, [[file:./doc/DOCUMENTATION.org#specials][see it for yourself]].
+  difference in a wide variety of domains and occasions, [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#special-titles][see it for yourself]].
   Why not you? Make it happen, make history!
 - Think you are not good enough? Find support and mentors by chatting on Gitter
   with fellow Spacemacs users or just open an issue on GitHub, you will find

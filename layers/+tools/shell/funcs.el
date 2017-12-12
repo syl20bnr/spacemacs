@@ -86,6 +86,7 @@ the user activate the completion manually."
 
 (defun spacemacs//eshell-switch-company-frontend ()
   "Sets the company frontend to `company-preview-frontend' in e-shell mode."
+  (require 'company)
   (setq-local company-frontends '(company-preview-frontend)))
 
 (defun spacemacs//eshell-auto-end ()

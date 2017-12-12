@@ -12,8 +12,9 @@
 ;; Thanks to `editorconfig-emacs' for many of these
 (defvar spacemacs--indent-variable-alist
   ;; Note that derived modes must come before their sources
-  '(((awk-mode c-mode c++-mode java-mode groovy-mode
+  '(((awk-mode c-mode c++-mode java-mode
       idl-mode java-mode objc-mode pike-mode) . c-basic-offset)
+    (groovy-mode . groovy-indent-offset)
     (python-mode . python-indent-offset)
     (cmake-mode . cmake-tab-width)
     (coffee-mode . coffee-tab-width)
@@ -44,3 +45,18 @@
 to a major mode, a list of such symbols, or the symbol t,
 acting as default. The values are either integers, symbols
 or lists of these.")
+
+;; State cursors
+(defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
+                                 ("insert" "chartreuse3" (bar . 2))
+                                 ("emacs" "SkyBlue2" box)
+                                 ("hybrid" "SkyBlue2" (bar . 2))
+                                 ("replace" "chocolate" (hbar . 2))
+                                 ("evilified" "LightGoldenrod3" box)
+                                 ("visual" "gray" (hbar . 2))
+                                 ("motion" "plum3" box)
+                                 ("lisp" "HotPink1" box)
+                                 ("iedit" "firebrick1" box)
+                                 ("iedit-insert" "firebrick1" (bar . 2)))
+  "Colors assigned to evil states with cursor definitions.
+To add your own, use `spacemacs/add-evil-curosr'.")

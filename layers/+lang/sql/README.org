@@ -58,7 +58,6 @@ This layer is blacklisting =name= by default as it is a very common name for
 column and NAME is non-reserved SQL keyword.
 
 * Key bindings
-
 ** Highlighting
 
 | Key Binding | Description                       |

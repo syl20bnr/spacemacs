@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+## Shared script part for CircleCI
+##
+## Copyright (c) 2012-2014 Sylvain Benner
+## Copyright (c) 2014-2017 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+echo_headline () {
+	printf '=%.0s' {1..80}
+	printf "\n$1\n"
+	printf '=%.0s' {1..80}
+	echo
+}
+
+cleanup () {
+	rm -rf ~/.emacs.d/elpa ~/.emacs.d/.cache -f ~/.spacemacs
+}

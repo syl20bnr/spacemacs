@@ -2,14 +2,14 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-- [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#keybindings][Keybindings]]
 
 * Description
 [[https://github.com/joodland/bm/blob/master/README.md][BM]] provides visible, buffer local, bookmarks and the ability to jump forward and backward to the next bookmark.
 
-* Features
+** Features:
 - Auto remove bookmark after jump to it by =bm-next= or =bm-previous=
 - Cycle through bookmarks in all open buffers in LIFO order
 - Toggle bookmarks. Jump to next/previous bookmark.
@@ -24,7 +24,7 @@
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =fasd= to the existing =dotspacemacs-configuration-layers= list in this
+add =bm= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Keybindings

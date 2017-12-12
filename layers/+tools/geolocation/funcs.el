@@ -34,6 +34,10 @@
                   osx-location-longitude))))
 
 (defun geolocation//activate-theme-changer ()
+  (unless (bound-and-true-p calendar-longitude)
+    (user-error "calendar-longitude is not set"))
+  (unless (bound-and-true-p calendar-latitude)
+    (user-error "calendar-latitude is not set"))
   (when (> (length dotspacemacs-themes) 1)
     (change-theme (nth 0 dotspacemacs-themes)
                   (nth 1 dotspacemacs-themes))))

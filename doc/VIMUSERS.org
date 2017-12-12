@@ -42,7 +42,7 @@ the gap between vim and Spacemacs. While some information may be duplicated,
 this does not replace the Spacemacs documentation. It is recommended that you
 read both files to fully understand Spacemacs.
 
-[[file:DOCUMENTATION.org][Spacemacs Documentation]]
+[[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][Spacemacs Documentation]]
 
 * Philosophy
  One misconception many vim users have is that Spacemacs is an Emacs /clone/ of
@@ -60,7 +60,7 @@ for new users. This section attempts to clear up any confusion.
 
 *** Modes vs. States
 In vim you have various editing modes like =insert mode= and =visual mode= to
-manipulate text. In Emacs, we have [[file:DOCUMENTATION.org::#states][states]]. These are equivalent to vim modes.
+manipulate text. In Emacs, we have [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#states][states]]. These are equivalent to vim modes.
 For example, =evil-insert-state= is the same as =insert-mode= in vim.
 
 A =minor-mode= in Emacs is like a feature that is activated. For example,
@@ -80,7 +80,7 @@ layer includes support for auto-completion, documentation look-up, tests, and
 much more by using several different packages. This keeps you from thinking
 about what packages to install, and instead worry about what features you want.
 More information on layers can be found in the [[#customization][customization]] section and in the
-[[file:DOCUMENTATION.org::#configuration-layers][documentation]]. There is also a more in-depth guide on writing layers [[file:LAYERS.org][here]].
+[[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#configuration-layers][documentation]]. There is also a more in-depth guide on writing layers [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][here]].
 
 *** Transient-states
 Spacemacs provides a special functionality called transient-states. Transient-states
@@ -99,7 +99,7 @@ Spacemacs uses ~SPC~ as its ~<Leader>~ key. This document will use ~SPC~ to refe
 the ~<Leader>~ key. All keybindings are mnemonic and are organized under the
 ~<Leader>~ key. For example, the keybindings for language-specific commands are
 always under the ~SPC m~ prefix. A full list of conventions used in Spacemacs is
-[[file:CONVENTIONS.org][here]]. Note that all keybindings can be changed.
+[[https://github.com/syl20bnr/spacemacs/blob/develop/doc/CONVENTIONS.org][here]]. Note that all keybindings can be changed.
 
 Spacemacs uses [[https://github.com/justbur/emacs-which-key][which-key]] to show available keybindings after a delay:
 
@@ -134,7 +134,7 @@ are located under the ~SPC b~ prefix.
 **** Special buffers
 By default Emacs creates a lot of buffers that most people will never need, like
 =*Messages*=. Spacemacs automatically ignores these when using these
-key bindings. More information can be found [[file:DOCUMENTATION.org::#special-buffers][here]].
+key bindings. More information can be found [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#special-buffers][here]].
 
 *** Windows
 Windows are like splits in vim. They are useful for editing multiple files at
@@ -359,16 +359,16 @@ execute code before or after a package loads. It would look like this:
 
 **Note**: Only one layer can have a =init= function for a package. If you want
 to override the configuration of a package in another layer, use a
-=<layer-name>/pre-init= function in addition to [[file:LAYERS.org::#use-package-hooks][use-package hooks]].
+=<layer-name>/pre-init= function in addition to [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org#use-package-hooks][use-package hooks]].
 
 If a package is not available on MELPA, you must use a local package or a
-package recipe. For more details see [[file:LAYERS.org::#anatomy-of-a-layer][anatomy of a layer]].
+package recipe. For more details see [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org#anatomy-of-a-layer][anatomy of a layer]].
 
 Make sure you [[#activating-a-layer][add]] your layer to your =.spacemacs= file and restart to
 activate it.
 
 A detailed description of the loading process and how layers work can be found in
-the [[file:LAYERS.org][configuration layers documentation.]]
+the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][configuration layers documentation.]]
 
 ** Installing a single package
 Sometimes creating a layer is a bit overkill. Maybe you just want one package
@@ -477,7 +477,7 @@ your =.spacemacs=:
 
 * Other useful links
 - [[https://www.gnu.org/software/emacs/manual/emacs.html][Emacs Manual]]
-- [[file:DOCUMENTATION.org][Spacemacs Documentation]]
+- [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][Spacemacs Documentation]]
 - [[http://ian.mccowan.space/2015/04/07/Spacemacs/][Spacemacs: A Vimmer's Emacs Prerequisites]]
     - Note: The article refers to ~SPC b s~ as the keybinding to switch buffers.
       It is ~SPC b b~

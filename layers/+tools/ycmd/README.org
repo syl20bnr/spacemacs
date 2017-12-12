@@ -12,7 +12,6 @@
 - [[#key-bindings][Key Bindings]]
 
 * Description
-
 This layer adds [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]] support, including its integrations with company,
 flycheck, and eldoc.
 
@@ -52,7 +51,6 @@ This package requires the =auto-completion= layer in order to get actual
 completion. The =syntax-checking= layer is required for flycheck support.
 
 * Configuration
-
 ** Activating ycmd in a major mode
 By default this layer only activates ycmd for =c++-mode= and =c-mode=.
 
@@ -64,7 +62,6 @@ specific languages like:
 #+END_SRC
 
 ** Getting the compilation flags
-
 Spacemacs uses its own ycmd global configuration file. If you prefer, you can
 write your own [[https://github.com/Valloric/YouCompleteMe/blob/master/README.md#user-content-c-family-semantic-completion][.ycm_extra_conf.py]].
 
@@ -89,6 +86,5 @@ you can use tools such as [[https://github.com/rizsotto/Bear][Bear]] or [[https:
 with almost any build system.
 
 * Key Bindings
-
 Adds ~SPC m g g~ go to definition binding to =c++-mode= as well as ~SPC m g G~
 for the more imprecise but faster version.

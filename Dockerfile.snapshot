@@ -43,7 +43,6 @@ RUN cp ${UHOME}/.emacs.d/core/templates/.spacemacs.template ${UHOME}/ \
     && sed -i "s/\(-distribution 'spacemacs\)/\1-docker/" \
     ${UHOME}/.spacemacs \
     && asEnvUser emacs -batch -u ${UNAME} -kill \
-# It may fail the first time
     && asEnvUser emacs -batch -u ${UNAME} -kill \
     && chmod ug+rw -R ${UHOME}
 

@@ -4,7 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
   - [[#emoji-dedicated-buffer][Emoji dedicated buffer]]
@@ -12,7 +12,7 @@
 * Description
 This layer adds support for Emoji emoticons from [[https://www.webpagefx.com/tools/emoji-cheat-sheet/][emoji-cheat-sheet]].
 
-** Features
+** Features:
 - Browse Emoji in a dedicated buffer
 - Display Emoji images in buffer
 - Insert one or several Emoji with an helm front-end

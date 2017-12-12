@@ -8,7 +8,6 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-
 This layer adds key bindings for controlling Spotify from inside Emacs.
 
 * Install

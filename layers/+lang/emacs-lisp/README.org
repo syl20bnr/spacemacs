@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#auto-compile][Auto-compile]]
 - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
@@ -16,6 +17,14 @@
 * Description
 This layer gathers all the configuration related to emacs-lisp. This should
 always be in your dotfile, it is not recommended to uninstall it.
+
+** Features:
+- Auto-completion using company
+- Linting using flycheck integration
+- Repl support via =IELM=
+- Support for specific lisp navigation styles via =emacs-lisp-mode=
+- Auto-compile via [[https://github.com/tarsius/auto-compile][auto-compile]] package
+- Debuggin via [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Edebug.html#Edebug][edebug]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -113,7 +122,7 @@ If =smartparens= is used the following additional key bindings are available:
 | ~SPC m e s~ | evaluate symbol around point |
 
 ** Format code
-The [[file:../../+emacs/semantic/README.org][semantic]] layer should be installed for these key bindings to become active.
+The [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bemacs/semantic/README.org][semantic]] layer should be installed for these key bindings to become active.
 
 | Key Binding | Description             |
 |-------------+-------------------------|

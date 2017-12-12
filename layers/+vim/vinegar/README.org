@@ -2,19 +2,19 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#features][Features]]
+  - [[#features][Features:]]
   - [[#mouse-bindings][Mouse bindings]]
   - [[#key-bindings][Key bindings]]
 
 * Description
-This layer is a port contribution layer for vim-vinegar for emacs.
+This layer is a port layer for vim-vinegar for emacs.
 
 A port of tpope's
 [[https://github.com/tpope/vim-vinegar][vinegar.vim]], simplifying =dired=
 with a limited number of details and exposing the ~-~ command in all
 buffers to enter dired.
 
-** Features
+** Features:
 -  navigation up folders with ~-~ key
 -  simplify dired buffer to show only file names
 -  better evil/vim bindings for navigation within dired buffer
@@ -49,4 +49,3 @@ buffers to enter dired.
 | ~T~         | (Dired) Move down in dired tree                    |
 | ~K~         | (Dired) Kill marked lines (hide, do not delete)    |
 | ~r~         | (Dired) Redisplay buffer                           |
-

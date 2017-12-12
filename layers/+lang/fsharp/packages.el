@@ -50,6 +50,13 @@
         (switch-to-buffer-other-window inferior-fsharp-buffer-name)
         (evil-insert-state))
 
+      (spacemacs/declare-prefix-for-mode 'fsharp-mode "mf" "find")
+      (spacemacs/declare-prefix-for-mode 'fsharp-mode "ms" "interpreter")
+      (spacemacs/declare-prefix-for-mode 'fsharp-mode "mx" "executable")
+      (spacemacs/declare-prefix-for-mode 'fsharp-mode "mc" "compile")
+      (spacemacs/declare-prefix-for-mode 'fsharp-mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode 'fsharp-mode "mh" "hint")
+
       (spacemacs/set-leader-keys-for-major-mode 'fsharp-mode
         ;; Compile
         "cc" 'compile

@@ -74,7 +74,7 @@
         "li" 'isbn-to-bibtex
         "lp" 'pubmed-insert-bibtex-from-pmid))))
 
-(defun bibtex/post-init-org-ref ()
+(defun bibtex/pre-init-org-ref ()
   (add-hook 'org-mode-hook (lambda () (require 'org-ref))))
 
 (defun bibtex/post-init-markdown-mode ()

@@ -128,7 +128,6 @@
       (helm-locate-set-command)
       (setq helm-locate-fuzzy-match (string-match "locate" helm-locate-command))
       ;; alter helm-bookmark key bindings to be simpler
-      ;; TODO check if there is a more elegant solution to setup these bindings
       (defun simpler-helm-bookmark-keybindings ()
         (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
         (define-key helm-bookmark-map (kbd "C-e") 'helm-bookmark-run-edit)
@@ -137,7 +136,8 @@
         (define-key helm-bookmark-map
           (kbd "C-o") 'helm-bookmark-run-jump-other-window)
         (define-key helm-bookmark-map (kbd "C-/") 'helm-bookmark-help))
-      (add-hook 'helm-mode-hook 'simpler-helm-bookmark-keybindings)
+      (with-eval-after-load 'helm-bookmark
+        (simpler-helm-bookmark-keybindings))
       (with-eval-after-load 'helm-mode ; required
         (spacemacs|hide-lighter helm-mode)))))
 
@@ -709,10 +709,13 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
   ;;  Restore popwin-mode after a Helm session finishes.
   (add-hook 'helm-cleanup-hook #'spacemacs//helm-restore-display))
 
+(defun helm/pre-init-persp-mode ()
+  (spacemacs|use-package-add-hook persp-mode
+    :post-config
+    (setq
+     spacemacs--persp-display-buffers-func 'spacemacs/persp-helm-mini
+     spacemacs--persp-display-perspectives-func 'spacemacs/helm-perspectives)))
+
 (defun helm/post-init-projectile ()
   (setq projectile-completion-system 'helm))
 
-(defun helm/post-init-persp-mode ()
-  (spacemacs/transient-state-register-add-bindings 'layouts
-    '(("b" spacemacs/persp-helm-mini :exit t)
-      ("l" spacemacs/helm-perspectives :exit t))))

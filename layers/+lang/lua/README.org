@@ -1,4 +1,4 @@
-#+TITLE: Lua contribution layer for Spacemacs
+#+TITLE: Lua layer
 
 [[file:img/lua.gif]]
 

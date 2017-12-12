@@ -1,0 +1,164 @@
+---
+# Circle CI YAML file
+version: 2.0
+
+references:
+  steps_core_steps: &steps_core_steps
+    steps:
+      - checkout
+      - run:
+          name: core tests installation
+          command:
+            ./.circleci/test core installation
+      - run:
+          name: core unit tests
+          command:
+            ./.circleci/test core unit_tests
+      - run:
+          name: core functional tests
+          command:
+            ./.circleci/test core func_tests
+  spacemacs_base_steps: &spacemacs_base_steps
+    steps:
+      - checkout
+      - run:
+          name: spacemacs-base distribution tests installation
+          command:
+            ./.circleci/test layers/+distribution/spacemacs-base installation
+      - run:
+          name: spacemacs-base distribution unit tests
+          command:
+            ./.circleci/test layers/+distribution/spacemacs-base unit_tests
+      - run:
+          name: spacemacs-base distribution functional tests
+          command:
+            ./.circleci/test layers/+distribution/spacemacs-base func_tests
+  spacemacs_steps: &spacemacs_steps
+    steps:
+      - checkout
+      - run:
+          name: spacemacs distribution tests installation
+          command:
+            ./.circleci/test layers/+distribution/spacemacs installation
+      - run:
+          name: spacemac distribution unit tests
+          command:
+            ./.circleci/test layers/+distribution/spacemacs unit_tests
+      - run:
+          name: spacemacs distribution functional tests
+          command:
+            ./.circleci/test layers/+distribution/spacemacs func_tests
+
+jobs:
+  "Validate PR":
+    docker:
+      - image: jare/spacemacs-circleci:latest
+    working_directory: ~/.emacs.d
+    steps:
+      - checkout
+      - run:
+          name: Make sure that this isn't a PR to master
+          command: ./.circleci/PR_base
+  # Emacs 24
+  "core Emacs24 (required)":
+    docker:
+      - image: jare/spacemacs-circleci:emacs24
+    working_directory: ~/.emacs.d
+    <<: *steps_core_steps
+
+  "spacemacs-base dist. Emacs24 (required)":
+    docker:
+      - image: jare/spacemacs-circleci:emacs24
+    working_directory: ~/.emacs.d
+    <<: *spacemacs_base_steps
+
+  "spacemacs dist. Emacs24 (required)":
+    docker:
+      - image: jare/spacemacs-circleci:emacs24
+    working_directory: ~/.emacs.d
+    <<: *spacemacs_steps
+
+  # Emacs 25
+  "core Emacs25 (required)":
+    docker:
+      - image: jare/spacemacs-circleci:emacs25
+    working_directory: ~/.emacs.d
+    <<: *steps_core_steps
+
+  "spacemacs-base dist. Emacs25 (required)":
+    docker:
+      - image: jare/spacemacs-circleci:emacs25
+    working_directory: ~/.emacs.d
+    <<: *spacemacs_base_steps
+
+  "spacemacs dist. Emacs25 (required)":
+    docker:
+      - image: jare/spacemacs-circleci:emacs25
+    working_directory: ~/.emacs.d
+    <<: *spacemacs_steps
+
+  # Emacs snapshot
+  "core Emacs snapshot (optional)":
+    docker:
+      - image: jare/spacemacs-circleci:emacs-snapshot
+    working_directory: ~/.emacs.d
+    <<: *steps_core_steps
+
+  "spacemacs-base dist. Emacs snapshot (optional)":
+    docker:
+      - image: jare/spacemacs-circleci:emacs-snapshot
+    working_directory: ~/.emacs.d
+    <<: *spacemacs_base_steps
+
+  "spacemacs dist. Emacs snapshot (optional)":
+    docker:
+      - image: jare/spacemacs-circleci:emacs-snapshot
+    working_directory: ~/.emacs.d
+    <<: *spacemacs_steps
+
+  # Formatting
+  "Formatting (optional)":
+    docker:
+      - image: jare/spacemacs-circleci:emacs25
+    working_directory: ~/.emacs.d
+    steps:
+      - checkout
+      - run:
+          name: Check updated files formatting
+          command: ./.circleci/format
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "Validate PR"
+      - "core Emacs24 (required)":
+          requires:
+            - "Validate PR"
+#      - "spacemacs-base dist. Emacs24 (required)":
+#          requires:
+#            - "Validate PR"
+#      - "spacemacs dist. Emacs24 (required)":
+#          requires:
+#            - "Validate PR"
+      - "core Emacs25 (required)":
+          requires:
+            - "Validate PR"
+#      - "spacemacs-base dist. Emacs25 (required)":
+#          requires:
+#            - "Validate PR"
+#      - "spacemacs dist. Emacs25 (required)":
+#          requires:
+#            - "Validate PR"
+      - "core Emacs snapshot (optional)":
+          requires:
+            - "Validate PR"
+#      - "spacemacs-base dist. Emacs snapshot (optional)":
+#          requires:
+#            - "Validate PR"
+#      - "spacemacs dist. Emacs snapshot (optional)":
+#          requires:
+#            - "Validate PR"
+      - "Formatting (optional)":
+          requires:
+            - "Validate PR"

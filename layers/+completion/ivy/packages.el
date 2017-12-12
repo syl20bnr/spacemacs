@@ -205,11 +205,21 @@
       (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
         "w" 'ivy-wgrep-change-to-wgrep-mode)
       ;; Why do we do this ?
-      (ido-mode -1))))
+      (ido-mode -1)
+
+      ;; allow to select prompt in some ivy functions
+      (setq ivy-use-selectable-prompt t))))
 
 (defun ivy/init-ivy-hydra ()
   (use-package ivy-hydra)
   (define-key hydra-ivy/keymap [escape] 'hydra-ivy/keyboard-escape-quit-and-exit))
+
+(defun ivy/pre-init-persp-mode ()
+  (spacemacs|use-package-add-hook persp-mode
+    :post-config
+    (setq
+     spacemacs--persp-display-buffers-func 'spacemacs/ivy-spacemacs-layout-buffer
+     spacemacs--persp-display-perspectives-func 'spacemacs/ivy-spacemacs-layouts)))
 
 (defun ivy/post-init-persp-mode ()
   ;; based on https://gist.github.com/Bad-ptr/1aca1ec54c3bdb2ee80996eb2b68ad2d#file-persp-ivy-el
@@ -227,12 +237,12 @@
    'spacemacs/ivy-spacemacs-layouts
    '(("c" persp-kill-without-buffers "Close layout(s)")
      ("k" persp-kill  "Kill layout(s)")))
+  ;; TODO: better handling of C and X bindings for ivy
+  ;;       check ivy/pre-init-persp-mode
   (spacemacs/transient-state-register-remove-bindings 'layouts
     '("C" "X"))
   (spacemacs/transient-state-register-add-bindings 'layouts
-    '(("b" spacemacs/ivy-spacemacs-layout-buffer :exit t)
-      ("l" spacemacs/ivy-spacemacs-layouts :exit t)
-      ("C" spacemacs/ivy-spacemacs-layout-close-other :exit t)
+    '(("C" spacemacs/ivy-spacemacs-layout-close-other :exit t)
       ("X" spacemacs/ivy-spacemacs-layout-kill-other :exit t))))
 
 (defun ivy/post-init-projectile ()

@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#usage-information][Usage information]]
 - [[#key-bindings][Key bindings]]
@@ -14,14 +15,12 @@
 This layer adds support for Apple's Swift programming language, used as a
 general purpose scripting language.
 
-It relies on the [[https://github.com/swift-emacs/swift-mode][swift-mode]] major-mode* for Emacs 24.4 or later, to provide the
-following features:
-
-- Syntax highlighting
-- Indentation
-- Code navigation using =imenu= (built-in)
-- Automatic syntax checking with =flycheck= (available with the
-  =syntax-checking= layer)
+** Features:
+   - Syntax highlighting with [[https://github.com/swift-emacs/swift-mode][swift-mode]]
+   - Indentation
+   - Code navigation using =imenu= (built-in)
+   - Automatic syntax checking with =flycheck= (available with the
+     =syntax-checking= layer)
 
 * Install
 First check that you are able to run this from the command line:

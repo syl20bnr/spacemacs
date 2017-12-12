@@ -70,6 +70,4 @@
       (add-hook 'php-mode-hook 'ac-php-core-eldoc-setup)
       (spacemacs|add-company-backends
         :modes php-mode
-        :variables
-        company-minimum-prefix-length 1000
         :backends company-ac-php-backend))))

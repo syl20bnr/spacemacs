@@ -348,6 +348,7 @@
         "pc" 'projectile-compile-project
         "pd" 'projectile-find-dir
         "pD" 'projectile-dired
+        "pe" 'projectile-edit-dir-locals
         "pf" 'projectile-find-file
         "pF" 'projectile-find-file-dwim
         "pg" 'projectile-find-tag

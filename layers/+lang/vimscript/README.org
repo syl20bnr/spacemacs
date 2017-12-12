@@ -5,7 +5,6 @@
 - [[#install][Install]]
 
 * Description
-
 This layer adds syntax highlighting support for vim filetypes, in addition to
 the pentadactyl firefox extension.
 
