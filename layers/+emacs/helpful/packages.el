@@ -16,12 +16,9 @@
     :defer t
     :init
     (progn
-      (global-set-key (kbd "C-h f") #'helpful-callable)
-      (global-set-key (kbd "C-h k") #'helpful-key)
-      (global-set-key (kbd "C-h v") #'helpful-variable)
       (spacemacs/declare-prefix "hh" "helpful")
       (spacemacs/set-leader-keys
-        "hh." #'helpful-at-point
+        "hhh" #'helpful-at-point
         "hhc" #'helpful-command
         "hhf" #'helpful-callable
         "hhk" #'helpful-key
