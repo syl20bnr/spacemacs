@@ -1,0 +1,30 @@
+#+TITLE: helpful layer
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer supports the [[https://github.com/Wilfred/helpful][helpful]] package, which extends the Emacs help buffer to include things like references and source code.
+
+** Features:
+- Better help buffers with [[https://github.com/Wilfred/helpful][helpful]]
+- Source code
+- Callers
+- Prettier docstrings
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =helpful= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description                              |
+|-------------+------------------------------------------|
+| =SPC h h .= | Open helpful buffer for item under point |
+| =SPC h h f= | Open helpful buffer for function         |
+| =SPC h h k= | Open helpful buffer for key binding      |
+| =SPC h h v= | Open helpful buffer for variable         |
