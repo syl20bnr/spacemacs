@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
 - [[#configuration][Configuration]]
@@ -13,8 +14,11 @@
   - [[#org][Org]]
 
 * Description
-This layer add support for Atlassian [[https://www.atlassian.com/software/confluence][Confluence]] to create/edit Confluence pages
-and export org buffers to Confluence =wiki= format.
+This layer adds support for Atlassian [[https://www.atlassian.com/software/confluence][Confluence]].
+
+** Features:
+- Creating/editing of Confluence pages
+- Exporting of org buffers to Confluence =wiki= format
 
 * Install
 ** Layer
