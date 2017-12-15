@@ -2,6 +2,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#screenshot][Screenshot]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
@@ -13,6 +14,9 @@ This layer uses [[https://github.com/bmag/imenu-list][imenu-list]] to show the c
 
 This is similar to `SPC j i` but displayed in a persistent sidebar instead of
 a completion buffer.
+
+** Features:
+- IDE like outline view of current buffer showing all significant symbols in one view
 
 * Screenshot
 [[file:img/imenu-list-example.png]]
