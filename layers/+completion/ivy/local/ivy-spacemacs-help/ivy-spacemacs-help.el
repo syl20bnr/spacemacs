@@ -230,7 +230,7 @@
                           layer
                           (propertize "no packages"
                                       'face 'warning))
-                  layer
+                  (symbol-name layer)
                   nil)
             result))
     (sort result (lambda (a b) (string< (car a) (car b))))))
