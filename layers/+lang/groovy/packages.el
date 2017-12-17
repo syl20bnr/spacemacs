@@ -12,7 +12,6 @@
 (setq groovy-packages
       '(
         company
-        gradle-mode
         groovy-imports
         groovy-mode
         org
@@ -20,19 +19,6 @@
 
 (defun groovy/post-init-company ()
   (spacemacs|add-company-backends :modes groovy-mode))
-
-(defun groovy/init-gradle-mode ()
-  (use-package gradle-mode
-    :defer t
-    :config
-    (progn
-      (spacemacs/set-leader-keys-for-minor-mode 'gradle-mode
-        "cc" 'gradle-build
-        "cr" 'spacemacs/gradle-clean-build
-        "ct" 'gradle-execute
-        "ta" 'gradle-test
-        "tb" 'spacemacs/gradle-test-buffer
-        "tt" 'gradle-single-test))))
 
 (defun groovy/init-groovy-imports ()
   (use-package groovy-imports
@@ -44,10 +30,6 @@
     :init
     (progn
       (spacemacs/declare-prefix-for-mode 'groovy-mode "ms" "REPL")
-      (when (configuration-layer/package-used-p 'gradle-mode)
-        (add-hook 'groovy-mode-hook 'gradle-mode)
-        (spacemacs/declare-prefix-for-mode 'groovy-mode "mc" "build")
-        (spacemacs/declare-prefix-for-mode 'groovy-mode "mt" "test"))
       (spacemacs/set-leader-keys-for-major-mode 'groovy-mode
         "'"  'run-groovy
         "sB" 'spacemacs/groovy-load-file-switch
