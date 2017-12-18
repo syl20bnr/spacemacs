@@ -22,6 +22,7 @@ This layer adds support for the Perl5 language.
 - Auto-completion using [[https://github.com/CeleritasCelery/company-plsense][company-plsense]]
 - Format code with =perltidy=
 - Jump to symbol definition
+- Interactive debug via [[https://github.com/realgud/realgud][realgud]] with [[http://search.cpan.org/~rocky/Devel-Trepan-0.73/lib/Devel/Trepan.pm][trepan.pl]]
 
 * Install
 ** Layer
