@@ -14,6 +14,7 @@
         cider
         cider-eval-sexp-fu
         clj-refactor
+        clojure-cheatsheet
         clojure-mode
         (clojure-snippets :toggle (configuration-layer/layer-used-p 'auto-completion))
         company
@@ -25,8 +26,7 @@
         popwin
         sayid
         smartparens
-        subword
-        clojure-cheatsheet))
+        subword))
 
 
 (defun clojure/init-cider ()
@@ -263,6 +263,25 @@
                 (spacemacs/set-leader-keys-for-major-mode m
                   (concat "r" binding) func)))))))))
 
+(defun clojure/init-clojure-cheatsheet ()
+  (use-package clojure-cheatsheet
+    :defer t
+    :init
+    (progn
+      (setq sayid--key-binding-prefixes
+            '(("mhc" . "clojure-cheatsheet")))
+      (dolist (m '(clojure-mode
+                   clojurec-mode
+                   clojurescript-mode
+                   clojurex-mode
+                   cider-repl-mode
+                   cider-clojure-interaction-mode))
+        (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
+                            m (car x) (cdr x)))
+              sayid--key-binding-prefixes)
+        (spacemacs/set-leader-keys-for-major-mode m
+          "hc" 'clojure-cheatsheet)))))
+
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
     :defer t
@@ -390,23 +409,3 @@
                clojurescript-mode-hook
                clojurex-mode-hook))
     (add-hook m 'parinfer-mode)))
-
-(defun clojure/init-clojure-cheatsheet ()
-  (use-package clojure-cheatsheet
-    :defer t
-    :init
-    (progn
-      (setq sayid--key-binding-prefixes
-            '(("mhc" . "clojure-cheatsheet")))
-      (dolist (m '(clojure-mode
-                   clojurec-mode
-                   clojurescript-mode
-                   clojurex-mode
-                   cider-repl-mode
-                   cider-clojure-interaction-mode))
-        (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
-                            m (car x) (cdr x)))
-              sayid--key-binding-prefixes)
-        (spacemacs/set-leader-keys-for-major-mode m
-          "hc" 'clojure-cheatsheet)))))
- 
