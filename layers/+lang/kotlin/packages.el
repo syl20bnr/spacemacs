@@ -9,15 +9,13 @@
 ;;
 ;;; License: GPLv3
 
-;;; Code:
-
 (defconst kotlin-packages
   '(
-    kotlin-mode
     flycheck
     (flycheck-kotlin :requires flycheck)
     ggtags
     helm-gtags
+    kotlin-mode
     ))
 
 (defun kotlin/post-init-flycheck ()
@@ -36,7 +34,4 @@
 
 (defun kotlin/init-kotlin-mode ()
   (use-package kotlin-mode
-    :defer t
-    :init))
-
-;;; packages.el ends here
+    :defer t))
