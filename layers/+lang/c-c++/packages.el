@@ -70,7 +70,7 @@
       (spacemacs/add-to-hooks 'spacemacs/clang-format-on-save c-c++-mode-hooks))))
 
 (defun c-c++/init-cmake-ide ()
-  (use-package cmake-ide)
+  (use-package cmake-ide
     :config
     (progn
       (cmake-ide-setup)
@@ -79,7 +79,7 @@
           "cc" 'cmake-ide-compile
           "pc" 'cmake-ide-run-cmake
           "pC" 'cmake-ide-maybe-run-cmake
-          "pd" 'cmake-ide-delete-file))))
+          "pd" 'cmake-ide-delete-file)))))
 
 (defun c-c++/init-cmake-mode ()
   (use-package cmake-mode
