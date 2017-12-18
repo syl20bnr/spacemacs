@@ -71,6 +71,7 @@
 
 (defun c-c++/init-cmake-ide ()
   (use-package cmake-ide)
+    :if c-c++-enable-cmake-ide-support
     :config
     (progn
       (cmake-ide-setup)
