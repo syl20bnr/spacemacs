@@ -41,7 +41,6 @@
             treemacs-is-never-other-window nil
             treemacs-silent-refresh nil
             treemacs-indentation 2
-            treemacs-git-integration t
             treemacs-change-root-without-asking nil
             treemacs-sorting 'alphabetic-desc
             treemacs-show-hidden-files t
@@ -53,7 +52,13 @@
         (treemacs-follow-mode t))
 
       (when treemacs-use-filewatch-mode
-        (treemacs-filewatch-mode t)))))
+        (treemacs-filewatch-mode t))
+
+      ;; this boundp check guards against a new feature that not all treemacs installations will have
+      ;; TODO remove this guard in a few weeks
+      (when (boundp 'treemacs-git-mode)
+        (when (memq treemacs-use-git-mode '(simple extended))
+          (treemacs-git-mode treemacs-use-git-mode))))))
 
 (defun treemacs/init-treemacs-evil ()
   (use-package treemacs-evil
