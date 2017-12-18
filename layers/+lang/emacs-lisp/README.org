@@ -10,6 +10,7 @@
 - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
 - [[#debugging-elisp][Debugging Elisp]]
 - [[#nameless][Nameless]]
+  - [[#aliases][Aliases]]
 - [[#key-bindings][Key bindings]]
   - [[#additional-testing-functions-with-overseer][Additional testing functions with overseer]]
   - [[#additional-evaluation-functions][Additional evaluation functions]]
@@ -98,13 +99,32 @@ function or press ~o~ to go out of it.
 7) Press ~a~ to stop debugging.
 
 * Nameless
-Nameless hides package namespaces in your emacs-lisp code, and replaces it by leading ~:~
-It can be toggled by ~SPC m :~.
+Nameless hides package namespaces in your emacs-lisp code, and replaces it by
+leading ~>~ It can be toggled with ~SPC m >~.
 
-To have it automatically on, you need to define a layer variable:
-=(emacs-lisp :variables emacs-lisp-nameless-mode t)= in =.spacemacs= =dotspacemacs/layers=
+To have it automatically on set the layer variable
+=emacs-lisp-hide-namespace-prefix= to =t=
 
-Further configuration can be done with the custom variable =nameless-global-aliases=, cf [[https://github.com/Malabarba/Nameless#requiring-other-packages-as-aliases][original library documentation]]
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (emacs-lisp :variables emacs-lisp-hide-namespace-prefix t)))
+#+END_SRC
+
+** Aliases
+This layer defines some global aliases for Spacemacs:
+
+| alias | namespace           |
+|-------+---------------------|
+| S     | spacemacs           |
+| SB    | spacemacs-buffer    |
+| CL    | configuration-layer |
+
+You can define additional alias in function =dotspacemacs/user-config= of your
+dotfile:
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'nameless-global-aliases '("N" . "nameless"))
+#+END_SRC
 
 * Key bindings
 

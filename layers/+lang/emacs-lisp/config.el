@@ -14,5 +14,5 @@
 (spacemacs|define-jump-handlers emacs-lisp-mode)
 (spacemacs|define-jump-handlers lisp-interaction-mode)
 
-(defvar emacs-lisp-nameless-mode nil
-  "If non-nil, nameless-mode is automatically turn on for emacs-lisp buffers.")
+(defvar emacs-lisp-hide-namespace-prefix nil
+  "If non-nil, hide namespace prefixes using nameless-mode.")
