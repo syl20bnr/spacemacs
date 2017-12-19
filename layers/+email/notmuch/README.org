@@ -1,0 +1,164 @@
+#+TITLE: Notmuch layer
+
+[[file:notmuch-logo.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#sending-and-receiving-emails][Sending and Receiving emails]]
+    - [[#receiving-emails][Receiving emails]]
+    - [[#sending-emails-with-thunderbird][Sending emails with Thunderbird]]
+    - [[#sending-emails-with-msmtp][Sending emails with msmtp]]
+- [[#key-bindings][Key bindings]]
+  - [[#global-bindings][Global bindings]]
+  - [[#hello-mode][Hello mode]]
+      - [[#evilified-state][Evilified state]]
+  - [[#search-mode][Search mode]]
+      - [[#evilified-state-1][Evilified state]]
+  - [[#tree-mode][Tree mode]]
+      - [[#evilified-state-2][Evilified state]]
+  - [[#show-mode][Show mode]]
+      - [[#evilified-state-3][Evilified state]]
+- [[#see-also][See also]]
+
+* Description
+Notmuch offers a fast, global-search and tag-based email system to
+use within your text editor or in a terminal.
+
+This layer integrates notmuch emacs package into spacemacs.
+
+** Features:
+  - Email searching
+  - Email tagging
+
+* Install
+In order to use this layer you must install notmuch separately.
+
+To install not much follow the instructions in [[https://notmuchmail.org/notmuch-emacs/#index2h2][installation instructions]].
+
+Then add this layer to your =~/.spacemacs=. You will need to add =notmuch= to
+the existing =dotspacemacs-configuration-layers= list in this file.
+
+** Sending and Receiving emails
+For this you will need an external program.
+
+*** Receiving emails
+To be able to receive email you will need to configure an external program to do
+it. See the [[https://notmuchmail.org/howto/][receive mail]] section.
+
+After you configured your email fetcher program, maybe you would like to
+synchronize the email each time you call =notmuch=, in order to do that you
+could customize the variable =notmuch-hello-mode-hook= to call a lisp function
+that calls your email syncing utility.
+
+*** Sending emails with Thunderbird
+You could use thunderbird
+http://pragmaticemacs.com/emacs/use-emacs-for-thunderbird-emails/
+
+*** Sending emails with msmtp
+Download and Install [[http://msmtp.sourceforge.net/download.html][msmtp]]
+
+Configure =~/.mailrc= with the path where =msmtp= is found.
+
+For example:
+#+srcname: contents of ~/.mailrc
+#+BEGIN_SRC
+set sendmail="/usr/local/bin/msmtp"
+#+END_SRC
+
+Configure =~/.msmtprc= [[http://msmtp.sourceforge.net/doc/msmtprc.txt][example]]
+
+* Key bindings
+** Global bindings
+
+| Keybinding  | Command                     |
+|-------------+-----------------------------|
+| ~SPC a N N~ | Start notmuch               |
+| ~SPC a N n~ | Start helm notmuch          |
+| ~SPC a N j~ | Start a notmuch jump search |
+| ~SPC a N s~ | Start a notmuch search      |
+
+** Hello mode
+**** Evilified state
+
+| Keybinding | Command                     |
+|------------+-----------------------------|
+| ~J~        | Jump to a saved search      |
+| ~s~        | Show threads matching QUERY |
+
+** Search mode
+**** Evilified state
+
+| Keybinding | Command                   |
+|------------+---------------------------|
+| ~J~        | Jump to saved search      |
+| ~*~        | [Thread]  Add/Remove tags |
+| ~+~        | [Message] Add tags        |
+| ~-~        | [Message] Remove tags     |
+| ~a~        | [Message] Archive         |
+
+** Tree mode
+**** Evilified state
+
+| Keybinding | Command                   |
+|------------+---------------------------|
+| ~*~        | [Thread]  Add/Remove tags |
+| ~+~        | [Message] Add tags        |
+| ~-~        | [Message] Remove tags     |
+| ~a~        | [Message] Archive         |
+
+** Show mode
+
+| Keybinding      | Command                                                                        |
+|-----------------+--------------------------------------------------------------------------------|
+| ~SPC m a~       | [ATTACHMENTS] Save all attachments                                             |
+|-----------------+--------------------------------------------------------------------------------|
+| ~SPC m P o~     | [PATCH] Open github patch in a new buffer                                      |
+|-----------------+--------------------------------------------------------------------------------|
+| ~SPC m p m~     | [PART] Choose the mime type to use for displaying                              |
+| ~SPC m p \vert~ | [PART] Pipe part at point to an external command                               |
+| ~SPC m p o~     | [PART] View part at point (prompt for a viewer)                                |
+| ~SPC m p v~     | [PART] View part at point in an external viewer                                |
+| ~SPC m p s~     | [PART] Save part at point to a file                                            |
+|-----------------+--------------------------------------------------------------------------------|
+| ~SPC m s c~     | [STASH] Copy =CC= to kill-ring                                                 |
+| ~SPC m s d~     | [STASH] Copy =timestamp= to kill-ring                                          |
+| ~SPC m s G~     | [STASH] Copy =From/To/Cc/Message-Id= of current message to kill-ring           |
+| ~SPC m s l~     | [STASH] [Mailing List Archive] Copy =ML Archive URI= to kill-ring              |
+| ~SPC m s L~     | [STASH] [Mailing List Archive] Copy =ML Archive URI= to kill-ring and visit it |
+| ~SPC m s i~     | [STASH] Copy =message-id= to kill-ring                                         |
+| ~SPC m s I~     | [STASH] Copy =message-id= without =id:= prefix to kill-ring                    |
+| ~SPC m s f~     | [STASH] Copy =From address= to kill-ring                                       |
+| ~SPC m s F~     | [STASH] Copy =filename= to kill-ring                                           |
+| ~SPC m s s~     | [STASH] Copy =Subject= to kill-ring                                            |
+| ~SPC m s t~     | [STASH] Copy =To address= to kill-ring                                         |
+| ~SPC m s T~     | [STASH] Copy =tags= to kill-ring                                               |
+
+**** Evilified state
+
+| Keybinding | Description                |
+|------------+----------------------------|
+| ~o~        | Open all messages          |
+| ~O~        | Close all messages         |
+| ~n~        | Show next open message     |
+| ~N~        | Show next message          |
+| ~p~        | Show previous open message |
+| ~P~        | Show previous message      |
+| ~C-n~      | Show next thread           |
+| ~C-p~      | Show previous thread       |
+| ~d~        | Delete messages down       |
+| ~D~        | Delete messages up         |
+| ~J~        | Jump search                |
+| ~L~        | Filter current search      |
+| ~gf~       | Find file or URL at point  |
+| ~gg~       | Jump to top                |
+| ~G~        | Jump to bottom             |
+| ~gr~       | Refresh buffer             |
+| ~gR~       | Refresh all buffers        |
+| ~m~        | Compose mail               |
+
+* See also
+Refer to the official notmuch website for more information.
+
+- https://notmuchmail.org/

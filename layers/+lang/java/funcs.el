@@ -17,7 +17,6 @@
                                     ("mg" . "goto")
                                     ("mr" . "refactor")
                                     ("mh" . "documentation")
-                                    ("mm" . "maven")
                                     ("ma" . "ant")
                                     ("mp" . "project")
                                     ("mt" . "test")))
@@ -68,7 +67,7 @@
 (defun spacemacs//java-setup-ensime ()
   "Setup ENSIME."
   ;; jump handler
-  (add-to-list 'spacemacs-jump-handlers 'ensime-edit-definition)
+  (add-to-list 'spacemacs-jump-handlers-java-mode 'ensime-edit-definition)
   ;; ensure the file exists before starting `ensime-mode'
   (cond
    ((and (buffer-file-name) (file-exists-p (buffer-file-name)))
@@ -258,17 +257,29 @@
 
 ;; Maven
 
-(defun spacemacs/java-maven-test ()
+(defun spacemacs/mvn-clean-compile ()
+  "Recompile using maven."
   (interactive)
-  (eclim-maven-run "test"))
+  (mvn-clean)
+  (mvn-compile))
 
-(defun spacemacs/java-maven-clean-install ()
-  (interactive)
-  (eclim-maven-run "clean install"))
+
+;; Gradle
 
-(defun spacemacs/java-maven-install ()
+(defun spacemacs/gradle-clean ()
+  "Execute 'gradle clean' command."
   (interactive)
-  (eclim-maven-run "install"))
+  (gradle-execute "clean"))
+
+(defun spacemacs/gradle-clean-build ()
+  "Execute 'gradle clean build' command."
+  (interactive)
+  (gradle-execute "clean build"))
+
+(defun spacemacs/gradle-test-buffer ()
+  "Execute 'gradle test' command against current buffer tests."
+  (interactive)
+  (gradle-single-test (file-name-base (buffer-file-name))))
 
 
 ;; Misc

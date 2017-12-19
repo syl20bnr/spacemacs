@@ -17,10 +17,6 @@
     ycmd
     ))
 
-(unless (boundp 'ycmd-server-command)
-  (message (concat "YCMD won't work unless you set the ycmd-server-command "
-                   "variable to the path to a ycmd install.")))
-
 (defun ycmd/init-company-ycmd ()
   (use-package company-ycmd
     :defer t

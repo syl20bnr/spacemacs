@@ -26,6 +26,7 @@ This layer adds extensive support for go.
 - Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]] (with the =auto-completion= layer)
 - Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]]
 - Refactoring with [[http://gorefactor.org/][godoctor]]
+- Edit struct field tag with [[https://github.com/fatih/gomodifytags][gomodifytags]]
 - Linting with flycheck's built-in checkers or flycheck-gometalinter
 - Coverage profile visualization
 
@@ -62,6 +63,12 @@ If you wish to use =godoctor= for refactoring, install it too:
 #+BEGIN_SRC sh
   go get -u -v github.com/godoctor/godoctor
   go install github.com/godoctor/godoctor
+#+END_SRC
+
+If you want to use =gomodifytags= to edit field tags, install it too:
+
+#+BEGIN_SRC sh
+  go get -u -v github.com/fatih/gomodifytags
 #+END_SRC
 
 Make sure that the =gocode= executable is in your PATH. For information about
@@ -142,46 +149,48 @@ You have a few options to ensure you always get up to date suggestions:
 
 | Key Binding | Description                                                                           |
 |-------------+---------------------------------------------------------------------------------------|
-| ~SPC m h h~ | godoc at point                                                                        |
-| ~SPC m i g~ | goto imports                                                                          |
-| ~SPC m i a~ | add import                                                                            |
-| ~SPC m i r~ | remove unused import                                                                  |
 | ~SPC m e b~ | go-play buffer                                                                        |
-| ~SPC m e r~ | go-play region                                                                        |
 | ~SPC m e d~ | download go-play snippet                                                              |
-| ~SPC m x x~ | run "go run" for the current 'main' package                                           |
+| ~SPC m e r~ | go-play region                                                                        |
 | ~SPC m g a~ | jump to matching test file or back from test to code file                             |
 | ~SPC m g c~ | open a clone of the current buffer with a coverage info (=go tool cover -h= for help) |
 | ~SPC m g g~ | go jump to definition                                                                 |
+| ~SPC m i a~ | add import                                                                            |
+| ~SPC m i g~ | goto imports                                                                          |
+| ~SPC m i r~ | remove unused import                                                                  |
+| ~SPC m h h~ | godoc at point                                                                        |
 | ~SPC m r n~ | go rename                                                                             |
 | ~SPC m t p~ | run "go test" for the current package                                                 |
 | ~SPC m t P~ | run "go test" for the current package and all packages under it                       |
-| ~SPC m t t~ | run "go test" for the function you're currently in (while you're in a _.test.go file) |
 | ~SPC m t s~ | run "go test" for the suite you're currently in (requires gocheck)                    |
+| ~SPC m t t~ | run "go test" for the function you're currently in (while you're in a _.test.go file) |
+| ~SPC m x x~ | run "go run" for the current 'main' package                                           |
 
 ** Go Guru
 
 | Key Binding | Description                                          |
 |-------------+------------------------------------------------------|
-| ~SPC m f d~ | go-guru describe symbol at point                     |
-| ~SPC m f f~ | go-guru show free variables                          |
-| ~SPC m f i~ | go-guru show implements relation                     |
-| ~SPC m f c~ | go-guru show channel sends/receives                  |
-| ~SPC m f r~ | go-guru show referrers                               |
-| ~SPC m f j~ | go-guru jump to symbol definition                    |
-| ~SPC m f p~ | go-guru show what the select expression points to    |
-| ~SPC m f s~ | go-guru show callstack                               |
-| ~SPC m f e~ | go-guru show possible contants/types for error value |
 | ~SPC m f <~ | go-guru show possible callers                        |
 | ~SPC m f >~ | go-guru show call targets                            |
+| ~SPC m f c~ | go-guru show channel sends/receives                  |
+| ~SPC m f d~ | go-guru describe symbol at point                     |
+| ~SPC m f e~ | go-guru show possible contants/types for error value |
+| ~SPC m f f~ | go-guru show free variables                          |
+| ~SPC m f i~ | go-guru show implements relation                     |
+| ~SPC m f j~ | go-guru jump to symbol definition                    |
 | ~SPC m f o~ | go-guru set analysis scope                           |
+| ~SPC m f p~ | go-guru show what the select expression points to    |
+| ~SPC m f r~ | go-guru show referrers                               |
+| ~SPC m f s~ | go-guru show callstack                               |
 
 ** Refactoring
 
 | Key Binding | Description                       |
 |-------------+-----------------------------------|
-| ~SPC m r N~ | Rename (with =go-rename=)         |
-| ~SPC m r n~ | Rename (with =godoctor=)          |
-| ~SPC m r e~ | Extract code as new function      |
-| ~SPC m r t~ | Toggle declaration and assignment |
 | ~SPC m r d~ | Add comment stubs                 |
+| ~SPC m r e~ | Extract code as new function      |
+| ~SPC m r f~ | Add field tags                    |
+| ~SPC m r F~ | Remove field tags                 |
+| ~SPC m r n~ | Rename (with =godoctor=)          |
+| ~SPC m r N~ | Rename (with =go-rename=)         |
+| ~SPC m r t~ | Toggle declaration and assignment |

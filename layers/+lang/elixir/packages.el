@@ -18,6 +18,7 @@
     flycheck-mix
     flycheck-credo
     ggtags
+    counsel-gtags
     helm-gtags
     ob-elixir
     popwin
@@ -206,6 +207,9 @@
 
 (defun elixir/post-init-ggtags ()
   (add-hook 'elixir-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun elixir/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'elixir-mode))
 
 (defun elixir/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'elixir-mode))

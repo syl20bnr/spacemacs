@@ -11,7 +11,8 @@
 
 (defun spacemacs//scala-setup-ensime ()
   "Setup ENSIME for Scala."
-  (spacemacs//java-setup-ensime))
+  (spacemacs//java-setup-ensime)
+  (add-to-list 'spacemacs-jump-handlers-scala-mode 'ensime-edit-definition))
 
 (defun spacemacs//scala-disable-flycheck-scala ()
   (push 'scala flycheck-disabled-checkers))

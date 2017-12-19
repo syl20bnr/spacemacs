@@ -1,3 +1,4 @@
+;; -*- nameless-current-name: "configuration-layer" -*-
 ;;; core-configuration-layer.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors

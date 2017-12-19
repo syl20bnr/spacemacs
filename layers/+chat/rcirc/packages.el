@@ -68,11 +68,6 @@
       ;; for example.
       (add-to-list 'yank-excluded-properties 'rcirc-text)
 
-      ;; rcirc-reconnect
-      (let ((dir (configuration-layer/get-layer-local-dir 'rcirc)))
-        (require 'rcirc-reconnect
-                 (concat dir "rcirc-reconnect/rcirc-reconnect.el")))
-
       ;; load this file from the dropbox location load-path
       ;; this is where you can store personal information
       (require 'pinit-rcirc nil 'noerror)

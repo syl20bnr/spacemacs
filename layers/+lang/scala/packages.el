@@ -16,6 +16,7 @@
     flycheck
     flyspell
     ggtags
+    counsel-gtags
     helm-gtags
     noflet
     org
@@ -140,6 +141,9 @@ If it's part of a left arrow (`<-'),replace it with the unicode arrow."
 
 (defun scala/post-init-ggtags ()
   (add-hook 'scala-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun scala/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'scala-mode))
 
 (defun scala/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'scala-mode))

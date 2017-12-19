@@ -40,7 +40,12 @@
         :bindings
         "q" 'quit-window
         (kbd "C-j") 'elfeed-show-next
-        (kbd "C-k") 'elfeed-show-prev))))
+        (kbd "C-k") 'elfeed-show-prev)
+      (evil-define-key 'visual elfeed-search-mode-map
+        "+"  'elfeed-search-tag-all
+        "-"  'elfeed-search-untag-all
+        "b"  'elfeed-search-browse-url
+        "y"  'elfeed-search-yank))))
 
 (defun elfeed/init-elfeed-goodies ()
   (use-package elfeed-goodies

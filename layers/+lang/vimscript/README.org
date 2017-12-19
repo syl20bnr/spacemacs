@@ -2,11 +2,14 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 
 * Description
-This layer adds syntax highlighting support for vim filetypes, in addition to
-the pentadactyl firefox extension.
+This layer adds basic support for vimscript and pentadactyl config files.
+
+** Features:
+- Syntax highlighting
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
