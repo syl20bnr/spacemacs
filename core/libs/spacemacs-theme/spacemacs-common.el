@@ -194,6 +194,9 @@ to 'auto, tags may not be properly aligned. "
      `(vertical-border ((,class (:foreground ,border))))
      `(warning ((,class (:foreground ,war))))
 
+;;;;; ace-window
+     `(aw-leading-char-face ((,class (:foreground ,func :weight bold :height 2.0 :box (:line-width 1 :color ,keyword :style released-button)))))
+
 ;;;;; ahs
      `(ahs-face ((,class (:background ,highlight))))
      `(ahs-plugin-whole-buffer-face ((,class (:background ,mat :foreground ,bg1))))
@@ -249,8 +252,8 @@ to 'auto, tags may not be properly aligned. "
      `(company-scrollbar-fg ((,class (:background ,act2))))
      `(company-template-field ((,class (:inherit region))))
      `(company-tooltip ((,class (:background ,ttip-bg :foreground ,ttip))))
-     `(company-tooltip-annotation ((,class (:foreground ,keyword))))
-     `(company-tooltip-common ((,class (:background ,ttip-bg :foreground ,base))))
+     `(company-tooltip-annotation ((,class (:foreground ,type))))
+     `(company-tooltip-common ((,class (:background ,ttip-bg :foreground ,keyword))))
      `(company-tooltip-common-selection ((,class (:foreground ,base))))
      `(company-tooltip-mouse ((,class (:inherit highlight))))
      `(company-tooltip-search ((,class (:inherit match))))
@@ -578,6 +581,7 @@ to 'auto, tags may not be properly aligned. "
      `(markdown-header-face-4 ((,class (:bold nil :foreground ,head4 :background ,(when spacemacs-theme-org-highlight head4-bg)))))
      `(markdown-header-face-5 ((,class (:bold nil :foreground ,head1))))
      `(markdown-header-face-6 ((,class (:bold nil :foreground ,head2))))
+     `(markdown-table-face ((,class (:foreground ,base :background ,head1-bg))))
 
 ;;;;; mode-line
      `(mode-line           ((,class (:foreground ,base :background ,act1 :box (:color ,border :line-width 1)))))
@@ -810,7 +814,7 @@ to 'auto, tags may not be properly aligned. "
      `(whitespace-space ((,class (:background nil :foreground ,act2))))
      `(whitespace-space-after-tab ((,class (:background nil :foreground ,yellow))))
      `(whitespace-space-before-tab ((,class (:background nil :foreground ,yellow))))
-     `(whitespace-tab ((,class (:background nil))))
+     `(whitespace-tab ((,class (:background nil :foreground ,act2))))
      `(whitespace-trailing ((,class (:background ,err :foreground ,war))))
 
 ;;;;; other, need more work
