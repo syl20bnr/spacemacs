@@ -9,7 +9,14 @@
 ;;
 ;;; License: GPLv3
 
-(setq notmuch-packages '(notmuch helm-notmuch))
+(setq notmuch-packages '(notmuch
+                         (helm-notmuch :toggle (configuration-layer/layer-usedp 'helm))
+                         (counsel-notmuch
+                          :toggle (configuration-layer/layer-usedp 'ivy)
+                          :location (recipe
+                                     :fetcher github
+                                     :repo "fuxialexander/counsel-notmuch")))
+      )
 
 (defun notmuch/init-notmuch ()
   (use-package notmuch
@@ -22,7 +29,8 @@
       (spacemacs/set-leader-keys "aNi" 'spacemacs/notmuch-inbox)
       (spacemacs/set-leader-keys "aNj" 'notmuch-jump-search)
       (spacemacs/set-leader-keys "aNs" 'notmuch-search)
-      (spacemacs/set-leader-keys "aNn" 'helm-notmuch)
+      (spacemacs/set-leader-keys "aNn" 'spacemacs/notmuch-interactive-search
+        )
       (load-library "org-notmuch"))
     :config
     (progn
@@ -125,4 +133,15 @@
 (defun notmuch/init-helm-notmuch ()
   (use-package helm-notmuch
     :defer t
-    :init (with-eval-after-load 'notmuch)))
+    :init (progn
+            (setq spacemacs/notmuch-interactive-search-function
+                  'helm-notmuch)
+            (with-eval-after-load 'notmuch))))
+
+(defun notmuch/init-counsel-notmuch ()
+  (use-package counsel-notmuch
+    :defer t
+    :init (progn
+            (setq spacemacs/notmuch-interactive-search-function
+                  'counsel-notmuch)
+            (with-eval-after-load 'notmuch))))
