@@ -205,7 +205,7 @@
 * Core Pillars
 Four core pillars: Mnemonic, Discoverable, Consistent and "Crowd-Configured".
 
-If any of these core pillars is violated open an issue and we'll try our best
+If any of these core pillars are violated, open an issue and we'll try our best
 to fix it.
 
 ** Mnemonic
@@ -217,7 +217,7 @@ Innovative real-time display of available key bindings. Simple query
 system to quickly find available layers, packages, and more.
 
 ** Consistent
-Similar functionalities have the same key binding everywhere thanks to a
+Similar functionalities have the same key binding everywhere, thanks to a
 clearly defined set of conventions. Documentation is mandatory for any layer
 that ships with Spacemacs.
 
@@ -244,12 +244,13 @@ and bugs are fixed quickly.
   If you have issues with your thumbs you can still use Spacemacs using
   modifiers.
 
-- Contribute easily your improvements and new configuration layers.
+- Contribute easily with your improvements and new configuration layers.
 
 - *Very active and helpful community* on =Gitter= and =IRC=
   (via Gitter IRC bridge)
 
 * Screenshots
+
 [[file:img/spacemacs-python.png]]
 /Python/
 
@@ -273,7 +274,7 @@ project.
   their style to =hybrid=.
 
 - Emacs users wanting a simple but deep configuration system that greatly
-  *lower the risk of .emacs bankruptcy*.
+  *lowers the risk of .emacs bankruptcy*.
 
 - *Pair-programming* users thanks to out of the box support for dynamic
   switching of editing style. A Vim user and an Emacs user can use the same
@@ -382,7 +383,7 @@ Example:
 
 All packages from all layers are processed in alphabetical order so sometimes
 you'll have to use some =with-eval-after-load= black magic to configure them
-properly. For instance if package =A= depends on =B= then you can configure
+properly. For instance, if package =A= depends on =B= then you can configure
 =A= with:
 
 #+BEGIN_SRC emacs-lisp
@@ -435,14 +436,14 @@ For example, to install =llvm-mode= and =dts-mode=:
    ))
 #+END_SRC
 
-If you want to add some configuration for them then put the configuration in
-the =dotspacemacs/user-config= function or consider creating a layer.
+If you want to add some configuration for them, do so in the
+=dotspacemacs/user-config= function, or consider creating a layer.
 
 ** Packages synchronization
 Spacemacs will only install the packages that are explicitly used by the user.
 A package is considered to be used if its layer is used (i.e. listed in
 =dotspacemacs-configuration-layers=).
-Any packages that are not used is considered to be orphan and is deleted at
+Any package that is not used will be considered an orphan and will be deleted at
 the next startup of Emacs.
 
 ** Types of configuration layers
@@ -480,15 +481,15 @@ layers are not source controlled/.
 *** Using an external Git repository
 This is the recommended way to manage your private layers.
 
-The best approach is to store all your private layers into an external Git
-repository. It is especially a good practice to store them in your =dotfiles=
-repository if you have one. Put also your =~/.spacemacs= file in it.
+The best approach is to store all your private layers in an external Git
+repository. It is good practice to store them in your =dotfiles=
+repository if you have one. Also, put your =~/.spacemacs= file in it.
 
-Then you are free to symlink your layers into =~/emacs.d/private= /or/ let them
-anywhere you want and reference the parent directory in the variable
+Then you are free to symlink your layers into =~/emacs.d/private= /or/ leave them
+anywhere you want, and reference the parent directory in the variable
 =dotspacemacs-configuration-layer-path= of your =~/.spacemacs=.
 
-Note that you could also have a dedicated repository for all your private layers
+*Note*: you could also have a dedicated repository for all your private layers
 and then directly clone this repository in =~/.emacs.d/private=.
 
 *** Using a personal branch
@@ -504,17 +505,17 @@ User configuration can be stored in your =~/.spacemacs= file.
 
 ** Dotfile Installation
 The very first time Spacemacs starts up, it will ask you several questions
-and then install the =.spacemacs= in your =HOME= directory.
+and then install the =.spacemacs= file in your =HOME= directory.
 
 ** Alternative dotdirectory
 A dotdirectory =~/.spacemacs.d/= can be used instead of a dotfile.
 If you want to use this option, move =~/.spacemacs= to =~/.spacemacs.d/init.el=.
 
 It is also possible to override the location of =~/.spacemacs.d/= using the
-environment variable =SPACEMACSDIR=. Of course you can also use symlinks to
+environment variable =SPACEMACSDIR=. Of course, you can also use symlinks to
 change the location of this directory.
 
-*Note:* =~/.spacemacs= will always take priority over =~/.spacemacs.d/init.el=,
+*Note*: =~/.spacemacs= will always take priority over =~/.spacemacs.d/init.el=,
 so =~/.spacemacs= must not exist for =~/.spacemacs.d/init.el= to be used by
 Spacemacs.
 
@@ -524,10 +525,10 @@ re-execute the Spacemacs initialization process.
 
 *Note*: A synchronization re-executes the functions =dotspacemacs/init=,
 =dotspacemacs/user-init= and =dotspacemacs/user-config=.
-Depending on the content of this functions you may encounter some unwanted side
-effects. For instance if you use a toggle in =dotspacemac/user-config= to enable
+Depending on the contents of these functions, you may encounter some unwanted side
+effects. For instance, if you use a toggle in =dotspacemac/user-config= to enable
 some behavior, this behavior will be turned off whenever the dotfile is
-re-synchronized. To avoid these side-effects it is recommended to either use
+re-synchronized. To avoid these side-effects, it is recommended to either use
 =setq= expressions instead of toggle functions, or to use the =on= or =off=
 versions instead (i.e. instead of =spacemacs/toggle-<thing>=, use
 =spacemacs/toggle-<thing>-on= or =spacemacs/toggle-<thing>-off=).
@@ -549,7 +550,7 @@ configuration at the beginning and end of Spacemacs loading process:
 - =dotspacemacs/layers= is called at the very startup of Spacemacs initialization,
   this is where you set the Spacemacs distribution and declare layers to be used
   in your configuration. You can also add or exclude packages of your choice
-  and tweak some behavior of Spacemacs loading.
+  and tweak some behaviors of Spacemacs loading.
 - =dotspacemacs/init= is called at the very startup of Spacemacs initialization
   before layers configuration. *You should not put any user code* in there
   besides modifying the Spacemacs variable values prefixed with =dotspacemacs-=.
@@ -573,7 +574,7 @@ in the =dotspacemacs/user-init= function, in this case custom variables will be
 written to the user defined =custom-file= and the function
 =dotspacemacs/emacs-custom-settings= will remain empty.
 
-*Note:* If you set a custom =custom-file= value then it is your responsibility
+*Note*: If you set a custom =custom-file= value then it is your responsibility
 to load this file at the appropriate time. Often the best time to load it is
 just after setting the value for =custom-file= in the =dotspacemacs/user-init=
 function.
@@ -582,7 +583,7 @@ function.
 To use a configuration layer, declare it in your dotfile by adding it to the
 =dotspacemacs-configuration-layers= variable of your =~/.spacemacs=.
 
-*Note:* In this documentation a =used layer= is equivalent to a =declared
+*Note*: In this documentation a =used layer= is equivalent to a =declared
 layer=.
 
 For instance, [[#thank-you][RMS]] can add his private configuration layer like this:
@@ -694,7 +695,7 @@ The opposite would be to ignore all packages except =neotree= and
       (spacemacs-ui-visual :packages neotree fancy-battery)))
 #+END_SRC
 
-*Note:* Ignoring a package from a layer is different than excluding a package.
+*Note*: Ignoring a package from a layer is different than excluding a package.
 An excluded packages is completely removed from your configuration whereas an
 ignored package is ignored only for a given layer but it can remain on your
 system. It happens that if the given layer is the owner of the package then
@@ -719,7 +720,7 @@ effectively remove _all_ references to it in Spacemacs without breaking the rest
 of the configuration, this is a powerful feature which allows you to quickly
 remove any feature from Spacemacs.
 
-*Note:* A few packages are essential for Spacemacs to correctly operate, those
+*Note*: A few packages are essential for Spacemacs to correctly operate, those
 packages are protected and cannot be excluded or uninstalled even if they become
 orphans or are excluded. =use-package= is an example of a protected package that
 cannot be removed from Spacemacs.
@@ -815,7 +816,7 @@ Spacemacs has 10 states:
 | iedit        | red           | exclusive to Spacemacs, used to navigate between multiple regions of text using =iedit= (more [[#replacing-text-with-iedit][info]])        |
 | iedit-insert | red           | exclusive to Spacemacs, used to replace multiple regions of text using =iedit= (more [[#replacing-text-with-iedit][info]])                 |
 
-Note: Technically speaking there is also the =operator= evil state.
+*Note*: Technically speaking there is also the =operator= evil state.
 
 ** Evilified modes
 Some buffers are not for editing text and provide their own keybindings for
@@ -841,7 +842,7 @@ So anything bound to =g= originally will be found on =C-G=, since =g=, =G= and
 ** Evil leader
 Spacemacs uses a leader key to bind almost all its key bindings.
 
-This leader key is commonly set to ~​,​~ by Vim users, in Spacemacs the leader
+This leader key is commonly set to ~​,​~ by Vim users. In Spacemacs the leader
 key is set on ~SPC~ (the space bar, hence the name =spacemacs=). This key is the
 most accessible key on a keyboard and it is pressed with the thumb which is a
 good choice to lower the risk of [[https://en.wikipedia.org/wiki/Repetitive_strain_injury][RSI]]. It can be customized to any other key
@@ -867,8 +868,8 @@ Spacemacs defines a wide variety of =transient states= (temporary overlay maps)
 where it makes sense. This prevents one from doing repetitive and tedious
 presses on the ~SPC~ key.
 
-When a =transient state= is active, a documentation is displayed in the
-minibuffer. Additional information may as well be displayed in the minibuffer.
+When a =transient state= is active, documentation is displayed in the
+minibuffer. Additional information may also be displayed in the minibuffer.
 
 Auto-highlight-symbol transient state:
 [[file:img/spacemacs-ahs-transient-state.png]]
@@ -1312,7 +1313,7 @@ errors, warnings and info.
 
 *** Anzu integration
 [[https://github.com/syohex/emacs-anzu][Anzu]] shows the number of occurrence when performing a search. Spacemacs
-integrates nicely the Anzu status by displaying it temporarily when ~n~ or ~N~
+integrates the Anzu status nicely by displaying it temporarily when ~n~ or ~N~
 are being pressed. See the =5/6= segment on the screenshot below.
 
 [[file:img/powerline-anzu.png]]
@@ -1330,12 +1331,12 @@ A color code is used for the battery status:
 | Discharging   | Orange |
 | Critical      | Red    |
 
-Note the these colors may vary depending on your theme.
+*Note*: these colors may vary depending on your theme.
 
 *** Powerline separators
 It is possible to easily customize the =powerline separator= by setting the
 =powerline-default-separator= variable in your =~/.spacemacs= and then
-recompiling the modeline. For instance if you want to set back the separator to
+recompiling the modeline. For instance, if you want to set back the separator to
 the well-known =arrow= separator add the following snippet to your configuration
 file:
 
@@ -1481,8 +1482,8 @@ If this variable is set to =nil= (default) its value will be same as
 =dotspacemacs-frame-title-format=.
 
 * Layouts and workspaces
-Layouts are window configurations with buffer isolation, each layout can define
-several workspaces (think of them as sub-layouts) sharing the same list of
+Layouts are window configurations with buffer isolation. Each layout can define
+several workspaces (think of them as sub-layouts), sharing the same list of
 buffers as their parent layout.
 
 ** Layouts
@@ -1494,7 +1495,7 @@ related to a projectile project.
 The name of the current layout appears in the mode-line at the far left (first
 element of the mode-line).
 
-To create a new layout type a layout number that does not exist yet.
+To create a new layout, type a layout number that does not exist yet.
 For instance if you have two layouts currently then type ~SPC l 3~ to create a
 third layout.
 
@@ -1556,7 +1557,7 @@ Some custom layouts that ship with Spacemacs:
 *** Save/Load layouts into a file
 With ~SPC l s~ and ~SPC l L~ you can save and load layouts to/from a file.
 
-*Note:* By default, Spacemacs will automatically save the layouts under the name
+*Note*: By default, Spacemacs will automatically save the layouts under the name
 =persp-auto-save=.
 
 Setting the variable =dotspacemacs-auto-resume-layouts= to =t= will
@@ -1758,7 +1759,7 @@ Mastering your choice of completion system will make you a Spacemacs power user.
 
 For more information go to the layers documentation for [[https://github.com/syl20bnr/spacemacs/blob/master/layers/+completion/helm/README.org][Helm]] and [[https://github.com/syl20bnr/spacemacs/blob/master/layers/+completion/ivy/README.org][Ivy]].
 
-*Note:* To open the Spacemacs documentation for Helm of Ivy in Emacs, open the
+*Note*: To open the Spacemacs documentation for Helm of Ivy in Emacs, open the
 =spacemacs-help= menu with ~SPC h SPC~ and type ~helm~ or ~ivy~ then ~return~.
 
 ** Discovering
@@ -1774,7 +1775,7 @@ pressed. You can change the delay by setting the variable
 **** Describe key bindings
 It is possible to search for specific key bindings by pressing ~SPC ?~.
 
-To narrow the list to some key bindings using the leader key type a pattern like
+To narrow the list to some key bindings, use the leader key to type a pattern like
 this regular expression: ~SPC\ b~ which would list all =buffer= related
 bindings.
 
@@ -1825,7 +1826,7 @@ Reporting an issue:
 | ~SPC h I~       | Open Spacemacs GitHub issue page with pre-filled information                             |
 | ~SPC u SPC h I~ | Open Spacemacs GitHub issue page with pre-filled information - include last pressed keys |
 
-*Note:* If these two bindings are used with the =*Backtrace*= buffer open, the
+*Note*: If these two bindings are used with the =*Backtrace*= buffer open, the
 backtrace is automatically included
 
 *** Available layers
