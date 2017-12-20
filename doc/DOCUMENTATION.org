@@ -481,8 +481,8 @@ layers are not source controlled/.
 This is the recommended way to manage your private layers.
 
 The best approach is to store all your private layers in an external Git
-repository. It is a good practice to store them in your =dotfiles=
-repository if you have one. Also, put your =~/.spacemacs= file in it.
+repository. For example, if you have a =dotfiles= repository it is a good
+practice to store these layers in there, along with your =~/.spacemacs= file.
 
 Then you are free to symlink your layers into =~/emacs.d/private= /or/ leave them
 anywhere you want, and reference the parent directory in the variable
