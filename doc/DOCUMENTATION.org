@@ -481,14 +481,14 @@ layers are not source controlled/.
 This is the recommended way to manage your private layers.
 
 The best approach is to store all your private layers in an external Git
-repository. It is good practice to store them in your =dotfiles=
+repository. It is a good practice to store them in your =dotfiles=
 repository if you have one. Also, put your =~/.spacemacs= file in it.
 
 Then you are free to symlink your layers into =~/emacs.d/private= /or/ leave them
 anywhere you want, and reference the parent directory in the variable
 =dotspacemacs-configuration-layer-path= of your =~/.spacemacs=.
 
-*Note*: you could also have a dedicated repository for all your private layers
+*Note*: You could also have a dedicated repository for all your private layers
 and then directly clone this repository in =~/.emacs.d/private=.
 
 *** Using a personal branch
@@ -1330,7 +1330,7 @@ A color code is used for the battery status:
 | Discharging   | Orange |
 | Critical      | Red    |
 
-*Note*: these colors may vary depending on your theme.
+*Note*: These colors may vary depending on your theme.
 
 *** Powerline separators
 It is possible to easily customize the =powerline separator= by setting the
