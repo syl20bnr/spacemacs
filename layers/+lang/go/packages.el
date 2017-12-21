@@ -17,6 +17,7 @@
                                             (configuration-layer/package-used-p
                                              'flycheck)))
         ggtags
+        counsel-gtags
         helm-gtags
         exec-path-from-shell
         go-eldoc
@@ -24,6 +25,7 @@
         go-guru
         go-rename
         godoctor
+        go-tag
         popwin
         ))
 
@@ -123,6 +125,14 @@
         "rt" 'godoctor-toggle
         "rd" 'godoctor-godoc))))
 
+(defun go/init-go-tag ()
+  (use-package go-tag
+    :init
+    (spacemacs/declare-prefix-for-mode 'go-mode "mr" "refactoring")
+    (spacemacs/set-leader-keys-for-major-mode 'go-mode
+      "rf" 'go-tag-add
+      "rF" 'go-tag-remove)))
+
 (defun go/init-flycheck-gometalinter ()
   (use-package flycheck-gometalinter
     :defer t
@@ -131,6 +141,9 @@
 
 (defun go/post-init-ggtags ()
   (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun go/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'go-mode))
 
 (defun go/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'go-mode))

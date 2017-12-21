@@ -15,6 +15,7 @@
         eldoc
         flycheck
         ggtags
+        counsel-gtags
         helm-gtags
         php-auto-yasnippets
         (php-extras :location (recipe :fetcher github :repo "arnested/php-extras"))
@@ -36,6 +37,9 @@
 
 (defun php/post-init-ggtags ()
   (add-hook 'php-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun php/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'php-mode))
 
 (defun php/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'php-mode))

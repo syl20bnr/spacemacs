@@ -14,6 +14,7 @@
         company
         geiser
         ggtags
+        counsel-gtags
         helm-gtags
         ))
 
@@ -77,6 +78,9 @@
 
 (defun scheme/post-init-ggtags ()
   (add-hook 'scheme-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun scheme/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'scheme-mode))
 
 (defun scheme/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'scheme-mode))
