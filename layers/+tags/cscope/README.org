@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#cscope][Cscope]]
@@ -14,9 +15,11 @@
 * Description
 This layer provides bindings for using [[http://cscope.sourceforge.net][Cscope]] and [[https://github.com/portante/pycscope][PyCscope]] in Spacemacs.
 
-=Cscope= provides indexing and searching capabilities for C and C++ code.
-=PyCscope= extends these capabilities for Python code as well. See
-[[https://github.com/OpenGrok/OpenGrok/wiki/Comparison-with-Similar-Tools][here]] for a comparison between =Cscope= and other similar tools (such as gtags).
+See [[https://github.com/OpenGrok/OpenGrok/wiki/Comparison-with-Similar-Tools][here]] for a comparison between =Cscope= and other similar tools (such as gtags).
+
+** Features:
+- Tag indexing and searching for C-C++ via [[http://cscope.sourceforge.net][Cscope]]
+- Tag indexing and searching for python via [[https://github.com/portante/pycscope][PyCscope]]
 
 * Install
 ** Layer

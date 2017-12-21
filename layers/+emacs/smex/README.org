@@ -4,13 +4,15 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer replaces =helm-M-x= by [[https://github.com/nonsequitur/smex][smex]] which is built on top of =ido=.
-=ido= can perform flex matching with the [[https://github.com/lewang/flx][flx-ido]] mode which is already
-activated in the Spacemacs layer.
+This layer provides a more traditional alternative to =helm-M-x= based on =ido=.
+
+** Features:
+- Provides an alternative way for =helm-M-x= based on =ido= and [[https://github.com/nonsequitur/smex][smex]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -21,5 +23,5 @@ file.
 
 | Key Binding | Description                                |
 |-------------+--------------------------------------------|
-| ~SPC :~     | all Emacs commands (interactive functions) |
+| ~SPC SPC~   | all Emacs commands (interactive functions) |
 | ~SPC m :~   | current major mode commands                |
