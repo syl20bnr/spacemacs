@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key Bindings]]
   - [[#spawn-prodigy][Spawn prodigy]]
@@ -15,6 +16,11 @@ within Emacs, check the package's documentation for more details.
 
 It is recommended to put your prodigy services in the =dotspacemacs/user-config=
 part of your =~/.spacemacs= file.
+
+** Features:
+- Managing of pre-declared services from within emacs
+- Showing of process output in special buffers
+- Filtering of processes for tags or names
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
