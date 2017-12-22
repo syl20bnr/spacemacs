@@ -175,7 +175,6 @@
     (use-package ob-elixir
       :init (add-to-list 'org-babel-load-languages '(elixir . t)))))
 
-
 (defun elixir/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
     :post-config
