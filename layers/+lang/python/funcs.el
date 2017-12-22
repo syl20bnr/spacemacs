@@ -165,6 +165,8 @@ when this mode is enabled since the minibuffer is cleared all the time."
 ARG is the universal-argument which chooses between the main and
 the secondary test runner. FUNCALIST is an alist of the function
 to be called for each testrunner. "
+  (when python-save-before-test
+      (save-buffer))
   (let* ((test-runner (if arg
                           (spacemacs//python-get-secondary-testrunner)
                         (spacemacs//python-get-main-testrunner)))
