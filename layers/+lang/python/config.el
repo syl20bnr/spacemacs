@@ -20,6 +20,9 @@
 (defvar python-test-runner 'nose
   "Test runner to use. Possible values are `nose' or `pytest'.")
 
+(defvar python-save-before-test t
+  "If non nil, current buffer will be save before call a test function")
+
 (defvar python-fill-column 79
   "Fill column value for python buffers")
 
