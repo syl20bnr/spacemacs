@@ -14,6 +14,12 @@
 
   ;; this is only applicable to GUI mode
   (when (display-graphic-p)
+    ;; Treat command as super
+    (setq mac-command-key-is-meta t)
+    (setq mac-command-modifier 'meta)
+    (setq mac-right-command-modifier 'meta)
+    (setq mac-option-modifier nil)
+    (setq ns-function-modifier 'super)
 
     ;; `Command' key is by default bound to HYPER (H-*),
     ;; `Option' key is by default bound to META (M-*).
@@ -64,6 +70,7 @@ other than the three sane values listed above."
         (when found (kbd (concat (cdr found) keys)))))
 
     ;; Keybindings
+    (global-set-key [kp-delete] 'delete-char)
     (global-set-key (kbd-mac-command "=") 'spacemacs/scale-up-font)
     (global-set-key (kbd-mac-command "-") 'spacemacs/scale-down-font)
     (global-set-key (kbd-mac-command "0") 'spacemacs/reset-font-size)
