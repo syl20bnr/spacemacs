@@ -447,6 +447,7 @@
 (defalias 'count-region 'count-words-region)
 
 (spacemacs/set-leader-keys
+  "xa%" 'spacemacs/align-repeat-percent
   "xa&" 'spacemacs/align-repeat-ampersand
   "xa(" 'spacemacs/align-repeat-left-paren
   "xa)" 'spacemacs/align-repeat-right-paren
