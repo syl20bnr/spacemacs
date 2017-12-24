@@ -19,6 +19,7 @@
         flycheck
         (flycheck-dmd-dub :requires flycheck)
         ggtags
+        counsel-gtags
         helm-gtags
         ))
 
@@ -54,6 +55,9 @@
 
 (defun d/post-init-ggtags ()
   (add-hook 'd-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun d/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'd-mode))
 
 (defun d/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'd-mode))

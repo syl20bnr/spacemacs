@@ -12,6 +12,8 @@
     - [[#quick-start-with-boot][Quick Start with boot]]
     - [[#quick-start-with-lein][Quick Start with lein]]
     - [[#more-details][More details]]
+- [[#usage][Usage]]
+  - [[#cheatsheet][Cheatsheet]]
 - [[#key-bindings][Key Bindings]]
   - [[#working-with-clojure-files-barfage-slurpage--more][Working with clojure files (barfage, slurpage & more)]]
   - [[#leader][Leader]]
@@ -45,6 +47,7 @@ This layer adds support for [[https://clojure.org/][Clojure]] language using [[h
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
 - Debugging with [[https://bpiel.github.io/sayid/][sayid]]
+- Clojure cheatsheet
 
 * Install
 ** Layer
@@ -115,6 +118,15 @@ More info regarding installation of nREPL middleware can be found here:
 - CIDER: [[https://github.com/clojure-emacs/cider#installation][cider_install]]
 - clj-refactor: [[https://github.com/clojure-emacs/refactor-nrepl][refactor-nrepl]]
 
+* Usage
+** Cheatsheet
+This layers installs the [[https://github.com/clojure-emacs/clojure-cheatsheet][clojure-cheathseet]] package which embeds this useful
+[[https://clojure.org/api/cheatsheet][cheatsheet]] into Emacs.
+
+Type ~SPC m h c~ to display the cheatsheet then type in some terms (space
+separated) to narrow down the list. For example, try typing in sort map to see
+some functions that deal with sorting maps.
+
 * Key Bindings
 ** Working with clojure files (barfage, slurpage & more)
 Spacemacs comes with a special =lisp-state= for working with lisp code that
@@ -127,13 +139,14 @@ As this state works the same for all files, the documentation is in global
 ** Leader
 *** Documentation
 
-| Key Binding | Description     |
-|-------------+-----------------|
-| ~SPC m h a~ | cider apropos   |
-| ~SPC m h g~ | cider grimoire  |
-| ~SPC m h h~ | cider doc       |
-| ~SPC m h j~ | cider javadoc   |
-| ~SPC m h n~ | cider browse ns |
+| Key Binding | Description        |
+|-------------+--------------------|
+| ~SPC m h a~ | cider apropos      |
+| ~SPC m h c~ | clojure cheatsheet |
+| ~SPC m h g~ | cider grimoire     |
+| ~SPC m h h~ | cider doc          |
+| ~SPC m h j~ | cider javadoc      |
+| ~SPC m h n~ | cider browse ns    |
 
 *** Evaluation
 

@@ -15,7 +15,8 @@
   (cond
    ((string= "S" ess-language) (call-interactively 'R))
    ((string= "STA" ess-language) (call-interactively 'stata))
-   ((string= "SAS" ess-language) (call-interactively 'SAS))))
+   ((string= "SAS" ess-language) (call-interactively 'SAS))
+   ((string= "julia" ess-language) (call-interactively 'julia))))
 
 (defun spacemacs//ess-fix-read-only-inferior-ess-mode ()
   "Fixes a bug when `comint-prompt-read-only' in non-nil.

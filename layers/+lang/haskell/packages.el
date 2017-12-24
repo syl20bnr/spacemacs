@@ -21,6 +21,7 @@
     ghc
     haskell-mode
     haskell-snippets
+    counsel-gtags
     helm-gtags
     (helm-hoogle :requires helm)
     hindent
@@ -258,6 +259,9 @@
       (yas-load-directory snip-dir)))
 
   (with-eval-after-load 'yasnippet (haskell-snippets-initialize)))
+
+(defun haskell/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'haskell-mode))
 
 (defun haskell/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'haskell-mode))

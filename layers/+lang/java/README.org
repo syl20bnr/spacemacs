@@ -19,7 +19,8 @@
     - [[#configuration][Configuration]]
     - [[#usage][Usage]]
   - [[#ensime][ENSIME]]
-    - [[#installation-2][Installation]]
+    - [[#installation-when-using-sbt][Installation when using SBT]]
+    - [[#installation-when-using-gradle][Installation when using Gradle]]
     - [[#configuration-1][Configuration]]
     - [[#usage-1][Usage]]
     - [[#issues][Issues]]
@@ -36,7 +37,6 @@
       - [[#ant][Ant]]
       - [[#project-management][Project management]]
       - [[#eclim-daemon][Eclim daemon]]
-      - [[#maven][Maven]]
       - [[#goto][Goto]]
       - [[#refactoring-1][Refactoring]]
       - [[#documentation-find][Documentation, Find]]
@@ -58,6 +58,8 @@
     - [[#refactoring-2][Refactoring]]
     - [[#tests-1][Tests]]
     - [[#repl][REPL]]
+  - [[#maven][Maven]]
+  - [[#gradle][Gradle]]
 
 * Description
 This layer adds support for the Java language.
@@ -194,12 +196,16 @@ Another backend option is the ENSIME server, which is a lot more responsive than
 Eclim. ENSIME is originally made to work with Scala but it now works with plain
 Java projects as well.
 
-*** Installation
+*** Installation when using SBT
 Find it with your favourite package manager, eg:
 #+BEGIN_SRC shell
   nix-env --install sbt
 #+END_SRC
 or refer to [[http://www.scala-sbt.org/download.html][the sbt installation instructions]].
+
+*** Installation when using Gradle
+Refer to the [[https://ensime.org/build_tools/gradle/][Ensime installation instructions]] to install the =ensime-gradle=
+plugin.
 
 *** Configuration
 Follow [[https://ensime.github.io/build_tools/sbt/][the ENSIME configuration instructions]]. Spacemacs uses
@@ -309,17 +315,6 @@ particular refactoring doesn't work.
  |-------------+--------------|
  | ~SPC m D k~ | Kill daemon  |
  | ~SPC m D s~ | Start daemon |
-
-**** Maven
-
- | Key Binding | Description                    |
- |-------------+--------------------------------|
- | ~SPC m m i~ | Run maven clean install        |
- | ~SPC m m I~ | Run maven install              |
- | ~SPC m m p~ | Run one already goal from list |
- | ~SPC m m r~ | Run maven goals                |
- | ~SPC m m R~ | Run one maven goal             |
- | ~SPC m m t~ | Run maven test                 |
 
 **** Goto
 
@@ -530,3 +525,30 @@ particular refactoring doesn't work.
 | ~SPC m s i~ | start or switch to the REPL inferior process                        |
 | ~SPC m s r~ | send region to the REPL                                             |
 | ~SPC m s R~ | send region to the REPL and focus the REPL buffer in =insert state= |
+
+** Maven
+
+| Key Binding     | Description                                          |
+|-----------------+------------------------------------------------------|
+| ~SPC m m c c~   | Compile                                              |
+| ~SPC m m c C~   | Clean                                                |
+| ~SPC m m c r~   | Clean and compile                                    |
+| ~SPC m m g a~   | Switch between class and test file                   |
+| ~SPC m m g A~   | Switch between class and test file in another window |
+| ~SPC m m t a~   | Run all tests                                        |
+| ~SPC m m t C-a~ | Clean and run all tests                              |
+| ~SPC m m t b~   | Run current buffer tests                             |
+| ~SPC m m t i~   | Test and install                                     |
+| ~SPC m m t t~   | Run a specific test                                  |
+
+** Gradle
+
+| Key Binding   | Description              |
+|---------------+--------------------------|
+| ~SPC m l c c~ | Compile                  |
+| ~SPC m l c C~ | Clean                    |
+| ~SPC m l c r~ | Clean and compile        |
+| ~SPC m l t a~ | Run all tests            |
+| ~SPC m l t b~ | Run current buffer tests |
+| ~SPC m l t t~ | Run a specific test      |
+| ~SPC m l x~   | Execute a Gradle task    |

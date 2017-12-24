@@ -14,11 +14,13 @@
         cider
         cider-eval-sexp-fu
         clj-refactor
+        clojure-cheatsheet
         clojure-mode
         (clojure-snippets :toggle (configuration-layer/layer-used-p 'auto-completion))
         company
         eldoc
         ggtags
+        counsel-gtags
         helm-gtags
         org
         parinfer
@@ -46,7 +48,12 @@
                    spacemacs-jump-handlers-clojurescript-mode
                    spacemacs-jump-handlers-clojurex-mode
                    spacemacs-jump-handlers-cider-repl-mode))
-        (add-to-list x 'cider-find-var))
+        (add-to-list x 'spacemacs/clj-find-var))
+
+      (add-hook 'clojure-mode-hook #'spacemacs//init-jump-handlers-clojure-mode)
+      (add-hook 'clojurescript-mode-hook #'spacemacs//init-jump-handlers-clojurescript-mode)
+      (add-hook 'clojurec-mode-hook #'spacemacs//init-jump-handlers-clojurec-mode)
+      (add-hook 'cider-repl-mode-hook #'spacemacs//init-jump-handlers-cider-repl-mode)
 
       ;; TODO: having this work for cider-macroexpansion-mode would be nice,
       ;;       but the problem is that it uses clojure-mode as its major-mode
@@ -75,6 +82,7 @@
             "hg" 'cider-grimoire
             "hj" 'cider-javadoc
             "hn" 'cider-browse-ns
+            "hc" 'clojure-cheatsheet
 
             "e;" 'cider-eval-defun-to-comment
             "eb" 'cider-eval-buffer
@@ -188,7 +196,8 @@
       (evilified-state-evilify cider-inspector-mode cider-inspector-mode-map
         (kbd "L") 'cider-inspector-pop
         (kbd "n") 'cider-inspector-next-page
-        (kbd "N") 'cider-inspector-previous-page
+        (kbd "N") 'cider-inspector-prev-page
+        (kbd "p") 'cider-inspector-prev-page
         (kbd "r") 'cider-inspector-refresh)
 
       (evilified-state-evilify cider-test-report-mode cider-test-report-mode-map
@@ -261,6 +270,25 @@
                 (spacemacs/set-leader-keys-for-major-mode m
                   (concat "r" binding) func)))))))))
 
+(defun clojure/init-clojure-cheatsheet ()
+  (use-package clojure-cheatsheet
+    :defer t
+    :init
+    (progn
+      (setq sayid--key-binding-prefixes
+            '(("mhc" . "clojure-cheatsheet")))
+      (dolist (m '(clojure-mode
+                   clojurec-mode
+                   clojurescript-mode
+                   clojurex-mode
+                   cider-repl-mode
+                   cider-clojure-interaction-mode))
+        (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
+                            m (car x) (cdr x)))
+              sayid--key-binding-prefixes)
+        (spacemacs/set-leader-keys-for-major-mode m
+          "hc" 'clojure-cheatsheet)))))
+
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
     :defer t
@@ -310,6 +338,9 @@
 
 (defun clojure/post-init-ggtags ()
   (add-hook 'clojure-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun clojure/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'clojure-mode))
 
 (defun clojure/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'clojure-mode))

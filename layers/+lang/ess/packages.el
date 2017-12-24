@@ -73,43 +73,47 @@
     (when ess-disable-underscore-assign
       (ess-toggle-underscore nil))
 
-    (spacemacs/set-leader-keys-for-major-mode 'ess-julia-mode
-      "'"  'julia
-      "si" 'julia)
-    (spacemacs/set-leader-keys-for-major-mode 'ess-mode
-      ","  'ess-eval-region-or-function-or-paragraph-and-step
-      "'"  'spacemacs/ess-start-repl
-      "si" 'spacemacs/ess-start-repl
-      "ss" 'ess-switch-to-inferior-or-script-buffer
-      "sS" 'ess-switch-process
-      ;; REPL
-      "sb" 'ess-eval-buffer-and-go
-      "eb" 'ess-eval-buffer
-      "sd" 'ess-eval-region-or-line-and-step
-      "sD" 'ess-eval-function-or-paragraph-and-step
-      "sl" 'ess-eval-line-and-go
-      "el" 'ess-eval-line
-      "sr" 'ess-eval-region-and-go
-      "er" 'ess-eval-region
-      "sf" 'ess-eval-function-and-go
-      "ef" 'ess-eval-function
-      ;; ESS doc map
-      "h" 'ess-doc-map
-      "hh" 'ess-display-help-on-object
-      ;; R helpers
-      "hp" 'ess-R-dv-pprint
-      "ht" 'ess-R-dv-ctable
-      "r" 'ess-extra-map
-      "w" 'ess-r-package-dev-map
-      "d" 'ess-dev-map
-      ;; noweb
-      "cC" 'ess-eval-chunk-and-go
-      "cc" 'ess-eval-chunk
-      "cd" 'ess-eval-chunk-and-step
-      "cm" 'ess-noweb-mark-chunk
-      "cN" 'ess-noweb-previous-chunk
-      "cn" 'ess-noweb-next-chunk
-      )
+    (define-key ess-doc-map "h" 'ess-display-help-on-object)
+    (define-key ess-doc-map "p" 'ess-R-dv-pprint)
+    (define-key ess-doc-map "t" 'ess-R-dv-ctable)
+    (dolist (mode '(ess-julia-mode ess-mode))
+      (spacemacs/declare-prefix-for-mode mode "ms" "repl")
+      (spacemacs/declare-prefix-for-mode mode "me" "eval")
+      (spacemacs/declare-prefix-for-mode mode "mh" "help")
+      (spacemacs/declare-prefix-for-mode mode "mr" "extra")
+      (spacemacs/declare-prefix-for-mode mode "mw" "pkg")
+      (spacemacs/declare-prefix-for-mode mode "md" "dev")
+      (spacemacs/declare-prefix-for-mode mode "mc" "noweb")
+      (spacemacs/set-leader-keys-for-major-mode
+        mode
+        ","  'ess-eval-region-or-function-or-paragraph-and-step
+        "'"  'spacemacs/ess-start-repl
+        "si" 'spacemacs/ess-start-repl
+        "ss" 'ess-switch-to-inferior-or-script-buffer
+        "sS" 'ess-switch-process
+        ;; REPL
+        "sb" 'ess-eval-buffer-and-go
+        "eb" 'ess-eval-buffer
+        "sd" 'ess-eval-region-or-line-and-step
+        "sD" 'ess-eval-function-or-paragraph-and-step
+        "sl" 'ess-eval-line-and-go
+        "el" 'ess-eval-line
+        "sr" 'ess-eval-region-and-go
+        "er" 'ess-eval-region
+        "sf" 'ess-eval-function-and-go
+        "ef" 'ess-eval-function
+        ;; predefined keymaps
+        "h" 'ess-doc-map
+        "r" 'ess-extra-map
+        "w" 'ess-r-package-dev-map
+        "d" 'ess-dev-map
+        ;; noweb
+        "cC" 'ess-eval-chunk-and-go
+        "cc" 'ess-eval-chunk
+        "cd" 'ess-eval-chunk-and-step
+        "cm" 'ess-noweb-mark-chunk
+        "cN" 'ess-noweb-previous-chunk
+        "cn" 'ess-noweb-next-chunk))
     (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
     (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
     (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input)))

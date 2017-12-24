@@ -10,7 +10,7 @@
   - [[#repl][REPL]]
 
 * Description
-This layer supports [[http://www.groovy-lang.org/][groovy]] development in Spacemacs.
+This layer supports [[http://www.groovy-lang.org/][Groovy]] development in Spacemacs.
 
 ** Features:
 - Basic dabbrev auto-completion with company

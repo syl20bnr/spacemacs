@@ -216,10 +216,9 @@
     (progn
       (global-evil-search-highlight-persist)
       ;; (set-face-attribute )
-      (spacemacs/set-leader-keys "sc" 'spacemacs/evil-search-clear-highlight)
       (define-key evil-search-highlight-persist-map (kbd "C-x SPC") 'rectangle-mark-mode)
-      (evil-ex-define-cmd "nohlsearch"
-                          'evil-search-highlight-persist-remove-all)
+      (spacemacs/set-leader-keys "sc" 'spacemacs/evil-search-clear-highlight)
+      (evil-ex-define-cmd "nohlsearch" 'spacemacs/evil-search-clear-highlight)
       (spacemacs//adaptive-evil-highlight-persist-face)
       (add-hook 'spacemacs-post-theme-change-hook 'spacemacs//adaptive-evil-highlight-persist-face))))
 

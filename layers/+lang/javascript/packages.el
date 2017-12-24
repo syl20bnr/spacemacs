@@ -18,6 +18,7 @@
         evil-matchit
         flycheck
         ggtags
+        counsel-gtags
         helm-gtags
         impatient-mode
         js-doc
@@ -81,6 +82,9 @@
 
 (defun javascript/post-init-ggtags ()
   (add-hook 'js2-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun javascript/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'js2-mode))
 
 (defun javascript/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'js2-mode))

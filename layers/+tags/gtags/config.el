@@ -12,6 +12,11 @@
 (defvar gtags-enable-by-default t
   "Whether or not to enable ggtags-mode.")
 
+(defvar spacemacs--counsel-gtags-dwim-success nil
+  "Stores the return value of `counsel-gtags-dwim' so it can be
+  passed to the jump handler. This is needed because `buffer' and
+  `point' are not updated after jumping.")
+
 (spacemacs|define-jump-handlers tcl-mode)
 (spacemacs|define-jump-handlers vhdl-mode)
 (spacemacs|define-jump-handlers awk-mode)

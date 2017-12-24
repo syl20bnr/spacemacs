@@ -35,7 +35,8 @@ version (Stable). Please add the following lines to =dotspacemacs/user-init=:
 and project-wide type-checking.
 
 ENSIME requires a configuration file at the root of each Scala project. It
-provides an SBT plugin to generate these files.
+provides an SBT plugin, a gradle plugin and others (see [[http://ensime.org/build_tools/][ensime.org]] for a full
+list) to generate these files.
 
 Installation instructions and usage can be found in the =Java= layer
 [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Blang/java/README.org#ensime][README.org]].
