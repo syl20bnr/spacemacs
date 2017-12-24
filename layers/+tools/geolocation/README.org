@@ -2,26 +2,25 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#supported-packages-in-this-layer][Supported packages in this layer]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#location][Location]]
-  - [[#osx-location][osx-location]]
-  - [[#theme-changer][theme-changer]]
-  - [[#sunshine-weather-forecast][sunshine (weather forecast)]]
+  - [[#osx-location][OSX-location]]
+  - [[#theme-changer][Theme-changer]]
+  - [[#sunshine-weather-forecast][Sunshine (weather forecast)]]
 - [[#key-bindings][Key Bindings]]
   - [[#weather][Weather]]
 
 * Description
-This layer offers few location sensitive adjustment to Emacs, such as
-automatically switching between light (day) and dark (night) themes, weather
-forecast and on OS X, also automatic tracking of location, using OS X's
-CoreLocation services.
+This layer offers location sensitive adjustments to Emacs.
 
-** Supported packages in this layer
-- [[https://github.com/aaronbieber/sunshine.el/blob/master/sunshine.el][sunshine]]
-- [[https://github.com/purcell/osx-location][osx-location]]
-- [[https://github.com/hadronzoo/theme-changer][theme-changer]]
+** Features:
+- Supports the following adjustments:
+  - Automatic switching between light (day) and dark (night) themes via [[https://github.com/hadronzoo/theme-changer][theme-changer]]
+  - Local weather forecast via [[https://github.com/aaronbieber/sunshine.el/blob/master/sunshine.el][sunshine]]
+  - Integration with OS X's CoreLocation service via [[https://github.com/purcell/osx-location][osx-location]]
+  - Manual location setting via variables in your dotfile
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -40,8 +39,7 @@ something like this:
 
 * Configuration
 ** Location
-Set location manually by setting the following variables to the
-=dotspacemacs/user-config= function of your dotfile:
+Set location manually by setting the following variables in your dotfile:
 
 #+BEGIN_SRC emacs-lisp
   (setq calendar-location-name "Barcelona, Spain"
@@ -49,7 +47,7 @@ Set location manually by setting the following variables to the
         calendar-longitude 1.80)
 #+END_SRC
 
-** osx-location
+** OSX-location
 Mac users can take adavantage of automatic geogrphical discovery using the OS'
 CoreLocation system service, implemented as a long running background process.
 In order to enable it, set =geolocation-enable-location-service= to =t= as
@@ -60,7 +58,7 @@ activated.
 
 [[file:img/emacs-location-helper.jpg]]
 
-** theme-changer
+** Theme-changer
 This layer implement a simple "theme changer" which, when enabled, will switch
 between first two themes the user has setup in ~dotspacemacs-themes~. First
 theme listed will be used as light variant, while the second as the the dark.
@@ -69,7 +67,7 @@ cycling, etc.
 
 Note that =theme-changer= *requires* location to be set.
 
-** sunshine (weather forecast)
+** Sunshine (weather forecast)
 Sunshine display local weather forecast.
 
 Setup [[https://home.openweathermap.org/users/sign_in][OpenWeatherMap]] API key. Set ~sunshine-appid~ to some hash string from the

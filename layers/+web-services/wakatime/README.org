@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#wakatime-program][Wakatime Program]]
   - [[#layer][Layer]]
@@ -19,6 +20,9 @@ timer? WakaTime uses open-source text editor plugins to automatically track the
 time you spend programming so you never have to manually track it again!
 
 P.S. wakati means time in Swahili
+
+** Features:
+- Integration with Wakatime cloud based time tracking service
 
 * Install
 ** Wakatime Program
