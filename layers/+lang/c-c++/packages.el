@@ -253,7 +253,7 @@
     :if (or 'c-c++-enable-google-style 'c-c++-enable-google-newline)
     :config (progn
     (when 'c-c++-enable-google-style (add-hook 'c-mode-common-hook 'google-set-c-style))
-    (when 'c-c++-enable-google-newline (add-hook 'c-mode-common-hook 'google-set-c-style)))))
+    (when 'c-c++-enable-google-newline (add-hook 'c-mode-common-hook 'google-make-newline-indent)))))
 
 (defun c-c++/post-init-semantic ()
   (spacemacs/add-to-hooks 'semantic-mode c-c++-mode-hooks))
