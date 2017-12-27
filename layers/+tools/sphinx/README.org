@@ -4,6 +4,7 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#sphinx-target][Sphinx target]]
@@ -11,8 +12,13 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-The layer adds =Sphinx= support to Spacemacs. It will automatically also install
+The layer adds support for the documentation generation system =Sphinx= to
 the =restructuredtext= layer.
+
+** Features:
+- Support for =Sphinx= project compilation
+- Support for opening =Sphinx= project target
+- Support for opening =Sphinx= config file
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

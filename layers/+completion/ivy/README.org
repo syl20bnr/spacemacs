@@ -2,6 +2,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
 - [[#key-bindings][Key Bindings]]
@@ -16,6 +17,13 @@ used to manage buffers, projects, search results, configuration layers, toggles
 and more...
 
 Mastering your choice of completion system will make you a Spacemacs power user.
+
+** Features:
+- Project wide =grep= like text search via =search-auto=
+- Project wide text replacements using =counsel-imenu=
+- Buffer wide dynamic text search via =swiper=
+- Detailed configuration parameters for ivy appearance
+- Intuitive =transient state=
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

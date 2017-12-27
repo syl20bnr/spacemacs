@@ -22,6 +22,8 @@
     flycheck
     gdb-mi
     ggtags
+    counsel-gtags
+    google-c-style
     helm-cscope
     helm-gtags
     realgud
@@ -65,11 +67,18 @@
   (use-package clang-format
     :if c-c++-enable-clang-support
     :init
-    (when c-c++-enable-clang-format-on-save
-      (spacemacs/add-to-hooks 'spacemacs/clang-format-on-save c-c++-mode-hooks))))
+    (progn
+      (when c-c++-enable-clang-format-on-save
+        (spacemacs/add-to-hooks 'spacemacs/clang-format-on-save c-c++-mode-hooks))
+      (dolist (mode c-c++-modes)
+        (spacemacs/declare-prefix-for-mode mode "m=" "format")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "==" 'spacemacs/clang-format-region-or-buffer
+          "=f" 'spacemacs/clang-format-function)))))
 
 (defun c-c++/init-cmake-ide ()
-  (use-package cmake-ide)
+  (use-package cmake-ide
+    :if c-c++-enable-cmake-ide-support
     :config
     (progn
       (cmake-ide-setup)
@@ -78,7 +87,7 @@
           "cc" 'cmake-ide-compile
           "pc" 'cmake-ide-run-cmake
           "pC" 'cmake-ide-maybe-run-cmake
-          "pd" 'cmake-ide-delete-file))))
+          "pd" 'cmake-ide-delete-file)))))
 
 (defun c-c++/init-cmake-mode ()
   (use-package cmake-mode
@@ -90,6 +99,8 @@
   (when c-c++-enable-clang-support
     (spacemacs|add-company-backends :backends company-clang
       :modes c-mode-common)
+    (when c-c++-enable-c++11
+      (setq company-clang-arguments '("-std=c++11")))
     (setq company-clang-prefix-guesser 'spacemacs/company-more-than-prefix-guesser)
     (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)))
 
@@ -104,7 +115,9 @@
   (dolist (mode c-c++-modes)
     (spacemacs/enable-flycheck mode))
   (when c-c++-enable-clang-support
-    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)))
+    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)
+    (when c-c++-enable-c++11
+      (setq flycheck-clang-language-standard "c++11"))))
 
 (defun c-c++/post-init-ggtags ()
   (add-hook 'c-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
@@ -119,6 +132,10 @@
      gdb-many-windows t
      ;; Non-nil means display source file containing the main routine at startup
      gdb-show-main t)))
+
+(defun c-c++/post-init-counsel-gtags ()
+  (dolist (mode c-c++-modes)
+    (spacemacs/counsel-gtags-define-keys-for-mode mode)))
 
 (defun c-c++/post-init-helm-gtags ()
   (dolist (mode c-c++-modes)
@@ -150,6 +167,13 @@
         "r" 'realgud:cmd-restart
         "q" 'realgud:cmd-quit
         "S" 'realgud-window-cmd-undisturb-src))))
+
+(defun c-c++/init-google-c-style ()
+  (use-package google-c-style
+    :if (or 'c-c++-enable-google-style 'c-c++-enable-google-newline)
+    :config (progn
+    (when 'c-c++-enable-google-style (add-hook 'c-mode-common-hook 'google-set-c-style))
+    (when 'c-c++-enable-google-newline (add-hook 'c-mode-common-hook 'google-set-c-style)))))
 
 (defun c-c++/post-init-semantic ()
   (spacemacs/add-to-hooks 'semantic-mode c-c++-mode-hooks))

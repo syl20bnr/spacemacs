@@ -18,6 +18,7 @@
         evil-matchit
         flycheck
         ggtags
+        counsel-gtags
         helm-gtags
         minitest
         org
@@ -86,6 +87,9 @@
 
 (defun ruby/post-init-ggtags ()
   (add-hook 'ruby-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun ruby/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'ruby-mode))
 
 (defun ruby/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'ruby-mode))

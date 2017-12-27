@@ -23,9 +23,12 @@
         flyspell
         ggtags
         gradle-mode
+        counsel-gtags
         helm-gtags
         (java-mode :location built-in)
+        maven-test-mode
         (meghanada :toggle (not (version< emacs-version "25.1")))
+        mvn
         ))
 
 (defun java/post-init-company ()
@@ -64,7 +67,6 @@
                         ("mg" . "goto")
                         ("mh" . "help/doc")
                         ("mi" . "issues")
-                        ("mm" . "maven")
                         ("mp" . "project")
                         ("mr" . "refactor")
                         ("mt" . "test")))
@@ -90,13 +92,6 @@
         "hh" 'eclim-java-show-documentation-for-current-element
         "hi" 'eclim-java-hierarchy
         "hu" 'eclim-java-find-references
-        ;; maven
-        "mi" 'spacemacs/java-maven-clean-install
-        "mI" 'spacemacs/java-maven-install
-        "mp" 'eclim-maven-lifecycle-phases
-        "mr" 'eclim-maven-run
-        "mR" 'eclim-maven-lifecycle-phase-run
-        "mt" 'spacemacs/java-maven-test
         ;; project
         "pb" 'eclim-project-build
         "pc" 'eclim-project-create
@@ -323,7 +318,33 @@
 
 (defun java/init-gradle-mode ()
   (use-package gradle-mode
-    :defer t))
+    :defer t
+    :init
+    (progn
+      (when (configuration-layer/package-used-p 'groovy-mode)
+        (add-hook 'groovy-mode-hook 'gradle-mode)
+        (spacemacs/declare-prefix-for-mode 'groovy-mode "ml" "gradle")
+        (spacemacs/declare-prefix-for-mode 'groovy-mode "mc" "compile")
+        (spacemacs/declare-prefix-for-mode 'groovy-mode "mlt" "tests"))
+      (when (configuration-layer/package-used-p 'java-mode)
+        (add-hook 'java-mode-hook 'gradle-mode)
+        (spacemacs/declare-prefix-for-mode 'java-mode "ml" "gradle")
+        (spacemacs/declare-prefix-for-mode 'groovy-mode "mc" "compile")
+        (spacemacs/declare-prefix-for-mode 'java-mode "mlt" "tests")))
+    :config
+    (progn
+      (spacemacs|hide-lighter gradle-mode)
+      (spacemacs/set-leader-keys-for-minor-mode 'gradle-mode
+        "lcc" 'gradle-build
+        "lcC" 'spacemacs/gradle-clean
+        "lcr" 'spacemacs/gradle-clean-build
+        "lta" 'gradle-test
+        "ltb" 'spacemacs/gradle-test-buffer
+        "ltt" 'gradle-single-test
+        "lx" 'gradle-execute))))
+
+(defun java/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'java-mode))
 
 (defun java/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'java-mode))
@@ -336,6 +357,27 @@
       (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-backend)
       (put 'java-backend 'safe-local-variable 'symbolp)
       (spacemacs//java-define-command-prefixes))))
+
+(defun java/init-maven-test-mode ()
+  (use-package maven-test-mode
+    :defer t
+    :init
+    (when (configuration-layer/package-used-p 'java-mode)
+      (add-hook 'java-mode-hook 'maven-test-mode)
+      (spacemacs/declare-prefix-for-mode 'java-mode "mm" "maven")
+      (spacemacs/declare-prefix-for-mode 'java-mode "mmg" "goto")
+      (spacemacs/declare-prefix-for-mode 'java-mode "mmt" "tests"))
+    :config
+    (progn
+      (spacemacs|hide-lighter maven-test-mode)
+      (spacemacs/set-leader-keys-for-minor-mode 'maven-test-mode
+        "mga"  'maven-test-toggle-between-test-and-class
+        "mgA"  'maven-test-toggle-between-test-and-class-other-window
+        "mta"   'maven-test-all
+        "mtC-a" 'maven-test-clean-test-all
+        "mtb"   'maven-test-file
+        "mti"   'maven-test-install
+        "mtt"   'maven-test-method))))
 
 (defun java/init-meghanada ()
   (use-package meghanada
@@ -389,3 +431,15 @@
         ;; meghanada-local-variable
 
         "x:" 'meghanada-run-task))))
+
+(defun java/init-mvn ()
+  (use-package mvn
+    :defer t
+    :init
+    (when (configuration-layer/package-used-p 'java-mode)
+      (spacemacs/declare-prefix-for-mode 'java-mode "mm" "maven")
+      (spacemacs/declare-prefix-for-mode 'java-mode "mmc" "compile")
+      (spacemacs/set-leader-keys-for-major-mode 'java-mode
+        "mcc" 'mvn-compile
+        "mcC" 'mvn-clean
+        "mcr" 'spacemacs/mvn-clean-compile))))

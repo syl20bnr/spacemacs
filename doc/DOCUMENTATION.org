@@ -1175,7 +1175,7 @@ Disable line numbers in dired-mode, doc-view-mode, markdown-mode, org-mode,
 pdf-view-mode, text-mode as well as buffers over 1Mb:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-lines-numbers '(:relative nil
+(setq-default dotspacemacs-line-numbers '(:relative nil
                                            :disabled-for-modes dired-mode
                                                                doc-view-mode
                                                                markdown-mode
@@ -1188,7 +1188,7 @@ pdf-view-mode, text-mode as well as buffers over 1Mb:
 Relative line numbers only in c-mode and c++ mode with a size limit of =dotspacemacs-large-file-size=:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-lines-numbers '(:relative t
+(setq-default dotspacemacs-line-numbers '(:relative t
                                            :enabled-for-modes c-mode
                                                               c++-mode
                                            :size-limit-kb (* dotspacemacs-large-file-size 1000))
@@ -1197,14 +1197,14 @@ Relative line numbers only in c-mode and c++ mode with a size limit of =dotspace
 Enable line numbers everywhere, except for buffers over 1Mb:
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-lines-numbers '(:relative nil
+  (setq-default dotspacemacs-line-numbers '(:relative nil
                                              :size-limit-kb 1000))
 #+END_SRC
 
 Enable line numbers only in programming modes, except for c-mode and c++ mode:
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-lines-numbers '(:relative nil
+  (setq-default dotspacemacs-line-numbers '(:relative nil
                                              :enabled-for-modes prog-mode
                                              :disabled-for-modes c-mode c++-mode
                                              :size-limit-kb (* dotspacemacs-large-file-size 1000))
@@ -1347,6 +1347,7 @@ can be reached using the =control= key.
 | ~SPC t E h~ | =Ⓔh=    | Eh    | hybrid editing style (hybrid mode)                                   |
 | ~SPC t f~   | =ⓕ=     | f     | fill-column-indicator mode                                           |
 | ~SPC t F~   | =Ⓕ=     | F     | auto-fill mode                                                       |
+| ~SPC t G~   | =Ⓖ=     | G     | [[http://spacemacs.org/layers/+tags/gtags/README.html][ggtags]] mode                                                          |
 | ~SPC t g~   | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                                                    |
 | ~SPC t h i~ | =ⓗi=    | hi    | toggle highlight indentation levels                                  |
 | ~SPC t h c~ | =ⓗc=    | hc    | toggle highlight indentation current column                          |

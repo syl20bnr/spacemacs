@@ -1,3 +1,22 @@
+(defun spacemacs/notmuch-inbox-p (saved-search-property-item)
+  (string-equal (plist-get saved-search-property-item :name) "inbox"))
+
+(defun spacemacs/notmuch-inbox ()
+  (interactive)
+  (notmuch-search (plist-get (nth 0
+                                  (-filter 'spacemacs/notmuch-inbox-p notmuch-saved-searches))
+                             :query)))
+
+(defun spacemacs/notmuch-search-archive-thread-down ()
+  (interactive)
+  (notmuch-search-archive-thread))
+
+(defun spacemacs/notmuch-search-archive-thread-up ()
+  (interactive)
+  (notmuch-search-archive-thread)
+  (notmuch-search-previous-thread)
+  (notmuch-search-previous-thread))
+
 (defun spacemacs/notmuch-message-delete (go-next)
   (interactive)
   (notmuch-search-tag '("+deleted" "-inbox" "-unread"))
@@ -19,26 +38,40 @@
   (setq current-prefix-arg '(4))
   (call-interactively 'notmuch-show-open-or-close-all))
 
-(defun spacemacs/notmuch-trash (&optional beg end)
-  "trash by removing inbox and adding trash"
-  (interactive (notmuch-search-interactive-region))
-  (notmuch-search-tag (list "-inbox" "+trash")
-                      beg
-                      end)
-  (when (eq beg end)
-    (notmuch-search-next-thread)))
 
-(defun spacemacs/notmuch-trash-show ()
-  "trash shown msg by removing inbox and adding trash"
+;; Thanks to Kyle Meyer (@kyleam)
+(defun spacemacs/notmuch-open-github-patch (buffer)
+  "Find GitHub patch link in BUFFER and show it in a new buffer."
+  (let ((url
+         (with-current-buffer buffer
+           (save-excursion
+             (goto-char (point-min))
+             (if (re-search-forward "https://github.com/.*\\.patch" nil t)
+                 (match-string-no-properties 0)
+               (user-error "No patch found"))))))
+    (with-current-buffer (get-buffer-create
+                          (generate-new-buffer-name "*mail-github-patch*"))
+
+      (condition-case exception
+          (url-insert-file-contents url)
+        ('file-error
+         ;; In case the link is private repository github will respond with a
+         ;; temporary redirect 302 HTTP code and calculate the request-token
+         ;; with javascript. In this case open diff in browser
+         (browse-url url)))
+
+      (diff-mode)
+      (view-mode 1)
+      (pop-to-buffer (current-buffer)))))
+
+(defun spacemacs/notmuch-show-open-github-patch ()
+  "Open patch from GitHub email."
   (interactive)
-  (notmuch-show-add-tag (list "-inbox" "+trash"))
-  (unless (notmuch-show-next-open-message)
-    (defun spacemacs/compose-mail-other-frame ()
-      "create a new frame for the mail composition"
-      (compose-mail-other-frame))
-    (notmuch-show-next-thread t)))
+  (with-current-notmuch-show-message
+   (spacemacs/notmuch-open-github-patch (current-buffer))))
 
-
+
+
 ;;;;;;;;;
 ;; git ;;
 ;;;;;;;;;

@@ -13,6 +13,7 @@
       '(
         fsharp-mode
         ggtags
+        counsel-gtags
         helm-gtags
         ))
 
@@ -79,6 +80,9 @@
 
 (defun fsharp/post-init-ggtags ()
   (add-hook 'fsharp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun fsharp/post-init-counsel-gtags ()
+  (spacemacs/counsel-gtags-define-keys-for-mode 'fsharp-mode))
 
 (defun fsharp/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'fsharp-mode))

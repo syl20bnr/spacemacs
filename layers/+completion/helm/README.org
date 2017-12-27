@@ -4,6 +4,7 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#alternative-layers][Alternative layers]]
 - [[#configuration][Configuration]]
@@ -32,6 +33,14 @@ used to manage buffers, projects, search results, configuration layers, toggles
 and more...
 
 Mastering your choice of completion system will make you a Spacemacs power user.
+
+** Features:
+- Project wide =grep= like text search via =helm-dir-smart-do-search=
+- Project wide text replacements using =helm-edit-mode=
+- Buffer wide dynamic text search via =helm-swoop=
+- Fuzzy matching for most =helm-sources=
+- Detailed configuration parameters for helms appearance
+- Intuitive =transient state=
 
 * Install
 Helm is part of the standard distribution of Spacemacs so you don't have to do

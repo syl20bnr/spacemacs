@@ -9,7 +9,10 @@
 - [[#auto-compile][Auto-compile]]
 - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
 - [[#debugging-elisp][Debugging Elisp]]
+- [[#nameless][Nameless]]
+  - [[#aliases][Aliases]]
 - [[#key-bindings][Key bindings]]
+  - [[#additional-testing-functions-with-overseer][Additional testing functions with overseer]]
   - [[#additional-evaluation-functions][Additional evaluation functions]]
   - [[#format-code][Format code]]
   - [[#debugging][Debugging]]
@@ -25,6 +28,8 @@ always be in your dotfile, it is not recommended to uninstall it.
 - Support for specific lisp navigation styles via =emacs-lisp-mode=
 - Auto-compile via [[https://github.com/tarsius/auto-compile][auto-compile]] package
 - Debuggin via [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Edebug.html#Edebug][edebug]]
+- Ert test runner with [[https://github.com/tonini/overseer.el][overseer]]
+- Nameless package prefix with [[https://github.com/Malabarba/Nameless][nameless]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -93,6 +98,34 @@ function or press ~o~ to go out of it.
 
 7) Press ~a~ to stop debugging.
 
+* Nameless
+Nameless hides package namespaces in your emacs-lisp code, and replaces it by
+leading ~>~ It can be toggled with ~SPC m >~.
+
+To have it automatically on set the layer variable
+=emacs-lisp-hide-namespace-prefix= to =t=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (emacs-lisp :variables emacs-lisp-hide-namespace-prefix t)))
+#+END_SRC
+
+** Aliases
+This layer defines some global aliases for Spacemacs:
+
+| alias | namespace           |
+|-------+---------------------|
+| S     | spacemacs           |
+| SB    | spacemacs-buffer    |
+| CL    | configuration-layer |
+
+You can define additional alias in function =dotspacemacs/user-config= of your
+dotfile:
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'nameless-global-aliases '("N" . "nameless"))
+#+END_SRC
+
 * Key bindings
 
 | Key Binding                | Description                                            |
@@ -112,6 +145,22 @@ function or press ~o~ to go out of it.
 | ~SPC m t b~                | run tests of current buffer                            |
 | ~SPC m t q~                | run =ert=                                              |
 | ~SPC m d m~                | open [[https://github.com/joddie/macrostep][macrostep]] transient-state                         |
+| ~SPC m :~                  | toggle nameless minor mode                             |
+
+** Additional testing functions with overseer
+Function related to test are present under the ~SPC m t~ prefix:
+
+| Key Binding | Description   |
+|-------------+---------------|
+| ~SPC m t a~ | overseer test |
+| ~SPC m t A~ | test debug    |
+| ~SPC m t t~ | run test      |
+| ~SPC m t b~ | test buffer   |
+| ~SPC m t f~ | test file     |
+| ~SPC m t g~ | test tags     |
+| ~SPC m t p~ | test prompt   |
+| ~SPC m t q~ | test quiet    |
+| ~SPC m t h~ | test help     |
 
 ** Additional evaluation functions
 If =smartparens= is used the following additional key bindings are available:

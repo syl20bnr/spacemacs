@@ -21,12 +21,14 @@
       - [[#pygments-languages-plus-symbol-and-reference-tags][Pygments languages (plus symbol and reference tags)]]
   - [[#eldoc-integration][Eldoc integration]]
 - [[#key-bindings][Key bindings]]
+  - [[#helm][Helm]]
+  - [[#ivy][Ivy]]
 
 * Description
-=helm-gtags= and =ggtags= are clients for GNU Global. GNU Global is a source
-code tagging system that allows querying symbol locations in source code, such
-as definitions or references. Adding the =gtags= layer enables both of these
-modes.
+=counsel-gtags=, =helm-gtags= and =ggtags= are clients for GNU Global. GNU
+Global is a source code tagging system that allows querying symbol locations in
+source code, such as definitions or references. Adding the =gtags= layer enables
+both of these modes.
 
 ** Features:
 - Select any tag in a project retrieved by gtags
@@ -151,9 +153,10 @@ additional control per project.
 Before using the =gtags=, remember to create a GTAGS database by the following
 methods:
 
-- From within Emacs, runs the command =helm-gtags-create-tags=, which is bound
-  to ~SPC m g c~. If the language is not directly supported by GNU Global, you
-  can choose =ctags= or =pygments= as a backend to generate tag database.
+- From within Emacs, run either =counsel-gtags-create-tags= or
+  =helm-gtags-create-tags=, which are bound to ~SPC m g c~. If the language is
+  not directly supported by GNU Global, you can choose =ctags= or =pygments= as
+  a backend to generate tag database.
 
 - From inside terminal, runs gtags at your project root in terminal:
 
@@ -251,6 +254,12 @@ the gtags commands.
 
 | Key Binding | Description                                               |
 |-------------+-----------------------------------------------------------|
+| ~g d~       | jump to the definitions or references of the selected tag |
+
+** Helm
+
+| Key Binding | Description                                               |
+|-------------+-----------------------------------------------------------|
 | ~SPC m g C~ | create a tag database                                     |
 | ~SPC m g f~ | jump to a file in tag database                            |
 | ~SPC m g g~ | jump to a location based on context                       |
@@ -266,3 +275,20 @@ the gtags commands.
 | ~SPC m g S~ | show stack of visited locations                           |
 | ~SPC m g y~ | find symbols                                              |
 | ~SPC m g u~ | manually update tag database                              |
+
+** Ivy
+=counsel-gtags= is currently missing a few minor features compared to
+=helm-gtags=.
+
+| Key Binding | Description                                    |
+|-------------+------------------------------------------------|
+| ~SPC m g C~ | create a tag database                          |
+| ~SPC m g f~ | jump to a file in tag database                 |
+| ~SPC m g g~ | jump to a location based on context            |
+| ~SPC m g d~ | find definitions                               |
+| ~SPC m g n~ | jump to next location in context stack         |
+| ~SPC m g p~ | jump to previous location in context stack     |
+| ~SPC m g r~ | find references                                |
+| ~SPC m g s~ | select any tag in a project retrieved by gtags |
+| ~SPC m g y~ | find symbols                                   |
+| ~SPC m g u~ | manually update tag database                   |
