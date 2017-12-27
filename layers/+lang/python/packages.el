@@ -59,7 +59,7 @@
         "gb" 'anaconda-mode-go-back
         "gu" 'anaconda-mode-find-references)
 
-      (evilified-state-evilify-map anaconda-mode-view-mode-map
+      (evilified-state-evilify-map anaconda-view-mode-map
         :mode anaconda-mode-view-mode
         :bindings
         (kbd "q") 'quit-window
