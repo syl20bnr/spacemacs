@@ -59,8 +59,8 @@
         "gb" 'anaconda-mode-go-back
         "gu" 'anaconda-mode-find-references)
 
-      (evilified-state-evilify-map anaconda-mode-view-mode-map
-        :mode anaconda-mode-view-mode
+      (evilified-state-evilify-map anaconda-view-mode-map
+        :mode anaconda-view-mode
         :bindings
         (kbd "q") 'quit-window
         (kbd "C-j") 'next-error-no-select
