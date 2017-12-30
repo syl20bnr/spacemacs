@@ -97,8 +97,8 @@
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'cython-mode
-        "hh" 'anaconda-mode-view-doc
-        "gu" 'anaconda-mode-usages))))
+        "hh" 'anaconda-mode-show-doc
+        "gu" 'anaconda-mode-find-references))))
 
 (defun python/post-init-eldoc ()
   (add-hook 'python-mode-hook 'spacemacs//init-eldoc-python-mode))
