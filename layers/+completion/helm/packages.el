@@ -139,7 +139,10 @@
       (with-eval-after-load 'helm-bookmark
         (simpler-helm-bookmark-keybindings))
       (with-eval-after-load 'helm-mode ; required
-        (spacemacs|hide-lighter helm-mode)))))
+        (spacemacs|hide-lighter helm-mode))
+      (define-key helm-buffer-map (kbd "RET") 'spacemacs/helm-find-buffers-windows)
+      (define-key helm-generic-files-map (kbd "RET") 'spacemacs/helm-find-files-windows)
+      (define-key helm-find-files-map (kbd "RET") 'spacemacs/helm-find-files-windows))))
 
 (defun helm/init-helm-ag ()
   (use-package helm-ag
@@ -638,7 +641,9 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
             "ph"  'helm-projectile
             "pp"  'helm-projectile-switch-project
             "pr"  'helm-projectile-recentf
-            "sgp" 'helm-projectile-grep))))))
+            "sgp" 'helm-projectile-grep))))
+    :config
+    (define-key helm-projectile-find-file-map (kbd "RET") 'spacemacs/helm-find-files-windows)))
 
 (defun helm/init-helm-spacemacs-help ()
   (use-package helm-spacemacs-help
@@ -718,4 +723,3 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
 (defun helm/post-init-projectile ()
   (setq projectile-completion-system 'helm))
-
