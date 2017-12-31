@@ -6,8 +6,8 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-    - [[#layer][Layer]]
-    - [[#pdfs][PDFs]]
+  - [[#layer][Layer]]
+  - [[#pdfs][PDFs]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -26,12 +26,12 @@ in general, and provides Imenu integration so you can jump around with ~SPC s j~
 - Imenu integration.
 
 * Install
-*** Layer
+** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =asm= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-*** PDFs
+** PDFs
 To look up the x86 instructions, two things are required:
 
 - the =pdftotext= command line tool from Poppler:

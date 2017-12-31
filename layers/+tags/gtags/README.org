@@ -14,11 +14,11 @@
   - [[#emacs-configuration][Emacs Configuration]]
     - [[#disabling-by-default][Disabling by default]]
 - [[#usage][Usage]]
-    - [[#language-support][Language Support]]
-      - [[#built-in-languages][Built-in languages]]
-      - [[#exuberant-ctags-languages][Exuberant ctags languages]]
-      - [[#universal-ctags-languages][Universal ctags languages]]
-      - [[#pygments-languages-plus-symbol-and-reference-tags][Pygments languages (plus symbol and reference tags)]]
+  - [[#language-support][Language Support]]
+    - [[#built-in-languages][Built-in languages]]
+    - [[#exuberant-ctags-languages][Exuberant ctags languages]]
+    - [[#universal-ctags-languages][Universal ctags languages]]
+    - [[#pygments-languages-plus-symbol-and-reference-tags][Pygments languages (plus symbol and reference tags)]]
   - [[#eldoc-integration][Eldoc integration]]
 - [[#key-bindings][Key bindings]]
   - [[#helm][Helm]]
@@ -172,8 +172,8 @@ GTAGSLABEL environment variable, use this command instead:
   gtags --gtagslabel=pygments
 #+END_SRC
 
-*** Language Support
-**** Built-in languages
+** Language Support
+*** Built-in languages
 If you do not have =ctags= or =pygments= enabled gtags will only produce
 tags for the following languages:
 
@@ -183,7 +183,7 @@ tags for the following languages:
 - php
 - yacc
 
-**** Exuberant ctags languages
+*** Exuberant ctags languages
 If you have enabled =exuberant ctags= and use that as the backend (i.e.,
 =GTAGSLABEL=ctags= or =--gtagslabel=ctags=) the following additional languages
 will have tags created for them:
@@ -201,7 +201,7 @@ will have tags created for them:
 - vimscript
 - windows-scripts (.bat .cmd files)
 
-**** Universal ctags languages
+*** Universal ctags languages
 If instead you installed you the newer/beta =universal ctags= and use that
 as the backend (i.e., GTAGSLABEL=ctags or --gtagslabel=ctags) the following
 additional languages will have tags created for them:
@@ -211,7 +211,7 @@ additional languages will have tags created for them:
 - go
 - rust
 
-**** Pygments languages (plus symbol and reference tags)
+*** Pygments languages (plus symbol and reference tags)
 In order to look up symbol references for any language not in the built in
 parser you must use the pygments backend. When this backend is used global
 actually uses both ctags and pygments to find the definitions and uses of

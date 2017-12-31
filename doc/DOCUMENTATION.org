@@ -69,15 +69,17 @@
     - [[#notes][Notes]]
   - [[#font][Font]]
   - [[#gui-toggles][GUI Toggles]]
-      - [[#global-line-numbers][Global line numbers]]
+    - [[#global-line-numbers][Global line numbers]]
   - [[#mode-line][Mode-line]]
-      - [[#powerline-font-installation-for-terminal-mode-users][Powerline font installation for terminal-mode users]]
-      - [[#flycheck-integration][Flycheck integration]]
-      - [[#anzu-integration][Anzu integration]]
-      - [[#battery-status-integration][Battery status integration]]
-      - [[#powerline-separators][Powerline separators]]
-      - [[#minor-modes][Minor Modes]]
-      - [[#customizing-the-mode-line][Customizing the mode-line]]
+    - [[#powerline-font-installation-for-terminal-mode-users][Powerline font installation for terminal-mode users]]
+    - [[#flycheck-integration][Flycheck integration]]
+    - [[#anzu-integration][Anzu integration]]
+    - [[#battery-status-integration][Battery status integration]]
+    - [[#powerline-separators][Powerline separators]]
+    - [[#minor-modes][Minor Modes]]
+    - [[#customizing-the-mode-line][Customizing the mode-line]]
+      - [[#spaceline][Spaceline]]
+      - [[#restore-lighters][Restore lighters]]
   - [[#frame-title][Frame title]]
     - [[#iconified-tabified-title][Iconified (tabified) title]]
 - [[#layouts-and-workspaces][Layouts and workspaces]]
@@ -1143,7 +1145,7 @@ and ~T~):
 *Note*: These toggles are all available via the =spacemacs-help= interfaces
 (press ~SPC h SPC~ to display the =spacemacs-help= buffer).
 
-**** Global line numbers
+*** Global line numbers
 Line numbers can be toggled on in all =prog-mode= and =text-mode= buffers by
 setting the =dotspacemacs-line-numbers= variable in your =~/.spacemacs= to =t=.
 
@@ -1248,19 +1250,19 @@ Some elements can be dynamically toggled:
 | ~SPC t m v~ | toggle the version control info                                 |
 | ~SPC t m V~ | toggle the new version lighter                                  |
 
-**** Powerline font installation for terminal-mode users
+*** Powerline font installation for terminal-mode users
 Users who run Emacs in terminal mode may need to install the [[https://github.com/powerline/fonts][Powerline patched
 fonts]] and configure their terminal clients to use them to make the Powerline
 separators render correctly.
 
-**** Flycheck integration
+*** Flycheck integration
 When [[https://github.com/flycheck/flycheck][Flycheck]] minor mode is enabled, a new element appears showing the number of
 errors, warnings and info.
 
 [[file:img/powerline-wave.png]]
 /Flycheck integration in mode-line/
 
-**** Anzu integration
+*** Anzu integration
 [[https://github.com/syohex/emacs-anzu][Anzu]] shows the number of occurrence when performing a search. Spacemacs
 integrates nicely the Anzu status by displaying it temporarily when ~n~ or ~N~
 are being pressed. See the =5/6= segment on the screenshot below.
@@ -1268,7 +1270,7 @@ are being pressed. See the =5/6= segment on the screenshot below.
 [[file:img/powerline-anzu.png]]
 /Anzu integration in mode-line/
 
-**** Battery status integration
+*** Battery status integration
 [[https://github.com/lunaryorn/fancy-battery.el][fancy-battery]] displays the percentage of total charge of the battery as well as
 the time remaining to charge or discharge completely the battery.
 
@@ -1282,7 +1284,7 @@ A color code is used for the battery status:
 
 Note the these colors may vary depending on your theme.
 
-**** Powerline separators
+*** Powerline separators
 It is possible to easily customize the =powerline separator= by setting the
 =powerline-default-separator= variable in your =~/.spacemacs= and then
 recompiling the modeline. For instance if you want to set back the separator to
@@ -1318,7 +1320,7 @@ powerline, here is an exhaustive set of screenshots:
 | =zigzag=     | [[file:img/powerline-zigzag.png]]     |
 | =nil=        | [[file:img/powerline-nil.png]]        |
 
-**** Minor Modes
+*** Minor Modes
 Spacemacs uses [[https://www.emacswiki.org/emacs/DiminishedModes][diminish]] mode to reduce the size of minor mode indicators:
 
 The minor mode area can be toggled on and off with ~SPC t m m~
@@ -1365,8 +1367,8 @@ can be reached using the =control= key.
 | ~SPC t C-W~ | =Ⓦ=     | W     | automatic whitespace cleanup globally                                |
 | ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
 
-**** Customizing the mode-line
-***** Spaceline
+*** Customizing the mode-line
+**** Spaceline
 Spacemacs uses [[https://github.com/TheBB/spaceline][Spaceline]] to provide its mode-line. It consists of a number of
 /segments/ arranged on the left and right sides. These are defined in the
 variables =spaceline-left= and =spaceline-right=. Segments can be defined using
@@ -1375,7 +1377,7 @@ right hand side variables.
 
 Please see the Spaceline documentation for more information.
 
-***** Restore lighters
+**** Restore lighters
 Lighters are abbreviations displayed in the mode-line to identify running minor
 modes. Spacemacs diminishes most of them to make them more compact.
 
