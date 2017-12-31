@@ -25,7 +25,7 @@
      "su - ${UNAME} -c 'echo exit | lein repl'")
   (! "Installing Boot...")
   (cp ".boot" (dir $UHOME))
-  (set-glob-envs '("BOOT_CLOJURE_VERSION" . "1.8.0")
+  (set-glob-envs '("BOOT_CLOJURE_VERSION" . "1.9.0")
                  `("BOOT_LOCAL_REPO" . ,(concat (dir $UHOME) ".m2/repository")))
   ($ ["curl -Lo /usr/local/bin/boot"
       "https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh"]
