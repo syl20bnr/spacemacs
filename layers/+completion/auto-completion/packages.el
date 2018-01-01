@@ -43,7 +43,7 @@
     :defer t
     :init
     (setq ac-auto-start 0
-          ac-delay 0.2
+          ac-delay auto-completion-idle-delay
           ac-quick-help-delay 1.
           ac-use-fuzzy t
           ac-fuzzy-enable t
@@ -70,7 +70,7 @@
     :defer t
     :init
     (progn
-      (setq company-idle-delay 0.2
+      (setq company-idle-delay auto-completion-idle-delay
             company-minimum-prefix-length 2
             company-require-match nil
             company-dabbrev-ignore-case nil
