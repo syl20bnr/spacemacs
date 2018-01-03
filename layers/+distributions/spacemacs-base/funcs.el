@@ -1144,6 +1144,13 @@ a split-side entry, its value must be usable as the SIDE argument for
   (let ((buffer (find-file-noselect file)))
     (pop-to-buffer buffer '(spacemacs//display-in-split (split-side . below)))))
 
+(defun spacemacs/switch-to-help-buffer ()
+  "Open or select the `*Help*' buffer, if it exists."
+  (interactive)
+  (if (get-buffer "*Help*")
+      (switch-to-buffer (help-buffer))
+    (message "No previous Help buffer found")))
+
 (defun spacemacs/switch-to-scratch-buffer (&optional arg)
   "Switch to the `*scratch*' buffer, creating it first if needed.
 if prefix argument ARG is given, switch to it in an other, possibly new window."

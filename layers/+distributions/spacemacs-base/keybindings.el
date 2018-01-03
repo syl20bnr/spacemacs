@@ -127,6 +127,7 @@
   "bd"    'spacemacs/kill-this-buffer
   "be"    'spacemacs/safe-erase-buffer
   "bh"    'spacemacs/home
+  "bH"    'spacemacs/switch-to-help-buffer
   "b C-d" 'spacemacs/kill-other-buffers
   "b C-S-d" 'spacemacs/kill-matching-buffers-rudely
   "bn"    'next-buffer
