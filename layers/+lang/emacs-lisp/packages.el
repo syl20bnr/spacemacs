@@ -196,6 +196,7 @@
       ;; some default aliases for Spacemacs source code
       (setq nameless-global-aliases '(("SB" . "spacemacs-buffer")
                                       ("S"  . "spacemacs")
+                                      (".S"  . "dotspacemacs")
                                       ("CL" . "configuration-layer")))
       ;; make `nameless-current-name' safe as a local variable for string values
       (put 'nameless-current-name 'safe-local-variable #'stringp)
