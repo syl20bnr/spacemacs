@@ -56,6 +56,8 @@
   - [[#evil-leader][Evil leader]]
   - [[#universal-argument][Universal argument]]
   - [[#transient-states][Transient-states]]
+  - [[#toggles][Toggles]]
+    - [[#configuring-toggles-in-the-dotfile][Configuring toggles in the dotfile]]
 - [[#differences-between-vim-evil-and-spacemacs][Differences between Vim, Evil and Spacemacs]]
   - [[#the-vim-surround-case][The vim-surround case]]
 - [[#evil-plugins][Evil plugins]]
@@ -108,7 +110,7 @@
     - [[#available-layers][Available layers]]
       - [[#available-packages-in-spacemacs][Available packages in Spacemacs]]
       - [[#new-packages-from-elpa-repositories][New packages from ELPA repositories]]
-    - [[#toggles][Toggles]]
+    - [[#toggles-1][Toggles]]
   - [[#navigating][Navigating]]
     - [[#pointcursor][Point/Cursor]]
       - [[#smooth-scrolling][Smooth scrolling]]
@@ -874,6 +876,53 @@ Auto-highlight-symbol transient state:
 
 [[file:img/spacemacs-scale-transient-state.png]]
 
+** Toggles
+Spacemacs tries to unify the interface to handle toggles using a custom macro
+called =spacemacs|add-toggle=.
+
+There exists two type of toggles:
+- globally available toggles under the key prefixes ~SPC t~ and ~SPC T~
+- major mode specific toggles under the key prefix ~SPC m T~
+
+When a toggle is turned on a unicode symbol is displayed in the mode-line, this
+symbol is a circled letter for globally available toggles and a plain squared
+letter for major mode specific toggles. The letter corresponds to the key
+binding for this toggle.
+
+For instance the globally available toggle for =which-key= is under ~SPC t K~
+and its corresponding symbol in the mode-line is =Ⓚ=. Also the major mode
+specific toggle for =nameless= available only in =emacs-lisp= mode is under
+~SPC m T n~ and its corresspoding symbol in the mode-line is =🅽=.
+
+All toggles can be browsed via the Spacemacs help system under ~SPC h t~.
+
+*** Configuring toggles in the dotfile
+To set the toggle states to your preference you can use a set of functions
+that should be called in your =dotspacemacs/user-config= function of your
+dotfile.
+
+Globally available toggles can be turned on and off using the functions
+=spacemacs/toggle-NAME-on= and =spacemacs/toggle-NAME-off= respectively.
+=NAME= corresponds to the name of the toggle, for instance =which-key=
+for the toggle to turn on and off the =which-key= minor mode.
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/toggle-which-key-on)
+#+END_SRC
+
+Major mode specific toggles can be turned on by registering a hook on them to
+call the "toggle on" function automatically whenever a buffer using this major
+mode is opened. It can be done convenienty using the function
+=spacemacs/toggle-NAME-on-register-hooks=. It also exists variants of this
+function for each supported major mode like
+=spacemacs/toggle-NAME-on-register-hook-MODE=.
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/toggle-nameless-on-register-hooks)
+;; or to enable it for emacs-lips buffers only
+(spacemacs/toggle-nameless-on-register-hook-emacs-lisp-mode)
+#+END_SRC
+
 * Differences between Vim, Evil and Spacemacs
 - The ~​,​~ key does "repeat last ~f~, ~t~, ~F~, or ~T~ command in
   opposite direction in =Vim=, but in Spacemacs it is the major mode specific
@@ -884,8 +933,8 @@ Send a PR to add the differences you found in this section.
 
 ** The vim-surround case
 There is one obvious visible difference though. It is not between =Evil= and
-=Vim= but between Spacemacs and [[https://github.com/tpope/vim-surround][vim-surround]]: in visual mode the =surround= command is on ~S~
-in =vim-surround= whereas it is on ~s~ in Spacemacs.
+=Vim= but between Spacemacs and [[https://github.com/tpope/vim-surround][vim-surround]]: in visual mode the =surround=
+command is on ~S~ in =vim-surround= whereas it is on ~s~ in Spacemacs.
 
 This is something that can surprise some Vim users so here are some motivations
 behind this change:
@@ -898,8 +947,7 @@ behind this change:
   - =surround= command is just a more powerful command than ~s~.
 
 If you are not convinced, then here is the snippet to revert back to the default
-=Vim + vim-surround= setup (add it to your =dotspacemacs/user-config= function or
-your =~/.spacemacs=):
+=Vim + vim-surround= setup (add it to your =dotspacemacs/user-config=):
 
 #+BEGIN_SRC emacs-lisp
 (evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
@@ -1335,6 +1383,10 @@ toggle them.
 
 Some toggle have two flavors: local and global. The global version of the toggle
 can be reached using the =control= key.
+
+Addtionally all globally available toggles have a circled unicode symbols like
+=ⓟ=. Toggles specific to a major mode under the ~SPC m T~ prefix have plain
+squared symbols like =🅿=.
 
 | Key Binding | Unicode | ASCII | Mode                                                                 |
 |-------------+---------+-------+----------------------------------------------------------------------|
