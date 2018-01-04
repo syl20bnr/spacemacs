@@ -31,7 +31,7 @@ specific (i.e. it uses the keyword `:evil-leader-for-mode'):
 - spacemacs/toggle-NAME-on-register-hooks to add hooks for all supported major modes
 - spacemacs/toggle-NAME-on-unregister-hooks to remove all the hooks
 
-Avaiblabe PROPS:
+Available PROPS:
 
 `:status EXPRESSION'
     The EXPRESSION to evaluate to get the current status of the toggle.
