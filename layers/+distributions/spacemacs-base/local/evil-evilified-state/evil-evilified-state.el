@@ -55,7 +55,7 @@
 
 (evil-define-state evilified
   "Evilified state.
- Hybrid `emacs state' with carrefully selected Vim key bindings.
+ Hybrid `emacs state' with carefully selected Vim key bindings.
  See spacemacs conventions for more info."
   :tag " <N'> "
   :enable (emacs)
@@ -185,7 +185,7 @@ BODY is a list of additional key bindings to apply for the given MAP in
 (defmacro evilified-state-evilify-map (map &rest props)
   "Evilify MAP.
 
-Avaiblabe PROPS:
+Available PROPS:
 
 `:mode SYMBOL'
 A mode SYMBOL associated with MAP. Used to add SYMBOL to the list of modes
