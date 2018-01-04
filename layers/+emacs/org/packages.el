@@ -60,7 +60,7 @@
                                  additional
                                  ,@(when org-want-todo-bindings '(todo)))))
     :config
-    (spacemacs|diminish evil-org-mode " ⓔ" " e")))
+    (spacemacs|hide-lighter evil-org-mode)))
 
 (defun org/post-init-evil-surround ()
   (defun spacemacs/add-org-surrounds ()
