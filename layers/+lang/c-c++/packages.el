@@ -32,6 +32,11 @@
     stickyfunc-enhance
     ycmd
     xcscope
+    rtags
+    (company-rtags :requires company rtags)
+    (flycheck-rtags :requires flycheck rtags)
+    (helm-rtags :requires helm rtags)
+    (ivy-rtags :requires ivy rtags)
     ))
 
 (defun c-c++/init-cc-mode ()
@@ -208,3 +213,88 @@
     :post-init
     (dolist (mode c-c++-modes)
       (spacemacs/setup-helm-cscope mode))))
+;;;
+;;; Adapted from comment:
+;;; https://github.com/syl20bnr/spacemacs/issues/2327#issuecomment-153283156
+;;; by user
+;;; https://github.com/autosquid
+;;;
+(defun rtags-major-mode-keybindings (mode)
+  (spacemacs/declare-prefix-for-mode mode "me" "refactor")
+  (spacemacs/set-leader-keys-for-major-mode mode
+    "e." 'rtags-find-symbol-at-point
+    "e," 'rtags-find-references-at-point
+    "ev" 'rtags-find-virtuals-at-point
+    "eV" 'rtags-print-enum-value-at-point
+    "e/" 'rtags-find-all-references-at-point
+    "eY" 'rtags-cycle-overlays-on-screen
+    "e>" 'rtags-find-symbol
+    "e<" 'rtags-find-references
+    "e[" 'rtags-location-stack-back
+    "e]" 'rtags-location-stack-forward
+    "eD" 'rtags-diagnostics
+    "eG" 'rtags-guess-function-at-point
+    "ep" 'rtags-set-current-project
+    "eP" 'rtags-print-dependencies
+    "ee" 'rtags-reparse-file
+    "eE" 'rtags-preprocess-file
+    "eR" 'rtags-rename-symbol
+    "eM" 'rtags-symbol-info
+    "eS" 'rtags-display-summary
+    "eO" 'rtags-goto-offset
+    "e;" 'rtags-find-file
+    "eF" 'rtags-fixit
+    "eL" 'rtags-copy-and-print-current-location
+    "eX" 'rtags-fix-fixit-at-point
+    "eB" 'rtags-show-rtags-buffer
+    "eI" 'rtags-imenu
+    "eT" 'rtags-taglist
+    "eh" 'rtags-print-class-hierarchy
+    "ea" 'rtags-print-source-arguments
+    ))
+
+(defun c-c++/init-rtags ()
+  (use-package rtags
+    :if c-c++-enable-rtags-support
+    :init
+    (setq rtags-autostart-diagnostics t)
+    (add-hook 'rtags-jump-hook 'evil-set-jump)
+    (rtags-diagnostics)
+    (define-key evil-normal-state-map (kbd "RET") 'rtags-select-other-window)
+    (define-key evil-normal-state-map (kbd "M-RET") 'rtags-select)
+    (define-key evil-normal-state-map (kbd "q") 'rtags-bury-or-delete)
+
+    (rtags-major-mode-keybindings 'c-mode)
+    (rtags-major-mode-keybindings 'c++-mode)
+    ))
+
+(defun c-c++/init-company-rtags ()
+  (use-package company-rtags
+    :if c-c++-enable-rtags-support
+    :defer t
+))
+
+(defun c-c++/post-init-company-rtags ()
+  (when  c-c++-enable-rtags-support
+    (setq rtags-completions-enabled t)
+    (spacemacs|add-company-backends
+           :backends company-rtags
+           :modes c-mode-common)))
+
+(defun c-c++/init-flycheck-rtags ()
+  (use-package flycheck-rtags
+    :if c-c++-enable-rtags-support))
+
+(defun c-c++/init-helm-rtags ()
+  (use-package helm-rtags
+    :if c-c++-enable-rtags-support
+    :init
+    (setq rtags-display-result-backend 'helm)
+  ))
+
+(defun c-c++/init-ivy-rtags ()
+  (use-package ivy-rtags
+    :if c-c++-enable-rtags-support
+    :init
+    (setq rtags-display-result-backend 'ivy)
+    ))
