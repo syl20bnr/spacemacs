@@ -19,6 +19,7 @@
         elisp-slime-nav
         (emacs-lisp :location built-in)
         evil
+        evil-cleverparens
         flycheck
         ggtags
         counsel-gtags
@@ -226,6 +227,11 @@
   (add-hook 'emacs-lisp-mode-hook
             (lambda ()
               (spacemacs|define-text-object ";" "elisp-comment" ";; " ""))))
+
+(defun emacs-lisp/pre-init-evil-cleverparens ()
+  (spacemacs|use-package-add-hook evil-cleverparens
+    :pre-init
+    (add-to-list 'evil-lisp-safe-structural-editing-modes 'emacs-lisp-mode)))
 
 (defun emacs-lisp/post-init-flycheck ()
   ;; Don't activate flycheck by default in elisp

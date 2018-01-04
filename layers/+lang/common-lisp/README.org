@@ -4,7 +4,9 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
+- [[#structuraly-safe-editing][Structuraly safe editing]]
 - [[#key-bindings][Key Bindings]]
   - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
   - [[#leader][Leader]]
@@ -17,6 +19,9 @@
 
 * Description
 A Spacemacs layer providing Common Lisp support via [[https://github.com/slime/slime][SLIME]].
+
+** Features:
+- Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
 * Install
 If you have previously installed slime in any other way, it is recommended that
@@ -35,6 +40,28 @@ of Common Lisp, you can specify it in your =~/.spacemacs=
   (defun dotspacemacs/user-config ()
     (setq inferior-lisp-program "/path/to/your/lisp"))
 #+END_SRC
+
+* Structuraly safe editing
+This layer add support for =evil-cleverparens= which allows safely edit
+lisp code by keeping the s-expressions balanced.
+
+By default this mode is not activated. You can turn it on locally on a the
+active buffer with ~SPC m T s~ (=s= for safe).
+
+To turn it on automatically for all =common-lisp= buffers call the following
+function in your =dotspacemacs/user-config= function:
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-common-lisp-mode)
+#+END_SRC
+
+or to enable it for all supported modes:
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+#+END_SRC
+
+When enabled the symbol =🆂= should be displayed in the mode-line.
 
 * Key Bindings
 ** Working with lisp files (barfage, slurpage & more)

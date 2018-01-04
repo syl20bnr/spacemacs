@@ -11,6 +11,7 @@
 - [[#debugging-elisp][Debugging Elisp]]
 - [[#nameless][Nameless]]
   - [[#aliases][Aliases]]
+- [[#structuraly-safe-editing][Structuraly safe editing]]
 - [[#key-bindings][Key bindings]]
   - [[#additional-testing-functions-with-overseer][Additional testing functions with overseer]]
   - [[#additional-evaluation-functions][Additional evaluation functions]]
@@ -29,7 +30,8 @@ always be in your dotfile, it is not recommended to uninstall it.
 - Auto-compile via [[https://github.com/tarsius/auto-compile][auto-compile]] package
 - Debuggin via [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Edebug.html#Edebug][edebug]]
 - Ert test runner with [[https://github.com/tonini/overseer.el][overseer]]
-- Nameless package prefix with [[https://github.com/Malabarba/Nameless][nameless]]
+- Nameless package prefix with optional [[https://github.com/Malabarba/Nameless][nameless]]
+- Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -125,6 +127,28 @@ dotfile:
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'nameless-global-aliases '("N" . "nameless"))
 #+END_SRC
+
+* Structuraly safe editing
+This layer add support for =evil-cleverparens= which allows safely edit
+lisp code by keeping the s-expressions balanced.
+
+By default this mode is not activated. You can turn it on locally on a the
+active buffer with ~SPC m T s~ (=s= for safe).
+
+To turn it on automatically for all =emacs-lisp= buffers call the following
+function in your =dotspacemacs/user-config= function:
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-emacs-lisp-mode)
+#+END_SRC
+
+or to enable it for all supported modes:
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+#+END_SRC
+
+When enabled the symbol =🆂= should be displayed in the mode-line.
 
 * Key bindings
 

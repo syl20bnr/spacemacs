@@ -4,6 +4,7 @@
     company-quickhelp
     ggtags
     counsel-gtags
+    evil-cleverparens
     helm-gtags
     racket-mode
     ))
@@ -28,6 +29,11 @@
 
 (defun racket/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'racket-mode))
+
+(defun racket/pre-init-evil-cleverparens ()
+  (spacemacs|use-package-add-hook evil-cleverparens
+    :pre-init
+    (add-to-list 'evil-lisp-safe-structural-editing-modes 'racket-mode)))
 
 (defun racket/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'racket-mode))
