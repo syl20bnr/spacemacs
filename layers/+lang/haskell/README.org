@@ -158,18 +158,13 @@ are warmly welcome!
 reformat your code. You need to install the executable with =cabal
 install hindent= or =stack install hindent=
 
-To enable it you have to set the variable =haskell-enable-hindent-style= to a
-supported style. The available styles are:
-- fundamental
-- johan-tibell
-- chris-done
-- gibiansky
+To enable it you have to toggle the variable =haskell-enable-hindent=.
 
 See examples [[https://github.com/commercialhaskell/hindent/blob/master/TESTS.md][here]].
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
-  '((haskell :variables haskell-enable-hindent-style "johan-tibell")))
+  '((haskell :variables haskell-enable-hindent t)))
 #+END_SRC
 
 * Key bindings
