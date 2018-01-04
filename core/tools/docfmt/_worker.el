@@ -1,6 +1,6 @@
 ;;; _worker.el --- Spacemacs doc formatter worker -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;;         Eugene "JAremko" Yaremenko <w3techplayground@gmail.com>
