@@ -266,18 +266,18 @@
 (defun haskell/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'haskell-mode))
 
+
 ;; doesn't support literate-haskell-mode :(
 (defun haskell/init-hindent ()
   (use-package hindent
     :defer t
-    :if (stringp haskell-enable-hindent-style)
+    :if haskell-enable-hindent
     :init
     (add-hook 'haskell-mode-hook #'hindent-mode)
     :config
     (progn
-      (setq hindent-style haskell-enable-hindent-style)
       (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
-        "f" 'hindent-reformat-decl))))
+        "f" 'hindent-reformat-decl-or-fill))))
 
 (defun haskell/init-hlint-refactor ()
   (use-package hlint-refactor
