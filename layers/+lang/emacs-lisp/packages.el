@@ -184,8 +184,6 @@
     :defer t
     :init
     (progn
-      (when emacs-lisp-hide-namespace-prefix
-        (add-hook 'emacs-lisp-mode-hook 'nameless-mode-from-hook))
       (setq
        ;; always show the separator since it can have a semantic purpose
        ;; like in Spacemacs where - is variable and / is a function.
@@ -200,12 +198,14 @@
                                       ("CL" . "configuration-layer")))
       ;; make `nameless-current-name' safe as a local variable for string values
       (put 'nameless-current-name 'safe-local-variable #'stringp)
-      (spacemacs|diminish nameless-mode " ⧁" " >")
+      (spacemacs|diminish nameless-mode " 🅽" " [n]")
       (spacemacs|add-toggle nameless
         :status nameless-mode
         :on (nameless-mode)
         :off (nameless-mode -1)
-        :evil-leader-for-mode (emacs-lisp-mode . ">")))))
+        :evil-leader-for-mode (emacs-lisp-mode . "Tn"))
+      (when emacs-lisp-hide-namespace-prefix
+        (spacemacs/toggle-nameless-on-register-hook-emacs-lisp-mode)))))
 
 (defun emacs-lisp/init-overseer ()
   (use-package overseer
