@@ -129,11 +129,11 @@ dotfile:
 #+END_SRC
 
 * Structuraly safe editing
-This layer add support for =evil-cleverparens= which allows safely edit
+This layer adds support for =evil-cleverparens= which allows to safely edit
 lisp code by keeping the s-expressions balanced.
 
-By default this mode is not activated. You can turn it on locally on a the
-active buffer with ~SPC m T s~ (=s= for safe).
+By default this mode is not activated. You can turn it on locally on the active
+buffer with ~SPC m T s~ (=s= for safe).
 
 To turn it on automatically for all =emacs-lisp= buffers call the following
 function in your =dotspacemacs/user-config= function:
