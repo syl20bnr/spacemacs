@@ -36,7 +36,7 @@
   "Format the current buffer with clang-format on save when
 `c-c++-enable-clang-format-on-save' is non-nil."
   (when c-c++-enable-clang-format-on-save
-    (spacemacs/clang-format-buffer)))
+    (clang-format-buffer)))
 
 (defun spacemacs/clang-format-on-save ()
   "Add before-save hook for clang-format."
