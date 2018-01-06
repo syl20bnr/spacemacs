@@ -20,6 +20,7 @@
         helm-make
         ivy
         ivy-hydra
+        ivy-rich
         (ivy-spacemacs-help :location local)
         persp-mode
         projectile
@@ -276,6 +277,15 @@
 
   ;; merge recentf and bookmarks into buffer switching. If we set this
   (setq ivy-use-virtual-buffers t))
+
+(defun ivy/init-ivy-rich ()
+  (use-package ivy-rich
+    :defer t
+    :init (progn
+            (setq ivy-rich-abbreviate-paths t
+                  ivy-virtual-abbreviate 'full
+                  ivy-rich-switch-buffer-align-virtual-buffer t)
+            (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer))))
 
 (defun ivy/init-ivy-spacemacs-help ()
   (use-package ivy-spacemacs-help
