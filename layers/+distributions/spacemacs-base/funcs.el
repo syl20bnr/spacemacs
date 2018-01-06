@@ -124,6 +124,16 @@ automatically applied to."
     (while (condition-case nil (windmove-right) (error nil))
       (delete-window))))
 
+(defun spacemacs/maximize-vertically ()
+  "Delete all windows left or right of the current window."
+  (interactive)
+  (require 'windmove)
+  (save-excursion
+    (while (condition-case nil (windmove-up) (error nil))
+      (delete-window))
+    (while (condition-case nil (windmove-down) (error nil))
+      (delete-window))))
+
 (defun spacemacs/toggle-centered-buffer-mode ()
   "Toggle `spacemacs-centered-buffer-mode'."
   (interactive)
