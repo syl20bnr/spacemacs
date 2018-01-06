@@ -4,6 +4,7 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#setup-feeds][Setup feeds]]
@@ -16,9 +17,12 @@
   - [[#queue-timeout-exceeded][Queue timeout exceeded]]
 
 * Description
-This layer enables [[https://github.com/skeeto/elfeed][Elfeed]], a web feeds client which supports both Atom and RSS
-feeds. It'll optionally enable supporting packages, such as =elfeed-web= and
-=elfeed-org=.
+This layer integrates a web feed reader into spacemacs.
+
+** Features:
+- Support for reading RSS and Atom feeds directly within emacs via [[https://github.com/skeeto/elfeed][Elfeed]].
+- Support for managing feeds via org files supplied by [[https://github.com/remyhonig/elfeed-org][elfeed-org]].
+- Support for displaying feed database content in the browser via [[https://github.com/skeeto/elfeed#web-interface][web interface]].
 
 * Install
 ** Layer
