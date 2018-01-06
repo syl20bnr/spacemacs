@@ -47,7 +47,46 @@
         :on (ggtags-mode nil)
         :off (ggtags-mode -1)
         :documentation "Toggle GNU Global source code tagging system."
-        :evil-leader "tG"))
+        ;; TODO make a list of all supported major modes by ggtags, check
+        ;; how it is done with evil-cleverparens
+        ;; TODO update the documentation in each supported layers like it
+        ;; has been done with evil-cleverparens and lisp dialects
+        :evil-leader-for-mode
+        (asm-mode . "Tg")
+        (awk-mode . "Tg")
+        (c-mode . "Tg")
+        (c++-mode . "Tg")
+        (clojure-mode . "Tg")
+        (common-lisp-mode . "Tg")
+        (compilation-mode . "Tg")
+        (csharp-mode . "Tg")
+        (d-mode . "Tg")
+        (dired-mode . "Tg")
+        (dos-mode . "Tg")
+        (elixir-mode . "Tg")
+        (emacs-lisp-mode . "Tg")
+        (erlang-mode . "Tg")
+        (fsharp-mode . "Tg")
+        (go-mode . "Tg")
+        (haskell-mode . "Tg")
+        (java-mode . "Tg")
+        (js2-mode . "Tg")
+        (latex-mode . "Tg")
+        (lua-mode . "Tg")
+        (ocaml-mode . "Tg")
+        (octave-mode . "Tg")
+        (php-mode . "Tg")
+        (python-mode . "Tg")
+        (racket-mode . "Tg")
+        (ruby-mode . "Tg")
+        (rust-mode . "Tg")
+        (scala-mode . "Tg")
+        (scheme-mode . "Tg")
+        (sh-mode . "Tg")
+        (shell-mode . "Tg")
+        (tcl-mode . "Tg")
+        (vhdl-mode . "Tg")
+        (vimrc-mode . "Tg")))
     :config
     (progn
       (when (configuration-layer/package-used-p 'helm-gtags)
@@ -60,7 +99,7 @@
         (define-key ggtags-mode-map (kbd "C-x 4 .") 'helm-gtags-find-tag-other-window)
         (define-key ggtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
         (define-key ggtags-mode-map (kbd "M-*") 'helm-gtags-pop-stack))
-      (spacemacs|diminish ggtags-mode " Ⓖ" " G"))))
+      (spacemacs|diminish ggtags-mode " 🅶" " [g]"))))
 
 (defun gtags/init-helm-gtags ()
   (use-package helm-gtags
