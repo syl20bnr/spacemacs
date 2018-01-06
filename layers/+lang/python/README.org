@@ -258,9 +258,9 @@ function with a prefix argument, for example ~SPC u SPC m t a~.
 
 | Key Binding | Description                                     |
 |-------------+-------------------------------------------------|
+| ~SPC m r f~ | fix a missing import statement with [[https://pypi.python.org/pypi/importmagic][importmagic]] |
 | ~SPC m r i~ | remove unused imports with [[https://github.com/myint/autoflake][autoflake]]            |
 | ~SPC m r I~ | sort imports with [[https://pypi.python.org/pypi/isort][isort]]                         |
-| ~SPC m r f~ | fix a missing import statement with [[https://pypi.python.org/pypi/importmagic][importmagic]] |
 
 ** Live coding
 Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][live-py-plugin.]]

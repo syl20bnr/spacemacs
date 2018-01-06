@@ -24,6 +24,7 @@
     helm-gtags
     (helm-pydoc :requires helm)
     hy-mode
+    importmagic
     live-py-mode
     (nose :location local)
     org
@@ -39,7 +40,6 @@
     stickyfunc-enhance
     xcscope
     yapfify
-    importmagic
     ))
 
 (defun python/init-anaconda-mode ()
@@ -146,6 +146,14 @@
         "eR" 'lisp-eval-region-and-go)
       ;; call `spacemacs//python-setup-hy' once, don't put it in a hook (see issue #5988)
       (spacemacs//python-setup-hy))))
+
+(defun python/init-importmagic ()
+  (use-package importmagic
+    :init
+    (progn
+      (add-hook 'python-mode-hook 'importmagic-mode)
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "rf" 'importmagic-fix-symbol-at-point))))
 
 (defun python/init-live-py-mode ()
   (use-package live-py-mode
@@ -369,11 +377,3 @@ fix this issue."
       (when python-enable-yapf-format-on-save
         (add-hook 'python-mode-hook 'yapf-mode)))
     :config (spacemacs|hide-lighter yapf-mode)))
-
-(defun python/init-importmagic ()
-  (use-package importmagic
-    :init
-    (progn
-      (add-hook 'python-mode-hook 'importmagic-mode)
-      (spacemacs/set-leader-keys-for-major-mode 'python-mode
-        "rf" 'importmagic-fix-symbol-at-point))))
