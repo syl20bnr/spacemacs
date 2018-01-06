@@ -4,18 +4,24 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#auto-format-on-save][Auto-format on save]]
 
 * Description
-This layer provides syntax support for Terraform =.tf= files using
-[[https://github.com/syohex/emacs-terraform-mode][terraform-mode]].
+This layer provides basic support for Terraform =.tf= files.
+
+** Features:
+- Basic syntax highlighting via [[https://github.com/syohex/emacs-terraform-mode][terraform-mode]]
+- Auto formatting on save via =terraform fmt=
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =terraform= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+You will also need a working native =terraform= installation on your system.
 
 * Configuration
 ** Auto-format on save
