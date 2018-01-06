@@ -173,7 +173,7 @@
       (spacemacs/set-leader-keys "ein" 'spacemacs/ipython-notebook-transient-state/body))))
 
 (defun ipython-notebook/init-ob-ipython ()
-  (use-package ob-ipython
-    :defer t
-    :init
-    (org-babel-do-load-languages 'org-babel-load-languages '((ipython . t)))))
+  (spacemacs|use-package-add-hook org
+    :post-config
+    (use-package ob-ipython
+      :init (add-to-list 'org-babel-load-languages '(ipython . t)))))
