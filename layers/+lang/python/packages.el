@@ -262,7 +262,7 @@
     :defer t
     :init
     (progn
-      (spacemacs/register-repl 'python 'python-start-or-switch-repl "python")
+      (spacemacs/register-repl 'python 'spacemacs/python-start-or-switch-repl "python")
       (add-hook 'inferior-python-mode-hook
                 #'spacemacs//inferior-python-setup-hook)
       (add-hook 'python-mode-hook #'spacemacs//python-default)
