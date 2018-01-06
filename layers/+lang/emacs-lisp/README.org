@@ -102,14 +102,14 @@ function or press ~o~ to go out of it.
 
 * Nameless
 Nameless hides package namespaces in your emacs-lisp code, and replaces it by
-leading ~>~ It can be toggled with ~SPC m >~.
+leading ~>~ It can be toggled with ~SPC m T n~.
 
-To have it automatically on set the layer variable
-=emacs-lisp-hide-namespace-prefix= to =t=
+By default =nameless= is activated, to disable it set the layer variable
+=emacs-lisp-hide-namespace-prefix= to =nil=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (emacs-lisp :variables emacs-lisp-hide-namespace-prefix t)))
+    (emacs-lisp :variables emacs-lisp-hide-namespace-prefix nil)))
 #+END_SRC
 
 ** Aliases
@@ -117,9 +117,10 @@ This layer defines some global aliases for Spacemacs:
 
 | alias | namespace           |
 |-------+---------------------|
+| .S    | dotspacemacs        |
+| CL    | configuration-layer |
 | S     | spacemacs           |
 | SB    | spacemacs-buffer    |
-| CL    | configuration-layer |
 
 You can define additional alias in function =dotspacemacs/user-config= of your
 dotfile:
