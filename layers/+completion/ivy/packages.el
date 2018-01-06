@@ -21,6 +21,7 @@
         ivy
         ivy-hydra
         (ivy-spacemacs-help :location local)
+        org
         persp-mode
         projectile
         smex
@@ -294,6 +295,9 @@
             "h p"   'ivy-spacemacs-help-packages
             "h r"   'ivy-spacemacs-help-docs
             "h t"   'ivy-spacemacs-help-toggles)))
+
+(defun ivy/post-init-org ()
+  (add-hook 'org-ctrl-c-ctrl-c-hook 'spacemacs//counsel-org-ctrl-c-ctrl-c-org-tag))
 
 (defun ivy/init-swiper ()
   (use-package swiper
