@@ -18,25 +18,25 @@
     cmake-mode
     company
     (company-c-headers :requires company)
+    (company-rtags :requires company rtags)
     company-ycmd
     flycheck
+    (flycheck-rtags :requires flycheck rtags)
     gdb-mi
     ggtags
     counsel-gtags
     google-c-style
     helm-cscope
     helm-gtags
+    (helm-rtags :requires helm rtags)
+    (ivy-rtags :requires ivy rtags)
+    rtags
     realgud
     semantic
     srefactor
     stickyfunc-enhance
     ycmd
     xcscope
-    rtags
-    (company-rtags :requires company rtags)
-    (flycheck-rtags :requires flycheck rtags)
-    (helm-rtags :requires helm rtags)
-    (ivy-rtags :requires ivy rtags)
     ))
 
 (defun c-c++/init-cc-mode ()
@@ -116,6 +116,17 @@
             :backends company-c-headers
             :modes c-mode-common)))
 
+(defun c-c++/init-company-rtags ()
+  (use-package company-rtags
+    :if c-c++-enable-rtags-support
+    :defer t
+    :init
+    (progn
+      (setq rtags-completions-enabled t)
+      (spacemacs|add-company-backends
+        :backends company-rtags
+        :modes c-mode-common))))
+
 (defun c-c++/post-init-flycheck ()
   (dolist (mode c-c++-modes)
     (spacemacs/enable-flycheck mode))
@@ -123,6 +134,11 @@
     (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)
     (when c-c++-enable-c++11
       (setq flycheck-clang-language-standard "c++11"))))
+
+;; TODO lazy load this package
+(defun c-c++/init-flycheck-rtags ()
+  (use-package flycheck-rtags
+    :if c-c++-enable-rtags-support))
 
 (defun c-c++/post-init-ggtags ()
   (add-hook 'c-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
@@ -145,6 +161,65 @@
 (defun c-c++/post-init-helm-gtags ()
   (dolist (mode c-c++-modes)
     (spacemacs/helm-gtags-define-keys-for-mode mode)))
+
+;; TODO lazy load this package
+(defun c-c++/init-helm-rtags ()
+  (use-package helm-rtags
+    :if c-c++-enable-rtags-support
+    :init (setq rtags-display-result-backend 'helm)))
+
+;; TODO lazy load this package
+(defun c-c++/init-ivy-rtags ()
+  (use-package ivy-rtags
+    :if c-c++-enable-rtags-support
+    :init (setq rtags-display-result-backend 'ivy)))
+
+;; TODO lazy load this package
+(defun c-c++/init-rtags ()
+  (use-package rtags
+    :if c-c++-enable-rtags-support
+    :init
+    (progn
+      (setq rtags-autostart-diagnostics t)
+      (add-hook 'rtags-jump-hook 'evil-set-jump)
+      (rtags-diagnostics)
+      ;; key bindings
+      (define-key evil-normal-state-map (kbd "RET") 'rtags-select-other-window)
+      (define-key evil-normal-state-map (kbd "M-RET") 'rtags-select)
+      (define-key (kbd "q") evil-normal-state-map 'rtags-bury-or-delete)
+      ;; TODO check for consistency with gtags key bindings
+      ;; see https://github.com/syl20bnr/spacemacs/blob/develop/layers/+tags/gtags/funcs.el#L70
+      (dolist (mode c-c++-modes)
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "g." 'spacemacs/c-c++-tags-find-symbol-at-point
+          "g," 'spacemacs/c-c++-tags-find-references-at-point
+          "g;" 'spacemacs/c-c++-tags-find-file
+          "g/" 'rtags-find-all-references-at-point
+          "g[" 'rtags-location-stack-back
+          "g]" 'rtags-location-stack-forward
+          "g>" 'spacemacs/c-c++-tags-find-symbol
+          "g<" 'spacemacs/c-c++-tags-find-references
+          "gB" 'rtags-show-rtags-buffer
+          "gd" 'rtags-print-dependencies
+          "gD" 'rtags-diagnostics
+          "ge" 'rtags-reparse-file
+          "gE" 'rtags-preprocess-file
+          "gF" 'rtags-fixit
+          "gG" 'rtags-guess-function-at-point
+          "gh" 'rtags-print-class-hierarchy
+          "gI" 'spacemacs/c-c++-tags-imenu
+          "gL" 'rtags-copy-and-print-current-location
+          "gM" 'rtags-symbol-info
+          "gO" 'rtags-goto-offset
+          "gp" 'rtags-set-current-project
+          "gR" 'rtags-rename-symbol
+          "gs" 'rtags-print-source-arguments
+          "gS" 'rtags-display-summary
+          "gT" 'rtags-taglist
+          "gv" 'rtags-find-virtuals-at-point
+          "gV" 'rtags-print-enum-value-at-point
+          "gX" 'rtags-fix-fixit-at-point
+          "gY" 'rtags-cycle-overlays-on-screen)))))
 
 (defun c-c++/init-realgud()
   (use-package realgud
@@ -213,88 +288,3 @@
     :post-init
     (dolist (mode c-c++-modes)
       (spacemacs/setup-helm-cscope mode))))
-;;;
-;;; Adapted from comment:
-;;; https://github.com/syl20bnr/spacemacs/issues/2327#issuecomment-153283156
-;;; by user
-;;; https://github.com/autosquid
-;;;
-(defun rtags-major-mode-keybindings (mode)
-  (spacemacs/declare-prefix-for-mode mode "me" "refactor")
-  (spacemacs/set-leader-keys-for-major-mode mode
-    "e." 'rtags-find-symbol-at-point
-    "e," 'rtags-find-references-at-point
-    "ev" 'rtags-find-virtuals-at-point
-    "eV" 'rtags-print-enum-value-at-point
-    "e/" 'rtags-find-all-references-at-point
-    "eY" 'rtags-cycle-overlays-on-screen
-    "e>" 'rtags-find-symbol
-    "e<" 'rtags-find-references
-    "e[" 'rtags-location-stack-back
-    "e]" 'rtags-location-stack-forward
-    "eD" 'rtags-diagnostics
-    "eG" 'rtags-guess-function-at-point
-    "ep" 'rtags-set-current-project
-    "eP" 'rtags-print-dependencies
-    "ee" 'rtags-reparse-file
-    "eE" 'rtags-preprocess-file
-    "eR" 'rtags-rename-symbol
-    "eM" 'rtags-symbol-info
-    "eS" 'rtags-display-summary
-    "eO" 'rtags-goto-offset
-    "e;" 'rtags-find-file
-    "eF" 'rtags-fixit
-    "eL" 'rtags-copy-and-print-current-location
-    "eX" 'rtags-fix-fixit-at-point
-    "eB" 'rtags-show-rtags-buffer
-    "eI" 'rtags-imenu
-    "eT" 'rtags-taglist
-    "eh" 'rtags-print-class-hierarchy
-    "ea" 'rtags-print-source-arguments
-    ))
-
-(defun c-c++/init-rtags ()
-  (use-package rtags
-    :if c-c++-enable-rtags-support
-    :init
-    (setq rtags-autostart-diagnostics t)
-    (add-hook 'rtags-jump-hook 'evil-set-jump)
-    (rtags-diagnostics)
-    (define-key evil-normal-state-map (kbd "RET") 'rtags-select-other-window)
-    (define-key evil-normal-state-map (kbd "M-RET") 'rtags-select)
-    (define-key evil-normal-state-map (kbd "q") 'rtags-bury-or-delete)
-
-    (rtags-major-mode-keybindings 'c-mode)
-    (rtags-major-mode-keybindings 'c++-mode)
-    ))
-
-(defun c-c++/init-company-rtags ()
-  (use-package company-rtags
-    :if c-c++-enable-rtags-support
-    :defer t
-))
-
-(defun c-c++/post-init-company-rtags ()
-  (when  c-c++-enable-rtags-support
-    (setq rtags-completions-enabled t)
-    (spacemacs|add-company-backends
-           :backends company-rtags
-           :modes c-mode-common)))
-
-(defun c-c++/init-flycheck-rtags ()
-  (use-package flycheck-rtags
-    :if c-c++-enable-rtags-support))
-
-(defun c-c++/init-helm-rtags ()
-  (use-package helm-rtags
-    :if c-c++-enable-rtags-support
-    :init
-    (setq rtags-display-result-backend 'helm)
-  ))
-
-(defun c-c++/init-ivy-rtags ()
-  (use-package ivy-rtags
-    :if c-c++-enable-rtags-support
-    :init
-    (setq rtags-display-result-backend 'ivy)
-    ))

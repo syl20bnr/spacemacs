@@ -9,6 +9,7 @@
 ;;
 ;;; License: GPLv3
 
+
 ;; clang
 
 (defun spacemacs/clang-format-function (&optional style)
@@ -130,6 +131,7 @@ and the arguments for flyckeck-clang based on a project-specific text file."
                             (spacemacs//c-c++-get-standard-include-paths "c"))
                           idirafter-paths)))))
 
+
 ;; realgud
 
 (defun spacemacs//short-key-state (modeon)
@@ -137,3 +139,46 @@ and the arguments for flyckeck-clang based on a project-specific text file."
   (if modeon
       (evil-evilified-state)
     (evil-normal-state)))
+
+
+;; rtags
+
+(defun spacemacs/c-c++-use-rtags (&optional useFileManager)
+  (and (rtags-executable-find "rc")
+       (cond ((not (gtags-get-rootpath)) t)
+             ((and (not (eq major-mode 'c++-mode))
+                   (not (eq major-mode 'c-mode))) (rtags-has-filemanager))
+             (useFileManager (rtags-has-filemanager))
+             (t (rtags-is-indexed)))))
+
+(defun spacemacs/c-c++-tags-find-symbol-at-point (&optional prefix)
+  (interactive "P")
+  (if (and (not (rtags-find-symbol-at-point prefix))
+           rtags-last-request-not-indexed)
+      (gtags-find-tag)))
+
+(defun spacemacs/c-c++-tags-find-references-at-point (&optional prefix)
+  (interactive "P")
+  (if (and (not (rtags-find-references-at-point prefix))
+           rtags-last-request-not-indexed)
+      (gtags-find-rtag)))
+
+(defun spacemacs/c-c++-tags-find-symbol ()
+  (interactive)
+  (call-interactively (if (spacemacs/c-c++-use-rtags)
+                          'rtags-find-symbol 'gtags-find-symbol)))
+
+(defun spacemacs/c-c++-tags-find-references ()
+  (interactive)
+  (call-interactively (if (spacemacs/c-c++-use-rtags)
+                          'rtags-find-references 'gtags-find-rtag)))
+
+(defun spacemacs/c-c++-tags-find-file ()
+  (interactive)
+  (call-interactively (if (spacemacs/c-c++-use-rtags t)
+                          'rtags-find-file 'gtags-find-file)))
+
+(defun spacemacs/c-c++-tags-imenu ()
+  (interactive)
+  (call-interactively (if (spacemacs/c-c++-use-rtags t)
+                          'rtags-imenu 'idomenu)))

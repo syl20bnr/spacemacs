@@ -13,10 +13,12 @@
     - [[#clang-format][clang-format]]
     - [[#company-clang-and-flycheck][Company-clang and flycheck]]
   - [[#cmake-configuration][CMake configuration]]
+  - [[#rtags-configuration][RTags configuration]]
   - [[#enable-google-set-c-style][Enable google-set-c-style]]
 - [[#key-bindings][Key Bindings]]
   - [[#debugging-realgud][Debugging (realgud)]]
   - [[#formatting-clang-format][Formatting (clang-format)]]
+  - [[#rtags][RTags]]
 
 * Description
 This layer adds configuration for C/C++ language as well support for [[https://cmake.org/][CMake]]
@@ -37,6 +39,7 @@ scripts.
   company-clang (when =c-c++-enable-clang-support= is turned on), or
   company-ycmd (when =ycmd= layer is included).
 - Support for [[https://github.com/realgud/realgud][realgud]] debugger.
+- Support for [[https://github.com/Andersbakken/rtags][rtags]]
 - Support for CMake configure/build (with limited support for other build systems),
   automatic generation of =compile_commands.json= (compile flags), on-the-fly configuration
   of flycheck, company-clang and RTags (if installed) with [[https://github.com/atilaneves/cmake-ide][cmake-ide]] .
@@ -124,6 +127,15 @@ build your project with ~SPC c c~ key binding.
        (helm-make-arguments . "-j7"))))
 #+END_SRC
 
+** RTags configuration
+To enable support for =rtags=, set the layer variable
+=c-c++-enable-rtags-support= to =t= in your dotfile.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((c-c++ :variables c-c++-enable-rtags-support t)))
+#+END_SRC
+
 ** Enable google-set-c-style
 If you have clang enabled with =clang-format= as described earlier in this page
 you may not have a lot of neeed for =google-set-c-style= if you are already
@@ -194,3 +206,37 @@ set that up like this:
 |-------------+---------------------------------|
 | ~SPC m = =~ | format current region or buffer |
 | ~SPC m = f~ | format current function         |
+
+** RTags
+
+| Key Binding | Description                     |
+|-------------+---------------------------------|
+| ~SPC m g .~ | find symbol at point            |
+| ~SPC m g ,~ | find references at point        |
+| ~SPC m g ;~ | find file                       |
+| ~SPC m g /~ | find all references at point    |
+| ~SPC m g [~ | location stack back             |
+| ~SPC m g ]~ | location stack forward          |
+| ~SPC m g >~ | c++ tags find symbol            |
+| ~SPC m g <~ | c++ tags find references        |
+| ~SPC m g B~ | show rtags buffer               |
+| ~SPC m g d~ | print dependencies              |
+| ~SPC m g D~ | diagnostics                     |
+| ~SPC m g e~ | reparse file                    |
+| ~SPC m g E~ | preprocess file                 |
+| ~SPC m g F~ | fixit                           |
+| ~SPC m g G~ | guess function at point         |
+| ~SPC m g h~ | print class hierarchy           |
+| ~SPC m g I~ | c++ tags imenu                  |
+| ~SPC m g L~ | copy and print current location |
+| ~SPC m g M~ | symbol info                     |
+| ~SPC m g O~ | goto offset                     |
+| ~SPC m g p~ | set current project             |
+| ~SPC m g R~ | rename symbol                   |
+| ~SPC m g s~ | print source arguments          |
+| ~SPC m g S~ | display summary                 |
+| ~SPC m g T~ | taglist                         |
+| ~SPC m g v~ | find virtuals at point          |
+| ~SPC m g V~ | print enum value at point       |
+| ~SPC m g X~ | fix fixit at point              |
+| ~SPC m g Y~ | cycle overlays on screen        |
