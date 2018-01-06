@@ -442,7 +442,8 @@
   "w/"  'split-window-right
   "w="  'balance-windows-area
   "w+"  'spacemacs/window-layout-toggle
-  "w_"  'spacemacs/maximize-horizontally)
+  "w_"  'spacemacs/maximize-horizontally
+  "w|"  'spacemacs/maximize-vertically)
 ;; text -----------------------------------------------------------------------
 (defalias 'count-region 'count-words-region)
 

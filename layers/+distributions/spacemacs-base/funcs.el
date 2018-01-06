@@ -115,13 +115,23 @@ automatically applied to."
 
 ;; https://tsdh.wordpress.com/2007/03/28/deleting-windows-vertically-or-horizontally/
 (defun spacemacs/maximize-horizontally ()
-  "Delete all windows left or right of the current window."
+  "Delete all windows to the left and right of the current window."
   (interactive)
   (require 'windmove)
   (save-excursion
     (while (condition-case nil (windmove-left) (error nil))
       (delete-window))
     (while (condition-case nil (windmove-right) (error nil))
+      (delete-window))))
+
+(defun spacemacs/maximize-vertically ()
+  "Delete all windows above and below the current window."
+  (interactive)
+  (require 'windmove)
+  (save-excursion
+    (while (condition-case nil (windmove-up) (error nil))
+      (delete-window))
+    (while (condition-case nil (windmove-down) (error nil))
       (delete-window))))
 
 (defun spacemacs/toggle-centered-buffer-mode ()
