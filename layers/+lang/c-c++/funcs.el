@@ -26,10 +26,10 @@
   (save-excursion
     (if (region-active-p)
         (progn
-          (clang-format (region-beginning) (region-end) style)
+          (clang-format-region (region-beginning) (region-end) style)
           (message "Formatted region"))
       (progn
-        (clang-format (point-min) (point-max) style)
+        (clang-format-buffer style)
         (message "Formatted buffer %s" (buffer-name))))))
 
 (defun spacemacs//clang-format-on-save ()
