@@ -191,8 +191,8 @@
 (defun python/init-pippel ()
   (use-package pippel
     :defer t
-    :init
-    (spacemacs/set-leader-keys "al" 'pippel-list-packages)
+    :init (spacemacs/set-leader-keys-for-major-mode 'python-mode
+            "P" 'pippel-list-packages)
     :config
     (evilified-state-evilify-map pippel-package-menu-mode-map
       :mode pippel-package-menu-mode)))
