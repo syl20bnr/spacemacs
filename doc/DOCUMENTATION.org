@@ -3262,24 +3262,27 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 * Achievements
 ** Issues
 
-| Achievements              | Account      |
-|---------------------------+--------------|
-| [[https://github.com/syl20bnr/spacemacs/pull/100][100th issue (PR)]]          | [[https://github.com/danielwuz][danielwuz]]    |
-| [[https://github.com/syl20bnr/spacemacs/issues/200][200th issue (question)]]    | [[https://github.com/justrajdeep][justrajdeep]]  |
-| [[https://github.com/syl20bnr/spacemacs/pull/300][300th issue (PR)]]          | [[https://github.com/danielwuz][danielwuz]]    |
-| [[https://github.com/syl20bnr/spacemacs/pull/400][400th issue (PR)]]          | [[https://github.com/CestDiego][CestDiego]]    |
-| [[https://github.com/syl20bnr/spacemacs/pull/500][500th issue (PR)]]          | [[https://github.com/bjarkevad][bjarkevad]]    |
-| [[https://github.com/syl20bnr/spacemacs/pull/600][600th issue (PR)]]          | [[https://github.com/bjarkevad][bjarkevad]]    |
-| [[https://github.com/syl20bnr/spacemacs/pull/700][700th issue (enhancement)]] | [[https://github.com/jcpetkovich][jcpetkovich]]  |
-| [[https://github.com/syl20bnr/spacemacs/pull/800][800th issue (PR)]]          | [[https://github.com/laat][ryansroberts]] |
-| [[https://github.com/syl20bnr/spacemacs/pull/900][900th issue (PR)]]          | [[https://github.com/jcpetkovich][jcpetkovich]]  |
-| [[https://github.com/syl20bnr/spacemacs/pull/1000][1000th issue (PR)]]         | [[https://github.com/tuhdo][tuhdo]]        |
-| [[https://github.com/syl20bnr/spacemacs/pull/2000][2000th issue (PR)]]         | [[https://github.com/IvanMalison][IvanMalison]]  |
-| [[https://github.com/syl20bnr/spacemacs/pull/3000][3000th issue (issue)]]      | [[https://github.com/malchmih][malchmih]]     |
-| [[https://github.com/syl20bnr/spacemacs/pull/4000][4000th issue (issue)]]      | [[https://github.com/icymist][icymist]]      |
-| [[https://github.com/syl20bnr/spacemacs/pull/5000][5000th issue (issue)]]      | [[https://github.com/justbur][justbur]]      |
-| [[https://github.com/syl20bnr/spacemacs/pull/6000][6000th issue (issue)]]      | [[https://github.com/d12frosted][d12frosted]]   |
-| [[https://github.com/syl20bnr/spacemacs/pull/7000][7000th issue (issue)]]      | [[https://github.com/deb0ch][deb0ch]]       |
+| Achievements                   | Account      |
+|--------------------------------+--------------|
+| [[https://github.com/syl20bnr/spacemacs/pull/100][100th issue (PR)]]               | [[https://github.com/danielwuz][danielwuz]]    |
+| [[https://github.com/syl20bnr/spacemacs/issues/200][200th issue (question)]]         | [[https://github.com/justrajdeep][justrajdeep]]  |
+| [[https://github.com/syl20bnr/spacemacs/pull/300][300th issue (PR)]]               | [[https://github.com/danielwuz][danielwuz]]    |
+| [[https://github.com/syl20bnr/spacemacs/pull/400][400th issue (PR)]]               | [[https://github.com/CestDiego][CestDiego]]    |
+| [[https://github.com/syl20bnr/spacemacs/pull/500][500th issue (PR)]]               | [[https://github.com/bjarkevad][bjarkevad]]    |
+| [[https://github.com/syl20bnr/spacemacs/pull/600][600th issue (PR)]]               | [[https://github.com/bjarkevad][bjarkevad]]    |
+| [[https://github.com/syl20bnr/spacemacs/pull/700][700th issue (enhancement)]]      | [[https://github.com/jcpetkovich][jcpetkovich]]  |
+| [[https://github.com/syl20bnr/spacemacs/pull/800][800th issue (PR)]]               | [[https://github.com/laat][ryansroberts]] |
+| [[https://github.com/syl20bnr/spacemacs/pull/900][900th issue (PR)]]               | [[https://github.com/jcpetkovich][jcpetkovich]]  |
+| [[https://github.com/syl20bnr/spacemacs/pull/1000][1000th issue (PR)]]              | [[https://github.com/tuhdo][tuhdo]]        |
+| [[https://github.com/syl20bnr/spacemacs/pull/2000][2000th issue (PR)]]              | [[https://github.com/IvanMalison][IvanMalison]]  |
+| [[https://github.com/syl20bnr/spacemacs/issues/3000][3000th issue (bug)]]             | [[https://github.com/malchmih][malchmih]]     |
+| [[https://github.com/syl20bnr/spacemacs/issues/4000][4000th issue (bug)]]             | [[https://github.com/icymist][icymist]]      |
+| [[https://github.com/syl20bnr/spacemacs/issues/5000][5000th issue (too many issues)]] | [[https://github.com/justbur][justbur]]      |
+| [[https://github.com/syl20bnr/spacemacs/pull/6000][6000th issue (PR)]]              | [[https://github.com/d12frosted][d12frosted]]   |
+| [[https://github.com/syl20bnr/spacemacs/pull/7000][7000th issue (PR)]]              | [[https://github.com/deb0ch][deb0ch]]       |
+| [[https://github.com/syl20bnr/spacemacs/issues/8000][8000th issue (bug)]]             | [[https://github.com/jonbash][jonbash]]      |
+| [[https://github.com/syl20bnr/spacemacs/issues/9000][9000th issue (bug)]]             | [[https://github.com/shaunpatel][shaunpatel]]   |
+| [[https://github.com/syl20bnr/spacemacs/pull/10000][10000th issue (PR)]]             | [[https://github.com/nikital][nikital]]      |
 
 ** Merged Pull Requests
 
