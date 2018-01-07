@@ -143,10 +143,6 @@
 
       (let ((dir (configuration-layer/get-layer-local-dir 'org)))
         (setq org-export-async-init-file (concat dir "org-async-init.el")))
-      (defmacro spacemacs|org-emphasize (fname char)
-        "Make function for setting the emphasis in org mode"
-        `(defun ,fname () (interactive)
-                (org-emphasize ,char)))
 
       ;; Insert key for org-mode and markdown a la C-h k
       ;; from SE endless http://emacs.stackexchange.com/questions/2206/i-want-to-have-the-kbd-tags-for-my-blog-written-in-org-mode/2208#2208
