@@ -4,13 +4,15 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#working-with-nim][Working with Nim]]
   - [[#nim-commands-start-with-m][Nim commands (start with =m=):]]
 
 * Description
-This layer provides the following features for Nim:
+This layer adds support for the multi-paradigm language =Nim=.
 
+** Features:
 - Code completion.
 - Jump to definition.
 - Syntax checking.

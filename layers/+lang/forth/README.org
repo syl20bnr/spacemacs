@@ -2,19 +2,25 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer supports developing in the Forth family of languages. It provides
-shortcuts to a basic set of commands for interactive development.
+This layer adds basic support for the Forth family of languages to spacemacs.
+
+** Features:
+- Syntax highlighting
+- Showing meaning of objects in context of the current =Forth= session.
+- Eval of entire files or regions in current =Forth= session.
+- Passing interactive commands to current =Forth= session.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =forth= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-A local installation of Forth needs to be present as well. /GNU Forth/ is
+A local installation of =Forth= needs to be present as well. =GNU Forth= is
 commonly available on Unix systems via the package manager. To bypass the query
 when calling ~run-forth~, the default Forth can be configured by setting the
 appropriate variable.
@@ -25,8 +31,6 @@ appropriate variable.
 #+END_SRC
 
 * Key bindings
-All Forth specific bindings are prefixed with the major-mode leader
-~SPC m~.
 
 | Key Binding | Description                                                       |
 |-------------+-------------------------------------------------------------------|
