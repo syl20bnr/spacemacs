@@ -2,16 +2,19 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#fasd][fasd]]
 - [[#keybindings][Keybindings]]
 
 * Description
-This layer adds integration of [[https://github.com/clvv/fasd][fasd]] which is a command line tool
-to quickly jump between locations in a POSIX shell.
+This layer integrates the [[https://github.com/clvv/fasd][fasd]] command line tool into spacemacs.
 
-The integration is implemented in the package [[https://github.com/steckerhalter/emacs-fasd][emacs-fasd]].
+** Features:
+- Adds easy shortcuts to reference recent files and directories.
+- Provides =fasd= with recent open file lists from emacs.
+- Allows to filter =fasd= results with =helm= or =ivy=.
 
 * Install
 ** Layer
