@@ -75,8 +75,8 @@
     :pre-config
     (progn
       (use-package magit-gh-pulls
-        :init (define-key magit-mode-map "#" 'spacemacs/load-gh-pulls-mode)
         :config
+        (define-key magit-mode-map "#" 'spacemacs/load-gh-pulls-mode)
         (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))))
 
 (defun github/init-magithub ()
