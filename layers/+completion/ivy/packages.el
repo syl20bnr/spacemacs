@@ -25,8 +25,8 @@
         org
         persp-mode
         projectile
-        smex
         recentf
+        smex
         swiper
         wgrep
         ))
@@ -43,6 +43,9 @@
         ("b" spacemacs/swiper-all-region-or-symbol :exit t)
         ("f" spacemacs/search-auto-region-or-symbol :exit t)
         ("s" spacemacs/swiper-region-or-symbol :exit t)))))
+
+(defun ivy/post-init-bookmark ()
+  (spacemacs/set-leader-keys "fb" 'counsel-bookmark))
 
 (defun ivy/init-counsel ()
   (use-package counsel
@@ -111,7 +114,6 @@
         "stF" 'spacemacs/search-pt-region-or-symbol
         "stp" 'spacemacs/search-project-pt
         "stP" 'spacemacs/search-project-pt-region-or-symbol))
-
     :config
     (progn
       ;; set additional ivy actions
@@ -216,6 +218,38 @@
   (use-package ivy-hydra)
   (define-key hydra-ivy/keymap [escape] 'hydra-ivy/keyboard-escape-quit-and-exit))
 
+(defun ivy/init-ivy-rich ()
+  (use-package ivy-rich
+    :defer t
+    :init
+    (progn
+      (setq ivy-rich-abbreviate-paths t
+            ivy-virtual-abbreviate 'full
+            ivy-rich-switch-buffer-align-virtual-buffer t)
+      (ivy-set-display-transformer 'ivy-switch-buffer
+                                   'ivy-rich-switch-buffer-transformer))))
+
+(defun ivy/init-ivy-spacemacs-help ()
+  (use-package ivy-spacemacs-help
+    :commands (ivy-spacemacs-help-dotspacemacs
+               ivy-spacemacs-help
+               ivy-spacemacs-help-faq
+               ivy-spacemacs-help-layers
+               ivy-spacemacs-help-packages
+               ivy-spacemacs-help-docs
+               ivy-spacemacs-help-toggles)
+    :init (spacemacs/set-leader-keys
+            "h ."   'ivy-spacemacs-help-dotspacemacs
+            "h SPC" 'ivy-spacemacs-help
+            "h f"   'ivy-spacemacs-help-faq
+            "h l"   'ivy-spacemacs-help-layers
+            "h p"   'ivy-spacemacs-help-packages
+            "h r"   'ivy-spacemacs-help-docs
+            "h t"   'ivy-spacemacs-help-toggles)))
+
+(defun ivy/post-init-org ()
+  (add-hook 'org-ctrl-c-ctrl-c-hook 'spacemacs//counsel-org-ctrl-c-ctrl-c-org-tag))
+
 (defun ivy/pre-init-persp-mode ()
   (spacemacs|use-package-add-hook persp-mode
     :post-config
@@ -252,18 +286,8 @@
   (spacemacs/set-leader-keys
     "pv"  'projectile-vc))
 
-(defun ivy/post-init-bookmark ()
-  (spacemacs/set-leader-keys "fb" 'counsel-bookmark))
-
-(defun ivy/init-smex ()
-  (use-package smex
-    :defer t
-    :init (setq-default smex-history-length 32
-                        smex-save-file (concat spacemacs-cache-directory
-                                               ".smex-items"))))
 (defun ivy/post-init-recentf ()
   ;; custom actions for recentf
-
   (ivy-set-actions
    'counsel-recentf
    (append spacemacs--ivy-file-actions
@@ -275,39 +299,15 @@
                     (interactive)
                     (setq recentf-list (delete arg recentf-list))
                     (ivy-recentf)) "delete from list"))))
-
   ;; merge recentf and bookmarks into buffer switching. If we set this
   (setq ivy-use-virtual-buffers t))
 
-(defun ivy/init-ivy-rich ()
-  (use-package ivy-rich
+(defun ivy/init-smex ()
+  (use-package smex
     :defer t
-    :init (progn
-            (setq ivy-rich-abbreviate-paths t
-                  ivy-virtual-abbreviate 'full
-                  ivy-rich-switch-buffer-align-virtual-buffer t)
-            (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer))))
-
-(defun ivy/init-ivy-spacemacs-help ()
-  (use-package ivy-spacemacs-help
-    :commands (ivy-spacemacs-help-dotspacemacs
-               ivy-spacemacs-help
-               ivy-spacemacs-help-faq
-               ivy-spacemacs-help-layers
-               ivy-spacemacs-help-packages
-               ivy-spacemacs-help-docs
-               ivy-spacemacs-help-toggles)
-    :init (spacemacs/set-leader-keys
-            "h ."   'ivy-spacemacs-help-dotspacemacs
-            "h SPC" 'ivy-spacemacs-help
-            "h f"   'ivy-spacemacs-help-faq
-            "h l"   'ivy-spacemacs-help-layers
-            "h p"   'ivy-spacemacs-help-packages
-            "h r"   'ivy-spacemacs-help-docs
-            "h t"   'ivy-spacemacs-help-toggles)))
-
-(defun ivy/post-init-org ()
-  (add-hook 'org-ctrl-c-ctrl-c-hook 'spacemacs//counsel-org-ctrl-c-ctrl-c-org-tag))
+    :init (setq-default smex-history-length 32
+                        smex-save-file (concat spacemacs-cache-directory
+                                               ".smex-items"))))
 
 (defun ivy/init-swiper ()
   (use-package swiper
