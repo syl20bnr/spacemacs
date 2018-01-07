@@ -76,7 +76,7 @@ used."
          (prefix-arg-var (plist-get props :prefix))
          (on-message (plist-get props :on-message))
          (evil-leader-for-mode (spacemacs/mplist-get props :evil-leader-for-mode))
-         (supported-modes-string (mapconcat '(lambda (x) (symbol-name (car x)))
+         (supported-modes-string (mapconcat (lambda (x) (symbol-name (car x)))
                                             evil-leader-for-mode ", "))
          (bindkeys (spacemacs//create-key-binding-form props wrapper-func))
          ;; we evaluate condition and status only if they are a list or
