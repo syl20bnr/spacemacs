@@ -265,7 +265,7 @@ buffer."
 
 ;; http://stackoverflow.com/questions/11847547/emacs-regexp-count-occurrences
 (defun spacemacs/how-many-str (regexp str)
-  (loop with start = 0
+  (cl-loop with start = 0
         for count from 0
         while (string-match regexp str start)
         do (setq start (match-end 0))

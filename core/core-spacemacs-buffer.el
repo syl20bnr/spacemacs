@@ -783,7 +783,7 @@ TYPES: list of `org-mode' types to fetch."
   (require 'org-agenda)
   (let ((date (calendar-gregorian-from-absolute (org-today))))
     (apply #'append
-           (loop for file in (org-agenda-files nil 'ifmode)
+           (cl-loop for file in (org-agenda-files nil 'ifmode)
                  collect
                  (spacemacs-buffer//make-org-items
                   file
@@ -804,7 +804,7 @@ TYPES: list of `org-mode' types to fetch."
   "Make a spacemacs-buffer org item list.
 FILE: file name.
 ITEMS:"
-  (loop
+  (cl-loop
    for item in items
    collect
    (spacemacs-buffer//make-org-item file item)))

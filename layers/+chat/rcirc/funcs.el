@@ -138,7 +138,7 @@ This doesn't support the chanserv auth method. "
 ;; using :host rather than the server name for connecting.
 (defun spacemacs//znc-rcirc-connect ()
   "Connect to rcirc-server-alist servers."
-  (loop
+  (cl-loop
    for s in rcirc-server-alist
    collect
    (destructuring-bind (&key host
@@ -154,7 +154,7 @@ This doesn't support the chanserv auth method. "
        (cdr s)
      (let ((host (or host server)) ; catter with server without :host
            (connected
-            (loop for p in (rcirc-process-list)
+            (cl-loop for p in (rcirc-process-list)
                   thereis (string= server (process-get p :rcirc-server)))))
        (unless connected
          (let ((process

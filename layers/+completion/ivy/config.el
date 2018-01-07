@@ -41,7 +41,7 @@ than this amount.")
   "Default ivy actions for files.")
 
 (defvar spacemacs--ivy-grep-actions
-  (loop for j in spacemacs--ivy-file-actions
+  (cl-loop for j in spacemacs--ivy-file-actions
         for key = (nth 0 j)
         for func = (nth 1 j)
         for desc = (nth 2 j)

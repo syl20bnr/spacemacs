@@ -337,7 +337,7 @@ specialized mini-languages for specific record classes.
                             (spec (oref mock :argspec))
                             (call (or (and (member '&rest spec) 'apply)
                                       'funcall))
-                            (args (loop for el in spec
+                            (args (cl-loop for el in spec
                                         if (or (not (symbolp el))
                                                (not (equal
                                                      (elt (symbol-name el) 0)
