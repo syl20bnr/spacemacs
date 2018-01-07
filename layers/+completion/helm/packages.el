@@ -199,7 +199,7 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
 are used as default input."
         (interactive)
         (call-interactively
-         (spacemacs//helm-do-search-find-tool "helm-file-do"
+         (spacemacs//helm-do-search-find-tool "helm-files-do"
                                               dotspacemacs-search-tools
                                               default-inputp)))
 
