@@ -1,3 +1,7 @@
+(defun spacemacs/notmuch-interactive-search ()
+  (interactive)
+  (funcall spacemacs/notmuch-interactive-search-function))
+
 (defun spacemacs/notmuch-inbox-p (saved-search-property-item)
   (string-equal (plist-get saved-search-property-item :name) "inbox"))
 
