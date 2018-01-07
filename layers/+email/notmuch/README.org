@@ -19,6 +19,7 @@
     - [[#search-mode][Search mode]]
     - [[#show-mode-1][Show mode]]
     - [[#tree-mode][Tree mode]]
+- [[#spacemacs-layout-integration][Spacemacs layout integration]]
 
 * Description
 Notmuch offers a fast, global-search and tag-based email system to
@@ -74,12 +75,13 @@ https://notmuchmail.org/
 * Key bindings
 ** Global bindings
 
-| Keybinding  | Command                     |
-|-------------+-----------------------------|
-| ~SPC a N N~ | Start notmuch               |
-| ~SPC a N n~ | Start helm notmuch          |
-| ~SPC a N j~ | Start a notmuch jump search |
-| ~SPC a N s~ | Start a notmuch search      |
+| Keybinding  | Command                                      |
+|-------------+----------------------------------------------|
+| ~SPC a N N~ | Start notmuch                                |
+| ~SPC a N n~ | Start helm notmuch                           |
+| ~SPC a N j~ | Start a notmuch jump search                  |
+| ~SPC a N s~ | Start a notmuch search                       |
+| ~SPC l o n~ | Start notmuch in a custom layout, "@Notmuch" |
 
 ** Show mode
 
@@ -157,3 +159,19 @@ https://notmuchmail.org/
 | ~+~        | [Message] Add tags        |
 | ~-~        | [Message] Remove tags     |
 | ~a~        | [Message] Archive         |
+
+* Spacemacs layout integration
+
+This layer defines a [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Spacemacs custom layout]] and automatically adds notmuch
+buffers to this layout.  The name and the key binding for the layout can be
+customized with the following layer variables:
+- =notmuch-spacemacs-layout-name= for the layout name,
+- =notmuch-spacemacs-layout-binding= for the key binding.
+
+The following example configures the layout with the default name and binding:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(
+  (notmuch :variables notmuch-spacemacs-layout-name "@Notmuch"
+                      notmuch-spacemacs-layout-binding "n")))
+#+END_SRC
