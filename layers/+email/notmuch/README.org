@@ -1,6 +1,6 @@
 #+TITLE: Notmuch layer
 
-[[file:notmuch-logo.png]]
+[[file:img/notmuch.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
@@ -10,17 +10,15 @@
     - [[#receiving-emails][Receiving emails]]
     - [[#sending-emails-with-thunderbird][Sending emails with Thunderbird]]
     - [[#sending-emails-with-msmtp][Sending emails with msmtp]]
+  - [[#see-also][See also]]
 - [[#key-bindings][Key bindings]]
   - [[#global-bindings][Global bindings]]
-  - [[#hello-mode][Hello mode]]
-      - [[#evilified-state][Evilified state]]
-  - [[#search-mode][Search mode]]
-      - [[#evilified-state-1][Evilified state]]
-  - [[#tree-mode][Tree mode]]
-      - [[#evilified-state-2][Evilified state]]
   - [[#show-mode][Show mode]]
-      - [[#evilified-state-3][Evilified state]]
-- [[#see-also][See also]]
+  - [[#evilified-key-bindings][Evilified key bindings]]
+    - [[#hello-mode][Hello mode]]
+    - [[#search-mode][Search mode]]
+    - [[#show-mode-1][Show mode]]
+    - [[#tree-mode][Tree mode]]
 
 * Description
 Notmuch offers a fast, global-search and tag-based email system to
@@ -69,6 +67,10 @@ set sendmail="/usr/local/bin/msmtp"
 
 Configure =~/.msmtprc= [[http://msmtp.sourceforge.net/doc/msmtprc.txt][example]]
 
+** See also
+Refer to the official notmuch website for more information:
+https://notmuchmail.org/
+
 * Key bindings
 ** Global bindings
 
@@ -78,35 +80,6 @@ Configure =~/.msmtprc= [[http://msmtp.sourceforge.net/doc/msmtprc.txt][example]]
 | ~SPC a N n~ | Start helm notmuch          |
 | ~SPC a N j~ | Start a notmuch jump search |
 | ~SPC a N s~ | Start a notmuch search      |
-
-** Hello mode
-**** Evilified state
-
-| Keybinding | Command                     |
-|------------+-----------------------------|
-| ~J~        | Jump to a saved search      |
-| ~s~        | Show threads matching QUERY |
-
-** Search mode
-**** Evilified state
-
-| Keybinding | Command                   |
-|------------+---------------------------|
-| ~J~        | Jump to saved search      |
-| ~*~        | [Thread]  Add/Remove tags |
-| ~+~        | [Message] Add tags        |
-| ~-~        | [Message] Remove tags     |
-| ~a~        | [Message] Archive         |
-
-** Tree mode
-**** Evilified state
-
-| Keybinding | Command                   |
-|------------+---------------------------|
-| ~*~        | [Thread]  Add/Remove tags |
-| ~+~        | [Message] Add tags        |
-| ~-~        | [Message] Remove tags     |
-| ~a~        | [Message] Archive         |
 
 ** Show mode
 
@@ -135,7 +108,25 @@ Configure =~/.msmtprc= [[http://msmtp.sourceforge.net/doc/msmtprc.txt][example]]
 | ~SPC m s t~     | [STASH] Copy =To address= to kill-ring                                         |
 | ~SPC m s T~     | [STASH] Copy =tags= to kill-ring                                               |
 
-**** Evilified state
+** Evilified key bindings
+*** Hello mode
+
+| Keybinding | Command                     |
+|------------+-----------------------------|
+| ~J~        | Jump to a saved search      |
+| ~s~        | Show threads matching QUERY |
+
+*** Search mode
+
+| Keybinding | Command                   |
+|------------+---------------------------|
+| ~J~        | Jump to saved search      |
+| ~*~        | [Thread]  Add/Remove tags |
+| ~+~        | [Message] Add tags        |
+| ~-~        | [Message] Remove tags     |
+| ~a~        | [Message] Archive         |
+
+*** Show mode
 
 | Keybinding | Description                |
 |------------+----------------------------|
@@ -158,7 +149,11 @@ Configure =~/.msmtprc= [[http://msmtp.sourceforge.net/doc/msmtprc.txt][example]]
 | ~gR~       | Refresh all buffers        |
 | ~m~        | Compose mail               |
 
-* See also
-Refer to the official notmuch website for more information.
+*** Tree mode
 
-- https://notmuchmail.org/
+| Keybinding | Command                   |
+|------------+---------------------------|
+| ~*~        | [Thread]  Add/Remove tags |
+| ~+~        | [Message] Add tags        |
+| ~-~        | [Message] Remove tags     |
+| ~a~        | [Message] Archive         |
