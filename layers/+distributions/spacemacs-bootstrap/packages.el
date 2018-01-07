@@ -470,6 +470,7 @@
         which-key-max-description-length 32
         which-key-sort-order 'which-key-key-order-alpha
         which-key-idle-delay dotspacemacs-which-key-delay
+        which-key-idle-secondary-delay 0.01
         which-key-allow-evil-operators t)
 
   (which-key-mode)
