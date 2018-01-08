@@ -69,7 +69,10 @@
 (defun spacemacs//typescript-tsx-file-p (&optional filename)
   "Return non-nil if file is a TSX file."
   (let ((filename (or filename buffer-file-name)))
-    (string-equal "tsx" (file-name-extension filename))))
+    ;; So that the file-name-extension doesn't throw an error for buffers that
+    ;; don't have a file-name associated
+    (when filename
+        (string-equal "tsx" (file-name-extension filename)))))
 
 (defun spacemacs//typescript-web-mode-enable-tide ()
   "Enable tide when a .tsx file is opened."
