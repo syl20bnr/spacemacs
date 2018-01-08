@@ -55,10 +55,9 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   correctly loads custom settings at the end of the loading process, fixing
   unwanted overriden custom settings by layers. See section =Custom variables=
   in =DOCUMENTATION.org=.
-- Introduction of =spacemacs-purpose= layer in charge of handling Emacs windows
-  assignation for actions opening new buffers. This layer brings more
-  consistency to windows creation by giving them a purpose (i.e. =edit=, =help=,
-  etc...). See [[https://github.com/bmag/emacs-purpose][emacs-purpose]] repository for more info. (thanks to bmag)
+- Introduction of =spacemacs-purpose= layer that assigns newly created buffers
+  to windows based on their inferred purpose (=edit=, =help=, =chat=, =mail=,
+  etc.).  See [[https://github.com/bmag/emacs-purpose][emacs-purpose]] repository for more info (thanks to bmag)
 - New distribution =spacemacs-docker= used to build the official docker image
   for the Spacemacs container (thanks to Eugene Yaremenko)
 - Added support for =ripgrep=. To enable it add =rg= to

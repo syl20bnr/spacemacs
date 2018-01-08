@@ -23,6 +23,7 @@
     linum
     persp-mode
     slack
+    window-purpose
     ))
 
 (defun slack/init-alert ()
@@ -91,5 +92,10 @@
       (evil-define-key 'insert slack-mode-map
         (kbd "@") 'slack-message-embed-mention
         (kbd "#") 'slack-message-embed-channel))))
+
+(defun slack/pre-init-window-purpose ()
+  (spacemacs|use-package-add-hook window-purpose
+    :pre-config
+    (add-to-list 'purpose-user-mode-purposes '(slack-mode . chat))))
 
 ;;; packages.el ends here

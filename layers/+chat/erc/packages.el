@@ -30,6 +30,7 @@
     erc-yt
     linum
     persp-mode
+    window-purpose
     ))
 
 (defun erc/post-init-company ()
@@ -246,3 +247,6 @@
               (erc/default-servers)
             (call-interactively 'erc)))))))
 
+(defun erc/pre-init-window-purpose ()
+  (spacemacs|use-package-add-hook window-purpose
+    :pre-config (add-to-list 'purpose-user-mode-purposes '(erc-mode . chat))))
