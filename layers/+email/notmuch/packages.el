@@ -14,7 +14,7 @@
         (counsel-notmuch :requires ivy
                          :location (recipe :fetcher github
                                            :repo "fuxialexander/counsel-notmuch"))
-        (helm-notmuch :reuiqres helm)
+        (helm-notmuch :requires helm)
         notmuch
         org)
       )
