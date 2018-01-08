@@ -148,4 +148,8 @@
       ;; with original `C-x C-f', `C-x b', etc. and `semantic' key bindings.
       (setcdr purpose-mode-map nil)
       (spacemacs|diminish purpose-mode)
-      (purpose-x-golden-ratio-setup))))
+      (purpose-x-golden-ratio-setup)
+      ;; Other layers may have modified `purpose-user-mode-purposes' by using
+      ;; `spacemacs|user-package-add-hook' to add pre-config hooks; we want to
+      ;; incorporate any such configuration now.
+      (purpose-compile-user-configuration))))

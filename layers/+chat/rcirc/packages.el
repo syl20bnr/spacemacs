@@ -23,6 +23,7 @@
         (rcirc-late-fix :location local
                         :toggle rcirc-enable-late-fix)
         rcirc-notify
+        window-purpose
         ))
 
 (defun rcirc/post-init-company ()
@@ -119,3 +120,7 @@
     :config
     (progn
       (add-hook 'rcirc-notify-page-me-hooks 'spacemacs/rcirc-notify-beep))))
+
+(defun rcirc/pre-init-window-purpose ()
+  (spacemacs|use-package-add-hook window-purpose
+    :pre-config (add-to-list 'purpose-user-mode-purposes '(rcirc-mode . chat))))
