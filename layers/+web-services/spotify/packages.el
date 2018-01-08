@@ -28,7 +28,7 @@
         "amsN" 'spotify-previous
         "amsQ" 'spotify-quit))))
 
-(defun spotify/init-helm-spotify ()
-  (use-package helm-spotify
+(defun spotify/init-helm-spotify-plus ()
+  (use-package helm-spotify-plus
     :defer t
     :init (spacemacs/set-leader-keys "amsg" 'helm-spotify-plus)))
