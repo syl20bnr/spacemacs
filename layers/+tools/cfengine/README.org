@@ -5,6 +5,7 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#set-file-permission-on-save][Set file permission on save]]
@@ -13,12 +14,13 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer makes working with CFEngine policy easier:
+This layer adds support for CFEngine policies to Spacemacs.
 
+** Features:
 - Syntax highlighting
-- On the fly syntax checks (via =syntax-checking= layer)
-- Auto completion (via =auto-completion= layer)
-- Execution of =cfengine3= =SRC= blocks in =org-mode= (via ob-cfengine3 package)
+- On the fly syntax checking via =flycheck= integration.
+- Auto completion via =company= integration.
+- Execution of =cfengine3= =SRC= blocks in =org-mode= via =ob-cfengine3= package.
 
 * Install
 Add =cfengine= to the =dotspacemacs-configuration-layers= in your =~/.spacemacs=

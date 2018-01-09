@@ -3,12 +3,22 @@
 [[file:img/gnus.gif]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#basic-concepts][Basic Concepts]]
 - [[#adding-news-sources][Adding news sources]]
 - [[#configuring-gmail][Configuring gmail]]
 - [[#org-mime-in-org-layer][Org MIME in Org layer]]
 - [[#keybindings][Keybindings]]
+
+* Description
+This layer integrates a general purpose email/newsgroup client into Spacemacs.
+
+** Features:
+- Support for reading RSS feeds, newsgroups and mails directly within emacs via [[http://www.gnus.org/][Gnus]].
+- Support for beautiful HTML mails generated from any =org= buffer.
+- Support for credential managment via [[https://gnupg.org/][GnuPG]].
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -64,14 +74,14 @@ To configure Gnus with gmail support you can add the following to your
 (setq gnus-message-archive-method '(nnimap "imap.gmail.com")
     gnus-message-archive-group "[Gmail]/Sent Mail")
 
-;; set return email address based on incoming email address
+;; Set return email address based on incoming email address
 (setq gnus-posting-styles
     '(((header "to" "address@outlook.com")
        (address "address@outlook.com"))
   ((header "to" "address@gmail.com")
      (address "address@gmail.com"))))
 
-;; store email in ~/gmail directory
+;; Store email in ~/gmail directory
 (setq nnml-directory "~/gmail")
 (setq message-directory "~/gmail")
 #+END_SRC
