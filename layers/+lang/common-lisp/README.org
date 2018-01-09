@@ -18,10 +18,14 @@
     - [[#macroexpansion][Macroexpansion]]
 
 * Description
-A Spacemacs layer providing Common Lisp support via [[https://github.com/slime/slime][SLIME]].
+This layer provides support for Common Lisp to Spacemacs.
 
 ** Features:
-- Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
+- Syntax highlighting
+- Auto-completion using company
+- Repl support via [[https://github.com/slime/slime][SLIME]]
+- Support for specific lisp navigation styles via =common-lisp-mode=
+- Support for [[http://www.sbcl.org/][sbcl]] backend or any other =common-lisp= implementation
 
 * Install
 If you have previously installed slime in any other way, it is recommended that
