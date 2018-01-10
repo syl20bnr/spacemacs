@@ -67,6 +67,7 @@
         "gf"   'omnisharp-navigate-to-solution-file
         "gF"   'omnisharp-navigate-to-solution-file-then-file-member
         "gc"   'omnisharp-navigate-to-current-file-member
+        "ge"   'omnisharp-solution-errors
 
         ;; Help, documentation, info
         "ht" 'omnisharp-current-type-information

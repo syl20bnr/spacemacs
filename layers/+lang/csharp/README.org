@@ -74,6 +74,7 @@ now this is required.
 | ~SPC m g s~ | Find symbols using Helm                       |
 | ~SPC m g u~ | Find usages of symbol under cursor using Helm |
 | ~SPC m g U~ | Find usages of symbol under cursor using ido  |
+| ~SPC m g e~ | List errors and warnings in solution          |
 
 ** Helpers (documentation, info)
 
