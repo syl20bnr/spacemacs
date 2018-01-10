@@ -228,7 +228,6 @@ Emacs style:
 
 | Key Binding | Description                                    |
 |-------------+------------------------------------------------|
-| ~C-f~       | (emacs style) complete selection               |
 | ~C-n~       | (emacs style) go down in company dropdown menu |
 | ~C-p~       | (emacs style) go up in company dropdown menu   |
 
