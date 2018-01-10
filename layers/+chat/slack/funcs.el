@@ -1,4 +1,4 @@
-;;; funcs.el --- Python Layer functions File for Spacemacs
+;;; funcs.el --- slack layer functions file for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
