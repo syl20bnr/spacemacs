@@ -47,3 +47,6 @@ than this amount.")
         for desc = (nth 2 j)
         collect `(,key (lambda (x) (spacemacs//counsel-with-git-grep (quote ,func) x)) ,desc))
   "Default ivy actions to be used with git-grep output.")
+
+(defvar ivy-enable-ivy-rich nil
+  "If non-nil, enable `ivy-rich'")
