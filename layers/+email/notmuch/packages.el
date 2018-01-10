@@ -33,6 +33,7 @@
 (defun notmuch/init-notmuch ()
   (use-package notmuch
     :defer t
+    :commands notmuch
     :init
     (progn
       (spacemacs/declare-prefix "aN" "notmuch")
