@@ -36,14 +36,12 @@
     (progn
       (add-to-list 'persp-filter-save-buffers-functions
                    'spacemacs//rcirc-persp-filter-save-buffers-function)
-      (spacemacs|define-custom-layout erc-spacemacs-layout-name
-        :binding erc-spacemacs-layout-binding
+      (spacemacs|define-custom-layout rcirc-spacemacs-layout-name
+        :binding rcirc-spacemacs-layout-binding
         :body
         (progn
-          (add-hook 'erc-mode-hook #'spacemacs//rcirc-buffer-to-persp)
-          (if erc-server-list
-              (erc/default-servers)
-            (call-interactively 'erc)))))))
+          (add-hook 'rcirc-mode-hook #'spacemacs//rcirc-buffer-to-persp)
+          (call-interactively #'spacemacs/rcirc))))))
 
 (defun rcirc/init-rcirc ()
   (use-package rcirc
