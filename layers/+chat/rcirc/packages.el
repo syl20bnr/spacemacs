@@ -30,18 +30,20 @@
     :init
     (spacemacs/set-leader-keys "irc" 'helm-rcirc-auto-join-channels)))
 
-(defun rcirc/post-init-persp-mode ()
-  ;; do not save rcirc buffers
-  (with-eval-after-load 'persp-mode
-    (push (lambda (b) (with-current-buffer b (eq major-mode 'rcirc-mode)))
-          persp-filter-save-buffers-functions))
-
-  (spacemacs|define-custom-layout rcirc-spacemacs-layout-name
-    :binding rcirc-spacemacs-layout-binding
-    :body
+(defun rcirc/pre-init-persp-mode ()
+  (spacemacs|use-package-add-hook persp-mode
+    :post-config
     (progn
-      (add-hook 'rcirc-mode-hook #'spacemacs-layouts/add-rcirc-buffer-to-persp)
-      (call-interactively 'spacemacs/rcirc))))
+      (add-to-list 'persp-filter-save-buffers-functions
+                   'spacemacs//rcirc-persp-filter-save-buffers-function)
+      (spacemacs|define-custom-layout erc-spacemacs-layout-name
+        :binding erc-spacemacs-layout-binding
+        :body
+        (progn
+          (add-hook 'erc-mode-hook #'spacemacs//rcirc-buffer-to-persp)
+          (if erc-server-list
+              (erc/default-servers)
+            (call-interactively 'erc)))))))
 
 (defun rcirc/init-rcirc ()
   (use-package rcirc

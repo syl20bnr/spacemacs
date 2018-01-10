@@ -227,21 +227,18 @@
   (spacemacs/add-to-hooks 'spacemacs/no-linum '(erc-mode-hook
                                                 erc-insert-pre-hook)))
 
-(defun erc/post-init-persp-mode ()
-  ;; do not save erc buffers
-  (with-eval-after-load 'persp-mode
-    (push (lambda (b) (with-current-buffer b (eq major-mode 'erc-mode)))
-          persp-filter-save-buffers-functions))
-
-  (spacemacs|define-custom-layout erc-spacemacs-layout-name
-    :binding erc-spacemacs-layout-binding
-    :body
+(defun erc/pre-init-persp-mode ()
+  (spacemacs|use-package-add-hook persp-mode
+    :post-config
     (progn
-      (defun spacemacs-layouts/add-erc-buffer-to-persp ()
-        (persp-add-buffer (current-buffer)
-                          (persp-get-by-name
-                           erc-spacemacs-layout-name)))
-      (add-hook 'erc-mode-hook #'spacemacs-layouts/add-erc-buffer-to-persp)
-      (if erc-server-list
-          (erc/default-servers)
-        (call-interactively 'erc)))))
+      (add-to-list 'persp-filter-save-buffers-functions
+                   'spacemacs//erc-persp-filter-save-buffers-function)
+      (spacemacs|define-custom-layout erc-spacemacs-layout-name
+        :binding erc-spacemacs-layout-binding
+        :body
+        (progn
+          (add-hook 'erc-mode-hook #'spacemacs//erc-buffer-to-persp)
+          (if erc-server-list
+              (erc/default-servers)
+            (call-interactively 'erc)))))))
+

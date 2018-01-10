@@ -121,17 +121,17 @@
   (spacemacs|use-package-add-hook org
     :post-config (require 'org-notmuch)))
 
-(defun notmuch/post-init-persp-mode ()
-  (with-eval-after-load 'persp-mode
-    (push (lambda (b) (with-current-buffer b (memq major-mode notmuch-modes)))
-          persp-filter-save-buffers-functions))
-
-  (spacemacs|define-custom-layout notmuch-spacemacs-layout-name
-    :binding notmuch-spacemacs-layout-binding
-    :body
+(defun notmuch/pre-init-persp-mode ()
+  (spacemacs|use-package-add-hook persp-mode
+    :post-config
     (progn
-      (dolist (mode notmuch-modes)
-        (let ((hook (intern (concat (symbol-name mode) "-hook"))))
-          (add-hook hook #'spacemacs-layouts/add-notmuch-buffer-to-persp)))
-
-      (call-interactively 'notmuch))))
+      (add-to-list 'persp-filter-save-buffers-functions
+                   'spacemacs//notmuch-persp-filter-save-buffers-function)
+      (spacemacs|define-custom-layout notmuch-spacemacs-layout-name
+        :binding notmuch-spacemacs-layout-binding
+        :body
+        (progn
+          (dolist (mode notmuch-modes)
+            (let ((hook (intern (concat (symbol-name mode) "-hook"))))
+              (add-hook hook #'spacemacs//notmuch-buffer-to-persp)))
+          (call-interactively 'notmuch))))))

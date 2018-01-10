@@ -110,6 +110,12 @@ messages in the current thread"
 
 ;; persp
 
-(defun spacemacs-layouts/add-notmuch-buffer-to-persp ()
+(defun spacemacs//notmuch-persp-filter-save-buffers-function (buffer)
+  "Filter for notmuch layout."
+  (with-current-buffer buffer
+    (memq major-mode notmuch-modes)))
+
+(defun spacemacs//notmuch-buffer-to-persp ()
+  "Add buffer to notmuch layout."
   (persp-add-buffer (current-buffer)
                     (persp-get-by-name notmuch-spacemacs-layout-name)))

@@ -48,15 +48,21 @@
     (start-process "beep-process" nil player sound)))
 
 
-;; persp ---------------------------------------------------------------------
+
+;; persp
 
-(defun spacemacs-layouts/add-rcirc-buffer-to-persp ()
-  (persp-add-buffer (current-buffer)
-                    (persp-get-by-name
-                     rcirc-spacemacs-layout-name)))
+(defun spacemacs//rcirc-persp-filter-save-buffers-function (buffer)
+  "Filter for rcirc layout."
+  (with-current-buffer buffer
+    (eq major-mode 'rcirc-mode)))
 
+(defun spacemacs//rcirc-buffer-to-persp ()
+  "Add buffer to rcirc layout."
+  (persp-add-buffer (current-buffer) (persp-get-by-name
+                                      rcirc-spacemacs-layout-name)))
 
-;; logging -------------------------------------------------------------------
+
+;; logging
 
 (defun spacemacs//rcirc-write-log (process sender response target text)
   (when rcirc-log-directory
@@ -82,14 +88,16 @@
                         t 'quietly))))))
 
 
-;; emms -------------------------------------------------------------------
+
+;; emms
 
 (defun spacemacs/rcirc-insert-current-emms-track ()
   (interactive)
   (insert (emms-track-description (emms-playlist-current-selected-track))))
 
 
-;; authinfo ------------------------------------------------------------------
+
+;; authinfo
 
 (defun spacemacs//rcirc-authinfo-config ()
   "Initialize authinfo.
@@ -107,7 +115,8 @@ This doesn't support the chanserv auth method. "
              (if (functionp secret) (funcall secret) secret))))))
 
 
-;; ZNC with authinfo ---------------------------------------------------------
+
+;; ZNC with authinfo
 
 (defun spacemacs//znc-auth-source-fetch-password (server)
   "Given a server with at least :host :port :login, return the :password"

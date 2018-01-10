@@ -25,3 +25,16 @@
   (if erc-server-list
       (erc//servers erc-server-list)
     (message "You must define erc-server-list")))
+
+
+;; persp
+
+(defun spacemacs//erc-persp-filter-save-buffers-function (buffer)
+  "Filter for erc layout."
+  (with-current-buffer buffer
+    (eq major-mode 'erc-mode)))
+
+(defun spacemacs//erc-buffer-to-persp ()
+  "Add buffer to erc layout."
+  (persp-add-buffer (current-buffer) (persp-get-by-name
+                                      erc-spacemacs-layout-name)))
