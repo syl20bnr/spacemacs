@@ -152,8 +152,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
     (set-text-properties 0 (length input) nil input)
     (helm-find-files-1 input)))
 
-
-;; Key bindings
+ ;; Key bindings
 
 (defmacro spacemacs||set-helm-key (keys func)
   "Define a key bindings for FUNC using KEYS.
@@ -167,6 +166,8 @@ Ensure that helm is required before calling FUNC."
          (require 'helm)
          (call-interactively ',func))
        (spacemacs/set-leader-keys ,keys ',func-name))))
+
+ ;; Find files tweaks
 
 (defun spacemacs//helm-find-files-edit (candidate)
   "Opens a dired buffer and immediately switches to editable mode."
@@ -198,7 +199,7 @@ windows, and window 2 active, opening 4 buffers will open them in windows
 2 3 4 1. If more buffers are opened than windows available, the remainder are
 not set to any window (but in the case of files, they are still opened
 to buffers)."
-(let ((num-buffers (length buffers))
+  (let ((num-buffers (length buffers))
         (num-windows (length (winum--window-list)))
         (cur-win (winum-get-number))
         (num-buffers-placed 0))

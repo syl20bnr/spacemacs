@@ -642,8 +642,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
             "pp"  'helm-projectile-switch-project
             "pr"  'helm-projectile-recentf
             "sgp" 'helm-projectile-grep))))
-    :config
-    (define-key helm-projectile-find-file-map (kbd "RET") 'spacemacs/helm-find-files-windows)))
+    :config (define-key helm-projectile-find-file-map
+              (kbd "RET") 'spacemacs/helm-find-files-windows)))
 
 (defun helm/init-helm-spacemacs-help ()
   (use-package helm-spacemacs-help
