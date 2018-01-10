@@ -21,7 +21,7 @@ Must be a number.")
 
 (defvar treemacs-use-git-mode
   (pcase (cons (not (null (executable-find "git")))
-               (not (null (executable-find "python"))))
+               (not (null (executable-find "python3"))))
     (`(t . t) 'extended)
     (`(t . _) 'simple))
   "Type of git integration for `treemacs-git-mode'.
