@@ -1,6 +1,6 @@
 ;;; quelpa.el --- Emacs Lisp packages built directly from source
 
-;; Copyright 2014-2015, Steckerhalter
+;; Copyright 2014-2017, Steckerhalter
 ;; Copyright 2014-2015, Vasilij Schneidermann <v.schneidermann@gmail.com>
 
 ;; Author: steckerhalter
@@ -139,6 +139,13 @@ If nil the update is disabled and the repo is only updated on
   :group 'quelpa
   :type 'string)
 
+(defcustom quelpa-self-upgrade-p t
+  "If non-nil upgrade quelpa itself when doing a
+  `quelpa-upgrade', otherwise only upgrade the packages in the
+  quelpa cache."
+  :group 'quelpa
+  :type 'boolean)
+
 (defvar quelpa-initialized-p nil
   "Non-nil when quelpa has been initialized.")
 
@@ -241,15 +248,18 @@ Return nil if the package is already installed and should not be upgraded."
     (unless (or (and (assq name package-alist) (not quelpa-upgrade-p))
                 (and (not config)
                      (quelpa-message t "no recipe found for package `%s'" name)))
-      (let ((version (condition-case err
-                         (package-build-checkout name config dir)
-                       (error (quelpa-message t
-                                              "failed to checkout `%s': `%s'"
-                                              name
-                                              (error-message-string err))
-                              nil))))
-        (when (quelpa-version>-p name version)
-          version)))))
+      (if (member (plist-get config :fetcher) '(wiki bzr cvs darcs fossil svn))
+          (user-error
+           "The `%s' fetcher is not supported anymore.
+It has been removed from the `package-build' library: cannot install `%s'"
+           (plist-get config :fetcher)
+           name)
+        (let ((version (condition-case err
+                           (package-build-checkout name config dir)
+                         (error "failed to checkout `%s': `%s'"
+                                name (error-message-string err)))))
+          (when (quelpa-version>-p name version)
+            version))))))
 
 (defun quelpa-build-package (rcp)
   "Build a package from the given recipe RCP.
@@ -342,7 +352,7 @@ and return TIME-STAMP, otherwise return OLD-TIME-STAMP."
          new-stamp-info
          new-content-hash
          (time-stamp
-          (replace-regexp-in-string "\\.0" "." (format-time-string "%Y%m%d.%H%M%S")))
+          (replace-regexp-in-string "\\.0+" "." (format-time-string "%Y%m%d.%H%M%S")))
          (stamp-file (concat (expand-file-name (symbol-name name) dir) ".stamp"))
          (old-stamp-info (package-build--read-from-file stamp-file))
          (old-content-hash (cdr old-stamp-info))
@@ -351,7 +361,7 @@ and return TIME-STAMP, otherwise return OLD-TIME-STAMP."
          (version (plist-get config :version)))
 
     (if (not (file-exists-p file-path))
-        (error (quelpa-message t "`%s' does not exist" file-path))
+        (error "`%s' does not exist" file-path)
       (if (eq type 'directory)
           (setq files (quelpa-expand-source-file-list file-path config)
                 hashes (mapcar
@@ -412,7 +422,7 @@ attribute with an URL like \"http://domain.tld/path/to/file.el\"."
          (local-path (expand-file-name remote-file-name dir))
          (mm-attachment-file-modes (default-file-modes)))
     (unless (string= (file-name-extension url) "el")
-      (error (quelpa-message t "<%s> does not end in .el" url)))
+      (error "<%s> does not end in .el" url))
     (unless (file-directory-p dir)
       (make-directory dir))
     (url-copy-file url local-path t)
@@ -476,8 +486,7 @@ If there is an error and no existing checkout return nil."
            'package-build
            `(:url ,quelpa-melpa-repo-url :files ("*"))
            quelpa-melpa-dir)
-        (error (quelpa-message t "failed to checkout melpa git repo: `%s'" (error-message-string err))
-               (file-exists-p (expand-file-name ".git" quelpa-melpa-dir))))))
+        (error "failed to checkout melpa git repo: `%s'" (error-message-string err)))))
 
 (defun quelpa-get-melpa-recipe (name)
   "Read recipe with NAME for melpa git checkout.
@@ -570,7 +579,8 @@ install them."
              (requires (package-desc-reqs pkg-desc)))
         (when requires
           (mapc (lambda (req)
-                  (unless (equal 'emacs (car req))
+                  (unless (or (equal 'emacs (car req))
+                              (package-installed-p (car req) (cadr req)))
                     (quelpa-package-install (car req))))
                 requires))
         (quelpa-package-install-file file)))))
@@ -578,10 +588,13 @@ install them."
 (defun quelpa-interactive-candidate ()
   "Query the user for a recipe and return the name."
   (when (quelpa-setup-p)
-    (let  ((recipes (directory-files
-                     (expand-file-name "recipes" quelpa-melpa-dir)
+    (let  ((recipes (cl-loop
+                     for store in quelpa-melpa-recipe-stores
+                     if (stringp store)
                      ;; this regexp matches all files except dotfiles
-                     nil "^[^.].+$")))
+                     append (directory-files store nil "^[^.].+$")
+                     else if (listp store)
+                     append store)))
       (intern (completing-read "Choose MELPA recipe: "
                                recipes nil t)))))
 
@@ -616,7 +629,8 @@ the `quelpa' command has been run in the current Emacs session."
   (interactive)
   (when (quelpa-setup-p)
     (let ((quelpa-upgrade-p t))
-      (quelpa-self-upgrade)
+      (when quelpa-self-upgrade-p
+        (quelpa-self-upgrade))
       (setq quelpa-cache
             (cl-remove-if-not #'package-installed-p quelpa-cache :key #'car))
       (mapc (lambda (item)
