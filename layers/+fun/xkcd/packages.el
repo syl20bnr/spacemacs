@@ -25,5 +25,4 @@
         "h" 'xkcd-prev
         "j" 'xkcd-next
         "k" 'xkcd-prev
-        "l" 'xkcd-next)
-      (push "*xkcd*" spacemacs-useful-buffers-regexp))))
+        "l" 'xkcd-next))))

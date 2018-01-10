@@ -40,9 +40,7 @@
         "aNN" 'notmuch
         "aNi" 'spacemacs/notmuch-inbox
         "aNj" 'notmuch-jump-search
-        "aNs" 'notmuch-search)
-      ;; fixes: killing a notmuch buffer does not show the previous buffer
-      (push "\\*notmuch.+\\*" spacemacs-useful-buffers-regexp))
+        "aNs" 'notmuch-search))
     :config
     (progn
       (dolist (prefix '(("ms" . "stash")

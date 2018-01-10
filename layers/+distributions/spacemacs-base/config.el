@@ -25,9 +25,9 @@
 (setq dired-dwim-target t)
 
 ;; Regexp for useful and useless buffers for smarter buffer switching
-(defvar spacemacs-useless-buffers-regexp '("*\.\+")
+(defvar spacemacs-useless-buffers-regexp '()
   "Regexp used to determine if a buffer is not useful.")
-(defvar spacemacs-useful-buffers-regexp '("\\*scratch\\*")
+(defvar spacemacs-useful-buffers-regexp '()
   "Regexp used to define buffers that are useful despite matching
 `spacemacs-useless-buffers-regexp'.")
 

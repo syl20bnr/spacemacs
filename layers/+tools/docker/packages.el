@@ -34,8 +34,7 @@
         "aDP" 'docker-push
         "aDp" 'docker-pause
         "aDr" 'docker-restart
-        "aDs" 'docker-start)
-      (push "\\*docker.+\\*" spacemacs-useful-buffers-regexp)))
+        "aDs" 'docker-start)))
   (with-eval-after-load 'docker-containers
     (evilified-state-evilify-map docker-containers-mode-map
       :mode docker-containers-mode))

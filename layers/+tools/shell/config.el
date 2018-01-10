@@ -14,10 +14,6 @@
 ;; move point to the end of buffer on new output
 (setq comint-move-point-for-output t)
 
-;; Add shell buffers to useful buffers list
-(push "\\*\\(ansi-term\\|eshell\\|shell\\|terminal\.\+\\)\\(-[0-9]+\\)?\\*"
-      spacemacs-useful-buffers-regexp)
-
 ;; Variables
 
 (defvar shell-default-shell (if (eq window-system 'w32)

@@ -48,8 +48,6 @@
       (add-hook 'elm-mode-hook 'spacemacs/init-elm-mode))
     :config
     (progn
-      (push "\\*elm\\*" spacemacs-useful-buffers-regexp)
-
       (spacemacs/set-leader-keys-for-major-mode 'elm-mode
         ;; format
         "=b" 'elm-mode-format-buffer
