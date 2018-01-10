@@ -54,6 +54,7 @@
         ;; [missing in roslyn] "pl" 'omnisharp-add-reference
 
         ;; Navigation
+        "ge"   'omnisharp-solution-errors
         "gG"   'omnisharp-go-to-definition-other-window
         "gu"   'omnisharp-helm-find-usages
         "gU"   'omnisharp-find-usages-with-ido
@@ -66,7 +67,6 @@
         "gf"   'omnisharp-navigate-to-solution-file
         "gF"   'omnisharp-navigate-to-solution-file-then-file-member
         "gc"   'omnisharp-navigate-to-current-file-member
-        "ge"   'omnisharp-solution-errors
 
         ;; Help, documentation, info
         "ht" 'omnisharp-current-type-information
