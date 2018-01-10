@@ -20,7 +20,7 @@
         helm-make
         ivy
         ivy-hydra
-        ivy-rich
+        (ivy-rich :toggle ivy-enable-ivy-rich)
         (ivy-spacemacs-help :location local)
         org
         persp-mode
