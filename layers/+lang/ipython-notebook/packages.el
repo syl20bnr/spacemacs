@@ -177,8 +177,9 @@
         ("x" ein:notebook-close))
       (spacemacs/set-leader-keys "ein" 'spacemacs/ipython-notebook-transient-state/body))))
 
-(defun ipython-notebook/init-ob-ipython ()
+(defun ipython-notebook/pre-init-ob-ipython ()
   (spacemacs|use-package-add-hook org
     :post-config
     (use-package ob-ipython
       :init (add-to-list 'org-babel-load-languages '(ipython . t)))))
+(defun ipython-notebook/init-ob-ipython ())

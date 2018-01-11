@@ -70,7 +70,7 @@
 ;; To avoid errors, magit-gh-pulls must be loaded after magit, but before magit
 ;; is configured by spacemacs.
 
-(defun github/init-magit-gh-pulls ()
+(defun github/pre-init-magit-gh-pulls ()
   (spacemacs|use-package-add-hook magit
     :pre-config
     (progn
@@ -78,6 +78,7 @@
         :config
         (define-key magit-mode-map "#" 'spacemacs/load-gh-pulls-mode)
         (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))))
+(defun github/init-magit-gh-pulls ())
 
 (defun github/init-magithub ()
   (use-package magithub

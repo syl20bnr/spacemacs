@@ -63,8 +63,9 @@
     (sp-local-pair 'sml-mode "'" nil :actions nil)
     (sp-local-pair 'sml-mode "`" nil :actions nil)))
 
-(defun sml/init-ob-sml ()
+(defun sml/pre-init-ob-sml ()
   (spacemacs|use-package-add-hook org
     :post-config
     (use-package ob-sml
       :init (add-to-list 'org-babel-load-languages '(sml . t)))))
+(defun sml/init-ob-sml ())

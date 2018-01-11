@@ -169,11 +169,12 @@
 (defun elixir/post-init-flycheck ()
   (spacemacs/enable-flycheck 'elixir-mode))
 
-(defun elixir/init-ob-elixir ()
+(defun elixir/pre-init-ob-elixir ()
   (spacemacs|use-package-add-hook org
     :post-config
     (use-package ob-elixir
       :init (add-to-list 'org-babel-load-languages '(elixir . t)))))
+(defun elixir/init-ob-elixir ())
 
 (defun elixir/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin

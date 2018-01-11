@@ -42,7 +42,7 @@
         (spacemacs/set-leader-keys-for-major-mode 'graphviz-dot-mode
           dotspacemacs-major-mode-leader-key 'graphviz-dot-preview)))))
 
-(defun graphviz/post-init-smartparens ()
+(defun graphviz/pre-init-smartparens ()
   (spacemacs|use-package-add-hook graphviz-dot-mode
     :post-config
     (progn

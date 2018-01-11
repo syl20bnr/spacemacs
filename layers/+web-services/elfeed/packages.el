@@ -47,20 +47,26 @@
         "b"  'elfeed-search-browse-url
         "y"  'elfeed-search-yank))))
 
+(defun elfeed/pre-init-elfeed-goodies ()
+  (spacemacs|use-package-add-hook elfeed
+    :post-config
+    (progn
+      (elfeed-goodies/setup)
+      (evil-define-key 'evilified elfeed-show-mode-map
+        "o" 'elfeed-goodies/show-ace-link))))
+
 (defun elfeed/init-elfeed-goodies ()
-  (use-package elfeed-goodies
-    :commands elfeed-goodies/setup
-    :init (spacemacs|use-package-add-hook elfeed
-            :post-config (progn
-                           (elfeed-goodies/setup)
-                           (evil-define-key 'evilified elfeed-show-mode-map "o" 'elfeed-goodies/show-ace-link)))))
+  (use-package elfeed-goodies :commands elfeed-goodies/setup))
+
+(defun elfeed/pre-init-elfeed-org ()
+  (when (boundp 'rmh-elfeed-org-files)
+    (spacemacs|use-package-add-hook elfeed
+      :pre-config (elfeed-org))))
 
 (defun elfeed/init-elfeed-org ()
   (use-package elfeed-org
     :defer t
-    :if (boundp 'rmh-elfeed-org-files)
-    :init (spacemacs|use-package-add-hook elfeed
-            :pre-config (elfeed-org))))
+    :if (boundp 'rmh-elfeed-org-files)))
 
 (defun elfeed/init-elfeed-web ()
   (use-package elfeed-web

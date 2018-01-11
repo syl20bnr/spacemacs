@@ -15,7 +15,7 @@
       swift-mode
       ))
 
-(defun swift/post-init-flycheck ()
+(defun swift/pre-init-flycheck ()
   (spacemacs|use-package-add-hook flycheck
     :post-config (add-to-list 'flycheck-checkers 'swift)))
 

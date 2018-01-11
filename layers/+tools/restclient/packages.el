@@ -22,19 +22,22 @@
   (spacemacs|use-package-add-hook golden-ratio
     :post-config (add-to-list 'golden-ratio-exclude-modes "restclient-mode")))
 
-(defun restclient/init-ob-http ()
-  (when restclient-use-org
-    (add-to-list 'auto-mode-alist '("\\.http\\'" . org-mode)))
+(defun restclient/pre-init-ob-http ()
   (spacemacs|use-package-add-hook org
     :post-config
     (use-package ob-http
       :init (add-to-list 'org-babel-load-languages '(http . t)))))
 
-(defun restclient/init-ob-restclient ()
+(defun restclient/init-ob-http ()
+  (when restclient-use-org
+    (add-to-list 'auto-mode-alist '("\\.http\\'" . org-mode))))
+
+(defun restclient/pre-init-ob-restclient ()
   (spacemacs|use-package-add-hook org
     :post-config
     (use-package ob-restclient
       :init (add-to-list 'org-babel-load-languages '(restclient . t)))))
+(defun restclient/init-ob-restclient ())
 
 (defun restclient/init-restclient ()
   (use-package restclient

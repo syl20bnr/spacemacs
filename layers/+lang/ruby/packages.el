@@ -284,7 +284,7 @@
       (spacemacs/add-to-hooks 'rvm-activate-corresponding-ruby
                               '(ruby-mode-hook enh-ruby-mode-hook)))))
 
-(defun ruby/post-init-smartparens ()
+(defun ruby/pre-init-smartparens ()
   (spacemacs|use-package-add-hook smartparens
     :post-config
     (sp-with-modes (if ruby-enable-enh-ruby-mode 'enh-ruby-mode 'ruby-mode)

@@ -567,14 +567,17 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (org-projectile-per-project)
       (setq org-projectile-per-project-filepath org-projectile-file))))
 
-(defun org/init-ox-twbs ()
+(defun org/pre-init-ox-twbs ()
   (spacemacs|use-package-add-hook org :post-config (require 'ox-twbs)))
+(defun org/init-ox-twbs ())
 
-(defun org/init-ox-gfm ()
+(defun org/pre-init-ox-gfm ()
   (spacemacs|use-package-add-hook org :post-config (require 'ox-gfm)))
+(defun org/init-ox-gfm ())
 
-(defun org/init-ox-reveal ()
+(defun org/pre-init-ox-reveal ()
   (spacemacs|use-package-add-hook org :post-config (require 'ox-reveal)))
+(defun org/init-ox-reveal ())
 
 (defun org/post-init-persp-mode ()
   (spacemacs|define-custom-layout "@Org"

@@ -129,15 +129,15 @@
       (spacemacs/declare-prefix-for-mode 'latex-mode "mp" "preview")
       (spacemacs/declare-prefix-for-mode 'latex-mode "mf" "fill"))))
 
+(defun latex/pre-init-auctex-latexmk ()
+  (spacemacs|use-package-add-hook tex
+    :post-config
+    (auctex-latexmk-setup)))
+
 (defun latex/init-auctex-latexmk ()
   (use-package auctex-latexmk
     :defer t
-    :init
-    (progn
-      (setq auctex-latexmk-inherit-TeX-PDF-mode t)
-      (spacemacs|use-package-add-hook tex
-        :post-config
-        (auctex-latexmk-setup)))))
+    :init (setq auctex-latexmk-inherit-TeX-PDF-mode t)))
 
 (defun latex/init-company-auctex ()
   (use-package company-auctex

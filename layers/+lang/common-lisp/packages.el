@@ -62,12 +62,13 @@
 (defun common-lisp/post-init-parinfer ()
   (add-hook 'lisp-mode-hook 'parinfer-mode))
 
-(defun common-lisp/init-slime-company ()
+(defun common-lisp/pre-init-slime-company ()
   (spacemacs|use-package-add-hook slime
     :pre-config
     (progn
       (setq slime-company-completion 'fuzzy)
       (add-to-list 'slime-contribs 'slime-company))))
+(defun common-lisp/init-slime-company ())
 
 (defun common-lisp/init-slime ()
   (use-package slime

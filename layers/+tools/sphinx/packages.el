@@ -18,7 +18,7 @@
 (defun sphinx/init-rst-sphinx ()
   (use-package rst-sphinx))
 
-(defun sphinx/post-init-rst ()
+(defun sphinx/pre-init-rst ()
   (spacemacs|use-package-add-hook rst
     :post-config (spacemacs/set-leader-keys-for-major-mode 'rst-mode
                    "cc" 'rst-sphinx-compile

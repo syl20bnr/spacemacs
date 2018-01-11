@@ -107,13 +107,13 @@
     :config
     (add-to-list 'erc-modules 'gitter)))
 
-
-(defun erc/init-erc-hl-nicks ()
+(defun erc/pre-init-erc-hl-nicks ()
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-hl-nicks)))
+(defun erc/init-erc-hl-nicks ())
 
-(defun erc/init-erc-sasl ()
+(defun erc/pre-init-erc-sasl ()
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-sasl
@@ -147,8 +147,9 @@
                    "0" "*"
                    erc-session-user-full-name))
           (erc-update-mode-line))))))
+(defun erc/init-erc-sasl ())
 
-(defun erc/init-erc-social-graph ()
+(defun erc/pre-init-erc-social-graph ()
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-social-graph
@@ -159,25 +160,29 @@
         (setq erc-social-graph-dynamic-graph t)
         (spacemacs/set-leader-keys-for-major-mode 'erc-mode
           "D" 'erc-social-graph-draw)))))
+(defun erc/init-erc-social-graph ())
 
-(defun erc/init-erc-tex ()
+(defun erc/pre-init-erc-tex ()
   (spacemacs|use-package-add-hook erc
     :post-config
     (require 'erc-tex)))
+(defun erc/init-erc-tex ())
 
-(defun erc/init-erc-yt ()
+(defun erc/pre-init-erc-yt ()
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-yt
       :init (with-eval-after-load 'erc
               (add-to-list 'erc-modules 'youtube)))))
+(defun erc/init-erc-yt ())
 
-(defun erc/init-erc-yank ()
+(defun erc/pre-init-erc-yank ()
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-yank
       :if (configuration-layer/package-used-p 'gist)
       :init (evil-define-key 'normal erc-mode-map "p" 'erc-yank))))
+(defun erc/init-erc-yank ())
 
 (defun erc/init-erc-view-log ()
   (use-package erc-view-log

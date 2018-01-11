@@ -33,10 +33,11 @@
         (spacemacs/set-leader-keys-for-major-mode mode
           "TAB" 'confluence-toggle-page-content-type)))))
 
-(defun confluence/init-ox-confluence ()
+(defun confluence/pre-init-ox-confluence ()
   (spacemacs|use-package-add-hook org
     :post-config
     (progn
       (require 'ox-confluence)
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "ec" 'org-confluence-export-as-confluence))))
+(defun confluence/init-ox-confluence ())
