@@ -1873,7 +1873,7 @@ RNAME is the name symbol of another existing layer."
             (push pkg packages-to-configure)
             (configuration-layer//pre-configure-package pkg)))))))
     ;; actually configure packages in alphabetical order
-    (mapc 'configuration-layer//configure-package packages-to-configure)))
+    (mapc 'configuration-layer//configure-package (reverse packages-to-configure))))
 
 (defun configuration-layer/get-location-directory (pkg-name location owner)
   "Return the location on disk for PKG."
