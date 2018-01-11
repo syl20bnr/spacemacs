@@ -104,12 +104,15 @@ function or press ~o~ to go out of it.
 Nameless hides package namespaces in your emacs-lisp code, and replaces it by
 leading ~>~ It can be toggled with ~SPC m T n~.
 
-By default =nameless= is activated, to disable it set the layer variable
-=emacs-lisp-hide-namespace-prefix= to =nil=
+By default =nameless= is deactivated, to enable it set the layer variable
+=emacs-lisp-hide-namespace-prefix= to =t=.
+
+NOTE: =nameless= is known to cause problems when spacemacs is used inside a
+terminal window, use with caution.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (emacs-lisp :variables emacs-lisp-hide-namespace-prefix nil)))
+    (emacs-lisp :variables emacs-lisp-hide-namespace-prefix t)))
 #+END_SRC
 
 ** Aliases
