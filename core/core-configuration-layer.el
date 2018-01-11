@@ -1823,43 +1823,57 @@ RNAME is the name symbol of another existing layer."
 
 (defun configuration-layer//configure-packages-2 (packages)
   "Configure all passed PACKAGES."
-  (dolist (pkg-name packages)
-    (spacemacs-buffer/loading-animation)
-    (let ((pkg (configuration-layer/get-package pkg-name)))
-      (cond
-       ((oref pkg :lazy-install)
-        (spacemacs-buffer/message
-         (format "%S ignored since it can be lazily installed." pkg-name)))
-       ((and (oref pkg :excluded)
-             (not (oref pkg :protected)))
-        (spacemacs-buffer/message
-         (format "%S ignored since it has been excluded." pkg-name)))
-       ((null (oref pkg :owners))
-        (spacemacs-buffer/message
-         (format "%S ignored since it has no owner layer." pkg-name)))
-       ((not (configuration-layer//package-reqs-used-p pkg))
-        (spacemacs-buffer/message
-         (format (concat "%S is ignored since it has dependencies "
-                         "that are not used.") pkg-name)))
-       ((not (cfgl-package-enabled-p pkg))
-        (spacemacs-buffer/message (format "%S is disabled." pkg-name)))
-       (t
-        ;; load-path
-        (let ((dir (configuration-layer/get-location-directory
-                    pkg-name
-                    (oref pkg :location)
-                    (car (oref pkg :owners)))))
-          (when dir
-            (add-to-list 'load-path dir)))
-        ;; configuration
-        (unless (memq (oref pkg :location) '(local site built-in))
-          (configuration-layer//activate-package pkg-name))
+  (let (packages-to-configure)
+    (dolist (pkg-name packages)
+      (spacemacs-buffer/loading-animation)
+      (let ((pkg (configuration-layer/get-package pkg-name)))
         (cond
-         ((eq 'dotfile (car (oref pkg :owners)))
+         ((oref pkg :lazy-install)
           (spacemacs-buffer/message
-           (format "%S is configured in the dotfile." pkg-name)))
+           (format "%S ignored since it can be lazily installed." pkg-name)))
+         ((and (oref pkg :excluded)
+               (not (oref pkg :protected)))
+          (spacemacs-buffer/message
+           (format "%S ignored since it has been excluded." pkg-name)))
+         ((null (oref pkg :owners))
+          (spacemacs-buffer/message
+           (format "%S ignored since it has no owner layer." pkg-name)))
+         ((not (configuration-layer//package-reqs-used-p pkg))
+          (spacemacs-buffer/message
+           (format (concat "%S is ignored since it has dependencies "
+                           "that are not used.") pkg-name)))
+         ((not (cfgl-package-enabled-p pkg))
+          (spacemacs-buffer/message (format "%S is disabled." pkg-name)))
          (t
-          (configuration-layer//configure-package pkg))))))))
+          ;; load-path
+          (let ((dir (configuration-layer/get-location-directory
+                      pkg-name
+                      (oref pkg :location)
+                      (car (oref pkg :owners)))))
+            (when dir
+              (add-to-list 'load-path dir)))
+          ;; configuration
+          (unless (memq (oref pkg :location) '(local site built-in))
+            (configuration-layer//activate-package pkg-name))
+          (cond
+           ((eq 'dotfile (car (oref pkg :owners)))
+            (spacemacs-buffer/message
+             (format "%S is configured in the dotfile." pkg-name)))
+           (t
+            ;; first loop executes pre-init functions, this allows to setup
+            ;; use-package hooks without sorting issues.
+            ;; For instance a package B adds a use-package hook on package A,
+            ;; since we configure packages in alphabetical order, the package B
+            ;; is configured after package A. But we need B to setup the
+            ;; use-package hook for A before A is being actually configured.
+            ;; The solution is to always put use-package hook declarations in
+            ;; pre-init functions and first call all pre-init functions so we
+            ;; effectively setup all the use-package hooks. Then we configure
+            ;; the packages in alphabetical order as usual.
+            (push pkg packages-to-configure)
+            (configuration-layer//pre-configure-package pkg)))))))
+    ;; actually configure packages in alphabetical order
+    (mapc 'configuration-layer//configure-package packages-to-configure)))
 
 (defun configuration-layer/get-location-directory (pkg-name location owner)
   "Return the location on disk for PKG."
@@ -1899,20 +1913,18 @@ LAYER must not be the owner of PKG."
              (memq layer enabled)
            (not (memq layer disabled))))))
 
-(defun configuration-layer//configure-package (pkg)
-  "Configure PKG object."
+(defun configuration-layer//pre-configure-package (pkg)
+  "Pre-configure PKG object, i.e. call its pre-init functions."
   (let* ((pkg-name (oref pkg :name))
          (owner (car (oref pkg :owners))))
-    (spacemacs-buffer/message (format "Configuring %S..." pkg-name))
-    ;; pre-init
     (mapc
      (lambda (layer)
        (when (configuration-layer/layer-used-p layer)
          (if (not (configuration-layer//package-enabled-p pkg layer))
              (spacemacs-buffer/message
-              (format "  -> ignored pre-init (%S)..." layer))
+              (format "%S -> ignored pre-init (%S)..." pkg-name layer))
            (spacemacs-buffer/message
-            (format "  -> pre-init (%S)..." layer))
+            (format "%S -> pre-init (%S)..." pkg-name layer))
            (condition-case-unless-debug err
                (funcall (intern (format "%S/pre-init-%S" layer pkg-name)))
              ('error
@@ -1920,9 +1932,14 @@ LAYER must not be the owner of PKG."
                (concat "\nAn error occurred while pre-configuring %S "
                        "in layer %S (error: %s)\n")
                pkg-name layer err))))))
-     (oref pkg :pre-layers))
+     (oref pkg :pre-layers))))
+
+(defun configuration-layer//configure-package (pkg)
+  "Configure PKG object (call their init function and post-init functions)."
+  (let* ((pkg-name (oref pkg :name))
+         (owner (car (oref pkg :owners))))
     ;; init
-    (spacemacs-buffer/message (format "  -> init (%S)..." owner))
+    (spacemacs-buffer/message (format "%S -> init (%S)..." pkg-name owner))
     (funcall (intern (format "%S/init-%S" owner pkg-name)))
     ;; post-init
     (mapc
@@ -1930,9 +1947,9 @@ LAYER must not be the owner of PKG."
        (when (configuration-layer/layer-used-p layer)
          (if (not (configuration-layer//package-enabled-p pkg layer))
              (spacemacs-buffer/message
-              (format "  -> ignored post-init (%S)..." layer))
+              (format "%S -> ignored post-init (%S)..." pkg-name layer))
            (spacemacs-buffer/message
-            (format "  -> post-init (%S)..." layer))
+            (format "%S -> post-init (%S)..." pkg-name layer))
            (condition-case-unless-debug err
                (funcall (intern (format "%S/post-init-%S" layer pkg-name)))
              ('error
