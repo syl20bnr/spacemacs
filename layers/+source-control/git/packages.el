@@ -30,6 +30,7 @@
         ))
 
 (defun git/init-evil-magit ()
+  (use-package evil-magit :defer t)
   (spacemacs|use-package-add-hook magit
     :post-config
     (when (spacemacs//support-evilified-buffer-p dotspacemacs-editing-style)
