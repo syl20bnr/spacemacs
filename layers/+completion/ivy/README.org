@@ -5,6 +5,8 @@
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
+  - [[#general][General]]
+  - [[#advanced-buffer-information][Advanced buffer information]]
 - [[#key-bindings][Key Bindings]]
   - [[#transient-state][Transient state]]
 
@@ -24,6 +26,7 @@ Mastering your choice of completion system will make you a Spacemacs power user.
 - Buffer wide dynamic text search via =swiper=
 - Detailed configuration parameters for ivy appearance
 - Intuitive =transient state=
+- Advanced buffer information with =ivy-rich=
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -31,6 +34,7 @@ add =ivy= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
+** General
 You can customize ivy with the following variables:
 
 - =ivy-wrap= Whether C-n and C-p should wrap-around when at the the first or
@@ -43,6 +47,18 @@ You can customize ivy with the following variables:
 - =ivy-height= The height of the minibuffer. The Spacemacs default is 15.
 - =ivy-use-selectable-prompt= When non-nil, make the prompt line selectable like
   a candidate. The Spacemacs default value is =t=.
+
+** Advanced buffer information
+To display more information about buffers set the layer variable
+=ivy-enable-advanced-buffer-information= to =t= which will enable =ivy-rich=.
+
+Note that =ivy-rich= has been reported to be very slow on =macOS=. This feature
+is disabled by default.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (ivy :variables ivy-enable-advanced-buffer-information t)))
+#+END_SRC
 
 * Key Bindings
 If you choose =ivy= as completion system, make sure to read the [[http://oremacs.com/swiper/][official manual]].

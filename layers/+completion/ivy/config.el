@@ -9,8 +9,15 @@
 ;;
 ;;; License: GPLv3
 
+
 
-;; Variables
+;; Layer Variables
+
+(defvar ivy-enable-advanced-buffer-information nil
+  "If non-nil, enable `ivy-rich' which adds information on buffers.")
+
+
+;; Private Variables
 
 (defvar spacemacs--counsel-commands
   '(;; --line-number forces line numbers (disabled by default on windows)
@@ -47,6 +54,3 @@ than this amount.")
         for desc = (nth 2 j)
         collect `(,key (lambda (x) (spacemacs//counsel-with-git-grep (quote ,func) x)) ,desc))
   "Default ivy actions to be used with git-grep output.")
-
-(defvar ivy-enable-ivy-rich nil
-  "If non-nil, enable `ivy-rich'")
