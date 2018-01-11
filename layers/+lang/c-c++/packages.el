@@ -184,9 +184,10 @@
       (add-hook 'rtags-jump-hook 'evil-set-jump)
       (rtags-diagnostics)
       ;; key bindings
-      (define-key evil-normal-state-map (kbd "RET") 'rtags-select-other-window)
-      (define-key evil-normal-state-map (kbd "M-RET") 'rtags-select)
-      (define-key evil-normal-state-map (kbd "q") 'rtags-bury-or-delete)
+      (evil-define-key 'normal rtags-mode-map
+        (kbd "RET")   'rtags-select-other-window
+        (kbd "M-RET") 'rtags-select
+        (kbd "q")     'rtags-bury-or-delete)
       ;; TODO check for consistency with gtags key bindings
       ;; see https://github.com/syl20bnr/spacemacs/blob/develop/layers/+tags/gtags/funcs.el#L70
       (dolist (mode c-c++-modes)
