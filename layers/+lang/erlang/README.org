@@ -4,11 +4,16 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 
 * Description
-Very basic layer for Erlang with support for basic =syntax-checking= and
-=auto-completion= with the corresponding layers.
+This layer adds very basic support for Erlang to Spacemacs.
+
+** Features:
+- Syntax highlighting
+- Syntax checking via =Flycheck= integration
+- Auto-completion via =Company= integration
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
