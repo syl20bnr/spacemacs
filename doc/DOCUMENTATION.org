@@ -73,15 +73,15 @@
   - [[#gui-toggles][GUI Toggles]]
     - [[#global-line-numbers][Global line numbers]]
   - [[#mode-line][Mode-line]]
-    - [[#powerline-font-installation-for-terminal-mode-users][Powerline font installation for terminal-mode users]]
-    - [[#flycheck-integration][Flycheck integration]]
-    - [[#anzu-integration][Anzu integration]]
-    - [[#battery-status-integration][Battery status integration]]
-    - [[#powerline-separators][Powerline separators]]
-    - [[#minor-modes][Minor Modes]]
-    - [[#customizing-the-mode-line][Customizing the mode-line]]
-      - [[#spaceline][Spaceline]]
-      - [[#restore-lighters][Restore lighters]]
+    - [[#mode-line-themes][Mode-line themes]]
+    - [[#spacemacs-mode-line-theme][Spacemacs mode-line theme]]
+      - [[#powerline-font-installation-for-terminal-mode-users][Powerline font installation for terminal-mode users]]
+      - [[#flycheck-integration][Flycheck integration]]
+      - [[#anzu-integration][Anzu integration]]
+      - [[#battery-status-integration][Battery status integration]]
+      - [[#powerline-separators][Powerline separators]]
+      - [[#minor-modes][Minor Modes]]
+    - [[#custom-spaceline-theme][Custom spaceline theme]]
   - [[#frame-title][Frame title]]
     - [[#iconified-tabified-title][Iconified (tabified) title]]
 - [[#layouts-and-workspaces][Layouts and workspaces]]
@@ -1261,6 +1261,31 @@ Enable line numbers only in programming modes, except for c-mode and c++ mode:
 #+END_SRC
 
 ** Mode-line
+*** Mode-line themes
+Spacemacs supports different mode-line themes. The mode-line theme is set in the
+dotfile with the variable =dotspacemacs-mode-line-theme=.
+
+Currently supported themes are:
+- spaceline themes: =spacemacs=, =all-the-icons=, =custom=
+- a powerline theme: =vim-powerline=
+- no theme at all: =vanilla=
+
+The default theme is =spacemacs= and this theme is described in more detailed in
+the next section.
+
+=all-the-icons= is the theme defined in the package [[https://github.com/domtronn/spaceline-all-the-icons.el][spaceline-all-the-icons]].
+
+=custom= is a user custom spaceline theme, see the guide in the following section.
+
+=vim-powerline= is for the Vim users who are nostalgic of the good old Vim
+powerline.
+
+=vanilla= is the stock mode-line that comes with Emacs.
+
+For now, a restart of Emacs is required whenever you change the theme of your
+mode-line.
+
+*** Spacemacs mode-line theme
 The mode line is a heavily customized [[https://github.com/milkypostman/powerline][powerline]] with the following capabilities:
   - show the window number
   - color code for current state
@@ -1298,19 +1323,19 @@ Some elements can be dynamically toggled:
 | ~SPC t m v~ | toggle the version control info                                 |
 | ~SPC t m V~ | toggle the new version lighter                                  |
 
-*** Powerline font installation for terminal-mode users
+**** Powerline font installation for terminal-mode users
 Users who run Emacs in terminal mode may need to install the [[https://github.com/powerline/fonts][Powerline patched
 fonts]] and configure their terminal clients to use them to make the Powerline
 separators render correctly.
 
-*** Flycheck integration
+**** Flycheck integration
 When [[https://github.com/flycheck/flycheck][Flycheck]] minor mode is enabled, a new element appears showing the number of
 errors, warnings and info.
 
 [[file:img/powerline-wave.png]]
 /Flycheck integration in mode-line/
 
-*** Anzu integration
+**** Anzu integration
 [[https://github.com/syohex/emacs-anzu][Anzu]] shows the number of occurrence when performing a search. Spacemacs
 integrates the Anzu status nicely by displaying it temporarily when ~n~ or ~N~
 are being pressed. See the =5/6= segment on the screenshot below.
@@ -1318,7 +1343,7 @@ are being pressed. See the =5/6= segment on the screenshot below.
 [[file:img/powerline-anzu.png]]
 /Anzu integration in mode-line/
 
-*** Battery status integration
+**** Battery status integration
 [[https://github.com/lunaryorn/fancy-battery.el][fancy-battery]] displays the percentage of total charge of the battery as well as
 the time remaining to charge or discharge completely the battery.
 
@@ -1332,7 +1357,7 @@ A color code is used for the battery status:
 
 *Note*: These colors may vary depending on your theme.
 
-*** Powerline separators
+**** Powerline separators
 It is possible to easily customize the =powerline separator= by setting the
 =powerline-default-separator= variable in your =~/.spacemacs= and then
 recompiling the modeline. For instance, if you want to set back the separator to
@@ -1368,7 +1393,7 @@ powerline, here is an exhaustive set of screenshots:
 | =zigzag=     | [[file:img/powerline-zigzag.png]]     |
 | =nil=        | [[file:img/powerline-nil.png]]        |
 
-*** Minor Modes
+**** Minor Modes
 Spacemacs uses [[https://www.emacswiki.org/emacs/DiminishedModes][diminish]] mode to reduce the size of minor mode indicators:
 
 The minor mode area can be toggled on and off with ~SPC t m m~
@@ -1419,33 +1444,27 @@ squared symbols like =🅿=.
 | ~SPC t C-W~ | =Ⓦ=     | W     | automatic whitespace cleanup globally                                |
 | ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
 
-*** Customizing the mode-line
-**** Spaceline
-Spacemacs uses [[https://github.com/TheBB/spaceline][Spaceline]] to provide its mode-line. It consists of a number of
-/segments/ arranged on the left and right sides. These are defined in the
-variables =spaceline-left= and =spaceline-right=. Segments can be defined using
-=spaceline-define-segment=, and added to the appropriate location in the left or
-right hand side variables.
+*** Custom spaceline theme
+You can create your own Spaceline theme by setting the variable
+=dotspacemacs-mode-line-theme= to =custom= and define a function called
+=spaceline-custom-theme= in your =dotspacemacs/user-init= function of your
+dotfile. This functions must accept a variadic number of arguments which are
+additional segments added by Spacemacs (like a segment to notify about available
+updates etc...).
 
-Please see the Spaceline documentation for more information.
-
-**** Restore lighters
-Lighters are abbreviations displayed in the mode-line to identify running minor
-modes. Spacemacs diminishes most of them to make them more compact.
-
-If you want to restore the original lighter of a mode then use the function
-=spacemacs/diminish-undo= with the appropriate mode name.
-
-For example to undo diminish for =company=:
+Example:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs|use-package-add-hook company
-    :post-config (spacemacs/diminish-undo 'company-mode))
+(defun spaceline-custom-theme (&rest additional-segments)
+    "My custom spaceline theme."
+    (spaceline-compile
+      `(major-mode (minor-modes :when active) buffer-id)
+      `((line-column :separator " | " :priority 3)
+        ,@additional-segments))
+    (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
 #+END_SRC
 
-Note that we use a =use-package= post init hook to be sure to override any
-lazily diminished lighters (see [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][layers documentation]] for more information
-about lazy loading).
+Restart Emacs and enjoy your very own mode-line!
 
 ** Frame title
 Default frame title displays name of current process and hostname of system. You
