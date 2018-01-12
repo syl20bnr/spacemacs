@@ -28,6 +28,8 @@
 
 ;;; Code:
 
+(require 'evil-evilified-state)
+
 (defadvice evil-insert-state (around holy-insert-to-emacs-state disable)
   "Forces Emacs state."
   (if (equal -1 (ad-get-arg 0))

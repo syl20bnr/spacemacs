@@ -30,6 +30,7 @@
 ;;; Code:
 
 (require 'evil)
+(require 'evil-evilified-state)
 
 (defcustom hybrid-mode-default-state 'normal
   "Value of `evil-default-state' for hybrid-mode."
