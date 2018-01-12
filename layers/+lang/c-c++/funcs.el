@@ -144,12 +144,17 @@ and the arguments for flyckeck-clang based on a project-specific text file."
 ;; rtags
 
 (defun spacemacs/c-c++-use-rtags (&optional useFileManager)
-  (and (rtags-executable-find "rc")
-       (cond ((not (gtags-get-rootpath)) t)
-             ((and (not (eq major-mode 'c++-mode))
-                   (not (eq major-mode 'c-mode))) (rtags-has-filemanager))
-             (useFileManager (rtags-has-filemanager))
-             (t (rtags-is-indexed)))))
+  "Return non-nil if rtags function should be used."
+  ;; this function is used to fallback on gtags function if rtags is not
+  ;; supported. So if gtags layer is not used we disable the fallback by
+  ;; returning always t.
+  (or (not (configuration-layer/layer-used-p 'gtags))
+      (and (rtags-executable-find "rc")
+           (cond ((not (gtags-get-rootpath)) t)
+                 ((and (not (eq major-mode 'c++-mode))
+                       (not (eq major-mode 'c-mode))) (rtags-has-filemanager))
+                 (useFileManager (rtags-has-filemanager))
+                 (t (rtags-is-indexed))))))
 
 (defun spacemacs/c-c++-tags-find-symbol-at-point (&optional prefix)
   (interactive "P")
