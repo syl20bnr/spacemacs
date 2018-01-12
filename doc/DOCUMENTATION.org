@@ -1399,8 +1399,8 @@ If you want to use this theme you need to make sure to install the required
 fonts from the package repository, see [[https://github.com/domtronn/all-the-icons.el/tree/master/fonts][all-the-icons fonts directory]].
 
 To change the separator type set the variable
-=spaceline-all-the-icons-separator-type=. All the powerline separators are
-supported (see table above).
+=spaceline-all-the-icons-separator-type=. Supported powerline separators are
+=slant=, =wave=, =cup=, =arrow= and =none= (see table above).
 
 *** Custom spaceline theme
 You can create your own Spaceline theme by setting the variable
