@@ -100,7 +100,9 @@
 (defun spacemacs-purpose/init-spacemacs-purpose-popwin ()
   (use-package spacemacs-purpose-popwin
     ;; defer loading of spacemacs-purpose-popwin
-    :commands pupo-mode))
+    :commands pupo-mode)
+  (spacemacs|use-package-add-hook window-purpose
+    :post-config (pupo-mode)))
 
 (defun spacemacs-purpose/init-window-purpose ()
   (use-package window-purpose
