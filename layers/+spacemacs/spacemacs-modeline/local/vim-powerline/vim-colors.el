@@ -82,7 +82,8 @@
             (motion       ,brightpurple    ,mediumpurple t)
             (emacs        ,darkestcyan     ,white        t)
             (iedit        ,darkred         ,brightestred t)
-            (lisp         ,brightpurple    ,mediumpurple t))
+            (lisp         ,brightpurple    ,mediumpurple t)
+            (hybrid       ,darkestblue     ,mediumcyan   t))
 
            (("branch" "scrollpercent" "raw" "filesize")
             (normal      ,gray9           ,gray4)
