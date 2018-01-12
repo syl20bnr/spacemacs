@@ -81,6 +81,7 @@
       - [[#battery-status-integration][Battery status integration]]
       - [[#powerline-separators][Powerline separators]]
       - [[#minor-modes][Minor Modes]]
+    - [[#all-the-icons-theme][All-the-Icons theme]]
     - [[#custom-spaceline-theme][Custom spaceline theme]]
   - [[#frame-title][Frame title]]
     - [[#iconified-tabified-title][Iconified (tabified) title]]
@@ -1273,7 +1274,9 @@ Currently supported themes are:
 The default theme is =spacemacs= and this theme is described in more detailed in
 the next section.
 
-=all-the-icons= is the theme defined in the package [[https://github.com/domtronn/spaceline-all-the-icons.el][spaceline-all-the-icons]].
+=all-the-icons= is the theme defined in the package [[https://github.com/domtronn/spaceline-all-the-icons.el][spaceline-all-the-icons]]. If you
+want to use this theme you need to make sure to install the required fonts from
+the package repository, see [[https://github.com/domtronn/all-the-icons.el/tree/master/fonts][all-the-icons fonts directory]].
 
 =custom= is a user custom spaceline theme, see the guide in the following section.
 
@@ -1444,6 +1447,7 @@ squared symbols like =🅿=.
 | ~SPC t C-W~ | =Ⓦ=     | W     | automatic whitespace cleanup globally                                |
 | ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
 
+*** All-the-Icons theme
 *** Custom spaceline theme
 You can create your own Spaceline theme by setting the variable
 =dotspacemacs-mode-line-theme= to =custom= and define a function called
