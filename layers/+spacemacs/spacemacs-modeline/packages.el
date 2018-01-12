@@ -41,7 +41,7 @@
 
 (defun spacemacs-modeline/init-spaceline ()
   (use-package spaceline-config
-    :if (memq dotspacemacs-mode-line-theme '(spaceline all-the-icons custom))
+    :if (memq dotspacemacs-mode-line-theme '(spacemacs all-the-icons custom))
     :init
     (progn
       (add-hook 'spacemacs-post-user-config-hook 'spaceline-compile)
