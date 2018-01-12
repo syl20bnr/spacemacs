@@ -176,6 +176,8 @@
 
 ;; TODO lazy load this package
 (defun c-c++/init-rtags ()
+  (when c-c++-enable-rtags-support
+      (configuration-layer/declare-layer 'gtags))
   (use-package rtags
     :if c-c++-enable-rtags-support
     :init
