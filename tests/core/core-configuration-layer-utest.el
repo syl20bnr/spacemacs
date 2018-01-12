@@ -2085,6 +2085,24 @@
      (configuration-layer//pre-configure-package pkg))))
 
 ;; ---------------------------------------------------------------------------
+;; configuration-layer//post-configure-package
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-post-configure-package--post-init-is-evaluated ()
+  (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :post-layers '(layer2)))
+        configuration-layer--used-layers
+        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)
+                          ,(cfgl-layer "layer2" :name 'layer2)) t)
+    (defun layer1/init-pkg nil)
+    (defun layer2/post-init-pkg nil)
+    (mocker-let
+     ((spacemacs-buffer/message (m) ((:output nil)))
+      (layer2/post-init-pkg nil ((:output nil :occur 1))))
+     (configuration-layer//post-configure-package pkg))))
+
+;; ---------------------------------------------------------------------------
 ;; configuration-layer//configure-package
 ;; ---------------------------------------------------------------------------
 
@@ -2099,35 +2117,6 @@
      ((spacemacs-buffer/message (m) ((:output nil)))
       (layer1/init-pkg nil ((:output nil :occur 1))))
      (configuration-layer//configure-package pkg))))
-
-(ert-deftest test-configure-package--post-init-is-evaluated ()
-  (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :post-layers '(layer2)))
-        configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
-        (mocker-mock-default-record-cls 'mocker-stub-record))
-    (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)
-                          ,(cfgl-layer "layer2" :name 'layer2)) t)
-    (defun layer1/init-pkg nil)
-    (defun layer2/post-init-pkg nil)
-    (mocker-let
-     ((spacemacs-buffer/message (m) ((:output nil)))
-      (layer2/post-init-pkg nil ((:output nil :occur 1))))
-     (configuration-layer//configure-package pkg))))
-
-(ert-deftest test-configure-package--post-init-is-evaluated-after-init ()
-  (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :post-layers '(layer2)))
-        configuration-layer--used-layers
-        (configuration-layer--indexed-layers (make-hash-table :size 1024))
-        (witness nil)
-        (mocker-mock-default-record-cls 'mocker-stub-record))
-    (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)
-                          ,(cfgl-layer "layer2" :name 'layer2)) t)
-    (defun layer1/init-pkg () (push 'init witness))
-    (defun layer2/post-init-pkg () (push 'post-init witness))
-    (mocker-let
-     ((spacemacs-buffer/message (m) ((:output nil))))
-     (configuration-layer//configure-package pkg)
-     (should (equal '(post-init init) witness)))))
 
 (ert-deftest test-configure-package--disabled-for-does-not-call-pre-post-init ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1)
@@ -2168,6 +2157,7 @@
      ((spacemacs-buffer/message (m) ((:output nil))))
      (configuration-layer//pre-configure-package pkg)
      (configuration-layer//configure-package pkg)
+     (configuration-layer//post-configure-package pkg)
      (should (equal '(post-init init pre-init) witness)))))
 
 (ert-deftest test-configure-package--enabled-for-nil-does-not-call-pre-post-init ()
@@ -2232,6 +2222,24 @@
      ((spacemacs-buffer/loading-animation nil ((:output nil))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
      (should (equal '(init pre-init) witness)))))
+
+(ert-deftest test-configure-packages-2--post-init-is-evaluated-after-init ()
+  (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :post-layers '(layer2)))
+        configuration-layer--used-layers
+        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        configuration-layer--used-packages
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (witness nil)
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)
+                          ,(cfgl-layer "layer2" :name 'layer2)) t)
+    (helper--add-packages (list pkg) t)
+    (defun layer1/init-pkg () (push 'init witness))
+    (defun layer2/post-init-pkg () (push 'post-init witness))
+    (mocker-let
+     ((spacemacs-buffer/loading-animation nil ((:output nil))))
+     (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
+     (should (equal '(post-init init) witness)))))
 
 (ert-deftest test-configure-packages-2--package-w/-layer-owner-is-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1)))

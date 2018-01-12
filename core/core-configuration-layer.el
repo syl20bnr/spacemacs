@@ -1872,8 +1872,9 @@ RNAME is the name symbol of another existing layer."
             ;; the packages in alphabetical order as usual.
             (push pkg packages-to-configure)
             (configuration-layer//pre-configure-package pkg)))))))
-    ;; actually configure packages in alphabetical order
-    (mapc 'configuration-layer//configure-package (reverse packages-to-configure))))
+    (setq packages-to-configure (reverse packages-to-configure))
+    (mapc 'configuration-layer//configure-package packages-to-configure)
+    (mapc 'configuration-layer//post-configure-package packages-to-configure)))
 
 (defun configuration-layer/get-location-directory (pkg-name location owner)
   "Return the location on disk for PKG."
@@ -1935,13 +1936,17 @@ LAYER must not be the owner of PKG."
      (oref pkg :pre-layers))))
 
 (defun configuration-layer//configure-package (pkg)
-  "Configure PKG object (call their init function and post-init functions)."
+  "Configure PKG object, i.e. call its post-init function."
   (let* ((pkg-name (oref pkg :name))
          (owner (car (oref pkg :owners))))
     ;; init
     (spacemacs-buffer/message (format "%S -> init (%S)..." pkg-name owner))
-    (funcall (intern (format "%S/init-%S" owner pkg-name)))
-    ;; post-init
+    (funcall (intern (format "%S/init-%S" owner pkg-name)))))
+
+(defun configuration-layer//post-configure-package (pkg)
+  "Post-configure PKG object, i.e. call its post-init functions."
+  (let* ((pkg-name (oref pkg :name))
+         (owner (car (oref pkg :owners))))
     (mapc
      (lambda (layer)
        (when (configuration-layer/layer-used-p layer)
