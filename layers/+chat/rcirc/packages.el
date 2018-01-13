@@ -53,16 +53,17 @@
 
       (spacemacs/set-leader-keys "air" 'spacemacs/rcirc)
       (evil-set-initial-state 'rcirc-mode 'insert))
-    :config
-    (progn
-      ;; (set-input-method "latin-1-prefix")
-      (set (make-local-variable 'scroll-conservatively) 8192)
-
       (setq rcirc-fill-column 80
             rcirc-buffer-maximum-lines 2048
             rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY" "MODE")
             rcirc-time-format "%Y-%m-%d %H:%M "
-            rcirc-omit-threshold 20)
+            rcirc-omit-threshold 20
+            rcirc-log-directory (concat spacemacs-cache-directory "/rcirc-logs/")
+            rcirc-log-flag t)
+    :config
+    (progn
+      ;; (set-input-method "latin-1-prefix")
+      (set (make-local-variable 'scroll-conservatively) 8192)
 
       ;; Exclude rcirc properties when yanking, in order to be able to send mails
       ;; for example.
@@ -82,8 +83,6 @@
 
       ;; Minimal logging to `~/.emacs.d/.cache/rcirc-logs/'
       ;; by courtesy of Trent Buck.
-      (setq rcirc-log-directory (concat spacemacs-cache-directory "/rcirc-logs/"))
-      (setq rcirc-log-flag t)
       (add-hook 'rcirc-print-hooks 'spacemacs//rcirc-write-log)
 
       ;; dependencies
