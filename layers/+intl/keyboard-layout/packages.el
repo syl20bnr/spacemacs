@@ -25,7 +25,7 @@
     helm
     imenu-list
     ivy
-    magit
+    evil-magit
     mu4e
     neotree
     org
@@ -346,8 +346,8 @@
         "C-k"
         "C-l"))))
 
-(defun keyboard-layout/pre-init-magit ()
-  (kl|config magit
+(defun keyboard-layout/pre-init-evil-magit ()
+  (kl|config evil-magit
     :description
     "Remap `magit' bindings."
     :loader
