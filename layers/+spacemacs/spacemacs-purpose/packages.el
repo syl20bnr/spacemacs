@@ -92,17 +92,17 @@
         (popwin-mode -1)))))
 
 (defun spacemacs-purpose/pre-init-spacemacs-purpose-popwin ()
-  ;; override popwin commands with pupo commands
-  (spacemacs/set-leader-keys
-    "wpp" #'pupo/close-window
-    "wpP" #'pupo/close-all-windows))
+  (spacemacs|use-package-add-hook window-purpose
+    :post-config
+    (progn
+      ;; override popwin commands with pupo commands
+      (spacemacs/set-leader-keys
+        "wpp" #'pupo/close-window
+        "wpP" #'pupo/close-all-windows)
+      (pupo-mode))))
 
 (defun spacemacs-purpose/init-spacemacs-purpose-popwin ()
-  (use-package spacemacs-purpose-popwin
-    ;; defer loading of spacemacs-purpose-popwin
-    :commands pupo-mode)
-  (spacemacs|use-package-add-hook window-purpose
-    :post-config (pupo-mode)))
+  (use-package spacemacs-purpose-popwin :commands pupo-mode))
 
 (defun spacemacs-purpose/init-window-purpose ()
   (use-package window-purpose
