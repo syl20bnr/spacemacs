@@ -94,7 +94,9 @@
         (define-key keymap (kbd "C-l") 'helm-execute-persistent-action)
         (define-key keymap (kbd "C-h") 'helm-find-files-up-one-level)
         ;; rebind `describe-key' for convenience
-        (define-key keymap (kbd "C-S-h") 'describe-key))))
+        (define-key keymap (kbd "C-S-h") 'describe-key)))
+    ;; Rebind C-k in minibuffer map; conflict with evil minibuffer
+    (evil-define-key 'insert helm-map (kbd "C-k") 'helm-previous-line))
    (t
     (define-key helm-map (kbd "C-j") 'helm-execute-persistent-action)
     (define-key helm-map (kbd "C-k") 'helm-delete-minibuffer-contents)

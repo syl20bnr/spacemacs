@@ -174,6 +174,19 @@ Example: (evil-map visual \"<\" \"<gv\")"
     (cl-loop for (mode uni nouni) in spacemacs--diminished-minor-modes
              do (diminish mode (if unicodep uni nouni)))))
 
+(defun spacemacs//evil-minibuffer-insert ()
+  "Switch to insert state.
+This function is meant to be hooked in the minibuffer:
+  (add-hook 'minibuffer-setup-hook 'evil-collection-minibuffer-insert)
+`evil-set-initial-state' can not be used for the minibuffer since
+it does not have a mode."
+  (set (make-local-variable 'evil-echo-state) nil)
+  ;; (evil-set-initial-state 'mode 'insert) is the evil-proper
+  ;; way to do this, but the minibuffer doesn't have a mode.
+  ;; The alternative is to create a minibuffer mode (here), but
+  ;; then it may conflict with other packages' if they do the same.
+  (evil-insert 1))
+
 
 
 (defun spacemacs//hydra-key-doc-function (key key-width doc doc-width)
