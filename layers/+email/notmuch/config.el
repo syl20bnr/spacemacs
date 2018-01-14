@@ -9,6 +9,9 @@
 ;;
 ;;; License: GPLv3
 
+(defvar notmuch-spacemacs-delete-tags '("+deleted" "-inbox" "-unread")
+  "Tags applied when deleting a message.")
+
 (defvar notmuch-spacemacs-layout-name "@Notmuch"
   "Name used in the setup for `spacemacs-layouts' micro-state")
 
