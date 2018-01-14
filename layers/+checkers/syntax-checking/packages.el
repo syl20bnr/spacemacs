@@ -63,16 +63,19 @@
           :severity 2
           :overlay-category 'flycheck-error-overlay
           :fringe-bitmap bitmap
+          :error-list-face 'flycheck-error-list-error
           :fringe-face 'flycheck-fringe-error)
         (flycheck-define-error-level 'warning
           :severity 1
           :overlay-category 'flycheck-warning-overlay
           :fringe-bitmap bitmap
+          :error-list-face 'flycheck-error-list-warning
           :fringe-face 'flycheck-fringe-warning)
         (flycheck-define-error-level 'info
           :severity 0
           :overlay-category 'flycheck-info-overlay
           :fringe-bitmap bitmap
+          :error-list-face 'flycheck-error-list-info
           :fringe-face 'flycheck-fringe-info))
 
       (evilified-state-evilify-map flycheck-error-list-mode-map
