@@ -21,6 +21,7 @@
         (helm-c-yasnippet :requires helm)
         hippie-exp
         yasnippet
+        yasnippet-snippets
         auto-yasnippet
         smartparens
         ))
@@ -173,6 +174,8 @@
   (when (configuration-layer/package-used-p 'yasnippet)
     ;; Try to expand yasnippet snippets based on prefix
     (push 'yas-hippie-try-expand hippie-expand-try-functions-list)))
+
+(defun auto-completion/init-yasnippet-snippets ())
 
 (defun auto-completion/init-yasnippet ()
   (use-package yasnippet
