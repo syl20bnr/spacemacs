@@ -11,6 +11,7 @@
 
 (setq auto-completion-packages
       '(
+        auto-yasnippet
         auto-complete
         ac-ispell
         company
@@ -20,10 +21,9 @@
         (helm-company :requires helm)
         (helm-c-yasnippet :requires helm)
         hippie-exp
+        smartparens
         yasnippet
         yasnippet-snippets
-        auto-yasnippet
-        smartparens
         ))
 
 ;; TODO replace by company-ispell which comes with company
@@ -65,6 +65,20 @@
       (define-key ac-completing-map (kbd "C-k") 'ac-previous)
       (define-key ac-completing-map (kbd "<S-tab>") 'ac-previous)
       (spacemacs|diminish auto-complete-mode " ⓐ" " a"))))
+
+(defun auto-completion/init-auto-yasnippet ()
+  (use-package auto-yasnippet
+    :defer t
+    :init
+    (progn
+      (setq aya-persist-snippets-dir
+            (or auto-completion-private-snippets-directory
+                (concat configuration-layer-private-directory "snippets/")))
+      (spacemacs/declare-prefix "iS" "auto-yasnippet")
+      (spacemacs/set-leader-keys
+        "iSc" 'aya-create
+        "iSe" 'spacemacs/auto-yasnippet-expand
+        "iSw" 'aya-persist-snippet))))
 
 (defun auto-completion/init-company ()
   (use-package company
@@ -175,7 +189,12 @@
     ;; Try to expand yasnippet snippets based on prefix
     (push 'yas-hippie-try-expand hippie-expand-try-functions-list)))
 
-(defun auto-completion/init-yasnippet-snippets ())
+(defun auto-completion/post-init-smartparens ()
+  (with-eval-after-load 'smartparens
+    (add-hook 'yas-before-expand-snippet-hook
+              #'spacemacs//smartparens-disable-before-expand-snippet)
+    (add-hook 'yas-after-exit-snippet-hook
+              #'spacemacs//smartparens-restore-after-exit-snippet)))
 
 (defun auto-completion/init-yasnippet ()
   (use-package yasnippet
@@ -241,23 +260,4 @@
                                         eshell-mode-hook)))
     :config (spacemacs|diminish yas-minor-mode " ⓨ" " y")))
 
-(defun auto-completion/init-auto-yasnippet ()
-  (use-package auto-yasnippet
-    :defer t
-    :init
-    (progn
-      (setq aya-persist-snippets-dir
-            (or auto-completion-private-snippets-directory
-                (concat configuration-layer-private-directory "snippets/")))
-      (spacemacs/declare-prefix "iS" "auto-yasnippet")
-      (spacemacs/set-leader-keys
-        "iSc" 'aya-create
-        "iSe" 'spacemacs/auto-yasnippet-expand
-        "iSw" 'aya-persist-snippet))))
-
-(defun auto-completion/post-init-smartparens ()
-  (with-eval-after-load 'smartparens
-    (add-hook 'yas-before-expand-snippet-hook
-              #'spacemacs//smartparens-disable-before-expand-snippet)
-    (add-hook 'yas-after-exit-snippet-hook
-              #'spacemacs//smartparens-restore-after-exit-snippet)))
+(defun auto-completion/init-yasnippet-snippets ())
