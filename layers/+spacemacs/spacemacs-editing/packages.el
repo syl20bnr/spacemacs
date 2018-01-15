@@ -63,6 +63,7 @@
         "jb" 'avy-pop-mark
         "jj" 'evil-avy-goto-char-timer
         "jl" 'evil-avy-goto-line
+        "jt" 'evil-avy-goto-char-timer
         "ju" 'spacemacs/avy-goto-url
         "jw" 'evil-avy-goto-word-or-subword-1
         "xo" 'spacemacs/avy-open-url))
