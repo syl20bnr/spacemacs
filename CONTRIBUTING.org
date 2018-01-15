@@ -30,6 +30,7 @@ Thanks! :heart: :heart: :heart:
   - [[#contributing-a-keybinding][Contributing a keybinding]]
   - [[#contributing-a-banner][Contributing a banner]]
 - [[#reviewing-pull-requests][Reviewing Pull Requests]]
+  - [[#using-magit-to-quickly-test-prs][Using Magit to quickly test PRs]]
 - [[#additional-information][Additional information]]
   - [[#testing][Testing]]
 - [[#credits][Credits]]
@@ -260,6 +261,34 @@ Now the collaborators who have write access to the repository will use their
 judgement to either merge the PR or require further review from another
 reviewer. This is done to ensure a thorough cross-referencing in case of complex
 changes, your review is very valuable in these cases as well!
+
+** Using Magit to quickly test PRs
+It is possible to manage PRs directly inside the Magit status buffer ~SPC g s~.
+First add the =github= layer to your dotfile which will pull the package
+=magit-gh-pulls=. Since we have a high number of PRs in Spacemacs you also need
+to set the variable =magit-gh-pulls-pull-detail-limit= to a higher number, it
+is recommended to set it to something like 200.
+
+#+BEGIN_SRC elisp
+(setq-default dotspacemacs-configuration-layers
+  '((github :variables magit-gh-pulls-pull-detail-limit 200)))
+#+END_SRC
+
+You can also set the variable in your =dotspacemacs/user-init= function.
+
+Now you are all set open the Magit status buffer of your =.emacs.d= repository
+and press ~#g~. It will fetch all the PRs which may take a few seconds as we
+have lot of PRs. Note also that all your Magit actions will get some additional
+delay due to the refresh of the PRs list.
+
+Search for the line of the PR you are interested in and press ~#f~ to actually
+fetch its commits.
+
+From here you have several possibilities:
+- you can select all the commits of a PR and do ~AA RET~ to cherry-pick them
+  on top of your current branche,
+- you can create a branch pointing on the PR branch HEAD using ~#b~,
+- you can merge the PR branch with ~#m~.
 
 * Additional information
 ** Testing
