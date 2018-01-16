@@ -8,7 +8,7 @@ You can only consider reading the sections relevant to what you are going to do:
 - [[#asking-for-help][Asking for help]] if you are about to open an issue to ask a question.
 - [[#reporting-issues][Reporting issues]] if you are about to open a new issue.
 - [[#contributing-code][Contributing code]] if you are about to send a PR.
-- [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#Reviewing-Pull-Requests][Reviewing Pull Requests]] if you are about to review a PR.
+- [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#reviewing-pull-requests][Reviewing Pull Requests]] if you are about to review a PR.
 
 Thanks! :heart: :heart: :heart:
 
