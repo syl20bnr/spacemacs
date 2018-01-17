@@ -74,12 +74,12 @@
     - [[#global-line-numbers][Global line numbers]]
   - [[#mode-line][Mode-line]]
     - [[#mode-line-themes][Mode-line themes]]
+    - [[#separators][Separators]]
+    - [[#separator-scale][Separator scale]]
     - [[#spacemacs-mode-line-theme][Spacemacs mode-line theme]]
-      - [[#powerline-font-installation-for-terminal-mode-users][Powerline font installation for terminal-mode users]]
       - [[#flycheck-integration][Flycheck integration]]
       - [[#anzu-integration][Anzu integration]]
       - [[#battery-status-integration][Battery status integration]]
-      - [[#powerline-separators][Powerline separators]]
     - [[#all-the-icons-theme][All-the-Icons theme]]
     - [[#custom-spaceline-theme][Custom spaceline theme]]
     - [[#minor-modes][Minor Modes]]
@@ -1109,8 +1109,7 @@ To change the default font set the variable =dotspacemacs-default-font= in your
 (setq-default dotspacemacs-default-font '("Source Code Pro"
                                           :size 13
                                           :weight normal
-                                          :width normal
-                                          :powerline-scale 1.1))
+                                          :width normal))
 #+END_SRC
 
 If the specified font is not found, the fallback one will be used (depends on
@@ -1155,13 +1154,6 @@ property of a [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Low_00
   - =:registry= The charset registry and encoding of the font, such as
     'iso8859-1'. The value should be a string or a symbol.
   - =:script= The script that the font must support (a symbol).
-
-The special property =:powerline-scale= is Spacemacs specific and it is for
-quick tweaking of the mode-line height in order to avoid crappy rendering of the
-separators like on the following screenshot (default value is 1.1).
-
-[[file:img/crappy-powerline-separators.png]]
-/Ugly separators/
 
 ** GUI Toggles
 Some graphical UI indicators can be toggled on and off (toggles start with ~t~
@@ -1286,8 +1278,62 @@ powerline.
 For now, a restart of Emacs is required whenever you change the theme of your
 mode-line.
 
+*** Separators
+For =spacemacs=, =all-the-icons= and =custom= themes you can specify the type
+of separator you want with the property =:separator=.
+
+#+BEGIN_SRC emacs-lisp
+(setq dotspacemacs-mode-line-theme '(all-the-icons :separator 'slant))
+#+END_SRC
+
+Supported separators and preview:
+
+| Separator    | Spacemacs | All-the-icons | Screenshot                        |
+|--------------+-----------+---------------+-----------------------------------|
+| =alternate=  |     X     |               | [[file:img/powerline-alternate.png]]  |
+| =arrow=      |     X     |      X        | [[file:img/powerline-arrow.png]]      |
+| =arrow-fade= |     X     |               | [[file:img/powerline-arrow-fade.png]] |
+| =bar=        |     X     |               | [[file:img/powerline-bar.png]]        |
+| =box=        |     X     |               | [[file:img/powerline-box.png]]        |
+| =brace=      |     X     |               | [[file:img/powerline-brace.png]]      |
+| =butt=       |     X     |               | [[file:img/powerline-butt.png]]       |
+| =chamfer=    |     X     |               | [[file:img/powerline-chamfer.png]]    |
+| =contour=    |     X     |               | [[file:img/powerline-contour.png]]    |
+| =cup=        |           |      X        |                                   |
+| =curve=      |     X     |               | [[file:img/powerline-curve.png]]      |
+| =rounded=    |     X     |               | [[file:img/powerline-rounded.png]]    |
+| =roundstub=  |     X     |               | [[file:img/powerline-roundstub.png]]  |
+| =slant=      |     X     |      X        | [[file:img/powerline-slant.png]]      |
+| =wave=       |     X     |      X        | [[file:img/powerline-wave.png]]       |
+| =zigzag=     |     X     |               | [[file:img/powerline-zigzag.png]]     |
+| =nil=        |     X     |               | [[file:img/powerline-nil.png]]        |
+| =none=       |           |      X        |                                   |
+
+A last special separator is supported, it is =utf-8= which uses actual font
+glyphs so it can be rendered in a terminal. You'll need a font patched for the
+Vim powerline to be able to use it. The default font used by Spacemacs =Source
+Code Pro= already contains the glyphs.
+
+*** Separator scale
+For =spacemacs=, =all-the-icons= and =custom= themes you can specify the size of
+the separator with the property =:separator-scale=. It allows to avoid crappy
+rendering of the separators like on the following screenshot.
+
+[[file:img/crappy-powerline-separators.png]]
+/Ugly separators/
+
+Example:
+
+#+BEGIN_SRC elisp
+(setq dotspacemacs-mode-line-theme '(all-the-icons :separator-scale 1.5))
+#+END_SRC
+
+Note that this setting won't work correctly when the separator is =utf-8=, if
+you use this separator then it is recommended to set =:separator-scale= to =1.0=.
+
 *** Spacemacs mode-line theme
-The mode line is a heavily customized [[https://github.com/milkypostman/powerline][powerline]] with the following capabilities:
+This theme is a heavily customized [[https://github.com/milkypostman/powerline][powerline]] using [[https://github.com/TheBB/spaceline][spaceline]].
+It has the following capabilities among others:
   - show the window number
   - color code for current state
   - show the number of search occurrences via anzu
@@ -1324,11 +1370,6 @@ Some elements can be dynamically toggled:
 | ~SPC t m v~ | toggle the version control info                                 |
 | ~SPC t m V~ | toggle the new version lighter                                  |
 
-**** Powerline font installation for terminal-mode users
-Users who run Emacs in terminal mode may need to install the [[https://github.com/powerline/fonts][Powerline patched
-fonts]] and configure their terminal clients to use them to make the Powerline
-separators render correctly.
-
 **** Flycheck integration
 When [[https://github.com/flycheck/flycheck][Flycheck]] minor mode is enabled, a new element appears showing the number of
 errors, warnings and info.
@@ -1358,49 +1399,9 @@ A color code is used for the battery status:
 
 *Note*: These colors may vary depending on your theme.
 
-**** Powerline separators
-It is possible to easily customize the =powerline separator= by setting the
-=powerline-default-separator= variable in your =~/.spacemacs= and then
-recompiling the modeline. For instance, if you want to set back the separator to
-the well-known =arrow= separator add the following snippet to your configuration
-file:
-
-#+BEGIN_SRC emacs-lisp
-(defun dotspacemacs/user-config ()
-  "This is were you can ultimately override default Spacemacs configuration.
-This function is called at the very end of Spacemacs initialization."
-  (setq powerline-default-separator 'arrow))
-#+END_SRC
-
-To save you the time to try all the possible separators provided by the
-powerline, here is an exhaustive set of screenshots:
-
-| Separator    | Screenshot                        |
-|--------------+-----------------------------------|
-| =alternate=  | [[file:img/powerline-alternate.png]]  |
-| =arrow=      | [[file:img/powerline-arrow.png]]      |
-| =arrow-fade= | [[file:img/powerline-arrow-fade.png]] |
-| =bar=        | [[file:img/powerline-bar.png]]        |
-| =box=        | [[file:img/powerline-box.png]]        |
-| =brace=      | [[file:img/powerline-brace.png]]      |
-| =butt=       | [[file:img/powerline-butt.png]]       |
-| =chamfer=    | [[file:img/powerline-chamfer.png]]    |
-| =contour=    | [[file:img/powerline-contour.png]]    |
-| =curve=      | [[file:img/powerline-curve.png]]      |
-| =rounded=    | [[file:img/powerline-rounded.png]]    |
-| =roundstub=  | [[file:img/powerline-roundstub.png]]  |
-| =slant=      | [[file:img/powerline-slant.png]]      |
-| =wave=       | [[file:img/powerline-wave.png]]       |
-| =zigzag=     | [[file:img/powerline-zigzag.png]]     |
-| =nil=        | [[file:img/powerline-nil.png]]        |
-
 *** All-the-Icons theme
 If you want to use this theme you need to make sure to install the required
 fonts from the package repository, see [[https://github.com/domtronn/all-the-icons.el/tree/master/fonts][all-the-icons fonts directory]].
-
-To change the separator type set the variable
-=spaceline-all-the-icons-separator-type=. Supported powerline separators are
-=slant=, =wave=, =cup=, =arrow= and =none= (see table above).
 
 *** Custom spaceline theme
 You can create your own Spaceline theme by setting the variable

@@ -113,8 +113,9 @@ Install the default font supported by Spacemacs or choose a fixed width font.
 More information in the font section of the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][documentation]].
 
 ** The powerline separators are ugly, how can I fix them?
-Use the property =:powerline-scale= of the variable =dotspacemacs-default-font=.
-See font section of the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][documentation]] for more details.
+Use the property =:separator-scale= of the variable
+=dotspacemacs-mode-line-theme=. See mode-line section of the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][documentation]] for
+more details.
 
 ** The powerline separators have no anti-aliasing, what can I do?
 Emacs powerline uses XMP images to draw the separators in a graphical
