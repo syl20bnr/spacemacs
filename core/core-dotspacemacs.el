@@ -756,13 +756,22 @@ error recovery."
     "is \'vim, \'emacs or \'hybrid or and list with `:variable' keyword")
    (spacemacs//test-var
     (lambda (x)
-      (member x '(spacemacs
-                  all-the-icons
-                  custom
-                  vim-powerline
-                  vanilla)))
+      (let ((themes '(spacemacs
+                      all-the-icons
+                      custom
+                      vim-powerline
+                      vanilla)))
+        (or (member x themes)
+            (and (listp x)
+                 (memq (car x) themes)
+                 ;; TODO define a function to remove several properties at once
+                 (null (spacemacs/mplist-remove (spacemacs/mplist-remove (cdr x) :separator)
+                                         :separator-scale))))))
     'dotspacemacs-mode-line-theme
-    "is \'spacemacs, \'all-the-icons, \'custom, \'vim-powerline or 'vanilla")
+    (concat
+     "is \'spacemacs, \'all-the-icons, \'custom, \'vim-powerline or 'vanilla "
+     "or a list with `car' one of the previous values and properties one of "
+     "the following: `:separator' or `:separator-scale'"))
    (spacemacs//test-var
     (lambda (x) (member x '(original cache nil)))
     'dotspacemacs-auto-save-file-location (concat "is one of \'original, "
