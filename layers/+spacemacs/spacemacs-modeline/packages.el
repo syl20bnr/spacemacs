@@ -137,11 +137,9 @@
     (progn
       (setq
        spaceline-all-the-icons-separator-type
-       (or (spacemacs/mode-line-separator)
-           'wave)
+       (or (spacemacs/mode-line-separator) 'wave)
        spaceline-all-the-icons-separator-scale
-       (or (spacemacs/mode-line-separator-scale)
-           spaceline-all-the-icons-separator-scale)))))
+       (or (spacemacs/mode-line-separator-scale) 1.6)))))
 
 (defun spacemacs-modeline/init-symon ()
   (use-package symon
