@@ -1275,9 +1275,6 @@ powerline.
 
 =vanilla= is the stock mode-line that comes with Emacs.
 
-For now, a restart of Emacs is required whenever you change the theme of your
-mode-line.
-
 *** Separators
 For =spacemacs=, =all-the-icons= and =custom= themes you can specify the type
 of separator you want with the property =:separator=.
