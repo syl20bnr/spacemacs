@@ -48,7 +48,11 @@
       (add-hook 'spacemacs-post-theme-change-hook
                 'spacemacs/customize-powerline-faces)
       (add-hook 'spacemacs-post-theme-change-hook 'powerline-reset)
-      (setq powerline-default-separator (or (spacemacs/mode-line-separator) 'wave)
+      (setq powerline-default-separator
+            (or (and (memq (spacemacs/get-mode-line-theme-name)
+                           '(spacemacs custom))
+                     (spacemacs/mode-line-separator))
+                'wave)
             powerline-scale (or (spacemacs/mode-line-separator-scale) 1.5)
             powerline-height (spacemacs/compute-mode-line-height))
       (spacemacs|do-after-display-system-init
