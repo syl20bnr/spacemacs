@@ -48,6 +48,15 @@
       (add-hook 'spacemacs-post-theme-change-hook
                 'spacemacs/customize-powerline-faces)
       (add-hook 'spacemacs-post-theme-change-hook 'powerline-reset)
+      (spacemacs|add-toggle mode-line-responsive
+        :status spaceline-responsive
+        :on (progn (setq spaceline-responsive t)
+                   (powerline-reset))
+        :off (progn (setq spaceline-responsive nil)
+                    ;; seems necessary to recompile when turning off
+                    (spaceline-compile))
+        :documentation "Make the mode-line responsive."
+        :evil-leader "tmr")
       (setq powerline-default-separator
             (or (and (memq (spacemacs/get-mode-line-theme-name)
                            '(spacemacs custom))
