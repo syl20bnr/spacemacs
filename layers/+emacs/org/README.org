@@ -404,7 +404,8 @@ are also available.
 | ~M-H~ / ~M-L~ | Promote or demote subtree       |
 | ~>>~ / ~<<~   | Promote or demote heading       |
 | ~TAB~         | org-cycle                       |
-| ~SPC m s a~   | org-archive-subtree             |
+| ~SPC m s a~   | Toggle archive tag for subtree  |
+| ~SPC m s A~   | Archive subtree                 |
 | ~SPC m s b~   | org-tree-to-indirect-buffer     |
 | ~SPC m s l~   | org-demote-subtree              |
 | ~SPC m s h~   | org-promote-subtree             |
