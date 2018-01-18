@@ -262,10 +262,10 @@
 (defun c-c++/post-init-srefactor ()
   (dolist (mode c-c++-modes)
     (spacemacs/set-leader-keys-for-major-mode mode "r" 'srefactor-refactor-at-point))
-  (spacemacs/add-to-hooks 'spacemacs/lazy-load-srefactor c-c++-mode-hooks))
+  (spacemacs/add-to-hooks 'spacemacs/load-srefactor c-c++-mode-hooks))
 
 (defun c-c++/post-init-stickyfunc-enhance ()
-  (spacemacs/add-to-hooks 'spacemacs/lazy-load-stickyfunc-enhance c-c++-mode-hooks))
+  (spacemacs/add-to-hooks 'spacemacs/load-stickyfunc-enhance c-c++-mode-hooks))
 
 (defun c-c++/post-init-ycmd ()
   (spacemacs/add-to-hooks 'ycmd-mode c-c++-mode-hooks)
